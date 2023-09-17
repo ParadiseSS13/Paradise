@@ -5709,6 +5709,7 @@
 /obj/item/clothing/shoes/black,
 /obj/item/clothing/head/soft/black,
 /obj/structure/closet,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
@@ -7715,9 +7716,24 @@
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
+"yC" = (
+/obj/item/sellable/salvage/ruin,
+/turf/template_noop,
+/area/template_noop)
+"Ly" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "white"
+	},
+/area/ruin/space/derelict/arrival)
 "QN" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
 /area/ruin/space/derelict/arrival)
+"SA" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/derelict/hallway/primary)
 "Xn" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -8978,7 +8994,7 @@ iV
 iz
 mx
 mK
-mU
+Ly
 nl
 nx
 nI
@@ -10004,7 +10020,7 @@ ac
 ag
 bn
 pT
-mU
+Ly
 mU
 mS
 qC
@@ -11378,7 +11394,7 @@ og
 ov
 of
 oX
-eP
+SA
 eg
 if
 if
@@ -11633,7 +11649,7 @@ eP
 gz
 eL
 hq
-ac
+yC
 ac
 ak
 ac

@@ -116,6 +116,11 @@
 /obj/random/toolbox,
 /turf/simulated/floor/plating/burnt,
 /area/space)
+"H" = (
+/obj/item/stack/rods,
+/obj/item/sellable/salvage/ruin,
+/turf/space,
+/area/space)
 "I" = (
 /obj/structure/grille/broken,
 /obj/structure/lattice,
@@ -134,6 +139,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/space)
 "Q" = (
@@ -402,7 +408,7 @@ V
 X
 X
 F
-E
+H
 Z
 X
 d

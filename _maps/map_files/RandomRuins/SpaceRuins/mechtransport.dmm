@@ -330,6 +330,10 @@
 /obj/item/stack/sheet/metal,
 /turf/template_noop,
 /area/template_noop)
+"Vx" = (
+/mob/living/simple_animal/hostile/malf_drone,
+/turf/template_noop,
+/area/template_noop)
 "VE" = (
 /obj/structure/table,
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper,
@@ -373,7 +377,7 @@ Ot
 Ot
 Ot
 Ot
-Ot
+Vx
 "}
 (2,1,1) = {"
 Ot

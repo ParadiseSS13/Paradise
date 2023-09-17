@@ -103,6 +103,10 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
+"T" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/powered)
 
 (1,1,1) = {"
 a
@@ -883,7 +887,7 @@ i
 i
 i
 i
-i
+T
 f
 a
 a
@@ -1003,7 +1007,7 @@ d
 d
 d
 g
-i
+T
 i
 i
 o
@@ -1045,7 +1049,7 @@ a
 a
 a
 f
-i
+T
 i
 i
 i

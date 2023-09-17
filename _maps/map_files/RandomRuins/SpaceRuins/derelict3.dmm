@@ -12,6 +12,23 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
+"y" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/template_noop,
+/area/template_noop)
+"G" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
+"U" = (
+/obj/structure/lattice,
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon,
+/turf/template_noop,
+/area/space/nearstation)
+"V" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -530,9 +547,9 @@ a
 a
 a
 a
+G
 a
-a
-a
+G
 a
 a
 a
@@ -652,11 +669,11 @@ a
 a
 a
 a
+G
 a
 a
 a
-a
-a
+y
 a
 a
 a
@@ -777,7 +794,7 @@ a
 a
 a
 a
-a
+G
 a
 a
 a
@@ -798,7 +815,7 @@ d
 a
 a
 a
-a
+G
 a
 a
 a
@@ -832,7 +849,7 @@ b
 c
 c
 c
-b
+V
 c
 b
 b
@@ -872,7 +889,7 @@ d
 d
 b
 c
-b
+V
 b
 b
 b
@@ -926,7 +943,7 @@ a
 a
 a
 a
-a
+G
 a
 a
 a
@@ -1007,7 +1024,7 @@ d
 a
 a
 a
-a
+y
 a
 a
 a
@@ -1032,13 +1049,13 @@ b
 b
 b
 c
-b
+V
 b
 b
 b
 d
 d
-d
+U
 d
 d
 d
@@ -1116,7 +1133,7 @@ b
 b
 b
 c
-b
+V
 b
 b
 b
@@ -1136,7 +1153,7 @@ a
 a
 a
 a
-a
+G
 a
 a
 a
@@ -1218,7 +1235,7 @@ b
 a
 a
 a
-a
+G
 a
 a
 a
@@ -1252,7 +1269,7 @@ b
 b
 b
 b
-b
+V
 c
 b
 b
@@ -1293,7 +1310,7 @@ d
 b
 b
 b
-b
+V
 c
 c
 c
@@ -1452,7 +1469,7 @@ a
 a
 a
 a
-a
+G
 a
 a
 a
@@ -1497,7 +1514,7 @@ a
 a
 a
 a
-a
+y
 a
 a
 a
@@ -1542,7 +1559,7 @@ a
 a
 a
 a
-a
+G
 a
 a
 a
@@ -1578,7 +1595,7 @@ a
 a
 a
 a
-a
+G
 a
 a
 a
@@ -1623,7 +1640,7 @@ a
 a
 a
 a
-a
+G
 a
 a
 a

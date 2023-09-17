@@ -11,6 +11,14 @@
 "d" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/space/unpowered)
+"o" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"q" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -36,7 +44,7 @@ a
 "}
 (2,1,1) = {"
 a
-a
+q
 a
 a
 a
@@ -90,7 +98,7 @@ b
 b
 b
 b
-b
+o
 b
 b
 b
@@ -152,7 +160,7 @@ b
 b
 c
 c
-c
+d
 c
 c
 d
@@ -174,7 +182,7 @@ b
 c
 c
 c
-c
+d
 d
 c
 c
@@ -196,7 +204,7 @@ b
 b
 c
 c
-c
+d
 d
 c
 c
@@ -288,9 +296,9 @@ d
 d
 c
 c
-c
-c
-c
+d
+d
+d
 c
 c
 c
@@ -322,7 +330,7 @@ b
 "}
 (15,1,1) = {"
 a
-a
+q
 a
 a
 a
@@ -388,17 +396,17 @@ a
 "}
 (18,1,1) = {"
 a
-a
-a
-b
-b
-a
-a
-a
-a
+q
 a
 b
 b
+a
+a
+a
+a
+a
+b
+o
 b
 b
 b
@@ -415,7 +423,7 @@ a
 a
 a
 a
-a
+q
 a
 a
 a
@@ -431,7 +439,7 @@ a
 a
 "}
 (20,1,1) = {"
-a
+q
 a
 b
 a

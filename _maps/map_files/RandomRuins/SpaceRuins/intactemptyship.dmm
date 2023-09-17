@@ -126,6 +126,21 @@
 /obj/structure/bed,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
+"S" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/wizardcrash,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Y" = (
+/obj/structure/closet,
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
+"Z" = (
+/obj/structure/closet/cabinet/wizard,
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/ruin/space/powered)
 
 (1,1,1) = {"
 a
@@ -176,7 +191,7 @@ t
 p
 b
 B
-n
+S
 b
 "}
 (5,1,1) = {"
@@ -215,7 +230,7 @@ h
 h
 h
 h
-h
+Z
 b
 "}
 (8,1,1) = {"
@@ -278,7 +293,7 @@ j
 r
 w
 n
-j
+Y
 b
 a
 a

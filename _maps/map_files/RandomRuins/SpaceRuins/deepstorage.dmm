@@ -33,6 +33,7 @@
 /obj/item/stack/cable_coil,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/packageWrap,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "ag" = (
@@ -140,6 +141,7 @@
 /obj/item/extinguisher,
 /obj/item/clothing/glasses/night,
 /obj/item/clothing/glasses/night,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "al" = (
@@ -152,6 +154,7 @@
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "am" = (
@@ -733,6 +736,7 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
+/mob/living/simple_animal/parrot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bQ" = (
@@ -765,6 +769,7 @@
 /area/ruin/space/unpowered)
 "bV" = (
 /obj/structure/chair/office/dark,
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bW" = (
@@ -829,10 +834,31 @@
 "ce" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
+"db" = (
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"gg" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/space/unpowered)
 "mL" = (
 /obj/machinery/tcomms/relay/ruskie{
 	network_id = "STORAGE-RELAY"
 	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"AP" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"Xl" = (
+/mob/living/simple_animal/pet/dog,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 
@@ -2742,7 +2768,7 @@ aH
 aQ
 aY
 ac
-ar
+AP
 ar
 ac
 mL
@@ -3294,7 +3320,7 @@ ar
 ar
 bc
 ar
-ar
+Xl
 bl
 ac
 ar
@@ -3367,7 +3393,7 @@ ar
 bm
 ac
 ar
-bE
+gg
 bE
 bB
 ac
@@ -3428,7 +3454,7 @@ ab
 ab
 ac
 aA
-ar
+db
 ar
 au
 ar

@@ -13,6 +13,14 @@
 /area/ruin/space/methlab)
 "d" = (
 /obj/structure/closet/crate,
+/obj/item/sellable/salvage/ruin,
+/obj/item/sellable/salvage/ruin,
+/obj/item/sellable/salvage/ruin,
+/obj/item/sellable/salvage/ruin,
+/obj/item/sellable/salvage/ruin,
+/obj/item/sellable/salvage/ruin,
+/obj/item/sellable/salvage/ruin,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "e" = (
@@ -111,6 +119,7 @@
 /area/ruin/space/methlab)
 "v" = (
 /obj/structure/chair,
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "w" = (

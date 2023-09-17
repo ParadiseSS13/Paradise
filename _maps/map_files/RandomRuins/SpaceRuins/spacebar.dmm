@@ -387,6 +387,10 @@
 	icon_state = "black"
 	},
 /area/ruin/space/powered/bar)
+"gr" = (
+/mob/living/simple_animal/hostile/retaliate/carp,
+/turf/template_noop,
+/area/space)
 "gy" = (
 /obj/item/stack/cable_coil{
 	amount = 5
@@ -401,6 +405,10 @@
 	},
 /turf/template_noop,
 /area/ruin/space/powered)
+"hF" = (
+/mob/living/simple_animal/hostile/retaliate/carp/koi,
+/turf/template_noop,
+/area/space)
 "iM" = (
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel{
@@ -564,6 +572,10 @@
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
+"wN" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/template_noop,
+/area/space)
 "wQ" = (
 /obj/structure/mopbucket/full,
 /obj/item/mop,
@@ -873,6 +885,15 @@
 /obj/structure/falsewall,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered/bar)
+"Ro" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
+"RJ" = (
+/obj/item/stack/ore/glass,
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/space/nearstation)
 "RL" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -946,6 +967,10 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
+"Yw" = (
+/mob/living/simple_animal/hostile/retaliate/carp/koi,
+/turf/template_noop,
+/area/space/nearstation)
 "ZM" = (
 /obj/machinery/light{
 	dir = 4
@@ -1052,7 +1077,7 @@ ad
 ad
 ad
 ad
-ad
+gr
 ad
 ad
 ad
@@ -1101,12 +1126,12 @@ ad
 ad
 ad
 ad
+gr
 ad
 ad
 ad
 ad
-ad
-ad
+gr
 ad
 "}
 (4,1,1) = {"
@@ -1151,11 +1176,11 @@ ad
 ad
 ad
 ad
+gr
 ad
 ad
 ad
-ad
-ad
+wN
 ad
 ad
 ad
@@ -1209,7 +1234,7 @@ ad
 ad
 ad
 ad
-ad
+gr
 ad
 ad
 "}
@@ -1258,7 +1283,7 @@ ad
 ad
 ad
 ad
-ad
+gr
 ad
 ad
 ad
@@ -1308,7 +1333,7 @@ ad
 ad
 ad
 ad
-ad
+gr
 ad
 ad
 ad
@@ -1480,7 +1505,7 @@ ab
 ad
 ab
 ab
-ac
+Ro
 ac
 ab
 ai
@@ -2129,7 +2154,7 @@ bk
 bn
 am
 ab
-bh
+RJ
 lS
 ab
 ab
@@ -2470,7 +2495,7 @@ ac
 ab
 ab
 ab
-ac
+Ro
 QY
 as
 as
@@ -2830,7 +2855,7 @@ br
 br
 br
 br
-br
+Yw
 br
 br
 br
@@ -3191,7 +3216,7 @@ ad
 "}
 (44,1,1) = {"
 ad
-ad
+hF
 ad
 ad
 ad

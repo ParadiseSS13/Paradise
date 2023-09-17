@@ -519,6 +519,9 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
+"iz" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 aa
@@ -604,7 +607,7 @@ aa
 ab
 ab
 ac
-ac
+iz
 aa
 aa
 aa
@@ -642,7 +645,7 @@ ac
 ac
 ac
 ac
-ac
+iz
 aa
 aa
 aa
@@ -709,11 +712,11 @@ aa
 aa
 aa
 aa
+iz
+iz
 ac
-ac
-ac
-ac
-ac
+iz
+iz
 ac
 ac
 ae
@@ -857,11 +860,11 @@ aa
 aa
 aa
 ac
+iz
+iz
 ac
-ac
-ac
-ac
-ac
+iz
+iz
 ad
 af
 aj
@@ -931,11 +934,11 @@ aa
 aa
 aa
 ac
+iz
+iz
 ac
 ac
-ac
-ac
-ac
+iz
 ac
 ae
 ae
@@ -972,7 +975,7 @@ ac
 ac
 ac
 ac
-ac
+iz
 ac
 ac
 al
@@ -1120,7 +1123,7 @@ aa
 aa
 ac
 ac
-ac
+iz
 aa
 aa
 aa

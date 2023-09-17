@@ -285,6 +285,7 @@
 /obj/effect/decal/cleanable/blood{
 	amount = 0
 	},
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "by" = (

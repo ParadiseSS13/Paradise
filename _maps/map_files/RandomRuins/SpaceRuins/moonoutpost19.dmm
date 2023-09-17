@@ -433,6 +433,7 @@
 	locked = 0;
 	pixel_y = 23
 	},
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aZ" = (
@@ -3784,7 +3785,7 @@
 	},
 /area/ruin/space/unpowered)
 "hu" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/mineral/plastitanium,
 /area/ruin/space/powered)
 "hv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3954,6 +3955,7 @@
 /area/ruin/space/unpowered)
 "hO" = (
 /obj/effect/spawner/window/shuttle,
+/obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "hP" = (
@@ -4065,19 +4067,19 @@
 /area/ruin/space/unpowered)
 "ie" = (
 /obj/structure/table,
-/obj/item/storage/lockbox,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "if" = (
 /obj/structure/table,
 /obj/item/radio/off,
-/turf/simulated/floor/mineral/titanium/yellow,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "ig" = (
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
-/turf/simulated/floor/mineral/titanium/yellow,
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "ih" = (
 /obj/machinery/light/small{
@@ -4086,16 +4088,16 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "ii" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "ij" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "ik" = (
 /obj/machinery/newscaster{
@@ -4105,11 +4107,11 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "il" = (
 /obj/structure/closet/emcloset,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "im" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -4145,6 +4147,7 @@
 /area/ruin/space/unpowered)
 "ir" = (
 /obj/machinery/light/small,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -4196,7 +4199,7 @@
 "iw" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "ix" = (
 /obj/machinery/light/small{
@@ -4205,10 +4208,10 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/yellow,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "iy" = (
-/turf/simulated/floor/mineral/titanium/yellow,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "iz" = (
 /obj/machinery/light/small{
@@ -4217,7 +4220,8 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/yellow,
+/obj/item/flag/syndi,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "iA" = (
 /obj/structure/sign/vacuum{
@@ -4350,31 +4354,26 @@
 /obj/machinery/computer/shuttle{
 	dir = 4
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "iR" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/alien,
-/turf/simulated/floor/mineral/titanium/blue,
+/mob/living/simple_animal/hostile/syndicate/ranged/space,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "iS" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Shuttle Cockpit"
-	},
-/turf/simulated/floor/mineral/titanium/yellow,
+/obj/machinery/door/airlock/hatch/syndicate,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "iT" = (
-/mob/living/simple_animal/hostile/alien,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/powered)
+/obj/mecha/working/ripley/mining,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 "iU" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Shuttle Airlock"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/powered)
+/turf/simulated/mineral/gold,
+/area/ruin/space/unpowered)
 "iV" = (
 /obj/machinery/door/airlock/external,
 /obj/effect/decal/cleanable/dirt,
@@ -4483,21 +4482,22 @@
 /obj/structure/table,
 /obj/item/clipboard,
 /obj/item/pen,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "jg" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/yellow,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "jh" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/mineral/titanium/yellow,
+/obj/item/flag/syndi,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "ji" = (
 /obj/effect/decal/warning_stripes/east,
@@ -4570,14 +4570,14 @@
 /area/ruin/space/unpowered)
 "jr" = (
 /obj/structure/filingcabinet,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "js" = (
 /obj/machinery/light/small,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "jt" = (
 /obj/machinery/newscaster{
@@ -4585,7 +4585,7 @@
 	pixel_y = -30
 	},
 /obj/machinery/light/small,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "ju" = (
 /obj/effect/decal/warning_stripes/east,
@@ -4970,10 +4970,42 @@
 /obj/item/trash/candy,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
+"mI" = (
+/mob/living/simple_animal/hostile/asteroid/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"nP" = (
+/obj/effect/mine/explosive,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"nY" = (
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = -32
+	},
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered)
+"oE" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
+"vf" = (
+/obj/structure/mecha_wreckage/ripley,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 "yh" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unpowered)
+"BW" = (
+/mob/living/simple_animal/hostile/syndicate/ranged,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/ruin/space/powered)
+"BX" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/syndicate,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Hp" = (
 /obj/structure/ore_box,
@@ -4984,9 +5016,33 @@
 /mob/living/simple_animal/hostile/alien/queen/large,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
+"MC" = (
+/obj/machinery/porta_turret/syndicate/exterior,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"MW" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/unpowered)
 "Of" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
+/area/ruin/space/unpowered)
+"Pb" = (
+/obj/effect/decal/warning_stripes/west,
+/obj/item/gun/energy/plasmacutter,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"QQ" = (
+/obj/structure/alien/weeds,
+/obj/effect/decal/cleanable/blood{
+	color = "red"
+	},
+/obj/item/organ/internal/alien/plasmavessel/hunter,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Sr" = (
+/obj/item/toy/figure/crew/miner,
+/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "WQ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4995,6 +5051,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"XR" = (
+/obj/structure/sign/poster/contraband/lusty_xenomorph,
+/turf/simulated/wall/mineral/plastitanium,
+/area/ruin/space/powered)
 
 (1,1,1) = {"
 aa
@@ -5091,10 +5151,10 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
+iU
+iU
+iU
+iU
 ab
 ab
 ab
@@ -5153,7 +5213,7 @@ ab
 ab
 ab
 ab
-ab
+iU
 ab
 ab
 ab
@@ -5199,6 +5259,7 @@ ab
 ab
 ab
 ab
+MW
 ab
 ab
 ab
@@ -5209,6 +5270,13 @@ ab
 ab
 ab
 ab
+MW
+ab
+ab
+ab
+ab
+MW
+MW
 ab
 ab
 ab
@@ -5216,16 +5284,8 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+MW
+MW
 ab
 ab
 ab
@@ -5258,6 +5318,9 @@ ab
 ab
 ab
 ab
+MW
+MW
+MW
 ab
 ab
 ab
@@ -5265,6 +5328,17 @@ ab
 ab
 ab
 ab
+MW
+MW
+MW
+ab
+ab
+ab
+MW
+MW
+ab
+ab
+MW
 ab
 ab
 ab
@@ -5272,21 +5346,7 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+MW
 ab
 ab
 ab
@@ -5304,6 +5364,7 @@ aa
 aa
 aa
 aa
+oE
 aa
 aa
 aa
@@ -5311,7 +5372,15 @@ aa
 aa
 aa
 aa
-aa
+ab
+ab
+ab
+ab
+ab
+MW
+ab
+MW
+MW
 ab
 ab
 ab
@@ -5319,32 +5388,23 @@ ab
 ab
 ab
 ab
+MW
+MW
 ab
 ab
 ab
 ab
 ab
+MW
+MW
+MW
 ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+MW
+MW
+MW
 ab
 ab
 ab
@@ -5381,6 +5441,13 @@ ab
 ab
 ab
 ab
+MW
+ab
+ab
+ab
+ab
+ab
+MW
 ab
 ab
 ab
@@ -5396,16 +5463,9 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+MW
+MW
+MW
 ab
 ab
 ab
@@ -5464,7 +5524,7 @@ ab
 ab
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -5493,6 +5553,7 @@ ab
 ab
 ab
 ab
+iU
 ab
 ab
 ab
@@ -5506,8 +5567,7 @@ ab
 ab
 ab
 ab
-ab
-ab
+iU
 ab
 ab
 ab
@@ -5551,23 +5611,23 @@ ab
 ab
 ab
 ab
+iU
+iU
+MW
+iU
 ab
 ab
 ab
 ab
 ab
 ab
+MW
 ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+iU
+iU
 ab
 ab
 ab
@@ -5610,25 +5670,25 @@ ab
 ab
 ab
 ab
+iU
+MW
+MW
+MW
 ab
 ab
 ab
 ab
 ab
+MW
+MW
+MW
+MW
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+iU
+iU
+iU
 ab
 ab
 ad
@@ -5670,25 +5730,25 @@ ab
 ab
 ab
 ab
+MW
+MW
+MW
+iU
 ab
 ab
 ab
 ab
 ab
 ab
+MW
+MW
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+iU
+iU
+iU
+iU
 ab
 ad
 ad
@@ -5731,6 +5791,7 @@ ab
 ab
 ab
 ab
+MW
 ab
 ab
 ab
@@ -5739,15 +5800,14 @@ ab
 ab
 ab
 ab
+MW
 ab
 ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
+iU
+iU
 ab
 ab
 ad
@@ -5765,7 +5825,7 @@ ad
 ab
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -5789,6 +5849,8 @@ ab
 ab
 ab
 ab
+MW
+MW
 ab
 ab
 ab
@@ -5797,9 +5859,7 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
+MW
 ab
 ab
 ab
@@ -5825,10 +5885,10 @@ ad
 ab
 ab
 ab
+MW
 ab
 ab
-ab
-ab
+MW
 ab
 ab
 ab
@@ -5884,10 +5944,10 @@ ad
 ad
 ab
 ab
-ab
-ab
-ab
-ab
+MW
+MW
+MW
+MW
 ab
 ab
 ab
@@ -5904,9 +5964,9 @@ aa
 ab
 ab
 ab
-ab
-ab
-ab
+iU
+iU
+iU
 ab
 ab
 ab
@@ -5944,9 +6004,9 @@ ad
 ad
 ab
 ab
-ab
-ab
-ab
+MW
+MW
+MW
 ab
 ab
 ab
@@ -5963,12 +6023,12 @@ aa
 aa
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
+MW
+MW
+MW
+iU
+iU
+iU
 ab
 ab
 ab
@@ -5998,14 +6058,14 @@ ig
 iy
 iy
 iy
-ig
+nY
 hu
 ad
 ad
 ab
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -6022,10 +6082,10 @@ aa
 aa
 ab
 ab
+MW
+MW
 ab
-ab
-ab
-ab
+MW
 ab
 ab
 ab
@@ -6082,14 +6142,14 @@ aa
 aa
 ab
 ab
+MW
 ab
 ab
 ab
 ab
 ab
 ab
-ab
-ab
+MW
 ab
 ab
 aM
@@ -6115,9 +6175,9 @@ aM
 ad
 hO
 ii
-ii
+BW
 iy
-ii
+BW
 ii
 hO
 ad
@@ -6148,8 +6208,8 @@ ad
 ad
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 ab
 aM
@@ -6173,7 +6233,7 @@ bB
 gH
 bX
 ad
-hu
+XR
 ij
 ij
 iy
@@ -6209,8 +6269,8 @@ ad
 ad
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 aL
 aZ
@@ -6235,9 +6295,9 @@ bX
 ad
 hu
 ik
-ii
-iT
-ii
+iy
+iy
+iy
 jt
 hu
 ad
@@ -6269,9 +6329,9 @@ ad
 ad
 ab
 ab
-ab
-ab
-ab
+MW
+MW
+MW
 aM
 aL
 aM
@@ -6330,7 +6390,7 @@ ad
 ab
 ab
 ab
-ab
+MW
 ab
 aL
 ba
@@ -6422,7 +6482,7 @@ hP
 hP
 hu
 ad
-ad
+MC
 ad
 ad
 ab
@@ -6443,7 +6503,7 @@ ab
 ab
 ad
 ad
-ad
+mI
 ad
 ad
 ad
@@ -6468,7 +6528,7 @@ ep
 eE
 eX
 af
-fD
+BX
 ge
 gI
 bX
@@ -6476,7 +6536,7 @@ hu
 hQ
 im
 hu
-iU
+iS
 hu
 hQ
 im
@@ -6503,12 +6563,12 @@ ab
 ac
 ad
 ad
-ad
+vf
 ad
 fc
 ad
 ad
-ad
+iT
 ab
 ab
 ab
@@ -6544,7 +6604,7 @@ ad
 ad
 ad
 ad
-ad
+nP
 ad
 ad
 ad
@@ -6624,7 +6684,7 @@ ac
 ad
 ad
 ad
-ad
+Sr
 ad
 ad
 ad
@@ -6668,7 +6728,7 @@ kh
 ad
 ad
 ad
-ad
+nP
 ad
 aa
 aa
@@ -6718,14 +6778,14 @@ hR
 hR
 aA
 hR
-hR
+Pb
 jA
 iW
 io
 jU
 iW
 jq
-ad
+nP
 ad
 ad
 ad
@@ -6847,7 +6907,7 @@ aM
 kh
 ad
 ad
-ad
+nP
 ad
 ad
 ad
@@ -6965,11 +7025,11 @@ ab
 iY
 ad
 ad
+nP
 ad
 ad
 ad
-ad
-ad
+nP
 ad
 ad
 aa
@@ -7083,11 +7143,11 @@ ad
 ab
 ad
 ad
+nP
 ad
 ad
 ad
-ad
-ad
+nP
 ad
 ad
 ab
@@ -7205,7 +7265,7 @@ ad
 ad
 ad
 ad
-ad
+nP
 ad
 ad
 ad
@@ -7268,7 +7328,7 @@ ad
 ad
 ad
 ad
-ad
+nP
 ad
 ad
 ab
@@ -7283,7 +7343,7 @@ aa
 aa
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -7333,7 +7393,7 @@ ad
 ad
 ab
 ab
-ab
+MW
 aa
 "}
 (40,1,1) = {"
@@ -7343,9 +7403,9 @@ aa
 aa
 ab
 ab
-ab
-ab
-ab
+MW
+MW
+MW
 ab
 ab
 ab
@@ -7393,7 +7453,7 @@ ad
 ad
 ab
 ab
-ab
+MW
 aa
 "}
 (41,1,1) = {"
@@ -7403,9 +7463,9 @@ aa
 aa
 ab
 ab
-ab
-ab
-ab
+MW
+MW
+MW
 ab
 ab
 ab
@@ -7448,12 +7508,12 @@ fr
 fM
 fM
 ad
-ad
+nP
 ad
 ad
 ab
 ab
-ab
+MW
 aa
 "}
 (42,1,1) = {"
@@ -7766,13 +7826,13 @@ aa
 aa
 ab
 ab
-ab
+MW
 ab
 ab
 ag
 aw
 aI
-aS
+QQ
 br
 Ic
 cl
@@ -7826,7 +7886,7 @@ aa
 aa
 ab
 ab
-ab
+MW
 ab
 ab
 ag
@@ -7886,7 +7946,7 @@ aa
 aa
 ab
 ab
-ab
+MW
 ab
 ab
 ag
@@ -7934,7 +7994,7 @@ jq
 ad
 ad
 ab
-ab
+MW
 "}
 (50,1,1) = {"
 aa
@@ -7946,7 +8006,7 @@ aa
 aa
 ab
 ab
-ab
+MW
 ab
 ab
 ag
@@ -7994,7 +8054,7 @@ jq
 ad
 kp
 ab
-ab
+MW
 "}
 (51,1,1) = {"
 aa
@@ -8054,7 +8114,7 @@ ad
 ad
 ad
 ab
-ab
+MW
 "}
 (52,1,1) = {"
 aa
@@ -8191,9 +8251,9 @@ ab
 ab
 ab
 ab
+MW
 ab
-ab
-ab
+MW
 ab
 ab
 ab
@@ -8249,10 +8309,10 @@ aa
 ab
 ab
 ab
-ab
-ab
-ab
-ab
+MW
+MW
+MW
+MW
 ab
 ab
 ab
@@ -8291,8 +8351,8 @@ ab
 ab
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 aa
 "}
@@ -8309,14 +8369,14 @@ aa
 ab
 ab
 ab
+MW
+ab
+MW
+MW
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
+MW
 ab
 ab
 ad
@@ -8350,7 +8410,7 @@ ab
 ab
 ab
 ab
-ab
+MW
 aa
 aa
 aa
@@ -8375,8 +8435,8 @@ ab
 ab
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 ab
 ad
@@ -8402,6 +8462,7 @@ ab
 ab
 ab
 ab
+MW
 ab
 ab
 ab
@@ -8409,9 +8470,8 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
+MW
+MW
 aa
 aa
 aa
@@ -8429,15 +8489,15 @@ aa
 ab
 ab
 ab
+iU
+iU
+iU
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
+iU
+MW
+MW
+MW
 ab
 ad
 ad
@@ -8462,15 +8522,15 @@ ad
 ad
 ab
 ab
+MW
+MW
+MW
 ab
 ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
+MW
 aa
 aa
 aa
@@ -8490,13 +8550,13 @@ ab
 ab
 ab
 ab
+iU
+iU
 ab
-ab
-ab
-ab
-ab
-ab
-ab
+iU
+iU
+MW
+MW
 ab
 ab
 ab
@@ -8523,12 +8583,12 @@ ad
 ab
 ab
 ab
+MW
+MW
 ab
+MW
 ab
-ab
-ab
-ab
-ab
+MW
 aa
 aa
 aa
@@ -8551,11 +8611,11 @@ ab
 ab
 ab
 ab
+iU
 ab
 ab
 ab
-ab
-ab
+MW
 ab
 ab
 ab
@@ -8584,11 +8644,11 @@ ad
 ab
 ab
 ab
+MW
 ab
-ab
-ab
-ab
-ab
+MW
+MW
+MW
 aa
 aa
 aa
@@ -8647,7 +8707,7 @@ ab
 ab
 ab
 ab
-ab
+MW
 aa
 aa
 aa
@@ -8672,8 +8732,8 @@ ab
 ab
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 ab
 ab
@@ -8731,11 +8791,11 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
+MW
+MW
+MW
+MW
+MW
 ab
 ab
 ab
@@ -8793,7 +8853,7 @@ ab
 ab
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -8918,7 +8978,7 @@ ab
 ab
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -8978,9 +9038,9 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
+MW
+MW
+MW
 ab
 ab
 ab
@@ -9038,9 +9098,9 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
+MW
+MW
+iU
 ab
 ab
 ab
@@ -9060,8 +9120,8 @@ ad
 ab
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 ab
 ab
@@ -9097,8 +9157,8 @@ aa
 ab
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 ab
 ab
@@ -9119,8 +9179,8 @@ aM
 ab
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 ab
 ab
@@ -9221,7 +9281,7 @@ ab
 ab
 ab
 ab
-ab
+iU
 ab
 ab
 ab
@@ -9234,7 +9294,7 @@ ad
 ab
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -9258,7 +9318,7 @@ aa
 "}
 (72,1,1) = {"
 aa
-aa
+oE
 aa
 aa
 aa
@@ -9293,8 +9353,8 @@ ad
 ab
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 ab
 ab
@@ -9343,7 +9403,7 @@ ab
 ab
 ab
 ab
-ab
+iU
 ab
 ab
 ab
@@ -9352,8 +9412,8 @@ ad
 ad
 ab
 ab
-ab
-ab
+MW
+MW
 ab
 ab
 ab
@@ -9403,7 +9463,7 @@ ab
 ab
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -9463,9 +9523,9 @@ aa
 ab
 ab
 ab
+MW
 ab
-ab
-ab
+MW
 ab
 ab
 ab
@@ -9523,9 +9583,9 @@ aa
 aa
 ab
 ab
-ab
-ab
-ab
+MW
+MW
+MW
 ab
 ab
 ab
@@ -9583,7 +9643,7 @@ aa
 aa
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -9644,7 +9704,7 @@ aa
 ab
 ab
 ab
-ab
+MW
 ab
 ab
 ab
@@ -9680,7 +9740,7 @@ aa
 aa
 aa
 aa
-aa
+oE
 aa
 aa
 aa
@@ -9737,7 +9797,7 @@ aa
 aa
 "}
 (80,1,1) = {"
-aa
+oE
 aa
 aa
 aa
@@ -9794,5 +9854,5 @@ aa
 aa
 aa
 aa
-aa
+oE
 "}

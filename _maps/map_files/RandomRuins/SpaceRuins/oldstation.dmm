@@ -5079,6 +5079,10 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
+"yh" = (
+/obj/item/sellable/salvage/ruin,
+/turf/template_noop,
+/area/template_noop)
 "AY" = (
 /obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/dirt,
@@ -5105,6 +5109,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"XX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plasteel/airless,
+/area/ruin/ancientstation/betanorth)
+"ZV" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plating/airless,
+/area/ruin/ancientstation/atmo)
 
 (1,1,1) = {"
 aa
@@ -5233,7 +5246,7 @@ aa
 aa
 aa
 ip
-in
+ZV
 lr
 ip
 ip
@@ -5360,7 +5373,7 @@ ab
 ab
 ab
 bf
-be
+XX
 be
 be
 cT
@@ -7800,7 +7813,7 @@ aa
 aa
 aa
 aa
-aa
+yh
 aa
 aa
 aa

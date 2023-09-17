@@ -89,6 +89,14 @@
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
+"E" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"W" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -254,7 +262,7 @@ a
 a
 a
 a
-a
+W
 a
 a
 "}
@@ -337,14 +345,14 @@ a
 a
 a
 a
-a
+W
 a
 a
 a
 "}
 (7,1,1) = {"
 a
-a
+W
 a
 a
 a
@@ -419,7 +427,7 @@ a
 a
 a
 a
-a
+W
 a
 a
 a
@@ -429,7 +437,7 @@ a
 (9,1,1) = {"
 a
 a
-a
+W
 a
 a
 b
@@ -462,7 +470,7 @@ a
 a
 a
 a
-a
+W
 a
 a
 a
@@ -470,7 +478,7 @@ a
 "}
 (10,1,1) = {"
 a
-a
+W
 a
 a
 a
@@ -555,7 +563,7 @@ a
 (12,1,1) = {"
 a
 a
-a
+W
 a
 a
 a
@@ -598,7 +606,7 @@ a
 a
 a
 a
-a
+W
 a
 a
 a
@@ -824,8 +832,8 @@ d
 b
 b
 b
-g
-g
+E
+E
 o
 b
 b
@@ -866,10 +874,10 @@ b
 b
 c
 e
-g
+E
 m
 p
-g
+E
 e
 c
 b
@@ -1354,10 +1362,10 @@ a
 a
 a
 a
+W
 a
 a
-a
-a
+W
 a
 a
 a
@@ -1431,7 +1439,7 @@ a
 a
 a
 a
-a
+W
 a
 "}
 (33,1,1) = {"
@@ -1439,7 +1447,7 @@ a
 a
 a
 a
-a
+W
 a
 a
 a
@@ -1484,7 +1492,7 @@ a
 a
 a
 a
-a
+W
 a
 a
 a
@@ -1521,7 +1529,7 @@ a
 (35,1,1) = {"
 a
 a
-a
+W
 a
 a
 a
@@ -1556,7 +1564,7 @@ b
 a
 a
 a
-a
+W
 a
 a
 "}
@@ -1566,7 +1574,7 @@ a
 a
 a
 a
-a
+W
 a
 a
 a
@@ -1639,7 +1647,7 @@ b
 b
 a
 a
-a
+W
 a
 a
 a
@@ -1647,7 +1655,7 @@ a
 (38,1,1) = {"
 a
 a
-a
+W
 a
 a
 a
@@ -1683,7 +1691,7 @@ a
 a
 a
 a
-a
+W
 a
 "}
 (39,1,1) = {"
@@ -1691,6 +1699,7 @@ a
 a
 a
 a
+W
 a
 a
 a
@@ -1722,8 +1731,7 @@ a
 a
 a
 a
-a
-a
+W
 a
 a
 a

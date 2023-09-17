@@ -12,6 +12,10 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
+"d" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 "e" = (
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/plasteel/airless,
@@ -273,7 +277,7 @@ a
 "}
 (4,1,1) = {"
 a
-a
+d
 a
 a
 m
@@ -603,7 +607,7 @@ m
 "}
 (19,1,1) = {"
 a
-a
+d
 a
 a
 a
@@ -709,7 +713,7 @@ a
 a
 a
 a
-a
+d
 "}
 (24,1,1) = {"
 a
@@ -731,14 +735,14 @@ a
 a
 a
 a
-a
+d
 "}
 (25,1,1) = {"
 a
 a
 a
 a
-a
+d
 a
 a
 b
@@ -775,7 +779,7 @@ a
 a
 a
 a
-a
+d
 "}
 (27,1,1) = {"
 a

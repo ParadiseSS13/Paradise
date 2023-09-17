@@ -335,6 +335,10 @@
 /obj/item/stack/rods/ten,
 /turf/template_noop,
 /area/template_noop)
+"os" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -796,6 +800,11 @@
 /area/ruin/space/unpowered)
 "EJ" = (
 /turf/simulated/wall,
+/area/ruin/space/unpowered)
+"Fc" = (
+/obj/machinery/light/small,
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "Fj" = (
 /obj/item/trash/syndi_cakes,
@@ -1915,8 +1924,8 @@ TG
 UR
 sh
 sh
-sh
-wv
+os
+Fc
 TG
 EJ
 gk

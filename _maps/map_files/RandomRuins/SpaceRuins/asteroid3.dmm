@@ -19,6 +19,14 @@
 /obj/item/pickaxe/diamond,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
+"o" = (
+/mob/living/simple_animal/hostile/asteroid/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"t" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -27,7 +35,7 @@ a
 a
 b
 a
-a
+t
 a
 a
 a
@@ -40,7 +48,7 @@ b
 a
 a
 a
-a
+t
 "}
 (2,1,1) = {"
 a
@@ -186,7 +194,7 @@ c
 c
 b
 b
-b
+o
 f
 b
 b
@@ -201,7 +209,7 @@ a
 a
 a
 b
-b
+o
 c
 c
 c
@@ -276,8 +284,8 @@ c
 c
 c
 c
-c
-c
+d
+d
 c
 d
 d
@@ -292,13 +300,13 @@ a
 b
 d
 d
-c
+d
 c
 c
 d
 c
-c
-c
+d
+d
 c
 c
 c
@@ -314,12 +322,12 @@ a
 b
 d
 d
+d
+d
 c
 c
 c
-c
-c
-c
+d
 c
 c
 b
@@ -337,7 +345,7 @@ b
 c
 c
 c
-c
+d
 c
 c
 c
@@ -387,7 +395,7 @@ d
 c
 c
 b
-b
+o
 a
 a
 a
@@ -418,7 +426,7 @@ a
 "}
 (19,1,1) = {"
 a
-a
+t
 a
 a
 b

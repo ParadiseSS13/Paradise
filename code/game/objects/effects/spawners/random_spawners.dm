@@ -258,7 +258,6 @@
 		/obj/item/clothing/mask/gas/syndicate = 1,
 		/obj/item/suppressor = 1,
 		/obj/item/coin/antagtoken/syndicate = 1,
-		/obj/item/clothing/mask/holo_cigar = 1,
 		/obj/item/gun/projectile/revolver/fake = 1,
 		/obj/item/storage/box/syndie_kit/space = 1,
 		/obj/item/clothing/shoes/magboots/syndie = 1,)
@@ -275,7 +274,7 @@
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level2
 	name = "rare loot"
-	// Loot schema: space gear, basic armor, basic ammo (10mm, rcd), drugs, more dangerous/useful gimmick items, lower-value minerals
+	// Loot schema: Basic stealth, utility and environmental gear.
 	result = list(/datum/nothing = 27,
 		/obj/item/storage/box/syndie_kit/modsuit = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
@@ -305,7 +304,7 @@
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
 	name = "officer loot"
-	// Loot schema: medkits, very useful devices (jammer, illegal upgrade, RCD), better quality ammo (AP, fire), basic weapons (pistol, empgrenade), high value ores (diamond, uranium)
+	// Loot schema: Primarily utility items with occasional low damage weaponry.
 	result = list(/datum/nothing = 25,
 		/obj/item/jammer = 1,
 		/obj/item/storage/box/syndie_kit/stechkin = 1,
@@ -328,7 +327,7 @@
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
 	spawn_inside = /obj/structure/closet/secure_closet/syndicate/depot/armory
-	// Loot schema: high-power weapons (m90, esword, ebow, revolver), devices that negate depot challenges (thermal glasses, chameleon device), explosives
+	// Loot schema: Combat orientated items that could give the player an advantage if an antag messes with them.
 	result = list(/obj/item/melee/energy/sword/saber = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/CQC_manual = 1,

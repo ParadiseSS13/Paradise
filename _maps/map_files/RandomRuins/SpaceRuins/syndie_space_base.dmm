@@ -887,6 +887,10 @@
 /obj/machinery/atmospherics/unary/thermomachine/heater,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"iT" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 "ji" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -4425,6 +4429,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"VI" = (
+/mob/living/simple_animal/bot/ed209/syndicate,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/ruin/unpowered/syndicate_space_base/bar)
 "VK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -4853,7 +4863,7 @@ ic
 ic
 ic
 ic
-ic
+iT
 ic
 ic
 ic
@@ -4887,7 +4897,7 @@ ic
 ic
 ic
 ic
-ic
+iT
 ic
 ic
 ic
@@ -4929,7 +4939,7 @@ ic
 ic
 ic
 ic
-ic
+iT
 ic
 ic
 ic
@@ -4995,12 +5005,12 @@ ic
 ic
 ic
 ic
+iT
 ic
 ic
 ic
 ic
-ic
-ic
+iT
 ic
 ic
 ic
@@ -5009,12 +5019,12 @@ ic
 "}
 (5,1,1) = {"
 ic
+iT
 ic
 ic
 ic
 ic
-ic
-ic
+iT
 ic
 ic
 ic
@@ -5121,13 +5131,13 @@ ic
 ic
 ic
 ic
+iT
 ic
 ic
 ic
 ic
 ic
-ic
-ic
+iT
 ic
 ic
 "}
@@ -5135,7 +5145,7 @@ ic
 ic
 ic
 ic
-ic
+iT
 ic
 ic
 ic
@@ -5319,7 +5329,7 @@ ic
 "}
 (10,1,1) = {"
 ic
-ic
+iT
 ic
 ic
 ic
@@ -5568,7 +5578,7 @@ ic
 (14,1,1) = {"
 ic
 ic
-ic
+iT
 ic
 ic
 AV
@@ -6088,7 +6098,7 @@ xN
 uk
 HZ
 Jq
-di
+VI
 PK
 jO
 Tw
@@ -7178,7 +7188,7 @@ AV
 ic
 "}
 (40,1,1) = {"
-ic
+iT
 ic
 ic
 AV
@@ -7489,7 +7499,7 @@ ic
 "}
 (45,1,1) = {"
 ic
-ic
+iT
 ic
 ic
 ic
@@ -7856,7 +7866,7 @@ AV
 AV
 ic
 ic
-ic
+iT
 ic
 "}
 (51,1,1) = {"
@@ -8164,14 +8174,14 @@ AV
 ic
 ic
 ic
-ic
+iT
 ic
 ic
 ic
 "}
 (56,1,1) = {"
 ic
-ic
+iT
 ic
 ic
 ic
@@ -8235,7 +8245,7 @@ ic
 ic
 ic
 ic
-ic
+iT
 ic
 ic
 ic
@@ -8299,6 +8309,15 @@ ic
 ic
 ic
 ic
+iT
+ic
+ic
+AV
+ic
+ic
+ic
+ic
+ic
 ic
 ic
 ic
@@ -8307,38 +8326,11 @@ ic
 ic
 ic
 ic
-ic
-ic
-ic
-ic
 AV
 ic
 ic
 ic
 ic
-AV
-ic
-ic
-ic
-ic
-AV
-AV
-AV
-AV
-AV
-AV
-ic
-ic
-ic
-ic
-ic
-ic
-ic
-AV
-AV
-AV
-ic
-AV
 AV
 AV
 AV
@@ -8352,6 +8344,24 @@ ic
 ic
 ic
 ic
+AV
+AV
+AV
+ic
+AV
+AV
+AV
+AV
+AV
+AV
+AV
+ic
+ic
+ic
+ic
+ic
+ic
+iT
 ic
 ic
 "}
@@ -8410,7 +8420,7 @@ AV
 ic
 ic
 ic
-ic
+iT
 ic
 ic
 ic

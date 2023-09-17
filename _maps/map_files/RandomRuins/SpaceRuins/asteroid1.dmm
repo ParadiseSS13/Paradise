@@ -8,6 +8,14 @@
 "c" = (
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/space/unpowered)
+"l" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/template_noop,
+/area/template_noop)
+"S" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -34,7 +42,7 @@ a
 (2,1,1) = {"
 a
 a
-a
+S
 a
 a
 a
@@ -63,7 +71,7 @@ a
 a
 a
 a
-a
+S
 a
 a
 a
@@ -82,7 +90,7 @@ a
 a
 a
 a
-a
+l
 a
 a
 a
@@ -143,12 +151,12 @@ a
 "}
 (7,1,1) = {"
 a
-a
+S
 a
 a
 b
 a
-a
+S
 a
 a
 b
@@ -210,7 +218,7 @@ a
 (10,1,1) = {"
 a
 a
-a
+S
 a
 a
 b
@@ -298,7 +306,7 @@ a
 (14,1,1) = {"
 a
 a
-a
+S
 a
 a
 a
@@ -400,7 +408,7 @@ a
 a
 a
 a
-a
+S
 a
 a
 a
@@ -447,5 +455,5 @@ a
 a
 a
 a
-a
+S
 "}

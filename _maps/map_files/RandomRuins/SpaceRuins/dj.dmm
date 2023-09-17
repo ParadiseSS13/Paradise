@@ -368,6 +368,7 @@
 	dir = 1;
 	on = 1
 	},
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -524,6 +525,7 @@
 /area/ruin/space/djstation)
 "bp" = (
 /obj/structure/chair/office/light,
+/mob/living/simple_animal/hostile/russian/ranged,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/djstation)
 "bq" = (

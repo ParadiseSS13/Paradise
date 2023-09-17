@@ -177,6 +177,16 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/derelict/teleporter)
+"O" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/derelict/teleporter)
+"Y" = (
+/mob/living/simple_animal/hostile/russian,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/derelict/teleporter)
 
 (1,1,1) = {"
 a
@@ -283,7 +293,7 @@ a
 b
 f
 h
-f
+O
 m
 r
 f
@@ -300,7 +310,7 @@ i
 m
 m
 s
-m
+Y
 m
 g
 "}

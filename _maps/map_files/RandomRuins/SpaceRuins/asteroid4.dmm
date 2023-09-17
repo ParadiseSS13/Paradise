@@ -50,6 +50,10 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/unpowered)
+"R" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -125,16 +129,16 @@ c
 c
 b
 d
+R
 d
-d
 a
 a
 a
 b
 b
-b
-b
-b
+c
+c
+c
 a
 a
 b
@@ -155,8 +159,8 @@ a
 a
 a
 b
-b
-b
+c
+c
 a
 a
 a
@@ -189,7 +193,7 @@ a
 a
 b
 c
-b
+c
 b
 b
 d
@@ -211,7 +215,7 @@ a
 a
 b
 b
-b
+c
 b
 b
 d
@@ -233,8 +237,8 @@ a
 a
 a
 b
-b
-b
+c
+c
 b
 b
 b
@@ -307,7 +311,7 @@ a
 a
 a
 b
-b
+c
 e
 g
 i
@@ -329,7 +333,7 @@ a
 a
 c
 c
-e
+c
 e
 h
 j

@@ -25,6 +25,7 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "h" = (
@@ -63,8 +64,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "q" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/radio/beacon,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "r" = (
@@ -197,7 +197,7 @@ a
 a
 b
 b
-h
+q
 h
 s
 b
@@ -214,7 +214,7 @@ g
 k
 p
 t
-h
+q
 b
 b
 c
@@ -240,7 +240,7 @@ b
 e
 h
 h
-q
+l
 u
 l
 h

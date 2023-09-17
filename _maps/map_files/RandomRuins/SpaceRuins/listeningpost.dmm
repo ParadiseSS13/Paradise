@@ -29,6 +29,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
 /area/ruin/space/syndicate_listening_station)
+"fd" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/syndicate_listening_station/asteroid)
 "hp" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 4
@@ -108,6 +111,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
+"or" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 "oE" = (
 /obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/cleanable/dirt,
@@ -305,6 +312,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/syndicate_listening_station/asteroid)
+"Cp" = (
+/mob/living/simple_animal/hostile/carp/megacarp,
+/turf/template_noop,
+/area/template_noop)
 "Cw" = (
 /obj/structure/filingcabinet,
 /obj/item/paper{
@@ -379,6 +390,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "Ej" = (
@@ -562,6 +574,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
+"UE" = (
+/mob/living/simple_animal/hostile/asteroid/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/syndicate_listening_station/asteroid)
 "UM" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Engineering"
@@ -750,9 +766,9 @@ Zw
 Zw
 Zw
 Zw
-yn
+fd
 Zw
-yn
+fd
 yn
 Zw
 yn
@@ -764,9 +780,9 @@ Zw
 (4,1,1) = {"
 Zw
 yn
+fd
 yn
 yn
-yn
 Zw
 Zw
 Zw
@@ -775,8 +791,8 @@ Zw
 Zw
 Zw
 Zw
-yn
-yn
+fd
+fd
 yn
 pV
 sf
@@ -792,14 +808,14 @@ Zw
 Zw
 Zw
 Zw
-yn
-yn
+fd
+fd
 yn
 yn
 Zw
 yn
-yn
-yn
+fd
+fd
 Zw
 yn
 "}
@@ -807,17 +823,17 @@ yn
 Zw
 Zw
 yn
+fd
+fd
 yn
-yn
-yn
 Zw
 Zw
 Zw
 Zw
 Zw
 Zw
-yn
-yn
+fd
+fd
 yn
 yn
 AT
@@ -848,18 +864,18 @@ Zw
 (6,1,1) = {"
 Zw
 Zw
-yn
-yn
-yn
-yn
+fd
+fd
+fd
+fd
 yn
 Zw
 Zw
 Zw
 Zw
 Zw
-yn
-yn
+fd
+fd
 yn
 OO
 tk
@@ -877,7 +893,7 @@ yn
 Zw
 Zw
 Zw
-yn
+fd
 yn
 Zw
 yn
@@ -892,14 +908,14 @@ Zw
 Zw
 yn
 yn
-yn
-yn
+fd
+fd
 yn
 Zw
 Zw
 Zw
 Zw
-yn
+fd
 yn
 yn
 yn
@@ -922,8 +938,8 @@ Zw
 Zw
 yn
 yn
-yn
-yn
+fd
+fd
 Zw
 Zw
 Zw
@@ -964,7 +980,7 @@ Zw
 Zw
 Zw
 yn
-yn
+fd
 Zw
 Zw
 Zw
@@ -981,7 +997,7 @@ Zw
 Zw
 yn
 Zw
-yn
+fd
 yn
 OO
 rS
@@ -990,7 +1006,7 @@ HZ
 yn
 yn
 yn
-yn
+fd
 yn
 yn
 AT
@@ -1023,13 +1039,16 @@ Zw
 Zw
 Zw
 Zw
-yn
+fd
 yn
 hr
 yn
 yn
 yn
 yn
+fd
+fd
+fd
 yn
 yn
 yn
@@ -1037,10 +1056,7 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
+fd
 yn
 yn
 yn
@@ -1072,6 +1088,8 @@ kJ
 yn
 yn
 yn
+fd
+fd
 yn
 yn
 yn
@@ -1079,11 +1097,9 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
+fd
+fd
+fd
 yn
 yn
 yn
@@ -1114,17 +1130,17 @@ kJ
 yn
 yn
 yn
+fd
 yn
 yn
 yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
-yn
+fd
+fd
+fd
+fd
 yn
 yn
 yn
@@ -1165,13 +1181,13 @@ yn
 yn
 yn
 yn
+fd
+fd
 yn
 yn
 yn
-yn
-yn
-yn
-yn
+fd
+fd
 Zw
 Zw
 Zw
@@ -1189,7 +1205,7 @@ Zw
 Zw
 Zw
 Zw
-yn
+fd
 yn
 yn
 kJ
@@ -1211,10 +1227,10 @@ yn
 yn
 yn
 yn
-yn
-yn
-yn
-yn
+fd
+fd
+fd
+fd
 Zw
 Zw
 Zw
@@ -1231,7 +1247,7 @@ Zw
 Zw
 Zw
 Zw
-yn
+fd
 yn
 yn
 kJ
@@ -1253,8 +1269,8 @@ yn
 yn
 yn
 yn
-yn
-yn
+fd
+fd
 yn
 yn
 Zw
@@ -1273,8 +1289,8 @@ Zw
 Zw
 Zw
 Zw
-yn
-yn
+fd
+fd
 yn
 kJ
 GQ
@@ -1294,7 +1310,7 @@ kJ
 yn
 yn
 yn
-yn
+fd
 yn
 yn
 yn
@@ -1316,7 +1332,7 @@ Zw
 Zw
 Zw
 Zw
-yn
+fd
 yn
 kJ
 CI
@@ -1358,7 +1374,7 @@ Zw
 Zw
 Zw
 Zw
-yn
+fd
 yn
 kJ
 Em
@@ -1464,7 +1480,7 @@ yn
 yn
 yn
 AT
-AT
+UE
 AT
 Zw
 Zw
@@ -1503,8 +1519,8 @@ kJ
 kJ
 yn
 yn
-yn
-yn
+fd
+fd
 AT
 AT
 Zw
@@ -1545,7 +1561,7 @@ yn
 yn
 yn
 yn
-yn
+fd
 AT
 AT
 AT
@@ -1582,8 +1598,8 @@ kJ
 aW
 kJ
 yn
-yn
-yn
+fd
+fd
 yn
 yn
 yn
@@ -1624,7 +1640,7 @@ yn
 rK
 yn
 yn
-yn
+fd
 yn
 yn
 yn
@@ -1669,7 +1685,7 @@ yn
 yn
 yn
 yn
-yn
+fd
 yn
 AT
 AT
@@ -1706,14 +1722,14 @@ AT
 yn
 yn
 rK
+fd
 yn
 yn
 yn
 yn
-yn
-yn
-yn
-AT
+fd
+fd
+UE
 AT
 Zw
 Zw
@@ -1753,7 +1769,7 @@ yn
 yn
 yn
 yn
-yn
+fd
 AT
 AT
 Zw
@@ -1885,10 +1901,10 @@ Zw
 Zw
 Zw
 Zw
+or
 Zw
 Zw
-Zw
-Zw
+or
 Zw
 Zw
 Zw
@@ -1983,9 +1999,9 @@ Zw
 Zw
 Zw
 yn
-yn
-yn
-yn
+fd
+fd
+fd
 Zw
 Zw
 yn
@@ -2013,11 +2029,11 @@ Zw
 Zw
 Zw
 Zw
+or
 Zw
 Zw
 Zw
-Zw
-Zw
+or
 Zw
 Zw
 "}
@@ -2026,13 +2042,13 @@ Zw
 Zw
 Zw
 yn
-yn
-yn
+fd
+fd
 Zw
 Zw
 yn
 yn
-yn
+fd
 Zw
 Zw
 Zw
@@ -2052,7 +2068,7 @@ Zw
 Zw
 Zw
 Zw
-Zw
+Cp
 Zw
 Zw
 Zw
@@ -2074,8 +2090,8 @@ Zw
 Zw
 Zw
 yn
-yn
-yn
+fd
+fd
 Zw
 Zw
 Zw
@@ -2117,7 +2133,7 @@ Zw
 Zw
 Zw
 yn
-yn
+fd
 Zw
 Zw
 Zw
@@ -2139,7 +2155,7 @@ Zw
 Zw
 Zw
 Zw
-Zw
+or
 Zw
 Zw
 Zw
@@ -2178,7 +2194,7 @@ Zw
 Zw
 Zw
 Zw
-Zw
+or
 Zw
 Zw
 Zw
@@ -2227,7 +2243,7 @@ Zw
 Zw
 Zw
 Zw
-Zw
+or
 Zw
 Zw
 "}

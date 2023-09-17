@@ -14,6 +14,21 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered/no_grav/way_home)
+"j" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
+"l" = (
+/mob/living/simple_animal/hostile/retaliate/carp/koi,
+/turf/template_noop,
+/area/template_noop)
+"n" = (
+/turf/simulated/mineral/random/high_chance,
+/area/ruin/space/unpowered/no_grav/way_home)
+"G" = (
+/mob/living/simple_animal/hostile/retaliate/carp/koi/honk,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -104,8 +119,8 @@ a
 a
 a
 a
-b
-b
+n
+n
 a
 a
 a
@@ -137,7 +152,7 @@ a
 a
 a
 b
-b
+n
 b
 a
 a
@@ -166,7 +181,7 @@ a
 a
 a
 a
-a
+l
 a
 a
 b
@@ -228,7 +243,7 @@ a
 a
 a
 a
-a
+l
 a
 a
 a
@@ -263,7 +278,7 @@ a
 a
 a
 a
-a
+G
 a
 a
 a
@@ -315,9 +330,9 @@ b
 b
 b
 b
-b
-b
-b
+n
+n
+n
 b
 a
 a
@@ -345,10 +360,10 @@ a
 b
 b
 b
-b
-b
-b
-b
+n
+n
+n
+n
 b
 c
 a
@@ -408,7 +423,7 @@ b
 b
 b
 b
-b
+n
 b
 b
 b
@@ -438,13 +453,13 @@ a
 b
 b
 b
+n
 b
-b
-b
-b
-b
-b
-b
+n
+n
+n
+n
+n
 c
 c
 c
@@ -469,12 +484,12 @@ a
 b
 b
 b
+n
+n
 b
 b
-b
-b
-b
-b
+n
+n
 c
 c
 c
@@ -501,9 +516,9 @@ a
 a
 b
 b
-b
-b
-b
+n
+n
+n
 b
 b
 c
@@ -533,9 +548,9 @@ a
 a
 a
 b
-b
-b
-b
+n
+n
+n
 b
 b
 b
@@ -583,7 +598,7 @@ c
 b
 b
 b
-b
+n
 b
 b
 a
@@ -615,8 +630,8 @@ c
 c
 b
 b
-b
-b
+n
+n
 b
 a
 a
@@ -647,9 +662,9 @@ c
 c
 c
 b
-b
-b
-b
+n
+n
+n
 b
 a
 a
@@ -680,8 +695,8 @@ a
 c
 b
 b
-b
-b
+n
+n
 b
 a
 a
@@ -721,7 +736,7 @@ a
 "}
 (23,1,1) = {"
 a
-a
+j
 a
 a
 a
@@ -786,11 +801,11 @@ a
 (25,1,1) = {"
 a
 a
+j
 a
+j
 a
-a
-a
-a
+j
 a
 a
 a
@@ -851,7 +866,7 @@ a
 a
 a
 a
-a
+j
 a
 a
 a
@@ -915,7 +930,7 @@ a
 a
 a
 a
-a
+j
 a
 a
 a

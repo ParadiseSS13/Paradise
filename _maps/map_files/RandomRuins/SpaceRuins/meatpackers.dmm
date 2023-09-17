@@ -89,6 +89,7 @@
 /area/ruin/unpowered/BMPship/Delta)
 "aw" = (
 /obj/effect/decal/warning_stripes/northwest,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "ax" = (
@@ -120,6 +121,7 @@
 /area/ruin/unpowered/BMPship/Delta)
 "aB" = (
 /obj/effect/decal/warning_stripes/north,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aC" = (
@@ -138,6 +140,7 @@
 	req_access = ""
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aD" = (
@@ -153,6 +156,7 @@
 /area/ruin/unpowered/BMPship/Delta)
 "aH" = (
 /obj/effect/decal/warning_stripes/west,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aI" = (
@@ -210,6 +214,7 @@
 /area/ruin/unpowered/BMPship/Fore)
 "aT" = (
 /obj/effect/decal/warning_stripes/north,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "aU" = (
@@ -259,6 +264,7 @@
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bh" = (
@@ -341,10 +347,12 @@
 /area/ruin/unpowered/BMPship/Delta)
 "by" = (
 /obj/item/hand_labeler,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bC" = (
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bE" = (
@@ -368,11 +376,14 @@
 /area/ruin/unpowered/BMPship/Delta)
 "bI" = (
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bJ" = (
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/spider/stickyweb,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bK" = (
@@ -399,6 +410,7 @@
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/hugemushroomslice,
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bO" = (
@@ -408,6 +420,7 @@
 	},
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bP" = (
@@ -418,10 +431,12 @@
 	tag = ""
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bQ" = (
 /obj/effect/decal/warning_stripes/southeast,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bS" = (
@@ -948,6 +963,7 @@
 /area/ruin/unpowered/BMPship/Fore)
 "du" = (
 /obj/structure/chair/stool,
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "dx" = (
@@ -2375,12 +2391,62 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
+"lj" = (
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Delta)
+"pA" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plating,
+/area/ruin/powered)
+"vB" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Delta)
+"vP" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2";
+	tag = ""
+	},
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Delta)
+"Be" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/unpowered/BMPship/Midship)
+"HV" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/carpet,
+/area/ruin/unpowered/BMPship/Fore)
+"JY" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/ruin/unpowered/BMPship/Midship)
+"Lf" = (
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Delta)
 "PP" = (
 /obj/structure/computerframe{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
+"SY" = (
+/obj/item/storage/box,
+/obj/structure/spider/stickyweb,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/BMPship/Delta)
 
 (1,1,1) = {"
 aa
@@ -2865,7 +2931,7 @@ ds
 ds
 ds
 ds
-ds
+HV
 aD
 fB
 fA
@@ -3777,7 +3843,7 @@ ad
 cb
 cr
 cJ
-ca
+Be
 ca
 ca
 ca
@@ -3786,7 +3852,7 @@ ca
 ca
 ca
 ca
-ca
+Be
 ca
 bF
 aJ
@@ -3849,7 +3915,7 @@ aK
 gN
 gQ
 gP
-gP
+pA
 hu
 aK
 aK
@@ -4399,7 +4465,7 @@ fh
 fs
 ca
 ca
-ca
+JY
 bF
 fX
 bd
@@ -4534,10 +4600,10 @@ ag
 af
 ad
 ax
-aj
-aj
-aj
-aj
+lj
+lj
+lj
+lj
 bI
 ad
 cu
@@ -4585,9 +4651,9 @@ ag
 al
 ad
 ay
-aj
-aj
-aj
+lj
+lj
+lj
 by
 bJ
 ad
@@ -4638,8 +4704,8 @@ ad
 az
 aI
 bb
-aj
-aj
+lj
+lj
 bK
 ad
 cw
@@ -4687,10 +4753,10 @@ aj
 aj
 ad
 aA
-aj
-aj
-aj
-aj
+lj
+lj
+Lf
+lj
 bI
 ad
 cx
@@ -4737,11 +4803,11 @@ ad
 aj
 aj
 am
-aB
-aj
-aj
-aj
-aI
+vB
+lj
+lj
+lj
+SY
 bI
 ad
 cy
@@ -4788,11 +4854,11 @@ ad
 ad
 aj
 ad
-aB
-aj
-aj
-aj
-aj
+vB
+lj
+lj
+lj
+lj
 bL
 ad
 cx
@@ -4839,11 +4905,11 @@ aa
 ad
 ad
 ad
-aB
-aj
-aj
-aj
-aj
+vB
+lj
+lj
+lj
+lj
 bM
 ad
 cz
@@ -4891,10 +4957,10 @@ aa
 ad
 ad
 aB
-aj
-aj
-aj
-aj
+Lf
+lj
+lj
+lj
 bN
 ad
 cl
@@ -4942,10 +5008,10 @@ aa
 aa
 ad
 aB
-aj
-aj
-aj
-aj
+lj
+lj
+lj
+lj
 bO
 ad
 cA
@@ -4996,7 +5062,7 @@ aC
 aM
 bg
 bg
-bg
+vP
 bP
 ck
 cB

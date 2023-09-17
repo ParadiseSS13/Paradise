@@ -130,6 +130,10 @@
 /obj/item/stack/sheet/metal,
 /turf/space,
 /area/template_noop)
+"N" = (
+/obj/item/sellable/salvage/ruin,
+/turf/space,
+/area/template_noop)
 "O" = (
 /obj/structure/girder/displaced,
 /turf/space,
@@ -346,7 +350,7 @@ A
 M
 S
 A
-A
+N
 d
 B
 M
@@ -499,7 +503,7 @@ S
 U
 B
 B
-A
+N
 A
 S
 A
@@ -557,7 +561,7 @@ a
 (19,1,1) = {"
 i
 a
-A
+N
 A
 M
 z

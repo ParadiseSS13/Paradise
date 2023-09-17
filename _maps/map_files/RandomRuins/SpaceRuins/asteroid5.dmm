@@ -11,6 +11,14 @@
 "d" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
+"E" = (
+/mob/living/simple_animal/hostile/asteroid/basilisk,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"J" = (
+/mob/living/simple_animal/hostile/asteroid/hivelord,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 
 (1,1,1) = {"
 a
@@ -211,7 +219,7 @@ a
 d
 d
 d
-d
+J
 d
 b
 b
@@ -359,7 +367,7 @@ c
 b
 b
 b
-d
+J
 d
 d
 d
@@ -549,7 +557,7 @@ d
 d
 d
 d
-d
+E
 d
 b
 b
@@ -984,7 +992,7 @@ a
 b
 b
 d
-d
+J
 d
 a
 a
@@ -1505,7 +1513,7 @@ b
 b
 b
 d
-d
+E
 d
 d
 b

@@ -1287,6 +1287,10 @@
 	icon_state = "white"
 	},
 /area/ruin/space/onehalf/dorms_med)
+"uJ" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 "xr" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -1324,6 +1328,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
+"Xb" = (
+/obj/item/sellable/salvage/ruin,
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
 aa
@@ -1493,9 +1501,9 @@ bK
 ak
 aa
 cv
+uJ
 aa
-aa
-aa
+uJ
 aa
 aa
 aa
@@ -1538,7 +1546,7 @@ bX
 aa
 cx
 aw
-aa
+Xb
 aa
 cv
 dg
@@ -1558,7 +1566,7 @@ bw
 bO
 aj
 aa
-aa
+uJ
 cE
 cv
 cR

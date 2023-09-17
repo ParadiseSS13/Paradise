@@ -51,6 +51,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"dT" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
 "eu" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -98,6 +102,7 @@
 /area/ruin/space/tcommsat)
 "hg" = (
 /obj/item/camera_assembly,
+/obj/item/flag/syndi,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "hk" = (
@@ -130,11 +135,16 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"in" = (
+/obj/item/flag/syndi,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
 "jd" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "jk" = (
@@ -337,9 +347,17 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"tU" = (
+/mob/living/simple_animal/hostile/retaliate/carp/koi,
+/turf/template_noop,
+/area/template_noop)
 "vl" = (
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
+/area/ruin/space/tcommsat)
+"wk" = (
+/mob/living/simple_animal/hostile/syndicate/ranged/space,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "wO" = (
 /obj/structure/lattice,
@@ -356,6 +374,10 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"yV" = (
+/mob/living/simple_animal/hostile/retaliate/carp,
+/turf/template_noop,
+/area/template_noop)
 "zE" = (
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
@@ -454,6 +476,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"FN" = (
+/mob/living/simple_animal/hostile/retaliate/carp/koi/honk,
+/turf/template_noop,
+/area/template_noop)
 "Go" = (
 /obj/structure/table,
 /turf/simulated/floor/plating/airless,
@@ -513,6 +539,10 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"KB" = (
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
 "KD" = (
 /obj/machinery/teleport/station,
 /obj/effect/decal/warning_stripes/east,
@@ -631,6 +661,7 @@
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/centcom,
 /obj/item/restraints/handcuffs,
+/obj/effect/mob_spawn/human/corpse/scientist,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Qm" = (
@@ -703,6 +734,11 @@
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"Ub" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
 "Up" = (
 /obj/structure/table,
 /obj/item/folder/yellow,
@@ -739,6 +775,7 @@
 /area/ruin/space/tcommsat)
 "Vh" = (
 /obj/effect/decal/warning_stripes/northwest,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Vx" = (
@@ -900,6 +937,7 @@ nX
 "}
 (2,1,1) = {"
 nX
+dT
 nX
 nX
 nX
@@ -907,8 +945,7 @@ nX
 nX
 nX
 nX
-nX
-nX
+dT
 nX
 nX
 nX
@@ -947,7 +984,7 @@ nX
 nX
 nX
 nX
-nX
+dT
 nX
 nX
 nX
@@ -994,7 +1031,7 @@ PO
 nX
 nX
 nX
-nX
+dT
 nX
 nX
 nX
@@ -1106,7 +1143,7 @@ nX
 nX
 nX
 nX
-nX
+dT
 nX
 nX
 nX
@@ -1165,7 +1202,7 @@ nX
 nX
 nX
 nX
-nX
+dT
 nX
 "}
 (7,1,1) = {"
@@ -1237,7 +1274,7 @@ nX
 PO
 nX
 nX
-nX
+yV
 nX
 PO
 nX
@@ -1677,13 +1714,13 @@ nX
 Jr
 Jr
 Wr
-Is
+Ub
+KB
 Wc
 Wc
 Wc
 Wc
-Wc
-Wc
+KB
 ot
 Jr
 Jr
@@ -1730,7 +1767,7 @@ nX
 nX
 Jr
 ot
-Wc
+KB
 Wc
 Wc
 Is
@@ -1838,7 +1875,7 @@ Vx
 PO
 Jr
 YW
-Wc
+in
 IG
 Wc
 Wc
@@ -1949,7 +1986,7 @@ YW
 hg
 Wc
 jv
-Wc
+wk
 Wc
 Wc
 Wc
@@ -2574,6 +2611,7 @@ nX
 "}
 (33,1,1) = {"
 nX
+yV
 nX
 nX
 nX
@@ -2583,8 +2621,7 @@ nX
 nX
 nX
 nX
-nX
-nX
+yV
 nX
 nX
 nX
@@ -2782,9 +2819,9 @@ nX
 nX
 nX
 nX
+tU
 nX
-nX
-nX
+FN
 nX
 nX
 "}
@@ -2831,7 +2868,7 @@ nX
 nX
 nX
 nX
-nX
+tU
 nX
 nX
 nX
@@ -2882,12 +2919,12 @@ PO
 nX
 nX
 nX
+tU
 nX
 nX
 nX
 nX
-nX
-nX
+tU
 nX
 nX
 nX
@@ -2931,10 +2968,10 @@ Jr
 PO
 nX
 nX
+tU
 nX
 nX
-nX
-nX
+tU
 nX
 nX
 nX

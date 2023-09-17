@@ -209,6 +209,7 @@
 "Gz" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood,
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "KU" = (
@@ -232,6 +233,7 @@
 "LZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Nv" = (
@@ -247,6 +249,10 @@
 /obj/machinery/door/airlock/external,
 /obj/structure/barricade/wooden/crude,
 /obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"Pp" = (
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Pq" = (
@@ -1307,7 +1313,7 @@ Qx
 Qx
 Qx
 Qx
-zN
+Pp
 vE
 hG
 bO
@@ -1482,7 +1488,7 @@ zN
 LD
 Se
 nb
-zN
+Pp
 Qx
 Qx
 Qx

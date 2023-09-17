@@ -42,6 +42,7 @@
 /area/ruin/space/wreck_cargoship)
 "cx" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcornersiding";
 	dir = 4
@@ -82,6 +83,7 @@
 /area/ruin/space/wreck_cargoship)
 "dD" = (
 /obj/structure/table_frame,
+/mob/living/simple_animal/parrot,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "dQ" = (
@@ -178,6 +180,7 @@
 /obj/structure/chair/comfy/corp{
 	dir = 8
 	},
+/mob/living/simple_animal/hostile/pirate/ranged,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/wreck_cargoship)
 "hO" = (
@@ -758,6 +761,7 @@
 "Fk" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -888,6 +892,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
 	},
+/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -1019,6 +1024,10 @@
 	icon_state = "black"
 	},
 /area/ruin/space/wreck_cargoship)
+"Rw" = (
+/mob/living/simple_animal/hostile/pirate,
+/turf/simulated/floor/plating,
+/area/ruin/space/wreck_cargoship)
 "RZ" = (
 /obj/structure/rack,
 /mob/living/simple_animal/bot/secbot/griefsky/toy,
@@ -1127,6 +1136,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/pirate,
 /turf/simulated/floor/plasteel{
 	icon_state = "titanium_dam3";
 	dir = 4
@@ -1450,7 +1460,7 @@ ea
 qg
 gE
 Yz
-Vs
+Rw
 Sj
 gE
 qg

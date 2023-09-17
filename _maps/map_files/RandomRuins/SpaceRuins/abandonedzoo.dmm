@@ -799,6 +799,14 @@
 /obj/item/shard,
 /turf/space,
 /area/space/nearstation)
+"cP" = (
+/obj/item/clothing/mask/facehugger{
+	icon_state = "facehugger_dead";
+	stat = 2
+	},
+/mob/living/simple_animal/hostile/alien/drone,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
 "Hv" = (
 /obj/item/gps/ruin,
 /turf/simulated/wall/r_wall,
@@ -1107,7 +1115,7 @@ at
 ac
 bB
 bB
-bD
+cP
 bH
 ac
 aa
