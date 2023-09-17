@@ -206,6 +206,7 @@
 	desc = "Yarr."
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -265,7 +266,7 @@
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
 	item_state = "glasses"
-	prescription = 1
+	prescription = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -332,6 +333,8 @@
 	see_in_dark = 0
 	flash_protect = FLASH_PROTECTION_NONE
 	tint = FLASH_PROTECTION_NONE
+	prescription_upgradable = TRUE
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -518,6 +521,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	up = FALSE
 	tint = FLASH_PROTECTION_NONE
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
