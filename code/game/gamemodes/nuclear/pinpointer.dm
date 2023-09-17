@@ -400,16 +400,6 @@
 			nearest_op = M
 			closest_distance = current_dist
 
-/obj/item/pinpointer/operative_nad/workbomb()
-	if(GLOB.bomb_set)	//If the bomb is set, lead to the shuttle
-		mode = MODE_SHIP	//Ensures worklocation() continues to work
-		modes = list(MODE_SHIP)
-		playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)	//Plays a beep
-		visible_message("Shuttle Locator mode actived.")			//Lets the mob holding it know that the mode has changed
-		return		//Get outta here
-	scanbomb()
-	point_at_target(the_s_bomb)
-
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"
 	desc = "A handheld tracking device that points to crew suit sensors."
