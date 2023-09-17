@@ -313,7 +313,7 @@
 	head = /obj/item/clothing/head/beret // MMTODO - NEEDS SPRITE
 	l_ear = /obj/item/radio/headset/headset_ntc
 	glasses =  /obj/item/clothing/glasses/hud/skills/sunglasses
-	//id = /obj/item/card/id/nct // MMTODO - NEEDS ID + SPRITE
+	id = /obj/item/card/id/ntc
 	pda = /obj/item/pda/heads/ntrep
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/satchel

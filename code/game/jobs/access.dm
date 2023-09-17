@@ -392,7 +392,7 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Deathsquad Commando","Research Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander", "Nanotrasen Career Instructor")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Intel Officer","Medical Officer","Deathsquad Commando","Research Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer","Nanotrasen Navy Captain","Supreme Commander")
 
 /proc/get_all_ERT_jobs()
 	return list("Emergency Response Team Officer","Emergency Response Team Engineer","Emergency Response Team Medic","Emergency Response Team Inquisitor","Emergency Response Team Janitor","Emergency Response Team Leader","Emergency Response Team Member")

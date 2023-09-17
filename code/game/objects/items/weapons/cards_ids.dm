@@ -458,6 +458,7 @@
 							"detective",
 							"warden",
 							"internalaffairsagent",
+							"ntc",
 							"medical",
 							"coroner",
 							"virologist",
@@ -833,6 +834,12 @@
 	icon_state = "internalaffairsagent"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 
+/obj/item/card/id/ntc
+	name = "Nanotrasen Career Trainer ID"
+	registered_name = "Nanotrasen Career Trainer"
+	icon_state = "ntc"
+	access = list(ACCESS_TRAINER, ACCESS_LAWYER, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
+
 /obj/item/card/id/geneticist
 	name = "Geneticist ID"
 	registered_name = "Geneticist"
@@ -1156,7 +1163,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","barber","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
+	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","ntc","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","barber","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","blueshield","magistrate","ntrep","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","ERT_paranormal","deathsquad","commander","syndie","TDred","TDgreen")
@@ -1180,6 +1187,8 @@
 			return "Security Officer"
 		if("internalaffairsagent")
 			return "Internal Affairs Agent"
+		if("ntc")
+			return "Nanotrasen Career Trainer"
 		if("atmostech")
 			return "Life Support Specialist"
 		if("HoP")

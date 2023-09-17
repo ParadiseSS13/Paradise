@@ -70,7 +70,6 @@ GLOBAL_LIST_INIT(support_positions, list(
 	"Chef",
 	"Janitor",
 	"Librarian",
-	"Internal Affairs Agent",
 	"Chaplain",
 	"Clown",
 	"Mime",

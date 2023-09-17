@@ -99,7 +99,6 @@
 		"Forensic Technician" = "secradio",
 		"Head of Security" = "secradio",
 		"Human Resources Agent" = "secradio",
-		"Internal Affairs Agent" = "secradio",
 		"Magistrate" = "secradio",
 		"Security Officer" = "secradio",
 		"Warden" = "secradio",
@@ -127,6 +126,9 @@
 		"Journalist" = "srvradio",
 		"Librarian" = "srvradio",
 		"Mime" = "srvradio",
+		// Procedure
+		"Internal Affairs Agent" = "proradio",
+		"Nanotrasen Career Trainer" = "proradio",
 	)
 	/// List of Command jobs
 	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "Quartermaster", "AI")
