@@ -54,7 +54,7 @@ const handleKeyCodeEvent = (e, context) => {
 
 const MainPage = (props, context) => {
   const { act, data } = useBackend(context);
-  const {locked, no_passcode, emagged, user_entered_code} = data;
+  const { locked, no_passcode, emagged, user_entered_code } = data;
 
   const keypadKeys = [
     ['1', '2', '3'],
@@ -81,7 +81,6 @@ const MainPage = (props, context) => {
               'SecureStorage__displayBox--' + status,
             ])}
             height="100%"
-            // onKeyDown={(e) => handleKeyCodeEvent(e, context)}
           >{emagged ? "ERROR" : user_entered_code}</Box>
       </Flex.Item>
         <Table width="1px">
@@ -101,7 +100,7 @@ const MainPage = (props, context) => {
 
 const NumberButton = (props, context) => {
   const { act, data } = useBackend(context);
-  const {number} = props;
+  const { number } = props;
 
   return (
     <Button
