@@ -419,7 +419,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/proc/adjust_charge(amount, adjust_max = FALSE)
 	if(!amount)
-		return 0
+		return FALSE
 	if(adjust_max)
 		maxcharge = max(maxcharge, charge + amount)
 	var/orig = charge
