@@ -550,7 +550,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bv" = (
-/obj/effect/mob_spawn/human/doctor/alive/lavaland{
+/obj/effect/mob_spawn/human/alive/doctor/lavaland{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/white,

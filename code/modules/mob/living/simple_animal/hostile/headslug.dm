@@ -44,7 +44,7 @@
 	egg_layed = TRUE
 
 /mob/living/simple_animal/hostile/headslug/AltClickOn(mob/living/carbon/carbon_target)
-	if(egg_layed || !istype(carbon_target) || !Adjacent(carbon_target))
+	if(egg_layed || !istype(carbon_target) || !Adjacent(carbon_target) || ismachineperson(carbon_target))
 		return ..()
 	if(carbon_target.stat != DEAD && !do_mob(src, carbon_target, 5 SECONDS))
 		return

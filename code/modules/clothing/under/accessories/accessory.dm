@@ -271,6 +271,7 @@
 	name = "bronze heart medal"
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
 	icon_state = "bronze_heart"
+	item_color = "bronze_heart"
 
 
 
