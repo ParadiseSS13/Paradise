@@ -255,7 +255,7 @@ const Advert = (_properties, context) => {
 }
 
 const UplinkItem = (props, context) => {
-  const { act, data } = useBackend(context);
+
   const {
     i,
     showDecription = 1,
@@ -268,7 +268,6 @@ const UplinkItem = (props, context) => {
       showBottom={showDecription}
       borderRadius="5px"
       buttons={buttons}
-      // flexGrow
       stretchContents
     >
       {showDecription ? <Box italic>{decodeHtmlEntities(i.desc)}</Box> : null}
