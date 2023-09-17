@@ -109,7 +109,7 @@
 		good_candidate = FALSE
 
 	if(prob(PROB_CANDIDATE_ERRORS)) // Age
-		age = pick(initial(cand_species.max_age) + rand(10, 100), (initial(cand_species.min_age) - rand(1, 7))) // Its either too young or too old for the job
+		age = pick(initial(cand_species.max_age) + rand(20, 100), (initial(cand_species.min_age) - rand(1, 7))) // Its either too young or too old for the job
 		good_candidate = FALSE
 	else
 		age = rand(initial(cand_species.min_age), initial(cand_species.max_age))
