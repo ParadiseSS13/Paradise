@@ -60912,7 +60912,7 @@
 "ivU" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/station/science/xenobiology)
 "ivY" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
@@ -77596,7 +77596,7 @@
 "qnJ" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
-/area/space/nearstation)
+/area/station/science/xenobiology)
 "qnY" = (
 /obj/machinery/light/small,
 /obj/structure/window/plasmareinforced{
@@ -81386,10 +81386,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/command/office/cmo)
-"sjS" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/engine,
-/area/space/nearstation)
 "sjV" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -134424,7 +134420,7 @@ qnJ
 uQm
 jAZ
 uQm
-bre
+uQm
 abq
 abq
 abq
@@ -134677,11 +134673,11 @@ aaa
 aaD
 aaa
 aaa
-bre
+uQm
 fbt
 sKz
 uXo
-bre
+uQm
 aaa
 aaa
 aaa
@@ -134934,11 +134930,11 @@ aaa
 aaa
 aaa
 aaa
-bre
+uQm
 wSy
 kcb
 njV
-bre
+uQm
 aaa
 aaa
 aaa
@@ -135191,11 +135187,11 @@ aaa
 aaa
 aaa
 aaa
-bre
+uQm
 gMG
 lQx
 xml
-bre
+uQm
 aaa
 aaa
 aaa
@@ -135448,11 +135444,11 @@ laH
 abq
 qnJ
 ivU
-bre
+uQm
 cZr
 jek
 cZr
-bre
+uQm
 ivU
 qnJ
 abq
@@ -135703,7 +135699,7 @@ aaa
 laH
 aaa
 aaa
-bre
+uQm
 fcb
 gMT
 kls
@@ -135711,7 +135707,7 @@ xPh
 gbz
 kvh
 cEn
-bre
+uQm
 aaa
 aaa
 laH
@@ -136474,7 +136470,7 @@ abq
 abq
 abq
 abq
-bre
+uQm
 eus
 gSu
 tau
@@ -136482,7 +136478,7 @@ olg
 vKU
 pji
 lcO
-bre
+uQm
 abq
 abq
 abq
@@ -136728,10 +136724,10 @@ laH
 aaa
 aaa
 aaa
-bre
-bre
-bre
-bre
+uQm
+uQm
+uQm
+uQm
 uQm
 gzU
 iUe
@@ -136739,10 +136735,10 @@ cDI
 mCu
 erC
 uQm
-bre
-bre
-bre
-bre
+uQm
+uQm
+uQm
+uQm
 aaa
 aaa
 aaa
@@ -136985,7 +136981,7 @@ laH
 aaa
 aaa
 aaa
-sjS
+wCn
 mdi
 ucO
 mdi
@@ -136999,7 +136995,7 @@ izh
 mdi
 ucO
 mdi
-sjS
+wCn
 aaa
 aaa
 aaa
@@ -137242,7 +137238,7 @@ laH
 aaa
 aaa
 aaa
-sjS
+wCn
 mdi
 cIP
 mdi
@@ -137256,7 +137252,7 @@ wDf
 mdi
 cIP
 mdi
-sjS
+wCn
 aaa
 aaa
 aaa

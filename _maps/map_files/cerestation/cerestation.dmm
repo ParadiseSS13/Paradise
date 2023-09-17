@@ -94045,7 +94045,7 @@
 "xcc" = (
 /obj/structure/girder,
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "xcn" = (
 /obj/effect/turf_decal/stripes/line,
