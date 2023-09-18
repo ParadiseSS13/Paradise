@@ -25435,11 +25435,7 @@
 /area/station/supply/sorting)
 "bqJ" = (
 /obj/structure/table,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
+/obj/item/camera,
 /obj/machinery/camera{
 	c_tag = "Brig - Prisoner Processing";
 	dir = 8
@@ -33480,11 +33476,7 @@
 "bHL" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
+/obj/item/camera/detective,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -83624,8 +83616,7 @@
 /obj/item/storage/box/gloves{
 	pixel_y = 8
 	},
-/obj/item/camera{
-	name = "Autopsy Camera";
+/obj/item/camera/autopsy{
 	pixel_x = -2;
 	pixel_y = -2
 	},
@@ -96222,11 +96213,7 @@
 /obj/item/crowbar/red,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/book/manual/detective,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
+/obj/item/camera/detective,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"

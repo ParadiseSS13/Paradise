@@ -5245,11 +5245,7 @@
 /area/station/public/mrchangs)
 "aAE" = (
 /obj/structure/table,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
+/obj/item/camera,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
@@ -63045,8 +63041,7 @@
 /obj/structure/table/reinforced,
 /obj/item/scalpel,
 /obj/item/autopsy_scanner,
-/obj/item/camera{
-	name = "Autopsy Camera";
+/obj/item/camera/autopsy{
 	pixel_x = -2;
 	pixel_y = -2
 	},
@@ -83746,10 +83741,7 @@
 /obj/structure/rack,
 /obj/item/hand_labeler,
 /obj/item/folder/red,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detective's camera";
-	pictures_left = 30;
+/obj/item/camera/detective{
 	pixel_x = -2;
 	pixel_y = 3
 	},

@@ -12890,11 +12890,7 @@
 /area/station/security/processing)
 "bsG" = (
 /obj/structure/table,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
+/obj/item/camera,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -14537,8 +14533,7 @@
 	},
 /obj/structure/table,
 /obj/item/autopsy_scanner,
-/obj/item/camera{
-	name = "Autopsy Camera";
+/obj/item/camera/autopsy{
 	pixel_x = -2;
 	pixel_y = -2
 	},
@@ -96619,11 +96614,7 @@
 /obj/item/clothing/glasses/sunglasses,
 /obj/item/ashtray/bronze,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
+/obj/item/camera/detective,
 /obj/item/flashlight/lamp/green{
 	on = 0;
 	pixel_x = -3;

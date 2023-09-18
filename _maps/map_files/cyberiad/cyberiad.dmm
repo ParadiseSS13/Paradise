@@ -4588,11 +4588,7 @@
 /area/station/security/prison/cell_block/A)
 "apa" = (
 /obj/structure/table,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
+/obj/item/camera,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "apb" = (
@@ -12318,11 +12314,7 @@
 	},
 /obj/item/camera_film,
 /obj/item/camera_film,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
+/obj/item/camera/detective,
 /obj/machinery/requests_console{
 	name = "Detective Requests Console";
 	pixel_y = -30;
@@ -35116,10 +35108,9 @@
 /area/station/medical/reception)
 "bRc" = (
 /obj/structure/table,
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = 3;
-	pixel_y = 3
+/obj/item/camera/autopsy{
+	pixel_y = 3;
+	pixel_x = 3
 	},
 /obj/item/scalpel,
 /obj/item/autopsy_scanner,
@@ -59917,11 +59908,7 @@
 "dnM" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
+/obj/item/camera,
 /obj/item/book/codex_gigas,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
