@@ -2,7 +2,7 @@
 /obj/structure/fusionreactor
 	name = "syndicate fusion reactor"
 	desc = "Significantly less cool than a supermatter crystal, but just as likely to fuck up."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/goonstation/objects/powersink.dmi'
 	icon_state = "powersink1"
 	anchored = TRUE
 	max_integrity = 50

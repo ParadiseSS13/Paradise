@@ -11,38 +11,6 @@
 	key = "blink_r"
 	message = "blinks rapidly."
 
-/datum/emote/living/carbon/clap
-	key = "clap"
-	key_third_person = "claps"
-	message = "claps."
-	message_mime = "claps silently."
-	message_param = "claps at %t."
-	emote_type = EMOTE_SOUND
-	vary = TRUE
-
-/datum/emote/living/carbon/clap/run_emote(mob/user, params, type_override, intentional)
-	var/mob/living/carbon/human/H = user
-	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
-		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
-			// no arms...
-			to_chat(user, "<span class='warning'>You need arms to be able to clap.</span>")
-		else
-			// well, we've got at least one
-			user.visible_message("[user] makes the sound of one hand clapping.")
-		return TRUE
-
-	return ..()
-
-/datum/emote/living/carbon/clap/get_sound(mob/living/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(!H?.mind?.miming)
-			return pick(
-				'sound/misc/clap1.ogg',
-				'sound/misc/clap2.ogg',
-				'sound/misc/clap3.ogg',
-				'sound/misc/clap4.ogg')
-
 /datum/emote/living/carbon/cross
 	key = "cross"
 	key_third_person = "crosses"

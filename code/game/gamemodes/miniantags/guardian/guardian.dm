@@ -178,6 +178,9 @@
 	ghostize()
 	qdel(src)
 
+/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0)
+	return TRUE	//Works better in zero G, and not useless in space
+
 //Manifest, Recall, Communicate
 
 /mob/living/simple_animal/hostile/guardian/proc/Manifest()
@@ -257,7 +260,7 @@
 	var/used_message = "All the cards seem to be blank now."
 	var/failure_message = "..And draw a card! It's...blank? Maybe you should try again later."
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
-	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
+	var/list/possible_guardians = list("Gaseous", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = FALSE
 	/// What type was picked the first activation
 	var/picked_random_type
@@ -328,8 +331,8 @@
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 	switch(guardian_type)
 
-		if("Chaos")
-			pickedtype = /mob/living/simple_animal/hostile/guardian/fire
+		if("Gaseous")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/gaseous
 
 		if("Standard")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/punch

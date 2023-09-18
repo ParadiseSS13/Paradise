@@ -653,6 +653,15 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
 	icon_state = "questionmark"
 
+/obj/effect/landmark/mob_spawner/gutlunch
+	mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch
+	icon_state = "questionmark"
+
+/obj/effect/landmark/mob_spawner/gutlunch/Initialize(mapload)
+	if(prob(5))
+		mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
+	. = ..()
+
 // Damage tiles
 /obj/effect/landmark/damageturf
 	icon_state = "damaged"

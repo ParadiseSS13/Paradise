@@ -465,7 +465,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/powered/snow_biodome)
 "XR" = (
-/obj/effect/mob_spawn/human/skeleton,
+/obj/effect/mob_spawn/human/corpse/skeleton,
 /turf/simulated/floor/mineral/silver,
 /area/ruin/powered/snow_biodome)
 

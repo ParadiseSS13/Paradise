@@ -28,6 +28,7 @@
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
+	dodging = FALSE // This needs to be false until someone fixes megafauna pathing so they dont lag-switch teleport at you (09-15-2023)
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE

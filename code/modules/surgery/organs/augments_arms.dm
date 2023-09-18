@@ -464,8 +464,8 @@
 	..()
 
 /obj/item/shield/v1_arm
-	name = "vortex feedback arm" //format is they are holding x
-	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attack. Rumors that it runs on the users blood are unconfirmed"
+	name = "vortex feedback arm"
+	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attacks. Rumors that it runs on the user's blood are unconfirmed."
 	icon_state = "v1_arm"
 	item_state = "v1_arm"
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
@@ -476,6 +476,7 @@
 	light_range = 0
 	light_color = "#9933ff"
 	hit_reaction_chance = -1
+	flags = ABSTRACT
 	/// The damage the reflected projectile will be increased by
 	var/reflect_damage_boost = 10
 	/// The cap of the reflected damage. Damage will not be increased above 50, however it will not be reduced to 50 either.
@@ -559,3 +560,29 @@
 		qdel(src)
 		qdel(I)
 	return ..()
+
+/obj/item/organ/internal/cyberimp/arm/muscle
+	name = "strong-arm empowered musculature implant"
+	desc = "When implanted, this cybernetic implant will enhance the muscles of the arm to deliver more power-per-action. Only has to be installed in one arm."
+	icon_state = "muscle_imp"
+
+	parent_organ = "l_arm" //Left arm by default
+	slot = "l_arm_device"
+
+	actions_types = list()
+	var/datum/martial_art/muscle_implant/muscle_implant
+
+/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	muscle_implant = new()
+	muscle_implant.teach(M)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/M, special)
+	. = ..()
+	muscle_implant.remove(M)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/emp_act(severity)
+	. = ..()
+	if(emp_proof)
+		return
+	muscle_implant.emp_act(severity, owner)
