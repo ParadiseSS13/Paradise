@@ -13,16 +13,16 @@
 	var/area/spawn_area_type
 	/// All possible areas for spawning, matched with their pretty names
 	var/static/list/spawn_areas = list(
-		/area/station/service/kitchen = "the kitchen",
-		/area/station/engineering/atmos = "atmospherics",
-		/area/station/maintenance/incinerator = "the incinerator",
-		/area/station/service/chapel = "the chapel",
-		/area/station/service/library = "the library",
-		/area/station/service/hydroponics = "hydroponics",
-		/area/station/command/vault = "the vault",
-		/area/station/public/construction = "the construction area",
-		/area/station/engineering/tech_storage = "technical storage",
-		/area/station/security/armory/secure = "the armory"
+		/area/station/service/kitchen,
+		/area/station/engineering/atmos,
+		/area/station/maintenance/incinerator,
+		/area/station/service/chapel,
+		/area/station/service/library,
+		/area/station/service/hydroponics,
+		/area/station/command/vault,
+		/area/station/public/construction,
+		/area/station/engineering/tech_storage,
+		/area/station/security/armory/secure
 	)
 
 /datum/event/infestation/start()
