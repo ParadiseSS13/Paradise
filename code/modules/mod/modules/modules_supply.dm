@@ -433,6 +433,8 @@
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
 	animate(mod.wearer, animate_time, pixel_y = mod.wearer.pixel_y - 4, flags = ANIMATION_PARALLEL)
 	mod.wearer.SpinAnimation(1.5)
+	// todo, someone get balance approval to add TRAIT_FORCED_STANDING here, like it is on tg.
+	// Or, register a signal on floored trait signal
 	ADD_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, "metriod[UID()]")
 	ADD_TRAIT(mod.wearer, TRAIT_GOTTAGOFAST, "metroid[UID()]")
 	RegisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
