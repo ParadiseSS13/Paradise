@@ -60519,7 +60519,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = s;
+	name = "Research Lab Desk";
 	dir = 2
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
