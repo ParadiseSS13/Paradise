@@ -5096,16 +5096,22 @@
 /obj/machinery/computer/supplycomp{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
 	},
 /area/station/supply/qm)
 "azO" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/yellow{
@@ -5113,6 +5119,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "azP" = (
@@ -8904,14 +8911,6 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "aLP" = (
-/obj/structure/table,
-/obj/item/paper_bin/nanotrasen,
-/obj/item/folder/yellow,
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/pen/red,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -8923,6 +8922,9 @@
 /obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
+	},
+/obj/machinery/computer/card/minor/qm{
+	dir = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "browncorner"
@@ -8965,11 +8967,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "aLS" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/machinery/status_display/supply_display{
 	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/suit_storage_unit/qm/secure,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -9399,6 +9401,16 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/quartermaster,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aMX" = (
@@ -9417,7 +9429,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aMY" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
 "aMZ" = (
@@ -9427,6 +9447,11 @@
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
@@ -9449,9 +9474,20 @@
 	},
 /area/station/supply/office)
 "aNb" = (
-/obj/machinery/computer/security/mining{
-	dir = 4
+/obj/structure/table,
+/obj/item/pen/red,
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = 4
 	},
+/obj/item/folder/yellow,
+/obj/item/paper_bin/nanotrasen,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -9781,6 +9817,11 @@
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
@@ -10181,6 +10222,9 @@
 	name = "Cargo Requests Console";
 	pixel_y = 30
 	},
+/obj/machinery/photocopier/faxmachine{
+	department = "Quartermaster's Office"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -10304,7 +10348,15 @@
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
-	pixel_x = 24
+	pixel_x = 24;
+	pixel_y = -5
+	},
+/obj/machinery/button/windowtint{
+	pixel_x = 24;
+	id = "qm";
+	req_access_txt = "41";
+	dir = 8;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
@@ -10541,9 +10593,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
+/obj/machinery/door/airlock/command/glass,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "aQI" = (
@@ -18373,12 +18425,12 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/bridge)
 "bkX" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
 	},
-/turf/simulated/floor/plasteel,
-/area/station/supply/storage)
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "bkY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible{
@@ -52035,13 +52087,16 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "eqS" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/o2{
-	layer = 2.8;
-	pixel_x = 3;
-	pixel_y = 5
+/obj/item/crutches{
+	pixel_x = -2;
+	pixel_y = 2
 	},
-/obj/item/storage/firstaid,
+/obj/item/crutches,
+/obj/item/crutches{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/structure/rack,
 /obj/machinery/camera{
 	c_tag = "Medbay Secondary Storage";
 	dir = 1
@@ -60800,7 +60855,7 @@
 "ivU" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/space/nearstation)
+/area/station/science/xenobiology)
 "ivY" = (
 /obj/structure/table/wood,
 /obj/machinery/newscaster{
@@ -63987,6 +64042,10 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/fire,
+/obj/item/storage/firstaid{
+	pixel_x = -3;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -65169,6 +65228,15 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"kBn" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/item/kirbyplants{
+	icon_state = "plant-21"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "kBs" = (
 /obj/machinery/alarm{
 	name = "north bump";
@@ -71081,6 +71149,10 @@
 	pixel_y = 5
 	},
 /obj/item/storage/firstaid/toxin,
+/obj/item/storage/firstaid/o2{
+	pixel_x = -3;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -72311,6 +72383,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "nLV" = (
@@ -72518,6 +72594,20 @@
 	icon_state = "grimy"
 	},
 /area/station/service/chapel/office)
+"nSQ" = (
+/obj/machinery/computer/security/mining{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "browncorner"
+	},
+/area/station/supply/qm)
 "nTF" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -76247,14 +76337,11 @@
 	},
 /area/station/science/xenobiology)
 "pNK" = (
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
-/turf/simulated/floor/plasteel,
+/obj/structure/cable/yellow,
+/turf/simulated/floor/plating,
 /area/station/supply/storage)
 "pOG" = (
 /obj/machinery/door/airlock/maintenance,
@@ -77383,7 +77470,7 @@
 "qnJ" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
-/area/space/nearstation)
+/area/station/science/xenobiology)
 "qnY" = (
 /obj/machinery/light/small,
 /obj/structure/window/plasmareinforced{
@@ -81161,10 +81248,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/command/office/cmo)
-"sjS" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/engine,
-/area/space/nearstation)
 "sjV" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -91561,6 +91644,21 @@
 	icon_state = "caution"
 	},
 /area/station/engineering/atmos)
+"xuz" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/turf/simulated/floor/plating,
+/area/station/supply/qm)
 "xuA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -111444,10 +111542,10 @@ bhm
 aMS
 aVl
 aVl
-aMY
+xuz
 aMY
 pNK
-bkX
+aYl
 aKi
 aRo
 cjv
@@ -111702,9 +111800,9 @@ aHu
 aVl
 aLP
 aNb
-aMY
-aMY
-aYl
+nSQ
+bkX
+kBn
 aWj
 aRo
 hjj
@@ -111960,7 +112058,7 @@ aOB
 aPw
 aMW
 azN
-aMY
+bkX
 eEy
 uxV
 aOu
@@ -134133,7 +134231,7 @@ qnJ
 uQm
 jAZ
 uQm
-bre
+uQm
 abq
 abq
 abq
@@ -134386,11 +134484,11 @@ aaa
 aaD
 aaa
 aaa
-bre
+uQm
 fbt
 sKz
 uXo
-bre
+uQm
 aaa
 aaa
 aaa
@@ -134643,11 +134741,11 @@ aaa
 aaa
 aaa
 aaa
-bre
+uQm
 wSy
 kcb
 njV
-bre
+uQm
 aaa
 aaa
 aaa
@@ -134900,11 +134998,11 @@ aaa
 aaa
 aaa
 aaa
-bre
+uQm
 gMG
 lQx
 xml
-bre
+uQm
 aaa
 aaa
 aaa
@@ -135157,11 +135255,11 @@ laH
 abq
 qnJ
 ivU
-bre
+uQm
 cZr
 jek
 cZr
-bre
+uQm
 ivU
 qnJ
 abq
@@ -135412,7 +135510,7 @@ aaa
 laH
 aaa
 aaa
-bre
+uQm
 fcb
 gMT
 kls
@@ -135420,7 +135518,7 @@ xPh
 gbz
 kvh
 cEn
-bre
+uQm
 aaa
 aaa
 laH
@@ -136183,7 +136281,7 @@ abq
 abq
 abq
 abq
-bre
+uQm
 eus
 gSu
 tau
@@ -136191,7 +136289,7 @@ olg
 vKU
 pji
 lcO
-bre
+uQm
 abq
 abq
 abq
@@ -136437,10 +136535,10 @@ laH
 aaa
 aaa
 aaa
-bre
-bre
-bre
-bre
+uQm
+uQm
+uQm
+uQm
 uQm
 gzU
 iUe
@@ -136448,10 +136546,10 @@ cDI
 mCu
 erC
 uQm
-bre
-bre
-bre
-bre
+uQm
+uQm
+uQm
+uQm
 aaa
 aaa
 aaa
@@ -136694,7 +136792,7 @@ laH
 aaa
 aaa
 aaa
-sjS
+wCn
 mdi
 ucO
 mdi
@@ -136708,7 +136806,7 @@ izh
 mdi
 ucO
 mdi
-sjS
+wCn
 aaa
 aaa
 aaa
@@ -136951,7 +137049,7 @@ laH
 aaa
 aaa
 aaa
-sjS
+wCn
 mdi
 cIP
 mdi
@@ -136965,7 +137063,7 @@ wDf
 mdi
 cIP
 mdi
-sjS
+wCn
 aaa
 aaa
 aaa

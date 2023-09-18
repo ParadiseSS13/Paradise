@@ -4,6 +4,7 @@
 /*CURRENT CONTENTS
 	Ball Toy
 	Cane
+	Crutches
 	Cardboard Tube
 	Fan
 	Gaming Kit
@@ -33,8 +34,35 @@
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
-/obj/item/cane/is_crutch()
-	return 1
+/obj/item/cane/get_crutch_efficiency()
+	return 2
+
+/obj/item/crutches
+	name = "crutches"
+	desc = "A medical device to help those who have injured or missing legs to walk."
+	gender = PLURAL
+	icon = 'icons/obj/surgery.dmi' // I mean like... cmon its basically medical.dmi
+	icon_state = "crutches0"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	flags = CONDUCT
+	force = 5
+	throwforce = 7
+	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_METAL = 500)
+	attack_verb = list("bludgeoned", "whacked", "cracked")
+
+/obj/item/crutches/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded = 5, force_wielded = 5, icon_wielded = "crutches1")
+
+/obj/item/crutches/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+	icon_state = "crutches0"
+	return ..()
+
+/obj/item/crutches/get_crutch_efficiency()
+	// 6 when wielded, 2 when not. Basically a small upgrade to just having 2 canes in each hand
+	return 2 + (4 * HAS_TRAIT(src, TRAIT_WIELDED)) // less efficient when you're holding both in a single hand
 
 /obj/item/c_tube
 	name = "cardboard tube"
