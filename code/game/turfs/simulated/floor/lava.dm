@@ -121,8 +121,8 @@
 			new /obj/structure/lattice/lava(locate(x, y, z))
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a heatproof lattice.</span>")
-		return
-	return
+			return
+
 
 /turf/simulated/floor/plating/lava/screwdriver_act()
 	return
