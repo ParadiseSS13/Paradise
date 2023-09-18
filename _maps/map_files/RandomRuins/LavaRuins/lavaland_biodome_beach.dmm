@@ -117,7 +117,8 @@
 "av" = (
 /obj/structure/table/wood,
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Beach Bar Desk"
 	},
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
@@ -166,7 +167,8 @@
 "aE" = (
 /obj/structure/table/wood,
 /obj/machinery/door/window/classic/normal{
-	dir = 8
+	dir = 8;
+	name = "Beach Bar Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
 	dir = 8

@@ -7048,7 +7048,8 @@
 	location = "Janitor"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Janitor Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
@@ -10065,7 +10066,8 @@
 	location = "Bar"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Bar Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
@@ -15778,10 +15780,6 @@
 	},
 /area/station/security/permabrig)
 "aVl" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8;
-	name = "Riot Control"
-	},
 /obj/structure/window/reinforced{
 	dir = 1;
 	layer = 2.9
@@ -17026,7 +17024,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
@@ -19199,7 +19198,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Kitchen Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
@@ -20071,7 +20071,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2
+	dir = 2;
+	name = "Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mining,
@@ -23406,15 +23407,7 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /obj/item/pen,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 2;
-	name = "Warden's Desk"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Warden's Desk"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 1
 	},
@@ -25447,11 +25440,14 @@
 "bqI" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
 /obj/machinery/door/window/classic/normal{
-	dir = 1
+	dir = 1;
+	name = "Mail Sorting"
 	},
 /obj/effect/decal/warning_stripes/arrow,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/access/any/supply/general,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -25554,10 +25550,6 @@
 	},
 /area/station/security/processing)
 "bqY" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8;
-	name = "Evidence Deposit"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 8
 	},
@@ -27661,7 +27653,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Atmospherics Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
@@ -35960,10 +35953,6 @@
 	},
 /area/station/security/detective)
 "bNo" = (
-/obj/machinery/door/window/reinforced/normal{
-	name = "Forensics Morgue";
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/forensics{
 	dir = 4
 	},
@@ -40385,10 +40374,6 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/window/reinforced/normal{
-	name = "Access Desk";
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/hop{
 	dir = 4
 	},
@@ -43590,9 +43575,6 @@
 	},
 /area/station/security/evidence)
 "ceE" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
@@ -47330,11 +47312,12 @@
 	location = "Security"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/window/classic/normal{
-	dir = 2
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
+/obj/machinery/door/window/classic/normal{
+	dir = 2;
+	name = "Security Delivery"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/range)
 "cnT" = (
@@ -51253,8 +51236,10 @@
 	dir = 4;
 	name = "Magboot Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/command/eva,
 /obj/item/clothing/shoes/magboots,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/eva{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cwS" = (
@@ -51776,7 +51761,9 @@
 	dir = 4;
 	name = "RCD Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/construction{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "cyf" = (
@@ -54309,11 +54296,12 @@
 	location = "Engineering"
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
+/obj/machinery/door/window/classic/reversed{
+	dir = 2;
+	name = "Engineering Delivery"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cEC" = (
@@ -57635,7 +57623,8 @@
 	location = "Medbay"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Medical Delivery"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
@@ -57887,10 +57876,6 @@
 	id_tag = "xeno4";
 	name = "Creature Cell #4"
 	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Creature Pen"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -57903,6 +57888,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 1;
+	name = "Containment Pen"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
@@ -57920,10 +57909,6 @@
 	id_tag = "xeno5";
 	name = "Creature Cell #5"
 	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Creature Pen"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -57936,6 +57921,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 1;
+	name = "Containment Pen"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
@@ -57944,10 +57933,6 @@
 	id_tag = "xeno6";
 	name = "Creature Cell #6"
 	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Creature Pen"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -57960,6 +57945,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 1;
+	name = "Containment Pen"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
@@ -59216,10 +59205,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cQG" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 2;
-	name = "Creature Pen"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -59227,6 +59212,9 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
+/obj/machinery/door/window/classic/normal{
+	name = "Containment Pen"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cQH" = (
@@ -59693,10 +59681,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "cRP" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8;
-	name = "Creature Pen"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "xenosecure";
 	name = "Secure Creature Cell"
@@ -59712,6 +59696,10 @@
 	icon_state = "2-4"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
+	dir = 8
+	},
+/obj/machinery/door/window/classic/normal{
+	name = "Containment Pen";
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -60366,10 +60354,6 @@
 	},
 /area/station/science/xenobiology)
 "cTs" = (
-/obj/machinery/door/window/reinforced/normal{
-	name = "Creature Pen";
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -60378,6 +60362,10 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 4
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 4;
+	name = "Containment Pen"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
@@ -60531,11 +60519,8 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Research Lab Desk";
+	name = s;
 	dir = 2
-	},
-/obj/machinery/door/window/classic/normal{
-	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -60549,6 +60534,10 @@
 	anchored = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
+/obj/machinery/door/window/classic/normal{
+	dir = 1;
+	name = "Research Lab Desk"
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/rnd)
 "cTG" = (
@@ -60698,9 +60687,6 @@
 /obj/machinery/door/firedoor,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	dir = 1
-	},
-/obj/machinery/door/window/classic/normal{
 	name = "Chemistry Desk";
 	dir = 2
 	},
@@ -60715,6 +60701,10 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_medi";
 	name = "Quarantine Lockdown"
+	},
+/obj/machinery/door/window/classic/normal{
+	dir = 1;
+	name = "Chemistry Desk"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/reception)
@@ -61798,10 +61788,6 @@
 	id_tag = "xeno1";
 	name = "Creature Cell #1"
 	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 2;
-	name = "Creature Pen"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -61813,6 +61799,9 @@
 	icon_state = "1-4"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
+/obj/machinery/door/window/classic/normal{
+	name = "Containment Pen"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
 "cWF" = (
@@ -61820,10 +61809,6 @@
 	id_tag = "xeno2";
 	name = "Creature Cell #2"
 	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 2;
-	name = "Creature Pen"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -61835,6 +61820,9 @@
 	icon_state = "1-4"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
+/obj/machinery/door/window/classic/normal{
+	name = "Containment Pen"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
 "cWG" = (
@@ -61842,10 +61830,6 @@
 	id_tag = "xeno3";
 	name = "Creature Cell #3"
 	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 2;
-	name = "Creature Pen"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -61857,6 +61841,9 @@
 	icon_state = "1-4"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
+/obj/machinery/door/window/classic/normal{
+	name = "Containment Pen"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/xenobiology)
 "cWH" = (
@@ -62819,7 +62806,8 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	dir = 8
+	dir = 8;
+	name = "Research Lab Desk"
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Research Lab Desk";
@@ -63830,7 +63818,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 4
+	dir = 4;
+	name = "Research Lab Desk"
 	},
 /obj/item/folder,
 /obj/item/pen,
@@ -64010,7 +63999,8 @@
 	name = "Chemistry Desk Shutters"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 8
+	dir = 8;
+	name = "Chemistry Desk"
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Chemistry Desk";
@@ -66497,7 +66487,8 @@
 	dir = 4
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 4
+	dir = 4;
+	name = "Glass Door"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/cloning)
@@ -66566,6 +66557,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -67000,7 +66994,8 @@
 	pixel_x = -32
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Glass Door"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/cloning)
@@ -67109,6 +67104,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -70911,7 +70909,8 @@
 	dir = 4
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 8
+	dir = 8;
+	name = "Genetics Desk"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -71676,14 +71675,15 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
 	dir = 8
 	},
-/obj/machinery/door/window/classic/normal{
-	dir = 4
-	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "robodesk";
 	name = "Robotics Desk Shutters"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/classic/normal{
+	dir = 4;
+	name = "Robotics Desk"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "dwq" = (
@@ -72465,11 +72465,12 @@
 	opacity = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/window/classic/reversed{
-	dir = 2
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics,
+/obj/machinery/door/window/classic/reversed{
+	dir = 2;
+	name = "Robotics Delivery"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "dyR" = (
@@ -72675,7 +72676,9 @@
 	pixel_x = -4;
 	pixel_y = 3
 	},
-/obj/effect/mapping_helpers/airlock/access/any/command/eva,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/eva{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
 "dzS" = (
@@ -79973,10 +79976,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "dWq" = (
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Creature Pen"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -79985,6 +79984,10 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 1;
+	name = "Containment Pen"
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
@@ -82486,10 +82489,6 @@
 /area/station/maintenance/fore)
 "fHe" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Security Checkpoint"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
 	dir = 1
 	},
@@ -88798,14 +88797,15 @@
 	codes_txt = "delivery";
 	location = "Science"
 	},
-/obj/machinery/door/window/classic/normal{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
 	dir = 4
+	},
+/obj/machinery/door/window/classic/normal{
+	dir = 4;
+	name = "Science Delivery"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/break_room)
@@ -89235,15 +89235,7 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /obj/item/pen,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 2;
-	name = "Secure Armory"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Secure Armory"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 1
 	},
@@ -96245,16 +96237,8 @@
 /obj/structure/table/reinforced,
 /obj/item/folder/red,
 /obj/item/pen,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 8;
-	name = "Warden's Desk"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 8
-	},
-/obj/machinery/door/window/reinforced/normal{
-	name = "Warden's Desk";
-	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 4
@@ -96812,7 +96796,8 @@
 	location = "Hydroponics"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Botany Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4

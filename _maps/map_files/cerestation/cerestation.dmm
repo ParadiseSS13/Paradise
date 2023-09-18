@@ -1855,7 +1855,8 @@
 /area/station/security/prisonershuttle)
 "alg" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 1
+	dir = 1;
+	name = "Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 1
@@ -9500,7 +9501,8 @@
 /area/station/hallway/primary/central)
 "bdt" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 4
+	dir = 4;
+	name = "Evidence Storage"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 4
@@ -15772,15 +15774,15 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/smartfridge/secure/medbay,
-/obj/machinery/door/window/classic/normal{
-	dir = 4;
-	name = "Medbay Fridge"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general{
 	dir = 4
+	},
+/obj/machinery/door/window/antitheft/normal{
+	dir = 4;
+	name = "Medbay Fridge"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -30800,7 +30802,8 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/engine,
@@ -36255,7 +36258,8 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/engine,
@@ -39068,9 +39072,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
 "eMW" = (
-/obj/machinery/door/window/classic/normal{
-	pixel_x = -1;
-	dir = 4
+/obj/machinery/door/window/classic/reversed{
+	dir = 4;
+	pixel_x = 1;
+	name = "Boxing Arena"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -45125,7 +45130,8 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/engine,
@@ -56346,7 +56352,8 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 1
+	dir = 1;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
@@ -65657,7 +65664,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/plasteel{
@@ -69089,7 +69097,8 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio,
 /turf/simulated/floor/engine,
@@ -70180,9 +70189,6 @@
 	},
 /area/station/hallway/secondary/entry/north)
 "pnr" = (
-/obj/machinery/door/window/classic/normal{
-	dir = 4
-	},
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
@@ -70195,6 +70201,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
 	dir = 4
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 4;
+	name = "Botany Delivery"
 	},
 /turf/simulated/floor/plating,
 /area/station/service/hydroponics)
@@ -74585,7 +74595,8 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 1
+	dir = 1;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
@@ -76198,7 +76209,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Bar Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
@@ -76875,7 +76887,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/door/window/classic/reversed{
-	dir = 1
+	dir = 1;
+	name = "Janitor Delivery"
 	},
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -80385,7 +80398,8 @@
 	name = "Security Blast Door"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Security Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
@@ -81828,7 +81842,8 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 1
+	dir = 1;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
@@ -89946,9 +89961,6 @@
 	codes_txt = "delivery";
 	location = "Kitchen"
 	},
-/obj/machinery/door/window/classic/normal{
-	dir = 4
-	},
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
@@ -89957,6 +89969,11 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 4
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 4;
+	pixel_x = 1;
+	name = "Kitchen Delivery"
 	},
 /turf/simulated/floor/plating,
 /area/station/service/kitchen)
@@ -90888,7 +90905,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 1
+	dir = 1;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
@@ -91817,7 +91835,8 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 1
+	dir = 1;
+	name = "Containment Pen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/xenobio{
 	dir = 1
@@ -93243,7 +93262,8 @@
 "wOe" = (
 /obj/machinery/door/window/classic/reversed{
 	dir = 8;
-	pixel_x = 1
+	pixel_x = 1;
+	name = "Boxing Arena"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

@@ -227,7 +227,8 @@
 /area/shuttle/administration)
 "rb" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2
+	dir = 2;
+	name = "Reinforced Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
@@ -471,7 +472,8 @@
 /area/shuttle/administration)
 "Bn" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2
+	dir = 2;
+	name = "Reinforced Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
@@ -649,7 +651,8 @@
 /area/shuttle/administration)
 "Ke" = (
 /obj/machinery/door/window/reinforced/reversed{
-	dir = 2
+	dir = 2;
+	name = "Reinforced Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
@@ -759,7 +762,8 @@
 /area/shuttle/administration)
 "Pe" = (
 /obj/machinery/door/window/reinforced/reversed{
-	dir = 2
+	dir = 2;
+	name = "Reinforced Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,

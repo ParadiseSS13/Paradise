@@ -23764,7 +23764,8 @@
 /area/station/hallway/primary/central/north)
 "bnb" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 8
+	dir = 8;
+	name = "Evidence Storage"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 8
@@ -32317,7 +32318,8 @@
 /area/station/medical/reception)
 "bJB" = (
 /obj/machinery/door/window/classic/normal{
-	dir = 8
+	dir = 8;
+	name = "Glass Door"
 	},
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
@@ -51578,7 +51580,8 @@
 /area/station/science/xenobiology)
 "cNd" = (
 /obj/machinery/door/window/classic/reversed{
-	dir = 2
+	dir = 2;
+	name = "Glass Door"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -65596,7 +65599,8 @@
 	name = "Security Blast Door"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2
+	dir = 2;
+	name = "Security Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
@@ -66319,11 +66323,6 @@
 	},
 /area/station/engineering/control)
 "guP" = (
-/obj/machinery/door/window/classic/reversed{
-	desc = "You have the public fridge, pal, lube off.";
-	dir = 2;
-	name = "Anti-Theft Shield"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
@@ -66336,6 +66335,9 @@
 	},
 /obj/machinery/smartfridge/medbay,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
+/obj/machinery/door/window/antitheft/reversed{
+	name = "Anti-Theft Shield"
+	},
 /turf/simulated/floor/plating,
 /area/station/medical/chemistry)
 "guQ" = (
@@ -68147,9 +68149,6 @@
 	dir = 1;
 	name = "Kitchen"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 1
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "hvS" = (
@@ -68325,8 +68324,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/effect/decal/warning_stripes/red,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -69347,7 +69351,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/classic/normal{
-	dir = 1
+	dir = 1;
+	name = "Assembly Line"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 1
@@ -71393,7 +71398,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 8
+	dir = 8;
+	name = "Body Delivery System"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -73920,9 +73926,6 @@
 /obj/machinery/door/window/classic/normal{
 	dir = 1;
 	name = "Kitchen"
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
@@ -79970,7 +79973,8 @@
 	location = "Engineering"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Engineering Delivery"
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/plasticflaps{
@@ -80341,7 +80345,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Bar Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
@@ -81749,7 +81754,8 @@
 	opacity = 1
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 1
+	dir = 1;
+	name = "Janitor Delivery"
 	},
 /obj/machinery/navbeacon{
 	codes_txt = "delivery";
@@ -82163,7 +82169,8 @@
 	dir = 4
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Body Delivery System"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -82214,7 +82221,8 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Bridge Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general,
@@ -82703,7 +82711,8 @@
 	location = "Kitchen"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 1
+	dir = 1;
+	name = "Kitchen Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 1
@@ -82971,7 +82980,8 @@
 /area/station/maintenance/apmaint)
 "qMh" = (
 /obj/machinery/door/window/reinforced/normal{
-	dir = 8
+	dir = 8;
+	name = "Evidence Storage"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 8
@@ -84889,7 +84899,8 @@
 /area/station/supply/storage)
 "sfM" = (
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Glass Door"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -87371,7 +87382,7 @@
 /obj/effect/turf_decal/delivery/red,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 2;
-	name = "Body delivery system"
+	name = "Body Delivery System"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/morgue,
 /turf/simulated/floor/plasteel{
@@ -88740,7 +88751,8 @@
 /area/station/maintenance/storage)
 "uuV" = (
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Glass Door"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -90100,7 +90112,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
@@ -93156,7 +93169,8 @@
 	},
 /obj/machinery/door/window/classic/normal{
 	layer = 3;
-	dir = 1
+	dir = 1;
+	name = "Delivery Chute"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
 	dir = 1
@@ -93729,7 +93743,8 @@
 	pixel_y = -24
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Body Delivery System"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -94195,7 +94210,8 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/window/classic/normal{
-	dir = 1
+	dir = 1;
+	name = "Botany Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 1

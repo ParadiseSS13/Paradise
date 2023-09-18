@@ -231,7 +231,8 @@
 	pixel_x = -3
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2
+	dir = 2;
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -48742,7 +48743,8 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/classic/reversed{
-	dir = 1
+	dir = 1;
+	name = "Research Division"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 1
@@ -52649,10 +52651,6 @@
 /area/station/science/xenobiology)
 "eBM" = (
 /obj/machinery/smartfridge/medbay,
-/obj/machinery/door/window/classic/reversed{
-	name = "Anti-Theft Shield";
-	dir = 8
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
 	dir = 8
 	},
@@ -52667,6 +52665,10 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/antitheft/normal{
+	dir = 8;
+	name = "Anti-Theft Shield"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteyellowfull"
@@ -58749,7 +58751,7 @@
 	name = "Upload Console Window";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -60996,10 +60998,12 @@
 	id_tag = "rndlab2";
 	name = "Secondary Research and Development Shutter"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
 /obj/item/desk_bell{
 	pixel_y = 8;
 	anchored = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplefull"
@@ -61333,7 +61337,8 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/pie,
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -63968,7 +63973,8 @@
 	opacity = 1
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2
+	dir = 2;
+	name = "Bar Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar,
@@ -64273,7 +64279,8 @@
 /area/station/hallway/primary/central)
 "jXR" = (
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Glass Door"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
@@ -66489,7 +66496,8 @@
 "lae" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2
+	dir = 2;
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -68778,7 +68786,8 @@
 "mbB" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -69161,7 +69170,8 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/classic/normal{
-	dir = 8
+	dir = 8;
+	name = "Engineering Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
@@ -72448,7 +72458,8 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/classic/reversed{
-	dir = 1
+	dir = 1;
+	name = "Medical Delivery"
 	},
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -73650,7 +73661,8 @@
 	name = "brig shutters"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Security Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
@@ -76753,7 +76765,8 @@
 	pixel_x = 3
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2
+	dir = 2;
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -77043,7 +77056,7 @@
 	name = "Cyborg Upload Console Window";
 	dir = 2
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78781,7 +78794,8 @@
 /area/station/science/xenobiology)
 "qYF" = (
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Bar Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/decal/cleanable/dirt,
@@ -82251,9 +82265,6 @@
 /area/station/security/brig)
 "sGC" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	dir = 2
-	},
 /obj/item/storage/fancy/donut_box,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -82263,6 +82274,10 @@
 	name = "Kitchen Counter Shutters"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
+/obj/machinery/door/window/classic/normal{
+	dir = 2;
+	name = "Kitchen"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -83359,7 +83374,8 @@
 	dir = 4
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
+	dir = 4;
+	name = "Shower"
 	},
 /obj/item/soap/deluxe,
 /obj/effect/landmark/spawner/xeno,
@@ -84126,10 +84142,13 @@
 	dir = 9
 	},
 /obj/machinery/door/window/reinforced/reversed{
-	dir = 8
+	dir = 8;
+	name = "Reinforced Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/science/research,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 8
+	},
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
 "tzs" = (
@@ -84531,7 +84550,8 @@
 "tIZ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2
+	dir = 2;
+	name = "Medical Reception"
 	},
 /obj/item/paper_bin{
 	pixel_x = 3;
@@ -85753,7 +85773,8 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/machinery/door/window/classic/normal{
-	dir = 8
+	dir = 8;
+	name = "Bridge Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
@@ -86602,7 +86623,9 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "uNL" = (
@@ -86911,7 +86934,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -87852,7 +87875,8 @@
 	opacity = 1
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2
+	dir = 2;
+	name = "Botany Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
@@ -88817,7 +88841,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /obj/machinery/door/window/classic/reversed{
-	dir = 8
+	dir = 8;
+	name = "Glass Door"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -89013,7 +89038,8 @@
 "vYV" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	dir = 2
+	dir = 2;
+	name = "Medical Reception"
 	},
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -90885,9 +90911,12 @@
 /area/station/engineering/control)
 "wWE" = (
 /obj/machinery/door/window/classic/normal{
+	dir = 1;
+	name = "Glass Door"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/all/science/rd{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/science/rd,
 /turf/simulated/floor/engine,
 /area/station/command/office/rd)
 "wWG" = (
