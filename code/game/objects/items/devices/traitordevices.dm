@@ -265,6 +265,7 @@
 	flawless = TRUE
 
 /obj/item/fireproofing_injector
+	name = "fireproofing injector"
 	desc = "It contains an alien nanoswarm created by the technomancers of boron. Through near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
