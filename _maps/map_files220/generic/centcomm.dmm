@@ -618,6 +618,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
+	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
@@ -1158,7 +1159,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
@@ -4992,6 +4992,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
+	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
@@ -6582,6 +6583,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
+	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
@@ -7353,6 +7355,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
+	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
@@ -7667,6 +7670,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
+	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
@@ -8773,6 +8777,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
+	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
@@ -10249,7 +10254,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
@@ -13156,7 +13160,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom220/bar)
 "Nt" = (
-/obj/mecha/working/ripley/mining,
+/obj/mecha/working/ripley,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/supply)
 "Nu" = (
@@ -14468,7 +14472,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
@@ -16240,7 +16243,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
 	},
