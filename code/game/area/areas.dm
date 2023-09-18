@@ -434,6 +434,9 @@
 	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == MOVE_INTENT_RUN)) // Being ready when you change areas gives you a chance to avoid falling all together.
 		thunk(L)
 
+	if(GLOB.configuration.general.disable_ambient_noise)
+		return
+
 	//Ship ambience just loops if turned on.
 	if(L && L.client && !L.client.ambience_playing && (L.client.prefs.sound & SOUND_BUZZ))
 		L.client.ambience_playing = TRUE

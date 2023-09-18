@@ -152,6 +152,12 @@
 			update_flags |= M.adjustOxyLoss(20, FALSE)
 	return list(effect, update_flags)
 
+/datum/reagent/nicotine/handle_addiction(mob/living/M, consumption_rate)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return
+
+	return ..()
+
 // basic antistun chem, removes stuns and stamina, mild downsides
 /datum/reagent/crank
 	name = "Crank"
@@ -262,7 +268,7 @@
 			if(prob(20))
 				if(ishuman(M))
 					var/mob/living/carbon/human/H = M
-					H.vomit(lost_nutrition = 0, blood = TRUE, stun = FALSE)
+					H.vomit(lost_nutrition = 0, blood = TRUE, should_confuse = FALSE)
 				M.KnockDown(1 SECONDS)
 			else
 				update_flags |= M.adjustStaminaLoss(10, FALSE)
@@ -586,7 +592,7 @@
 		var/mob/living/carbon/human/H = M
 		H.physiology.stun_mod /= tenacity
 		H.physiology.stamina_mod /= tenacity
-		H.vomit(blood = TRUE, stun = FALSE) // just a visual, very gritty. don't do drugs kids
+		H.vomit(blood = TRUE, should_confuse = FALSE) // just a visual, very gritty. don't do drugs kids
 		H.LoseBreath(10 SECONDS) // procs 5 times, mostly a visual thing. damage could stack to cause a slowdown.
 		H.Confused(10 SECONDS)
 
@@ -976,15 +982,19 @@
 	return list(0, update_flags)
 
 //Servo Lube, supercharge
-/datum/reagent/lube/ultra/combat
+/datum/reagent/lube/combat
 	name = "Combat-Lube"
 	id = "combatlube"
 	description = "Combat-Lube is a refined and enhanced lubricant which induces effect stronger than Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
+	process_flags = SYNTHETIC
 	overdose_threshold = 30
 	addiction_chance = 1
 	addiction_chance_additional = 20
 
-/datum/reagent/lube/ultra/combat/on_mob_life(mob/living/M)
+/datum/reagent/lube/combat/on_mob_add(mob/living/L)
+	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
+
+/datum/reagent/lube/combat/on_mob_life(mob/living/M)
 	M.SetSleeping(0)
 	M.SetDrowsy(0)
 
@@ -993,5 +1003,25 @@
 		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
 		to_chat(M, "<span class='notice'>[high_message]</span>")
+	return ..()
+
+/datum/reagent/lube/combat/on_mob_delete(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_GOTTAGOFAST, id)
+	..()
+
+/datum/reagent/lube/combat/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(prob(20))
+		M.emote("ping")
+	if(prob(33))
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
+		var/obj/item/I = M.get_active_hand()
+		if(I)
+			M.drop_item()
+	update_flags |= M.adjustFireLoss(5, FALSE)
+	update_flags |= M.adjustBrainLoss(3, FALSE)
+	return list(effect, update_flags)
 
 #undef DRAWBACK_CHANCE_MODIFIER

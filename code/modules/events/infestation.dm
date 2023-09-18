@@ -28,34 +28,34 @@
 	var/spawn_area_type
 	switch(location)
 		if(LOC_KITCHEN)
-			spawn_area_type = /area/crew_quarters/kitchen
+			spawn_area_type = /area/station/service/kitchen
 			locstring = "the kitchen"
 		if(LOC_ATMOS)
-			spawn_area_type = /area/atmos
+			spawn_area_type = /area/station/engineering/atmos
 			locstring = "atmospherics"
 		if(LOC_INCIN)
-			spawn_area_type = /area/maintenance/incinerator
+			spawn_area_type = /area/station/maintenance/incinerator
 			locstring = "the incinerator"
 		if(LOC_CHAPEL)
-			spawn_area_type = /area/chapel/main
+			spawn_area_type = /area/station/service/chapel
 			locstring = "the chapel"
 		if(LOC_LIBRARY)
-			spawn_area_type = /area/library
+			spawn_area_type = /area/station/service/library
 			locstring = "the library"
 		if(LOC_HYDRO)
-			spawn_area_type = /area/hydroponics
+			spawn_area_type = /area/station/service/hydroponics
 			locstring = "hydroponics"
 		if(LOC_VAULT)
-			spawn_area_type = /area/security/nuke_storage
+			spawn_area_type = /area/station/command/vault
 			locstring = "the vault"
 		if(LOC_CONSTR)
-			spawn_area_type = /area/construction
+			spawn_area_type = /area/station/public/construction
 			locstring = "the construction area"
 		if(LOC_TECH)
-			spawn_area_type = /area/storage/tech
+			spawn_area_type = /area/station/engineering/tech_storage
 			locstring = "technical storage"
 		if(LOC_ARMORY)
-			spawn_area_type = /area/security/securearmoury
+			spawn_area_type = /area/station/security/armory/secure
 			locstring = "armory"
 
 	for(var/areapath in typesof(spawn_area_type))

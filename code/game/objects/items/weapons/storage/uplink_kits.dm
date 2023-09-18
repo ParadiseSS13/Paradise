@@ -25,7 +25,7 @@
 		/obj/item/suppressor, // 1TC
 		/obj/item/ammo_box/magazine/m10mm,  // 1TC
 		/obj/item/ammo_box/magazine/m10mm/hp, // 2TC
-		/obj/item/twohanded/garrote, // 6TC
+		/obj/item/garrote, // 6TC
 		/obj/item/door_remote/omni/access_tuner, // 6TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/implanter/freedom, // 5TC
@@ -282,6 +282,11 @@
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
+/obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
+	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
+	for(var/i in 1 to 2)
+		new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
 	name = "atmos N2O grenades"

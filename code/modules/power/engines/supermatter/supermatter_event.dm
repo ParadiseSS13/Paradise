@@ -22,6 +22,7 @@
 	supermatter.event_active = src
 	on_start()
 	alert_engi()
+	supermatter.investigate_log("event [src] has been triggered", "supermatter")
 	if(duration)
 		addtimer(CALLBACK(src, PROC_REF(on_end)), duration)
 
@@ -38,7 +39,6 @@
 	supermatter.power_additive = 0
 	supermatter.heat_multiplier = 1
 	supermatter.event_active = null
-	supermatter.last_events += src
 
 /datum/supermatter_event/proc/sm_radio_say(text)
 	if(!text)
@@ -141,7 +141,8 @@
 	name = "B-3"
 
 /datum/supermatter_event/bravo_tier/power_additive/on_start()
-	supermatter.power_additive = 2000
+	supermatter.power += 3000
+	duration = 10 SECONDS
 
 //A class events
 /datum/supermatter_event/alpha_tier
