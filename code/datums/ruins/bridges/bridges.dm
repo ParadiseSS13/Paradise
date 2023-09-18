@@ -62,21 +62,21 @@
 
 /obj/effect/spawner/bridge/Initialize(mapload)
 	. = ..()
+	//TEMP REMOVALS TO STOP MC CRASHING
+	//var/turf/east = locate(x + 3, y, z)
+	//var/turf/west = locate(x - 3, y, z)
+	//var/turf/north = locate(x, y + 3, z)
+	//var/turf/south = locate(x, y - 3, z)
+	//var/turf/e1 = locate(x + 1, y, z)
+	//var/turf/w1 = locate(x - 1, y, z)
+	//var/turf/n1 = locate(x, y + 1, z)
+	//var/turf/s1 = locate(x, y - 1, z)
 
-	var/turf/east = locate(x + 3, y, z)
-	var/turf/west = locate(x - 3, y, z)
-	var/turf/north = locate(x, y + 3, z)
-	var/turf/south = locate(x, y - 3, z)
-	var/turf/e1 = locate(x + 1, y, z)
-	var/turf/w1 = locate(x - 1, y, z)
-	var/turf/n1 = locate(x, y + 1, z)
-	var/turf/s1 = locate(x, y - 1, z)
 
-
-	if((ismineralturf(east) || istype(east, /turf/simulated/floor/plating/asteroid)) && (ismineralturf(west) || istype(west, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(n1) || istype(n1, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(s1) || istype(s1, /turf/simulated/floor/plating/asteroid)))
-		template = GLOB.bridge_horizontal_templates[pick("lavaland_bridge_horizontal_1.dmm", "lavaland_bridge_horizontal_2.dmm", "lavaland_bridge_horizontal_3.dmm", "lavaland_bridge_horizontal_4.dmm", "lavaland_bridge_horizontal_5.dmm", "lavaland_bridge_horizontal_6.dmm")]
-		template.load(loc, centered = TRUE)
-	else if((ismineralturf(north) || istype(north, /turf/simulated/floor/plating/asteroid)) && (ismineralturf(south) || istype(south, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(e1) || istype(e1, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(w1) || istype(w1, /turf/simulated/floor/plating/asteroid)))
-		template = GLOB.bridge_vertical_templates[pick("lavaland_bridge_vertical_1.dmm", "lavaland_bridge_vertical_2.dmm", "lavaland_bridge_vertical_3.dmm", "lavaland_bridge_vertical_4.dmm", "lavaland_bridge_vertical_5.dmm", "lavaland_bridge_vertical_6.dmm")]
-		template.load(loc, centered = TRUE)
+	//if((ismineralturf(east) || istype(east, /turf/simulated/floor/plating/asteroid)) && (ismineralturf(west) || istype(west, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(n1) || istype(n1, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(s1) || istype(s1, /turf/simulated/floor/plating/asteroid)))
+	//	template = GLOB.bridge_horizontal_templates[pick("lavaland_bridge_horizontal_1.dmm", "lavaland_bridge_horizontal_2.dmm", "lavaland_bridge_horizontal_3.dmm", "lavaland_bridge_horizontal_4.dmm", "lavaland_bridge_horizontal_5.dmm", "lavaland_bridge_horizontal_6.dmm")]
+	//	template.load(loc, centered = TRUE)
+	//else if((ismineralturf(north) || istype(north, /turf/simulated/floor/plating/asteroid)) && (ismineralturf(south) || istype(south, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(e1) || istype(e1, /turf/simulated/floor/plating/asteroid)) && !(ismineralturf(w1) || istype(w1, /turf/simulated/floor/plating/asteroid)))
+	//	template = GLOB.bridge_vertical_templates[pick("lavaland_bridge_vertical_1.dmm", "lavaland_bridge_vertical_2.dmm", "lavaland_bridge_vertical_3.dmm", "lavaland_bridge_vertical_4.dmm", "lavaland_bridge_vertical_5.dmm", "lavaland_bridge_vertical_6.dmm")]
+	//	template.load(loc, centered = TRUE)
 	return INITIALIZE_HINT_QDEL

@@ -269,6 +269,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 					caveprob = 30 //More splitting
 				if(DEADLY_DEEPROCK) //Smaller into large rooms with more mobs.
 					caveprob = 10 //Less splitting
+			caveprob = 0 //TEMP CHANGE TO BLOCK THESE CAVES FROM CAUSING RECURSION
 			if(i > 3 && prob(caveprob))
 				var/turf/simulated/floor/plating/asteroid/airless/cave/C = tunnel.ChangeTurf(data_having_type, FALSE, TRUE)
 				C.going_backwards = FALSE
