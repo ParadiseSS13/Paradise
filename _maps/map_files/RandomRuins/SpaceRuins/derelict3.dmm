@@ -12,14 +12,45 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
+"h" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"j" = (
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"l" = (
+/obj/effect/decal/cleanable/blood/drip,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"w" = (
+/obj/item/gun/energy/laser/retro,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 "y" = (
 /mob/living/simple_animal/hostile/carp/megacarp,
 /turf/template_noop,
 /area/template_noop)
+"B" = (
+/obj/item/gun/energy/plasmacutter,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"F" = (
+/obj/effect/decal/remains/xeno,
+/obj/effect/decal/cleanable/blood/gibs/xeno/body,
+/obj/effect/decal/cleanable/blood/gibs/xeno,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 "G" = (
 /mob/living/simple_animal/hostile/carp,
 /turf/template_noop,
 /area/template_noop)
+"O" = (
+/obj/effect/decal/remains/robot,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 "U" = (
 /obj/structure/lattice,
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon,
@@ -27,6 +58,11 @@
 /area/space/nearstation)
 "V" = (
 /obj/item/sellable/salvage/ruin,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"Z" = (
+/obj/effect/decal/cleanable/blood/gibs/xeno/core,
+/obj/effect/decal/cleanable/blood/gibs/xeno,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 
@@ -724,7 +760,7 @@ d
 b
 b
 c
-b
+j
 b
 b
 d
@@ -766,9 +802,9 @@ b
 b
 b
 c
-b
-b
-b
+F
+B
+j
 d
 a
 a
@@ -808,8 +844,8 @@ b
 b
 b
 c
-b
-b
+Z
+j
 b
 d
 a
@@ -973,7 +1009,7 @@ d
 d
 b
 b
-b
+O
 b
 d
 d
@@ -1008,7 +1044,7 @@ b
 b
 b
 c
-b
+O
 b
 d
 d
@@ -1136,7 +1172,7 @@ c
 V
 b
 b
-b
+l
 d
 d
 d
@@ -1217,15 +1253,15 @@ a
 b
 b
 b
-b
-b
-b
+w
+h
+l
 d
 d
 d
 d
 b
-b
+O
 b
 b
 b

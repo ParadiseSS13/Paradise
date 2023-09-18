@@ -591,8 +591,8 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon
 	name = "space dragon"
-	maxHealth = 500
-	health = 500
+	maxHealth = 1000
+	health = 1000
 	faction = list("carp")
 	desc = "A space carp turned dragon by vile magic.  Has the same ferocity of a space carp, but also a much more enabling body."
 	icon = 'icons/mob/spacedragon.dmi'
@@ -604,8 +604,10 @@ Difficulty: Medium
 	melee_damage_lower = 35
 	speed = 0
 	move_to_delay = 3
+	rapid = 2
+	retreat_distance = 5
 	mouse_opacity = MOUSE_OPACITY_ICON
-	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, /obj/item/clothing/suit/hooded/carp_costume/dragon, /obj/item/fish_eggs/babycarp)
+	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, /obj/item/clothing/suit/hooded/carp_costume/dragon, /obj/item/fish_eggs/babycarp, /obj/effect/temp_visual/cult/portal)
 	crusher_loot = list()
 	butcher_results = list(/obj/item/stack/ore/diamond = 10, /obj/item/stack/sheet/sinew = 5, /obj/item/stack/sheet/bone = 30)
 	move_force = MOVE_FORCE_NORMAL
@@ -623,7 +625,7 @@ Difficulty: Medium
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/proc/fire_stream(atom/at = target)
-	playsound(get_turf(src),'sound/magic/fireball.ogg', 200, TRUE)
+	playsound(get_turf(src),'sound/magic/magic_missile.ogg', 200, TRUE)
 	SLEEP_CHECK_DEATH(0)
 	var/range = 20
 	var/list/turfs = list()

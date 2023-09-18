@@ -310,7 +310,8 @@
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/hooded/carp_costume/dragon
-	desc = "An outfit made from real carp scales, it still smells."
+	name = "space carp poncho"
+	desc = "A poncho fashioned from the scales of a corrupted space carp, it still smells."
 	armor = list(MELEE = 55, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS|HANDS|FEET
@@ -333,8 +334,9 @@
 
 
 /obj/item/clothing/head/hooded/carp_hood/dragon
-	armor = list(MELEE = 55, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	name = "space carp hood"
 	desc = "Fashioned from the maw of a carp, this outfit makes you feel like a fish out of water."
+	armor = list(MELEE = 55, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	flags = STOPSPRESSUREDMAGE
