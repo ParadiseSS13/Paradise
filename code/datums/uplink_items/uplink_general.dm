@@ -84,7 +84,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
-	var/uses_special_spawn = FALSE // Our special little snowflakes that have to be spawned in a different way
+	/// Our special little snowflakes that have to be spawned in a different way than normal, like a surplus crate spawning a crate or contractor kits
+	var/uses_special_spawn = FALSE
 
 /datum/uplink_item/proc/spawn_item(turf/loc, obj/item/uplink/U)
 
