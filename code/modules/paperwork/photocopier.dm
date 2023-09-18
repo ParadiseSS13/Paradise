@@ -410,7 +410,7 @@
 				. = TRUE
 		if("scandocument")
 			scan_document()
-		if("aipic")
+		if("ai_pic")
 			ai_pic()
 		if("filecopy")
 			file_copy(params["uid"])
