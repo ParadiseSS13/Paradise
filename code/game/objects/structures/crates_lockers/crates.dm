@@ -610,4 +610,3 @@
 	log_admin(msg)
 
 #undef RECURSION_PANIC_AMOUNT
-#undef LEGACY_TC
