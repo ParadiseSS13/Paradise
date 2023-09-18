@@ -95,6 +95,17 @@ const Actions = (props, context) => {
         content="Scan"
         onClick={() => act('scandocument')}
       />
+      {!!data.issilicon && (
+      <Button
+        fluid
+        icon="image"
+        color="green"
+        float="center"
+        textAlign="center"
+        content="Print from database"
+        onClick={() => act('aipic')}
+      />
+      )}
     </Fragment>
   );
 };
