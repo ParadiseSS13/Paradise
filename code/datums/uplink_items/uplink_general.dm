@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Chainsaw"
 	desc = "A high powered chainsaw for cutting up ...you know...."
 	reference = "CH"
-	item = /obj/item/twohanded/chainsaw
+	item = /obj/item/butcher_chainsaw
 	cost = 65
 
 /datum/uplink_item/dangerous/universal_gun_kit
@@ -274,11 +274,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Fiber Wire Garrote"
 	desc = "A length of fiber wire between two wooden handles, perfect for the discrete assassin. This weapon, when used on a target from behind \
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
+	item = /obj/item/garrote
 	reference = "GAR"
-	item = /obj/item/twohanded/garrote
 	cost = 30
-
-
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -668,7 +666,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
 	reference = "HAI"
 	item = /obj/item/aiModule/syndicate
-	cost = 60
+	cost = 15
 
 /datum/uplink_item/device_tools/powersink
 	name = "Power Sink"

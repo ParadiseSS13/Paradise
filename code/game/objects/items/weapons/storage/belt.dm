@@ -183,7 +183,7 @@
 		/obj/item/flashlight/pen,
 		/obj/item/clothing/mask/surgical,
 		/obj/item/clothing/gloves/color/latex,
-		/obj/item/reagent_containers/hypospray/autoinjector,
+		/obj/item/reagent_containers/hypospray/autoinjector/epinephrine,
 		/obj/item/reagent_containers/hypospray/CMO,
 		/obj/item/reagent_containers/hypospray/safety,
 		/obj/item/sensor_device,
@@ -515,7 +515,7 @@
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
 		/obj/item/storage/bag/trash,
-		/obj/item/twohanded/push_broom,
+		/obj/item/push_broom,
 		/obj/item/door_remote/janikeyring
 		)
 

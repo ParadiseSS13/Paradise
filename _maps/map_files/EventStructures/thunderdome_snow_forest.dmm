@@ -1,0 +1,156 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"j" = (
+/obj/structure/flora/grass/brown,
+/turf/simulated/floor/plating/snow,
+/area/tdome/arena)
+"K" = (
+/obj/structure/flora/tree/pine,
+/turf/simulated/floor/plating/snow,
+/area/tdome/arena)
+"R" = (
+/turf/simulated/floor/plating/snow,
+/area/tdome/arena)
+"S" = (
+/obj/structure/flora/grass/green,
+/turf/simulated/floor/plating/snow,
+/area/tdome/arena)
+"Y" = (
+/obj/structure/flora/grass/both,
+/turf/simulated/floor/plating/snow,
+/area/tdome/arena)
+
+(1,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(2,1,1) = {"
+R
+R
+R
+S
+R
+R
+R
+"}
+(3,1,1) = {"
+R
+K
+R
+R
+R
+K
+R
+"}
+(4,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(5,1,1) = {"
+R
+j
+R
+R
+R
+Y
+R
+"}
+(6,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(7,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(8,1,1) = {"
+R
+R
+R
+K
+R
+R
+R
+"}
+(9,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(10,1,1) = {"
+R
+Y
+R
+R
+S
+R
+R
+"}
+(11,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(12,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}
+(13,1,1) = {"
+R
+K
+R
+R
+R
+K
+R
+"}
+(14,1,1) = {"
+R
+R
+R
+j
+R
+R
+R
+"}
+(15,1,1) = {"
+R
+R
+R
+R
+R
+R
+R
+"}

@@ -48,6 +48,8 @@
 
 #define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell //stun resistance and halved damage for gargantua vampires
 
+#define STATUS_EFFECT_VAMPIRE_GLADIATOR /datum/status_effect/vampire_gladiator // Bonebreak, IB and burn wound immunity for garg vampires and healing.
+
 #define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush // speed boost for gargantua vampires
 
 #define STATUS_EFFECT_CHAINSAW_SLAYING /datum/status_effect/chainsaw_slaying // Stun immunity, very slight damage resistance
@@ -173,6 +175,8 @@
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
 /// This status effect lets the user see the lwap dots.
 #define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
+/// This status effect allows a mob to be revived with a defibrillator.
+#define STATUS_EFFECT_REVIVABLE /datum/status_effect/limited_bonus/revivable
 
 //////////////////////////
 // Mind batter variants //
