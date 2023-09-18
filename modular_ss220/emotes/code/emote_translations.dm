@@ -273,10 +273,6 @@
 	message_param = "щелкает пальцами на %t."
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
-/datum/emote/living/carbon/human/fart
-	message = "пердит."
-	message_param = "пердит в направлении %t."
-
 /datum/emote/living/carbon/sign/signal
 	message_param = "показывает %t пальцев."
 	param_desc = "число(0-10)"

@@ -361,6 +361,15 @@
 		'modular_ss220/emotes/audio/kidan/wiggles_kidan_2.ogg',
 		'modular_ss220/emotes/audio/kidan/wiggles_kidan_3.ogg')
 
+/datum/emote/living/carbon/human/fart
+	message = "пердит."
+	message_param = "пердит в направлении %t."
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	vary = TRUE
+	muzzle_ignore = TRUE
+	only_forced_audio = TRUE
+	bypass_unintentional_cooldown = TRUE
+	sound = 'modular_ss220/emotes/audio/fart.ogg'
 
 ////////////////////
 /// Keybindings ///
