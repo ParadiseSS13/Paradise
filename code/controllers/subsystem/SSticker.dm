@@ -629,8 +629,8 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/M in GLOB.player_list)
 		var/kudos = M.mind?.kudos_received_from
 		if(length(kudos))
-			kudos_message = pick(length(kudos) > 10 ? special_encouragement_messages : base_encouragement_messages)
-			to_chat(M, "<span class='green big'>You received <b>[length(M.mind?.kudos_received_from)]</b> kudos from other players this round! [kudos_message]</span>")
+			kudos_message = pick(length(kudos) > 5 ? special_encouragement_messages : base_encouragement_messages)
+			to_chat(M, "<span class='green big'>You received <b>[length(M.mind.kudos_received_from)]</b> kudos from other players this round! [kudos_message]</span>")
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()
