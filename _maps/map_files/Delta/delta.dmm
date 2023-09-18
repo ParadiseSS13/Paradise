@@ -17195,14 +17195,14 @@
 /area/station/supply/qm)
 "aYi" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/cargo{
 	pixel_x = -3
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/cargo{
 	pixel_x = 5;
 	pixel_y = 3
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/cargo{
 	pixel_x = -1;
 	pixel_y = 7
 	},
