@@ -451,6 +451,11 @@
 	backpack_contents = list(
 		/obj/item/videocam/advanced = 1)
 
+/datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(H.mind)
+		H.grant_all_babel_languages()
+
 /datum/job/barber
 	title = "Barber"
 	flag = JOB_BARBER
