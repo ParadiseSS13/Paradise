@@ -28536,16 +28536,11 @@
 	},
 /area/station/hallway/secondary/bridge)
 "bLT" = (
-/obj/machinery/door/window/classic/reversed{
-	name = "Toxins Launcher";
-	req_access_txt = "7";
-	dir = 2
+/obj/machinery/door/window/classic/normal,
+/obj/machinery/door/window/classic/normal{
+	dir = 1
 	},
-/obj/machinery/door/window/classic/reversed{
-	dir = 1;
-	name = "Toxins Launcher";
-	req_access_txt = "7"
-	},
+/obj/effect/mapping_helpers/airlock/access/all/science/tox,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
 "bMj" = (
