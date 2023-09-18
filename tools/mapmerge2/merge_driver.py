@@ -34,7 +34,7 @@ def select(base, left, right, *, debug=None):
         return None
 
 
-def three_way_merge(base:dmm.DMM, left:dmm.DMM, right:dmm.DMM):
+def three_way_merge(base: dmm.DMM, left: dmm.DMM, right: dmm.DMM):
     if base.size != left.size or base.size != right.size:
         print("Dimensions have changed:")
         print(f"    Base: {base.size}")
@@ -52,7 +52,7 @@ def three_way_merge(base:dmm.DMM, left:dmm.DMM, right:dmm.DMM):
     # key. If so, we clobber the key and reuse the one from the left/right to
     # reduce key changes that may cascade throughout the file, causing noisy
     # unrelated diffs.
-    def swap_in_from_leftright(coord, leftright:dmm.DMM, tiledata:tuple):
+    def swap_in_from_leftright(coord, leftright: dmm.DMM, tiledata: tuple):
         swap_in_key = leftright.dictionary.inv[tiledata]
         if swap_in_key in merged.dictionary and merged.dictionary[swap_in_key] != tiledata:
             curdata = merged.dictionary[swap_in_key]
