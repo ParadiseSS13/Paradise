@@ -97,15 +97,15 @@ const Actions = (props, context) => {
         onClick={() => act('scandocument')}
       />
       {!!issilicon && (
-      <Button
-        fluid
-        icon="image"
-        color="green"
-        float="center"
-        textAlign="center"
-        content="Print from database"
-        onClick={() => act('ai_pic')}
-      />
+        <Button
+          fluid
+          icon="image"
+          color="green"
+          float="center"
+          textAlign="center"
+          content="Print from database"
+          onClick={() => act('ai_pic')}
+        />
       )}
     </Fragment>
   );
