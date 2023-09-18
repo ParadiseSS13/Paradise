@@ -619,7 +619,8 @@ SUBSYSTEM_DEF(ticker)
 		"This is going on the fridge!",
 		"Looks like you're popular!",
 		"That's what we like to see!",
-		"Hell yeah, brother!"
+		"Hell yeah, brother!",
+		"Honestly, quite incredible!"
 	)
 
 	// Tell people how many kudos they got this round
