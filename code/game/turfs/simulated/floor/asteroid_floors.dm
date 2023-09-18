@@ -1,6 +1,7 @@
 
 /**********************Asteroid**************************/
 
+#define RECURSION_MAX 100
 /turf/simulated/floor/plating/asteroid
 	gender = PLURAL
 	name = "asteroid sand"
@@ -171,6 +172,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	var/backward_cave_dir = 2
 	var/going_backwards = TRUE
 	var/has_data = FALSE
+	/// Very important for making sure prod won't die due to poor RNG from cave spawns
+	var/recursions = 0
 	var/data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
@@ -241,7 +244,10 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	var/turf/simulated/mineral/tunnel = src
 	var/next_angle = pick(45, -45)
 
-	for(var/i = 0; i < length; i++)
+	for(var/i in 1 to length)
+		++recursions
+		if(recursions > RECURSION_MAX)
+			break
 		if(!sanity)
 			break
 
@@ -271,6 +277,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 					caveprob = 10 //Less splitting
 			if(i > 3 && prob(caveprob))
 				var/turf/simulated/floor/plating/asteroid/airless/cave/C = tunnel.ChangeTurf(data_having_type, FALSE, TRUE)
+				C.recursions = recursions
 				C.going_backwards = FALSE
 				C.produce_tunnel_from_data(rand(10, 15), dir)
 			else
@@ -382,6 +389,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 
 #undef SPAWN_MEGAFAUNA
 #undef SPAWN_BUBBLEGUM
+#undef RECURSION_MAX
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
 	var/floraprob = 12
