@@ -1,6 +1,6 @@
 /obj/item/grenade/megafauna_hardmode
-	desc = "An advanced grenade that releases nanomachines, which enter nearby megafauna. This will enrage them greatly, but allows nanotrasen to fully research their abilities."
 	name = "\improper HRD-MDE Scanning Grenade"
+	desc = "An advanced grenade that releases nanomachines, which enter nearby megafauna. This will enrage them greatly, but allows nanotrasen to fully research their abilities."
 	icon = 'icons/obj/grenade.dmi'
 	icon_state = "enrager"
 	item_state = "grenade"

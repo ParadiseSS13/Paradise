@@ -12,10 +12,7 @@
 	///List of callback timers, used to clear out mobs listening to boss music after `track_duration`.
 	var/list/music_callbacks = list()
 
-/datum/component/boss_music/Initialize(
-	boss_track,
-	track_duration
-)
+/datum/component/boss_music/Initialize(boss_track, track_duration)
 	. = ..()
 	if(!ishostile(parent))
 		return COMPONENT_INCOMPATIBLE
