@@ -130,12 +130,13 @@ Difficulty: Hard
 	return //They are pissed. Also whoever enraged them is stuck fighting them so, kinda a M.A.D situation.
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/i_see_you(source, target)
-	if(ishuman(target))
-		var/mob/living/carbon/human/H = target
-		H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
-		if(second_life)
-			H.clear_fullscreen("Bubblegum")
-			H.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 2)
+	if(!ishuman(target))
+		return
+	var/mob/living/carbon/human/H = target
+	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
+	if(second_life)
+		H.clear_fullscreen("Bubblegum")
+		H.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 2)
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
