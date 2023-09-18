@@ -23612,7 +23612,6 @@
 	},
 /area/station/service/library)
 "bmF" = (
-/obj/structure/cult/archives,
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
