@@ -19,7 +19,7 @@
 		impact_area = findEventArea()
 		if(!impact_area)
 			if(warn_on_fail)
-				log_debug("No valid areas for anomaly found.")
+				stack_trace("No valid areas for anomaly found.")
 				kill()
 			return
 		var/list/candidate_turfs = get_area_turfs(impact_area)
@@ -31,7 +31,7 @@
 		if(target_turf)
 			break
 	if(!target_turf)
-		log_debug("Anomaly: Unable to find a valid turf to spawn the anomaly. Last area tried: [impact_area] - [impact_area.type]")
+		stack_trace("Anomaly: Unable to find a valid turf to spawn the anomaly. Last area tried: [impact_area] - [impact_area.type]")
 		kill()
 		return
 
