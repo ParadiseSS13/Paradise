@@ -266,7 +266,7 @@
 	strip_delay = 100
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
-		)
+	)
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
