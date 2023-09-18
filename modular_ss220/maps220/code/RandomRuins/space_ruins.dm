@@ -66,3 +66,12 @@
 	allow_duplicates = FALSE 
 	always_place = TRUE 
 	cost = 0 
+
+/datum/map_template/ruin/space/voxraiders_1
+	name = "Vox Raiders"
+	id = "Vox_Raiders"
+	description = "A small Vox skipjack near some space scrap. They will definitely not tolerate new rivals."
+	prefix = "_maps/map_files220/RandomRuins/SpaceRuins/"
+	suffix = "voxraiders_1.dmm"
+	cost = 4
+	allow_duplicates = FALSE
