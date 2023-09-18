@@ -611,7 +611,7 @@ SUBSYSTEM_DEF(ticker)
 		"Keep on keeping on!",
 		"Great job!",
 		"Keep up the good work!",
-		"Nice going!",
+		"Nice going!"
 	)
 
 	var/static/list/special_encouragement_messages = list(

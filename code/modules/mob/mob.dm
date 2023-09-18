@@ -1598,7 +1598,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	set category = null
 	set name = "Give Kudos (OOC)"
 
-
 	if(target == src)
 		to_chat(src, "<span class='warning'>You cannot give kudos to yourself!</span>")
 		return
