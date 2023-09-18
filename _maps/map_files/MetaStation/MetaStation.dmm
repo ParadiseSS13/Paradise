@@ -32507,8 +32507,6 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = 30
 	},
-/obj/structure/cult/archives,
-/obj/item/book/codex_gigas,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -38024,6 +38022,7 @@
 "cox" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
+/obj/item/book/codex_gigas,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},

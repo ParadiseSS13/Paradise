@@ -50565,7 +50565,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cvo" = (
-/obj/structure/cult/archives,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},

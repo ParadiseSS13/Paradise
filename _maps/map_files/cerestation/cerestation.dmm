@@ -61011,6 +61011,7 @@
 /obj/structure/table/wood,
 /obj/item/camera,
 /obj/item/taperecorder,
+/obj/item/book/codex_gigas,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -94585,8 +94586,6 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
-/obj/item/book/codex_gigas,
-/obj/structure/cult/archives,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
