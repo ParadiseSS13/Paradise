@@ -160,7 +160,7 @@
 
 /obj/item/cartridge/qm
 	name = "Space Parts & Space Vendors Cartridge DELUXE"
-	desc = "A data cartridge for portable microcomputers. Has supply records and MULEbot control and a status display controller."
+	desc = "A data cartridge for portable microcomputers. Has supply records, MULEbot control and a status display controller."
 	icon_state = "cart-q"
 	programs = list(
 		new /datum/data/pda/app/supply,
