@@ -147,7 +147,7 @@
 	icon_state = "cart-q"
 	programs = list(
 		new /datum/data/pda/app/supply,
-		new /datum/data/pda/app/mule_control,
+		new /datum/data/pda/app/mule_control
 	)
 
 /obj/item/cartridge/head
