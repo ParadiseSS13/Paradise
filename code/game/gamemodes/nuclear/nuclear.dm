@@ -265,7 +265,7 @@
 	R.set_frequency(radio_freq)
 	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
 
-	var/back = /obj/item/storage/backpack
+	var/back
 
 	switch(synd_mob.backbag)
 		if(GBACKPACK, DBACKPACK)
