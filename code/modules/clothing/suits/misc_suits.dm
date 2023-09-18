@@ -295,7 +295,7 @@
 	item_state = "labcoat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
+	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT	//Space carp like space, so you should too
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	hoodtype = /obj/item/clothing/head/hooded/carp_hood
 
@@ -305,9 +305,41 @@
 	icon_state = "carp_casual"
 	body_parts_covered = HEAD
 	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
 	flags = BLOCKHAIR
 	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon
+	desc = "An outfit made from real carp scales, it still smells."
+	armor = list(MELEE = 55, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS|HANDS|FEET
+	flags = STOPSPRESSUREDMAGE
+
+	hoodtype = /obj/item/clothing/head/hooded/carp_hood/dragon
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == slot_wear_suit)
+		user.faction += "carp"
+		to_chat(user, "<span class='cult'>You feel a something gnash in the back of your mind- the carp are your friends, not your foe.</span>")
+		playsound(loc, 'sound/weapons/bite.ogg', 35, 1)
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon/dropped(mob/user)
+	. = ..()
+	if(user)
+		user.faction -= "carp"
+		to_chat(user, "<span class='cult'>A sudden calm fills the gnashing void of your mind- you're alone now.</span>")
+
+
+/obj/item/clothing/head/hooded/carp_hood/dragon
+	armor = list(MELEE = 55, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	desc = "Fashioned from the maw of a carp, this outfit makes you feel like a fish out of water."
+	body_parts_covered = HEAD
+	cold_protection = HEAD
+	flags = STOPSPRESSUREDMAGE
+
+
 
 /obj/item/clothing/suit/hooded/salmon_costume
 	name = "salmon suit"

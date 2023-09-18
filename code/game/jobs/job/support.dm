@@ -146,12 +146,12 @@
 /datum/outfit/job/explorer
 	name = "Explorer"
 	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/color/orange
+	l_ear = /obj/item/radio/headset/headset_cargo/mining
+	head = /obj/item/clothing/head/expedition
+	uniform = /obj/item/clothing/under/rank/cargo/expedition
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/workboots
-	glasses = /obj/item/clothing/glasses/welding
-	belt = /obj/item/storage/belt/utility
-	l_pocket = /obj/item/gps
+	shoes = /obj/item/clothing/shoes/jackboots
+	belt = /obj/item/storage/belt/utility/expedition
 	id = /obj/item/card/id/explorer
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
