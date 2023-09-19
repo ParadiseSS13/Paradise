@@ -217,12 +217,6 @@
 	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
-	if(iscarbon(user)) //don't want cyborgs dropping their stuff
-		for(var/obj/item/W in user)
-			if(istype(W, /obj/item/implant))
-				continue
-			if(!user.unEquip(W))
-				qdel(W)
 	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
 	user.gib()
 
