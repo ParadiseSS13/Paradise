@@ -219,6 +219,7 @@
 	belt = /obj/item/storage/belt/utility/full/multitool
 	pda = /obj/item/pda/heads/ert/engineering
 	id = /obj/item/card/id/ert/engineering
+	belt = /obj/item/storage/belt/utility/chief/full
 
 /datum/outfit/job/centcom/response_team/engineer/amber
 	name = "RT Engineer (Amber)"
@@ -227,7 +228,6 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
-	belt = /obj/item/storage/belt/utility/chief/full
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened,
@@ -247,7 +247,6 @@
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "RT Engineer (Red)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
@@ -274,7 +273,6 @@
 	name = "RT Engineer (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
-	belt = /obj/item/storage/belt/utility/chief/full
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
