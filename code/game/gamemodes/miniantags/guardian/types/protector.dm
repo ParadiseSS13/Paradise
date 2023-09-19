@@ -6,7 +6,7 @@
 	melee_damage_upper = 15
 	range = 15 //worse for it due to how it leashes
 	damage_transfer = 0.4
-	playstyle_string = "As a <b>Protector</b> type you cause your summoner to leash to you instead of you leashing to them and have two modes; Combat Mode, where you do and take medium damage, and Protection Mode, where you do and take almost no damage, but move slightly slower, as well as have a protective shield."
+	playstyle_string = "As a <b>Protector</b> type you cause your summoner to leash to you instead of you leashing to them and have two modes; Combat Mode, where you do and take medium damage, and Protection Mode, where you do and take almost no damage, but move slightly slower, as well as have a protective shield. Nobody can walk through your shield, but you can still move your shield through them."
 	magic_fluff_string = "..And draw the Guardian, a stalwart protector that never leaves the side of its charge."
 	tech_fluff_string = "Boot sequence complete. Protector modules loaded. Holoparasite swarm online."
 	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to defend you."
