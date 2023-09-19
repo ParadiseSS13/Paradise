@@ -10157,20 +10157,6 @@
 /obj/structure/chair,
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint2)
-"aEL" = (
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/atmos{
-	name = "Fore-Port Secondary Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
 "aEN" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -65263,26 +65249,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/atmos{
-	name = "Fore-Port Secondary Maintenance";
-	req_access_txt = "12;24"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/atmos{
-	name = "Aft-Starboard Atmospherics Maintenance"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/atmos{
+	name = "Fore-Port Secondary Atmospherics Maintenance"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "hoz" = (
