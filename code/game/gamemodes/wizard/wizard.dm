@@ -5,6 +5,7 @@
 /datum/game_mode/wizard
 	name = "wizard"
 	config_tag = "wizard"
+	tdm_gamemode = TRUE
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
@@ -164,11 +165,7 @@
 
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
-		if(!iscarbon(wizard.current))
-			continue
-		if(wizard.current.stat==DEAD)
-			continue
-		if(istype(wizard.current, /obj/item/mmi)) // wizard is in an MMI, don't count them as alive
+		if(!iscarbon(wizard.current) || wizard.current.stat == DEAD) // wizard is in an MMI, don't count them as alive
 			continue
 		wizards_alive++
 

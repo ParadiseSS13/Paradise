@@ -194,9 +194,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/highsecurity{
-	name = "Bio Containment";
-	req_one_access_txt = "47"
+	name = "Bio Containment"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -372,7 +372,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/medical,
+/obj/item/mod/control/pre_equipped/medical,
 /obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

@@ -28,6 +28,10 @@
 
 	return item_to_test && item_to_test.is_equivalent(I)
 
+/// Check if an item is in one of our hands
+/mob/proc/is_holding(obj/item/I)
+	return istype(I) && (I == r_hand || I == l_hand)
+
 
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()
@@ -138,6 +142,10 @@
 		return TRUE
 	if((I.flags & NODROP) && !force)
 		return FALSE
+
+	if((SEND_SIGNAL(I, COMSIG_ITEM_PRE_UNEQUIP, force) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
+		return FALSE
+
 	return TRUE
 
 /mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
@@ -261,11 +269,19 @@
 		S.handle_item_insertion(src)
 		return 1
 
-	S = M.get_item_by_slot(slot_back)	//else we put in backpack
-	if(istype(S) && S.can_be_inserted(src, 1))
-		S.handle_item_insertion(src)
-		playsound(loc, "rustle", 50, 1, -5)
-		return 1
+	var/obj/item/O = M.get_item_by_slot(slot_back)	//else we put in backpack
+	if(istype(O, /obj/item/storage))
+		S = O
+		if(S.can_be_inserted(src, 1))
+			S.handle_item_insertion(src)
+			playsound(loc, "rustle", 50, TRUE, -5)
+			return 1
+	if(ismodcontrol(O))
+		var/obj/item/mod/control/C = O
+		if(C.can_be_inserted(src, 1))
+			C.handle_item_insertion(src)
+			playsound(loc, "rustle", 50, TRUE, -5)
+			return 1
 
 	to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
 	return 0

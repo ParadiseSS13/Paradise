@@ -254,6 +254,11 @@
 			//Now, S represents a container we can insert W into.
 			S.handle_item_insertion(W, TRUE, TRUE)
 			return S
+		if(ismodcontrol(back))
+			var/obj/item/mod/control/C = back
+			if(C.bag)
+				C.bag.handle_item_insertion(W, TRUE, TRUE)
+			return C.bag
 
 		var/turf/T = get_turf(src)
 		if(istype(T))
@@ -946,7 +951,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison))
+	if(!istype(A, /area/station/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -1303,23 +1308,23 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 ///can the mob be buckled to something by default?
 /mob/proc/can_buckle()
-	return 1
+	return TRUE
 
 ///can the mob be unbuckled from something by default?
 /mob/proc/can_unbuckle()
-	return 1
+	return TRUE
 
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
-	return 0
+	return FALSE
 
 //Can this mob leave its location without breaking things terrifically?
 /mob/proc/can_safely_leave_loc()
-	return 1 // Yes, you can
+	return TRUE // Yes, you can
 
 /mob/proc/IsVocal()
-	return 1
+	return TRUE
 
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
@@ -1430,6 +1435,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE
 
 /mob/proc/faction_check_mob(mob/target, exact_match)
+	if(!target)
+		return faction_check(faction, null, FALSE)
 	if(exact_match) //if we need an exact match, we need to do some bullfuckery.
 		var/list/faction_src = faction.Copy()
 		var/list/faction_target = target.faction.Copy()
@@ -1545,7 +1552,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
-	/area/chapel
+	/area/station/service/chapel
 )))
 
 /mob/proc/holy_check()
@@ -1593,3 +1600,22 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	else
 		. = invoked_callback.Invoke()
 	usr = temp
+
+/mob/verb/give_kudos(mob/living/target as mob in oview())
+	set category = null
+	set name = "Give Kudos (OOC)"
+
+	if(target == src)
+		to_chat(src, "<span class='warning'>You cannot give kudos to yourself!</span>")
+		return
+
+	to_chat(src, "<span class='notice'>You've given kudos to [target]!</span>")
+
+	// Pretend we've always succeeded when we might not have.
+	// This should prevent people from using it to suss anything out about mobs' states
+	if(!client || !target.mind)
+		return
+
+	target.mind.kudos_received_from |= ckey
+
+

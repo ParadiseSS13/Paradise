@@ -16,6 +16,7 @@
 	var/direction = DIRECTION_IN
 	/// The desired pressure the pump should be outputting, either into the atmosphere, or into a holding tank.
 	target_pressure = 101.325
+	resistance_flags = NONE
 
 /obj/machinery/atmospherics/portable/pump/examine(mob/user)
 	. = ..()
@@ -140,12 +141,15 @@
 
 	return data
 
-/obj/machinery/atmospherics/portable/pump/ui_act(action, list/params)
+/obj/machinery/atmospherics/portable/pump/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
 	switch(action)
 		if("power")
+			if(connected_port)
+				to_chat(ui.user, "<span class='warning'>[src] fails to turn on, the port is covered!</span>")
+				return
 			on = !on
 			if(on && direction == DIRECTION_OUT)
 				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")

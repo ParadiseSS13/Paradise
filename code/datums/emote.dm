@@ -237,9 +237,6 @@
  * Returns TRUE if the emote was able to be run (or failed successfully), or FALSE if the emote is unusable.
  */
 /datum/emote/proc/try_run_emote(mob/user, params, type_override, intentional = FALSE)
-	if(!can_run_emote(user, intentional = intentional))
-		return FALSE
-
 	// You can use this signal to block execution of emotes from components/other sources.
 	var/sig_res = SEND_SIGNAL(user, COMSIG_MOB_PREEMOTE, key, intentional)
 	switch(sig_res)

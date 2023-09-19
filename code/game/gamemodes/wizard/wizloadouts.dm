@@ -70,12 +70,12 @@
 	name = "Tyde the Grey"
 	desc = "A set of legendary artifacts used by a bald, grey wizard, now passed on to you. <br> \
 		Open His Grace's latch once you are ready to kill by using It in your hand. Keep It fed or you will be Its next meal.<br> \
-		You might want to raid the Armory or loot a Security Officer to get ranged weapons like a disabler, His Grace's Hunger has little patience.<br><br> \
-		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask and Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Knock and No Clothes.<i>"
+		If your Homing Toolbox spell is not enough, you might want to raid the Armory or loot a Security Officer to get more ranged weapons like a disabler, His Grace's Hunger has little patience.<br><br> \
+		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask and Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Homing Toolbox, Knock and No Clothes.<i>"
 	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/shoes/black, \
 		/obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
 	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/forcewall, \
-		/obj/effect/proc_holder/spell/aoe/knock, /obj/effect/proc_holder/spell/noclothes)
+		/obj/effect/proc_holder/spell/aoe/knock, /obj/effect/proc_holder/spell/noclothes, /obj/effect/proc_holder/spell/fireball/toolbox)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
@@ -99,3 +99,24 @@
 	wizid.SetOwnerInfo(user)
 	wizid.UpdateName()
 	wizid.RebuildHTML()
+
+/datum/spellbook_entry/loadout/oblivion
+	name = "Oblivion Enforcer"
+	desc = "The Oblivion Order is an isolated clique of monks that revere supermatter. \
+	Oblivion Enforcers are how the Order imposes their will on the universe as a whole. By taking this loadout, \
+	you give up your identity and become a faceless hand of the Order. <br>\
+	You will be completely protected from the effects of supermatter by the items granted here, so far as to \
+	allow you to pick up and throw supermatter slivers, which your halberd can cut from the engine. <br>\
+	</i>Provides a Supermatter Halberd, Oblivion Enforcer robes, and an air tank, as well as Instant Summons, Lightning Bolt, and Summon Supermatter Crystal.<i>"
+	items_path = list(/obj/item/supermatter_halberd, /obj/item/clothing/gloves/color/white/supermatter_immune, \
+		/obj/item/clothing/suit/hooded/oblivion, /obj/item/clothing/mask/gas/voice_modulator/oblivion, /obj/item/tank/internals/emergency_oxygen/double, \
+		/obj/item/clothing/under/color/white/enforcer, /obj/item/clothing/shoes/white/enforcer)
+	spells_path = list(/obj/effect/proc_holder/spell/summonitem, /obj/effect/proc_holder/spell/charge_up/bounce/lightning, \
+		/obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter)
+	category = "Unique"
+	destroy_spellbook = TRUE
+
+/datum/spellbook_entry/loadout/oblivion/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(!user)
+		return
+	ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, MAGIC_TRAIT)

@@ -67,6 +67,17 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/throwing_croissant
+	name = "Throwing croissant"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/croissant = 1,
+		/obj/item/stack/rods = 1
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/croissant)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_availible = FALSE
+
 /datum/crafting_recipe/advancedegun
 	name = "Advanced Energy Gun"
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
@@ -448,7 +459,7 @@
 
 /datum/crafting_recipe/chainsaw
 	name = "Chainsaw"
-	result = list(/obj/item/twohanded/required/chainsaw)
+	result = list(/obj/item/chainsaw)
 	reqs = list(/obj/item/circular_saw = 1,
 				/obj/item/stack/cable_coil = 1,
 				/obj/item/stack/sheet/plasteel = 1)
@@ -460,7 +471,7 @@
 
 /datum/crafting_recipe/spear
 	name = "Spear"
-	result = list(/obj/item/twohanded/spear)
+	result = list(/obj/item/spear)
 	reqs = list(/obj/item/restraints/handcuffs/cable = 1,
 				/obj/item/shard = 1,
 				/obj/item/stack/rods = 1)
@@ -519,7 +530,7 @@
 
 /datum/crafting_recipe/garrote
 	name = "Makeshift Garrote"
-	result = list(/obj/item/twohanded/garrote/improvised)
+	result = list(/obj/item/garrote/improvised)
 	time = 15
 	reqs = list(/obj/item/stack/sheet/wood = 1,
 				/obj/item/stack/cable_coil = 5)
@@ -671,7 +682,7 @@
 	result = list(/obj/item/bombcore/chemical)
 	reqs = list(
 		/obj/item/stock_parts/matter_bin = 1,
-		/obj/item/twohanded/required/gibtonite = 1,
+		/obj/item/gibtonite = 1,
 		/obj/item/grenade/chem_grenade = 2
 	)
 	parts = list(/obj/item/stock_parts/matter_bin = 1, /obj/item/grenade/chem_grenade = 2)
@@ -771,7 +782,7 @@
 
 /datum/crafting_recipe/bonespear
 	name = "Bone Spear"
-	result = list(/obj/item/twohanded/spear/bonespear)
+	result = list(/obj/item/spear/bonespear)
 	time = 30
 	reqs = list(/obj/item/stack/sheet/bone = 4,
 				/obj/item/stack/sheet/sinew = 1)
@@ -795,7 +806,7 @@
 
 /datum/crafting_recipe/boneaxe
 	name = "Bone Axe"
-	result = list(/obj/item/twohanded/fireaxe/boneaxe)
+	result = list(/obj/item/fireaxe/boneaxe)
 	time = 50
 	reqs = list(/obj/item/stack/sheet/bone = 6,
 				/obj/item/stack/sheet/sinew = 3)

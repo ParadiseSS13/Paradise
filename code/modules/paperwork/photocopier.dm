@@ -376,6 +376,7 @@
 	data["folder"] = (folder ? folder.name : null)
 	data["mob"] = (copymob ? copymob.name : null)
 	data["files"] = list()
+	data["issilicon"] = issilicon(user)
 	if(LAZYLEN(saved_documents))
 		for(var/obj/item/O in saved_documents)
 			var/list/document_data = list(
@@ -409,6 +410,8 @@
 				. = TRUE
 		if("scandocument")
 			scan_document()
+		if("ai_pic")
+			ai_pic()
 		if("filecopy")
 			file_copy(params["uid"])
 		if("deletefile")
@@ -416,7 +419,7 @@
 			. = TRUE
 	update_icon()
 
-/obj/machinery/photocopier/proc/aipic()
+/obj/machinery/photocopier/proc/ai_pic()
 	if(!issilicon(usr))
 		return
 	if(stat & (BROKEN|NOPOWER))

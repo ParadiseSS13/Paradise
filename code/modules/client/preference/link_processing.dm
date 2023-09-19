@@ -937,6 +937,10 @@
 				if("winflash")
 					toggles2 ^= PREFTOGGLE_2_WINDOWFLASHING
 
+				if("mam")
+					toggles2 ^= PREFTOGGLE_2_MOD_ACTIVATION_METHOD
+
+
 				if("setviewrange")
 					var/list/viewrange_options = list(
 						"15x15 (Classic)" = "15x15",
@@ -954,6 +958,8 @@
 						// Update the size of the click catcher
 						var/list/actualview = getviewsize(parent.view)
 						parent.void.UpdateGreed(actualview[1],actualview[2])
+
+					parent.debug_text_overlay?.update_view(parent)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
