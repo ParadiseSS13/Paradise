@@ -25,7 +25,7 @@
 
 /mob/living/simple_animal/hostile/guardian/protector/Manifest()
 	. = ..()
-	if(toggle && cooldown > world.time)
+	if(toggle && cooldown < world.time)
 		var/dir_left = turn(dir, -90)
 		var/dir_right = turn(dir, 90)
 		connected_shields += new /obj/effect/guardianshield(get_step(src, dir_left), src, FALSE)
@@ -62,6 +62,10 @@
 		toggle = FALSE
 		QDEL_LIST_CONTENTS(connected_shields)
 	else
+		if(!isturf(loc))
+			return
+		if(get_turf(summoner) == get_turf(src))
+			return
 		var/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
 		shield_overlay *= name_color
 		overlays.Add(shield_overlay)
@@ -69,7 +73,7 @@
 		melee_damage_upper = 2
 		obj_damage = 6 //40/7.5 rounded up, we don't want a protector guardian 2 shotting blob tiles while taking 5% damage, thats just silly.
 		move_resist = MOVE_FORCE_STRONG
-		speed = 1
+		speed = 2
 		damage_transfer = 0.1 //damage? what's damage?
 		to_chat(src, "<span class='danger'>You switch to protection mode.</span>")
 		toggle = TRUE
@@ -121,7 +125,7 @@
 	shield_orientation = left_or_right
 
 /obj/effect/guardianshield/CanPass(atom/movable/mover, turf/target)
-	if(mover == linked_guardian || mover == linked_guardian.summoner)
+	if(mover == linked_guardian)
 		return TRUE
 	return FALSE
 
