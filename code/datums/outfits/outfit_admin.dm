@@ -1395,3 +1395,42 @@
 	mask = /obj/item/clothing/mask/breath/vox
 	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
 	box = /obj/item/storage/box/survival_vox
+
+/datum/outfit/admin/enforcer
+	name = "Oblivion Enforcer"
+
+	uniform = /obj/item/clothing/under/color/white/enforcer
+	shoes = /obj/item/clothing/shoes/white/enforcer
+	back = /obj/item/storage/backpack/satchel
+	id = /obj/item/card/id/data
+	//The hood on this gets enabled on the after-equip proc.
+	suit = /obj/item/clothing/suit/hooded/oblivion
+	gloves = /obj/item/clothing/gloves/color/white/supermatter_immune
+	mask = /obj/item/clothing/mask/gas/voice_modulator/oblivion
+	l_ear = /obj/item/radio/headset
+	suit_store = /obj/item/supermatter_halberd
+	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
+	box = /obj/item/storage/box/wizard
+
+	//The spells that the enforcer has.
+	var/list/spell_paths = list(/obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter,
+										/obj/effect/proc_holder/spell/charge_up/bounce/lightning, /obj/effect/proc_holder/spell/summonitem)
+
+/datum/outfit/admin/enforcer/post_equip(mob/living/carbon/human/H)
+	. = ..()
+
+	ADD_TRAIT(H, SM_HALLUCINATION_IMMUNE, MAGIC_TRAIT)
+
+	H.real_name = "Unknown" //Enforcers sacrifice their name to Oblivion for their power
+
+	for(var/spell_path in spell_paths)
+		var/S = new spell_path
+		H.mind.AddSpell(S)
+
+	var/obj/item/clothing/suit/hooded/oblivion/robes = H.wear_suit
+	if(istype(robes))
+		robes.ToggleHood()
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Oblivion Enforcer")
