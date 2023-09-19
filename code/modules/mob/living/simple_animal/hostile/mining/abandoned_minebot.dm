@@ -34,6 +34,7 @@
 	retreat_distance = 2
 	minimum_distance = 1
 	deathmessage = "blows apart!"
+	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot, /obj/item/pickaxe/drill)
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/Initialize(mapload)
 	. = ..()
@@ -48,15 +49,16 @@
 	while(i)
 		loot += ore
 		i--
-	loot += list(/obj/effect/decal/cleanable/blood/gibs/robot, /obj/item/pickaxe/drill)
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/GiveTarget(new_target)
-	if(..()) //we have a target
-		if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)
-			OpenFire(target)
+	if(!..())
+		return
+	if(isliving(target) && !target.Adjacent(targets_from) && ranged_cooldown <= world.time)
+		OpenFire(target)
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/adjustHealth(damage, updating_health)
-	do_sparks(3, 1, src)
+	if(rand(50))
+		do_sparks(3, 1, src)
 	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/Move(atom/newloc)
@@ -72,17 +74,17 @@
 			. += "<span class='warning'>It looks slightly dented.</span>"
 		else
 			. += "<span class='boldwarning'>It looks severely dented!</span>"
-	. += "<span class='notice'><b>[rand(-30,110)]%</b> mod capacity remaining.\nThere is some module installed, using <b>[rand(-5,35)]%</b> capacity.\n...or at least you think.</span>"
+	. += "<span class='notice'><b>[rand(-30, 110)]%</b> mod capacity remaining.\nThere is some module installed, using <b>[rand(-5, 35)]%</b> capacity.\n...or at least you think.</span>"
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/kinetic))
-		var/obj/item/projectile/kinetic/K = O
-		if(K.kinetic_gun)
-			for(var/A in K.kinetic_gun.get_modkits())
-				var/obj/item/borg/upgrade/modkit/M = A
-				if(istype(M, /obj/item/borg/upgrade/modkit/minebot_passthrough))
-					return TRUE
-	return ..()
+	if(!istype(O, /obj/item/projectile/kinetic))
+		return ..()
+	var/obj/item/projectile/kinetic/K = O
+	if(K.kinetic_gun)
+		for(var/A in K.kinetic_gun.get_modkits())
+			var/obj/item/borg/upgrade/modkit/M = A
+			if(istype(M, /obj/item/borg/upgrade/modkit/minebot_passthrough))
+				return TRUE
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/emp_act(severity)
 	adjustHealth(100 / severity)
