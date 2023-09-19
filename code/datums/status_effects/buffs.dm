@@ -173,8 +173,8 @@
 		return FALSE
 	ADD_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 	var/mob/living/carbon/human/H = owner
-	H.physiology.brute_mod *= 0.5
-	H.physiology.burn_mod *= 0.8
+	H.physiology.brute_mod *= 0.4
+	H.physiology.burn_mod *= 0.5
 	H.physiology.stamina_mod *= 0.5
 	H.physiology.stun_mod *= 0.5
 	var/datum/antagonist/vampire/V = owner.mind.has_antag_datum(/datum/antagonist/vampire)
@@ -188,14 +188,56 @@
 		return
 	REMOVE_TRAIT(owner, TRAIT_CHUNKYFINGERS, VAMPIRE_TRAIT)
 	var/mob/living/carbon/human/H = owner
-	H.physiology.brute_mod /= 0.5
-	H.physiology.burn_mod /= 0.8
+	H.physiology.brute_mod /= 0.4
+	H.physiology.burn_mod /= 0.5
 	H.physiology.stamina_mod /= 0.5
 	H.physiology.stun_mod /= 0.5
 	if(bonus_damage_applied)
 		bonus_damage_applied = FALSE
 		H.physiology.melee_bonus -= 10
 		H.dna.species.punchstunthreshold -= 8
+
+/datum/status_effect/vampire_gladiator
+	id = "vampire_gladiator"
+	duration = 30 SECONDS
+	tick_interval = 1 SECONDS
+	alert_type = /obj/screen/alert/status_effect/vampire_gladiator
+
+/obj/screen/alert/status_effect/vampire_gladiator
+	name = "Gladiatorial Resilience"
+	desc = "Roused by the thrill of the fight, your body has become more resistant to breaking!"
+	icon = 'icons/mob/actions/actions.dmi'
+	icon_state = "mech_damtype_brute"
+
+/datum/status_effect/vampire_gladiator/on_apply()
+	. = ..()
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return
+	ADD_TRAIT(H, TRAIT_NO_BONES, GLADIATOR)
+	ADD_TRAIT(H, TRAIT_STURDY_LIMBS, GLADIATOR)
+	ADD_TRAIT(H, TRAIT_BURN_WOUND_IMMUNE, GLADIATOR)
+	ADD_TRAIT(H, TRAIT_IB_IMMUNE, GLADIATOR)
+	for(var/obj/item/organ/external/limb in H.bodyparts)
+		limb.add_limb_flags()
+
+
+/datum/status_effect/vampire_gladiator/on_remove()
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H))
+		return
+	REMOVE_TRAIT(H, TRAIT_NO_BONES, GLADIATOR)
+	REMOVE_TRAIT(H, TRAIT_STURDY_LIMBS, GLADIATOR)
+	REMOVE_TRAIT(H, TRAIT_BURN_WOUND_IMMUNE, GLADIATOR)
+	REMOVE_TRAIT(H, TRAIT_IB_IMMUNE, GLADIATOR)
+	for(var/obj/item/organ/external/limb in H.bodyparts)
+		limb.remove_limb_flags()
+
+
+/datum/status_effect/vampire_gladiator/tick()
+	owner.adjustStaminaLoss(-20)
+	owner.adjustBruteLoss(-5)
+	owner.adjustFireLoss(-5)
 
 /datum/status_effect/blood_rush
 	alert_type = null

@@ -21,8 +21,8 @@
 /obj/structure/closet/secure_closet/roboticist
 	name = "roboticist's locker"
 	req_access = list(ACCESS_ROBOTICS)
-	icon_state = "science"
-	open_door_sprite = "white_secure_door"
+	icon_state = "robotics"
+	open_door_sprite = "robotics_door"
 
 /obj/structure/closet/secure_closet/roboticist/populate_contents()
 	new /obj/item/mod/core/standard(src)

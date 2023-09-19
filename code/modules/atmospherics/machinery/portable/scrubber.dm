@@ -11,7 +11,7 @@
 	var/volume_rate = 101.325
 	/// Is this scrubber acting on the 3x3 area around it.
 	var/widenet = FALSE
-	pull_speed = 0
+	resistance_flags = NONE
 
 /obj/machinery/atmospherics/portable/scrubber/examine(mob/user)
 	. = ..()
@@ -136,12 +136,15 @@
 
 	return data
 
-/obj/machinery/atmospherics/portable/scrubber/ui_act(action, list/params)
+/obj/machinery/atmospherics/portable/scrubber/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
 	switch(action)
 		if("power")
+			if(connected_port)
+				to_chat(ui.user, "<span class='warning'>[src] fails to turn on, the port is covered!</span>")
+				return
 			on = !on
 			update_icon()
 			return TRUE

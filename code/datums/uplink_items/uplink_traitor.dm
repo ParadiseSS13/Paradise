@@ -67,6 +67,15 @@
 	cost = 50
 	job = list("Mime")
 
+/datum/uplink_item/jobspecific/combat_baking
+	name = "Combat Bakery Kit"
+	desc = "A kit of clandestine baked weapons. Contains a baguette which a skilled mime could use as a sword, \
+		a pair of throwing croissants, and the recipe to make more on demand. Once the job is done, eat the evidence."
+	reference = "CBK"
+	item = /obj/item/storage/box/syndie_kit/combat_baking
+	cost = 25 //A chef can get a knife that sharp easily, though it won't block. While you can get endless boomerang, they are less deadly than a stech, and slower / more predictable.
+	job = list("Mime", "Chef")
+
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
 	desc = "A modification kit which allows Kinetic Accelerators to do greatly increased damage while indoors. Occupies 35% mod capacity."
@@ -352,6 +361,14 @@
 	species = list("Plasmaman")
 	surplus = 0
 
+//Human
+/datum/uplink_item/species_restricted/holo_cigar
+	name = "Holo-Cigar"
+	desc = "A holo-cigar imported from the Sol system. The full effects of looking so badass aren't understood yet, but users show an increase in precision while dual-wielding firearms."
+	reference = "SHC"
+	item = /obj/item/clothing/mask/holo_cigar
+	cost = 10
+	species = list("Human")
 
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
@@ -411,11 +428,20 @@
 /datum/uplink_item/stealthy_tools/voice_modulator
 	name = "Chameleon Voice Modulator Mask"
 	desc = "A syndicate tactical mask equipped with chameleon technology and a sound modulator for disguising your voice. \
-			While the mask is active, your voice will sound unrecognizable to others"
+			While the mask is active, your voice will sound unrecognizable to others."
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_tools/silicon_cham_suit
+	name = "\"Big Brother\" Obfuscation Suit"
+	desc = "A syndicate tactical suit equipped with the latest in anti-silicon technology and, allegedly, biological technology learned from the Changeling Hivemind. \
+			While this suit is worn, you will be unable to be tracked or seen by on-Station AI."
+	reference = "BBOS"
+	item = /obj/item/clothing/under/syndicate/silicon_cham
+	cost = 20
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
@@ -475,7 +501,7 @@
 
 /datum/uplink_item/implants/uplink // Nukies get Nuclear Uplink Bio-chip instead
 	name = "Uplink Bio-chip"
-	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
+	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 50 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
 	item = /obj/item/implanter/uplink
 	cost = 70

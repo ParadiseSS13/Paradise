@@ -1243,8 +1243,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
-		if(mmi)
-			qdel(mmi)
 		explosion(src.loc,1,2,4,flame_range = 2)
 	else
 		explosion(src.loc,-1,0,2)
@@ -1598,6 +1596,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(src, "<span class='warning'>You can only use this emote when you're out of charge.</span>")
 
 /mob/living/silicon/robot/can_instant_lockdown()
-	if(emagged || faction_check_mob(src, "syndicate"))
+	if(emagged || ("syndicate" in faction))
 		return TRUE
 	return FALSE

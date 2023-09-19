@@ -18,6 +18,8 @@
 	var/config_tag = null
 	var/intercept_hacked = FALSE
 	var/votable = TRUE
+	/// This var is solely to track gamemodes to track suicides/cryoing/etc and doesnt declare this a "free for all" gamemode. This is for data tracking purposes only.
+	var/tdm_gamemode = FALSE
 	var/probability = 0
 	var/station_was_nuked = FALSE //see nuclearbomb.dm and malfunction.dm
 	var/explosion_in_progress = FALSE //sit back and relax
@@ -203,7 +205,8 @@
 
 
 /datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
-	return 0
+	if(rev_team)
+		rev_team.check_all_victory()
 
 /datum/game_mode/proc/get_players_for_role(role, override_jobbans=0)
 	var/list/players = list()
@@ -245,6 +248,10 @@
 
 
 /datum/game_mode/proc/latespawn(mob)
+	if(rev_team)
+		rev_team.update_team_objectives()
+		rev_team.process_promotion(REVOLUTION_PROMOTION_OPTIONAL)
+
 
 /*
 /datum/game_mode/proc/check_player_role_pref(role, mob/player)
