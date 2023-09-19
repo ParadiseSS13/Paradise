@@ -292,7 +292,7 @@ SUBSYSTEM_DEF(shuttle)
 			continue
 		console.createMessage("Messaging and Intergalactic Letters", "New Mail Crates ready to be ordered!", "A new mail crate is able to be shipped alongside your next orders!", RQ_NORMALPRIORITY)
 
-	if(length(supply_shuttle_turfs))
+	if(!length(supply_shuttle_turfs))
 		for(var/turf/simulated/T in supply.areaInstance)
 			if(T.density)
 				continue
