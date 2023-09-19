@@ -16,6 +16,8 @@
 	owner.has_been_rev = TRUE
 	..()
 
+	SEND_SOUND(owner.current, sound('sound/ambience/antag/revalert.ogg'))
+
 /datum/antagonist/rev/greet()
 	to_chat(owner.current, "<span class='userdanger'>You are now a revolutionary! Help your cause. \
 				Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, \
