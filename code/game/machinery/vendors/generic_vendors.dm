@@ -6,7 +6,8 @@
 					"The finest gear in space!")
 
 	products = list(/obj/item/assembly/prox_sensor = 4,
-					/obj/item/assembly/igniter = 4, /obj/item/assembly/signaler = 4,
+					/obj/item/assembly/igniter = 4,
+					/obj/item/assembly/signaler = 4,
 					/obj/item/wirecutters = 2,
 					/obj/item/cartridge/signal = 4)
 
@@ -570,8 +571,7 @@
 					/obj/item/staff = 2)
 
 	contraband = list(/obj/item/reagent_containers/glass/bottle/wizarditis = 1)
-
-	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 0, rad = 0, fire = 100, acid = 50)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
 	tiltable = FALSE  // don't let a poor wizard screw themselves
 
@@ -1113,7 +1113,7 @@
 					/obj/item/fish_eggs/shrimp = 10,
 					/obj/item/toy/pet_rock = 5,
 					/obj/item/toy/pet_rock/fred = 1,
-					/obj/item/toy/pet_rock/roxie = 1,)
+					/obj/item/toy/pet_rock/roxie = 1)
 
 	prices = list(/obj/item/petcollar = 75,
 				/obj/item/storage/firstaid/aquatic_kit/full = 50,
@@ -1128,7 +1128,7 @@
 				/obj/item/fish_eggs/shrimp = 10,
 				/obj/item/toy/pet_rock = 50,
 				/obj/item/toy/pet_rock/fred = 75,
-				/obj/item/toy/pet_rock/roxie = 75,)
+				/obj/item/toy/pet_rock/roxie = 75)
 
 	contraband = list(/obj/item/fish_eggs/babycarp = 5)
 
@@ -1257,7 +1257,7 @@
 					/obj/item/reagent_containers/syringe/antiviral = 4,
 					/obj/item/reagent_containers/food/pill/tox = 1)
 
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 100, acid = 70)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	//this shouldn't be priced
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/wallmed

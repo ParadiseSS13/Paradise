@@ -363,7 +363,7 @@
 				/obj/item/clothing/shoes/sandal/white = 20,
 				/obj/item/storage/backpack/science = 50,
 				/obj/item/storage/backpack/satchel_tox = 50,
-				/obj/item/storage/backpack/duffel/science = 50,)
+				/obj/item/storage/backpack/duffel/science = 50)
 
 	refill_canister = /obj/item/vending_refill/scidrobe
 
