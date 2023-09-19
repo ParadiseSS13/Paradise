@@ -227,7 +227,12 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
-	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened)
+	belt = /obj/item/storage/belt/utility/chief/full
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened,
+		/obj/item/organ/internal/eyes/cybernetic/shield
+	)
 
 	l_pocket = /obj/item/gun/energy/gun/mini
 	r_pocket = /obj/item/melee/classic_baton/telescopic
