@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
 	var/active = FALSE
-	var/range = 12
+	var/range = 15
 
 /obj/item/jammer/Destroy()
 	GLOB.active_jammers -= src
@@ -265,6 +265,7 @@
 	flawless = TRUE
 
 /obj/item/fireproofing_injector
+	name = "fireproofing injector"
 	desc = "It contains an alien nanoswarm created by the technomancers of boron. Through near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"

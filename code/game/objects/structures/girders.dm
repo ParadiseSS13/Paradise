@@ -77,7 +77,7 @@
 		if(!isfloorturf(loc))
 			to_chat(user, "<span class='warning'>A floor must be present to build a false wall!</span>")
 			return
-		if (locate(/obj/structure/falsewall) in loc.contents)
+		if(locate(/obj/structure/falsewall) in loc.contents)
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
 			return
 		if(islava(loc))
