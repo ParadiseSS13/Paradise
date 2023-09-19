@@ -64,5 +64,4 @@
 #define DEFAULT_CRATE_VALUE 15
 
 /// mail deliveries
-
 #define MAIL_DELIVERY_BONUS	100
