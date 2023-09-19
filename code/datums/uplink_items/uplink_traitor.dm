@@ -501,7 +501,7 @@
 
 /datum/uplink_item/implants/uplink // Nukies get Nuclear Uplink Bio-chip instead
 	name = "Uplink Bio-chip"
-	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
+	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 50 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
 	item = /obj/item/implanter/uplink
 	cost = 70
