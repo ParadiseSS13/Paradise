@@ -7122,9 +7122,9 @@
 "Bz" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	name = "Shuttle Hatch"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
@@ -7376,9 +7376,9 @@
 "CD" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	name = "Shuttle Hatch"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/docking_port/mobile/supply,
 /obj/docking_port/stationary{
 	dir = 8;
@@ -8810,9 +8810,9 @@
 /area/centcom/evac)
 "Io" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	name = "Escape Shuttle Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Ip" = (
@@ -9770,9 +9770,9 @@
 /area/wizard_station)
 "LU" = (
 /obj/machinery/door/airlock/titanium/glass{
-	name = "Emergency Airlock Access";
-	req_one_access_txt = "63"
+	name = "Emergency Airlock Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "LX" = (
@@ -10274,9 +10274,9 @@
 /area/shuttle/escape)
 "NF" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Escape Shuttle Cell";
-	req_access_txt = "63"
+	name = "Escape Shuttle Cell"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "NG" = (
@@ -10925,9 +10925,9 @@
 /area/centcom/evac)
 "Qf" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_one_access_txt = "63"
+	name = "Escape Shuttle Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
