@@ -43,7 +43,7 @@
 	var/list/mind_copy = shuffle(SSticker.minds)
 	for(var/datum/mind/mail_attracted_people in mind_copy)
 		var/turf/T = get_turf(mail_attracted_people.current)
-		if(mail_attracted_people.offstation_role || !ishuman(mail_attracted_people.current) || is_admin_level(T.z)
+		if(mail_attracted_people.offstation_role || !ishuman(mail_attracted_people.current) || is_admin_level(T.z))
 			continue
 		if(mail_attracted_people.assigned_role in job_list)
 			recipient = mail_attracted_people.current
