@@ -27,10 +27,6 @@
 #define COM_ROLES list("Blueshield", "NT Representative", "Head of Personnel's Desk", "Captain's Desk", "Bridge")
 #define SCI_ROLES list("Robotics", "Science", "Research Director's Desk")
 
-#define RQ_NONEW_MESSAGES 0
-#define RQ_NORMALPRIORITY 1
-#define RQ_HIGHPRIORITY 2
-
 GLOBAL_LIST_EMPTY(req_console_assistance)
 GLOBAL_LIST_EMPTY(req_console_supplies)
 GLOBAL_LIST_EMPTY(req_console_information)
@@ -48,9 +44,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/list/message_log = list() //List of all messages
 	var/departmentType = 0 		//Bitflag. Zero is reply-only. Map currently uses raw numbers instead of defines.
 	var/newmessagepriority = RQ_NONEW_MESSAGES
-		// RQ_NONEWMESSAGES = no new message
-		// RQ_NORMALPRIORITY = normal priority
-		// RQ_HIGHPRIORITY = high priority
 	var/screen = RCS_MAINMENU
 	var/silent = FALSE // set to TRUE for it not to beep all the time
 	var/announcementConsole = FALSE
@@ -371,7 +364,3 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	sp.sortTag = tag_index
 	sp.update_desc()
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
-
-#undef RQ_NONEW_MESSAGES
-#undef RQ_NORMALPRIORITY
-#undef RQ_HIGHPRIORITY

@@ -6,8 +6,19 @@
 	icon_panel = "generic"
 	category = VENDOR_TYPE_DEPARTMENTAL
 	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
-	products = list(/obj/item/clothing/glasses/meson/engine = 2, /obj/item/multitool = 4, /obj/item/geiger_counter = 5,  /obj/item/airlock_electronics = 10, /obj/item/firelock_electronics = 10, /obj/item/firealarm_electronics = 10, /obj/item/apc_electronics = 10, /obj/item/airalarm_electronics = 10, /obj/item/stock_parts/cell/high = 10, /obj/item/camera_assembly = 10)
+	products = list(/obj/item/clothing/glasses/meson/engine = 2,
+					/obj/item/multitool = 4,
+					/obj/item/geiger_counter = 5,
+					/obj/item/airlock_electronics = 10,
+					/obj/item/firelock_electronics = 10,
+					/obj/item/firealarm_electronics = 10,
+					/obj/item/apc_electronics = 10,
+					/obj/item/airalarm_electronics = 10,
+					/obj/item/stock_parts/cell/high = 10,
+					/obj/item/camera_assembly = 10)
+
 	contraband = list(/obj/item/stock_parts/cell/potato = 3)
+
 	refill_canister = /obj/item/vending_refill/engivend
 
 /obj/machinery/economy/vending/engineering
@@ -17,12 +28,30 @@
 	icon_deny = "engi_deny"
 	category = VENDOR_TYPE_DEPARTMENTAL
 	req_access_txt = "11"
-	products = list(/obj/item/clothing/under/rank/engineering/chief_engineer = 4, /obj/item/clothing/under/rank/engineering/engineer = 40, /obj/item/clothing/shoes/workboots = 4, /obj/item/clothing/head/hardhat = 4,
-					/obj/item/storage/belt/utility = 4, /obj/item/clothing/glasses/meson/engine = 4,/obj/item/clothing/gloves/color/yellow = 4, /obj/item/screwdriver = 12,
-					/obj/item/crowbar = 12, /obj/item/wirecutters = 12, /obj/item/multitool = 12,/obj/item/wrench = 12, /obj/item/t_scanner = 12,
-					/obj/item/stack/cable_coil = 8, /obj/item/stock_parts/cell = 8, /obj/item/weldingtool = 8, /obj/item/clothing/head/welding = 8,
-					/obj/item/light/tube = 10, /obj/item/clothing/suit/fire = 4, /obj/item/stock_parts/scanning_module = 5, /obj/item/stock_parts/micro_laser = 5,
-					/obj/item/stock_parts/matter_bin = 5, /obj/item/stock_parts/manipulator = 5)
+	products = list(/obj/item/clothing/under/rank/engineering/chief_engineer = 4,
+					/obj/item/clothing/under/rank/engineering/engineer = 40,
+					/obj/item/clothing/shoes/workboots = 4,
+					/obj/item/clothing/head/hardhat = 4,
+					/obj/item/storage/belt/utility = 4,
+					/obj/item/clothing/glasses/meson/engine = 4,
+					/obj/item/clothing/gloves/color/yellow = 4,
+					/obj/item/screwdriver = 12,
+					/obj/item/crowbar = 12,
+					/obj/item/wirecutters = 12,
+					/obj/item/multitool = 12,
+					/obj/item/wrench = 12,
+					/obj/item/t_scanner = 12,
+					/obj/item/stack/cable_coil = 8,
+					/obj/item/stock_parts/cell = 8,
+					/obj/item/weldingtool = 8,
+					/obj/item/clothing/head/welding = 8,
+					/obj/item/light/tube = 10,
+					/obj/item/clothing/suit/fire = 4,
+					/obj/item/stock_parts/scanning_module = 5,
+					/obj/item/stock_parts/micro_laser = 5,
+					/obj/item/stock_parts/matter_bin = 5,
+					/obj/item/stock_parts/manipulator = 5)
+
 	refill_canister = /obj/item/vending_refill/engineering
 
 /obj/machinery/economy/vending/robotics
@@ -33,16 +62,33 @@
 	category = VENDOR_TYPE_DEPARTMENTAL
 	icon_lightmask = "robotics"
 	req_access_txt = "29"
-	products = list(/obj/item/clothing/suit/storage/labcoat = 4, /obj/item/clothing/under/rank/rnd/roboticist = 4, /obj/item/stack/cable_coil = 4, /obj/item/flash = 4,
-					/obj/item/stock_parts/cell/high = 12, /obj/item/assembly/prox_sensor = 3, /obj/item/assembly/signaler = 3, /obj/item/healthanalyzer = 3,
-					/obj/item/scalpel = 2, /obj/item/circular_saw = 2, /obj/item/tank/internals/anesthetic = 2, /obj/item/clothing/mask/breath/medical = 5,
-					/obj/item/screwdriver = 5, /obj/item/crowbar = 5)
+	products = list(/obj/item/clothing/suit/storage/labcoat = 4,
+					/obj/item/clothing/under/rank/rnd/roboticist = 4,
+					/obj/item/stack/cable_coil = 4, /obj/item/flash = 4,
+					/obj/item/stock_parts/cell/high = 12,
+					/obj/item/assembly/prox_sensor = 3,
+					/obj/item/assembly/signaler = 3,
+					/obj/item/healthanalyzer = 3,
+					/obj/item/scalpel = 2,
+					/obj/item/circular_saw = 2,
+					/obj/item/tank/internals/anesthetic = 2,
+					/obj/item/clothing/mask/breath/medical = 5,
+					/obj/item/screwdriver = 5,
+					/obj/item/crowbar = 5)
+
 	refill_canister = /obj/item/vending_refill/robotics
 
 /obj/machinery/economy/vending/dinnerware
 	name = "\improper Plasteel Chef's Dinnerware Vendor"
 	desc = "A kitchen and restaurant equipment vendor."
-	ads_list = list("Mm, food stuffs!","Food and food accessories.","Get your plates!","You like forks?","I like forks.","Woo, utensils.","You don't really need these...")
+	ads_list = list("Mm, food stuffs!",
+					"Food and food accessories.",
+					"Get your plates!",
+					"You like forks?",
+					"I like forks.",
+					"Woo, utensils.",
+					"You don't really need these...")
+
 	icon_state = "dinnerware"
 	icon_lightmask = "dinnerware"
 	category = VENDOR_TYPE_DEPARTMENTAL
@@ -62,34 +108,65 @@
 					/obj/item/reagent_containers/food/condiment/peppermill =5,
 					/obj/item/whetstone = 2,
 					/obj/item/mixing_bowl = 10,
-					/obj/item/kitchen/mould/bear = 1, /obj/item/kitchen/mould/worm = 1,
-					/obj/item/kitchen/mould/bean = 1, /obj/item/kitchen/mould/ball = 1,
-					/obj/item/kitchen/mould/cane = 1, /obj/item/kitchen/mould/cash = 1,
-					/obj/item/kitchen/mould/coin = 1, /obj/item/kitchen/mould/loli = 1,
+					/obj/item/kitchen/mould/bear = 1,
+					/obj/item/kitchen/mould/worm = 1,
+					/obj/item/kitchen/mould/bean = 1,
+					/obj/item/kitchen/mould/ball = 1,
+					/obj/item/kitchen/mould/cane = 1,
+					/obj/item/kitchen/mould/cash = 1,
+					/obj/item/kitchen/mould/coin = 1,
+					/obj/item/kitchen/mould/loli = 1,
 					/obj/item/kitchen/cutter = 2)
-	contraband = list(/obj/item/kitchen/rollingpin = 2, /obj/item/kitchen/knife/butcher = 2)
+
+	contraband = list(/obj/item/kitchen/rollingpin = 2,
+					/obj/item/kitchen/knife/butcher = 2)
+
 	refill_canister = /obj/item/vending_refill/dinnerware
 
 /obj/machinery/economy/vending/hydronutrients
 	name = "\improper NutriMax"
 	desc = "A plant nutrients vendor."
-	slogan_list = list("Aren't you glad you don't have to fertilize the natural way?","Now with 50% less stink!","Plants are people too!")
-	ads_list = list("We like plants!","Don't you want some?","The greenest thumbs ever.","We like big plants.","Soft soil...")
+	slogan_list = list("Aren't you glad you don't have to fertilize the natural way?",
+					"Now with 50% less stink!","Plants are people too!")
+
+	ads_list = list("We like plants!",
+					"Don't you want some?",
+					"The greenest thumbs ever.",
+					"We like big plants.",
+					"Soft soil...")
+
 	icon_state = "nutri"
 	icon_deny = "nutri_deny"
 	icon_lightmask = "nutri"
 	icon_panel = "thin_vendor"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20, /obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13, /obj/item/reagent_containers/glass/bottle/nutrient/rh = 6, /obj/item/reagent_containers/spray/pestspray = 20,
-					/obj/item/reagent_containers/syringe = 5, /obj/item/storage/bag/plants = 5, /obj/item/cultivator = 3, /obj/item/shovel/spade = 3, /obj/item/plant_analyzer = 4)
-	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10, /obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+	products = list(/obj/item/reagent_containers/glass/bottle/nutrient/ez = 20,
+					/obj/item/reagent_containers/glass/bottle/nutrient/l4z = 13,
+					/obj/item/reagent_containers/glass/bottle/nutrient/rh = 6,
+					/obj/item/reagent_containers/spray/pestspray = 20,
+					/obj/item/reagent_containers/syringe = 5,
+					/obj/item/storage/bag/plants = 5,
+					/obj/item/cultivator = 3,
+					/obj/item/shovel/spade = 3,
+					/obj/item/plant_analyzer = 4)
+
+	contraband = list(/obj/item/reagent_containers/glass/bottle/ammonia = 10,
+					/obj/item/reagent_containers/glass/bottle/diethylamine = 5)
+
 	refill_canister = /obj/item/vending_refill/hydronutrients
 
 /obj/machinery/economy/vending/hydroseeds
 	name = "\improper MegaSeed Servitor"
 	desc = "When you need seeds fast!"
-	slogan_list = list("THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!","Hands down the best seed selection on the station!","Also certain mushroom varieties available, more for experts! Get certified today!")
-	ads_list = list("We like plants!","Grow some crops!","Grow, baby, growww!","Aw h'yeah son!")
+	slogan_list = list("THIS'S WHERE TH' SEEDS LIVE! GIT YOU SOME!",
+					"Hands down the best seed selection on the station!",
+					"Also certain mushroom varieties available, more for experts! Get certified today!")
+
+	ads_list = list("We like plants!",
+					"Grow some crops!",
+					"Grow, baby, growww!",
+					"Aw h'yeah son!")
+
 	icon_state = "seeds"
 	icon_lightmask = "seeds"
 	icon_panel = "thin_vendor"
@@ -137,6 +214,7 @@
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
 					/obj/item/seeds/whitebeet = 3)
+
 	contraband = list(/obj/item/seeds/cannabis = 3,
 					/obj/item/seeds/amanita = 2,
 					/obj/item/seeds/fungus = 3,
@@ -147,6 +225,7 @@
 					/obj/item/seeds/reishi = 2,
 					/obj/item/seeds/starthistle = 2,
 					/obj/item/seeds/random = 2)
+
 	refill_canister = /obj/item/vending_refill/hydroseeds
 
 /obj/machinery/economy/vending/medical
@@ -156,7 +235,14 @@
 	icon_lightmask = "med"
 	icon_deny = "med_deny"
 	icon_panel = "wide_vendor"
-	ads_list = list("Go save some lives!","The best stuff for your medbay.","Only the finest tools.","Natural chemicals!","This stuff saves lives.","Don't you want some?","Ping!")
+	ads_list = list("Go save some lives!",
+					"The best stuff for your medbay.",
+					"Only the finest tools.",
+					"Natural chemicals!",
+					"This stuff saves lives.",
+					"Don't you want some?",
+					"Ping!")
+
 	req_access_txt = "5"
 	category = VENDOR_TYPE_DEPARTMENTAL
 	products = list(/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
@@ -189,10 +275,12 @@
 					/obj/item/healthanalyzer/advanced = 3,
 					/obj/item/sensor_device = 2,
 					/obj/item/pinpointer/crew = 2)
+
 	contraband = list(/obj/item/reagent_containers/syringe/insulin = 4,
 					/obj/item/reagent_containers/glass/bottle/sulfonal = 1,
 					/obj/item/reagent_containers/glass/bottle/pancuronium = 1)
-	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 100, acid = 70)
+
+	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/medical
 
@@ -204,14 +292,29 @@
 	name = "\improper Toximate 3000"
 	desc = "All the fine parts you need in one vending machine!"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	products = list(/obj/item/assembly/prox_sensor = 8, /obj/item/assembly/igniter = 8, /obj/item/assembly/signaler = 8,
-					/obj/item/wirecutters = 1, /obj/item/assembly/timer = 8)
-	contraband = list(/obj/item/flashlight = 5, /obj/item/assembly/voice = 3, /obj/item/assembly/health = 3, /obj/item/assembly/infra = 3)
+	products = list(/obj/item/assembly/prox_sensor = 8,
+					/obj/item/assembly/igniter = 8,
+					/obj/item/assembly/signaler = 8,
+					/obj/item/wirecutters = 1,
+					/obj/item/assembly/timer = 8)
+
+	contraband = list(/obj/item/flashlight = 5,
+					/obj/item/assembly/voice = 3,
+					/obj/item/assembly/health = 3,
+					/obj/item/assembly/infra = 3)
 
 /obj/machinery/economy/vending/security
 	name = "\improper SecTech"
 	desc = "A security equipment vendor."
-	ads_list = list("Crack capitalist skulls!","Beat some heads in!","Don't forget - harm is good!","Your weapons are right here.","Handcuffs!","Freeze, scumbag!","Don't tase me bro!","Tase them, bro.","Why not have a donut?")
+	ads_list = list("Crack capitalist skulls!",
+					"Beat some heads in!",
+					"Don't forget - harm is good!",
+					"Your weapons are right here.",
+					"Handcuffs!","Freeze, scumbag!",
+					"Don't tase me bro!",
+					"Tase them, bro.",
+					"Why not have a donut?")
+
 	icon_state = "sec"
 	icon_lightmask = "sec"
 	icon_deny = "sec_deny"
@@ -229,7 +332,11 @@
 					/obj/item/restraints/legcuffs/bola/energy = 7,
 					/obj/item/clothing/mask/muzzle/safety = 4,
 					/obj/item/judobelt = 3)
-	contraband = list(/obj/item/clothing/glasses/sunglasses = 2, /obj/item/storage/fancy/donut_box = 2, /obj/item/hailer = 5)
+
+	contraband = list(/obj/item/clothing/glasses/sunglasses = 2,
+					/obj/item/storage/fancy/donut_box = 2,
+					/obj/item/hailer = 5)
+
 	refill_canister = /obj/item/vending_refill/security
 	prices = list(/obj/item/reagent_containers/food/snacks/donut = 40,
-					/obj/item/storage/fancy/donut_box = 200) //Bulk discount
+				/obj/item/storage/fancy/donut_box = 200) //Bulk discount

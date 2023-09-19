@@ -266,11 +266,25 @@
 	R.set_frequency(radio_freq)
 	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
 
+	var/back
+
+	switch(synd_mob.backbag)
+		if(GBACKPACK, DBACKPACK)
+			back = /obj/item/storage/backpack
+		if(GSATCHEL, DSATCHEL)
+			back = /obj/item/storage/backpack/satchel_norm
+		if(GDUFFLEBAG, DDUFFLEBAG)
+			back = /obj/item/storage/backpack/duffel
+		if(LSATCHEL)
+			back = /obj/item/storage/backpack/satchel
+		else
+			back = /obj/item/storage/backpack
+
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), slot_w_uniform)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), slot_back)
+	synd_mob.equip_to_slot_or_del(new back(synd_mob), slot_back)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
@@ -278,6 +292,7 @@
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = uplink_uses
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
+	synd_mob.mind.offstation_role = TRUE
 
 	if(synd_mob.dna.species)
 		var/race = synd_mob.dna.species.name
