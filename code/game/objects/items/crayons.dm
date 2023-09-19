@@ -2,6 +2,8 @@
  * Crayons
  */
 
+#define CRAYON_MESSAGE_MAX_LENGTH 16
+
 /obj/item/toy/crayon
 	name = "crayon"
 	desc = "A colourful crayon. Looks tasty. Mmmm..."
@@ -23,6 +25,8 @@
 	var/list/validSurfaces = list(/turf/simulated/floor)
 	var/times_eaten = 0 //How many times this crayon has been gnawed on
 	var/max_bites = 4 //How many times a crayon can be bitten before being depleted. You eated it
+	var/preset_message
+	var/preset_message_index = 0
 
 /obj/item/toy/crayon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -36,8 +40,14 @@
 	update_window(user)
 
 /obj/item/toy/crayon/proc/update_window(mob/living/user as mob)
-	dat += "<center><h2>Currently selected: [drawtype]</h2><br>"
-	dat += "<a href='?src=[UID()];type=random_letter'>Random letter</a><a href='?src=[UID()];type=letter'>Pick letter</a>"
+	var/current_drawtype = drawtype
+	if(preset_message_index > 0)
+		current_drawtype = copytext(preset_message, 1, preset_message_index - 1)
+		current_drawtype += "<b>[preset_message[preset_message_index]]</b>"
+		current_drawtype += copytext(preset_message, preset_message_index + 1)
+	dat += "<center><h2>Currently selected: [current_drawtype]</h2><br>"
+	dat += "<a href='?src=[UID()];type=random_letter'>Random letter</a><a href='?src=[UID()];type=letter'>Pick letter</a><br />"
+	dat += "<a href='?src=[UID()];type=message'>Message</a>"
 	dat += "<hr>"
 	dat += "<h3>Runes:</h3><br>"
 	dat += "<a href='?src=[UID()];type=random_rune'>Random rune</a>"
@@ -64,6 +74,7 @@
 
 /obj/item/toy/crayon/Topic(href, href_list, hsrc)
 	var/temp = "a"
+	preset_message_index = 0
 	switch(href_list["type"])
 		if("random_letter")
 			temp = pick(letters)
@@ -73,6 +84,13 @@
 			temp = "rune[rand(1, 8)]"
 		if("random_graffiti")
 			temp = pick(graffiti)
+		if("message")
+			preset_message = stripped_input(
+				usr, "Set the message. Letters only. Max length [CRAYON_MESSAGE_MAX_LENGTH] characters.", max_length=CRAYON_MESSAGE_MAX_LENGTH)
+			var/regex/letters_only = regex("\[^a-zA-Z\]", "g")
+			preset_message = lowertext(letters_only.Replace(preset_message, ""))
+			log_admin("[key_name(usr)] has set the message of [src] to \"[preset_message]\".")
+			preset_message_index = 1
 		else
 			temp = href_list["type"]
 	if((usr.restrained() || usr.stat || !usr.is_in_active_hand(src)))
@@ -85,7 +103,10 @@
 	if(busy) return
 	if(is_type_in_list(target,validSurfaces))
 		var/temp = "rune"
-		if(letters.Find(drawtype))
+		if(preset_message_index > 0)
+			temp = "letter"
+			drawtype = preset_message[preset_message_index]
+		else if(letters.Find(drawtype))
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
@@ -95,6 +116,12 @@
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
 			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
+
+			if(preset_message_index > 0)
+				preset_message_index++
+				if(preset_message_index >= length(preset_message))
+					preset_message_index = 1
+
 			if(uses)
 				uses--
 				if(!uses)
@@ -319,3 +346,5 @@
 	var/image/I = image('icons/obj/crayons.dmi',icon_state = "[capped ? "spraycan_cap_colors" : "spraycan_colors"]")
 	I.color = colour
 	. += I
+
+#undef CRAYON_MESSAGE_MAX_LENGTH
