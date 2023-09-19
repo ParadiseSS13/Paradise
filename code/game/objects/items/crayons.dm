@@ -42,9 +42,10 @@
 /obj/item/toy/crayon/proc/update_window(mob/living/user as mob)
 	var/current_drawtype = drawtype
 	if(preset_message_index > 0)
-		current_drawtype = copytext(preset_message, 1, preset_message_index - 1)
-		current_drawtype += "<b>[preset_message[preset_message_index]]</b>"
+		current_drawtype = copytext(preset_message, 1, preset_message_index)
+		current_drawtype += "<u>[preset_message[preset_message_index]]</u>"
 		current_drawtype += copytext(preset_message, preset_message_index + 1)
+		current_drawtype = uppertext(current_drawtype)
 	dat += "<center><h2>Currently selected: [current_drawtype]</h2><br>"
 	dat += "<a href='?src=[UID()];type=random_letter'>Random letter</a><a href='?src=[UID()];type=letter'>Pick letter</a><br />"
 	dat += "<a href='?src=[UID()];type=message'>Message</a>"
@@ -85,10 +86,10 @@
 		if("random_graffiti")
 			temp = pick(graffiti)
 		if("message")
-			preset_message = stripped_input(
-				usr, "Set the message. Letters only. Max length [CRAYON_MESSAGE_MAX_LENGTH] characters.", max_length=CRAYON_MESSAGE_MAX_LENGTH)
-			var/regex/letters_only = regex("\[^a-zA-Z\]", "g")
-			preset_message = lowertext(letters_only.Replace(preset_message, ""))
+			var/regex/graffiti_chars = regex("\[^a-zA-Z0-9+\\-!?=%&,.#\\/\]", "g")
+			var/new_preset = input(usr, "Set the message. Max length [CRAYON_MESSAGE_MAX_LENGTH] characters.")
+			new_preset = copytext(new_preset, 1, CRAYON_MESSAGE_MAX_LENGTH)
+			preset_message = lowertext(graffiti_chars.Replace(new_preset, ""))
 			log_admin("[key_name(usr)] has set the message of [src] to \"[preset_message]\".")
 			preset_message_index = 1
 		else
@@ -119,8 +120,9 @@
 
 			if(preset_message_index > 0)
 				preset_message_index++
-				if(preset_message_index >= length(preset_message))
+				if(preset_message_index > length(preset_message))
 					preset_message_index = 1
+				update_window(usr)
 
 			if(uses)
 				uses--
