@@ -1,14 +1,3 @@
-#define LOC_KITCHEN 0
-#define LOC_ATMOS 1
-#define LOC_INCIN 2
-#define LOC_CHAPEL 3
-#define LOC_LIBRARY 4
-#define LOC_HYDRO 5
-#define LOC_VAULT 6
-#define LOC_CONSTR 7
-#define LOC_TECH 8
-#define LOC_ARMORY 9
-
 #define VERM_MICE 0
 #define VERM_LIZARDS 1
 #define VERM_SPIDERS 2
@@ -20,53 +9,36 @@
 	var/locstring
 	var/vermin
 	var/vermstring
+	var/static/list/spawn_areas = list(
+		/area/station/service/kitchen = "the kitchen",
+		/area/station/engineering/atmos = "atmospherics",
+		/area/station/maintenance/incinerator = "the incinerator",
+		/area/station/service/chapel = "the chapel",
+		/area/station/service/library = "the library",
+		/area/station/service/hydroponics = "hydroponics",
+		/area/station/command/vault = "the vault",
+		/area/station/public/construction = "the construction area",
+		/area/station/engineering/tech_storage = "technical storage",
+		/area/station/security/armory/secure = "the armory"
+	)
 
 /datum/event/infestation/start()
-
-	location = rand(0,9)
 	var/list/turf/simulated/floor/turfs = list()
-	var/spawn_area_type
-	switch(location)
-		if(LOC_KITCHEN)
-			spawn_area_type = /area/station/service/kitchen
-			locstring = "the kitchen"
-		if(LOC_ATMOS)
-			spawn_area_type = /area/station/engineering/atmos
-			locstring = "atmospherics"
-		if(LOC_INCIN)
-			spawn_area_type = /area/station/maintenance/incinerator
-			locstring = "the incinerator"
-		if(LOC_CHAPEL)
-			spawn_area_type = /area/station/service/chapel
-			locstring = "the chapel"
-		if(LOC_LIBRARY)
-			spawn_area_type = /area/station/service/library
-			locstring = "the library"
-		if(LOC_HYDRO)
-			spawn_area_type = /area/station/service/hydroponics
-			locstring = "hydroponics"
-		if(LOC_VAULT)
-			spawn_area_type = /area/station/command/vault
-			locstring = "the vault"
-		if(LOC_CONSTR)
-			spawn_area_type = /area/station/public/construction
-			locstring = "the construction area"
-		if(LOC_TECH)
-			spawn_area_type = /area/station/engineering/tech_storage
-			locstring = "technical storage"
-		if(LOC_ARMORY)
-			spawn_area_type = /area/station/security/armory/secure
-			locstring = "armory"
-
+	var/area/spawn_area_type = pick(spawn_areas)
+	locstring = spawn_areas[location]
 	for(var/areapath in typesof(spawn_area_type))
 		var/area/A = locate(areapath)
+		if(!A)
+			log_debug("Failed to locate area for infestation event!")
+			kill()
+			return
 		for(var/turf/simulated/floor/F in A.contents)
 			if(turf_clear(F))
 				turfs += F
 
 	var/list/spawn_types = list()
 	var/max_number
-	vermin = rand(0,2)
+	vermin = rand(0, 2)
 	switch(vermin)
 		if(VERM_MICE)
 			spawn_types = list(/mob/living/simple_animal/mouse/gray, /mob/living/simple_animal/mouse/brown, /mob/living/simple_animal/mouse/white)
@@ -93,17 +65,14 @@
 			new spawn_type(T)
 
 
-/datum/event/infestation/announce()
-	GLOB.minor_announcement.Announce("Bioscans indicate that [vermstring] have been breeding in [locstring]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+/datum/event/infestation/announce(false_alarm)
+	var/vermin_chosen = vermstring || pick("spiders", "lizards", "mice")
+	var/location_str = locstring
+	if(false_alarm)
+		var/area/loc_area = pick(spawn_areas)
+		location_str = spawn_areas[loc_area]
 
-#undef LOC_KITCHEN
-#undef LOC_ATMOS
-#undef LOC_INCIN
-#undef LOC_CHAPEL
-#undef LOC_LIBRARY
-#undef LOC_HYDRO
-#undef LOC_VAULT
-#undef LOC_TECH
+	GLOB.minor_announcement.Announce("Bioscans indicate that [vermin_chosen] have been breeding in [location_str]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
 
 #undef VERM_MICE
 #undef VERM_LIZARDS

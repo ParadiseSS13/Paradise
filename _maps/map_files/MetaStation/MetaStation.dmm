@@ -4488,17 +4488,11 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/virology)
 "axM" = (
-/obj/structure/table,
-/obj/item/paper/gravity_gen,
-/obj/item/pen/blue,
-/obj/effect/turf_decal/delivery,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+/obj/structure/closet/wardrobe/mixed,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
 	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/gravitygenerator)
+/area/station/public/locker)
 "axN" = (
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
@@ -13438,13 +13432,14 @@
 	},
 /area/station/hallway/secondary/bridge)
 "bad" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/power/smes{
-	charge = 5e+006
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
 	},
-/obj/structure/cable,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/gravitygenerator)
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/public/locker)
 "baf" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -59872,11 +59867,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
 "iAS" = (
-/obj/structure/closet/wardrobe/mixed,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+/obj/effect/turf_decal/delivery,
+/obj/machinery/power/smes{
+	charge = 5e+006
 	},
-/area/station/public/locker)
+/obj/structure/cable,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/gravitygenerator)
 "iAT" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8;
@@ -79786,6 +79783,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
+"spp" = (
+/obj/structure/table,
+/obj/item/paper/gravity_gen,
+/obj/item/pen/blue,
+/obj/effect/turf_decal/delivery,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/engineering/gravitygenerator)
 "spt" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
 	dir = 8
@@ -81829,15 +81838,6 @@
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"tpy" = (
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/public/locker)
 "tpD" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
@@ -125850,7 +125850,7 @@ aTu
 lAQ
 aVU
 aTo
-tpy
+bad
 aLl
 avA
 avA
@@ -126621,7 +126621,7 @@ aTo
 ilf
 aTo
 aTp
-iAS
+axM
 aLl
 avA
 avA
@@ -134565,8 +134565,8 @@ amk
 amk
 amk
 amk
-axM
-bad
+spp
+iAS
 cbc
 avA
 avA
