@@ -156,7 +156,7 @@
 							/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing,
 							/obj/item/gun/throw/piecannon,
 							/obj/item/ammo_box/shotgun/confetti,
-							/obj/item/book/manual/wiki/sop_security,
+							/obj/item/book/manual/wiki/sop_security, // They'll need this.
 							/obj/item/soulstone/anybody/purified/chaplain,
 							/obj/item/toy/figure/crew/clown,
 							/obj/item/toy/figure/crew/hop,
