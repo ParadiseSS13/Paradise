@@ -147,9 +147,9 @@
 	ammo_type = /obj/item/ammo_casing/a40mm
 	max_ammo = 6
 
-/obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi/ten
+/obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi/fifteen
 	ammo_type = /obj/item/ammo_casing/a40mm
-	max_ammo = 10
+	max_ammo = 15
 
 /obj/item/ammo_box/magazine/internal/speargun
 	name = "speargun internal magazine"
