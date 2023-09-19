@@ -210,9 +210,9 @@
 
 /obj/item/mail_scanner
 	name = "mail scanner"
+	desc = "Sponsored by Messaging and Intergalactic Letters, this device allows you to log mail deliveries in exchange for financial compensation."
 	force = 0
 	throwforce = 0
-	desc = "Sponsored by Messaging and Intergalactic Letters, this device allows you to log mail deliveries in exchange for financial compensation."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "mail_scanner"
 	item_state = "mail_scanner"
