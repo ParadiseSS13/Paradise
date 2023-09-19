@@ -79,21 +79,17 @@
 /datum/outfit/piratecorpse
 	name = "Corpse of a Pirate"
 	uniform = /obj/item/clothing/under/costume/pirate
+	suit = /obj/item/clothing/suit/space/eva
 	shoes = /obj/item/clothing/shoes/jackboots
 	glasses = /obj/item/clothing/glasses/eyepatch
-	head = /obj/item/clothing/head/bandana
+	head = /obj/item/clothing/head/helmet/space/eva
+	back = /obj/item/tank/jetpack/carbondioxide
 
 
-/obj/effect/mob_spawn/human/corpse/pirate/ranged
+/obj/effect/mob_spawn/human/corpse/pirate
 	name = "Pirate Gunner"
 	mob_name = "Pirate Gunner"
-	outfit = /datum/outfit/piratecorpse/ranged
-
-/datum/outfit/piratecorpse/ranged
-	name = "Corpse of a Pirate Gunner"
-	suit = /obj/item/clothing/suit/pirate_black
-	head = /obj/item/clothing/head/pirate
-
+	outfit = /datum/outfit/piratecorpse
 
 /obj/effect/mob_spawn/human/corpse/russian
 	name = "Russian"
