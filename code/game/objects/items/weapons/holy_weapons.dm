@@ -124,9 +124,11 @@
 
 /obj/item/nullrod/staff
 	name = "red holy staff"
-	icon_state = "godstaff-red"
-	item_state = "godstaff-red"
 	desc = "It has a mysterious, protective aura."
+	icon_state = "godstaff-red"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
+	item_state = "godstaff-red"
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5
 	slot_flags = SLOT_BACK
@@ -449,14 +451,16 @@
 /obj/item/nullrod/claymore/bostaff //May as well make it a "claymore" and inherit the blocking
 	name = "monk's staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts, now used to harass the clown."
+	icon_state = "bostaff0"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
+	item_state = "bostaff0"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 13
 	slot_flags = SLOT_BACK
 	sharp = FALSE
 	hitsound = "swing_hit"
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
-	icon_state = "bostaff0"
-	item_state = "bostaff0"
 
 /obj/item/nullrod/claymore/bostaff/Initialize(mapload)
 	. = ..()
@@ -600,6 +604,8 @@
 	reskinned = TRUE
 	reskin_selectable = FALSE
 	icon_state = "godstaff-red"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	item_state = "godstaff-red"
 	w_class = WEIGHT_CLASS_HUGE
 	force = 5

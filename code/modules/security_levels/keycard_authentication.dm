@@ -117,7 +117,7 @@
 	. = TRUE
 	switch(action)
 		if("ert")
-			ert_reason = stripped_input(usr, "Reason for ERT Call:", "", "")
+			ert_reason = input(usr, "Reason for ERT Call:", "", "") // we strip this later in ERT_Announce
 		if("reset")
 			reset()
 		if("triggerevent")
