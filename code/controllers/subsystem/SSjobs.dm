@@ -511,8 +511,7 @@ SUBSYSTEM_DEF(jobs)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
-					G.prescription = TRUE
-					G.name = "prescription [G.name]"
+					G.upgrade_prescription()
 					H.update_nearsighted_effects()
 
 	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
@@ -625,7 +624,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/announce_department_accounts(users_departments, mob/living/H, datum/job/job)
 	var/remembered_info = ""
 	for(var/datum/station_department/department as anything in users_departments)
-		if(job.title != department.head_of_staff && job.title != "Quartermaster")
+		if(job.title != department.head_of_staff)
 			continue
 		var/datum/money_account/department_account = department.department_account
 		if(!department_account)

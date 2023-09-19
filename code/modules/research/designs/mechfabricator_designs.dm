@@ -1093,7 +1093,7 @@
 	name = "Cyborg Upgrade (Safety Override)"
 	id = "borg_syndicate_module"
 	build_type = MECHFAB
-	req_tech = list("combat" = 7, "programming" = 7)
+	req_tech = list("combat" = 7, "programming" = 7, "syndicate" = 4)
 	build_path = /obj/item/borg/upgrade/syndicate
 	materials = list(MAT_METAL=10000,MAT_GLASS=15000,MAT_DIAMOND = 10000)
 	construction_time = 120
