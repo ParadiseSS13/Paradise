@@ -35,6 +35,9 @@
 /area/space/firereset(obj/source)
 	return
 
+/area/space/centcomm
+	icon_state = "space_cc"
+
 //SYNDICATES
 
 /area/syndicate_mothership
