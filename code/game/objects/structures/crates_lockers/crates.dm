@@ -525,13 +525,6 @@
 /obj/structure/closet/crate/surplus
 	var/cost
 
-/datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
-	if(..() != UPLINK_SPECIAL_SPAWNING)
-		return FALSE
-
-	var/obj/structure/closet/crate/surplus/surplus = new(loc, U, crate_value)
-	surplus.cost = cost
-
 /obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
 	. = ..()
 	var/list/temp_uplink_list = get_uplink_items(U)

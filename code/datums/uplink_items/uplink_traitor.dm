@@ -520,6 +520,9 @@
 	uses_special_spawn = TRUE
 
 /datum/uplink_item/bundles_TC/contractor/spawn_item(turf/loc, obj/item/uplink/U)
+	if(..() != UPLINK_SPECIAL_SPAWNING)
+		return FALSE
+
 	var/datum/mind/mind = usr.mind
 	var/datum/antagonist/traitor/AT = mind.has_antag_datum(/datum/antagonist/traitor)
 	if(LAZYACCESS(GLOB.contractors, mind))
@@ -532,7 +535,7 @@
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
 		return
 
-	var/obj/item/I = ..()
+	var/obj/item/I = new /obj/item/storage/box/syndie_kit/contractor(loc)
 	// Init the hub
 	var/obj/item/contractor_uplink/CU = locate(/obj/item/contractor_uplink) in I
 	CU.hub = new(mind, CU)
@@ -567,6 +570,13 @@
 	reference = "SYSS"
 	cost = 200
 	crate_value = 625
+
+/datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
+	if(..() != UPLINK_SPECIAL_SPAWNING)
+		return FALSE
+
+	var/obj/structure/closet/crate/surplus/surplus = new(loc, U, crate_value)
+	surplus.cost = cost
 
 // -----------------------------------
 // PRICES OVERRIDEN FOR NUCLEAR AGENTS
