@@ -117,6 +117,7 @@
 	icon_state = "nvgmeson"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
+	prescription_upgradeable = TRUE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 /obj/item/clothing/glasses/meson/prescription
