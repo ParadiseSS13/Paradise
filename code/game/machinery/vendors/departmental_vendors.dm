@@ -159,7 +159,7 @@
 	ads_list = list("Go save some lives!","The best stuff for your medbay.","Only the finest tools.","Natural chemicals!","This stuff saves lives.","Don't you want some?","Ping!")
 	req_access_txt = "5"
 	category = VENDOR_TYPE_DEPARTMENTAL
-	products = list(/obj/item/reagent_containers/hypospray/autoinjector = 4,
+	products = list(/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
 					/obj/item/stack/medical/bruise_pack/advanced = 2,
 					/obj/item/stack/medical/ointment/advanced = 2,
 					/obj/item/reagent_containers/food/pill/patch/styptic = 3,
