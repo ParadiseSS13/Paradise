@@ -311,6 +311,12 @@
 	build_path = /obj/machinery/computer/arcade/orion_trail
 	origin_tech = "programming=1"
 
+/obj/item/circuitboard/arcade/recruiter
+	board_name = "Nanotrasen Recruiter Simulator"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/arcade/recruiter
+	origin_tech = "programming=1"
+
 /obj/item/circuitboard/solar_control
 	board_name = "Solar Control"
 	icon_state = "engineering"

@@ -24,8 +24,7 @@
 	if(mind)
 		mind.assigned_role = "Cluwne"
 
-	var/obj/item/organ/internal/honktumor/cursed/tumor = new
-	tumor.insert(src)
+
 	dna.SetSEState(GLOB.nervousblock, 1, 1)
 	singlemutcheck(src, GLOB.nervousblock, MUTCHK_FORCED)
 	rename_character(real_name, "cluwne")
@@ -33,6 +32,8 @@
 	unEquip(w_uniform, 1)
 	unEquip(shoes, 1)
 	unEquip(gloves, 1)
+	var/obj/item/organ/internal/honktumor/cursed/tumor = new
+	tumor.insert(src)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
 		unEquip(wear_mask, 1)
 	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, slot_w_uniform, TRUE, TRUE)

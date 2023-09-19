@@ -13356,7 +13356,7 @@
 /area/station/public/storage/art)
 "aPT" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "aPU" = (
 /obj/structure/table/wood,
@@ -14041,7 +14041,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	dir = 10;
 	icon_state = "darkblue"
 	},
@@ -15433,7 +15433,7 @@
 /area/station/hallway/primary/fore)
 "aUA" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "darkblue"
 	},
@@ -26640,15 +26640,9 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
-"btI" = (
-/obj/structure/closet/emcloset,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
-/area/space/nearstation)
 "btJ" = (
-/obj/structure/closet/firecloset,
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "btK" = (
 /obj/machinery/hologram/holopad,
@@ -59443,6 +59437,7 @@
 /obj/machinery/status_display{
 	pixel_x = -32
 	},
+/obj/item/crutches,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -82944,6 +82939,7 @@
 	name = "Emergency NanoMed";
 	pixel_x = 28
 	},
+/obj/item/crutches,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -89953,10 +89949,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"oEG" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "oFL" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -90296,6 +90288,7 @@
 	name = "Emergency NanoMed";
 	pixel_x = -25
 	},
+/obj/item/crutches,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "cmo"
@@ -142040,9 +142033,9 @@ cpO
 aXY
 bsr
 bsv
-btI
-btI
-btJ
+bxi
+bxi
+bvV
 bwf
 bDU
 bEc
@@ -149982,7 +149975,7 @@ abj
 aaa
 abj
 abj
-oEG
+btJ
 aaa
 ygH
 tFK
@@ -150239,7 +150232,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 abj
 ygH
 aJx
@@ -150496,7 +150489,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 aaa
 ygH
 uUu
@@ -153374,7 +153367,7 @@ nlB
 aaa
 abj
 abj
-oEG
+btJ
 abj
 abj
 csj
@@ -153888,7 +153881,7 @@ aaa
 aaa
 aaa
 abj
-oEG
+btJ
 abj
 abj
 csj
@@ -154403,7 +154396,7 @@ aaa
 aaa
 abj
 abj
-dij
+btJ
 abj
 csj
 rEQ
@@ -156436,10 +156429,10 @@ aaa
 aaa
 abj
 abj
-oEG
-oEG
-oEG
-oEG
+btJ
+btJ
+btJ
+btJ
 abj
 abj
 fhF
@@ -156698,7 +156691,7 @@ aaa
 abj
 abj
 aaa
-oEG
+btJ
 fhF
 fhF
 fhF
@@ -156708,7 +156701,7 @@ fhF
 fhF
 abj
 abj
-oEG
+btJ
 aaa
 aaa
 aaa
@@ -156952,10 +156945,10 @@ aaa
 abj
 abj
 abj
-oEG
-oEG
-oEG
-oEG
+btJ
+btJ
+btJ
+btJ
 fhF
 fhF
 fhF
@@ -156965,7 +156958,7 @@ fhF
 fhF
 abj
 aaa
-oEG
+btJ
 aaa
 aaa
 aaa
@@ -157222,7 +157215,7 @@ fhF
 fhF
 abj
 aaa
-oEG
+btJ
 aaa
 aaa
 aaa
@@ -157469,7 +157462,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 fhF
 fhF
 fhF
@@ -157477,9 +157470,9 @@ fhF
 fhF
 fhF
 fhF
-oEG
+btJ
 abj
-oEG
+btJ
 aaa
 aaa
 aaa
@@ -157720,13 +157713,13 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 aaa
 aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 fhF
 fhF
 fhF
@@ -157734,7 +157727,7 @@ fhF
 fhF
 fhF
 fhF
-oEG
+btJ
 abj
 abj
 aaa
@@ -157977,20 +157970,20 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 aaa
 aaa
 aaa
 aaa
 aaa
 bPS
-oEG
-oEG
+btJ
+btJ
 abj
 bPS
 abj
-oEG
-oEG
+btJ
+btJ
 bPS
 aaa
 aaa
@@ -158234,7 +158227,7 @@ aaa
 aaa
 aaa
 aaa
-oEG
+btJ
 aaa
 aaa
 aaa
@@ -158499,11 +158492,11 @@ aaa
 aaa
 aaa
 aaa
-oEG
-oEG
-oEG
-oEG
-oEG
+btJ
+btJ
+btJ
+btJ
+btJ
 aaa
 aaa
 aaa

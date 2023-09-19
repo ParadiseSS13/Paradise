@@ -206,7 +206,7 @@
 /obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/user) // Bolts doors
 	if(!ai_control_check(user))
 		return
-	if(user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "Bolting [src] cancelled.", special_identifier = "Bolt"))
+	if(user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, attempt_cancel_message = "Bolting [src] cancelled.", special_identifier = "Bolt"))
 		toggle_bolt(user)
 
 
