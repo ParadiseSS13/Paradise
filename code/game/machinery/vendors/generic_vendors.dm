@@ -981,7 +981,10 @@
 	category = VENDOR_TYPE_DEPARTMENTAL
 	density = FALSE //It is wall-mounted, and thus, not dense. --Superxpdude
 	tiltable = FALSE
-	products = list(/obj/item/stack/medical/bruise_pack = 2, /obj/item/stack/medical/ointment = 2, /obj/item/reagent_containers/hypospray/autoinjector = 4, /obj/item/healthanalyzer = 1)
+	products = list(/obj/item/stack/medical/bruise_pack = 2,
+					/obj/item/stack/medical/ointment = 2,
+					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
+					/obj/item/healthanalyzer = 1)
 	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4, /obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 100, acid = 70)
 	//this shouldn't be priced
