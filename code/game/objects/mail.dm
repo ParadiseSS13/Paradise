@@ -11,6 +11,7 @@
 	pickup_sound = 'sound/items/handling/paper_pickup.ogg'
 
 	var/list/possible_contents = list()
+	/// A list that contains the names of the jobs that can receive this type of letter. Only the base job has to be put in it, alternative titles have the same definition on the mind. Name of the job can be found in `mind.assigned_role`
 	var/list/job_list = list()
 	var/mob/living/recipient
 	var/has_been_scanned = FALSE
@@ -42,7 +43,7 @@
 	var/list/mind_copy = shuffle(SSticker.minds)
 	for(var/datum/mind/mail_attracted_people in mind_copy)
 		var/turf/T = get_turf(mail_attracted_people.current)
-		if(mail_attracted_people.offstation_role || !ishuman(mail_attracted_people.current) || T.z == 1)
+		if(mail_attracted_people.offstation_role || !ishuman(mail_attracted_people.current) || is_station_level(T.z))
 			continue
 		if(mail_attracted_people.assigned_role in job_list)
 			recipient = mail_attracted_people.current
