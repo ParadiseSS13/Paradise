@@ -16,7 +16,6 @@
 	mask = /obj/item/clothing/mask/gas/welding/advanced
 	shoes = /obj/item/clothing/shoes/combat/swat
 
-	// shit down here is mine
 	box = /obj/item/storage/box/debug/debugtools
 	suit_store = /obj/item/tank/internals/oxygen
 	gloves = /obj/item/clothing/gloves/combat
