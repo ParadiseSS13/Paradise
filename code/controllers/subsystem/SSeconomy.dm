@@ -145,7 +145,7 @@ SUBSYSTEM_DEF(economy)
 		record_economy_data()
 	process_job_tasks()
 	if(next_mail_delay <= world.time)
-		if(SSshuttle.supply.z != 1 || SSshuttle.supply.areaInstance.moving)
+		if(!is_admin_level(T.z) || SSshuttle.supply.areaInstance.moving)
 			return
 		next_mail_delay = 15 MINUTES + world.time
 		SSshuttle.mail_delivery()
