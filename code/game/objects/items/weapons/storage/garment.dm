@@ -195,12 +195,16 @@
 	new /obj/item/clothing/under/rank/cargo/quartermaster(src)
 	new /obj/item/clothing/under/rank/cargo/quartermaster/skirt(src)
 	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/cargo(src)
+	new /obj/item/clothing/suit/jacket/cargobomber(src)
+	new /obj/item/clothing/head/hardhat/orange(src)
+	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/clothing/head/soft(src)
-	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/suit/fire/firefighter(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 
 /obj/item/storage/bag/garment/warden
 	name = "warden's garment bag"

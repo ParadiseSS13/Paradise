@@ -77,6 +77,7 @@
 	holds_charge = TRUE
 	unique_frequency = TRUE
 	max_mod_capacity = 80
+	icon_state = "kineticgun_b"
 
 /obj/item/gun/energy/kinetic_accelerator/minebot
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
@@ -578,6 +579,7 @@
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/chassis_mod
 	var/chassis_icon = "kineticgun_u"
+	var/chassis_item = "kineticgun_u"
 	var/chassis_name = "super-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/chassis_mod/install(obj/item/gun/energy/kinetic_accelerator/KA, mob/user)
@@ -585,11 +587,13 @@
 	if(.)
 		KA.current_skin = chassis_icon
 		KA.name = chassis_name
+		KA.item_state = chassis_item
 		KA.update_icon()
 
 /obj/item/borg/upgrade/modkit/chassis_mod/uninstall(obj/item/gun/energy/kinetic_accelerator/KA)
 	KA.current_skin = initial(KA.current_skin)
 	KA.name = initial(KA.name)
+	KA.item_state = initial(KA.item_state)
 	KA.update_icon()
 	..()
 
@@ -597,6 +601,7 @@
 	name = "hyper chassis"
 	desc = "Makes your KA orange. All the fun of having explosive blasts without actually having explosive blasts."
 	chassis_icon = "kineticgun_h"
+	chassis_item = "kineticgun_h"
 	chassis_name = "hyper-kinetic accelerator"
 
 /obj/item/borg/upgrade/modkit/tracer
