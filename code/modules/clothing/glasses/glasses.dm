@@ -118,7 +118,6 @@
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
@@ -172,7 +171,6 @@
 	icon_state = "nvpurple"
 	item_state = "glasses"
 	see_in_dark = 8
-	prescription_upgradable = FALSE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor

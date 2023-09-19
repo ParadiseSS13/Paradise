@@ -217,12 +217,6 @@
 	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
-	if(iscarbon(user)) //don't want cyborgs dropping their stuff
-		for(var/obj/item/W in user)
-			if(istype(W, /obj/item/implant))
-				continue
-			if(!user.unEquip(W))
-				qdel(W)
 	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
 	user.gib()
 
@@ -405,3 +399,28 @@
 
 	times_used = max_uses - 1
 	activate_batterer()
+
+/obj/item/handheld_mirror
+	name = "hand mirror"
+	desc = "Style, on the go!"
+	icon = 'icons/obj/hhmirror.dmi'
+	icon_state = "hhmirror"
+	w_class = WEIGHT_CLASS_TINY
+	var/datum/ui_module/appearance_changer/appearance_changer_holder
+
+/obj/item/handheld_mirror/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
+	appearance_changer_holder.ui_interact(user, ui_key, ui, force_open, master_ui, state = GLOB.hands_state)
+
+/obj/item/handheld_mirror/attack_self(mob/user)
+	if(ishuman(user))
+		appearance_changer_holder = new(src, user)
+		ui_interact(user)
+
+/obj/item/handheld_mirror/Initialize(mapload)
+	. = ..()
+	GLOB.mirrors += src
+
+/obj/item/handheld_mirror/Destroy()
+	GLOB.mirrors -= src
+	QDEL_NULL(appearance_changer_holder)
+	return ..()
