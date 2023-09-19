@@ -286,6 +286,8 @@ if(!result || result.ckey != __ckey){\
 			return "chocolate"
 		if(CONVERSION_LOG)
 			return "indigo"
+		if(DECONVERSION_LOG)
+			return "indigo"
 		if(SAY_LOG)
 			return "teal"
 		if(EMOTE_LOG)

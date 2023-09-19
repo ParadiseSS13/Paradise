@@ -206,6 +206,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			singlemutcheck(H, GLOB.clumsyblock, MUTCHK_FORCED)
 			for(var/datum/action/innate/toggle_clumsy/A in H.actions)
 				A.Remove(H)
+		cult_mind.current.create_log(DECONVERSION_LOG, "deconverted from the cult")
 	check_cult_size()
 	if(show_message)
 		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
