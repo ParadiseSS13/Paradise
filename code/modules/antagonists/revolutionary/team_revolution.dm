@@ -64,9 +64,8 @@
 
 	SSshuttle.clearHostileEnvironment(src) // revs can take the shuttle too if they want
 
-	var/msg = "The revolutionaries have won! All command, security, and legal jobs have been removed. You can change this with the \"Free Job Slot\" verb."
-	log_admin(msg)
-	message_admins(msg)
+	log_admin("Revolutionary win conditions met. All command, security, and legal jobs are now closed.")
+	message_admins("The revolutionaries have won! All command, security, and legal jobs have been closed. You can change this with the \"Free Job Slot\" verb.")
 	// HOP can still technically alter some roles, but Nanotrasen wouldn't send heads/sec under threat to the station after revs win
 	var/banned_departments = DEP_FLAG_COMMAND | DEP_FLAG_SECURITY | DEP_FLAG_LEGAL
 	for(var/datum/job/job in SSjobs.occupations)

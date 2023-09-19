@@ -67,6 +67,7 @@
 	///Job Objectives that crew with this job will have a roundstart
 	var/required_objectives = list()
 
+	/// Boolean detailing if this job has been banned because of a gamemode restriction i.e. The revolution has won, no more command
 	var/job_banned_gamemode = FALSE
 
 //Only override this proc
