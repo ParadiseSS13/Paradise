@@ -1,5 +1,4 @@
 // =========== statues ===========
-
 /obj/structure/statue/bananium/clown/unique
 	name = "статуя великого Хонкера"
 	desc = "Искусно слепленная статуя из бананиума, бананового сока и непонятного белого материала. Судя по его выдающейся улыбки, двум золотым гудкам в руках и наряду, он был лучшим стендапером и шутником на станции. Полное имя, к сожалению плохо читаемо и затерто, похоже кто-то явно завидовал его таланту."
@@ -55,6 +54,60 @@
 	pixel_y = 7
 	anchored = TRUE
 	oreAmount = 0
+
+/obj/structure/statue/cyberiad
+	name = "статуя Кибериады"
+	desc = "Гигантская модель научной станции «Кибериада». Судя по отличиям в конструкции, станцию несколько раз перестраивали."
+	icon = 'modular_ss220/unique_objects/icons/cyberiad.dmi'
+	anchored = TRUE
+	max_integrity = 500
+	oreAmount = 0
+
+/obj/structure/statue/cyberiad/nw
+	icon_state = "nw"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/cyberiad/north
+	icon_state = "north"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/cyberiad/ne
+	icon_state = "ne"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+// Adds transparency when the player gets behind an object, or is near it
+/obj/structure/statue/cyberiad/nw/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, -3, -2, 6, 4)
+
+/obj/structure/statue/cyberiad/north/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, -3, -2, 6, 4)
+
+/obj/structure/statue/cyberiad/ne/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, -3, -2, 6, 4)
+
+/obj/structure/statue/cyberiad/w
+	icon_state = "west"
+
+/obj/structure/statue/cyberiad/c
+	icon_state = "center"
+
+/obj/structure/statue/cyberiad/e
+	icon_state = "east"
+
+/obj/structure/statue/cyberiad/sw
+	icon_state = "sw"
+
+/obj/structure/statue/cyberiad/s
+	icon_state = "south"
+
+/obj/structure/statue/cyberiad/se
+	icon_state = "se"
 
 // =========== items ===========
 /obj/item/clothing/head/helmet/skull/Yorick
