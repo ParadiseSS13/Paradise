@@ -1253,7 +1253,10 @@
 					/obj/item/reagent_containers/syringe/charcoal = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
 					/obj/item/healthanalyzer = 1)
-	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4, /obj/item/reagent_containers/food/pill/tox = 1)
+
+	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4,
+					/obj/item/reagent_containers/food/pill/tox = 1)
+
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, rad = 0, fire = 100, acid = 70)
 	//this shouldn't be priced
 	resistance_flags = FIRE_PROOF

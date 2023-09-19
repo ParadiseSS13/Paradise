@@ -20,7 +20,8 @@
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
 					/obj/item/healthanalyzer = 1)
 
-	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4,/obj/item/reagent_containers/food/pill/tox = 1)
+	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4,
+					/obj/item/reagent_containers/food/pill/tox = 1)
 
 /obj/machinery/economy/vending/syndicigs
 	name = "\improper Suspicious Cigarette Machine"
