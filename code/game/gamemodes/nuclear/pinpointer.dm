@@ -372,7 +372,6 @@
 			. += "No operatives detected within scanning range."
 
 /obj/item/pinpointer/operative/nad
-	name = "operative pinpointer"
 	desc = "A pinpointer that leads to the first Syndicate operative detected. Also has a mode to point towards the NAD."
 	modes = list(MODE_OPERATIVE, MODE_DISK)
 
