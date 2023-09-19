@@ -16,11 +16,11 @@
 	end_message = null
 	area_type = /area // read generate_area_list() as well below
 	protected_areas = list(/area/shuttle/arrival/station)
-	target_trait = STATION_LEVEL
+	target_trait = REACHABLE_SPACE_ONLY
 	immunity_type = "burn"
 	var/damage = 4
 	/// Areas which are "semi-protected". Mobs inside these areas take reduced burn damage from the solar flare.
-	var/list/semi_protected_areas = list(/area/station/hallway/secondary/entry)
+	var/list/semi_protected_areas = list(/area/station/hallway/secondary/entry, /area/ruin)
 
 /datum/weather/solar_flare/generate_area_list()
 	..()
