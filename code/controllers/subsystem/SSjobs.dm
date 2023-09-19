@@ -511,8 +511,7 @@ SUBSYSTEM_DEF(jobs)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
-					G.prescription = TRUE
-					G.name = "prescription [G.name]"
+					G.upgrade_prescription()
 					H.update_nearsighted_effects()
 
 	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
