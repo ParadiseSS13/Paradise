@@ -104,3 +104,16 @@
 	// Action goes on the mind as the user actually learns the thing in your brain
 	var/datum/action/new_action = new granted_action(user.mind || user)
 	new_action.Grant(user)
+
+// Generic action giver
+/obj/item/book/granter/spell
+	/// The typepath of spell that is given
+	var/obj/effect/proc_holder/spell/granted_spell
+	/// The name of the spell, formatted in a more text-friendly way
+	var/spell_name = ""
+
+/obj/item/book/granter/spell/on_reading_finished(mob/living/user)
+	if(!user.mind)
+		return
+	to_chat(user, "<span class='notice'>You feel like you've got a good handle on [spell_name]!</span>")
+	user.mind.AddSpell(new granted_spell(null))
