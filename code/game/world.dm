@@ -143,7 +143,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	// If we were running unit tests, finish that run
 	#ifdef UNIT_TESTS
-	GLOB.test_runner.Finalize(TRUE)
+	GLOB.test_runner.Finalize()
 	return
 	#endif
 
