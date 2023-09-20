@@ -99,9 +99,8 @@
 /obj/structure/chair/wheelchair/bike
 	name = "bicycle"
 	desc = "Two wheels of FURY!"
-	//placeholder until i get a bike sprite
 	icon = 'icons/vehicles/motorcycle.dmi'
-	icon_state = "motorcycle_4dir"
+	icon_state = "bicycle"
 
 /obj/structure/chair/wheelchair/bike/relaymove(mob/user, direction)
 	if(propelled)
@@ -158,3 +157,31 @@
 
 /obj/structure/chair/wheelchair/bike/wrench_act(mob/user, obj/item/I)
 	return
+
+/obj/structure/chair/wheelchair/bike/post_buckle_mob(mob/living/M)
+	. = ..()
+	var/datum/action/bicycle_bell/bell_action = new(src)
+	if(has_buckled_mobs())
+		bell_action.Grant(M)
+	else
+		bell_action.Remove(M)
+
+/obj/structure/chair/wheelchair/bike/post_unbuckle_mob(mob/living/M)
+	for(var/datum/action/bicycle_bell/bell_action in M.actions)
+		bell_action.Remove(M)
+	return ..()
+
+/datum/action/bicycle_bell
+	name = "Ring Bell"
+	desc = "Go on, ring you bicycle bell!"
+	icon_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon_state = "desk_bell"
+	COOLDOWN_DECLARE(ring_cooldown)
+
+/datum/action/bicycle_bell/Trigger(left_click)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, ring_cooldown))
+		return
+	var/obj/structure/chair/wheelchair/bike/B = target
+	playsound(B, 'sound/machines/bell.ogg', 70, TRUE, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+	COOLDOWN_START(src, ring_cooldown, 1 SECONDS)
