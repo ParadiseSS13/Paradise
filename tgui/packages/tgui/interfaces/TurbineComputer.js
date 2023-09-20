@@ -1,6 +1,7 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section } from '../components';
+import { Button, LabeledList, Section, ProgressBar } from '../components';
 import { Window } from '../layouts';
+import { toFixed } from 'common/math';
 
 export const TurbineComputer = (props, context) => {
   const { act, data } = useBackend(context);
@@ -26,9 +27,9 @@ export const TurbineComputer = (props, context) => {
                 onClick={() => act('toggle_power')}
               />
               <Button
-                icon="sync"
-                content="Reconnect"
-                onClick={() => act('reconnect')}
+                icon="times"
+                content="Disconnect"
+                onClick={() => act('disconnect')}
               />
             </>
           )}>
@@ -78,7 +79,8 @@ const TurbineWorking = (props, context) => {
   const {
     rpm,
     temperature,
-    power
+    power,
+    bearing_heat,
   } = data;
   return (
     <LabeledList>
@@ -90,6 +92,19 @@ const TurbineWorking = (props, context) => {
       </LabeledList.Item>
       <LabeledList.Item label="Generated Power">
         {power} W
+      </LabeledList.Item>
+      <LabeledList.Item label="Bearing Heat">
+        <ProgressBar
+          value={bearing_heat}
+          minValue={0}
+          maxValue={100}
+          ranges={{
+            good: [-Infinity, 60],
+            average: [60, 90],
+            bad: [90, Infinity],
+          }}>
+          {toFixed(bearing_heat) + '%'}
+         </ProgressBar>
       </LabeledList.Item>
     </LabeledList>
   );

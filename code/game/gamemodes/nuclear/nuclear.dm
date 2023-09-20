@@ -9,6 +9,7 @@
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
+	tdm_gamemode = TRUE
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = 5
 	recommended_enemies = 5
@@ -265,11 +266,25 @@
 	R.set_frequency(radio_freq)
 	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
 
+	var/back
+
+	switch(synd_mob.backbag)
+		if(GBACKPACK, DBACKPACK)
+			back = /obj/item/storage/backpack
+		if(GSATCHEL, DSATCHEL)
+			back = /obj/item/storage/backpack/satchel_norm
+		if(GDUFFLEBAG, DDUFFLEBAG)
+			back = /obj/item/storage/backpack/duffel
+		if(LSATCHEL)
+			back = /obj/item/storage/backpack/satchel
+		else
+			back = /obj/item/storage/backpack
+
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), slot_w_uniform)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), slot_back)
+	synd_mob.equip_to_slot_or_del(new back(synd_mob), slot_back)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
@@ -454,8 +469,13 @@
 	if(nuke?.r_code != "Nope")
 		var/area/A = get_area(nuke)
 
-		var/list/thousand_penalty = list(/area/solar)
-		var/list/fiftythousand_penalty = list(/area/security/main, /area/security/brig, /area/security/armoury, /area/security/checkpoint2)
+		var/list/thousand_penalty = list(/area/station/engineering/solar)
+		var/list/fiftythousand_penalty = list(
+			/area/station/security/main,
+			/area/station/security/brig,
+			/area/station/security/armory,
+			/area/station/security/checkpoint/secondary
+			)
 
 		if(is_type_in_list(A, thousand_penalty))
 			scoreboard.nuked_penalty = 1000
@@ -463,7 +483,7 @@
 		else if(is_type_in_list(A, fiftythousand_penalty))
 			scoreboard.nuked_penalty = 50000
 
-		else if(istype(A, /area/engine))
+		else if(istype(A, /area/station/engineering/engine))
 			scoreboard.nuked_penalty = 100000
 
 		else
