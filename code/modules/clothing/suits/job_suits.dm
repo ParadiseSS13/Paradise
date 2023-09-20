@@ -369,3 +369,14 @@
 	item_state = "rdmantle"
 	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer, /obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/reagent_containers/food/pill, /obj/item/storage/pill_bottle, /obj/item/paper)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+
+// NT Career Trainer
+/obj/item/clothing/suit/storage/ntc
+	name = "NT Career Trainer's jacket"
+	desc = "MMTODO"
+	icon_state = "MMTODO"
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO|ARMS
+	ignore_suitadjust = 0
+	actions_types = list(/datum/action/item_action/button)
+	adjust_flavour = "unbutton"

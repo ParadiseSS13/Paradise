@@ -308,9 +308,9 @@
 	jobtype = /datum/job/ntinstructor
 
 	uniform = /obj/item/clothing/under/rank/centcom/representative // MMTODO - NEEDS SPRITE
-	suit = /obj/item/clothing/suit/mantle // MMTODO - NEEDS SPRITE
+	suit = /obj/item/clothing/suit/storage/ntc
 	shoes = /obj/item/clothing/shoes/centcom
-	head = /obj/item/clothing/head/beret // MMTODO - NEEDS SPRITE
+	head = /obj/item/clothing/head/beret/ntc
 	l_ear = /obj/item/radio/headset/headset_ntc
 	glasses =  /obj/item/clothing/glasses/hud/skills/sunglasses
 	id = /obj/item/card/id/ntc
