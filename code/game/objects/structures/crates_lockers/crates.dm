@@ -523,7 +523,6 @@
 #define RECURSION_PANIC_AMOUNT 10
 
 /obj/structure/closet/crate/surplus
-	var/cost
 
 /obj/structure/closet/crate/surplus/Initialize(mapload, obj/item/uplink/U, crate_value, cost)
 	. = ..()
