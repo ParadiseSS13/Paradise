@@ -109,7 +109,6 @@ if has_invalid_tag:
     print("CL has invalid tags!")
     print("Valid tags are:")
     print(*tags['tags'].keys(), sep=", ")
-    exit(1)
 
 if write_cl['changes']:
     print("CL OK!")
@@ -118,7 +117,6 @@ if write_cl['changes']:
         pr.remove_from_labels(CL_INVALID)
     if not has_valid_label:
         pr.add_to_labels(CL_VALID)
-    exit(0)
 else:
     print("No CL changes detected!")
     # add invalid, remove valid
@@ -126,4 +124,5 @@ else:
         pr.add_to_labels(CL_INVALID)
     if has_valid_label:
         pr.remove_from_labels(CL_VALID)
-    exit(0)
+
+exit(0)
