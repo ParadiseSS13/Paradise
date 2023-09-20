@@ -531,5 +531,24 @@
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/slime_extract,/obj/item/reagent_containers/food/snacks/monkeycube,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/iv_bag,/obj/item/reagent_containers/hypospray/autoinjector)
+	can_hold = list(/obj/item/slime_extract, /obj/item/reagent_containers/food/snacks/monkeycube,
+					/obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker,
+					/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/iv_bag,
+					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine)
+	resistance_flags = FLAMMABLE
+
+/*
+ *	Mail bag
+ */
+
+/obj/item/storage/bag/mail
+	name = "mail bag"
+	desc = "A bag for envelopes, stamps, pens, and papers."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "mailbag"
+	item_state = "mailbag"
+	storage_slots = 14
+	max_combined_w_class = 28
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/envelope, /obj/item/stamp, /obj/item/pen, /obj/item/paper)
 	resistance_flags = FLAMMABLE

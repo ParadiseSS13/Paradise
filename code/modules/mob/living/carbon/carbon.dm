@@ -3,14 +3,9 @@
 	GLOB.carbon_list += src
 
 /mob/living/carbon/Destroy()
-	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
-	if(back)
-		var/obj/I = back
-		unEquip(I)
-		qdel(I)
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
-		unEquip(item)
+		unEquip(item, silent = TRUE)
 		qdel(item)
 	QDEL_LIST_CONTENTS(internal_organs)
 	QDEL_LIST_CONTENTS(stomach_contents)
@@ -213,11 +208,6 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if(stat == DEAD)
-		if(M != src)
-			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
-			"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
-		return
 	if(health < HEALTH_THRESHOLD_CRIT)
 		return
 	if(src == M && ishuman(src))

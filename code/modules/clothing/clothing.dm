@@ -853,7 +853,6 @@
 				if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
 					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 					usr.update_inv_w_uniform()
-
 			else
 				if(H.w_uniform.sprite_sheets["Human"] && icon_exists(H.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
 					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
@@ -863,6 +862,12 @@
 
 	else
 		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
+	if(item_color == "[basecolor]")
+		body_parts_covered = initial(body_parts_covered)
+	else
+		body_parts_covered &= ~UPPER_TORSO
+		body_parts_covered &= ~LOWER_TORSO
+		body_parts_covered &= ~ARMS
 
 /obj/item/clothing/under/verb/removetie()
 	set name = "Remove Accessory"
