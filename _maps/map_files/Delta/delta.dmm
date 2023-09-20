@@ -65073,12 +65073,12 @@
 "dvS" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dvT" = (
 /obj/structure/barricade/wooden,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dvU" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating/airless,
@@ -65320,7 +65320,7 @@
 /obj/item/clothing/under/costume/maid,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dwS" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -65332,24 +65332,24 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dwU" = (
 /turf/simulated/floor/plasteel/dark,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dwV" = (
 /obj/machinery/door/window{
 	dir = 8;
 	name = "Abandoned Theater"
 	},
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dwW" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dwX" = (
 /obj/structure/dresser,
 /obj/machinery/light/small{
@@ -65359,7 +65359,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dwY" = (
 /obj/structure/table/wood,
 /obj/item/instrument/guitar,
@@ -65368,7 +65368,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dwZ" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
@@ -65676,7 +65676,7 @@
 /area/station/medical/medbay)
 "dyb" = (
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dyc" = (
 /obj/structure/rack,
 /obj/effect/landmark/costume/random,
@@ -65714,13 +65714,13 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dyh" = (
 /obj/structure/table/wood,
 /obj/item/newspaper,
 /obj/item/clothing/head/bowlerhat,
 /turf/simulated/floor/plasteel/dark,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dyj" = (
 /obj/structure/table/wood,
 /obj/item/tape,
@@ -65728,7 +65728,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dyk" = (
 /obj/machinery/bodyscanner{
 	dir = 4
@@ -65948,7 +65948,7 @@
 	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dzv" = (
 /obj/item/target,
 /obj/structure/window/reinforced,
@@ -66308,7 +66308,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dAB" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -66319,7 +66319,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dAC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -66330,20 +66330,20 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dAD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dAE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dAF" = (
 /turf/simulated/floor/wood{
 	broken = 1;
@@ -66455,13 +66455,13 @@
 /area/station/medical/medbay)
 "dBq" = (
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dBr" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dBt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -66477,7 +66477,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dBv" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp,
@@ -66849,7 +66849,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dCr" = (
 /obj/structure/table/glass,
 /obj/item/circular_saw,
@@ -66872,18 +66872,18 @@
 /obj/item/clothing/head/papersack/smiley,
 /obj/item/pen,
 /turf/simulated/floor/plasteel/dark,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dCt" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dCu" = (
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dCv" = (
 /obj/structure/table/wood,
 /obj/item/clothing/suit/cardborg,
@@ -66892,7 +66892,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dCw" = (
 /obj/structure/computerframe,
 /obj/item/circuitboard/secure_data,
@@ -67292,22 +67292,22 @@
 "dDG" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dDH" = (
 /obj/structure/dresser,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dDI" = (
 /obj/structure/table/wood,
 /obj/item/wrench,
 /obj/item/storage/briefcase,
 /obj/item/storage/secure/briefcase,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dDJ" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dDK" = (
 /obj/item/kirbyplants,
 /obj/machinery/alarm{
@@ -67316,11 +67316,11 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dDM" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "dDN" = (
 /turf/simulated/floor/plasteel/grimy,
 /area/station/security/detective)
@@ -74802,7 +74802,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "eQu" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -75529,7 +75529,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "fuR" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -76536,7 +76536,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "glX" = (
 /obj/structure/closet/secure_closet/brig{
 	id = "Cell 3";
@@ -78902,7 +78902,7 @@
 	},
 /obj/structure/musician/piano,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "iiY" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 4
@@ -80321,6 +80321,10 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
+"jvR" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/theatre)
 "jyM" = (
 /obj/machinery/door/airlock/command{
 	id_tag = "cmoofficedoor";
@@ -83397,7 +83401,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "mod" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -85241,7 +85245,7 @@
 /obj/item/storage/fancy/candle_box/full,
 /obj/item/storage/fancy/candle_box/full,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "nCY" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel{
@@ -86305,6 +86309,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
+"oqS" = (
+/turf/simulated/wall,
+/area/station/maintenance/theatre)
 "orj" = (
 /obj/machinery/economy/vending/hatdispenser,
 /obj/item/radio/intercom{
@@ -88115,7 +88122,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "pPG" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/flora/bush,
@@ -88930,10 +88937,6 @@
 "qCd" = (
 /turf/simulated/floor/plasteel/grimy,
 /area/station/maintenance/abandonedbar)
-"qCr" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/service/theatre)
 "qCv" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -90541,7 +90544,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "rTE" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -92906,7 +92909,7 @@
 /obj/item/lipstick/random,
 /obj/item/lipstick/random,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "tIr" = (
 /obj/machinery/economy/vending/hatdispenser,
 /turf/simulated/floor/plasteel/dark,
@@ -93224,7 +93227,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "tTM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -93427,7 +93430,7 @@
 "ucl" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "ucB" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -94450,7 +94453,7 @@
 	broken = 1;
 	icon_state = "wood-broken"
 	},
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "uWj" = (
 /obj/item/target/syndicate,
 /turf/simulated/floor/plating,
@@ -94471,7 +94474,7 @@
 	pixel_y = 28
 	},
 /turf/simulated/floor/wood,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "uYc" = (
 /obj/structure/closet/secure_closet/brig{
 	id = "Cell 5";
@@ -95373,7 +95376,7 @@
 /obj/structure/table/wood,
 /obj/item/instrument/violin,
 /turf/simulated/floor/plating,
-/area/station/service/theatre)
+/area/station/maintenance/theatre)
 "vMh" = (
 /obj/machinery/light,
 /obj/machinery/economy/vending/crittercare,
@@ -148984,13 +148987,13 @@ dfJ
 dfI
 xWD
 duL
-aOx
-aOx
+oqS
+oqS
 dvT
-aOx
+oqS
 dAz
-aOx
-aOx
+oqS
+oqS
 dDG
 dDG
 abj
@@ -149241,7 +149244,7 @@ dqT
 dfI
 dtx
 duL
-aOx
+oqS
 dwQ
 dyb
 dzq
@@ -149498,7 +149501,7 @@ doo
 dsk
 dtx
 kSX
-aOx
+oqS
 fuH
 dBq
 dCu
@@ -149506,7 +149509,7 @@ dAB
 dBq
 dyb
 dDI
-qCr
+jvR
 abj
 abj
 aki
@@ -149763,7 +149766,7 @@ dAC
 uVQ
 dBq
 dDJ
-qCr
+jvR
 aaa
 abj
 dFG
@@ -150020,7 +150023,7 @@ dAD
 dBq
 dyb
 dDK
-aOx
+oqS
 aaa
 abj
 dFG
@@ -150269,7 +150272,7 @@ dtE
 dsl
 dty
 sZT
-aOx
+oqS
 dwU
 dyh
 dBr
@@ -150277,7 +150280,7 @@ tSS
 dBr
 dCs
 ucl
-aOx
+oqS
 abj
 abj
 abj
@@ -150526,7 +150529,7 @@ dqX
 dfI
 xWD
 ezR
-aOx
+oqS
 dwV
 glQ
 glQ
@@ -150534,7 +150537,7 @@ pPC
 glQ
 moa
 iiM
-aOx
+oqS
 abj
 aaa
 aaa
@@ -150791,7 +150794,7 @@ rTc
 dCt
 dCt
 dDM
-qCr
+jvR
 abj
 aaa
 aaa
@@ -151048,7 +151051,7 @@ dAE
 dyb
 dCu
 tHf
-qCr
+jvR
 abj
 aaa
 aaa
@@ -151297,7 +151300,7 @@ cMH
 dbx
 xWD
 ujH
-aOx
+oqS
 dwY
 dyj
 nCz
