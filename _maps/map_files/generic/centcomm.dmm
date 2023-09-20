@@ -6444,7 +6444,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "xe" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew/advanced,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "xf" = (
@@ -12384,7 +12384,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wu" = (
-/obj/machinery/computer/crew{
+/obj/machinery/computer/crew/advanced{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
