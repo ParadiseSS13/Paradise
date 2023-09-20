@@ -62926,12 +62926,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "fSi" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "evamaint_vent"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
+/turf/simulated/floor/engine/xenobio,
+/area/station/science/xenobiology)
 "fSM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -89657,9 +89653,6 @@
 	icon_state = "brown"
 	},
 /area/station/supply/qm)
-"voc" = (
-/turf/simulated/floor/engine/xenobio,
-/area/station/science/xenobiology)
 "vof" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -112502,7 +112495,7 @@ doE
 doE
 wpU
 eIz
-fSi
+eIz
 xXP
 aLx
 blG
@@ -140607,9 +140600,9 @@ cEH
 tfN
 kiq
 cBR
-voc
+fSi
 nIF
-voc
+fSi
 ecZ
 kMc
 kdc
@@ -140866,7 +140859,7 @@ oDE
 iun
 fpG
 fMb
-voc
+fSi
 oJr
 cQC
 dhR
@@ -141380,7 +141373,7 @@ hOz
 iun
 dvM
 tQn
-voc
+fSi
 oJr
 sFy
 dhR
@@ -141635,9 +141628,9 @@ oto
 tPD
 jPb
 cBR
-voc
+fSi
 fET
-voc
+fSi
 ecZ
 bUx
 dFe
