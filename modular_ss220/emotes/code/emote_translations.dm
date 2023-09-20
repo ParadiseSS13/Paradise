@@ -159,7 +159,7 @@
 	key = "blink_r"
 	message = "быстро моргает."
 
-/datum/emote/living/carbon/clap
+/datum/emote/living/carbon/human/clap
 	message = "хлопает."
 	message_mime = "бесшумно хлопает."
 	message_param = "хлопает %t."
