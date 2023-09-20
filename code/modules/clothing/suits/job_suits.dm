@@ -208,13 +208,13 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-//Lawyer
-/obj/item/clothing/suit/storage/lawyer
+//Internal Affairs
+/obj/item/clothing/suit/storage/iaa
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
-/obj/item/clothing/suit/storage/lawyer/blackjacket
+/obj/item/clothing/suit/storage/iaa/blackjacket
 	name = "black suit jacket"
 	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_black_open"
@@ -226,7 +226,7 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-/obj/item/clothing/suit/storage/lawyer/bluejacket
+/obj/item/clothing/suit/storage/iaa/bluejacket
 	name = "blue suit jacket"
 	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_blue_open"
@@ -238,7 +238,7 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-/obj/item/clothing/suit/storage/lawyer/purpjacket
+/obj/item/clothing/suit/storage/iaa/purpjacket
 	name = "purple suit jacket"
 	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_purp"
@@ -269,23 +269,7 @@
 	item_state = "hopmantle"
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 
-//Internal Affairs
-/obj/item/clothing/suit/storage/internalaffairs
-	name = "\improper Internal Affairs jacket"
-	desc = "A smooth black jacket."
-	icon_state = "ia_jacket_open"
-	item_state = "ia_jacket_open"
-	blood_overlay_type = "coat"
-	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
-	suit_adjusted = 1
-	actions_types = list(/datum/action/item_action/button)
-	adjust_flavour = "unbutton"
-
-	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
-
+//Dignitaries
 /obj/item/clothing/suit/storage/ntrep
 	name = "\improper Nanotrasen Representative jacket"
 	desc = "A fancy black jacket; standard issue to Nanotrasen Representatives."
