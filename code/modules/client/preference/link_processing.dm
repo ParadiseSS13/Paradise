@@ -706,7 +706,7 @@
 						active_character.physique = new_physique
 
 				if("height")
-					var/new_height = input(user, "Choose your descriptor for how built your character is on glance.", "Character Preference") as null|anything in list("very short", "short", "average height", "tall", "very tall")
+					var/new_height = input(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference") as null|anything in list("very short", "short", "average height", "tall", "very tall")
 					if(new_height)
 						active_character.height = new_height
 
