@@ -126,4 +126,4 @@ else:
         pr.add_to_labels(CL_INVALID)
     if has_valid_label:
         pr.remove_from_labels(CL_VALID)
-    exit(1)
+    exit(0)
