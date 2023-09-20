@@ -89657,6 +89657,9 @@
 	icon_state = "brown"
 	},
 /area/station/supply/qm)
+"voc" = (
+/turf/simulated/floor/engine/xenobio,
+/area/station/science/xenobiology)
 "vof" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -140604,9 +140607,9 @@ cEH
 tfN
 kiq
 cBR
-fSi
+voc
 nIF
-fSi
+voc
 ecZ
 kMc
 kdc
@@ -140863,7 +140866,7 @@ oDE
 iun
 fpG
 fMb
-fSi
+voc
 oJr
 cQC
 dhR
@@ -141377,7 +141380,7 @@ hOz
 iun
 dvM
 tQn
-fSi
+voc
 oJr
 sFy
 dhR
@@ -141632,9 +141635,9 @@ oto
 tPD
 jPb
 cBR
-fSi
+voc
 fET
-fSi
+voc
 ecZ
 bUx
 dFe
