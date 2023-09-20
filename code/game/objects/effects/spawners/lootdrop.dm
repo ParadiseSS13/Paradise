@@ -163,6 +163,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 2,
 				/obj/item/storage/pill_bottle/fakedeath = 2,
 				/obj/item/clothing/suit/jacket/syndicatebomber = 5,
+				/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 2, // More armored than bomber and has pockets, so it is rarer
 				"" = 61 // This should be a decently high number for chances where no loot will spawn
 				)
 
@@ -212,6 +213,7 @@
 				/obj/item/stack/nanopaste = 50,
 				/obj/item/clothing/under/costume/psyjump = 50,
 				/obj/item/immortality_talisman = 50,
+				/obj/item/clothing/mask/holo_cigar = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals

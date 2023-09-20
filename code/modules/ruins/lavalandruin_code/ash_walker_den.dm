@@ -50,11 +50,11 @@
 
 /obj/structure/lavaland/ash_walker/proc/spawn_mob()
 	if(meat_counter >= ASH_WALKER_SPAWN_THRESHOLD)
-		new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)))
+		new /obj/effect/mob_spawn/human/alive/ash_walker(get_step(loc, pick(GLOB.alldirs)))
 		visible_message("<span class='danger'>One of the eggs swells to an unnatural size and tumbles free. It's ready to hatch!</span>")
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 
-/obj/effect/mob_spawn/human/ash_walker
+/obj/effect/mob_spawn/human/alive/ash_walker
 	name = "ash walker egg"
 	desc = "A man-sized yellow egg, spawned from some unfathomable creature. A humanoid silhouette lurks within."
 	mob_name = "an ash walker"
@@ -74,14 +74,14 @@
 	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest."
 	assignedrole = "Ash Walker"
 
-/obj/effect/mob_spawn/human/ash_walker/special(mob/living/carbon/human/new_spawn)
+/obj/effect/mob_spawn/human/alive/ash_walker/special(mob/living/carbon/human/new_spawn)
 	new_spawn.rename_character(new_spawn.real_name, new_spawn.dna.species.get_random_name(new_spawn.gender))
 	new_spawn.mind.offstation_role = TRUE
 
 	to_chat(new_spawn, "<b>Drag the corpses of men and beasts to your nest. It will absorb them to create more of your kind. Glory to the Necropolis!</b>")
 	to_chat(new_spawn, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Ash_Walker)</span>")
 
-/obj/effect/mob_spawn/human/ash_walker/New()
+/obj/effect/mob_spawn/human/alive/ash_walker/New()
 	. = ..()
 	var/area/A = get_area(src)
 	if(A)

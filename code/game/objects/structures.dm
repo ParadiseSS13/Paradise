@@ -3,7 +3,6 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	face_while_pulling = TRUE
-	pull_speed = 0.5
 	var/climbable
 	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
 	var/creates_cover = FALSE

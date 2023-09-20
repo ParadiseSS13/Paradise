@@ -28,6 +28,10 @@
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles
+	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
+									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
+									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
+									"mitocholide", "rezadone", "menthol")
 
 /obj/machinery/chem_master/Initialize(mapload)
 	. = ..()
@@ -354,10 +358,13 @@
 				if("create_pill")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = clamp(round(text2num(arguments["num"])), 0, MAX_MULTI_AMOUNT)
+
+					var/num = arguments["num"] || 1 // Multi puts a string in `num`, single leaves it null
+					num = clamp(round(text2num(num)), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
+
 					var/amount_per_pill = clamp(reagents.total_volume / num, 0, MAX_UNITS_PER_PILL)
 					var/default_name = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
 					var/pills_text = num == 1 ? "new pill" : "[num] new pills"
@@ -374,10 +381,13 @@
 				if("create_patch")
 					if(condi || !reagents.total_volume)
 						return
-					var/num = clamp(round(text2num(arguments["num"])), 0, MAX_MULTI_AMOUNT)
+
+					var/num = arguments["num"] || 1 // Multi puts a string in `num`, single leaves it null
+					num = clamp(round(text2num(num)), 0, MAX_MULTI_AMOUNT)
 					if(!num)
 						return
 					arguments["num"] = num
+
 					var/amount_per_patch = clamp(reagents.total_volume / num, 0, MAX_UNITS_PER_PATCH)
 					var/default_name = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
 					var/patches_text = num == 1 ? "new patch" : "[num] new patches"
@@ -540,7 +550,7 @@
 /obj/machinery/chem_master/proc/chemical_safety_check(datum/reagents/R)
 	var/all_safe = TRUE
 	for(var/datum/reagent/A in R.reagent_list)
-		if(!GLOB.safe_chem_list.Find(A.id))
+		if(!safe_chem_list.Find(A.id))
 			all_safe = FALSE
 	return all_safe
 

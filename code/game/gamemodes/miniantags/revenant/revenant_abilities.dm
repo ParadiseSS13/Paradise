@@ -365,6 +365,7 @@
 	possessed_object.maxHealth = 100 // Double the regular HP of possessed objects
 	possessed_object.health = 100
 	possessed_object.escape_chance = 100 // We cannot be contained
+	ADD_TRAIT(possessed_object, TRAIT_DODGE_ALL_OBJECTS, "Revenant")
 
 	addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 1 SECONDS, TIMER_UNIQUE) // Short warm-up for floaty ambience
 	attack_timers.Add(addtimer(CALLBACK(src, PROC_REF(attack), possessed_object, user), 4 SECONDS, TIMER_UNIQUE|TIMER_LOOP|TIMER_STOPPABLE)) // 5 second looping attacks
@@ -373,12 +374,15 @@
 /// Handles finding a valid target and throwing us at it
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/attack(mob/living/simple_animal/possessed_object/possessed_object, mob/living/simple_animal/revenant/user)
 	var/list/potential_victims = list()
-	for(var/mob/living/carbon/potential_victim in range(aoe_range, get_turf(possessed_object)))
-		if(!can_see(possessed_object, potential_victim, aoe_range)) // You can't see me
-			continue
-		if(potential_victim.stat != CONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
-			continue
-		potential_victims.Add(potential_victim)
+	for(var/turf/turf_to_search in spiral_range_turfs(aoe_range, get_turf(possessed_object)))
+		for(var/mob/living/carbon/potential_victim in turf_to_search)
+			if(QDELETED(possessed_object) || !can_see(possessed_object, potential_victim, aoe_range)) // You can't see me
+				continue
+			if(potential_victim.stat != CONSCIOUS) // Don't kill our precious essence-filled sleepy mobs
+				continue
+			potential_victims.Add(potential_victim)
+
+	potential_victims.Cut((length(potential_victims) * 0.8) + 1.2) // Only consider the people near us
 
 	if(!length(potential_victims))
 		possessed_object.possessed_item.throwforce = min(possessed_object.possessed_item.throwforce + 5, 15) // If an item is stood still for a while it can gather power
@@ -386,7 +390,7 @@
 		return
 
 	var/mob/living/carbon/victim = pick(potential_victims)
-	possessed_object.throw_at(victim, aoe_range, 2, user)
+	possessed_object.throw_at(victim, aoe_range, 2, user, dodgeable = FALSE)
 
 /// Sets the glow on the haunted object, scales up based on throwforce
 /obj/effect/proc_holder/spell/aoe/revenant/haunt_object/proc/set_outline(mob/living/simple_animal/possessed_object/possessed_object)
