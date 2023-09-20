@@ -575,8 +575,7 @@
 	if(..() != UPLINK_SPECIAL_SPAWNING)
 		return FALSE
 
-	var/obj/structure/closet/crate/surplus/surplus = new(loc, U, crate_value)
-	surplus.cost = cost
+	var/obj/structure/closet/crate/surplus/surplus = new(loc, U, crate_value, cost)
 
 // -----------------------------------
 // PRICES OVERRIDEN FOR NUCLEAR AGENTS
