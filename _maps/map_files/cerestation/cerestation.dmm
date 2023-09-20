@@ -11959,7 +11959,7 @@
 	name = "Emergency Lockdown Blastdoor"
 	},
 /turf/simulated/floor/plating,
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bwx" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -12228,7 +12228,7 @@
 	dir = 4;
 	icon_state = "darkyellowcorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bxH" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -12240,7 +12240,7 @@
 	icon_state = "darkyellow";
 	dir = 1
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bxI" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -12258,7 +12258,7 @@
 	dir = 1;
 	icon_state = "darkyellowcorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bxJ" = (
 /obj/item/plant_analyzer,
 /turf/simulated/floor/plating,
@@ -12497,7 +12497,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "byJ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -12511,7 +12511,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "byK" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -13171,13 +13171,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bCa" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bCc" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -13412,7 +13412,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bDc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -13662,7 +13662,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bEm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -13671,7 +13671,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bEq" = (
 /obj/machinery/camera{
 	c_tag = "Chief Medical Officer's Office";
@@ -14174,7 +14174,7 @@
 	dir = 8;
 	icon_state = "darkyellowcorners"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bFC" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -14552,7 +14552,7 @@
 	icon_state = "darkyellow";
 	dir = 8
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bHj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -14571,7 +14571,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bHp" = (
 /obj/machinery/shower{
 	dir = 1
@@ -14808,7 +14808,7 @@
 "bID" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bIF" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -14818,7 +14818,7 @@
 	dir = 10;
 	icon_state = "darkyellow"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bIG" = (
 /obj/structure/table,
 /obj/item/destTagger,
@@ -14826,7 +14826,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "bII" = (
 /obj/machinery/gravity_generator/main/station,
 /turf/simulated/floor/plating,
@@ -23998,7 +23998,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "cJf" = (
 /obj/machinery/power/apc{
 	dir = 4;
@@ -24016,7 +24016,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "cJg" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24;
@@ -24028,7 +24028,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "cJh" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -31720,6 +31720,15 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/power/apc{
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/cable/orange{
+	d2 = 4;
+	icon_state = "0-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "browncorner"
@@ -34103,7 +34112,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "evC" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -35488,6 +35497,26 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
+"eUG" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "engineeringlockdown";
+	layer = 2.6;
+	name = "Emergency Lockdown Blastdoor"
+	},
+/obj/machinery/door/airlock/engineering,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkyellowfull"
+	},
+/area/station/engineering/break_room/secondary)
 "eUI" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -41185,7 +41214,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "gVb" = (
 /obj/effect/landmark/start/botanist,
 /obj/structure/chair/office/light{
@@ -42200,26 +42229,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/fore)
-"hnk" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "engineeringlockdown";
-	layer = 2.6;
-	name = "Emergency Lockdown Blastdoor"
-	},
-/obj/machinery/door/airlock/engineering,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowfull"
-	},
-/area/station/engineering/break_room)
 "hnu" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -46919,7 +46928,7 @@
 	},
 /obj/structure/cable/orange,
 /turf/simulated/floor/plating,
-/area/station/service/kitchen)
+/area/station/public/fitness)
 "iKt" = (
 /obj/structure/cable/orange{
 	d1 = 2;
@@ -52250,7 +52259,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "krZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -56987,7 +56996,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "lNM" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
@@ -64188,7 +64197,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "obL" = (
 /obj/machinery/light{
 	dir = 4
@@ -65739,6 +65748,14 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
@@ -74006,6 +74023,12 @@
 	icon_state = "dark"
 	},
 /area/station/security/warden)
+"rcK" = (
+/obj/machinery/status_display{
+	layer = 4
+	},
+/turf/simulated/wall/r_wall,
+/area/station/engineering/break_room/secondary)
 "rcS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -81615,7 +81638,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "tBR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -81877,7 +81900,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "tHv" = (
 /turf/simulated/floor/plating,
 /area/station/engineering/gravitygenerator)
@@ -85304,6 +85327,9 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
+"uNG" = (
+/turf/simulated/wall/r_wall,
+/area/station/engineering/break_room/secondary)
 "uNH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -88646,7 +88672,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "vLS" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -91060,7 +91086,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/break_room)
+/area/station/engineering/break_room/secondary)
 "wxb" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -133460,13 +133486,13 @@ aYJ
 aYJ
 aYJ
 aYJ
-bwi
-bwi
-bwi
-bwi
-bwi
-bBW
-bwi
+uNG
+uNG
+uNG
+uNG
+uNG
+rcK
+uNG
 bhd
 bFA
 bHg
@@ -133974,7 +134000,7 @@ okb
 maW
 nqE
 gGH
-hnk
+eUG
 bxH
 lNw
 lNw
@@ -134488,7 +134514,7 @@ eUg
 bsi
 aYJ
 aYJ
-bwi
+uNG
 cJf
 cJg
 bCa

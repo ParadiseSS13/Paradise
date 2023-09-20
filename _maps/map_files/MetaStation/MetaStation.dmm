@@ -19899,9 +19899,23 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "bqr" = (
+/obj/machinery/power/apc{
+	cell_type = 5000;
+	name = "south bump Important Area";
+	pixel_y = -24
+	},
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain/bedroom)
 "bqs" = (
@@ -20605,6 +20619,11 @@
 /obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
 "bsl" = (
@@ -21203,6 +21222,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "buf" = (
@@ -21217,6 +21241,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bug" = (
@@ -21227,6 +21256,11 @@
 	dir = 9
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "buh" = (
@@ -21547,15 +21581,6 @@
 "bvc" = (
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/apc{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -22249,6 +22274,11 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
@@ -23290,22 +23320,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/landmark/start/cyborg,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/turret_protected/aisat/interior)
+/turf/simulated/floor/wood,
+/area/station/command/office/captain/bedroom)
 "bzh" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
@@ -77216,6 +77232,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet,
 /area/station/legal/courtroom)
+"qnJ" = (
+/obj/structure/sign/biohazard,
+/turf/simulated/wall/r_wall,
+/area/station/science/xenobiology)
 "qnY" = (
 /obj/machinery/light/small,
 /obj/structure/window/plasmareinforced{
@@ -80488,10 +80508,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/security/main)
-"rPS" = (
-/obj/structure/sign/biohazard,
-/turf/simulated/wall/r_wall,
-/area/station/science/xenobiology)
 "rPU" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/yellow{
@@ -124569,7 +124585,7 @@ bjj
 ttE
 cEg
 wUL
-bqr
+bzg
 boI
 buh
 byJ
@@ -134384,7 +134400,7 @@ aaa
 aaa
 aaa
 aaa
-rPS
+qnJ
 uQm
 jAZ
 uQm
@@ -135410,7 +135426,7 @@ abq
 laH
 laH
 abq
-rPS
+qnJ
 fvN
 uQm
 cZr
@@ -135418,7 +135434,7 @@ jek
 cZr
 uQm
 fvN
-rPS
+qnJ
 abq
 laH
 laH
@@ -148985,7 +149001,7 @@ brQ
 bri
 aXK
 bvc
-bzg
+bxD
 bDi
 bBl
 bxf

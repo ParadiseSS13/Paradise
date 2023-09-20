@@ -121,6 +121,12 @@
 /area/station/maintenance/library
 	name = "Abandoned Library"
 	icon_state = "library"
+	apc_starts_off = TRUE
+
+/area/station/maintenance/theatre
+	name = "\improper Abandoned Theatre"
+	icon_state = "Theatre"
+	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/station/maintenance/spacehut
 	name = "Space Hut"
