@@ -1,41 +1,41 @@
 /* Station */
-/area/security/checkpoint/south
+/area/station/security/checkpoint/south
 	name = "\improper Escape Security Checkpoint"
 
-/area/bridge/checkpoint
+/area/station/bridge/checkpoint
 	name = "\improper Command Checkpoint"
 
-/area/bridge/checkpoint/north
+/area/station/bridge/checkpoint/north
 	name = "\improper North Command Checkpoint"
 
-/area/bridge/checkpoint/south
+/area/station/bridge/checkpoint/south
 	name = "\improper South Command Checkpoint"
 
-/area/engine/aitransit
+/area/station/engineering/aitransit
 	name = "\improper AI Satellite Transfer Point"
 	icon_state = "engi"
 
-/area/engine/hallway
+/area/station/engineering/hallway
 	name = "\improper Engineering Hallway"
 	icon_state = "engine_hallway"
 
-/area/engine/dronefabricator
+/area/station/engineering/dronefabricator
 	name = "\improper Engineering Drone Fabricator Room"
 	icon_state = "engi"
 
-/area/engine/emergency
+/area/station/engineering/emergency
 	name = "\improper Engineering Emergency Supplies"
 	icon_state = "emergencystorage"
 
-/area/engine/supermatter_room
+/area/station/engineering/supermatter_room
 	name = "\improper Supermatter Room"
 	icon_state = "engi"
 
-/area/engine/utility
+/area/station/engineering/utility
 	name = "\improper Engineering Utility Room"
 	icon_state = "engimaint"
 
-/area/atmos/storage
+/area/station/engineering/atmos/storage
 	name = "\improper Atmospherics Storage"
 	icon_state = "atmos"
 

@@ -79,7 +79,7 @@
 
 /* NT LOGO */
 /obj/effect/decal/nanotrasen_logo
-	name = "NanoTrasen Logo"
+	name = "Nanotrasen Logo"
 	icon = 'modular_ss220/aesthetics/decals/icons/NT_logo.dmi'
 
 /obj/effect/decal/nanotrasen_logo/n1
