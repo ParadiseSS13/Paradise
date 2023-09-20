@@ -531,7 +531,7 @@
 		to_chat(usr, "<span class='warning'>Error: Embedded Syndicate credentials contain an abnormal signature. Aborting.</span>")
 		return
 
-	var/obj/item/I = new item(loc)
+	var/obj/item/I = ..()
 	// Init the hub
 	var/obj/item/contractor_uplink/CU = locate(/obj/item/contractor_uplink) in I
 	CU.hub = new(mind, CU)
