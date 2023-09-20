@@ -46,7 +46,7 @@
 
 /obj/item/encryptionkey/syndicate/all_channels // has to be a subtype and stuff
 	name = "AVD-CNED Encryption Key"
-	name = "Lets you listen to <b>everything</b>. Use in hand to toggle voice changing. Alt-click to change your fake name."
+	desc = "Lets you listen to <b>everything</b>. Use in hand to toggle voice changing. Alt-click to change your fake name."
 	icon_state = "com_cypherkey"
 	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1) // just in case
 	syndie = TRUE
@@ -57,7 +57,7 @@
 	for(var/channel in SSradio.radiochannels)
 		channels[channel] = 1 // yeah, all channels, sure, probably fine
 
-/obj/item/encryptionkey/syndicate/all_channels/attack_hand(mob/user, pickupfireoverride)
+/obj/item/encryptionkey/syndicate/all_channels/attack_self(mob/user, pickupfireoverride)
 	change_voice = !change_voice
 	to_chat(user, "You switch [src] to [change_voice ? "" : "not "] change your voice on syndicate communications.")
 
