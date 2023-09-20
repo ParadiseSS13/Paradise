@@ -20,6 +20,12 @@
 	slot_flags = SLOT_BACK
 	actions_types = list()
 
+/obj/item/gun/projectile/automatic/sniper_rifle/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper/antimatter) && !zoomed)
+		to_chat(user, "<span class='warning'>[src] must be zoomed in to fire this ammunition accurately!</span>")
+		bonus_spread += 60
+	return ..()
+
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
 	name = "syndicate sniper rifle"
 	desc = "Syndicate flavoured sniper rifle, it packs quite a punch, a punch to your face."
@@ -59,10 +65,12 @@
 	weaken = 10 SECONDS
 	armour_penetration_flat = 70
 	forced_accuracy = TRUE
+	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSGIRDER
+	speed = 0.5
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
 	name = "sniper rounds (Antimatter)"
-	desc = "Antimatter sniper rounds, for when you really don't like something."
+	desc = "Antimatter sniper rounds, for when you really don't like something. Requires zooming to fire accurately."
 	icon_state = "antimatter"
 	ammo_type = /obj/item/ammo_casing/antimatter
 
@@ -109,8 +117,6 @@
 		L.SetSleeping(40 SECONDS)
 
 	return ..()
-
-
 
 //hemorrhage ammo
 /obj/item/ammo_box/magazine/sniper_rounds/haemorrhage
@@ -159,6 +165,8 @@
 	damage = 60
 	forcedodge = -1
 	weaken = 0
+	speed = 0.75
+	pass_flags = PASSTABLE //damage glass
 
 //toy magazine
 /obj/item/ammo_box/magazine/toy/sniper_rounds
