@@ -868,6 +868,7 @@
 #include "code\game\objects\cleaning.dm"
 #include "code\game\objects\empulse.dm"
 #include "code\game\objects\explosion.dm"
+#include "code\game\objects\holo_machinery.dm"
 #include "code\game\objects\items.dm"
 #include "code\game\objects\mail.dm"
 #include "code\game\objects\obj_defense.dm"

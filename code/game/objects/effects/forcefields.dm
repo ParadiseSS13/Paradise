@@ -64,3 +64,41 @@
 	name = "invisible blockade"
 	desc = "You might be here a while."
 	lifetime = 60 SECONDS
+
+// Not quite a forcefield, but close enough that I'm including it in this file
+/obj/effect/holo_forcefield
+	desc = "A space wizard's magic wall."
+	name = "FORCEWALL"
+	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
+	icon_state = "hierophant_wall_temp-0"
+	base_icon_state = "hierophant_wall_temp"
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
+	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
+	layer = BELOW_MOB_LAYER
+	plane = GAME_PLANE
+	opacity = FALSE
+	density = TRUE
+	color = LIGHT_COLOR_BLUE
+	light_range = 3 // They're energy walls, those give off a lot of light
+	light_color = LIGHT_COLOR_BLUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/holo_forcefield/Initialize(mapload)
+	. = ..()
+	air_update_turf(TRUE)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
+		QUEUE_SMOOTH(src)
+
+/obj/effect/holo_forcefield/Destroy()
+	air_update_turf(TRUE)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		QUEUE_SMOOTH_NEIGHBORS(src)
+	return ..()
+
+/obj/effect/holo_forcefield/CanAtmosPass(turf/T)
+	return !density
+
+/obj/effect/holo_barrier/CanPass(atom/movable/mover, turf/target)
+	return TRUE
