@@ -236,7 +236,7 @@
 	main_typepath = /datum/gear/uniform/cargo
 
 /datum/gear/uniform/cargo/delivery
-	display_name = "Delivery Boy Uniform"
+	display_name = "Uniform, delivery boy"
 	path = /obj/item/clothing/under/rank/cargo/deliveryboy
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 

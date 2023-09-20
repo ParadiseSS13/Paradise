@@ -78,7 +78,7 @@
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/hat/deliverysoft
-	display_name = "Delivery Boy cap"
+	display_name = "Cap, delivery boy"
 	path = /obj/item/clothing/head/soft/deliverysoft
 	allowed_roles = list("Quartermaster", "Cargo Technician")
 
