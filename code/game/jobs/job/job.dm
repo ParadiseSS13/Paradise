@@ -50,6 +50,7 @@
 	var/is_medical
 	var/is_science
 	var/is_security
+	var/is_procedure
 
 	//If you have use_age_restriction_for_jobs config option enabled and the database set up, this option will add a requirement for players to be at least minimal_player_age days old. (meaning they first signed in at least that many days before.)
 	var/minimal_player_age = 0

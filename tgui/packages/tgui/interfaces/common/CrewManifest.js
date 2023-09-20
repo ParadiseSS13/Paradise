@@ -78,7 +78,7 @@ export const CrewManifest = (props, context) => {
 
   const { manifest } = finalData;
 
-  const { heads, sec, eng, med, sci, ser, sup, misc } = manifest;
+  const { heads, sec, pro, eng, med, sci, ser, sup, misc } = manifest;
 
   return (
     <Box>
@@ -106,6 +106,19 @@ export const CrewManifest = (props, context) => {
         level={2}
       >
         {ManifestTable(sec)}
+      </Section>
+
+      <Section
+        title={
+          <Box backgroundColor={deptCols.procedure} m={-1} pt={1} pb={1}>
+            <Box ml={1} textAlign="center" fontSize={1.4}>
+              Procedure
+            </Box>
+          </Box>
+        }
+        level={2}
+      >
+        {ManifestTable(pro)}
       </Section>
 
       <Section

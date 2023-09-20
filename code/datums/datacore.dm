@@ -99,6 +99,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		"med" = med,\
 		"sci" = sci,\
 		"ser" = ser,\
+		"pro" = pro,\
 		"sup" = sup,\
 		"bot" = bot,\
 		"misc" = misc\
