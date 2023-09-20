@@ -138,6 +138,13 @@
 	icon_state = "render"
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/kitchen/knife/shiv
+	name = "glass shiv"
+	desc = "A haphazard sharp object wrapped in cloth, just like great-great-great-great grandma used to make."
+	icon = 'icons/obj/items.dmi'
+	item_state = "glass_shiv"
+	icon_state = "glass_shiv"
+
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
 	icon_state = "butch"

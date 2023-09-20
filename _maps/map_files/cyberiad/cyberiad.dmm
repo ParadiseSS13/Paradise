@@ -10287,6 +10287,7 @@
 /obj/structure/chair,
 /turf/simulated/floor/wood,
 <<<<<<< HEAD
+<<<<<<< HEAD
 /area/station/maintenance/fpmaint2)
 =======
 /area/maintenance/fpmaint2)
@@ -10304,6 +10305,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint2)
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+/area/station/maintenance/fpmaint2)
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 "aEN" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -43568,6 +43572,7 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plating,
 <<<<<<< HEAD
+<<<<<<< HEAD
 /area/station/maintenance/port)
 =======
 /area/maintenance/port)
@@ -43587,6 +43592,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+/area/station/maintenance/port)
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 "cwI" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/simulated/floor/plating,
@@ -58968,10 +58976,14 @@
 "dOs" = (
 /turf/simulated/wall,
 <<<<<<< HEAD
+<<<<<<< HEAD
 /area/station/medical/coldroom)
 =======
 /area/medical/coldroom)
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+/area/station/medical/coldroom)
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 "dPe" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plating,
@@ -62834,6 +62846,9 @@
 	icon_state = "darkred"
 	},
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 /area/station/security/brig)
 "fPb" = (
 /obj/machinery/door/airlock/maintenance,
@@ -62858,9 +62873,12 @@
 	icon_state = "cult"
 	},
 /area/station/legal/magistrate)
+<<<<<<< HEAD
 =======
 /area/security/brig)
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 "fPq" = (
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;
@@ -67589,6 +67607,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+<<<<<<< HEAD
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "north bump";
@@ -67598,6 +67617,17 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+=======
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "itZ" = (
@@ -67686,6 +67716,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
+<<<<<<< HEAD
+=======
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 /obj/machinery/door/airlock/atmos{
 	name = "Aft-Port Atmospherics Maintenance"
 	},
@@ -67907,11 +67945,20 @@
 /area/station/maintenance/disposal)
 "iCq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
+<<<<<<< HEAD
 /obj/machinery/alarm{
 	dir = 8;
 	name = "east bump";
 	pixel_x = 24
 	},
+=======
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/obj/structure/cable,
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "iDg" = (
@@ -68478,6 +68525,7 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig{
 	dir = 4
 	},
+<<<<<<< HEAD
 <<<<<<< HEAD
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig{
 =======
@@ -70515,6 +70563,9 @@
 "iPZ" = (
 /obj/structure/window/reinforced{
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+/obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig{
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -70604,6 +70655,7 @@
 	icon_state = "whitepurplecorner"
 	},
 <<<<<<< HEAD
+<<<<<<< HEAD
 /area/station/science/hallway)
 =======
 /area/toxins/hallway)
@@ -70632,6 +70684,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+/area/station/science/hallway)
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 "iZz" = (
 /obj/machinery/light,
 /obj/structure/bed/psych,
@@ -71442,6 +71497,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
+<<<<<<< HEAD
+=======
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 /obj/machinery/door/airlock/atmos{
 	name = "Port Atmospherics Maintenance"
 	},
@@ -74840,6 +74903,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
+<<<<<<< HEAD
+=======
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 /obj/machinery/door/airlock/atmos{
 	name = "Aft-Port Secondary Atmospherics Maintenance"
 	},
@@ -75159,10 +75230,14 @@
 	icon_state = "darkblue"
 	},
 <<<<<<< HEAD
+<<<<<<< HEAD
 /area/station/medical/surgery/secondary)
 =======
 /area/medical/surgery2)
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+/area/station/medical/surgery/secondary)
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 "lxA" = (
 /obj/machinery/computer/shuttle/mining{
 	dir = 1
@@ -78886,6 +78961,14 @@
 /area/station/engineering/control)
 "nLW" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
+<<<<<<< HEAD
+=======
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 /obj/machinery/door/airlock/atmos{
 	name = "Aft-Starboard Atmospherics Maintenance"
 	},
@@ -80169,10 +80252,14 @@
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
 <<<<<<< HEAD
+<<<<<<< HEAD
 /area/station/maintenance/asmaint)
 =======
 /area/maintenance/asmaint)
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+/area/station/maintenance/asmaint)
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 "oxp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -90582,12 +90669,15 @@
 /obj/effect/spawner/random_spawners/grille_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+<<<<<<< HEAD
 "uEv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
+=======
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 "uEF" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -91723,6 +91813,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 /area/station/engineering/engine/supermatter)
 "vnr" = (
 /obj/machinery/door/firedoor,
@@ -91735,9 +91828,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/prison/cell_block/A)
+<<<<<<< HEAD
 =======
 /area/engine/supermatter)
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 "vns" = (
 /obj/machinery/r_n_d/server/robotics,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -93629,6 +93725,7 @@
 	name = "Security Checkpoint"
 	},
 <<<<<<< HEAD
+<<<<<<< HEAD
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
 	dir = 1
 =======
@@ -93642,6 +93739,11 @@
 	req_access_txt = "12;24"
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
 	},
+=======
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
+	dir = 1
+	},
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint/secondary)
@@ -114124,10 +114226,14 @@ aOZ
 aOZ
 plj
 <<<<<<< HEAD
+<<<<<<< HEAD
 nLW
 aNI
 =======
 aEL
+=======
+nLW
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 aLp
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
 aLx
@@ -116513,10 +116619,14 @@ tEt
 iUo
 eAq
 <<<<<<< HEAD
+<<<<<<< HEAD
 jwe
 =======
 vvd
 >>>>>>> parent of da33f73a97 (Swapped APC's with Air Alarms)
+=======
+jwe
+>>>>>>> ecfaa26cc2a24323fef001c454e8f8d43e7ba424
 iUo
 cSz
 cLi

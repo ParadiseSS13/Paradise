@@ -147,6 +147,7 @@
 	wizard_mob.equip_to_slot_or_del(spellbook, slot_l_hand)
 
 	wizard_mob.faction = list("wizard")
+	wizard_mob.mind.offstation_role = TRUE
 
 
 
