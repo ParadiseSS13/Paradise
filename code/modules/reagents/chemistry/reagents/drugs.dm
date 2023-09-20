@@ -152,6 +152,12 @@
 			update_flags |= M.adjustOxyLoss(20, FALSE)
 	return list(effect, update_flags)
 
+/datum/reagent/nicotine/handle_addiction(mob/living/M, consumption_rate)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return
+
+	return ..()
+
 // basic antistun chem, removes stuns and stamina, mild downsides
 /datum/reagent/crank
 	name = "Crank"
@@ -980,6 +986,7 @@
 	name = "Combat-Lube"
 	id = "combatlube"
 	description = "Combat-Lube is a refined and enhanced lubricant which induces effect stronger than Methamphetamine in synthetic users by drastically reducing internal friction and increasing cooling capabilities."
+	process_flags = SYNTHETIC
 	overdose_threshold = 30
 	addiction_chance = 1
 	addiction_chance_additional = 20

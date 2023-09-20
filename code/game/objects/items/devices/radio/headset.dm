@@ -183,6 +183,13 @@
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/headset_med
 
+/obj/item/radio/headset/headset_med/para
+	name = "paramedic radio headset"
+	desc = "A headset for the trusty paramedic, Nanotrasen search and rescue."
+	icon_state = "para_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/headset_med/para
+
 /obj/item/radio/headset/headset_sci
 	name = "science radio headset"
 	desc = "A sciency headset. Like usual."
@@ -259,6 +266,13 @@
 	icon_state = "com_headset"
 	item_state = "headset"
 	ks2type = /obj/item/encryptionkey/heads/hop
+
+/obj/item/radio/headset/heads/qm
+	name = "quartermaster's headset"
+	desc = "Smelling of tobacco and gunpowder, this headset has likely seen many backroom deals."
+	icon_state = "com_headset"
+	item_state = "headset"
+	ks2type = /obj/item/encryptionkey/heads/qm
 
 /obj/item/radio/headset/headset_cargo
 	name = "supply radio headset"

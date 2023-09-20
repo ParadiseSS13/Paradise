@@ -692,7 +692,7 @@
 	id = "rcl"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 5000)
-	build_path = /obj/item/twohanded/rcl
+	build_path = /obj/item/rcl
 	category = list("initial", "Construction")
 
 //hacked autolathe recipes
@@ -932,4 +932,12 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 4000)
 	build_path = /obj/item/desk_bell
+	category = list("initial", "Miscellaneous")
+
+/datum/design/mailscanner
+	name = "Mail Scanner"
+	id = "mailscanner"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1500, MAT_GLASS = 500)
+	build_path = /obj/item/mail_scanner
 	category = list("initial", "Miscellaneous")

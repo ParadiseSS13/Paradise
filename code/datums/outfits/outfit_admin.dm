@@ -7,6 +7,17 @@
 		H.mind.assigned_role = name
 		H.job = name
 
+/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	
+	if(visualsOnly)
+		return
+
+	if(H.mind)
+		H.mind.offstation_role = TRUE
+	else
+		H.RegisterSignal(H, COMSIG_HUMAN_LOGIN, TYPE_PROC_REF(/mob/living/carbon/human, apply_offstation_roles))
+
 
 /proc/apply_to_card(obj/item/card/id/I, mob/living/carbon/human/H, list/access = list(), rank, special_icon)
 	if(!istype(I) || !istype(H))
@@ -71,7 +82,7 @@
 /datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
 	H.sec_hud_set_ID()
-
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate/operative
 	name = "Syndicate Nuclear Operative"
@@ -115,8 +126,8 @@
 	name = "Syndicate Strike Team"
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	return H.equip_syndicate_commando(FALSE, TRUE)
-
+	. = H.equip_syndicate_commando(FALSE, TRUE)
+	H.faction |= "syndicate"
 
 /datum/outfit/admin/syndicate/spy
 	name = "Syndicate Spy"
@@ -277,6 +288,7 @@
 	r_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	l_ear = /obj/item/radio/headset/alt/deathsquad
 	id = /obj/item/card/id/ert/deathsquad
+	suit_store = /obj/item/gun/energy/pulse
 
 	backpack_contents = list(
 		/obj/item/storage/box/flashbangs,
@@ -285,7 +297,6 @@
 		/obj/item/grenade/plastic/c4/x4,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
-		/obj/item/gun/energy/pulse
 	)
 
 	implants = list(
@@ -303,7 +314,6 @@
 		/obj/item/flashlight/seclite,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/shield/energy,
-		/obj/item/gun/energy/pulse,
 		/obj/item/disk/nuclear/unrestricted
 	)
 
@@ -316,9 +326,6 @@
 	if(istype(I))
 		apply_to_card(I, H, get_centcom_access("Deathsquad Commando"), "Deathsquad")
 	H.sec_hud_set_ID()
-	if(ismodcontrol(H.back))
-		var/obj/item/mod/control/C = H.back
-		C.quick_activation()
 
 /datum/outfit/admin/pirate
 	name = "Space Pirate"
@@ -372,7 +379,7 @@
 	id = /obj/item/card/id
 	l_pocket = /obj/item/reagent_containers/food/snacks/grown/banana
 	r_pocket = /obj/item/bikehorn
-	r_hand = /obj/item/twohanded/fireaxe
+	r_hand = /obj/item/fireaxe
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
@@ -975,7 +982,7 @@
 	name = "Tournament Standard Green"
 	uniform = /obj/item/clothing/under/color/green
 
-/datum/outfit/admin/tournament_gangster //gangster are supposed to fight each other. --rastaf0
+/datum/outfit/admin/tournament/tournament_gangster //gangster are supposed to fight each other. --rastaf0
 	name = "Tournament Gangster"
 
 	uniform = /obj/item/clothing/under/rank/security/detective
@@ -986,7 +993,7 @@
 	l_pocket = /obj/item/ammo_box/a357
 	r_hand = /obj/item/gun/projectile/automatic/proto
 
-/datum/outfit/admin/tournament_chef //Steven Seagal FTW
+/datum/outfit/admin/tournament/tournament_chef //Steven Seagal FTW
 	name = "Tournament Chef"
 
 	uniform = /obj/item/clothing/under/rank/civilian/chef
@@ -998,7 +1005,7 @@
 	l_hand = /obj/item/kitchen/knife
 	r_hand = /obj/item/kitchen/rollingpin
 
-/datum/outfit/admin/tournament_janitor
+/datum/outfit/admin/tournament/tournament_janitor
 	name = "Tournament Janitor"
 
 	uniform = /obj/item/clothing/under/rank/civilian/janitor
@@ -1061,7 +1068,7 @@
 	id = /obj/item/card/id/syndicate
 	l_pocket = /obj/item/kitchen/knife
 	r_pocket = /obj/item/scalpel
-	r_hand = /obj/item/twohanded/fireaxe
+	r_hand = /obj/item/fireaxe
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1
@@ -1087,7 +1094,7 @@
 	uniform = /obj/item/clothing/under/syndicate/combat
 	suit = /obj/item/clothing/suit/space/hardsuit/singuloth
 	back = /obj/item/storage/backpack/satchel
-	l_hand = /obj/item/twohanded/knighthammer
+	l_hand = /obj/item/knighthammer
 	belt = /obj/item/claymore/ceremonial
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/magboots
@@ -1120,7 +1127,7 @@
 	shoes = /obj/item/clothing/shoes/chameleon/noslip
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
-	l_hand = /obj/item/twohanded/dualsaber/red
+	l_hand = /obj/item/dualsaber/red
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
@@ -1178,7 +1185,6 @@
 		var/datum/antagonist/vampire/V = H.mind.has_antag_datum(/datum/antagonist/vampire)
 		V.bloodusable = 9999
 		V.bloodtotal = 9999
-		H.mind.offstation_role = TRUE
 		V.add_subclass(SUBCLASS_ANCIENT, FALSE)
 		H.dna.SetSEState(GLOB.jumpblock, TRUE)
 		singlemutcheck(H, GLOB.jumpblock, MUTCHK_FORCED)
@@ -1195,7 +1201,7 @@
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
 	r_pocket = /obj/item/teleportation_scroll
-	l_hand = /obj/item/twohanded/staff
+	l_hand = /obj/item/staff
 	r_hand = /obj/item/spellbook
 	backpack_contents = list(
 		/obj/item/storage/box/engineer = 1
@@ -1385,3 +1391,42 @@
 	mask = /obj/item/clothing/mask/breath/vox
 	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
 	box = /obj/item/storage/box/survival_vox
+
+/datum/outfit/admin/enforcer
+	name = "Oblivion Enforcer"
+
+	uniform = /obj/item/clothing/under/color/white/enforcer
+	shoes = /obj/item/clothing/shoes/white/enforcer
+	back = /obj/item/storage/backpack/satchel
+	id = /obj/item/card/id/data
+	//The hood on this gets enabled on the after-equip proc.
+	suit = /obj/item/clothing/suit/hooded/oblivion
+	gloves = /obj/item/clothing/gloves/color/white/supermatter_immune
+	mask = /obj/item/clothing/mask/gas/voice_modulator/oblivion
+	l_ear = /obj/item/radio/headset
+	suit_store = /obj/item/supermatter_halberd
+	r_pocket = /obj/item/tank/internals/emergency_oxygen/double
+	box = /obj/item/storage/box/wizard
+
+	//The spells that the enforcer has.
+	var/list/spell_paths = list(/obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter,
+										/obj/effect/proc_holder/spell/charge_up/bounce/lightning, /obj/effect/proc_holder/spell/summonitem)
+
+/datum/outfit/admin/enforcer/post_equip(mob/living/carbon/human/H)
+	. = ..()
+
+	ADD_TRAIT(H, SM_HALLUCINATION_IMMUNE, MAGIC_TRAIT)
+
+	H.real_name = "Unknown" //Enforcers sacrifice their name to Oblivion for their power
+
+	for(var/spell_path in spell_paths)
+		var/S = new spell_path
+		H.mind.AddSpell(S)
+
+	var/obj/item/clothing/suit/hooded/oblivion/robes = H.wear_suit
+	if(istype(robes))
+		robes.ToggleHood()
+
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Oblivion Enforcer")

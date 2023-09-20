@@ -22,7 +22,7 @@
 	if(!icon_state)
 		icon_state = "pill[rand(1, 20)]"
 
-/obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
+/obj/item/reagent_containers/food/pill/proc/apply(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
 		return FALSE
 	bitesize = reagents.total_volume
@@ -30,6 +30,12 @@
 		qdel(src)
 		return TRUE
 	return FALSE
+
+/obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
+	return apply(M, user)
+
+/obj/item/reagent_containers/food/pill/attack_self(mob/user)
+	return apply(user, user)
 
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
 	if(!proximity || !target.is_refillable())

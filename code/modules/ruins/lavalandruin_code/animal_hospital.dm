@@ -2,7 +2,7 @@
 	name = "Important Notice - Mrs. Henderson"
 	info = "Nothing of interest to report."
 
-/obj/effect/mob_spawn/human/doctor/alive/lavaland
+/obj/effect/mob_spawn/human/alive/doctor/lavaland
 	name = "broken rejuvenation pod"
 	desc = "A small sleeper typically used to instantly restore minor wounds. This one seems broken, and its occupant is comatose."
 	mob_name = "a translocated vet"
@@ -13,7 +13,7 @@
 	assignedrole = "Translocated Vet"
 	allow_species_pick = TRUE
 
-/obj/effect/mob_spawn/human/doctor/alive/lavaland/Destroy()
+/obj/effect/mob_spawn/human/alive/doctor/lavaland/Destroy()
 	var/obj/structure/fluff/empty_sleeper/S = new(drop_location())
 	S.setDir(dir)
 	return ..()

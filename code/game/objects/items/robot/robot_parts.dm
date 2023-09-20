@@ -252,7 +252,7 @@
 				to_chat(user, "<span class='warning'>Sticking a dead [M] into the frame would sort of defeat the purpose.</span>")
 				return
 
-			if(M.brainmob.mind in SSticker.mode.head_revolutionaries)
+			if(M.brainmob.mind?.has_antag_datum(/datum/antagonist/rev/head))
 				to_chat(user, "<span class='warning'>The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept [M].</span>")
 				return
 

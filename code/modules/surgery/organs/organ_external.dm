@@ -148,6 +148,21 @@
 
 	if(HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
 		limb_flags |= CANNOT_BURN
+	if(HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
+		limb_flags |= CANNOT_INT_BLEED
+
+/obj/item/organ/external/proc/remove_limb_flags()
+	if(!HAS_TRAIT(owner, TRAIT_NO_BONES))
+		limb_flags &= ~CANNOT_BREAK
+		encased = initial(encased)
+
+	if(!HAS_TRAIT(owner, TRAIT_STURDY_LIMBS))
+		limb_flags &= ~CANNOT_DISMEMBER
+
+	if(!HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
+		limb_flags &= ~CANNOT_BURN
+	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
+		limb_flags &= ~CANNOT_INT_BLEED
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
@@ -492,12 +507,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner.splinted_limbs -= src
 		return
 	if(owner.step_count >= splinted_count + SPLINT_LIFE)
-		status &= ~ORGAN_SPLINTED //oh no, we actually need surgery now!
-		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off their [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
-		owner.emote("scream")
-		owner.Stun(4 SECONDS)
+		status &= ~ORGAN_SPLINTED // Oh no, we actually need surgery now!
 		owner.handle_splints()
-
+		if(!(status & ORGAN_BROKEN))
+			to_chat(owner, "<span class='notice'>Your splint harmlessly pops off your [name].</span>") // If we fixed our bones, a splint popping off shouldn't be painful and stun us.
+			return
+		owner.visible_message("<span class='danger'>[owner] screams in pain as [owner.p_their()] splint pops off [owner.p_their()] [name]!</span>","<span class='userdanger'>You scream in pain as your splint pops off your [name]!</span>")
+		owner.emote("scream")
+		owner.Weaken(4 SECONDS) // Better feedback compared to stun() - We won't be just standing there menancingly
 
 /****************************************************
 			DISMEMBERMENT
@@ -694,6 +711,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(is_robotic())
 		return
 	if(NO_BLOOD in owner.dna.species.species_traits)
+		return
+	if(limb_flags & CANNOT_INT_BLEED)
 		return
 	status |= ORGAN_INT_BLEEDING
 	owner.custom_pain("You feel something rip in your [name]!")
