@@ -373,6 +373,10 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if("Nanotrasen Representative")
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
+		if("Nanotrasen Career Trainer")
+			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s") //MMTODO - Needs to be the NCT iconstate
+			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "laceups"), ICON_UNDERLAY)
+			clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "ia_jacket_open"), ICON_OVERLAY) //MMTODO - Needs to be the NCT iconstate
 		if("Blueshield")
 			clothes_s = new /icon('icons/mob/clothing/under/centcom.dmi', "officer_s")
 			clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "jackboots"), ICON_UNDERLAY)
