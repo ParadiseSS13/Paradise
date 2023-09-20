@@ -408,7 +408,7 @@ SUBSYSTEM_DEF(air)
 	if(!length(active_turfs_we_care_about))
 		return
 	log_debug("Turfs were active before init! Please check the runtime logger for information on the specific turfs.")
-	stack_trace("Failed sanity check: active_turfs is not empty before init ([length(active_turfs)], turfs are as followed;)")
+	stack_trace("Failed sanity check: active_turfs is not empty before init ([length(active_turfs)], turfs are as follows:)")
 	for(var/turf/shouldnt_be_active in active_turfs_we_care_about)
 		stack_trace("[shouldnt_be_active] was active before init, turf x=[shouldnt_be_active.x], turf y=[shouldnt_be_active.y], turf z=[shouldnt_be_active.z], turf area=[shouldnt_be_active.loc]")
 		message_admins("[shouldnt_be_active] was active before init, [ADMIN_JMP(shouldnt_be_active)])")
