@@ -9,7 +9,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)
 "ad" = (
-/obj/effect/mob_spawn/human/doctor,
+/obj/effect/mob_spawn/human/corpse/doctor,
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission)

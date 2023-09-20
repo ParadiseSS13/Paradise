@@ -47,7 +47,7 @@
 /obj/item/trash/chips,
 /obj/item/trash/can,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/miner,
+/obj/effect/mob_spawn/human/corpse/miner,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor"
 	},
@@ -2790,7 +2790,7 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
 "AM" = (
-/obj/effect/mob_spawn/human/skeleton,
+/obj/effect/mob_spawn/human/corpse/skeleton,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
@@ -4186,7 +4186,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Oi" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/miner,
+/obj/effect/mob_spawn/human/corpse/miner,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidfloor"
 	},
@@ -4797,7 +4797,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "UB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mob_spawn/human/miner,
+/obj/effect/mob_spawn/human/corpse/miner,
 /turf/simulated/floor/plating/asteroid{
 	icon_state = "asteroidplating"
 	},
@@ -5028,7 +5028,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Xt" = (
 /obj/effect/mine/dnascramble,
-/obj/effect/mob_spawn/human/miner,
+/obj/effect/mob_spawn/human/corpse/miner,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
@@ -5112,7 +5112,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "YB" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/effect/mob_spawn/human/miner,
+/obj/effect/mob_spawn/human/corpse/miner,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor,
 /area/awaymission/wildwest/wildwest_refine)
@@ -5146,7 +5146,7 @@
 "YM" = (
 /obj/effect/mine/dnascramble,
 /obj/effect/decal/cleanable/generic,
-/obj/effect/mob_spawn/human/miner,
+/obj/effect/mob_spawn/human/corpse/miner,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
