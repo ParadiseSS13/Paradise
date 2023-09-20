@@ -594,6 +594,7 @@
 			new /obj/item/stack/telecrystal(src, changing_amount)
 			// Return of Bogdanoff: doomp it
 			var/turf/T = get_turf(loc)
+			given_out_TC += changing_amount
 			message_admins("While refunding telecrystals, [src] went over the expected limit, for a total of [amount] TC. Expected refund is likely [given_out_TC]. [ADMIN_COORDJMP(T)]")
 			break
 		prohibitor++
