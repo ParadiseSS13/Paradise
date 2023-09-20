@@ -613,7 +613,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 		var/org_zone = check_zone(O.parent_organ)
 		if(org_zone == spillage_zone)
 			O.remove(C)
-a			O.forceMove(T)
+			O.forceMove(T)
 			organ_spilled = TRUE
 
 	if(organ_spilled)
