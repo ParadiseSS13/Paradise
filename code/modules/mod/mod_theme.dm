@@ -391,18 +391,7 @@
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
 	slowdown_inactive = 0.5
 	slowdown_active = 0
-	allowed_suit_storage = list(
-		/obj/item/rpd,
-		/obj/item/rcs,
-		/obj/item/storage/bag/mail,
-		/obj/item/envelope,
-		/obj/item/stamp,
-		/obj/item/pen,
-		/obj/item/paper,
-		/obj/item/mail_scanner,
-		/obj/item/eftpos,
-		/obj/item/melee/classic_baton/telescopic,
-	)
+	allowed_suit_storage = list()
 	inbuilt_modules = list(/obj/item/mod/module/hydraulic, /obj/item/mod/module/clamp/loader, /obj/item/mod/module/magnet)
 	skins = list(
 		"loader" = list(
