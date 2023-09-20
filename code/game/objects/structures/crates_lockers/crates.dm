@@ -582,13 +582,13 @@
 
 /obj/structure/closet/crate/surplus/proc/generate_refund(amount)
 	var/changing_amount = amount
-	var/obj/item/stack/telecrystal/TC
 	var/prohibitor = 0
 	var/given_out_TC = 0
 	while(changing_amount >= 1)
-		var/give_amount = min(changing_amount, initial(TC.max_amount))
+		var/obj/item/stack/telecrystal/TC = new /obj/item/stack/telecrystal(src)
+		var/give_amount = min(changing_amount, TC.max_amount)
+		TC.amount = give_amount
 		changing_amount -= give_amount
-		new /obj/item/stack/telecrystal(src, give_amount)
 		given_out_TC += give_amount
 		if(prohibitor > RECURSION_PANIC_AMOUNT) // idk how they got 1000+ tc, dont ask me
 			new /obj/item/stack/telecrystal(src, changing_amount)
