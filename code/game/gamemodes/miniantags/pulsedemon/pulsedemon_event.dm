@@ -33,7 +33,7 @@
 
 			var/turf/simulated/floor/F = get_turf(C)
 			// is a floor, not tiled, on station, in maintenance and cable has power?
-			if(istype(F) && (!F.intact && !F.transparent_floor) && istype(get_area(C), /area/maintenance))
+			if(istype(F) && (!F.intact && !F.transparent_floor) && istype(get_area(C), /area/station/maintenance))
 				spawn_centers += F
 	if(!spawn_centers)
 		message_admins("no suitable spawn locations were found for the pulse demon event.")
