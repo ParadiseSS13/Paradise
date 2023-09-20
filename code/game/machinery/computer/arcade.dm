@@ -190,8 +190,7 @@
 				emagged = FALSE
 			else
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
-				var/score = rand(20, 30)
-				prizevend(score)
+				prizevend(30)
 
 	else if(emagged && (turtle >= 4))
 		var/boomamt = rand(5,10)
