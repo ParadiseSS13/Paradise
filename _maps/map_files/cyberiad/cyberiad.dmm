@@ -55546,7 +55546,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/station/aisat)
+/area/station/aisat/hall)
 "dqM" = (
 /obj/machinery/light{
 	dir = 8
@@ -55577,7 +55577,7 @@
 	network = list("SS13","MiniSat")
 	},
 /turf/space,
-/area/station/aisat)
+/area/station/aisat/hall)
 "dqT" = (
 /obj/machinery/firealarm{
 	dir = 8;
