@@ -30126,7 +30126,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/maintenance/turbine)
 "cVu" = (
 /obj/structure/sign/fire,
@@ -35897,7 +35897,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/plating{
+/turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
 /area/station/hallway/spacebridge/servsci)
@@ -37623,8 +37623,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
+/turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
 /area/station/science/server/coldroom)
@@ -45711,8 +45710,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
+/turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
 /area/station/science/server/coldroom)
@@ -48430,7 +48428,7 @@
 /area/station/science/misc_lab)
 "igy" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
 "igZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -50607,8 +50605,7 @@
 	pixel_y = 28;
 	name = "custom placement"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
+/turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
 /area/station/science/server/coldroom)
@@ -56365,8 +56362,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
+/turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
 /area/station/science/server/coldroom)
@@ -57671,7 +57667,7 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/trunk,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/westalt)
 "leh" = (
 /obj/structure/grille/broken,
@@ -64149,7 +64145,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/maintenance/disposal/external/east)
 "nln" = (
 /obj/structure/cable/orange{
@@ -64878,8 +64874,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
 	dir = 5
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
+/turf/simulated/floor/plasteel/dark/telecomms{
 	icon_state = "bcircuit"
 	},
 /area/station/science/server/coldroom)
@@ -69165,7 +69160,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/science/test_chamber)
 "oVa" = (
 /obj/structure/cable/orange{
@@ -77506,7 +77501,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/plating{
+/turf/simulated/floor/plating/airless{
 	icon_state = "asteroidplating"
 	},
 /area/station/hallway/spacebridge/servsci)
@@ -112493,9 +112488,9 @@ rNK
 rNK
 rNK
 rNK
-vva
-vva
-vva
+abE
+abE
+abE
 cRv
 abW
 abW
@@ -112750,7 +112745,7 @@ rNK
 rNK
 rNK
 cRv
-vva
+abE
 cRv
 cRv
 cRv
@@ -113263,7 +113258,7 @@ rNK
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 abW
 abW
@@ -113520,7 +113515,7 @@ rNK
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 abW
 hzK
@@ -136156,11 +136151,11 @@ rNK
 rNK
 rNK
 rNK
-vva
-vva
-vva
-vva
-vva
+abE
+abE
+abE
+abE
+abE
 cRv
 cRv
 abW
@@ -136417,8 +136412,8 @@ cRv
 cRv
 cRv
 cRv
-vva
-vva
+abE
+abE
 cRv
 cRv
 cRv
@@ -136675,12 +136670,12 @@ abW
 abW
 cRv
 cRv
-vva
-vva
-vva
-vva
-vva
-vva
+abE
+abE
+abE
+abE
+abE
+abE
 cRv
 abW
 abW
@@ -136933,11 +136928,11 @@ aaf
 aaf
 wIp
 cRv
-vva
+abE
 cRv
 cRv
 cRv
-vva
+abE
 cRv
 abW
 abW
@@ -137194,15 +137189,15 @@ abW
 cRv
 abW
 cRv
-vva
+abE
 cRv
 abW
 abW
 abW
 abW
 cRv
-vva
-vva
+abE
+abE
 cRv
 cRv
 npV
@@ -137451,7 +137446,7 @@ aaf
 abW
 abW
 cRv
-vva
+abE
 cRv
 abW
 abW
@@ -137459,8 +137454,8 @@ abW
 cRv
 cRv
 cRv
-vva
-vva
+abE
+abE
 cRv
 aKp
 cSm
@@ -137708,7 +137703,7 @@ aaf
 abW
 abW
 cRv
-vva
+abE
 cRv
 abW
 abW
@@ -137717,8 +137712,8 @@ cRv
 rNK
 rNK
 rNK
-vva
-vva
+abE
+abE
 aKp
 uts
 ieC
@@ -137965,7 +137960,7 @@ aaf
 abW
 abW
 cRv
-vva
+abE
 cRv
 cRv
 cRv
@@ -137975,7 +137970,7 @@ cRv
 rNK
 rNK
 rNK
-vva
+abE
 aKp
 aKp
 qBa
@@ -138222,17 +138217,17 @@ aaf
 abW
 abW
 cRv
-vva
-vva
-vva
-vva
+abE
+abE
+abE
+abE
 cRv
 abW
 cRv
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 abW
 jSL
@@ -138482,14 +138477,14 @@ cRv
 cRv
 cRv
 cRv
-vva
+abE
 cRv
 abW
 cRv
 rNK
 rNK
 rNK
-vva
+abE
 cRv
 cRv
 wZL
@@ -138739,7 +138734,7 @@ abW
 abW
 abW
 cRv
-vva
+abE
 cRv
 cRv
 cRv
@@ -138747,7 +138742,7 @@ rNK
 rNK
 rNK
 rNK
-vva
+abE
 rNK
 euP
 dkw
@@ -138996,7 +138991,7 @@ cRv
 cRv
 abW
 cRv
-vva
+abE
 cRv
 cRv
 rNK
@@ -139253,7 +139248,7 @@ rNK
 cRv
 cRv
 cRv
-vva
+abE
 cRv
 cRv
 rNK

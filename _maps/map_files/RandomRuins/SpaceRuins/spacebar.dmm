@@ -82,7 +82,7 @@
 "au" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "av" = (
 /obj/structure/table/wood,
@@ -170,7 +170,7 @@
 "aP" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/marker_beacon/dock_marker,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "aQ" = (
 /obj/effect/spawner/window/reinforced,
@@ -325,7 +325,7 @@
 /area/ruin/space/powered/bar)
 "bo" = (
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "bq" = (
 /obj/machinery/light,
@@ -336,7 +336,7 @@
 /area/space/nearstation)
 "bt" = (
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "bF" = (
 /obj/machinery/light/small{
@@ -665,7 +665,7 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "DT" = (
 /obj/structure/toilet{
@@ -734,6 +734,9 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/powered/bar)
+"JK" = (
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/powered)
 "JW" = (
 /obj/structure/rack{
 	dir = 1
@@ -891,7 +894,7 @@
 "RX" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/structure/marker_beacon/dock_marker,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "Sy" = (
 /turf/simulated/floor/plasteel{
@@ -957,7 +960,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "ZM" = (
 /obj/machinery/light{
@@ -1929,7 +1932,7 @@ ai
 ai
 ai
 ai
-ag
+JK
 ai
 ag
 ag
