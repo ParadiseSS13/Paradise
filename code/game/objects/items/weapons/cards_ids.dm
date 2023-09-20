@@ -1116,7 +1116,7 @@
 	name = "NCT Trainee Access Chip"
 	assignment = "Nanotrasen Career Trainer"
 	desc = "A small electronic access token that allows its user to copy the access of their Trainee. Only accessible by NT Career Trainers!"
-	icon_state = "MMTODO"
+	icon_state = "nct_chip"
 
 /obj/item/card/id/nct_data_chip/examine(mob/user)
 	. = ..()
@@ -1127,6 +1127,7 @@
 		switch(alert(user,"Would you like to remove [trainee] as your current active Trainee?","Choose","Yes","No"))
 			if("Yes")
 				trainee = null
+				icon_state = "nct_chip"
 				access = list()
 			if("No")
 				return
@@ -1141,6 +1142,7 @@
 				to_chat(usr, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
 				src.access = I.access
 				trainee = I.registered_name
+				icon_state = "nct_chip_active"
 			else
 				to_chat(usr, "<span class='notice'>You do not have access to use this NCT Trainee Access Chip!</span>")
 				return
