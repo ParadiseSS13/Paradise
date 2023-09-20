@@ -517,12 +517,8 @@
 	cost = 100
 	item = /obj/item/storage/box/syndie_kit/contractor
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	uses_special_spawn = TRUE
 
 /datum/uplink_item/bundles_TC/contractor/spawn_item(turf/loc, obj/item/uplink/U)
-	if(..() != UPLINK_SPECIAL_SPAWNING)
-		return FALSE
-
 	var/datum/mind/mind = usr.mind
 	var/datum/antagonist/traitor/AT = mind.has_antag_datum(/datum/antagonist/traitor)
 	if(LAZYACCESS(GLOB.contractors, mind))
@@ -575,7 +571,7 @@
 	if(..() != UPLINK_SPECIAL_SPAWNING)
 		return FALSE
 
-	var/obj/structure/closet/crate/surplus/surplus = new(loc, U, crate_value, cost)
+	new /obj/structure/closet/crate/surplus(loc, U, crate_value, cost)
 
 // -----------------------------------
 // PRICES OVERRIDEN FOR NUCLEAR AGENTS

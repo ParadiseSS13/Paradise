@@ -554,7 +554,7 @@
 			break
 
 		if(!length(buyable_items)) // UH OH V.2
-			fucked_shit_up_alert(loc, "[src] spawning failed: ran out of buyable items while looping, refunding [cost] telecrystals and cancelling crate. (Original cost of the crate). Report this to coders please.")
+			fucked_shit_up_alert(loc, "[src] spawning failed: ran out of buyable items while looping, refunding [remaining_TC] telecrystals and cancelling crate. (Original cost of the crate). Report this to coders please.")
 			generate_refund(remaining_TC, loc)
 			bought_items.Cut()
 			break
@@ -584,15 +584,17 @@
 	var/changing_amount = amount
 	var/obj/item/stack/telecrystal/TC
 	var/prohibitor = 0
+	var/given_out_TC = 0
 	while(changing_amount >= 1)
 		var/give_amount = min(changing_amount, initial(TC.max_amount))
 		changing_amount -= give_amount
 		new /obj/item/stack/telecrystal(src, give_amount)
+		given_out_TC += give_amount
 		if(prohibitor > RECURSION_PANIC_AMOUNT) // idk how they got 1000+ tc, dont ask me
 			new /obj/item/stack/telecrystal(src, changing_amount)
 			// Return of Bogdanoff: doomp it
 			var/turf/T = get_turf(loc)
-			message_admins("While refunding telecrystals, [src] went over the expected limit, for a total of [amount] TC. Expected refund is likely [cost]. [ADMIN_COORDJMP(T)]")
+			message_admins("While refunding telecrystals, [src] went over the expected limit, for a total of [amount] TC. Expected refund is likely [given_out_TC]. [ADMIN_COORDJMP(T)]")
 			break
 		prohibitor++
 
