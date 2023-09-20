@@ -5030,7 +5030,7 @@
 /area/centcom220/admin1)
 "pe" = (
 /obj/structure/lattice,
-/obj/effect/mob_spawn/human/clown/corpse,
+/obj/effect/mob_spawn/human/corpse/clown,
 /turf/space,
 /area/space)
 "pf" = (

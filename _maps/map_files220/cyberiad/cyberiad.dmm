@@ -89862,7 +89862,7 @@
 "sEl" = (
 /obj/structure/bed,
 /obj/effect/landmark/spawner/nukedisc_respawn,
-/obj/effect/mob_spawn/human/skeleton,
+/obj/effect/mob_spawn/human/corpse/skeleton,
 /mob/living/simple_animal/hostile/scarybat,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
