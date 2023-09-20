@@ -70,7 +70,7 @@
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
 	name = "sniper rounds (Antimatter)"
-	desc = "Antimatter sniper rounds, for when you really don't like something. Requires zooming to fire accurately."
+	desc = "Antimatter sniper rounds, for when you really don't like something. Requires zooming in to fire accurately."
 	icon_state = "antimatter"
 	ammo_type = /obj/item/ammo_casing/antimatter
 
