@@ -1123,20 +1123,13 @@
 	. += "<br>The current registered Trainee is: <b>[trainee]</b>"
 
 /obj/item/card/id/nct_data_chip/attack_self(mob/user as mob)
-	if(!registered_user)
-		registered_name = user.real_name
-		var/icon/newphoto = get_id_photo(user, assignment)
-		photo = newphoto
-		to_chat(user, "<span class='notice'>The NCT Data Chip is now registered as yours. Welcome, Trainer [registered_name]!</span>")
-		registered_user = user.mind.current
-	else
-		if(trainee)
-			switch(alert(user,"Would you like to remove [trainee] as your current active Trainee?","Choose","Yes","No"))
-				if("Yes")
-					trainee = null
-					access = list()
-				if("No")
-					return
+	if(trainee)
+		switch(alert(user,"Would you like to remove [trainee] as your current active Trainee?","Choose","Yes","No"))
+			if("Yes")
+				trainee = null
+				access = list()
+			if("No")
+				return
 
 /obj/item/card/id/nct_data_chip/afterattack(obj/item/O as obj, mob/user as mob, proximity)
 	if(!proximity)

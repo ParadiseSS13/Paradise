@@ -319,6 +319,7 @@
 	l_ear = /obj/item/radio/headset/headset_ntc
 	glasses =  /obj/item/clothing/glasses/hud/skills/sunglasses
 	id = /obj/item/card/id/nct
+	l_pocket = /obj/item/card/id/nct_data_chip
 	pda = /obj/item/pda/heads/ntrep
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/satchel
@@ -331,4 +332,8 @@
 	. = ..()
 	if(visualsOnly)
 		return
-	H.mind.offstation_role = TRUE
+	var/obj/item/card/id/nct_data_chip/I = H.l_store
+	I.registered_user = H.mind.current
+	I.registered_name = H.real_name
+	var/icon/newphoto = get_id_photo(H, "Nanotrasen Career Trainer")
+	I.photo = newphoto
