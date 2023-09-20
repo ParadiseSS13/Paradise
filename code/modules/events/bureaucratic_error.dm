@@ -9,7 +9,7 @@
 		/datum/job/chaplain,
 		/datum/job/officer,
 		/datum/job/warden,
-		/datum/job/ntinstructor
+		/datum/job/ntcareertrainer
 	)
 
 	/// Jobs that pass an additional 40% chance per roll to be picked for the bureaucratic error

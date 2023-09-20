@@ -87,7 +87,7 @@
 		"Nanotrasen Representative",
 		"Magistrate",
 		"Internal Affairs Agent",
-		"Nanotrasen Career Instructor"
+		"Nanotrasen Career Trainer"
 	)
 	head_of_staff = "Captain"
 

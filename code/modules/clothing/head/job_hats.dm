@@ -286,7 +286,7 @@
 	item_color = "solgovcelite"
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/head/beret/ntc
+/obj/item/clothing/head/beret/nct
 	name = "NT Career Trainer's beret"
 	desc = "A beret worn by the mentors and trainers of the Career Training Team."
 	//icon_state = "MMTODO"

@@ -682,8 +682,8 @@
 	ads_list = list("You're gonna LEARN today!")
 	vend_reply = "Thank you for using the LawDrobe!"
 	products = list(
-		/obj/item/clothing/under/rank/centcom/ntc = 2,
-		/obj/item/clothing/head/beret/ntc = 2,
+		/obj/item/clothing/under/rank/centcom/nct = 2,
+		/obj/item/clothing/head/beret/nct = 2,
 		/obj/item/clothing/shoes/laceup = 2,
 		/obj/item/clothing/shoes/black = 2,
 		/obj/item/clothing/shoes/brown = 2,

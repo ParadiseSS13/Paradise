@@ -289,14 +289,14 @@
 	new /obj/item/radio/headset/headset_iaa(src)
 	new /obj/item/radio/headset/headset_iaa(src)
 
-/obj/structure/closet/secure_closet/ntc
+/obj/structure/closet/secure_closet/nct
 	name = "NT Career Trainer locker"
 	req_access = list(ACCESS_TRAINER)
 	icon_state = "ntr"
 	open_door_sprite = "hop_door"
 	icon_opened = "hop_open"
 
-/obj/structure/closet/secure_closet/ntc/populate_contents()
+/obj/structure/closet/secure_closet/nct/populate_contents()
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/storage/briefcase(src)
 	new /obj/item/radio/headset/headset_ntc(src)

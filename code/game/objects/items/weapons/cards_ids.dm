@@ -458,7 +458,7 @@
 							"detective",
 							"warden",
 							"internalaffairsagent",
-							"ntc",
+							"nct",
 							"medical",
 							"coroner",
 							"virologist",
@@ -834,10 +834,10 @@
 	icon_state = "internalaffairsagent"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 
-/obj/item/card/id/ntc
+/obj/item/card/id/nct
 	name = "Nanotrasen Career Trainer ID"
 	registered_name = "Nanotrasen Career Trainer"
-	icon_state = "ntc"
+	icon_state = "nct"
 	access = list(ACCESS_TRAINER, ACCESS_LAWYER, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 
 /obj/item/card/id/geneticist
@@ -1110,32 +1110,35 @@
 /obj/item/card/id/data
 	icon_state = "data"
 
-/obj/item/card/id/ntc_data_chip
+/obj/item/card/id/nct_data_chip
 	var/registered_user = null
-	var/trainee = "None Registered"
-	name = "NTC Trainee Access Chip"
+	var/trainee = null
+	name = "NCT Trainee Access Chip"
 	assignment = "Nanotrasen Career Trainer"
 	desc = "A small electronic access token that allows its user to copy the access of their Trainee. Only accessible by NT Career Trainers!"
 	icon_state = "MMTODO"
 
-/obj/item/card/id/ntc_data_chip/examine(mob/user)
+/obj/item/card/id/nct_data_chip/examine(mob/user)
 	. = ..()
-	. += "The current registered Trainee is:<b>[trainee]</b>!"
+	. += "<br>The current registered Trainee is: <b>[trainee]</b>"
 
-/obj/item/card/id/ntc_data_chip/attack_self(mob/user as mob)
+/obj/item/card/id/nct_data_chip/attack_self(mob/user as mob)
 	if(!registered_user)
 		registered_name = user.real_name
-		to_chat(user, "<span class='notice'>The NTC Data Chip is now registered as yours. Welcome, Trainer [registered_name]!</span>")
+		var/icon/newphoto = get_id_photo(user, assignment)
+		photo = newphoto
+		to_chat(user, "<span class='notice'>The NCT Data Chip is now registered as yours. Welcome, Trainer [registered_name]!</span>")
 		registered_user = user.mind.current
 	else
-		switch(alert(user,"Would you like to remove [trainee] as your current active Trainee?","Choose","Yes","No"))
-			if("Yes")
-				trainee = "None Registered"
-				access = list()
-			if("No")
-				return
+		if(trainee)
+			switch(alert(user,"Would you like to remove [trainee] as your current active Trainee?","Choose","Yes","No"))
+				if("Yes")
+					trainee = null
+					access = list()
+				if("No")
+					return
 
-/obj/item/card/id/ntc_data_chip/afterattack(obj/item/O as obj, mob/user as mob, proximity)
+/obj/item/card/id/nct_data_chip/afterattack(obj/item/O as obj, mob/user as mob, proximity)
 	if(!proximity)
 		return
 	if(istype(O, /obj/item/card/id))
@@ -1146,7 +1149,7 @@
 				src.access = I.access
 				trainee = I.registered_name
 			else
-				to_chat(usr, "<span class='notice'>You do not have access to use this NTC Trainee Access Chip!</span>")
+				to_chat(usr, "<span class='notice'>You do not have access to use this NCT Trainee Access Chip!</span>")
 				return
 
 
@@ -1203,7 +1206,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","ntc","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","barber","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
+	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","nct","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","barber","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","blueshield","magistrate","ntrep","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","ERT_paranormal","deathsquad","commander","syndie","TDred","TDgreen")
@@ -1227,7 +1230,7 @@
 			return "Security Officer"
 		if("internalaffairsagent")
 			return "Internal Affairs Agent"
-		if("ntc")
+		if("nct")
 			return "Nanotrasen Career Trainer"
 		if("atmostech")
 			return "Life Support Specialist"

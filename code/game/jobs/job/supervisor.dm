@@ -292,8 +292,8 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 
-/datum/job/ntinstructor
-	title = "Nanotrasen Career Instructor"
+/datum/job/ntcareertrainer
+	title = "Nanotrasen Career Trainer"
 	flag = JOB_INSTRUCTOR
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
@@ -306,19 +306,19 @@
 	minimal_access = list(ACCESS_TRAINER, ACCESS_EVA, ACCESS_LAWYER, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	mentor_only = TRUE
 	transfer_allowed = FALSE
-	outfit = /datum/outfit/job/ntinstructor
+	outfit = /datum/outfit/job/ntcareertrainer
 
-/datum/outfit/job/ntinstructor
-	name = "Nanotrasen Career Instructor"
-	jobtype = /datum/job/ntinstructor
+/datum/outfit/job/ntcareertrainer
+	name = "Nanotrasen Career Trainer"
+	jobtype = /datum/job/ntcareertrainer
 
-	uniform = /obj/item/clothing/under/rank/centcom/ntc
-	suit = /obj/item/clothing/suit/storage/ntc
+	uniform = /obj/item/clothing/under/rank/centcom/nct
+	suit = /obj/item/clothing/suit/storage/nct
 	shoes = /obj/item/clothing/shoes/centcom
-	head = /obj/item/clothing/head/beret/ntc
+	head = /obj/item/clothing/head/beret/nct
 	l_ear = /obj/item/radio/headset/headset_ntc
 	glasses =  /obj/item/clothing/glasses/hud/skills/sunglasses
-	id = /obj/item/card/id/ntc
+	id = /obj/item/card/id/nct
 	pda = /obj/item/pda/heads/ntrep
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/satchel
@@ -327,7 +327,7 @@
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/laser_pointer/blue = 1
 	)
-/datum/outfit/job/ntinstructor/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/job/ntcareertrainer/post_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(visualsOnly)
 		return

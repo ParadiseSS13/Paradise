@@ -33,7 +33,7 @@ GLOBAL_LIST_INIT(procedure_positions, list(
 	"Nanotrasen Representative",
 	"Magistrate",
 	"Internal Affairs Agent",
-	"Nanotrasen Career Instructor"
+	"Nanotrasen Career Trainer"
 ))
 
 GLOBAL_LIST_INIT(engineering_positions, list(

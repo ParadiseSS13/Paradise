@@ -371,7 +371,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
 // NT Career Trainer
-/obj/item/clothing/suit/storage/ntc
+/obj/item/clothing/suit/storage/nct
 	name = "NT Career Trainer's jacket"
 	desc = "MMTODO"
 	icon_state = "MMTODO"
