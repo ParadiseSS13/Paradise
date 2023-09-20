@@ -307,7 +307,7 @@
 	name = "Nanotrasen Career Instructor"
 	jobtype = /datum/job/ntinstructor
 
-	uniform = /obj/item/clothing/under/rank/centcom/representative // MMTODO - NEEDS SPRITE
+	uniform = /obj/item/clothing/under/rank/centcom/ntc // MMTODO - NEEDS SPRITE
 	suit = /obj/item/clothing/suit/storage/ntc
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/ntc

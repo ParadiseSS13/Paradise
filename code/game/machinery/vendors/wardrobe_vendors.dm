@@ -682,7 +682,7 @@
 	ads_list = list("You're gonna LEARN today!")
 	vend_reply = "Thank you for using the LawDrobe!"
 	products = list(
-		/obj/item/clothing/under/rank/centcom/representative = 2, // MMTODO - NEEDS SPRITE + new item
+		/obj/item/clothing/under/rank/centcom/ntc = 2,
 		/obj/item/clothing/head/beret/ntc = 2,
 		/obj/item/clothing/shoes/laceup = 2,
 		/obj/item/clothing/shoes/black = 2,

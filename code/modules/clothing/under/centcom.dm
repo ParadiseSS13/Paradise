@@ -188,3 +188,8 @@
 	item_color = "blueshield_formal"
 	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	displays_id = FALSE
+
+/obj/item/clothing/under/rank/centcom/ntc
+	name = "Nanotrasen Career Trainer's uniform"
+	desc = "MMTODO"
+	icon_state = "MMTODO"
