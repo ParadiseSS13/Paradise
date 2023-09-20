@@ -1110,6 +1110,46 @@
 /obj/item/card/id/data
 	icon_state = "data"
 
+/obj/item/card/id/ntc_data_chip
+	var/registered_user = null
+	var/trainee = "None Registered"
+	name = "NTC Trainee Access Chip"
+	assignment = "Nanotrasen Career Trainer"
+	desc = "A small electronic access token that allows its user to copy the access of their Trainee. Only accessible by NT Career Trainers!"
+	icon_state = "MMTODO"
+
+/obj/item/card/id/ntc_data_chip/examine(mob/user)
+	. = ..()
+	. += "The current registered Trainee is:<b>[trainee]</b>!"
+
+/obj/item/card/id/ntc_data_chip/attack_self(mob/user as mob)
+	if(!registered_user)
+		registered_name = user.real_name
+		to_chat(user, "<span class='notice'>The NTC Data Chip is now registered as yours. Welcome, Trainer [registered_name]!</span>")
+		registered_user = user.mind.current
+	else
+		switch(alert(user,"Would you like to remove [trainee] as your current active Trainee?","Choose","Yes","No"))
+			if("Yes")
+				trainee = "None Registered"
+				access = list()
+			if("No")
+				return
+
+/obj/item/card/id/ntc_data_chip/afterattack(obj/item/O as obj, mob/user as mob, proximity)
+	if(!proximity)
+		return
+	if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/I = O
+		if(isliving(user) && user.mind)
+			if(user.mind.current == registered_user)
+				to_chat(usr, "<span class='notice'>The chip's microscanners activate as you scan [I.registered_name]'s ID, copying its access.</span>")
+				src.access = I.access
+				trainee = I.registered_name
+			else
+				to_chat(usr, "<span class='notice'>You do not have access to use this NTC Trainee Access Chip!</span>")
+				return
+
+
 // Decals
 /obj/item/id_decal
 	name = "identification card decal"
