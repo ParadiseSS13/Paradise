@@ -213,7 +213,7 @@
 	msg += "<span class='warning'>"
 
 	// Stuff at the start of the block
-	msg += examine_start_damage_block()
+	msg += examine_start_damage_block(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
 
 	// Show how badly they're damaged
 	msg += examine_damage_flavor()

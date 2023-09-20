@@ -147,7 +147,7 @@
 	else
 		return ..()
 
-/obj/item/stack/medical/bruise_pack/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/bruise_pack/apply(mob/living/M, mob/user)
 	if(..())
 		return TRUE
 
@@ -210,7 +210,7 @@
 	heal_burn = 10
 	dynamic_icon_state = TRUE
 
-/obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/ointment/apply(mob/living/M, mob/user)
 	if(..())
 		return 1
 
@@ -298,7 +298,7 @@
 	self_delay = 100
 	var/other_delay = 0
 
-/obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/splint/apply(mob/living/M, mob/user)
 	if(..())
 		return TRUE
 
