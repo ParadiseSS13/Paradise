@@ -46,8 +46,8 @@
 				cur_dir = get_dir(cur_turf, target_turf)
 
 			cur_turf = get_step(cur_turf, cur_dir)
-			if(cur_turf == null) //This might be the fuck up. Kill the loop if this happens
-				message_admins("Encountered a null turf in river loop.")
+			if(isnull(cur_turf)) //This might be the fuck up. Kill the loop if this happens
+				stack_trace("Encountered a null turf in river loop, target turf was [target_turf], x=[target_turf.x], y=[target_turf.y].")
 				break
 			var/area/new_area = get_area(cur_turf)
 			if(!istype(new_area, whitelist_area) || (cur_turf.flags & NO_LAVA_GEN)) //Rivers will skip ruins

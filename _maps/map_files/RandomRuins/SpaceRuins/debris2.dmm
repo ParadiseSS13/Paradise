@@ -25,7 +25,7 @@
 /area/space)
 "l" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "m" = (
 /obj/structure/grille/broken,
@@ -39,7 +39,7 @@
 /obj/machinery/door/airlock/command{
 	max_integrity = 40
 	},
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "p" = (
 /mob/living/simple_animal/hostile/carp,
@@ -73,7 +73,7 @@
 /obj/structure/door_assembly/door_assembly_vault{
 	anchored = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "z" = (
 /obj/item/stack/rods,
@@ -103,8 +103,7 @@
 /turf/space,
 /area/template_noop)
 "F" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "G" = (
 /obj/structure/safe,
@@ -134,9 +133,6 @@
 "L" = (
 /obj/item/shard,
 /turf/space,
-/area/space)
-"M" = (
-/turf/simulated/floor,
 /area/space)
 "N" = (
 /obj/item/clothing/suit/bio_suit/virology,
@@ -171,16 +167,12 @@
 /obj/structure/lattice,
 /turf/space,
 /area/template_noop)
-"W" = (
-/obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating/burnt,
-/area/space)
 "X" = (
 /turf/space,
 /area/space)
 "Y" = (
 /obj/structure/girder/reinforced,
-/turf/simulated/floor/plating/damaged,
+/turf/simulated/floor/plating/damaged/airless,
 /area/space)
 "Z" = (
 /obj/machinery/computer/pandemic,
@@ -263,10 +255,10 @@ U
 d
 X
 w
-M
+b
 c
 U
-M
+b
 T
 V
 I
@@ -278,17 +270,17 @@ a
 (5,1,1) = {"
 a
 Y
-M
-F
-F
+b
+D
+D
 q
 d
 z
 m
-F
-M
-F
-M
+D
+b
+D
+b
 T
 I
 I
@@ -390,8 +382,8 @@ a
 s
 I
 T
-M
-F
+b
+D
 T
 X
 X
@@ -413,12 +405,12 @@ I
 I
 T
 c
-F
+D
 T
 X
 X
 c
-F
+D
 b
 j
 D
@@ -435,7 +427,7 @@ C
 I
 T
 X
-M
+b
 N
 s
 I
@@ -463,7 +455,7 @@ I
 I
 u
 j
-W
+D
 c
 U
 T

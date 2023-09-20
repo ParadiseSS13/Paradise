@@ -30,6 +30,7 @@
 		/obj/item/multitool/ai_detect,
 		/obj/item/encryptionkey/binary,
 		/obj/item/jammer,
+		/obj/item/clothing/under/syndicate/silicon_cham,
 		/obj/item/implanter/freedom,
 	)
 

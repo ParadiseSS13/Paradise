@@ -5,9 +5,6 @@
 "ab" = (
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
-"ac" = (
-/turf/simulated/floor/plating/asteroid,
-/area/ruin/space/unpowered)
 "ad" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
@@ -2733,7 +2730,7 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fk" = (
 /obj/structure/table,
@@ -2742,7 +2739,7 @@
 	pixel_y = 6
 	},
 /obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fl" = (
 /obj/structure/table,
@@ -2924,7 +2921,7 @@
 /obj/structure/sign/poster/official/ue_no{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fJ" = (
 /obj/structure/sign/science{
@@ -3254,7 +3251,7 @@
 	},
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "go" = (
 /obj/structure/cable{
@@ -3268,7 +3265,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "gp" = (
 /obj/machinery/light/small{
@@ -3284,7 +3281,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "gq" = (
 /obj/structure/cable{
@@ -3298,7 +3295,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "gr" = (
 /obj/structure/cable{
@@ -3541,11 +3538,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"gP" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
 "gQ" = (
 /turf/simulated/floor/plating/airless{
 	name = "plating"
@@ -3571,7 +3563,7 @@
 "gT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "gU" = (
 /obj/machinery/door/firedoor{
@@ -4702,7 +4694,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "jJ" = (
 /obj/machinery/alarm/monitor{
@@ -4987,13 +4979,6 @@
 "Of" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/space/unpowered)
-"WQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"
@@ -6500,7 +6485,7 @@ aa
 ab
 ab
 ab
-ac
+ad
 ad
 ad
 ad
@@ -6560,7 +6545,7 @@ aa
 ab
 ab
 ab
-ac
+ad
 ad
 ad
 ad
@@ -6620,7 +6605,7 @@ aa
 ab
 ab
 ab
-ac
+ad
 ad
 ad
 ad
@@ -6867,7 +6852,7 @@ ad
 ad
 ad
 ad
-ac
+ad
 ab
 ab
 ab
@@ -6926,8 +6911,8 @@ ab
 ad
 ad
 ad
-ac
-ac
+ad
+ad
 ab
 ab
 ab
@@ -6986,7 +6971,7 @@ ab
 ad
 ad
 ad
-ac
+ad
 ab
 ab
 ab
@@ -7010,7 +6995,7 @@ ab
 ad
 fM
 gm
-gP
+yh
 fM
 ad
 ad
@@ -7045,8 +7030,8 @@ ab
 ab
 ab
 ad
-ac
-ac
+ad
+ad
 ab
 ab
 af
@@ -7190,7 +7175,7 @@ ad
 ae
 aM
 gp
-WQ
+gS
 aM
 hz
 ad
@@ -7250,7 +7235,7 @@ ad
 ad
 fM
 gq
-ak
+Of
 aM
 aL
 aM
@@ -7310,7 +7295,7 @@ fc
 fn
 fN
 gr
-gP
+yh
 aM
 hA
 cm
@@ -7503,7 +7488,7 @@ jB
 jI
 jQ
 gS
-ak
+Of
 Of
 kl
 fM
@@ -7667,7 +7652,7 @@ ad
 ab
 ab
 aL
-fr
+cm
 aA
 gd
 aL
