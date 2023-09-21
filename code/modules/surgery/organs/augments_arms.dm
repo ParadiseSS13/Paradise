@@ -464,8 +464,8 @@
 	..()
 
 /obj/item/shield/v1_arm
-	name = "vortex feedback arm" //format is they are holding x
-	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attack. Rumors that it runs on the users blood are unconfirmed"
+	name = "vortex feedback arm"
+	desc = "A modification to a users arm, allowing them to use a vortex core energy feedback, to parry, reflect, and even empower projectile attacks. Rumors that it runs on the user's blood are unconfirmed."
 	icon_state = "v1_arm"
 	item_state = "v1_arm"
 	sprite_sheets_inhand = list("Drask" = 'icons/mob/clothing/species/drask/held.dmi', "Vox" = 'icons/mob/clothing/species/vox/held.dmi')
@@ -476,6 +476,7 @@
 	light_range = 0
 	light_color = "#9933ff"
 	hit_reaction_chance = -1
+	flags = ABSTRACT
 	/// The damage the reflected projectile will be increased by
 	var/reflect_damage_boost = 10
 	/// The cap of the reflected damage. Damage will not be increased above 50, however it will not be reduced to 50 either.

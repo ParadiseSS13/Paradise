@@ -177,6 +177,7 @@
 
 	RegisterSignal(owner, COMSIG_HUMAN_RECEIVE_CPR, PROC_REF(on_cpr))
 	RegisterSignal(owner, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+	owner.med_hud_set_status()  // update revivability after adding the status effect
 
 
 /datum/status_effect/limited_bonus/revivable/proc/on_cpr(mob/living/carbon/human/H, new_seconds)
