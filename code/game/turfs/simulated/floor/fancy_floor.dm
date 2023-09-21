@@ -64,6 +64,14 @@
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	transform = matrix(1, 0, -9, 0, 1, -9) //Yes, these sprites are 50x50px, big grass control the industry
 
+/turf/simulated/floor/grass/attackby(obj/item/C, mob/user, params)
+	if(..())
+		return
+	if(istype(C, /obj/item/shovel))
+		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
+		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
+		remove_tile()
+
 /turf/simulated/floor/grass/jungle
 	name = "jungle grass"
 	icon = 'icons/turf/floors/junglegrass.dmi'
