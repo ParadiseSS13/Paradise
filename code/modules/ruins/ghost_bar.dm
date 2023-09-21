@@ -78,7 +78,7 @@
 	if(!istype(mob_to_delete) || !istype(user) || !Adjacent(user))
 		return
 	if(mob_to_delete.client)
-		if(alert(mob_to_delete ,"Would you like to return to the realm of spirits? (This will delete your current character, but you can rejoin later)",, "Yes", "No") == "No")
+		if(alert(mob_to_delete , "Would you like to return to the realm of spirits? (This will delete your current character, but you can rejoin later)",, "Yes", "No") == "No")
 			return
 	mob_to_delete.visible_message("<span class='notice'>[mob_to_delete.name] climbs into [src]...</span>")
 	playsound(src, 'sound/machines/wooden_closet_close.ogg', 50)
