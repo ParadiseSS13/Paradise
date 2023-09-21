@@ -3818,6 +3818,12 @@
 /obj/structure/mopbucket,
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
+"mS" = (
+/obj/machinery/computer/arcade/orion_trail{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/ghost_bar)
 "mT" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Restroom";
@@ -4933,6 +4939,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
+"qN" = (
+/obj/structure/table/wood,
+/obj/item/deck/unum,
+/turf/simulated/floor/carpet/green,
+/area/ghost_bar)
 "qO" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/landmark/spawner/syndie,
@@ -13461,6 +13472,7 @@
 /area/shuttle/escape)
 "Wi" = (
 /obj/structure/table/wood/fancy/royalblack,
+/obj/item/deck/cards/black,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "Wj" = (
@@ -14612,6 +14624,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/item/deck/tarot,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "ZL" = (
@@ -14689,6 +14702,12 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"ZY" = (
+/obj/machinery/computer/arcade/recruiter{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/ghost_bar)
 "ZZ" = (
 /obj/structure/railing,
 /obj/structure/railing{
@@ -70905,8 +70924,8 @@ Jy
 EJ
 Ma
 Qq
-AB
-AB
+mS
+ZY
 AB
 Me
 NX
@@ -71659,7 +71678,7 @@ Nr
 Me
 bJ
 Jy
-Ah
+qN
 AZ
 Ah
 Nh
