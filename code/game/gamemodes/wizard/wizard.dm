@@ -5,6 +5,7 @@
 /datum/game_mode/wizard
 	name = "wizard"
 	config_tag = "wizard"
+	tdm_gamemode = TRUE
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
@@ -146,6 +147,7 @@
 	wizard_mob.equip_to_slot_or_del(spellbook, slot_l_hand)
 
 	wizard_mob.faction = list("wizard")
+	wizard_mob.mind.offstation_role = TRUE
 
 
 
