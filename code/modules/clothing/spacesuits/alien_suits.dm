@@ -143,7 +143,6 @@
 	desc = "An almost organic looking nonhuman pressure suit."
 
 /obj/item/clothing/under/vox
-	has_sensor = FALSE
 	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
 	species_restricted = list("Vox")
 	sprite_sheets = list(
@@ -151,7 +150,7 @@
 		)
 
 /obj/item/clothing/under/vox/vox_casual
-	name = "alien clothing"
+	name = "Vox Jumpsuit"
 	desc = "This doesn't look very comfortable."
 	icon_state = "vox-casual-1"
 	item_color = "vox-casual-1"
@@ -159,7 +158,7 @@
 	body_parts_covered = LEGS
 
 /obj/item/clothing/under/vox/vox_robes
-	name = "alien robes"
+	name = "Vox Robes"
 	desc = "Weird and flowing!"
 	icon_state = "vox-casual-2"
 	item_color = "vox-casual-2"
