@@ -20,6 +20,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	num2text(MED_I_FREQ) = list(ACCESS_MEDICAL)
 ))
 
+GLOBAL_LIST_EMPTY(deadsay_radio_systems)
+
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
 	name = "station bounced radio"
@@ -798,8 +800,6 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/proc/attempt_send_deadsay_message(mob/subject, message)
 	return
-
-GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 
 /obj/item/radio/headset/deadsay
 	name = "spectral radio"
