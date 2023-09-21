@@ -656,7 +656,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -1241,7 +1241,7 @@
 "dz" = (
 /obj/structure/transit_tube/station/reverse,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "dA" = (
@@ -4059,7 +4059,9 @@
 	in_use = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jE" = (
@@ -4115,7 +4117,9 @@
 	in_use = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jJ" = (
@@ -4162,16 +4166,24 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jP" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "jQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/showcase/machinery/oldpod,
 /turf/simulated/floor/plasteel,
@@ -4202,7 +4214,9 @@
 /area/ruin/ancientstation/proto)
 "jU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jV" = (
@@ -4211,7 +4225,9 @@
 /area/ruin/ancientstation/proto)
 "jW" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "jX" = (
@@ -4300,8 +4316,12 @@
 /area/ruin/ancientstation)
 "ki" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/southwestcorner,
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
@@ -4311,8 +4331,12 @@
 /area/ruin/ancientstation/proto)
 "kj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/northeastcorner,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/ancientstation/proto)
 "kk" = (
@@ -4482,7 +4506,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -4498,23 +4522,35 @@
 /turf/simulated/mineral/random/high_chance,
 /area/ruin/unpowered)
 "kI" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/alive/old/sec,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kJ" = (
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/alive/old/sci,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "kK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/southeast,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mob_spawn/human/alive/old/eng,
 /turf/simulated/floor/plasteel,
@@ -5029,7 +5065,7 @@
 "lO" = (
 /obj/structure/transit_tube/station/reverse,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow,
+/obj/effect/turf_decal/arrows/black,
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/thetacorridor)
 "rN" = (

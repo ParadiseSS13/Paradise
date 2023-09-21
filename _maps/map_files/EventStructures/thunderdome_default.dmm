@@ -18,7 +18,7 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "R" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 

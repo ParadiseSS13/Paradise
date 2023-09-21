@@ -492,7 +492,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -515,7 +515,7 @@
 /area/mine/living_quarters)
 "bt" = (
 /obj/structure/ore_box,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -536,7 +536,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bw" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -1283,7 +1283,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1436,7 +1436,7 @@
 /obj/structure/closet/crate{
 	opened = 1
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1720,7 +1720,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1795,7 +1795,7 @@
 /area/mine/mechbay)
 "dQ" = (
 /obj/machinery/computer/mech_bay_power_console,
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/right,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2306,7 +2306,7 @@
 	},
 /area/mine/eva)
 "eK" = (
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/structure/cable,
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plasteel{
@@ -2916,7 +2916,7 @@
 /area/mine/living_quarters)
 "fO" = (
 /obj/machinery/mech_bay_recharge_port,
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -3377,7 +3377,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
 	pixel_x = -5;
@@ -4933,7 +4933,7 @@
 /area/mine/laborcamp/security)
 "vg" = (
 /obj/machinery/mech_bay_recharge_port,
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5281,7 +5281,7 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
 "BD" = (
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/shower{
 	dir = 4
 	},
@@ -5633,7 +5633,7 @@
 /area/mine/laborcamp/security)
 "HT" = (
 /obj/structure/ore_box,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5887,7 +5887,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "Nj" = (
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable{
 	d2 = 2;
@@ -6040,7 +6040,7 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "Qv" = (
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/right,
 /obj/machinery/computer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
