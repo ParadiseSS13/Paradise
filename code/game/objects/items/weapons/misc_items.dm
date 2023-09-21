@@ -74,7 +74,7 @@
 	. = ..()
 	if(!is_open)
 		return
-	if(!hidden && !isscrewdriver(I) && I.w_class == WEIGHT_CLASS_TINY)
+	if(!hidden && I.tool_behaviour != TOOL_SCREWDRIVER && I.w_class == WEIGHT_CLASS_TINY)
 		if(I.flags & ABSTRACT)
 			return
 		if(I.flags & NODROP)
