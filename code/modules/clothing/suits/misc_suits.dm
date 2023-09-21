@@ -501,7 +501,7 @@
 	name = "cargo winter coat"
 	icon_state = "wintercoat_cargo"
 	item_state = "coatcargo"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/rcs, /obj/item/clipboard)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/rcs, /obj/item/clipboard, /obj/item/envelope, /obj/item/storage/bag/mail, /obj/item/mail_scanner)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo
 
 /obj/item/clothing/head/hooded/winterhood/cargo
@@ -891,7 +891,7 @@
 	icon_state = "bombercargo"
 	item_state = "bombercargo"
 	ignore_suitadjust = 0
-	allowed = list(/obj/item/rcs, /obj/item/clipboard, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/lighter, /obj/item/storage/fancy/cigarettes)
+	allowed = list(/obj/item/rcs, /obj/item/clipboard, /obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/lighter, /obj/item/storage/fancy/cigarettes, /obj/item/storage/bag/mail, /obj/item/envelope)
 	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
 	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
 	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT

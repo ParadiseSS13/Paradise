@@ -23,6 +23,8 @@
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
 /// ingame button pressed (/obj/machinery/button/button)
 #define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"
+/// cable was placed or joined somewhere : (turf)
+#define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
 
 /// signals from globally accessible objects
 

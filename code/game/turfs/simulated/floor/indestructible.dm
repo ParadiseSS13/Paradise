@@ -33,6 +33,11 @@
 /turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
 	return
 
+/turf/simulated/floor/indestructible/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
 /turf/simulated/floor/indestructible/necropolis
 	name = "necropolis floor"
 	desc = "It's regarding you suspiciously."
