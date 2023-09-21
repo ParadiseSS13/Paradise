@@ -185,7 +185,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/get_callproc_args()
 	var/argnum = input("Number of arguments","Number:",0) as num|null
-	if(!argnum && (argnum!=0))	return
+	if(argnum <= 0)
+		return list() // to allow for calling with 0 args
+
+	argnum = clamp(argnum, 1, 50)
 
 	var/list/lst = list()
 	//TODO: make a list to store whether each argument was initialised as null.
@@ -964,6 +967,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	if(confirm != "Im sure")
 		return
 
+	var/display_turfs_overlay = FALSE
+	var/do_display_turf_overlay = alert(usr, "Would you like to have all active turfs have a client side overlay applied as well?", "Optional", "Yep", "Nope")
+	if(do_display_turf_overlay == "Yep")
+		display_turfs_overlay = TRUE
+
 	message_admins("[key_name_admin(usr)] is visualising active atmos turfs. Server may lag.")
 
 	var/list/zlevel_turf_indexes = list()
@@ -974,6 +982,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!zlevel_turf_indexes["[T.z]"])
 			zlevel_turf_indexes["[T.z]"] = list()
 		zlevel_turf_indexes["[T.z]"] |= T
+		if(display_turfs_overlay)
+			usr.client.images += image('icons/effects/alphacolors.dmi', T, "red")
 		CHECK_TICK
 
 	// Sort the keys

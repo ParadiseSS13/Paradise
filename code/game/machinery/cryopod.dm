@@ -367,7 +367,7 @@
 			if(O.target != occupant.mind)
 				continue
 			O.on_target_cryo()
-		occupant.mind.remove_all_antag_datums()
+		occupant.mind.remove_all_antag_datums(handle_target_cryo = TRUE) // i wish cryo used signals, this is scuffed
 
 	if(occupant.mind && occupant.mind.assigned_role)
 		//Handle job slot/tater cleanup.
@@ -587,6 +587,8 @@
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
 	log_admin("<span class='notice'>[key_name(E)] entered a stasis pod.</span>")
+	if(SSticker.mode.tdm_gamemode)
+		SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Cryopods"))
 	message_admins("[key_name_admin(E)] entered a stasis pod. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 	add_fingerprint(E)
 	playsound(src, 'sound/machines/podclose.ogg', 5)
@@ -667,7 +669,7 @@
 	for(var/obj/machinery/cryopod/P in GLOB.machines)
 		if(P.occupant)
 			continue
-		if((ishuman(person_to_cryo) && istype(get_area(P), /area/crew_quarters/sleep)) || istype(P, /obj/machinery/cryopod/robot))
+		if((ishuman(person_to_cryo) && istype(get_area(P), /area/station/public/sleep)) || istype(P, /obj/machinery/cryopod/robot))
 			free_cryopods += P
 	var/obj/machinery/cryopod/target_cryopod = null
 	if(free_cryopods.len)

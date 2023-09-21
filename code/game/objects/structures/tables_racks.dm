@@ -28,6 +28,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_TABLES)
+	creates_cover = TRUE
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/metal
@@ -366,6 +367,10 @@
 			T.flip(direction)
 	update_icon()
 
+	creates_cover = FALSE
+	if(isturf(loc))
+		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+
 	return 1
 
 /obj/structure/table/proc/unflip()
@@ -389,6 +394,10 @@
 			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,D))
 			T.unflip()
 	update_icon()
+
+	creates_cover = TRUE
+	if(isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 
 	return 1
 
@@ -775,7 +784,6 @@
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium
 	buildstackamount = 2
-	pull_speed = 0
 	can_be_flipped = FALSE
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()

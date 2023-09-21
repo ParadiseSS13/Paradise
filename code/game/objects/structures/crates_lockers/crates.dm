@@ -303,7 +303,6 @@
 	icon_state = "trashcart"
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
-	pull_speed = 0
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
@@ -492,6 +491,31 @@
 	icon_state = "electricalcrate"
 	icon_opened = "electricalcrate_open"
 	icon_closed = "electricalcrate"
+
+/obj/structure/closet/crate/mail
+	name = "mail crate"
+	desc = "A plastic crate for mail delivery."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "mailsealed"
+	icon_opened = "mailopen"
+	icon_closed = "mailsealed"
+	material_drop = /obj/item/stack/sheet/plastic
+	material_drop_amount = 4
+	var/list/possible_contents = list(/obj/item/envelope/security,
+										/obj/item/envelope/science,
+										/obj/item/envelope/supply,
+										/obj/item/envelope/medical,
+										/obj/item/envelope/engineering,
+										/obj/item/envelope/bread,
+										/obj/item/envelope/circuses,
+										/obj/item/envelope/command,
+										/obj/item/envelope/misc)
+
+/obj/structure/closet/crate/mail/populate_contents()
+	. = ..()
+	for(var/i in 1 to rand(5, 10))
+		var/item = pick(possible_contents)
+		new item(src)
 
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))

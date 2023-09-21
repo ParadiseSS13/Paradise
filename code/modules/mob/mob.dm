@@ -954,7 +954,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 	// They should be in a cell or the Brig portion of the shuttle.
 	var/area/A = loc.loc
-	if(!istype(A, /area/security/prison))
+	if(!istype(A, /area/station/security/prison))
 		if(!istype(A, /area/shuttle/escape) || loc.name != "Brig floor")
 			return 0
 
@@ -1555,7 +1555,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 
 GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
-	/area/chapel
+	/area/station/service/chapel
 )))
 
 /mob/proc/holy_check()
@@ -1603,3 +1603,22 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	else
 		. = invoked_callback.Invoke()
 	usr = temp
+
+/mob/verb/give_kudos(mob/living/target as mob in oview())
+	set category = null
+	set name = "Give Kudos (OOC)"
+
+	if(target == src)
+		to_chat(src, "<span class='warning'>You cannot give kudos to yourself!</span>")
+		return
+
+	to_chat(src, "<span class='notice'>You've given kudos to [target]!</span>")
+
+	// Pretend we've always succeeded when we might not have.
+	// This should prevent people from using it to suss anything out about mobs' states
+	if(!client || !target.mind)
+		return
+
+	target.mind.kudos_received_from |= ckey
+
+

@@ -3030,7 +3030,7 @@
 			if("eagles")//SCRAW
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
-					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
+					if(is_station_level(W.z) && !istype(get_area(W), /area/station/command/bridge) && !istype(get_area(W), /area/station/public) && !istype(get_area(W), /area/station/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.minor_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')

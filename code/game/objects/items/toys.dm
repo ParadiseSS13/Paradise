@@ -1175,6 +1175,8 @@
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
 		user.bleed(BLOOD_VOLUME_NORMAL)
 		user.death() // Just in case
+		if(SSticker.mode.tdm_gamemode)
+			SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Revolver Suicide"))
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>[src] needs to be reloaded.</span>")

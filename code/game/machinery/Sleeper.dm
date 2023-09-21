@@ -119,9 +119,13 @@
 
 			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 				occupant.transfer_blood_to(beaker, 1)
-				for(var/datum/reagent/x in occupant.reagents.reagent_list)
-					occupant.reagents.trans_to(beaker, 3)
+				for(var/datum/reagent/R in occupant.reagents.reagent_list)
 					occupant.transfer_blood_to(beaker, 1)
+					if(R.id in GLOB.blocked_chems)
+						occupant.reagents.remove_reagent(R.id, 3)
+						beaker.reagents.add_reagent("saturated_charcoal", 3)
+						continue
+					occupant.reagents.trans_to(beaker, 3)
 
 		for(var/A in occupant.reagents.addiction_list)
 			var/datum/reagent/R = A
