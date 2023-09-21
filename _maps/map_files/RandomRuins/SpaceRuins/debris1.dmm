@@ -38,14 +38,6 @@
 /obj/item/stack/cable_coil/cut,
 /turf/space,
 /area/space)
-"m" = (
-/obj/effect/spawner/random_spawners/grille_often,
-/turf/space,
-/area/space)
-"n" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
-/turf/space,
-/area/space)
 "o" = (
 /obj/random/tool,
 /turf/space,
@@ -79,11 +71,11 @@
 /turf/space,
 /area/space)
 "y" = (
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "z" = (
 /obj/item/stack/sheet/metal,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "B" = (
 /obj/structure/lattice,
@@ -103,18 +95,18 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "E" = (
 /obj/item/stack/rods,
 /turf/space,
 /area/space)
 "F" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "G" = (
 /obj/random/toolbox,
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "I" = (
 /obj/structure/grille/broken,
@@ -134,18 +126,18 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "Q" = (
 /obj/effect/decal/cleanable/shreds{
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "T" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating/burnt,
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "U" = (
 /obj/effect/spawner/random_barrier/wall_probably,
@@ -159,7 +151,7 @@
 /area/space)
 "Y" = (
 /obj/item/shard,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
 "Z" = (
 /obj/item/stack/sheet/metal,
@@ -236,7 +228,7 @@ a
 a
 d
 X
-m
+X
 X
 X
 X
@@ -259,7 +251,7 @@ a
 r
 X
 g
-F
+y
 X
 E
 I
@@ -309,7 +301,7 @@ X
 E
 Y
 X
-n
+X
 X
 h
 E
@@ -382,7 +374,7 @@ X
 E
 X
 X
-n
+X
 r
 a
 "}
@@ -507,11 +499,11 @@ T
 X
 Z
 X
-n
+X
 v
 X
 z
-n
+X
 X
 Z
 X

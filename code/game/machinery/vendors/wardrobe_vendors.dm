@@ -528,6 +528,8 @@
 	vend_reply = "Thank you for using the CargoDrobe!"
 	products = list(/obj/item/clothing/under/rank/cargo/tech = 6,
 					/obj/item/clothing/under/rank/cargo/tech/skirt = 3,
+					/obj/item/clothing/under/rank/cargo/deliveryboy = 2,
+					/obj/item/clothing/head/soft/deliverysoft = 2,
 					/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
 					/obj/item/clothing/suit/jacket/cargobomber = 3,
 					/obj/item/clothing/suit/storage/hazardvest = 3,
@@ -543,6 +545,8 @@
 
 	prices = list(/obj/item/clothing/under/rank/cargo/tech = 50,
 				/obj/item/clothing/under/rank/cargo/tech/skirt = 50,
+				/obj/item/clothing/under/rank/cargo/deliveryboy = 100,
+				/obj/item/clothing/head/soft/deliverysoft = 50,
 				/obj/item/clothing/suit/hooded/wintercoat/cargo = 75,
 				/obj/item/clothing/suit/jacket/cargobomber = 75,
 				/obj/item/clothing/suit/storage/hazardvest = 50,

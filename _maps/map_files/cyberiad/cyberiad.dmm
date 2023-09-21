@@ -58245,7 +58245,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "dwg" = (
 /obj/machinery/computer/arcade/orion_trail{
@@ -61937,7 +61937,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "fpO" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
@@ -62534,7 +62534,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "fFY" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -62713,7 +62713,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
@@ -62926,12 +62926,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "fSi" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "evamaint_vent"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
+/turf/simulated/floor/engine/xenobio,
+/area/station/science/xenobiology)
 "fSM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -69740,7 +69736,7 @@
 	dir = 1;
 	network = list("Research","SS13")
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "jIX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -74077,10 +74073,6 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"lYv" = (
-/obj/effect/spawner/random_barrier/floor_probably,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
 "lYX" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/cobweb,
@@ -76005,7 +75997,7 @@
 	name = "Hardened Bomb-Test Security Camera";
 	network = list("Toxins","Research","SS13")
 	},
-/turf/simulated/floor/indestructible,
+/turf/simulated/floor/indestructible/airless,
 /area/station/science/toxins/test)
 "noq" = (
 /obj/machinery/conveyor/west{
@@ -76677,7 +76669,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "nIO" = (
 /obj/structure/cable{
@@ -79492,7 +79484,6 @@
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
 "pnB" = (
-/obj/effect/spawner/random_barrier/floor_probably,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,
 /obj/structure/cable{
 	d1 = 1;
@@ -82101,7 +82092,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
@@ -87002,7 +86993,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/xenobio,
 /area/station/science/xenobiology)
 "tMT" = (
 /obj/structure/cable{
@@ -87158,7 +87149,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
@@ -91611,7 +91602,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/maintenance/fpmaint2)
 "wwZ" = (
 /obj/effect/spawner/window/reinforced/polarized{
@@ -112504,7 +112495,7 @@ doE
 doE
 wpU
 eIz
-fSi
+eIz
 xXP
 aLx
 blG
@@ -140609,9 +140600,9 @@ cEH
 tfN
 kiq
 cBR
-cJK
+fSi
 nIF
-cJK
+fSi
 ecZ
 kMc
 kdc
@@ -140868,7 +140859,7 @@ oDE
 iun
 fpG
 fMb
-cJK
+fSi
 oJr
 cQC
 dhR
@@ -141382,7 +141373,7 @@ hOz
 iun
 dvM
 tQn
-cJK
+fSi
 oJr
 sFy
 dhR
@@ -141637,9 +141628,9 @@ oto
 tPD
 jPb
 cBR
-cJK
+fSi
 fET
-cJK
+fSi
 ecZ
 bUx
 dFe
@@ -148820,7 +148811,7 @@ iZV
 ciY
 mQX
 ciY
-lYv
+csL
 ciY
 ciY
 ciY
