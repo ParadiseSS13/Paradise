@@ -9,23 +9,22 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	handle_barrier(loc)
+	if(!anchored)
+		to_chat(user, "<span class=`notice`>Anchor [src] down first!</span>")
+		return
 
-//	if(locked) TODO: add ID locking to it
-//		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
-//		return
+	handle_barrier(loc)
 
 /obj/machinery/holo_barrier/proc/handle_barrier(turf/barrier_turf)
 	if(operating)
 		for(var/obj/effect/holo_forcefield/wall in barrier_turf)
 			qdel(wall)
+		operating = FALSE
 	else
 		use_power(1000)
 		visible_message("<span class='danger'>A holographic barrier appears!</span>")
 		new /obj/effect/holo_forcefield(barrier_turf)
-		START_PROCESSING(SSobj, src)
-
-	operating = !operating
+		operating = TRUE
 
 /obj/machinery/holo_barrier/Destroy()
 	. = ..()
@@ -35,10 +34,19 @@
 /obj/machinery/holo_barrier/process()
 	if(!operating)
 		return
-	message_admins("The thingy is online")
-	for(var/turf/simulated/T in range(1))
-		message_admins("[T.air.return_pressure()]")
-		if(T.air.return_pressure() > 50) // The barrier can hold about 3x normal atmospheric pressure before it shuts down
+	use_power(10000) // This doesn't work properly, or our power system is just really fucked.
+	for(var/turf/simulated/T in range(1, src))
+		if(T.air?.return_pressure() > 300) // The barrier can hold about 3x normal atmospheric pressure before it shuts down
+			for(var/obj/effect/holo_forcefield/wall in loc) // For some reason handle_barrier wouldn't work properly here, so I'm doing it like this instead
+				qdel(wall)
+			operating = FALSE
+			break
 
-			handle_barrier()
-			STOP_PROCESSING(SSobj, src)
+/obj/machinery/holo_barrier/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	if(default_unfasten_wrench(user, I, time = 3 SECONDS))
+		return
+	anchored = !anchored
+	to_chat(user, "<span class='notice'>You [anchored ? "tighten" : "loosen"] [src].</span>")
+	if(operating)
+		handle_barrier()
