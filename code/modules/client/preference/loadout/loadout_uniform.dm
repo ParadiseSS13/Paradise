@@ -232,6 +232,14 @@
 	path = /obj/item/clothing/under/rank/medical/scrubs/green
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
+/datum/gear/uniform/cargo
+	main_typepath = /datum/gear/uniform/cargo
+
+/datum/gear/uniform/cargo/delivery
+	display_name = "Uniform, delivery boy"
+	path = /obj/item/clothing/under/rank/cargo/deliveryboy
+	allowed_roles = list("Quartermaster", "Cargo Technician")
+
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec
 

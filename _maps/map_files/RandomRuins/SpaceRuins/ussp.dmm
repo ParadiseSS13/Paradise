@@ -5109,10 +5109,6 @@
 	icon_state = "floorgrime"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"mi" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/hallway/primary)
 "mj" = (
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/airless,
@@ -10171,7 +10167,7 @@ fJ
 kX
 lB
 lO
-mi
+mz
 my
 jA
 nd
