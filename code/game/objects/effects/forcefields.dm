@@ -98,7 +98,7 @@
 	return ..()
 
 /obj/effect/holo_forcefield/CanAtmosPass(turf/T)
-	return !density
+	return FALSE
 
-/obj/effect/holo_barrier/CanPass(atom/movable/mover, turf/target)
+/obj/effect/holo_forcefield/CanPass(atom/movable/mover, turf/target)
 	return TRUE

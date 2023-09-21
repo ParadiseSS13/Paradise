@@ -9,25 +9,19 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(operating)
-		remove_barrier(loc)
-		return
+	handle_barrier(loc)
 
-//	if(locked)
+//	if(locked) TODO: add ID locking to it
 //		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
 //		return
 
-	create_barrier(loc)
+/obj/machinery/holo_barrier/proc/handle_barrier()
+	if(operating)
+		for(var/obj/effect/holo_forcefield/wall in barrier_turf)
+			qdel(wall)
+	else
+		use_power(1000)
+		visible_message("<span class='danger'>A holographic barrier appears!</span>")
+		new /obj/effect/holo_forcefield(barrier_turf)
 
-/obj/machinery/holo_barrier/proc/create_barrier(turf/barrier_turf)
-	use_power(1000)
-	visible_message("<span class='danger'>A holographic barrier appears!</span>")
-
-	operating = TRUE
-	new /obj/effect/holo_forcefield(barrier_turf)
-	update_icon(UPDATE_OVERLAYS | UPDATE_ICON_STATE)
-
-/obj/machinery/holo_barrier/proc/remove_barrier(turf/barrier_turf)
-	for(var/obj/effect/holo_forcefield/wall in barrier_turf)
-		qdel(wall)
-	operating = FALSE
+	operating = !operating
