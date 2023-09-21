@@ -1,6 +1,7 @@
 /obj/effect/turf_decal/stripes/white/full : /obj/effect/turf_decal/stripes/white
 /obj/effect/turf_decal/stripes/red/full : /obj/effect/turf_decal/stripes/red
 /obj/effect/turf_decal/stripes/asteroid/full : /obj/effect/turf_decal/stripes/asteroid
+/obj/effect/turf_decal/stripes/full : /obj/effect/turf_decal/stripes
 
 /obj/effect/decal/warning_stripes : /obj/effect/turf_decal/stripes/box
 

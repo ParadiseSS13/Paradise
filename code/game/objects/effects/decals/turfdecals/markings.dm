@@ -61,11 +61,8 @@
 /obj/effect/turf_decal/delivery
 	icon_state = "delivery"
 
-/obj/effect/turf_decal/delivery/white
-	icon_state = "delivery_white"
-
-/obj/effect/turf_decal/delivery/red
-	icon_state = "delivery_red"
+/obj/effect/turf_decal/delivery/partial
+	icon_state = "3"
 
 /obj/effect/turf_decal/delivery/hollow
 	icon_state = "bot"
@@ -76,14 +73,26 @@
 /obj/effect/turf_decal/delivery/hollow/left
 	icon_state = "bot_left"
 
+/obj/effect/turf_decal/delivery/white
+	icon_state = "delivery_white"
+
+/obj/effect/turf_decal/delivery/white/partial
+	icon_state = "13"
+
 /obj/effect/turf_decal/delivery/white/hollow
-	icon_state = "bot_white"
+	icon_state = "15"
 
 /obj/effect/turf_decal/delivery/white/hollow/right
 	icon_state = "bot_right_white"
 
 /obj/effect/turf_decal/delivery/white/hollow/left
 	icon_state = "bot_left_white"
+
+/obj/effect/turf_decal/delivery/red
+	icon_state = "delivery_red"
+
+/obj/effect/turf_decal/delivery/red/partial
+	icon_state = "7"
 
 /obj/effect/turf_decal/delivery/red/hollow
 	icon_state = "bot_red"
@@ -93,6 +102,24 @@
 
 /obj/effect/turf_decal/delivery/red/hollow/left
 	icon_state = "bot_left_red"
+
+/obj/effect/turf_decal/delivery/green
+	icon_state = "11"
+
+/obj/effect/turf_decal/delivery/green/partial
+	icon_state = "10"
+
+/obj/effect/turf_decal/delivery/green/hollow
+	icon_state = "12"
+
+/obj/effect/turf_decal/delivery/blue
+	icon_state = "17"
+
+/obj/effect/turf_decal/delivery/blue/partial
+	icon_state = "16"
+
+/obj/effect/turf_decal/delivery/blue/hollow
+	icon_state = "18"
 
 /obj/effect/turf_decal/loading_area
 	icon_state = "loadingarea"
@@ -131,7 +158,7 @@
 	icon_state = "arrows_red"
 
 /obj/effect/turf_decal/arrows/black
-	icon_state = "arrows_red"
+	icon_state = "4"
 
 /obj/effect/turf_decal/box
 	icon_state = "box"
