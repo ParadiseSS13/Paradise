@@ -309,10 +309,13 @@
 	if(mode != BOT_REPAIRING)
 		return
 
-	if(autotile) //Build the floor and include a tile.
+	if(replacetiles)
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
-	else //Build a hull plating without a floor tile.
-		target_turf.ChangeTurf(/turf/simulated/floor/plating)
+	else
+		if(autotile) //Build the floor and include a tile.
+			target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
+		else //Build a hull plating without a floor tile.
+			target_turf.ChangeTurf(/turf/simulated/floor/plating)
 	mode = BOT_IDLE
 	amount--
 	update_icon(UPDATE_ICON_STATE)
