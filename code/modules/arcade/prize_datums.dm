@@ -197,6 +197,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	typepath = /obj/item/toy/minimeteor
 	cost = 50
 
+/datum/prize_item/bwoinkhorn
+	name = "Central Command Bikehorn"
+	desc = "A blue and gold bikehorn, imported straight from the NAS Trurl."
+	typepath = /obj/item/bikehorn/bwoinkhorn
+	cost = 50
+
 /datum/prize_item/therapy_doll
 	name = "Random Therapy Doll"
 	desc = "A therapeutic doll for relieving stress without being charged with assault."

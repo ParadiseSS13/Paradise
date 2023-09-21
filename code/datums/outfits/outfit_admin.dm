@@ -9,7 +9,7 @@
 
 /datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	
+
 	if(visualsOnly)
 		return
 
@@ -1309,6 +1309,7 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/survival = 1,
+		/obj/item/bikehorn = 1,
 		/obj/item/bikehorn/bwoinkhorn = 1,
 		/obj/item/stamp/clown = 1,
 		/obj/item/toy/crayon/rainbow = 1,

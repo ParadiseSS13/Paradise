@@ -135,7 +135,6 @@
 				/obj/item/caution = 10,
 				/obj/item/mod/construction/broken_core = 4,
 				/obj/effect/spawner/random_spawners/mod/maint = 10,
-				/obj/item/bikehorn/bwoinkhorn = 5,
 				////////////////CONTRABAND STUFF//////////////////
 				/obj/item/grenade/clown_grenade = 3,
 				/obj/item/grenade/smokebomb = 3,

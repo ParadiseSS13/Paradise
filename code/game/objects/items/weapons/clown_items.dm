@@ -70,6 +70,14 @@
 	honk_sounds = list("sound/effects/adminhelp.ogg" = 1)
 	attack_verb = list("BWOINKED")
 
+/obj/item/bikehorn/bwoinkhorn/attack(mob/M, mob/user)
+	dread(user)
+	return ..()
+
+/obj/item/bikehorn/bwoinkhorn/attack_self(mob/user)
+	dread(user)
+	..()
+
 /obj/item/bikehorn/bwoinkhorn/proc/dread(mob/user)
 	var/turf/T = get_turf(src)
 	for(var/mob/living/carbon/M in ohearers(7, T))
