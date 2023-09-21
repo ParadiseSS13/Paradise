@@ -177,6 +177,11 @@
 // APC
 
 /obj/machinery/power/apc/AICtrlClick(mob/living/user) // turns off/on APCs.
+	if(stat & BROKEN)
+		to_chat(user, "<span class='warning'>Unable to interface: Connection refused.</span>")
+		return
+	if(aidisabled)
+		return
 	toggle_breaker(user)
 
 
