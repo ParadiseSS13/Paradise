@@ -51,14 +51,54 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 500)
 	attack_verb = list("bludgeoned", "whacked", "cracked")
+	/// Is the secret compartment open?
+	var/is_open = FALSE
+	/// Tiny item that can be hidden on crutches with a screwdriver
+	var/obj/item/hidden = null
 
 /obj/item/crutches/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded = 5, force_wielded = 5, icon_wielded = "crutches1")
 
+/obj/item/crutches/Destroy()
+	if(hidden)
+		hidden.forceMove(get_turf(src))
+		hidden = null
+	return ..()
+
 /obj/item/crutches/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "crutches0"
 	return ..()
+
+/obj/item/crutches/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!is_open)
+		return
+	if(!hidden && !isscrewdriver(I) && I.w_class == WEIGHT_CLASS_TINY)
+		if(I.flags & ABSTRACT)
+			return
+		if(!user.drop_item())
+			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			return
+		I.forceMove(src)
+		hidden = I
+		to_chat(user, "<span class='notice'>You hide [I] inside the secret compartment.</span>")
+
+/obj/item/crutches/attack_hand(mob/user, pickupfireoverride)
+	if(!is_open)
+		return ..()
+	if(hidden)
+		user.put_in_hands(hidden)
+		to_chat(user, "<span class='notice'>You remove [hidden] from the secret compartment!</span>")
+		hidden = null
+
+	add_fingerprint(user)
+
+/obj/item/crutches/screwdriver_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You screw the compartment [is_open ? "closed" : "open"].</span>")
+	is_open = !is_open
 
 /obj/item/crutches/get_crutch_efficiency()
 	// 6 when wielded, 2 when not. Basically a small upgrade to just having 2 canes in each hand
