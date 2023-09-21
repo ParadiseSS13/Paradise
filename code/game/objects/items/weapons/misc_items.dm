@@ -77,7 +77,7 @@
 	if(!hidden && !isscrewdriver(I) && I.w_class == WEIGHT_CLASS_TINY)
 		if(I.flags & ABSTRACT)
 			return
-		if(!user.drop_item())
+		if(I.flags & NODROP)
 			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
 			return
 		I.forceMove(src)
