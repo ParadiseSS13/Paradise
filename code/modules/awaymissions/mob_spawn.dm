@@ -310,8 +310,6 @@
 
 //Lavaland Bartender (ghost role).
 /obj/effect/mob_spawn/human/alive/bartender
-	death = FALSE
-	roundstart = FALSE
 	random = TRUE
 	allow_species_pick = TRUE
 	name = "bartender sleeper"
@@ -320,11 +318,10 @@
 	description = "Stuck on Lavaland, you could try getting back to civilisation...or serve drinks to those that wander by."
 	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
 	assignedrole = "Space Bartender"
+	outfit = /datum/outfit/spacebartender
 
 //Lavaland Beach Turist(?) (ghost role).
 /obj/effect/mob_spawn/human/alive/beach
-	death = FALSE
-	roundstart = FALSE
 	random = TRUE
 	allow_species_pick = TRUE
 	mob_name = "Beach Bum"
@@ -334,6 +331,7 @@
 	flavour_text = "You are a beach bum! You think something just happened to the beach but you don't really pay too much attention."
 	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
 	assignedrole = "Beach Bum"
+	outfit = /datum/outfit/beachbum
 
 //Lavaland Beach Guard (ghost role).
 /obj/effect/mob_spawn/human/alive/beach/lifeguard
@@ -372,14 +370,13 @@
 
 //Lavaland Animal Doctor (ghost role).
 /obj/effect/mob_spawn/human/alive/doctor
-	death = FALSE
-	roundstart = FALSE
 	random = TRUE
 	name = "sleeper"
 	icon = 'icons/obj/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "You are a space doctor!"
 	assignedrole = "Space Doctor"
+	outfit = /datum/outfit/job/doctor
 
 /obj/effect/mob_spawn/human/alive/doctor/equip(mob/living/carbon/human/H)
 	..()
@@ -391,8 +388,6 @@
 
 //Spooky Scary Skeleton...
 /obj/effect/mob_spawn/human/alive/skeleton
-	death = FALSE
-	roundstart = FALSE
 	icon = 'icons/mob/simple_human.dmi'
 	mob_species = /datum/species/skeleton
 	icon_state = "skeleton"

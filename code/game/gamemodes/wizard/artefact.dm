@@ -858,3 +858,86 @@ GLOBAL_LIST_EMPTY(multiverse)
 /obj/item/reagent_containers/food/drinks/everfull/proc/magic_fill(reagent_choice)
 	reagents.clear_reagents()
 	reagents.add_reagent(reagent_choice, volume)
+
+//Oblivion Enforcer clothing (the halberd and gloves are defined elsewhere)
+
+/obj/item/clothing/head/hooded/oblivion
+	name = "Oblivion Enforcer's hood"
+	desc = "A hood worn by an Oblivion Enforcer."
+	icon_state = "oblivionhood"
+	flags = BLOCKHAIR
+	flags_inv = HIDEFACE
+	flags_cover = HEADCOVERSEYES
+	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = INFINITY, FIRE = 5, ACID = 5)
+	cold_protection = HEAD
+	min_cold_protection_temperature = SPACE_HELM_MIN_TEMP_PROTECT
+	magical = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+	)
+
+/obj/item/clothing/suit/hooded/oblivion
+	name = "Oblivion Enforcer's robes"
+	desc = "A set of armored, radiation-proof robes worn by Oblivion Enforcers."
+	icon_state = "oblivionarmor"
+	item_state = "oblivionarmor"
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	hoodtype = /obj/item/clothing/head/hooded/oblivion
+	allowed = list(/obj/item/supermatter_halberd, /obj/item/nuke_core/supermatter_sliver)
+	armor = list(MELEE = 35, BULLET = 20, LASER = 35, ENERGY = 10, BOMB = 15, RAD = INFINITY, FIRE = 5, ACID = 5)
+	flags_inv = HIDEJUMPSUIT | HIDESHOES | HIDETAIL | HIDESHOES
+	flags = THICKMATERIAL
+	magical = TRUE
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
+	)
+
+/obj/item/clothing/suit/hooded/oblivion/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
+
+/obj/item/clothing/mask/gas/voice_modulator/oblivion
+	name = "Oblivion Enforcer's mask"
+	desc = "The mask of an Oblivion Enforcer. Don't forget to turn it on before giving your one-liners!"
+	icon_state = "oblivionmask"
+	item_state = "oblivionmask"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
+	)
+
+/obj/item/clothing/shoes/white/enforcer
+	name = "hypernobilium weave shoes"
+	desc = "They're surprisingly comfortable and designed to fit under an Oblivion Enforcer's robes."
+	magical = TRUE
+
+/obj/item/clothing/shoes/white/enforcer/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
+
+/obj/item/clothing/under/color/white/enforcer
+	name = "hypernobilium weave jumpsuit"
+	desc = "A close-fitting, breathable jumpsuit, tailored for the dirty work of an Oblivion Enforcer."
+	has_sensor = FALSE
+	magical = TRUE
+
+/obj/item/clothing/under/color/white/enforcer/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)

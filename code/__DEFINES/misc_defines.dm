@@ -375,7 +375,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 50
+#define SQL_VERSION 51
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -552,3 +552,9 @@
 #define BLOCKED_BURROWS "Blocked Burrows"
 #define CLASSIC_CAVES "Classic Caves"
 #define DEADLY_DEEPROCK "Deadly Deeprock"
+
+// Request console message priority defines
+
+#define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
+#define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
+#define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority

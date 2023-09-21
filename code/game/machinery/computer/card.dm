@@ -49,8 +49,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/blueshield,
 		/datum/job/nanotrasenrep,
 		/datum/job/chaplain,
-		/datum/job/officer
-	)
+		/datum/job/officer,
+		/datum/job/qm
+)
+
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
 
@@ -755,6 +757,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	icon_screen = "idcmo"
 	req_access = list(ACCESS_CMO)
 	circuit = /obj/item/circuitboard/card/minor/cmo
+
+/obj/machinery/computer/card/minor/qm
+	name = "supply management console"
+	target_dept = TARGET_DEPT_SUP
+	icon_screen = "idqm"
+	light_color = COLOR_BROWN_ORANGE
+	req_access = list(ACCESS_QM)
+	circuit = /obj/item/circuitboard/card/minor/qm
 
 /obj/machinery/computer/card/minor/rd
 	name = "science management console"
