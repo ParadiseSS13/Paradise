@@ -67122,6 +67122,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "ifN" = (
@@ -73746,6 +73751,15 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
 /area/station/legal/courtroom)
+"lQH" = (
+/obj/structure/cable,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "lQS" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
@@ -74935,6 +74949,11 @@
 /area/station/maintenance/apmaint2)
 "mAv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "mBl" = (
@@ -81015,6 +81034,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"qmp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/asmaint)
 "qms" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -145983,10 +146011,10 @@ hlu
 nXc
 pfF
 mAv
-csL
-csL
-ePu
-hyk
+cOm
+cOm
+qmp
+lQH
 cga
 hyk
 csL
