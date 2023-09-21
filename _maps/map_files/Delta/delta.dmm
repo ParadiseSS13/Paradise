@@ -69326,7 +69326,7 @@
 	},
 /area/station/command/office/rd)
 "dqe" = (
-/obj/item/reagent_containers/food/snacks/chinese,
+/obj/machinery/economy/vending/chinese,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -83079,7 +83079,7 @@
 	},
 /area/station/security/prison/cell_block)
 "gtR" = (
-/obj/item/seeds/coffee,
+/obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurplecorner"
@@ -88130,7 +88130,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/art)
 "myi" = (
-/obj/item/vending_refill/cola,
+/obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -90076,10 +90076,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"oEG" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "oFL" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -154543,7 +154539,7 @@ aaa
 aaa
 abj
 abj
-oEG
+btJ
 abj
 csj
 rEQ
