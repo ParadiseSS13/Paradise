@@ -18,6 +18,8 @@
 			our_characters_names += saves.real_name
 			our_character_saves += list(saves.real_name = saves)
 		var/character_name = input("Select a character", "Character selection") as null|anything in our_characters_names
+		if(!character_name)
+			return
 		save_to_load = our_character_saves[character_name]
 	else
 		save_to_load = new
@@ -28,6 +30,8 @@
 	if(!H.back)
 		equip_item(H, /obj/item/storage/backpack, slot_back)
 	equip_item(H, /obj/item/radio/headset/deadsay, slot_l_ear)
+	H.dna.species.before_equip_job(/datum/job/assistant, H)
+	H.dna.species.after_equip_job(/datum/job/assistant, H)
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
 		if(G.slot)
