@@ -845,9 +845,6 @@
 				user.update_inv_w_uniform()
 			else
 				to_chat(user, "<span class='notice'>You cannot roll down this uniform!</span>")
-
-	else
-		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
 	if(item_color == "[basecolor]")
 		body_parts_covered = initial(body_parts_covered)
 	else
