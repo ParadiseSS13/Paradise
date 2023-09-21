@@ -76783,11 +76783,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/atmos{
-	name = "Aft-Starboard Atmospherics Maintenance"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/atmos{
+	name = "Fore-Port Secondary Atmospherics Maintenance"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "nMd" = (
