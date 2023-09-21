@@ -67,8 +67,8 @@
 
 // Not quite a forcefield, but close enough that I'm including it in this file
 /obj/effect/holo_forcefield
-	desc = "A space wizard's magic wall."
-	name = "FORCEWALL"
+	desc = "A holographic barrier."
+	name = "Holo-Barrier"
 	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
 	icon_state = "hierophant_wall_temp-0"
 	base_icon_state = "hierophant_wall_temp"
