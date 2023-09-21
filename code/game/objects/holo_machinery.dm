@@ -15,7 +15,7 @@
 //		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
 //		return
 
-/obj/machinery/holo_barrier/proc/handle_barrier()
+/obj/machinery/holo_barrier/proc/handle_barrier(turf/barrier_turf)
 	if(operating)
 		for(var/obj/effect/holo_forcefield/wall in barrier_turf)
 			qdel(wall)
