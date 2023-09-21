@@ -45,10 +45,11 @@
 		/obj/item/borg/upgrade/modkit/damage,
 		/obj/item/borg/upgrade/modkit/range)
 	var/ore = pick(/obj/item/stack/ore/iron, /obj/item/stack/ore/plasma, /obj/item/stack/ore/glass/basalt)
-	var/i = rand(5,15)
-	while(i)
+	//loot += ore
+	//ore.amount = rand(5,15)
+	//var/i = rand(5,15)
+	for(var/i = rand(5,15), i, i--)
 		loot += ore
-		i--
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/GiveTarget(new_target)
 	if(!..())
