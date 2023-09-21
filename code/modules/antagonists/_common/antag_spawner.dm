@@ -427,7 +427,6 @@
 	demon.give_objectives()
 
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = demon.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
 	demon.mind.add_mind_objective(KillDaWiz)
