@@ -39,6 +39,7 @@
 		equip_item(H, /obj/item/clothing/under/color/random, slot_w_uniform)
 	if(!H.shoes)
 		equip_item(H, /obj/item/clothing/shoes/black, slot_shoes)
+	equip_item(H, /obj/item/stack/spacecash/c100, slot_l_store)
 
 	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, slot_wear_id)
 	our_id.assignment = assignedrole
