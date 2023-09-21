@@ -995,7 +995,5 @@
 		T.update_atom_colour()
 	if(T.dir != dir)
 		T.setDir(dir)
-	if(length(overlays))
-		T.overlays = overlays
 	TransferComponents(T)
 	return T
