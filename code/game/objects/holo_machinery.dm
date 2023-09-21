@@ -33,8 +33,12 @@
 		handle_barrier()
 
 /obj/machinery/holo_barrier/process()
-	message_admins("This works")
+	if(!operating)
+		return
+	message_admins("The thingy is online")
 	for(var/turf/simulated/T in range(1))
+		message_admins("[T.air.return_pressure()]")
 		if(T.air.return_pressure() > 50) // The barrier can hold about 3x normal atmospheric pressure before it shuts down
+
 			handle_barrier()
 			STOP_PROCESSING(SSobj, src)
