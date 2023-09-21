@@ -19,7 +19,6 @@
 	window_name = "Automatic Station Floor Repairer v1.1"
 
 	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
-	var/targetdirection
 	var/amount = 10
 	var/replacetiles = 0
 	var/eattiles = 0
@@ -34,7 +33,6 @@
 	var/toolbox_color = ""
 
 	#define HULL_BREACH		1
-	#define BRIDGE_MODE		2
 	#define FIX_TILE		3
 	#define AUTO_TILE		4
 	#define REPLACE_TILE	5
@@ -83,14 +81,6 @@
 		dat += "Repair damaged tiles and platings: <A href='?src=[UID()];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
 		dat += "Traction Magnets: <A href='?src=[UID()];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
 		dat += "Patrol Station: <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-/*
-		var/bmode
-		if(targetdirection)
-			bmode = dir2text(targetdirection)
-		else
-			bmode = "disabled"
-		dat += "Bridge Mode : <A href='?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
-*/
 	return dat
 
 
@@ -136,20 +126,6 @@
 			nag_on_empty = !nag_on_empty
 		if("anchor")
 			anchored = !anchored
-
-		if("bridgemode")
-			var/setdir = input("Select construction direction:") as null|anything in list("north","east","south","west","disable")
-			switch(setdir)
-				if("north")
-					targetdirection = 1
-				if("south")
-					targetdirection = 2
-				if("east")
-					targetdirection = 4
-				if("west")
-					targetdirection = 8
-				if("disable")
-					targetdirection = null
 	update_controls()
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
@@ -175,19 +151,8 @@
 	if(prob(5))
 		audible_message("[src] makes an excited booping beeping sound!")
 
-/*
 	//Normal scanning procedure. We have tiles loaded, are not emagged.
 	if(!target && emagged < 2 && amount > 0)
-		if(targetdirection != null) //The bot is in bridge mode.
-			//Try to find a space tile immediately in our selected direction.
-			var/turf/T = get_step(src, targetdirection)
-			if(isspaceturf(T))
-				target = T
-
-			else //Find a space tile farther way!
-				target = scan(/turf/space)
-			process_type = BRIDGE_MODE
-*/
 		if(!target)
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
 			target = scan(/turf/space)
@@ -281,10 +246,6 @@
 			if(is_hull_breach(scan_target)) //Ensure that the targeted space turf is actually part of the station, and not random space.
 				result = scan_target
 				anchored = TRUE //Prevent the floorbot being blown off-course while trying to reach a hull breach.
-		if(BRIDGE_MODE) //Only space turfs in our chosen direction are considered.
-			if(get_dir(src, scan_target) == targetdirection)
-				result = scan_target
-				anchored = TRUE
 		if(REPLACE_TILE)
 			F = scan_target
 			if(istype(F, /turf/simulated/floor/plating)) //The floor must not already have a tile.
@@ -303,8 +264,8 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/repair(turf/target_turf)
 	if(isspaceturf(target_turf))
-		//Must be a hull breach or in bridge mode to continue.
-		if(!is_hull_breach(target_turf) && !targetdirection)
+		//Must be a hull breach to continue.
+		if(!is_hull_breach(target_turf))
 			target = null
 			return
 
@@ -319,7 +280,7 @@
 	anchored = TRUE
 
 	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
-		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
+		visible_message("<span class='notice'>["[src] begins to repair the hole."] </span>")
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
