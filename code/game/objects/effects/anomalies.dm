@@ -361,7 +361,7 @@
 		var/mob/dead/observer/chosen = pick(candidates)
 		S.key = chosen.key
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
-		chosen.dust()
+		dust_if_respawnable(chosen)
 		log_game("[key_name(S.key)] was made into a slime by pyroclastic anomaly at [AREACOORD(T)].")
 
 /////////////////////

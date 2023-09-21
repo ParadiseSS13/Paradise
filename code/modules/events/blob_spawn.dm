@@ -25,7 +25,7 @@
 	var/mob/living/simple_animal/mouse/blobinfected/B = new(vent.loc)
 	var/mob/M = pick(candidates)
 	B.key = M.key
-	M.dust()
+	dust_if_respawnable(M)
 	B.mind.special_role = SPECIAL_ROLE_BLOB
 	B.forceMove(vent)
 	B.add_ventcrawl(vent)

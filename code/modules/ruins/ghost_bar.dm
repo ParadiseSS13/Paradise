@@ -8,10 +8,11 @@
 	description = "Relax, get a beer, watch the station destroy itself and burst into flames."
 	flavour_text = "You are a ghost bar occupant. You've gotten sick of being dead and decided to meet up with some of your fellow haunting brothers. Take a seat, grab a beer, and chat it out."
 	assignedrole = "Ghost Bar Occupant"
+	death_cooldown = 1 MINUTES
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
-	if(alert(user, "Would you like to use one of your saved characters in your character creator?",, "Yes", "No") == "Yes")
+	if(alert(user, "Would you like to use one of your saved characters in your character creator?",, "Yes", "No") == "Yes") 
 		var/list/our_characters_names = list()
 		var/list/our_character_saves = list()
 		for(var/datum/character_save/saves in user.client.prefs.character_saves)
@@ -32,6 +33,7 @@
 	equip_item(H, /obj/item/radio/headset/deadsay, slot_l_ear)
 	H.dna.species.before_equip_job(/datum/job/assistant, H)
 	H.dna.species.after_equip_job(/datum/job/assistant, H)
+	H.dna.species.remains_type = /obj/effect/decal/cleanable/ash
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
 		if(G.slot)
@@ -88,3 +90,7 @@
 	mob_to_delete.visible_message("<span class='notice'>[mob_to_delete.name] climbs into [src]...</span>")
 	playsound(src, 'sound/machines/wooden_closet_close.ogg', 50)
 	qdel(mob_to_delete)
+
+/proc/dust_if_respawnable(mob/M)
+	if(HAS_TRAIT_FROM(M, TRAIT_RESPAWNABLE, GHOST_ROLE))
+		M.dust()

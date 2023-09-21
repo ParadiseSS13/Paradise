@@ -148,7 +148,7 @@
 
 		var/mob/living/carbon/human/new_character = makeBody(selected)
 		new_character.mind.make_Wizard()
-		selected.dust()
+		dust_if_respawnable(selected)
 		return 1
 	return 0
 
@@ -331,4 +331,4 @@
 				to_chat(new_thunderdome_member, "You are a member of the <font color='red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
 				new_thunderdome_member.mind.offstation_role = TRUE
 				team_to_assign_to = "Green"
-		candidate_to_spawn.dust()
+		dust_if_respawnable(candidate_to_spawn)

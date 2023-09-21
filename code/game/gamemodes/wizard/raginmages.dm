@@ -123,7 +123,7 @@
 			var/mob/living/carbon/human/new_character= makeBody(harry)
 			new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
 			mages_made++
-			harry.dust()
+			dust_if_respawnable(harry)
 			return TRUE
 		else
 			. = FALSE

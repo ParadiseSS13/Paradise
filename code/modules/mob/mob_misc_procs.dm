@@ -184,7 +184,7 @@
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
 		M.ghostize()
 		M.key = theghost.key
-		theghost.dust()
+		dust_if_respawnable(theghost)
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")

@@ -290,7 +290,7 @@
 		S.real_name = name
 		S.name = name
 		S.ckey = theghost.ckey
-		theghost.dust()
+		dust_if_respawnable(theghost)
 		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
 
 		if(src && input)

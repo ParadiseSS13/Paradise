@@ -168,7 +168,7 @@
 			key = theghost.key
 			giveObjectivesandGoals()
 			giveSpells()
-			theghost.dust()
+			dust_if_respawnable(theghost)
 		else
 			message_admins("No ghost was willing to take control of a mindless revenant. Deleting...")
 			qdel(src)

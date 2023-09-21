@@ -41,8 +41,8 @@
 		temp.abductors |= list(agent_mind,scientist_mind)
 		temp.make_abductor_team(number,preset_scientist=scientist_mind,preset_agent=agent_mind)
 		temp.post_setup_team(number)
-		agent_mind.dust()
-		scientist_mind.dust()
+		dust_if_respawnable(agent_mind)
+		dust_if_respawnable(scientist)
 
 		SSticker.mode.abductor_teams++
 

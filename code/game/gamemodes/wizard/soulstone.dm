@@ -505,6 +505,6 @@
 	if(length(contents)) //If they used the soulstone on someone else in the meantime
 		return FALSE
 	M.ckey = chosen_ghost.ckey
-	chosen_ghost.dust()
+	dust_if_respawnable(chosen_ghost)
 	init_shade(M, user)
 	return TRUE

@@ -140,7 +140,14 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	// Sleep until the time is up
 	UNTIL(P.finished)
-	return P.signed_up
+	if(!ignore_respawnability)
+		var/list/eligable_mobs = list()
+		for(var/mob/signed_up in P.signed_up)
+			if(HAS_TRAIT(signed_up, TRAIT_RESPAWNABLE))
+				eligable_mobs += signed_up
+		return eligable_mobs
+	else
+		return P.signed_up
 
 /**
   * Returns whether an observer is eligible to be an event mob

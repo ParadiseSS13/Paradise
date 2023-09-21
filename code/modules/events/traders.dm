@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		if(C)
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
 			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
-			C.dust()
+			dust_if_respawnable(C)
 			M.equipOutfit(/datum/outfit/admin/sol_trader)
 			M.dna.species.after_equip_job(null, M)
 			M.mind.objectives += trader_objectives

@@ -75,7 +75,7 @@
 		H.mind.offstation_role = TRUE
 
 		H.key = thisplayer.key
-		thisplayer.dust()
+		dust_if_respawnable(thisplayer)
 
 		H.equipOutfit(O, FALSE)
 

@@ -24,7 +24,7 @@
 	var/mob/SG = pick(candidates)
 
 	SA.key = SG.key
-	SG.dust()
+	dust_if_respawnable(SG)
 	SA.universal_speak = TRUE
 	SA.sentience_act()
 	SA.can_collar = TRUE

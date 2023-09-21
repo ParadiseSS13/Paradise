@@ -62,6 +62,7 @@
 
 	GLOB.dead_mob_list -= src
 	GLOB.alive_mob_list |= src
+	REMOVE_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)
 
 	timeofdeath = null
 	if(updating)

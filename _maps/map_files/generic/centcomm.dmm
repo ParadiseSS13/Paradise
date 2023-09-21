@@ -5326,13 +5326,8 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/shuttle/syndicate)
 "rS" = (
-/obj/machinery/door/airlock/external{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	id_tag = "emergency_away";
-	name = "Arrival Airlock"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/external_no_weld,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "rT" = (
@@ -5601,10 +5596,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
-"sZ" = (
-/obj/effect/spawner/window/reinforced/polarized,
-/turf/simulated/floor/plating,
-/area/ghost_bar)
 "tb" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating/airless,
@@ -11060,12 +11051,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ghost_bar)
 "Na" = (
-/obj/machinery/door/airlock/external{
-	aiControlDisabled = 1;
-	hackProof = 1;
-	id_tag = "emergency_away";
-	name = "Arrival Airlock"
-	},
+/obj/machinery/door/airlock/external_no_weld,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ghost_bar)
 "Nb" = (
@@ -12023,10 +12009,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
-"Qq" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/ghost_bar)
 "Qr" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -70648,12 +70630,12 @@ tL
 tL
 fq
 Me
-sZ
-sZ
+Nr
+Nr
 LA
 NH
-sZ
-sZ
+Nr
+Nr
 Me
 Me
 Me
@@ -70923,7 +70905,7 @@ Jm
 Jy
 EJ
 Ma
-Qq
+Nr
 mS
 ZY
 AB
@@ -71180,7 +71162,7 @@ WF
 Jy
 pl
 pl
-Qq
+Nr
 Ag
 Ag
 Ag
@@ -71951,7 +71933,7 @@ Jy
 ol
 ol
 Jy
-Qq
+Nr
 RK
 Tj
 Tj
@@ -72208,7 +72190,7 @@ Jy
 rG
 qm
 Jy
-Qq
+Nr
 ED
 zL
 zL
@@ -72466,9 +72448,9 @@ RX
 RX
 ep
 qR
-Qq
-Qq
-Qq
+Nr
+Nr
+Nr
 Me
 tC
 NX
@@ -73475,12 +73457,12 @@ yK
 ps
 ps
 Me
-sZ
+Nr
 Pn
 Pn
 Pn
 Pn
-sZ
+Nr
 Me
 WA
 Jy
