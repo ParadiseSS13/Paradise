@@ -83,13 +83,14 @@
 		dat += "Repair damaged tiles and platings: <A href='?src=[UID()];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
 		dat += "Traction Magnets: <A href='?src=[UID()];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
 		dat += "Patrol Station: <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
+/*
 		var/bmode
 		if(targetdirection)
 			bmode = dir2text(targetdirection)
 		else
 			bmode = "disabled"
 		dat += "Bridge Mode : <A href='?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
-
+*/
 	return dat
 
 
@@ -174,6 +175,7 @@
 	if(prob(5))
 		audible_message("[src] makes an excited booping beeping sound!")
 
+/*
 	//Normal scanning procedure. We have tiles loaded, are not emagged.
 	if(!target && emagged < 2 && amount > 0)
 		if(targetdirection != null) //The bot is in bridge mode.
@@ -185,7 +187,7 @@
 			else //Find a space tile farther way!
 				target = scan(/turf/space)
 			process_type = BRIDGE_MODE
-
+*/
 		if(!target)
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
 			target = scan(/turf/space)
