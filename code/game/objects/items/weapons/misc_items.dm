@@ -66,7 +66,7 @@
 		hidden = null
 	return ..()
 
-/obj/item/crutches/update_icon_state()  //Currently only here to fuck with the on-mob icons.
+/obj/item/crutches/update_icon_state() //Currently only here to fuck with the on-mob icons.
 	icon_state = "crutches0"
 	return ..()
 
@@ -82,14 +82,14 @@
 			return
 		I.forceMove(src)
 		hidden = I
-		to_chat(user, "<span class='notice'>You hide [I] inside the secret compartment.</span>")
+		to_chat(user, "<span class='notice'>You hide [I] inside the crutch tip.</span>")
 
 /obj/item/crutches/attack_hand(mob/user, pickupfireoverride)
 	if(!is_open)
 		return ..()
 	if(hidden)
 		user.put_in_hands(hidden)
-		to_chat(user, "<span class='notice'>You remove [hidden] from the secret compartment!</span>")
+		to_chat(user, "<span class='notice'>You remove [hidden] from the crutch tip!</span>")
 		hidden = null
 
 	add_fingerprint(user)
@@ -97,7 +97,7 @@
 /obj/item/crutches/screwdriver_act(mob/living/user, obj/item/I)
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You screw the compartment [is_open ? "closed" : "open"].</span>")
+	to_chat(user, "<span class='notice'>You screw the crutch tip [is_open ? "closed" : "open"].</span>")
 	is_open = !is_open
 
 /obj/item/crutches/get_crutch_efficiency()
