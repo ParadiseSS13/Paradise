@@ -23,5 +23,18 @@
 		use_power(1000)
 		visible_message("<span class='danger'>A holographic barrier appears!</span>")
 		new /obj/effect/holo_forcefield(barrier_turf)
+		START_PROCESSING(SSobj, src)
 
 	operating = !operating
+
+/obj/machinery/holo_barrier/Destroy()
+	. = ..()
+	if(operating)
+		handle_barrier()
+
+/obj/machinery/holo_barrier/process()
+	message_admins("This works")
+	for(var/turf/simulated/T in range(1))
+		if(T.air.return_pressure() > 50) // The barrier can hold about 3x normal atmospheric pressure before it shuts down
+			handle_barrier()
+			STOP_PROCESSING(SSobj, src)
