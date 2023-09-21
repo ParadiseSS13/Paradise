@@ -372,7 +372,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	linked_destroy.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
-	menu = MENU_DESTROY
+	menu = MENU_MAIN
 	submenu = SUBMENU_MAIN
 	SStgui.update_uis(src)
 
