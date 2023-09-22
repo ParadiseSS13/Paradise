@@ -66,7 +66,7 @@
 			if(breakouttime != 0)
 				add_attack_logs(user, C, "Handcuffed ([src])")
 			else
-				add_attack_logs(user, C, "Unsecurely Handcuffed ([src])")
+				add_attack_logs(user, C, "Handcuffed (Fake/Breakable!) ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 			return FALSE
