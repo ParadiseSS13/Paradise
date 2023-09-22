@@ -19,42 +19,50 @@ export const NTRecruiter = (props, context) => {
     reason,
   } = data;
   if (gamestatus === 0) {
-  return (
-    <Window resizable>
-      <Window.Content>
-        <Section py="140px">
-          <Flex direction="column">
-            <Flex.Item fontSize="31px" color="white" pb="10px" textAlign="center" bold>
-              Nanotrasen Recruiter Simulator
-            </Flex.Item>
-            <Flex.Item fontSize="16px" textAlign="center" color="label">
-              Work as the Nanotrasen recruiter and avoid hiring incompetent employees!
-            </Flex.Item>
-          </Flex>
-          <Button
-            mt="50px"
-            textAlign="center"
-            lineHeight={2}
-            fluid
-            icon="play"
-            color="green"
-            content="Begin Shift"
-            onClick={() => act('start_game')}
-          />
-          <Button
-            mt="10px"
-            textAlign="center"
-            lineHeight={2}
-            fluid
-            icon="info"
-            color="blue"
-            content="Guide"
-            onClick={() => act('instructions')}
-          />
-        </Section>
-      </Window.Content>
-    </Window>
-    )}
+    return (
+      <Window resizable>
+        <Window.Content>
+          <Section py="140px">
+            <Flex direction="column">
+              <Flex.Item
+                fontSize="31px"
+                color="white"
+                pb="10px"
+                textAlign="center"
+                bold
+              >
+                Nanotrasen Recruiter Simulator
+              </Flex.Item>
+              <Flex.Item fontSize="16px" textAlign="center" color="label">
+                Work as the Nanotrasen recruiter and avoid hiring incompetent
+                employees!
+              </Flex.Item>
+            </Flex>
+            <Button
+              mt="50px"
+              textAlign="center"
+              lineHeight={2}
+              fluid
+              icon="play"
+              color="green"
+              content="Begin Shift"
+              onClick={() => act('start_game')}
+            />
+            <Button
+              mt="10px"
+              textAlign="center"
+              lineHeight={2}
+              fluid
+              icon="info"
+              color="blue"
+              content="Guide"
+              onClick={() => act('instructions')}
+            />
+          </Section>
+        </Window.Content>
+      </Window>
+    );
+  }
   if (gamestatus === 1) {
   return (
     <Window resizable>
@@ -113,16 +121,17 @@ export const NTRecruiter = (props, context) => {
     )}
     if (gamestatus === 2) {
     return (
-    <Window resizable>
-      <Window.Content>
-        <Section
-          color="label"
-          fontSize="14px"
-          title="Employment Applications">
-          <Box fontSize="24px" textAlign="center" color="silver" bold>
-            Candidate Number #{cand_curriculum}
-          </Box>
-          <br/>
+      <Window resizable>
+        <Window.Content>
+          <Section
+            color="label"
+            fontSize="14px"
+            title="Employment Applications"
+          >
+            <Box fontSize="24px" textAlign="center" color="silver" bold>
+              Candidate Number #{cand_curriculum}
+            </Box>
+            <br />
             <LabeledList>
               <LabeledListItem label="Name" color="silver">
                 <b>{cand_name}</b>
@@ -146,36 +155,38 @@ export const NTRecruiter = (props, context) => {
                 <b>{cand_records}</b>
               </LabeledListItem>
             </LabeledList>
-        </Section>
-        <Section
-          title="Stamp the application!"
-          color="grey"
-          textAlign="center">
-          <Button
-            float="right"
-            color="green"
-            content="Hire"
-            fontSize="150%"
-            width="49%"
-            icon="arrow-circle-up"
-            lineHeight={4.5}
-            onClick={() => act('hire')}
-          />
-          <Button
-            float="left"
-            color="red"
-            content="Dismiss"
-            fontSize="150%"
-            width="49%"
-            icon="ban"
-            lineHeight={4.5}
-            onClick={() => act('dismiss')}
-          />
-        </Section>
-      </Window.Content>
-    </Window>
-    )}
-    if (gamestatus === 3) {
+          </Section>
+          <Section
+            title="Stamp the application!"
+            color="grey"
+            textAlign="center"
+          >
+            <Button
+              float="right"
+              color="green"
+              content="Hire"
+              fontSize="150%"
+              width="49%"
+              icon="arrow-circle-up"
+              lineHeight={4.5}
+              onClick={() => act('hire')}
+            />
+            <Button
+              float="left"
+              color="red"
+              content="Dismiss"
+              fontSize="150%"
+              width="49%"
+              icon="ban"
+              lineHeight={4.5}
+              onClick={() => act('dismiss')}
+            />
+          </Section>
+        </Window.Content>
+      </Window>
+    );
+  }
+  if (gamestatus === 3) {
     return (
     <Window resizable>
       <Window.Content>
