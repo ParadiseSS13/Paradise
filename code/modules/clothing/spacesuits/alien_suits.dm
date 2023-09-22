@@ -150,7 +150,7 @@
 		)
 
 /obj/item/clothing/under/vox/vox_casual
-	name = "Vox Jumpsuit"
+	name = "Vox jumpsuit"
 	desc = "This doesn't look very comfortable."
 	icon_state = "vox-casual-1"
 	item_color = "vox-casual-1"
@@ -158,7 +158,7 @@
 	body_parts_covered = LEGS
 
 /obj/item/clothing/under/vox/vox_robes
-	name = "Vox Robes"
+	name = "Vox robes"
 	desc = "Weird and flowing!"
 	icon_state = "vox-casual-2"
 	item_color = "vox-casual-2"
