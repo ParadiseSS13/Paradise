@@ -104,10 +104,10 @@ const ItemsPage = (_properties, context) => {
     ])(cat);
   };
   const handleSearch = (value) => {
+    setSearchText(value);
     if (value === '') {
       return setUplinkItems(cats[0].items);
     }
-    setSearchText(value);
     setUplinkItems(
       SelectEquipment(cats.map((category) => category.items).flat(), value)
     );
