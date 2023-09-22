@@ -34,7 +34,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/barefootstep = FOOTSTEP_HARD_BAREFOOT
 	var/clawfootstep = FOOTSTEP_HARD_CLAW
 	var/heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	var/buffs
 
 /turf/simulated/floor/Initialize(mapload)
 	. = ..()
