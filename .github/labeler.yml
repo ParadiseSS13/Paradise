@@ -31,7 +31,7 @@
 
 "Частичная модульность":
 - any: ['code/**/*.dm']
-- any: ['modular_ss220/**']
+  any: ['modular_ss220/**']
 
 "SQL":
 - 'SQL/**'
