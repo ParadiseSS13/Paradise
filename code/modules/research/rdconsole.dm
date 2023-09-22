@@ -460,6 +460,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(machine)
 		if(enough_materials && being_built)
 			for(var/i in 1 to amount)
+				SSblackbox.record_feedback("nested tally", "RND Production List", 1, list("[being_built.category]", "[being_built.name]"))
 				var/obj/item/new_item = new being_built.build_path(src)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
