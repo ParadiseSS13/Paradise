@@ -191,7 +191,7 @@ export class ButtonInput extends Component {
   setInInput(inInput) {
     const { disabled } = this.props;
     if (disabled) {
-      return
+      return;
     }
     this.setState({
       inInput,

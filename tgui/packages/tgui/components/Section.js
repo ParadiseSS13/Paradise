@@ -29,8 +29,8 @@ export const Section = (props) => {
       {hasTitle && (
         <div
           className={classes([
-            "Section__title",
-            showBottom && 'Section__title--showBottom'
+            'Section__title',
+            showBottom && 'Section__title--showBottom',
           ])}
         >
           <span className="Section__titleText">{title}</span>
