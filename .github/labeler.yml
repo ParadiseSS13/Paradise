@@ -18,7 +18,7 @@
 - '_maps/map_files220/cyberiad/cyberiad.dmm'
 
 "НЕ МОДУЛЬНО":
-- all: ['code/**/*.dm']
+- all: ['code/**']
 
 "Спрайты":
 - '**/*.dmi'
@@ -30,8 +30,7 @@
 - '**/*.md'
 
 "Частичная модульность":
-- any: ['code/**/*.dm']
-  any: ['modular_ss220/**']
+- all: ['code/**', modular_ss220/**]
 
 "SQL":
 - 'SQL/**'
