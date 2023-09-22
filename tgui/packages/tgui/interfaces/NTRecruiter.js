@@ -9,12 +9,12 @@ export const NTRecruiter = (props, context) => {
     gamestatus,
     cand_name,
     cand_gender,
-	  cand_age,
-	  cand_species,
-	  cand_planet,
-	  cand_job,
-	  cand_records,
-	  cand_curriculum,
+    cand_age,
+    cand_species,
+    cand_planet,
+    cand_job,
+    cand_records,
+    cand_curriculum,
     total_curriculums,
     reason,
   } = data;
@@ -64,62 +64,65 @@ export const NTRecruiter = (props, context) => {
     );
   }
   if (gamestatus === 1) {
-  return (
-    <Window resizable>
-      <Window.Content>
-        <Section
-          color="grey"
-          title="Guide"
-          buttons={
-            <Button
-              icon="arrow-left"
-              content="Main Menu"
-              onClick={() => act('back_to_menu')}
-            />
-          }
-        >
-        <LabeledList>
-          <LabeledListItem label="1#" color="silver">
-            To win this game you must hire/dismiss <b>{total_curriculums}</b> candidates,
-            one wrongly made choice leads to a game over.
-          </LabeledListItem>
-          <LabeledListItem label="2#" color="silver">
-            Make the right choice by truly putting yourself into
-            the skin of a recruiter working for Nanotrasen!
-          </LabeledListItem>
-          <LabeledListItem label="3#" color="silver">
-            <b>Unique</b> characters may appear, pay attention to them!
-          </LabeledListItem>
-          <LabeledListItem label="4#" color="silver">
-            Make sure to pay attention to details like age,
-            planet names, the requested job and even the species of the candidate!
-          </LabeledListItem>
-          <LabeledListItem label="5#" color="silver">
-            Not every employment record is good, remember to make
-            your choice based on the <b>company morals</b>!
-          </LabeledListItem>
-          <LabeledListItem label="6#" color="silver">
-            The planet of origin has no restriction on the species of the candidate,
-            don&apos;t think too much when you see humans that came from Boron!
-          </LabeledListItem>
-          <LabeledListItem label="7#" color="silver">
-            Pay attention to <b>typos</b> and <b>missing words</b>, these do
-            make for bad applications!
-          </LabeledListItem>
-          <LabeledListItem label="8#" color="silver">
-            Remember, you are recruiting people to work at one of the many NT stations,
-            so no hiring for <b>jobs</b> that they <b>don&apos;t offer</b>!
-          </LabeledListItem>
-          <LabeledListItem label="9#" color="silver">
-            Keep your eyes open for incompatible <b>naming schemes</b>, no company wants
-            a Vox named Joe!
-          </LabeledListItem>
-        </LabeledList>
-        </Section>
-      </Window.Content>
-    </Window>
-    )}
-    if (gamestatus === 2) {
+    return (
+      <Window resizable>
+        <Window.Content>
+          <Section
+            color="grey"
+            title="Guide"
+            buttons={
+              <Button
+                icon="arrow-left"
+                content="Main Menu"
+                onClick={() => act('back_to_menu')}
+              />
+            }
+          >
+            <LabeledList>
+              <LabeledListItem label="1#" color="silver">
+                To win this game you must hire/dismiss <b>{total_curriculums}</b> candidates,
+                one wrongly made choice leads to a game over.
+              </LabeledListItem>
+              <LabeledListItem label="2#" color="silver">
+                Make the right choice by truly putting yourself into the skin of
+                a recruiter working for Nanotrasen!
+              </LabeledListItem>
+              <LabeledListItem label="3#" color="silver">
+                <b>Unique</b> characters may appear, pay attention to them!
+              </LabeledListItem>
+              <LabeledListItem label="4#" color="silver">
+                Make sure to pay attention to details like age, planet names,
+                the requested job and even the species of the candidate!
+              </LabeledListItem>
+              <LabeledListItem label="5#" color="silver">
+                Not every employment record is good, remember to make your
+                choice based on the <b>company morals</b>!
+              </LabeledListItem>
+              <LabeledListItem label="6#" color="silver">
+                The planet of origin has no restriction on the species of the
+                candidate, don&apos;t think too much when you see humans that
+                came from Boron!
+              </LabeledListItem>
+              <LabeledListItem label="7#" color="silver">
+                Pay attention to <b>typos</b> and <b>missing words</b>, these do
+                make for bad applications!
+              </LabeledListItem>
+              <LabeledListItem label="8#" color="silver">
+                Remember, you are recruiting people to work at one of the many
+                NT stations, so no hiring for <b>jobs</b> that they{' '}
+                <b>don&apos;t offer</b>!
+              </LabeledListItem>
+              <LabeledListItem label="9#" color="silver">
+                Keep your eyes open for incompatible <b>naming schemes</b>, no
+                company wants a Vox named Joe!
+              </LabeledListItem>
+            </LabeledList>
+          </Section>
+        </Window.Content>
+      </Window>
+    );
+  }
+  if (gamestatus === 2) {
     return (
       <Window resizable>
         <Window.Content>
@@ -188,28 +191,35 @@ export const NTRecruiter = (props, context) => {
   }
   if (gamestatus === 3) {
     return (
-    <Window resizable>
-      <Window.Content>
-        <Section py="140px">
-          <Flex.Item color="red" fontSize="50px" textAlign="center">
-            {"Game Over"}
-          </Flex.Item>
-          <Flex.Item fontSize="15px" color="label" textAlign="center">
-            {reason}
-          </Flex.Item>
-          <Flex.Item color="blue" fontSize="20px" textAlign="center" pt="10px">
-            FINAL SCORE: {cand_curriculum-1}/{total_curriculums}
-          </Flex.Item>
-          <Flex.Item pt="20px">
-            <Button
-              lineHeight={2}
-              fluid
-              icon="arrow-left"
-              content="Main Menu"
-              onClick={() => act('back_to_menu')}
-            />
-          </Flex.Item>
-        </Section>
-      </Window.Content>
-    </Window>
-    )}}
+      <Window resizable>
+        <Window.Content>
+          <Section py="140px">
+            <Flex.Item color="red" fontSize="50px" textAlign="center">
+              {'Game Over'}
+            </Flex.Item>
+            <Flex.Item fontSize="15px" color="label" textAlign="center">
+              {reason}
+            </Flex.Item>
+            <Flex.Item
+              color="blue"
+              fontSize="20px"
+              textAlign="center"
+              pt="10px"
+            >
+              FINAL SCORE: {cand_curriculum - 1}/{total_curriculums}
+            </Flex.Item>
+            <Flex.Item pt="20px">
+              <Button
+                lineHeight={2}
+                fluid
+                icon="arrow-left"
+                content="Main Menu"
+                onClick={() => act('back_to_menu')}
+              />
+            </Flex.Item>
+          </Section>
+        </Window.Content>
+      </Window>
+    );
+  }
+};
