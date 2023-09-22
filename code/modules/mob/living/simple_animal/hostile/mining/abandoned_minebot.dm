@@ -44,8 +44,7 @@
 		/obj/item/borg/upgrade/modkit/damage,
 		/obj/item/borg/upgrade/modkit/range)
 	var/ore = pick(/obj/item/stack/ore/iron, /obj/item/stack/ore/plasma, /obj/item/stack/ore/glass/basalt)
-	var/obj/item/stack/stack = new ore(loc)
-	stack.amount = rand(5, 15)
+	var/obj/item/stack/stack = new ore(loc, rand(5, 15))
 	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/GiveTarget(new_target)
