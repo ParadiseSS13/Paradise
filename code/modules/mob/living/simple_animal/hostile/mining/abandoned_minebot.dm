@@ -55,12 +55,12 @@
 		OpenFire(target)
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/adjustHealth(damage, updating_health)
-	if(rand(20))
+	if(prob(20))
 		do_sparks(3, 1, src)
 	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/Move(atom/newloc)
-	if(newloc && newloc.z == z && (islava(newloc) || ischasm(newloc))) //minebots aren't lava-resistant. Would be a shame if they just died.
+	if(newloc && (islava(newloc) || ischasm(newloc))) //minebots aren't lava-resistant. Would be a shame if they just died.
 		return FALSE
 	return ..()
 
@@ -72,7 +72,7 @@
 			. += "<span class='warning'>It looks slightly dented.</span>"
 		else
 			. += "<span class='boldwarning'>It looks severely dented!</span>"
-	. += "<span class='notice'><b>[rand(-30, 110)]%</b> mod capacity remaining.\nThere is some module installed, using <b>[rand(-5, 35)]%</b> capacity.\n...or at least you think.</span>"
+	. += "<span class='notice'><b>[rand(-30, 110)]%</b> mod capacity remaining.\nThere is a module installed, using <b>[rand(-5, 35)]%</b> capacity.\n...or at least you think so.</span>"
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/CanPass(atom/movable/O)
 	if(!istype(O, /obj/item/projectile/kinetic))
