@@ -157,6 +157,100 @@
 	R.ionpulse = TRUE
 	return TRUE
 
+/obj/item/borg/upgrade/ddrill
+	name = "mining cyborg diamond drill"
+	desc = "A diamond drill replacement for the mining module's standard drill."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;materials=5"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
+	items_to_replace = list(
+		/obj/item/pickaxe/drill/cyborg = /obj/item/pickaxe/drill/cyborg/diamond
+	)
+
+/obj/item/borg/upgrade/soh
+	name = "mining cyborg satchel of holding"
+	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;materials=4;bluespace=4"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
+	items_to_replace = list(
+		/obj/item/storage/bag/ore/cyborg = /obj/item/storage/bag/ore/holding
+	)
+
+/obj/item/borg/upgrade/abductor_engi
+	name = "engineering cyborg abductor upgrade"
+	desc = "An experimental upgrade that replaces an engineering cyborg's tools with the abductor versions."
+	icon_state = "abductor_mod"
+	origin_tech = "engineering=6;materials=6;abductor=3"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/engineering
+	items_to_replace = list(
+		/obj/item/weldingtool = /obj/item/weldingtool/abductor,
+		/obj/item/wrench = /obj/item/wrench/abductor,
+		/obj/item/screwdriver = /obj/item/screwdriver/abductor,
+		/obj/item/crowbar = /obj/item/crowbar/abductor,
+		/obj/item/wirecutters = /obj/item/wirecutters/abductor,
+		/obj/item/multitool = /obj/item/multitool/abductor
+	)
+	special_rechargables = list(
+		/obj/item/weldingtool/abductor
+	)
+
+/obj/item/borg/upgrade/abductor_medi
+	name = "medical cyborg abductor upgrade"
+	desc = "An experimental upgrade that replaces a medical cyborg's tools with the abductor versions."
+	icon_state = "abductor_mod"
+	origin_tech = "biotech=6;materials=6;abductor=2"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/medical
+	items_to_replace = list(
+		/obj/item/scalpel/laser/laser1 = /obj/item/scalpel/laser/laser3, // No abductor laser scalpel, so next best thing.
+		/obj/item/hemostat = /obj/item/hemostat/alien,
+		/obj/item/retractor = /obj/item/retractor/alien,
+		/obj/item/bonegel = /obj/item/bonegel/alien,
+		/obj/item/FixOVein = /obj/item/FixOVein/alien,
+		/obj/item/bonesetter = /obj/item/bonesetter/alien,
+		/obj/item/circular_saw = /obj/item/circular_saw/alien,
+		/obj/item/surgicaldrill = /obj/item/surgicaldrill/alien,
+		/obj/item/reagent_containers/borghypo = /obj/item/reagent_containers/borghypo/abductor
+	)
+
+/obj/item/borg/upgrade/abductor_medi/after_install(mob/living/silicon/robot/R)
+	. = ..()
+	if(!R.emagged) // Emagged Mediborgs that are upgraded need the evil chems.
+		return
+	for(var/obj/item/reagent_containers/borghypo/F in R.module.modules)
+		F.emag_act()
+
+/obj/item/borg/upgrade/syndicate
+	name = "safety override module"
+	desc = "Unlocks the hidden, deadlier functions of a cyborg."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "combat=6;materials=6"
+	require_module = TRUE
+
+/obj/item/borg/upgrade/syndicate/do_install(mob/living/silicon/robot/R)
+	if(R.weapons_unlock)
+		return // They already had the safety override upgrade, or they're a cyborg type which has this by default.
+	R.weapons_unlock = TRUE
+	to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have been disabled.</span>")
+	return TRUE
+
+/obj/item/borg/upgrade/lavaproof
+	name = "mining cyborg lavaproof chassis"
+	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to a mining cyborg's chassis, enabling them to withstand exposure to molten rock."
+	icon_state = "ash_plating"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/lavaproof/do_install(mob/living/silicon/robot/R)
+	if(istype(R))
+		R.weather_immunities += "lava"
+	return TRUE
+
 /obj/item/borg/upgrade/selfrepair
 	name = "self-repair module"
 	desc = "This module will repair the cyborg over time."
@@ -410,43 +504,11 @@
 		/obj/item/storage/bag/trash/cyborg = /obj/item/storage/bag/trash/bluespace/cyborg
 	)
 
-/***********************/
-// MARK: Syndicate
-/***********************/
-
-/obj/item/borg/upgrade/syndicate
-	name = "safety override module"
-	desc = "Unlocks the hidden, deadlier functions of a cyborg."
-	icon_state = "cyborg_upgrade3"
-	origin_tech = "combat=6;materials=6"
-	require_module = TRUE
-
-/obj/item/borg/upgrade/syndicate/do_install(mob/living/silicon/robot/R)
-	if(R.weapons_unlock)
-		return // They already had the safety override upgrade, or they're a cyborg type which has this by default.
-	R.weapons_unlock = TRUE
-	to_chat(R, "<span class='warning'>Warning: safety protocols have been disabled!</span>")
-	return TRUE
-
-/obj/item/borg/upgrade/syndie_soap
-	name = "janitor cyborg syndicate soap"
-	desc = "Using forbidden technology and some red dye, upgrade a janitorial cyborg's soap performance by 90 percent!"
-	icon_state = "cyborg_upgrade4"
-	require_module = TRUE
-	module_type = /obj/item/robot_module/janitor
-	items_to_replace = list(
-		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
-	)
-
-/***********************/
-// MARK: Abductor
-/***********************/
-
-/obj/item/borg/upgrade/abductor_engi
-	name = "engineering cyborg abductor upgrade"
-	desc = "An experimental upgrade that replaces an engineering cyborg's tools with the abductor versions."
-	icon_state = "abductor_mod"
-	origin_tech = "engineering=6;materials=6;abductor=3"
+/obj/item/borg/upgrade/rcd
+	name = "R.C.D. upgrade"
+	desc = "A modified Rapid Construction Device, able to pull energy directly from a cyborg's internal power cell."
+	icon_state = "cyborg_upgrade5"
+	origin_tech = "engineering=4;materials=5;powerstorage=4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 	items_to_replace = list(
