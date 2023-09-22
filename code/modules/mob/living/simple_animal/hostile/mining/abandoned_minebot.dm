@@ -34,10 +34,9 @@
 	retreat_distance = 2
 	minimum_distance = 1
 	deathmessage = "blows apart!"
-	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot, /obj/item/pickaxe/drill)
+	loot = list(/obj/effect/gibspawner/robot, /obj/item/pickaxe/drill)
 
-/mob/living/simple_animal/hostile/asteroid/abandoned_minebot/Initialize(mapload)
-	. = ..()
+/mob/living/simple_animal/hostile/asteroid/abandoned_minebot/drop_loot()
 	loot += pick(
 		/obj/item/borg/upgrade/modkit/chassis_mod,
 		/obj/item/borg/upgrade/modkit/tracer/adjustable,
@@ -45,11 +44,9 @@
 		/obj/item/borg/upgrade/modkit/damage,
 		/obj/item/borg/upgrade/modkit/range)
 	var/ore = pick(/obj/item/stack/ore/iron, /obj/item/stack/ore/plasma, /obj/item/stack/ore/glass/basalt)
-	//loot += ore
-	//ore.amount = rand(5,15)
-	//var/i = rand(5,15)
-	for(var/i = rand(5,15), i, i--)
-		loot += ore
+	var/obj/item/stack/stack = new ore(loc)
+	stack.amount = rand(5, 15)
+	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/GiveTarget(new_target)
 	if(!..())
@@ -58,7 +55,7 @@
 		OpenFire(target)
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/adjustHealth(damage, updating_health)
-	if(rand(50))
+	if(rand(20))
 		do_sparks(3, 1, src)
 	. = ..()
 
