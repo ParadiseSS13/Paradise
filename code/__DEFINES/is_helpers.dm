@@ -36,12 +36,16 @@
 
 #define isslime(A) (istype((A), /mob/living/simple_animal/slime))
 
+#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
+
 // Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
 #define isitem(A) (istype(A, /obj/item))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
+
+#define isapc(A) (istype(A, /obj/machinery/power/apc))
 
 #define ismecha(A) (istype(A, /obj/mecha))
 

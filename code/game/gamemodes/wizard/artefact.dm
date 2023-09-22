@@ -920,3 +920,22 @@ GLOBAL_LIST_EMPTY(multiverse)
 		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi'
 	)
+
+/obj/item/clothing/shoes/white/enforcer
+	name = "hypernobilium weave shoes"
+	desc = "They're surprisingly comfortable and designed to fit under an Oblivion Enforcer's robes."
+	magical = TRUE
+
+/obj/item/clothing/shoes/white/enforcer/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
+
+/obj/item/clothing/under/color/white/enforcer
+	name = "hypernobilium weave jumpsuit"
+	desc = "A close-fitting, breathable jumpsuit, tailored for the dirty work of an Oblivion Enforcer."
+	has_sensor = FALSE
+	magical = TRUE
+
+/obj/item/clothing/under/color/white/enforcer/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
