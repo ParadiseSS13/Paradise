@@ -526,6 +526,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/safecracking
 	cost = 5
 
+/datum/uplink_item/stealthy_tools/handheld_mirror
+	name = "Hand Held Mirror"
+	desc = "A pocket sized mirror. Allows you to change all your hair and facial features, from color to style, instantly while in your hand."
+	reference = "HM"
+	item = /obj/item/handheld_mirror
+	cost = 5
+
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools

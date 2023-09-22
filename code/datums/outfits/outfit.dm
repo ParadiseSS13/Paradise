@@ -80,6 +80,14 @@
 		equip_item(H, glasses, slot_glasses)
 	if(id)
 		equip_item(H, id, slot_wear_id)
+
+	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
+		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
+		HS.ToggleHelmet()
+	else if(toggle_helmet && ismodcontrol(H.back))
+		var/obj/item/mod/control/C = H.back
+		C.quick_activation()
+
 	if(suit_store)
 		equip_item(H, suit_store, slot_s_store)
 
@@ -119,10 +127,6 @@
 		for(var/path in cybernetic_implants)
 			var/obj/item/organ/internal/O = new path
 			O.insert(H)
-
-	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
-		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
-		HS.ToggleHelmet()
 
 	post_equip(H, visualsOnly)
 
