@@ -1,6 +1,15 @@
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Box, Section, Collapsible, Input, Flex, Dropdown } from '../components';
+import {
+  Button,
+  LabeledList,
+  Box,
+  Section,
+  Collapsible,
+  Input,
+  Flex,
+  Dropdown,
+} from '../components';
 import { Window } from '../layouts';
 
 const PickWindow = (index) => {
@@ -8,11 +17,11 @@ const PickWindow = (index) => {
     case 1:
       return <MainPage />;
     case 2:
-      return <StatusScreens/>;
+      return <StatusScreens />;
     case 3:
-      return <MessageView/>;
+      return <MessageView />;
     case 4:
-      return <AdminAnnouncePage/>
+      return <AdminAnnouncePage />;
     default:
       return 'ERROR. Unknown menu_state. Please contact NT Technical Support.';
   }
@@ -26,12 +35,12 @@ export const CommunicationsComputer = (props, context) => {
   return (
     <Window resizable>
       <Window.Content scrollable>
-        <AuthBlock/>
+        <AuthBlock />
         {PickWindow(menu_state)}
       </Window.Content>
     </Window>
   );
-}
+};
 
 const AuthBlock = (props, context) => {
   const { act, data } = useBackend(context);
@@ -45,7 +54,7 @@ const AuthBlock = (props, context) => {
     esc_status,
     authhead,
     is_ai,
-    lastCallLoc
+    lastCallLoc,
   } = data;
 
   let hideLogButton = false;
@@ -60,7 +69,7 @@ const AuthBlock = (props, context) => {
     authReadable = 'CentComm Officer';
   } else if (authenticated === 4) {
     authReadable = 'CentComm Secure Connection';
-    hideLogButton = true
+    hideLogButton = true;
   } else {
     authReadable = 'ERROR: Report This Bug!';
   }
@@ -78,9 +87,7 @@ const AuthBlock = (props, context) => {
                 selected={authenticated}
                 disabled={noauthbutton}
                 content={
-                  authenticated
-                    ? 'Log Out (' + authReadable + ')'
-                    : 'Log In'
+                  authenticated ? 'Log Out (' + authReadable + ')' : 'Log In'
                 }
                 onClick={() => act('auth')}
               />
@@ -92,9 +99,7 @@ const AuthBlock = (props, context) => {
         <Section title="Escape Shuttle">
           <LabeledList>
             {!!esc_status && (
-              <LabeledList.Item label="Status">
-                {esc_status}
-              </LabeledList.Item>
+              <LabeledList.Item label="Status">{esc_status}</LabeledList.Item>
             )}
             {!!esc_callable && (
               <LabeledList.Item label="Options">
@@ -126,18 +131,18 @@ const AuthBlock = (props, context) => {
       )}
     </Fragment>
   );
-}
+};
 
 const MainPage = (props, context) => {
   const { act, data } = useBackend(context);
 
   const { is_admin } = data;
 
-  if(is_admin) {
-    return <AdminPage/>
+  if (is_admin) {
+    return <AdminPage />;
   }
-  return <PlayerPage/>
-}
+  return <PlayerPage />;
+};
 
 const AdminPage = (props, context) => {
   const { act, data } = useBackend(context);
@@ -146,7 +151,7 @@ const AdminPage = (props, context) => {
     gamma_armory_location,
     admin_levels,
     authenticated,
-    ert_allowed
+    ert_allowed,
   } = data;
 
   return (
@@ -154,7 +159,11 @@ const AdminPage = (props, context) => {
       <Section title="CentComm Actions">
         <LabeledList>
           <LabeledList.Item label="Change Alert">
-            <MappedAlertLevelButtons levels={admin_levels} required_access={is_admin} use_confirm={1}/>
+            <MappedAlertLevelButtons
+              levels={admin_levels}
+              required_access={is_admin}
+              use_confirm={1}
+            />
           </LabeledList.Item>
           <LabeledList.Item label="Announcement">
             <Button
@@ -181,8 +190,14 @@ const AdminPage = (props, context) => {
             />
             <Button.Checkbox
               checked={ert_allowed}
-              content={ert_allowed ? "ERT calling enabled" : "ERT calling disabled"}
-              tooltip={ert_allowed ? "Command can request an ERT" : "ERTs cannot be requested"}
+              content={
+                ert_allowed ? 'ERT calling enabled' : 'ERT calling disabled'
+              }
+              tooltip={
+                ert_allowed
+                  ? 'Command can request an ERT'
+                  : 'ERTs cannot be requested'
+              }
               disabled={!is_admin}
               onClick={() => act('toggle_ert_allowed')}
               selected={null}
@@ -199,7 +214,11 @@ const AdminPage = (props, context) => {
           <LabeledList.Item label="Gamma Armory">
             <Button.Confirm
               icon="biohazard"
-              content={gamma_armory_location ? "Send Gamma Armory" : "Recall Gamma Armory"}
+              content={
+                gamma_armory_location
+                  ? 'Send Gamma Armory'
+                  : 'Recall Gamma Armory'
+              }
               disabled={!is_admin}
               onClick={() => act('move_gamma_armory')}
             />
@@ -220,14 +239,12 @@ const AdminPage = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       </Section>
-      <Collapsible
-        title="View Command accessible controls"
-      >
-        <PlayerPage/>
+      <Collapsible title="View Command accessible controls">
+        <PlayerPage />
       </Collapsible>
     </Fragment>
-  )
-}
+  );
+};
 
 const PlayerPage = (props, context) => {
   const { act, data } = useBackend(context);
@@ -241,7 +258,7 @@ const PlayerPage = (props, context) => {
     levels,
     authcapt,
     authhead,
-    messages
+    messages,
   } = data;
 
   let announceText = 'Make Priority Announcement';
@@ -260,14 +277,14 @@ const PlayerPage = (props, context) => {
     <Fragment>
       <Section title="Captain-Only Actions">
         <LabeledList>
-          <LabeledList.Item
-            label="Current Alert"
-            color={security_level_color}
-          >
+          <LabeledList.Item label="Current Alert" color={security_level_color}>
             {str_security_level}
           </LabeledList.Item>
           <LabeledList.Item label="Change Alert">
-            <MappedAlertLevelButtons levels={levels} required_access={authcapt}/>
+            <MappedAlertLevelButtons
+              levels={levels}
+              required_access={authcapt}
+            />
           </LabeledList.Item>
           <LabeledList.Item label="Announcement">
             <Button
@@ -343,16 +360,12 @@ const PlayerPage = (props, context) => {
       </Section>
     </Fragment>
   );
-}
+};
 
 const StatusScreens = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    stat_display,
-    authhead,
-    current_message_title
-  } = data;
+  const { stat_display, authhead, current_message_title } = data;
 
   let presetButtons = stat_display['presets'].map((pb) => {
     return (
@@ -389,12 +402,8 @@ const StatusScreens = (props, context) => {
       }
     >
       <LabeledList>
-        <LabeledList.Item label="Presets">
-          {presetButtons}
-        </LabeledList.Item>
-        <LabeledList.Item label="Alerts">
-          {iconButtons}
-        </LabeledList.Item>
+        <LabeledList.Item label="Presets">{presetButtons}</LabeledList.Item>
+        <LabeledList.Item label="Alerts">{iconButtons}</LabeledList.Item>
         <LabeledList.Item label="Message Line 1">
           <Button
             icon="pencil-alt"
@@ -414,7 +423,7 @@ const StatusScreens = (props, context) => {
       </LabeledList>
     </Section>
   );
-}
+};
 
 const MessageView = (props, context) => {
   const { act, data } = useBackend(context);
@@ -424,7 +433,7 @@ const MessageView = (props, context) => {
     current_message_title,
     current_message,
     messages,
-    security_level
+    security_level,
   } = data;
 
   let messageView;
@@ -479,24 +488,16 @@ const MessageView = (props, context) => {
     );
   }
 
-  return (
-    <Box>{messageView}</Box>
-  );
-}
+  return <Box>{messageView}</Box>;
+};
 
 const MappedAlertLevelButtons = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    levels,
-    required_access,
-    use_confirm
-  } = props;
-  const {
-    security_level
-  } = data;
+  const { levels, required_access, use_confirm } = props;
+  const { security_level } = data;
 
-  if(use_confirm) {
+  if (use_confirm) {
     return levels.map((slevel) => {
       return (
         <Button.Confirm
@@ -507,7 +508,7 @@ const MappedAlertLevelButtons = (props, context) => {
           tooltip={slevel.tooltip}
           onClick={() => act('newalertlevel', { level: slevel.id })}
         />
-      )
+      );
     });
   }
 
@@ -521,16 +522,16 @@ const MappedAlertLevelButtons = (props, context) => {
         tooltip={slevel.tooltip}
         onClick={() => act('newalertlevel', { level: slevel.id })}
       />
-    )
+    );
   });
-}
+};
 
 const AdminAnnouncePage = (props, context) => {
   const { act, data } = useBackend(context);
   const { is_admin, possible_cc_sounds } = data;
 
-  if(!is_admin) {
-    return (act('main'))
+  if (!is_admin) {
+    return act('main');
   }
 
   const [subtitle, setSubtitle] = useLocalState(context, 'subtitle', '');
@@ -571,7 +572,14 @@ const AdminAnnouncePage = (props, context) => {
         center
         mt="5px"
         textAlign="center"
-        onClick={() => act('make_cc_announcement', {subtitle: subtitle, text: text, classified: classified, beepsound: beepsound})}
+        onClick={() =>
+          act('make_cc_announcement', {
+            subtitle: subtitle,
+            text: text,
+            classified: classified,
+            beepsound: beepsound,
+          })
+        }
       />
       <Flex mt="5px">
         <Flex.Item>
@@ -595,7 +603,7 @@ const AdminAnnouncePage = (props, context) => {
             mx="5px"
             disabled={classified}
             tooltip="Test sound"
-            onClick={() => act('test_sound', {sound: beepsound})}
+            onClick={() => act('test_sound', { sound: beepsound })}
           />
         </Flex.Item>
         <Flex.Item>
@@ -608,5 +616,5 @@ const AdminAnnouncePage = (props, context) => {
         </Flex.Item>
       </Flex>
     </Section>
-  )
-}
+  );
+};
