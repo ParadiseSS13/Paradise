@@ -302,14 +302,16 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			for(var/turf/NT in circleviewturfs(T, tempradius))
 				var/distance = (max(get_dist(T, NT), 1)) //Get dist throws -1 if same turf
 				if(prob(min(probmodifer / distance, 100)))
-					if(ismineralturf(NT) || istype(NT, /turf/simulated/floor/plating/asteroid)) //No spawning on lava / other ruins
+					if((ismineralturf(NT) || istype(NT, /turf/simulated/floor/plating/asteroid)) && !istype(NT.loc, /area/ruin)) //No spawning on lava / other ruins
 						SpawnFloor(NT, 50) //Room has higher probabilty.
 			if(prob(25))
 				tempradius = round(tempradius / 3)
-				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water = 1, /turf/simulated/floor/plating/asteroid = 1))
+				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
 				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
 					new /obj/effect/spawner/oasisrock(T, tempradius)
 				for(var/turf/oasis in circleviewturfs(T, tempradius))
+					if(istype(oasis.loc, /area/ruin))
+						continue
 					oasis.ChangeTurf(oasis_lake, ignore_air = TRUE)
 
 /obj/effect/spawner/oasisrock

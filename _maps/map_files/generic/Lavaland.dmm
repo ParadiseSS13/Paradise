@@ -782,7 +782,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "bR" = (
 /obj/machinery/recharge_station,
@@ -800,7 +800,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "bT" = (
 /obj/machinery/door/airlock/mining{
@@ -829,7 +829,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "bW" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -1162,7 +1162,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "cI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1236,7 +1236,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "cP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1247,7 +1247,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "cQ" = (
 /turf/simulated/wall/r_wall,
@@ -1916,7 +1916,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "ed" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2520,7 +2520,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "fd" = (
 /obj/structure/closet/emcloset,
@@ -2987,7 +2987,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "fY" = (
 /obj/machinery/economy/vending/assist/free,
@@ -3195,7 +3195,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "gr" = (
 /obj/structure/stone_tile{
@@ -3309,7 +3309,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "gB" = (
 /obj/structure/stone_tile/block{
@@ -5040,7 +5040,7 @@
 /area/mine/laborcamp)
 "wt" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/siberia)
 "wD" = (
 /obj/effect/decal/remains/human,
@@ -5052,7 +5052,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/siberia)
 "wY" = (
 /obj/item/clothing/mask/gas/clown_hat,
@@ -5072,7 +5072,7 @@
 /area/mine/mechbay)
 "xo" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "xx" = (
 /obj/machinery/light/small{
@@ -5210,7 +5210,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "zy" = (
 /turf/simulated/wall,
@@ -6110,7 +6110,7 @@
 /obj/machinery/door/airlock{
 	name = "Catwalk Airlock"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/mine/eva)
 "Ss" = (
 /obj/structure/rack,
