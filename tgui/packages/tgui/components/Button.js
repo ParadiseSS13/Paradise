@@ -248,7 +248,7 @@ export class ButtonInput extends Component {
           fluid && 'Button--fluid',
           disabled && 'Button--disabled',
           'Button--color--' + color,
-          multiLine + 'Button--multiLine'
+          multiLine + 'Button--multiLine',
         ])}
         {...rest}
         onClick={() => this.setInInput(true)}

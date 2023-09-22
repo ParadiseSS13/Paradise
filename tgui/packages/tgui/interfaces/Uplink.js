@@ -26,7 +26,7 @@ export const Uplink = (props, context) => {
   const { cart } = data
 
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
     <Window theme="syndicate">
@@ -91,30 +91,26 @@ const ItemsPage = (_properties, context) => {
     cats[0].items
   );
 
-  const [searchText, setSearchText] = useLocalState(context, "searchText", "");
-  const SelectEquipment = (cat, searchText = "") => {
-    const EquipmentSearch = createSearch(searchText, item => {
-      let is_hijack = item.hijack_only === 1 ? "|" + "hijack" : ""
-      return (
-        item.name +
-        '|' +
-        item.desc +
-        '|' +
-        item.cost + "tc" +
-        is_hijack);
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const SelectEquipment = (cat, searchText = '') => {
+    const EquipmentSearch = createSearch(searchText, (item) => {
+      let is_hijack = item.hijack_only === 1 ? '|' + 'hijack' : '';
+      return item.name + '|' + item.desc + '|' + item.cost + 'tc' + is_hijack;
     });
     return flow([
-      filter(item => item?.name), // Make sure it has a name
+      filter((item) => item?.name), // Make sure it has a name
       searchText && filter(EquipmentSearch), // Search for anything
-      sortBy(item => item?.name), // Sort by name
+      sortBy((item) => item?.name), // Sort by name
     ])(cat);
   };
   const handleSearch = (value) => {
-    if(value === "") {
+    if (value === '') {
       return setUplinkItems(cats[0].items);
     }
     setSearchText(value);
-    setUplinkItems(SelectEquipment(cats.map(category => category.items).flat(), value));
+    setUplinkItems(
+      SelectEquipment(cats.map((category) => category.items).flat(), value)
+    );
   };
 
   const [showDesc, setShowDesc] = useLocalState(context, "showDesc", 1);
@@ -157,11 +153,11 @@ const ItemsPage = (_properties, context) => {
             {cats.map((c) => (
               <Tabs.Tab
                 key={c}
-                selected={searchText !== "" ? false : c.items === uplinkItems}
+                selected={searchText !== '' ? false : c.items === uplinkItems}
                 onClick={() => {
                   setUplinkItems(c.items);
-                  setSearchText("");
-                  }}
+                  setSearchText('');
+                }}
               >
                 {c.cat}
               </Tabs.Tab>
