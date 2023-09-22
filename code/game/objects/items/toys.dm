@@ -1696,4 +1696,5 @@
 	desc = "Toy handcuffs. Plastic and extremely cheaply made."
 	throwforce = 0
 	breakouttime = 0
+	secure = FALSE
 	ignoresClumsy = TRUE
