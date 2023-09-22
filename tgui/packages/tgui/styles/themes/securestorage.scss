@@ -15,10 +15,7 @@
 .theme-securestorage {
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: (
-      'color-background': #e8e4c9,
-      'color-text': #191916
-    )
+    $with: ('color-background': #e8e4c9, 'color-text': #191916)
   );
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
@@ -28,4 +25,3 @@
     background-image: none;
   }
 }
-

@@ -28,7 +28,7 @@ $background-beige: #e8e4c9;
 
 .SecureStorage__Button {
   outline-width: 0.25rem !important;
-  border-width: 0.30rem !important;
+  border-width: 0.3rem !important;
   border: 0.167em outset $background-beige;
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -48,21 +48,21 @@ $background-beige: #e8e4c9;
 .SecureStorage__Button--E {
   background-color: $color-caution;
   border-color: $color-caution;
-  color: #FFFFFF;
+  color: #ffffff;
   &:hover {
     background-color: lighten($color-caution, 20%);
     border-color: lighten($color-caution, 20%);
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
 
 .SecureStorage__Button--C {
   background-color: $color-danger;
   border-color: $color-danger;
-  color: #FFFFFF;
+  color: #ffffff;
   &:hover {
     background-color: lighten($color-danger, 20%);
     border-color: lighten($color-danger, 20%);
-    color: #FFFFFF;
+    color: #ffffff;
   }
 }
