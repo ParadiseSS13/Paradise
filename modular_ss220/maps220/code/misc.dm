@@ -55,7 +55,7 @@
 			new /obj/structure/closet/syndicate/resources/everything(loc)
 
 		if("Бессмертие")
-			user.verbs += /mob/living/carbon/human/verb/immortality
+			user.verbs |= /mob/living/carbon/human/proc/immortality
 
 		if("Покой")
 			for(var/mob/living/simple_animal/hostile/faithless/F in GLOB.mob_living_list)
@@ -79,7 +79,7 @@
 
 #define TRAIT_REVIVAL_IN_PROGRESS "revival_in_progress"
 
-/mob/living/carbon/human/verb/immortality()
+/mob/living/carbon/human/proc/immortality()
 	set category = "Бессмертие"
 	set name = "Возрождение"
 
@@ -96,7 +96,6 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon/human, resurrect)), rand(80 SECONDS, 120 SECONDS))
 
 /mob/living/carbon/human/proc/resurrect()
-	// Stolen from ling stasis
 	revive()
 	REMOVE_TRAIT(src, TRAIT_REVIVAL_IN_PROGRESS, "Immortality")
 	to_chat(src, span_notice("Вы вернулись из небытия."))
