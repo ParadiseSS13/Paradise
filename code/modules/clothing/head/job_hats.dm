@@ -289,4 +289,4 @@
 /obj/item/clothing/head/beret/nct
 	name = "NT Career Trainer's beret"
 	desc = "A beret worn by the mentors and trainers of the Career Training Team."
-	//icon_state = "MMTODO"
+	icon_state = "captain_beret_white"

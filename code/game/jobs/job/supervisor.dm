@@ -314,6 +314,7 @@
 
 	uniform = /obj/item/clothing/under/rank/centcom/nct
 	suit = /obj/item/clothing/suit/storage/nct
+	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
 	head = /obj/item/clothing/head/beret/nct
 	l_ear = /obj/item/radio/headset/headset_ntc
