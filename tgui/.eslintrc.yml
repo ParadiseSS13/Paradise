@@ -1,4 +1,4 @@
-parser: "@babel/eslint-parser"
+parser: '@babel/eslint-parser'
 parserOptions:
   ecmaVersion: 2019
   sourceType: module
@@ -16,7 +16,6 @@ settings:
   react:
     version: '16.10'
 rules:
-
   ## Possible Errors
   ## ----------------------------------------
 
@@ -370,10 +369,10 @@ rules:
   ## Enforce a maximum line length
   #max-len: [error, {
   #  code: 80,
-    ## Ignore imports
-    #ignorePattern: '^(import\s.+\sfrom\s|.*require\()',
-    #ignoreUrls: true,
-    #ignoreRegExpLiterals: true,
+  ## Ignore imports
+  #ignorePattern: '^(import\s.+\sfrom\s|.*require\()',
+  #ignoreUrls: true,
+  #ignoreRegExpLiterals: true,
   #}]
   ## Enforce a maximum number of lines per file
   # max-lines: error
