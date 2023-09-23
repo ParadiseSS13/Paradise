@@ -2132,7 +2132,7 @@
 /obj/item/clothing/head/bio_hood,
 /obj/item/clothing/suit/bio_suit,
 /obj/item/clothing/gloves/color/black,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gJ" = (
 /turf/simulated/floor/engine,
@@ -2146,24 +2146,21 @@
 /area/ruin/unpowered/BMPship/Fore)
 "gM" = (
 /obj/effect/gibspawner/robot,
-/turf/simulated,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "gN" = (
 /obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gO" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /obj/item/grenade/chem_grenade/drugs,
-/turf/simulated/floor/plating,
-/area/ruin/powered)
-"gP" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gQ" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gR" = (
 /obj/structure/bed,
@@ -2190,26 +2187,26 @@
 "gU" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/item/clothing/mask/gas/syndicate,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gV" = (
 /obj/item/ammo_casing{
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gW" = (
 /obj/machinery/door/airlock/external{
 	name = "Crackden Airlock"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gX" = (
 /obj/machinery/door/airlock/external{
 	name = "Plain Airlock"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gY" = (
 /obj/machinery/door/airlock/titanium,
@@ -2277,13 +2274,13 @@
 "hh" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hi" = (
 /obj/item/ammo_casing{
 	pixel_y = 3
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hj" = (
 /obj/structure/closet/crate,
@@ -2305,15 +2302,15 @@
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hm" = (
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hn" = (
 /obj/item/reagent_containers/food/snacks/chips,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "ho" = (
 /obj/effect/spawner/window/shuttle,
@@ -2346,25 +2343,21 @@
 "ht" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hu" = (
 /obj/machinery/chem_dispenser,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hv" = (
 /obj/machinery/chem_master,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hw" = (
 /obj/machinery/floodlight{
 	in_use = 1
 	},
-/turf/simulated/floor/plating,
-/area/ruin/powered)
-"hx" = (
-/obj/machinery/atmospherics/portable/canister/air,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hy" = (
 /turf/simulated/mineral/random/high_chance/clown,
@@ -3695,8 +3688,8 @@ aK
 aK
 aK
 gO
-gP
-gP
+bd
+bd
 ht
 aK
 aK
@@ -3745,11 +3738,11 @@ aK
 aK
 aK
 gI
-gP
-gP
+bd
+bd
 hm
-gP
-hx
+bd
+gB
 aK
 aK
 aK
@@ -3796,10 +3789,10 @@ aK
 aK
 aK
 aK
-gP
+bd
 hi
-gP
-gP
+bd
+bd
 hw
 aK
 aK
@@ -3848,8 +3841,8 @@ aK
 aK
 gN
 gQ
-gP
-gP
+bd
+bd
 hu
 aK
 aK
@@ -3899,8 +3892,8 @@ aK
 aK
 aK
 gU
-gP
-gP
+bd
+bd
 hv
 aK
 aK
@@ -3950,10 +3943,10 @@ bc
 aK
 aK
 gV
-gP
-gP
-gP
-gP
+bd
+bd
+bd
+bd
 aK
 aK
 aK
@@ -4000,8 +3993,8 @@ be
 aJ
 bc
 aK
-gP
-gP
+bd
+bd
 hn
 hw
 aK
@@ -4053,7 +4046,7 @@ bc
 aK
 gW
 aK
-gP
+bd
 aK
 aK
 aK
@@ -4102,7 +4095,7 @@ bd
 bd
 bc
 aK
-gP
+bd
 aK
 aK
 aK
@@ -4153,7 +4146,7 @@ aJ
 bd
 bc
 aK
-gP
+bd
 aK
 aJ
 aJ

@@ -92020,7 +92020,7 @@
 	name = "engine outlet injector";
 	volume_rate = 200
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "xrf" = (
 /obj/structure/cable/yellow{

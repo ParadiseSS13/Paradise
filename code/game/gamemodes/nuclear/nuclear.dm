@@ -292,6 +292,7 @@
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = uplink_uses
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
+	synd_mob.mind.offstation_role = TRUE
 
 	if(synd_mob.dna.species)
 		var/race = synd_mob.dna.species.name

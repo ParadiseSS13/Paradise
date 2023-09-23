@@ -86,7 +86,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/ancientstation/hivebot)
 "as" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/hivebot)
 "at" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2018,13 +2018,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
-"ft" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/ancientstation/betanorth)
 "fu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3734,24 +3727,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation/powered)
-"iO" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
-"iP" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/lattice/catwalk,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "iQ" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -4431,15 +4406,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/atmo)
-"kv" = (
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/lattice/catwalk,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "kw" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8
@@ -4649,10 +4615,6 @@
 /obj/structure/particle_accelerator/power_box,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
-"kZ" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "la" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5417,7 +5379,7 @@ bf
 bf
 bf
 bz
-ft
+fs
 bz
 bf
 aW
@@ -5802,15 +5764,15 @@ hf
 ck
 ck
 hs
-iO
-iO
-iP
-kZ
-kv
-kZ
-iO
-kZ
-iP
+hf
+hf
+jw
+ck
+kl
+ck
+hf
+ck
+jw
 uQ
 aa
 aa
