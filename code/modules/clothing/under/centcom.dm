@@ -192,4 +192,10 @@
 /obj/item/clothing/under/rank/centcom/nct
 	name = "Nanotrasen Career Trainer's uniform"
 	desc = "MMTODO"
-	icon_state = "MMTODO"
+	icon_state = "trainer_s"
+
+/obj/item/clothing/under/rank/centcom/nct/skirt
+	name = "Nanotrasen Career Trainer's uniform"
+	desc = "MMTODO"
+	icon_state = "trainer_skirt_s"
+

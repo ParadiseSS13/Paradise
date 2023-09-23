@@ -673,14 +673,14 @@
 /obj/machinery/economy/vending/traindrobe
 	name = "\improper TrainDrobe"
 	desc = "This wardrobe dispenses the attire of Nanotrasen's finest teaching force."
-	//icon_state = MMTODO - NEEDS SPRITE
+	icon_state = trainerdrobe
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_broken = "base_drobe"
 	icon_off = "base_drobe"
 	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("You're gonna LEARN today!")
-	vend_reply = "Thank you for using the LawDrobe!"
+	vend_reply = "Thank you for using the TrainDrobe!"
 	products = list(
 		/obj/item/clothing/under/rank/centcom/nct = 2,
 		/obj/item/clothing/head/beret/nct = 2,

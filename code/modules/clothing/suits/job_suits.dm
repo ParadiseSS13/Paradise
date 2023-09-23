@@ -374,7 +374,7 @@
 /obj/item/clothing/suit/storage/nct
 	name = "NT Career Trainer's jacket"
 	desc = "MMTODO"
-	icon_state = "MMTODO"
+	icon_state = "trainercoat"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
