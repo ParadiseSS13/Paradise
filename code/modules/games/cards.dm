@@ -148,9 +148,6 @@
 	if(H && (H.parentdeck != src))
 		to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 		return
-	if(H && length(H.cards) >= H.maxcardlen)
-		to_chat(user,"<span class = 'warning'>You can't hold that many cards in one hand!</span>")
-		return
 
 	if(!H)
 		H = new(get_turf(src))
@@ -311,7 +308,6 @@
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
-	var/maxcardlen = 20
 	actions_types = list(/datum/action/item_action/remove_card, /datum/action/item_action/discard)
 
 	var/concealed = FALSE
@@ -348,14 +344,12 @@
 		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	else if(istype(O,/obj/item/cardhand))
 		var/obj/item/cardhand/H = O
-		if((length(H.cards) + length(cards)) > maxcardlen)
-			to_chat(user,"<span class='warning'>You can't hold that many cards in one hand!</span>")
-			return
 		if(H.parentdeck == parentdeck)
 			for(var/datum/playingcard/P in cards)
 				H.cards += P
 			H.concealed = concealed
 			qdel(src)
+			// todo tomorrow: make it so that cards
 			H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 			return
 		else
@@ -545,14 +539,14 @@
 	if(length(cards) > 1)
 		name = "hand of cards"
 	else
-		name = "a playing card"
+		name = "playing card"
 
 /obj/item/cardhand/update_desc()
 	. = ..()
 	if(length(cards) > 1)
 		desc = "Some playing cards."
 	else
-		desc = "A playing card."
+		desc = "playing card."
 
 /obj/item/cardhand/update_icon_state()
 	return
@@ -584,7 +578,7 @@
 
 	var/offset = FLOOR(20/length(cards) + 1, 1)
 	var/i = 0
-	for(var/datum/playingcard/P in cards)
+	for(var/datum/playingcard/P in reverselist(cards))
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
 		//I.pixel_x = origin+(offset*i)
 		switch(direction)
