@@ -59,19 +59,22 @@
 	return
 
 /obj/item/deck/attackby(obj/O as obj, mob/user as mob)
-	if(istype(O,/obj/item/cardhand))
+	if(istype(O, /obj/item/cardhand))
 		var/obj/item/cardhand/H = O
-		if(H.parentdeck == src)
-			for(var/datum/playingcard/P in H.cards)
-				cards += P
-			qdel(H)
-			to_chat(user,"<span class='notice'>You place your cards on the bottom of [src].</span>")
-			update_icon(UPDATE_ICON_STATE)
-			return
-		else
+		if(H.parentdeck != src)
 			to_chat(user,"<span class='warning'>You can't mix cards from different decks!</span>")
 			return
 
+		if(length(H.cards) > 1)
+			var/confirm = alert("Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
+			if(confirm == "No")
+				return
+		for(var/datum/playingcard/P in H.cards)
+			cards += P
+		qdel(H)
+		to_chat(user,"<span class='notice'>You place your cards on the bottom of [src].</span>")
+		update_icon(UPDATE_ICON_STATE)
+		return
 	..()
 
 /obj/item/deck/examine(mob/user)
