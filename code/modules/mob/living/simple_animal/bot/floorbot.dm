@@ -63,26 +63,78 @@
 	text_dehack = "You detect errors in [name] and reset [p_their()] programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
-/mob/living/simple_animal/bot/floorbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Floor Repairer Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-	dat += "Tiles left: [amount]<BR>"
-	dat += "Behvaiour controls are [locked ? "locked" : "unlocked"]<BR>"
-	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Add tiles to new hull plating: <A href='?src=[UID()];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
-		dat += "Replace floor tiles: <A href='?src=[UID()];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
-		dat += "Finds tiles: <A href='?src=[UID()];operation=tiles'>[eattiles ? "Yes" : "No"]</A><BR>"
-		dat += "Make pieces of metal into tiles when empty: <A href='?src=[UID()];operation=make'>[maketiles ? "Yes" : "No"]</A><BR>"
-		dat += "Transmit notice when empty: <A href='?src=[UID()];operation=emptynag'>[nag_on_empty ? "Yes" : "No"]</A><BR>"
-		dat += "Repair damaged tiles and platings: <A href='?src=[UID()];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
-		dat += "Traction Magnets: <A href='?src=[UID()];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
-		dat += "Patrol Station: <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-	return dat
+//TGUI
 
+/mob/living/simple_animal/bot/floorbot/show_controls(mob/user) //Used for bypassing the other UI
+	ui_interact(user)
+
+/mob/living/simple_animal/bot/floorbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BotFloor", name, 500, 520)
+		ui.open()
+/mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
+	var/list/data = list()
+	data["locked"] = locked // controls, locked or not
+	data["noaccess"] = topic_denied(user) // does the current user have access? admins, silicons etc can still access bots with locked controls
+	data["maintpanel"] = open
+	data["on"] = on
+	data["autopatrol"] = auto_patrol
+	data["painame"] = paicard ? paicard.pai.name : null
+	data["canhack"] = canhack(user)
+	data["emagged"] = emagged // this is an int, NOT a boolean
+	data["remote_disabled"] = remote_disabled // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
+	data["hullplating"] = autotile
+	data["replace"] = replacetiles
+	data["eat"] = eattiles
+	data["make"] = maketiles
+	data["fixfloor"] = fixfloors
+	data["nag_empty"] = nag_on_empty
+	data["magnet"] = anchored
+	data["tiles_amount"] = amount
+	return data
+
+
+/mob/living/simple_animal/bot/floorbot/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	var/mob/user = ui.user
+	if(topic_denied(user))
+		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(user)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
+		if("autotile")
+			autotile = !autotile
+		if("replacetiles")
+			replacetiles = !replacetiles
+		if("eattiles")
+			eattiles = !eattiles
+		if("maketiles")
+			maketiles = !maketiles
+		if("nagonempty")
+			nag_on_empty = !nag_on_empty
+		if("fixfloors")
+			fixfloors = !fixfloors
+		if("anchored")
+			anchored = !anchored
+		if("ejectpai")
+			ejectpai()
+
+//END OF TGUI
 
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
@@ -107,26 +159,6 @@
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
-/mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
-	if(..())
-		return 1
-
-	switch(href_list["operation"])
-		if("replace")
-			replacetiles = !replacetiles
-		if("tiles")
-			eattiles = !eattiles
-		if("make")
-			maketiles = !maketiles
-		if("fix")
-			fixfloors = !fixfloors
-		if("autotile")
-			autotile = !autotile
-		if("emptynag")
-			nag_on_empty = !nag_on_empty
-		if("anchor")
-			anchored = !anchored
-	update_controls()
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
 	if(!..())
@@ -306,17 +338,17 @@
 	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
+	var/turf/simulated/floor/F = target
 	if(mode != BOT_REPAIRING)
 		return
 
 	if(replacetiles)
+		F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 	else
 		if(autotile) //Build the floor and include a tile.
-			var/turf/simulated/floor/F = target
 			F.break_tile_to_plating()
 			target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
-
 		else //Build a hull plating without a floor tile.
 			target_turf.ChangeTurf(/turf/simulated/floor/plating)
 	mode = BOT_IDLE
