@@ -9274,15 +9274,16 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aGQ" = (
-/obj/machinery/newscaster{
-	name = "north bump";
-	pixel_y = 28
-	},
+/obj/machinery/prize_counter,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aGR" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
+	},
+/obj/machinery/newscaster{
+	name = "north bump";
+	pixel_y = 28
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -10423,6 +10424,9 @@
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
+/obj/machinery/computer/mob_healer_terminal{
+	pixel_x = -30
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aKK" = (
@@ -10430,11 +10434,13 @@
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aKL" = (
-/obj/machinery/hologram/holopad,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/structure/chair/stool{
+	dir = 4
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -10918,11 +10924,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
-"aMC" = (
-/obj/structure/table,
-/obj/machinery/computer/mob_healer_terminal,
-/turf/simulated/floor/carpet/arcade,
-/area/station/public/arcade)
 "aMD" = (
 /obj/machinery/status_display{
 	layer = 4;
@@ -11284,10 +11285,10 @@
 	},
 /area/station/service/barber)
 "aOb" = (
-/obj/machinery/prize_counter,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/economy/arcade/claw,
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "aOg" = (
@@ -52649,6 +52650,15 @@
 /obj/machinery/economy/slot_machine,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/service/bar/atrium)
+"fio" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "fiM" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -55201,6 +55211,12 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/command/office/captain)
+"ggd" = (
+/obj/machinery/computer/arcade/recruiter{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "ggr" = (
 /obj/item/stack/rods{
 	amount = 4
@@ -65490,6 +65506,8 @@
 /area/station/maintenance/asmaint)
 "jPN" = (
 /obj/machinery/computer/mob_battle_terminal/blue{
+	dir = 2;
+	pixel_y = 0;
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel,
@@ -96191,6 +96209,12 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/engineering/hallway)
+"uZJ" = (
+/obj/machinery/computer/arcade/recruiter{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "uZW" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -104434,6 +104458,9 @@
 /area/station/maintenance/fpmaint2)
 "xYc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/chair/stool{
+	dir = 8
+	},
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
 "xYi" = (
@@ -139767,7 +139794,7 @@ aFI
 aFI
 aFI
 aFI
-aMC
+aKK
 aOb
 aFI
 aDv
@@ -140793,9 +140820,9 @@ ayb
 aFI
 aGP
 mEs
-aJw
-aKK
 fmN
+uZJ
+aJw
 lFe
 ckc
 aQv
@@ -141049,9 +141076,9 @@ aCh
 aEw
 aFI
 aGZ
-mEs
+fio
 aJz
-aKK
+ggd
 dwg
 lFe
 aPf
