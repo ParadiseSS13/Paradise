@@ -505,7 +505,7 @@ Difficulty: Hard
 			var/mob/living/L = target
 			if(L.stat != DEAD)
 				if(enraged)
-					..() //This causes it to melee attack as well. Extra damage if trying to crusher tank. TODO make the hieros melee knock a person back a tile
+					..()
 					if(L.move_resist < INFINITY)
 						var/atom/throw_target = get_edge_target_turf(L, get_dir(src, get_step_away(L, src)))
 						L.throw_at(throw_target, 1, 2) //Yeet them away. Makes crusher harder / stops endless backstab

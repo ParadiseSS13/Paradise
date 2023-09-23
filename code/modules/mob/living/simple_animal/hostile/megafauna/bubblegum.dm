@@ -376,7 +376,8 @@ Difficulty: Hard
 		if(T in range(2, target))
 			continue
 		turfs += T
-		while(constructs < (second_life ? 4 : 3) && length(turfs))
+		var/amount = enraged ? 4 : 3
+		while(constructs < amount && length(turfs))
 			var/turf/spot = pick_n_take(turfs)
 			var/mob/living/simple_animal/hostile/construct/wraith/hostile/summon = new /mob/living/simple_animal/hostile/construct/wraith/hostile(spot)
 			summon.faction = faction.Copy()
