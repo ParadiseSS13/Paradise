@@ -89,12 +89,6 @@ Difficulty: Hard
 	. = ..()
 	spawned_beacon = new(loc)
 	AddComponent(/datum/component/boss_music, 'sound/lavaland/hiero_boss.ogg', 145 SECONDS)
-	return INITIALIZE_HINT_LATELOAD
-
-/mob/living/simple_animal/hostile/megafauna/hierophant/LateInitialize()
-	. = ..()
-	for(var/mob/living/simple_animal/hostile/megafauna/colossus/C in GLOB.mob_list)
-		RegisterSignal(C, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(easy_anti_cheese))
 
 /datum/action/innate/megafauna_attack/blink
 	name = "Blink To Target"

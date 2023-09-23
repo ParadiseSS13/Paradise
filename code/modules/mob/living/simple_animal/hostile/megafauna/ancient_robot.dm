@@ -381,7 +381,8 @@ Difficulty: Hard
 				if(T in range(1, target))
 					continue
 				turfs += T
-			while(volcanos < (enraged? 5 : 3) && length(turfs))
+			var/amount = enraged ? 5 : 3
+			while(volcanos < amount && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				for(var/turf/around in range(1, spot))
 					new /obj/effect/temp_visual/lava_warning(around, enraged ? 18 SECONDS : 6 SECONDS)
@@ -415,28 +416,29 @@ Difficulty: Hard
 		if(T.density)
 			continue
 		turfs += T
-	while(anomalies < (enraged? 5 : 3) && length(turfs))
+	var/amount = enraged ? 5 : 3
+	while(anomalies < amount && length(turfs))
 		var/turf/spot = pick(turfs)
 		turfs -= spot
-		var/timetouse = enraged ? 25 SECONDS : 15 SECONDS
+		var/time_to_use = enraged ? 25 SECONDS : 15 SECONDS
 		switch(mode)
 			if(BLUESPACE)
-				var/obj/effect/anomaly/bluespace/A = new(spot, timetouse, FALSE)
+				var/obj/effect/anomaly/bluespace/A = new(spot, time_to_use, FALSE)
 				A.mass_teleporting = FALSE
 			if(GRAV)
-				var/obj/effect/anomaly/grav/A = new(spot, timetouse, FALSE, FALSE)
+				var/obj/effect/anomaly/grav/A = new(spot, time_to_use, FALSE, FALSE)
 				A.knockdown = TRUE
 			if(PYRO)
-				var/obj/effect/anomaly/pyro/A = new(spot, timetouse, FALSE)
+				var/obj/effect/anomaly/pyro/A = new(spot, time_to_use, FALSE)
 				A.produces_slime = FALSE
 			if(FLUX)
-				var/obj/effect/anomaly/flux/A = new(spot, timetouse, FALSE)
+				var/obj/effect/anomaly/flux/A = new(spot, time_to_use, FALSE)
 				A.explosive = FALSE
 				A.knockdown = TRUE
 			if(VORTEX)
-				new /obj/effect/anomaly/bhole(spot, timetouse, FALSE)
+				new /obj/effect/anomaly/bhole(spot, time_to_use, FALSE)
 			if(CRYO)
-				new /obj/effect/anomaly/cryo(spot, timetouse, FALSE)
+				new /obj/effect/anomaly/cryo(spot, time_to_use, FALSE)
 		anomalies++
 	return
 

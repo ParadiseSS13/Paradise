@@ -62,6 +62,15 @@ Difficulty: Very Hard
 	/// Have we used our final attack yet?
 	var/final_available = TRUE
 
+/mob/living/simple_animal/hostile/megafauna/colossus/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD
+
+/mob/living/simple_animal/hostile/megafauna/colossus/LateInitialize()
+	. = ..()
+	for(var/mob/living/simple_animal/hostile/megafauna/hierophant/H in GLOB.mob_list)
+		H.RegisterSignal(src, COMSIG_MOB_APPLY_DAMAGE, TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/hierophant, easy_anti_cheese))
+
 /datum/action/innate/megafauna_attack/spiral_attack
 	name = "Spiral Shots"
 	icon_icon = 'icons/mob/actions/actions.dmi'

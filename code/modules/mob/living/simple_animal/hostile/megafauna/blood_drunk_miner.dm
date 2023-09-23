@@ -50,7 +50,7 @@ Difficulty: Medium
 	var/time_until_next_transform = 0
 	var/dashing = FALSE
 	var/dash_cooldown = 0
-	var/dash_cooldown_to_use = 15
+	var/dash_cooldown_to_use = 1.5 SECONDS
 	var/guidance = FALSE
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
 	deathmessage = "falls to the ground, decaying into glowing particles."
@@ -195,7 +195,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/enrage()
 	. = ..()
 	miner_saw = new /obj/item/melee/energy/cleaving_saw(src) //Real saw for real men.
-	dash_cooldown_to_use = 5 //Becomes a teleporting shit.
+	dash_cooldown_to_use = 0.5 SECONDS //Becomes a teleporting shit.
 	ranged_cooldown_time = 5 //They got some cooldown mods.
 	projectiletype = /obj/item/projectile/kinetic/miner/enraged
 	maxHealth = 1800
