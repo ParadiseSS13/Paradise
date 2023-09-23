@@ -680,11 +680,11 @@
 
 /obj/item/paper/seed_vault
 	name = "Seed Vault Objective"
-	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 5 compact pickaxes <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Instructions for terraformation you will find inside Pilot room."
+	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 5 compact pickaxes <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
 
 /obj/item/paper/seed_vault/terraformation
 	name = "Terraformation Experiment for SN-856B"
-	info = "Thanks to genetical engineering we modificated this grass to be able grow on rocky, waterless enviornement, remember to grow grass seeds first and when it grow up, weave them together to create patches of grass, after you place them down, anchor it down to rocky so they will start to spread roots deep inside rocky field, after all steps are done, repeat it until you cover as much ground as possible, after centrain amount of time it will start produce oxygen, with would dense up atmosphere."
+	info = "Thanks to genetical engineering we modificated this grass to be able grow on rocky, waterless enviornement, remember to grow grass seeds first and when it grow up, weave them together to create patches of grass, after you place them down, anchor it down on rocks, so they will start to spread roots deep inside rocky field, after all steps are done, repeat it until you cover as much ground as possible, after centrain amount of time it will start produce oxygen, with would dense up atmosphere."
 
 /obj/item/paper/seed_vault/autopilot_logs
 	name = "Automatical Logs Printout"
