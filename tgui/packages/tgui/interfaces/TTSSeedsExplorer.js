@@ -14,30 +14,35 @@ import {
 import { Window } from '../layouts';
 
 const donatorTiers = {
-  0: "Бесплатные",
-  1: "Tier I",
-  2: "Tier II",
-  3: "Tier III",
-  4: "Tier IV",
+  0: 'Бесплатные',
+  1: 'Tier I',
+  2: 'Tier II',
+  3: 'Tier III',
+  4: 'Tier IV',
 };
 
 const gendersIcons = {
-  "Мужской": {
-    icon: "mars",
-    color: "blue",
+  'Мужской': {
+    icon: 'mars',
+    color: 'blue',
   },
-  "Женский": {
-    icon: "venus",
-    color: "purple",
+  'Женский': {
+    icon: 'venus',
+    color: 'purple',
   },
-  "Любой": {
-    icon: "venus-mars",
-    color: "white",
+  'Любой': {
+    icon: 'venus-mars',
+    color: 'white',
   },
 };
 
-const getCheckboxGroup = (itemsList, selectedList, setSelected, contentKey = null) => {
-  return itemsList.map(item => {
+const getCheckboxGroup = (
+  itemsList,
+  selectedList,
+  setSelected,
+  contentKey = null
+) => {
+  return itemsList.map((item) => {
     const title = item[contentKey] ?? item;
     return (
       <Button.Checkbox
@@ -46,11 +51,14 @@ const getCheckboxGroup = (itemsList, selectedList, setSelected, contentKey = nul
         content={title}
         onClick={() => {
           if (selectedList.includes(item)) {
-            setSelected(selectedList.filter(i => (i[contentKey] ?? i) !== item));
+            setSelected(
+              selectedList.filter((i) => (i[contentKey] ?? i) !== item)
+            );
           } else {
             setSelected([item, ...selectedList]);
           }
-        }} />
+        }}
+      />
     );
   });
 };
@@ -70,69 +78,125 @@ export const TTSSeedsExplorerContent = (props, context) => {
 
   const { providers, seeds, selected_seed, phrases, donator_level } = data;
 
-  const categories = seeds.map(seed => seed.category).filter((category, i, a) => a.indexOf(category) === i);
-  const genders = seeds.map(seed => seed.gender).filter((gender, i, a) => a.indexOf(gender) === i);
-  const donatorLevels = seeds.map(seed => seed.required_donator_level).filter((level, i, a) => a.indexOf(level) === i).map(level => donatorTiers[level]);
+  const categories = seeds
+    .map((seed) => seed.category)
+    .filter((category, i, a) => a.indexOf(category) === i);
+  const genders = seeds
+    .map((seed) => seed.gender)
+    .filter((gender, i, a) => a.indexOf(gender) === i);
+  const donatorLevels = seeds
+    .map((seed) => seed.required_donator_level)
+    .filter((level, i, a) => a.indexOf(level) === i)
+    .map((level) => donatorTiers[level]);
 
-  const [selectedProviders, setSelectedProviders] = useLocalState(context, 'selectedProviders', providers);
-  const [selectedGenders, setSelectedGenders] = useLocalState(context, 'selectedGenders', genders);
-  const [selectedCategories, setSelectedCategories] = useLocalState(context, 'selectedCategories', categories);
-  const [selectedDonatorLevels, setSelectedDonatorLevels] = useLocalState(context, 'selectedDonatorLevels', donatorLevels);
-  const [selectedPhrase, setSelectedPhrase] = useLocalState(context, 'selectedPhrase', phrases[0]);
-  const [searchtext, setSearchtext] = useLocalState(context, 'searchtext', "");
+  const [selectedProviders, setSelectedProviders] = useLocalState(
+    context,
+    'selectedProviders',
+    providers
+  );
+  const [selectedGenders, setSelectedGenders] = useLocalState(
+    context,
+    'selectedGenders',
+    genders
+  );
+  const [selectedCategories, setSelectedCategories] = useLocalState(
+    context,
+    'selectedCategories',
+    categories
+  );
+  const [selectedDonatorLevels, setSelectedDonatorLevels] = useLocalState(
+    context,
+    'selectedDonatorLevels',
+    donatorLevels
+  );
+  const [selectedPhrase, setSelectedPhrase] = useLocalState(
+    context,
+    'selectedPhrase',
+    phrases[0]
+  );
+  const [searchtext, setSearchtext] = useLocalState(context, 'searchtext', '');
 
-  let providerCheckboxes = getCheckboxGroup(providers, selectedProviders, setSelectedProviders, "name");
-  let genderesCheckboxes = getCheckboxGroup(genders, selectedGenders, setSelectedGenders);
-  let categoriesCheckboxes = getCheckboxGroup(categories, selectedCategories, setSelectedCategories);
-  let donatorLevelsCheckboxes = getCheckboxGroup(donatorLevels, selectedDonatorLevels, setSelectedDonatorLevels);
+  let providerCheckboxes = getCheckboxGroup(
+    providers,
+    selectedProviders,
+    setSelectedProviders,
+    'name'
+  );
+  let genderesCheckboxes = getCheckboxGroup(
+    genders,
+    selectedGenders,
+    setSelectedGenders
+  );
+  let categoriesCheckboxes = getCheckboxGroup(
+    categories,
+    selectedCategories,
+    setSelectedCategories
+  );
+  let donatorLevelsCheckboxes = getCheckboxGroup(
+    donatorLevels,
+    selectedDonatorLevels,
+    setSelectedDonatorLevels
+  );
 
   let phrasesSelect = (
     <Dropdown
       options={phrases}
-      selected={selectedPhrase.replace(/(.{25})..+/, "$1...")}
+      selected={selectedPhrase.replace(/(.{25})..+/, '$1...')}
       width="220px"
-      onSelected={value => setSelectedPhrase(value)} />
+      onSelected={(value) => setSelectedPhrase(value)}
+    />
   );
 
   let searchBar = (
     <Input
       placeholder="Название..."
       fluid
-      onInput={(e, value) => setSearchtext(value)} />
+      onInput={(e, value) => setSearchtext(value)}
+    />
   );
 
-  const availableSeeds = seeds.sort((a, b) => {
-    const aname = a.name.toLowerCase();
-    const bname = b.name.toLowerCase();
-    if (aname > bname) {
-      return 1;
-    }
-    if (aname < bname) {
-      return -1;
-    }
-    return 0;
-  }).filter(seed =>
-    selectedProviders.some(provider => provider.name === seed.provider)
-    && selectedGenders.includes(seed.gender)
-    && selectedCategories.includes(seed.category)
-    && selectedDonatorLevels.includes(donatorTiers[seed.required_donator_level])
-    && seed.name.toLowerCase().includes(searchtext.toLowerCase())
-  );
+  const availableSeeds = seeds
+    .sort((a, b) => {
+      const aname = a.name.toLowerCase();
+      const bname = b.name.toLowerCase();
+      if (aname > bname) {
+        return 1;
+      }
+      if (aname < bname) {
+        return -1;
+      }
+      return 0;
+    })
+    .filter(
+      (seed) =>
+        selectedProviders.some((provider) => provider.name === seed.provider) &&
+        selectedGenders.includes(seed.gender) &&
+        selectedCategories.includes(seed.category) &&
+        selectedDonatorLevels.includes(
+          donatorTiers[seed.required_donator_level]
+        ) &&
+        seed.name.toLowerCase().includes(searchtext.toLowerCase())
+    );
 
-  let seedsRow = availableSeeds.map(seed => {
+  let seedsRow = availableSeeds.map((seed) => {
     return (
       <Table.Row
         key={seed.name}
-        backgroundColor={selected_seed === seed.name ? "green" : "transparent"}>
+        backgroundColor={selected_seed === seed.name ? 'green' : 'transparent'}
+      >
         <Table.Cell collapsing textAlign="center">
           <Button
             fluid
-            color={selected_seed === seed.name ? "green" : "transparent"}
-            content={selected_seed === seed.name ? "Выбрано" : "Выбрать"}
-            tooltip={donator_level < seed.required_donator_level && "Требуется более высокий уровень подписки"}
+            color={selected_seed === seed.name ? 'green' : 'transparent'}
+            content={selected_seed === seed.name ? 'Выбрано' : 'Выбрать'}
+            tooltip={
+              donator_level < seed.required_donator_level &&
+              'Требуется более высокий уровень подписки'
+            }
             tooltipPosition="right "
             textAlign="left"
-            onClick={() => act('select', { seed: seed.name })} />
+            onClick={() => act('select', { seed: seed.name })}
+          />
         </Table.Cell>
         <Table.Cell collapsing textAlign="center">
           <Button
@@ -141,34 +205,46 @@ export const TTSSeedsExplorerContent = (props, context) => {
             content=""
             tooltip="Прослушать пример"
             color="transparent"
-            onClick={() => act('listen', { seed: seed.name, phrase: selectedPhrase })} />
+            onClick={() =>
+              act('listen', { seed: seed.name, phrase: selectedPhrase })
+            }
+          />
         </Table.Cell>
         <Table.Cell
           bold
-          textColor={seed.required_donator_level > 0 && selected_seed !== seed.name ? "orange" : "white"}>
+          textColor={
+            seed.required_donator_level > 0 && selected_seed !== seed.name
+              ? 'orange'
+              : 'white'
+          }
+        >
           {seed.name}
         </Table.Cell>
         <Table.Cell
           collapsing
           opacity={selected_seed === seed.name ? 0.5 : 0.25}
-          textAlign="left" >
+          textAlign="left"
+        >
           {seed.category}
         </Table.Cell>
         <Table.Cell
           collapsing
           opacity={0.5}
-          textColor={selected_seed === seed.name ? "white" : gendersIcons[seed.gender].color}
-          textAlign="left">
-          <Icon
-            mx={1}
-            size={1.2}
-            name={gendersIcons[seed.gender].icon} />
+          textColor={
+            selected_seed === seed.name
+              ? 'white'
+              : gendersIcons[seed.gender].color
+          }
+          textAlign="left"
+        >
+          <Icon mx={1} size={1.2} name={gendersIcons[seed.gender].icon} />
         </Table.Cell>
         <Table.Cell
           collapsing
           opacity={0.5}
           textColor="white"
-          textAlign="right">
+          textAlign="right"
+        >
           {seed.required_donator_level > 0 && (
             <>
               {donatorTiers[seed.required_donator_level]}
@@ -187,27 +263,22 @@ export const TTSSeedsExplorerContent = (props, context) => {
           <LabeledList.Item label="Провайдеры">
             {providerCheckboxes}
           </LabeledList.Item>
-          <LabeledList.Item label="Пол">
-            {genderesCheckboxes}
-          </LabeledList.Item>
+          <LabeledList.Item label="Пол">{genderesCheckboxes}</LabeledList.Item>
           <LabeledList.Item label="Категории">
             {categoriesCheckboxes}
           </LabeledList.Item>
           <LabeledList.Item label="Уровень подписки">
             {donatorLevelsCheckboxes}
           </LabeledList.Item>
-          <LabeledList.Item label="Фраза">
-            {phrasesSelect}
-          </LabeledList.Item>
-          <LabeledList.Item label="Поиск">
-            {searchBar}
-          </LabeledList.Item>
+          <LabeledList.Item label="Фраза">{phrasesSelect}</LabeledList.Item>
+          <LabeledList.Item label="Поиск">{searchBar}</LabeledList.Item>
         </LabeledList>
       </Section>
-      <Section title={`Голоса (${availableSeeds.length}/${seeds.length})`} flexGrow="1">
-        <Table>
-          {seedsRow}
-        </Table>
+      <Section
+        title={`Голоса (${availableSeeds.length}/${seeds.length})`}
+        flexGrow="1"
+      >
+        <Table>{seedsRow}</Table>
       </Section>
       <Section>
         <BlockQuote>
