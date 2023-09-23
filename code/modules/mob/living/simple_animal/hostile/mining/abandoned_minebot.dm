@@ -22,7 +22,6 @@
 	projectiletype = /obj/item/projectile/kinetic
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged_cooldown_time = 30
-	ranged_message = "fires"
 	speak_emote = list("states")
 	throw_message = "does not go through the armor of"
 	del_on_death = TRUE
