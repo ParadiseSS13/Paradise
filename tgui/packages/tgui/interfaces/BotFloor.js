@@ -1,6 +1,5 @@
 import { useBackend } from '../backend';
 import { Button, LabeledList, NoticeBox, Section, Box } from '../components';
-import { ButtonCheckbox } from '../components/Button';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
