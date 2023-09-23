@@ -148,8 +148,6 @@
 	enraged = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/proc/unrage()
-	if(!enraged)
-		return
 	enraged = FALSE
 
 /datum/action/innate/megafauna_attack
