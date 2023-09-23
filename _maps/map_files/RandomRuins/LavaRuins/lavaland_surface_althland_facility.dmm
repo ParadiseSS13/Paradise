@@ -688,6 +688,7 @@
 "rY" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/cargo/miner,
+/obj/item/paper/fluff/ruins/althland/journal,
 /turf/simulated/floor{
 	temperature = 300;
 	oxygen = 14;
