@@ -190,10 +190,12 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "dL" = (
-/obj/structure/plasticflaps{
+/obj/structure{
 	icon_state = "controller-o";
+	icon = 'icons/obj/stationobjs.dmi';
 	desc = "These are some kind of high-tech structures.";
-	name = "data base"
+	name = "data server";
+	density = 1
 	},
 /turf/simulated/floor/bluegrid,
 /area/ruin/space/powered)
@@ -378,9 +380,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "iU" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-32"
-	},
+/obj/item/kirbyplants,
 /obj/machinery/light_construct{
 	icon_state = "tube-broken";
 	dir = 8
@@ -672,10 +672,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
-"oT" = (
-/obj/machinery/status_display,
-/turf/simulated/floor/mineral/titanium/yellow,
-/area/ruin/space/powered)
 "oY" = (
 /obj/structure/closet/crate{
 	icon_state = "scicrate";
@@ -776,10 +772,12 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ro" = (
-/obj/structure/plasticflaps{
+/obj/structure{
 	icon_state = "mechfab1";
 	desc = "Nothing is being built.";
-	name = "exosuit fabricator"
+	name = "exosuit fabricator";
+	icon = 'icons/obj/stationobjs.dmi';
+	density = 1
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -1272,9 +1270,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Bh" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-34"
-	},
+/obj/item/kirbyplants,
 /obj/machinery/light/spot{
 	dir = 4
 	},
@@ -1447,10 +1443,12 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "EI" = (
-/obj/structure/plasticflaps{
+/obj/structure{
 	icon_state = "controller-p";
+	icon = 'icons/obj/stationobjs.dmi';
 	desc = "These are some kind of high-tech structures.";
-	name = "data base"
+	name = "data server";
+	density = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/bluegrid,
@@ -1519,10 +1517,11 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "Fx" = (
-/obj/structure/fluff{
+/obj/structure{
 	icon_state = "holopad_open";
+	icon = 'icons/obj/stationobjs.dmi';
 	desc = "Holopad for long-distance communication.";
-	name = "Holopad"
+	name = "holopad"
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
@@ -1650,10 +1649,12 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "Hl" = (
-/obj/structure/plasticflaps{
+/obj/structure{
 	icon_state = "blackbox_b";
+	icon = 'icons/obj/stationobjs.dmi';
+	desc = "This is an old-style communications server.";
 	name = "communications server";
-	desc = "This is an old-style communications server."
+	density = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/bluegrid,
@@ -1768,9 +1769,7 @@
 /turf/simulated/floor/bluegrid,
 /area/ruin/space/powered)
 "Jq" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-32"
-	},
+/obj/item/kirbyplants,
 /obj/machinery/light_construct{
 	icon_state = "tube-broken";
 	dir = 4
@@ -2314,9 +2313,7 @@
 /turf/simulated/floor/bluegrid,
 /area/ruin/space/powered)
 "TR" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-34"
-	},
+/obj/item/kirbyplants,
 /obj/machinery/light_construct{
 	icon_state = "tube-broken";
 	dir = 8
@@ -3826,7 +3823,7 @@ PT
 Kb
 Cm
 Jr
-oT
+nk
 nk
 sD
 iK
