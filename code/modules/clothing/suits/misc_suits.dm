@@ -501,7 +501,7 @@
 	name = "cargo winter coat"
 	icon_state = "wintercoat_cargo"
 	item_state = "coatcargo"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/rcs, /obj/item/clipboard, /obj/item/envelope, /obj/item/storage/bag/mail)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter, /obj/item/rcs, /obj/item/clipboard, /obj/item/envelope, /obj/item/storage/bag/mail, /obj/item/mail_scanner)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/cargo
 
 /obj/item/clothing/head/hooded/winterhood/cargo

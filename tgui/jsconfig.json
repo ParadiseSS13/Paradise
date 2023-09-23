@@ -14,10 +14,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": false,
-    "strictNullChecks": true,
-    "target": "ES3"
+    "strictNullChecks": true
   },
-  "include": [
-    "./packages"
-  ]
+  "include": ["./packages"]
 }
