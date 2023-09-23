@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section, Box } from '../components';
+import { Button, LabeledList, Box, Section} from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 
@@ -22,11 +22,11 @@ export const BotFloor = (props, context) => {
       <Window.Content scrollable>
         <BotStatus />
         <Section title="Floor Settings">
-          <LabeledList>
+          <Box mb="5px">
             <LabeledList.Item label="Tiles Left">
               {tiles_amount}
             </LabeledList.Item>
-          </LabeledList>
+          </Box>
           <Button.Checkbox
             fluid
             checked={hullplating}
