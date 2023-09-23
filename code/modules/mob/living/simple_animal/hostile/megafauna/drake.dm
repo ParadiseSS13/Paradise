@@ -105,7 +105,7 @@ Difficulty: Medium
 	if(swooping)
 		return
 
-	anger_modifier = clamp(max((maxHealth - health)/50, enraged? 15 : 0),0, 20)
+	anger_modifier = clamp(max((maxHealth - health) / 50, enraged ? 15 : 0), 0, 20)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 	if(client)
@@ -141,7 +141,7 @@ Difficulty: Medium
 		return
 	target.visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
 	for(var/turf/turf in range(9,get_turf(target)))
-		if(prob(enraged? 44 : 11))
+		if(prob(enraged ? 44 : 11))
 			new /obj/effect/temp_visual/target(turf)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_pools(amount, delay = 0.8)
@@ -151,15 +151,15 @@ Difficulty: Medium
 	while(amount > 0)
 		if(QDELETED(target))
 			break
-		var/turf/T = pick(RANGE_TURFS(enraged? 2 : 1, target))
-		new /obj/effect/temp_visual/lava_warning(T, enraged? 18 SECONDS : 6 SECONDS) // longer reset time for the lava
+		var/turf/T = pick(RANGE_TURFS(enraged ? 2 : 1, target))
+		new /obj/effect/temp_visual/lava_warning(T, enraged ? 18 SECONDS : 6 SECONDS) // longer reset time for the lava
 		amount--
 		SLEEP_CHECK_DEATH(delay)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_swoop(amount = 30)
 	if(health < maxHealth * 0.5)
-		return swoop_attack(lava_arena = TRUE, swoop_cooldown = enraged? 2 SECONDS : 6 SECONDS)
-	INVOKE_ASYNC(src, PROC_REF(lava_pools), enraged? 60 : amount)
+		return swoop_attack(lava_arena = TRUE, swoop_cooldown = enraged ? 2 SECONDS : 6 SECONDS)
+	INVOKE_ASYNC(src, PROC_REF(lava_pools), enraged ? 60 : amount)
 	swoop_attack(FALSE, target, 1000) // longer cooldown until it gets reset below
 	SLEEP_CHECK_DEATH(0)
 	fire_cone()
@@ -190,12 +190,12 @@ Difficulty: Medium
 	target.visible_message("<span class='boldwarning'>[src] encases you in an arena of fire!</span>")
 	var/amount = 3
 	var/turf/center = get_turf(target)
-	var/list/walled = RANGE_TURFS(enraged? 4 : 3, center) - RANGE_TURFS(enraged? 3 : 2, center)
+	var/list/walled = RANGE_TURFS(enraged ? 4 : 3, center) - RANGE_TURFS(enraged ? 3 : 2, center)
 	var/list/drakewalls = list()
 	for(var/turf/T in walled)
 		drakewalls += new /obj/effect/temp_visual/drakewall(T) // no people with lava immunity can just run away from the attack for free
 	var/list/indestructible_turfs = list()
-	for(var/turf/T in RANGE_TURFS(enraged? 3 : 2, center))
+	for(var/turf/T in RANGE_TURFS(enraged ? 3 : 2, center))
 		if(istype(T, /turf/simulated/floor/indestructible))
 			continue
 		if(!istype(T, /turf/simulated/wall/indestructible))
@@ -204,14 +204,14 @@ Difficulty: Medium
 			indestructible_turfs += T
 	SLEEP_CHECK_DEATH(10) // give them a bit of time to realize what attack is actually happening
 
-	var/list/turfs = RANGE_TURFS(enraged? 3 : 2, center)
+	var/list/turfs = RANGE_TURFS(enraged ? 3 : 2, center)
 	while(amount > 0)
 		var/list/empty = indestructible_turfs.Copy() // can't place safe turfs on turfs that weren't changed to be open
 		var/any_attack = 0
 		for(var/turf/T in turfs)
 			for(var/mob/living/L in T.contents)
 				if(L.client)
-					empty += pick(((RANGE_TURFS(enraged? 3 : 2, L) - RANGE_TURFS(enraged? 2 : 1, L)) & turfs) - empty) // picks a turf within 2 of the creature not outside or in the shield
+					empty += pick(((RANGE_TURFS(enraged ? 3 : 2, L) - RANGE_TURFS(enraged ? 2 : 1, L)) & turfs) - empty) // picks a turf within 2 of the creature not outside or in the shield
 					any_attack = 1
 			for(var/obj/mecha/M in T.contents)
 				empty += pick(((RANGE_TURFS(2, M) - RANGE_TURFS(1, M)) & turfs) - empty)

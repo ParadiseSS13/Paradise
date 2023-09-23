@@ -135,8 +135,8 @@ Difficulty: Hard
 	var/mob/living/carbon/human/H = target
 	H.apply_status_effect(STATUS_EFFECT_BUBBLEGUM_CURSE, src)
 	if(second_life)
-		H.clear_fullscreen("Bubblegum")
-		H.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 2)
+		H.clear_fullscreen("bubblegum")
+		H.overlay_fullscreen("bubblegum", /obj/screen/fullscreen/fog, 2)
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
@@ -254,7 +254,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/try_bloodattack()
 	var/list/targets = get_mobs_on_blood()
 	if(targets.len)
-		INVOKE_ASYNC(src, PROC_REF(bloodattack), targets, prob(enraged? 75 : 50))
+		INVOKE_ASYNC(src, PROC_REF(bloodattack), targets, prob(enraged ? 75 : 50))
 		return TRUE
 	return FALSE
 
@@ -301,7 +301,7 @@ Difficulty: Hard
 			to_chat(L, "<span class='userdanger'>[src] rends you!</span>")
 			playsound(T, attack_sound, 100, TRUE, -1)
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-			L.apply_damage(second_life? 20 : 10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
+			L.apply_damage(second_life ? 20 : 10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, MELEE, null, null, armour_penetration_flat, armour_penetration_percentage))
 	SLEEP_CHECK_DEATH(3)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/bloodgrab(turf/T, handedness)
@@ -376,10 +376,10 @@ Difficulty: Hard
 		if(T in range(2, target))
 			continue
 		turfs += T
-		while(constructs < (second_life? 4 : 3) && length(turfs))
+		while(constructs < (second_life ? 4 : 3) && length(turfs))
 			var/turf/spot = pick_n_take(turfs)
 			var/mob/living/simple_animal/hostile/construct/wraith/hostile/summon = new /mob/living/simple_animal/hostile/construct/wraith/hostile(spot)
-			summon.faction = src.faction.Copy()
+			summon.faction = faction.Copy()
 			constructs++
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/be_aggressive()
@@ -407,7 +407,7 @@ Difficulty: Hard
 	if(enraged)
 		adjustHealth(-75)
 	update_approach()
-	change_move_delay(enraged? 3 : 4) //3 if enraged, 4 otherwise
+	change_move_delay(enraged ? 3 : 4) //3 if enraged, 4 otherwise
 	var/newcolor = rgb(149, 10, 10)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
 	var/datum/callback/cb = CALLBACK(src, PROC_REF(blood_enrage_end))
@@ -625,7 +625,6 @@ Difficulty: Hard
 	return
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2
-	name = "bubblegum"
 	desc = "Oh they are PISSED. And quite injured too..."
 	health = 750
 	maxHealth = 750

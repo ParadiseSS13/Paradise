@@ -129,11 +129,10 @@ Difficulty: Very Hard
 	else
 		move_to_delay = initial(move_to_delay)
 
-	if(health <= maxHealth / (enraged? 10 : 9) && final_available) //One time use final attack. Want to make it not get skipped as much on base colossus, but a little easier to skip on enraged as it can be used multiple times
-		final_available = FALSE
+	if(health <= maxHealth / (enraged ? 10 : 9) && final_available) //One time use final attack. Want to make it not get skipped as much on base colossus, but a little easier to skip on enraged as it can be used multiple times
 		final_attack()
-		if(enraged)
-			final_available = TRUE
+		if(!enraged)
+			final_available = FALSE
 	else if(prob(20 + anger_modifier)) //Major attack
 		select_spiral_attack()
 	else if(prob(20))
@@ -152,9 +151,9 @@ Difficulty: Very Hard
 		return TRUE
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/alternating_dir_shots(telegraphing = TRUE)
-	var/rage = enraged? 5 : 10
+	var/rage = enraged ? 5 : 10
 	if(telegraphing)
-		ranged_cooldown = world.time + 40
+		ranged_cooldown = world.time + 4 SECONDS
 		telegraph(DIR_SHOTS)
 		SLEEP_CHECK_DEATH(1.5 SECONDS)
 	dir_shots(GLOB.diagonals)
@@ -220,14 +219,14 @@ Difficulty: Very Hard
 	var/turf/U = get_turf(src)
 	playsound(U, 'sound/magic/clockwork/invoke_general.ogg', 300, TRUE, 5)
 	for(var/T in RANGE_TURFS(12, U) - U)
-		if(prob(enraged? 10 : 5))
+		if(prob(enraged ? 10 : 5))
 			shoot_projectile(T)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/blast(set_angle, do_sleep = TRUE)
 	ranged_cooldown = world.time + 20
 	if(do_sleep)
 		telegraph(BLAST)
-		SLEEP_CHECK_DEATH(enraged? 1 : 1.5 SECONDS)
+		SLEEP_CHECK_DEATH(enraged ? 0.1 SECONDS : 1.5 SECONDS)
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))

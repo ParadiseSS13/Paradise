@@ -143,7 +143,7 @@
 
 /// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
 /mob/living/simple_animal/hostile/megafauna/proc/enrage()
-	if(enraged || (health / maxHealth) * 100 <= 80 )
+	if(enraged || (health / maxHealth) * 100 <= 80)
 		return
 	enraged = TRUE
 

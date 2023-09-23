@@ -119,10 +119,8 @@
 	var/list/completed_fauna = list()
 	var/number_of_megafauna = 7 //Increase this if new megafauna are added.
 
-
 /obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
 	return
-
 
 /obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/disk/fauna_research))

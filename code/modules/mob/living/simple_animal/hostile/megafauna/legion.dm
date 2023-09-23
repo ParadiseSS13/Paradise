@@ -194,7 +194,7 @@ Difficulty: Medium
 		return
 	if(.)
 		var/matrix/M = new
-		resize = (enraged? 0.33 : 1) + (health / maxHealth)
+		resize = (enraged ? 0.33 : 1) + (health / maxHealth)
 		M.Scale(resize, resize)
 		transform = M
 		if(amount > 0 && (enraged || prob(33)))

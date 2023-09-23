@@ -94,7 +94,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant/LateInitialize()
 	. = ..()
 	for(var/mob/living/simple_animal/hostile/megafauna/colossus/C in GLOB.mob_list)
-		RegisterSignal(C, COMSIG_MOB_APPLY_DAMGE, PROC_REF(easy_anti_cheese))
+		RegisterSignal(C, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(easy_anti_cheese))
 
 /datum/action/innate/megafauna_attack/blink
 	name = "Blink To Target"
@@ -221,7 +221,7 @@ Difficulty: Hard
 			arena_trap(L, TRUE)
 			FindTarget(list(L), 1)
 			for(var/mob/living/simple_animal/hostile/megafauna/colossus/C in GLOB.mob_list)
-				UnregisterSignal(C, COMSIG_MOB_DEATH)
+				UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE)
 			break
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(blink_counter, target_slowness, cross_counter)
@@ -552,7 +552,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/calculate_rage() //how angry we are overall
 	did_reset = FALSE //oh hey we're doing SOMETHING, clearly we might need to heal if we recall
-	anger_modifier = clamp((max((maxHealth - health) / 42, enraged? 40 : 0)),0,50)
+	anger_modifier = clamp((max((maxHealth - health) / 42, enraged ? 40 : 0)),0,50)
 	burst_range = initial(burst_range) + round(anger_modifier * 0.08)
 	beam_range = initial(beam_range) + round(anger_modifier * 0.12)
 

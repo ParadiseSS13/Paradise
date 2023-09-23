@@ -1598,8 +1598,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			T = locate(x,y,t_center.z)
 			if(T)
 				temp_list_one += T
-		for(var/turf/temp_one in reverselist(temp_list_one))
-			L += temp_one
+		L += reverselist(temp_list_one)
 
 		y = t_center.y - c_dist
 		x = t_center.x + c_dist - 1

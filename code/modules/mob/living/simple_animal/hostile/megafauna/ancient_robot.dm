@@ -1,4 +1,4 @@
-#define BODY_SHIELD_COOLDOWN_TIME enraged? 3 SECONDS : 5 SECONDS
+#define BODY_SHIELD_COOLDOWN_TIME enraged ? 3 SECONDS : 5 SECONDS
 #define EXTRA_PLAYER_ANGER_NORMAL_CAP 6
 #define EXTRA_PLAYER_ANGER_STATION_CAP 3
 #define BLUESPACE 1
@@ -365,7 +365,8 @@ Difficulty: Hard
 				if(T in range (2, target))
 					continue
 				turfs += T
-			while(rocks < (enraged? 5 : 3) && length(turfs))
+			var/amount = enraged ? 5 : 3
+			while(rocks < amount && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				new /obj/effect/temp_visual/rock(spot)
 				addtimer(CALLBACK(src, PROC_REF(throw_rock), spot, target), 2 SECONDS)
@@ -383,7 +384,7 @@ Difficulty: Hard
 			while(volcanos < (enraged? 5 : 3) && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
 				for(var/turf/around in range(1, spot))
-					new /obj/effect/temp_visual/lava_warning(around, enraged? 18 SECONDS : 6 SECONDS)
+					new /obj/effect/temp_visual/lava_warning(around, enraged ? 18 SECONDS : 6 SECONDS)
 				volcanos++
 		if(FLUX)
 			for(var/mob/living/carbon/human/H in view(7, src))
@@ -399,7 +400,7 @@ Difficulty: Hard
 		if(VORTEX)
 			visible_message("<span class='danger'>[src] begins vibrate rapidly. It's causing an earthquake!</span>")
 			for(var/turf/turf in range(9,get_turf(target)))
-				if(prob(enraged? 40 : 15))
+				if(prob(enraged ? 40 : 15))
 					new /obj/effect/temp_visual/target/ancient(turf)
 		if(CRYO)
 			visible_message("<span class='danger'>[src]'s shell opens slightly, as sensors begin locking on to everyone around it!</span>")
@@ -410,14 +411,14 @@ Difficulty: Hard
 	say(pick("JKVRUEOTM XGC VUCKX", "KXXUX OT GTUSGRE IUTZGOTSKTZ", "YZGHOROZE OT OTYZGHOROZE OT YZGHOROZE OT OTYZGH-"))
 	var/list/turfs = list()
 	var/anomalies = 0
-	for(var/turf/T in view(enraged? 7 : 5, src))
+	for(var/turf/T in view(enraged ? 7 : 5, src))
 		if(T.density)
 			continue
 		turfs += T
 	while(anomalies < (enraged? 5 : 3) && length(turfs))
 		var/turf/spot = pick(turfs)
 		turfs -= spot
-		var/timetouse = enraged? 25 SECONDS : 15 SECONDS
+		var/timetouse = enraged ? 25 SECONDS : 15 SECONDS
 		switch(mode)
 			if(BLUESPACE)
 				var/obj/effect/anomaly/bluespace/A = new(spot, timetouse, FALSE)
@@ -574,7 +575,7 @@ Difficulty: Hard
 		if(charging)
 			if(mode == PYRO)
 				var/turf/C = get_turf(src)
-				new /obj/effect/temp_visual/lava_warning(C, enraged? 18 SECONDS : 6 SECONDS)
+				new /obj/effect/temp_visual/lava_warning(C, enraged ? 18 SECONDS : 6 SECONDS)
 				for(var/turf/T in range (1,src))
 					new /obj/effect/hotspot(T)
 					T.hotspot_expose(700,50,1)
@@ -585,7 +586,7 @@ Difficulty: Hard
 				T.ex_act(3)
 			if(mode == CRYO)
 				var/turf/simulated/S = get_turf(src)
-				S.MakeSlippery(TURF_WET_ICE, enraged? rand(25, 35 SECONDS) : rand(10, 20 SECONDS))
+				S.MakeSlippery(TURF_WET_ICE, enraged ? rand(25, 35 SECONDS) : rand(10, 20 SECONDS))
 				for(var/turf/T in range (1, src))
 					new /obj/effect/snowcloud(T)
 					for(var/mob/living/carbon/C in T.contents)
