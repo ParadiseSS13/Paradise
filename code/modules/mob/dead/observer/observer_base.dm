@@ -552,8 +552,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/n2_concentration = environment.nitrogen/total_moles
 		var/co2_concentration = environment.carbon_dioxide/total_moles
 		var/plasma_concentration = environment.toxins/total_moles
+		var/n2o_concentration = environment.sleeping_agent/total_moles
 
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
+		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration+n2o_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
 			to_chat(src, "<span class='notice'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
 		else
@@ -571,6 +572,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		if(plasma_concentration > 0.01)
 			to_chat(src, "<span class='warning'>Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)</span>")
+
+		if(n2o_concentration > 0.01)
+			to_chat(src, "<span class='warning'>N2O: [round(n2o_concentration*100)]% ([round(environment.sleeping_agent,0.01)] moles)</span>")
 
 		if(unknown_concentration > 0.01)
 			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)</span>")
