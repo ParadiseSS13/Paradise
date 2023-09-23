@@ -1088,7 +1088,7 @@
 
 				if("parallax_darkness")
 					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
-					parent?.mob?.hud_used?.update_parallax_pref()
+					parent.mob?.hud_used?.update_parallax_pref()
 
 				if("screentip_mode")
 					var/desired_screentip_mode = clamp(input(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size") as null|num, 0, 20)
