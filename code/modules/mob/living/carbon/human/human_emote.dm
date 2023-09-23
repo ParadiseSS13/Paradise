@@ -37,6 +37,44 @@
 	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/clap
+	key = "clap"
+	key = "clap"
+	key_third_person = "claps"
+	message = "claps."
+	message_mime = "claps silently."
+	message_param = "claps at %t."
+	emote_type = EMOTE_SOUND
+	vary = TRUE
+
+/datum/emote/living/carbon/human/clap/run_emote(mob/user, params, type_override, intentional)
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
+		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
+			// no arms...
+			to_chat(user, "<span class='warning'>You need arms to be able to clap.</span>")
+		else
+			// well, we've got at least one
+			user.visible_message("[user] makes the sound of one hand clapping.")
+		return TRUE
+
+	return ..()
+
+/datum/emote/living/carbon/human/clap/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+	if(!H.mind?.miming)
+		return pick(
+			'sound/misc/clap1.ogg',
+			'sound/misc/clap2.ogg',
+			'sound/misc/clap3.ogg',
+			'sound/misc/clap4.ogg')
+
 /datum/emote/living/carbon/human/crack
 	key = "crack"
 	key_third_person = "cracks"
@@ -726,21 +764,6 @@
 	// catHisses1.wav by Zabuhailo. Edited.
 	// https://freesound.org/people/Zabuhailo/sounds/146963/
 
-/datum/emote/living/carbon/human/meow
-	key = "meow"
-	key_third_person = "meows"
-	message = "meows."
-	message_mime = "meows silently."
-	message_param = "meows at %t."
-	species_type_whitelist_typecache = list(/datum/species/tajaran)
-	age_based = TRUE
-	sound = "sound/effects/tajaranmeow.ogg"
-	volume = 75
-	muzzled_noises = list("soft")
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
-	// Cat Meow Sound Effects by Loudest Paws. Cut.
-	// https://www.youtube.com/watch?v=GBiWYNP-uQI
-
 /datum/emote/living/carbon/human/rattle
 	key = "rattle"
 	key_third_person = "rattles"
@@ -779,4 +802,3 @@
 	var/obj/item/organ/external/bodypart = pick(H.bodyparts)
 	message = "cracks their [bodypart.name]!"
 	. = ..()
-
