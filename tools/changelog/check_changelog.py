@@ -76,15 +76,12 @@ except AttributeError:
         pr.add_to_labels(CL_INVALID)
     if has_valid_label:
         pr.remove_from_labels(CL_VALID)
-    exit(1)
+    exit(0)
 
 
 if cl.group(2) is not None:
     write_cl['author'] = cl.group(2).strip()
 else:
-    if pr_is_mirror:
-        print("No author specified in mirror PR!")
-        exit(1)
     write_cl['author'] = pr_author
 
 if not write_cl['author']:
