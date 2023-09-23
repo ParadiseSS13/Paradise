@@ -152,10 +152,8 @@
 	pixel_y = 5
 	},
 /obj/structure/table/glass,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
-/obj/item/reagent_containers/glass/beaker/bluespace,
+/obj/item/storage/box/beakers/bluespace,
+/obj/item/storage/box/beakers/bluespace,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "qI" = (
@@ -322,10 +320,19 @@
 /obj/item/clothing/under/rank/civilian/hydroponics,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"IJ" = (
+/obj/machinery/computer{
+	dir = 4;
+	name = "Ship Auto-Pilot Console"
+	},
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
 "JL" = (
 /obj/machinery/computer{
-	dir = 4
+	dir = 4;
+	name = "Auto-Pilot Traveling Logs"
 	},
+/obj/item/paper/seed_vault/autopilot_logs,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Lg" = (
@@ -376,6 +383,14 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"Qb" = (
+/obj/structure/table/wood,
+/obj/item/seeds/grass{
+	name = "modificated pack of grass seeds"
+	},
+/obj/item/paper/seed_vault/terraformation,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
 "QX" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -389,6 +404,11 @@
 /area/ruin/powered/seedvault)
 "Vu" = (
 /obj/machinery/seed_extractor,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
+"VI" = (
+/obj/item/paper/seed_vault,
+/obj/structure/table/wood,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Wu" = (
@@ -415,6 +435,14 @@
 	pixel_y = 6
 	},
 /obj/structure/table/wood,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
+"XO" = (
+/obj/structure/table/wood,
+/obj/item/pickaxe/mini,
+/obj/item/pickaxe/mini,
+/obj/item/pickaxe/mini,
+/obj/item/pickaxe/mini,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "ZQ" = (
@@ -570,7 +598,7 @@ yZ
 yZ
 no
 FS
-JL
+IJ
 JL
 FS
 no
@@ -595,7 +623,7 @@ no
 no
 yZ
 no
-vt
+Qb
 vt
 vt
 vt
@@ -732,7 +760,7 @@ vt
 vt
 bE
 no
-vt
+VI
 no
 no
 yZ
@@ -1019,7 +1047,7 @@ vt
 bE
 no
 vt
-uO
+XO
 no
 yZ
 yZ
