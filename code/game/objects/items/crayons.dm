@@ -23,9 +23,13 @@
 	var/dat
 	var/busy = FALSE
 	var/list/validSurfaces = list(/turf/simulated/floor)
-	var/times_eaten = 0 //How many times this crayon has been gnawed on
-	var/max_bites = 4 //How many times a crayon can be bitten before being depleted. You eated it
+	/// How many times this crayon has been gnawed on
+	var/times_eaten = 0
+	/// How many times a crayon can be bitten before being depleted. You eated it
+	var/max_bites = 4
+	/// The stored message in the crayon.
 	var/preset_message
+	/// The index of the character in the message that will be drawn next.
 	var/preset_message_index = 0
 
 /obj/item/toy/crayon/suicide_act(mob/user)
