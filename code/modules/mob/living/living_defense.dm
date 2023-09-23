@@ -269,7 +269,7 @@
 	if(user.pull_force < move_force)
 		return FALSE
 	if(IS_HORIZONTAL(user))
-		to_chat(user, "<span class='notice'>You fail to get a good grip on [src]!</span>")
+		to_chat(user, "<span class='warning'>You fail to get a good grip on [src]!</span>")
 		return
 
 	for(var/obj/item/grab/G in grabbed_by)
