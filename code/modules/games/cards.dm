@@ -535,7 +535,7 @@
 /obj/item/cardhand/update_name()
 	. = ..()
 	if(length(cards) > 1)
-		name = "hand of cards"
+		name = "hand of [length(cards)] cards"
 	else
 		name = "playing card"
 
@@ -544,7 +544,11 @@
 	if(length(cards) > 1)
 		desc = "Some playing cards."
 	else
-		desc = "playing card."
+		if(concealed)
+			desc = "A playing card. You can only see the back."
+		else
+			var/datum/playingcard/card = cards[1]
+			desc = "\A [card.name]."
 
 /obj/item/cardhand/update_icon_state()
 	return
@@ -575,21 +579,29 @@
 		return
 
 	var/offset = FLOOR(20/length(cards) + 1, 1)
-	var/i = 0
-	for(var/datum/playingcard/P in cards)
-		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
-		switch(direction)
-			if(SOUTH)
-				I.pixel_x = 8-(offset*i)
-			if(WEST)
-				I.pixel_y = -6+(offset*i)
-			if(EAST)
-				I.pixel_y = 8-(offset*i)
-			else
-				I.pixel_x = -7+(offset*i)
-		I.transform = M
-		. += I
+	// var/i = 0
+	for(var/i in 1 to length(cards))
+		var/datum/playingcard/P = cards[i]
+		if(i >= 20)
+			// skip the rest and just draw the last one on top
+			. += render_card(cards[length(cards)], M, i, offset)
+			break
+		. += render_card(P, M, i, offset)
 		i++
+
+/obj/item/cardhand/proc/render_card(datum/playingcard/card, matrix/mat, index, offset)
+	var/image/I = new(icon, (concealed ? "[card.back_icon]" : "[card.card_icon]") )
+	switch(direction)
+		if(SOUTH)
+			I.pixel_x = 8 - (offset * index)
+		if(WEST)
+			I.pixel_y = -6 + (offset * index)
+		if(EAST)
+			I.pixel_y = 8 - (offset * index)
+		else
+			I.pixel_x = -7 + (offset * index)
+	I.transform = mat
+	return I
 
 /obj/item/cardhand/dropped(mob/user)
 	..()
