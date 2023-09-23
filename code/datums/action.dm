@@ -452,10 +452,6 @@
 		return
 	return ..()
 
-
-/datum/action/item_action/remove_badge
-	name = "Remove Holobadge"
-
 /datum/action/item_action/drop_gripped_item
 	name = "Drop gripped item"
 

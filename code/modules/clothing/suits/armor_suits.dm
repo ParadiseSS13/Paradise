@@ -14,6 +14,35 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		)
 	w_class = WEIGHT_CLASS_NORMAL
+	var/obj/item/clothing/accessory/holobadge/attached_badge
+
+/obj/item/clothing/suit/armor/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/accessory/holobadge))
+		var/obj/item/clothing/accessory/holobadge/badge = I
+		if(!badge.stored_name)
+			to_chat(user, "<span class='warn'>Attaching a badge before swiping an ID would be pretty pointless!</span>")
+			return
+		if(user.unEquip(I))
+			add_fingerprint(user)
+			I.forceMove(src)
+			attached_badge = I
+
+			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
+		return
+	..()
+
+/obj/item/clothing/suit/armor/AltClick(mob/user)
+	if(attached_badge)
+		add_fingerprint(user)
+		user.put_in_hands(attached_badge)
+
+		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
+		attached_badge = null
+
+/obj/item/clothing/suit/armor/examine(mob/user)
+	. = ..()
+	if(attached_badge)
+		. += "<span class='notice'>This one has [attached_badge] attached to it.</span>"
 
 /obj/item/clothing/suit/armor/vest
 	name = "armor"
@@ -42,44 +71,12 @@
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
-	desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
+	desc = "An armored vest that protects against some damage."
 	sprite_sheets = list(
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi'
 	)
 	icon_state = "armor"
 	item_state = "armor"
-	var/obj/item/clothing/accessory/holobadge/attached_badge
-
-/obj/item/clothing/suit/armor/vest/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clothing/accessory/holobadge))
-		if(user.unEquip(I))
-			add_fingerprint(user)
-			I.forceMove(src)
-			attached_badge = I
-			var/datum/action/A = new /datum/action/item_action/remove_badge(src)
-			A.Grant(user)
-			icon_state = "armorsec"
-			user.update_inv_wear_suit()
-			desc = "An armored vest that protects against some damage. This one has [attached_badge] attached to it."
-			to_chat(user, "<span class='notice'>You attach [attached_badge] to [src].</span>")
-		return
-	..()
-
-/obj/item/clothing/suit/armor/vest/security/attack_self(mob/user)
-	if(attached_badge)
-		add_fingerprint(user)
-		user.put_in_hands(attached_badge)
-
-		QDEL_LIST_CONTENTS(actions)
-
-		icon_state = "armor"
-		user.update_inv_wear_suit()
-		desc = "An armored vest that protects against some damage. This one has a clip for a holobadge."
-		to_chat(user, "<span class='notice'>You remove [attached_badge] from [src].</span>")
-		attached_badge = null
-
-		return
-	..()
 
 /obj/item/clothing/suit/armor/vest/street_judge
 	name = "judge's security armor"

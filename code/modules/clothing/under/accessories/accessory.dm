@@ -290,6 +290,7 @@
 	slot_flags = SLOT_BELT | SLOT_TIE
 
 	var/stored_name = null
+	var/deputy_badge = FALSE
 
 /obj/item/clothing/accessory/holobadge/cord
 	icon_state = "holobadge-cord"
@@ -297,11 +298,11 @@
 
 /obj/item/clothing/accessory/holobadge/attack_self(mob/user)
 	if(!stored_name)
-		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless.")
+		to_chat(user, "Waving around a badge before swiping an ID would be pretty pointless!")
 		return
 	if(isliving(user))
-		user.visible_message("<span class='warning'>[user] displays [user.p_their()] Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>",
-		"<span class='warning'>You display your Nanotrasen Internal Security Legal Authorization Badge.\nIt reads: [stored_name], NT Security.</span>")
+		user.visible_message("<span class='warning'>[user] displays [user.p_their()] <b>Nanotrasen Internal Security Legal Authorization Badge</b>.\nIt reads: [stored_name], NT Security.</span>",
+		"<span class='warning'>You display your <b>Nanotrasen Internal Security Legal Authorization Badge</b>.\nIt reads: [stored_name], NT Security.</span>")
 
 /obj/item/clothing/accessory/holobadge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
@@ -314,11 +315,22 @@
 			var/obj/item/pda/pda = I
 			id_card = pda.id
 
+		if(ACCESS_ARMORY in id_card.access)
+			switch(alert(user, "Would you like to activate this Holobadge as a Deputy's Holobadge?", "Choose", "Yes", "No"))
+				if("Yes")
+					deputy_badge = TRUE
+					return
+
 		if(ACCESS_SEC_DOORS in id_card.access || emagged)
 			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
 			stored_name = id_card.registered_name
 			name = "holobadge ([stored_name])"
 			desc = "This glowing blue badge marks [stored_name] as THE LAW."
+		else if(deputy_badge)
+			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
+			stored_name = id_card.registered_name
+			name = "deputy holobadge ([stored_name])"
+			desc = "This glowing blue badge marks [stored_name] as a deputy of THE LAW."
 		else
 			to_chat(user, "<span class='warning'>[src] rejects your insufficient access rights.</span>")
 		return
