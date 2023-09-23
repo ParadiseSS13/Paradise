@@ -12,17 +12,22 @@
 
 /obj/effect/mob_spawn/human/alive/ghost_bar/create(ckey, flavour = TRUE, name, mob/user = usr) // So divorced from the normal proc it's just being overriden
 	var/datum/character_save/save_to_load
-	if(alert(user, "Would you like to use one of your saved characters in your character creator?",, "Yes", "No") == "Yes") 
+	if(alert(user, "Would you like to use one of your saved characters in your character creator?",, "Yes", "No") == "Yes")
 		var/list/our_characters_names = list()
 		var/list/our_character_saves = list()
 		for(var/datum/character_save/saves in user.client.prefs.character_saves)
 			our_characters_names += saves.real_name
 			our_character_saves += list(saves.real_name = saves)
+
 		var/character_name = input("Select a character", "Character selection") as null|anything in our_characters_names
 		if(!character_name)
 			return
+		if(QDELETED(user))
+			return
 		save_to_load = our_character_saves[character_name]
 	else
+		if(QDELETED(user))
+			return
 		save_to_load = new
 		save_to_load.randomise()
 	var/mob/living/carbon/human/H = new(get_turf(src))
@@ -33,9 +38,15 @@
 	equip_item(H, /obj/item/radio/headset/deadsay, slot_l_ear)
 	H.dna.species.before_equip_job(/datum/job/assistant, H)
 	H.dna.species.after_equip_job(/datum/job/assistant, H)
+	if(isgrey(H))
+		REMOVE_TRAIT(H, TRAIT_WINGDINGS, GENETIC_MUTATION)
 	H.dna.species.remains_type = /obj/effect/decal/cleanable/ash
+	var/obj/item/implant/dust/I = new
+	I.implant(H, null)
 	for(var/gear in save_to_load.loadout_gear)
 		var/datum/gear/G = GLOB.gear_datums[text2path(gear) || gear]
+		if(G.allowed_roles) // Fix due to shitty HUD code
+			continue
 		if(G.slot)
 			if(H.equip_to_slot_or_del(G.spawn_item(H), G.slot, TRUE))
 				to_chat(H, "<span class='notice'>Equipping you with [G.display_name]!</span>")

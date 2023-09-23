@@ -142,3 +142,4 @@
 	icon_state = "observatory"
 	requires_power = FALSE
 	has_gravity = TRUE
+	hide_attacklogs = TRUE
