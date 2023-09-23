@@ -55,6 +55,7 @@
 	anchored = TRUE
 	oreAmount = 0
 
+// Cyberiad statue
 /obj/structure/statue/cyberiad
 	name = "статуя Кибериады"
 	desc = "Гигантская модель научной станции «Кибериада». Судя по отличиям в конструкции, станцию несколько раз перестраивали."
@@ -107,6 +108,61 @@
 	icon_state = "south"
 
 /obj/structure/statue/cyberiad/se
+	icon_state = "se"
+
+// Delta statue
+/obj/structure/statue/delta
+	name = "статуя Кербероса"
+	desc = "Гигантская модель научной станции «Керберос». Судя по отличиям в конструкции, станцию несколько раз перестраивали."
+	icon = 'modular_ss220/unique_objects/icons/delta.dmi'
+	anchored = TRUE
+	max_integrity = 500
+	oreAmount = 0
+
+/obj/structure/statue/delta/nw
+	icon_state = "nw"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/delta/north
+	icon_state = "north"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/delta/ne
+	icon_state = "ne"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+// Adds transparency when the player gets behind an object, or is near it
+/obj/structure/statue/delta/nw/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, -3, -2, 6, 4)
+
+/obj/structure/statue/delta/north/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, -3, -2, 6, 4)
+
+/obj/structure/statue/delta/ne/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, -3, -2, 6, 4)
+
+/obj/structure/statue/delta/w
+	icon_state = "west"
+
+/obj/structure/statue/delta/c
+	icon_state = "center"
+
+/obj/structure/statue/delta/e
+	icon_state = "east"
+
+/obj/structure/statue/delta/sw
+	icon_state = "sw"
+
+/obj/structure/statue/delta/s
+	icon_state = "south"
+
+/obj/structure/statue/delta/se
 	icon_state = "se"
 
 // =========== items ===========

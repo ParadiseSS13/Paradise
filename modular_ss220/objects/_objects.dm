@@ -14,3 +14,7 @@
 		new /datum/stack_recipe("reinforced plasteel platform", /obj/structure/platform/reinforced, 4, time = 40,one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("reinforced plasteel platform corner", /obj/structure/platform/reinforced/corner, 2, time = 30,one_per_turf = TRUE, on_floor = TRUE)
 	)
+
+	GLOB.wood_recipes += list(
+		new /datum/stack_recipe("tribune", /obj/structure/tribune, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE)
+	)

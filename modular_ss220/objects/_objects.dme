@@ -1,4 +1,7 @@
 #include "_objects.dm"
 
-#include "code/platform.dm"
 #include "code/miscellaneous.dm"
+#include "code/officetoys.dm"
+#include "code/papershredder.dm"
+#include "code/platform.dm"
+#include "code/tribune.dm"
