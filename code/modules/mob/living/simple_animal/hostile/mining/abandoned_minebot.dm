@@ -9,7 +9,6 @@
 	vision_range = 6
 	aggro_vision_range = 7
 	status_flags = CANPUSH
-	mouse_opacity = MOUSE_OPACITY_ICON
 	weather_immunities = list("ash")
 	move_to_delay = 10
 	maxHealth = 75
@@ -18,8 +17,6 @@
 	melee_damage_upper = 15
 	obj_damage = 10
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	check_friendly_fire = TRUE
-	stop_automated_movement_when_pulled = TRUE
 	attacktext = "drills into"
 	attack_sound = 'sound/weapons/circsawhit.ogg'
 	projectiletype = /obj/item/projectile/kinetic
@@ -27,10 +24,12 @@
 	ranged_cooldown_time = 30
 	ranged_message = "fires"
 	speak_emote = list("states")
+	throw_message = "does not go through the armor of"
 	del_on_death = TRUE
-	light_range = 5
-	var/sight_flags = SEE_TURFS
+	light_range = 4
+	light_color = LIGHT_COLOR_RED
 	ranged = TRUE
+	dodging = FALSE // I feel like they are pretty strong as is, no need to dodge.
 	retreat_distance = 2
 	minimum_distance = 1
 	deathmessage = "blows apart!"
@@ -44,8 +43,7 @@
 		/obj/item/borg/upgrade/modkit/damage,
 		/obj/item/borg/upgrade/modkit/range)
 	var/ore = pick(/obj/item/stack/ore/iron, /obj/item/stack/ore/plasma, /obj/item/stack/ore/glass/basalt)
-	var/obj/item/stack/stack = new ore(loc)
-	stack.amount = rand(5, 15)
+	new ore(loc, rand(5, 15))
 	. = ..()
 
 /mob/living/simple_animal/hostile/asteroid/abandoned_minebot/GiveTarget(new_target)
