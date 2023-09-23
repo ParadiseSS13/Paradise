@@ -83,7 +83,9 @@
 	data["painame"] = paicard ? paicard.pai.name : null
 	data["canhack"] = canhack(user)
 	data["emagged"] = emagged // this is an int, NOT a boolean
-	data["remote_disabled"] = remote_disabled // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
+	
+	// -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
+	data["remote_disabled"] = remote_disabled 
 	data["hullplating"] = autotile
 	data["replace"] = replacetiles
 	data["eat"] = eattiles
