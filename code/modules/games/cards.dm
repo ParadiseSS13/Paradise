@@ -345,15 +345,13 @@
 	else if(istype(O,/obj/item/cardhand))
 		var/obj/item/cardhand/H = O
 		if(H.parentdeck == parentdeck)
-			for(var/datum/playingcard/P in cards)
-				H.cards += P
 			H.concealed = concealed
-			qdel(src)
-			// todo tomorrow: make it so that cards
-			H.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
+			cards.Add(H.cards)
+			qdel(H)
+			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 			return
 		else
-			to_chat(user,"<span class='notice'>You cannot mix cards from other deck!</span>")
+			to_chat(user,"<span class='notice'>You cannot mix cards from other decks!</span>")
 			return
 	..()
 
@@ -578,9 +576,8 @@
 
 	var/offset = FLOOR(20/length(cards) + 1, 1)
 	var/i = 0
-	for(var/datum/playingcard/P in reverselist(cards))
+	for(var/datum/playingcard/P in cards)
 		var/image/I = new(icon, (concealed ? "[P.back_icon]" : "[P.card_icon]") )
-		//I.pixel_x = origin+(offset*i)
 		switch(direction)
 			if(SOUTH)
 				I.pixel_x = 8-(offset*i)
