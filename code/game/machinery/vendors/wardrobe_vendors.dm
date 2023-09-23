@@ -762,6 +762,7 @@
 	products = list(
 		/obj/item/clothing/under/rank/centcom/nct = 2,
 		/obj/item/clothing/head/beret/nct = 2,
+		/obj/item/clothing/gloves/color/white = 2,
 		/obj/item/clothing/shoes/laceup = 2,
 		/obj/item/clothing/shoes/black = 2,
 		/obj/item/clothing/shoes/brown = 2,
@@ -769,8 +770,8 @@
 		/obj/item/clothing/head/beret/med = 2,
 		/obj/item/clothing/head/beret/sci = 2,
 		/obj/item/clothing/head/beret/eng = 2,
-		/obj/item/clothing/head/beret/atmos = 2,
-		/obj/item/clothing/head/beret/black = 2 // Service?
+		/obj/item/clothing/head/beret/atmos = 2
+		// /obj/item/clothing/head/beret/black = 2 // Service?
 		// /obj/item/clothing/head/beret/sup // Supply, when its in.
 	)
 	prices = list()
