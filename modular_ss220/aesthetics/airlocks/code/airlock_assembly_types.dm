@@ -131,3 +131,16 @@
 
 /obj/structure/door_assembly/door_assembly_wood
 	icon = 'modular_ss220/aesthetics/airlocks/icons/station/wood.dmi'
+
+/obj/structure/door_assembly/multi_tile/command
+	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/command_glass_large.dmi'
+
+/obj/structure/door_assembly/multi_tile/security
+	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/security_glass_large.dmi'
+
+/obj/structure/door_assembly/multi_tile/engineering
+	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/engineering_glass_large.dmi'
+
+/obj/structure/door_assembly/multi_tile/atmospheric
+	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/atmospheric_glass_large.dmi'
+
