@@ -1647,7 +1647,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/gloves/color/brown/cargo,
+/obj/item/paper/fluff/ruins/althland/geology,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
@@ -1938,6 +1938,7 @@
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Computer"
 	},
+/obj/item/paper/fluff/ruins/althland/geology,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
