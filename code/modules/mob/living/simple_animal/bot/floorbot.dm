@@ -306,17 +306,17 @@
 	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
+	var/turf/simulated/floor/F = target
 	if(mode != BOT_REPAIRING)
 		return
 
 	if(replacetiles)
+		F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 	else
 		if(autotile) //Build the floor and include a tile.
-			var/turf/simulated/floor/F = target
 			F.break_tile_to_plating()
 			target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
-
 		else //Build a hull plating without a floor tile.
 			target_turf.ChangeTurf(/turf/simulated/floor/plating)
 	mode = BOT_IDLE
