@@ -179,3 +179,20 @@
 
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
+
+/obj/machinery/economy/vending/toyliberationstation/crowbar_act(mob/user, obj/item/I)
+	if(!component_parts)
+		return
+	. = TRUE
+	if(tilted)
+		to_chat(user, "<span class='warning'>You'll need to right it first!</span>")
+		return
+	to_chat(user, "<span class='warning'>You find yourself unable to pry the components out of the vending machine!</span>")
+
+/obj/machinery/economy/vending/toyliberationstation/wrench_act(mob/user, obj/item/I)
+	if(tilted)
+		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	to_chat(user, "<span class='warning'>You are unable to loosen the bolts!</span>")
