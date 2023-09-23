@@ -274,10 +274,9 @@
 /obj/item/mod/module/flashlight/extinguish_light(force)
 	. = ..()
 	on_deactivation(FALSE)
-	if(force)
-		COOLDOWN_START(src, activation_cooldown, 20 SECONDS)
+	COOLDOWN_START(src, activation_cooldown, 20 SECONDS)
 
-	to_chat(mod.wearer, "<span class='warning'>Your [src] shuts off!</span>")
+	to_chat(mod.wearer, "<span class='warning'>Your [name] shuts off!</span>")
 
 ///Dispenser - Dispenses an item after a time passes.
 /obj/item/mod/module/dispenser
