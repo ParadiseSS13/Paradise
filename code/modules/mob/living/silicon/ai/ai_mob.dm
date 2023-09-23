@@ -1327,7 +1327,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(stat != DEAD)
 			to_chat(user, "<span class='notice'>Beginning active intelligence transfer: please wait.</span>")
 
-			if(!do_after(user, transfer_time, target = src) || !Adjacent(user))
+			if(!do_after(user, 5 SECONDS, target = src) || !Adjacent(user))
 				to_chat(user, "<span class='warning'>Intelligence transfer interrupted.</span>")
 				return
 
