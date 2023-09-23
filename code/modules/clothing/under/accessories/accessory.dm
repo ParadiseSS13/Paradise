@@ -319,6 +319,8 @@
 			switch(alert(user, "Would you like to activate this Holobadge as a Deputy's Holobadge?", "Choose", "Yes", "No"))
 				if("Yes")
 					deputy_badge = TRUE
+					name = "deputy's holobadge"
+					desc = "This glowing blue badge marks the holder as a Deputy of THE LAW"
 					return
 
 		if(ACCESS_SEC_DOORS in id_card.access || emagged)
@@ -330,7 +332,7 @@
 			to_chat(user, "<span class='notice'>You imprint your ID details onto the badge.</span>")
 			stored_name = id_card.registered_name
 			name = "deputy holobadge ([stored_name])"
-			desc = "This glowing blue badge marks [stored_name] as a deputy of THE LAW."
+			desc = "This glowing blue badge marks [stored_name] as a Deputy of THE LAW."
 		else
 			to_chat(user, "<span class='warning'>[src] rejects your insufficient access rights.</span>")
 		return
