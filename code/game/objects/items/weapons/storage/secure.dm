@@ -221,7 +221,7 @@
 
 /obj/item/storage/secure/briefcase/syndie/populate_contents()
 	..()
-		new /obj/item/stack/spacecash/c1000(src)
+	new /obj/item/stack/spacecash/c1000(src)
 
 // -----------------------------
 //        Secure Safe
