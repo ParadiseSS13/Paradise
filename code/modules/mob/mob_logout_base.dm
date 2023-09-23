@@ -17,7 +17,7 @@
 		else if(temp_admin.rights & R_MENTOR)
 			var/list/mentorcounter = staff_countup(R_MENTOR)
 			if(mentorcounter[1] == 0) // No active mentors
-				GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_MENTOR, "[key_name(src)] 	 0 active mentors, [mentorcounter[2]] non-mentor staff, [mentorcounter[3]] inactive mentors.")
+				GLOB.discord_manager.send2discord_simple(DISCORD_WEBHOOK_MENTOR, "[key_name(src)] logged out - 0 active mentors, [mentorcounter[2]] non-mentor staff, [mentorcounter[3]] inactive mentors.")
 
 	..()
 	update_morgue()
