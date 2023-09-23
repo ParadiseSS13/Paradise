@@ -280,7 +280,7 @@
 	anchored = TRUE
 
 	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
-		visible_message("<span class='notice'>["[src] begins to repair the hole."] </span>")
+		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
