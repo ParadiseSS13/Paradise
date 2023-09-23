@@ -14,17 +14,15 @@ const BotList = (props, context) => {
   const { beepsky } = data;
   const { bots } = beepsky;
 
-  return (
-    bots.map((b) => (
-      <Box key={b.Name}>
-        <Button
-          content={b.Name}
-          icon="cog"
-          onClick={() => act('control', { bot: b.uid })}
-        />
-      </Box>
-    ))
-  );
+  return bots.map((b) => (
+    <Box key={b.Name}>
+      <Button
+        content={b.Name}
+        icon="cog"
+        onClick={() => act('control', { bot: b.uid })}
+      />
+    </Box>
+  ));
 };
 
 const BotStatus = (props, context) => {
