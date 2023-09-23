@@ -1647,7 +1647,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/paper/fluff/ruins/althland/geology,
+/obj/item/paper/fluff/ruins/althland/journal,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
