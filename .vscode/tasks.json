@@ -1,0 +1,54 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "dreammaker",
+			"dme": "paradise.dme",
+			"problemMatcher": [
+				"$dreammaker"
+			],
+			"group": "build",
+			"label": "dm: build - paradise.dme"
+		},
+		{
+			"type": "shell",
+			"command": "tgui/bin/tgui-build",
+			"windows": {
+				"command": ".\\tgui\\bin\\tgui-build.bat"
+			},
+			"problemMatcher": [
+				"$tsc",
+				"$eslint-stylish"
+			],
+			"group": "build",
+			"label": "tgui: build"
+		},
+		{
+			"type": "shell",
+			"command": "tgui/bin/tgui-dev-server",
+			"windows": {
+				"command": ".\\tgui\\bin\\tgui-dev-server.bat"
+			},
+			"problemMatcher": [
+				"$tsc",
+				"$eslint-stylish"
+			],
+			"group": "build",
+			"label": "tgui: run dev server"
+		}
+		,
+		{
+			"type": "shell",
+			"command": "tgui/bin/tgui-formatting",
+			"windows": {
+				"command": ".\\tgui\\bin\\tgui-formatting.bat"
+			},
+			"problemMatcher": [
+				"$tsc",
+				"$eslint-stylish"
+			],
+			"group": "build",
+			"label": "tgui: run prettier formatting"
+		}
+	]
+}
