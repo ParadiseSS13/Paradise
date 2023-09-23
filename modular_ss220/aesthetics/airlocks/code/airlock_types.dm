@@ -1,6 +1,4 @@
-/*
-	Station Airlocks Regular
-*/
+// Station airlocks
 /obj/machinery/door/airlock/command
 	icon = 'modular_ss220/aesthetics/airlocks/icons/station/heads/command.dmi'
 
@@ -89,9 +87,7 @@
 	icon = 'modular_ss220/aesthetics/airlocks/icons/station/corporate.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_lawyer
 
-/*
-	Station Airlocks Glass
-*/
+// Station airlocks glass
 /obj/machinery/door/airlock/command/cap/glass
 	opacity = 0
 	glass = TRUE
@@ -147,9 +143,7 @@
 	opacity = 0
 	glass = TRUE
 
-/*
-	Station Airlocks Mineral
-*/
+// Mineral airlocks
 /obj/machinery/door/airlock/gold
 	icon = 'modular_ss220/aesthetics/airlocks/icons/station/gold.dmi'
 
@@ -177,31 +171,23 @@
 /obj/machinery/door/airlock/wood
 	icon = 'modular_ss220/aesthetics/airlocks/icons/station/wood.dmi'
 
-/*
-	Station2 Airlocks
-*/
+// Station2 airlocks
 /obj/machinery/door/airlock/public
 	icon = 'modular_ss220/aesthetics/airlocks/icons/station2/glass.dmi'
 	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/station2/overlays.dmi'
 
-/*
-	External Airlocks
-*/
+// External airlocks
 /obj/machinery/door/airlock/external
 	icon = 'modular_ss220/aesthetics/airlocks/icons/external/external.dmi'
 	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/external/overlays.dmi'
 	note_overlay_file = 'modular_ss220/aesthetics/airlocks/icons/external/overlays.dmi'
 
-/*
-	CentCom Airlocks
-*/
+// Centcom airlocks
 /obj/machinery/door/airlock/centcom
 	icon = 'modular_ss220/aesthetics/airlocks/icons/centcom/centcom.dmi'
 	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/centcom/overlays.dmi'
 
-/*
-	Hatch Airlocks
-*/
+// Hatch airlocks
 /obj/machinery/door/airlock/hatch
 	icon = 'modular_ss220/aesthetics/airlocks/icons/hatch/centcom.dmi'
 	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/hatch/overlays.dmi'
@@ -212,16 +198,12 @@
 	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/hatch/overlays.dmi'
 	note_overlay_file = 'modular_ss220/aesthetics/airlocks/icons/hatch/overlays.dmi'
 
-/*
-	High Security Airlocks
-*/
+// High security airlocks
 /obj/machinery/door/airlock/highsecurity
 	icon = 'modular_ss220/aesthetics/airlocks/icons/highsec/highsec.dmi'
 	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/highsec/overlays.dmi'
 
-/*
-	Misc Airlocks
-*/
+// Multi-tile airlocks
 /obj/machinery/door/airlock/multi_tile
 	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/glass_large.dmi'
 	overlays_file = 'modular_ss220/aesthetics/airlocks/icons/glass_large/overlays.dmi'
@@ -243,6 +225,7 @@
 	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/atmospheric_glass_large.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile/atmospheric
 
+// Multi-tile airlocks glass
 /obj/machinery/door/airlock/multi_tile/command/glass
 	opacity = FALSE
 	glass = TRUE
