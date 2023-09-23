@@ -12,8 +12,8 @@
 	<br><br>Signed, <i>Harper Wynn</i>"
 
 /obj/item/paper/fluff/ruins/althland/geology
-name = "Manager Log"
-info = "Reports indicate a volcanic ash storm to smutter the region of our sector. Our position indicates we should be taking reduced impact from the weather, but the other sectors are having issues. \
+	name = "Manager Log"
+	info = "Reports indicate a volcanic ash storm to smutter the region of our sector. Our position indicates we should be taking reduced impact from the weather, but the other sectors are having issues. \
 	Sector Five, and Six in the highlands are currently undergoing possible evac from the severity. Farragus says we should shelter in place and cease operations until conditions return to normal. \
 	Ive got most of the men reinforcing our structure plating, and a shipment of supplies to help us sit and and wait for the storm to pass. \
 	Ashstorms have started feeling more frequent, didnt used to be this dangerous when I first got positioned to command this facility. \
