@@ -410,7 +410,7 @@
 	if(is_public) // Public consoles cant move the shuttle. Dont allow exploiters.
 		return
 	if(SSshuttle.supply.canMove())
-		to_chat(user, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, classified nuclear weaponry or homing beacons.</span>")
+		to_chat(user, "<span class='warning'>For safety reasons the automated supply shuttle cannot transport live organisms, undelivered mail, classified nuclear weaponry or homing beacons.</span>")
 	else if(SSshuttle.supply.getDockedId() == "supply_home")
 		SSshuttle.toggleShuttle("supply", "supply_home", "supply_away", 1)
 		investigate_log("| [key_name(user)] has sent the supply shuttle away. Shuttle contents: [SSeconomy.sold_atoms]", "cargo")
