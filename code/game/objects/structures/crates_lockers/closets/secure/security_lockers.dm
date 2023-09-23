@@ -303,5 +303,5 @@
 	new /obj/item/radio/headset/headset_ntc(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
-	new /obj/item/clothing/suit/mantle(src) // MMTODO - NEEDS SPRITE
-	new /obj/item/clothing/suit/mantle(src) // MMTODO - NEEDS SPRITE
+	new /obj/item/clothing/suit/storage/nct(src)
+	new /obj/item/clothing/suit/storage/nct(src)

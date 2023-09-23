@@ -377,6 +377,4 @@
 	icon_state = "trainercoat"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
-	ignore_suitadjust = 0
-	actions_types = list(/datum/action/item_action/button)
-	adjust_flavour = "unbutton"
+	ignore_suitadjust = TRUE

@@ -673,7 +673,7 @@
 /obj/machinery/economy/vending/traindrobe
 	name = "\improper TrainDrobe"
 	desc = "This wardrobe dispenses the attire of Nanotrasen's finest teaching force."
-	icon_state = trainerdrobe
+	icon_state = "trainerdrobe"
 	icon_lightmask = "base_drobe"
 	icon_panel = "drobe"
 	icon_broken = "base_drobe"
