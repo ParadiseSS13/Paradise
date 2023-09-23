@@ -298,7 +298,7 @@ SUBSYSTEM_DEF(shuttle)
 				continue
 			supply_shuttle_turfs += T
 	if(!length(supply_shuttle_turfs)) // In case some nutjob walled the supply shuttle 10 minutes into the round
-		log_debug("There were no available turfs on the Supply Shuttle to spawn a mail crate in!")
+		stack_trace("There were no available turfs on the Supply Shuttle to spawn a mail crate in!")
 		return
 	var/turf/spawn_location = pick(supply_shuttle_turfs)
 	new /obj/structure/closet/crate/mail(spawn_location)
