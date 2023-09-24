@@ -13,11 +13,11 @@ import { Window } from '../layouts';
 
 export const RoboticsControlConsole = (props, context) => {
   const { act, data } = useBackend(context);
-  const { can_hack, safety, show_detonate_all, cyborgs = [] } = data;
+  const { can_hack, safety, show_lock_all, cyborgs = [] } = data;
   return (
     <Window resizable>
       <Window.Content scrollable>
-        {!!show_detonate_all && (
+        {!!show_lock_all && (
           <Section title="Emergency Self Destruct">
             <Button
               icon={safety ? 'lock' : 'unlock'}
@@ -26,11 +26,11 @@ export const RoboticsControlConsole = (props, context) => {
               onClick={() => act('arm', {})}
             />
             <Button
-              icon="bomb"
+              icon="lock"
               disabled={safety}
-              content="Destroy ALL Cyborgs"
+              content="Lock ALL Cyborgs"
               color="bad"
-              onClick={() => act('nuke', {})}
+              onClick={() => act('masslock', {})}
             />
           </Section>
         )}

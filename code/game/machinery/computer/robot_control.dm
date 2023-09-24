@@ -162,7 +162,7 @@
 			hackable = can_hack(user, R),
 		)
 		data["cyborgs"] += list(cyborg_data)
-	data["show_detonate_all"] = (data["auth"] && length(data["cyborgs"]) > 0 && ishuman(user))
+	data["show_lock_all"] = (data["auth"] && length(data["cyborgs"]) > 0 && ishuman(user))
 	return data
 
 /obj/machinery/computer/robotics/ui_act(action, params)
@@ -176,34 +176,34 @@
 		to_chat(usr, "<span class='warning'>Access denied, borgs are no longer your station's property.</span>")
 		return
 	switch(action)
-		if("arm") // Arms the emergency self-destruct system
+		if("arm") // Arms the muli-lock system
 			if(issilicon(usr))
 				to_chat(usr, "<span class='danger'>Access Denied (silicon detected)</span>")
 				return
 			safety = !safety
-			to_chat(usr, "<span class='notice'>You [safety ? "disarm" : "arm"] the emergency self destruct.</span>")
+			to_chat(usr, "<span class='notice'>You [safety ? "disarm" : "arm"] the emergency lockdown system.</span>")
 			. = TRUE
-		if("nuke") // Destroys all accessible cyborgs if safety is disabled
+		if("masslock") // Destroys all accessible cyborgs if safety is disabled
 			if(issilicon(usr))
 				to_chat(usr, "<span class='danger'>Access Denied (silicon detected)</span>")
 				return
-			if(!can_detonate_any(usr, TRUE))
+			if(!can_detonate_any(usr, TRUE)) // Uses the same permissions as detonate.
 				return
 			if(safety)
-				to_chat(usr, "<span class='danger'>Self-destruct aborted - safety active</span>")
+				to_chat(usr, "<span class='danger'>Emergency lockdown aborted - safety active</span>")
 				return
-			message_admins("<span class='notice'>[key_name_admin(usr)] detonated all cyborgs!</span>")
-			log_game("\<span class='notice'>[key_name(usr)] detonated all cyborgs!</span>")
+			message_admins("<span class='notice'>[key_name_admin(usr)] locked all cyborgs!</span>")
+			log_game("\<span class='notice'>[key_name(usr)] locked all cyborgs!</span>")
 			for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 				if(isdrone(R))
 					continue
 				// Ignore antagonistic cyborgs
 				if(R.scrambledcodes)
 					continue
-				to_chat(R, "<span class='danger'>Self-destruct command received.</span>")
+				to_chat(R, "<span class='danger'>Emergency lockdown received.</span>")
 				if(R.connected_ai)
-					to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
-				R.self_destruct()
+					to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg lockdown detected: [R.name]</span><br>")
+				R.SetLockdown(!R.lockcharge)
 			. = TRUE
 		if("killbot") // destroys one specific cyborg
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
