@@ -18,7 +18,7 @@ export const RoboticsControlConsole = (props, context) => {
     <Window resizable>
       <Window.Content scrollable>
         {!!show_lock_all && (
-          <Section title="Emergency Self Destruct">
+          <Section title="Emergency Lock Down">
             <Button
               icon={safety ? 'lock' : 'unlock'}
               content={safety ? 'Disable Safety' : 'Enable Safety'}
