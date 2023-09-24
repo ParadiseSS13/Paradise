@@ -57,7 +57,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		doneLoading()
 
 	else
-		load()
+		load_parachat()
 
 	return 1
 
@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			if(!owner || loaded)
 				return
 
-/datum/chatOutput/proc/loadme()
+/datum/chatOutput/proc/load_parachat()
 	set waitfor = FALSE
 	if(!owner)
 		return
@@ -88,11 +88,17 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	owner << browse(file2text("parachat/dist/index.html"), "window=browseroutput")
 
-/client/verb/parachat_dev()
-	set name = "Reload"
-	set category = "Parachat"
+/client/verb/parachat_reload()
+	set name = "Reload Parachat"
+	set category = "Special Verbs"
 
-	chatOutput.loadme()
+	chatOutput.load_parachat()
+
+/client/verb/parachat_goonchat()
+	set name = "Use Old Chat"
+	set category = "Special Verbs"
+
+	chatOutput.load()
 
 /datum/chatOutput/Topic(href, list/href_list)
 	if(usr.client != owner)
