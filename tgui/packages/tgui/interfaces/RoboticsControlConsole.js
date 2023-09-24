@@ -43,6 +43,10 @@ export const RoboticsControlConsole = (props, context) => {
 const Cyborgs = (props, context) => {
   const { cyborgs, can_hack } = props;
   const { act, data } = useBackend(context);
+  let detonateText = "Detonate";
+  if(data.detonate_cooldown > 0){
+    detonateText += ' (' + data.detonate_cooldown + 's)';
+  }
   if (!cyborgs.length) {
     return (
       <NoticeBox>No cyborg units detected within access parameters.</NoticeBox>
@@ -80,8 +84,8 @@ const Cyborgs = (props, context) => {
             />
             <Button.Confirm
               icon="bomb"
-              content="Detonate"
-              disabled={!data.auth}
+              content={detonateText}
+              disabled={!data.auth  || data.detonate_cooldown > 0}
               color="bad"
               onClick={() =>
                 act('killbot', {
