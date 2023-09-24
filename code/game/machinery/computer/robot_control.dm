@@ -11,7 +11,7 @@
 	light_color = LIGHT_COLOR_PURPLE
 
 	var/safety = 1
-	var/detonate_cooldown
+	var/static/detonate_cooldown
 
 /obj/machinery/computer/robotics/attack_ai(mob/user as mob)
 	return attack_hand(user)
