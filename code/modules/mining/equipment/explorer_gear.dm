@@ -55,11 +55,6 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/melee/spellblade)
 
 
-/obj/item/clothing/suit/space/hostile_environment/Initialize(mapload)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-	AddComponent(/datum/component/spraycan_paintable)
-
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -81,14 +76,3 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	armor = list(MELEE = 120, BULLET = 35, LASER = 25, ENERGY = 25, BOMB = 150, RAD = INFINITY, FIRE = INFINITY, ACID = INFINITY)
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
-
-/obj/item/clothing/head/helmet/space/hostile_environment/Initialize(mapload)
-	. = ..()
-	update_icon()
-	AddComponent(/datum/component/spraycan_paintable)
-
-/obj/item/clothing/head/helmet/space/hostile_environment/update_overlays()
-	. = ..()
-	var/mutable_appearance/glass_overlay = mutable_appearance(icon, "hostile_env_glass")
-	glass_overlay.appearance_flags = RESET_COLOR
-	. += glass_overlay
