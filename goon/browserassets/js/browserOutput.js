@@ -1214,7 +1214,7 @@ $(function() {
 	*
 	******************************************/
 
-	runByond('?_src_=chat&proc=doneLoading');
+	runByond('?_src_=chat&proc=doneLoading&param[chatType]=parachat');
 	if ($('#loading').is(':visible')) {
 		$('#loading').remove();
 	}

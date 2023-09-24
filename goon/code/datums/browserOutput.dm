@@ -92,12 +92,22 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	set name = "Reload Parachat"
 	set category = "Special Verbs"
 
+	if(last_chat_reload > world.time)
+		to_chat(usr, "<span class='warning'>You reloaded chat too recently. Please try again in [(last_chat_reload - world.time)/10] seconds.</span>")
+		return
+
+	last_chat_reload = world.time + 60 SECONDS
 	chatOutput.load_parachat()
 
 /client/verb/parachat_goonchat()
 	set name = "Use Old Chat"
 	set category = "Special Verbs"
 
+	if(last_chat_reload > world.time)
+		to_chat(usr, "<span class='warning'>You reloaded chat too recently. Please try again in [(last_chat_reload - world.time)/10] seconds.</span>")
+		return
+
+	last_chat_reload = world.time + 60 SECONDS
 	chatOutput.load()
 
 /datum/chatOutput/Topic(href, list/href_list)
@@ -131,9 +141,12 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	if(data)
 		ehjax_send(data = data)
 
-/datum/chatOutput/proc/doneLoading()
+/datum/chatOutput/proc/doneLoading(chatType = "")
 	if(loaded || !owner) // Chatloading is so fucking slow that we actually need to check if there's an owner between these calls, they mighta ollied outta there by closing their client right after a restart
 		return
+
+	if(chatType == "parachat" || chatType == "goonchat")
+		SSblackbox.record_feedback("tally", "chat_loads", 1, chatType)
 
 	loaded = TRUE
 	winset(owner, "browseroutput", "is-disabled=false")

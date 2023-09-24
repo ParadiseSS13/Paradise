@@ -28,7 +28,8 @@ const setupApp = () => {
   );
 
   initClientData();
-  window.location.href = '?_src_=chat&proc=doneLoading';
+  window.location.href =
+    '?_src_=chat&proc=doneLoading&param[chatType]=parachat';
 };
 
 setupApp();
