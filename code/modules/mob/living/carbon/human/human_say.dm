@@ -64,7 +64,7 @@
 		return TRUE
 	// how do species that don't breathe talk? magic, that's what.
 	var/breathes = (!HAS_TRAIT(src, TRAIT_NOBREATH))
-	var/datum/organ/lungs/L = get_int_organ_datum("lungs")
+	var/datum/organ/lungs/L = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return FALSE
 	if(breathes && (!L || L.linked_organ.status & ORGAN_DEAD))

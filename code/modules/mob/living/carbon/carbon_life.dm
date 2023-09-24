@@ -105,7 +105,7 @@
 	if(status_flags & GODMODE)
 		return FALSE
 
-	var/lungs = get_int_organ_datum("lungs")
+	var/lungs = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 	if(!lungs)
 		adjustOxyLoss(2)
 
