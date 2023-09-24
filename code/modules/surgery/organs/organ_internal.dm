@@ -17,10 +17,12 @@
 
 /obj/item/organ/internal/Initialize(mapload)
 	. = ..()
+	if(!organ_datums)
+		return
 	var/list/temp_list = organ_datums.Copy()
-	organ_datums.Cut()
-	for(var/datum/organ/organ_datum in temp_list)
-		organ_datum = new(src)
+	organ_datums = list()
+	for(var/path in temp_list)
+		var/datum/organ/organ_datum = new path(src)
 		if(!organ_datum.organ_tag)
 			stack_trace("There was an organ datum [organ_datum] ([organ_datum.type]), that had no organ tag.")
 			continue
