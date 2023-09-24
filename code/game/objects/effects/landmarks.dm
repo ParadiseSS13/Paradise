@@ -649,7 +649,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/mob_spawner/abandoned_minebot
 	mobtype = /mob/living/simple_animal/hostile/asteroid/abandoned_minebot
-	icon_state = "questionmark"
 
 // Damage tiles
 /obj/effect/landmark/damageturf
