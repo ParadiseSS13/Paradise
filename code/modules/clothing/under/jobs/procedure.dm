@@ -5,7 +5,8 @@
 		"Human" = 'icons/mob/clothing/under/procedure.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/procedure.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/procedure.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/procedure.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/procedure.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/procedure.dmi'
 		)
 
 /obj/item/clothing/under/rank/procedure/representative

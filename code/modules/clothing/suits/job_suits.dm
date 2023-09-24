@@ -211,7 +211,10 @@
 //Internal Affairs
 /obj/item/clothing/suit/storage/iaa
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/suit.dmi'
 		)
 
 /obj/item/clothing/suit/storage/iaa/blackjacket
