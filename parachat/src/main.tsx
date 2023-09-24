@@ -1,7 +1,7 @@
 import { render } from 'react-dom';
 import { playAudio } from '~/byondcalls/admin';
 import { codewords, codewordsClear } from '~/byondcalls/codewords';
-import { ehjaxCallback } from '~/byondcalls/ehjax';
+import { ehjaxCallback, initClientData } from '~/byondcalls/ehjax';
 import { output } from '~/byondcalls/output';
 import { reboot, rebootFinished } from '~/byondcalls/reboot';
 import App from '~/components/App';
@@ -26,6 +26,9 @@ const setupApp = () => {
   useMessageSlice.subscribe(() =>
     render(<App />, document.getElementById('root'))
   );
+
+  initClientData();
+  window.location.href = '?_src_=chat&proc=doneLoading';
 };
 
 setupApp();
