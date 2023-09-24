@@ -8,13 +8,13 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${({ theme }) => theme.font};
     font-size: 12px;
 
-    scrollbar-base-color: #323232;
-    scrollbar-face-color: #202020;
-    scrollbar-3dlight-color: #323232;
-    scrollbar-highlight-color: #323232;
-    scrollbar-track-color: #323232;
-    scrollbar-arrow-color: #fff;
-    scrollbar-shadow-color: #323232;
+    scrollbar-base-color: ${({ theme }) => theme.background[2]};
+    scrollbar-face-color: ${({ theme }) => theme.background[2]};
+    scrollbar-3dlight-color: ${({ theme }) => theme.background[2]};
+    scrollbar-highlight-color: ${({ theme }) => theme.background[2]};
+    scrollbar-track-color: ${({ theme }) => theme.background[1]};
+    scrollbar-arrow-color: ${({ theme }) => theme.textPrimary};
+    scrollbar-shadow-color: ${({ theme }) => theme.background[2]};
   }
 
   a {

@@ -14,26 +14,33 @@ const light: DefaultTheme = {
   error: '#ff4d4f',
   errorBg: '#fff1f0',
   textPrimary: 'rgba(0, 0, 0, 0.85)',
-  textPrimaryLight: 'rgba(255, 255, 255, 0.85)',
+  textPrimaryLight: 'rgba(0, 0, 0, 0.85)',
   textSecondary: 'rgba(0, 0, 0, 0.65)',
   textDisabled: 'rgba(0, 0, 0, 0.45)',
 
   cssTheme: /*css*/ `
+  .motd {
+    color: #374961;
+  }
+
+  .motd h1, .motd h2, .motd h3, .motd h4, .motd h5, .motd h6, .motd a {
+    color: #626b3a;
+  }
+
   /* Grey */
   .whisper {
-    color: #8c8c8c;
+    color: rgba(0, 0, 0, 0.75);
   }
 
   /* Light blue */
+  .boldnotice,
   .notice,
   .info,
   .looc {
-    color: #69b1ff;
+    color: #335480;
   }
 
   /* Blue */
-  .admin,
-  .boldannounce,
   .boldnotice,
   .specialnotice,
   .pmsend,
@@ -43,130 +50,123 @@ const light: DefaultTheme = {
   .darkmblue,
   .revennotice,
   .revenboldnotice,
-  .revenbignotice {
-    color: #0958d9;
+  .revenbignotice,
+  .admin {
+    color: #3647a8;
   }
 
   /* Red */
+  .boldwarning,
   .warning,
+  .biggerdanger,
   .danger,
   .userdanger,
+  .pr_announce,
+  .boldannounce,
   .moderate,
+  .disarm,
   .suicide,
   .rose,
-  .pr_announce,
-  .red,
-  .redtext,
-  .alert,
-  .bad,
-  .biggerdanger,
-  .codephrases,
   .cultspeech,
   .cultitalic,
   .cultlarge,
-  .disarm,
-  .moderate,
-  .narsie {
-    color: #ff4d4f;
-  }
-
-  /* Dark red */
-  .colossus {
-    color: #cf1322;
+  .narsie,
+  .narsiesmall,
+  .red,
+  .redtext {
+    color: #b32727;
   }
 
   /* Green */
-  .green,
-  .alertalien,
-  .green,
-  .greenannounce,
-  .greentext,
-  .his_grace,
-  .noticealien {
-    color: #237804;
-  }
-
-  /* Dark green */
-  .motd,
   .good,
-  .memo {
-    color: #135200;
-  }
-
-  /* Teal */
-  .resonate {
-    color: #13c2c2;
+  .green,
+  .greentext,
+  .noticealien,
+  .alertalien,
+  .his_grace {
+    color: #226622;
   }
 
   /* Orange */
-  .average {
-    color: #ad4e00;
+  .average,
+  .orange {
+    color: #8C3E01;
   }
 
   /* Purple */
   .debug,
   .interface,
-  .terrorspider,
-  .dantalion,
-  .alien,
-  .sinister,
   .purple,
+  .alien,
+  .terrorspider,
   .cult,
-  .ghostalert,
-  .hierophant,
-  .hierophant_warning,
-  .mind_control,
-  .revendanger,
-  .revenwarning,
   .revenminor,
-  .playerreply {
-    color: #531dab;
+  .revenwarning,
+  .revendanger {
+    color: #6a4575;
   }
 
+  /* Pink */
+  .sinister,
+  .dantalion {
+    color: #a6507b;
+  }
+
+  /* Fauna */
+  .colossus { color: #80375e; }
+  .hierophant { color: #77458c; }
+  .hierophant_warning { color: #77458c; }
+  .resonate { color: #466965; }
+
+  /* Deadchat */
+  .deadsay { color: #854669; }
+  .ghostalert { color: #5c457d; }
+
   /* Admin and mentor */
-  .admin_channel        { color: #9a04d1; }
-  .adminticket          { color: #3e7336; }
-  .adminticketalt       { color: #014c8a; }
-  .adminhelp            { color: #950505; }
-  .mentor_channel       { color: #6a52dd; }
-  .mentor_channel_admin { color: #8f53dd; }
-  .mentorhelp           { color: #056aa4; }
+  .admin_channel { color: #7800ab; }
+  .adminticket { color: #28571f; }
+  .adminticketalt { color: #014c8a; }
+  .adminhelp { color: #aa0000; }
+  .mentor_channel { color: #5743d9; }
+  .mentor_channel_admin { color: #7f43d9; }
+  .mentorhelp { color: #005994; }
+  .playerreply { color: #680094; }
 
   /* Radio channels */
-  .deadsay      { color: #9276b3; }
-  .radio        { color: #086323; }
-  .deptradio    { color: #49124d; }
-  .comradio     { color: #2e35b3; }
-  .syndradio    { color: #421c1f; }
-  .dsquadradio  { color: #4b3b4d; }
-  .airadio      { color: #b3309b; }
-  .centradio    { color: #0c3e59; }
-  .secradio     { color: #91141d; }
-  .engradio     { color: #b36705; }
-  .medradio     { color: #006769; }
-  .sciradio     { color: #7b50ad; }
-  .supradio     { color: #6b451e; }
-  .srvradio     { color: #6f8532; }
-  .proradio     { color: #6b2356; }
+  .radio        { color: #275906; }
+  .deptradio    { color: #993399; }
+  .comradio     { color: #204090; }
+  .syndradio    { color: #6D3F40; }
+  .dsquadradio  { color: #686868; }
+  .airadio      { color: #a700b3; }
+  .centradio    { color: #5C5C7C; }
+  .secradio     { color: #a30000; }
+  .engradio     { color: #804800; }
+  .medradio     { color: #00686b; }
+  .sciradio     { color: #993399; }
+  .supradio     { color: #7F6539; }
+  .srvradio     { color: #3e5400; }
+  .proradio     { color: #bd006b; }
 
   /* Languages */
-  .tajaran			{ color: #59253b; }
-  .skrell				{ color: #00a2ab; }
-  .solcom				{ color: #6763d4; }
-  .com_srus			{ color: #572e2f; }
+  .tajaran			{ color: #803B56; }
+  .skrell				{ color: #00535e; }
+  .gutter       { color: #536f99; }
+  .solcom				{ color: #22228B; }
+  .com_srus			{ color: #7c4848; }
   .soghun				{ color: #136616; }
-  .changeling   { color: #0090b8; }
-  .vox          { color: #800085; }
-  .diona        { color: #592a00; }
-  .trinary			{ color: #4d4d4d; }
-  .kidan				{ color: #a13600; }
-  .slime				{ color: #005885; }
-  .drask				{ color: #7eacc4; }
+  .changeling   { color: #800080; }
+  .vox          { color: #AA00AA; }
+  .diona        { color: #804000; }
+  .trinary			{ color: #727272; }
+  .kidan				{ color: #664205; }
+  .slime				{ color: #0077AA; }
+  .drask				{ color: #416178; }
   .moth				  { color: #617519; }
   .clown				{ color: #d90007; }
   .vulpkanin    { color: #94593e; }
-  .abductor			{ color: #560059; }
-  .mind_control { color: #7a0457; }
+  .abductor			{ color: #800080; }
+  .mind_control { color: #A00D6F; }
 `,
 };
 
