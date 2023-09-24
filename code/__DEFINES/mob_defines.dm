@@ -11,7 +11,7 @@
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
 
-// Organ defines.
+// Organ datum defines. Each one of these represents a slot for organ datums in internal_organ_datums
 #define ORGAN_DATUM_HEART	"heart"
 #define ORGAN_DATUM_LUNGS	"lungs"
 

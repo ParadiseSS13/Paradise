@@ -181,10 +181,10 @@
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
-	var/datum/organ/lungs/blungs = get_int_organ_datum(ORGAN_DATUM_LUNGS)
+	var/datum/organ/lungs/lung_datum = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 
-	if(!(blungs?.linked_organ.status & ORGAN_DEAD))
-		blungs.check_breath(breath, src)
+	if(lung_datum && !(lung_datum.linked_organ.status & ORGAN_DEAD))
+		lung_datum.check_breath(breath, src)
 		return
 
 	// We have no lungs, or our lungs are dead!
@@ -905,7 +905,7 @@
 	if(!can_heartattack())
 		return FALSE
 	var/datum/organ/heart/heart_datum = get_int_organ_datum(ORGAN_DATUM_HEART)
-	heart_datum.change_beating(!status)
+	heart_datum?.change_beating(!status)
 
 /mob/living/carbon/human/handle_heartattack()
 	if(!can_heartattack() || !undergoing_cardiac_arrest() || reagents.has_reagent("corazone"))

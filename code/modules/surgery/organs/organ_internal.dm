@@ -50,8 +50,9 @@
 	M.internal_organs_slot[slot] = src
 
 	for(var/organ_tag in organ_datums)
-		var/datum/organ/norgan = organ_datums[organ_tag]
-		M.internal_organ_datums[norgan.organ_tag] = norgan
+		var/datum/organ/new_organ = organ_datums[organ_tag]
+		M.internal_organ_datums[new_organ.organ_tag] = new_organ
+		new_organ.on_insert(M)
 
 	var/obj/item/organ/external/parent
 	if(ishuman(M))
@@ -85,14 +86,17 @@
 		for(var/removal_tag in organ_datums)
 			if(M.internal_organ_datums[removal_tag] == organ_datums[removal_tag])
 				M.internal_organ_datums -= removal_tag
+				var/datum/organ/removed = organ_datums[removal_tag]
+				removed.on_remove(M)
 
 		// Lets see if we have any backup organ datums from other internal organs.
 		for(var/obj/item/organ/internal/backup_organ in M.internal_organs)
 			for(var/replacement_tag in backup_organ.organ_datums)
 				if(M.internal_organ_datums[replacement_tag]) // some other organ is already covering it
 					continue
-				var/datum/organ/norgan = backup_organ.organ_datums[replacement_tag]
-				M.internal_organ_datums[norgan.organ_tag] = norgan
+				var/datum/organ/replacement_organ = backup_organ.organ_datums[replacement_tag]
+				M.internal_organ_datums[replacement_organ.organ_tag] = replacement_organ
+				replacement_organ.on_replace(M)
 
 		if(vital && !special)
 			if(M.stat != DEAD)//safety check!

@@ -149,10 +149,10 @@
 			user.visible_message("[user] places [src] against [user.p_their()] chest and listens attentively.", "You place [src] against your chest...")
 		else
 			user.visible_message("[user] places \the [src] against [M]'s chest and listens attentively.", "You place \the [src] against [M]'s chest...")
-		var/datum/organ/heart/heurt = M.get_int_organ_datum(ORGAN_DATUM_HEART)
-		var/obj/item/organ/internal/H = heurt.linked_organ
-		var/datum/organ/lungs/loongs = M.get_int_organ_datum(ORGAN_DATUM_LUNGS)
-		var/obj/item/organ/internal/L = loongs.linked_organ
+		var/datum/organ/heart/heart_datum = M.get_int_organ_datum(ORGAN_DATUM_HEART)
+		var/obj/item/organ/internal/H = heart_datum.linked_organ
+		var/datum/organ/lungs/lung_datum = M.get_int_organ_datum(ORGAN_DATUM_LUNGS)
+		var/obj/item/organ/internal/L = lung_datum.linked_organ
 		if(M.pulse && (H || (L && !HAS_TRAIT(M, TRAIT_NOBREATH))))
 			var/color = "notice"
 			if(H)
