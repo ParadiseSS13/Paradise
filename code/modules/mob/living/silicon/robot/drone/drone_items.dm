@@ -142,6 +142,8 @@
 		var/obj/machinery/cell_charger/cell_charger = target
 		if(cell_charger.charging)
 			gripped_item = cell_charger.charging
+			cell_charger.charging.add_fingerprint(user)
+			cell_charger.charging.forceMove(src)
 			cell_charger.removecell()
 
 
