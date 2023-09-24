@@ -51,9 +51,16 @@ const GeneralSettings = () => {
           stretch
         />
       </Setting>
-      <Hint style={{ marginBottom: 0 }}>
-        After setting the font URL, configure the font name to use it
-      </Hint>
+      <Hint>After setting the font URL, configure the font name to use it</Hint>
+      <Setting>
+        <Label>Font scale:</Label>
+        <Input
+          type="text"
+          defaultValue={currentSettings.fontScale}
+          onChange={e => write('fontScale', parseInt(e.target.value))}
+          onKeyPress={e => e.key === 'Enter' && save()}
+        />
+      </Setting>
       <Separator />
       <Setting>
         <Label>Line height:</Label>

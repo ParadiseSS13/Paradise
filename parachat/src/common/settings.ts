@@ -7,6 +7,7 @@ export const defaultSettings: SettingsData = {
   theme: 'light',
   font: "Verdana, 'Helvetica Neue', Helvetica, Arial, sans-serif",
   fontUrl: '',
+  fontScale: 100,
   lineHeight: 1.2,
   condenseMessages: true,
   highlights: [
@@ -33,6 +34,8 @@ export const loadSettings = () => {
   } catch (e) {
     /* empty */
   }
+
+  // TODO: Validate settings
 
   return { ...defaultSettings, ...savedSettings };
 };

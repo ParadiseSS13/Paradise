@@ -39,19 +39,12 @@ const light: DefaultTheme = {
   .pmsend,
   .all_admin_ping,
   .bluetext,
-  .changeling,
   .coderesponses,
   .darkmblue,
-  .mentorhelp,
   .revennotice,
   .revenboldnotice,
   .revenbignotice {
     color: #0958d9;
-  }
-
-  /* Light red */
-  .deadsay {
-    color: #ff85c0;
   }
 
   /* Red */
@@ -64,11 +57,9 @@ const light: DefaultTheme = {
   .pr_announce,
   .red,
   .redtext,
-  .adminhelp,
   .alert,
   .bad,
   .biggerdanger,
-  .clown,
   .codephrases,
   .cultspeech,
   .cultitalic,
@@ -86,9 +77,6 @@ const light: DefaultTheme = {
 
   /* Green */
   .green,
-  .radio,
-  .admin_channel,
-  .adminticket,
   .alertalien,
   .green,
   .greenannounce,
@@ -110,20 +98,9 @@ const light: DefaultTheme = {
     color: #13c2c2;
   }
 
-  /* Yellow */
-  .adminticketalt {
-    color: #fadb14;
-  }
-
   /* Orange */
   .average {
     color: #ad4e00;
-  }
-
-  /* Light purple */
-  .mentor_channel_admin,
-  .sciradio {
-    color: #722ed1;
   }
 
   /* Purple */
@@ -134,13 +111,10 @@ const light: DefaultTheme = {
   .alien,
   .sinister,
   .purple,
-  .abductor,
   .cult,
-  .deptradio,
   .ghostalert,
   .hierophant,
   .hierophant_warning,
-  .mentor_channel,
   .mind_control,
   .revendanger,
   .revenwarning,
@@ -148,6 +122,51 @@ const light: DefaultTheme = {
   .playerreply {
     color: #531dab;
   }
+
+  /* Admin and mentor */
+  .admin_channel        { color: #9a04d1; }
+  .adminticket          { color: #3e7336; }
+  .adminticketalt       { color: #014c8a; }
+  .adminhelp            { color: #950505; }
+  .mentor_channel       { color: #6a52dd; }
+  .mentor_channel_admin { color: #8f53dd; }
+  .mentorhelp           { color: #056aa4; }
+
+  /* Radio channels */
+  .deadsay      { color: #9276b3; }
+  .radio        { color: #086323; }
+  .deptradio    { color: #49124d; }
+  .comradio     { color: #2e35b3; }
+  .syndradio    { color: #421c1f; }
+  .dsquadradio  { color: #4b3b4d; }
+  .airadio      { color: #b3309b; }
+  .centradio    { color: #0c3e59; }
+  .secradio     { color: #91141d; }
+  .engradio     { color: #b36705; }
+  .medradio     { color: #006769; }
+  .sciradio     { color: #7b50ad; }
+  .supradio     { color: #6b451e; }
+  .srvradio     { color: #6f8532; }
+  .proradio     { color: #6b2356; }
+
+  /* Languages */
+  .tajaran			{ color: #59253b; }
+  .skrell				{ color: #00a2ab; }
+  .solcom				{ color: #6763d4; }
+  .com_srus			{ color: #572e2f; }
+  .soghun				{ color: #136616; }
+  .changeling   { color: #0090b8; }
+  .vox          { color: #800085; }
+  .diona        { color: #592a00; }
+  .trinary			{ color: #4d4d4d; }
+  .kidan				{ color: #a13600; }
+  .slime				{ color: #005885; }
+  .drask				{ color: #7eacc4; }
+  .moth				  { color: #617519; }
+  .clown				{ color: #d90007; }
+  .vulpkanin    { color: #94593e; }
+  .abductor			{ color: #560059; }
+  .mind_control { color: #7a0457; }
 `,
 };
 

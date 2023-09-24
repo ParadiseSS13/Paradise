@@ -22,6 +22,7 @@ declare module 'styled-components' {
     primary?: string;
     accent?: Record<number, string>;
     font?: string;
+    fontScale?: number;
     lineHeight?: number;
   }
 }

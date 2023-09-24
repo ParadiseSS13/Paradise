@@ -25,7 +25,7 @@ const TabWrapper = styled.a<{ active?: boolean }>`
     active &&
     css`
       background-color: ${({ theme }) => theme.background[1]} !important;
-      color: ${({ theme }) => theme.accent[4]};
+      color: ${({ theme }) => theme.accent[5]};
       cursor: default;
     `}
 `;

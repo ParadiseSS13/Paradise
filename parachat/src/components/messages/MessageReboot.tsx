@@ -5,6 +5,7 @@ import { MessageInfo } from '~/common/types';
 
 interface MessageRebootProps {
   message: MessageInfo;
+  show: boolean;
 }
 
 const MessageRebootWrapper = styled.div`

@@ -20,6 +20,7 @@ const App = () => {
   const theme = useSettingsSlice(state => state.theme);
   const font = useSettingsSlice(state => state.font);
   const fontUrl = useSettingsSlice(state => state.fontUrl);
+  const fontScale = useSettingsSlice(state => state.fontScale);
   const lineHeight = useSettingsSlice(state => state.lineHeight);
   const primary = '#1668dc';
   const curTheme = theme === 'light' ? light : dark;
@@ -29,6 +30,7 @@ const App = () => {
       theme={{
         ...curTheme,
         font,
+        fontScale,
         lineHeight,
         primary: primary,
         accent: generate(primary, { theme: curTheme.isDark }),

@@ -42,6 +42,7 @@ export type SettingsData = {
   theme: 'dark' | 'light';
   font: string;
   fontUrl: string;
+  fontScale: number;
   lineHeight: number;
   condenseMessages: boolean;
   highlights: Array<HighlightEntry>;

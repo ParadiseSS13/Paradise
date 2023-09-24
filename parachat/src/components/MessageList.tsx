@@ -11,6 +11,7 @@ import MessageReboot from './messages/MessageReboot';
 const MessageListWrapper = styled.div`
   flex: 1;
   background-color: ${({ theme }) => theme.background[1]};
+  font-size: ${({ theme }) => theme.fontScale}%;
   overflow-y: auto;
   overflow-x: hidden;
 `;
@@ -81,7 +82,7 @@ const MessageList = () => {
       onScroll={e => {
         const list = e.target as Element;
         setShowScrollToBottom(
-          list.scrollTop + list.clientHeight < list.scrollHeight
+          Math.round(list.scrollTop) + list.clientHeight < list.scrollHeight
         );
       }}
     >

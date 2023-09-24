@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.accent[6]};
   }
 
-  .bold, .prefix, .danger, .admin, .boldannounce, .boldnotice, .ooc, .pr_announce, .name, .sinister, .adminhelp, .admin_channel, .adminticket, .adminticketalt, .alertalien, .boldwarning, .cult, .emote, .ghostalert, .hierophant, .looc, .mentor_channel, .mentor_channel_admin, .mentorhelp, .mind_control, .narsie, .revenboldnotice, .bolditalics, .playerreply {
+  .bold, .prefix, .danger, .admin, .boldannounce, .boldnotice, .ooc, .pr_announce, .name, .sinister, .adminhelp, .admin_channel, .adminticket, .adminticketalt, .alertalien, .boldwarning, .cult, .emote, .ghostalert, .hierophant, .looc, .mentor_channel, .mentor_channel_admin, .mentorhelp, .mind_control, .narsie, .revenboldnotice, .bolditalics, .playerreply, .diona {
     font-weight: bold;
   }
 
@@ -73,6 +73,14 @@ const GlobalStyle = createGlobalStyle`
 
   .his_grace {
     font-family: "Courier New", cursive, sans-serif;
+  }
+
+  .drask {
+    font-family: "Arial Black";
+  }
+
+  .moth {
+    font-family: "Copperplate";
   }
 
   .box {
