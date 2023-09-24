@@ -387,7 +387,7 @@
 					/obj/item/clothing/under/rank/procedure/iaa/blue,
 					/obj/item/clothing/suit/storage/iaa/bluejacket,
 					/obj/item/clothing/under/rank/procedure/iaa/purple,
-					/obj/item/clothing/suit/storage/iaa/purpjacket,
+					/obj/item/clothing/suit/storage/iaa/purplejacket,
 					/obj/item/clothing/under/rank/procedure/iaa,
 					/obj/item/clothing/suit/storage/iaa/blackjacket,
 					/obj/item/clothing/accessory/waistcoat,

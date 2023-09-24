@@ -238,11 +238,11 @@
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
-/obj/item/clothing/suit/storage/iaa/purpjacket
+/obj/item/clothing/suit/storage/iaa/purplejacket
 	name = "purple suit jacket"
 	desc = "A snappy dress jacket."
-	icon_state = "suitjacket_purp"
-	item_state = "suitjacket_purp"
+	icon_state = "suitjacket_purple"
+	item_state = "suitjacket_purple"
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|ARMS
 

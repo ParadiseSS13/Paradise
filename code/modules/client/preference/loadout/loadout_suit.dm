@@ -210,7 +210,7 @@
 
 /datum/gear/suit/purplesuit
 	display_name = "Suit jacket, purple"
-	path = /obj/item/clothing/suit/storage/iaa/purpjacket
+	path = /obj/item/clothing/suit/storage/iaa/purplejacket
 
 //Mantles!
 /datum/gear/suit/mantle
