@@ -1616,6 +1616,7 @@
 #include "code\modules\clothing\under\jobs\civilian.dm"
 #include "code\modules\clothing\under\jobs\engineering_jumpsuits.dm"
 #include "code\modules\clothing\under\jobs\medical_jumpsuits.dm"
+#include "code\modules\clothing\under\jobs\procedure.dm"
 #include "code\modules\clothing\under\jobs\rnd.dm"
 #include "code\modules\clothing\under\jobs\security_jumpsuits.dm"
 #include "code\modules\clothing\under\jobs\plasmamen\_plasmamen.dm"
