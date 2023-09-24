@@ -129,6 +129,8 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 	if(BL)
 		if(BL.data && BL.data["viruses"])
 			for(var/datum/disease/advance/D in BL.data["viruses"])
+				if(D.symptoms.len < goal_symptoms.len || D.symptoms.len > goal_symptoms.len) //This is here so viruses with extra symptoms dont get approved
+					return
 				var/skip = FALSE
 				for(var/S in goal_symptoms)
 					var/datum/symptom/SY = locate(S) in D.symptoms

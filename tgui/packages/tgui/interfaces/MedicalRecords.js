@@ -72,20 +72,6 @@ const virusModalBodyOverride = (modal, context) => {
   );
 };
 
-const goalModalBodyOverride = (modal, context) => {
-  const goal = modal.args;
-  return (
-    <Section level={2} m="-1rem" pb="1rem" title={goal.name}>
-      <Box mx="0.5rem">
-        <LabeledList>
-          <LabeledList.Item label="CentCom Report">
-            {goal.report}
-          </LabeledList.Item>
-        </LabeledList>
-      </Box>
-    </Section>
-  );
-};
 
 export const MedicalRecords = (_properties, context) => {
   const { data } = useBackend(context);
@@ -462,7 +448,7 @@ const MedicalRecordsGoals = (_properties, context) => {
         {(goals.length !== 0 &&
           goals.map((goal) => {
             return (
-              <Flex.Item key={goal.G}>
+              <Flex.Item key={goal.id}>
                 <Collapsible title={goal.name}>
                   <Section>
                     <Table>
@@ -650,4 +636,3 @@ const MedicalRecordsNavigation = (_properties, context) => {
 };
 
 modalRegisterBodyOverride('virus', virusModalBodyOverride);
-modalRegisterBodyOverride('goal', goalModalBodyOverride);

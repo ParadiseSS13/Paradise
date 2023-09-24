@@ -172,8 +172,7 @@
 						"name" = G.name,
 						"delivered" = G.delivered_amount,
 						"deliverygoal" = G.delivery_goal,
-						"report" = G.get_ui_report(),
-						"G" = "\ref[G]")
+						"report" = G.get_ui_report())
 					data["goals"] += list(payload)
 			if(MED_DATA_MEDBOT)
 				data["medbots"] = list()
@@ -251,13 +250,6 @@
 				)
 				ui_modal_message(src, "virus", "", null, payload)
 				qdel(D)
-			if("goal")
-				var/datum/virology_goal/G = locate(params["goal"] || "")
-
-				var/list/payload = list(
-					report = G.get_ui_report()
-				)
-				ui_modal_message(src, "goal", "", null, payload)
 			if("del_all_med_records")
 				for(var/datum/data/record/R in GLOB.data_core.medical)
 					qdel(R)

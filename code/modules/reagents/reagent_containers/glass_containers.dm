@@ -116,8 +116,7 @@
 			label_text = t
 	else if(istype(I, /obj/item/virus_analyzer))
 		var/datum/reagent/blood/BL = locate() in reagents.reagent_list
-		var/msg = "<br><span class='info'>*---------*</span>"
-		msg += "<span class='warning'>[src] doesnt contain any viruses</span>\n"
+		var/msg
 		if(BL)
 			if(BL.data && BL.data["viruses"])
 				for(var/datum/disease/advance/D in BL.data["viruses"])
@@ -125,7 +124,10 @@
 						continue
 					msg += "<span class='info'>You analyze [src]'s viruses</span>\n"
 					var/list/properties = D.GenerateProperties()
-					msg += "<span class='info'><b>- [D.form]:</b>\nName: [D.name].\nType: [D.spread_text].\n\nResistance: [properties["resistance"]].\nStealth: [properties["stealth"]].\nStage Rate: [properties["stage_rate"]].\nTransmittable: [properties["transmittable"]].\nPossible Cure: [D.cure_text].</span>"
+					msg += "<span class='info'><b>- [D.form]:</b>\nName: [D.name].\nType: [D.spread_text].\n\nResistance: [properties["resistance"]].\nStealth: [properties["stealth"]].\nStage Rate: [properties["stage_rate"]].\nTransmittable: [properties["transmittable"]].\nPossible Cure: [D.cure_text].\n</span>"
+					msg += "<br><span class='info'>*---------*</span>"
+		if(!msg)
+			msg = "<span class='warning'>[src] doesnt contain any viruses</span>\n"
 		to_chat(user, msg)
 	else
 		return ..()
