@@ -81,16 +81,17 @@
 		if(M.internal_organs_slot[slot] == src)
 			M.internal_organs_slot.Remove(slot)
 
-		for(var/organ_tag in organ_datums)
-			if(M.internal_organ_datums[organ_tag] == organ_datums[organ_tag])
-				M.internal_organ_datums -= organ_tag
 
-		// Lets see if we have any backup lungs, or hearts, or whatever.
-		for(var/obj/item/organ/internal/worgan in M.internal_organs)
-			for(var/organ_tag in organ_datums)
-				if(M.internal_organ_datums[organ_tag]) // some other organ is already covering it
+		for(var/removal_tag in organ_datums)
+			if(M.internal_organ_datums[removal_tag] == organ_datums[removal_tag])
+				M.internal_organ_datums -= removal_tag
+
+		// Lets see if we have any backup organ datums from other internal organs.
+		for(var/obj/item/organ/internal/backup_organ in M.internal_organs)
+			for(var/replacement_tag in backup_organ.organ_datums)
+				if(M.internal_organ_datums[replacement_tag]) // some other organ is already covering it
 					continue
-				var/datum/organ/norgan = organ_datums[organ_tag]
+				var/datum/organ/norgan = backup_organ.organ_datums[replacement_tag]
 				M.internal_organ_datums[norgan.organ_tag] = norgan
 
 		if(vital && !special)

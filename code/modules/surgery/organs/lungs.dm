@@ -50,14 +50,17 @@
 
 	var/possible = list("default" = /datum/organ/lungs, "vox" = /datum/organ/lungs/vox, "plasmamen" = /datum/organ/lungs/plasmamen)
 	var/chosen = input(user, "Select lung type", "What kind of lung settings?") as null|anything in possible
+	if(isnull(chosen) || chosen == species_state)
+		return
 	species_state = chosen
+	to_chat(user, "<span class='notice'>You configure [src] to [chosen] settings.</span>")
 
 	var/typepath = possible[chosen]
 	var/datum/organ/lungs/lungs = new typepath(src)
 	qdel(organ_datums[lungs.organ_tag])
 	organ_datums[lungs.organ_tag] = lungs
 	if(owner) // this should never happen, but in case it somehow does...
-		owner.internal_organ_datums[lungs.organ_tag] = lungs // ctodo, this will break if you add lungs to a slime brain, I need to make it put it in a secondary backup organ list or somethin
+		owner.internal_organ_datums[lungs.organ_tag] = lungs
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"
