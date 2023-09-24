@@ -6,15 +6,14 @@
 	var/obj/item/clothing/suit/coat
 	var/list/allowed = list(/obj/item/clothing/suit/storage/labcoat, /obj/item/clothing/suit/storage/det_suit)
 
-/obj/structure/coatrack/attack_hand(mob/user as mob)
+/obj/structure/coatrack/attack_hand(mob/user)
 	if(isnull(coat))
 		return
-	else
-		user.visible_message("[user] takes [coat] off \the [src].", "You take [coat] off the \the [src]")
-		if(!user.put_in_active_hand(coat))
-			coat.forceMove(get_turf(user))
-		coat = null
-		update_icon(UPDATE_OVERLAYS)
+	user.visible_message("[user] takes [coat] off [src].", "You take [coat] off the [src]")
+	if(!user.put_in_active_hand(coat))
+		coat.forceMove(get_turf(user))
+	coat = null
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/coatrack/attackby(obj/item/W as obj, mob/user as mob, params)
 	var/can_hang = FALSE
