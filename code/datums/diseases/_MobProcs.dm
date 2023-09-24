@@ -154,8 +154,13 @@
 		return FALSE
 
 	for(var/thing in D.required_organs)
-		if(!((locate(thing) in bodyparts) || (locate(thing) in internal_organs)))
-			return FALSE
+		if(istext(thing) && get_int_organ_datum(thing))
+			continue
+		if(locate(thing) in internal_organs)
+			continue
+		if(locate(thing) in bodyparts)
+			continue
+		return FALSE
 	return ..()
 
 /mob/living/carbon/human/monkey/CanContractDisease(datum/disease/D)

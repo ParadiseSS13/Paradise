@@ -181,31 +181,30 @@
 
 /mob/living/carbon/human/check_breath(datum/gas_mixture/breath)
 
-	var/obj/item/organ/internal/L = get_organ_slot("lungs")
+	var/datum/organ/lungs/blungs = get_int_organ_datum(ORGAN_DATUM_LUNGS)
 
-	if(!L || L && (L.status & ORGAN_DEAD))
-		if(health >= HEALTH_THRESHOLD_CRIT)
-			adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
-		else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
-			adjustOxyLoss(HUMAN_MAX_OXYLOSS)
+	if(!(blungs?.linked_organ.status & ORGAN_DEAD))
+		blungs.check_breath(breath, src)
+		return
 
-		if(dna.species)
-			var/datum/species/S = dna.species
+	// We have no lungs, or our lungs are dead!
+	if(health >= HEALTH_THRESHOLD_CRIT)
+		adjustOxyLoss(HUMAN_MAX_OXYLOSS + 1)
+	else if(!HAS_TRAIT(src, TRAIT_NOCRITDAMAGE))
+		adjustOxyLoss(HUMAN_MAX_OXYLOSS)
 
-			if(S.breathid == "o2")
-				throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
-			else if(S.breathid == "tox")
-				throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
-			else if(S.breathid == "co2")
-				throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
-			else if(S.breathid == "n2")
-				throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+	if(dna.species)
+		var/datum/species/S = dna.species
 
-		return FALSE
-	else
-		if(istype(L, /obj/item/organ/internal/lungs))
-			var/obj/item/organ/internal/lungs/lun = L
-			lun.check_breath(breath, src)
+		if(S.breathid == "o2")
+			throw_alert("not_enough_oxy", /obj/screen/alert/not_enough_oxy)
+		else if(S.breathid == "tox")
+			throw_alert("not_enough_tox", /obj/screen/alert/not_enough_tox)
+		else if(S.breathid == "co2") // currently unused
+			throw_alert("not_enough_co2", /obj/screen/alert/not_enough_co2)
+		else if(S.breathid == "n2")
+			throw_alert("not_enough_nitro", /obj/screen/alert/not_enough_nitro)
+	return FALSE
 
 // USED IN DEATHWHISPERS
 /mob/living/carbon/human/proc/isInCrit()
@@ -842,14 +841,13 @@
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()
-	var/client/C = src.client
-	if(C && C.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
-		var/obj/item/organ/internal/heart/H = get_int_organ(/obj/item/organ/internal/heart)
+	if(client && client.prefs.sound & SOUND_HEARTBEAT) //disable heartbeat by pref
+		var/datum/organ/heart/H = get_int_organ_datum(ORGAN_DATUM_HEART)
 
 		if(!H) //H.status will runtime if there is no H (obviously)
 			return
 
-		if(H.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
+		if(H.linked_organ.is_robotic()) //Handle robotic hearts specially with a wuuuubb. This also applies to machine-people.
 			if(isinspace())
 				//PULSE_THREADY - maximum value for pulse, currently it 5.
 				//High pulse value corresponds to a fast rate of heartbeat.
@@ -862,7 +860,6 @@
 
 				else
 					heartbeat++
-				return
 			return
 
 		if(pulse == PULSE_NONE)
@@ -897,21 +894,18 @@
 	if(!can_heartattack())
 		return FALSE
 
-	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
-	if(!istype(heart) || (heart.status & ORGAN_DEAD) || !heart.beating)
+	var/datum/organ/heart/heart_datum = get_int_organ_datum(ORGAN_DATUM_HEART)
+	if(!istype(heart_datum) || (heart_datum.linked_organ.status & ORGAN_DEAD))
 		return TRUE
 
-	return FALSE
+	return !heart_datum.beating
+
 
 /mob/living/carbon/human/proc/set_heartattack(status)
 	if(!can_heartattack())
 		return FALSE
-
-	var/obj/item/organ/internal/heart/heart = get_int_organ(/obj/item/organ/internal/heart)
-	if(!istype(heart))
-		return FALSE
-
-	heart.beating = !status
+	var/datum/organ/heart/heart_datum = get_int_organ_datum(ORGAN_DATUM_HEART)
+	heart_datum.change_beating(!status)
 
 /mob/living/carbon/human/handle_heartattack()
 	if(!can_heartattack() || !undergoing_cardiac_arrest() || reagents.has_reagent("corazone"))

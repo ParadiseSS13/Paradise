@@ -11,6 +11,10 @@
 #define ORGAN_BURNT		   (1 << 7)
 #define ORGAN_SALVED	   (1 << 8)
 
+// Organ defines.
+#define ORGAN_DATUM_HEART	"heart"
+#define ORGAN_DATUM_LUNGS	"lungs"
+
 // For limb resistance flags
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)

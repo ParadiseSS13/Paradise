@@ -192,13 +192,13 @@ REAGENT SCANNER
 			continue
 		to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
 	if(H.undergoing_cardiac_arrest())
-		var/obj/item/organ/internal/heart/heart = H.get_int_organ(/obj/item/organ/internal/heart)
-		if(heart && !(heart.status & ORGAN_DEAD))
-			to_chat(user, "<span class='alert'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</span>")
-		else if(heart && (heart.status & ORGAN_DEAD))
-			to_chat(user, "<span class='alert'><b>Subject's heart is necrotic.</b></span>")
-		else if(!heart)
+		var/datum/organ/heart/heart_datum = H.get_int_organ_datum(ORGAN_DATUM_HEART)
+		if(!heart_datum)
 			to_chat(user, "<span class='alert'><b>Subject has no heart.</b></span>")
+		else if(heart_datum.linked_organ.status & ORGAN_DEAD)
+			to_chat(user, "<span class='alert'><b>Subject's heart is necrotic.</b></span>")
+		else
+			to_chat(user, "<span class='alert'><b>The patient's heart has stopped.</b>\nPossible Cure: Electric Shock</span>")
 
 	if(H.getStaminaLoss())
 		to_chat(user, "<span class='info'>Subject appears to be suffering from fatigue.</span>")
