@@ -91726,7 +91726,7 @@
 	name = "engine outlet injector";
 	volume_rate = 200
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "xrm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,

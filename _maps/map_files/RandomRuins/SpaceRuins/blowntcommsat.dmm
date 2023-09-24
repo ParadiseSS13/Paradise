@@ -85,7 +85,7 @@
 /area/ruin/space/tcommsat)
 "fS" = (
 /obj/structure/rack,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/tcommsat)
@@ -172,7 +172,7 @@
 "le" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/tcommsat)
@@ -242,7 +242,7 @@
 "oZ" = (
 /obj/structure/rack,
 /obj/item/circuitboard/teleporter,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/tcommsat)
@@ -722,6 +722,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"UK" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/tcommsat)
 "UP" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1088,7 +1093,7 @@ Wr
 Is
 Wc
 Wr
-sb
+UK
 le
 Wr
 zE
@@ -1142,7 +1147,7 @@ Wr
 Wc
 Is
 ot
-sb
+UK
 fS
 Wr
 Jr
@@ -1196,7 +1201,7 @@ Cq
 Sp
 Wc
 jk
-sb
+UK
 oZ
 ot
 Jr
@@ -1250,7 +1255,7 @@ Wr
 Is
 Sp
 Wr
-sb
+UK
 fS
 Wr
 Jr

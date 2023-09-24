@@ -27,6 +27,16 @@
 	. = ..()
 	burn_tile()
 
+/turf/simulated/floor/plating/damaged/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/turf/simulated/floor/plating/burnt/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
 /turf/simulated/floor/plating/update_icon_state()
 	if(!broken && !burnt)
 		icon_state = icon_plating //Because asteroids are 'platings' too.
@@ -158,6 +168,11 @@
 	. = ..()
 	name = "plating"
 
+/turf/simulated/floor/plating/lavaland_air
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23
+
 /turf/simulated/floor/engine
 	name = "reinforced floor"
 	icon_state = "engine"
@@ -226,6 +241,11 @@
 /turf/simulated/floor/engine/cult/narsie_act()
 	return
 
+/turf/simulated/floor/engine/cult/lavaland_air
+	nitrogen = 23
+	oxygen = 14
+	temperature = 300
+
 //air filled floors; used in atmos pressure chambers
 
 /turf/simulated/floor/engine/n20
@@ -261,6 +281,15 @@
 	oxygen = 2644
 	nitrogen = 10580
 
+/turf/simulated/floor/engine/xenobio
+	oxygen = 0
+	temperature = 80
+	nitrogen = 100
+
+/turf/simulated/floor/engine/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
 
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	..()
