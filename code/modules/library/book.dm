@@ -145,8 +145,8 @@
 		if(!L.has_status_effect(STATUS_BOOKWYRM) && COOLDOWN_FINISHED(src, brain_damage_cooldown))
 			if(prob(10))
 				to_chat(L, "<span class='notice'>You feel a bit smarter!</span>")
-			user.adjustBrainLoss(-1)
-			COOLDOWN_START(src, brain_damage_cooldown, BOOK_BRAIN_DAMAGE_TIME)
+			L.adjustBrainLoss(-1)
+			COOLDOWN_START(src, brain_damage_cooldown, BRAIN_DAMAGE_BOOK_TIME)
 			L.apply_status_effect(STATUS_BOOKWYRM)
 
 	show_content(user) //where all the magic happens
