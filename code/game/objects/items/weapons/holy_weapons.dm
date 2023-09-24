@@ -113,14 +113,143 @@
 
 /obj/item/nullrod/godhand
 	name = "god hand"
-	icon_state = "disintegrate"
-	item_state = "disintegrate"
-	desc = "This hand of yours glows with an awesome power!"
+	icon_state = "burnhand"
+	item_state = "burnhand"
+	desc = "Like Prometheus, you steal fire from the Gods! Except you didn't steal this."
 	flags = ABSTRACT | NODROP| DROPDEL
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/sear.ogg'
+	force = 15
 	damtype = BURN
-	attack_verb = list("punched", "cross countered", "pummeled")
+	light_color = "#E09D37"
+	attack_verb = list("punched", "pummeled", "burnt", "seared")
+			
+/obj/item/nullrod/godhand/attack(mob/living/carbon/M, mob/user)
+	if(!isliving(M))
+		return
+	M.IgniteMob()
+	if(!ismob(M))
+		return
+
+	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth")
+		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
+		if(M == user)
+			cig.attackby(src, user)
+		else
+			if(istype(src, /obj/item/nullrod/godhand))
+				cig.light("<span class='rose'>[user] extends [user.p_their()] hand out to [M], and [cig] ignites.</span>")
+			else
+				cig.light("<span class='notice'>[user] reaches out to [M] with [user.p_their()] hand, and [cig] suddenly ignites.</span>")
+			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
+			M.update_inv_wear_mask()
+	else
+		..()
+		
+/obj/item/nullrod/godhand/Initialize() // Part one of janky code to make Godhand glow
+	. = ..()
+	update_brightness()
+	
+/obj/item/nullrod/godhand/proc/update_brightness() // Part two of janky code to make Godhand glow
+	set_light(2)
+		
+// Light Candles
+/obj/item/candle/attackby(obj/item/R, mob/user)
+	if(istype(R, /obj/item/nullrod/godhand))
+		light("<span class='notice'>[user] holds their hand over the wick of [src] and it starts burning.</span>")
+		return
+	else
+		..()
+
+// Light cigarettes
+/obj/item/clothing/mask/cigarette/attackby(obj/item/R, mob/user)
+	if(istype(R, /obj/item/nullrod/godhand))
+		light("<span class='notice'>[user] calmly raises [user.p_their()] hand to [user.p_their()] [name] and it ignites.</span>")
+		return
+	else
+		..()
+
+// Light pipes with your finger
+/obj/item/clothing/mask/cigarette/pipe/attackby(obj/item/R, mob/user)
+	if(istype(R, /obj/item/nullrod/godhand))
+		light("<span class='notice'>[user] sticks a finger into [src], and upon taking it out, smoke follows.</span>")
+		return
+	else
+		..()
+
+// Burn paper
+/obj/item/paper/attackby(obj/item/R, mob/user)
+	if(istype(R, /obj/item/nullrod/godhand))
+		user.unEquip(src)
+		user.visible_message("<span class='danger'>[user] touches [src] with a finger and it bursts into flames!</span>", "<span class='danger'>You ignite [src] with your finger!</span>")
+		fire_act()
+		return
+	else
+		..()
+
+// Burn paper airplanes
+/obj/item/paperplane/attackby(obj/item/R, mob/user)
+	if(istype(R, /obj/item/nullrod/godhand))
+		if(!in_range(user, src))
+			return
+		user.unEquip(src)
+		user.visible_message("<span class='danger'>[user] touches [src] with a finger and it bursts into flames!</span>", "<span class='danger'>You ignite [src] with your finger!</span>")
+		fire_act()
+		return
+	else
+		..()
+
+// Burn tickets
+/obj/item/ticket_machine_ticket/attackby(obj/item/R, mob/user)
+	if(istype(R, /obj/item/nullrod/godhand))
+		user.visible_message("<span class='danger'>[user] pokes [src] with [user.p_their()] finger and it bursts into flames!</span>", "<span class='danger'>You poke [src] with your finger and set it on fire!</span>")
+		fire_act()
+		return
+	else
+		..()
+
+// Beaker heating
+/obj/item/reagent_containers/glass/beaker/attackby(obj/item/R, mob/user)
+	if(istype(R, /obj/item/nullrod/godhand))
+		user.visible_message("<span class='notice'>You press your hand to [src] and it heats up.</span>")
+		heat_beaker()
+		return
+	else
+		..()
+	
+// Light shots on fire
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/attackby(obj/item/R, mob/user)
+	if(istype(R, /obj/item/nullrod/godhand))
+		fire_act()
+		return
+	else
+		..()
+		
+// Prime Molotovs
+/obj/item/reagent_containers/food/drinks/bottle/molotov/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/nullrod/godhand))
+		active = TRUE
+		var/turf/bombturf = get_turf(src)
+		var/area/bombarea = get_area(bombturf)
+		message_admins("[key_name(user)][ADMIN_QUE(user,"?")] has primed a [name] for detonation at <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[bombturf.x];Y=[bombturf.y];Z=[bombturf.z]'>[bombarea] (JMP)</a>.")
+		log_game("[key_name(user)] has primed a [name] for detonation at [bombarea] ([bombturf.x],[bombturf.y],[bombturf.z]).")
+
+		to_chat(user, "<span class='info'>You light [src] on fire.</span>")
+		if(!is_glass)
+			spawn(50)
+				if(active)
+					var/counter
+					var/target = loc
+					for(counter = 0, counter < 2, counter++)
+						if(isstorage(target))
+							var/obj/item/storage/S = target
+							target = S.loc
+					if(istype(target, /atom))
+						var/atom/A = target
+						SplashReagents(A)
+						A.fire_act()
+					qdel(src)
+		else
+			..()
 
 /obj/item/nullrod/staff
 	name = "red holy staff"
