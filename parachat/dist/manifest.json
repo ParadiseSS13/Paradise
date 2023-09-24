@@ -1,0 +1,17 @@
+{
+  "../vite/legacy-polyfills-legacy": {
+    "file": "parachat-polyfills-legacy.js",
+    "isEntry": true,
+    "src": "../vite/legacy-polyfills-legacy"
+  },
+  "index-legacy.html": {
+    "file": "parachat-index-legacy.js",
+    "isEntry": true,
+    "src": "index-legacy.html"
+  },
+  "index.html": {
+    "file": "parachat-index.js",
+    "isEntry": true,
+    "src": "index.html"
+  }
+}
