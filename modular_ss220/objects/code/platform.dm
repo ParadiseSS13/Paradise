@@ -8,7 +8,7 @@
 	anchored = FALSE
 	climbable = TRUE
 	max_integrity = 200
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 50, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 50, BOMB = 20, RAD = 0, FIRE = 30, ACID = 30)
 	var/corner = FALSE
 	var/material_type = /obj/item/stack/sheet/metal
 	var/material_amount = 4
@@ -190,7 +190,7 @@
 	icon_state = "plasteel"
 	material_type = /obj/item/stack/sheet/plasteel
 	max_integrity = 300
-	armor = list("melee" = 20, "bullet" = 30, "laser" = 30, "energy" = 100, "bomb" = 50, "bio" = 0, "rad" = 75, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 20, BULLET = 30, LASER = 30, ENERGY = 100, BOMB = 50, RAD = 75, FIRE = 100, ACID = 100)
 
 // Platform corners
 /obj/structure/platform/corner
