@@ -110,3 +110,9 @@
 	icon_state = "dust"
 	base_icon_state = "dust"
 	mouse_opacity = FALSE
+
+/* GRASS */
+/obj/effect/turf_decal/grass
+	icon = 'modular_ss220/aesthetics/decals/icons/grass.dmi'
+	icon_state = "grass_edge_big"
+	base_icon_state = "grass_edge"

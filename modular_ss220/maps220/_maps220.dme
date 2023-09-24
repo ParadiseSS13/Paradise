@@ -14,3 +14,6 @@
 #include "code/nanomap.dm"
 #include "code/spawners.dm"
 #include "code/walls.dm"
+#include "code/floors.dm"
+#include "code/effects.dm"
+#include "code/objects.dm"

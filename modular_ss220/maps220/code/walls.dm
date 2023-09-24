@@ -113,3 +113,16 @@
 /turf/simulated/wall/indestructible/syndishuttle/copyTurf(turf/T)
 	. = ..()
 	T.transform = transform
+
+/* False Wall */
+/obj/structure/falsewall/bookcase
+	name = "bookcase"
+	desc = "Bookcase made of tropical wood. All the books are covered with a thick layer of dust, except for one..."
+	icon = 'modular_ss220/maps220/icons/bookcase_wall.dmi'
+	icon_state = "fbookcase_wall-0"
+	base_icon_state = "fbookcase_wall"
+	mineral = /obj/item/stack/sheet/wood
+	walltype = /turf/simulated/wall/mineral/wood
+	smoothing_flags = null
+	smoothing_groups = null
+	canSmoothWith = null

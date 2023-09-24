@@ -212,3 +212,60 @@
 	name = "BMP Mining"
 	icon_state = "awaycontent17"
 	requires_power = TRUE
+
+/* Jungle Planet */
+/area/awaymission/jungle_planet
+	name = "Jungle"
+	icon_state = "away"
+	report_alerts = FALSE
+
+/area/awaymission/jungle_planet/outside
+	name = "Jungle"
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	icon_state = "awaycontent1"
+	always_unpowered = TRUE
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/jungle1.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/jungle2.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/jungle3.ogg')
+
+/area/awaymission/jungle_planet/outside/abandoned
+	name = "Abandoned"
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	icon_state = "awaycontent5"
+
+/area/awaymission/jungle_planet/outside/river
+	name = "River"
+	icon_state = "awaycontent2"
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/river.ogg')
+
+/area/awaymission/jungle_planet/outside/waterfall
+	name = "Waterfall"
+	icon_state = "awaycontent3"
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/waterfall.ogg')
+
+/area/awaymission/jungle_planet/outside/cave
+	name = "Cave"
+	icon_state = "awaycontent4"
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/cave_ambient2.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_ambient3.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterdrops.ogg')
+
+/area/awaymission/jungle_planet/outside/cave/small
+	name = "Small Cave"
+	icon_state = "awaycontent7"
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterfall.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterdrops.ogg')
+
+/area/awaymission/jungle_planet/outside/cave/pirate
+	name = "Pirate Cave"
+	icon_state = "awaycontent6"
+	always_unpowered = FALSE
+	requires_power = FALSE
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/cave_waterdrops.ogg')
+
+/area/awaymission/jungle_planet/inside
+	name = "Hangar 2"
+	dynamic_lighting = DYNAMIC_LIGHTING_ENABLED
+	icon_state = "awaycontent8"
+	requires_power = TRUE
+
+/area/awaymission/jungle_planet/inside/complex
+	name = "MC-16"
+	icon_state = "awaycontent9"
+	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/ambient_pulse1.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/ambient_pulse2.ogg')

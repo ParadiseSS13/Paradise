@@ -276,3 +276,217 @@
 	minbodytemp = 0
 	loot = list(/obj/effect/spawner/lootdrop/maintenance/three = 1)
 
+/* Jungle Mob */
+/mob/living/simple_animal/hostile/jungle_lizard
+	name = "tribal lizardman"
+	desc = "Представитель коренного населения этой планеты. Этот варвар не потерпит незваных гостей."
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "lizardman_1"
+	icon_living = "lizardman_1"
+	icon_dead = "lizard_dead"
+	speak = list("RAWR!","HSS-sss-ss!!!","Azkh'a Azss'ss!","Ssshazi's Ghzass!")
+	speak_chance = 2
+	turns_per_move = 5
+	mob_biotypes =  MOB_ORGANIC | MOB_HUMANOID
+	sentience_type = SENTIENCE_OTHER
+	speed = -0.5
+	move_to_delay = 2
+	stat_attack = UNCONSCIOUS
+	robust_searching = 1
+	maxHealth = 80
+	health = 80
+	harm_intent_damage = 8
+	melee_damage_lower = 5
+	melee_damage_upper = 10
+	attacktext = "рвёт"
+	attack_sound = 'sound/weapons/punch1.ogg'
+	a_intent = INTENT_HARM
+	faction = list("junglemob")
+	check_friendly_fire = 1
+	status_flags = CANPUSH
+	unsuitable_atmos_damage = 10
+	loot = list(/obj/effect/decal/cleanable/blood/gibs)
+	del_on_death = 1
+	footstep_type = FOOTSTEP_MOB_SHOE
+
+/mob/living/simple_animal/hostile/jungle_lizard/meele
+	icon_state = "lizardman_2"
+	icon_living = "lizardman_2"
+	maxHealth = 70
+	health = 70
+
+/mob/living/simple_animal/hostile/jungle_lizard/spearman
+	name = "tribal spearman"
+	desc = "Представитель коренного населения этой планеты. Вооружен острым копьем, крепким деревянным баклером и яростным желанием защищать свои земли."
+	icon_state = "lizardman_spear"
+	icon_living = "lizardman_spear"
+	maxHealth = 100
+	health = 100
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+	rapid_melee = 2
+	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attacktext = "колет"
+
+/mob/living/simple_animal/hostile/jungle_lizard/archer
+	name = "tribal archer"
+	desc = "Представитель коренного населения этой планеты. Вооружен мастерски сделанным композитным луком и смертоносными стрелами."
+	icon_state = "lizardman_bow"
+	icon_living = "lizardman_bow"
+	ranged = 1
+	retreat_distance = 5
+	minimum_distance = 6
+	projectiletype = /obj/item/projectile/bullet/arrow
+	projectilesound = 'sound/weapons/grenadelaunch.ogg'
+	attacktext = "стреляет"
+
+/obj/item/projectile/bullet/arrow //not reusable
+	name = "arrow"
+	icon_state = "arrow"
+	range = 10
+	damage = 25
+	damage_type = BRUTE
+
+/mob/living/simple_animal/hostile/jungle_lizard/axeman
+	name = "tribal axeman"
+	desc = "Представитель коренного населения этой планеты. Закован в плотный самодельный костяной панцырь и вооружен огромным топором, таким же опасным, как и он сам."
+	icon_state = "lizardman_axe"
+	icon_living = "lizardman_axe"
+	maxHealth = 160
+	health = 160
+	melee_damage_lower = 25
+	melee_damage_upper = 25
+	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attacktext = "рубит"
+
+/mob/living/simple_animal/hostile/jungle_lizard/leader
+	name = "tribal leader"
+	desc = "Представитель коренного населения этой планеты. Этот ящер заслужил свое звание жестокостью и кровожадностью по отношению к врагам."
+	icon_state = "lizardman_leader"
+	icon_living = "lizardman_leader"
+	maxHealth = 200
+	health = 200
+	melee_damage_lower = 30
+	melee_damage_upper = 30
+	attack_sound = 'sound/weapons/bladeslice.ogg'
+	attacktext = "рубит"
+	damage_coeff = list(BRUTE = 0.8, BURN = 0.8, TOX = 1, CLONE = 2, STAMINA = 1, OXY = 1)
+
+/mob/living/simple_animal/hostile/panther/huge_panther
+	name = "huge panther"
+	desc = "Большой, гладкий черный кот с острыми клыками и когтями. Этот выглядит особенно огромным."
+	maxHealth = 120
+	health = 120
+	harm_intent_damage = 5
+	melee_damage_lower = 15
+	melee_damage_upper = 18
+	rapid_melee = 2
+	move_to_delay = 2
+	speed = -2
+	dodging = 1
+	sidestep_per_cycle = 2
+	faction = list("junglemob")
+
+/mob/living/simple_animal/hostile/poison_snake
+	name = "poison snake"
+	desc = "Изворотливая змея, незаметно скользящая своим брюхом по земле. Яд многих из них может быть смертельно опасным."
+	icon_state = "snake"
+	icon_living = "snake"
+	icon_dead = "snake_dead"
+	speak_emote = list("hisses")
+	tts_seed = "Ladyvashj"
+	health = 20
+	maxHealth = 20
+	attacktext = "кусает"
+	attack_sound = 'sound/weapons/bite.ogg'
+	melee_damage_lower = 5
+	melee_damage_upper = 6
+	obj_damage = 0
+	response_help  = "pets"
+	response_disarm = "shoos"
+	response_harm   = "steps on"
+	ventcrawler = VENTCRAWLER_ALWAYS
+	density = FALSE
+	pass_flags = PASSTABLE | PASSMOB
+	mob_size = MOB_SIZE_SMALL
+	gold_core_spawnable = HOSTILE_SPAWN
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	faction = list("junglemob")
+
+/mob/living/simple_animal/hostile/poison_snake
+	var/poison_per_bite = 3
+	var/poison_type = "neurotoxin2"
+
+/mob/living/simple_animal/hostile/poison_snake/AttackingTarget()
+	. = ..()
+	if(. && isliving(target))
+		var/mob/living/L = target
+		if(L.reagents && !poison_per_bite == 0)
+			L.reagents.add_reagent(poison_type, poison_per_bite)
+		return .
+
+/* Jungle Mob Spawners */
+/obj/effect/landmark/awaymissions/gate_lizard/mine_spawner
+	icon = 'icons/obj/items.dmi'
+	icon_state = "fleshtrap"
+	var/id = null
+	var/triggered = 0
+	var/faction = null
+	var/safety_z_check = 1
+
+/obj/effect/landmark/awaymissions/gate_lizard/mob_spawn
+	name = "spawner"
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	var/id = null
+	var/jungle_mob = null
+
+/obj/effect/landmark/awaymissions/gate_lizard/mine_spawner/Crossed(AM as mob|obj, oldloc)
+	if(!isliving(AM))
+		return
+	var/mob/living/M = AM
+	if(faction && (faction in M.faction))
+		return
+	triggerlandmark(M)
+
+/obj/effect/landmark/awaymissions/gate_lizard/mine_spawner/proc/triggerlandmark(mob/living/victim)
+	if(triggered)
+		return
+	victim.spawn_alert(victim)
+	for(var/obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/S in GLOB.landmarks_list)
+		if(safety_z_check && S.z != z)
+			continue
+		if(S.id == id)
+			new S.jungle_mob(get_turf(S))
+			triggered = 1
+	qdel(src)
+
+/mob/living/proc/spawn_alert(atom/A) // Вызывает появление восклицательного знака над головой при наступании на маркер
+	var/image/I
+	I = image('icons/obj/cardboard_boxes.dmi', A, "cardboard_special", A.layer+1)
+	var/list/viewing = list()
+	for(var/mob/M in viewers(A))
+		if(M.client)
+			viewing |= M.client
+	flick_overlay(I,viewing,8)
+	I.alpha = 0
+	animate(I, pixel_z = 32, alpha = 255, time = 5, easing = ELASTIC_EASING)
+
+/obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/melee
+	name = "Melee"
+	icon_state = "spawner"
+	jungle_mob = /mob/living/simple_animal/hostile/jungle_lizard
+
+/obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/melee_spear
+	name = "Spearman"
+	icon_state = "spawner_spear"
+	jungle_mob = /mob/living/simple_animal/hostile/jungle_lizard/spearman
+
+/obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/melee_axe
+	name = "Axeman"
+	icon_state = "spawner_axe"
+	jungle_mob = /mob/living/simple_animal/hostile/jungle_lizard/axeman
+
+/obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/ranged
+	name = "Bowman"
+	icon_state = "spawner_bow"
+	jungle_mob = /mob/living/simple_animal/hostile/jungle_lizard/archer
