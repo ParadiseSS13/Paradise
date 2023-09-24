@@ -30,7 +30,7 @@
 	var/cooldown = 0 //shield bash cooldown. based on world.time
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/melee/baton))
+	if(istype(W, /obj/item/melee/baton) || istype(W, /obj/item/kitchen/knife/combat))
 		if(cooldown < world.time - 2.5 SECONDS)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
