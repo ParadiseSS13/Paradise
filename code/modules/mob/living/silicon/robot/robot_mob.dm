@@ -795,6 +795,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			//This will mean that removing and replacing a power cell will repair the mount, but I don't care at this point. ~Z
 			C.brute_damage = 0
 			C.electronics_damage = 0
+
+			var/been_hijacked = FALSE
+			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+				if(!been_hijacked)
+					demon.do_hijack_robot(src)
+					been_hijacked = TRUE
+				else
+					demon.exit_to_turf()
+			if(been_hijacked)
+				cell.rigged = FALSE
+
 			module?.update_cells()
 			diag_hud_set_borgcell()
 
@@ -1243,8 +1254,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/self_destruct()
 	if(emagged)
-		if(mmi)
-			qdel(mmi)
 		explosion(src.loc,1,2,4,flame_range = 2)
 	else
 		explosion(src.loc,-1,0,2)

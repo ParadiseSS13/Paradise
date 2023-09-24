@@ -146,7 +146,7 @@
 	. = ..()
 	if (prob(mineralChance))
 		var/path = pickweight(mineralSpawnChanceList)
-		var/turf/T = ChangeTurf(path, FALSE, TRUE)
+		var/turf/T = ChangeTurf(path, FALSE, TRUE, TRUE)
 
 		if(T && ismineralturf(T))
 			var/turf/simulated/mineral/M = T
