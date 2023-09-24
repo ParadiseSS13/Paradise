@@ -2683,7 +2683,6 @@
 #include "code\modules\surgery\organs\subtypes\nucleation_organs.dm"
 #include "code\modules\surgery\organs\subtypes\plasmaman_organs.dm"
 #include "code\modules\surgery\organs\subtypes\skrell_organs.dm"
-#include "code\modules\surgery\organs\subtypes\slime_organs.dm"
 #include "code\modules\surgery\organs\subtypes\standard_organs.dm"
 #include "code\modules\surgery\organs\subtypes\tajaran_organs.dm"
 #include "code\modules\surgery\organs\subtypes\unathi_organs.dm"
