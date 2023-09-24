@@ -103,3 +103,12 @@
 
 /obj/item/paper/pamphlet/update_icon_state()
 	return
+
+// Wallets
+// Adding more items that wallet can hold
+/obj/item/storage/wallet/Initialize(mapload)
+	. = ..()
+	can_hold += list(
+		/obj/item/encryptionkey,
+		/obj/item/clothing/gloves/ring)
+
