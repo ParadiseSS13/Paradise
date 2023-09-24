@@ -558,3 +558,7 @@
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
 #define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
 #define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
+
+// Reading books can help with brain damage!
+#define BRAIN_DAMAGE_BOOK_TIME 45 SECONDS
+#define BRAIN_DAMAGE_MOB_TIME 10 SECONDS
