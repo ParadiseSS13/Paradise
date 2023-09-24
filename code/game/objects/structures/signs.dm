@@ -103,6 +103,11 @@
 	if(user.client)
 		user.client.webmap()
 
+/obj/structure/sign/nanotrasen
+	name = "\improper NANOTRASEN"
+	desc = "A sign that indicates an NT turf."
+	icon_state = "nanotrasen"
+
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'"
