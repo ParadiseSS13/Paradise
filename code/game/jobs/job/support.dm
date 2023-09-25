@@ -5,7 +5,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	job_department_flags = DEP_FLAG_SUPPLY
+	job_department_flags = DEP_FLAG_SUPPLY | DEP_FLAG_COMMAND
 	supervisors = "the captain"
 	department_head = list("Captain")
 	department_account_access = TRUE
