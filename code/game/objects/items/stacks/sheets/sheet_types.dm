@@ -437,7 +437,6 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	new /datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 ))
 
-
 /obj/item/stack/sheet/soil
 	name = "soil"
 	desc = "A clump of fertile soil, can be used to make a plot."
@@ -449,11 +448,9 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 	resistance_flags = FIRE_PROOF
 	merge_type = /obj/item/stack/sheet/soil
 
-/obj/item/stack/sheet/soil/New(loc, amt = null)
+/obj/item/stack/sheet/soil/Initialize(loc, amt = null)
 	recipes = GLOB.soil_recipes
 	return ..()
-
-
 
 /*
  * Runed Metal
