@@ -136,7 +136,7 @@
 // Convert biomass to compost, then continue composting
 /obj/machinery/compost_bin/proc/convert_biomass()
 	//converts 20% of the biomass to compost each cycle, unless there isn't enough comopst space or there is 10 or less biomass
-	var/conversion_amount = clamp(DECAY*biomass,min(MIN_CONVERSION,biomass),compost_capacity - compost)
+	var/conversion_amount = clamp(DECAY * biomass, min(MIN_CONVERSION, biomass), compost_capacity - compost)
 	biomass -= conversion_amount
 	compost += conversion_amount
 	update_icon_state()
