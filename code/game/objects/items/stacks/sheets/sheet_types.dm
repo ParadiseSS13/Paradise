@@ -439,7 +439,7 @@ GLOBAL_LIST_INIT(soil_recipes, list (
 
 /obj/item/stack/sheet/soil
 	name = "soil"
-	desc = "A clump of fertile soil, can be used to make a plot."
+	desc = "A clump of fertile soil which can be used to make a plot."
 	singular_name = "soil clump"
 	icon = 'icons/obj/stacks/organic.dmi'
 	icon_state = "sheet-soil"
