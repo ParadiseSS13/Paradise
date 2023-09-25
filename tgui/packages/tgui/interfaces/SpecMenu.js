@@ -222,7 +222,7 @@ const DantMenu = (props, context) => {
         <p>
           <b>Full Power</b>
           <Divider />
-          <b>Mass Hysteria</b>: Casts a powerful illusion that blinds then make
+          <b>Mass Hysteria</b>: Casts a powerful illusion that blinds and then makes
           everyone nearby perceive others as random animals.
         </p>
         <Button content="Dantalion" onClick={() => act('dantalion')} />
