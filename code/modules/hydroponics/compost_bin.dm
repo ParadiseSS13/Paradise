@@ -30,7 +30,7 @@
 /obj/machinery/compost_bin/Initialize(mapload)
 	/// try to compost
 	compost()
-	return
+	return ..()
 
 
 /obj/machinery/compost_bin/on_deconstruction()
