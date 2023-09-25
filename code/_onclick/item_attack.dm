@@ -29,7 +29,7 @@
 	if(is_hot(src) && A.reagents && !ismob(A))
 		var/reagent_temp = A.reagents.chem_temp
 		var/time = ((reagent_temp / 10) / (is_hot(src) / 1000))
-		if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop lighting [A]."))
+		if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
 			to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
 			A.reagents.temperature_reagents(is_hot(src))
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
