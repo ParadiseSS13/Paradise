@@ -29,8 +29,10 @@
 		organ_datums[organ_datum.organ_tag] = organ_datum
 
 /obj/item/organ/internal/Destroy()
+	if(owner) // we have to remove BEFORE organ_datums are qdel'd, or we can just live even if our heart organ got deleted
+		remove(owner, TRUE)
 	QDEL_LIST_ASSOC_VAL(organ_datums) // The removal from internal_organ_datums should be handled when the organ is removed
-	return ..()
+	. = ..()
 
 
 /obj/item/organ/internal/proc/insert(mob/living/carbon/M, special = 0, dont_remove_slot = 0)
@@ -134,8 +136,8 @@
 
 /obj/item/organ/internal/necrotize(update_sprite)
 	for(var/organ_tag in organ_datums) // let the organ datums handle first
-		var/datum/organ/deadgan = organ_datums[organ_tag]
-		deadgan.on_necrotize()
+		var/datum/organ/dead_organ = organ_datums[organ_tag]
+		dead_organ.on_necrotize()
 	return ..()
 
 /obj/item/organ/internal/item_action_slot_check(slot, mob/user)
