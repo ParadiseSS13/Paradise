@@ -63,7 +63,7 @@
 		return
 	. = TRUE
 	to_chat(user, "<span class='notice'>You start fiddling with the internal memory mechanisms.</span>")
-	if(do_after_once(usr, 10 SECONDS * I.toolspeed, target = src))
+	if(do_after_once(user, 10 SECONDS * I.toolspeed, target = src))
 		if(prob(40))
 			to_chat(user, "<span class='notice'>The screen dims, the internal memory seems to be reset.</span>")
 			code = null
