@@ -1,7 +1,6 @@
 #define BASE_BIOMASS_CAPACITY 1500
 #define BASE_COMPOST_CAPACITY 1500
 #define SOIL_COST 25
-#define SOIL /obj/item/stack/sheet/soil
 #define DECAY 0.2
 #define MIN_CONVERSION 10
 /**
@@ -158,7 +157,7 @@
 	// Creating soil
 	if(!enough_compost(amount))
 		return
-	new SOIL(loc, amount)
+	new /obj/item/stack/sheet/soil(loc, amount)
 	compost -= SOIL_COST * amount
 	update_icon_state()
 	compost()
@@ -189,6 +188,5 @@
 #undef BASE_BIOMASS_CAPACITY
 #undef BASE_COMPOST_CAPACITY
 #undef SOIL_COST
-#undef SOIL
 #undef DECAY
 #undef MIN_CONVERSION
