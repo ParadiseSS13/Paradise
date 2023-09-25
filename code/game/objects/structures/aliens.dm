@@ -298,7 +298,6 @@
 		clear_wall_weed()
 		return
 
-
 	var/list/wall_dirs = list()
 	for(var/turf/W in nearby_dense_turfs)
 		if(iswallturf(W))
