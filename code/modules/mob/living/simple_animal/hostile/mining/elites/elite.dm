@@ -470,7 +470,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/effect/temp_visual/elite_tumor_wall/CanPass(atom/movable/mover, border_dir)
 	. = ..()
-	if(isliving(mover))
+	if(isliving(mover) || istype(mover, /obj/item/projectile))
 		return FALSE
 
 /obj/item/gps/internal/tumor
