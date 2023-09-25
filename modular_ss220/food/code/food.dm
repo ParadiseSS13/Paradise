@@ -1008,3 +1008,18 @@
 	name = "дырявая сковорода"
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "pan"
+
+// Infinite Pizza Box
+/obj/item/pizzabox/infinite
+	resistance_flags = FIRE_PROOF | LAVA_PROOF | ACID_PROOF
+
+/obj/item/pizzabox/infinite/examine(mob/user)
+	. = ..()
+	if(isobserver(user))
+		. += span_deadsay("Эта коробка для пиццы является аномальной и будет производить бесконечное количество пиццы.")
+
+/obj/item/pizzabox/infinite/attack_self(mob/living/user)
+	QDEL_NULL(pizza)
+	if(ishuman(user))
+		pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
+	. = ..()

@@ -17,3 +17,4 @@
 #include "code/floors.dm"
 #include "code/effects.dm"
 #include "code/objects.dm"
+#include "code/papers.dm"

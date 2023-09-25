@@ -22,6 +22,13 @@
 	if(isliving(mover))
 		return FALSE
 
+/* Lavaland */
+/turf/simulated/floor/plasteel/lavaland_air
+	name = "floor"
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23
+
 /* Indestructible */
 /turf/simulated/floor/indestructible/grass
 	name = "grass patch"
@@ -37,7 +44,7 @@
 	barefootstep = FOOTSTEP_GRASS
 	clawfootstep = FOOTSTEP_GRASS
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
-	transform = matrix(1, 0, -9, 0, 1, -9) 
+	transform = matrix(1, 0, -9, 0, 1, -9)
 
 /turf/simulated/floor/indestructible/grass/jungle
 	name = "jungle grass"
@@ -46,7 +53,7 @@
 	base_icon_state = "junglegrass"
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_GRASS, SMOOTH_GROUP_JUNGLE_GRASS)
 
-/turf/simulated/floor/indestructible/grass/no_creep 
+/turf/simulated/floor/indestructible/grass/no_creep
 	smoothing_flags = null
 	smoothing_groups = null
 	canSmoothWith = null

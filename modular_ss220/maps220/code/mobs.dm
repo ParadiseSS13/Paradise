@@ -490,3 +490,82 @@
 	name = "Bowman"
 	icon_state = "spawner_bow"
 	jungle_mob = /mob/living/simple_animal/hostile/jungle_lizard/archer
+
+/* Abomination */
+/mob/living/simple_animal/hostile/abomination
+	name = "мерзость"
+	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент абдукторов. Что именно они пытались создать?"
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "abomination1"
+	icon_living = "abomination1"
+	icon_dead = "abomination_dead"
+	health = 300
+	maxHealth = 300
+	melee_damage_lower = 25
+	melee_damage_upper = 25
+	attacktext = "грызёт"
+	attack_sound = 'sound/weapons/bite.ogg'
+	faction = list("abomination")
+	speak_emote = list("кричит")
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	minbodytemp = 0
+	weather_immunities = list("ash")
+	stat_attack = UNCONSCIOUS
+
+/mob/living/simple_animal/hostile/abomination/super
+	desc = "Оскалившийся, страшный монстр. Этот кажется проворным."
+	icon_state = "abomination_headcrab"
+	icon_living = "abomination_headcrab"
+	icon_dead = "abomination_headcrab_dead"
+	health = 250
+	maxHealth = 250
+
+/mob/living/simple_animal/hostile/abomination/altform1
+	icon_state = "abomination2"
+	icon_living = "abomination2"
+	icon_dead = "abomination_dead"
+
+/mob/living/simple_animal/hostile/abomination/altform2
+	icon_state = "abomination3"
+	icon_living = "abomination3"
+	icon_dead = "abomination_dead"
+
+/mob/living/simple_animal/hostile/abomination/altform3
+	icon_state = "abomination4"
+	icon_living = "abomination4"
+	icon_dead = "abomination_dead"
+
+/mob/living/simple_animal/hostile/abomination/altform4
+	icon_state = "abomination5"
+	icon_living = "abomination5"
+	icon_dead = "abomination_dead"
+
+/mob/living/simple_animal/hostile/carp/eyeball
+	name = "глазок"
+	desc = "Странное на вид существо, оно не перестает смотреть..."
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "eyeball"
+	icon_living = "eyeball"
+	icon_gib = null
+	gender = NEUTER
+	mob_biotypes = MOB_ORGANIC
+	response_help = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm = "hits"
+	emote_taunt = list("glares")
+	taunt_chance = 25
+	maxHealth = 45
+	health = 45
+	speak_emote = list("телепатически вопит")
+
+	harm_intent_damage = 15
+	obj_damage = 60
+	melee_damage_lower = 20
+	melee_damage_upper = 25
+	attacktext = "моргает на"
+	attack_sound = 'sound/weapons/pierce.ogg'
+	flying = TRUE
+
+	faction = list("spooky")
+	del_on_death = TRUE
+	random_color = FALSE
