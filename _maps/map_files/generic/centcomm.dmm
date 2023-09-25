@@ -6444,7 +6444,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
 "xe" = (
-/obj/machinery/computer/crew,
+/obj/machinery/computer/crew/advanced,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "xf" = (
@@ -10424,6 +10424,11 @@
 /obj/item/flag/cargo,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"Oo" = (
+/obj/structure/bookcase/random,
+/obj/item/book/granter/spell/summon_cheese,
+/turf/simulated/floor/carpet/red,
+/area/wizard_station)
 "Op" = (
 /obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/plasteel{
@@ -12384,7 +12389,7 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "Wu" = (
-/obj/machinery/computer/crew{
+/obj/machinery/computer/crew/advanced{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -61255,7 +61260,7 @@ zv
 xH
 xH
 ZH
-ZU
+Oo
 ZU
 xH
 xH

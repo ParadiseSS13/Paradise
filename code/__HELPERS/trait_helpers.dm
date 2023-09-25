@@ -181,6 +181,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
 #define TRAIT_BURN_WOUND_IMMUNE "burn_immune"
+#define TRAIT_IB_IMMUNE			"ib_immune"
 
 #define TRAIT_COMIC_SANS		"comic_sans"
 #define TRAIT_CHAV				"chav"
@@ -210,6 +211,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_INTERACTABLE	"can_be_interacted_with_by_xenos"
 #define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
 #define TRAIT_BADASS "trait_badass"
+#define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -275,6 +277,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define MODSUIT_TRAIT "modsuit_trait"
 #define ENFORCER_GLOVES "enforcer_gloves"
 #define HOLO_CIGAR "holo_cigar"
+#define GLADIATOR "gladiator"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
