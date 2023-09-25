@@ -38,7 +38,7 @@
 
 /obj/item/vamp_claws
 	name = "vampiric claws"
-	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid"
+	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid."
 	icon = 'icons/effects/vampire_effects.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
