@@ -41,7 +41,6 @@
 /obj/machinery/compost_bin/screwdriver_act(mob/living/user, obj/item/I)
 	/// there are no screws either
 	to_chat(user, "<span class='warning'>[src] has no screws!</span>")
-	return
 
 /obj/machinery/compost_bin/crowbar_act(mob/living/user, obj/item/I)
 	/// no panel either
@@ -66,7 +65,7 @@
 			/// create biomass from plant nutriment and plant matter
 			var/plant_biomass = G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter")
 
-			biomass += min(max(plant_biomass, 0.1) * 10,biomass_capacity-biomass)
+			biomass += clamp(plant_biomass*10, 1 ,biomass_capacity-biomass)
 
 			PB.remove_from_storage(G, src)
 
@@ -91,7 +90,7 @@
 		O.forceMove(src)
 		/// make biomass from nutriment and plant matter
 		var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
-		biomass += min(max(plant_biomass, 0.1) * 10,biomass_capacity-biomass)
+		biomass += clamp(plant_biomass*10, 1 ,biomass_capacity-biomass)
 		qdel(O)
 		/// start composting after plants are inserted
 		compost()
@@ -128,29 +127,29 @@
 /// Start composting if there is enough biomass and space for compost
 /obj/machinery/compost_bin/proc/compost()
 	/// Prevents the compost bin from starting to compost again while already composting
-	if(composting == TRUE)
+	if(composting)
+		return
+	if(compost >= compost_capacity || biomass <= 0)
 		return
 	composting = TRUE
-	if(compost >= compost_capacity || biomass <= 0)
-		composting = FALSE
-		return
-	else
-		addtimer(CALLBACK(src, PROC_REF(convert_biomass)), 100)
+	addtimer(CALLBACK(src, PROC_REF(convert_biomass)), 10 SECONDS)
 
 /// Convert biomass to compost, then continue composting
 /obj/machinery/compost_bin/proc/convert_biomass()
-	//converts 20% of the biomass to compost each cycle, unless there isn't enough comopst space or there is 10 or under biomass
-	var/conversion_amount = max(min(DECAY*biomass,compost_capacity - compost),min(MIN_CONVERSION,biomass))
+	//converts 20% of the biomass to compost each cycle, unless there isn't enough comopst space or there is 10 or less biomass
+	var/conversion_amount = clamp(DECAY*biomass,min(MIN_CONVERSION,biomass),compost_capacity - compost)
 	biomass -= conversion_amount
 	compost += conversion_amount
 	update_icon_state()
 	SStgui.update_uis(src)
-	composting = FALSE
-	compost()
+	if(compost >= compost_capacity || biomass <= 0)
+		composting = FALSE
+	else
+		addtimer(CALLBACK(src, PROC_REF(convert_biomass)), 10 SECONDS)
 
 /// Checks if there is enough compost to make the desired amount of soil
 /obj/machinery/compost_bin/proc/enough_compost(amount)
-	if(SOIL_COST * amount > compost)
+	if(compost < SOIL_COST * amount)
 		return FALSE
 	return TRUE
 
