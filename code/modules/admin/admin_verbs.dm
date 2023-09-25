@@ -875,7 +875,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
 	if(job)
-		SSjobs.FreeRole(job)
+		SSjobs.FreeRole(job, force = TRUE)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 
