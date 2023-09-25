@@ -11,44 +11,43 @@
   */
 /obj/machinery/compost_bin
 	name = "compost bin"
-	desc = "A wooden bin for composting"
+	desc = "A wooden bin for composting."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "compost_bin-empty"
 	power_state = NO_POWER_USE
 	density = TRUE
 	anchored = TRUE
-	// amount of biomass in the compost bin
+	/// amount of biomass in the compost bin
 	var/biomass = 0
-	// amount of compost in the compost bin
+	/// amount of compost in the compost bin
 	var/compost = 0
-	// The maximum amount of biomass the compost bin can store.
+	/// The maximum amount of biomass the compost bin can store.
 	var/biomass_capacity = BASE_BIOMASS_CAPACITY
-	// The maximum amount of compost the compost bin can store.
+	/// The maximum amount of compost the compost bin can store.
 	var/compost_capacity = BASE_COMPOST_CAPACITY
-	// Is the bin currently composting
 	var/composting = FALSE
 
 /obj/machinery/compost_bin/Initialize(mapload)
-	// try to compost
+	/// try to compost
 	compost()
 	return
 
 
 /obj/machinery/compost_bin/on_deconstruction()
-	// returns wood instead of the non-existent components
+	/// returns wood instead of the non-existent components
 	new /obj/item/stack/sheet/wood(loc, 10)
 	..()
 
 /obj/machinery/compost_bin/screwdriver_act(mob/living/user, obj/item/I)
-	//there are no screws either
+	/// there are no screws either
 	to_chat(user, "<span class='warning'>[src] has no screws!</span>")
 	return
 
 /obj/machinery/compost_bin/crowbar_act(mob/living/user, obj/item/I)
-	// no panel either
+	/// no panel either
 	return default_deconstruction_crowbar(user, I, ignore_panel = TRUE)
 
-//  takes care of plant insertion and conversion to biomass, and start composting what was inserted
+/// takes care of plant insertion and conversion to biomass, and start composting what was inserted
 /obj/machinery/compost_bin/attackby(obj/item/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -64,14 +63,14 @@
 			if(biomass >= biomass_capacity)
 				break
 
-			//create biomass from plant nutriment and plant matter
+			/// create biomass from plant nutriment and plant matter
 			var/plant_biomass = G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter")
 
 			biomass += min(max(plant_biomass, 0.1) * 10,biomass_capacity-biomass)
 
 			PB.remove_from_storage(G, src)
 
-		// start composting after plants are inserted
+		/// start composting after plants are inserted
 		compost()
 
 		if(biomass < biomass_capacity)
@@ -90,11 +89,11 @@
 			return
 
 		O.forceMove(src)
-		//make biomass from nutriment and plant matter
+		/// make biomass from nutriment and plant matter
 		var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
 		biomass += min(max(plant_biomass, 0.1) * 10,biomass_capacity-biomass)
 		qdel(O)
-		// start composting after plants are inserted
+		/// start composting after plants are inserted
 		compost()
 		to_chat(user, "<span class='info'>You put [O] in [src].</span>")
 		SStgui.update_uis(src)
@@ -126,9 +125,9 @@
 		ui.open()
 
 
-// Start composting if there is enough biomass and space for compost
+/// Start composting if there is enough biomass and space for compost
 /obj/machinery/compost_bin/proc/compost()
-	// Prevents the compost bin from starting to compost again while already composting
+	/// Prevents the compost bin from starting to compost again while already composting
 	if(composting == TRUE)
 		return
 	composting = TRUE
@@ -138,7 +137,7 @@
 	else
 		addtimer(CALLBACK(src, PROC_REF(convert_biomass)), 100)
 
-// Convert biomass to compost, then continue composting
+/// Convert biomass to compost, then continue composting
 /obj/machinery/compost_bin/proc/convert_biomass()
 	//converts 20% of the biomass to compost each cycle, unless there isn't enough comopst space or there is 10 or under biomass
 	var/conversion_amount = max(min(DECAY*biomass,compost_capacity - compost),min(MIN_CONVERSION,biomass))
@@ -149,24 +148,24 @@
 	composting = FALSE
 	compost()
 
-// Checks if there is enough compost to make the desired amount of soil
+/// Checks if there is enough compost to make the desired amount of soil
 /obj/machinery/compost_bin/proc/enough_compost(amount)
 	if(SOIL_COST * amount > compost)
 		return FALSE
 	return TRUE
 
-// Makes soil from compost
+/// Makes soil from compost
 /obj/machinery/compost_bin/proc/create_soil(amount)
-	// Creating soil
+	/// Creating soil
 	if(!enough_compost(amount))
 		return
-	new SOIL(get_turf(src), amount)
+	new SOIL(loc, amount)
 	compost -= SOIL_COST * amount
 	update_icon_state()
 	compost()
 	SStgui.update_uis(src)
 
-// calls functions according to ui interaction(just making compost for now)
+/// calls functions according to ui interaction(just making compost for now)
 /obj/machinery/compost_bin/ui_act(action, list/params)
 	if(..())
 		return
@@ -177,16 +176,21 @@
 			var/amount = clamp(text2num(params["amount"]), 1, 10)
 			create_soil(amount)
 
-// sets compost bin sprite according to the amount of compost in it
+/// sets compost bin sprite according to the amount of compost in it
 /obj/machinery/compost_bin/update_icon_state()
-	if(compost == 0)
+	if(!compost)
 		icon_state = "compost_bin-empty"
-	else if(0 <= compost && compost <= (compost_capacity)/3)
+	else if(compost <= (compost_capacity)/3)
 		icon_state = "compost_bin-1"
-	else if((compost_capacity)/3 <= compost && compost <= 2*(compost_capacity)/3)
+	else if(compost <= 2*(compost_capacity)/3)
 		icon_state = "compost_bin-2"
-	else if(2*(compost_capacity)/3 <= compost && compost <= compost_capacity)
+	else
 		icon_state = "compost_bin-3"
 
 
-
+#undef BASE_BIOMASS_CAPACITY
+#undef BASE_COMPOST_CAPACITY
+#undef SOIL_COST
+#undef SOIL
+#undef DECAY
+#undef MIN_CONVERSION
