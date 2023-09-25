@@ -28,30 +28,31 @@
 	var/composting = FALSE
 
 /obj/machinery/compost_bin/Initialize(mapload)
-	/// try to compost
+	// try to compost
 	compost()
 	return ..()
 
 
 /obj/machinery/compost_bin/on_deconstruction()
-	/// returns wood instead of the non-existent components
+	// returns wood instead of the non-existent components
 	new /obj/item/stack/sheet/wood(loc, 10)
-	..()
+	return ..()
 
 /obj/machinery/compost_bin/screwdriver_act(mob/living/user, obj/item/I)
-	/// there are no screws either
+	// there are no screws either
 	to_chat(user, "<span class='warning'>[src] has no screws!</span>")
+	return TRUE
 
 /obj/machinery/compost_bin/crowbar_act(mob/living/user, obj/item/I)
-	/// no panel either
+	// no panel either
 	return default_deconstruction_crowbar(user, I, ignore_panel = TRUE)
 
-/// takes care of plant insertion and conversion to biomass, and start composting what was inserted
+// takes care of plant insertion and conversion to biomass, and start composting what was inserted
 /obj/machinery/compost_bin/attackby(obj/item/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	else if(istype(O, /obj/item/storage/bag/plants))
+	if(istype(O, /obj/item/storage/bag/plants))
 		if(biomass >= biomass_capacity)
 			to_chat(user, "<span class='warning'>[src] can't hold any more biomass!</span>")
 			return
@@ -62,14 +63,14 @@
 			if(biomass >= biomass_capacity)
 				break
 
-			/// create biomass from plant nutriment and plant matter
+			// create biomass from plant nutriment and plant matter
 			var/plant_biomass = G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter")
 
-			biomass += clamp(plant_biomass*10, 1 ,biomass_capacity-biomass)
+			biomass += clamp(plant_biomass*10, 1, biomass_capacity-biomass)
 
 			PB.remove_from_storage(G, src)
 
-		/// start composting after plants are inserted
+		// start composting after plants are inserted
 		compost()
 
 		if(biomass < biomass_capacity)
@@ -78,9 +79,10 @@
 			to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
 
 		SStgui.update_uis(src)
+		update_icon_state()
 		return TRUE
 
-	else if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
+	if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
 		if(biomass >= biomass_capacity)
 			to_chat(user, "<span class='warning'>[src] can't hold any more plants!</span>")
 			return
@@ -88,29 +90,18 @@
 			return
 
 		O.forceMove(src)
-		/// make biomass from nutriment and plant matter
+		// make biomass from nutriment and plant matter
 		var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
-		biomass += clamp(plant_biomass*10, 1 ,biomass_capacity-biomass)
+		biomass += clamp(plant_biomass * 10, 1, biomass_capacity - biomass)
 		qdel(O)
-		/// start composting after plants are inserted
+		// start composting after plants are inserted
 		compost()
 		to_chat(user, "<span class='info'>You put [O] in [src].</span>")
 		SStgui.update_uis(src)
+		update_icon_state()
 		return TRUE
-	else
-		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
-	SStgui.update_uis(src)
-	update_icon_state()
 
-
-/obj/machinery/compost_bin/ui_data(mob/user)
-	var/list/data = list(
-		"biomass" = biomass,
-		"biomass_capacity" = biomass_capacity,
-		"compost" = compost,
-		"compost_capacity" = compost_capacity,
-		)
-	return data
+	to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
 
 /obj/machinery/compost_bin/attack_hand(mob/user)
 	ui_interact(user)
@@ -124,9 +115,17 @@
 		ui.open()
 
 
-/// Start composting if there is enough biomass and space for compost
+/obj/machinery/compost_bin/ui_data(mob/user)
+	var/list/data = list()
+	data["biomass"] = biomass
+	data["biomass_capacity"] = biomass_capacity
+	data["compost"] = compost
+	data["compost_capacity"] = compost_capacity
+	return data
+
+// Start composting if there is enough biomass and space for compost
 /obj/machinery/compost_bin/proc/compost()
-	/// Prevents the compost bin from starting to compost again while already composting
+	// Prevents the compost bin from starting to compost again while already composting
 	if(composting)
 		return
 	if(compost >= compost_capacity || biomass <= 0)
@@ -134,7 +133,7 @@
 	composting = TRUE
 	addtimer(CALLBACK(src, PROC_REF(convert_biomass)), 10 SECONDS)
 
-/// Convert biomass to compost, then continue composting
+// Convert biomass to compost, then continue composting
 /obj/machinery/compost_bin/proc/convert_biomass()
 	//converts 20% of the biomass to compost each cycle, unless there isn't enough comopst space or there is 10 or less biomass
 	var/conversion_amount = clamp(DECAY*biomass,min(MIN_CONVERSION,biomass),compost_capacity - compost)
@@ -147,15 +146,15 @@
 	else
 		addtimer(CALLBACK(src, PROC_REF(convert_biomass)), 10 SECONDS)
 
-/// Checks if there is enough compost to make the desired amount of soil
+// Checks if there is enough compost to make the desired amount of soil
 /obj/machinery/compost_bin/proc/enough_compost(amount)
 	if(compost < SOIL_COST * amount)
 		return FALSE
 	return TRUE
 
-/// Makes soil from compost
+// Makes soil from compost
 /obj/machinery/compost_bin/proc/create_soil(amount)
-	/// Creating soil
+	// Creating soil
 	if(!enough_compost(amount))
 		return
 	new SOIL(loc, amount)
@@ -164,7 +163,7 @@
 	compost()
 	SStgui.update_uis(src)
 
-/// calls functions according to ui interaction(just making compost for now)
+// calls functions according to ui interaction(just making compost for now)
 /obj/machinery/compost_bin/ui_act(action, list/params)
 	if(..())
 		return
@@ -175,17 +174,16 @@
 			var/amount = clamp(text2num(params["amount"]), 1, 10)
 			create_soil(amount)
 
-/// sets compost bin sprite according to the amount of compost in it
+// sets compost bin sprite according to the amount of compost in it
 /obj/machinery/compost_bin/update_icon_state()
 	if(!compost)
 		icon_state = "compost_bin-empty"
-	else if(compost <= (compost_capacity)/3)
+	else if(compost <= compost_capacity / 3)
 		icon_state = "compost_bin-1"
-	else if(compost <= 2*(compost_capacity)/3)
+	else if(compost <= 2 * (compost_capacity) / 3)
 		icon_state = "compost_bin-2"
 	else
 		icon_state = "compost_bin-3"
-
 
 #undef BASE_BIOMASS_CAPACITY
 #undef BASE_COMPOST_CAPACITY
