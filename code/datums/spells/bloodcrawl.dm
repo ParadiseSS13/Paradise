@@ -132,7 +132,6 @@
 		playsound(get_turf(L), sound, 100, 1)
 		sleep(3 SECONDS)
 
-	var/mindless = (ishuman(victim) || isrobot(victim))
 	if(!victim)
 		to_chat(L, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 		return
@@ -143,7 +142,7 @@
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
 		return
-	if(mindless)
+	if((ishuman(victim) || isrobot(victim)))
 		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
 		L.adjustBruteLoss(-50)
 		if(!isslaughterdemon(L))
