@@ -438,8 +438,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/update_clone_antag(mob/living/carbon/human/H)
 	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
-	if((H.mind in SSticker.mode:revolutionaries) || (H.mind in SSticker.mode:head_revolutionaries))
-		SSticker.mode.update_rev_icons_added() //So the icon actually appears
 	if(H.mind in SSticker.mode.syndicates)
 		SSticker.mode.update_synd_icons_added()
 	if(H.mind in SSticker.mode.cult)

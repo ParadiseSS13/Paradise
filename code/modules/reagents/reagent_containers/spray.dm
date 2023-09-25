@@ -17,6 +17,7 @@
 	amount_per_transfer_from_this = 5
 	volume = 250
 	possible_transfer_amounts = null
+	var/delay = CLICK_CD_RANGE * 2
 
 /obj/item/reagent_containers/spray/afterattack(atom/A, mob/user)
 	if(isstorage(A) || istype(A, /obj/structure/table) || istype(A, /obj/structure/rack) || istype(A, /obj/structure/closet) \
@@ -47,7 +48,7 @@
 	INVOKE_ASYNC(src, PROC_REF(spray), A)
 
 	playsound(loc, 'sound/effects/spray2.ogg', 50, 1, -6)
-	user.changeNext_move(CLICK_CD_RANGE*2)
+	user.changeNext_move(delay)
 	user.newtonian_move(get_dir(A, user))
 
 	var/attack_log_type = ATKLOG_ALMOSTALL

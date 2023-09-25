@@ -117,6 +117,7 @@ CREATE TABLE `death` (
   `coord` text NOT NULL COMMENT 'X, Y, Z POD',
   `tod` datetime NOT NULL COMMENT 'Time of death',
   `death_rid` INT NULL,
+  `last_words` text NULL DEFAULT NULL,
   `server_id` TEXT NULL DEFAULT NULL,
   `job` text NOT NULL,
   `special` text NOT NULL,

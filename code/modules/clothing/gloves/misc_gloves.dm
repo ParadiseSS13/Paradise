@@ -204,3 +204,28 @@
 	name = "gloves of headpats"
 	desc = "You feel the irresistable urge to give headpats by merely glimpsing these."
 	accepted_intents = list(INTENT_HELP)
+
+/obj/item/clothing/gloves/color/white/supermatter_immune
+	name = "hypernobilium weave gloves"
+	desc = "Sleek, white gloves woven from fabric doused in hypernobilium using a process known only to the Oblivion Order."
+	siemens_coefficient = 0
+	icon_state = "obliviongauntlets"
+	item_state = "obliviongauntlets"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/gloves.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/gloves.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/gloves.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/gloves.dmi'
+	)
+
+/obj/item/clothing/gloves/color/white/supermatter_immune/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, ROUNDSTART_TRAIT)
+
+/obj/item/clothing/gloves/color/white/supermatter_immune/equipped(mob/user, slot, initial)
+	. = ..()
+	ADD_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES)
+
+/obj/item/clothing/gloves/color/white/supermatter_immune/dropped(mob/user, silent)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE, ENFORCER_GLOVES)

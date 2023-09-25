@@ -299,6 +299,8 @@
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "asclepius_dormant"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	var/activated = FALSE
 	var/usedHand
 	var/mob/living/carbon/owner
