@@ -1249,6 +1249,8 @@
 /obj/item/toy/chainsaw
 	name = "Toy Chainsaw"
 	desc = "A toy chainsaw with a rubber edge. Ages 8 and up"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "chainsaw0"
 	base_icon_state = "chainsaw"
 	force = 0
