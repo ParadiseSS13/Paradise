@@ -584,6 +584,15 @@
 	..()
 	if(amount != length(contents))
 		update_icon()
+		orient2hud(user)  // Update the displayed items and their counts
+
+/obj/item/storage/belt/bandolier/proc/retrieve_item_of_type(item_type)
+	for(var/obj/item/I in contents)
+		if(istype(I, item_type))
+			contents -= I
+			update_icon() // Update the bandolier's icon to reflect the change in contents.
+			return I
+	return null
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"

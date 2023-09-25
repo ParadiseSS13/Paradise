@@ -363,25 +363,55 @@
 	else
 		return ..()
 
+
+
 /obj/item/gun/projectile/revolver/doublebarrel/sawoff(mob/user)
 	. = ..()
 	weapon_weight = WEAPON_MEDIUM
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
+	var/obj/item/storage/belt/bandolier/B
+	for(var/obj/item/I in user.contents)
+		if(istype(I, /obj/item/storage/belt/bandolier))
+			B = I
+			break
+
+	var/shells_to_load = 0 // Start with 0 and increment based on spent shells
+
 	while(get_ammo() > 0)
 		var/obj/item/ammo_casing/CB
 		CB = magazine.get_round(0)
 		chambered = null
 		CB.loc = get_turf(loc)
+		CB.maptext = ""  // Reset the maptext property
 		CB.SpinAnimation(10, 1)
 		CB.update_icon()
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
+		shells_to_load++
+
+	if(B && HAS_TRAIT(user, TRAIT_SLIGHT_OF_HAND))
+		for(var/i in 1 to shells_to_load)
+			var/obj/item/ammo_casing/shotgun/shell = B.retrieve_item_of_type(/obj/item/ammo_casing/shotgun)
+			if(shell)
+				magazine.stored_ammo += shell
+				shell.forceMove(magazine)
+				to_chat(user, "<span class='notice'>You quickly load a shell from your bandolier into [src].</span>")
+			else
+				break
+		B.update_icon()  // Update the bandolier's icon
+		B.orient2hud(user)  // Update the displayed items and their counts
+
 	if(num_unloaded)
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+
+
+
+
+
 
 // IMPROVISED SHOTGUN //
 
