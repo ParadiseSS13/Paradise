@@ -47,6 +47,14 @@
 	// no panel either
 	return default_deconstruction_crowbar(user, I, ignore_panel = TRUE)
 
+
+// accepts inserted plants and converts to biomass
+/obj/machinery/compost_bin/proc/make_biomass(obj/item/reagent_containers/food/snacks/grown/O)
+	// calculate biomass from plant nutriment and plant matter
+	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
+	biomass += clamp(plant_biomass*10, 1, biomass_capacity-biomass)
+
+
 // takes care of plant insertion and conversion to biomass, and start composting what was inserted
 /obj/machinery/compost_bin/attackby(obj/item/O, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -62,12 +70,7 @@
 
 			if(biomass >= biomass_capacity)
 				break
-
-			// create biomass from plant nutriment and plant matter
-			var/plant_biomass = G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter")
-
-			biomass += clamp(plant_biomass*10, 1, biomass_capacity-biomass)
-
+			make_biomass(G)
 			PB.remove_from_storage(G, src)
 
 		// start composting after plants are inserted
@@ -90,9 +93,7 @@
 			return
 
 		O.forceMove(src)
-		// make biomass from nutriment and plant matter
-		var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
-		biomass += clamp(plant_biomass * 10, 1, biomass_capacity - biomass)
+		make_biomass(O)
 		qdel(O)
 		// start composting after plants are inserted
 		compost()
