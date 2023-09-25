@@ -113,6 +113,8 @@
 /obj/item/pickaxe/drill/jackhammer
 	name = "sonic jackhammer"
 	desc = "Cracks rocks with sonic blasts, and doubles as a demolition power tool for smashing walls."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "jackhammer"
 	item_state = "jackhammer"
 	origin_tech = "materials=6;powerstorage=4;engineering=5;magnets=4"
