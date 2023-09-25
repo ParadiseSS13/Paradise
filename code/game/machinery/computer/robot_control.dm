@@ -185,7 +185,7 @@
 			safety = !safety
 			to_chat(usr, "<span class='notice'>You [safety ? "disarm" : "arm"] the emergency lockdown system.</span>")
 			. = TRUE
-		if("masslock") // Destroys all accessible cyborgs if safety is disabled
+		if("masslock") // Locks down all accessible cyborgs if safety is disabled
 			if(issilicon(usr))
 				to_chat(usr, "<span class='danger'>Access Denied (silicon detected)</span>")
 				return
