@@ -237,7 +237,7 @@
 					reason = "YOU ENDED UP HIRING A SYNDICATE AGENT IN DISGUISE!"
 					playsound(src, 'sound/misc/for_the_syndicate.ogg', 50)
 					atom_say("FOR THE SYNDICATE!")
-					addtimer(CALLBACK(null, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 1.5 SECONDS)
+					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 1.5 SECONDS)
 					emagged = FALSE
 					return
 				reason = "You ended up hiring incompetent candidates and now the company is wasting lots of resources to fix what you caused..."
@@ -261,7 +261,7 @@
 					reason = "MANIFEST HIRED STAFF IS NOW RESPONSIBLE FOR IMPORTANT TASKS!"
 					playsound(src, 'sound/misc/what_this_button_do.ogg', 50)
 					atom_say("What does this button do?")
-					addtimer(CALLBACK(null, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 1.5 SECONDS)
+					addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(explosion), src, 1, 0, 2, null, 1, 0, 0, 0, 1, null, FALSE), 1.5 SECONDS)
 					emagged = FALSE
 					return
 				reason = "You ended up dismissing a competent candidate and now the company is suffering with the lack of crew..."
@@ -306,7 +306,7 @@
 		add_hiddenprint(user)
 	game_status = RECRUITER_STATUS_START
 	name = "NT Recruiter Simulator HARDCORE EDITION"
-	desc = "The version utilized by the company to train real recruiters, comes with realistic consequences and double the applications."
+	desc = "The advanced version of Nanotrasen's recruiting simulator, used to train the highest echelon of Nanotrasen recruiters. Has double the application count, and supposedly includes some routines to weed out the less skilled."
 	total_curriculums = 14
 	emagged = TRUE
 
