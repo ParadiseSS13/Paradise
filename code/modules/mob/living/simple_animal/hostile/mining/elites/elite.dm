@@ -477,6 +477,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	. = ..()
 	if(istype(mover, /obj/item/projectile))
 		return FALSE
+		
 /obj/item/gps/internal/tumor
 	icon_state = null
 	gpstag = "Cancerous Signal"
