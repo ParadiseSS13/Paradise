@@ -1,7 +1,6 @@
 /atom
 	var/tts_seed
 
-// SS220 TODO: usage of tts in dna
 /datum/dna
 	var/tts_seed_dna
 
@@ -11,18 +10,13 @@
 	new_dna.tts_seed_dna = tts_seed_dna
 	return new_dna
 
-/mob/living/carbon/human/Initialize(mapload, datum/species/new_species)
-	. = ..()
-	if(dna)
-		dna.tts_seed_dna = tts_seed
-
 /atom/proc/select_voice(mob/user, silent_target = FALSE, override = FALSE)
 	if(!ismob(src) && !user)
 		return null
-	var/tts_test_str = "Так звучит мой голос."
+	var/static/tts_test_str = "Так звучит мой голос."
 
 	var/tts_seeds
-	if(user && (check_rights(R_ADMIN, 0, user) || override))
+	if(user && (check_rights(R_ADMIN, FALSE, user) || override))
 		tts_seeds = SStts220.tts_seeds_names
 	else
 		tts_seeds = SStts220.get_available_seeds(src)
@@ -47,14 +41,22 @@
 	tts_seed = new_tts_seed
 	return new_tts_seed
 
-/datum/tts_seed
-	var/name = "STUB"
-	var/value = "STUB"
-	var/category = TTS_CATEGORY_OTHER
-	var/gender = TTS_GENDER_ANY
-	var/datum/tts_provider/provider = /datum/tts_provider
-	var/required_donator_level = 0
+/mob/living/carbon/human/Initialize(mapload, datum/species/new_species)
+	. = ..()
+	if(dna)
+		dna.tts_seed_dna = tts_seed
 
-/datum/tts_seed/vv_edit_var(var_name, var_value)
-	return FALSE
+/mob/living/carbon/human/change_dna(datum/dna/new_dna, include_species_change, keep_flavor_text)
+	. = ..()
+	tts_seed = dna.tts_seed_dna
 
+/client/create_response_team_part_1(new_gender, new_species, role, turf/spawn_location)
+	. = ..()
+	var/mob/living/ert_member = .
+	ert_member.change_voice(src.mob)
+
+/mob/living/silicon/verb/synth_change_voice()
+	set name = "Change Voice"
+	set desc = "Express yourself!"
+	set category = "Subsystems"
+	change_voice()

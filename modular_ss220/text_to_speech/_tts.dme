@@ -6,6 +6,7 @@
 #include "code/numbers.dm"
 #include "code/providers/silero.dm"
 #include "code/rust_g_ss220.dm"
+#include "code/seeds/base.dm"
 #include "code/seeds/silero.dm"
 #include "code/sound.dm"
 #include "code/tts_preferences.dm"
