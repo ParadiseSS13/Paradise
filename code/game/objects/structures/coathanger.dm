@@ -9,7 +9,7 @@
 /obj/structure/coatrack/attack_hand(mob/user)
 	if(isnull(coat))
 		return
-	user.visible_message("[user] takes [coat] off [src].", "You take [coat] off the [src]")
+	user.visible_message("[user] takes [coat] off [src].", "You take [coat] off [src]")
 	if(!user.put_in_active_hand(coat))
 		coat.forceMove(get_turf(user))
 	coat = null
