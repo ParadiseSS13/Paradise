@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/bloodcrawl
 	name = "Blood Crawl"
 	desc = "Use pools of blood to phase out of existence."
-	base_cooldown = 0
+	base_cooldown = 1 SECONDS
 	clothes_req = FALSE
 	cooldown_min = 0
 	should_recharge_after_cast = FALSE
@@ -33,13 +33,15 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/cast(list/targets, mob/living/user)
 	var/atom/target = targets[1]
-	if(phased)
-		if(phasein(target, user))
-			phased = FALSE
-	else
+	if(!phased)
 		if(phaseout(target, user))
 			phased = TRUE
-	cooldown_handler.start_recharge()
+			cooldown_handler.revert_cast()
+	else
+		if(phasein(target, user))
+			phased = FALSE
+			cooldown_handler.start_recharge()
+
 
 //Travel through pools of blood. Slaughter Demon powers for everyone!
 #define BLOODCRAWL     1
@@ -174,7 +176,6 @@
 
 	if(iscarbon(L) && !block_hands(L))
 		return FALSE
-
 	L.notransform = TRUE
 	INVOKE_ASYNC(src, PROC_REF(async_phase), B, L)
 	return TRUE

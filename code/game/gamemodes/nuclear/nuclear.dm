@@ -319,11 +319,6 @@
 	synd_mob.update_icons()
 	return 1
 
-/datum/game_mode/nuclear/check_win()
-	if(nukes_left == 0)
-		return 1
-	return ..()
-
 
 /datum/game_mode/proc/is_operatives_are_dead()
 	for(var/datum/mind/operative_mind in syndicates)

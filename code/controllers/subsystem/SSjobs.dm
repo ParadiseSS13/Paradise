@@ -74,6 +74,8 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return FALSE
+		if(job.job_banned_gamemode)
+			return FALSE
 		if(jobban_isbanned(player, rank))
 			return FALSE
 		if(!job.player_old_enough(player.client))
@@ -105,12 +107,17 @@ SUBSYSTEM_DEF(jobs)
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
-/datum/controller/subsystem/jobs/proc/FreeRole(rank)	//making additional slot on the fly
+/datum/controller/subsystem/jobs/proc/FreeRole(rank, force = FALSE)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
+	if(job.job_banned_gamemode)
+		if(!force)
+			return FALSE
+		job.job_banned_gamemode = FALSE // If admins want to force it, they can reopen banned job slots
+
 	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/controller/subsystem/jobs/proc/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
@@ -426,21 +433,21 @@ SUBSYSTEM_DEF(jobs)
 	L.Add("<b>Your role on the station is: [alt_title ? alt_title : rank].")
 	L.Add("You answer directly to [job.supervisors]. Special circumstances may change this.")
 	L.Add("For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a>.")
-	if(job.is_service)
+	if(job.job_department_flags & DEP_FLAG_SERVICE)
 		L.Add("As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a>.")
-	if(job.is_supply)
+	if(job.job_department_flags & DEP_FLAG_SUPPLY)
 		L.Add("As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a>.")
-	if(job.is_command)
+	if(job.job_department_flags == DEP_FLAG_COMMAND) // Check if theyre only command, like captain/hop/bs/ntrep, to not spam their chatbox
 		L.Add("As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a>.")
-	if(job.is_legal)
+	if(job.job_department_flags & DEP_FLAG_LEGAL)
 		L.Add("Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>.")
-	if(job.is_engineering)
+	if(job.job_department_flags & DEP_FLAG_ENGINEERING)
 		L.Add("As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a>.")
-	if(job.is_medical)
+	if(job.job_department_flags & DEP_FLAG_MEDICAL)
 		L.Add("As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a>.")
-	if(job.is_science)
+	if(job.job_department_flags & DEP_FLAG_SCIENCE) // geneticist gets both, yeah sure why not
 		L.Add("As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a>.")
-	if(job.is_security)
+	if(job.job_department_flags & DEP_FLAG_SECURITY)
 		L.Add("As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a>.")
 	if(job.req_admin_notify)
 		L.Add("You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.")
