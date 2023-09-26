@@ -62,7 +62,7 @@
 						inactive = thing
 						break
 
-			if(inactive?.tool_behaviour != TOOL_SCREWDRIVER)
+			if(!inactive || inactive.tool_behaviour != TOOL_SCREWDRIVER)
 				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
 				return
 			var/obj/item/stack/rods/R = C
