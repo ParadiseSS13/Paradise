@@ -1,5 +1,5 @@
 /obj/structure/chair/wheelchair
-	name = "wheelchair"
+	name = "Wheelchair"
 	icon_state = "wheelchair"
 	item_chair = null
 	anchored = FALSE
@@ -95,6 +95,28 @@
 			victim.take_organ_damage(10)
 
 		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
+
+/obj/structure/chair/wheelchair/plasteel
+	name = "Hardened Wheelchair"
+	icon_state = "wheelchair"
+	item_chair = null
+	anchored = FALSE
+	movable = TRUE
+	max_integrity = 750
+	buildstackamount = 15
+	resistance_flags = ACID_PROOF
+	buildstacktype = /obj/item/stack/sheet/plasteel
+
+/obj/structure/chair/wheelchair/plastitanium
+	name = "Reinforced Wheelchair"
+	icon_state = "wheelchair"
+	item_chair = null
+	anchored = FALSE
+	movable = TRUE
+	max_integrity = 1500
+	buildstackamount = 15
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	buildstacktype = /obj/item/stack/sheet/mineral/plastitanium
 
 /obj/structure/chair/wheelchair/bike
 	name = "bicycle"
