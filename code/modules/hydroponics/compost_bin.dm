@@ -51,7 +51,9 @@
 /obj/machinery/compost_bin/proc/make_biomass(obj/item/reagent_containers/food/snacks/grown/O)
 	// calculate biomass from plant nutriment and plant matter
 	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
-	biomass += clamp(plant_biomass*10, 1, biomass_capacity-biomass)
+	biomass += clamp(plant_biomass * 10, 1, biomass_capacity-biomass)
+	//plant delenda est
+	qdel(O)
 
 
 // takes care of plant insertion and conversion to biomass, and start composting what was inserted
@@ -69,8 +71,8 @@
 
 			if(biomass >= biomass_capacity)
 				break
-			make_biomass(G)
 			PB.remove_from_storage(G, src)
+			make_biomass(G)
 
 		// start composting after plants are inserted
 		compost()
@@ -93,7 +95,6 @@
 
 		O.forceMove(src)
 		make_biomass(O)
-		qdel(O)
 		// start composting after plants are inserted
 		compost()
 		to_chat(user, "<span class='info'>You put [O] in [src].</span>")
