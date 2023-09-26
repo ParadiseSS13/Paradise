@@ -50626,13 +50626,13 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -61032,12 +61032,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/brig)
-"eSH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "eTp" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 1;
@@ -81296,6 +81290,12 @@
 	icon_state = "dark"
 	},
 /area/station/science/robotics/chargebay)
+"qsa" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "qsB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -115090,7 +115090,7 @@ cLi
 rYt
 gSg
 ajF
-eSH
+qsa
 cLi
 aaa
 aaa
