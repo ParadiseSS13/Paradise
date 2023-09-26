@@ -75,3 +75,7 @@
 		/obj/item/trash/waffles,
 		""=20
 		)
+
+/obj/effect/spawner/random_spawners/mod
+	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
+	icon_state = "mod"
