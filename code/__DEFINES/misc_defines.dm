@@ -336,7 +336,7 @@
 #define TRANSIT_TUBE_CLOSED 3
 
 // Maximum donation level
-#define DONATOR_LEVEL_MAX 4
+#define DONATOR_LEVEL_MAX 5 // SS220 EDIT
 
 // The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
 #define OOC_COOLDOWN 5
@@ -375,7 +375,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 522204 // SS220 EDIT
+#define SQL_VERSION 522205 // SS220 EDIT
 
 // Vending machine stuff
 #define CAT_NORMAL 1

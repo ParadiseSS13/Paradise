@@ -38,6 +38,7 @@
 #include "crawl_speed/_crawl_speed.dme"
 #include "debug/_debug.dme"
 #include "discord_link/_discord_link.dme"
+#include "donor/_donor.dme"
 #include "emotes/_emotes.dme"
 #include "events/_events.dme"
 #include "fullscreen/_fullscreen.dme"
