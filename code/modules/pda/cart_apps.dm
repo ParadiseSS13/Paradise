@@ -223,7 +223,7 @@
 		for(var/mob/living/simple_animal/bot/secbot/SB in GLOB.bots_list)
 			bots += SB
 		for(var/mob/living/simple_animal/bot/ed209/ED in GLOB.bots_list)
-			if(!"syndicate" in ED.faction)
+			if(!("syndicate" in ED.faction))
 				bots += ED
 
 		for(var/mob/living/simple_animal/bot/B in bots)
