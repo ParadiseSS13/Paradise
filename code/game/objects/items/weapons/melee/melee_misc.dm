@@ -103,8 +103,6 @@
 	name = "spellblade"
 	desc = "An enchanted blade with a series of runes along the side."
 	icon = 'icons/obj/guns/magic.dmi'
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "spellblade"
 	item_state = "spellblade"
 	hitsound = 'sound/weapons/rapierhit.ogg'

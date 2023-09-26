@@ -27,8 +27,6 @@
 
 /obj/item/beach_ball/baseball
 	name = "baseball"
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	desc = "Take me out to the ball game."
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "baseball"

@@ -174,8 +174,6 @@
 
 /obj/item/nullrod/claymore/chainsaw_sword
 	name = "sacred chainsaw sword"
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "chainswordon"
 	item_state = "chainswordon"
 	desc = "Suffer not a heretic to live."
