@@ -150,7 +150,7 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
  *
  * rights_required = R_ADMIN|R_EVENT means they must have both flags, or it will return false
  */
-/proc/check_rights_multiple(rights_required, show_msg = TRUE, mob/user = usr)
+/proc/check_rights_all(rights_required, show_msg = TRUE, mob/user = usr)
 	if(!user?.client)
 		return FALSE
 	if(!rights_required)

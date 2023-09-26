@@ -12,7 +12,7 @@
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
-#define ADMIN_CHECK(user) check_rights_multiple(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM
+#define ADMIN_CHECK(user) check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM
 
 // The communications computer
 /obj/machinery/computer/communications
@@ -104,7 +104,7 @@
 		if(ACCESS_CAPTAIN in access)
 			authenticated = COMM_AUTHENTICATION_CAPT
 		if(ACCESS_CENT_COMMANDER in access)
-			if(!check_rights_multiple(R_ADMIN|R_EVENT, FALSE, ui.user))
+			if(!check_rights_all(R_ADMIN|R_EVENT, FALSE, ui.user))
 				to_chat(usr, "<span class='warning'>[src] buzzes, invalid central command clearance.</span>")
 				return
 			authenticated = COMM_AUTHENTICATION_CENTCOM
@@ -384,7 +384,7 @@
 	P.name = "'CONFIDENTIAL' - [station_name()] Nuclear Codes"
 	P.info = "<center>&ZeroWidthSpace;<img src='ntlogo.png'><br><b>CONFIDENTIAL</b></center><br><hr>"
 
-	P.info += "The nuclear codes to [station_name()]'s nuclear device is [get_nuke_code()].<br>"
+	P.info += "The nuclear codes to [station_name()]'s nuclear device are [get_nuke_code()].<br>"
 	switch(get_nuke_status())
 		if(NUKE_MISSING)
 			P.info += "Long-range scanners cannot detect the nuclear device on-station."
