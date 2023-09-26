@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_engineering = TRUE
+	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_ENGINEERING
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffeeaa"
@@ -54,7 +54,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 5
 	spawn_positions = 5
-	is_engineering = 1
+	job_department_flags = DEP_FLAG_ENGINEERING
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
@@ -91,7 +91,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 3
 	spawn_positions = 2
-	is_engineering = 1
+	job_department_flags = DEP_FLAG_ENGINEERING
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
