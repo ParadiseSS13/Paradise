@@ -304,6 +304,12 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
+"Ev" = (
+/obj/structure/closet/crate/hydroponics,
+/obj/item/vending_refill/hydroseeds,
+/obj/item/vending_refill/hydronutrients,
+/turf/simulated/floor/plasteel/freezer,
+/area/ruin/powered/seedvault)
 "FS" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /turf/simulated/floor/plating,
@@ -407,8 +413,10 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "VI" = (
-/obj/item/paper/seed_vault,
 /obj/structure/table/wood,
+/obj/item/paper_bin,
+/obj/item/paper/seed_vault,
+/obj/item/pen,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Wu" = (
@@ -1072,7 +1080,7 @@ vt
 vt
 Wu
 no
-ed
+Ev
 no
 no
 yZ
