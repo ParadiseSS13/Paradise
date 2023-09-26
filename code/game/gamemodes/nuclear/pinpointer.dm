@@ -371,6 +371,18 @@
 		else
 			. += "No operatives detected within scanning range."
 
+/obj/item/pinpointer/operative/nad
+	desc = "A pinpointer that leads to the first Syndicate operative detected. Also has a mode to point towards the NAD."
+	modes = list(MODE_OPERATIVE, MODE_DISK)
+
+/obj/item/pinpointer/operative/nad/process()
+	switch(mode)
+		if(MODE_DISK)
+			workdisk()
+		if(MODE_OPERATIVE)
+			scan_for_ops()
+			point_at_target(nearest_op, FALSE)
+
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"
 	desc = "A handheld tracking device that points to crew suit sensors."
