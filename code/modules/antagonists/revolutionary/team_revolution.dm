@@ -53,6 +53,7 @@
 			. = TRUE
 
 /datum/team/revolution/proc/check_all_victory()
+	update_team_objectives()
 	check_rev_victory()
 	check_heads_victory()
 
@@ -62,6 +63,16 @@
 			return FALSE
 
 	SSshuttle.clearHostileEnvironment(src) // revs can take the shuttle too if they want
+
+	log_admin("Revolutionary win conditions met. All command, security, and legal jobs are now closed.")
+	message_admins("The revolutionaries have won! All command, security, and legal jobs have been closed. You can change this with the \"Free Job Slot\" verb.")
+	// HOP can still technically alter some roles, but Nanotrasen wouldn't send heads/sec under threat to the station after revs win
+	var/banned_departments = DEP_FLAG_COMMAND | DEP_FLAG_SECURITY | DEP_FLAG_LEGAL
+	for(var/datum/job/job in SSjobs.occupations)
+		if(!(job.job_department_flags & banned_departments))
+			continue
+		job.total_positions = 0
+		job.job_banned_gamemode = TRUE
 	return TRUE
 
 /datum/team/revolution/proc/check_heads_victory()
