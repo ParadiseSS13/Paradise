@@ -24,7 +24,7 @@
 	health = 600
 	regen_points_per_hp = 6 // double the normal - IE halved regen speed
 	move_to_delay = 3
-	speed = 0
+	speed = 0.5
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	ventcrawler = 0
@@ -42,3 +42,34 @@
 	L.KnockDown(10 SECONDS)
 	L.adjustStaminaLoss(40)
 	return ..()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince/Initialize(mapload)
+	. = ..()
+	if(mind)
+		var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge(null)
+		mind.AddSpell(spell)
+	else
+		RegisterSignal(src, COMSIG_MOB_LOGIN, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/terror_spider/prince, give_spell))
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince/proc/give_spell()
+	SIGNAL_HANDLER
+	var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge(null)
+	mind.AddSpell(spell)
+
+/obj/effect/proc_holder/spell/princely_charge
+	name = "Princely charge"
+	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
+	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
+	base_cooldown = 30 SECONDS
+	clothes_req = FALSE
+	action_icon_state = "vampire_charge"
+
+/obj/effect/proc_holder/spell/princely_charge/create_new_targeting()
+	return new /datum/spell_targeting/clicked_atom
+
+/obj/effect/proc_holder/spell/princely_charge/cast(list/targets, mob/user)
+	var/target = targets[1]
+	if(isliving(user))
+		var/mob/living/L = user
+		L.apply_status_effect(STATUS_EFFECT_CHARGING)
+		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
