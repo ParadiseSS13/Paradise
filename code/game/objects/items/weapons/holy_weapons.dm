@@ -198,8 +198,6 @@
 /obj/item/nullrod/claymore/multiverse
 	name = "extradimensional blade"
 	desc = "Once the harbringer of a interdimensional war, now a dormant souvenir. Still sharp though."
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "multiverse"
 	item_state = "multiverse"
 	slot_flags = SLOT_BELT
@@ -220,8 +218,6 @@
 
 /obj/item/nullrod/claymore/saber/pirate
 	name = "nautical energy cutlass"
-	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "cutlass1"
 	item_state = "cutlass1"
 	desc = "Convincing HR that your religion involved piracy was no mean feat."
