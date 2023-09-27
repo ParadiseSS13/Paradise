@@ -102,22 +102,15 @@
 	if(summoner && loc && summoner.loc)
 		if(get_dist(get_turf(summoner), get_turf(src)) <= range)
 			return
-		var/summoner_loc = summoner.loc
-		if(istype(summoner_loc, /obj/machinery/atmospherics))
-			to_chat(src, "<span class='warning'>You can not manifest while in these pipes!</span>")
-			message_admins("A holoparasite was ventcrawling but should be recalled now")
+		to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
+		visible_message("<span class='danger'>[src] jumps back to its user.</span>")
+		if(iseffect(summoner.loc) || istype(summoner.loc, /obj/machinery/atmospherics))
 			Recall(TRUE)
-			return
 		else
-			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
-			visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
-			if(iseffect(summoner.loc))
-				Recall(TRUE)
-			else
-				if(!stealthy_deploying)
-					new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
-					new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))
-				forceMove(summoner.loc) //move to summoner's tile, don't recall
+			if(!stealthy_deploying)
+				new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))
+			forceMove(summoner.loc) //move to summoner's tile, don't recall
 
 /mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner
