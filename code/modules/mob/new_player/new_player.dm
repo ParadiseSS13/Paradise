@@ -15,6 +15,7 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+	input_focus = src
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
