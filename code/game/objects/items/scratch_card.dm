@@ -7,7 +7,7 @@
 	/// Has this been scratched yet?
 	var/scratched = FALSE
 	/// The prob chance for it to be the winner card
-	var/winning_chance = 0.1
+	var/winning_chance = 1
 	/// Is this the winner card?
 	var/winner = FALSE
 
