@@ -145,6 +145,18 @@
 	item_state = "glass_shiv"
 	icon_state = "glass_shiv"
 
+/obj/item/kitchen/knife/shiv/carrotshiv
+	name = "carrot shiv"
+	icon_state = "carrotshiv"
+	item_state = "carrotshiv"
+	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
+	force = 8
+	throwforce = 12 //fuck git
+	materials = list()
+	origin_tech = "biotech=3;combat=2"
+	attack_verb = list("shanked", "shivved")
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
+
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
 	icon_state = "butch"
@@ -199,19 +211,6 @@
 	icon_state = "knife"
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
-
-/obj/item/kitchen/knife/carrotshiv
-	name = "carrot shiv"
-	icon_state = "carrotshiv"
-	item_state = "carrotshiv"
-	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
-	force = 8
-	throwforce = 12 //fuck git
-	materials = list()
-	origin_tech = "biotech=3;combat=2"
-	attack_verb = list("shanked", "shivved")
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
-
 
 /*
  * Rolling Pins
