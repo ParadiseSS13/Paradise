@@ -57,7 +57,7 @@
 			to_chat(G, "<span class='warning'>You can not manifest while inside an active Stealth Implant!</span>")
 			return
 		if(G.loc == G.summoner)
-			G.snapback()
+			G.Manifest()
 
 /obj/screen/guardian/Recall
 	icon_state = "recall"

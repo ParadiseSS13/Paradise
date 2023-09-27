@@ -97,12 +97,10 @@
 
 /mob/living/simple_animal/hostile/guardian/proc/snapback()
 	// If the summoner dies instantly, the summoner's ghost may be drawn into null space as the protector is deleted. This check should prevent that.
-	to_chat(summoner,"Your holopara has been recalled")
-	to_chat(src, "You are being recalled")
 	if(summoner && loc && summoner.loc)
 		if(get_dist(get_turf(summoner), get_turf(src)) <= range)
 			return
-		to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
+		to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name] LMAO!</span>")
 		visible_message("<span class='danger'>[src] jumps back to its user.</span>")
 		if(iseffect(summoner.loc) || istype(summoner.loc, /obj/machinery/atmospherics))
 			Recall(TRUE)
