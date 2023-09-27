@@ -100,6 +100,10 @@
 	if(summoner && loc && summoner.loc)
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
+		if(istype(summoner.loc, /obj/machinery/atmospherics))
+			to_chat(src, "<span class='warning'>You can not manifest while in these pipes!</span>")
+			Recall(TRUE)
+			return
 		else
 			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
 			visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
