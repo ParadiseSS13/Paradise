@@ -809,8 +809,7 @@
 	desc = "A wooden contraption, used to dry plant products, food and leather."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "drying_rack"
-	idle_power_consumption = 0
-	active_power_consumption = 0
+	requires_power = FALSE
 	can_dry = TRUE
 	visible_contents = FALSE
 	light_range_on = null
@@ -836,9 +835,6 @@
 /obj/machinery/smartfridge/drying_rack/RefreshParts()
 	return
 
-/obj/machinery/smartfridge/drying_rack/power_change()
-	if(anchored)
-		stat &= ~NOPOWER
 
 /obj/machinery/smartfridge/drying_rack/screwdriver_act(mob/living/user, obj/item/I)
 	return
