@@ -418,7 +418,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 				to_chat(M, "<span class='cultlarge'>\"I accept this sacrifice.\"</span>")
 			else
 				to_chat(M, "<span class='cultlarge'>\"I accept this meager sacrifice.\"</span>")
-	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE. -7)  // 10 tile range
+	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE, -7)  // 10 tile range
 
 	if(((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind) && !worthless)
 		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))

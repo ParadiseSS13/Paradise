@@ -628,7 +628,7 @@
 				uses--
 				to_chat(user, "<span class='warning'>A dark cloud emanates from your hand and swirls around the metal, twisting it into a construct shell!</span>")
 				new /obj/structure/constructshell(T)
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE. -13) // 4 tile range
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, -13) // 4 tile range
 			else
 				to_chat(user, "<span class='warning'>You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!</span>")
 				return
@@ -718,7 +718,7 @@
 			if(S.uses < 4)
 				uses--
 				to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its ability to shift!</span>")
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, -10) // 4 tile range
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, -10) // 7 tile range
 				S.uses = 4
 				S.icon_state = "shifter"
 			else
@@ -868,7 +868,7 @@
 		if(candidate.blood)
 			uses += candidate.blood
 			to_chat(user, "<span class='warning'>You obtain [candidate.blood] blood from the orb of blood!</span>")
-			playsound(user, 'sound/misc/enter_blood.ogg', 50, -10) // 4 tile range
+			playsound(user, 'sound/misc/enter_blood.ogg', 50, -10) // 7 tile range
 			qdel(candidate)
 			return
 	blood_draw(target, user)
