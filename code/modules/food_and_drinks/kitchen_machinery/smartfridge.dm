@@ -10,8 +10,8 @@
 	layer = 2.9
 	density = TRUE
 	anchored = TRUE
-	idle_power_consumption = 0
-	active_power_consumption = 0
+	idle_power_consumption = 5
+	active_power_consumption = 100
 	face_while_pulling = TRUE
 	/// The maximum number of items the fridge can hold. Multiplicated by the matter bin component's rating.
 	var/max_n_of_items = 1500
