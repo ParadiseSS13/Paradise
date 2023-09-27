@@ -357,7 +357,7 @@
 			var/answer = params["answer"]
 			if(!answer)
 				return
-			door_name = sanitize(copytext(answer, 1, UI_MODAL_INPUT_MAX_LENGTH_NAME))
+			door_name = sanitize(copytext_char(answer, 1, UI_MODAL_INPUT_MAX_LENGTH_NAME))	// SS220 EDIT - ORIGINAL: copytext
 		else
 			return FALSE
 

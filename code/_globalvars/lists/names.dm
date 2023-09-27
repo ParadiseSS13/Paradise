@@ -28,3 +28,8 @@ GLOBAL_LIST_INIT(dream_strings, file2list("config/names/dreams.txt"))
 GLOBAL_LIST_INIT(nightmare_strings, file2list("config/names/nightmares.txt"))
 //loaded on startup because of "
 //would include in rsc if ' was used
+
+// SS220 ADDITION - CYRILLIC SUPPORT
+GLOBAL_LIST_INIT(cocktails, file2list("config/names/cocktails.txt"))
+GLOBAL_LIST_INIT(jobs, file2list("config/names/jobs.txt"))
+GLOBAL_LIST_INIT(locations, file2list("config/names/locations.txt"))

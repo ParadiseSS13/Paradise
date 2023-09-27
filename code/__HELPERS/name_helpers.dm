@@ -133,10 +133,10 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 	)
 
 	var/safety[] = list(1,2,3)//Tells the proc which options to remove later on.
-	var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","beliefs","dreams","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendships", "relaxation")
-	var/drinks[] = list("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequila sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
-	var/locations[] = length(SSmapping.teleportlocs) ? SSmapping.teleportlocs : drinks//if null, defaults to drinks instead.
-
+	// var/nouns[] = list("love","hate","anger","peace","pride","sympathy","bravery","loyalty","honesty","integrity","compassion","charity","success","courage","deceit","skill","beauty","brilliance","pain","misery","beliefs","dreams","justice","truth","faith","liberty","knowledge","thought","information","culture","trust","dedication","progress","education","hospitality","leisure","trouble","friendships", "relaxation")
+	// var/drinks[] = list("vodka and tonic","gin fizz","bahama mama","manhattan","black Russian","whiskey soda","long island tea","margarita","Irish coffee"," manly dwarf","Irish cream","doctor's delight","Beepksy Smash","tequila sunrise","brave bull","gargle blaster","bloody mary","whiskey cola","white Russian","vodka martini","martini","Cuba libre","kahlua","vodka","wine","moonshine")
+	// var/locations[] = length(SSmapping.teleportlocs) ? SSmapping.teleportlocs : drinks//if null, defaults to drinks instead.
+	// SS220 DELETE
 	var/names[] = list()
 	for(var/datum/data/record/t in GLOB.data_core.general)//Picks from crew manifest.
 		names += t.fields["name"]
@@ -157,19 +157,19 @@ GLOBAL_VAR(syndicate_code_response) //Code response for traitors.
 						if(names.len)
 							code_phrase += pick(names)
 					if(2)
-						code_phrase += pick(GLOB.joblist)//Returns a job.
+						code_phrase += pick(GLOB.jobs)//Returns a job. // SS220 EDIT - ORIGINAL: (GLOB.joblist)
 				safety -= 1
 			if(2)
 				switch(rand(1,2))//Places or things.
 					if(1)
-						code_phrase += pick(drinks)
+						code_phrase += pick(GLOB.cocktails) // SS220 EDIT - ORIGINAL: (drinks)
 					if(2)
-						code_phrase += pick(locations)
+						code_phrase += pick(GLOB.locations) // SS220 EDIT - ORIGINAL: (locations)
 				safety -= 2
 			if(3)
 				switch(rand(1,3))//Nouns, adjectives, verbs. Can be selected more than once.
 					if(1)
-						code_phrase += pick(nouns)
+						code_phrase += pick(GLOB.nouns) // SS220 EDIT - ORIGINAL: (nouns)
 					if(2)
 						code_phrase += pick(GLOB.adjectives)
 					if(3)

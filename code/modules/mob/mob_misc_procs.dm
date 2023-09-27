@@ -242,12 +242,12 @@
 			return n
 	var/te = n
 	var/t = ""
-	n = length(n)
+	n = length_char(n)	// SS220 EDIT - ORIGINAL: length
 	var/p = null
 	p = 1
 	while(p <= n)
-		if((copytext(te, p, p + 1) == " " || prob(pr)))
-			t = text("[][]", t, copytext(te, p, p + 1))
+		if((copytext_char(te, p, p + 1) == " " || prob(pr)))	// SS220 EDIT - ORIGINAL: copytext
+			t = text("[][]", t, copytext_char(te, p, p + 1))	// SS220 EDIT - ORIGINAL: copytext
 		else
 			t = text("[]*", t)
 		p++
@@ -259,12 +259,12 @@
 
 /proc/slur(phrase, list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
 	phrase = html_decode(phrase)
-	var/leng=length(phrase)
-	var/counter=length(phrase)
+	var/leng=length_char(phrase)		// SS220 EDIT - ORIGINAL: length
+	var/counter=length_char(phrase)		// SS220 EDIT - ORIGINAL: length
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)	// SS220 EDIT - ORIGINAL: copytext
 		if(rand(1,3)==3)
 			if(lowertext(newletter)=="o")	newletter="u"
 			if(lowertext(newletter)=="s")	newletter="ch"
@@ -283,14 +283,14 @@
 /proc/stutter(n)
 	var/te = html_decode(n)
 	var/t = "" //placed before the message. Not really sure what it's for.
-	n = length(n) //length of the entire word
+	n = length_char(n) //length of the entire word	// SS220 EDIT - ORIGINAL: length
 	var/p = null
 	p = 1 //1 is the start of any word
 	while(p <= n) //while P, which starts at 1 is less or equal to N which is the length.
-		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if(prob(5))
-				n_letter = text("[n_letter]-[n_letter]-[n_letter]") //replaces the current letter with this instead.
+		var/n_letter = copytext_char(te, p, p + 1) //copies text from a certain distance. In this case, only one letter at a time.			// SS220 EDIT - ORIGINAL: copytext
+		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))	// SS220 EDIT - ORIGINAL: (ckey(n_letter)
+			if(prob(10))
+				n_letter = text("[n_letter]-[n_letter]-[n_letter]-[n_letter]") //replaces the current letter with this instead.
 			else
 				if(prob(5))
 					n_letter = null
@@ -298,18 +298,18 @@
 					n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]") //since the above is ran through for each letter, the text just adds up back to the original word.
 		p++ //for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+	return sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
 
 /proc/robostutter(n) //for robutts
 	var/te = html_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
-	n = length(n)//length of the entire word
+	n = length_char(n)//length of the entire word	// SS220 EDIT - ORIGINAL: length
 	var/p = null
 	p = 1//1 is the start of any word
 	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
 		var/robotletter = pick("@", "!", "#", "$", "%", "&", "?") //for beep boop
-		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
-		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
+		var/n_letter = copytext_char(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.			// SS220 EDIT - ORIGINAL: copytext
+		if(prob(80) && (lowertext(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))	// SS220 EDIT - ORIGINAL: (ckey(n_letter)
 			if(prob(10))
 				n_letter = text("[n_letter]-[robotletter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
 			else
@@ -322,15 +322,15 @@
 						n_letter = text("[n_letter]-[n_letter]")
 		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
 		p++//for each letter p is increased to find where the next letter will be.
-	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
+	return sanitize(copytext_char(t,1,MAX_MESSAGE_LEN))							// SS220 EDIT - ORIGINAL: copytext
 
 
 /proc/Gibberish(t, p, replace_rate = 50)//t is the inputted message, and any value higher than 70 for p will cause letters to be replaced instead of added. replace_rate is the chance a letter is corrupted.
 	/* Turn text into complete gibberish! */
 	var/returntext = ""
-	for(var/i = 1, i <= length(t), i++)
+	for(var/i = 1, i <= length_char(t), i++)									// SS220 EDIT - ORIGINAL: length
 
-		var/letter = copytext(t, i, i+1)
+		var/letter = copytext_char(t, i, i+1)									// SS220 EDIT - ORIGINAL: copytext
 		if(prob(replace_rate))
 			if(p >= 70)
 				letter = ""
@@ -349,12 +349,12 @@
 
 /proc/muffledspeech(phrase)
 	phrase = html_decode(phrase)
-	var/leng=length(phrase)
-	var/counter=length(phrase)
+	var/leng=length_char(phrase)												// SS220 EDIT - ORIGINAL: length
+	var/counter=length_char(phrase)												// SS220 EDIT - ORIGINAL: length
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)		// SS220 EDIT - ORIGINAL: copytext
 		if(newletter in list(" ", "!", "?", ".", ","))
 			// Skip these
 			counter -= 1
@@ -655,9 +655,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		for(var/datum/objective/objective in GLOB.all_objectives)
 			if(!mind || objective.target != mind)
 				continue
-			length = length(oldname)
-			pos = findtextEx(objective.explanation_text, oldname)
-			objective.explanation_text = copytext(objective.explanation_text, 1, pos)+newname+copytext(objective.explanation_text, pos+length)
+			length = length_char(oldname)									// SS220 EDIT - ORIGINAL: length
+			pos = findtextEx_char(objective.explanation_text, oldname)		// SS220 EDIT - ORIGINAL: findtextEx
+			objective.explanation_text = copytext_char(objective.explanation_text, 1, pos)+newname+copytext_char(objective.explanation_text, pos+length)	// SS220 EDIT - ORIGINAL: copytext
 	return 1
 
 /mob/proc/rename_self(role, allow_numbers = FALSE, force = FALSE)
@@ -694,12 +694,12 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
 	var/phrase = html_decode(n)
-	var/leng = length(phrase)
-	var/counter=length(phrase)
+	var/leng = length_char(phrase)												// SS220 EDIT - ORIGINAL: length
+	var/counter=length_char(phrase)												// SS220 EDIT - ORIGINAL: length
 	var/newphrase=""
 	var/newletter=""
 	while(counter>=1)
-		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
+		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)		// SS220 EDIT - ORIGINAL: copytext
 		if(rand(1,2)==2)
 			if(lowertext(newletter)=="o")
 				newletter="u"

@@ -2129,7 +2129,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(stat)
 		return
 
-	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = sanitize(copytext_char(input(usr, "This is [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"

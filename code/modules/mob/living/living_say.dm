@@ -130,9 +130,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	//parse the radio code and consume it
 	if(message_mode)
 		if(message_mode == "headset")
-			message = copytext(message, 2)	//it would be really nice if the parse procs could do this for us.
+			message = copytext_char(message, 2)	//it would be really nice if the parse procs could do this for us.	// SS220 EDIT - ORIGINAL: copytext
 		else
-			message = copytext(message, 3)
+			message = copytext_char(message, 3)																		// SS220 EDIT - ORIGINAL: copytext
 
 	message = trim_left(message)
 

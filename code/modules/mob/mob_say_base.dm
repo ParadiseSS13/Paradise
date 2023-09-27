@@ -143,7 +143,7 @@
 		return standard_mode
 
 	if(length(message) >= 2)
-		var/channel_prefix = copytext(message, 1 ,3)
+		var/channel_prefix = copytext_char(message, 1 ,3)	// SS220 EDIT - ORIGINAL: copytext
 		return GLOB.department_radio_keys[channel_prefix]
 
 	return null

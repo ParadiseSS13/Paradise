@@ -240,6 +240,7 @@
 
 	var/html = {"
 <html>
+	<meta charset="UTF-8">	<!-- SS220 ADDITION-->
 	<head>
 		<title>[title]</title>
 		<style>
@@ -571,7 +572,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
-		var/new_name = reject_bad_name(sanitize(copytext(input(usr, "What would you like to name this mob?", "Input a name", M.real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)
+		var/new_name = reject_bad_name(sanitize(copytext_char(input(usr, "What would you like to name this mob?", "Input a name", M.real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)	// SS220 EDIT - ORIGINAL: copytext
 		if( !new_name || !M )	return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")

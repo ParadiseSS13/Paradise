@@ -334,7 +334,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose =  sanitize(copytext(input(usr, "This is [src]. It is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose =  sanitize(copytext_char(input(usr, "This is [src]. It is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"
