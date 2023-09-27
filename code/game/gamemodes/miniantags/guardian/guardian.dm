@@ -97,11 +97,15 @@
 
 /mob/living/simple_animal/hostile/guardian/proc/snapback()
 	// If the summoner dies instantly, the summoner's ghost may be drawn into null space as the protector is deleted. This check should prevent that.
+	to_chat(summoner,"Your holopara has been recalled")
+	to_chat(src, "You are being recalled")
 	if(summoner && loc && summoner.loc)
-		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
+		if(get_dist(get_turf(summoner), get_turf(src)) <= range)
 			return
-		if(istype(summoner.loc, /obj/machinery/atmospherics))
+		var/summoner_loc = summoner.loc
+		if(istype(summoner_loc, /obj/machinery/atmospherics))
 			to_chat(src, "<span class='warning'>You can not manifest while in these pipes!</span>")
+			message_admins("A holoparasite was ventcrawling but should be recalled now")
 			Recall(TRUE)
 			return
 		else
@@ -202,7 +206,8 @@
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return
-	if(!summoner) return
+	if(!summoner)
+		return
 	if(!stealthy_deploying)
 		new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
