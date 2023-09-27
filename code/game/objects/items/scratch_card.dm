@@ -31,7 +31,7 @@
 	if(winner && istype(O, /obj/machinery/economy/atm))
 		playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
 		O.atom_say("Congratulations for winning the lottery!")
-		var/obj/item/reward = new /obj/item/stack/spacecash/c1000(get_turf(src))
+		var/obj/item/reward = new /obj/item/stack/spacecash/c1000
 		user.put_in_hands(reward)
 		qdel(src)
 		return

@@ -49,7 +49,7 @@
 
 /datum/merch_item/scratch_card
 	name = "Scratch Cards Box"
-	desc = "Contains 5 scratch cards, become rich today!"
+	desc = "Contains 5 scratch cards. Become rich today!"
 	typepath = /obj/item/storage/box/scratch_cards
 	cost = 150
 	category = MERCH_CAT_TOY
