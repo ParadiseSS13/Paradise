@@ -56,7 +56,7 @@
 	var/text = "<FONT size = 2><B>The mindflayers were:</B></FONT>"
 	for(var/datum/mind/mindflayer in mindflayers)
 		var/traitorwin = TRUE
-//		var/datum/antagonist/mindflayer/flayer = mindflayer.has_antag_datum(/datum/antagonist/mindflayer)
+//		var/datum/antagonist/mindflayer/flayer = mindflayer.has_antag_datum(/datum/antagonist/mindflayer) // Why was this commented out again?
 		text += "<br>[mindflayer.get_display_key()] was [mindflayer.name] ("
 		if(mindflayer.current)
 			if(mindflayer.current.stat == DEAD)

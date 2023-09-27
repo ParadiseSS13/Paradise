@@ -34,6 +34,7 @@
 	var/list/innate_powers = get_powers_of_type(FLAYER_INNATE_POWER)
 	for(var/power_path in innate_powers)
 		add_ability(power_path, src)
+	owner.current.faction += list("flayer") // In case our robot is mindlessly spawned in somehow, and they won't accidentally kill us
 
 /datum/antagonist/mindflayer/proc/get_swarms()
 	return usable_swarms
