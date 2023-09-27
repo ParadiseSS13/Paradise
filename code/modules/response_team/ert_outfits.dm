@@ -523,7 +523,8 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
-	implants = list(/obj/item/implant/mindshield,
+	implants = list(
+		/obj/item/implant/mindshield,
 		/obj/item/implant/death_alarm
 	)
 
