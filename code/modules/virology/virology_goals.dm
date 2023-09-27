@@ -40,9 +40,7 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 	var/type = pick(GLOB.list_symptoms)
 	var/datum/symptom/S = new type()
 	goal_symptom = S.type
-	var/datum/symptom/SY = new goal_symptom()
-	goal_symptom_name = SY.name
-	qdel(SY)
+	goal_symptom_name = S.name
 	goal_property = pick("resistance", "stealth", "stage_rate", "transmittable")
 	if(goal_property == "stage_rate")
 		goal_property_text = "stage rate"
@@ -57,6 +55,7 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 		goal_property_value += S.stage_speed
 	else
 		goal_property_value += S.transmittable
+	qdel(S)
 
 /datum/virology_goal/propertysymptom/get_report()
 	return {"<b>Effects of [goal_symptom_name] symptom and level [goal_property_value] [goal_property_text]</b><br>
