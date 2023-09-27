@@ -100,7 +100,7 @@
 	if(summoner && loc && summoner.loc)
 		if(get_dist(get_turf(summoner), get_turf(src)) <= range)
 			return
-		to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name] LMAO!</span>")
+		to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
 		visible_message("<span class='danger'>[src] jumps back to its user.</span>")
 		if(iseffect(summoner.loc) || istype(summoner.loc, /obj/machinery/atmospherics))
 			Recall(TRUE)
