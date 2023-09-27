@@ -173,7 +173,7 @@
 
 /datum/action/bicycle_bell
 	name = "Ring Bell"
-	desc = "Go on, ring you bicycle bell!"
+	desc = "Go on, ring your bicycle bell!"
 	icon_icon = 'icons/obj/bureaucracy.dmi'
 	button_icon_state = "desk_bell"
 	COOLDOWN_DECLARE(ring_cooldown)
