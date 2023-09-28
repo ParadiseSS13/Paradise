@@ -12,6 +12,9 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_FLOORED), PROC_REF(on_floored_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_FLOORED), PROC_REF(on_floored_trait_loss))
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_FORCED_STANDING), PROC_REF(on_forced_standing_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_FORCED_STANDING), PROC_REF(on_forced_standing_trait_loss))
+
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED), PROC_REF(on_handsblocked_trait_gain))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_HANDS_BLOCKED), PROC_REF(on_handsblocked_trait_loss))
 
@@ -50,6 +53,8 @@
 /// Called when [TRAIT_FLOORED] is added to the mob.
 /mob/living/proc/on_floored_trait_gain(datum/source)
 	SIGNAL_HANDLER
+	if(HAS_TRAIT(src, TRAIT_FORCED_STANDING))
+		return // Don't go horizontal if mob has forced standing trait.
 	mobility_flags &= ~MOBILITY_STAND
 	on_floored_start()
 
@@ -67,6 +72,21 @@
 /mob/living/proc/on_floored_end()
 	if(!resting)
 		stand_up(FALSE)
+
+	/// Called when [TRAIT_FORCED_STANDING] is added to the mob.
+/mob/living/proc/on_forced_standing_trait_gain(datum/source)
+	SIGNAL_HANDLER
+
+	set_body_position(STANDING_UP)
+
+/// Called when [TRAIT_FORCED_STANDING] is removed from the mob.
+/mob/living/proc/on_forced_standing_trait_loss(datum/source)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(src, TRAIT_FLOORED))
+		fall()
+	else if(resting)
+		lay_down()
 
 /// Called when [TRAIT_HANDS_BLOCKED] is added to the mob.
 /mob/living/proc/on_handsblocked_trait_gain(datum/source)

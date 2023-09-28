@@ -107,11 +107,12 @@
 	you give up your identity and become a faceless hand of the Order. <br>\
 	You will be completely protected from the effects of supermatter by the items granted here, so far as to \
 	allow you to pick up and throw supermatter slivers, which your halberd can cut from the engine. <br>\
-	</i>Provides a Supermatter Halberd, Oblivion Enforcer robes, and an air tank, as well as Instant Summons, Lightning Bolt, Ethereal Jaunt, and Summon Supermatter Crystal.<i>"
+	</i>Provides a Supermatter Halberd, Oblivion Enforcer robes, and an air tank, as well as Instant Summons, Lightning Bolt, and Summon Supermatter Crystal.<i>"
 	items_path = list(/obj/item/supermatter_halberd, /obj/item/clothing/gloves/color/white/supermatter_immune, \
-		/obj/item/clothing/suit/hooded/oblivion, /obj/item/clothing/mask/gas/voice_modulator/oblivion, /obj/item/tank/internals/emergency_oxygen/double)
-	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/summonitem, \
-		/obj/effect/proc_holder/spell/charge_up/bounce/lightning, /obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter)
+		/obj/item/clothing/suit/hooded/oblivion, /obj/item/clothing/mask/gas/voice_modulator/oblivion, /obj/item/tank/internals/emergency_oxygen/double, \
+		/obj/item/clothing/under/color/white/enforcer, /obj/item/clothing/shoes/white/enforcer)
+	spells_path = list(/obj/effect/proc_holder/spell/summonitem, /obj/effect/proc_holder/spell/charge_up/bounce/lightning, \
+		/obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
