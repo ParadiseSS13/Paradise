@@ -59,7 +59,7 @@
 
 /obj/item/encryptionkey/syndicate/all_channels/attack_self(mob/user, pickupfireoverride)
 	change_voice = !change_voice
-	to_chat(user, "You switch [src] to [change_voice ? "" : "not "] change your voice on syndicate communications.")
+	to_chat(user, "You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications.")
 
 /obj/item/encryptionkey/syndicate/all_channels/AltClick(mob/user)
 	var/new_name = stripped_input(user, "Enter new fake agent name...", "New name")
