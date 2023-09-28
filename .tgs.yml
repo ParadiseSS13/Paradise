@@ -9,5 +9,11 @@ static_files:
     populate: true
   # Data directory must be static
   - name: data
+# String dictionary. The value is the location of the file in the repo to upload to TGS. The key is the name of the file to upload to "<instance_path>/Configuration/EventScripts/"
+# This one is for Linux hosted servers
+linux_scripts:
+  PreCompile.sh: tools/tgs_scripts/PreCompile.sh
+  WatchdogLaunch.sh: tools/tgs_scripts/WatchdogLaunch.sh
+  InstallDeps.sh: tools/tgs_scripts/InstallDeps.sh
 # The security level the game should be run at
 security: Trusted
