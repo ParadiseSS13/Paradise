@@ -17,11 +17,11 @@
 		return
 	if(istype(I, /obj/item/card) || istype(I, /obj/item/coin))
 		if(prob(winning_chance))
-			desc = "Congratulations! Redeem your prize at the nearest ATM!"
+			to_chat(user, "<span class='notice'>Congratulations! Redeem your prize at the nearest ATM!</span>")
 			icon_state = "scard_winner"
 			winner = TRUE
 		else
-			desc = "Good luck next time."
+			to_chat(user, "Good luck next time.")
 			icon_state = "scard_loser"
 		playsound(user, 'sound/items/scratching.ogg', 50, TRUE)
 		scratched = TRUE
