@@ -39,19 +39,10 @@
 #endif
 
 /// Gets the version of rust_g
-/proc/rustgss220_get_version() return RUSTG_CALL(RUST_G_SS220, "get_version")()
+/proc/rustg_ss220_get_version() return RUSTG_CALL(RUST_G_SS220, "get_version")()
 
-#define rustgss220_file_write_b64decode(text, fname) RUSTG_CALL(RUST_G_SS220, "file_write")(text, fname, "true")
-
-// Hashing Operations //
-#define rustgss220_hash_string(algorithm, text) RUSTG_CALL(RUST_G_SS220, "hash_string")(algorithm, text)
-#define rustgss220_hash_file(algorithm, fname) RUSTG_CALL(RUST_G_SS220, "hash_file")(algorithm, fname)
-
-
-#ifdef RUSTG_OVERRIDE_BUILTINS
-	#define md5(thing) (isfile(thing) ? rustgss220_hash_file(RUSTG_HASH_MD5, "[thing]") : rustgss220_hash_string(RUSTG_HASH_MD5, thing))
-#endif
+#define rustg_ss220_file_write_b64decode(text, fname) RUSTG_CALL(RUST_G_SS220, "file_write")(text, fname, "true")
 
 // Text Operations //
-#define rustgss220_cyrillic_to_latin(text) RUSTG_CALL(RUST_G_SS220, "cyrillic_to_latin")("[text]")
-#define rustgss220_latin_to_cyrillic(text) RUSTG_CALL(RUST_G_SS220, "latin_to_cyrillic")("[text]")
+#define rustg_ss220_cyrillic_to_latin(text) RUSTG_CALL(RUST_G_SS220, "cyrillic_to_latin")("[text]")
+#define rustg_ss220_latin_to_cyrillic(text) RUSTG_CALL(RUST_G_SS220, "latin_to_cyrillic")("[text]")
