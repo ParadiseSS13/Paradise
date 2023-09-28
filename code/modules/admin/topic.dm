@@ -2174,6 +2174,7 @@
 				H.KnockDown(15 SECONDS, TRUE)
 				H.Stun(15 SECONDS, TRUE)
 				H.AdjustJitter(40 SECONDS)
+				to_chat(H, "<span class='danger'>You feel as if your limbs are being ripped from your body!</span>")
 				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
 
 		if(logmsg)
