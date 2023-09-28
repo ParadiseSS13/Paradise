@@ -579,7 +579,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(unknown_concentration > 0.01)
 			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration * 100)]% ([round(unknown_concentration*  total_moles, 0.01)] moles)</span>")
 
-		to_chat(src, "<span class='notice'>Temperature: [round(environment.temperature-T0C, 0.1)]&deg;C</span>")
+		to_chat(src, "<span class='notice'>Temperature: [round(environment.temperature - T0C, 0.1)]&deg;C</span>")
 		to_chat(src, "<span class='notice'>Heat Capacity: [round(environment.heat_capacity(), 0.1)]</span>")
 
 /mob/dead/observer/verb/view_manifest()
