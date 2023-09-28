@@ -269,7 +269,7 @@
 	if(user.pull_force < move_force)
 		return FALSE
 	// This if-statement checks if the user is horizontal, and if the user either has no martial art, or has judo, drunk fighting or krav, in which case it should also fail
-	if(IS_HORIZONTAL(user) && (!user.mind.martial_art || istype(user.mind.martial_art, /datum/martial_art/judo) || istype(user.mind.martial_art, /datum/martial_art/drunk_brawling) || istype(user.mind.martial_art, /datum/martial_art/krav_maga)))
+	if(IS_HORIZONTAL(user) && (!user.mind.martial_art || is_type_in_list(user.mind.martial_art, list(/datum/martial_art/judo, /datum/martial_art/drunk_brawling, /datum/martial_art/krav_maga))))
 		to_chat(user, "<span class='warning'>You fail to get a good grip on [src]!</span>")
 		return
 

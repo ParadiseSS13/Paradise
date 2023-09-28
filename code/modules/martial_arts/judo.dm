@@ -58,8 +58,8 @@
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	return TRUE
 
-/datum/martial_art/judo/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
-	if(IS_HORIZONTAL(A))
+/datum/martial_art/judo/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
+	if(IS_HORIZONTAL(attacker))
 		return FALSE
 	return ..()
 
