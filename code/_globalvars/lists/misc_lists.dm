@@ -21,6 +21,8 @@ GLOBAL_LIST_INIT(html_colors, list("Alice Blue","Antique White","Aqua","Aquamari
 
 GLOBAL_LIST_INIT(day_names, list("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
 GLOBAL_LIST_INIT(month_names, list("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"))
+// keep si_suffixes balanced and with a pivot in the middle!
+GLOBAL_LIST_INIT(si_suffixes, list("y", "z", "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"))
 
 GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"CentComm",

@@ -8,7 +8,7 @@
 /area/space/nearstation)
 "c" = (
 /obj/structure/grille,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "d" = (
 /turf/simulated/wall/r_wall,
@@ -654,7 +654,7 @@ d
 j
 k
 d
-k
+l
 d
 E
 J
@@ -674,7 +674,7 @@ d
 k
 k
 d
-k
+l
 d
 d
 d

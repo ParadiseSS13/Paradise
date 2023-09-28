@@ -24,9 +24,10 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg
-	desc = "A 6-shot grenade launcher."
+	desc = "A 15-shot grenade launcher."
 	icon = 'icons/mecha/mecha_equipment.dmi'
 	icon_state = "mecha_grenadelnchr"
+	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/grenadelauncher/multi/fifteen
 
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg/attack_self()
 	return
