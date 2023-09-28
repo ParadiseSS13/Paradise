@@ -111,7 +111,7 @@ jobs:
       - name: Start Redis
         uses: supercharge/redis-github-action@1.7.0
         with:
-          redis-version: 6
+          redis-version: 7
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
