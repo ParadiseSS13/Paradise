@@ -6,14 +6,36 @@
 	uses = 1
 	implant_data = /datum/implant_fluff/gorilla_rampage
 	implant_state = "implant-syndicate"
+	COOLDOWN_DECLARE(gorilla_transform_cooldown)
 
 /obj/item/implant/gorilla_rampage/activate()
-	if(!iscarbon(imp_in))
+	if(!COOLDOWN_FINISHED(src, gorilla_transform_cooldown))
+		to_chat(usr, "<span class='notice'>[src] is still on cooldown! [(gorilla_transform_cooldown - world.time) / 10] seconds left!</span>")
 		return
+	if(ishuman(usr))
+		var/mob/living/simple_animal/hostile/gorilla/rampaging/rampaging_gorilla = new (get_turf(src))
 
-	var/mob/living/carbon/target = imp_in
-	target.visible_message("<span class='userdanger'>[target] swells and their hair grows rapidly. Uh oh!.</span>","<span class='userdanger'>You feel your muscles swell and your hair grow as you return to monke.</span>", "<span class='userdanger'>You hear angry gorilla noises.</span>")
-	target.gorillize(TRUE)
+		playsound(rampaging_gorilla, 'sound/creatures/gorilla.ogg', 50)
+		var/mob/living/carbon/human/implante = imp_in
+
+		implante.visible_message("<span class='userdanger'>[implante] swells and their hair grows rapidly. Uh oh!.</span>","<span class='userdanger'>You feel your muscles swell and your hair grow as you return to monke.</span>", "<span class='userdanger'>You hear angry gorilla noises.</span>")
+		implante.mind.transfer_to(rampaging_gorilla)
+		implante.forceMove(rampaging_gorilla)
+		implant(rampaging_gorilla)
+		usr.status_flags |= GODMODE
+	else
+		var/mob/living/carbon/human/creator = locate(/mob/living/carbon/human) in usr
+		if(!creator)
+			return
+		creator.status_flags &= ~GODMODE
+
+		usr.mind.transfer_to(creator)
+		usr.visible_message("<span class='userdanger'>[usr] quickly shrinks back into their original form!</span>","<span class='userdanger'>You feel your muscles relax as you return to your original form.</span>", "<span class='userdanger'>You hear a lack of gorilla noises.</span>")
+		creator.forceMove(get_turf(usr))
+		implant(creator)
+		qdel(usr)
+
+	COOLDOWN_START(src, gorilla_transform_cooldown, 90 SECONDS)
 
 /obj/item/implanter/gorilla_rampage
 	name = "bio-chip implanter (magillitis serum)"
