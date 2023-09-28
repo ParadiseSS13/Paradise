@@ -147,7 +147,7 @@
 
 /obj/item/kitchen/knife/shiv/carrot
 	name = "carrot shiv"
-	desc = "WAKA WAKA"
+	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
 	// desc = "Unlike other carrots, you should probably keep this far away from your eyes."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "carrotshiv"
