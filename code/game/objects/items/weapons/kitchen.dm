@@ -147,9 +147,10 @@
 
 /obj/item/kitchen/knife/shiv/carrotshiv
 	name = "carrot shiv"
-	icon_state = "carrotshiv"
-	item_state = "carrotshiv"
-	desc = "Unlike other carrots, you should probably keep this far away from your eyes."
+	desc = "WAKA WAKA"
+	// desc = "Unlike other carrots, you should probably keep this far away from your eyes."
+	icon_state = "carrot_shiv"
+	item_state = "carrot_shiv"
 	force = 8
 	throwforce = 12 //fuck git
 	materials = list()
