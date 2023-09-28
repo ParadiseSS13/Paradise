@@ -46,14 +46,14 @@
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/Initialize(mapload)
 	. = ..()
 	if(mind)
-		var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge(null)
+		var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge()
 		mind.AddSpell(spell)
 	else
 		RegisterSignal(src, COMSIG_MOB_LOGIN, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/terror_spider/prince, give_spell))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/proc/give_spell()
 	SIGNAL_HANDLER
-	var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge(null)
+	var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge()
 	mind.AddSpell(spell)
 
 /obj/effect/proc_holder/spell/princely_charge
