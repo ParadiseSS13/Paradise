@@ -4,7 +4,6 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "bicycle"
 	vehicle_move_delay = 1
-	layer = ABOVE_MOB_LAYER
 
 /obj/vehicle/bike/relaymove(mob/user, direction)
 	. = ..()
@@ -18,8 +17,8 @@
 	for(var/organ_name in list("l_leg", "r_leg", "l_foot", "r_foot"))
 		var/obj/item/organ/external/E = driver.get_organ(organ_name)
 		if(!E)
-			return 0 // Bikes need both feet/legs to work. missing even one makes it so you can't ride the bike
-		else if(E.status & ORGAN_SPLINTED)
+			return // Bikes need both feet/legs to work. missing even one makes it so you can't ride the bike
+		if(E.status & ORGAN_SPLINTED)
 			vehicle_move_delay += 0.5
 		else if(E.status & ORGAN_BROKEN)
 			vehicle_move_delay += 1.5
