@@ -280,7 +280,7 @@ SUBSYSTEM_DEF(tts220)
 		text = provider.pitch_whisper(text)
 
 	var/hash = rustgss220_hash_string(RUSTG_HASH_MD5, text)
-	var/filename = "sound/tts_cache/[seed.name]/[hash]"
+	var/filename = "data/tts_cache/[seed.name]/[hash]"
 
 	var/datum/callback/play_tts_cb = CALLBACK(src, PROC_REF(play_tts), speaker, listener, filename, is_local, effect, preSFX, postSFX)
 
