@@ -14322,7 +14322,7 @@
 "aSh" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Research  Outpost","Mining  Outpost")
+	network = list("SS13","Research Outpost","Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
