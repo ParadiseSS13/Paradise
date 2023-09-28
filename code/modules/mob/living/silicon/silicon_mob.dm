@@ -78,11 +78,6 @@
 	QDEL_NULL(aiCamera)
 	return ..()
 
-/mob/living/silicon/proc/can_instant_lockdown()
-	if(isAntag(src))
-		return TRUE
-	return FALSE
-
 /mob/living/silicon/proc/get_radio()
 	return
 
