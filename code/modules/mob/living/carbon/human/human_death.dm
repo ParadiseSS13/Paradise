@@ -43,21 +43,24 @@
 	return TRUE
 
 /mob/living/carbon/human/dust()
+	if(!IS_HORIZONTAL(src))
+		// keep us upright so the animation fits.
+		ADD_TRAIT(src, TRAIT_FORCED_STANDING, TRAIT_GENERIC)
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	notransform = TRUE
 	dust_animation()
-	QDEL_IN(src, 20)
+	QDEL_IN(src, 2 SECONDS)
 	return TRUE
 
 /mob/living/carbon/human/dust_animation()
 	// Animate them being dusted out of existence
 	var/obj/effect/dusting_anim/dust_effect = new(loc, UID())
 	filters += filter(type = "displace", size = 256, render_source = "*snap[UID()]")
-	animate(src, alpha = 0, time = 20, easing = (EASE_IN | SINE_EASING))
+	animate(src, alpha = 0, time = 2 SECONDS, easing = (EASE_IN | SINE_EASING))
 
 	new dna.species.remains_type(get_turf(src))
-	QDEL_IN(dust_effect, 20)
+	QDEL_IN(dust_effect, 2 SECONDS)
 	return TRUE
 
 /mob/living/carbon/human/melt()
