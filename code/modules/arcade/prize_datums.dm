@@ -398,5 +398,5 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/bike
 	name = "Awesome Bike!"
 	desc = "WOAH."
-	typepath = /obj/structure/chair/wheelchair/bike
+	typepath = /obj/vehicle/bike
 	cost = 10000	//max stack + 1 tickets.
