@@ -174,7 +174,3 @@
 			limbs.droplimb()
 	emote("scream")
 	playsound(src, 'sound/misc/desceration-03.ogg', 70)
-
-/mob/living/carbon/human/proc/make_kfv(mob/living)
-	var/obj/item/reagent_containers/food/snacks/fried_vox/smite/bucket = new /obj/item/reagent_containers/food/snacks/fried_vox/smite(get_turf(src))
-	src.forceMove(bucket)

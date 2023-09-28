@@ -2056,7 +2056,6 @@
 			ptypes += "Floor Cluwne"
 			ptypes += "Shamebrero"
 			ptypes += "Nugget"
-			ptypes += "Make KFV"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2176,12 +2175,6 @@
 				H.Stun(15 SECONDS, TRUE)
 				H.AdjustJitter(40 SECONDS)
 				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
-			if("Make KFV")
-
-				addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), H ))
-				addtimer(CALLBACK(H, TYPE_PROC_REF(mob/living/carbon/human, make_kfv)), 5 SECONDS)
-
-
 
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
