@@ -1,0 +1,13 @@
+# This file is stolen from tg
+version: 1
+byond: "515.1614"
+# Folders to create in "<instance_path>/Configuration/GameStaticFiles/"
+static_files:
+  # Config directory should be static
+  - name: config
+    # This implies the folder should be pre-populated with contents from the repo
+    populate: true
+  # Data directory must be static
+  - name: data
+# The security level the game should be run at
+security: Trusted
