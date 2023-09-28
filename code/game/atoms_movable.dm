@@ -705,7 +705,7 @@
  * * angle - The angle by which we'll rotate. If this is null/0, we'll randomly rotate 90 degrees clockwise or counterclockwise.
  * * rightable - If true, the tilted component will be applied, allowing people to alt-click to right it.
  * * block_interactions_until_righted - If true, interactions with the object will be blocked until it's righted.
- * * crush_dir - The direction we're crushing.
+ * * crush_dir - An override on the direction we're crushing. If NO_CRUSH_DIR, we'll
  */
 /atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time = 4 SECONDS, knockdown_time = 10 SECONDS, ignore_gravity = FALSE, should_rotate = TRUE, angle, rightable = FALSE, block_interactions_until_righted = FALSE, crush_dir = NO_CRUSH_DIR)
 	if(QDELETED(src) || isnull(target_turf))
@@ -714,13 +714,20 @@
 	if(crush_dir == NO_CRUSH_DIR)
 		crush_dir = get_dir(get_turf(src), target_turf)
 
+	var/has_tried_to_move = FALSE
+
 	if(is_blocked_turf(target_turf, TRUE))
-		visible_message("<span class='warning'>[src] seems to rock, but doesn't fall over!</span>")
+		var/turf/orig_turf = get_turf(src)
 		Move(target_turf, get_dir(get_turf(src), target_turf))
-		return
+		has_tried_to_move = TRUE
+		var/turf/new_turf = get_turf(src)
+		if(orig_turf == new_turf)
+			// we'll try to move, and if we didn't end up going anywhere, then we do nothing.
+			visible_message("<span class='warning'>[src] seems to rock, but doesn't fall over!</span>")
+			return
 
 	for(var/atom/target in (target_turf.contents) + target_turf)
-		if(isarea(target))
+		if(isarea(target) || target == src)  // don't crush ourselves	
 			continue
 
 		if(isobserver(target))
@@ -767,7 +774,8 @@
 
 	tilt_over(target_turf, angle, should_rotate, rightable, block_interactions_until_righted)
 	// for things that trigger on Crossed()
-	Move(target_turf, get_dir(get_turf(src), target_turf))
+	if(!has_tried_to_move)
+		Move(target_turf, get_dir(get_turf(src), target_turf))
 
 	return TRUE
 

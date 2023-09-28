@@ -316,8 +316,8 @@
 	if(isAI(A) || istype(A, /obj/structure/AIcore))
 		if(isAI(A))
 			var/mob/living/silicon/ai/T = A
-			if(T.tp_override)
-				return TRUE
+			if(T.allow_teleporter)
+				return FALSE
 			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
 			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
 			"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
