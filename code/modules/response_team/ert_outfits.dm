@@ -104,7 +104,7 @@
 		/obj/item/door_remote/omni = 1,
 		/obj/item/ammo_box/magazine/enforcer/lethal = 2,
 		/obj/item/gun/energy/gun/blueshield/pdw9 = 1
-		)
+	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
@@ -383,7 +383,7 @@
 		/obj/item/storage/pill_bottle/ert_gamma = 1,
 		/obj/item/storage/pill_bottle/patch_pack/ert/gamma = 1,
 		/obj/item/gun/energy/gun/blueshield/pdw9 = 1
-		)
+	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/l,
@@ -418,7 +418,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1
-		)
+	)
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -461,7 +461,7 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/gun/energy/gun/nuclear = 1
-		)
+	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
