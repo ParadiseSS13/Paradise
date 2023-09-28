@@ -3,8 +3,6 @@
 #define MALF_AI_ROLL_DAMAGE 75
 // crit percent
 #define MALF_AI_ROLL_CRIT_CHANCE 5
-// how far away something can be for the AI to roll towards it
-#define MALF_AI_ROLL_MAX_DISTANCE 1
 
 //The malf AI action subtype. All malf actions are subtypes of this.
 /datum/action/innate/ai
@@ -843,20 +841,28 @@
 	auto_use_uses = FALSE
 	linked_ability_type = /obj/effect/proc_holder/ranged_ai/roll_over
 
+
 /obj/effect/proc_holder/ranged_ai/roll_over
 	active = FALSE
 	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	enable_text = "<span class='notice'>Your inner servos shift as you prepare to roll around. Click adjacent tiles to roll into them!</span>"
 	disable_text = "<span class='notice'>You disengage your rolling protocols.</span>"
-	var/last_tilt_time = 0
+	COOLDOWN_DECLARE(time_til_next_tilt)
+	/// How long does it take us to roll?
+	var/roll_over_time = MALF_AI_ROLL_TIME
+	/// How long does it take for the ability to cool down, on top of [roll_over_time]?
+	var/roll_over_cooldown = MALF_AI_ROLL_COOLDOWN
+
 
 /obj/effect/proc_holder/ranged_ai/roll_over/InterceptClickOn(mob/living/caller, params, atom/target_atom)
 	if(..())
 		return
-	if(ranged_ability_user.incapacitated())
+	if(!isAI(ranged_ability_user))
+		return
+	if(ranged_ability_user.incapacitated() || !isturf(ranged_ability_user.loc))
 		remove_ranged_ability()
 		return
-	if(last_tilt_time + MALF_AI_ROLL_COOLDOWN > world.time)
+	if(!COOLDOWN_FINISHED(src, time_til_next_tilt))
 		to_chat(ranged_ability_user, "<span class='warning'>Your rolling capacitors are still powering back up!</span>")
 		return
 
@@ -868,28 +874,30 @@
 		to_chat(ranged_ability_user, "<span class='warning'>You can't roll over on yourself!</span>")
 		return
 
-	if(get_dist(target, get_turf(ranged_ability_user)) > 1)
-		to_chat(ranged_ability_user, "<span class='warning'>That's too far!</span>")
-		return
-
 	var/picked_dir = get_dir(caller, target)
+	if(!picked_dir)
+		return FALSE
+	// we can move during the timer so we cant just pass the ref
+	var/turf/temp_target = get_step(ranged_ability_user, picked_dir)
 
-	new /obj/effect/temp_visual/single_user/ai_telegraph(target, ranged_ability_user)
+	new /obj/effect/temp_visual/single_user/ai_telegraph(temp_target, ranged_ability_user)
 	ranged_ability_user.visible_message("<span class='danger'>[ranged_ability_user] seems to be winding up!</span>")
 	addtimer(CALLBACK(src, PROC_REF(do_roll_over), caller, picked_dir), MALF_AI_ROLL_TIME)
 
-	last_tilt_time = world.time
-
 	to_chat(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
+
+	COOLDOWN_START(src, time_til_next_tilt, roll_over_cooldown)
+
 	return TRUE
 
 /obj/effect/proc_holder/ranged_ai/roll_over/proc/do_roll_over(mob/living/silicon/ai/ai_caller, picked_dir)
 	var/turf/target = get_step(ai_caller, picked_dir) // in case we moved we pass the dir not the target turf
 
-	if(isnull(target))
+	if(isnull(target) || ai_caller.incapacitated() || !isturf(ai_caller.loc))
 		return
 
-	var/paralyze_time = clamp(6 SECONDS, 0 SECONDS, (MALF_AI_ROLL_COOLDOWN * 0.9)) //the clamp prevents stunlocking as the max is always a little less than the cooldown between rolls
+
+	var/paralyze_time = clamp(6 SECONDS, 0 SECONDS, (roll_over_cooldown * 0.9)) // the clamp prevents stunlocking as the max is always a little less than the cooldown between rolls
 	ai_caller.tp_override = TRUE
 	ai_caller.fall_and_crush(target, MALF_AI_ROLL_DAMAGE, prob(MALF_AI_ROLL_CRIT_CHANCE), 2, null, paralyze_time, crush_dir = picked_dir, angle = get_rotation_from_dir(picked_dir))
 	ai_caller.tp_override = FALSE
