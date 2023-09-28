@@ -149,6 +149,7 @@
 	name = "carrot shiv"
 	desc = "WAKA WAKA"
 	// desc = "Unlike other carrots, you should probably keep this far away from your eyes."
+	icon = 'icons/obj/items.dmi'
 	icon_state = "carrot_shiv"
 	item_state = "carrot_shiv"
 	force = 8
