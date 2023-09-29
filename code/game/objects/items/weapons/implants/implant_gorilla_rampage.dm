@@ -18,7 +18,7 @@
 		playsound(rampaging_gorilla, 'sound/creatures/gorilla.ogg', 50)
 		var/mob/living/carbon/human/implante = imp_in
 
-		implante.visible_message("<span class='userdanger'>[implante] swells and their hair grows rapidly. Uh oh!.</span>","<span class='userdanger'>You feel your muscles swell and your hair grow as you return to monke.</span>", "<span class='userdanger'>You hear angry gorilla noises.</span>")
+		implante.visible_message("<span class='userdanger'>[implante] swells and their hair grows rapidly. Uh oh!</span>", "<span class='userdanger'>You feel your muscles swell and your hair grow as you return to monke.</span>", "<span class='userdanger'>You hear angry gorilla noises.</span>")
 		implante.mind.transfer_to(rampaging_gorilla)
 		implante.forceMove(rampaging_gorilla)
 		implant(rampaging_gorilla)
