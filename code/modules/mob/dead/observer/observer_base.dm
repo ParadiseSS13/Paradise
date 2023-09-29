@@ -554,7 +554,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		var/plasma_concentration = environment.toxins / total_moles
 		var/n2o_concentration = environment.sleeping_agent / total_moles
 
-		var/unknown_concentration =  1-(o2_concentration + n2_concentration + co2_concentration + plasma_concentration + n2o_concentration)
+		var/unknown_concentration =  1 - (o2_concentration + n2_concentration + co2_concentration + plasma_concentration + n2o_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
 			to_chat(src, "<span class='notice'>Nitrogen: [round(n2_concentration * 100)]% ([round(environment.nitrogen, 0.01)] moles)</span>")
 		else
