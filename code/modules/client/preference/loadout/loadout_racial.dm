@@ -68,5 +68,5 @@
 /datum/gear/racial/vox_robes
 	display_name = "Vox robes"
 	description = "Weird and flowing robes straight from an arkship."
-	path = /obj/item/clothing/under/vox/vox_robes
-	slot = slot_w_uniform
+	path = /obj/item/clothing/suit/hooded/vox_robes
+	slot = slot_wear_suit

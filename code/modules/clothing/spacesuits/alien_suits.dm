@@ -143,7 +143,7 @@
 	desc = "An almost organic looking nonhuman pressure suit."
 
 /obj/item/clothing/under/vox
-	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
+	icon = 'icons/mob/clothing/species/vox/under/misc.dmi'
 	species_restricted = list("Vox")
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi'
@@ -152,20 +152,39 @@
 /obj/item/clothing/under/vox/vox_casual
 	name = "Vox jumpsuit"
 	desc = "This doesn't look very comfortable."
-	icon_state = "vox-casual-1"
-	item_color = "vox-casual-1"
-	item_state = "vox-casual-1"
+	icon_state = "vox-jumpsuit_s"
+	item_color = "vox-jumpsuit"
+	item_state = "vox-jumpsuit"
 	body_parts_covered = LEGS
 
-/obj/item/clothing/under/vox/vox_robes
+/obj/item/clothing/suit/hooded/vox_robes
 	name = "Vox robes"
-	desc = "Weird and flowing!"
-	icon_state = "vox-casual-2"
-	item_color = "vox-casual-2"
-	item_state = "vox-casual-2"
+	desc = "Weird and flowing robes!"
+	icon = 'icons/mob/clothing/species/vox/suit.dmi'
+	icon_state = "vox-robes"
+	item_color = "vox-robes"
+	item_state = "vox-robes"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+	hoodtype = /obj/item/clothing/head/hooded/vox_robe_hood
 	species_restricted = list("Vox")
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/under/misc.dmi')
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
+	)
+
+//Vox Robes Hood
+/obj/item/clothing/head/hooded/vox_robe_hood
+	name = "Vox hood"
+	desc = "It's hood that covers the head, made of a weird and flowing material."
+	icon = 'icons/mob/clothing/species/vox/head.dmi'
+	icon_state = "vox-robes-hood"
+	item_color = "vox-robes-hood"
+	item_state = "vox-robes-hood"
+	flags = BLOCKHAIR
+	flags_cover = HEADCOVERSEYES
+	species_restricted = list("Vox")
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
+	)
 
 /obj/item/clothing/gloves/color/yellow/vox
 	name = "insulated gauntlets"
