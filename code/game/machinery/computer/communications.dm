@@ -12,7 +12,7 @@
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
-#define ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM_
+#define ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM)
 
 // The communications computer
 /obj/machinery/computer/communications
