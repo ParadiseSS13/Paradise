@@ -4,6 +4,11 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "bicycle"
 	vehicle_move_delay = 1
+	var/mutable_appearance/bicycle_overlay
+
+/obj/vehicle/bike/Initialize(mapload)
+	. = ..()
+	bicycle_overlay = mutable_appearance(icon, "bicycle_overlay", ABOVE_MOB_LAYER)
 
 /obj/vehicle/bike/relaymove(mob/user, direction)
 	. = ..()
@@ -30,10 +35,12 @@
 		bell_action.Grant(M)
 	else
 		bell_action.Remove(M)
+	add_overlay(bicycle_overlay)
 
 /obj/vehicle/bike/post_unbuckle_mob(mob/living/M)
 	for(var/datum/action/bicycle_bell/bell_action in M.actions)
 		bell_action.Remove(M)
+	cut_overlay(bicycle_overlay)
 	return ..()
 
 /obj/vehicle/bike/handle_vehicle_layer()
