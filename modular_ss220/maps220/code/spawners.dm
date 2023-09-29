@@ -1,4 +1,4 @@
-/* FOOD SPAWNERS */
+/* Lootdrop food spawners */
 /obj/effect/spawner/lootdrop/CCfood
 
 /obj/effect/spawner/lootdrop/CCfood/desert
@@ -33,7 +33,7 @@
 		/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind=10,
 		/obj/item/reagent_containers/food/drinks/cans/lemon_lime=10,""=70)
 
-/* LOOTDROP */
+/* Lootdrop */
 /obj/effect/spawner/lootdrop/maintenance
 	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
 
@@ -76,6 +76,23 @@
 		""=20
 		)
 
+/* Random spawners */
 /obj/effect/spawner/random_spawners/mod
 	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
 	icon_state = "mod"
+
+/obj/effect/spawner/random_spawners/syndicate/loot
+	icon = 'modular_ss220/maps220/icons/spawner_icons.dmi'
+	icon_state = "common"
+
+/obj/effect/spawner/random_spawners/syndicate/loot/level2
+	icon_state = "rare"
+
+/obj/effect/spawner/random_spawners/syndicate/loot/level3
+	icon_state = "officer"
+
+/obj/effect/spawner/random_spawners/syndicate/loot/level4
+	icon_state = "armory"
+
+/obj/effect/spawner/random_spawners/syndicate/loot/stetchkin
+	icon_state = "stetchkin"

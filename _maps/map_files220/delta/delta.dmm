@@ -208,13 +208,12 @@
 /area/station/maintenance/auxsolarstarboard)
 "acJ" = (
 /obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
-	height = 22;
-	id = "syndicate_nw";
-	name = "northwest of station";
-	width = 18
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "sst_home";
+	name = "Near Kerberos Arrivals";
+	width = 11
 	},
 /turf/space,
 /area/space)
@@ -57305,12 +57304,11 @@
 /area/station/science/research)
 "dZi" = (
 /obj/docking_port/stationary{
-	dir = 4;
-	dwidth = 7;
-	height = 5;
-	id = "sst_home";
-	name = "Near Kerberos Arrivals";
-	width = 11
+	dwidth = 8;
+	height = 22;
+	id = "syndicate_nw";
+	name = "northwest of station";
+	width = 18
 	},
 /turf/space,
 /area/space)
@@ -57346,8 +57344,8 @@
 /area/station/public/sleep)
 "dZG" = (
 /obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 3;
+	dir = 4;
+	dwidth = 7;
 	height = 5;
 	id = "sit_arrivals";
 	name = "Arrivals Maintenance";
@@ -107963,7 +107961,7 @@ aaa
 aaa
 aaa
 aaa
-acJ
+aaa
 aaa
 aaa
 aaa
@@ -109813,7 +109811,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+dZi
 aaa
 aaa
 aaa
@@ -133919,8 +133917,8 @@ aaa
 aaa
 aaa
 aaa
+acJ
 aaa
-dZi
 aaa
 aaa
 aaa
@@ -148339,7 +148337,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+dZG
 aaa
 aaa
 aaa
@@ -150922,7 +150920,7 @@ aaa
 aaa
 aaa
 aaa
-dZG
+aaa
 aaa
 aaa
 aaa

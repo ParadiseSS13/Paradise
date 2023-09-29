@@ -59,3 +59,23 @@
 	canSmoothWith = null
 	layer = GRASS_UNDER_LAYER
 	transform = null
+
+// Shuttle
+/turf/simulated/floor/indestructible/transparent_floor
+	icon = 'modular_ss220/maps220/icons/shuttle.dmi'
+	icon_state = "transparent"
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/turf/simulated/floor/indestructible/transparent_floor/Initialize()
+	..()
+	var/obj/O
+	O = new()
+	O.underlays.Add(src)
+	underlays = O.underlays
+	qdel(O)
+
+/turf/simulated/floor/indestructible/transparent_floor/copyTurf(turf/T)
+	. = ..()
+	T.transform = transform

@@ -516,9 +516,7 @@
 /area/station/maintenance/disposal)
 "adB" = (
 /obj/docking_port/stationary{
-	dheight = 9;
-	dir = 2;
-	dwidth = 5;
+	dwidth = 8;
 	height = 22;
 	id = "syndicate_nw";
 	name = "northwest of station";
@@ -6317,8 +6315,8 @@
 	dir = 8;
 	dwidth = 3;
 	height = 5;
-	id = "sit_arrivals";
-	name = "Cyberiad Arrivals";
+	id = "sst_home";
+	name = "Near Cyberiad Arrivals";
 	width = 11
 	},
 /turf/space,
@@ -7870,8 +7868,8 @@
 	dir = 4;
 	dwidth = 7;
 	height = 5;
-	id = "sst_home";
-	name = "Near Cyberiad Arrivals";
+	id = "sit_arrivals";
+	name = "Cyberiad North-West Solars";
 	width = 11
 	},
 /turf/space,
@@ -116507,7 +116505,7 @@ aaa
 aaa
 aaa
 aaa
-aCB
+aaa
 aaa
 aaa
 aaa
@@ -117278,7 +117276,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+ays
 aaa
 aaa
 aaa
@@ -121626,7 +121624,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aab
 aab
 aaa
 aaa
@@ -122157,7 +122155,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+aCB
 aaa
 aaa
 aaa
@@ -122928,7 +122926,7 @@ aaa
 aaa
 aaa
 aaa
-ays
+aaa
 aaa
 aaa
 aaa
@@ -123184,10 +123182,10 @@ aaa
 aaa
 aaa
 aaa
-aab
-aab
-aab
-aab
+aaa
+aaa
+aaa
+aaa
 aaa
 aGn
 bat

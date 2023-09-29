@@ -85,3 +85,38 @@
 /area/centcom220/jail
 	name = "\improper ЦК - Тюрьма"
 	icon_state ="centcom"
+
+/* Syndicate Base - Mothership */
+/area/syndicate_mothership
+	name = "\improper Syndicate Forward Base"
+	icon = 'modular_ss220/maps220/icons/areas.dmi'
+	icon_state = "syndie-ship"
+	requires_power = FALSE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	nad_allowed = TRUE
+	ambientsounds = HIGHSEC_SOUNDS
+
+/area/syndicate_mothership/outside
+	name = "\improper Syndicate Controlled Territory"
+	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	icon_state = "syndie-outside"
+
+/area/syndicate_mothership/control
+	name = "\improper Syndicate Control Room"
+	icon_state = "syndie-control"
+
+/area/syndicate_mothership/elite_squad
+	name = "\improper Syndicate Elite Squad"
+	icon_state = "syndie-elite"
+
+/area/syndicate_mothership/infteam
+	name = "\improper Syndicate Infiltrators"
+	icon_state = "syndie-infiltrator"
+
+/area/syndicate_mothership/jail
+	name = "\improper Syndicate Jail"
+	icon_state = "syndie-jail"
+
+/area/syndicate_mothership/cargo
+	name = "\improper Syndicate Cargo"
+	icon_state = "syndie-cargo"
