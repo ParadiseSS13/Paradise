@@ -1,15 +1,23 @@
 import { useBackend } from '../backend';
 import { Button, Section, Table, Flex, Icon, Dimmer } from '../components';
 import { Window } from '../layouts';
+import { Operating } from '../interfaces/common/Operating';
 
 export const KitchenMachine = (props, context) => {
   const { data } = useBackend(context);
-  const { ingredients } = data;
+  const {
+    ingredients,
+    operating,
+    name
+  } = data;
 
   return (
     <Window resizable>
       <Window.Content scrollable display="flex" className="Layout__content--flexColumn">
-        <Operating/>
+      <Operating
+          operating={operating}
+          name={name}
+        />
         <KitchenTop/>
         <Section title="Ingredients" flexGrow={1}>
           <Table className="Ingredient__Table">
@@ -70,32 +78,3 @@ const KitchenTop = (props, context) => {
     </Section>
   );
 }
-
-const Operating = (props, context) => {
-  const { data } = useBackend(context);
-  const {
-          operating,
-          name
-        } = data;
-
-  if (operating) {
-    return (
-      <Dimmer>
-        <Flex mb="30px">
-          <Flex.Item
-            bold
-            color="silver"
-            textAlign="center">
-            <Icon
-              name="spinner"
-              spin
-              size={4}
-              mb="15px"
-            /><br />
-            The {name} is processing...
-          </Flex.Item>
-        </Flex>
-      </Dimmer>
-    );
-  }
-};
