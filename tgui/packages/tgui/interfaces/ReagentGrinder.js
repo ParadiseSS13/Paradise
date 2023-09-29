@@ -1,10 +1,11 @@
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table, Flex, Icon, Dimmer } from '../components';
+import { Box, Button, Section, Table, Flex } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
-import { name } from 'file-loader';
+import { Operating } from '../interfaces/common/Operating';
 
 export const ReagentGrinder = (props, context) => {
+  const { act, data } = useBackend(context);
   const {
     operating,
     name

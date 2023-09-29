@@ -1,4 +1,4 @@
-import { Flex, Icon, Dimmer } from '../components';
+import { Flex, Icon, Dimmer } from  '../../components';
 const PropTypes = require('prop-types');
 
 /**
