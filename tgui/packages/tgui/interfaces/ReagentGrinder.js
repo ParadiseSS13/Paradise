@@ -2,12 +2,20 @@ import { useBackend } from '../backend';
 import { Box, Button, Section, Table, Flex, Icon, Dimmer } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
+import { name } from 'file-loader';
 
 export const ReagentGrinder = (props, context) => {
+  const {
+    operating,
+    name
+  } = data;
   return (
     <Window resizable>
       <Window.Content scrollable display="flex" className="Layout__content--flexColumn">
-        <Operating/>
+        <Operating
+          operating={operating}
+          name={name}
+        />
         <GrinderControls/>
         <GrinderContents/>
         <GrinderReagents/>
@@ -16,40 +24,11 @@ export const ReagentGrinder = (props, context) => {
   );
 };
 
-const Operating = (props, context) => {
-  const { data } = useBackend(context);
-  const {
-          operating,
-          name
-        } = data;
-
-  if (operating) {
-    return (
-      <Dimmer>
-        <Flex mb="30px">
-          <Flex.Item
-            bold
-            color="silver"
-            textAlign="center">
-            <Icon
-              name="spinner"
-              spin
-              size={4}
-              mb="15px"
-            /><br />
-            The {name} is processing...
-          </Flex.Item>
-        </Flex>
-      </Dimmer>
-    );
-  }
-};
-
 const GrinderControls = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-          inactive,
-        } = data;
+    inactive,
+  } = data;
 
   return (
     <Section title="Controls">
@@ -132,11 +111,11 @@ const GrinderContents = (props, context) => {
 const GrinderReagents = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-          beaker_loaded,
-          beaker_current_volume,
-          beaker_max_volume,
-          beaker_contents
-        } = data;
+    beaker_loaded,
+    beaker_current_volume,
+    beaker_max_volume,
+    beaker_contents
+  } = data;
 
   return (
     <Section

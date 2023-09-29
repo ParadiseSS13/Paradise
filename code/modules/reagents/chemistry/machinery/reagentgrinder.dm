@@ -172,7 +172,6 @@
 			beaker =  I
 			beaker.loc = src
 			update_icon(UPDATE_ICON_STATE)
-			updateUsrDialog()
 			SStgui.update_uis(src)
 		return TRUE //no afterattack
 
@@ -212,7 +211,6 @@
 		else
 			to_chat(user, "<span class='notice'>You empty some of [B]'s contents into the All-In-One grinder.</span>")
 
-		updateUsrDialog()
 		SStgui.update_uis(src)
 		return TRUE
 
@@ -226,7 +224,6 @@
 	if(user.drop_item())
 		I.loc = src
 		holdingitems += I
-		src.updateUsrDialog()
 		SStgui.update_uis(src)
 		return FALSE
 
@@ -336,7 +333,7 @@
 	beaker.loc = src.loc
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)
-	updateUsrDialog()
+	SStgui.update_uis(src)
 
 /obj/machinery/reagentgrinder/proc/eject()
 	if(usr.stat != 0)
@@ -348,7 +345,7 @@
 		O.loc = src.loc
 		holdingitems -= O
 	holdingitems = list()
-	updateUsrDialog()
+	SStgui.update_uis(src)
 
 /obj/machinery/reagentgrinder/proc/is_allowed(obj/item/reagent_containers/O)
 	for (var/i in blend_items)
@@ -401,11 +398,11 @@
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
 	operating = TRUE
-	updateUsrDialog()
+	SStgui.update_uis(src)
 	spawn(50)
 		pixel_x = initial(pixel_x) //return to its spot after shaking
 		operating = FALSE
-		updateUsrDialog()
+		SStgui.update_uis(src)
 
 	//Snacks
 	for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
@@ -439,11 +436,11 @@
 	var/offset = prob(50) ? -2 : 2
 	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
 	operating = TRUE
-	updateUsrDialog()
+	SStgui.update_uis(src)
 	spawn(60)
 		pixel_x = initial(pixel_x) //return to its spot after shaking
 		operating = FALSE
-		updateUsrDialog()
+		SStgui.update_uis(src)
 
 	//Snacks and Plants
 	for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
