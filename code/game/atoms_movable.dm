@@ -717,17 +717,14 @@
 	var/has_tried_to_move = FALSE
 
 	if(is_blocked_turf(target_turf, TRUE))
-		var/turf/orig_turf = get_turf(src)
-		Move(target_turf, get_dir(get_turf(src), target_turf))
 		has_tried_to_move = TRUE
-		var/turf/new_turf = get_turf(src)
-		if(orig_turf == new_turf)
+		if(!Move(target_turf, crush_dir))
 			// we'll try to move, and if we didn't end up going anywhere, then we do nothing.
 			visible_message("<span class='warning'>[src] seems to rock, but doesn't fall over!</span>")
 			return
 
 	for(var/atom/target in (target_turf.contents) + target_turf)
-		if(isarea(target) || target == src)  // don't crush ourselves	
+		if(isarea(target) || target == src)  // don't crush ourselves
 			continue
 
 		if(isobserver(target))
@@ -775,7 +772,7 @@
 	tilt_over(target_turf, angle, should_rotate, rightable, block_interactions_until_righted)
 	// for things that trigger on Crossed()
 	if(!has_tried_to_move)
-		Move(target_turf, get_dir(get_turf(src), target_turf))
+		Move(target_turf, crush_dir)
 
 	return TRUE
 
