@@ -55,14 +55,14 @@
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/melee/spellblade)
 	hide_tail_by_species = list("Vox" , "Vulpkanin" , "Unathi" , "Tajaran")
 
-    sprite_sheets = list(
+	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
         "Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
-    )
+	)
 
 
 /obj/item/clothing/suit/space/hostile_environment/Destroy()
@@ -93,7 +93,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
-		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi'
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
         "Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
-    )
+	)
