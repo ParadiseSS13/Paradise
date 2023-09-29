@@ -91,7 +91,7 @@ const GrinderContents = (props, context) => {
       </Box>
     )}
     >
-      <Table>
+      <Table className="Ingredient__Table">
         {contents.map((content) => (
           <Table.Row tr={5} key={content.name}>
             <td>
