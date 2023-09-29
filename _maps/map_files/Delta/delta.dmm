@@ -3267,8 +3267,10 @@
 "arQ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/reinforced/reversed{
-	dir = 8;
-	name = "Customs Desk"
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/general{
 	dir = 8
@@ -3291,8 +3293,10 @@
 /obj/item/pen,
 /obj/machinery/door/window/reinforced/reversed{
 	dir = 8;
-	name = "Security Checkpoint";
 	pixel_x = -8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 8
@@ -19878,8 +19882,10 @@
 "bdR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
-	dir = 2;
-	name = "Kitchen"
+	dir = 2
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/item/reagent_containers/food/drinks/britcup,
@@ -19904,8 +19910,10 @@
 /obj/item/reagent_containers/food/condiment/peppermill,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 2;
-	name = "Kitchen"
+	dir = 2
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/decal/warning_stripes/yellow,
@@ -20394,8 +20402,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 2;
-	name = "Kitchen"
+	dir = 2
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/decal/warning_stripes/yellow,
@@ -20414,8 +20424,10 @@
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 2;
-	name = "Kitchen"
+	dir = 2
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/decal/warning_stripes/yellow,
@@ -20987,8 +20999,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 8;
-	name = "Kitchen"
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 8
@@ -25236,8 +25250,10 @@
 /obj/item/pen,
 /obj/item/reagent_containers/food/snacks/grown/apple,
 /obj/machinery/door/window/classic/normal{
-	dir = 8;
-	name = "Hydroponics Desk"
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
 	dir = 8
@@ -25976,8 +25992,10 @@
 /obj/item/reagent_containers/food/snacks/grown/watermelon,
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/machinery/door/window/classic/reversed{
-	dir = 8;
-	name = "Hydroponics Desk"
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
 	dir = 8
@@ -28909,7 +28927,9 @@
 /obj/item/folder/yellow,
 /obj/item/pen,
 /obj/machinery/door/window{
-	name = "Atmospherics Desk";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
 	},
 /obj/machinery/door/window{
@@ -37084,7 +37104,9 @@
 "bQc" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	name = "Kitchen Desk";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
@@ -63464,8 +63486,10 @@
 /obj/machinery/door/firedoor,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	dir = 4;
-	name = "Chemistry Desk"
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
 	dir = 4
@@ -63962,8 +63986,10 @@
 	name = "Chemistry Desk Shutters"
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 8;
-	name = "Chemistry Desk"
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Chemistry Desk";
@@ -81020,7 +81046,7 @@
 "ebU" = (
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor" = "Burn Mix");
+	autolink_sensors = list("burn_sensor"="Burn Mix");
 	dir = 1
 	},
 /obj/machinery/ignition_switch{
@@ -82535,7 +82561,7 @@
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	outlet_vent_autolink_id = "n2o_out";
-	autolink_sensors = list("n2o_sensor" = "Tank")
+	autolink_sensors = list("n2o_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -83936,7 +83962,7 @@
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
 	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor" = "Tank")
+	autolink_sensors = list("air_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 10
@@ -85874,7 +85900,7 @@
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
 	outlet_vent_autolink_id = "n2_out";
-	autolink_sensors = list("n2_sensor" = "Tank")
+	autolink_sensors = list("n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -88535,7 +88561,7 @@
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
 	outlet_vent_autolink_id = "tox_out";
-	autolink_sensors = list("tox_sensor" = "Tank")
+	autolink_sensors = list("tox_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -89672,7 +89698,7 @@
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
 	outlet_vent_autolink_id = "waste_out";
-	autolink_sensors = list("waste_sensor" = "Tank")
+	autolink_sensors = list("waste_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /turf/simulated/floor/plasteel{
@@ -90006,10 +90032,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"oEG" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "oFL" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -90995,8 +91017,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 8;
-	name = "Kitchen"
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 8
@@ -91354,7 +91378,7 @@
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
 	outlet_vent_autolink_id = "o2_out";
-	autolink_sensors = list("o2_sensor" = "Tank")
+	autolink_sensors = list("o2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel{
@@ -92968,7 +92992,7 @@
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	outlet_vent_autolink_id = "co2_out";
-	autolink_sensors = list("co2_sensor" = "Tank")
+	autolink_sensors = list("co2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
 /turf/simulated/floor/plasteel/dark,
@@ -94821,8 +94845,10 @@
 "tUp" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	dir = 8;
-	name = "Hydroponics Desk"
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
 	dir = 8
@@ -154467,7 +154493,7 @@ aaa
 aaa
 abj
 abj
-oEG
+btJ
 abj
 csj
 rEQ

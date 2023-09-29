@@ -139,6 +139,14 @@
 	name = "windoor autoname helper"
 	icon_state = "windoor_autoname"
 
-/obj/effect/mapping_helpers/airlock/autoname/payload(obj/machinery/door/window/windoor)
+/obj/effect/mapping_helpers/airlock/windoor/autoname/payload(obj/machinery/door/window/windoor)
 	if(windoor.dir == dir)
 		windoor.name = get_area_name(windoor, TRUE)
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk
+	name = "windesk autoname helper"
+	icon_state = "windesk_autoname"
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk/payload(obj/machinery/door/window/windoor)
+	if(windoor.dir == dir)
+		windoor.name = "[get_area_name(windoor, TRUE)] Desk"

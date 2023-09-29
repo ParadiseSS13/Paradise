@@ -22109,7 +22109,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	desc = {"\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding."};
+	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
 	dir = 4;
 	icon_state = "plaque";
 	name = "Comemmorative Plaque"
@@ -35221,8 +35221,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
-	dir = 1;
-	name = "Hydroponics Desk"
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
 	dir = 1
@@ -59419,7 +59421,7 @@
 	inlet_injector_autolink_id = "o2_in";
 	name = "Oxygen Supply Control";
 	outlet_vent_autolink_id = "o2_out";
-	autolink_sensors = list("o2_sensor" = "Tank")
+	autolink_sensors = list("o2_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -61053,7 +61055,7 @@
 	inlet_injector_autolink_id = "n2_in";
 	name = "Nitrogen Supply Control";
 	outlet_vent_autolink_id = "n2_out";
-	autolink_sensors = list("n2_sensor" = "Tank")
+	autolink_sensors = list("n2_sensor"="Tank")
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel{
@@ -61235,8 +61237,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	dir = 1;
-	name = "Kitchen"
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
@@ -62140,7 +62144,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -66333,8 +66337,10 @@
 "hMS" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	dir = 8;
-	name = "Chemistry Desk"
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
 	dir = 8
@@ -68605,7 +68611,9 @@
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	name = "Research and Development Desk";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
@@ -71581,7 +71589,7 @@
 	inlet_injector_autolink_id = "co2_in";
 	name = "Carbon Dioxide Supply Control";
 	outlet_vent_autolink_id = "co2_out";
-	autolink_sensors = list("co2_sensor" = "Tank")
+	autolink_sensors = list("co2_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -73473,13 +73481,17 @@
 "lKB" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
-	name = "Secure Armory"
+	dir = 2
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general,
 /obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Secure Armory"
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 1
@@ -74160,7 +74172,7 @@
 	dir = 1;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
@@ -74232,7 +74244,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Kitchen";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
@@ -77100,7 +77114,9 @@
 /area/station/maintenance/apmaint)
 "nYr" = (
 /obj/machinery/door/window/classic/reversed{
-	name = "Toxins Mixing Room";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -78128,7 +78144,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Hydroponics Desk";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
@@ -78563,7 +78581,7 @@
 	inlet_injector_autolink_id = "tox_in";
 	name = "Toxin Supply Control";
 	outlet_vent_autolink_id = "tox_out";
-	autolink_sensors = list("tox_sensor" = "Tank")
+	autolink_sensors = list("tox_sensor"="Tank")
 	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
@@ -78869,7 +78887,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter" = "Mixed Air In", "air_sensor" = "Mixed Air Supply Tank", "mair_out_meter" = "Mixed Air Out", "dloop_atm_meter" = "Distribution Loop", "wloop_atm_meter" = "Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -79228,7 +79246,9 @@
 	dir = 1
 	},
 /obj/machinery/door/window{
-	name = "Kitchen";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
@@ -79778,8 +79798,10 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/classic/normal{
-	dir = 1;
-	name = "Assembly Line"
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 1
@@ -81070,7 +81092,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor" = "Burn Mix")
+	autolink_sensors = list("burn_sensor"="Burn Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -82552,7 +82574,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor" = "Nitrogen", "o2_sensor" = "Oxygen", "co2_sensor" = "Carbon Dioxide", "tox_sensor" = "Toxins", "n2o_sensor" = "Nitrous Oxide", "waste_sensor" = "Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
 	},
 /obj/machinery/light{
 	dir = 4
@@ -82720,8 +82742,10 @@
 "reh" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
-	name = "Chemistry Desk"
+	dir = 2
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 2
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/machinery/door/firedoor,
@@ -83416,7 +83440,7 @@
 	name = "Mixed Air Supply Control";
 	outlet_vent_autolink_id = "air_out";
 	outlet_setting = 2000;
-	autolink_sensors = list("air_sensor" = "Tank")
+	autolink_sensors = list("air_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
@@ -84486,8 +84510,10 @@
 	},
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/classic/reversed{
-	dir = 8;
-	name = "Chemistry Desk"
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
+	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
 	dir = 8
@@ -88478,7 +88504,7 @@
 	inlet_injector_autolink_id = "waste_in";
 	name = "Gas Mix Tank Control";
 	outlet_vent_autolink_id = "waste_out";
-	autolink_sensors = list("waste_sensor" = "Tank")
+	autolink_sensors = list("waste_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -89080,8 +89106,10 @@
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	dir = 1;
-	name = "Kitchen"
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
@@ -90106,7 +90134,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	name = "Kitchen";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
@@ -90169,8 +90199,10 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
-	dir = 1;
-	name = "Kitchen"
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
@@ -91460,8 +91492,10 @@
 "wtm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Security Checkpoint"
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
 	dir = 1
@@ -93107,7 +93141,7 @@
 	inlet_injector_autolink_id = "n2o_in";
 	name = "Nitrous Oxide Supply Control";
 	outlet_vent_autolink_id = "n2o_out";
-	autolink_sensors = list("n2o_sensor" = "Tank")
+	autolink_sensors = list("n2o_sensor"="Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
