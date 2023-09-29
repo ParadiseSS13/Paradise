@@ -57,7 +57,7 @@
 	mind.AddSpell(spell)
 
 /obj/effect/proc_holder/spell/princely_charge
-	name = "Princely charge"
+	name = "Princely Charge"
 	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
 	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
 	base_cooldown = 30 SECONDS
