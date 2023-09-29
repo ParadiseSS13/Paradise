@@ -738,7 +738,7 @@
 					/obj/item/clothing/suit/storage/internalaffairs = 75,
 					/obj/item/clothing/suit/storage/lawyer/bluejacket = 75,
 					/obj/item/clothing/suit/storage/lawyer/purpjacket = 75,
-					/obj/item/clothing/suit/storage/hazardvest/legal = 75,
+					/obj/item/clothing/suit/storage/hazardvest = 75,
 					/obj/item/clothing/shoes/laceup = 30,
 					/obj/item/clothing/shoes/black = 20,
 					/obj/item/clothing/shoes/brown = 20,
