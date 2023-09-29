@@ -204,7 +204,7 @@ const AdminPage = (props, context) => {
             />
           </LabeledList.Item>
           <LabeledList.Item label="Nuclear Device">
-            <Button
+            <Button.Confirm
               icon="bomb"
               content="Get Authentication Codes"
               disabled={!is_admin}

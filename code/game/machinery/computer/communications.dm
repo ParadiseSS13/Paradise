@@ -12,7 +12,7 @@
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
-#define ADMIN_CHECK(user) check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM
+#define ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM_
 
 // The communications computer
 /obj/machinery/computer/communications
@@ -110,7 +110,7 @@
 			authenticated = COMM_AUTHENTICATION_CENTCOM
 
 		if(authenticated >= COMM_AUTHENTICATION_CAPT)
-			var/mob/living/carbon/human/H = usr
+			var/mob/living/carbon/human/H = ui.user
 			if(!istype(H))
 				return
 			var/obj/item/card/id = H.get_idcard(TRUE)
@@ -641,4 +641,4 @@
 			C.messagetitle.Add("[title]")
 			C.messagetext.Add(text)
 
-
+#undef ADMIN_CHECK
