@@ -45,7 +45,7 @@
 /obj/item/storage/box/survival/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_vox
@@ -54,7 +54,7 @@
 /obj/item/storage/box/survival_vox/populate_contents()
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_plasmaman
@@ -63,7 +63,7 @@
 /obj/item/storage/box/survival_plasmaman/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/engineer
@@ -72,7 +72,7 @@
 /obj/item/storage/box/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_mining
@@ -81,7 +81,7 @@
 /obj/item/storage/box/survival_mining/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_syndi
@@ -91,7 +91,7 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/crowbar/small(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 
@@ -656,7 +656,7 @@
 
 /obj/item/storage/box/autoinjectors/populate_contents()
 	for(var/I in 1 to storage_slots)
-		new /obj/item/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/box/autoinjector/utility
 	name = "autoinjector kit"
@@ -834,7 +834,7 @@
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
@@ -857,7 +857,7 @@
 /obj/item/storage/box/soviet/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)

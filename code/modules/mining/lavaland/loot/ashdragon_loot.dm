@@ -201,9 +201,11 @@
 /obj/item/lava_staff
 	name = "staff of lava"
 	desc = "The power of fire and rocks in your hands!"
-	icon_state = "lavastaff"
-	item_state = "lavastaff"
 	icon = 'icons/obj/guns/magic.dmi'
+	icon_state = "lavastaff"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
+	item_state = "lavastaff"
 	slot_flags = SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
