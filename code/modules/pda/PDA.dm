@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && ((src in user)|| (isturf(loc) && in_range(src, user))))
+			if(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && ((src in user) || (isturf(loc) && in_range(src, user))))
 				id_check(user, 2)
 				to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
 				update_icon(UPDATE_OVERLAYS)
