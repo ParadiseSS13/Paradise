@@ -102,11 +102,11 @@ const GrinderContents = (props, context) => {
           {count} / {limit} items
         </Box>
         <Button
-            icon="eject"
-            content="Eject Contents"
-            onClick={() => act('eject')}
-            disabled={inactive}
-            tooltip={inactive ? "There are no contents" : ""}
+        icon="eject"
+        content="Eject Contents"
+        onClick={() => act('eject')}
+        disabled={inactive}
+        tooltip={inactive ? "There are no contents" : ""}
           />
       </Box>
     )}
