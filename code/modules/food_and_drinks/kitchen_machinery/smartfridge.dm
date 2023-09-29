@@ -835,7 +835,6 @@
 /obj/machinery/smartfridge/drying_rack/RefreshParts()
 	return
 
-
 /obj/machinery/smartfridge/drying_rack/screwdriver_act(mob/living/user, obj/item/I)
 	return
 
