@@ -165,7 +165,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
 /obj/item/pda/AltClick(mob/user)
-	if(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && ((src in user)|| (isturf(loc) && in_range(src, user))))
+	if(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && ((src in user) || (isturf(loc) && in_range(src, user))))
 		return
 
 	if(issilicon(user))
