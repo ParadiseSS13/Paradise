@@ -559,6 +559,12 @@
 #define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
 #define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
 
-// Reading books can help with brain damage!
+/**
+ * Reading books can help with brain damage!
+ * These are seperate times so that a user gains more benefits by reading more books,
+ * but also cant infinitely switch between 1000 books.
+ */
+/// The amount of time needed to pass to let a single book be read again for brain benefits
 #define BRAIN_DAMAGE_BOOK_TIME 45 SECONDS
+/// The amount of time a mob needs to wait between any book reading
 #define BRAIN_DAMAGE_MOB_TIME 10 SECONDS
