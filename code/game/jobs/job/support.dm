@@ -457,7 +457,7 @@
 		return
 	for(var/la in GLOB.all_languages)
 		var/datum/language/new_language = GLOB.all_languages[la]
-		if(new_language.flags & (HIVEMIND| NOLIBRARIAN))
+		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
 			continue
 		H.add_language(la)
 
