@@ -860,9 +860,6 @@
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/drying_rack/update_overlays()
-	if(stat)
-		. += "drying_rack_off"
-		return
 	if(drying)
 		. += "drying_rack_drying"
 	if(length(contents))
