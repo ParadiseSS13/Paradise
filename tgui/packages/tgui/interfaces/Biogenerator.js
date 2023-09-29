@@ -13,12 +13,12 @@ import { Operating } from '../interfaces/common/Operating';
 
 export const Biogenerator = (props, context) => {
   const { data } = useBackend(context);
-  const { container, operating, name } = data;
+  const { container, processing, name } = data;
   return (
     <Window>
       <Window.Content display="flex" className="Layout__content--flexColumn">
         <Operating
-            operating={operating}
+            operating={processing}
             name={name}
         />
         <Storage />
