@@ -209,6 +209,7 @@
 
 /obj/machinery/biogenerator/ui_data(mob/user)
 	var/list/data = list(
+		"name" = name,
 		"processing" = processing,
 		"biomass" = biomass,
 		"has_plants" = length(stored_plants) ? TRUE : FALSE

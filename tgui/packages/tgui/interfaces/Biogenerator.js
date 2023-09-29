@@ -7,18 +7,20 @@ import {
   Icon,
   Collapsible,
   NumberInput,
-  ProgressBar,
-  Dimmer } from "../components";
+  ProgressBar } from "../components";
 import { Window } from "../layouts";
+import { Operating } from '../interfaces/common/Operating';
 
 export const Biogenerator = (props, context) => {
   const { data } = useBackend(context);
-  const { container } = data;
-
+  const { container, operating, name } = data;
   return (
     <Window>
       <Window.Content display="flex" className="Layout__content--flexColumn">
-        <Processing />
+        <Operating
+            operating={operating}
+            name={name}
+        />
         <Storage />
         <Controls />
         {!container ? (
@@ -51,32 +53,6 @@ const MissingContainer = (props, context) => {
       </Flex>
     </Section>
   );
-};
-
-const Processing = (props, context) => {
-  const { data } = useBackend(context);
-  const { processing } = data;
-
-  if (processing) {
-    return (
-      <Dimmer>
-        <Flex mb="30px">
-          <Flex.Item
-            bold
-            color="silver"
-            textAlign="center">
-            <Icon
-              name="spinner"
-              spin
-              size={4}
-              mb="15px"
-            /><br />
-            The biogenerator is processing...
-          </Flex.Item>
-        </Flex>
-      </Dimmer>
-    );
-  }
 };
 
 const Storage = (props, context) => {
