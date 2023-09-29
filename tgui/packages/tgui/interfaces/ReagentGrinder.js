@@ -94,9 +94,9 @@ const GrinderContents = (props, context) => {
 
   return (
     <Section
-    title="Contents"
-    flexGrow={1}
-    buttons={(
+        title="Contents"
+        flexGrow={1}
+        buttons={(
       <Box>
         <Box inline color="label" mr={2}>
           {count} / {limit} items
