@@ -252,7 +252,7 @@
 	data["beaker_loaded"] = beaker ? TRUE : FALSE
 	data["beaker_current_volume"] = beaker ? beaker.reagents.total_volume : null
 	data["beaker_max_volume"] = beaker ? beaker.reagents.maximum_volume : null
-	var/beakerContents[0]
+	var/beakerContents = list()
 	if(beaker)
 		for(var/datum/reagent/R in beaker.reagents.reagent_list)
 			beakerContents.Add(list(list("name" = R.name, "volume" = R.volume))) // list in a list because Byond merges the first list...
