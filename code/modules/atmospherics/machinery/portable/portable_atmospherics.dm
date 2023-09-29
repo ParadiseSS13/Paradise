@@ -146,8 +146,7 @@
 		var/obj/machinery/atmospherics/unary/portables_connector/possible_port = locate(/obj/machinery/atmospherics/unary/portables_connector/) in loc
 		if(possible_port)
 			if(connect(possible_port))
-				if(on)
-					on = !on
+				on = FALSE
 				to_chat(user, "<span class='notice'>You connect [src] to the port.</span>")
 				update_icon()
 			else
