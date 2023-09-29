@@ -257,7 +257,7 @@
 	exclaim_verbs = list("rustles")
 	colour = "diona"
 	key = "q"
-	flags = RESTRICTED | NOLIBRARIAN
+	flags = RESTRICTED
 	syllables = list("hs","zt","kr","st","sh")
 
 /datum/language/diona/get_random_name()
