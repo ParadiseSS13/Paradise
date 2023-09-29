@@ -12,7 +12,7 @@
 	turns_per_move = 5
 	speed = 0
 	stat_attack = UNCONSCIOUS
-	robust_searching = 1
+	robust_searching = TRUE
 	maxHealth = 75
 	health = 75
 	harm_intent_damage = 8
@@ -84,7 +84,7 @@
 	icon_dead = "scavdead"
 	maxHealth = 100
 	health = 100
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	rapid = 2
@@ -112,7 +112,7 @@
 	icon_dead = "scavdead"
 	maxHealth = 100
 	health = 100
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	rapid = 0
@@ -203,7 +203,7 @@
 	turns_per_move = 5
 	speed = 0
 	stat_attack = UNCONSCIOUS
-	robust_searching = 1
+	robust_searching = TRUE
 	maxHealth = 90
 	health = 90
 	harm_intent_damage = 8
@@ -242,7 +242,7 @@
 	icon_dead = "voxdead"
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	casingtype = /obj/item/ammo_casing/c45
@@ -255,7 +255,7 @@
 	icon_state = "voxlaser"
 	icon_living = "voxlaser"
 	icon_dead = "voxsuitdead"
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 5
 	rapid = 2
@@ -292,7 +292,7 @@
 	speed = -0.5
 	move_to_delay = 2
 	stat_attack = UNCONSCIOUS
-	robust_searching = 1
+	robust_searching = TRUE
 	maxHealth = 80
 	health = 80
 	harm_intent_damage = 8
@@ -302,7 +302,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HARM
 	faction = list("junglemob")
-	check_friendly_fire = 1
+	check_friendly_fire = TRUE
 	status_flags = CANPUSH
 	unsuitable_atmos_damage = 10
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
@@ -333,7 +333,7 @@
 	desc = "Представитель коренного населения этой планеты. Вооружен мастерски сделанным композитным луком и смертоносными стрелами."
 	icon_state = "lizardman_bow"
 	icon_living = "lizardman_bow"
-	ranged = 1
+	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 6
 	projectiletype = /obj/item/projectile/bullet/arrow
@@ -383,7 +383,7 @@
 	rapid_melee = 2
 	move_to_delay = 2
 	speed = -2
-	dodging = 1
+	dodging = TRUE
 	sidestep_per_cycle = 2
 	faction = list("junglemob")
 
@@ -421,7 +421,7 @@
 	. = ..()
 	if(. && isliving(target))
 		var/mob/living/L = target
-		if(L.reagents && !poison_per_bite == 0)
+		if(L.reagents && poison_per_bite)
 			L.reagents.add_reagent(poison_type, poison_per_bite)
 		return .
 
@@ -430,9 +430,9 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "fleshtrap"
 	var/id = null
-	var/triggered = 0
+	var/triggered = FALSE
 	var/faction = null
-	var/safety_z_check = 1
+	var/safety_z_check = TRUE
 
 /obj/effect/landmark/awaymissions/gate_lizard/mob_spawn
 	name = "spawner"
@@ -457,7 +457,7 @@
 			continue
 		if(S.id == id)
 			new S.jungle_mob(get_turf(S))
-			triggered = 1
+			triggered = TRUE
 	qdel(src)
 
 /mob/living/proc/spawn_alert(atom/A) // Вызывает появление восклицательного знака над головой при наступании на маркер
