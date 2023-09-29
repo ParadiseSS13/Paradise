@@ -140,9 +140,9 @@ const GrinderReagents = (props, context) => {
 
   return (
     <Section
-    title="Beaker"
-    flexGrow="1"
-    buttons={
+        title="Beaker"
+        flexGrow="1"
+        buttons={
       !!beaker_loaded && (
         <Box>
           <Box inline color="label" mr={2}>
