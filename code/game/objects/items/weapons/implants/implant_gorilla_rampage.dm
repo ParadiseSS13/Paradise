@@ -30,7 +30,7 @@
 		creator.status_flags &= ~GODMODE
 
 		usr.mind.transfer_to(creator)
-		usr.visible_message("<span class='userdanger'>[usr] quickly shrinks back into their original form!</span>","<span class='userdanger'>You feel your muscles relax as you return to your original form.</span>", "<span class='userdanger'>You hear a lack of gorilla noises.</span>")
+		usr.visible_message("<span class='userdanger'>[usr] quickly shrinks back into their original form!</span>", "<span class='userdanger'>You feel your muscles relax as you return to your original form.</span>", "<span class='userdanger'>You hear a lack of gorilla noises.</span>")
 		creator.forceMove(get_turf(usr))
 		implant(creator)
 		qdel(usr)
