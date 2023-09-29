@@ -858,11 +858,10 @@
 	switch(action)
 		if("drying")
 			drying = !drying
-			change_power_mode(drying ? ACTIVE_POWER_USE : IDLE_POWER_USE)
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/smartfridge/drying_rack/update_overlays()
-	if(stat & NOPOWER)
+	if(stat)
 		. += "drying_rack_off"
 		return
 	if(drying)
@@ -892,10 +891,8 @@
 /obj/machinery/smartfridge/drying_rack/proc/toggle_drying(forceoff)
 	if(drying || forceoff)
 		drying = FALSE
-		change_power_mode(IDLE_POWER_USE)
 	else
 		drying = TRUE
-		change_power_mode(ACTIVE_POWER_USE)
 	update_icon(UPDATE_OVERLAYS)
 
 /**
