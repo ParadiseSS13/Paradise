@@ -242,6 +242,7 @@
 		to_chat(user, "<span class='notice'>You add [envelope] to the active database.</span>")
 		playsound(loc, 'sound/mail/mailscanned.ogg', 50, TRUE)
 		saved = A
+		SSblackbox.record_feedback("amount", "successful_mail_scan", 1)
 		return
 	if(isliving(A))
 		var/mob/living/M = A
@@ -270,3 +271,4 @@
 		to_chat(user, "<span class='notice'>Successful delivery acknowledged! [MAIL_DELIVERY_BONUS] credits added to Supply account!</span>")
 		playsound(loc, 'sound/mail/mailapproved.ogg', 50, TRUE)
 		GLOB.station_money_database.credit_account(SSeconomy.cargo_account, MAIL_DELIVERY_BONUS, "Mail Delivery Compensation", "Messaging and Intergalactic Letters", supress_log = FALSE)
+		SSblackbox.record_feedback("amount", "successful_mail_delivery", 1)

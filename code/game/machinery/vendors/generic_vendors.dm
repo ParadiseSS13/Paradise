@@ -1250,11 +1250,11 @@
 	tiltable = FALSE
 	products = list(/obj/item/stack/medical/bruise_pack = 2,
 					/obj/item/stack/medical/ointment = 2,
+					/obj/item/reagent_containers/syringe/charcoal = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
 					/obj/item/healthanalyzer = 1)
 
-	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,
-					/obj/item/reagent_containers/syringe/antiviral = 4,
+	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4,
 					/obj/item/reagent_containers/food/pill/tox = 1)
 
 	armor = list(MELEE = 50, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)

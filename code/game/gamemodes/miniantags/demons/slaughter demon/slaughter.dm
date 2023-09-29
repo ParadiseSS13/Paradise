@@ -4,6 +4,8 @@
 	name = "slaughter demon"
 	real_name = "slaughter demon"
 	desc = "A large, menacing creature covered in armored black scales. You should run."
+	maxHealth = 240
+	health = 240
 	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
@@ -83,16 +85,16 @@
 // Midround slaughter demon, less tanky
 
 /mob/living/simple_animal/demon/slaughter/lesser
-	maxHealth = 130
-	health = 130
+	maxHealth = 170
+	health = 170
 
 // Cult slaughter demon
 /mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."
-	maxHealth = 500
-	health = 500
+	maxHealth = 540
+	health = 540
 	melee_damage_upper = 60
 	melee_damage_lower = 60
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
@@ -278,8 +280,8 @@
 	emote_hear = list("gaffaws", "laughs")
 	response_help  = "hugs"
 	attacktext = "wildly tickles"
-	maxHealth = 175
-	health = 175
+	maxHealth = 215
+	health = 215
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	playstyle_string = "<B>You are the Laughter Demon, an adorable creature from another existence. You have a single desire: to hug and tickle.  \
