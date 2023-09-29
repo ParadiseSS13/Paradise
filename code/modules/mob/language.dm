@@ -760,11 +760,4 @@
 			continue
 		languages |= new_language
 
-/mob/proc/grant_all_librarian_languages()
-	for(var/la in GLOB.all_languages)
-		var/datum/language/new_language = GLOB.all_languages[la]
-		if(new_language.flags & NOLIBRARIAN)
-			continue
-		languages |= new_language
-
 #undef SCRAMBLE_CACHE_LEN
