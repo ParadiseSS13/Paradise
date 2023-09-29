@@ -233,7 +233,6 @@
 	return FALSE
 
 /obj/machinery/reagentgrinder/attack_hand(mob/user)
-	user.set_machine(src)
 	ui_interact(user)
 
 /obj/machinery/reagentgrinder/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
