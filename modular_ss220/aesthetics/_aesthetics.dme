@@ -15,6 +15,7 @@
 #include "extinguisher\code\extinguisher.dm"
 #include "firealarm\code\firealarm.dm"
 #include "floors\code\floors.dm"
+#include "goonstation\code\items.dm"
 #include "hydroponics\code\hydroponics.dm"
 #include "keycard\code\keycard.dm"
 #include "labeler\code\labeler.dm"
