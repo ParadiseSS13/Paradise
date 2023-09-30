@@ -138,7 +138,7 @@
 
 				user.visible_message("<span class='warning'>[user] removes the power cell from [A]!</span>", "You remove the power cell.")
 
-	else if (istype(target, /obj/machinery/cell_charger))
+	else if(istype(target, /obj/machinery/cell_charger))
 		var/obj/machinery/cell_charger/cell_charger = target
 		if(cell_charger.charging)
 			gripped_item = cell_charger.charging
