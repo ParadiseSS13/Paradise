@@ -199,16 +199,24 @@
 	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
 	resistance_flags = FIRE_PROOF
+	/// The channel we will announce on when we are rewarded to someone
 	var/channel
+	/// Will we try to announce, toggled by using in hand
+	var/try_announce = TRUE
+
+/obj/item/clothing/accessory/medal/examine(mob/user)
+	. = ..()
+	if(channel)
+		. += "<span class='notice'>The tiny radio inside seems to be [try_announce ? "active" : "inactive"].</span>"
 
 /obj/item/clothing/accessory/medal/attack_self(mob/user)
 	. = ..()
 	if(channel)
-		to_chat(user, "<span class='notice'>You silently disable the speaker in [src].</span>")
-		channel = null
+		try_announce = !try_announce
+		to_chat(user, "<span class='notice'>You silently [try_announce ? "enable" : "disable"] the radio in [src].</span>")
 
 /obj/item/clothing/accessory/medal/after_successful_nonself_attach(mob/living/carbon/human/H, mob/living/user)
-	if(!channel)
+	if(!channel || !try_announce)
 		return
 	if(!is_station_level(user.z))
 		return
@@ -251,6 +259,7 @@
 /obj/item/clothing/accessory/medal/silver/valor
 	name = "medal of valor"
 	desc = "An award issued by Captains to crew members whose exceptional performance and service to the station has been commended by the station's top leadership."
+	channel = "Common"
 
 /obj/item/clothing/accessory/medal/silver/leadership
 	name = "medal of command"
@@ -301,7 +310,7 @@
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
 	icon_state = "bronze_heart"
 	item_color = "bronze_heart"
-	channel = "Command"
+	channel = "Common"
 
 
 
