@@ -148,10 +148,10 @@
 #define BERSERK_COLOUR "#950a0a"
 
 /obj/item/clothing/suit/hooded/berserker
-	name = "champion's hardsuit"
+	name = "berserker hardsuit"
 	desc = "Voices echo from the hardsuit, driving the user insane. Is not space-proof."
 	icon_state = "hardsuit-berserker"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
 	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	hoodtype = /obj/item/clothing/head/hooded/berserker
 	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT | HIDETAIL
@@ -166,7 +166,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
+	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
 
 /obj/item/clothing/head/hooded/berserker
 	name = "berserker helmet"
@@ -299,6 +299,8 @@
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "asclepius_dormant"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	var/activated = FALSE
 	var/usedHand
 	var/mob/living/carbon/owner

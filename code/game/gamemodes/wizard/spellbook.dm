@@ -483,13 +483,13 @@
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
 	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
-	item_path = /obj/item/twohanded/mjollnir
+	item_path = /obj/item/mjollnir
 	category = "Weapons and Armors"
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everything nearby to the point of impact."
-	item_path = /obj/item/twohanded/singularityhammer
+	item_path = /obj/item/singularityhammer
 	category = "Weapons and Armors"
 
 /datum/spellbook_entry/item/cursed_katana
@@ -598,6 +598,14 @@
 	category = "Summons"
 	limit = 3
 	cost = 1 //Needs essence to live. Needs crew to die for essence, doubt xenobio will be making many monkeys. As such, weaker. Also can hardstun the wizard.
+
+/datum/spellbook_entry/item/pulsedemonbottle
+	name = "Living Lightbulb"
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/pulse_demon
+	category = "Summons"
+	limit = 3
+	cost = 1 // Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
 
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"

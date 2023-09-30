@@ -66,9 +66,12 @@
   * * user - The attacking user
   */
 /obj/item/melee/classic_baton/proc/baton_knockdown(mob/living/target, mob/living/user)
-	if(user.mind?.martial_art?.no_baton)
+	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user))
 		to_chat(user, user.mind.martial_art.no_baton_reason)
 		return
+	var/user_UID = user.UID()
+	if(HAS_TRAIT_FROM(target, TRAIT_WAS_BATONNED, user_UID)) // prevents double baton cheese.
+		return FALSE
 	if(issilicon(target))
 		user.visible_message("<span class='danger'>[user] pulses [target]'s sensors with [src]!</span>",\
 							"<span class='danger'>You pulse [target]'s sensors with [src]!</span>")
@@ -97,6 +100,8 @@
 	target.KnockDown(knockdown_duration)
 	on_cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, on_cooldown, FALSE), cooldown)
+	ADD_TRAIT(target, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
+	addtimer(CALLBACK(src, PROC_REF(baton_delay), target, user_UID), 2 SECONDS)
 	return TRUE
 
 /**
@@ -126,6 +131,9 @@
 		percentage_reduction = (100 - armour) / 100 // converts the % into a decimal
 	target.adjustStaminaLoss(stamina_damage * percentage_reduction)
 
+/obj/item/melee/classic_baton/proc/baton_delay(mob/living/target, user_UID)
+	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)
+
 /**
   * # Fancy Cane
   */
@@ -136,8 +144,8 @@
 	item_state = "cane_nt"
 	needs_permit = FALSE
 
-/obj/item/melee/classic_baton/ntcane/is_crutch()
-	return TRUE
+/obj/item/melee/classic_baton/ntcane/get_crutch_efficiency()
+	return 2
 
 /**
   * # Telescopic Baton

@@ -36,7 +36,7 @@
 	rt_job = "Emergency Response Team Leader"
 	rt_mob_job = "ERT Commander"
 
-	uniform = /obj/item/clothing/under/rank/centcom/sensor
+	uniform = /obj/item/clothing/under/rank/centcom/ert/commander
 	back = /obj/item/storage/backpack/ert/commander
 	l_ear = /obj/item/radio/headset/ert/alt/commander
 
@@ -125,7 +125,7 @@
 	rt_assignment = "Emergency Response Team Officer"
 	rt_job = "Emergency Response Team Officer"
 	rt_mob_job = "ERT Security"
-	uniform = /obj/item/clothing/under/rank/security/officer/sensor
+	uniform = /obj/item/clothing/under/rank/centcom/ert/security
 	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/storage/belt/security/response_team
 	pda = /obj/item/pda/heads/ert/security
@@ -215,10 +215,10 @@
 	rt_job = "Emergency Response Team Engineer"
 	rt_mob_job = "ERT Engineering"
 	back = /obj/item/storage/backpack/ert/engineer
-	uniform = /obj/item/clothing/under/rank/engineering/engineer
-	belt = /obj/item/storage/belt/utility/full/multitool
+	uniform = /obj/item/clothing/under/rank/centcom/ert/engineer
 	pda = /obj/item/pda/heads/ert/engineering
 	id = /obj/item/card/id/ert/engineering
+	belt = /obj/item/storage/belt/utility/chief/full
 
 /datum/outfit/job/centcom/response_team/engineer/amber
 	name = "RT Engineer (Amber)"
@@ -227,7 +227,11 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
-	cybernetic_implants = list(/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened)
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened,
+		/obj/item/organ/internal/eyes/cybernetic/shield
+	)
 
 	l_pocket = /obj/item/gun/energy/gun/mini
 	r_pocket = /obj/item/melee/classic_baton/telescopic
@@ -242,7 +246,6 @@
 /datum/outfit/job/centcom/response_team/engineer/red
 	name = "RT Engineer (Red)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	belt = /obj/item/storage/belt/utility/chief/full
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
 	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/engine
@@ -269,7 +272,6 @@
 	name = "RT Engineer (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
-	belt = /obj/item/storage/belt/utility/chief/full
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 
@@ -303,7 +305,7 @@
 	rt_assignment = "Emergency Response Team Medic"
 	rt_job = "Emergency Response Team Medic"
 	rt_mob_job = "ERT Medical"
-	uniform = /obj/item/clothing/under/rank/medical/doctor
+	uniform = /obj/item/clothing/under/rank/centcom/ert/medical
 	back = /obj/item/storage/backpack/ert/medical
 	pda = /obj/item/pda/heads/ert/medical
 	id = /obj/item/card/id/ert/medic
@@ -378,7 +380,7 @@
 	belt = /obj/item/storage/belt/medical //No need for belt defib, they got the built in ones. This gives them some extra storage.
 
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
-	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
+	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
 
 
 	backpack_contents = list(
@@ -412,7 +414,7 @@
 	rt_assignment = "Emergency Response Team Inquisitor"
 	rt_job = "Emergency Response Team Inquisitor"
 	rt_mob_job = "ERT Paranormal"
-	uniform = /obj/item/clothing/under/rank/civilian/chaplain
+	uniform = /obj/item/clothing/under/rank/centcom/ert/chaplain
 	back = /obj/item/storage/backpack/ert/security
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/ert/alt
@@ -485,7 +487,7 @@
 	rt_assignment = "Emergency Response Team Janitor"
 	rt_job = "Emergency Response Team Janitor"
 	rt_mob_job = "ERT Janitor"
-	uniform = /obj/item/clothing/under/color/purple/sensor
+	uniform = /obj/item/clothing/under/rank/centcom/ert/janitor
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
 	shoes = /obj/item/clothing/shoes/galoshes
@@ -497,7 +499,7 @@
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/lightreplacer = 1,
 		/obj/item/storage/bag/trash = 1,
-		/obj/item/twohanded/push_broom,
+		/obj/item/push_broom,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1)
 

@@ -72,6 +72,16 @@
 	materials = list(MAT_METAL = 1000, MAT_SILVER = 500, MAT_GLASS = 500, MAT_DIAMOND = 200)
 	category = list("Medical")
 
+/datum/design/crutches
+	name = "Crutches"
+	desc = "A pair of crutches to help those who have injured or missing legs to walk."
+	id = "crutches"
+	req_tech = list("biotech" = 3)
+	build_path = /obj/item/crutches
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_TITANIUM = 500)
+	category = list("Medical")
+
 /datum/design/defib
 	name = "Defibrillator"
 	desc = "A device that delivers powerful shocks to detachable paddles that resuscitate incapacitated patients."

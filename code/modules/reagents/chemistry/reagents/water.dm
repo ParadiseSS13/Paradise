@@ -396,7 +396,6 @@
 	description = "YOUR FLESH! IT BURNS!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 1
-	can_synth = FALSE
 	taste_description = "burning"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
@@ -446,3 +445,11 @@
 		var/t_loc = get_turf(O)
 		qdel(O)
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
+
+/datum/reagent/saturated_activated_charcoal
+	name = "Saturated activated charcoal"
+	id = "saturated_charcoal"
+	description = "Charcoal that is completely saturated with various toxins. Useless."
+	reagent_state = LIQUID
+	color = "#29262b"
+	taste_description = "burnt dirt"

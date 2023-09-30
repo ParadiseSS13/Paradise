@@ -746,3 +746,32 @@
 			return TRUE
 		else
 			return FALSE
+
+/**
+  * Formats num with an SI prefix.
+  *
+  * Returns a string formatted with a multiple of num and an SI prefix corresponding to an exponent of 10.
+  * Only considers exponents that are multiples of 3 (deca, deci, hecto, and centi are not included).
+  * A unit is not included in the string, the prefix is placed after the number with no spacing added anywhere.
+  * Listing of prefixes: https://en.wikipedia.org/wiki/Metric_prefix#List_of_SI_prefixes
+  */
+/proc/format_si_suffix(num)
+	if(num == 0)
+		return "[num]"
+
+	var/exponent = round_down(log(10, abs(num)))
+	var/ofthree = exponent / 3
+	if(exponent < 0)
+		ofthree = round(ofthree)
+	else
+		ofthree = round_down(ofthree)
+	if(ofthree == 0)
+		return "[num]"
+	return "[num / (10 ** (ofthree * 3))][GLOB.si_suffixes[round(length(GLOB.si_suffixes) / 2) + ofthree + 1]]"
+
+/**
+ * Creates a hyperlink for a specified wiki article.
+ */
+/proc/wiki_link(article_name, link_text = null)
+	var/url = "[GLOB.configuration.url.wiki_url]/index.php?title=[article_name]"
+	return "<a href=\"[url]\">[link_text ? link_text : url]</a>"

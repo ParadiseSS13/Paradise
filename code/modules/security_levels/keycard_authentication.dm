@@ -117,7 +117,7 @@
 	. = TRUE
 	switch(action)
 		if("ert")
-			ert_reason = stripped_input(usr, "Reason for ERT Call:", "", "")
+			ert_reason = input(usr, "Reason for ERT Call:", "", "") // we strip this later in ERT_Announce
 		if("reset")
 			reset()
 		if("triggerevent")
@@ -201,7 +201,7 @@
 				return
 
 			ERT_Announce(ert_reason, triggered_by, repeat_warning = FALSE)
-			addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, triggered_by), 5 MINUTES)
+			addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, triggered_by), 15 MINUTES)
 			ert_reason = null
 
 /obj/machinery/keycard_auth/proc/remind_admins(old_reason, the_triggerer) // im great at naming variables
@@ -218,7 +218,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 
 // Why are these global procs?
 /proc/make_maint_all_access()
-	for(var/area/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
+	for(var/area/station/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon()
@@ -227,7 +227,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
-	for(var/area/maintenance/A in world)
+	for(var/area/station/maintenance/A in world)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon()

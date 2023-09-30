@@ -581,16 +581,31 @@ structure_check() searches for nearby cultist structures required for the invoca
 //Rite of Resurrection: Requires a dead or inactive cultist. When reviving the dead, you can only perform one revival for every three sacrifices your cult has carried out.
 /obj/effect/rune/raise_dead
 	cultist_name = "Revive"
-	cultist_desc = "requires a dead, mindless, or inactive cultist placed upon the rune. For each three bodies sacrificed to the dark patron, one body will be mended and their mind awoken"
+	cultist_desc = "requires a dead, alive, mindless, or inactive cultist placed upon the rune. For each three bodies sacrificed to the dark patron, one body will be mended and their mind awoken. Mending living cultist requires two cultists at the rune"
 	invocation = "Pasnar val'keriam usinar. Savrae ines amutan. Yam'toth remium il'tarat!" //Depends on the name of the user - see below
 	icon_state = "revive"
 	var/static/sacrifices_used = -SOULS_TO_REVIVE // Cultists get one "free" revive
+	allow_excess_invokers = TRUE
 
 /obj/effect/rune/raise_dead/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD)
 		. += "<b>Sacrifices unrewarded:</b><span class='cultitalic'> [length(GLOB.sacrificed) - sacrifices_used]</span>"
 		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic> [SOULS_TO_REVIVE]</span>"
+
+/obj/effect/rune/raise_dead/proc/revive_alive(mob/living/target)
+	target.visible_message("<span class='warning'>Dark magic begins to surround [target], regenerating their body.</span>")
+	if(!do_after(target, 10 SECONDS, FALSE, target, allow_moving = FALSE, progress = TRUE))
+		target.visible_message("<span class='warning'>Dark magic silently disappears.</span>")
+		return FALSE
+	target.revive()
+	return TRUE
+
+/obj/effect/rune/raise_dead/proc/revive_dead(mob/living/target)
+	target.revive()
+	if(target.ghost_can_reenter())
+		target.grab_ghost()
+	return TRUE
 
 /obj/effect/rune/raise_dead/invoke(list/invokers)
 	var/turf/T = get_turf(src)
@@ -599,13 +614,19 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/mob/living/user = invokers[1]
 	if(rune_in_use)
 		return
-
 	rune_in_use = TRUE
+	var/diff = length(GLOB.sacrificed) - SOULS_TO_REVIVE - sacrifices_used
+	var/revived_from_dead = FALSE
+	if(diff < 0)
+		to_chat(user, "<span class='cult'>Your cult must carry out [abs(diff)] more sacrifice\s before it can revive another cultist!</span>")
+		fail_invoke()
+		return
 	for(var/mob/living/M in T.contents)
-		if(iscultist(M) && (M.stat == DEAD || !M.client || M.client.is_afk()))
-			potential_revive_mobs |= M
+		if(!iscultist(M))
+			continue
+		potential_revive_mobs |= M
 	if(!length(potential_revive_mobs))
-		to_chat(user, "<span class='cultitalic'>There are no dead cultists on the rune!</span>")
+		to_chat(user, "<span class='cultitalic'>There are no cultists on the rune!</span>")
 		log_game("Raise Dead rune failed - no cultists to revive")
 		fail_invoke()
 		return
@@ -617,17 +638,23 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
-	..()
-	if(mob_to_revive.stat == DEAD)
-		var/diff = length(GLOB.sacrificed) - SOULS_TO_REVIVE - sacrifices_used
-		if(diff < 0)
-			to_chat(user, "<span class='cult'>Your cult must carry out [abs(diff)] more sacrifice\s before it can revive another cultist!</span>")
+	if(mob_to_revive.stat != DEAD && length(invokers) < 2)
+		to_chat(user, "<span class='cultitalic'>You need at least two cultists to heal cultist!</span>")
+		log_game("Raise Dead rune failed - not enough cultists to heal alive")
+		fail_invoke()
+		return
+
+	if(mob_to_revive.stat != DEAD)
+		if(!revive_alive(mob_to_revive))
 			fail_invoke()
 			return
-		sacrifices_used += SOULS_TO_REVIVE
-		mob_to_revive.revive()
-		if(mob_to_revive.ghost_can_reenter())
-			mob_to_revive.grab_ghost()
+	else
+		if(!revive_dead(mob_to_revive))
+			fail_invoke()
+			return
+		revived_from_dead = TRUE
+	..()
+	sacrifices_used += SOULS_TO_REVIVE
 
 	if(!mob_to_revive.get_ghost() && (!mob_to_revive.client || mob_to_revive.client.is_afk()))
 		set waitfor = FALSE
@@ -642,7 +669,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		else
 			fail_invoke()
 			return
-
+	if(!revived_from_dead)
+		mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
+								"<span class='cultlarge'>All your injuries are now gone!</span>")
+		rune_in_use = FALSE
+		return
 	SEND_SOUND(mob_to_revive, sound('sound/ambience/antag/bloodcult.ogg'))
 	to_chat(mob_to_revive, "<span class='cultlarge'>\"PASNAR SAVRAE YAM'TOTH. Arise.\"</span>")
 	mob_to_revive.visible_message("<span class='warning'>[mob_to_revive] draws in a huge breath, red light shining from [mob_to_revive.p_their()] eyes.</span>", \
@@ -910,7 +941,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound = 'sound/effects/ghost2.ogg', source = src)
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in T)
-		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.has_enabled_antagHUD && !QDELETED(src) && !QDELETED(O))
+		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.has_enabled_antagHUD && !QDELETED(src) && !QDELETED(O) && !HAS_TRAIT(O.mind.current, SCRYING))
 			ghosts_on_rune += O
 	if(!length(ghosts_on_rune))
 		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
