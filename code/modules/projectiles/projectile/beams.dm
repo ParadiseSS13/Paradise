@@ -92,8 +92,20 @@
 	name = "pulse"
 	icon_state = "u_laser"
 	damage = 50
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_DARKBLUE
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/pulse
+	tracer_type = /obj/effect/projectile/tracer/pulse
+	impact_type = /obj/effect/projectile/impact/pulse
+	impact_effect_type = null
+	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
+	hitscan_light_color_override = LIGHT_COLOR_DARKBLUE
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = LIGHT_COLOR_DARKBLUE
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
 	if(isturf(target) || isstructure(target) || ismachinery(target))
