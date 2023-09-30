@@ -2175,6 +2175,7 @@
 				H.AdjustJitter(40 SECONDS)
 				to_chat(H, "<span class='danger'>You feel as if your limbs are being ripped from your body!</span>")
 				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
+				logmsg = "nugget"
 
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
