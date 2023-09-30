@@ -82,12 +82,16 @@
 		if(istype(U))
 			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
 			if(do_after(user, 40, target=H) && H.w_uniform == U)
-				user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
-				U.attackby(src, user)
+				if(U.attach_accessory(src, user, TRUE))
+					user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
+					after_successful_nonself_attach(H, user)
 		else
 			to_chat(user, "[H] is not wearing anything to attach \the [src] to.")
 		return 1
 	return ..()
+
+/obj/item/clothing/accessory/proc/after_successful_nonself_attach(mob/living/carbon/human/H, mob/living/user)
+	return
 
 //default attackby behaviour
 /obj/item/clothing/accessory/attackby(obj/item/I, mob/user, params)
@@ -195,6 +199,21 @@
 	item_color = "bronze"
 	materials = list(MAT_METAL=1000)
 	resistance_flags = FIRE_PROOF
+	var/channel
+
+/obj/item/clothing/accessory/medal/attack_self(mob/user)
+	. = ..()
+	if(channel)
+		to_chat(user, "<span class='notice'>You silently disable the speaker in [src].</span>")
+		channel = null
+
+/obj/item/clothing/accessory/medal/after_successful_nonself_attach(mob/living/carbon/human/H, mob/living/user)
+	if(!channel)
+		return
+	if(!is_station_level(user.z))
+		return
+	GLOB.global_announcer.autosay("[H] has been rewarded [src] by [user]!", "Medal Announcer", channel = channel, follow_target_override = src)
+	channel = null
 
 // GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold
@@ -203,11 +222,13 @@
 	icon_state = "gold"
 	item_color = "gold"
 	materials = list(MAT_GOLD=1000)
+	channel = "Common"
 
 /obj/item/clothing/accessory/medal/gold/captain
 	name = "medal of captaincy"
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	channel = null // captains medal is special :)
 
 /obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
 	. = ..()
@@ -225,6 +246,7 @@
 	icon_state = "silver"
 	item_color = "silver"
 	materials = list(MAT_SILVER=1000)
+	channel = "Command"
 
 /obj/item/clothing/accessory/medal/silver/valor
 	name = "medal of valor"
@@ -242,36 +264,44 @@
 /obj/item/clothing/accessory/medal/security
 	name = "robust security medal"
 	desc = "An award issued by the HoS to security staff who excel at upholding the law."
+	channel = "Security"
 
 /obj/item/clothing/accessory/medal/science
 	name = "smart science medal"
 	desc = "An award issued by the RD to science staff who advance the frontiers of knowledge."
+	channel = "Science"
 
 /obj/item/clothing/accessory/medal/engineering
 	name = "excellent engineering medal"
 	desc = "An award issued by the CE to engineering staff whose dedication keep the station running at its best."
+	channel = "Engineering"
 
 /obj/item/clothing/accessory/medal/service
 	name = "superior service medal"
 	desc = "An award issued by the HoP to service staff who go above and beyond."
+	channel = "Service"
 
 /obj/item/clothing/accessory/medal/medical
 	name = "magnificient medical medal"
 	desc = "An award issued by the CMO to medical staff who excel at saving lives."
+	channel = "Medical"
 
 /obj/item/clothing/accessory/medal/legal
 	name = "meritous legal medal"
 	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
+	channel = "Procedure"
 
 /obj/item/clothing/accessory/medal/supply
 	name = "stable supply medal"
 	desc = "An award issued by the Quartermaster to supply staff dedicated to being effective."
+	channel = "Supply"
 
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
 	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
 	icon_state = "bronze_heart"
 	item_color = "bronze_heart"
+	channel = "Command"
 
 
 
