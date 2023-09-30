@@ -37,7 +37,7 @@
 /obj/structure/chair/stool{
 	dir = 8
 	},
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -380,7 +380,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "arm" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/machinery/economy/vending/tool/free,
@@ -439,7 +439,7 @@
 	pixel_x = 6;
 	pixel_y = 4
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -738,7 +738,7 @@
 	dir = 4;
 	pixel_x = 3
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -769,7 +769,7 @@
 /obj/structure/sign/poster/contraband/hacking_guide{
 	pixel_y = 32
 	},
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/item/autosurgeon/organ/syndicate,
@@ -846,7 +846,7 @@
 	name = "Боба";
 	obj_integrity = 9999
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -895,7 +895,7 @@
 	},
 /area/centcom220/general)
 "aHv" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/item/kirbyplants,
@@ -960,7 +960,7 @@
 /obj/item/storage/box/drinkingglasses,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -976,7 +976,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "aLP" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom220/general)
 "aMe" = (
@@ -1061,7 +1061,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom220/evac)
 "aPj" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -1111,7 +1111,7 @@
 /turf/space/transit,
 /area/space)
 "aRZ" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/red{
@@ -1225,7 +1225,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "aYb" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1288,7 +1288,7 @@
 	},
 /area/syndicate_mothership/outside)
 "bbP" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -1644,14 +1644,14 @@
 /turf/simulated/floor/beach/away/sand,
 /area/centcom220/evac)
 "brH" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "brK" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "syndie_cargo_left_shuttle_pump"
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -1702,7 +1702,7 @@
 /area/centcom220/admin2)
 "bua" = (
 /obj/machinery/tcomms/relay/cc,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /obj/machinery/ai_status_display{
@@ -1886,7 +1886,7 @@
 	pixel_x = 6
 	},
 /obj/item/gun/projectile/automatic/ar,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -1904,7 +1904,7 @@
 	},
 /area/syndicate_mothership/outside)
 "bGm" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -2092,7 +2092,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
@@ -2225,7 +2225,7 @@
 /area/syndicate_mothership/control)
 "bTt" = (
 /obj/item/flag/nt,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -2243,7 +2243,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/escape)
 "bTM" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/machinery/economy/vending/medical/syndicate_access,
@@ -2278,7 +2278,7 @@
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
 "bVn" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/carpet/black,
 /area/centcom220/general)
 "bVF" = (
@@ -2404,7 +2404,7 @@
 	pixel_x = -9;
 	pixel_y = -7
 	},
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/effect/turf_decal/bot_white,
 /obj/structure/rack/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
@@ -2466,7 +2466,7 @@
 /area/syndicate_mothership/infteam)
 "bXY" = (
 /obj/machinery/cryopod/offstation,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2552,7 +2552,7 @@
 	pixel_x = 6
 	},
 /obj/item/gun/energy/gun/blueshield/pdw9,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2594,8 +2594,7 @@
 /area/syndicate_mothership/cargo)
 "ceC" = (
 /obj/machinery/light/small{
-	dir = 1;
-	requires_power = 0
+	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
@@ -2628,7 +2627,7 @@
 	pixel_x = 6
 	},
 /obj/item/gun/energy/gun/nuclear,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2673,7 +2672,7 @@
 	name = "Биба";
 	obj_integrity = 9999
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2749,7 +2748,7 @@
 	pixel_x = 6
 	},
 /obj/item/gun/energy/gun/nuclear,
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin3)
 "clx" = (
@@ -2757,7 +2756,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom220/evac)
 "clO" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
@@ -2963,7 +2962,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -3017,7 +3016,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom220/evac)
 "cxD" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -3122,7 +3121,7 @@
 	pixel_x = -24;
 	req_one_access_txt = "114"
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -3144,7 +3143,7 @@
 	pixel_y = 30
 	},
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/wood{
@@ -3152,7 +3151,7 @@
 	},
 /area/syndicate_mothership)
 "cDV" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/red,
@@ -3189,7 +3188,7 @@
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -3273,7 +3272,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/wizard_station)
 "cHT" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -3291,8 +3290,7 @@
 	pixel_y = 10
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
@@ -3306,7 +3304,7 @@
 /obj/structure/chair/comfy/purp{
 	dir = 1
 	},
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/carpet/purple,
 /area/centcom220/general)
 "cIB" = (
@@ -3384,7 +3382,7 @@
 /area/shuttle/escape)
 "cLo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -3490,7 +3488,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom220/park)
 "cOO" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -3546,7 +3544,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 30
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/brown{
@@ -3820,7 +3818,7 @@
 	},
 /area/syndicate_mothership/control)
 "dcf" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -3979,7 +3977,7 @@
 /area/centcom220/general)
 "dlo" = (
 /obj/structure/closet/syndicate/personal,
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "blackfull"
@@ -4114,7 +4112,7 @@
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 8
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
@@ -4122,7 +4120,7 @@
 /area/syndicate_mothership/elite_squad)
 "dqP" = (
 /obj/structure/fans/tiny/invisible,
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -4168,8 +4166,7 @@
 /area/syndicate_mothership/jail)
 "drF" = (
 /obj/effect/decal/remains/human,
-/obj/machinery/light/small{
-	brightness_range = 6;
+/obj/structure/light_fake/small{
 	dir = 4;
 	light_range = 6
 	},
@@ -4333,7 +4330,7 @@
 /area/centcom220/bar)
 "dxV" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4344,7 +4341,7 @@
 /obj/machinery/status_display{
 	pixel_x = 32
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -4410,7 +4407,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = -30
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/brown{
@@ -4421,7 +4418,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "dzS" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /obj/structure/rack/holorack,
 /obj/effect/turf_decal/delivery/white,
 /obj/item/toy/syndicateballoon{
@@ -4564,7 +4561,7 @@
 /area/centcom220/evac)
 "dEN" = (
 /obj/effect/turf_decal/stripes/red/full,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -4675,7 +4672,7 @@
 /area/centcom220/bar)
 "dIX" = (
 /obj/structure/chair/comfy/teal,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/cyan,
@@ -4693,7 +4690,7 @@
 	},
 /area/syndicate_mothership)
 "dJr" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -4771,7 +4768,7 @@
 /area/shuttle/escape)
 "dKZ" = (
 /obj/structure/rack,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/item/organ/internal/cyberimp/brain/anti_drop/hardened,
@@ -4872,7 +4869,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom220/admin3)
 "dOn" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -4942,7 +4939,7 @@
 	dir = 8
 	},
 /obj/item/kirbyplants,
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
 	},
@@ -5040,7 +5037,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
 "dXa" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluealt"
 	},
@@ -5252,7 +5249,7 @@
 	},
 /area/centcom220/general)
 "eim" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -5343,7 +5340,7 @@
 /turf/simulated/floor/wood,
 /area/centcom220/bar)
 "ent" = (
-/obj/machinery/light,
+/obj/structure/light_fake,
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealt"
 	},
@@ -5532,7 +5529,7 @@
 /obj/structure/mirror{
 	pixel_x = -30
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -5620,7 +5617,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom220/admin2)
 "eyg" = (
-/obj/machinery/light/spot{
+/obj/machinery/light{
 	dir = 8
 	},
 /obj/structure/chair/comfy/shuttle/dark{
@@ -5630,7 +5627,7 @@
 /area/shuttle/syndicate_elite)
 "eyy" = (
 /obj/structure/closet/boxinggloves,
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom220/evac)
 "eyC" = (
@@ -5757,7 +5754,7 @@
 /obj/item/radio{
 	pixel_y = 6
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -5833,7 +5830,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "eDL" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -5872,7 +5869,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom220/admin3)
 "eFi" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -5944,11 +5941,11 @@
 	},
 /area/centcom220/admin3)
 "eHl" = (
-/obj/machinery/light/spot{
-	dir = 4
-	},
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
@@ -6373,7 +6370,7 @@
 /area/centcom220/general)
 "eVr" = (
 /obj/structure/rack,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/item/autosurgeon/organ,
@@ -6388,14 +6385,14 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin2)
 "eWM" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
 /area/centcom220/bar)
 "eXc" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -6419,7 +6416,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
 "eXA" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -6467,7 +6464,7 @@
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/control)
 "fah" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /obj/effect/turf_decal/miscellaneous/goldensiding{
@@ -6536,7 +6533,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/centcom220/general)
 "fbZ" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -6549,7 +6546,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "ffq" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/structure/toilet,
@@ -6810,7 +6807,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom220/admin2)
 "fmQ" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -6973,7 +6970,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "ftU" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /obj/structure/bookcase/manuals,
@@ -7058,7 +7055,7 @@
 /area/syndicate_mothership/control)
 "fyJ" = (
 /obj/structure/guillotine,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -7336,13 +7333,13 @@
 /turf/simulated/floor/plating,
 /area/centcom220/jail)
 "fMl" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership/infteam)
 "fMP" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -7574,7 +7571,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom220/bar)
 "fYu" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -7732,7 +7729,7 @@
 /area/wizard_station)
 "giO" = (
 /obj/structure/railing,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -7783,7 +7780,7 @@
 /obj/structure/closet/secure_closet/mime{
 	req_access = null
 	},
-/obj/machinery/light,
+/obj/structure/light_fake,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -7845,8 +7842,7 @@
 /area/shuttle/escape)
 "gof" = (
 /obj/machinery/light/small{
-	dir = 4;
-	requires_power = 0
+	dir = 4
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
@@ -7994,7 +7990,7 @@
 	},
 /area/centcom220/general)
 "guV" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -8041,7 +8037,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 8
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -8058,7 +8054,7 @@
 	},
 /area/centcom220/general)
 "gxh" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /obj/structure/bookcase/manuals,
@@ -8106,11 +8102,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/administration)
 "gyr" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
+/obj/structure/light_fake/small{
+	light_range = 6
 	},
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/stamp/syndicate{
@@ -8125,7 +8118,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "gzd" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /obj/structure/table/wood{
@@ -8200,7 +8193,7 @@
 	dir = 8
 	},
 /obj/item/kirbyplants,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -8220,7 +8213,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin1)
 "gBw" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -8275,7 +8268,7 @@
 	},
 /area/centcom220/admin3)
 "gDb" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "gDv" = (
@@ -8288,8 +8281,7 @@
 /area/centcom220/general)
 "gEl" = (
 /obj/machinery/light/small{
-	dir = 8;
-	requires_power = 0
+	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
@@ -8349,7 +8341,7 @@
 /obj/structure/statue/sandstone/assistant{
 	pixel_y = 10
 	},
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel{
 	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
 	icon_state = "plaque";
@@ -8378,7 +8370,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
 "gIY" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -8494,7 +8486,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/gamma/space)
 "gNW" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -32
 	},
@@ -8536,7 +8528,7 @@
 	color = "orange";
 	dir = 1
 	},
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/carpet/orange,
 /area/centcom220/general)
 "gRz" = (
@@ -8680,7 +8672,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom220/general)
 "gWI" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -8845,7 +8837,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/effect/turf_decal/bot_white,
 /obj/structure/rack/gunrack,
 /turf/simulated/floor/mineral/plastitanium,
@@ -8939,7 +8931,7 @@
 	color = "red";
 	dir = 1
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/wood{
@@ -9068,7 +9060,7 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom220/bar)
 "hnz" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "navyblue"
 	},
@@ -9278,7 +9270,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/syndicate_mothership/outside)
 "hvm" = (
-/obj/machinery/light/spot{
+/obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -9337,7 +9329,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/administration)
 "hyg" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plating{
@@ -9352,7 +9344,7 @@
 /turf/simulated/floor/carpet/green,
 /area/centcom220/general)
 "hAD" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -9740,7 +9732,7 @@
 /turf/simulated/floor/indestructible/transparent_floor,
 /area/shuttle/syndicate_sit)
 "hMQ" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/structure/curtain/black{
 	pixel_y = -32;
 	anchored = 1
@@ -9753,7 +9745,7 @@
 	},
 /area/syndicate_mothership)
 "hNd" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom220/admin2)
 "hNH" = (
@@ -9777,7 +9769,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "hOf" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -9841,7 +9833,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/item/flag/syndi,
@@ -10019,7 +10011,7 @@
 	},
 /area/ninja/holding)
 "hYP" = (
-/obj/machinery/light/spot{
+/obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -10212,7 +10204,7 @@
 	pixel_x = -26;
 	req_access_txt = "150"
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -10230,7 +10222,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
 "ika" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -10393,7 +10385,7 @@
 "iri" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs/pinkcuffs,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -10468,7 +10460,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/transport)
 "isa" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -10630,7 +10622,7 @@
 	pixel_x = 4;
 	pixel_y = 7
 	},
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -10653,8 +10645,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = 8
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -10699,7 +10690,7 @@
 /area/centcom220/admin2)
 "iwL" = (
 /obj/item/flag/nt,
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark{
 	dir = 6;
 	icon_state = "darkbluealt"
@@ -10876,7 +10867,7 @@
 /obj/item/flag/nt{
 	layer = 2.9
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -10952,7 +10943,7 @@
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "iKK" = (
-/obj/machinery/light,
+/obj/structure/light_fake,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowaltstrip"
 	},
@@ -11010,7 +11001,7 @@
 /obj/machinery/computer/operating{
 	dir = 1
 	},
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -11034,7 +11025,7 @@
 	pixel_x = 6
 	},
 /obj/item/gun/projectile/automatic/m90,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -11088,7 +11079,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom220/bar)
 "iTG" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -11200,7 +11191,7 @@
 /obj/structure/mirror{
 	pixel_x = 30
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood,
@@ -11305,13 +11296,13 @@
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom220/bar)
 "jbl" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/wood{
@@ -11319,7 +11310,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "jcg" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /obj/machinery/door_control/no_emag{
 	id = "Aspid_main_storage";
 	wires = 1;
@@ -11338,7 +11329,7 @@
 	},
 /area/centcom220/evac)
 "jdM" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -11440,7 +11431,7 @@
 /area/syndicate_mothership/elite_squad)
 "jhI" = (
 /obj/machinery/washing_machine,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -11493,7 +11484,7 @@
 	},
 /area/syndicate_mothership)
 "jms" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluealt"
 	},
@@ -11547,13 +11538,13 @@
 /obj/machinery/computer/card/centcom{
 	dir = 8
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom220/admin2)
 "jpY" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/machinery/economy/vending/syndicigs,
@@ -11583,7 +11574,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "jrf" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /obj/structure/fans/tiny/invisible,
@@ -11770,7 +11761,7 @@
 	},
 /area/shuttle/escape)
 "jwT" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -11911,7 +11902,7 @@
 	},
 /area/syndicate_mothership/jail)
 "jEj" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/red{
@@ -12016,7 +12007,7 @@
 	},
 /area/centcom220/admin3)
 "jKT" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/red{
@@ -12037,7 +12028,7 @@
 /area/syndicate_mothership/cargo)
 "jLf" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -12059,14 +12050,14 @@
 /area/syndicate_mothership)
 "jLZ" = (
 /obj/item/flag/syndi,
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership/elite_squad)
 "jMn" = (
 /obj/machinery/computer/bsa_control/admin,
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin3)
 "jMu" = (
@@ -12173,7 +12164,7 @@
 	name = "north bump";
 	pixel_y = 28
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -12226,7 +12217,7 @@
 	},
 /area/centcom220/supply)
 "jVL" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -12242,7 +12233,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom220/admin3)
 "jWb" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /obj/structure/table,
 /turf/simulated/floor/carpet/black,
 /area/centcom220/admin1)
@@ -12323,7 +12314,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -12563,7 +12554,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "klL" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -12584,7 +12575,7 @@
 /turf/simulated/floor/plasteel,
 /area/centcom220/evac)
 "kni" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -12652,7 +12643,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
 "koA" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plating{
@@ -12745,7 +12736,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "ktL" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -12937,7 +12928,7 @@
 	pixel_x = 26;
 	req_access_txt = "150"
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -12946,7 +12937,7 @@
 	},
 /area/syndicate_mothership/jail)
 "kDm" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle/dark,
@@ -13092,7 +13083,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -13195,7 +13186,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	autolink_id = "syndie_cargo_right_shuttle_pump"
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -13225,7 +13216,7 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "kOR" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -13318,7 +13309,7 @@
 	pixel_y = 10;
 	dir = 8
 	},
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 4
 	},
 /turf/simulated/floor/plating{
@@ -13415,7 +13406,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin2)
 "lcH" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -13500,7 +13491,7 @@
 /turf/space/transit,
 /area/space)
 "lgV" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -13641,7 +13632,7 @@
 	},
 /area/syndicate_mothership/jail)
 "lpx" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/red{
@@ -13836,7 +13827,7 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom220/bar)
 "ltc" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -13922,7 +13913,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/centcom220/bar)
 "lvt" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkbluealt"
 	},
@@ -14160,7 +14151,7 @@
 	},
 /area/centcom220/admin3)
 "lEt" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
@@ -14270,7 +14261,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/trade/sol)
 "lIU" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/machinery/economy/vending/toyliberationstation{
@@ -14351,7 +14342,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/trade/sol)
 "lJz" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "lJO" = (
@@ -14540,7 +14531,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom220/evac)
 "lNI" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -14633,7 +14624,7 @@
 /area/syndicate_mothership/control)
 "lPV" = (
 /obj/structure/chair/stool/bar/dark,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -14654,7 +14645,7 @@
 	},
 /area/ninja/holding)
 "lRi" = (
-/obj/machinery/light,
+/obj/structure/light_fake,
 /obj/machinery/optable,
 /turf/simulated/floor/plasteel{
 	icon_state = "navybluealt"
@@ -14684,7 +14675,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -14898,7 +14889,7 @@
 /area/syndicate_mothership)
 "maY" = (
 /obj/effect/decal/cleanable/blood,
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -30
@@ -15037,7 +15028,7 @@
 	},
 /area/syndicate_mothership/control)
 "mhw" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -15115,7 +15106,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "mjW" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/syndicate/loot{
@@ -15180,7 +15171,7 @@
 	},
 /area/centcom220/admin1)
 "mmT" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -15402,7 +15393,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom220/admin2)
 "mwf" = (
-/obj/machinery/light,
+/obj/structure/light_fake,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer/cryopod{
 	pixel_y = -32;
@@ -15492,7 +15483,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "mAS" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/red{
@@ -15594,7 +15585,7 @@
 	pixel_x = 6
 	},
 /obj/item/gun/energy/lwap,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -15606,7 +15597,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom220/general)
 "mIc" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/machinery/shower{
@@ -15684,7 +15675,7 @@
 /obj/item/kitchen/utensil/fork{
 	pixel_x = -6
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -15796,7 +15787,7 @@
 /obj/structure/closet/syndicate/sst,
 /obj/item/ammo_box/magazine/mm556x45/bleeding,
 /obj/item/ammo_box/magazine/mm556x45,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot_white,
@@ -15828,7 +15819,7 @@
 	},
 /area/syndicate_mothership/outside)
 "mRS" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/blue,
@@ -16043,7 +16034,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/supply)
 "ncI" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /obj/structure/railing{
 	dir = 1
 	},
@@ -16424,7 +16415,7 @@
 	pixel_x = -1;
 	pixel_y = 7
 	},
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -16521,7 +16512,7 @@
 	},
 /area/syndicate_mothership)
 "nwV" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/structure/fans/tiny/invisible,
@@ -16537,7 +16528,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom220/park)
 "nyl" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -16636,7 +16627,7 @@
 "nCv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -16644,7 +16635,7 @@
 	},
 /area/syndicate_mothership)
 "nCM" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/structure/fans/tiny/invisible,
@@ -16664,7 +16655,7 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -16691,7 +16682,7 @@
 	},
 /area/shuttle/escape)
 "nDw" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -16852,7 +16843,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/centcom220/admin1)
 "nKL" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -17048,7 +17039,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom220/general)
 "nTf" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -17128,7 +17119,7 @@
 	},
 /area/syndicate_mothership)
 "nXJ" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -17138,7 +17129,7 @@
 /obj/machinery/chem_dispenser/beer/upgraded{
 	pixel_y = 6
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -17157,7 +17148,7 @@
 /area/centcom220/evac)
 "nZk" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /obj/item/reagent_containers/food/snacks/sliceable/limecake{
@@ -17299,7 +17290,7 @@
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "ohc" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -17400,7 +17391,7 @@
 	},
 /area/syndicate_mothership)
 "omq" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/item/flag/syndi,
@@ -17506,7 +17497,7 @@
 	pixel_x = 32;
 	req_access_txt = "150"
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -17549,13 +17540,13 @@
 /area/centcom220/bar)
 "osy" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "otw" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -17761,7 +17752,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/supply)
 "oAn" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /obj/structure/table,
@@ -17900,7 +17891,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom220/general)
 "oGA" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -17942,7 +17933,7 @@
 /obj/item/reagent_containers/applicator/dual{
 	pixel_y = 4
 	},
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -17974,13 +17965,13 @@
 	},
 /area/centcom220/general)
 "oIt" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom220/admin2)
 "oJk" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkyellowalt"
 	},
@@ -18085,7 +18076,7 @@
 	color = "red";
 	dir = 1
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -18112,7 +18103,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/administration)
 "oPQ" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -18257,7 +18248,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin1)
 "oWo" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -18345,7 +18336,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom220/general)
 "oZd" = (
-/obj/machinery/light,
+/obj/structure/light_fake,
 /obj/machinery/door_control/no_emag{
 	pixel_y = -32;
 	id = "SST_armory_main";
@@ -18508,7 +18499,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom220/admin2)
 "pdx" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkjail"
@@ -18557,7 +18548,7 @@
 	},
 /area/centcom220/general)
 "phh" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -18756,7 +18747,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/trade/sol)
 "ptx" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
@@ -19006,7 +18997,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "pCS" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -19177,8 +19168,7 @@
 	pixel_x = 6;
 	pixel_y = 5
 	},
-/obj/machinery/light/small{
-	brightness_range = 6;
+/obj/structure/light_fake/small{
 	dir = 4;
 	light_range = 6
 	},
@@ -19217,7 +19207,7 @@
 	},
 /obj/item/clothing/under/syndicate,
 /obj/item/card/id/syndicate/command,
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/effect/turf_decal/miscellaneous/goldensiding{
@@ -19395,7 +19385,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "pQR" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -19470,7 +19460,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership)
 "pVD" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel,
 /area/centcom220/evac)
 "pWr" = (
@@ -19766,7 +19756,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/centcom220/evac)
 "qfJ" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -19798,7 +19788,7 @@
 /area/centcom220/admin3)
 "qgE" = (
 /obj/machinery/hydroponics/constructable,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/grass/no_creep,
@@ -19819,7 +19809,7 @@
 	},
 /area/centcom220/bar)
 "qkt" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/structure/fans/tiny/invisible,
@@ -19855,7 +19845,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom220/admin2)
 "qlp" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /obj/effect/turf_decal/miscellaneous/goldensiding{
@@ -19894,7 +19884,7 @@
 /obj/structure/mirror{
 	pixel_x = 30
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -19935,7 +19925,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "qol" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -20052,7 +20042,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "quL" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/carpet/red,
 /area/centcom220/bar)
 "quM" = (
@@ -20205,7 +20195,7 @@
 	},
 /area/shuttle/syndicate)
 "qAA" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -20231,7 +20221,7 @@
 /area/centcom220/admin2)
 "qAX" = (
 /obj/effect/decal/cleanable/blood,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -20241,7 +20231,7 @@
 	},
 /area/syndicate_mothership)
 "qBf" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -20323,8 +20313,7 @@
 	},
 /area/centcom220/admin3)
 "qEZ" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
+/obj/structure/light_fake/small{
 	dir = 4;
 	light_range = 6
 	},
@@ -20461,11 +20450,8 @@
 	},
 /area/syndicate_mothership/cargo)
 "qKB" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
+/obj/structure/light_fake/small{
+	light_range = 6
 	},
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/photocopier/faxmachine/longrange/syndie{
@@ -20531,7 +20517,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "qNs" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -20551,7 +20537,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/administration)
 "qNC" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/c20r{
@@ -20665,7 +20651,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom220/admin3)
 "qSK" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/machinery/door_control/no_emag{
@@ -20817,7 +20803,7 @@
 /area/abductor_ship)
 "qZy" = (
 /obj/structure/fans/tiny/invisible,
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -21002,7 +20988,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/centcom220/bar)
 "rgP" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -21191,7 +21177,7 @@
 	},
 /area/syndicate_mothership)
 "rrb" = (
-/obj/machinery/light,
+/obj/structure/light_fake,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -21438,7 +21424,7 @@
 	},
 /area/syndicate_mothership)
 "rus" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -21461,7 +21447,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership)
 "rvi" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/carpet,
 /area/centcom220/general)
 "rvS" = (
@@ -21643,7 +21629,7 @@
 /area/syndicate_mothership/infteam)
 "rDS" = (
 /obj/machinery/hydroponics/constructable,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/grass/no_creep,
@@ -21736,7 +21722,7 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/item/flag/syndi,
@@ -21917,7 +21903,7 @@
 /turf/simulated/floor/wood,
 /area/centcom220/bar)
 "rRY" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -21933,7 +21919,7 @@
 /turf/simulated/floor/plating,
 /area/centcom220/supply)
 "rSS" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -22077,7 +22063,7 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom220/bar)
 "rVx" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -22111,7 +22097,7 @@
 	},
 /area/syndicate_mothership)
 "rVM" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -22233,7 +22219,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom220/general)
 "sbf" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /obj/effect/turf_decal/arrows{
@@ -22262,7 +22248,7 @@
 /area/centcom220/general)
 "scW" = (
 /obj/structure/chair/comfy/brown,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plating{
@@ -22521,7 +22507,7 @@
 /area/centcom220/general)
 "smo" = (
 /obj/item/flag/nt,
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark{
 	dir = 10;
 	icon_state = "darkbluealt"
@@ -22534,7 +22520,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/shuttle/administration)
 "snz" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -22546,14 +22532,14 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/escape)
 "sok" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/carpet,
 /area/centcom220/admin3)
 "soo" = (
 /obj/machinery/computer/shuttle/ert,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -22663,7 +22649,7 @@
 /area/syndicate_mothership/jail)
 "suT" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/siding/wood,
 /turf/simulated/floor/plasteel{
@@ -22708,7 +22694,7 @@
 /turf/simulated/floor/wood,
 /area/trader_station/sol)
 "sxS" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -22739,13 +22725,13 @@
 	},
 /area/centcom220/admin3)
 "sBv" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/elite_squad)
 "sCq" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -22780,7 +22766,7 @@
 /obj/structure/sign/poster/contraband/smoke{
 	pixel_x = -32
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/brown{
@@ -22940,7 +22926,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin1)
 "sIn" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -22963,11 +22949,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin3)
 "sJj" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/evac)
 "sJn" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/item/flag/syndi,
@@ -22977,7 +22963,7 @@
 	},
 /area/syndicate_mothership/jail)
 "sJw" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/carpet/arcade,
 /area/centcom220/general)
 "sJP" = (
@@ -23006,7 +22992,7 @@
 	},
 /area/shuttle/escape)
 "sKq" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -23074,7 +23060,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/supply)
 "sLl" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/black,
@@ -23157,9 +23143,7 @@
 	},
 /area/syndicate_mothership/control)
 "sPz" = (
-/obj/machinery/light/small{
-	requires_power = 0
-	},
+/obj/machinery/light/small,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "sQk" = (
@@ -23325,7 +23309,7 @@
 	},
 /area/syndicate_mothership/control)
 "sXX" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -23348,7 +23332,7 @@
 /area/centcom220/bar)
 "sZm" = (
 /obj/structure/closet/syndicate/personal,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -23356,7 +23340,7 @@
 	},
 /area/syndicate_mothership)
 "sZo" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -23568,7 +23552,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
 "tiB" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/structure/curtain/black{
@@ -23640,7 +23624,7 @@
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
 "tni" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/machinery/computer/communications{
@@ -23833,7 +23817,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/box,
@@ -23873,7 +23857,7 @@
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "txW" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -23890,7 +23874,7 @@
 	anchored = 1;
 	maximum_pressure = 50000
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -23901,7 +23885,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "tAn" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -24191,7 +24175,7 @@
 /area/centcom220/jail)
 "tLy" = (
 /obj/machinery/cryopod/offstation/right,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -24201,7 +24185,7 @@
 /turf/simulated/floor/carpet/red,
 /area/centcom220/bar)
 "tLW" = (
-/obj/machinery/light,
+/obj/structure/light_fake,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -24223,7 +24207,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/elite_squad)
 "tMG" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/machinery/economy/vending/engineering,
@@ -24324,7 +24308,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin1)
 "tQU" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/carpet/black,
 /area/centcom220/admin2)
 "tRf" = (
@@ -24474,7 +24458,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/elite_squad)
 "tVQ" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 1
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -24507,7 +24491,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin1)
 "tWa" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
@@ -24644,7 +24628,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/centcom220/general)
 "ucI" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -24703,7 +24687,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/supply)
 "ueN" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/wood/fancy/oak,
@@ -24795,7 +24779,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/supply)
 "ujq" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -24866,7 +24850,7 @@
 /obj/structure/mirror{
 	pixel_x = -30
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -25193,7 +25177,7 @@
 	},
 /area/centcom220/bar)
 "uCR" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -25531,7 +25515,7 @@
 	},
 /area/syndicate_mothership)
 "uOO" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/structure/sign/poster/contraband/syndicate_pistol{
@@ -25708,7 +25692,7 @@
 /area/shuttle/syndicate)
 "uWu" = (
 /obj/item/flag/nt,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -25745,7 +25729,7 @@
 	},
 /area/syndicate_mothership/jail)
 "uXT" = (
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "blackfull"
@@ -25755,7 +25739,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 8
 	},
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 4
 	},
 /turf/simulated/floor/plating{
@@ -25784,7 +25768,7 @@
 /obj/item/reagent_containers/applicator/dual{
 	pixel_y = 4
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -25836,7 +25820,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom220/supply)
 "vef" = (
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -25855,7 +25839,7 @@
 /area/centcom220/admin3)
 "veZ" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/wood{
@@ -25866,7 +25850,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -25940,7 +25924,7 @@
 /obj/structure/closet/syndicate/sst,
 /obj/item/ammo_box/magazine/mm556x45/bleeding,
 /obj/item/ammo_box/magazine/mm556x45,
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
@@ -25978,7 +25962,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "vjA" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /obj/machinery/door_control/no_emag{
 	id = "syndFB_lockdown";
 	name = "Forward Base Bridge Lockdown";
@@ -26241,7 +26225,7 @@
 /area/syndicate_mothership/elite_squad)
 "vsE" = (
 /obj/item/flag/nt,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -26293,7 +26277,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "vuv" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/machinery/economy/vending/autodrobe,
@@ -26525,7 +26509,7 @@
 	},
 /area/centcom220/admin1)
 "vEg" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26536,7 +26520,7 @@
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -26638,9 +26622,6 @@
 	name = "Shuttle Hatch"
 	},
 /obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom220/admin1)
 "vIu" = (
@@ -26826,7 +26807,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
 "vPJ" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -26873,7 +26854,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "vRN" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -26917,7 +26898,7 @@
 	},
 /area/syndicate_mothership)
 "vUI" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -26930,7 +26911,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom220/admin3)
 "vVd" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /turf/simulated/floor/carpet/black,
 /area/centcom220/general)
 "vVk" = (
@@ -27006,7 +26987,7 @@
 /area/syndicate_mothership/control)
 "vYt" = (
 /obj/structure/chair/comfy/green,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/carpet/green,
@@ -27099,7 +27080,7 @@
 /area/centcom220/bar)
 "wdG" = (
 /obj/machinery/computer/bsa_control/admin,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -27112,7 +27093,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "wem" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -27482,7 +27463,7 @@
 	pixel_y = -28;
 	dir = 1
 	},
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "wuV" = (
@@ -27562,7 +27543,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "wzw" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plating{
@@ -27734,7 +27715,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "wGz" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/carpet/black,
@@ -27839,7 +27820,7 @@
 	},
 /area/syndicate_mothership/outside)
 "wKU" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/carpet/black,
@@ -28034,7 +28015,7 @@
 	},
 /area/centcom220/bar)
 "wRW" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/red{
@@ -28452,7 +28433,7 @@
 /area/centcom220/admin3)
 "xeh" = (
 /obj/machinery/computer/camera_advanced,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 1
 	},
 /turf/simulated/floor/wood/fancy/cherry,
@@ -28525,7 +28506,7 @@
 	pixel_x = 6
 	},
 /obj/item/gun/energy/gun/advtaser,
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -28674,7 +28655,7 @@
 /obj/structure/mirror{
 	pixel_x = 30
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/structure/statue/sandstone/assistant{
@@ -28834,7 +28815,7 @@
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_y = 32
 	},
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /obj/structure/rack/gunrack,
@@ -28930,7 +28911,7 @@
 	},
 /area/centcom220/supply)
 "xtY" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/machinery/economy/vending/cigarette/free,
@@ -28964,7 +28945,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/jail)
 "xuW" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark{
@@ -28995,7 +28976,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -30
 	},
-/obj/machinery/light/small,
+/obj/structure/light_fake/small,
 /obj/effect/turf_decal/siding/brown,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -29033,7 +29014,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/syndicate_mothership/jail)
 "xxA" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /obj/structure/table/wood{
@@ -29139,7 +29120,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom220/general)
 "xDX" = (
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 8
 	},
 /obj/structure/closet/crate/trashcart{
@@ -29175,7 +29156,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/trader_station/sol)
 "xEG" = (
-/obj/machinery/light/spot,
+/obj/structure/light_fake/spot,
 /obj/effect/turf_decal/miscellaneous/goldensiding,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -29196,7 +29177,7 @@
 	pixel_x = 3;
 	pixel_y = -3
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot_white,
@@ -29465,7 +29446,7 @@
 	req_access = null
 	},
 /obj/item/clothing/suit/soldiercoat,
-/obj/machinery/light{
+/obj/structure/light_fake{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -29508,7 +29489,7 @@
 	pixel_x = -9;
 	pixel_y = 10
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -29604,7 +29585,7 @@
 /obj/machinery/shower{
 	pixel_y = 20
 	},
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 4
 	},
 /obj/effect/turf_decal/miscellaneous/plumbing{
@@ -29621,7 +29602,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom220/admin2)
 "ybG" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /obj/effect/landmark/spawner/syndicate_infiltrator,
@@ -29690,7 +29671,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "yez" = (
-/obj/machinery/light/small{
+/obj/structure/light_fake/small{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -29797,7 +29778,7 @@
 /obj/structure/chair/stool/bar/dark{
 	dir = 1
 	},
-/obj/machinery/light/spot{
+/obj/structure/light_fake/spot{
 	dir = 4
 	},
 /turf/simulated/floor/wood,
