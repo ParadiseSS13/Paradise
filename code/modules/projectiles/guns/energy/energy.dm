@@ -111,4 +111,4 @@
 
 /obj/item/gun/energy/gun/nuclear/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This items cell recharges on it's own. Known to drive people mad by forcing them to wait for shots to recharge. Cannot be recharged in a recharger.</span>"
+	. += "<span class='notice'>This items cell recharges on it's own. Known to drive people mad by forcing them to wait for shots to recharge.</span>"
