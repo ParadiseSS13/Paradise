@@ -33,6 +33,28 @@
 	icon_state = "heavylaser"
 	damage = 40
 
+/obj/item/projectile/beam/laser/ai_turret
+	forcedodge = 1
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/laser
+	tracer_type = /obj/effect/projectile/tracer/laser
+	impact_type = /obj/effect/projectile/impact/laser
+	impact_effect_type = null
+	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
+	hitscan_light_color_override = LIGHT_COLOR_DARKRED
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = LIGHT_COLOR_DARKRED
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = LIGHT_COLOR_DARKRED
+
+/obj/item/projectile/beam/laser/ai_turret/prehit(atom/target)
+	if(isliving(target))
+		forcedodge = 0 //no peircing after hitting a mob to avoid rooms destroying itself. If someone does monkey chair on AI sat though, I swear to god
+	..()
+
 /obj/item/projectile/beam/practice
 	name = "practice laser"
 	damage = 0
