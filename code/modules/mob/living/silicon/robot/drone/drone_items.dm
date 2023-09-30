@@ -146,7 +146,6 @@
 			cell_charger.charging.forceMove(src)
 			cell_charger.removecell()
 
-
 	return TRUE
 
 /obj/item/matter_decompiler
