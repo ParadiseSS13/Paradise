@@ -825,11 +825,24 @@ SUBSYSTEM_DEF(jobs)
 			else if(C.mob.mind.assigned_role)
 				myrole = C.mob.mind.assigned_role
 
-		var/added_living = 0
-		var/added_ghost = 0
+		// Track all the added ammounts for a mega update query
+		var/list/added_differential = list(
+			EXP_TYPE_LIVING = 0,
+			EXP_TYPE_CREW = 0,
+			EXP_TYPE_SPECIAL = 0,
+			EXP_TYPE_GHOST = 0,
+			EXP_TYPE_COMMAND = 0,
+			EXP_TYPE_ENGINEERING = 0,
+			EXP_TYPE_MEDICAL = 0,
+			EXP_TYPE_SCIENCE = 0,
+			EXP_TYPE_SUPPLY = 0,
+			EXP_TYPE_SECURITY = 0,
+			EXP_TYPE_SILICON = 0,
+			EXP_TYPE_SERVICE = 0
+		)
 		if(C.mob.stat == CONSCIOUS && myrole)
 			play_records[C.ckey][EXP_TYPE_LIVING] += minutes
-			added_living += minutes
+			added_differential[EXP_TYPE_LIVING] += minutes
 
 			if(announce)
 				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
@@ -838,6 +851,7 @@ SUBSYSTEM_DEF(jobs)
 				if(GLOB.exp_jobsmap[category]["titles"])
 					if(myrole in GLOB.exp_jobsmap[category]["titles"])
 						play_records[C.ckey][category] += minutes
+						added_differential[category] += minutes
 						if(announce)
 							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
 
@@ -848,7 +862,7 @@ SUBSYSTEM_DEF(jobs)
 
 		else if(isobserver(C.mob))
 			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
-			added_ghost += minutes
+			added_differential[EXP_TYPE_GHOST] += minutes
 			if(announce)
 				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
 		else
@@ -868,14 +882,25 @@ SUBSYSTEM_DEF(jobs)
 
 		player_update_queries += update_query
 
+		// This gets hellish
 		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
-			INSERT INTO playtime_history (ckey, date, time_living, time_ghost)
-			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
-			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
+			INSERT INTO playtime_history (ckey, date, time_living, time_crew, time_special, time_ghost, time_command, time_engineering, time_medical, time_science, time_supply, time_security, time_silicon, time_service)
+			VALUES (:ckey, CURDATE(), :addedliving, :addedcrew, :addedspecial, :addedghost, :addedcommand, :addedengineering, :addedmedical, :addedscience, :addedsupply, :addedsecurity, :addedsilicon, :addedservice)
+			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_crew=time_crew + VALUES(time_crew), time_crew=time_special + VALUES(time_special), time_ghost=time_ghost + VALUES(time_ghost), time_command=time_command + VALUES(time_command), time_engineering=time_engineering + VALUES(time_engineering), time_medical=time_medical + VALUES(time_medical), time_science=time_science + VALUES(time_science), time_supply=time_supply + VALUES(time_supply), time_security=time_security + VALUES(time_security), time_silicon=time_silicon + VALUES(time_silicon), time_service=time_service + VALUES(time_service)"},
 			list(
 				"ckey" = C.ckey,
-				"addedliving" = added_living,
-				"addedghost" = added_ghost
+				"addedliving" = added_differential[EXP_TYPE_LIVING],
+				"addedcrew" = added_differential[EXP_TYPE_CREW],
+				"addedspecial" = added_differential[EXP_TYPE_SPECIAL],
+				"addedghost" = added_differential[EXP_TYPE_GHOST],
+				"addedcommand" = added_differential[EXP_TYPE_COMMAND],
+				"addedengineering" = added_differential[EXP_TYPE_ENGINEERING],
+				"addedmedical" = added_differential[EXP_TYPE_MEDICAL],
+				"addedscience" = added_differential[EXP_TYPE_SCIENCE],
+				"addedsupply" = added_differential[EXP_TYPE_SUPPLY],
+				"addedsecurity" = added_differential[EXP_TYPE_SECURITY],
+				"addedsilicon" = added_differential[EXP_TYPE_SILICON],
+				"addedservice" = added_differential[EXP_TYPE_SERVICE]
 			)
 		)
 
