@@ -52,19 +52,26 @@
 /turf/simulated/floor/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
 	..()
 	if(istype(C, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		var/obj/item/O = user.get_inactive_hand()
 		if(!L)
-			if(O?.tool_behaviour == TOOL_SCREWDRIVER)
-				if(R.use(1))
-					to_chat(user, "<span class='notice'>You construct a lattice.</span>")
-					playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-					ReplaceWithLattice()
-				else
-					to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-			else
+			var/obj/item/inactive = user.get_inactive_hand()
+
+			if(isrobot(user))
+				for(var/obj/item/thing in user.get_all_slots())
+					if(thing.tool_behaviour == TOOL_SCREWDRIVER)
+						inactive = thing
+						break
+
+			if(!inactive || inactive.tool_behaviour != TOOL_SCREWDRIVER)
 				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
+				return
+			var/obj/item/stack/rods/R = C
+			if(R.use(1))
+				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
+				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+				ReplaceWithLattice()
+			else
+				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 			return
 	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)

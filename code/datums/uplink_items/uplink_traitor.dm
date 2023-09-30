@@ -322,7 +322,7 @@
 
 //skrell
 /datum/uplink_item/species_restricted/lovepen
-	name = "Aggression Supression Pen"
+	name = "Aggression Suppression Pen"
 	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
 	reference = "LP"
 	item = /obj/item/pen/sleepy/love
