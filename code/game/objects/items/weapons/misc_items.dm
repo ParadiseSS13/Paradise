@@ -80,6 +80,11 @@
 		if(I.flags & NODROP)
 			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
 			return
+		if(istype(I, /obj/item/disk/nuclear))
+			to_chat(user, "<span class='warning'>You think you're gonna need more than crutches if your employers find out what you just tried to do...</span>")
+		if(!user.drop_item())
+			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+			return
 		I.forceMove(src)
 		hidden = I
 		to_chat(user, "<span class='notice'>You hide [I] inside the crutch tip.</span>")
