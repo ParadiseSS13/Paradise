@@ -60,3 +60,13 @@
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_GLASS = 6000, MAT_BLUESPACE = 300)
 	build_path = /obj/item/lightreplacer/bluespace
 	category = list("Janitorial")
+
+/datum/design/light_replacer_bluespace
+	name = "Filth Scanner"
+	desc = " heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
+	id = "janitor_hud"
+	req_tech = list("biotech" = 1, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
+	build_path = /obj/item/clothing/glasses/hud/janitor
+	category = list("Janitorial")

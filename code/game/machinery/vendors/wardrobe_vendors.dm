@@ -692,11 +692,13 @@
 					/obj/item/clothing/head/soft/purple = 3,
 					/obj/item/clothing/gloves/color/black = 3,
 					/obj/item/clothing/shoes/galoshes = 3,
-					/obj/item/storage/belt/janitor = 3)
+					/obj/item/storage/belt/janitor = 3,
+					/obj/item/clothing/glasses/hud/janitor = 3)
 
 	contraband = list(/obj/item/toy/figure/crew/janitor = 1)
 
-	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50)
+	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50,
+				/obj/item/clothing/glasses/hud/janitor = 50)
 
 	refill_canister = /obj/item/vending_refill/janidrobe
 

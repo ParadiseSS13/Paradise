@@ -11,6 +11,14 @@
 	plane = FLOOR_PLANE
 	///for blood n vomit in zero G --- IN GRAVITY=TRUE; NO GRAVITY=FALSE
 	var/gravity_check = TRUE
+	hud_possible = list(JANI_HUD)
+
+/obj/effect/decal/cleanable/Initialize(mapload)
+	. = ..()
+	var/datum/atom_hud/data/janitor/jani_hud = GLOB.huds[DATA_HUD_JANITOR]
+	prepare_huds()
+	jani_hud.add_to_hud(src)
+	jani_hud_set_sign()
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)

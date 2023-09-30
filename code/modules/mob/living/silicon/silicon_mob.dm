@@ -40,6 +40,7 @@
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //There is only one kind of diag hud
+	var/filth_hud = DATA_HUD_JANITOR
 
 /mob/living/silicon/New()
 	GLOB.silicon_mob_list |= src
@@ -350,9 +351,11 @@
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	var/datum/atom_hud/medsensor = GLOB.huds[med_hud]
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
+	var/datum/atom_hud/filthsensor = GLOB.huds[filth_hud]
 	secsensor.remove_hud_from(src)
 	medsensor.remove_hud_from(src)
 	diagsensor.remove_hud_from(src)
+	filthsensor.remove_hud_from(src)
 
 
 /mob/living/silicon/proc/add_sec_hud()
@@ -367,12 +370,16 @@
 	var/datum/atom_hud/diagsensor = GLOB.huds[d_hud]
 	diagsensor.add_hud_to(src)
 
+/mob/living/silicon/proc/add_filth_hud()
+	var/datum/atom_hud/filthsensor = GLOB.huds[filth_hud]
+	filthsensor.add_hud_to(src)
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	to_chat(src, "<span class='notice'>Please select sensor type.</span>")
 	var/static/list/sensor_choices = list("Security" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "securityhud"),
 							"Medical" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "healthhud"),
 							"Diagnostic" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "diagnostichud"),
+							"Filth" = image(icon = 'icons/obj/clothing/glasses.dmi', icon_state = "janihud"),
 							"None" = image(icon = 'icons/mob/screen_gen.dmi', icon_state = "x"))
 	var/user_loc
 	if(isAI(src))
@@ -394,6 +401,9 @@
 		if("Diagnostic")
 			add_diag_hud()
 			to_chat(src, "<span class='notice'>Robotics diagnostic overlay enabled.</span>")
+		if("Filth")
+			add_filth_hud()
+			to_chat(src, "<span class='notice'>Janitorial filth overlay enabled.</span>")
 		if("None")
 			to_chat(src, "Sensor augmentations disabled.")
 
