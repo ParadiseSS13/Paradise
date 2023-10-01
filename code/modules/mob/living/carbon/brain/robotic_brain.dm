@@ -167,7 +167,6 @@
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
 	. += "Its speaker is turned [silenced ? "off" : "on"]."
-	. += "<span class='info'></span>"
 	. = ..()
 
 	var/list/msg = list("<span class='info'>")
