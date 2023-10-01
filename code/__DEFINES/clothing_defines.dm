@@ -9,7 +9,8 @@
 #define HIDEEYES	4	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
 #define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
-// slots
+// Slot defines for var/list/inv_slots, some of these dont really show up on the HUD,
+// but still function like it in other ways. I know thats weird, and I hate it too.
 #define SLOT_HUD_BACK 1
 #define SLOT_HUD_WEAR_MASK 2
 #define SLOT_HUD_HANDCUFFED 3
@@ -27,7 +28,7 @@
 #define SLOT_HUD_LEFT_STORE 15 // l_store
 #define SLOT_HUD_RIGHT_STORE 16 // r_store
 #define SLOT_HUD_SUIT_STORE 17
-#define SLOT_HUD_IN_BACKPACK 18
+#define SLOT_HUD_IN_BACKPACK 18 // this just puts stuff a backpack if you have one
 #define SLOT_HUD_LEGCUFFED 19
 #define SLOT_HUD_RIGHT_EAR 20 // r_ear
 #define SLOT_HUD_WEAR_PDA 21
