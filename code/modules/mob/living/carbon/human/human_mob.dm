@@ -1226,44 +1226,6 @@
 		dna.real_name = name
 	return name
 
-/mob/living/carbon/human/verb/check_pulse()
-	set category = null
-	set name = "Check pulse"
-	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
-	set src in view(1)
-	var/self = 0
-
-	if (!ishuman(src))
-		to_chat(usr, "<span class='notice'>You do not know how to check someone's pulse!</span>")
-		return
-
-	if(usr.stat == 1 || usr.restrained() || !isliving(usr) || usr.is_dead()) return
-
-	if(usr == src)
-		self = 1
-	if(!self)
-		usr.visible_message("<span class='notice'>[usr] kneels down, puts [usr.p_their()] hand on [src]'s wrist and begins counting [p_their()] pulse.</span>",\
-		"You begin counting [src]'s pulse")
-	else
-		usr.visible_message("<span class='notice'>[usr] begins counting [p_their()] pulse.</span>",\
-		"You begin counting your pulse.")
-
-	if(src.pulse)
-		to_chat(usr, "<span class='notice'>[self ? "You have a" : "[src] has a"] pulse! Counting...</span>")
-	else
-		to_chat(usr, "<span class='warning'>[src] has no pulse!</span>")//it is REALLY UNLIKELY that a dead person would check his own pulse
-
-		return
-
-	to_chat(usr, "Don't move until counting is finished.")
-	var/time = world.time
-	sleep(60)
-	if(usr.l_move_time >= time)	//checks if our mob has moved during the sleep()
-		to_chat(usr, "You moved while counting. Try again.")
-	else
-		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
-
-
 /mob/living/carbon/human/proc/change_dna(datum/dna/new_dna, include_species_change = FALSE, keep_flavor_text = FALSE)
 	if(include_species_change)
 		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
@@ -2179,7 +2141,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set category = "IC"
 
 	update_flavor_text()
-	
+
 /mob/living/carbon/human/proc/apply_offstation_roles(source)
 	SIGNAL_HANDLER
 	mind.offstation_role = TRUE
