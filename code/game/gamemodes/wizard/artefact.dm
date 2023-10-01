@@ -465,9 +465,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(shoes)
 			M.equip_to_slot_or_del(new shoes.type(M), SLOT_HUD_SHOES)
 
-		var/obj/belt = H.get_item_by_slot(slot_belt)
+		var/obj/belt = H.get_item_by_slot(SLOT_HUD_BELT)
 		if(belt)
-			M.equip_to_slot_or_del(new belt.type(M), slot_belt)
+			M.equip_to_slot_or_del(new belt.type(M), SLOT_HUD_BELT)
 
 		var/obj/pda = H.get_item_by_slot(SLOT_HUD_WEAR_PDA)
 		if(pda)

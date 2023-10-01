@@ -264,7 +264,7 @@
 		S.handle_item_insertion(src)
 		return 1
 
-	S = M.get_item_by_slot(slot_belt)
+	S = M.get_item_by_slot(SLOT_HUD_BELT)
 	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in belt
 		S.handle_item_insertion(src)
 		return 1

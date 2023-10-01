@@ -77,7 +77,7 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/owl(H), SLOT_HUD_JUMPSUIT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), SLOT_HUD_OUTER_SUIT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), SLOT_HUD_WEAR_MASK)
-	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), slot_belt)
+	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), SLOT_HUD_BELT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), SLOT_HUD_GLASSES)
 
 

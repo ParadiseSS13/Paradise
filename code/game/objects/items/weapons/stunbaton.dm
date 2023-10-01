@@ -83,7 +83,7 @@
 	return cell
 
 /obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE)
-	if(turned_on && (slot == slot_belt || slot == SLOT_HUD_SUIT_STORE))
+	if(turned_on && (slot == SLOT_HUD_BELT || slot == SLOT_HUD_SUIT_STORE))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
 	return ..(user, slot, disable_warning = TRUE) // call parent but disable warning

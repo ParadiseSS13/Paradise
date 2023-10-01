@@ -63,7 +63,7 @@
 	if(back)
 		equip_item(H, back, SLOT_HUD_BACK)
 	if(belt)
-		equip_item(H, belt, slot_belt)
+		equip_item(H, belt, SLOT_HUD_BELT)
 	if(gloves)
 		equip_item(H, gloves, SLOT_HUD_GLOVES)
 	if(shoes)

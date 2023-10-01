@@ -145,7 +145,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), SLOT_HUD_JUMPSUIT)
 	if(!flag_mgmt)
 		equip_to_slot_or_del(new /obj/item/flashlight(src), SLOT_HUD_IN_BACKPACK)
-		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), slot_belt)
+		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), SLOT_HUD_BELT)
 
 	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
 	G.name = "black gloves"

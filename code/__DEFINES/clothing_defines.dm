@@ -15,7 +15,7 @@
 #define SLOT_HUD_HANDCUFFED 3
 #define SLOT_HUD_LEFT_HAND 4 // l_hand
 #define SLOT_HUD_RIGHT_HAND 5 // r_hand
-#define slot_belt 6
+#define SLOT_HUD_BELT 6
 #define SLOT_HUD_WEAR_ID 7
 #define SLOT_HUD_LEFT_EAR 8 // l_ear
 #define SLOT_HUD_GLASSES 9
@@ -31,8 +31,8 @@
 #define SLOT_HUD_LEGCUFFED 19
 #define SLOT_HUD_RIGHT_EAR 20 // r_ear
 #define SLOT_HUD_WEAR_PDA 21
-#define slot_tie 22
-#define slot_collar 23
+#define SLOT_HUD_TIE 22
+#define SLOT_HUD_COLLAR 23
 #define SLOT_HUD_AMOUNT 23
 
 // accessory slots

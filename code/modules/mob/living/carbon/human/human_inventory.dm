@@ -32,7 +32,7 @@
 			return has_organ("l_hand")
 		if(SLOT_HUD_RIGHT_HAND)
 			return has_organ("r_hand")
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			return has_organ("chest")
 		if(SLOT_HUD_WEAR_ID)
 			// the only relevant check for this is the uniform check
@@ -63,7 +63,7 @@
 			return has_organ("chest")
 		if(SLOT_HUD_IN_BACKPACK)
 			return TRUE
-		if(slot_tie)
+		if(SLOT_HUD_TIE)
 			return TRUE
 
 /mob/living/carbon/human/unEquip(obj/item/I, force, silent = FALSE)
@@ -220,7 +220,7 @@
 		if(SLOT_HUD_RIGHT_HAND)
 			r_hand = I
 			update_inv_r_hand()
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			belt = I
 			update_inv_belt()
 		if(SLOT_HUD_WEAR_ID)
@@ -305,7 +305,7 @@
 					I.forceMove(C.bag)
 			else
 				I.forceMove(back)
-		if(slot_tie)
+		if(SLOT_HUD_TIE)
 			var/obj/item/clothing/under/uniform = src.w_uniform
 			uniform.attackby(I, src)
 		else
@@ -341,7 +341,7 @@
 			return l_hand
 		if(SLOT_HUD_RIGHT_HAND)
 			return r_hand
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			return belt
 		if(SLOT_HUD_WEAR_ID)
 			return wear_id

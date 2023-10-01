@@ -52,7 +52,7 @@
 	qdel(src)
 
 /obj/item/wormhole_jaunter/proc/chasm_react(mob/user)
-	if(user.get_item_by_slot(slot_belt) == src)
+	if(user.get_item_by_slot(SLOT_HUD_BELT) == src)
 		to_chat(user, "Your [name] activates, saving you from the chasm!</span>")
 		activate(user, FALSE)
 	else

@@ -2074,13 +2074,13 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(SLOT_FLAG_ID)
 			return SLOT_HUD_WEAR_ID
 		if(SLOT_FLAG_BELT)
-			return slot_belt
+			return SLOT_HUD_BELT
 		if(SLOT_FLAG_BACK)
 			return SLOT_HUD_BACK
 		if(SLOT_FLAG_PDA)
 			return SLOT_HUD_WEAR_PDA
 		if(SLOT_FLAG_TIE)
-			return slot_tie
+			return SLOT_HUD_TIE
 
 
 /**

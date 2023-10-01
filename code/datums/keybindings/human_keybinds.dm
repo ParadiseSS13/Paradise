@@ -20,7 +20,7 @@
 /datum/keybinding/human/belt_equip/down(client/C)
 	. = ..()
 	var/mob/living/carbon/human/M = C.mob
-	M.quick_equip_item(slot_belt)
+	M.quick_equip_item(SLOT_HUD_BELT)
 
 /datum/keybinding/human/suit_equip
 	name = "Equip Held Object To Suit Storage"

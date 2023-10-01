@@ -744,7 +744,7 @@
 			return !H.gloves && (I.slot_flags & SLOT_FLAG_GLOVES)
 		if(SLOT_HUD_SHOES)
 			return !H.shoes && (I.slot_flags & SLOT_FLAG_FEET)
-		if(slot_belt)
+		if(SLOT_HUD_BELT)
 			if(H.belt)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -853,7 +853,7 @@
 					if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
 						return TRUE
 			return FALSE
-		if(slot_tie)
+		if(SLOT_HUD_TIE)
 			if(!istype(I, /obj/item/clothing/accessory))
 				return FALSE
 			var/obj/item/clothing/under/uniform = H.w_uniform

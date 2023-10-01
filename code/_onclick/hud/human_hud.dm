@@ -313,7 +313,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "belt"
 	inv_box.screen_loc = ui_belt
-	inv_box.slot_id = slot_belt
+	inv_box.slot_id = SLOT_HUD_BELT
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box

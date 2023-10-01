@@ -280,9 +280,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		SLOT_HUD_LEFT_EAR,\
 		SLOT_HUD_RIGHT_EAR,\
 		SLOT_HUD_GLASSES,\
-		slot_belt,\
+		SLOT_HUD_BELT,\
 		SLOT_HUD_SUIT_STORE,\
-		slot_tie,\
+		SLOT_HUD_TIE,\
 		SLOT_HUD_LEFT_STORE,\
 		SLOT_HUD_RIGHT_STORE\
 	))
@@ -367,7 +367,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_belt)
+			if(SLOT_HUD_BELT)
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")

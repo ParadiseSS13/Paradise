@@ -217,7 +217,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
-	if(slot == slot_belt)
+	if(slot == SLOT_HUD_BELT)
 		return TRUE
 
 /obj/item/defibrillator/compact/combat

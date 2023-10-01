@@ -875,7 +875,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_belt()
 	remove_overlay(BELT_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_belt]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_BELT]
 		if(inv)
 			inv.update_icon()
 
