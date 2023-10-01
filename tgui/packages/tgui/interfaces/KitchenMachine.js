@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
 
 export const KitchenMachine = (props, context) => {
-  const { data } = useBackend(context);
+  const { data, config } = useBackend(context);
   const {
     ingredients,
     operating,
