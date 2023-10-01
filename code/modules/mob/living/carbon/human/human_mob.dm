@@ -155,9 +155,6 @@
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
 
-/mob/living/carbon/human/nucleation/Initialize(mapload)
-	. = ..(mapload, /datum/species/nucleation)
-
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
@@ -2179,7 +2176,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	set category = "IC"
 
 	update_flavor_text()
-	
+
 /mob/living/carbon/human/proc/apply_offstation_roles(source)
 	SIGNAL_HANDLER
 	mind.offstation_role = TRUE
