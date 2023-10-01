@@ -140,7 +140,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc, flag_mgmt)
 	// Storage items
-	equip_to_slot_or_del(new /obj/item/storage/backpack(src), slot_back)
+	equip_to_slot_or_del(new /obj/item/storage/backpack(src), SLOT_HUD_BACK)
 	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
 	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), slot_w_uniform)
 	if(!flag_mgmt)

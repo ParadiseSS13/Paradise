@@ -206,14 +206,14 @@
 
 /obj/item/mod/control/equipped(mob/user, slot)
 	..()
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		set_wearer(user)
 	else if(wearer)
 		unset_wearer()
 
 
 /obj/item/mod/control/item_action_slot_check(slot)
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)

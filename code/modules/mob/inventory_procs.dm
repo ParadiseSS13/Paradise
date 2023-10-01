@@ -269,7 +269,7 @@
 		S.handle_item_insertion(src)
 		return 1
 
-	var/obj/item/O = M.get_item_by_slot(slot_back)	//else we put in backpack
+	var/obj/item/O = M.get_item_by_slot(SLOT_HUD_BACK)	//else we put in backpack
 	if(istype(O, /obj/item/storage))
 		S = O
 		if(S.can_be_inserted(src, 1))
@@ -299,7 +299,7 @@
 	switch(slot_id)
 		if(slot_wear_mask)
 			return wear_mask
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return back
 		if(slot_l_hand)
 			return l_hand

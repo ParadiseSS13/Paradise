@@ -192,7 +192,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "back"
 	inv_box.screen_loc = ui_back
-	inv_box.slot_id = slot_back
+	inv_box.slot_id = SLOT_HUD_BACK
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box

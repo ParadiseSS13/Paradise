@@ -277,7 +277,7 @@
 	parent_item.update_appearance()
 
 	if(istype(user)) // tk showed that we might not have a mob here
-		if(user.get_item_by_slot(slot_back) == parent)
+		if(user.get_item_by_slot(SLOT_HUD_BACK) == parent)
 			user.update_inv_back()
 		else
 			user.update_inv_l_hand()

@@ -165,12 +165,12 @@
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()
-	if(slot != slot_back)
+	if(slot != SLOT_HUD_BACK)
 		remove_paddles(user)
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/item_action_slot_check(slot, mob/user)
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		return TRUE
 
 /obj/item/defibrillator/proc/remove_paddles(mob/user) // from your hands

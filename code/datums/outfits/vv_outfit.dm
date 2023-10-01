@@ -13,7 +13,7 @@
 	switch(slot)
 		if(slot_w_uniform)
 			uniform = item_path
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			back = item_path
 		if(slot_wear_suit)
 			suit = item_path
@@ -68,7 +68,7 @@
 
 	//Copy equipment
 	var/list/result = list()
-	var/list/slots_to_check = list(slot_w_uniform, slot_back, slot_wear_suit, slot_belt, slot_gloves, slot_shoes, slot_head, slot_wear_mask, slot_l_ear, slot_r_ear, slot_glasses, slot_wear_id, slot_wear_pda, slot_s_store, slot_l_store, slot_r_store)
+	var/list/slots_to_check = list(slot_w_uniform, SLOT_HUD_BACK, slot_wear_suit, slot_belt, slot_gloves, slot_shoes, slot_head, slot_wear_mask, slot_l_ear, slot_r_ear, slot_glasses, slot_wear_id, slot_wear_pda, slot_s_store, slot_l_store, slot_r_store)
 	for(var/s in slots_to_check)
 		var/obj/item/I = get_item_by_slot(s)
 		var/vedits = collect_vv(I)
@@ -103,7 +103,7 @@
 	O.vv_values = result
 
 	//Copy backpack contents if exist.
-	var/obj/item/backpack = get_item_by_slot(slot_back)
+	var/obj/item/backpack = get_item_by_slot(SLOT_HUD_BACK)
 	if(istype(backpack) && LAZYLEN(backpack.contents) > 0)
 		var/list/typecounts = list()
 		for(var/obj/item/I in backpack)

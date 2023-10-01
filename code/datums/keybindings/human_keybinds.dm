@@ -11,7 +11,7 @@
 /datum/keybinding/human/bag_equip/down(client/C)
 	. = ..()
 	var/mob/living/carbon/human/M = C.mob
-	M.quick_equip_item(slot_back)
+	M.quick_equip_item(SLOT_HUD_BACK)
 
 /datum/keybinding/human/belt_equip
 	name = "Equip Held Object To Belt"

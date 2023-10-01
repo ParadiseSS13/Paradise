@@ -117,7 +117,7 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), slot_head)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), slot_gloves)
-	H.equip_to_slot_or_del(new /obj/item/bedsheet/orange(H), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/bedsheet/orange(H), SLOT_HUD_BACK)
 
 
 /datum/superheroes/electro
@@ -135,7 +135,7 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), slot_wear_suit)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), slot_head)
-	H.equip_to_slot_or_del(new /obj/item/bedsheet/cult(H), slot_back)
+	H.equip_to_slot_or_del(new /obj/item/bedsheet/cult(H), SLOT_HUD_BACK)
 
 
 

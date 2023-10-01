@@ -20,7 +20,7 @@
 
 /mob/living/carbon/human/proc/has_organ_for_slot(slot)
 	switch(slot)
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return has_organ("chest")
 		if(slot_wear_mask)
 			return has_organ("head")
@@ -195,7 +195,7 @@
 	I.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			back = I
 			update_inv_back()
 		if(slot_wear_mask)
@@ -329,7 +329,7 @@
 // Return the item currently in the slot ID
 /mob/living/carbon/human/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return back
 		if(slot_wear_mask)
 			return wear_mask

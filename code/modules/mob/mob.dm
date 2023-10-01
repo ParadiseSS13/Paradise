@@ -268,7 +268,7 @@
 
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 GLOBAL_LIST_INIT(slot_equipment_priority, list( \
-		slot_back,\
+		SLOT_HUD_BACK,\
 		slot_wear_pda,\
 		slot_wear_id,\
 		slot_w_uniform,\
@@ -331,7 +331,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				if(H.wear_mask)
 					return 0
 				return 1
-			if(slot_back)
+			if(SLOT_HUD_BACK)
 				if( !(slot_flags & SLOT_FLAG_BACK) )
 					return 0
 				if(H.back)

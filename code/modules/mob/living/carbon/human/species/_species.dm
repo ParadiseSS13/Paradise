@@ -736,7 +736,7 @@
 			return !H.r_hand && !H.incapacitated()
 		if(slot_wear_mask)
 			return !H.wear_mask && (I.slot_flags & SLOT_FLAG_MASK)
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return !H.back && (I.slot_flags & SLOT_FLAG_BACK)
 		if(slot_wear_suit)
 			return !H.wear_suit && (I.slot_flags & SLOT_FLAG_OCLOTHING)

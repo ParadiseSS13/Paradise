@@ -10,7 +10,7 @@
 #define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
 // slots
-#define slot_back 1
+#define SLOT_HUD_BACK 1
 #define slot_wear_mask 2
 #define slot_handcuffed 3
 #define slot_l_hand 4

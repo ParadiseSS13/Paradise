@@ -130,7 +130,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(src), slot_shoes)
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
 
-	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), slot_back)
+	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), SLOT_HUD_BACK)
 	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(src), slot_in_backpack)
 
 	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), slot_in_backpack)
