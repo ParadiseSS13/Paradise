@@ -75545,7 +75545,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "mSV" = (
-/mob/living/simple_animal/hostile/feral_cat/forsaken,
+/mob/living/simple_animal/pet/cat/Var,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "mTj" = (
