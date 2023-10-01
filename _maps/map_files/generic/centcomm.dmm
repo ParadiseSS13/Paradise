@@ -7207,7 +7207,7 @@
 	},
 /area/syndicate_mothership)
 "BX" = (
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
 "BY" = (
 /turf/simulated/floor/plasteel{
@@ -12077,7 +12077,7 @@
 	desc = "She lies just out of reach, as always. She somehow has your only toolbox.";
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
 "Vg" = (
 /turf/simulated/floor/plasteel{
