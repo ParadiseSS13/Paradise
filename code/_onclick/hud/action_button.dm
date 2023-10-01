@@ -77,9 +77,7 @@
 		return ..()
 
 /obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
-	. = ..()
-	if(!.)
-		usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
+	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
 
 	hidden = usr.hud_used.action_buttons_hidden
 	if(hidden)

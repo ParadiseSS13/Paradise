@@ -24,7 +24,7 @@
 
 
 /obj/item/organ/internal/ears/surgeryize()
-	owner.SetDeaf(0)
+	owner?.SetDeaf(0)
 	heal_internal_damage(100)
 
 /obj/item/organ/internal/ears/cybernetic
