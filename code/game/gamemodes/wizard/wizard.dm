@@ -138,9 +138,9 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), SLOT_HUD_OUTER_SUIT)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), SLOT_HUD_BACK)
 	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), slot_in_backpack)
+		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), SLOT_HUD_IN_BACKPACK)
 	else
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), slot_in_backpack)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), SLOT_HUD_IN_BACKPACK)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), SLOT_HUD_RIGHT_STORE)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob

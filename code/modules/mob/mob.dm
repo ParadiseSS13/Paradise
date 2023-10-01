@@ -491,7 +491,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				if(!istype(src, /obj/item/restraints/legcuffs))
 					return 0
 				return 1
-			if(slot_in_backpack)
+			if(SLOT_HUD_IN_BACKPACK)
 				if(H.back && istype(H.back, /obj/item/storage/backpack))
 					var/obj/item/storage/backpack/B = H.back
 					if(B.contents.len < B.storage_slots && w_class <= B.max_w_class)

@@ -554,7 +554,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/proc/give_kit(obj/item/item_path)
 	var/I = new item_path
 	var/list/slots = list(
-		"backpack" = slot_in_backpack,
+		"backpack" = SLOT_HUD_IN_BACKPACK,
 		"left pocket" = SLOT_HUD_LEFT_STORE,
 		"right pocket" = SLOT_HUD_RIGHT_STORE,
 		"left hand" = SLOT_HUD_LEFT_HAND,

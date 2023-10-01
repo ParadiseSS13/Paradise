@@ -61,7 +61,7 @@
 			return has_organ("chest")
 		if(SLOT_HUD_SUIT_STORE)
 			return has_organ("chest")
-		if(slot_in_backpack)
+		if(SLOT_HUD_IN_BACKPACK)
 			return TRUE
 		if(slot_tie)
 			return TRUE
@@ -296,7 +296,7 @@
 		if(SLOT_HUD_SUIT_STORE)
 			s_store = I
 			update_inv_s_store()
-		if(slot_in_backpack)
+		if(SLOT_HUD_IN_BACKPACK)
 			if(get_active_hand() == I)
 				unEquip(I)
 			if(ismodcontrol(back))

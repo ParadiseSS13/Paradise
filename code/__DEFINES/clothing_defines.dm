@@ -27,7 +27,7 @@
 #define SLOT_HUD_LEFT_STORE 15 // l_store
 #define SLOT_HUD_RIGHT_STORE 16 // r_store
 #define SLOT_HUD_SUIT_STORE 17
-#define slot_in_backpack 18
+#define SLOT_HUD_IN_BACKPACK 18
 #define SLOT_HUD_LEGCUFFED 19
 #define SLOT_HUD_RIGHT_EAR 20 // r_ear
 #define SLOT_HUD_WEAR_PDA 21

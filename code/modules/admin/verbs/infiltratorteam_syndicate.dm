@@ -141,10 +141,10 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 /mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc, flag_mgmt)
 	// Storage items
 	equip_to_slot_or_del(new /obj/item/storage/backpack(src), SLOT_HUD_BACK)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), SLOT_HUD_IN_BACKPACK)
 	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), SLOT_HUD_JUMPSUIT)
 	if(!flag_mgmt)
-		equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
+		equip_to_slot_or_del(new /obj/item/flashlight(src), SLOT_HUD_IN_BACKPACK)
 		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), slot_belt)
 
 	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
@@ -167,7 +167,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
 	equip_to_slot_or_del(R, SLOT_HUD_LEFT_EAR)
-	equip_or_collect(new /obj/item/pda(src), slot_in_backpack)
+	equip_or_collect(new /obj/item/pda(src), SLOT_HUD_IN_BACKPACK)
 
 	// Other gear
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), slot_shoes)

@@ -286,12 +286,12 @@
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), SLOT_HUD_WEAR_ID)
 	synd_mob.equip_to_slot_or_del(new back(synd_mob), SLOT_HUD_BACK)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), SLOT_HUD_IN_BACKPACK)
 	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), SLOT_HUD_WEAR_PDA)
 	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = uplink_uses
-	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(U, SLOT_HUD_IN_BACKPACK)
 	synd_mob.mind.offstation_role = TRUE
 
 	if(synd_mob.dna.species)
@@ -307,8 +307,8 @@
 			if("Plasmaman")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), SLOT_HUD_WEAR_MASK)
 				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), SLOT_HUD_SUIT_STORE)
-				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
-				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), SLOT_HUD_IN_BACKPACK)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), SLOT_HUD_IN_BACKPACK)
 				synd_mob.internal = synd_mob.get_item_by_slot(SLOT_HUD_SUIT_STORE)
 				synd_mob.update_action_buttons_icon()
 

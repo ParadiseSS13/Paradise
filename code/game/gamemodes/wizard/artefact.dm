@@ -66,7 +66,7 @@
 		M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(M), SLOT_HUD_OUTER_SUIT)
 		M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(M), SLOT_HUD_HEAD)
 		M.equip_to_slot_or_del(new /obj/item/storage/backpack(M), SLOT_HUD_BACK)
-		M.equip_to_slot_or_del(new /obj/item/storage/box(M), slot_in_backpack)
+		M.equip_to_slot_or_del(new /obj/item/storage/box(M), SLOT_HUD_IN_BACKPACK)
 		M.equip_to_slot_or_del(new /obj/item/teleportation_scroll/apprentice(M), SLOT_HUD_RIGHT_STORE)
 		var/wizard_name_first = pick(GLOB.wizard_first)
 		var/wizard_name_second = pick(GLOB.wizard_second)

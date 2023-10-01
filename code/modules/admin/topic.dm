@@ -3456,7 +3456,7 @@
 	hunter_mind.transfer_to(hunter_mob)
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
-	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
+	hunter_mob.equip_to_slot_or_del(N, SLOT_HUD_IN_BACKPACK)
 	N.mode = 3 //MODE_ADV, not defined here
 	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.target = H

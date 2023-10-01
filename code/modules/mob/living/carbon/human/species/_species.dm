@@ -841,7 +841,7 @@
 			return !H.handcuffed && istype(I, /obj/item/restraints/handcuffs)
 		if(SLOT_HUD_LEGCUFFED)
 			return !H.legcuffed && istype(I, /obj/item/restraints/legcuffs)
-		if(slot_in_backpack)
+		if(SLOT_HUD_IN_BACKPACK)
 			if(H.back && istype(H.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = H.back
 				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
