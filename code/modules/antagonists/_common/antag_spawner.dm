@@ -233,9 +233,8 @@
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
 	D.mind.add_mind_objective(KillDaCrew)
-
-	D.mind.announce_objectives(title = FALSE)
-
+	var/list/messages = list(D.mind.prepare_announce_objectives(FALSE))
+	to_chat(D, chat_box_red(messages.Join("<br>")))
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -315,7 +314,8 @@
 	KillDaCrew.completed = TRUE
 	M.mind.add_mind_objective(KillDaCrew)
 
-	M.mind.announce_objectives(title = FALSE)
+	var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
+	to_chat(M, chat_box_red(messages.Join("<br>")))
 
 ///////////Revenant
 
@@ -370,7 +370,8 @@
 	KillDaCrew.completed = TRUE
 	M.mind.add_mind_objective(KillDaCrew)
 
-	M.mind.announce_objectives(title = FALSE)
+	var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
+	to_chat(M, chat_box_red(messages.Join("<br>")))
 
 ///////////Pulse Demon
 
@@ -436,4 +437,5 @@
 	KillDaCrew.completed = TRUE
 	demon.mind.add_mind_objective(KillDaCrew)
 
-	demon.mind.announce_objectives(title = FALSE)
+	var/list/messages = list(demon.mind.prepare_announce_objectives(FALSE))
+	to_chat(demon, chat_box_red(messages.Join("<br>")))

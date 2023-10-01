@@ -253,8 +253,10 @@ GLOBAL_LIST_EMPTY(antagonists)
 	if(give_objectives)
 		give_objectives()
 	if(!silent)
-		greet()
-		owner.announce_objectives()
+		var/list/messages = list()
+		messages.Add(greet())
+		messages.Add(owner.prepare_announce_objectives())
+		to_chat(owner.current, chat_box_red(messages.Join("<br>")))
 	apply_innate_effects()
 	finalize_antag()
 	if(wiki_page_name)
@@ -308,8 +310,10 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Called in `on_gain()` if silent it set to FALSE.
  */
 /datum/antagonist/proc/greet()
+	var/list/messages = list()
+	. = messages
 	if(owner && owner.current)
-		to_chat(owner.current, "<span class='userdanger'>You are a [special_role]!</span>")
+		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"
