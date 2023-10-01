@@ -12,6 +12,7 @@ GLOBAL_VAR_INIT(responseteam_age, 21) // Minimum account age to play as an ERT m
 GLOBAL_DATUM(active_team, /datum/response_team)
 GLOBAL_VAR_INIT(send_emergency_team, FALSE)
 GLOBAL_VAR_INIT(ert_request_answered, FALSE)
+GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
@@ -27,10 +28,6 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	if(SSticker.current_state == GAME_STATE_PREGAME)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
-		return
-
-	if(GLOB.send_emergency_team)
-		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
 		return
 
 	var/datum/ui_module/ert_manager/E = new()
@@ -249,6 +246,9 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/borg_path = /mob/living/silicon/robot/ert
 	var/cyborg_security_permitted = FALSE
 
+	/// Whether the ERT announcement should be hidden from the station
+	var/silent
+
 /datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
 	slots["Commander"] = com
 	slots["Security"] = sec
@@ -294,9 +294,14 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
+	if(silent)
+		message_admins("A silent response team failed to spawn. Likely, no one signed up.")
+		return
 	GLOB.major_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
 
 /datum/response_team/proc/announce_team()
+	if(silent)
+		return
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
 
 // -- AMBER TEAM --
@@ -310,6 +315,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
+	if(silent)
+		return
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
 
 // -- RED TEAM --
@@ -324,6 +331,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
+	if(silent)
+		return
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
 
 // -- GAMMA TEAM --
@@ -338,6 +347,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
+	if(silent)
+		return
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/outfit/job/centcom/response_team

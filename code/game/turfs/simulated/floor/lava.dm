@@ -109,7 +109,20 @@
 
 
 /turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
-	return
+	if(istype(C, /obj/item/stack/rods/lava))
+		var/obj/item/stack/rods/lava/R = C
+		var/obj/structure/lattice/lava/H = locate(/obj/structure/lattice/lava, src)
+		if(H)
+			to_chat(user, "<span class='warning'>There is already a lattice here!</span>")
+			return
+		if(R.use(1))
+			to_chat(user, "<span class='warning'>You construct a lattice.</span>")
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/lava(locate(x, y, z))
+		else
+			to_chat(user, "<span class='warning'>You need one rod to build a heatproof lattice.</span>")
+			return
+
 
 /turf/simulated/floor/plating/lava/screwdriver_act()
 	return
@@ -142,6 +155,8 @@
 
 /turf/simulated/floor/plating/lava/smooth/airless
 	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
 	name = "liquid plasma"
@@ -245,6 +260,6 @@
 
 /turf/simulated/floor/plating/lava/smooth/mapping_lava/LateInitialize()
 	. = ..()
-	ChangeTurf(SSmapping.lavaland_theme)
+	ChangeTurf(SSmapping.lavaland_theme, ignore_air = TRUE)
 
 

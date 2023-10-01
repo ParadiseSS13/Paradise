@@ -22,7 +22,7 @@
 	id = /obj/item/card/id/admin
 	pda = /obj/item/pda/centcom
 
-	internals_slot = SLOT_SUIT_STORE
+	internals_slot = slot_s_store
 	toggle_helmet = TRUE
 
 	cybernetic_implants = list(

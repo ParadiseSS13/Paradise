@@ -223,7 +223,7 @@
 /area/ruin/space/unpowered)
 "hF" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "hH" = (
 /obj/structure/railing/corner,
@@ -298,7 +298,7 @@
 /area/ruin/space/unpowered)
 "ls" = (
 /obj/structure/dispenser/oxygen,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "lZ" = (
 /turf/simulated/floor/plating/airless,
@@ -630,7 +630,7 @@
 /area/ruin/space/unpowered)
 "xy" = (
 /obj/machinery/suit_storage_unit,
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "xO" = (
 /turf/simulated/floor/plasteel{
@@ -675,7 +675,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "zt" = (
-/turf/simulated/floor/plating/damaged,
+/turf/simulated/floor/plating/damaged/airless,
 /area/ruin/space/unpowered)
 "AP" = (
 /obj/structure/table/reinforced,
@@ -956,6 +956,9 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
+"LN" = (
+/turf/simulated/floor/engine/airless,
+/area/ruin/space/unpowered)
 "LV" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -1068,7 +1071,7 @@
 /obj/item/flag/syndi{
 	anchored = 1
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "OU" = (
 /mob/living/simple_animal/hostile/alien/sentinel{
@@ -2102,9 +2105,9 @@ xO
 yU
 wV
 EJ
-sh
-sh
-sh
+LN
+LN
+LN
 lZ
 lZ
 NQ
@@ -2144,9 +2147,9 @@ xO
 xO
 xO
 vR
-sh
+LN
 hF
-sh
+LN
 hF
 zt
 Hy
@@ -2186,11 +2189,11 @@ xO
 xO
 Jt
 EJ
-sh
-sh
-sh
-sh
-sh
+LN
+LN
+LN
+LN
+LN
 EJ
 EJ
 EJ
@@ -2229,10 +2232,10 @@ ub
 EJ
 EJ
 EJ
-sh
-sh
-sh
-sh
+LN
+LN
+LN
+LN
 oH
 OK
 OK
@@ -2272,8 +2275,8 @@ EJ
 OK
 oH
 OP
-sh
-sh
+LN
+LN
 ls
 EJ
 OK

@@ -1,6 +1,7 @@
 
 /**********************Asteroid**************************/
 
+#define RECURSION_MAX 100
 /turf/simulated/floor/plating/asteroid
 	gender = PLURAL
 	name = "asteroid sand"
@@ -171,6 +172,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	var/backward_cave_dir = 2
 	var/going_backwards = TRUE
 	var/has_data = FALSE
+	/// Very important for making sure prod won't die due to poor RNG from cave spawns
+	var/recursions = 0
 	var/data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/airless
 
@@ -181,7 +184,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	mob_spawn_list = list(/obj/effect/landmark/mob_spawner/goliath = 50, /obj/structure/spawner/lavaland/goliath = 3,
 		/obj/effect/landmark/mob_spawner/watcher = 40, /obj/structure/spawner/lavaland = 2,
 		/obj/effect/landmark/mob_spawner/legion = 30, /obj/structure/spawner/lavaland/legion = 3,
-		SPAWN_MEGAFAUNA = 6, /obj/effect/landmark/mob_spawner/goldgrub = 10)
+		SPAWN_MEGAFAUNA = 6, /obj/effect/landmark/mob_spawner/goldgrub = 10, /obj/effect/landmark/mob_spawner/gutlunch = 4,
+		/obj/effect/landmark/mob_spawner/abandoned_minebot = 6)
 
 	data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
@@ -241,7 +245,10 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	var/turf/simulated/mineral/tunnel = src
 	var/next_angle = pick(45, -45)
 
-	for(var/i = 0; i < length; i++)
+	for(var/i in 1 to length)
+		++recursions
+		if(recursions > RECURSION_MAX)
+			break
 		if(!sanity)
 			break
 
@@ -271,6 +278,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 					caveprob = 10 //Less splitting
 			if(i > 3 && prob(caveprob))
 				var/turf/simulated/floor/plating/asteroid/airless/cave/C = tunnel.ChangeTurf(data_having_type, FALSE, TRUE)
+				C.recursions = recursions
 				C.going_backwards = FALSE
 				C.produce_tunnel_from_data(rand(10, 15), dir)
 			else
@@ -295,30 +303,41 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			for(var/turf/NT in circlerangeturfs(T, tempradius))
 				var/distance = (max(get_dist(T, NT), 1)) //Get dist throws -1 if same turf
 				if(prob(min(probmodifer / distance, 100)))
-					if(ismineralturf(NT) || istype(NT, /turf/simulated/floor/plating/asteroid)) //No spawning on lava / other ruins
+					if((ismineralturf(NT) || istype(NT, /turf/simulated/floor/plating/asteroid)) && !istype(NT.loc, /area/ruin)) //No spawning on lava / other ruins
 						SpawnFloor(NT, 50) //Room has higher probabilty.
 			if(prob(25))
 				tempradius = round(tempradius / 3)
-				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water = 1, /turf/simulated/floor/plating/asteroid = 1))
+				var/turf/oasis_lake = pickweight(list(/turf/simulated/floor/plating/lava/smooth/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma = 4, /turf/simulated/floor/chasm/straight_down/lava_land_surface = 4, /turf/simulated/floor/plating/lava/smooth/mapping_lava = 6, /turf/simulated/floor/beach/away/water/lavaland_air = 1, /turf/simulated/floor/plating/asteroid = 1))
 				if(oasis_lake == /turf/simulated/floor/plating/asteroid)
 					new /obj/effect/spawner/oasisrock(T, tempradius)
 				for(var/turf/oasis in circlerangeturfs(T, tempradius))
+					if(istype(oasis.loc, /area/ruin))
+						continue
 					oasis.ChangeTurf(oasis_lake, ignore_air = TRUE)
 
 /obj/effect/spawner/oasisrock
 	name = "Oasis rock spawner"
+	var/passed_radius
 
 /obj/effect/spawner/oasisrock/Initialize(mapload, radius)
 	. = ..()
+	passed_radius = radius
+	return INITIALIZE_HINT_LATELOAD
 
-	addtimer(CALLBACK(src, PROC_REF(make_rock), radius), 5 SECONDS)
+/obj/effect/spawner/oasisrock/LateInitialize() //Let us try this for a moment.
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(make_rock), passed_radius), 5 SECONDS)
 
 /obj/effect/spawner/oasisrock/proc/make_rock(radius)
-	for(var/turf/oasis in circlerangeturfs(get_turf(src), radius))
+	var/our_turf = get_turf(src)
+	for(var/turf/oasis in circlerangeturfs(our_turf, radius))
 		oasis.ChangeTurf(/turf/simulated/mineral/random/high_chance/volcanic, ignore_air = TRUE)
-	var/list/valid_turfs = RANGE_EDGE_TURFS(radius + 2, src)
-	for(var/mob/M in range(src, radius)) //We don't want mobs inside the ore rock
-		M.forceMove(pick(valid_turfs))
+	var/list/valid_turfs = circlerangeturfs(our_turf, radius + 1)
+	valid_turfs -= circlerangeturfs(our_turf, radius)
+	for(var/mob/M in circlerange(src, radius)) //We don't want mobs inside the ore rock
+		M.forceMove(pick_n_take(valid_turfs))
+	for(var/obj/structure/spawner/lavaland/O in circlerange(src, radius)) //We don't want tendrils in there either
+		O.forceMove(pick_n_take(valid_turfs))
 	qdel(src)
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFloor(turf/T, monsterprob = 30)
@@ -373,6 +392,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 
 #undef SPAWN_MEGAFAUNA
 #undef SPAWN_BUBBLEGUM
+#undef RECURSION_MAX
 
 /turf/simulated/floor/plating/asteroid/airless/cave/proc/SpawnFlora(turf/T)
 	var/floraprob = 12
