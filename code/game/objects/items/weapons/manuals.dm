@@ -189,16 +189,16 @@
 				or something like that. Just what stuff does.<BR><BR>
 				<h1><a name="Basic"><B>Basic Pipes</B></a></h1><BR>
 				<I>The boring ones.</I><BR>
-				TMost ordinary pipes are pretty straightforward. They hold gas. If gas is moving in a direction for some reason, gas will flow in that direction.
+				Most ordinary pipes are pretty straightforward. They hold gas. If gas is moving in a direction for some reason, gas will flow in that direction.
 				That's about it. Even so, here's all of your wonderful pipe options.<BR>
 				<li><I>Straight pipes:</I> They're pipes. One-meter sections. Straight line. Pretty simple. Just about every pipe and device is based around this
 				standard one-meter size, so most things will take up as much space as one of these.</li>
 				<li><I>Bent pipes:</I> Pipes with a 90 degree bend at the half-meter mark. My goodness.</li>
 				<li><I>Pipe manifolds:</I> Pipes that are essentially a "T" shape, allowing you to connect three things at one point.</li>
 				<li><I>4-way manifold:</I> A four-way junction.</li>
-				<li><I>Pipe cap:</I> Caps off the end of a pipe. Open ends don't actually vent air, because of the way the pipes are assembled, so, uh. Use them to decorate your house or something.</li>
-				<li><I>Manual Valve:</I> A valve that will block off airflow when turned. Can't be used by the AI or cyborgs, because they don't have hands.</li>
-				<li><I>Manual T-Valve:</I> Like a manual valve, but at the center of a manifold instead of a straight pipe.</li><BR><BR>
+				<li><I>Pipe cap:</I> Caps off the end of a pipe. Open ends don't actually vent gas, because of the way the pipes are assembled, so, uh. Use them to decorate your house or something.</li>
+				<li><I>Manual/Digital Valves:</I> A valve that will block off gas flow when turned. Manual valves can't be used by the AI or cyborgs because they don't have hands, but they can access digital valves.</li>
+				<li><I>Manual/Digital T-Valves:</I> Like a straight valve, but at the center of a manifold instead of a straight pipe, allowing you to swap between two different pipe networks.</li><BR><BR>
 				<h1><a name="Insulated"><B>Insulated Pipes</B></a></h1><BR>
 				<I>Special Public Service Announcement.</I><BR>
 				Our regular pipes are already insulated. These are completely worthless. Punch anyone who uses them.<BR><BR>
@@ -214,24 +214,27 @@
 				Don't hook this to the distribution loop, or you will make babies cry and the Chief Engineer brutally beat you.</li>
 				<li><I>Passive gate:</I> This is essentially a cap on the pressure of gas allowed to flow in a specific direction.
 				When turned on, instead of actively pumping gas, it measures the pressure flowing through it, and whatever pressure you set is the maximum: it'll cap after that.
-				In addition, it only lets gas flow one way. The direction the gas flows is opposite the red handle on it, which is confusing to people used to the red stripe on pumps pointing the way.</li>
-				<li><I>Unary vent:</I> The basic vent used in rooms. It pumps gas into the room, but can't suck it back out. Controlled by the room's air alarm system.</li>
-				<li><I>Scrubber:</I> The other half of room equipment. Filters air, and can suck it in entirely in what's called a "panic siphon". Actvating a panic siphon without very good reason will kill someone. Don't do it.</li>
-				<li><I>Meter:</I> A little box with some gagues and numbers. Fasten it to any pipe or manifold, and it'll read you the pressure in it. Very useful.</li>
+				In addition, it only lets gas flow one way. As with pumps, the red handle on a passive gate indicates the direction the passive gate will output its gas when active.</li>
+				<li><I>Unary vent:</I> The basic vent used in rooms. It pumps or siphons gas in or out of a room depending on the setting. Controlled by the room's air alarm system.</li>
+				<li><I>Scrubber:</I> The other half of room equipment. Filters air and can suck it in entirely in what's called a "panic siphon". Activating a panic siphon without very good reason will kill someone. Don't do it.
+				Scrubbers also have an extended mode that can be enabled to expand the range and increase the amount of gas being filtered.</li>
+				<li><I>Passive Vent:</I> Passive vents are the lesser known cousin to Unary vents. Passive vents will exchange gas between the surrounding atmosphere and its connected pipe until the pressure between the two has reached an equilibrium.</li>
+				<li><I>Meter:</I> A little box with some gaugees and numbers. Fasten it to any pipe or manifold, and it'll read you the pressure in it. Very useful.</li>
 				<li><I>Gas mixer:</I> Two sides are input, one side is output. Mixes the gases pumped into it at the ratio defined. The side perpendicular to the other two is "node 2", for reference.
 				Can output this gas at pressures from 0-4500 kPa.</li>
-				<li><I>Gas filter:</I> Essentially the opposite of a gas mixer. One side is input. The other two sides are output. One gas type will be filtered into the perpendicular output pipe,
+				<li><I>Gas filter:</I> Essentially the opposite of a gas mixer. One side is input. The other two sides are output. The selected gas type will be filtered into the perpendicular output pipe,
 				the rest will continue out the other side. Can also output from 0-4500 kPa.</li>
 				<h1><a name="HES"><B>Heat Exchange Systems</B></a></h1><BR>
 				<I>Will not set you on fire.</I><BR>
 				These systems are used to transfer heat only between two pipes. They will not move gases or any other element, but will equalize the temperature (eventually). Note that because of how gases work (remember: pv=nRt),
 				a higher temperature will raise pressure, and a lower one will lower temperature.<BR>
-				<li><I>Pipe:</I> This is a pipe that will exchange heat with the surrounding atmosphere. Place in fire for superheating. Place in space for supercooling.</li>
+				<li><I>Pipe:</I> This is a pipe that will exchange heat with the surrounding atmosphere. Place in a fire for superheating. Place in space for supercooling.</li>
 				<li><I>Bent Pipe:</I> Take a wild guess.</li>
 				<li><I>Junction:</I><I>Junction:</I>The point where you connect your normal pipes to heat exchange pipes. Not necessary for heat exchangers, but necessary for H/E pipes/bent pipes.</li>
-				<li><I>Heat Exchanger:</I> These funky-looking bits attach to an open pipe end. Put another heat exchanger directly across from it, and you can transfer heat across two pipes without having to have the gases touch.
+				<li><I>Heat Exchanger:</I> These funky-looking bits attach to an open pipe end. Put another heat exchanger directly across from it, and you can transfer heat across two pipes without having to have the gases mix.
 				This normally shouldn't exchange with the ambient air, despite being totally exposed. Just don't ask questions...</li><BR>
-				That's about it for pipes. Go forth, armed with this knowledge, and try not to break, burn down, or kill anything. Please.</font>
+				<h1><a name="HES"><B>Final Checks</B></a></h1><BR>
+				That's about it for pipes. Remember to turn your magboots on and keep a fire extinguisher near. Go forth, armed with this knowledge, and try not to break, burn down, or kill anything. Please.</font>
 				</body>
 				</html>
 			"})
