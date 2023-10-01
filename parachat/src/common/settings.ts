@@ -1,4 +1,4 @@
-import { Highlight, SettingsData } from '~/common/types';
+import { SettingsData } from '~/common/types';
 import { useSettingsSlice } from '../stores/settings';
 
 const settingsStorageKey = 'parachat-settings';
@@ -10,20 +10,7 @@ export const defaultSettings: SettingsData = {
   fontScale: 100,
   lineHeight: 1.2,
   condenseMessages: true,
-  highlights: [
-    {
-      term: 'Jade',
-      isRegex: false,
-      color: '#AAAA00',
-      type: Highlight.LINE,
-    },
-    {
-      term: 'Jade',
-      isRegex: false,
-      color: '#0066AA',
-      type: Highlight.SIMPLE,
-    },
-  ],
+  highlights: [],
 };
 
 export const loadSettings = () => {
