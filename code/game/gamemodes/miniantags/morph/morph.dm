@@ -314,17 +314,19 @@
 	to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Morph)</span>")
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)
-		var/datum/objective/eat = new /datum/objective
-		eat.owner = mind
-		eat.explanation_text = "Eat as many living beings as possible to still the hunger within you."
-		eat.completed = TRUE
-		mind.objectives += eat
-		var/datum/objective/procreate = new /datum/objective
-		procreate.owner = mind
-		procreate.explanation_text = "Split yourself in as many other [name]'s as possible!"
-		procreate.completed = TRUE
-		mind.objectives += procreate
-		mind.announce_objectives()
+		mind.add_mind_objective(/datum/objective/morph_eat)
+		mind.add_mind_objective(/datum/objective/morph_procreate)
+		mind.announce_objectives(title = FALSE)
+
+/datum/objective/morph_eat
+	explanation_text = "Eat as many living beings as possible to still the hunger within you."
+	completed = TRUE
+	needs_target = FALSE
+
+/datum/objective/morph_procreate
+	explanation_text = "Split yourself in as many other morphs as possible!"
+	completed = TRUE
+	needs_target = FALSE
 
 #undef MORPHED_SPEED
 #undef ITEM_EAT_COST
