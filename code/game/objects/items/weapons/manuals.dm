@@ -219,7 +219,7 @@
 				<li><I>Scrubber:</I> The other half of room equipment. Filters air and can suck it in entirely in what's called a "panic siphon". Activating a panic siphon without very good reason will kill someone. Don't do it.
 				Scrubbers also have an extended mode that can be enabled to expand the range and increase the amount of gas being filtered.</li>
 				<li><I>Passive Vent:</I> Passive vents are the lesser known cousin to Unary vents. Passive vents will exchange gas between the surrounding atmosphere and its connected pipe until the pressure between the two has reached an equilibrium.</li>
-				<li><I>Meter:</I> A little box with some gaugees and numbers. Fasten it to any pipe or manifold, and it'll read you the pressure in it. Very useful.</li>
+				<li><I>Meter:</I> A little box with some gauges and numbers. Fasten it to any pipe or manifold, and it'll read you the pressure in it. Very useful.</li>
 				<li><I>Gas mixer:</I> Two sides are input, one side is output. Mixes the gases pumped into it at the ratio defined. The side perpendicular to the other two is "node 2", for reference.
 				Can output this gas at pressures from 0-4500 kPa.</li>
 				<li><I>Gas filter:</I> Essentially the opposite of a gas mixer. One side is input. The other two sides are output. The selected gas type will be filtered into the perpendicular output pipe,
