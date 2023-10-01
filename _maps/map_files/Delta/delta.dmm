@@ -7600,7 +7600,6 @@
 /area/station/maintenance/fore)
 "aBE" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Bar Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar,
@@ -8839,9 +8838,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/door/window{
-	dir = 2
-	},
+/obj/machinery/door/window,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -19899,7 +19896,6 @@
 "bdR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -19925,7 +19921,6 @@
 /obj/item/reagent_containers/food/condiment/peppermill,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -20078,7 +20073,6 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
@@ -20415,7 +20409,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -20435,7 +20428,6 @@
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -21796,7 +21788,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	id = "Cell 2";
 	name = "Cell 2"
 	},
@@ -25686,7 +25677,6 @@
 /area/station/security/prison/cell_block)
 "brl" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	id = "Cell 3";
 	name = "Cell 3"
 	},
@@ -30602,8 +30592,7 @@
 /area/station/command/bridge)
 "bCs" = (
 /obj/machinery/door/window/reinforced/reversed{
-	name = "Captains seat";
-	dir = 2
+	name = "Captains seat"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -35222,7 +35211,6 @@
 /area/station/security/prison/cell_block)
 "bLG" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	id = "Cell 4";
 	name = "Cell 4"
 	},
@@ -35969,6 +35957,10 @@
 "bNo" = (
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/forensics{
 	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4;
+	name = "Body Storage"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
@@ -43227,7 +43219,6 @@
 /area/station/command/office/hop)
 "cdI" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Desk Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/ntrep,
@@ -43302,7 +43293,6 @@
 /area/station/command/office/blueshield)
 "cdS" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Desk Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/blueshield,
@@ -47340,7 +47330,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
 	name = "Security Delivery"
 	},
 /turf/simulated/floor/plasteel,
@@ -54324,7 +54313,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Engineering Delivery"
 	},
 /turf/simulated/floor/plasteel,
@@ -60554,8 +60542,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Research Lab Desk";
-	dir = 2
+	name = "Research Lab Desk"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -60706,7 +60693,6 @@
 	name = "Chemistry Desk Shutters"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Chemistry Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
@@ -60722,8 +60708,7 @@
 /obj/machinery/door/firedoor,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Chemistry Desk";
-	dir = 2
+	name = "Chemistry Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
@@ -60763,8 +60748,7 @@
 /obj/machinery/door/firedoor,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Medbay Desk";
-	dir = 2
+	name = "Medbay Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/effect/decal/warning_stripes/yellow,
@@ -60778,8 +60762,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Medbay Desk";
-	dir = 2
+	name = "Medbay Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/effect/decal/warning_stripes/yellow,
@@ -62954,8 +62937,7 @@
 /obj/item/folder/white,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Medbay Desk";
-	dir = 2
+	name = "Medbay Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -72503,7 +72485,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Robotics Delivery"
 	},
 /turf/simulated/floor/plasteel,
@@ -81108,7 +81089,7 @@
 "ebU" = (
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn  Mix");
+	autolink_sensors = list("burn_sensor"="Burn Mix");
 	dir = 1
 	},
 /obj/machinery/ignition_switch{
@@ -83214,8 +83195,7 @@
 	name = "Toxins Launcher"
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Toxins Launcher";
-	dir = 2
+	name = "Toxins Launcher"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
@@ -86255,8 +86235,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Medbay Desk";
-	dir = 2
+	name = "Medbay Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/item/paper_bin,
@@ -89281,7 +89260,6 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/reinforced/normal{
-	dir = 2;
 	name = "Secure Armory"
 	},
 /obj/machinery/door/window/reinforced/normal{
