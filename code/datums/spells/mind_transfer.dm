@@ -42,6 +42,12 @@ Also, you never added distance checking after target is selected. I've went ahea
 		to_chat(user, "Their mind is resisting your spell.")
 		return
 
+	// magic monkey minds are only given by an admin. Mindswapping wizards be damned, they are not getting infinite blinks.
+	if(istype(target, /mob/living/carbon/human/monkey/magic))
+		to_chat(user, "<span class='userdanger'><font size='40'>No.</font></span>")
+		user.gib()
+		return
+
 	if(issilicon(target))
 		to_chat(user, "You feel this enslaved being is just as dead as its cold, hard exoskeleton.")
 		return

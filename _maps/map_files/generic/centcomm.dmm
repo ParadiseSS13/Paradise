@@ -1360,7 +1360,7 @@
 	},
 /area/shuttle/escape)
 "fz" = (
-/mob/living/carbon/human/monkey,
+/mob/living/carbon/human/monkey/magic,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "fE" = (
