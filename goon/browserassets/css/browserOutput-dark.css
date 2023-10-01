@@ -205,8 +205,6 @@ font-size: 14px;
 /* ADMIN FILTER MESSAGES MENU */
 .filterMessages {padding: 5px;}
 .filterMessages div {padding: 2px 0;}
-.filterMessages input {}
-.filterMessages label {}
 
 .icon-stack {height: 1em; line-height: 1em; width: 1em; vertical-align: middle; margin-top: -2px;}
 
@@ -455,24 +453,24 @@ span.body .coderesponses 		{color: #FF3333;}
 	border-radius: 5px;
 	margin: 25px;
 	padding: 15px;
-  }
+}
 
 .boxed_message.left_align_text {
 	text-align: left
-  }
-  
+}
+
 .boxed_message.red_border {
 	border-color: #aa0000;
-  }
+}
 
 .boxed_message.green_border {
 	border-color: #00FF00;
-  }
+}
 
 .boxed_message.notice_border {
 	border-color: #6685f5;
-  }
+}
 
   .boxed_message.thick_border {
 	border-width: thick;
-  }
+}
