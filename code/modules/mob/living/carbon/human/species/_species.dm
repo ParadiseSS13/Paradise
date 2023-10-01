@@ -730,7 +730,7 @@
 		return FALSE
 
 	switch(slot)
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return !H.l_hand && !H.incapacitated()
 		if(slot_r_hand)
 			return !H.r_hand && !H.incapacitated()
@@ -760,7 +760,7 @@
 			return !H.glasses && (I.slot_flags & SLOT_FLAG_EYES)
 		if(SLOT_HUD_HEAD)
 			return !H.head && (I.slot_flags & SLOT_FLAG_HEAD)
-		if(slot_l_ear)
+		if(SLOT_HUD_LEFT_EAR)
 			return !H.l_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.r_ear)
 		if(slot_r_ear)
 			return !H.r_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.l_ear)
@@ -790,7 +790,7 @@
 			if(!(I.slot_flags & SLOT_FLAG_PDA))
 				return FALSE
 			return TRUE
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
 				return FALSE
 			if(H.l_store)

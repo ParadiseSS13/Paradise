@@ -740,7 +740,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_ears()
 	remove_overlay(EARS_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_l_ear]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_LEFT_EAR]
 		if(inv)
 			inv.update_icon()
 
@@ -947,7 +947,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(client && hud_used)
 		var/obj/screen/inventory/inv
 
-		inv = hud_used.inv_slots[slot_l_store]
+		inv = hud_used.inv_slots[SLOT_HUD_LEFT_STORE]
 		if(inv)
 			inv.update_icon()
 

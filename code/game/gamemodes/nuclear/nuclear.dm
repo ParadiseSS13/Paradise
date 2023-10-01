@@ -264,7 +264,7 @@
 
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
 	R.set_frequency(radio_freq)
-	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
+	synd_mob.equip_to_slot_or_del(R, SLOT_HUD_LEFT_EAR)
 
 	var/back
 
@@ -300,7 +300,7 @@
 		switch(race)
 			if("Vox")
 				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), SLOT_HUD_WEAR_MASK)
-				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), slot_l_hand)
+				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), SLOT_HUD_LEFT_HAND)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 

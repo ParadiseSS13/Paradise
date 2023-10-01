@@ -151,8 +151,8 @@
 				mymob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
-			if(inv_slots[slot_l_hand])
-				mymob.client.screen += inv_slots[slot_l_hand]	//we want the hands to be visible
+			if(inv_slots[SLOT_HUD_LEFT_HAND])
+				mymob.client.screen += inv_slots[SLOT_HUD_LEFT_HAND]	//we want the hands to be visible
 			if(inv_slots[slot_r_hand])
 				mymob.client.screen += inv_slots[slot_r_hand]	//we want the hands to be visible
 			if(action_intent)

@@ -555,9 +555,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/I = new item_path
 	var/list/slots = list(
 		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
+		"left pocket" = SLOT_HUD_LEFT_STORE,
 		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
+		"left hand" = SLOT_HUD_LEFT_HAND,
 		"right hand" = slot_r_hand,
 	)
 	for(var/datum/mind/M in get_owners())

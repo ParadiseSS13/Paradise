@@ -133,7 +133,7 @@
 		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), SLOT_HUD_HEAD)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), SLOT_HUD_LEFT_EAR)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)
 	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), SLOT_HUD_BACK)
@@ -144,7 +144,7 @@
 	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), slot_r_store)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(spellbook, slot_l_hand)
+	wizard_mob.equip_to_slot_or_del(spellbook, SLOT_HUD_LEFT_HAND)
 
 	wizard_mob.faction = list("wizard")
 	wizard_mob.mind.offstation_role = TRUE

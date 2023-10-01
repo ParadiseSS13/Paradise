@@ -1776,7 +1776,7 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_l_hand )
+		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
 		if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
 			if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
@@ -2112,7 +2112,7 @@
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP | DROPDEL
 				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
 				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -2121,7 +2121,7 @@
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP | DROPDEL
 				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
 				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")

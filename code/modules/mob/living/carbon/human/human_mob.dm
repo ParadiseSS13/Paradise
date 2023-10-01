@@ -306,7 +306,7 @@
 	var/list/obscured = check_obscured_slots()
 
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
@@ -346,10 +346,10 @@
 		else
 			dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[UID()];item=[slot_glasses]'>[(glasses && !(glasses.flags&ABSTRACT))	? html_encode(glasses) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_l_ear in obscured)
+		if(SLOT_HUD_LEFT_EAR in obscured)
 			dat += "<tr><td><font color=grey><B>Left Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[slot_l_ear]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? html_encode(l_ear)	: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_EAR]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? html_encode(l_ear)	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(slot_r_ear in obscured)
 			dat += "<tr><td><font color=grey><B>Right Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
@@ -644,7 +644,7 @@
 
 		if(href_list["pockets"])
 			var/pocket_side = href_list["pockets"]
-			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
+			var/pocket_id = (pocket_side == "right" ? slot_r_store : SLOT_HUD_LEFT_STORE)
 			var/obj/item/pocket_item = (pocket_id == slot_r_store ? r_store : l_store)
 			var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
 
@@ -1079,7 +1079,7 @@
 			obscured |= slot_glasses
 		if(head.flags_inv & HIDEEARS)
 			obscured |= slot_r_ear
-			obscured |= slot_l_ear
+			obscured |= SLOT_HUD_LEFT_EAR
 
 	if(obscured.len > 0)
 		return obscured
@@ -1300,7 +1300,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
+	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, slot_shoes, slot_gloves, SLOT_HUD_LEFT_EAR, slot_r_ear, slot_glasses, SLOT_HUD_LEFT_HAND, slot_r_hand)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)

@@ -206,7 +206,7 @@
 		src:update_fhair()
 
 /mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1)
-	if(equip_to_slot_if_possible(W, slot_l_hand, del_on_fail, disable_warning))
+	if(equip_to_slot_if_possible(W, SLOT_HUD_LEFT_HAND, del_on_fail, disable_warning))
 		return 1
 	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning))
 		return 1
@@ -277,13 +277,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		SLOT_HUD_HEAD,\
 		slot_shoes,\
 		slot_gloves,\
-		slot_l_ear,\
+		SLOT_HUD_LEFT_EAR,\
 		slot_r_ear,\
 		slot_glasses,\
 		slot_belt,\
 		slot_s_store,\
 		slot_tie,\
-		slot_l_store,\
+		SLOT_HUD_LEFT_STORE,\
 		slot_r_store\
 	))
 
@@ -317,7 +317,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/mob/living/carbon/human/H = M
 
 		switch(slot)
-			if(slot_l_hand)
+			if(SLOT_HUD_LEFT_HAND)
 				if(H.l_hand)
 					return 0
 				return 1
@@ -398,8 +398,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_l_ear)
-				if( !(slot_flags & slot_l_ear) )
+			if(SLOT_HUD_LEFT_EAR)
+				if( !(slot_flags & SLOT_HUD_LEFT_EAR) )
 					return 0
 				if(H.l_ear)
 					if(!(H.l_ear.flags & NODROP))
@@ -438,7 +438,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_l_store)
+			if(SLOT_HUD_LEFT_STORE)
 				if(H.l_store)
 					return 0
 				if(!H.w_uniform)
@@ -588,7 +588,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	dat += {"</table>

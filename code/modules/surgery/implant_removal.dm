@@ -77,8 +77,8 @@
 
 		var/obj/item/implantcase/case
 
-		if(istype(user.get_item_by_slot(slot_l_hand), /obj/item/implantcase))
-			case = user.get_item_by_slot(slot_l_hand)
+		if(istype(user.get_item_by_slot(SLOT_HUD_LEFT_HAND), /obj/item/implantcase))
+			case = user.get_item_by_slot(SLOT_HUD_LEFT_HAND)
 		else if(istype(user.get_item_by_slot(slot_r_hand), /obj/item/implantcase))
 			case = user.get_item_by_slot(slot_r_hand)
 		else

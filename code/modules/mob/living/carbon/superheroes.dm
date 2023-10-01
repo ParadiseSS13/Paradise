@@ -22,7 +22,7 @@
 	H.rename_character(H.real_name, name)
 	for(var/obj/item/W in H.get_all_slots())
 		H.unEquip(W)
-	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), slot_l_ear)
+	H.equip_to_slot_or_del(new /obj/item/radio/headset(H), SLOT_HUD_LEFT_EAR)
 
 /datum/superheroes/proc/fixflags(mob/living/carbon/human/H)
 	for(var/obj/item/W in H.get_all_slots())
@@ -231,8 +231,8 @@
 	target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
 	target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
 	target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
-	target.equip_to_slot_or_del(new /obj/item/storage/toolbox/mechanical/greytide(target), slot_l_hand)
-	target.equip_to_slot_or_del(new /obj/item/radio/headset(target), slot_l_ear)
+	target.equip_to_slot_or_del(new /obj/item/storage/toolbox/mechanical/greytide(target), SLOT_HUD_LEFT_HAND)
+	target.equip_to_slot_or_del(new /obj/item/radio/headset(target), SLOT_HUD_LEFT_EAR)
 	var/obj/item/card/id/syndicate/W = new(target)
 	W.icon_state = "lifetimeid"
 	W.access = list(ACCESS_MAINT_TUNNELS)

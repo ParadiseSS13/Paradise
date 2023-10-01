@@ -28,7 +28,7 @@
 			return has_organ("l_hand") && has_organ("r_hand")
 		if(slot_legcuffed)
 			return has_organ("l_leg") && has_organ("r_leg")
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return has_organ("l_hand")
 		if(slot_r_hand)
 			return has_organ("r_hand")
@@ -39,7 +39,7 @@
 			return TRUE
 		if(slot_wear_pda)
 			return TRUE
-		if(slot_l_ear)
+		if(SLOT_HUD_LEFT_EAR)
 			return has_organ("head")
 		if(slot_r_ear)
 			return has_organ("head")
@@ -55,7 +55,7 @@
 			return has_organ("chest")
 		if(slot_w_uniform)
 			return has_organ("chest")
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			return has_organ("chest")
 		if(slot_r_store)
 			return has_organ("chest")
@@ -214,7 +214,7 @@
 		if(slot_legcuffed)
 			legcuffed = I
 			update_inv_legcuffed()
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			l_hand = I
 			update_inv_l_hand()
 		if(slot_r_hand)
@@ -231,7 +231,7 @@
 		if(slot_wear_pda)
 			wear_pda = I
 			update_inv_wear_pda()
-		if(slot_l_ear)
+		if(SLOT_HUD_LEFT_EAR)
 			l_ear = I
 			if(l_ear.slot_flags & SLOT_FLAG_TWOEARS)
 				var/obj/item/clothing/ears/offear/O = new(I)
@@ -287,7 +287,7 @@
 		if(slot_w_uniform)
 			w_uniform = I
 			update_inv_w_uniform()
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			l_store = I
 			update_inv_pockets()
 		if(slot_r_store)
@@ -337,7 +337,7 @@
 			return handcuffed
 		if(slot_legcuffed)
 			return legcuffed
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return l_hand
 		if(slot_r_hand)
 			return r_hand
@@ -347,7 +347,7 @@
 			return wear_id
 		if(slot_wear_pda)
 			return wear_pda
-		if(slot_l_ear)
+		if(SLOT_HUD_LEFT_EAR)
 			return l_ear
 		if(slot_r_ear)
 			return r_ear
@@ -363,7 +363,7 @@
 			return wear_suit
 		if(slot_w_uniform)
 			return w_uniform
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			return l_store
 		if(slot_r_store)
 			return r_store

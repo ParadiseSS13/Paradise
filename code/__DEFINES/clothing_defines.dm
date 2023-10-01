@@ -13,18 +13,18 @@
 #define SLOT_HUD_BACK 1
 #define SLOT_HUD_WEAR_MASK 2
 #define slot_handcuffed 3
-#define slot_l_hand 4
+#define SLOT_HUD_LEFT_HAND 4 // l_hand
 #define slot_r_hand 5
 #define slot_belt 6
 #define slot_wear_id 7
-#define slot_l_ear 8
+#define SLOT_HUD_LEFT_EAR 8 // l_ear
 #define slot_glasses 9
 #define slot_gloves 10
 #define SLOT_HUD_HEAD 11
 #define slot_shoes 12
 #define slot_wear_suit 13
 #define slot_w_uniform 14
-#define slot_l_store 15
+#define SLOT_HUD_LEFT_STORE 15 // l_store
 #define slot_r_store 16
 #define slot_s_store 17
 #define slot_in_backpack 18

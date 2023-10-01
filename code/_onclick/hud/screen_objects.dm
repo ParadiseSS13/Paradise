@@ -452,11 +452,11 @@
 			if(C.handcuffed)
 				. += handcuff_overlay
 
-			var/obj/item/organ/external/hand = C.get_organ("[slot_id == slot_l_hand ? "l" : "r"]_hand")
+			var/obj/item/organ/external/hand = C.get_organ("[slot_id == SLOT_HUD_LEFT_HAND ? "l" : "r"]_hand")
 			if(!isalien(C) && (!hand || !hand.is_usable()))
 				. += blocked_overlay
 
-		if(slot_id == slot_l_hand && hud.mymob.hand)
+		if(slot_id == SLOT_HUD_LEFT_HAND && hud.mymob.hand)
 			. += active_overlay
 		else if(slot_id == slot_r_hand && !hud.mymob.hand)
 			. += active_overlay

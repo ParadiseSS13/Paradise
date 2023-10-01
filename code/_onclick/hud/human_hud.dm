@@ -136,7 +136,7 @@
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = slot_l_hand
+	inv_box.slot_id = SLOT_HUD_LEFT_HAND
 	static_inventory += inv_box
 
 	using = new /obj/screen/swap_hand()
@@ -202,7 +202,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "pocket"
 	inv_box.screen_loc = ui_storage1
-	inv_box.slot_id = slot_l_store
+	inv_box.slot_id = SLOT_HUD_LEFT_STORE
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	static_inventory += inv_box
@@ -273,7 +273,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "ears"
 	inv_box.screen_loc = ui_l_ear
-	inv_box.slot_id = slot_l_ear
+	inv_box.slot_id = SLOT_HUD_LEFT_EAR
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box

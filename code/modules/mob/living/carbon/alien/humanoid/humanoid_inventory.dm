@@ -28,7 +28,7 @@
 		switch(slot_id)
 //			if("o_clothing")
 //			if("head")
-			if(slot_l_store)
+			if(SLOT_HUD_LEFT_STORE)
 				if(l_store)
 					return
 				if(W.w_class > WEIGHT_CLASS_NORMAL)
@@ -50,7 +50,7 @@
 				if(wear_suit)	wear_suit.attack_alien(src)
 			if(SLOT_HUD_HEAD)
 				if(head)		head.attack_alien(src)
-			if(slot_l_store)
+			if(SLOT_HUD_LEFT_STORE)
 				if(l_store)		l_store.attack_alien(src)
 			if(slot_r_store)
 				if(r_store)		r_store.attack_alien(src)

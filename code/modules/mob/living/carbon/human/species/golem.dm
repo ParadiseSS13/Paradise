@@ -572,7 +572,7 @@
 	last_banana = world.time
 	last_honk = world.time
 	H.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(H), slot_r_store)
-	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), slot_l_store)
+	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), SLOT_HUD_LEFT_STORE)
 	H.AddElement(/datum/element/waddling)
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/C)
@@ -651,7 +651,7 @@
 	..()
 	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), SLOT_HUD_HEAD)
 	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_r_store)
-	H.equip_to_slot_or_del(new 	/obj/item/cane(H), slot_l_hand)
+	H.equip_to_slot_or_del(new 	/obj/item/cane(H), SLOT_HUD_LEFT_HAND)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/conjure/build/mime_wall(null))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/mime/speak(null))

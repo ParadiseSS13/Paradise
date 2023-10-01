@@ -61,7 +61,7 @@
 		l_hand = W
 		W.layer = ABOVE_HUD_LAYER	//TODO: move to equipped?
 		W.plane = ABOVE_HUD_PLANE	//TODO: move to equipped?
-		W.equipped(src,slot_l_hand)
+		W.equipped(src,SLOT_HUD_LEFT_HAND)
 		if(pulling == W)
 			stop_pulling()
 		update_inv_l_hand()
@@ -301,7 +301,7 @@
 			return wear_mask
 		if(SLOT_HUD_BACK)
 			return back
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return l_hand
 		if(slot_r_hand)
 			return r_hand

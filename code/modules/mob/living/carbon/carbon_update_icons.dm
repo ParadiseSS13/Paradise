@@ -37,7 +37,7 @@
 		return
 	var/obj/screen/inventory/R = hud_used.inv_slots[slot_r_hand]
 	R?.update_icon()
-	var/obj/screen/inventory/L = hud_used.inv_slots[slot_l_hand]
+	var/obj/screen/inventory/L = hud_used.inv_slots[SLOT_HUD_LEFT_HAND]
 	L?.update_icon()
 
 /mob/living/carbon/update_inv_r_hand(ignore_cuffs)
