@@ -740,9 +740,9 @@
 			return !H.back && (I.slot_flags & SLOT_FLAG_BACK)
 		if(SLOT_HUD_OUTER_SUIT)
 			return !H.wear_suit && (I.slot_flags & SLOT_FLAG_OCLOTHING)
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			return !H.gloves && (I.slot_flags & SLOT_FLAG_GLOVES)
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			return !H.shoes && (I.slot_flags & SLOT_FLAG_FEET)
 		if(slot_belt)
 			if(H.belt)
@@ -756,7 +756,7 @@
 			if(!(I.slot_flags & SLOT_FLAG_BELT))
 				return
 			return TRUE
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			return !H.glasses && (I.slot_flags & SLOT_FLAG_EYES)
 		if(SLOT_HUD_HEAD)
 			return !H.head && (I.slot_flags & SLOT_FLAG_HEAD)

@@ -808,7 +808,7 @@
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
 /obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
-	if(slot == slot_gloves)
+	if(slot == SLOT_HUD_GLOVES)
 		return TRUE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)

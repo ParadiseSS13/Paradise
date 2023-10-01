@@ -43,13 +43,13 @@
 			return has_organ("head")
 		if(SLOT_HUD_RIGHT_EAR)
 			return has_organ("head")
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			return has_organ("head")
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			return has_organ("l_hand") && has_organ("r_hand")
 		if(SLOT_HUD_HEAD)
 			return has_organ("head")
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			return has_organ("r_foot") && has_organ("l_foot")
 		if(SLOT_HUD_OUTER_SUIT)
 			return has_organ("chest")
@@ -249,7 +249,7 @@
 				O.layer = ABOVE_HUD_LAYER
 				O.plane = ABOVE_HUD_PLANE
 			update_inv_ears()
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			glasses = I
 			var/obj/item/clothing/glasses/G = I
 			if(G.tint)
@@ -260,7 +260,7 @@
 				update_sight()
 			update_inv_glasses()
 			update_client_colour()
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			gloves = I
 			update_inv_gloves()
 		if(SLOT_HUD_HEAD)
@@ -276,7 +276,7 @@
 					update_sight()
 			head_update(I)
 			update_inv_head()
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			shoes = I
 			update_inv_shoes()
 		if(SLOT_HUD_OUTER_SUIT)
@@ -351,13 +351,13 @@
 			return l_ear
 		if(SLOT_HUD_RIGHT_EAR)
 			return r_ear
-		if(slot_glasses)
+		if(SLOT_HUD_GLASSES)
 			return glasses
-		if(slot_gloves)
+		if(SLOT_HUD_GLOVES)
 			return gloves
 		if(SLOT_HUD_HEAD)
 			return head
-		if(slot_shoes)
+		if(SLOT_HUD_SHOES)
 			return shoes
 		if(SLOT_HUD_OUTER_SUIT)
 			return wear_suit

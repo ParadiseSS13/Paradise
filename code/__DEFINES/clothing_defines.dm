@@ -18,10 +18,10 @@
 #define slot_belt 6
 #define SLOT_HUD_WEAR_ID 7
 #define SLOT_HUD_LEFT_EAR 8 // l_ear
-#define slot_glasses 9
-#define slot_gloves 10
+#define SLOT_HUD_GLASSES 9
+#define SLOT_HUD_GLOVES 10
 #define SLOT_HUD_HEAD 11
-#define slot_shoes 12
+#define SLOT_HUD_SHOES 12
 #define SLOT_HUD_OUTER_SUIT 13 // wear_suit
 #define SLOT_HUD_JUMPSUIT 14 // w_uniform
 #define SLOT_HUD_LEFT_STORE 15 // l_store

@@ -275,11 +275,11 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		SLOT_HUD_OUTER_SUIT,\
 		SLOT_HUD_WEAR_MASK,\
 		SLOT_HUD_HEAD,\
-		slot_shoes,\
-		slot_gloves,\
+		SLOT_HUD_SHOES,\
+		SLOT_HUD_GLOVES,\
 		SLOT_HUD_LEFT_EAR,\
 		SLOT_HUD_RIGHT_EAR,\
-		slot_glasses,\
+		SLOT_HUD_GLASSES,\
 		slot_belt,\
 		SLOT_HUD_SUIT_STORE,\
 		slot_tie,\
@@ -349,7 +349,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_gloves)
+			if(SLOT_HUD_GLOVES)
 				if( !(slot_flags & SLOT_FLAG_GLOVES) )
 					return 0
 				if(H.gloves)
@@ -358,7 +358,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_shoes)
+			if(SLOT_HUD_SHOES)
 				if( !(slot_flags & SLOT_FLAG_FEET) )
 					return 0
 				if(H.shoes)
@@ -380,7 +380,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_glasses)
+			if(SLOT_HUD_GLASSES)
 				if( !(slot_flags & SLOT_FLAG_EYES) )
 					return 0
 				if(H.glasses)

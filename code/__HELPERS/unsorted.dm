@@ -2062,15 +2062,15 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(SLOT_FLAG_ICLOTHING)
 			return SLOT_HUD_JUMPSUIT
 		if(SLOT_FLAG_GLOVES)
-			return slot_gloves
+			return SLOT_HUD_GLOVES
 		if(SLOT_FLAG_EYES)
-			return slot_glasses
+			return SLOT_HUD_GLASSES
 		if(SLOT_FLAG_MASK)
 			return SLOT_HUD_WEAR_MASK
 		if(SLOT_FLAG_HEAD)
 			return SLOT_HUD_HEAD
 		if(SLOT_FLAG_FEET)
-			return slot_shoes
+			return SLOT_HUD_SHOES
 		if(SLOT_FLAG_ID)
 			return SLOT_HUD_WEAR_ID
 		if(SLOT_FLAG_BELT)

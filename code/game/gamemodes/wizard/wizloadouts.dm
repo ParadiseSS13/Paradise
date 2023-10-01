@@ -62,8 +62,8 @@
 
 /obj/effect/proc_holder/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), SLOT_HUD_OUTER_SUIT)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), slot_gloves)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), SLOT_HUD_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), SLOT_HUD_GLOVES)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), SLOT_HUD_JUMPSUIT)
 
 /datum/spellbook_entry/loadout/greytide

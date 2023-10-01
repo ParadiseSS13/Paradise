@@ -131,5 +131,5 @@
 /obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), SLOT_HUD_OUTER_SUIT)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), SLOT_HUD_HEAD)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), SLOT_HUD_JUMPSUIT)

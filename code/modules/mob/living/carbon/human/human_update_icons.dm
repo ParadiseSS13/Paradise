@@ -662,7 +662,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_gloves()
 	remove_overlay(GLOVES_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_gloves]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_GLOVES]
 		if(inv)
 			inv.update_icon()
 
@@ -702,7 +702,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	remove_overlay(OVER_MASK_LAYER)
 
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_glasses]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_GLASSES]
 		if(inv)
 			inv.update_icon()
 
@@ -788,7 +788,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_shoes()
 	remove_overlay(SHOES_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_shoes]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_SHOES]
 		if(inv)
 			inv.update_icon()
 

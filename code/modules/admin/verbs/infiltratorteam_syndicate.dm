@@ -149,7 +149,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
 	G.name = "black gloves"
-	equip_to_slot_or_del(G, slot_gloves)
+	equip_to_slot_or_del(G, SLOT_HUD_GLOVES)
 
 	// Implants:
 	// Uplink
@@ -170,7 +170,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	equip_or_collect(new /obj/item/pda(src), SLOT_HUD_IN_BACKPACK)
 
 	// Other gear
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), slot_shoes)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), SLOT_HUD_SHOES)
 
 	var/obj/item/card/id/syndicate/W = new(src)
 	if (flag_mgmt)

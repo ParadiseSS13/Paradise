@@ -281,8 +281,8 @@
 			back = /obj/item/storage/backpack
 
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), SLOT_HUD_JUMPSUIT)
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
-	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
+	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), SLOT_HUD_SHOES)
+	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), SLOT_HUD_GLOVES)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), SLOT_HUD_WEAR_ID)
 	synd_mob.equip_to_slot_or_del(new back(synd_mob), SLOT_HUD_BACK)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)

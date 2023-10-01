@@ -74,7 +74,7 @@ STI KALY - blind
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				if(!H.unEquip(H.shoes))
 					qdel(H.shoes)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
 			return
 	else
 		var/mob/living/carbon/H = affected_mob

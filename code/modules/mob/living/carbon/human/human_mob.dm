@@ -341,10 +341,10 @@
 		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
 	if(!issmall(src))
-		if(slot_glasses in obscured)
+		if(SLOT_HUD_GLASSES in obscured)
 			dat += "<tr><td><font color=grey><B>Eyes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[UID()];item=[slot_glasses]'>[(glasses && !(glasses.flags&ABSTRACT))	? html_encode(glasses) : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_GLASSES]'>[(glasses && !(glasses.flags&ABSTRACT))	? html_encode(glasses) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(SLOT_HUD_LEFT_EAR in obscured)
 			dat += "<tr><td><font color=grey><B>Left Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
@@ -367,15 +367,15 @@
 		else
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Storage:</B></font></td></tr>"
 
-		if(slot_shoes in obscured)
+		if(SLOT_HUD_SHOES in obscured)
 			dat += "<tr><td><font color=grey><B>Shoes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[html_encode(slot_shoes)]'>[(shoes && !(shoes.flags&ABSTRACT))		? html_encode(shoes)		: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[html_encode(SLOT_HUD_SHOES)]'>[(shoes && !(shoes.flags&ABSTRACT))		? html_encode(shoes)		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_gloves in obscured)
+		if(SLOT_HUD_GLOVES in obscured)
 			dat += "<tr><td><font color=grey><B>Gloves:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=[UID()];item=[slot_gloves]'>[(gloves && !(gloves.flags&ABSTRACT))		? html_encode(gloves)	: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_GLOVES]'>[(gloves && !(gloves.flags&ABSTRACT))		? html_encode(gloves)	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		if(SLOT_HUD_JUMPSUIT in obscured)
 			dat += "<tr><td><font color=grey><B>Uniform:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
@@ -1066,17 +1066,17 @@
 
 	if(wear_suit)
 		if(wear_suit.flags_inv & HIDEGLOVES)
-			obscured |= slot_gloves
+			obscured |= SLOT_HUD_GLOVES
 		if(wear_suit.flags_inv & HIDEJUMPSUIT)
 			obscured |= SLOT_HUD_JUMPSUIT
 		if(wear_suit.flags_inv & HIDESHOES)
-			obscured |= slot_shoes
+			obscured |= SLOT_HUD_SHOES
 
 	if(head)
 		if(head.flags_inv & HIDEMASK)
 			obscured |= SLOT_HUD_WEAR_MASK
 		if(head.flags_inv & HIDEEYES)
-			obscured |= slot_glasses
+			obscured |= SLOT_HUD_GLASSES
 		if(head.flags_inv & HIDEEARS)
 			obscured |= SLOT_HUD_RIGHT_EAR
 			obscured |= SLOT_HUD_LEFT_EAR
@@ -1300,7 +1300,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, slot_shoes, slot_gloves, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, slot_glasses, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND)
+	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, SLOT_HUD_SHOES, SLOT_HUD_GLOVES, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)

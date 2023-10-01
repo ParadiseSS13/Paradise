@@ -253,7 +253,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "gloves"
 	inv_box.screen_loc = ui_gloves
-	inv_box.slot_id = slot_gloves
+	inv_box.slot_id = SLOT_HUD_GLOVES
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -263,7 +263,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "glasses"
 	inv_box.screen_loc = ui_glasses
-	inv_box.slot_id = slot_glasses
+	inv_box.slot_id = SLOT_HUD_GLASSES
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -303,7 +303,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "shoes"
 	inv_box.screen_loc = ui_shoes
-	inv_box.slot_id = slot_shoes
+	inv_box.slot_id = SLOT_HUD_SHOES
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box

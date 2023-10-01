@@ -37,7 +37,7 @@
 		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), SLOT_HUD_LEFT_EAR)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), SLOT_HUD_HEAD)
 		H.equip_to_slot_or_del(new /obj/item/claymore/highlander(H), SLOT_HUD_RIGHT_HAND)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), SLOT_HUD_SHOES)
 		H.equip_to_slot_or_del(new /obj/item/pinpointer(H.loc), SLOT_HUD_LEFT_STORE)
 
 		var/obj/item/card/id/W = new(H)
