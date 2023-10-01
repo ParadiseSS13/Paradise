@@ -766,7 +766,7 @@
 			return !H.r_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.l_ear)
 		if(SLOT_HUD_JUMPSUIT)
 			return !H.w_uniform && (I.slot_flags & SLOT_FLAG_ICLOTHING)
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			if(H.wear_id)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -778,7 +778,7 @@
 			if(!(I.slot_flags & SLOT_FLAG_ID))
 				return FALSE
 			return TRUE
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			if(H.wear_pda)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)

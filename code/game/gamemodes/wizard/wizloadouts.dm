@@ -89,7 +89,7 @@
 	user.unEquip(user.wear_id)
 	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, SLOT_HUD_JUMPSUIT) //Just in case they're naked
 	var/obj/item/card/id/wizid = new /obj/item/card/id(src)
-	user.equip_to_slot_or_del(wizid, slot_wear_id)
+	user.equip_to_slot_or_del(wizid, SLOT_HUD_WEAR_ID)
 	wizid.registered_name = user.real_name
 	wizid.access = list(ACCESS_MAINT_TUNNELS)
 	wizid.assignment = "Assistant"

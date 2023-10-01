@@ -469,9 +469,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 		if(belt)
 			M.equip_to_slot_or_del(new belt.type(M), slot_belt)
 
-		var/obj/pda = H.get_item_by_slot(slot_wear_pda)
+		var/obj/pda = H.get_item_by_slot(SLOT_HUD_WEAR_PDA)
 		if(pda)
-			M.equip_to_slot_or_del(new pda.type(M), slot_wear_pda)
+			M.equip_to_slot_or_del(new pda.type(M), SLOT_HUD_WEAR_PDA)
 
 		var/obj/back = H.get_item_by_slot(SLOT_HUD_BACK)
 		if(back)
@@ -629,7 +629,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 	var/obj/item/card/id/W = new /obj/item/card/id
 	if(duplicate_self)
-		var/duplicated_access = usr.get_item_by_slot(slot_wear_id)
+		var/duplicated_access = usr.get_item_by_slot(SLOT_HUD_WEAR_ID)
 		if(duplicated_access && istype(duplicated_access, /obj/item/card/id))
 			var/obj/item/card/id/duplicated_id = duplicated_access
 			W.access = duplicated_id.access
@@ -644,7 +644,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	W.registered_name = M.real_name
 	W.update_label(M.real_name)
 	W.SetOwnerInfo(M)
-	M.equip_to_slot_or_del(W, slot_wear_id)
+	M.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
 
 	if(isvox(M))
 		M.dna.species.after_equip_job(null, M) //Nitrogen tanks

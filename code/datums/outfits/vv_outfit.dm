@@ -33,9 +33,9 @@
 			r_ear = item_path
 		if(slot_glasses)
 			glasses = item_path
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			id = item_path
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			pda = item_path
 		if(SLOT_HUD_SUIT_STORE)
 			suit_store = item_path
@@ -68,7 +68,7 @@
 
 	//Copy equipment
 	var/list/result = list()
-	var/list/slots_to_check = list(SLOT_HUD_JUMPSUIT, SLOT_HUD_BACK, SLOT_HUD_OUTER_SUIT, slot_belt, slot_gloves, slot_shoes, SLOT_HUD_HEAD, SLOT_HUD_WEAR_MASK, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, slot_glasses, slot_wear_id, slot_wear_pda, SLOT_HUD_SUIT_STORE, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE)
+	var/list/slots_to_check = list(SLOT_HUD_JUMPSUIT, SLOT_HUD_BACK, SLOT_HUD_OUTER_SUIT, slot_belt, slot_gloves, slot_shoes, SLOT_HUD_HEAD, SLOT_HUD_WEAR_MASK, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, slot_glasses, SLOT_HUD_WEAR_ID, SLOT_HUD_WEAR_PDA, SLOT_HUD_SUIT_STORE, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE)
 	for(var/s in slots_to_check)
 		var/obj/item/I = get_item_by_slot(s)
 		var/vedits = collect_vv(I)
@@ -79,7 +79,7 @@
 
 	//Copy access
 	O.stored_access = list()
-	var/obj/item/id_slot = get_item_by_slot(slot_wear_id)
+	var/obj/item/id_slot = get_item_by_slot(SLOT_HUD_WEAR_ID)
 	if(id_slot)
 		O.stored_access |= id_slot.GetAccess()
 		var/obj/item/card/id/ID = id_slot.GetID()
@@ -156,7 +156,7 @@
 		for(var/vname in edits)
 			I.vv_edit_var(vname,edits[vname])
 	//Apply access
-	var/obj/item/id_slot = H.get_item_by_slot(slot_wear_id)
+	var/obj/item/id_slot = H.get_item_by_slot(SLOT_HUD_WEAR_ID)
 	if(id_slot)
 		var/obj/item/card/id/card = id_slot.GetID()
 		if(istype(card))

@@ -79,7 +79,7 @@
 	if(glasses)
 		equip_item(H, glasses, slot_glasses)
 	if(id)
-		equip_item(H, id, slot_wear_id)
+		equip_item(H, id, SLOT_HUD_WEAR_ID)
 
 	if(!H.head && toggle_helmet && istype(H.wear_suit, /obj/item/clothing/suit/space/hardsuit))
 		var/obj/item/clothing/suit/space/hardsuit/HS = H.wear_suit
@@ -97,7 +97,7 @@
 		H.put_in_r_hand(new r_hand(H))
 
 	if(pda)
-		equip_item(H, pda, slot_wear_pda)
+		equip_item(H, pda, SLOT_HUD_WEAR_PDA)
 
 	if(uniform)
 		for(var/path in accessories)

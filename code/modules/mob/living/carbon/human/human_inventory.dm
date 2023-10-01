@@ -34,10 +34,10 @@
 			return has_organ("r_hand")
 		if(slot_belt)
 			return has_organ("chest")
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			// the only relevant check for this is the uniform check
 			return TRUE
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			return TRUE
 		if(SLOT_HUD_LEFT_EAR)
 			return has_organ("head")
@@ -223,12 +223,12 @@
 		if(slot_belt)
 			belt = I
 			update_inv_belt()
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			wear_id = I
 			if(hud_list.len)
 				sec_hud_set_ID()
 			update_inv_wear_id()
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			wear_pda = I
 			update_inv_wear_pda()
 		if(SLOT_HUD_LEFT_EAR)
@@ -343,9 +343,9 @@
 			return r_hand
 		if(slot_belt)
 			return belt
-		if(slot_wear_id)
+		if(SLOT_HUD_WEAR_ID)
 			return wear_id
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			return wear_pda
 		if(SLOT_HUD_LEFT_EAR)
 			return l_ear

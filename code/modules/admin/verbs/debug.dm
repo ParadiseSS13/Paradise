@@ -471,7 +471,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.registered_name = H.real_name
 			id.assignment = "Captain"
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
-			H.equip_to_slot_or_del(id, slot_wear_id)
+			H.equip_to_slot_or_del(id, SLOT_HUD_WEAR_ID)
 			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")

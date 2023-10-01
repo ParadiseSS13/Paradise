@@ -259,7 +259,7 @@
 		S.handle_item_insertion(src)
 		return 1
 
-	S = M.get_item_by_slot(slot_wear_id)
+	S = M.get_item_by_slot(SLOT_HUD_WEAR_ID)
 	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in a wallet
 		S.handle_item_insertion(src)
 		return 1

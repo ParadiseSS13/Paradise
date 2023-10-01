@@ -283,11 +283,11 @@
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), SLOT_HUD_JUMPSUIT)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
-	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
+	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), SLOT_HUD_WEAR_ID)
 	synd_mob.equip_to_slot_or_del(new back(synd_mob), SLOT_HUD_BACK)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
-	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
+	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), SLOT_HUD_WEAR_PDA)
 	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = uplink_uses

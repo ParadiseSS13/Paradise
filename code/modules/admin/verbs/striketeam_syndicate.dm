@@ -163,6 +163,6 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	W.assignment = "Syndicate Commando"
 	W.access += get_syndicate_access(W.assignment)
 	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
+	equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
 
 	return 1

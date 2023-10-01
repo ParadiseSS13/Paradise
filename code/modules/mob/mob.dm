@@ -269,8 +269,8 @@
 //The list of slots by priority. equip_to_appropriate_slot() uses this list. Doesn't matter if a mob type doesn't have a slot.
 GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		SLOT_HUD_BACK,\
-		slot_wear_pda,\
-		slot_wear_id,\
+		SLOT_HUD_WEAR_PDA,\
+		SLOT_HUD_WEAR_ID,\
 		SLOT_HUD_JUMPSUIT,\
 		SLOT_HUD_OUTER_SUIT,\
 		SLOT_HUD_WEAR_MASK,\
@@ -425,7 +425,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_wear_id)
+			if(SLOT_HUD_WEAR_ID)
 				if(!H.w_uniform)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")

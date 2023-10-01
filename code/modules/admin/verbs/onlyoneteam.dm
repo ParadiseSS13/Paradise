@@ -38,7 +38,7 @@
 			W.access += get_all_centcom_access()
 			W.assignment = "Professional Pee-Wee League Dodgeball Player"
 			W.registered_name = H.real_name
-			H.equip_to_slot_or_del(W, slot_wear_id)
+			H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
 
 		else
 			GLOB.team_bravo += H
@@ -51,7 +51,7 @@
 			W.access += get_all_centcom_access()
 			W.assignment = "Professional Pee-Wee League Dodgeball Player"
 			W.registered_name = H.real_name
-			H.equip_to_slot_or_del(W, slot_wear_id)
+			H.equip_to_slot_or_del(W, SLOT_HUD_WEAR_ID)
 
 		team_toggle = !team_toggle
 		H.dna.species.after_equip_job(null, H)
