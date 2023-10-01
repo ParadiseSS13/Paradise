@@ -74,8 +74,8 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/owl(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/owl(H), SLOT_HUD_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings(H), SLOT_HUD_OUTER_SUIT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), SLOT_HUD_WEAR_MASK)
 	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), slot_belt)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), slot_glasses)
@@ -93,8 +93,8 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/griffin(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/griffin(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/griffin(H), SLOT_HUD_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/toggle/owlwings/griffinwings(H), SLOT_HUD_OUTER_SUIT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/griffin/(H), SLOT_HUD_HEAD)
 
 	var/obj/item/implant/freedom/L = new/obj/item/implant/freedom(H)
@@ -113,8 +113,8 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), SLOT_HUD_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), SLOT_HUD_OUTER_SUIT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), SLOT_HUD_HEAD)
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), slot_gloves)
 	H.equip_to_slot_or_del(new /obj/item/bedsheet/orange(H), SLOT_HUD_BACK)
@@ -132,8 +132,8 @@
 	..()
 
 	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), slot_w_uniform)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), slot_wear_suit)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), SLOT_HUD_JUMPSUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), SLOT_HUD_OUTER_SUIT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), SLOT_HUD_HEAD)
 	H.equip_to_slot_or_del(new /obj/item/bedsheet/cult(H), SLOT_HUD_BACK)
 
@@ -229,7 +229,7 @@
 	for(var/obj/item/W in target.get_all_slots())
 		target.unEquip(W)
 	target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
-	target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), slot_w_uniform)
+	target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), SLOT_HUD_JUMPSUIT)
 	target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), slot_shoes)
 	target.equip_to_slot_or_del(new /obj/item/storage/toolbox/mechanical/greytide(target), SLOT_HUD_LEFT_HAND)
 	target.equip_to_slot_or_del(new /obj/item/radio/headset(target), SLOT_HUD_LEFT_EAR)

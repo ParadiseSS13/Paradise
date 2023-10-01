@@ -57,9 +57,9 @@
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
-		equip_item(H, uniform, slot_w_uniform)
+		equip_item(H, uniform, SLOT_HUD_JUMPSUIT)
 	if(suit)
-		equip_item(H, suit, slot_wear_suit)
+		equip_item(H, suit, SLOT_HUD_OUTER_SUIT)
 	if(back)
 		equip_item(H, back, SLOT_HUD_BACK)
 	if(belt)
@@ -89,7 +89,7 @@
 		C.quick_activation()
 
 	if(suit_store)
-		equip_item(H, suit_store, slot_s_store)
+		equip_item(H, suit_store, SLOT_HUD_SUIT_STORE)
 
 	if(l_hand)
 		H.put_in_l_hand(new l_hand(H))

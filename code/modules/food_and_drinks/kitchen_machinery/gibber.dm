@@ -297,8 +297,8 @@
 		for(var/obj/item/I in H.get_contents())
 			if(I.resistance_flags & INDESTRUCTIBLE)
 				I.forceMove(get_turf(src))
-		if(H.get_item_by_slot(slot_s_store))
-			var/obj/item/ws = H.get_item_by_slot(slot_s_store)
+		if(H.get_item_by_slot(SLOT_HUD_SUIT_STORE))
+			var/obj/item/ws = H.get_item_by_slot(SLOT_HUD_SUIT_STORE)
 			if(ws.resistance_flags & INDESTRUCTIBLE)
 				ws.forceMove(get_turf(src))
 				H.s_store = null

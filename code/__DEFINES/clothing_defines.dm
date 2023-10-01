@@ -22,18 +22,18 @@
 #define slot_gloves 10
 #define SLOT_HUD_HEAD 11
 #define slot_shoes 12
-#define slot_wear_suit 13
-#define slot_w_uniform 14
+#define SLOT_HUD_OUTER_SUIT 13 // wear_suit
+#define SLOT_HUD_JUMPSUIT 14 // w_uniform
 #define SLOT_HUD_LEFT_STORE 15 // l_store
 #define SLOT_HUD_RIGHT_STORE 16 // r_store
-#define slot_s_store 17
+#define SLOT_HUD_SUIT_STORE 17
 #define slot_in_backpack 18
 #define SLOT_HUD_LEGCUFFED 19
 #define SLOT_HUD_RIGHT_EAR 20 // r_ear
 #define slot_wear_pda 21
 #define slot_tie 22
 #define slot_collar 23
-#define slots_amt 23
+#define SLOT_HUD_AMOUNT 23
 
 // accessory slots
 #define ACCESSORY_SLOT_DECOR 1

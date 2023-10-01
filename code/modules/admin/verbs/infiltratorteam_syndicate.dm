@@ -142,7 +142,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	// Storage items
 	equip_to_slot_or_del(new /obj/item/storage/backpack(src), SLOT_HUD_BACK)
 	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), slot_w_uniform)
+	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), SLOT_HUD_JUMPSUIT)
 	if(!flag_mgmt)
 		equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
 		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), slot_belt)

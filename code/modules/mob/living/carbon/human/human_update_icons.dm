@@ -572,7 +572,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_w_uniform]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_JUMPSUIT]
 		if(inv)
 			inv.update_icon()
 
@@ -824,7 +824,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_s_store()
 	remove_overlay(SUIT_STORE_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_s_store]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_SUIT_STORE]
 		if(inv)
 			inv.update_icon()
 
@@ -901,7 +901,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 /mob/living/carbon/human/update_inv_wear_suit()
 	remove_overlay(SUIT_LAYER)
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
 		if(inv)
 			inv.update_icon()
 

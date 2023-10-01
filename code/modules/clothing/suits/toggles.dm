@@ -8,7 +8,7 @@
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	if(!helmettype)
 		return
-	if(slot != slot_wear_suit)
+	if(slot != SLOT_HUD_OUTER_SUIT)
 		RemoveHelmet()
 	..()
 

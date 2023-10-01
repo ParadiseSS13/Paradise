@@ -833,7 +833,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return back
 		if(SLOT_HUD_WEAR_MASK)
 			return wear_mask
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			return wear_suit
 		if(SLOT_HUD_LEFT_HAND)
 			return l_hand

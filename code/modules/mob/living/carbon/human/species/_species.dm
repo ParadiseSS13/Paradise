@@ -738,7 +738,7 @@
 			return !H.wear_mask && (I.slot_flags & SLOT_FLAG_MASK)
 		if(SLOT_HUD_BACK)
 			return !H.back && (I.slot_flags & SLOT_FLAG_BACK)
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			return !H.wear_suit && (I.slot_flags & SLOT_FLAG_OCLOTHING)
 		if(slot_gloves)
 			return !H.gloves && (I.slot_flags & SLOT_FLAG_GLOVES)
@@ -764,7 +764,7 @@
 			return !H.l_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.r_ear)
 		if(SLOT_HUD_RIGHT_EAR)
 			return !H.r_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.l_ear)
-		if(slot_w_uniform)
+		if(SLOT_HUD_JUMPSUIT)
 			return !H.w_uniform && (I.slot_flags & SLOT_FLAG_ICLOTHING)
 		if(slot_wear_id)
 			if(H.wear_id)
@@ -817,7 +817,7 @@
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
 				return TRUE
 			return FALSE
-		if(slot_s_store)
+		if(SLOT_HUD_SUIT_STORE)
 			if(I.flags & NODROP) //Suit storage NODROP items drop if you take a suit off, this is to prevent people exploiting this.
 				return FALSE
 			if(H.s_store)

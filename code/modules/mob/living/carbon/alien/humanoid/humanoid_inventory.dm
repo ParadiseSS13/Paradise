@@ -46,7 +46,7 @@
 				update_inv_pockets()
 	else
 		switch(slot_id)
-			if(slot_wear_suit)
+			if(SLOT_HUD_OUTER_SUIT)
 				if(wear_suit)	wear_suit.attack_alien(src)
 			if(SLOT_HUD_HEAD)
 				if(head)		head.attack_alien(src)

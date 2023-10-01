@@ -29,7 +29,7 @@
 /datum/keybinding/human/suit_equip/down(client/C)
 	. = ..()
 	var/mob/living/carbon/human/M = C.mob
-	M.quick_equip_item(slot_s_store)
+	M.quick_equip_item(SLOT_HUD_SUIT_STORE)
 
 /datum/keybinding/human/toggle_holster
 	name = "Toggle Holster"

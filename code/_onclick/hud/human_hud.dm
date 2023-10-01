@@ -102,7 +102,7 @@
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "i_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = slot_w_uniform
+	inv_box.slot_id = SLOT_HUD_JUMPSUIT
 	inv_box.icon_state = "uniform"
 	inv_box.screen_loc = ui_iclothing
 	inv_box.color = ui_color
@@ -112,7 +112,7 @@
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "o_clothing"
 	inv_box.icon = ui_style
-	inv_box.slot_id = slot_wear_suit
+	inv_box.slot_id = SLOT_HUD_OUTER_SUIT
 	inv_box.icon_state = "suit"
 	inv_box.screen_loc = ui_oclothing
 	inv_box.color = ui_color
@@ -224,7 +224,7 @@
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_sstore1
-	inv_box.slot_id = slot_s_store
+	inv_box.slot_id = SLOT_HUD_SUIT_STORE
 	static_inventory += inv_box
 
 	using = new /obj/screen/resist()

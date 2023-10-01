@@ -271,8 +271,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		SLOT_HUD_BACK,\
 		slot_wear_pda,\
 		slot_wear_id,\
-		slot_w_uniform,\
-		slot_wear_suit,\
+		SLOT_HUD_JUMPSUIT,\
+		SLOT_HUD_OUTER_SUIT,\
 		SLOT_HUD_WEAR_MASK,\
 		SLOT_HUD_HEAD,\
 		slot_shoes,\
@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		SLOT_HUD_RIGHT_EAR,\
 		slot_glasses,\
 		slot_belt,\
-		slot_s_store,\
+		SLOT_HUD_SUIT_STORE,\
 		slot_tie,\
 		SLOT_HUD_LEFT_STORE,\
 		SLOT_HUD_RIGHT_STORE\
@@ -340,7 +340,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_wear_suit)
+			if(SLOT_HUD_OUTER_SUIT)
 				if( !(slot_flags & SLOT_FLAG_OCLOTHING) )
 					return 0
 				if(H.wear_suit)
@@ -416,7 +416,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_w_uniform)
+			if(SLOT_HUD_JUMPSUIT)
 				if( !(slot_flags & SLOT_FLAG_ICLOTHING) )
 					return 0
 				if(H.w_uniform)
@@ -457,7 +457,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET) )
 					return 1
 				return 0
-			if(slot_s_store)
+			if(SLOT_HUD_SUIT_STORE)
 				if(!H.wear_suit)
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a suit before you can attach this [name].</span>")

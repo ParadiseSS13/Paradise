@@ -607,7 +607,7 @@
 
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
-	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
+	if(ishuman(user) && hide_tail_by_species && slot == SLOT_HUD_OUTER_SUIT)
 		if("modsuit" in hide_tail_by_species)
 			return
 		if(user.dna.species.name in hide_tail_by_species)
@@ -724,7 +724,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_w_uniform) == src)
+	if(H.get_item_by_slot(SLOT_HUD_JUMPSUIT) == src)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_unequip()
 
@@ -732,7 +732,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == slot_w_uniform)
+	if(slot == SLOT_HUD_JUMPSUIT)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_equip()
 
@@ -845,7 +845,7 @@
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
 
-		if(usr.get_item_by_slot(slot_w_uniform) != src)
+		if(usr.get_item_by_slot(SLOT_HUD_JUMPSUIT) != src)
 			to_chat(usr, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 		else
