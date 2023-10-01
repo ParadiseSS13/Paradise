@@ -233,7 +233,7 @@
 			update_inv_wear_pda()
 		if(slot_l_ear)
 			l_ear = I
-			if(l_ear.slot_flags & SLOT_TWOEARS)
+			if(l_ear.slot_flags & SLOT_FLAG_TWOEARS)
 				var/obj/item/clothing/ears/offear/O = new(I)
 				O.forceMove(src)
 				r_ear = O
@@ -242,7 +242,7 @@
 			update_inv_ears()
 		if(slot_r_ear)
 			r_ear = I
-			if(r_ear.slot_flags & SLOT_TWOEARS)
+			if(r_ear.slot_flags & SLOT_FLAG_TWOEARS)
 				var/obj/item/clothing/ears/offear/O = new(I)
 				O.forceMove(src)
 				l_ear = O

@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	item_state = "energy_katana"
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 20
 	throwforce = 10
 	sharp = TRUE

@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 4
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
 	var/lit = FALSE

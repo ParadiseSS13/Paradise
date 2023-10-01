@@ -326,13 +326,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				return 1
 			if(slot_wear_mask)
-				if( !(slot_flags & SLOT_MASK) )
+				if( !(slot_flags & SLOT_FLAG_MASK) )
 					return 0
 				if(H.wear_mask)
 					return 0
 				return 1
 			if(slot_back)
-				if( !(slot_flags & SLOT_BACK) )
+				if( !(slot_flags & SLOT_FLAG_BACK) )
 					return 0
 				if(H.back)
 					if(!(H.back.flags & NODROP))
@@ -341,7 +341,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(slot_wear_suit)
-				if( !(slot_flags & SLOT_OCLOTHING) )
+				if( !(slot_flags & SLOT_FLAG_OCLOTHING) )
 					return 0
 				if(H.wear_suit)
 					if(!(H.wear_suit.flags & NODROP))
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(slot_gloves)
-				if( !(slot_flags & SLOT_GLOVES) )
+				if( !(slot_flags & SLOT_FLAG_GLOVES) )
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
@@ -359,7 +359,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(slot_shoes)
-				if( !(slot_flags & SLOT_FEET) )
+				if( !(slot_flags & SLOT_FLAG_FEET) )
 					return 0
 				if(H.shoes)
 					if(!(H.shoes.flags & NODROP))
@@ -372,7 +372,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( !(slot_flags & SLOT_BELT) )
+				if( !(slot_flags & SLOT_FLAG_BELT) )
 					return 0
 				if(H.belt)
 					if(!(H.belt.flags & NODROP))
@@ -381,7 +381,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(slot_glasses)
-				if( !(slot_flags & SLOT_EYES) )
+				if( !(slot_flags & SLOT_FLAG_EYES) )
 					return 0
 				if(H.glasses)
 					if(!(H.glasses.flags & NODROP))
@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(slot_head)
-				if( !(slot_flags & SLOT_HEAD) )
+				if( !(slot_flags & SLOT_FLAG_HEAD) )
 					return 0
 				if(H.head)
 					if(!(H.head.flags & NODROP))
@@ -417,7 +417,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(slot_w_uniform)
-				if( !(slot_flags & SLOT_ICLOTHING) )
+				if( !(slot_flags & SLOT_FLAG_ICLOTHING) )
 					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))
@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( !(slot_flags & SLOT_ID) )
+				if( !(slot_flags & SLOT_FLAG_ID) )
 					return 0
 				if(H.wear_id)
 					if(!(H.wear_id.flags & NODROP))
@@ -445,7 +445,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
+				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET) )
 					return 1
 			if(slot_r_store)
 				if(H.r_store)
@@ -454,7 +454,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_POCKET) )
+				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET) )
 					return 1
 				return 0
 			if(slot_s_store)

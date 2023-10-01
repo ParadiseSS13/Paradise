@@ -10,7 +10,7 @@
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "bluespace=2"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
 	user.visible_message("<span class='notice'>[user.name] activates the [name]!</span>")

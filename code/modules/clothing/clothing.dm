@@ -136,7 +136,7 @@
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
-	slot_flags = SLOT_EARS
+	slot_flags = SLOT_FLAG_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi') //We read you loud and skree-er.
@@ -158,7 +158,7 @@
 		return
 
 	var/obj/item/clothing/ears/O
-	if(slot_flags & SLOT_TWOEARS )
+	if(slot_flags & SLOT_FLAG_TWOEARS )
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
 		user.unEquip(O)
 		if(!istype(src, /obj/item/clothing/ears/offear))
@@ -182,7 +182,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
-	slot_flags = SLOT_EARS | SLOT_TWOEARS
+	slot_flags = SLOT_FLAG_EARS | SLOT_FLAG_TWOEARS
 
 /obj/item/clothing/ears/offear/New(obj/O)
 	. = ..()
@@ -199,7 +199,7 @@
 	icon = 'icons/obj/clothing/glasses.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
-	slot_flags = SLOT_EYES
+	slot_flags = SLOT_FLAG_EYES
 	materials = list(MAT_GLASS = 250)
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
@@ -257,7 +257,7 @@
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
-	slot_flags = SLOT_GLOVES
+	slot_flags = SLOT_FLAG_GLOVES
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	///Master pickpocket?
@@ -372,7 +372,7 @@
 	name = "head"
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	var/HUDType = null
 
 	var/vision_flags = 0
@@ -388,7 +388,7 @@
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_MASK
+	slot_flags = SLOT_FLAG_MASK
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
@@ -474,7 +474,7 @@
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
 	body_parts_covered = FEET
-	slot_flags = SLOT_FEET
+	slot_flags = SLOT_FLAG_FEET
 
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
@@ -543,7 +543,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	slot_flags = SLOT_OCLOTHING
+	slot_flags = SLOT_FLAG_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/suit_toggled = FALSE
 	var/suit_adjusted = FALSE
@@ -683,7 +683,7 @@
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
-	slot_flags = SLOT_ICLOTHING
+	slot_flags = SLOT_FLAG_ICLOTHING
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'

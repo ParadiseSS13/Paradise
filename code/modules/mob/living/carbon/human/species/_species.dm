@@ -735,15 +735,15 @@
 		if(slot_r_hand)
 			return !H.r_hand && !H.incapacitated()
 		if(slot_wear_mask)
-			return !H.wear_mask && (I.slot_flags & SLOT_MASK)
+			return !H.wear_mask && (I.slot_flags & SLOT_FLAG_MASK)
 		if(slot_back)
-			return !H.back && (I.slot_flags & SLOT_BACK)
+			return !H.back && (I.slot_flags & SLOT_FLAG_BACK)
 		if(slot_wear_suit)
-			return !H.wear_suit && (I.slot_flags & SLOT_OCLOTHING)
+			return !H.wear_suit && (I.slot_flags & SLOT_FLAG_OCLOTHING)
 		if(slot_gloves)
-			return !H.gloves && (I.slot_flags & SLOT_GLOVES)
+			return !H.gloves && (I.slot_flags & SLOT_FLAG_GLOVES)
 		if(slot_shoes)
-			return !H.shoes && (I.slot_flags & SLOT_FEET)
+			return !H.shoes && (I.slot_flags & SLOT_FLAG_FEET)
 		if(slot_belt)
 			if(H.belt)
 				return FALSE
@@ -753,19 +753,19 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_BELT))
+			if(!(I.slot_flags & SLOT_FLAG_BELT))
 				return
 			return TRUE
 		if(slot_glasses)
-			return !H.glasses && (I.slot_flags & SLOT_EYES)
+			return !H.glasses && (I.slot_flags & SLOT_FLAG_EYES)
 		if(slot_head)
-			return !H.head && (I.slot_flags & SLOT_HEAD)
+			return !H.head && (I.slot_flags & SLOT_FLAG_HEAD)
 		if(slot_l_ear)
-			return !H.l_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && H.r_ear)
+			return !H.l_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.r_ear)
 		if(slot_r_ear)
-			return !H.r_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && H.l_ear)
+			return !H.r_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.l_ear)
 		if(slot_w_uniform)
-			return !H.w_uniform && (I.slot_flags & SLOT_ICLOTHING)
+			return !H.w_uniform && (I.slot_flags & SLOT_FLAG_ICLOTHING)
 		if(slot_wear_id)
 			if(H.wear_id)
 				return FALSE
@@ -775,7 +775,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_ID))
+			if(!(I.slot_flags & SLOT_FLAG_ID))
 				return FALSE
 			return TRUE
 		if(slot_wear_pda)
@@ -787,7 +787,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_PDA))
+			if(!(I.slot_flags & SLOT_FLAG_PDA))
 				return FALSE
 			return TRUE
 		if(slot_l_store)
@@ -801,7 +801,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
 				return TRUE
 		if(slot_r_store)
 			if(I.flags & NODROP)
@@ -814,7 +814,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
 				return TRUE
 			return FALSE
 		if(slot_s_store)
@@ -865,7 +865,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_TIE))
+			if(!(I.slot_flags & SLOT_FLAG_TIE))
 				return FALSE
 			return TRUE
 

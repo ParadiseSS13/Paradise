@@ -21,7 +21,7 @@
 	allow_quick_empty = 1
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 // -----------------------------
 //          Trash bag
@@ -121,7 +121,7 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
-	slot_flags = SLOT_HEAD|SLOT_BELT
+	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -167,7 +167,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_BELT | SLOT_POCKET
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class

@@ -423,8 +423,8 @@
 	flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_MASK
-	adjusted_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_MASK
+	adjusted_flags = SLOT_FLAG_HEAD
 	icon_state = "bandbotany"
 	dyeable = TRUE
 	can_toggle = TRUE

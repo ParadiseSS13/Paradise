@@ -6,7 +6,7 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibunit"
 	item_state = "defibunit"
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
@@ -208,7 +208,7 @@
 	item_state = "defibcompact"
 	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "biotech=5"
 
 /obj/item/defibrillator/compact/loaded/Initialize(mapload)

@@ -146,7 +146,7 @@
 	force = 5
 	sharp = FALSE
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
@@ -1476,7 +1476,7 @@
 	icon_state = "fethasnecklace"
 	item_state = "fethasnecklace"
 	item_color = "fethasnecklace"
-	slot_flags = SLOT_MASK | SLOT_TIE
+	slot_flags = SLOT_FLAG_MASK | SLOT_FLAG_TIE
 
 /obj/item/bedsheet/fluff/hugosheet //HugoLuman: Dan Martinez
 	name = "Cosmic space blankie"
@@ -1599,7 +1599,7 @@
 	icon_state = "panzermedal"
 	item_state = "panzermedal"
 	item_color = "panzermedal"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/medal/fluff/XannZxiax //Sagrotter: Xann Zxiax
 	name = "Zxiax Garnet"
@@ -1608,7 +1608,7 @@
 	icon_state = "Xann_necklace"
 	item_state = "Xann_necklace"
 	item_color = "Xann_necklace"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/rbscarf //Rb303: Isthel Eisenwald
 	name = "Old purple scarf"
