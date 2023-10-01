@@ -403,7 +403,7 @@
 	emag_modules = list(/obj/item/borg/stun, /obj/item/restraints/handcuffs/cable/zipties/cyborg, /obj/item/rcd/borg)
 	override_modules = list(/obj/item/gun/energy/emitter/cyborg/proto)
 	malf_modules = list(/obj/item/gun/energy/emitter/cyborg)
-	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg, /obj/item/lightreplacer/cyborg,)
+	special_rechargables = list(/obj/item/extinguisher, /obj/item/weldingtool/largetank/cyborg, /obj/item/gun/energy/emitter/cyborg, /obj/item/lightreplacer/cyborg)
 
 /obj/item/robot_module/engineering/handle_death(mob/living/silicon/robot/R, gibbed)
 	var/obj/item/gripper_engineering/G = locate(/obj/item/gripper_engineering) in modules
