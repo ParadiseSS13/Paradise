@@ -291,7 +291,7 @@
 	ADD_SLOWDOWN(speed_mod)
 
 	var/turf/simulated/floor/T = get_turf(H)
-	if(!HAS_TRAIT(T, TRAIT_BLUESPACE_SPEED))
+	if(istype(T) && !HAS_TRAIT(T, TRAIT_BLUESPACE_SPEED))
 		if(H.wear_suit)
 			ADD_SLOWDOWN(H.wear_suit.slowdown)
 		if(H.head)
