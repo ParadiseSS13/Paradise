@@ -62,11 +62,6 @@
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
 //feel free to add shit to lists below
 
-
-//proc/get_pulse methods
-#define GETPULSE_HAND	0	//less accurate (hand)
-#define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
-
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORG 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
 #define PROCESS_SYN 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
