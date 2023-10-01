@@ -37,9 +37,6 @@
 		equip_item(H, /obj/item/storage/backpack, slot_back)
 	equip_item(H, /obj/item/radio/headset/deadsay, slot_l_ear)
 	H.dna.species.before_equip_job(/datum/job/assistant, H)
-	H.dna.species.after_equip_job(/datum/job/assistant, H)
-	if(isgrey(H))
-		REMOVE_TRAIT(H, TRAIT_WINGDINGS, GENETIC_MUTATION)
 	H.dna.species.remains_type = /obj/effect/decal/cleanable/ash
 	var/obj/item/implant/dust/I = new
 	I.implant(H, null)
@@ -78,6 +75,10 @@
 	ADD_TRAIT(H, TRAIT_RESPAWNABLE, GHOST_ROLE)
 
 	H.key = ckey
+	H.dna.species.after_equip_job(/datum/job/assistant, H)
+	if(isgrey(H))
+		var/obj/item/organ/internal/cyberimp/brain/speech_translator/implant = new
+		implant.insert(H)
 	log_game("[ckey] has entered the ghost bar")
 	playsound(src, 'sound/machines/wooden_closet_open.ogg', 50)
 
