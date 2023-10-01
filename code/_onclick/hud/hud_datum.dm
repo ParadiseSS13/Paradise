@@ -153,8 +153,8 @@
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
 			if(inv_slots[SLOT_HUD_LEFT_HAND])
 				mymob.client.screen += inv_slots[SLOT_HUD_LEFT_HAND]	//we want the hands to be visible
-			if(inv_slots[slot_r_hand])
-				mymob.client.screen += inv_slots[slot_r_hand]	//we want the hands to be visible
+			if(inv_slots[SLOT_HUD_RIGHT_HAND])
+				mymob.client.screen += inv_slots[SLOT_HUD_RIGHT_HAND]	//we want the hands to be visible
 			if(action_intent)
 				mymob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.

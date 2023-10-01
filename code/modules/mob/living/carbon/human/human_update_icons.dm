@@ -745,7 +745,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			inv.update_icon()
 
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_r_ear]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_RIGHT_EAR]
 		if(inv)
 			inv.update_icon()
 
@@ -951,7 +951,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		if(inv)
 			inv.update_icon()
 
-		inv = hud_used.inv_slots[slot_r_store]
+		inv = hud_used.inv_slots[SLOT_HUD_RIGHT_STORE]
 		if(inv)
 			inv.update_icon()
 

@@ -307,8 +307,8 @@
 			if(ls.resistance_flags & INDESTRUCTIBLE)
 				ls.forceMove(get_turf(src))
 				H.l_store = null
-		if(H.get_item_by_slot(slot_r_store))
-			var/obj/item/rs = H.get_item_by_slot(slot_r_store)
+		if(H.get_item_by_slot(SLOT_HUD_RIGHT_STORE))
+			var/obj/item/rs = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
 			if(rs.resistance_flags & INDESTRUCTIBLE)
 				rs.forceMove(get_turf(src))
 				H.r_store = null

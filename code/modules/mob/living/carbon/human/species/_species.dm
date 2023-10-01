@@ -732,7 +732,7 @@
 	switch(slot)
 		if(SLOT_HUD_LEFT_HAND)
 			return !H.l_hand && !H.incapacitated()
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			return !H.r_hand && !H.incapacitated()
 		if(SLOT_HUD_WEAR_MASK)
 			return !H.wear_mask && (I.slot_flags & SLOT_FLAG_MASK)
@@ -762,7 +762,7 @@
 			return !H.head && (I.slot_flags & SLOT_FLAG_HEAD)
 		if(SLOT_HUD_LEFT_EAR)
 			return !H.l_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.r_ear)
-		if(slot_r_ear)
+		if(SLOT_HUD_RIGHT_EAR)
 			return !H.r_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.l_ear)
 		if(slot_w_uniform)
 			return !H.w_uniform && (I.slot_flags & SLOT_FLAG_ICLOTHING)
@@ -803,7 +803,7 @@
 				return FALSE
 			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
 				return TRUE
-		if(slot_r_store)
+		if(SLOT_HUD_RIGHT_STORE)
 			if(I.flags & NODROP)
 				return FALSE
 			if(H.r_store)

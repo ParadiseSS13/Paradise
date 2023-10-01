@@ -24,7 +24,7 @@
 		to_chat(H, "<B>You are part of the [station_name()] dodgeball tournament. Throw dodgeballs at crewmembers wearing a different color than you. OOC: Use THROW on an EMPTY-HAND to catch thrown dodgeballs.</B>")
 
 		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), SLOT_HUD_LEFT_EAR)
-		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball_team(H), slot_r_hand)
+		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball_team(H), SLOT_HUD_RIGHT_HAND)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
 
 		if(!team_toggle)

@@ -208,7 +208,7 @@
 /mob/proc/put_in_any_hand_if_possible(obj/item/W as obj, del_on_fail = 0, disable_warning = 1)
 	if(equip_to_slot_if_possible(W, SLOT_HUD_LEFT_HAND, del_on_fail, disable_warning))
 		return 1
-	else if(equip_to_slot_if_possible(W, slot_r_hand, del_on_fail, disable_warning))
+	else if(equip_to_slot_if_possible(W, SLOT_HUD_RIGHT_HAND, del_on_fail, disable_warning))
 		return 1
 	return 0
 
@@ -278,13 +278,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		slot_shoes,\
 		slot_gloves,\
 		SLOT_HUD_LEFT_EAR,\
-		slot_r_ear,\
+		SLOT_HUD_RIGHT_EAR,\
 		slot_glasses,\
 		slot_belt,\
 		slot_s_store,\
 		slot_tie,\
 		SLOT_HUD_LEFT_STORE,\
-		slot_r_store\
+		SLOT_HUD_RIGHT_STORE\
 	))
 
 //puts the item "W" into an appropriate slot in a human's inventory
@@ -321,7 +321,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				if(H.l_hand)
 					return 0
 				return 1
-			if(slot_r_hand)
+			if(SLOT_HUD_RIGHT_HAND)
 				if(H.r_hand)
 					return 0
 				return 1
@@ -407,8 +407,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_r_ear)
-				if( !(slot_flags & slot_r_ear) )
+			if(SLOT_HUD_RIGHT_EAR)
+				if( !(slot_flags & SLOT_HUD_RIGHT_EAR) )
 					return 0
 				if(H.r_ear)
 					if(!(H.r_ear.flags & NODROP))
@@ -447,7 +447,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET) )
 					return 1
-			if(slot_r_store)
+			if(SLOT_HUD_RIGHT_STORE)
 				if(H.r_store)
 					return 0
 				if(!H.w_uniform)
@@ -589,7 +589,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	user.set_machine(src)
 	var/dat = {"<table>
 	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>

@@ -22,10 +22,10 @@
 		return
 	if(user.hand) 	//left active hand
 		if(!user.equip_to_slot_if_possible(attached_hand, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
-			if(!user.equip_to_slot_if_possible(attached_hand, slot_r_hand, FALSE, TRUE))
+			if(!user.equip_to_slot_if_possible(attached_hand, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
 				hand_handled = 0
 	else			//right active hand
-		if(!user.equip_to_slot_if_possible(attached_hand, slot_r_hand, FALSE, TRUE))
+		if(!user.equip_to_slot_if_possible(attached_hand, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
 			if(!user.equip_to_slot_if_possible(attached_hand, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
 				hand_handled = 0
 	if(!hand_handled)

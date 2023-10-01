@@ -443,7 +443,7 @@
 	if(!active_overlay)
 		active_overlay = image("icon"=icon, "icon_state"="hand_active")
 	if(!handcuff_overlay)
-		var/state = (slot_id == slot_r_hand) ? "markus" : "gabrielle"
+		var/state = (slot_id == SLOT_HUD_RIGHT_HAND) ? "markus" : "gabrielle"
 		handcuff_overlay = image("icon"='icons/mob/screen_gen.dmi', "icon_state"=state)
 
 	if(hud && hud.mymob)
@@ -458,7 +458,7 @@
 
 		if(slot_id == SLOT_HUD_LEFT_HAND && hud.mymob.hand)
 			. += active_overlay
-		else if(slot_id == slot_r_hand && !hud.mymob.hand)
+		else if(slot_id == SLOT_HUD_RIGHT_HAND && !hud.mymob.hand)
 			. += active_overlay
 
 /obj/screen/inventory/hand/Click()

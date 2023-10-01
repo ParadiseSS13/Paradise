@@ -33,9 +33,9 @@
 	var/list/slots = list(
 		"backpack" = slot_in_backpack,
 		"left pocket" = SLOT_HUD_LEFT_STORE,
-		"right pocket" = slot_r_store,
+		"right pocket" = SLOT_HUD_RIGHT_STORE,
 		"left hand" = SLOT_HUD_LEFT_HAND,
-		"right hand" = slot_r_hand,
+		"right hand" = SLOT_HUD_RIGHT_HAND,
 	)
 
 	var/flashloc_name

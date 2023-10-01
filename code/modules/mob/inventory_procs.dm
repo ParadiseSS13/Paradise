@@ -77,7 +77,7 @@
 		r_hand = W
 		W.layer = ABOVE_HUD_LAYER
 		W.plane = ABOVE_HUD_PLANE
-		W.equipped(src,slot_r_hand)
+		W.equipped(src,SLOT_HUD_RIGHT_HAND)
 		if(pulling == W)
 			stop_pulling()
 		update_inv_r_hand()
@@ -303,7 +303,7 @@
 			return back
 		if(SLOT_HUD_LEFT_HAND)
 			return l_hand
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			return r_hand
 	return null
 

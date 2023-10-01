@@ -65,7 +65,7 @@
 	inv_box.icon = 'icons/mob/screen_alien.dmi'
 	inv_box.icon_state = "hand_r"
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = slot_r_hand
+	inv_box.slot_id = SLOT_HUD_RIGHT_HAND
 	static_inventory += inv_box
 
 	inv_box = new /obj/screen/inventory/hand()

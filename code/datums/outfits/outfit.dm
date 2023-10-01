@@ -75,7 +75,7 @@
 	if(l_ear)
 		equip_item(H, l_ear, SLOT_HUD_LEFT_EAR)
 	if(r_ear)
-		equip_item(H, r_ear, slot_r_ear)
+		equip_item(H, r_ear, SLOT_HUD_RIGHT_EAR)
 	if(glasses)
 		equip_item(H, glasses, slot_glasses)
 	if(id)
@@ -109,7 +109,7 @@
 		if(l_pocket)
 			equip_item(H, l_pocket, SLOT_HUD_LEFT_STORE)
 		if(r_pocket)
-			equip_item(H, r_pocket, slot_r_store)
+			equip_item(H, r_pocket, SLOT_HUD_RIGHT_STORE)
 
 		if(box)
 			if(!backpack_contents)

@@ -491,7 +491,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!initial)
 		if(equip_sound && slot == slot_bitfield_to_slot(slot_flags))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
-		else if(slot == SLOT_HUD_LEFT_HAND || slot == slot_r_hand)
+		else if(slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)

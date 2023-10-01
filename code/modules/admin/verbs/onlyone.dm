@@ -36,7 +36,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/costume/kilt(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), SLOT_HUD_LEFT_EAR)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), SLOT_HUD_HEAD)
-		H.equip_to_slot_or_del(new /obj/item/claymore/highlander(H), slot_r_hand)
+		H.equip_to_slot_or_del(new /obj/item/claymore/highlander(H), SLOT_HUD_RIGHT_HAND)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/pinpointer(H.loc), SLOT_HUD_LEFT_STORE)
 
@@ -87,11 +87,11 @@
 
 		var/obj/item/slot_item_ID = H.get_item_by_slot(slot_wear_id)
 		qdel(slot_item_ID)
-		var/obj/item/slot_item_hand = H.get_item_by_slot(slot_r_hand)
+		var/obj/item/slot_item_hand = H.get_item_by_slot(SLOT_HUD_RIGHT_HAND)
 		H.unEquip(slot_item_hand)
 
 		var/obj/item/multisword/pure_evil/multi = new(H)
-		H.equip_to_slot_or_del(multi, slot_r_hand)
+		H.equip_to_slot_or_del(multi, SLOT_HUD_RIGHT_HAND)
 
 		var/obj/item/card/id/W = new(H)
 		W.icon_state = "centcom"

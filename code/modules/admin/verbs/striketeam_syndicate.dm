@@ -142,7 +142,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
 	else
 		equip_to_slot_or_del(new /obj/item/grenade/plastic/c4/x4(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/card/emag(src), slot_r_store)
+	equip_to_slot_or_del(new /obj/item/card/emag(src), SLOT_HUD_RIGHT_STORE)
 	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), SLOT_HUD_LEFT_STORE)
 
 	if(full_gear)
@@ -152,7 +152,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), slot_belt)
 		equip_to_slot_or_del(new /obj/item/tank/internals/oxygen/red(src), slot_s_store)
 		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_shoes)
-		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), slot_r_hand)
+		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), SLOT_HUD_RIGHT_HAND)
 		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), slot_in_backpack)
 
 	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)

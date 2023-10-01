@@ -547,7 +547,7 @@
  */
 /obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
 	// Checks if the gun got equipped into either of the user's hands.
-	if(slot != slot_r_hand && slot != SLOT_HUD_LEFT_HAND)
+	if(slot != SLOT_HUD_RIGHT_HAND && slot != SLOT_HUD_LEFT_HAND)
 		// If its not in their hands, un-zoom, and remove the zoom action button.
 		zoom(user, FALSE)
 		azoom.Remove(user)

@@ -204,7 +204,7 @@
 	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 
 	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
-	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
+	synd_mind.current.equip_to_slot_or_del(challenge, SLOT_HUD_RIGHT_HAND)
 
 	update_syndicate_id(synd_mind, leader_title, TRUE)
 
@@ -221,7 +221,7 @@
 		else
 			var/mob/living/carbon/human/H = synd_mind.current
 			P.loc = H.loc
-			H.equip_to_slot_or_del(P, slot_r_store, 0)
+			H.equip_to_slot_or_del(P, SLOT_HUD_RIGHT_STORE, 0)
 			H.update_icons()
 
 

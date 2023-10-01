@@ -1778,7 +1778,7 @@
 
 		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
 		if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
-			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_RIGHT_HAND )
 			if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")

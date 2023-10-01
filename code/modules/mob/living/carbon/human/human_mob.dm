@@ -307,7 +307,7 @@
 
 	var/dat = {"<table>
 	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
 	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_BACK]'>[(back && !(back.flags&ABSTRACT)) ? html_encode(back) : "<font color=grey>Empty</font>"]</A>"
@@ -351,10 +351,10 @@
 		else
 			dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_EAR]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? html_encode(l_ear)	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_r_ear in obscured)
+		if(SLOT_HUD_RIGHT_EAR in obscured)
 			dat += "<tr><td><font color=grey><B>Right Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Right Ear:</B></td><td><A href='?src=[UID()];item=[slot_r_ear]'>[(r_ear && !(r_ear.flags&ABSTRACT))		? html_encode(r_ear)		: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Right Ear:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_EAR]'>[(r_ear && !(r_ear.flags&ABSTRACT))		? html_encode(r_ear)		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		dat += "<tr><td>&nbsp;</td></tr>"
 
@@ -644,8 +644,8 @@
 
 		if(href_list["pockets"])
 			var/pocket_side = href_list["pockets"]
-			var/pocket_id = (pocket_side == "right" ? slot_r_store : SLOT_HUD_LEFT_STORE)
-			var/obj/item/pocket_item = (pocket_id == slot_r_store ? r_store : l_store)
+			var/pocket_id = (pocket_side == "right" ? SLOT_HUD_RIGHT_STORE : SLOT_HUD_LEFT_STORE)
+			var/obj/item/pocket_item = (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)
 			var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
 
 			var/delay_denominator = 1
@@ -661,7 +661,7 @@
 
 			if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
 				if(pocket_item)
-					if(pocket_item == (pocket_id == slot_r_store ? r_store : l_store)) //item still in the pocket we search
+					if(pocket_item == (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)) //item still in the pocket we search
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
@@ -1078,7 +1078,7 @@
 		if(head.flags_inv & HIDEEYES)
 			obscured |= slot_glasses
 		if(head.flags_inv & HIDEEARS)
-			obscured |= slot_r_ear
+			obscured |= SLOT_HUD_RIGHT_EAR
 			obscured |= SLOT_HUD_LEFT_EAR
 
 	if(obscured.len > 0)
@@ -1300,7 +1300,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, slot_shoes, slot_gloves, SLOT_HUD_LEFT_EAR, slot_r_ear, slot_glasses, SLOT_HUD_LEFT_HAND, slot_r_hand)
+	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, slot_shoes, slot_gloves, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, slot_glasses, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)

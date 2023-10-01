@@ -35,7 +35,7 @@
 /mob/living/carbon/proc/update_hands_hud()
 	if(!hud_used)
 		return
-	var/obj/screen/inventory/R = hud_used.inv_slots[slot_r_hand]
+	var/obj/screen/inventory/R = hud_used.inv_slots[SLOT_HUD_RIGHT_HAND]
 	R?.update_icon()
 	var/obj/screen/inventory/L = hud_used.inv_slots[SLOT_HUD_LEFT_HAND]
 	L?.update_icon()

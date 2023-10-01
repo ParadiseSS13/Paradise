@@ -106,10 +106,10 @@
 
 			if(target.hand) //left active hand
 				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
-					if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
+					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
 						butterfingers = TRUE
 			else			//right active hand
-				if(!target.equip_to_slot_if_possible(item_to_retrieve, slot_r_hand, FALSE, TRUE))
+				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
 					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
 						butterfingers = TRUE
 			if(butterfingers)

@@ -87,7 +87,7 @@
 		return 0
 
 	// Skip species restriction checks on non-equipment slots
-	if(slot in list(slot_r_hand, SLOT_HUD_LEFT_HAND, slot_in_backpack, SLOT_HUD_LEFT_STORE, slot_r_store))
+	if(slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, slot_in_backpack, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE))
 		return 1
 
 	if(species_restricted && ishuman(M))
