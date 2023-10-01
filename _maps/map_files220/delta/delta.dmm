@@ -2185,7 +2185,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "apF" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable{
@@ -6683,11 +6683,11 @@
 /area/station/maintenance/auxsolarport)
 "aGZ" = (
 /turf/simulated/wall/r_wall,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aHa" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aHc" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -7068,7 +7068,7 @@
 	pixel_x = -22
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aIu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 2;
@@ -7076,14 +7076,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aIv" = (
 /obj/machinery/atmospherics/unary/tank/toxins,
 /obj/structure/sign/nosmoking_2{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aIw" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -7095,7 +7095,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aIx" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister,
@@ -7108,10 +7108,10 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aIy" = (
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aIz" = (
 /obj/machinery/power/terminal{
 	dir = 4
@@ -7121,7 +7121,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aIA" = (
 /obj/machinery/power/smes{
 	charge = 1e+006
@@ -7134,7 +7134,7 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aIB" = (
 /obj/item/kirbyplants,
 /obj/effect/decal/warning_stripes/southwest,
@@ -7449,14 +7449,14 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aJO" = (
 /obj/machinery/atmospherics/binary/pump{
 	name = "Gas to Turbine"
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aJR" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/cable{
@@ -7465,7 +7465,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aJS" = (
 /obj/machinery/light{
 	dir = 1
@@ -7481,7 +7481,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aJU" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/structure/sign/nosmoking_2{
@@ -7494,7 +7494,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aJV" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
@@ -7796,7 +7796,7 @@
 	dir = 9;
 	icon_state = "caution"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aLc" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -7816,7 +7816,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aLk" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -7828,7 +7828,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aLp" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
@@ -8097,23 +8097,23 @@
 	dir = 8;
 	icon_state = "caution"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aMG" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8;
 	name = "Port to Turbine"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aMJ" = (
 /obj/structure/sign/vacuum,
 /turf/simulated/wall/r_wall,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aMK" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aML" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -8141,7 +8141,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aMV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -8365,14 +8365,14 @@
 "aNT" = (
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aNU" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6;
 	level = 1
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aOb" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -8391,7 +8391,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aOg" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/atmos)
@@ -8637,7 +8637,7 @@
 	name = "Turbine Vent"
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aPl" = (
 /obj/structure/sign/vacuum{
 	pixel_y = -32
@@ -8654,7 +8654,7 @@
 	luminosity = 2
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aPm" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -8670,7 +8670,7 @@
 	luminosity = 2
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aPn" = (
 /obj/machinery/igniter{
 	id = "Incinerator";
@@ -8685,7 +8685,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aPp" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -8693,7 +8693,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aPr" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -8707,7 +8707,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aPt" = (
 /obj/machinery/atmospherics/binary/valve{
 	name = "Exhaust Disposal"
@@ -8722,7 +8722,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aPv" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -9049,14 +9049,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aQO" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aQQ" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -9070,7 +9070,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aQR" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin,
@@ -9087,7 +9087,7 @@
 	dir = 6;
 	icon_state = "caution"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aQT" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -9543,20 +9543,20 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plating/airless,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aSy" = (
 /obj/machinery/door/poddoor{
 	id_tag = "auxincineratorvent";
 	name = "Incineration Chamber Vent"
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aSz" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aSA" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6;
@@ -10864,7 +10864,7 @@
 	dir = 4
 	},
 /turf/space,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "aWS" = (
 /obj/structure/chair/e_chair{
 	dir = 4
@@ -58888,7 +58888,7 @@
 	},
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "eIk" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/disposalpipe/trunk{
@@ -59277,7 +59277,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "eQg" = (
 /obj/machinery/biogenerator,
 /obj/structure/cable{
@@ -59950,7 +59950,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "fgI" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/disposalpipe/segment,
@@ -63313,7 +63313,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "gJT" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal{
@@ -64217,7 +64217,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "hhf" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -64576,7 +64576,7 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "huN" = (
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/decal/cleanable/dirt,
@@ -64767,7 +64767,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "hxP" = (
 /obj/structure/sign/bobross{
 	pixel_y = 32
@@ -65424,7 +65424,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "hLD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -66092,7 +66092,7 @@
 	pixel_y = -8
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "ibt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -68316,7 +68316,7 @@
 /area/station/maintenance/fsmaint)
 "jhJ" = (
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "jhM" = (
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -69536,7 +69536,7 @@
 	dir = 4
 	},
 /turf/simulated/wall/r_wall,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "jJW" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/structure/cable{
@@ -75346,7 +75346,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "mQK" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "fssolar_door_int";
@@ -75402,7 +75402,7 @@
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "mRc" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -76274,7 +76274,7 @@
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "nlB" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/prison/cell_block)
@@ -80654,7 +80654,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "piQ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -82168,7 +82168,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "pOf" = (
 /obj/structure/disposalpipe/junction/y{
 	dir = 4
@@ -82219,7 +82219,7 @@
 	dir = 4;
 	icon_state = "caution"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "pOK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -89644,7 +89644,7 @@
 	},
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "trf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -92947,7 +92947,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "uOa" = (
 /obj/item/chair/light,
 /obj/effect/decal/cleanable/dirt,
@@ -94564,7 +94564,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "vHE" = (
 /obj/machinery/mass_driver{
 	dir = 8;
@@ -94976,7 +94976,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "vRk" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -95695,7 +95695,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/engine,
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "wol" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -97556,7 +97556,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "xrg" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -98958,7 +98958,7 @@
 	dir = 10;
 	icon_state = "caution"
 	},
-/area/station/maintenance/incinerator)
+/area/station/maintenance/turbine)
 "yfi" = (
 /obj/structure/cable{
 	d1 = 2;
