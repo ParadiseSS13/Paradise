@@ -222,7 +222,7 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_AI_UNTRACKABLE))
 		return FALSE
-	if(user.is_jammed())
+	if(user && user.is_jammed())
 		return FALSE
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))

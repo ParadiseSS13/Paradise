@@ -209,6 +209,9 @@
 /mob/living/carbon/alien/proc/deathrattle_message()
 	return "<i><span class='alien'>The hivemind echoes: [name] has been slain!</span></i>"
 
+/mob/living/carbon/alien/CanContractDisease(datum/disease/D)
+	return FALSE
+
 /*----------------------------------------
 Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.

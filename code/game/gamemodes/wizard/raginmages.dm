@@ -22,12 +22,8 @@
 		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
 	messages.Add("<B>The Space Wizards Federation has given you the following tasks:</B>")
 
-	var/obj_count = 1
 	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
-	for(var/datum/objective/objective in wizard.objectives)
-		messages.Add("<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)</span>")
+	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
 	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 

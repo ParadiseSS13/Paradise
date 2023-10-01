@@ -1600,3 +1600,22 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	else
 		. = invoked_callback.Invoke()
 	usr = temp
+
+/mob/verb/give_kudos(mob/living/target as mob in oview())
+	set category = null
+	set name = "Give Kudos (OOC)"
+
+	if(target == src)
+		to_chat(src, "<span class='warning'>You cannot give kudos to yourself!</span>")
+		return
+
+	to_chat(src, "<span class='notice'>You've given kudos to [target]!</span>")
+
+	// Pretend we've always succeeded when we might not have.
+	// This should prevent people from using it to suss anything out about mobs' states
+	if(!client || !target.mind)
+		return
+
+	target.mind.kudos_received_from |= ckey
+
+

@@ -41,7 +41,7 @@ SUBSYSTEM_DEF(mapping)
 
 /datum/controller/subsystem/mapping/Initialize()
 	lavaland_theme = pick(/turf/simulated/floor/plating/lava/smooth/lava_land_surface, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma, /turf/simulated/floor/chasm/straight_down/lava_land_surface)
-	log_startup_progress("We feel like [lavaland_theme] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
 	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
 	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates
@@ -60,7 +60,7 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Skipping space ruins...")
 
 	// Makes a blank space level for the sake of randomness
-	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))
+	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY))
 
 
 	// Setup the Z-level linkage
@@ -134,7 +134,7 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Creating random space levels...")
 	var/num_extra_space = rand(GLOB.configuration.ruins.extra_levels_min, GLOB.configuration.ruins.extra_levels_max)
 	for(var/i in 1 to num_extra_space)
-		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
+		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, SPAWN_RUINS, REACHABLE_SPACE_ONLY))
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
 
 	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
@@ -164,7 +164,7 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.fluff_name]...")
 	// This should always be Z2, but you never know
-	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK))
+	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK))
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
 	log_startup_progress("Loaded [map_datum.fluff_name] in [stop_watch(watch)]s")
 
@@ -185,7 +185,7 @@ SUBSYSTEM_DEF(mapping)
 		return
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
-	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK))
+	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK))
 	GLOB.maploader.load_map(file("_maps/map_files/generic/Lavaland.dmm"), z_offset = lavaland_z_level)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 

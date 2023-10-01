@@ -13,6 +13,14 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	if(GLOB.unused_trade_stations.len)
 		station = pick_n_take(GLOB.unused_trade_stations)
 
+/datum/event/traders/fake_announce()
+	. = TRUE
+	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+		GLOB.minor_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
+		return
+	GLOB.minor_announcement.Announce("A trading shuttle from Jupiter Station has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
+
+
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
@@ -50,7 +58,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
 			M.equipOutfit(/datum/outfit/admin/sol_trader)
 			M.dna.species.after_equip_job(null, M)
-			M.mind.objectives += trader_objectives
+			for(var/datum/objective/O in trader_objectives)
+				M.mind.objective_holder.add_objective(O) // traders dont have a team, so we manually have to add this objective to all of their minds, without setting an owner
 			M.mind.offstation_role = TRUE
 			greet_trader(M)
 			success_spawn = TRUE
@@ -61,18 +70,13 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
 	chat_box_green("<span class='boldnotice'>You are a trader!</span><span class='notice'>You are currently docked at [get_area(M)].<br>You are about to trade with [station_name()].</span><br>")
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(show_objectives), M.mind), 25)
+	addtimer(CALLBACK(M.mind, TYPE_PROC_REF(/datum/mind, announce_objectives)), 2.5 SECONDS)
 	M.create_log(MISC_LOG, "[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()
 
-	var/datum/objective/trade/plasma/P = new /datum/objective/trade/plasma
-	P.choose_target()
-	objs += P
-
-	var/datum/objective/trade/credits/C = new /datum/objective/trade/credits
-	C.choose_target()
-	objs += C
+	objs += new /datum/objective/trade/plasma
+	objs += new /datum/objective/trade/credits
 
 	return objs

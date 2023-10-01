@@ -15,6 +15,10 @@
 	user.do_attack_animation(M)
 	playsound(M, hitsound, 50, TRUE, -1)
 	user.visible_message("<span class='danger'>[user] slaps [M]!</span>", "<span class='notice'>You slap [M]!</span>", "<span class='hear'>You hear a slap.</span>")
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(C.IsSleeping())
+			C.AdjustSleeping(-15 SECONDS)
 	if(force)
 		return ..()
 

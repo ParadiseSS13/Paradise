@@ -9,6 +9,7 @@
 /datum/game_mode/nuclear
 	name = "nuclear emergency"
 	config_tag = "nuclear"
+	tdm_gamemode = TRUE
 	required_players = 30	// 30 players - 5 players to be the nuke ops = 25 players remaining
 	required_enemies = 5
 	recommended_enemies = 5
@@ -64,8 +65,7 @@
 	if(operative_mind in syndicates)
 		SSticker.mode.syndicates -= operative_mind
 		operative_mind.special_role = null
-		for(var/datum/objective/nuclear/O in operative_mind.objectives)
-			operative_mind.objectives -= O
+		operative_mind.objective_holder.clear(/datum/objective/nuclear)
 		operative_mind.current.create_attack_log("<span class='danger'>No longer nuclear operative</span>")
 		operative_mind.current.create_log(CONVERSION_LOG, "No longer nuclear operative")
 		if(issilicon(operative_mind.current))
@@ -237,19 +237,14 @@
 		message_admins("Warning: Operative [key_name_admin(synd_mind.current)] spawned without an ID card!")
 
 /datum/game_mode/proc/forge_syndicate_objectives(datum/mind/syndicate)
-	var/datum/objective/nuclear/syndobj = new
-	syndobj.owner = syndicate
-	syndicate.objectives += syndobj
-
+	syndicate.add_mind_objective(/datum/objective/nuclear)
 
 /datum/game_mode/proc/greet_syndicate(datum/mind/syndicate, you_are=1)
 	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))
 	if(you_are)
 		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
-	var/obj_count = 1
-	for(var/datum/objective/objective in syndicate.objectives)
-		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+
+	syndicate.announce_objectives(title = FALSE)
 	to_chat(syndicate.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Nuclear_Agent)</span>")
 	syndicate.current.create_log(MISC_LOG, "[syndicate.current] was made into a nuclear operative")
 
@@ -265,11 +260,25 @@
 	R.set_frequency(radio_freq)
 	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
 
+	var/back
+
+	switch(synd_mob.backbag)
+		if(GBACKPACK, DBACKPACK)
+			back = /obj/item/storage/backpack
+		if(GSATCHEL, DSATCHEL)
+			back = /obj/item/storage/backpack/satchel_norm
+		if(GDUFFLEBAG, DDUFFLEBAG)
+			back = /obj/item/storage/backpack/duffel
+		if(LSATCHEL)
+			back = /obj/item/storage/backpack/satchel
+		else
+			back = /obj/item/storage/backpack
+
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), slot_w_uniform)
 	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
 	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
 	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/backpack(synd_mob), slot_back)
+	synd_mob.equip_to_slot_or_del(new back(synd_mob), slot_back)
 	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
 	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
 	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
@@ -277,6 +286,7 @@
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = uplink_uses
 	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
+	synd_mob.mind.offstation_role = TRUE
 
 	if(synd_mob.dna.species)
 		var/race = synd_mob.dna.species.name
@@ -302,11 +312,6 @@
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
 	return 1
-
-/datum/game_mode/nuclear/check_win()
-	if(nukes_left == 0)
-		return 1
-	return ..()
 
 
 /datum/game_mode/proc/is_operatives_are_dead()

@@ -5,6 +5,7 @@
 /datum/game_mode/wizard
 	name = "wizard"
 	config_tag = "wizard"
+	tdm_gamemode = TRUE
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
@@ -78,10 +79,7 @@
 	set_antag_hud(wiz_mind.current, null)
 
 /datum/game_mode/proc/forge_wizard_objectives(datum/mind/wizard)
-	var/datum/objective/wizchaos/wiz_objective = new
-	wiz_objective.owner = wizard
-	wizard.objectives += wiz_objective
-	return
+	wizard.add_mind_objective(/datum/objective/wizchaos)
 
 /datum/game_mode/proc/name_wizard(mob/living/carbon/human/wizard_mob)
 	//Allows the wizard to choose a custom name or go with a random one. Spawn 0 so it does not lag the round starting.
@@ -105,10 +103,7 @@
 		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
 	messages.Add("<B>The Space Wizards Federation has given you the following tasks:</B>")
 
-	var/obj_count = 1
-	for(var/datum/objective/objective in wizard.objectives)
-		messages.Add("<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
 	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)</span>")
 	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
@@ -148,6 +143,7 @@
 	wizard_mob.equip_to_slot_or_del(spellbook, slot_l_hand)
 
 	wizard_mob.faction = list("wizard")
+	wizard_mob.mind.offstation_role = TRUE
 
 
 
@@ -214,7 +210,7 @@
 
 			var/count = 1
 			var/wizardwin = 1
-			for(var/datum/objective/objective in wizard.objectives)
+			for(var/datum/objective/objective in wizard.get_all_objectives(include_team = FALSE))
 				if(objective.check_completion())
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))
