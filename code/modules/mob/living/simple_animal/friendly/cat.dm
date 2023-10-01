@@ -176,6 +176,16 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
+/mob/living/simple_animal/pet/cat/Var
+	name = "Var"
+	desc = "Maintenance Cat!"
+	icon_state = "cat2"
+	icon_living = "cat2"
+	icon_dead = "cat2_dead"
+	icon_resting = "cat2_rest"
+	gender = MALE
+	gold_core_spawnable = NO_SPAWN
+
 /mob/living/simple_animal/pet/cat/kitten
 	name = "kitten"
 	desc = "D'aaawwww"
