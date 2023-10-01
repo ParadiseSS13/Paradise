@@ -325,7 +325,7 @@
 			juice()
 
 /obj/machinery/reagentgrinder/proc/detach()
-	if(usr.stat != 0)
+	if(usr.stat != CONSCIOUS)
 		return
 	if(!beaker)
 		return
