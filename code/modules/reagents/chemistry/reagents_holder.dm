@@ -248,6 +248,7 @@
 
 	handle_reactions()
 
+// This proc increases the temp of reagents by `temp_increase` amount, up until the target temperature, and no more
 /datum/reagents/proc/change_reagent_temp(temp_increase, target_temp)
 	var/difference
 	if(abs(target_temp - chem_temp) > temp_increase)
@@ -258,6 +259,7 @@
 		chem_temp += difference
 	else if(target_temp < chem_temp)
 		chem_temp -= difference
+
 /**
  * Same as [/datum/reagents/proc/trans_to] but only for a specific reagent in
  * the reagent list. If the specified amount is greater than what is available,
