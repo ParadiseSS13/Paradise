@@ -61,7 +61,7 @@
 
 	var/list/turfs = list()
 	var/list/target_turfs = range(src, 5) - range(src, 1)
-	for(var/turf/T in range(src, 5))
+	for(var/turf/T in target_turfs)
 		if(isspaceturf(T))
 			continue
 		if(T.density)
