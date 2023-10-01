@@ -79,9 +79,6 @@
 			to_chat(user, "<span class='warning'>You think you're gonna need more than crutches if your employers find out what you just tried to do...</span>")
 		if(I.flags & ABSTRACT)
 			return
-		if(I.flags & NODROP)
-			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
-			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
 			return
