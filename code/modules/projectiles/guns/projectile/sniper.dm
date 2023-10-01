@@ -21,9 +21,11 @@
 	actions_types = list()
 
 /obj/item/gun/projectile/automatic/sniper_rifle/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
-	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper/antimatter) && !zoomed)
-		to_chat(user, "<span class='warning'>[src] must be zoomed in to fire this ammunition accurately!</span>")
-		bonus_spread += 60
+	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper) && !zoomed)
+		var/obj/item/projectile/bullet/sniper/S = chambered.BB
+		if(S.non_zoom_spread)
+			to_chat(user, "<span class='warning'>[src] must be zoomed in to fire this ammunition accurately!</span>")
+			bonus_spread += S.non_zoom_spread
 	return ..()
 
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate
@@ -67,6 +69,7 @@
 	forced_accuracy = TRUE
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSGIRDER
 	speed = 0.5
+	var/non_zoom_spread = 0
 
 /obj/item/ammo_box/magazine/sniper_rounds/antimatter
 	name = "sniper rounds (Antimatter)"
@@ -83,6 +86,7 @@
 /obj/item/projectile/bullet/sniper/antimatter
 	name = "antimatter bullet"
 	dismemberment = 50
+	non_zoom_spread = 60
 
 /obj/item/projectile/bullet/sniper/antimatter/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target)))
