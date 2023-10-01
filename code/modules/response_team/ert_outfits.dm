@@ -523,6 +523,7 @@
 	suit_store = /obj/item/gun/energy/gun/mini
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/arm/janitorial,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
