@@ -16,7 +16,7 @@ export const KitchenMachine = (props, context) => {
       <Window.Content scrollable display="flex" className="Layout__content--flexColumn">
       <Operating
           operating={operating}
-          name={name}
+          name={title}
         />
         <KitchenTop/>
         <Section title="Ingredients" flexGrow={1}>
