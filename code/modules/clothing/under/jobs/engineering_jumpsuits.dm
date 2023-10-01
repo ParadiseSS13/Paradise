@@ -49,7 +49,7 @@
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/proc/check_clothing(mob/user as mob)
 	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(SLOT_HUD_BACK,slot_handcuffed,slot_legcuffed,SLOT_HUD_LEFT_HAND,SLOT_HUD_RIGHT_HAND,slot_belt,SLOT_HUD_HEAD,slot_wear_suit)
+	var/list/slot_must_be_empty = list(SLOT_HUD_BACK,SLOT_HUD_HANDCUFFED,SLOT_HUD_LEGCUFFED,SLOT_HUD_LEFT_HAND,SLOT_HUD_RIGHT_HAND,slot_belt,SLOT_HUD_HEAD,slot_wear_suit)
 	for(var/slot_id in slot_must_be_empty)
 		if(user.get_item_by_slot(slot_id))
 			to_chat(user,"<span class='warning'>You can't fit inside while wearing \the [user.get_item_by_slot(slot_id)].</span>")

@@ -24,9 +24,9 @@
 			return has_organ("chest")
 		if(SLOT_HUD_WEAR_MASK)
 			return has_organ("head")
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return has_organ("l_hand") && has_organ("r_hand")
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return has_organ("l_leg") && has_organ("r_leg")
 		if(SLOT_HUD_LEFT_HAND)
 			return has_organ("l_hand")
@@ -208,10 +208,10 @@
 				sec_hud_set_ID()
 			wear_mask_update(I, toggle_off = TRUE)
 			update_inv_wear_mask()
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			handcuffed = I
 			update_inv_handcuffed()
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			legcuffed = I
 			update_inv_legcuffed()
 		if(SLOT_HUD_LEFT_HAND)
@@ -333,9 +333,9 @@
 			return back
 		if(SLOT_HUD_WEAR_MASK)
 			return wear_mask
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return handcuffed
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return legcuffed
 		if(SLOT_HUD_LEFT_HAND)
 			return l_hand

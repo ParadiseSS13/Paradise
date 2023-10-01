@@ -479,13 +479,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 1
 				return 0
-			if(slot_handcuffed)
+			if(SLOT_HUD_HANDCUFFED)
 				if(H.handcuffed)
 					return 0
 				if(!istype(src, /obj/item/restraints/handcuffs))
 					return 0
 				return 1
-			if(slot_legcuffed)
+			if(SLOT_HUD_LEGCUFFED)
 				if(H.legcuffed)
 					return 0
 				if(!istype(src, /obj/item/restraints/legcuffs))

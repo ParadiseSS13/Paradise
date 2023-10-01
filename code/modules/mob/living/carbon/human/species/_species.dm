@@ -837,9 +837,9 @@
 			if(istype(I, /obj/item/pda) || is_pen(I) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
 			return FALSE
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return !H.handcuffed && istype(I, /obj/item/restraints/handcuffs)
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return !H.legcuffed && istype(I, /obj/item/restraints/legcuffs)
 		if(slot_in_backpack)
 			if(H.back && istype(H.back, /obj/item/storage/backpack))
