@@ -5,6 +5,7 @@
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
 	var/datum/action/neutral_stance/neutral = new/datum/action/neutral_stance()
+	can_horizontally_grab = FALSE
 
 /datum/action/neutral_stance
 	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."

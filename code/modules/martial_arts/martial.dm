@@ -39,6 +39,8 @@
 	var/weight = 0
 	/// Message displayed when someone uses a baton when its forbidden by a martial art
 	var/no_baton_reason = "Your martial arts training prevents you from wielding batons."
+	/// Whether or not you can grab someone while horizontal with this Martial Art
+	var/can_horizontally_grab = TRUE
 
 /datum/martial_art/New()
 	. = ..()

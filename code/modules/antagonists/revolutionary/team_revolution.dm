@@ -31,6 +31,9 @@
 		message_admins("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
 		log_admin("[key_name_admin(user)] added a mutiny objective to the team '[name]', and no target was found, removing.")
 
+/datum/team/revolution/on_round_end()
+	return // for now... show nothing. Add this in when revs is added to midround/dynamic. Not showing it currently because its dependent on rev gamemode
+
 /datum/team/revolution/proc/update_team_objectives()
 	var/list/heads = SSticker.mode.get_all_heads() - get_targetted_head_minds()
 
@@ -38,18 +41,18 @@
 		var/datum/objective/mutiny/rev_obj = new
 		rev_obj.target = head_mind
 		rev_obj.explanation_text = "Assassinate or exile [head_mind.name], the [head_mind.assigned_role]."
-		add_objective_to_team(rev_obj)
+		add_team_objective(rev_obj)
 	sanitize_objectives()
 
 /datum/team/revolution/proc/get_targetted_head_minds()
 	. = list()
-	for(var/datum/objective/mutiny/O in objectives)
+	for(var/datum/objective/mutiny/O in objective_holder.get_objectives())
 		. |= O.target
 
 /datum/team/revolution/proc/sanitize_objectives()
-	for(var/datum/objective/mutiny/O in objectives)
+	for(var/datum/objective/mutiny/O in objective_holder.get_objectives())
 		if(!O.target) // revs shouldnt have free objectives
-			remove_objective_from_team(O)
+			remove_team_objective(O)
 			. = TRUE
 
 /datum/team/revolution/proc/check_all_victory()
@@ -58,7 +61,7 @@
 	check_heads_victory()
 
 /datum/team/revolution/proc/check_rev_victory()
-	for(var/datum/objective/mutiny/objective in objectives)
+	for(var/datum/objective/mutiny/objective in objective_holder.get_objectives())
 		if(!(objective.check_completion()))
 			return FALSE
 
@@ -139,6 +142,6 @@
 		return FALSE
 	if(!ishuman(rev_mind.current))
 		return FALSE
-	if(rev_mind.current.incapacitated() || HAS_TRAIT(rev_mind.current, TRAIT_HANDS_BLOCKED))
+	if(rev_mind.current.incapacitated() || HAS_TRAIT(rev_mind.current, TRAIT_HANDS_BLOCKED)) // todo for someone else, make sure the rev heads on ON STATION
 		return FALSE
 	return TRUE

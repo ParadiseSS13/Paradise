@@ -33,7 +33,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	/// If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/martyr_compatible = FALSE
 
+	var/datum/objective_holder/holder
+
 /datum/objective/New(text, datum/team/team_to_join)
+	. = ..()
+	SHOULD_CALL_PARENT(TRUE)
 	GLOB.all_objectives += src
 	if(text)
 		explanation_text = text
@@ -49,6 +53,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/proc/check_completion()
 	return completed
+
+/datum/objective/proc/found_target()
+	return target
 
 /**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
@@ -122,10 +129,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/post_target_cryo(list/owners)
 	find_target()
 	if(!target)
-		for(var/datum/mind/M in owners)
-			M.remove_objective(src)
-		GLOB.all_objectives -= src
-		qdel(src)
+		holder.remove_objective(src)
+		// even if we have to remove the objective, still announce it
 	for(var/datum/mind/M in owners)
 		M.announce_objectives()
 
@@ -192,7 +197,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	// We don't want revs to get objectives that aren't for heads of staff. Letting
 	// them win or lose based on cryo is silly so we remove the objective.
 	if(team)
-		team.remove_objective_from_team(src)
+		team.remove_team_objective(src)
 		return
 	qdel(src)
 
@@ -488,6 +493,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = 0
 	var/theft_area
 
+/datum/objective/steal/found_target()
+	return steal_target
+
 /datum/objective/steal/proc/get_location()
 	return steal_target.location_override || "an unknown area"
 
@@ -495,6 +503,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/potential = GLOB.potential_theft_objectives.Copy()
 	while(!steal_target && length(potential))
 		var/thefttype = pick_n_take(potential)
+		if(locate(thefttype) in target_blacklist)
+			continue
 		var/datum/theft_objective/O = new thefttype
 		var/has_invalid_owner = FALSE
 		for(var/datum/mind/M in get_owners())
@@ -575,7 +585,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Absorb DNA"
 	needs_target = FALSE
 
-/datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
+/datum/objective/absorb/New(text, datum/team/team_to_join)
+	. = ..()
+	gen_amount_goal()
+
+/datum/objective/absorb/proc/gen_amount_goal(lowbound = 6, highbound = 8)
 	target_amount = rand (lowbound,highbound)
 	if(SSticker)
 		var/n_p = 1 //autowin
@@ -710,13 +724,14 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 // Traders
 // These objectives have no check_completion, they exist only to tell Sol Traders what to aim for.
 
-/datum/objective/trade/proc/choose_target()
-	return
+/datum/objective/trade
+	needs_target = FALSE
+	completed = TRUE
 
-/datum/objective/trade/plasma/choose_target()
+/datum/objective/trade/plasma
 	explanation_text = "Acquire at least 15 sheets of plasma through trade."
 
-/datum/objective/trade/credits/choose_target()
+/datum/objective/trade/credits
 	explanation_text = "Acquire at least 10,000 credits through trade."
 
 //wizard
@@ -724,4 +739,4 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/wizchaos
 	explanation_text = "Wreak havoc upon the station as much you can. Send those wandless Nanotrasen scum a message!"
 	needs_target = FALSE
-	completed = 1
+	completed = TRUE

@@ -51,17 +51,11 @@
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
 		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
-		if(!(vialspawned))
-			var/datum/objective/slaughter/objective = new
-			var/datum/objective/demon_fluff/fluffObjective = new
+		if(!vialspawned)
 			SSticker.mode.traitors |= mind
-			objective.owner = mind
-			fluffObjective.owner = mind
-			//Paradise Port:I added the objective for one spawned like this
-			mind.objectives += objective
-			mind.objectives += fluffObjective
-			to_chat(src, "<B>Objective #[1]</B>: [objective.explanation_text]")
-			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
+			mind.add_mind_objective(/datum/objective/slaughter)
+			mind.add_mind_objective(/datum/objective/demon_fluff)
+			mind.announce_objectives(title = FALSE)
 		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
 
 
@@ -156,11 +150,9 @@
 		SSticker.mode.add_cultist(S.mind)
 		var/obj/effect/proc_holder/spell/sense_victims/SV = new
 		AddSpell(SV)
-		var/datum/objective/new_objective = new /datum/objective
-		new_objective.owner = S.mind
-		new_objective.explanation_text = "Bring forth the Slaughter to the nonbelievers."
-		S.mind.objectives += new_objective
-		to_chat(S, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+
+		S.mind.add_mind_objective(/datum/objective/cult_slaughter)
+		S.mind.announce_objectives(title = FALSE)
 
 ////////////////////The Powers
 
@@ -357,3 +349,7 @@
 
 /datum/objective/demon_fluff/check_completion()
 	return TRUE
+
+/datum/objective/cult_slaughter
+	explanation_text = "Bring forth the Slaughter to the nonbelievers."
+	needs_target = FALSE

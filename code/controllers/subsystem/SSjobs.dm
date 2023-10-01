@@ -599,11 +599,7 @@ SUBSYSTEM_DEF(jobs)
 	for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
 		objective.owner_account = account
 
-	var/remembered_info = ""
-	remembered_info += "<b>Your account number is:</b> #[account.account_number]<br>"
-	remembered_info += "<b>Your account pin is:</b> [account.account_pin]<br>"
-
-	H.mind.store_memory(remembered_info)
+	H.mind.store_memory("<b>Your account number is:</b> #[account.account_number]<br><b>Your account pin is:</b> [account.account_pin]")
 	H.mind.set_initial_account(account)
 
 	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
