@@ -7,9 +7,9 @@ export const KitchenMachine = (props, context) => {
   const { data, config } = useBackend(context);
   const {
     ingredients,
-    operating,
-    name
+    operating
   } = data;
+  const { title } = config;
 
   return (
     <Window resizable>
