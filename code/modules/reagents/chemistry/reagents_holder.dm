@@ -248,6 +248,16 @@
 
 	handle_reactions()
 
+/datum/reagents/proc/change_reagent_temp(temp_increase, target_temp)
+	var/difference
+	if(abs(target_temp - chem_temp) > temp_increase)
+		difference = temp_increase
+	else
+		difference = target_temp - chem_temp
+	if(target_temp > chem_temp)
+		chem_temp += difference
+	else if(target_temp < chem_temp)
+		chem_temp -= difference
 /**
  * Same as [/datum/reagents/proc/trans_to] but only for a specific reagent in
  * the reagent list. If the specified amount is greater than what is available,
