@@ -110,6 +110,7 @@
 /obj/item/pen/sleepy
 	container_type = OPENCONTAINER
 	origin_tech = "engineering=4;syndicate=2"
+	var/transfer_amount = 50
 
 
 /obj/item/pen/sleepy/attack(mob/living/M, mob/user)
@@ -126,7 +127,7 @@
 		contained += "[round(reagent.volume, 0.01)]u [reagent]"
 
 	if(reagents.total_volume && M.reagents)
-		transfered = reagents.trans_to(M, 50)
+		transfered = reagents.trans_to(M, transfer_amount)
 	to_chat(user, "<span class='warning'>You sneakily stab [M] with the pen.</span>")
 	add_attack_logs(user, M, "Stabbed with (sleepy) [src]. [transfered]u of reagents transfered from pen containing [english_list(contained)].")
 	for(var/datum/reagent/R as anything in reagents.reagent_list)
@@ -150,6 +151,7 @@
 	icon_state = "fancypen"
 	container_type = DRAINABLE //cannot be refilled, love can be extracted for use in other items with syringe
 	origin_tech = "engineering=4;syndicate=2"
+	transfer_amount = 25 // 4 Dosages instead of 2
 
 /obj/item/pen/sleepy/love/attack(mob/living/M, mob/user)
 	var/can_transfer = reagents.total_volume && M.reagents
