@@ -15,7 +15,7 @@
 	punchdamagelow = 5
 	punchdamagehigh = 14
 	punchstunthreshold = 11 //about 40% chance to stun
-	no_equip = list(slot_wear_mask, slot_wear_suit, slot_gloves, slot_shoes, slot_w_uniform, slot_s_store)
+	no_equip = list(SLOT_HUD_WEAR_MASK, slot_wear_suit, slot_gloves, slot_shoes, slot_w_uniform, slot_s_store)
 	nojumpsuit = TRUE
 
 	dietflags = DIET_OMNI		//golems can eat anything because they are magic or something
@@ -649,7 +649,7 @@
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
 	..()
-	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), slot_head)
+	H.equip_to_slot_or_del(new 	/obj/item/clothing/head/beret(H), SLOT_HUD_HEAD)
 	H.equip_to_slot_or_del(new 	/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(H), slot_r_store)
 	H.equip_to_slot_or_del(new 	/obj/item/cane(H), slot_l_hand)
 	if(H.mind)

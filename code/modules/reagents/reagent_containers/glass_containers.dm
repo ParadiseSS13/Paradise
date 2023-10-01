@@ -313,7 +313,7 @@
 
 /obj/item/reagent_containers/glass/bucket/equipped(mob/user, slot)
 	..()
-	if(slot == slot_head && reagents.total_volume)
+	if(slot == SLOT_HUD_HEAD && reagents.total_volume)
 		to_chat(user, "<span class='userdanger'>[src]'s contents spill all over you!</span>")
 		reagents.reaction(user, REAGENT_TOUCH)
 		reagents.clear_reagents()

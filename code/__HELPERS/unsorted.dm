@@ -2066,9 +2066,9 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(SLOT_FLAG_EYES)
 			return slot_glasses
 		if(SLOT_FLAG_MASK)
-			return slot_wear_mask
+			return SLOT_HUD_WEAR_MASK
 		if(SLOT_FLAG_HEAD)
-			return slot_head
+			return SLOT_HUD_HEAD
 		if(SLOT_FLAG_FEET)
 			return slot_shoes
 		if(SLOT_FLAG_ID)

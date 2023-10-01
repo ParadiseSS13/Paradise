@@ -22,7 +22,7 @@
 	switch(slot)
 		if(SLOT_HUD_BACK)
 			return has_organ("chest")
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return has_organ("head")
 		if(slot_handcuffed)
 			return has_organ("l_hand") && has_organ("r_hand")
@@ -47,7 +47,7 @@
 			return has_organ("head")
 		if(slot_gloves)
 			return has_organ("l_hand") && has_organ("r_hand")
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			return has_organ("head")
 		if(slot_shoes)
 			return has_organ("r_foot") && has_organ("l_foot")
@@ -198,7 +198,7 @@
 		if(SLOT_HUD_BACK)
 			back = I
 			update_inv_back()
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			wear_mask = I
 			if((wear_mask.flags & BLOCKHAIR) || (wear_mask.flags & BLOCKHEADHAIR))
 				update_hair()	//rebuild hair
@@ -263,7 +263,7 @@
 		if(slot_gloves)
 			gloves = I
 			update_inv_gloves()
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			head = I
 			if((head.flags & BLOCKHAIR) || (head.flags & BLOCKHEADHAIR))
 				update_hair()	//rebuild hair
@@ -331,7 +331,7 @@
 	switch(slot_id)
 		if(SLOT_HUD_BACK)
 			return back
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return wear_mask
 		if(slot_handcuffed)
 			return handcuffed
@@ -355,7 +355,7 @@
 			return glasses
 		if(slot_gloves)
 			return gloves
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			return head
 		if(slot_shoes)
 			return shoes

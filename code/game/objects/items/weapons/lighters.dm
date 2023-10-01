@@ -300,7 +300,7 @@
 	return ..()
 
 /obj/item/proc/help_light_cig(mob/living/M)
-	var/mask_item = M.get_item_by_slot(slot_wear_mask)
+	var/mask_item = M.get_item_by_slot(SLOT_HUD_WEAR_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
 

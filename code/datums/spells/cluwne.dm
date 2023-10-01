@@ -38,7 +38,7 @@
 		unEquip(wear_mask, 1)
 	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, slot_w_uniform, TRUE, TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, slot_gloves, TRUE, TRUE)
-	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, slot_wear_mask, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
 	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, slot_shoes, TRUE, TRUE)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()

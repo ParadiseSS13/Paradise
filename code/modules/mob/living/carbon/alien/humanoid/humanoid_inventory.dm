@@ -48,7 +48,7 @@
 		switch(slot_id)
 			if(slot_wear_suit)
 				if(wear_suit)	wear_suit.attack_alien(src)
-			if(slot_head)
+			if(SLOT_HUD_HEAD)
 				if(head)		head.attack_alien(src)
 			if(slot_l_store)
 				if(l_store)		l_store.attack_alien(src)

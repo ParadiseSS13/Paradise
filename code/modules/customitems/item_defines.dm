@@ -1530,7 +1530,7 @@
 		var/obj/item/clothing/head/helmet/space/plasmaman/lf53_fluff/F = new(P.loc)
 		if(P == H.head)
 			H.unEquip(P, TRUE, TRUE)
-			H.equip_to_slot(F, slot_head, TRUE)
+			H.equip_to_slot(F, SLOT_HUD_HEAD, TRUE)
 			H.update_inv_head()
 		qdel(P)
 

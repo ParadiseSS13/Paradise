@@ -297,7 +297,7 @@
 
 /mob/proc/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return wear_mask
 		if(SLOT_HUD_BACK)
 			return back

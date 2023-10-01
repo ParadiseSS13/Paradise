@@ -132,14 +132,14 @@
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
-	if(slot==slot_head && contents.len)
+	if(slot==SLOT_HUD_HEAD && contents.len)
 		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return 0
 	return ..()
 
 
 /obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
-	if(slot==slot_head)
+	if(slot==SLOT_HUD_HEAD)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
 	return
@@ -148,7 +148,7 @@
 	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			if(H.get_item_by_slot(slot_head) == src)
+			if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
 				if(H.internal)
 					return
 				H.AdjustLoseBreath(2 SECONDS)

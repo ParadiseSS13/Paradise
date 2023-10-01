@@ -734,7 +734,7 @@
 			return !H.l_hand && !H.incapacitated()
 		if(slot_r_hand)
 			return !H.r_hand && !H.incapacitated()
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return !H.wear_mask && (I.slot_flags & SLOT_FLAG_MASK)
 		if(SLOT_HUD_BACK)
 			return !H.back && (I.slot_flags & SLOT_FLAG_BACK)
@@ -758,7 +758,7 @@
 			return TRUE
 		if(slot_glasses)
 			return !H.glasses && (I.slot_flags & SLOT_FLAG_EYES)
-		if(slot_head)
+		if(SLOT_HUD_HEAD)
 			return !H.head && (I.slot_flags & SLOT_FLAG_HEAD)
 		if(slot_l_ear)
 			return !H.l_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.r_ear)

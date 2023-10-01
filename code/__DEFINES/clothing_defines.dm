@@ -11,7 +11,7 @@
 
 // slots
 #define SLOT_HUD_BACK 1
-#define slot_wear_mask 2
+#define SLOT_HUD_WEAR_MASK 2
 #define slot_handcuffed 3
 #define slot_l_hand 4
 #define slot_r_hand 5
@@ -20,7 +20,7 @@
 #define slot_l_ear 8
 #define slot_glasses 9
 #define slot_gloves 10
-#define slot_head 11
+#define SLOT_HUD_HEAD 11
 #define slot_shoes 12
 #define slot_wear_suit 13
 #define slot_w_uniform 14

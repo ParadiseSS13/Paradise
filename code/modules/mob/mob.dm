@@ -273,8 +273,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		slot_wear_id,\
 		slot_w_uniform,\
 		slot_wear_suit,\
-		slot_wear_mask,\
-		slot_head,\
+		SLOT_HUD_WEAR_MASK,\
+		SLOT_HUD_HEAD,\
 		slot_shoes,\
 		slot_gloves,\
 		slot_l_ear,\
@@ -293,7 +293,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	if(!istype(W)) return 0
 
 	for(var/slot in GLOB.slot_equipment_priority)
-		if(isstorage(W) && slot == slot_head) // Storage items should be put on the belt before the head
+		if(isstorage(W) && slot == SLOT_HUD_HEAD) // Storage items should be put on the belt before the head
 			continue
 		if(equip_to_slot_if_possible(W, slot, FALSE, TRUE)) //del_on_fail = 0; disable_warning = 0
 			return 1
@@ -325,7 +325,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				if(H.r_hand)
 					return 0
 				return 1
-			if(slot_wear_mask)
+			if(SLOT_HUD_WEAR_MASK)
 				if( !(slot_flags & SLOT_FLAG_MASK) )
 					return 0
 				if(H.wear_mask)
@@ -389,7 +389,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					else
 						return 0
 				return 1
-			if(slot_head)
+			if(SLOT_HUD_HEAD)
 				if( !(slot_flags & SLOT_FLAG_HEAD) )
 					return 0
 				if(H.head)

@@ -245,7 +245,7 @@
 	pontificate(user)
 
 /obj/item/clothing/mask/fakemoustache/item_action_slot_check(slot)
-	if(slot == slot_wear_mask)
+	if(slot == SLOT_HUD_WEAR_MASK)
 		return 1
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
@@ -528,7 +528,7 @@
 /obj/item/clothing/mask/cursedclown/equipped(mob/user, slot)
 	..()
 	var/mob/living/carbon/human/H = user
-	if(istype(H) && slot == slot_wear_mask)
+	if(istype(H) && slot == SLOT_HUD_WEAR_MASK)
 		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
 		if(H.mind && H.mind.assigned_role != "Cluwne")
 			H.makeCluwne()

@@ -80,12 +80,12 @@
 		soundloop.stop(user)
 
 /obj/item/clothing/head/helmet/space/hardsuit/item_action_slot_check(slot)
-	if(slot == slot_head)
+	if(slot == SLOT_HUD_HEAD)
 		return 1
 
 /obj/item/clothing/head/helmet/space/hardsuit/equipped(mob/user, slot)
 	..()
-	if(slot != slot_head)
+	if(slot != SLOT_HUD_HEAD)
 		if(suit)
 			suit.RemoveHelmet()
 			soundloop.stop(user)
@@ -572,7 +572,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/rd/equipped(mob/user, slot)
 	..()
-	if(slot == slot_head)
+	if(slot == SLOT_HUD_HEAD)
 		GLOB.doppler_arrays += src //Needed to sense the kabooms
 		if(ishuman(user))
 			var/mob/living/carbon/human/U = user

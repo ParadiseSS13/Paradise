@@ -182,7 +182,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "mask"
 	inv_box.screen_loc = ui_mask
-	inv_box.slot_id = slot_wear_mask
+	inv_box.slot_id = SLOT_HUD_WEAR_MASK
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box
@@ -293,7 +293,7 @@
 	inv_box.icon = ui_style
 	inv_box.icon_state = "head"
 	inv_box.screen_loc = ui_head
-	inv_box.slot_id = slot_head
+	inv_box.slot_id = SLOT_HUD_HEAD
 	inv_box.color = ui_color
 	inv_box.alpha = ui_alpha
 	toggleable_inventory += inv_box

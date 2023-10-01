@@ -405,7 +405,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
-	if(enabled && slot == slot_wear_mask)
+	if(enabled && slot == SLOT_HUD_WEAR_MASK)
 		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
 			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 			to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")

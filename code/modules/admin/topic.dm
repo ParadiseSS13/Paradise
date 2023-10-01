@@ -2167,7 +2167,7 @@
 				if(H.head)
 					H.unEquip(H.head, TRUE)
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
-				H.equip_to_slot_or_del(S, slot_head)
+				H.equip_to_slot_or_del(S, SLOT_HUD_HEAD)
 				logmsg = "shamebrero"
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")

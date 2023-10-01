@@ -61,7 +61,7 @@
 			if(H.head)
 				to_chat(H,"<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(hood, slot_head, FALSE, FALSE))
+			else if(H.equip_to_slot_if_possible(hood, SLOT_HUD_HEAD, FALSE, FALSE))
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
 				H.update_inv_wear_suit()
@@ -90,7 +90,7 @@
 
 /obj/item/clothing/head/hooded/equipped(mob/user, slot)
 	..()
-	if(slot != slot_head)
+	if(slot != SLOT_HUD_HEAD)
 		if(suit)
 			suit.RemoveHood()
 		else
