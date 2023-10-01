@@ -959,7 +959,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set category = "Debug"
 	set name = "Visualise Active Turfs"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
 	// This can potentially iterate through a list thats 20k things long. Give ample warning to the user

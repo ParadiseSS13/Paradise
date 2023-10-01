@@ -1,4 +1,7 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
+// This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
+// Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
+#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
@@ -83,6 +86,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
+	/// Our special little snowflakes that have to be spawned in a different way than normal, like a surplus crate spawning a crate or contractor kits
+	var/uses_special_spawn = FALSE
 
 /datum/uplink_item/proc/spawn_item(turf/loc, obj/item/uplink/U)
 
@@ -91,12 +96,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
-	if(item)
-		U.uses -= max(cost, 0)
-		U.used_TC += cost
-		SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
+	U.uses -= max(cost, 0)
+	U.used_TC += cost
+	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
+	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()
 	if(!desc)

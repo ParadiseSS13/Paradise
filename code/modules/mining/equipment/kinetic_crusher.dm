@@ -5,6 +5,8 @@
 	While it is an effective mining tool, it did little to aid any but the most skilled and/or suicidal miners against local fauna."
 	icon = 'icons/obj/mining.dmi'
 	base_icon_state = "crusher"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "crusher"
 	item_state = "crusher0"
 	force = 0 //You can't hit stuff unless wielded
