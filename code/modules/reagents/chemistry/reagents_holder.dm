@@ -259,6 +259,8 @@
 		chem_temp += difference
 	else if(target_temp < chem_temp)
 		chem_temp -= difference
+	temperature_react()
+	handle_reactions()
 
 /**
  * Same as [/datum/reagents/proc/trans_to] but only for a specific reagent in
