@@ -1,7 +1,9 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ao" = (
 /obj/machinery/light_switch{
-	pixel_y = -28
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
@@ -23,13 +25,6 @@
 	dir = 5;
 	icon_state = "blue"
 	},
-/area/ruin/space/abandoned_engi_sat)
-"bz" = (
-/obj/machinery/light_switch{
-	icon_state = "light-p";
-	pixel_y = 28
-	},
-/turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "bE" = (
 /turf/simulated/floor/plasteel{
@@ -101,7 +96,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "dq" = (
 /obj/machinery/light_switch{
-	pixel_y = -28
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -193,8 +190,7 @@
 	d2 = 4
 	},
 /obj/machinery/power/apc/off_station/empty_charge{
-	pixel_y = -24;
-	name = "Abandoned NT Engineering Satellite APC"
+	pixel_y = -24
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plating,
@@ -518,12 +514,14 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "oG" = (
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
 /obj/structure/closet{
 	icon_state = "atmos_wardrobe";
 	name = "atmospherics wardrobe"
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
@@ -553,8 +551,7 @@
 "ps" = (
 /obj/structure/table,
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -5;
-	pixel_y = 30
+	pixel_y = 28
 	},
 /obj/machinery/cell_charger,
 /turf/simulated/floor/plasteel,
@@ -628,7 +625,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "sm" = (
 /obj/machinery/light_switch{
-	pixel_y = -28
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -662,6 +661,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/ruin/space/abandoned_engi_sat)
+"tO" = (
+/obj/machinery/computer{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "uC" = (
 /obj/item/stack/ore/iron{
@@ -916,7 +921,9 @@
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
 "CY" = (
-/obj/machinery/computer,
+/obj/machinery/computer{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "Db" = (
@@ -1312,10 +1319,12 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "Ro" = (
-/obj/machinery/light_switch{
-	pixel_y = -28
-	},
 /obj/effect/landmark/damageturf,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1332,8 +1341,8 @@
 /area/space/nearstation)
 "RP" = (
 /obj/machinery/light_switch{
-	pixel_x = 0;
-	pixel_y = 28
+	pixel_y = 24;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault";
@@ -1349,8 +1358,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "SI" = (
 /obj/machinery/light_switch{
-	pixel_x = -28;
-	pixel_y = 0
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
@@ -1984,7 +1994,7 @@ et
 et
 Yz
 CP
-CY
+tO
 IM
 oW
 qu
@@ -2149,7 +2159,7 @@ dk
 gq
 rI
 gq
-bz
+DO
 WJ
 DO
 DO
