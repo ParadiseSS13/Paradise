@@ -941,8 +941,19 @@ structure_check() searches for nearby cultist structures required for the invoca
 	notify_ghosts("Manifest rune created in [get_area(src)].", ghost_sound = 'sound/effects/ghost2.ogg', source = src)
 	var/list/ghosts_on_rune = list()
 	for(var/mob/dead/observer/O in T)
-		if(O.client && !iscultist(O) && !jobban_isbanned(O, ROLE_CULTIST) && !O.has_enabled_antagHUD && !QDELETED(src) && !QDELETED(O) && O.mind.current && !HAS_TRAIT(O.mind.current, SCRYING))
-			ghosts_on_rune += O
+		message_admins("Found [O.name]")
+		if(!O.client)
+			continue
+		if(iscultist(O) || jobban_isbanned(O, ROLE_CULTIST))
+			message_admins("Jobbanned")
+			continue
+		if(O.has_enabled_antagHUD || !QDELETED(src) || !QDELETED(O))
+			message_admins("Antaghud - [!QDELETED(src)] - [!QDELETED(O)]")
+			continue
+		if(O.mind.current && HAS_TRAIT(O.mind.current, SCRYING))
+			message_admins("Scrying")
+			continue
+		ghosts_on_rune += O
 	if(!length(ghosts_on_rune))
 		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
 		fail_invoke()
