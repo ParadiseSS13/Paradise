@@ -80,7 +80,7 @@
 			return
 		if(I.flags & ABSTRACT)
 			return
-		if(!user.drop_item())
+		if(!user.unEquip(I))
 			to_chat(user, "<span class='notice'>[I] doesn't seem to want to go into [src]!</span>")
 			return
 		I.forceMove(src)
