@@ -589,6 +589,9 @@ SUBSYSTEM_DEF(ticker)
 		if(findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
 
+	for(var/datum/team/team in GLOB.antagonist_teams)
+		team.on_round_end()
+
 	// Display the scoreboard window
 	score.scoreboard()
 
@@ -611,6 +614,31 @@ SUBSYSTEM_DEF(ticker)
 		for(var/m in GLOB.player_list)
 			var/mob/M = m
 			H.add_hud_to(M)
+
+	var/static/list/base_encouragement_messages = list(
+		"Keep on keeping on!",
+		"Great job!",
+		"Keep up the good work!",
+		"Nice going!"
+	)
+
+	var/static/list/special_encouragement_messages = list(
+		"Outstanding!",
+		"This is going on the fridge!",
+		"Looks like you're popular!",
+		"That's what we like to see!",
+		"Hell yeah, brother!",
+		"Honestly, quite incredible!"
+	)
+
+	// Tell people how many kudos they got this round
+	// Besides, what's another loop over the /entire player list/
+	var/kudos_message
+	for(var/mob/M in GLOB.player_list)
+		var/kudos = M.mind?.kudos_received_from
+		if(length(kudos))
+			kudos_message = pick(length(kudos) > 5 ? special_encouragement_messages : base_encouragement_messages)
+			to_chat(M, "<span class='green big'>You received <b>[length(M.mind.kudos_received_from)]</b> kudos from other players this round! [kudos_message]</span>")
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()

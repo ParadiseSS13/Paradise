@@ -357,7 +357,7 @@
 "aU" = (
 /obj/item/stack/sheet/metal,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "aV" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -480,7 +480,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bj" = (
 /obj/structure/disposalpipe/segment{
@@ -590,7 +590,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bv" = (
 /obj/structure/disposalpipe/segment{
@@ -700,9 +700,6 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/onehalf/hallway)
-"bM" = (
-/turf/simulated/floor/plating,
-/area/ruin/space/onehalf/hallway)
 "bN" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
@@ -721,7 +718,7 @@
 /area/ruin/space/onehalf/hallway)
 "bR" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bS" = (
 /obj/structure/disposalpipe/segment,
@@ -738,7 +735,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/item/stack/rods,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "bX" = (
 /turf/simulated/wall/r_wall,
@@ -749,7 +746,7 @@
 	},
 /obj/item/shard,
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "ca" = (
 /obj/structure/disposalpipe/segment,
@@ -815,7 +812,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "ck" = (
 /obj/structure/girder/reinforced,
@@ -823,7 +820,7 @@
 /area/space/nearstation)
 "cl" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "cm" = (
 /obj/structure/lattice,
@@ -943,7 +940,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "cA" = (
 /obj/structure/disposalpipe/trunk{
@@ -1154,7 +1151,7 @@
 "dj" = (
 /obj/structure/grille,
 /obj/item/shard,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/hallway)
 "dk" = (
 /obj/effect/spawner/window/reinforced,
@@ -1446,7 +1443,7 @@ aT
 bd
 bv
 ak
-bM
+aj
 aa
 aa
 aa

@@ -344,32 +344,6 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
-"ba" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Security";
-	req_access_txt = "2"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Labor";
-	name = "labor camp blast door"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/laborcamp/security)
 "bb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -591,19 +565,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"bA" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Backroom";
-	req_access_txt = "2"
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "bB" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -720,19 +681,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
-"bM" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Labor Camp Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
-/area/mine/laborcamp)
 "bN" = (
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -758,24 +706,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/siberia)
-"bP" = (
-/obj/structure/fans/tiny,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance/external{
-	name = "Catwalk Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/mine/outpost/maintenance)
 "bQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -797,28 +727,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
-"bT" = (
-/obj/effect/turf_decal/arrows{
-	dir = 8
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-4";
-	d1 = 1;
-	d2 = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/mechbay)
 "bU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1329,20 +1237,6 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/mechbay)
-"cZ" = (
-/obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Main Airlock";
-	req_access_txt = "54"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/airlock)
 "da" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -1938,23 +1832,6 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/east)
-"ek" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Hallway";
-	req_access_txt = "48"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurplecorners"
-	},
-/area/mine/outpost/hallway/west)
 "el" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -2195,28 +2072,6 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
-"eH" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/door/airlock/mining/glass{
-	name = "Hallway";
-	req_access_txt = "48"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/hallway/west)
 "eI" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Airlock Maintence";
@@ -2441,20 +2296,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
-	},
-/area/mine/outpost/hallway/west)
-"fa" = (
-/obj/machinery/door/airlock/mining/glass{
-	name = "Hallway";
-	req_access_txt = "48"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurplecorners"
 	},
 /area/mine/outpost/hallway/west)
 "fb" = (
@@ -2995,23 +2836,6 @@
 "gd" = (
 /turf/simulated/wall,
 /area/mine/outpost/mechbay)
-"ge" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Primary Maintenance";
-	req_access_txt = "48"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
-/turf/simulated/floor/plating,
-/area/mine/outpost/maintenance)
 "gf" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3185,12 +3009,6 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
-"gv" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/mine/outpost/maintenance)
 "gw" = (
 /obj/machinery/economy/vending/snack,
 /obj/machinery/alarm{
@@ -3230,20 +3048,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"gA" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/lattice/catwalk/mining,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "gB" = (
 /obj/structure/stone_tile/block{
 	dir = 4
@@ -3474,6 +3278,22 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"hL" = (
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station Hallway"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/wall,
+/area/mine/outpost/maintenance)
 "hQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -3529,6 +3349,33 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/airlock)
+"io" = (
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Main Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/wall,
+/area/mine/outpost/airlock)
 "ir" = (
 /obj/structure/stone_tile/slab/cracked{
 	dir = 5
@@ -3577,13 +3424,6 @@
 	},
 /obj/structure/stone_tile/block/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"iE" = (
-/obj/structure/sign/nanotrasen{
-	pixel_y = -32
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "iK" = (
 /obj/structure/stone_tile/block,
@@ -3658,6 +3498,36 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"ji" = (
+/obj/effect/turf_decal/arrows{
+	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-4";
+	d1 = 1;
+	d2 = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/door/airlock/mining{
+	name = "Mining Station Storage"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/mechbay)
 "jj" = (
 /obj/effect/spawner/window/reinforced/polarized,
 /obj/machinery/door/firedoor,
@@ -3743,10 +3613,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"jB" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors/unexplored)
 "jF" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -3844,6 +3710,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"ka" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored)
 "kf" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
@@ -4075,10 +3945,6 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
-"lA" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors)
 "lB" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
@@ -4125,6 +3991,42 @@
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"lH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Hallway";
+	req_access_txt = "48"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station Hallway"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/west)
 "lI" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -4608,6 +4510,20 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"nI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/lattice/catwalk/mining,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "nO" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -4643,10 +4559,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"nR" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "nX" = (
 /obj/structure/disposaloutlet,
@@ -4782,6 +4694,69 @@
 	icon_state = "darkredcorners"
 	},
 /area/mine/laborcamp/security)
+"pz" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Primary Maintenance";
+	req_access_txt = "48"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station Hallway"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/floor/plating,
+/area/mine/outpost/maintenance)
+"pN" = (
+/obj/structure/fans/tiny,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/maintenance/external{
+	name = "Catwalk Access"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/maintenance{
+	name = "Catwalk Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/mine/outpost/maintenance)
 "pQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4943,13 +4918,6 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
-"rV" = (
-/obj/structure/sign/nanotrasen{
-	pixel_x = -32
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "sk" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
@@ -5118,15 +5086,6 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
-"tK" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_regular_floor = "yellowsiding";
-	icon_state = "tranquillite"
-	},
-/area/mine/outpost/cafeteria)
 "tS" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
@@ -5223,6 +5182,20 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"uJ" = (
+/obj/effect/spawner/window/reinforced,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/door/airlock{
+	name = "Abandoned Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/structure/barricade/wooden,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/mine/outpost/hallway/west)
 "uL" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/flasher{
@@ -5230,6 +5203,23 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"uO" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Airlock Maintence";
+	req_access_txt = "54"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Airlock Maintence"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/floor/plating,
+/area/mine/outpost/airlock)
 "uW" = (
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - East Hallway - North";
@@ -5297,13 +5287,6 @@
 /obj/effect/turf_decal/stripes,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"vk" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Labor Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/turf/simulated/floor/mineral/plastitanium/red,
-/area/shuttle/siberia)
 "vq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment/corner{
@@ -5419,6 +5402,10 @@
 /obj/item/crowbar/red,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"vP" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
 "vQ" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Hallway";
@@ -5461,22 +5448,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
-"wt" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/airless,
-/area/shuttle/siberia)
 "wD" = (
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
-"wP" = (
-/obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/floor/plating/airless,
-/area/shuttle/siberia)
 "wY" = (
 /obj/item/clothing/mask/gas/clown_hat,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5513,6 +5488,26 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"xy" = (
+/obj/structure/sign/nanotrasen{
+	pixel_x = -32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/sign/nanotrasen{
+	pixel_x = -32
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "xA" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/structure/cable{
@@ -5532,6 +5527,10 @@
 "xC" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/mining)
+"xD" = (
+/obj/structure/shuttle/engine/propulsion,
+/turf/simulated/floor/plating/lavaland_air,
+/area/shuttle/siberia)
 "xG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -5801,13 +5800,6 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/east)
-"zL" = (
-/obj/structure/sign/lifestar{
-	pixel_x = -32
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "zN" = (
 /obj/machinery/mineral/equipment_vendor,
 /turf/simulated/floor/plasteel{
@@ -5862,6 +5854,21 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/hallway/west)
+"Aj" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/fans/tiny,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Outpost Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/floor/plating,
+/area/mine/outpost/airlock)
 "Am" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -5894,6 +5901,15 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"AC" = (
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock";
+	name = "Labor Shuttle Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/shuttle/siberia)
 "AE" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -5908,6 +5924,10 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/lockers)
+"AY" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Bg" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
@@ -5952,15 +5972,6 @@
 	icon_state = "darkpurplecorners"
 	},
 /area/mine/outpost/lockers)
-"BE" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Airlock Maintence";
-	req_access_txt = "54"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
-/turf/simulated/floor/plating,
-/area/mine/outpost/airlock)
 "BH" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
@@ -6082,6 +6093,42 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/west)
+"CH" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Hallway";
+	req_access_txt = "48"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/door/airlock/mining{
+	name = "Mining Station Storage"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurplecorners"
 	},
 /area/mine/outpost/hallway/west)
 "CI" = (
@@ -6227,6 +6274,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"Ea" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Labor Camp Backroom"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/door/firedoor,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "Ef" = (
 /obj/machinery/door/airlock/glass{
 	name = "Cafeteria"
@@ -6355,6 +6415,35 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/lockers)
+"Ff" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/door/airlock/titanium{
+	id_tag = "s_docking_airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/docking_port/mobile/mining,
+/obj/structure/fans/tiny,
+/obj/docking_port/stationary{
+	area_type = /area/lavaland/surface/outdoors;
+	dir = 8;
+	dwidth = 3;
+	height = 5;
+	id = "mining_away";
+	name = "lavaland mine";
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface;
+	width = 7
+	},
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mine/outpost/cafeteria)
 "Fp" = (
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
@@ -6404,15 +6493,6 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
-"FW" = (
-/obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	name = "Labor Shuttle Airlock";
-	req_access_txt = "2"
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/shuttle/siberia)
 "Gh" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -6438,13 +6518,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/mine/laborcamp)
-"Gv" = (
-/obj/structure/sign/nanotrasen{
-	pixel_y = -32
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "Gw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -6495,15 +6568,33 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/mechbay)
-"Hc" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock";
-	req_access_txt = "2"
+"He" = (
+/obj/machinery/door/airlock/mining/glass{
+	name = "Hallway";
+	req_access_txt = "48"
 	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
-/area/mine/laborcamp/security)
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station Hallway"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkpurplecorners"
+	},
+/area/mine/outpost/hallway/west)
 "Hf" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/turf_decal/loading_area{
@@ -6520,10 +6611,6 @@
 /obj/structure/lattice/catwalk/mining,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
-"Hn" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "HA" = (
 /obj/machinery/atmospherics/binary/pump/on,
 /turf/simulated/floor/plasteel{
@@ -6559,13 +6646,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"HN" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Security";
-	req_access_txt = "2"
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp/security)
 "HS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -6650,6 +6730,14 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/lockers)
+"IR" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/shuttle/siberia)
 "IZ" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/mine/outpost/hallway/west)
@@ -6684,6 +6772,29 @@
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
+"Jk" = (
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Main Airlock";
+	req_access_txt = "54"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/multi_tile/glass{
+	name = "Outpost Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/airlock)
 "Jl" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/machine,
@@ -6834,6 +6945,13 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
+"KY" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Labor Shuttle Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/simulated/floor/mineral/plastitanium/red,
+/area/shuttle/siberia)
 "Lr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -6856,6 +6974,10 @@
 /obj/structure/railing/corner,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"Ly" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Lz" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
@@ -6919,6 +7041,10 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Mf" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall,
+/area/mine/outpost/medbay)
 "Mh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -6953,6 +7079,11 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
+"Mv" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall,
+/area/lavaland/surface/outdoors)
 "ME" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7012,11 +7143,6 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
-"Nd" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall,
-/area/lavaland/surface/outdoors)
 "Ne" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7107,10 +7233,6 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
-"Od" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/lavaland/surface/outdoors)
 "Oh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7183,6 +7305,13 @@
 	icon_state = "darkredcorners"
 	},
 /area/mine/laborcamp/security)
+"Pf" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = -32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
 "Pg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/securearea{
@@ -7190,6 +7319,26 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
+"Ph" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/obj/machinery/door/airlock/maintenance{
+	name = "Mining Station Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/floor/plating,
+/area/mine/outpost/maintenance)
 "Po" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -7355,6 +7504,16 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Rm" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/firedoor,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating,
+/area/mine/outpost/medbay)
 "Rs" = (
 /obj/structure/closet/crate/trashcart,
 /obj/item/trash/liquidfood,
@@ -7372,6 +7531,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"Rz" = (
+/obj/structure/sign/nanotrasen{
+	pixel_y = -32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Sb" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -7415,6 +7581,31 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Sw" = (
+/obj/machinery/door/airlock/security/glass{
+	name = "Labor Camp Security"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp/security)
+"Sy" = (
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/door/airlock/mining/glass{
+	name = "Mining Station EVA"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/wall,
+/area/mine/outpost/storage)
 "SH" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -7548,6 +7739,31 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
+"Ud" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/fans/tiny,
+/obj/machinery/door/airlock/external/glass{
+	name = "Mining Shuttle Airlock";
+	id_tag = "mining_away"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mine/outpost/cafeteria)
 "Uh" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -7701,6 +7917,32 @@
 	icon_state = "barber"
 	},
 /area/mine/laborcamp)
+"VM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/security/glass{
+	name = "Labor Camp Security"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Labor";
+	name = "labor camp blast door"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/laborcamp/security)
 "VN" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
@@ -7795,6 +8037,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"WH" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
 "WJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -7956,6 +8202,19 @@
 /obj/structure/railing/corner,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"XJ" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Labor Camp Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/mine/laborcamp)
 "XW" = (
 /obj/machinery/recharge_station,
 /obj/item/radio/intercom{
@@ -8002,6 +8261,26 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/airlock)
+"Yz" = (
+/obj/structure/sign/lifestar{
+	pixel_x = -32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/sign/lifestar{
+	pixel_x = -32
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "YB" = (
 /obj/machinery/door/airlock/mining/glass{
 	req_access_txt = "54";
@@ -8155,6 +8434,24 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"ZG" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall,
+/area/mine/outpost/airlock)
+"ZK" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "laborcamp_away";
+	name = "Labor Camp Airlock"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plating,
+/area/mine/laborcamp/security)
 "ZT" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -10949,12 +11246,12 @@ aj
 NW
 aw
 Bg
-vk
+KY
 pq
 Uy
 CK
-wP
-wt
+IR
+xD
 aj
 aj
 aj
@@ -11210,8 +11507,8 @@ kI
 iB
 pq
 pq
-wP
-wt
+IR
+xD
 aj
 aj
 aj
@@ -11467,8 +11764,8 @@ kI
 KR
 hj
 pq
-wP
-wt
+IR
+xD
 aj
 aj
 ab
@@ -11719,7 +12016,7 @@ aj
 aj
 kI
 kI
-FW
+AC
 kI
 kI
 kI
@@ -11976,7 +12273,7 @@ cG
 cG
 PX
 PX
-Hc
+ZK
 PX
 aq
 aq
@@ -13005,7 +13302,7 @@ aK
 aP
 Dm
 aZ
-HN
+Sw
 JZ
 YI
 aJ
@@ -13518,7 +13815,7 @@ PX
 PX
 ZZ
 PX
-ba
+VM
 PX
 aq
 aq
@@ -14550,7 +14847,7 @@ JZ
 Vv
 bl
 aq
-bA
+Ea
 qT
 aq
 aq
@@ -15065,7 +15362,7 @@ Vv
 bm
 aq
 bB
-bM
+XJ
 cA
 sM
 tZ
@@ -18679,7 +18976,7 @@ El
 El
 PG
 dJ
-um
+uJ
 um
 Sq
 um
@@ -20725,14 +21022,14 @@ AE
 tS
 rJ
 fX
-gA
-gA
-gA
-bP
+nI
+nI
+nI
+pN
 fF
 dD
 dm
-gv
+Ph
 ez
 dR
 bR
@@ -21251,7 +21548,7 @@ BT
 dR
 IZ
 vQ
-ek
+CH
 gd
 gd
 gd
@@ -21504,8 +21801,8 @@ jJ
 eJ
 cW
 dy
-ge
-fo
+pz
+hL
 IZ
 lT
 pQ
@@ -22793,7 +23090,7 @@ Po
 el
 dg
 gn
-bT
+ji
 bF
 zc
 pa
@@ -23040,7 +23337,7 @@ aj
 eo
 aj
 bJ
-tK
+Ff
 Av
 dj
 bD
@@ -23297,7 +23594,7 @@ aj
 aj
 ab
 bJ
-eW
+Ud
 zu
 gL
 bN
@@ -23540,14 +23837,14 @@ am
 am
 am
 am
-jB
-jB
-lA
-Od
-Od
-Od
-Od
-Od
+ka
+ka
+WH
+vP
+vP
+vP
+vP
+vP
 bt
 Zz
 ef
@@ -23797,13 +24094,13 @@ am
 am
 am
 am
-jB
-lA
-Od
-Od
-Od
-Od
-iE
+ka
+WH
+vP
+vP
+vP
+vP
+Pf
 cw
 cr
 bp
@@ -23817,8 +24114,8 @@ VD
 dy
 dy
 dy
-eH
-fa
+lH
+He
 gd
 dg
 GO
@@ -24054,13 +24351,13 @@ am
 am
 am
 am
-jB
-lA
-Od
-Od
-Od
-Od
-Od
+ka
+WH
+vP
+vP
+vP
+vP
+vP
 cU
 dH
 HT
@@ -24311,13 +24608,13 @@ am
 am
 am
 am
-jB
-jB
-lA
-Od
-Od
-Od
-Hn
+ka
+ka
+WH
+vP
+vP
+vP
+Ly
 cU
 jP
 bE
@@ -24568,13 +24865,13 @@ am
 am
 am
 am
-jB
-jB
-jB
-Hn
-Hn
-Od
-Gv
+ka
+ka
+ka
+Ly
+Ly
+vP
+Rz
 cr
 bY
 bW
@@ -24825,13 +25122,13 @@ am
 am
 am
 am
-jB
-jB
-lA
-Hn
-Od
-Od
-nR
+ka
+ka
+WH
+Ly
+vP
+vP
+AY
 AF
 YF
 bV
@@ -25082,20 +25379,20 @@ am
 am
 am
 am
-jB
-jB
-lA
-Od
-Od
-Od
-nR
+ka
+ka
+WH
+vP
+vP
+vP
+AY
 AF
 yY
 bQ
 bX
 bf
 Dz
-Dz
+io
 YB
 Dz
 Dz
@@ -25339,13 +25636,13 @@ am
 am
 am
 am
-jB
-jB
-lA
-Od
-Od
-Od
-Nd
+ka
+ka
+WH
+vP
+vP
+vP
+Mv
 cr
 cr
 fs
@@ -25354,12 +25651,12 @@ cr
 Dz
 VV
 eO
-BE
+uO
 dW
 DA
 Ps
 YS
-vh
+Mf
 Xb
 xl
 Ez
@@ -25596,18 +25893,18 @@ am
 am
 am
 am
-jB
-jB
-lA
-Od
-Od
-nR
-Nd
+ka
+ka
+WH
+vP
+vP
+AY
+Mv
 cr
 ex
 Ib
 ck
-cr
+Sy
 ii
 on
 dc
@@ -25615,9 +25912,9 @@ Dz
 Nk
 Dz
 Dz
-Nk
-vh
-cN
+ZG
+Mf
+Rm
 cN
 cN
 vh
@@ -25853,13 +26150,13 @@ am
 am
 am
 am
-jB
-jB
-lA
-Hn
-nR
-nR
-nR
+ka
+ka
+WH
+Ly
+AY
+AY
+AY
 cr
 eS
 dY
@@ -25868,38 +26165,38 @@ Jy
 UQ
 xA
 LO
-cZ
+Jk
 ds
 dE
-kf
-nR
-zL
-Hn
-nR
-nR
-nR
-nR
-nR
-nR
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
+Aj
+AY
+Yz
+Ly
+AY
+AY
+AY
+AY
+AY
+AY
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
 "}
 (70,1,1) = {"
 aa
@@ -26110,13 +26407,13 @@ am
 am
 am
 am
-jB
-lA
-Hn
-Hn
-nR
-nR
-nR
+ka
+WH
+Ly
+Ly
+AY
+AY
+AY
 cr
 ss
 dY
@@ -26129,34 +26426,34 @@ cD
 fG
 vT
 kf
-Hn
-Hn
-Hn
-Hn
-nR
-nR
-nR
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
+Ly
+Ly
+Ly
+Ly
+AY
+AY
+AY
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
 "}
 (71,1,1) = {"
 aa
@@ -26367,13 +26664,13 @@ am
 am
 am
 am
-lA
-Hn
-Hn
-Hn
-nR
-nR
-nR
+WH
+Ly
+Ly
+Ly
+AY
+AY
+AY
 cr
 cU
 cU
@@ -26386,34 +26683,34 @@ Dz
 Yv
 iN
 Dz
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Hn
-Od
-Hn
-Od
-Od
-Od
-Od
-Od
-Hn
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+Ly
+vP
+Ly
+vP
+vP
+vP
+vP
+vP
+Ly
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
 "}
 (72,1,1) = {"
 aa
@@ -26623,54 +26920,54 @@ ai
 am
 am
 am
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-nR
-nR
-rV
-Hn
-Hn
-nR
-nR
-nR
-nR
-nR
-nR
-Hn
-Hn
-rV
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Hn
-Od
-Od
-Hn
-Od
-Od
-Od
-Od
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+AY
+AY
+xy
+Ly
+Ly
+AY
+AY
+AY
+AY
+AY
+AY
+Ly
+Ly
+xy
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+Ly
+vP
+vP
+Ly
+vP
+vP
+vP
+vP
 "}
 (73,1,1) = {"
 aa
@@ -26880,54 +27177,54 @@ ab
 ai
 ai
 am
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-nR
-nR
-Hn
-Hn
-Hn
-nR
-nR
-nR
-nR
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Hn
-Od
-Od
-Hn
-Od
-Hn
-Od
-Od
-Od
-Hn
-Hn
-Od
-Od
-Hn
-Od
-Od
-Od
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+AY
+AY
+Ly
+Ly
+Ly
+AY
+AY
+AY
+AY
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+Ly
+vP
+vP
+Ly
+vP
+Ly
+vP
+vP
+vP
+Ly
+Ly
+vP
+vP
+Ly
+vP
+vP
+vP
 "}
 (74,1,1) = {"
 aa
@@ -27137,54 +27434,54 @@ ab
 ai
 ab
 ai
-jB
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Hn
-Od
-Od
-Od
-Od
-Hn
-Hn
-Od
-Hn
-Od
-Od
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
+ka
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+Ly
+vP
+vP
+vP
+vP
+Ly
+Ly
+vP
+Ly
+vP
+vP
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
 "}
 (75,1,1) = {"
 aa
@@ -27394,54 +27691,54 @@ ab
 ab
 ab
 ab
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-Hn
-Hn
-Hn
-Hn
-Od
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Hn
-Hn
-Hn
-Od
-Hn
-Od
-Od
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+Ly
+Ly
+Ly
+Ly
+vP
+Ly
+Ly
+Ly
+vP
+vP
+vP
+Ly
+Ly
+Ly
+vP
+vP
+vP
+Ly
+Ly
+Ly
+vP
+Ly
+vP
+vP
 "}
 (76,1,1) = {"
 aa
@@ -27651,54 +27948,54 @@ ab
 ab
 ab
 ab
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-lA
-lA
-lA
-Hn
-Hn
-Od
-Hn
-Hn
-Hn
-Od
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+WH
+WH
+WH
+Ly
+Ly
+vP
+Ly
+Ly
+Ly
+vP
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
 "}
 (77,1,1) = {"
 aa
@@ -27908,54 +28205,54 @@ ab
 ab
 ab
 ab
-lA
-lA
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-lA
-lA
-lA
-lA
-lA
-lA
-lA
-Hn
-Hn
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Hn
-Od
+WH
+WH
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+WH
+Ly
+Ly
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+Ly
+vP
 "}
 (78,1,1) = {"
 aa
@@ -28165,54 +28462,54 @@ ab
 ab
 ab
 ab
-Hn
-lA
-lA
-Hn
-Hn
-Hn
-lA
-lA
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-lA
-Od
-Od
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Hn
-Od
-Od
+Ly
+WH
+WH
+Ly
+Ly
+Ly
+WH
+WH
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+WH
+vP
+vP
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+Ly
+vP
+vP
 "}
 (79,1,1) = {"
 aa
@@ -28422,54 +28719,54 @@ ab
 ab
 ab
 ab
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Hn
-Od
-Od
-Od
-Od
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+Ly
+vP
+vP
+vP
+vP
 "}
 (80,1,1) = {"
 aa
@@ -28679,54 +28976,54 @@ ab
 ab
 ab
 ab
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Hn
-Od
-Od
-Od
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+Ly
+vP
+vP
+vP
 "}
 (81,1,1) = {"
 aa
@@ -28936,54 +29233,54 @@ ab
 ab
 ab
 ab
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Hn
-Od
-Od
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+Ly
+vP
+vP
 "}
 (82,1,1) = {"
 aa
@@ -29193,54 +29490,54 @@ ai
 ai
 ab
 ab
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Od
-Od
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Od
-Od
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+vP
+vP
 "}
 (83,1,1) = {"
 aa
@@ -29450,54 +29747,54 @@ am
 am
 ai
 ab
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-lA
-lA
-lA
-lA
-Hn
-Od
-Od
-Od
-Od
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Hn
-Od
-Od
-Od
-Od
-Od
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+WH
+WH
+WH
+WH
+Ly
+vP
+vP
+vP
+vP
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+vP
+vP
+vP
+vP
+vP
 "}
 (84,1,1) = {"
 aa

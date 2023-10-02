@@ -39,6 +39,8 @@
 	var/weight = 0
 	/// Message displayed when someone uses a baton when its forbidden by a martial art
 	var/no_baton_reason = "Your martial arts training prevents you from wielding batons."
+	/// Whether or not you can grab someone while horizontal with this Martial Art
+	var/can_horizontally_grab = TRUE
 
 /datum/martial_art/New()
 	. = ..()
@@ -59,7 +61,7 @@
 /datum/martial_art/proc/can_use(mob/living/carbon/human/H)
 	return !HAS_TRAIT(H, TRAIT_PACIFISM)
 
-/datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	if(!can_use(user))
 		return MARTIAL_ARTS_CANNOT_USE
 	if(combo_timer)
@@ -72,7 +74,7 @@
 		var/mob/living/carbon/human/owner = locateUID(owner_UID)
 		if(istype(owner) && !QDELETED(owner))
 			owner.hud_used.combo_display.update_icon(ALL, streak)
-			return check_combos(step, user, target)
+			return check_combos(step, user, target, could_start_new_combo)
 	return FALSE
 
 /datum/martial_art/proc/reset_combos()
@@ -84,7 +86,7 @@
 	for(var/combo_type in combos)
 		current_combos.Add(new combo_type())
 
-/datum/martial_art/proc/check_combos(step, mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/martial_art/proc/check_combos(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	. = FALSE
 	for(var/thing in current_combos)
 		var/datum/martial_combo/MC = thing
@@ -110,6 +112,8 @@
 					return TRUE
 	if(!LAZYLEN(current_combos))
 		reset_combos()
+		if(HAS_COMBOS && could_start_new_combo)
+			act(step, user, target, could_start_new_combo = FALSE)
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A, mob/living/carbon/human/D)
 
@@ -373,14 +377,16 @@
 /obj/item/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
+	icon_state = "bostaff0"
+	base_icon_state = "bostaff"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
-	icon_state = "bostaff0"
-	base_icon_state = "bostaff"
 
 /obj/item/bostaff/Initialize(mapload)
 	. = ..()

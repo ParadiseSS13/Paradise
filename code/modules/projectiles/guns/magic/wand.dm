@@ -1,7 +1,9 @@
-/obj/item/gun/magic/wand/
+/obj/item/gun/magic/wand
 	name = "wand of nothing"
 	desc = "It's not just a stick, it's a MAGIC stick!"
 	ammo_type = /obj/item/ammo_casing/magic
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "nothingwand"
 	item_state = "wand"
 	belt_icon = "wand_nothing"

@@ -223,18 +223,19 @@
 	D.mind.assigned_role = D.name
 	D.mind.special_role = D.name
 	SSticker.mode.traitors += D.mind
+
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = D.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
-	D.mind.objectives += KillDaWiz
+	D.mind.add_mind_objective(KillDaWiz)
+
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = D.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
-	D.mind.objectives += KillDaCrew
-	to_chat(D, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
-	to_chat(D, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")
+	D.mind.add_mind_objective(KillDaCrew)
+
+	D.mind.announce_objectives(title = FALSE)
+
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -302,18 +303,19 @@
 	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
 	M.key = C.key
 	M.make_morph_antag(FALSE)
+
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = M.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
-	M.mind.objectives += KillDaWiz
+	M.mind.add_mind_objective(KillDaWiz)
+
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = M.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
-	M.mind.objectives += KillDaCrew
-	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
-	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	M.mind.add_mind_objective(KillDaCrew)
+
+	M.mind.announce_objectives(title = FALSE)
 
 ///////////Revenant
 
@@ -357,15 +359,81 @@
 /obj/item/antag_spawner/revenant/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/mob/living/simple_animal/revenant/M = new /mob/living/simple_animal/revenant(pick(GLOB.xeno_spawn))
 	M.key = C.key
+
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = M.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
-	M.mind.objectives += KillDaWiz
+	M.mind.add_mind_objective(KillDaWiz)
+
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = M.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
-	M.mind.objectives += KillDaCrew
-	to_chat(M, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
-	to_chat(M, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")
+	M.mind.add_mind_objective(KillDaCrew)
+
+	M.mind.announce_objectives(title = FALSE)
+
+///////////Pulse Demon
+
+/obj/item/antag_spawner/pulse_demon
+	name = "living lightbulb"
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "lbulb"
+	var/shatter_msg = "<span class='notice'>You shatter the bulb, no turning back now!</span>"
+	var/veil_msg = "<span class='warning'>The creature sparks energetically and zips away...</span>"
+	var/objective_verb = "Electrocute"
+	var/mob/living/demon_type = /mob/living/simple_animal/demon/pulse_demon
+
+/obj/item/antag_spawner/pulse_demon/attack_self(mob/user)
+	if(level_blocks_magic(user.z))
+		to_chat(user, "<span class='notice'>You should probably wait until you reach the station.</span>")
+		return
+
+	var/turf/T = get_turf(src)
+	var/obj/structure/cable/wire = locate() in T
+	if(!wire || wire.get_available_power() <= 0)
+		to_chat(user, "<span class='warning'>This is not a suitable place, the creature would die here. Find a powered cable to release it onto.</span>")
+		return
+
+	if(used)
+		to_chat(user, "<span class='notice'>This bulb already has a broken seal.</span>")
+		return
+
+	used = TRUE
+	to_chat(user, "<span class='notice'>You break the seal on the bulb, waiting for the creature to spark to life...</span>")
+
+	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a pulse demon summoned by [user.real_name]?", ROLE_DEMON, TRUE, 10 SECONDS, source = demon_type)
+
+	if(!length(candidates))
+		used = FALSE
+		to_chat(user, "<span class='notice'>The creature does not come to life. Perhaps you should try again later.</span>")
+		return
+
+	var/mob/C = pick(candidates)
+	spawn_antag(C, T, user)
+	to_chat(user, shatter_msg)
+	to_chat(user, veil_msg)
+	playsound(T, 'sound/effects/glassbr1.ogg', 100, TRUE)
+	qdel(src)
+
+/obj/item/antag_spawner/pulse_demon/spawn_antag(client/C, turf/T, mob/user)
+	var/datum/mind/player_mind = new /datum/mind(C.key)
+	player_mind.active = TRUE
+
+	var/mob/living/simple_animal/demon/pulse_demon/demon = new(T)
+	player_mind.transfer_to(demon)
+	player_mind.assigned_role = SPECIAL_ROLE_DEMON
+	player_mind.special_role = SPECIAL_ROLE_DEMON
+	demon.give_objectives()
+
+	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
+	KillDaWiz.target = user.mind
+	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
+	demon.mind.add_mind_objective(KillDaWiz)
+
+	var/datum/objective/KillDaCrew = new /datum/objective
+	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
+	KillDaCrew.completed = TRUE
+	demon.mind.add_mind_objective(KillDaCrew)
+
+	demon.mind.announce_objectives(title = FALSE)
