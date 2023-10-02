@@ -42,7 +42,7 @@
 
 /obj/item/gun/energy/laser/captain/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The power cell of this item slowly recharges on it's own. This caused the station pictured to explode. Cannot be recharged in a recharger.</span>"
+	. += "<span class='notice'>The power cell of this item slowly recharges on it's own. This caused the station pictured to explode.</span>"
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"

@@ -3296,9 +3296,6 @@
 	name = "Security Checkpoint";
 	pixel_x = -8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
-	dir = 8
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -3768,6 +3765,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -15784,6 +15784,13 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Riot Control";
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "aVm" = (
@@ -23411,6 +23418,13 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/reinforced/normal{
+	name = "Warden's Desk";
+	dir = 1
+	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Warden's Desk"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -25552,6 +25566,10 @@
 	name = "Evidence Deposit"
 	},
 /obj/structure/disposalpipe/trunk,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Evidence Deposit"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -35944,6 +35962,10 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/forensics{
 	dir = 4
 	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4;
+	name = "Body Storage"
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
 "bNr" = (
@@ -40374,6 +40396,10 @@
 	id_tag = "hop";
 	name = "Privacy Shutters"
 	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Head of Personnel's Desk";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
 "bWQ" = (
@@ -43562,6 +43588,13 @@
 /area/station/security/evidence)
 "ceE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Evidence Storage"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -82491,6 +82524,10 @@
 	},
 /obj/item/folder/red,
 /obj/item/folder/red,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	name = "Security Reception"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -89287,6 +89324,13 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/reinforced/normal{
+	name = "Secure Armory"
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	name = "Secure Armory"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -96306,6 +96350,14 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/reinforced/normal{
+	name = "Warden's Desk";
+	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Warden's Desk"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},

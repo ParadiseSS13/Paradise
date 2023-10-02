@@ -55,7 +55,7 @@
 
 /datum/antagonist/mindslave/give_objectives()
 	var/explanation_text = "Obey every order from and protect [master.current.real_name], the [master.assigned_role ? master.assigned_role : master.special_role]."
-	add_objective(/datum/objective/protect/mindslave, explanation_text, master)
+	add_antag_objective(/datum/objective/protect/mindslave, explanation_text, master)
 
 /datum/antagonist/mindslave/greet()
 	var/mob/living/carbon/human/mindslave = owner.current
