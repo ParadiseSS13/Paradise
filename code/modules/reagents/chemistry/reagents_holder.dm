@@ -253,6 +253,8 @@
 		return
 	if(temperature_bound != null) // If we have a target temp, we only go until that temperature
 		chem_temp = directional_bounded_sum(chem_temp, amount, -temperature_bound, temperature_bound)
+	else
+		chem_temp += amount
 	chem_temp = clamp(chem_temp, temperature_min, temperature_max)
 	temperature_react()
 	handle_reactions()
