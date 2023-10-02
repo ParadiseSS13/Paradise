@@ -1327,8 +1327,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(stat != DEAD)
 			to_chat(user, "<span class='notice'>Beginning active intelligence transfer: please wait.</span>")
 
-			if(!do_after(user, 5 SECONDS, target = src) || !Adjacent(user))
-				to_chat(user, "<span class='warning'>Intelligence transfer interrupted.</span>")
+			if(!do_after_once(user, 5 SECONDS, target = src) || !Adjacent(user))
+				to_chat(user, "<span class='warning'>Intelligence transfer aborted.</span>")
 				return
 
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
