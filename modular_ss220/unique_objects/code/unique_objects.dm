@@ -55,6 +55,15 @@
 	anchored = TRUE
 	oreAmount = 0
 
+/obj/structure/statue/themis
+	name = "Фемида"
+	desc = "Статуя древнегреческой богини правосудия."
+	icon = 'modular_ss220/unique_objects/icons/statuelarge.dmi'
+	icon_state = "themis"
+	pixel_y = 7
+	anchored = TRUE
+	oreAmount = 0
+
 // Cyberiad statue
 /obj/structure/statue/cyberiad
 	name = "статуя Кибериады"
