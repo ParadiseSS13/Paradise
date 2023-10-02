@@ -182,7 +182,7 @@ export class DraggableControl extends Component {
         ref={this.inputRef}
         className="NumberInput__input"
         style={{
-          display: !editing ? 'none' : undefined,
+          display: !editing || this.props.disabled ? 'none' : undefined,
           height: height,
           'line-height': lineHeight,
           'font-size': fontSize,
