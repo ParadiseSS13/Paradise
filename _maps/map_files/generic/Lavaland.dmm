@@ -1264,16 +1264,16 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -1430,8 +1430,7 @@
 /area/mine/outpost/mechbay)
 "du" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Primary Maintenance";
-	req_access_txt = "48"
+	name = "Primary Maintenance"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -1687,6 +1686,7 @@
 /obj/structure/closet/crate,
 /obj/item/newspaper,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/item/stack/marker_beacon,
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
 "dV" = (
@@ -1707,8 +1707,7 @@
 /area/mine/outpost/airlock)
 "dX" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "EVA Storage";
-	req_access_txt = "54"
+	name = "EVA Storage"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
@@ -2071,8 +2070,7 @@
 /area/mine/outpost/storage)
 "eI" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Airlock Maintence";
-	req_access_txt = "54"
+	name = "Airlock Maintence"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -2315,10 +2313,9 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external/glass{
 	name = "Shuttle Airlock";
-	id_tag = "mining_away";
-	req_access_txt = "48"
+	id_tag = "mining_away"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredfull"
@@ -2461,8 +2458,7 @@
 "fs" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
-	name = "Box Storage";
-	req_access_txt = "48"
+	name = "Box Storage"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -2935,8 +2931,7 @@
 /area/lavaland/surface/outdoors)
 "gp" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Mech Bay Maintence";
-	req_access_txt = "54"
+	name = "Mech Bay Maintence"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3389,7 +3384,6 @@
 "iN" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Main Airlock";
-	req_access_txt = "54";
 	dir = 1
 	},
 /obj/structure/fans/tiny,
@@ -3939,8 +3933,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/mining/glass{
-	name = "Hallway";
-	req_access_txt = "48"
+	name = "Hallway"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -4526,11 +4519,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/mine/laborcamp)
 "on" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4611,6 +4599,13 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"pl" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/sign/nanotrasen{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "pq" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
@@ -4633,8 +4628,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance{
-	name = "Primary Maintenance";
-	req_access_txt = "48"
+	name = "Primary Maintenance"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -5054,10 +5048,8 @@
 "uq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/maintenance{
-	name = "Mech Bay Maintence";
-	req_access_txt = "54"
+	name = "Mech Bay Maintence"
 	},
-/obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plating,
@@ -5092,8 +5084,7 @@
 /area/mine/laborcamp)
 "uO" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Airlock Maintence";
-	req_access_txt = "54"
+	name = "Airlock Maintence"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -5112,6 +5103,7 @@
 /area/mine/outpost/hallway/east)
 "uZ" = (
 /obj/structure/marker_beacon/dock_marker/collision,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "va" = (
@@ -5146,12 +5138,10 @@
 	},
 /area/mine/laborcamp/security)
 "vg" = (
-/obj/machinery/door/airlock/glass{
-	name = "Primary Tool Storage"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/machinery/door/airlock,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5287,16 +5277,15 @@
 /area/lavaland/surface/outdoors)
 "vQ" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Hallway";
-	req_access_txt = "48"
+	name = "Hallway"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5376,14 +5365,14 @@
 /area/lavaland/surface/outdoors)
 "xA" = (
 /obj/effect/baseturf_helper/lava_land/surface,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5948,8 +5937,7 @@
 /area/mine/outpost/hallway/west)
 "CH" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Hallway";
-	req_access_txt = "48"
+	name = "Hallway"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5957,7 +5945,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -6131,6 +6119,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -6274,6 +6263,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "FC" = (
 /obj/structure/marker_beacon/dock_marker/collision,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "FE" = (
@@ -6382,8 +6372,7 @@
 /area/mine/outpost/mechbay)
 "He" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Hallway";
-	req_access_txt = "48"
+	name = "Hallway"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -6537,9 +6526,6 @@
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/siberia)
-"IZ" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
-/area/mine/outpost/hallway/west)
 "Jb" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6574,8 +6560,7 @@
 "Jk" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/multi_tile/glass{
-	name = "Main Airlock";
-	req_access_txt = "54"
+	name = "Main Airlock"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/effect/decal/cleanable/dirt,
@@ -6612,8 +6597,7 @@
 "Jy" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
-	name = "Box Storage";
-	req_access_txt = "48"
+	name = "Box Storage"
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -6631,6 +6615,7 @@
 /area/mine/outpost/storage)
 "JB" = (
 /obj/structure/closet/crate/secure/loot,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "JC" = (
@@ -6735,6 +6720,13 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
+"KS" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/sign/nanotrasen{
+	pixel_x = -32
+	},
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "KY" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Labor Shuttle Airlock"
@@ -6809,6 +6801,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -6895,12 +6892,6 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/hallway/west)
-"MO" = (
-/obj/structure/sign/nanotrasen{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/lavaland/surface/outdoors)
 "MP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -7095,13 +7086,6 @@
 	icon_state = "darkredcorners"
 	},
 /area/mine/laborcamp/security)
-"Pf" = (
-/obj/structure/sign/nanotrasen{
-	pixel_y = -32
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/lavaland/surface/outdoors)
 "Pg" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/sign/securearea{
@@ -7144,8 +7128,7 @@
 /area/mine/outpost/airlock)
 "Pu" = (
 /obj/machinery/door/airlock/mining{
-	name = "Lockers";
-	req_access_txt = "48"
+	name = "Lockers"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/door/firedoor,
@@ -7203,6 +7186,10 @@
 "PX" = (
 /turf/simulated/wall,
 /area/mine/laborcamp/security)
+"Qd" = (
+/obj/structure/sign/nanotrasen,
+/turf/simulated/wall/mineral/iron,
+/area/lavaland/surface/outdoors)
 "Ql" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7324,8 +7311,8 @@
 /obj/machinery/door/airlock/external/glass{
 	name = "Shuttle Dock"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredfull"
@@ -7354,6 +7341,16 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp/security)
+"SD" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/structure/sign/nanotrasen{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "SH" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -7556,9 +7553,6 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/hallway/east)
-"Vg" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
-/area/mine/outpost/medbay)
 "Vt" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Central";
@@ -7615,6 +7609,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -7834,6 +7829,7 @@
 	c_tag = "Mining Outpost - Medical Bay";
 	network = list("Mining Outpost")
 	},
+/obj/item/stack/medical/splint,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue";
 	dir = 4
@@ -7993,7 +7989,6 @@
 /area/lavaland/surface/outdoors)
 "YB" = (
 /obj/machinery/door/airlock/mining/glass{
-	req_access_txt = "54";
 	name = "Main Airlock"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -18687,7 +18682,7 @@ gi
 gi
 gi
 gi
-MO
+aj
 aj
 aj
 aj
@@ -20968,14 +20963,14 @@ ai
 ai
 ai
 am
-ai
-ab
-aj
-aj
-aj
-AE
-AE
-AE
+WH
+Ly
+vP
+vP
+vP
+AY
+AY
+AY
 AE
 ec
 eQ
@@ -21225,14 +21220,14 @@ am
 am
 am
 ai
-ab
-aj
-aj
-aj
-AE
-aj
-AE
-AE
+Ly
+vP
+vP
+vP
+AY
+vP
+AY
+AY
 AE
 ec
 AE
@@ -21247,7 +21242,7 @@ dr
 Xl
 BT
 dR
-IZ
+bR
 vQ
 CH
 gd
@@ -21482,14 +21477,14 @@ am
 am
 am
 ai
-ab
-aj
-ab
-AE
-aj
-AE
-AE
-AE
+Ly
+vP
+Ly
+AY
+vP
+AY
+AY
+AY
 AE
 cx
 AE
@@ -21504,7 +21499,7 @@ cW
 dy
 pz
 fo
-IZ
+bR
 lT
 pQ
 gd
@@ -21739,15 +21734,15 @@ am
 am
 am
 ai
-ab
-aj
-aj
+Ly
+vP
+vP
 FC
-AE
-AE
-AE
+AY
+AY
+AY
 JB
-AE
+Qd
 Bh
 aj
 aj
@@ -21996,14 +21991,14 @@ am
 am
 am
 ai
-aj
-aj
-aj
-aj
-aj
-aj
+vP
+vP
+vP
+vP
+vP
+vP
 FC
-ab
+Ly
 aj
 Ej
 aj
@@ -22253,14 +22248,14 @@ am
 am
 am
 am
-ai
-aj
-aj
-aj
-aj
-aj
-aj
-aj
+WH
+vP
+vP
+vP
+vP
+vP
+vP
+vP
 aj
 Ej
 aj
@@ -22510,14 +22505,14 @@ am
 am
 am
 am
-ai
-aj
-aj
-ab
-aj
-aj
-aj
-aj
+WH
+vP
+vP
+Ly
+vP
+vP
+vP
+vP
 aj
 Ej
 ab
@@ -22767,14 +22762,14 @@ am
 am
 am
 am
-am
-ab
-aj
-aj
-ab
+ka
+Ly
+vP
+vP
+Ly
 FC
-aj
-aj
+vP
+vP
 aj
 lB
 ab
@@ -23024,14 +23019,14 @@ am
 am
 am
 am
-am
-am
-aj
-aj
-AE
-AE
-ab
-aj
+ka
+ka
+vP
+vP
+AY
+AY
+Ly
+vP
 aj
 Ej
 aj
@@ -23281,14 +23276,14 @@ am
 am
 am
 am
-am
-am
-am
-aj
-aj
+ka
+ka
+ka
+vP
+vP
 uZ
-aj
-aj
+vP
+vP
 aj
 FA
 aj
@@ -23546,7 +23541,7 @@ vP
 vP
 vP
 vP
-bt
+SD
 Zz
 ef
 aj
@@ -23801,7 +23796,7 @@ vP
 vP
 vP
 vP
-Pf
+vP
 cw
 cr
 bp
@@ -24591,7 +24586,7 @@ CT
 CT
 fr
 vh
-Vg
+vh
 vg
 IC
 IC
@@ -25880,7 +25875,7 @@ AY
 AY
 AY
 Ly
-Ly
+pl
 Ly
 Ly
 vP
@@ -26634,7 +26629,7 @@ Ly
 Ly
 AY
 AY
-AY
+KS
 AY
 AY
 AY
