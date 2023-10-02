@@ -12,8 +12,21 @@
 /datum/proc/can_vv_get(var_name)
 	return TRUE
 
-// /client/proc/can_vv_get(var_name)
-// 	return TRUE
+/mob/can_vv_get(var_name)
+	var/static/list/protected_vars = list(
+		"lastKnownIP", "computer_id"
+	)
+	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+		return FALSE
+	return TRUE
+
+/client/can_vv_get(var_name)
+	var/static/list/protected_vars = list(
+		"address", "computer_id"
+	)
+	if(!check_rights(R_ADMIN, FALSE, mob) && (var_name in protected_vars))
+		return FALSE
+	return TRUE
 
 /datum/proc/vv_edit_var(var_name, var_value) //called whenever a var is edited
 	switch(var_name)
@@ -1407,3 +1420,29 @@
 	if(href_list["listrefresh"])
 		debug_variables(locate(href_list["listrefresh"]))
 		return TRUE
+
+/client/proc/debug_global_variables(var_search as text)
+	set category = "Debug"
+	set name = "Debug Global Variables"
+
+	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
+		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>")
+		return
+
+	var_search = trim(var_search)
+	if(!var_search)
+		return
+	if(!GLOB.can_vv_get(var_search))
+		return
+	switch(var_search)
+		if("vars")
+			return FALSE
+	if(!(var_search in GLOB.vars))
+		to_chat(src, "<span class='debug'>GLOB.[var_search] does not exist.</span>")
+		return
+	log_and_message_admins("is debugging the Global Variables controller with the search term \"[var_search]\"")
+	var/result = GLOB.vars[var_search]
+	if(islist(result) || isclient(result) || istype(result, /datum))
+		to_chat(src, "<span class='debug'>Now showing GLOB.[var_search].</span>")
+		return debug_variables(result)
+	to_chat(src, "<span class='debug'>GLOB.[var_search] returned [result].</span>")

@@ -3296,9 +3296,6 @@
 	name = "Security Checkpoint";
 	pixel_x = -8
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
-	dir = 8
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -3768,6 +3765,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -7600,7 +7600,6 @@
 /area/station/maintenance/fore)
 "aBE" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Bar Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar,
@@ -8839,9 +8838,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/door/window{
-	dir = 2
-	},
+/obj/machinery/door/window,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -14445,7 +14442,7 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/station/maintenance/incinerator)
 "aSy" = (
 /obj/machinery/door/poddoor{
@@ -15444,8 +15441,8 @@
 "aUA" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "darkblue"
+	icon_state = "darkblue";
+	dir = 5
 	},
 /area/space/nearstation)
 "aUB" = (
@@ -15786,6 +15783,13 @@
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Riot Control";
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
@@ -19892,7 +19896,6 @@
 "bdR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -19918,7 +19921,6 @@
 /obj/item/reagent_containers/food/condiment/peppermill,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -20071,7 +20073,6 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Glass Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
@@ -20408,7 +20409,6 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -20428,7 +20428,6 @@
 /obj/item/storage/fancy/donut_box,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
@@ -21789,7 +21788,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	id = "Cell 2";
 	name = "Cell 2"
 	},
@@ -23420,6 +23418,13 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/reinforced/normal{
+	name = "Warden's Desk";
+	dir = 1
+	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Warden's Desk"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -25561,6 +25566,10 @@
 	name = "Evidence Deposit"
 	},
 /obj/structure/disposalpipe/trunk,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Evidence Deposit"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -25668,7 +25677,6 @@
 /area/station/security/prison/cell_block)
 "brl" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	id = "Cell 3";
 	name = "Cell 3"
 	},
@@ -26659,10 +26667,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
-"btJ" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "btK" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -30588,8 +30592,7 @@
 /area/station/command/bridge)
 "bCs" = (
 /obj/machinery/door/window/reinforced/reversed{
-	name = "Captains seat";
-	dir = 2
+	name = "Captains seat"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -35208,7 +35211,6 @@
 /area/station/security/prison/cell_block)
 "bLG" = (
 /obj/machinery/door/window/brigdoor{
-	dir = 2;
 	id = "Cell 4";
 	name = "Cell 4"
 	},
@@ -35955,6 +35957,10 @@
 "bNo" = (
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/forensics{
 	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 4;
+	name = "Body Storage"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
@@ -37304,7 +37310,7 @@
 "bQx" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
@@ -40386,6 +40392,10 @@
 	id_tag = "hop";
 	name = "Privacy Shutters"
 	},
+/obj/machinery/door/window/reinforced/normal{
+	name = "Head of Personnel's Desk";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/hop)
 "bWQ" = (
@@ -43209,7 +43219,6 @@
 /area/station/command/office/hop)
 "cdI" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Desk Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/ntrep,
@@ -43284,7 +43293,6 @@
 /area/station/command/office/blueshield)
 "cdS" = (
 /obj/machinery/door/window{
-	dir = 2;
 	name = "Desk Door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/command/blueshield,
@@ -43576,6 +43584,13 @@
 /area/station/security/evidence)
 "ceE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Evidence Storage"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/doors{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -47315,7 +47330,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
 	name = "Security Delivery"
 	},
 /turf/simulated/floor/plasteel,
@@ -54299,7 +54313,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/general,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Engineering Delivery"
 	},
 /turf/simulated/floor/plasteel,
@@ -56270,7 +56283,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/equipmentstorage)
 "cIO" = (
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "cIP" = (
 /obj/machinery/suit_storage_unit/engine,
@@ -56794,14 +56809,14 @@
 "cKp" = (
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on,
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
 /area/station/science/xenobiology)
 "cKq" = (
 /turf/simulated/floor/bluegrid{
-	nitrogen = 500;
+	nitrogen = 100;
 	oxygen = 0;
 	temperature = 80
 	},
@@ -57421,19 +57436,25 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "cLT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "cLU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "cLW" = (
 /obj/machinery/door/airlock/maintenance,
@@ -60014,7 +60035,9 @@
 	c_tag = "Xeno Kill Room";
 	network = list("Research","SS13")
 	},
-/turf/simulated/floor/plasteel/dark/nitrogen,
+/turf/simulated/floor/plasteel/dark/nitrogen{
+	temperature = 80
+	},
 /area/station/science/xenobiology)
 "cSD" = (
 /obj/structure/bed/roller,
@@ -60519,8 +60542,7 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Research Lab Desk";
-	dir = 2
+	name = "Research Lab Desk"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -60671,7 +60693,6 @@
 	name = "Chemistry Desk Shutters"
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Chemistry Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
@@ -60687,8 +60708,7 @@
 /obj/machinery/door/firedoor,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Chemistry Desk";
-	dir = 2
+	name = "Chemistry Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
@@ -60728,8 +60748,7 @@
 /obj/machinery/door/firedoor,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Medbay Desk";
-	dir = 2
+	name = "Medbay Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/effect/decal/warning_stripes/yellow,
@@ -60743,8 +60762,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Medbay Desk";
-	dir = 2
+	name = "Medbay Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/effect/decal/warning_stripes/yellow,
@@ -62919,8 +62937,7 @@
 /obj/item/folder/white,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Medbay Desk";
-	dir = 2
+	name = "Medbay Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -72468,7 +72485,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics,
 /obj/machinery/door/window/classic/reversed{
-	dir = 2;
 	name = "Robotics Delivery"
 	},
 /turf/simulated/floor/plasteel,
@@ -82494,6 +82510,10 @@
 	},
 /obj/item/folder/red,
 /obj/item/folder/red,
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	name = "Security Reception"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -83175,8 +83195,7 @@
 	name = "Toxins Launcher"
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Toxins Launcher";
-	dir = 2
+	name = "Toxins Launcher"
 	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
@@ -86216,8 +86235,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Medbay Desk";
-	dir = 2
+	name = "Medbay Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/general,
 /obj/item/paper_bin,
@@ -89241,6 +89259,13 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/reinforced/normal{
+	name = "Secure Armory"
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 1;
+	name = "Secure Armory"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -90066,6 +90091,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
+"oEG" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "oFL" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -96245,6 +96274,14 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/window/reinforced/normal{
+	name = "Warden's Desk";
+	dir = 4
+	},
+/obj/machinery/door/window/reinforced/normal{
+	dir = 8;
+	name = "Warden's Desk"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -150108,7 +150145,7 @@ abj
 aaa
 abj
 abj
-btJ
+oEG
 aaa
 ygH
 tFK
@@ -150365,7 +150402,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+oEG
 abj
 ygH
 aJx
@@ -150622,7 +150659,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+oEG
 aaa
 ygH
 uUu
@@ -153500,7 +153537,7 @@ nlB
 aaa
 abj
 abj
-btJ
+oEG
 abj
 abj
 csj
@@ -154014,7 +154051,7 @@ aaa
 aaa
 aaa
 abj
-btJ
+oEG
 abj
 abj
 csj
@@ -154529,7 +154566,7 @@ aaa
 aaa
 abj
 abj
-btJ
+oEG
 abj
 csj
 rEQ
@@ -156562,10 +156599,10 @@ aaa
 aaa
 abj
 abj
-btJ
-btJ
-btJ
-btJ
+oEG
+oEG
+oEG
+oEG
 abj
 abj
 fhF
@@ -156824,7 +156861,7 @@ aaa
 abj
 abj
 aaa
-btJ
+oEG
 fhF
 fhF
 fhF
@@ -156834,7 +156871,7 @@ fhF
 fhF
 abj
 abj
-btJ
+oEG
 aaa
 aaa
 aaa
@@ -157078,10 +157115,10 @@ aaa
 abj
 abj
 abj
-btJ
-btJ
-btJ
-btJ
+oEG
+oEG
+oEG
+oEG
 fhF
 fhF
 fhF
@@ -157091,7 +157128,7 @@ fhF
 fhF
 abj
 aaa
-btJ
+oEG
 aaa
 aaa
 aaa
@@ -157348,7 +157385,7 @@ fhF
 fhF
 abj
 aaa
-btJ
+oEG
 aaa
 aaa
 aaa
@@ -157595,7 +157632,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+oEG
 fhF
 fhF
 fhF
@@ -157603,9 +157640,9 @@ fhF
 fhF
 fhF
 fhF
-btJ
+oEG
 abj
-btJ
+oEG
 aaa
 aaa
 aaa
@@ -157846,13 +157883,13 @@ aaa
 aaa
 aaa
 aaa
-btJ
+oEG
 aaa
 aaa
 aaa
 aaa
 aaa
-btJ
+oEG
 fhF
 fhF
 fhF
@@ -157860,7 +157897,7 @@ fhF
 fhF
 fhF
 fhF
-btJ
+oEG
 abj
 abj
 aaa
@@ -158103,20 +158140,20 @@ aaa
 aaa
 aaa
 aaa
-btJ
+oEG
 aaa
 aaa
 aaa
 aaa
 aaa
 bPS
-btJ
-btJ
+oEG
+oEG
 abj
 bPS
 abj
-btJ
-btJ
+oEG
+oEG
 bPS
 aaa
 aaa
@@ -158360,7 +158397,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+oEG
 aaa
 aaa
 aaa
@@ -158625,11 +158662,11 @@ aaa
 aaa
 aaa
 aaa
-btJ
-btJ
-btJ
-btJ
-btJ
+oEG
+oEG
+oEG
+oEG
+oEG
 aaa
 aaa
 aaa

@@ -8,7 +8,7 @@
 	department_head = list("Nanotrasen Navy Officer")
 	selection_color = "#ccccff"
 	req_admin_notify = 1
-	is_command = TRUE
+	job_department_flags = DEP_FLAG_COMMAND
 	department_account_access = TRUE
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
@@ -66,7 +66,7 @@
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = 1
-	is_command = 1
+	job_department_flags = DEP_FLAG_COMMAND
 	minimal_player_age = 21
 	department_account_access = TRUE
 	exp_map = list(EXP_TYPE_SERVICE = 1200)
@@ -115,7 +115,7 @@
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
-	is_command = TRUE
+	job_department_flags = DEP_FLAG_COMMAND
 	transfer_allowed = FALSE
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_COMMAND = 3000) // 50 hours baby
@@ -163,7 +163,7 @@
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
-	is_command = TRUE
+	job_department_flags = DEP_FLAG_COMMAND
 	transfer_allowed = FALSE
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_COMMAND = 3000) // 50 hours baby
@@ -211,7 +211,7 @@
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
-	is_legal = TRUE
+	job_department_flags = DEP_FLAG_LEGAL
 	transfer_allowed = FALSE
 	minimal_player_age = 30
 	exp_map = list(EXP_TYPE_SECURITY = 6000) // 100 hours baby
@@ -255,7 +255,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
-	is_legal = 1
+	job_department_flags = DEP_FLAG_LEGAL
 	supervisors = "the magistrate"
 	department_head = list("Captain")
 	selection_color = "#ddddff"

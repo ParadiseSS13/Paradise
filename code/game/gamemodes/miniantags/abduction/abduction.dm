@@ -151,8 +151,8 @@
 
 /datum/game_mode/abduction/proc/greet_agent(datum/mind/abductor,team_number)
 	var/datum/objective/stay_hidden/O = new
-	abductor.objectives += O
-	abductor.objectives += team_objectives[team_number]
+	abductor.add_mind_objective(O)
+	abductor.objective_holder.add_objective(team_objectives[team_number]) // this needs to be changed when abductor teams are changed to actual antag teams
 	var/team_name = team_names[team_number]
 
 	SEND_SOUND(abductor.current, sound('sound/ambience/antag/abductors.ogg'))
@@ -166,8 +166,8 @@
 
 /datum/game_mode/abduction/proc/greet_scientist(datum/mind/abductor,team_number)
 	var/datum/objective/stay_hidden/O = new
-	abductor.objectives += O
-	abductor.objectives += team_objectives[team_number]
+	abductor.add_mind_objective(O)
+	abductor.objective_holder.add_objective(team_objectives[team_number]) // this needs to be changed when abductor teams are changed to actual antag teams
 	var/team_name = team_names[team_number]
 
 	SEND_SOUND(abductor.current, sound('sound/ambience/antag/abductors.ogg'))
@@ -238,19 +238,21 @@
 
 
 // OBJECTIVES
+//No check completion, it defaults to being completed unless an admin sets it to failed.
+/datum/objective/stay_hidden
+	explanation_text = "Limit contact with your targets outside of conducting your experiments and abduction."
+	completed = TRUE
+	needs_target = FALSE
+
 /datum/objective/experiment
+	explanation_text = "Experiment on some humans."
 	target_amount = 6
+	needs_target = FALSE
 	/// Which abductor team number does this belong to.
 	var/abductor_team_number
 
-/datum/objective/stay_hidden
-
-/datum/objective/stay_hidden/New()
-	explanation_text = "Limit contact with your targets outside of conducting your experiments and abduction."
-	completed = TRUE
-//No check completion, it defaults to being completed unless an admin sets it to failed.
-
 /datum/objective/experiment/New()
+	..()
 	explanation_text = "Experiment on [target_amount] humans."
 
 /datum/objective/experiment/check_completion()
