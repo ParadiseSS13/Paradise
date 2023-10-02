@@ -75,6 +75,7 @@ export const Slider = (props) => {
           <div
             className={classes([
               'Slider',
+              disabled && 'Slider__disabled',
               'ProgressBar',
               (disabled ? 'ProgressBar--color--disabled' : 'ProgressBar--color--' + effectiveColor),
               className,
