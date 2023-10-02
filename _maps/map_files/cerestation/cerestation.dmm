@@ -2213,7 +2213,7 @@
 /area/station/maintenance/disposal/north)
 "and" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "ang" = (
@@ -5380,7 +5380,7 @@
 	},
 /area/station/security/storage)
 "aGX" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "aHa" = (
@@ -14946,11 +14946,11 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/storage)
 "bAD" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "hopshutter"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/command/office/hop)
 "bAE" = (
@@ -34928,10 +34928,6 @@
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"dzg" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/hallway/spacebridge/cargocom)
 "dzk" = (
 /turf/simulated/wall,
 /area/station/service/janitor)
@@ -56288,10 +56284,10 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/station/public/toilet)
 "kHT" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/red{
 	dir = 6
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
 "kIm" = (
@@ -68258,12 +68254,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "oIk" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
 "oIu" = (
@@ -87658,10 +87654,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
-"viQ" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/wall/r_wall,
-/area/station/hallway/spacebridge/scidock)
 "viX" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -89870,10 +89862,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical_shop)
 "vQm" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint/secondary)
 "vQv" = (
@@ -92334,7 +92326,7 @@
 	},
 /area/station/hallway/primary/fore/west)
 "wAh" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint/secondary)
 "wAp" = (
@@ -127813,7 +127805,7 @@ uVb
 hrd
 yjg
 hKz
-viQ
+uVb
 rNK
 rNK
 rNK
@@ -128841,7 +128833,7 @@ uVb
 seK
 yjI
 dVe
-viQ
+uVb
 rNK
 rNK
 xcc
@@ -141328,7 +141320,7 @@ cXi
 cXi
 bCJ
 feQ
-dzg
+ndR
 mWE
 rNK
 rNK
