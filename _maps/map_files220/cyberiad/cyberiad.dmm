@@ -10957,10 +10957,6 @@
 /obj/structure/sign/vacuum/external{
 	pixel_y = -32
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 1
-	},
-/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
@@ -12324,17 +12320,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical)
-"aQX" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 4;
-	height = 11;
-	id = "trade_dock";
-	name = "port bay 4 at Cyberiad";
-	width = 9
-	},
-/turf/space,
-/area/space)
 "aQY" = (
 /obj/structure/chair/stool{
 	dir = 4
@@ -14979,14 +14964,6 @@
 	dir = 4;
 	icon_state = "arrival"
 	},
-/area/station/hallway/secondary/entry)
-"aZP" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
-	name = "KEEP CLEAR: DOCKING AREA"
-	},
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "aZT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -50742,6 +50719,13 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/atmos/control)
+"euy" = (
+/obj/effect/decal/warning_stripes/southwest,
+/obj/structure/chair/sofa/bench/left{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "euD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -56902,6 +56886,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"gGY" = (
+/obj/effect/decal/warning_stripes/north,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "gHg" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -57924,17 +57915,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/science/toxins/launch)
-"gXU" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "sol_door_int";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "gXX" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -64178,19 +64158,6 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/station/engineering/equipmentstorage)
-"jmd" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "sol_door_ext";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/obj/machinery/access_button{
-	autolink_id = "sol_btn_ext";
-	pixel_x = -10;
-	pixel_y = -23
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "jmU" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt,
@@ -66468,6 +66435,18 @@
 	icon_state = "brown"
 	},
 /area/station/supply/qm)
+"khv" = (
+/obj/docking_port/stationary{
+	dir = 8;
+	dwidth = 7;
+	height = 18;
+	id = "trade_dock";
+	name = "port bay 4 at Cyberiad";
+	width = 15;
+	dheight = 1
+	},
+/turf/space,
+/area/space)
 "khK" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable/yellow{
@@ -73988,6 +73967,10 @@
 	icon_state = "dark"
 	},
 /area/station/service/hydroponics)
+"mTi" = (
+/obj/machinery/door/airlock/external,
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "mTj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -84715,18 +84698,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/aft)
-"qIw" = (
-/obj/machinery/access_button{
-	autolink_id = "sol_btn_int";
-	pixel_x = -22;
-	pixel_y = -23
-	},
-/obj/effect/decal/warning_stripes/north,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry)
 "qIy" = (
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/plasteel{
@@ -87499,21 +87470,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/mineral/tranquillite,
 /area/station/service/mime)
-"rOS" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "sol_vent";
-	dir = 4
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	ext_button_link_id = "sol_btn_ext";
-	ext_door_link_id = "sol_door_ext";
-	int_button_link_id = "sol_btn_int";
-	int_door_link_id = "sol_door_int";
-	pixel_y = -25;
-	vent_link_id = "sol_vent"
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "rPa" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood{
@@ -93540,6 +93496,9 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
+"tVi" = (
+/turf/simulated/wall,
+/area/space)
 "tVq" = (
 /obj/structure/chair/sofa,
 /obj/effect/decal/cleanable/dirt,
@@ -94819,6 +94778,13 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/hallway)
+"urF" = (
+/obj/effect/decal/warning_stripes/southeast,
+/obj/structure/chair/sofa/bench/right{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "urU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -98571,6 +98537,13 @@
 	icon_state = "dark"
 	},
 /area/station/aisat/atmos)
+"vKE" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "trade_dock";
+	locked = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/hallway/secondary/entry)
 "vKP" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -113190,7 +113163,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+khv
 aaa
 aaa
 aaa
@@ -113445,10 +113418,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+aMs
+vKE
+vKE
+aMs
 aaa
 aaa
 aaa
@@ -113702,10 +113675,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+aSd
+aSf
+aSf
+aSd
 aaa
 aaa
 aaa
@@ -113959,10 +113932,10 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aQX
-aaa
-aaa
+aSd
+aSf
+aSf
+aSd
 aaa
 aaa
 aaa
@@ -114216,11 +114189,11 @@ aaa
 aaa
 aaa
 aaa
-aSd
-jmd
-aZP
-aab
-aab
+aMs
+mTi
+mTi
+aMs
+tVi
 aaa
 aaa
 aVV
@@ -114473,11 +114446,11 @@ aaa
 aaa
 aaa
 aaa
-aSd
-rOS
-aSd
-aab
-aLd
+aMs
+aMd
+aSf
+euy
+tVi
 aaa
 aaa
 aVV
@@ -114730,11 +114703,11 @@ aaa
 aMs
 aMs
 aMs
-aLd
-gXU
-aSd
 aMs
-aLd
+gGY
+aRd
+urF
+tVi
 aaa
 aVV
 aVV
@@ -114988,7 +114961,7 @@ aJP
 aRm
 aOP
 aMs
-qIw
+aMd
 aMB
 aSd
 aSd
