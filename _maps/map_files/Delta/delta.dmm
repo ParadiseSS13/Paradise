@@ -6383,7 +6383,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced/plasma,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "ayV" = (
@@ -8187,7 +8187,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced/plasma,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "aDh" = (
@@ -57590,10 +57590,6 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay)
-"cMy" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/incinerator)
 "cMz" = (
 /turf/simulated/wall,
 /area/station/medical/storage)
@@ -84369,6 +84365,10 @@
 	icon_state = "seadeep"
 	},
 /area/station/public/fitness)
+"hSu" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/station/engineering/controlroom)
 "hTk" = (
 /obj/structure/cable,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -88945,10 +88945,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/explab)
-"nmZ" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/space,
-/area/space)
 "nnm" = (
 /obj/machinery/economy/vending/crittercare,
 /turf/simulated/floor/carpet,
@@ -92841,10 +92837,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
-"rDp" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "rDQ" = (
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/engine,
@@ -95800,6 +95792,14 @@
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"uUV" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry)
 "uUX" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -98397,10 +98397,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/general,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"yfn" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/wall,
-/area/station/hallway/secondary/entry)
 "ygp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -121166,7 +121162,7 @@ aaa
 abj
 abj
 abj
-cMy
+aGZ
 aIv
 aJO
 aLd
@@ -127331,8 +127327,8 @@ ayU
 atd
 aCk
 aDg
-axl
-axl
+hSu
+hSu
 atd
 atd
 atd
@@ -129366,7 +129362,7 @@ abj
 abj
 iqm
 udZ
-iqm
+uUV
 abj
 abj
 abj
@@ -129865,7 +129861,7 @@ adb
 iqm
 iqm
 adb
-acC
+iqm
 iqm
 iqm
 iqm
@@ -130892,7 +130888,7 @@ iqm
 adb
 iqm
 iqm
-yfn
+adb
 iqm
 iqm
 iqm
@@ -136290,7 +136286,7 @@ adb
 iqm
 iqm
 adb
-acC
+iqm
 iqm
 ahA
 iqm
@@ -139645,8 +139641,8 @@ iqm
 aaa
 abj
 aaa
-nmZ
-nmZ
+aaa
+aaa
 adb
 hbv
 als
@@ -149435,8 +149431,8 @@ bWr
 weH
 weH
 eNt
-rDp
-rDp
+kLf
+kLf
 eNt
 aaa
 tgE
