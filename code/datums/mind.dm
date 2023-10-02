@@ -144,6 +144,7 @@
 			if(MA.temporary)
 				MA.remove(current)
 			else
+				MA.remove(current)
 				MA.teach(current)
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
