@@ -406,9 +406,10 @@
 /area/ruin/unpowered)
 "ia" = (
 /obj/effect/mapping_helpers/no_lava,
-/obj/structure/disposalpipe/sortjunction{
+/obj/structure/disposalpipe/broken{
 	dir = 1
 	},
+/obj/structure/disposalpipe/broken,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ic" = (
@@ -524,10 +525,9 @@
 	},
 /area/ruin/unpowered)
 "nm" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/broken{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered)
 "no" = (
@@ -796,7 +796,6 @@
 "ua" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
 /obj/effect/turf_decal/box/white,
-/mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor{
 	temperature = 300;
 	oxygen = 14;
@@ -932,18 +931,6 @@
 /obj/machinery/conveyor/west,
 /obj/machinery/mineral/processing_unit,
 /turf/simulated/floor{
-	temperature = 300;
-	oxygen = 14;
-	nitrogen = 23
-	},
-/area/ruin/unpowered)
-"yX" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
-/obj/effect/landmark/damageturf,
-/mob/living/simple_animal/hostile/asteroid/goliath/beast,
-/turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
 	nitrogen = 23
@@ -1308,10 +1295,12 @@
 	},
 /area/ruin/unpowered)
 "FX" = (
-/obj/structure/disposalpipe/junction/reversed{
+/obj/structure/disposalpipe/broken{
+	dir = 4
+	},
+/obj/structure/disposalpipe/broken{
 	dir = 8
 	},
-/obj/effect/landmark/burnturf,
 /turf/simulated/floor{
 	temperature = 300;
 	oxygen = 14;
@@ -1860,9 +1849,8 @@
 	pixel_x = -2;
 	pixel_y = 35
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	invisibility = 101
+/obj/structure/disposalpipe/broken{
+	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -2436,7 +2424,7 @@ ui
 QE
 af
 BM
-yX
+no
 bO
 In
 dM
