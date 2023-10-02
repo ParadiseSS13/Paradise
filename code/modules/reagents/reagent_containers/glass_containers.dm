@@ -127,7 +127,7 @@
 					msg += "<span class='info'><b>- [D.form]:</b>\nName: [D.name].\nType: [D.spread_text].\n\nResistance: [properties["resistance"]].\nStealth: [properties["stealth"]].\nStage Rate: [properties["stage_rate"]].\nTransmittable: [properties["transmittable"]].\nPossible Cure: [D.cure_text].\n</span>"
 					msg += "<br><span class='info'>*---------*</span>"
 		if(!msg)
-			msg = "<span class='warning'>[src] doesnt contain any viruses</span>\n"
+			msg = "<span class='warning'>No viruses detected in [src]</span>\n"
 		to_chat(user, msg)
 	else
 		return ..()

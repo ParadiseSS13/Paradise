@@ -448,30 +448,28 @@ const MedicalRecordsGoals = (_properties, context) => {
         {(goals.length !== 0 &&
           goals.map((goal) => {
             return (
-              <Flex.Item key={goal.id}>
-                <Collapsible title={goal.name}>
-                  <Section>
-                    <Table>
-                      <Table.Row header>
-                        <Table.Cell textAlign="center">
-                          <ProgressBar
-                            value={goal.delivered}
-                            minValue={0}
-                            maxValue={goal.deliverygoal}
-                            ranges={{
-                              good: [goal.deliverygoal * 0.5, Infinity],
-                              average: [goal.deliverygoal * 0.25, goal.deliverygoal * 0.5],
-                              bad: [-Infinity, goal.deliverygoal * 0.25],
-                            }}
-                          >
-                            {goal.delivered} / {goal.deliverygoal} Units
-                          </ProgressBar>
-                        </Table.Cell>
-                      </Table.Row>
-                    </Table>
-                    <Box>{goal.report}</Box>
-                  </Section>
-                </Collapsible>
+            <Flex.Item key={goal.id}>
+                <Section title={goal.name}>
+                  <Table>
+                    <Table.Row header>
+                      <Table.Cell textAlign="center">
+                        <ProgressBar
+                          value={goal.delivered}
+                          minValue={0}
+                          maxValue={goal.deliverygoal}
+                          ranges={{
+                            good: [goal.deliverygoal * 0.5, Infinity],
+                            average: [goal.deliverygoal * 0.25, goal.deliverygoal * 0.5],
+                            bad: [-Infinity, goal.deliverygoal * 0.25],
+                          }}
+                        >
+                          {goal.delivered} / {goal.deliverygoal} Units
+                        </ProgressBar>
+                      </Table.Cell>
+                    </Table.Row>
+                  </Table>
+                  <Box>{goal.report}</Box>
+                </Section>
               </Flex.Item>
             );
           })) || (

@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, new/datum/virology_goal/virus, new/datum/virology_goal/virus))
+GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, new/datum/virology_goal/virus, new/datum/virology_goal/virus/stealth))
 
 /datum/virology_goal
 	var/name = "Generic Virology Goal"
@@ -37,7 +37,7 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 	var/goal_property_value
 
 /datum/virology_goal/propertysymptom/New()
-	var/type = pick(GLOB.list_symptoms)
+	var/type = pick(subtypesof(/datum/symptom))
 	var/datum/symptom/S = new type()
 	goal_symptom = S.type
 	goal_symptom_name = S.name
@@ -89,25 +89,38 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 						continue
 
 /datum/virology_goal/virus
-	name = "Specific Viral Sample Request"
+	name = "Specific Viral Sample Request (Non-Stealth)"
 	var/list/goal_symptoms = list() //List of type paths of the symptoms, we could go with a diseaseID here instead a list of symptoms but we need the list to tell the player what symptoms to include
 
 /datum/virology_goal/virus/New()
-	var/list/datum/symptom/symptoms = GLOB.list_symptoms
+	var/list/datum/symptom/symptoms = subtypesof(/datum/symptom)
+	if(!symptoms.len)
+		CRASH("NO LEN")
+	var/stealth = 0
+	var/debug
+	debug += "FIRED3_"
 	for(var/i=0, i<4, i++)
-		var/datum/symptom/S = pick(symptoms)
-		goal_symptoms += S
-		symptoms -= S
+		debug += "FIRED2_"
+		for(var/datum/symptom/S in symptoms)
+			debug += "FIRED_"
+			if(stealth + S.stealth >= 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
+				debug += "SKIPPED_"
+				continue
+			debug += "REACHED_"
+			goal_symptoms += S
+			stealth += S.stealth
+			symptoms -= S
+	CRASH(debug)
 
 
 /datum/virology_goal/virus/get_report()
-	return {"<b>Specific Viral Sample Request</b><br>
-	A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with the following symptoms: [symptoms_list2text()] to us through the cargo shuttle.
+	return {"<b>Specific Viral Sample Request (Non-Stealth)</b><br>
+	A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with exactly only the following symptoms: [symptoms_list2text()] to us through the cargo shuttle.
 	<br>
 	-Nanotrasen Virology Research"}
 
 /datum/virology_goal/virus/get_ui_report()
-	return {"A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with the following symptoms: [symptoms_list2text()] to us through the cargo shuttle."}
+	return {"A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with exactly only the following symptoms: [symptoms_list2text()] to us through the cargo shuttle."}
 
 /datum/virology_goal/virus/proc/symptoms_list2text()
 	var/msg = ""
@@ -142,3 +155,23 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 						delivered_amount = delivery_goal
 						completed = TRUE
 						return TRUE
+
+/datum/virology_goal/virus/stealth
+	name = "Specific Viral Sample Request (Stealth)"
+
+/datum/virology_goal/virus/stealth/New()
+	var/list/datum/symptom/symptoms = subtypesof(/datum/symptom)
+	var/stealth = 0
+	for(var/i=0, i<4, i++)
+		for(var/datum/symptom/S in symptoms)
+			if(S.stealth >= 0 || stealth + S.stealth > 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
+				continue
+			goal_symptoms += S
+			stealth += S.stealth
+			symptoms -= S
+
+/datum/virology_goal/virus/stealth/get_report()
+	return {"<b>Specific Viral Sample Request (Stealth)</b><br>
+	A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with exactly only the following symptoms: [symptoms_list2text()] to us through the cargo shuttle.
+	<br>
+	-Nanotrasen Virology Research"}
