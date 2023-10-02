@@ -259,6 +259,7 @@
 		chem_temp += difference
 	else if(target_temp < chem_temp)
 		chem_temp -= difference
+	clamp(chem_temp, temperature_min, temperature_max)
 	temperature_react()
 	handle_reactions()
 
