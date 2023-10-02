@@ -1,6 +1,5 @@
 #define NEXT_PAGE_ID "__next__"
 #define DEFAULT_CHECK_DELAY 20
-#define ANIM_SPEED 0.5
 
 GLOBAL_LIST_EMPTY(radial_menus)
 
@@ -44,6 +43,14 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	if(usr.client == parent.current_user)
 		parent.finished = TRUE
 
+/obj/screen/radial/center/MouseEntered(location, control, params)
+	. = ..()
+	openToolTip(usr, src, params, title = name)
+
+/obj/screen/radial/center/MouseExited(location, control, params)
+	. = ..()
+	closeToolTip(usr)
+
 /datum/radial_menu
 	var/list/choices = list() //List of choice id's
 	var/list/choices_icons = list() //choice_id -> icon
@@ -55,8 +62,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/list/obj/screen/elements = list()
 	var/obj/screen/radial/center/close_button
 	var/client/current_user
-	var/atom/anchor
-	var/image/menu_holder
+	var/atom/movable/anchor
+	var/pixel_x_difference
+	var/pixel_y_difference
 	var/finished = FALSE
 	var/datum/callback/custom_check_callback
 	var/next_check = 0
@@ -73,17 +81,16 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 	var/hudfix_method = TRUE //TRUE to change anchor to user, FALSE to shift by py_shift
 	var/py_shift = 0
-	var/entry_animation = TRUE
 
 //If we swap to vis_contens inventory these will need a redo
 /datum/radial_menu/proc/check_screen_border(mob/user)
-	var/atom/movable/AM = anchor
-	if(!istype(AM))
+	if(!istype(anchor))
 		return
+	current_user = user.client
 	var/mob/living/carbon/H
 	if(ishuman(user))
 		H = user
-	if((AM in user.client.screen) || (H && (AM in H.internal_organs)))
+	if((anchor in user.client.screen) || (H && (anchor in H.internal_organs)))
 		if(hudfix_method)
 			anchor = user
 		else
@@ -143,18 +150,20 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	page_data[page] = current
 	pages = page
 	current_page = 1
-	update_screen_objects(anim = entry_animation)
+	update_screen_objects()
 
-/datum/radial_menu/proc/update_screen_objects(anim = FALSE)
+/datum/radial_menu/proc/update_screen_objects()
 	var/list/page_choices = page_data[current_page]
 	var/angle_per_element = round(zone / page_choices.len)
+	pixel_x_difference = (world.icon_size * anchor.x + anchor.step_x + anchor.pixel_x) - (world.icon_size * current_user.mob.x + current_user.mob.step_x + current_user.mob.pixel_x)
+	pixel_y_difference = (world.icon_size * anchor.y + anchor.step_y + anchor.pixel_y) - (world.icon_size * current_user.mob.y + current_user.mob.step_y + current_user.mob.pixel_y)
 	for(var/i in 1 to elements.len)
 		var/obj/screen/radial/E = elements[i]
 		var/angle = WRAP(starting_angle + (i - 1) * angle_per_element, 0, 360)
 		if(i > page_choices.len)
 			HideElement(E)
 		else
-			SetElement(E,page_choices[i], angle, anim = anim, anim_order = i)
+			SetElement(E,page_choices[i], angle)
 
 /datum/radial_menu/proc/HideElement(obj/screen/radial/slice/E)
 	E.cut_overlays()
@@ -165,20 +174,15 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	E.choice = null
 	E.next_page = FALSE
 
-/datum/radial_menu/proc/SetElement(obj/screen/radial/slice/E, choice_id, angle, anim, anim_order)
+/datum/radial_menu/proc/SetElement(obj/screen/radial/slice/E, choice_id, angle)
 	//Position
 	var/py = round(cos(angle) * radius) + py_shift
 	var/px = round(sin(angle) * radius)
-	if(anim)
-		var/timing = anim_order * ANIM_SPEED
-		var/matrix/starting = matrix()
-		starting.Scale(0.1, 0.1)
-		E.transform = starting
-		var/matrix/TM = matrix()
-		animate(E, pixel_x = px, pixel_y = py, transform = TM, time = timing)
-	else
-		E.pixel_y = py
-		E.pixel_x = px
+	E.pixel_y = py
+	E.pixel_x = px
+	E.screen_loc = "CENTER:[E.pixel_x + pixel_x_difference], CENTER:[E.pixel_y + pixel_y_difference]"
+
+	current_user.screen += E
 
 	//Visuals
 	E.alpha = 255
@@ -245,24 +249,15 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		update_screen_objects()
 
 /datum/radial_menu/proc/show_to(mob/M)
-	if(current_user)
-		hide()
 	if(!M.client || !anchor)
 		return
-	current_user = M.client
 	//Blank
-	menu_holder = image(icon = 'icons/effects/effects.dmi', loc = anchor, icon_state = "nothing", layer = ABOVE_HUD_LAYER)
-	menu_holder.appearance_flags |= KEEP_APART
-	menu_holder.vis_contents += elements + close_button
-	current_user.images += menu_holder
-
-/datum/radial_menu/proc/hide()
-	if(current_user)
-		current_user.images -= menu_holder
+	close_button.screen_loc = "CENTER:[pixel_x_difference], CENTER:[pixel_y_difference]"
+	current_user.screen += close_button
 
 /datum/radial_menu/proc/wait(mob/user, atom/anchor, require_near = FALSE)
 	while(current_user && !finished && !selected_choice)
-		if(require_near && !user.Adjacent(anchor))
+		if(require_near && !user.Adjacent(get_turf(anchor)))
 			return
 		if(custom_check_callback && next_check < world.time)
 			if(!custom_check_callback.Invoke())
@@ -273,7 +268,6 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /datum/radial_menu/Destroy()
 	Reset()
-	hide()
 	QDEL_LIST_CONTENTS(elements)
 	QDEL_NULL(close_button)
 	anchor = null
@@ -308,5 +302,3 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	qdel(menu)
 	GLOB.radial_menus -= uniqueid
 	return answer
-
-#undef ANIM_SPEED
