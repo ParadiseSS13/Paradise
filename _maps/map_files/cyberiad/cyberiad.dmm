@@ -9954,10 +9954,6 @@
 	icon_state = "cult"
 	},
 /area/station/legal/magistrate)
-"aDS" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/maintenance/auxsolarstarboard)
 "aDU" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -11530,10 +11526,6 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
 	},
-/area/station/maintenance/fpmaint2)
-"aII" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "aIJ" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -40889,10 +40881,6 @@
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
-"cng" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "cnk" = (
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'BOMB RANGE";
@@ -44146,7 +44134,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced/tinted,
+/obj/effect/spawner/window/reinforced/tinted/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/incinerator)
 "cyp" = (
@@ -67931,7 +67919,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/red{
 	dir = 10
 	},
-/obj/effect/spawner/window/reinforced/plasma,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "iFh" = (
@@ -83281,8 +83269,8 @@
 	},
 /area/station/security/permabrig)
 "ryQ" = (
-/obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "ryV" = (
@@ -83579,10 +83567,10 @@
 /turf/space,
 /area/space/nearstation)
 "rGr" = (
-/obj/effect/spawner/window/reinforced/plasma,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 1
 	},
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/toxins/mixing)
 "rHm" = (
@@ -105891,7 +105879,7 @@ beG
 aVV
 ehK
 ehK
-aOQ
+ehK
 blE
 bsh
 ehK
@@ -106405,7 +106393,7 @@ aVV
 aVV
 ehK
 ehK
-aOQ
+ehK
 blB
 bsh
 ehK
@@ -109254,7 +109242,7 @@ cGj
 hYf
 cJO
 rFK
-cng
+uYP
 aaa
 cgQ
 bEO
@@ -109511,7 +109499,7 @@ svp
 bnw
 svp
 bET
-cng
+uYP
 aaa
 gzN
 tkT
@@ -113838,7 +113826,7 @@ aaa
 aaa
 aaa
 aaa
-aII
+lNj
 dEG
 aRg
 xky
@@ -114095,7 +114083,7 @@ abN
 aaa
 aaa
 aaa
-aII
+lNj
 gMa
 qaI
 cQd
@@ -135678,7 +135666,7 @@ aab
 aab
 soH
 soH
-aDS
+soH
 aGU
 aHK
 aIB
