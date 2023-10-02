@@ -21,8 +21,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
 	SSjobs.FreeRole(job)
 
-	if(mind.objectives.len)
-		mind.objectives.Cut()
+	if(mind.objective_holder.clear())
 		mind.special_role = null
 	else
 		if(SSticker.mode.name == "AutoTraitor")

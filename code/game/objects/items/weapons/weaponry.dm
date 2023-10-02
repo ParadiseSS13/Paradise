@@ -28,6 +28,8 @@
 /obj/item/sord
 	name = "\improper SORD"
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sord"
 	item_state = "sord"
 	slot_flags = SLOT_BELT
@@ -74,7 +76,9 @@
 
 /obj/item/katana
 	name = "katana"
-	desc = "Woefully underpowered in D20"
+	desc = "Woefully underpowered in D20."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
@@ -103,6 +107,8 @@
 	name = "harpoon"
 	sharp = TRUE
 	desc = "Tharr she blows!"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "harpoon"
 	item_state = "harpoon"
 	force = 20
@@ -167,7 +173,6 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/spear/kidan
-	icon_state = "kidanspear"
 	name = "\improper Kidan spear"
 	desc = "A one-handed spear brought over from the Kidan homeworld."
 	icon_state = "kidanspear"
