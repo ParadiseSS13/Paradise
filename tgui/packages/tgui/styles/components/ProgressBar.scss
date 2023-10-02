@@ -3,6 +3,7 @@
 @use '../functions.scss' as *;
 
 $color-default: colors.bg(colors.$primary) !default;
+$color-disabled: colors.$grey !default;
 $color-background: rgba(0, 0, 0, 0) !default;
 $border-radius: base.$border-radius !default;
 $bg-map: colors.$bg-map !default;
@@ -46,10 +47,10 @@ $bg-map: colors.$bg-map !default;
 }
 
 .ProgressBar--color--disabled {
-  border: 1px solid $grey;
+  border: 1px solid $color-disabled;
 
   .ProgressBar__fill {
-    background-color: $grey;
+    background-color: $color-disabled;
   }
 }
 
