@@ -282,6 +282,11 @@
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
+/obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
+	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
+	for(var/i in 1 to 2)
+		new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
 	name = "atmos N2O grenades"

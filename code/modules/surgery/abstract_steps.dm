@@ -292,13 +292,30 @@
 		to_chat(user, "<span class='warning'>The bones in [target]'s [parse_zone(affected)] look fully intact, they don't need mending.</span>")
 	return FALSE
 
-/// Proxy surgery step to allow healing bleeding and mending bones.
+/datum/surgery/intermediate/treat_burns
+	name = "Burns (abstract)"
+	desc = "An intermediate surgery to treat burn wounds while a patient is undergoing another procedure."
+	steps = list(/datum/surgery_step/treat_burns)
+	possible_locs = list(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
+
+/datum/surgery/intermediate/treat_burns/can_start(mob/user, mob/living/carbon/target)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/mob/living/carbon/human/H = target
+	var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	if(affected.status & ORGAN_BURNT)
+		return TRUE
+	return FALSE
+
+/// Proxy surgery step to allow healing bleeding, bones, and burns.
 /// Should be added into surgeries just after the first three standard steps.
 /datum/surgery_step/proxy/open_organ
-	name = "mend internal bleeding or mend bone (proxy)"
+	name = "mend internal bleeding, bones, or burns (proxy)"
 	branches = list(
 		/datum/surgery/intermediate/bleeding,
-		/datum/surgery/intermediate/mendbone
+		/datum/surgery/intermediate/mendbone,
+		/datum/surgery/intermediate/treat_burns
 	)
 
 /// Mend IB without healing bones

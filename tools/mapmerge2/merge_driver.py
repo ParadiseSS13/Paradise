@@ -7,23 +7,26 @@ from hooks.merge_frontend import MergeDriver
 
 debug_stats = collections.defaultdict(int)
 
+SELECT_LEFT = 'left'
+SELECT_RIGHT = 'right'
+
 
 def select(base, left, right, *, debug=None):
     if left == right:
         # whether or not it's in the base, both sides agree
         if debug:
             debug_stats[f"select {debug} both"] += 1
-        return left
+        return SELECT_LEFT
     elif base == left:
         # base == left, but right is different: accept right
         if debug:
             debug_stats[f"select {debug} right"] += 1
-        return right
+        return SELECT_RIGHT
     elif base == right:
         # base == right, but left is different: accept left
         if debug:
             debug_stats[f"select {debug} left"] += 1
-        return left
+        return SELECT_LEFT
     else:
         # all three versions are different
         if debug:
@@ -31,7 +34,7 @@ def select(base, left, right, *, debug=None):
         return None
 
 
-def three_way_merge(base, left, right):
+def three_way_merge(base: dmm.DMM, left: dmm.DMM, right: dmm.DMM):
     if base.size != left.size or base.size != right.size:
         print("Dimensions have changed:")
         print(f"    Base: {base.size}")
@@ -43,6 +46,30 @@ def three_way_merge(base, left, right):
     merged = dmm.DMM(base.key_length, base.size)
     merged.dictionary = base.dictionary.copy()
 
+    swaps = {}
+
+    # For either left or right: Check to see if the tile already exists with a
+    # key. If so, we clobber the key and reuse the one from the left/right to
+    # reduce key changes that may cascade throughout the file, causing noisy
+    # unrelated diffs.
+    def swap_in_from_leftright(coord, leftright: dmm.DMM, tiledata: tuple):
+        swap_in_key = leftright.dictionary.inv[tiledata]
+        if swap_in_key in merged.dictionary and merged.dictionary[swap_in_key] != tiledata:
+            curdata = merged.dictionary[swap_in_key]
+            merged.dictionary[swap_in_key] = tiledata
+            merged.grid[coord] = swap_in_key
+        elif tiledata in merged.dictionary.inv and swap_in_key not in merged.dictionary:
+            old_key = merged.dictionary.inv[tiledata]
+            merged.dictionary.inv[tiledata] = swap_in_key
+            merged.grid[coord] = swap_in_key
+            swaps[old_key] = swap_in_key
+            del merged.dictionary[old_key]
+        elif swap_in_key not in merged.dictionary:
+            merged.dictionary[swap_in_key] = tiledata
+            merged.grid[coord] = swap_in_key
+        else:
+            merged.set_tile(coord, tiledata)
+
     for (z, y, x) in base.coords_zyx:
         coord = x, y, z
         base_tile = base.get_tile(coord)
@@ -52,7 +79,13 @@ def three_way_merge(base, left, right):
         # try to merge the whole tiles
         whole_tile_merge = select(base_tile, left_tile, right_tile, debug='tile')
         if whole_tile_merge is not None:
-            merged.set_tile(coord, whole_tile_merge)
+            if whole_tile_merge == SELECT_LEFT:
+                swap_in_from_leftright(coord, left, left_tile)
+            elif whole_tile_merge == SELECT_RIGHT:
+                swap_in_from_leftright(coord, right, right_tile)
+            else:
+                raise RuntimeError(f"unexpected select {whole_tile_merge}")
+
             continue
 
         # try to merge each group independently (movables, turfs, areas)
@@ -60,42 +93,65 @@ def three_way_merge(base, left, right):
         left_movables, left_turfs, left_areas = dmm.split_atom_groups(left_tile)
         right_movables, right_turfs, right_areas = dmm.split_atom_groups(right_tile)
 
-        merged_movables = select(base_movables, left_movables, right_movables, debug='movable')
-        merged_turfs = select(base_turfs, left_turfs, right_turfs, debug='turf')
-        merged_areas = select(base_areas, left_areas, right_areas, debug='area')
+        tile = []
 
-        if merged_movables is not None and merged_turfs is not None and merged_areas is not None:
-            merged.set_tile(coord, merged_movables + merged_turfs + merged_areas)
-            continue
+        select_movable = select(base_movables, left_movables, right_movables, debug='movable')
+        select_turf = select(base_turfs, left_turfs, right_turfs, debug='turf')
+        select_area = select(base_areas, left_areas, right_areas, debug='area')
 
-        # TODO: more advanced strategies?
+        if not all([select_movable, select_turf, select_area]):
+            trouble = True
+            print(f" C: Both sides touch the tile at {coord}")
 
         # fall back to requiring manual conflict resolution
-        trouble = True
-        print(f" C: Both sides touch the tile at {coord}")
+        # TODO: more advanced strategies?
 
-        if merged_movables is None:
-            # Note that if you do not have an object that matches this path in your DME, the invalid path may be discarded when the map is loaded into a map editor.
-            # To rectify this, either add an object with this same path, or create a new object/denote an existing object in the obj_path define.
+        if select_movable == SELECT_LEFT:
+            tile += left_movables
+        elif select_movable == SELECT_RIGHT:
+            tile += right_movables
+        else:
+            # Note that if you do not have an object that matches this path in
+            # your DME, the invalid path may be discarded when the map is loaded
+            # into a map editor. To rectify this, either add an object with this
+            # same path, or create a new object/denote an existing object in the
+            # obj_path define.
             obj_path = "/obj/merge_conflict_marker"
             obj_name = "---Merge Conflict Marker---"
             obj_desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-            merged_movables = left_movables + [f'{obj_path}{{name = "{obj_name}";\n\tdesc = "{obj_desc}"}}'] + right_movables
+            tile += left_movables + [f'{obj_path}{{name = "{obj_name}";\n\tdesc = "{obj_desc}"}}'] + right_movables
             print(f"    Left and right movable groups are split by an `{obj_path}` named \"{obj_name}\"")
-        if merged_turfs is None:
-            merged_turfs = left_turfs
+
+        if select_turf == SELECT_LEFT:
+            tile += left_turfs
+        elif select_turf == SELECT_RIGHT:
+            tile += right_turfs
+        else:
             print(f"    Saving turf: {', '.join(left_turfs)}")
             print(f"    Alternative: {', '.join(right_turfs)}")
             print(f"    Original:    {', '.join(base_turfs)}")
-        if merged_areas is None:
-            merged_areas = left_areas
+            tile += left_turfs
+
+        if select_area == SELECT_LEFT:
+            tile += left_areas
+        elif select_area == SELECT_RIGHT:
+            tile += right_areas
+        else:
             print(f"    Saving area: {', '.join(left_areas)}")
             print(f"    Alternative: {', '.join(right_areas)}")
             print(f"    Original:    {', '.join(base_areas)}")
+            tile += left_areas
 
-        merged.set_tile(coord, merged_movables + merged_turfs + merged_areas)
+        merged.set_tile(coord, tile)
 
-    merged = mapmerge.merge_map(merged, base)
+    # TODO(wso): This may not be necessary at all
+    for (z, y, x) in merged.coords_zyx:
+        k = merged.grid[(x, y, z)]
+        if k in swaps:
+            merged.grid[(x, y, z)] = swaps[k]
+
+    merged.remove_unused_keys()
+
     return trouble, merged
 
 

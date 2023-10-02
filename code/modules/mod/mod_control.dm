@@ -744,3 +744,8 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.regenerate_icons()
+
+/obj/item/mod/control/extinguish_light(force)
+	. = ..()
+	for(var/obj/item/mod/module/module as anything in modules)
+		module.extinguish_light(force)

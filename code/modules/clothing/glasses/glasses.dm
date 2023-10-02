@@ -118,7 +118,6 @@
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
@@ -172,7 +171,6 @@
 	icon_state = "nvpurple"
 	item_state = "glasses"
 	see_in_dark = 8
-	prescription_upgradable = FALSE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
@@ -192,6 +190,7 @@
 	item_state = "glasses"
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
 	see_in_dark = 8
+	prescription_upgradable = TRUE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 	sprite_sheets = list(
@@ -206,6 +205,7 @@
 	desc = "Yarr."
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -265,7 +265,7 @@
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
 	item_state = "glasses"
-	prescription = 1
+	prescription = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -332,6 +332,8 @@
 	see_in_dark = 0
 	flash_protect = FLASH_PROTECTION_NONE
 	tint = FLASH_PROTECTION_NONE
+	prescription_upgradable = TRUE
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -518,6 +520,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	up = FALSE
 	tint = FLASH_PROTECTION_NONE
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',

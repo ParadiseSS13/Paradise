@@ -3,6 +3,8 @@
  */
 /obj/item/fireaxe  // DEM AXES MAN, marker -Agouri
 	base_icon_state = "fireaxe"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "fireaxe0"
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
@@ -94,6 +96,8 @@
 /obj/item/dualsaber
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "dualsaber0"
 	force = 3
 	throwforce = 5
@@ -245,6 +249,8 @@
 	max_integrity = 200
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 30)
 	needs_permit = TRUE
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "spearglass"
 
 /obj/item/spear/Initialize(mapload)
@@ -392,6 +398,8 @@
 /obj/item/chainsaw
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "gchainsaw_off"
 	flags = CONDUCT
 	force = 13
@@ -462,6 +470,8 @@
 /obj/item/butcher_chainsaw
 	name = "chainsaw"
 	desc = "Perfect for felling trees or fellow spacemen."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "chainsaw"
 	icon_state = "chainsaw0"
 	force = 15
@@ -527,6 +537,8 @@
 /obj/item/singularityhammer
 	name = "singularity hammer"
 	desc = "The pinnacle of close combat technology, the hammer harnesses the power of a miniaturized singularity to deal crushing blows."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "singulohammer0"
 	base_icon_state = "singulohammer"
 	flags = CONDUCT
@@ -596,6 +608,8 @@
 /obj/item/mjollnir
 	name = "Mjolnir"
 	desc = "A weapon worthy of a god, able to strike with the force of a lightning bolt. It crackles with barely contained energy."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "mjollnir0"
 	base_icon_state = "mjollnir"
 	flags = CONDUCT
@@ -641,6 +655,8 @@
 /obj/item/knighthammer
 	name = "singuloth knight's hammer"
 	desc = "A hammer made of sturdy metal with a golden skull adorned with wings on either side of the head. <br>This weapon causes devastating damage to those it hits due to a power field sustained by a mini-singularity inside of the hammer."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "knighthammer0"
 	base_icon_state = "knighthammer"
 	flags = CONDUCT
@@ -707,6 +723,8 @@
 /obj/item/pyro_claws
 	name = "hardplasma energy claws"
 	desc = "The power of the sun, in the claws of your hand."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "pyro_claws"
 	flags = ABSTRACT | NODROP | DROPDEL
 	force = 22
@@ -992,6 +1010,8 @@
 /obj/item/supermatter_halberd  //Supermatter Halberd, used by Oblivion Enforcers
 	name = "supermatter halberd"
 	desc = "The revered weapon of Oblivion Enforcers, used to enforce the Order's will."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "smhalberd0"
 	base_icon_state = "smhalberd"
 	force = 5
