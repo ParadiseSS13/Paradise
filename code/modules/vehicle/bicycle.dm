@@ -31,10 +31,7 @@
 /obj/vehicle/bike/post_buckle_mob(mob/living/M)
 	. = ..()
 	var/datum/action/bicycle_bell/bell_action = new(src)
-	if(has_buckled_mobs())
-		bell_action.Grant(M)
-	else
-		bell_action.Remove(M)
+	bell_action.Grant(M)
 	add_overlay(bicycle_overlay)
 
 /obj/vehicle/bike/post_unbuckle_mob(mob/living/M)
