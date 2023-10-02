@@ -159,6 +159,7 @@ export class DraggableControl extends Component {
       height,
       lineHeight,
       fontSize,
+      disabled,
     } = this.props;
     let displayValue = value;
     if (dragging || suppressingFlicker) {
@@ -182,7 +183,7 @@ export class DraggableControl extends Component {
         ref={this.inputRef}
         className="NumberInput__input"
         style={{
-          display: !editing || this.props.disabled ? 'none' : undefined,
+          display: !editing || disabled ? 'none' : undefined,
           height: height,
           'line-height': lineHeight,
           'font-size': fontSize,
@@ -227,7 +228,7 @@ export class DraggableControl extends Component {
             return;
           }
         }}
-        disabled={this.props.disabled}
+        disabled={disabled}
       />
     );
     // Return a part of the state for higher-level components to use.
