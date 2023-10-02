@@ -60,7 +60,7 @@
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/suit.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/suit.dmi',
-    	"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi'
 	)
 
