@@ -99,7 +99,7 @@
 /obj/structure/chair/wheelchair/plasteel
 	name = "Hardened Wheelchair"
 	desc = "Made from a mixture of metal-plasma sheets, this wheelchair is 3 times stronger than a typical wheelchair and is very resistant to acid and corrosion. Thanks to this it can be used in various dangerous environments without the need to worry about safety."
-	icon_state = "hwheelchair"
+	icon_state = "h_wheelchair"
 	max_integrity = 750
 	buildstackamount = 15
 	resistance_flags = ACID_PROOF
@@ -108,7 +108,7 @@
 /obj/structure/chair/wheelchair/plastitanium
 	name = "Reinforced Wheelchair"
 	desc = "Made from a mixture of titanium-plasma sheets, this wheelchair is 6 times stronger than a typical wheelchair, and is very resistant to acid, corrosion and fire! Thanks to this, it can be used in various dangerous environments, without the need to worry about safety... <i>but remember to not try to bathe in lava.</i>"
-	icon_state = "rwheelchair"
+	icon_state = "r_wheelchair"
 	max_integrity = 1500
 	buildstackamount = 15
 	resistance_flags = FIRE_PROOF | ACID_PROOF
