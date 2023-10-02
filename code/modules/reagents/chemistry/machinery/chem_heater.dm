@@ -37,7 +37,7 @@
 			if(!beaker.reagents.total_volume)
 				on = FALSE
 				return
-			beaker.reagents.change_reagent_temp(speed_increase, desired_temp)
+			beaker.reagents.adjust_reagent_temp(speed_increase, desired_temp)
 			if(round(beaker.reagents.chem_temp) == round(desired_temp))
 				playsound(loc, 'sound/machines/ding.ogg', 50, 1)
 				on = FALSE
