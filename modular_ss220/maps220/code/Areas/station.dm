@@ -39,6 +39,26 @@
 	name = "\improper Atmospherics Storage"
 	icon_state = "atmos"
 
+/area/station/maintenance/dormitory_maintenance
+	name = "\improper Dormitory Maintenance"
+	icon_state = "smaint"
+
+/area/station/maintenance/old_kitchen
+	name = "\improper Old Kitchen"
+	icon_state = "kitchen"
+
+/area/station/maintenance/old_detective
+	name = "\improper Old Detective Office"
+	icon_state = "detective"
+
+/area/station/maintenance/virology_maint
+	name = "\improper Virology Maintenance Construction Area"
+	icon_state = "smaint"
+
+/area/station/hallway/secondary/exit/maintenance
+	name = "\improper Abandoned Escape Shuttle Hallway"
+	icon_state = "escape"
+
 /* CentCom */
 /area/centcom/ss220
 	name = "\improper ЦК"
