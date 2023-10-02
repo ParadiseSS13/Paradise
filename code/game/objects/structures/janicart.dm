@@ -117,24 +117,23 @@
 	var/list/cart_items = list()
 
 	if(mybag)
-		cart_items += list("Trash Bag" = image(icon = mybag.icon, icon_state = mybag.icon_state))
+		cart_items["Trash Bag"] = image(icon = mybag.icon, icon_state = mybag.icon_state)
 	if(mymop)
-		cart_items += list("Mop" = image(icon = mymop.icon, icon_state = mymop.icon_state))
+		cart_items["Mop"] = image(icon = mymop.icon, icon_state = mymop.icon_state)
 	if(mybroom)
-		cart_items += list("Broom" = image(icon = mybroom.icon, icon_state = mybroom.icon_state))
+		cart_items["Broom"] = image(icon = mybroom.icon, icon_state = mybroom.icon_state)
 	if(myspray)
-		cart_items += list("Spray Bottle" = image(icon = myspray.icon, icon_state = myspray.icon_state))
+		cart_items["Spray Bottle"] = image(icon = myspray.icon, icon_state = myspray.icon_state)
 	if(myreplacer)
-		cart_items += list("Light Replacer" = image(icon = myreplacer.icon, icon_state = myreplacer.icon_state))
+		cart_items["Light Replacer"] = image(icon = myreplacer.icon, icon_state = myreplacer.icon_state)
 	var/obj/item/caution/Sign = locate() in src
 	if(Sign)
-		cart_items += list("Sign" = image(icon = Sign.icon, icon_state = Sign.icon_state))
+		cart_items["Sign"] = image(icon = Sign.icon, icon_state = Sign.icon_state)
 
 	if(!length(cart_items))
 		return
 
-	cart_items = sortList(cart_items)
-	var/pick = show_radial_menu(user, src, cart_items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), radius = 38, require_near = TRUE)
+	var/pick = show_radial_menu(user, src, cart_items, custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE)
 
 	if(!pick)
 		return
@@ -183,12 +182,6 @@
 
 	update_icon(UPDATE_OVERLAYS)
 
-/**
-  * check_menu: Checks if we are allowed to interact with a radial menu
-  *
-  * Arguments:
-  * * user The mob interacting with a menu
-  */
 /obj/structure/janitorialcart/proc/check_menu(mob/living/user)
 	if(!istype(user))
 		return FALSE
