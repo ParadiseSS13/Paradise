@@ -140,10 +140,11 @@
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 	if(martial_art)
-		if(martial_art.temporary)
-			martial_art.remove(current)
-		else
-			martial_art.teach(current)
+		for(var/datum/martial_art/MA in known_martial_arts)
+			if(MA.temporary)
+				MA.remove(current)
+			else
+				MA.teach(current)
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)

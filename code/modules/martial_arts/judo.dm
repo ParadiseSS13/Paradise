@@ -32,7 +32,7 @@
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(H, "<span class='warning'>The arts of Corporate Judo echo uselessly in your head, the thought of violence disgusts you!</span>")
 			return
-		style.teach(H, 1)
+		style.teach(H, TRUE)
 		to_chat(H, "<span class='userdanger'>The belt's nanites infuse you with the prowess of a black belt in Corporate Judo!</span>")
 		to_chat(H, "<span class='danger'>See the martial arts tab for an explanation of combos.</span>")
 		return
