@@ -661,7 +661,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Pick Darkness"
 	set desc = "Choose how much darkness you want to see, (0 - 255). Higher numbers being darker."
 	set category = "Ghost"
-	// var/desired_dark = input(src, "Choose how much darkness you want to see, (0 - 255). Higher numbers being darker.", "Pick Darkness", null) as null|num
 	if(isnull(desired_dark))
 		return
 	if(!client)
