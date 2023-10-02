@@ -45,6 +45,14 @@ $bg-map: colors.$bg-map !default;
   }
 }
 
+.ProgressBar--color--disabled {
+  border: 1px solid $grey;
+
+  .ProgressBar__fill {
+    background-color: $grey;
+  }
+}
+
 @each $color-name, $color-value in $bg-map {
   .ProgressBar--color--#{$color-name} {
     border: 1px solid $color-value !important;

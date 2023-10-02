@@ -76,7 +76,7 @@ export const Slider = (props) => {
             className={classes([
               'Slider',
               'ProgressBar',
-              'ProgressBar--color--' + effectiveColor,
+              (disabled ? 'ProgressBar--color--disabled' : 'ProgressBar--color--' + effectiveColor),
               className,
               computeBoxClassName(rest),
             ])}
