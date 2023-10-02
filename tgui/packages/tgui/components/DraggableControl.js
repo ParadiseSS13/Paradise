@@ -43,9 +43,9 @@ export class DraggableControl extends Component {
     };
 
     this.handleDragStart = (e) => {
-      const { value, dragMatrix } = this.props;
+      const { value, dragMatrix, disabled } = this.props;
       const { editing } = this.state;
-      if (editing) {
+      if (editing || disabled) {
         return;
       }
       document.body.style['pointer-events'] = 'none';
@@ -73,8 +73,11 @@ export class DraggableControl extends Component {
     };
 
     this.handleDragMove = (e) => {
-      const { minValue, maxValue, step, stepPixelSize, dragMatrix } =
+      const { minValue, maxValue, step, stepPixelSize, dragMatrix, disabled } =
         this.props;
+      if (disabled) {
+        return;
+      }
       this.setState((prevState) => {
         const state = { ...prevState };
         const offset = getScalarScreenOffset(e, dragMatrix) - state.origin;
@@ -224,6 +227,7 @@ export class DraggableControl extends Component {
             return;
           }
         }}
+        disabled={this.props.disabled}
       />
     );
     // Return a part of the state for higher-level components to use.
