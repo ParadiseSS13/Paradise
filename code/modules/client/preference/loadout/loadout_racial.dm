@@ -57,4 +57,16 @@
 /datum/gear/racial/footwraps
 	display_name = "Cloth footwraps"
 	path = /obj/item/clothing/shoes/footwraps
-	slot = slot_shoes
+	slot = SLOT_HUD_SHOES
+
+/datum/gear/racial/vox_casual
+	display_name = "Vox jumpsuit"
+	description = "A jumpsuit straight from an arkship. Looks uncomfortable."
+	path = /obj/item/clothing/under/vox/vox_casual
+	slot = SLOT_HUD_JUMPSUIT
+
+/datum/gear/racial/vox_robes
+	display_name = "Vox robes"
+	description = "Weird and flowing robes straight from an arkship."
+	path = /obj/item/clothing/suit/hooded/vox_robes
+	slot = SLOT_HUD_OUTER_SUIT
