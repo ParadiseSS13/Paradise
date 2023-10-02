@@ -32,14 +32,15 @@
 		playsound(user, 'sound/machines/ping.ogg', 50, TRUE)
 		O.atom_say("Congratulations for winning the lottery!")
 		var/obj/item/reward = new /obj/item/stack/spacecash/c1000
-		user.put_in_hands(reward)
 		qdel(src)
+		user.put_in_hands(reward)
 		return
 	..()
 
 /obj/item/storage/box/scratch_cards
 	name = "scratch cards box"
 	desc = "Try your luck with five scratch cards!"
+	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(/obj/item/scratch)
 
 /obj/item/storage/box/scratch_cards/populate_contents()
