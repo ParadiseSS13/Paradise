@@ -9426,15 +9426,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "aMY" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
 "aMZ" = (
@@ -18426,10 +18424,8 @@
 /turf/simulated/wall/r_wall,
 /area/station/command/bridge)
 "bkX" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
 /obj/structure/cable/yellow,
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
 "bkY" = (
@@ -19502,10 +19498,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/arrival/station)
-"bnI" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fsmaint)
 "bnJ" = (
 /obj/structure/rack{
 	dir = 8;
@@ -76469,10 +76461,8 @@
 	},
 /area/station/science/xenobiology)
 "pNK" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
 /obj/structure/cable/yellow,
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "pOG" = (
@@ -91849,9 +91839,6 @@
 	},
 /area/station/engineering/atmos)
 "xuz" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -91861,6 +91848,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
 "xuA" = (
@@ -137181,7 +137169,7 @@ aaa
 aaa
 aaa
 aaa
-bnI
+oJm
 pIi
 nbN
 pxj
