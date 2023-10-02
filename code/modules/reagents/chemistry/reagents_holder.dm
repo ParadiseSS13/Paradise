@@ -250,11 +250,14 @@
 
 // This proc increases the temp of reagents by `temp_increase` amount, up until the target temperature, and no more
 /datum/reagents/proc/change_reagent_temp(temp_increase, target_temp)
-	if(chem_temp == target_temp)
+	if(chem_temp == target_temp || !temp_increase) // We don't need to do the mathy math
 		return
-	var/difference = target_temp - chem_temp
-	var/temperature_change = clamp(difference, -temp_increase, temp_increase)
-	chem_temp += temperature_change
+	if(target_temp) // If we have a target temp, we only go until that temperature
+		var/difference = target_temp - chem_temp
+		var/temperature_change = clamp(difference, -temp_increase, temp_increase)
+		chem_temp += temperature_change
+	else
+		chem_temp += temp_increase
 	chem_temp = clamp(chem_temp, temperature_min, temperature_max)
 	temperature_react()
 	handle_reactions()
