@@ -117,6 +117,8 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharp = TRUE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	var/bayonet = FALSE	//Can this be attached to a gun?
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
@@ -137,6 +139,13 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
 	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/kitchen/knife/shiv
+	name = "glass shiv"
+	desc = "A haphazard sharp object wrapped in cloth, just like great-great-great-great grandma used to make."
+	icon = 'icons/obj/items.dmi'
+	item_state = "glass_shiv"
+	icon_state = "glass_shiv"
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"

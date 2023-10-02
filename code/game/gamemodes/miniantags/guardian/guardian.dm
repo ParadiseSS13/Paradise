@@ -98,18 +98,17 @@
 /mob/living/simple_animal/hostile/guardian/proc/snapback()
 	// If the summoner dies instantly, the summoner's ghost may be drawn into null space as the protector is deleted. This check should prevent that.
 	if(summoner && loc && summoner.loc)
-		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
+		if(get_dist(get_turf(summoner), get_turf(src)) <= range)
 			return
+		to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
+		visible_message("<span class='danger'>[src] jumps back to its user.</span>")
+		if(iseffect(summoner.loc) || istype(summoner.loc, /obj/machinery/atmospherics))
+			Recall(TRUE)
 		else
-			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
-			visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
-			if(iseffect(summoner.loc))
-				Recall(TRUE)
-			else
-				if(!stealthy_deploying)
-					new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
-					new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))
-				forceMove(summoner.loc) //move to summoner's tile, don't recall
+			if(!stealthy_deploying)
+				new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
+				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))
+			forceMove(summoner.loc) //move to summoner's tile, don't recall
 
 /mob/living/simple_animal/hostile/guardian/proc/is_deployed()
 	return loc != summoner
@@ -178,6 +177,9 @@
 	ghostize()
 	qdel(src)
 
+/mob/living/simple_animal/hostile/guardian/Process_Spacemove(movement_dir = 0)
+	return TRUE	//Works better in zero G, and not useless in space
+
 //Manifest, Recall, Communicate
 
 /mob/living/simple_animal/hostile/guardian/proc/Manifest()
@@ -195,7 +197,8 @@
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return
-	if(!summoner) return
+	if(!summoner)
+		return
 	if(!stealthy_deploying)
 		new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
@@ -257,7 +260,7 @@
 	var/used_message = "All the cards seem to be blank now."
 	var/failure_message = "..And draw a card! It's...blank? Maybe you should try again later."
 	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
-	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
+	var/list/possible_guardians = list("Gaseous", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
 	var/random = FALSE
 	/// What type was picked the first activation
 	var/picked_random_type
@@ -328,8 +331,8 @@
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 	switch(guardian_type)
 
-		if("Chaos")
-			pickedtype = /mob/living/simple_animal/hostile/guardian/fire
+		if("Gaseous")
+			pickedtype = /mob/living/simple_animal/hostile/guardian/gaseous
 
 		if("Standard")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/punch

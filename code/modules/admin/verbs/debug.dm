@@ -185,7 +185,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/get_callproc_args()
 	var/argnum = input("Number of arguments","Number:",0) as num|null
-	if(!argnum && (argnum!=0))	return
+	if(argnum <= 0)
+		return list() // to allow for calling with 0 args
+
+	argnum = clamp(argnum, 1, 50)
 
 	var/list/lst = list()
 	//TODO: make a list to store whether each argument was initialised as null.
@@ -861,7 +864,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	// Iterate that target and see whats what
 	for(var/queue_entry in target_queue)
-		var/datum/D = locate(queue_entry[1])
+		var/datum/D = locate(queue_entry[GC_QUEUE_ITEM_REF])
 		if(!istype(D))
 			continue
 
@@ -956,13 +959,18 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set category = "Debug"
 	set name = "Visualise Active Turfs"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
 	// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
 	var/confirm = alert(usr, "WARNING: This process is lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "Im sure", "Nope")
 	if(confirm != "Im sure")
 		return
+
+	var/display_turfs_overlay = FALSE
+	var/do_display_turf_overlay = alert(usr, "Would you like to have all active turfs have a client side overlay applied as well?", "Optional", "Yep", "Nope")
+	if(do_display_turf_overlay == "Yep")
+		display_turfs_overlay = TRUE
 
 	message_admins("[key_name_admin(usr)] is visualising active atmos turfs. Server may lag.")
 
@@ -974,6 +982,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!zlevel_turf_indexes["[T.z]"])
 			zlevel_turf_indexes["[T.z]"] = list()
 		zlevel_turf_indexes["[T.z]"] |= T
+		if(display_turfs_overlay)
+			usr.client.images += image('icons/effects/alphacolors.dmi', T, "red")
 		CHECK_TICK
 
 	// Sort the keys

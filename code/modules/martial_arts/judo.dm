@@ -5,6 +5,7 @@
 	combos = list(/datum/martial_combo/judo/discombobulate, /datum/martial_combo/judo/eyepoke, /datum/martial_combo/judo/judothrow, /datum/martial_combo/judo/armbar, /datum/martial_combo/judo/wheelthrow)
 	weight = 5 //takes priority over boxing and drunkneness, less priority than krav or CQC/carp
 	no_baton_reason = "<span class='warning'>The baton feels off balance in your hand due to your judo training!</span>"
+	can_horizontally_grab = FALSE
 
 //Corporate Judo Belt
 
@@ -58,6 +59,11 @@
 	add_attack_logs(A, D, "Melee attacked with [src]")
 	return TRUE
 
+/datum/martial_art/judo/grab_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
+	if(IS_HORIZONTAL(attacker))
+		return FALSE
+	return ..()
+
 /datum/martial_art/judo/explaination_header(user)
 	to_chat(user, "<b><i>You recall the teachings of Corporate Judo.</i></b>")
 
@@ -66,7 +72,7 @@
 
 /datum/martial_art/judo/under_siege
 	name = "Professional Bodyguarding"
-	var/static/list/areas_under_siege = typecacheof(list(/area/crew_quarters/kitchen, /area/crew_quarters/bar))
+	var/static/list/areas_under_siege = typecacheof(list(/area/station/service/kitchen, /area/station/service/bar))
 
 /datum/martial_art/judo/under_siege/teach(mob/living/carbon/human/H, make_temporary)
 	RegisterSignal(H, COMSIG_AREA_ENTERED, PROC_REF(bar_check))

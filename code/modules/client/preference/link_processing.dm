@@ -959,7 +959,7 @@
 						var/list/actualview = getviewsize(parent.view)
 						parent.void.UpdateGreed(actualview[1],actualview[2])
 
-					parent.debug_text_overlay.update_view(parent)
+					parent.debug_text_overlay?.update_view(parent)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
@@ -1085,6 +1085,10 @@
 					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
+
+				if("parallax_darkness")
+					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
+					parent.mob?.hud_used?.update_parallax_pref()
 
 				if("screentip_mode")
 					var/desired_screentip_mode = clamp(input(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size") as null|num, 0, 20)

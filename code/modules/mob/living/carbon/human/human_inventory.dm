@@ -372,13 +372,13 @@
 	return null
 
 /mob/living/carbon/human/get_all_slots()
-	. = get_head_slots() | get_body_slots()
+	. = get_body_slots() | get_head_slots()
 
 /mob/living/carbon/human/proc/get_body_slots()
 	return list(
+		back,
 		l_hand,
 		r_hand,
-		back,
 		s_store,
 		handcuffed,
 		legcuffed,

@@ -35,6 +35,8 @@
 	var/species_disguise = null
 	var/magical = FALSE
 	var/dyeable = FALSE
+	/// Do we block AI tracking?
+	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/clothing/update_icon_state()
@@ -206,7 +208,7 @@
 	var/lighting_alpha
 
 	var/list/color_view = null//overrides client.color while worn
-	var/prescription = 0
+	var/prescription = FALSE
 	var/prescription_upgradable = FALSE
 	var/over_mask = FALSE //Whether or not the eyewear is rendered above the mask. Purely cosmetic.
 	strip_delay = 20			//	   but seperated to allow items to protect but not impair vision, like space helmets
@@ -371,7 +373,6 @@
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
-	var/blockTracking // Do we block AI tracking?
 	var/HUDType = null
 
 	var/vision_flags = 0
@@ -852,7 +853,6 @@
 				if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
 					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 					usr.update_inv_w_uniform()
-
 			else
 				if(H.w_uniform.sprite_sheets["Human"] && icon_exists(H.w_uniform.sprite_sheets["Human"], "[basecolor]_d_s"))
 					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
@@ -862,6 +862,12 @@
 
 	else
 		to_chat(usr, "<span class='notice'>You cannot roll down the uniform!</span>")
+	if(item_color == "[basecolor]")
+		body_parts_covered = initial(body_parts_covered)
+	else
+		body_parts_covered &= ~UPPER_TORSO
+		body_parts_covered &= ~LOWER_TORSO
+		body_parts_covered &= ~ARMS
 
 /obj/item/clothing/under/verb/removetie()
 	set name = "Remove Accessory"
