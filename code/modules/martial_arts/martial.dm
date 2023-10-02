@@ -262,7 +262,6 @@
 /obj/item/clothing/gloves/boxing/Initialize()
 	. = ..()
 	style = new()
-	style.temporary = TRUE
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
 	if(!ishuman(user))
@@ -287,7 +286,6 @@
 /obj/item/storage/belt/champion/wrestling/Initialize()
 	. = ..()
 	style = new()
-	style.temporary = TRUE
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	if(!ishuman(user))
@@ -297,7 +295,6 @@
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
 			return
-		style.temporary = TRUE
 		style.teach(H, TRUE)
 		to_chat(user, "<span class='sciradio'>You have an urge to flex your muscles and get into a fight. You have the knowledge of a thousand wrestlers before you. You can remember more by using the Recall teaching verb in the wrestling tab.</span>")
 	return
