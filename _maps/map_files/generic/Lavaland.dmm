@@ -6828,10 +6828,6 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
-"Mf" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall,
-/area/mine/outpost/medbay)
 "Mh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -6868,7 +6864,6 @@
 /area/mine/outpost/hallway/west)
 "Mv" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors)
 "ME" = (
@@ -25352,7 +25347,7 @@ dW
 DA
 Ps
 YS
-Mf
+vh
 Xb
 xl
 Ez
@@ -25609,7 +25604,7 @@ Nk
 Dz
 Dz
 Nk
-Mf
+vh
 cN
 cN
 cN
