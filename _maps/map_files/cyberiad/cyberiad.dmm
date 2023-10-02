@@ -63144,11 +63144,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
-"gaX" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "gbs" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
@@ -67998,11 +67993,6 @@
 	icon_state = "blue"
 	},
 /area/station/medical/storage)
-"iGA" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/science/hallway)
 "iGI" = (
 /obj/structure/disposaloutlet{
 	dir = 8
@@ -87699,11 +87689,6 @@
 	icon_state = "whitehall"
 	},
 /area/station/science/hallway)
-"ueo" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar)
 "ueT" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -104894,7 +104879,7 @@ aaa
 aaa
 aaa
 ehK
-gaX
+ehK
 ehK
 ehK
 aaa
@@ -106682,13 +106667,13 @@ bmS
 bgR
 aLd
 ehK
-gaX
+ehK
 aOQ
 ehK
 ehK
 aMs
 ehK
-gaX
+ehK
 aOQ
 ehK
 ehK
@@ -142965,7 +142950,7 @@ yiF
 qhq
 rKV
 xNN
-iGA
+xNN
 rKV
 rKV
 rKV
@@ -145821,7 +145806,7 @@ djQ
 djQ
 djQ
 djQ
-ueo
+dlT
 aaa
 aaa
 aaa

@@ -44324,11 +44324,6 @@
 	icon_state = "bot"
 	},
 /area/station/hallway/primary/central)
-"cgG" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/simulated/floor/plating,
-/area/station/engineering/control)
 "cgI" = (
 /obj/machinery/ai_status_display{
 	pixel_y = -32
@@ -67461,11 +67456,6 @@
 /obj/effect/landmark/start/roboticist,
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics/chargebay)
-"dlc" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "dld" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -81477,6 +81467,10 @@
 	icon_state = "purplecorner"
 	},
 /area/station/hallway/primary/central)
+"eyS" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating/airless,
+/area/station/science/toxins/test)
 "ezR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -87529,11 +87523,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
-"lIC" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar)
 "lID" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -91324,11 +91313,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
-"pUv" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/starboard)
 "pUB" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel{
@@ -94594,11 +94578,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/storage)
-"tDf" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/exit)
 "tDw" = (
 /turf/simulated/wall,
 /area/station/medical/reception)
@@ -95714,11 +95693,6 @@
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
-"uKa" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/primary/central)
 "uKV" = (
 /obj/machinery/light{
 	dir = 4
@@ -111526,9 +111500,9 @@ aaa
 aaa
 abj
 abj
-dyo
+eyS
 dyn
-dyo
+eyS
 abj
 abj
 aaa
@@ -111783,9 +111757,9 @@ aaa
 abj
 abj
 dyn
-dyo
+eyS
 dCy
-dyo
+eyS
 dyn
 abj
 abj
@@ -112038,13 +112012,13 @@ aaa
 aaa
 abj
 abj
-dyo
-dyo
+eyS
+eyS
 dBE
 dCz
 dEc
-dyo
-dyo
+eyS
+eyS
 abj
 abj
 aaa
@@ -112551,7 +112525,7 @@ aaa
 aaa
 aaa
 aaa
-dyo
+eyS
 dzv
 dAH
 dAH
@@ -112559,7 +112533,7 @@ mtx
 dAH
 dAH
 dFf
-dyo
+eyS
 aaa
 aaa
 aaa
@@ -113071,8 +113045,8 @@ dyo
 dCA
 dAH
 dEK
-dyo
-dyo
+eyS
+eyS
 abj
 abj
 aaa
@@ -113325,9 +113299,9 @@ aaa
 abj
 abj
 dyn
-dyo
+eyS
 dAH
-dyo
+eyS
 dyn
 abj
 abj
@@ -113582,9 +113556,9 @@ aaa
 aaa
 abj
 abj
-dyo
+eyS
 dDP
-dyo
+eyS
 abj
 abj
 aaa
@@ -122537,7 +122511,7 @@ csp
 meH
 meH
 meH
-cgG
+meH
 bXU
 bXU
 uVM
@@ -128256,7 +128230,7 @@ dOQ
 kep
 dbp
 dSn
-dlc
+vqY
 abj
 aaa
 aaa
@@ -138540,7 +138514,7 @@ dTH
 dTH
 dUs
 dVb
-tDf
+dIO
 aaa
 aaa
 aaa
@@ -143323,7 +143297,7 @@ bsv
 hZO
 hZO
 bxA
-uKa
+hZO
 hZO
 bsv
 bsv
@@ -147952,7 +147926,7 @@ lBR
 lBR
 lBR
 guY
-pUv
+guY
 btT
 bHR
 brj
@@ -153666,7 +153640,7 @@ aaa
 aaa
 aaa
 cPS
-lIC
+cPS
 lQG
 cPS
 cPS

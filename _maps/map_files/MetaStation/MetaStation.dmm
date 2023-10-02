@@ -74112,11 +74112,6 @@
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"oEZ" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "oFd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
@@ -106132,7 +106127,7 @@ bOz
 bFG
 aJv
 kmF
-oEZ
+kmF
 bOx
 kmF
 kmF
