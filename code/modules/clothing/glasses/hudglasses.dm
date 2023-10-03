@@ -5,21 +5,29 @@
 	origin_tech = "magnets=3;biotech=2"
 	prescription_upgradable = TRUE
 	/// The visual icons granted by wearing these glasses.
-	var/HUDType = null
+	var/hud_types = null
 	/// List of things added to examine text, like security or medical records.
 	var/list/examine_extensions = null
 
+/obj/item/clothing/glasses/hud/Initialize(mapload)
+	. = ..()
+	if(!islist(hud_types) && hud_types)
+		hud_types = list(hud_types)
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if(HUDType && slot == slot_glasses)
-		var/datum/atom_hud/H = GLOB.huds[HUDType]
+	if(slot != slot_glasses)
+		return
+	for(var/new_hud in hud_types)
+		var/datum/atom_hud/H = GLOB.huds[new_hud]
 		H.add_hud_to(user)
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
 	..()
-	if(HUDType && istype(user) && user.glasses == src)
-		var/datum/atom_hud/H = GLOB.huds[HUDType]
+	if(istype(user) && user.glasses != src)
+		return
+	for(var/new_hud in hud_types)
+		var/datum/atom_hud/H = GLOB.huds[new_hud]
 		H.remove_hud_from(user)
 
 /obj/item/clothing/glasses/hud/emp_act(severity)
@@ -32,7 +40,7 @@
 	desc = "A heads-up display that scans the humans in view and provides accurate data about their health status."
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
-	HUDType = DATA_HUD_MEDICAL_ADVANCED
+	hud_types = DATA_HUD_MEDICAL_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_MEDICAL)
 
 	sprite_sheets = list(
@@ -64,7 +72,7 @@
 	desc = "A heads-up display capable of analyzing the integrity and status of robotics and exosuits."
 	icon_state = "diagnostichud"
 	origin_tech = "magnets=2;engineering=2"
-	HUDType = DATA_HUD_DIAGNOSTIC_BASIC
+	hud_types = DATA_HUD_DIAGNOSTIC_BASIC
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -96,7 +104,7 @@
 	icon_state = "securityhud"
 	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
-	HUDType = DATA_HUD_SECURITY_ADVANCED
+	hud_types = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
 
 	sprite_sheets = list(
@@ -150,7 +158,7 @@
 	name = "hydroponic HUD"
 	desc = "A heads-up display capable of analyzing the health and status of plants growing in hydro trays and soil."
 	icon_state = "hydroponichud"
-	HUDType = DATA_HUD_HYDROPONIC
+	hud_types = DATA_HUD_HYDROPONIC
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -207,7 +215,7 @@
 	desc = "A heads-up display capable of showing the employment history records of NT crew members."
 	icon_state = "skill"
 	item_state = "glasses"
-	HUDType = DATA_HUD_SECURITY_BASIC
+	hud_types = DATA_HUD_SECURITY_BASIC
 	examine_extensions = list(EXAMINE_HUD_SKILLS)
 	sprite_sheets = list(
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',

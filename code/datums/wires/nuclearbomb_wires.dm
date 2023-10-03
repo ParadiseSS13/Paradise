@@ -20,7 +20,7 @@
 	. = ..()
 	var/obj/machinery/nuclearbomb/N = holder
 	. += "The device is [N.timing ? "shaking!" : "still."]"
-	. += "The device is is [N.safety ? "quiet" : "whirring"]."
+	. += "The device is [N.safety ? "quiet" : "whirring"]."
 	. += "The lights are [N.lighthack ? "static" : "functional"]."
 
 /datum/wires/nuclearbomb/on_pulse(wire)

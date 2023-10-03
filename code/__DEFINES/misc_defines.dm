@@ -375,7 +375,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 51
+#define SQL_VERSION 52
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -552,3 +552,19 @@
 #define BLOCKED_BURROWS "Blocked Burrows"
 #define CLASSIC_CAVES "Classic Caves"
 #define DEADLY_DEEPROCK "Deadly Deeprock"
+
+// Request console message priority defines
+
+#define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
+#define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
+#define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
+
+/**
+ * Reading books can help with brain damage!
+ * These are seperate times so that a user gains more benefits by reading more books,
+ * but also cant infinitely switch between 1000 books.
+ */
+/// The amount of time needed to pass to let a single book be read again for brain benefits
+#define BRAIN_DAMAGE_BOOK_TIME 45 SECONDS
+/// The amount of time a mob needs to wait between any book reading
+#define BRAIN_DAMAGE_MOB_TIME 10 SECONDS

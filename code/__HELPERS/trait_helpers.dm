@@ -127,6 +127,9 @@
 		: FALSE)
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (length(target.status_traits[trait] - source) > 0) : FALSE) : FALSE)
 
+/// Gives a unique trait source for any given datum
+#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
+
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
@@ -211,6 +214,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_INTERACTABLE	"can_be_interacted_with_by_xenos"
 #define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
 #define TRAIT_BADASS "trait_badass"
+#define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -233,6 +237,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
 #define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
+
+/// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
+#define TRAIT_TURF_COVERED "turf_covered"
 
 ///An item that is oiled. If sprayed with water, it's slowdown reverts to normal.
 #define TRAIT_OIL_SLICKED "oil_slicked"
@@ -277,6 +284,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define ENFORCER_GLOVES "enforcer_gloves"
 #define HOLO_CIGAR "holo_cigar"
 #define GLADIATOR "gladiator"
+#define PULSEDEMON_TRAIT "pulse_demon"
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"

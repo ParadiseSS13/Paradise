@@ -63,8 +63,10 @@
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-
-			add_attack_logs(user, C, "Handcuffed ([src])")
+			if(breakouttime != 0)
+				add_attack_logs(user, C, "Handcuffed ([src])")
+			else
+				add_attack_logs(user, C, "Handcuffed (Fake/Breakable!) ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 			return FALSE

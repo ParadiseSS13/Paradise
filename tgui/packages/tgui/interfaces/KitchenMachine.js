@@ -42,10 +42,7 @@ export const KitchenMachine = (props, context) => {
 
 const KitchenTop = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-          inactive,
-          tooltip
-        } = data;
+  const { inactive, tooltip } = data;
 
   return (
     <Section title="Controls">
@@ -56,7 +53,7 @@ const KitchenTop = (props, context) => {
             textAlign="center"
             icon="power-off"
             disabled={inactive}
-            tooltip={inactive ? tooltip : ""}
+            tooltip={inactive ? tooltip : ''}
             tooltipPosition="bottom"
             content="Activate"
             onClick={() => act('cook')}
@@ -68,7 +65,7 @@ const KitchenTop = (props, context) => {
             textAlign="center"
             icon="eject"
             disabled={inactive}
-            tooltip={inactive ? tooltip : ""}
+            tooltip={inactive ? tooltip : ''}
             tooltipPosition="bottom"
             content="Eject Contents"
             onClick={() => act('eject')}
