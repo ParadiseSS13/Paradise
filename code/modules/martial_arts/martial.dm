@@ -39,6 +39,8 @@
 	var/weight = 0
 	/// Message displayed when someone uses a baton when its forbidden by a martial art
 	var/no_baton_reason = "Your martial arts training prevents you from wielding batons."
+	/// Whether or not you can grab someone while horizontal with this Martial Art
+	var/can_horizontally_grab = TRUE
 
 /datum/martial_art/New()
 	. = ..()
@@ -158,6 +160,7 @@
 			return
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+	temporary = make_temporary
 	owner_UID = H.UID()
 	H.mind.known_martial_arts.Add(src)
 	H.mind.martial_art = get_highest_weight(H)
@@ -256,7 +259,11 @@
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style = new
+	var/datum/martial_art/boxing/style
+
+/obj/item/clothing/gloves/boxing/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
 	if(!ishuman(user))
@@ -276,7 +283,11 @@
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
-	var/datum/martial_art/wrestling/style = new
+	var/datum/martial_art/wrestling/style
+
+/obj/item/storage/belt/champion/wrestling/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	if(!ishuman(user))
