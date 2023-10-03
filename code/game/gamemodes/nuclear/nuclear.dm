@@ -1,4 +1,4 @@
-#define NUKESCALINGMODIFIER 1.2
+#define NUKESCALINGMODIFIER 6
 
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
