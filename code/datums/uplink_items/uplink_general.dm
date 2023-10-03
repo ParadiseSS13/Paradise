@@ -126,14 +126,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		if(cost > U.uses)
 			return FALSE
 
-		if(limited_stock > 0) // only decrement it if it's actually limited
-			limited_stock--
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
 		if(!I)
 			return TRUE
 		if(limited_stock > 0)
+			limited_stock--
 			log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
 			if(!user.mind.special_role)
 				message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
@@ -152,9 +151,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 		if(put_in_hands)
 			user.put_in_any_hand_if_possible(I)
-			return TRUE
 		return I
-	return FALSE
 
 /*
 //

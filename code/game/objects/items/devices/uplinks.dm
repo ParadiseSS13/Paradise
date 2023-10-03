@@ -121,7 +121,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		quantity = UI.limited_stock
 	var/list/bought_things = list()
 	for(var/i in 1 to quantity)
-		bought_things += UI.buy(src, usr, put_in_hands = FALSE)
+		var/item = UI.buy(src, usr, put_in_hands = FALSE)
+		if(isnull(item))
+			break
+		bought_things += item
 	return bought_things
 
 /obj/item/uplink/proc/refund(mob/user as mob)
@@ -335,7 +338,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 			// Check how many of them are items
 			var/list/obj/item/items_for_crate = list()
-			for(var/thing in bought_things)
+			for(var/obj/item/thing in bought_things)
 				// because sometimes you can buy items like crates from surpluses and stuff
 				// the crates will already be on the ground, so we dont need to worry about them
 				if(isitem(thing))
