@@ -284,7 +284,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	Choices should be a list where list keys are movables or text used for element names and return value
 	and list values are movables/icons/images used for element icons
 */
-/proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE)
+/proc/show_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE, return_index = FALSE)
 	if(!user || !anchor || !length(choices))
 		return
 	if(!uniqueid)
@@ -305,8 +305,42 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	menu.show_to(user)
 	menu.wait(user, anchor, require_near)
 	var/answer = menu.selected_choice
+	if(return_index)
+		answer = choices.Find(answer)
 	qdel(menu)
 	GLOB.radial_menus -= uniqueid
 	return answer
+
+/**
+ * Similar to show_radial_menu, but choices is a list of atoms, for which icons will be automatically generated.
+ * Supports multiple items of the same name, 2 soaps will become soap (1) and soap (2) to the user
+ */
+/proc/auto_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE)
+	var/list/duplicate_amount = list()
+	for(var/atom/atom in choices)
+		if(!duplicate_amount.Find(atom.name))
+			duplicate_amount[atom.name] = 0
+		else
+			duplicate_amount[atom.name]++
+
+	var/list/duplicate_indexes = duplicate_amount.Copy()
+	var/list/new_choices = list()
+	for(var/atom/atom in choices)
+		var/mutable_appearance/atom_appearance = new(atom.appearance)
+
+		var/hover_outline_index = atom.get_filter("hover_outline")
+		if(!isnull(hover_outline_index))
+			atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
+
+		if(!duplicate_amount[atom.name])
+			new_choices[atom.name] = atom_appearance
+		else
+			var/number = duplicate_amount[atom.name] - duplicate_indexes[atom.name]
+			duplicate_indexes[atom.name]--
+			new_choices["[atom.name] ([number + 1])"] = atom_appearance
+
+	var/index = show_radial_menu(user, anchor, new_choices, uniqueid, radius, custom_check, require_near, return_index = TRUE)
+
+	return choices[index]
 
 #undef ANIM_SPEED

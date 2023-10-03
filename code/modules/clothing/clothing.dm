@@ -756,7 +756,7 @@
 	if(istype(I, /obj/item/clothing/accessory))
 		attach_accessory(I, user, TRUE)
 
-	if(accessories.len)
+	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attackby(I, user, params)
 		return TRUE
@@ -882,11 +882,14 @@
 		return
 	if(!Adjacent(usr))
 		return
-	if(!accessories.len)
+	if(!length(accessories))
 		return
 	var/obj/item/clothing/accessory/A
-	if(accessories.len > 1)
-		A = input("Select an accessory to remove from [src]") as null|anything in accessories
+	if(length(accessories) > 1)
+		var/pick = auto_radial_menu(usr, src, accessories, custom_check = FALSE, require_near = TRUE)
+		if(!pick)
+			return
+		A = pick
 	else
 		A = accessories[1]
 	remove_accessory(usr,A)
@@ -904,7 +907,7 @@
 	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
 
 /obj/item/clothing/under/emp_act(severity)
-	if(accessories.len)
+	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()
