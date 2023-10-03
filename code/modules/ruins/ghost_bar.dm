@@ -34,8 +34,8 @@
 
 	save_to_load.copy_to(H)
 	if(!H.back)
-		equip_item(H, /obj/item/storage/backpack, slot_back)
-	equip_item(H, /obj/item/radio/headset/deadsay, slot_l_ear)
+		equip_item(H, /obj/item/storage/backpack, SLOT_HUD_BACK)
+	equip_item(H, /obj/item/radio/headset/deadsay, SLOT_HUD_LEFT_EAR)
 	H.dna.species.before_equip_job(/datum/job/assistant, H)
 	H.dna.species.remains_type = /obj/effect/decal/cleanable/ash
 	var/obj/item/implant/dust/I = new
@@ -50,12 +50,12 @@
 		else
 			H.equip_or_collect(G.spawn_item(null, save_to_load.loadout_gear[G.display_name]))
 	if(!H.w_uniform)
-		equip_item(H, /obj/item/clothing/under/color/random, slot_w_uniform)
+		equip_item(H, /obj/item/clothing/under/color/random, SLOT_HUD_JUMPSUIT)
 	if(!H.shoes)
-		equip_item(H, /obj/item/clothing/shoes/black, slot_shoes)
-	equip_item(H, /obj/item/stack/spacecash/c100, slot_l_store)
+		equip_item(H, /obj/item/clothing/shoes/black, SLOT_HUD_SHOES)
+	equip_item(H, /obj/item/stack/spacecash/c100, SLOT_HUD_LEFT_STORE)
 
-	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, slot_wear_id)
+	var/obj/item/card/id/syndicate/our_id = equip_item(H, /obj/item/card/id/syndicate/ghost_bar, SLOT_HUD_WEAR_ID)
 	our_id.assignment = assignedrole
 	our_id.registered_name = H.real_name
 	our_id.sex = capitalize(H.gender)
