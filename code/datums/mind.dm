@@ -141,7 +141,8 @@
 
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
-	new_character.job = current.job //transfer our job over to the new body
+	if(current)
+		new_character.job = current.job //transfer our job over to the new body
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
