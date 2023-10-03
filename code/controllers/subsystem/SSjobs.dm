@@ -109,12 +109,14 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/FreeRole(rank, force = FALSE)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
+	if(!job)
+		return FALSE
 	if(job.job_banned_gamemode)
 		if(!force)
 			return FALSE
 		job.job_banned_gamemode = FALSE // If admins want to force it, they can reopen banned job slots
 
-	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
+	if(job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
 		return TRUE
 	return FALSE

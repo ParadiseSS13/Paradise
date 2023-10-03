@@ -160,6 +160,7 @@
 			return
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+	temporary = make_temporary
 	owner_UID = H.UID()
 	H.mind.known_martial_arts.Add(src)
 	H.mind.martial_art = get_highest_weight(H)
@@ -258,7 +259,11 @@
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style = new
+	var/datum/martial_art/boxing/style
+
+/obj/item/clothing/gloves/boxing/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
 	if(!ishuman(user))
@@ -278,7 +283,11 @@
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
-	var/datum/martial_art/wrestling/style = new
+	var/datum/martial_art/wrestling/style
+
+/obj/item/storage/belt/champion/wrestling/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	if(!ishuman(user))

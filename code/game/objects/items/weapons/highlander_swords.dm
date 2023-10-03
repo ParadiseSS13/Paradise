@@ -37,7 +37,7 @@
 		var/obj/item/claymore/highlander/sword = H.is_in_hands(/obj/item/claymore/highlander)
 		if(sword)
 			//if we have a highlander sword in the other hand, relearn the style from that sword.
-			sword.style.teach(H, 1)
+			sword.style.teach(H, TRUE)
 
 /obj/item/claymore/highlander/dropped(mob/user)
 	..()
@@ -49,4 +49,4 @@
 	var/obj/item/claymore/highlander/sword = H.is_in_hands(/obj/item/claymore/highlander)
 	if(sword)
 		//if we have a highlander sword in the other hand, relearn the style from that sword.
-		sword.style.teach(H, 1)
+		sword.style.teach(H, TRUE)

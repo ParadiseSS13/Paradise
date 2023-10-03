@@ -155,7 +155,7 @@
 	slowdown_active = SHOES_SLOWDOWN
 	magboot_state = "gravboots"
 	magpulse_name = "micro gravitational traction system"
-	var/datum/martial_art/grav_stomp/style = new //Only works with core and cell installed.
+	var/datum/martial_art/grav_stomp/style //Only works with core and cell installed.
 	var/jumpdistance = 5
 	var/jumpspeed = 3
 	var/recharging_rate = 6 SECONDS
@@ -164,6 +164,10 @@
 	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
 	var/obj/item/assembly/signaler/anomaly/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
+
+/obj/item/clothing/shoes/magboots/gravity/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/clothing/shoes/magboots/gravity/Destroy()
 	QDEL_NULL(style)
