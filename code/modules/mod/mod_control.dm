@@ -105,14 +105,14 @@
 	if(length(data["modules"]))
 		for(var/old_mods in modules)
 			uninstall(old_mods, deleting = TRUE)
-	for(var/new_modules in data["modules"])
-		if(islist(new_modules))
-			var/obj/item/mod/module/new_mod = list_to_object(new_modules, src)
-			install(new_mod)
-		else if(new_modules == null)
-			stack_trace("Null entry found in modules/deserialize.")
-		else
-			stack_trace("Non-list thing found in modules (Mod: [new_modules])")
+		for(var/new_modules in data["modules"])
+			if(islist(new_modules))
+				var/obj/item/mod/module/new_mod = list_to_object(new_modules, src)
+				install(new_mod)
+			else if(new_modules == null)
+				stack_trace("Null entry found in modules/deserialize.")
+			else
+				stack_trace("Non-list thing found in modules (Mod: [new_modules])")
 	..()
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
