@@ -8,6 +8,7 @@
 #include "code/Station/cyberiad.dm"
 #include "code/Station/delta.dm"
 #include "code/corpses.dm"
+#include "code/directions.dm"
 #include "code/helpers.dm"
 #include "code/misc.dm"
 #include "code/mobs.dm"
