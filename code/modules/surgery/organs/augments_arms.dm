@@ -572,10 +572,13 @@
 	actions_types = list()
 	var/datum/martial_art/muscle_implant/muscle_implant
 
-/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+/obj/item/organ/internal/cyberimp/arm/muscle/Initialize()
 	. = ..()
 	muscle_implant = new()
-	muscle_implant.teach(M)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	muscle_implant.teach(M, TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/M, special)
 	. = ..()

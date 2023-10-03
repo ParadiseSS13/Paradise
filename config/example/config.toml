@@ -144,7 +144,7 @@ ipc_screens = [
 # Enable/disable the database on a whole
 sql_enabled = false
 # SQL version. If this is a mismatch, round start will be delayed
-sql_version = 51
+sql_version = 52
 # SQL server address. Can be an IP or DNS name
 sql_address = "127.0.0.1"
 # SQL server port
@@ -674,7 +674,7 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
 
 	##MISC
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_animal_hospital.dmm",
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm",
 	# Cube blacklisted on production because it contains a wishgranter that gives you hijack on use
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cultaltar.dmm",
