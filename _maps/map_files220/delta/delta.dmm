@@ -1759,7 +1759,7 @@
 "anX" = (
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -3774,7 +3774,7 @@
 /obj/machinery/driver_button{
 	id_tag = "trash";
 	name = "Trash Ejector Button";
-	pixel_x = -26
+	pixel_x = -24
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -6582,7 +6582,7 @@
 "aFC" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6701,7 +6701,7 @@
 /obj/machinery/light/small,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/item/tank/internals/plasma,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -7061,7 +7061,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7336,7 +7336,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/turbine)
@@ -7533,7 +7533,7 @@
 "aJm" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -7913,7 +7913,7 @@
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/medical/virology/lab)
@@ -9014,7 +9014,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/atmos)
@@ -10579,7 +10579,7 @@
 /obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -10592,7 +10592,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/structure/cable{
 	d1 = 1;
@@ -10636,6 +10636,12 @@
 	name = "Atmos External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
+/obj/machinery/access_button{
+	autolink_id = "atmostanks_btn_ext";
+	name = "exterior access button";
+	pixel_x = -24;
+	req_access_txt = "32"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "aVg" = (
@@ -12553,7 +12559,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14111,7 +14117,7 @@
 "bfT" = (
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /obj/structure/closet/secure_closet/brig,
 /obj/machinery/light/small{
@@ -14517,7 +14523,7 @@
 "bho" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /obj/machinery/camera{
 	c_tag = "Atmospherics South";
@@ -16442,7 +16448,7 @@
 "bni" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency{
@@ -16975,7 +16981,7 @@
 "boz" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway North"
@@ -17078,11 +17084,6 @@
 	},
 /area/station/command/office/hos)
 "boN" = (
-/obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = 30;
-	pixel_y = -30
-	},
 /obj/structure/table/wood,
 /obj/machinery/computer/med_data/laptop{
 	dir = 8
@@ -19337,7 +19338,7 @@
 /obj/structure/closet/firecloset,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/firealarm{
@@ -19442,7 +19443,7 @@
 "bxl" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -20239,7 +20240,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -20334,7 +20335,7 @@
 /obj/item/mmi,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/tech_storage)
@@ -20431,11 +20432,6 @@
 "bAF" = (
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/aitransit)
@@ -21073,11 +21069,6 @@
 /area/station/turret_protected/ai)
 "bCX" = (
 /obj/effect/landmark/start/ai,
-/obj/item/radio/intercom{
-	name = "custom placement";
-	pixel_x = -28;
-	pixel_y = 5
-	},
 /obj/item/radio/intercom/private{
 	pixel_x = 28;
 	pixel_y = 5
@@ -21090,12 +21081,17 @@
 	pixel_y = 32
 	},
 /obj/item/radio/intercom/custom{
-	pixel_y = 25
+	pixel_y = 5;
+	pixel_x = -28
 	},
 /obj/machinery/newscaster/security_unit{
-	dir = 4;
 	name = "west bump";
-	pixel_x = -28
+	pixel_x = -32;
+	pixel_y = 32
+	},
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai)
@@ -21160,7 +21156,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /obj/structure/closet/radiation,
 /obj/effect/decal/warning_stripes/northeast,
@@ -21380,6 +21376,9 @@
 	},
 /area/station/engineering/break_room)
 "bDy" = (
+/obj/machinery/status_display{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "caution"
@@ -21474,6 +21473,12 @@
 	icon_state = "yellow"
 	},
 /area/station/public/storage/tools)
+"bDL" = (
+/obj/machinery/ai_status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai_upload)
 "bDN" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -21845,16 +21850,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/break_room)
-"bFa" = (
-/obj/machinery/status_display{
-	pixel_x = 32;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "cautioncorner"
-	},
-/area/station/engineering/break_room)
 "bFb" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -21880,7 +21875,7 @@
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
@@ -22040,7 +22035,7 @@
 "bFz" = (
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -22785,6 +22780,13 @@
 	dir = 8
 	},
 /obj/item/storage/fancy/donut_box,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "Bridge Requests Console";
+	pixel_y = -30
+	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
 "bHr" = (
@@ -22800,14 +22802,6 @@
 	name = "AI Upload Turret Control";
 	pixel_y = -24;
 	req_one_access_txt = "75"
-	},
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Bridge";
-	departmentType = 5;
-	name = "Bridge Requests Console";
-	pixel_x = -30;
-	pixel_y = -30
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/bridge)
@@ -23153,7 +23147,7 @@
 "bIr" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -24003,12 +23997,6 @@
 /obj/machinery/porta_turret,
 /turf/simulated/floor/plasteel/dark,
 /area/station/turret_protected/ai_upload)
-"bKR" = (
-/obj/machinery/ai_status_display{
-	pixel_y = 32
-	},
-/turf/simulated/floor/bluegrid,
-/area/station/turret_protected/ai_upload)
 "bKS" = (
 /obj/machinery/light_switch{
 	name = "north bump";
@@ -24019,12 +24007,6 @@
 "bKU" = (
 /obj/machinery/camera/motion{
 	c_tag = "AI Upload Chamber"
-	},
-/turf/simulated/floor/bluegrid,
-/area/station/turret_protected/ai_upload)
-"bKV" = (
-/obj/machinery/status_display{
-	pixel_y = 32
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
@@ -24571,7 +24553,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/storage/toolbox/electrical,
@@ -24757,7 +24739,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
@@ -24768,7 +24750,7 @@
 /obj/item/multitool,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -25891,6 +25873,10 @@
 	},
 /obj/structure/bed,
 /obj/item/bedsheet/ce,
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/command/office/ce)
 "bQm" = (
@@ -25935,7 +25921,7 @@
 /obj/structure/closet/radiation,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
@@ -27409,16 +27395,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/ce)
-"bUn" = (
-/obj/item/kirbyplants,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = -26
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/ce)
 "bUo" = (
 /turf/simulated/floor/plasteel/grimy,
 /area/station/command/office/ce)
@@ -28006,19 +27982,19 @@
 /area/space/nearstation)
 "bWl" = (
 /obj/machinery/keycard_auth{
-	pixel_x = -24
+	pixel_x = -34;
+	dir = 4
 	},
 /obj/machinery/door_control{
 	id = "engstorage";
 	name = "Engineering Secure Storage Control";
-	pixel_x = -38;
-	pixel_y = 8;
+	pixel_x = -24;
 	req_access_txt = "11"
 	},
 /obj/machinery/door_control{
 	id = "transitlock";
 	name = "Transit Tube Lockdown Control";
-	pixel_x = -38;
+	pixel_x = -24;
 	pixel_y = -8;
 	req_access_txt = "11"
 	},
@@ -28029,7 +28005,7 @@
 	dir = 4;
 	id = "CE";
 	pixel_x = -24;
-	pixel_y = 9;
+	pixel_y = 8;
 	range = 12;
 	req_access_txt = "56"
 	},
@@ -28330,7 +28306,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /obj/item/soap,
 /turf/simulated/floor/plasteel{
@@ -28527,7 +28503,7 @@
 /obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -29069,6 +29045,11 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "bZG" = (
@@ -29340,7 +29321,7 @@
 /obj/item/clothing/glasses/sunglasses,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/lawyer,
@@ -29630,7 +29611,7 @@
 "cbx" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /obj/machinery/power/terminal{
 	dir = 1
@@ -29640,12 +29621,6 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/northeast,
-/obj/machinery/light_switch{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = 24;
-	pixel_y = 32
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -30929,6 +30904,11 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/smes)
 "cfk" = (
@@ -30988,7 +30968,7 @@
 /obj/machinery/photocopier,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
 /area/station/service/library)
@@ -32027,12 +32007,6 @@
 	dir = 1;
 	network = list("Engineering","SS13")
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = -26
-	},
 /obj/machinery/computer/monitor{
 	dir = 1;
 	name = "Grid Power Monitoring Computer"
@@ -32158,7 +32132,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/structure/closet/crate,
 /obj/item/target/syndicate,
@@ -32473,7 +32447,7 @@
 "ckm" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -32489,7 +32463,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
@@ -32566,7 +32540,7 @@
 /obj/item/hand_labeler,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
@@ -34257,7 +34231,7 @@
 "cqv" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -35672,7 +35646,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/plasteel{
@@ -36211,7 +36185,7 @@
 /obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -37174,7 +37148,7 @@
 /obj/item/grenade/chem_grenade/metalfoam,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/ai_monitored/storage/eva)
@@ -37892,11 +37866,10 @@
 "cDz" = (
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
-/area/station/engineering/control)
-"cDA" = (
-/obj/structure/sign/vacuum,
-/turf/simulated/wall,
 /area/station/engineering/control)
 "cDD" = (
 /obj/effect/decal/warning_stripes/yellow,
@@ -37908,6 +37881,9 @@
 	},
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/southwest,
+/obj/structure/sign/vacuum{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "cDG" = (
@@ -38231,7 +38207,7 @@
 "cEU" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -38247,7 +38223,7 @@
 "cEY" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -39892,8 +39868,8 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
-	pixel_x = 25;
-	pixel_y = 30
+	pixel_x = 24;
+	pixel_y = 32
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -40286,8 +40262,8 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
-	pixel_x = -25;
-	pixel_y = 30
+	pixel_x = -24;
+	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/white,
@@ -40297,7 +40273,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -41497,7 +41473,7 @@
 "cTW" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -42012,7 +41988,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -27
+	pixel_x = -24
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/electrical)
@@ -43601,7 +43577,7 @@
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /obj/item/folder/white,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -43816,7 +43792,7 @@
 "dfm" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -43960,7 +43936,7 @@
 "dgs" = (
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/computer/aifixer{
@@ -44924,7 +44900,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -45501,28 +45477,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/medical/reception)
-"doN" = (
-/obj/machinery/keycard_auth{
-	pixel_x = 38;
-	pixel_y = -24
-	},
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "custom placement";
-	pixel_x = 24;
-	pixel_y = -24
-	},
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "RD";
-	pixel_x = 24;
-	pixel_y = -36;
-	req_access_txt = "30"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
-	},
-/area/station/command/office/rd)
 "doO" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
@@ -45758,6 +45712,23 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "custom placement";
+	pixel_y = -24;
+	pixel_x = -8
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = 6;
+	pixel_y = -24
+	},
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "RD";
+	pixel_x = -6;
+	pixel_y = -34;
+	req_access_txt = "30"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -45779,7 +45750,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/item/stack/packageWrap,
 /obj/item/hand_labeler,
@@ -46632,7 +46603,7 @@
 "dtY" = (
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -46679,13 +46650,13 @@
 /obj/machinery/door_control{
 	id = "robodesk";
 	name = "Robotics Desk Shutters";
-	pixel_x = 24;
+	pixel_x = -7;
 	pixel_y = 24
 	},
 /obj/machinery/light_switch{
 	name = "custom placement";
-	pixel_x = 24;
-	pixel_y = 36
+	pixel_y = 24;
+	pixel_x = 8
 	},
 /obj/item/flash,
 /obj/item/flash,
@@ -46775,7 +46746,7 @@
 /obj/machinery/economy/vending/wallmed{
 	layer = 3.3;
 	name = "Emergency NanoMed";
-	pixel_x = 28
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -50454,7 +50425,7 @@
 "dQV" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -50974,7 +50945,7 @@
 /obj/item/flashlight,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
@@ -51494,7 +51465,7 @@
 "dUJ" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/structure/dresser,
 /turf/simulated/floor/plasteel/dark,
@@ -51705,22 +51676,6 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
-"dVS" = (
-/obj/machinery/access_button{
-	autolink_id = "stationai_btn_ext";
-	name = "exterior access button";
-	pixel_x = 20;
-	pixel_y = 20;
-	req_access_txt = "10;13"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/space/nearstation)
 "dWa" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -51866,8 +51821,8 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
-	pixel_x = 25;
-	pixel_y = -30
+	pixel_x = 24;
+	pixel_y = -32
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/white,
@@ -51878,8 +51833,8 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "custom placement";
-	pixel_x = -25;
-	pixel_y = -30
+	pixel_x = -24;
+	pixel_y = -32
 	},
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -51922,7 +51877,7 @@
 /obj/item/clothing/mask/gas,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel/white,
@@ -52119,7 +52074,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -52629,7 +52584,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
@@ -53525,7 +53480,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -54365,7 +54320,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Cryo";
@@ -54619,7 +54574,7 @@
 "eMw" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/radiation,
@@ -55988,7 +55943,7 @@
 /obj/item/fish_eggs/shrimp,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/service/kitchen)
@@ -56225,6 +56180,11 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
+	},
+/obj/machinery/access_button{
+	autolink_id = "apmaint2_btn_int";
+	name = "interior access button";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -56883,13 +56843,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/chapel/office)
 "fGI" = (
-/obj/machinery/access_button{
-	autolink_id = "stationai_btn_int";
-	name = "interior access button";
-	pixel_x = -20;
-	pixel_y = -20;
-	req_access_txt = "10;13"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -58683,7 +58636,7 @@
 /obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar/atrium)
@@ -59837,6 +59790,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
+/obj/machinery/access_button{
+	autolink_id = "apsolar_btn_int";
+	name = "interior access button";
+	pixel_y = -24;
+	req_access_txt = "13"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "gLB" = (
@@ -59962,7 +59921,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -27
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -61031,13 +60990,6 @@
 	},
 /area/station/security/checkpoint/south)
 "hhD" = (
-/obj/machinery/access_button{
-	autolink_id = "engines_btn_ext";
-	name = "exterior access button";
-	pixel_x = 20;
-	pixel_y = 20;
-	req_access_txt = "10;13"
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
@@ -61394,7 +61346,7 @@
 /obj/machinery/photocopier,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
@@ -64059,7 +64011,7 @@
 /obj/machinery/light,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -64631,6 +64583,10 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/structure/extinguisher_cabinet{
+	name = "custom placement";
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -64714,7 +64670,7 @@
 "iyF" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -65257,21 +65213,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
-"iKT" = (
-/obj/machinery/access_button{
-	autolink_id = "fpsolar_btn_ext";
-	name = "exterior access button";
-	pixel_x = 25;
-	pixel_y = -25;
-	req_access_txt = "32"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/space,
-/area/station/maintenance/auxsolarport)
 "iKY" = (
 /obj/effect/spawner/random_spawners/fungus_probably,
 /turf/simulated/wall,
@@ -65983,16 +65924,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
-"iYu" = (
-/obj/machinery/access_button{
-	autolink_id = "apmaint2_btn_ext";
-	name = "exterior access button";
-	pixel_x = 24;
-	pixel_y = 24
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "iYD" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining{
@@ -68242,7 +68173,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -68321,13 +68252,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "jTH" = (
-/obj/machinery/access_button{
-	autolink_id = "engines_btn_int";
-	name = "interior access button";
-	pixel_x = -20;
-	pixel_y = 20;
-	req_access_txt = "10;13"
-	},
 /obj/effect/decal/warning_stripes/west,
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -68844,6 +68768,12 @@
 	name = "Escape External Access"
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/machinery/access_button{
+	autolink_id = "escape_btn_ext";
+	name = "exterior access button";
+	pixel_x = 24;
+	req_access_txt = "10;13"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "kdm" = (
@@ -69163,21 +69093,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/old_kitchen)
-"khZ" = (
-/obj/machinery/access_button{
-	autolink_id = "fssolar_btn_ext";
-	name = "exterior access button";
-	pixel_x = -25;
-	pixel_y = -25;
-	req_access_txt = "10;13"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/space,
-/area/station/maintenance/auxsolarstarboard)
 "kii" = (
 /obj/structure/rack,
 /obj/item/storage/box/rubbershot{
@@ -70861,7 +70776,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /obj/machinery/camera{
 	c_tag = "Medbay Genetics";
@@ -71640,7 +71555,7 @@
 /obj/machinery/chem_master/condimaster,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
@@ -71831,7 +71746,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -73033,7 +72948,7 @@
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal/fifty,
@@ -73963,6 +73878,12 @@
 /obj/item/mop,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"mak" = (
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/turret_protected/ai_upload)
 "map" = (
 /obj/machinery/door/poddoor/impassable/gamma,
 /obj/structure/fans/tiny,
@@ -74503,7 +74424,7 @@
 	},
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = 28
+	pixel_x = 24
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar/atrium)
@@ -74695,7 +74616,7 @@
 "mnK" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -75522,7 +75443,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
@@ -75805,6 +75726,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
+	},
+/obj/machinery/access_button{
+	autolink_id = "fssolar_btn_int";
+	name = "interior access button";
+	pixel_y = 24;
+	req_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
@@ -76105,22 +76032,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/public/fitness)
-"mVF" = (
-/obj/machinery/access_button{
-	autolink_id = "apsolar_btn_ext";
-	name = "exterior access button";
-	pixel_x = 25;
-	pixel_y = 25;
-	req_access_txt = "13"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/station/maintenance/portsolar)
 "mVV" = (
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
@@ -76427,6 +76338,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/access_button{
+	autolink_id = "fssolar_btn_ext";
+	name = "exterior access button";
+	pixel_y = -24;
+	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
@@ -76987,7 +76904,7 @@
 "nkp" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
@@ -77446,7 +77363,7 @@
 "ntt" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /obj/machinery/economy/vending/chinese,
 /turf/simulated/floor/plasteel{
@@ -78650,7 +78567,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -79320,8 +79237,7 @@
 /obj/machinery/access_button{
 	autolink_id = "arrivalsn_btn_ext";
 	name = "exterior access button";
-	pixel_x = 24;
-	pixel_y = 4
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
@@ -79456,7 +79372,7 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = -28
+	pixel_y = -32
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -81465,7 +81381,7 @@
 "oNe" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /obj/machinery/light{
 	dir = 4
@@ -82653,6 +82569,12 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/access_button{
+	autolink_id = "apsolar_btn_ext";
+	name = "exterior access button";
+	pixel_y = 24;
+	req_access_txt = "13"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
 "pkv" = (
@@ -83369,6 +83291,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/access_button{
+	autolink_id = "stationai_btn_ext";
+	name = "exterior access button";
+	pixel_y = 24;
+	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/aitransit)
@@ -84156,13 +84084,6 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "pIC" = (
-/obj/machinery/access_button{
-	autolink_id = "fssolar_btn_int";
-	name = "interior access button";
-	pixel_x = 25;
-	pixel_y = 25;
-	req_access_txt = "13"
-	},
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable{
 	d1 = 2;
@@ -85107,7 +85028,7 @@
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
@@ -85413,7 +85334,7 @@
 "qhZ" = (
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /obj/structure/table/glass,
 /obj/item/soap,
@@ -86118,7 +86039,7 @@
 "qzy" = (
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -28
+	pixel_x = -25
 	},
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
@@ -86219,7 +86140,7 @@
 "qCc" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /obj/machinery/computer/station_alert,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -88144,13 +88065,6 @@
 	},
 /area/station/hallway/primary/starboard)
 "riQ" = (
-/obj/machinery/access_button{
-	autolink_id = "atmostanks_btn_int";
-	name = "interior access button";
-	pixel_x = -23;
-	pixel_y = 20;
-	req_access_txt = "32"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 9
 	},
@@ -88626,6 +88540,12 @@
 	id_tag = "arrivalsn_door_int"
 	},
 /obj/machinery/atmospherics/pipe/simple/visible,
+/obj/machinery/access_button{
+	autolink_id = "arrivalsn_btn_int";
+	name = "exterior access button";
+	pixel_x = -24;
+	pixel_y = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "rtS" = (
@@ -88730,7 +88650,7 @@
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/radio{
@@ -89079,7 +88999,7 @@
 "rBu" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -89320,17 +89240,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/maintenance/fore)
-"rHp" = (
-/obj/machinery/access_button{
-	autolink_id = "atmostanks_btn_ext";
-	name = "exterior access button";
-	pixel_x = 20;
-	pixel_y = -20;
-	req_access_txt = "32"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "rHD" = (
 /obj/structure/chair/stool{
 	dir = 8
@@ -90101,13 +90010,6 @@
 	},
 /area/station/medical/sleeper)
 "rXy" = (
-/obj/machinery/access_button{
-	autolink_id = "apsolar_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = -25;
-	req_access_txt = "13"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -90791,7 +90693,7 @@
 /obj/machinery/economy/vending/assist,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/machinery/camera{
 	c_tag = "Primary Tool Storage";
@@ -90850,6 +90752,12 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
+	},
+/obj/machinery/access_button{
+	autolink_id = "engines_btn_int";
+	name = "interior access button";
+	pixel_y = -24;
+	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
@@ -91076,7 +90984,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -91260,6 +91168,12 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/access_button{
+	autolink_id = "atmostanks_btn_int";
+	name = "interior access button";
+	pixel_x = -24;
+	req_access_txt = "32"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "srJ" = (
@@ -92348,7 +92262,7 @@
 /obj/machinery/driver_button{
 	id_tag = "toxinsdriver";
 	pixel_x = -6;
-	pixel_y = 26;
+	pixel_y = 24;
 	range = 18
 	},
 /obj/machinery/light_switch{
@@ -92576,6 +92490,9 @@
 /area/station/maintenance/electrical)
 "sPt" = (
 /obj/structure/closet/emcloset,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -92935,13 +92852,6 @@
 	},
 /area/station/security/detective)
 "sYX" = (
-/obj/machinery/access_button{
-	autolink_id = "escape_btn_int";
-	name = "interior access button";
-	pixel_x = -24;
-	pixel_y = -24;
-	req_access_txt = "10;13"
-	},
 /obj/structure/sign/vacuum{
 	pixel_x = -32
 	},
@@ -93023,7 +92933,7 @@
 /obj/machinery/economy/vending/coffee,
 /obj/structure/extinguisher_cabinet{
 	name = "north bump";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -94258,7 +94168,7 @@
 "tzp" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 30
+	pixel_x = 24
 	},
 /obj/structure/closet/radiation,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -95817,6 +95727,11 @@
 	locked = 1;
 	name = "West Maintenance External Access"
 	},
+/obj/machinery/access_button{
+	autolink_id = "apmaint2_btn_ext";
+	name = "exterior access button";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "ucI" = (
@@ -96041,12 +95956,6 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "uht" = (
-/obj/machinery/access_button{
-	autolink_id = "apmaint2_btn_int";
-	name = "interior access button";
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -96239,6 +96148,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/access_button{
+	autolink_id = "fpsolar_btn_ext";
+	name = "exterior access button";
+	pixel_y = -24;
+	req_access_txt = "32"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
@@ -96613,13 +96528,6 @@
 	},
 /area/station/service/barber)
 "upI" = (
-/obj/machinery/access_button{
-	autolink_id = "fpsolar_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = 25;
-	req_access_txt = "32"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -97068,7 +96976,7 @@
 /obj/structure/table/reinforced,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /obj/item/clothing/glasses/meson/engine,
 /obj/item/clothing/glasses/meson/engine{
@@ -97713,7 +97621,7 @@
 "uMM" = (
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /obj/machinery/economy/vending/detdrobe,
 /turf/simulated/floor/plasteel/dark,
@@ -97969,6 +97877,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
+	},
+/obj/machinery/access_button{
+	autolink_id = "stationai_btn_int";
+	name = "interior access button";
+	pixel_y = -24;
+	req_access_txt = "10;13"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/aitransit)
@@ -98950,7 +98864,6 @@
 /obj/structure/sign/vacuum{
 	pixel_x = -32
 	},
-/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -99834,7 +99747,7 @@
 /obj/machinery/papershredder,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -99883,7 +99796,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -100132,16 +100045,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/medical/morgue)
-"vIN" = (
-/obj/machinery/access_button{
-	autolink_id = "arrivalsn_btn_int";
-	name = "exterior access button";
-	pixel_x = 4;
-	pixel_y = 24
-	},
-/obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry)
 "vIR" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	autolink_id = "o2_in";
@@ -100264,6 +100167,12 @@
 	},
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/machinery/access_button{
+	autolink_id = "escape_btn_int";
+	name = "interior access button";
+	pixel_x = 24;
+	req_access_txt = "10;13"
+	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
 "vKr" = (
@@ -100338,7 +100247,7 @@
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 24
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit/maintenance)
@@ -101774,6 +101683,12 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/access_button{
+	autolink_id = "engines_btn_ext";
+	name = "exterior access button";
+	pixel_y = 24;
+	req_access_txt = "10;13"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "woT" = (
@@ -102260,6 +102175,12 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/access_button{
+	autolink_id = "fpsolar_btn_int";
+	name = "interior access button";
+	pixel_y = 24;
+	req_access_txt = "32"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
@@ -104560,7 +104481,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
-	pixel_x = -30
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/hydroponics)
@@ -105576,17 +105497,6 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/medbay)
-"xRm" = (
-/obj/machinery/access_button{
-	autolink_id = "escape_btn_ext";
-	name = "exterior access button";
-	pixel_x = 24;
-	pixel_y = 24;
-	req_access_txt = "10;13"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "xRw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -105607,7 +105517,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/medmaint)
@@ -105677,7 +105587,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -125905,7 +125815,7 @@ cCy
 cJK
 aaa
 abj
-iYu
+acF
 cHA
 aaa
 aaa
@@ -126600,7 +126510,7 @@ abj
 abj
 abj
 abj
-iKT
+atK
 abj
 aLT
 aNT
@@ -127406,7 +127316,7 @@ bge
 bGu
 bwN
 abj
-dVS
+bUJ
 abj
 abj
 abj
@@ -128938,7 +128848,7 @@ lOm
 aVR
 wWl
 aOg
-rHp
+acF
 aVc
 tls
 srs
@@ -130772,7 +130682,7 @@ cib
 cib
 cib
 dWi
-cdd
+bXU
 llJ
 jEI
 bXU
@@ -131031,7 +130941,7 @@ cjP
 ceV
 bXU
 siP
-cDA
+bXU
 bXU
 gZI
 dlM
@@ -131265,7 +131175,7 @@ bIx
 bGz
 qWx
 bSb
-bUn
+bIq
 bOf
 bXY
 bZs
@@ -133313,7 +133223,7 @@ bOi
 eLd
 bBI
 bDy
-bFa
+bBE
 bGH
 bHh
 bIA
@@ -134173,7 +134083,7 @@ abj
 abj
 abj
 aaa
-mVF
+dYJ
 abj
 aaa
 dij
@@ -138112,7 +138022,7 @@ aaa
 acC
 acC
 acC
-vIN
+afb
 tXb
 adZ
 san
@@ -141851,7 +141761,7 @@ hKO
 dkS
 nBZ
 dnq
-doN
+dua
 dvg
 drB
 dsF
@@ -143690,7 +143600,7 @@ sYX
 vJP
 jJq
 kdg
-xRm
+acF
 acF
 aaa
 aaa
@@ -145193,7 +145103,7 @@ oRg
 djS
 djS
 drE
-dqm
+dqp
 duf
 dvr
 dyO
@@ -145395,7 +145305,7 @@ bEd
 bFF
 bHp
 bOT
-bMY
+bDL
 bMX
 bOP
 bMY
@@ -145652,7 +145562,7 @@ bEe
 bFG
 bHq
 bOT
-bKR
+bMX
 bMX
 fBC
 bMX
@@ -146680,7 +146590,7 @@ bEi
 bFK
 bHu
 bOT
-bKV
+bMX
 bMX
 oWg
 bMX
@@ -146937,7 +146847,7 @@ bEj
 bFL
 bHv
 bOT
-bMY
+mak
 bMX
 bOR
 bMY
@@ -151753,7 +151663,7 @@ aaa
 aaa
 aaa
 abj
-khZ
+ach
 abj
 abj
 aaa

@@ -949,39 +949,6 @@
 	icon_state = "dark"
 	},
 /area/station/command/office/hos)
-"aeW" = (
-/obj/machinery/door_control{
-	desc = "A remote control-switch to lock down the prison wing's blast doors";
-	id = "Prison Gate";
-	name = "Prison Wing Lockdown";
-	pixel_x = -26;
-	pixel_y = 6;
-	req_one_access_txt = "2"
-	},
-/obj/machinery/door_control{
-	id = "Secure Gate";
-	name = "Brig Lockdown";
-	pixel_x = -26;
-	pixel_y = -3;
-	req_one_access_txt = "2"
-	},
-/obj/machinery/door_control{
-	id = "hosofficedoor";
-	name = "Office Door";
-	normaldoorcontrol = 1;
-	pixel_x = -26;
-	pixel_y = 15;
-	req_one_access_txt = "58"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/carpet,
-/area/station/command/office/hos)
 "afa" = (
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -1271,6 +1238,29 @@
 /obj/item/book/manual/wiki/sop_legal{
 	pixel_x = -6;
 	pixel_y = 3
+	},
+/obj/machinery/door_control{
+	id = "hosofficedoor";
+	name = "Office Door";
+	normaldoorcontrol = 1;
+	pixel_x = 6;
+	pixel_y = 15;
+	req_one_access_txt = "58"
+	},
+/obj/machinery/door_control{
+	desc = "A remote control-switch to lock down the prison wing's blast doors";
+	id = "Prison Gate";
+	name = "Prison Wing Lockdown";
+	pixel_x = 6;
+	pixel_y = 6;
+	req_one_access_txt = "2"
+	},
+/obj/machinery/door_control{
+	id = "Secure Gate";
+	name = "Brig Lockdown";
+	pixel_x = 6;
+	pixel_y = -3;
+	req_one_access_txt = "2"
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hos)
@@ -3508,7 +3498,7 @@
 	department = "Warden";
 	departmentType = 7;
 	name = "Warden's Requests Console";
-	pixel_y = -30
+	pixel_y = -32
 	},
 /obj/item/radio/intercom/department/security{
 	pixel_x = -22;
@@ -3663,7 +3653,7 @@
 "apA" = (
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -28
+	pixel_x = -25
 	},
 /obj/structure/table/reinforced,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -12140,7 +12130,7 @@
 "aQE" = (
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = 28
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -22772,7 +22762,7 @@
 	},
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = 28
+	pixel_y = 32
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -24821,7 +24811,7 @@
 "bNW" = (
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = -28
+	pixel_y = -32
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -27168,7 +27158,7 @@
 	},
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = 28
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -52320,7 +52310,7 @@
 /obj/structure/chair/comfy/black,
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = 28
+	pixel_y = 32
 	},
 /obj/machinery/firealarm{
 	dir = 8;
@@ -58806,6 +58796,15 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/turret_protected/aisat/interior)
+"hnb" = (
+/obj/machinery/ai_status_display{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/secondary/exit)
 "hng" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -62997,7 +62996,7 @@
 /obj/item/clothing/under/rank/medical/scrubs,
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -28
+	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -64744,16 +64743,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"jwu" = (
-/obj/machinery/ai_status_display{
-	pixel_x = -32;
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/secondary/exit)
 "jxf" = (
 /obj/item/storage/toolbox/emergency,
 /obj/structure/rack{
@@ -72475,7 +72464,7 @@
 	},
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -28
+	pixel_x = -25
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
@@ -78422,7 +78411,6 @@
 /area/station/maintenance/fpmaint2)
 "owa" = (
 /obj/machinery/ai_status_display{
-	pixel_x = 32;
 	pixel_y = 32;
 	step_size = 0
 	},
@@ -79992,7 +79980,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_x = -28
+	pixel_x = -25
 	},
 /obj/item/crowbar/large,
 /obj/item/clothing/under/misc/pj/red,
@@ -81642,7 +81630,6 @@
 "pAU" = (
 /obj/machinery/status_display{
 	layer = 4;
-	pixel_x = -32;
 	pixel_y = 32
 	},
 /obj/structure/table/reinforced,
@@ -82635,6 +82622,12 @@
 	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank");
 	dir = 1;
 	name = "Tank Monitor"
+	},
+/obj/machinery/door_control{
+	id = "atmos";
+	name = "Atmospherics Lockdown";
+	pixel_x = -24;
+	req_access_txt = "24"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -86370,13 +86363,6 @@
 "rlm" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 9
-	},
-/obj/machinery/door_control{
-	id = "atmos";
-	name = "Atmospherics Lockdown";
-	pixel_x = -24;
-	pixel_y = -24;
-	req_access_txt = "24"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowcorners"
@@ -94054,7 +94040,7 @@
 /obj/item/clothing/gloves/boxing/yellow,
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
-	pixel_y = 28
+	pixel_y = 32
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -101195,16 +101181,16 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/light_switch{
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = 26
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/binary/pump{
 	name = "Fuel Pipe to Incinerator"
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/turbine)
@@ -141604,7 +141590,7 @@ wuh
 pJH
 xhz
 and
-aeW
+xhz
 iEJ
 hWQ
 aqH
@@ -158627,7 +158613,7 @@ nAs
 bmm
 yha
 bmm
-iIB
+hnb
 ciY
 hMr
 ciY
@@ -158884,7 +158870,7 @@ oWE
 oWE
 dYR
 vvK
-jwu
+iIB
 bmm
 bmm
 bEF
