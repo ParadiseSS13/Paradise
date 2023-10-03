@@ -23,7 +23,7 @@
 		else
 			to_chat(user, "Good luck next time.")
 			icon_state = "scard_loser"
-		playsound(user, 'sound/items/scratching.ogg', 50, TRUE)
+		playsound(user, 'sound/items/scratching.ogg', 25, TRUE)
 		scratched = TRUE
 		update_icon_state()
 
