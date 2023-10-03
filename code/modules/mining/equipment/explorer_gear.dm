@@ -94,6 +94,6 @@
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/head.dmi',
 		"Tajaran" = 'icons/mob/clothing/species/tajaran/head.dmi',
-        "Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/head.dmi',
 		"Unathi" = 'icons/mob/clothing/species/unathi/head.dmi'
 	)
