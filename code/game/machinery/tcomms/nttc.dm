@@ -26,6 +26,9 @@
 		"Robot" = "airadio",
 		// Assistant
 		"Assistant" = "radio",
+		"Off-Duty" = "radio",
+		"Retired" = "radio",
+		"Intern" = "radio",
 		// Command (Solo command, not department heads)
 		"Blueshield" = "comradio",
 		"Captain" = "comradio",
