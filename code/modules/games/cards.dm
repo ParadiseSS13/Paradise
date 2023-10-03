@@ -354,7 +354,7 @@
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 			return
 		else
-			to_chat(user,"<span class='notice'>You cannot mix cards from other decks!</span>")
+			to_chat(user, "<span class='notice'>You cannot mix cards from other decks!</span>")
 			return
 	..()
 
