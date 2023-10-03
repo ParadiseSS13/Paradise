@@ -17,25 +17,15 @@
 	var/obj/item/storage/backpack/modstorage/bag
 
 /obj/item/mod/module/storage/serialize()
-	var/data = ..()
-	var/list/content_list = list()
-	data["content"] = content_list
-	for(var/old_bag in bag.contents)
-		var/atom/movable/AM = old_bag
-		// Copied from storage serialization.
-		content_list.len++
-		content_list[content_list.len] = AM.serialize()
+	var/list/data = ..()
+	data["bag"] = bag.serialize()
 	return data
 
 /obj/item/mod/module/storage/deserialize(list/data)
-	for(var/old_bag in data["content"])
-		if(islist(old_bag))
-			list_to_object(old_bag, bag)
-		else if(old_bag == null)
-			stack_trace("Null entry found in storage/deserialize.")
-		else
-			stack_trace("Non-list thing found in storage/deserialize (Storage: [old_bag])")
-	..()
+	. = ..()
+	qdel(bag)
+	bag = list_to_object(data["bag"], src)
+	bag.source = src
 
 /obj/item/mod/module/storage/Initialize(mapload)
 	. = ..()

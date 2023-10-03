@@ -93,26 +93,19 @@
 
 /obj/item/mod/control/serialize()
 	var/list/data = ..()
-	var/list/module_list = list()
-	data["modules"] = module_list
-	for(var/atom/movable/M in modules)
-		// Copied from storage serialization. Yes, it has to be done that way. serialize will just duplicate entries otherwise if you try to add to a list normally.
-		module_list.len++
-		module_list[module_list.len] = M.serialize()
+	var/list/modules_list = list()
+	for(var/obj/item/mod/module/mod as anything in modules)
+		modules_list.Add(list(mod.serialize()))
+	data["modules"] = modules_list
 	return data
 
 /obj/item/mod/control/deserialize(list/data)
-	if(length(data["modules"]))
+	if(data["modules"])
 		for(var/old_mods in modules)
 			uninstall(old_mods, deleting = TRUE)
-		for(var/new_modules in data["modules"])
-			if(islist(new_modules))
-				var/obj/item/mod/module/new_mod = list_to_object(new_modules, src)
-				install(new_mod)
-			else if(new_modules == null)
-				stack_trace("Null entry found in modules/deserialize.")
-			else
-				stack_trace("Non-list thing found in modules (Mod: [new_modules])")
+		for(var/obj/item/mod/module/module as anything in data["modules"])
+			module = list_to_object(module, src)
+			install(module)
 	..()
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
