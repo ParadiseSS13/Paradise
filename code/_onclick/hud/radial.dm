@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
  * Similar to show_radial_menu, but choices is a list of atoms, for which icons will be automatically generated.
  * Supports multiple items of the same name, 2 soaps will become soap (1) and soap (2) to the user
  */
-/proc/auto_radial_menu(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE)
+/proc/radial_menu_helper(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE)
 	var/list/duplicate_amount = list()
 	for(var/atom/atom in choices)
 		if(!duplicate_amount.Find(atom.name))

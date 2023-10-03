@@ -886,7 +886,7 @@
 		return
 	var/obj/item/clothing/accessory/A
 	if(length(accessories) > 1)
-		var/pick = auto_radial_menu(usr, src, accessories, custom_check = FALSE, require_near = TRUE)
+		var/pick = radial_menu_helper(usr, src, accessories, custom_check = FALSE, require_near = TRUE)
 		if(!pick)
 			return
 		A = pick
