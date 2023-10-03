@@ -375,8 +375,7 @@
 
 		SSjobs.FreeRole(job)
 
-		if(occupant.mind.objectives.len)
-			occupant.mind.objectives.Cut()
+		if(occupant.mind.objective_holder.clear())
 			occupant.mind.special_role = null
 		else
 			if(SSticker.mode.name == "AutoTraitor")

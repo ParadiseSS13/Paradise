@@ -98,11 +98,6 @@
 
 	// Maybe later add encryption key support, but that's a pain in the neck atm
 
-	if(brainmob)
-		user.changeNext_move(CLICK_CD_MELEE)
-		O.attack(brainmob, user)//Oh noooeeeee
-		// Brainmobs can take damage, but they can't actually die. Maybe should fix.
-		return
 	return ..()
 
 /obj/item/mmi/screwdriver_act(mob/user, obj/item/I)

@@ -64,7 +64,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 	var/static/list/blacklisted_areas = list(/area/adminconstruction, /area/tdome)
 
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throw_speed = 2
 	throw_range = 9
 	w_class = WEIGHT_CLASS_SMALL

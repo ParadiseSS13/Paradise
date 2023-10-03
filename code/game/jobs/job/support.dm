@@ -5,7 +5,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_supply = 1
+	job_department_flags = DEP_FLAG_SUPPLY | DEP_FLAG_COMMAND
 	supervisors = "the captain"
 	department_head = list("Captain")
 	department_account_access = TRUE
@@ -42,7 +42,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
-	is_supply = 1
+	job_department_flags = DEP_FLAG_SUPPLY
 	supervisors = "the quartermaster"
 	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
@@ -70,7 +70,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 6
 	spawn_positions = 8
-	is_supply = 1
+	job_department_flags = DEP_FLAG_SUPPLY
 	supervisors = "the quartermaster"
 	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
@@ -109,7 +109,7 @@
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
 	suit_store = /obj/item/tank/internals/emergency_oxygen
-	internals_slot = slot_s_store
+	internals_slot = SLOT_HUD_SUIT_STORE
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
 		/obj/item/kitchen/knife/combat/survival=1,
@@ -141,7 +141,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -185,7 +185,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -226,7 +226,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 3
 	spawn_positions = 2
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -261,7 +261,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -351,7 +351,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -402,7 +402,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -430,7 +430,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -454,13 +454,23 @@
 	backpack_contents = list(
 		/obj/item/videocam/advanced = 1)
 
+/datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(!H.mind)
+		return
+	for(var/la in GLOB.all_languages)
+		var/datum/language/new_language = GLOB.all_languages[la]
+		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
+			continue
+		H.add_language(la)
+
 /datum/job/barber
 	title = "Barber"
 	flag = JOB_BARBER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = TRUE
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
