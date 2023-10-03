@@ -496,6 +496,7 @@
 /obj/effect/decal/cleanable/proc/jani_hud_set_sign()
 	var/image/holder = hud_list[JANI_HUD]
 	holder.icon_state = "caution"
+	holder.alpha = 100
 	holder.plane = ABOVE_LIGHTING_PLANE
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

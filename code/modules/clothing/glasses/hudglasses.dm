@@ -263,7 +263,7 @@
 /obj/item/clothing/glasses/hud/janitor/night
 	name = "night vision filth scanner"
 	desc = "A janitorial filth scanner fitted with a light amplifier."
-	icon_state = "nvpurple"
+	icon_state = "nvjanihud"
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
