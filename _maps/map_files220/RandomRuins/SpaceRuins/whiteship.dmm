@@ -368,7 +368,7 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/shuttle/abandoned)
 "hR" = (
 /obj/effect/decal/cleanable/dirt,

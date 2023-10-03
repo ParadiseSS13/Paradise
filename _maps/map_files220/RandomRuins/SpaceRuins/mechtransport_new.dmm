@@ -21,7 +21,6 @@
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -98,7 +97,6 @@
 /obj/structure/closet/crate/trashcart,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /turf/simulated/floor/plating,
@@ -160,7 +158,6 @@
 /obj/structure/table,
 /obj/item/crowbar,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -270,11 +267,11 @@
 /area/ruin/space/powered)
 "gU" = (
 /obj/machinery/door_control{
-	pixel_y = -30;
-	id = "sleft_mech"
+	pixel_y = -24;
+	id = "sleft_mech";
+	pixel_x = 8
 	},
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -326,7 +323,6 @@
 /area/ruin/space/powered)
 "ib" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -337,8 +333,9 @@
 /area/ruin/space/powered)
 "io" = (
 /obj/machinery/door_control{
-	pixel_y = 30;
-	id = "sright_mech"
+	pixel_y = 24;
+	id = "sright_mech";
+	pixel_x = -8
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -374,7 +371,6 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -382,7 +378,6 @@
 "iU" = (
 /obj/item/kirbyplants,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -442,11 +437,6 @@
 /area/ruin/space/powered)
 "kD" = (
 /obj/structure/table,
-/obj/machinery/door_control{
-	id = "shang1_mech";
-	pixel_x = 6;
-	pixel_y = -2
-	},
 /obj/item/hand_labeler{
 	pixel_y = 9
 	},
@@ -508,7 +498,7 @@
 	lethal = 1
 	},
 /obj/effect/dummy/lighting_obj,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "ly" = (
 /obj/effect/turf_decal/arrows{
@@ -563,7 +553,6 @@
 	dir = 1
 	},
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -625,7 +614,6 @@
 /area/ruin/space/powered)
 "nV" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /obj/structure/table,
@@ -667,9 +655,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "oL" = (
-/obj/machinery/light_construct{
-	icon_state = "tube-broken"
-	},
+/obj/machinery/light_construct,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "oY" = (
@@ -734,11 +720,11 @@
 /area/ruin/space/powered)
 "qB" = (
 /obj/machinery/door_control{
-	pixel_y = -30;
-	id = "sright_mech"
+	pixel_y = -24;
+	id = "sright_mech";
+	pixel_x = -8
 	},
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/scavengers/laser,
@@ -784,10 +770,7 @@
 "rs" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct{
-	icon_state = "bulb-broken";
-	dir = 2
-	},
+/obj/machinery/light_construct,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "rJ" = (
@@ -836,7 +819,6 @@
 /area/ruin/space/powered)
 "sw" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/effect/turf_decal/box,
@@ -851,7 +833,6 @@
 /area/ruin/space/powered)
 "sP" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -992,7 +973,6 @@
 "vL" = (
 /obj/machinery/economy/vending/snack/free,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -1157,7 +1137,6 @@
 "yU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -1167,8 +1146,12 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "zy" = (
-/obj/machinery/status_display{
-	pixel_y = 32
+/obj/machinery/computer{
+	icon_state = "entertainment_console";
+	pixel_y = 32;
+	icon_screen = "entertainment_console_broken";
+	icon_keyboard = null;
+	density = 0
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -1190,9 +1173,7 @@
 	},
 /area/ruin/space/powered)
 "zM" = (
-/obj/machinery/light_construct{
-	icon_state = "tube-broken"
-	},
+/obj/machinery/light_construct,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/scavengers/meele,
 /turf/simulated/floor/mineral/titanium,
@@ -1203,8 +1184,9 @@
 /area/ruin/space/powered)
 "Ae" = (
 /obj/machinery/door_control{
-	pixel_y = 30;
-	id = "shang1_mech"
+	pixel_y = 24;
+	id = "shang1_mech";
+	pixel_x = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/scavengers/gun,
@@ -1237,7 +1219,6 @@
 "AR" = (
 /obj/item/flag,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1302,7 +1283,6 @@
 /area/ruin/space/powered)
 "Cm" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1322,13 +1302,12 @@
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Cw" = (
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/powered)
 "Cy" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -1367,7 +1346,12 @@
 	welded = 1
 	},
 /obj/structure/fans/tiny,
-/obj/structure/barricade/wooden,
+/obj/structure/barricade/wooden{
+	layer = 3.11
+	},
+/obj/structure/barricade/wooden/crude{
+	layer = 3.11
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "CZ" = (
@@ -1388,20 +1372,24 @@
 /area/ruin/space/powered)
 "Do" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/cobweb,
 /obj/machinery/door_control{
 	id = "hang1_mech";
-	pixel_y = 32
+	pixel_y = 24;
+	pixel_x = -6
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "DE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/status_display{
-	pixel_y = 32
+/obj/machinery/computer{
+	icon_state = "entertainment_console";
+	pixel_y = 32;
+	icon_screen = "entertainment_console_broken";
+	icon_keyboard = null;
+	density = 0
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
@@ -1420,16 +1408,16 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Eb" = (
-/obj/machinery/door_control{
-	id = "shang2_mech";
-	pixel_x = 30
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/plasmareinforced{
+	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium,
+/obj/structure/fans/tiny/invisible,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "Ec" = (
 /obj/structure/closet/firecloset,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1493,9 +1481,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Ft" = (
-/obj/machinery/light_construct{
-	icon_state = "tube-broken"
-	},
+/obj/machinery/light_construct,
 /turf/simulated/floor/carpet/purple,
 /area/ruin/space/powered)
 "Fu" = (
@@ -1511,7 +1497,6 @@
 	id = "bwindows_mech"
 	},
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -1555,7 +1540,6 @@
 /area/ruin/space/powered)
 "FK" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1563,7 +1547,6 @@
 /area/ruin/space/powered)
 "FS" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/structure/table,
@@ -1596,11 +1579,18 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "Gu" = (
-/obj/machinery/light_construct{
-	icon_state = "tube-broken";
-	dir = 8
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "shang2_mech"
 	},
-/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "shang2_mech";
+	pixel_y = 24
+	},
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "GF" = (
 /turf/simulated/floor/plating,
@@ -1713,7 +1703,6 @@
 "Iw" = (
 /obj/structure/table,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
@@ -1771,7 +1760,6 @@
 "Jq" = (
 /obj/item/kirbyplants,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -1867,7 +1855,8 @@
 "Lo" = (
 /obj/machinery/door_control{
 	id = "shang3_mech";
-	pixel_x = -30
+	pixel_x = -24;
+	pixel_y = -8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
@@ -1898,7 +1887,12 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "LC" = (
-/turf/template_noop,
+/obj/machinery/door_control{
+	id = "shang1_mech";
+	pixel_y = -24;
+	pixel_x = 8
+	},
+/turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "LF" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -1976,13 +1970,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Ng" = (
-/obj/machinery/light_construct{
-	icon_state = "tube-broken"
-	},
-/obj/machinery/door_control{
-	id = "shang1_mech";
-	pixel_y = -30
-	},
+/obj/machinery/light_construct,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Nl" = (
@@ -2002,7 +1990,6 @@
 /area/ruin/space/powered)
 "Nn" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -2025,7 +2012,6 @@
 /area/ruin/space/powered)
 "Oh" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2142,7 +2128,6 @@
 	desc = "It's a flag."
 	},
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2232,7 +2217,6 @@
 /area/ruin/space/powered)
 "Sq" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/structure/chair/comfy/black{
@@ -2256,7 +2240,9 @@
 /area/ruin/space/powered)
 "SH" = (
 /obj/effect/spawner/window/plastitanium,
-/obj/structure/barricade/wooden/crude,
+/obj/structure/barricade/wooden/crude{
+	layer = 3.11
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "SL" = (
@@ -2315,7 +2301,6 @@
 "TR" = (
 /obj/item/kirbyplants,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2331,7 +2316,6 @@
 "TZ" = (
 /obj/structure/closet/firecloset,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2346,8 +2330,9 @@
 /area/ruin/space/powered)
 "Uj" = (
 /obj/machinery/door_control{
-	pixel_y = 30;
-	id = "sleft_mech"
+	pixel_y = 24;
+	id = "sleft_mech";
+	pixel_x = 8
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -2405,7 +2390,6 @@
 /area/ruin/space/powered)
 "UY" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 4
 	},
 /turf/simulated/floor/carpet/blue,
@@ -2468,7 +2452,7 @@
 /area/ruin/space/powered)
 "VO" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/floor/mineral/plastitanium/red,
+/turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/powered)
 "VQ" = (
 /obj/effect/turf_decal/caution/stand_clear{
@@ -2491,7 +2475,6 @@
 	},
 /obj/effect/landmark/burnturf,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -2519,7 +2502,6 @@
 /area/ruin/space/powered)
 "Wu" = (
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 8
 	},
 /obj/machinery/atmospherics/portable/scrubber,
@@ -2535,9 +2517,7 @@
 /obj/item/mecha_modkit/voice/nanotrasen,
 /obj/item/toy/figure/mech/mauler,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct{
-	icon_state = "tube-broken"
-	},
+/obj/machinery/light_construct,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
 /turf/simulated/floor/mineral/titanium,
@@ -2566,7 +2546,6 @@
 "Xy" = (
 /obj/effect/landmark/burnturf,
 /obj/machinery/light_construct{
-	icon_state = "tube-broken";
 	dir = 1
 	},
 /obj/structure/closet/secure_closet/engineering_electrical,
@@ -2885,7 +2864,7 @@ Sb
 qU
 Vk
 qU
-tv
+Sb
 DE
 dk
 sD
@@ -2908,7 +2887,7 @@ qU
 qU
 qU
 qU
-bf
+ze
 OB
 zI
 qU
@@ -2963,7 +2942,7 @@ ce
 ce
 ce
 qU
-bf
+ze
 Vk
 qU
 qU
@@ -2986,7 +2965,7 @@ Md
 sh
 HB
 HB
-nk
+LC
 Kb
 Ae
 lf
@@ -3171,7 +3150,7 @@ oL
 Kb
 LV
 Hs
-qv
+Eb
 Vo
 cd
 qU
@@ -3226,7 +3205,7 @@ lS
 Sb
 bw
 cZ
-qv
+Eb
 Vo
 qU
 qU
@@ -3281,7 +3260,7 @@ lS
 Sb
 Kl
 tm
-qv
+Eb
 Vo
 cd
 Ah
@@ -3327,7 +3306,7 @@ qU
 qU
 Kb
 TZ
-Eb
+AC
 AC
 AC
 lS
@@ -3336,7 +3315,7 @@ nV
 Kb
 fK
 oh
-qv
+Eb
 Vo
 qU
 qU
@@ -3383,7 +3362,7 @@ Kb
 Kb
 Kb
 Kb
-Js
+Gu
 Js
 LF
 Kb
@@ -3391,7 +3370,7 @@ Kb
 Kb
 VY
 lR
-qv
+Eb
 zF
 an
 an
@@ -3596,8 +3575,8 @@ Kb
 Sb
 Yn
 Sb
-Gu
-Gu
+Kb
+Kb
 Kb
 Kb
 Kb
@@ -3611,7 +3590,7 @@ Kb
 Kb
 Xy
 Ry
-qv
+Eb
 zF
 an
 an
@@ -3666,7 +3645,7 @@ FS
 Kb
 HO
 xG
-qv
+Eb
 Vo
 cd
 Ah
@@ -3721,7 +3700,7 @@ lS
 Sb
 eR
 GF
-qv
+Eb
 Vo
 qU
 Vk
@@ -3776,7 +3755,7 @@ lS
 Sb
 Lj
 AT
-qv
+Eb
 Vo
 cd
 KW
@@ -3831,7 +3810,7 @@ zM
 Kb
 UH
 AS
-qv
+Eb
 Vo
 qU
 qU
@@ -4095,7 +4074,7 @@ Sb
 qU
 Vk
 qU
-tv
+Sb
 zy
 Jr
 sD
@@ -4118,7 +4097,7 @@ ys
 il
 Vk
 qU
-LC
+qU
 qU
 qU
 qU

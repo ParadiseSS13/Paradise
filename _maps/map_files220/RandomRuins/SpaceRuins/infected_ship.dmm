@@ -43,10 +43,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "aY" = (
-/obj/machinery/light_construct{
-	icon_state = "bulb-broken";
-	dir = 2
-	},
+/obj/machinery/light_construct,
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/mineral/plastitanium,
@@ -191,17 +188,13 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "ez" = (
-/obj/machinery/light_construct{
-	icon_state = "bulb-broken";
-	dir = 2
-	},
+/obj/machinery/light_construct,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/powered/requires_power_space)
 "eC" = (
 /obj/machinery/atmospherics/portable/canister,
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -238,7 +231,6 @@
 	name = "tesla coil"
 	},
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /turf/simulated/floor,
@@ -256,7 +248,6 @@
 /area/ruin/space/powered/requires_power_space)
 "eT" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/effect/decal/cleanable/glass,
@@ -312,7 +303,6 @@
 /area/ruin/space/powered/requires_power_space)
 "hn" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/white/line{
@@ -396,7 +386,6 @@
 /area/ruin/space/powered/requires_power_space)
 "iL" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/structure/closet/crate/secure/weapon{
@@ -571,7 +560,6 @@
 /area/ruin/space/powered/requires_power_space)
 "lm" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/item/trash/spentcasing{
@@ -581,10 +569,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "lt" = (
-/obj/machinery/light_construct{
-	icon_state = "bulb-broken";
-	dir = 2
-	},
+/obj/machinery/light_construct,
 /obj/structure/mirror{
 	dir = 4;
 	pixel_y = 33;
@@ -699,7 +684,6 @@
 /area/ruin/space/powered/requires_power_space)
 "ol" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /turf/simulated/floor/mineral/plastitanium,
@@ -738,7 +722,6 @@
 /area/ruin/space/powered/requires_power_space)
 "pj" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/structure/computerframe{
@@ -770,7 +753,6 @@
 /area/ruin/space/powered/requires_power_space)
 "pB" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/white/line{
@@ -793,10 +775,7 @@
 /turf/simulated/floor,
 /area/ruin/space/powered/requires_power_space)
 "pO" = (
-/obj/machinery/light_construct{
-	icon_state = "bulb-broken";
-	dir = 2
-	},
+/obj/machinery/light_construct,
 /obj/structure/closet/crate/can,
 /obj/item/trash/syndi_cakes,
 /obj/item/trash/raisins,
@@ -895,7 +874,6 @@
 /area/ruin/space/powered/requires_power_space)
 "tE" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -968,7 +946,6 @@
 /area/ruin/space/powered/requires_power_space)
 "vk" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/machinery/economy/vending/medical/syndicate_access,
@@ -1046,7 +1023,6 @@
 /area/ruin/space/powered/requires_power_space)
 "xG" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/item/paper/crumpled,
@@ -1091,7 +1067,6 @@
 /area/ruin/space/powered/requires_power_space)
 "zq" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/splatter,
@@ -1161,7 +1136,6 @@
 /area/ruin/space/powered/requires_power_space)
 "AV" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_pump,
@@ -1223,7 +1197,6 @@
 "ET" = (
 /obj/machinery/atmospherics/portable/canister,
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 4
 	},
 /turf/simulated/floor,
@@ -1372,10 +1345,7 @@
 /turf/simulated/floor,
 /area/ruin/space/powered/requires_power_space)
 "Je" = (
-/obj/machinery/light_construct{
-	icon_state = "bulb-broken";
-	dir = 2
-	},
+/obj/machinery/light_construct,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/item/trash/spentcasing{
 	icon_state = "r-casing";
@@ -1391,7 +1361,6 @@
 /area/ruin/space/powered/requires_power_space)
 "JH" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /obj/structure/dispenser/oxygen,
@@ -1596,7 +1565,6 @@
 /area/ruin/space/powered/requires_power_space)
 "QS" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/machinery/suit_storage_unit/syndicate{

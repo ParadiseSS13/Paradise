@@ -154,7 +154,6 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "eJ" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/effect/landmark/damageturf,
@@ -163,7 +162,8 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "fL" = (
-/turf/simulated/floor/plasteel/stairs{
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "stairs";
 	dir = 8
 	},
 /area/ruin/space/unpowered/unpowered_structures)
@@ -253,7 +253,8 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "kd" = (
-/turf/simulated/floor/plasteel/stairs{
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "stairs";
 	dir = 8
 	},
 /area/ruin/space/powered)
@@ -340,7 +341,7 @@
 	color = "#FF0000";
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "nV" = (
 /obj/item/flashlight,
@@ -357,7 +358,7 @@
 /area/template_noop)
 "oq" = (
 /obj/effect/spawner/window/plastitanium,
-/turf/simulated/floor,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "oE" = (
 /obj/item/stack/sheet/mineral/plastitanium,
@@ -903,7 +904,6 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "KY" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/structure/closet,
@@ -1057,7 +1057,7 @@
 	color = "#FF0000";
 	dir = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "RP" = (
 /turf/simulated/wall/mineral/titanium/nodiagonal,
@@ -1086,7 +1086,7 @@
 	color = "#FF0000";
 	dir = 2
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "Sn" = (
 /obj/structure/closet/walllocker/emerglocker/west,
@@ -1160,7 +1160,6 @@
 "TU" = (
 /obj/structure/lattice,
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /turf/template_noop,
@@ -1242,7 +1241,6 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "YG" = (
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 8
 	},
 /obj/structure/lattice,

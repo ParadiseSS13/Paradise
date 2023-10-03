@@ -9,10 +9,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "bG" = (
-/obj/machinery/light_construct{
-	icon_state = "bulb-broken";
-	dir = 2
-	},
+/obj/machinery/light_construct,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/rack_parts,
 /turf/simulated/floor/plasteel/airless{
@@ -84,10 +81,7 @@
 	},
 /area/ruin/space/powered)
 "id" = (
-/obj/machinery/light_construct{
-	icon_state = "bulb-broken";
-	dir = 2
-	},
+/obj/machinery/light_construct,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /obj/item/clothing/under/solgov,
@@ -144,7 +138,6 @@
 "lr" = (
 /obj/effect/turf_decal/box,
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -170,10 +163,7 @@
 	},
 /area/ruin/space/powered)
 "nz" = (
-/obj/machinery/light_construct{
-	icon_state = "bulb-broken";
-	dir = 2
-	},
+/obj/machinery/light_construct,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
@@ -463,11 +453,6 @@
 	icon_state = "Dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
-"QA" = (
-/obj/effect/spawner/window/shuttle,
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/unpowered/unpowered_structures)
 "QV" = (
 /obj/structure/shuttle/engine/heater{
 	dir = 2
@@ -509,7 +494,6 @@
 	dir = 8
 	},
 /obj/machinery/light_construct{
-	icon_state = "bulb-broken";
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -685,7 +669,7 @@ ye
 "}
 (6,1,1) = {"
 ye
-QA
+CQ
 OC
 CI
 il
@@ -703,7 +687,7 @@ ye
 "}
 (7,1,1) = {"
 ye
-QA
+CQ
 CQ
 Eh
 JI
