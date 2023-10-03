@@ -39,6 +39,8 @@
 	var/weight = 0
 	/// Message displayed when someone uses a baton when its forbidden by a martial art
 	var/no_baton_reason = "Your martial arts training prevents you from wielding batons."
+	/// Whether or not you can grab someone while horizontal with this Martial Art
+	var/can_horizontally_grab = TRUE
 
 /datum/martial_art/New()
 	. = ..()
@@ -375,14 +377,16 @@
 /obj/item/bostaff
 	name = "bo staff"
 	desc = "A long, tall staff made of polished wood. Traditionally used in ancient old-Earth martial arts. Can be wielded to both kill and incapacitate."
+	icon_state = "bostaff0"
+	base_icon_state = "bostaff"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = SLOT_BACK
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
-	icon_state = "bostaff0"
-	base_icon_state = "bostaff"
 
 /obj/item/bostaff/Initialize(mapload)
 	. = ..()

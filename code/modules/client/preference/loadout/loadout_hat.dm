@@ -77,6 +77,11 @@
 	path = /obj/item/clothing/head/soft/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
+/datum/gear/hat/deliverysoft
+	display_name = "Cap, delivery boy"
+	path = /obj/item/clothing/head/soft/deliverysoft
+	allowed_roles = list("Quartermaster", "Cargo Technician")
+
 /datum/gear/hat/capred
 	display_name = "Cap, red"
 	path = /obj/item/clothing/head/soft/red

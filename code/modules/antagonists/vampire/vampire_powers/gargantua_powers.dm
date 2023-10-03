@@ -271,7 +271,7 @@
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap(turf/target_turf)
 	for(var/tumor_range_turfs in circle_edge_turfs(target_turf, ARENA_SIZE))
-		tumor_range_turfs = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
+		tumor_range_turfs = new /obj/effect/temp_visual/elite_tumor_wall/gargantua(tumor_range_turfs, src)
 		all_temp_walls += tumor_range_turfs
 
 /obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check(mob/living/user)

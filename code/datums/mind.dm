@@ -44,7 +44,7 @@
 	var/role_alt_title
 
 	var/datum/job/assigned_job
-	var/list/datum/objective/objectives = list()
+	var/datum/objective_holder/objective_holder
 	///a list of objectives that a player with this job could complete for space credit rewards
 	var/list/job_objectives = list()
 	var/list/datum/objective/special_verbs = list()
@@ -54,7 +54,10 @@
 	var/has_been_rev = FALSE
 
 	var/miming = 0 // Mime's vow of silence
+	/// A list of all the antagonist datums that the player is (does not include undatumized antags)
 	var/list/antag_datums
+	/// A lazy list of all teams the player is part of but doesnt have an antag role for (i.e. a custom admin team)
+	var/list/teams
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -74,13 +77,19 @@
 
 	var/list/learned_recipes //List of learned recipe TYPES.
 
+	/// List of people who we've received kudos from.
+	var/list/kudos_received_from = list()
+
 /datum/mind/New(new_key)
 	key = new_key
+	objective_holder = new(src)
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
 	remove_all_antag_datums()
+	qdel(objective_holder)
 	current = null
+	kudos_received_from.Cut()
 	return ..()
 
 /datum/mind/proc/set_original_mob(mob/original)
@@ -150,7 +159,7 @@
 	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
 /datum/mind/proc/store_memory(new_text)
-	memory += "[new_text]<BR>"
+	memory += "[new_text]<br>"
 
 /datum/mind/proc/wipe_memory()
 	memory = null
@@ -158,77 +167,111 @@
 /datum/mind/proc/show_memory(mob/recipient, window = 1)
 	if(!recipient)
 		recipient = current
-	var/output = "<B>[current.real_name]'s Memories:</B><HR>"
-	output += memory
+	var/list/output = list()
+	output.Add("<B>[current.real_name]'s Memories:</B><HR>")
+	output.Add(memory)
 
-	var/antag_datum_objectives = FALSE
 	for(var/datum/antagonist/A in antag_datums)
-		output += A.antag_memory
-		if(!antag_datum_objectives && LAZYLEN(A.objectives))
-			antag_datum_objectives = TRUE
+		output.Add(A.antag_memory)
 
-	if(LAZYLEN(objectives) || antag_datum_objectives)
-		output += "<HR><B>Objectives:</B><BR>"
-		output += gen_objective_text()
+	if(has_objectives())
+		output.Add("<HR><B>Objectives:</B>")
+		output.Add(gen_objective_text())
 
 	if(LAZYLEN(job_objectives))
-		output += "<HR><B>Job Objectives:</B><UL>"
+		output.Add("<HR><B>Job Objectives:</B><UL>")
 
 		var/obj_count = 1
 		for(var/datum/job_objective/objective in job_objectives)
-			output += "<LI><B>Task #[obj_count]</B>: [objective.description]</LI>"
+			output.Add("<LI><B>Task #[obj_count]</B>: [objective.description]</LI>")
 			obj_count++
-		output += "</UL>"
+		output.Add("</UL>")
+
+	output = output.Join("<br>")
 	if(window)
 		recipient << browse(output, "window=memory")
 	else
 		to_chat(recipient, "<i>[output]</i>")
 
 /datum/mind/proc/gen_objective_text(admin = FALSE)
-	. = ""
-	var/obj_count = 1
+	if(!has_objectives())
+		return "<b>No Objectives.</b><br>"
 
+	var/list/text = list()
+	var/obj_count = 1
 	// If they don't have any objectives, "" will be returned.
 	for(var/datum/objective/objective in get_all_objectives())
-		. += "<b>Objective #[obj_count++]</b>: [objective.explanation_text]"
-		if(admin)
-			. += " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> " // Edit
-			. += "<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> " // Delete
+		text.Add("<b>Objective #[obj_count++]</b>: [objective.explanation_text][admin ? get_admin_objective_edit(objective) : ""]")
 
-			. += "<a href='?src=[UID()];obj_completed=\ref[objective]'>" // Mark Completed
-			. += "<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font>"
-			. += "</a>"
-		. += "<br>"
+	return text.Join("<br>")
+
+/datum/mind/proc/get_admin_objective_edit(datum/objective/objective)
+	return " <a href='?src=[UID()];obj_edit=\ref[objective]'>Edit</a> \
+			<a href='?src=[UID()];obj_delete=\ref[objective]'>Delete</a> \
+			<a href='?src=[UID()];obj_completed=\ref[objective]'>\
+			<font color=[objective.completed ? "green" : "red"]>Toggle Completion</font></a>"
+
+/**
+ * A quicker version of get_all_objectives() but only for seeing if they have any objectives at all
+ */
+/datum/mind/proc/has_objectives(include_team = TRUE)
+	if(objective_holder.has_objectives())
+		return TRUE
+	for(var/datum/antagonist/A as anything in antag_datums)
+		if(A.has_antag_objectives(include_team)) // this checks teams also
+			return TRUE
+	// For custom non-antag role teams
+	if(include_team && LAZYLEN(teams))
+		for(var/datum/team/team as anything in teams)
+			if(team.objective_holder.has_objectives())
+				return TRUE
+	return FALSE
 
 /**
  * Gets every objective this mind owns, including all of those from any antag datums they have, and returns them as a list.
  */
-/datum/mind/proc/get_all_objectives()
+/datum/mind/proc/get_all_objectives(include_team = TRUE)
 	var/list/all_objectives = list()
 
-	for(var/antag in antag_datums)
-		var/datum/antagonist/A = antag
-		all_objectives += A.objectives // Add all antag datum objectives.
+	all_objectives += objective_holder.get_objectives() // Get their personal objectives
 
-	for(var/objective in objectives)
-		var/datum/objective/O = objective
-		all_objectives += O // Add all mind objectives.
+	for(var/datum/antagonist/A as anything in antag_datums)
+		all_objectives += A.objective_holder.get_objectives() // Add all antag datum objectives.
+		if(include_team)
+			var/datum/team/team = A.get_team()
+			if(team) // have to make asure a team exists here, team?. does not work below because it will add the null to the list
+				all_objectives += team.objective_holder.get_objectives() // Get all of their teams' objectives
+
+	// For custom non-antag role teams
+	if(include_team && LAZYLEN(teams))
+		for(var/datum/team/team as anything in teams)
+			all_objectives += team.objective_holder.get_objectives()
 
 	return all_objectives
 
 /**
- * Completely remove the given objective from the src mind and it's antag datums.
+ * Add an objective to the mind
  */
-/datum/mind/proc/remove_objective(datum/objective/O)
-	for(var/antag in antag_datums)
-		var/datum/antagonist/A = antag
-		A.objectives -= O
-		A.assigned_targets -= "[O.target]"
-		if(istype(O, /datum/objective/steal))
-			var/datum/objective/steal/S = O
-			A.assigned_targets -= "[S.steal_target]"
-	objectives -= O
-	qdel(O)
+/datum/mind/proc/add_mind_objective(datum/objective/O, _explanation_text, mob/target_override)
+	if(ispath(O))
+		O = new O()
+	if(O.owner)
+		stack_trace("[O], [O.type] was assigned as an objective to [src] (mind), but already had an owner: [O.owner] (mind). Overriding.")
+	O.owner = src
+	return objective_holder.add_objective(O, _explanation_text, target_override)
+
+/**
+ * Completely remove the given objective from the mind, and include antagdatums/teams if remove_from_everything is true
+ */
+/datum/mind/proc/remove_mind_objective(datum/objective/O, remove_from_everything)
+	. = objective_holder.remove_objective(O)
+
+	if(!remove_from_everything)
+		return
+	for(var/datum/antagonist/A as anything in antag_datums)
+		A.objective_holder.remove_objective(O) // Add all antag datum objectives.
+		var/datum/team/team = A.get_team()
+		team?.objective_holder.remove_objective(O) // Get all of their teams' objectives
 
 /datum/mind/proc/_memory_edit_header(gamemode, list/alt)
 	. = gamemode
@@ -250,9 +293,10 @@
 
 /datum/mind/proc/memory_edit_revolution(mob/living/carbon/human/H)
 	. = _memory_edit_header("revolution")
+	var/datum/antagonist/rev = has_antag_datum(/datum/antagonist/rev)
 	if(ismindshielded(H))
 		. += "<b>NO</b>|headrev|rev"
-	else if(has_antag_datum(/datum/antagonist/rev/head))
+	else if(istype(rev, /datum/antagonist/rev/head))
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<b><font color='red'>HEADREV</font></b>|<a href='?src=[UID()];revolution=rev'>rev</a>"
 		. += "<br>Flash: <a href='?src=[UID()];revolution=flash'>give</a>"
 
@@ -267,10 +311,9 @@
 			. += "."
 
 		. += " <a href='?src=[UID()];revolution=reequip'>Reequip</a> (gives flash/cham sec hud)."
-		var/datum/antagonist/rev/revolting = has_antag_datum(/datum/antagonist/rev)
-		if(!length(revolting.objectives))
+		if(!rev.has_antag_objectives()) // if theres anything missing here, we want it to runtime. There should never be a rev without a rev team
 			. += "<br>Objectives are empty! Unless theres no command, this is likely a bug, please report it! <a href='?src=[UID()];revolution=autoobjectives'>Set to kill all heads</a>."
-	else if(has_antag_datum(/datum/antagonist/rev))
+	else if(rev)
 		. += "<a href='?src=[UID()];revolution=clear'>no</a>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<b><font color='red'>REV</font></b>"
 	else
 		. += "<b>NO</b>|<a href='?src=[UID()];revolution=headrev'>headrev</a>|<a href='?src=[UID()];revolution=rev'>rev</a>"
@@ -292,7 +335,7 @@
 	if(src in SSticker.mode.wizards)
 		. += "<b><font color='red'>WIZARD</font></b>|<a href='?src=[UID()];wizard=clear'>no</a>"
 		. += "<br><a href='?src=[UID()];wizard=lair'>To lair</a>, <a href='?src=[UID()];common=undress'>undress</a>, <a href='?src=[UID()];wizard=dressup'>dress up</a>, <a href='?src=[UID()];wizard=name'>let choose name</a>."
-		if(objectives.len==0)
+		if(!objective_holder.has_objectives())
 			. += "<br>Objectives are empty! <a href='?src=[UID()];wizard=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];wizard=wizard'>wizard</a>|<b>NO</b>"
@@ -304,7 +347,7 @@
 	var/datum/antagonist/changeling/cling = has_antag_datum(/datum/antagonist/changeling)
 	if(cling)
 		. += "<b><font color='red'>CHANGELING</font></b>|<a href='?src=[UID()];changeling=clear'>no</a>"
-		if(!length(cling.objectives))
+		if(!cling.has_antag_objectives())
 			. += "<br>Objectives are empty! <a href='?src=[UID()];changeling=autoobjectives'>Randomize!</a>"
 		if(length(cling.absorbed_dna))
 			var/datum/dna/DNA = cling.absorbed_dna[1]
@@ -326,7 +369,7 @@
 		. += "<br>Subclass: <a href='?src=[UID()];vampire=change_subclass'>[has_subclass ? capitalize(vamp.subclass.name) : "None"]</a>"
 		if(has_subclass)
 			. += " | Force full power: <a href='?src=[UID()];vampire=full_power_override'>[vamp.subclass.full_power_override ? "Yes" : "No"]</a>"
-		if(!length(vamp.objectives))
+		if(!vamp.has_antag_objectives())
 			. += "<br>Objectives are empty! <a href='?src=[UID()];vampire=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];vampire=vampire'>vampire</a>|<b>NO</b>"
@@ -378,7 +421,7 @@
 	if(has_antag_datum(/datum/antagonist/traitor))
 		. += "<b><font color='red'>TRAITOR</font></b>|<a href='?src=[UID()];traitor=clear'>no</a>"
 		var/datum/antagonist/traitor/T = has_antag_datum(/datum/antagonist/traitor)
-		if(!length(T.objectives))
+		if(!T.has_antag_objectives())
 			. += "<br>Objectives are empty! <a href='?src=[UID()];traitor=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];traitor=traitor'>traitor</a>|<b>NO</b>"
@@ -464,10 +507,10 @@
 		alert("Not before round-start!", "Alert")
 		return
 
-	var/out = "<B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]<br>"
-	out += "Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]<br>"
-	out += "Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a><br>"
-	out += "Factions and special roles:<br>"
+	var/list/out = list("<B>[name]</B>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
+	out.Add("Assigned role: [assigned_role]. <a href='?src=[UID()];role_edit=1'>Edit</a>")
+	out.Add("Factions and special roles:")
 
 	var/list/sections = list(
 		"implant",
@@ -510,42 +553,38 @@
 	*/
 	if(SSticker.mode.config_tag == "traitorchan")
 		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
+			out.Add(sections["traitor"])
 		if(sections["changeling"])
-			out += sections["changeling"] + "<br>"
+			out.Add(sections["changeling"])
 		sections -= "traitor"
 		sections -= "changeling"
 	// Elif technically unnecessary but it makes the following else look better
 	else if(SSticker.mode.config_tag == "traitorvamp")
 		if(sections["traitor"])
-			out += sections["traitor"] + "<br>"
+			out.Add(sections["traitor"])
 		if(sections["vampire"])
-			out += sections["vampire"] + "<br>"
+			out.Add(sections["vampire"])
 		sections -= "traitor"
 		sections -= "vampire"
 	else
 		if(sections[SSticker.mode.config_tag])
-			out += sections[SSticker.mode.config_tag] + "<br>"
+			out.Add(sections[SSticker.mode.config_tag])
 		sections -= SSticker.mode.config_tag
 
 	for(var/i in sections)
 		if(sections[i])
-			out += sections[i] + "<br>"
+			out.Add(sections[i])
 
-	out += memory_edit_uplink()
-	out += "<br>"
+	out.Add(memory_edit_uplink())
 
-	out += "<b>Memory:</b><br>"
-	out += memory
-	out += "<br><a href='?src=[UID()];memory_edit=1'>Edit memory</a><br>"
-	out += "Objectives:<br>"
-	if(!length(get_all_objectives()))
-		out += "EMPTY<br>"
-	else
-		out += gen_objective_text(admin = TRUE)
-	out += "<a href='?src=[UID()];obj_add=1'>Add objective</a><br><br>"
-	out += "<a href='?src=[UID()];obj_announce=1'>Announce objectives</a><br><br>"
-	usr << browse(out, "window=edit_memory[src];size=500x500")
+	out.Add("<b>Memory:</b>")
+	out.Add(memory)
+	out.Add("<a href='?src=[UID()];memory_edit=1'>Edit memory</a><br>")
+	out.Add("Objectives:")
+	out.Add(gen_objective_text(admin = TRUE))
+	out.Add("<a href='?src=[UID()];obj_add=1'>Add objective</a><br>")
+	out.Add("<a href='?src=[UID()];obj_announce=1'>Announce objectives</a><br>")
+	usr << browse(out.Join("<br>"), "window=edit_memory[src];size=500x500")
 
 /datum/mind/Topic(href, href_list)
 	if(!check_rights(R_ADMIN))
@@ -572,20 +611,12 @@
 
 	else if(href_list["obj_edit"] || href_list["obj_add"])
 		var/datum/objective/objective
-		var/list/objective_pos
 		var/def_value
 
 		if(href_list["obj_edit"])
 			objective = locate(href_list["obj_edit"])
 			if(!objective)
 				return
-
-			if(objectives.Find(objective))
-				objective_pos = list(objectives.Find(objective), null)
-			else
-				for(var/datum/antagonist/A as anything in antag_datums)
-					if(A.objectives.Find(objective))
-						objective_pos = list(A.objectives.Find(objective), A)
 
 			//Text strings are easy to manipulate. Revised for simplicity.
 			var/temp_obj_type = "[objective.type]"//Convert path into a text string.
@@ -642,12 +673,10 @@
 				var/objective_path = text2path("/datum/objective/[new_obj_type]")
 				if(new_target == "Free objective")
 					new_objective = new objective_path
-					new_objective.owner = src
 					new_objective:target = null
 					new_objective.explanation_text = "Free objective"
 				else
 					new_objective = new objective_path
-					new_objective.owner = src
 					new_objective:target = new_target:mind
 					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
 					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
@@ -658,35 +687,28 @@
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
-					new_objective.owner = src
 					new_objective.explanation_text = "Destroy [new_target.name], the experimental AI."
 				else
 					to_chat(usr, "No active AIs with minds")
 
 			if("prevent")
-				new_objective = new /datum/objective/block
-				new_objective.owner = src
+				new_objective = /datum/objective/block // we can place paths here because they will be created as needed in the objective holder
 
 			if("hijack")
-				new_objective = new /datum/objective/hijack
-				new_objective.owner = src
+				new_objective = /datum/objective/hijack
 
 			if("escape")
-				new_objective = new /datum/objective/escape
-				new_objective.owner = src
+				new_objective = /datum/objective/escape
 
 			if("survive")
-				new_objective = new /datum/objective/survive
-				new_objective.owner = src
+				new_objective = /datum/objective/survive
 
 			if("nuclear")
-				new_objective = new /datum/objective/nuclear
-				new_objective.owner = src
+				new_objective = /datum/objective/nuclear
 
 			if("steal")
 				if(!istype(objective, /datum/objective/steal))
 					new_objective = new /datum/objective/steal
-					new_objective.owner = src
 				else
 					new_objective = objective
 				var/datum/objective/steal/steal = new_objective
@@ -709,7 +731,6 @@
 					if("blood")
 						new_objective = new /datum/objective/blood
 						new_objective.explanation_text = "Accumulate at least [target_number] total units of blood."
-				new_objective.owner = src
 				new_objective.target_amount = target_number
 
 			if("identity theft")
@@ -726,7 +747,6 @@
 				if(!istype(targ))
 					CRASH("Invalid target for identity theft objective, cancelling")
 				new_objective = new /datum/objective/escape/escape_with_identity
-				new_objective.owner = src
 				new_objective.target = new_target
 				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
 				var/datum/objective/escape/escape_with_identity/O = new_objective
@@ -736,21 +756,15 @@
 				if(!expl)
 					return
 				new_objective = new /datum/objective
-				new_objective.owner = src
 				new_objective.explanation_text = expl
 
 		if(!new_objective)
 			return
 
 		if(objective)
-			remove_objective(objective)
-			if(objective_pos[2])
-				var/datum/antagonist/A = objective_pos[2]
-				A.objectives.Insert(objective_pos[1], new_objective)
-			else
-				objectives.Insert(objective_pos[1], new_objective)
+			objective.holder.replace_objective(objective, new_objective) // replace it in its old holder
 		else
-			objectives += new_objective
+			add_mind_objective(new_objective)
 
 		log_admin("[key_name(usr)] has updated [key_name(current)]'s objectives: [new_objective]")
 		message_admins("[key_name_admin(usr)] has updated [key_name_admin(current)]'s objectives: [new_objective]")
@@ -762,7 +776,7 @@
 
 		log_admin("[key_name(usr)] has removed one of [key_name(current)]'s objectives: [objective]")
 		message_admins("[key_name_admin(usr)] has removed one of [key_name_admin(current)]'s objectives: [objective]")
-		remove_objective(objective)
+		remove_mind_objective(objective, TRUE)
 
 	else if(href_list["obj_completed"])
 		var/datum/objective/objective = locate(href_list["obj_completed"])
@@ -1090,9 +1104,7 @@
 					SSticker.mode.syndicates -= src
 					SSticker.mode.update_synd_icons_removed(src)
 					special_role = null
-					for(var/datum/objective/nuclear/O in objectives)
-						objectives-=O
-						qdel(O)
+					objective_holder.clear(/datum/objective/nuclear)
 					to_chat(current, "<span class='warning'><FONT size = 3><B>You have been brainwashed! You are no longer a syndicate operative!</B></FONT></span>")
 					log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
@@ -1107,7 +1119,7 @@
 					special_role = SPECIAL_ROLE_NUKEOPS
 					to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 					SSticker.mode.forge_syndicate_objectives(src)
-					SSticker.mode.greet_syndicate(src)
+					SSticker.mode.greet_syndicate(src, FALSE) // False to fix the agent message appearing twice
 					log_admin("[key_name(usr)] has nuke op'd [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has nuke op'd [key_name_admin(current)]")
 			if("lair")
@@ -1557,11 +1569,14 @@
 		else if(A.type == datum_type)
 			return A
 
-/datum/mind/proc/announce_objectives()
-	if(current)
-		to_chat(current, "<span class='notice'>Your current objectives:</span>")
-		for(var/line in splittext(gen_objective_text(), "<br>"))
-			to_chat(current, line)
+/datum/mind/proc/announce_objectives(title = TRUE)
+	if(!current)
+		return
+	var/list/text = list()
+	if(title)
+		text.Add("<span class='notice'>Your current objectives:</span>")
+	text.Add(gen_objective_text())
+	to_chat(current, text.Join("<br>"))
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
@@ -1591,7 +1606,7 @@
 		assigned_role = SPECIAL_ROLE_NUKEOPS
 		to_chat(current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
 		SSticker.mode.forge_syndicate_objectives(src)
-		SSticker.mode.greet_syndicate(src)
+		SSticker.mode.greet_syndicate(src, FALSE) // False to fix the agent message appearing twice
 
 		current.loc = get_turf(locate("landmark*Syndicate-Spawn"))
 
@@ -1652,13 +1667,8 @@
 
 	SSticker.mode.abductors |= src
 
-	var/datum/objective/stay_hidden/hidden_obj = new
-	hidden_obj.owner = src
-	objectives += hidden_obj
-
-	var/datum/objective/experiment/O = new
-	O.owner = src
-	objectives += O
+	add_mind_objective(/datum/objective/stay_hidden)
+	add_mind_objective(/datum/objective/experiment)
 
 	var/mob/living/carbon/human/H = current
 

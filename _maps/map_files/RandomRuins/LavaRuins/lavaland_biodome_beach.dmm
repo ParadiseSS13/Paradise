@@ -117,11 +117,14 @@
 "av" = (
 /obj/structure/table/wood,
 /obj/machinery/door/window/classic/reversed{
-	req_one_access_txt = "25";
-	dir = 8
+	dir = 8;
+	name = "Beach Bar Desk"
 	},
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aw" = (
@@ -164,7 +167,10 @@
 "aE" = (
 /obj/structure/table/wood,
 /obj/machinery/door/window/classic/normal{
-	req_one_access_txt = "25";
+	dir = 8;
+	name = "Beach Bar Desk"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -426,7 +432,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/powered/beach)
 "lM" = (
 /obj/structure/dresser,
@@ -502,9 +512,9 @@
 /area/ruin/powered/beach)
 "Ei" = (
 /obj/machinery/door/airlock/sandstone{
-	name = "Bar Kitchen";
-	req_one_access_txt = "25"
+	name = "Bar Kitchen"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "Gc" = (
@@ -544,7 +554,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/powered/beach)
 "TW" = (
 /obj/structure/table/reinforced,
