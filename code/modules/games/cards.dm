@@ -58,7 +58,7 @@
 /obj/item/deck/proc/build_deck()
 	return
 
-/obj/item/deck/attackby(obj/O as obj, mob/user as mob)
+/obj/item/deck/attackby(obj/O, mob/user)
 	if(istype(O, /obj/item/cardhand))
 		var/obj/item/cardhand/H = O
 		if(H.parentdeck != src)
@@ -67,7 +67,7 @@
 
 		if(length(H.cards) > 1)
 			var/confirm = alert("Are you sure you want to put your [length(H.cards)] cards back into the deck?", "Return Hand", "Yes", "No")
-			if(confirm == "No")
+			if(confirm == "No" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return
 		for(var/datum/playingcard/P in H.cards)
 			cards += P
