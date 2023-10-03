@@ -160,13 +160,13 @@
 	w_class = WEIGHT_CLASS_BULKY //can't put it into bags
 	layer = ABOVE_MOB_LAYER + 0.02
 
-/obj/item/nuke_core/supermatter_sliver/process()
+/*/obj/item/nuke_core/supermatter_sliver/process()
 	. = ..()
 	var/new_filter = isnull(get_filter("ray"))
 	ray_filter_helper(1, 40,"#ffd04f", 6, 20)
 	if(new_filter)
 		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
-		animate(offset = 0, time = 10 SECONDS)
+		animate(offset = 0, time = 10 SECONDS)*/
 
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK dusting memes
 	return

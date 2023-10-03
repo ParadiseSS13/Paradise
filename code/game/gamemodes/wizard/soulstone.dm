@@ -79,10 +79,10 @@
 	for(var/mob/living/simple_animal/shade/A in src)
 		A.death()
 	remove_held_body()
-	STOP_PROCESSING(SSobj, src)
+//	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/soulstone/process()
+/*/obj/item/soulstone/process()
 	. = ..()
 	if(held_body)
 		var/new_filter = isnull(get_filter("ray"))
@@ -93,6 +93,7 @@
 		if(new_filter)
 			animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
 			animate(offset = 0, time = 10 SECONDS)
+*/
 
 //////////////////////////////Capturing////////////////////////////////////////////////////////
 /obj/item/soulstone/attack(mob/living/carbon/human/M, mob/living/user)
@@ -184,7 +185,7 @@
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
 		playsound(src, 'sound/hallucinations/veryfar_noise.ogg', 40, TRUE)
 		if(do_after(user, 40, target = src))
-			remove_filter("ray")
+//			remove_filter("ray")
 			usability = TRUE
 			purified = TRUE
 			optional = TRUE
@@ -211,7 +212,7 @@
 			return
 		to_chat(user, "<span class='notice'>You begin to cleanse [src] of holy magic.</span>")
 		if(do_after(user, 40, target = src))
-			remove_filter("ray")
+//			remove_filter("ray")
 			usability = FALSE
 			purified = FALSE
 			optional = FALSE
@@ -274,8 +275,8 @@
 		else
 			to_chat(A, "<span class='userdanger'>You have been released from your prison, but you are still bound to your [purified ? "saviour" : "creator"]'s will.</span>")
 		was_used()
-		remove_filter("ray")
-		STOP_PROCESSING(SSobj, src)
+//		remove_filter("ray")
+//		STOP_PROCESSING(SSobj, src)
 
 ///////////////////////////Transferring to constructs/////////////////////////////////////////////////////
 /obj/structure/constructshell
@@ -322,7 +323,7 @@
 				if(!get_cult_ghost(T, user, TRUE))
 					add_held_body(T)
 					T.forceMove(src) //If we can't get a ghost, shard the body anyways.
-					START_PROCESSING(SSobj, src)
+//					START_PROCESSING(SSobj, src)
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
@@ -361,7 +362,7 @@
 					name = "soulstone : [T.name]"
 					to_chat(T, "<span class='notice'>Your soul has been recaptured by the soul stone, its arcane energies are reknitting your ethereal form</span>")
 					to_chat(user, "<span class='notice'>Capture successful!</span> [T.name]'s has been recaptured and stored within the soul stone.")
-					START_PROCESSING(SSobj, src)
+//					START_PROCESSING(SSobj, src)
 
 		if("CONSTRUCT")
 			var/obj/structure/constructshell/shell = target
@@ -439,7 +440,7 @@
 	C.cancel_camera()
 
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)
-	START_PROCESSING(SSobj, src)
+//	START_PROCESSING(SSobj, src)
 	var/type = get_shade_type()
 	var/mob/living/simple_animal/shade/S = new type(src)
 	S.name = "Shade of [M.real_name]"
