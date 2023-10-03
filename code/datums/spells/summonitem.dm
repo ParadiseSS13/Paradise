@@ -59,7 +59,7 @@
 			var/infinite_recursion = 0 //I don't want to know how someone could put something inside itself but these are wizards so let's be safe
 
 			while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
-				if(istype(item_to_retrieve.loc, /obj/item/organ/internal/headpocket))
+				if(istype(item_to_retrieve.loc,/obj/item/organ/internal/headpocket))
 					var/obj/item/organ/internal/headpocket/pocket = item_to_retrieve.loc
 					if(pocket.owner)
 						to_chat(pocket.owner, "<span class='warning'>Your [pocket.name] suddenly feels lighter. How strange!</span>")
