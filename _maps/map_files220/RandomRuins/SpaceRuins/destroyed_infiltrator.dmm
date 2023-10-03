@@ -335,9 +335,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "yT" = (
-/obj/machinery/light_construct{
-	icon_state = "tube-broken"
-	},
+/obj/machinery/light_construct/directional/north,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
@@ -444,9 +442,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "Io" = (
-/obj/machinery/light_construct{
-	icon_state = "tube-broken"
-	},
+/obj/machinery/light_construct/directional/north,
 /obj/effect/landmark/burnturf,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating/airless,
@@ -487,10 +483,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Kg" = (
-/obj/machinery/light_construct{
-	icon_state = "tube-broken";
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "KK" = (
@@ -670,10 +663,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "UE" = (
-/obj/machinery/light_construct{
-	icon_state = "tube-broken";
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/ruin/space/unpowered/unpowered_structures)

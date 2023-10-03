@@ -464,7 +464,7 @@
 	pixel_x = 24
 	dir = 4
 
-obj/machinery/power/apc/important
+/obj/machinery/power/apc/important
 	name = "\improper Important APC"
 	cell_type = 5000
 

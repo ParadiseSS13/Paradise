@@ -9,7 +9,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "bG" = (
-/obj/machinery/light_construct,
+/obj/machinery/light_construct/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/rack_parts,
 /turf/simulated/floor/plasteel/airless{
@@ -81,7 +81,7 @@
 	},
 /area/ruin/space/powered)
 "id" = (
-/obj/machinery/light_construct,
+/obj/machinery/light_construct/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
 /obj/item/clothing/under/solgov,
@@ -110,7 +110,7 @@
 	},
 /area/ruin/space/powered)
 "iG" = (
-/obj/machinery/light,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/ruin/space/powered)
 "iO" = (
@@ -137,9 +137,7 @@
 /area/ruin/space/unpowered/unpowered_structures)
 "lr" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/light_construct{
-	dir = 1
-	},
+/obj/machinery/light_construct/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel/airless{
@@ -147,8 +145,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "mk" = (
-/obj/machinery/door_control{
-	pixel_y = 30;
+/obj/machinery/door_control/shutter/north{
 	id = "scanegers_window"
 	},
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen{
@@ -163,7 +160,7 @@
 	},
 /area/ruin/space/powered)
 "nz" = (
-/obj/machinery/light_construct,
+/obj/machinery/light_construct/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
@@ -196,9 +193,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "sa" = (
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen{
 	icon_state = "plastitanium"
 	},
@@ -408,9 +403,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/ruin/space/powered)
 "Mp" = (
-/obj/machinery/light{
-	dir = 4
-	},
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red/nitrogen,
 /area/ruin/space/powered)
 "Mq" = (
@@ -493,9 +486,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
-/obj/machinery/light_construct{
-	dir = 1
-	},
+/obj/machinery/light_construct/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "Dark"

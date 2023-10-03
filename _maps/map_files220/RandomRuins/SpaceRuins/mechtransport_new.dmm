@@ -20,9 +20,7 @@
 "aH" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct{
-	dir = 1
-	},
+/obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "aK" = (
@@ -60,7 +58,7 @@
 	pixel_y = 9;
 	pixel_x = -5
 	},
-/obj/machinery/door_control{
+/obj/machinery/door_control/shutter{
 	pixel_x = 6;
 	id = "bdoorright_mech"
 	},
@@ -96,9 +94,7 @@
 "bC" = (
 /obj/structure/closet/crate/trashcart,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct{
-	dir = 1
-	},
+/obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bF" = (
@@ -157,9 +153,7 @@
 "cG" = (
 /obj/structure/table,
 /obj/item/crowbar,
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "cJ" = (
@@ -266,14 +260,11 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "gU" = (
-/obj/machinery/door_control{
-	pixel_y = -24;
+/obj/machinery/door_control/shutter/south{
 	id = "sleft_mech";
 	pixel_x = 8
 	},
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
@@ -322,9 +313,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "ib" = (
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -332,8 +321,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/powered)
 "io" = (
-/obj/machinery/door_control{
-	pixel_y = 24;
+/obj/machinery/door_control/shutter/north{
 	id = "sright_mech";
 	pixel_x = -8
 	},
@@ -370,16 +358,12 @@
 /obj/item/clothing/suit/storage/hazardvest,
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "iU" = (
 /obj/item/kirbyplants,
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -544,17 +528,14 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "mN" = (
-/obj/machinery/button/windowtint{
-	id = "mech_toilet";
-	pixel_x = -30
+/obj/machinery/button/windowtint/west{
+	id = "mech_toilet"
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/toilet{
 	dir = 1
 	},
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "mU" = (
@@ -564,7 +545,7 @@
 "nc" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ng" = (
@@ -613,9 +594,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "nV" = (
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /obj/structure/table,
 /obj/item/hand_labeler{
 	pixel_y = 9
@@ -655,7 +634,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "oL" = (
-/obj/machinery/light_construct,
+/obj/machinery/light_construct/directional/north,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "oY" = (
@@ -719,14 +698,11 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/ruin/space/powered)
 "qB" = (
-/obj/machinery/door_control{
-	pixel_y = -24;
+/obj/machinery/door_control/shutter/south{
 	id = "sright_mech";
 	pixel_x = -8
 	},
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /mob/living/simple_animal/hostile/scavengers/laser,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
@@ -770,7 +746,7 @@
 "rs" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct,
+/obj/machinery/light_construct/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "rJ" = (
@@ -818,9 +794,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "sw" = (
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -832,9 +806,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/ruin/space/powered)
 "sP" = (
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
@@ -972,9 +944,7 @@
 /area/ruin/space/powered)
 "vL" = (
 /obj/machinery/economy/vending/snack/free,
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "vP" = (
@@ -1103,11 +1073,7 @@
 	icon_state = "mirror_broke";
 	pixel_x = -30
 	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = -5
-	},
+/obj/structure/sink/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "yr" = (
@@ -1136,9 +1102,7 @@
 /area/ruin/space/powered)
 "yU" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "ze" = (
@@ -1173,7 +1137,7 @@
 	},
 /area/ruin/space/powered)
 "zM" = (
-/obj/machinery/light_construct,
+/obj/machinery/light_construct/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/scavengers/meele,
 /turf/simulated/floor/mineral/titanium,
@@ -1183,8 +1147,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "Ae" = (
-/obj/machinery/door_control{
-	pixel_y = 24;
+/obj/machinery/door_control/shutter/north{
 	id = "shang1_mech";
 	pixel_x = 8
 	},
@@ -1218,9 +1181,7 @@
 /area/ruin/space/powered)
 "AR" = (
 /obj/item/flag,
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -1261,7 +1222,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "BD" = (
@@ -1282,9 +1243,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "Cm" = (
-/obj/machinery/light_construct{
-	dir = 1
-	},
+/obj/machinery/light_construct/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/walllocker/emerglocker/north,
 /turf/simulated/floor/mineral/titanium,
@@ -1301,9 +1260,7 @@
 	dir = 4
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Cw" = (
@@ -1371,13 +1328,10 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "Do" = (
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/door_control{
+/obj/machinery/door_control/shutter/north{
 	id = "hang1_mech";
-	pixel_y = 24;
 	pixel_x = -6
 	},
 /turf/simulated/floor/mineral/titanium,
@@ -1417,17 +1371,13 @@
 /area/ruin/space/powered)
 "Ec" = (
 /obj/structure/closet/firecloset,
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Ei" = (
 /obj/structure/chair,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "EI" = (
@@ -1481,7 +1431,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Ft" = (
-/obj/machinery/light_construct,
+/obj/machinery/light_construct/directional/north,
 /turf/simulated/floor/carpet/purple,
 /area/ruin/space/powered)
 "Fu" = (
@@ -1493,12 +1443,10 @@
 /area/ruin/space/powered)
 "Fv" = (
 /obj/structure/table,
-/obj/machinery/door_control{
+/obj/machinery/door_control/shutter{
 	id = "bwindows_mech"
 	},
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "Fx" = (
@@ -1539,16 +1487,12 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "FK" = (
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "FS" = (
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/structure/table,
 /obj/item/radio/off,
 /obj/item/radio/off{
@@ -1586,9 +1530,8 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
 	},
-/obj/machinery/door_control{
-	id = "shang2_mech";
-	pixel_y = 24
+/obj/machinery/door_control/shutter/north{
+	id = "shang2_mech"
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -1702,9 +1645,7 @@
 /area/ruin/space/powered)
 "Iw" = (
 /obj/structure/table,
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "Ix" = (
@@ -1759,9 +1700,7 @@
 /area/ruin/space/powered)
 "Jq" = (
 /obj/item/kirbyplants,
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Jr" = (
@@ -1820,9 +1759,7 @@
 /area/ruin/space/powered)
 "KH" = (
 /obj/structure/table,
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
+/obj/machinery/status_display/directional/north,
 /obj/item/trash/plate,
 /obj/item/newspaper{
 	pixel_y = 9;
@@ -1853,9 +1790,8 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Lo" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/shutter/west{
 	id = "shang3_mech";
-	pixel_x = -24;
 	pixel_y = -8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1887,9 +1823,8 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "LC" = (
-/obj/machinery/door_control{
+/obj/machinery/door_control/shutter/south{
 	id = "shang1_mech";
-	pixel_y = -24;
 	pixel_x = 8
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -1970,7 +1905,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Ng" = (
-/obj/machinery/light_construct,
+/obj/machinery/light_construct/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Nl" = (
@@ -1989,9 +1924,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "Nn" = (
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "NF" = (
@@ -2011,9 +1944,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Oh" = (
-/obj/machinery/light_construct{
-	dir = 1
-	},
+/obj/machinery/light_construct/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
@@ -2050,16 +1981,11 @@
 /area/ruin/space/powered)
 "Po" = (
 /obj/structure/rack/gunrack,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "PB" = (
-/obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
-	},
+/obj/structure/extinguisher_cabinet/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
@@ -2127,9 +2053,7 @@
 /obj/item/flag/rnd{
 	desc = "It's a flag."
 	},
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -2216,9 +2140,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "Sq" = (
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
@@ -2300,24 +2222,18 @@
 /area/ruin/space/powered)
 "TR" = (
 /obj/item/kirbyplants,
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "TS" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "TZ" = (
 /obj/structure/closet/firecloset,
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
@@ -2329,8 +2245,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "Uj" = (
-/obj/machinery/door_control{
-	pixel_y = 24;
+/obj/machinery/door_control/shutter/north{
 	id = "sleft_mech";
 	pixel_x = 8
 	},
@@ -2389,9 +2304,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "UY" = (
-/obj/machinery/light_construct{
-	dir = 4
-	},
+/obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/carpet/blue,
 /area/ruin/space/powered)
 "Vh" = (
@@ -2402,9 +2315,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Vk" = (
@@ -2474,9 +2385,7 @@
 	icon_state = "command_broken"
 	},
 /obj/effect/landmark/burnturf,
-/obj/machinery/light_construct{
-	dir = 1
-	},
+/obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "VZ" = (
@@ -2488,7 +2397,7 @@
 /area/ruin/space/powered)
 "Wk" = (
 /obj/structure/table,
-/obj/machinery/door_control{
+/obj/machinery/door_control/shutter{
 	pixel_x = -6;
 	id = "bdoorleft_mech"
 	},
@@ -2501,9 +2410,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Wu" = (
-/obj/machinery/light_construct{
-	dir = 8
-	},
+/obj/machinery/light_construct/directional/east,
 /obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -2517,7 +2424,7 @@
 /obj/item/mecha_modkit/voice/nanotrasen,
 /obj/item/toy/figure/mech/mauler,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct,
+/obj/machinery/light_construct/directional/north,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
 /turf/simulated/floor/mineral/titanium,
@@ -2545,9 +2452,7 @@
 /area/ruin/space/powered)
 "Xy" = (
 /obj/effect/landmark/burnturf,
-/obj/machinery/light_construct{
-	dir = 1
-	},
+/obj/machinery/light_construct/directional/south,
 /obj/structure/closet/secure_closet/engineering_electrical,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)

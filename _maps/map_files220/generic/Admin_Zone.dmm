@@ -105,12 +105,7 @@
 "cB" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/obj/machinery/light/small{
-	brightness_range = 6;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/wood,
 /area/admin)
 "cI" = (
@@ -238,7 +233,7 @@
 /area/admin)
 "ea" = (
 /obj/structure/table/wood/poker,
-/obj/machinery/door_control{
+/obj/machinery/door_control/shutter{
 	id = "eventroom";
 	name = "Ready room";
 	pixel_x = -6;
@@ -554,13 +549,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "iY" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 4;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -746,13 +735,7 @@
 /turf/simulated/floor/holofloor,
 /area/holodeck/source_thunderdomecourt)
 "lt" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 8;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/wood,
 /area/admin)
 "lA" = (
@@ -765,13 +748,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "lE" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 4;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/wood,
 /area/admin)
 "lR" = (
@@ -1441,13 +1418,7 @@
 	},
 /area/tdome/tdomeadmin)
 "vS" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 8;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1809,13 +1780,7 @@
 /area/tdome/tdomeobserve)
 "Bv" = (
 /obj/item/kirbyplants,
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 8;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1827,13 +1792,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "BB" = (
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 8;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/east,
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1841,13 +1800,7 @@
 /area/admin)
 "BG" = (
 /obj/structure/table/wood/poker,
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 4;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1926,9 +1879,8 @@
 	},
 /obj/item/radio,
 /obj/structure/table/wood,
-/obj/machinery/door_control/no_emag{
+/obj/machinery/door_control/no_emag/east{
 	id = "tdome1";
-	pixel_x = 24;
 	req_access_txt = "102"
 	},
 /turf/simulated/floor/plasteel{
@@ -2241,12 +2193,7 @@
 /obj/machinery/status_display{
 	pixel_y = -30
 	},
-/obj/machinery/light/small{
-	brightness_range = 6;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2408,11 +2355,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/red,
 /obj/item/lighter,
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
+/obj/machinery/newscaster/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -2499,13 +2442,7 @@
 /area/admin)
 "Kw" = (
 /obj/structure/closet,
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 4;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2862,13 +2799,7 @@
 /obj/machinery/status_display{
 	pixel_y = 30
 	},
-/obj/machinery/light/small{
-	brightness_range = 6;
-	dir = 1;
-	light_range = 8;
-	nightshift_light_range = 6;
-	throw_range = 6
-	},
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3097,9 +3028,8 @@
 	},
 /obj/item/radio,
 /obj/structure/table/wood,
-/obj/machinery/door_control/no_emag{
+/obj/machinery/door_control/no_emag/west{
 	id = "tdome2";
-	pixel_x = -24;
 	req_access_txt = "102"
 	},
 /turf/simulated/floor/plasteel{
