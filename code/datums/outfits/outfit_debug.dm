@@ -42,18 +42,30 @@
 
 /obj/item/radio/headset/centcom/debug
 	name = "AVD-CNED bowman headset"
-	ks2type = /obj/item/encryptionkey/all
+	ks2type = /obj/item/encryptionkey/syndicate/all_channels
 
-/obj/item/encryptionkey/all
+/obj/item/encryptionkey/syndicate/all_channels // has to be a subtype and stuff
 	name = "AVD-CNED Encryption Key"
+	desc = "Lets you listen to <b>everything</b>. Use in hand to toggle voice changing. Alt-click to change your fake name."
+	icon_state = "com_cypherkey"
 	channels = list("Response Team" = 1, "Special Ops" = 1, "Science" = 1, "Command" = 1, "Medical" = 1, "Engineering" = 1, "Security" = 1, "Supply" = 1, "Service" = 1, "Procedure" = 1) // just in case
+	syndie = TRUE
+	change_voice = FALSE
 
-/obj/item/encryptionkey/all/Initialize(mapload)
+/obj/item/encryptionkey/syndicate/all_channels/Initialize(mapload)
 	. = ..()
 	for(var/channel in SSradio.radiochannels)
 		channels[channel] = 1 // yeah, all channels, sure, probably fine
 
-	// todo syndicomms doesn't work right now currenty
+/obj/item/encryptionkey/syndicate/all_channels/attack_self(mob/user, pickupfireoverride)
+	change_voice = !change_voice
+	to_chat(user, "You switch [src] to [change_voice ? "" : "not "]change your voice on syndicate communications.")
+
+/obj/item/encryptionkey/syndicate/all_channels/AltClick(mob/user)
+	var/new_name = stripped_input(user, "Enter new fake agent name...", "New name")
+	if(!new_name)
+		return
+	fake_name = copytext(new_name, 1, MAX_NAME_LEN + 1)
 
 /obj/item/clothing/mask/gas/welding/advanced
 	name = "AVD-CNED welding mask"
@@ -110,7 +122,7 @@
 	else
 		add_xray(human_user)
 	xray = !xray
-	to_chat(user, "<span class='notice'>You [!xray ? "de" : ""]activate the x-ray setting on [src]</span>") // ctodo test
+	to_chat(user, "<span class='notice'>You [!xray ? "de" : ""]activate the x-ray setting on [src]</span>")
 	human_user.update_sight()
 
 /obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
