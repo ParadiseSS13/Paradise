@@ -12,14 +12,15 @@ import { Window } from "../layouts";
 import { Operating } from '../interfaces/common/Operating';
 
 export const Biogenerator = (props, context) => {
-  const { data } = useBackend(context);
-  const { container, processing, name } = data;
+  const { data, config } = useBackend(context);
+  const { container, processing } = data;
+  const { title } = config;
   return (
     <Window>
       <Window.Content display="flex" className="Layout__content--flexColumn">
         <Operating
             operating={processing}
-            name={name}
+            name={title}
         />
         <Storage />
         <Controls />

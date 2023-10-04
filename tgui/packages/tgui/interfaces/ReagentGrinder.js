@@ -5,17 +5,15 @@ import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Operating } from '../interfaces/common/Operating';
 
 export const ReagentGrinder = (props, context) => {
-  const { act, data } = useBackend(context);
-  const {
-    operating,
-    name
-  } = data;
+  const { act, data, config } = useBackend(context);
+  const { operating } = data;
+  const { title } = config;
   return (
     <Window resizable>
       <Window.Content scrollable display="flex" className="Layout__content--flexColumn">
         <Operating
           operating={operating}
-          name={name}
+          name={title}
         />
         <GrinderControls/>
         <GrinderContents/>

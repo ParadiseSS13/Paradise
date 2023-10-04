@@ -243,7 +243,6 @@
 
 /obj/machinery/reagentgrinder/ui_data(mob/user)
 	var/list/data = list()
-	data["name"] = name
 	data["operating"] = operating
 	data["inactive"] = length(holdingitems) == 0 ? TRUE : FALSE
 	data["limit"] = limit
