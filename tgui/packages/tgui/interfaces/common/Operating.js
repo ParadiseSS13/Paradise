@@ -1,4 +1,4 @@
-import { Flex, Icon, Dimmer } from  '../../components';
+import { Flex, Icon, Dimmer } from '../../components';
 const PropTypes = require('prop-types');
 
 /**
@@ -11,16 +11,9 @@ export const Operating = (props) => {
     return (
       <Dimmer>
         <Flex mb="30px">
-          <Flex.Item
-            bold
-            color="silver"
-            textAlign="center">
-            <Icon
-              name="spinner"
-              spin
-              size={4}
-              mb="15px"
-            /><br />
+          <Flex.Item bold color="silver" textAlign="center">
+            <Icon name="spinner" spin size={4} mb="15px" />
+            <br />
             The {name} is processing...
           </Flex.Item>
         </Flex>

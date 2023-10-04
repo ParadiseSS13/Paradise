@@ -5,20 +5,18 @@ import { Operating } from '../interfaces/common/Operating';
 
 export const KitchenMachine = (props, context) => {
   const { data, config } = useBackend(context);
-  const {
-    ingredients,
-    operating
-  } = data;
+  const { ingredients, operating } = data;
   const { title } = config;
 
   return (
     <Window resizable>
-      <Window.Content scrollable display="flex" className="Layout__content--flexColumn">
-      <Operating
-          operating={operating}
-          name={title}
-        />
-        <KitchenTop/>
+      <Window.Content
+        scrollable
+        display="flex"
+        className="Layout__content--flexColumn"
+      >
+        <Operating operating={operating} name={title} />
+        <KitchenTop />
         <Section title="Ingredients" flexGrow={1}>
           <Table className="Ingredient__Table">
             {ingredients.map((product) => (
@@ -74,4 +72,4 @@ const KitchenTop = (props, context) => {
       </Flex>
     </Section>
   );
-}
+};

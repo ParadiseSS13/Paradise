@@ -10,14 +10,15 @@ export const ReagentGrinder = (props, context) => {
   const { title } = config;
   return (
     <Window resizable>
-      <Window.Content scrollable display="flex" className="Layout__content--flexColumn">
-        <Operating
-          operating={operating}
-          name={title}
-        />
-        <GrinderControls/>
-        <GrinderContents/>
-        <GrinderReagents/>
+      <Window.Content
+        scrollable
+        display="flex"
+        className="Layout__content--flexColumn"
+      >
+        <Operating operating={operating} name={title} />
+        <GrinderControls />
+        <GrinderContents />
+        <GrinderReagents />
       </Window.Content>
     </Window>
   );
@@ -25,9 +26,7 @@ export const ReagentGrinder = (props, context) => {
 
 const GrinderControls = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    inactive,
-  } = data;
+  const { inactive } = data;
 
   return (
     <Section title="Controls">
@@ -38,7 +37,7 @@ const GrinderControls = (props, context) => {
             textAlign="center"
             icon="mortar-pestle"
             disabled={inactive}
-            tooltip={inactive ? "There are no contents" : "Grind the contents"}
+            tooltip={inactive ? 'There are no contents' : 'Grind the contents'}
             tooltipPosition="bottom"
             content="Grind"
             onClick={() => act('grind')}
@@ -50,7 +49,7 @@ const GrinderControls = (props, context) => {
             textAlign="center"
             icon="blender"
             disabled={inactive}
-            tooltip={inactive ? "There are no contents" : "Juice the contents"}
+            tooltip={inactive ? 'There are no contents' : 'Juice the contents'}
             tooltipPosition="bottom"
             content="Juice"
             onClick={() => act('juice')}
@@ -59,35 +58,30 @@ const GrinderControls = (props, context) => {
       </Flex>
     </Section>
   );
-}
+};
 
 const GrinderContents = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    contents,
-    limit,
-    count,
-    inactive
-  } = data;
+  const { contents, limit, count, inactive } = data;
 
   return (
     <Section
-        title="Contents"
-        flexGrow={1}
-        buttons={(
-      <Box>
-        <Box inline color="label" mr={2}>
-          {count} / {limit} items
-        </Box>
-        <Button
-        icon="eject"
-        content="Eject Contents"
-        onClick={() => act('eject')}
-        disabled={inactive}
-        tooltip={inactive ? "There are no contents" : ""}
+      title="Contents"
+      flexGrow={1}
+      buttons={
+        <Box>
+          <Box inline color="label" mr={2}>
+            {count} / {limit} items
+          </Box>
+          <Button
+            icon="eject"
+            content="Eject Contents"
+            onClick={() => act('eject')}
+            disabled={inactive}
+            tooltip={inactive ? 'There are no contents' : ''}
           />
-      </Box>
-    )}
+        </Box>
+      }
     >
       <Table className="Ingredient__Table">
         {contents.map((content) => (
@@ -104,8 +98,8 @@ const GrinderContents = (props, context) => {
         ))}
       </Table>
     </Section>
-  )
-}
+  );
+};
 
 const GrinderReagents = (props, context) => {
   const { act, data } = useBackend(context);
@@ -113,32 +107,32 @@ const GrinderReagents = (props, context) => {
     beaker_loaded,
     beaker_current_volume,
     beaker_max_volume,
-    beaker_contents
+    beaker_contents,
   } = data;
 
   return (
     <Section
-        title="Beaker"
-        flexGrow="1"
-        buttons={
-      !!beaker_loaded && (
-        <Box>
-          <Box inline color="label" mr={2}>
-            {beaker_current_volume} / {beaker_max_volume} units
+      title="Beaker"
+      flexGrow="1"
+      buttons={
+        !!beaker_loaded && (
+          <Box>
+            <Box inline color="label" mr={2}>
+              {beaker_current_volume} / {beaker_max_volume} units
+            </Box>
+            <Button
+              icon="eject"
+              content="Detach Beaker"
+              onClick={() => act('detach')}
+            />
           </Box>
-          <Button
-            icon="eject"
-            content="Detach Beaker"
-            onClick={() => act('detach')}
-          />
-        </Box>
-      )
-    }
+        )
+      }
     >
-    <BeakerContents
-      beakerLoaded={beaker_loaded}
-      beakerContents={beaker_contents}
-    />
+      <BeakerContents
+        beakerLoaded={beaker_loaded}
+        beakerContents={beaker_contents}
+      />
     </Section>
-  )
-}
+  );
+};

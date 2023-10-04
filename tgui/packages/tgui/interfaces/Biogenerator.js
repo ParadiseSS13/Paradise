@@ -7,8 +7,9 @@ import {
   Icon,
   Collapsible,
   NumberInput,
-  ProgressBar } from "../components";
-import { Window } from "../layouts";
+  ProgressBar,
+} from '../components';
+import { Window } from '../layouts';
 import { Operating } from '../interfaces/common/Operating';
 
 export const Biogenerator = (props, context) => {
@@ -18,10 +19,7 @@ export const Biogenerator = (props, context) => {
   return (
     <Window>
       <Window.Content display="flex" className="Layout__content--flexColumn">
-        <Operating
-            operating={processing}
-            name={title}
-        />
+        <Operating operating={processing} name={title} />
         <Storage />
         <Controls />
         {!container ? <MissingContainer /> : <Products />}
