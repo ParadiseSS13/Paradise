@@ -193,6 +193,9 @@
 	result = list(/datum/nothing = 1,
 		/obj/machinery/porta_turret/syndicate/exterior = 1)
 
+/obj/effect/spawner/random_spawners/syndicate/turret/external/always
+	name = "50pc ext turret"
+	result = list(/obj/machinery/porta_turret/syndicate/exterior)
 
 // Mobs
 
