@@ -62,7 +62,7 @@
 	if(greet_text)
 		return "<span class='biggerdanger'>[greet_text]</span>"
 	else // Default greeting text if nothing is given.
-		return "<span class='biggerdanger'><B>You are now completely loyal to [master.current.name]!</B> \
+		return "<span class='biggerdanger'><b>You are now completely loyal to [master.current.name]!</b> \
 							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>"
 
 /datum/antagonist/mindslave/farewell()
