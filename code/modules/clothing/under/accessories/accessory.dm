@@ -80,6 +80,9 @@
 			return 1
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(istype(U))
+			if(user == h)
+				U.attach_accessory(src, user, TRUE)
+				return
 			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
 			if(do_after(user, 40, target=H) && H.w_uniform == U)
 				if(U.attach_accessory(src, user, TRUE))
