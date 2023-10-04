@@ -393,7 +393,7 @@
 	if(flayer)
 		. += "<b><font color='red'>MINDFLAYER</font></b>|<a href='?src=[UID()];mind_flayer=clear'>no</a>"
 		. += " | Usable swarms: <a href='?src=[UID()];mind_flayer=edit_total_swarms'>[flayer.usable_swarms]</a>"
-		if(!length(flayer.objectives))
+		if(!flayer.has_antag_objectives())
 			. += "<br>Objectives are empty! <a href='?src=[UID()];mind_flayer=autoobjectives'>Randomize!</a>"
 	else
 		. += "<a href='?src=[UID()];mind_flayer=mind_flayer'>mind_flayer</a>|<b>NO</b>"
