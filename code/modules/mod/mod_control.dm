@@ -13,7 +13,7 @@
 	item_state = "mod_control"
 	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	strip_delay = 10 SECONDS
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
@@ -206,14 +206,14 @@
 
 /obj/item/mod/control/equipped(mob/user, slot)
 	..()
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		set_wearer(user)
 	else if(wearer)
 		unset_wearer()
 
 
 /obj/item/mod/control/item_action_slot_check(slot)
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)
@@ -744,3 +744,8 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.regenerate_icons()
+
+/obj/item/mod/control/extinguish_light(force)
+	. = ..()
+	for(var/obj/item/mod/module/module as anything in modules)
+		module.extinguish_light(force)

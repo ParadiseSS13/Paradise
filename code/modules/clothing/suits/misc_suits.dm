@@ -234,7 +234,7 @@
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(slot == slot_wear_suit)
+	if(slot == SLOT_HUD_OUTER_SUIT)
 		disguise(user)
 
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user)
@@ -644,7 +644,7 @@
 
 /obj/item/clothing/suit/straight_jacket/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
-	if(slot == slot_wear_suit)
+	if(slot == SLOT_HUD_OUTER_SUIT)
 		ADD_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
 
 /obj/item/clothing/suit/straight_jacket/dropped(mob/user, silent)
@@ -1107,7 +1107,7 @@
 	return ..()
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
-	if(!istype(H) || slot != slot_wear_suit)
+	if(!istype(H) || slot != SLOT_HUD_OUTER_SUIT)
 		STOP_PROCESSING(SSobj, src)
 		return
 	else

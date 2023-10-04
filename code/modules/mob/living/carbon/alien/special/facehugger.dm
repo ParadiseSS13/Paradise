@@ -138,7 +138,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
+		target.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
 			M.EyeBlind(impregnation_time + 2 SECONDS)

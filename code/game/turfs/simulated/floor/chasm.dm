@@ -161,6 +161,10 @@
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
 
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize()
+	. = ..()
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
+
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
 	//Make sure the item is still there after our sleep
 	if(!AM || QDELETED(AM))
