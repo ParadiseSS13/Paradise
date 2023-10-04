@@ -2,7 +2,7 @@ import { Flex, Icon, Dimmer } from '../../components';
 const PropTypes = require('prop-types');
 
 /**
- * Displays a beaker's contents
+ * Shows a spinner while a machine is processing
  * @property {object} props
  */
 export const Operating = (props) => {
