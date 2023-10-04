@@ -33,21 +33,23 @@
 		to_chat(user, "[failure_message]")
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/spawn_the_mob(mob/living/user, key, guardian_type)
-//	var/turf/user_turf = get_turf(user)
-//	var/mob/living/simple_animal/hostile/guardian/G = new mob_to_spawn(user_turf) TODO: make a simple mob subtype for flayers only
-/*	current_mobs |= G
-	G.summoned = TRUE
-	G.key = key
-	to_chat(G, "You are a [mob_name] bound to serve [user.real_name].") TODO: make these into one to_chat
-	to_chat(G, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
-	to_chat(G, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
-	to_chat(G, "[G.playstyle_string]")
-	to_chat(G, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Guardian)</span>")
-	G.faction = user.faction
+	var/turf/user_turf = get_turf(user)
+	var/mob/living/simple_animal/hostile/flayer/flayerbot = new mob_to_spawn(user_turf)
+	current_mobs += flayerbot
+	flayerbot.summoned = TRUE
+	flayerbot.key = key
+	to_chat(flayerbot, "You are a [mob_name] bound to serve [user.real_name].") //TODO: make these into one to_chat
+	to_chat(flayerbot, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
+	to_chat(flayerbot, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
+	to_chat(flayerbot, "[flayerbot.playstyle_string]")
+	to_chat(flayerbot, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Guardian)</span>")
 
 	var/color = pick(color_list)
-	G.name_color = color_list[color]
+	flayerbot.name_color = color_list[color]
 	var/picked_name = pick(name_list)
-	create_theme(G, user, picked_name, color)
+	create_theme(flayerbot, user, picked_name, color)
 	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]")
-*/
+
+/obj/effect/proc_holder/spell/flayer/summon/proc/deduct_mob_from_list(mob_to_remove)
+	SIGNAL_HANDLER
+	current_mobs -= mob_to_remove

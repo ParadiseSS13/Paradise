@@ -21,3 +21,9 @@
 	unique_pet = TRUE // No you are not naming your killer robot "Fluffy"
 	del_on_death = TRUE
 	AIStatus = AI_OFF
+	/// This is the reference to our master flayer
+	var/mob/living/carbon/human/flayer
+
+/mob/living/simple_animal/hostile/flayer/death(gibbed)
+	. = ..()
+	flayer.mind.
