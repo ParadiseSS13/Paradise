@@ -52,6 +52,7 @@
 #include "pixel_shift/_pixel_shift.dme"
 #include "radio_sound/radio_sound.dme"
 #include "screentip_change/_screentip_change.dme"
+#include "security_redalert_accesses/_security_redalert_accesses.dme"
 #include "smart_equip_targeted/_smart_equip_targeted.dme"
 #include "text_to_speech/_tts.dme"
 #include "title_screen/_title_screen.dme"
