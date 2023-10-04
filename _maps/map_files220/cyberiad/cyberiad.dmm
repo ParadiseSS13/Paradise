@@ -49750,11 +49750,13 @@
 /area/station/maintenance/asmaint2)
 "fqk" = (
 /obj/structure/table/glass/reinforced/plastitanium,
-/obj/item/storage/backpack/duffel/syndie/med/surgery_fake,
 /obj/item/instrument/bikehorn{
 	pixel_y = 12
 	},
 /obj/effect/decal/cleanable/dust,
+/obj/item/storage/firstaid/surgery{
+	icon_state = "duffel-syndimed"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
