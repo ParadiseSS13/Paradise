@@ -5942,7 +5942,7 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 8
 	},
-/obj/effect/spawner/window/reinforced/plasma,
+/obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/controlroom)
 "axI" = (
@@ -122694,15 +122694,15 @@ aaa
 abj
 atd
 atd
-axl
+hSu
 axH
-axl
-axl
+hSu
+hSu
 atd
 atd
-axl
-axl
-axl
+hSu
+hSu
+hSu
 axH
 atd
 aGZ
@@ -135269,7 +135269,7 @@ ajy
 iqm
 pHg
 iqm
-acC
+iqm
 adb
 iqm
 iqm
@@ -136297,7 +136297,7 @@ ajy
 iqm
 ahA
 iqm
-acC
+iqm
 adb
 iqm
 iqm
@@ -139895,7 +139895,7 @@ ajy
 iqm
 ahF
 iqm
-acC
+iqm
 adb
 iqm
 iqm

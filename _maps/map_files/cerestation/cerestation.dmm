@@ -80050,6 +80050,10 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
+"sCZ" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/public/quantum/science)
 "sDk" = (
 /obj/machinery/conveyor/auto{
 	dir = 8
@@ -125998,8 +126002,8 @@ ftr
 ccW
 ccW
 lyI
-fPc
-fPc
+sCZ
+sCZ
 lyI
 lyI
 oHv
