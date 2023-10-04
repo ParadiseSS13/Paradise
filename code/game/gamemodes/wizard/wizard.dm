@@ -101,7 +101,7 @@
 	var/list/messages = list()
 	if(you_are)
 		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
-	messages.Add("<B>The Space Wizards Federation has given you the following tasks:</B>")
+	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
 	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)</span>")

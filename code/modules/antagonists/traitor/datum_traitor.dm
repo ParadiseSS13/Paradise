@@ -165,7 +165,7 @@
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
 	var/list/messages = list()
-	messages.Add("<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
+	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
 	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
 	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
 

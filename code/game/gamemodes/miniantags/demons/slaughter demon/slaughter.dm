@@ -50,7 +50,7 @@
 	if(mind)
 		var/list/messages = list()
 		messages.Add(playstyle_string)
-		messages.Add("<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
+		messages.Add("<b><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></b>")
 		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 		if(!vialspawned)
 			SSticker.mode.traitors |= mind
