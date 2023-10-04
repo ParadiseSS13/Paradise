@@ -27,6 +27,7 @@
 #include "hydroponics/hydroponics.dme"
 #include "objects/_objects.dme"
 #include "sechailer/sechailer.dme"
+#include "spy_spider/_spy_spider.dme"
 #include "unique_objects/_unique_objects.dme"
 #include "vending/vending.dme"
 #include "wire_splicing/wiresplicing.dme"

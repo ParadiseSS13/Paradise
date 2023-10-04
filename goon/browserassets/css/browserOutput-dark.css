@@ -277,6 +277,7 @@ em				{font-style: normal;font-weight: bold;}
 .siliconsay			{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #e2c1ff;}
 .radio				{color: #20b142;}
+.spyradio 			{color: #776f96;} /* SS220 EDIT - ADDITION */
 .deptradio			{color: #993399;}
 .comradio			{color: #5F5CFF;}
 .syndradio			{color: #8f4a4b;}
