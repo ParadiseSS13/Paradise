@@ -328,7 +328,7 @@
 		return
 	if(!beaker)
 		return
-	beaker.loc = src.loc
+	beaker.forceMove(loc)
 	beaker = null
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
