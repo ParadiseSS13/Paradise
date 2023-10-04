@@ -113,7 +113,7 @@
 
 /obj/item/storage/lockbox/medal/cc
 	name = "central command medal box"
-	desc = "A locked box used to store ALL medals you could ever need."
+	desc = "A locked box used to store ALL the medals you could ever need."
 	max_combined_w_class = 30
 	storage_slots = 15
 	req_access = list(ACCESS_CENT_COMMANDER)
