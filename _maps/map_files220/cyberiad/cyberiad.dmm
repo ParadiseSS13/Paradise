@@ -8630,6 +8630,7 @@
 /obj/structure/closet/secure_closet/detective,
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
+/obj/item/storage/lockbox/spy_kit,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
