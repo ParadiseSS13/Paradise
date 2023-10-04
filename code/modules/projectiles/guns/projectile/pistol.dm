@@ -13,6 +13,7 @@
 	can_suppress = TRUE
 	burst_size = 1
 	fire_delay = 0
+	execution_speed = 4 SECONDS
 	actions_types = list()
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
