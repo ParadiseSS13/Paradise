@@ -740,7 +740,7 @@
 /datum/status_effect/bookwyrm
 	duration = BRAIN_DAMAGE_MOB_TIME
 	alert_type = null
-  
+
 /datum/status_effect/flayer_rejuv
 	duration = 5 SECONDS
 	tick_interval = 1 SECONDS
