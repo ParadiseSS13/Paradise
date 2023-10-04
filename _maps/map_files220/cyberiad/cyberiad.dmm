@@ -5990,9 +5990,15 @@
 /obj/structure/noticeboard{
 	pixel_y = -30
 	},
-/obj/item/reagent_containers/food/drinks/flask/detflask,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
+	},
+/obj/item/hand_labeler{
+	pixel_x = -4
+	},
+/obj/item/storage/box/evidence{
+	pixel_x = 14;
+	pixel_y = 2
 	},
 /turf/simulated/floor/wood,
 /area/station/security/detective)
@@ -9373,13 +9379,19 @@
 /obj/machinery/alarm/directional/south,
 /obj/structure/table/wood,
 /obj/item/paper_bin{
-	pixel_y = 4
+	pixel_y = 4;
+	pixel_x = -4
 	},
 /obj/item/pen/multi{
-	pixel_y = 9
+	pixel_y = 7;
+	pixel_x = -3
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
+	},
+/obj/item/reagent_containers/food/drinks/flask/detflask{
+	pixel_y = 4;
+	pixel_x = 10
 	},
 /turf/simulated/floor/wood,
 /area/station/security/detective)
@@ -9396,43 +9408,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/wood,
-/area/station/security/detective)
-"aJm" = (
-/obj/structure/table/wood,
-/obj/item/storage/photo_album{
-	pixel_y = -10
-	},
-/obj/item/camera_film,
-/obj/item/camera_film,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
-/obj/machinery/requests_console{
-	department = "Detective";
-	departmentType = 5;
-	name = "Detective Requests Console";
-	pixel_y = -30
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/station/security/detective)
-"aJn" = (
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/station/security/detective)
-"aJo" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
 /area/station/security/detective)
 "aJq" = (
 /obj/structure/table,
@@ -9718,53 +9693,6 @@
 	icon_state = "darkred"
 	},
 /area/station/hallway/primary/fore)
-"aKB" = (
-/obj/structure/table/wood,
-/obj/item/folder/red{
-	pixel_y = 3
-	},
-/obj/item/hand_labeler,
-/obj/item/storage/box/evidence,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/station/security/detective)
-"aKC" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/ai_status_display/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/station/security/detective)
-"aKD" = (
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_one_access_txt = "4"
-	},
-/obj/item/folder/red{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/folder/red{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/folder/red{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/folder/red,
-/obj/item/folder/red{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/machinery/light/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/station/security/detective)
 "aKE" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
@@ -50304,6 +50232,32 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
+"fwA" = (
+/obj/structure/table/wood,
+/obj/item/storage/photo_album,
+/obj/machinery/requests_console{
+	department = "Detective";
+	departmentType = 5;
+	name = "Detective Requests Console";
+	pixel_y = -30
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/item/camera_film{
+	pixel_y = 7
+	},
+/obj/item/camera_film{
+	pixel_y = 7
+	},
+/obj/item/camera{
+	desc = "A one use - polaroid camera. 30 photos left.";
+	name = "detectives camera";
+	pictures_left = 30;
+	pixel_y = 2
+	},
+/turf/simulated/floor/wood,
+/area/station/security/detective)
 "fwF" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/cable/yellow{
@@ -54423,6 +54377,16 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"gVt" = (
+/obj/structure/table/wood,
+/obj/machinery/microscope{
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/station/security/detective)
 "gVu" = (
 /obj/machinery/camera{
 	c_tag = "Research Hallway South";
@@ -59256,6 +59220,34 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
+"iKi" = (
+/obj/structure/closet/secure_closet{
+	anchored = 1;
+	name = "Evidence Storage";
+	req_one_access_txt = "4"
+	},
+/obj/item/folder/red{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/folder/red{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/folder/red{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/folder/red,
+/obj/item/folder/red{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/station/security/detective)
 "iKr" = (
 /obj/structure/table,
 /obj/item/trash/chips,
@@ -65836,6 +65828,13 @@
 	icon_state = "darkyellow"
 	},
 /area/station/engineering/supermatter_room)
+"lpF" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/ai_status_display/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/station/security/detective)
 "lpN" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowcorner"
@@ -76908,6 +76907,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
+"prR" = (
+/obj/machinery/dnaforensics,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/station/security/detective)
 "prX" = (
 /obj/structure/closet/secure_closet/cargotech,
 /turf/simulated/floor/plasteel{
@@ -82207,6 +82213,14 @@
 	icon_state = "dark"
 	},
 /area/station/science/genetics)
+"rtU" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/detective)
 "ruu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -131371,7 +131385,7 @@ aEp
 aFD
 iXs
 bIC
-aJm
+fwA
 axe
 avq
 aTm
@@ -131885,7 +131899,7 @@ taS
 aFG
 iGV
 xrI
-aJn
+prR
 axe
 axe
 aTm
@@ -132143,7 +132157,7 @@ aFE
 aGC
 aIb
 awG
-aKB
+gVt
 axe
 aTm
 aLP
@@ -132400,7 +132414,7 @@ axe
 aGF
 kIk
 qvP
-aKD
+iKi
 axe
 aTm
 aLP
@@ -132656,8 +132670,8 @@ ogL
 axe
 aGE
 oJZ
-aJo
-aKC
+rtU
+lpF
 axe
 aTm
 aOI

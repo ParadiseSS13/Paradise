@@ -38,6 +38,7 @@
 #include "crawl_speed/_crawl_speed.dme"
 #include "cyrillic_fixes/_cyrillic_fixes.dme"
 #include "debug/_debug.dme"
+#include "detective_rework/detective_rework.dme"
 #include "discord_link/_discord_link.dme"
 #include "donor/_donor.dme"
 #include "emotes/_emotes.dme"
