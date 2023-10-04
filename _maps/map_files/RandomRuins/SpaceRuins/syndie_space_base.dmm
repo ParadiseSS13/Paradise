@@ -603,6 +603,12 @@
 	icon_state = "whitepurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"gs" = (
+/obj/item/storage/box/monkeycubes/syndicate,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "gt" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/monkeycubes/syndicate,
@@ -705,14 +711,6 @@
 	c_tag = "Test Lab South";
 	network = list("SyndicateTestLab");
 	dir = 10
-	},
-/turf/simulated/floor/engine,
-/area/ruin/unpowered/syndicate_space_base/testlab)
-"hs" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Chamical Test Chamber APC";
-	pixel_y = -24
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
@@ -1112,7 +1110,7 @@
 "lw" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/space,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "lD" = (
 /obj/machinery/conveyor/east{
@@ -1288,12 +1286,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
-"nT" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = 24
-	},
-/turf/simulated/floor/engine,
-/area/ruin/unpowered/syndicate_space_base/testlab)
 "nW" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1382,12 +1374,12 @@
 "oM" = (
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/ruin/unpowered/syndicate_space_base/service)
+"pe" = (
+/turf/template_noop,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "pf" = (
 /turf/simulated/mineral/ancient/outer,
 /area/ruin/unpowered/syndicate_space_base/storage)
-"pg" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/inner)
 "ph" = (
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
@@ -1426,6 +1418,12 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
+"pr" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "pu" = (
 /obj/machinery/door/poddoor{
 	id_tag = "SSBtestchamber";
@@ -1510,6 +1508,12 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
+"pO" = (
+/obj/machinery/monkey_recycler,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "pP" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
@@ -1547,17 +1551,6 @@
 /obj/structure/foamedmetal,
 /turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/testlab)
-"qY" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Toxins Launch APC";
-	shock_proof = 1;
-	pixel_x = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "qZ" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 8
@@ -1857,9 +1850,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/telecomms)
-"ve" = (
-/turf/simulated/mineral/ancient/outer,
-/area/ruin/unpowered/syndicate_space_base/inner)
 "vf" = (
 /obj/machinery/seed_extractor,
 /obj/structure/window/reinforced,
@@ -1935,17 +1925,6 @@
 	icon_state = "whiteblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
-"vS" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Dominatories APC";
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
-/area/ruin/unpowered/syndicate_space_base/dormitories)
 "vT" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -2156,17 +2135,17 @@
 	dir = 4
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
-"zq" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
+"zs" = (
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Dominatories APC";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
+	dir = 1;
+	icon_state = "darkblue"
 	},
-/area/ruin/unpowered/syndicate_space_base/storage)
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "zw" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -2359,9 +2338,6 @@
 "AV" = (
 /turf/template_noop,
 /area/template_noop)
-"AW" = (
-/turf/template_noop,
-/area/ruin/unpowered/syndicate_space_base/inner)
 "AY" = (
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
@@ -2381,6 +2357,13 @@
 	icon_state = "darkredcorners"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
+"Bj" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Br" = (
 /obj/machinery/computer/pandemic,
 /turf/simulated/floor/plasteel{
@@ -2574,6 +2557,17 @@
 "Eb" = (
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"Ec" = (
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Toxins Launch APC";
+	shock_proof = 1;
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "Ed" = (
 /obj/structure/closet/crate/secure/gear{
 	req_access_txt = "150"
@@ -2854,12 +2848,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"Gw" = (
-/obj/machinery/door/airlock/hatch/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/dormitories)
 "Gz" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -2907,10 +2895,6 @@
 	icon_state = "darkred"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
-"GP" = (
-/obj/effect/spawner/random_spawners/syndicate/turret/external/always,
-/turf/simulated/floor/vault,
-/area/ruin/unpowered/syndicate_space_base/inner)
 "GX" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
@@ -2918,6 +2902,10 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
+"GZ" = (
+/obj/effect/spawner/random_spawners/syndicate/turret/external/always,
+/turf/simulated/floor/vault,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "Ho" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -2939,6 +2927,17 @@
 /obj/machinery/light,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
+"Hx" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/ruin/unpowered/syndicate_space_base/storage)
 "HB" = (
 /obj/structure/rack{
 	dir = 8
@@ -3066,6 +3065,14 @@
 	icon_state = "darkred"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
+"IF" = (
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Chamical Test Chamber APC";
+	pixel_y = -24
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_space_base/testlab)
 "II" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel{
@@ -3076,6 +3083,12 @@
 "IJ" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"IO" = (
+/obj/machinery/alarm/syndicate{
+	pixel_y = 24
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_space_base/testlab)
 "IT" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -3159,12 +3172,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
-"JD" = (
-/obj/machinery/monkey_recycler,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "JF" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplecorners"
@@ -3241,13 +3248,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
-"KW" = (
-/obj/machinery/door/airlock/hatch/syndicate,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "KZ" = (
 /obj/machinery/disposal,
 /turf/simulated/floor/wood,
@@ -3356,6 +3356,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"MN" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "MX" = (
 /obj/structure/closet/crate/medical,
 /obj/item/clothing/mask/breath/medical,
@@ -3380,16 +3390,6 @@
 /obj/machinery/atmospherics/meter,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
-"Nk" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Nm" = (
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -3
@@ -3602,6 +3602,9 @@
 	icon_state = "brown"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
+"Qk" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "Qp" = (
 /obj/structure/dispenser,
 /obj/machinery/light,
@@ -3669,6 +3672,13 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
+"Ro" = (
+/mob/living/simple_animal/bot/ed209/syndicate,
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Ru" = (
 /obj/machinery/atmospherics/binary/pump/on{
 	name = "Air To Distro";
@@ -3920,6 +3930,9 @@
 	icon_state = "darkredcorners"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
+"UT" = (
+/turf/simulated/mineral/ancient/outer,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "UV" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -4147,15 +4160,6 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
-"WX" = (
-/turf/simulated/mineral,
-/area/ruin/unpowered/syndicate_space_base/outer)
-"WZ" = (
-/obj/item/storage/box/monkeycubes/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Xa" = (
 /obj/structure/disposaloutlet{
 	dir = 1
@@ -4218,6 +4222,9 @@
 "XR" = (
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
+"XT" = (
+/turf/simulated/mineral,
+/area/ruin/unpowered/syndicate_space_base/outer)
 "XW" = (
 /obj/machinery/light{
 	dir = 8
@@ -4636,7 +4643,7 @@ kE
 Ri
 kE
 kE
-WX
+XT
 Ri
 kE
 kE
@@ -5358,7 +5365,7 @@ uU
 eW
 iW
 eW
-nT
+IO
 XR
 XR
 XR
@@ -5366,7 +5373,7 @@ HP
 XR
 XR
 XR
-hs
+IF
 eW
 iW
 eW
@@ -5853,7 +5860,7 @@ xn
 xn
 am
 am
-am
+Ro
 xn
 xn
 xn
@@ -5997,9 +6004,9 @@ Gi
 am
 am
 am
-Nk
+MN
 am
-WZ
+gs
 am
 Gi
 am
@@ -6070,7 +6077,7 @@ Dy
 OC
 Dy
 Dy
-JD
+pO
 am
 am
 IJ
@@ -6462,7 +6469,7 @@ GX
 nw
 FP
 nw
-qY
+Ec
 Vr
 IX
 kE
@@ -6600,8 +6607,8 @@ zR
 YR
 ZS
 Gg
-ve
-ve
+UT
+UT
 IX
 gX
 mJ
@@ -6672,8 +6679,8 @@ Gg
 lT
 Gg
 Gg
-ve
-ve
+UT
+UT
 IX
 IX
 IX
@@ -7035,12 +7042,12 @@ Ri
 Ri
 Ri
 if
-AW
+pe
 if
-ve
-pg
+UT
+Qk
 Di
-pg
+Qk
 Lk
 AD
 Mf
@@ -7107,7 +7114,7 @@ Ri
 Ri
 if
 if
-AW
+pe
 if
 if
 FZ
@@ -7179,8 +7186,8 @@ Ri
 Ri
 if
 if
-AW
-AW
+pe
+pe
 if
 FZ
 ph
@@ -7250,9 +7257,9 @@ Ri
 Ri
 Ri
 if
-AW
-AW
-AW
+pe
+pe
+pe
 if
 FZ
 ph
@@ -7322,13 +7329,13 @@ Ri
 Ri
 if
 if
-AW
-AW
-AW
+pe
+pe
+pe
 if
 FZ
 ph
-pg
+Qk
 kE
 Mf
 AD
@@ -7393,14 +7400,14 @@ Ri
 Ri
 Ri
 if
-GP
-AW
-AW
-AW
+GZ
+pe
+pe
+pe
 if
 FZ
 ph
-pg
+Qk
 kE
 AD
 Mf
@@ -7465,14 +7472,14 @@ Ri
 Ri
 if
 if
-AW
-AW
-AW
-AW
+pe
+pe
+pe
+pe
 if
 FZ
 ph
-pg
+Qk
 kE
 kE
 AD
@@ -7538,13 +7545,13 @@ Ri
 if
 if
 if
-AW
-AW
+pe
+pe
 if
 if
 FZ
 ph
-pg
+Qk
 kE
 kE
 Mf
@@ -7611,12 +7618,12 @@ Ri
 if
 if
 if
-AW
+pe
 if
 if
 FZ
 ph
-pg
+Qk
 kE
 AD
 AD
@@ -7683,12 +7690,12 @@ Ri
 Ri
 Ri
 if
-AW
+pe
 if
-ve
-pg
+UT
+Qk
 Di
-pg
+Qk
 kE
 kE
 AD
@@ -7928,12 +7935,12 @@ AD
 kE
 kE
 az
-vS
+zs
 Tu
 ol
 tD
 DL
-Gw
+pr
 am
 am
 am
@@ -8005,7 +8012,7 @@ cY
 bY
 vG
 DL
-Gw
+pr
 am
 am
 am
@@ -8015,7 +8022,7 @@ Hr
 at
 PU
 PU
-zq
+Hx
 Vh
 OR
 AQ
@@ -8090,8 +8097,8 @@ an
 OR
 OR
 OR
-KW
-KW
+Bj
+Bj
 PL
 PL
 PL
