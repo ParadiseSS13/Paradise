@@ -1158,12 +1158,10 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return 1
 
-/proc/is_hot(obj/item/W as obj)
-	if(W.tool_behaviour == TOOL_WELDER)
-		if(W.tool_enabled)
-			return 2500
-		else
-			return 0
+/obj/item/proc/is_hot(obj/item/W)
+	if(istype(W, /obj/item/weldingtool) && W.tool_enabled)
+		return 2500
+
 	if(istype(W, /obj/item/lighter))
 		var/obj/item/lighter/O = W
 		if(O.lit)
