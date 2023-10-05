@@ -25,13 +25,15 @@
 		"token" = token,
 		"ckey" = ckey
 		))
+
 	if(!query_replace_token.warn_execute())
 		to_chat(usr, span_warning("Ошибка записи токена в БД! Обратитесь к администрации."))
 		log_debug("link_discord_account: failed db update discord_id for ckey [ckey]")
 		qdel(query_replace_token)
 		return
+
 	qdel(query_replace_token)
-	prefs?.load_preferences(usr)
+	to_chat(usr, span_darkmblue("Для завершения используйте команду ") + span_boldannounce("/привязать") + span_darkmblue(" и токен \"[token]\" в канале <b>#дом-бота</b> в Discord-сообществе!"))
 
 /mob/new_player/Topic(href, href_list)
 	if(src != usr)
@@ -42,9 +44,11 @@
 
 	if(href_list["observe"] || href_list["ready"] || href_list["late_join"])
 		if (GLOB.configuration.database.enabled && !client.prefs.discord_id)
-			to_chat(usr, span_danger("Вам необходимо привязать дискорд-профиль к аккаунту!"))
-			to_chat(usr, span_warning("Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций."))
-			return FALSE
+			client.prefs.get_discord_id()
+			if(!client.prefs.discord_id)
+				to_chat(usr, span_danger("Вам необходимо привязать дискорд-профиль к аккаунту!"))
+				to_chat(usr, span_warning("Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций."))
+				return FALSE
 
 	. = ..()
 
