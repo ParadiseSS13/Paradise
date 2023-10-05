@@ -564,11 +564,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/proc/give_kit(obj/item/item_path)
 	var/I = new item_path
 	var/list/slots = list(
-		"backpack" = slot_in_backpack,
-		"left pocket" = slot_l_store,
-		"right pocket" = slot_r_store,
-		"left hand" = slot_l_hand,
-		"right hand" = slot_r_hand,
+		"backpack" = SLOT_HUD_IN_BACKPACK,
+		"left pocket" = SLOT_HUD_LEFT_STORE,
+		"right pocket" = SLOT_HUD_RIGHT_STORE,
+		"left hand" = SLOT_HUD_LEFT_HAND,
+		"right hand" = SLOT_HUD_RIGHT_HAND,
 	)
 	for(var/datum/mind/M in get_owners())
 		var/mob/living/carbon/human/H = M.current

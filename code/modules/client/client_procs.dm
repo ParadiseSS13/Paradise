@@ -964,9 +964,6 @@
 	/* Rpane */
 	winset(src, "rpane", "background-color=#202020")
 	winset(src, "rpane.rpanewindow", "background-color=#202020")
-	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=#171717")
-	winset(src, "browserwindow.browser", "background-color=#171717")
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
 	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
@@ -998,9 +995,6 @@
 	/* Rpane */
 	winset(src, "rpane", "background-color=none")
 	winset(src, "rpane.rpanewindow", "background-color=none")
-	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=none")
-	winset(src, "browserwindow.browser", "background-color=none")
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=none;text-color=#000000")
 	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")

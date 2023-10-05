@@ -139,8 +139,11 @@
 
 		SStgui.on_transfer(current, new_character)
 
+		new_character.job = current.job //transfer our job over to the new body
+
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
+
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
@@ -149,10 +152,12 @@
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 	if(martial_art)
-		if(martial_art.temporary)
-			martial_art.remove(current)
-		else
-			martial_art.teach(current)
+		for(var/datum/martial_art/MA in known_martial_arts)
+			if(MA.temporary)
+				MA.remove(current)
+			else
+				MA.remove(current)
+				MA.teach(current)
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
