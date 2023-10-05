@@ -33,6 +33,7 @@
 #include "wire_splicing/wiresplicing.dme"
 
 // --- MISC --- //
+#include "administration/_administration.dme"
 #include "aesthetics_sounds/_aesthetics_sounds.dme"
 #include "balance/_balance.dme"
 #include "bureaucracy/_bureaucracy.dme"
