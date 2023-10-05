@@ -149,6 +149,10 @@
 			continue // These are not valid objectives to add.
 		GLOB.admin_objective_list[initial(O.name)] = path
 
+	for(var/path in subtypesof(/datum/tech))
+		var/datum/tech/T = path
+		GLOB.rnd_tech_id_to_name[initial(T.id)] = initial(T.name)
+
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
 

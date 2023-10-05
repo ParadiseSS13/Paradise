@@ -66,3 +66,6 @@ GLOBAL_LIST_EMPTY(blurb_witnesses)
 
 /// List of looping sounds
 GLOBAL_LIST_EMPTY(looping_sounds)
+
+/// Assoc list of all RND techs with ID to name
+GLOBAL_LIST_EMPTY(rnd_tech_id_to_name)
