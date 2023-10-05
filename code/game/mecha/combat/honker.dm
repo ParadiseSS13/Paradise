@@ -53,7 +53,7 @@
 	return output
 
 /obj/mecha/combat/honker/get_stats_html()
-	var/output = {"<html>
+	var/output = {"<html><meta charset='utf-8'>
 						<head><title>[name] data</title>
 						<style>
 						body {color: #00ff00; background: #32CD32; font-family:"Courier",monospace; font-size: 12px;}
