@@ -87,7 +87,7 @@
 	owner.current.visible_message("<span class='danger'>[owner.current] puts [owner.current.p_their()] fingers on [H]'s [drained_brain.parent_organ] and begins harvesting their brain!</span>", "<span class='sinister'>We begin our harvest on [H]</span>", "<span class='notice'>You hear the hum of electricity.</span>")
 	while(do_mob(owner.current, H, time = DRAIN_TIME, progress = FALSE) && check_valid_harvest(H))
 		H.Beam(owner.current, icon_state = "drain_life", icon ='icons/effects/effects.dmi', time = DRAIN_TIME)
-		var/damage_to_deal = (1/2 * drain_multiplier * H.dna.species.brain_mod) // Change that first fraction for adjusting the balance of how much damage it deals
+		var/damage_to_deal = (1/2 * drain_multiplier * H.dna.species.brain_mod) // Change that first fraction for adjusting the balance of how much damage per tick there is
 		H.adjustBrainLoss(damage_to_deal, use_brain_mod = FALSE)
 		adjust_swarms(damage_to_deal)
 		drained_humans[unique_drain_id] += damage_to_deal
@@ -105,7 +105,7 @@
 	to_chat(owner.current, dat)
 
 /**
- * Gets a list of mind flayer spell and passive typepaths based on the passed in `power_type`. (Thanks for the code Steelslayer)
+ * Gets a list of mind flayer spell and passive typepaths based on the passed in `power_type`. (Thanks for the code SteelSlayer)
  *
  * Arguments:
  * * power_type - should be a define related to [/obj/effect/proc_holder/spell/flayer/power_type].
@@ -171,7 +171,10 @@
 		passive.on_remove(src)
 		qdel(passive)
 	powers -= spell
-
+/**
+* * Arguments: path - Some path to a passive or spell, either datum/mindflayer_passive or obj/effect/proc_holder/spell
+* * Returns: A matching power in the mind flayer's list of powers
+*/
 /datum/antagonist/mindflayer/proc/get_ability(path)
 	for(var/power as anything in powers)
 		if(istype(power, path))
