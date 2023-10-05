@@ -4564,7 +4564,7 @@
 /obj/machinery/turretid/syndicate{
 	pixel_y = -24;
 	name = "Caves Turret Control Panel";
-	control_area = SyndicateSpaceBaseCave;
+	control_area = Syndicate Space Base Cave;
 	req_access_txt = "150"
 	},
 /obj/structure/chair{
@@ -5738,6 +5738,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"Un" = (
+/obj/machinery/turretid/syndicate{
+	pixel_y = -24;
+	name = "Caves Turret Control Panel";
+	control_area = Syndicate Space Base Cave;
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/cave)
 "Uu" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -9745,7 +9754,7 @@ PL
 am
 am
 RX
-AD
+Un
 kE
 AD
 kE
