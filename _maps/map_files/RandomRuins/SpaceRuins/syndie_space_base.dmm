@@ -496,13 +496,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "cS" = (
-/obj/machinery/camera{
-	c_tag = "Toxins Chamber South";
-	network = list("SyndicateToxinsTest");
-	dir = 10
+/obj/machinery/chem_dispenser/upgraded,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/floor/engine,
-/area/ruin/unpowered/syndicate_space_base/toxtest)
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "cU" = (
 /obj/structure/bookcase/random,
 /obj/effect/turf_decal/woodsiding{
@@ -2180,9 +2178,7 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "ml" = (
 /obj/effect/decal/warning_stripes/white,
-/obj/machinery/atmospherics/portable/canister/air{
-	anchored = 1
-	},
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "mq" = (
@@ -2522,6 +2518,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
+"nT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "nW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2805,6 +2810,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"pQ" = (
+/obj/machinery/camera/xray{
+	dir = 8;
+	c_tag = "Toxins Chamber East";
+	network = list("SyndicateToxinsTest")
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "pS" = (
 /turf/space,
 /area/ruin/unpowered/syndicate_space_base/atmos)
@@ -3069,6 +3082,17 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"rS" = (
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/decal/warning_stripes/blue,
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "rW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3449,13 +3473,7 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "uB" = (
-/obj/machinery/light_switch{
-	dir = 1;
-	pixel_y = -24;
-	name = "south bump"
-	},
-/obj/machinery/atmospherics/portable/scrubber,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/dispenser,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4203,6 +4221,13 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"yC" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'BOMB RANGE";
+	name = "BOMB RANGE"
+	},
+/turf/simulated/wall/indestructible/syndicate,
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "yD" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -4231,11 +4256,7 @@
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
 "za" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
+/obj/structure/dispenser,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "zb" = (
@@ -4519,6 +4540,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"Ao" = (
+/obj/structure/dispenser,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "Ap" = (
 /obj/machinery/computer/security/telescreen{
 	desc = "Used for watching the test chamber.";
@@ -5632,12 +5657,14 @@
 	pixel_y = -3
 	},
 /obj/item/stack/cable_coil,
-/obj/item/analyzer{
-	pixel_x = -5;
-	pixel_y = 5
-	},
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
 /obj/item/taperecorder{
 	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/analyzer{
+	pixel_x = -5;
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -6100,6 +6127,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
+"Jo" = (
+/obj/machinery/camera/xray{
+	dir = 10;
+	c_tag = "Toxins Chamber South";
+	network = list("SyndicateToxinsTest")
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "Jr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -6266,11 +6301,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Kh" = (
-/obj/machinery/camera{
-	c_tag = "Toxins Chamber North";
-	network = list("SyndicateToxinsTest")
-	},
-/turf/simulated/floor/engine,
+/turf/simulated/wall/indestructible/opsglass,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "Km" = (
 /obj/machinery/autolathe/syndicate,
@@ -6718,6 +6749,14 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
+"Nw" = (
+/obj/machinery/camera/xray{
+	c_tag = "Toxins Chamber West";
+	network = list("SyndicateToxinsTest");
+	dir = 4
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "NI" = (
 /obj/structure/reagent_dispensers/spacecleanertank{
 	pixel_y = 30
@@ -6871,10 +6910,9 @@
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
 "OK" = (
-/obj/machinery/camera{
-	c_tag = "Toxins Chamber East";
-	network = list("SyndicateToxinsTest");
-	dir = 9
+/obj/machinery/camera/xray{
+	c_tag = "Toxins Chamber North";
+	network = list("SyndicateToxinsTest")
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
@@ -7090,8 +7128,12 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "Qp" = (
-/obj/structure/dispenser,
 /obj/machinery/light,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "Qr" = (
@@ -7797,6 +7839,17 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "TW" = (
 /obj/structure/table,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8008,16 +8061,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "Vl" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/camera{
-	c_tag = "Toxins Chamber West";
-	network = list("SyndicateToxinsTest");
-	dir = 5
-	},
-/turf/simulated/floor/engine,
+/turf/simulated/wall/indestructible/syndicate,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "Vr" = (
-/obj/machinery/economy/vending/plasmaresearch,
+/obj/machinery/economy/vending/syndichem,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9940,7 +9987,7 @@ BZ
 NQ
 PA
 NQ
-NQ
+Ao
 tG
 kE
 kE
@@ -10585,7 +10632,7 @@ Gg
 am
 Mw
 IX
-EV
+rS
 EV
 hA
 oe
@@ -11090,7 +11137,7 @@ QM
 QM
 IX
 gX
-nw
+cS
 NS
 nw
 TW
@@ -12166,9 +12213,9 @@ kE
 kE
 Ri
 Ri
-Ri
-Ri
-if
+Vl
+Vl
+Vl
 dA
 if
 QM
@@ -12238,13 +12285,13 @@ kE
 kE
 kE
 Ri
-xW
-xW
-xW
+Vl
+Nw
+Vl
 cH
-xW
-xW
-Id
+Vl
+Vl
+yC
 ph
 Id
 kE
@@ -12308,17 +12355,17 @@ kE
 kE
 kE
 kE
-xW
-xW
-xW
-nv
+Vl
+Vl
+Vl
+Kh
 Vl
 nv
-TD
+nT
 nv
-xW
+Vl
 pk
-xW
+Vl
 kE
 kE
 kE
@@ -12379,19 +12426,19 @@ AD
 kE
 kE
 kE
-xW
-xW
-nv
+Vl
+Vl
 iy
+nv
 nv
 qv
 nv
 TD
 nv
-iy
 nv
-xW
-xW
+nv
+Vl
+Vl
 kE
 kE
 AD
@@ -12450,8 +12497,8 @@ Mf
 kE
 kE
 kE
-xW
-xW
+Vl
+Vl
 nv
 nv
 nv
@@ -12463,8 +12510,8 @@ nv
 nv
 nv
 nv
-xW
-xW
+Vl
+Vl
 By
 Mf
 AD
@@ -12522,8 +12569,8 @@ AD
 kE
 kE
 kE
-xW
-nv
+Vl
+uJ
 nv
 nv
 nv
@@ -12535,8 +12582,8 @@ nv
 nv
 nv
 nv
-nv
-xW
+qT
+Vl
 kE
 kE
 AD
@@ -12593,9 +12640,9 @@ Mf
 AD
 kE
 kE
-xW
-xW
-uJ
+Vl
+Vl
+nv
 nv
 nv
 nv
@@ -12607,9 +12654,9 @@ nv
 nv
 nv
 nv
-qT
-xW
-xW
+nv
+Vl
+Vl
 kE
 kE
 Mf
@@ -12665,8 +12712,8 @@ Mf
 AD
 kE
 kE
-xW
-nv
+Vl
+uJ
 nv
 nv
 nv
@@ -12680,8 +12727,8 @@ nv
 nv
 nv
 nv
-nv
-xW
+qT
+Vl
 kE
 kE
 kE
@@ -12736,9 +12783,9 @@ Mf
 AD
 kE
 kE
-kE
-xW
-nv
+Vl
+Vl
+Vl
 nv
 nv
 nv
@@ -12752,9 +12799,9 @@ nv
 nv
 nv
 nv
-nv
-xW
-kE
+Vl
+Vl
+Vl
 kE
 kE
 kE
@@ -12808,8 +12855,8 @@ AD
 kE
 kE
 kE
-kE
-xW
+Vl
+OK
 Kh
 nv
 nv
@@ -12824,9 +12871,9 @@ nv
 nv
 nv
 nv
-cS
-xW
-kE
+Kh
+Jo
+Vl
 kE
 kE
 kE
@@ -12880,9 +12927,9 @@ AD
 kE
 kE
 kE
-kE
-xW
-nv
+Vl
+Vl
+Vl
 nv
 nv
 nv
@@ -12896,9 +12943,9 @@ nv
 nv
 nv
 nv
-nv
-xW
-kE
+Vl
+Vl
+Vl
 kE
 kE
 kE
@@ -12953,8 +13000,8 @@ kE
 kE
 kE
 kE
-xW
-nv
+Vl
+uJ
 nv
 nv
 nv
@@ -12968,8 +13015,8 @@ nv
 nv
 nv
 nv
-nv
-xW
+qT
+Vl
 kE
 kE
 Ri
@@ -13025,9 +13072,8 @@ AD
 kE
 kE
 kE
-xW
-xW
-uJ
+Vl
+Vl
 nv
 nv
 nv
@@ -13039,9 +13085,10 @@ nv
 nv
 nv
 nv
-qT
-xW
-xW
+nv
+nv
+Vl
+Vl
 kE
 kE
 kE
@@ -13098,7 +13145,8 @@ kE
 kE
 kE
 kE
-xW
+Vl
+uJ
 nv
 nv
 nv
@@ -13110,9 +13158,8 @@ nv
 nv
 nv
 nv
-nv
-nv
-xW
+qT
+Vl
 kE
 kE
 kE
@@ -13170,8 +13217,8 @@ kE
 kE
 kE
 kE
-xW
-xW
+Vl
+Vl
 nv
 nv
 nv
@@ -13183,8 +13230,8 @@ nv
 nv
 nv
 nv
-xW
-xW
+Vl
+Vl
 kE
 kE
 kE
@@ -13243,19 +13290,19 @@ kE
 kE
 kE
 kE
-xW
-xW
-nv
+Vl
+Vl
 rw
 nv
 nv
 nv
 nv
 nv
-rw
 nv
-xW
-xW
+nv
+rw
+Vl
+Vl
 kE
 kE
 kE
@@ -13316,17 +13363,17 @@ kE
 kE
 kE
 kE
-xW
-xW
-xW
-nv
-nv
-OK
-nv
-nv
-xW
-xW
-xW
+Vl
+Vl
+Vl
+rw
+Vl
+Kh
+Vl
+rw
+Vl
+Vl
+Vl
 kE
 kE
 kE
@@ -13390,13 +13437,13 @@ kE
 kE
 kE
 kE
-xW
-xW
-xW
-xW
-xW
-xW
-xW
+Vl
+Vl
+Vl
+pQ
+Vl
+Vl
+Vl
 kE
 kE
 kE
@@ -13464,9 +13511,9 @@ kE
 kE
 kE
 kE
-kE
-kE
-kE
+Vl
+Vl
+Vl
 kE
 kE
 kE
