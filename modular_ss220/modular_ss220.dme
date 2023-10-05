@@ -47,6 +47,7 @@
 #include "fullscreen/_fullscreen.dme"
 #include "gunhud/_gunhud.dme"
 #include "jobs/_jobs.dme"
+#include "jukebox/_jukebox.dme"
 #include "keybindings/_keybindings.dme"
 #include "loadout/_loadout.dme"
 #include "logs/_logs.dme"
