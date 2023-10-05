@@ -22,6 +22,3 @@
 	name = "raw xenomorph patty"
 	patty_type = /obj/item/reagent_containers/food/snacks/patty/xeno
 	tastes = list("meat" = 1, "acid" = 1)
-
-
-
