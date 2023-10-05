@@ -18,7 +18,7 @@
 				C.donator_level = 3
 			if(2220 to 9999)
 				C.donator_level = 4
-			if(1000 to INFINITY)
+			if(10000 to INFINITY)
 				C.donator_level = DONATOR_LEVEL_MAX
 		C.donor_loadout_points()
 
