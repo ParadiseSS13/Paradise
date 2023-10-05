@@ -72,3 +72,11 @@
 /area/ruin/unpowered/syndicate_space_base/outer
 	name = "Syndicate Space Base Outer Asteroid"
 	icon_state = "unexplored"
+
+/area/ruin/unpowered/syndicate_space_base/genetics
+	name = "Syndicate Space Base Genetics Lab"
+	icon_state = "genetics"
+
+/area/ruin/unpowered/syndicate_space_base/control
+	name = "Syndicate Space Base Control Room"
+	icon_state = "observatory"

@@ -143,21 +143,6 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
-"bi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW6";
-	location = "SBW5"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/dormitories)
 "bk" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -195,21 +180,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
-"bC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW7";
-	location = "SBW6"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/dormitories)
 "bI" = (
 /obj/item/stack/sheet/glass/fifty{
 	pixel_x = 5;
@@ -284,7 +254,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/engine,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "bU" = (
 /obj/machinery/light{
@@ -304,6 +276,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW3";
+	location = "SBW2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -314,15 +290,6 @@
 	icon_state = "asteroidplating"
 	},
 /area/ruin/unpowered/syndicate_space_base/cave)
-"ch" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW2";
-	location = "SBW1"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/arrivals)
 "cl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -370,7 +337,7 @@
 	icon_state = "darkgreen";
 	dir = 4
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "cB" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -409,6 +376,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"cM" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "cP" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
@@ -522,7 +497,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/control)
 "dH" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/item/cultivator,
@@ -624,10 +599,6 @@
 	icon_state = "yellow"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
-"eq" = (
-/obj/machinery/porta_turret/syndicate/exterior,
-/turf/simulated/floor/vault,
-/area/ruin/unpowered/syndicate_space_base/inner)
 "es" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
@@ -636,11 +607,14 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "eD" = (
 /obj/machinery/dna_scannernew,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkgreen"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "eL" = (
 /obj/machinery/ignition_switch{
 	id = "syndbaseigniter";
@@ -748,11 +722,14 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "fo" = (
 /obj/machinery/dna_scannernew,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkgreen"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "fp" = (
 /obj/machinery/light{
 	dir = 4
@@ -766,7 +743,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "ft" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -812,6 +789,12 @@
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-4"
+	},
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Engine APC";
+	shock_proof = 1;
+	pixel_x = -24
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -912,8 +895,8 @@
 	dir = 8
 	},
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW3";
-	location = "SBW2"
+	codes_txt = "patrol;next_patrol=SBW2";
+	location = "SBW1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -954,11 +937,15 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "gQ" = (
+/obj/machinery/alarm/syndicate{
+	name = "Syndie North Air Alarm";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 1
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "gR" = (
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
@@ -1058,6 +1045,16 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
+"hM" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1233,6 +1230,10 @@
 	},
 /obj/item/reagent_containers/spray/cleaner/advanced,
 /obj/item/reagent_containers/spray/cleaner/advanced,
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1315,7 +1316,7 @@
 	icon_state = "darkgreen";
 	dir = 8
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "jl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1332,13 +1333,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
 "jC" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW9";
-	location = "SBW8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/machinery/mech_bay_recharge_port,
+/turf/simulated/floor/redgrid,
 /area/ruin/unpowered/syndicate_space_base/main)
 "jH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1520,6 +1516,11 @@
 	pixel_y = 5
 	},
 /obj/item/stack/sheet/metal/fifty,
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -1552,7 +1553,7 @@
 /obj/item/clothing/glasses/science,
 /obj/structure/table/glass,
 /obj/machinery/light{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1581,18 +1582,21 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
-"lx" = (
-/mob/living/simple_animal/bot/ed209/syndicate,
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "lD" = (
 /obj/machinery/conveyor/east{
 	id = "syndiegarbage"
 	},
 /obj/machinery/recycler,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
+"lF" = (
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Arrivals APC";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1702,7 +1706,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "mJ" = (
 /obj/machinery/light{
 	dir = 4
@@ -1783,6 +1787,10 @@
 "nf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1930,6 +1938,20 @@
 	icon_state = "darkpurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"nZ" = (
+/obj/structure/rack{
+	dir = 8
+	},
+/obj/effect/landmark/costume/random,
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "oe" = (
 /obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
@@ -1984,6 +2006,11 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "oE" = (
 /obj/machinery/disposal,
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"
@@ -2000,12 +2027,23 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"pd" = (
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/decal/warning_stripes/blue,
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "pf" = (
 /turf/simulated/mineral/ancient/outer,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "ph" = (
 /turf/simulated/floor/catwalk,
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "pk" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/catwalk,
@@ -2044,19 +2082,10 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "pu" = (
-/obj/machinery/door/poddoor{
-	id_tag = "SSBtestchamber";
-	name = "Syndicate Test Lab Blast Door"
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/obj/structure/fans/tiny,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/template_noop,
-/area/ruin/unpowered/syndicate_space_base/testlab)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "pA" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -2147,11 +2176,14 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "pV" = (
 /obj/machinery/dna_scannernew,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "qf" = (
 /obj/machinery/economy/arcade/claw,
 /turf/simulated/floor/plasteel{
@@ -2226,6 +2258,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "rc" = (
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -2240,9 +2275,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"rp" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/template_noop)
 "rq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -2254,6 +2286,14 @@
 /obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"rs" = (
+/obj/machinery/hydroponics/constructable,
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/grass,
+/area/ruin/unpowered/syndicate_space_base/service)
 "rt" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/atmos)
@@ -2308,6 +2348,22 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"rW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "rX" = (
 /obj/machinery/prize_counter,
 /turf/simulated/floor/plasteel{
@@ -2389,14 +2445,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "sX" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW13";
-	location = "SBW12"
-	},
+/obj/effect/decal/warning_stripes/red/hollow,
+/mob/living/simple_animal/bot/ed209/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2404,6 +2454,10 @@
 "tb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2501,6 +2555,12 @@
 /obj/structure/sign/poster/official/high_class_martini,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/service)
+"tP" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "tR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2525,6 +2585,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"uk" = (
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
+/turf/simulated/floor/engine,
+/area/ruin/unpowered/syndicate_space_base/testlab)
 "um" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
@@ -2587,8 +2655,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW12";
-	location = "SBW11"
+	codes_txt = "patrol;next_patrol=SBW6";
+	location = "SBW5"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2614,6 +2682,20 @@
 	icon_state = "brown"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
+"uN" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "uU" = (
 /obj/structure/foamedmetal,
 /turf/simulated/floor/engine,
@@ -2637,10 +2719,15 @@
 /obj/structure/sign/poster/official/here_for_your_safety{
 	pixel_x = 32
 	},
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Control Room APC";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/control)
 "va" = (
 /obj/machinery/light{
 	dir = 1
@@ -2652,6 +2739,11 @@
 /obj/item/pen,
 /obj/item/paper_bin,
 /obj/item/stamp/syndicate,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2837,6 +2929,14 @@
 	icon_state = "brown"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
+"wb" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "wd" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -2880,11 +2980,14 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "wv" = (
 /obj/machinery/dna_scannernew,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgreen"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "wz" = (
 /obj/machinery/atmospherics/binary/circulator,
 /turf/simulated/floor/plating,
@@ -2907,12 +3010,27 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "wK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW5";
+	location = "SBW4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/main)
 "wL" = (
 /obj/structure/table,
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3078,6 +3196,15 @@
 /obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"yL" = (
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "yR" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
@@ -3111,15 +3238,26 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW17";
-	location = "SBW16"
+	codes_txt = "patrol;next_patrol=SBW8";
+	location = "SBW7"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"zh" = (
+/obj/effect/decal/warning_stripes/green,
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "zk" = (
 /obj/machinery/navbeacon/invisible{
 	codes_txt = "patrol;next_patrol=SBW0";
-	location = "SBW20"
+	location = "SBW10"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3288,7 +3426,7 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "Ai" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/control)
 "Aj" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -3422,11 +3560,16 @@
 /obj/item/storage/box/monkeycubes/syndicate,
 /obj/item/pen,
 /obj/structure/table/glass,
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 4
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "Br" = (
 /obj/machinery/computer/pandemic,
 /turf/simulated/floor/plasteel{
@@ -3497,7 +3640,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/control)
 "BW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3556,6 +3699,11 @@
 "CC" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/shaker,
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3585,6 +3733,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
+"CT" = (
+/obj/machinery/alarm/syndicate{
+	pixel_y = -24;
+	dir = 1;
+	name = "Syndie South Air Alarm"
+	},
+/turf/simulated/floor/catwalk,
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "CU" = (
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel{
@@ -3626,8 +3782,13 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Toxins Test APC";
+	pixel_y = -24
+	},
 /turf/simulated/floor/catwalk,
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "Dl" = (
 /obj/machinery/monkey_recycler,
 /turf/simulated/floor/plasteel{
@@ -3638,10 +3799,15 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/control)
 "Dy" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/service)
@@ -3693,6 +3859,9 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
+"DX" = (
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "DZ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3762,15 +3931,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
-"Ev" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW4";
-	location = "SBW3"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "EC" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 8
@@ -3795,6 +3955,11 @@
 "EN" = (
 /obj/machinery/sleeper/syndie{
 	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3843,6 +4008,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "EU" = (
 /obj/machinery/alarm/syndicate{
+	name = "Syndie North Air Alarm";
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3980,22 +4146,16 @@
 /obj/structure/rack{
 	dir = 8
 	},
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
-"FK" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW15";
-	location = "SBW14"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "FM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -4024,13 +4184,12 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "FV" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW16";
-	location = "SBW15"
+/obj/machinery/door_control{
+	name = "Syndicate Sentry Bot Storage Door Control";
+	pixel_x = 24;
+	pixel_y = 24;
+	req_access_txt = "151";
+	id = "syndicatebotstorage"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4039,7 +4198,7 @@
 "FZ" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/toxtest)
 "Gd" = (
 /obj/item/stack/sheet/mineral/plastitanium{
 	amount = 30;
@@ -4081,7 +4240,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/main)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "Gi" = (
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -4096,6 +4255,11 @@
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "Gp" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -4205,7 +4369,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "Ho" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -4253,6 +4417,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "HN" = (
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"
@@ -4315,16 +4482,6 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
-"Ig" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW5";
-	location = "SBW4"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Ij" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -4568,7 +4725,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/control)
 "JE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4580,7 +4737,7 @@
 	icon_state = "darkgreen";
 	dir = 8
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "JF" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
@@ -4650,6 +4807,16 @@
 "Ko" = (
 /turf/simulated/mineral,
 /area/ruin/unpowered/syndicate_space_base/outer)
+"Kw" = (
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "KG" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -4657,8 +4824,9 @@
 "KL" = (
 /obj/item/holosign_creator/atmos,
 /obj/structure/table,
-/obj/machinery/light{
-	dir = 1
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4697,9 +4865,9 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Lb" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW18";
-	location = "SBW17"
+/obj/machinery/door/poddoor/multi_tile/two_tile_hor{
+	name = "Syndie Sentry Bot Storage";
+	id_tag = "syndicatebotstorage"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4993,8 +5161,8 @@
 	dir = 4
 	},
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW19";
-	location = "SBW18"
+	codes_txt = "patrol;next_patrol=SBW9";
+	location = "SBW8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5012,6 +5180,11 @@
 /obj/item/handheld_defibrillator,
 /obj/item/handheld_defibrillator,
 /obj/item/defibrillator,
+/obj/machinery/alarm/syndicate{
+	pixel_x = 24;
+	name = "Syndie West Air Alarm";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -5101,6 +5274,18 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"Pb" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light_switch{
+	dir = 4;
+	pixel_x = -24;
+	name = "west bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Pn" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/portable/scrubber,
@@ -5144,8 +5329,8 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "PA" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW20";
-	location = "SBW19"
+	codes_txt = "patrol;next_patrol=SBW10";
+	location = "SBW9"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -5210,8 +5395,8 @@
 /area/ruin/unpowered/syndicate_space_base/storage)
 "PX" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW14";
-	location = "SBW13"
+	codes_txt = "patrol;next_patrol=SBW7";
+	location = "SBW6"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5228,6 +5413,17 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"Qf" = (
+/obj/machinery/power/apc/syndicate{
+	dir = 1;
+	name = "Genetics Lab APC";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreen";
+	dir = 1
+	},
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "Qp" = (
 /obj/structure/dispenser,
 /obj/machinery/light,
@@ -5283,6 +5479,11 @@
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5301,7 +5502,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "QU" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -5313,6 +5514,22 @@
 /obj/structure/bookcase/random,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"Rf" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Rg" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -5503,7 +5720,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "SL" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -5553,7 +5770,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/main)
+/area/ruin/unpowered/syndicate_space_base/control)
 "SV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5596,25 +5813,16 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 8
 	},
-/area/template_noop)
-"Tn" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW10";
-	location = "SBW9"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "To" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "syndiebase_mix_in";
@@ -5650,6 +5858,19 @@
 	icon_state = "darkred"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
+"Tv" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "Tz" = (
 /obj/machinery/light,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5722,28 +5943,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
-"Uf" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8;
-	initialize_directions = 11
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW11";
-	location = "SBW10"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Uu" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/inner)
+/area/ruin/unpowered/syndicate_space_base/control)
 "Uv" = (
 /obj/machinery/economy/vending/boozeomat,
 /obj/machinery/light,
@@ -5804,6 +6009,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "UN" = (
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkredcorners"
@@ -5887,6 +6097,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "whitepurple"
@@ -5947,8 +6161,8 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "VS" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW8";
-	location = "SBW7"
+	codes_txt = "patrol;next_patrol=SBW4";
+	location = "SBW3"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -6089,7 +6303,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "WO" = (
 /obj/machinery/computer/scan_consolenew{
 	dir = 8
@@ -6098,7 +6312,7 @@
 	icon_state = "darkgreen";
 	dir = 4
 	},
-/area/template_noop)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "WU" = (
 /obj/machinery/economy/vending/toyliberationstation{
 	req_access_txt = "150"
@@ -6156,6 +6370,18 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"Xn" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/alarm/syndicate{
+	pixel_x = 24;
+	name = "Syndie West Air Alarm";
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/chemistry)
 "Xo" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
@@ -6455,12 +6681,14 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "ZV" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'BOMB RANGE";
-	name = "BOMB RANGE"
+/obj/machinery/light_switch{
+	pixel_y = 24;
+	name = "north bump"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/inner)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 
 (1,1,1) = {"
 AV
@@ -7130,7 +7358,7 @@ xn
 xn
 My
 ma
-kk
+nZ
 kk
 ZI
 My
@@ -7346,9 +7574,9 @@ oN
 My
 Ea
 xQ
+lF
 xQ
 xQ
-ch
 IL
 xn
 iG
@@ -7624,7 +7852,7 @@ kE
 AD
 kE
 xn
-xQ
+yL
 fp
 zT
 xn
@@ -7636,7 +7864,7 @@ pP
 wJ
 xu
 xn
-xQ
+yL
 My
 IT
 rY
@@ -7723,7 +7951,7 @@ kH
 mK
 KS
 XR
-XR
+uk
 XR
 KS
 Wi
@@ -7845,7 +8073,7 @@ kE
 kE
 xn
 rX
-fp
+Tv
 xQ
 My
 cU
@@ -7864,7 +8092,7 @@ eW
 iW
 iW
 eW
-pu
+bT
 eW
 iW
 iW
@@ -7882,7 +8110,7 @@ NQ
 fi
 Kb
 zb
-NQ
+cM
 TN
 rr
 Yd
@@ -7926,7 +8154,7 @@ xn
 xn
 am
 hL
-lx
+am
 xn
 xn
 xn
@@ -8000,7 +8228,7 @@ cW
 mP
 kF
 tB
-tB
+Pb
 sR
 mi
 tB
@@ -8017,7 +8245,7 @@ tB
 mP
 cW
 tB
-FV
+uN
 tB
 mi
 kT
@@ -8064,7 +8292,7 @@ am
 LN
 am
 Fe
-Ev
+am
 hL
 Gi
 am
@@ -8103,7 +8331,7 @@ IX
 EV
 aM
 nw
-oe
+zh
 dX
 IX
 kE
@@ -8172,7 +8400,7 @@ Gg
 am
 hL
 IX
-EV
+pd
 EV
 hA
 oe
@@ -8313,7 +8541,7 @@ po
 Eb
 ml
 Gg
-am
+ZV
 hL
 IX
 oA
@@ -8435,7 +8663,7 @@ Dy
 am
 up
 Mk
-IS
+Xn
 JF
 it
 eg
@@ -8444,7 +8672,7 @@ zn
 IS
 Mk
 tB
-FK
+FM
 Gg
 Gg
 Gg
@@ -8587,7 +8815,7 @@ Vv
 Th
 gm
 IJ
-am
+ZV
 hL
 Gg
 Pn
@@ -8602,7 +8830,7 @@ AB
 Eb
 XF
 am
-Lb
+am
 IX
 aA
 nw
@@ -8780,7 +9008,7 @@ kE
 kE
 kE
 Dy
-AJ
+rs
 aq
 kX
 nm
@@ -9008,7 +9236,7 @@ yD
 Cw
 BJ
 Dy
-GA
+hM
 Xv
 ai
 kj
@@ -9020,7 +9248,7 @@ Xb
 zW
 ai
 GA
-sX
+Xv
 ra
 Zf
 HS
@@ -9111,9 +9339,9 @@ if
 dA
 if
 QM
-Ai
-Di
-Ai
+xW
+tP
+xW
 Lk
 AD
 Mf
@@ -9371,7 +9599,7 @@ am
 am
 hL
 Gi
-am
+Kw
 am
 am
 bU
@@ -9384,7 +9612,7 @@ hL
 am
 am
 am
-RX
+Ai
 Uu
 BQ
 Ai
@@ -9401,7 +9629,7 @@ dA
 if
 FZ
 ph
-Ai
+xW
 kE
 Mf
 AD
@@ -9428,13 +9656,13 @@ kE
 AD
 kE
 kE
-kE
-Ox
-Ox
+RX
+jC
+Lb
 am
 am
 up
-Tn
+hc
 cW
 tB
 Zv
@@ -9445,14 +9673,14 @@ mP
 mi
 tB
 tB
-Uf
+kT
 Bu
 tB
 di
 tB
 tB
 LP
-mP
+Rf
 tB
 wu
 am
@@ -9473,7 +9701,7 @@ dA
 if
 FZ
 ph
-Ai
+xW
 kE
 AD
 Mf
@@ -9500,12 +9728,12 @@ kE
 kE
 kE
 kE
-kE
-Ox
-Ox
+RX
+sX
 am
+FV
 am
-hL
+wK
 am
 tW
 am
@@ -9519,7 +9747,7 @@ Gi
 Gi
 Jm
 PL
-PL
+hO
 hO
 PL
 PL
@@ -9528,7 +9756,7 @@ PL
 PL
 Fk
 xZ
-RX
+Ai
 uZ
 Du
 Ai
@@ -9545,7 +9773,7 @@ dA
 if
 FZ
 ph
-Ai
+xW
 kE
 kE
 AD
@@ -9600,7 +9828,7 @@ nr
 PL
 uD
 Aj
-RX
+Ai
 Ai
 Ai
 Ai
@@ -9616,8 +9844,8 @@ dA
 if
 if
 FZ
-ph
-Ai
+CT
+xW
 kE
 kE
 Mf
@@ -9688,8 +9916,8 @@ dA
 if
 if
 FZ
-ph
-Ai
+wb
+xW
 kE
 AD
 AD
@@ -9720,7 +9948,7 @@ DL
 DL
 VZ
 az
-jC
+ZV
 up
 mQ
 xo
@@ -9759,9 +9987,9 @@ if
 dA
 if
 QM
-Ai
+xW
 Di
-Ai
+xW
 kE
 kE
 AD
@@ -9792,7 +10020,7 @@ vJ
 DL
 VZ
 az
-am
+AQ
 hL
 mq
 Km
@@ -9805,7 +10033,7 @@ QU
 mq
 am
 am
-hL
+rW
 PL
 jX
 rb
@@ -9833,7 +10061,7 @@ xW
 xW
 Id
 ph
-ZV
+Id
 kE
 kE
 AD
@@ -9859,7 +10087,7 @@ az
 gR
 Tu
 DL
-bi
+kh
 DL
 tD
 bg
@@ -10080,7 +10308,7 @@ qV
 Bf
 Fv
 Qr
-Ig
+Qr
 Gs
 OR
 WU
@@ -10163,8 +10391,8 @@ an
 OR
 OR
 OR
-RX
-RX
+DX
+DX
 Gh
 PL
 PL
@@ -10219,7 +10447,7 @@ az
 qZ
 cY
 DL
-bC
+kh
 DL
 vG
 Ah
@@ -10241,8 +10469,8 @@ JE
 Tj
 jf
 eD
-rp
-rp
+DX
+DX
 kE
 kE
 kE
@@ -10296,7 +10524,7 @@ aO
 DL
 kB
 az
-am
+AQ
 am
 OR
 pf
@@ -10312,9 +10540,9 @@ QT
 Hm
 SF
 QT
-wK
+pu
 fs
-rp
+DX
 LE
 AD
 kE
@@ -10379,14 +10607,14 @@ iB
 OR
 pf
 OR
-gQ
+Qf
 mF
-wK
+pu
 WJ
 mF
-wK
+pu
 fs
-rp
+DX
 Lk
 Mf
 AD
@@ -10457,8 +10685,8 @@ Bq
 cx
 WO
 wv
-rp
-rp
+DX
+DX
 AD
 Mf
 AD
@@ -10523,13 +10751,13 @@ pf
 pf
 pf
 OR
-rp
-rp
-rp
-rp
-rp
-rp
-rp
+DX
+DX
+DX
+DX
+DX
+DX
+DX
 kE
 Mf
 Mf
@@ -10606,7 +10834,7 @@ Mf
 AD
 Mf
 AD
-eq
+LE
 AD
 AD
 kE
