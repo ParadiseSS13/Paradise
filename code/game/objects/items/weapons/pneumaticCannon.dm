@@ -194,7 +194,7 @@
 	return ..()
 
 /obj/item/pneumatic_cannon/flayer/process()
-	
+
 	var/obj/item/shard/shard = new /obj/item/shard
 	. = ..()
 
@@ -203,10 +203,10 @@
 
 /obj/item/pneumatic_cannon/flayer/attack_self(mob/user)
 	switch(pressureSetting)
-	if(1)
-		pressureSetting = 2
-	if(2)
-		pressureSetting = 3
-	if(3)
-		pressureSetting = 1
+		if(1)
+			pressureSetting = 2
+		if(2)
+			pressureSetting = 3
+		if(3)
+			pressureSetting = 1
 
