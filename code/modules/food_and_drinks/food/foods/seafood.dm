@@ -129,6 +129,7 @@
 	bitesize = 3
 	list_reagents = list("protein" = 6, "vitamin" = 4)
 	tastes = list("shrimp" = 1, "batter" = 1)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/sliceable/Ebi_maki
 	name = "ebi maki roll"

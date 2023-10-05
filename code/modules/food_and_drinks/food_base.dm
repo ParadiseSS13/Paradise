@@ -24,15 +24,22 @@
 	var/ingredient_name_plural
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
+	var/burns_on_grill = FALSE
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
+	make_grillable()
 	pixel_x = rand(-5, 5) //Randomizes postion
 	pixel_y = rand(-5, 5)
 	if(antable)
 		START_PROCESSING(SSobj, src)
 		ant_location = get_turf(src)
 		last_ant_time = world.time
+
+/obj/item/reagent_containers/food/proc/make_grillable()
+	if(burns_on_grill)
+		AddComponent(/datum/component/grillable, 	/obj/item/reagent_containers/food/snacks/badrecipe, rand(20 SECONDS, 30 SECONDS), FALSE)
+	return
 
 /obj/item/reagent_containers/food/Destroy()
 	ant_location = null

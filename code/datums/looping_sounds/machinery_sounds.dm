@@ -74,3 +74,8 @@ GLOBAL_DATUM_INIT(firealarm_soundloop, /datum/looping_sound/firealarm, new(list(
 	volume = 20
 	falloff_distance = 2
 	falloff_exponent = 5
+
+/datum/looping_sound/griddle
+	mid_sounds = list('sound/machines/grill/grillsizzle.ogg' = 1)
+	mid_length = 18
+	volume = 50

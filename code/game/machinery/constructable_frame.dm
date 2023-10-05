@@ -496,6 +496,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5)
 
+/obj/item/circuitboard/griddle
+	board_name = "Griddle"
+	icon_state = "service"
+	build_path = /obj/machinery/griddle
+	board_type = "machine"
+	origin_tech = "programming=2;magnets=2"
+	req_components = list(
+							/obj/item/stock_parts/manipulator = 1,
+							/obj/item/stack/cable_coil = 5,
+							/obj/item/stack/sheet/glass = 1)
+
 /obj/item/circuitboard/gibber
 	board_name = "Gibber"
 	icon_state = "service"

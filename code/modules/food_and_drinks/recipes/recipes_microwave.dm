@@ -49,26 +49,40 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/donut/sprinkles
 
+/datum/recipe/microwave/xenoburger
+	items = list(
+		/obj/item/reagent_containers/food/snacks/bun,
+		/obj/item/reagent_containers/food/snacks/patty/xeno
+	)
+	result = /obj/item/reagent_containers/food/snacks/xenoburger
+
 /datum/recipe/microwave/human/burger
 	items = list(
-		/obj/item/reagent_containers/food/snacks/meat/human,
+		/obj/item/reagent_containers/food/snacks/patty/human,
 		/obj/item/reagent_containers/food/snacks/bun
 	)
 	result = /obj/item/reagent_containers/food/snacks/human/burger
 
+/datum/recipe/microwave/bearger
+	items = list(
+		/obj/item/reagent_containers/food/snacks/bun,
+		/obj/item/reagent_containers/food/snacks/patty/bear
+	)
+	result = /obj/item/reagent_containers/food/snacks/bearger
+
 /datum/recipe/microwave/plainburger
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat //do not place this recipe before /datum/recipe/microwave/humanburger
+		/obj/item/reagent_containers/food/snacks/patty/plain
 	)
 	result = /obj/item/reagent_containers/food/snacks/monkeyburger
 
-/datum/recipe/microwave/syntiburger
-	items = list(
-		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat/syntiflesh
-	)
-	result = /obj/item/reagent_containers/food/snacks/monkeyburger
+///datum/recipe/microwave/syntiburger
+//	items = list(
+	//	/obj/item/reagent_containers/food/snacks/bun,
+//		/obj/item/reagent_containers/food/snacks/meat/syntiflesh
+//	)
+//	result = /obj/item/reagent_containers/food/snacks/monkeyburger
 
 /datum/recipe/microwave/brainburger
 	items = list(
@@ -84,11 +98,7 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/hamborger
 
-/datum/recipe/microwave/xenoburger
-	items = list(
-		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat	)
-	result = /obj/item/reagent_containers/food/snacks/xenoburger
+
 
 /datum/recipe/microwave/fishburger
 	items = list(
@@ -135,7 +145,7 @@
 /datum/recipe/microwave/cheeseburger
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/patty,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 	)
 	result = /obj/item/reagent_containers/food/snacks/cheeseburger
@@ -153,13 +163,6 @@
 		/obj/item/reagent_containers/food/snacks/bun
 	)
 	result = /obj/item/reagent_containers/food/snacks/appendixburger
-
-/datum/recipe/microwave/bearger
-	items = list(
-		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/monstermeat/bearmeat
-	)
-	result = /obj/item/reagent_containers/food/snacks/bearger
 
 /datum/recipe/microwave/fivealarmburger
 	items = list(
@@ -332,9 +335,9 @@
 /datum/recipe/microwave/bigbiteburger
 	items = list(
 		/obj/item/reagent_containers/food/snacks/monkeyburger,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/patty,
+		/obj/item/reagent_containers/food/snacks/patty,
+		/obj/item/reagent_containers/food/snacks/patty,
 		/obj/item/reagent_containers/food/snacks/egg,
 	)
 	result = /obj/item/reagent_containers/food/snacks/bigbiteburger
@@ -473,7 +476,7 @@
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bigbiteburger,
 		/obj/item/reagent_containers/food/snacks/dough,
-		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/patty,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
 		/obj/item/reagent_containers/food/snacks/boiledegg,
 		/obj/item/reagent_containers/food/snacks/grown/tomato
@@ -722,3 +725,131 @@
 		/obj/item/reagent_containers/food/snacks/shrimp
 	)
 	result = /obj/item/reagent_containers/food/snacks/boiled_shrimp
+
+/datum/recipe/microwave/bbqribs
+	reagents = list("bbqsauce" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/stack/rods
+	)
+	result = /obj/item/reagent_containers/food/snacks/bbqribs
+
+/datum/recipe/microwave/omelette
+	items = list(
+		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+		/obj/item/reagent_containers/food/snacks/cheesewedge,
+	)
+	result = /obj/item/reagent_containers/food/snacks/omelette
+
+/datum/recipe/microwave/wingfangchu
+	reagents = list("soysauce" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
+	)
+	result = /obj/item/reagent_containers/food/snacks/wingfangchu
+
+/datum/recipe/microwave/fishfingers
+	reagents = list("flour" = 10)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/carpmeat,
+	)
+	result = /obj/item/reagent_containers/food/snacks/fishfingers
+
+	/datum/recipe/microwave/sushi_Tamago
+	reagents = list("sake" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Tamago
+
+/datum/recipe/microwave/sushi_Unagi
+	reagents = list("sake" = 5)
+	items = list(
+		/obj/item/fish/electric_eel,
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Unagi
+
+/datum/recipe/microwave/sushi_Ebi
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/reagent_containers/food/snacks/boiled_shrimp,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Ebi
+
+/datum/recipe/microwave/sushi_Ikura
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/fish_eggs/salmon,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Ikura
+
+/datum/recipe/microwave/sushi_Inari
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/reagent_containers/food/snacks/fried_tofu,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Inari
+
+/datum/recipe/microwave/sushi_Sake
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/reagent_containers/food/snacks/salmonmeat,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Sake
+
+/datum/recipe/microwave/sushi_SmokedSalmon
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/reagent_containers/food/snacks/salmonsteak,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_SmokedSalmon
+
+/datum/recipe/microwave/sushi_Masago
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/fish_eggs/goldfish,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Masago
+
+/datum/recipe/microwave/sushi_Tobiko
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/fish_eggs/shark,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Tobiko
+
+/datum/recipe/microwave/sushi_TobikoEgg
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sushi_Tobiko,
+		/obj/item/reagent_containers/food/snacks/egg,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_TobikoEgg
+
+/datum/recipe/microwave/sushi_Tai
+	items = list(
+		/obj/item/reagent_containers/food/snacks/boiledrice,
+		/obj/item/reagent_containers/food/snacks/catfishmeat,
+	)
+	result = /obj/item/reagent_containers/food/snacks/sushi_Tai
+
+/datum/recipe/microwave/waffles
+	reagents = list("sugar" = 10)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough
+	)
+	result = /obj/item/reagent_containers/food/snacks/raw_waffles
+
+/datum/recipe/microwave/rofflewaffles
+	reagents = list("psilocybin" = 5, "sugar" = 10)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/dough,
+		/obj/item/reagent_containers/food/snacks/dough,
+	)
+	result = /obj/item/reagent_containers/food/snacks/raw_rofflewaffles

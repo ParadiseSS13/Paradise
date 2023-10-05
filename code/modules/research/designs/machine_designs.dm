@@ -482,6 +482,15 @@
 	build_path = /obj/item/circuitboard/deepfryer
 	category = list("Misc. Machinery")
 
+/datum/design/griddle
+	name = "Machine Board (Griddle)"
+	desc = "The circuit board for a Griddle."
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/griddle
+	category = list("Misc. Machinery")
+
 /datum/design/orion_trail
 	name = "Machine Board (Orion Trail Arcade Machine)"
 	desc = "Allows for the construction of circuit boards used to build a new Orion Trail machine."

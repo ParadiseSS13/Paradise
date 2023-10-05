@@ -195,6 +195,19 @@
 	icon_state = "bacon"
 	list_reagents = list("nutriment" = 4, "porktonium" = 10, "msg" = 4)
 	tastes = list("bacon" = 1)
+	burns_on_grill = TRUE
+
+/obj/item/reagent_containers/food/snacks/bacon/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/assembly/signaler))
+		if(isturf(loc))
+			new /obj/item/reagent_containers/food/snacks/telebacon(loc)
+			to_chat(user, "<span class='notice'>You insert the [I] into the [src].</span>")
+			qdel(I)
+			qdel(src)
+		else
+			to_chat(user, "<span class='notice'>You need to put [src] on a surface!</span>")
+	else
+		..()
 
 /obj/item/reagent_containers/food/snacks/telebacon
 	name = "tele bacon"
@@ -218,21 +231,23 @@
 		baconbeacon.digest_delay()
 		baconbeacon = null
 
-/obj/item/reagent_containers/food/snacks/meatball
+
+/*/obj/item/reagent_containers/food/snacks/meatball
 	name = "meatball"
 	desc = "A great meal all round."
 	icon_state = "meatball"
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 4, "vitamin" = 1)
-	tastes = list("meat" = 1)
+	tastes = list("meat" = 1)*/
 
 /obj/item/reagent_containers/food/snacks/sausage
 	name = "sausage"
 	desc = "A piece of mixed and cased meat."
-	icon_state = "sausage"
+	icon_state = "cooked_sausage"
 	filling_color = "#DB0000"
 	list_reagents = list("protein" = 6, "vitamin" = 1, "porktonium" = 10)
 	tastes = list("meat" = 1)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/cutlet
 	name = "cutlet"
@@ -241,6 +256,7 @@
 	icon_state = "cutlet"
 	list_reagents = list("protein" = 2)
 	tastes = list("meat" = 1)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/spidereggsham
 	name = "green eggs and ham"
@@ -259,6 +275,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 3, "capsaicin" = 2)
 	tastes = list("cobwebs" = 1, "hot peppers" = 1)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/wingfangchu
 	name = "wing fang chu"
@@ -277,6 +294,7 @@
 	trash = null
 	list_reagents = list("protein" = 6, "vitamin" = 2)
 	tastes = list("meat" = 1)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/fried_vox
 	name = "Kentucky Fried Vox"
@@ -438,6 +456,7 @@
 	bitesize = 1
 	list_reagents = list("nutriment" = 3, "egg" = 5)
 	tastes = list("egg" = 1, "salt" = 1, "pepper" = 1)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/boiledegg
 	name = "boiled egg"

@@ -2,6 +2,7 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor_or_lattice = TRUE),
 	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("catwalk tile", /obj/item/stack/tile/catwalk, 2, 4, 20),
+	new /datum/stack_recipe("kabob skewer", /obj/item/kabob_skewer, 1, 1, 1),
 	null,
 	new /datum/stack_recipe_list("railings...", list(
 		new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),

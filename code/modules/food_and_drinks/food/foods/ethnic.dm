@@ -134,6 +134,7 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/monkeykabob
 	name = "meat-kabob"
@@ -142,6 +143,7 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#A85340"
 	list_reagents = list("nutriment" = 8)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/tofukabob
 	name = "tofu-kabob"
@@ -150,3 +152,4 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
+	burns_on_grill = TRUE

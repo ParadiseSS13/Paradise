@@ -940,4 +940,16 @@
 /// Called when the MODsuit wearer is unset.
 #define COMSIG_MOD_WEARER_UNSET "mod_wearer_unset"
 
-
+// Grilling foods (griddle, grill, and bonfire)
+///Called when an object is placed onto a griddle
+#define COMSIG_ITEM_GRILL_PLACED "item_placed_on_griddle"
+///Called when a griddle is turned on
+#define COMSIG_ITEM_GRILL_TURNED_ON "item_grill_turned_on"
+///Called when a griddle is turned off
+#define COMSIG_ITEM_GRILL_TURNED_OFF "item_grill_turned_off"
+///Called when an object is grilled ontop of a griddle
+#define COMSIG_ITEM_GRILL_PROCESS "item_griddled"
+	/// Return to not burn the item
+	#define COMPONENT_HANDLED_GRILLING (1<<0)
+///Called when an object is turned into another item through grilling ontop of a griddle
+#define COMSIG_ITEM_GRILLED "item_grill_completed"

@@ -449,6 +449,30 @@
 	filling_color = "#E7D8AB"
 	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	burns_on_grill = TRUE
+
+/obj/item/reagent_containers/food/snacks/pancake/attackby(obj/item/I, mob/user, params)
+	if(istype(src, /obj/item/reagent_containers/food/snacks/pancake/berry_pancake) || istype(src, /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake))
+		return ..()
+	if(istype(I, /obj/item/reagent_containers/food/snacks/grown/berries))
+		if(isturf(loc))
+			to_chat(user, "<span class='notice'>You add the [I] to [src].</span>")
+			new /obj/item/reagent_containers/food/snacks/pancake/berry_pancake(loc)
+			qdel(I)
+			qdel(src)
+		else
+			to_chat(user, "<span class='notice'>You need to put [src] on a surface!</span>")
+	else if(istype(I, /obj/item/reagent_containers/food/snacks/choc_pile))
+		if(isturf(loc))
+			to_chat(user, "<span class='notice'>You add the [I] to the [src]</span>")
+			new /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake(loc)
+			qdel(I)
+			qdel(src)
+		else
+			to_chat(user, "<span class='notice'>You need to put [src] on a surface!</span>")
+	else
+		..()
+//THIS IS JANK, DEFINITELY BETTER WAY TO DO
 
 /obj/item/reagent_containers/food/snacks/pancake/attack_tk(mob/user)
 	if(src in user.tkgrabbed_objects)

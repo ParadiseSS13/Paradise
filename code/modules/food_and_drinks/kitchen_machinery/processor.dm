@@ -87,9 +87,9 @@
 /////////////////////////
 /////OBJECT RECIPIES/////
 /////////////////////////
-/datum/food_processor_process/meat
-	input = /obj/item/reagent_containers/food/snacks/meat
-	output = /obj/item/reagent_containers/food/snacks/meatball
+///datum/food_processor_process/meat
+//	input = /obj/item/reagent_containers/food/snacks/meat
+//	output = /obj/item/reagent_containers/food/snacks/meatball
 
 /datum/food_processor_process/potato
 	input = /obj/item/reagent_containers/food/snacks/grown/potato

@@ -219,6 +219,7 @@
 	bitesize = 4
 	list_reagents = list("nutriment" = 8, "psilocybin" = 2, "vitamin" = 2)
 	tastes = list("waffle" = 1, "mushrooms" = 1)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/waffles
 	name = "waffles"
@@ -227,3 +228,4 @@
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6DEB5"
 	list_reagents = list("nutriment" = 8, "vitamin" = 1)
+	burns_on_grill = TRUE
