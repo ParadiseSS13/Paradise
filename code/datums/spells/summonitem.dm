@@ -59,13 +59,13 @@
 			var/infinite_recursion = 0 //I don't want to know how someone could put something inside itself but these are wizards so let's be safe
 
 			while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
-				if(istype(item_to_retrieve.loc,/obj/item/organ/internal/headpocket))
+				if(istype(item_to_retrieve.loc, /obj/item/organ/internal/headpocket))
 					var/obj/item/organ/internal/headpocket/pocket = item_to_retrieve.loc
 					if(pocket.owner)
 						to_chat(pocket.owner, "<span class='warning'>Your [pocket.name] suddenly feels lighter. How strange!</span>")
 					visible_item = FALSE
 					break
-				if(istype(item_to_retrieve.loc,/obj/item/storage/hidden/implant)) //The implant should be left alone
+				if(istype(item_to_retrieve.loc, /obj/item/storage/hidden/implant)) //The implant should be left alone
 					var/obj/item/storage/S = item_to_retrieve.loc
 					for(var/mob/M in S.mobs_viewing)
 						to_chat(M, "<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
@@ -98,7 +98,7 @@
 								break
 
 				else
-					if(istype(item_to_retrieve.loc,/obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
+					if(istype(item_to_retrieve.loc, /obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
 						var/obj/machinery/atmospherics/portable/P = item_to_retrieve.loc
 						P.disconnect()
 						P.update_icon()
