@@ -154,13 +154,8 @@
 
 /mob/living/silicon/pai/Stat()
 	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
+	if(statpanel("Status"))
 		show_silenced()
-
-	if(proc_holder_list.len)//Generic list for proc_holder objects.
-		for(var/obj/effect/proc_holder/P in proc_holder_list)
-			statpanel("[P.panel]","",P)
 
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
