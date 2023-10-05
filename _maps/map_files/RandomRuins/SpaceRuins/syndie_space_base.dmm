@@ -201,6 +201,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "bk" = (
+/obj/structure/safe/floor,
+/obj/item/stack/spacecash/c10000,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -509,7 +511,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "cV" = (
-/obj/machinery/economy/vending/suitdispenser,
+/obj/machinery/economy/vending/suitdispenser/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -789,6 +791,20 @@
 	icon_state = "darkgreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
+"eI" = (
+/obj/item/grenade/chem_grenade/metalfoam,
+/obj/item/grenade/chem_grenade/metalfoam,
+/obj/item/grenade/chem_grenade/metalfoam,
+/obj/item/grenade/chem_grenade/metalfoam,
+/obj/item/grenade/chem_grenade/metalfoam,
+/obj/item/grenade/chem_grenade/metalfoam,
+/obj/structure/rack{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "eL" = (
 /obj/machinery/ignition_switch{
 	id = "syndbaseigniter";
@@ -1212,6 +1228,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "gS" = (
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
 /obj/structure/table/wood,
 /obj/machinery/computer/library,
 /turf/simulated/floor/wood,
@@ -1729,8 +1748,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "jQ" = (
-/obj/machinery/economy/vending/clothing,
-/obj/machinery/economy/vending/clothing,
+/obj/machinery/economy/vending/clothing/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1907,7 +1925,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
 "kO" = (
-/obj/machinery/economy/vending/hatdispenser,
+/obj/machinery/economy/vending/hatdispenser/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3421,6 +3439,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
 "uy" = (
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -3507,7 +3526,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "uY" = (
-/obj/machinery/economy/vending/shoedispenser,
+/obj/machinery/economy/vending/shoedispenser/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5286,6 +5305,28 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Fj" = (
+/obj/structure/rack{
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/vending_refill/snack{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/vending_refill/snack{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/vending_refill/snack{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/vending_refill/snack{
+	pixel_x = -3;
+	pixel_y = 3
+	},
 /obj/item/vending_refill/snack{
 	pixel_x = -3;
 	pixel_y = 3
@@ -5295,13 +5336,13 @@
 	pixel_y = 3
 	},
 /obj/item/vending_refill/coffee,
+/obj/item/vending_refill/coffee,
+/obj/item/vending_refill/coffee,
+/obj/item/vending_refill/coffee,
 /obj/item/vending_refill/cola,
-/obj/structure/rack{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/item/vending_refill/cola,
+/obj/item/vending_refill/cola,
+/obj/item/vending_refill/cola,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -5354,16 +5395,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "FI" = (
-/obj/item/vending_refill/snack{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/vending_refill/snack{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/vending_refill/coffee,
-/obj/item/vending_refill/cola,
 /obj/structure/rack{
 	dir = 8
 	},
@@ -5372,6 +5403,11 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
+/obj/item/vending_refill/shoedispenser,
+/obj/item/vending_refill/suitdispenser,
+/obj/item/vending_refill/autodrobe,
+/obj/item/vending_refill/hatdispenser,
+/obj/item/vending_refill/clothing,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -6967,7 +7003,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "PG" = (
-/obj/machinery/economy/vending/sustenance,
+/obj/machinery/economy/merch,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7493,6 +7529,10 @@
 /obj/structure/table/reinforced,
 /obj/item/vending_refill/dinnerware,
 /obj/item/vending_refill/dinnerware,
+/obj/item/vending_refill/hydronutrients,
+/obj/item/vending_refill/hydronutrients,
+/obj/item/vending_refill/hydroseeds,
+/obj/item/vending_refill/hydroseeds,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -7823,8 +7863,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/control)
 "Uv" = (
-/obj/machinery/economy/vending/boozeomat,
 /obj/machinery/light,
+/obj/machinery/economy/vending/boozeomat/syndicate_access,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -8456,7 +8496,7 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "XX" = (
-/obj/machinery/economy/vending/autodrobe,
+/obj/machinery/economy/vending/autodrobe/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9861,7 +9901,7 @@ cI
 hl
 xQ
 My
-cU
+gS
 QY
 QY
 xn
@@ -10079,7 +10119,7 @@ xQ
 My
 pP
 AS
-gS
+wJ
 xn
 vR
 Ic
@@ -10299,7 +10339,7 @@ xn
 xn
 am
 Mw
-am
+eI
 xn
 xn
 xn
