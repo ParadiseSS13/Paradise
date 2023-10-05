@@ -145,11 +145,13 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "bi" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW20";
-	location = "SBW19"
+	codes_txt = "patrol;next_patrol=SBW4";
+	location = "SBW3"
 	},
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_space_base/engineering)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "bk" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -945,6 +947,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"gP" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW18";
+	location = "SBW17"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "gQ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
@@ -1323,6 +1334,13 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
+"jy" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW8";
+	location = "SBW7"
+	},
+/turf/simulated/mineral,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "jH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -2150,21 +2168,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
-"qz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW6";
-	location = "SBW5"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/dormitories)
 "qB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -3133,13 +3136,6 @@
 	dir = 4
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
-"zr" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW8";
-	location = "SBW7"
-	},
-/turf/simulated/mineral,
-/area/ruin/unpowered/syndicate_space_base/inner)
 "zs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -3705,15 +3701,6 @@
 "Eb" = (
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
-"Ec" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW8";
-	location = "SBW7"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Ed" = (
 /obj/structure/closet/crate/secure/gear{
 	req_access_txt = "150"
@@ -4295,15 +4282,6 @@
 	icon_state = "darkpurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
-"Ia" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW9";
-	location = "SBW8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Ic" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -4320,6 +4298,15 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
+"If" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW8";
+	location = "SBW7"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Ig" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/navbeacon/invisible{
@@ -4564,7 +4551,7 @@
 /obj/machinery/turretid/syndicate{
 	pixel_y = -24;
 	name = "Caves Turret Control Panel";
-	control_area = Syndicate Space Base Cave;
+	control_area = "Syndicate Space Base Cave";
 	req_access_txt = "150"
 	},
 /obj/structure/chair{
@@ -4703,8 +4690,8 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "Lb" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW4";
-	location = "SBW3"
+	codes_txt = "patrol;next_patrol=SBW9";
+	location = "SBW8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5107,15 +5094,6 @@
 	icon_state = "yellow"
 	},
 /area/ruin/unpowered/syndicate_space_base/atmos)
-"Po" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW18";
-	location = "SBW17"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Pp" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -5211,6 +5189,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"PT" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW0";
+	location = "SBW20"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "PU" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5357,6 +5344,21 @@
 	icon_state = "darkpurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"Rz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW6";
+	location = "SBW5"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "RJ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5738,15 +5740,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
-"Un" = (
-/obj/machinery/turretid/syndicate{
-	pixel_y = -24;
-	name = "Caves Turret Control Panel";
-	control_area = Syndicate Space Base Cave;
-	req_access_txt = "150"
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
 "Uu" = (
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
@@ -5956,13 +5949,11 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "VS" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW0";
-	location = "SBW20"
+	codes_txt = "patrol;next_patrol=SBW20";
+	location = "SBW19"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "VU" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
@@ -7534,7 +7525,7 @@ Pp
 OQ
 BZ
 NQ
-bi
+VS
 NQ
 NQ
 tG
@@ -8073,7 +8064,7 @@ am
 LN
 am
 Fe
-Lb
+bi
 hL
 Gi
 am
@@ -8104,7 +8095,7 @@ Gi
 hL
 am
 tW
-VS
+PT
 Fe
 am
 hL
@@ -8611,7 +8602,7 @@ AB
 Eb
 XF
 am
-Po
+gP
 IX
 aA
 nw
@@ -9729,7 +9720,7 @@ DL
 DL
 VZ
 az
-Ia
+Lb
 up
 mQ
 xo
@@ -9754,7 +9745,7 @@ PL
 am
 am
 RX
-Un
+AD
 kE
 AD
 kE
@@ -9868,7 +9859,7 @@ az
 gR
 Tu
 DL
-qz
+Rz
 DL
 tD
 bg
@@ -9885,7 +9876,7 @@ OR
 OR
 OR
 am
-Ec
+If
 Jj
 PL
 Jn
@@ -10080,7 +10071,7 @@ AD
 AD
 AD
 kE
-zr
+jy
 az
 xO
 cY
