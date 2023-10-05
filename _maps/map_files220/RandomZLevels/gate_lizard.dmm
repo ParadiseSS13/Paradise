@@ -2025,6 +2025,7 @@
 	pixel_y = -11
 	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
+/obj/item/cautery,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "cBW" = (
@@ -6748,6 +6749,7 @@
 /obj/item/stack/sheet/mineral/bananium{
 	amount = 30
 	},
+/obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -11558,15 +11560,6 @@
 	name = "ground"
 	},
 /area/awaymission/jungle_planet/outside)
-"nUQ" = (
-/obj/structure/flora/junglebush/large{
-	icon_state = "bush2"
-	},
-/obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/ranged{
-	id = "2post"
-	},
-/turf/simulated/floor/indestructible/grass,
-/area/awaymission/jungle_planet/outside)
 "nWh" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate,
@@ -11870,15 +11863,6 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
-"oqL" = (
-/obj/structure/flora/junglebush/large{
-	icon_state = "bush2"
-	},
-/mob/living/simple_animal/hostile/jungle_lizard/spearman{
-	wander = 0
-	},
-/turf/simulated/floor/indestructible/grass,
-/area/awaymission/jungle_planet/outside)
 "oqX" = (
 /obj/structure/computerframe{
 	dir = 4;
@@ -12210,9 +12194,6 @@
 /area/awaymission/jungle_planet/outside)
 "oJx" = (
 /obj/structure/closet/crate,
-/obj/item/stack/ore/bluespace_crystal{
-	amount = 30
-	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -15306,9 +15287,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "syZ" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/melee_spear{
-	id = "pathway2"
-	},
 /obj/structure/flora/junglebush/large{
 	icon_state = "bush3"
 	},
@@ -15562,14 +15540,12 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "sOd" = (
-/obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/ranged{
-	id = "swamp3"
+/obj/item/stack/ore/glass,
+/obj/structure/flora/rock/pile,
+/turf/simulated/floor/plating/asteroid/ancient{
+	name = "ground"
 	},
-/obj/structure/flora/junglebush/large{
-	icon_state = "bush3"
-	},
-/turf/simulated/floor/indestructible/grass,
-/area/awaymission/jungle_planet/outside)
+/area/awaymission/jungle_planet/outside/cave)
 "sOV" = (
 /obj/effect/landmark/awaymissions/gate_lizard/mob_spawn/melee_spear{
 	id = "pathway9"
@@ -17210,6 +17186,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "uIE" = (
 /obj/item/pickaxe/mini,
+/obj/item/stack/ore/glass,
 /turf/simulated/floor/plating/asteroid/ancient{
 	name = "ground"
 	},
@@ -28114,7 +28091,7 @@ lWL
 iTk
 iTk
 iTk
-nUQ
+lJs
 sNa
 lWL
 lWL
@@ -34100,7 +34077,7 @@ qGN
 nva
 lWL
 lWL
-oqL
+lJs
 lJs
 lJs
 lWL
@@ -34471,7 +34448,7 @@ lWL
 lWL
 lWL
 lLF
-eRs
+lWL
 lWL
 lWL
 aHl
@@ -35231,7 +35208,7 @@ qeW
 lWL
 mYK
 mYK
-eRs
+lWL
 lWL
 lWL
 lWL
@@ -36922,7 +36899,7 @@ lWL
 sNa
 sNa
 lWL
-fyJ
+fMq
 lWL
 lWL
 hWY
@@ -38980,7 +38957,7 @@ who
 lWL
 nGx
 nGx
-der
+fMq
 sNa
 sNa
 nGx
@@ -38996,7 +38973,7 @@ qGN
 qGN
 jbn
 qGN
-eUG
+fMq
 qGN
 qGN
 xsI
@@ -39364,7 +39341,7 @@ nGx
 nGx
 fMq
 qGN
-jml
+fMq
 qGN
 qGN
 qGN
@@ -39926,7 +39903,7 @@ nGx
 myG
 lWL
 qGN
-sOd
+fMq
 fMq
 qGN
 qGN
@@ -41819,7 +41796,7 @@ gZv
 gZv
 gZv
 lWL
-frk
+fMq
 eZk
 sNa
 sNa
@@ -52434,7 +52411,7 @@ drq
 miM
 miM
 miM
-nai
+drq
 miM
 miM
 gZv
@@ -52621,7 +52598,7 @@ miM
 miM
 miM
 miM
-drq
+sOd
 miM
 miM
 gZv
@@ -52641,7 +52618,7 @@ sNa
 lWL
 nRb
 lWL
-wHR
+mTn
 sNa
 lWL
 sNa
@@ -54848,9 +54825,9 @@ miM
 miM
 miM
 miM
-nai
-cqB
-arp
+miM
+miM
+miM
 cqB
 cIb
 miM

@@ -1768,9 +1768,13 @@
 /turf/simulated/floor/carpet/blue,
 /area/ruin/space/powered)
 "KW" = (
-/mob/living/simple_animal/hostile/scavengers/meele/axe,
-/turf/template_noop,
-/area/template_noop)
+/obj/effect/landmark/damageturf,
+/obj/structure/railing{
+	dir = 5
+	},
+/mob/living/simple_animal/hostile/scavengers/laser/spacelaser,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/powered)
 "KY" = (
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating,
@@ -1948,11 +1952,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
-"Ov" = (
-/obj/structure/lattice,
-/mob/living/simple_animal/hostile/scavengers/laser/spacelaser,
-/turf/template_noop,
-/area/template_noop)
 "OB" = (
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
@@ -2503,6 +2502,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "ZF" = (
+/obj/structure/lattice/catwalk,
 /mob/living/simple_animal/hostile/scavengers/gun/spacegun,
 /turf/template_noop,
 /area/template_noop)
@@ -2836,7 +2836,7 @@ yt
 qv
 zF
 qU
-KW
+qU
 qU
 qU
 qU
@@ -2895,7 +2895,7 @@ qU
 qU
 qU
 kU
-OB
+ZF
 ys
 qU
 ce
@@ -2947,7 +2947,7 @@ Kb
 Kb
 qU
 qU
-ZF
+qU
 qU
 Pi
 OB
@@ -3663,7 +3663,7 @@ AT
 Eb
 Vo
 cd
-KW
+qU
 Vk
 CW
 vd
@@ -3829,7 +3829,7 @@ cd
 qU
 Ah
 qU
-Ov
+Vk
 nx
 aH
 rU
@@ -3882,7 +3882,7 @@ Kb
 Kb
 qU
 qU
-ZF
+qU
 Vk
 QD
 SH
@@ -3994,7 +3994,7 @@ qU
 qU
 qU
 Vk
-QD
+KW
 il
 il
 bF
