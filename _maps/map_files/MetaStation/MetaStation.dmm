@@ -830,7 +830,8 @@
 /area/holodeck/alphadeck)
 "aiw" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Court Cell"
+	name = "Court Cell";
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -841,7 +842,8 @@
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Court Cell"
+	name = "Court Cell";
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -3430,7 +3432,8 @@
 /obj/item/folder,
 /obj/item/folder,
 /obj/machinery/door/window/classic/normal{
-	name = "windoor"
+	name = "windoor";
+	dir = 4
 	},
 /obj/item/book/manual/wiki/hacking,
 /obj/item/tape/random,
@@ -50033,7 +50036,9 @@
 "ebv" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/pie,
-/obj/machinery/door/window/classic/normal,
+/obj/machinery/door/window/classic/normal{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -50049,7 +50054,8 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/pie,
 /obj/machinery/door/window/classic/normal{
-	name = "Kitchen"
+	name = "Kitchen";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -50143,7 +50149,8 @@
 	dir = 4
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "shower"
+	name = "shower";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -51567,7 +51574,8 @@
 "eNA" = (
 /obj/structure/table/glass,
 /obj/machinery/door/window/classic/normal{
-	name = "First-Aid Supplies"
+	name = "First-Aid Supplies";
+	dir = 4
 	},
 /obj/item/storage/firstaid/fire{
 	pixel_x = 3;
@@ -51585,7 +51593,8 @@
 	},
 /obj/structure/table/glass,
 /obj/machinery/door/window/classic/normal{
-	name = "First-Aid Supplies"
+	name = "First-Aid Supplies";
+	dir = 4
 	},
 /obj/item/storage/firstaid/fire{
 	pixel_x = 3;
@@ -53253,7 +53262,8 @@
 /area/station/medical/virology)
 "fxP" = (
 /obj/machinery/door/window/reinforced/normal{
-	name = "Command Desk"
+	name = "Command Desk";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/merge_conflict_marker{
@@ -53261,7 +53271,8 @@
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/reinforced/normal{
-	name = "Command Desk"
+	name = "Command Desk";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/general,
 /turf/simulated/floor/plasteel{
@@ -53423,7 +53434,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/window/classic/normal{
-	name = "Mass Driver"
+	name = "Mass Driver";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/turf_decal/loading_area{
@@ -53445,7 +53457,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Mass Driver"
+	name = "Mass Driver";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance,
 /obj/effect/turf_decal/loading_area{
@@ -53979,7 +53992,8 @@
 /area/station/command/office/hos)
 "fMI" = (
 /obj/machinery/door/window/reinforced/normal{
-	name = "Justice Chamber"
+	name = "Justice Chamber";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -54005,7 +54019,8 @@
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/reinforced/normal{
-	name = "Justice Chamber"
+	name = "Justice Chamber";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -54666,7 +54681,9 @@
 /area/station/security/execution)
 "gcj" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal,
+/obj/machinery/door/window/classic/normal{
+	dir = 4
+	},
 /obj/item/storage/fancy/donut_box,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
@@ -54691,7 +54708,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
 /obj/machinery/door/window/classic/normal{
-	name = "Kitchen"
+	name = "Kitchen";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -55017,7 +55035,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/window{
-	name = "HoP's Desk"
+	name = "HoP's Desk";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/hop,
 /obj/merge_conflict_marker{
@@ -55030,7 +55049,8 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/window{
-	name = "HoP's Desk"
+	name = "HoP's Desk";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/hop,
 /turf/simulated/floor/wood,
@@ -55244,7 +55264,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window{
-	name = "Permabrig Kitchen"
+	name = "Permabrig Kitchen";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -55597,7 +55618,9 @@
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = -3
 	},
-/obj/machinery/door/window/classic/reversed,
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -55618,7 +55641,8 @@
 	pixel_x = -3
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
+	name = "Kitchen";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -55910,7 +55934,7 @@
 	},
 /area/station/science/xenobiology)
 "gFR" = (
-/obj/machinery/door/window/brigdoor{
+/obj/machinery/door/window/reinforced/normal{
 	id = "Cell 4";
 	name = "Cell 4";
 	dir = 4
@@ -57564,7 +57588,9 @@
 /area/station/science/xenobiology)
 "hwA" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed,
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -57579,7 +57605,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
+	name = "Kitchen";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -61030,7 +61057,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/door/window/brigdoor{
+/obj/machinery/door/window/reinforced/normal{
 	id = "Cell 5";
 	name = "Cell 5";
 	dir = 1
@@ -61160,7 +61187,9 @@
 /area/station/hallway/primary/port)
 "iUI" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal,
+/obj/machinery/door/window/classic/normal{
+	dir = 4
+	},
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
@@ -61171,7 +61200,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	name = "Medical Reception"
+	name = "Medical Reception";
+	dir = 4
 	},
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -62331,7 +62361,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
-	name = "Cargo Desk"
+	name = "Cargo Desk";
+	dir = 4
 	},
 /obj/item/paper/crumpled,
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
@@ -62342,7 +62373,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
-	name = "Cargo Desk"
+	name = "Cargo Desk";
+	dir = 4
 	},
 /obj/item/paper/crumpled,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general,
@@ -62700,7 +62732,8 @@
 	pixel_y = -3
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Chemistry Desk"
+	name = "Chemistry Desk";
+	dir = 4
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -62726,7 +62759,8 @@
 	pixel_y = -3
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Chemistry Desk"
+	name = "Chemistry Desk";
+	dir = 4
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -63090,7 +63124,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "MiniSat Walkway Access"
+	name = "MiniSat Walkway Access";
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -63454,7 +63489,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Cryo Tank Storage"
+	name = "Cryo Tank Storage";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/merge_conflict_marker{
@@ -63474,7 +63510,8 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Cryo Tank Storage"
+	name = "Cryo Tank Storage";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general,
 /turf/simulated/floor/plasteel{
@@ -66739,7 +66776,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonlockers)
 "lAo" = (
-/obj/machinery/door/window/brigdoor{
+/obj/machinery/door/window/reinforced/normal{
 	dir = 4;
 	id = "Cell 2";
 	name = "Cell 2"
@@ -68254,7 +68291,8 @@
 "mhb" = (
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/classic/normal{
-	name = "Chemistry Desk"
+	name = "Chemistry Desk";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /obj/machinery/door/firedoor,
@@ -68276,7 +68314,8 @@
 	},
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/classic/normal{
-	name = "Chemistry Desk"
+	name = "Chemistry Desk";
+	dir = 4
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -69651,7 +69690,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "mRl" = (
-/obj/machinery/door/window/brigdoor{
+/obj/machinery/door/window/reinforced/normal{
 	dir = 8;
 	id = "Cell 1";
 	name = "Cell 1"
@@ -71833,7 +71872,7 @@
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "nLF" = (
-/obj/machinery/door/window/brigdoor{
+/obj/machinery/door/window/reinforced/normal{
 	dir = 8;
 	id = "Cell 3";
 	name = "Cell 3"
@@ -71987,7 +72026,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /obj/machinery/door/window/classic/normal{
-	name = "Request Window"
+	name = "Request Window";
+	dir = 4
 	},
 /obj/item/pen,
 /obj/item/paper,
@@ -72005,7 +72045,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Request Window"
+	name = "Request Window";
+	dir = 4
 	},
 /obj/item/pen,
 /obj/item/paper,
@@ -72730,7 +72771,8 @@
 /obj/item/pen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Atmospherics Desk"
+	name = "Atmospherics Desk";
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72757,7 +72799,8 @@
 /obj/item/pen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Atmospherics Desk"
+	name = "Atmospherics Desk";
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -73350,7 +73393,9 @@
 /area/station/security/detective)
 "oyT" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal,
+/obj/machinery/door/window/classic/normal{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -73369,7 +73414,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	name = "Kitchen"
+	name = "Kitchen";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -73517,7 +73563,9 @@
 /area/station/maintenance/fpmaint)
 "oCU" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed,
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
 /obj/item/paper_bin{
 	pixel_x = 3;
 	pixel_y = 4
@@ -73536,7 +73584,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	name = "Medical Reception"
+	name = "Medical Reception";
+	dir = 4
 	},
 /obj/item/paper_bin{
 	pixel_x = 3;
@@ -74537,7 +74586,8 @@
 /area/station/public/locker)
 "pbr" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Primate Pen"
+	name = "Primate Pen";
+	dir = 4
 	},
 /obj/effect/turf_decal/siding,
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
@@ -74546,7 +74596,8 @@
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Primate Pen"
+	name = "Primate Pen";
+	dir = 4
 	},
 /obj/effect/turf_decal/siding,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/medical/genetics,
@@ -75781,7 +75832,8 @@
 /obj/structure/plasticflaps,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/window/classic/reversed{
-	name = "delivery door"
+	name = "delivery door";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /obj/merge_conflict_marker{
@@ -75796,7 +75848,8 @@
 /obj/structure/plasticflaps,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/window/classic/reversed{
-	name = "delivery door"
+	name = "delivery door";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance,
@@ -79441,7 +79494,8 @@
 /obj/machinery/door/window{
 	base_state = "right";
 	icon_state = "right";
-	name = "Captain's Desk"
+	name = "Captain's Desk";
+	dir = 4
 	},
 /obj/item/stamp/captain,
 /obj/structure/disposalpipe/segment,
@@ -79455,7 +79509,8 @@
 /obj/machinery/door/window{
 	base_state = "right";
 	icon_state = "right";
-	name = "Captain's Desk"
+	name = "Captain's Desk";
+	dir = 4
 	},
 /obj/item/stamp/captain,
 /obj/structure/disposalpipe/segment,
@@ -81566,7 +81621,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Reception Window"
+	name = "Reception Window";
+	dir = 4
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "hop";
@@ -81586,7 +81642,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Reception Window"
+	name = "Reception Window";
+	dir = 4
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "hop";
@@ -81704,7 +81761,8 @@
 /area/station/science/xenobiology)
 "ssF" = (
 /obj/machinery/door/window{
-	name = "Captain's Desk"
+	name = "Captain's Desk";
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -81717,7 +81775,8 @@
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window{
-	name = "Captain's Desk"
+	name = "Captain's Desk";
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -81895,7 +81954,8 @@
 	name = "Service Desk Shutter"
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Hydroponics Window"
+	name = "Hydroponics Window";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/merge_conflict_marker{
@@ -81919,7 +81979,8 @@
 	name = "Service Desk Shutter"
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Hydroponics Window"
+	name = "Hydroponics Window";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
 /turf/simulated/floor/plasteel,
@@ -82551,7 +82612,8 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
 	name = "Arrivals Security Checkpoint";
-	pixel_y = -8
+	pixel_y = -8;
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -83284,7 +83346,9 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/machinery/door/window/classic/reversed,
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/merge_conflict_marker{
@@ -83301,7 +83365,8 @@
 	opacity = 1
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Botany Delivery"
+	name = "Botany Delivery";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
@@ -83730,7 +83795,8 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /obj/machinery/door/window/classic/normal{
-	name = "Reception Window"
+	name = "Reception Window";
+	dir = 4
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
@@ -83761,7 +83827,8 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Reception Window"
+	name = "Reception Window";
+	dir = 4
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
@@ -83895,7 +83962,9 @@
 /obj/structure/plasticflaps{
 	opacity = 1
 	},
-/obj/machinery/door/window/classic/reversed,
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /obj/merge_conflict_marker{
@@ -83912,7 +83981,8 @@
 	opacity = 1
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Bar Delivery"
+	name = "Bar Delivery";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar,
@@ -84666,7 +84736,8 @@
 /area/station/legal/magistrate)
 "tHo" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Containment Pen #2"
+	name = "Containment Pen #2";
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -84679,7 +84750,8 @@
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Containment Pen #2"
+	name = "Containment Pen #2";
+	dir = 4
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -84836,7 +84908,9 @@
 /obj/item/reagent_containers/food/condiment/peppermill{
 	pixel_x = 3
 	},
-/obj/machinery/door/window/classic/reversed,
+/obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
 /obj/machinery/door/firedoor,
@@ -84857,7 +84931,8 @@
 	pixel_x = 3
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Kitchen"
+	name = "Kitchen";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -87979,7 +88054,8 @@
 /obj/structure/table/reinforced,
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/machinery/door/window/classic/reversed{
-	name = "Hydroponics Window"
+	name = "Hydroponics Window";
+	dir = 4
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -87995,7 +88071,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	name = "Hydroponics Window"
+	name = "Hydroponics Window";
+	dir = 4
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -88224,7 +88301,8 @@
 	network = list("SS13","MiniSat")
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "MiniSat Walkway Access"
+	name = "MiniSat Walkway Access";
+	dir = 4
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -90151,7 +90229,8 @@
 	},
 /obj/machinery/computer/borgupload,
 /obj/machinery/door/window/classic/normal{
-	name = "Cyborg Upload Console Window"
+	name = "Cyborg Upload Console Window";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
 /obj/merge_conflict_marker{
@@ -90169,7 +90248,8 @@
 	},
 /obj/machinery/computer/borgupload,
 /obj/machinery/door/window/classic/normal{
-	name = "Cyborg Upload Console Window"
+	name = "Cyborg Upload Console Window";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -90862,7 +90942,8 @@
 	},
 /obj/machinery/computer/aiupload,
 /obj/machinery/door/window/classic/reversed{
-	name = "Upload Console Window"
+	name = "Upload Console Window";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
 /obj/merge_conflict_marker{
@@ -90880,7 +90961,8 @@
 	},
 /obj/machinery/computer/aiupload,
 /obj/machinery/door/window/classic/reversed{
-	name = "Upload Console Window"
+	name = "Upload Console Window";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -92596,7 +92678,8 @@
 	name = "Xenobio Pen 2 Blast Door"
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Containment Pen #2"
+	name = "Containment Pen #2";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /obj/merge_conflict_marker{
@@ -92609,7 +92692,8 @@
 	name = "Xenobio Pen 2 Blast Door"
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Containment Pen #2"
+	name = "Containment Pen #2";
+	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio,
 /turf/simulated/floor/plasteel,
@@ -93855,7 +93939,8 @@
 "ybS" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	name = "Cargo Desk"
+	name = "Cargo Desk";
+	dir = 4
 	},
 /obj/item/paper_bin{
 	pixel_x = -7;
@@ -93874,7 +93959,8 @@
 	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	name = "Cargo Desk"
+	name = "Cargo Desk";
+	dir = 4
 	},
 /obj/item/paper_bin{
 	pixel_x = -7;
