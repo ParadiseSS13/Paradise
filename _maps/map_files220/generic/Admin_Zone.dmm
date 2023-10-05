@@ -105,7 +105,7 @@
 "cB" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/wood,
 /area/admin)
 "cI" = (
@@ -1780,7 +1780,7 @@
 /area/tdome/tdomeobserve)
 "Bv" = (
 /obj/item/kirbyplants,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1792,7 +1792,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "BB" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1800,7 +1800,7 @@
 /area/admin)
 "BG" = (
 /obj/structure/table/wood/poker,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2193,7 +2193,7 @@
 /obj/machinery/status_display{
 	pixel_y = -30
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2442,7 +2442,7 @@
 /area/admin)
 "Kw" = (
 /obj/structure/closet,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2799,7 +2799,7 @@
 /obj/machinery/status_display{
 	pixel_y = 30
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -4835,10 +4835,10 @@ pO
 (6,1,1) = {"
 Up
 ua
-lE
+lt
 UO
 UO
-lE
+lt
 Rd
 Up
 tI
@@ -5101,7 +5101,7 @@ Up
 bL
 UO
 bL
-vS
+iY
 bL
 UO
 bL
@@ -5349,7 +5349,7 @@ pO
 (8,1,1) = {"
 Up
 bL
-lt
+lE
 UO
 UO
 UO
@@ -5863,7 +5863,7 @@ pO
 (10,1,1) = {"
 Up
 bL
-lE
+lt
 UO
 UO
 UO
@@ -6129,7 +6129,7 @@ Up
 bL
 UO
 bL
-iY
+vS
 bL
 UO
 bL
@@ -8433,7 +8433,7 @@ pO
 (20,1,1) = {"
 Up
 bL
-vS
+iY
 bL
 bL
 bL

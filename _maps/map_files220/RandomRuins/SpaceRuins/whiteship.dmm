@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
@@ -23,7 +23,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/passive_vent,
 /obj/structure/filingcabinet/chestdrawer/autopsy,
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
 	},
@@ -156,7 +156,7 @@
 	},
 /area/shuttle/abandoned)
 "cT" = (
-/obj/machinery/light_construct/directional/east,
+/obj/machinery/light_construct/directional/west,
 /obj/structure/table,
 /obj/item/trash/plate,
 /obj/item/reagent_containers/food/drinks/coffee{
@@ -176,7 +176,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/machinery/light_construct/directional/east,
+/obj/machinery/light_construct/directional/west,
 /obj/item/hemostat,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -266,7 +266,7 @@
 /area/shuttle/abandoned)
 "gc" = (
 /obj/structure/coatrack,
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -333,7 +333,7 @@
 	},
 /area/shuttle/abandoned)
 "gL" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/structure/closet/emcloset,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -628,7 +628,7 @@
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "gnawed bones"
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/machinery/door_control/bolt_control/west{
 	id = "whiteshipouterairlock1";
 	in_use = 1;
@@ -651,7 +651,7 @@
 	},
 /area/shuttle/abandoned)
 "oH" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -673,7 +673,7 @@
 	pixel_x = 32
 	},
 /obj/structure/fans/tiny,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/machinery/door_control/bolt_control/west{
 	id = "whiteshipouterairlock2";
 	in_use = 1;
@@ -934,7 +934,7 @@
 /area/shuttle/abandoned)
 "wF" = (
 /obj/structure/rack,
-/obj/machinery/light_construct/directional/north,
+/obj/machinery/light_construct/directional/south,
 /obj/item/clothing/under/rank/medical/scrubs/green,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
@@ -963,7 +963,7 @@
 	scrub_N2O = 1;
 	scrub_Toxins = 1
 	},
-/obj/machinery/light_construct/small/east,
+/obj/machinery/light_construct/small/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -1157,7 +1157,7 @@
 	},
 /obj/structure/curtain/open,
 /obj/machinery/atmospherics/unary/passive_vent,
-/obj/machinery/light_construct/small/east,
+/obj/machinery/light_construct/small/west,
 /obj/machinery/door_control/shutter/east{
 	id = "whiteshiproom1";
 	name = "Room 1 Shutters Control";
@@ -1221,7 +1221,7 @@
 "CR" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/directional/west,
+/obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -1237,7 +1237,7 @@
 /area/shuttle/abandoned)
 "DH" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -1248,7 +1248,7 @@
 /obj/item/mop,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/radio,
-/obj/machinery/light_construct/directional/west,
+/obj/machinery/light_construct/directional/east,
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1277,7 +1277,7 @@
 "Fw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/wood,
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -1290,7 +1290,7 @@
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/beaker/waterbottle/large,
-/obj/machinery/light_construct/directional/west,
+/obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluefull"
@@ -1312,7 +1312,7 @@
 "FZ" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/structure/sign/lifestar{
 	pixel_x = -32
 	},
@@ -1369,7 +1369,7 @@
 	},
 /obj/structure/curtain/open,
 /obj/machinery/atmospherics/unary/passive_vent,
-/obj/machinery/light_construct/small/east,
+/obj/machinery/light_construct/small/west,
 /obj/machinery/door_control/shutter/east{
 	id = "whiteshiproom2";
 	name = "Room 2 Shutters Control";
@@ -1457,7 +1457,7 @@
 	pixel_x = 8;
 	pixel_y = -4
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/structure/sign/nosmoking_2{
 	pixel_x = -32
 	},
@@ -1515,7 +1515,7 @@
 /area/shuttle/abandoned)
 "KE" = (
 /obj/machinery/iv_drip,
-/obj/machinery/light_construct/directional/north,
+/obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -1558,7 +1558,7 @@
 /area/shuttle/abandoned)
 "Mx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light_construct/small/north,
+/obj/machinery/light_construct/small/south,
 /turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "Mz" = (
@@ -1710,7 +1710,7 @@
 	},
 /area/shuttle/abandoned)
 "PU" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_y = -32
 	},
@@ -1841,7 +1841,7 @@
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1885,7 +1885,7 @@
 /obj/machinery/computer/operating{
 	dir = 1
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
 	},
@@ -2012,7 +2012,7 @@
 	},
 /area/shuttle/abandoned)
 "Vj" = (
-/obj/machinery/light_construct/small/south,
+/obj/machinery/light_construct/small/north,
 /obj/item/clothing/gloves/color/red/insulated,
 /obj/structure/toilet{
 	dir = 4
@@ -2123,7 +2123,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";

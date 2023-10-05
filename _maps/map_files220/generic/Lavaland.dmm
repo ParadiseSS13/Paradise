@@ -311,7 +311,7 @@
 	},
 /area/mine/laborcamp)
 "aW" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -450,7 +450,7 @@
 /area/mine/laborcamp)
 "bm" = (
 /obj/machinery/cryopod,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -833,7 +833,7 @@
 	},
 /area/mine/eva)
 "bY" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -871,7 +871,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -903,7 +903,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "cg" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "ch" = (
@@ -970,7 +970,7 @@
 /turf/simulated/wall,
 /area/mine/cafeteria)
 "cq" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1154,7 +1154,7 @@
 	},
 /area/mine/production)
 "cK" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
 /turf/simulated/floor/plating,
 /area/mine/production)
@@ -1221,7 +1221,7 @@
 "cS" = (
 /obj/structure/table,
 /obj/item/storage/box/donkpockets,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -1261,7 +1261,7 @@
 /obj/effect/turf_decal/loading_area{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /obj/machinery/power/apc{
 	name = "Processing Room APC";
 	pixel_y = -24
@@ -1350,7 +1350,7 @@
 	},
 /area/mine/airlock)
 "df" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1388,8 +1388,8 @@
 	opened = 1
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/light/small/directional/east,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
 "dj" = (
@@ -1480,7 +1480,7 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "ds" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal{
 	dir = 1
 	},
@@ -1526,11 +1526,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -22;
-	dir = 1
-	},
+/obj/item/radio/intercom/directional/south,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Mech Storage 1";
 	dir = 1;
@@ -1554,7 +1550,7 @@
 	},
 /area/mine/living_quarters)
 "dy" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -1864,7 +1860,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/cable{
@@ -1902,7 +1898,7 @@
 	},
 /area/mine/living_quarters)
 "eh" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -2014,7 +2010,7 @@
 	},
 /area/mine/cafeteria)
 "es" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -2170,7 +2166,7 @@
 	},
 /area/mine/production)
 "eG" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2458,7 +2454,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
 "fg" = (
@@ -2519,7 +2515,7 @@
 /turf/simulated/floor/plating,
 /area/mine/mechbay)
 "fm" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -2615,7 +2611,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/comms)
 "fx" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2692,7 +2688,7 @@
 /area/mine/cafeteria)
 "fE" = (
 /obj/structure/closet/secure_closet/miner,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2813,7 +2809,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plating,
 /area/mine/abandoned)
 "fQ" = (
@@ -2887,7 +2883,7 @@
 /area/mine/storage)
 "ga" = (
 /obj/structure/closet/crate/freezer/iv_storage,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -3233,7 +3229,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gH" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
@@ -3312,7 +3308,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "hj" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
@@ -3329,7 +3325,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4591,7 +4587,7 @@
 	},
 /area/mine/cafeteria)
 "sv" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /obj/structure/closet/secure_closet/brig/gulag,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
@@ -4701,7 +4697,7 @@
 "tK" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/structure/extinguisher_cabinet/directional/west,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -4722,7 +4718,7 @@
 /turf/simulated/wall,
 /area/mine/laborcamp)
 "uf" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -4835,7 +4831,7 @@
 /area/mine/laborcamp)
 "vI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/item/trash/syndi_cakes,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
@@ -4845,7 +4841,7 @@
 /area/mine/laborcamp)
 "vK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "vT" = (
@@ -4924,7 +4920,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "xx" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -5268,7 +5264,7 @@
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/toy/figure/crew/assistant,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
@@ -5355,7 +5351,7 @@
 	},
 /area/mine/laborcamp/security)
 "EG" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Fe" = (
@@ -5384,7 +5380,7 @@
 /obj/item/mining_scanner,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/mask/breath,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/item/clothing/head/beanie/orange,
 /obj/item/clothing/gloves/fingerless,
 /obj/item/clothing/shoes/workboots,
@@ -5451,7 +5447,7 @@
 /area/mine/laborcamp)
 "HK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -5528,7 +5524,7 @@
 	},
 /area/mine/living_quarters)
 "Jl" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5555,7 +5551,7 @@
 	},
 /area/mine/laborcamp)
 "JQ" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
@@ -5652,7 +5648,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -5724,7 +5720,7 @@
 /turf/simulated/wall,
 /area/mine/airlock)
 "Nq" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -5866,7 +5862,7 @@
 /area/mine/mechbay)
 "QE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -5944,7 +5940,7 @@
 	},
 /area/mine/laborcamp)
 "SO" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5962,7 +5958,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -6215,7 +6211,7 @@
 /obj/structure/table,
 /obj/item/folder/red,
 /obj/item/restraints/handcuffs,
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "WJ" = (
@@ -6282,7 +6278,7 @@
 /area/mine/living_quarters)
 "XW" = (
 /obj/structure/closet/secure_closet/miner,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -6330,7 +6326,7 @@
 	},
 /area/mine/laborcamp)
 "YW" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6338,7 +6334,7 @@
 	},
 /area/mine/laborcamp/security)
 "YY" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/item/soap/homemade,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
@@ -6347,7 +6343,7 @@
 /obj/machinery/sleeper{
 	dir = 2
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -16888,7 +16884,7 @@ cp
 El
 eb
 eb
-rV
+du
 QF
 GO
 fz
@@ -18431,7 +18427,7 @@ fN
 cM
 ey
 bx
-du
+rV
 fy
 bC
 Zf
@@ -20479,7 +20475,7 @@ ab
 xC
 xC
 Cf
-JX
+cm
 Vu
 Vu
 xC
@@ -20992,7 +20988,7 @@ ab
 ab
 xC
 xC
-cm
+JX
 Cf
 Vu
 gH

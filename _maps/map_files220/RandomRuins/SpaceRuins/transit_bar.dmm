@@ -96,7 +96,7 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /obj/structure/sign/monkey_paint{
 	pixel_y = -32
 	},
@@ -187,12 +187,12 @@
 	},
 /area/ruin/space/powered)
 "J" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/powered)
 "K" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/structure/sign/poster/contraband/random/north,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/ruin/space/powered)
@@ -234,7 +234,7 @@
 /area/ruin/space/powered)
 "T" = (
 /obj/structure/table/wood,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/item/ashtray/bronze,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_y = 12;
@@ -338,7 +338,7 @@ n
 x
 n
 a
-B
+d
 a
 y
 a
@@ -446,7 +446,7 @@ z
 a
 y
 a
-d
+B
 i
 n
 x

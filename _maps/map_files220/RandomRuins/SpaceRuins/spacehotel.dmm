@@ -9,7 +9,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "ae" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -97,7 +97,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
@@ -112,7 +112,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
@@ -176,7 +176,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "bi" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "bn" = (
@@ -204,14 +204,14 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "by" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 1
 	},
 /area/ruin/space/spacehotelv1/entryhallway)
 "bz" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
@@ -261,7 +261,7 @@
 /area/ruin/space/spacehotelv1/guestroom3)
 "bM" = (
 /obj/structure/chair/sofa/left,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/reception)
 "bQ" = (
@@ -322,7 +322,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "cp" = (
@@ -354,7 +354,7 @@
 "cB" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/three,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
@@ -392,7 +392,7 @@
 	pixel_y = 32;
 	gpstag = "Twin Nexus Space Hotel"
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 1
@@ -513,7 +513,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "dJ" = (
@@ -554,7 +554,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "ed" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -563,7 +563,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom2)
 "ee" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/beach/water{
 	slowdown = 3
 	},
@@ -602,7 +602,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat{
 	name = "Albert"
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/space/spacehotelv1/kitchen)
 "eD" = (
@@ -657,7 +657,7 @@
 /area/ruin/space/spacehotelv1/restoraunt2)
 "eO" = (
 /obj/structure/chair/wood,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "eP" = (
@@ -960,7 +960,7 @@
 /area/ruin/space/spacehotelv1/centralhallway)
 "hn" = (
 /obj/structure/chair/sofa/right,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/reception)
 "hs" = (
@@ -1062,7 +1062,7 @@
 /area/ruin/space/spacehotelv1/restoraunt3)
 "hW" = (
 /obj/structure/filingcabinet,
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/reception)
 "if" = (
@@ -1120,7 +1120,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -1153,7 +1153,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/reception)
 "iG" = (
@@ -1185,7 +1185,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "jb" = (
@@ -1307,7 +1307,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "jK" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1444,7 +1444,7 @@
 /obj/machinery/door_control/bolt_control/east{
 	id = "restoom1"
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -1745,7 +1745,7 @@
 	},
 /area/ruin/space/spacehotelv1/bar)
 "mA" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -1758,7 +1758,7 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "mE" = (
@@ -1804,7 +1804,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "mX" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/machinery/door_control/bolt_control/north{
 	id = "ext_eva_door2";
 	pixel_x = 8
@@ -1844,7 +1844,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "nn" = (
@@ -1873,7 +1873,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -2174,7 +2174,7 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom5)
 "py" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -2267,7 +2267,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/guestroom1)
 "ql" = (
@@ -2808,7 +2808,7 @@
 	dir = 6
 	},
 /obj/machinery/economy/vending/snack/free,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "tZ" = (
@@ -3069,7 +3069,7 @@
 /area/ruin/space/spacehotelv1/reception)
 "vV" = (
 /obj/structure/sink/directional/east,
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -3652,7 +3652,7 @@
 	pixel_y = 3;
 	pixel_x = 3
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -3710,7 +3710,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "zN" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/machinery/conveyor_switch/oneway{
 	id = "hotelsdisposal"
 	},
@@ -3723,7 +3723,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "zU" = (
@@ -3920,7 +3920,7 @@
 /area/ruin/space/spacehotelv1/bar)
 "Bj" = (
 /obj/structure/coatrack,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/carpet/blue,
 /area/ruin/space/spacehotelv1/guestroom3)
 "Bn" = (
@@ -3944,7 +3944,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "By" = (
@@ -4030,7 +4030,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "Ck" = (
@@ -4058,7 +4058,7 @@
 /obj/structure/chair/comfy/beige{
 	dir = 4
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Cq" = (
@@ -4119,7 +4119,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "CO" = (
@@ -4146,7 +4146,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom1)
 "Dk" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
@@ -4388,7 +4388,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/reception)
 "Fb" = (
@@ -4491,21 +4491,21 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/spacehotelv1/guestroom6)
 "Fx" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Fy" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
 /area/ruin/space/spacehotelv1/guestroom2)
 "Fz" = (
 /obj/structure/closet/firecloset,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "FD" = (
@@ -4525,7 +4525,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/space/spacehotelv1/guestroom2)
 "FN" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
@@ -4560,7 +4560,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
@@ -4604,7 +4604,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "Gf" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/machinery/dye_generator,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -4662,7 +4662,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
@@ -4822,7 +4822,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -4896,12 +4896,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Iv" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -4911,13 +4911,13 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "IB" = (
 /obj/structure/rack,
 /obj/random/tool,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -4945,7 +4945,7 @@
 	dir = 9
 	},
 /obj/item/kirbyplants,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "IT" = (
@@ -5109,7 +5109,7 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ka" = (
@@ -5172,7 +5172,7 @@
 	},
 /area/space/nearstation)
 "KC" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5183,7 +5183,7 @@
 	dir = 4
 	},
 /obj/item/paicard,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/carpet/cyan,
 /area/ruin/space/spacehotelv1/guestroom5)
 "KF" = (
@@ -5197,7 +5197,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/spacehotelv1/tcomms)
 "KG" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /obj/structure/chair/wood{
 	dir = 8
 	},
@@ -5313,7 +5313,7 @@
 	dir = 5
 	},
 /obj/structure/reagent_dispensers/water_cooler,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "Lr" = (
@@ -5337,7 +5337,7 @@
 /area/ruin/space/spacehotelv1/reception)
 "Lw" = (
 /obj/structure/closet/firecloset,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Ly" = (
@@ -5356,7 +5356,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "LI" = (
@@ -5485,7 +5485,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "ME" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /obj/structure/sign/poster/random{
 	pixel_x = 32
 	},
@@ -5552,7 +5552,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Ne" = (
@@ -6069,7 +6069,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/guestroom1)
 "QH" = (
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "QI" = (
@@ -6165,7 +6165,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/spacehotelv1/guestroom4)
 "RL" = (
@@ -6174,7 +6174,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "RP" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -6182,7 +6182,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "RS" = (
@@ -6190,7 +6190,7 @@
 /obj/item/mounted/mirror{
 	pixel_x = -32
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -6314,7 +6314,7 @@
 	dir = 8
 	},
 /obj/item/clothing/glasses/sunglasses,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/spacehotelv1/guestroom6)
 "SY" = (
@@ -6341,7 +6341,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
@@ -6444,7 +6444,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/space/spacehotelv1/forehallway)
 "TT" = (
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -6475,7 +6475,7 @@
 	id = "ext_eva_door";
 	pixel_y = 8
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
@@ -6563,7 +6563,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/reception)
 "UP" = (
@@ -6656,7 +6656,7 @@
 /area/ruin/space/spacehotelv1/restoraunt3)
 "Vr" = (
 /obj/effect/turf_decal/siding/wood,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
@@ -6776,7 +6776,7 @@
 	dir = 10
 	},
 /obj/structure/closet/crate/can,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "Wj" = (
@@ -6838,7 +6838,7 @@
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Wx" = (
 /obj/structure/closet/athletic_mixed,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacehotelv1/janitor)
 "Wy" = (
@@ -7031,7 +7031,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Yq" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -7088,7 +7088,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/bar)
 "YG" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -7136,7 +7136,7 @@
 /obj/structure/chair/comfy/black{
 	dir = 1
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/bar)
 "Zf" = (
@@ -8256,11 +8256,11 @@ Aq
 Aq
 SY
 GJ
-BW
+Px
 UQ
 LC
 rA
-Px
+BW
 GJ
 qN
 kV
@@ -8327,13 +8327,13 @@ DH
 LI
 IZ
 SY
-TH
+Wv
 Ad
 uc
 Ad
 Ad
 Ad
-Wv
+TH
 GJ
 eP
 sV
@@ -8644,12 +8644,12 @@ kR
 kR
 kR
 kR
-Fh
+sH
 Ad
 Ad
 Ad
 gU
-sH
+Fh
 GJ
 gF
 GB
@@ -9455,9 +9455,9 @@ rd
 Fv
 WT
 nI
-PL
-JE
 Wu
+JE
+PL
 Ib
 IZ
 IZ
@@ -10703,10 +10703,10 @@ du
 zN
 av
 vQ
-Tl
+Vz
 Fo
 hD
-Vz
+Tl
 vQ
 vQ
 by
@@ -11019,10 +11019,10 @@ oR
 oR
 yD
 vQ
-Tl
+Vz
 wS
 hD
-Vz
+Tl
 vQ
 aG
 Hd

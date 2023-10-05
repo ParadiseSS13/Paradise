@@ -243,15 +243,15 @@
 /obj/machinery/light/directional
 	name = "\improper light fixture"
 
-/obj/machinery/light/directional/south
+/obj/machinery/light/directional/north
 	dir = 1
 
-/obj/machinery/light/directional/north
-
-/obj/machinery/light/directional/west
-	dir = 4
+/obj/machinery/light/directional/south
 
 /obj/machinery/light/directional/east
+	dir = 4
+
+/obj/machinery/light/directional/west
 	dir = 8
 
 /obj/machinery/light/nightshifted
@@ -259,43 +259,43 @@
 	nightshift_allowed = FALSE
 	nightshift_enabled = TRUE
 
-/obj/machinery/light/nightshifted/south
+/obj/machinery/light/nightshifted/north
 	dir = 1
 
-/obj/machinery/light/nightshifted/north
-
-/obj/machinery/light/nightshifted/west
-	dir = 4
+/obj/machinery/light/nightshifted/south
 
 /obj/machinery/light/nightshifted/east
+	dir = 4
+
+/obj/machinery/light/nightshifted/west
 	dir = 8
 
 /obj/machinery/light/built
 	name = "\improper light fixture"
 
-/obj/machinery/light/built/south
+/obj/machinery/light/built/north
 	dir = 1
 
-/obj/machinery/light/built/north
-
-/obj/machinery/light/built/west
-	dir = 4
+/obj/machinery/light/built/south
 
 /obj/machinery/light/built/east
+	dir = 4
+
+/obj/machinery/light/built/west
 	dir = 8
 
 /obj/machinery/light/small/directional
 	name = "\improper light fixture"
 
-/obj/machinery/light/small/directional/south
+/obj/machinery/light/small/directional/north
 	dir = 1
 
-/obj/machinery/light/small/directional/north
-
-/obj/machinery/light/small/directional/west
-	dir = 4
+/obj/machinery/light/small/directional/south
 
 /obj/machinery/light/small/directional/east
+	dir = 4
+
+/obj/machinery/light/small/directional/west
 	dir = 8
 
 /obj/machinery/light/small/nightshifted
@@ -303,54 +303,54 @@
 	nightshift_allowed = FALSE
 	nightshift_enabled = TRUE
 
-/obj/machinery/light/small/nightshifted/south
+/obj/machinery/light/small/nightshifted/north
 	dir = 1
 
-/obj/machinery/light/small/nightshifted/north
+/obj/machinery/light/small/nightshifted/south
 
-/obj/machinery/light/small/nightshifted/west
+/obj/machinery/light/small/nightshifted/east
 	dir = 4
 
-/obj/machinery/light/small/directional/east
+/obj/machinery/light/small/directional/west
 	dir = 8
 
 /obj/machinery/light/small/built
 	name = "\improper light fixture"
 
-/obj/machinery/light/small/built/south
+/obj/machinery/light/small/built/north
 	dir = 1
 
-/obj/machinery/light/small/built/north
-
-/obj/machinery/light/small/built/west
-	dir = 4
+/obj/machinery/light/small/built/south
 
 /obj/machinery/light/small/built/east
+	dir = 4
+
+/obj/machinery/light/small/built/west
 	dir = 8
 
 /obj/machinery/light_construct/directional
 	name = "\improper light fixture frame"
 
-/obj/machinery/light_construct/directional/south
+/obj/machinery/light_construct/directional/north
 	dir = 1
 
-/obj/machinery/light_construct/directional/north
-
-/obj/machinery/light_construct/directional/west
-	dir = 4
+/obj/machinery/light_construct/directional/south
 
 /obj/machinery/light_construct/directional/east
-	dir = 8
-
-/obj/machinery/light_construct/small/south
-	dir = 1
-
-/obj/machinery/light_construct/small/north
-
-/obj/machinery/light_construct/small/west
 	dir = 4
 
+/obj/machinery/light_construct/directional/west
+	dir = 8
+
+/obj/machinery/light_construct/small/north
+	dir = 1
+
+/obj/machinery/light_construct/small/south
+
 /obj/machinery/light_construct/small/east
+	dir = 4
+
+/obj/machinery/light_construct/small/west
 	dir = 8
 
 /* Extinguisher */

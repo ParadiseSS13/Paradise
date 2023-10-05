@@ -90,7 +90,7 @@
 /turf/template_noop,
 /area/template_noop)
 "dq" = (
-/obj/machinery/light_construct/small/east,
+/obj/machinery/light_construct/small/west,
 /obj/structure/closet,
 /obj/structure/sign/nosmoking_1{
 	pixel_x = -32
@@ -150,7 +150,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)
 "eJ" = (
-/obj/machinery/light_construct/directional/east,
+/obj/machinery/light_construct/directional/west,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
@@ -735,7 +735,7 @@
 	},
 /area/ruin/space/powered)
 "FF" = (
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/delivery/white,
 /obj/structure/closet/cardboard,
 /obj/item/reagent_containers/food/snacks/chinese/chowmein,
@@ -850,7 +850,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "Jf" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
@@ -883,7 +883,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "KY" = (
-/obj/machinery/light_construct/directional/east,
+/obj/machinery/light_construct/directional/west,
 /obj/structure/closet,
 /obj/structure/sign/nosmoking_1{
 	pixel_x = -32
@@ -1135,7 +1135,7 @@
 /area/ruin/space/powered)
 "TU" = (
 /obj/structure/lattice,
-/obj/machinery/light_construct/directional/east,
+/obj/machinery/light_construct/directional/west,
 /turf/template_noop,
 /area/template_noop)
 "Uo" = (
@@ -1214,7 +1214,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "YG" = (
-/obj/machinery/light_construct/directional/east,
+/obj/machinery/light_construct/directional/west,
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
@@ -1228,7 +1228,7 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "Ze" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "blackfull"

@@ -12,7 +12,7 @@
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/infteam)
 "aaA" = (
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "aaB" = (
@@ -2516,7 +2516,7 @@
 /area/syndicate_mothership/cargo)
 "bYl" = (
 /obj/item/flag/syndi,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo19"
 	},
@@ -2813,7 +2813,7 @@
 /area/centcom/ss220/bar)
 "cnh" = (
 /obj/structure/table/reinforced,
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "cns" = (
@@ -3304,7 +3304,7 @@
 /obj/item/clothing/glasses/welding{
 	pixel_y = 10
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -3388,7 +3388,7 @@
 "cLm" = (
 /obj/structure/table/reinforced,
 /obj/machinery/recharger,
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "cLo" = (
@@ -3790,7 +3790,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -3965,7 +3965,7 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
 "djY" = (
@@ -4200,7 +4200,7 @@
 "dsw" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/mug/med,
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -5620,7 +5620,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "eyg" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
 	},
@@ -5944,7 +5944,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_sit)
 "eHy" = (
@@ -7452,7 +7452,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -7561,7 +7561,7 @@
 	pixel_y = -28;
 	dir = 1
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo16"
 	},
@@ -7626,7 +7626,7 @@
 	pixel_y = -28;
 	dir = 1
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
@@ -8555,7 +8555,7 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -8878,7 +8878,7 @@
 "hbm" = (
 /obj/item/storage/firstaid/o2,
 /obj/structure/table,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -9382,7 +9382,7 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/syndicate_mothership/outside)
 "hvm" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_elite)
@@ -10150,7 +10150,7 @@
 	},
 /area/ninja/holding)
 "hYP" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /obj/structure/window/reinforced{
 	color = "red"
 	},
@@ -10192,7 +10192,7 @@
 /turf/simulated/wall/mineral/titanium/nodiagonal,
 /area/shuttle/trade/sol)
 "iaF" = (
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/wood/fancy/birch,
 /area/shuttle/trade/sol)
 "ibG" = (
@@ -10590,7 +10590,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/machinery/airlock_controller/air_cycler{
 	pixel_x = -25;
 	req_access_txt = "150";
@@ -10799,7 +10799,7 @@
 /area/shuttle/escape)
 "ivP" = (
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -10990,7 +10990,7 @@
 /area/centcom/ss220/bar)
 "iFH" = (
 /obj/item/kirbyplants,
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "iGx" = (
@@ -11776,7 +11776,7 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = 32
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -12610,7 +12610,7 @@
 /obj/structure/table/reinforced,
 /obj/item/storage/backpack/medic,
 /obj/item/storage/belt/medical,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -13323,7 +13323,7 @@
 /area/centcom/ss220/admin3)
 "kJF" = (
 /obj/machinery/optable,
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/syndicate)
 "kKp" = (
@@ -13609,7 +13609,7 @@
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/light/small/directional/south,
+/obj/machinery/light/small/directional/north,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
 "ldu" = (
@@ -16912,7 +16912,7 @@
 "nDq" = (
 /obj/item/kirbyplants,
 /obj/structure/extinguisher_cabinet/directional/east,
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -17264,7 +17264,7 @@
 /area/syndicate_mothership/control)
 "nSl" = (
 /obj/structure/table/wood/fancy/red,
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/carpet/royalblue,
 /area/shuttle/trade/sol)
 "nSN" = (
@@ -17686,7 +17686,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -18043,7 +18043,7 @@
 "oCU" = (
 /obj/structure/extinguisher_cabinet/directional/west,
 /obj/machinery/recharge_station,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -18250,7 +18250,7 @@
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -18848,7 +18848,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/evac)
 "pmM" = (
-/obj/machinery/light/small/directional/north,
+/obj/machinery/light/small/directional/south,
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/economy/vending/wallmed/syndicate{
 	pixel_y = -30
@@ -19225,7 +19225,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -21434,7 +21434,7 @@
 /area/syndicate_mothership/elite_squad)
 "rsA" = (
 /obj/machinery/teleport/station,
-/obj/machinery/light/small/directional/east,
+/obj/machinery/light/small/directional/west,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
 "rsG" = (
@@ -22995,7 +22995,7 @@
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
 	},
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -23690,7 +23690,7 @@
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
 /obj/item/tank/internals/emergency_oxygen/engi,
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -25562,7 +25562,7 @@
 /obj/machinery/recharger/wallcharger{
 	pixel_x = 30
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
 "uGb" = (
@@ -26003,7 +26003,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/light/small/directional/west,
+/obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26976,7 +26976,7 @@
 /obj/structure/sign/poster/contraband/syndicate_pistol{
 	pixel_y = 32
 	},
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "vNu" = (
@@ -27974,7 +27974,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
@@ -28365,7 +28365,7 @@
 "wSY" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -42760,7 +42760,7 @@ vce
 adJ
 kue
 cbK
-vwY
+smv
 frK
 iry
 oPO
@@ -43274,7 +43274,7 @@ vce
 adJ
 kue
 lrI
-smv
+vwY
 frK
 fWV
 oPO
@@ -47465,7 +47465,7 @@ fnU
 kns
 kfn
 vCS
-gof
+gEl
 vCS
 tPC
 kns
@@ -47721,9 +47721,9 @@ xVV
 jYa
 uRN
 vCS
-sPz
-pMa
 ceC
+pMa
+sPz
 vCS
 uod
 gXs
@@ -47979,7 +47979,7 @@ fnU
 kns
 kfn
 vCS
-gEl
+gof
 vCS
 tPC
 kns

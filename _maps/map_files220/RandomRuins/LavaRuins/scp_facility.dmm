@@ -9,7 +9,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "be" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkblue";
 	dir = 4
@@ -43,7 +43,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "ce" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
@@ -110,7 +110,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "fN" = (
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /obj/effect/decal/remains/robot,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
@@ -178,7 +178,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "jQ" = (
 /obj/machinery/washing_machine,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "whiteblue"
 	},
@@ -217,7 +217,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "lC" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "lI" = (
@@ -268,7 +268,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "nz" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
@@ -358,7 +358,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "rP" = (
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 4
@@ -376,9 +376,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "si" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/light/built{
-	dir = 8
-	},
+/obj/machinery/light/built/east,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkred";
 	dir = 8
@@ -495,7 +493,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "xi" = (
 /obj/structure/rack,
-/obj/machinery/light/directional/east,
+/obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
@@ -560,7 +558,7 @@
 /obj/item/clothing/suit/armor/bulletproof{
 	pixel_y = 6
 	},
-/obj/machinery/light/directional/west,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
@@ -573,9 +571,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "AT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/built{
-	dir = 4
-	},
+/obj/machinery/light/built/west,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "Bd" = (
@@ -1069,7 +1065,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "Tk" = (
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/light/directional/north,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "darkblue"
 	},
@@ -1896,11 +1892,11 @@ Fh
 wm
 pm
 XD
-KP
+pv
 XW
 XW
 XW
-KP
+pv
 wK
 pm
 Fh
@@ -2208,11 +2204,11 @@ GX
 Xd
 pm
 xT
-pv
+KP
 XW
 VG
 XW
-pv
+KP
 Hz
 pm
 Fh
