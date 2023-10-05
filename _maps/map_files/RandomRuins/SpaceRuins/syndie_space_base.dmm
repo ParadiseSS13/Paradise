@@ -830,6 +830,8 @@
 /obj/item/gun/energy/floragun,
 /obj/item/gun/energy/floragun,
 /obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene,
+/obj/item/storage/box/disks_plantgene,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/service)
 "eR" = (
