@@ -1763,7 +1763,6 @@
 #include "code\modules\food_and_drinks\kitchen_machinery\oven_new.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\processor.dm"
 #include "code\modules\food_and_drinks\kitchen_machinery\smartfridge.dm"
-#include "code\modules\food_and_drinks\recipes\griddle.dm"
 #include "code\modules\food_and_drinks\recipes\recipes_candy.dm"
 #include "code\modules\food_and_drinks\recipes\recipes_grill.dm"
 #include "code\modules\food_and_drinks\recipes\recipes_microwave.dm"
