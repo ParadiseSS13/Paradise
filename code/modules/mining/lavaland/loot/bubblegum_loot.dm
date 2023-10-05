@@ -64,9 +64,7 @@
 		message_admins("[key_name_admin(L)] has been marked for death by [key_name_admin(user)].")
 		log_admin("[key_name(L)] has been marked for death by [key_name(user)].")
 
-		var/datum/objective/survive/survive = new
-		survive.owner = L.mind
-		L.mind.objectives += survive
+		L.mind.add_mind_objective(/datum/objective/survive)
 		to_chat(L, "<span class='userdanger'>You've been marked for death! Don't let the demons get you!</span>")
 		L.color = "#FF0000"
 		spawn()

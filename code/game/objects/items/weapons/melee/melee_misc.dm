@@ -1,4 +1,6 @@
 /obj/item/melee
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	needs_permit = TRUE
 
 /obj/item/melee/chainofcommand
@@ -7,7 +9,7 @@
 	icon_state = "chain"
 	item_state = "chain"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL

@@ -31,3 +31,11 @@
 
 /obj/machinery/computer/crew/interact(mob/user)
 	crew_monitor.ui_interact(user)
+
+/obj/machinery/computer/crew/advanced
+	name = "advanced crew monitoring computer"
+	desc = "Used to monitor active health sensors built into most of the crew's uniforms across multiple sectors."
+
+/obj/machinery/computer/crew/advanced/Initialize()
+	. = ..()
+	crew_monitor.is_advanced = TRUE

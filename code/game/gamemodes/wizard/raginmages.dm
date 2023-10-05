@@ -21,11 +21,8 @@
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizard Federation has given you the following tasks:</B>")
 
-	var/obj_count = 1
 	to_chat(wizard.current, "<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
-	for(var/datum/objective/objective in wizard.objectives)
-		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+	wizard.announce_objectives(title = FALSE)
 	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 
 /datum/game_mode/wizard/raginmages/check_finished()
