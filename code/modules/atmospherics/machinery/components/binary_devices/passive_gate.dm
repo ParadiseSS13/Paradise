@@ -42,6 +42,10 @@
 		//Need at least 10 KPa difference to overcome friction in the mechanism
 		return 1
 
+	if(target_pressure >= input_starting_pressure-10)
+		//Gas will not pump if the input pressure is lower than the target
+		return 1
+
 	//Calculate necessary moles to transfer using PV = nRT
 	if((air1.total_moles() > 0) && (air1.temperature>0))
 		var/pressure_delta = min(target_pressure - output_starting_pressure, (input_starting_pressure - output_starting_pressure)/2)
