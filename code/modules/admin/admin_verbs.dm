@@ -69,7 +69,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/ccbdb_lookup_ckey,
 	/client/proc/view_instances,
 	/client/proc/start_vote,
-	/client/proc/toggle_mctabs,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist
 ))
@@ -117,7 +116,8 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 	/datum/admins/proc/spawn_atom,		/*allows us to spawn instances*/
 	/client/proc/respawn_character,
 	/client/proc/admin_deserialize,
-	/client/proc/create_crate
+	/client/proc/create_crate,
+	/client/proc/json_spawn_menu
 	))
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
@@ -179,6 +179,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/timer_log,
 	/client/proc/debug_timers,
 	/client/proc/force_verb_bypass,
+	/client/proc/show_gc_queues,
+	/client/proc/toggle_mctabs,
+	/client/proc/debug_global_variables
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -237,6 +240,18 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
 	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
 ))
+GLOBAL_LIST_INIT(view_runtimes_verbs, list(
+	/client/proc/view_runtimes,
+	/client/proc/cmd_display_del_log,
+	/client/proc/cmd_display_del_log_simple,
+	/client/proc/toggledebuglogs,
+	/client/proc/debug_variables, /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/ss_breakdown,
+	/client/proc/show_gc_queues,
+	/client/proc/toggle_mctabs,
+	/client/proc/debug_global_variables,
+	/client/proc/visualise_active_turfs
+))
 
 /client/proc/on_holder_add()
 	if(chatOutput && chatOutput.loaded)
@@ -285,12 +300,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		if(holder.rights & R_MAINTAINER)
 			verbs += GLOB.admin_verbs_maintainer
 		if(holder.rights & R_VIEWRUNTIMES)
-			verbs += /client/proc/view_runtimes
-			verbs += /client/proc/cmd_display_del_log
-			verbs += /client/proc/cmd_display_del_log_simple
-			verbs += /client/proc/toggledebuglogs
-			verbs += /client/proc/debug_variables /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
-			verbs += /client/proc/ss_breakdown
+			verbs += GLOB.view_runtimes_verbs
 			spawn(1) // This setting exposes the profiler for people with R_VIEWRUNTIMES. They must still have it set in cfg/admin.txt
 				control_freak = 0
 
@@ -865,7 +875,7 @@ GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 		return
 	var/job = input("Please select job slot to free", "Free Job Slot") as null|anything in jobs
 	if(job)
-		SSjobs.FreeRole(job)
+		SSjobs.FreeRole(job, force = TRUE)
 		log_admin("[key_name(usr)] has freed a job slot for [job].")
 		message_admins("[key_name_admin(usr)] has freed a job slot for [job].")
 

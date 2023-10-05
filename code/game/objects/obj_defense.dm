@@ -23,11 +23,8 @@
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration_flat = 0, armour_penetration_percentage = 0)
 	if(damage_flag == MELEE && damage_amount < damage_deflection)
 		return 0
-	switch(damage_type)
-		if(BRUTE)
-		if(BURN)
-		else
-			return 0
+	if(damage_type != BRUTE && damage_type != BURN)
+		return 0
 	var/armor_protection = 0
 	if(damage_flag)
 		armor_protection = armor.getRating(damage_flag)
@@ -169,14 +166,13 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 ///the obj's reaction when touched by acid
 /obj/acid_act(acidpwr, acid_volume)
 	if(!(resistance_flags & UNACIDABLE) && acid_volume)
-
 		if(!acid_level)
 			SSacid.processing[src] = src
 			add_overlay(GLOB.acid_overlay, TRUE)
 		var/acid_cap = acidpwr * 300 //so we cannot use huge amounts of weak acids to do as well as strong acids.
 		if(acid_level < acid_cap)
 			acid_level = min(acid_level + acidpwr * acid_volume, acid_cap)
-		return 1
+		return TRUE
 
 ///the proc called by the acid subsystem to process the acid that's on the obj
 /obj/proc/acid_processing()

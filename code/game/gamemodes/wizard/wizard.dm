@@ -5,6 +5,7 @@
 /datum/game_mode/wizard
 	name = "wizard"
 	config_tag = "wizard"
+	tdm_gamemode = TRUE
 	required_players = 20
 	required_enemies = 1
 	recommended_enemies = 1
@@ -78,10 +79,7 @@
 	set_antag_hud(wiz_mind.current, null)
 
 /datum/game_mode/proc/forge_wizard_objectives(datum/mind/wizard)
-	var/datum/objective/wizchaos/wiz_objective = new
-	wiz_objective.owner = wizard
-	wizard.objectives += wiz_objective
-	return
+	wizard.add_mind_objective(/datum/objective/wizchaos)
 
 /datum/game_mode/proc/name_wizard(mob/living/carbon/human/wizard_mob)
 	//Allows the wizard to choose a custom name or go with a random one. Spawn 0 so it does not lag the round starting.
@@ -104,10 +102,7 @@
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
 
-	var/obj_count = 1
-	for(var/datum/objective/objective in wizard.objectives)
-		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+	wizard.announce_objectives(title = FALSE)
 	to_chat(wizard.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Wizard)</span>")
 	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 
@@ -128,24 +123,25 @@
 		wizard_mob.internal = wizard_mob.r_hand
 		wizard_mob.update_action_buttons_icon()
 	else
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), SLOT_HUD_JUMPSUIT)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), SLOT_HUD_HEAD)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), SLOT_HUD_LEFT_EAR)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), SLOT_HUD_SHOES)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), SLOT_HUD_OUTER_SUIT)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), SLOT_HUD_BACK)
 	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), slot_in_backpack)
+		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), SLOT_HUD_IN_BACKPACK)
 	else
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), slot_r_store)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), SLOT_HUD_IN_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), SLOT_HUD_RIGHT_STORE)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(spellbook, slot_l_hand)
+	wizard_mob.equip_to_slot_or_del(spellbook, SLOT_HUD_LEFT_HAND)
 
 	wizard_mob.faction = list("wizard")
+	wizard_mob.mind.offstation_role = TRUE
 
 
 
@@ -164,11 +160,7 @@
 
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
-		if(!iscarbon(wizard.current))
-			continue
-		if(wizard.current.stat==DEAD)
-			continue
-		if(istype(wizard.current, /obj/item/mmi)) // wizard is in an MMI, don't count them as alive
+		if(!iscarbon(wizard.current) || wizard.current.stat == DEAD) // wizard is in an MMI, don't count them as alive
 			continue
 		wizards_alive++
 
@@ -216,7 +208,7 @@
 
 			var/count = 1
 			var/wizardwin = 1
-			for(var/datum/objective/objective in wizard.objectives)
+			for(var/datum/objective/objective in wizard.get_all_objectives(include_team = FALSE))
 				if(objective.check_completion())
 					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
 					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))

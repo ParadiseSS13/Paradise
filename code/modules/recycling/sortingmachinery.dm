@@ -148,7 +148,7 @@
 	amount = 25
 	max_amount = 25
 	resistance_flags = FLAMMABLE
-	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag, /obj/item/twohanded/required)
+	var/static/list/no_wrap = list(/obj/item/smallDelivery, /obj/structure/bigDelivery, /obj/item/evidencebag, /obj/structure/closet/body_bag)
 
 /obj/item/stack/packageWrap/pre_attack(atom/A, mob/living/user, params)
 	. = ..()
@@ -198,6 +198,9 @@
 			return FALSE
 		D.init_welded = C.welded
 		C.welded = TRUE
+	else if (target.GetComponent(/datum/component/two_handed))
+		to_chat(user, "<span class='notice'>[target] is too unwieldy to wrap effectively.</span>")
+		return FALSE
 	else
 		to_chat(user, "<span class='notice'>The object you are trying to wrap is unsuitable for the sorting machinery.</span>")
 		return FALSE
@@ -234,7 +237,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "electronic"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	///Value of the tag
 	var/currTag = 1
 	//The whole system for the sort_type var is determined based on the order of this list,
@@ -317,7 +320,9 @@
 		H.destinationTag = 1
 
 	sleep(10)
-	playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, FALSE)
+		last_sound = world.time
 	sleep(5) // wait for animation to finish
 
 	H.init(src)	// copy the contents of disposer to holder

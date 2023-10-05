@@ -116,11 +116,15 @@
 /area/ruin/powered/beach)
 "av" = (
 /obj/structure/table/wood,
-/obj/machinery/door/window/westright{
-	req_one_access_txt = "25"
+/obj/machinery/door/window/classic/reversed{
+	dir = 8;
+	name = "Beach Bar Desk"
 	},
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/item/reagent_containers/glass/rag,
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
+	dir = 8
+	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "aw" = (
@@ -162,8 +166,12 @@
 /area/ruin/powered/beach)
 "aE" = (
 /obj/structure/table/wood,
-/obj/machinery/door/window/westleft{
-	req_one_access_txt = "25"
+/obj/machinery/door/window/classic/normal{
+	dir = 8;
+	name = "Beach Bar Desk"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar{
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
@@ -215,7 +223,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "aV" = (
-/obj/effect/mob_spawn/human/beach/alive,
+/obj/effect/mob_spawn/human/alive/beach,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "aZ" = (
@@ -333,7 +341,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/beach/alive/lifeguard,
+/obj/effect/mob_spawn/human/alive/beach/lifeguard,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "bJ" = (
@@ -424,7 +432,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/powered/beach)
 "lM" = (
 /obj/structure/dresser,
@@ -471,7 +483,7 @@
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
 "wb" = (
-/obj/effect/mob_spawn/human/bartender/alive,
+/obj/effect/mob_spawn/human/alive/bartender,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "yc" = (
@@ -500,9 +512,9 @@
 /area/ruin/powered/beach)
 "Ei" = (
 /obj/machinery/door/airlock/sandstone{
-	name = "Bar Kitchen";
-	req_one_access_txt = "25"
+	name = "Bar Kitchen"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "Gc" = (
@@ -542,7 +554,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/powered/beach)
 "TW" = (
 /obj/structure/table/reinforced,

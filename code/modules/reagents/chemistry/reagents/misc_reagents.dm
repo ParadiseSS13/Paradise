@@ -399,7 +399,7 @@
 			if(H.wear_mask)
 				H.unEquip(H.wear_mask)
 			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
-			H.equip_to_slot(fakemoustache, slot_wear_mask)
+			H.equip_to_slot(fakemoustache, SLOT_HUD_WEAR_MASK)
 			to_chat(H, "<span class='notice'>Hair bursts forth from your every follicle!")
 	..()
 
@@ -484,7 +484,7 @@
 	if(M.mind.assigned_role == "Clown")
 		update_flags |= M.adjustBruteLoss(-1.5 * REAGENTS_EFFECT_MULTIPLIER) //Screw those pesky clown beatings!
 	else
-		M.AdjustDizzy(20 SECONDS, 0, 1000 SECONDS)
+		M.AdjustDizzy(20 SECONDS, 0, 100 SECONDS)
 		M.Druggy(30 SECONDS)
 		if(prob(10))
 			M.EyeBlurry(10 SECONDS)

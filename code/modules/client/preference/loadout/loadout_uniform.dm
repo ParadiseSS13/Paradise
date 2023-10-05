@@ -14,7 +14,7 @@
 // Uniform slot
 /datum/gear/uniform
 	main_typepath = /datum/gear/uniform
-	slot = slot_w_uniform
+	slot = SLOT_HUD_JUMPSUIT
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/suit
@@ -232,6 +232,14 @@
 	path = /obj/item/clothing/under/rank/medical/scrubs/green
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
 
+/datum/gear/uniform/cargo
+	main_typepath = /datum/gear/uniform/cargo
+
+/datum/gear/uniform/cargo/delivery
+	display_name = "Uniform, delivery boy"
+	path = /obj/item/clothing/under/rank/cargo/deliveryboy
+	allowed_roles = list("Quartermaster", "Cargo Technician")
+
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec
 
@@ -333,6 +341,11 @@
 	display_name = "Tacticool turtleneck"
 	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
+
+/datum/gear/uniform/suit/assistantformal
+	display_name = "Assistant's Formal Uniform"
+	description = "Formal attire fit for an Assistant."
+	path = /obj/item/clothing/under/misc/assistantformal
 
 /datum/gear/uniform/suit/redhawaiianshirt
 	display_name = "Red Hawaiian T-Shirt"

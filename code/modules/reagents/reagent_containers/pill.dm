@@ -22,7 +22,7 @@
 	if(!icon_state)
 		icon_state = "pill[rand(1, 20)]"
 
-/obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
+/obj/item/reagent_containers/food/pill/proc/apply(mob/living/carbon/M, mob/user, def_zone)
 	if(!istype(M))
 		return FALSE
 	bitesize = reagents.total_volume
@@ -30,6 +30,12 @@
 		qdel(src)
 		return TRUE
 	return FALSE
+
+/obj/item/reagent_containers/food/pill/attack(mob/living/carbon/M, mob/user, def_zone)
+	return apply(M, user)
+
+/obj/item/reagent_containers/food/pill/attack_self(mob/user)
+	return apply(user, user)
 
 /obj/item/reagent_containers/food/pill/afterattack(obj/target, mob/user, proximity)
 	if(!proximity || !target.is_refillable())
@@ -87,11 +93,22 @@
 	icon_state = "pill8"
 	list_reagents = list("haloperidol" = 15)
 
+/obj/item/reagent_containers/food/pill/happy_psych
+	name = "mood stabilizer pill"
+	desc = "Used to temporarily alleviate anxiety and depression. Take only as prescribed."
+	icon_state = "pill_happy"
+	list_reagents = list("happiness" = 15, "mannitol" = 5)
+
 /obj/item/reagent_containers/food/pill/happy
 	name = "happy pill"
-	desc = "Happy happy joy joy!"
-	icon_state = "pill18"
+	desc = "They have little happy faces on them and smell like marker pens."
+	icon_state = "pill_happy"
 	list_reagents = list("space_drugs" = 15, "sugar" = 15)
+
+/obj/item/reagent_containers/food/pill/happy/happiness
+	name = "fun pill"
+	desc = "Makes you feel real good!"
+	list_reagents = list("happiness" = 15)
 
 /obj/item/reagent_containers/food/pill/zoom
 	name = "zoom pill"

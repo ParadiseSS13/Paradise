@@ -180,6 +180,7 @@
 	new /obj/item/clothing/suit/storage/blueshield(src)
 	new /obj/item/clothing/shoes/centcom(src)
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
+	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
@@ -194,12 +195,16 @@
 	new /obj/item/clothing/under/rank/cargo/quartermaster(src)
 	new /obj/item/clothing/under/rank/cargo/quartermaster/skirt(src)
 	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/mask/gas(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/cargo(src)
+	new /obj/item/clothing/suit/jacket/cargobomber(src)
+	new /obj/item/clothing/head/hardhat/orange(src)
+	new /obj/item/clothing/suit/storage/hazardvest(src)
+	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/clothing/head/soft(src)
-	new /obj/item/clothing/gloves/fingerless(src)
-	new /obj/item/clothing/suit/fire/firefighter(src)
-	new /obj/item/tank/internals/emergency_oxygen(src)
+	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
 
 /obj/item/storage/bag/garment/warden
 	name = "warden's garment bag"
@@ -262,6 +267,7 @@
 /obj/item/storage/bag/garment/chaplain/populate_contents()
 	new /obj/item/clothing/under/rank/civilian/chaplain(src)
 	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/suit/hooded/abaya(src)
 	new /obj/item/clothing/suit/hooded/nun(src)
 	new /obj/item/clothing/suit/hooded/chaplain_hoodie(src)
 	new /obj/item/clothing/suit/hooded/monk(src)
@@ -291,3 +297,19 @@
 	new /obj/item/clothing/glasses/hud/health(src)
 	new /obj/item/clothing/glasses/hud/skills(src)
 	new /obj/item/clothing/accessory/blue(src)
+
+/obj/item/storage/bag/garment/paramedic
+	name = "paramedic's garment bag"
+	desc = "A bag for storing extra clothes and shoes. This one belongs to the paramedic."
+
+/obj/item/storage/bag/garment/paramedic/populate_contents()
+	new /obj/item/clothing/under/rank/medical/paramedic(src)
+	new /obj/item/clothing/head/soft/blue(src)
+	new /obj/item/clothing/suit/storage/labcoat/emt(src)
+	new /obj/item/clothing/suit/storage/paramedic(src)
+	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
+	new /obj/item/clothing/gloves/color/latex(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/shoes/black(src)
+
+

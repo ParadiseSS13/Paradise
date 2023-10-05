@@ -5,13 +5,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/ai_call_shuttle,
 	/mob/living/silicon/ai/proc/ai_camera_track,
 	/mob/living/silicon/ai/proc/ai_camera_list,
-	/mob/living/silicon/ai/proc/ai_goto_location,
-	/mob/living/silicon/ai/proc/ai_remove_location,
 	/mob/living/silicon/ai/proc/ai_hologram_change,
 	/mob/living/silicon/ai/proc/ai_network_change,
 	/mob/living/silicon/ai/proc/ai_roster,
 	/mob/living/silicon/ai/proc/ai_statuschange,
-	/mob/living/silicon/ai/proc/ai_store_location,
 	/mob/living/silicon/ai/proc/control_integrated_radio,
 	/mob/living/silicon/ai/proc/core,
 	/mob/living/silicon/ai/proc/pick_icon,
@@ -118,6 +115,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/all_eyes = list()
 	var/next_text_announcement
 
+	//Used with the hotkeys on 2-5 to store locations.
+	var/list/stored_locations = list()
+
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
 	verbs |= silicon_subsystems
@@ -218,6 +218,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	GLOB.ai_list += src
 	GLOB.shuttle_caller_list += src
+
+	for(var/I in 1 to 4)
+		stored_locations += "unset" //This is checked in ai_keybinds.dm.
+
 	..()
 
 /mob/living/silicon/ai/Destroy()
@@ -966,6 +970,23 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		AISD.emotion = emote
 		AISD.update_icon()
 
+// I would love to scope this locally to the AI class, however its used by holopads as well
+// I wish we had nice OOP -aa07
+/proc/getHologramIcon(icon/A, safety = TRUE) // If safety is on, a new icon is not created.
+	var/icon/flat_icon = safety ? A : new(A) // Has to be a new icon to not constantly change the same icon.
+	var/icon/alpha_mask
+	flat_icon.ColorTone(rgb(125,180,225)) // Let's make it bluish.
+	flat_icon.ChangeOpacity(0.5) // Make it half transparent.
+
+	if(A.Height() == 64)
+		alpha_mask = new('icons/mob/ancient_machine.dmi', "scanline2") //Scaline for tall icons.
+	else
+		alpha_mask = new('icons/effects/effects.dmi', "scanline") //Scanline effect.
+	flat_icon.AddAlphaMask(alpha_mask) //Finally, let's mix in a distortion effect.
+
+	return flat_icon
+
+
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
 	set name = "Change Hologram"
@@ -1302,6 +1323,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!mind)
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return
+
+		if(stat != DEAD)
+			to_chat(user, "<span class='notice'>Beginning active intelligence transfer: please wait.</span>")
+
+			if(!do_after_once(user, 5 SECONDS, target = src) || !Adjacent(user))
+				to_chat(user, "<span class='warning'>Intelligence transfer aborted.</span>")
+				return
+
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
@@ -1357,7 +1386,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "<span class='danger'>Hack aborted. [apc] is no longer responding to our systems.</span>")
 		SEND_SOUND(src, sound('sound/machines/buzz-sigh.ogg'))
 	else
-		malf_picker.processing_time += 10
+		malf_picker.processing_time += 15
 
 		apc.malfai = parent || src
 		apc.malfhack = TRUE
@@ -1479,5 +1508,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return
 	to_chat(src, "<span class='notice'>The tiny in built fan finally removes the tape!</span>")
 	ducttapecomponent.remove_tape(card, src)
+
+//Stores the location of the AI to the value of stored_locations associated with location_number.
+/mob/living/silicon/ai/proc/store_location(location_number)
+	if(!isturf(eyeobj.loc)) //i.e., inside a mech or other shenanigans
+		to_chat(src, "<span class='warning'>You can't set a location here!</span>")
+		return FALSE
+
+	stored_locations[location_number] = eyeobj.loc
+	return TRUE
 
 #undef TEXT_ANNOUNCEMENT_COOLDOWN

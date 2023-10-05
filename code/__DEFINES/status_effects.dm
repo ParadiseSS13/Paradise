@@ -48,6 +48,8 @@
 
 #define STATUS_EFFECT_BLOOD_SWELL /datum/status_effect/bloodswell //stun resistance and halved damage for gargantua vampires
 
+#define STATUS_EFFECT_VAMPIRE_GLADIATOR /datum/status_effect/vampire_gladiator // Bonebreak, IB and burn wound immunity for garg vampires and healing.
+
 #define STATUS_EFFECT_BLOOD_RUSH /datum/status_effect/blood_rush // speed boost for gargantua vampires
 
 #define STATUS_EFFECT_CHAINSAW_SLAYING /datum/status_effect/chainsaw_slaying // Stun immunity, very slight damage resistance
@@ -55,6 +57,8 @@
 #define STATUS_EFFECT_HOPE /datum/status_effect/hope // Healing that scales when injured (but not in deep crit), and nice messages to keep the hope
 
 #define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback // Slight antistun and healing, along with visual effect. Works only in range of the vault, and for 30 seconds after it ends.
+
+#define STATUS_EFFECT_REVOLUTION_PROTECT /datum/status_effect/rev_protection
 
 /////////////
 // DEBUFFS //
@@ -95,6 +99,10 @@
 #define STATUS_EFFECT_SHADOW_BOXING /datum/status_effect/shadow_boxing
 
 #define STATUS_EFFECT_CLINGTENTACLE /datum/status_effect/cling_tentacle //Imobilises target for 3 seconds
+
+#define STATUS_EFFECT_CRYO_BEAM /datum/status_effect/cryo_beam //Chills target, freezes reagents in their blood, breaks if sight is lost.
+
+#define STATUS_BOOKWYRM /datum/status_effect/bookwyrm
 
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
@@ -151,6 +159,8 @@
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
 
+#define STATUS_EFFECT_IMPACT_IMMUNE /datum/status_effect/impact_immune
+
 //#define STATUS_EFFECT_SIGILMARK /datum/status_effect/sigil_mark
 
 #define STATUS_EFFECT_CRUSHERDAMAGETRACKING /datum/status_effect/crusher_damage //tracks total kinetic crusher damage on a target
@@ -167,3 +177,12 @@
 #define STATUS_EFFECT_FAKE_VIRUS /datum/status_effect/fake_virus
 /// This status effect lets the user see the lwap dots.
 #define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
+/// This status effect allows a mob to be revived with a defibrillator.
+#define STATUS_EFFECT_REVIVABLE /datum/status_effect/limited_bonus/revivable
+
+//////////////////////////
+// Mind batter variants //
+//////////////////////////
+// Basically variants with differing effect times to their parent datums, nothing special
+
+#define STATUS_EFFECT_PACIFIED_BATTERER /datum/status_effect/pacifism/batterer

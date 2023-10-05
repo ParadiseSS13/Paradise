@@ -21,6 +21,8 @@ GLOBAL_LIST_INIT(html_colors, list("Alice Blue","Antique White","Aqua","Aquamari
 
 GLOBAL_LIST_INIT(day_names, list("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
 GLOBAL_LIST_INIT(month_names, list("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"))
+// keep si_suffixes balanced and with a pivot in the middle!
+GLOBAL_LIST_INIT(si_suffixes, list("y", "z", "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"))
 
 GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"CentComm",
@@ -61,3 +63,6 @@ GLOBAL_LIST_EMPTY(client_login_processors)
 
 /// List of ckeys that have seen a blurb of a given key.
 GLOBAL_LIST_EMPTY(blurb_witnesses)
+
+/// List of looping sounds
+GLOBAL_LIST_EMPTY(looping_sounds)

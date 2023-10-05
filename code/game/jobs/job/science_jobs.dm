@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_science = 1
+	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_SCIENCE
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffddff"
@@ -19,6 +19,7 @@
 					ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
 					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_EXPEDITION, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK)
 	minimal_player_age = 21
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	exp_map = list(EXP_TYPE_SCIENCE = 1200)
 	// All science-y guys get bonuses for maxing out their tech.
 	required_objectives = list(
@@ -54,7 +55,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 6
 	spawn_positions = 6
-	is_science = 1
+	job_department_flags = DEP_FLAG_SCIENCE
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"
@@ -92,7 +93,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	is_science = 1
+	job_department_flags = DEP_FLAG_SCIENCE
 	supervisors = "the research director"
 	department_head = list("Research Director")
 	selection_color = "#ffeeff"

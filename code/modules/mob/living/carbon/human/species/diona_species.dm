@@ -47,17 +47,17 @@
 		"appendix" = /obj/item/organ/internal/appendix/diona
 		)
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/diona),
-		"groin" =  list("path" = /obj/item/organ/external/groin/diona),
-		"head" =   list("path" = /obj/item/organ/external/head/diona),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/diona),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/diona),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/diona),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/diona),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/diona),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/diona),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/diona),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/diona)
+		"chest" =  list("path" = /obj/item/organ/external/chest/diona, "descriptor" = "core trunk"),
+		"groin" =  list("path" = /obj/item/organ/external/groin/diona, "descriptor" = "fork"),
+		"head" =   list("path" = /obj/item/organ/external/head/diona, "descriptor" = "head"),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm/diona, "descriptor" = "left upper tendril"),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/diona, "descriptor" = "right upper tendril"),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg/diona, "descriptor" = "left lower tendril"),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/diona, "descriptor" = "right lower tendril"),
+		"l_hand" = list("path" = /obj/item/organ/external/hand/diona, "descriptor" = "left grasper"),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right/diona, "descriptor" = "right grasper"),
+		"l_foot" = list("path" = /obj/item/organ/external/foot/diona, "descriptor" = "left foot"),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right/diona, "descriptor" = "right foot")
 		)
 
 	suicide_messages = list(

@@ -7,7 +7,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	actions_types = list(/datum/action/item_action/toggle_radio_jammer)
 	var/active = FALSE
-	var/range = 12
+	var/range = 15
 
 /obj/item/jammer/Destroy()
 	GLOB.active_jammers -= src
@@ -217,12 +217,6 @@
 	playsound(destination, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, "sound/magic/disintegrate.ogg", 50, TRUE)
 	destination.ex_act(rand(1,2))
-	if(iscarbon(user)) //don't want cyborgs dropping their stuff
-		for(var/obj/item/W in user)
-			if(istype(W, /obj/item/implant))
-				continue
-			if(!user.unEquip(W))
-				qdel(W)
 	to_chat(user, "<span class='biggerdanger'>You teleport into the wall, the teleporter tries to save you, but--</span>")
 	user.gib()
 
@@ -263,3 +257,170 @@
 	charges = 8
 	max_charges = 8
 	flawless = TRUE
+
+/obj/item/fireproofing_injector
+	name = "fireproofing injector"
+	desc = "It contains an alien nanoswarm created by the technomancers of boron. Through near sorcerous feats via use of nanomachines, it enables its user to become fully fireproof."
+	icon = 'icons/obj/hypo.dmi'
+	icon_state = "combat_hypo"
+	var/used = FALSE
+
+/obj/item/fireproofing_injector/attack_self(mob/living/user)
+	if(HAS_TRAIT(user, TRAIT_RESISTHEAT))
+		to_chat(user, "<span class='warning'>You are already fireproof!</span>")
+		return
+	if(user.mind && (ischangeling(user) || user.mind.has_antag_datum(/datum/antagonist/vampire)) || (user.dna && user.dna.species.name != "Plasmaman"))
+		to_chat(user, "<span class='warning'>The injector is not compatable with your biology!</span>")
+		return
+	if(used)
+		to_chat(user, "<span class='notice'>The injector is empty!</span>")
+		return
+	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once.
+	var/choice = alert(user, "The injector is still unused. Do you wish to use it?", "Fireproofing injector", "Yes", "No")
+	if(choice == "No")
+		to_chat(user, "<span class='notice'>You decide against using [src].</span>")
+		used = FALSE
+		return
+	to_chat(user, "<span class='notice'>You inject yourself with the nanites!</span>")
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, "fireproof_injector")
+
+/obj/item/batterer
+	name = "mind batterer"
+	desc = "A dangerous syndicate device focused on crowd control and escapes. Causes brain damage, confusion, and other nasty effects to those surrounding the user."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "batterer"
+	throwforce = 5
+	w_class = WEIGHT_CLASS_TINY
+	throw_speed = 4
+	throw_range = 10
+	flags = CONDUCT
+	item_state = "electronic"
+	origin_tech = "magnets=3;combat=3;syndicate=3"
+
+	/// How many times the mind batter has been used
+	var/times_used = 0
+	var/max_uses = 5
+	/// Is this item on cooldown from being thrown
+	var/on_throwing_cooldown = FALSE
+	/// How many SSobj ticks have passed (Roughly 2 seconds of in game time), used to see when to recharge a use on this item
+	var/recharge_ticks = 0
+
+/obj/item/batterer/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/batterer/examine(mob/user)
+	. = ..()
+	. += "<span class='warning'>A little label on the side reads: \"Warning: Using this item in quick succession may cause fatigue to the user!\"</span>"
+	if(times_used >= max_uses)
+		. += "<span class='notice'>[src] is out of charge.</span>"
+	if(times_used < max_uses)
+		. += "<span class='notice'>[src] has [max_uses-times_used] charges left.</span>"
+
+/obj/item/batterer/process()
+	if(times_used)
+		recharge_ticks++
+	if(recharge_ticks >= 10) // recharges one use after around 20 seconds
+		recharge_ticks = initial(recharge_ticks)
+		times_used--
+		icon_state = "batterer"
+
+/obj/item/batterer/attack_self(mob/living/carbon/user)
+	activate_batterer(user)
+
+/obj/item/batterer/proc/activate_batterer(mob/user)
+	times_used++
+	if(user)
+		if(times_used > max_uses)
+			to_chat(user, "<span class='danger'>The mind batterer has been burnt out!</span>")
+			times_used--
+			return
+		if(!do_after_once(user, 2 SECONDS, target = src, allow_moving = TRUE, attempt_cancel_message = "You think it's best to save this for later."))
+			times_used--
+			return
+		to_chat(user, "<span class='notice'>You trigger [src]. It has [max_uses-times_used] charges left.</span>")
+
+	for(var/mob/living/M in oview(7, get_turf(src)))
+		if(!M.client)
+			continue
+		if(issilicon(M))
+			M.Weaken(10 SECONDS)
+		else
+			M.Confused(45 SECONDS)
+		M.adjustBrainLoss(10)
+		to_chat(M, "<span class='danger'>You feel a sudden, electric jolt travel through yourself,</span>")
+		switch(rand(1, 10))
+			if(1)
+				M.Immobilize(7 SECONDS)
+				to_chat(M, "<span class='warning'>and your legs lock up for a moment!</span>")
+			if(2)
+				M.apply_status_effect(STATUS_EFFECT_PACIFIED_BATTERER)
+				to_chat(M, "<span class='warning'>and you feel an innate love for life for a fleeting moment!</span>")
+			if(3)
+				new /obj/effect/hallucination/delusion(get_turf(M), M)
+				to_chat(M, "<span class='warning'>and the people around you morph in appearance!</span>")
+			if(4)
+				if(prob(80))
+					M.EyeBlurry(25 SECONDS)
+					to_chat(M, "<span class='warning'>and something in the back of your head stings like hell!</span>")
+				else
+					M.EyeBlind(15 SECONDS)
+					to_chat(M, "<span class='warning'>and you can't see a goddamn thing!</span>")
+			if(5)
+				M.adjustStaminaLoss(40)
+				to_chat(M, "<span class='warning'>and a wave of tiredness washes over you!</span>")
+			else
+				to_chat(M, "<span class='danger'>but as soon as it arrives, it fades.</span>")
+		add_attack_logs(user, M, "Mind battered with [src]")
+
+	playsound(get_turf(src), 'sound/misc/interference.ogg', 50, TRUE)
+	if(times_used >= max_uses)
+		icon_state = "battererburnt"
+
+/obj/item/batterer/throw_impact(atom/hit_atom)
+	..()
+	if(times_used >= max_uses || on_throwing_cooldown)
+		return
+	addtimer(CALLBACK(src, PROC_REF(end_throwing_delay)), 3 SECONDS)
+	visible_message("<span class='notice'>[src] suddenly triggers, sending a shower of sparks everywhere!</span>")
+	do_sparks(4, FALSE, get_turf(src))
+	activate_batterer()
+	on_throwing_cooldown = TRUE
+
+/obj/item/batterer/proc/end_throwing_delay()
+	on_throwing_cooldown = FALSE
+
+/obj/item/batterer/emp_act(severity)
+	if(times_used >= max_uses)
+		return
+	visible_message("<span class='notice'>[src] explodes into a light show of colors!</span>")
+	if(severity == EMP_HEAVY)
+		activate_batterer()
+
+	times_used = max_uses - 1
+	activate_batterer()
+
+/obj/item/handheld_mirror
+	name = "hand mirror"
+	desc = "Style, on the go!"
+	icon = 'icons/obj/hhmirror.dmi'
+	icon_state = "hhmirror"
+	w_class = WEIGHT_CLASS_TINY
+	var/datum/ui_module/appearance_changer/appearance_changer_holder
+
+/obj/item/handheld_mirror/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.hands_state)
+	appearance_changer_holder.ui_interact(user, ui_key, ui, force_open, master_ui, state = GLOB.hands_state)
+
+/obj/item/handheld_mirror/attack_self(mob/user)
+	if(ishuman(user))
+		appearance_changer_holder = new(src, user)
+		ui_interact(user)
+
+/obj/item/handheld_mirror/Initialize(mapload)
+	. = ..()
+	GLOB.mirrors += src
+
+/obj/item/handheld_mirror/Destroy()
+	GLOB.mirrors -= src
+	QDEL_NULL(appearance_changer_holder)
+	return ..()

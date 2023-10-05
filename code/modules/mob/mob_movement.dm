@@ -175,6 +175,9 @@
 			delay = diag_delay
 	move_delay += delay
 
+	if(mob.pulledby)
+		mob.pulledby.stop_pulling()
+
 	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
 	else
@@ -367,12 +370,11 @@
 		var/mob/M = pulling
 		var/atom/movable/t = M.pulling
 		M.stop_pulling()
-		step(pulling, get_dir(pulling.loc, A))
+		. = step(pulling, get_dir(pulling.loc, A)) // we set the return value to step here, if we don't having someone buckled in to a chair and being pulled won't let them be unbuckeled
 		if(M)
 			M.start_pulling(t)
 	else
-		step(pulling, get_dir(pulling.loc, A))
-	return
+		. = step(pulling, get_dir(pulling.loc, A))
 
 /mob/proc/update_gravity(has_gravity)
 	return

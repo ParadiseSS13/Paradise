@@ -3,8 +3,9 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	face_while_pulling = TRUE
-	pull_speed = 0.5
 	var/climbable
+	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
+	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
 
@@ -24,6 +25,8 @@
 /obj/structure/Initialize(mapload)
 	if(!armor)
 		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	if(creates_cover && isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/structure/Destroy()
@@ -33,7 +36,21 @@
 		var/turf/T = get_turf(src)
 		QUEUE_SMOOTH_NEIGHBORS(T)
 	REMOVE_FROM_SMOOTH_QUEUE(src)
+	if(creates_cover && isturf(loc))
+		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
+
+/obj/structure/Move()
+	var/atom/old = loc
+	if(!..())
+		return FALSE
+
+	if(creates_cover)
+		if(isturf(old))
+			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+		if(isturf(loc))
+			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+	return TRUE
 
 /obj/structure/proc/climb_on()
 
@@ -71,21 +88,30 @@
 	var/turf/T = src.loc
 	if(!T || !istype(T)) return FALSE
 
-	usr.visible_message("<span class='warning'>[user] starts climbing onto \the [src]!</span>")
 	climber = user
-	if(!do_after(user, 50, target = src))
-		climber = null
-		return FALSE
+	if(HAS_TRAIT(climber, TRAIT_TABLE_LEAP))
+		user.visible_message("<span class='warning'>[user] gets ready to vault up onto [src]!</span>")
+		if(!do_after(user, 0.5 SECONDS, target = src))
+			climber = null
+			return FALSE
+	else
+		user.visible_message("<span class='warning'>[user] starts climbing onto [src]!</span>")
+		if(!do_after(user, 5 SECONDS, target = src))
+			climber = null
+			return FALSE
 
 	if(!can_touch(user) || !climbable)
 		climber = null
 		return FALSE
 
 	var/old_loc = usr.loc
-	usr.loc = get_turf(src)
-	usr.Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
+	user.loc = get_turf(src)
+	user.Moved(old_loc, get_dir(old_loc, usr.loc), FALSE)
 	if(get_turf(user) == get_turf(src))
-		usr.visible_message("<span class='warning'>[user] climbs onto \the [src]!</span>")
+		if(HAS_TRAIT(climber, TRAIT_TABLE_LEAP))
+			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
+		else
+			user.visible_message("<span class='warning'>[user] climbs onto [src]!</span>")
 
 	climber = null
 	return TRUE

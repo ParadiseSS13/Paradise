@@ -70,7 +70,7 @@
 			lich.real_name = M.mind.name
 			M.mind.transfer_to(lich)
 			lich.set_species(/datum/species/skeleton/lich) // Wizard variant
-			to_chat(lich, "<span class='warning'>Your bones clatter and shutter as they're pulled back into this world!</span>")
+			to_chat(lich, "<span class='warning'>Your bones clatter and shudder as they're pulled back into this world!</span>")
 			cooldown_handler.recharge_duration += 1 MINUTES
 			var/mob/old_body = current_body
 			var/turf/body_turf = get_turf(old_body)
@@ -129,7 +129,7 @@
 					equip_lich(H)
 
 /obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
-		H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), slot_wear_suit)
-		H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), slot_head)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), slot_w_uniform)
+		H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), SLOT_HUD_OUTER_SUIT)
+		H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/black(H), SLOT_HUD_HEAD)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/color/black(H), SLOT_HUD_JUMPSUIT)

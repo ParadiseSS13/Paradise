@@ -1,6 +1,9 @@
 /datum/species
 	var/name                     // Species name.
 	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
+	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
+	/// Because it's unathi's turn to be special snowflakes.
+	var/article_override
 	var/icobase = 'icons/mob/human_races/r_human.dmi'    // Normal icon set.
 
 	/// Minimum age this species can have
@@ -167,17 +170,17 @@
 		)
 	var/vision_organ = /obj/item/organ/internal/eyes // If set, this organ is required for vision.
 	var/list/has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right))
+		"chest" =  list("path" = /obj/item/organ/external/chest, "descriptor" = "chest"),
+		"groin" =  list("path" = /obj/item/organ/external/groin, "descriptor" = "groin"),
+		"head" =   list("path" = /obj/item/organ/external/head, "descriptor" = "head"),
+		"l_arm" =  list("path" = /obj/item/organ/external/arm, "descriptor" = "left arm"),
+		"r_arm" =  list("path" = /obj/item/organ/external/arm/right, "descriptor" = "right arm"),
+		"l_leg" =  list("path" = /obj/item/organ/external/leg, "descriptor" = "left leg"),
+		"r_leg" =  list("path" = /obj/item/organ/external/leg/right, "descriptor" = "right leg"),
+		"l_hand" = list("path" = /obj/item/organ/external/hand, "descriptor" = "left hand"),
+		"r_hand" = list("path" = /obj/item/organ/external/hand/right, "descriptor" = "right hand"),
+		"l_foot" = list("path" = /obj/item/organ/external/foot, "descriptor" = "left foot"),
+		"r_foot" = list("path" = /obj/item/organ/external/foot/right, "descriptor" = "right foot"))
 
 	// Mutant pieces
 	var/obj/item/organ/internal/ears/mutantears = /obj/item/organ/internal/ears
@@ -287,16 +290,22 @@
 
 	ADD_SLOWDOWN(speed_mod)
 
-	if(H.wear_suit)
-		ADD_SLOWDOWN(H.wear_suit.slowdown)
-	if(!H.buckled && H.shoes)
-		ADD_SLOWDOWN(H.shoes.slowdown)
-	if(H.back)
-		ADD_SLOWDOWN(H.back.slowdown)
-	if(H.l_hand && (H.l_hand.flags & HANDSLOW))
-		ADD_SLOWDOWN(H.l_hand.slowdown)
-	if(H.r_hand && (H.r_hand.flags & HANDSLOW))
-		ADD_SLOWDOWN(H.r_hand.slowdown)
+	var/turf/simulated/floor/T = get_turf(H)
+	if(istype(T) && !HAS_TRAIT(T, TRAIT_BLUESPACE_SPEED))
+		if(H.wear_suit)
+			ADD_SLOWDOWN(H.wear_suit.slowdown)
+		if(H.head)
+			ADD_SLOWDOWN(H.head.slowdown)
+		if(H.gloves)
+			ADD_SLOWDOWN(H.gloves.slowdown)
+		if(!H.buckled && H.shoes)
+			ADD_SLOWDOWN(H.shoes.slowdown)
+		if(H.back)
+			ADD_SLOWDOWN(H.back.slowdown)
+		if(H.l_hand && (H.l_hand.flags & HANDSLOW))
+			ADD_SLOWDOWN(H.l_hand.slowdown)
+		if(H.r_hand && (H.r_hand.flags & HANDSLOW))
+			ADD_SLOWDOWN(H.r_hand.slowdown)
 
 	if(ignoreslow)
 		return . // Only malusses after here
@@ -310,7 +319,7 @@
 	if(HAS_TRAIT(H, TRAIT_FAT))
 		. += (1.5 - flight)
 
-	if(H.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
+	if(H.bodytemperature < H.dna.species.cold_level_1 && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
 		. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	var/leftover = .
@@ -329,7 +338,7 @@
 			. += (health_deficiency / 75)
 		else
 			if(health_deficiency >= 40)
-				. += (health_deficiency / 25) //Once damage is over 40, you get the harsh formula
+				. += ((health_deficiency / 25) - 1.1) //Once damage is over 40, you get the harsh formula
 			else
 				. += 0.5 //Otherwise, slowdown (from pain) is capped to 0.5 until you hit 40 damage. This only effects people with fractional slowdowns, and prevents some harshness from the lowered threshold
 
@@ -469,7 +478,7 @@
 		return TRUE
 	if(target.on_fire)
 		user.pat_out(target)
-	else if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
+	else if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH) && target.stat != DEAD)
 		target.help_shake_act(user)
 		return TRUE
 	else
@@ -509,6 +518,8 @@
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s attack!</span>")
 		return FALSE
+	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return FALSE
 	if(attacker_style && attacker_style.harm_act(user, target) == TRUE)
 		return TRUE
 	else
@@ -544,7 +555,7 @@
 		playsound(target.loc, attack.attack_sound, 25, 1, -1)
 
 		target.visible_message("<span class='danger'>[user] [pick(attack.attack_verb)]ed [target]!</span>")
-		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+		target.apply_damage(damage, BRUTE, affecting, armor_block, sharp = attack.sharp)
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			target.visible_message("<span class='danger'>[user] has knocked down [target]!</span>", \
 							"<span class='userdanger'>[user] has knocked down [target]!</span>")
@@ -556,6 +567,8 @@
 		return FALSE
 	if(target.check_block())
 		target.visible_message("<span class='warning'>[target] blocks [user]'s disarm attempt!</span>")
+		return FALSE
+	if(SEND_SIGNAL(target, COMSIG_HUMAN_ATTACKED, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return FALSE
 	if(target.absorb_stun(0))
 		target.visible_message("<span class='warning'>[target] is not affected by [user]'s disarm attempt!</span>")
@@ -621,11 +634,12 @@
 		else if(!user.IsStunned())
 			target.Stun(0.5 SECONDS)
 	else
-		if(target.IsSlowed() && target.get_active_hand())
+		var/obj/item/active_hand = target.get_active_hand()
+		if(target.IsSlowed() && active_hand && !IS_HORIZONTAL(user) && !HAS_TRAIT(active_hand, TRAIT_WIELDED))
 			target.drop_item()
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
-			target.Slowed(2.5 SECONDS, 1)
+			target.Slowed(2.5 SECONDS, 0.5)
 			var/obj/item/I = target.get_active_hand()
 			if(I)
 				to_chat(target, "<span class='warning'>Your grip on [I] loosens!</span>")
@@ -709,10 +723,6 @@
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_BITE
 
-/datum/unarmed_attack/claws/armalis
-	attack_verb = list("slash", "claw")
-	damage = 6
-
 /datum/species/proc/can_equip(obj/item/I, slot, disable_warning = FALSE, mob/living/carbon/human/H)
 	if(slot in no_equip)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
@@ -722,21 +732,21 @@
 		return FALSE
 
 	switch(slot)
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return !H.l_hand && !H.incapacitated()
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			return !H.r_hand && !H.incapacitated()
-		if(slot_wear_mask)
-			return !H.wear_mask && (I.slot_flags & SLOT_MASK)
-		if(slot_back)
-			return !H.back && (I.slot_flags & SLOT_BACK)
-		if(slot_wear_suit)
-			return !H.wear_suit && (I.slot_flags & SLOT_OCLOTHING)
-		if(slot_gloves)
-			return !H.gloves && (I.slot_flags & SLOT_GLOVES)
-		if(slot_shoes)
-			return !H.shoes && (I.slot_flags & SLOT_FEET)
-		if(slot_belt)
+		if(SLOT_HUD_WEAR_MASK)
+			return !H.wear_mask && (I.slot_flags & SLOT_FLAG_MASK)
+		if(SLOT_HUD_BACK)
+			return !H.back && (I.slot_flags & SLOT_FLAG_BACK)
+		if(SLOT_HUD_OUTER_SUIT)
+			return !H.wear_suit && (I.slot_flags & SLOT_FLAG_OCLOTHING)
+		if(SLOT_HUD_GLOVES)
+			return !H.gloves && (I.slot_flags & SLOT_FLAG_GLOVES)
+		if(SLOT_HUD_SHOES)
+			return !H.shoes && (I.slot_flags & SLOT_FLAG_FEET)
+		if(SLOT_HUD_BELT)
 			if(H.belt)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -745,20 +755,20 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_BELT))
+			if(!(I.slot_flags & SLOT_FLAG_BELT))
 				return
 			return TRUE
-		if(slot_glasses)
-			return !H.glasses && (I.slot_flags & SLOT_EYES)
-		if(slot_head)
-			return !H.head && (I.slot_flags & SLOT_HEAD)
-		if(slot_l_ear)
-			return !H.l_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && H.r_ear)
-		if(slot_r_ear)
-			return !H.r_ear && (I.slot_flags & SLOT_EARS) && !((I.slot_flags & SLOT_TWOEARS) && H.l_ear)
-		if(slot_w_uniform)
-			return !H.w_uniform && (I.slot_flags & SLOT_ICLOTHING)
-		if(slot_wear_id)
+		if(SLOT_HUD_GLASSES)
+			return !H.glasses && (I.slot_flags & SLOT_FLAG_EYES)
+		if(SLOT_HUD_HEAD)
+			return !H.head && (I.slot_flags & SLOT_FLAG_HEAD)
+		if(SLOT_HUD_LEFT_EAR)
+			return !H.l_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.r_ear)
+		if(SLOT_HUD_RIGHT_EAR)
+			return !H.r_ear && (I.slot_flags & SLOT_FLAG_EARS) && !((I.slot_flags & SLOT_FLAG_TWOEARS) && H.l_ear)
+		if(SLOT_HUD_JUMPSUIT)
+			return !H.w_uniform && (I.slot_flags & SLOT_FLAG_ICLOTHING)
+		if(SLOT_HUD_WEAR_ID)
 			if(H.wear_id)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -767,10 +777,10 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_ID))
+			if(!(I.slot_flags & SLOT_FLAG_ID))
 				return FALSE
 			return TRUE
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			if(H.wear_pda)
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
@@ -779,10 +789,10 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_PDA))
+			if(!(I.slot_flags & SLOT_FLAG_PDA))
 				return FALSE
 			return TRUE
-		if(slot_l_store)
+		if(SLOT_HUD_LEFT_STORE)
 			if(I.flags & NODROP) //Pockets aren't visible, so you can't move NODROP items into them.
 				return FALSE
 			if(H.l_store)
@@ -793,9 +803,9 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
 				return TRUE
-		if(slot_r_store)
+		if(SLOT_HUD_RIGHT_STORE)
 			if(I.flags & NODROP)
 				return FALSE
 			if(H.r_store)
@@ -806,10 +816,10 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE
-			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_POCKET))
+			if(I.w_class <= WEIGHT_CLASS_SMALL || (I.slot_flags & SLOT_FLAG_POCKET))
 				return TRUE
 			return FALSE
-		if(slot_s_store)
+		if(SLOT_HUD_SUIT_STORE)
 			if(I.flags & NODROP) //Suit storage NODROP items drop if you take a suit off, this is to prevent people exploiting this.
 				return FALSE
 			if(H.s_store)
@@ -829,17 +839,23 @@
 			if(istype(I, /obj/item/pda) || is_pen(I) || is_type_in_list(I, H.wear_suit.allowed))
 				return TRUE
 			return FALSE
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return !H.handcuffed && istype(I, /obj/item/restraints/handcuffs)
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return !H.legcuffed && istype(I, /obj/item/restraints/legcuffs)
-		if(slot_in_backpack)
+		if(SLOT_HUD_IN_BACKPACK)
 			if(H.back && istype(H.back, /obj/item/storage/backpack))
 				var/obj/item/storage/backpack/B = H.back
 				if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
 					return TRUE
+			if(H.back && ismodcontrol(H.back))
+				var/obj/item/mod/control/C = H.back
+				if(C.bag)
+					var/obj/item/storage/backpack/B = C.bag
+					if(B.contents.len < B.storage_slots && I.w_class <= B.max_w_class)
+						return TRUE
 			return FALSE
-		if(slot_tie)
+		if(SLOT_HUD_TIE)
 			if(!istype(I, /obj/item/clothing/accessory))
 				return FALSE
 			var/obj/item/clothing/under/uniform = H.w_uniform
@@ -851,7 +867,7 @@
 				if(!disable_warning)
 					to_chat(H, "<span class='warning'>You already have an accessory of this type attached to your [uniform].</span>")
 				return FALSE
-			if(!(I.slot_flags & SLOT_TIE))
+			if(!(I.slot_flags & SLOT_FLAG_TIE))
 				return FALSE
 			return TRUE
 
@@ -935,18 +951,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 
 	var/datum/antagonist/vampire/V = H.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(V)
-		if(V.get_ability(/datum/vampire_passive/xray))
-			H.sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
-			H.see_in_dark += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(V.get_ability(/datum/vampire_passive/full))
-			H.sight |= SEE_MOBS
-			H.see_in_dark += 8
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		else if(V.get_ability(/datum/vampire_passive/vision))
-			H.sight |= SEE_MOBS
-			H.see_in_dark += 1 // base of 2, 2+1 is 3
-			H.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+		for(var/datum/vampire_passive/vision/buffs in V.powers)
+			H.sight |= buffs.vision_flags
+			H.see_in_dark += buffs.see_in_dark
+			H.lighting_alpha = buffs.lighting_alpha
 
 	// my glasses, I can't see without my glasses
 	if(H.glasses)

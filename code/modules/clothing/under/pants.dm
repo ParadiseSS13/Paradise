@@ -8,12 +8,13 @@
 		"Human" = 'icons/mob/clothing/under/pants.dmi',
 		"Vox" = 'icons/mob/clothing/species/vox/under/pants.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/under/pants.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/under/pants.dmi'
+		"Grey" = 'icons/mob/clothing/species/grey/under/pants.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/under/pants.dmi'
 		)
 
 
 /obj/item/clothing/under/pants/equipped(mob/user, slot)
-	if(ishuman(user) && slot == slot_w_uniform)
+	if(ishuman(user) && slot == SLOT_HUD_JUMPSUIT)
 		var/mob/living/carbon/human/H = user
 		if(H.undershirt != "Nude")
 			var/additional_body_parts = UPPER_TORSO|ARMS

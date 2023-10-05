@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(ticker)
 	mode.pre_pre_setup()
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
-	SSjobs.DivideOccupations() //Distribute jobs
+
 	if(!can_continue)
 		QDEL_NULL(mode)
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
@@ -235,6 +235,18 @@ SUBSYSTEM_DEF(ticker)
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return FALSE
+
+	// Enable highpop slots just before we distribute jobs.
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = 80
+
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+		SSjobs.LoadJobs(TRUE)
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
 		var/list/modes = new
@@ -317,16 +329,6 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			N.new_player_panel_proc()
 
-	// Now that every other piece of the round has initialized, lets setup player job scaling
-	var/playercount = length(GLOB.clients)
-	var/highpop_trigger = 80
-
-	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
-		SSjobs.LoadJobs(TRUE)
-	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
-
 	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
@@ -340,7 +342,7 @@ SUBSYSTEM_DEF(ticker)
 	return TRUE
 
 
-/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
+/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(nuke_site = NUKE_SITE_ON_STATION, override = null)
 	if(cinematic)
 		return	//already a cinematic in progress!
 
@@ -353,11 +355,9 @@ SUBSYSTEM_DEF(ticker)
 	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	cinematic.screen_loc = "1,1"
 
-	if(station_missed)
-		for(var/mob/M in GLOB.mob_list)
-			if(M.client)
-				M.client.screen += cinematic	//show every client the cinematic
-	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
+	if(nuke_site == NUKE_SITE_ON_STATION)
+		// Kill everyone on z-level 1 except for mobs in freezers and
+		// malfunctioning AIs.
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
@@ -370,10 +370,39 @@ SUBSYSTEM_DEF(ticker)
 					CHECK_TICK
 			if(M && M.client) //Play the survivors a cinematic.
 				M.client.screen += cinematic
+	else
+		for(var/mob/M in GLOB.mob_list)
+			if(M.client)
+				M.client.screen += cinematic	//show every client the cinematic
 
-	//Now animate the cinematic
-	switch(station_missed)
-		if(1)	//nuke was nearby but (mostly) missed
+	switch(nuke_site)
+		//Now animate the cinematic
+		if(NUKE_SITE_ON_STATION)
+			// station was destroyed
+			if(mode && !override)
+				override = mode.name
+			switch(override)
+				if("nuclear emergency") //Nuke Ops successfully bombed the station
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					flick("station_explode_fade_red", cinematic)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					cinematic.icon_state = "summary_nukewin"
+				if("AI malfunction") //Malf (screen,explosion,summary)
+					flick("intro_malf", cinematic)
+					sleep(76)
+					flick("station_explode_fade_red", cinematic)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					cinematic.icon_state = "summary_malf"
+				else //Station nuked (nuke,explosion,summary)
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					flick("station_explode_fade_red", cinematic)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					cinematic.icon_state = "summary_selfdes"
+
+		if(NUKE_SITE_ON_STATION_ZLEVEL)
+			// nuke was nearby but (mostly) missed
 			if(mode && !override)
 				override = mode.name
 			switch(override)
@@ -392,39 +421,12 @@ SUBSYSTEM_DEF(ticker)
 					flick("intro_nuke", cinematic)
 					sleep(35)
 					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-
-
-		if(2)	//nuke was nowhere nearby	//TODO: a really distant explosion animation
+		if(NUKE_SITE_OFF_STATION_ZLEVEL, NUKE_SITE_INVALID)
+			// nuke was nowhere nearby
+			// TODO: a really distant explosion animation
 			sleep(50)
 			SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-		else	//station was destroyed
-			if(mode && !override)
-				override = mode.name
-			switch(override)
-				if("nuclear emergency") //Nuke Ops successfully bombed the station
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_nukewin"
-				if("AI malfunction") //Malf (screen,explosion,summary)
-					flick("intro_malf", cinematic)
-					sleep(76)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_malf"
-				if("blob") //Station nuked (nuke,explosion,summary)
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_selfdes"
-				else //Station nuked (nuke,explosion,summary)
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					flick("station_explode_fade_red", cinematic)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					cinematic.icon_state = "summary_selfdes"
+
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
@@ -587,6 +589,9 @@ SUBSYSTEM_DEF(ticker)
 		if(findtext("[handler]","auto_declare_completion_"))
 			call(mode, handler)()
 
+	for(var/datum/team/team in GLOB.antagonist_teams)
+		team.on_round_end()
+
 	// Display the scoreboard window
 	score.scoreboard()
 
@@ -609,6 +614,31 @@ SUBSYSTEM_DEF(ticker)
 		for(var/m in GLOB.player_list)
 			var/mob/M = m
 			H.add_hud_to(M)
+
+	var/static/list/base_encouragement_messages = list(
+		"Keep on keeping on!",
+		"Great job!",
+		"Keep up the good work!",
+		"Nice going!"
+	)
+
+	var/static/list/special_encouragement_messages = list(
+		"Outstanding!",
+		"This is going on the fridge!",
+		"Looks like you're popular!",
+		"That's what we like to see!",
+		"Hell yeah, brother!",
+		"Honestly, quite incredible!"
+	)
+
+	// Tell people how many kudos they got this round
+	// Besides, what's another loop over the /entire player list/
+	var/kudos_message
+	for(var/mob/M in GLOB.player_list)
+		var/kudos = M.mind?.kudos_received_from
+		if(length(kudos))
+			kudos_message = pick(length(kudos) > 5 ? special_encouragement_messages : base_encouragement_messages)
+			to_chat(M, "<span class='green big'>You received <b>[length(M.mind.kudos_received_from)]</b> kudos from other players this round! [kudos_message]</span>")
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()

@@ -28,6 +28,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_TABLES)
 	canSmoothWith = list(SMOOTH_GROUP_TABLES)
+	creates_cover = TRUE
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/metal
@@ -36,6 +37,8 @@
 	var/framestackamount = 2
 	var/deconstruction_ready = TRUE
 	var/flipped = FALSE
+	///If this is true, the table will have items slide off it when placed.
+	var/slippery = FALSE
 	/// The minimum level of environment_smash required for simple animals to be able to one-shot this.
 	var/minimum_env_smash = ENVIRONMENT_SMASH_WALLS
 
@@ -225,7 +228,7 @@
 	if(isrobot(user))
 		return
 
-	if(user.a_intent != INTENT_HARM && !(I.flags & ABSTRACT))
+	if(user.a_intent == INTENT_HELP && !(I.flags & ABSTRACT))
 		if(user.drop_item())
 			I.Move(loc)
 			var/list/click_params = params2list(params)
@@ -235,7 +238,12 @@
 			//Clamp it so that the icon never moves more than 16 pixels in either direction (thus leaving the table turf)
 			I.pixel_x = clamp(text2num(click_params["icon-x"]) - 16, -(world.icon_size/2), world.icon_size/2)
 			I.pixel_y = clamp(text2num(click_params["icon-y"]) - 16, -(world.icon_size/2), world.icon_size/2)
-			item_placed(I)
+			if(slippery)
+				step_away(I, user)
+				visible_message("<span class='warning'>[I] slips right off [src]!</span>")
+				playsound(loc, 'sound/misc/slip.ogg', 50, 1, -1)
+			else //Don't want slippery moving tables to have the item attached to them if it slides off.
+				item_placed(I)
 	else
 		return ..()
 
@@ -372,6 +380,10 @@
 			T.flip(direction)
 	update_icon()
 
+	creates_cover = FALSE
+	if(isturf(loc))
+		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+
 	return 1
 
 /obj/structure/table/proc/unflip()
@@ -399,7 +411,19 @@
 			T.unflip()
 	update_icon()
 
+	creates_cover = TRUE
+	if(isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+
 	return 1
+
+
+/obj/structure/table/water_act(volume, temperature, source, method)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_OIL_SLICKED))
+		slippery = initial(slippery)
+		remove_atom_colour(FIXED_COLOUR_PRIORITY)
+		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
 
 
 /*
@@ -776,7 +800,6 @@
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium
 	buildstackamount = 2
-	pull_speed = 0
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()
 

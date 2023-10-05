@@ -1,5 +1,11 @@
 import { useBackend } from '../backend';
-import { Button, Section, NoticeBox, LabeledList, Collapsible } from '../components';
+import {
+  Button,
+  Section,
+  NoticeBox,
+  LabeledList,
+  Collapsible,
+} from '../components';
 import { Window } from '../layouts';
 import { toTitleCase } from 'common/string';
 
@@ -32,8 +38,8 @@ const CrewList = (props, context) => {
       ) : (
         <Section fill scrollable>
           <LabeledList>
-            {frozen_crew.map((person) => (
-              <LabeledList.Item key={person} label={person.name}>
+            {frozen_crew.map((person, index) => (
+              <LabeledList.Item key={index} label={person.name}>
                 {person.rank}
               </LabeledList.Item>
             ))}

@@ -142,6 +142,7 @@ SUBSYSTEM_DEF(throwing)
 
 	if(callback)
 		callback.Invoke()
+	SEND_SIGNAL(thrownthing, COMSIG_MOVABLE_THROW_LANDED, src)
 	thrownthing.end_throw()
 
 /datum/thrownthing/proc/hit_atom(atom/A)
@@ -152,6 +153,6 @@ SUBSYSTEM_DEF(throwing)
 		var/atom/movable/AM = thing
 		if(AM == thrownthing || AM == thrower)
 			continue
-		if((AM.density || isliving(AM) && !dodgeable) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
+		if((AM.density || isliving(AM) && !dodgeable && !HAS_TRAIT(AM, TRAIT_DODGE_ALL_OBJECTS)) && !(AM.pass_flags & LETPASSTHROW) && !(AM.flags & ON_BORDER))
 			finalize(hit = TRUE, target = AM)
 			return TRUE

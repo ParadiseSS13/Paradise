@@ -35,7 +35,7 @@
 
 /datum/reagent/minttoxin/on_mob_life(mob/living/M)
 	if(HAS_TRAIT(M, TRAIT_FAT))
-		M.gib()
+		M.inflate_gib()
 	return ..()
 
 /datum/reagent/slimejelly
@@ -49,7 +49,14 @@
 
 /datum/reagent/slimejelly/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(M.get_blood_id() != id)  // no effect on slime people
+	var/mob/living/carbon/C = M
+	if(iscarbon(C) && C.mind?.has_antag_datum(/datum/antagonist/vampire))
+		M.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, M.nutrition + 10))
+		if(M.get_blood_id() != id)
+			M.blood_volume = min(M.blood_volume + REAGENTS_METABOLISM, BLOOD_VOLUME_NORMAL)
+		return ..() | update_flags
+
+	if(M.get_blood_id() != id)
 		if(prob(10))
 			to_chat(M, "<span class='danger'>Your insides are burning!</span>")
 			update_flags |= M.adjustToxLoss(rand(2, 6) * REAGENTS_EFFECT_MULTIPLIER, FALSE) // avg 0.4 toxin per cycle, not unreasonable
@@ -68,14 +75,12 @@
 		B.basecolor = color
 		B.update_icon()
 
-
 /datum/reagent/slimetoxin
 	name = "Mutation Toxin"
 	id = "mutationtoxin"
 	description = "A corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
-	can_synth = FALSE
 	taste_description = "shadows"
 
 /datum/reagent/slimetoxin/on_mob_life(mob/living/M)
@@ -95,7 +100,6 @@
 	description = "An advanced corruptive toxin produced by slimes."
 	reagent_state = LIQUID
 	color = "#13BC5E" // rgb: 19, 188, 94
-	can_synth = FALSE
 	taste_description = "slime"
 
 /datum/reagent/aslimetoxin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -203,7 +207,6 @@
 	reagent_state = LIQUID
 	color = "#7DFF00"
 	taste_description = "slime"
-	can_synth = FALSE
 
 /datum/reagent/stable_mutagen/on_new(data)
 	..()
@@ -353,9 +356,16 @@
 						melted_something = TRUE
 
 					if(H.head && !(H.head.resistance_flags & ACID_PROOF))
-						to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
-						qdel(H.head)
 						melted_something = TRUE
+						if(istype(H.head, /obj/item/clothing/head/mod) && ismodcontrol(H.back))
+							var/obj/item/mod/control/C = H.back
+							var/name = H.head.name
+							C.seal_part(H.head, FALSE)
+							C.retract(null, H.head)
+							to_chat(H, "<span class='danger'>Your [name] melts away as your [C.name] performs emergency cleaning on the helmet, deactivating the suit!</span>")
+						else
+							to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
+							qdel(H.head)
 					if(melted_something)
 						return
 
@@ -446,7 +456,6 @@
 	drink_icon ="beerglass"
 	drink_name = "Beer glass"
 	drink_desc = "A freezing pint of beer"
-	can_synth = FALSE
 	taste_description = "beer"
 	taste_description = "piss water"
 
@@ -478,7 +487,6 @@
 	color = "#CF3600"
 	metabolization_rate = 0.1
 	penetrates_skin = TRUE
-	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/polonium/on_mob_life(mob/living/M)
@@ -602,7 +610,6 @@
 	color = "#CF3600"
 	metabolization_rate = 0.2
 	overdose_threshold = 40
-	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/venom/on_mob_life(mob/living/M)
@@ -728,7 +735,6 @@
 	description = "A highly potent cardiac poison - can kill within minutes."
 	reagent_state = LIQUID
 	color = "#7F10C0"
-	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/initropidril/on_mob_life(mob/living/M)
@@ -793,7 +799,6 @@
 	reagent_state = LIQUID
 	color = "#5F8BE1"
 	metabolization_rate = 0.7
-	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/sodium_thiopental/on_mob_life(mob/living/M)
@@ -823,7 +828,6 @@
 	color = "#646EA0"
 	metabolization_rate = 0.8
 	penetrates_skin = TRUE
-	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/ketamine/on_mob_life(mob/living/M)
@@ -917,7 +921,6 @@
 	reagent_state = LIQUID
 	color = "#C2D8CD"
 	metabolization_rate = 0.05
-	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/coniine/on_mob_life(mob/living/M)
@@ -933,7 +936,6 @@
 	reagent_state = LIQUID
 	color = "#191919"
 	metabolization_rate = 0.1
-	can_synth = FALSE
 	penetrates_skin = TRUE
 	taste_mult = 0
 
@@ -998,7 +1000,7 @@
 				M.Stun(2 SECONDS)
 				M.emote(pick("twitch","twitch","drool","shake","tremble"))
 			if(prob(5))
-				M.emote("collapse")
+				M.emote("faint")
 			if(prob(5))
 				M.Weaken(6 SECONDS)
 				M.visible_message("<span class='warning'>[M] has a seizure!</span>")
@@ -1009,7 +1011,7 @@
 				M.AdjustLoseBreath(2 SECONDS)
 		if(61 to INFINITY)
 			if(prob(15))
-				M.emote(pick("gasp", "choke", "cough","twitch", "shake", "tremble","quiver","drool", "twitch","collapse"))
+				M.emote(pick("gasp", "choke", "cough", "twitch", "shake", "tremble", "quiver", "drool", "twitch", "faint"))
 			M.LoseBreath(10 SECONDS)
 			update_flags |= M.adjustToxLoss(1, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -1288,7 +1290,6 @@
 	description = "An advanced corruptive toxin produced by something terrible."
 	reagent_state = LIQUID
 	color = "#5EFF3B" //RGB: 94, 255, 59
-	can_synth = FALSE
 	taste_description = "decay"
 
 /datum/reagent/gluttonytoxin/reaction_mob(mob/living/L, method=REAGENT_TOUCH, reac_volume)

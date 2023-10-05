@@ -279,7 +279,7 @@
 	desc = "God wills it!"
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	allowed = list(/obj/item/nullrod/claymore)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/bible)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
 
 /obj/item/clothing/suit/armor/vest/durathread
@@ -496,7 +496,7 @@
 
 /obj/item/clothing/suit/armor/reactive/fire/equipped(mob/user, slot)
 	..()
-	if(slot != slot_wear_suit)
+	if(slot != SLOT_HUD_OUTER_SUIT)
 		return
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, "[UID()]")
 
@@ -516,6 +516,54 @@
 				add_attack_logs(owner, C, "[C] was ignited by [owner]'s [src]", ATKLOG_ALMOSTALL) //lord have mercy on almost_all attack log admins
 		return TRUE
 	return FALSE
+
+/obj/item/clothing/suit/armor/reactive/cryo
+	name = "reactive gelidic armor" //is "gelidic" a word? probably not, but it sounds cool
+	desc = "This armor harnesses a cryogenic anomaly core to defend its user from the cold and attacks alike. Its unstable thermal regulation system occasionally vents gasses."
+
+/obj/item/clothing/suit/armor/reactive/cryo/equipped(mob/user, slot)
+	..()
+	if(slot != SLOT_HUD_OUTER_SUIT)
+		return
+	ADD_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
+
+/obj/item/clothing/suit/armor/reactive/cryo/dropped(mob/user, silent)
+	..()
+	REMOVE_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
+
+/obj/item/clothing/suit/armor/reactive/cryo/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	if(!active)
+		return FALSE
+	if(reaction_check(hitby) && use_power())
+		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out freezing bolts!</span>")
+
+		for(var/mob/M in oview(get_turf(src), 7))
+			shootAt(M)
+
+		if(prob(10)) //rarely vent gasses
+			owner.visible_message("<span class='warning'>[src] vents excess coolant!</span>")
+			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE)
+
+			var/turf/simulated/T = get_turf(src)
+			if(istype(T))
+				T.atmos_spawn_air(LINDA_SPAWN_COLD | LINDA_SPAWN_N2O | LINDA_SPAWN_CO2, 20)
+
+		disable(rand(1, 3))
+
+		return TRUE
+	return FALSE
+
+/obj/item/clothing/suit/armor/reactive/cryo/proc/shootAt(atom/movable/target)
+	var/turf/T = get_turf(src)
+	var/turf/U = get_turf(target)
+	if(!T || !U)
+		return
+	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
+	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
+	O.current = T
+	O.yo = U.y - T.y
+	O.xo = U.x - T.x
+	O.fire()
 
 
 /obj/item/clothing/suit/armor/reactive/stealth
@@ -726,7 +774,7 @@
 	icon_state = "dragon"
 	item_state = "dragon"
 	desc = "A suit of armour fashioned from the remains of an ash drake."
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
 	armor = list(MELEE = 115, BULLET = 25, LASER = 25, ENERGY = 25, BOMB = 150, RAD = 25, FIRE = INFINITY, ACID = INFINITY)
 	hoodtype = /obj/item/clothing/head/hooded/drake
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -751,7 +799,7 @@
 	icon_state = "goliath_cloak"
 	item_state = "goliath_cloak"
 	desc = "A staunch, practical cape made out of numerous monster materials, it is coveted amongst exiles & hermits."
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival)
 	armor = list(MELEE = 25, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 75, ACID = 75) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS

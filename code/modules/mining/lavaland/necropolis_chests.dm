@@ -70,17 +70,6 @@
 			new /obj/item/borg/upgrade/modkit/lifesteal(src)
 			new /obj/item/bedsheet/cult(src)
 
-/obj/structure/closet/crate/necropolis/puzzle
-	name = "puzzling chest"
-
-/obj/structure/closet/crate/necropolis/puzzle/populate_contents()
-	var/loot = rand(1,2)
-	switch(loot)
-		if(1)
-			new /obj/item/soulstone/anybody(src)
-		if(2)
-			new /obj/item/wisp_lantern(src)
-
 //KA modkit design discs
 /obj/item/disk/design_disk/modkit_disk
 	name = "\improper KA mod disk"
@@ -159,10 +148,10 @@
 #define BERSERK_COLOUR "#950a0a"
 
 /obj/item/clothing/suit/hooded/berserker
-	name = "champion's hardsuit"
+	name = "berserker hardsuit"
 	desc = "Voices echo from the hardsuit, driving the user insane. Is not space-proof."
 	icon_state = "hardsuit-berserker"
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/spear)
 	armor = list(MELEE = 30, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 150, RAD = 0, FIRE = INFINITY, ACID = INFINITY)
 	hoodtype = /obj/item/clothing/head/hooded/berserker
 	flags_inv = HIDEGLOVES | HIDESHOES | HIDEJUMPSUIT | HIDETAIL
@@ -177,7 +166,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
+	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
 
 /obj/item/clothing/head/hooded/berserker
 	name = "berserker helmet"
@@ -279,7 +268,7 @@
 	name = "Berserk"
 	desc = "Increase your movement and melee speed while also increasing your melee armor for a short amount of time."
 
-/datum/action/item_action/berserk_mode/Trigger(trigger_flags)
+/datum/action/item_action/berserk_mode/Trigger(left_click)
 	if(istype(target, /obj/item/clothing/head/hooded/berserker))
 		var/obj/item/clothing/head/hooded/berserker/berzerk = target
 		if(berzerk.berserk_active)
@@ -310,6 +299,8 @@
 	desc = "A wooden rod about the size of your forearm with a snake carved around it, winding its way up the sides of the rod. Something about it seems to inspire in you the responsibilty and duty to help others."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "asclepius_dormant"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	var/activated = FALSE
 	var/usedHand
 	var/mob/living/carbon/owner
@@ -496,8 +487,8 @@
 	Even with the weapon destroyed, all the pieces containing the creature have coagulated back together to find a new host."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 15
 	armour_penetration_percentage = 40
 	armour_penetration_flat = 10
@@ -510,18 +501,21 @@
 	var/timerid
 	var/list/input_list = list()
 	var/list/combo_strings = list()
-	var/static/list/combo_list = list(
+	var/list/combo_list = list()
+
+
+/obj/item/cursed_katana/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
+	combo_list = list(
 		ATTACK_STRIKE = list(COMBO_STEPS = list(LEFT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, strike)),
 		ATTACK_SLICE = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, LEFT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, slice)),
 		ATTACK_DASH = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, RIGHT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, dash)),
 		ATTACK_CUT = list(COMBO_STEPS = list(RIGHT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, cut)),
 		ATTACK_HEAL = list(COMBO_STEPS = list(LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, heal)),
 		ATTACK_SHATTER = list(COMBO_STEPS = list(RIGHT_SLASH, LEFT_SLASH, RIGHT_SLASH, LEFT_SLASH), COMBO_PROC = TYPE_PROC_REF(/obj/item/cursed_katana, shatter)),
-		)
+	)
 
-/obj/item/cursed_katana/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/parry, _stamina_constant = 2, _stamina_coefficient = 0.5, _parryable_attack_types = NON_PROJECTILE_ATTACKS)
 	for(var/combo in combo_list)
 		var/list/combo_specifics = combo_list[combo]
 		var/step_string = english_list(combo_specifics[COMBO_STEPS])

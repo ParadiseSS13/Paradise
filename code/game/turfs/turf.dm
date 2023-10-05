@@ -34,8 +34,6 @@
 
 	var/blocks_air = FALSE
 
-	var/datum/pathnode/PNode = null //associated PathNode in the A* algorithm
-
 	flags = 0
 
 	var/image/obscured	//camerachunks
@@ -131,12 +129,6 @@
 		our_rpd.flip_all_pipes(user, src)
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
-
-/turf/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/beam/pulse))
-		src.ex_act(2)
-	..()
-	return FALSE
 
 /turf/bullet_act(obj/item/projectile/Proj)
 	if(istype(Proj, /obj/item/projectile/bullet/gyro))
@@ -453,8 +445,8 @@
 					return
 			C.place_turf(src, user)
 			return TRUE
-		else if(istype(I, /obj/item/twohanded/rcl))
-			var/obj/item/twohanded/rcl/R = I
+		else if(istype(I, /obj/item/rcl))
+			var/obj/item/rcl/R = I
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)
@@ -508,7 +500,7 @@
 	I.appearance = AM.appearance
 	I.appearance_flags = RESET_COLOR|RESET_ALPHA|RESET_TRANSFORM
 	I.loc = src
-	I.setDir(AM.dir)
+	I.dir = AM.dir
 	I.alpha = 128
 	LAZYADD(blueprint_data, I)
 

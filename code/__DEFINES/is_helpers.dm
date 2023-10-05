@@ -1,3 +1,6 @@
+// Datums
+#define isdatum(thing) (istype(thing, /datum))
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -26,6 +29,8 @@
 
 // Simple animals
 
+#define issimple_animal(A) (istype(A, /mob/living/simple_animal))
+
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
 
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
@@ -34,12 +39,16 @@
 
 #define isslime(A) (istype((A), /mob/living/simple_animal/slime))
 
+#define ispulsedemon(A) (istype(A, /mob/living/simple_animal/demon/pulse_demon))
+
 // Objects
 #define isobj(A) istype(A, /obj) //override the byond proc because it returns true on children of /atom/movable that aren't objs
 
 #define isitem(A) (istype(A, /obj/item))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
+
+#define isapc(A) (istype(A, /obj/machinery/power/apc))
 
 #define ismecha(A) (istype(A, /obj/mecha))
 
@@ -110,3 +119,5 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isradio(A) istype(A, /obj/item/radio)
 #define ispill(A) istype(A, /obj/item/reagent_containers/food/pill)
 
+// Modsuits
+#define ismodcontrol(A) istype(A, /obj/item/mod/control)

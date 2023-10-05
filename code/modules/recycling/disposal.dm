@@ -6,6 +6,8 @@
 // Can hold items and human size things, no other draggables
 // Toilets are a type of disposal bin for small objects only and work on magic. By magic, I mean torque rotation
 #define SEND_PRESSURE 0.05*ONE_ATMOSPHERE
+/// How frequently disposals can make sounds, to prevent huge sound stacking
+#define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
 /obj/machinery/disposal
 	name = "disposal unit"
@@ -464,7 +466,7 @@
 		H.tomail = 1
 
 	sleep(10)
-	if(last_sound < world.time + 1)
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, 0, 0)
 		last_sound = world.time
 	sleep(5) // wait for animation to finish
@@ -499,7 +501,10 @@
 /obj/machinery/disposal/proc/expel(obj/structure/disposalholder/H)
 
 	var/turf/target
-	playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+	if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+		playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+		last_sound = world.time
+
 	if(H) // Somehow, someone managed to flush a window which broke mid-transit and caused the disposal to go in an infinite loop trying to expel null, hopefully this fixes it
 		for(var/atom/movable/AM in H)
 			target = get_offset_target_turf(src.loc, rand(5)-rand(5), rand(5)-rand(5))
@@ -519,7 +524,7 @@
 		var/obj/item/I = mover
 		if(istype(I, /obj/item/projectile))
 			return
-		if(prob(75))
+		if(prob(75) || (istype(mover.throwing.thrower) && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)))
 			I.forceMove(src)
 			for(var/mob/M in viewers(src))
 				M.show_message("\the [I] lands in \the [src].", 3)
@@ -556,7 +561,7 @@
 	var/active = FALSE	// true if the holder is moving, otherwise inactive
 	dir = 0
 	var/count = 1000	//*** can travel 1000 steps before going inactive (in case of loops)
-	var/has_fat_guy = 0	// true if contains a fat person
+	var/has_fat_guy = FALSE	// true if contains a fat person
 	/// Destination the holder is set to, defaulting to disposals and changes if the contents have a mail/sort tag.
 	var/destinationTag = 1
 	var/tomail = 0 //changes if contains wrapped package
@@ -593,7 +598,7 @@
 		if(ishuman(AM))
 			var/mob/living/carbon/human/H = AM
 			if(HAS_TRAIT(H, TRAIT_FAT))		// is a human and fat?
-				has_fat_guy = 1			// set flag on holder
+				has_fat_guy = TRUE			// set flag on holder
 		if(istype(AM, /obj/structure/bigDelivery) && !hasmob)
 			var/obj/structure/bigDelivery/T = AM
 			destinationTag = T.sortTag
@@ -641,7 +646,8 @@
 			active = FALSE
 			// find the fat guys
 			for(var/mob/living/carbon/human/H in src)
-
+				if(HAS_TRAIT(H, TRAIT_FAT))
+					to_chat(H, "<span class='userdanger'>You suddenly stop in [last], your extra weight jamming you against the walls!</span>")
 			break
 		sleep(1)		// was 1
 		var/obj/structure/disposalpipe/curr = loc
@@ -683,7 +689,7 @@
 			M.reset_perspective(src)	// if a client mob, update eye to follow this holder
 
 	if(other.has_fat_guy)
-		has_fat_guy = 1
+		has_fat_guy = TRUE
 	qdel(other)
 
 
@@ -733,6 +739,8 @@
 	plane = FLOOR_PLANE
 	layer = DISPOSAL_PIPE_LAYER				// slightly lower than wires and other pipes
 	base_icon_state	// initial icon state on map
+	/// The last time a sound was played from this
+	var/last_sound
 
 	// new pipe, set the icon_state as on map
 /obj/structure/disposalpipe/Initialize(mapload)
@@ -788,7 +796,10 @@
 
 		H.forceMove(P)
 	else			// if wasn't a pipe, then set loc to turf
-		H.forceMove(T)
+		if(is_blocked_turf(T))
+			H.forceMove(loc)
+		else
+			H.forceMove(T)
 		return null
 
 	return P
@@ -841,7 +852,10 @@
 		else						// otherwise limit to 10 tiles
 			target = get_ranged_target_turf(T, direction, 10)
 
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+			last_sound = world.time
+
 		if(H)
 			for(var/atom/movable/AM in H)
 				AM.forceMove(T)
@@ -856,7 +870,9 @@
 
 	else	// no specified direction, so throw in random direction
 
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
+			last_sound = world.time
 		if(H)
 			for(var/atom/movable/AM in H)
 				target = get_offset_target_turf(T, rand(5)-rand(5), rand(5)-rand(5))
@@ -1378,6 +1394,8 @@
 	var/turf/target	// this will be where the output objects are 'thrown' to.
 	var/obj/structure/disposalpipe/trunk/linkedtrunk
 	var/mode = FALSE // Is the maintenance panel open? Different than normal disposal's mode
+	/// The last time a sound was played
+	var/last_sound
 
 /obj/structure/disposaloutlet/Initialize(mapload)
 	. = ..()
@@ -1401,18 +1419,26 @@
 /obj/structure/disposaloutlet/proc/expel(animation = TRUE)
 	if(animation)
 		flick("outlet-open", src)
-		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
+		var/play_sound = FALSE
+		if(last_sound + DISPOSAL_SOUND_COOLDOWN < world.time)
+			play_sound = TRUE
+			last_sound = world.time
+		if(play_sound)
+			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, FALSE)
 		sleep(20)	//wait until correct animation frame
-		playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
+		if(play_sound)
+			playsound(src, 'sound/machines/hiss.ogg', 50, 0, FALSE)
 	for(var/atom/movable/AM in contents)
 		AM.forceMove(loc)
 		AM.pipe_eject(dir)
-		if(isdrone(AM) || istype(AM, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
+		if(QDELETED(AM))
 			return
-		spawn(5)
-			if(QDELETED(AM))
+		if(isliving(AM))
+			var/mob/living/mob_to_immobilize = AM
+			if(isdrone(mob_to_immobilize) || istype(mob_to_immobilize, /mob/living/silicon/robot/syndicate/saboteur)) //Drones keep smashing windows from being fired out of chutes. Bad for the station. ~Z
 				return
-			AM.throw_at(target, 3, 1)
+			mob_to_immobilize.Immobilize(1 SECONDS)
+		AM.throw_at(target, 3, 1)
 
 /obj/structure/disposaloutlet/screwdriver_act(mob/living/user, obj/item/I)
 	add_fingerprint(user)

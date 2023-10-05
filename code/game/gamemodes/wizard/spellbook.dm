@@ -137,6 +137,12 @@
 	spell_type = /obj/effect/proc_holder/spell/fireball
 	category = "Offensive"
 
+/datum/spellbook_entry/summon_toolbox
+	name = "Homing Toolbox"
+	spell_type = /obj/effect/proc_holder/spell/fireball/toolbox
+	category = "Offensive"
+	cost = 1
+
 /datum/spellbook_entry/fleshtostone
 	name = "Flesh to Stone"
 	spell_type = /obj/effect/proc_holder/spell/touch/flesh_to_stone
@@ -468,29 +474,22 @@
 
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
-	name = "Battlemage Armour"
-	desc = "An ensorceled suit of armour, protected by a powerful shield. The shield can completely negate sixteen attacks before being permanently depleted. Despite appearance it is NOT spaceproof."
-	item_path = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
+	name = "Battlemage Armor"
+	desc = "An ensorceled spaceproof suit of protective yet light armor, protected by a powerful shield. The shield can completely negate 15 attacks before permanently failing."
+	item_path = /obj/item/storage/box/wizard/hardsuit
 	limit = 1
 	category = "Weapons and Armors"
-
-/datum/spellbook_entry/item/battlemage_charge
-	name = "Battlemage Armour Charges"
-	desc = "A powerful defensive rune, it will grant eight additional charges to a suit of battlemage armour."
-	item_path = /obj/item/wizard_armour_charge
-	category = "Weapons and Armors"
-	cost = 1
 
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
 	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
-	item_path = /obj/item/twohanded/mjollnir
+	item_path = /obj/item/mjollnir
 	category = "Weapons and Armors"
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everything nearby to the point of impact."
-	item_path = /obj/item/twohanded/singularityhammer
+	item_path = /obj/item/singularityhammer
 	category = "Weapons and Armors"
 
 /datum/spellbook_entry/item/cursed_katana
@@ -567,7 +566,7 @@
 	name = "Bottle of Tickles"
 	desc = "A bottle of magically infused fun, the smell of which will \
 		attract adorable extradimensional beings when broken. These beings \
-		are similar to slaughter demons, but are a little weaker and they do not permamently \
+		are similar to slaughter demons, but are a little weaker and they do not permanently \
 		kill their victims, instead putting them in an extradimensional hugspace, \
 		to be released on the demon's death. Chaotic, but not ultimately \
 		damaging. The crew's reaction to the other hand could be very \
@@ -599,6 +598,14 @@
 	category = "Summons"
 	limit = 3
 	cost = 1 //Needs essence to live. Needs crew to die for essence, doubt xenobio will be making many monkeys. As such, weaker. Also can hardstun the wizard.
+
+/datum/spellbook_entry/item/pulsedemonbottle
+	name = "Living Lightbulb"
+	desc = "A magically sealed lightbulb confining some manner of electricity based creature. Beware, these creatures are indiscriminate in their shocking antics, and you yourself may become a victim."
+	item_path = /obj/item/antag_spawner/pulse_demon
+	category = "Summons"
+	limit = 3
+	cost = 1 // Needs station power to live. Also can kill the wizard trivially in maints (get shock protection).
 
 /datum/spellbook_entry/item/contract
 	name = "Contract of Apprenticeship"
@@ -1071,7 +1078,7 @@
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)
+		user.equip_to_slot_if_possible(magichead, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")

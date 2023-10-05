@@ -37,7 +37,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/spacecash/update_icon_state()
-	name = "[amount == max_amount ? "10000" : amount] Credit[amount > 1 ? "s" : ""]"
+	name = "[amount] Credit[amount > 1 ? "s" : ""]"
 	if(amount >= 1 && amount < 10)
 		icon_state = "cashgreen"
 	else if(amount >= 10 && amount < 50)
@@ -78,5 +78,9 @@
 /obj/item/stack/spacecash/c10000
 	amount = 10000
 
-/obj/item/twohanded/required/cash_pile
+/obj/item/cash_pile
 	name = "Pile of Cash"
+
+/obj/item/cash_pile/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, require_twohands = TRUE)

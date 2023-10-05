@@ -4,7 +4,7 @@
 /area/template_noop)
 "b" = (
 /obj/item/stack/rods,
-/turf/simulated/floor/plating/damaged,
+/turf/simulated/floor/plating/damaged/airless,
 /area/template_noop)
 "c" = (
 /obj/item/trash/popcorn,
@@ -79,14 +79,10 @@
 /area/template_noop)
 "x" = (
 /obj/structure/bookcase/random,
-/turf/simulated/floor/plating/damaged,
-/area/template_noop)
-"y" = (
-/obj/item/storage/pill_bottle/random_meds/labelled,
-/turf/space,
+/turf/simulated/floor/plating/damaged/airless,
 /area/template_noop)
 "z" = (
-/turf/simulated/floor/plating/damaged,
+/turf/simulated/floor/plating/damaged/airless,
 /area/template_noop)
 "A" = (
 /turf/space,
@@ -102,7 +98,7 @@
 /area/template_noop)
 "F" = (
 /obj/random/tool,
-/turf/simulated/floor/plating/damaged,
+/turf/simulated/floor/plating/damaged/airless,
 /area/template_noop)
 "G" = (
 /obj/item/poster/random_official,
@@ -454,7 +450,7 @@ a
 A
 n
 A
-y
+A
 f
 B
 A

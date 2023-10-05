@@ -124,6 +124,9 @@
 	/// settings variable for having the APC auto use certain power channel settings
 	var/autoflag = APC_AUTOFLAG_ALL_OFF		// 0 = off, 1= eqp and lights off, 2 = eqp off, 3 = all on.
 
+	/// Being hijacked by a pulse demon?
+	var/being_hijacked = FALSE
+
 	/*** APC Malf AI Vars ****/
 	var/malfhack = FALSE //New var for my changes to AI malf. --NeoFite
 	var/mob/living/silicon/ai/malfai = null //See above --NeoFite
@@ -269,6 +272,15 @@
 				return
 			W.forceMove(src)
 			cell = W
+
+			for(var/mob/living/simple_animal/demon/pulse_demon/demon in cell)
+				demon.forceMove(src)
+				demon.current_power = src
+				if(!being_hijacked) // first come first serve
+					demon.try_hijack_apc(src)
+			if(being_hijacked)
+				cell.rigged = FALSE // don't blow the demon up
+
 			user.visible_message(\
 				"[user.name] has inserted the power cell to [name]!",\
 				"<span class='notice'>You insert the power cell.</span>")
@@ -518,7 +530,7 @@
 /obj/machinery/power/apc/proc/is_authenticated(mob/user as mob)
 	if(user.can_admin_interact())
 		return TRUE
-	if(isAI(user) || isrobot(user))
+	if(isAI(user) || isrobot(user) || user.has_unlimited_silicon_privilege)
 		return TRUE
 	else
 		return !locked
@@ -526,14 +538,14 @@
 /obj/machinery/power/apc/proc/is_locked(mob/user as mob)
 	if(user.can_admin_interact())
 		return FALSE
-	if(isAI(user) || isrobot(user))
+	if(isAI(user) || isrobot(user) || user.has_unlimited_silicon_privilege)
 		return FALSE
 	else
 		return locked
 
 /obj/machinery/power/apc/ui_act(action, params, datum/tgui/ui)
 	var/mob/user = ui.user
-	if(..() || !can_use(user, TRUE) || (locked && !user.has_unlimited_silicon_privilege && (action != "toggle_nightshift") && !user.can_admin_interact()))
+	if(..() || !can_use(user, TRUE) || (is_locked(user) && (action != "toggle_nightshift")))
 		return
 	. = TRUE
 	switch(action)
@@ -1011,6 +1023,19 @@
 			locked = FALSE
 			to_chat(user, "You emag the APC interface.")
 			update_icon()
+
+/obj/machinery/power/apc/proc/apc_short()
+	// if it has internal wires, cut the power wires
+	if(wires)
+		if(!wires.is_cut(WIRE_MAIN_POWER1))
+			wires.cut(WIRE_MAIN_POWER1)
+		if(!wires.is_cut(WIRE_MAIN_POWER2))
+			wires.cut(WIRE_MAIN_POWER2)
+	// if it was operating, toggle off the breaker
+	if(operating)
+		toggle_breaker()
+	// no matter what, ensure the area knows something happened to the power
+	apc_area.powernet.power_change()
 
 ///    *************
 /// APC subtypes
