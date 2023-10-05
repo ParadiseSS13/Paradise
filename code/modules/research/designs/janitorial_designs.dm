@@ -63,7 +63,7 @@
 
 /datum/design/light_replacer_bluespace
 	name = "Filth Scanner"
-	desc = " heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
+	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
 	id = "janitor_hud"
 	req_tech = list("biotech" = 1, "magnets" = 3)
 	build_type = PROTOLATHE
