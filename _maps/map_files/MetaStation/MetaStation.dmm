@@ -838,7 +838,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/classic/normal{
@@ -50045,7 +50044,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -51583,7 +51581,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/glass,
@@ -53261,7 +53258,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/reinforced/normal{
@@ -53423,13 +53419,13 @@
 "fAC" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Mass Driver";
-	req_access_txt = "12";
 	dir = 1
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/door/window/classic/normal{
-	name = "Mass Driver";
-	req_access_txt = "12"
+	name = "Mass Driver"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/turf_decal/loading_area{
 	dir = 1
 	},
@@ -53439,7 +53435,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/classic/normal{
@@ -53984,9 +53979,9 @@
 /area/station/command/office/hos)
 "fMI" = (
 /obj/machinery/door/window/reinforced/normal{
-	name = "Justice Chamber";
-	req_access_txt = "2"
+	name = "Justice Chamber"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -53996,9 +53991,9 @@
 	},
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
-	name = "Justice Chamber";
-	req_access_txt = "2"
+	name = "Justice Chamber"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -54007,7 +54002,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/reinforced/normal{
@@ -54684,7 +54678,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -55029,7 +55022,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/hop,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable/yellow{
@@ -55616,7 +55608,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -57584,7 +57575,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -61177,7 +61167,6 @@
 /obj/machinery/door/firedoor,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -62348,7 +62337,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -62729,7 +62717,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -63472,7 +63459,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -68286,7 +68272,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/smartfridge/medbay,
@@ -71998,9 +71983,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
-	name = "Weapon Distribution";
-	req_access_txt = "3"
+	name = "Weapon Distribution"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /obj/machinery/door/window/classic/normal{
 	name = "Request Window"
 	},
@@ -72009,7 +71994,6 @@
 /obj/machinery/door/firedoor,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -72760,7 +72744,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -73382,7 +73365,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -73550,7 +73532,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -74562,7 +74543,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/classic/normal{
@@ -75806,7 +75786,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/navbeacon{
@@ -79469,7 +79448,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/wood,
@@ -81582,8 +81560,10 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
-	name = "Head of Personnel's Desk";
-	req_access_txt = "57"
+	name = "Head of Personnel's Desk"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/command/hop{
+	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
 	name = "Reception Window"
@@ -81594,7 +81574,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -81735,7 +81714,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/captain,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window{
@@ -81903,7 +81881,12 @@
 /obj/machinery/smartfridge,
 /obj/machinery/door/window/classic/normal{
 	name = "Anti-Theft Shield";
-	req_one_access_txt = "35;28";
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
 	dir = 1
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -81912,12 +81895,11 @@
 	name = "Service Desk Shutter"
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Hydroponics Window";
-	req_access_txt = "35"
+	name = "Hydroponics Window"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/smartfridge,
@@ -83307,7 +83289,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/bot,
@@ -83745,9 +83726,9 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
-	name = "Warden's Desk";
-	req_access_txt = "3"
+	name = "Warden's Desk"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /obj/machinery/door/window/classic/normal{
 	name = "Reception Window"
 	},
@@ -83769,7 +83750,6 @@
 /obj/item/storage/fancy/donut_box,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -83920,7 +83900,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/navbeacon{
@@ -84697,7 +84676,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/window/classic/normal{
@@ -84869,7 +84847,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -88014,7 +87991,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -90180,7 +90156,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/window/reinforced{
@@ -90892,7 +90867,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/window/reinforced{
@@ -92627,7 +92601,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/delivery,
@@ -93897,7 +93870,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
