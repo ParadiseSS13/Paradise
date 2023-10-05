@@ -15,7 +15,10 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if(INTENT_GRAB)
-			grabbedby(M)
+			if(holder_type)		// SS220 EDIT START
+				get_scooped(M)
+			else
+				grabbedby(M)	// SS220 EDIT END
 
 		if(INTENT_HARM, INTENT_DISARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM))

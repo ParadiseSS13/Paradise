@@ -51,6 +51,7 @@
 #include "keybindings/_keybindings.dme"
 #include "loadout/_loadout.dme"
 #include "logs/_logs.dme"
+#include "mobs/_mobs.dme"
 #include "pixel_shift/_pixel_shift.dme"
 #include "radio_sound/radio_sound.dme"
 #include "screentip_change/_screentip_change.dme"

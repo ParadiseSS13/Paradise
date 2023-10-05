@@ -1218,7 +1218,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
 			return FALSE
 	var/obj/vent_found = pick(found_vents)
-	var/mob/living/simple_animal/mouse/host = new(vent_found.loc)
+	var/mob/living/simple_animal/mouse/host = prob(20) ? new /mob/living/simple_animal/mouse/rat(vent_found.loc) : new(vent_found.loc) // SS220 EDIT
 	host.ckey = src.ckey
 	to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
 	host.forceMove(vent_found)
