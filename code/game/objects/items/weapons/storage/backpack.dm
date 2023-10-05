@@ -655,6 +655,7 @@
 			if(prob(50))
 				new /obj/item/sord(src)
 				value -= 1 //Useless joke, might as well give them a value point back.
+			else
 				new /obj/item/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
 	//Wands
 	var/wands = 0
