@@ -130,7 +130,7 @@
 			ITD.throw_at(target, pressureSetting * 5, pressureSetting * 2,user)
 	if(pressureSetting >= 3 && user)
 		user.visible_message("<span class='warning'>[user] is thrown down by the force of the cannon!</span>", "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
-		user.Weaken(3)
+		user.KnockDown(3 SECONDS)
 
 
 /obj/item/pneumatic_cannon/ghetto //Obtainable by improvised methods; more gas per use, less capacity, but smaller
@@ -177,3 +177,36 @@
 		return
 	src.overlays += image('icons/obj/pneumaticCannon.dmi', "[tank.icon_state]")
 	src.update_icon()
+
+//Mind Flayer Flak Cannon
+/obj/item/pneumatic_cannon/flayer
+	name = "Pneumatic Flak Gun"
+	desc = "WIP"
+	flags = ABSTRACT | NODROP
+	var/charge_time = 15 SECONDS
+
+/obj/item/pneumatic_cannon/flayer/New()
+	START_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/pneumatic_cannon/flayer/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/pneumatic_cannon/flayer/process()
+	
+	var/obj/item/shard/shard = new /obj/item/shard
+	. = ..()
+
+/obj/item/pneumatic_cannon/flayer/attackby(obj/item/W, mob/user, params)
+	return
+
+/obj/item/pneumatic_cannon/flayer/attack_self(mob/user)
+	switch(pressureSetting)
+	if(1)
+		pressureSetting = 2
+	if(2)
+		pressureSetting = 3
+	if(3)
+		pressureSetting = 1
+
