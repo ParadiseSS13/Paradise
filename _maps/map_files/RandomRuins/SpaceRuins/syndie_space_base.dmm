@@ -144,14 +144,20 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "bi" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW4";
-	location = "SBW3"
+	codes_txt = "patrol;next_patrol=SBW6";
+	location = "SBW5"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/main)
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "bk" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -947,15 +953,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"gP" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW18";
-	location = "SBW17"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "gQ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
@@ -1334,13 +1331,15 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
-"jy" = (
+"jC" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW8";
-	location = "SBW7"
+	codes_txt = "patrol;next_patrol=SBW9";
+	location = "SBW8"
 	},
-/turf/simulated/mineral,
-/area/ruin/unpowered/syndicate_space_base/inner)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "jH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3117,6 +3116,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"zk" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW0";
+	location = "SBW20"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "zl" = (
 /obj/machinery/atmospherics/binary/valve{
 	dir = 8
@@ -3754,6 +3762,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
+"Ev" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW4";
+	location = "SBW3"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "EC" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 8
@@ -4298,15 +4315,6 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
-"If" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW8";
-	location = "SBW7"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "Ig" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/navbeacon/invisible{
@@ -4690,8 +4698,8 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "Lb" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW9";
-	location = "SBW8"
+	codes_txt = "patrol;next_patrol=SBW18";
+	location = "SBW17"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5026,6 +5034,13 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"Ok" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW8";
+	location = "SBW7"
+	},
+/turf/simulated/mineral,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "Op" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -5129,13 +5144,11 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "PA" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW14";
-	location = "SBW13"
+	codes_txt = "patrol;next_patrol=SBW20";
+	location = "SBW19"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "PB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -5189,21 +5202,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
-"PT" = (
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW0";
-	location = "SBW20"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
 "PU" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
+"PX" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW14";
+	location = "SBW13"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Qa" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
@@ -5344,21 +5357,6 @@
 	icon_state = "darkpurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
-"Rz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW6";
-	location = "SBW5"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/dormitories)
 "RJ" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5949,11 +5947,13 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "VS" = (
 /obj/machinery/navbeacon/invisible{
-	codes_txt = "patrol;next_patrol=SBW20";
-	location = "SBW19"
+	codes_txt = "patrol;next_patrol=SBW8";
+	location = "SBW7"
 	},
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_space_base/engineering)
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "VU" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
@@ -7525,7 +7525,7 @@ Pp
 OQ
 BZ
 NQ
-VS
+PA
 NQ
 NQ
 tG
@@ -8064,7 +8064,7 @@ am
 LN
 am
 Fe
-bi
+Ev
 hL
 Gi
 am
@@ -8095,7 +8095,7 @@ Gi
 hL
 am
 tW
-PT
+zk
 Fe
 am
 hL
@@ -8602,7 +8602,7 @@ AB
 Eb
 XF
 am
-gP
+Lb
 IX
 aA
 nw
@@ -8648,7 +8648,7 @@ VP
 VP
 DU
 OC
-PA
+PX
 hL
 PK
 Fd
@@ -9720,7 +9720,7 @@ DL
 DL
 VZ
 az
-Lb
+jC
 up
 mQ
 xo
@@ -9859,7 +9859,7 @@ az
 gR
 Tu
 DL
-Rz
+bi
 DL
 tD
 bg
@@ -9876,7 +9876,7 @@ OR
 OR
 OR
 am
-If
+VS
 Jj
 PL
 Jn
@@ -10071,7 +10071,7 @@ AD
 AD
 AD
 kE
-jy
+Ok
 az
 xO
 cY
