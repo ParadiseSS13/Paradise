@@ -44394,18 +44394,14 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "myb" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "darkpurple"
+	icon_state = "darkpurplecorners"
 	},
 /area/station/command/office/rd)
 "myh" = (
@@ -47202,8 +47198,7 @@
 /area/station/security/prisonlockers)
 "nec" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkpurplecorners"
+	icon_state = "dark"
 	},
 /area/station/command/office/rd)
 "nef" = (
@@ -60719,9 +60714,24 @@
 	},
 /area/station/maintenance/apmaint)
 "qpb" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/station/maintenance/asmaint2)
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/computer/rnd_backup{
+	dir = 4
+	},
+/obj/item/disk/rnd_backup_disk,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkpurple"
+	},
+/area/station/command/office/rd)
 "qpt" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -79173,7 +79183,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
+	dir = 8;
 	icon_state = "darkpurple"
 	},
 /area/station/command/office/rd)
@@ -139283,7 +139293,7 @@ fFT
 pwj
 psm
 tfd
-qpb
+mjr
 nsl
 tKa
 mfE
@@ -139796,7 +139806,7 @@ dNs
 dNs
 dNs
 dNs
-mjr
+hfV
 lSA
 lSA
 lSA
@@ -140052,7 +140062,7 @@ myA
 nQI
 oPf
 uEg
-dNs
+qpb
 dNs
 lSA
 jmn

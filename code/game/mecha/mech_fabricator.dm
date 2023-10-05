@@ -439,7 +439,6 @@
 		if("linktonetworkcontroller")
 			if(network_manager_uid)
 				return
-			#warn zlevel lock the linkage
 			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
 			if(istype(C, /obj/machinery/computer/rnd_network_controller))
 				var/user_pass = input(usr, "Please enter network password", "Password Entry")

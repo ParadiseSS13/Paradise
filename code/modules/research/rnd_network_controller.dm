@@ -17,6 +17,8 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 	var/list/mechfabs = list()
 	/// List of other pointgain machinery. Soft-refs only.
 	var/list/pointgenerators = list()
+	/// List of backup consoles. Soft-refs only.
+	var/list/backupconsoles = list()
 	/// The files for all the research data on this system
 	var/datum/research/research_files
 	/// The link ID of this console, used for map purposes
@@ -92,6 +94,14 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 
 		PG.unlink()
 	*/
+
+	// Unlink all attached backup consoles
+	for(var/backupconsoles_uid in backupconsoles)
+		var/obj/machinery/computer/rnd_backup/BC = locateUID(backupconsoles_uid)
+		if(!BC)
+			continue
+
+		BC.unlink()
 
 	QDEL_NULL(research_files)
 
