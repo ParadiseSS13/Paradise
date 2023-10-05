@@ -370,14 +370,6 @@
 	icon_state = "neutral"
 	},
 /area/awaymission/UO71/plaza)
-"bf" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
-/obj/machinery/light/small/directional/east,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/plaza)
 "bg" = (
 /obj/machinery/light/small/directional/north,
 /obj/structure/table/wood,
@@ -934,12 +926,6 @@
 	icon_state = "white"
 	},
 /area/awaymission/UO71/science)
-"cW" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/plaza)
 "cX" = (
 /obj/item/kirbyplants{
 	layer = 5
@@ -1121,9 +1107,6 @@
 "dr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/firealarm{
-	pixel_y = 24
 	},
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
@@ -1933,10 +1916,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/plaza)
 "fp" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/camera{
 	c_tag = "Central Hallway";
 	dir = 1;
@@ -2329,9 +2308,6 @@
 	},
 /area/awaymission/UO71/science)
 "gw" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
 /obj/item/robot_parts/l_arm,
 /obj/item/robot_parts/r_arm,
 /obj/item/robot_parts/l_leg,
@@ -2400,10 +2376,6 @@
 /area/awaymission/UO71/centralhall)
 "gD" = (
 /obj/machinery/light/small/directional/west,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8;
 	initialize_directions = 7
@@ -2845,16 +2817,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/science)
-"hD" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/vault,
-/area/awaymission/UO71/prince)
 "hE" = (
 /obj/machinery/alarm/monitor{
 	dir = 8;
@@ -2940,10 +2902,6 @@
 	},
 /area/awaymission/UO71/centralhall)
 "hP" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3472,15 +3430,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
-"jt" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/awaymission/UO71/centralhall)
 "ju" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -3614,7 +3563,7 @@
 	},
 /area/awaymission/UO71/science)
 "jO" = (
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "UO71_Containment";
 	name = "Containment 2"
 	},
@@ -3943,10 +3892,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4;
 	initialize_directions = 11
-	},
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4298,16 +4243,6 @@
 	icon_state = "purplecorner"
 	},
 /area/awaymission/UO71/centralhall)
-"ln" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/centralhall)
 "lo" = (
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel,
@@ -4514,10 +4449,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -4637,10 +4568,6 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -4688,10 +4615,6 @@
 	},
 /area/awaymission/UO71/science)
 "lW" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/camera{
 	c_tag = "Research Division East";
 	dir = 1;
@@ -4903,15 +4826,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
-"mA" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/centralhall)
 "mB" = (
 /obj/machinery/door/poddoor{
 	id_tag = "UO71_SciStorage";
@@ -5049,10 +4963,6 @@
 	layer = 2.9
 	},
 /obj/item/clothing/shoes/magboots,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/gateway)
 "mP" = (
@@ -6055,10 +5965,6 @@
 /area/awaymission/UO71/centralhall)
 "oH" = (
 /obj/machinery/light/small/directional/west,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
-	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -6335,10 +6241,6 @@
 	dir = 1;
 	on = 1
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -6570,10 +6472,6 @@
 /area/awaymission/UO71/centralhall)
 "pK" = (
 /obj/machinery/light/small/directional/east,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -7148,9 +7046,6 @@
 /obj/item/storage/toolbox/mechanical{
 	pixel_y = 5
 	},
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
 /obj/item/multitool,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
@@ -7366,9 +7261,6 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/eng)
 "rH" = (
-/obj/machinery/firealarm{
-	pixel_y = 24
-	},
 /obj/structure/dispenser{
 	pixel_x = -1
 	},
@@ -7525,10 +7417,6 @@
 /area/awaymission/UO71/loot)
 "rX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria"
@@ -8070,10 +7958,6 @@
 	pixel_y = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
 	on = 1
@@ -8151,10 +8035,6 @@
 /obj/machinery/light/small/directional/south,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
-	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -8728,15 +8608,6 @@
 	icon_state = "whitehall"
 	},
 /area/awaymission/UO71/medical)
-"ur" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'DANGER - LETHAL BIOHAZARDS WITHIN'";
-	name = "CONTAINMENT AREA"
-	},
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/awaymission/UO71/mining)
 "ut" = (
 /turf/simulated/wall,
 /area/awaymission/UO71/outside)
@@ -9362,10 +9233,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /obj/structure/closet/secure_closet/miner{
 	req_access = list(271)
 	},
@@ -9812,10 +9679,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitehall"
@@ -9870,13 +9733,6 @@
 	},
 /turf/simulated/wall,
 /area/awaymission/UO71/mining)
-"wX" = (
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -24
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/bridge)
 "wY" = (
 /obj/machinery/light/small/directional/north,
 /obj/structure/chair/wood{
@@ -10197,10 +10053,6 @@
 /area/awaymission/UO71/mining)
 "xJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 24
-	},
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 6
 	},
@@ -10449,11 +10301,10 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "yf" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 4;
-	initialize_directions = 11
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "yg" = (
@@ -10482,7 +10333,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "yj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light/directional/west,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -10523,16 +10373,6 @@
 /obj/item/gun/energy/kinetic_accelerator,
 /obj/item/borg/upgrade/modkit/damage,
 /obj/item/borg/upgrade/modkit/chassis_mod/orange,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/mining)
-"yr" = (
-/obj/machinery/alarm/monitor{
-	dir = 4;
-	locked = 0;
-	pixel_x = -23
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "ys" = (
@@ -10582,11 +10422,6 @@
 "yx" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
-"yy" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/queen)
 "yz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -10747,12 +10582,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/queen)
-"yU" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/spider/terrorweb,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/queen)
 "yV" = (
 /obj/structure/spider/terrorweb,
 /obj/structure/spider/terrorweb,
@@ -10770,17 +10599,6 @@
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/indestructible/syndishuttle/nodiagonal,
 /area/awaymission/UO71/prince)
-"yZ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/awaymission/UO71/mining)
-"za" = (
-/obj/structure/sign/biohazard,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/awaymission/UO71/mining)
 "zb" = (
 /obj/structure/sign/biohazard,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
@@ -10792,10 +10610,6 @@
 "zd" = (
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/UO71/queen)
-"ze" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall/indestructible/rock/mineral,
-/area/awaymission/UO71/queen)
 "zf" = (
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/queen)
@@ -10805,34 +10619,6 @@
 "zh" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
-/area/awaymission/UO71/queen)
-"zi" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/awaymission/UO71/queen)
-"zj" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8;
-	initialize_directions = 7
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/queen)
-"zk" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/awaymission/UO71/queen)
-"zl" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	on = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
 /area/awaymission/UO71/queen)
 "zm" = (
 /obj/structure/table,
@@ -10895,14 +10681,6 @@
 "zy" = (
 /turf/simulated/wall,
 /area/awaymission/UO71/queen)
-"zz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/wall,
-/area/awaymission/UO71/queen)
-"zM" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/mineral/random/labormineral,
-/area/awaymission/UO71/queen)
 "zO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -10926,17 +10704,13 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/bridge)
 "zR" = (
-/obj/machinery/door/poddoor{
-	id_tag = "UO71_Queen";
-	name = "Caves Lockdown Door"
+/obj/machinery/door/poddoor/impassable{
+	name = "Caves Lockdown Door";
+	id_tag = "UO71_Queen"
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zS" = (
-/turf/simulated/floor/wood,
-/area/awaymission/UO71/queen)
-"zT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zU" = (
@@ -10951,13 +10725,6 @@
 /area/awaymission/UO71/queen)
 "zW" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/wood,
-/area/awaymission/UO71/queen)
-"zX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/chair/wood{
-	dir = 4
-	},
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
 "zY" = (
@@ -10976,23 +10743,9 @@
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
-"Ab" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	on = 1
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/UO71/queen)
 "Ac" = (
 /obj/structure/chair/wood{
 	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/awaymission/UO71/queen)
-"Ad" = (
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = -24
 	},
 /turf/simulated/floor/wood,
 /area/awaymission/UO71/queen)
@@ -18203,7 +17956,7 @@ fP
 gd
 gd
 gd
-hD
+NA
 gd
 fP
 zc
@@ -20178,7 +19931,7 @@ sd
 sd
 rr
 rr
-wX
+rr
 sa
 ab
 ab
@@ -20436,7 +20189,7 @@ ac
 ad
 ac
 ac
-cW
+al
 bS
 dC
 dR
@@ -20459,7 +20212,7 @@ ab
 ab
 fb
 fR
-ln
+ll
 fb
 fb
 fb
@@ -20727,7 +20480,7 @@ aw
 al
 al
 al
-bf
+aw
 al
 al
 ad
@@ -21206,7 +20959,7 @@ hg
 hK
 il
 iT
-jt
+gE
 jR
 gE
 gE
@@ -22483,7 +22236,7 @@ zd
 zS
 zS
 zS
-Ad
+zS
 zS
 zZ
 zd
@@ -22566,7 +22319,7 @@ jP
 nZ
 oN
 pt
-mA
+jP
 hJ
 hJ
 rB
@@ -22592,47 +22345,47 @@ yL
 xx
 xR
 yf
-xx
+yz
 yj
-yr
-xx
-ur
-yZ
-yZ
-za
-ze
-zi
-yy
-yy
-yy
-yy
-yy
-zz
-zz
-yy
-yU
-yU
-zM
-zM
-zM
-zM
-yU
-yU
-zj
-yy
-yy
-yy
-yy
-yy
-yy
-yy
-yy
-zM
-zM
-ze
-zT
-zX
-Ab
+vL
+yz
+vl
+wu
+wu
+zb
+zd
+zh
+yu
+yu
+yu
+yu
+yu
+zy
+zy
+yu
+yN
+yN
+zg
+zg
+zg
+zg
+yN
+yN
+yu
+yu
+yu
+yu
+yu
+yu
+yu
+yu
+yu
+zg
+zg
+zd
+zS
+zZ
+zS
 zS
 zS
 Af
@@ -22768,7 +22521,7 @@ yN
 yN
 yN
 yK
-zk
+yu
 yu
 yu
 yQ
@@ -22918,7 +22671,7 @@ yN
 yu
 yu
 yu
-zl
+yu
 yN
 yu
 zg
