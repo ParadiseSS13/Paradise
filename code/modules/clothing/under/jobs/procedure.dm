@@ -155,7 +155,6 @@
 
 /obj/item/clothing/under/rank/procedure/lawyer/goodman/skirt
 	name = "criminal lawyer skirt"
-	desc = "It's all good, man!"
 	icon_state = "lawyer_goodman_skirt"
 	item_state = "lawyer_goodman_skirt"
 	item_color = "lawyer_goodman_skirt"
