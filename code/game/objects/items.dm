@@ -311,6 +311,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		var/obj/item/storage/S = src.loc
 		S.remove_from_storage(src)
 
+	if(..())
+		return
+
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
