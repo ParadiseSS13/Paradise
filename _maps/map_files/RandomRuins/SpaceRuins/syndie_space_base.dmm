@@ -143,6 +143,13 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
+"bi" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW20";
+	location = "SBW19"
+	},
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "bk" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -180,6 +187,21 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"bC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW7";
+	location = "SBW6"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "bI" = (
 /obj/item/stack/sheet/glass/fifty{
 	pixel_x = 5;
@@ -284,6 +306,15 @@
 	icon_state = "asteroidplating"
 	},
 /area/ruin/unpowered/syndicate_space_base/cave)
+"ch" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW2";
+	location = "SBW1"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "cl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -379,7 +410,7 @@
 "cS" = (
 /obj/machinery/camera{
 	c_tag = "Toxins Chamber South";
-	network = list("SS13","MiniSat");
+	network = list("SyndicateToxinsTest");
 	dir = 10
 	},
 /turf/simulated/floor/engine,
@@ -479,6 +510,11 @@
 "dD" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/telecomms)
+"dG" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/inner)
 "dH" = (
 /obj/structure/closet/crate/hydroponics,
 /obj/item/cultivator,
@@ -581,7 +617,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
 "eq" = (
-/obj/effect/spawner/random_spawners/syndicate/turret/external/always,
+/obj/machinery/porta_turret/syndicate/exterior,
 /turf/simulated/floor/vault,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "es" = (
@@ -866,6 +902,10 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
+	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW3";
+	location = "SBW2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1283,6 +1323,16 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
+"jH" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "jQ" = (
 /obj/machinery/economy/vending/clothing,
 /obj/machinery/economy/vending/clothing,
@@ -1937,12 +1987,11 @@
 /turf/simulated/mineral/ancient/outer,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "ph" = (
-/obj/structure/lattice/catwalk,
-/turf/template_noop,
+/turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "pk" = (
 /obj/machinery/door/airlock/external,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "pl" = (
 /obj/machinery/bodyscanner{
@@ -1975,7 +2024,7 @@
 "pq" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "pu" = (
 /obj/machinery/door/poddoor{
@@ -2094,13 +2143,28 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "qs" = (
 /obj/machinery/light,
-/obj/effect/spawner/random_spawners/syndicate/turret/external/always,
+/obj/machinery/porta_turret/syndicate/exterior,
 /turf/simulated/floor/vault,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "qv" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
+"qz" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW6";
+	location = "SBW5"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "qB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
@@ -2322,6 +2386,19 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"sX" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW13";
+	location = "SBW12"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "tb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -2507,6 +2584,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW12";
+	location = "SBW11"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2550,6 +2631,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"uZ" = (
+/obj/structure/sign/poster/official/here_for_your_safety{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/inner)
 "va" = (
 /obj/machinery/light{
 	dir = 1
@@ -2906,6 +2995,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"xS" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW1";
+	location = "SBW0"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "xW" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
@@ -3010,6 +3108,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW17";
+	location = "SBW16"
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "zl" = (
@@ -3031,6 +3133,13 @@
 	dir = 4
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"zr" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW8";
+	location = "SBW7"
+	},
+/turf/simulated/mineral,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "zs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -3206,7 +3315,7 @@
 	desc = "Used for watching the test chamber.";
 	layer = 4;
 	name = "Test Chamber Telescreen";
-	network = list("SyndicateToxins");
+	network = list("SyndicateToxinsTest");
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -3374,6 +3483,17 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
+"BQ" = (
+/obj/machinery/computer/security{
+	dir = 4;
+	network = list("SyndicateTestLab","SyndicateToxinsTest","SyndicateCaves","SyndicateInterior");
+	name = "syndicate security camera console";
+	req_access_txt = "150"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/inner)
 "BW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3499,11 +3619,10 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Di" = (
-/obj/structure/lattice/catwalk,
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/template_noop,
+/turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/inner)
 "Dl" = (
 /obj/machinery/monkey_recycler,
@@ -3511,6 +3630,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"Du" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/inner)
 "Dy" = (
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/service)
@@ -3578,6 +3705,15 @@
 "Eb" = (
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"Ec" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW8";
+	location = "SBW7"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Ed" = (
 /obj/structure/closet/crate/secure/gear{
 	req_access_txt = "150"
@@ -3845,6 +3981,17 @@
 	icon_state = "brown"
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
+"FK" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW15";
+	location = "SBW14"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "FM" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -3872,6 +4019,19 @@
 	icon_state = "yellow"
 	},
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"FV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW16";
+	location = "SBW15"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "FZ" = (
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
@@ -4135,6 +4295,15 @@
 	icon_state = "darkpurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"Ia" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW9";
+	location = "SBW8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Ic" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -4151,6 +4320,16 @@
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
+"Ig" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW5";
+	location = "SBW4"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Ij" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -4381,6 +4560,20 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
+"Jy" = (
+/obj/machinery/turretid/syndicate{
+	pixel_y = -24;
+	name = "Caves Turret Control Panel";
+	control_area = SyndicateSpaceBaseCave;
+	req_access_txt = "150"
+	},
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/inner)
 "JE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4448,7 +4641,7 @@
 "Kh" = (
 /obj/machinery/camera{
 	c_tag = "Toxins Chamber North";
-	network = list("SS13","MiniSat")
+	network = list("SyndicateToxinsTest")
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
@@ -4509,13 +4702,14 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/service)
 "Lb" = (
-/obj/structure/sign/vacuum/external{
-	pixel_x = 32
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW4";
+	location = "SBW3"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/toxlaunch)
+/area/ruin/unpowered/syndicate_space_base/main)
 "Lc" = (
 /obj/machinery/computer/cryopod{
 	pixel_x = -32;
@@ -4582,7 +4776,7 @@
 /turf/simulated/floor/engine/air,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "LE" = (
-/obj/effect/spawner/random_spawners/syndicate/turret/external/always,
+/obj/machinery/porta_turret/syndicate/exterior,
 /turf/simulated/floor/vault,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "LL" = (
@@ -4803,6 +4997,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW19";
+	location = "SBW18"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4876,7 +5074,7 @@
 "OK" = (
 /obj/machinery/camera{
 	c_tag = "Toxins Chamber East";
-	network = list("SS13","MiniSat");
+	network = list("SyndicateToxinsTest");
 	dir = 9
 	},
 /turf/simulated/floor/engine,
@@ -4909,6 +5107,15 @@
 	icon_state = "yellow"
 	},
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"Po" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW18";
+	location = "SBW17"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "Pp" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -4942,6 +5149,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"PA" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW14";
+	location = "SBW13"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "PB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -5332,6 +5548,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"ST" = (
+/obj/machinery/door/airlock/hatch/syndicate,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "SV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -5379,6 +5601,20 @@
 	dir = 8
 	},
 /area/template_noop)
+"Tn" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW10";
+	location = "SBW9"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "To" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	autolink_id = "syndiebase_mix_in";
@@ -5486,6 +5722,28 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"Uf" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW11";
+	location = "SBW10"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
+"Uu" = (
+/obj/structure/table,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/inner)
 "Uv" = (
 /obj/machinery/economy/vending/boozeomat,
 /obj/machinery/light,
@@ -5605,7 +5863,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/camera{
 	c_tag = "Toxins Chamber West";
-	network = list("SS13","MiniSat");
+	network = list("SyndicateToxinsTest");
 	dir = 5
 	},
 /turf/simulated/floor/engine,
@@ -5687,6 +5945,15 @@
 	icon_state = "grimy"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
+"VS" = (
+/obj/machinery/navbeacon/invisible{
+	codes_txt = "patrol;next_patrol=SBW0";
+	location = "SBW20"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "VU" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
@@ -7081,7 +7348,7 @@ Ea
 xQ
 xQ
 xQ
-xQ
+ch
 IL
 xn
 iG
@@ -7258,7 +7525,7 @@ Pp
 OQ
 BZ
 NQ
-NQ
+bi
 NQ
 NQ
 tG
@@ -7750,7 +8017,7 @@ tB
 mP
 cW
 tB
-kF
+FV
 tB
 mi
 kT
@@ -7797,12 +8064,12 @@ am
 LN
 am
 Fe
-am
+Lb
 hL
 Gi
 am
 tW
-am
+xS
 In
 am
 Xh
@@ -7828,7 +8095,7 @@ Gi
 hL
 am
 tW
-am
+VS
 Fe
 am
 hL
@@ -8177,7 +8444,7 @@ zn
 IS
 Mk
 tB
-FM
+FK
 Gg
 Gg
 Gg
@@ -8265,7 +8532,7 @@ Gg
 fA
 wn
 Fp
-lG
+jH
 FP
 qB
 vO
@@ -8335,7 +8602,7 @@ AB
 Eb
 XF
 am
-am
+Po
 IX
 aA
 nw
@@ -8381,7 +8648,7 @@ VP
 VP
 DU
 OC
-am
+PA
 hL
 PK
 Fd
@@ -8410,7 +8677,7 @@ QM
 QM
 IX
 gX
-mJ
+nw
 NS
 nw
 TW
@@ -8700,7 +8967,7 @@ IX
 gF
 KG
 Ap
-Lb
+mJ
 lN
 IX
 kE
@@ -8753,7 +9020,7 @@ Xb
 zW
 ai
 GA
-Xv
+sX
 ra
 Zf
 HS
@@ -9047,8 +9314,8 @@ dD
 dD
 dD
 dD
-kE
-kE
+Ai
+Ai
 kE
 kE
 kE
@@ -9118,9 +9385,9 @@ am
 am
 am
 RX
-kE
-kE
-kE
+Uu
+BQ
+Ai
 kE
 kE
 kE
@@ -9167,7 +9434,7 @@ Ox
 am
 am
 up
-hc
+Tn
 cW
 tB
 Zv
@@ -9178,7 +9445,7 @@ mP
 mi
 tB
 tB
-kT
+Uf
 Bu
 tB
 di
@@ -9189,10 +9456,10 @@ mP
 tB
 wu
 am
-RX
-kE
-kE
-kE
+ST
+dG
+Jy
+Ai
 kE
 kE
 Ri
@@ -9262,9 +9529,9 @@ PL
 Fk
 xZ
 RX
-kE
-kE
-kE
+uZ
+Du
+Ai
 kE
 kE
 Ri
@@ -9334,9 +9601,9 @@ PL
 uD
 Aj
 RX
-kE
-kE
-kE
+Ai
+Ai
+Ai
 kE
 kE
 Ri
@@ -9453,7 +9720,7 @@ DL
 DL
 VZ
 az
-am
+Ia
 up
 mQ
 xo
@@ -9592,7 +9859,7 @@ az
 gR
 Tu
 DL
-kh
+qz
 DL
 tD
 bg
@@ -9609,7 +9876,7 @@ OR
 OR
 OR
 am
-am
+Ec
 Jj
 PL
 Jn
@@ -9804,7 +10071,7 @@ AD
 AD
 AD
 kE
-kE
+zr
 az
 xO
 cY
@@ -9813,7 +10080,7 @@ qV
 Bf
 Fv
 Qr
-Qr
+Ig
 Gs
 OR
 WU
@@ -9952,7 +10219,7 @@ az
 qZ
 cY
 DL
-kh
+bC
 DL
 vG
 Ah
