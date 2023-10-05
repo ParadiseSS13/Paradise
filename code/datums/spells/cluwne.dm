@@ -36,6 +36,10 @@
 	tumor.insert(src)
 	if(!istype(wear_mask, /obj/item/clothing/mask/cursedclown)) //Infinite loops otherwise
 		unEquip(wear_mask, 1)
+	equip_to_slot_if_possible(new /obj/item/clothing/under/cursedclown, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/gloves/cursedclown, SLOT_HUD_GLOVES, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/mask/cursedclown, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/cursedclown, SLOT_HUD_SHOES, TRUE, TRUE)
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
 	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
@@ -75,3 +79,6 @@
 		var/obj/item/clothing/gloves/G = gloves
 		unEquip(gloves, 1)
 		qdel(G)
+
+	equip_to_slot_if_possible(new /obj/item/clothing/under/rank/procedure/lawyer/black, SLOT_HUD_JUMPSUIT, TRUE, TRUE)
+	equip_to_slot_if_possible(new /obj/item/clothing/shoes/black, SLOT_HUD_SHOES, TRUE, TRUE)
