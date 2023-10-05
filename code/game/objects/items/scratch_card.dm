@@ -15,17 +15,19 @@
 	. = ..()
 	if(scratched)
 		return
-	if(istype(I, /obj/item/card) || istype(I, /obj/item/coin))
-		if(prob(winning_chance))
-			to_chat(user, "<span class='notice'>Congratulations! Redeem your prize at the nearest ATM!</span>")
-			icon_state = "scard_winner"
-			winner = TRUE
-		else
-			to_chat(user, "Good luck next time.")
-			icon_state = "scard_loser"
-		playsound(user, 'sound/items/scratching.ogg', 25, TRUE)
-		scratched = TRUE
-		update_icon_state()
+	if(!(istype(I, /obj/item/card) || istype(I, /obj/item/coin))) // We scratch with cards or coins!
+		return
+
+	if(prob(winning_chance))
+		to_chat(user, "<span class='notice'>Congratulations! Redeem your prize at the nearest ATM!</span>")
+		icon_state = "scard_winner"
+		winner = TRUE
+	else
+		to_chat(user, "Good luck next time.")
+		icon_state = "scard_loser"
+	playsound(user, 'sound/items/scratching.ogg', 25, TRUE)
+	scratched = TRUE
+	update_icon_state()
 
 /obj/item/scratch/attack_obj(obj/O, mob/living/user, params)
 	if(winner && istype(O, /obj/machinery/economy/atm))
