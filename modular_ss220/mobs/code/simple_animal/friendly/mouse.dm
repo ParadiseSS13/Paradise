@@ -30,6 +30,7 @@
 	update_appearance(UPDATE_DESC)
 
 /mob/living/simple_animal/mouse/proc/reinitial()
+	desc = initial(desc)
 	mouse_color = initial(mouse_color)
 	icon_state = initial(icon_state)
 	icon_living = initial(icon_living)
