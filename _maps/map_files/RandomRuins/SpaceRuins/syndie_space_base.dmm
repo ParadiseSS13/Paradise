@@ -438,10 +438,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "cx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/machinery/chem_dispenser/upgraded,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 4
@@ -800,19 +798,27 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "eD" = (
-/obj/machinery/dna_scannernew,
-/obj/machinery/light{
-	dir = 8
+/obj/machinery/alarm/syndicate{
+	pixel_x = -24;
+	name = "Syndie West Air Alarm";
+	dir = 4
 	},
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkgreen"
+	icon_state = "darkgreen";
+	dir = 8
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "eI" = (
+/obj/machinery/light{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreen";
+	dir = 4
+	},
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "eL" = (
 /obj/machinery/ignition_switch{
 	id = "syndbaseigniter";
@@ -947,25 +953,10 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "fo" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes,
-/obj/item/storage/box/disks,
-/obj/item/storage/box/beakers,
-/obj/item/storage/box/bodybags,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 14
-	},
-/obj/item/storage/box/monkeycubes/syndicate,
-/obj/item/pen,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkgreen"
-	},
-/area/ruin/unpowered/syndicate_space_base/genetics)
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/mob_spawn/human/corpse/skeleton,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/cave)
 "fp" = (
 /obj/machinery/light{
 	dir = 4
@@ -988,9 +979,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "fs" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/sign/custodian,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/genetics)
@@ -1246,12 +1234,23 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"gO" = (
+/obj/machinery/dna_scannernew,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreen";
+	dir = 1
+	},
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "gQ" = (
-/obj/structure/closet/radiation,
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
 	},
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 4
@@ -1687,13 +1686,14 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "iQ" = (
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
+/obj/structure/chair/office/dark{
+	dir = 4
 	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreen";
+	dir = 1
 	},
-/area/ruin/unpowered/syndicate_space_base/cave)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "iV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -1739,11 +1739,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
 "jf" = (
-/obj/machinery/alarm/syndicate{
-	pixel_x = -24;
-	name = "Syndie West Air Alarm";
-	dir = 4
-	},
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 8
@@ -2269,7 +2265,7 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "mF" = (
 /obj/machinery/computer/scan_consolenew{
-	dir = 1
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2485,11 +2481,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
-"nq" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/mob_spawn/human/corpse,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
 "nr" = (
 /obj/structure/bed{
 	dir = 4
@@ -2804,6 +2795,22 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
+"ps" = (
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
+	},
+/obj/structure/window/plasmareinforced,
+/obj/structure/window/plasmareinforced{
+	dir = 1
+	},
+/obj/structure/window/plasmareinforced{
+	dir = 4
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/cave)
 "pu" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2907,16 +2914,27 @@
 /turf/space,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "pT" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/ruin/unpowered/syndicate_space_base/cave)
-"pV" = (
-/obj/machinery/dna_scannernew,
 /obj/machinery/light{
 	dir = 8
 	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/unpowered/syndicate_space_base/cave)
+"pV" = (
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/storage/box/disks,
+/obj/item/storage/box/beakers,
+/obj/item/storage/box/bodybags,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 14
+	},
+/obj/item/storage/box/monkeycubes/syndicate,
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/hand_labeler,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
@@ -4015,22 +4033,10 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "wv" = (
-/obj/machinery/light{
+/obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/structure/table/glass,
-/obj/item/storage/box/syringes,
-/obj/item/storage/box/disks,
-/obj/item/storage/box/beakers,
-/obj/item/storage/box/bodybags,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 14
-	},
-/obj/item/storage/box/monkeycubes/syndicate,
-/obj/item/pen,
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "darkgreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
@@ -4415,6 +4421,14 @@
 	icon_state = "white"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
+"zd" = (
+/obj/machinery/dna_scannernew,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkgreen"
+	},
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "ze" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4826,9 +4840,10 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "Bq" = (
-/obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
+/obj/machinery/light_switch{
+	dir = 8;
+	pixel_x = 24;
+	name = "east bump"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
@@ -5322,7 +5337,9 @@
 /turf/simulated/floor/grass,
 /area/ruin/unpowered/syndicate_space_base/service)
 "El" = (
-/obj/structure/chair/office/dark,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5404,6 +5421,14 @@
 	icon_state = "darkpurple"
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
+"EP" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "ES" = (
 /obj/machinery/door/airlock/vault{
 	id_tag = "syndie_lavaland_vault";
@@ -5918,7 +5943,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "Hm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -6417,13 +6442,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/cable/green{
 	d2 = 8;
 	icon_state = "1-8";
 	d1 = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
@@ -6531,12 +6556,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
-"KJ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
 "KL" = (
 /obj/item/holosign_creator/atmos,
 /obj/structure/table,
@@ -6884,12 +6903,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
-"ML" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/ruin/unpowered/syndicate_space_base/cave)
 "MN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -7336,7 +7349,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Qf" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scan_consolenew{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 1
@@ -7455,13 +7470,11 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/ruin/unpowered/syndicate_space_base/service)
 "QT" = (
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
+/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/genetics)
+/area/ruin/unpowered/syndicate_space_base/main)
 "QU" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -7774,12 +7787,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "SF" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7841,14 +7849,13 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "SS" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/disposal/deliveryChute{
+/obj/machinery/computer/scan_consolenew{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
+/turf/simulated/floor/plasteel{
+	icon_state = "darkgreen"
+	},
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "ST" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
@@ -7929,19 +7936,12 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "Tj" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
-	},
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/chem_dispenser/upgraded,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 8
@@ -8378,13 +8378,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "VT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plating{
-	icon_state = "asteroidplating"
-	},
-/area/ruin/unpowered/syndicate_space_base/cave)
+/obj/structure/disposalpipe/segment,
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "VU" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/door/firedoor,
@@ -8522,19 +8518,16 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "WJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "WO" = (
-/obj/structure/closet/radiation,
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
@@ -8790,10 +8783,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"XQ" = (
-/obj/structure/disposalpipe/segment/corner,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
 "XR" = (
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
@@ -12545,7 +12534,7 @@ Lj
 Lj
 RX
 kE
-AD
+Mf
 kE
 kE
 kE
@@ -12674,7 +12663,7 @@ FI
 uM
 VE
 mq
-am
+QT
 fA
 Xv
 PL
@@ -12833,7 +12822,7 @@ kE
 Mf
 AD
 AD
-kE
+Mf
 kE
 kE
 Vl
@@ -12904,8 +12893,8 @@ PL
 kE
 kE
 Mf
+Mf
 AD
-kE
 kE
 Vl
 Vl
@@ -12968,12 +12957,12 @@ JE
 Tj
 jf
 eD
+pV
 DX
 kE
 kE
 kE
 kE
-AD
 AD
 Mf
 AD
@@ -13034,21 +13023,21 @@ Iz
 OR
 pf
 OR
-Qf
-QT
+iQ
+pu
 Hm
 SF
-El
-mF
+WJ
+pu
+wv
 DX
-nq
+fo
+AD
 LE
-AD
 kE
 Mf
-Mf
 AD
-kE
+AD
 kE
 Vl
 Vl
@@ -13107,19 +13096,19 @@ OR
 pf
 OR
 Qf
-pu
-pu
-WJ
-pu
 mF
+EP
+pu
+El
+mF
+SS
 DX
 WT
-AD
-pT
+Mf
 AD
 Mf
 AD
-kE
+Mf
 kE
 kE
 Vl
@@ -13178,16 +13167,16 @@ OR
 OR
 pf
 OR
-fo
+gO
 WO
 Bq
 cx
 gQ
-wv
-DX
-SS
+eI
+zd
+VT
+ps
 tz
-Mf
 AD
 AD
 AD
@@ -13252,16 +13241,16 @@ pf
 OR
 DX
 DX
-fs
-DX
-DX
-DX
 DX
 fs
+DX
+DX
+DX
+DX
+fs
 Mf
 Mf
 Mf
-AD
 AD
 kE
 kE
@@ -13323,19 +13312,19 @@ OR
 OR
 OR
 kE
-AD
-KJ
+kE
+pT
+kE
 kE
 kE
 LL
 kE
-VT
 AD
 Mf
 AD
 LE
 AD
-AD
+Mf
 kE
 kE
 kE
@@ -13396,15 +13385,15 @@ kE
 OZ
 AD
 AD
-VT
+Mf
 Mf
 AD
 AD
 LE
-VT
+Mf
 AD
 AD
-AD
+Mf
 AD
 kE
 AD
@@ -13468,12 +13457,12 @@ Mf
 Mf
 Mf
 Mf
-XQ
-eI
-ML
-eI
-eI
-iQ
+AD
+AD
+Mf
+AD
+AD
+Mf
 AD
 kE
 kE
