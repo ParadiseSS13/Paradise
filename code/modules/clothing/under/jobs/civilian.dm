@@ -53,7 +53,6 @@
 
 /obj/item/clothing/under/rank/civilian/bartender/skirt
 	name = "bartender's skirt"
-	desc = "It looks like it could use some more flair."
 	icon_state = "bartender_skirt"
 	item_state = "bartender_skirt"
 	item_color = "bartender_skirt"
@@ -110,7 +109,6 @@
 
 /obj/item/clothing/under/rank/civilian/clown/skirt
 	name = "clown skirt"
-	desc = "<i> 'HONK!' </i>"
 	icon_state = "clown_skirt"
 	item_state = "clown_skirt"
 	item_color = "clown_skirt"
@@ -148,7 +146,6 @@
 
 /obj/item/clothing/under/rank/civilian/mime/skirt
 	name = "mime's skirt"
-	desc = "It's not very colourful."
 	icon_state = "mime_skirt"
 	item_state = "mime_skirt"
 	item_color = "mime_skirt"
@@ -191,7 +188,7 @@
 	icon_state = "janitor_skirt"
 	item_state = "janitor_skirt"
 	item_color = "janitor_skirt"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/civilian/janitor/overalls
 	name = "janitor's overalls"
@@ -199,7 +196,7 @@
 	icon_state = "janitor_overalls"
 	item_state = "janitor_overalls"
 	item_color = "janitor_overalls"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 5, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 /obj/item/clothing/under/rank/civilian/librarian
 	name = "librarian's suit"
