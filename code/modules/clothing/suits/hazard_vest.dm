@@ -33,7 +33,7 @@
 	icon_state = "hazard_CE"
 	item_state = "hazard_CE"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 5, FIRE = 50, ACID = 50) // CE is special enough that they can probably get some minor armor
-	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/melee/classic_baton/telescopic) // Same as regular, but also can hold their telebaton
+	allowed = list(/obj/item/flashlight, /obj/item/t_scanner, /obj/item/tank/internals/emergency_oxygen, /obj/item/clipboard, /obj/item/analyzer, /obj/item/screwdriver, /obj/item/radio, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters, /obj/item/rcd, /obj/item/rpd, /obj/item/melee/classic_baton/telescopic) // Same as engineering, but also can hold their telebaton
 
 /*CARGO*/
 /obj/item/clothing/suit/storage/hazardvest/cargo
@@ -53,11 +53,11 @@
 /*SECURITY*/
 /obj/item/clothing/suit/storage/hazardvest/sec
 	name = "security hazard vest"
-	desc = "A high-visibility vest used in work zones. This one has security colors. It does not look durable."
+	desc = "A high-visibility vest used in work zones. This one has security colors. It does not look durable." // "It does not look durable." is meant to indicate that it has trash armor when compared to a vest.
 	icon_state = "hazard_sec"
 	item_state = "hazard_sec"
-	allowed = list(/obj/item/clipboard, /obj/item/analyzer, /obj/item/tank/internals/emergency_oxygen, /obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight, /obj/item/melee/classic_baton/telescopic, /obj/item/radio, /obj/item/clothing/accessory/holobadge)
-	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 20, ACID = 20) // Weak armor, but you also get two pockets. Why are you wearing a cheap piece of fabric for combat anyways?
+	allowed = list(/obj/item/clipboard, /obj/item/analyzer, /obj/item/tank/internals/emergency_oxygen, /obj/item/gun/energy, /obj/item/reagent_containers/spray/pepper, /obj/item/gun/projectile, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/restraints/handcuffs, /obj/item/flashlight, /obj/item/melee/classic_baton/telescopic, /obj/item/radio, /obj/item/clothing/accessory/holobadge) // Items from the armor vest, for the most part.
+	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 20, ACID = 20) // Weak armor, but why are you wearing a cheap piece of fabric for combat anyways?
 
 /*MEDICAL*/
 /obj/item/clothing/suit/storage/hazardvest/paramed
