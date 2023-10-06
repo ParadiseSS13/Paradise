@@ -6,7 +6,7 @@
 	item_state = "flashlight"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL = 200, MAT_GLASS = 100)
 	actions_types = list(/datum/action/item_action/toggle_light)
 	var/on = FALSE
@@ -93,7 +93,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
 	flags = CONDUCT
 	brightness_on = 2
 	var/colour = "blue" // Ink color
