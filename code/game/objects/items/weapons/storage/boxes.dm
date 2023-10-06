@@ -976,6 +976,15 @@
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/screwdriver(src)
 
+/obj/item/storage/box/foam_grenades
+	name = "Foam Grenades Box"
+	desc = "A box full of Foam Grenades."
+	icon_state = "flashbang"
+
+/obj/item/storage/box/foam_grenades/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/chem_grenade/metalfoam(src)
+
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI
