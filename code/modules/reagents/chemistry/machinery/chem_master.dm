@@ -28,6 +28,10 @@
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles
+	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
+									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
+									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
+									"mitocholide", "rezadone", "menthol")
 
 /obj/machinery/chem_master/Initialize(mapload)
 	. = ..()
@@ -546,7 +550,7 @@
 /obj/machinery/chem_master/proc/chemical_safety_check(datum/reagents/R)
 	var/all_safe = TRUE
 	for(var/datum/reagent/A in R.reagent_list)
-		if(!GLOB.safe_chem_list.Find(A.id))
+		if(!safe_chem_list.Find(A.id))
 			all_safe = FALSE
 	return all_safe
 

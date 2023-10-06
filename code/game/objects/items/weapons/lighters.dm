@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 4
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	attack_verb = null
 	resistance_flags = FIRE_PROOF
 	var/lit = FALSE
@@ -54,6 +54,8 @@
 /obj/item/lighter/proc/attempt_light(mob/living/user)
 	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
 		to_chat(user, "<span class='notice'>You light [src].</span>")
+	else if(HAS_TRAIT(user, TRAIT_BADASS))
+		to_chat(user, "<span class='notice'>[src]'s flames lick your hand as you light it, but you don't flinch.</span>")
 	else
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
@@ -273,7 +275,19 @@
 		if(M == user)
 			cig.attackby(src, user)
 		else
-			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
+			if(istype(src, /obj/item/match/unathi))
+				if(prob(50))
+					cig.light("<span class='rose'>[user] spits fire at [M], lighting [cig] and nearly burning [user.p_their()] face!</span>")
+					matchburnout()
+				else
+					cig.light("<span class='rose'>[user] spits fire at [M], burning [user.p_their()] face and lighting [cig] in the process.</span>")
+					var/obj/item/organ/external/head/affecting = M.get_organ("head")
+					affecting.receive_damage(0, 5)
+					M.UpdateDamageIcon()
+				playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
+
+			else
+				cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
 			playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	else
 		..()
@@ -286,7 +300,7 @@
 	return ..()
 
 /obj/item/proc/help_light_cig(mob/living/M)
-	var/mask_item = M.get_item_by_slot(slot_wear_mask)
+	var/mask_item = M.get_item_by_slot(SLOT_HUD_WEAR_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
 
@@ -298,3 +312,28 @@
 /obj/item/match/firebrand/New()
 	..()
 	matchignite()
+
+/obj/item/match/unathi
+	name = "small blaze"
+	desc = "A little flame of your own, currently located dangerously in your mouth."
+	icon_state = "match_unathi"
+	attack_verb = null
+	force = 0
+	flags = DROPDEL | ABSTRACT
+	origin_tech = null
+	lit = TRUE
+	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
+
+/obj/item/match/unathi/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/match/unathi/matchburnout()
+	if(!lit)
+		return
+	lit = FALSE //to avoid a qdel loop
+	qdel(src)
+
+/obj/item/match/unathi/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)

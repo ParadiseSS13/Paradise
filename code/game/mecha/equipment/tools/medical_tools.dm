@@ -469,8 +469,11 @@
 		occupant_message("<span class=\"alert\">No reagent info gained from [A].</span>")
 		return FALSE
 	occupant_message("Analyzing reagents...")
-	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if(R.can_synth && add_known_reagent(R.id, R.name))
+	for(var/datum/reagent/R as anything in A.reagents.reagent_list)
+		if(initial(R.id) in GLOB.blocked_chems)
+			occupant_message("Reagent unable to be analyzed, purging from analyzer.")
+			return FALSE
+		if(add_known_reagent(R.id, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 			send_byjax(chassis.occupant,"msyringegun.browser","reagents_form",get_reagents_form())
 	occupant_message("Analysis complete.")
