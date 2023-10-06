@@ -10,7 +10,7 @@
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT | SLOT_EARS
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_EARS
 	attack_verb = list("attacked", "coloured")
 	toolspeed = 1
 	var/colour = COLOR_RED
@@ -94,8 +94,9 @@
 			var/new_preset = input(usr, "Set the message. Max length [CRAYON_MESSAGE_MAX_LENGTH] characters.")
 			new_preset = copytext(new_preset, 1, CRAYON_MESSAGE_MAX_LENGTH)
 			preset_message = lowertext(graffiti_chars.Replace(new_preset, ""))
-			log_admin("[key_name(usr)] has set the message of [src] to \"[preset_message]\".")
-			preset_message_index = 1
+			if(preset_message != "")
+				log_admin("[key_name(usr)] has set the message of [src] to \"[preset_message]\".")
+				preset_message_index = 1
 		else
 			temp = href_list["type"]
 	if((usr.restrained() || usr.stat || !usr.is_in_active_hand(src)))

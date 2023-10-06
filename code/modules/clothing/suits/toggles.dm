@@ -8,7 +8,7 @@
 /obj/item/clothing/suit/space/hardsuit/equipped(mob/user, slot)
 	if(!helmettype)
 		return
-	if(slot != slot_wear_suit)
+	if(slot != SLOT_HUD_OUTER_SUIT)
 		RemoveHelmet()
 	..()
 
@@ -46,7 +46,7 @@
 			if(H.head)
 				to_chat(H, "<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(helmet, slot_head, FALSE, FALSE))
+			else if(H.equip_to_slot_if_possible(helmet, SLOT_HUD_HEAD, FALSE, FALSE))
 				to_chat(H, "<span class='notice'>You engage the helmet on the hardsuit.</span>")
 				suit_toggled = TRUE
 				H.update_inv_wear_suit()
