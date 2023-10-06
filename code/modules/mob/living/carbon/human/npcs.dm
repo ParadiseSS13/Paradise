@@ -102,3 +102,9 @@
 	if(!client && !return_timer && prob(10) && istype(loc, /turf/simulated/floor/plating/asteroid))
 		return_timer = addtimer(CALLBACK(src, PROC_REF(i_want_to_go_home)), 5 MINUTES)
 		// I'm out out the wizard's den, I want to go back inside!
+
+/mob/living/carbon/human/monkey/magic/mind_checks()
+	if(!..())
+		return FALSE
+	mind.AddSpell(new /obj/effect/proc_holder/spell/turf_teleport/blink(null))
+	mind.special_role = SPECIAL_ROLE_WIZARD

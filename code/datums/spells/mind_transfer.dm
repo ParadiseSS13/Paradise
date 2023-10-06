@@ -10,7 +10,7 @@
 	selection_activated_message = "<span class='notice'>You prepare to transfer your mind. Click on a target to cast the spell.</span>"
 	selection_deactivated_message = "<span class='notice'>You decide that your current form is good enough.</span>"
 	cooldown_min = 200 //100 deciseconds reduction per rank
-	var/list/protected_roles = list("Wizard","Changeling","Cultist") //which roles are immune to the spell
+	var/list/protected_roles = list(SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_CHANGELING, SPECIAL_ROLE_CULTIST) //which roles are immune to the spell
 	var/paralysis_amount_caster = 40 SECONDS //how much the caster is paralysed for after the spell
 	var/paralysis_amount_victim = 40 SECONDS //how much the victim is paralysed for after the spell
 	action_icon_state = "mindswap"
@@ -40,12 +40,6 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 	if(target.mind.special_role in protected_roles)
 		to_chat(user, "Their mind is resisting your spell.")
-		return
-
-	// magic monkey minds are only given by an admin. Mindswapping wizards be damned, they are not getting infinite blinks.
-	if(istype(target, /mob/living/carbon/human/monkey/magic))
-		to_chat(user, "<span class='userdanger'><font size='40'>No.</font></span>")
-		user.gib()
 		return
 
 	if(issilicon(target))

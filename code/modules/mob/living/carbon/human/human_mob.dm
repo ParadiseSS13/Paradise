@@ -28,9 +28,10 @@
 
 /mob/living/carbon/human/proc/mind_checks()
 	if(!mind)
-		return
+		return FALSE
 	if(mind.miming)
 		qdel(GetComponent(/datum/component/footstep))
+	return TRUE
 
 /**
   * Sets up DNA and species.
