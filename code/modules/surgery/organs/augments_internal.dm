@@ -112,10 +112,10 @@
 	active = FALSE
 	if(!l_hand_ignore && l_hand_obj)
 		if((l_hand_obj == owner.l_hand))
-			l_hand_obj.flags ^= NODROP
+			l_hand_obj.flags &= ~NODROP
 	if(!r_hand_ignore && r_hand_obj)
 		if(r_hand_obj == owner.r_hand)
-			r_hand_obj.flags ^= NODROP
+			r_hand_obj.flags &= ~NODROP
 
 /obj/item/organ/internal/cyberimp/brain/anti_drop/remove(mob/living/carbon/M, special = 0)
 	if(active)
