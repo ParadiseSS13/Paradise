@@ -39963,7 +39963,7 @@
 	},
 /area/station/medical/sleeper)
 "daZ" = (
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "green"
@@ -41755,7 +41755,7 @@
 /turf/simulated/wall,
 /area/station/command/office/cmo)
 "dlk" = (
-/obj/machinery/smartfridge/secure/chemistry/virology,
+/obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -52982,6 +52982,29 @@
 /obj/structure/statue/delta/c,
 /turf/simulated/floor/plasteel/dark,
 /area/station/hallway/secondary/bridge)
+"fFU" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/airlock_controller/access_controller{
+	name = "Virology Lab Access Console";
+	req_one_access_txt = "39";
+	ext_door_link_id = "virolab_door_ext";
+	int_door_link_id = "virolab_door_int";
+	ext_button_link_id = "virolab_btn_ext";
+	int_button_link_id = "virolab_btn_int";
+	pixel_x = -24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitegreencorner"
+	},
+/area/station/medical/virology/lab)
 "fFX" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/machinery/disposal,
@@ -150349,7 +150372,7 @@ iYK
 whX
 qGo
 oZp
-dyL
+fFU
 mAW
 dyL
 xxp
