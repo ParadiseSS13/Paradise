@@ -11814,8 +11814,8 @@
 /area/station/security/permabrig)
 "baQ" = (
 /obj/structure/table/reinforced,
-/obj/machinery/gibber{
-	pixel_y = 7
+/obj/machinery/processor{
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
