@@ -86574,7 +86574,7 @@
 	department = "Science";
 	departmentType = 2;
 	name = "Science Requests Console";
-	pixel_y = 30
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
