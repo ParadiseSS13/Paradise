@@ -849,8 +849,8 @@
 			to_chat(usr, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 		else
-			if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name]))
-				if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
+			if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.sprite_sheet_name]))
+				if(H.w_uniform.sprite_sheets[H.dna.species.sprite_sheet_name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.sprite_sheet_name], "[basecolor]_d_s"))
 					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 					usr.update_inv_w_uniform()
 			else
