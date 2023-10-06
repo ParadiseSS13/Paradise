@@ -722,6 +722,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			else
 				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
 
+		if("maxresearch")
+			if(!check_rights(R_ADMIN))
+				return
+
+			var/choice = alert(usr, "You sure?", "Confirm?", "Yes", "No")
+			if(choice != "Yes")
+				return FALSE
+
+			for(var/tech_id in files.known_tech)
+				files.known_tech[tech_id].level = 10
+
+			message_admins("[key_name_admin(usr)] has maxed the R&D levels.")
+
 
 	return TRUE // update uis
 

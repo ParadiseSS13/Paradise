@@ -60723,7 +60723,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/computer/rnd_backup{
+/obj/machinery/computer/rnd_backup/station{
 	dir = 4
 	},
 /obj/item/disk/rnd_backup_disk,

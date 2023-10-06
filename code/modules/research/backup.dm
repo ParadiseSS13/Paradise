@@ -11,6 +11,10 @@
 	var/obj/item/disk/rnd_backup_disk/inserted_disk
 
 
+/obj/machinery/computer/rnd_backup/station
+	autolink_id = "station_rnd"
+
+
 /obj/machinery/computer/rnd_backup/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
@@ -37,6 +41,7 @@
 		O.forceMove(src)
 		inserted_disk = O
 		to_chat(user, "<span class='notice'>You insert [O] into [src].</span<")
+		SStgui.update_uis(src)
 		return TRUE
 
 	return ..()
@@ -60,26 +65,19 @@
 
 /obj/machinery/computer/rnd_backup/ui_data(mob/user)
 	var/list/data = list()
-
-	if(inserted_disk)
-		data["disk_name"] = inserted_disk.name
-		data["last_timestamp"] = inserted_disk.last_backup_time || "None"
-
-
 	var/has_network = FALSE
-
 	var/list/tech_assoc_temp = list()
+
+	data["has_disk"] = FALSE
 
 	if(network_manager_uid)
 		var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
 		if(RNC)
 			var/datum/research/files = RNC.research_files
 			has_network = TRUE
-			network_manager_uid = null
 
 			data["linked"] = TRUE
 			data["network_name"] = RNC.network_name
-			data["techs"] = list()
 
 			for(var/tech_id in files.known_tech)
 				if(!(tech_id in tech_assoc_temp))
@@ -89,8 +87,13 @@
 				var/list/tech_data = tech_assoc_temp[tech_id]
 				tech_data["name"] = T.name
 				tech_data["network_level"] = T.level
+		else
+			network_manager_uid = null
 
 	if(inserted_disk)
+		data["has_disk"] = TRUE
+		data["disk_name"] = inserted_disk.name
+		data["last_timestamp"] = inserted_disk.last_backup_time || "None"
 		for(var/tech_id in inserted_disk.stored_tech_assoc)
 			if(!(tech_id in tech_assoc_temp))
 				tech_assoc_temp[tech_id] = list()
@@ -108,13 +111,142 @@
 
 		data["controllers"] = controllers
 
+	data["techs"] = tech_assoc_temp
+
 	return data
+
+
+/obj/machinery/computer/rnd_backup/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	. = TRUE
+
+	switch(action)
+		if("unlink")
+			if(!network_manager_uid)
+				return FALSE
+			var/choice = alert(usr, "Are you SURE you want to unlink this backup console?\nYou wont be able to re-link without the network manager password", "Unlink","Yes","No")
+			if(choice == "Yes")
+				unlink()
+
+		if("eject_disk")
+			eject_disk()
+
+		if("savetech2network")
+			if(!network_manager_uid)
+				return FALSE
+
+			if(!inserted_disk)
+				return FALSE
+
+			var/tech = params["tech"]
+
+			var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+			if(!RNC)
+				network_manager_uid = null
+				return FALSE
+
+			var/datum/tech/T = RNC.research_files.known_tech[tech]
+			if(!T)
+				return
+
+			var/choice = alert(usr, "Do you want to import this level to the network (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Import", "Yes", "No")
+			if(choice != "Yes")
+				return FALSE
+
+			T.level = inserted_disk.stored_tech_assoc[tech]
+
+		if("savetech2disk")
+			if(!network_manager_uid)
+				return FALSE
+
+			if(!inserted_disk)
+				return FALSE
+
+			var/tech = params["tech"]
+
+			var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+			if(!RNC)
+				network_manager_uid = null
+				return FALSE
+
+			var/datum/tech/T = RNC.research_files.known_tech[tech]
+			if(!T)
+				return
+
+			var/choice = alert(usr, "Do you want to export this tech data to the disk (Network level: [T.level] | Disk level: [inserted_disk.stored_tech_assoc[tech]])", "Data Export", "Yes", "No")
+			if(choice != "Yes")
+				return FALSE
+
+			inserted_disk.stored_tech_assoc[tech] = T.level
+			inserted_disk.last_backup_time = time2text(ROUND_TIME, "hh:mm:ss")
+
+		if("saveall2network")
+			if(!network_manager_uid)
+				return FALSE
+
+			if(!inserted_disk)
+				return FALSE
+
+			var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+			if(!RNC)
+				network_manager_uid = null
+				return FALSE
+
+			var/choice = alert(usr, "Are you SURE you want to import all the data on the disk to the network?", "Data Import", "Yes", "No")
+			if(choice != "Yes")
+				return FALSE
+
+			var/datum/research/files = RNC.research_files
+			for(var/tech_id in files.known_tech)
+				files.known_tech[tech_id].level = inserted_disk.stored_tech_assoc[tech_id]
+
+		if("saveall2disk")
+			if(!network_manager_uid)
+				return FALSE
+
+			if(!inserted_disk)
+				return FALSE
+
+			var/obj/machinery/computer/rnd_network_controller/RNC = locateUID(network_manager_uid)
+			if(!RNC)
+				network_manager_uid = null
+				return FALSE
+
+			var/choice = alert(usr, "Are you SURE you want to export all the data on the network to the disk?", "Data Export", "Yes", "No")
+			if(choice != "Yes")
+				return FALSE
+
+			var/datum/research/files = RNC.research_files
+			for(var/tech_id in files.known_tech)
+				inserted_disk.stored_tech_assoc[tech_id] = files.known_tech[tech_id].level
+
+			inserted_disk.last_backup_time = time2text(ROUND_TIME, "hh:mm:ss")
+
+		if("linktonetworkcontroller")
+			if(network_manager_uid)
+				return FALSE
+
+			var/obj/machinery/computer/rnd_network_controller/C = locateUID(params["target_controller"])
+			if(istype(C, /obj/machinery/computer/rnd_network_controller))
+				var/user_pass = input(usr, "Please enter network password", "Password Entry")
+				// Check the password
+				if(user_pass == C.network_password)
+					network_manager_uid = C.UID()
+					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_name]</b>.</span>")
+
+				else
+					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+
+			else
+				to_chat(usr, "<span class='alert'><b>ERROR:</b> Controller not found. Please file an issue report.</span>")
 
 
 /obj/machinery/computer/rnd_backup/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "RndBackupConsole", name, 400, 300, master_ui, state)
+		ui = new(user, src, ui_key, "RndBackupConsole", name, 900, 600, master_ui, state)
 		ui.open()
 
 
@@ -134,6 +266,9 @@
 	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
+	// Level it all out
+	for(var/tech_id in GLOB.rnd_tech_id_to_name)
+		stored_tech_assoc[tech_id] = 0
 
 
 /obj/item/disk/rnd_backup_disk/examine(mob/user)

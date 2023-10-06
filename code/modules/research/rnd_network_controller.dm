@@ -158,6 +158,13 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 			continue
 		devices += list(list("name" = MF.name, "id" = MF.UID(), "dclass" = "MFB"))
 
+	for(var/backup_uid in backupconsoles)
+		var/obj/machinery/computer/rnd_backup/RB = locateUID(backup_uid)
+		if(!RB)
+			backupconsoles -= backup_uid
+			continue
+		devices += list(list("name" = RB.name, "id" = RB.UID(), "dclass" = "BCK"))
+
 	/*
 	for(var/pointgen_uid in pointgenerators)
 		var/obj/machinery/r_n_d/pointgen/PG = locateUID(pointgen_uid)
@@ -250,6 +257,22 @@ GLOBAL_LIST_EMPTY(rnd_network_managers)
 					if(MPF)
 						MPF.unlink()
 						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[MPF.name]</code> from the network <code>[network_name]</code>")
+						return
+
+				if("BCK")
+					if(!(params["uid"] in backupconsoles))
+						message_admins("[key_name_admin(usr)] attempted a href exploit with [src]")
+						return
+
+					var/choice = alert(usr, "Are you SURE you want to unlink this device?", "Unlink", "Yes", "No")
+					if(choice != "Yes" || !Adjacent(usr))
+						return
+
+					var/obj/machinery/computer/rnd_backup/RB = locateUID(params["uid"])
+					backupconsoles -= params["uid"]
+					if(RB)
+						RB.unlink()
+						to_chat(usr, "<span class='notice'>Successfully unlinked <code>[RB.name]</code> from the network <code>[network_name]</code>")
 						return
 
 				/*

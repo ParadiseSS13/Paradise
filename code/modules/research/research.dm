@@ -241,6 +241,8 @@ research holder datum.
 	var/max_level = 1          // Maximum level this can be at (for job objectives)
 	var/rare = 1						//How much CentCom wants to get that tech. Used in supply shuttle tech cost calculation.
 	var/list/req_tech = list()			//List of ids associated values of techs required to research this tech. "id" = #
+	/// Scaling coefficient for points - used to make illegals and alien tech require more work
+	var/point_scaling = 1
 
 
 //Trunk Technologies (don't require any other techs and you start knowning them).
@@ -314,6 +316,7 @@ research holder datum.
 	id = "syndicate"
 	max_level = 0 // Don't count towards maxed research, since it's illegal.
 	rare = 4
+	point_scaling = 4
 
 /datum/tech/abductor
 	name = "Alien Technologies Research"
@@ -321,6 +324,7 @@ research holder datum.
 	id = "abductor"
 	rare = 5
 	level = 0
+	point_scaling = 7
 
 /*
 datum/tech/arcane

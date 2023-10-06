@@ -23,7 +23,15 @@ export const RndNetController = (props, context) => {
     devices
   } = data;
 
-  const filtered_devices = (filterType === 'ALL' ? devices : devices.filter(x => x.dclass === filterType));
+  let filters = [];
+  filters.push(filterType);
+
+  if (filterType === "MSC") {
+    filters.push("BCK");
+    filters.push("PGN");
+  }
+
+  const filtered_devices = (filterType === 'ALL' ? devices : devices.filter(x => filters.indexOf(x.dclass) > -1));
 
   return (
     <Window>
@@ -89,8 +97,8 @@ export const RndNetController = (props, context) => {
 
             <Tabs.Tab
               key="Misc"
-              selected={filterType === "PNG"}
-              onClick={() => setFilterType("PNG")}
+              selected={filterType === "MSC"}
+              onClick={() => setFilterType("MSC")}
             >
               <Icon name="microchip" />
               Miscellaneous Devices
