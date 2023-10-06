@@ -188,6 +188,7 @@
 	bitesize = 3
 	list_reagents = list("nutriment" = 5)
 	tastes = list("meat" = 1)
+	burns_on_grill = TRUE
 
 /obj/item/reagent_containers/food/snacks/bacon
 	name = "bacon"
