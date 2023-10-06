@@ -19,3 +19,4 @@
 #include "code/effects.dm"
 #include "code/objects.dm"
 #include "code/papers.dm"
+#include "code/admin.dm"

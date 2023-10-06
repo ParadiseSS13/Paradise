@@ -233,6 +233,7 @@
 /obj/item/paper{
 	info = "Уволить клоуна."
 	},
+/obj/item/stamp/chameleon,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "ajH" = (
@@ -9016,6 +9017,10 @@
 /obj/item/folder/blue{
 	pixel_y = 4
 	},
+/obj/item/stamp/centcom{
+	pixel_x = 8;
+	pixel_y = -2
+	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "hgR" = (
@@ -10492,10 +10497,6 @@
 /obj/item/paper_bin/nanotrasen{
 	pixel_x = 4;
 	pixel_y = 6
-	},
-/obj/item/stamp/chameleon{
-	pixel_x = 4;
-	pixel_y = 5
 	},
 /obj/item/pen/multi/gold{
 	pixel_y = 3
@@ -13429,6 +13430,15 @@
 /obj/effect/overlay/coconut,
 /turf/simulated/floor/beach/away/sand,
 /area/ninja/holding)
+"kQG" = (
+/obj/item/kirbyplants,
+/obj/structure/mirror/magic{
+	desc = null;
+	name = "mirror";
+	pixel_y = 25
+	},
+/turf/simulated/floor/wood/fancy/cherry,
+/area/centcom/ss220/admin2)
 "kQR" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Склад";
@@ -25469,6 +25479,13 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
+"uBV" = (
+/obj/structure/table/wood{
+	color = "#996633"
+	},
+/obj/item/storage/bag/cash/admin,
+/turf/simulated/floor/carpet/black,
+/area/centcom/ss220/admin2)
 "uBX" = (
 /obj/structure/bookcase/manuals,
 /obj/item/book/manual/wiki/sop_general,
@@ -36101,7 +36118,7 @@ xSN
 gxh
 tNq
 ciP
-tNq
+kQG
 dKZ
 enT
 eVr
@@ -36872,7 +36889,7 @@ jvX
 vIu
 vIu
 ciP
-vIu
+uBV
 vIu
 vIu
 vIu
