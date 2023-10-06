@@ -58433,7 +58433,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/blueshield)
 "isv" = (
-/obj/structure/statue/bananium/clown,
+/obj/structure/statue/bananium/clown/unique,
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "isD" = (
@@ -63518,6 +63518,9 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/item/toy/figure/crew/mime{
+	pixel_x = -5
 	},
 /turf/simulated/floor/mineral/tranquillite,
 /area/station/service/mime)
@@ -76230,6 +76233,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
+"pfm" = (
+/obj/machinery/light/directional/south,
+/mob/living/simple_animal/hostile/retaliate/carp/koi{
+	name = "Лупа"
+	},
+/turf/simulated/floor/beach/water{
+	icon_state = "seadeep"
+	},
+/area/station/command/bridge)
 "pfB" = (
 /obj/effect/decal/cleanable/dust,
 /obj/machinery/space_heater,
@@ -86250,7 +86262,7 @@
 	},
 /area/station/engineering/atmos)
 "sRW" = (
-/obj/structure/statue/tranquillite/mime,
+/obj/structure/statue/tranquillite/mime/unique,
 /turf/simulated/floor/mineral/tranquillite,
 /area/station/service/mime)
 "sRY" = (
@@ -87528,7 +87540,9 @@
 /area/station/hallway/secondary/exit)
 "tnR" = (
 /obj/machinery/light/directional/south,
-/mob/living/simple_animal/hostile/retaliate/carp/koi,
+/mob/living/simple_animal/hostile/retaliate/carp/koi{
+	name = "Пупа"
+	},
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -90491,6 +90505,9 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/item/toy/figure/crew/clown{
+	pixel_x = 5
 	},
 /turf/simulated/floor/wood,
 /area/station/service/clown)
@@ -130858,7 +130875,7 @@ onE
 tqr
 kto
 uAb
-tnR
+pfm
 lsh
 cFQ
 fki
