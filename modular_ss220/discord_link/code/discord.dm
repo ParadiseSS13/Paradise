@@ -13,7 +13,7 @@
 		to_chat(usr, "Гостевой аккаунт не может быть связан.")
 		return
 
-	if(prefs.discord_id)
+	if(prefs.discord_id || prefs.get_discord_id())
 		to_chat(usr, span_darkmblue("Аккаунт Discord уже привязан!"))
 		return
 
@@ -43,12 +43,10 @@
 		return
 
 	if(href_list["observe"] || href_list["ready"] || href_list["late_join"])
-		if (GLOB.configuration.database.enabled && !client.prefs.discord_id)
-			client.prefs.get_discord_id()
-			if(!client.prefs.discord_id)
-				to_chat(usr, span_danger("Вам необходимо привязать дискорд-профиль к аккаунту!"))
-				to_chat(usr, span_warning("Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций."))
-				return FALSE
+		if (GLOB.configuration.database.enabled && !(client.prefs.discord_id || client.prefs.get_discord_id()))
+			to_chat(usr, span_danger("Вам необходимо привязать дискорд-профиль к аккаунту!"))
+			to_chat(usr, span_warning("Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций."))
+			return FALSE
 
 	. = ..()
 
@@ -57,6 +55,7 @@
 			"ckey" = parent.ckey
 		))
 
+	. = FALSE
 	if(!discord_query.warn_execute())
 		qdel(discord_query)
 		return FALSE
@@ -65,10 +64,10 @@
 		var/valid = discord_query.item[2]
 		if(valid)
 			discord_id = discord_query.item[1]
-			break
+			qdel(discord_query)
+			return TRUE
 
 	qdel(discord_query)
-	return TRUE
 
 /datum/preferences/load_preferences(datum/db_query/query)
 	. = ..()
