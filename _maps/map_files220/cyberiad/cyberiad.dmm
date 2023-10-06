@@ -1972,11 +1972,6 @@
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "akN" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -6000,11 +5995,21 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/item/hand_labeler{
-	pixel_x = -4
-	},
 /obj/item/storage/box/evidence{
-	pixel_x = 14;
+	pixel_y = 2;
+	pixel_x = -18
+	},
+/obj/item/storage/photo_album,
+/obj/item/camera_film{
+	pixel_y = 7
+	},
+/obj/item/camera_film{
+	pixel_y = 7
+	},
+/obj/item/camera{
+	desc = "A one use - polaroid camera. 30 photos left.";
+	name = "detectives camera";
+	pictures_left = 30;
 	pixel_y = 2
 	},
 /turf/simulated/floor/wood,
@@ -7901,8 +7906,8 @@
 /area/station/hallway/primary/fore)
 "aEn" = (
 /obj/structure/chair/comfy/brown,
-/obj/machinery/light/directional/north,
 /obj/effect/landmark/start/detective,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -7919,7 +7924,6 @@
 	},
 /area/station/security/detective)
 "aEp" = (
-/obj/item/radio/intercom/directional/east,
 /obj/machinery/computer/security/wooden_tv{
 	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
@@ -8283,8 +8287,17 @@
 /area/station/hallway/primary/fore)
 "aFB" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/detective,
-/obj/item/clothing/glasses/sunglasses,
+/obj/item/book/manual/detective{
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/sunglasses{
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/drinks/flask/detflask{
+	pixel_x = 16;
+	pixel_y = 4;
+	initialized = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -8292,14 +8305,11 @@
 "aFD" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/dromedaryco{
-	pixel_x = -16
+	pixel_x = -16;
+	pixel_y = 2
 	},
 /obj/item/ashtray/bronze{
 	pixel_x = -16
-	},
-/obj/item/radio/intercom/department/security{
-	pixel_x = 22;
-	dir = 8
 	},
 /obj/item/flashlight/lamp/green{
 	on = 0;
@@ -8603,10 +8613,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
 /obj/structure/window/basic{
 	dir = 4
 	},
@@ -8615,6 +8621,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/item/radio/intercom/department/security{
+	pixel_y = 22
+	},
+/obj/item/radio/intercom/custom{
+	pixel_y = 36
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -8637,18 +8649,19 @@
 /area/station/security/detective)
 "aGF" = (
 /obj/structure/closet/secure_closet/detective,
+/obj/item/storage/lockbox/spy_kit,
+/obj/item/storage/box/bodybags,
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
-/obj/item/storage/lockbox/spy_kit,
+/obj/machinery/newscaster/security_unit/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
 	},
 /area/station/security/detective)
 "aGG" = (
-/obj/machinery/photocopier,
+/obj/machinery/ai_status_display/south,
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "darkblue"
 	},
 /area/station/security/detective)
@@ -9057,7 +9070,6 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/forensics{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -9091,12 +9103,25 @@
 	},
 /area/station/security/detective)
 "aIi" = (
-/obj/structure/rack{
-	dir = 1
+/obj/structure/table/tray,
+/obj/item/scalpel{
+	pixel_y = 12
 	},
-/obj/item/storage/box/evidence,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
+/obj/item/clothing/gloves/color/latex/nitrile,
+/obj/item/clothing/mask/surgical,
+/obj/item/autopsy_scanner{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "surgery cleaner"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/station/security/detective)
 "aIj" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen/entertainment/directional/west,
@@ -9400,35 +9425,31 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/flask/detflask{
-	pixel_y = 4;
-	pixel_x = 10
+/obj/item/hand_labeler{
+	pixel_x = -4
 	},
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "aJl" = (
-/obj/machinery/disposal,
 /obj/machinery/light_switch/south,
 /obj/structure/window/basic{
 	dir = 4
 	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "aJq" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
+/obj/structure/morgue{
+	dir = 8
 	},
-/obj/item/pen,
-/turf/simulated/floor/plating,
-/area/station/maintenance/fore)
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "darkblue"
+	},
+/area/station/security/detective)
 "aJr" = (
 /obj/structure/table/reinforced,
 /obj/item/razor,
@@ -9705,8 +9726,11 @@
 	},
 /area/station/hallway/primary/fore)
 "aKE" = (
-/obj/structure/table,
-/obj/item/hand_labeler,
+/obj/machinery/door/airlock/maintenance{
+	name = "Detective Maintenance";
+	security_level = 1
+	},
+/obj/effect/mapping_helpers/airlock/access/any/security/forensics,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aKF" = (
@@ -9874,17 +9898,12 @@
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Detective"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/security/forensics,
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/security/forensics,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -24959,12 +24978,33 @@
 	},
 /area/station/hallway/primary/central/ne)
 "bWJ" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Detective Maintenance";
-	security_level = 1
+/obj/structure/closet/secure_closet{
+	anchored = 1;
+	name = "Evidence Storage";
+	req_one_access_txt = "4"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/security/forensics,
-/turf/simulated/floor/plating,
+/obj/item/folder/red{
+	pixel_x = -6;
+	pixel_y = 6
+	},
+/obj/item/folder/red{
+	pixel_x = -4;
+	pixel_y = 4
+	},
+/obj/item/folder/red{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/obj/item/folder/red,
+/obj/item/folder/red{
+	pixel_x = 2;
+	pixel_y = -2
+	},
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
 /area/station/security/detective)
 "bWL" = (
 /obj/structure/grille,
@@ -30304,10 +30344,12 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/science/server/coldroom)
 "csI" = (
-/obj/machinery/newscaster/security_unit/east,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
+	icon_state = "dark"
 	},
 /area/station/security/detective)
 "csK" = (
@@ -48512,6 +48554,11 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/secure_storage)
+"eMV" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/detective)
 "eMZ" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -50234,8 +50281,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "fwA" = (
-/obj/structure/table/wood,
-/obj/item/storage/photo_album,
 /obj/machinery/requests_console{
 	department = "Detective";
 	departmentType = 5;
@@ -50245,18 +50290,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/obj/item/camera_film{
-	pixel_y = 7
-	},
-/obj/item/camera_film{
-	pixel_y = 7
-	},
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30;
-	pixel_y = 2
-	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood,
 /area/station/security/detective)
 "fwF" = (
@@ -54381,7 +54415,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "gVt" = (
-/obj/structure/table/wood,
+/obj/structure/table,
 /obj/machinery/microscope{
 	pixel_y = 8
 	},
@@ -59092,10 +59126,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -59248,29 +59279,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "iKi" = (
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_one_access_txt = "4"
-	},
-/obj/item/folder/red{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/folder/red{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/folder/red{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/folder/red,
-/obj/item/folder/red{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/machinery/light/directional/south,
+/obj/machinery/dnaforensics,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -65887,8 +65896,8 @@
 	},
 /area/station/engineering/supermatter_room)
 "lpF" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/ai_status_display/south,
+/obj/machinery/optable,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -69552,13 +69561,13 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -75788,13 +75797,18 @@
 	id = "Detective"
 	},
 /obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /obj/structure/cable{
 	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/detective)
@@ -77000,7 +77014,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "prR" = (
-/obj/machinery/dnaforensics,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -88246,6 +88263,17 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
+"tFr" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "tFt" = (
 /obj/machinery/computer/scan_consolenew{
 	dir = 8
@@ -98272,6 +98300,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -132841,9 +132870,9 @@ aAA
 aAx
 ogL
 axe
-aGE
-oJZ
-rtU
+bWJ
+csI
+eMV
 lpF
 axe
 aTm
@@ -133098,9 +133127,9 @@ aCw
 aAx
 ogL
 axe
-loP
-aIg
-csI
+aGE
+oJZ
+rtU
 aGG
 axe
 aTm
@@ -133355,10 +133384,10 @@ aAx
 aAx
 ogL
 axe
-axe
-bWJ
-axe
-axe
+loP
+aIg
+aIi
+aJq
 axe
 hLk
 ijf
@@ -133610,14 +133639,14 @@ azY
 aBo
 aAB
 aBs
-mqw
-gDU
-aGH
-ssY
-ssY
-ssY
-ssY
-rQP
+ogL
+axe
+axe
+aKE
+axe
+axe
+axe
+tFr
 aOI
 aQp
 aSM
@@ -133867,14 +133896,14 @@ azX
 aBi
 aHU
 aBs
-mbb
-aFH
-aIq
-aIi
-aJq
-aKE
-awl
-aFH
+mqw
+gDU
+aGH
+ssY
+ssY
+ssY
+ssY
+rQP
 aOI
 aQo
 aSM
