@@ -39,7 +39,7 @@
 		update_transform()
 	real_name = name
 
-	equip_to_slot_or_del(new headwear(src), slot_head)
+	equip_to_slot_or_del(new headwear(src), SLOT_HUD_HEAD)
 	RegisterSignal(src, list(COMSIG_HUMAN_ATTACKED, COMSIG_HOSTILE_ATTACKINGTARGET), PROC_REF(ouch))
 
 	for(var/trait in list(TRAIT_RESISTHEAT, TRAIT_NOBREATH, TRAIT_RESISTCOLD, TRAIT_RESISTHIGHPRESSURE, TRAIT_RESISTLOWPRESSURE))
