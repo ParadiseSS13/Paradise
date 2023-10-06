@@ -107,4 +107,4 @@
 		"Unathi" = 'icons/mob/clothing/species/unathi/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vulpkanin")
+	hide_tail_by_species = list("Unathi", "Tajaran", "Vulpkanin")

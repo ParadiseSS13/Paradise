@@ -18,15 +18,10 @@
 		SSticker.mode.traitors += H.mind
 		H.mind.special_role = SPECIAL_ROLE_TRAITOR
 
-		var/datum/objective/hijack/hijack_objective = new
-		hijack_objective.owner = H.mind
-		H.mind.objectives += hijack_objective
+		H.mind.add_mind_objective(/datum/objective/hijack)
 
 		to_chat(H, "<B>You are a Highlander. Kill all other Highlanders. There can be only one.</B>")
-		var/obj_count = 1
-		for(var/datum/objective/OBJ in H.mind.objectives)
-			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-			obj_count++
+		H.mind.announce_objectives(title = FALSE)
 
 		for(var/obj/item/I in H)
 			if(istype(I, /obj/item/implant))
@@ -75,15 +70,10 @@
 		SSticker.mode.traitors += H.mind
 		H.mind.special_role = "[H.real_name] Prime"
 
-		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
-		hijack_objective.owner = H.mind
-		H.mind.objectives += hijack_objective
+		H.mind.add_mind_objective(/datum/objective/hijackclone)
 
 		to_chat(H, "<B>You are the multiverse summoner. Activate your blade to summon copies of yourself from another universe to fight by your side.</B>")
-		var/obj_count = 1
-		for(var/datum/objective/OBJ in H.mind.objectives)
-			to_chat(H, "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]")
-			obj_count++
+		H.mind.announce_objectives(title = FALSE)
 
 		var/obj/item/slot_item_ID = H.get_item_by_slot(slot_wear_id)
 		qdel(slot_item_ID)

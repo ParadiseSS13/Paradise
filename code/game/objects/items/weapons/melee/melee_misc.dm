@@ -1,4 +1,6 @@
 /obj/item/melee
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	needs_permit = TRUE
 
 /obj/item/melee/chainofcommand
