@@ -918,7 +918,9 @@
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
 	id = "whiteship_away";
-	name = "Deep Space"
+	name = "Deep Space";
+	dwidth = 8;
+	height = 31
 	},
 /obj/docking_port/mobile{
 	dir = 8;

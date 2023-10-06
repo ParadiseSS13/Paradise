@@ -88,7 +88,9 @@
 /obj/docking_port/stationary/whiteship{
 	dir = 8;
 	id = "whiteship_cyberiad";
-	name = "North of Cyberiad"
+	name = "North of Cyberiad";
+	dwidth = 8;
+	height = 31
 	},
 /turf/space,
 /area/space)
