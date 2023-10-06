@@ -104,7 +104,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	if(UI.limited_stock == 0)
 		to_chat(usr, "<span class='warning'>You have redeemed this discount already.</span>")
 		return
-	UI.buy(src,usr)
+	UI.buy_uplink_item(src,usr)
 	SStgui.update_uis(src)
 
 	return TRUE
@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		quantity = UI.limited_stock
 	var/list/bought_things = list()
 	for(var/i in 1 to quantity)
-		var/item = UI.buy(src, usr, put_in_hands = FALSE)
+		var/item = UI.buy_uplink_item(src, usr, put_in_hands = FALSE)
 		if(isnull(item))
 			break
 		bought_things += item

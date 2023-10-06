@@ -111,26 +111,26 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		desc = replacetext(initial(temp.desc), "\n", "<br>")
 	return desc
 
-/datum/uplink_item/proc/buy(obj/item/uplink/hidden/U, mob/user, put_in_hands = TRUE)
+/datum/uplink_item/proc/buy_uplink_item(obj/item/uplink/hidden/U, mob/user, put_in_hands = TRUE)
 	if(!istype(U))
-		return FALSE
+		return
 
 	if(user.stat || user.restrained())
-		return FALSE
+		return
 
-	if(!(ishuman(user)))
-		return FALSE
+	if(!ishuman(user))
+		return
 
 	// If the uplink's holder is in the user's contents
 	if((U.loc in user.contents || (in_range(U.loc, user) && isturf(U.loc.loc))))
 		if(cost > U.uses)
-			return FALSE
+			return
 
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
-		if(!I)
-			return TRUE
+		if(!I || I == UPLINK_SPECIAL_SPAWNING)
+			return // Failed to spawn, or we handled it with special spawning
 		if(limited_stock > 0)
 			limited_stock--
 			log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
