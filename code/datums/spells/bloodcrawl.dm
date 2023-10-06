@@ -143,7 +143,6 @@
 		L.adjustFireLoss(-1000)
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
-		return
 	if((ishuman(victim) || isrobot(victim)))
 		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
 		L.adjustBruteLoss(-50)
