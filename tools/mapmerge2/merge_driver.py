@@ -53,22 +53,38 @@ def three_way_merge(base: dmm.DMM, left: dmm.DMM, right: dmm.DMM):
     # reduce key changes that may cascade throughout the file, causing noisy
     # unrelated diffs.
     def swap_in_from_leftright(coord, leftright: dmm.DMM, tiledata: tuple):
+        # If the exact tile data already exists, we should be able to get away
+        # with reusing that tile's key and moving on. This may cause more churn
+        # in the textual diff but the alternative is attempting to reassign
+        # *that* key which would almost certainly end up being noisier.
+        #
+        # Note that this is being done sequentially through the file; an
+        # existence check passing here almost guarantees that what we're seeing
+        # is a result of us, ourselves, wanting this key-value pair in the final
+        # output. So I don't think ignoring the swap-in key here is disastrous.
+        if tiledata in merged.dictionary.inv:
+            merged.grid[coord] = merged.dictionary.inv[tiledata]
+            return
+
+        # Otherwise, we need to swap in the data.
         swap_in_key = leftright.dictionary.inv[tiledata]
-        if swap_in_key in merged.dictionary and merged.dictionary[swap_in_key] != tiledata:
-            curdata = merged.dictionary[swap_in_key]
-            merged.dictionary[swap_in_key] = tiledata
-            merged.grid[coord] = swap_in_key
-        elif tiledata in merged.dictionary.inv and swap_in_key not in merged.dictionary:
-            old_key = merged.dictionary.inv[tiledata]
-            merged.dictionary.inv[tiledata] = swap_in_key
-            merged.grid[coord] = swap_in_key
-            swaps[old_key] = swap_in_key
-            del merged.dictionary[old_key]
-        elif swap_in_key not in merged.dictionary:
-            merged.dictionary[swap_in_key] = tiledata
-            merged.grid[coord] = swap_in_key
-        else:
+
+        if swap_in_key in merged.dictionary:
+            # If the key already exists, we're fucked because determining
+            # whether reclaiming the key or getting a new one will be the
+            # noisier change textually is dependent on the size of the change,
+            # key distribution, and uniqueness of the tiles, and would require a
+            # heuristic of some sort. I couldn't even tell you how often this
+            # happens. I suspect rarely, because both StrongDMM and dmm.py, the
+            # two most common tools used to manipulate DMM files, both generate
+            # keys randomly, and the number of unique keys is small relative to
+            # the key space on most station maps (14-15%).
+            #
+            # So you're just getting a new key.
             merged.set_tile(coord, tiledata)
+        else:
+            merged.dictionary[swap_in_key] = tiledata
+            merged.grid[coord] = swap_in_key
 
     for (z, y, x) in base.coords_zyx:
         coord = x, y, z
