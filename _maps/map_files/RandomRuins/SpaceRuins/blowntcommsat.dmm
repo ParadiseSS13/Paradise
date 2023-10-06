@@ -681,6 +681,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"Th" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
 "Tt" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood,
@@ -1780,7 +1784,7 @@ Is
 Wc
 Wc
 Is
-QN
+Th
 PO
 PO
 PO
@@ -1835,7 +1839,7 @@ Is
 Wc
 Wc
 rM
-QN
+Th
 nX
 nX
 Zi
@@ -1889,7 +1893,7 @@ Em
 Bq
 ko
 KR
-QN
+Th
 nX
 nX
 SS
@@ -1943,7 +1947,7 @@ Wc
 Wc
 WC
 Up
-QN
+Th
 nX
 nX
 Zi
@@ -1996,7 +2000,7 @@ Wc
 Wc
 Is
 Wc
-QN
+Th
 PO
 PO
 PO
