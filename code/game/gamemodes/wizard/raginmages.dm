@@ -21,6 +21,8 @@
 	for(var/obj/machinery/economy/vending/magivend/magic in GLOB.machines)
 		for(var/key in magic.products)
 			magic.products[key] = 20 // and so, there was prosperity for ragin mages everywhere
+		magic.product_records.Cut()
+		magic.build_inventory(magic.products, magic.product_records)
 	..()
 
 /datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
@@ -129,7 +131,7 @@
 	if(harry)
 		var/mob/living/carbon/human/new_character = makeBody(harry)
 		new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
-		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort(wizard_mob), slot_in_backpack)
+		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort(harry), slot_in_backpack)
 		// The first wiznerd can get their mugwort from the wizard's den, new ones will also need mugwort!
 		mages_made++
 		return TRUE
