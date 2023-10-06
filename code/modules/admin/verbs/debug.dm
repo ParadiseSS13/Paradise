@@ -471,7 +471,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.registered_name = H.real_name
 			id.assignment = "Captain"
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
-			H.equip_to_slot_or_del(id, slot_wear_id)
+			H.equip_to_slot_or_del(id, SLOT_HUD_WEAR_ID)
 			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")
@@ -864,7 +864,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	// Iterate that target and see whats what
 	for(var/queue_entry in target_queue)
-		var/datum/D = locate(queue_entry[1])
+		var/datum/D = locate(queue_entry[GC_QUEUE_ITEM_REF])
 		if(!istype(D))
 			continue
 

@@ -8388,7 +8388,7 @@
 /obj/item/radio/intercom/syndicate{
 	pixel_x = -28
 	},
-/obj/item/kitchen/knife/carrotshiv,
+/obj/item/kitchen/knife/shiv/carrot,
 /turf/simulated/floor/wood,
 /area/wizard_station)
 "GI" = (

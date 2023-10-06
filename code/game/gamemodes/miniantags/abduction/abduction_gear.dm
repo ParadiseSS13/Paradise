@@ -54,7 +54,7 @@
 		A.UpdateButtonIcon()
 
 /obj/item/clothing/suit/armor/abductor/vest/item_action_slot_check(slot, mob/user)
-	if(slot == slot_wear_suit) //we only give the mob the ability to activate the vest if he's actually wearing it.
+	if(slot == SLOT_HUD_OUTER_SUIT) //we only give the mob the ability to activate the vest if he's actually wearing it.
 		return 1
 
 /obj/item/clothing/suit/armor/abductor/vest/proc/SetDisguise(datum/icon_snapshot/entry)
@@ -406,7 +406,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "wonderprodStun"
 	item_state = "wonderprod"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "materials=4;combat=4;biotech=7;abductor=4"
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/toggle_mode)
