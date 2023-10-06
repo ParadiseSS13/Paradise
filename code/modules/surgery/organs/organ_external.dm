@@ -148,6 +148,21 @@
 
 	if(HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
 		limb_flags |= CANNOT_BURN
+	if(HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
+		limb_flags |= CANNOT_INT_BLEED
+
+/obj/item/organ/external/proc/remove_limb_flags()
+	if(!HAS_TRAIT(owner, TRAIT_NO_BONES))
+		limb_flags &= ~CANNOT_BREAK
+		encased = initial(encased)
+
+	if(!HAS_TRAIT(owner, TRAIT_STURDY_LIMBS))
+		limb_flags &= ~CANNOT_DISMEMBER
+
+	if(!HAS_TRAIT(owner, TRAIT_BURN_WOUND_IMMUNE))
+		limb_flags &= ~CANNOT_BURN
+	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
+		limb_flags &= ~CANNOT_INT_BLEED
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
@@ -537,6 +552,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				"<span class='danger'>\The [owner]'s [name] explodes[gore]!</span>",\
 				"<span class='moderate'><b>Your [name] explodes[gore]!</b></span>",\
 				"<span class='danger'>You hear the [gore_sound].</span>")
+			disembowel(limb_name)
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
 	// Let people make limbs become fun things when removed
@@ -696,6 +712,8 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(is_robotic())
 		return
 	if(NO_BLOOD in owner.dna.species.species_traits)
+		return
+	if(limb_flags & CANNOT_INT_BLEED)
 		return
 	status |= ORGAN_INT_BLEEDING
 	owner.custom_pain("You feel something rip in your [name]!")

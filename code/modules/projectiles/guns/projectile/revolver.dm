@@ -332,7 +332,7 @@
 	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
@@ -410,7 +410,7 @@
 		if(sling)
 			to_chat(user, "<span class='warning'>The shotgun already has a sling!</span>")
 		else if(C.use(10))
-			slot_flags = SLOT_BACK
+			slot_flags = SLOT_FLAG_BACK
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
 			sling = TRUE
 			update_icon()
@@ -453,8 +453,8 @@
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
-	return 1
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_crutch_efficiency()
+	return 2
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return

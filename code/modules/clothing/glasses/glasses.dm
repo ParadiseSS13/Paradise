@@ -103,7 +103,7 @@
 
 /obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
 	. = ..()
-	if(active_on_equip && slot == slot_glasses)
+	if(active_on_equip && slot == SLOT_HUD_GLASSES)
 		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 
 /obj/item/clothing/glasses/meson/dropped(mob/user)
@@ -118,7 +118,6 @@
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	prescription_upgradable = FALSE
 
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
@@ -163,7 +162,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
-	if(slot == slot_glasses)
+	if(slot == SLOT_HUD_GLASSES)
 		return 1
 
 /obj/item/clothing/glasses/science/night
@@ -172,7 +171,6 @@
 	icon_state = "nvpurple"
 	item_state = "glasses"
 	see_in_dark = 8
-	prescription_upgradable = FALSE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 /obj/item/clothing/glasses/janitor
@@ -192,6 +190,7 @@
 	item_state = "glasses"
 	origin_tech = "materials=4;magnets=4;plasmatech=4;engineering=4"
 	see_in_dark = 8
+	prescription_upgradable = TRUE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
 
 	sprite_sheets = list(
@@ -206,6 +205,7 @@
 	desc = "Yarr."
 	icon_state = "eyepatch"
 	item_state = "eyepatch"
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -265,7 +265,7 @@
 	desc = "Made by Nerd. Co."
 	icon_state = "glasses"
 	item_state = "glasses"
-	prescription = 1
+	prescription = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -332,6 +332,8 @@
 	see_in_dark = 0
 	flash_protect = FLASH_PROTECTION_NONE
 	tint = FLASH_PROTECTION_NONE
+	prescription_upgradable = TRUE
+
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -348,7 +350,7 @@
 	toggle_noir(user)
 
 /obj/item/clothing/glasses/sunglasses/noir/item_action_slot_check(slot)
-	if(slot == slot_glasses)
+	if(slot == SLOT_HUD_GLASSES)
 		return 1
 
 /obj/item/clothing/glasses/sunglasses/noir/proc/toggle_noir(mob/user)
@@ -358,20 +360,22 @@
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
-	var/punused = null
+	var/punused = FALSE
 	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
 
-/obj/item/clothing/glasses/sunglasses/yeah/attack_self()
-	pun()
+/obj/item/clothing/glasses/sunglasses/yeah/attack_self(mob/user)
+	pun(user)
 
-/obj/item/clothing/glasses/sunglasses/yeah/proc/pun()
-	if(!punused)//one per round
-		punused = 1
-		playsound(src.loc, 'sound/misc/yeah.ogg', 100, 0)
-		usr.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
-	else
-		to_chat(usr, "The moment is gone.")
+/obj/item/clothing/glasses/sunglasses/yeah/proc/pun(mob/user)
+	if(punused) // one per round..
+		to_chat(user, "The moment is gone.")
+		return
 
+	punused = TRUE
+	playsound(loc, 'sound/misc/yeah.ogg', 100, FALSE)
+	user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
+	if(HAS_TRAIT(user, TRAIT_BADASS)) //unless you're badass
+		addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
 
 /obj/item/clothing/glasses/sunglasses/reagent
 	name = "sunscanners"
@@ -380,7 +384,7 @@
 	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 
 /obj/item/clothing/glasses/sunglasses/reagent/item_action_slot_check(slot)
-	if(slot == slot_glasses)
+	if(slot == SLOT_HUD_GLASSES)
 		return TRUE
 
 /obj/item/clothing/glasses/virussunglasses
@@ -405,7 +409,7 @@
 	flags = NODROP
 
 /obj/item/clothing/glasses/sunglasses/lasers/equipped(mob/user, slot) //grant them laser eyes upon equipping it.
-	if(slot == slot_glasses)
+	if(slot == SLOT_HUD_GLASSES)
 		ADD_TRAIT(user, TRAIT_LASEREYES, "admin_zapglasses")
 		user.regenerate_icons()
 	..(user, slot)
@@ -516,6 +520,7 @@
 	actions_types = list(/datum/action/item_action/toggle)
 	up = FALSE
 	tint = FLASH_PROTECTION_NONE
+	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',

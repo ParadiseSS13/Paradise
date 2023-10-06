@@ -184,8 +184,8 @@
 	var/just_sleeping = FALSE //We don't appear as dead upon casual examination, just sleeping
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		var/obj/item/clothing/glasses/E = get_item_by_slot(slot_glasses)
-		var/are_we_in_weekend_at_bernies = E?.tint && istype(buckled, /obj/structure/chair/wheelchair) //Are we in a wheelchair with our eyes obscured?
+		var/obj/item/clothing/glasses/E = get_item_by_slot(SLOT_HUD_GLASSES)
+		var/are_we_in_weekend_at_bernies = E?.tint && istype(buckled, /obj/structure/chair) //Are we in a chair with our eyes obscured?
 
 		if(isliving(user) && are_we_in_weekend_at_bernies)
 			just_sleeping = TRUE
@@ -196,18 +196,15 @@
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
 		if(!just_sleeping)
 			msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
-			if(get_int_organ(/obj/item/organ/internal/brain))
-				if(!key)
-					var/foundghost = FALSE
-					if(mind)
-						for(var/mob/dead/observer/G in GLOB.player_list)
-							if(G.mind == mind)
-								foundghost = TRUE
-								if(G.can_reenter_corpse == 0)
-									foundghost = FALSE
-								break
-					if(!foundghost)
-						msg += " and [p_their()] soul has departed"
+			if(get_int_organ(/obj/item/organ/internal/brain) && !key)
+				var/foundghost = FALSE
+				if(mind)
+					for(var/mob/dead/observer/G in GLOB.player_list)
+						if(G.mind == mind && G.can_reenter_corpse)
+							foundghost = TRUE
+							break
+				if(!foundghost)
+					msg += " and [p_their()] soul has departed"
 			msg += "...</span>\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
@@ -216,7 +213,7 @@
 	msg += "<span class='warning'>"
 
 	// Stuff at the start of the block
-	msg += examine_start_damage_block()
+	msg += examine_start_damage_block(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
 
 	// Show how badly they're damaged
 	msg += examine_damage_flavor()
