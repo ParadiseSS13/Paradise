@@ -191,11 +191,10 @@
 
 	show_stat_emergency_shuttle_eta()
 
-	var/total_user_contents = GetAllContents() // cache it
-	if(locate(/obj/item/gps) in total_user_contents)
+	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
 		var/turf/T = get_turf(src)
 		stat(null, "GPS: [COORD(T)]")
-	if(locate(/obj/item/assembly/health) in total_user_contents)
+	if(HAS_TRAIT(src, TRAIT_CAN_VIEW_HEALTH))
 		stat(null, "Health: [health]")
 
 	if(internal)
