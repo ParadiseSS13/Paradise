@@ -14,10 +14,18 @@ SUBSYSTEM_DEF(security_level)
 	var/list/available_levels = list()
 
 /datum/controller/subsystem/security_level/Initialize()
-	for(var/security_level_type in subtypesof(/datum/security_level))
-		var/datum/security_level/new_security_level = new security_level_type
-		available_levels[new_security_level.name] = new_security_level
-	current_security_level = available_levels[number_level_to_text(DEFAULT_SECURITY_LEVEL_NUMBER)]
+	if (!length(available_levels))
+		for(var/security_level_type in subtypesof(/datum/security_level))
+			var/datum/security_level/new_security_level = new security_level_type
+			available_levels[new_security_level.name] = new_security_level
+
+	if (!current_security_level)
+		current_security_level = available_levels[number_level_to_text(DEFAULT_SECURITY_LEVEL_NUMBER)]
+
+/datum/controller/subsystem/security_level/Recover()
+	security_level_set_timer_id = SSsecurity_level.security_level_set_timer_id
+	current_security_level = SSsecurity_level.current_security_level
+	available_levels = SSsecurity_level.available_levels
 
 /**
  * Sets a new security level as our current level
