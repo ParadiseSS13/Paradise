@@ -7,6 +7,8 @@ import { reboot, rebootFinished } from '~/byondcalls/reboot';
 import App from '~/components/App';
 import { useMessageSlice } from './stores/message';
 
+let preventFocus = false;
+
 const setupApp = () => {
   // Set up debug console
   window.debugs = [];
@@ -26,6 +28,19 @@ const setupApp = () => {
   useMessageSlice.subscribe(() =>
     render(<App />, document.getElementById('root'))
   );
+
+  // Focus prevention
+  document.body.addEventListener('mousedown', e => {
+    const target = e.target as Element;
+    preventFocus = target.tagName === 'INPUT';
+  });
+  document.body.addEventListener('click', () => {
+    if (preventFocus) {
+      preventFocus = false;
+      return;
+    }
+    window.location.href = 'byond://winset?mapwindow.map.focus=true';
+  });
 
   initClientData();
   window.location.href =

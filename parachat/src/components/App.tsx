@@ -3,8 +3,6 @@ import styled, { ThemeProvider } from 'styled-components';
 import { animationDurationMs } from '~/common/animations';
 import GlobalStyle from '~/components/GlobalStyle';
 import MessageList from '~/components/MessageList';
-import DebugButton from '~/components/debug/DebugButton';
-import DebugConsole from '~/components/debug/DebugConsole';
 import Audio from '~/components/footer/Audio';
 import Header from '~/components/header/Header';
 import SettingsMenu from '~/components/settings/SettingsMenu';
@@ -48,8 +46,8 @@ const App = () => {
         <Header />
         <MessageList />
         <Audio />
-        <DebugConsole />
-        <DebugButton />
+        {/* <DebugConsole /> */}
+        {/* <DebugButton /> */}
       </AppWrapper>
     </ThemeProvider>
   );

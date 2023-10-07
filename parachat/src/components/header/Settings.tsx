@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { useHeaderSlice } from '~/stores/header';
 
-const SettingsWrapper = styled.div`
+const SettingsWrapper = styled.a`
   padding: 0 12px;
-  cursor: pointer;
+  color: ${({ theme }) => theme.textPrimary};
   background-color: ${({ theme }) => theme.background[1]};
   transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
+  text-decoration: none;
 
   &:hover {
     background-color: ${({ theme }) => theme.background[2]};
@@ -19,7 +20,7 @@ const Settings = () => {
   const setShowSettings = useHeaderSlice(state => state.setShowSettings);
 
   return (
-    <SettingsWrapper onClick={() => setShowSettings(true)}>
+    <SettingsWrapper href="#" onClick={() => setShowSettings(true)}>
       Settings
     </SettingsWrapper>
   );
