@@ -100446,11 +100446,12 @@
 	},
 /area/station/security/permabrig)
 "ydU" = (
-/obj/structure/closet/jcloset{
-	initialized = 1;
-	opened = 1
-	},
 /obj/effect/decal/cleanable/dust,
+/obj/structure/closet{
+	icon_state = "mixed";
+	opened = 1;
+	icon_opened = "generic_open"
+	},
 /obj/item/cartridge/janitor,
 /obj/item/flashlight,
 /obj/item/storage/bag/trash,
