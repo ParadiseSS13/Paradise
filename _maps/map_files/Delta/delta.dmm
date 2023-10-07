@@ -97687,11 +97687,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"xdc" = (
-/obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/electrical_shop)
 "xdd" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
@@ -131025,7 +131020,7 @@ anK
 adb
 aaa
 apH
-xdc
+apH
 apH
 apH
 apG
