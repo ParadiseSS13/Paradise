@@ -75,5 +75,10 @@
 			T.flags |= NO_RUINS
 
 		new /obj/effect/landmark/ruin(central_turf, src)
+
+		var/map_filename = splittext(mappath, "/")
+		map_filename = map_filename[length(map_filename)]
+		SSblackbox.record_feedback("nested tally", "ruin_placement", 1, list(map_filename, "[central_turf.z]"))
+
 		return TRUE
 	return FALSE
