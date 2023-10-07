@@ -15636,7 +15636,6 @@
 	network = list("SS13","Security")
 	},
 /obj/machinery/button/windowtint/west{
-	dir = 4;
 	id = "HoS"
 	},
 /obj/machinery/power/apc/directional/north,
@@ -18542,7 +18541,6 @@
 /obj/item/flashlight/lamp,
 /obj/machinery/light/directional/east,
 /obj/machinery/button/windowtint/south{
-	dir = 1;
 	id = "Processing"
 	},
 /turf/simulated/floor/plasteel{
@@ -23934,7 +23932,6 @@
 	dir = 4
 	},
 /obj/machinery/button/windowtint/south{
-	dir = 1;
 	id = "Detective"
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -26275,7 +26272,6 @@
 	dir = 4
 	},
 /obj/machinery/button/windowtint/west{
-	dir = 4;
 	id = "CE";
 	pixel_y = 8;
 	range = 12;
@@ -27897,7 +27893,6 @@
 	req_access_txt = "73"
 	},
 /obj/machinery/light_switch/west{
-	dir = 4;
 	pixel_y = 32
 	},
 /turf/simulated/floor/wood,
@@ -29261,7 +29256,6 @@
 "chq" = (
 /obj/machinery/light_switch/west,
 /obj/machinery/button/windowtint/west{
-	dir = 4;
 	id = "BS";
 	pixel_y = -8;
 	req_access_txt = "67"
@@ -42535,14 +42529,12 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light_switch/south{
-	dir = 1;
 	pixel_x = -8
 	},
 /obj/machinery/keycard_auth/south{
 	pixel_x = 6
 	},
 /obj/machinery/button/windowtint/south{
-	dir = 1;
 	id = "RD";
 	pixel_x = -2;
 	req_access_txt = "30";
@@ -44364,7 +44356,6 @@
 /obj/item/surgicaldrill,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/button/windowtint/east{
-	dir = 8;
 	id = "RoboSurgery"
 	},
 /turf/simulated/floor/plasteel/white,
@@ -56088,6 +56079,7 @@
 /area/station/medical/virology)
 "gOz" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/disk,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -57853,6 +57845,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
+"hzw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/disk{
+	pixel_x = -6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/maintenance/starboard2)
 "hzH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -68205,7 +68206,6 @@
 	dir = 8
 	},
 /obj/machinery/keycard_auth/south{
-	dir = 1;
 	pixel_x = -8
 	},
 /turf/simulated/floor/plasteel{
@@ -79791,6 +79791,20 @@
 /obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
+"pOp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/disk{
+	pixel_y = 10;
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/food/snacks/disk{
+	pixel_y = -6;
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/maintenance/starboard2)
 "pOq" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -91465,8 +91479,7 @@
 	},
 /obj/machinery/holosign_switch/south{
 	id = "Surgery1";
-	pixel_x = 8;
-	dir = 1
+	pixel_x = 8
 	},
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
@@ -148259,7 +148272,7 @@ tFi
 rZy
 brM
 gWi
-jmJ
+hzw
 gOz
 jZz
 cla
@@ -148774,7 +148787,7 @@ lCy
 nLi
 xzr
 tox
-jmJ
+pOp
 jmJ
 iTK
 wwk

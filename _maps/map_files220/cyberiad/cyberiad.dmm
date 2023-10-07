@@ -60957,6 +60957,17 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/public/toilet)
+"jsv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/disk,
+/obj/item/reagent_containers/food/snacks/disk{
+	pixel_y = -6;
+	pixel_x = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/station/maintenance/apmaint)
 "jsF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -99072,6 +99083,13 @@
 /area/station/maintenance/abandonedbar)
 "xHy" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/snacks/disk{
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/food/snacks/disk{
+	pixel_y = 10;
+	pixel_x = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -121915,7 +121933,7 @@ rbX
 dlZ
 cvp
 tDB
-xHy
+jsv
 cyk
 cqs
 rFc

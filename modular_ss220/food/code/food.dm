@@ -1023,3 +1023,24 @@
 	if(ishuman(user))
 		pizza = new /obj/item/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	. = ..()
+
+// Disk croutons
+/obj/item/reagent_containers/food/snacks/disk
+	name = "диск с сухариками"
+	desc = "Вкуснейшие сухарики с запахом дымка!"
+	icon = 'modular_ss220/food/icons/food.dmi'
+	icon_state = "disk"
+	item_state = "chips"
+	bitesize = 3
+	junkiness = 20
+	antable = FALSE
+	trash = /obj/item/trash/disk
+	filling_color = "#d1ac45"
+	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "ash" = 1, "saltpetre" = 1)
+	tastes = list("хлеб" = 3, "соль" = 1, "пепел" = 1)
+
+/obj/item/trash/disk
+	name = "диск с сухариками"
+	icon = 'modular_ss220/food/icons/trash.dmi'
+	icon_state = "disk"
+	item_state = "chips"
