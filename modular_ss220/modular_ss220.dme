@@ -57,11 +57,20 @@
 #include "pixel_shift/_pixel_shift.dme"
 #include "radio_sound/radio_sound.dme"
 #include "screentip_change/_screentip_change.dme"
-#include "security_redalert_accesses/_security_redalert_accesses.dme"
 #include "smart_equip_targeted/_smart_equip_targeted.dme"
 #include "text_to_speech/_tts.dme"
 #include "title_screen/_title_screen.dme"
 #include "whitelist/_whitelist.dme"
+
+// --- PRIME --- //
+// #define MODPACK_MAIN_ONLY
+// Чтобы отключить модпаки прайма, нужно раскоментировать строку выше.
+// Изначально они включены. Сделано так, по двум причинам.
+// 1. Добавить новый дефайн на мейне на хосте куда проще, чем на прайме.
+// 2. Так модпаки прайма будут включены в тестах и линтере.
+#ifndef MODPACK_MAIN_ONLY
+#include "security_redalert_accesses/_security_redalert_accesses.dme"
+#endif
 
 // --- UNUSED MODS --- //
 
