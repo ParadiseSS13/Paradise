@@ -289,7 +289,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "oL" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "oN" = (

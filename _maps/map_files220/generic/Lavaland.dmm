@@ -75,7 +75,7 @@
 /turf/simulated/mineral/random/labormineral/volcanic,
 /area/lavaland/surface/outdoors)
 "ap" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "aq" = (
@@ -636,7 +636,7 @@
 	},
 /area/mine/eva)
 "bF" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "bG" = (
@@ -673,7 +673,7 @@
 	},
 /area/mine/living_quarters)
 "bJ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/sign/securearea{
 	name = "\improper KEEP CLEAR: DOCKING AREA"
 	},
@@ -719,7 +719,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "bN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "bO" = (
@@ -907,7 +907,7 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "ch" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/cafeteria)
 "ci" = (
@@ -939,7 +939,7 @@
 	},
 /area/mine/eva)
 "cl" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
@@ -1113,7 +1113,7 @@
 	},
 /area/mine/production)
 "cG" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
 "cH" = (
@@ -1215,7 +1215,7 @@
 /turf/simulated/wall/r_wall,
 /area/mine/comms)
 "cR" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "cS" = (
@@ -1803,7 +1803,7 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "dV" = (
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/grilled,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "dW" = (
@@ -4749,7 +4749,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "um" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/mechbay)
 "uq" = (
@@ -4757,7 +4757,7 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "uL" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/flasher{
 	id = "labor"
 	},
@@ -5614,7 +5614,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Lr" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/sleeper)
 "Lz" = (
@@ -5697,7 +5697,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "Ni" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -6302,7 +6302,7 @@
 /turf/simulated/wall,
 /area/mine/laborcamp/security)
 "Yv" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/airlock)
 "YI" = (

@@ -241,7 +241,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/wildwest/wildwest_refine)
 "cK" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "ww_window"
@@ -3110,7 +3110,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
 "ES" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "ww_window"
 	},
@@ -3901,7 +3901,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
 "Nk" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "ww_window"
@@ -4716,7 +4716,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
 "WH" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor,
 /area/awaymission/wildwest/wildwest_mines)
 "WI" = (

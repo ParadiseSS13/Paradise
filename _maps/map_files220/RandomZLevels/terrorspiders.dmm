@@ -1283,7 +1283,7 @@
 	},
 /area/awaymission/UO71/plaza)
 "dR" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/plaza)
 "dS" = (
@@ -2279,7 +2279,7 @@
 	},
 /area/awaymission/UO71/gateway)
 "gs" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
 "gt" = (
@@ -2720,7 +2720,7 @@
 	dir = 4;
 	level = 2
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/centralhall)
 "hs" = (
@@ -3161,7 +3161,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
 "iz" = (
@@ -3546,7 +3546,7 @@
 	},
 /area/awaymission/UO71/gateway)
 "jM" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "jN" = (
@@ -6595,7 +6595,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "qe" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/medical)
 "qf" = (
@@ -6783,7 +6783,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 "qy" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
 "qz" = (
@@ -7802,7 +7802,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
 "sG" = (
@@ -8431,7 +8431,7 @@
 	id_tag = "UO71_Engineering";
 	name = "engineering security door"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
 "ub" = (
@@ -9055,7 +9055,7 @@
 	},
 /area/awaymission/UO71/medical)
 "vu" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/centralhall)
 "vv" = (
@@ -9324,7 +9324,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/centralhall)
 "wa" = (
@@ -9799,7 +9799,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
 "xg" = (
@@ -9808,7 +9808,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/eng)
 "xh" = (
@@ -10362,7 +10362,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/mining)
 "yp" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "yq" = (
@@ -10401,7 +10401,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "yw" = (
@@ -10564,7 +10564,7 @@
 /area/awaymission/UO71/queen)
 "yR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/mining)
 "yS" = (
@@ -10799,7 +10799,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/plaza)
 "Eb" = (
@@ -10997,7 +10997,7 @@
 /area/awaymission/UO71/outside)
 "ZV" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
 

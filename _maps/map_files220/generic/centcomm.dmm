@@ -7062,7 +7062,7 @@
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/ss220/evac)
 "fxn" = (
-/obj/effect/spawner/window/reinforced/tinted,
+/obj/effect/spawner/window/reinforced/tinted/grilled,
 /turf/simulated/floor/plating,
 /area/centcom/ss220/evac)
 "fxM" = (
@@ -11073,7 +11073,7 @@
 	},
 /area/centcom/ss220/evac)
 "iJu" = (
-/obj/effect/spawner/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "CC_Conf"
 	},
 /turf/simulated/floor/plating,
@@ -17531,7 +17531,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/control)
 "ois" = (
-/obj/effect/spawner/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "CC_Conf"
 	},
 /turf/simulated/floor/plating,
@@ -23789,7 +23789,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/transport)
 "tgx" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ninja/holding)
 "tgL" = (
@@ -28245,7 +28245,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/infteam)
 "wOH" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "СС_Office_COO"
 	},

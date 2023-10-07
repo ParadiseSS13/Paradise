@@ -130,7 +130,7 @@
 /turf/template_noop,
 /area/template_noop)
 "y" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "z" = (

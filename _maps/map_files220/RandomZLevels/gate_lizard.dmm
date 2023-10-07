@@ -1280,7 +1280,7 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "bCI" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Command";
@@ -2397,7 +2397,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "cWO" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	requires_power = 0
@@ -2592,7 +2592,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "dmi" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Hang in";
@@ -2637,7 +2637,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "doE" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -4603,7 +4603,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "fMx" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "fNF" = (
@@ -7061,7 +7061,7 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "iNw" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "gate_lizard_QM"
@@ -7187,7 +7187,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "iVc" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "CMDgate"
@@ -7688,7 +7688,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "jAq" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "gate_lizard_QM"
@@ -8419,7 +8419,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/jungle_planet/outside/cave)
 "ktw" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "Command";
@@ -11519,7 +11519,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "nTH" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Command";
@@ -11699,7 +11699,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "oiR" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 2;
 	id_tag = "CMDgate"
@@ -12817,7 +12817,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "pxl" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
 "pxm" = (
@@ -13565,7 +13565,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "qxn" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Command";
@@ -14123,7 +14123,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "riR" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	requires_power = 0
@@ -14653,7 +14653,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "rNK" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	requires_power = 0
@@ -15806,7 +15806,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/jungle_planet/outside/cave)
 "tfh" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
@@ -15823,7 +15823,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "tha" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
@@ -17760,7 +17760,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "vrP" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	dir = 8;
@@ -18805,7 +18805,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/jungle_planet/outside/abandoned)
 "wFg" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
 	requires_power = 0
@@ -19011,7 +19011,7 @@
 /turf/simulated/wall/indestructible/syndishuttle,
 /area/awaymission/jungle_planet/outside/abandoned)
 "wQo" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -19670,7 +19670,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "xDN" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters{
 	dir = 8;
 	id_tag = "Hang in";

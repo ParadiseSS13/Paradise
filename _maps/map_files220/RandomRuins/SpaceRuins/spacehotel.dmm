@@ -119,7 +119,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "aU" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -128,7 +128,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "aW" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "aX" = (
@@ -869,7 +869,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "gC" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -1416,7 +1416,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/reception)
 "ky" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/bar)
 "kB" = (
@@ -1472,7 +1472,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/centralhallway)
 "kV" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "kX" = (
@@ -2251,7 +2251,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "pS" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/centralhallway)
 "pU" = (
@@ -2424,7 +2424,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "rm" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -2887,7 +2887,7 @@
 /turf/simulated/floor/carpet/blue,
 /area/ruin/space/spacehotelv1/guestroom3)
 "uF" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "uI" = (
@@ -3631,7 +3631,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "zu" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "zv" = (
@@ -3794,7 +3794,7 @@
 /turf/simulated/floor/carpet/cyan,
 /area/ruin/space/spacehotelv1/guestroom5)
 "Aq" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Ar" = (
@@ -5242,7 +5242,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "KY" = (
-/obj/effect/spawner/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "restoom2_tint"
 	},
 /turf/simulated/floor/plating,
@@ -5287,7 +5287,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/reception)
 "Lk" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forehallway)
 "Ll" = (
@@ -5584,7 +5584,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/forehallway)
 "No" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/entryhallway)
 "Nr" = (
@@ -7027,7 +7027,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/spacehotelv1/bar)
 "Yh" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "Yq" = (

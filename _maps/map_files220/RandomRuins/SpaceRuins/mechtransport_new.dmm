@@ -750,7 +750,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "rJ" = (
-/obj/effect/spawner/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mech_toilet"
 	},
 /obj/machinery/door/poddoor{

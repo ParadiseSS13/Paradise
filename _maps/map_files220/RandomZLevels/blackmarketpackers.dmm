@@ -540,7 +540,7 @@
 /area/awaymission/BMPship/Fore)
 "bT" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -608,7 +608,7 @@
 /area/awaymission/BMPship/Armory)
 "cd" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -4556,7 +4556,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Kitchen)
 "wt" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "wv" = (
@@ -5857,7 +5857,7 @@
 /area/awaymission/BMPship/Engines)
 "Iy" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
