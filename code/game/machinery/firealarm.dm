@@ -37,7 +37,7 @@ FIRE ALARM
 
 	var/last_time_pulled //used to prevent pulling spam by same persons
 
-/obj/machinery/firealarm/New(location, direction, building)
+/obj/machinery/firealarm/Initialize(mapload, location, direction, building)
 	. = ..()
 
 	if(building)
@@ -47,9 +47,6 @@ FIRE ALARM
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
 	LAZYADD(get_area(src).firealarms, src)
-
-/obj/machinery/firealarm/Initialize(mapload)
-	. = ..()
 
 	if(is_station_contact(z))
 		RegisterSignal(SSsecurity_level, COMSIG_SECURITY_LEVEL_CHANGED, PROC_REF(on_security_level_update))
