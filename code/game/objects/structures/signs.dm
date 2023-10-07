@@ -213,6 +213,9 @@
 	name = "Remembrance Plaque"
 	desc = "A plaque commemorating the fallen, may they rest in peace, forever asleep amongst the stars. Someone has drawn a picture of a crying badger at the bottom."
 
+/obj/structure/sign/kiddieplaque/remembrance/mining
+	desc = "A plaque commemorating the fallen, may they rest in peace, forever asleep amongst the ashes. Someone has drawn a picture of a crying badger at the bottom."
+
 /obj/structure/sign/kiddieplaque/perfect_man
 	name = "\improper 'Perfect Man' sign"
 	desc = "A guide to the exhibit, explaining how recent developments in mindshield implant and cloning technologies by Nanotrasen Corporation have led to the development and the effective immortality of the 'perfect man', the loyal Nanotrasen Employee."

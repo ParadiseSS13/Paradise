@@ -516,6 +516,11 @@
 	pixel_y = 30
 	},
 /obj/structure/closet/secure_closet/quartermaster/empty,
+/obj/machinery/newscaster{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 28
+	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "bw" = (
@@ -1838,7 +1843,6 @@
 	},
 /area/mine/outpost/hallway/west)
 "em" = (
-/obj/structure/closet/secure_closet/miner,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1846,6 +1850,7 @@
 	name = "North Switch";
 	pixel_y = 24
 	},
+/obj/structure/closet/wardrobe/miner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2184,6 +2189,10 @@
 	dir = 8;
 	pixel_y = -24
 	},
+/obj/structure/sign/directions/medical{
+	dir = 4;
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -2293,6 +2302,11 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
+"fa" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
+/area/lavaland/surface/outdoors)
 "fb" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/mine/outpost/mechbay)
@@ -2479,7 +2493,7 @@
 	},
 /obj/structure/lattice/catwalk/mining,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "fu" = (
 /obj/effect/turf_decal/delivery,
@@ -3108,6 +3122,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot_white,
+/obj/structure/sign/poster/official/random{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3787,6 +3804,11 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"lh" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "lj" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -4444,7 +4466,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "nO" = (
 /obj/structure/cable{
@@ -4668,6 +4690,11 @@
 	icon_state = "darkpurplecorners"
 	},
 /area/mine/outpost/hallway/west)
+"qb" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
+/area/mine/outpost/mechbay)
 "qv" = (
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
@@ -5320,6 +5347,17 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
+"wP" = (
+/obj/machinery/newscaster{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/east)
 "wY" = (
 /obj/item/clothing/mask/gas/clown_hat,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5750,6 +5788,18 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/siberia)
+"AD" = (
+/obj/structure/sign/nanotrasen{
+	pixel_x = -32
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Main Airlock";
+	dir = 4;
+	network = list("Mining Outpost")
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "AE" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -6828,6 +6878,18 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"LS" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Bridge";
+	dir = 8;
+	network = list("Mining Outpost")
+	},
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "Mh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -7032,6 +7094,10 @@
 	icon_state = "darkred"
 	},
 /area/mine/laborcamp/security)
+"OA" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "OE" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7306,8 +7372,6 @@
 /obj/machinery/door/airlock/external/glass{
 	name = "Shuttle Dock"
 	},
-/obj/structure/fans/tiny,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredfull"
@@ -7872,7 +7936,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/structure/sign/kiddieplaque/remembrance{
+/obj/structure/sign/kiddieplaque/remembrance/mining{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -8134,6 +8198,17 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"ZG" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Shuttle";
+	dir = 4;
+	network = list("Mining Outpost")
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/mining)
 "ZK" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away";
@@ -15587,7 +15662,7 @@ aj
 aj
 aj
 aj
-ab
+OA
 aj
 aj
 aj
@@ -16872,7 +16947,7 @@ xC
 Cf
 JX
 Vu
-Vu
+ZG
 xC
 CX
 Hm
@@ -17121,7 +17196,7 @@ ab
 aj
 aj
 aj
-ab
+OA
 hC
 vj
 tb
@@ -19943,7 +20018,7 @@ Am
 fB
 fw
 cO
-SH
+fa
 zn
 fo
 Az
@@ -20733,7 +20808,7 @@ Jn
 dx
 Wi
 ab
-ab
+OA
 AE
 AE
 AE
@@ -22014,7 +22089,7 @@ fH
 gd
 fb
 kq
-mp
+qb
 yR
 eL
 ft
@@ -23020,7 +23095,7 @@ vP
 vP
 AY
 AY
-Ly
+lh
 vP
 aj
 Ej
@@ -23047,7 +23122,7 @@ AE
 AE
 ab
 ab
-ab
+OA
 AE
 AE
 AE
@@ -23055,7 +23130,7 @@ AE
 AE
 AE
 AE
-ab
+OA
 ab
 aj
 aj
@@ -23538,7 +23613,7 @@ vP
 vP
 SD
 Zz
-ef
+LS
 aj
 aj
 bJ
@@ -23558,7 +23633,7 @@ co
 dt
 gd
 AE
-ab
+OA
 ab
 aj
 aj
@@ -24324,7 +24399,7 @@ xS
 uB
 bU
 zy
-xS
+wP
 ea
 gK
 ct
@@ -26630,7 +26705,7 @@ AY
 AY
 Ly
 Ly
-xy
+AD
 Ly
 Ly
 Ly
