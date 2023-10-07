@@ -69,7 +69,7 @@
 	list_reagents = list("nutriment" = 6, "nanomachines" = 10, "vitamin" = 1)
 	tastes = list("bun" = 4, "lettuce" = 2, "sludge" = 1)
 
-/obj/item/reagent_containers/food/snacks/roburger/Initialize(mapload)
+/obj/item/reagent_containers/food/snacks/hamborger/Initialize(mapload)
 	. = ..()
 	message_admins("A [name] has been created at [ADMIN_COORDJMP(src)].")
 
