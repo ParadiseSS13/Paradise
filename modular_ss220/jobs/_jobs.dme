@@ -1,3 +1,13 @@
 #include "_jobs.dm"
 
 #include "code/access.dm"
+#include "code/cards_ids.dm"
+#include "code/jobs.dm"
+#include "code/clothing/engineering_clothing.dm"
+#include "code/clothing/medical_clothing.dm"
+#include "code/clothing/science_clothing.dm"
+#include "code/clothing/security_clothing.dm"
+#include "code/job/engineering_jobs.dm"
+#include "code/job/medical_jobs.dm"
+#include "code/job/science_jobs.dm"
+#include "code/job/security_jobs.dm"
