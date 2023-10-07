@@ -41,3 +41,6 @@
 
 /obj/effect/projectile/muzzle/bullet
 	icon_state = "muzzle_bullet"
+
+/obj/effect/projectile/muzzle/death
+	icon_state = "muzzle_hcult"

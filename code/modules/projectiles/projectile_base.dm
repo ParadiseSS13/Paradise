@@ -108,6 +108,7 @@
 	var/impact_light_intensity = 3
 	var/impact_light_range = 2
 	var/impact_light_color_override
+	var/hitscan_duration = 0.3 SECONDS
 
 /obj/item/projectile/New()
 	return ..()
@@ -437,10 +438,17 @@
 		var/datum/point/point_cache = new (src)
 		point_cache = trajectory.copy_to()
 		store_hitscan_collision(point_cache)
+
 /obj/item/projectile/proc/set_angle_centered(new_angle)
 	set_angle(new_angle)
 	var/list/coordinates = trajectory.return_coordinates()
 	trajectory.set_location(coordinates[1], coordinates[2], coordinates[3]) // Sets the trajectory to the center of the tile it bounced at
+	if(has_been_fired && hitscan && isloc(loc))// Handles hitscan projectiles
+		last_angle_set_hitscan_store = loc
+		var/datum/point_precise/point_cache = new (src)
+		point_cache.initialize_location(coordinates[1], coordinates[2], coordinates[3]) // Take the center of the hitscan collision tile
+		store_hitscan_collision(point_cache)
+	return TRUE
 
 /obj/item/projectile/experience_pressure_difference()
 	return
@@ -488,7 +496,7 @@
 	if(trajectory && beam_index)
 		var/datum/point_precise/point_cache = trajectory.copy_to()
 		beam_segments[beam_index] = point_cache
-	generate_hitscan_tracers(null, null, impacting)
+	generate_hitscan_tracers(null, hitscan_duration, impacting)
 
 /obj/item/projectile/proc/generate_hitscan_tracers(cleanup = TRUE, duration = 3, impacting = TRUE)
 	if(!length(beam_segments))

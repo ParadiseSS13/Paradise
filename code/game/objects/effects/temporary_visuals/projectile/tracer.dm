@@ -6,6 +6,12 @@
 	if(isnull(beam_type))
 		return
 	var/datum/position/midpoint = point_midpoint_points(starting, ending)
+	var/performance_counter
+	for(var/obj/effect/projectile/tracer/counter in midpoint.return_turf())
+		performance_counter++
+	if(performance_counter >= 4)
+		return //Damage still happens, this should stop engineers with looping emitters doing shenanigins that makes the server cry
+
 	var/obj/effect/projectile/tracer/PB = new beam_type
 	if(isnull(light_color_override))
 		light_color_override = color
@@ -86,3 +92,6 @@
 
 /obj/effect/projectile/tracer/sniper
 	icon_state = "sniper"
+
+/obj/effect/projectile/tracer/death
+	icon_state = "hcult"

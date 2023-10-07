@@ -34,6 +34,7 @@
 	damage = 40
 
 /obj/item/projectile/beam/laser/ai_turret
+	damage = 17.5 //Slight loss in damage because hitscan
 	forcedodge = 1
 	hitscan = TRUE
 	muzzle_type = /obj/effect/projectile/muzzle/laser
@@ -54,6 +55,13 @@
 	if(isliving(target))
 		forcedodge = 0 //no peircing after hitting a mob to avoid rooms destroying itself. If someone does monkey chair on AI sat though, I swear to god
 	..()
+
+/obj/item/projectile/beam/laser/ai_turret/heavylaser
+	damage = 35
+	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
+	tracer_type = /obj/effect/projectile/tracer/heavy_laser
+	impact_type = /obj/effect/projectile/impact/heavy_laser
+
 
 /obj/item/projectile/beam/practice
 	name = "practice laser"

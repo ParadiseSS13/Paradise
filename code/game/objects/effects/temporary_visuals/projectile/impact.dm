@@ -47,3 +47,6 @@
 
 /obj/effect/projectile/impact/sniper
 	icon_state = "sniper"
+
+/obj/effect/projectile/impact/death
+	icon_state = "impact_hcult"
