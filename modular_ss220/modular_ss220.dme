@@ -37,6 +37,7 @@
 #include "aesthetics_sounds/_aesthetics_sounds.dme"
 #include "balance/_balance.dme"
 #include "bureaucracy/_bureaucracy.dme"
+#include "closet_picklocking/_closet_picklocking.dme"
 #include "crawl_speed/_crawl_speed.dme"
 #include "cyrillic_fixes/_cyrillic_fixes.dme"
 #include "debug/_debug.dme"
