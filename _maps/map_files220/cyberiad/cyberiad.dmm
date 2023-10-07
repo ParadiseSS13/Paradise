@@ -1006,9 +1006,6 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "afV" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Transfer"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /obj/effect/mapping_helpers/airlock/unres{
@@ -1130,9 +1127,6 @@
 	},
 /area/station/security/brig)
 "agZ" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Transfer"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /obj/effect/mapping_helpers/airlock/unres{
@@ -1145,6 +1139,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/multi_tile/security/glass{
+	name = "Labor Camp Transfer"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -2097,10 +2094,6 @@
 /area/station/security/armory/secure)
 "alo" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "BrigLeft";
-	name = "Brig Foyer Left Entrance"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -2135,15 +2128,15 @@
 /area/station/security/main)
 "alr" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "BrigLeft";
-	name = "Brig Foyer Left Entrance"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/machinery/door/airlock/multi_tile/security/glass{
+	id_tag = "BrigLeft";
+	name = "Brig Foyer Left Entrance"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -2233,22 +2226,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/security/brig)
-"alO" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "BrigRight";
-	name = "Brig Foyer Right Entrance"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Secure Gate";
-	name = "Security Blast Door"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/security/doors,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/station/security/brig)
 "alP" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -2293,6 +2270,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "Processing"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/plasteel,
@@ -3017,7 +2997,7 @@
 	},
 /area/station/security/lobby)
 "anZ" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/camera{
 	pixel_x = 3;
 	pixel_y = -4
@@ -3029,7 +3009,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
 "aoa" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Internal Affairs Office"
 	},
@@ -3043,7 +3023,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
 "aoe" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
@@ -3171,11 +3151,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
 "aoC" = (
-/obj/machinery/door/airlock/security/glass{
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/multi_tile/security/glass{
+	dir = 2;
 	name = "Equipment Storage"
 	},
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/any/security/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -3608,9 +3589,6 @@
 /area/station/security/storage)
 "apT" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Office"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /obj/structure/cable{
 	d1 = 4;
@@ -3727,10 +3705,10 @@
 /area/station/security/warden)
 "aqy" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security{
+/obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/machinery/door/airlock/multi_tile/security/glass{
 	name = "Equipment Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/security/general,
 /turf/simulated/floor/plasteel,
 /area/station/security/storage)
 "aqE" = (
@@ -3871,7 +3849,7 @@
 /turf/space,
 /area/station/engineering/solar/auxstarboard)
 "ara" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/folder{
 	pixel_x = -4
 	},
@@ -4765,7 +4743,9 @@
 /turf/simulated/floor/plating,
 /area/station/security/lobby)
 "auE" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "Processing"
+	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -5274,9 +5254,6 @@
 /area/station/security/prison/cell_block/A)
 "awa" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5285,10 +5262,6 @@
 /area/station/security/prison/cell_block/A)
 "awc" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "BrigEast";
-	name = "Brig East Entrance"
-	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
@@ -5310,13 +5283,14 @@
 /area/station/security/prison/cell_block/A)
 "awf" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Prisoner Processing"
-	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Processing"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "Brig";
+	name = "Prisoner Processing"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -5455,10 +5429,6 @@
 /area/station/medical/virology)
 "awP" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "BrigEast";
-	name = "Brig East Entrance"
-	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
@@ -5470,6 +5440,11 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/machinery/door/airlock/multi_tile/security/glass{
+	dir = 2;
+	id_tag = "BrigEast";
+	name = "Brig East Entrance"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredcorners"
@@ -5689,9 +5664,6 @@
 /area/station/security/prison/cell_block/A)
 "axI" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Brig"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -5704,6 +5676,10 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/machinery/door/airlock/multi_tile/security/glass{
+	dir = 2;
+	name = "Brig"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
 	},
@@ -5782,13 +5758,14 @@
 /area/station/engineering/control)
 "axP" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Prisoner Processing"
-	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Processing"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/machinery/door/airlock/security/glass{
+	id_tag = "Brig";
+	name = "Prisoner Processing"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -6688,7 +6665,9 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
 "aAp" = (
-/turf/simulated/floor/wood,
+/obj/structure/window/basic,
+/obj/effect/turf_decal/siding/black,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/courtroom)
 "aAq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -6789,7 +6768,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
 "aAI" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/pen,
 /obj/machinery/alarm/directional/east,
 /obj/item/paper_bin/nanotrasen,
@@ -6818,7 +6797,7 @@
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "aAN" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/taperecorder,
 /obj/item/megaphone,
 /obj/machinery/button/windowtint/east{
@@ -7259,14 +7238,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aCi" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/pen/multi/gold,
 /obj/item/stamp/magistrate,
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
 "aCj" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/carpet,
 /area/station/legal/magistrate)
@@ -8589,7 +8568,7 @@
 /area/station/legal/courtroom)
 "aGu" = (
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aGy" = (
 /obj/structure/chair/stool{
@@ -8920,6 +8899,7 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
 /obj/item/radio/intercom/directional/west,
+/obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -8937,7 +8917,7 @@
 /area/station/legal/courtroom)
 "aHz" = (
 /obj/structure/chair/office/dark,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aHA" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -8946,47 +8926,44 @@
 /turf/simulated/floor/plating,
 /area/station/legal/courtroom)
 "aHB" = (
-/obj/structure/chair{
-	dir = 8
+/obj/structure/chair/sofa/pew/left{
+	dir = 8;
+	name = "bench of contemplation"
 	},
 /obj/machinery/light/directional/north,
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "blue"
+/obj/structure/platform{
+	dir = 4;
+	anchored = 1
 	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aHC" = (
-/obj/structure/chair{
-	dir = 8
+/obj/structure/chair/sofa/pew/left{
+	dir = 8;
+	name = "bench of contemplation"
 	},
 /obj/machinery/camera{
 	c_tag = "Courtroom Lobby"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aHD" = (
 /obj/structure/chair,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
-	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/courtroom)
 "aHE" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/detective)
 "aHF" = (
-/obj/structure/window/reinforced{
+/obj/machinery/economy/vending/coffee,
+/obj/structure/window/basic{
 	dir = 8
 	},
-/obj/machinery/economy/vending/coffee,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+/obj/effect/turf_decal/siding/black{
+	dir = 8
 	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/courtroom)
 "aHH" = (
 /obj/item/kirbyplants,
@@ -9289,9 +9266,7 @@
 	id = "Magistrate"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/command/magistrate,
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/magistrate)
 "aIO" = (
 /obj/machinery/firealarm/directional/east,
@@ -9335,16 +9310,16 @@
 "aIV" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
-	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "0-8"
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
 "aIW" = (
 /obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aIX" = (
 /obj/structure/table/wood,
@@ -9358,7 +9333,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aIY" = (
 /obj/machinery/door/firedoor,
@@ -9371,33 +9346,34 @@
 /obj/structure/table/wood,
 /obj/item/folder,
 /obj/structure/window/reinforced,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aJb" = (
-/obj/structure/chair{
+/obj/structure/chair/sofa/pew/right{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
+/obj/structure/platform{
 	dir = 4;
-	icon_state = "blue"
+	anchored = 1
 	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aJc" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
+/obj/structure/chair/sofa/pew/left{
 	dir = 8;
-	icon_state = "blue"
+	name = "bench of contemplation"
 	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aJd" = (
-/obj/structure/window/reinforced{
+/obj/structure/window/basic{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+/obj/structure/window/basic,
+/obj/effect/turf_decal/siding/black{
+	dir = 10
 	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/courtroom)
 "aJe" = (
 /obj/structure/table,
@@ -9655,36 +9631,37 @@
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"aKi" = (
+"aKj" = (
+/obj/effect/spawner/random_spawners/blood_often,
 /obj/item/clothing/mask/bandana/skull,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"aKj" = (
-/obj/machinery/status_display/directional/west,
-/turf/simulated/floor/carpet,
-/area/station/legal/courtroom)
-"aKk" = (
-/obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/item/megaphone,
-/turf/simulated/floor/carpet,
-/area/station/legal/courtroom)
 "aKl" = (
-/turf/simulated/floor/carpet,
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/food/drinks/drinkingglass{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_x = 5
+	},
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aKr" = (
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "blue"
+/obj/machinery/ai_status_display/west,
+/obj/item/flag/nt{
+	layer = 3.4
 	},
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aKs" = (
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/lawoffice)
 "aKu" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
+/obj/structure/platform{
+	dir = 1;
+	anchored = 1
 	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aKw" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -9708,9 +9685,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/any/command/magistrate,
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/magistrate)
 "aKy" = (
 /obj/item/kirbyplants,
@@ -10020,16 +9995,25 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aLN" = (
-/obj/structure/sign/poster/official/random/west,
-/obj/machinery/light/directional/west,
-/obj/machinery/camera{
-	c_tag = "Courtroom ";
+/obj/structure/chair/comfy/black{
 	dir = 4
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aLO" = (
-/obj/structure/table/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/red,
+/area/station/legal/courtroom)
+"aLP" = (
+/turf/simulated/wall,
+/area/station/public/sleep)
+"aLQ" = (
+/obj/structure/table/wood/fancy/black,
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
 /obj/machinery/button/windowtint{
@@ -10038,20 +10022,16 @@
 	req_one_access_txt = "74;3";
 	pixel_y = -10
 	},
-/turf/simulated/floor/carpet,
-/area/station/legal/courtroom)
-"aLP" = (
-/turf/simulated/wall,
-/area/station/public/sleep)
-"aLQ" = (
-/obj/structure/chair/comfy/black{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aLR" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/carpet,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aLS" = (
 /obj/effect/decal/warning_stripes/north,
@@ -10069,10 +10049,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "bluecorner"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aLY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10081,10 +10058,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aMa" = (
 /obj/machinery/door/firedoor,
@@ -10102,10 +10076,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bluecorner"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aMd" = (
 /obj/effect/decal/warning_stripes/north,
@@ -10281,7 +10252,7 @@
 	},
 /area/station/command/office/ce)
 "aMO" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/pen,
 /obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -10329,19 +10300,16 @@
 /obj/effect/spawner/window/grilled,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"aNa" = (
-/obj/machinery/ai_status_display/west,
-/turf/simulated/floor/carpet,
-/area/station/legal/courtroom)
 "aNb" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
-	pixel_x = -5
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/item/reagent_containers/glass/beaker/waterbottle{
-	pixel_x = 5
-	},
-/turf/simulated/floor/carpet,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/courtroom)
 "aNc" = (
 /obj/item/radio/intercom/directional/east,
@@ -10486,13 +10454,27 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aNJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
+/obj/structure/sign/poster/official/random/west,
+/obj/structure/statue/themis{
+	pixel_y = 6;
+	layer = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 1
 	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/light/directional/west,
+/obj/machinery/camera{
+	c_tag = "Courtroom";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/goonplaque,
 /area/station/legal/courtroom)
 "aNK" = (
 /obj/machinery/light/directional/west,
@@ -10507,30 +10489,12 @@
 	},
 /area/station/hallway/primary/fore)
 "aNM" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "bluecorner"
-	},
+/obj/effect/turf_decal/siding/black,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/courtroom)
 "aNP" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/station/legal/courtroom)
-"aNS" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/glass{
-	name = "Courtroom"
-	},
-/obj/effect/mapping_helpers/airlock/polarized{
-	id = "Courtroom"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/any/security/general,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aNT" = (
 /obj/machinery/status_display/directional/east,
@@ -10667,7 +10631,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aOy" = (
 /obj/structure/table/wood,
@@ -10675,16 +10639,14 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aOz" = (
-/obj/structure/chair{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/alarm/directional/west,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aOB" = (
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aOC" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
@@ -10918,51 +10880,39 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "aPx" = (
-/obj/machinery/alarm/directional/west,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/window/grilled,
+/turf/simulated/floor/plating,
 /area/station/legal/courtroom)
 "aPA" = (
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "aPB" = (
-/obj/structure/chair{
+/obj/structure/chair/sofa/pew/right{
 	dir = 8
 	},
 /obj/machinery/ai_status_display/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aPC" = (
-/obj/structure/chair{
+/obj/structure/chair/sofa/pew/right{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aPD" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
+/turf/simulated/floor/plasteel/stairs/left,
 /area/station/legal/courtroom)
 "aPE" = (
 /obj/item/radio/intercom/directional/south,
 /obj/machinery/light/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aPF" = (
 /obj/machinery/economy/vending/cola,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aPG" = (
 /obj/machinery/disposal,
@@ -10970,9 +10920,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aPH" = (
 /obj/item/kirbyplants,
@@ -11650,7 +11598,7 @@
 /obj/structure/table,
 /obj/item/storage/box/cups,
 /obj/item/radio/intercom/directional/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aRO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -11663,16 +11611,16 @@
 "aRP" = (
 /obj/machinery/economy/vending/coffee,
 /obj/machinery/light/directional/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aRQ" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aRR" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aRU" = (
 /obj/machinery/door/airlock/external{
@@ -14113,14 +14061,6 @@
 /obj/item/storage/box/characters,
 /turf/simulated/floor/wood,
 /area/station/service/library)
-"baw" = (
-/obj/machinery/power/apc/directional/east,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint)
 "bax" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -19095,10 +19035,10 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/station/command/meeting_room)
 "bvX" = (
-/obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -20642,7 +20582,7 @@
 "bDk" = (
 /obj/item/kirbyplants,
 /obj/machinery/light/directional/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "bDl" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -30616,10 +30556,6 @@
 /area/station/maintenance/asmaint)
 "ctG" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	id_tag = "BrigRight";
-	name = "Brig Foyer Right Entrance"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -30631,6 +30567,10 @@
 	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
+/obj/machinery/door/airlock/multi_tile/security/glass{
+	id_tag = "BrigRight";
+	name = "Brig Foyer Right Entrance"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -38628,7 +38568,7 @@
 /area/station/engineering/hallway)
 "cWl" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "cWm" = (
 /obj/effect/decal/cleanable/dirt,
@@ -48350,10 +48290,11 @@
 /area/station/engineering/atmos/control)
 "eJt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "blue"
+/obj/structure/platform/corner{
+	dir = 8;
+	anchored = 1
 	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "eJI" = (
 /obj/structure/disposalpipe/segment{
@@ -48597,10 +48538,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "eNs" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/fpmaint)
+/obj/structure/table/wood/fancy/black,
+/obj/item/folder/blue,
+/obj/item/megaphone,
+/turf/simulated/floor/carpet/red,
+/area/station/legal/courtroom)
 "eND" = (
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/wood{
@@ -48895,17 +48837,27 @@
 	},
 /area/station/maintenance/aft)
 "eUA" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
-/area/station/legal/courtroom)
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint)
 "eUC" = (
 /obj/structure/morgue,
 /obj/effect/landmark/spawner/rev,
@@ -49269,10 +49221,8 @@
 	},
 /area/station/security/main)
 "fda" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "fdb" = (
 /obj/machinery/door/airlock/command/cap,
@@ -50315,9 +50265,6 @@
 /area/station/engineering/atmos)
 "fxr" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security{
-	name = "Equipment Storage"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
@@ -50803,7 +50750,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "fFC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -50943,7 +50890,6 @@
 /turf/simulated/floor/plating,
 /area/station/service/mime)
 "fIC" = (
-/obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -50955,6 +50901,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/machinery/door/airlock/command,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -51774,10 +51721,10 @@
 	},
 /area/station/engineering/break_room)
 "fZM" = (
-/obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/command,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -53293,12 +53240,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"gCp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/station/legal/courtroom)
 "gCr" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -53388,10 +53329,7 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "gDU" = (
 /obj/structure/disposalpipe/segment,
@@ -56509,14 +56447,14 @@
 	},
 /area/station/command/office/cmo)
 "hGg" = (
-/obj/machinery/door/airlock/command/glass{
-	id_tag = "conference"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "conference"
+	},
+/obj/machinery/door/airlock/command/glass{
+	id_tag = "conference"
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
@@ -62570,9 +62508,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "rampbottom"
-	},
+/turf/simulated/floor/plasteel/stairs/right,
 /area/station/legal/courtroom)
 "kcl" = (
 /obj/machinery/door_control/shutter/north{
@@ -64977,7 +64913,9 @@
 /turf/simulated/floor/carpet/purple,
 /area/station/service/bar)
 "kVw" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "Processing"
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -66205,7 +66143,6 @@
 /turf/simulated/floor/plating,
 /area/station/science/misc_lab)
 "lvd" = (
-/obj/machinery/door/airlock/command,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -66217,6 +66154,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/command,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
@@ -72919,10 +72857,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/command/bridge)
 "nUh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "nUj" = (
 /obj/machinery/button/windowtint/west{
@@ -74013,10 +73948,8 @@
 /turf/simulated/floor/engine,
 /area/station/science/toxins/mixing)
 "opa" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Equipment Storage"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -75069,9 +75002,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Office"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
@@ -75202,7 +75132,9 @@
 	},
 /area/station/public/dorms)
 "oKo" = (
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "Processing"
+	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -75446,9 +75378,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock/command/glass{
-	id_tag = "conference"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/any/command/general,
 /obj/effect/mapping_helpers/airlock/polarized{
@@ -75456,6 +75385,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
+	},
+/obj/machinery/door/airlock/command/glass{
+	id_tag = "conference"
 	},
 /turf/simulated/floor/carpet/black,
 /area/station/command/meeting_room)
@@ -76277,10 +76209,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "blue"
-	},
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "pfF" = (
 /obj/effect/decal/cleanable/dirt,
@@ -77568,13 +77497,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/nw)
 "pBh" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
+/obj/machinery/status_display/directional/west,
+/obj/item/flag/nt{
+	layer = 3.4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "rampbottom"
-	},
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "pBP" = (
 /obj/effect/spawner/random_spawners/grille_often,
@@ -78590,9 +78517,9 @@
 /area/station/maintenance/asmaint)
 "pYd" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 4
+	dir = 1
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "pYZ" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -79268,9 +79195,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/turf_decal/siding/black,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/courtroom)
 "qlE" = (
 /obj/item/restraints/handcuffs/cable/green,
@@ -80649,7 +80575,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "qJx" = (
 /obj/machinery/door/firedoor,
@@ -83703,7 +83629,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "rWA" = (
 /obj/machinery/clonepod/biomass,
@@ -84484,21 +84410,16 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
@@ -86179,9 +86100,6 @@
 /area/station/medical/virology)
 "sPz" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Office"
-	},
 /obj/effect/mapping_helpers/airlock/access/any/security/doors,
 /obj/structure/cable{
 	d1 = 1;
@@ -86200,6 +86118,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/multi_tile/security/glass{
+	name = "Security Office"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "sPF" = (
@@ -91086,17 +91007,20 @@
 /area/station/public/dorms)
 "uCT" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/glass{
+/obj/machinery/door/airlock/lawyer/glass{
 	name = "Courtroom"
 	},
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "Courtroom"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
-/turf/simulated/floor/wood,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/red,
 /area/station/legal/courtroom)
 "uCU" = (
 /obj/structure/closet,
@@ -92016,7 +91940,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "uXy" = (
 /obj/effect/turf_decal/siding/white,
@@ -92454,9 +92378,6 @@
 	icon_state = "1-4"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Office"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -92469,6 +92390,10 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
+/obj/machinery/door/airlock/multi_tile/security/glass{
+	dir = 2;
+	name = "Security Office"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
 	},
@@ -99902,13 +99827,9 @@
 	},
 /area/station/hallway/primary/central/south)
 "xTH" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/station/security/processing)
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/carpet/red,
+/area/station/legal/courtroom)
 "xTJ" = (
 /obj/item/trash/semki,
 /turf/simulated/floor/plating,
@@ -124695,7 +124616,7 @@ aET
 aPt
 aPt
 aIV
-aKc
+aKj
 aLK
 aOr
 dyn
@@ -124951,15 +124872,15 @@ aqI
 biL
 aGp
 aHv
-baw
-aKi
-aPi
+aSu
+aKh
+aLM
 aMZ
-mNX
-eNs
-aMY
-aPi
-xGy
+xha
+jEE
+uJq
+jEE
+eUA
 aMA
 aSA
 aSA
@@ -125209,13 +125130,13 @@ aqI
 aAm
 aAm
 aAm
-aKh
-aLM
-aMZ
-xha
-jEE
-uJq
-jEE
+aEl
+aEl
+aEl
+aOv
+aEl
+aMY
+aPi
 smu
 aQj
 aSA
@@ -125465,14 +125386,14 @@ aDJ
 aqI
 aGr
 aHx
-aAm
+aIW
+pBh
+aNJ
+aKr
+uXd
 aEl
 aEl
-aEl
-aOv
-aEl
-aMY
-aPi
+lQx
 xGy
 aQl
 aSA
@@ -125722,14 +125643,14 @@ aDI
 aAm
 aGq
 aHw
-aIW
-aKj
+aOB
+nUh
 aLN
-aNa
+nUh
 uXd
+aOz
+aGu
 aEl
-aEl
-lQx
 wQO
 aPi
 aSA
@@ -125979,12 +125900,12 @@ ykw
 aBn
 aGs
 aHy
-aAp
-aKl
+aOB
+eNs
 aLQ
 aKl
 uXd
-aPx
+aOB
 aRP
 aEl
 wQO
@@ -126234,14 +126155,14 @@ aCb
 aDL
 ykw
 aFh
-aAp
-aAp
-aAp
-aKk
-aLO
-aNb
+aOB
+aOB
+aOB
+nUh
+nUh
+nUh
 uXd
-aAp
+aOB
 aRM
 aEl
 xGy
@@ -126491,14 +126412,14 @@ miF
 ecT
 bZo
 aFh
-aAp
-aAp
-aKl
-aKl
-aKl
-aKl
+aOB
+aOB
+nUh
+nUh
+xTH
+nUh
 qJg
-aAp
+aOB
 aRR
 aEl
 gZg
@@ -126748,7 +126669,7 @@ aCb
 aDc
 aDL
 aFh
-aAp
+aOB
 aHz
 aIX
 fda
@@ -127008,8 +126929,8 @@ aBn
 aGu
 aHz
 aJa
-gCp
-aKl
+nUh
+aLO
 nUh
 aOy
 aPA
@@ -127265,9 +127186,9 @@ aIl
 aIl
 aHA
 aHA
+aHA
 uCT
 aHA
-aNS
 aHA
 aHA
 aEl
@@ -127521,10 +127442,10 @@ aDi
 aFo
 aIl
 aHC
-aJc
-pBh
-eUA
-aNJ
+aPC
+aOB
+aLY
+aOB
 aJc
 aPC
 aEl
@@ -127782,7 +127703,7 @@ aJb
 eJt
 aLT
 rWy
-aOz
+aJc
 aPB
 aEl
 aGb
@@ -128292,12 +128213,12 @@ aLE
 aFp
 aDe
 aHD
-aDL
+aAp
 aKu
 aLY
 aOB
 aOB
-aPD
+aOB
 hlM
 aPi
 xJn
@@ -128549,8 +128470,8 @@ aCf
 gqq
 aDe
 aHD
-aDL
-aKu
+aNM
+aPD
 gDS
 cWl
 cWl
@@ -128805,12 +128726,12 @@ aCf
 inu
 jBe
 aKx
-qlA
+aNb
 qlA
 kbv
 pfE
-aNM
-aKr
+aOB
+aOB
 aPF
 aEl
 aPi
@@ -129063,12 +128984,12 @@ aEg
 aFt
 aIl
 aEl
-aBn
-aBn
+aPx
+aPx
 aMa
 aNP
-aBn
-aBn
+aPx
+aPx
 aEl
 aad
 lwj
@@ -130075,7 +129996,7 @@ uPX
 ago
 uAG
 akY
-alO
+alo
 aAz
 aAz
 aAz
@@ -134444,7 +134365,7 @@ jLh
 aqX
 pQg
 akx
-xTH
+lSU
 apc
 arE
 tLb
