@@ -1,5 +1,5 @@
 /// take the most recent item out of a slot or place held item in a slot
-/mob/living/carbon/human/proc/smart_equip_targeted(slot_item = slot_belt)
+/mob/living/carbon/human/proc/smart_equip_targeted(slot_item = SLOT_HUD_BELT)
 	var/obj/item/thing = get_active_hand()
 	var/obj/item/item_in_slot = get_item_by_slot(slot_item)
 	var/obj/item/storage/equipped_item

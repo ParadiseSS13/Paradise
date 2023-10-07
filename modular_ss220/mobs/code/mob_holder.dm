@@ -4,7 +4,7 @@
 	lefthand_file = 'modular_ss220/mobs/icons/mob/inhands/mobs_lefthand.dmi'
 	righthand_file = 'modular_ss220/mobs/icons/mob/inhands/mobs_righthand.dmi'
 	origin_tech = "biotech=2"
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 
 /mob/living/simple_animal/attackby(obj/item/O, mob/living/user)
 	if(user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
@@ -51,24 +51,24 @@
 	desc = "It's a tiny plant critter."
 	icon_state = "nymph"
 	origin_tech = "biotech=5"
-	slot_flags = SLOT_HEAD|SLOT_EARS
+	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
 
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
 	icon_state = "pai"
 	origin_tech = "materials=3;programming=4;engineering=4"
-	slot_flags = SLOT_HEAD|SLOT_EARS
+	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
 
 /obj/item/holder/bunny
-	slot_flags = SLOT_HEAD|SLOT_EARS
+	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
 
 /obj/item/holder/mouse
 	name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
 	icon = 'modular_ss220/mobs/icons/mob/animal.dmi'
 	icon_state = "mouse_gray"
-	slot_flags = SLOT_HEAD|SLOT_EARS
+	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
 
 /obj/item/holder/drone
 	name = "maintenance drone"
