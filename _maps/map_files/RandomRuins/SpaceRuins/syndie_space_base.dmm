@@ -1521,6 +1521,9 @@
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/item/rpd{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
