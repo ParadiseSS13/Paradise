@@ -4,6 +4,11 @@
 #define MAX_UNITS_PER_PATCH 30 // Max amount of units in a patch
 #define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
 
+#define CHEMMASTER_MIN_PRODUCTION_MODE 1
+#define CHEMMASTER_MAX_PRODUCTION_MODE 3
+#define CHEMMASTER_PRODUCTION_MODE_PILLS 1
+#define CHEMMASTER_MAX_PILLS 20
+
 #define TRANSFER_TO_DISPOSAL 0
 #define TRANSFER_TO_BEAKER   1
 
@@ -23,7 +28,9 @@
 	var/useramount = 30 // Last used amount
 	var/pillamount = 10
 	var/patchamount = 10
+	var/pillname = ""
 	var/bottlesprite = 1
+	var/production_mode = 1
 	var/pillsprite = 1
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
@@ -237,6 +244,26 @@
 				return
 			var/obj/item/reagent_containers/food/condiment/P = new(loc)
 			reagents.trans_to(P, 50)
+		if("set_production_mode")
+			var/new_mode = text2num(params["mode"])
+			if (new_mode == null)
+				return
+			production_mode = clamp(new_mode, CHEMMASTER_MIN_PRODUCTION_MODE, CHEMMASTER_MAX_PRODUCTION_MODE)
+		if("set_pill_style")
+			var/new_value = text2num(params["newValue"])
+			if (new_value == null)
+				return
+			pillsprite = clamp(new_value, 1, MAX_PILL_SPRITE)
+		if("set_pill_amount")
+			var/new_value = text2num(params["newValue"])
+			if (new_value == null)
+				return
+			pillamount = clamp(new_value, 1, 20)
+		if("set_pill_name")
+			var/new_value = params["newValue"]
+			if (length(new_value) <= 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+				return
+			pillname = new_value
 		else
 			return FALSE
 
@@ -284,6 +311,7 @@
 		data["beaker_reagents"] = list()
 		data["buffer_reagents"] = list()
 
+	data["pillamount"] = pillamount
 	data["pillsprite"] = pillsprite
 	data["bottlesprite"] = bottlesprite
 	data["mode"] = mode
@@ -291,6 +319,24 @@
 
 	// Transfer modal information if there is one
 	data["modal"] = ui_modal_data(src)
+
+	data["max_name_length"] = MAX_CUSTOM_NAME_LEN
+	data["production_mode"] = production_mode
+
+	data["pillname"] = pillname
+
+	switch(mode)
+		if(CHEMMASTER_PRODUCTION_MODE_PILLS)
+			var/amount_per_pill = clamp(reagents.total_volume / pillamount, 0, MAX_UNITS_PER_PILL)
+			data["placeholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
+
+	var/pill_styles[0]
+	for(var/i = 1 to MAX_PILL_SPRITE)
+		pill_styles += list(list(
+			"id" = i,
+			"sprite" = "pill[i].png",
+		))
+	data["pill_styles"] = pill_styles
 
 	return data
 
@@ -573,6 +619,11 @@
 #undef MAX_UNITS_PER_PILL
 #undef MAX_UNITS_PER_PATCH
 #undef MAX_CUSTOM_NAME_LEN
+#undef CHEMMASTER_MAX_PILLS
+
+#undef CHEMMASTER_MIN_PRODUCTION_MODE
+#undef CHEMMASTER_MAX_PRODUCTION_MODE
+#undef CHEMMASTER_PRODUCTION_MODE_PILLS
 
 #undef TRANSFER_TO_DISPOSAL
 #undef TRANSFER_TO_BEAKER

@@ -1,6 +1,6 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, LabeledList, Section } from '../components';
+import { Box, Button, Flex, Icon, Input, LabeledList, Section, Slider, Tabs } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import {
@@ -288,6 +288,47 @@ const ChemMasterProduction = (props, context) => {
 
 const ChemMasterProductionChemical = (props, context) => {
   const { act, data } = useBackend(context);
+  const tabs = [
+    {
+      "name": "Pills",
+      "icon": "pills",
+    },
+    {
+      "name": "Patches",
+      "icon": "plus-square",
+    },
+    {
+      "name": "Bottles",
+      "icon": "wine-bottle",
+    },
+  ];
+  const decideTab = (mode) => {
+    switch (mode) {
+      case 1:
+        return <ChemMasterProductionPills />;
+      case 2:
+        // return <ChemMasterProductionPatches />;
+        break;
+      case 3:
+        // return <ChemMasterProductionBottles />;
+        break;
+      default:
+        return "UNKNOWN INTERFACE";
+    }
+  }
+  return (
+    <>
+      <Tabs>
+        {tabs.map((t, i) => {
+          i += 1;
+          return (
+            <Tabs.Tab key={i} content={t.name} icon={t.icon} selected={data.production_mode === i} onClick={() => act('set_production_mode', { mode: i })} />
+          );
+        })}
+      </Tabs>
+      {decideTab(data.production_mode)}
+    </>
+  );
   return (
     <LabeledList>
       <LabeledList.Item label="Pills">
@@ -363,6 +404,40 @@ const ChemMasterProductionChemical = (props, context) => {
     </LabeledList>
   );
 };
+
+const ChemMasterProductionPills = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    max_name_length,
+    pillamount: quantity,
+    pillname: name,
+    placeholdername,
+    pill_styles
+  } = data;
+  const style_buttons = pill_styles
+    .map(({ id, sprite }) => <Button key={id} selected={data.pillsprite === id} style={{ padding: 0, 'line-height': 0, }} onClick={() => act("set_pill_style", { newValue: id })}>
+        <span style={{ overflow: "hidden", display: 'inline-block', width: '16px', height: '16px', position: 'relative', }}>
+          <img style={{ '-ms-interpolation-mode': 'nearest-neighbor', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', }} src={sprite} />
+        </span>
+      </Button>
+    );
+  return (
+    <LabeledList>
+      <LabeledList.Item label="Style">
+        {style_buttons}
+      </LabeledList.Item>
+      <LabeledList.Item label="Quantity">
+        <Slider value={quantity} minValue={1} maxValue={20} stepPixelSize={20} onChange={(e, value) => act("set_pill_amount", { newValue: value })} />
+      </LabeledList.Item>
+      <LabeledList.Item label="Name">
+        <Input fluid value={name} placeholder={placeholdername ?? "Medicine"} maxLength={max_name_length} onChange={(e, value) => act("set_pill_name", { newValue: value })} />
+      </LabeledList.Item>
+      <LabeledList.Item>
+        <Button fluid content="Create" color="green" />
+      </LabeledList.Item>
+    </LabeledList>
+  );
+}
 
 const ChemMasterProductionCondiment = (props, context) => {
   const { act } = useBackend(context);
