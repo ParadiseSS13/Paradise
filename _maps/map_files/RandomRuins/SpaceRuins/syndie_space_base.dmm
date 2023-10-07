@@ -195,7 +195,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "bg" = (
 /obj/machinery/cryopod/offstation{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -696,7 +696,7 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "dT" = (
 /obj/machinery/cryopod/offstation{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -1258,7 +1258,7 @@
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "gR" = (
 /obj/machinery/cryopod/offstation{
-	dir = 4
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -1900,7 +1900,7 @@
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "kB" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -2256,7 +2256,7 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "mw" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -3058,9 +3058,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "qZ" = (
-/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
-	dir = 8
-	},
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -4661,7 +4659,7 @@
 /area/ruin/unpowered/syndicate_space_base/service)
 "Ah" = (
 /obj/effect/mob_spawn/human/alive/spacebase_syndicate{
-	dir = 8
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -4789,7 +4787,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "AY" = (
 /obj/machinery/cryopod/offstation{
-	dir = 4
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5123,7 +5121,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "CU" = (
 /obj/machinery/cryopod/offstation{
-	dir = 4
+	dir = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -5358,9 +5356,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "EC" = (
-/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
-	dir = 8
-	},
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -8415,7 +8411,7 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "VZ" = (
 /obj/machinery/cryopod/offstation{
-	dir = 4
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -8738,9 +8734,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "XE" = (
-/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
-	dir = 8
-	},
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
