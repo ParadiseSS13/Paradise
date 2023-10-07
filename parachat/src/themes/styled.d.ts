@@ -24,5 +24,6 @@ declare module 'styled-components' {
     font?: string;
     fontScale?: number;
     lineHeight?: number;
+    animationDurationMs?: number;
   }
 }

@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-import { animationDurationMs } from '~/common/animations';
 import { useHeaderSlice } from '~/stores/header';
 
 const SettingsWrapper = styled.div`
   padding: 0 12px;
   cursor: pointer;
   background-color: ${({ theme }) => theme.background[1]};
-  transition-duration: ${animationDurationMs}ms;
+  transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
 
   &:hover {
     background-color: ${({ theme }) => theme.background[2]};

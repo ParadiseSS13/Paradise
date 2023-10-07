@@ -67,6 +67,7 @@ const light: DefaultTheme = {
   .disarm,
   .suicide,
   .rose,
+  .codephrases,
   .cultspeech,
   .cultitalic,
   .cultlarge,

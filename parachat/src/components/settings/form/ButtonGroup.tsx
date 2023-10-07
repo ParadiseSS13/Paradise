@@ -15,6 +15,7 @@ const ButtonGroupWrapper = styled.div`
   ${Button} {
     border-radius: 0;
     color: ${({ theme }) => theme.textDisabled};
+    text-transform: capitalize;
 
     &:hover {
       color: ${({ theme }) => theme.textPrimary};
@@ -27,7 +28,7 @@ const ButtonGroupWrapper = styled.div`
     &.selected {
       cursor: default;
       background-color: ${({ theme }) => theme.background[2]};
-      color: ${({ theme }) => theme.textPrimary};
+      color: ${({ theme }) => theme.primary};
     }
   }
 `;

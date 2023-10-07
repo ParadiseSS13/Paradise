@@ -1,6 +1,5 @@
 import { Transition } from 'react-transition-group';
-import styled, { css } from 'styled-components';
-import { animationDurationMs } from '~/common/animations';
+import styled, { css, useTheme } from 'styled-components';
 import { MessageInfo } from '~/common/types';
 import { OccurenceCounter } from './OccurenceCounter';
 
@@ -68,12 +67,13 @@ export const addHighlight = highlight => {
 const MessageAnimationWrapper = styled.div<{ enter: boolean }>`
   opacity: ${({ enter }) => (enter ? '1' : '0')};
   transform: ${({ enter }) => (enter ? 'translateX(0)' : 'translateX(10px)')};
-  transition: ${animationDurationMs}ms;
+  transition: ${({ theme }) => theme.animationDurationMs}ms;
 `;
 
 const Message = ({ message, show }: MessageProps) => {
+  const theme = useTheme();
   return (
-    <Transition timeout={animationDurationMs} appear in>
+    <Transition timeout={theme.animationDurationMs} appear in>
       {state =>
         show ? (
           <MessageWrapper {...addHighlight(message.highlight)}>

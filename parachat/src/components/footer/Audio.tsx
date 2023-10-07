@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Transition } from 'react-transition-group';
 import styled from 'styled-components';
-import { animationDurationMs } from '~/common/animations';
 import { useAdminSlice } from '~/stores/admin';
 
 const AudioWrapper = styled.div`
@@ -29,7 +28,7 @@ const TextWrapper = styled.span`
     margin-left: 8px;
     color: ${({ theme }) => theme.textSecondary};
     font-weight: bold;
-    transition-duration: ${animationDurationMs}ms;
+    transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
 
     &:hover {
       color: ${({ theme }) => theme.textPrimary};

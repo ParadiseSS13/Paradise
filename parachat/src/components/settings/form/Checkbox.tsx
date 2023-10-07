@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { animationDurationMs } from '~/common/animations';
 
 interface CheckboxProps {
   checked?: boolean;
@@ -14,7 +13,7 @@ const CheckboxWrapper = styled.div<{ checked?: boolean }>`
   border: 1px solid ${({ theme }) => theme.background[1]};
   border-radius: 4px;
   overflow: hidden;
-  transition-duration: ${animationDurationMs}ms;
+  transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
   vertical-align: middle;
 
   &:hover,

@@ -30,16 +30,18 @@ const highlightReplace = (
   let closestLength;
   let offset = 0;
   highlights.forEach(highlight => {
-    if (
-      !highlight.term ||
-      !highlight.term.length ||
-      !highlight.color ||
-      !isValidColor(highlight.color)
-    ) {
+    if (!highlight.term || !highlight.term.length) {
       return;
     }
 
     if (highlight.type === Highlight.LINE && lineHighlight) {
+      return;
+    } else if (
+      highlight.type === Highlight.SIMPLE &&
+      (!highlight.color || !isValidColor(highlight.color))
+    ) {
+      return;
+    } else if (highlight.type === Highlight.CLASSNAME && !highlight.className) {
       return;
     }
 

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { animationDurationMs } from '~/common/animations';
 import { defaultSettings, saveSettings } from '~/common/settings';
 import { SettingsTab } from '~/common/types';
 import { useHeaderSlice } from '~/stores/header';
@@ -16,7 +15,7 @@ const CategoriesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   float: left;
-  width: 20%;
+  width: 25%;
   height: 100%;
   margin-right: 20px;
   border-right: 1px solid ${({ theme }) => theme.background[1]};
@@ -33,7 +32,7 @@ const Category = styled.a<{ selected?: boolean }>`
   padding: 12px;
   padding-left: 32px;
   cursor: pointer;
-  transition-duration: ${animationDurationMs}ms;
+  transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
 
   &:hover {
     background-color: ${({ theme }) => theme.background[2]};
@@ -47,14 +46,14 @@ const Category = styled.a<{ selected?: boolean }>`
     props.selected &&
     css`
       background-color: ${({ theme }) => theme.accent[0]} !important;
-      color: ${({ theme }) => theme.accent[4]};
+      color: ${({ theme }) => theme.primary};
       cursor: default;
     `}
 `;
 
 const ResetButton = styled(Category)<{ confirm?: boolean }>`
   color: ${({ theme }) => theme.textDisabled};
-  transition-duration: ${animationDurationMs}ms;
+  transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
 
   ${props =>
     props.confirm &&

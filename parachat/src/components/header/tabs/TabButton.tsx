@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { animationDurationMs } from '~/common/animations';
 
 interface TabButtonProps {
   active?: boolean;
@@ -12,7 +11,7 @@ const TabWrapper = styled.a<{ active?: boolean }>`
   padding: 0 12px;
   color: ${({ theme }) => theme.textSecondary};
   text-decoration: none;
-  transition-duration: ${animationDurationMs}ms;
+  transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
 
   &:hover {
     background-color: ${({ theme }) => theme.background[2]};

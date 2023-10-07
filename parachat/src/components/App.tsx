@@ -1,7 +1,10 @@
 import { generate } from '@ant-design/colors';
 import styled, { ThemeProvider } from 'styled-components';
+import { animationDurationMs } from '~/common/animations';
 import GlobalStyle from '~/components/GlobalStyle';
 import MessageList from '~/components/MessageList';
+import DebugButton from '~/components/debug/DebugButton';
+import DebugConsole from '~/components/debug/DebugConsole';
 import Audio from '~/components/footer/Audio';
 import Header from '~/components/header/Header';
 import SettingsMenu from '~/components/settings/SettingsMenu';
@@ -22,6 +25,7 @@ const App = () => {
   const fontUrl = useSettingsSlice(state => state.fontUrl);
   const fontScale = useSettingsSlice(state => state.fontScale);
   const lineHeight = useSettingsSlice(state => state.lineHeight);
+  const enableAnimations = useSettingsSlice(state => state.enableAnimations);
   const primary = '#1668dc';
   const curTheme = theme === 'light' ? light : dark;
 
@@ -34,6 +38,7 @@ const App = () => {
         lineHeight,
         primary: primary,
         accent: generate(primary, { theme: curTheme.isDark }),
+        animationDurationMs: enableAnimations ? animationDurationMs : 0,
       }}
     >
       {fontUrl && <style>@import url({fontUrl});</style>}
@@ -43,8 +48,8 @@ const App = () => {
         <Header />
         <MessageList />
         <Audio />
-        {/* <DebugConsole /> */}
-        {/* <DebugButton /> */}
+        <DebugConsole />
+        <DebugButton />
       </AppWrapper>
     </ThemeProvider>
   );

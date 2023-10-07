@@ -79,6 +79,13 @@ const GeneralSettings = () => {
         />
       </Setting>
       <Setting>
+        <Label>Enable animations:</Label>
+        <Checkbox
+          checked={currentSettings.enableAnimations}
+          onChange={checked => write('enableAnimations', checked)}
+        />
+      </Setting>
+      <Setting>
         <Label></Label>
         <Button disabled={hasUnsavedSettings} onClick={save}>
           Save changes

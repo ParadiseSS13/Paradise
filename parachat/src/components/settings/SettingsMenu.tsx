@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Transition } from 'react-transition-group';
-import styled from 'styled-components';
-import { animationDurationMs, fadeIn, slideUp } from '~/common/animations';
+import styled, { useTheme } from 'styled-components';
+import { fadeIn, slideUp } from '~/common/animations';
 import { SettingsTab } from '~/common/types';
 import { useHeaderSlice } from '~/stores/header';
 import Categories from './Categories';
@@ -16,7 +16,7 @@ const Backdrop = styled.div`
   padding: 32px;
   width: 100%;
   height: 100%;
-  transition-duration: ${animationDurationMs}ms;
+  transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
   ${fadeIn.initial};
 `;
 
@@ -27,7 +27,7 @@ const SettingsWrapper = styled.div`
   display: block;
   height: 100%;
   padding: 20px 0;
-  transition-duration: ${animationDurationMs}ms;
+  transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
   ${slideUp.initial};
 `;
 
@@ -47,6 +47,7 @@ const SettingsMenu = () => {
   const [selectedCategory, setSelectedCategory] = useState(SettingsTab.GENERAL);
   const showSettings = useHeaderSlice(state => state.showSettings);
   const setShowSettings = useHeaderSlice(state => state.setShowSettings);
+  const theme = useTheme();
 
   const onCategorySelected = catId => {
     if (catId === selectedCategory) {
@@ -59,7 +60,7 @@ const SettingsMenu = () => {
   return (
     <Transition
       in={showSettings}
-      timeout={animationDurationMs}
+      timeout={theme.animationDurationMs}
       mountOnEnter
       unmountOnExit
     >

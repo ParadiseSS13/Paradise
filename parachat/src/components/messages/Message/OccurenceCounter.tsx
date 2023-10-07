@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Transition } from 'react-transition-group';
-import styled from 'styled-components';
-import { animationDurationMs } from '~/common/animations';
+import styled, { useTheme } from 'styled-components';
 
 interface OccurenceCounterProps {
   num: number;
@@ -18,11 +17,12 @@ const OccurenceCounterWrapper = styled.span<{ entering: boolean }>`
   font-weight: bold;
   font-size: 75%;
   text-align: center;
-  transition: ${animationDurationMs}ms;
+  transition: ${({ theme }) => theme.animationDurationMs}ms;
 `;
 
 export const OccurenceCounter = ({ num }: OccurenceCounterProps) => {
   const [shouldBlink, setShouldBlink] = useState(false);
+  const theme = useTheme();
 
   useEffect(() => {
     setShouldBlink(true);
@@ -31,7 +31,7 @@ export const OccurenceCounter = ({ num }: OccurenceCounterProps) => {
   return (
     <Transition
       in={shouldBlink}
-      timeout={{ enter: animationDurationMs, exit: 0 }}
+      timeout={{ enter: theme.animationDurationMs, exit: 0 }}
       onEntered={() => setShouldBlink(false)}
     >
       {state => (

@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-export const animationDurationMs = 200;
+export const animationDurationMs = 150;
 
 export const fadeIn = {
   initial: css`

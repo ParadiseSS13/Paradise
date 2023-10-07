@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Transition } from 'react-transition-group';
-import styled from 'styled-components';
-import { animationDurationMs, fadeIn } from '~/common/animations';
+import styled, { useTheme } from 'styled-components';
+import { fadeIn } from '~/common/animations';
 import { MessageInfo, MessageType, Tab } from '~/common/types';
 import { useHeaderSlice } from '~/stores/header';
 import { useMessageSlice } from '~/stores/message';
@@ -61,6 +61,7 @@ const MessageList = () => {
   const messages = useMessageSlice(state => state.messages);
   const selectedTab = useHeaderSlice(state => state.selectedTab);
   const refList = useRef(null);
+  const theme = useTheme();
 
   const scrollToBottom = () => {
     refList.current.scrollTop = refList.current.scrollHeight;
@@ -86,7 +87,7 @@ const MessageList = () => {
         );
       }}
     >
-      <Transition timeout={animationDurationMs} in={showScrollToBottom}>
+      <Transition timeout={theme.animationDurationMs} in={showScrollToBottom}>
         {state => (
           <ScrollToBottom
             href="#"

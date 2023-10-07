@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { animationDurationMs } from '~/common/animations';
 
 export const Button = styled.a<{
   disabled?: boolean;
@@ -13,7 +12,7 @@ export const Button = styled.a<{
   border-radius: 4px;
   cursor: pointer;
   user-select: none;
-  transition-duration: ${animationDurationMs}ms;
+  transition-duration: ${({ theme }) => theme.animationDurationMs}ms;
   border: 1px solid transparent;
 
   &:hover {
