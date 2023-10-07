@@ -248,7 +248,7 @@ research holder datum.
 
 /datum/tech/proc/calculate_next_level_cost()
 	// Tune this equation to make points scale harsher or smoother
-	var/mult = ((0.25 * (level ^ 2)) + 0.85) * point_scaling
+	var/mult = ((0.25 * (level ** 2)) + 0.85) * point_scaling
 	current_cost = current_cost * mult
 
 
