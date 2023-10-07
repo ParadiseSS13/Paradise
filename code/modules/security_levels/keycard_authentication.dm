@@ -172,7 +172,7 @@
 	SHOULD_NOT_SLEEP(TRUE) // trigger_armed_response_team sleeps, which can cause issues for procs that call trigger_event(). We want to avoid that
 	switch(event)
 		if("Red Alert")
-			INVOKE_ASYNC(SSsecurity_level, PROC_REF(set_level), SEC_LEVEL_RED)
+			INVOKE_ASYNC(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_RED)
 		if("Grant Emergency Maintenance Access")
 			make_maint_all_access()
 		if("Revoke Emergency Maintenance Access")
