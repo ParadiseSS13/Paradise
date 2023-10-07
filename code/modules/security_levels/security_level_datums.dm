@@ -26,10 +26,10 @@
 	var/status_display_data = ""
 	/// Our announcement title when lowering to this level
 	var/lowering_to_announcement_title = "Not set."
-	/// Our announcement title when elevating to this level
-	var/elevating_to_announcement_title = "Not set."
 	/// Our announcement when lowering to this level
 	var/lowering_to_announcement_text = "Not set."
+	/// Our announcement title when elevating to this level
+	var/elevating_to_announcement_title = "Not set."
 	/// Our announcement when elevating to this level
 	var/elevating_to_announcement_text = "Not set."
 
@@ -64,8 +64,8 @@
 	ai_announcement_sound = 'sound/AI/blue.ogg'
 	color = "dodgerblue"
 	lowering_to_announcement_title = "Attention! Security level lowered to Blue."
-	elevating_to_announcement_title = "Attention! Security level elevated to Blue."
 	lowering_to_announcement_text = "The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed."
+	elevating_to_announcement_title = "Attention! Security level elevated to Blue."
 	elevating_to_announcement_text = "The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible and random searches are permitted."
 
 /**
@@ -82,8 +82,8 @@
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "redalert"
 	lowering_to_announcement_title = "Attention! Code Red!"
-	elevating_to_announcement_title = "Attention! Code Red!"
 	lowering_to_announcement_text = "The station's self-destruct mechanism has been deactivated, but there is still an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
+	elevating_to_announcement_title = "Attention! Code Red!"
 	elevating_to_announcement_text = "There is an immediate and serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
 
 /**
@@ -100,10 +100,10 @@
 	color = "gold"
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "gammaalert"
-	elevating_to_announcement_title = "Attention! Gamma security level activated!"
 	lowering_to_announcement_title = "Attention! Gamma security level activated!"
-	elevating_to_announcement_text = "Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location."
 	lowering_to_announcement_text = "Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location."
+	elevating_to_announcement_text = "Central Command has ordered the Gamma security level on the station. Security is to have weapons equipped at all times, and all civilians are to immediately seek their nearest head for transportation to a secure location."
+	elevating_to_announcement_title = "Attention! Gamma security level activated!"
 
 /**
  * Epsilon
@@ -120,10 +120,10 @@
 	color = "blueviolet"
 	status_display_mode = STATUS_DISPLAY_ALERT
 	status_display_data = "epsilonalert"
-	elevating_to_announcement_title = "Attention! Epsilon security level activated!"
 	lowering_to_announcement_title = "Attention! Epsilon security level activated!"
-	elevating_to_announcement_text = "Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated."
 	lowering_to_announcement_text = "Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated."
+	elevating_to_announcement_title = "Attention! Epsilon security level activated!"
+	elevating_to_announcement_text = "Central Command has ordered the Epsilon security level on the station. Consider all contracts terminated."
 
 /datum/security_level/epsilon/pre_change()
 	sound_to_playing_players_on_station_level(S = sound('sound/effects/powerloss.ogg'))
