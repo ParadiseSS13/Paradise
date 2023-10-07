@@ -29,7 +29,9 @@
 		/obj/effect/ebeam,
 		/obj/effect/spawner,
 		/obj/structure/railing,
-		/obj/machinery/atmospherics/pipe/simple
+		/obj/machinery/atmospherics/pipe/simple,
+		/obj/effect/projectile,
+		/obj/effect/projectile_lighting
 		))
 	var/drop_x = 1
 	var/drop_y = 1
