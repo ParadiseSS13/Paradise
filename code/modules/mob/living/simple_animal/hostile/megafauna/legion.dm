@@ -43,8 +43,8 @@ Difficulty: Medium
 	internal_gps = /obj/item/gps/internal/legion
 	medal_type = BOSS_MEDAL_LEGION
 	score_type = LEGION_SCORE
-	loot = list(/obj/item/staff/storm)
-	crusher_loot = list(/obj/item/staff/storm, /obj/item/crusher_trophy/empowered_legion_skull)
+	loot = list(/obj/item/storm_staff)
+	crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	vision_range = 13
 	elimination = TRUE
 	appearance_flags = 0

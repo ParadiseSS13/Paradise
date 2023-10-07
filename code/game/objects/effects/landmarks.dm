@@ -559,14 +559,14 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	. = ..()
 	new /obj/item/clothing/under/dress/sundress(src.loc)
 	new /obj/item/clothing/head/witchwig(src.loc)
-	new /obj/item/twohanded/staff/broom(src.loc)
+	new /obj/item/staff/broom(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/fakewizard/Initialize(mapload)
 	. = ..()
 	new /obj/item/clothing/suit/wizrobe/fake(src.loc)
 	new /obj/item/clothing/head/wizard/fake(src.loc)
-	new /obj/item/twohanded/staff/(src.loc)
+	new /obj/item/staff/(src.loc)
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/landmark/costume/sexyclown/Initialize(mapload)
@@ -602,6 +602,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	///The mob we use for the spawner
 	var/mobtype = null
 	icon = 'icons/effects/spawner_icons.dmi'
+	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/Initialize(mapload)
 	. = ..()
@@ -610,7 +611,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/mob_spawner/goliath
 	mobtype = /mob/living/simple_animal/hostile/asteroid/goliath/beast
-	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/goliath/Initialize(mapload)
 	if(prob(1))
@@ -619,7 +619,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/mob_spawner/legion
 	mobtype = /mob/living/simple_animal/hostile/asteroid/hivelord/legion
-	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/legion/Initialize(mapload)
 	if(prob(5))
@@ -628,7 +627,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/mob_spawner/watcher
 	mobtype = /mob/living/simple_animal/hostile/asteroid/basilisk/watcher
-	icon_state = "questionmark"
 
 /obj/effect/landmark/mob_spawner/watcher/Initialize(mapload)
 	if(prob(1))
@@ -640,7 +638,17 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 
 /obj/effect/landmark/mob_spawner/goldgrub
 	mobtype = /mob/living/simple_animal/hostile/asteroid/goldgrub
-	icon_state = "questionmark"
+
+/obj/effect/landmark/mob_spawner/gutlunch
+	mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch
+
+/obj/effect/landmark/mob_spawner/gutlunch/Initialize(mapload)
+	if(prob(5))
+		mobtype = /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
+	. = ..()
+
+/obj/effect/landmark/mob_spawner/abandoned_minebot
+	mobtype = /mob/living/simple_animal/hostile/asteroid/abandoned_minebot
 
 // Damage tiles
 /obj/effect/landmark/damageturf

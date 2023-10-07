@@ -49,9 +49,9 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	var/mutable_appearance/marked_underlay
-	var/obj/item/twohanded/kinetic_crusher/hammer_synced
+	var/obj/item/kinetic_crusher/hammer_synced
 
-/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/twohanded/kinetic_crusher/new_hammer_synced)
+/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/kinetic_crusher/new_hammer_synced)
 	. = ..()
 	if(.)
 		hammer_synced = new_hammer_synced
@@ -203,12 +203,12 @@
 			return
 		if(teleports < 6)
 			to_chat(M, "<span class='warning'>You feel a bit sick!</span>")
-			M.vomit(lost_nutrition = 15, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 15, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(2 SECONDS)
 		else
 			to_chat(M, "<span class='danger'>You feel really sick!</span>")
 			M.adjustBruteLoss(rand(0, teleports * 2))
-			M.vomit(lost_nutrition = 30, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 30, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(6 SECONDS)
 
 /datum/status_effect/pacifism
@@ -294,10 +294,6 @@
 /datum/status_effect/cling_tentacle/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_IMMOBILIZED, "[id]")
 
-/datum/status_effect/cling_tentacle/batterer
-	id = "cling_tentacle_batterer"
-	alert_type = null
-	duration = 7 SECONDS
 // start of `living` level status procs.
 
 /**
@@ -852,6 +848,7 @@
 #define FAKE_FOOD_POISONING 2
 #define FAKE_RETRO_VIRUS 3
 #define FAKE_TURBERCULOSIS 4
+#define FAKE_BRAINROT 5
 
 /datum/status_effect/fake_virus
 	id = "fake_virus"
@@ -869,7 +866,7 @@
 	var/list/fake_emote
 
 /datum/status_effect/fake_virus/on_creation()
-	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS)
+	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS, FAKE_BRAINROT)
 	switch(current_fake_disease)
 		if(FAKE_COLD)
 			fake_msg = list(
@@ -899,7 +896,12 @@
 						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
 						list("<span class='danger'>Your entire body vibrates.</span>")
 			)
-		else
+			fake_emote = list(
+						list(),
+						list(),
+						list()
+			)
+		if(FAKE_TURBERCULOSIS)
 			fake_msg = list(
 						list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>"),
 						list("<span class='danger'>You feel a sharp pain from your lower chest!</span>", "<span class='danger'>You feel air escape from your lungs painfully.</span>"),
@@ -909,6 +911,17 @@
 						list("cough"),
 						list("gasp"),
 						list()
+			)
+		else // FAKE_BRAINROT
+			fake_msg = list(
+						list("<span class='danger'>You don't feel like yourself.</span>"),
+						list("<span class='danger'>Your try to remember something important...but can't.</span>"),
+						list("<span class='danger'>Strange buzzing fills your head, removing all thoughts.</span>")
+			)
+			fake_emote = list(
+						list("blink", "yawn"),
+						list("stare", "drool"),
+						list("stare", "drool")
 			)
 	. = ..()
 
@@ -945,6 +958,7 @@
 #undef FAKE_FOOD_POISONING
 #undef FAKE_RETRO_VIRUS
 #undef FAKE_TURBERCULOSIS
+#undef FAKE_BRAINROT
 
 /datum/status_effect/cryo_beam
 	id = "cryo beam"

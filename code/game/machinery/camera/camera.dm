@@ -70,7 +70,7 @@
 	GLOB.cameranet.cameras -= src
 	if(isarea(get_area(src)))
 		LAZYREMOVE(get_area(src).cameras, UID())
-	var/area/ai_monitored/A = get_area(src)
+	var/area/station/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
 	area_motion = null
@@ -98,7 +98,7 @@
 				network = list()
 				stat |= EMPED
 				turn_off(null, FALSE, TRUE)
-			addtimer(CALLBACK(src, PROC_REF(reactivate_after_emp)), 90 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+				addtimer(CALLBACK(src, PROC_REF(reactivate_after_emp)), (90 / severity) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 			..()
 
 /obj/machinery/camera/proc/reactivate_after_emp()

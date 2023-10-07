@@ -40,7 +40,10 @@ export const Smartfridge = (props, context) => {
         <Section title="Contents">
           {!contents && <Box color="average"> No products loaded. </Box>}
           {!!contents &&
-            contents.map((item) => {
+            contents
+            .slice()
+            .sort((a, b) => a.display_name.localeCompare(b.display_name))
+            .map((item) => {
               return (
                 <Flex direction="row" key={item}>
                   <Flex.Item width="45%">{item.display_name}</Flex.Item>

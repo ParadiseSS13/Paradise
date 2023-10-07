@@ -258,7 +258,7 @@
 				/obj/item/clothing/glasses/chameleon/thermal,
 				/obj/item/borg/upgrade/modkit/indoors,
 				/obj/item/storage/box/syndie_kit/chameleon,
-				/obj/item/storage/box/syndie_kit/hardsuit,
+				/obj/item/storage/box/syndie_kit/modsuit,
 				/obj/item/implanter/storage,
 				/obj/item/toy/syndicateballoon)
 			var/selected_item = pick(traitor_items)
@@ -283,14 +283,15 @@
 
 			H.equipOutfit(/datum/outfit/butler)
 			var/datum/mind/servant_mind = new /datum/mind()
+
 			var/datum/objective/O = new
-			O.owner = servant_mind
 			O.target = user.mind
 			O.explanation_text = "Serve [user.real_name]."
-			servant_mind.objectives += O
+			servant_mind.add_mind_objective(O)
+
 			servant_mind.transfer_to(H)
 
-			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the servant of [user.real_name]?", ROLE_WIZARD, poll_time = 30 SECONDS, source = H)
+			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the servant of [user.real_name]?", poll_time = 30 SECONDS, source = H)
 			if(length(candidates) && !QDELETED(H))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")

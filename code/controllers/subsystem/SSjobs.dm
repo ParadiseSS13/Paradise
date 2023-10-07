@@ -74,6 +74,8 @@ SUBSYSTEM_DEF(jobs)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return FALSE
+		if(job.job_banned_gamemode)
+			return FALSE
 		if(jobban_isbanned(player, rank))
 			return FALSE
 		if(!job.player_old_enough(player.client))
@@ -85,12 +87,10 @@ SUBSYSTEM_DEF(jobs)
 		if(job.barred_by_missing_limbs(player.client))
 			return FALSE
 
-		var/position_limit = job.total_positions
-		if(!latejoin)
-			position_limit = job.spawn_positions
+		var/available = latejoin ? job.is_position_available() : job.is_spawn_position_available()
 
-		if((job.current_positions < position_limit) || position_limit == -1)
-			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JPL:[position_limit]")
+		if(available)
+			Debug("Player: [player] is now Rank: [rank], JCP:[job.current_positions], JTP:[job.total_positions], JSP:[job.spawn_positions]")
 			player.mind.assigned_role = rank
 			player.mind.role_alt_title = GetPlayerAltTitle(player, rank)
 
@@ -101,17 +101,25 @@ SUBSYSTEM_DEF(jobs)
 
 			unassigned -= player
 			job.current_positions++
+			SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (latejoin ? "latejoin" : "roundstart")))
 			return 1
 
 	Debug("AR has failed, Player: [player], Rank: [rank]")
 	return 0
 
-/datum/controller/subsystem/jobs/proc/FreeRole(rank)	//making additional slot on the fly
+/datum/controller/subsystem/jobs/proc/FreeRole(rank, force = FALSE)	//making additional slot on the fly
 	var/datum/job/job = GetJob(rank)
-	if(job && job.current_positions >= job.total_positions && job.total_positions != -1)
+	if(!job)
+		return FALSE
+	if(job.job_banned_gamemode)
+		if(!force)
+			return FALSE
+		job.job_banned_gamemode = FALSE // If admins want to force it, they can reopen banned job slots
+
+	if(job.current_positions >= job.total_positions && job.total_positions != -1)
 		job.total_positions++
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /datum/controller/subsystem/jobs/proc/FindOccupationCandidates(datum/job/job, level, flag)
 	Debug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
@@ -275,7 +283,8 @@ SUBSYSTEM_DEF(jobs)
 	var/watch = start_watch()
 	//Setup new player list and get the jobs list
 	Debug("Running DO")
-	SetupOccupations()
+	if(!length(occupations))
+		SetupOccupations()
 
 	//Holder for Triumvirate is stored in the ticker, this just processes it
 	if(SSticker)
@@ -368,7 +377,7 @@ SUBSYSTEM_DEF(jobs)
 				if(player.client.prefs.active_character.GetJobDepartment(job, level) & job.flag)
 
 					// If the job isn't filled
-					if((job.current_positions < job.spawn_positions) || job.spawn_positions == -1)
+					if(job.is_spawn_position_available())
 						Debug("DO pass, Player: [player], Level:[level], Job:[job.title]")
 						Debug(" - Job Flag: [job.flag] Job Department: [player.client.prefs.active_character.GetJobDepartment(job, level)] Job Current Pos: [job.current_positions] Job Spawn Positions = [job.spawn_positions]")
 						AssignRole(player, job.title)
@@ -407,7 +416,7 @@ SUBSYSTEM_DEF(jobs)
 	log_debug("Dividing Occupations took [stop_watch(watch)]s")
 	return TRUE
 
-/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE, log_to_db = TRUE)
+/datum/controller/subsystem/jobs/proc/AssignRank(mob/living/carbon/human/H, rank, joined_late = FALSE)
 	if(!H)
 		return null
 	var/datum/job/job = GetJob(rank)
@@ -422,35 +431,34 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 
-	to_chat(H, "<center><br><br><span class='green'>----------------</span>")
-	to_chat(H, "<center><b>Your role on the station is: [alt_title ? alt_title : rank].<br></b></center>")
-	to_chat(H, "<center><b>You answer directly to [job.supervisors]. Special circumstances may change this.</b></center>")
-	to_chat(H, "<center><b>For more information on how the station works, see <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure\">Standard Operating Procedure (SOP)</a>.</b></center>")
-	if(job.is_service)
-		to_chat(H, "<center><b>As a member of Service, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Service&#41\">Department SOP</a></b>.</center>")
-	if(job.is_supply)
-		to_chat(H, "<center><b>As a member of Supply, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Supply&#41\">Department SOP</a></b>.</center>")
-	if(job.is_command)
-		to_chat(H, "<center><b>As an important member of Command, read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Command&#41\">Department SOP</a></b>.</center>")
-	if(job.is_legal)
-		to_chat(H, "<center><b>Your job requires complete knowledge of <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a> and <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a></b>.</center>")
-	if(job.is_engineering)
-		to_chat(H, "<center><b>As a member of Engineering, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Engineering&#41\">Department SOP</a></b>.</center>")
-	if(job.is_medical)
-		to_chat(H, "<center><b>As a member of Medbay, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Medical&#41\">Department SOP</a></b>.</center>")
-	if(job.is_science)
-		to_chat(H, "<center><b>As a member of Science, make sure to read up on your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Science&#41\">Department SOP</a></b>.</center>")
-	if(job.is_security)
-		to_chat(H, "<center><b>As a member of Security, you are to know <a href=\"https://www.paradisestation.org/wiki/index.php/Space_law\">Space Law</a>, <a href=\"https://www.paradisestation.org/wiki/index.php/Legal_Standard_Operating_Procedure\">Legal Standard Operating Procedure</a>, as well as your <a href=\"https://www.paradisestation.org/wiki/index.php/Standard_Operating_Procedure_&#40;Security&#41\">Department SOP</a>.</b></center>")
+	var/list/L = list("<br><br><center><span class='green'>----------------</span>")
+	L.Add("<b>Your role on the station is: [alt_title ? alt_title : rank].")
+	L.Add("You answer directly to [job.supervisors]. Special circumstances may change this.")
+	L.Add("For more information on how the station works, see [wiki_link("Standard_Operating_Procedure", "Standard Operating Procedure (SOP)")].")
+	if(job.job_department_flags & DEP_FLAG_SERVICE)
+		L.Add("As a member of Service, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Service)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_SUPPLY)
+		L.Add("As a member of Supply, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Supply)", "Department SOP")].")
+	if(job.job_department_flags == DEP_FLAG_COMMAND) // Check if theyre only command, like captain/hop/bs/ntrep, to not spam their chatbox
+		L.Add("As an important member of Command, read up on your [wiki_link("Standard_Operating_Procedure_(Command)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_LEGAL)
+		L.Add("Your job requires complete knowledge of [wiki_link("Space Law", "Space Law")] and [wiki_link("Legal_Standard_Operating_Procedure", "Legal Standard Operating Procedure")].")
+	if(job.job_department_flags & DEP_FLAG_ENGINEERING)
+		L.Add("As a member of Engineering, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Engineering)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_MEDICAL)
+		L.Add("As a member of Medbay, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Medical)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_SCIENCE) // geneticist gets both, yeah sure why not
+		L.Add("As a member of Science, make sure to read up on your [wiki_link("Standard_Operating_Procedure_(Science)", "Department SOP")].")
+	if(job.job_department_flags & DEP_FLAG_SECURITY)
+		L.Add("As a member of Security, you are to know [wiki_link("Space Law", "Space Law")] and [wiki_link("Legal_Standard_Operating_Procedure", "Legal Standard Operating Procedure")], as well as your [wiki_link("Standard_Operating_Procedure_(Security)", "Department SOP")].")
 	if(job.req_admin_notify)
-		to_chat(H, "<center><b>You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.</b></center>")
-	to_chat(H, "<br><b><center>If you need help, check the <a href=\"https://paradisestation.org/wiki/index.php/Main_Page\">wiki</a> or use Mentorhelp(F1)!</b></center>")
+		L.Add("You are playing a job that is important for the game progression. If you have to disconnect, please go to cryo and inform command. If you are unable to do so, please notify the admins via adminhelp.")
+	L.Add("<br>If you need help, check the [wiki_link("Main_Page", "wiki")] or use Mentorhelp(F1)!</b>")
 	if(job.important_information)
-		to_chat(H, "<center><div class='userdanger' style='width: 80%'>[job.important_information]</div></center>")
-	to_chat(H, "<center><span class='green'>----------------</span><br><br></center>")
+		L.Add("</b><span class='userdanger' style='width: 80%'>[job.important_information]</span>")
+	L.Add("<span class='green'>----------------</span></center><br><br>")
 
-	if(log_to_db)
-		SSblackbox.record_feedback("nested tally", "manifest", 1, list(rank, (joined_late ? "latejoin" : "roundstart")))
+	to_chat(H, L.Join("<br>"))
 
 	return H
 
@@ -508,12 +516,11 @@ SUBSYSTEM_DEF(jobs)
 
 		//Gives glasses to the vision impaired
 		if(HAS_TRAIT(H, TRAIT_NEARSIGHT))
-			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), slot_glasses)
+			var/equipped = H.equip_to_slot_or_del(new /obj/item/clothing/glasses/regular(H), SLOT_HUD_GLASSES)
 			if(equipped != 1)
 				var/obj/item/clothing/glasses/G = H.glasses
 				if(istype(G) && !G.prescription)
-					G.prescription = TRUE
-					G.name = "prescription [G.name]"
+					G.upgrade_prescription()
 					H.update_nearsighted_effects()
 
 	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
@@ -534,6 +541,7 @@ SUBSYSTEM_DEF(jobs)
 		// Key: name | Value: Amount
 		var/datum/job/J = GetJob(job)
 		if(!J)
+			stack_trace("`[job]` not found while setting max slots. Check for misspellings or alternate titles")
 			continue
 		J.total_positions = text2num(joblist[job])
 		J.spawn_positions = text2num(joblist[job])
@@ -593,11 +601,7 @@ SUBSYSTEM_DEF(jobs)
 	for(var/datum/job_objective/objective as anything in H.mind.job_objectives)
 		objective.owner_account = account
 
-	var/remembered_info = ""
-	remembered_info += "<b>Your account number is:</b> #[account.account_number]<br>"
-	remembered_info += "<b>Your account pin is:</b> [account.account_pin]<br>"
-
-	H.mind.store_memory(remembered_info)
+	H.mind.store_memory("<b>Your account number is:</b> #[account.account_number]<br><b>Your account pin is:</b> [account.account_pin]")
 	H.mind.set_initial_account(account)
 
 	to_chat(H, "<span class='boldnotice'>As an employee of Nanotrasen you will receive a paycheck of $[account.payday_amount] credits every 30 minutes</span>")
@@ -625,7 +629,7 @@ SUBSYSTEM_DEF(jobs)
 /datum/controller/subsystem/jobs/proc/announce_department_accounts(users_departments, mob/living/H, datum/job/job)
 	var/remembered_info = ""
 	for(var/datum/station_department/department as anything in users_departments)
-		if(job.title != department.head_of_staff && job.title != "Quartermaster")
+		if(job.title != department.head_of_staff)
 			continue
 		var/datum/money_account/department_account = department.department_account
 		if(!department_account)
@@ -819,11 +823,24 @@ SUBSYSTEM_DEF(jobs)
 			else if(C.mob.mind.assigned_role)
 				myrole = C.mob.mind.assigned_role
 
-		var/added_living = 0
-		var/added_ghost = 0
+		// Track all the added ammounts for a mega update query
+		var/list/added_differential = list(
+			EXP_TYPE_LIVING = 0,
+			EXP_TYPE_CREW = 0,
+			EXP_TYPE_SPECIAL = 0,
+			EXP_TYPE_GHOST = 0,
+			EXP_TYPE_COMMAND = 0,
+			EXP_TYPE_ENGINEERING = 0,
+			EXP_TYPE_MEDICAL = 0,
+			EXP_TYPE_SCIENCE = 0,
+			EXP_TYPE_SUPPLY = 0,
+			EXP_TYPE_SECURITY = 0,
+			EXP_TYPE_SILICON = 0,
+			EXP_TYPE_SERVICE = 0
+		)
 		if(C.mob.stat == CONSCIOUS && myrole)
 			play_records[C.ckey][EXP_TYPE_LIVING] += minutes
-			added_living += minutes
+			added_differential[EXP_TYPE_LIVING] += minutes
 
 			if(announce)
 				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
@@ -832,6 +849,7 @@ SUBSYSTEM_DEF(jobs)
 				if(GLOB.exp_jobsmap[category]["titles"])
 					if(myrole in GLOB.exp_jobsmap[category]["titles"])
 						play_records[C.ckey][category] += minutes
+						added_differential[category] += minutes
 						if(announce)
 							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
 
@@ -842,7 +860,7 @@ SUBSYSTEM_DEF(jobs)
 
 		else if(isobserver(C.mob))
 			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
-			added_ghost += minutes
+			added_differential[EXP_TYPE_GHOST] += minutes
 			if(announce)
 				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
 		else
@@ -862,14 +880,25 @@ SUBSYSTEM_DEF(jobs)
 
 		player_update_queries += update_query
 
+		// This gets hellish
 		var/datum/db_query/update_query_history = SSdbcore.NewQuery({"
-			INSERT INTO playtime_history (ckey, date, time_living, time_ghost)
-			VALUES (:ckey, CURDATE(), :addedliving, :addedghost)
-			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_ghost=time_ghost + VALUES(time_ghost)"},
+			INSERT INTO playtime_history (ckey, date, time_living, time_crew, time_special, time_ghost, time_command, time_engineering, time_medical, time_science, time_supply, time_security, time_silicon, time_service)
+			VALUES (:ckey, CURDATE(), :addedliving, :addedcrew, :addedspecial, :addedghost, :addedcommand, :addedengineering, :addedmedical, :addedscience, :addedsupply, :addedsecurity, :addedsilicon, :addedservice)
+			ON DUPLICATE KEY UPDATE time_living=time_living + VALUES(time_living), time_crew=time_crew + VALUES(time_crew), time_crew=time_special + VALUES(time_special), time_ghost=time_ghost + VALUES(time_ghost), time_command=time_command + VALUES(time_command), time_engineering=time_engineering + VALUES(time_engineering), time_medical=time_medical + VALUES(time_medical), time_science=time_science + VALUES(time_science), time_supply=time_supply + VALUES(time_supply), time_security=time_security + VALUES(time_security), time_silicon=time_silicon + VALUES(time_silicon), time_service=time_service + VALUES(time_service)"},
 			list(
 				"ckey" = C.ckey,
-				"addedliving" = added_living,
-				"addedghost" = added_ghost
+				"addedliving" = added_differential[EXP_TYPE_LIVING],
+				"addedcrew" = added_differential[EXP_TYPE_CREW],
+				"addedspecial" = added_differential[EXP_TYPE_SPECIAL],
+				"addedghost" = added_differential[EXP_TYPE_GHOST],
+				"addedcommand" = added_differential[EXP_TYPE_COMMAND],
+				"addedengineering" = added_differential[EXP_TYPE_ENGINEERING],
+				"addedmedical" = added_differential[EXP_TYPE_MEDICAL],
+				"addedscience" = added_differential[EXP_TYPE_SCIENCE],
+				"addedsupply" = added_differential[EXP_TYPE_SUPPLY],
+				"addedsecurity" = added_differential[EXP_TYPE_SECURITY],
+				"addedsilicon" = added_differential[EXP_TYPE_SILICON],
+				"addedservice" = added_differential[EXP_TYPE_SERVICE]
 			)
 		)
 

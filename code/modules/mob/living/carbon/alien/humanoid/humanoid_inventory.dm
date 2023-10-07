@@ -28,7 +28,7 @@
 		switch(slot_id)
 //			if("o_clothing")
 //			if("head")
-			if(slot_l_store)
+			if(SLOT_HUD_LEFT_STORE)
 				if(l_store)
 					return
 				if(W.w_class > WEIGHT_CLASS_NORMAL)
@@ -36,7 +36,7 @@
 				unEquip(W)
 				l_store = W
 				update_inv_pockets()
-			if(slot_r_store)
+			if(SLOT_HUD_RIGHT_STORE)
 				if(r_store)
 					return
 				if(W.w_class > WEIGHT_CLASS_NORMAL)
@@ -46,11 +46,11 @@
 				update_inv_pockets()
 	else
 		switch(slot_id)
-			if(slot_wear_suit)
+			if(SLOT_HUD_OUTER_SUIT)
 				if(wear_suit)	wear_suit.attack_alien(src)
-			if(slot_head)
+			if(SLOT_HUD_HEAD)
 				if(head)		head.attack_alien(src)
-			if(slot_l_store)
+			if(SLOT_HUD_LEFT_STORE)
 				if(l_store)		l_store.attack_alien(src)
-			if(slot_r_store)
+			if(SLOT_HUD_RIGHT_STORE)
 				if(r_store)		r_store.attack_alien(src)

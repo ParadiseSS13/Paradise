@@ -64,7 +64,7 @@
 			capitalize = 0
 		scrambled_text += next
 		var/chance = rand(100)
-		if(join_override)
+		if(!isnull(join_override))
 			scrambled_text += join_override
 		else if(chance <= 5)
 			scrambled_text += ". "
@@ -274,7 +274,13 @@
 	colour = "trinary"
 	key = "5"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("02011","01222","10100","10210","21012","02011","21200","1002","2001","0002","0012","0012","000","120","121","201","220","10","11","0")
+	syllables = list("0", "1", "2")
+	space_chance = 0
+	join_override = ""
+
+/datum/language/trinary/scramble(input)
+	. = ..(copytext(input, 1, max(length(input) / 4, 2)))
+
 
 /datum/language/trinary/get_random_name()
 	var/new_name
@@ -296,11 +302,15 @@
 	syllables = list("click","clack")
 
 /datum/language/kidan/get_random_name()
-	var/new_name = "[pick(list("Vrax", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx"))]"
-	new_name += ", "
-	new_name += "[pick(list("Noble", "Worker", "Scout", "Builder", "Farmer", "Gatherer", "Soldier", "Guard", "Prospector"))]"
-	new_name += " of Clan "
-	new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax"))]"	//I ran out of ideas after the first two tbh -_-
+	var/new_name = "[pick(list("Vrax", "Krek", "Krekk", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx", "Vrik", "Vrek", "Krax", "Varak", "Zavak", "Vrexx", "Drevk", "Krik", "Karak", "Krexx", "Zrax", "Zrexx", "Zrek", "Verk", "Drek", "Drikk", "Zvik", "Vzik", "Kviz", "Vrizk", "Vrizzk", "Krix", "Krixx", "Zark", "Xark", "Xarkk", "Xerx", "Xarak", "Karax", "Varak", "Vazak", "Vazzak", "Zirk", "Krak", "Xakk", "Zakk", "Vekk"))]"
+	if(prob(67))
+		if(prob(50))
+			new_name += ", "
+			new_name += "[pick(list("Noble", "Worker", "Scout", "Carpenter", "Farmer", "Gatherer", "Soldier", "Guard", "Miner", "Priest", "Merchant", "Crafter", "Alchemist", "Historian", "Hunter", "Scholar", "Caretaker", "Artist", "Bard", "Blacksmith", "Brewer", "Mason", "Baker", "Prospector", "Laborer", "Hauler", "Servant"))]"
+			new_name += " of Clan "
+		else
+			new_name += " "
+		new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan"))]"
 	return new_name
 
 
@@ -332,7 +342,7 @@
 	exclaim_verbs = list("imparts")
 	colour = "abductor"
 	key = "^"
-	flags = RESTRICTED | HIVEMIND
+	flags = RESTRICTED | HIVEMIND | NOLIBRARIAN
 	follow = TRUE
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
@@ -489,7 +499,7 @@
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
 	key = "6"
-	flags = RESTRICTED
+	flags = RESTRICTED | NOLIBRARIAN
 	syllables = list("sss","sSs","SSS")
 
 /datum/language/xenos
@@ -643,7 +653,7 @@
 	ask_verb = "queries"
 	exclaim_verbs = list("declares")
 	key = "]"
-	flags = RESTRICTED
+	flags = RESTRICTED | NOLIBRARIAN
 	follow = TRUE
 	syllables = list ("beep", "boop")
 

@@ -5,7 +5,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	anchored = TRUE
 	var/list/elements
-	var/floor_type = /turf/simulated/floor/vault
+	var/floor_type = /turf/simulated/floor/vault/lavaland_air
 	var/finished = FALSE
 	var/reward_type = /obj/item/reagent_containers/food/snacks/cookie
 	var/element_type = /obj/structure/puzzle_element
@@ -171,7 +171,7 @@
 	//Setup random empty tile
 	empty_tile_id = pick_n_take(left_ids)
 	var/turf/empty_tile_turf = get_turf_for_id(empty_tile_id)
-	empty_tile_turf.ChangeTurf(floor_type, keep_icon = FALSE, ignore_air = FALSE)
+	empty_tile_turf.ChangeTurf(floor_type, keep_icon = FALSE, ignore_air = TRUE)
 	var/mutable_appearance/MA = new(puzzle_pieces["[empty_tile_id]"])
 	MA.layer = empty_tile_turf.layer + 0.1
 	empty_tile_turf.add_overlay(MA)
@@ -180,7 +180,7 @@
 	var/list/empty_spots = left_ids.Copy()
 	for(var/spot_id in empty_spots)
 		var/turf/T = get_turf_for_id(spot_id)
-		T = T.ChangeTurf(floor_type, keep_icon = FALSE, ignore_air = FALSE)
+		T = T.ChangeTurf(floor_type, keep_icon = FALSE, ignore_air = TRUE)
 		var/obj/structure/puzzle_element/E = new element_type(T)
 		elements += E
 		var/chosen_id = pick_n_take(left_ids)
@@ -254,7 +254,7 @@
 
 //Ruin version
 /obj/effect/sliding_puzzle/lavaland
-	reward_type = /obj/structure/closet/crate/necropolis/puzzle
+	reward_type = /obj/structure/closet/crate/necropolis/tendril
 
 /obj/effect/sliding_puzzle/lavaland/dispense_reward()
 	if(prob(25))

@@ -1,7 +1,3 @@
-/mob/living
-	var/canEnterVentWith = "/obj/item/implant=0&/obj/item/clothing/mask/facehugger=0&/obj/item/radio/borg=0&/obj/machinery/camera=0"
-	var/datum/middleClickOverride/middleClickOverride = null
-
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
@@ -9,7 +5,7 @@
 /mob/living/carbon/Destroy()
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
-		unEquip(item)
+		unEquip(item, silent = TRUE)
 		qdel(item)
 	QDEL_LIST_CONTENTS(internal_organs)
 	QDEL_LIST_CONTENTS(stomach_contents)
@@ -94,21 +90,25 @@
 	return FALSE
 
 
-/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, stun = 1, distance = 0, message = 1)
+/mob/living/carbon/proc/vomit(lost_nutrition = 10, blood = 0, should_confuse = TRUE, distance = 0, message = 1)
 	. = TRUE
 
 	if(stat == DEAD || ismachineperson(src)) // Dead people and IPCs do not vomit particulates
 		return FALSE
 
-	if(stun)
-		Stun(8 SECONDS)
+	if(should_confuse)
+		if(blood)
+			KnockDown(10 SECONDS)
+		AdjustConfused(8 SECONDS)
+		Slowed(8 SECONDS, 1)
 
 	if(!blood && nutrition < 100) // Nutrition vomiting while already starving
 		if(message)
 			visible_message("<span class='warning'>[src] dry heaves!</span>", \
 							"<span class='userdanger'>You try to throw up, but there's nothing in your stomach!</span>")
-		if(stun)
-			Weaken(20 SECONDS)
+		if(should_confuse)
+			KnockDown(20 SECONDS)
+			AdjustConfused(20 SECONDS)
 		return
 
 	if(message)
@@ -121,13 +121,13 @@
 		if(blood)
 			if(T)
 				add_splatter_floor(T)
-			if(stun)
+			if(should_confuse)
 				adjustBruteLoss(3)
 		else
 			if(T)
 				T.add_vomit_floor()
 			adjust_nutrition(-lost_nutrition)
-			if(stun)
+			if(should_confuse)
 				adjustToxLoss(-3)
 
 		T = get_step(T, dir)
@@ -187,19 +187,10 @@
 		KnockDown(6 SECONDS)
 
 /mob/living/carbon/swap_hand()
-	var/obj/item/item_in_hand = get_active_hand()
-	if(item_in_hand) //this segment checks if the item in your hand is twohanded.
-		if(istype(item_in_hand,/obj/item/twohanded))
-			if(item_in_hand:wielded == 1)
-				to_chat(usr, "<span class='warning'>Your other hand is too busy holding the [item_in_hand.name]</span>")
-				return
+	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, get_active_hand()) == COMPONENT_BLOCK_SWAP)
+		return
 	hand = !hand
-	if(hud_used && hud_used.inv_slots[slot_l_hand] && hud_used.inv_slots[slot_r_hand])
-		var/obj/screen/inventory/hand/H
-		H = hud_used.inv_slots[slot_l_hand]
-		H.update_icon()
-		H = hud_used.inv_slots[slot_r_hand]
-		H.update_icon()
+	update_hands_hud()
 	SEND_SIGNAL(src, COMSIG_CARBON_SWAP_HANDS)
 
 
@@ -217,11 +208,6 @@
 		swap_hand()
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
-	if(stat == DEAD)
-		if(M != src)
-			M.visible_message("<span class='notice'>[M] desperately shakes [src] trying to wake [p_them()] up, but sadly there is no reaction!</span>", \
-			"<span class='notice'>You shake [src] trying to wake [p_them()], sadly they appear to be too far gone!</span>")
-		return
 	if(health < HEALTH_THRESHOLD_CRIT)
 		return
 	if(src == M && ishuman(src))
@@ -619,14 +605,16 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
 			playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)
 		return
+	if(has_status_effect(STATUS_EFFECT_IMPACT_IMMUNE))
+		return
 
 	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
 
 	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
 
 /mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	for(var/obj/item/twohanded/dualsaber/D in contents)
-		if(D.wielded && D.force)
+	for(var/obj/item/dualsaber/D in contents)
+		if(HAS_TRAIT(src, TRAIT_WIELDED) && D.force)
 			visible_message("<span class='danger'>[src] impales [C] with [D], before dropping them on the ground!</span>")
 			C.apply_damage(100, BRUTE, "chest", sharp = TRUE, used_weapon = "Impaled on [D].")
 			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
@@ -765,19 +753,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	user.set_machine(src)
 
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? html_encode(back) : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_BACK]'>[(back && !(back.flags&ABSTRACT)) ? html_encode(back) : "<font color=grey>Empty</font>"]</A>"
 	if(istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/tank))
-		dat += "&nbsp;<A href='?src=[UID()];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+		dat += "&nbsp;<A href='?src=[UID()];internal=[SLOT_HUD_BACK]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? html_encode(head) : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_HEAD]'>[(head && !(head.flags&ABSTRACT)) ? html_encode(head) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? html_encode(wear_mask) : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_MASK]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? html_encode(wear_mask) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 		var/obj/item/clothing/mask/muzzle/M = wear_mask
@@ -787,9 +775,9 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
 	if(handcuffed)
-		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
+		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[SLOT_HUD_HANDCUFFED]'>Remove</A></td></tr>"
 	if(legcuffed)
-		dat += "<tr><td><A href='?src=[UID()];item=[slot_legcuffed]'>Legcuffed</A></td></tr>"
+		dat += "<tr><td><A href='?src=[UID()];item=[SLOT_HUD_LEGCUFFED]'>Legcuffed</A></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -841,45 +829,42 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return back
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return wear_mask
-		if(slot_wear_suit)
+		if(SLOT_HUD_OUTER_SUIT)
 			return wear_suit
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return l_hand
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			return r_hand
-		if(slot_handcuffed)
+		if(SLOT_HUD_HANDCUFFED)
 			return handcuffed
-		if(slot_legcuffed)
+		if(SLOT_HUD_LEGCUFFED)
 			return legcuffed
 	return null
 
 //generates realistic-ish pulse output based on preset levels
-/mob/living/carbon/proc/get_pulse(method)	//method 0 is for hands, 1 is for machines, more accurate
-	var/temp = 0								//see setup.dm:694
+/mob/living/carbon/proc/get_pulse()
+	var/temp = 0
 	switch(pulse)
 		if(PULSE_NONE)
 			return "0"
 		if(PULSE_SLOW)
 			temp = rand(40, 60)
-			return num2text(method ? temp : temp + rand(-10, 10))
+			return num2text(temp)
 		if(PULSE_NORM)
 			temp = rand(60, 90)
-			return num2text(method ? temp : temp + rand(-10, 10))
+			return num2text(temp)
 		if(PULSE_FAST)
 			temp = rand(90, 120)
-			return num2text(method ? temp : temp + rand(-10, 10))
+			return num2text(temp)
 		if(PULSE_2FAST)
 			temp = rand(120, 160)
-			return num2text(method ? temp : temp + rand(-10, 10))
+			return num2text(temp)
 		if(PULSE_THREADY)
-			return method ? ">250" : "extremely weak and fast, patient's artery feels like a thread"
-//			output for machines^	^^^^^^^output for people^^^^^^^^^
-
-
+			return ">250"
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return FALSE
@@ -976,13 +961,23 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		if(do_after(src, breakouttime, 0, target = src))
 			if(I.loc != src || buckled)
 				return
-			visible_message("<span class='danger'>[src] manages to remove [I]!</span>")
-			to_chat(src, "<span class='notice'>You successfully remove [I].</span>")
+			if(istype(I, /obj/item/restraints/handcuffs/twimsts))
+				visible_message("<span class='danger'>[src] manages to eat through [I]!</span>", "<span class='notice'>You successfully eat through [I].</span>")
+			else
+				visible_message("<span class='danger'>[src] manages to remove [I]!</span>", "<span class='notice'>You successfully remove [I].</span>")
 
 			if(I == handcuffed)
-				handcuffed.forceMove(drop_location())
-				handcuffed.dropped(src)
-				handcuffed = null
+				if(istype(I, /obj/item/restraints/handcuffs/twimsts))
+					playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
+					if(I.reagents && I.reagents.reagent_list.len)
+						taste(I.reagents)
+						I.reagents.reaction(src, REAGENT_INGEST)
+						I.reagents.trans_to(src, I.reagents.total_volume)
+					qdel(handcuffed)
+				else
+					handcuffed.forceMove(drop_location())
+					handcuffed.dropped(src)
+					handcuffed = null
 				if(buckled && buckled.buckle_requires_restraints)
 					buckled.unbuckle_mob(src)
 				update_handcuffed()
@@ -1027,13 +1022,8 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 //called when we get cuffed/uncuffed
 /mob/living/carbon/proc/update_handcuffed()
+	SEND_SIGNAL(src, COMSIG_CARBON_UPDATE_HANDCUFFED, handcuffed)
 	if(handcuffed)
-		//we don't want problems with nodrop shit if there ever is more than one nodrop twohanded
-		var/obj/item/I = get_active_hand()
-		if(istype(I, /obj/item/twohanded))
-			var/obj/item/twohanded/TH = I //FML
-			if(TH.wielded)
-				TH.unwield()
 		drop_r_hand()
 		drop_l_hand()
 		stop_pulling()
@@ -1045,7 +1035,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 		changeNext_move(CLICK_CD_RAPID) //reset click cooldown from handcuffs
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
-	update_hud_handcuffed()
+	update_hands_hud()
 
 /mob/living/carbon/get_standard_pixel_y_offset()
 	if(IS_HORIZONTAL(src))

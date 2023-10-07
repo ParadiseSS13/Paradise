@@ -3,10 +3,13 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("catwalk tile", /obj/item/stack/tile/catwalk, 2, 4, 20),
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	null,
-	new /datum/stack_recipe_list("chainlink fence", list(
+	new /datum/stack_recipe_list("railings...", list(
+		new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("railing cap (left)", /obj/structure/railing/cap/normal, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("railing cap (right)", /obj/structure/railing/cap/reversed, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		)),
+	new /datum/stack_recipe_list("chainlink fence...", list(
 		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("chainlink fence post", /obj/structure/fence/post, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("chainlink fence corner", /obj/structure/fence/corner, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -89,3 +92,23 @@ GLOBAL_LIST_INIT(rod_recipes, list (
 		user.unEquip(src, 1)
 		if(new_item)
 			user.put_in_hands(new_item)
+
+/obj/item/stack/rods/lava
+	name = "heat resistant rod"
+	desc = "Treated, specialized iron rods. When exposed to the vacuum of space their coating breaks off, but they can hold up against the extreme heat of molten liquids."
+	singular_name = "heat resistant rod"
+	icon_state = "rods"
+	item_state = "rods"
+	color = "#5286b9ff"
+	flags = CONDUCT
+	w_class = WEIGHT_CLASS_NORMAL
+	materials = list(MAT_METAL = 1000, MAT_TITANIUM = 1000, MAT_PLASMA = 1000)
+	max_amount = 50
+	resistance_flags = FIRE_PROOF | LAVA_PROOF
+	merge_type = /obj/item/stack/rods/lava
+
+/obj/item/stack/rods/lava/ten
+	amount = 10
+
+/obj/item/stack/rods/lava/fifty
+	amount = 50

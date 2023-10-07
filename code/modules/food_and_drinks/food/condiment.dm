@@ -16,6 +16,7 @@
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
+	"bbqsauce" = list("bbqsauce", "BBQ sauce bottle", "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."),
 	"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
 	"capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
 	"enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
@@ -39,10 +40,14 @@
 
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		return 0
+		return FALSE
+
+	if(!iscarbon(M)) // Non-carbons can't process reagents
+		to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
+		return
 
 	if(M == user)
-		to_chat(M, "<span class='notice'>You swallow some of contents of \the [src].</span>")
+		to_chat(user, "<span class='notice'>You swallow some of the contents of [src].</span>")
 	else
 		user.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>")
 		if(!do_mob(user, M))
@@ -166,6 +171,13 @@
 	icon_state = "flour"
 	item_state = "flour"
 	list_reagents = list("flour" = 30)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/bbqsauce
+	name = "BBQ sauce"
+	desc = "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."
+	icon_state = "bbqsauce"
+	list_reagents = list("bbqsauce" = 50)
 	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/soymilk

@@ -23,7 +23,7 @@
 
 	if(doomsday_device)
 		doomsday_device.timing = FALSE
-		SSshuttle.emergencyNoEscape = 0
+		SSshuttle.clearHostileEnvironment(doomsday_device)
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time

@@ -8,7 +8,7 @@
 	var/icon_state_full = "soulstone2"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "bluespace=4;materials=5"
 
 	/// The body/brain of the player inside this construct, transferred over from the soulstone.
@@ -175,7 +175,6 @@
 
 	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
-	START_PROCESSING(SSobj, src)
 	return
 
 /obj/item/soulstone/attackby(obj/item/O, mob/user)
@@ -323,6 +322,7 @@
 				if(!get_cult_ghost(T, user, TRUE))
 					add_held_body(T)
 					T.forceMove(src) //If we can't get a ghost, shard the body anyways.
+					START_PROCESSING(SSobj, src)
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
@@ -421,10 +421,12 @@
 	qdel(shade)
 	qdel(SS)
 
-/proc/make_new_construct(mob/living/simple_animal/hostile/construct/c_type, mob/target, mob/user, cult_override = FALSE)
+/proc/make_new_construct(mob/living/simple_animal/hostile/construct/c_type, mob/target, mob/user, cult_override = FALSE, create_smoke = FALSE)
 	if(jobban_isbanned(target, ROLE_CULTIST))
 		return
 	var/mob/living/simple_animal/hostile/construct/C = new c_type(get_turf(target))
+	if(create_smoke)
+		new /obj/effect/particle_effect/smoke/sleeping(target.loc)
 	C.faction |= "\ref[user]"
 	C.key = target.key
 	if(user && iscultist(user) || cult_override)
@@ -437,6 +439,7 @@
 	C.cancel_camera()
 
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)
+	START_PROCESSING(SSobj, src)
 	var/type = get_shade_type()
 	var/mob/living/simple_animal/shade/S = new type(src)
 	S.name = "Shade of [M.real_name]"

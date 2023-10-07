@@ -333,3 +333,13 @@
 	reagents_list = list("blood" = 50)
 	build_path = /obj/item/v1_arm_shell
 	category = list("Weapons")
+
+/datum/design/muscle_implant
+	name = "Strong-arm Empowered Musculature Implant"
+	desc = "An implant that enhances your muscles to punch harder and throw people back."
+	id = "muscle_implant"
+	req_tech = list("combat" = 7, "syndicate" = 4, "biotech" = 7)
+	build_type = PROTOLATHE
+	materials = list(MAT_GOLD = 5000, MAT_METAL = 10000, MAT_TITANIUM = 3000, MAT_BLUESPACE = 2000)
+	build_path = /obj/item/organ/internal/cyberimp/arm/muscle
+	category = list("Weapons")

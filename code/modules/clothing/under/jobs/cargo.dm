@@ -16,6 +16,13 @@
 	item_state = "lb_suit"
 	item_color = "qm"
 
+/obj/item/clothing/under/rank/cargo/deliveryboy
+	name = "delivery boy uniform"
+	desc = "It's a jumpsuit worn by the cargo delivery boy."
+	icon_state = "delivery"
+	item_state = "lb_suit"
+	item_color = "delivery"
+
 /obj/item/clothing/under/rank/cargo/quartermaster/skirt
 	name = "quartermaster's jumpskirt"
 	desc = "It's a jumpskirt worn by the quartermaster. It's specially designed to prevent back injuries caused by pushing paper."

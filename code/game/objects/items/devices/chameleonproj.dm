@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	item_state = "electronic"
 	throwforce = 5
 	throw_speed = 3
@@ -90,14 +90,12 @@
 
 /obj/item/chameleon/proc/eject_all()
 	for(var/atom/movable/A in active_dummy)
-		A.loc = active_dummy.loc
-		if(ismob(A))
-			var/mob/M = A
-			M.reset_perspective(null)
+		A.forceMove(active_dummy.loc)
 
 /obj/effect/dummy/chameleon
 	name = ""
 	desc = ""
+	resistance_flags = INDESTRUCTIBLE | FREEZE_PROOF
 	density = FALSE
 	anchored = TRUE
 	var/can_move = TRUE
@@ -111,7 +109,7 @@
 	overlays = new_overlays
 	underlays = new_underlays
 	dir = O.dir
-	M.loc = src
+	M.forceMove(src)
 	master = C
 	master.active_dummy = src
 
@@ -132,6 +130,12 @@
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/attack_alien()
+	master.disrupt()
+
+/obj/effect/dummy/chameleon/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	master.disrupt() // things like plasmafires, lava, bonfires will disrupt it
+
+/obj/effect/dummy/chameleon/acid_act()
 	master.disrupt()
 
 /obj/effect/dummy/chameleon/ex_act(severity) //no longer bomb-proof
@@ -197,7 +201,7 @@
 	disrupt(user)
 
 /obj/item/borg_chameleon/attack_self(mob/living/silicon/robot/syndicate/saboteur/user)
-	if(user && user.cell && user.cell.charge >  activationCost)
+	if(user && user.cell && user.cell.charge > activationCost)
 		if(isturf(user.loc))
 			toggle(user)
 		else

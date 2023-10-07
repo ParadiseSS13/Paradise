@@ -16,9 +16,10 @@
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
 	attack_verb = list("robusted")
+	use_sound = 'sound/effects/toolbox.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
-	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+	pickup_sound = 'sound/items/handling/toolbox_pickup.ogg'
 	var/latches = "single_latch"
 	var/has_latches = TRUE
 

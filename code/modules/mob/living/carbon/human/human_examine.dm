@@ -72,6 +72,7 @@
 	var/msg = ""
 	var/list/wound_flavor_text = list()
 	var/list/is_destroyed = list()
+	var/skip_bodyparts = 0
 	for(var/organ_tag in dna.species.has_limbs)
 
 		var/list/organ_data = dna.species.has_limbs[organ_tag]
@@ -79,56 +80,89 @@
 		is_destroyed["[organ_data["descriptor"]]"] = 1
 
 		var/obj/item/organ/external/E = bodyparts_by_name[organ_tag]
+		var/bodypart_clothing_bitflag = bodypart_name_to_clothing_bitflag(organ_tag)
 		if(!E)
+			if(bodypart_clothing_bitflag & skip_bodyparts)
+				continue
 			wound_flavor_text["[organ_tag]"] = "<b>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</b>\n"
-		else
-			if(!ismachineperson(src))
-				if(E.is_robotic())
-					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
+			if(bodypart_clothing_bitflag & ARM_LEFT)
+				skip_bodyparts |= HAND_LEFT
+				wound_flavor_text["l_hand"] = null
+			if(bodypart_clothing_bitflag & ARM_RIGHT)
+				skip_bodyparts |= HAND_RIGHT
+				wound_flavor_text["r_hand"] = null
+			if(bodypart_clothing_bitflag & LEG_LEFT)
+				skip_bodyparts |= FOOT_LEFT
+				wound_flavor_text["l_foot"] = null
+			if(bodypart_clothing_bitflag & LEG_RIGHT)
+				skip_bodyparts |= FOOT_RIGHT
+				wound_flavor_text["r_foot"] = null
+			continue
 
-				else if(E.status & ORGAN_SPLINTED)
-					wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
+		if(bodypart_clothing_bitflag & HEAD)
+			if(skip_mask)
+				continue
+			var/obj/item/clothing/mask/current_mask = wear_mask
+			if(istype(current_mask) && (current_mask.body_parts_covered & bodypart_clothing_bitflag))
+				continue
 
-				else if(!E.properly_attached)
-					wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is barely attached!\n"
+		var/chest_groin_arms_legs_bitflag = ARMS | LEGS | UPPER_TORSO | LOWER_TORSO //is what covered by jumpsuit
+		if(bodypart_clothing_bitflag & chest_groin_arms_legs_bitflag)
+			if(skip_jumpsuit)
+				continue
+			if(!isnull(w_uniform) && (w_uniform.body_parts_covered & bodypart_clothing_bitflag))
+				continue
 
-				else if(E.status & ORGAN_BURNT)
-					wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is badly burnt!\n"
+		if(bodypart_clothing_bitflag & HANDS)
+			if(skip_gloves)
+				continue
+			var/obj/item/clothing/gloves/current_gloves = gloves
+			if(istype(current_gloves) && (current_gloves.body_parts_covered & bodypart_clothing_bitflag))
+				continue
 
-			if(E.open)
-				if(E.is_robotic())
-					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
-				else
-					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
+		if(bodypart_clothing_bitflag & FEET)
+			if(skip_shoes)
+				continue
+			var/obj/item/clothing/shoes/current_shoes = shoes
+			if(istype(current_shoes) && (current_shoes.body_parts_covered & bodypart_clothing_bitflag))
+				continue
 
-			for(var/obj/item/I in E.embedded_objects)
-				msg += "<b>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</b>\n"
+		if(!ismachineperson(src))
+			if(E.is_robotic())
+				wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a robotic [E.name]!\n"
+
+			else if(E.status & ORGAN_SPLINTED)
+				wound_flavor_text["[E.limb_name]"] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [E.name]!\n"
+
+			else if(!E.properly_attached)
+				wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is barely attached!\n"
+
+			else if(E.status & ORGAN_BURNT)
+				wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is badly burnt!\n"
+
+		if(E.open)
+			if(E.is_robotic())
+				msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(E.limb_name)] is open!</b>\n"
+			else
+				msg += "<b>[p_their(TRUE)] [ignore_limb_branding(E.limb_name)] has an open incision!</b>\n"
+
+		for(var/obj/item/I in E.embedded_objects)
+			msg += "<b>[p_they(TRUE)] [p_have()] \a [bicon(I)] [I] embedded in [p_their()] [E.name]!</b>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
-	if(wound_flavor_text["head"] && (is_destroyed["head"] || (!skip_mask && !(wear_mask && istype(wear_mask, /obj/item/clothing/mask/gas)))))
-		msg += wound_flavor_text["head"]
-	if(wound_flavor_text["chest"] && !w_uniform && !skip_jumpsuit) //No need.  A missing chest gibs you.
-		msg += wound_flavor_text["chest"]
-	if(wound_flavor_text["l_arm"] && (is_destroyed["left arm"] || (!w_uniform && !skip_jumpsuit)))
-		msg += wound_flavor_text["l_arm"]
-	if(wound_flavor_text["l_hand"] && (is_destroyed["left hand"] || (!gloves && !skip_gloves)))
-		msg += wound_flavor_text["l_hand"]
-	if(wound_flavor_text["r_arm"] && (is_destroyed["right arm"] || (!w_uniform && !skip_jumpsuit)))
-		msg += wound_flavor_text["r_arm"]
-	if(wound_flavor_text["r_hand"] && (is_destroyed["right hand"] || (!gloves && !skip_gloves)))
-		msg += wound_flavor_text["r_hand"]
-	if(wound_flavor_text["groin"] && (is_destroyed["groin"] || (!w_uniform && !skip_jumpsuit)))
-		msg += wound_flavor_text["groin"]
-	if(wound_flavor_text["l_leg"] && (is_destroyed["left leg"] || (!w_uniform && !skip_jumpsuit)))
-		msg += wound_flavor_text["l_leg"]
-	if(wound_flavor_text["l_foot"]&& (is_destroyed["left foot"] || (!shoes && !skip_shoes)))
-		msg += wound_flavor_text["l_foot"]
-	if(wound_flavor_text["r_leg"] && (is_destroyed["right leg"] || (!w_uniform && !skip_jumpsuit)))
-		msg += wound_flavor_text["r_leg"]
-	if(wound_flavor_text["r_foot"]&& (is_destroyed["right foot"] || (!shoes  && !skip_shoes)))
-		msg += wound_flavor_text["r_foot"]
 
+	msg += wound_flavor_text["head"]
+	msg += wound_flavor_text["chest"]
+	msg += wound_flavor_text["groin"]
+	msg += wound_flavor_text["l_arm"]
+	msg += wound_flavor_text["l_hand"]
+	msg += wound_flavor_text["r_arm"]
+	msg += wound_flavor_text["r_hand"]
+	msg += wound_flavor_text["l_leg"]
+	msg += wound_flavor_text["l_foot"]
+	msg += wound_flavor_text["r_leg"]
+	msg += wound_flavor_text["r_foot"]
 	return msg
 
 /mob/living/carbon/human/examine_extra_damage_flavor()
@@ -167,6 +201,8 @@
 							if(LAZYLEN(R.fields["comments"])) //if the commentlist is present
 								var/list/comments = R.fields["comments"]
 								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
+								if(islist(commentLatest))
+									commentLatest = "[commentLatest["header"]]: [commentLatest["text"]]"
 							else
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 

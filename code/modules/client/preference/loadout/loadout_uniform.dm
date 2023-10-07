@@ -14,7 +14,7 @@
 // Uniform slot
 /datum/gear/uniform
 	main_typepath = /datum/gear/uniform
-	slot = slot_w_uniform
+	slot = SLOT_HUD_JUMPSUIT
 	sort_category = "Uniforms and Casual Dress"
 
 /datum/gear/uniform/suit
@@ -231,6 +231,14 @@
 	display_name = "Medical scrubs, green"
 	path = /obj/item/clothing/under/rank/medical/scrubs/green
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor")
+
+/datum/gear/uniform/cargo
+	main_typepath = /datum/gear/uniform/cargo
+
+/datum/gear/uniform/cargo/delivery
+	display_name = "Uniform, delivery boy"
+	path = /obj/item/clothing/under/rank/cargo/deliveryboy
+	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/uniform/sec
 	main_typepath = /datum/gear/uniform/sec

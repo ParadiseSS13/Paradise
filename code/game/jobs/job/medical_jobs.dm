@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_MEDICAL
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffddf0"
@@ -48,7 +48,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 5
 	spawn_positions = 3
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -82,7 +82,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -143,7 +143,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -176,7 +176,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 2
 	spawn_positions = 2
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL | DEP_FLAG_SCIENCE
 	supervisors = "the chief medical officer and the research director"
 	department_head = list("Chief Medical Officer", "Research Director")
 	selection_color = "#ffeef0"
@@ -209,7 +209,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -243,7 +243,7 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
@@ -281,15 +281,16 @@
 	department_flag = JOBCAT_MEDSCI
 	total_positions = 1
 	spawn_positions = 1
-	is_medical = 1
+	job_department_flags = DEP_FLAG_MEDICAL
 	supervisors = "the chief medical officer"
 	department_head = list("Chief Medical Officer")
 	selection_color = "#ffeef0"
-	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE)
-	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE)
+	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_MAILSORTING)
+	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EVA, ACCESS_MORGUE, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_MAILSORTING)
 	minimal_player_age = 3
 	exp_map = list(EXP_TYPE_CREW = 180)
 	outfit = /datum/outfit/job/paramedic
+	important_information = "You are the first responder to medical emergencies outside the sanctity of the Medbay. You can also respond to Lavaland emergencies via the mining shuttle located in Cargo."
 
 /datum/outfit/job/paramedic
 	name = "Paramedic"
@@ -299,13 +300,14 @@
 	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/soft/blue
 	mask = /obj/item/clothing/mask/cigarette
-	l_ear = /obj/item/radio/headset/headset_med
+	l_ear = /obj/item/radio/headset/headset_med/para
 	id = /obj/item/card/id/paramedic
 	l_pocket = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 	backpack_contents = list(
-		/obj/item/healthanalyzer = 1
-	)
+		/obj/item/healthanalyzer = 1,
+		/obj/item/sensor_device = 1,
+		/obj/item/pinpointer/crew = 1)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med

@@ -27,6 +27,7 @@
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/proximity_monitor)
+	ADD_TRAIT(src, TRAIT_XENO_INTERACTABLE, UID())
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	..()
@@ -35,9 +36,6 @@
 
 /obj/item/clothing/mask/facehugger/attackby(obj/item/O, mob/user, params)
 	return O.attack_obj(src, user, params)
-
-/obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
-	return attack_hand(user)
 
 /obj/item/clothing/mask/facehugger/attack_hand(mob/user)
 	if((stat != DEAD && !sterile) && !isalien(user))
@@ -140,7 +138,7 @@
 									"<span class='userdanger'>[src] tears [W] off of [target]'s face!</span>")
 
 		src.loc = target
-		target.equip_to_slot_if_possible(src, slot_wear_mask, FALSE, TRUE)
+		target.equip_to_slot_if_possible(src, SLOT_HUD_WEAR_MASK, FALSE, TRUE)
 		if(!sterile)
 			M.KnockDown(impregnation_time + 2 SECONDS)
 			M.EyeBlind(impregnation_time + 2 SECONDS)

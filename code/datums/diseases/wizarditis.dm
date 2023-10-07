@@ -62,26 +62,26 @@ STI KALY - blind
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.unEquip(H.head))
 					qdel(H.head)
-				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), slot_head)
+				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), SLOT_HUD_HEAD)
 			return
 		if(prob(chance))
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 				if(!H.unEquip(H.wear_suit))
 					qdel(H.wear_suit)
-				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), slot_wear_suit)
+				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), SLOT_HUD_OUTER_SUIT)
 			return
 		if(prob(chance))
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				if(!H.unEquip(H.shoes))
 					qdel(H.shoes)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), slot_shoes)
+			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
 			return
 	else
 		var/mob/living/carbon/H = affected_mob
 		if(prob(chance))
-			if(!istype(H.r_hand, /obj/item/twohanded/staff))
+			if(!istype(H.r_hand, /obj/item/staff))
 				H.drop_r_hand()
-				H.put_in_r_hand( new /obj/item/twohanded/staff(H) )
+				H.put_in_r_hand( new /obj/item/staff(H) )
 			return
 	return
 
