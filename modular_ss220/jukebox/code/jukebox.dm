@@ -1,5 +1,5 @@
 /obj/machinery/jukebox
-	name = "музыкальный автомат"
+	name = "\improper музыкальный автомат"
 	desc = "Классический музыкальный автомат."
 	icon = 'modular_ss220/jukebox/icons/jukebox.dmi'
 	icon_state = "jukebox"
@@ -17,7 +17,7 @@
 	var/list/songs = list()
 	var/datum/track/selection = null
 	var/volume = 25
-	var/max_volume = 50
+	var/max_volume = 25
 	COOLDOWN_DECLARE(jukebox_error_cd)
 
 /obj/machinery/jukebox/anchored
@@ -30,13 +30,13 @@
 	anchored = TRUE
 
 /obj/machinery/jukebox/disco
-	name = "танцевальный диско-шар - тип IV"
+	name = "\improper танцевальный диско-шар - тип IV"
 	desc = "Первые три прототипа были сняты с производства после инцидентов с массовыми жертвами."
 	icon_state = "disco"
 	max_integrity = 300
 	integrity_failure = 150
 	volume = 50
-	max_volume = 100
+	max_volume = 75
 	var/list/spotlights = list()
 	var/list/sparkles = list()
 
@@ -79,10 +79,10 @@
 	if(!active && !(resistance_flags & INDESTRUCTIBLE))
 		if(iswrench(O))
 			if(!anchored && !isinspace())
-				to_chat(user,"<span class='notice'>You secure [src] to the floor.</span>")
+				to_chat(user, span_notice("You secure [src] to the floor."))
 				anchored = TRUE
 			else if(anchored)
-				to_chat(user,"<span class='notice'>You unsecure and disconnect [src].</span>")
+				to_chat(user, span_notice("You unsecure and disconnect [src]."))
 				anchored = FALSE
 			playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
 			return
@@ -122,14 +122,14 @@
 	..()
 	src.add_fingerprint(user)
 	if(!anchored)
-		to_chat(user,"<span class='warning'>Это устройство должно быть закреплено гаечным ключом!</span>")
+		to_chat(user, span_warning("Это устройство должно быть закреплено гаечным ключом!"))
 		return
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user,"<span class='warning'>Ошибка: Отказано в доступе.</span>")
+		to_chat(user, span_warning("Ошибка: Отказано в доступе."))
 		user.playsound_local(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return
 	if(!songs.len && !isobserver(user))
-		to_chat(user,"<span class='warning'>Ошибка: Для вашей станции не было авторизовано ни одной музыкальной композиции. Обратитесь к Центральному командованию с просьбой решить эту проблему.</span>")
+		to_chat(user, span_warning("Ошибка: Для вашей станции не было авторизовано ни одной музыкальной композиции. Обратитесь к Центральному командованию с просьбой решить эту проблему."))
 		user.playsound_local(src, 'sound/misc/compiler-failure.ogg', 25, TRUE)
 		return
 	if(stat & (BROKEN|NOPOWER))
@@ -172,7 +172,7 @@
 				return
 			if(!active)
 				if(stop > world.time)
-					to_chat(usr, "<span class='warning'>Ошибка: Устройство находится в состоянии сброса, оно будет готово снова через [DisplayTimeText(stop-world.time)].</span>")
+					to_chat(usr, span_warning("Ошибка: Устройство находится в состоянии сброса, оно будет готово снова через [DisplayTimeText(stop-world.time)]."))
 					if(!COOLDOWN_FINISHED(src, jukebox_error_cd))
 						return
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, TRUE)
@@ -186,7 +186,7 @@
 				return TRUE
 		if("select_track")
 			if(active)
-				to_chat(usr, "<span class='warning'>Ошибка: Вы не можете сменить композицию, пока не закончится текущая.</span>")
+				to_chat(usr, span_warning("Ошибка: Вы не можете сменить композицию, пока не закончится текущая."))
 				return
 			var/list/available = list()
 			for(var/datum/track/S in songs)
@@ -377,9 +377,6 @@
 /obj/machinery/jukebox/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
 	if(M.client)
-		if(!(M.client.prefs.sound & SOUND_DISCO)) //they dont want music or dancing
-			rangers -= M //Doing that here as it'll be checked less often than in processing.
-			return
 		if(!(M.client.prefs.toggles2 & PREFTOGGLE_2_DANCE_DISCO)) //they just dont wanna dance
 			return
 	switch(rand(0,9))
@@ -517,7 +514,7 @@
 	dance_over()
 	playsound(src,'sound/machines/terminal_off.ogg',50,1)
 	update_icon()
-	stop = world.time + 100
+	stop = world.time + 3 SECONDS
 
 /obj/machinery/jukebox/process()
 	if(world.time < stop && active)
@@ -525,14 +522,14 @@
 		if(active)
 			active_power_consumption = (volume * 10)
 			change_power_mode(ACTIVE_POWER_USE)
-		for(var/mob/M in range(10,src))
-			if(!M.client || !(M.client.prefs.sound & SOUND_DISCO))
+		for(var/mob/M in range(14,src))
+			if(!M.client)
 				continue
 			if(!(M in rangers))
 				rangers[M] = TRUE
 				M.playsound_local(get_turf(M), null, volume, channel = CHANNEL_JUKEBOX, S = song_played)
 		for(var/mob/L in rangers)
-			if(get_dist(src, L) > 10)
+			if(get_dist(src, L) > 14)
 				rangers -= L
 				if(!L || !L.client)
 					continue
