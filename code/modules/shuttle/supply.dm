@@ -167,7 +167,7 @@
 						continue
 					var/datum/tech/tech = disk.stored
 
-					var/cost = tech.getCost(SSeconomy.tech_levels[tech.id])
+					var/cost = tech.get_sell_value(SSeconomy.tech_levels[tech.id])
 					if(cost)
 						SSeconomy.tech_levels[tech.id] = tech.level
 						research_credits += cost / 2

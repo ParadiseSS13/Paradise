@@ -243,6 +243,13 @@ research holder datum.
 	var/list/req_tech = list()			//List of ids associated values of techs required to research this tech. "id" = #
 	/// Scaling coefficient for points - used to make illegals and alien tech require more work
 	var/point_scaling = 1
+	/// The current cost to go to the next level
+	var/current_cost = 1000
+
+/datum/tech/proc/calculate_next_level_cost()
+	// Tune this equation to make points scale harsher or smoother
+	var/mult = ((0.25 * (level ^ 2)) + 0.85) * point_scaling
+	current_cost = current_cost * mult
 
 
 //Trunk Technologies (don't require any other techs and you start knowning them).
@@ -326,34 +333,8 @@ research holder datum.
 	level = 0
 	point_scaling = 7
 
-/*
-datum/tech/arcane
-	name = "Arcane Research"
-	desc = "Research into the occult and arcane field for use in practical science"
-	id = "arcane"
-	level = 0 //It didn't become "secret" as advertised.
 
-//Branch Techs
-datum/tech/explosives
-	name = "Explosives Research"
-	desc = "The creation and application of explosive materials."
-	id = "explosives"
-	req_tech = list("materials" = 3)
-
-datum/tech/generators
-	name = "Power Generation Technology"
-	desc = "Research into more powerful and more reliable sources."
-	id = "generators"
-	req_tech = list("powerstorage" = 2)
-
-datum/tech/robotics
-	name = "Robotics Technology"
-	desc = "The development of advanced automated, autonomous machines."
-	id = "robotics"
-	req_tech = list("materials" = 3, "programming" = 3)
-*/
-
-/datum/tech/proc/getCost(current_level = null)
+/datum/tech/proc/get_sell_value(current_level = null)
 	// Calculates tech disk's supply points sell cost
 	if(!current_level)
 		current_level = initial(level)

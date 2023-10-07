@@ -724,16 +724,38 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("maxresearch")
 			if(!check_rights(R_ADMIN))
-				return
+				return FALSE
 
 			var/choice = alert(usr, "You sure?", "Confirm?", "Yes", "No")
 			if(choice != "Yes")
 				return FALSE
 
 			for(var/tech_id in files.known_tech)
-				files.known_tech[tech_id].level = 10
+				var/datum/tech/T = files.known_tech[tech_id]
+				T.level = 10
 
 			message_admins("[key_name_admin(usr)] has maxed the R&D levels.")
+
+		if("levelup")
+			if(!params["tech"])
+				return FALSE
+
+			var/target_tech = params["tech"]
+			if(!(target_tech in files.known_tech))
+				return FALSE
+
+			var/datum/tech/T = files.known_tech[target_tech]
+			if(T.level <= 0)
+				message_admins("\[EXPLOIT WARNING] [key_name_admin(usr)] has attempted to level up [target_tech] while it not being available!")
+				return FALSE
+
+			if(T.current_cost > files.research_points)
+				message_admins("\[EXPLOIT WARNING] [key_name_admin(usr)] has attempted to level up [target_tech] while not having enough points!")
+				return FALSE
+
+			files.research_points -= T.current_cost
+			T.level++
+			T.calculate_next_level_cost()
 
 
 	return TRUE // update uis
@@ -881,6 +903,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(menu == MENU_MAIN || menu == MENU_LEVELS)
 		var/list/tech_levels = list()
+		data["research_points"] = files.research_points
 		data["tech_levels"] = tech_levels
 		for(var/v in files.known_tech)
 			var/datum/tech/T = files.known_tech[v]
@@ -890,6 +913,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			this_tech_list["name"] = T.name
 			this_tech_list["level"] = T.level
 			this_tech_list["desc"] = T.desc
+			this_tech_list["nextpoints"] = T.current_cost
+			this_tech_list["id"] = T.id
 			tech_levels[++tech_levels.len] = this_tech_list
 
 	else if(menu == MENU_DISK)

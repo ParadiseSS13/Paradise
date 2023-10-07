@@ -1,10 +1,11 @@
 import { useBackend } from '../../backend';
-import { Box, Flex, LabeledList, Section } from '../../components';
+import { AnimatedNumber, Box, Button, Flex, LabeledList, Section } from '../../components';
 import { RndNavButton } from './index';
 import { MENU, SUBMENU } from '../RndConsole';
+import { Fragment } from 'inferno';
 
 export const MainMenu = (properties, context) => {
-  const { data } = useBackend(context);
+  const { data, act } = useBackend(context);
 
   const {
     disk_type,
@@ -12,6 +13,7 @@ export const MainMenu = (properties, context) => {
     linked_lathe,
     linked_imprinter,
     tech_levels,
+    research_points,
   } = data;
 
   return (
@@ -60,9 +62,20 @@ export const MainMenu = (properties, context) => {
       <Box mt="12px" />
       <h3>Current Research Levels:</h3>
       <LabeledList>
-        {tech_levels.map(({ name, level }) => (
-          <LabeledList.Item label={name} key={name}>
-            {level}
+        <LabeledList.Item label="Current research points"><AnimatedNumber value={research_points} /></LabeledList.Item>
+        {tech_levels.map((t) => (
+          <LabeledList.Item label={t.name} key={t.name}>
+            <Fragment>
+              {t.level}
+              <Button
+                ml={2}
+                mt={0}
+                mb={0}
+                content={"Upgrade (" + t.nextpoints + " points)"}
+                disabled={t.nextpoints > research_points}
+                onClick={() => act('levelup', { tech: t.id })}
+                icon="arrow-circle-up" />
+            </Fragment>
           </LabeledList.Item>
         ))}
       </LabeledList>
