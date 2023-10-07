@@ -55,7 +55,7 @@
 			"ckey" = parent.ckey
 		))
 
-	. = FALSE
+	. = TRUE
 	if(!discord_query.warn_execute())
 		qdel(discord_query)
 		return FALSE
