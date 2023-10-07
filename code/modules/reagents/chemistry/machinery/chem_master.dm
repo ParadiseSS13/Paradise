@@ -7,7 +7,11 @@
 #define CHEMMASTER_MIN_PRODUCTION_MODE 1
 #define CHEMMASTER_MAX_PRODUCTION_MODE 3
 #define CHEMMASTER_PRODUCTION_MODE_PILLS 1
+#define CHEMMASTER_PRODUCTION_MODE_PATCHES 2
+#define CHEMMASTER_PRODUCTION_MODE_BOTTLES 3
 #define CHEMMASTER_MAX_PILLS 20
+#define CHEMMASTER_MAX_PATCHES 10
+#define CHEMMASTER_MAX_BOTTLES 5
 
 #define TRANSFER_TO_DISPOSAL 0
 #define TRANSFER_TO_BEAKER   1
@@ -28,7 +32,10 @@
 	var/useramount = 30 // Last used amount
 	var/pillamount = 10
 	var/patchamount = 10
+	var/bottleamount = 1
 	var/pillname = ""
+	var/patchname = ""
+	var/bottlename = ""
 	var/bottlesprite = 1
 	var/production_mode = 1
 	var/pillsprite = 1
@@ -312,6 +319,8 @@
 		data["buffer_reagents"] = list()
 
 	data["pillamount"] = pillamount
+	data["patchamount"] = patchamount
+	data["bottleamount"] = bottleamount
 	data["pillsprite"] = pillsprite
 	data["bottlesprite"] = bottlesprite
 	data["mode"] = mode
@@ -324,11 +333,18 @@
 	data["production_mode"] = production_mode
 
 	data["pillname"] = pillname
+	data["patchname"] = patchname
+	data["bottlename"] = bottlename
 
 	switch(mode)
 		if(CHEMMASTER_PRODUCTION_MODE_PILLS)
 			var/amount_per_pill = clamp(reagents.total_volume / pillamount, 0, MAX_UNITS_PER_PILL)
 			data["placeholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
+		if(CHEMMASTER_PRODUCTION_MODE_PATCHES)
+			var/amount_per_patch = clamp(reagents.total_volume / patchamount, 0, MAX_UNITS_PER_PATCH)
+			data["placeholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
+		if(CHEMMASTER_PRODUCTION_MODE_BOTTLES)
+			data["placeholdername"] = reagents.get_master_reagent_name()
 
 	var/pill_styles[0]
 	for(var/i = 1 to MAX_PILL_SPRITE)
@@ -619,11 +635,15 @@
 #undef MAX_UNITS_PER_PILL
 #undef MAX_UNITS_PER_PATCH
 #undef MAX_CUSTOM_NAME_LEN
-#undef CHEMMASTER_MAX_PILLS
 
 #undef CHEMMASTER_MIN_PRODUCTION_MODE
 #undef CHEMMASTER_MAX_PRODUCTION_MODE
 #undef CHEMMASTER_PRODUCTION_MODE_PILLS
+#undef CHEMMASTER_PRODUCTION_MODE_PATCHES
+#undef CHEMMASTER_PRODUCTION_MODE_BOTTLES
+#undef CHEMMASTER_MAX_PILLS
+#undef CHEMMASTER_MAX_PATCHES
+#undef CHEMMASTER_MAX_BOTTLES
 
 #undef TRANSFER_TO_DISPOSAL
 #undef TRANSFER_TO_BEAKER
