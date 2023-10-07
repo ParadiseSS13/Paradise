@@ -1958,7 +1958,7 @@
 "akK" = (
 /obj/machinery/alarm/directional/north,
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Head of Security's Office";
 	pixel_y = 4
 	},
@@ -7230,7 +7230,8 @@
 "aCd" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Magistrate's Office"
+	department = "Magistrate's Office";
+	pixel_y = 4
 	},
 /obj/structure/sign/poster/official/random/north,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -28399,7 +28400,8 @@
 /obj/structure/sign/poster/official/random/north,
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "NT Representative's Office"
+	department = "NT Representative's Office";
+	pixel_y = 4
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
@@ -77893,7 +77895,8 @@
 "pKr" = (
 /obj/structure/table/wood,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Captain's Office"
+	department = "Captain's Office";
+	pixel_y = 4
 	},
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/carpet/royalblue,
@@ -86077,7 +86080,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/photocopier/faxmachine,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Chief Engineer's Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellow"
@@ -89471,11 +89477,12 @@
 /area/station/hallway/secondary/garden)
 "tZo" = (
 /obj/structure/table,
-/obj/machinery/photocopier/faxmachine{
-	department = "Quartermaster's Office"
-	},
 /obj/item/radio/intercom/directional/south,
 /obj/machinery/light/directional/south,
+/obj/machinery/photocopier/faxmachine/longrange{
+	pixel_y = 4;
+	department = "Quartermaster's Office"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -97927,7 +97934,8 @@
 /area/station/service/library)
 "xiF" = (
 /obj/structure/table/glass,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
+	pixel_y = 4;
 	department = "Research Director's Office"
 	},
 /turf/simulated/floor/plasteel{
