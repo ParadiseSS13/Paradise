@@ -5,7 +5,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 SUBSYSTEM_DEF(security_level)
 	name = "Security Level"
-	ss_flags = SS_NO_FIRE
+	flags = SS_NO_FIRE
 	/// Timer id of delayed security level set
 	var/security_level_set_timer_id
 	/// Currently set security level
