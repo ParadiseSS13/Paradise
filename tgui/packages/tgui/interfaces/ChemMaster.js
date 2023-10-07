@@ -263,8 +263,8 @@ const ChemMasterProduction = (props, context) => {
   const { act } = useBackend(context);
   if (!props.bufferNonEmpty) {
     return (
-      <Section title="Production" height="100%" flexGrow="1">
-        <Flex height="100%">
+      <Section title="Production">
+        <Flex height="100%" style={{ 'padding-top': '20px', 'padding-bottom': '20px', }}>
           <Flex.Item grow="1" align="center" textAlign="center" color="label">
             <Icon name="tint-slash" mb="0.5rem" size="5" />
             <br />
@@ -276,7 +276,7 @@ const ChemMasterProduction = (props, context) => {
   }
 
   return (
-    <Section title="Production" height="100%" flexGrow="1">
+    <Section title="Production">
       {!props.isCondiment ? (
         <ChemMasterProductionChemical />
       ) : (
