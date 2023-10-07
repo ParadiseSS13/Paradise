@@ -268,7 +268,8 @@
 			pillamount = clamp(new_value, 1, 20)
 		if("set_pill_name")
 			var/new_value = params["newValue"]
-			if (length(new_value) <= 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+			// Allow name to be set to empty
+			if (length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
 				return
 			pillname = new_value
 		if("create_pills")
