@@ -89,6 +89,8 @@ research holder datum.
 /datum/research/proc/DesignHasReqs(datum/design/D)
 	if(D.id in blacklisted_designs)
 		return FALSE
+	if(D.requires_whitelist && !(known_designs[D.id]))
+		return FALSE
 	if(D.req_tech.len == 0)
 		return TRUE
 	for(var/req in D.req_tech)

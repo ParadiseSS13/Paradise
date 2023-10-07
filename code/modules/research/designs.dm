@@ -45,3 +45,4 @@ other types of metals and chemistry for reagents).
 	var/list/reagents_list = list()			//List of reagents. Format: "id" = amount.
 	var/maxstack = 1
 	var/lathe_time_factor = 1			//How many times faster than normal is this to build on the protolathe
+	var/requires_whitelist = FALSE		//New var created for PKA related research.
