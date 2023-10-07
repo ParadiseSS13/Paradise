@@ -433,7 +433,7 @@ const ChemMasterProductionPills = (props, context) => {
         <Input fluid value={name} placeholder={placeholdername ?? "Medicine"} maxLength={max_name_length} onChange={(e, value) => act("set_pill_name", { newValue: value })} />
       </LabeledList.Item>
       <LabeledList.Item>
-        <Button fluid content="Create" color="green" />
+        <Button fluid content="Create" color="green" onClick={() => act('create_pills')} />
       </LabeledList.Item>
     </LabeledList>
   );

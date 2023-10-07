@@ -271,6 +271,30 @@
 			if (length(new_value) <= 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
 				return
 			pillname = new_value
+		if("create_pills")
+			var/name = pillname
+			var/count = pillamount
+			var/amount_per_pill = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PILL)
+			if(length(pillname) <= 0 || pillname == null)
+				name = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
+
+			if(condi || !reagents.total_volume)
+				return
+
+			while(count--)
+				if(reagents.total_volume <= 0)
+					to_chat(usr, "<span class='notice'>Not enough reagents to create these pills!</span>")
+					return
+
+				var/obj/item/reagent_containers/food/pill/P = new(loc)
+				P.name = "[name] pill"
+				P.pixel_x = rand(-7, 7) // Random position
+				P.pixel_y = rand(-7, 7)
+				P.icon_state = "pill[pillsprite]"
+				reagents.trans_to(P, amount_per_pill)
+				// Load the pills in the bottle if there's one loaded
+				if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
+					P.forceMove(loaded_pill_bottle)
 		else
 			return FALSE
 
