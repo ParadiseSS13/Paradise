@@ -7916,6 +7916,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/structure/mirror{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8230,6 +8233,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
+	},
+/obj/structure/mirror{
+	pixel_y = 28
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -10499,8 +10505,8 @@ xn
 gM
 SQ
 xn
-xn
 Dl
+xQ
 PM
 xn
 uU
@@ -10570,7 +10576,7 @@ QY
 xn
 am
 Mw
-Ho
+xn
 xn
 xQ
 xQ
@@ -10642,7 +10648,7 @@ xn
 xn
 am
 Mw
-am
+Ho
 xn
 xn
 xn
