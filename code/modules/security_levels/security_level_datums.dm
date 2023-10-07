@@ -136,7 +136,7 @@
 /datum/security_level/delta
 	name = "delta"
 	number_level = SEC_LEVEL_DELTA
-	elevating_to_sound = 'sound/effects/delta_alarm.ogg'
+	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
 	ai_announcement_sound = 'sound/AI/delta.ogg'
 	color = "orangered"
 	status_display_mode = STATUS_DISPLAY_ALERT
