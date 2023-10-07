@@ -6,7 +6,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 SUBSYSTEM_DEF(security_level)
 	name = "Security Level"
 	flags = SS_NO_FIRE
-	/// Timer id of delayed security level set
+	/// Option reference of a timer id of the latest set security level. Only set when security level is changed to one with `set_delay` > 0
 	var/security_level_set_timer_id
 	/// Currently set security level
 	var/datum/security_level/current_security_level
@@ -51,7 +51,7 @@ SUBSYSTEM_DEF(security_level)
 
 	pre_set_level(selected_level)
 
-	if(selected_level.set_delay)
+	if(selected_level.set_delay > 0)
 		SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, current_security_level.number_level, selected_level.number_level)
 		security_level_set_timer_id = addtimer(CALLBACK(src, PROC_REF(do_set_level), selected_level), selected_level.set_delay, TIMER_UNIQUE | TIMER_STOPPABLE)
 	else
