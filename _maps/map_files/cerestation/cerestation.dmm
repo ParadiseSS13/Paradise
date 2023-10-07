@@ -1663,9 +1663,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/porta_turret{
-	dir = 4
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "bcircuit"
@@ -1700,9 +1698,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/porta_turret{
-	dir = 4
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "bcircuit"
@@ -1964,9 +1960,7 @@
 	},
 /area/station/command/office/rd)
 "alJ" = (
-/obj/machinery/porta_turret{
-	dir = 4
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "bcircuit"
@@ -2720,11 +2714,7 @@
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior/secondary)
 "aqc" = (
-/obj/machinery/porta_turret{
-	dir = 4;
-	installation = /obj/item/gun/energy/gun;
-	name = "hallway turret"
-	},
+/obj/machinery/porta_turret/ai_turret/disable,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -27653,11 +27643,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/gambling_den)
 "cMD" = (
-/obj/machinery/porta_turret{
-	dir = 4;
-	installation = /obj/item/gun/energy/gun;
-	name = "hallway turret"
-	},
+/obj/machinery/porta_turret/ai_turret/disable,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -47153,9 +47139,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/porta_turret{
-	dir = 4
-	},
+/obj/machinery/porta_turret/ai_turret,
 /obj/machinery/camera/motion{
 	c_tag = "AI Core North";
 	dir = 6;
@@ -93658,11 +93642,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/test_chamber)
 "wWf" = (
-/obj/machinery/porta_turret{
-	dir = 4;
-	installation = /obj/item/gun/energy/gun;
-	name = "hallway turret"
-	},
+/obj/machinery/porta_turret/ai_turret/disable,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "bcircuit"

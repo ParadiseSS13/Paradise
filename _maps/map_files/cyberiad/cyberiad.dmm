@@ -56142,9 +56142,7 @@
 	},
 /area/station/turret_protected/aisat/interior)
 "dlu" = (
-/obj/machinery/porta_turret{
-	dir = 1
-	},
+/obj/machinery/porta_turret/ai_turret,
 /obj/structure/sign/securearea{
 	pixel_x = 32
 	},
@@ -57437,9 +57435,7 @@
 /turf/simulated/wall,
 /area/station/aisat/hall)
 "dqq" = (
-/obj/machinery/porta_turret{
-	dir = 4
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -57453,9 +57449,7 @@
 /turf/simulated/floor/plating,
 /area/station/aisat/hall)
 "dqx" = (
-/obj/machinery/porta_turret{
-	dir = 1
-	},
+/obj/machinery/porta_turret/ai_turret,
 /obj/item/radio/intercom/locked/ai_private{
 	broadcasting = 1;
 	listening = 0;
@@ -57480,9 +57474,7 @@
 /turf/simulated/floor/plating,
 /area/station/aisat/hall)
 "dqE" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -57502,22 +57494,14 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/porta_turret{
-	dir = 4;
-	installation = /obj/item/gun/energy/gun;
-	name = "hallway turret"
-	},
+/obj/machinery/porta_turret/ai_turret/disable,
 /turf/simulated/floor/bluegrid,
 /area/station/aisat/hall)
 "dqO" = (
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/porta_turret{
-	dir = 8;
-	installation = /obj/item/gun/energy/gun;
-	name = "hallway turret"
-	},
+/obj/machinery/porta_turret/ai_turret/disable,
 /turf/simulated/floor/bluegrid,
 /area/station/aisat/hall)
 "dqQ" = (
@@ -57645,9 +57629,7 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "drI" = (
-/obj/machinery/porta_turret{
-	dir = 4
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "drK" = (
@@ -57657,12 +57639,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/turret_protected/ai)
-"drM" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
-/turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "drN" = (
 /turf/simulated/wall,
@@ -132208,10 +132184,10 @@ drf
 drf
 dry
 drO
-drM
+drI
 dry
 drE
-drM
+drI
 drO
 dry
 drf

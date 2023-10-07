@@ -368,7 +368,7 @@
 	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/pulseslug
-	name = "Pulse Slug Shell"
+	name = "Proto Pulse Slug Shell"
 	result = list(/obj/item/ammo_casing/shotgun/pulseslug)
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/capacitor/adv = 2,

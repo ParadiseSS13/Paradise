@@ -52,6 +52,9 @@
 	impact_light_color_override = LIGHT_COLOR_DARKRED
 
 /obj/item/projectile/beam/laser/ai_turret/prehit(atom/target)
+	if(isAI(target))
+		damage = 0 //cheater cheater I don't want AI to die to stupid placement eater
+		nodamage = 1
 	if(isliving(target))
 		forcedodge = 0 //no peircing after hitting a mob to avoid rooms destroying itself. If someone does monkey chair on AI sat though, I swear to god
 	..()
@@ -100,6 +103,12 @@
 	name = "pulse"
 	icon_state = "u_laser"
 	damage = 50
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_DARKBLUE
+
+/obj/item/projectile/beam/pulse/hitscan
+	impact_effect_type = null
+	light_color = null
 	hitscan = TRUE
 	muzzle_type = /obj/effect/projectile/muzzle/pulse
 	tracer_type = /obj/effect/projectile/tracer/pulse
@@ -121,6 +130,7 @@
 	..()
 
 /obj/item/projectile/beam/pulse/shot
+	name = "proto pulse"
 	damage = 40
 
 /obj/item/projectile/beam/emitter
@@ -198,6 +208,23 @@
 	name = "light immolation beam"
 	damage = 8
 	icon_state = "scatterlaser"
+
+/obj/item/projectile/beam/immolator/weak/hitscan
+	color = LIGHT_COLOR_FIRE
+	hitscan = TRUE
+	muzzle_type = /obj/effect/projectile/muzzle/laser
+	tracer_type = /obj/effect/projectile/tracer/laser
+	impact_type = /obj/effect/projectile/impact/laser
+	impact_effect_type = null
+	hitscan_light_intensity = 3
+	hitscan_light_range = 0.75
+	hitscan_light_color_override = LIGHT_COLOR_FIRE
+	muzzle_flash_intensity = 6
+	muzzle_flash_range = 2
+	muzzle_flash_color_override = LIGHT_COLOR_FIRE
+	impact_light_intensity = 7
+	impact_light_range = 2.5
+	impact_light_color_override = LIGHT_COLOR_FIRE
 
 /obj/item/projectile/beam/immolator/on_hit(atom/target, blocked = 0)
 	. = ..()

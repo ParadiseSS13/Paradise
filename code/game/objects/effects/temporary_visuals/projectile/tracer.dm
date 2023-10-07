@@ -9,7 +9,7 @@
 	var/performance_counter
 	for(var/obj/effect/projectile/tracer/counter in midpoint.return_turf())
 		performance_counter++
-	if(performance_counter >= 4)
+	if(performance_counter >= 3)
 		return //Damage still happens, this should stop engineers with looping emitters doing shenanigins that makes the server cry
 
 	var/obj/effect/projectile/tracer/PB = new beam_type

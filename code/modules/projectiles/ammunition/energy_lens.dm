@@ -42,14 +42,14 @@
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/ammo_casing/energy/laser/pulse
-	projectile_type = /obj/item/projectile/beam/pulse
+	projectile_type = /obj/item/projectile/beam/pulse/hitscan
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
 	e_cost = 200
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
 /obj/item/ammo_casing/energy/laser/scatter/pulse
-	projectile_type = /obj/item/projectile/beam/pulse
+	projectile_type = /obj/item/projectile/beam/pulse/hitscan
 	e_cost = 200
 	select_name = "ANNIHILATE"
 	fire_sound = 'sound/weapons/pulse.ogg'

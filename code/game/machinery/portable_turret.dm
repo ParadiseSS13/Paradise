@@ -144,7 +144,7 @@
 			egun = 1
 
 		if(/obj/item/gun/energy/pulse/turret)
-			eprojectile = /obj/item/projectile/beam/pulse
+			eprojectile = /obj/item/projectile/beam/pulse/hitscan
 			eshot_sound = 'sound/weapons/pulse.ogg'
 	if(initial_eprojectile)
 		eprojectile = initial_eprojectile

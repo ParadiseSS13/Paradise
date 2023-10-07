@@ -329,11 +329,11 @@
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
-	for(var/obj/machinery/porta_turret/turret in GLOB.machines)
+	for(var/obj/machinery/porta_turret/ai_turret/turret in GLOB.machines)
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
 			turret.health += 30
-			turret.eprojectile = /obj/item/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
+			turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 
 //Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
