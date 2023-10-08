@@ -239,6 +239,8 @@
 		return
 
 	if(check_ricochet(A) && check_ricochet_flag(A) && ricochets < ricochets_max && is_reflectable(REFLECTABILITY_PHYSICAL))
+		if(hitscan && ricochets_max > 10)
+			ricochets_max = 10 //I do not want a chucklefuck editing this higher, sorry.
 		ricochets++
 		if(A.handle_ricochet(src))
 			on_ricochet(A)
