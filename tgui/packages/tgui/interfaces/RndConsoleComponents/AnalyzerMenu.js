@@ -1,25 +1,25 @@
 import { useBackend } from '../../backend';
 import { Box, Button, LabeledList, Section } from '../../components';
 
-export const DeconstructionMenu = (properties, context) => {
+export const AnalyzerMenu = (properties, context) => {
   const { data, act } = useBackend(context);
 
-  const { loaded_item, linked_destroy } = data;
+  const { loaded_item, linked_analyzer } = data;
 
-  if (!linked_destroy) {
-    return <Box>NO DESTRUCTIVE ANALYZER LINKED TO CONSOLE</Box>;
+  if (!linked_analyzer) {
+    return <Box>NO SCIENTIFIC ANALYZER LINKED TO CONSOLE</Box>;
   }
 
   if (!loaded_item) {
     return (
-      <Section title="Deconstruction Menu">
+      <Section title="Analysis Menu">
         No item loaded. Standing by...
       </Section>
     );
   }
 
   return (
-    <Section noTopPadding title="Deconstruction Menu">
+    <Section noTopPadding title="Analysis Menu">
       <Box mt="10px">Name: {loaded_item.name}</Box>
       <Box mt="10px">
         <h3>Origin Tech:</h3>

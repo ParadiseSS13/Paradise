@@ -1,6 +1,6 @@
 export { CurrentLevels } from './CurrentLevels';
 export { DataDiskMenu } from './DataDiskMenu';
-export { DeconstructionMenu } from './DeconstructionMenu';
+export { AnalyzerMenu } from './AnalyzerMenu';
 export { LatheCategory } from './LatheCategory';
 export { LatheChemicalStorage } from './LatheChemicalStorage';
 export { LatheMainMenu } from './LatheMainMenu';

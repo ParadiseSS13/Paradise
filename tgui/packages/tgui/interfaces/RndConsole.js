@@ -4,12 +4,12 @@ import { Box, NoticeBox } from '../components';
 import {
   SettingsMenu,
   RndRoute,
-  DeconstructionMenu,
   MainMenu,
   RndNavbar,
   CurrentLevels,
   DataDiskMenu,
   LatheMenu,
+  AnalyzerMenu,
 } from './RndConsoleComponents';
 import { LinkMenu } from './RndConsoleComponents/LinkMenu';
 
@@ -48,7 +48,7 @@ export const RndConsole = (properties, context) => {
           <RndRoute menu={MENU.MAIN} render={() => <MainMenu />} />
           <RndRoute menu={MENU.LEVELS} render={() => <CurrentLevels />} />
           <RndRoute menu={MENU.DISK} render={() => <DataDiskMenu />} />
-          <RndRoute menu={MENU.ANALYZER} render={() => <DeconstructionMenu />} />
+          <RndRoute menu={MENU.ANALYZER} render={() => <AnalyzerMenu />} />
           <RndRoute
             menu={(n) => n === MENU.LATHE || n === MENU.IMPRINTER}
             render={() => <LatheMenu />}

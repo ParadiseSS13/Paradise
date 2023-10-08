@@ -6,7 +6,7 @@ import { MENU, SUBMENU } from '../RndConsole';
 export const SettingsMenu = (properties, context) => {
   const { data, act } = useBackend(context);
 
-  const { admin, linked_destroy, linked_lathe, linked_imprinter } = data;
+  const { admin, linked_analyzer, linked_lathe, linked_imprinter } = data;
 
   return (
     <Box>
@@ -57,18 +57,18 @@ export const SettingsMenu = (properties, context) => {
               <h3>Linked Devices:</h3>
             </Box>
             <LabeledList>
-              {linked_destroy ? (
-                <LabeledList.Item label="* Destructive Analyzer">
+              {linked_analyzer ? (
+                <LabeledList.Item label="* Science Analyzer">
                   <Button
                     icon="unlink"
                     content="Unlink"
-                    onClick={() => act('disconnect', { item: 'destroy' })}
+                    onClick={() => act('disconnect', { item: 'analyzer' })}
                   />
                 </LabeledList.Item>
               ) : (
                 <LabeledList.Item
                   noColon
-                  label="* No Destructive Analyzer Linked"
+                  label="* No Science Analyzer Linked"
                 />
               )}
 

@@ -9,7 +9,7 @@ export const MainMenu = (properties, context) => {
 
   const {
     disk_type,
-    linked_destroy,
+    linked_analyzer,
     linked_lathe,
     linked_imprinter,
     tech_levels,
@@ -31,11 +31,11 @@ export const MainMenu = (properties, context) => {
           content="Disk Operations"
         />
         <RndNavButton
-          disabled={!linked_destroy}
-          menu={MENU.DESTROY}
+          disabled={!linked_analyzer}
+          menu={MENU.ANALYZER}
           submenu={SUBMENU.MAIN}
-          icon="unlink"
-          content="Destructive Analyzer Menu"
+          icon="microscope"
+          content="Science Analyzer Menu"
         />
         <RndNavButton
           disabled={!linked_lathe}

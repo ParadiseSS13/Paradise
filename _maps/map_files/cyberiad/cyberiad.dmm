@@ -4281,7 +4281,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cXB" = (
-/obj/machinery/r_n_d/destructive_analyzer,
+/obj/machinery/r_n_d/science_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -66479,7 +66479,7 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/circuitboard/destructive_analyzer,
+/obj/item/circuitboard/science_analyzer,
 /obj/item/circuitboard/protolathe{
 	pixel_x = 3;
 	pixel_y = -3

@@ -6,7 +6,7 @@ It is used to investigate hand-held objects and destroy them for research. Contr
 Note: Must be placed within 3 tiles of the R&D Console
 */
 /obj/machinery/r_n_d/science_analyzer
-	name = "Destructive Analyzer"
+	name = "Science Analyzer"
 	desc = "Learn science by analyzing things!"
 	icon_state = "d_analyzer"
 	/// Typecache of items that can unlock illegal research
