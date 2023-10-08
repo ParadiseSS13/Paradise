@@ -3,17 +3,22 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "c" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "d" = (
 /obj/structure/flora/ash/rock/style_random,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "e" = (
-/turf/simulated/mineral/random/high_chance,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors)
 "f" = (
 /obj/structure/stone_tile/block/cracked{
@@ -21,6 +26,8 @@
 	},
 /obj/structure/stone_tile/block,
 /obj/effect/mob_spawn/corpse/watcher/goliath_chewed,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "g" = (
@@ -28,57 +35,97 @@
 	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/egg/watcher,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "h" = (
 /obj/structure/flora/ash/cap_shroom,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "i" = (
 /obj/structure/falsewall/rock_ancient,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "j" = (
 /obj/effect/mob_spawn/corpse/watcher/crushed,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "k" = (
 /obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "l" = (
 /obj/structure/stone_tile/slab,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "m" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/effect/mob_spawn/corpse/goliath/pierced,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "o" = (
-/turf/simulated/mineral/random,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
 "p" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "q" = (
 /obj/structure/flora/ash/leaf_shroom,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"r" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "t" = (
 /obj/structure/flora/ash/cacti,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "v" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/stone_tile/center/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "w" = (
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
+"A" = (
+/obj/structure/flora/ash/leaf_shroom,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"F" = (
+/obj/structure/flora/ash/rock/style_random,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"J" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
+"Q" = (
+/turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
@@ -100,9 +147,9 @@ o
 o
 c
 c
-c
+J
 i
-c
+J
 o
 o
 a
@@ -110,12 +157,12 @@ a
 (3,1,1) = {"
 a
 o
-c
+J
 c
 h
 d
 b
-c
+J
 w
 o
 o
@@ -123,7 +170,7 @@ o
 (4,1,1) = {"
 a
 o
-c
+J
 v
 f
 k
@@ -131,12 +178,12 @@ b
 w
 w
 w
-o
+Q
 "}
 (5,1,1) = {"
 a
 o
-c
+J
 p
 g
 l
@@ -147,28 +194,28 @@ w
 w
 "}
 (6,1,1) = {"
-b
 o
-c
+o
+J
 q
-b
+r
 m
 b
 b
-c
+J
 w
 w
 "}
 (7,1,1) = {"
 a
 o
+J
 c
-c
-d
+F
 k
 b
-q
-c
+A
+J
 o
 o
 "}
@@ -178,12 +225,12 @@ o
 o
 c
 c
-c
+J
 i
-c
-c
+J
+J
 o
-b
+o
 "}
 (9,1,1) = {"
 a
@@ -191,9 +238,9 @@ a
 o
 o
 o
-c
+J
 b
-c
+J
 o
 o
 a
