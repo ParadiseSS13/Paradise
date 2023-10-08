@@ -15,7 +15,7 @@
 	interests, rampant cyber and bio-augmentation and secretive factions make life on most human \
 	worlds tumultous at best."
 
-	icon_skin_tones = list(
+	icon_skin_tones = list( //Organized to be from Light to Dark.
 		1 = "Default White",
 		2 = "Pale",
 		3 = "Classic",
