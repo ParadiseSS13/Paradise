@@ -17,7 +17,7 @@ export const MENU = {
   MAIN: 0,
   LEVELS: 1,
   DISK: 2,
-  DESTROY: 3,
+  ANALYZER: 3,
   LATHE: 4,
   IMPRINTER: 5,
   SETTINGS: 6,
@@ -48,7 +48,7 @@ export const RndConsole = (properties, context) => {
           <RndRoute menu={MENU.MAIN} render={() => <MainMenu />} />
           <RndRoute menu={MENU.LEVELS} render={() => <CurrentLevels />} />
           <RndRoute menu={MENU.DISK} render={() => <DataDiskMenu />} />
-          <RndRoute menu={MENU.DESTROY} render={() => <DeconstructionMenu />} />
+          <RndRoute menu={MENU.ANALYZER} render={() => <DeconstructionMenu />} />
           <RndRoute
             menu={(n) => n === MENU.LATHE || n === MENU.IMPRINTER}
             render={() => <LatheMenu />}

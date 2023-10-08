@@ -282,14 +282,14 @@
 	build_path = /obj/item/circuitboard/cyborgrecharger
 	category = list("Research Machinery")
 
-/datum/design/destructive_analyzer
-	name = "Machine Board (Destructive Analyzer)"
-	desc = "The circuit board for a Destructive Analyzer."
-	id = "destructive_analyzer"
+/datum/design/science_analyzer
+	name = "Machine Board (Science Analyzer)"
+	desc = "The circuit board for a Science Analyzer."
+	id = "science_analyzer"
 	req_tech = list("programming" = 2, "magnets" = 2, "engineering" = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
-	build_path = /obj/item/circuitboard/destructive_analyzer
+	build_path = /obj/item/circuitboard/science_analyzer
 	category = list("Research Machinery")
 
 /datum/design/mechfab

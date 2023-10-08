@@ -883,7 +883,7 @@
 
 /obj/item/storage/box/rndboards/populate_contents()
 	new /obj/item/circuitboard/protolathe(src)
-	new /obj/item/circuitboard/destructive_analyzer(src)
+	new /obj/item/circuitboard/science_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
 	new /obj/item/circuitboard/rdconsole/public(src)
 

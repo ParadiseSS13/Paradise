@@ -5,16 +5,18 @@
 	desc = "What mysteries could this hold?"
 	icon = 'icons/obj/assemblies.dmi'
 	icon_state = "prox-radio1"  // it is immediately overriden in New, but setting it here makes it show in mapeditor
-	origin_tech = "combat=1;plasmatech=1;powerstorage=1;materials=1"
-	var/realName = "defined object"
+	/// What this will be called when its discovered
+	var/real_name = "defined object"
+	/// Has this been discovered?
 	var/revealed = FALSE
+	/// What is the real function of this object
 	var/realProc
 	var/cooldownMax = 60
 	var/cooldown
-	var/floof
+	var/list/spawnable_pets
 
-/obj/item/relic/New()
-	..()
+/obj/item/relic/Initialize(mapload)
+	. = ..()
 	icon_state = pick("shock_kit","armor-igniter-analyzer","infra-igniter0","infra-igniter1","radio-multitool","prox-radio1","radio-radio","timer-multitool0","radio-igniter-tank")
 	realName = "[pick("broken","twisted","spun","improved","silly","regular","badly made")] [pick("device","object","toy","suspicious tech","gear")]"
 	floof = pick(/mob/living/simple_animal/pet/dog/corgi, /mob/living/simple_animal/pet/cat, /mob/living/simple_animal/pet/dog/fox, /mob/living/simple_animal/mouse, /mob/living/simple_animal/pet/dog/pug, /mob/living/simple_animal/lizard, /mob/living/simple_animal/diona, /mob/living/simple_animal/butterfly, /mob/living/carbon/human/monkey)
@@ -23,6 +25,7 @@
 /obj/item/relic/proc/reveal()
 	if(revealed) //Re-rolling your relics seems a bit overpowered, yes?
 		return
+
 	revealed = TRUE
 	name = realName
 	cooldownMax = rand(60, 300)

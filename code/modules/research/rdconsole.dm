@@ -46,7 +46,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #define MENU_MAIN 0
 #define MENU_LEVELS 1
 #define MENU_DISK 2
-#define MENU_DESTROY 3
+#define MENU_ANALYZER 3
 #define MENU_LATHE 4
 #define MENU_IMPRINTER 5
 #define MENU_SETTINGS 6
@@ -70,9 +70,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	var/obj/item/disk/tech_disk/t_disk = null	//Stores the technology disk.
 	var/obj/item/disk/design_disk/d_disk = null	//Stores the design disk.
 
-	var/obj/machinery/r_n_d/destructive_analyzer/linked_destroy = null	//Linked Destructive Analyzer
-	var/obj/machinery/r_n_d/protolathe/linked_lathe = null				//Linked Protolathe
-	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null	//Linked Circuit Imprinter
+	/// Linked Scientific Analyzer
+	var/obj/machinery/r_n_d/science_analyzer/linked_analyzer = null
+	/// Linked Protolathe
+	var/obj/machinery/r_n_d/protolathe/linked_lathe = null
+	/// Linked Circuit Imprinter
+	var/obj/machinery/r_n_d/circuit_imprinter/linked_imprinter = null
 
 	var/menu = MENU_MAIN
 	var/submenu = SUBMENU_MAIN
@@ -91,12 +94,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	var/selected_category
 	var/list/datum/design/matching_designs = list() //for the search function
-
-/proc/CallTechName(ID) //A simple helper proc to find the name of a tech with a given ID.
-	for(var/T in subtypesof(/datum/tech))
-		var/datum/tech/tt = T
-		if(initial(tt.id) == ID)
-			return initial(tt.name)
 
 /proc/CallMaterialName(ID)
 	if(copytext(ID, 1, 2) == "$")
@@ -149,9 +146,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if(!isnull(D.linked_console) || D.panel_open)
 			continue
 
-		if(istype(D, /obj/machinery/r_n_d/destructive_analyzer))
-			if(linked_destroy == null)
-				linked_destroy = D
+		if(istype(D, /obj/machinery/r_n_d/science_analyzer))
+			if(linked_analyzer == null)
+				linked_analyzer = D
 				D.linked_console = src
 
 		else if(istype(D, /obj/machinery/r_n_d/protolathe))
@@ -180,9 +177,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	QDEL_NULL(t_disk)
 	QDEL_NULL(d_disk)
 	matching_designs.Cut()
-	if(linked_destroy)
-		linked_destroy.linked_console = null
-		linked_destroy = null
+	if(linked_analyzer)
+		linked_analyzer.linked_console = null
+		linked_analyzer = null
 	if(linked_lathe)
 		linked_lathe.linked_console = null
 		linked_lathe = null
@@ -218,7 +215,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return
 		D.loc = src
 		to_chat(user, "<span class='notice'>You add the disk to the machine!</span>")
-	else if(!(linked_destroy && linked_destroy.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
+	else if(!(linked_analyzer && linked_analyzer.busy) && !(linked_lathe && linked_lathe.busy) && !(linked_imprinter && linked_imprinter.busy))
 		..()
 	SStgui.update_uis(src)
 	return
@@ -232,7 +229,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 /obj/machinery/computer/rdconsole/proc/valid_nav(next_menu, next_submenu)
 	switch(next_menu)
-		if(MENU_MAIN, MENU_LEVELS, MENU_DESTROY)
+		if(MENU_MAIN, MENU_LEVELS, MENU_ANALYZER)
 			return next_submenu in list(SUBMENU_MAIN)
 		if(MENU_DISK)
 			return next_submenu in list(SUBMENU_MAIN, SUBMENU_DISK_COPY)
@@ -279,58 +276,39 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	clear_wait_message()
 	SStgui.update_uis(src)
 
-/obj/machinery/computer/rdconsole/proc/start_destroyer(mob/user)
-	if(!linked_destroy)
+/obj/machinery/computer/rdconsole/proc/start_analyzer(mob/user)
+	if(!linked_analyzer)
 		return
 
-	if(linked_destroy.busy)
-		to_chat(user, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+	if(linked_analyzer.busy)
+		to_chat(user, "<span class='danger'>[linked_analyzer] is busy at the moment.</span>")
 		return
 
-	if(!linked_destroy.loaded_item)
-		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+	if(!linked_analyzer.loaded_item)
+		to_chat(user, "<span class='danger'>[linked_analyzer] appears to be empty.</span>")
 		return
-
-	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
-	var/pointless = FALSE
 
 	var/datum/research/files = getfiles()
 	if(!files)
 		to_chat(user, "<span class='danger'>Error - No research network linked.</span>")
 		return
 
-	for(var/T in temp_tech)
-		if(files.IsTechHigher(T, temp_tech[T]))
-			pointless = TRUE
-			break
+	// See if its worth it
 
+	var/pointless = FALSE
 	if(!pointless)
 		var/choice = input("This item does not raise tech levels. Proceed destroying loaded item anyway?") in list("Proceed", "Cancel")
-		if(choice == "Cancel" || !linked_destroy)
+		if(choice == "Cancel" || !linked_analyzer)
 			return
 
-	linked_destroy.busy = TRUE
+	linked_analyzer.busy = TRUE
 	add_wait_message("Processing and Updating Database...", DECONSTRUCT_DELAY)
-	flick("d_analyzer_process", linked_destroy)
-	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), user, temp_tech), DECONSTRUCT_DELAY)
+	flick("d_analyzer_process", linked_analyzer)
+	addtimer(CALLBACK(src, PROC_REF(finish_analyser), user), DECONSTRUCT_DELAY)
 
-// Sends salvaged materials to a linked protolathe, if any.
-/obj/machinery/computer/rdconsole/proc/send_mats()
-	if(!linked_lathe || !linked_destroy || !linked_destroy.loaded_item)
-		return
-
-	for(var/material in linked_destroy.loaded_item.materials)
-		var/space = linked_lathe.materials.max_amount - linked_lathe.materials.total_amount
-		// as item rating increases, amount salvageable increases
-		var/salvageable = linked_destroy.loaded_item.materials[material] * (linked_destroy.decon_mod / 10)
-		// but you shouldn't salvage more than the raw materials amount
-		var/available = linked_destroy.loaded_item.materials[material]
-		var/can_insert = min(space, salvageable, available)
-		linked_lathe.materials.insert_amount(can_insert, material)
-
-/obj/machinery/computer/rdconsole/proc/finish_destroyer(mob/user, list/temp_tech)
+/obj/machinery/computer/rdconsole/proc/finish_analyser(mob/user)
 	clear_wait_message()
-	if(!linked_destroy || !temp_tech)
+	if(!linked_analyzer)
 		return
 
 	var/datum/research/files = getfiles()
@@ -338,30 +316,28 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(user, "<span class='danger'>Error - No research network linked.</span>")
 		return
 
-	if(!linked_destroy.loaded_item)
-		to_chat(user, "<span class='danger'>[linked_destroy] appears to be empty.</span>")
+	if(!linked_analyzer.loaded_item)
+		to_chat(user, "<span class='danger'>[linked_analyzer] appears to be empty.</span>")
 	else
-		for(var/T in temp_tech)
-			files.UpdateTech(T, temp_tech[T])
-		send_mats()
-		linked_destroy.loaded_item = null
+		// Figure out what the item should yield
+		linked_analyzer.loaded_item = null
 
-	for(var/obj/I in linked_destroy.contents)
+	for(var/obj/I in linked_analyzer.contents)
 		for(var/mob/M in I.contents)
 			M.death()
 		if(istype(I, /obj/item/stack))//Only deconstructs one item in a stack at a time instead of the entire stack
 			var/obj/item/stack/S = I
 			if(S.amount > 1)
 				S.amount--
-				linked_destroy.loaded_item = S
+				linked_analyzer.loaded_item = S
 			else
 				qdel(S)
-				linked_destroy.icon_state = "d_analyzer"
-		else if(!(I in linked_destroy.component_parts))
+				linked_analyzer.icon_state = "d_analyzer"
+		else if(!(I in linked_analyzer.component_parts))
 			qdel(I)
-			linked_destroy.icon_state = "d_analyzer"
+			linked_analyzer.icon_state = "d_analyzer"
 
-	linked_destroy.busy = FALSE
+	linked_analyzer.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
 	menu = MENU_MAIN
 	submenu = SUBMENU_MAIN
@@ -613,19 +589,19 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			submenu = SUBMENU_MAIN
 
 		if("eject_item") //Eject the item inside the destructive analyzer.
-			if(linked_destroy)
-				if(linked_destroy.busy)
-					to_chat(usr, "<span class='danger'>[linked_destroy] is busy at the moment.</span>")
+			if(linked_analyzer)
+				if(linked_analyzer.busy)
+					to_chat(usr, "<span class='danger'>[linked_analyzer] is busy at the moment.</span>")
 
-				else if(linked_destroy.loaded_item)
-					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
-					linked_destroy.loaded_item = null
-					linked_destroy.icon_state = "d_analyzer"
-					menu = MENU_DESTROY
+				else if(linked_analyzer.loaded_item)
+					linked_analyzer.loaded_item.forceMove(get_turf(linked_analyzer))
+					linked_analyzer.loaded_item = null
+					linked_analyzer.icon_state = "d_analyzer"
+					menu = MENU_ANALYZER
 
 
-		if("deconstruct") //Deconstruct the item in the destructive analyzer and update the research holder.
-			start_destroyer(usr)
+		if("analyze") // Load the item in the analyzer
+			start_analyzer(usr)
 
 		if("build") //Causes the Protolathe to build something.
 			start_machine(linked_lathe, params["id"], text2num(params["amount"]))
@@ -661,10 +637,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("disconnect") //The R&D console disconnects with a specific device.
 			switch(params["item"])
-				if("destroy")
-					if(linked_destroy)
-						linked_destroy.linked_console = null
-						linked_destroy = null
+				if("analyzer")
+					if(linked_analyzer)
+						linked_analyzer.linked_console = null
+						linked_analyzer = null
 				if("lathe")
 					if(linked_lathe)
 						linked_lathe.linked_console = null
@@ -892,7 +868,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["wait_message"] = wait_message
 	data["src_ref"] = UID()
 
-	data["linked_destroy"] = linked_destroy ? 1 : 0
+	data["linked_analyzer"] = linked_analyzer ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
 	data["admin"] = check_rights(R_ADMIN, FALSE, user)
@@ -972,23 +948,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				item["name"] = D.name
 				item["id"] = D.id
 
-	else if(menu == MENU_DESTROY && linked_destroy && linked_destroy.loaded_item)
+	else if(menu == MENU_ANALYZER && linked_analyzer && linked_analyzer.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
-		loaded_item_list["name"] = linked_destroy.loaded_item.name
-		var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
-		var/list/tech_list = list()
-		loaded_item_list["origin_tech"] = tech_list
-		for(var/T in temp_tech)
-			var/list/tech_item = list()
-			tech_list[++tech_list.len] = tech_item
-			tech_item["name"] = CallTechName(T)
-			tech_item["object_level"] = temp_tech[T]
-			for(var/v in files.known_tech)
-				var/datum/tech/F = files.known_tech[v]
-				if(F.name == CallTechName(T))
-					tech_item["current_level"] = F.level
-					break
+		loaded_item_list["name"] = linked_analyzer.loaded_item.name
+		#warn put object property expansions here
 
 	else if(menu == MENU_LATHE && linked_lathe)
 		ui_machine_data(linked_lathe, data)
@@ -1040,7 +1004,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef MENU_MAIN
 #undef MENU_LEVELS
 #undef MENU_DISK
-#undef MENU_DESTROY
+#undef MENU_ANALYZER
 #undef MENU_LATHE
 #undef MENU_IMPRINTER
 #undef MENU_SETTINGS
@@ -1052,3 +1016,23 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 #undef SUBMENU_SETTINGS_DEVICES
 #undef BUILD_POWER
 #undef DECONSTRUCT_POWER
+
+/client/verb/get_object_values()
+	set name = "aatest"
+
+	var/tt = input("Tech", "Tech", null) as anything in list("syndicate", "abductor")
+
+	var/list/data = list()
+	for(var/obj_type in subtypesof(/obj))
+		var/obj/O = obj_type
+
+		var/oname = initial(O.name)
+		var/otype = initial(O.type)
+		var/otech = initial(O.origin_tech)
+		var/tech_list = params2list(otech)
+		if(tt in tech_list)
+			data += "[oname]|[otype]|[tech_list[tt]]"
+
+	var/datum/browser/popup = new(usr, "techview", "Tech view", 1100, 850)
+	popup.set_content(data.Join("<br>"))
+	popup.open(FALSE)

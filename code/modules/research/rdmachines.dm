@@ -8,7 +8,7 @@
 	anchored = TRUE
 	var/busy = FALSE
 	var/obj/machinery/computer/rdconsole/linked_console
-	var/obj/item/loaded_item = null
+	var/obj/item/loaded_item = null // Why is this scoped here?
 	var/datum/component/material_container/materials	//Store for hyper speed!
 	var/efficiency_coeff = 1
 	var/list/categories = list()

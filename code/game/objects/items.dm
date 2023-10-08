@@ -225,27 +225,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 
 	. = ..(user, "", "It is a [size] item.")
 
-	if(user.research_scanner) //Mob has a research scanner active.
-		var/msg = "*--------* <BR>"
-
-		if(origin_tech)
-			msg += "<span class='notice'>Testing potentials:</span><BR>"
-			var/list/techlvls = params2list(origin_tech)
-			for(var/T in techlvls) //This needs to use the better names.
-				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
-		else
-			msg += "<span class='danger'>No tech origins detected.</span><BR>"
-
-
-		if(materials.len)
-			msg += "<span class='notice'>Extractable materials:<BR>"
-			for(var/mat in materials)
-				msg += "[CallMaterialName(mat)]<BR>" //Capitize first word, remove the "$"
-		else
-			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
-		msg += "*--------*"
-		. += msg
-
 	if(HAS_TRAIT(src, TRAIT_BUTCHERS_HUMANS))
 		. += "<span class='warning'>Can be used to butcher dead people into meat while on harm intent.</span>"
 

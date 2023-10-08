@@ -323,6 +323,7 @@ research holder datum.
 	id = "syndicate"
 	max_level = 0 // Don't count towards maxed research, since it's illegal.
 	rare = 4
+	level = 0 // Start at 0
 	point_scaling = 4
 
 /datum/tech/abductor
@@ -331,6 +332,7 @@ research holder datum.
 	id = "abductor"
 	rare = 5
 	level = 0
+	// Start at 0
 	point_scaling = 7
 
 
