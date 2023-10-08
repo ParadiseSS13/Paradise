@@ -46,12 +46,10 @@
 		STOP_PROCESSING(SSprocessing, src)
 
 /turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
-	if(isliving(caller))
-		var/mob/living/L = caller
-		if(L.flying || ismegafauna(caller))
-			return TRUE
-		return FALSE
-	return TRUE
+	if(!isliving(caller))
+		return TRUE
+	var/mob/living/L = caller
+	return (L.flying || ismegafauna(caller)
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
