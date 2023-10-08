@@ -2555,6 +2555,7 @@
 #include "code\modules\research\rnd_network_controller.dm"
 #include "code\modules\research\science_analyzer.dm"
 #include "code\modules\research\server.dm"
+#include "code\modules\research\strange_objects.dm"
 #include "code\modules\research\anomaly\anomaly.dm"
 #include "code\modules\research\designs\AI_module_designs.dm"
 #include "code\modules\research\designs\autolathe_designs.dm"
