@@ -23,8 +23,8 @@
 		5 = "Oliver",
 		6 = "Beige",
 		7 = "Latte",
-		8 = "Almond",
-		9 = "Sienna",
+		8 = "Sienna",
+		9 = "Almond",
 		10 = "Bronzed",
 		11 = "Caramel",
 		12 = "Coffee",
@@ -46,9 +46,9 @@
 			if(10)
 				new_icobase = 'icons/mob/human_races/human_skintones/r_human_bronzed.dmi'
 			if(9)
-				new_icobase = 'icons/mob/human_races/human_skintones/r_human_sienna.dmi'
-			if(8)
 				new_icobase = 'icons/mob/human_races/human_skintones/r_human_almond.dmi'
+			if(8)
+				new_icobase = 'icons/mob/human_races/human_skintones/r_human_sienna.dmi'
 			if(7)
 				new_icobase = 'icons/mob/human_races/human_skintones/r_human_latte.dmi'
 			if(6)
