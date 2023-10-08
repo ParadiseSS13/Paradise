@@ -103,8 +103,7 @@ const ChemMasterBeaker = (props, context) => {
   return (
     <Section
       title="Beaker"
-      flexGrow="0"
-      flexBasis="300px"
+      flexGrow="1"
       buttons={
         bufferNonEmpty ? (
           <Button.Confirm
@@ -187,8 +186,7 @@ const ChemMasterBuffer = (props, context) => {
   return (
     <Section
       title="Buffer"
-      flexGrow="0"
-      flexBasis="300px"
+      flexGrow="1"
       buttons={
         <Box color="label">
           Transferring to&nbsp;
