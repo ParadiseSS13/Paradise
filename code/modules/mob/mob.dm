@@ -83,13 +83,13 @@
 
 	if(type)
 		if(type & EMOTE_VISIBLE && !has_vision(information_only=TRUE))//Vision related
-			if(!(alt))
+			if(!alt)
 				return
 			else
 				msg = alt
 				type = alt_type
 		if(type & EMOTE_AUDIBLE && !can_hear())//Hearing related
-			if(!( alt))
+			if(!alt)
 				return
 			else
 				msg = alt
