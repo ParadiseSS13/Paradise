@@ -63,9 +63,8 @@
 		if(!time_checked)
 			COOLDOWN_START(src, time_checked, delay_per_mage)
 		if(world.time > time_till_chaos && COOLDOWN_FINISHED(src, time_checked) && (mages_made < wizard_cap))
-			time_checked = world.time
-			make_more_mages()
 			COOLDOWN_START(src, time_checked, delay_per_mage)
+			make_more_mages()
 	else
 		if(length(wizards) >= wizard_cap)
 			finished = TRUE
