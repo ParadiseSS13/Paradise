@@ -230,4 +230,3 @@
 	suffix = "lavaland_surface_watcher_grave.dmm"
 	cost = 5
 	allow_duplicates = FALSE
-	always_place = TRUE

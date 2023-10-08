@@ -91,6 +91,7 @@
 	desc = "A newly born watcher, apparently free of the Necropolis' corruption. Perhaps one of the last."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "watcher_baby"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF //No. The child will not die to lava.
 	w_class = WEIGHT_CLASS_SMALL //pocket monster. Plus doesn't work in bag.
 	/// The effect we create when out and about
 	var/obj/effect/watcher_orbiter/orbiter
@@ -112,7 +113,7 @@
 	. = ..()
 	if(isnull(orbiter))
 		return
-	var/mob/holder = recursive_loc_check(src, /mob)
+	var/mob/holder = get(loc, /mob)
 	if(holder != owner)
 		watcher_return()
 

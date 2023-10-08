@@ -487,19 +487,6 @@
 		return
 	winset(C, "mainwindow", "flash=5")
 
-///Recursively checks if an item is inside a given type, even through layers of storage. Returns the atom if it finds it.
-/proc/recursive_loc_check(atom/movable/target, type)
-	var/atom/atom_to_find = target
-	if(istype(atom_to_find, type))
-		return atom_to_find
-
-	while(!istype(atom_to_find.loc, type))
-		if(!atom_to_find.loc)
-			return
-		atom_to_find = atom_to_find.loc
-
-	return atom_to_find.loc
-
 /**
   * Returns a list of vents that can be used as a potential spawn if they meet the criteria set by the arguments
   *
