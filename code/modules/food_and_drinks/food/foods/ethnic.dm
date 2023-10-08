@@ -158,4 +158,4 @@
 	trash = /obj/item/stack/rods
 	list_reagents = list("protein" = 8, "vitamin" = 4, "vinegar" = 1, "capsaicin" = 1)
 	filling_color = "#A85340"
-	tastes = list("fish" = 4, "acid" = 4, "onion" = 4, "heat" = 4)
+	tastes = list("fish" = 2, "acid" = 2, "onion" = 2, "heat" = 2)
