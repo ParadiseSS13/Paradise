@@ -28,6 +28,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 			var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
 			current_mode.possible_traitors.Remove(src)
 
+	view_core()
 	// Ghost the current player and disallow them to return to the body
 	if(TOO_EARLY_TO_GHOST)
 		ghostize(FALSE)

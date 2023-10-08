@@ -1518,4 +1518,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	stored_locations[location_number] = eyeobj.loc
 	return TRUE
 
+/mob/living/silicon/ai/ghostize(can_reenter_corpse)
+	var/old_turf = get_turf(eyeobj)
+	. = ..()
+	if(isobserver(.))
+		var/mob/dead/observer/ghost = .
+		ghost.forceMove(old_turf)
+
 #undef TEXT_ANNOUNCEMENT_COOLDOWN
