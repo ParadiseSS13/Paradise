@@ -851,7 +851,6 @@ away_mission_delay = 0
 enabled_away_missions = [
 	"_maps/map_files220/RandomZLevels/beach.dmm",
 	"_maps/map_files220/RandomZLevels/wildwest.dmm",
-	"_maps/map_files220/RandomZLevels/terrorspiders.dmm",
 	"_maps/map_files220/RandomZLevels/blackmarketpackers.dmm",
 	"_maps/map_files220/RandomZLevels/gate_lizard.dmm",
 ]
