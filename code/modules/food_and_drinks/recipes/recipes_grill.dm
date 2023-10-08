@@ -155,7 +155,7 @@
 		/obj/item/reagent_containers/food/snacks/carpmeat,
 		/obj/item/reagent_containers/food/snacks/grown/onion,
 		/obj/item/reagent_containers/food/snacks/grown/chili,
-		/obj/item/stack/rods,
+		/obj/item/stack/rods
 	)
 	result = /obj/item/reagent_containers/food/snacks/picoss_kabob
 
