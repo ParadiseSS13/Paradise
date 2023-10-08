@@ -47,7 +47,7 @@
 		icon_state = "screwdriver_[param_color]"
 		belt_icon = "screwdriver_[param_color]"
 
-	if (prob(75))
+	if(prob(75))
 		src.pixel_y = rand(0, 16)
 
 /obj/item/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)

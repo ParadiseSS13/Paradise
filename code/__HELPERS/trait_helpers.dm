@@ -22,7 +22,7 @@
 		} \
 \
 		SEND_SIGNAL(target, SIGNAL_ADDTRAIT(trait), trait); \
-	} while (0)
+	} while(0)
 
 /**
  * Removes a status trait from a target datum.
@@ -50,7 +50,7 @@
 				} \
 			} \
 		} \
-	} while (0)
+	} while(0)
 
 /**
  * Removes all status traits from a target datum which were NOT added by `sources`.
@@ -82,7 +82,7 @@
 				target.status_traits = null; \
 			} \
 		} \
-	} while (0)
+	} while(0)
 
 /**
  * Removes all status traits from a target datum which were added by `sources`.
@@ -114,7 +114,7 @@
 				target.status_traits = null; \
 			} \
 		} \
-	} while (0)
+	} while(0)
 
 
 #define HAS_TRAIT(target, trait) (target.status_traits ? (target.status_traits[trait] ? TRUE : FALSE) : FALSE)

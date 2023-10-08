@@ -11,11 +11,11 @@
 
 /obj/structure/ladder/Initialize(mapload, obj/structure/ladder/up, obj/structure/ladder/down)
 	. = ..()
-	if (up)
+	if(up)
 		src.up = up
 		up.down = src
 		up.update_icon()
-	if (down)
+	if(down)
 		src.down = down
 		down.up = src
 		down.update_icon()
@@ -38,7 +38,7 @@
 			L.update_icon()
 			break
 	if(!up)
-		for (var/obj/structure/ladder/L in locate(T.x, T.y, T.z + 1))
+		for(var/obj/structure/ladder/L in locate(T.x, T.y, T.z + 1))
 			up = L
 			L.down = src  // Don't waste effort looping the other way
 			L.update_icon()
@@ -93,7 +93,7 @@
 
 	if(up && down)
 		var/result = alert("Go up or down [src]?", "[name]", "Up", "Down", "Cancel")
-		if (!is_ghost && !in_range(src, user))
+		if(!is_ghost && !in_range(src, user))
 			return  // nice try
 		switch(result)
 			if("Up")
@@ -164,13 +164,13 @@
 			down = L
 			L.up = src
 			L.update_icon()
-			if (up)
+			if(up)
 				break  // break if both our connections are filled
 		else if(!up && L.height == height + 1)
 			up = L
 			L.down = src
 			L.update_icon()
-			if (down)
+			if(down)
 				break  // break if both our connections are filled
 
 	update_icon()

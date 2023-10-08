@@ -480,7 +480,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		var/atom/A = scan
 		if(!istype(A, scan_type)) //Check that the thing we found is the type we want!
 			continue //If not, keep searching!
-		if((A.UID() in ignore_list) || (A == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
+		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
 		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)

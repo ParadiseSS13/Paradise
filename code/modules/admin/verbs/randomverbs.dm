@@ -142,7 +142,7 @@
 
 	var/msg = clean_input("Message:", text("Enter the text you wish to appear to your target:"))
 
-	if( !msg )
+	if(!msg)
 		return
 	msg = admin_pencode_to_html(msg)
 

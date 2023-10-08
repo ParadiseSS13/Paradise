@@ -34,7 +34,7 @@ PROCESSING_SUBSYSTEM_DEF(radiation)
 	. = ..()
 
 /datum/controller/subsystem/processing/radiation/proc/get_turf_radiation(turf/place)
-	if (prev_rad_cache[place])
+	if(prev_rad_cache[place])
 		return prev_rad_cache[place]
 	else
 		return 0

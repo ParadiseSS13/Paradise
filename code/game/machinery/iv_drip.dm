@@ -72,7 +72,7 @@
 		to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 		update_icon(UPDATE_OVERLAYS)
 		START_PROCESSING(SSmachines, src)
-	else if (bag && istype(I, /obj/item/reagent_containers))
+	else if(bag && istype(I, /obj/item/reagent_containers))
 		bag.attackby(I)
 		I.afterattack(bag, usr, TRUE)
 		update_icon(UPDATE_OVERLAYS)

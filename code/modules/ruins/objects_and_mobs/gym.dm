@@ -58,8 +58,8 @@
 
 /obj/structure/weightmachine/stacklifter/AnimateMachine(mob/living/user)
 	var/lifts = 0
-	while (lifts++ < 6)
-		if (user.loc != src.loc)
+	while(lifts++ < 6)
+		if(user.loc != src.loc)
 			break
 		sleep(3)
 		animate(user, pixel_y = -2, time = 3)
@@ -78,10 +78,10 @@
 	add_overlay(swole_overlay)
 	var/reps = 0
 	user.pixel_y = 5
-	while (reps++ < 6)
-		if (user.loc != src.loc)
+	while(reps++ < 6)
+		if(user.loc != src.loc)
 			break
-		for (var/innerReps = max(reps, 1), innerReps > 0, innerReps--)
+		for(var/innerReps = max(reps, 1), innerReps > 0, innerReps--)
 			sleep(3)
 			animate(user, pixel_y = (user.pixel_y == 3) ? 5 : 3, time = 3)
 		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, 1)

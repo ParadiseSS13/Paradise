@@ -57,13 +57,13 @@
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleLight()
 	var/msg
 	switch(lighting_alpha)
-		if (LIGHTING_PLANE_ALPHA_VISIBLE)
+		if(LIGHTING_PLANE_ALPHA_VISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 			msg = "You activate your night vision."
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+		if(LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 			msg = "You increase your night vision."
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
+		if(LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 			msg = "You maximize your night vision."
 		else

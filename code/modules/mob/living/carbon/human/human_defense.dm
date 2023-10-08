@@ -748,7 +748,7 @@ emp_act
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/S = shoes
-		if (S.flags & NOSLIP)
+		if(S.flags & NOSLIP)
 			return FALSE
 	return ..()
 

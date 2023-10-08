@@ -252,7 +252,7 @@
 	else if(HAS_TRAIT(target, TRAIT_HUSK))
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Subject is husked.</span>")
 		defib_success = FALSE
-	else if (target.blood_volume < BLOOD_VOLUME_SURVIVE)
+	else if(target.blood_volume < BLOOD_VOLUME_SURVIVE)
 		user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low.</span>")
 		defib_success = FALSE
 	else if(!target.get_organ_slot("brain"))  // So things like headless clings don't get outed

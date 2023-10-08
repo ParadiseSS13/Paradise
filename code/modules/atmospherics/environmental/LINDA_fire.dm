@@ -311,7 +311,7 @@
 
 		for(var/dir in GLOB.cardinal)
 			var/turf/link = get_step(T, dir)
-			if (!link)
+			if(!link)
 				continue
 			// Check if it wasn't already visited and if you can get to that turf
 			if(!closed[link] && T.CanAtmosPass(link))

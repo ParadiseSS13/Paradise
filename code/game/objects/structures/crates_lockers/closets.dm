@@ -239,7 +239,7 @@
 		return
 	if(user.restrained() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
+	if((!( istype(O, /atom/movable)) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts, you cannot shove people into fucking lockers
 		return

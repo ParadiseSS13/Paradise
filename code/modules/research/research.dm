@@ -54,7 +54,7 @@ research holder datum.
 	var/list/possible_designs = list()		//List of all designs
 	var/list/known_designs = list()			//List of available designs
 	/// List of designs that have been blacklisted by the server controller
-	var/list/blacklisted_designs = list()		
+	var/list/blacklisted_designs = list()
 	/// Used during the rnd sync system, to ensure that blacklists are reverted, then cleared.
 	var/list/unblacklisted_designs = list()
 
@@ -108,7 +108,7 @@ research holder datum.
 	known_tech[T.id] = T
 
 /datum/research/proc/CanAddDesign2Known(datum/design/D)
-	if (D.id in known_designs)
+	if(D.id in known_designs)
 		return FALSE
 	if(D.id in blacklisted_designs)
 		return FALSE

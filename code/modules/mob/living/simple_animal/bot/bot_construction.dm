@@ -566,7 +566,7 @@
 
 /obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)
 	..()
-	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3 ))
+	if((istype(I, /obj/item/melee/energy/sword)) && (build_step < 3))
 		if(!user.unEquip(I))
 			return
 		build_step++
@@ -581,7 +581,7 @@
 		qdel(I)
 		qdel(src)
 
-	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3 ))
+	else if((istype(I, /obj/item/toy/sword)) && (toy_step < 3))
 		if(!user.unEquip(I))
 			return
 		toy_step++

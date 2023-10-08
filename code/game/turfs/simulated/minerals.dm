@@ -124,10 +124,10 @@
 	..()
 	switch(severity)
 		if(3)
-			if (prob(75))
+			if(prob(75))
 				gets_drilled(null, 1)
 		if(2)
-			if (prob(90))
+			if(prob(90))
 				gets_drilled(null, 1)
 		if(1)
 			gets_drilled(null, 1)
@@ -144,7 +144,7 @@
 	mineralSpawnChanceList = typelist("mineralSpawnChanceList", mineralSpawnChanceList)
 
 	. = ..()
-	if (prob(mineralChance))
+	if(prob(mineralChance))
 		var/path = pickweight(mineralSpawnChanceList)
 		var/turf/T = ChangeTurf(path, FALSE, TRUE, TRUE)
 

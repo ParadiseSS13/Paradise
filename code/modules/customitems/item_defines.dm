@@ -100,7 +100,7 @@
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
 	if(!used)
 		var/ink_color = input("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b)) as color|null
-		if(ink_color && !(user.incapacitated() || used) )
+		if(ink_color && !(user.incapacitated() || used))
 			tattoo_r = color2R(ink_color)
 			tattoo_g = color2G(ink_color)
 			tattoo_b = color2B(ink_color)

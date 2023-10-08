@@ -44,14 +44,14 @@
 	return new /datum/tgs_version("3.2.1.3")
 
 /datum/tgs_api/v3210/proc/trim_left(text)
-	for (var/i = 1 to length(text))
-		if (text2ascii(text, i) > 32)
+	for(var/i = 1 to length(text))
+		if(text2ascii(text, i) > 32)
 			return copytext(text, i)
 	return ""
 
 /datum/tgs_api/v3210/proc/trim_right(text)
-	for (var/i = length(text), i > 0, i--)
-		if (text2ascii(text, i) > 32)
+	for(var/i = length(text), i > 0, i--)
+		if(text2ascii(text, i) > 32)
 			return copytext(text, 1, i + 1)
 	return ""
 
@@ -66,7 +66,7 @@
 	var/list/logs = TGS_FILE2LIST(".git/logs/HEAD")
 	if(logs.len)
 		logs = splittext(logs[logs.len], " ")
-		if (logs.len >= 2)
+		if(logs.len >= 2)
 			commit = logs[2]
 		else
 			TGS_ERROR_LOG("Error parsing commit logs")
@@ -74,7 +74,7 @@
 	logs = TGS_FILE2LIST(".git/logs/refs/remotes/origin/master")
 	if(logs.len)
 		logs = splittext(logs[logs.len], " ")
-		if (logs.len >= 2)
+		if(logs.len >= 2)
 			originmastercommit = logs[2]
 		else
 			TGS_ERROR_LOG("Error parsing origin commmit logs")

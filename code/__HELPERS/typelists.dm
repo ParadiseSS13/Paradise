@@ -9,11 +9,11 @@ GLOBAL_LIST_EMPTY(typelists)
 #else
 // mostly the same code as above, just more verbose, slower and has tallying for saved lists
 /datum/proc/typelist(key, list/values)
-	if (!values)
+	if(!values)
 		values = list()
 	GLOB.typelistkeys |= key
-	if (GLOB.typelists[type])
-		if (GLOB.typelists[type][key])
+	if(GLOB.typelists[type])
+		if(GLOB.typelists[type][key])
 			GLOB.typelists[type]["[key]-saved"]++
 			return GLOB.typelists[type][key]
 		else
@@ -28,16 +28,16 @@ GLOBAL_LIST_EMPTY(typelistkeys)
 /proc/tallytypelistsavings()
 	var/savings = list()
 	var/saveditems = list()
-	for (var/key in GLOB.typelistkeys)
+	for(var/key in GLOB.typelistkeys)
 		savings[key] = 0
 		saveditems[key] = 0
 
-	for (var/type in GLOB.typelists)
-		for (var/saving in savings)
-			if (GLOB.typelists[type]["[saving]-saved"])
+	for(var/type in GLOB.typelists)
+		for(var/saving in savings)
+			if(GLOB.typelists[type]["[saving]-saved"])
 				savings[saving] += GLOB.typelists[type]["[saving]-saved"]
 				saveditems[saving] += (GLOB.typelists[type]["[saving]-saved"] * length(GLOB.typelists[type][saving]))
 
-	for (var/saving in savings)
+	for(var/saving in savings)
 		to_chat(world, "Savings for [saving]: [savings[saving]] lists, [saveditems[saving]] items")
 #endif

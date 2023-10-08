@@ -127,7 +127,7 @@
 
 #define RUNLEVELS_DEFAULT (RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME)
 
-// This do{} WHILE (FALSE) syntax may look stupid, but it speeds things up because BYOND memes
+// This do{} WHILE(FALSE) syntax may look stupid, but it speeds things up because BYOND memes
 #define COMPILE_OVERLAYS(A)\
 	do { \
 		var/list/ad = A.add_overlays;\
@@ -145,7 +145,7 @@
 			A.overlays |= po;\
 		}\
 		A.flags_2 &= ~OVERLAY_QUEUED_2;\
-} while (FALSE)
+} while(FALSE)
 
 // SS CPU display category flags
 #define SS_CPUDISPLAY_LOW 1

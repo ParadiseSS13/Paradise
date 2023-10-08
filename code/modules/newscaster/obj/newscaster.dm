@@ -510,7 +510,7 @@
 						// Redirect
 						screen = NEWSCASTER_CHANNEL
 						viewing_channel = FC
-					else if (id == "manage_channel") // Channel management
+					else if(id == "manage_channel") // Channel management
 						FC = locateUID(arguments["uid"])
 						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return

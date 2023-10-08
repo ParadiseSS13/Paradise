@@ -649,7 +649,7 @@
 				data["user"]["job"] = C.rank ? C.rank : "No Job"
 
 	data["stock"] = list()
-	for (var/datum/data/vending_product/R in product_records + hidden_records)
+	for(var/datum/data/vending_product/R in product_records + hidden_records)
 		data["stock"][R.name] = R.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
@@ -676,7 +676,7 @@
 		)
 		data["product_records"] += list(data_pr)
 	data["hidden_records"] = list()
-	for (var/datum/data/vending_product/R in hidden_records)
+	for(var/datum/data/vending_product/R in hidden_records)
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,

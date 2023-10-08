@@ -456,7 +456,7 @@
 /obj/item/storage/bag/tray/cyborg
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
-	if( isturf(target) || istype(target,/obj/structure/table) )
+	if(isturf(target) || istype(target,/obj/structure/table))
 		var/found_table = istype(target,/obj/structure/table/)
 		if(!found_table) //it must be a turf!
 			for(var/obj/structure/table/T in target)
@@ -466,7 +466,7 @@
 		var/turf/dropspot
 		if(!found_table) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
-		else if( isturf(target) ) // they clicked on a turf with a table in it
+		else if(isturf(target)) // they clicked on a turf with a table in it
 			dropspot = target
 		else					// they clicked on a table
 			dropspot = target.loc

@@ -108,7 +108,7 @@
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
 	for(var/turf/T in getline(src,target))
-		if (T.density)
+		if(T.density)
 			return
 		for(var/obj/O in T)
 			if(O.density)

@@ -538,7 +538,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	GLOB.enter_allowed = !( GLOB.enter_allowed )
-	if(!( GLOB.enter_allowed ))
+	if(!( GLOB.enter_allowed))
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>New players may now enter the game.</B>")

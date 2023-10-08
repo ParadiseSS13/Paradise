@@ -79,7 +79,7 @@
 		return
 
 	// buckled cannot prevent machine interlinking but stops arm movement
-	if( buckled )
+	if(buckled)
 		return
 
 	if(W == A)

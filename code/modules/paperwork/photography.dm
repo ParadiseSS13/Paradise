@@ -129,10 +129,10 @@
 
 	if(ishuman(usr))
 		var/mob/M = usr
-		if(!( istype(over_object, /obj/screen) ))
+		if(!( istype(over_object, /obj/screen)))
 			return ..()
 		playsound(loc, "rustle", 50, 1, -5)
-		if((!( M.restrained() ) && !( M.stat ) && M.back == src))
+		if((!( M.restrained() ) && !( M.stat) && M.back == src))
 			switch(over_object.name)
 				if("r_hand")
 					M.unEquip(src)

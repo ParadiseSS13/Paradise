@@ -30,10 +30,10 @@
 // see code\modules\paperwork\paper.dm line 62
 
 /obj/item/pen/multi/robopen/proc/RenamePaper(mob/user as mob,obj/paper as obj)
-	if( !user || !paper )
+	if(!user || !paper)
 		return
 	var/n_name = input(user, "What would you like to label the paper?", "Paper Labelling", null)  as text
-	if( !user || !paper )
+	if(!user || !paper)
 		return
 
 	n_name = copytext(n_name, 1, 32)

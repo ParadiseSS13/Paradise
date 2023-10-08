@@ -56,7 +56,7 @@
 	var/miming = 0 // Mime's vow of silence
 	/// A list of all the antagonist datums that the player is (does not include undatumized antags)
 	var/list/antag_datums
-	/// A lazy list of all teams the player is part of but doesnt have an antag role for (i.e. a custom admin team)
+	/// A lazy list of all teams the player is part of but doesnt have an antag role for(i.e. a custom admin team)
 	var/list/teams
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state

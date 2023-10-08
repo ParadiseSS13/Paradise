@@ -17,7 +17,7 @@
 				SELF_ICON.Blend(A.color,ICON_MULTIPLY)} \
 		} \
 		##SETVAR=SELF_ICON;\
-		} while (0)
+		} while(0)
 	#define INDEX_X_LOW 1
 	#define INDEX_X_HIGH 2
 	#define INDEX_Y_LOW 3

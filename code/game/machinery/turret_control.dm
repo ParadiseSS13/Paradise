@@ -168,7 +168,7 @@
 	return data
 
 /obj/machinery/turretid/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(isLocked(usr))
 		return

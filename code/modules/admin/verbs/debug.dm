@@ -497,7 +497,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_admin("[key_name(usr)] assumed direct control of [M].")
 	var/mob/adminmob = src.mob
 	M.ckey = src.ckey
-	if( isobserver(adminmob) )
+	if(isobserver(adminmob))
 		qdel(adminmob)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -644,7 +644,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			if(alert("Should the items in their pockets be dropped? Selecting \"No\" will delete them.", "Robust quick dress shop", "Yes", "No") == "No")
 				delete_pocket = TRUE
 
-	for (var/obj/item/I in H.get_equipped_items(delete_pocket))
+	for(var/obj/item/I in H.get_equipped_items(delete_pocket))
 		qdel(I)
 	if(dresscode != "Naked")
 		H.equipOutfit(dresscode)

@@ -158,7 +158,7 @@
 		return
 
 	var/obj/item/clothing/ears/O
-	if(slot_flags & SLOT_FLAG_TWOEARS )
+	if(slot_flags & SLOT_FLAG_TWOEARS)
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
 		user.unEquip(O)
 		if(!istype(src, /obj/item/clothing/ears/offear))

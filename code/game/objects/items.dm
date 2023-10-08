@@ -198,7 +198,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	set category = null
 	set src in oview(1)
 
-	if(!isturf(src.loc) || usr.stat || usr.restrained() )
+	if(!isturf(src.loc) || usr.stat || usr.restrained())
 		return
 
 	var/turf/T = src.loc
@@ -303,7 +303,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
 				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
-				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+				if(affecting && affecting.receive_damage( 0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
 
 	if(isstorage(src.loc))

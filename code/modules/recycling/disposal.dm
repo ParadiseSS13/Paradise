@@ -400,8 +400,8 @@
 		return
 
 	flush_count++
-	if( flush_count >= flush_every_ticks )
-		if( contents.len )
+	if(flush_count >= flush_every_ticks)
+		if(contents.len)
 			if(mode == 2)
 				spawn(0)
 					flush()
@@ -409,7 +409,7 @@
 
 	src.updateDialog()
 
-	if(flush && air_contents.return_pressure() >= SEND_PRESSURE )	// flush can happen even without power
+	if(flush && air_contents.return_pressure() >= SEND_PRESSURE)	// flush can happen even without power
 		flush()
 
 	if(stat & NOPOWER)			// won't charge if no power

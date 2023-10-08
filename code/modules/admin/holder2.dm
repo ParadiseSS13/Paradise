@@ -120,7 +120,7 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 			if(!other || !other.holder)
 				return 1
 			if(usr.client.holder.rights != other.holder.rights)
-				if( (usr.client.holder.rights & other.holder.rights) == other.holder.rights )
+				if((usr.client.holder.rights & other.holder.rights) == other.holder.rights)
 					return 1	//we have all the rights they have and more
 		to_chat(usr, "<font color='red'>Error: Cannot proceed. They have more or equal rights to us.</font>")
 	return 0

@@ -363,7 +363,7 @@
 			if(pin_text)
 				input_element = usr.mind.initial_account.account_pin
 		topic_href_write(id, input_element)
-	if(href_list["write"] )
+	if(href_list["write"])
 		var/id = href_list["write"]
 		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
 		topic_href_write(id, input_element)
@@ -439,7 +439,7 @@
 			to_chat(user, "<span class='warning'>You don't know how to write!</span>")
 
 	else if(istype(P, /obj/item/stamp))
-		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
+		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard)) && loc.loc != user && user.get_active_hand() != P))
 			return
 
 		if(istype(P, /obj/item/stamp/clown))

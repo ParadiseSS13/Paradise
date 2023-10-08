@@ -159,7 +159,7 @@
 	if((movement_target) && !(isturf(movement_target.loc) || ishuman(movement_target.loc)))
 		movement_target = null
 		stop_automated_movement = FALSE
-	if( !movement_target || !(movement_target.loc in oview(src, 3)) )
+	if(!movement_target || !(movement_target.loc in oview(src, 3)))
 		movement_target = null
 		stop_automated_movement = FALSE
 		for(var/mob/living/simple_animal/mouse/snack in oview(src,3))

@@ -88,7 +88,7 @@
 			T.reconsider_lights()
 
 /atom/vv_edit_var(var_name, var_value)
-	switch (var_name)
+	switch(var_name)
 		if("light_range")
 			set_light(l_range=var_value)
 			return TRUE

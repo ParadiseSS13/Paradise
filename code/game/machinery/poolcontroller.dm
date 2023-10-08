@@ -181,7 +181,7 @@
 			return "scalding"
 
 /obj/machinery/poolcontroller/proc/set_temp(val)
-	if (val != WARM && val != NORMAL && val != COOL && !(emagged && (val == SCALDING || val == FRIGID)))
+	if(val != WARM && val != NORMAL && val != COOL && !(emagged && (val == SCALDING || val == FRIGID)))
 		return
 
 	if(val == SCALDING)

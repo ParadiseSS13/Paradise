@@ -210,7 +210,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 		return
 
 	var/move_time = 0
-	if (slow_factor>1) // yes, 1 is special
+	if(slow_factor>1) // yes, 1 is special
 		move_time=CEILING(slow_factor, 2) // yes.
 	AM.Move(get_step(loc, forwards), forwards, move_time)
 
@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(conveyor_switches, list())
 	switch(action)
 		if("slowFactor")
 			var/value = text2num(params["value"])
-			if (value!=null)
+			if(value!=null)
 				slow_factor = clamp(value, 1, 50)
 		if("toggleOneWay")
 			if(position != DIRECTION_REVERSED) // If you want to forbid reversing - stop using reverse first!

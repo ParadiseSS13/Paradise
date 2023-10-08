@@ -89,7 +89,7 @@
 				msg = alt
 				type = alt_type
 		if(type & EMOTE_AUDIBLE && !can_hear())//Hearing related
-			if(!( alt ))
+			if(!( alt))
 				return
 			else
 				msg = alt
@@ -326,13 +326,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				return 1
 			if(SLOT_HUD_WEAR_MASK)
-				if( !(slot_flags & SLOT_FLAG_MASK) )
+				if(!(slot_flags & SLOT_FLAG_MASK))
 					return 0
 				if(H.wear_mask)
 					return 0
 				return 1
 			if(SLOT_HUD_BACK)
-				if( !(slot_flags & SLOT_FLAG_BACK) )
+				if(!(slot_flags & SLOT_FLAG_BACK))
 					return 0
 				if(H.back)
 					if(!(H.back.flags & NODROP))
@@ -341,7 +341,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_OUTER_SUIT)
-				if( !(slot_flags & SLOT_FLAG_OCLOTHING) )
+				if(!(slot_flags & SLOT_FLAG_OCLOTHING))
 					return 0
 				if(H.wear_suit)
 					if(!(H.wear_suit.flags & NODROP))
@@ -350,7 +350,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_GLOVES)
-				if( !(slot_flags & SLOT_FLAG_GLOVES) )
+				if(!(slot_flags & SLOT_FLAG_GLOVES))
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
@@ -359,7 +359,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_SHOES)
-				if( !(slot_flags & SLOT_FLAG_FEET) )
+				if(!(slot_flags & SLOT_FLAG_FEET))
 					return 0
 				if(H.shoes)
 					if(!(H.shoes.flags & NODROP))
@@ -372,7 +372,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( !(slot_flags & SLOT_FLAG_BELT) )
+				if(!(slot_flags & SLOT_FLAG_BELT))
 					return 0
 				if(H.belt)
 					if(!(H.belt.flags & NODROP))
@@ -381,7 +381,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_GLASSES)
-				if( !(slot_flags & SLOT_FLAG_EYES) )
+				if(!(slot_flags & SLOT_FLAG_EYES))
 					return 0
 				if(H.glasses)
 					if(!(H.glasses.flags & NODROP))
@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_HEAD)
-				if( !(slot_flags & SLOT_FLAG_HEAD) )
+				if(!(slot_flags & SLOT_FLAG_HEAD))
 					return 0
 				if(H.head)
 					if(!(H.head.flags & NODROP))
@@ -399,7 +399,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_LEFT_EAR)
-				if( !(slot_flags & SLOT_HUD_LEFT_EAR) )
+				if(!(slot_flags & SLOT_HUD_LEFT_EAR))
 					return 0
 				if(H.l_ear)
 					if(!(H.l_ear.flags & NODROP))
@@ -408,7 +408,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_RIGHT_EAR)
-				if( !(slot_flags & SLOT_HUD_RIGHT_EAR) )
+				if(!(slot_flags & SLOT_HUD_RIGHT_EAR))
 					return 0
 				if(H.r_ear)
 					if(!(H.r_ear.flags & NODROP))
@@ -417,7 +417,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_JUMPSUIT)
-				if( !(slot_flags & SLOT_FLAG_ICLOTHING) )
+				if(!(slot_flags & SLOT_FLAG_ICLOTHING))
 					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))
@@ -430,7 +430,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( !(slot_flags & SLOT_FLAG_ID) )
+				if(!(slot_flags & SLOT_FLAG_ID))
 					return 0
 				if(H.wear_id)
 					if(!(H.wear_id.flags & NODROP))
@@ -445,7 +445,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET) )
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
 					return 1
 			if(SLOT_HUD_RIGHT_STORE)
 				if(H.r_store)
@@ -454,7 +454,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET) )
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
 					return 1
 				return 0
 			if(SLOT_HUD_SUIT_STORE)
@@ -470,7 +470,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
-				if( istype(src, /obj/item/pda) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed) )
+				if(istype(src, /obj/item/pda) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed))
 					if(H.s_store)
 						if(!(H.s_store.flags & NODROP))
 							return 2
@@ -616,29 +616,29 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	to_chat(src, result.Join("\n"))
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
-		if(!( L ))
+	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab))))
+		if(!( L))
 			return null
 		else
 			return L.container
 	else
-		if(!( L ))
+		if(!( L))
 			L = new /obj/effect/list_container/mobl( null )
 			L.container += src
 			L.master = src
 		if(istype(l_hand, /obj/item/grab))
 			var/obj/item/grab/G = l_hand
-			if(!( L.container.Find(G.affecting) ))
+			if(!( L.container.Find(G.affecting)))
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
 		if(istype(r_hand, /obj/item/grab))
 			var/obj/item/grab/G = r_hand
-			if(!( L.container.Find(G.affecting) ))
+			if(!( L.container.Find(G.affecting)))
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if(!( flag ))
+		if(!( flag))
 			if(L.master == src)
 				var/list/temp = list(  )
 				temp += L.container
@@ -1537,7 +1537,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/show_rads(range)
 	for(var/turf/place in range(range, src))
 		var/rads = SSradiation.get_turf_radiation(place)
-		if (rads < RAD_BACKGROUND_RADIATION)
+		if(rads < RAD_BACKGROUND_RADIATION)
 			continue
 
 		var/strength = round(rads / 1000, 0.1)
@@ -1595,7 +1595,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
 	var/temp = usr
 	usr = user_mob
-	if (length(args) > 2)
+	if(length(args) > 2)
 		. = invoked_callback.Invoke(arglist(args.Copy(3)))
 	else
 		. = invoked_callback.Invoke()

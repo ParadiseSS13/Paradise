@@ -19,14 +19,14 @@
 /* This comment bypasses grep checks */ /var/__rust_g
 
 /proc/__detect_rust_g()
-	if (world.system_type == UNIX)
-		if (fexists("./librust_g.so"))
+	if(world.system_type == UNIX)
+		if(fexists("./librust_g.so"))
 			// No need for LD_LIBRARY_PATH badness.
 			return __rust_g = "./librust_g.so"
-		else if (fexists("./rust_g"))
+		else if(fexists("./rust_g"))
 			// Old dumb filename.
 			return __rust_g = "./rust_g"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g"))
+		else if(fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g"))
 			// Old dumb filename in `~/.byond/bin`.
 			return __rust_g = "rust_g"
 		else
@@ -278,7 +278,7 @@
 
 /proc/rustg_read_toml_file(path)
 	var/list/output = rustg_raw_read_toml_file(path)
-	if (output["success"])
+	if(output["success"])
 		return json_decode(output["content"])
 	else
 		CRASH(output["content"])
@@ -287,7 +287,7 @@
 
 /proc/rustg_toml_encode(value)
 	var/list/output = rustg_raw_toml_encode(value)
-	if (output["success"])
+	if(output["success"])
 		return output["content"]
 	else
 		CRASH(output["content"])

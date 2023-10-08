@@ -197,7 +197,7 @@
 			W = photocopy(W, bundled = TRUE)
 			if(use_toner && W)
 				toner -= 5
-		if (!W)
+		if(!W)
 			break
 		W.forceMove(P)
 		P.amount++

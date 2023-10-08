@@ -27,7 +27,7 @@
 	return TRUE
 
 /datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H) || isobserver(M) )
+	if(check_sensors(H) || isobserver(M))
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)

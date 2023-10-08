@@ -31,12 +31,12 @@ SUBSYSTEM_DEF(spacedrift)
 		currentrun.len--
 		if(!AM)
 			processing -= AM
-			if (MC_TICK_CHECK)
+			if(MC_TICK_CHECK)
 				return
 			continue
 
 		if(AM.inertia_next_move > world.time)
-			if (MC_TICK_CHECK)
+			if(MC_TICK_CHECK)
 				return
 			continue
 
@@ -46,7 +46,7 @@ SUBSYSTEM_DEF(spacedrift)
 		if(!AM.inertia_dir)
 			AM.inertia_last_loc = null
 			processing -= AM
-			if (MC_TICK_CHECK)
+			if(MC_TICK_CHECK)
 				return
 			continue
 

@@ -29,7 +29,7 @@
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		to_chat(user, "<span class='warning'>You can not reform this!</span>")
 		return
-	if (mineralType == "metal")
+	if(mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
 		user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
 					"<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \

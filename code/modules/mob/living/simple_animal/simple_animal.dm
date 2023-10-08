@@ -174,7 +174,7 @@
 		nest = null
 
 	var/turf/T = get_turf(src)
-	if (T && AIStatus == AI_Z_OFF)
+	if(T && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
 	return ..()

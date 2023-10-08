@@ -1230,7 +1230,7 @@
 	if(include_species_change)
 		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
-	if (include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
+	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
@@ -1622,7 +1622,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
+		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer"))
 			. = 100
 		if(mind.assigned_role == "Clown")
 			. = rand(-1000, 1000)

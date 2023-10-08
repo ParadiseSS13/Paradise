@@ -148,7 +148,7 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 			return "delta"
 
 /proc/seclevel2num(seclevel)
-	switch( lowertext(seclevel) )
+	switch(lowertext(seclevel))
 		if("green")
 			return SEC_LEVEL_GREEN
 		if("blue")

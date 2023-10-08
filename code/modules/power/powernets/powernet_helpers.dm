@@ -121,6 +121,6 @@
 	else if(istype(power_source, /datum/regional_powernet))
 		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
 		PN.queued_power_demand += (min(drained_power, max(PN.queued_power_production - PN.queued_power_demand, 0)))
-	else if (istype(power_source, /obj/item/stock_parts/cell))
+	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy
