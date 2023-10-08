@@ -9,7 +9,7 @@
 
 /mob/living/simple_animal/pet/sloth/paperwork
 	name = "Пэйперворк" // Бумажник
-	desc = "Любимец Карго - ленивец. Примерно так же полезен, как и остальные каргонцы."
+	desc = "Офисный ленивец. Так же быстро решает проблемы отделов, как и остальные агенты внутренних дел."
 	icon = 'modular_ss220/mobs/icons/mob/pets.dmi'
 	icon_state = "cool_sloth"
 	icon_living = "cool_sloth"

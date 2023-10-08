@@ -6665,10 +6665,19 @@
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
 "aAp" = (
-/obj/structure/window/basic,
-/obj/effect/turf_decal/siding/black,
-/turf/simulated/floor/wood/fancy/cherry,
-/area/station/legal/courtroom)
+/obj/structure/closet/secure_closet/security,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/item/clothing/mask/balaclava,
+/obj/effect/decal/warning_stripes/red,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/security/main)
 "aAq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
@@ -7799,8 +7808,8 @@
 /area/station/service/barber)
 "aDQ" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "ramptop"
+	icon_state = "rampbottom";
+	dir = 8
 	},
 /area/station/legal/courtroom)
 "aDR" = (
@@ -8151,9 +8160,9 @@
 	},
 /area/station/maintenance/fsmaint)
 "aFh" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rampbottom"
+/turf/simulated/floor/plasteel/stairs{
+	icon_state = "rampbottom";
+	dir = 1
 	},
 /area/station/legal/courtroom)
 "aFm" = (
@@ -8193,6 +8202,7 @@
 	},
 /obj/item/pen/multi,
 /obj/effect/spawner/lootdrop/officetoys,
+/obj/item/clothing/head/helmet/skull/Yorick,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/magistrate)
 "aFq" = (
@@ -8568,6 +8578,11 @@
 /area/station/legal/courtroom)
 "aGu" = (
 /obj/item/kirbyplants,
+/obj/machinery/light/directional/east,
+/obj/machinery/camera{
+	c_tag = "Courtroom North";
+	dir = 8
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aGy" = (
@@ -8916,8 +8931,8 @@
 	},
 /area/station/legal/courtroom)
 "aHz" = (
-/obj/structure/chair/office/dark,
-/turf/simulated/floor/carpet/red,
+/obj/structure/chair/wood,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aHA" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -8927,25 +8942,16 @@
 /area/station/legal/courtroom)
 "aHB" = (
 /obj/structure/chair/sofa/pew/left{
-	dir = 8;
-	name = "bench of contemplation"
-	},
-/obj/machinery/light/directional/north,
-/obj/machinery/firealarm/directional/north,
-/obj/structure/platform{
-	dir = 4;
-	anchored = 1
-	},
-/turf/simulated/floor/wood/fancy/light,
-/area/station/legal/courtroom)
-"aHC" = (
-/obj/structure/chair/sofa/pew/left{
-	dir = 8;
-	name = "bench of contemplation"
+	dir = 8
 	},
 /obj/machinery/camera{
 	c_tag = "Courtroom Lobby"
 	},
+/turf/simulated/floor/wood/fancy/light,
+/area/station/legal/courtroom)
+"aHC" = (
+/obj/item/kirbyplants,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aHD" = (
@@ -9317,10 +9323,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/fpmaint)
-"aIW" = (
-/obj/machinery/firealarm/directional/west,
-/turf/simulated/floor/wood/fancy/light,
-/area/station/legal/courtroom)
 "aIX" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/glass/beaker/waterbottle{
@@ -9329,11 +9331,11 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -5
 	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
+/obj/structure/window/basic,
+/obj/structure/window/basic{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aIY" = (
 /obj/machinery/door/firedoor,
@@ -9345,8 +9347,8 @@
 "aJa" = (
 /obj/structure/table/wood,
 /obj/item/folder,
-/obj/structure/window/reinforced,
-/turf/simulated/floor/carpet/red,
+/obj/structure/window/basic,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aJb" = (
 /obj/structure/chair/sofa/pew/right{
@@ -9360,8 +9362,7 @@
 /area/station/legal/courtroom)
 "aJc" = (
 /obj/structure/chair/sofa/pew/left{
-	dir = 8;
-	name = "bench of contemplation"
+	dir = 8
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
@@ -9637,21 +9638,28 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aKl" = (
-/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/royalblack,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/glass/beaker/waterbottle{
 	pixel_x = 5
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aKr" = (
 /obj/machinery/ai_status_display/west,
 /obj/item/flag/nt{
 	layer = 3.4
 	},
-/turf/simulated/floor/carpet/red,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced,
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark_Golden_1";
+	dir = 6
+	},
 /area/station/legal/courtroom)
 "aKs" = (
 /turf/simulated/floor/wood/fancy/cherry,
@@ -9995,10 +10003,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "aLN" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/comfy/brown{
+	color = "#514E58";
 	dir = 4
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aLO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10007,22 +10016,21 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aLP" = (
 /turf/simulated/wall,
 /area/station/public/sleep)
 "aLQ" = (
-/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/royalblack,
 /obj/item/gavelblock,
 /obj/item/gavelhammer,
 /obj/machinery/button/windowtint{
 	id = "Courtroom";
-	pixel_x = -4;
 	req_one_access_txt = "74;3";
-	pixel_y = -10
+	pixel_y = -12
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aLR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -10031,7 +10039,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aLS" = (
 /obj/effect/decal/warning_stripes/north,
@@ -10049,6 +10057,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aLY" = (
@@ -10454,27 +10463,21 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aNJ" = (
-/obj/structure/sign/poster/official/random/west,
 /obj/structure/statue/themis{
-	pixel_y = 6;
-	layer = 4
-	},
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
+	layer = 4;
+	pixel_x = -4
 	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/machinery/light/directional/west,
-/obj/machinery/camera{
-	c_tag = "Courtroom";
-	dir = 4
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
 	},
-/turf/simulated/floor/plasteel/goonplaque,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "plaque"
+	},
 /area/station/legal/courtroom)
 "aNK" = (
 /obj/machinery/light/directional/west,
@@ -10489,7 +10492,6 @@
 	},
 /area/station/hallway/primary/fore)
 "aNM" = (
-/obj/effect/turf_decal/siding/black,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/legal/courtroom)
 "aNP" = (
@@ -10620,26 +10622,26 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_x = -5
 	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/carpet/red,
+/obj/structure/window/basic{
+	dir = 8
+	},
+/obj/structure/window/basic{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aOy" = (
 /obj/structure/table/wood,
 /obj/item/folder/red,
-/obj/structure/window/reinforced{
+/obj/structure/window/basic{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aOz" = (
 /obj/machinery/alarm/directional/west,
@@ -10884,10 +10886,10 @@
 /turf/simulated/floor/plating,
 /area/station/legal/courtroom)
 "aPA" = (
-/obj/structure/chair/office/dark{
+/obj/structure/chair/wood{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "aPB" = (
 /obj/structure/chair/sofa/pew/right{
@@ -10908,10 +10910,14 @@
 "aPE" = (
 /obj/item/radio/intercom/directional/south,
 /obj/machinery/light/directional/south,
+/obj/structure/chair/sofa/pew/right{
+	dir = 8
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aPF" = (
 /obj/machinery/economy/vending/cola,
+/obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aPG" = (
@@ -11598,6 +11604,7 @@
 /obj/structure/table,
 /obj/item/storage/box/cups,
 /obj/item/radio/intercom/directional/south,
+/obj/machinery/light/directional/south,
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aRO" = (
@@ -11610,7 +11617,6 @@
 /area/station/science/hallway)
 "aRP" = (
 /obj/machinery/economy/vending/coffee,
-/obj/machinery/light/directional/south,
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aRQ" = (
@@ -11620,6 +11626,10 @@
 /area/station/legal/courtroom)
 "aRR" = (
 /obj/structure/reagent_dispensers/water_cooler,
+/obj/machinery/camera{
+	c_tag = "Courtroom South";
+	dir = 1
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "aRU" = (
@@ -20581,7 +20591,7 @@
 /area/station/medical/reception)
 "bDk" = (
 /obj/item/kirbyplants,
-/obj/machinery/light/directional/south,
+/obj/machinery/light/directional/east,
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "bDl" = (
@@ -37627,7 +37637,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel/stairs,
+/turf/simulated/floor/plasteel/stairs{
+	icon_state = "rampbottom"
+	},
 /area/station/engineering/supermatter_room)
 "cSZ" = (
 /obj/machinery/light_switch/west,
@@ -47242,7 +47254,9 @@
 /area/station/medical/surgery/primary)
 "epd" = (
 /obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/plasteel/stairs,
+/turf/simulated/floor/plasteel/stairs{
+	icon_state = "rampbottom"
+	},
 /area/station/maintenance/fsmaint)
 "epp" = (
 /obj/machinery/door/firedoor,
@@ -48290,10 +48304,6 @@
 /area/station/engineering/atmos/control)
 "eJt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/obj/structure/platform/corner{
-	dir = 8;
-	anchored = 1
-	},
 /turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "eJI" = (
@@ -48538,10 +48548,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "eNs" = (
-/obj/structure/table/wood/fancy/black,
+/obj/structure/table/wood/fancy/royalblack,
 /obj/item/folder/blue,
 /obj/item/megaphone,
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "eND" = (
 /obj/machinery/firealarm/directional/west,
@@ -49222,7 +49232,7 @@
 /area/station/security/main)
 "fda" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "fdb" = (
 /obj/machinery/door/airlock/command/cap,
@@ -49743,7 +49753,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/qm,
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
@@ -50750,7 +50760,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/carpet/red,
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "fFC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -66918,6 +66931,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"lKL" = (
+/obj/structure/chair/sofa/pew/left{
+	dir = 8
+	},
+/obj/structure/platform{
+	dir = 4;
+	anchored = 1
+	},
+/obj/machinery/light/directional/north,
+/turf/simulated/floor/wood/fancy/light,
+/area/station/legal/courtroom)
 "lKO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -72857,7 +72881,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/station/command/bridge)
 "nUh" = (
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "nUj" = (
 /obj/machinery/button/windowtint/west{
@@ -74015,7 +74039,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/qm,
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
@@ -77501,7 +77525,16 @@
 /obj/item/flag/nt{
 	layer = 3.4
 	},
-/turf/simulated/floor/carpet/red,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "Dark_Golden_1";
+	dir = 5
+	},
 /area/station/legal/courtroom)
 "pBP" = (
 /obj/effect/spawner/random_spawners/grille_often,
@@ -78519,7 +78552,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "pYZ" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -79187,16 +79220,11 @@
 	},
 /area/station/science/robotics)
 "qlA" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/platform/corner{
+	dir = 8;
+	anchored = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/turf_decal/siding/black,
-/turf/simulated/floor/wood/fancy/cherry,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "qlE" = (
 /obj/item/restraints/handcuffs/cable/green,
@@ -80575,7 +80603,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "qJx" = (
 /obj/machinery/door/firedoor,
@@ -86165,7 +86193,9 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel/stairs,
+/turf/simulated/floor/plasteel/stairs{
+	icon_state = "rampbottom"
+	},
 /area/station/engineering/supermatter_room)
 "sRi" = (
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -89239,6 +89269,15 @@
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"tXD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/station/legal/courtroom)
 "tXE" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -91020,7 +91059,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/wood/fancy/light,
 /area/station/legal/courtroom)
 "uCU" = (
 /obj/structure/closet,
@@ -99828,7 +99867,7 @@
 /area/station/hallway/primary/central/south)
 "xTH" = (
 /obj/machinery/hologram/holopad,
-/turf/simulated/floor/carpet/red,
+/turf/simulated/floor/carpet/black,
 /area/station/legal/courtroom)
 "xTJ" = (
 /obj/item/trash/semki,
@@ -125386,7 +125425,7 @@ aDJ
 aqI
 aGr
 aHx
-aIW
+aOB
 pBh
 aNJ
 aKr
@@ -125649,7 +125688,7 @@ aLN
 nUh
 uXd
 aOz
-aGu
+aHC
 aEl
 wQO
 aPi
@@ -126413,13 +126452,13 @@ ecT
 bZo
 aFh
 aOB
-aOB
+nUh
 nUh
 nUh
 xTH
 nUh
 qJg
-aOB
+nUh
 aRR
 aEl
 gZg
@@ -127441,7 +127480,7 @@ aDi
 aDi
 aFo
 aIl
-aHC
+aJc
 aPC
 aOB
 aLY
@@ -127699,7 +127738,7 @@ iIi
 aFm
 aIl
 aHB
-aJb
+aPC
 eJt
 aLT
 rWy
@@ -127954,13 +127993,13 @@ aCg
 aDi
 aDi
 aFq
-aDe
-aHF
-aJd
-aKu
-aLY
+aIl
+lKL
+aJb
+qlA
+tXD
 aOB
-aOB
+aJc
 aPE
 aEl
 aQl
@@ -128212,8 +128251,8 @@ aCf
 aLE
 aFp
 aDe
-aHD
-aAp
+aHF
+aJd
 aKu
 aLY
 aOB
@@ -128727,7 +128766,7 @@ inu
 jBe
 aKx
 aNb
-qlA
+aNb
 kbv
 pfE
 aOB
@@ -133068,7 +133107,7 @@ aev
 vKV
 xLx
 akW
-xiV
+aAp
 xiV
 tGJ
 amf
