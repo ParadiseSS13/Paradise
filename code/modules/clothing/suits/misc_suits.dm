@@ -312,7 +312,7 @@
 /obj/item/clothing/suit/hooded/carp_costume/dragon
 	name = "space carp poncho"
 	desc = "A poncho fashioned from the scales of a corrupted space carp, it still smells."
-	armor = list(MELEE = 55, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
+	armor = list(MELEE = 30, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, RAD = 15, FIRE = INFINITY, ACID = INFINITY)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS|HANDS|FEET
 	flags = STOPSPRESSUREDMAGE
@@ -325,6 +325,14 @@
 		user.faction += "carp"
 		to_chat(user, "<span class='cult'>You feel a something gnash in the back of your mind- the carp are your friends, not your foe.</span>")
 		playsound(loc, 'sound/weapons/bite.ogg', 35, 1)
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon/on_mob_move(direction, mob/user)
+	var/turf/T = get_step(src, GetOppositeDir(direction))
+	if(!has_gravity(T))
+		new /obj/effect/particle_effect/ion_trails(T, direction)
+
+/obj/item/clothing/suit/hooded/carp_costume/dragon/proc/allow_thrust(num, mob/living/user)
+	var/turf/T = get_turf(user)
 
 /obj/item/clothing/suit/hooded/carp_costume/dragon/dropped(mob/user)
 	. = ..()

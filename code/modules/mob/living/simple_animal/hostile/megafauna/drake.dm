@@ -605,7 +605,6 @@ Difficulty: Medium
 	speed = 0
 	move_to_delay = 3
 	rapid = 2
-	retreat_distance = 8
 	mouse_opacity = MOUSE_OPACITY_ICON
 	loot = list(/obj/effect/temp_visual/bsg_kaboom, /obj/effect/temp_visual/emp/cult, /obj/item/clothing/suit/hooded/carp_costume/dragon, /obj/item/fish_eggs/babycarp, /obj/effect/temp_visual/cult/portal)
 	crusher_loot = list()
