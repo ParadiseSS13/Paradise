@@ -13,7 +13,7 @@
 		to_chat(usr, "Гостевой аккаунт не может быть связан.")
 		return
 
-	if(prefs.discord_id || prefs.get_discord_id())
+	if(prefs.get_discord_id() && prefs.discord_id)
 		to_chat(usr, span_darkmblue("Аккаунт Discord уже привязан!"))
 		return
 
@@ -51,11 +51,14 @@
 	. = ..()
 
 /datum/preferences/proc/get_discord_id()
+	. = TRUE
+	if(discord_id)
+		return
+
 	var/datum/db_query/discord_query = SSdbcore.NewQuery("SELECT discord_id, valid FROM discord_links WHERE ckey=:ckey", list(
 			"ckey" = parent.ckey
 		))
 
-	. = TRUE
 	if(!discord_query.warn_execute())
 		qdel(discord_query)
 		return FALSE
@@ -64,8 +67,6 @@
 		var/valid = discord_query.item[2]
 		if(valid)
 			discord_id = discord_query.item[1]
-			qdel(discord_query)
-			return TRUE
 
 	qdel(discord_query)
 
