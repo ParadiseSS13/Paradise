@@ -2829,6 +2829,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex/nitrile,
 /obj/item/clothing/mask/breath,
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -2868,6 +2869,13 @@
 	icon_state = "whiteblue"
 	},
 /area/centcom/ss220/general)
+"cof" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/item/radio/intercom/directional/south,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
 "coE" = (
 /obj/machinery/photocopier,
 /turf/simulated/floor/carpet/black,
@@ -9823,15 +9831,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"hLI" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 29;
-	pixel_y = -60
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/shuttle/escape)
 "hLU" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo17"
@@ -10789,10 +10788,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "ivH" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
@@ -12684,18 +12680,6 @@
 	icon_state = "darkbluealtstrip"
 	},
 /area/syndicate_mothership/elite_squad)
-"kko" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 29;
-	pixel_y = -30
-	},
-/obj/structure/bed/roller,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
-/area/shuttle/escape)
 "kkM" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -12793,7 +12777,6 @@
 /obj/machinery/door/airlock/external{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	locked = 1;
 	name = "Arrival Airlock"
 	},
 /obj/structure/fans/tiny,
@@ -18383,6 +18366,7 @@
 /obj/machinery/door/airlock/external{
 	aiControlDisabled = 1;
 	hackProof = 1;
+	id_tag = "emergency_away";
 	name = "Arrival Airlock"
 	},
 /obj/structure/fans/tiny,
@@ -27877,7 +27861,6 @@
 /obj/machinery/door/airlock/external{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	locked = 1;
 	name = "Arrival Airlock"
 	},
 /obj/structure/fans/tiny,
@@ -30000,10 +29983,7 @@
 	},
 /area/syndicate_mothership/infteam)
 "yey" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
@@ -57115,7 +57095,7 @@ adJ
 eRG
 sKd
 lJk
-hLI
+itB
 itB
 ycW
 dKw
@@ -57373,7 +57353,7 @@ eRG
 lZs
 itB
 wId
-wId
+cof
 snC
 snC
 uUb
@@ -58422,7 +58402,7 @@ pgS
 pgS
 qIX
 yim
-kko
+utc
 eRG
 uAZ
 pTW
