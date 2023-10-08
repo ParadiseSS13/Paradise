@@ -4,6 +4,8 @@
 	name = "slaughter demon"
 	real_name = "slaughter demon"
 	desc = "A large, menacing creature covered in armored black scales. You should run."
+	maxHealth = 240
+	health = 240
 	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
@@ -49,17 +51,11 @@
 		to_chat(src, src.playstyle_string)
 		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
 		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
-		if(!(vialspawned))
-			var/datum/objective/slaughter/objective = new
-			var/datum/objective/demon_fluff/fluffObjective = new
+		if(!vialspawned)
 			SSticker.mode.traitors |= mind
-			objective.owner = mind
-			fluffObjective.owner = mind
-			//Paradise Port:I added the objective for one spawned like this
-			mind.objectives += objective
-			mind.objectives += fluffObjective
-			to_chat(src, "<B>Objective #[1]</B>: [objective.explanation_text]")
-			to_chat(src, "<B>Objective #[2]</B>: [fluffObjective.explanation_text]")
+			mind.add_mind_objective(/datum/objective/slaughter)
+			mind.add_mind_objective(/datum/objective/demon_fluff)
+			mind.announce_objectives(title = FALSE)
 		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
 
 
@@ -83,16 +79,16 @@
 // Midround slaughter demon, less tanky
 
 /mob/living/simple_animal/demon/slaughter/lesser
-	maxHealth = 130
-	health = 130
+	maxHealth = 170
+	health = 170
 
 // Cult slaughter demon
 /mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."
-	maxHealth = 500
-	health = 500
+	maxHealth = 540
+	health = 540
 	melee_damage_upper = 60
 	melee_damage_lower = 60
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
@@ -154,11 +150,9 @@
 		SSticker.mode.add_cultist(S.mind)
 		var/obj/effect/proc_holder/spell/sense_victims/SV = new
 		AddSpell(SV)
-		var/datum/objective/new_objective = new /datum/objective
-		new_objective.owner = S.mind
-		new_objective.explanation_text = "Bring forth the Slaughter to the nonbelievers."
-		S.mind.objectives += new_objective
-		to_chat(S, "<B>Objective #[1]</B>: [new_objective.explanation_text]")
+
+		S.mind.add_mind_objective(/datum/objective/cult_slaughter)
+		S.mind.announce_objectives(title = FALSE)
 
 ////////////////////The Powers
 
@@ -278,8 +272,8 @@
 	emote_hear = list("gaffaws", "laughs")
 	response_help  = "hugs"
 	attacktext = "wildly tickles"
-	maxHealth = 175
-	health = 175
+	maxHealth = 215
+	health = 215
 	melee_damage_lower = 25
 	melee_damage_upper = 25
 	playstyle_string = "<B>You are the Laughter Demon, an adorable creature from another existence. You have a single desire: to hug and tickle.  \
@@ -355,3 +349,7 @@
 
 /datum/objective/demon_fluff/check_completion()
 	return TRUE
+
+/datum/objective/cult_slaughter
+	explanation_text = "Bring forth the Slaughter to the nonbelievers."
+	needs_target = FALSE
