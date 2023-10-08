@@ -150,3 +150,12 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
+
+/obj/item/reagent_containers/food/snacks/picoss_kabob
+	name = "picoss-kabob"
+	icon_state = "picoss_skewer"
+	desc = "A popular Moghes streetfood consisting of vinegar-marinated space carp on a skewer with onion and chillis."
+	trash = /obj/item/stack/rods
+	list_reagents = list("protein" = 8, "vitamin" = 4, "vinegar" = 1, "capsaicin" = 1)
+	filling_color = "#A85340"
+	tastes = list("fish" = 4, "acid" = 4, "onion" = 4, "heat" = 4)
