@@ -4064,7 +4064,7 @@
 "dnW" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor/west{
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
@@ -9145,7 +9145,7 @@
 "hlj" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor/east{
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
@@ -9722,7 +9722,7 @@
 "hIM" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkyellowalt"
@@ -11152,7 +11152,7 @@
 /area/centcom/ss220/general)
 "iOM" = (
 /obj/machinery/conveyor/west{
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor2";
@@ -11852,7 +11852,7 @@
 /area/wizard_station)
 "jvw" = (
 /obj/machinery/conveyor/east{
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "QMLoaddoor";
@@ -15137,7 +15137,7 @@
 "mcm" = (
 /obj/machinery/conveyor_switch/oneway{
 	dir = 8;
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel/dark{
 	dir = 1;
@@ -20819,7 +20819,7 @@
 /area/centcom/ss220/evac)
 "qRh" = (
 /obj/machinery/conveyor/west{
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /obj/structure/plasticflaps/mining,
 /obj/machinery/door/poddoor{
@@ -20987,7 +20987,7 @@
 /area/centcom/ss220/bar)
 "qYl" = (
 /obj/machinery/conveyor/east{
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -22151,7 +22151,7 @@
 /area/syndicate_mothership)
 "rSQ" = (
 /obj/machinery/conveyor/west{
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/ss220/supply)
@@ -25429,7 +25429,7 @@
 /area/shuttle/escape)
 "uBb" = (
 /obj/machinery/conveyor/east{
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /obj/structure/plasticflaps/mining,
 /obj/machinery/door/poddoor{
@@ -27314,7 +27314,7 @@
 /area/syndicate_mothership/infteam)
 "vZZ" = (
 /obj/machinery/conveyor/west{
-	id = "QMLoad"
+	id = "QMLoad2"
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/supply)
@@ -28001,7 +28001,7 @@
 /area/shuttle/administration)
 "wFO" = (
 /obj/machinery/conveyor/east{
-	id = "QMLoad2"
+	id = "QMLoad"
 	},
 /turf/simulated/floor/plating,
 /area/centcom/ss220/supply)
