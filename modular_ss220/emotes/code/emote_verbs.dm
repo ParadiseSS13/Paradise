@@ -422,18 +422,6 @@
 	set category = "Эмоции"
 	emote("wiggles", intentional = TRUE)
 
-/// Слишком переполненное меню, убираю то что легче написать чем искать. ///
-/*
-/mob/living/carbon/human/verb/emote_deathgasp()
-	set name = "▷ Предсмертный вздох "
-	set category = "Эмоции"
-	emote("deathgasp", intentional = TRUE)
-
-/mob/living/carbon/human/verb/emote_dap()
-	set name = "◦ dap "
-	set category = "Эмоции"
-	emote("dap", intentional = TRUE)
-
 /mob/living/carbon/human/verb/emote_wave()
 	set name = "◦ Махать "
 	set category = "Эмоции"
@@ -459,25 +447,37 @@
 	set category = "Эмоции"
 	emote("wink", intentional = TRUE)
 
-/mob/living/carbon/human/verb/emote_point()
-	set name = "◦ Показать пальцем " // Куда блять показывать...
-	set category = "Эмоции"
-	emote("point", intentional = TRUE)
-
 /mob/living/carbon/human/verb/emote_shiver()
 	set name = "◦ Дрожать "
 	set category = "Эмоции"
 	emote("shiver", intentional = TRUE)
 
-/mob/living/carbon/human/verb/emote_hug()
-	set name = "◦ Обнимать " // Обнимать себя конечно смешно, но бесполезно.
-	set category = "Эмоции"
-	emote("hug", intentional = TRUE)
-
 /mob/living/carbon/human/verb/emote_hem()
 	set name = "◦ Хмыкнуть "
 	set category = "Эмоции"
 	emote("hem", intentional = TRUE)
+
+/// Слишком переполненное меню, убираю то что легче написать чем искать. ///
+/*
+/mob/living/carbon/human/verb/emote_deathgasp()
+	set name = "▷ Предсмертный вздох "
+	set category = "Эмоции"
+	emote("deathgasp", intentional = TRUE)
+
+/mob/living/carbon/human/verb/emote_dap()
+	set name = "◦ dap "
+	set category = "Эмоции"
+	emote("dap", intentional = TRUE)
+
+/mob/living/carbon/human/verb/emote_point()
+	set name = "◦ Показать пальцем " // Куда блять показывать...
+	set category = "Эмоции"
+	emote("point", intentional = TRUE)
+
+/mob/living/carbon/human/verb/emote_hug()
+	set name = "◦ Обнимать " // Обнимать себя конечно смешно, но бесполезно.
+	set category = "Эмоции"
+	emote("hug", intentional = TRUE)
 
 /mob/living/carbon/human/verb/emote_signal()
 	set name = "◦ Показать несколько пальцев "
