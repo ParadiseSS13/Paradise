@@ -325,6 +325,8 @@ Difficulty: Very Hard
 	. = ..()
 	if(isturf(target) || isobj(target))
 		target.ex_act(2)
+		for(var/obj/machinery/light/L in range(2, src))
+			L.break_light_tube(0, 1) //No leaving lights floating their as colossus breaks the station
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)
