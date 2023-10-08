@@ -49,7 +49,7 @@
 	if(!isliving(caller))
 		return TRUE
 	var/mob/living/L = caller
-	return (L.flying || ismegafauna(caller)
+	return (L.flying || ismegafauna(caller))
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
