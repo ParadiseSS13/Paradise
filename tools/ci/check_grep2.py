@@ -103,7 +103,7 @@ def check_to_chats_have_a_user_arguement(lines):
 
 CONDITIONAL_LEADING_SPACE = re.compile(r"(if|for|while|switch)\s+(\(.*?\))") # checks for "if (thing)", replace with $1$2
 CONDITIONAL_BEGINNING_SPACE = re.compile(r"(if|for|while|switch)(\(.+) \)") # checks for "if( thing)", replace with $1$2)
-CONDITIONAL_ENDING_SPACE = re.compile(r"(if|for|while|switch)(\((?: ).+\))") # checks for "if(thing )", replace with $1($2
+CONDITIONAL_ENDING_SPACE = re.compile(r"(if|for|while|switch)\( (.+\))") # checks for "if(thing )", replace with $1($2
 # To fix any of these, run them as regex in VSCode, with the appropriate replacement
 # It may be a good idea to turn the replacement into a script someday
 def check_conditional_spacing(lines):

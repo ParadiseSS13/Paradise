@@ -47,7 +47,7 @@
 		if(!(master_item.loc == user) || (master_item.loc && master_item.loc.loc == user))
 			return 0
 
-		if(!( user.restrained() ) && !( user.stat))
+		if(!( user.restrained()) && !( user.stat))
 			switch(over_object.name)
 				if("r_hand")
 					user.unEquip(master_item, silent = TRUE)
