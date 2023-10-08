@@ -1,0 +1,213 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/template_noop,
+/area/template_noop)
+"b" = (
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"c" = (
+/turf/simulated/wall/indestructible/boss,
+/area/lavaland/surface/outdoors)
+"d" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"e" = (
+/turf/simulated/mineral/random/high_chance,
+/area/lavaland/surface/outdoors)
+"f" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile/block,
+/obj/effect/mob_spawn/corpse/watcher/goliath_chewed,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"g" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/item/reagent_containers/food/snacks/egg/watcher,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"h" = (
+/obj/structure/flora/ash/cap_shroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"i" = (
+/obj/structure/falsewall/rock_ancient,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"j" = (
+/obj/effect/mob_spawn/corpse/watcher/crushed,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"k" = (
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"l" = (
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"m" = (
+/obj/structure/stone_tile/slab/cracked,
+/obj/effect/mob_spawn/corpse/goliath/pierced,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"o" = (
+/turf/simulated/mineral/random,
+/area/lavaland/surface/outdoors)
+"p" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"q" = (
+/obj/structure/flora/ash/leaf_shroom,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"t" = (
+/obj/structure/flora/ash/cacti,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"v" = (
+/obj/structure/stone_tile/surrounding/cracked,
+/obj/structure/stone_tile/center/cracked,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"w" = (
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
+
+(1,1,1) = {"
+a
+a
+a
+e
+e
+e
+b
+e
+o
+a
+a
+"}
+(2,1,1) = {"
+a
+o
+o
+c
+c
+c
+i
+c
+o
+o
+a
+"}
+(3,1,1) = {"
+a
+o
+c
+c
+h
+d
+b
+c
+w
+o
+o
+"}
+(4,1,1) = {"
+a
+o
+c
+v
+f
+k
+b
+w
+w
+w
+o
+"}
+(5,1,1) = {"
+a
+o
+c
+p
+g
+l
+b
+t
+w
+w
+w
+"}
+(6,1,1) = {"
+b
+o
+c
+q
+b
+m
+b
+b
+c
+w
+w
+"}
+(7,1,1) = {"
+a
+o
+c
+c
+d
+k
+b
+q
+c
+o
+o
+"}
+(8,1,1) = {"
+a
+o
+o
+c
+c
+c
+i
+c
+c
+o
+b
+"}
+(9,1,1) = {"
+a
+a
+o
+o
+o
+c
+b
+c
+o
+o
+a
+"}
+(10,1,1) = {"
+a
+a
+a
+a
+a
+o
+j
+o
+a
+a
+a
+"}
