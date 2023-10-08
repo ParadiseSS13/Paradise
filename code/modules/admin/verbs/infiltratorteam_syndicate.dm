@@ -116,7 +116,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 // ---------------------------------------------------------------------------------------------------------
 
-/client/proc/create_syndicate_infiltrator(obj/spawn_location, syndicate_leader_selected = 0, uplink_tc = 20, is_mgmt = 0)
+/client/proc/create_syndicate_infiltrator(obj/spawn_location, syndicate_leader_selected = 0, uplink_tc = 100, is_mgmt = 0)
 	var/mob/living/carbon/human/new_syndicate_infiltrator = new(spawn_location.loc)
 
 	var/syndicate_infiltrator_name = random_name(pick(MALE,FEMALE))
