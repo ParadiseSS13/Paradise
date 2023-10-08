@@ -457,6 +457,51 @@
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints
+	name = "IPC ER-ER Joint Implant"
+	desc = "This is a basetype. Notify a coder!"
+	implant_color = "#eeff00"
+	origin_tech = "materials=5;programming=4;biotech=4"
+	slot = "heartdrive"
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints
+	name = "Monsoon Magnetic Joint Implant"
+	desc = "This implant modifies IPC joints to use magnets, allowing easy re-attachment and smooth movement."
+	implant_color = "#670db1"
+	origin_tech = "materials=5;programming=4;biotech=4"//adjust
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/emp_act()
+	. = ..()
+	message_admins("drop a limb here because magnets failing")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/insert(mob/living/carbon/M, special = FALSE)
+	ADD_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed
+	name = "Sundown Sealed Joint Implant"
+	desc = "This implant seals and reinforces IPC joints, securing the limbs better, though prone to locking up."
+	implant_color = "#b10d0d"
+	origin_tech = "materials=5;programming=4;biotech=4"//adjust
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/emp_act()
+	. = ..()
+	message_admins("hardstun em.")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/insert(mob/living/carbon/M, special = FALSE)
+	ADD_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	return ..()
+
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/remove(mob/living/carbon/M, special = FALSE)
+	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	return ..()
+
+
 //BOX O' IMPLANTS
 
 /obj/item/storage/box/cyber_implants
