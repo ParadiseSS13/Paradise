@@ -1,3 +1,4 @@
 #include "_balance.dm"
 
 #include "code/items/weapons.dm"
+#include "code/species/nucleation.dm"
