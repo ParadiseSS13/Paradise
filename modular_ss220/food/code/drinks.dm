@@ -5,6 +5,7 @@
 		return
 	var/datum/reagent/reagent = reagents.get_master_reagent()
 	if(!istype(reagent, /datum/reagent/consumable/ethanol))
+		icon = initial(icon)
 		return
 	var/datum/reagent/consumable/ethanol/booze = reagent
 	icon = booze.drinking_glass_icon
@@ -13,12 +14,12 @@
 	var/drinking_glass_icon = 'icons/obj/drinks.dmi'
 
 /obj/machinery/chem_dispenser/beer/Initialize(mapload)
-	. = ..()
 	dispensable_reagents |= "sambuka"
+	. = ..()
 
 /obj/item/handheld_chem_dispenser/booze/Initialize(mapload)
-	. = ..()
 	dispensable_reagents |= "sambuka"
+	. = ..()
 
 /datum/reagent/consumable/ethanol/sambuka
 	name = "Sambuka"
