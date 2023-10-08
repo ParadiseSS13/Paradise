@@ -10851,7 +10851,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/airless,
-/area/station/maintenance/asmaint)
+/area/space/nearstation)
 "aPr" = (
 /turf/simulated/floor/wood{
 	broken = 1;
@@ -42599,7 +42599,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /turf/simulated/floor/plating,
-/area/station/service/bar)
+/area/station/maintenance/fsmaint)
 "dkT" = (
 /turf/simulated/floor/engine/o2,
 /area/station/engineering/atmos)
@@ -45966,7 +45966,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/service/bar,
 /turf/simulated/floor/plating,
-/area/station/service/bar)
+/area/station/maintenance/fsmaint)
 "dRi" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -47035,7 +47035,7 @@
 "ejw" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating/airless,
-/area/station/maintenance/asmaint)
+/area/space/nearstation)
 "ejH" = (
 /obj/effect/spawner/random_barrier/obstruction,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -56575,10 +56575,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
-"hHP" = (
-/obj/structure/lattice,
-/turf/space,
-/area/space)
 "hIc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -58249,7 +58245,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
 /turf/simulated/floor/plating,
-/area/station/service/bar/atrium)
+/area/station/maintenance/fsmaint)
 "ipF" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -59291,7 +59287,7 @@
 	opacity = 1
 	},
 /turf/simulated/floor/plasteel,
-/area/station/service/bar)
+/area/station/maintenance/fsmaint)
 "iLx" = (
 /obj/structure/grille,
 /obj/effect/decal/warning_stripes/north,
@@ -60809,7 +60805,7 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/any/service/mime,
 /turf/simulated/floor/plating,
-/area/station/service/mime)
+/area/station/maintenance/fsmaint)
 "jqU" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -78364,7 +78360,7 @@
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/any/service/clown,
 /turf/simulated/floor/plating,
-/area/station/service/clown)
+/area/station/maintenance/fsmaint)
 "pTK" = (
 /obj/machinery/access_button{
 	autolink_id = "arrivalsmaint_btn_int";
@@ -89144,9 +89140,6 @@
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/engine,
 /area/station/science/misc_lab)
-"tVi" = (
-/turf/simulated/wall,
-/area/space)
 "tVq" = (
 /obj/structure/chair/sofa,
 /obj/effect/decal/cleanable/dirt,
@@ -90998,7 +90991,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/passive_vent,
 /turf/space,
-/area/station/maintenance/asmaint)
+/area/station/science/toxins/mixing)
 "uCC" = (
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
@@ -109502,7 +109495,7 @@ aMs
 mTi
 mTi
 aMs
-tVi
+aMs
 aaa
 aaa
 aVV
@@ -109759,7 +109752,7 @@ aMs
 aMd
 aSf
 euy
-tVi
+aMs
 aaa
 aaa
 aVV
@@ -110016,7 +110009,7 @@ aMs
 gGY
 aRd
 urF
-tVi
+aMs
 aaa
 aVV
 aVV
@@ -116469,7 +116462,7 @@ ebI
 bnK
 stO
 bKv
-oej
+aaa
 aaa
 nqv
 blQ
@@ -119591,7 +119584,7 @@ aaa
 oKx
 aPd
 oKx
-hHP
+aab
 aaa
 aaa
 aaa
@@ -119844,11 +119837,11 @@ cCD
 cDO
 cwx
 aaa
-hHP
+aab
 oKx
 osy
 oKx
-hHP
+aab
 aaa
 aaa
 aab
@@ -142628,8 +142621,8 @@ aab
 aab
 aab
 aab
-hHP
-hHP
+aab
+aab
 aDS
 aGT
 aGT
@@ -143656,7 +143649,7 @@ aqZ
 aab
 aab
 aab
-hHP
+aab
 aaa
 aDS
 aGT
@@ -145999,13 +145992,13 @@ aGX
 aGX
 aGX
 bbI
-aGX
-aGX
-aGX
-aGX
-aGX
-aGX
-aGX
+bau
+bau
+bau
+bau
+bau
+bau
+bau
 bll
 bmD
 boG
@@ -146262,7 +146255,7 @@ dWK
 dWK
 bip
 bjn
-aGX
+bau
 bau
 bau
 bau
@@ -146519,7 +146512,7 @@ bel
 bfW
 gpp
 bii
-aGX
+bau
 bkX
 bmE
 bau
