@@ -11447,7 +11447,11 @@
 /area/station/supply/qm)
 "aZD" = (
 /obj/machinery/light/directional/east,
-/obj/structure/bed/dogbed,
+/obj/structure/table/reinforced,
+/obj/machinery/photocopier/faxmachine/longrange{
+	pixel_y = 4;
+	department = "Quartermaster's Office"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -14650,13 +14654,14 @@
 /area/station/security/interrogation)
 "bkp" = (
 /obj/structure/table/wood,
-/obj/machinery/photocopier/faxmachine{
-	department = "Head of Security's Office"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
+	},
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Head of Security's Office";
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16535,7 +16540,7 @@
 /obj/structure/table/glass,
 /obj/machinery/economy/vending/wallmed/directional/south,
 /obj/machinery/newscaster/directional/west,
-/obj/machinery/photocopier/faxmachine{
+/obj/machinery/photocopier/faxmachine/longrange{
 	department = "Chief Medical Officer's Office";
 	pixel_y = 4
 	},
@@ -17554,6 +17559,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/mask/cigarette/cigar,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/item/lighter/zippo/hos,
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
 "bum" = (
@@ -24858,6 +24864,7 @@
 /obj/item/clothing/mask/cigarette/cigar{
 	pixel_x = 5
 	},
+/obj/item/lighter/zippo/ce,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -28011,6 +28018,7 @@
 /obj/item/paper/safe_code{
 	owner = "captain"
 	},
+/obj/item/lighter/zippo/cap,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain/bedroom)
 "cci" = (
@@ -29245,6 +29253,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /obj/item/pen/multi,
+/obj/item/lighter/zippo/hop,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "chh" = (
@@ -41908,6 +41917,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/item/lighter/zippo/rd{
+	pixel_y = 4;
+	pixel_x = 6
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
 "dmf" = (
@@ -42489,12 +42502,13 @@
 "dpQ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light/directional/south,
-/obj/machinery/photocopier/faxmachine{
-	department = "Research Director's Office"
-	},
 /obj/machinery/newscaster/directional/south,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/radio/intercom/directional/west,
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Research Director's Office";
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -53169,8 +53183,9 @@
 /area/station/security/checkpoint)
 "fHs" = (
 /obj/structure/table/reinforced,
-/obj/machinery/photocopier/faxmachine{
-	department = "Chief Engineer's Office"
+/obj/machinery/photocopier/faxmachine/longrange{
+	department = "Chief Engineer's Office";
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
@@ -81060,6 +81075,12 @@
 	icon_state = "arrival"
 	},
 /area/station/hallway/secondary/entry)
+"qpq" = (
+/obj/structure/bed/dogbed,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/supply/qm)
 "qpZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -146515,7 +146536,7 @@ aKK
 aSa
 aTz
 bhZ
-aYg
+qpq
 aYg
 aZv
 aSa
