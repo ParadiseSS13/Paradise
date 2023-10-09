@@ -11,7 +11,7 @@
 	light_color = LIGHT_COLOR_PURPLE
 
 	var/safety = 1
-	var/static/detonate_cooldown
+	STATIC_COOLDOWN_DECLARE(detonate_cooldown)
 
 /obj/machinery/computer/robotics/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -143,7 +143,7 @@
 	data["can_hack"] = can_hack_any(user)
 	data["cyborgs"] = list()
 	data["safety"] = safety
-	data["detonate_cooldown"] = round((detonate_cooldown - world.time) / 10)
+	data["detonate_cooldown"] = round(COOLDOWN_TIMELEFT(src, detonate_cooldown) / 10)
 	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		if(!console_shows(R))
 			continue
@@ -208,8 +208,8 @@
 				R.SetLockdown(!R.lockcharge)
 			. = TRUE
 		if("killbot") // destroys one specific cyborg
-			if(detonate_cooldown > world.time)
-				to_chat(usr, "<span class='danger'>Detonation Safety Cooldown active. Please stand by.</span>")
+			if(!COOLDOWN_FINISHED(src, detonate_cooldown))
+				to_chat(usr, "<span class='danger'>Detonation Safety Cooldown Active. Please Stand By!</span>")
 				return
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_detonate(usr, R, TRUE))
@@ -226,7 +226,7 @@
 			if(R.connected_ai)
 				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
 			R.self_destruct()
-			detonate_cooldown = world.time + 60 SECONDS
+			COOLDOWN_START(src, detonate_cooldown, 60 SECONDS)
 			. = TRUE
 		if("stopbot") // lock or unlock the borg
 			if(isrobot(usr))
