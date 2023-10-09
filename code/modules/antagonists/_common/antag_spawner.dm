@@ -59,6 +59,7 @@
 		used = TRUE
 		var/mob/dead/observer/G = pick(nuke_candidates)
 		spawn_antag(G.client, get_turf(src), user.mind)
+		dust_if_respawnable(G)
 		do_sparks(4, TRUE, src)
 		qdel(src)
 	else
@@ -204,6 +205,7 @@
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)
 		spawn_antag(C, get_turf(src.loc), initial(demon_type.name), user)
+		dust_if_respawnable(C)
 		to_chat(user, "[shatter_msg]")
 		to_chat(user, "[veil_msg]")
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
@@ -291,6 +293,7 @@
 	if(candidates.len > 0)
 		var/mob/C = pick(candidates)
 		spawn_antag(C, get_turf(src.loc), initial(morph_type.name), user)
+		dust_if_respawnable(C)
 		to_chat(user, "[shatter_msg]")
 		to_chat(user, "[veil_msg]")
 		playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, 1)
@@ -351,6 +354,7 @@
 
 	var/mob/C = pick(candidates)
 	spawn_antag(C, get_turf(src), initial(revenant.name), user)
+	dust_if_respawnable(C)
 	to_chat(user, "[shatter_msg]")
 	to_chat(user, "[veil_msg]")
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
@@ -411,6 +415,7 @@
 
 	var/mob/C = pick(candidates)
 	spawn_antag(C, T, user)
+	dust_if_respawnable(C)
 	to_chat(user, shatter_msg)
 	to_chat(user, veil_msg)
 	playsound(T, 'sound/effects/glassbr1.ogg', 100, TRUE)

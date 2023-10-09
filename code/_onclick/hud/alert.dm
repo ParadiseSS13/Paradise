@@ -612,8 +612,6 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!usr || !usr.client)
 		return
 	var/mob/dead/observer/G = usr
-	if(!istype(G))
-		return
 
 	if(poll)
 		var/success
@@ -631,8 +629,16 @@ so as to remain in compliance with the most up-to-date laws."
 			if(NOTIFY_JUMP)
 				var/turf/T = get_turf(target)
 				if(T && isturf(T))
+					if(!istype(G))
+						var/mob/dead/observer/actual_ghost = G.ghostize(TRUE)
+						actual_ghost.forceMove(T)
+						return
 					G.forceMove(T)
 			if(NOTIFY_FOLLOW)
+				if(!istype(G))
+					var/mob/dead/observer/actual_ghost = G.ghostize(TRUE)
+					actual_ghost.ManualFollow(target)
+					return
 				G.ManualFollow(target)
 
 /obj/screen/alert/notify_action/Topic(href, href_list)

@@ -2580,6 +2580,7 @@
 #include "code\modules\research\xenobiology\xenobiology.dm"
 #include "code\modules\response_team\ert.dm"
 #include "code\modules\response_team\ert_outfits.dm"
+#include "code\modules\ruins\ghost_bar.dm"
 #include "code\modules\ruins\ruin_areas.dm"
 #include "code\modules\ruins\syndicate_space_base.dm"
 #include "code\modules\ruins\lavalandruin_code\ash_walker_den.dm"
