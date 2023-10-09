@@ -224,8 +224,8 @@
 	name = "black suit jacket"
 	icon_state = "suitjacket_black_open"
 	item_state = "suitjacket_black_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
@@ -233,8 +233,8 @@
 	name = "blue suit jacket"
 	icon_state = "suitjacket_blue_open"
 	item_state = "suitjacket_blue_open"
-	ignore_suitadjust = 0
-	suit_adjusted = 1
+	ignore_suitadjust = FALSE
+	suit_adjusted = TRUE
 	actions_types = list(/datum/action/item_action/button)
 	adjust_flavour = "unbutton"
 
