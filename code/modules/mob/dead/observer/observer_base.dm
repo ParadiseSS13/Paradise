@@ -660,10 +660,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 	to_chat(usr, "You [(ghostvision?"now":"no longer")] have ghost vision.")
 
-/mob/dead/observer/verb/pick_darkness()
+/mob/dead/observer/verb/pick_darkness(desired_dark as num)
 	set name = "Pick Darkness"
+	set desc = "Choose how much darkness you want to see, (0 - 255). Higher numbers being darker."
 	set category = "Ghost"
-	var/desired_dark = input(src, "Choose how much darkness you want to see, (0 - 255). Higher numbers being darker.", "Pick Darkness", null) as null|num
 	if(isnull(desired_dark))
 		return
 	if(!client)
