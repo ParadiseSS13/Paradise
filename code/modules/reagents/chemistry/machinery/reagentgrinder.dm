@@ -324,7 +324,7 @@
 			juice()
 
 /obj/machinery/reagentgrinder/proc/detach()
-	if(usr.stat != CONSCIOUS)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)
 		return
 	if(!beaker)
 		return
