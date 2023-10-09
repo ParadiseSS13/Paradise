@@ -256,6 +256,27 @@
 	cost = 500
 	containername = "auto rifle ammo crate"
 
+/datum/supply_packs/security/armory/m1911
+	name = "M1911 Pistol Crate"
+	contains = list(/obj/item/gun/projectile/automatic/pistol/m1911,
+					/obj/item/gun/projectile/automatic/pistol/m1911,
+					/obj/item/gun/projectile/automatic/pistol/m1911,)
+	cost = 500
+	containername = "1911 crate"
+	contraband = TRUE
+
+/datum/supply_packs/security/armory/m1911ammo
+	name = "M1911 Ammo Crate"
+	contains = list(/obj/item/ammo_box/magazine/m45,
+					/obj/item/ammo_box/magazine/m45,
+					/obj/item/ammo_box/magazine/m45,
+					/obj/item/ammo_box/magazine/m45,
+					/obj/item/ammo_box/magazine/m45,
+					/obj/item/ammo_box/magazine/m45,)
+	cost = 400
+	containername = "1911 ammo crate"
+	contraband = TRUE
+
 /datum/supply_packs/security/armory/laserrifle
 	name = "IK-30 Security Laser Rifle Crate"
 	contains = list(/obj/item/gun/projectile/automatic/laserrifle,

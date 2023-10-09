@@ -34,7 +34,7 @@
 	name = "ammo box (.45)"
 	icon_state = "45box"
 	origin_tech = "combat=2"
-	ammo_type = /obj/item/ammo_casing/c45
+	ammo_type = /obj/item/ammo_casing/c45/nostamina
 	max_ammo = 20
 
 /obj/item/ammo_box/rubber45

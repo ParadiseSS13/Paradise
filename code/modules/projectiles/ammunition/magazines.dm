@@ -225,7 +225,7 @@
 /obj/item/ammo_box/magazine/m45
 	name = "handgun magazine (.45)"
 	icon_state = "45"
-	ammo_type = /obj/item/ammo_casing/c45
+	ammo_type = /obj/item/ammo_casing/c45/nostamina
 	caliber = ".45"
 	max_ammo = 8
 	multi_sprite_step = 1
