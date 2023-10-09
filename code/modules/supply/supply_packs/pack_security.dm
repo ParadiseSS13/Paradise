@@ -272,7 +272,7 @@
 					/obj/item/ammo_box/magazine/m45,
 					/obj/item/ammo_box/magazine/m45,
 					/obj/item/ammo_box/magazine/m45,
-					/obj/item/ammo_box/magazine/m45,)
+					/obj/item/ammo_box/magazine/m45)
 	cost = 400
 	containername = "1911 ammo crate"
 	contraband = TRUE
