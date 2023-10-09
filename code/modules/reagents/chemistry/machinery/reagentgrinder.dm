@@ -323,7 +323,7 @@
 		if("juice")
 			juice()
 
-/obj/machinery/reagentgrinder/proc/detach()
+/obj/machinery/reagentgrinder/proc/detach(mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)
 		return
 	if(!beaker)
