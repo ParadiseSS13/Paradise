@@ -333,8 +333,8 @@
 	update_icon(UPDATE_ICON_STATE)
 	SStgui.update_uis(src)
 
-/obj/machinery/reagentgrinder/proc/eject()
-	if(usr.stat != 0)
+/obj/machinery/reagentgrinder/proc/eject(mob/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)
 		return
 	if(holdingitems && holdingitems.len == 0)
 		return
