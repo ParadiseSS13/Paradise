@@ -11,14 +11,14 @@
 
 /obj/item/clothing/under/rank/procedure/representative
 	name = "\improper Nanotrasen representative's uniform"
-	desc = "Fine black cotton pants and white shirt with blue and gold trim."
+	desc = "Fine black cotton pants and white shirt, with blue and gold trim."
 	icon_state = "ntrep"
 	item_state = "ntrep"
 	item_color = "ntrep"
 
 /obj/item/clothing/under/rank/procedure/representative/skirt
 	name = "\improper Nanotrasen representative's skirt"
-	desc = "A silky black skirt and white shirt with blue and gold trim."
+	desc = "A silky black skirt and white shirt, with blue and gold trim."
 	icon_state = "ntrep_skirt"
 	item_state = "ntrep_skirt"
 	item_color = "ntrep_skirt"
@@ -78,7 +78,7 @@
 
 /obj/item/clothing/under/rank/procedure/blueshield/formal
 	name = "formal blueshield's uniform"
-	desc = "A formal black suit with blue trim and tie, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
+	desc = "A formal black suit with blue trim and tie, this uniform bears \"Close Protection\" on the left shoulder. It has exotic materials for protection."
 	icon_state = "blueshield_formal"
 	item_state = "blueshield_formal"
 	item_color = "blueshield_formal"
