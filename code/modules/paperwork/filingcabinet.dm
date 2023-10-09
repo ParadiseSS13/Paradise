@@ -109,7 +109,7 @@
 
 	return data
 
-/obj/structure/filingcabinet/ui_act(action, params, datum/tgui/ui, mob/user = usr)
+/obj/structure/filingcabinet/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
 
@@ -122,7 +122,7 @@
 			var/index = text2num(params["index"])
 			if(!ISINDEXSAFE(contents, index))
 				return FALSE
-			retrieve(contents[index], user)
+			retrieve(contents[index])
 
 /obj/structure/filingcabinet/proc/insert(obj/item/O, mob/user)
 	if(!is_type_in_list(O, accepted_items))
