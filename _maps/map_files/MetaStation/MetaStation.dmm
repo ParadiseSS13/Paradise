@@ -830,20 +830,7 @@
 /area/holodeck/alphadeck)
 "aiw" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Court Cell";
-	dir = 4
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/window/classic/normal{
-	name = "Court Cell";
-	dir = 4
+	name = "Court Cell"
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -2845,16 +2832,16 @@
 	pixel_y = 5
 	},
 /obj/item/storage/box/pillbottles,
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_y = 4
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3432,8 +3419,7 @@
 /obj/item/folder,
 /obj/item/folder,
 /obj/machinery/door/window/classic/normal{
-	name = "windoor";
-	dir = 4
+	name = "windoor"
 	},
 /obj/item/book/manual/wiki/hacking,
 /obj/item/tape/random,
@@ -50037,25 +50023,7 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/pie,
 /obj/machinery/door/window/classic/normal{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/pie,
-/obj/machinery/door/window/classic/normal{
-	name = "Kitchen";
-	dir = 4
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -50149,8 +50117,7 @@
 	dir = 4
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "shower";
-	dir = 4
+	name = "shower"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -50784,12 +50751,6 @@
 	},
 /area/station/security/brig)
 "eus" = (
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_y = 4
-	},
 /obj/machinery/alarm{
 	dir = 8;
 	name = "east bump";
@@ -50812,6 +50773,12 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -51574,27 +51541,7 @@
 "eNA" = (
 /obj/structure/table/glass,
 /obj/machinery/door/window/classic/normal{
-	name = "First-Aid Supplies";
-	dir = 4
-	},
-/obj/item/storage/firstaid/fire{
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/storage/firstaid/regular,
-/obj/item/storage/firstaid/fire{
-	pixel_x = -3;
-	pixel_y = -3
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/glass,
-/obj/machinery/door/window/classic/normal{
-	name = "First-Aid Supplies";
-	dir = 4
+	name = "First-Aid Supplies"
 	},
 /obj/item/storage/firstaid/fire{
 	pixel_x = 3;
@@ -53262,17 +53209,7 @@
 /area/station/medical/virology)
 "fxP" = (
 /obj/machinery/door/window/reinforced/normal{
-	name = "Command Desk";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/window/reinforced/normal{
-	name = "Command Desk";
-	dir = 4
+	name = "Command Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/general,
 /turf/simulated/floor/plasteel{
@@ -53432,33 +53369,11 @@
 	name = "Mass Driver";
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/window/classic/normal{
-	name = "Mass Driver";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/turf_decal/loading_area{
-	dir = 1
-	},
-/obj/machinery/driver_button{
-	id_tag = "shackgun";
-	pixel_x = -24
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/window/classic/normal{
-	name = "Mass Driver";
-	dir = 1
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance{
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Mass Driver";
-	dir = 4
+	name = "Mass Driver"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance,
 /obj/effect/turf_decal/loading_area{
@@ -53992,35 +53907,7 @@
 /area/station/command/office/hos)
 "fMI" = (
 /obj/machinery/door/window/reinforced/normal{
-	name = "Justice Chamber";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
 	name = "Justice Chamber"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/security/brig,
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "executionfireblast"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/window/reinforced/normal{
-	name = "Justice Chamber";
-	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig,
 /obj/machinery/atmospherics/pipe/simple/hidden,
@@ -54681,23 +54568,6 @@
 /area/station/security/execution)
 "gcj" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	dir = 4
-	},
-/obj/item/storage/fancy/donut_box,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -54708,8 +54578,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/service/kitchen,
 /obj/machinery/door/window/classic/normal{
-	name = "Kitchen";
-	dir = 4
+	name = "Kitchen"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -55035,22 +54904,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/window{
-	name = "HoP's Desk";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/hop,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/window{
-	name = "HoP's Desk";
-	dir = 4
+	name = "HoP's Desk"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/hop,
 /turf/simulated/floor/wood,
@@ -55264,8 +55118,7 @@
 	dir = 1
 	},
 /obj/machinery/door/window{
-	name = "Permabrig Kitchen";
-	dir = 4
+	name = "Permabrig Kitchen"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -55619,30 +55472,7 @@
 	pixel_x = -3
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 3
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen";
-	dir = 4
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -55934,7 +55764,7 @@
 	},
 /area/station/science/xenobiology)
 "gFR" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	id = "Cell 4";
 	name = "Cell 4";
 	dir = 4
@@ -57589,24 +57419,7 @@
 "hwA" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen";
-	dir = 4
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -60848,11 +60661,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "iOB" = (
-/obj/item/kirbyplants,
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = -28
 	},
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -61057,7 +60870,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	id = "Cell 5";
 	name = "Cell 5";
 	dir = 1
@@ -61188,20 +61001,7 @@
 "iUI" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	dir = 4
-	},
-/obj/item/reagent_containers/spray/cleaner,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	name = "Medical Reception";
-	dir = 4
+	name = "Medical Reception"
 	},
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -62361,20 +62161,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/reversed{
-	name = "Cargo Desk";
-	dir = 4
-	},
-/obj/item/paper/crumpled,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/classic/reversed{
-	name = "Cargo Desk";
-	dir = 4
+	name = "Cargo Desk"
 	},
 /obj/item/paper/crumpled,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general,
@@ -62732,35 +62519,7 @@
 	pixel_y = -3
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Chemistry Desk";
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "imnotmakingyoulubepissoff";
-	name = "Chemistry Privacy Shutter"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/table/reinforced,
-/obj/item/folder/white{
-	pixel_x = 4;
-	pixel_y = -3
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Chemistry Desk";
-	dir = 4
+	name = "Chemistry Desk"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -63124,8 +62883,7 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "MiniSat Walkway Access";
-	dir = 4
+	name = "MiniSat Walkway Access"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -63489,29 +63247,7 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Cryo Tank Storage";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/siding,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/atmospherics/portable/canister/oxygen{
-	name = "Canister: \[O2] (CRYO)"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Cryo Tank Storage";
-	dir = 4
+	name = "Cryo Tank Storage"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/medical/general,
 /turf/simulated/floor/plasteel{
@@ -66776,7 +66512,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonlockers)
 "lAo" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 4;
 	id = "Cell 2";
 	name = "Cell 2"
@@ -68291,31 +68027,7 @@
 "mhb" = (
 /obj/machinery/smartfridge/medbay,
 /obj/machinery/door/window/classic/normal{
-	name = "Chemistry Desk";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "imnotmakingyoulubepissoff";
-	name = "Chemistry Privacy Shutter"
-	},
-/obj/machinery/door/poddoor{
-	density = 0;
-	icon_state = "open";
-	id_tag = "Biohazard_medi";
-	name = "Quarantine Lockdown";
-	opacity = 0
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/smartfridge/medbay,
-/obj/machinery/door/window/classic/normal{
-	name = "Chemistry Desk";
-	dir = 4
+	name = "Chemistry Desk"
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -69690,7 +69402,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
 "mRl" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 8;
 	id = "Cell 1";
 	name = "Cell 1"
@@ -71872,7 +71584,7 @@
 /turf/simulated/floor/carpet,
 /area/station/science/robotics/showroom)
 "nLF" = (
-/obj/machinery/door/window/reinforced/normal{
+/obj/machinery/door/window/brigdoor{
 	dir = 8;
 	id = "Cell 3";
 	name = "Cell 3"
@@ -72024,29 +71736,11 @@
 	dir = 1;
 	name = "Weapon Distribution"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
-/obj/machinery/door/window/classic/normal{
-	name = "Request Window";
-	dir = 4
-	},
-/obj/item/pen,
-/obj/item/paper,
-/obj/machinery/door/firedoor,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Weapon Distribution"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Request Window";
-	dir = 4
+	name = "Request Window"
 	},
 /obj/item/pen,
 /obj/item/paper,
@@ -72771,36 +72465,7 @@
 /obj/item/pen,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/window/classic/normal{
-	name = "Atmospherics Desk";
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "atmos";
-	name = "Atmospherics Blast Door"
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/purple,
-/obj/item/folder/yellow,
-/obj/item/pen,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/classic/normal{
-	name = "Atmospherics Desk";
-	dir = 4
+	name = "Atmospherics Desk"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -73394,28 +73059,7 @@
 "oyT" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/machinery/door/firedoor,
-/obj/structure/disposalpipe/segment,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	name = "Kitchen";
-	dir = 4
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -73564,28 +73208,7 @@
 "oCU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
-	},
-/obj/item/paper_bin{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/item/folder/white,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/medical/general,
-/obj/machinery/door/firedoor,
-/obj/item/pen{
-	pixel_x = -3;
-	pixel_y = 5
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Medical Reception";
-	dir = 4
+	name = "Medical Reception"
 	},
 /obj/item/paper_bin{
 	pixel_x = 3;
@@ -74586,18 +74209,7 @@
 /area/station/public/locker)
 "pbr" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Primate Pen";
-	dir = 4
-	},
-/obj/effect/turf_decal/siding,
-/obj/effect/mapping_helpers/airlock/access/all/medical/genetics,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/window/classic/normal{
-	name = "Primate Pen";
-	dir = 4
+	name = "Primate Pen"
 	},
 /obj/effect/turf_decal/siding,
 /obj/effect/mapping_helpers/airlock/windoor/access/all/medical/genetics,
@@ -75832,24 +75444,7 @@
 /obj/structure/plasticflaps,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/window/classic/reversed{
-	name = "delivery door";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/maintenance,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	dir = 1;
-	location = "Disposals"
-	},
-/obj/structure/plasticflaps,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/window/classic/reversed{
-	name = "delivery door";
-	dir = 4
+	name = "delivery door"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/engineering/maintenance,
@@ -76228,13 +75823,13 @@
 /obj/machinery/photocopier/faxmachine{
 	department = "Chief Medical Officer's Office"
 	},
-/obj/machinery/light_switch{
-	name = "north bump";
-	pixel_y = 24
-	},
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_x = -28
+	},
+/obj/machinery/light_switch{
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -79494,23 +79089,7 @@
 /obj/machinery/door/window{
 	base_state = "right";
 	icon_state = "right";
-	name = "Captain's Desk";
-	dir = 4
-	},
-/obj/item/stamp/captain,
-/obj/structure/disposalpipe/segment,
-/obj/effect/mapping_helpers/airlock/access/all/command/captain,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/wood,
-/obj/item/folder/blue,
-/obj/machinery/door/window{
-	base_state = "right";
-	icon_state = "right";
-	name = "Captain's Desk";
-	dir = 4
+	name = "Captain's Desk"
 	},
 /obj/item/stamp/captain,
 /obj/structure/disposalpipe/segment,
@@ -81621,29 +81200,7 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Reception Window";
-	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "hop";
-	name = "privacy shutters"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Head of Personnel's Desk"
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/command/hop{
-	dir = 1
-	},
-/obj/machinery/door/window/classic/normal{
-	name = "Reception Window";
-	dir = 4
+	name = "Reception Window"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "hop";
@@ -81761,22 +81318,7 @@
 /area/station/science/xenobiology)
 "ssF" = (
 /obj/machinery/door/window{
-	name = "Captain's Desk";
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/captain,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/window{
-	name = "Captain's Desk";
-	dir = 4
+	name = "Captain's Desk"
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -81954,33 +81496,7 @@
 	name = "Service Desk Shutter"
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Hydroponics Window";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/smartfridge,
-/obj/machinery/door/window/classic/normal{
-	name = "Anti-Theft Shield";
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen{
-	dir = 1
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "hydro_service";
-	name = "Service Desk Shutter"
-	},
-/obj/machinery/door/window/classic/normal{
-	name = "Hydroponics Window";
-	dir = 4
+	name = "Hydroponics Window"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
 /turf/simulated/floor/plasteel,
@@ -82612,8 +82128,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
 	name = "Arrivals Security Checkpoint";
-	pixel_y = -8;
-	dir = 4
+	pixel_y = -8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -83347,26 +82862,7 @@
 	opacity = 1
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	dir = 1;
-	location = "Hydroponics"
-	},
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Botany Delivery";
-	dir = 4
+	name = "Botany Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
@@ -83793,42 +83289,11 @@
 	dir = 1;
 	name = "Warden's Desk"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/security/armory,
-/obj/machinery/door/window/classic/normal{
-	name = "Reception Window";
-	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Secure Gate";
-	name = "brig shutters"
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/item/storage/fancy/donut_box,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/reinforced/normal{
-	dir = 1;
-	name = "Warden's Desk"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/armory{
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Reception Window";
-	dir = 4
+	name = "Reception Window"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
@@ -83963,26 +83428,7 @@
 	opacity = 1
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
-/obj/effect/mapping_helpers/airlock/access/any/service/bar,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/navbeacon{
-	codes_txt = "delivery";
-	dir = 1;
-	location = "Bar"
-	},
-/obj/effect/turf_decal/bot,
-/obj/structure/plasticflaps{
-	opacity = 1
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Bar Delivery";
-	dir = 4
+	name = "Bar Delivery"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/bar,
@@ -84736,22 +84182,7 @@
 /area/station/legal/magistrate)
 "tHo" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Containment Pen #2";
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/machinery/door/window/classic/normal{
-	name = "Containment Pen #2";
-	dir = 4
+	name = "Containment Pen #2"
 	},
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -84909,30 +84340,7 @@
 	pixel_x = 3
 	},
 /obj/machinery/door/window/classic/reversed{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "kitchen_counter";
-	name = "Kitchen Counter Shutters"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_x = -3
-	},
-/obj/item/reagent_containers/food/condiment/peppermill{
-	pixel_x = 3
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Kitchen";
-	dir = 4
+	name = "Kitchen"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
@@ -88052,27 +87460,8 @@
 /area/station/science/xenobiology)
 "voK" = (
 /obj/structure/table/reinforced,
-/obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /obj/machinery/door/window/classic/reversed{
-	name = "Hydroponics Window";
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "hydro_service";
-	name = "Service Desk Shutter"
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/reversed{
-	name = "Hydroponics Window";
-	dir = 4
+	name = "Hydroponics Window"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -88301,8 +87690,7 @@
 	network = list("SS13","MiniSat")
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "MiniSat Walkway Access";
-	dir = 4
+	name = "MiniSat Walkway Access"
 	},
 /obj/machinery/light/small{
 	dir = 4
@@ -90229,27 +89617,7 @@
 	},
 /obj/machinery/computer/borgupload,
 /obj/machinery/door/window/classic/normal{
-	name = "Cyborg Upload Console Window";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/computer/borgupload,
-/obj/machinery/door/window/classic/normal{
-	name = "Cyborg Upload Console Window";
-	dir = 4
+	name = "Cyborg Upload Console Window"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -90942,27 +90310,7 @@
 	},
 /obj/machinery/computer/aiupload,
 /obj/machinery/door/window/classic/reversed{
-	name = "Upload Console Window";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/computer/aiupload,
-/obj/machinery/door/window/classic/reversed{
-	name = "Upload Console Window";
-	dir = 4
+	name = "Upload Console Window"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -92678,22 +92026,7 @@
 	name = "Xenobio Pen 2 Blast Door"
 	},
 /obj/machinery/door/window/classic/reversed{
-	name = "Containment Pen #2";
-	dir = 4
-	},
-/obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "xenobio2";
-	name = "Xenobio Pen 2 Blast Door"
-	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Containment Pen #2";
-	dir = 4
+	name = "Containment Pen #2"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/science/xenobio,
 /turf/simulated/floor/plasteel,
@@ -93939,28 +93272,7 @@
 "ybS" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	name = "Cargo Desk";
-	dir = 4
-	},
-/obj/item/paper_bin{
-	pixel_x = -7;
-	pixel_y = 6
-	},
-/obj/machinery/door/firedoor,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
-/obj/item/desk_bell{
-	pixel_x = 7;
-	pixel_y = 7;
-	anchored = 1
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/classic/normal{
-	name = "Cargo Desk";
-	dir = 4
+	name = "Cargo Desk"
 	},
 /obj/item/paper_bin{
 	pixel_x = -7;
