@@ -3568,7 +3568,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/under/rank/centcom/officer,
-/obj/item/clothing/under/rank/centcom/representative{
+/obj/item/clothing/under/rank/procedure/representative{
 	pixel_x = 3;
 	pixel_y = -3
 	},
