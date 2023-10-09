@@ -163,6 +163,7 @@
 /atom/movable/Move(atom/newloc, direct = 0, movetime)
 	if(!loc || !newloc) return 0
 	var/atom/oldloc = loc
+	setDir(direct)
 
 	if(loc != newloc)
 		if(movetime > 0)
