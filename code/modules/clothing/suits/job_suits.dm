@@ -210,6 +210,9 @@
 
 //Internal Affairs
 /obj/item/clothing/suit/storage/iaa
+	desc = "A snappy dress jacket."
+	blood_overlay_type = "coat"
+	body_parts_covered = UPPER_TORSO | ARMS
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi',
@@ -219,11 +222,8 @@
 
 /obj/item/clothing/suit/storage/iaa/blackjacket
 	name = "black suit jacket"
-	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_black_open"
 	item_state = "suitjacket_black_open"
-	blood_overlay_type = "coat"
-	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/button)
@@ -231,11 +231,8 @@
 
 /obj/item/clothing/suit/storage/iaa/bluejacket
 	name = "blue suit jacket"
-	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_blue_open"
 	item_state = "suitjacket_blue_open"
-	blood_overlay_type = "coat"
-	body_parts_covered = UPPER_TORSO|ARMS
 	ignore_suitadjust = 0
 	suit_adjusted = 1
 	actions_types = list(/datum/action/item_action/button)
@@ -243,11 +240,8 @@
 
 /obj/item/clothing/suit/storage/iaa/purplejacket
 	name = "purple suit jacket"
-	desc = "A snappy dress jacket."
 	icon_state = "suitjacket_purple"
 	item_state = "suitjacket_purple"
-	blood_overlay_type = "coat"
-	body_parts_covered = UPPER_TORSO|ARMS
 
 //Head of Security
 /obj/item/clothing/suit/mantle/armor
