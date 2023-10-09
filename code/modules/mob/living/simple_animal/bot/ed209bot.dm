@@ -109,16 +109,7 @@
 		ui.open()
 
 /mob/living/simple_animal/bot/ed209/ui_data(mob/user)
-	var/list/data = list()
-	data["locked"] = locked // controls, locked or not
-	data["noaccess"] = topic_denied(user) // does the current user have access? admins, silicons etc can still access bots with locked controls
-	data["maintpanel"] = open
-	data["on"] = on
-	data["autopatrol"] = auto_patrol
-	data["painame"] = paicard ? paicard.pai.name : null
-	data["canhack"] = canhack(user)
-	data["emagged"] = emagged // this is an int, NOT a boolean
-	data["remote_disabled"] = remote_disabled
+	var/list/data = ..()
 
 	// -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
 	data["check_id"] = idcheck
