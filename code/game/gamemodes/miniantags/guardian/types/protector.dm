@@ -65,6 +65,7 @@
 		if(!isturf(loc))
 			return
 		if(get_turf(summoner) == get_turf(src))
+			to_chat(src, "<span class='warning'>You cannot deploy your shield while on your host!</span>")
 			return
 		var/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
 		shield_overlay *= name_color
@@ -73,7 +74,7 @@
 		melee_damage_upper = 2
 		obj_damage = 6 //40/7.5 rounded up, we don't want a protector guardian 2 shotting blob tiles while taking 5% damage, thats just silly.
 		move_resist = MOVE_FORCE_STRONG
-		speed = 2
+		speed = 1
 		damage_transfer = 0.1 //damage? what's damage?
 		to_chat(src, "<span class='danger'>You switch to protection mode.</span>")
 		toggle = TRUE
