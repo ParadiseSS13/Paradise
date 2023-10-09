@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	E.ui_interact(usr)
 
 
-/mob/dead/observer/proc/JoinResponseTeam()
+/mob/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
 		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
 		return FALSE
@@ -68,18 +68,18 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		return
 
 	// Respawnable players get first dibs
-	for(var/mob/dead/observer/M in ert_candidates)
+	for(var/mob/M in ert_candidates)
 		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
 			continue
-		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
+		if((HAS_TRAIT(M, TRAIT_RESPAWNABLE)) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
-			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
+			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob, remove_from_ert_list), TRUE)
 
 	// If there's still open slots, non-respawnable players can fill them
-	for(var/mob/dead/observer/M in (ert_candidates - GLOB.respawnable_list))
+	for(var/mob/M in (ert_candidates - GLOB.response_team_members))
 		if(M.JoinResponseTeam())
 			GLOB.response_team_members |= M
-			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/dead/observer, remove_from_ert_list), TRUE)
+			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob, remove_from_ert_list), TRUE)
 
 	if(!length(GLOB.response_team_members))
 		GLOB.active_team.cannot_send_team()
@@ -133,6 +133,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 					break
 				new_commando.mind.key = M.key
 				new_commando.key = M.key
+				dust_if_respawnable(M)
 				new_commando.update_icons()
 				break
 	GLOB.send_emergency_team = FALSE
@@ -220,10 +221,9 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 
 	return M
 
-/mob/dead/observer/proc/remove_from_ert_list(ghost)
+/mob/proc/remove_from_ert_list(ghost)
 	SIGNAL_HANDLER
 	GLOB.response_team_members -= src
-	remove_from_respawnable_list()
 
 /datum/response_team
 	var/list/slots = list(
