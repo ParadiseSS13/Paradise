@@ -53,6 +53,9 @@
 		linked_action.Trigger(left_click = FALSE)
 		return TRUE
 	linked_action.Trigger(TRUE)
+	transform = transform.Scale(0.8, 0.8)
+	alpha = 200
+	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
 	return TRUE
 
 /obj/screen/movable/action_button/AltClick(mob/user)
@@ -74,9 +77,7 @@
 		return ..()
 
 /obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
-	. = ..()
-	if(!.)
-		usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
+	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
 
 	hidden = usr.hud_used.action_buttons_hidden
 	if(hidden)

@@ -1,4 +1,4 @@
-#define NUKESCALINGMODIFIER 1.2
+#define NUKESCALINGMODIFIER 6
 
 /datum/game_mode
 	var/list/datum/mind/syndicates = list()
@@ -65,8 +65,7 @@
 	if(operative_mind in syndicates)
 		SSticker.mode.syndicates -= operative_mind
 		operative_mind.special_role = null
-		for(var/datum/objective/nuclear/O in operative_mind.objectives)
-			operative_mind.objectives -= O
+		operative_mind.objective_holder.clear(/datum/objective/nuclear)
 		operative_mind.current.create_attack_log("<span class='danger'>No longer nuclear operative</span>")
 		operative_mind.current.create_log(CONVERSION_LOG, "No longer nuclear operative")
 		if(issilicon(operative_mind.current))
@@ -204,7 +203,7 @@
 	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
 
 	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
-	synd_mind.current.equip_to_slot_or_del(challenge, slot_r_hand)
+	synd_mind.current.equip_to_slot_or_del(challenge, SLOT_HUD_RIGHT_HAND)
 
 	update_syndicate_id(synd_mind, leader_title, TRUE)
 
@@ -221,7 +220,7 @@
 		else
 			var/mob/living/carbon/human/H = synd_mind.current
 			P.loc = H.loc
-			H.equip_to_slot_or_del(P, slot_r_store, 0)
+			H.equip_to_slot_or_del(P, SLOT_HUD_RIGHT_STORE, 0)
 			H.update_icons()
 
 
@@ -238,19 +237,14 @@
 		message_admins("Warning: Operative [key_name_admin(synd_mind.current)] spawned without an ID card!")
 
 /datum/game_mode/proc/forge_syndicate_objectives(datum/mind/syndicate)
-	var/datum/objective/nuclear/syndobj = new
-	syndobj.owner = syndicate
-	syndicate.objectives += syndobj
-
+	syndicate.add_mind_objective(/datum/objective/nuclear)
 
 /datum/game_mode/proc/greet_syndicate(datum/mind/syndicate, you_are=1)
 	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))
 	if(you_are)
 		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
-	var/obj_count = 1
-	for(var/datum/objective/objective in syndicate.objectives)
-		to_chat(syndicate.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+
+	syndicate.announce_objectives(title = FALSE)
 	to_chat(syndicate.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Nuclear_Agent)</span>")
 	syndicate.current.create_log(MISC_LOG, "[syndicate.current] was made into a nuclear operative")
 
@@ -264,7 +258,7 @@
 
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt(synd_mob)
 	R.set_frequency(radio_freq)
-	synd_mob.equip_to_slot_or_del(R, slot_l_ear)
+	synd_mob.equip_to_slot_or_del(R, SLOT_HUD_LEFT_EAR)
 
 	var/back
 
@@ -280,18 +274,18 @@
 		else
 			back = /obj/item/storage/backpack
 
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), slot_w_uniform)
-	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), slot_shoes)
-	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), slot_gloves)
-	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), slot_wear_id)
-	synd_mob.equip_to_slot_or_del(new back(synd_mob), slot_back)
-	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), slot_belt)
-	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), slot_in_backpack)
-	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), slot_wear_pda)
+	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(synd_mob), SLOT_HUD_JUMPSUIT)
+	synd_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(synd_mob), SLOT_HUD_SHOES)
+	synd_mob.equip_or_collect(new /obj/item/clothing/gloves/combat(synd_mob), SLOT_HUD_GLOVES)
+	synd_mob.equip_to_slot_or_del(new /obj/item/card/id/syndicate(synd_mob), SLOT_HUD_WEAR_ID)
+	synd_mob.equip_to_slot_or_del(new back(synd_mob), SLOT_HUD_BACK)
+	synd_mob.equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/pistol(synd_mob), SLOT_HUD_BELT)
+	synd_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(synd_mob.back), SLOT_HUD_IN_BACKPACK)
+	synd_mob.equip_to_slot_or_del(new /obj/item/pinpointer/nukeop(synd_mob), SLOT_HUD_WEAR_PDA)
 	var/obj/item/radio/uplink/nuclear/U = new /obj/item/radio/uplink/nuclear(synd_mob)
 	U.hidden_uplink.uplink_owner="[synd_mob.key]"
 	U.hidden_uplink.uses = uplink_uses
-	synd_mob.equip_to_slot_or_del(U, slot_in_backpack)
+	synd_mob.equip_to_slot_or_del(U, SLOT_HUD_IN_BACKPACK)
 	synd_mob.mind.offstation_role = TRUE
 
 	if(synd_mob.dna.species)
@@ -299,17 +293,17 @@
 
 		switch(race)
 			if("Vox")
-				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), slot_l_hand)
+				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), SLOT_HUD_WEAR_MASK)
+				synd_mob.equip_to_slot_or_del(new /obj/item/tank/internals/emergency_oxygen/double/vox(synd_mob), SLOT_HUD_LEFT_HAND)
 				synd_mob.internal = synd_mob.l_hand
 				synd_mob.update_action_buttons_icon()
 
 			if("Plasmaman")
-				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), slot_wear_mask)
-				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), slot_s_store)
-				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
-				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), slot_in_backpack)
-				synd_mob.internal = synd_mob.get_item_by_slot(slot_s_store)
+				synd_mob.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(synd_mob), SLOT_HUD_WEAR_MASK)
+				synd_mob.equip_or_collect(new /obj/item/tank/internals/plasmaman(synd_mob), SLOT_HUD_SUIT_STORE)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), SLOT_HUD_IN_BACKPACK)
+				synd_mob.equip_or_collect(new /obj/item/extinguisher_refill(synd_mob), SLOT_HUD_IN_BACKPACK)
+				synd_mob.internal = synd_mob.get_item_by_slot(SLOT_HUD_SUIT_STORE)
 				synd_mob.update_action_buttons_icon()
 
 	synd_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
@@ -318,11 +312,6 @@
 	synd_mob.faction |= "syndicate"
 	synd_mob.update_icons()
 	return 1
-
-/datum/game_mode/nuclear/check_win()
-	if(nukes_left == 0)
-		return 1
-	return ..()
 
 
 /datum/game_mode/proc/is_operatives_are_dead()

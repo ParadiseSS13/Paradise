@@ -16,7 +16,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_PDA | SLOT_BELT
+	slot_flags = SLOT_FLAG_PDA | SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	throw_speed = 4
@@ -279,7 +279,7 @@
 ///////////////////////
 /obj/item/pinpointer/nukeop
 	var/obj/docking_port/mobile/home = null
-	slot_flags = SLOT_BELT | SLOT_PDA
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_PDA
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
 
@@ -370,6 +370,18 @@
 			. += "Nearest operative detected is <i>[nearest_op.real_name].</i>"
 		else
 			. += "No operatives detected within scanning range."
+
+/obj/item/pinpointer/operative/nad
+	desc = "A pinpointer that leads to the first Syndicate operative detected. Also has a mode to point towards the NAD."
+	modes = list(MODE_OPERATIVE, MODE_DISK)
+
+/obj/item/pinpointer/operative/nad/process()
+	switch(mode)
+		if(MODE_DISK)
+			workdisk()
+		if(MODE_OPERATIVE)
+			scan_for_ops()
+			point_at_target(nearest_op, FALSE)
 
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"
