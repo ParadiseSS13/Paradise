@@ -200,8 +200,6 @@
 
 /mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
 	var/list/data = ..()
-
-	// -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
 	data["cleanblood"] = blood
 	return data
 

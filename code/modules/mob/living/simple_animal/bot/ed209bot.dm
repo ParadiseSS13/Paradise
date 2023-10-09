@@ -110,8 +110,6 @@
 
 /mob/living/simple_animal/bot/ed209/ui_data(mob/user)
 	var/list/data = ..()
-
-	// -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
 	data["check_id"] = idcheck
 	data["check_weapons"] = weaponscheck
 	data["check_warrant"] = check_records
