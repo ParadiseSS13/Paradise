@@ -362,7 +362,7 @@
 	desc = "An egg!"
 	icon_state = "egg"
 	filling_color = "#FDFFD1"
-	list_reagents = list("protein" = 1, "egg" = 5, "eggyolk" = 2, "eggwhite" = 4)
+	list_reagents = list("protein" = 1, "egg" = 5)
 	tastes = list("egg" = 1)
 
 /obj/item/reagent_containers/food/snacks/egg/throw_impact(atom/hit_atom)

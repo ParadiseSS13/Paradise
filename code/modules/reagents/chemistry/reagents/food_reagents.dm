@@ -157,24 +157,6 @@
 	color = "#D9A066" // rgb: 217, 160, 102
 	taste_description = "peanuts"
 
-/datum/reagent/consumable/eggyolk
-	name = "Egg Yolk"
-	id = "eggyolk"
-	description = "It's full of Protein."
-	reagent_state = LIQUID
-	nutriment_factor = 5 * REAGENTS_METABOLISM
-	color = "#FFB500" // rgb: 225, 181, 0
-	taste_description = "egg"
-
-/datum/reagent/consumable/eggwhite
-	name = "Egg White"
-	id = "eggwhite"
-	description = "It's full of even more protein."
-	reagent_state = LIQUID
-	nutriment_factor = 2 * REAGENTS_METABOLISM
-	color = "#fffdf7" //rgb 255, 253, 247
-	taste_description = "bland egg"
-
 /datum/reagent/consumable/bbqsauce
 	name = "BBQ Sauce"
 	id = "bbqsauce"
@@ -415,6 +397,23 @@
 	nutriment_factor = 20 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "oil"
+
+/datum/reagent/consumbale/olivepaste
+	name = "Olive Paste"
+	id = "olivepaste"
+	description = "A mushy pile of freshly ground olives."
+	reagent_state = LIQUID
+	color = "#adcf77" //rgb: 173, 207, 119
+	taste_description = "mushy olives"
+
+/datum/reagent/consumable/oliveoil
+	name = "Olive Oil"
+	id = "oliveoil"
+	description = "A high quality oil derived from olives. Suitable for dishes or mixtures requiring oil."
+	reagent_state = LIQUID
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	color = "#DBCF5C" //rgb: 219, 207, 92
+	taste_description = "olive oil"
 
 /datum/reagent/consumable/cornoil/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))

@@ -24,10 +24,11 @@
 	"frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
 	"sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
 	"blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
-	"cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
+	"cornoil" = list("cornoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
+	"oliveoil" = list("oliveoil","olive oil bottle", "A high quality oil used in a variety of cuisine. Made from olives."),
 	"wasabi" = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
 	"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
-	"mayonaise" = list("mayonnaise", "An oily condiment made from egg yolks."),
+	"mayonnaise" = list("mayonnaise", "An oily condiment made from egg yolks."),
 	"cherryjelly" = list("cherryjelly", "A sweet jelly made out of red cherries."),
 	"peanutbutter" = list("peanutbutter", "A smooth, nutty spread. Perfect for sandwiches."),
 	"honey" = list("honey", "A sweet substance produced by bees."))
@@ -239,6 +240,13 @@
 	desc = "A sweet substance produced by bees."
 	icon_state = "honey"
 	list_reagents = list("honey" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/oliveoil
+	name = "olive oil"
+	desc = "A high quality oil derived from olives."
+	icon_state = "oliveoil"
+	list_reagents = list("oliveoil" = 50)
 	possible_states = list()
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!

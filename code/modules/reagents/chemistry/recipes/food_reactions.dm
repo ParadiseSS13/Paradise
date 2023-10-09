@@ -43,6 +43,20 @@
 	required_reagents = list("soymilk" = 1,"sodiumchloride" = 1, "water" = 8)
 	result_amount = 10
 
+/datum/chemical_reaction/oliveoil
+	name = "Olive Oil"
+	id = "oliveoil"
+	result = "oliveoil"
+	required_reagents = list("olivepaste" = 5, "water" = 5)
+	result_amount = 10
+
+/datum/chemical_reaction/mayonnaise
+	name = "Mayonnaise"
+	id = "mayonnaise"
+	result = "mayonnaise"
+	required_reagents = list("egg" = 5, "sodiumchloride" = 1, "oliveoil" = 5)
+	result_amount = 10
+
 /datum/chemical_reaction/bbqsauce
 	name = "BBQ Sauce"
 	id = "bbqsauce"
