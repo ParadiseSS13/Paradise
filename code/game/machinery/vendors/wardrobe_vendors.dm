@@ -45,7 +45,8 @@
 	contraband = list(/obj/item/clothing/head/helmet/street_judge = 1,
 					/obj/item/clothing/suit/armor/vest/street_judge = 1,
 					/obj/item/toy/figure/crew/hos = 1,
-					/obj/item/toy/figure/crew/secofficer = 1)
+					/obj/item/toy/figure/crew/secofficer = 1,
+					/obj/item/clothing/shoes/jackboots/noisy = 3)
 
 	prices = list(/obj/item/clothing/under/rank/security/officer/corporate = 50,
 				/obj/item/clothing/under/rank/security/officer/skirt/corporate = 50,
@@ -76,7 +77,8 @@
 				/obj/item/storage/backpack/security = 50,
 				/obj/item/storage/backpack/satchel_sec = 50,
 				/obj/item/clothing/gloves/color/black = 20,
-				/obj/item/clothing/accessory/armband/sec = 20)
+				/obj/item/clothing/accessory/armband/sec = 20,
+				/obj/item/clothing/shoes/jackboots/noisy = 200)
 
 	refill_canister = /obj/item/vending_refill/secdrobe
 
