@@ -223,18 +223,19 @@
 	D.mind.assigned_role = D.name
 	D.mind.special_role = D.name
 	SSticker.mode.traitors += D.mind
+
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = D.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
-	D.mind.objectives += KillDaWiz
+	D.mind.add_mind_objective(KillDaWiz)
+
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = D.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
 	KillDaCrew.completed = TRUE
-	D.mind.objectives += KillDaCrew
-	to_chat(D, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
-	to_chat(D, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")
+	D.mind.add_mind_objective(KillDaCrew)
+
+	D.mind.announce_objectives(title = FALSE)
+
 
 /obj/item/antag_spawner/slaughter_demon/laughter
 	name = "vial of tickles"
@@ -302,18 +303,19 @@
 	var/mob/living/simple_animal/hostile/morph/wizard/M = new /mob/living/simple_animal/hostile/morph/wizard(pick(GLOB.xeno_spawn))
 	M.key = C.key
 	M.make_morph_antag(FALSE)
+
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = M.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
-	M.mind.objectives += KillDaWiz
+	M.mind.add_mind_objective(KillDaWiz)
+
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = M.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
-	M.mind.objectives += KillDaCrew
-	to_chat(M, "<B>Objective #[1]</B>: [KillDaWiz.explanation_text]")
-	to_chat(M, "<B>Objective #[2]</B>: [KillDaCrew.explanation_text]")
+	M.mind.add_mind_objective(KillDaCrew)
+
+	M.mind.announce_objectives(title = FALSE)
 
 ///////////Revenant
 
@@ -357,18 +359,18 @@
 /obj/item/antag_spawner/revenant/spawn_antag(client/C, turf/T, type = "", mob/user)
 	var/mob/living/simple_animal/revenant/M = new /mob/living/simple_animal/revenant(pick(GLOB.xeno_spawn))
 	M.key = C.key
+
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
-	KillDaWiz.owner = M.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
-	M.mind.objectives += KillDaWiz
+	M.mind.add_mind_objective(KillDaWiz)
+
 	var/datum/objective/KillDaCrew = new /datum/objective
-	KillDaCrew.owner = M.mind
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
 	KillDaCrew.completed = TRUE
-	M.mind.objectives += KillDaCrew
-	to_chat(M, "<b>Objective #[1]</b>: [KillDaWiz.explanation_text]")
-	to_chat(M, "<b>Objective #[2]</b>: [KillDaCrew.explanation_text]")
+	M.mind.add_mind_objective(KillDaCrew)
+
+	M.mind.announce_objectives(title = FALSE)
 
 ///////////Pulse Demon
 
@@ -422,19 +424,16 @@
 	player_mind.transfer_to(demon)
 	player_mind.assigned_role = SPECIAL_ROLE_DEMON
 	player_mind.special_role = SPECIAL_ROLE_DEMON
-	var/i = demon.give_objectives()
+	demon.give_objectives()
 
-	var/datum/objective/assassinate/kill_wiz = new /datum/objective/assassinate
-	kill_wiz.owner = demon.mind
-	kill_wiz.target = user.mind
-	kill_wiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to free you."
-	demon.mind.objectives += kill_wiz
+	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
+	KillDaWiz.target = user.mind
+	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
+	demon.mind.add_mind_objective(KillDaWiz)
 
-	var/datum/objective/kill_crew = new /datum/objective
-	kill_crew.owner = demon.mind
-	kill_crew.explanation_text = "[objective_verb] everyone else while you're at it."
-	kill_crew.completed = TRUE
-	demon.mind.objectives += kill_crew
+	var/datum/objective/KillDaCrew = new /datum/objective
+	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
+	KillDaCrew.completed = TRUE
+	demon.mind.add_mind_objective(KillDaCrew)
 
-	to_chat(demon, "<b>Objective #[i++]</b>: [kill_wiz.explanation_text]")
-	to_chat(demon, "<b>Objective #[i++]</b>: [kill_crew.explanation_text]")
+	demon.mind.announce_objectives(title = FALSE)
