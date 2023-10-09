@@ -218,14 +218,6 @@
 	desc = "An extremely rare golden medal awarded only by CentComm. To receive such a medal is the highest honor and as such, very few exist."
 	icon_state = "ion"
 
-/obj/item/clothing/accessory/medal/gold/bubblegum
-	name = "bubblegum HRD-MDE award"
-	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
-
-/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
-	name = "medal of incredible dedication"
-	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
-
 // SILVER (awarded by Captain)
 
 /obj/item/clothing/accessory/medal/silver
@@ -242,14 +234,6 @@
 /obj/item/clothing/accessory/medal/silver/leadership
 	name = "medal of command"
 	desc = "An award issued by Captains to heads of department who do an excellent job managing their department. Made of pure silver."
-
-/obj/item/clothing/accessory/medal/silver/colossus
-	name = "colossus HRD-MDE award"
-	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing a colossus."
-
-/obj/item/clothing/accessory/medal/silver/legion
-	name = "legion HRD-MDE award"
-	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Legion."
 
 // BRONZE (awarded by heads of department, except for the bronze heart and recruiter medals)
 
@@ -294,10 +278,6 @@
 	icon_state = "bronze_heart"
 	item_color = "bronze_heart"
 
-/obj/item/clothing/accessory/medal/blood_drunk
-	name = "blood drunk HRD-MDE award"
-	desc = "A award which represents minor contributions to the HRD-MDE project in the form of analysing the blood drunk miner."
-
 // Plasma, from NT research departments. For now, used by the HRD-MDE project for the moderate 2 fauna, drake and hierophant.
 
 /obj/item/clothing/accessory/medal/plasma
@@ -323,14 +303,6 @@
 	visible_message("<span class='warning'>[src] bursts into flame!</span>")
 	qdel(src)
 
-/obj/item/clothing/accessory/medal/plasma/hierophant
-	name = "hierophant HRD-MDE award"
-	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing the Hierophant."
-
-/obj/item/clothing/accessory/medal/plasma/ash_drake
-	name = "ash drake HRD-MDE award"
-	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing an ash drake."
-
 // Alloy, for the vetus speculator, or abductors I guess.
 
 /obj/item/clothing/accessory/medal/alloy
@@ -339,6 +311,36 @@
 	icon_state = "alloy"
 	item_color = "alloy"
 	materials = list(MAT_METAL = 500, MAT_PLASMA = 500)
+
+// Mostly mining medals past here
+
+/obj/item/clothing/accessory/medal/gold/bubblegum
+	name = "bubblegum HRD-MDE award"
+	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
+
+/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
+	name = "medal of incredible dedication"
+	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
+
+/obj/item/clothing/accessory/medal/silver/colossus
+	name = "colossus HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing a colossus."
+
+/obj/item/clothing/accessory/medal/silver/legion
+	name = "legion HRD-MDE award"
+	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Legion."
+
+/obj/item/clothing/accessory/medal/blood_drunk
+	name = "blood drunk HRD-MDE award"
+	desc = "A award which represents minor contributions to the HRD-MDE project in the form of analysing the blood drunk miner."
+
+/obj/item/clothing/accessory/medal/plasma/hierophant
+	name = "hierophant HRD-MDE award"
+	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing the Hierophant."
+
+/obj/item/clothing/accessory/medal/plasma/ash_drake
+	name = "ash drake HRD-MDE award"
+	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing an ash drake."
 
 /obj/item/clothing/accessory/medal/alloy/vetus
 	name = "vetus speculator HRD-MDE award"

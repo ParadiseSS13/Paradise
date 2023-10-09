@@ -991,9 +991,10 @@
 	alert_type = /obj/screen/alert/status_effect/bubblegum_curse
 	duration = -1 //Kill it. There is no other option.
 	tick_interval = 1 SECONDS
-	var/damage = 0.75 ///The damage the status effect does per tick.
+	/// The damage the status effect does per tick.
+	var/damage = 0.75
 	var/source_UID
-	///Are we starting the process to check if the person has still gotten out of range of bubble / crossed zlvls.
+	/// Are we starting the process to check if the person has still gotten out of range of bubble / crossed zlvls.
 	var/coward_checking = FALSE
 
 /datum/status_effect/bubblegum_curse/on_creation(mob/living/new_owner, mob/living/source)
