@@ -7,12 +7,12 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 	cache_data = list()
 	..()
 
-/datum/repository/crew/proc/health_data(turf/T)
+/datum/repository/crew/proc/health_data(z)
 	var/list/crewmembers = list()
-	if(!T)
+	if(!z)
 		return crewmembers
 
-	var/z_level = "[T.z]"
+	var/z_level = "[z]"
 	var/datum/cache_entry/cache_entry = cache_data[z_level]
 	if(!cache_entry)
 		cache_entry = new/datum/cache_entry
@@ -27,7 +27,6 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		bold_jobs += GLOB.command_positions
 		bold_jobs += get_all_centcom_jobs()
 		bold_jobs += get_all_ERT_jobs()
-		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate")
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
@@ -35,7 +34,7 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		if(!C || C.sensor_mode == SUIT_SENSOR_OFF || !C.has_sensor)
 			continue
 		var/turf/pos = get_turf(C)
-		if(!istype(pos) || !T || pos.z != T.z)
+		if(!istype(pos) || pos.z != z)
 			continue
 		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = "\ref[H]")
 

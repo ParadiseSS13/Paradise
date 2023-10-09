@@ -17,7 +17,7 @@ You can recolor certain items like jumpsuits and gloves in washing machines by a
 Maintenance is full of equipment that is randomized every round. Look around and see if anything is worth using.
 Some roles cannot be antagonists by default, but antag selection is decided first. For instance, you can set Security Officer to High without affecting your chances of becoming an antag -- the game will just select a different role.
 There are many places around the station to hide contraband. A few for starters: linen boxes, toilet cisterns, body bags. Experiment to find more!
-When in doubt about technicial issues, clear your cache (byond launcher > cogwheel > preferences > game prefs), update your BYOND, and relog.
+When in doubt about technical issues, clear your cache (byond launcher > cogwheel > preferences > game prefs), update your BYOND, and relog.
 Most things have special interactions with your middle mouse button, alt, shift, and control click. Experiment!
 If you find yourself in a fistfight with another player, running away and calling for help is a perfectly viable option.
 Different weapons have different strengths. Some weapons, such as spears, floor tiles, and throwing stars, deal more damage when thrown compared to when attacked normally.
@@ -62,7 +62,7 @@ As a Cyborg, you are immune to most forms of stunning, and excel at almost every
 As a Cyborg, you are impervious to fires and heat. If you are rogue, you can release plasma fires everywhere and walk through them without a care in the world!
 As a Cyborg, you are extremely vulnerable to EMPs as EMPs both stun you and damage you. The ion rifle in the armory or a traitor with an EMP kit can kill you in seconds.
 As an Engineering Cyborg, you can attach air alarm/fire alarm/APC frames to walls by using your magnetic gripper.
-As a Medical Cyborg, you can partially perform surgery, as you cannot replace organs, but you cannot fail any surgery steps.
+As a Medical Cyborg, the Hydrocodone in your Cyborg you can perform most surgery procedures even in the field with the help of your cyborg hypospray's Hydrocodone and roller bed rack module.
 As a Janitor Cyborg, you are the bane of all slaughter demons. Cleaning up blood stains will severely hinder them.
 As the Chief Engineer, you can rename areas or create entirely new ones using your station blueprints.
 As the Chief Engineer, your hardsuit is significantly better than everybody else's. It has the best features of both engineering and atmospherics hardsuits, boasting nigh-invulnerability to radiation and all atmospheric conditions. It even has a built in jet-pack!
@@ -128,7 +128,7 @@ As a Traitor, you can manufacture and recycle revolver bullets at a hacked autol
 As a Traitor, you may sometimes be assigned to hunt other traitors, and in turn be hunted by others.
 As a Traitor, the syndicate encryption key is very useful for coordinating plans with your fellow traitors -- or, of course, betraying them.
 As a Traitor, plasma can be injected into many things to sabotage them. Power cells, light bulbs, cigars and e-cigs will all explode when used.
-As a Traitor, if you can find another Traitor and pool your TC you can buy a mega surplus crate, which costs 40TC but contains a lot of random syndicate gear.
+As a Traitor, if you can find another Traitor and pool your TC you can buy a mega surplus crate, which costs 200 TC but contains a lot of random syndicate gear.
 As a Traitor, you can eject someone from cloning early by disabling power in genetics. Note that they will suffer more genetic damage and may lose vital organs from this.
 As a Nuclear Operative, communication is key! Use ; to speak to your fellow operatives and coordinate an attack plan.
 As a Nuclear Operative, you should look into purchasing a syndicate cyborg, as they can provide heavy fire support, full access, are immune to conventional stuns, and can easily take down the AI.

@@ -281,25 +281,22 @@
 
 /proc/stutter(n)
 	var/te = html_decode(n)
-	var/t = ""//placed before the message. Not really sure what it's for.
-	n = length(n)//length of the entire word
+	var/t = "" //placed before the message. Not really sure what it's for.
+	n = length(n) //length of the entire word
 	var/p = null
-	p = 1//1 is the start of any word
-	while(p <= n)//while P, which starts at 1 is less or equal to N which is the length.
+	p = 1 //1 is the start of any word
+	while(p <= n) //while P, which starts at 1 is less or equal to N which is the length.
 		var/n_letter = copytext(te, p, p + 1)//copies text from a certain distance. In this case, only one letter at a time.
 		if(prob(80) && (ckey(n_letter) in list("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z")))
-			if(prob(10))
-				n_letter = text("[n_letter]-[n_letter]-[n_letter]-[n_letter]")//replaces the current letter with this instead.
+			if(prob(5))
+				n_letter = text("[n_letter]-[n_letter]-[n_letter]") //replaces the current letter with this instead.
 			else
-				if(prob(20))
-					n_letter = text("[n_letter]-[n_letter]-[n_letter]")
+				if(prob(5))
+					n_letter = null
 				else
-					if(prob(5))
-						n_letter = null
-					else
-						n_letter = text("[n_letter]-[n_letter]")
-		t = text("[t][n_letter]")//since the above is ran through for each letter, the text just adds up back to the original word.
-		p++//for each letter p is increased to find where the next letter will be.
+					n_letter = text("[n_letter]-[n_letter]")
+		t = text("[t][n_letter]") //since the above is ran through for each letter, the text just adds up back to the original word.
+		p++ //for each letter p is increased to find where the next letter will be.
 	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 /proc/robostutter(n) //for robutts
@@ -358,13 +355,18 @@
 	while(counter>=1)
 		newletter=copytext(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(newletter in list(" ", "!", "?", ".", ","))
-			//do nothing
+			// Skip these
+			counter -= 1
+			continue
+
 		else if(lowertext(newletter) in list("a", "e", "i", "o", "u", "y"))
 			newletter = "ph"
+
 		else
 			newletter = "m"
-		newphrase+="[newletter]"
-		counter-=1
+
+		newphrase += "[newletter]"
+		counter -= 1
 	return newphrase
 
 /proc/muffledspeech_all(list/message_pieces)
@@ -549,7 +551,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		if(O.client && (!role || (role in O.client.prefs.be_special)))
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
 			if(ghost_sound)
-				O << sound(ghost_sound)
+				SEND_SOUND(O, sound(ghost_sound))
 			if(flashwindow)
 				window_flash(O.client)
 			if(source)

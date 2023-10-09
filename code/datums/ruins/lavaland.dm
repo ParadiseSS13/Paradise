@@ -64,13 +64,14 @@
 	allow_duplicates = FALSE
 	always_place = TRUE
 
-/datum/map_template/ruin/lavaland/animal_hospital
-	name = "Animal Hospital"
-	id = "animal-hospital"
-	description = "Rats with cancer do not live very long. And the ones that wake up from cryostasis seem to commit suicide out of boredom."
-	suffix = "lavaland_surface_animal_hospital.dmm"
+/datum/map_template/ruin/lavaland/althland_facility
+	name = "Althland Facility"
+	id = "althland-facility"
+	description = "A grim testament to the Althland Mining Company's ambitions, this facility lies in ruin, swallowed by the very planet it sought to exploit. \
+	Once a beacon of mining promise, it now stands as a stark reminder of the company's catastrophic demise."
+	cost = 5
+	suffix = "lavaland_surface_althland_facility.dmm"
 	allow_duplicates = FALSE
-	always_place = TRUE
 
 /datum/map_template/ruin/lavaland/sin
 	cost = 10

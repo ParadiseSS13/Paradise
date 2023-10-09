@@ -54,7 +54,16 @@
 	name = "meson visor helmet"
 	desc = "A helmet with a built-in meson scanning visor."
 	icon_state = "helmetmesons"
-	vision_flags = SEE_TURFS
+
+/obj/item/clothing/head/helmet/meson/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == SLOT_HUD_HEAD)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_helmet[UID()]")
+
+/obj/item/clothing/head/helmet/meson/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_helmet[UID()]")
 
 /obj/item/clothing/head/helmet/material
 	name = "material visor helmet"
@@ -248,13 +257,16 @@
 
 /obj/item/clothing/head/helmet/skull
 	name = "skull helmet"
-	desc = "An intimidating tribal helmet, it doesn't look very comfortable."
+	desc = "An intimidating tribal helmet, it looks sick as hell."
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags_cover = HEADCOVERSEYES
 	armor = list(MELEE = 25, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
+	sprite_sheets = list(
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+	)
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"

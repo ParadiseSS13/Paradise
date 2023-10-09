@@ -11,7 +11,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK	//ERROOOOO
+	slot_flags = SLOT_FLAG_BACK	//ERROOOOO
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
@@ -19,9 +19,8 @@
 	max_integrity = 300
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/back.dmi',
-		"Vox Armalis" = 'icons/mob/clothing/species/armalis/back.dmi',
 		"Grey" = 'icons/mob/clothing/species/grey/back.dmi'
-		) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
+		)
 
 /obj/item/storage/backpack/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(in_range(user, src))
@@ -62,6 +61,7 @@
 	cant_hold = list(/obj/item/storage/backpack, /obj/item/storage/belt/bluespace)
 	cant_hold_override = list(/obj/item/storage/backpack/satchel_flat)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
+	allow_same_size = TRUE
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
@@ -637,10 +637,10 @@
 			new /obj/item/organ/internal/cyberimp/arm/katana(src)
 			value += 1
 		if(3)
-			new /obj/item/twohanded/mjollnir(src)
+			new /obj/item/mjollnir(src)
 			value += 2
 		if(4)
-			new /obj/item/twohanded/singularityhammer(src)
+			new /obj/item/singularityhammer(src)
 			value += 2
 		if(5)
 			new /obj/item/katana(src)
@@ -649,13 +649,14 @@
 			new /obj/item/claymore(src)
 			value += 2 //force 40 this is value 2
 		if(7)
-			new /obj/item/twohanded/spear/grey_tide(src)
+			new /obj/item/spear/grey_tide(src)
 			value += 2 //Value 2, clones are strong
 		if(8)
 			if(prob(50))
 				new /obj/item/sord(src)
 				value -= 1 //Useless joke, might as well give them a value point back.
-				new /obj/item/twohanded/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
+			else
+				new /obj/item/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
 	//Wands
 	var/wands = 0
 	while(wands < 2)

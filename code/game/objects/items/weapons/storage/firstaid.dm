@@ -40,7 +40,7 @@
 	new /obj/item/reagent_containers/applicator/burn(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf/small(src)
 	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 
 /obj/item/storage/firstaid/fire/empty/populate_contents()
@@ -57,7 +57,7 @@
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/firstaid/regular/empty/populate_contents()
 	return
@@ -73,7 +73,7 @@
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/healthanalyzer/advanced(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/firstaid/toxin
 	name = "toxin first aid kit"
@@ -127,7 +127,7 @@
 	new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/reagent_containers/food/pill/patch/styptic/small(src)
 	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/firstaid/brute/empty/populate_contents()
@@ -146,7 +146,7 @@
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/adv/empty/populate_contents()
@@ -255,6 +255,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
 	belt_icon = "pill_bottle"
+	use_sound = "pillbottle"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(/obj/item/reagent_containers/food/pill)
 	cant_hold = list(/obj/item/reagent_containers/food/pill/patch)
@@ -361,6 +362,7 @@
 	desc = "It's a container for storing medical patches."
 	icon_state = "patch_pack"
 	belt_icon = "patch_pack"
+	use_sound = "patchpack"
 	can_hold = list(/obj/item/reagent_containers/food/pill/patch)
 	cant_hold = list()
 	rapid_intake_message = "flips the lid of the patch pack open and begins rapidly stamping patches on themselves!"

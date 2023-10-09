@@ -87,7 +87,7 @@
 	button_icon_state = "draw"
 	use_itemicon = FALSE
 
-/datum/action/item_action/draw_card/Trigger()
+/datum/action/item_action/draw_card/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.draw_card(owner)
@@ -98,7 +98,7 @@
 	button_icon_state = "deal_card"
 	use_itemicon = FALSE
 
-/datum/action/item_action/deal_card/Trigger()
+/datum/action/item_action/deal_card/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card()
@@ -109,7 +109,7 @@
 	button_icon_state = "deal_card_multi"
 	use_itemicon = FALSE
 
-/datum/action/item_action/deal_card_multi/Trigger()
+/datum/action/item_action/deal_card_multi/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deal_card_multi()
@@ -120,7 +120,7 @@
 	button_icon_state = "shuffle"
 	use_itemicon = FALSE
 
-/datum/action/item_action/shuffle/Trigger()
+/datum/action/item_action/shuffle/Trigger(left_click)
 	if(istype(target, /obj/item/deck))
 		var/obj/item/deck/D = target
 		return D.deckshuffle()
@@ -256,27 +256,31 @@
 		cooldown = world.time
 
 
-/obj/item/deck/MouseDrop(atom/over_object) // Code from Paper bin, so you can still pick up the deck
+/obj/item/deck/MouseDrop(atom/over, src_location, over_location, src_control, over_control, params)
 	var/mob/M = usr
 	if(M.incapacitated() || !Adjacent(M))
 		return
 	if(!ishuman(M))
 		return
 
-	if(over_object == M || istype(over_object, /obj/screen))
-		if(!remove_item_from_storage(M))
+	if(istype(over, /obj/screen))
+		if(!remove_item_from_storage(get_turf(M)))
 			M.unEquip(src)
-		if(over_object != M)
-			switch(over_object.name)
-				if("r_hand")
-					M.put_in_r_hand(src)
-				if("l_hand")
-					M.put_in_l_hand(src)
-		else
-			M.put_in_hands(src)
+		switch(over.name)
+			if("r_hand")
+				if(M.put_in_r_hand(src))
+					add_fingerprint(M)
+					usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+			if("l_hand")
+				if(M.put_in_l_hand(src))
+					add_fingerprint(M)
+					usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+		return
 
-		add_fingerprint(M)
-		usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
+	if(over == M && loc != M)
+		if(M.put_in_hands(src))
+			add_fingerprint(M)
+			usr.visible_message("<span class='notice'>[usr] picks up the deck.</span>")
 
 /obj/item/pack
 	name = "card pack"
@@ -392,7 +396,7 @@
 		if(href_list["pick"] == "Turn")
 			turn_hand(usr)
 		else
-			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
 				pickedcard = href_list["pick"]
 				Removecard()
 		cardUser << browse(null, "window=cardhand")
@@ -417,7 +421,7 @@
 		return FALSE
 	return ..()
 
-/datum/action/item_action/remove_card/Trigger()
+/datum/action/item_action/remove_card/Trigger(left_click)
 	if(!IsAvailable())
 		return
 	if(istype(target, /obj/item/cardhand))
@@ -430,7 +434,7 @@
 	button_icon_state = "discard"
 	use_itemicon = FALSE
 
-/datum/action/item_action/discard/Trigger()
+/datum/action/item_action/discard/Trigger(left_click)
 	if(istype(target, /obj/item/cardhand))
 		var/obj/item/cardhand/C = target
 		return C.discard()

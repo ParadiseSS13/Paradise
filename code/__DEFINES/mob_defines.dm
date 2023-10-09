@@ -15,6 +15,7 @@
 #define CANNOT_BREAK		(1 << 0)
 #define CANNOT_DISMEMBER 	(1 << 1)
 #define CANNOT_BURN			(1 << 2)
+#define CANNOT_INT_BLEED	(1 << 3)
 
 #define PROCESS_ACCURACY 10
 
@@ -60,11 +61,6 @@
 #define PULSE_2FAST		4	//>120 bpm
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
 //feel free to add shit to lists below
-
-
-//proc/get_pulse methods
-#define GETPULSE_HAND	0	//less accurate (hand)
-#define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORG 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -229,7 +225,6 @@
 #define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
 #define isskrell(A) (is_species(A, /datum/species/skrell))
 #define isvox(A) (is_species(A, /datum/species/vox))
-#define isvoxarmalis(A) (is_species(A, /datum/species/vox/armalis))
 #define iskidan(A) (is_species(A, /datum/species/kidan))
 #define isslimeperson(A) (is_species(A, /datum/species/slime))
 #define isgrey(A) (is_species(A, /datum/species/grey))
@@ -310,3 +305,28 @@
 
 #define MAX_EYE_BLURRY_FILTER_SIZE 2
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.005
+
+/proc/bodypart_name_to_clothing_bitflag(bodypart_name)
+	switch(bodypart_name)
+		if("head")
+			return HEAD
+		if("chest")
+			return UPPER_TORSO
+		if("groin")
+			return LOWER_TORSO
+		if("l_arm")
+			return ARM_LEFT
+		if("l_hand")
+			return HAND_LEFT
+		if("r_arm")
+			return ARM_RIGHT
+		if("r_hand")
+			return HAND_RIGHT
+		if("r_leg")
+			return LEG_RIGHT
+		if("r_foot")
+			return FOOT_RIGHT
+		if("l_leg")
+			return LEG_LEFT
+		if("l_foot")
+			return FOOT_LEFT

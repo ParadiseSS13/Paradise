@@ -1009,18 +1009,18 @@
 	drink_desc = "A stingy drink."
 	taste_description = "a tiny prick"
 
-/datum/reagent/consumable/ethanol/irishcarbomb
-	name = "Irish Car Bomb"
-	id = "irishcarbomb"
+/datum/reagent/consumable/ethanol/dublindrop
+	name = "Dublin Drop"
+	id = "dublindrop"
 	description = "Mmm, tastes like chocolate cake..."
 	reagent_state = LIQUID
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.3
 	dizzy_adj = 10 SECONDS
-	drink_icon = "irishcarbomb"
-	drink_name = "Irish Car Bomb"
-	drink_desc = "An irish car bomb."
-	taste_description = "troubles"
+	drink_icon = "dublindrop"
+	drink_name = "Dublin Drop"
+	drink_desc = "A Dublin drop. Pub legends say one of the ingredients can bring back the dead."
+	taste_description = "a belt in the gob"
 
 /datum/reagent/consumable/ethanol/syndicatebomb
 	name = "Syndicate Bomb"
@@ -1162,7 +1162,6 @@
 	reagent_state = LIQUID
 	color = "#DC0000"
 	alcohol_perc = 1
-	can_synth = FALSE
 	taste_description = "<span class='userdanger'>LIQUID FUCKING DEATH OH GOD WHAT THE FUCK</span>"
 
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -1311,7 +1310,6 @@
 	color = "#FFFFFF"
 	alcohol_perc = 0.35
 	taste_description = "bad coding"
-	can_synth = FALSE
 	var/list/names = list("null fruit" = 1) //Names of the fruits used. Associative list where name is key, value is the percentage of that fruit.
 	var/list/tastes = list("bad coding" = 1) //List of tastes. See above.
 

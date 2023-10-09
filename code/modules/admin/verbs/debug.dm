@@ -137,7 +137,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 //adv proc call this, ya nerds
 /world/proc/WrapAdminProcCall(datum/target, procname, list/arguments)
 	if(target == GLOBAL_PROC)
-		return call(procname)(arglist(arguments))
+		return call("/proc/[procname]")(arglist(arguments))
 	else if(target != world)
 		return call(target, procname)(arglist(arguments))
 	else
@@ -185,7 +185,10 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/get_callproc_args()
 	var/argnum = input("Number of arguments","Number:",0) as num|null
-	if(!argnum && (argnum!=0))	return
+	if(argnum <= 0)
+		return list() // to allow for calling with 0 args
+
+	argnum = clamp(argnum, 1, 50)
 
 	var/list/lst = list()
 	//TODO: make a list to store whether each argument was initialised as null.
@@ -468,7 +471,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.registered_name = H.real_name
 			id.assignment = "Captain"
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
-			H.equip_to_slot_or_del(id, slot_wear_id)
+			H.equip_to_slot_or_del(id, SLOT_HUD_WEAR_ID)
 			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")
@@ -835,6 +838,52 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	usr << browse(dat, "window=simpledellog")
 
+/client/proc/show_gc_queues()
+	set name = "View GC Queue"
+	set category = "Debug"
+	set desc = "Shows the list of whats currently in a GC queue"
+
+	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
+		return
+
+	// Get the amount of queues
+	var/queue_count = length(SSgarbage.queues)
+	var/list/selectable_queues = list()
+	// Setup choices
+	for(var/i in 1 to queue_count)
+		selectable_queues["Queue #[i] ([length(SSgarbage.queues[i])] item\s)"] = i
+
+	// Ask the user
+	var/choice = input(usr, "Select a GC queue. Note that the queue lookup may lag the server.", "GC Queue") as null|anything in selectable_queues
+	if(!choice)
+		return
+
+	// Get our target
+	var/list/target_queue = SSgarbage.queues[selectable_queues[choice]]
+	var/list/queue_counts = list()
+
+	// Iterate that target and see whats what
+	for(var/queue_entry in target_queue)
+		var/datum/D = locate(queue_entry[GC_QUEUE_ITEM_REF])
+		if(!istype(D))
+			continue
+
+		if(!queue_counts[D.type])
+			queue_counts[D.type] = 0
+
+		queue_counts[D.type]++
+
+	// Sort it the right way
+	var/list/sorted = sortTim(queue_counts, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
+
+	// And make a nice little menu
+	var/list/text = list("<h1>Current status of [choice]</h1>", "<ul>")
+	for(var/key in sorted)
+		text += "<li>[key] - [sorted[key]]</li>"
+
+	text += "</ul>"
+	usr << browse(text.Join(), "window=gcqueuestatus")
+
 /client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
 		return
@@ -910,13 +959,18 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	set category = "Debug"
 	set name = "Visualise Active Turfs"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
 	// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
 	var/confirm = alert(usr, "WARNING: This process is lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", "Im sure", "Nope")
 	if(confirm != "Im sure")
 		return
+
+	var/display_turfs_overlay = FALSE
+	var/do_display_turf_overlay = alert(usr, "Would you like to have all active turfs have a client side overlay applied as well?", "Optional", "Yep", "Nope")
+	if(do_display_turf_overlay == "Yep")
+		display_turfs_overlay = TRUE
 
 	message_admins("[key_name_admin(usr)] is visualising active atmos turfs. Server may lag.")
 
@@ -928,6 +982,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(!zlevel_turf_indexes["[T.z]"])
 			zlevel_turf_indexes["[T.z]"] = list()
 		zlevel_turf_indexes["[T.z]"] |= T
+		if(display_turfs_overlay)
+			usr.client.images += image('icons/effects/alphacolors.dmi', T, "red")
 		CHECK_TICK
 
 	// Sort the keys

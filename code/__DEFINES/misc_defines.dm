@@ -375,7 +375,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 49
+#define SQL_VERSION 52
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -402,9 +402,9 @@
 
 // Defib stats
 /// Past this much time the patient is unrecoverable (in deciseconds).
-#define DEFIB_TIME_LIMIT 300 SECONDS
+#define BASE_DEFIB_TIME_LIMIT (300 SECONDS)
 /// Brain damage starts setting in on the patient after some time left rotting.
-#define DEFIB_TIME_LOSS 60 SECONDS
+#define DEFIB_TIME_LOSS (60 SECONDS)
 
 //different types of atom colorations
 #define ADMIN_COLOUR_PRIORITY 		1 //only used by rare effects like greentext coloring mobs and when admins varedit color
@@ -490,6 +490,7 @@
 #define LINDA_SPAWN_N2O 64
 #define LINDA_SPAWN_AGENT_B 128
 #define LINDA_SPAWN_AIR 256
+#define LINDA_SPAWN_COLD 512
 
 // Throwing these defines here for the TM to minimise conflicts
 #define MAPROTATION_MODE_NORMAL_VOTE "Vote"
@@ -545,3 +546,32 @@
 #define DEADCHAT_ANARCHY_MODE (1<<1)
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
+
+// Lavaland cave design defines
+
+#define BLOCKED_BURROWS "Blocked Burrows"
+#define CLASSIC_CAVES "Classic Caves"
+#define DEADLY_DEEPROCK "Deadly Deeprock"
+
+// Request console message priority defines
+
+#define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
+#define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
+#define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
+
+/**
+ * Reading books can help with brain damage!
+ * These are seperate times so that a user gains more benefits by reading more books,
+ * but also cant infinitely switch between 1000 books.
+ */
+/// The amount of time needed to pass to let a single book be read again for brain benefits
+#define BRAIN_DAMAGE_BOOK_TIME 45 SECONDS
+/// The amount of time a mob needs to wait between any book reading
+#define BRAIN_DAMAGE_MOB_TIME 10 SECONDS
+
+/// Takes a datum as input, returns its ref string, or a cached version of it
+/// This allows us to cache \ref creation, which ensures it'll only ever happen once per datum, saving string tree time
+/// It is slightly less optimal then a []'d datum, but the cost is massively outweighed by the potential savings
+/// It will only work for datums mind, for datum reasons
+/// : because of the embedded typecheck
+#define text_ref(datum) (isdatum(datum) ? (datum:cached_ref ||= "\ref[datum]") : ("\ref[datum]"))

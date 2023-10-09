@@ -40,8 +40,8 @@
 		pda.play_ringtone()
 
 	if(blink && !(src in pda.notifying_programs))
-		pda.update_icon(UPDATE_OVERLAYS)
 		pda.notifying_programs |= src
+		pda.update_icon(UPDATE_OVERLAYS)
 
 /datum/data/pda/proc/unnotify()
 	if(src in pda.notifying_programs)

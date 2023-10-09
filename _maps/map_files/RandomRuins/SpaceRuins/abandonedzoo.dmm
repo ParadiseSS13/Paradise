@@ -11,15 +11,15 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "ac" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ad" = (
@@ -36,7 +36,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "ae" = (
 /obj/machinery/shieldwallgen{
@@ -53,7 +53,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "af" = (
 /obj/machinery/shieldwallgen{
@@ -64,10 +64,10 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "ag" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ah" = (
@@ -81,12 +81,12 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
 "ak" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "al" = (
@@ -194,9 +194,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/highsecurity{
-	name = "Bio Containment";
-	req_one_access_txt = "47"
+	name = "Bio Containment"
 	},
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -226,7 +226,7 @@
 	icon_state = "2-4";
 	tag = ""
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/cable{
@@ -372,7 +372,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/medical,
+/obj/item/mod/control/pre_equipped/medical,
 /obj/item/tank/internals/emergency_oxygen/double,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -627,7 +627,7 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/shieldwallgen,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bu" = (
 /obj/structure/flora/ausbushes/sunnybush,
@@ -674,23 +674,19 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
-"bB" = (
-/obj/structure/alien/weeds,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
 "bC" = (
 /obj/structure/alien/weeds/node,
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bD" = (
 /obj/item/clothing/mask/facehugger{
 	icon_state = "facehugger_dead";
 	stat = 2
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bE" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -720,7 +716,7 @@
 /area/ruin/space/unpowered)
 "bK" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "bL" = (
 /obj/machinery/light/small{
@@ -739,11 +735,11 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bO" = (
 /obj/item/shard,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bP" = (
 /obj/structure/lattice,
@@ -761,14 +757,14 @@
 	tag = ""
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bR" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
 /obj/structure/disposaloutlet,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "bS" = (
 /obj/structure/cable{
@@ -778,18 +774,18 @@
 	},
 /obj/structure/cable,
 /obj/machinery/shieldwallgen,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bT" = (
 /obj/structure/grille,
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bU" = (
 /obj/structure/grille/broken,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bV" = (
 /obj/machinery/shieldwallgen,
@@ -799,9 +795,16 @@
 /obj/item/shard,
 /turf/space,
 /area/space/nearstation)
+"ov" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
 "Hv" = (
 /obj/item/gps/ruin,
 /turf/simulated/wall/r_wall,
+/area/ruin/space/unpowered)
+"Qh" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"
@@ -1105,8 +1108,8 @@ ay
 bl
 at
 ac
-bB
-bB
+Qh
+Qh
 bD
 bH
 ac
@@ -1130,7 +1133,7 @@ ac
 bC
 bH
 bH
-bv
+ov
 bT
 aa
 "}
@@ -1150,8 +1153,8 @@ ba
 aL
 aD
 bD
-bB
-bv
+Qh
+ov
 bO
 bU
 bW
@@ -1171,10 +1174,10 @@ aQ
 aQ
 aQ
 ac
-bB
-bB
-bv
-bv
+Qh
+Qh
+ov
+ov
 bP
 aa
 "}

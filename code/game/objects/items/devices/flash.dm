@@ -137,6 +137,20 @@
 		return 1
 	user.visible_message("<span class='disarm'>[user] fails to blind [M] with [src]!</span>", "<span class='warning'>You fail to blind [M] with [src]!</span>")
 
+/obj/item/flash/afterattack(atom/target, mob/living/user, proximity, params)
+	if(!proximity)
+		return
+	if(!istype(target, /obj/machinery/camera))
+		return
+	if(!try_use_flash(user))
+		return
+	var/obj/machinery/camera/C = target
+	C.emp_act(EMP_HEAVY)
+	to_chat(user,"<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
+	log_admin("[key_name(user)] EMPd a camera with a flash")
+	user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
+	add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
+
 
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(!try_use_flash(user))
@@ -144,6 +158,11 @@
 	user.visible_message("<span class='disarm'>[user]'s [name] emits a blinding light!</span>", "<span class='danger'>Your [name] emits a blinding light!</span>")
 	for(var/mob/living/carbon/M in oviewers(3, null))
 		flash_carbon(M, user, 6 SECONDS, 0)
+	for(var/obj/machinery/camera/C in view(3, user))
+		C.emp_act(EMP_LIGHT)
+		log_admin("[key_name(user)] EMPd a camera with a flash")
+		user.create_attack_log("[key_name(user)] EMPd a camera with a flash")
+		add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 
 
 /obj/item/flash/emp_act(severity)
@@ -156,7 +175,7 @@
 
 
 /obj/item/flash/proc/revolution_conversion(mob/M, mob/user)
-	if(!ishuman(M) || !(user.mind in SSticker.mode.head_revolutionaries))
+	if(!ishuman(M) || !user.mind?.has_antag_datum(/datum/antagonist/rev/head))
 		return
 	if(M.stat != CONSCIOUS)
 		to_chat(user, "<span class='warning'>They must be conscious before you can convert [M.p_them()]!</span>")
@@ -189,7 +208,7 @@
 	icon_state = "camera"
 	item_state = "electropack" //spelling, a coders worst enemy. This part gave me trouble for a while.
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	can_overcharge = FALSE
 	var/flash_max_charges = 5
 	var/flash_cur_charges = 5

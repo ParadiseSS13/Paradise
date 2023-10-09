@@ -36,6 +36,7 @@
 
 	var/list/alive = list()
 	var/list/highlights = list()
+	var/list/response_teams = list()
 	var/list/antagonists = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
@@ -79,6 +80,9 @@
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
+				if(mind.special_role in list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD, SPECIAL_ROLE_SYNDICATE_DEATHSQUAD))
+					response_teams += list(serialized)
+
 				if(user.antagHUD)
 					/*
 					If a mind is many antags at once, we'll display all of them, each
@@ -90,6 +94,7 @@
 					- mindslaves/vampire thralls
 					- vampire
 					- changelings
+					- revolutionaries/headrevs
 					*/
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
@@ -107,9 +112,7 @@
 							"Wizard" = (mind in SSticker.mode.wizards),
 							"Wizard's Apprentice" = (mind in SSticker.mode.apprentices),
 							"Nuclear Operative" = (mind in SSticker.mode.syndicates),
-							"Abductor" = (mind in SSticker.mode.abductors),
-							"Revolutionary" = (mind in SSticker.mode.revolutionaries),
-							"Head Revolutionary" = (mind in SSticker.mode.head_revolutionaries)
+							"Abductor" = (mind in SSticker.mode.abductors)
 						)
 
 					for(var/antag_name in other_antags)
@@ -149,6 +152,7 @@
 
 	data["antagonists"] = antagonists
 	data["highlights"] = highlights
+	data["response_teams"] = response_teams
 	data["alive"] = alive
 	data["dead"] = dead
 	data["ghosts"] = ghosts

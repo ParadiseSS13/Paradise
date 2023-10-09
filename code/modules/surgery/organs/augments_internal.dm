@@ -316,7 +316,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"
-	desc = "This implant with synthesize and pump into your bloodstream a small amount of nutriment when you are starving."
+	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are starving."
 	icon_state = "chest_implant"
 	implant_color = "#00AA00"
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
@@ -366,18 +366,19 @@
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
-	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
+	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
 	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
-	name = "hardened nutrient pump implant"
+	name = "hardened nutriment pump implant"
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened
-	name = "hardened nutrient pump implant PLUS"
+	name = "hardened nutriment pump implant PLUS"
 	emp_proof = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/reviver
@@ -403,15 +404,16 @@
 	if(cooldown > world.time || owner.suiciding) // don't heal while you're in cooldown!
 		return
 	if(reviving)
-		if(owner.health <= HEALTH_THRESHOLD_CRIT)
+		reviving = FALSE
+		if(owner.health <= HEALTH_THRESHOLD_CRIT + 10) //We do not want to leave them on the end of crit constantly.
 			addtimer(CALLBACK(src, PROC_REF(heal)), 30)
-		else
-			reviving = FALSE
-			if(owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //If they are no longer in crit, but have shock, and pass a 15% chance:
-				for(var/datum/disease/critical/shock/S in owner.viruses)
-					S.cure()
-					revive_cost += 150
-					to_chat(owner, "<span class='notice'>You feel better.</span>")
+			reviving = TRUE
+		if(owner.health > HEALTH_THRESHOLD_CRIT && owner.HasDisease(new /datum/disease/critical/shock(0)) && prob(15)) //We do not do an else, as we need them to cure shock inside this magic zone of 10 damage
+			for(var/datum/disease/critical/shock/S in owner.viruses)
+				S.cure()
+				revive_cost += 150
+				to_chat(owner, "<span class='notice'>You feel better.</span>")
+		if(!reviving)
 			return
 	cooldown = revive_cost + world.time
 	revive_cost = 0
@@ -424,14 +426,14 @@
 		owner.adjustOxyLoss(-3)
 		revive_cost += 5
 	if(prob(75) && owner.getBruteLoss())
-		owner.adjustBruteLoss(-1)
-		revive_cost += 20
+		owner.adjustBruteLoss(-2)
+		revive_cost += 15
 	if(prob(75) && owner.getFireLoss())
-		owner.adjustFireLoss(-1)
-		revive_cost += 20
+		owner.adjustFireLoss(-2)
+		revive_cost += 15
 	if(prob(40) && owner.getToxLoss())
 		owner.adjustToxLoss(-1)
-		revive_cost += 50
+		revive_cost += 25
 
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)

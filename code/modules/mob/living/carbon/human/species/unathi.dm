@@ -1,6 +1,7 @@
 /datum/species/unathi
 	name = "Unathi"
 	name_plural = "Unathi"
+	article_override = "a"  // it's pronounced "you-nah-thee"
 	icobase = 'icons/mob/human_races/r_lizard.dmi'
 	language = "Sinta'unathi"
 	tail = "sogtail"
@@ -56,49 +57,46 @@
 		"is twisting their own neck!",
 		"is holding their breath!")
 
-
 /datum/species/unathi/on_species_gain(mob/living/carbon/human/H)
 	..()
-	var/datum/action/innate/tail_lash/lash = new()
-	lash.Grant(H)
+	var/datum/action/innate/ignite/fire = new()
+	fire.Grant(H)
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)
 	..()
-	for(var/datum/action/innate/tail_lash/lash in H.actions)
-		lash.Remove(H)
+	for(var/datum/action/innate/ignite/fire in H.actions)
+		fire.Remove(H)
 
-/datum/action/innate/tail_lash
-	name = "Tail lash"
-	icon_icon = 'icons/effects/effects.dmi'
-	button_icon_state = "tail"
-	check_flags = AB_CHECK_LYING | AB_CHECK_CONSCIOUS | AB_CHECK_STUNNED
+/datum/action/innate/ignite
+	name = "Ignite"
+	desc = "A fire forms in your mouth, fierce enough to... light a cigarette. Requires you to drink welding fuel beforehand."
+	icon_icon = 'icons/obj/cigarettes.dmi'
+	button_icon_state = "match_unathi"
+	var/cooldown = 0
+	var/cooldown_duration = 20 SECONDS
+	var/welding_fuel_used = 3 //one sip, with less strict timing
+	check_flags = AB_CHECK_HANDS_BLOCKED
 
-/datum/action/innate/tail_lash/Activate()
+/datum/action/innate/ignite/Activate()
 	var/mob/living/carbon/human/user = owner
-	if((user.restrained() && user.pulledby) || user.buckled)
-		to_chat(user, "<span class='warning'>You need freedom of movement to tail lash!</span>")
+	if(world.time <= cooldown)
+		to_chat(user, "<span class='warning'>Your throat hurts too much to do it right now. Wait [round((cooldown - world.time) / 10)] seconds and try again.</span>")
 		return
-	if(user.getStaminaLoss() >= 50)
-		to_chat(user, "<span class='warning'>Rest before tail lashing again!</span>")
-		return
-	for(var/mob/living/carbon/human/C in orange(1))
-		var/obj/item/organ/external/E = C.get_organ(pick("l_leg", "r_leg", "l_foot", "r_foot", "groin"))
-		if(E)
-			user.changeNext_move(CLICK_CD_MELEE)
-			user.visible_message("<span class='danger'>[user] smacks [C] in [E] with their tail! </span>", "<span class='danger'>You hit [C] in [E] with your tail!</span>")
-			user.adjustStaminaLoss(15)
-			C.apply_damage(5, BRUTE, E)
-			user.spin(20, 1)
-			playsound(user.loc, 'sound/weapons/slash.ogg', 50, 0)
-			add_attack_logs(user, C, "tail whipped")
-			if(user.restrained())
-				if(prob(50))
-					user.Weaken(10 SECONDS)
-					user.visible_message("<span class='danger'>[user] loses [user.p_their()] balance!</span>", "<span class='danger'>You lose your balance!</span>")
-					return
-			if(user.getStaminaLoss() >= 60) //Bit higher as you don't need to start, just would need to keep going with the tail lash.
-				to_chat(user, "<span class='warning'>You run out of momentum!</span>")
-				return
+	if(!welding_fuel_used || user.reagents.has_reagent("fuel", welding_fuel_used))
+		if((user.head?.flags_cover & HEADCOVERSMOUTH) || (user.wear_mask?.flags_cover & MASKCOVERSMOUTH) && !user.wear_mask?.up)
+			to_chat(user, "<span class='warning'>Your mouth is covered.</span>")
+			return
+		var/obj/item/match/unathi/fire = new(user.loc, src)
+		if(user.put_in_hands(fire))
+			to_chat(user, "<span class='notice'>You ignite a small flame in your mouth.</span>")
+			user.reagents.remove_reagent("fuel", 50) //slightly high, but I'd rather avoid it being TOO spammable.
+			cooldown = world.time + cooldown_duration
+		else
+			qdel(fire)
+			to_chat(user, "<span class='warning'>You don't have any free hands.</span>")
+	else
+		to_chat(user, "<span class='warning'>You need to drink welding fuel first.</span>")
+
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -106,6 +104,7 @@
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"
 	name_plural = "Ash Walkers"
+	article_override = null
 
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
 	They roam the wastes of Lavaland, worshipping a dead city and capturing unsuspecting miners."
@@ -126,3 +125,17 @@
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/unathi
 		)
+
+/datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
+	var/datum/action/innate/ignite/ash_walker/fire = new()
+	fire.Grant(H)
+
+/datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
+	..()
+	for(var/datum/action/innate/ignite/ash_walker/fire in H.actions)
+		fire.Remove(H)
+
+/datum/action/innate/ignite/ash_walker
+	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
+	cooldown_duration = 3 MINUTES
+	welding_fuel_used = 0 // Ash walkers dont need welding fuel to use ignite

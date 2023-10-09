@@ -144,7 +144,7 @@
 	add_fingerprint(user)
 
 	if(victim.abiotic(TRUE))
-		to_chat(user, "<span class='danger'>Clothing detected. Please speak to an engineer if any clothing jams up the interal grinders!</span>")
+		to_chat(user, "<span class='danger'>Clothing detected. Please speak to an engineer if any clothing jams up the internal grinders!</span>")
 		if(do_after(user, 15 SECONDS, target = victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant) //15 seconds if they are not fully stripped, 12 more than normal. Similarly, takes about that long to strip a person in a ert hardsuit of all gear.
 			user.visible_message("<span class='danger'>[user] stuffs [victim] into [src]!</span>")
 		else
@@ -297,18 +297,18 @@
 		for(var/obj/item/I in H.get_contents())
 			if(I.resistance_flags & INDESTRUCTIBLE)
 				I.forceMove(get_turf(src))
-		if(H.get_item_by_slot(slot_wear_suit))
-			var/obj/item/ws = H.get_item_by_slot(slot_s_store)
+		if(H.get_item_by_slot(SLOT_HUD_SUIT_STORE))
+			var/obj/item/ws = H.get_item_by_slot(SLOT_HUD_SUIT_STORE)
 			if(ws.resistance_flags & INDESTRUCTIBLE)
 				ws.forceMove(get_turf(src))
 				H.s_store = null
-		if(H.get_item_by_slot(slot_l_store))
-			var/obj/item/ls = H.get_item_by_slot(slot_l_store)
+		if(H.get_item_by_slot(SLOT_HUD_LEFT_STORE))
+			var/obj/item/ls = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
 			if(ls.resistance_flags & INDESTRUCTIBLE)
 				ls.forceMove(get_turf(src))
 				H.l_store = null
-		if(H.get_item_by_slot(slot_r_store))
-			var/obj/item/rs = H.get_item_by_slot(slot_r_store)
+		if(H.get_item_by_slot(SLOT_HUD_RIGHT_STORE))
+			var/obj/item/rs = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
 			if(rs.resistance_flags & INDESTRUCTIBLE)
 				rs.forceMove(get_turf(src))
 				H.r_store = null

@@ -29,15 +29,19 @@
 	return ..()
 
 /obj/item/door_remote/attack_self(mob/user)
-	switch(mode)
-		if(WAND_OPEN)
-			mode = WAND_BOLT
-		if(WAND_BOLT)
-			mode = WAND_EMERGENCY
-		if(WAND_EMERGENCY)
-			mode = WAND_SPEED
-		if(WAND_SPEED)
-			mode = WAND_OPEN
+	var/list/options = list(WAND_OPEN = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_open"),
+									WAND_BOLT = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_bolt"),
+									WAND_EMERGENCY = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_ea"),
+									WAND_SPEED = image(icon = 'icons/mob/radial.dmi', icon_state = "radial_speed"))
+	var/image/part_image = options[mode]
+	// scuffed, but allows you to easily show whats the currently selected one
+	part_image.underlays += image(icon = 'icons/mob/radial.dmi', icon_state = "radial_slice_focus")
+	var/choice = show_radial_menu(user, src, options)
+	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
+		return
+	if(choice == mode) // they didn't change their choice, don't do the to_chat
+		return
+	mode = choice
 
 	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
 
@@ -122,9 +126,9 @@
 	region_access = list(REGION_MEDBAY)
 
 /obj/item/door_remote/civillian
-	name = "civillian door remote"
+	name = "civilian door remote"
 	icon_state = "gangtool-white"
-	region_access = list(REGION_GENERAL, REGION_SUPPLY)
+	region_access = list(REGION_GENERAL)
 	additional_access = list(ACCESS_HOP)
 
 /obj/item/door_remote/centcomm
@@ -138,7 +142,7 @@
 	desc = "A device used for illegally interfacing with doors."
 	icon_state = "hacktool"
 	item_state = "hacktool"
-	var/hack_speed = 30
+	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
 
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)

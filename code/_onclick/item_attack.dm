@@ -10,6 +10,9 @@
 /obj/item/proc/tool_attack_chain(mob/user, atom/target)
 	if(!tool_behaviour)
 		return FALSE
+	if(SEND_SIGNAL(target, COMSIG_TOOL_ATTACK, src, user) & COMPONENT_CANCEL_TOOLACT)
+		return FALSE
+
 	return target.tool_act(user, src, tool_behaviour)
 
 // Called when the item is in the active hand, and clicked; alternately, there is an 'activate held object' verb or you can hit pagedown.
@@ -24,8 +27,11 @@
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 	if(is_hot(src) && A.reagents && !ismob(A))
-		to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
-		A.reagents.temperature_reagents(is_hot(src))
+		var/reagent_temp = A.reagents.chem_temp
+		var/time = (reagent_temp / 10) / (is_hot(src) / 1000)
+		if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
+			to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
+			A.reagents.temperature_reagents(is_hot(src))
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment

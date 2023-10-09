@@ -74,7 +74,7 @@
 	light_color = LIGHT_COLOR_DARKBLUE
 
 /obj/item/projectile/beam/pulse/on_hit(atom/target, blocked = 0)
-	if(isturf(target) || isstructure(target))
+	if(isturf(target) || isstructure(target) || ismachinery(target))
 		target.ex_act(2)
 	..()
 
@@ -172,7 +172,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		L.visible_message("<span class='danger'>[L] explodes!</span>")
-		L.gib()
+		L.quick_explode_gib()
 
 /obj/item/projectile/beam/laser/detective
 	name = "energy revolver shot"

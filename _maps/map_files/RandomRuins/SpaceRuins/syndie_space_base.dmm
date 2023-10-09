@@ -264,10 +264,11 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "cH" = (
-/obj/machinery/door/window/eastright{
+/obj/machinery/door/window/classic/reversed{
 	name = "Animal Storage";
 	req_access_txt = "150";
-	req_one_access_txt = "150"
+	req_one_access_txt = "150";
+	dir = 4
 	},
 /obj/structure/window/basic{
 	dir = 1
@@ -532,7 +533,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "fP" = (
-/obj/effect/mob_spawn/human/spacebase_syndicate{
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1153,7 +1154,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
 "lM" = (
-/obj/effect/mob_spawn/human/spacebase_syndicate{
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1453,7 +1454,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "pa" = (
-/obj/effect/mob_spawn/human/spacebase_syndicate{
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -3285,7 +3286,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Ji" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
 /turf/simulated/floor/plasteel{
@@ -3365,7 +3366,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Ki" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	icon_state = "plant-22"
 	},
 /obj/structure/cable{
@@ -3756,7 +3757,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "MV" = (
-/obj/effect/mob_spawn/human/spacebase_syndicate{
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -4070,7 +4071,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/mob_spawn/human/spacebase_syndicate{
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -4435,7 +4436,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "VP" = (
 /obj/machinery/light,
-/obj/effect/mob_spawn/human/spacebase_syndicate{
+/obj/effect/mob_spawn/human/alive/spacebase_syndicate{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{

@@ -32,9 +32,9 @@ const damages = [
   ['Respiratory', 'oxyLoss'],
   ['Brain', 'brainLoss'],
   ['Toxin', 'toxLoss'],
-  ['Radioactive', 'radLoss'],
+  ['Radiation', 'radLoss'],
   ['Brute', 'bruteLoss'],
-  ['Genetic', 'cloneLoss'],
+  ['Cellular', 'cloneLoss'],
   ['Burn', 'fireLoss'],
   ['Inebriation', 'drunkenness'],
 ];
@@ -199,7 +199,7 @@ const BodyScannerMainAbnormalities = (props) => {
       {abnormalities.map((a, i) => {
         if (occupant[a[0]]) {
           return (
-            <Box color={a[1]} bold={a[1] === 'bad'}>
+            <Box key={a[2]} color={a[1]} bold={a[1] === 'bad'}>
               {a[2]}
             </Box>
           );
@@ -293,7 +293,7 @@ const BodyScannerMainOrgansExternal = (props) => {
                 min="0"
                 max={o.maxHealth}
                 mt={i > 0 && '0.5rem'}
-                value={o.totalLoss / 100}
+                value={o.totalLoss / o.maxHealth}
                 ranges={damageRange}
               >
                 <Box float="left" display="inline">
@@ -386,7 +386,7 @@ const BodyScannerMainOrgansInternal = (props) => {
               <ProgressBar
                 min="0"
                 max={o.maxHealth}
-                value={o.damage / 100}
+                value={o.damage / o.maxHealth}
                 mt={i > 0 && '0.5rem'}
                 ranges={damageRange}
               >

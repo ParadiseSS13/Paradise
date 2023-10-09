@@ -13,7 +13,7 @@
 
 /datum/gear/glasses
 	main_typepath = /datum/gear/glasses
-	slot = slot_glasses
+	slot = SLOT_HUD_GLASSES
 	sort_category = "Glasses"
 
 /datum/gear/glasses/sunglasses
