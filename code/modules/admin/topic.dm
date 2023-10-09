@@ -2195,6 +2195,7 @@
 				var/obj/item/bread = new bready(get_turf(H))
 				breadshade.forceMove(bread)
 				breadshade.key = H.key
+				breadshade.RegisterSignal(bread, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/bread, handle_bread_deletion))
 				qdel(H)
 				logmsg = "baked"
 				to_chat(breadshade, "<span class='warning'>Get bready for combat, you've been baked into a piece of bread! Before you break down and rye thinking that your life is over, people are after you waiting for a snack! If you'd rather not be toast, lunge away from any hungry crew else you bite the crust. At the yeast you may survive a little longer...</span>")
