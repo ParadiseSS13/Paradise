@@ -439,7 +439,7 @@
 	if(!ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(!src || !H.is_in_hands(src) || H.incapacitated())
+	if(!src || !H.is_in_hands(src) || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED)))
 		return FALSE
 	return TRUE
 
