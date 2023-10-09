@@ -53,7 +53,7 @@
 		. += "<BR><B>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</B>"
 
 /obj/machinery/drone_fabricator/proc/drone_prepared()
-	return (produce_drones && drone_progress >= 100 && count_drones() < MAX_MAINT_DRONES)
+	return (produce_drones && drone_progress >= 100 && (count_drones() < MAX_MAINT_DRONES))
 
 /obj/machinery/drone_fabricator/proc/count_drones()
 	var/drones = 0
