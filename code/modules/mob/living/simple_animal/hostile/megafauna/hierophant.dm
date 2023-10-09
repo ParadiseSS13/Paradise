@@ -220,7 +220,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/proc/blink_spam(blink_counter, target_slowness, cross_counter)
 	ranged_cooldown = world.time + max(5, major_attack_cooldown - anger_modifier * 0.75)
-	if((health < maxHealth * 0.5 || enraged) && blink_counter > 1)
+	if(((health < maxHealth * 0.5) || enraged) && blink_counter > 1)
 		visible_message("<span class='hierophant'>\"Mx ampp rsx iwgeti.\"</span>")
 		var/oldcolor = color
 		animate(src, color = "#660099", time = 6)
@@ -414,13 +414,10 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/hierophant/float(on) //we don't want this guy to float, messes up his animations
 	if(throwing)
 		return
-	if(on && !floating)
-		floating = TRUE
-	else if(!on && floating)
-		floating = FALSE
+	floating = on
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect)
-	if(!enraged)
+	if(!enraged) //We do not want it to animate attacking as that breaks the cool animation. If it is not enraged, it can do it. However this only happens if admin controlled
 		..()
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Life()
@@ -454,7 +451,7 @@ Difficulty: Hard
 		return
 	else
 		for(var/mob/living/simple_animal/hostile/megafauna/colossus/C in GLOB.mob_list)
-			UnregisterSignal(C, COMSIG_MOB_DEATH)
+			UnregisterSignal(C, COMSIG_MOB_APPLY_DAMAGE)
 		set_stat(DEAD)
 		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
 		visible_message("<span class='hierophant'>\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\"</span>")

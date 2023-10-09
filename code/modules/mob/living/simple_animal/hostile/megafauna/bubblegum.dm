@@ -368,7 +368,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hit_up_narsi()
 	SetRecoveryTime(20)
 	visible_message("<span class='colossus'><b>[pick("[SSticker.cultdat.entity_name], I call on YOU for one of MY favours you owe me!", "[SSticker.cultdat.entity_title1], I call on you for some support...", "Let us see how you like the minions of [SSticker.cultdat.entity_title2]!", "Oh, [SSticker.cultdat.entity_title3] join me in RENDING THIS WHELP APART!")]</b></span>")
-	var/list/turfs = new/list()
+	var/list/turfs = list()
 	var/constructs = 0
 	for(var/turf/T in view(6, target))
 		if(T.density)
@@ -379,6 +379,8 @@ Difficulty: Hard
 		var/amount = enraged ? 4 : 3
 		while(constructs < amount && length(turfs))
 			var/turf/spot = pick_n_take(turfs)
+			if(!spot)
+				return
 			var/mob/living/simple_animal/hostile/construct/wraith/hostile/summon = new /mob/living/simple_animal/hostile/construct/wraith/hostile(spot)
 			summon.faction = faction.Copy()
 			constructs++

@@ -169,10 +169,9 @@ Difficulty: Hard
 	new core_type(C)
 	if(!enraged)
 		return
-	if(enraged)
-		for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
-			if(M.client)
-				new /obj/item/disk/fauna_research/vetus(C)
+	for(var/mob/living/M in urange(40, src)) //Bigger range, ran once per shift, as people run away from vetus as it blows up.
+		if(M.client)
+			new /obj/item/disk/fauna_research/vetus(C)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/enrage()
 	. = ..()
@@ -357,7 +356,7 @@ Difficulty: Hard
 				H.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN)
 		if(GRAV)
 			visible_message("<span class='danger'>Debris from the battlefield begin to get compressed into rocks!</span>")
-			var/list/turfs = new/list()
+			var/list/turfs = list()
 			var/rocks = 0
 			for(var/turf/T in view(4, target))
 				if(T.density)
@@ -368,12 +367,14 @@ Difficulty: Hard
 			var/amount = enraged ? 5 : 3
 			while(rocks < amount && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
+				if(!spot)
+					return
 				new /obj/effect/temp_visual/rock(spot)
 				addtimer(CALLBACK(src, PROC_REF(throw_rock), spot, target), 2 SECONDS)
 				rocks++
 		if(PYRO)
 			visible_message("<span class='danger'>The ground begins to heat up around you!</span>")
-			var/list/turfs = new/list()
+			var/list/turfs = list()
 			var/volcanos = 0
 			for(var/turf/T in view(4, target))
 				if(T.density)
@@ -384,6 +385,8 @@ Difficulty: Hard
 			var/amount = enraged ? 5 : 3
 			while(volcanos < amount && length(turfs))
 				var/turf/spot = pick_n_take(turfs)
+				if(!spot)
+					return
 				for(var/turf/around in range(1, spot))
 					new /obj/effect/temp_visual/lava_warning(around, enraged ? 18 SECONDS : 6 SECONDS)
 				volcanos++

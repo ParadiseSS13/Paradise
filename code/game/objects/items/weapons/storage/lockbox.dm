@@ -119,24 +119,28 @@
 	var/list/completed_fauna = list()
 	var/number_of_megafauna = 7 //Increase this if new megafauna are added.
 
+/obj/item/storage/lockbox/medal/hardmode_box/Initialize(mapload)
+	. = ..()
+	number_of_megafauna = length(subtypesof(/obj/item/disk/fauna_research))
+
 /obj/item/storage/lockbox/medal/hardmode_box/populate_contents()
 	return
 
 /obj/item/storage/lockbox/medal/hardmode_box/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/disk/fauna_research))
-		var/obj/item/disk/fauna_research/O = W
-		var/obj/item/pride = new O.output(get_turf(src))
-		qdel(O)
-		to_chat(user, "<span class='notice'>[src] accepts [O], and prints out [pride]!</span>")
+		var/obj/item/disk/fauna_research/disky = W
+		var/obj/item/pride = new disky.output(get_turf(src))
+		to_chat(user, "<span class='notice'>[src] accepts [disky], and prints out [pride]!</span>")
+		qdel(disky)
 		if(!is_type_in_list(pride, completed_fauna))
 			completed_fauna += pride.type
-			if(length(completed_fauna) == 7)
+			if(length(completed_fauna) == number_of_megafauna)
 				to_chat(user, "<span class='notice'>[src] prints out a very fancy medal!</span>")
 				var/obj/item/accomplishment = new /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full(get_turf(src))
 				user.put_in_hands(accomplishment)
 		user.put_in_hands(pride)
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/item/storage/lockbox/t4
 	name = "lockbox (T4)"

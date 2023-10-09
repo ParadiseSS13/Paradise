@@ -127,7 +127,7 @@ Difficulty: Very Hard
 				alternating_dir_shots()
 		return
 
-	if(cheese(target))
+	if(target_trying_to_cheese_us(target))
 		if(move_to_delay == initial(move_to_delay))
 			say("You can't dodge")
 		ranged_cooldown = world.time + 30
@@ -152,7 +152,7 @@ Difficulty: Very Hard
 		else
 			alternating_dir_shots()
 
-/mob/living/simple_animal/hostile/megafauna/colossus/proc/cheese(mob/living/L)
+/mob/living/simple_animal/hostile/megafauna/colossus/proc/target_trying_to_cheese_us(mob/living/L)
 	if(!ishuman(L))
 		return
 	var/mob/living/carbon/human/H = L
@@ -330,10 +330,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/colossus/float(on) //we don't want this guy to float, messes up his animations
 	if(throwing)
 		return
-	if(on && !floating)
-		floating = TRUE
-	else if(!on && floating)
-		floating = FALSE
+	floating = on
 
 /obj/item/projectile/colossus
 	name ="death bolt"
