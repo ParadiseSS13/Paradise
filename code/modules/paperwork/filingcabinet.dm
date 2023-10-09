@@ -64,7 +64,6 @@
 
 /obj/structure/filingcabinet/attack_hand(mob/user)
 	ui_interact(user)
-	return
 
 /obj/structure/filingcabinet/attack_tk(mob/user)
 	if(anchored)
