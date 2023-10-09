@@ -1057,10 +1057,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	new drop_item(dropzone)
 
-/////////////////////////
-/// TGUI COMMON START ///
-/////////////////////////
 
+// Common data shared among all the bots, used by BotStatus.js
 /mob/living/simple_animal/bot/ui_data(mob/user)
 	var/list/data = list()
 	data["locked"] = locked // controls, locked or not
@@ -1073,7 +1071,3 @@ Pass a positive integer as an argument to override a bot's default speed.
 	data["emagged"] = emagged // this is an int, NOT a boolean
 	data["remote_disabled"] = remote_disabled
 	return data
-
-///////////////////////
-/// TGUI COMMON END ///
-///////////////////////
