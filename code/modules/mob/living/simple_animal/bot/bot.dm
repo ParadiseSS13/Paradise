@@ -1059,6 +1059,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 
 // Common data shared among all the bots, used by BotStatus.js
+
 /mob/living/simple_animal/bot/ui_data(mob/user)
 	var/list/data = list()
 	data["locked"] = locked // controls, locked or not
