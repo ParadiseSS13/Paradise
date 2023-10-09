@@ -658,8 +658,7 @@
 		active_hud.screentip_text.maptext = ""
 		return
 	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
-	var/screentip_color = usr.client.prefs.screentip_color
-	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [screentip_color]'>[name]</span>"
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
 
 /atom/movable/MouseExited(location, control, params)
 	usr.hud_used.screentip_text.maptext = ""
