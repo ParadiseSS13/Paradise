@@ -317,7 +317,6 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are starving."
-	icon_state = "chest_implant"
 	implant_color = "#00AA00"
 	var/hunger_threshold = NUTRITION_LEVEL_STARVING
 	var/synthesizing = 0
@@ -367,7 +366,6 @@
 /obj/item/organ/internal/cyberimp/chest/nutriment/plus
 	name = "Nutriment pump implant PLUS"
 	desc = "This implant will synthesize a small amount of nutriment and pumps it directly into your bloodstream when you are hungry."
-	icon_state = "chest_implant"
 	implant_color = "#006607"
 	hunger_threshold = NUTRITION_LEVEL_HUNGRY
 	poison_amount = 10
@@ -384,7 +382,6 @@
 /obj/item/organ/internal/cyberimp/chest/reviver
 	name = "Reviver implant"
 	desc = "This implant will attempt to heal you out of critical condition. For the faint of heart!"
-	icon_state = "chest_implant"
 	implant_color = "#AD0000"
 	origin_tech = "materials=5;programming=4;biotech=4"
 	slot = "heartdrive"
@@ -456,6 +453,31 @@
 	H.set_heartattack(FALSE)
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
+
+/obj/item/organ/internal/cyberimp/chest/ipc_repair
+	name = "Reactive Repair Implant"
+	desc = "This implant reworks the IPC frame, in order to incoperate materials that return to their original shape after being damaged. Requires power to function"
+	implant_color = "#0ac0d8"
+	origin_tech = "materials=4;programming=4;biotech=4;magnets=4;engineering=4"
+	slot = "stomach" //Can't have a nutriment pump with it.
+	requires_machine_person = TRUE
+
+/obj/item/organ/internal/cyberimp/chest/ipc_repair/on_life()
+	if(crit_fail)
+		return
+	if(owner.maxHealth == owner.health)
+		owner.adjust_nutrition(-0.5)
+		return //Passive damage scanning
+
+	owner.adjustBruteLoss(-0.5, robotic = TRUE)
+	owner.adjustFireLoss(-0.5, robotic = TRUE)
+	owner.adjust_nutrition(-4) //Very power inefficent. Hope you got an APC nearby.
+
+/obj/item/organ/internal/cyberimp/chest/ipc_repair/emp_act(severity)
+	if(!owner || emp_proof || crit_fail)
+		return
+	crit_fail = TRUE
+	addtimer(VARSET_CALLBACK(src, crit_fail, FALSE), 30 SECONDS / severity)
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints
 	name = "IPC ER-OR Joint Implant"

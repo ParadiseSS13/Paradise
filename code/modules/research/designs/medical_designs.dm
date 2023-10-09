@@ -540,6 +540,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/brain/wire_interface
 	category = list("Medical")
 
+/datum/design/raiden_implant
+	name = "Reactive Repair Implant"
+	desc = "This implant reworks the IPC frame, in order to incoperate materials that return to their original shape after being damaged. Requires power to function"
+	id = "ci-raiden_implant"
+	req_tech = list("materials" = 5, "programming" = 5, "biotech" = 5, "magnets" = 5, "engineering" = 5)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 60
+	materials = list(MAT_METAL = 12500, MAT_SILVER = 12000, MAT_GOLD = 2500, MAT_PLASMA = 5000)
+	build_path = /obj/item/organ/internal/cyberimp/chest/ipc_repair
+	category = list("Medical")
+
 /datum/design/monsoon_implant
 	name = "Magnetic Joints Implant"
 	desc = "This implant modifies IPC joints to use magnets, allowing easy re-attachment and smooth movement."
