@@ -99,6 +99,7 @@
 	message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(guardian)])")
 	guardian.ghostize()
 	guardian.key = new_stand.key
+	dust_if_respawnable(new_stand)
 	qdel(src)
 
 /**

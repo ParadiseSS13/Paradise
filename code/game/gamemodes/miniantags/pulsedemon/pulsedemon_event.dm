@@ -10,7 +10,8 @@
 
 	var/mob/C = pick(candidates)
 	key_of_pulsedemon = C.key
-
+	dust_if_respawnable(C)
+	
 	if(!key_of_pulsedemon)
 		kill()
 		return
