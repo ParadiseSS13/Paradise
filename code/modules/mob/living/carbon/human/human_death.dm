@@ -171,9 +171,8 @@
 		UpdateAppearance() // reset hair from DNA
 
 /mob/living/carbon/human/proc/make_nugget(mob/living)
-	for(var/limb in bodyparts)
-		var/obj/item/organ/external/limbs = limb
-		if(limbs.body_part == LEG_RIGHT || limbs.body_part == LEG_LEFT || limbs.body_part == ARM_RIGHT || limbs.body_part == ARM_LEFT)
-			limbs.droplimb()
+	for(var/obj/item/organ/external/limb as anything in bodyparts)
+		if(limb.body_part == LEG_RIGHT || limb.body_part == LEG_LEFT || limb.body_part == ARM_RIGHT || limb.body_part == ARM_LEFT)
+			limb.droplimb()
 	emote("scream")
 	playsound(src, 'sound/misc/desceration-03.ogg', 70)
