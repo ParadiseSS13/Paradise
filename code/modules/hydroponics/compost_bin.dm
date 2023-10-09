@@ -27,8 +27,9 @@
 	var/composting = FALSE
 
 /obj/machinery/compost_bin/Initialize(mapload)
-	// try to compost
-	compost()
+	// If the bin is made with biomass in it try to compost it
+	if(biomass > 0)
+		compost()
 	return ..()
 
 
