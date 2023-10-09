@@ -426,7 +426,7 @@
 	for(var/I in options)
 		var/image/gun_image = image(icon, icon_state = options[I])
 		skins[I] = gun_image
-	var/choice = show_radial_menu(M, src, skins, null, 40, CALLBACK(src, PROC_REF(radial_check), M), TRUE)
+	var/choice = show_radial_menu(M, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(radial_check), M), require_near = TRUE)
 
 	if(choice && radial_check(M) && !current_skin)
 		current_skin = options[choice]
