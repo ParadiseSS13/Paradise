@@ -180,8 +180,6 @@
 /datum/antagonist/traitor/proc/add_law_zero()
 	var/mob/living/silicon/ai/killer = owner.current
 	killer.set_zeroth_law("Accomplish your objectives at all costs.", "Accomplish your AI's objectives at all costs.")
-	for(var/mob/living/silicon/robot/robo in killer.connected_robots)
-		robo.lawsync()
 	killer.set_syndie_radio()
 	to_chat(killer, "Your radio has been upgraded! Use :t to speak on an encrypted channel with Syndicate Agents!")
 	killer.add_malf_picker()
