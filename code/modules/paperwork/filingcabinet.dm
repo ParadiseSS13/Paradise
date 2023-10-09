@@ -16,11 +16,7 @@
 	icon_state = "filingcabinet"
 	density = TRUE
 	anchored = TRUE
-	var/list/accepted_items
-
-/obj/structure/filingcabinet/Initialize()
-	. = ..()
-	accepted_items = list(
+	var/static/list/accepted_items = list(
 		/obj/item/paper,
 		/obj/item/folder,
 		/obj/item/photo,
@@ -68,7 +64,6 @@
 
 /obj/structure/filingcabinet/attack_hand(mob/user)
 	ui_interact(user)
-	return
 
 /obj/structure/filingcabinet/attack_tk(mob/user)
 	if(anchored)
