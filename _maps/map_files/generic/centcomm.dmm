@@ -7854,9 +7854,8 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "Ck" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Bar"
-	},
+/obj/machinery/door/airlock/multi_tile/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Cl" = (
@@ -9481,7 +9480,6 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Port Asteroid Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "Ia" = (
@@ -9546,11 +9544,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/evac)
 "Im" = (
-/turf/simulated/wall/indestructible/riveted{
-	icon = 'icons/turf/walls/plastitanium_wall.dmi';
-	base_icon_state = "plastitanium_wall";
-	icon_state = "plastitanium_wall-0"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/ghost_bar)
 "In" = (
 /obj/machinery/light/small,
@@ -9775,11 +9769,7 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/turf/simulated/wall/indestructible/riveted{
-	icon = 'icons/turf/walls/plastitanium_wall.dmi';
-	base_icon_state = "plastitanium_wall";
-	icon_state = "plastitanium_wall-0"
-	},
+/turf/simulated/wall/indestructible/syndicate,
 /area/ghost_bar)
 "Je" = (
 /obj/structure/closet/fireaxecabinet{
@@ -9966,10 +9956,6 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
 /area/centcom/specops)
-"JF" = (
-/obj/effect/mapping_helpers/airlock/autoname,
-/turf/simulated/floor/wood,
-/area/ghost_bar)
 "JG" = (
 /obj/structure/railing,
 /obj/structure/railing{
@@ -9987,10 +9973,8 @@
 	},
 /area/centcom/gamma)
 "JI" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Thunderdome"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "JJ" = (
@@ -11348,7 +11332,9 @@
 /turf/simulated/floor/grass,
 /area/centcom/control)
 "Oj" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
+/obj/structure/closet/secure_closet/freezer/kitchen{
+	req_access = null
+	},
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/item/reagent_containers/food/snacks/grown/wheat,
@@ -11607,11 +11593,8 @@
 	},
 /area/holodeck/source_desert)
 "OU" = (
-/obj/machinery/door/airlock/centcom{
-	id_tag = "adminshuttle";
-	name = "General Access"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
 "OV" = (
@@ -12131,7 +12114,6 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Port Asteroid Maintenance"
 	},
-/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -12985,10 +12967,8 @@
 /turf/simulated/floor/wood,
 /area/centcom/control)
 "Uk" = (
-/obj/machinery/door/airlock/centcom{
-	name = "Thunderdome"
-	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/centcom,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -71150,7 +71130,7 @@ Jy
 Jy
 Jy
 Jy
-JF
+Jy
 Ro
 rU
 xV
