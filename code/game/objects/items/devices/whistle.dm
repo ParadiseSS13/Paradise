@@ -54,5 +54,5 @@
 	if(!COOLDOWN_FINISHED(src, whistle_cooldown))
 		return
 
-	playsound(src, 'sound/items/whistle.ogg', 20, TRUE)
+	playsound(src, pick('sound/items/whistle1.ogg', 'sound/items/whistle2.ogg', 'sound/items/whistle3.ogg'), 25)
 	COOLDOWN_START(src, whistle_cooldown, 4 SECONDS)
