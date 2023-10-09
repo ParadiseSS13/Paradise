@@ -5,7 +5,7 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	item_color = "bluetie"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
@@ -291,7 +291,7 @@
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
 	item_color = "holobadge"
-	slot_flags = SLOT_BELT | SLOT_TIE
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_TIE
 
 	var/stored_name = null
 
@@ -462,7 +462,7 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/necklace/dope
 	name = "gold necklace"
@@ -495,7 +495,7 @@
 	icon_state = "locket"
 	item_state = "locket"
 	item_color = "locket"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.

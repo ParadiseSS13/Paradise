@@ -12,4 +12,4 @@ export BETA_BYOND_MAJOR=515
 # Beta Byond Minor
 export BETA_BYOND_MINOR=1610
 # Python version for mapmerge and other tools
-export PYTHON_VERSION=3.7.9
+export PYTHON_VERSION=3.11.6
