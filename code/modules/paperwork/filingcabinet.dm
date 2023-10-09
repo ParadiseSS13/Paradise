@@ -16,7 +16,17 @@
 	icon_state = "filingcabinet"
 	density = TRUE
 	anchored = TRUE
+	var/list/accepted_items
 
+/obj/structure/filingcabinet/Initialize()
+	. = ..()
+	accepted_items = list(
+		/obj/item/paper,
+		/obj/item/folder,
+		/obj/item/photo,
+		/obj/item/paper_bundle,
+		/obj/item/documents
+	)
 
 /obj/structure/filingcabinet/chestdrawer
 	name = "chest drawer"
@@ -37,17 +47,11 @@
 			I.loc = src
 
 
-/obj/structure/filingcabinet/attackby(obj/item/P, mob/user, params)
-	if(istype(P, /obj/item/paper) || istype(P, /obj/item/folder) || istype(P, /obj/item/photo) || istype(P, /obj/item/paper_bundle) || istype(P, /obj/item/documents))
-		to_chat(user, "<span class='notice'>You put [P] in [src].</span>")
-		user.drop_item()
-		P.loc = src
-		icon_state = "[initial(icon_state)]-open"
-		sleep(5)
-		icon_state = initial(icon_state)
-		updateUsrDialog()
+/obj/structure/filingcabinet/attackby(obj/item/O, mob/user, params)
+	if(insert(O))
+		return
 	else if(user.a_intent != INTENT_HARM)
-		to_chat(user, "<span class='warning'>You can't put [P] in [src]!</span>")
+		to_chat(user, "<span class='warning'>You can't put [O.name] in [src]!</span>")
 	else
 		return ..()
 
@@ -63,19 +67,7 @@
 	qdel(src)
 
 /obj/structure/filingcabinet/attack_hand(mob/user)
-	if(!length(contents))
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
-		return
-
-	user.set_machine(src)
-	var/dat = "<center><table>"
-	for(var/obj/item/P in src)
-		dat += "<tr><td><a href='?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
-	dat += "</table></center>"
-	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
-	popup.set_content(dat)
-	popup.open(FALSE)
-
+	ui_interact(user)
 	return
 
 /obj/structure/filingcabinet/attack_tk(mob/user)
@@ -91,23 +83,72 @@
 			I.loc = loc
 			if(prob(25))
 				step_rand(I)
+			SStgui.update_uis(src)
 			to_chat(user, "<span class='notice'>You pull \a [I] out of [src] at random.</span>")
 			return
 	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
 
-/obj/structure/filingcabinet/Topic(href, href_list)
-	if(href_list["retrieve"])
-		usr << browse(null, "window=filingcabinet") // Close the menu
+/obj/structure/filingcabinet/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "FilingCabinet",  name, 400, 500, master_ui, state)
+		ui.open()
 
-		//var/retrieveindex = text2num(href_list["retrieve"])
-		var/obj/item/P = locate(href_list["retrieve"])//contents[retrieveindex]
-		if(istype(P) && (P.loc == src) && src.Adjacent(usr))
-			usr.put_in_hands(P)
-			updateUsrDialog()
-			icon_state = "[initial(icon_state)]-open"
-			sleep(5)
-			icon_state = initial(icon_state)
+/obj/structure/filingcabinet/ui_data(mob/user)
+	. = ..()
+	var/list/data = list()
+	data["contents"] = null
+	var/list/items = list()
 
+	var/index = 1
+	for(var/obj/item/P in contents)
+		items.Add(list(list("display_name" = capitalize(P.name), "index" = index)))
+		index++
+
+	if(length(items))
+		data["contents"] = items
+
+	return data
+
+/obj/structure/filingcabinet/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+
+	. = TRUE
+
+	add_fingerprint(usr)
+
+	switch(action)
+		if("retrieve")
+			var/index = text2num(params["index"])
+			if(isnull(index) || !ISINDEXSAFE(contents, index))
+				return FALSE
+			var/K = contents[index]
+			if(Adjacent(usr) && !issilicon(usr))
+				retrieve(K)
+
+/obj/structure/filingcabinet/proc/insert(var/obj/O)
+	if(accept_check(O))
+		to_chat(usr, "<span class='notice'>You put [O.name] in [src].</span>")
+		usr.drop_item()
+		O.loc = src
+		icon_state = "[initial(icon_state)]-open"
+		sleep(5)
+		icon_state = initial(icon_state)
+		SStgui.update_uis(src)
+		return TRUE
+
+/obj/structure/filingcabinet/proc/retrieve(var/obj/O)
+	if(istype(O) && (O.loc == src) && src.Adjacent(usr))
+		if(!usr.put_in_hands(O))
+			O.forceMove(loc)
+		SStgui.update_uis(src)
+		icon_state = "[initial(icon_state)]-open"
+		sleep(5)
+		icon_state = initial(icon_state)
+
+/obj/structure/filingcabinet/proc/accept_check(obj/item/O)
+	return is_type_in_list(O, accepted_items)
 
 /*
  * Security Record Cabinets
