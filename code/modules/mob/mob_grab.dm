@@ -100,7 +100,7 @@
 	if(istype(assailant.r_hand, /obj/item/grab))
 		var/obj/item/grab/grab = assailant.r_hand
 		possible_dest -= get_turf(grab.affecting)
-	for(var/turf/dest in possible_dest)
+	for(var/turf/dest as anything in possible_dest)
 		if(affecting.Move(dest, get_dir(affecting, dest), assailant.movement_delay() + 7))
 			break
 	if(state == GRAB_NECK)
