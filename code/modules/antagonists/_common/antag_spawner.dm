@@ -224,16 +224,18 @@
 	D.mind.special_role = D.name
 	SSticker.mode.traitors += D.mind
 
+	var/list/messages = list()
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to summon you."
+	messages.Add(KillDaWiz.explanation_text)
 	D.mind.add_mind_objective(KillDaWiz)
 
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.explanation_text = "[objective_verb] everyone else while you're at it."
+	messages.Add(KillDaCrew.explanation_text)
 	KillDaCrew.completed = TRUE
 	D.mind.add_mind_objective(KillDaCrew)
-	var/list/messages = list(D.mind.prepare_announce_objectives(FALSE))
 	to_chat(D, chat_box_red(messages.Join("<br>")))
 
 /obj/item/antag_spawner/slaughter_demon/laughter
@@ -303,18 +305,20 @@
 	M.key = C.key
 	M.make_morph_antag(FALSE)
 
+	var/list/messages = list()
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.owner = M.mind
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
+	messages.Add(KillDaWiz.explanation_text)
 	M.mind.add_mind_objective(KillDaWiz)
 
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
+	messages.Add(KillDaCrew.explanation_text)
 	KillDaCrew.completed = TRUE
 	M.mind.add_mind_objective(KillDaCrew)
 
-	var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
 	to_chat(M, chat_box_red(messages.Join("<br>")))
 
 ///////////Revenant
@@ -360,17 +364,19 @@
 	var/mob/living/simple_animal/revenant/M = new /mob/living/simple_animal/revenant(pick(GLOB.xeno_spawn))
 	M.key = C.key
 
+	var/list/messages = list()
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
+	messages.Add(KillDaWiz.explanation_text)
 	M.mind.add_mind_objective(KillDaWiz)
 
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
+	messages.Add(KillDaCrew.explanation_text)
 	KillDaCrew.completed = TRUE
 	M.mind.add_mind_objective(KillDaCrew)
 
-	var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
 	to_chat(M, chat_box_red(messages.Join("<br>")))
 
 ///////////Pulse Demon
@@ -427,15 +433,17 @@
 	player_mind.special_role = SPECIAL_ROLE_DEMON
 	demon.give_objectives()
 
+	var/list/messages = list()
 	var/datum/objective/assassinate/KillDaWiz = new /datum/objective/assassinate
 	KillDaWiz.target = user.mind
 	KillDaWiz.explanation_text = "[objective_verb] [user.real_name], the one who was foolish enough to awake you."
+	messages.Add(KillDaWiz.explanation_text)
 	demon.mind.add_mind_objective(KillDaWiz)
 
 	var/datum/objective/KillDaCrew = new /datum/objective
 	KillDaCrew.explanation_text = "[objective_verb] everyone and everything else while you're at it."
+	messages.Add(KillDaCrew.explanation_text)
 	KillDaCrew.completed = TRUE
 	demon.mind.add_mind_objective(KillDaCrew)
 
-	var/list/messages = list(demon.mind.prepare_announce_objectives(FALSE))
 	to_chat(demon, chat_box_red(messages.Join("<br>")))
