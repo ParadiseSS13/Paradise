@@ -3568,7 +3568,7 @@
 	pixel_y = 3
 	},
 /obj/item/clothing/under/rank/centcom/officer,
-/obj/item/clothing/under/rank/centcom/representative{
+/obj/item/clothing/under/rank/procedure/representative{
 	pixel_x = 3;
 	pixel_y = -3
 	},
@@ -9988,8 +9988,10 @@
 	},
 /area/centcom/gamma)
 "JI" = (
-/turf/simulated/wall/indestructible/necropolis,
-/area/ruin/space/bubblegum_arena)
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/machinery/door/airlock/centcom,
+/turf/simulated/floor/wood,
+/area/ghost_bar)
 "JJ" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Thunderdome"
@@ -12652,6 +12654,9 @@
 	icon_state = "vault"
 	},
 /area/centcom/specops)
+"SL" = (
+/turf/simulated/wall/indestructible/necropolis,
+/area/ruin/space/bubblegum_arena)
 "SN" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_x = -32
@@ -13009,11 +13014,6 @@
 /obj/item/lighter,
 /turf/simulated/floor/wood,
 /area/centcom/control)
-"Up" = (
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/machinery/door/airlock/centcom,
-/turf/simulated/floor/wood,
-/area/ghost_bar)
 "Uq" = (
 /obj/structure/mirror/magic{
 	pixel_x = 28
@@ -64520,39 +64520,39 @@ aN
 aN
 aN
 aN
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
 aN
 aN
 aN
@@ -64777,7 +64777,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -64809,7 +64809,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -65034,7 +65034,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 LV
 LV
@@ -65066,7 +65066,7 @@ LV
 LV
 LV
 HN
-JI
+SL
 aN
 aN
 aN
@@ -65291,7 +65291,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 LV
 HN
@@ -65323,7 +65323,7 @@ HN
 HN
 LV
 HN
-JI
+SL
 aN
 aN
 aN
@@ -65548,7 +65548,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 LV
 HN
@@ -65580,7 +65580,7 @@ HN
 HN
 LV
 HN
-JI
+SL
 aN
 aN
 aN
@@ -65805,7 +65805,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 LV
 HN
@@ -65837,7 +65837,7 @@ HN
 HN
 LV
 HN
-JI
+SL
 aN
 aN
 aN
@@ -66062,7 +66062,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -66094,7 +66094,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -66319,7 +66319,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -66351,7 +66351,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -66576,7 +66576,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -66608,7 +66608,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -66833,7 +66833,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -66865,7 +66865,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -67090,7 +67090,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -67122,7 +67122,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -67347,7 +67347,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -67379,7 +67379,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -67604,7 +67604,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -67636,7 +67636,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -67861,7 +67861,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -67893,7 +67893,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -68118,7 +68118,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -68150,7 +68150,7 @@ HF
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -68375,7 +68375,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -68407,7 +68407,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -68632,7 +68632,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -68664,7 +68664,7 @@ HF
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -68889,7 +68889,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -68921,7 +68921,7 @@ HF
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -69146,7 +69146,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -69178,7 +69178,7 @@ HF
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -69403,7 +69403,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -69435,7 +69435,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -69660,7 +69660,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -69692,7 +69692,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -69917,7 +69917,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -69949,7 +69949,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -70174,7 +70174,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -70206,7 +70206,7 @@ HF
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -70431,7 +70431,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HF
 HN
@@ -70463,7 +70463,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -70688,7 +70688,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -70720,7 +70720,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -70945,7 +70945,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -70977,7 +70977,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -71202,7 +71202,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -71234,7 +71234,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -71459,7 +71459,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -71491,7 +71491,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -71716,7 +71716,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 LV
 HN
@@ -71748,7 +71748,7 @@ HN
 HN
 LV
 HN
-JI
+SL
 aN
 aN
 aN
@@ -71973,7 +71973,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 LV
 HN
@@ -72005,7 +72005,7 @@ HN
 HN
 LV
 HN
-JI
+SL
 aN
 aN
 aN
@@ -72230,7 +72230,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 LV
 HN
@@ -72262,7 +72262,7 @@ HN
 HN
 LV
 HN
-JI
+SL
 aN
 aN
 aN
@@ -72487,7 +72487,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 LV
 LV
@@ -72519,7 +72519,7 @@ LV
 LV
 LV
 HN
-JI
+SL
 aN
 aN
 aN
@@ -72744,7 +72744,7 @@ aN
 aN
 aN
 aN
-JI
+SL
 HN
 HN
 HN
@@ -72776,7 +72776,7 @@ HN
 HN
 HN
 HN
-JI
+SL
 aN
 aN
 aN
@@ -73001,39 +73001,39 @@ aN
 aN
 aN
 aN
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
-JI
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
+SL
 aN
 aN
 aN
@@ -73729,7 +73729,7 @@ Jy
 Jy
 Me
 mz
-Up
+JI
 Me
 Me
 Me
