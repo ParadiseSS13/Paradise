@@ -180,7 +180,7 @@
 					<li><a href="#Final">Final Checks</a></li>
 				</ol>
 				<br><br>
-				<h1><a name="Forward"><U><b>HOW TO NOT SUCK QUITE SO HARD AT ATMOSPHERICS</b></U></a></h1><br>
+				<h1><a name="Forward"><u><b>HOW TO NOT SUCK QUITE SO HARD AT ATMOSPHERICS</b></u></a></h1><br>
 				<i>Or: What the fuck does a "passive gate" do?</i><br><br>
 				Alright. It has come to my attention that a variety of people are unsure of what a "pipe" is and what it does.
 				Apparently there is an unnatural fear of these arcane devices and their "gases". Spooky, spooky. So,
