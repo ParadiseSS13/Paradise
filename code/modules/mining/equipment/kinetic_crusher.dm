@@ -11,7 +11,7 @@
 	item_state = "crusher0"
 	force = 0 //You can't hit stuff unless wielded
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	throwforce = 5
 	throw_speed = 4
 	armour_penetration_flat = 10
