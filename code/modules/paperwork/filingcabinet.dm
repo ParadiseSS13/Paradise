@@ -122,7 +122,7 @@
 			var/index = text2num(params["index"])
 			if(!ISINDEXSAFE(contents, index))
 				return FALSE
-			retrieve(contents[index] ui.user)
+			retrieve(contents[index], ui.user)
 
 /obj/structure/filingcabinet/proc/insert(obj/item/O, mob/user)
 	if(!is_type_in_list(O, accepted_items))
