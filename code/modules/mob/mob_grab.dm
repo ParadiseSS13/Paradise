@@ -87,24 +87,22 @@
 	if(!assailant.Adjacent(old_turf))
 		qdel(src)
 		return
-	if(assailant.Adjacent(affecting))
-		adjust_position()
-		return
-	var/possible_dest = list(old_turf)
-	for(var/turf/dest in orange(assailant, 1))
-		if(dest.Adjacent(affecting))
-			possible_dest |= dest
-	if(istype(assailant.l_hand, /obj/item/grab))
-		var/obj/item/grab/grab = assailant.l_hand
-		possible_dest -= get_turf(grab.affecting)
-	if(istype(assailant.r_hand, /obj/item/grab))
-		var/obj/item/grab/grab = assailant.r_hand
-		possible_dest -= get_turf(grab.affecting)
-	for(var/turf/dest as anything in possible_dest)
-		if(affecting.Move(dest, get_dir(affecting, dest), assailant.movement_delay() + 7))
-			break
+	if(!assailant.Adjacent(affecting))
+		var/possible_dest = list(old_turf)
+		for(var/turf/dest in orange(assailant, 1))
+			if(dest.Adjacent(affecting))
+				possible_dest |= dest
+		if(istype(assailant.l_hand, /obj/item/grab))
+			var/obj/item/grab/grab = assailant.l_hand
+			possible_dest -= get_turf(grab.affecting)
+		if(istype(assailant.r_hand, /obj/item/grab))
+			var/obj/item/grab/grab = assailant.r_hand
+			possible_dest -= get_turf(grab.affecting)
+		for(var/turf/dest as anything in possible_dest)
+			if(affecting.Move(dest, get_dir(affecting, dest), assailant.movement_delay() + 7))
+				break
 	if(state == GRAB_NECK)
-		assailant.setDir(angle2dir((dir2angle(direct) + 202.5) % 365))
+		assailant.setDir(turn(direct, 180))
 	adjust_position()
 
 /obj/item/grab/proc/grab_moved()

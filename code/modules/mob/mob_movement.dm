@@ -177,8 +177,6 @@
 
 	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
-	else
-		mob.setDir(direct)
 
 	moving = 0
 	if(mob && .)
