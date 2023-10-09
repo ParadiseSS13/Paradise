@@ -226,7 +226,7 @@
 	else
 		owner.visible_message("<span class='warning'>A [O.name] appears at [owner]'s feet!</span>", \
 							"<span class='cultitalic'>A [O.name] materializes at your feet.</span>")
-	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE, -13) // 4 tile range
+	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(4))
 	charges--
 	desc = base_desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
@@ -319,9 +319,9 @@
 		"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
 		charges--
 		if(!SSticker.mode.cult_risen || !SSticker.mode.cult_ascendant)
-			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, -13) // 4 tile range if Cult is risen/ascendant.
+			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(4)) // If Cult is risen/ascendant.
 		else
-			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, -16) // 1 tile range if Cult is unpowered.
+			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
 		owner.whisper(invocation)
 		for(var/obj/O in range(4, owner))
 			O.cult_conceal()
@@ -335,9 +335,9 @@
 		charges--
 		owner.whisper(invocation)
 		if(!SSticker.mode.cult_risen || !SSticker.mode.cult_ascendant)
-			playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE, -10) // 7 tile range if Cult is risen/ascendant.
+			playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE, SOUND_RANGE_SET(7)) // If Cult is risen/ascendant.
 		else
-			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, -16) // 1 tile range if Cult is unpowered.
+			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
 		for(var/obj/O in range(5, owner)) // Slightly higher in case we arent in the exact same spot
 			O.cult_reveal()
 		revealing = FALSE // Switch on use
@@ -628,7 +628,7 @@
 				uses--
 				to_chat(user, "<span class='warning'>A dark cloud emanates from your hand and swirls around the metal, twisting it into a construct shell!</span>")
 				new /obj/structure/constructshell(T)
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, -13) // 4 tile range
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(4))
 			else
 				to_chat(user, "<span class='warning'>You need [METAL_TO_CONSTRUCT_SHELL_CONVERSION] metal to produce a construct shell!</span>")
 				return
@@ -641,18 +641,18 @@
 				uses--
 				new /obj/item/stack/sheet/runed_metal(T, quantity)
 				to_chat(user, "<span class='warning'>A dark cloud emanates from you hand and swirls around the plasteel, transforming it into runed metal!</span>")
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, -13) // 4 tile range
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(4))
 
 		//Airlock to cult airlock
 		else if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/cult))
 			channeling = TRUE
-			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE, -10)  // 7 tile range
+			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE, SOUND_RANGE_SET(7))
 			do_sparks(5, TRUE, target)
 			if(do_after(user, 50, target = target))
 				target.narsie_act(TRUE)
 				uses--
 				user.visible_message("<span class='warning'>Black ribbons suddenly emanate from [user]'s hand and cling to the airlock - twisting and corrupting it!</span>")
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, -10)  // 7 tile range
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
 				channeling = FALSE
 			else
 				channeling = FALSE
@@ -704,7 +704,7 @@
 			if(C.current_charges < 3)
 				uses--
 				to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its shields!</span>")
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, -10)  // 7 tile range
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
 				C.current_charges = 3
 				C.shield_state = "shield-cult"
 				user.update_inv_wear_suit() // The only way a suit can be clicked on is if its on the floor, in the users bag, or on the user, so we will play it safe if it is on the user.
@@ -718,7 +718,7 @@
 			if(S.uses < 4)
 				uses--
 				to_chat(user, "<span class='warning'>You empower [target] with blood, recharging its ability to shift!</span>")
-				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, -10) // 7 tile range
+				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SOUND_RANGE_SET(7))
 				S.uses = 4
 				S.icon_state = "shifter"
 			else
@@ -786,7 +786,7 @@
 	H.adjustFireLoss((overall_damage * ratio) * (H.getFireLoss() / overall_damage), FALSE, null, TRUE)
 	H.adjustBruteLoss((overall_damage * ratio) * (H.getBruteLoss() / overall_damage), FALSE, null, TRUE)
 	H.updatehealth()
-	playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25, -10) // 7 tile range
+	playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25, SOUND_RANGE_SET(7))
 	new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 	user.Beam(H, icon_state="sendbeam", time = 15)
 
@@ -820,7 +820,7 @@
 		M.visible_message("<span class='warning'>[M] is partially healed by [user]'s blood magic!</span>",
 			"<span class='cultitalic'>You are partially healed by [user]'s blood magic.</span>")
 		uses = 0
-	playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25, -10) // 7 tile range
+	playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25, SOUND_RANGE_SET(7))
 	user.Beam(M, icon_state = "sendbeam", time = 10)
 
 /obj/item/melee/blood_magic/manipulator/proc/steal_blood(mob/living/carbon/human/user, mob/living/carbon/human/H)
@@ -839,7 +839,7 @@
 	H.blood_volume -= 100
 	uses += 50
 	user.Beam(H, icon_state = "drainbeam", time = 10)
-	playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50, -10) // 7 tile range
+	playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50, SOUND_RANGE_SET(7))
 	H.visible_message("<span class='danger'>[user] has drained some of [H]'s blood!</span>",
 					"<span class='userdanger'>[user] has drained some of your blood!</span>")
 	to_chat(user, "<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
@@ -868,7 +868,7 @@
 		if(candidate.blood)
 			uses += candidate.blood
 			to_chat(user, "<span class='warning'>You obtain [candidate.blood] blood from the orb of blood!</span>")
-			playsound(user, 'sound/misc/enter_blood.ogg', 50, -10) // 7 tile range
+			playsound(user, 'sound/misc/enter_blood.ogg', 50, SOUND_RANGE_SET(7))
 			qdel(candidate)
 			return
 	blood_draw(target, user)
@@ -892,7 +892,7 @@
 	if(temp)
 		user.Beam(T, icon_state = "drainbeam", time = 15)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(user))
-		playsound(T, 'sound/misc/enter_blood.ogg', 50., -10) // 7 tile range
+		playsound(T, 'sound/misc/enter_blood.ogg', 50., SOUND_RANGE_SET(7))
 		temp = round(temp)
 		to_chat(user, "<span class='cultitalic'>Your blood rite has gained [temp] charge\s from blood sources around you!</span>")
 		uses += max(1, temp)
