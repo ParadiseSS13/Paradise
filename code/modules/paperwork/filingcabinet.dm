@@ -109,7 +109,7 @@
 
 	return data
 
-/obj/structure/filingcabinet/ui_act(action, params, datum/tgui/ui)
+/obj/structure/filingcabinet/ui_act(action, params, datum/tgui/ui, mob/user = usr)
 	if(..())
 		return
 
