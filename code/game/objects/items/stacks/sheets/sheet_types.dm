@@ -4,10 +4,12 @@
  * Plasteel
  * Wood
  * Cloth
- * Plastic
+ * Durathread
  * Cardboard
  * Runed Metal (cult)
  * Brass (clockwork cult)
+ * Bones
+ * Plastic
  */
 
 /*
@@ -285,6 +287,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 		new /datum/stack_recipe("chemistry bag", /obj/item/storage/bag/chemistry, 4),
 		new /datum/stack_recipe("bio bag", /obj/item/storage/bag/bio, 4),
 		new /datum/stack_recipe("fish bag", /obj/item/storage/bag/fish, 4),
+		new /datum/stack_recipe("mail bag", /obj/item/storage/bag/mail, 4),
 	)),
 	null,
 	new /datum/stack_recipe("improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, 1, 2, 6),
@@ -317,6 +320,10 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
+
+/*
+ * Durathread
+ */
 
 GLOBAL_LIST_INIT(durathread_recipes, list (
 	new /datum/stack_recipe("durathread jumpsuit", /obj/item/clothing/under/misc/durathread, 4, time = 4 SECONDS),
@@ -545,6 +552,10 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
+
+/*
+ * Plastic
+ */
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS),

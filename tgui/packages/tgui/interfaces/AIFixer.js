@@ -100,7 +100,9 @@ export const AIFixer = (props, context) => {
                 <Button
                   icon="wrench"
                   disabled={!repairable || data.active}
-                  content={(!repairable || data.active) ? 'Already Repaired' : 'Repair'}
+                  content={
+                    !repairable || data.active ? 'Already Repaired' : 'Repair'
+                  }
                   onClick={() => act('fix')}
                 />
               </LabeledList.Item>

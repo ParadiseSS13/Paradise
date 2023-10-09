@@ -3,7 +3,7 @@
 /turf/simulated/wall/cult,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "b" = (
-/turf/simulated/floor/engine/cult,
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "c" = (
 /turf/template_noop,

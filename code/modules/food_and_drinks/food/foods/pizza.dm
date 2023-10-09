@@ -446,6 +446,9 @@
 		return
 	return ..()
 
+/obj/item/pizzabox/pizza_bomb/AltClick(mob/user)
+	attack_self(user)
+
 /obj/item/pizzabox/pizza_bomb/attack_self(mob/user)
 	if(disarmed)
 		to_chat(user, "<span class='notice'>[src] is disarmed.</span>")

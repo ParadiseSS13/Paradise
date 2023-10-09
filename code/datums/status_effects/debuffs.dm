@@ -848,6 +848,7 @@
 #define FAKE_FOOD_POISONING 2
 #define FAKE_RETRO_VIRUS 3
 #define FAKE_TURBERCULOSIS 4
+#define FAKE_BRAINROT 5
 
 /datum/status_effect/fake_virus
 	id = "fake_virus"
@@ -865,7 +866,7 @@
 	var/list/fake_emote
 
 /datum/status_effect/fake_virus/on_creation()
-	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS)
+	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS, FAKE_BRAINROT)
 	switch(current_fake_disease)
 		if(FAKE_COLD)
 			fake_msg = list(
@@ -900,7 +901,7 @@
 						list(),
 						list()
 			)
-		else
+		if(FAKE_TURBERCULOSIS)
 			fake_msg = list(
 						list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>"),
 						list("<span class='danger'>You feel a sharp pain from your lower chest!</span>", "<span class='danger'>You feel air escape from your lungs painfully.</span>"),
@@ -910,6 +911,17 @@
 						list("cough"),
 						list("gasp"),
 						list()
+			)
+		else // FAKE_BRAINROT
+			fake_msg = list(
+						list("<span class='danger'>You don't feel like yourself.</span>"),
+						list("<span class='danger'>Your try to remember something important...but can't.</span>"),
+						list("<span class='danger'>Strange buzzing fills your head, removing all thoughts.</span>")
+			)
+			fake_emote = list(
+						list("blink", "yawn"),
+						list("stare", "drool"),
+						list("stare", "drool")
 			)
 	. = ..()
 
@@ -946,6 +958,7 @@
 #undef FAKE_FOOD_POISONING
 #undef FAKE_RETRO_VIRUS
 #undef FAKE_TURBERCULOSIS
+#undef FAKE_BRAINROT
 
 /datum/status_effect/cryo_beam
 	id = "cryo beam"

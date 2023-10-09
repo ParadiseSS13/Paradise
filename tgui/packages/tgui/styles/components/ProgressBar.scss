@@ -25,7 +25,9 @@ $bg-map: colors.$bg-map !default;
 }
 
 .ProgressBar__fill--animated {
-  transition: background-color 500ms, width 500ms;
+  transition:
+    background-color 500ms,
+    width 500ms;
 }
 
 .ProgressBar__content {

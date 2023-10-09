@@ -16,6 +16,7 @@ export const Button = (props) => {
     fluid,
     icon,
     color,
+    textColor,
     disabled,
     selected,
     tooltip,
@@ -62,6 +63,7 @@ export const Button = (props) => {
       ])}
       tabIndex={!disabled && '0'}
       unselectable={IS_IE8}
+      color={textColor}
       onclick={(e) => {
         refocusLayout();
         if (!disabled && onClick) {
@@ -187,6 +189,10 @@ export class ButtonInput extends Component {
   }
 
   setInInput(inInput) {
+    const { disabled } = this.props;
+    if (disabled) {
+      return;
+    }
     this.setState({
       inInput,
     });
@@ -228,6 +234,7 @@ export class ButtonInput extends Component {
       tooltip,
       tooltipPosition,
       color = 'default',
+      disabled,
       placeholder,
       maxLength,
       multiLine,
@@ -239,8 +246,9 @@ export class ButtonInput extends Component {
         className={classes([
           'Button',
           fluid && 'Button--fluid',
+          disabled && 'Button--disabled',
           'Button--color--' + color,
-          multiLine + 'Button--multiLine'
+          multiLine + 'Button--multiLine',
         ])}
         {...rest}
         onClick={() => this.setInInput(true)}

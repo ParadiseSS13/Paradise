@@ -22,7 +22,6 @@ GLOBAL_VAR(bomb_set)
 	anchored = TRUE
 	power_state = NO_POWER_USE
 	requires_power = FALSE
-	pull_speed = 0
 
 	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE

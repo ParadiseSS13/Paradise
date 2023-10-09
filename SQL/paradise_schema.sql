@@ -117,6 +117,7 @@ CREATE TABLE `death` (
   `coord` text NOT NULL COMMENT 'X, Y, Z POD',
   `tod` datetime NOT NULL COMMENT 'Time of death',
   `death_rid` INT NULL,
+  `last_words` text NULL DEFAULT NULL,
   `server_id` TEXT NULL DEFAULT NULL,
   `job` text NOT NULL,
   `special` text NOT NULL,
@@ -473,7 +474,17 @@ CREATE TABLE `playtime_history` (
   `ckey` varchar(32) NOT NULL,
   `date` DATE NOT NULL,
   `time_living` SMALLINT NOT NULL,
+  `time_crew` SMALLINT NOT NULL,
+  `time_special` SMALLINT NOT NULL,
   `time_ghost` SMALLINT NOT NULL,
+  `time_command` SMALLINT NOT NULL,
+  `time_engineering` SMALLINT NOT NULL,
+  `time_medical` SMALLINT NOT NULL,
+  `time_science` SMALLINT NOT NULL,
+  `time_supply` SMALLINT NOT NULL,
+  `time_security` SMALLINT NOT NULL,
+  `time_silicon` SMALLINT NOT NULL,
+  `time_service` SMALLINT NOT NULL,
   PRIMARY KEY (`ckey`, `date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
