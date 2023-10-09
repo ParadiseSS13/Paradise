@@ -344,6 +344,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/sign/poster/official/here_for_your_safety{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 8
@@ -409,7 +412,7 @@
 	},
 /area/ruin/space/unpowered)
 "aU" = (
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "aV" = (
 /obj/effect/decal/remains/human,
@@ -607,7 +610,7 @@
 /area/ruin/space/unpowered)
 "bx" = (
 /obj/machinery/door/airlock/external/glass,
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "bz" = (
 /obj/structure/girder,
@@ -834,10 +837,8 @@
 	},
 /area/ruin/space/unpowered)
 "cg" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/turf/simulated/wall/indestructible/rock,
+/obj/structure/grille,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ch" = (
 /obj/structure/chair/office{
@@ -1097,9 +1098,9 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/unpowered)
 "cS" = (
-/obj/structure/ore_box,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/mineral/titanium/airless,
+/obj/structure/largecrate,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "cT" = (
 /obj/structure/chair/sofa/bench/left,
@@ -1169,6 +1170,7 @@
 	dir = 1
 	},
 /obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/catwalk,
 /area/ruin/space/unpowered)
 "dg" = (
@@ -1180,7 +1182,7 @@
 "dh" = (
 /obj/machinery/computer,
 /obj/effect/decal/cleanable/cobweb,
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "di" = (
 /obj/machinery/door/airlock/centcom,
@@ -1190,11 +1192,17 @@
 /area/ruin/space/unpowered)
 "dj" = (
 /obj/structure/closet/crate,
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "dk" = (
 /obj/structure/window/reinforced,
 /turf/simulated/floor/catwalk,
+/area/ruin/space/unpowered)
+"dm" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/railing/corner,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/unpowered)
 "dn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1401,10 +1409,10 @@
 	},
 /area/ruin/space/unpowered)
 "dS" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 4
+/obj/effect/decal/cleanable/generic,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
 	},
-/turf/simulated/wall/indestructible/rock,
 /area/ruin/space/unpowered)
 "dT" = (
 /obj/machinery/light/small,
@@ -1485,6 +1493,14 @@
 /area/ruin/space/unpowered)
 "ej" = (
 /turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
+"ek" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/unpowered)
 "el" = (
 /obj/machinery/door/airlock,
@@ -1974,6 +1990,9 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel/stairs{
 	dir = 1
 	},
@@ -2076,7 +2095,7 @@
 /area/ruin/space/unpowered)
 "go" = (
 /obj/structure/railing,
-/obj/structure/ore_box,
+/obj/structure/largecrate,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution";
 	dir = 6
@@ -2245,7 +2264,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/turf/simulated/floor/mineral/titanium/airless,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "gP" = (
 /obj/item/kirbyplants,
@@ -2741,7 +2760,7 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/space/unpowered)
 "id" = (
-/obj/structure/ore_box,
+/obj/structure/largecrate,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "ie" = (
@@ -2805,6 +2824,13 @@
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/airless{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/space/unpowered)
+"in" = (
+/obj/structure/largecrate,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
 /area/ruin/space/unpowered)
@@ -2913,10 +2939,14 @@
 /turf/simulated/floor/grass,
 /area/ruin/space/unpowered)
 "iA" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 5
+/obj/effect/decal/cleanable/blood/splatter{
+	color = "red"
 	},
-/turf/simulated/wall/indestructible/rock,
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria"
+	},
 /area/ruin/space/unpowered)
 "iB" = (
 /obj/structure/table/holotable,
@@ -3240,6 +3270,13 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
+"jx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille/broken,
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
 "jy" = (
 /obj/effect/turf_decal/caution/stand_clear/white{
 	dir = 8
@@ -3363,7 +3400,7 @@
 /obj/machinery/door/poddoor/shutters{
 	dir = 2
 	},
-/turf/simulated/floor/plasteel/stairs,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "jR" = (
 /turf/simulated/floor/plasteel{
@@ -3756,6 +3793,14 @@
 	icon_state = "black"
 	},
 /area/ruin/space/unpowered)
+"lm" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/space/unpowered)
 "lo" = (
 /obj/structure/barricade/wooden{
 	layer = 4
@@ -3773,6 +3818,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
+	},
+/area/ruin/space/unpowered)
+"lv" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
 	},
 /area/ruin/space/unpowered)
 "lz" = (
@@ -4196,6 +4247,16 @@
 /mob/living/simple_animal/hostile/alien/sentinel,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"mW" = (
+/obj/effect/decal/cleanable/cobweb,
+/obj/machinery/computer/security{
+	desc = "Used to access the various cameras on the outpost.";
+	network = list("MO19")
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/space/unpowered)
 "mX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -4285,11 +4346,11 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "awaymlock"
 	},
-/obj/effect/spawner/window/reinforced/tinted,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/effect/spawner/window/reinforced/tinted/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "nm" = (
@@ -4730,7 +4791,7 @@
 	},
 /area/ruin/space/unpowered)
 "pm" = (
-/obj/structure/ore_box,
+/obj/structure/largecrate,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -4772,6 +4833,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/catwalk,
+/area/ruin/space/unpowered)
+"pt" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/rack,
+/obj/item/flashlight/flare/glowstick,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "pu" = (
 /obj/effect/decal/cleanable/greenglow,
@@ -5371,6 +5440,10 @@
 	dir = 8
 	},
 /area/ruin/space/unpowered)
+"rP" = (
+/obj/structure/flora/ash/rock/style_random,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/unpowered)
 "rQ" = (
 /obj/structure/railing/cap,
 /obj/effect/decal/cleanable/blood/splatter{
@@ -5461,6 +5534,14 @@
 	color = "red"
 	},
 /turf/simulated/floor/carpet,
+/area/ruin/space/unpowered)
+"se" = (
+/obj/effect/turf_decal/stripes/asteroid/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/ruin/space/unpowered)
 "sg" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -5749,6 +5830,10 @@
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"tv" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/unpowered)
 "tw" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -5876,6 +5961,11 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/space/unpowered)
+"uj" = (
+/obj/effect/decal/remains/human,
+/obj/item/reagent_containers/hypospray/autoinjector/survival,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/space/unpowered)
 "up" = (
 /obj/structure/chair/sofa/bench{
 	dir = 8
@@ -5963,6 +6053,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
+"uS" = (
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
 "uT" = (
 /obj/structure/railing/cap{
 	dir = 10
@@ -5983,6 +6077,11 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
+/area/ruin/space/unpowered)
+"uX" = (
+/obj/structure/table/glass/reinforced/titanium,
+/obj/item/paper_bin,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "va" = (
 /obj/machinery/economy/vending/cola,
@@ -6203,6 +6302,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/largecrate,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -6271,6 +6371,10 @@
 /turf/simulated/floor/plasteel/stairs{
 	dir = 4
 	},
+/area/ruin/space/unpowered)
+"wk" = (
+/obj/machinery/computer,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/unpowered)
 "wl" = (
 /obj/item/stack/ore/slag,
@@ -6955,6 +7059,9 @@
 	dir = 1;
 	network = list("MO19")
 	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -7130,6 +7237,12 @@
 	dir = 1
 	},
 /area/ruin/space/unpowered)
+"zW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
 "zZ" = (
 /obj/structure/filingcabinet,
 /obj/structure/sign/mech{
@@ -7156,6 +7269,9 @@
 /obj/machinery/door/airlock/command/glass{
 	req_access_txt = "271";
 	name = "Senior Researcher's Office"
+	},
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "mo19rdoffice"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -7535,7 +7651,8 @@
 "BE" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
-	dir = 4
+	dir = 4;
+	req_access_txt = "271"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "awayscilock2"
@@ -7555,6 +7672,10 @@
 	icon_state = "yellowsiding";
 	dir = 1
 	},
+/area/ruin/space/unpowered)
+"BG" = (
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "BI" = (
 /obj/machinery/door/poddoor/impassable{
@@ -7682,11 +7803,11 @@
 	},
 /area/ruin/space/unpowered)
 "Ct" = (
-/obj/machinery/door/poddoor/preopen{
-	id = "awayscilock1"
-	},
 /obj/machinery/door/airlock/highsecurity{
 	req_access_txt = "271"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "awayscilock1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -7753,6 +7874,12 @@
 	dir = 1;
 	icon_state = "caution"
 	},
+/area/ruin/space/unpowered)
+"CH" = (
+/obj/structure/rack,
+/obj/effect/decal/cleanable/cobweb2,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/unpowered)
 "CI" = (
 /turf/simulated/floor/plating/asteroid/airless{
@@ -7857,6 +7984,16 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/plating/asteroid/airless{
 	icon_state = "asteroid1"
+	},
+/area/ruin/space/unpowered)
+"De" = (
+/obj/structure/closet/crate,
+/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/glass/beaker/waterbottle,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/obj/item/reagent_containers/food/snacks/syndicake,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
 	},
 /area/ruin/space/unpowered)
 "Df" = (
@@ -8291,6 +8428,12 @@
 	dir = 1
 	},
 /area/ruin/space/unpowered)
+"Fb" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/unpowered)
 "Fd" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -8395,6 +8538,11 @@
 	},
 /turf/simulated/wall/r_wall,
 /area/ruin/space/unpowered)
+"FB" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
 "FC" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -8484,6 +8632,12 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
+	},
+/area/ruin/space/unpowered)
+"FY" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
 	},
 /area/ruin/space/unpowered)
 "FZ" = (
@@ -8919,6 +9073,13 @@
 	dir = 9
 	},
 /area/ruin/space/unpowered)
+"HW" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/largecrate,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/space/unpowered)
 "HY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -8932,7 +9093,11 @@
 	},
 /area/ruin/space/unpowered)
 "Ic" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/table/holotable,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "Ie" = (
@@ -8954,6 +9119,9 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/bench/right,
+/obj/structure/sign/poster/official/help_others{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -9130,9 +9298,6 @@
 "IZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/poddoor/preopen{
-	id = "awayscilock1"
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -9142,6 +9307,9 @@
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "awayscilock1"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
@@ -9246,6 +9414,11 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/ruin/space/unpowered)
+"JG" = (
+/obj/structure/flora/ash/rock/style_random,
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/unpowered)
 "JI" = (
 /obj/structure/railing/cap{
 	dir = 10
@@ -9307,6 +9480,9 @@
 /area/ruin/space/unpowered)
 "JR" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "JS" = (
@@ -9728,6 +9904,12 @@
 	dir = 1
 	},
 /area/ruin/space/unpowered)
+"LC" = (
+/obj/structure/largecrate,
+/turf/simulated/floor/plating/asteroid/airless{
+	icon_state = "asteroid3"
+	},
+/area/ruin/space/unpowered)
 "LD" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -9814,9 +9996,6 @@
 	},
 /area/ruin/space/unpowered)
 "Mg" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -9843,6 +10022,16 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "caution"
+	},
+/area/ruin/space/unpowered)
+"Mp" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/grille/broken,
+/turf/simulated/floor/plasteel/stairs{
+	dir = 1
 	},
 /area/ruin/space/unpowered)
 "Mq" = (
@@ -10029,6 +10218,10 @@
 	dir = 5
 	},
 /area/ruin/space/unpowered)
+"Ni" = (
+/obj/structure/falsewall/rock_ancient,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/unpowered)
 "Nm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -10057,6 +10250,18 @@
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "escape"
+	},
+/area/ruin/space/unpowered)
+"Np" = (
+/obj/structure/chair/sofa/bench{
+	dir = 4
+	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "caution";
+	dir = 8
 	},
 /area/ruin/space/unpowered)
 "Nu" = (
@@ -10159,6 +10364,13 @@
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
+/area/ruin/space/unpowered)
+"NU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/oil{
+	color = "black"
+	},
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "Oa" = (
 /obj/structure/chair/sofa/bench{
@@ -10274,6 +10486,12 @@
 /area/ruin/space/unpowered)
 "Oo" = (
 /obj/item/kirbyplants,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 1
@@ -10646,12 +10864,12 @@
 /obj/effect/decal/cleanable/glass,
 /obj/item/stack/rods,
 /obj/effect/landmark/damageturf,
-/obj/machinery/door/poddoor/preopen{
-	id = "awayscilock1"
-	},
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "awayscilock1"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
@@ -11273,6 +11491,14 @@
 /obj/structure/alien/resin/wall,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
+"SO" = (
+/obj/effect/turf_decal/stripes/asteroid/line,
+/obj/structure/railing,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
+/area/ruin/space/unpowered)
 "SQ" = (
 /obj/structure/closet/secure_closet,
 /obj/machinery/camera{
@@ -11365,6 +11591,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "mo19rdoffice"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
 	dir = 8
@@ -11770,6 +11999,9 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/sign/security{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitecorner";
 	dir = 8
@@ -11974,6 +12206,16 @@
 	color = "green"
 	},
 /turf/simulated/floor/plasteel,
+/area/ruin/space/unpowered)
+"We" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	req_access_txt = "271"
+	},
+/obj/machinery/door/poddoor/impassable{
+	id_tag = "awayscilock"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "Wi" = (
 /obj/effect/decal/cleanable/blood/splatter{
@@ -12666,7 +12908,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/landmark/damageturf,
 /obj/machinery/door/poddoor/preopen{
-	id = "awayscilock1"
+	id_tag = "awayscilock1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull";
@@ -12723,6 +12965,26 @@
 	},
 /obj/item/storage/secure/briefcase,
 /turf/simulated/floor/carpet/royalblue,
+/area/ruin/space/unpowered)
+"Zt" = (
+/obj/structure/table/holotable,
+/obj/item/radio/off{
+	pixel_x = -8
+	},
+/obj/item/reagent_containers/glass/beaker/waterbottle{
+	pixel_y = 9;
+	pixel_x = 9
+	},
+/obj/item/paper_bin{
+	pixel_x = -6;
+	pixel_y = 7
+	},
+/obj/item/paper/fluff/ruins/moonoutpost19/truth{
+	pixel_y = -6;
+	pixel_x = 9
+	},
+/obj/item/coin/antagtoken/syndicate,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/unpowered)
 "Zu" = (
 /obj/machinery/computer,
@@ -14046,7 +14308,7 @@ eA
 gJ
 ab
 Gd
-cg
+tX
 tX
 ej
 fw
@@ -14468,9 +14730,9 @@ hR
 fq
 Ru
 cR
-iA
-dS
-dS
+tX
+tX
+tX
 fa
 VG
 fM
@@ -14617,7 +14879,7 @@ tX
 tX
 Yq
 Yq
-Yq
+Mx
 Yq
 fa
 fa
@@ -14675,13 +14937,13 @@ Pw
 tX
 tX
 tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
+SO
+pt
+Ie
+Yn
+cg
+bR
+zW
 Yq
 BF
 aI
@@ -14734,14 +14996,14 @@ Pw
 Pw
 tX
 tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
+db
+ek
+Mp
+Yn
+PR
+uS
+Yn
+jx
 fa
 xg
 fa
@@ -14794,8 +15056,8 @@ Pw
 Pw
 Pw
 tX
-tX
-tX
+jb
+se
 fa
 fa
 Yq
@@ -14854,8 +15116,8 @@ Pw
 Pw
 Pw
 tX
-tX
-tX
+jb
+eC
 Yq
 Od
 pB
@@ -14914,8 +15176,8 @@ Pw
 Pw
 Pw
 tX
-tX
-tX
+CH
+jb
 fa
 vL
 Pr
@@ -14975,7 +15237,7 @@ Pw
 tX
 tX
 tX
-tX
+kp
 fa
 kO
 QF
@@ -15035,7 +15297,7 @@ Pw
 tX
 tX
 tX
-tX
+db
 fa
 On
 TD
@@ -15095,7 +15357,7 @@ Pw
 tX
 tX
 tX
-tX
+jb
 fa
 Eo
 KR
@@ -15154,8 +15416,8 @@ Pw
 Pw
 tX
 tX
-tX
-tX
+eC
+jb
 Yq
 zw
 XE
@@ -15185,7 +15447,7 @@ fa
 fa
 gP
 be
-hA
+Np
 gc
 io
 sk
@@ -15214,8 +15476,8 @@ Pw
 Pw
 tX
 tX
-tX
-tX
+wt
+pK
 Yq
 Le
 JL
@@ -15274,7 +15536,7 @@ Pw
 Pw
 tX
 tX
-tX
+db
 fa
 fa
 Yq
@@ -15334,7 +15596,7 @@ Pw
 Pw
 tX
 tX
-tX
+jb
 fa
 fq
 Qc
@@ -15393,8 +15655,8 @@ tX
 Pw
 Pw
 tX
-tX
-tX
+FY
+wt
 Yq
 Nd
 cH
@@ -15439,7 +15701,7 @@ RF
 kd
 kj
 Tp
-Ic
+pG
 hz
 es
 jk
@@ -15453,8 +15715,8 @@ tX
 Pw
 tX
 tX
-tX
-tX
+rP
+kp
 Yq
 qq
 cH
@@ -15499,7 +15761,7 @@ CZ
 am
 bN
 Tp
-Ic
+pG
 eg
 cc
 gg
@@ -15513,8 +15775,8 @@ tX
 Pw
 tX
 tX
-tX
-tX
+jb
+db
 Yq
 IS
 gL
@@ -15559,7 +15821,7 @@ RF
 ke
 eZ
 IX
-Ic
+pG
 es
 gT
 eJ
@@ -15573,8 +15835,8 @@ tX
 Pw
 tX
 tX
-tX
-tX
+HW
+jb
 fa
 fa
 ov
@@ -15633,8 +15895,8 @@ tX
 Pw
 tX
 tX
-tX
-tX
+Gg
+jb
 fa
 fx
 Bd
@@ -15693,8 +15955,8 @@ tX
 Pw
 tX
 tX
-tX
-tX
+Gg
+eC
 Yq
 mS
 cH
@@ -15753,8 +16015,8 @@ tX
 Pw
 tX
 tX
-tX
-tX
+Gg
+kp
 Yq
 mm
 aQ
@@ -15813,8 +16075,8 @@ tX
 Pw
 Pw
 tX
-tX
-tX
+Gg
+wt
 fa
 xZ
 rK
@@ -15873,8 +16135,8 @@ tX
 Pw
 Pw
 tX
-tX
-tX
+Gg
+kp
 fa
 fa
 Yq
@@ -15933,17 +16195,17 @@ tX
 Pw
 Pw
 tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-fa
+Gg
+jb
+jb
+dm
+cq
+Yn
+cg
+Yn
+bR
+Yn
+We
 Mg
 Hj
 xl
@@ -15993,16 +16255,16 @@ tX
 Pw
 Pw
 tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
+Gg
+JG
+eC
+lm
+Ic
+NU
+de
+FB
+Yn
+BG
 fa
 QB
 DA
@@ -16053,15 +16315,15 @@ tX
 Pw
 Pw
 tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
-tX
+Gg
+Gg
+tv
+lm
+Ic
+bR
+Yn
+NU
+oR
 AP
 AP
 dG
@@ -16114,9 +16376,9 @@ Pw
 Pw
 tX
 tX
-tX
-tX
-tX
+Gg
+Ni
+Gg
 AP
 sF
 AP
@@ -16174,8 +16436,8 @@ Pw
 tX
 tX
 tX
-tX
-tX
+Zt
+wt
 tX
 AP
 Ej
@@ -16233,9 +16495,9 @@ Pw
 Pw
 tX
 tX
-tX
-tX
-tX
+mW
+Fb
+jb
 tX
 AP
 cH
@@ -16293,9 +16555,9 @@ Pw
 Pw
 tX
 tX
-tX
-tX
-tX
+wk
+dS
+rP
 tX
 AP
 WU
@@ -16353,9 +16615,9 @@ Pw
 Pw
 tX
 tX
-tX
-tX
-tX
+lv
+De
+db
 tX
 AP
 Gq
@@ -16375,7 +16637,7 @@ at
 AP
 fw
 fv
-eA
+LC
 tX
 tX
 tX
@@ -16414,7 +16676,7 @@ Pw
 tX
 tX
 tX
-tX
+in
 tX
 tX
 AP
@@ -16433,7 +16695,7 @@ LL
 Yy
 at
 AP
-ej
+uj
 fV
 tX
 tX
@@ -16579,7 +16841,7 @@ hN
 aE
 rJ
 bl
-ee
+uX
 aO
 fa
 ge
@@ -16607,7 +16869,7 @@ zu
 ns
 Zf
 mw
-BZ
+iA
 Au
 cH
 Ay

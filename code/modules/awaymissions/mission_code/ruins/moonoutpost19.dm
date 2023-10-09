@@ -31,3 +31,7 @@
 /obj/item/paper/fluff/ruins/moonoutpost19/log2
 	name = "Chamber #2 Log"
 	info = "<hr><b>Data Log #74<br><br> Subject: Bizzare Bread<br><br> Details:</b><br><br> So, a few weeks ago our custodian Bob noticed loaf of breads appearing around the outpost. At first we didn't believe him of course, there is no reasonable way to put this situation in this colorful existence... Until i get the honor to actually witnessing it. Someone or something was teleporting bread directly to this location.<br><br> Despite my best efforts to isolate outpost from this specific bluespace frequency the results have met with failure. This was silly and i couldn't be arsed so i told Bob to do his damn job. A few days later something extraordinary happened, the object has shown the sign of a sort of decay process which resembling more of a mutation. An object was experiencing mutation as if it was a living organism!<br><br> Investigations are still in progress, we'll be keeping all specimens locked in this chamber."
+
+/obj/item/paper/fluff/ruins/moonoutpost19/truth
+	name = "unsent note"
+	info = "As you have ordered, i managed to insert the device in one of the containtment shield generators and cut one or two wires feeding the emergency systems. Remote signal is clear and in range, waiting for next step... <br><br>This will cost many lives but whatever make you guys satisfied and lessens my debt."
