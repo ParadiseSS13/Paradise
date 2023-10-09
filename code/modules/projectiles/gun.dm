@@ -428,14 +428,14 @@
 		skins[I] = gun_image
 	var/choice = show_radial_menu(M, src, skins, null, 40, CALLBACK(src, PROC_REF(radial_check), M), TRUE)
 
-	if(choice && radial_check(M) && !current_skin)
+	if(choice && reskin_radial_check(M) && !current_skin)
 		current_skin = options[choice]
 		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
 		update_icon()
 		M.update_inv_r_hand()
 		M.update_inv_l_hand()
 
-/obj/item/gun/proc/radial_check(mob/user)
+/obj/item/gun/proc/reskin_radial_check(mob/user)
 	if(!ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
