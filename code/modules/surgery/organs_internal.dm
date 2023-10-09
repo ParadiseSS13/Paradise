@@ -397,6 +397,10 @@
 		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
 		return SURGERY_BEGINSTEP_SKIP
 
+	if(I.requires_machine_person && !ismachineperson(target))
+		to_chat(user, "<span class='warning'>[I] is an organ that requires an IPC interface! [target]'s [parse_zone(target_zone)] does not have one.</span>")
+		return SURGERY_BEGINSTEP_SKIP
+
 	if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
 		to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
 		return SURGERY_BEGINSTEP_SKIP
@@ -430,6 +434,9 @@
 		return SURGERY_STEP_INCOMPLETE
 	if(I.requires_robotic_bodypart)
 		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+		return SURGERY_STEP_INCOMPLETE
+	if(I.requires_machine_person && !ismachineperson(target))
+		to_chat(user, "<span class='warning'>[I] is an organ that requires an IPC interface!")
 		return SURGERY_STEP_INCOMPLETE
 	if(!user.drop_item())
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")

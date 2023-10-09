@@ -457,23 +457,29 @@
 	if(H.stat == CONSCIOUS)
 		to_chat(H, "<span class='notice'>You feel your heart beating again!</span>")
 
-
 /obj/item/organ/internal/cyberimp/chest/ipc_joints
-	name = "IPC ER-ER Joint Implant"
+	name = "IPC ER-OR Joint Implant"
 	desc = "This is a basetype. Notify a coder!"
 	implant_color = "#eeff00"
 	origin_tech = "materials=5;programming=4;biotech=4"
-	slot = "heartdrive"
+	slot = "joints"
+	requires_machine_person = TRUE
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints
-	name = "Monsoon Magnetic Joint Implant"
-	desc = "This implant modifies IPC joints to use magnets, allowing easy re-attachment and smooth movement."
+	name = "Magnetic Joints Implant"
+	desc = "This implant modifies IPC joints to use magnets, allowing easy re-attachment and fluid movement."
 	implant_color = "#670db1"
-	origin_tech = "materials=5;programming=4;biotech=4"//adjust
+	origin_tech = "materials=4;programming=4;biotech=4;magnets=4;engineering=4"
 
-/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/emp_act()
-	. = ..()
-	message_admins("drop a limb here because magnets failing")
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		to_chat(H, "<span class='warning'>Your magnetic joints lose power!</span>")
+		for(var/obj/item/organ/external/E in H.bodyparts)
+			if(E.body_part != UPPER_TORSO && E.body_part != LOWER_TORSO)
+				E.droplimb(1) //lego disasemble sound
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/insert(mob/living/carbon/M, special = FALSE)
 	ADD_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
@@ -484,23 +490,28 @@
 	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed
-	name = "Sundown Sealed Joint Implant"
-	desc = "This implant seals and reinforces IPC joints, securing the limbs better, though prone to locking up."
+	name = "Sealed Joints Implant"
+	desc = "This implant seals and reinforces IPC joints, securing the limbs better for industrial work, though prone to locking up."
 	implant_color = "#b10d0d"
-	origin_tech = "materials=5;programming=4;biotech=4"//adjust
+	origin_tech = "materials=4;programming=4;biotech=4;engineering=4;combat=4;"
 
-/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/emp_act()
-	. = ..()
-	message_admins("hardstun em.")
+/obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/emp_act(severity)
+	if(!owner || emp_proof)
+		return
+	var/weaken_time = (10 + (severity - 1 ? 0 : 10)) STATUS_EFFECT_CONSTANT
+	owner.Weaken(weaken_time) //Pop it and lock it
+	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
+	return weaken_time
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/insert(mob/living/carbon/M, special = FALSE)
 	ADD_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	owner.physiology.stamina_mod *= 1.15 //15% more stamina damage, representing extra friction in limbs. I guess.
 	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_IPC_JOINTS_SEALED, "ipc_joint[UID()]")
+	owner.physiology.stamina_mod /= 1.15
 	return ..()
-
 
 //BOX O' IMPLANTS
 
