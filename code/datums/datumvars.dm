@@ -14,7 +14,7 @@
 
 /mob/can_vv_get(var_name)
 	var/static/list/protected_vars = list(
-		"lastKnownIP", "computer_id"
+		"lastKnownIP", "computer_id", "attack_log_old"
 	)
 	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
 		return FALSE
