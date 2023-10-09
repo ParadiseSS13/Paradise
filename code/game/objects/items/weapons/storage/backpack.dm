@@ -11,7 +11,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK	//ERROOOOO
+	slot_flags = SLOT_FLAG_BACK	//ERROOOOO
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
@@ -61,6 +61,7 @@
 	cant_hold = list(/obj/item/storage/backpack, /obj/item/storage/belt/bluespace)
 	cant_hold_override = list(/obj/item/storage/backpack/satchel_flat)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
+	allow_same_size = TRUE
 
 /obj/item/storage/backpack/holding/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/backpack/holding))
@@ -660,6 +661,7 @@
 			if(prob(50))
 				new /obj/item/sord(src)
 				value -= 1 //Useless joke, might as well give them a value point back.
+			else
 				new /obj/item/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
 	//Wands
 	var/wands = 0

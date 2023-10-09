@@ -42,6 +42,11 @@
 	nitrogen = 82
 	temperature = 180
 
+/turf/simulated/floor/wood/lavaland_air
+	nitrogen = 23
+	oxygen = 14
+	temperature = 300
+
 /turf/simulated/floor/grass
 	name = "grass patch"
 	icon = 'icons/turf/floors/grass.dmi'
@@ -63,10 +68,9 @@
 	if(..())
 		return
 	if(istype(C, /obj/item/shovel))
-		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		make_plating()
+		remove_tile()
 
 /turf/simulated/floor/grass/jungle
 	name = "jungle grass"

@@ -1,50 +1,46 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Section,
-  NumberInput,
-} from '../components';
+import { Box, Section, NumberInput } from '../components';
 import { Window } from '../layouts';
 
 export const ColourMatrixTester = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    colour_data,
-  } = data;
+  const { colour_data } = data;
 
   const matrix_entries = [
     [
-      { name: "RR", idx: 0 },
-      { name: "RG", idx: 1 },
-      { name: "RB", idx: 2 },
-      { name: "RA", idx: 3 },
+      { name: 'RR', idx: 0 },
+      { name: 'RG', idx: 1 },
+      { name: 'RB', idx: 2 },
+      { name: 'RA', idx: 3 },
     ],
     [
-      { name: "GR", idx: 4 },
-      { name: "GG", idx: 5 },
-      { name: "GB", idx: 6 },
-      { name: "GA", idx: 7 },
-   ],[
-      { name: "BR", idx: 8 },
-      { name: "BG", idx: 9 },
-      { name: "BB", idx: 10 },
-      { name: "BA", idx: 11 },
-    ],[
-      { name: "AR", idx: 12 },
-      { name: "AG", idx: 13 },
-      { name: "AB", idx: 14 },
-      { name: "AA", idx: 15 },
+      { name: 'GR', idx: 4 },
+      { name: 'GG', idx: 5 },
+      { name: 'GB', idx: 6 },
+      { name: 'GA', idx: 7 },
     ],
-   ]
+    [
+      { name: 'BR', idx: 8 },
+      { name: 'BG', idx: 9 },
+      { name: 'BB', idx: 10 },
+      { name: 'BA', idx: 11 },
+    ],
+    [
+      { name: 'AR', idx: 12 },
+      { name: 'AG', idx: 13 },
+      { name: 'AB', idx: 14 },
+      { name: 'AA', idx: 15 },
+    ],
+  ];
 
   return (
     <Window>
       <Window.Content>
         <Section title="Modify Matrix">
-          {matrix_entries.map(k => (
+          {matrix_entries.map((k) => (
             <Box key={k} textAlign="center">
-              {k.map(k2 => (
+              {k.map((k2) => (
                 <Fragment key={k2.name}>
                   {k2.name}&nbsp;
                   <NumberInput

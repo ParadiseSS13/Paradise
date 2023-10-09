@@ -103,12 +103,18 @@
 	item_color = "rainbow"
 	dog_fashion = /datum/dog_fashion/head/softcap
 
-/obj/item/clothing/head/soft/expedition
-	name = "expedition cap"
-	desc = "It's a baseball hat in the grey and blue markings of the expedition team."
-	icon_state = "explorersoft"
-	item_color = "explorer"
-	dog_fashion = null
+/obj/item/clothing/head/soft/deliverysoft
+	name = "delivery boy cap"
+	desc = "It's a baseball hat that is part of the delivery boy uniform."
+	icon_state = "deliverysoft"
+	item_color = "delivery"
+	dog_fashion = /datum/dog_fashion/head/softcap
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		)
 
 /obj/item/clothing/head/soft/sec
 	name = "security cap"

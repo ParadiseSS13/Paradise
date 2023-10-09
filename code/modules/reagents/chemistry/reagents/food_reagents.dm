@@ -111,7 +111,7 @@
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
-	M.emote("collapse")
+	M.emote("faint")
 	..()
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
