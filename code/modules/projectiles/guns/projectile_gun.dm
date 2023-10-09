@@ -83,9 +83,9 @@
 	magazine = AM
 	magazine.forceMove(src)
 	if(w_class >= WEIGHT_CLASS_NORMAL && !suppressed)
-		playsound(src, magin_sound, 50, 1)
+		playsound(src, magin_sound, 50, TRUE)
 	else
-		playsound(src, magin_sound, 50, 1, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+		playsound(src, magin_sound, 50, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	chamber_round()
 	AM.update_icon()
 	update_icon()
