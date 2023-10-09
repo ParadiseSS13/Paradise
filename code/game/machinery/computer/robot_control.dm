@@ -143,7 +143,7 @@
 	data["can_hack"] = can_hack_any(user)
 	data["cyborgs"] = list()
 	data["safety"] = safety
-	data["detonate_cooldown"] = (round((detonate_cooldown - world.time) / 10))
+	data["detonate_cooldown"] = round((detonate_cooldown - world.time) / 10)
 	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		if(!console_shows(R))
 			continue
