@@ -13,12 +13,11 @@
 
 	waves = severity * 2 + rand(0, severity) //4-6 waves on medium. 6-9 waves on major. More consistant.
 
-/datum/event/meteor_wave/announce()
-	switch(severity)
-		if(EVENT_LEVEL_MAJOR)
-			GLOB.minor_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
-		else
-			GLOB.minor_announcement.Announce("The station is now in a meteor shower.", "Meteor Alert")
+/datum/event/meteor_wave/announce(false_alarm)
+	if(severity == EVENT_LEVEL_MAJOR || (false_alarm && prob(30)))
+		GLOB.minor_announcement.Announce("Meteors have been detected on collision course with the station.", "Meteor Alert", new_sound = 'sound/AI/meteors.ogg')
+	else
+		GLOB.minor_announcement.Announce("The station is now in a meteor shower.", "Meteor Alert")
 
 //meteor showers are lighter and more common,
 /datum/event/meteor_wave/tick()

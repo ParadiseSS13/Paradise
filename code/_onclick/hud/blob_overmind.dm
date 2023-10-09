@@ -11,6 +11,7 @@
 
 /obj/screen/blob/MouseExited()
 	closeToolTip(usr)
+	return ..()
 
 /obj/screen/blob/BlobHelp
 	icon_state = "ui_help"

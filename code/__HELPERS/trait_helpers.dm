@@ -127,11 +127,15 @@
 		: FALSE)
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (length(target.status_traits[trait] - source) > 0) : FALSE) : FALSE)
 
+/// Gives a unique trait source for any given datum
+#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
+
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
 //***** MOB TRAITS *****//
+#define TRAIT_RESPAWNABLE		"can_respawn_as_ghost_roles"
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
@@ -181,6 +185,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
 #define TRAIT_BURN_WOUND_IMMUNE "burn_immune"
+#define TRAIT_IB_IMMUNE			"ib_immune"
 
 #define TRAIT_COMIC_SANS		"comic_sans"
 #define TRAIT_CHAV				"chav"
@@ -210,6 +215,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_INTERACTABLE	"can_be_interacted_with_by_xenos"
 #define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
 #define TRAIT_BADASS "trait_badass"
+#define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -233,6 +239,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
 #define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
 
+/// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
+#define TRAIT_TURF_COVERED "turf_covered"
+
 ///An item that is oiled. If sprayed with water, it's slowdown reverts to normal.
 #define TRAIT_OIL_SLICKED "oil_slicked"
 
@@ -255,6 +264,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define SLIME_TRAIT "slime"
 #define BERSERK_TRAIT "berserk"
 #define EYES_OF_GOD "eyes_of_god"
+#define GHOSTED		"isghost"
+#define GHOST_ROLE	"ghost_role"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
@@ -275,6 +286,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define MODSUIT_TRAIT "modsuit_trait"
 #define ENFORCER_GLOVES "enforcer_gloves"
 #define HOLO_CIGAR "holo_cigar"
+#define GLADIATOR "gladiator"
+#define PULSEDEMON_TRAIT "pulse_demon"
+
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -298,3 +312,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CANNOT_PULL "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
+
+//***** TURF TRAITS *****//
+/// Removes slowdown while walking on these tiles.
+#define TRAIT_BLUESPACE_SPEED "bluespace_speed_trait"
+
+// turf trait sources
+#define FLOOR_EFFECT_TRAIT "floor_effect_trait"

@@ -112,6 +112,12 @@
 	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
 		linkedcontroller.decalinpool += A
 
+/turf/simulated/floor/beach/away/water/lavaland_air
+	nitrogen = 23
+	oxygen = 14
+	temperature = 300
+	planetary_atmos = TRUE
+
 /turf/simulated/floor/beach/away/water/dense			//for boundary "walls"
 	density = TRUE
 	baseturf = /turf/simulated/floor/beach/away/water/dense

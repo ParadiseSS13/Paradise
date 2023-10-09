@@ -80,7 +80,7 @@
 	if(!H.mind || !H.mind.assigned_role || H.mind.assigned_role != "Clown" && H.mind.assigned_role != "Mime")
 		H.unEquip(H.wear_mask)
 
-	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox(H), slot_wear_mask)
+	H.equip_or_collect(new /obj/item/clothing/mask/breath/vox/respirator(H), SLOT_HUD_WEAR_MASK)
 	var/tank_pref = H.client && H.client.prefs ? H.client.prefs.active_character.speciesprefs : null
 	var/obj/item/tank/internal_tank
 	if(tank_pref)//Diseasel, here you go
@@ -90,7 +90,7 @@
 	if(!H.equip_to_appropriate_slot(internal_tank))
 		if(!H.put_in_any_hand_if_possible(internal_tank))
 			H.unEquip(H.l_hand)
-			H.equip_or_collect(internal_tank, slot_l_hand)
+			H.equip_or_collect(internal_tank, SLOT_HUD_LEFT_HAND)
 			to_chat(H, "<span class='boldannounce'>Could not find an empty slot for internals! Please report this as a bug</span>")
 	H.internal = internal_tank
 	to_chat(H, "<span class='notice'>You are now running on nitrogen internals from [internal_tank]. Your species finds oxygen toxic, so you must breathe nitrogen only.</span>")

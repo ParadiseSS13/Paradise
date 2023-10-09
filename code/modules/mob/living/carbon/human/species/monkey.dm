@@ -13,7 +13,7 @@
 	species_traits = list(NOT_SELECTABLE)
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	greater_form = /datum/species/human
-	no_equip = list(slot_belt, slot_wear_id, slot_l_ear, slot_r_ear, slot_glasses, slot_gloves, slot_shoes, slot_wear_suit, slot_w_uniform, slot_l_store, slot_r_store, slot_s_store, slot_wear_pda)
+	no_equip = list(SLOT_HUD_BELT, SLOT_HUD_WEAR_ID, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_GLOVES, SLOT_HUD_SHOES, SLOT_HUD_OUTER_SUIT, SLOT_HUD_JUMPSUIT, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE, SLOT_HUD_SUIT_STORE, SLOT_HUD_WEAR_PDA)
 	inherent_factions = list("jungle", "monkey")
 	can_craft = FALSE
 	is_small = 1

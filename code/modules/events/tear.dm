@@ -40,8 +40,17 @@
 /datum/event/tear/proc/spawn_tear(location)
 	TE = new /obj/effect/tear(location)
 
-/datum/event/tear/announce()
-	GLOB.minor_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [impact_area.name].", "Anomaly Alert", 'sound/AI/anomaly.ogg')
+/datum/event/tear/announce(false_alarm)
+	var/area/target_area = impact_area
+	if(!target_area)
+		if(false_alarm)
+			target_area = findEventArea()
+		else
+			log_debug("Tried to announce a tear without a valid area!")
+			kill()
+			return
+
+	GLOB.minor_announcement.Announce("A tear in the fabric of space and time has opened. Expected location: [target_area.name].", "Anomaly Alert", 'sound/AI/anomaly.ogg')
 
 /datum/event/tear/end()
 	if(TE)

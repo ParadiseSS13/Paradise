@@ -28,6 +28,7 @@
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // Easier to click on in melee, they're giant targets anyway
+	dodging = FALSE // This needs to be false until someone fixes megafauna pathing so they dont lag-switch teleport at you (09-15-2023)
 	var/list/crusher_loot
 	var/medal_type
 	var/score_type = BOSS_SCORE
@@ -53,6 +54,8 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
+	if(target)
+		DestroySurroundings() //So they can path through chasms.
 	if(nest && nest.parent && get_dist(nest.parent, src) > nest_range)
 		var/turf/closest = get_turf(nest.parent)
 		for(var/i = 1 to nest_range)
@@ -126,6 +129,12 @@
 /mob/living/simple_animal/hostile/megafauna/proc/SetRecoveryTime(buffer_time)
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = world.time + buffer_time
+
+/mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
+	. = ..()
+	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
+		C.density = FALSE //I hate it.
+		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"

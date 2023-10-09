@@ -40,7 +40,7 @@
 /proc/bang(turf/T, atom/A, range = 7, flash = TRUE, bang = TRUE)
 
 	// Flashing mechanic
-	var/source_turf = get_turf(A)
+	var/turf/source_turf = get_turf(A)
 	for(var/mob/living/M in hearers(range, T))
 		if(M.stat == DEAD)
 			continue
@@ -56,21 +56,40 @@
 				M.Confused(status_duration * 2)
 
 		// Bang
+		if(!bang)
+			continue
 		var/ear_safety = M.check_ear_prot()
-		if(bang)
-			if(source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
-				M.KnockDown(10 SECONDS)
-			if(!ear_safety)
-				M.KnockDown(status_duration)
-				M.Deaf(30 SECONDS)
-				if(iscarbon(M))
-					var/mob/living/carbon/C = M
-					var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
-					if(istype(ears))
-						ears.receive_damage(5)
-						if(ears.damage >= 15)
-							to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
-							if(prob(ears.damage - 5))
-								to_chat(M, "<span class='warning'>You can't hear anything!</span>")
-						else if(ears.damage >= 5)
-							to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
+		//Atmosphere affects sound
+		var/pressure_factor = 1
+		var/datum/gas_mixture/hearer_env = source_turf.return_air()
+		var/datum/gas_mixture/source_env = T.return_air()
+
+		if(hearer_env && source_env)
+			var/pressure = min(hearer_env.return_pressure(), source_env.return_pressure())
+			if(pressure < ONE_ATMOSPHERE - 10) //-10 KPA as a nice soft zone before we start losing power
+				pressure_factor = max((pressure - SOUND_MINIMUM_PRESSURE) / (ONE_ATMOSPHERE - SOUND_MINIMUM_PRESSURE), 0)
+		else //space
+			pressure_factor = 0
+
+		if(distance <= 1)
+			pressure_factor = max(pressure_factor, 0.15) //touching the source of the sound
+
+		if(source_turf == mobturf) // Holding on person or being exactly where lies is significantly more dangerous and voids protection
+			M.KnockDown(10 SECONDS)
+			M.Deaf(15 SECONDS)
+		if(ear_safety)
+			continue
+		M.KnockDown(status_duration * pressure_factor)
+		M.Deaf(30 SECONDS * pressure_factor)
+		if(!iscarbon(M))
+			continue
+		var/mob/living/carbon/C = M
+		var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+		if(istype(ears))
+			ears.receive_damage(5 * pressure_factor)
+			if(ears.damage >= 15)
+				to_chat(M, "<span class='warning'>Your ears start to ring badly!</span>")
+				if(prob(ears.damage - 5))
+					to_chat(M, "<span class='warning'>You can't hear anything!</span>")
+			else if(ears.damage >= 5)
+				to_chat(M, "<span class='warning'>Your ears start to ring!</span>")
