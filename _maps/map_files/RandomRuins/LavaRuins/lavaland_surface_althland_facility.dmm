@@ -312,6 +312,10 @@
 	dir = 4;
 	icon_state = "pipe-c"
 	},
+/obj/machinery/mineral/processing_unit_console{
+	pixel_y = -2;
+	pixel_x = -29
+	},
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
@@ -926,23 +930,6 @@
 	nitrogen = 23
 	},
 /area/ruin/unpowered)
-"yh" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"yV" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/window/reinforced,
-/obj/machinery/conveyor/west,
-/obj/machinery/mineral/processing_unit,
-/turf/simulated/floor{
-	temperature = 300;
-	oxygen = 14;
-	nitrogen = 23
-	},
-/area/ruin/unpowered)
 "zd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1246,23 +1233,16 @@
 	},
 /area/ruin/unpowered)
 "DP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/mineral/processing_unit_console{
-	pixel_y = 22
-	},
-/turf/simulated/floor{
-	temperature = 300;
-	oxygen = 14;
-	nitrogen = 23
-	},
-/area/ruin/unpowered)
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ec" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor/southwest{
 	dir = 5
 	},
-/obj/structure/plasticflaps,
+/obj/machinery/mineral/processing_unit,
 /turf/simulated/floor{
 	temperature = 300;
 	oxygen = 14;
@@ -2561,7 +2541,7 @@ bT
 bT
 bT
 ui
-yV
+hP
 UP
 Ic
 ui
@@ -2678,7 +2658,7 @@ ap
 ab
 ab
 ab
-yh
+DP
 bT
 bT
 bT
@@ -2741,7 +2721,7 @@ bL
 bU
 ab
 ui
-DP
+cc
 Vj
 kn
 ui
