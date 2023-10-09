@@ -83,7 +83,7 @@
 	data["painame"] = paicard ? paicard.pai.name : null
 	data["canhack"] = canhack(user)
 	data["emagged"] = emagged // this is an int, NOT a boolean
-	data["remote_disabled"] = remote_disabled 
+	data["remote_disabled"] = remote_disabled
 
 	// -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
 	data["hullplating"] = autotile
@@ -137,6 +137,7 @@
 			ejectpai()
 
 //END OF TGUI
+
 
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
