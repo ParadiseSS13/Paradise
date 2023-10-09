@@ -75,7 +75,6 @@
 	icon_state = "blueshield_skirt"
 	item_state = "blueshield_skirt"
 	item_color = "blueshield_skirt"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 
 /obj/item/clothing/under/rank/procedure/blueshield/formal
 	name = "formal blueshield's uniform"
@@ -83,7 +82,6 @@
 	icon_state = "blueshield_formal"
 	item_state = "blueshield_formal"
 	item_color = "blueshield_formal"
-	armor = list(MELEE = 5, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 20, ACID = 20)
 	displays_id = FALSE
 
 /obj/item/clothing/under/rank/procedure/iaa

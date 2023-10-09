@@ -29,7 +29,7 @@
 	item_color = "hopwhimsy"
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/oldman
-	name = "Old Man's Suit"
+	name = "old man's suit"
 	desc = "A classic suit for the older gentleman with built in back support."
 	icon_state = "oldman"
 	item_state = "oldman"
