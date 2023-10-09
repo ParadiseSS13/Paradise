@@ -805,6 +805,7 @@
 "ub" = (
 /obj/item/clothing/under/rank/cargo/miner,
 /obj/effect/landmark/damageturf,
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
@@ -845,6 +846,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/rack_parts,
 /obj/effect/landmark/damageturf,
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
@@ -924,6 +926,11 @@
 	nitrogen = 23
 	},
 /area/ruin/unpowered)
+"yh" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "yV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1811,6 +1818,7 @@
 	dir = 4;
 	invisibility = 101
 	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor{
 	temperature = 300;
 	oxygen = 14;
@@ -2670,7 +2678,7 @@ ap
 ab
 ab
 ab
-ab
+yh
 bT
 bT
 bT
