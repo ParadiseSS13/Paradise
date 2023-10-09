@@ -140,6 +140,41 @@
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
 
+/datum/reagent/consumable/mayonnaise
+	name = "Mayonnaise"
+	id = "mayonnaise"
+	description = "A white and oily mixture of mixed egg yolks."
+	reagent_state = LIQUID
+	color = "#DFDFDF" // rgb: 223, 223, 223
+	taste_description = "mayonnaise"
+
+/datum/reagent/consumable/peanutbutter
+	name = "Peanut Butter"
+	id = "peanutbutter"
+	description = "A rich, creamy spread made by grinding peanuts."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#D9A066" // rgb: 217, 160, 102
+	taste_description = "peanuts"
+
+/datum/reagent/consumable/eggyolk
+	name = "Egg Yolk"
+	id = "eggyolk"
+	description = "It's full of Protein."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#FFB500" // rgb: 225, 181, 0
+	taste_description = "egg"
+
+/datum/reagent/consumable/eggwhite
+	name = "Egg White"
+	id = "eggwhite"
+	description = "It's full of even more protein."
+	reagent_state = LIQUID
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	color = "#fffdf7" //rgb 255, 253, 247
+	taste_description = "bland egg"
+
 /datum/reagent/consumable/bbqsauce
 	name = "BBQ Sauce"
 	id = "bbqsauce"

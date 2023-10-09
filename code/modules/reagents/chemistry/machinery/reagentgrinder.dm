@@ -40,7 +40,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/oat = list("flour" = -5),
 		/obj/item/reagent_containers/food/snacks/grown/cherries = list("cherryjelly" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
-		/obj/item/reagent_containers/food/snacks/egg = list("egg" = -5),
+		/obj/item/reagent_containers/food/snacks/egg = list("egg" = -5, "eggyolk" = 0, "eggwhite" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/rice = list("rice" = -5),
 
 		//Grinder stuff, but only if dry
@@ -84,6 +84,12 @@
 		/obj/item/reagent_containers/food/snacks/grown/coffee = list("coffeepowder" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/tea/astra = list("teapowder" = 0, "salglu_solution" = 0),
 		/obj/item/reagent_containers/food/snacks/grown/tea = list("teapowder" = 0)
+	)
+
+	/var/list/mix_items = list(
+
+		//Mixer stuff.
+		/datum/reagent/consumable/eggyolk = list("mayonnaise" = 0)
 	)
 
 	var/list/holdingitems = list()
@@ -270,6 +276,7 @@
 		if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
 			dat += "<A href='?src=[src.UID()];action=grind'>Grind the reagents</a><BR>"
 			dat += "<A href='?src=[src.UID()];action=juice'>Juice the reagents</a><BR><BR>"
+			dat += "<A href='?src=[src.UID()];action=mix'>Mix the reagents</a><BR><BR>"
 		if(holdingitems && holdingitems.len > 0)
 			dat += "<A href='?src=[src.UID()];action=eject'>Eject the reagents</a><BR>"
 		if(beaker)
@@ -295,6 +302,8 @@
 			grind()
 		if("juice")
 			juice()
+		if("mix")
+			mix()
 		if("eject")
 			eject()
 		if("detach")
@@ -342,6 +351,11 @@
 	for(var/i in juice_items)
 		if(istype(O, i))
 			return juice_items[i]
+
+/obj/machinery/reagentgrinder/proc/get_allowed_mix_by_id(/datum/reagent/O)
+	for(var/i in mix_items)
+		if(istype(O, i))
+			return mix_items[i]
 
 /obj/machinery/reagentgrinder/proc/get_grownweapon_amount(obj/item/grown/O)
 	if(!istype(O) || !O.seed)
@@ -516,3 +530,55 @@
 		O.reagents.trans_to(beaker, amount)
 		if(!O.reagents.total_volume)
 			remove_object(O)
+
+/obj/machinery/reagentgrinder/proc/mix()
+
+	power_change()
+	if(stat & (NOPOWER|BROKEN))
+		return
+	if(!beaker || (beaker && beaker.reagents.holder_full()))
+		return
+	playsound(src.loc, 'sound/machines/blender.ogg', 50, 1)
+	var/offset = prob(50) ? -2 : 2
+	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
+	operating = TRUE
+	updateUsrDialog()
+	spawn(60)
+		pixel_x = initial(pixel_x) //return to its spot after shaking
+		operating = FALSE
+		updateUsrDialog()
+
+	for (var/datum/reagent/consumable/O in holdingitems)
+		if(beaker.reagents.holder_full())
+			break
+
+		var/allowed = get_allowed_mix_by_id(O)
+		if(isnull(allowed))
+			break
+
+		for (var/r_id in allowed)
+
+			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+			var/amount = allowed[r_id]
+			if(amount <= 0)
+				if(amount == 0)
+					if(O.reagents != null && O.reagents.has_reagent("nutriment"))
+						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("nutriment") * efficiency, space))
+						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+					if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
+						beaker.reagents.add_reagent(r_id, min(O.reagents.get_reagent_amount("plantmatter") * efficiency, space))
+						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+				else
+					if(O.reagents != null && O.reagents.has_reagent("nutriment"))
+						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("nutriment") * abs(amount) * efficiency), space))
+						O.reagents.remove_reagent("nutriment", min(O.reagents.get_reagent_amount("nutriment"), space))
+					if(O.reagents != null && O.reagents.has_reagent("plantmatter"))
+						beaker.reagents.add_reagent(r_id, min(round(O.reagents.get_reagent_amount("plantmatter") * abs(amount) * efficiency), space))
+						O.reagents.remove_reagent("plantmatter", min(O.reagents.get_reagent_amount("plantmatter"), space))
+
+
+			else
+				O.reagents.trans_id_to(beaker, r_id, min(amount, space))
+
+			if(beaker.reagents.holder_full())
+				break
