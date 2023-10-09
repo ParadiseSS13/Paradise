@@ -611,8 +611,10 @@
 /area/lavaland/surface/outdoors)
 "hn" = (
 /obj/structure/railing,
-/obj/structure/lattice,
 /turf/simulated/floor/chasm,
+/area/lavaland/surface/outdoors)
+"hE" = (
+/turf/space,
 /area/lavaland/surface/outdoors)
 "hL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -662,7 +664,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/lattice,
+/obj/structure/lattice/lava,
 /turf/simulated/floor/chasm,
 /area/lavaland/surface/outdoors)
 "jL" = (
@@ -1004,6 +1006,10 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
+"BW" = (
+/obj/structure/lattice/lava,
+/turf/simulated/floor/chasm,
+/area/lavaland/surface/outdoors)
 "BZ" = (
 /obj/machinery/atmospherics/binary/pump{
 	dir = 8
@@ -1056,6 +1062,7 @@
 	desc = "The shattered remnants of a ladder hanging over the pitch-black chasm, providing no safe route to the abyss beneath. Its fractured rungs suggest an inevitable plunge, as if the remainder might soon join the void.";
 	name = "shattered ladder"
 	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/chasm,
 /area/lavaland/surface/outdoors)
 "Et" = (
@@ -1140,6 +1147,7 @@
 "Jp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden,
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating/airless,
 /area/ruin)
 "JF" = (
@@ -1268,6 +1276,14 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"Rf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/lava_land/surface,
+/turf/simulated/floor/pod/light{
+	oxygen = 0;
+	nitrogen = 0
+	},
 /area/ruin/unpowered)
 "Ri" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1647,13 +1663,13 @@ bW
 Ei
 Ei
 Ei
-br
+BW
 ak
 ag
 mh
-br
+BW
 Ow
-br
+BW
 Ei
 bW
 Ei
@@ -1677,10 +1693,10 @@ mK
 yc
 aA
 Ei
-br
+hE
 aB
 aB
-br
+BW
 af
 aB
 aB
@@ -1692,7 +1708,7 @@ bW
 Ei
 zp
 bW
-br
+BW
 aB
 Ei
 Ei
@@ -1738,7 +1754,7 @@ je
 PM
 yn
 yz
-br
+BW
 aB
 aB
 aB
@@ -1808,16 +1824,16 @@ aB
 aB
 aB
 aB
-br
+aB
 sA
-br
+BW
 aB
 aB
 aB
 aB
 aB
 aB
-br
+BW
 Ds
 Ei
 Ei
@@ -1864,7 +1880,7 @@ Yz
 yb
 Vg
 yn
-br
+aB
 Ya
 aB
 aB
@@ -1872,7 +1888,7 @@ aB
 aB
 aB
 aB
-br
+BW
 TP
 bG
 aB
@@ -1907,7 +1923,7 @@ aB
 aZ
 Es
 xB
-br
+BW
 aB
 aB
 aB
@@ -1916,7 +1932,7 @@ aj
 Ei
 Ei
 Ei
-br
+BW
 aB
 bW
 Ei
@@ -1941,15 +1957,15 @@ JF
 QM
 aB
 aB
-br
-br
+BW
+BW
 aA
 AU
 Gc
 uG
 mK
 uG
-br
+BW
 bW
 Ei
 "}
@@ -1957,10 +1973,10 @@ Ei
 Ei
 bm
 Ei
-br
+BW
 Ei
 aB
-br
+aB
 yz
 aB
 aB
@@ -1970,16 +1986,16 @@ aB
 aB
 aB
 aw
-br
+BW
 aB
 aB
 aB
 aB
-br
+BW
 aJ
 fc
 mK
-br
+BW
 LK
 PM
 bW
@@ -1989,7 +2005,7 @@ Ei
 Ei
 bm
 Ei
-br
+BW
 aB
 aB
 aL
@@ -2010,9 +2026,9 @@ aB
 aB
 aB
 FQ
-br
 aB
-br
+aB
+BW
 KU
 bW
 Ei
@@ -2022,7 +2038,7 @@ Ei
 bW
 Ei
 SV
-br
+BW
 aB
 aj
 aB
@@ -2032,7 +2048,7 @@ aB
 aB
 aB
 aB
-br
+BW
 aw
 aB
 aB
@@ -2058,7 +2074,7 @@ bW
 bW
 Vk
 aN
-br
+BW
 aB
 aB
 aB
@@ -2071,7 +2087,7 @@ aB
 aB
 aB
 aB
-br
+BW
 wA
 fc
 uG
@@ -2091,10 +2107,10 @@ bW
 zh
 ub
 aA
-br
+BW
 aB
 aB
-br
+BW
 aB
 aB
 aw
@@ -2103,13 +2119,13 @@ aB
 aB
 aB
 aB
-br
+BW
 UR
 PM
 xi
-br
+BW
 TJ
-br
+BW
 bW
 Ei
 "}
@@ -2125,15 +2141,15 @@ yz
 Ei
 Ei
 aB
-br
-br
+BW
+BW
 aB
 aB
 PM
 aB
 aB
-br
-br
+BW
+BW
 aB
 aB
 aB
@@ -2158,15 +2174,15 @@ bW
 Ei
 Ei
 Ei
-br
+BW
 aB
-br
+BW
 wb
 ak
 aB
 aB
-br
-br
+BW
+BW
 OE
 cb
 Zr
@@ -2226,7 +2242,7 @@ ac
 bJ
 ct
 Nv
-aa
+Rf
 bM
 Bl
 bW
