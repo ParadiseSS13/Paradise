@@ -42,6 +42,13 @@
 	body_parts_covered = null
 	actions_types = list(/datum/action/item_action/whistle)
 	COOLDOWN_DECLARE(whistle_cooldown)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
+		)
 
 /obj/item/clothing/mask/whistle/attack_self(mob/user)
 	if(!COOLDOWN_FINISHED(src, whistle_cooldown))
