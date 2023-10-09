@@ -1106,6 +1106,7 @@
 
 /mob/living/onTransitZ(old_z,new_z)
 	..()
+	SEND_SIGNAL(src, COMSIG_ASHWALKER_LEGS)
 	update_z(new_z)
 
 /mob/living/rad_act(amount)

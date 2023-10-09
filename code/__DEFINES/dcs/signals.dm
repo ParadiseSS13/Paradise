@@ -730,6 +730,8 @@
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
+///from
+#define COMSIG_ASHWALKER_LEGS "ashwalker_legs"
 
 // /datum/song signals
 
