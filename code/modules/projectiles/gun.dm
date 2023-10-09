@@ -424,8 +424,7 @@
 /obj/item/gun/proc/reskin_gun(mob/M)
 	var/list/skins = list()
 	for(var/I in options)
-		var/image/gun_image = image(icon, icon_state = options[I])
-		skins[I] = gun_image
+		skins[I] = image(icon, icon_state = options[I])
 	var/choice = show_radial_menu(M, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), M), require_near = TRUE)
 
 	if(choice && reskin_radial_check(M) && !current_skin)
