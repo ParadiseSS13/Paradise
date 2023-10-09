@@ -82,7 +82,7 @@
 	drone_progress = 0
 
 /obj/machinery/drone_fabricator/attack_ghost(mob/user as mob)
-	if(!drone_prepared() && isobserver(user))
+	if(!drone_prepared() || !isobserver(user))
 		return
 	var/mob/dead/observer/ghost = user
 	ghost.join_as_drone()
