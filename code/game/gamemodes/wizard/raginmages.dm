@@ -133,6 +133,7 @@
 		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort(harry), SLOT_HUD_IN_BACKPACK)
 		// The first wiznerd can get their mugwort from the wizard's den, new ones will also need mugwort!
 		mages_made++
+		dust_if_respawnable(harry)
 		return TRUE
 	else
 		. = FALSE
