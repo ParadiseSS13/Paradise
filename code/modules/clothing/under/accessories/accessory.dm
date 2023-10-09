@@ -235,8 +235,8 @@
 	name = "medal of command"
 	desc = "An award issued by Captains to heads of department who do an excellent job managing their department. Made of pure silver."
 
-// BRONZE (awarded by heads of department, except for the bronze heart and recruiter medals)
 
+// BRONZE (awarded by heads of department, except for the bronze heart and recruiter medals)
 
 
 
