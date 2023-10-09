@@ -1,5 +1,6 @@
 #include "_objects.dm"
 
+#include "code/closets.dm"
 #include "code/miscellaneous.dm"
 #include "code/officetoys.dm"
 #include "code/papershredder.dm"

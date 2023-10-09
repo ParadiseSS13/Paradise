@@ -12554,8 +12554,9 @@
 /area/station/public/dorms)
 "aVr" = (
 /obj/machinery/gateway,
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/station/service/expedition)
 "aVs" = (
@@ -15732,8 +15733,9 @@
 /obj/machinery/gateway{
 	dir = 10
 	},
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/station/service/expedition)
 "bgL" = (
@@ -15741,8 +15743,9 @@
 /obj/machinery/gateway{
 	dir = 6
 	},
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "vault"
 	},
 /area/station/service/expedition)
 "bgM" = (
@@ -15943,7 +15946,6 @@
 	},
 /area/station/service/expedition)
 "bhI" = (
-/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs-r"
 	},
@@ -16668,7 +16670,6 @@
 	dir = 5
 	},
 /obj/machinery/alarm/directional/west,
-/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -16908,7 +16909,6 @@
 /obj/structure/railing/cap{
 	dir = 1
 	},
-/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -33957,6 +33957,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33974,12 +33975,11 @@
 	},
 /area/station/engineering/control)
 "cGV" = (
-/obj/structure/closet/secure_closet/exile,
-/obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/decal/warning_stripes/northeast,
 /obj/item/radio/intercom/directional/west,
+/obj/structure/closet/secure_closet/expedition,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 5;
+	icon_state = "darkblue"
 	},
 /area/station/service/expedition)
 "cGW" = (
@@ -34012,6 +34012,7 @@
 	dir = 4
 	},
 /obj/machinery/hologram/holopad,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35625,6 +35626,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -39262,11 +39264,14 @@
 	},
 /area/station/engineering/gravitygenerator)
 "cYN" = (
-/obj/structure/closet/l3closet/scientist,
-/obj/effect/decal/warning_stripes/white/hollow,
-/obj/effect/decal/warning_stripes/east,
+/obj/structure/closet/secure_closet/expedition,
+/obj/machinery/camera/motion{
+	c_tag = "Gateway Motion Sensor";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/station/service/expedition)
 "cYO" = (
@@ -39339,18 +39344,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "cZa" = (
-/obj/structure/table,
 /obj/machinery/power/apc/directional/east,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/item/storage/firstaid/regular{
-	pixel_y = 2
-	},
 /obj/machinery/light_switch/south,
+/obj/structure/closet/secure_closet/expedition,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/station/service/expedition)
 "cZb" = (
@@ -39701,20 +39704,13 @@
 	},
 /area/station/engineering/hallway)
 "daf" = (
-/obj/structure/table/reinforced,
 /obj/machinery/requests_console{
 	department = "EVA";
 	name = "EVA Requests Console";
 	pixel_x = -32
 	},
 /obj/effect/decal/warning_stripes/white/hollow,
-/obj/item/paper/pamphlet/gateway{
-	pixel_x = -4
-	},
-/obj/item/paper/pamphlet/gateway,
-/obj/item/paper/pamphlet/gateway{
-	pixel_x = 4
-	},
+/obj/structure/closet/secure_closet/exile,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -46729,7 +46725,6 @@
 	},
 /area/station/maintenance/apmaint)
 "efl" = (
-/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs-m"
 	},
@@ -72519,6 +72514,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79804,8 +79800,10 @@
 	name = "Gateway Shutters Control";
 	req_one_access_txt = "62"
 	},
+/obj/structure/closet/secure_closet/expedition,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 9;
+	icon_state = "darkblue"
 	},
 /area/station/service/expedition)
 "qvO" = (
@@ -82678,6 +82676,12 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"rBx" = (
+/obj/effect/landmark/start/explorer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/expedition)
 "rBN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -93055,7 +93059,6 @@
 	},
 /area/station/engineering/atmos)
 "vtO" = (
-/obj/effect/landmark/start/explorer,
 /turf/simulated/floor/plasteel{
 	icon_state = "stairs-l"
 	},
@@ -99255,6 +99258,7 @@
 /turf/space,
 /area/space/nearstation)
 "xKc" = (
+/obj/effect/turf_decal/caution,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -125178,7 +125182,7 @@ bgK
 vtO
 bam
 cGT
-aUF
+rBx
 iIt
 bgP
 pBf
@@ -125435,7 +125439,7 @@ aVr
 efl
 xKc
 cGZ
-aUF
+rBx
 iIt
 bgP
 pBf

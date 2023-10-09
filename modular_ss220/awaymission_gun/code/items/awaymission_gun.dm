@@ -33,18 +33,28 @@
 			selfcharge = FALSE
 			update_icon()
 
+/obj/item/gun/energy/laser/awaymission_aeg/proc/update_mob()
+	if(ismob(loc))
+		var/mob/M = loc
+		M.unEquip(src)
+
 /obj/item/gun/energy/laser/awaymission_aeg/emag_act(mob/user)
 	. = ..()
-	if (emagged)
+	if(emagged)
 		return
-
 	if(user)
-		user.visible_message(span_warning("От [name] летят искры!"), span_notice("Вы взломали [name], что привело к перезаписи протоколов безопасности. Устройство может быть использовано вне ограничений"))
-	playsound(loc, 'sound/effects/sparks4.ogg', 30, 1)
-	do_sparks(5, 1, src)
-
-	emagged = TRUE
-	selfcharge = TRUE
+		if(prob(50))
+			user.visible_message(span_warning("От [name] летят искры!"), span_notice("Вы взломали [name], что привело к перезаписи протоколов безопасности. Устройство может быть использовано вне ограничений"))
+			playsound(loc, 'sound/effects/sparks4.ogg', 30, 1)
+			do_sparks(5, 1, src)
+			emagged = TRUE
+			selfcharge = TRUE
+		else
+			user.visible_message(span_warning("От [name] летят искры... Он сейчас взорвётся!"), span_notice("Ой... Что-то пошло не так!"))
+			do_sparks(5, 1, src)
+			update_mob()
+			explosion(loc, -1, 0, 2)
+			qdel(src)
 
 /obj/item/gun/energy/laser/awaymission_aeg/emp_act(severity)
 	. = ..()
