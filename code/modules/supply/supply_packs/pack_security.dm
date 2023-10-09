@@ -260,7 +260,7 @@
 	name = "M1911 Pistol Crate"
 	contains = list(/obj/item/gun/projectile/automatic/pistol/m1911,
 					/obj/item/gun/projectile/automatic/pistol/m1911,
-					/obj/item/gun/projectile/automatic/pistol/m1911,)
+					/obj/item/gun/projectile/automatic/pistol/m1911)
 	cost = 500
 	containername = "1911 crate"
 	contraband = TRUE
