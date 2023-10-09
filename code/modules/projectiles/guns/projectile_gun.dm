@@ -56,7 +56,7 @@
 	if(eject_casing && !QDELETED(ammo_chambered))
 		ammo_chambered.forceMove(get_turf(src)) //Eject casing onto ground.
 		ammo_chambered.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.casing_drop_sound, 100, 1)
+		playsound(src, chambered.casing_drop_sound, 60, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
