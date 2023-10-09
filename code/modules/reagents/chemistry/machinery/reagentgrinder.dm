@@ -340,7 +340,7 @@
 		return
 
 	for(var/obj/item/O in holdingitems)
-		O.loc = src.loc
+		O.forceMove(loc)
 		holdingitems -= O
 	holdingitems = list()
 	SStgui.update_uis(src)
