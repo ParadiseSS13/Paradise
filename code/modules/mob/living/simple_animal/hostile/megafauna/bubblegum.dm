@@ -463,8 +463,6 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	if(Dir)
 		new /obj/effect/decal/cleanable/blood/bubblegum(loc)
-	if(charging)
-		DestroySurroundings()
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
 
@@ -472,7 +470,6 @@ Difficulty: Hard
 	if(charging && yes)
 		if(isturf(A) || isobj(A) && A.density)
 			A.ex_act(EXPLODE_HEAVY)
-		DestroySurroundings()
 		if(isliving(A))
 			var/mob/living/L = A
 			L.visible_message("<span class='danger'>[src] slams into [L]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")

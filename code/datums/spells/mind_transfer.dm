@@ -67,7 +67,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 
 	ghost.mind.transfer_to(caster)
 	if(ghost.key)
-		GLOB.non_respawnable_keys -= ghost.ckey //ghostizing with an argument of 0 will make them unable to respawn forever, which is bad
+		GLOB.non_respawnable_keys -= ghost.ckey
 		caster.key = ghost.key	//have to transfer the key since the mind was not active
 	qdel(ghost)
 
