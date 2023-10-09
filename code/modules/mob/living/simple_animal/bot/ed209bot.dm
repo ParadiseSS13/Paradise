@@ -100,7 +100,7 @@
 	text_dehack_fail = "[name] ignores your attempts to restrict [p_them()]!"
 
 /mob/living/simple_animal/bot/ed209/show_controls(mob/M)
-	ui_interact(M)
+	ui_interact(user)
 
 /mob/living/simple_animal/bot/ed209/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
