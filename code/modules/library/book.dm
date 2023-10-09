@@ -55,6 +55,8 @@
 	var/carved = FALSE
 	///Item that is stored inside the book
 	var/obj/item/store
+	/// Cooldown for brain damage loss when reading
+	COOLDOWN_DECLARE(brain_damage_cooldown)
 
 /obj/item/book/Initialize(mapload, datum/cachedbook/CB, _copyright = FALSE, _protected = FALSE)
 	. = ..()
@@ -136,6 +138,16 @@
 		return
 	if(!can_read(user))
 		return
+
+	if(isliving(user))
+		var/mob/living/L = user
+		// Books can be read every BRAIN_DAMAGE_BOOK_TIME, and has a minumum delay of BRAIN_DAMAGE_MOB_TIME between seperate book reads.
+		if(!L.has_status_effect(STATUS_BOOKWYRM) && COOLDOWN_FINISHED(src, brain_damage_cooldown))
+			if(prob(10))
+				to_chat(L, "<span class='notice'>You feel a bit smarter!</span>")
+			L.adjustBrainLoss(-1)
+			COOLDOWN_START(src, brain_damage_cooldown, BRAIN_DAMAGE_BOOK_TIME)
+			L.apply_status_effect(STATUS_BOOKWYRM)
 
 	show_content(user) //where all the magic happens
 	onclose(user, "book")

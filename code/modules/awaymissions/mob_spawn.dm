@@ -136,7 +136,7 @@
 		var/datum/mind/MM = M.mind
 		if(objectives)
 			for(var/objective in objectives)
-				MM.objectives += new/datum/objective(objective)
+				M.mind.add_mind_objective(new /datum/objective(objective))
 		if(assignedrole)
 			M.mind.assigned_role = assignedrole
 		M.mind.offstation_role = offstation_role

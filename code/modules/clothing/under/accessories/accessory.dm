@@ -5,7 +5,7 @@
 	icon_state = "bluetie"
 	item_state = ""	//no inhands
 	item_color = "bluetie"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	w_class = WEIGHT_CLASS_SMALL
 	var/slot = ACCESSORY_SLOT_DECOR
 	var/obj/item/clothing/under/has_suit = null		//the suit the tie may be attached to
@@ -243,7 +243,6 @@
 	name = "medal of command"
 	desc = "An award issued by Captains to heads of department who do an excellent job managing their department. Made of pure silver."
 
-
 /obj/item/clothing/accessory/medal/silver/colossus
 	name = "colossus HRD-MDE award"
 	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing a colossus."
@@ -252,7 +251,8 @@
 	name = "legion HRD-MDE award"
 	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Legion."
 
-// BRONZE (awarded by heads of department, except for the bronze heart)
+// BRONZE (awarded by heads of department, except for the bronze heart and recruiter medals)
+
 
 
 
@@ -283,6 +283,10 @@
 /obj/item/clothing/accessory/medal/supply
 	name = "stable supply medal"
 	desc = "An award issued by the Quartermaster to supply staff dedicated to being effective."
+
+/obj/item/clothing/accessory/medal/recruiter // Prize for the NT Recruiter emagged arcade
+	name = "nanotrasen recruiter medal"
+	desc = "A prize for those who completed the company's most difficult training, use it to earn the respect of everyone in human resources."
 
 /obj/item/clothing/accessory/medal/heart
 	name = "bronze heart medal"
@@ -351,7 +355,7 @@
 	desc = "This glowing blue badge marks the holder as THE LAW."
 	icon_state = "holobadge"
 	item_color = "holobadge"
-	slot_flags = SLOT_BELT | SLOT_TIE
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_TIE
 
 	var/stored_name = null
 
@@ -522,7 +526,7 @@
 	icon_state = "necklace"
 	item_state = "necklace"
 	item_color = "necklace"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 
 /obj/item/clothing/accessory/necklace/dope
 	name = "gold necklace"
@@ -555,7 +559,7 @@
 	icon_state = "locket"
 	item_state = "locket"
 	item_color = "locket"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	var/base_icon
 	var/open
 	var/obj/item/held //Item inside locket.

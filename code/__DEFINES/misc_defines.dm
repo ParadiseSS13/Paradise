@@ -375,7 +375,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 51
+#define SQL_VERSION 52
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -560,3 +560,20 @@
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
 #define RQ_NORMALPRIORITY 1		// RQ_NORMALPRIORITY = normal priority
 #define RQ_HIGHPRIORITY 2		// RQ_HIGHPRIORITY = high priority
+
+/**
+ * Reading books can help with brain damage!
+ * These are seperate times so that a user gains more benefits by reading more books,
+ * but also cant infinitely switch between 1000 books.
+ */
+/// The amount of time needed to pass to let a single book be read again for brain benefits
+#define BRAIN_DAMAGE_BOOK_TIME 45 SECONDS
+/// The amount of time a mob needs to wait between any book reading
+#define BRAIN_DAMAGE_MOB_TIME 10 SECONDS
+
+/// Takes a datum as input, returns its ref string, or a cached version of it
+/// This allows us to cache \ref creation, which ensures it'll only ever happen once per datum, saving string tree time
+/// It is slightly less optimal then a []'d datum, but the cost is massively outweighed by the potential savings
+/// It will only work for datums mind, for datum reasons
+/// : because of the embedded typecheck
+#define text_ref(datum) (isdatum(datum) ? (datum:cached_ref ||= "\ref[datum]") : ("\ref[datum]"))
