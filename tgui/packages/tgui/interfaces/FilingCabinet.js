@@ -12,23 +12,20 @@ export const FilingCabinet = (props, context) => {
         <Section title="Contents">
           {!contents && <Box color="average"> The {title} is empty. </Box>}
           {!!contents &&
-            contents
-              .slice()
-              .map((item) => {
-                return (
-                  <Flex direction="row" key={item}>
-                    <Flex.Item width="80%">{item.display_name}</Flex.Item>
-                    <Flex.Item>
-                      <Button
-                        icon="arrow-down"
-                        content="Retrieve"
-                        tooltip="Retrieve this document."
-                        onClick={() => act('retrieve', { index: item.index })}
-                      />
-                    </Flex.Item>
-                  </Flex>
-                );
-              })}
+            contents.slice().map((item) => {
+              return (
+                <Flex direction="row" key={item}>
+                  <Flex.Item width="80%">{item.display_name}</Flex.Item>
+                  <Flex.Item>
+                    <Button
+                      icon="arrow-down"
+                      content="Retrieve"
+                      onClick={() => act('retrieve', { index: item.index })}
+                    />
+                  </Flex.Item>
+                </Flex>
+              );
+            })}
         </Section>
       </Window.Content>
     </Window>

@@ -50,10 +50,10 @@
 /obj/structure/filingcabinet/attackby(obj/item/O, mob/user, params)
 	if(insert(O))
 		return
-	else if(user.a_intent != INTENT_HARM)
+	if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't put [O.name] in [src]!</span>")
-	else
-		return ..()
+		return
+	return ..()
 
 /obj/structure/filingcabinet/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -95,7 +95,6 @@
 		ui.open()
 
 /obj/structure/filingcabinet/ui_data(mob/user)
-	. = ..()
 	var/list/data = list()
 	data["contents"] = null
 	var/list/items = list()
@@ -121,33 +120,31 @@
 	switch(action)
 		if("retrieve")
 			var/index = text2num(params["index"])
-			if(isnull(index) || !ISINDEXSAFE(contents, index))
+			if(!ISINDEXSAFE(contents, index))
 				return FALSE
-			var/K = contents[index]
-			retrieve(K)
+			retrieve(contents[index], user)
 
-/obj/structure/filingcabinet/proc/insert(obj/item/O)
-	if(accept_check(O))
-		to_chat(usr, "<span class='notice'>You put [O.name] in [src].</span>")
-		usr.drop_item()
-		O.loc = src
-		icon_state = "[initial(icon_state)]-open"
-		sleep(5)
-		icon_state = initial(icon_state)
-		SStgui.update_uis(src)
-		return TRUE
+/obj/structure/filingcabinet/proc/insert(obj/item/O, mob/user)
+	if(!is_type_in_list(O, accepted_items))
+		return
+	if(!user.drop_item())
+		return
+	to_chat(user, "<span class='notice'>You put [O.name] in [src].</span>")
+	O.loc = src
+	SStgui.update_uis(src)
+	icon_state = "[initial(icon_state)]-open"
+	sleep(5)
+	icon_state = initial(icon_state)
+	return TRUE
 
-/obj/structure/filingcabinet/proc/retrieve(obj/item/O)
-	if(istype(O) && (O.loc == src) && src.Adjacent(usr))
-		if(!usr.put_in_hands(O))
-			O.forceMove(loc)
-		SStgui.update_uis(src)
-		icon_state = "[initial(icon_state)]-open"
-		sleep(5)
-		icon_state = initial(icon_state)
-
-/obj/structure/filingcabinet/proc/accept_check(obj/item/O)
-	return is_type_in_list(O, accepted_items)
+/obj/structure/filingcabinet/proc/retrieve(obj/item/O, mob/user)
+	if(!(istype(O) && (O.loc == src) && src.Adjacent(user)))
+		return
+	if(!user.put_in_hands(O))
+		O.forceMove(loc)
+	icon_state = "[initial(icon_state)]-open"
+	sleep(5)
+	icon_state = initial(icon_state)
 
 /*
  * Security Record Cabinets
