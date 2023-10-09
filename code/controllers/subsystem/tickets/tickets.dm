@@ -719,6 +719,13 @@ UI STUFF
 
 	SSdbcore.MassExecute(all_queries, TRUE, TRUE, FALSE, TRUE)
 
+/datum/controller/subsystem/tickets/can_vv_get(var_name)
+	var/static/list/protected_vars = list(
+		"allTickets"
+	)
+	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+		return FALSE
+	return TRUE
 
 #undef TICKET_STAFF_MESSAGE_ADMIN_CHANNEL
 #undef TICKET_STAFF_MESSAGE_PREFIX
