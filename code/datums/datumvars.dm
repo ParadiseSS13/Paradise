@@ -22,7 +22,7 @@
 
 /client/can_vv_get(var_name)
 	var/static/list/protected_vars = list(
-		"address", "computer_id"
+		"address", "computer_id", "jbh"
 	)
 	if(!check_rights(R_ADMIN, FALSE, mob) && (var_name in protected_vars))
 		return FALSE
