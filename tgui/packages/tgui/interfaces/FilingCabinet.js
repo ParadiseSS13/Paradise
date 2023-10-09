@@ -14,7 +14,6 @@ export const FilingCabinet = (props, context) => {
           {!!contents &&
             contents
               .slice()
-              .sort((a, b) => a.display_name.localeCompare(b.display_name))
               .map((item) => {
                 return (
                   <Flex direction="row" key={item}>

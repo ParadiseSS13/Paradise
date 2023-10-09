@@ -91,7 +91,7 @@
 /obj/structure/filingcabinet/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "FilingCabinet",  name, 400, 500, master_ui, state)
+		ui = new(user, src, ui_key, "FilingCabinet",  name, 400, 300, master_ui, state)
 		ui.open()
 
 /obj/structure/filingcabinet/ui_data(mob/user)
@@ -124,10 +124,9 @@
 			if(isnull(index) || !ISINDEXSAFE(contents, index))
 				return FALSE
 			var/K = contents[index]
-			if(Adjacent(usr) && !issilicon(usr))
-				retrieve(K)
+			retrieve(K)
 
-/obj/structure/filingcabinet/proc/insert(var/obj/O)
+/obj/structure/filingcabinet/proc/insert(obj/item/O)
 	if(accept_check(O))
 		to_chat(usr, "<span class='notice'>You put [O.name] in [src].</span>")
 		usr.drop_item()
@@ -138,7 +137,7 @@
 		SStgui.update_uis(src)
 		return TRUE
 
-/obj/structure/filingcabinet/proc/retrieve(var/obj/O)
+/obj/structure/filingcabinet/proc/retrieve(obj/item/O)
 	if(istype(O) && (O.loc == src) && src.Adjacent(usr))
 		if(!usr.put_in_hands(O))
 			O.forceMove(loc)
