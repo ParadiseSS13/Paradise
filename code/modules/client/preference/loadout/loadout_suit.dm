@@ -202,15 +202,15 @@
 
 /datum/gear/suit/blacksuit
 	display_name = "Suit jacket, black"
-	path = /obj/item/clothing/suit/storage/lawyer/blackjacket
+	path = /obj/item/clothing/suit/storage/iaa/blackjacket
 
 /datum/gear/suit/bluesuit
 	display_name = "Suit jacket, blue"
-	path = /obj/item/clothing/suit/storage/lawyer/bluejacket
+	path = /obj/item/clothing/suit/storage/iaa/bluejacket
 
 /datum/gear/suit/purplesuit
 	display_name = "Suit jacket, purple"
-	path = /obj/item/clothing/suit/storage/lawyer/purpjacket
+	path = /obj/item/clothing/suit/storage/iaa/purplejacket
 
 //Mantles!
 /datum/gear/suit/mantle

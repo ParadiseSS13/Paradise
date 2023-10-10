@@ -250,7 +250,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/show_gc_queues,
 	/client/proc/toggle_mctabs,
 	/client/proc/debug_global_variables,
-	/client/proc/visualise_active_turfs
+	/client/proc/visualise_active_turfs,
+	/client/proc/debug_timers,
+	/client/proc/timer_log
 ))
 
 /client/proc/on_holder_add()
