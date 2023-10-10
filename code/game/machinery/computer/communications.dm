@@ -12,7 +12,7 @@
 #define COMM_MSGLEN_MINIMUM 6
 #define COMM_CCMSGLEN_MINIMUM 20
 
-#define ADMIN_CHECK(user) (check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM)
+#define ADMIN_CHECK(user) ((check_rights_all(R_ADMIN|R_EVENT, FALSE, user) && authenticated >= COMM_AUTHENTICATION_CENTCOM) || user.can_admin_interact())
 
 // The communications computer
 /obj/machinery/computer/communications
@@ -73,10 +73,14 @@
 	if(!force)
 		new_level = clamp(new_level, SEC_LEVEL_GREEN, SEC_LEVEL_BLUE)
 	set_security_level(new_level)
-	if(GLOB.security_level != old_level || new_level == SEC_LEVEL_EPSILON) // episilon is delayed... but we still want to log it
+	if(GLOB.security_level != old_level)
 		//Only notify the admins if an actual change happened
 		log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
 		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
+	if(new_level == SEC_LEVEL_EPSILON)
+		// episilon is delayed... but we still want to log it
+		log_game("[key_name(usr)] has changed the security level to epsilon.")
+		message_admins("[key_name_admin(usr)] has changed the security level to epsilon.")
 
 /obj/machinery/computer/communications/ui_act(action, params, datum/tgui/ui)
 	if(..())
@@ -132,7 +136,7 @@
 			if(isAI(ui.user) || isrobot(ui.user))
 				to_chat(ui.user, "<span class='warning'>Firewalls prevent you from changing the alert level.</span>")
 				return
-			else if(ADMIN_CHECK(ui.user) || ui.user.can_admin_interact())
+			else if(ADMIN_CHECK(ui.user))
 				change_security_level(text2num(params["level"]), force = TRUE)
 				return
 			else if(!ishuman(ui.user))
@@ -199,18 +203,16 @@
 		if("delmessage")
 			if(params["msgid"])
 				currmsg = text2num(params["msgid"])
-			var/response = alert("Are you sure you wish to delete this message?", "Confirm", "Yes", "No")
-			if(response == "Yes")
-				if(currmsg)
-					var/id = getCurrentMessage()
-					var/title = messagetitle[id]
-					var/text  = messagetext[id]
-					messagetitle.Remove(title)
-					messagetext.Remove(text)
-					if(currmsg == id)
-						currmsg = null
-					if(aicurrmsg == id)
-						aicurrmsg = null
+			if(currmsg)
+				var/id = getCurrentMessage()
+				var/title = messagetitle[id]
+				var/text  = messagetext[id]
+				messagetitle.Remove(title)
+				messagetext.Remove(text)
+				if(currmsg == id)
+					currmsg = null
+				if(aicurrmsg == id)
+					aicurrmsg = null
 			setMenuState(ui.user, COMM_SCREEN_MESSAGES)
 
 		if("status")

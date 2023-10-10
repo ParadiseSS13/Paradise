@@ -463,7 +463,7 @@ const MessageView = (props, context) => {
             disabled={!authhead || current_message_title === m.title}
             onClick={() => act('messagelist', { msgid: m.id })}
           />
-          <Button
+          <Button.Confirm
             icon="times"
             content="Delete"
             disabled={!authhead}
@@ -583,11 +583,6 @@ const AdminAnnouncePage = (props, context) => {
       />
       <Flex mt="5px">
         <Flex.Item>
-          {/* <Button
-            content="Change Sound"
-            fluid
-            onClick={() => act('change_announce_sound')}
-          /> */}
           <Dropdown
             width="260px"
             height="20px"
@@ -611,6 +606,11 @@ const AdminAnnouncePage = (props, context) => {
             checked={classified}
             content="Classified"
             fluid
+            tooltip={
+              classified
+                ? 'Sent to station communications consoles'
+                : 'Publically announced'
+            }
             onClick={() => setClassified(!classified)}
           />
         </Flex.Item>
