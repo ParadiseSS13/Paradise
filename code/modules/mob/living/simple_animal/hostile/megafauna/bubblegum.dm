@@ -61,6 +61,10 @@ Difficulty: Hard
 	var/revving_charge = FALSE
 	/// Is it on its enraged exclusive second life?
 	var/second_life = FALSE
+	/// Max healing bubblegum can get from being enraged
+	var/maximum_enraged_healing = 500
+	/// Enraged healing recived
+	var/enraged_healing = 0
 	internal_gps = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
@@ -407,7 +411,7 @@ Difficulty: Hard
 	if(!BUBBLEGUM_CAN_ENRAGE)
 		return FALSE
 	enrage_till = world.time + enrage_time
-	if(enraged)
+	if(enraged && enraged_healing < maximum_enraged_healing && !second_life)
 		adjustHealth(-75)
 	update_approach()
 	change_move_delay(enraged ? 3 : 4) //3 if enraged, 4 otherwise
