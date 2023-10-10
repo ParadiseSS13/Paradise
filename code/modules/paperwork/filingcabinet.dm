@@ -44,7 +44,7 @@
 
 
 /obj/structure/filingcabinet/attackby(obj/item/O, mob/user, params)
-	if(insert(O))
+	if(insert(O, user))
 		return
 	if(user.a_intent != INTENT_HARM)
 		to_chat(user, "<span class='warning'>You can't put [O.name] in [src]!</span>")
