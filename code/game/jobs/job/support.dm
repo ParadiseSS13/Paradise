@@ -508,7 +508,7 @@
 /datum/outfit/job/explorer
 	name = "Explorer"
 	jobtype = /datum/job/explorer
-	uniform = /obj/item/clothing/under/rank/civilian/expedition
+	uniform = /obj/item/clothing/under/rank/civilian/clown
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/workboots
 	glasses = /obj/item/clothing/glasses/welding
