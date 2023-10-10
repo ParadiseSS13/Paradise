@@ -184,13 +184,11 @@
 	desc = "I wonder wath thith doeth."
 	activation_messages = list("Thomething doethn't feel right.")
 	deactivation_messages = list("You now feel able to pronounce consonants.")
+	traits_to_add = (TRAIT_LISP)
 
 /datum/mutation/disability/lisp/New()
 	..()
 	block = GLOB.lispblock
-
-/datum/mutation/disability/lisp/on_say(mob/M, message)
-	return replacetext(message,"s","th")
 
 /datum/mutation/disability/comic
 	name = "Comic"

@@ -39,8 +39,21 @@
 			C.buckled.unbuckle_mob(C)
 		C.update_handcuffed()
 		return
-	else
-		return ..()
+	if(ishuman(C) && user.zone_selected == "mouth")
+		var/mob/living/carbon/human/H = C
+		user.visible_message("<span class='notice'>[user] starts pulling [C]'s tooth out!</span>", "<span class='notice'>You start pulling [C]'s tooth out!</span>")
+		if(H.teeth && do_after_once(user, 10 SECONDS, TRUE, C, attempt_cancel_message = "<span class='notice'>You stop pulling [C]'s tooth out.</span>"))
+			H.teeth -= 1
+			H.adjustBruteLoss(5)
+			H.emote("scream")
+			if(!H.teeth)
+				ADD_TRAIT(H, TRAIT_LISP, "no_teeth")
+			user.visible_message("<span class='notice'>[user] pulls one of [C]'s teeth out!</span>", "<span class='notice'>You pull [C]'s tooth out!</span>")
+			return
+		if(!H.teeth)
+			to_chat(user, "<span class='notice'>[C] has no teeth to pull!</span>")
+			return
+	return ..()
 
 /obj/item/wirecutters/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

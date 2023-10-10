@@ -187,6 +187,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IB_IMMUNE			"ib_immune"
 
 #define TRAIT_COMIC_SANS		"comic_sans"
+#define TRAIT_LISP				"lithp"
 #define TRAIT_CHAV				"chav"
 #define TRAIT_NOFINGERPRINTS	"no_fingerprints"
 #define TRAIT_SLOWDIGESTION		"slow_digestion"

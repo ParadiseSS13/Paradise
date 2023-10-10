@@ -80,3 +80,6 @@
 
 	var/list/splinted_limbs = list() //limbs we know are splinted
 	var/original_eye_color = "#000000"
+
+	/// How many teeth does our human have?
+	var/teeth = 32
