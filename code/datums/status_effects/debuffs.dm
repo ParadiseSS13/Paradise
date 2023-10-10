@@ -1065,7 +1065,7 @@
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
 	if(!attacker)
 		return //Let's not nullspace
-	if(attacker.loc = null)
+	if(attacker.loc == null)
 		return //Extra emergency safety.
 	var/turf/TA = get_turf(owner)
 	owner.Immobilize(3 SECONDS)
