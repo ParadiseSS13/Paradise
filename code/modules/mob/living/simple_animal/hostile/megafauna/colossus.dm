@@ -138,7 +138,7 @@ Difficulty: Very Hard
 	else
 		move_to_delay = initial(move_to_delay)
 
-	if(health <= maxHealth / (enraged ? 10 : 9) && final_available) //One time use final attack. Want to make it not get skipped as much on base colossus, but a little easier to skip on enraged as it can be used multiple times
+	if(health <= maxHealth / (enraged ? 9.5 : 8.5) && final_available) //One time use final attack. Want to make it not get skipped as much on base colossus, but a little easier to skip on enraged as it can be used multiple times
 		final_attack()
 		if(!enraged)
 			final_available = FALSE
@@ -235,7 +235,7 @@ Difficulty: Very Hard
 	ranged_cooldown = world.time + 20
 	if(do_sleep)
 		telegraph(BLAST)
-		SLEEP_CHECK_DEATH(enraged ? 0.1 SECONDS : 1.5 SECONDS)
+		SLEEP_CHECK_DEATH(enraged ? 0.75 SECONDS : 1.5 SECONDS)
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))

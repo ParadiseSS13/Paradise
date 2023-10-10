@@ -203,7 +203,12 @@ Difficulty: Medium
 				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced(loc)
 			else
 				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(loc)
-			A.GiveTarget(target)
+			if(!enraged || prob(33))
+				A.GiveTarget(target)
+			else
+				for(var/mob/living/carbon/human/H in range(7, src))
+					if(H.stat == DEAD)
+						A.GiveTarget(target)
 			A.friends = friends
 			A.faction = faction
 
