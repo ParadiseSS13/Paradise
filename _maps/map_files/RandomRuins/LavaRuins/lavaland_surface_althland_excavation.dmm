@@ -613,9 +613,6 @@
 /obj/structure/railing,
 /turf/simulated/floor/chasm,
 /area/lavaland/surface/outdoors)
-"hE" = (
-/turf/space,
-/area/lavaland/surface/outdoors)
 "hL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/northwestcorner,
@@ -1693,7 +1690,7 @@ mK
 yc
 aA
 Ei
-hE
+aB
 aB
 aB
 BW
