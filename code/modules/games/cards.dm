@@ -396,7 +396,7 @@
 		if(href_list["pick"] == "Turn")
 			turn_hand(usr)
 		else
-			if(cardUser.get_item_by_slot(slot_l_hand) == src || cardUser.get_item_by_slot(slot_r_hand) == src)
+			if(cardUser.get_item_by_slot(SLOT_HUD_LEFT_HAND) == src || cardUser.get_item_by_slot(SLOT_HUD_RIGHT_HAND) == src)
 				pickedcard = href_list["pick"]
 				Removecard()
 		cardUser << browse(null, "window=cardhand")

@@ -57,7 +57,7 @@
 
 		// Bang
 		if(!bang)
-			return
+			continue
 		var/ear_safety = M.check_ear_prot()
 		//Atmosphere affects sound
 		var/pressure_factor = 1
@@ -78,11 +78,11 @@
 			M.KnockDown(10 SECONDS)
 			M.Deaf(15 SECONDS)
 		if(ear_safety)
-			return
+			continue
 		M.KnockDown(status_duration * pressure_factor)
 		M.Deaf(30 SECONDS * pressure_factor)
 		if(!iscarbon(M))
-			return
+			continue
 		var/mob/living/carbon/C = M
 		var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 		if(istype(ears))

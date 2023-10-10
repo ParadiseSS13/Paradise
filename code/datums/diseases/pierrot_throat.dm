@@ -63,4 +63,4 @@
 
 			if(!istype(affected_mob.wear_mask, /obj/item/clothing/mask/gas/clown_hat/nodrop))
 				affected_mob.unEquip(affected_mob.wear_mask, TRUE)
-				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/clown_hat/nodrop(src), slot_wear_mask)
+				affected_mob.equip_to_slot(new /obj/item/clothing/mask/gas/clown_hat/nodrop(src), SLOT_HUD_WEAR_MASK)
