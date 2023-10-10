@@ -16,18 +16,12 @@
 /obj/structure/closet/crate/necropolis/bubblegum/bait/populate_contents()
 	return
 
-/obj/structure/closet/crate/necropolis/bubblegum/bait/open(by_hand)
-	. = ..()
-	for(var/obj/effect/bubblegum_trigger/B in contents)
-		B.targets_to_fuck_up += usr
-		B.activate()
-
 /obj/effect/bubblegum_trigger
 	var/list/targets_to_fuck_up = list()
 
 /obj/effect/bubblegum_trigger/Initialize(mapload, target_list)
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(activate)), 15 SECONDS) //We try to auto engage the fun 15 seconds after death, or when manually opened, whichever comes first. If for some strange reason the target list is empty, we'll trigger when opened
+	addtimer(CALLBACK(src, PROC_REF(activate)), 15 SECONDS) //We try to auto engage the fun 15 seconds after death.
 	targets_to_fuck_up = target_list
 
 /obj/effect/bubblegum_trigger/proc/activate()

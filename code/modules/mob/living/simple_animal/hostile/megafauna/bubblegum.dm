@@ -376,7 +376,7 @@ Difficulty: Hard
 		if(T in range(2, target))
 			continue
 		turfs += T
-		var/amount = enraged ? 4 : 3
+		var/amount = second_life ? 4 : 3
 		while(constructs < amount && length(turfs))
 			var/turf/spot = pick_n_take(turfs)
 			if(!spot)
