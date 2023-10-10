@@ -119,7 +119,7 @@
 
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
-	desc = "A beaker. Can hold up to 50 units."
+	desc = "A beaker. Can hold up to [reagents.maximum_volume] units."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
@@ -215,7 +215,7 @@
 
 /obj/item/reagent_containers/glass/beaker/large
 	name = "large beaker"
-	desc = "A large beaker. Can hold up to 100 units."
+	desc = "A large beaker. Can hold up to [reagents.maximum_volume] units."
 	icon_state = "beakerlarge"
 	materials = list(MAT_GLASS=2500)
 	volume = 100
@@ -225,7 +225,7 @@
 
 /obj/item/reagent_containers/glass/beaker/vial
 	name = "vial"
-	desc = "A small glass vial. Can hold up to 25 units."
+	desc = "A small glass vial. Can hold up to [reagents.maximum_volume] units."
 	icon_state = "vial"
 	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
@@ -237,7 +237,7 @@
 
 /obj/item/reagent_containers/glass/beaker/drugs
 	name = "baggie"
-	desc = "A baggie. Can hold up to 10 units."
+	desc = "A baggie. Can hold up to [reagents.maximum_volume] units."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = null
@@ -247,7 +247,7 @@
 
 /obj/item/reagent_containers/glass/beaker/noreact
 	name = "cryostasis beaker"
-	desc = "A cryostasis beaker that allows for chemical storage without reactions. Can hold up to 50 units."
+	desc = "A cryostasis beaker that allows for chemical storage without reactions. Can hold up to [reagents.maximum_volume] units."
 	icon_state = "beakernoreact"
 	materials = list(MAT_METAL=3000)
 	volume = 50
@@ -262,7 +262,7 @@
 
 /obj/item/reagent_containers/glass/beaker/bluespace
 	name = "bluespace beaker"
-	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete. Can hold up to 300 units."
+	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete. Can hold up to [reagents.maximum_volume] units."
 	icon_state = "beakerbluespace"
 	materials = list(MAT_GLASS=3000)
 	volume = 300
