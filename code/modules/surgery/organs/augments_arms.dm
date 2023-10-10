@@ -113,7 +113,7 @@
 		var/obj/item/flash/F = holder
 		F.set_light(7)
 
-	var/arm_slot = (parent_organ == "r_arm" ? slot_r_hand : slot_l_hand)
+	var/arm_slot = (parent_organ == "r_arm" ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
@@ -146,7 +146,7 @@
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
-	var/arm_slot = (parent_organ == "r_arm" ? slot_r_hand : slot_l_hand)
+	var/arm_slot = (parent_organ == "r_arm" ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
 	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
 		return
 
@@ -572,10 +572,13 @@
 	actions_types = list()
 	var/datum/martial_art/muscle_implant/muscle_implant
 
-/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+/obj/item/organ/internal/cyberimp/arm/muscle/Initialize()
 	. = ..()
 	muscle_implant = new()
-	muscle_implant.teach(M)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	muscle_implant.teach(M, TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/M, special)
 	. = ..()

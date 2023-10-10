@@ -10,7 +10,7 @@
 	desc = "A wooden truncheon for beating criminal scum."
 	icon_state = "baton"
 	item_state = "classic_baton"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 12 //9 hit crit
 	w_class = WEIGHT_CLASS_NORMAL
 	// Settings
@@ -155,7 +155,7 @@
 	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
 	icon_state = "telebaton_0" // For telling what it is when mapping
 	item_state = null
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	needs_permit = FALSE
 	on = FALSE
@@ -197,7 +197,7 @@
 	else
 		to_chat(user, "<span class='notice'>You collapse [src].</span>")
 		item_state = null //no sprite for concealment even when in hand
-		slot_flags = SLOT_BELT
+		slot_flags = SLOT_FLAG_BELT
 		w_class = WEIGHT_CLASS_SMALL
 		force = force_off //not so robust now
 		attack_verb = attack_verb_off
