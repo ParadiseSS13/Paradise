@@ -121,7 +121,7 @@
 
 /obj/item/reagent_containers/glass/beaker
 	name = "beaker"
-	desc = "A beaker."
+	desc = "A simple glass beaker, nothing special."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
@@ -217,7 +217,7 @@
 
 /obj/item/reagent_containers/glass/beaker/large
 	name = "large beaker"
-	desc = "A large beaker."
+	desc = "A large glass beaker, now 2x bigger!."
 	icon_state = "beakerlarge"
 	materials = list(MAT_GLASS=2500)
 	volume = 100
@@ -227,7 +227,7 @@
 
 /obj/item/reagent_containers/glass/beaker/vial
 	name = "vial"
-	desc = "A small glass vial."
+	desc = "A small glass vial, now half as big."
 	icon_state = "vial"
 	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
@@ -239,7 +239,7 @@
 
 /obj/item/reagent_containers/glass/beaker/drugs
 	name = "baggie"
-	desc = "A baggie."
+	desc = "A baggie, I wonder what is in here."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = null
