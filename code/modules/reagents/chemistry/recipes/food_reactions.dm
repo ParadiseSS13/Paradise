@@ -217,3 +217,10 @@
 	min_temp = T0C + 480
 	mix_message = "The mixture emits a horrible smell as you heat up the contents. Luckily, enzymes don't stink."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
+
+/datum/chemical_reaction/vinegar
+	name = "Vinegar"
+	id = "vinegar"
+	result = "vinegar"
+	required_reagents = list("acetic_acid" = 1, "water" = 9)
+	result_amount = 10
