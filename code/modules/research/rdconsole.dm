@@ -462,15 +462,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			SSblackbox.record_feedback("nested tally", "RND Production List", amount, list("[being_built.category]", "[being_built.name]"))
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
-				var/list/random_pos = list(
-					/obj/item/stock_parts,
-					/obj/item/disk/plantgene,
-					/obj/item/disk/tech_disk,
-					/obj/item/disk/design_disk,
-					/obj/item/disk/data)
-				if(is_type_in_list(new_item, random_pos))
-					new_item.pixel_x = rand(-5.0, 5)
-					new_item.pixel_y = rand(-5.0, 5)
+				new_item.pixel_x = rand(-5, 5)
+				new_item.pixel_y = rand(-5, 5)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches
