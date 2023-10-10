@@ -662,8 +662,8 @@
 	},
 /area/mine/outpost/hallway/west)
 "bJ" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
 "bK" = (
@@ -1128,8 +1128,8 @@
 /turf/simulated/wall,
 /area/mine/outpost/maintenance)
 "cN" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/medbay)
 "cO" = (
@@ -1207,8 +1207,8 @@
 	},
 /area/mine/outpost/medbay)
 "cU" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
 "cV" = (
@@ -1392,9 +1392,6 @@
 	},
 /area/mine/outpost/hallway/west)
 "dq" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "mining qm"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -1402,6 +1399,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "mining qm"
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
@@ -1873,7 +1873,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/effect/spawner/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
 /turf/simulated/floor/plating,
@@ -2376,8 +2376,8 @@
 /area/mine/outpost/hallway/west)
 "fh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "fj" = (
@@ -2712,7 +2712,7 @@
 /area/mine/outpost/maintenance)
 "fO" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window/reinforced/tinted,
+/obj/effect/spawner/window/reinforced/tinted/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/east)
 "fP" = (
@@ -3494,7 +3494,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
 /turf/simulated/floor/plating,
@@ -3677,8 +3677,8 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/unexplored)
 "kf" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/airlock)
 "kg" = (
@@ -3709,11 +3709,11 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kq" = (
+/obj/structure/reagent_dispensers/oil,
+/obj/item/reagent_containers/food/drinks/oilcan,
 /obj/structure/window/reinforced/tinted{
 	dir = 8
 	},
-/obj/structure/reagent_dispensers/oil,
-/obj/item/reagent_containers/food/drinks/oilcan,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
@@ -4850,8 +4850,8 @@
 	},
 /area/mine/laborcamp)
 "sk" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/lockers)
 "sr" = (
@@ -5078,7 +5078,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "um" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "uq" = (
@@ -6221,7 +6221,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
 /turf/simulated/floor/plating,
@@ -7184,10 +7184,10 @@
 	},
 /area/mine/laborcamp/security)
 "Pg" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/sign/securearea{
 	name = "\improper KEEP CLEAR: DOCKING AREA"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "Ph" = (
@@ -7249,7 +7249,7 @@
 	d2 = 4
 	},
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced/polarized{
+/obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
 /turf/simulated/floor/plating,
@@ -7326,8 +7326,8 @@
 	},
 /area/mine/laborcamp)
 "QF" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/east)
 "QR" = (
@@ -8045,8 +8045,8 @@
 	},
 /area/mine/outpost/mechbay)
 "XZ" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "Ya" = (
