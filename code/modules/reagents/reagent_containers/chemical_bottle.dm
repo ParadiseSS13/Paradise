@@ -160,7 +160,7 @@
 
 /obj/item/reagent_containers/glass/bottle/reagent
 	name = "reagent bottle"
-	desc = "A bottle for storing reagents. Can hold up to [reagents.maximum_volume] units. "
+	desc = "A bottle for storing reagents"
 	icon_state = "reagent_bottle"
 	possible_transfer_amounts = list(5, 10, 15, 25, 30, 50)
 	volume = 50
