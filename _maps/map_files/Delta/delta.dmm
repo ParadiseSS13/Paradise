@@ -1600,9 +1600,7 @@
 	},
 /area/station/hallway/secondary/entry)
 "anr" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -81162,9 +81160,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "eiQ" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -85643,9 +85639,7 @@
 	},
 /area/station/medical/surgery/primary)
 "jkW" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /obj/structure/cable{
 	d2 = 2;
 	icon_state = "0-2"
@@ -88404,9 +88398,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/explab)
 "mPt" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
@@ -91695,9 +91687,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "qnz" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
@@ -93882,9 +93872,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "sOd" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /obj/structure/cable,
 /obj/structure/cable{
 	d1 = 1;
@@ -94873,9 +94861,7 @@
 	},
 /area/station/maintenance/apmaint)
 "tRI" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
+/obj/effect/spawner/window/reinforced/polarized/grilled,
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
