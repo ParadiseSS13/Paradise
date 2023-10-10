@@ -63,9 +63,8 @@
 	text_dehack = "You detect errors in [name] and reset [p_their()] programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
-//TGUI
 
-/mob/living/simple_animal/bot/floorbot/show_controls(mob/user) //Used for bypassing the other UI
+/mob/living/simple_animal/bot/floorbot/show_controls(mob/user)
 	ui_interact(user)
 
 /mob/living/simple_animal/bot/floorbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
@@ -84,7 +83,6 @@
 	data["magnet"] = anchored
 	data["tiles_amount"] = amount
 	return data
-
 
 /mob/living/simple_animal/bot/floorbot/ui_act(action, params, datum/tgui/ui)
 	if(..())
@@ -125,7 +123,6 @@
 		if("ejectpai")
 			ejectpai()
 
-//END OF TGUI
 
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
