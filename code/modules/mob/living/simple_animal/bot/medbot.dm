@@ -260,7 +260,7 @@
 		W.forceMove(src)
 		reagent_glass = W
 		to_chat(user, "<span class='notice'>You insert [W].</span>")
-		show_controls(user, force_open=FALSE)
+		ui_interact(user, force_open=FALSE)
 
 	else
 		var/current_health = health
