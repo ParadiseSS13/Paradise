@@ -46,29 +46,41 @@ def three_way_merge(base: dmm.DMM, left: dmm.DMM, right: dmm.DMM):
     merged = dmm.DMM(base.key_length, base.size)
     merged.dictionary = base.dictionary.copy()
 
-    swaps = {}
+    desired_keys = {}
 
     # For either left or right: Check to see if the tile already exists with a
     # key. If so, we clobber the key and reuse the one from the left/right to
     # reduce key changes that may cascade throughout the file, causing noisy
     # unrelated diffs.
     def swap_in_from_leftright(coord, leftright: dmm.DMM, tiledata: tuple):
+        # If the exact tile data already exists, we reuse that tile's key. This
+        # may cause more churn in the textual diff but the alternative is
+        # attempting to reassign *that* key which would almost certainly end up
+        # being noisier.
+        #
+        # Note that this is being done sequentially through the file; an
+        # existence check passing here almost guarantees that what we're seeing
+        # is a result of us, ourselves, wanting this key-value pair in the final
+        # output. So I don't think ignoring the swap-in key here is disastrous.
+        if tiledata in merged.dictionary.inv:
+            merged.grid[coord] = merged.dictionary.inv[tiledata]
+            return
+
+        # Otherwise, we need to swap in the data.
         swap_in_key = leftright.dictionary.inv[tiledata]
-        if swap_in_key in merged.dictionary and merged.dictionary[swap_in_key] != tiledata:
-            curdata = merged.dictionary[swap_in_key]
-            merged.dictionary[swap_in_key] = tiledata
-            merged.grid[coord] = swap_in_key
-        elif tiledata in merged.dictionary.inv and swap_in_key not in merged.dictionary:
-            old_key = merged.dictionary.inv[tiledata]
-            merged.dictionary.inv[tiledata] = swap_in_key
-            merged.grid[coord] = swap_in_key
-            swaps[old_key] = swap_in_key
-            del merged.dictionary[old_key]
-        elif swap_in_key not in merged.dictionary:
-            merged.dictionary[swap_in_key] = tiledata
-            merged.grid[coord] = swap_in_key
+
+        if swap_in_key in merged.dictionary:
+            # If the key is already being used, we generate a new key but keep
+            # track of the old one, because there's a pretty good chance the
+            # reason there's a collision is because the old tile has it. So
+            # later when we remove unused keys we have another chance to clean
+            # up the text diff.
+
+            # swap in key = tile data, new key
+            desired_keys[swap_in_key] = (tiledata, merged.set_tile(coord, tiledata))
         else:
-            merged.set_tile(coord, tiledata)
+            merged.dictionary[swap_in_key] = tiledata
+            merged.grid[coord] = swap_in_key
 
     for (z, y, x) in base.coords_zyx:
         coord = x, y, z
@@ -144,13 +156,21 @@ def three_way_merge(base: dmm.DMM, left: dmm.DMM, right: dmm.DMM):
 
         merged.set_tile(coord, tile)
 
-    # TODO(wso): This may not be necessary at all
-    for (z, y, x) in merged.coords_zyx:
-        k = merged.grid[(x, y, z)]
-        if k in swaps:
-            merged.grid[(x, y, z)] = swaps[k]
-
     merged.remove_unused_keys()
+
+    swaps = {}
+
+    for key, (tiledata, new_key) in desired_keys.items():
+        if key not in merged.dictionary:
+            # We got the key back after removing unused keys
+            merged.dictionary.inv[tiledata] = key
+            swaps[new_key] = key
+
+    if swaps:
+        for (z, y, x) in merged.coords_zyx:
+            k = merged.grid[(x, y, z)]
+            if k in swaps:
+                merged.grid[(x, y, z)] = swaps[k]
 
     return trouble, merged
 

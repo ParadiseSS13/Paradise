@@ -43,7 +43,7 @@
 
 /obj/item/clothing/under/syndicate/silicon_cham/equipped(mob/user, slot, initial)
 	. = ..()
-	if(slot == slot_w_uniform)
+	if(slot == SLOT_HUD_JUMPSUIT)
 		ADD_TRAIT(user, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
 		user.invisibility = SEE_INVISIBLE_LIVING
 		to_chat(user, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators activate.</span>")

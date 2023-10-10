@@ -92,7 +92,7 @@ const UmbrMenu = (props, context) => {
         </p>
         <p>
           <b>Shadow snare</b>: Unlocked at 250 blood, allows you to summon a
-          trap that when crossed blinds and ensares the victim. This trap is
+          trap that when crossed blinds and ensnares the victim. This trap is
           hard to see, but withers in the light.
         </p>
         <p>
@@ -113,7 +113,7 @@ const UmbrMenu = (props, context) => {
           Inside the radius, nearby creatures will freeze and energy projectiles
           will deal less damage.
         </p>
-        <p>In addition, you also gain permament X-ray vision.</p>
+        <p>In addition, you also gain permanent X-ray vision.</p>
         <Button content="Umbrae" onClick={() => act('umbrae')} />
       </Section>
     </Flex.Item>
@@ -150,7 +150,7 @@ const GarMenu = (props, context) => {
         </p>
         <p>
           <b>Overwhelming force</b>: Unlocked at 600 blood, when toggled, if you
-          bump into a door that you dont have access to, it will force it open.
+          bump into a door that you do not have access to, it will force it open.
           In addition, you cannot be pushed or pulled while it is active.
         </p>
         <p>
@@ -222,8 +222,8 @@ const DantMenu = (props, context) => {
         <p>
           <b>Full Power</b>
           <Divider />
-          <b>Mass Hysteria</b>: Casts a powerful illusion that, blinds then make
-          everyone nearby perceive others to looks like random animals.
+          <b>Mass Hysteria</b>: Casts a powerful illusion that blinds and then makes
+          everyone nearby perceive others as random animals.
         </p>
         <Button content="Dantalion" onClick={() => act('dantalion')} />
       </Section>

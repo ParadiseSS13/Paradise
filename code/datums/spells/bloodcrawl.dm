@@ -43,6 +43,7 @@
 			cooldown_handler.start_recharge()
 
 
+
 //Travel through pools of blood. Slaughter Demon powers for everyone!
 #define BLOODCRAWL     1
 #define BLOODCRAWL_EAT 2
@@ -136,17 +137,22 @@
 	if(!victim)
 		to_chat(L, "<span class='danger'>You happily devour... nothing? Your meal vanished at some point!</span>")
 		return
-
-	if(ishuman(victim) || isrobot(victim))
+	if(victim.mind)
 		to_chat(L, "<span class='warning'>You devour [victim]. Your health is fully restored.</span>")
 		L.adjustBruteLoss(-1000)
 		L.adjustFireLoss(-1000)
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
-	else
+	else if((ishuman(victim) || isrobot(victim)))
+		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
+		L.adjustBruteLoss(-50)
+		if(!isslaughterdemon(L))
+			L.adjustFireLoss(-50)
+	else if(isanimal(victim))
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
-		L.adjustFireLoss(-25)
+		if(!isslaughterdemon(L))
+			L.adjustFireLoss(-25)
 
 	if(isslaughterdemon(L))
 		var/mob/living/simple_animal/demon/slaughter/demon = L
