@@ -1600,7 +1600,9 @@
 	},
 /area/station/hallway/secondary/entry)
 "anr" = (
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced/polarized/grilled{
+	id = "qm"
+	},
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
