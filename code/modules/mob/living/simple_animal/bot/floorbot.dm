@@ -72,6 +72,7 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "BotFloor", name, 500, 520)
 		ui.open()
+		
 /mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
 	var/list/data = ..()
 	data["hullplating"] = autotile
