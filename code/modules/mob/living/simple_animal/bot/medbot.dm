@@ -174,6 +174,7 @@
 		"canhack" = canhack(user),
 		"emagged" = emagged, // this is an int, NOT a boolean
 		"remote_disabled" = remote_disabled,
+
 		// -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
 		"shut_up" = shut_up,
 		"declare_crit" = declare_crit,
