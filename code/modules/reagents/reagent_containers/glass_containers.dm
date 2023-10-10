@@ -26,8 +26,6 @@
 	if(get_dist(user, src) <= 2 && !is_open_container())
 		. += "<span class='notice'>Airtight lid seals it completely.</span>"
 
-	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
-
 /obj/item/reagent_containers/glass/attack(mob/M, mob/user, def_zone)
 	if(!is_open_container())
 		return ..()
