@@ -28,6 +28,7 @@
 	"oliveoil" = list("oliveoil","olive oil bottle", "A high quality oil used in a variety of cuisine. Made from olives."),
 	"wasabi" = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
 	"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
+	"vinegar" = list("vinegar", "vinegar", "Perfect for chips, if you're feeling Space British."),
 	"mayonnaise" = list("mayonnaise", "mayonnaise bottle", "An oily condiment made from egg yolks."),
 	"cherryjelly" = list("cherryjelly", "cherry jelly jar", "A sweet jelly made out of red cherries."),
 	"peanutbutter" = list("peanutbutter", "peanut butter jar", "A smooth, nutty spread. Perfect for sandwiches."),
@@ -287,7 +288,8 @@
 	"sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably."),
 	"blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze."),
 	"cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn."),
-	"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"))
+	"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
+	"vinegar" =list("condi_mixed", "vinegar", "Perfect for chips, if you're feeling Space British."))
 
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
 	return

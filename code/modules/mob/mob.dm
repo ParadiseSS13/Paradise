@@ -1148,14 +1148,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/activate_hand(selhand)
 	return
 
-/mob/proc/add_to_respawnable_list()
-	GLOB.respawnable_list += src
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_respawnable_list))
-
-/mob/proc/remove_from_respawnable_list()
-	GLOB.respawnable_list -= src
-	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
-
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
@@ -1168,7 +1160,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in GLOB.respawnable_list) && (stat == DEAD || isobserver(usr)))
+	if((HAS_TRAIT(usr, TRAIT_RESPAWNABLE)) && (stat == DEAD || isobserver(usr)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 			if(!(is_station_level(L.z) || is_admin_level(L.z))) // Prevents players from spawning in space
@@ -1178,12 +1170,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				if(become_mouse()) // Only remove respawnability if the player successfully becomes a mouse
-					remove_from_respawnable_list()
+				become_mouse()
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					remove_from_respawnable_list()
 					NPC.key = key
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")

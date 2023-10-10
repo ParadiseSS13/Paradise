@@ -7,6 +7,7 @@
 	category = VENDOR_TYPE_DEPARTMENTAL
 	req_one_access_txt = "11;24" // Engineers and atmos techs can use this
 	products = list(/obj/item/clothing/glasses/meson/engine = 2,
+					/obj/item/clothing/glasses/meson/engine/tray = 4,
 					/obj/item/multitool = 4,
 					/obj/item/geiger_counter = 5,
 					/obj/item/airlock_electronics = 10,
