@@ -166,24 +166,25 @@
 
 
 /obj/item/organ/external/attack(mob/M, mob/living/user)
-	if(ishuman(M))
-		var/mob/living/carbon/human/C = M
-		if(is_robotic() && HAS_TRAIT(C, TRAIT_IPC_JOINTS_MAG) && isnull(C.bodyparts_by_name[limb_name]))
-			user.unEquip(src)
-			replaced(C)
-			C.update_body()
-			C.updatehealth()
-			C.UpdateDamageIcon()
-			if(limb_name == BODY_ZONE_HEAD)
-				var/obj/item/organ/external/head/H = C.get_organ(BODY_ZONE_HEAD)
-				var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
-				if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
-					H.h_style = "Bald"
-					H.f_style = "Shaved"
-					C.m_styles["head"] = "None"
-			user.visible_message(
-		"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
-		"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
+	if(!ishuman(M))
+		return
+	var/mob/living/carbon/human/C = M
+	if(is_robotic() && HAS_TRAIT(C, TRAIT_IPC_JOINTS_MAG) && isnull(C.bodyparts_by_name[limb_name]))
+		user.unEquip(src)
+		replaced(C)
+		C.update_body()
+		C.updatehealth()
+		C.UpdateDamageIcon()
+		if(limb_name == BODY_ZONE_HEAD)
+			var/obj/item/organ/external/head/H = C.get_organ(BODY_ZONE_HEAD)
+			var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
+			if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
+				H.h_style = "Bald"
+				H.f_style = "Shaved"
+				C.m_styles["head"] = "None"
+		user.visible_message(
+	"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
+	"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
 
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target

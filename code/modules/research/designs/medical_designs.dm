@@ -553,7 +553,7 @@
 
 /datum/design/monsoon_implant
 	name = "Magnetic Joints Implant"
-	desc = "This implant modifies IPC joints to use magnets, allowing easy re-attachment and smooth movement."
+	desc = "This implant modifies IPC joints to use magnets, allowing easy re-attachment and fluid movement."
 	id = "ci-monsoon_implant"
 	req_tech = list("materials" = 5, "programming" = 5, "biotech" = 5, "magnets" = 5, "engineering" = 5)
 	build_type = PROTOLATHE | MECHFAB
