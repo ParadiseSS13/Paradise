@@ -12,6 +12,10 @@
 	container_type = OPENCONTAINER
 	volume = 30
 
+/obj/item/reagent_containers/glass/bottle/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>[src] can hold up to [reagents.maximum_volume] units.</span>"
+
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
