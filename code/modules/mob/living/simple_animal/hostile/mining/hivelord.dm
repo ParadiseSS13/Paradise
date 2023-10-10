@@ -273,6 +273,9 @@
 	stat_attack = DEAD
 	can_infest_dead = TRUE
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril
+	fromtendril = TRUE
+
 //Legion that spawns Legions
 /mob/living/simple_animal/hostile/asteroid/big_legion
 	name = "big legion"
