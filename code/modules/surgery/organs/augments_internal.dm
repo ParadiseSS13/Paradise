@@ -456,7 +456,7 @@
 
 /obj/item/organ/internal/cyberimp/chest/ipc_repair
 	name = "Reactive Repair Implant"
-	desc = "This implant reworks the IPC frame, in order to incoperate materials that return to their original shape after being damaged. Requires power to function"
+	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
 	implant_color = "#0ac0d8"
 	origin_tech = "materials=4;programming=4;biotech=4;magnets=4;engineering=4"
 	slot = "stomach" //Can't have a nutriment pump with it.

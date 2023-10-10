@@ -542,7 +542,7 @@
 
 /datum/design/raiden_implant
 	name = "Reactive Repair Implant"
-	desc = "This implant reworks the IPC frame, in order to incoperate materials that return to their original shape after being damaged. Requires power to function"
+	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
 	id = "ci-raiden_implant"
 	req_tech = list("materials" = 5, "programming" = 5, "biotech" = 5, "magnets" = 5, "engineering" = 5)
 	build_type = PROTOLATHE | MECHFAB
