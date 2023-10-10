@@ -86324,30 +86324,24 @@
 "sTQ" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/pill/patch/styptic{
-	initialized = 1;
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/food/pill/patch/silver_sulf{
-	initialized = 1;
 	pixel_x = 6
 	},
 /obj/item/reagent_containers/food/pill/patch/styptic{
-	initialized = 1;
 	pixel_x = -5;
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/food/pill/patch/silver_sulf{
-	initialized = 1;
 	pixel_x = 6;
 	pixel_y = 2
 	},
 /obj/item/reagent_containers/food/pill/patch/styptic{
-	initialized = 1;
 	pixel_x = -5;
 	pixel_y = 4
 	},
 /obj/item/reagent_containers/food/pill/patch/silver_sulf{
-	initialized = 1;
 	pixel_x = 6;
 	pixel_y = 4
 	},

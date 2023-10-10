@@ -5339,19 +5339,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
 /area/station/supply/sorting)
-"aBI" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/station/medical/storage)
 "aBJ" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
@@ -34600,16 +34587,9 @@
 	},
 /area/station/service/expedition)
 "cBF" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/brute{
-	pixel_y = 10
-	},
-/obj/item/storage/firstaid/brute{
-	pixel_y = 6
-	},
-/obj/item/storage/firstaid/brute{
-	pixel_y = 2
-	},
+/obj/machinery/power/apc/directional/south,
+/obj/structure/cable,
+/obj/structure/closet/secure_closet/medical3,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -39433,11 +39413,8 @@
 	},
 /area/station/medical/sleeper)
 "cXr" = (
-/obj/machinery/camera{
-	c_tag = "Medbay Storage";
-	network = list("Medbay","SS13")
-	},
 /obj/machinery/light/directional/north,
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -39992,11 +39969,11 @@
 /turf/space,
 /area/station/maintenance/starboardsolar)
 "daW" = (
-/obj/structure/window/full/reinforced,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/effect/decal/straw/medium,
+/obj/effect/spawner/window,
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/storage)
 "daX" = (
@@ -40619,17 +40596,8 @@
 	},
 /area/station/medical/reception)
 "ddZ" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/regular{
-	pixel_y = 10
-	},
-/obj/item/storage/firstaid/regular{
-	pixel_y = 6
-	},
-/obj/item/storage/firstaid/regular{
-	pixel_y = 2
-	},
 /obj/machinery/light/directional/south,
+/obj/structure/closet/secure_closet/medical3,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -41001,30 +40969,24 @@
 	pixel_x = 8;
 	pixel_y = 10
 	},
+/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
 "dgU" = (
-/obj/structure/table,
-/obj/item/clothing/glasses/hud/health{
+/obj/structure/extinguisher_cabinet/directional/north,
+/obj/structure/rack,
+/obj/item/storage/firstaid/o2{
 	pixel_y = 10
 	},
-/obj/item/clothing/glasses/hud/health{
-	pixel_y = 8
-	},
-/obj/item/clothing/glasses/hud/health{
+/obj/item/storage/firstaid/o2{
 	pixel_y = 6
 	},
-/obj/item/clothing/glasses/hud/health{
-	pixel_y = 4
-	},
-/obj/item/clothing/glasses/hud/health{
+/obj/item/storage/firstaid/o2{
 	pixel_y = 2
 	},
-/obj/item/clothing/glasses/hud/health,
-/obj/machinery/newscaster/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -41330,13 +41292,14 @@
 	pixel_y = 3
 	},
 /obj/item/gun/syringe,
+/obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
 "diJ" = (
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
@@ -45764,8 +45727,16 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "dJM" = (
-/obj/structure/closet/secure_closet/medical3,
-/obj/machinery/firealarm/directional/north,
+/obj/structure/rack,
+/obj/item/storage/firstaid/regular{
+	pixel_y = 10
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_y = 6
+	},
+/obj/item/storage/firstaid/regular{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -61496,11 +61467,6 @@
 /area/station/medical/surgery/primary)
 "iOD" = (
 /obj/machinery/hologram/holopad,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -62374,15 +62340,20 @@
 	},
 /area/station/hallway/primary/fore)
 "jjf" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/fire{
+/obj/structure/table,
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -5;
 	pixel_y = 10
 	},
-/obj/item/storage/firstaid/fire{
-	pixel_y = 6
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5;
+	pixel_y = 10
 	},
-/obj/item/storage/firstaid/fire{
-	pixel_y = 2
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = -5
+	},
+/obj/item/reagent_containers/spray/cleaner{
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
@@ -66194,6 +66165,11 @@
 	layer = 3.1;
 	pixel_x = -6;
 	pixel_y = 10
+	},
+/obj/machinery/camera{
+	c_tag = "Medbay Storage";
+	network = list("Medbay","SS13");
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -73176,7 +73152,7 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/window/full/reinforced,
+/obj/effect/spawner/window,
 /obj/structure/flora/ausbushes/genericbush,
 /turf/simulated/floor/grass/no_creep,
 /area/station/medical/sleeper)
@@ -73424,6 +73400,11 @@
 "nxN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -74628,17 +74609,24 @@
 	},
 /area/station/service/hydroponics)
 "nQa" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/o2{
+/obj/machinery/alarm/directional/south,
+/obj/structure/table,
+/obj/item/storage/belt/medical{
 	pixel_y = 10
 	},
-/obj/item/storage/firstaid/o2{
+/obj/item/storage/belt/medical{
+	pixel_y = 8
+	},
+/obj/item/storage/belt/medical{
 	pixel_y = 6
 	},
-/obj/item/storage/firstaid/o2{
+/obj/item/storage/belt/medical{
+	pixel_y = 4
+	},
+/obj/item/storage/belt/medical{
 	pixel_y = 2
 	},
-/obj/machinery/alarm/directional/south,
+/obj/item/storage/belt/medical,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -77825,17 +77813,26 @@
 	},
 /area/station/maintenance/starboard2)
 "pdP" = (
-/obj/structure/rack,
-/obj/item/storage/firstaid/toxin{
+/obj/machinery/light_switch/south,
+/obj/structure/table,
+/obj/item/clothing/glasses/hud/health{
 	pixel_y = 10
 	},
-/obj/item/storage/firstaid/toxin{
+/obj/item/clothing/glasses/hud/health{
+	pixel_y = 8
+	},
+/obj/item/clothing/glasses/hud/health{
 	pixel_y = 6
 	},
-/obj/item/storage/firstaid/toxin{
+/obj/item/clothing/glasses/hud/health{
+	pixel_y = 4
+	},
+/obj/item/clothing/glasses/hud/health{
 	pixel_y = 2
 	},
-/obj/machinery/light_switch/south,
+/obj/item/clothing/glasses/hud/health{
+	pixel_y = 0
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -78937,22 +78934,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/storage)
 "puv" = (
-/obj/structure/table,
-/obj/item/handheld_defibrillator{
-	pixel_y = 12;
-	pixel_x = -8
+/obj/structure/rack,
+/obj/item/storage/firstaid/brute{
+	pixel_y = 10
 	},
-/obj/item/handheld_defibrillator{
-	pixel_y = 12;
-	pixel_x = 8
+/obj/item/storage/firstaid/brute{
+	pixel_y = 6
 	},
-/obj/item/handheld_defibrillator{
-	pixel_y = 6;
-	pixel_x = -8
-	},
-/obj/item/handheld_defibrillator{
-	pixel_y = 6;
-	pixel_x = 8
+/obj/item/storage/firstaid/brute{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -85302,11 +85292,15 @@
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/chamber)
 "rSM" = (
-/obj/structure/closet/secure_closet/medical3,
-/obj/machinery/power/apc/directional/north,
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
+/obj/structure/rack,
+/obj/item/storage/firstaid/fire{
+	pixel_y = 10
+	},
+/obj/item/storage/firstaid/fire{
+	pixel_y = 6
+	},
+/obj/item/storage/firstaid/fire{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -86391,25 +86385,16 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "spc" = (
-/obj/structure/table,
-/obj/item/storage/belt/medical{
+/obj/structure/rack,
+/obj/item/storage/firstaid/toxin{
 	pixel_y = 10
 	},
-/obj/item/storage/belt/medical{
-	pixel_y = 8
-	},
-/obj/item/storage/belt/medical{
+/obj/item/storage/firstaid/toxin{
 	pixel_y = 6
 	},
-/obj/item/storage/belt/medical{
-	pixel_y = 4
-	},
-/obj/item/storage/belt/medical{
+/obj/item/storage/firstaid/toxin{
 	pixel_y = 2
 	},
-/obj/item/storage/belt/medical,
-/obj/machinery/light/directional/north,
-/obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -93006,20 +92991,22 @@
 	},
 /area/station/maintenance/fsmaint)
 "uOC" = (
+/obj/machinery/light/directional/north,
 /obj/structure/table,
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5;
-	pixel_y = 10
+/obj/item/handheld_defibrillator{
+	pixel_y = 2;
+	pixel_x = -8
 	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -5;
-	pixel_y = 10
+/obj/item/handheld_defibrillator{
+	pixel_y = 2;
+	pixel_x = -4
 	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = 5
+/obj/item/handheld_defibrillator{
+	pixel_y = 2
 	},
-/obj/item/reagent_containers/spray/cleaner{
-	pixel_x = -5
+/obj/item/handheld_defibrillator{
+	pixel_y = 2;
+	pixel_x = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -94837,6 +94824,11 @@
 "vAb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -97479,22 +97471,18 @@
 	pixel_x = -6
 	},
 /obj/item/reagent_containers/food/pill/patch/styptic{
-	initialized = 1;
 	pixel_x = 8;
 	pixel_y = 8
 	},
 /obj/item/reagent_containers/food/pill/patch/styptic{
-	initialized = 1;
 	pixel_x = 8;
 	pixel_y = 8
 	},
 /obj/item/reagent_containers/food/pill/patch/silver_sulf{
-	initialized = 1;
 	pixel_x = 8;
 	pixel_y = -2
 	},
 /obj/item/reagent_containers/food/pill/patch/silver_sulf{
-	initialized = 1;
 	pixel_x = 8;
 	pixel_y = -2
 	},
@@ -147563,7 +147551,7 @@ jgE
 rro
 rSM
 iOD
-aBI
+nxN
 nQa
 rro
 vjg
