@@ -166,7 +166,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 			S.message = "<span class='[span]'>[S.message]</span>"
 
 		if(HAS_TRAIT(src, TRAIT_LISP))
-			S.message = replacetext(S.message,"s","th")
+			S.message = replacetext(S.message, "s", "th")
 
 	if(wear_mask)
 		var/speech_verb_when_masked = wear_mask.change_speech_verb()
