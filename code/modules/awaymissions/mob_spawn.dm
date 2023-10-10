@@ -678,7 +678,7 @@
 	if(corpse_description)
 		spawned_mob.AddComponent(/datum/component/corpse_description, corpse_description, naive_corpse_description)
 
-/obj/effect/mob_spawn/corpse/create(ckey, flavour, name)
+/obj/effect/mob_spawn/corpse/create(ckey, flavour, name, user)
 	. = ..()
 	qdel(src)
 
