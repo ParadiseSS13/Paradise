@@ -74,21 +74,20 @@
 	list_reagents = list("plantmatter" = 3, "vitamin" = 1)
 	tastes = list("mushroom" = 1)
 
-/obj/item/reagent_containers/food/snacks/tomatomeat
-	name = "tomato slice"
-	desc = "A slice from a huge tomato."
-	icon_state = "tomatomeat"
-	filling_color = "#DB0000"
-	bitesize = 6
-	list_reagents = list("protein" = 2)
-	tastes = list("tomato" = 1)
-
 /obj/item/reagent_containers/food/snacks/watermelonslice
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
 	icon_state = "watermelonslice" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FF3867"
 	tastes = list("watermelon" = 1)
+
+/obj/item/reagent_containers/food/snacks/tomatoslice
+	name = "tomato slice"
+	desc = "A fresh slice of tomato."
+	icon_state = "tomatoslice"
+	filling_color = "#DB0000"
+	list_reagents = list("plantmatter" = 2)
+	tastes = list("tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/pineappleslice
 	name = "pineapple slices"
