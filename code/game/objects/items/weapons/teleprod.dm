@@ -1,6 +1,8 @@
 /obj/item/melee/baton/cattleprod/teleprod
 	name = "teleprod"
 	desc = "A prod with a bluespace crystal on the end. The crystal doesn't look too fun to touch."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "teleprod_nocell"
 	base_icon = "teleprod"
 	origin_tech = "combat=2;bluespace=4;materials=3"

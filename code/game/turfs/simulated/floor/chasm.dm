@@ -29,7 +29,8 @@
 		/obj/effect/ebeam,
 		/obj/effect/spawner,
 		/obj/structure/railing,
-		/obj/machinery/atmospherics/pipe/simple
+		/obj/machinery/atmospherics/pipe/simple,
+		/mob/living/simple_animal/hostile/megafauna //failsafe
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -43,6 +44,12 @@
 /turf/simulated/floor/chasm/process()
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
+
+/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	if(!isliving(caller))
+		return TRUE
+	var/mob/living/L = caller
+	return (L.flying || ismegafauna(caller))
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
@@ -160,6 +167,10 @@
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
+
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize()
+	. = ..()
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
 	//Make sure the item is still there after our sleep
