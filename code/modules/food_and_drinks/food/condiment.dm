@@ -26,13 +26,16 @@
 	"blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze."),
 	"cornoil" = list("cornoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn."),
 	"oliveoil" = list("oliveoil","olive oil bottle", "A high quality oil used in a variety of cuisine. Made from olives."),
-	"wasabi" = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
+	"wasabi" = list("wasabibottle", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
 	"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
 	"vinegar" = list("vinegar", "vinegar", "Perfect for chips, if you're feeling Space British."),
 	"mayonnaise" = list("mayonnaise", "mayonnaise bottle", "An oily condiment made from egg yolks."),
 	"cherryjelly" = list("cherryjelly", "cherry jelly jar", "A sweet jelly made out of red cherries."),
 	"peanutbutter" = list("peanutbutter", "peanut butter jar", "A smooth, nutty spread. Perfect for sandwiches."),
-	"honey" = list("honey", "honey jar", "A sweet substance produced by bees."))
+	"honey" = list("honey", "honey jar", "A sweet substance produced by bees."),
+	"sugar" = list("sugar", "sugar sack", "Tasty spacey sugar!"),
+	"flour" = list("flour", "flour sack", "A big bag of flour. Good for baking!"),
+	"rice" = list("rice", "rice sack", "A big bag of rice. Good for cooking!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
@@ -110,9 +113,8 @@
 		else
 			name = "[originalname] bottle"
 			main_reagent = reagents.get_master_reagent_name()
+			desc = "Looks like it is [lowertext(main_reagent)], but you are not sure."
 			if(reagents.reagent_list.len==1)
-				desc = "Looks like it is [lowertext(main_reagent)], but you are not sure."
-			else
 				desc = "A mixture of various condiments. [lowertext(main_reagent)] is one of them."
 			icon_state = "mixedcondiments"
 	else
@@ -130,9 +132,12 @@
 	reagents.check_and_add("enzyme", volume, 2 * coeff) // Only recharge if the current amount of enzyme is under `volume`.
 
 /obj/item/reagent_containers/food/condiment/sugar
-	name = "sugar bottle"
+	name = "sugar sack"
 	desc = "Tasty spacey sugar!"
+	icon_state = "sugar"
+	item_state = "sugar"
 	list_reagents = list("sugar" = 50)
+	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
 	name = "salt shaker"											//	a large one.
@@ -267,7 +272,7 @@
 /obj/item/reagent_containers/food/condiment/wasabi
 	name = "wasabi"
 	desc= "A pungent paste commonly served in tiny amounts with sushi. Spicy!"
-	icon_state = "wasabitube"
+	icon_state = "wasabibottle"
 	list_reagents = list("wasabi" = 50)
 	possible_states = list()
 
