@@ -15134,6 +15134,7 @@
 /obj/machinery/status_display/directional/north,
 /obj/item/folder/red,
 /obj/machinery/keycard_auth/east,
+/obj/item/megaphone,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -19297,7 +19298,6 @@
 "bAQ" = (
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
-/obj/item/radio/off,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -20407,7 +20407,20 @@
 /area/station/hallway/primary/central/ne)
 "bEr" = (
 /obj/machinery/firealarm/directional/south,
-/obj/structure/closet/bombcloset,
+/obj/structure/table/reinforced,
+/obj/item/radio/security,
+/obj/item/radio/security{
+	pixel_x = 8
+	},
+/obj/item/radio/security{
+	pixel_x = -8
+	},
+/obj/item/radio/security{
+	pixel_x = -4
+	},
+/obj/item/radio/security{
+	pixel_x = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -57014,9 +57027,10 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "hfk" = (
-/obj/machinery/economy/vending/security,
 /obj/item/radio/intercom/directional/south,
+/obj/structure/closet/bombcloset,
 /turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkred"
 	},
 /area/station/security/main)
@@ -68851,7 +68865,7 @@
 /area/station/public/locker)
 "lEL" = (
 /obj/machinery/light/directional/east,
-/obj/item/kirbyplants,
+/obj/machinery/economy/vending/security,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -73256,6 +73270,8 @@
 /obj/structure/closet/secure_closet/hos,
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/alarm/directional/south,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/accessory/holster,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -73535,7 +73551,6 @@
 /obj/item/restraints/handcuffs,
 /obj/item/flash,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkred"
 	},
 /area/station/security/main)
@@ -87931,6 +87946,11 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/station/maintenance/library)
+"sSl" = (
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredcorners"
+	},
+/area/station/security/main)
 "sSr" = (
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -91888,11 +91908,27 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
 "uqg" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/structure/rack,
+/obj/item/clothing/accessory/holster{
+	pixel_x = -6;
+	pixel_y = 6
 	},
+/obj/item/clothing/accessory/holster{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/accessory/holster{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/clothing/accessory/holster{
+	pixel_x = 6;
+	pixel_y = -6
+	},
+/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster,
+/obj/item/clothing/accessory/holster,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -157546,7 +157582,7 @@ tbC
 ejm
 jTr
 bbm
-boI
+sSl
 hfk
 qBV
 abj
