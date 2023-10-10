@@ -682,6 +682,7 @@
 #include "code\game\gamemodes\miniantags\morph\spells\open_vent.dm"
 #include "code\game\gamemodes\miniantags\morph\spells\pass_airlock.dm"
 #include "code\game\gamemodes\miniantags\morph\spells\reproduce.dm"
+#include "code\game\gamemodes\miniantags\pulsedemon\cross_shock_component.dm"
 #include "code\game\gamemodes\miniantags\pulsedemon\pulsedemon.dm"
 #include "code\game\gamemodes\miniantags\pulsedemon\pulsedemon_abilities.dm"
 #include "code\game\gamemodes\miniantags\pulsedemon\pulsedemon_event.dm"
