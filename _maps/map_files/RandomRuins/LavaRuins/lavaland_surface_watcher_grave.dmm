@@ -46,9 +46,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "i" = (
-/obj/structure/falsewall/rock_ancient,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/obj/effect/mapping_helpers/bombable_wall,
+/turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "j" = (
 /obj/effect/mob_spawn/corpse/watcher/crushed,
@@ -124,8 +124,20 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/indestructible/boss,
 /area/lavaland/surface/outdoors)
+"M" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Q" = (
 /turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
+"Z" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/stone_tile/slab/cracked,
+/turf/space,
 /area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
@@ -135,7 +147,7 @@ a
 e
 e
 e
-b
+M
 e
 o
 a
@@ -239,7 +251,7 @@ o
 o
 o
 J
-b
+Z
 J
 o
 o

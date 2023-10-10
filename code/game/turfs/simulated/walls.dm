@@ -105,6 +105,10 @@
 		rusted_overlay = icon('icons/turf/overlays.dmi', pick("rust", "rust2"), pick(NORTH, SOUTH, EAST, WEST))
 		. += rusted_overlay
 
+	if(explodable && !explodable_overlay)
+		explodable_overlay = icon('icons/turf/overlays.dmi', pick("explodable"), pick(NORTH, SOUTH, EAST, WEST))
+		. += explodable_overlay
+
 	if(!damage)
 		. += dent_decals
 		return
@@ -185,6 +189,7 @@
 	new /obj/item/stack/sheet/metal(src)
 
 /turf/simulated/wall/ex_act(severity)
+	SEND_SIGNAL(src, COMSIG_ATOM_EX_ACT, severity)
 	switch(severity)
 		if(1.0)
 			ChangeTurf(baseturf)

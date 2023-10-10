@@ -451,6 +451,7 @@
 #include "code\datums\diseases\advance\symptoms\weight.dm"
 #include "code\datums\diseases\advance\symptoms\youth.dm"
 #include "code\datums\elements\_element.dm"
+#include "code\datums\elements\bombable_turf.dm"
 #include "code\datums\elements\earhealing.dm"
 #include "code\datums\elements\rad_insulation.dm"
 #include "code\datums\elements\waddling.dm"

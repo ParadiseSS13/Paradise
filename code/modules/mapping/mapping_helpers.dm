@@ -134,3 +134,19 @@
 //part responsible for windoors (thanks S34N)
 /obj/effect/mapping_helpers/airlock/windoor
 	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)
+
+/// Apply to a wall (or floor, technically) to ensure it is instantly destroyed by any explosion, even if usually invulnerable
+/obj/effect/mapping_helpers/bombable_wall
+	name = "bombable wall helper"
+	icon_state = "explodable"
+	late = TRUE
+
+/obj/effect/mapping_helpers/bombable_wall/Initialize(mapload)
+	. = ..()
+	if(!mapload)
+		log_debug("[src] spawned outside of mapload!")
+		return
+
+	var/turf/our_turf = get_turf(src) // In case a locker ate us or something
+	our_turf.AddElement(/datum/element/bombable_turf)
+	return INITIALIZE_HINT_QDEL
