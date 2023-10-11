@@ -8636,10 +8636,7 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/port)
 "bco" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 95000;
-	output_level = 90000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable/orange,
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -16975,10 +16972,7 @@
 	},
 /area/station/engineering/atmos)
 "bOD" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 190000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -16994,10 +16988,7 @@
 	},
 /area/station/engineering/smes)
 "bOE" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 190000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -17016,10 +17007,7 @@
 	},
 /area/station/engineering/smes)
 "bOF" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 190000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -27073,10 +27061,7 @@
 	},
 /area/station/medical/virology)
 "cSh" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 95000;
-	output_level = 90000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
@@ -29703,10 +29688,7 @@
 	},
 /area/station/command/teleporter)
 "diP" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 95000;
-	output_level = 90000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/fsmaint)
@@ -60534,10 +60516,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/starboard/south)
 "mwy" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 95000;
-	output_level = 90000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/apmaint)
@@ -67890,10 +67869,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "oPK" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 95000;
-	output_level = 90000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/port)
@@ -69403,10 +69379,7 @@
 	},
 /area/station/engineering/gravitygenerator)
 "pnZ" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 95000;
-	output_level = 90000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/hallway/primary/starboard/north)
@@ -71690,10 +71663,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
 "pXv" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 95000;
-	output_level = 90000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable/orange{
 	d2 = 2;
 	icon_state = "0-2"
@@ -93392,10 +93362,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/starboardsolar)
 "wVD" = (
-/obj/machinery/power/smes/engineering{
-	input_level = 95000;
-	output_level = 90000
-	},
+/obj/machinery/power/smes/engineering,
 /obj/structure/cable/orange,
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/asmaint)
@@ -94298,10 +94265,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/power/smes/engineering{
-	input_level = 200000;
-	output_level = 190000
-	},
+/obj/machinery/power/smes/engineering,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow";
 	dir = 1
