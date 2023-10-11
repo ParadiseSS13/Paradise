@@ -334,7 +334,7 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/reagentgrinder/proc/eject(mob/user)
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(holdingitems && holdingitems.len == 0)
 		return
