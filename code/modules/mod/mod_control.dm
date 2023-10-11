@@ -13,7 +13,7 @@
 	item_state = "mod_control"
 	base_icon_state = "control"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	strip_delay = 10 SECONDS
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	actions_types = list(
@@ -90,6 +90,23 @@
 	var/list/mod_overlays = list()
 	/// Is the jetpack on so we should make ion effects?
 	var/jetpack_active = FALSE
+
+/obj/item/mod/control/serialize()
+	var/list/data = ..()
+	var/list/modules_list = list()
+	for(var/obj/item/mod/module/mod as anything in modules)
+		modules_list.Add(list(mod.serialize()))
+	data["modules"] = modules_list
+	return data
+
+/obj/item/mod/control/deserialize(list/data)
+	if(data["modules"])
+		for(var/old_mods in modules)
+			uninstall(old_mods, deleting = TRUE)
+		for(var/obj/item/mod/module/module as anything in data["modules"])
+			module = list_to_object(module, src)
+			install(module)
+	..()
 
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
@@ -206,14 +223,14 @@
 
 /obj/item/mod/control/equipped(mob/user, slot)
 	..()
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		set_wearer(user)
 	else if(wearer)
 		unset_wearer()
 
 
 /obj/item/mod/control/item_action_slot_check(slot)
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		return TRUE
 
 /obj/item/mod/control/on_mob_move(direction, mob/user)
@@ -744,3 +761,8 @@
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.regenerate_icons()
+
+/obj/item/mod/control/extinguish_light(force)
+	. = ..()
+	for(var/obj/item/mod/module/module as anything in modules)
+		module.extinguish_light(force)

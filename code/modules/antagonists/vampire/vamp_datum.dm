@@ -329,14 +329,14 @@
 	check_vampire_upgrade(TRUE)
 
 /datum/antagonist/vampire/give_objectives()
-	add_objective(/datum/objective/blood)
-	add_objective(/datum/objective/assassinate)
-	add_objective(/datum/objective/steal)
+	add_antag_objective(/datum/objective/blood)
+	add_antag_objective(/datum/objective/assassinate)
+	add_antag_objective(/datum/objective/steal)
 
 	if(prob(20)) // 20% chance of getting survive. 80% chance of getting escape.
-		add_objective(/datum/objective/survive)
+		add_antag_objective(/datum/objective/survive)
 	else
-		add_objective(/datum/objective/escape)
+		add_antag_objective(/datum/objective/escape)
 
 /datum/antagonist/vampire/greet()
 	var/dat

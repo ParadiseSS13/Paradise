@@ -106,6 +106,7 @@
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	category = list("Mining", "Cyborg Upgrade Modules")
 	build_type = PROTOLATHE | MECHFAB
+	requires_whitelist = TRUE
 
 /datum/design/rapid_repeater_modkit
 	name = "Kinetic Accelerator Rapid Repeater Mod"
@@ -115,6 +116,7 @@
 	build_path = /obj/item/borg/upgrade/modkit/cooldown/repeater
 	category = list("Mining", "Cyborg Upgrade Modules")
 	build_type = PROTOLATHE | MECHFAB
+	requires_whitelist = TRUE
 
 /datum/design/resonator_blast_modkit
 	name = "Kinetic Accelerator Resonator Blast Mod"
@@ -124,6 +126,7 @@
 	build_path = /obj/item/borg/upgrade/modkit/resonator_blasts
 	category = list("Mining", "Cyborg Upgrade Modules")
 	build_type = PROTOLATHE | MECHFAB
+	requires_whitelist = TRUE
 
 /datum/design/bounty_modkit
 	name = "Kinetic Accelerator Death Syphon Mod"
@@ -134,6 +137,7 @@
 	build_path = /obj/item/borg/upgrade/modkit/bounty
 	category = list("Mining", "Cyborg Upgrade Modules")
 	build_type = PROTOLATHE | MECHFAB
+	requires_whitelist = TRUE
 
 //Spooky special loot
 
@@ -487,8 +491,8 @@
 	Even with the weapon destroyed, all the pieces containing the creature have coagulated back together to find a new host."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "cursed_katana"
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	force = 15
 	armour_penetration_percentage = 40
 	armour_penetration_flat = 10

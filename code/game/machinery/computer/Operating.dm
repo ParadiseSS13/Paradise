@@ -115,7 +115,7 @@
 
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
 			var/mob/living/carbon/human/H = occupant
-			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
+			occupantData["pulse"] = occupant.get_pulse()
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = H.max_blood

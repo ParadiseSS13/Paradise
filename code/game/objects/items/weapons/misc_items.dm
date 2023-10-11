@@ -75,10 +75,13 @@
 	if(!is_open)
 		return
 	if(!hidden && I.tool_behaviour != TOOL_SCREWDRIVER && I.w_class == WEIGHT_CLASS_TINY)
+		if(istype(I, /obj/item/disk/nuclear))
+			to_chat(user, "<span class='warning'>You think you're gonna need more than crutches if your employers find out what you just tried to do...</span>")
+			return
 		if(I.flags & ABSTRACT)
 			return
-		if(I.flags & NODROP)
-			to_chat(user, "<span class='notice'>[I] is stuck to your hand!</span>")
+		if(!user.unEquip(I))
+			to_chat(user, "<span class='notice'>[I] doesn't seem to want to go into [src]!</span>")
 			return
 		I.forceMove(src)
 		hidden = I
