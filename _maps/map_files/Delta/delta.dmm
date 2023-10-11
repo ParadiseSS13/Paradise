@@ -31334,7 +31334,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bKa" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/emergency,
@@ -31355,7 +31355,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bKc" = (
 /obj/item/kirbyplants,
 /obj/machinery/firealarm{
@@ -31373,7 +31373,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bKd" = (
 /obj/item/kirbyplants,
 /obj/machinery/light{
@@ -32152,7 +32152,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bMf" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -32161,7 +32161,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bMg" = (
 /obj/machinery/computer/card/minor/ce{
 	dir = 4
@@ -32844,10 +32844,10 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bNX" = (
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bNY" = (
 /obj/item/kirbyplants,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -32857,7 +32857,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bNZ" = (
 /obj/machinery/camera{
 	c_tag = "Chief Engineer's Office";
@@ -34422,14 +34422,14 @@
 	network = list("SS13","Engineering")
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bRU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bRV" = (
 /obj/machinery/status_display{
 	pixel_x = -32
@@ -35423,19 +35423,19 @@
 	},
 /obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bUd" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bUe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bUf" = (
 /obj/item/kirbyplants,
 /obj/machinery/alarm{
@@ -35450,7 +35450,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bUi" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -35730,7 +35730,7 @@
 	},
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/plating,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bUQ" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin/nanotrasen,
@@ -36105,7 +36105,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bVB" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -36342,11 +36342,11 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bWg" = (
 /obj/structure/transit_tube,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bWh" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -36377,7 +36377,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "bWl" = (
 /obj/machinery/keycard_auth{
 	pixel_x = -24
@@ -40302,7 +40302,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "cgF" = (
 /obj/machinery/flasher{
 	id = "hopflash";
@@ -58460,7 +58460,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "dcr" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -75948,7 +75948,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "fEo" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
@@ -79802,7 +79802,7 @@
 	dir = 8;
 	icon_state = "vault"
 	},
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "iPQ" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -79883,7 +79883,7 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "iTV" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -85577,7 +85577,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "nEx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -86516,7 +86516,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "ops" = (
 /obj/structure/window/reinforced,
 /obj/structure/lattice,
@@ -89297,7 +89297,7 @@
 /area/station/maintenance/starboardsolar)
 "qGf" = (
 /turf/simulated/wall,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "qGn" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -92410,7 +92410,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "sYg" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -96671,7 +96671,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "wTL" = (
 /obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/plasteel/dark,
@@ -96917,7 +96917,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
-/area/station/engineering/aitransittube)
+/area/station/engineering/ai_transit_tube)
 "xab" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
