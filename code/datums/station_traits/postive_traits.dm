@@ -76,25 +76,25 @@
 
 	switch(department_to_apply_to)
 		if("Service")
-			if(!job.is_service)
+			if(!(job.job_department_flags &! DEP_FLAG_SERVICE))
 				return
 		if("Cargo")
-			if(!job.is_supply)
+			if(!(job.job_department_flags &! DEP_FLAG_SUPPLY))
 				return
 		if("Engineering")
-			if(!job.is_engineering)
+			if(!(job.job_department_flags &! DEP_FLAG_ENGINEERING))
 				return
 		if("Command")
-			if(!job.is_command)
+			if(!(job.job_department_flags &! DEP_FLAG_COMMAND))
 				return
 		if("Science")
-			if(!job.is_science)
+			if(!(job.job_department_flags &! DEP_FLAG_SCIENCE))
 				return
 		if("Security")
-			if(!job.is_security)
+			if(!(job.job_department_flags &! DEP_FLAG_SECURITY))
 				return
 		if("Medical")
-			if(!job.is_medical)
+			if(!(job.job_department_flags &! DEP_FLAG_MEDICAL))
 				return
 
 	var/obj/item/implant/deathrattle/implant_to_give = new()

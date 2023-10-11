@@ -56,7 +56,7 @@
 		'sound/items/knell1.ogg',
 		'sound/items/knell2.ogg',
 		'sound/items/knell3.ogg',
-		'sound/items/knell4.ogg'
+		'sound/items/knell4.ogg',
 	)
 
 
