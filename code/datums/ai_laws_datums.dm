@@ -72,9 +72,10 @@
 		if(istype(AL))
 			sorted_laws += AL
 
-/datum/ai_laws/proc/sync(mob/living/silicon/S, full_sync = 1)
+/datum/ai_laws/proc/sync(mob/living/silicon/S, full_sync = TRUE, change_zeroth = TRUE)
 	// Add directly to laws to avoid log-spam
-	S.sync_zeroth(zeroth_law, zeroth_law_borg)
+	if(change_zeroth)
+		S.sync_zeroth(zeroth_law, zeroth_law_borg)
 
 	if(full_sync || ion_laws.len)
 		S.laws.clear_ion_laws()
