@@ -164,37 +164,26 @@
 		ui.open()
 
 /mob/living/simple_animal/bot/medbot/ui_data(mob/user)
-	var/list/data = list(
-		"locked" = locked, // controls, locked or not
-		"noaccess" = topic_denied(user), // does the current user have access? admins, silicons etc can still access bots with locked controls
-		"maintpanel" = open,
-		"on" = on,
-		"autopatrol" = auto_patrol,
-		"painame" = paicard ? paicard.pai.name : null,
-		"canhack" = canhack(user),
-		"emagged" = emagged, // this is an int, NOT a boolean
-		"remote_disabled" = remote_disabled,
+	var/list/data = ..()
+	data["shut_up"] = shut_up
+	data["declare_crit"] = declare_crit
 
-		// -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
-		"shut_up" = shut_up,
-		"declare_crit" = declare_crit,
-		"stationary_mode" = stationary_mode,
-		"heal_threshold" = list(
-			"value" = heal_threshold,
-			"min" = MEDBOT_MIN_HEALING_THRESHOLD,
-			"max" = MEDBOT_MAX_HEALING_THRESHOLD,
-		),
-		"injection_amount" = list(
-			"value" = injection_amount,
-			"min" = MEDBOT_MIN_INJECTION_AMOUNT,
-			"max" = MEDBOT_MAX_INJECTION_AMOUNT,
-		),
-		"use_beaker" = use_beaker,
-		"treat_virus" = treat_virus,
-		"reagent_glass" = !reagent_glass ? null : list(
-			"amount" = reagent_glass.reagents.total_volume,
-			"max_amount" = reagent_glass.reagents.maximum_volume,
-		),
+	data["stationary_mode"] = stationary_mode
+	data["heal_threshold"] = list(
+		"value" = heal_threshold,
+		"min" = MEDBOT_MIN_HEALING_THRESHOLD,
+		"max" = MEDBOT_MAX_HEALING_THRESHOLD,
+	)
+	data["injection_amount"] = list(
+		"value" = injection_amount,
+		"min" = MEDBOT_MIN_INJECTION_AMOUNT,
+		"max" = MEDBOT_MAX_INJECTION_AMOUNT,
+	)
+	data["use_beaker"] = use_beaker
+	data["treat_virus"] = treat_virus
+	data["reagent_glass"] = !reagent_glass ? null : list(
+		"amount" = reagent_glass.reagents.total_volume,
+		"max_amount" = reagent_glass.reagents.maximum_volume,
 	)
 	return data
 
