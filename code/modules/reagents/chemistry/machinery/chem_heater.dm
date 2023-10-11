@@ -13,7 +13,7 @@
 	/// Whether this should auto-eject the beaker once done heating/cooling.
 	var/auto_eject = FALSE
 	/// The higher this number, the faster reagents will heat/cool.
-	var/speed_increase = 0
+	var/speed_increase = 40
 
 /obj/machinery/chem_heater/Initialize(mapload)
 	. = ..()
@@ -26,7 +26,7 @@
 /obj/machinery/chem_heater/RefreshParts()
 	speed_increase = initial(speed_increase)
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
-		speed_increase += 10 * (M.rating - 1) + 20
+		speed_increase += 20 * (M.rating - 1)
 
 /obj/machinery/chem_heater/process()
 	..()
