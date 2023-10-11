@@ -771,11 +771,6 @@
 	icon_state = "grimy"
 	},
 /area/station/security/detective)
-"ahc" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
 "ahd" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -122767,7 +122762,7 @@ oSi
 oSi
 oSi
 oSi
-ahc
+oSi
 nls
 ceq
 apP
