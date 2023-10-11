@@ -119,7 +119,7 @@
 	if(H.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
 		if(prob(6))
 			H.adjustBrainLoss(4)
-			to_chat(H, "<span class='warning'> Error 74: Positronic brain receiving insufficient power.</span>")
+			to_chat(H, "<span class='warning'>Error 74: Positronic brain receiving insufficient power.</span>")
 		if(prob(4))
 			H.Weaken(6 SECONDS)
 			H.Stuttering(20 SECONDS)
