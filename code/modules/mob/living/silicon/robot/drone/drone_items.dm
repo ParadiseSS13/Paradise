@@ -34,7 +34,7 @@
 		/obj/item/stack/tile/light,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/assembly/igniter,
-		/obj/item/light/
+		/obj/item/light
 	)
 
 	//Item currently being held.
