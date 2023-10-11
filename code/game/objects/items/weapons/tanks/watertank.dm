@@ -6,7 +6,7 @@
 	icon_state = "waterbackpack"
 	item_state = "waterbackpack"
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	slowdown = 1
 	actions_types = list(/datum/action/item_action/toggle_mister)
 	max_integrity = 200
@@ -30,13 +30,13 @@
 	toggle_mister()
 
 /obj/item/watertank/item_action_slot_check(slot, mob/user)
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		return 1
 
 /obj/item/watertank/verb/toggle_mister()
 	set name = "Toggle Mister"
 	set category = "Object"
-	if(usr.get_item_by_slot(slot_back) != src)
+	if(usr.get_item_by_slot(SLOT_HUD_BACK) != src)
 		to_chat(usr, "<span class='notice'>The watertank needs to be on your back to use.</span>")
 		return
 	if(usr.incapacitated())
@@ -64,7 +64,7 @@
 
 /obj/item/watertank/equipped(mob/user, slot)
 	..()
-	if(slot != slot_back)
+	if(slot != SLOT_HUD_BACK)
 		remove_noz()
 
 /obj/item/watertank/proc/remove_noz()

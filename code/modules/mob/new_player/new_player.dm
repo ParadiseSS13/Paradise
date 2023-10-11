@@ -15,6 +15,7 @@
 	if(initialized)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	initialized = TRUE
+	input_focus = src
 	GLOB.mob_list += src
 	return INITIALIZE_HINT_NORMAL
 
@@ -202,7 +203,7 @@
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
 			observer.key = key
-			observer.add_to_respawnable_list()
+			ADD_TRAIT(observer, TRAIT_RESPAWNABLE, GHOSTED)
 			qdel(src)
 			return TRUE
 		return FALSE

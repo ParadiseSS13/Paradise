@@ -471,7 +471,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 			id.registered_name = H.real_name
 			id.assignment = "Captain"
 			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
-			H.equip_to_slot_or_del(id, slot_wear_id)
+			H.equip_to_slot_or_del(id, SLOT_HUD_WEAR_ID)
 			H.update_inv_wear_id()
 	else
 		alert("Invalid mob")
@@ -776,7 +776,11 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if("Clients")
 			to_chat(usr, jointext(GLOB.clients, ","))
 		if("Respawnable Mobs")
-			to_chat(usr, jointext(GLOB.respawnable_list, ","))
+			var/list/respawnable_mobs
+			for(var/mob/potential_respawnable in GLOB.player_list)
+				if(HAS_TRAIT(potential_respawnable, TRAIT_RESPAWNABLE))
+					respawnable_mobs += potential_respawnable
+			to_chat(usr, jointext(respawnable_mobs, ", "))
 
 /client/proc/cmd_display_del_log()
 	set category = "Debug"
