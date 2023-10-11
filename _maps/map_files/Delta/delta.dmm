@@ -3854,7 +3854,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/station/command/customs)
@@ -3929,7 +3928,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/station/security/checkpoint/secondary)
@@ -10804,7 +10802,6 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
@@ -12899,7 +12896,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
@@ -13520,7 +13516,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
@@ -13554,7 +13549,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
@@ -13840,7 +13834,6 @@
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
@@ -14874,7 +14867,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "neutral"
 	},
 /area/station/security/permabrig)
@@ -14905,7 +14897,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "neutral"
 	},
 /area/station/security/permabrig)
@@ -14941,7 +14932,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "neutral"
 	},
 /area/station/security/permabrig)
@@ -15691,7 +15681,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
@@ -38424,7 +38413,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/storage)
@@ -39961,7 +39949,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/storage)
@@ -52772,13 +52759,11 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/storage)
 "cMC" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/storage)
@@ -53312,7 +53297,6 @@
 	},
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/storage)
@@ -53321,7 +53305,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/storage)
@@ -58032,7 +58015,6 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -59859,7 +59841,6 @@
 /obj/structure/closet/l3closet/virology,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -60260,7 +60241,6 @@
 	},
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -60273,20 +60253,17 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
 "dhd" = (
 /obj/structure/closet/secure_closet/personal/patient,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
 "dhe" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -60298,7 +60275,6 @@
 	},
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -60823,7 +60799,6 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -62527,7 +62502,6 @@
 /obj/item/cartridge/medical,
 /obj/item/cartridge/chemistry,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -62537,7 +62511,6 @@
 /obj/item/flashlight/pen,
 /obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -62545,7 +62518,6 @@
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -62736,7 +62708,6 @@
 /obj/item/analyzer,
 /obj/item/rpd,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellowcorner"
 	},
 /area/station/public/construction)
@@ -63152,7 +63123,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -63169,7 +63139,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -63180,7 +63149,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -63317,7 +63285,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellowcorner"
 	},
 /area/station/public/construction)
@@ -63604,7 +63571,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -63684,7 +63650,6 @@
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellowcorner"
 	},
 /area/station/public/construction)
@@ -63693,7 +63658,6 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellowcorner"
 	},
 /area/station/public/construction)
@@ -64023,7 +63987,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -64032,7 +63995,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -64044,7 +64006,6 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -64455,7 +64416,6 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -64477,7 +64437,6 @@
 /obj/item/stamp/cmo,
 /obj/item/pen/multi,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -64499,7 +64458,6 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -64905,7 +64863,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -64945,7 +64902,6 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -64958,7 +64914,6 @@
 	},
 /obj/effect/landmark/start/chief_medical_officer,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -65372,7 +65327,6 @@
 /area/station/medical/morgue)
 "dvG" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -65385,7 +65339,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -65408,7 +65361,6 @@
 	req_access_txt = "40"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -65464,7 +65416,6 @@
 "dvR" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -65687,7 +65638,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -65711,7 +65661,6 @@
 	},
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -65846,7 +65795,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/doctor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -66049,7 +65997,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -66104,7 +66051,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -66292,7 +66238,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -66301,7 +66246,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -66590,7 +66534,6 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -66608,7 +66551,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -67960,7 +67902,6 @@
 "dFe" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/medbay)
@@ -68982,7 +68923,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -69208,7 +69148,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -69216,7 +69155,6 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -69855,7 +69793,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -70582,7 +70519,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -70850,7 +70786,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -70872,7 +70807,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -71025,7 +70959,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -73322,7 +73255,6 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -73335,7 +73267,6 @@
 	},
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -73439,7 +73370,6 @@
 /area/station/medical/virology)
 "dXi" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -73585,7 +73515,6 @@
 	network = list("Medical","SS13")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/command/office/cmo)
@@ -73916,7 +73845,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /mob/living/carbon/human/monkey,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "whitegreencorner"
 	},
 /area/station/medical/virology)
@@ -74434,7 +74362,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -75100,7 +75027,6 @@
 /area/station/maintenance/fsmaint)
 "eNI" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
@@ -76157,7 +76083,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
@@ -77048,7 +76973,6 @@
 	},
 /obj/item/crutches,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -77602,7 +77526,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -77821,7 +77744,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "neutral"
 	},
 /area/station/maintenance/apmaint)
@@ -78665,7 +78587,6 @@
 "hIE" = (
 /obj/item/bodybag,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
@@ -79915,7 +79836,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
@@ -82641,7 +82561,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 6;
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/entry)
@@ -83117,12 +83036,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/supply/qm)
-"lMo" = (
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "red"
-	},
-/area/station/security/permabrig)
 "lMs" = (
 /obj/machinery/light{
 	dir = 4
@@ -84517,7 +84430,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "neutral"
 	},
 /area/station/maintenance/apmaint)
@@ -85063,7 +84975,6 @@
 	network = list("SS13","Security","Prison")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
@@ -85943,7 +85854,6 @@
 "nQM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
@@ -86018,12 +85928,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/command/office/rd)
-"nVk" = (
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "neutral"
-	},
-/area/station/maintenance/apmaint)
 "nVq" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -87184,7 +87088,6 @@
 /area/station/public/fitness)
 "oLR" = (
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
@@ -87557,7 +87460,6 @@
 	},
 /obj/item/crutches,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/medbay)
@@ -89331,7 +89233,6 @@
 "qDL" = (
 /obj/effect/spawner/random_spawners/blood_maybe,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
@@ -90821,7 +90722,6 @@
 "rQu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "neutral"
 	},
 /area/station/maintenance/apmaint)
@@ -91596,7 +91496,6 @@
 /obj/effect/spawner/random_spawners/blood_maybe,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
@@ -92158,7 +92057,6 @@
 /obj/item/hand_labeler,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
@@ -96588,7 +96486,6 @@
 "wKt" = (
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
@@ -97006,7 +96903,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
@@ -97893,7 +97789,6 @@
 "xKN" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/medical/storage)
@@ -131039,7 +130934,7 @@ djA
 dOP
 dOO
 dOO
-nVk
+dID
 dOO
 iQO
 iQO
@@ -131278,7 +131173,7 @@ iNi
 iRf
 iRf
 dFm
-nVk
+dID
 dbp
 lMM
 sKG
@@ -152270,7 +152165,7 @@ aPe
 aNG
 aOY
 aQB
-lMo
+aPv
 aJx
 aVm
 aWP
@@ -152784,7 +152679,7 @@ aPe
 aNM
 aQD
 aQD
-lMo
+aPv
 aJx
 aVq
 aWO
@@ -153555,7 +153450,7 @@ aPe
 aNM
 aPe
 aPe
-lMo
+aPv
 aTK
 aVs
 baS

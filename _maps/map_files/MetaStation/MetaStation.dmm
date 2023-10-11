@@ -847,7 +847,6 @@
 	icon_state = "0-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
@@ -1691,7 +1690,6 @@
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/security/permabrig)
@@ -7715,7 +7713,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/station/security/permabrig)
@@ -12878,7 +12875,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/security/permabrig)
@@ -18690,7 +18686,6 @@
 /area/station/hallway/primary/starboard)
 "bnl" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/station/hallway/primary/central)
@@ -29785,7 +29780,6 @@
 	},
 /obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/engineering/atmos)
@@ -34031,7 +34025,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/surgery,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkbluefull"
 	},
 /area/station/medical/surgery/primary)
@@ -38579,7 +38572,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/surgery,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkbluefull"
 	},
 /area/station/medical/surgery/secondary)
@@ -48555,7 +48547,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "neutral"
 	},
 /area/station/hallway/secondary/bridge)
@@ -48966,7 +48957,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/crowbar/large,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/security/permabrig)
@@ -49005,7 +48995,6 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/station/security/permabrig)
@@ -51149,7 +51138,6 @@
 /area/station/engineering/atmos)
 "etG" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/station/security/brig)
@@ -52114,7 +52102,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/station/medical/chemistry)
@@ -53909,7 +53896,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/medical/chemistry,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/station/medical/chemistry)
@@ -54160,7 +54146,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/security/permabrig)
@@ -54322,7 +54307,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
@@ -55781,7 +55765,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/medical/chemistry,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/station/medical/chemistry)
@@ -58776,7 +58759,6 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/station/engineering/atmos)
@@ -65809,7 +65791,6 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
@@ -66112,7 +66093,6 @@
 	name = "Anti-Theft Shield"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/station/medical/chemistry)
@@ -68897,7 +68877,6 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "yellowfull"
 	},
 /area/station/hallway/primary/aft)
@@ -70210,7 +70189,6 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
@@ -70386,7 +70364,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
@@ -76475,7 +76452,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/station/medical/chemistry)
@@ -82830,7 +82806,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/security/permabrig)
@@ -83494,7 +83469,6 @@
 /obj/machinery/washing_machine,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "cmo"
 	},
 /area/station/security/permabrig)
@@ -84817,7 +84791,6 @@
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
@@ -86666,7 +86639,6 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
@@ -87979,7 +87951,6 @@
 /area/station/engineering/atmos/control)
 "vug" = (
 /turf/simulated/floor/plasteel{
-	dir = 7;
 	icon_state = "yellow"
 	},
 /area/station/engineering/break_room)
@@ -90592,7 +90563,6 @@
 "wRy" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "blue"
 	},
 /area/station/security/brig)
@@ -90660,7 +90630,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "whiteyellowfull"
 	},
 /area/station/medical/chemistry)
@@ -91155,7 +91124,6 @@
 /area/station/security/armory/secure)
 "xdy" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_state = "yellowfull"
 	},
 /area/station/hallway/primary/aft)
@@ -91822,7 +91790,6 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "green"
 	},
 /area/station/hallway/primary/central)
