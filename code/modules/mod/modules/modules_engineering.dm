@@ -151,11 +151,11 @@
 	QDEL_NULL(chain)
 	return ..()
 
-///Atmos water tank module
+/// Atmos water tank module
 
 /obj/item/mod/module/firefighting_tank
 	name = "MOD firefighting tank"
-	desc = "A refridgerated and pressurized module tank with an extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
+	desc = "A refrigerated and pressurized module tank with an extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
 	icon_state = "firefighting_tank"
 	module_type = MODULE_ACTIVE
 	complexity = 2
@@ -178,7 +178,7 @@
 	precision = 1
 	cooling_power = 5
 	w_class = WEIGHT_CLASS_HUGE
-	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
+	flags = NODROP // Necessary to ensure that the nozzle and tank never seperate
 	var/nozzle_mode = EXTINGUISHER
 	var/metal_synthesis_charge = 0
 	COOLDOWN_DECLARE(nanofrost_cooldown)
@@ -187,13 +187,13 @@
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
-			to_chat(user, "<span class='notice'> Swapped to nanofrost launcher</span>")
+			to_chat(user, "<span class='notice'>Swapped to nanofrost launcher</span>")
 		if(NANOFROST)
 			nozzle_mode = METAL_FOAM
-			to_chat(user, "<span class='notice'> Swapped to metal foam synthesizer</span>")
+			to_chat(user, "<span class='notice'>Swapped to metal foam synthesizer</span>")
 		if(METAL_FOAM)
 			nozzle_mode = EXTINGUISHER
-			to_chat(user, "<span class='notice'> Swapped to water extinguisher</span>")
+			to_chat(user, "<span class='notice'>Swapped to water extinguisher</span>")
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/extinguisher/mini/mod/update_icon_state()
@@ -215,26 +215,25 @@
 			return
 		if(NANOFROST)
 			if(reagents.total_volume < 100)
-				to_chat(user, "<span class='notice'> You need at least 100 units of water to use the nanofrost launcher!</span>")
+				to_chat(user, "<span class='warning'>You need at least 100 units of water to use the nanofrost launcher!</span>")
 				return
 			if(!COOLDOWN_FINISHED(src, nanofrost_cooldown))
-				to_chat(user, "<span class='notice'> Nanofrost launcher is still recharging.</span>")
+				to_chat(user, "<span class='warning'>Nanofrost launcher is still recharging.</span>")
 				return
 			COOLDOWN_START(src, nanofrost_cooldown, 10 SECONDS)
 			reagents.remove_any(100)
 			var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
 			log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
-			playsound(src,'sound/items/syringeproj.ogg',40,1)
+			playsound(src, 'sound/items/syringeproj.ogg', 40, 1)
 			for(var/counter in 1 to 5)
 				step_towards(A, target)
 				sleep(2)
 			A.Smoke()
-			return
 		if(METAL_FOAM)
 			if(!is_adjacent|| !isturf(target))
 				return
 			if(metal_synthesis_charge >= 5)
-				to_chat(user, "<span class='notice'> Metal foam mix is still being synthesized.</span>")
+				to_chat(user, "<span class='warning'>Metal foam mix is still being synthesized.</span>")
 				return
 			var/obj/effect/particle_effect/foam/F = new/obj/effect/particle_effect/foam(get_turf(target), 1)
 			F.amount = 0
