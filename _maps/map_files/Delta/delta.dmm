@@ -33659,7 +33659,6 @@
 /turf/space,
 /area/space/nearstation)
 "bPU" = (
-/obj/structure/lattice,
 /obj/structure/transit_tube{
 	icon_state = "E-SW"
 	},
@@ -33667,13 +33666,11 @@
 /turf/space,
 /area/space/nearstation)
 "bPV" = (
-/obj/structure/lattice,
 /obj/structure/transit_tube,
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "bPW" = (
-/obj/structure/lattice,
 /obj/structure/transit_tube{
 	icon_state = "W-SE"
 	},
@@ -34383,7 +34380,6 @@
 /turf/space,
 /area/space/nearstation)
 "bRQ" = (
-/obj/structure/lattice,
 /obj/structure/transit_tube{
 	icon_state = "NW-SE"
 	},
@@ -36313,7 +36309,6 @@
 /turf/space,
 /area/space/nearstation)
 "bWb" = (
-/obj/structure/lattice,
 /obj/structure/transit_tube{
 	icon_state = "NE-SW"
 	},
@@ -36985,7 +36980,6 @@
 /turf/space,
 /area/space/nearstation)
 "bXR" = (
-/obj/structure/lattice,
 /obj/structure/transit_tube{
 	icon_state = "E-NW"
 	},
@@ -36993,7 +36987,6 @@
 /turf/space,
 /area/space/nearstation)
 "bXS" = (
-/obj/structure/lattice,
 /obj/structure/transit_tube{
 	icon_state = "W-NE"
 	},
@@ -42963,10 +42956,10 @@
 /turf/simulated/floor/plating,
 /area/station/command/teleporter)
 "cnH" = (
-/obj/structure/lattice/catwalk,
 /obj/structure/transit_tube{
 	icon_state = "E-SW-NW"
 	},
+/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "cnJ" = (
