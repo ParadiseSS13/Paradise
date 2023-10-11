@@ -151,3 +151,101 @@
 	QDEL_NULL(chain)
 	return ..()
 
+///Atmos water tank module
+
+/obj/item/mod/module/firefighting_tank
+	name = "MOD firefighting tank"
+	desc = "A refridgerated and pressurized module tank with an extinguisher nozzle, intended to fight fires. Swaps between extinguisher, nanofrost launcher, and metal foam dispenser for breaches. Nanofrost converts plasma in the air to nitrogen, but only if it is combusting at the time."
+	icon_state = "firefighting_tank"
+	module_type = MODULE_ACTIVE
+	complexity = 2
+	active_power_cost = DEFAULT_CHARGE_DRAIN * 3
+	device = /obj/item/extinguisher/mini/mod
+
+#define EXTINGUISHER 0
+#define NANOFROST 1
+#define METAL_FOAM 2
+
+/obj/item/extinguisher/mini/mod
+	name = "modsuit extinguisher nozzle"
+	desc = "A heavy duty nozzle attached to a modsuit's internal tank."
+	icon = 'icons/obj/watertank.dmi'
+	icon_state = "atmos_nozzle"
+	item_state = "nozzleatmos"
+	safety = 0
+	max_water = 500
+	power = 8
+	precision = 1
+	cooling_power = 5
+	w_class = WEIGHT_CLASS_HUGE
+	flags = NODROP //Necessary to ensure that the nozzle and tank never seperate
+	var/nozzle_mode = 0
+	var/metal_synthesis_cooldown = 0
+	var/nanofrost_cooldown = 0
+
+/obj/item/extinguisher/mini/mod/attack_self(mob/user as mob)
+	switch(nozzle_mode)
+		if(EXTINGUISHER)
+			nozzle_mode = NANOFROST
+			icon_state = "atmos_nozzle_2"
+			to_chat(user, "Swapped to nanofrost launcher")
+			return
+		if(NANOFROST)
+			nozzle_mode = METAL_FOAM
+			icon_state = "atmos_nozzle_3"
+			to_chat(user, "Swapped to metal foam synthesizer")
+			return
+		if(METAL_FOAM)
+			nozzle_mode = EXTINGUISHER
+			icon_state = "atmos_nozzle_1"
+			to_chat(user, "Swapped to water extinguisher")
+			return
+	return
+
+/obj/item/extinguisher/mini/mod/afterattack(atom/target, mob/user)
+	if(nozzle_mode == EXTINGUISHER)
+		..()
+		return
+	var/Adj = user.Adjacent(target)
+	if(Adj)
+		AttemptRefill(target, user)
+	if(nozzle_mode == NANOFROST)
+		if(Adj)
+			return //Safety check so you don't blast yourself trying to refill your tank
+		var/datum/reagents/R = reagents
+		if(R.total_volume < 100)
+			to_chat(user, "You need at least 100 units of water to use the nanofrost launcher!")
+			return
+		if(nanofrost_cooldown)
+			to_chat(user, "Nanofrost launcher is still recharging")
+			return
+		nanofrost_cooldown = 1
+		R.remove_any(100)
+		var/obj/effect/nanofrost_container/A = new /obj/effect/nanofrost_container(get_turf(src))
+		log_game("[key_name(user)] used Nanofrost at [get_area(user)] ([user.x], [user.y], [user.z]).")
+		playsound(src,'sound/items/syringeproj.ogg',40,1)
+		for(var/a=0, a<5, a++)
+			step_towards(A, target)
+			sleep(2)
+		A.Smoke()
+		spawn(100)
+			if(src)
+				nanofrost_cooldown = 0
+		return
+	if(nozzle_mode == METAL_FOAM)
+		if(!Adj|| !isturf(target))
+			return
+		if(metal_synthesis_cooldown < 5)
+			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), 1)
+			F.amount = 0
+			metal_synthesis_cooldown++
+			spawn(50)
+				if(src)
+					metal_synthesis_cooldown--
+		else
+			to_chat(user, "Metal foam mix is still being synthesized.")
+			return
+
+#undef EXTINGUISHER
+#undef NANOFROST
+#undef METAL_FOAM
