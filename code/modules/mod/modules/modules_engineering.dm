@@ -205,6 +205,16 @@
 		if(METAL_FOAM)
 			icon_state = "atmos_nozzle_3"
 
+/obj/item/extinguisher/mini/mod/examine(mob/user)
+	. = ..()
+	switch(nozzle_mode)
+		if(EXTINGUISHER)
+			. += "<span class='notice'>[src] is currently set to extinguishing mode.</span>"
+		if(NANOFROST)
+			. += "<span class='notice'>[src] is currently set to nanofrost mode.</span>"
+		if(METAL_FOAM)
+			. += "<span class='notice'>[src] is currently set to metal foam mode.</span>"
+
 /obj/item/extinguisher/mini/mod/afterattack(atom/target, mob/user)
 	var/is_adjacent = user.Adjacent(target)
 	if(is_adjacent && AttemptRefill(target, user))
