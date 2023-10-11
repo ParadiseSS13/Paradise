@@ -1,7 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aab" = (
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -48,7 +47,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -205,7 +203,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -417,7 +414,6 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -433,7 +429,6 @@
 	name = "south bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -551,7 +546,6 @@
 	},
 /obj/structure/cable/orange,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -742,7 +736,6 @@
 	},
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
@@ -752,7 +745,6 @@
 	pixel_y = 25
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
@@ -761,7 +753,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -825,7 +816,6 @@
 "aeM" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -865,7 +855,6 @@
 	network = list("Prison","SS13")
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
@@ -884,7 +873,6 @@
 /area/station/maintenance/electrical_shop)
 "afz" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
@@ -919,7 +907,6 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1036,7 +1023,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1059,7 +1045,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1139,7 +1124,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1177,7 +1161,6 @@
 	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1195,7 +1178,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1572,7 +1554,6 @@
 	name = "Cyborg Statue"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1592,7 +1573,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1614,7 +1594,6 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1629,7 +1608,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1648,7 +1626,6 @@
 	name = "Cyborg Statue"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1747,7 +1724,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1863,7 +1839,6 @@
 "alw" = (
 /obj/effect/turf_decal/box,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "purplefull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -1884,7 +1859,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -1938,7 +1912,6 @@
 /obj/item/clothing/suit/beekeeper_suit,
 /obj/item/clothing/head/beekeeper_head,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -2008,7 +1981,6 @@
 	},
 /obj/machinery/blackbox_recorder,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -2021,7 +1993,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -2571,7 +2542,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -2589,7 +2559,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -2849,7 +2818,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -2858,7 +2826,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -2871,7 +2838,6 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -3058,7 +3024,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -3611,7 +3576,6 @@
 	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -3696,7 +3660,6 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -3753,7 +3716,6 @@
 	},
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/servsci)
@@ -3934,7 +3896,6 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -4165,7 +4126,6 @@
 	name = "west bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -4177,7 +4137,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -4244,7 +4203,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -4582,7 +4540,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -5835,7 +5792,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -5925,7 +5881,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -6345,7 +6300,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 5;
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -6780,7 +6734,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -7132,7 +7085,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -7368,7 +7320,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -7493,7 +7444,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -7539,7 +7489,6 @@
 /obj/machinery/message_server,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -8132,7 +8081,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -8676,7 +8624,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -8901,7 +8848,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -9135,7 +9081,6 @@
 "beJ" = (
 /obj/machinery/economy/vending/autodrobe,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -9187,7 +9132,6 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -9204,7 +9148,6 @@
 	name = "navigation beacon (Engineering-Middle)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -9215,7 +9158,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -9231,7 +9173,6 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -9247,7 +9188,6 @@
 	name = "navigation beacon (Engineering-East)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -9464,7 +9404,6 @@
 /area/station/hallway/primary/central)
 "bgf" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -9502,7 +9441,6 @@
 	name = "navigation beacon (Engineering-East 3)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -9751,7 +9689,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -10253,7 +10190,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -10393,7 +10329,6 @@
 "bld" = (
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -10442,7 +10377,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -10504,7 +10438,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -10766,7 +10699,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -11239,7 +11171,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -11284,7 +11215,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -11455,7 +11385,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -11907,7 +11836,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -11986,7 +11914,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -12260,7 +12187,6 @@
 	uses = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -12437,7 +12363,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -12531,7 +12456,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/station/hallway/primary/central)
@@ -12686,7 +12610,6 @@
 	name = "navigation beacon (Engineering-East 2)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "yellow"
 	},
 /area/station/hallway/primary/central)
@@ -12770,7 +12693,6 @@
 /area/station/maintenance/maintcentral)
 "bvt" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -12877,7 +12799,6 @@
 "bvW" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -12982,7 +12903,6 @@
 "bwA" = (
 /obj/structure/disposalpipe/segment/corner,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -13808,7 +13728,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -14748,7 +14667,6 @@
 /area/station/medical/medbay)
 "bED" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -15734,7 +15652,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -16520,7 +16437,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -17984,7 +17900,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -18367,7 +18282,6 @@
 	name = "quantum pad"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkpurplefull"
 	},
 /area/station/public/quantum/security)
@@ -19098,7 +19012,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -19643,7 +19556,6 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -19906,7 +19818,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/station/hallway/secondary/exit)
@@ -20216,7 +20127,6 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -20275,7 +20185,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -20309,7 +20218,6 @@
 	icon_state = "plant-22"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -20320,7 +20228,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -20334,7 +20241,6 @@
 /area/station/hallway/primary/starboard/south)
 "cfd" = (
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -20371,7 +20277,6 @@
 	name = "quantum pad"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkpurplefull"
 	},
 /area/station/public/quantum/docking)
@@ -20816,7 +20721,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -20834,7 +20738,6 @@
 /area/station/public/locker)
 "chV" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -20948,7 +20851,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -20963,7 +20865,6 @@
 /area/station/maintenance/fsmaint)
 "ciG" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/east)
@@ -21036,15 +20937,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/armory/secure)
-"cjs" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/south)
 "cjw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -21302,7 +21194,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry)
@@ -21397,7 +21288,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -21646,7 +21536,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkbrownfull"
 	},
 /area/station/supply/office)
@@ -21919,7 +21808,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -22451,7 +22339,6 @@
 "csA" = (
 /obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/hallway)
@@ -22664,7 +22551,6 @@
 	},
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -23058,7 +22944,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -23519,7 +23404,6 @@
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/xenobiology)
@@ -23902,7 +23786,6 @@
 "cCD" = (
 /obj/item/flag/mime,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -23933,7 +23816,6 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -23943,14 +23825,12 @@
 	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
 "cCL" = (
 /obj/structure/closet/wardrobe/black,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -24650,14 +24530,12 @@
 /area/station/engineering/control)
 "cGD" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
 "cGE" = (
 /obj/structure/closet/wardrobe/grey,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -25026,7 +24904,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -25144,7 +25021,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -25693,14 +25569,12 @@
 "cLM" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
 "cLN" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -25710,7 +25584,6 @@
 	},
 /obj/structure/closet/wardrobe/xenos,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -25811,7 +25684,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -25956,7 +25828,6 @@
 	name = "quantum pad"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/public/quantum/cargo)
@@ -25987,14 +25858,12 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
 /area/station/service/theatre)
 "cNh" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -26004,7 +25873,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkbrownfull"
 	},
 /area/station/supply/office)
@@ -26562,7 +26430,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -26639,7 +26506,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -26677,7 +26543,6 @@
 	},
 /obj/structure/closet/wardrobe/white,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -26735,7 +26600,6 @@
 	name = "west bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -27564,7 +27428,6 @@
 	},
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -27576,7 +27439,6 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -27681,7 +27543,6 @@
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/green,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -29874,7 +29735,6 @@
 /area/station/maintenance/fore)
 "djw" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry)
@@ -30473,7 +30333,6 @@
 "dnc" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -30541,7 +30400,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -30929,7 +30787,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -31636,7 +31493,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -31967,13 +31823,11 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkyellowfull"
 	},
 /area/station/engineering/break_room)
 "dvV" = (
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -32388,7 +32242,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -32509,7 +32362,6 @@
 	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -32599,7 +32451,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -33238,7 +33089,6 @@
 "dCF" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -33403,7 +33253,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -33628,7 +33477,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -33655,7 +33503,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -33704,7 +33551,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -33783,7 +33629,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -33797,7 +33642,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -33905,7 +33749,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -33921,7 +33764,6 @@
 	name = "navigation beacon (Security)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -33963,7 +33805,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -33990,7 +33831,6 @@
 	name = "Central Access"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -34017,7 +33857,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -34038,7 +33877,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -34132,7 +33970,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -34143,7 +33980,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -34158,7 +33994,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -34183,7 +34018,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34210,7 +34044,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34223,7 +34056,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34347,14 +34179,12 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
 "dSs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34363,7 +34193,6 @@
 	name = "Central Access"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34401,7 +34230,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -34435,7 +34263,6 @@
 	},
 /obj/effect/turf_decal/stripes/red/full,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/maintenance/fsmaint)
@@ -34466,7 +34293,6 @@
 "dTd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34481,7 +34307,6 @@
 	name = "navigation beacon (Command-Middle 2)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34492,7 +34317,6 @@
 	name = "navigation beacon (Command-Middle)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34503,7 +34327,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34733,7 +34556,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34746,7 +34568,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -34768,7 +34589,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -34804,7 +34624,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/service/hydroponics)
@@ -34849,7 +34668,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkyellowfull"
 	},
 /area/station/engineering/atmos)
@@ -34982,7 +34800,6 @@
 "ebN" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -34993,7 +34810,6 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
@@ -35013,7 +34829,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -35033,7 +34848,6 @@
 "ecG" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -35113,7 +34927,6 @@
 "edT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -35126,7 +34939,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -35158,7 +34970,6 @@
 	name = "navigation beacon (Cargo)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -35564,7 +35375,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/hydroponics,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/service/hydroponics)
@@ -35642,7 +35452,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -35712,7 +35521,6 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkbrownfull"
 	},
 /area/station/supply/qm)
@@ -35881,7 +35689,6 @@
 "etV" = (
 /obj/structure/closet/secure_closet/hydroponics,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -36043,7 +35850,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -36176,7 +35982,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -36924,7 +36729,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "purplefull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -37446,7 +37250,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -37713,7 +37516,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -37754,7 +37556,6 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -37825,7 +37626,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/sercom)
@@ -37865,7 +37665,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -38049,7 +37848,6 @@
 /area/station/medical/cloning)
 "fmI" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -38359,7 +38157,6 @@
 "fsW" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -38430,7 +38227,6 @@
 /area/station/security/lobby)
 "fuU" = (
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -38550,7 +38346,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/toxins/mixing)
@@ -38641,7 +38436,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -38930,7 +38724,6 @@
 /obj/effect/turf_decal/bot_white,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "purplefull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -39321,7 +39114,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -39756,7 +39548,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -39983,7 +39774,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkyellowfull"
 	},
 /area/station/engineering/smes)
@@ -40187,7 +39977,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "purplefull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -40265,7 +40054,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -40333,7 +40121,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkyellowfull"
 	},
 /area/station/engineering/control)
@@ -40474,7 +40261,6 @@
 /area/station/hallway/primary/central)
 "gfe" = (
 /turf/simulated/floor/plasteel{
-	dir = 0;
 	icon_state = "red"
 	},
 /area/station/hallway/secondary/exit)
@@ -40907,7 +40693,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -41254,7 +41039,6 @@
 /obj/structure/table,
 /obj/item/aiModule/nanotrasen,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -41313,7 +41097,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -41416,7 +41199,6 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -41601,7 +41383,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -41619,7 +41400,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -41994,7 +41774,6 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "barber"
 	},
 /area/station/security/permabrig)
@@ -42029,7 +41808,6 @@
 "gIv" = (
 /obj/machinery/chem_master/condimaster,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -42450,7 +42228,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/service/hydroponics)
@@ -42615,7 +42392,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -42756,7 +42532,6 @@
 "gTe" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/hallway)
@@ -42808,7 +42583,6 @@
 	uses = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -43143,7 +42917,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -43157,7 +42930,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -43184,7 +42956,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -43404,7 +43175,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry)
@@ -43921,7 +43691,6 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkpurplefull"
 	},
 /area/station/science/robotics)
@@ -43954,7 +43723,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -43966,7 +43734,6 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -43990,7 +43757,6 @@
 "hqe" = (
 /obj/machinery/economy/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -44096,7 +43862,6 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -44133,7 +43898,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -44223,7 +43987,6 @@
 "htz" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -44348,7 +44111,6 @@
 "huO" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -44467,7 +44229,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -45341,7 +45102,6 @@
 	start_active = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -45634,7 +45394,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -45798,7 +45557,6 @@
 "hSA" = (
 /obj/structure/closet/secure_closet/personal,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -45826,7 +45584,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -45941,7 +45698,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -46038,7 +45794,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -46196,7 +45951,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -46356,7 +46110,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -46424,7 +46177,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -46525,7 +46277,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -46748,7 +46499,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -46951,7 +46701,6 @@
 "ima" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -47387,7 +47136,6 @@
 /obj/item/shovel/spade,
 /obj/structure/closet/crate/hydroponics,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -47454,7 +47202,6 @@
 "irU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/east)
@@ -47964,7 +47711,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -48031,7 +47777,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -48108,7 +47853,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -48243,7 +47987,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -48489,7 +48232,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -48563,7 +48305,6 @@
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/red/full,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -48676,7 +48417,6 @@
 /obj/structure/table,
 /obj/item/aiModule/reset,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -48704,7 +48444,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -48745,7 +48484,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -48877,7 +48615,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
@@ -49146,7 +48883,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -49329,7 +49065,6 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -49438,7 +49173,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -49544,7 +49278,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -50041,7 +49774,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -50368,7 +50100,6 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -50442,7 +50173,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -50480,7 +50210,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -50829,7 +50558,6 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/construction,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkyellowfull"
 	},
 /area/station/engineering/break_room)
@@ -51162,7 +50890,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -51932,7 +51659,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -52323,7 +52049,6 @@
 "jTe" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -52363,7 +52088,6 @@
 	name = "Central Access"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -52423,7 +52147,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -53187,7 +52910,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -53208,7 +52930,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -53494,7 +53215,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
@@ -53617,7 +53337,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -53688,7 +53407,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/command/vault)
@@ -53770,7 +53488,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/command/vault)
@@ -54134,7 +53851,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -54204,7 +53920,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry)
@@ -54231,7 +53946,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -54450,7 +54164,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -54688,7 +54401,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -54770,7 +54482,6 @@
 	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/command/vault)
@@ -54814,7 +54525,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -54846,7 +54556,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/command/vault)
@@ -54944,7 +54653,6 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -55871,7 +55579,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -56161,7 +55868,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -56265,7 +55971,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -56458,7 +56163,6 @@
 	name = "Silver Crate"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/command/vault)
@@ -56505,7 +56209,6 @@
 "ljp" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -56660,7 +56363,6 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/command/vault)
@@ -56798,7 +56500,6 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/command/vault)
@@ -57014,7 +56715,6 @@
 "lqQ" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry)
@@ -57107,7 +56807,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -57257,7 +56956,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -57468,7 +57166,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -57791,7 +57488,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/cargocom)
@@ -58068,7 +57764,6 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/command/vault)
@@ -58172,7 +57867,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -58505,7 +58199,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -58846,7 +58539,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -59396,7 +59088,6 @@
 "mcu" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -59446,7 +59137,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/maintenance/fsmaint)
@@ -59459,7 +59149,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/east)
@@ -60018,7 +59707,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/scidock)
@@ -60199,7 +59887,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/servsci)
@@ -60379,7 +60066,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -60393,7 +60079,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -60461,7 +60146,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/xenobiology)
@@ -60479,7 +60163,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/engmed)
@@ -60583,7 +60266,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
@@ -60808,7 +60490,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/east)
@@ -60868,7 +60549,6 @@
 /area/station/security/execution)
 "mCM" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -61027,7 +60707,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -61209,7 +60888,6 @@
 	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -61240,7 +60918,6 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkbrownfull"
 	},
 /area/station/supply/office)
@@ -61281,7 +60958,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -61303,7 +60979,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -61413,7 +61088,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -61569,7 +61243,6 @@
 "mOX" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -61836,7 +61509,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -61915,7 +61587,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -62494,7 +62165,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -62671,7 +62341,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/comeng)
@@ -62981,7 +62650,6 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -63221,7 +62889,6 @@
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/item/book/manual/hydroponics_pod_people,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -63293,7 +62960,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/serveng)
@@ -63397,7 +63063,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/comeng)
@@ -63603,7 +63268,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -64032,7 +63696,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -64246,7 +63909,6 @@
 /area/station/engineering/break_room)
 "nGE" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -64541,7 +64203,6 @@
 "nMt" = (
 /obj/structure/closet/firecloset/full,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/hallway)
@@ -64645,7 +64306,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -65018,7 +64678,6 @@
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -65081,7 +64740,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -65445,7 +65103,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -65764,14 +65421,12 @@
 	name = "north bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
 "ojm" = (
 /obj/machinery/economy/vending/hydrodrobe,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -65807,7 +65462,6 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -65923,7 +65577,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -66059,7 +65712,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/cargocom)
@@ -66126,7 +65778,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -66646,7 +66297,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -66842,7 +66492,6 @@
 /obj/effect/turf_decal/stripes/full,
 /obj/effect/turf_decal/stripes/red/full,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -67244,7 +66893,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -67304,7 +66952,6 @@
 	name = "Central Access"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -67453,7 +67100,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -67502,7 +67148,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -67531,7 +67176,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -67634,7 +67278,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -68091,7 +67734,6 @@
 /obj/machinery/suit_storage_unit/cmo/secure/sec_storage,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "darkbluefull"
 	},
 /area/station/medical/storage/secondary)
@@ -68109,7 +67751,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -68365,7 +68006,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -68472,7 +68112,6 @@
 	name = "west bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/telecomms/chamber)
@@ -69209,7 +68848,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -69499,7 +69137,6 @@
 	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -69547,7 +69184,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -69675,7 +69311,6 @@
 /area/station/telecomms/chamber)
 "prN" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -69889,7 +69524,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -70011,7 +69645,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
@@ -70049,7 +69682,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -70168,7 +69800,6 @@
 "pAb" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -70671,7 +70302,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -70815,7 +70445,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry)
@@ -70865,7 +70494,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -70995,14 +70623,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
 "pNE" = (
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -71135,7 +70761,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/research,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "purplefull"
 	},
 /area/station/science/rnd)
@@ -71174,7 +70799,6 @@
 /area/station/security/brig)
 "pQa" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -72059,7 +71683,6 @@
 "qcS" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -72270,7 +71893,6 @@
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -72376,7 +71998,6 @@
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -72452,7 +72073,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -72530,7 +72150,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -72615,7 +72234,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -72637,7 +72255,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -72771,7 +72388,6 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -72795,7 +72411,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/north)
@@ -72845,7 +72460,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -72947,7 +72561,6 @@
 	name = "Slime Processor"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/xenobiology)
@@ -73136,7 +72749,6 @@
 	name = "south bump"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -73157,7 +72769,6 @@
 /obj/item/clothing/mask/facehugger/toy,
 /obj/item/clothing/mask/fakemoustache,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -73398,7 +73009,6 @@
 /obj/structure/closet/secure_closet/hydroponics,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -73552,7 +73162,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/service/hydroponics,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -73851,7 +73460,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -73884,7 +73492,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry)
@@ -73894,7 +73501,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -73986,7 +73592,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -74295,7 +73900,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -74439,7 +74043,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
@@ -74854,7 +74457,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/engmed)
@@ -75015,7 +74617,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -75091,7 +74692,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkbrownfull"
 	},
 /area/station/supply/storage)
@@ -75147,7 +74747,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -75361,7 +74960,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -75535,7 +75133,6 @@
 "rkb" = (
 /obj/machinery/biogenerator,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -75655,7 +75252,6 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -76006,7 +75602,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -76190,7 +75785,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -76241,7 +75835,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -76302,7 +75895,6 @@
 	},
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/medcargo)
@@ -77168,7 +76760,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/scidock)
@@ -77616,7 +77207,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -77754,7 +77344,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -77989,7 +77578,6 @@
 "sdF" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -78019,7 +77607,6 @@
 	name = "quantum pad"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkyellowfull"
 	},
 /area/station/public/quantum/security)
@@ -78539,7 +78126,6 @@
 	},
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "purplefull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -79045,7 +78631,6 @@
 	},
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/sercom)
@@ -79088,7 +78673,6 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -79130,7 +78714,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -79171,7 +78754,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
@@ -79377,7 +78959,6 @@
 "syo" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -79641,7 +79222,6 @@
 	},
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -80048,7 +79628,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -80238,7 +79817,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -80619,7 +80197,6 @@
 "sWc" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/east)
@@ -80648,7 +80225,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -81066,7 +80642,6 @@
 "tet" = (
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -81082,7 +80657,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/east)
@@ -81401,7 +80975,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -81794,7 +81367,6 @@
 	name = "navigation beacon (Service)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -81987,12 +81559,6 @@
 	dir = 1
 	},
 /area/station/engineering/smes)
-"tuh" = (
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/south)
 "tuj" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable/orange{
@@ -82358,7 +81924,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -82374,7 +81939,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -82403,7 +81967,6 @@
 	sort_type_txt = "19"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -82460,7 +82023,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -82501,7 +82063,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -82647,7 +82208,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -83244,7 +82804,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -83285,7 +82844,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -83401,7 +82959,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/hallway)
@@ -83415,17 +82972,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port/east)
-"tWq" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralfull"
-	},
-/area/station/hallway/secondary/entry/south)
 "tWy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -83585,7 +83131,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -83880,7 +83425,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -84033,7 +83577,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -84475,14 +84018,12 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
 "unj" = (
 /obj/machinery/seed_extractor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -84631,7 +84172,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/dockmed)
@@ -84641,7 +84181,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/east)
@@ -84745,7 +84284,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -84898,7 +84436,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/east)
@@ -84930,7 +84467,6 @@
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -84967,7 +84503,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -85120,7 +84655,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -85339,7 +84873,6 @@
 /area/station/maintenance/starboard)
 "uBC" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/xenobiology)
@@ -85374,7 +84907,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
@@ -85445,7 +84977,6 @@
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -85659,7 +85190,6 @@
 	anchored = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "purplefull"
 	},
 /area/station/science/robotics)
@@ -85809,7 +85339,6 @@
 	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/maintenance/electrical_shop)
@@ -86008,7 +85537,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
@@ -86113,7 +85641,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/dockmed)
@@ -86214,7 +85741,6 @@
 "uQB" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -87095,7 +86621,6 @@
 	name = "navigation beacon (Research)"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -87140,7 +86665,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -87265,7 +86789,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkyellowfull"
 	},
 /area/station/engineering/control)
@@ -87558,7 +87081,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/south)
@@ -87664,7 +87186,6 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -87886,7 +87407,6 @@
 	name = "quantum pad"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkyellowfull"
 	},
 /area/station/public/quantum/docking)
@@ -88142,7 +87662,6 @@
 /area/station/medical/cloning)
 "vuY" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -88428,7 +87947,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -88467,7 +87985,6 @@
 	name = "Cyborg Statue"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -88569,7 +88086,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -88675,7 +88191,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -88868,7 +88383,6 @@
 /obj/item/reagent_containers/food/snacks/grown/chili,
 /obj/item/seeds/grape,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/service/hydroponics)
@@ -88962,7 +88476,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkbrownfull"
 	},
 /area/station/supply/office)
@@ -89075,7 +88588,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -89179,7 +88691,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/east)
@@ -89509,7 +89020,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/science/xenobio,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/xenobiology)
@@ -89843,7 +89353,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai_upload)
@@ -89914,7 +89423,6 @@
 /obj/machinery/recharge_station,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -90205,7 +89713,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -90356,7 +89863,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore)
@@ -90795,7 +90301,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -91084,7 +90589,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -91390,7 +90894,6 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -91683,7 +91186,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -91735,7 +91237,6 @@
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -91934,7 +91435,6 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -92730,7 +92230,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -92782,7 +92281,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -92961,7 +92459,6 @@
 /obj/item/storage/box/monkeycubes,
 /obj/item/storage/box/beakers,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "whitepurplefull"
 	},
 /area/station/science/xenobiology)
@@ -93003,7 +92500,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkyellowfull"
 	},
 /area/station/engineering/atmos/distribution)
@@ -93438,7 +92934,6 @@
 	name = "hallway turret"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/aisat/interior/secondary)
@@ -93459,7 +92954,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -93499,7 +92993,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -93593,7 +93086,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/medcargo)
@@ -93648,7 +93140,6 @@
 	},
 /obj/effect/turf_decal/caution/red,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/spacebridge/servsci)
@@ -93714,7 +93205,6 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/starboard/south)
@@ -93824,7 +93314,6 @@
 	color = "#954535"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/fore/west)
@@ -94485,7 +93974,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -94743,7 +94231,6 @@
 /area/station/maintenance/gambling_den)
 "xsS" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -94970,7 +94457,6 @@
 	},
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	dir = 10;
 	icon_state = "bcircuit"
 	},
 /area/station/turret_protected/ai)
@@ -94984,7 +94470,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
-	dir = 4;
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
 	},
@@ -95379,7 +94864,6 @@
 "xCH" = (
 /obj/effect/turf_decal/bot_white,
 /turf/simulated/floor/plasteel{
-	dir = 1;
 	icon_state = "purplefull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -95476,7 +94960,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
@@ -95489,7 +94972,6 @@
 /area/station/science/storage)
 "xEd" = (
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/aft/west)
@@ -95638,7 +95120,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/north)
@@ -95739,7 +95220,6 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/entry/north)
@@ -95768,7 +95248,6 @@
 	name = "quantum pad"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkgreenfull"
 	},
 /area/station/public/quantum/science)
@@ -95904,7 +95383,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "darkbrownfull"
 	},
 /area/station/supply/office)
@@ -96116,7 +95594,6 @@
 	sort_type_txt = "20"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
@@ -96883,7 +96360,6 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	dir = 8;
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/south)
@@ -135519,7 +134995,7 @@ bhO
 bhO
 nFW
 abZ
-tuh
+dbg
 mqR
 sHm
 rNK
@@ -135776,7 +135252,7 @@ nFW
 nFW
 eiE
 tbP
-tuh
+dbg
 mqR
 sHm
 rNK
@@ -136033,7 +135509,7 @@ rrt
 hNb
 pLr
 gUa
-tuh
+dbg
 mqR
 sHm
 rNK
@@ -136547,7 +136023,7 @@ tJP
 kQz
 pLr
 akn
-tWq
+iFb
 mqR
 syJ
 jYp
@@ -136804,7 +136280,7 @@ qWI
 qWI
 nFW
 kpC
-tWq
+iFb
 sFj
 dbg
 eWu
@@ -137061,7 +136537,7 @@ imG
 vRX
 hOD
 hje
-tWq
+iFb
 sFj
 dbg
 eWu
@@ -138092,7 +137568,7 @@ kFu
 iFb
 sFj
 dbg
-cjs
+eWu
 hiN
 sHm
 rNK
@@ -138349,7 +137825,7 @@ lTa
 ppe
 njf
 ucc
-cjs
+eWu
 clB
 sHm
 rNK
@@ -138863,7 +138339,7 @@ cic
 bhm
 oWG
 aJW
-cjs
+eWu
 vjb
 rcj
 rNK
@@ -139120,7 +138596,7 @@ tnW
 quK
 tWC
 gIR
-cjs
+eWu
 vjb
 rcj
 rNK
@@ -139377,7 +138853,7 @@ diO
 tHB
 tWC
 aJW
-cjs
+eWu
 vjb
 rcj
 rNK
@@ -139634,7 +139110,7 @@ woU
 ezV
 qvh
 dQF
-cjs
+eWu
 vjb
 rcj
 rNK
@@ -139891,7 +139367,7 @@ xEJ
 bmg
 tWC
 aJW
-cjs
+eWu
 vjb
 rcj
 rNK
@@ -140148,7 +139624,7 @@ tWC
 tWC
 tWC
 acV
-cjs
+eWu
 vjb
 rcj
 rNK
@@ -140405,7 +139881,7 @@ ohr
 gQP
 xSo
 rpZ
-cjs
+eWu
 vjb
 sHm
 rNK
@@ -140662,7 +140138,7 @@ ioE
 drE
 xSo
 vwi
-cjs
+eWu
 vjb
 sHm
 rNK
@@ -140919,7 +140395,7 @@ uYW
 nEO
 fVo
 feH
-cjs
+eWu
 vjb
 sHm
 rNK
@@ -141433,7 +140909,7 @@ ioE
 ciN
 qLz
 cRN
-cjs
+eWu
 opo
 qyx
 wCC
