@@ -125,7 +125,7 @@
 
 /datum/station_trait/random_event_weight_modifier/anomaly_storm
 	name = "Anomaly Storm"
-	report_message = "The station has moved into unstable space. Expect an increased likelihood of anomalies running rampant on the station"
+	report_message = "The station has moved into unstable space. Expect an increased likelihood of anomalies running rampant on the station."
 	trait_type = STATION_TRAIT_NEGATIVE
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 2

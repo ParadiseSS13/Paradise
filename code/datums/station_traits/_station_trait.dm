@@ -50,10 +50,10 @@
 
 /// Will attempt to revert the station trait, used by admins.
 /datum/station_trait/proc/revert()
-	if (!can_revert)
+	if(!can_revert)
 		CRASH("revert() was called on [type], which can't be reverted!")
 
-	if (trait_to_give)
+	if(trait_to_give)
 		REMOVE_TRAIT(SSstation, trait_to_give, STATION_TRAIT)
 
 	qdel(src)

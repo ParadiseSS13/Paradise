@@ -2,14 +2,14 @@
 	name = "Bananium Shipment"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5
-	report_message = "Rumor has it that the clown planet has been sending support packages to clowns in this system"
+	report_message = "Rumor has it that the clown planet has been sending support packages to clowns in this system."
 	trait_to_give = STATION_TRAIT_BANANIUM_SHIPMENTS
 
 /datum/station_trait/bananium_shipment
 	name = "Tranquilite Shipment"
 	trait_type = STATION_TRAIT_NEUTRAL
 	weight = 5
-	report_message = "Rumor has it that the mime federation has been sending support packages to mimes in this system"
+	report_message = "Rumor has it that the mime federation has been sending support packages to mimes in this system."
 	trait_to_give = STATION_TRAIT_TRANQUILITE_SHIPMENTS
 
 /datum/station_trait/unique_ai

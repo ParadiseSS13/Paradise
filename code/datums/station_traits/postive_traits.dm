@@ -216,7 +216,7 @@
 		/datum/job/mining = /obj/item/organ/internal/regenerative_core/legion/already_preserved,
 		/datum/job/engineer = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/virologist = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
-		/datum/job/warden = /obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/datum/job/warden = /obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 
 /datum/station_trait/cybernetic_revolution/New()

@@ -15,11 +15,11 @@
 	data["too_late_to_revert"] = too_late_to_revert()
 
 	var/list/current_station_traits = list()
-	for (var/datum/station_trait/station_trait as anything in SSstation.station_traits)
+	for(var/datum/station_trait/station_trait as anything in SSstation.station_traits)
 		current_station_traits += list(list(
 			"name" = station_trait.name,
 			"can_revert" = station_trait.can_revert,
-			"ref" = station_trait.UID(),
+			"ref" = station_trait.UID()
 		))
 
 	data["current_traits"] = current_station_traits
@@ -32,10 +32,10 @@
 
 	var/list/valid_station_traits = list()
 
-	for (var/datum/station_trait/station_trait_path as anything in subtypesof(/datum/station_trait))
+	for(var/datum/station_trait/station_trait_path as anything in subtypesof(/datum/station_trait))
 		valid_station_traits += list(list(
 			"name" = initial(station_trait_path.name),
-			"path" = station_trait_path,
+			"path" = station_trait_path
 		))
 
 	data["valid_station_traits"] = valid_station_traits
@@ -92,7 +92,7 @@
 
 				new_future_traits += list(list(
 					"name" = initial(station_trait_path.name),
-					"path" = station_trait_path,
+					"path" = station_trait_path
 				))
 
 			var/message = "[key_name(usr)] has prepared the following station traits for next round: [station_trait_names.Join(", ") || "None"]"
