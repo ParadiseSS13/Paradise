@@ -11,6 +11,7 @@
 	panel = "Demon"
 	var/allowed_type = /obj/effect/decal/cleanable
 	var/phased = FALSE
+	should_recharge_after_cast = FALSE
 
 /obj/effect/proc_holder/spell/bloodcrawl/create_new_targeting()
 	var/datum/spell_targeting/targeted/T = new()
