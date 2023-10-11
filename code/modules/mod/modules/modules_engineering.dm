@@ -213,6 +213,7 @@
 		if(EXTINGUISHER)
 			..()
 			return
+
 		if(NANOFROST)
 			if(reagents.total_volume < 100)
 				to_chat(user, "<span class='warning'>You need at least 100 units of water to use the nanofrost launcher!</span>")
@@ -229,6 +230,7 @@
 				step_towards(A, target)
 				sleep(2)
 			A.Smoke()
+
 		if(METAL_FOAM)
 			if(!is_adjacent|| !isturf(target))
 				return
