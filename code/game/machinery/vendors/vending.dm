@@ -940,7 +940,7 @@
 /obj/machinery/economy/vending/onTransitZ()
 	return
 
-/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE)
+/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE, from_anywhere = FALSE)
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
 		return
 
@@ -957,14 +957,70 @@
 			tilted = TRUE
 			layer = ABOVE_MOB_LAYER
 
-	if(get_turf(victim) != get_turf(src))
+	var/should_throw_at_target = TRUE
+
+	. = FALSE
+	if(from_anywhere)
+		forceMove(get_turf(victim))
+	if(!victim || !in_range(victim, src))
+		tilt_over()
+		return
+	for(var/mob/living/L in get_turf(victim))
+		// Damage to deal outright
+		var/damage_to_deal = squish_damage
+		if(!from_combat)
+			L.Weaken(6 SECONDS)
+			if(crit)
+				// increase damage if you knock it over onto yourself
+				damage_to_deal *= crit_damage_factor
+			else
+				damage_to_deal *= self_knockover_factor
+		else
+			L.Weaken(4 SECONDS)
+
+		if(iscarbon(L))
+			var/throw_spec = handle_squish_carbon(victim, damage_to_deal, crit, from_combat)
+			switch(throw_spec)
+				if(VENDOR_CRUSH_HANDLED)
+					return TRUE
+				if(VENDOR_THROW_AT_TARGET)
+					should_throw_at_target = TRUE
+				if(VENDOR_TIP_IN_PLACE)
+					should_throw_at_target = FALSE
+		else
+			L.visible_message(
+				"<span class='danger'>[L] is crushed by [src]!</span>",
+				"<span class='userdanger'>[src] falls on top of you, crushing you!</span>"
+			)
+			L.apply_damage(damage_to_deal, BRUTE)
+
+			add_attack_logs(null, L, "crushed by [src]")
+
+		. = TRUE
+		L.KnockDown(12 SECONDS)
+
+		playsound(L, "sound/effects/blobattack.ogg", 40, TRUE)
+		playsound(L, "sound/effects/splat.ogg", 50, TRUE)
+
+	tilt_over(should_throw_at_target ? victim : null)
+
+/obj/machinery/economy/vending/proc/tilt_over(mob/victim)
+	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
+	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
+	var/matrix/M = matrix()
+	M.Turn(pick(90, 270))
+	transform = M
+	if(victim && get_turf(victim) != get_turf(src))
 		throw_at(get_turf(victim), 1, 1, spin = FALSE)
 
 /obj/machinery/economy/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))
 		return
 	add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
-	tilt(target, from_combat = TRUE)
+	if(!HAS_TRAIT(attacker, TRAIT_PACIFISM))
+		tilt(target, from_combat = TRUE)
+	else
+		tilt(attacker, crit = TRUE, from_anywhere = TRUE) // get fucked
 	return TRUE
 
 /obj/machinery/economy/vending/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)

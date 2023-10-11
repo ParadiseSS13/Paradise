@@ -184,7 +184,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 	mob_spawn_list = list(/obj/effect/landmark/mob_spawner/goliath = 50, /obj/structure/spawner/lavaland/goliath = 3,
 		/obj/effect/landmark/mob_spawner/watcher = 40, /obj/structure/spawner/lavaland = 2,
 		/obj/effect/landmark/mob_spawner/legion = 30, /obj/structure/spawner/lavaland/legion = 3,
-		SPAWN_MEGAFAUNA = 6, /obj/effect/landmark/mob_spawner/goldgrub = 10, /obj/effect/landmark/mob_spawner/gutlunch = 4)
+		SPAWN_MEGAFAUNA = 6, /obj/effect/landmark/mob_spawner/goldgrub = 10, /obj/effect/landmark/mob_spawner/gutlunch = 4,
+		/obj/effect/landmark/mob_spawner/abandoned_minebot = 6)
 
 	data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface

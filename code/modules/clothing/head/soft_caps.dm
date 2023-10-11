@@ -8,10 +8,7 @@
 	actions_types = list(/datum/action/item_action/flip_cap)
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
 	sprite_sheets = list(
-		"Human" = 'icons/mob/clothing/head.dmi',
-		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
-		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
-		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi'
 		)
 	dyeable = TRUE
 
@@ -112,6 +109,12 @@
 	icon_state = "deliverysoft"
 	item_color = "delivery"
 	dog_fashion = /datum/dog_fashion/head/softcap
+	sprite_sheets = list(
+		"Human" = 'icons/mob/clothing/head.dmi',
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/head.dmi'
+		)
 
 /obj/item/clothing/head/soft/sec
 	name = "security cap"

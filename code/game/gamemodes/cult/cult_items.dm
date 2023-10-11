@@ -220,7 +220,7 @@
 		user.unEquip(src, 1)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
-	else if(slot == slot_wear_suit)
+	else if(slot == SLOT_HUD_OUTER_SUIT)
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
@@ -562,6 +562,8 @@
 	name = "blood halberd"
 	desc = "A sickening spear composed entirely of crystallized blood. Will stun people who have been recently marked if the spear is wielded."
 	icon = 'icons/obj/cult.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	base_icon_state = "bloodspear"
 	icon_state = "bloodspear0"
 	slot_flags = 0

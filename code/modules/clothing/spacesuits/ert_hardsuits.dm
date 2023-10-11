@@ -251,7 +251,7 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
 		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/suit.dmi'
 		)
-	hide_tail_by_species = list("Unathi, Tajaran, Vox, Vulpkanin")
+	hide_tail_by_species = list("Unathi", "Tajaran", "Vox", "Vulpkanin")
 
 /obj/item/clothing/suit/space/hardsuit/ert/paranormal/Initialize(mapload)
 	. = ..()

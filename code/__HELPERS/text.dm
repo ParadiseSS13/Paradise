@@ -768,3 +768,10 @@
 	if(ofthree == 0)
 		return "[num]"
 	return "[num / (10 ** (ofthree * 3))][GLOB.si_suffixes[round(length(GLOB.si_suffixes) / 2) + ofthree + 1]]"
+
+/**
+ * Creates a hyperlink for a specified wiki article.
+ */
+/proc/wiki_link(article_name, link_text = null)
+	var/url = "[GLOB.configuration.url.wiki_url]/index.php?title=[article_name]"
+	return "<a href=\"[url]\">[link_text ? link_text : url]</a>"

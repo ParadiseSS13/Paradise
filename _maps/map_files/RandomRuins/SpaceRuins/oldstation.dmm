@@ -59,10 +59,10 @@
 /turf/simulated/wall,
 /area/ruin/ancientstation/comm)
 "an" = (
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
 	id_tag = "ancient"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/comm)
 "ao" = (
@@ -578,7 +578,7 @@
 /turf/simulated/wall,
 /area/ruin/ancientstation)
 "bM" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "bN" = (
@@ -639,13 +639,13 @@
 /turf/template_noop,
 /area/template_noop)
 "bW" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/transit_tube,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "bX" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/transit_tube,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation)
 "bY" = (
@@ -742,8 +742,8 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/ancientstation)
 "cj" = (
-/obj/effect/spawner/window/reinforced,
 /obj/structure/transit_tube,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "ck" = (
@@ -1672,7 +1672,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/betanorth)
 "eC" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/engi)
 "eD" = (
@@ -2182,7 +2182,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -2414,7 +2414,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -2429,12 +2429,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
 "ga" = (
@@ -4131,7 +4131,7 @@
 /turf/simulated/floor/engine/vacuum,
 /area/ruin/ancientstation/atmo)
 "jL" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/atmo)
 "jM" = (
@@ -4471,7 +4471,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/ancientstation/atmo)
 "kE" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/proto)
 "kF" = (
@@ -5041,6 +5041,10 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
+"AP" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/ancientstation)
 "AY" = (
 /obj/machinery/recharge_station,
 /obj/effect/decal/cleanable/dirt,
@@ -5062,6 +5066,10 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plating,
 /area/ruin/ancientstation/thetacorridor)
+"TF" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating/airless,
+/area/ruin/ancientstation/betanorth)
 "Xq" = (
 /mob/living/simple_animal/hostile/hivebot,
 /obj/effect/decal/cleanable/dirt,
@@ -5514,9 +5522,9 @@ aa
 aa
 aa
 bf
-bz
+TF
 bW
-bz
+TF
 bf
 uQ
 uQ
@@ -6282,9 +6290,9 @@ aa
 aa
 aa
 az
-bA
+AP
 bX
-bA
+AP
 cU
 eJ
 dN
@@ -6741,7 +6749,7 @@ kJ
 bC
 jP
 bC
-bA
+AP
 aa
 aa
 aa
@@ -6837,7 +6845,7 @@ kK
 dV
 jQ
 kG
-bA
+AP
 aa
 aa
 aa
@@ -6933,7 +6941,7 @@ jP
 bC
 jP
 bC
-bA
+AP
 aa
 aa
 aa
@@ -7338,9 +7346,9 @@ aa
 aa
 aa
 az
-bA
+AP
 bX
-bA
+AP
 dg
 el
 eI
@@ -7354,9 +7362,9 @@ eQ
 lG
 lM
 dg
-bA
+AP
 bX
-bA
+AP
 az
 aa
 aa
