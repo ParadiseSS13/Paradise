@@ -180,20 +180,20 @@
 	w_class = WEIGHT_CLASS_HUGE
 	flags = NODROP // Necessary to ensure that the nozzle and tank never seperate
 	var/nozzle_mode = EXTINGUISHER
-	var/metal_synthesis_charge = 0
+	var/metal_synthesis_charge = 5
 	COOLDOWN_DECLARE(nanofrost_cooldown)
 
 /obj/item/extinguisher/mini/mod/attack_self(mob/user)
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			nozzle_mode = NANOFROST
-			to_chat(user, "<span class='notice'>Swapped to nanofrost launcher</span>")
+			to_chat(user, "<span class='notice'>Swapped to nanofrost launcher.</span>")
 		if(NANOFROST)
 			nozzle_mode = METAL_FOAM
-			to_chat(user, "<span class='notice'>Swapped to metal foam synthesizer</span>")
+			to_chat(user, "<span class='notice'>Swapped to metal foam synthesizer.</span>")
 		if(METAL_FOAM)
 			nozzle_mode = EXTINGUISHER
-			to_chat(user, "<span class='notice'>Swapped to water extinguisher</span>")
+			to_chat(user, "<span class='notice'>Swapped to water extinguisher.</span>")
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/extinguisher/mini/mod/update_icon_state()
@@ -232,17 +232,17 @@
 		if(METAL_FOAM)
 			if(!is_adjacent|| !isturf(target))
 				return
-			if(metal_synthesis_charge >= 5)
+			if(metal_synthesis_charge <= 0)
 				to_chat(user, "<span class='warning'>Metal foam mix is still being synthesized.</span>")
 				return
 			var/obj/effect/particle_effect/foam/F = new/obj/effect/particle_effect/foam(get_turf(target), 1)
 			F.amount = 0
 			reagents.remove_any(10)
-			metal_synthesis_charge++
+			metal_synthesis_charge--
 			addtimer(CALLBACK(src, PROC_REF(decrease_metal_charge)), 5 SECONDS)
 
 /obj/item/extinguisher/mini/mod/proc/decrease_metal_charge()
-		metal_synthesis_charge--
+		metal_synthesis_charge++
 
 #undef EXTINGUISHER
 #undef NANOFROST
