@@ -23,8 +23,13 @@
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
 /// ingame button pressed (/obj/machinery/button/button)
 #define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"
+
 /// job subsystem has spawned and equipped a new mob
 #define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
+
+/// cable was placed or joined somewhere : (turf)
+#define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
+
 
 /// signals from globally accessible objects
 
@@ -283,6 +288,8 @@
 	#define COMPONENT_CANCEL_THROW (1<<0)
 ///from base of atom/movable/throw_at(): (datum/thrownthing, spin)
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"
+///from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
+#define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"
 ///from base of atom/movable/onTransitZ(): (old_z, new_z)
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit"
 ///called when the movable is placed in an unaccessible area, used for stationloving: ()
@@ -313,6 +320,8 @@
 
 ///from base of /mob/Login(): ()
 #define COMSIG_MOB_LOGIN "mob_login"
+///called in human/login
+#define	COMSIG_HUMAN_LOGIN "human_login"
 ///from base of /mob/Logout(): ()
 #define COMSIG_MOB_LOGOUT "mob_logout"
 ///from base of mob/death(): (gibbed)
@@ -340,7 +349,7 @@
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
 ///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
-#define COMSIG_MOB_APPLY_DAMGE	"mob_apply_damage"
+#define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
 ///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, proxiumity_flag, click_parameters)
@@ -500,6 +509,8 @@
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
+//Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
+#define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
 
 // /obj signals
 

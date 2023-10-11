@@ -132,6 +132,7 @@
 				/obj/item/storage/bag/plasticbag = 20,
 				/obj/item/storage/wallet = 20,
 				/obj/item/storage/wallet/random = 5,
+				/obj/item/scratch = 10,
 				/obj/item/caution = 10,
 				/obj/item/mod/construction/broken_core = 4,
 				/obj/effect/spawner/random_spawners/mod/maint = 10,
@@ -221,6 +222,7 @@
 				/obj/item/stack/nanopaste = 50,
 				/obj/item/clothing/under/costume/psyjump = 50,
 				/obj/item/immortality_talisman = 50,
+				/obj/item/clothing/mask/holo_cigar = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals

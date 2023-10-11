@@ -234,6 +234,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(boosted)
 		mychild.key = elitemind.key
 		mychild.sentience_act()
+		dust_if_respawnable(elitemind)
 		notify_ghosts("\A [mychild] has been awakened in \the [get_area(src)]!", enter_link="<a href=?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	icon_state = "tumor_popped"
 	RegisterSignal(mychild, COMSIG_PARENT_QDELETING, PROC_REF(onEliteLoss))
@@ -330,10 +331,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(loc == null)
 		return
 	for(var/tumor_range_turfs in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
-		var/obj/effect/temp_visual/elite_tumor_wall/newwall
-		newwall = new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
-		newwall.activator = activator
-		newwall.ourelite = mychild
+		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turfs, src)
 
 /obj/structure/elite_tumor/proc/border_check()
 	if(activator != null && get_dist(src, activator) >= ARENA_RADIUS)
@@ -453,14 +451,12 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_HIERO_WALL)
 	canSmoothWith = list(SMOOTH_GROUP_HIERO_WALL)
-	duration = 50
+	duration = 5 SECONDS
 	layer = BELOW_MOB_LAYER
 	plane = GAME_PLANE
 	color = rgb(255,0,0)
 	light_range = MINIMUM_USEFUL_LIGHT_RANGE
 	light_color = LIGHT_COLOR_PURE_RED
-	var/activator
-	var/ourelite
 
 /obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
 	. = ..()
@@ -478,6 +474,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	if(isliving(mover))
 		return FALSE
 
+/obj/effect/temp_visual/elite_tumor_wall/gargantua/CanPass(atom/movable/mover, border_dir)
+	. = ..()
+	if(istype(mover, /obj/item/projectile))
+		return FALSE
+		
 /obj/item/gps/internal/tumor
 	icon_state = null
 	gpstag = "Cancerous Signal"

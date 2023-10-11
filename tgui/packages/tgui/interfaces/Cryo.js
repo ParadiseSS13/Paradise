@@ -158,7 +158,7 @@ const CryoContent = (props, context) => {
                 average: [-Infinity, 99],
                 good: [99, Infinity],
               }}
-              color={!isBeakerLoaded && "average"}
+              color={!isBeakerLoaded && 'average'}
               value={cooldownProgress}
               minValue={0}
               maxValue={100}
@@ -205,7 +205,9 @@ const CryoBeaker = (props, context) => {
   if (isBeakerLoaded) {
     return (
       <Fragment>
-        <Box display="inline" color={!beakerLabel && "average"}>{beakerLabel || "No label"}</Box>
+        <Box display="inline" color={!beakerLabel && 'average'}>
+          {beakerLabel || 'No label'}
+        </Box>
         <Box display="inline" float="right" color={!beakerVolume && 'bad'}>
           {beakerVolume ? (
             <AnimatedNumber
@@ -219,6 +221,10 @@ const CryoBeaker = (props, context) => {
       </Fragment>
     );
   } else {
-    return <Box display="inline" color="bad">No beaker loaded</Box>;
+    return (
+      <Box display="inline" color="bad">
+        No beaker loaded
+      </Box>
+    );
   }
 };

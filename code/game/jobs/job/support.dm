@@ -5,14 +5,16 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_supply = 1
-	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	job_department_flags = DEP_FLAG_SUPPLY | DEP_FLAG_COMMAND
+	supervisors = "the captain"
+	department_head = list("Captain")
 	department_account_access = TRUE
 	selection_color = "#e2c59d"
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_HEADS_VAULT)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_HEADS_VAULT)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
 	outfit = /datum/outfit/job/qm
+	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Supply), basic job duties, and act professionally (roleplay)."
 	exp_map = list(EXP_TYPE_SUPPLY = 1200)
 
 /datum/outfit/job/qm
@@ -20,12 +22,17 @@
 	jobtype = /datum/job/qm
 
 	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
-	shoes = /obj/item/clothing/shoes/brown
-	l_ear = /obj/item/radio/headset/headset_cargo
+	shoes = /obj/item/clothing/shoes/workboots/mining
+	l_ear = /obj/item/radio/headset/heads/qm
 	glasses = /obj/item/clothing/glasses/sunglasses
+	mask = /obj/item/clothing/mask/cigarette/cigar/cohiba
 	id = /obj/item/card/id/quartermaster
 	l_hand = /obj/item/clipboard
+	l_pocket = /obj/item/mail_scanner
 	pda = /obj/item/pda/quartermaster
+	backpack_contents = list(
+		/obj/item/melee/classic_baton/telescopic = 1
+	)
 
 
 
@@ -35,12 +42,13 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
-	is_supply = 1
+	job_department_flags = DEP_FLAG_SUPPLY
 	supervisors = "the quartermaster"
-	department_head = list("Head of Personnel")
+	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+	alt_titles = list("Mail Carrier", "Courier")
 	outfit = /datum/outfit/job/cargo_tech
 
 /datum/outfit/job/cargo_tech
@@ -49,6 +57,7 @@
 
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	shoes = /obj/item/clothing/shoes/black
+	l_pocket = /obj/item/mail_scanner
 	l_ear = /obj/item/radio/headset/headset_cargo
 	id = /obj/item/card/id/supply
 	pda = /obj/item/pda/cargo
@@ -61,9 +70,9 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 6
 	spawn_positions = 8
-	is_supply = 1
+	job_department_flags = DEP_FLAG_SUPPLY
 	supervisors = "the quartermaster"
-	department_head = list("Head of Personnel")
+	department_head = list("Quartermaster")
 	selection_color = "#eeddbe"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM)
@@ -100,7 +109,7 @@
 	mask = /obj/item/clothing/mask/gas/explorer
 	glasses = /obj/item/clothing/glasses/meson
 	suit_store = /obj/item/tank/internals/emergency_oxygen
-	internals_slot = slot_s_store
+	internals_slot = SLOT_HUD_SUIT_STORE
 	backpack_contents = list(
 		/obj/item/flashlight/seclite=1,\
 		/obj/item/kitchen/knife/combat/survival=1,
@@ -132,7 +141,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -176,7 +185,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -217,7 +226,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 3
 	spawn_positions = 2
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -252,7 +261,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -344,7 +353,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -397,7 +406,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -425,7 +434,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = 1
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
@@ -449,13 +458,23 @@
 	backpack_contents = list(
 		/obj/item/videocam/advanced = 1)
 
+/datum/outfit/job/librarian/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(!H.mind)
+		return
+	for(var/la in GLOB.all_languages)
+		var/datum/language/new_language = GLOB.all_languages[la]
+		if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
+			continue
+		H.add_language(la)
+
 /datum/job/barber
 	title = "Barber"
 	flag = JOB_BARBER
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 1
 	spawn_positions = 1
-	is_service = TRUE
+	job_department_flags = DEP_FLAG_SERVICE
 	supervisors = "the head of personnel"
 	department_head = list("Head of Personnel")
 	selection_color = "#dddddd"
