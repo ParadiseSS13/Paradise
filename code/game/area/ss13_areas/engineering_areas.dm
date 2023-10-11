@@ -47,7 +47,7 @@
 	name = "\improper Gravity Generator"
 	icon_state = "gravgen"
 
-/area/station/engineering/aitransittube
+/area/station/engineering/ai_transit_tube
 	name = "\improper Ai Minisat Tranit Tube"
 	icon_state = "ai"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
