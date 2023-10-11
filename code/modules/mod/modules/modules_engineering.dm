@@ -212,7 +212,6 @@
 	switch(nozzle_mode)
 		if(EXTINGUISHER)
 			..()
-			return
 
 		if(NANOFROST)
 			if(reagents.total_volume < 100)
