@@ -46303,7 +46303,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
+/area/station/engineering/break_room)
 "cIY" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
