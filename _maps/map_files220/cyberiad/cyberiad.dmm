@@ -69457,8 +69457,6 @@
 	req_access = list(58)
 	},
 /obj/item/clothing/gloves/combat,
-/obj/item/ammo_box/a357,
-/obj/item/gun/projectile/revolver/mateba,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
