@@ -188,8 +188,8 @@
 		user.visible_message("<span class='notice'>[user] has added \the [O] to \the [src].</span>", "<span class='notice'>You add \the [O] to \the [src].</span>")
 		SStgui.update_uis(src)
 		update_icon(UPDATE_OVERLAYS)
-	else if(istype(O, /obj/item/storage/bag))
-		var/obj/item/storage/bag/P = O
+	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
+		var/obj/item/storage/P = O
 		var/items_loaded = 0
 		for(var/obj/G in P.contents)
 			if(load(G, user))
