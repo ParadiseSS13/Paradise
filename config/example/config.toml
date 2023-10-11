@@ -651,7 +651,6 @@ active_space_ruins = [
 # Commenting something out in here DISABLES IT FROM SPAWNING
 active_lava_ruins = [
 	##BIODOMES
-	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_beach.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_clown_planet.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_biodome_winter.dmm",
 	##RESPAWN
@@ -674,6 +673,7 @@ active_lava_ruins = [
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_hierophant.dmm",
 
 	##MISC
+	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_excavation.dmm",
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_althland_facility.dmm",
 	# Cube blacklisted on production because it contains a wishgranter that gives you hijack on use
 	"_maps/map_files/RandomRuins/LavaRuins/lavaland_surface_cube.dmm",

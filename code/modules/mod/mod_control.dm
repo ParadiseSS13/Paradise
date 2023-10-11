@@ -91,6 +91,23 @@
 	/// Is the jetpack on so we should make ion effects?
 	var/jetpack_active = FALSE
 
+/obj/item/mod/control/serialize()
+	var/list/data = ..()
+	var/list/modules_list = list()
+	for(var/obj/item/mod/module/mod as anything in modules)
+		modules_list.Add(list(mod.serialize()))
+	data["modules"] = modules_list
+	return data
+
+/obj/item/mod/control/deserialize(list/data)
+	if(data["modules"])
+		for(var/old_mods in modules)
+			uninstall(old_mods, deleting = TRUE)
+		for(var/obj/item/mod/module/module as anything in data["modules"])
+			module = list_to_object(module, src)
+			install(module)
+	..()
+
 /obj/item/mod/control/Initialize(mapload, datum/mod_theme/new_theme, new_skin, obj/item/mod/core/new_core)
 	. = ..()
 	if(new_theme)
