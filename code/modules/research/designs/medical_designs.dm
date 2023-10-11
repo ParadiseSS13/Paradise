@@ -509,7 +509,7 @@
 
 /datum/design/cyberimp_nutriment_plus
 	name = "Nutriment Pump Implant PLUS"
-	desc = "This implant will synthesize and pump into your bloodstream a small amount of nutriment when you are hungry."
+	desc = "When you're hungry, this implant will synthesize a small amount of nutriment and pump it into your bloodstream."
 	id = "ci-nutrimentplus"
 	req_tech = list("materials" = 5, "powerstorage" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
