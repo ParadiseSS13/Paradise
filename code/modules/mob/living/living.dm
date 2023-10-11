@@ -1106,7 +1106,6 @@
 
 /mob/living/onTransitZ(old_z,new_z)
 	..()
-	SEND_SIGNAL(src, COMSIG_MOVABLE_Z_CHANGED)
 	update_z(new_z)
 
 /mob/living/rad_act(amount)
