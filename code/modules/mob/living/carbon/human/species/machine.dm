@@ -113,6 +113,23 @@
 			H.update_hair()
 			H.update_fhair()
 
+/datum/species/machine/handle_life(mob/living/carbon/human/H) //KittyNoodle's code from PR #17993, handles IPC starvation
+	if(isLivingSSD(H)) // We don't want AFK people dying from this
+		return
+	if(H.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
+		if(prob(6))
+			H.adjustBrainLoss(4)
+			to_chat(H, "<span class='warning'> Error 74: Positronic brain receiving insufficient power.</span>")
+		if(prob(4))
+			H.Weaken(6 SECONDS)
+			H.Stuttering(20 SECONDS)
+			to_chat(H, "<span class='warning'>Power critical, redirecting all power to positronic brain.</span>")
+			H.emote("collapse")
+			H.adjustBrainLoss(2)
+		if(prob(4))
+			to_chat(H, "<span class='warning'>Power critical, redirecting power from servos.</span>")
+			H.Slowed(rand(15 SECONDS, 32 SECONDS))
+
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
 	name = "Change Monitor"
