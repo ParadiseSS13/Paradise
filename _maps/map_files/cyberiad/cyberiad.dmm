@@ -28374,15 +28374,6 @@
 "bCf" = (
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
-"bCg" = (
-/obj/machinery/computer/security/telescreen/entertainment{
-	icon_state = "television";
-	icon_screen = "detective_tv";
-	name = "television";
-	desc = "A relic of a bygone age."
-	},
-/turf/simulated/floor/carpet/royalblack,
-/area/station/maintenance/apmaint)
 "bCh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -58815,6 +58806,21 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"dJd" = (
+/obj/structure/table,
+/obj/item/key/janitor,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/item/grenade/chem_grenade/cleaner,
+/obj/structure/reagent_dispensers/spacecleanertank{
+	pixel_y = 30
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/station/service/janitor)
 "dJl" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -65725,13 +65731,6 @@
 /obj/effect/spawner/random_spawners/fungus_probably,
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
-"hpP" = (
-/obj/structure/table,
-/obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/box/matches,
-/obj/item/seeds/tobacco,
-/turf/simulated/floor/wood,
-/area/station/security/permabrig)
 "hpR" = (
 /obj/structure/chair/sofa/corp{
 	dir = 1
@@ -69933,17 +69932,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/engineering/hardsuitstorage)
-"jJX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/carpet/arcade,
-/area/station/public/arcade)
 "jKZ" = (
 /obj/machinery/atmospherics/binary/pump/on,
 /turf/simulated/floor/plating,
@@ -74137,6 +74125,16 @@
 	icon_state = "dark"
 	},
 /area/station/security/prison/cell_block/A)
+"lWD" = (
+/obj/structure/table,
+/obj/item/storage/fancy/rollingpapers,
+/obj/item/storage/box/matches,
+/obj/item/seeds/tobacco,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/security/permabrig)
 "lWE" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -77564,6 +77562,12 @@
 "oej" = (
 /turf/space,
 /area/space/nearstation)
+"oem" = (
+/obj/machinery/computer/arcade/recruiter{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "oen" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -82363,22 +82367,6 @@
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
-"qLU" = (
-/obj/structure/table,
-/obj/item/key/janitor,
-/obj/item/key/janitor,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/item/grenade/chem_grenade/cleaner,
-/obj/structure/reagent_dispensers/spacecleanertank{
-	pixel_y = 30
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel,
-/area/station/service/janitor)
 "qMk" = (
 /obj/structure/table/reinforced,
 /obj/item/razor,
@@ -87398,6 +87386,10 @@
 	name = "Maintenance Air Supply"
 	},
 /turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
+"tQc" = (
+/obj/machinery/computer/security/telescreen/entertainment/television,
+/turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
 "tQe" = (
 /obj/structure/disposalpipe/sortjunction{
@@ -93572,6 +93564,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/garden)
+"xCk" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/carpet/arcade,
+/area/station/public/arcade)
 "xDc" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
@@ -113146,7 +113152,7 @@ cgQ
 wNT
 fwz
 vkC
-bCg
+tQc
 cgQ
 puo
 lOM
@@ -114351,7 +114357,7 @@ abN
 oij
 uLp
 uLp
-hpP
+lWD
 hld
 llj
 gsQ
@@ -125944,7 +125950,7 @@ axe
 aFH
 sPN
 chc
-qLU
+dJd
 dXj
 qkJ
 cgP
@@ -129023,9 +129029,9 @@ aEv
 aFI
 lFV
 xUR
-aJw
-aKK
 fmN
+aKK
+aJw
 tcm
 aPg
 aQt
@@ -129281,7 +129287,7 @@ aFI
 hRq
 aGN
 aJz
-aKK
+oem
 dwg
 iQP
 ckc
@@ -129538,7 +129544,7 @@ aFI
 kpf
 aIt
 qou
-jJX
+xCk
 fbg
 rSO
 aPf

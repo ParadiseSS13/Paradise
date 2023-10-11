@@ -88,6 +88,7 @@
 		SSticker.mode.apprentices += M.mind
 		M.mind.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
 		SSticker.mode.update_wiz_icons_added(M.mind)
+		dust_if_respawnable(C)
 		M.faction = list("wizard")
 		SStgui.close_uis(src)
 	else
@@ -369,6 +370,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
 				to_chat(user, "<span class='warning'><B>The sword flashes, and you find yourself face to face with...you!</B></span>")
+				dust_if_respawnable(C)
 
 			else
 				to_chat(user, "You fail to summon any copies of yourself. Perhaps you should try again in a bit.")
