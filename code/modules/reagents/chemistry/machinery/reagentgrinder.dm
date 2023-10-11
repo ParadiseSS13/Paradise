@@ -315,13 +315,13 @@
 
 	switch(action)
 		if("detach")
-			detach()
+			detach(ui.user)
 		if("eject")
-			eject()
+			eject(ui.user)
 		if("grind")
-			grind()
+			grind(ui.user)
 		if("juice")
-			juice()
+			juice(ui.user)
 
 /obj/machinery/reagentgrinder/proc/detach(mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)
