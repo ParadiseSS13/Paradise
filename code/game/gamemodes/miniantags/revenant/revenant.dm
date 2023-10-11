@@ -168,6 +168,7 @@
 			key = theghost.key
 			giveObjectivesandGoals()
 			giveSpells()
+			dust_if_respawnable(theghost)
 		else
 			message_admins("No ghost was willing to take control of a mindless revenant. Deleting...")
 			qdel(src)
@@ -397,7 +398,7 @@
 	else if(reforming)
 		. += "<span class='revenwarning'>It is shifting and distorted. It would be wise to destroy this.</span>"
 
-/obj/item/ectoplasm/revenant/proc/reform()
+/obj/item/ectoplasm/revenant/proc/reform() // Unused proc, production doesn't have revenants revive
 	if(inert || !src)
 		return
 	var/key_of_revenant
