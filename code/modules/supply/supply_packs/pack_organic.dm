@@ -74,7 +74,7 @@
 					/obj/item/reagent_containers/food/condiment/vinegar)
 	cost = 300
 	containername = "condiment crate"
-	group = SUPPLY_ORGANIC
+
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
 	contains = list (/obj/item/storage/box/monkeycubes)
