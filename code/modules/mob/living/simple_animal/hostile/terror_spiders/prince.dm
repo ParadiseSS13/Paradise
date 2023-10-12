@@ -55,6 +55,7 @@
 	SIGNAL_HANDLER
 	var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge()
 	mind.AddSpell(spell)
+	UnregisterSignal(src, COMSIG_MOB_LOGIN)
 
 /obj/effect/proc_holder/spell/princely_charge
 	name = "Princely Charge"
