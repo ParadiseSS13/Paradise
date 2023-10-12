@@ -280,6 +280,12 @@
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
 
+/obj/item/clothing/glasses/nohudgoggles
+	name = "basic goggles"
+	desc = "Just some basic goggles, rather fashionable."
+	icon_state = "nohudgoggles"
+	item_state = "nohudgoggles"
+
 /obj/item/clothing/glasses/threedglasses
 	name = "\improper 3D glasses"
 	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."
