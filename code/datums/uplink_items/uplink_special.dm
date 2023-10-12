@@ -7,6 +7,7 @@
 /datum/uplink_item/special/autosurgeon
 	name = "Syndicate Autosurgeon"
 	desc = "A multi-use autosurgeon for implanting whatever you want into yourself. Rip that station apart and make it part of you."
+	reference = "SACR"
 	item = /obj/item/autosurgeon/organ/syndicate
 	cost = 25
 
