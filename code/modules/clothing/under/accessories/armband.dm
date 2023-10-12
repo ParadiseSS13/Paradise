@@ -52,3 +52,9 @@
 	desc = "An armband, worn by the crew to display which department they're assigned to. This one is white and green."
 	icon_state = "medgreen"
 	item_color = "medgreen"
+
+/obj/item/clothing/accessory/armband/procedure
+	name = "procedure armband"
+	desc = "An armband, worn by the crew to display which department they're assigned to. This one is lavender."
+	icon_state = "procedure"
+	item_color = "procedure"
