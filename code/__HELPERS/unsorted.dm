@@ -624,7 +624,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return 1
 
-/proc/is_blocked_turf(turf/T, exclude_mobs)
+/proc/is_blocked_turf(turf/T, exclude_mobs, list/excluded_objs)
 	if(T.density)
 		return TRUE
 	if(locate(/mob/living/silicon/ai) in T) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
@@ -633,7 +633,10 @@ Returns 1 if the chain up to the area contains the given typepath
 		for(var/mob/living/L in T)
 			if(L.density)
 				return TRUE
+	var/any_excluded_objs = length(excluded_objs)
 	for(var/obj/O in T)
+		if(any_excluded_objs && (O in excluded_objs))
+			continue
 		if(O.density)
 			return TRUE
 	return FALSE
