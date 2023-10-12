@@ -217,7 +217,7 @@
 
 /obj/item/reagent_containers/glass/beaker/large
 	name = "large beaker"
-	desc = "A large glass beaker, now twice as big!."
+	desc = "A large glass beaker with twice the capacity of a normal beaker."
 	icon_state = "beakerlarge"
 	materials = list(MAT_GLASS=2500)
 	volume = 100
