@@ -67,7 +67,6 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	var/datum/station_trait/trait_instance = new trait_type()
 	station_traits += trait_instance
 	log_game("Station Trait: [trait_instance.name] chosen for this round.")
-	message_admins("Hey fucko we just booted up: [trait_instance]")
 	if(!trait_instance.blacklist)
 		return
 	for(var/i in trait_instance.blacklist)
