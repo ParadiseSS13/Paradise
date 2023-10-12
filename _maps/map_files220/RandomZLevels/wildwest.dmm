@@ -473,7 +473,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "eT" = (
 /obj/effect/step_trigger/message{
-	message = "<span class='cult italic'><b><span class='big'>Ancient walls, monstrous petroglyphs and sweet smell of putrefaction... It's worth turning back before this cursed call takes over your mind completely!</span></b></span>"
+	message = "<span class='cult italic'><b><span class='big'>Древние циклопические стены, ужасающие петроглифы и сладковатый запах затхлости... Стоит скорее повернуть назад, пока этот проклятый зов окончательно не захватил ваш разум!</span></b></span>"
 	},
 /obj/effect/step_trigger/sound_effect{
 	happens_once = 1;
@@ -525,16 +525,6 @@
 	icon_state = "cult"
 	},
 /area/awaymission/wildwest/wildwest_mines)
-"fs" = (
-/obj/machinery/door/airlock/cult{
-	openingoverlaytype = null;
-	stealth_icon = null;
-	stealth_overlays = null
-	},
-/turf/simulated/floor{
-	icon_state = "cult"
-	},
-/area/awaymission/wildwest/wildwest_vaultdoors)
 "ft" = (
 /obj/structure/bed,
 /obj/item/bedsheet/brown,
@@ -920,7 +910,7 @@
 /area/awaymission/wildwest/wildwest_mines)
 "iZ" = (
 /obj/effect/step_trigger/message{
-	message = "<span class='cult italic'><b><small><span class='big'>You catch a glimpse of how you begin to move chaotically to the beat of the call!</span></small></b></span>"
+	message = "<span class='cult italic'><b><small><span class='big'>Вы ловите себя на мысли, что ваши ноги начали двигаться в такт хаотичному ритму зова!</span></small></b></span>"
 	},
 /obj/effect/step_trigger/sound_effect{
 	happens_once = 1;
@@ -2485,10 +2475,8 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wildwest/wildwest_mines)
 "xM" = (
-/obj/machinery/door/airlock/cult{
-	openingoverlaytype = null;
-	stealth_icon = null;
-	stealth_overlays = null
+/obj/machinery/door/airlock/vault{
+	locked = 1
 	},
 /turf/simulated/floor{
 	icon_state = "necro1"
@@ -2757,7 +2745,10 @@
 	triggerer_only = 1
 	},
 /obj/effect/step_trigger/message{
-	message = "<span class='cult italic'><small><b><span class='big'>Has this rock always been here?</span></small></b></span>"
+	message = "<span class='cult italic'><small><b><span class='big'>Этот камень как будто не на своем месте.</span></small></b></span>"
+	},
+/obj/effect/decal/cleanable/blood/writing{
+	dir = 8
 	},
 /turf/simulated/floor{
 	icon_state = "cult"
@@ -4058,7 +4049,12 @@
 /area/awaymission/wildwest/wildwest_mines)
 "Ov" = (
 /obj/effect/step_trigger/message{
-	message = "<span class='cult italic'><small><b>You feel some strange ominous call that stretches from the depths of the cave...</small></b></span>"
+	message = "<span class='cult italic'><small><b>Вы ощущаете странный зловещий зов, что доносится из глубин пещеры...</small></b></span>"
+	},
+/obj/effect/step_trigger/sound_effect{
+	happens_once = 1;
+	sound = "modular_ss220/aesthetics_sounds/sound/creepy/many_whisper2.ogg";
+	triggerer_only = 1
 	},
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wildwest/wildwest_mines)
@@ -13394,8 +13390,8 @@ em
 em
 tv
 em
-em
-em
+xI
+xI
 gz
 gz
 em
@@ -13535,8 +13531,8 @@ em
 em
 tv
 tv
-em
-em
+xI
+xI
 jX
 EI
 eT
@@ -13677,7 +13673,7 @@ em
 tv
 tv
 em
-em
+xI
 Iy
 sD
 nF
@@ -13817,7 +13813,7 @@ em
 em
 tv
 tv
-em
+xI
 Jp
 jX
 AK
@@ -13959,14 +13955,14 @@ em
 tv
 tv
 em
-em
+xI
 Bt
 gz
 Yh
 JR
 JI
 Bt
-em
+xI
 em
 em
 em
@@ -14101,14 +14097,14 @@ em
 tv
 em
 em
-em
+xI
 gz
 gz
 gz
 gO
 De
 gz
-em
+xI
 em
 em
 em
@@ -14243,14 +14239,14 @@ em
 tv
 em
 em
-em
+xI
 xI
 Bt
 lD
 Bt
 xI
 xI
-tv
+xI
 tv
 tv
 em
@@ -18947,7 +18943,7 @@ xI
 xI
 xI
 xI
-fs
+CE
 xI
 xI
 xI
