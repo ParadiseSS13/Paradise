@@ -67592,9 +67592,11 @@
 	},
 /area/station/turret_protected/ai_upload)
 "lXg" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
+/obj/machinery/atmospherics/binary/pump{
 	dir = 1;
-	name = "Air To Distro"
+	name = "Air to Station";
+	on = 1;
+	target_pressure = 303
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -81412,10 +81414,9 @@
 	},
 /area/station/medical/reception)
 "qYy" = (
-/obj/machinery/atmospherics/binary/volume_pump/on{
-	dir = 1;
-	name = "Distro to Waste";
-	on = 0
+/obj/machinery/atmospherics/binary/pump{
+	name = "Air to Waste";
+	target_pressure = 101
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
