@@ -53,9 +53,9 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		var/mob/C = pick_n_take(candidates)
 		spawn_count--
 		if(C)
-			C.remove_from_respawnable_list()
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
 			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
+			dust_if_respawnable(C)
 			M.equipOutfit(/datum/outfit/admin/sol_trader)
 			M.dna.species.after_equip_job(null, M)
 			for(var/datum/objective/O in trader_objectives)

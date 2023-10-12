@@ -43,16 +43,10 @@
 	var/number = 0 // Used to understand when someone is talking to it
 
 	var/mob/living/Target = null // AI variable - tells the slime to hunt this down
-	var/mob/living/Leader = null // AI variable - tells the slime to follow this person
 
 	var/attacked = 0 // Determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
 	var/rabid = FALSE // If set to 1, the slime will attack and eat anything it comes in contact with
-	var/holding_still = 0 // AI variable, cooloff-ish for how long it's going to stay in one place
 	var/target_patience = 0 // AI variable, cooloff-ish for how long it's going to follow its target
-
-	var/list/Friends = list() // A list of friends; they are not considered targets for feeding; passed down after splitting
-
-	var/list/speech_buffer = list() // Last phrase said near it and person who said it
 
 	var/mood = "" // To show its face
 	var/mutator_used = FALSE //So you can't shove a dozen mutators into a single slime
@@ -101,9 +95,6 @@
 		var/datum/action/AC = A
 		AC.Remove(src)
 	Target = null
-	Leader = null
-	Friends.Cut()
-	speech_buffer.Cut()
 	return ..()
 
 /mob/living/simple_animal/slime/proc/set_colour(new_colour)
@@ -360,14 +351,10 @@
 				if(S.next_step(user, src))
 					return 1
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma) && !stat) //Let's you feed slimes plasma.
-		if(user in Friends)
-			++Friends[user]
-		else
-			Friends[user] = 1
-			RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(clear_friend))
 		to_chat(user, "<span class='notice'>You feed the slime the plasma. It chirps happily.</span>")
 		var/obj/item/stack/sheet/mineral/plasma/S = I
 		S.use(1)
+		discipline_slime(user)
 		return
 	if(I.force > 0)
 		attacked += 10
@@ -385,10 +372,6 @@
 		if(prob(10 + force_effect))
 			discipline_slime(user)
 	..()
-
-/mob/living/simple_animal/slime/proc/clear_friend(mob/living/friend)
-	UnregisterSignal(friend, COMSIG_PARENT_QDELETING)
-	Friends -= friend
 
 /mob/living/simple_animal/slime/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
