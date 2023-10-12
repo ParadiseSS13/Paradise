@@ -104,6 +104,7 @@
 /datum/species/unathi/ashwalker
 	name = "Ash Walker"
 	name_plural = "Ash Walkers"
+	sprite_sheet_name = "Unathi" // We have the same sprite sheets as unathi
 	article_override = null
 
 	blurb = "These reptillian creatures appear to be related to the Unathi, but seem significantly less evolved. \
