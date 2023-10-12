@@ -125,12 +125,17 @@
 				owner.statelaws(ALs)
 
 		if("transfer_laws")
-			if(is_malf(usr))
-				var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (is_admin(usr) ? admin_laws : player_laws)
-				if(ALs)
-					log_and_message_admins("has transfered the [ALs.name] laws to [owner].")
-					ALs.sync(owner, FALSE, check_rights(R_ADMIN))
-					current_view = 0
+			if(!is_malf(usr))
+				return
+			var/admin_overwrite = is_admin(usr)
+			var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (admin_overwrite ? admin_laws : player_laws)
+			if(!ALs)
+				return
+			if(admin_overwrite && alert("Do you want overwrite [owner]'s zeroth law? If the chosen lawset has no zeroth law while [owner] has one, it will get removed!","Load Lawset","Yes","No") != "Yes")
+				admin_overwrite = FALSE
+			log_and_message_admins("has transfered the [ALs.name] laws to [owner][admin_overwrite ? " and overwrote their zeroth law":""].")
+			ALs.sync(owner, FALSE, admin_overwrite)
+			current_view = 0
 
 		if("notify_laws")
 			to_chat(owner, "<span class='danger'>Law Notice</span>")
