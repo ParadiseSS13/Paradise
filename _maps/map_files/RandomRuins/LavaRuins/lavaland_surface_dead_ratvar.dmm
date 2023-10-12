@@ -15,11 +15,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "e" = (
 /obj/item/stack/tile/brass,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "f" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
@@ -29,11 +25,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "h" = (
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "i" = (
 /obj/structure/grille/ratvar/broken,
@@ -44,11 +36,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "k" = (
 /obj/item/clockwork/alloy_shards/small,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "l" = (
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
@@ -67,11 +55,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "p" = (
 /obj/item/clockwork/alloy_shards/medium,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "q" = (
 /obj/structure/lattice/catwalk/clockwork,
@@ -83,11 +67,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "s" = (
 /obj/item/clockwork/alloy_shards/large,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "t" = (
 /obj/item/stack/tile/brass,
@@ -95,11 +75,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "u" = (
 /obj/structure/grille/ratvar,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "v" = (
 /obj/item/clockwork/alloy_shards/medium,
@@ -108,60 +84,32 @@
 /area/lavaland/surface/outdoors/unexplored)
 "w" = (
 /obj/structure/grille/ratvar/broken,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "x" = (
 /obj/structure/clockwork/wall_gear,
 /obj/item/stack/tile/brass,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "y" = (
 /obj/item/clockwork/component/geis_capacitor/fallen_armor,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "z" = (
 /obj/structure/clockwork/wall_gear,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "A" = (
 /obj/item/clockwork/alloy_shards/clockgolem_remains,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "B" = (
 /obj/item/clockwork/weapon/ratvarian_spear,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "C" = (
 /obj/item/clockwork/alloy_shards/medium/gear_bit,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "D" = (
 /obj/structure/grille/ratvar,
@@ -173,11 +121,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "F" = (
 /obj/structure/dead_ratvar,
-/turf/simulated/floor/clockwork{
-	nitrogen = 23;
-	oxygen = 14;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "G" = (
 /obj/item/stack/tile/brass/fifty,

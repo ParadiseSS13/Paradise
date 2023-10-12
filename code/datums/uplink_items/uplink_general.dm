@@ -1,4 +1,7 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
+// This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
+// Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
+#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
@@ -83,6 +86,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
+	/// Our special little snowflakes that have to be spawned in a different way than normal, like a surplus crate spawning a crate or contractor kits
+	var/uses_special_spawn = FALSE
 
 /datum/uplink_item/proc/spawn_item(turf/loc, obj/item/uplink/U)
 
@@ -91,12 +96,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
-	if(item)
-		U.uses -= max(cost, 0)
-		U.used_TC += cost
-		SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
+	U.uses -= max(cost, 0)
+	U.used_TC += cost
+	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
+	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()
 	if(!desc)
@@ -105,47 +111,47 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		desc = replacetext(initial(temp.desc), "\n", "<br>")
 	return desc
 
-/datum/uplink_item/proc/buy(obj/item/uplink/hidden/U, mob/user)
+/datum/uplink_item/proc/buy_uplink_item(obj/item/uplink/hidden/U, mob/user, put_in_hands = TRUE)
 	if(!istype(U))
-		return FALSE
+		return
 
 	if(user.stat || user.restrained())
-		return FALSE
+		return
 
-	if(!(ishuman(user)))
-		return FALSE
+	if(!ishuman(user))
+		return
 
 	// If the uplink's holder is in the user's contents
 	if((U.loc in user.contents || (in_range(U.loc, user) && isturf(U.loc.loc))))
 		if(cost > U.uses)
-			return FALSE
+			return
+
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
-		if(I)
-			if(ishuman(user))
-				var/mob/living/carbon/human/A = user
-				if(limited_stock > 0)
-					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
-					if(!user.mind.special_role)
-						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
+		if(!I || I == UPLINK_SPECIAL_SPAWNING)
+			return // Failed to spawn, or we handled it with special spawning
+		if(limited_stock > 0)
+			limited_stock--
+			log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+			if(!user.mind.special_role)
+				message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 
-				else
-					log_game("[key_name(user)] purchased [name].")
-					if(!user.mind.special_role)
-						message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
+		else
+			log_game("[key_name(user)] purchased [name].")
+			if(!user.mind.special_role)
+				message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 
-				A.put_in_any_hand_if_possible(I)
+		if(istype(I, /obj/item/storage/box) && length(I.contents))
+			for(var/atom/o in I)
+				U.purchase_log += "<big>[bicon(o)]</big>"
 
-				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
-					for(var/atom/o in I)
-						U.purchase_log += "<BIG>[bicon(o)]</BIG>"
+		else
+			U.purchase_log += "<big>[bicon(I)]</big>"
 
-				else
-					U.purchase_log += "<BIG>[bicon(I)]</BIG>"
-
-		return TRUE
-	return FALSE
+		if(put_in_hands)
+			user.put_in_any_hand_if_possible(I)
+		return I
 
 /*
 //
@@ -521,6 +527,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Everything you need to quietly open a mechanical combination safe."
 	reference = "SCK"
 	item = /obj/item/storage/box/syndie_kit/safecracking
+	cost = 5
+
+/datum/uplink_item/stealthy_tools/handheld_mirror
+	name = "Hand Held Mirror"
+	desc = "A pocket sized mirror. Allows you to change all your hair and facial features, from color to style, instantly while in your hand."
+	reference = "HM"
+	item = /obj/item/handheld_mirror
 	cost = 5
 
 // DEVICE AND TOOLS

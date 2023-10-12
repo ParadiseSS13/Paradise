@@ -24,3 +24,6 @@
 	smoothing_flags = NONE
 	base_icon_state = "plastitanium_wall"
 	explosion_block = 4
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB

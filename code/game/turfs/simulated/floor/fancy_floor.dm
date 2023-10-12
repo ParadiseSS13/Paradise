@@ -37,10 +37,21 @@
 				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
 	return make_plating()
 
+/turf/simulated/floor/wood/airless
+	name = "wood" // yes really
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
 /turf/simulated/floor/wood/cold
 	oxygen = 22
 	nitrogen = 82
 	temperature = 180
+
+/turf/simulated/floor/wood/lavaland_air
+	nitrogen = 23
+	oxygen = 14
+	temperature = 300
 
 /turf/simulated/floor/grass
 	name = "grass patch"
@@ -63,10 +74,9 @@
 	if(..())
 		return
 	if(istype(C, /obj/item/shovel))
-		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
 		to_chat(user, "<span class='notice'>You shovel the grass.</span>")
 		playsound(src, 'sound/effects/shovel_dig.ogg', 50, 1)
-		make_plating()
+		remove_tile()
 
 /turf/simulated/floor/grass/jungle
 	name = "jungle grass"
@@ -187,6 +197,11 @@
 	floor_tile = /obj/item/stack/tile/carpet/royalblue
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET, SMOOTH_GROUP_CARPET_ROYALBLUE)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_ROYALBLUE)
+
+/turf/simulated/floor/carpet/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
 
 //End of carpets
 

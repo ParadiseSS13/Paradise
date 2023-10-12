@@ -173,6 +173,19 @@
 	update_ambience_pref()
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Ambience") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/verb/Toggle_Parallax_Dark() //All new ambience should be added here so it works with this verb until someone better at things comes up with a fix that isn't awful
+	set name = "Show/Hide Parallax in darkness"
+	set category = "Preferences"
+	set desc = "If enabled, drawing parallax if you see in dark instead of black tiles."
+	prefs.toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
+	prefs.save_preferences(src)
+	if(prefs.toggles2 & PREFTOGGLE_2_PARALLAX_IN_DARKNESS)
+		to_chat(src, "You will now see parallax in dark with nightvisions.")
+	else
+		to_chat(src, "You will no longer see parallax in dark with nightvisions.")
+	usr.hud_used?.update_parallax_pref()
+	SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Parallax Darkness") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
 /client/verb/Toggle_Buzz() //No more headaches because headphones bump up shipambience.ogg to insanity levels.
 	set name = "Hear/Silence White Noise"
 	set category = "Preferences"

@@ -200,9 +200,9 @@
 /area/shuttle/escape)
 "aF" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	name = "Escape Shuttle Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "aG" = (
@@ -343,9 +343,9 @@
 /area/shuttle/escape)
 "be" = (
 /obj/machinery/door/airlock/titanium/glass{
-	name = "Emergency Airlock Access";
-	req_access_txt = "63"
+	name = "Emergency Airlock Access"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bf" = (
@@ -373,9 +373,9 @@
 /area/shuttle/escape)
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Escape Shuttle Cell";
-	req_access_txt = "63"
+	name = "Escape Shuttle Cell"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bk" = (
@@ -479,9 +479,9 @@
 /area/shuttle/escape)
 "bC" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access_txt = "63"
+	name = "Escape Shuttle Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"

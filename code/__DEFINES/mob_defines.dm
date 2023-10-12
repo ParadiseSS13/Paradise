@@ -62,11 +62,6 @@
 #define PULSE_THREADY	5	//occurs during hypovolemic shock
 //feel free to add shit to lists below
 
-
-//proc/get_pulse methods
-#define GETPULSE_HAND	0	//less accurate (hand)
-#define GETPULSE_TOOL	1	//more accurate (med scanner, sleeper, etc)
-
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORG 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
 #define PROCESS_SYN 2		//Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
@@ -132,15 +127,6 @@
 
 //Slime extract crossing. Controls how many extracts is required to feed to a slime to core-cross.
 #define SLIME_EXTRACT_CROSSING_REQUIRED 10
-
-//Slime commands defines
-#define SLIME_FRIENDSHIP_FOLLOW 			3 //Min friendship to order it to follow
-#define SLIME_FRIENDSHIP_STOPEAT 			5 //Min friendship to order it to stop eating someone
-#define SLIME_FRIENDSHIP_STOPEAT_NOANGRY	7 //Min friendship to order it to stop eating someone without it losing friendship
-#define SLIME_FRIENDSHIP_STOPCHASE			4 //Min friendship to order it to stop chasing someone (their target)
-#define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
-#define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
-#define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
 
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
 //Hostile Mob AI Status
@@ -310,3 +296,28 @@
 
 #define MAX_EYE_BLURRY_FILTER_SIZE 2
 #define EYE_BLUR_TO_FILTER_SIZE_MULTIPLIER 0.005
+
+/proc/bodypart_name_to_clothing_bitflag(bodypart_name)
+	switch(bodypart_name)
+		if("head")
+			return HEAD
+		if("chest")
+			return UPPER_TORSO
+		if("groin")
+			return LOWER_TORSO
+		if("l_arm")
+			return ARM_LEFT
+		if("l_hand")
+			return HAND_LEFT
+		if("r_arm")
+			return ARM_RIGHT
+		if("r_hand")
+			return HAND_RIGHT
+		if("r_leg")
+			return LEG_RIGHT
+		if("r_foot")
+			return FOOT_RIGHT
+		if("l_leg")
+			return LEG_LEFT
+		if("l_foot")
+			return FOOT_LEFT

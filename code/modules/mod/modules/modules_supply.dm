@@ -21,6 +21,7 @@
 		However, this design has been locked by Nanotrasen to be primarily utilized for lifting various crates. \
 		A lot of people would say that loading cargo is a dull job, but you could not disagree more."
 	icon_state = "clamp"
+	flags = NODROP
 	module_type = MODULE_ACTIVE
 	complexity = 3
 	use_power_cost = DEFAULT_CHARGE_DRAIN
@@ -339,6 +340,8 @@
 	var/speed_up = FALSE
 	if(traveled_tiles == max_traveled_tiles)
 		speed_up = TRUE
+	if(HAS_TRAIT(mod, TRAIT_OIL_SLICKED))
+		speed_up = FALSE
 	for(var/obj/item/part as anything in parts)
 		part.armor = part.armor.detachArmor(part.armor)
 		var/obj/item/mod/armor/mod_theme_mining/A = new(src)
@@ -371,7 +374,8 @@
 			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
 			actual_speed_added = max(0, min(mod.slowdown_active, speed_added / 5))
 			mod.wearer.weather_immunities |= "ash"
-			speed_up = TRUE
+			if(!HAS_TRAIT(mod, TRAIT_OIL_SLICKED))
+				speed_up = TRUE
 		for(var/obj/item/part as anything in parts)
 			part.armor = part.armor.attachArmor(armor_mod_2.armor)
 			if(speed_up)
@@ -384,6 +388,8 @@
 		var/speed_up = FALSE
 		if(traveled_tiles == max_traveled_tiles)
 			speed_up = TRUE
+		if(HAS_TRAIT(mod, TRAIT_OIL_SLICKED))
+			speed_up = FALSE
 		traveled_tiles--
 		var/list/parts = mod.mod_parts + mod
 		for(var/obj/item/part as anything in parts)
@@ -428,6 +434,8 @@
 	mod.wearer.add_filter("mod_outline", 3, outline_filter(color = "#000000AA"))
 	animate(mod.wearer, animate_time, pixel_y = mod.wearer.pixel_y - 4, flags = ANIMATION_PARALLEL)
 	mod.wearer.SpinAnimation(1.5)
+	// todo, someone get balance approval to add TRAIT_FORCED_STANDING here, like it is on tg.
+	// Or, register a signal on floored trait signal
 	ADD_TRAIT(mod.wearer, TRAIT_HANDS_BLOCKED, "metriod[UID()]")
 	ADD_TRAIT(mod.wearer, TRAIT_GOTTAGOFAST, "metroid[UID()]")
 	RegisterSignal(mod.wearer, COMSIG_MOB_STATCHANGE, PROC_REF(on_statchange))
