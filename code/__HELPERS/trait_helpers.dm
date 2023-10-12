@@ -215,8 +215,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_XENO_INTERACTABLE	"can_be_interacted_with_by_xenos"
 #define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
 #define TRAIT_DONT_WRITE_MEMORY "dont_write_memory"
-/// Given by the multiple_lives component to the previous body of the mob upon death.
-#define EXPIRED_LIFE_TRAIT "expired_life"
 #define TRAIT_BADASS "trait_badass"
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat

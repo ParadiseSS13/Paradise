@@ -523,15 +523,16 @@
 	var/list/dc = datum_components
 	if(!dc)
 		return
-	var/comps = dc[/datum/component]
-	if(islist(comps))
-		for(var/datum/component/I in comps)
-			if(I.can_transfer)
-				target.TakeComponent(I)
-	else
-		var/datum/component/C = comps
-		if(C.can_transfer)
-			target.TakeComponent(comps)
+	for(var/component_key in dc)
+		var/component_or_list = dc[component_key]
+		if(islist(component_or_list))
+			for(var/datum/component/I in component_or_list)
+				if(I.can_transfer)
+					target.TakeComponent(I)
+		else
+			var/datum/component/C = component_or_list
+			if(C.can_transfer)
+				target.TakeComponent(C)
 
 /**
   * Transfer a single component from the source datum, to the target.
