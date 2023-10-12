@@ -63,7 +63,6 @@
 		return
 	if(ispath(device))
 		device = new device(src)
-		device.flags |= NODROP
 		device.resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 		device.slot_flags = null
 		device.w_class = WEIGHT_CLASS_HUGE
