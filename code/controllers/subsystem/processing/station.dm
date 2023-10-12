@@ -11,21 +11,18 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	///Assoc list of trait type || assoc list of traits with weighted value. Used for picking traits from a specific category.
 	var/list/selectable_traits_by_types = list(STATION_TRAIT_POSITIVE = list(), STATION_TRAIT_NEUTRAL = list(), STATION_TRAIT_NEGATIVE = list())
 
-
 /datum/controller/subsystem/processing/station/Initialize()
 	SetupTraits()
 
 ///Rolls for the amount of traits and adds them to the traits list
 /datum/controller/subsystem/processing/station/proc/SetupTraits()
 
-	if(fexists(FUTURE_STATION_TRAITS_FILE))
-		var/forced_traits_contents = file2text(FUTURE_STATION_TRAITS_FILE)
-		fdel(FUTURE_STATION_TRAITS_FILE)
+	if(fexists("data/next_traits.txt"))
+		var/forced_traits_contents = file2list("data/next_traits.txt")
+		fdel("data/next_traits.txt")
+		var/list/temp_list = splittext(forced_traits_contents[1], ",") //Tomorow, you need to make delete the file before making it, then split it
 
-		var/list/forced_traits_text_paths = json_decode(forced_traits_contents)
-		forced_traits_text_paths = SANITIZE_LIST(forced_traits_text_paths)
-
-		for(var/trait_text_path in forced_traits_text_paths)
+		for(var/trait_text_path in temp_list)
 			var/station_trait_path = text2path(trait_text_path)
 			if(!ispath(station_trait_path, /datum/station_trait) || station_trait_path == /datum/station_trait)
 				var/message = "Invalid station trait path [station_trait_path] was requested in the future station traits!"

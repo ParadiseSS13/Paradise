@@ -47,6 +47,8 @@
 
 	var/light_range_on = 1
 	var/light_power_on = 0.5
+	/// Do we drop contents on destroy?
+	var/drop_contents_on_delete = TRUE
 
 /obj/machinery/smartfridge/Initialize(mapload)
 	. = ..()
@@ -92,8 +94,9 @@
 /obj/machinery/smartfridge/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
-	for(var/atom/movable/A in contents)
-		A.forceMove(loc)
+	if(drop_contents_on_delete)
+		for(var/atom/movable/A in contents)
+			A.forceMove(loc)
 	return ..()
 
 /obj/machinery/smartfridge/process()
@@ -530,7 +533,7 @@
 	. = ..()
 	req_access_txt = "[ACCESS_AI_UPLOAD]"
 	if(mapload && HAS_TRAIT(SSstation, STATION_TRAIT_UNIQUE_AI) && is_station_level(z))
-		qdel(contents)
+		drop_contents_on_delete = FALSE
 		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/smartfridge/secure/circuits/aiupload/experimental

@@ -102,7 +102,9 @@
 			message_admins(message)
 
 			future_traits = new_future_traits
-			rustg_file_write(json_encode(params["station_traits"]), FUTURE_STATION_TRAITS_FILE)
+			fdel("data/next_traits.txt") //Delete it.
+			var/F = file("data/next_traits.txt")
+			F << params["station_traits"]
 
 			return TRUE
 		if("clear_future_traits")
@@ -114,7 +116,7 @@
 			log_admin(message)
 			message_admins(message)
 
-			fdel(FUTURE_STATION_TRAITS_FILE)
+			fdel("data/next_traits.txt")
 			future_traits = null
 
 			return TRUE
@@ -125,7 +127,7 @@
 /datum/station_traits_panel/proc/too_late_to_revert()
 	return SSticker.current_state >= GAME_STATE_PLAYING
 
-/datum/station_traits_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/ui_state/state = GLOB.observer_state, datum/tgui/master_ui = null)
+/datum/station_traits_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "StationTraitsPanel", "StationTraitsPanel", 700, 600, master_ui, state = state)

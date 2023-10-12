@@ -8,7 +8,7 @@
 
 /datum/station_trait/carp_infestation/on_round_start()
 	. = ..()
-	new /datum/event/carp_migration(EVENT_LEVEL_MAJOR)
+	new /datum/event/carp_migration(new /datum/event_meta(EVENT_LEVEL_MAJOR))
 
 /datum/station_trait/distant_supply_lines
 	name = "Distant supply lines"
@@ -20,22 +20,6 @@
 
 /datum/station_trait/distant_supply_lines/on_round_start()
 	SSeconomy.pack_price_modifier *= 1.2
-
-/datum/station_trait/late_arrivals
-	name = "Late Arrivals"
-	trait_type = STATION_TRAIT_NEGATIVE
-	weight = 2
-	show_in_report = TRUE
-	report_message = "Sorry for that, we didn't expect to fly into that vomiting goose while bringing you to your new station."
-	trait_to_give = STATION_TRAIT_LATE_ARRIVALS
-	can_revert = FALSE //Sorry spawnpoints are moved kids.
-
-/datum/station_trait/late_arrivals/New() //todo: does this work (also spawner code is something)
-	. = ..()
-	for(var/obj/effect/landmark/start/S in world)
-		if(istype(S, /obj/effect/landmark/start/ai))
-			continue
-		S.forceMove(pick(GLOB.latejoin))
 
 /datum/station_trait/empty_maint
 	name = "Cleaned out maintenance"
@@ -80,6 +64,9 @@
 
 /datum/station_trait/random_event_weight_modifier/on_round_start()
 	. = ..()
+	for(var/datum/event_container/E in SSevents.event_containers)
+		if(istype(E, event_severity))
+			event_severity = E
 	var/modified_event = FALSE
 	for(var/datum/event_meta/E in event_severity.available_events)
 		for(var/i in event_names)
@@ -100,7 +87,7 @@
 	event_names = list("Ion Storm")
 	event_severity = /datum/event_container/moderate
 	blacklist = list(/datum/station_trait/unique_ai)
-	weight_multiplier = 2
+	weight_multiplier = 3
 
 /datum/station_trait/random_event_weight_modifier/rad_storms
 	name = "Radiation Stormfront"
@@ -110,7 +97,7 @@
 	weight = 2
 	event_names = list("Radiation Storm")
 	event_severity = /datum/event_container/moderate
-	weight_multiplier = 2
+	weight_multiplier = 3
 	disable_is_one_shot = TRUE
 
 /datum/station_trait/random_event_weight_modifier/meteor_showers
@@ -121,7 +108,7 @@
 	weight = 2
 	event_names = list("Meteor Shower")
 	event_severity = /datum/event_container/moderate
-	weight_multiplier = 2
+	weight_multiplier = 3
 
 /datum/station_trait/random_event_weight_modifier/anomaly_storm
 	name = "Anomaly Storm"
@@ -131,4 +118,4 @@
 	weight = 2
 	event_names = list("Pyro Anomaly", "Cryo Anomaly", "Vortex Anomaly", "Bluespace Anomaly", "Flux Anomaly", "Gravitational Anomaly", "Wormholes", "Dimensional Tear") //Added wormholes and dimensional tears to acoid this being too positive
 	event_severity = /datum/event_container/moderate
-	weight_multiplier = 1.5 //Only 1.5 as there are a *lot* of anomaly events.
+	weight_multiplier = 2 //Only 2 as there are a *lot* of anomaly events.

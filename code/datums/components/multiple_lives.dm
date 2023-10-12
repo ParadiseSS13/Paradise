@@ -33,7 +33,8 @@
 	//that would be read by the current holder when he respawns if the old corpse is ever revived.
 	ADD_TRAIT(source, TRAIT_DONT_WRITE_MEMORY, EXPIRED_LIFE_TRAIT)
 	var/mob/living/respawned_mob = new source.type (source.drop_location())
-	source.mind?.transfer_to(respawned_mob)
+	if(source.mind)
+		INVOKE_ASYNC(source.mind, TYPE_PROC_REF(/datum/mind, transfer_to), respawned_mob)
 	lives_left--
 	if(lives_left <= 0)
 		qdel(src)

@@ -76,25 +76,25 @@
 
 	switch(department_to_apply_to)
 		if("Service")
-			if(!(job.job_department_flags &! DEP_FLAG_SERVICE))
+			if(!(job.job_department_flags & DEP_FLAG_SERVICE))
 				return
 		if("Cargo")
-			if(!(job.job_department_flags &! DEP_FLAG_SUPPLY))
+			if(!(job.job_department_flags & DEP_FLAG_SUPPLY))
 				return
 		if("Engineering")
-			if(!(job.job_department_flags &! DEP_FLAG_ENGINEERING))
+			if(!(job.job_department_flags & DEP_FLAG_ENGINEERING))
 				return
 		if("Command")
-			if(!(job.job_department_flags &! DEP_FLAG_COMMAND))
+			if(!(job.job_department_flags & DEP_FLAG_COMMAND))
 				return
 		if("Science")
-			if(!(job.job_department_flags &! DEP_FLAG_SCIENCE))
+			if(!(job.job_department_flags & DEP_FLAG_SCIENCE))
 				return
 		if("Security")
-			if(!(job.job_department_flags &! DEP_FLAG_SECURITY))
+			if(!(job.job_department_flags & DEP_FLAG_SECURITY))
 				return
 		if("Medical")
-			if(!(job.job_department_flags &! DEP_FLAG_MEDICAL))
+			if(!(job.job_department_flags & DEP_FLAG_MEDICAL))
 				return
 
 	var/obj/item/implant/deathrattle/implant_to_give = new()
@@ -233,4 +233,4 @@
 			ai.eyeobj.relay_speech = TRUE //surveillance upgrade. the ai gets cybernetics too.
 		return
 	var/obj/item/organ/internal/cybernetic = new cybernetic_type()
-	cybernetic.insert(spawned, special = TRUE)
+	INVOKE_ASYNC(cybernetic, TYPE_PROC_REF(/obj/item/organ/internal, insert), spawned, TRUE)
