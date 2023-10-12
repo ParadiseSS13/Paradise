@@ -167,7 +167,6 @@
 	var/list/data = ..()
 	data["shut_up"] = shut_up
 	data["declare_crit"] = declare_crit
-
 	data["stationary_mode"] = stationary_mode
 	data["heal_threshold"] = list(
 		"value" = heal_threshold,
