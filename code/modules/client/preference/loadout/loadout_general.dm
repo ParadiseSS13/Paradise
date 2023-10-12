@@ -93,11 +93,6 @@
 	display_name = "Shark plushie"
 	path = /obj/item/toy/plushie/shark
 
-/datum/gear/sechud
-	display_name = "Classic security HUD"
-	path = /obj/item/clothing/glasses/hud/security
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent","Magistrate")
-
 /datum/gear/cryaonbox
 	display_name = "Box of crayons"
 	path = /obj/item/storage/fancy/crayons

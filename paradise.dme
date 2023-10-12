@@ -1559,6 +1559,7 @@
 #include "code\modules\clothing\glasses\engine_goggles.dm"
 #include "code\modules\clothing\glasses\glasses.dm"
 #include "code\modules\clothing\glasses\hudglasses.dm"
+#include "code\modules\clothing\glasses\hudgoggles.dm"
 #include "code\modules\clothing\gloves\boxing_gloves.dm"
 #include "code\modules\clothing\gloves\colored_gloves.dm"
 #include "code\modules\clothing\gloves\misc_gloves.dm"
