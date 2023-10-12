@@ -1,7 +1,7 @@
 import { filterMap } from "./common/collections"
 import { exhaustiveCheck } from "./common/exhaustive"
 import { useBackend, useLocalState } from "../backend"
-import { Box, Button, Divider, Dropdown, Stack, Tabs } from "../components"
+import { Box, Button, Divider, Dropdown, Flex, Tabs } from "../components"
 import { Window } from "../layouts"
 
 let Tab
@@ -32,18 +32,18 @@ const FutureStationTraitsPage = (props, context) => {
 
   return (
     <Box>
-      <Stack fill>
-        <Stack.Item grow>
+      <Flex fill>
+        <Flex.Item grow>
           <Dropdown
             displayText={!selectedTrait && "Select trait to add..."}
             onSelected={setSelectedTrait}
             options={traitNames}
             selected={selectedTrait}
-            width="100%"
+            width="190px"
           />
-        </Stack.Item>
+        </Flex.Item>
 
-        <Stack.Item>
+        <Flex.Item>
           <Button
             color="green"
             icon="plus"
@@ -76,20 +76,20 @@ const FutureStationTraitsPage = (props, context) => {
           >
             Add
           </Button>
-        </Stack.Item>
-      </Stack>
+        </Flex.Item>
+      </Flex>
 
       <Divider />
 
       {Array.isArray(future_station_traits) ? (
         future_station_traits.length > 0 ? (
-          <Stack vertical fill>
+          <Flex vertical fill>
             {future_station_traits.map(trait => (
-              <Stack.Item key={trait.path}>
-                <Stack fill>
-                  <Stack.Item grow>{trait.name}</Stack.Item>
+              <Flex.Item key={trait.path}>
+                <Flex fill>
+                  <Flex.Item grow>{trait.name}</Flex.Item>
 
-                  <Stack.Item>
+                  <Flex.Item>
                     <Button
                       color="red"
                       icon="times"
@@ -110,11 +110,11 @@ const FutureStationTraitsPage = (props, context) => {
                     >
                       Delete
                     </Button>
-                  </Stack.Item>
-                </Stack>
-              </Stack.Item>
+                  </Flex.Item>
+                </Flex>
+              </Flex.Item>
             ))}
-          </Stack>
+          </Flex>
         ) : (
           <>
             <Box>No station traits will run next round.</Box>
@@ -158,13 +158,13 @@ const ViewStationTraitsPage = (props, context) => {
   const { act, data } = useBackend(context)
 
   return data.current_traits.length > 0 ? (
-    <Stack vertical fill>
+    <Flex vertical fill>
       {data.current_traits.map(stationTrait => (
-        <Stack.Item key={stationTrait.ref}>
-          <Stack fill>
-            <Stack.Item grow>{stationTrait.name}</Stack.Item>
+        <Flex.Item key={stationTrait.ref}>
+          <Flex fill>
+            <Flex.Item grow>{stationTrait.name}</Flex.Item>
 
-            <Stack.Item>
+            <Flex.Item>
               <Button.Confirm
                 content="Revert"
                 color="red"
@@ -182,11 +182,11 @@ const ViewStationTraitsPage = (props, context) => {
                   })
                 }
               />
-            </Stack.Item>
-          </Stack>
-        </Stack.Item>
+            </Flex.Item>
+          </Flex>
+        </Flex.Item>
       ))}
-    </Stack>
+    </Flex>
   ) : (
     <Box>There are no active station traits.</Box>
   )
