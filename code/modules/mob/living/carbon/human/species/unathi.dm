@@ -129,13 +129,21 @@
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
 	var/datum/action/innate/ignite/ash_walker/fire = new()
 	fire.Grant(H)
+	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
 	for(var/datum/action/innate/ignite/ash_walker/fire in H.actions)
 		fire.Remove(H)
+	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
 
 /datum/action/innate/ignite/ash_walker
 	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
 	cooldown_duration = 3 MINUTES
 	welding_fuel_used = 0 // Ash walkers dont need welding fuel to use ignite
+
+/datum/species/unathi/ashwalker/proc/speedylegs(mob/living/carbon/human/H)
+	if(is_mining_level(H.z))
+		speed_mod = initial(speed_mod)
+	else
+		speed_mod = 0
