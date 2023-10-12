@@ -520,6 +520,9 @@
   * * /datum/target the target to move the components to
   */
 /datum/proc/TransferComponents(datum/target)
+	var/list/dc = datum_components
+	if(!dc)
+		return
 	var/comps = dc[/datum/component]
 	if(islist(comps))
 		for(var/datum/component/I in comps)
