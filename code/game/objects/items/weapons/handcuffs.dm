@@ -25,6 +25,29 @@
 	var/trashtype = null //For disposable cuffs
 	var/ignoresClumsy = FALSE
 
+/obj/item/restraints/handcuffs/Initialize(mapload)
+	. = ..()
+	// yes, this is an empty icon. Make it not visible in hand.
+	AddComponent(/datum/component/two_handed, \
+		wield_callback = CALLBACK(src, PROC_REF(wield)), \
+		unwield_callback = CALLBACK(src, PROC_REF(unwield)) \
+	)
+
+/obj/item/restraints/handcuffs/proc/wield(obj/item/source, mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+	user.remove_overlay(HANDCUFF_LAYER)
+	user.overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', cuffed_state, layer = -HANDCUFF_LAYER, color = color)
+	user.apply_overlay(HANDCUFF_LAYER)
+	item_state = "weijf2349-h238h9f23"  // thanks for the string contra
+
+/obj/item/restraints/handcuffs/proc/unwield(obj/item/source, mob/living/carbon/human/user)
+	if(!istype(user))
+		return
+	user.remove_overlay(HANDCUFF_LAYER)
+	user.apply_overlay(HANDCUFF_LAYER)
+	item_state = initial(item_state)
+
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")

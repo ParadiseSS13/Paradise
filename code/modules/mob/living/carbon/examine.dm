@@ -97,6 +97,12 @@
 	var/skipeyes = FALSE
 	var/skipface = FALSE
 
+	var/obj/item/restraints/handcuffs/fake_cuffs
+	if(isnull(handcuffed) && (istype(l_hand, /obj/item/restraints/handcuffs) || istype(r_hand, /obj/item/restraints/handcuffs)))
+		var/obj/item/restraints/handcuffs/possible_cuffs = istype(l_hand, /obj/item/restraints/handcuffs) ? l_hand : r_hand
+		if(HAS_TRAIT(possible_cuffs, TRAIT_WIELDED))
+			fake_cuffs = possible_cuffs
+
 	//exosuits and helmets obscure our view and stuff.
 	if(wear_suit)
 		skipgloves = wear_suit.flags_inv & HIDEGLOVES
@@ -135,6 +141,8 @@
 			accessories = parts[5]
 
 		if(item && !(item.flags & ABSTRACT))
+			if(item == fake_cuffs)
+				continue  // silently skip this
 			var/item_words = item.name
 			if(item.blood_DNA)
 				item_words = "[item.blood_color != "#030303" ? "blood-stained" : "oil-stained"] [item_words]"
@@ -152,16 +160,22 @@
 			// add any extra info on the limbs themselves
 			msg += examine_handle_individual_limb(limb_name)
 
+	var/active_cuffs = handcuffed
+	if(isnull(active_cuffs) && (istype(l_hand, /obj/item/restraints/handcuffs) || istype(r_hand, /obj/item/restraints/handcuffs)))
+		var/obj/item/restraints/handcuffs/possible_cuffs = istype(l_hand, /obj/item/restraints/handcuffs) ? l_hand : r_hand
+		if(HAS_TRAIT(possible_cuffs, TRAIT_WIELDED))
+			active_cuffs = possible_cuffs
+
 	//handcuffed?
-	if(handcuffed)
-		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with zipties!</span>\n"
-		else if(istype(handcuffed, /obj/item/restraints/handcuffs/twimsts))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with twimsts cuffs!</span>\n"
-		else if(istype(handcuffed, /obj/item/restraints/handcuffs/cable))
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] restrained with cable!</span>\n"
+	if(!isnull(active_cuffs))
+		if(istype(active_cuffs, /obj/item/restraints/handcuffs/cable/zipties))
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(active_cuffs)] restrained with zipties!</span>\n"
+		else if(istype(active_cuffs, /obj/item/restraints/handcuffs/twimsts))
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(active_cuffs)] restrained with twimsts cuffs!</span>\n"
+		else if(istype(active_cuffs, /obj/item/restraints/handcuffs/cable))
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(active_cuffs)] restrained with cable!</span>\n"
 		else
-			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(handcuffed)] handcuffed!</span>\n"
+			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(active_cuffs)] handcuffed!</span>\n"
 
 	//legcuffed?
 	if(legcuffed)

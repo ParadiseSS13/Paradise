@@ -984,6 +984,12 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 				if(buckled && buckled.buckle_requires_restraints)
 					buckled.unbuckle_mob(src)
 				update_handcuffed()
+				var/anything_was_in_hands = l_hand || r_hand  // check for weird things like chainsaws
+				if(put_in_any_hand_if_possible())
+					if(!anything_was_in_hands)
+						// force-wield it
+						to_chat("<span class='warning'>You quietly keep [I] on your hands. Use them in-hand to remove them.</span>")
+						I.attack_hand(src)
 				return
 			if(I == legcuffed)
 				legcuffed.forceMove(drop_location())
