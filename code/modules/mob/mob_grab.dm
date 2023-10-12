@@ -87,7 +87,11 @@
 	if(!assailant.Adjacent(old_turf))
 		qdel(src)
 		return
-	if(!assailant.Adjacent(affecting))
+	var/grab_states_not_moving = list(GRAB_KILL, GRAB_NECK) //states of grab when we dont need affecting to be moved by himself
+	var/assailant_glide_speed = TICKS2DS(world.icon_size/assailant.glide_size)
+	if(state in grab_states_not_moving)
+		affecting.glide_for(assailant_glide_speed)
+	else
 		var/possible_dest = list(old_turf)
 		for(var/turf/dest in orange(assailant, 1))
 			if(dest.Adjacent(affecting))
@@ -99,7 +103,7 @@
 			var/obj/item/grab/grab = assailant.r_hand
 			possible_dest -= get_turf(grab.affecting)
 		for(var/turf/dest as anything in possible_dest)
-			if(affecting.Move(dest, get_dir(affecting, dest), assailant.movement_delay() + 7))
+			if(affecting.Move(dest, get_dir(affecting, dest), assailant_glide_speed))
 				break
 	if(state == GRAB_NECK)
 		assailant.setDir(turn(direct, 180))
