@@ -40,6 +40,8 @@
 	user.overlays_standing[HANDCUFF_LAYER] = mutable_appearance('icons/mob/mob.dmi', cuffed_state, layer = -HANDCUFF_LAYER, color = color)
 	user.apply_overlay(HANDCUFF_LAYER)
 	item_state = "weijf2349-h238h9f23"  // thanks for the string contra
+	user.update_inv_l_hand()
+	user.update_inv_r_hand()
 
 /obj/item/restraints/handcuffs/proc/unwield(obj/item/source, mob/living/carbon/human/user)
 	if(!istype(user))
