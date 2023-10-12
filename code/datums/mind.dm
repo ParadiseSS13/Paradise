@@ -1489,7 +1489,7 @@
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
 
 	else if(href_list["obj_announce"])
-		var/list/messages = list(prepare_announce_objectives())
+		var/list/messages = prepare_announce_objectives()
 		to_chat(current, chat_box_red(messages.Join("<br>")))
 		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
