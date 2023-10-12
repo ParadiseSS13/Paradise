@@ -23,7 +23,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "af" = (
 /obj/structure/lattice/lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
@@ -46,7 +46,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "aM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -60,7 +60,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "bc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/mecha_wreckage/ripley,
@@ -71,7 +71,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "be" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
@@ -89,7 +89,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "bP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/door_assembly/door_assembly_ext{
@@ -100,7 +100,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "bT" = (
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
@@ -125,7 +125,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "cw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -135,7 +135,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "cJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/mech_bay_recharge_port,
@@ -145,7 +145,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "dh" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/segment{
@@ -165,7 +165,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/girder,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "eH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -177,7 +177,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "eV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -191,7 +191,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "fc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -201,7 +201,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "fd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -214,7 +214,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "fm" = (
 /obj/machinery/light_construct/small{
 	dir = 1
@@ -231,7 +231,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "fs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -242,7 +242,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "fv" = (
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /obj/structure/disposalpipe/segment,
@@ -251,7 +251,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "fB" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/segment{
@@ -270,7 +270,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "fP" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/segment,
@@ -286,7 +286,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "gb" = (
 /obj/effect/landmark/damageturf,
 /obj/structure/disposalpipe/segment{
@@ -298,7 +298,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "gC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -321,7 +321,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "gE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -333,17 +333,17 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "gF" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "hc" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "hj" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -351,7 +351,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "ho" = (
 /obj/structure/door_assembly/door_assembly_ext{
 	name = "Broken External Airlock"
@@ -361,7 +361,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "hx" = (
 /obj/item/shard,
 /obj/structure/grille/broken,
@@ -371,7 +371,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "hE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -384,7 +384,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "hP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -395,7 +395,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "hY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -407,7 +407,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "ia" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/broken{
@@ -425,7 +425,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "iq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -437,7 +437,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "jb" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -462,7 +462,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "kn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -477,7 +477,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "kR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -491,7 +491,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "lr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -516,7 +516,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "ms" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -527,13 +527,13 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "nm" = (
 /obj/structure/disposalpipe/broken{
 	dir = 2
 	},
 /turf/simulated/floor/plasteel/airless,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "no" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -542,7 +542,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "nK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -554,7 +554,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "nN" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
@@ -576,20 +576,20 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "nX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/ore,
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "oj" = (
 /turf/simulated/floor{
 	temperature = 300;
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "oG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
@@ -612,7 +612,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "pP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -646,7 +646,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "qQ" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/broken{
@@ -665,7 +665,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "rf" = (
 /obj/structure/door_assembly/door_assembly_ext{
 	name = "Broken External Airlock"
@@ -688,7 +688,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "rY" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/cargo/miner,
@@ -710,7 +710,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "sg" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
@@ -738,7 +738,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "sB" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/trunk,
@@ -752,7 +752,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "to" = (
 /obj/structure/marker_beacon/dock_marker,
 /obj/effect/decal/cleanable/dirt,
@@ -774,7 +774,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "tD" = (
 /obj/effect/decal/warning_stripes/white/hollow,
 /obj/machinery/light_construct/small,
@@ -785,7 +785,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "tS" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -805,7 +805,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "ub" = (
 /obj/item/clothing/under/rank/cargo/miner,
 /obj/effect/landmark/damageturf,
@@ -815,7 +815,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "uf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -825,15 +825,15 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "ui" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "um" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "uC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/disposal,
@@ -843,7 +843,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "uM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -856,7 +856,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "vf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -871,7 +871,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "vl" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -882,7 +882,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "vo" = (
 /obj/machinery/light_construct/small{
 	dir = 1
@@ -896,7 +896,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "vM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -917,7 +917,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "xK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -929,7 +929,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "zd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -943,7 +943,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "zp" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/workboots/mining,
@@ -961,7 +961,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "zq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/ore{
@@ -978,7 +978,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "zE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/pickaxe,
@@ -992,7 +992,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "zG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1007,7 +1007,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "zO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -1026,7 +1026,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "zZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1037,10 +1037,10 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Au" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Az" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -1050,7 +1050,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "AE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1064,7 +1064,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "AH" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor{
@@ -1072,7 +1072,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "AL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1088,7 +1088,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "BB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/pump,
@@ -1097,7 +1097,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "BG" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1111,7 +1111,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "BM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/burnturf,
@@ -1121,12 +1121,12 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "BO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "BV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -1135,7 +1135,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "BX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
@@ -1150,7 +1150,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "CF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1167,7 +1167,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Dd" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
@@ -1190,7 +1190,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Dt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1203,7 +1203,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Dv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/door_assembly/door_assembly_mhatch,
@@ -1212,14 +1212,14 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Dz" = (
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "DM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1231,7 +1231,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "DP" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/baseturf_helper/lava_land/surface,
@@ -1248,7 +1248,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Ek" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/machinery/light_construct/small{
@@ -1266,7 +1266,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Fd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/ripped{
@@ -1280,7 +1280,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "FX" = (
 /obj/structure/disposalpipe/broken{
 	dir = 4
@@ -1293,7 +1293,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Ge" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/burnturf,
@@ -1306,7 +1306,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Gk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1317,7 +1317,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Gt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1328,7 +1328,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Gz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8;
@@ -1339,7 +1339,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "GF" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/decal/cleanable/glass,
@@ -1353,7 +1353,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Hj" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/segment{
@@ -1376,7 +1376,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Hx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1388,7 +1388,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "HO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1399,7 +1399,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Ic" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1411,7 +1411,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "In" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/burnturf,
@@ -1420,7 +1420,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Io" = (
 /obj/item/chair,
 /turf/simulated/floor{
@@ -1428,7 +1428,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "IT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1439,7 +1439,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Jw" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/beer{
@@ -1453,7 +1453,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "JE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1464,7 +1464,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "JT" = (
 /obj/structure/grille,
 /obj/item/shard,
@@ -1474,7 +1474,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "KJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1486,7 +1486,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "KN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -1494,7 +1494,7 @@
 	},
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "KT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1505,7 +1505,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "KZ" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -1523,7 +1523,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Ln" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/white/hollow,
@@ -1535,7 +1535,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Lq" = (
 /obj/machinery/light_construct/small{
 	dir = 4
@@ -1555,7 +1555,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Ms" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -1576,7 +1576,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "MO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1591,7 +1591,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "MY" = (
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/glass,
@@ -1612,14 +1612,14 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Og" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Oh" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -1630,7 +1630,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "OJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1641,7 +1641,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "OW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1651,7 +1651,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Pn" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/burnturf,
@@ -1660,7 +1660,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Po" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
@@ -1671,7 +1671,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Px" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1687,7 +1687,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "PF" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
@@ -1696,7 +1696,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "PJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -1724,7 +1724,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Qu" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/door_assembly/door_assembly_ext{
@@ -1737,7 +1737,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "RL" = (
 /obj/item/stack/sheet/metal{
 	amount = 5
@@ -1748,7 +1748,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "RX" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing{
@@ -1770,7 +1770,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "TN" = (
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
@@ -1789,7 +1789,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "UP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1804,7 +1804,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "UU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1817,7 +1817,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Vj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1830,7 +1830,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "VJ" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/sign/nosmoking_1{
@@ -1849,7 +1849,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Wb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1867,7 +1867,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Wl" = (
 /obj/structure/grille,
 /turf/simulated/floor{
@@ -1875,7 +1875,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Wp" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
@@ -1902,7 +1902,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Xn" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -1921,7 +1921,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "XD" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/cargo/miner,
@@ -1944,7 +1944,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "XT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1958,7 +1958,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Yd" = (
 /obj/structure/grille,
 /obj/item/shard,
@@ -1975,7 +1975,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Yt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1988,7 +1988,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Yx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1998,7 +1998,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "YF" = (
 /obj/machinery/power/terminal{
 	dir = 8
@@ -2009,7 +2009,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "YK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
@@ -2018,7 +2018,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "YN" = (
 /obj/structure/grille/broken,
 /obj/item/shard,
@@ -2042,7 +2042,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "Zr" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/structure/disposalpipe/broken{
@@ -2061,7 +2061,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "ZB" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/mapping_helpers/no_lava,
@@ -2081,7 +2081,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 "ZN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2095,7 +2095,7 @@
 	oxygen = 14;
 	nitrogen = 23
 	},
-/area/ruin/unpowered)
+/area/ruin/unpowered/althland_processing)
 
 (1,1,1) = {"
 bV
