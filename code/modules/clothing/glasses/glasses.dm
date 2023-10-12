@@ -286,6 +286,13 @@
 	icon_state = "nohudgoggles"
 	item_state = "nohudgoggles"
 
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+		)
+
 /obj/item/clothing/glasses/threedglasses
 	name = "\improper 3D glasses"
 	desc = "A long time ago, people used these glasses to makes images from screens threedimensional."
