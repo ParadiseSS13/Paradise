@@ -1,7 +1,7 @@
 /// Opens the station traits admin panel
 /datum/admins/proc/station_traits_panel()
 	set name = "Modify Station Traits"
-	set category = "Admin.Events"
+	set category = "Event"
 
 	var/static/datum/station_traits_panel/station_traits_panel = new
 	station_traits_panel.ui_interact(usr)
@@ -44,25 +44,25 @@
 
 /datum/station_traits_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
-	if (.)
+	if(.)
 		return
 
-	switch (action)
-		if ("revert")
+	switch(action)
+		if("revert")
 			var/ref = params["ref"]
-			if (!ref)
+			if(!ref)
 				return TRUE
 
 			var/datum/station_trait/station_trait = locateUID(ref)
 
-			if (!istype(station_trait))
+			if(!istype(station_trait))
 				return TRUE
 
-			if (too_late_to_revert())
+			if(too_late_to_revert())
 				to_chat(usr, "<span class='warning'>It's too late to revert station traits, the round has already started!</span>")
 				return TRUE
 
-			if (!station_trait.can_revert)
+			if(!station_trait.can_revert)
 				stack_trace("[station_trait.type] can't be reverted, but was requested anyway.")
 				return TRUE
 
@@ -73,17 +73,17 @@
 			station_trait.revert()
 
 			return TRUE
-		if ("setup_future_traits")
-			if (too_late_for_future_traits())
+		if("setup_future_traits")
+			if(too_late_for_future_traits())
 				to_chat(usr, "<span class='warning'>It's too late to add future station traits, the round is already over!</span>")
 				return TRUE
 
 			var/list/new_future_traits = list()
 			var/list/station_trait_names = list()
 
-			for (var/station_trait_text in params["station_traits"])
+			for(var/station_trait_text in params["station_traits"])
 				var/datum/station_trait/station_trait_path = text2path(station_trait_text)
-				if (!ispath(station_trait_path, /datum/station_trait) || station_trait_path == /datum/station_trait)
+				if(!ispath(station_trait_path, /datum/station_trait) || station_trait_path == /datum/station_trait)
 					log_admin("[key_name(usr)] tried to set an invalid future station trait: [station_trait_text]")
 					to_chat(usr, "<span class='warning'>Invalid future station trait: [station_trait_text]</span>")
 					return TRUE
@@ -103,8 +103,8 @@
 			rustg_file_write(json_encode(params["station_traits"]), FUTURE_STATION_TRAITS_FILE)
 
 			return TRUE
-		if ("clear_future_traits")
-			if (!future_traits)
+		if("clear_future_traits")
+			if(!future_traits)
 				to_chat(usr, "<span class='warning'>There are no future station traits.</span>")
 				return TRUE
 

@@ -1,5 +1,5 @@
-import { filterMap } from "common/collections"
-import { exhaustiveCheck } from "common/exhaustive"
+import { filterMap } from "./common/collections"
+import { exhaustiveCheck } from "./common/exhaustive"
 import { useBackend, useLocalState } from "../backend"
 import { Box, Button, Divider, Dropdown, Stack, Tabs } from "../components"
 import { Window } from "../layouts"
