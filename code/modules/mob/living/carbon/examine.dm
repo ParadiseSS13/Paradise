@@ -161,10 +161,8 @@
 			msg += examine_handle_individual_limb(limb_name)
 
 	var/active_cuffs = handcuffed
-	if(isnull(active_cuffs) && (istype(l_hand, /obj/item/restraints/handcuffs) || istype(r_hand, /obj/item/restraints/handcuffs)))
-		var/obj/item/restraints/handcuffs/possible_cuffs = istype(l_hand, /obj/item/restraints/handcuffs) ? l_hand : r_hand
-		if(HAS_TRAIT(possible_cuffs, TRAIT_WIELDED))
-			active_cuffs = possible_cuffs
+	if(isnull(active_cuffs) && fake_cuffs && HAS_TRAIT(fake_cuffs, TRAIT_WIELDED))
+		active_cuffs = fake_cuffs
 
 	//handcuffed?
 	if(!isnull(active_cuffs))
