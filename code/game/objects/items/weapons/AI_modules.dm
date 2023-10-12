@@ -36,7 +36,7 @@ AI MODULES
 
 ///what this module should do if it is mapload spawning on a unique AI station trait round.
 /obj/item/aiModule/proc/handle_unique_ai()
-	return TRUE //instead of the roundstart bid to un-unique the AI, there will be a research requirement for it.
+	return TRUE // If this returns true, it will be deleted on roundstart
 
 /obj/item/aiModule/proc/install(obj/machinery/computer/C)
 	if(istype(C, /obj/machinery/computer/aiupload))
