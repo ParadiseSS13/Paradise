@@ -239,7 +239,7 @@
 
 /obj/item/reagent_containers/glass/beaker/drugs
 	name = "baggie"
-	desc = "A baggie; I wonder what is in here."
+	desc = "A small plastic baggie, often used by pharmaceutical \"entrepreneurs\"."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 2
 	possible_transfer_amounts = null
