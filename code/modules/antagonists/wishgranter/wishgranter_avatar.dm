@@ -3,7 +3,7 @@
 	special_role = "Avatar of the Wish Granter"
 
 /datum/antagonist/wishgranter/give_objectives()
-	add_objective(/datum/objective/hijack)
+	add_antag_objective(/datum/objective/hijack)
 
 /datum/antagonist/wishgranter/greet()
 	..()

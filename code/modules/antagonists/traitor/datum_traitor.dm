@@ -93,7 +93,7 @@
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	// Hijack objective.
 	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
-		add_objective(/datum/objective/hijack)
+		add_antag_objective(/datum/objective/hijack)
 		return // Hijack should be their only objective (normally), so return.
 
 	// Will give normal steal/kill/etc. type objectives.
@@ -109,15 +109,15 @@
 
 	// Give them an escape objective if they don't have one already.
 	if(!(locate(/datum/objective/escape) in owner.get_all_objectives()) && (!can_succeed_if_dead || prob(80)))
-		add_objective(/datum/objective/escape)
+		add_antag_objective(/datum/objective/escape)
 
 /**
  * Create and assign a full set of AI traitor objectives.
  */
 /datum/antagonist/traitor/proc/forge_ai_objectives()
-	add_objective(/datum/objective/block)
-	add_objective(/datum/objective/assassinate)
-	add_objective(/datum/objective/survive)
+	add_antag_objective(/datum/objective/block)
+	add_antag_objective(/datum/objective/assassinate)
+	add_antag_objective(/datum/objective/survive)
 
 /**
  * Create and assign a single randomized human traitor objective.
@@ -125,15 +125,15 @@
 /datum/antagonist/traitor/proc/forge_single_human_objective()
 	if(prob(50))
 		if(length(active_ais()) && prob(100 / length(GLOB.player_list)))
-			add_objective(/datum/objective/destroy)
+			add_antag_objective(/datum/objective/destroy)
 		else if(prob(5))
-			add_objective(/datum/objective/debrain)
+			add_antag_objective(/datum/objective/debrain)
 		else if(prob(30))
-			add_objective(/datum/objective/maroon)
+			add_antag_objective(/datum/objective/maroon)
 		else
-			add_objective(/datum/objective/assassinate)
+			add_antag_objective(/datum/objective/assassinate)
 	else
-		add_objective(/datum/objective/steal)
+		add_antag_objective(/datum/objective/steal)
 
 /**
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.

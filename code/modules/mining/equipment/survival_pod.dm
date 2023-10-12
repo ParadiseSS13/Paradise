@@ -4,6 +4,7 @@
 	requires_power = FALSE
 	has_gravity = TRUE
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	ambientsounds = MINING_SOUNDS
 
 /obj/item/survivalcapsule
 	name = "bluespace shelter capsule"
