@@ -131,7 +131,7 @@
 			var/datum/ai_laws/ALs = locate(params["transfer_laws"]) in (admin_overwrite ? admin_laws : player_laws)
 			if(!ALs)
 				return
-			if(admin_overwrite && alert("Do you want to overwrite [owner]'s zeroth law? If the chosen lawset has no zeroth law while [owner] has one, it will get removed!","Load Lawset","Yes","No") != "Yes")
+			if(admin_overwrite && alert("Do you want to overwrite [owner]'s zeroth law? If the chosen lawset has no zeroth law while [owner] has one, it will get removed!", "Load Lawset", "Yes", "No") != "Yes")
 				admin_overwrite = FALSE
 			log_and_message_admins("has transfered the [ALs.name] laws to [owner][admin_overwrite ? " and overwrote their zeroth law":""].")
 			ALs.sync(owner, FALSE, admin_overwrite)
