@@ -36,7 +36,10 @@
 	return shoes && shoes.negates_gravity()
 
 /mob/living/carbon/human/Move(NewLoc, direct)
+	setDir(direct)
 	. = ..()
+	if(forced_look)
+		setDir(direct) // this is such a shit code but i dont think i can change it
 	if(.) // did we actually move?
 		if(!IS_HORIZONTAL(src) && !buckled && !throwing)
 			for(var/obj/item/organ/external/splinted in splinted_limbs)
