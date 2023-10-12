@@ -42,15 +42,42 @@
 
 /atom/proc/prepare_huds()
 	hud_list = list()
+	var/static/list/hud_dmis = list(
+		SPECIALROLE_HUD = 'icons/mob/hud/antaghud.dmi',
+
+		DIAG_TRACK_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_AIRLOCK_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_STAT_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_BATT_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_MECH_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_BOT_HUD = 'icons/mob/hud/diaghud.dmi',
+
+		PLANT_NUTRIENT_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_WATER_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_STATUS_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_HEALTH_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_TOXIN_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_PEST_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_WEED_HUD = 'icons/mob/hud/hydrohud.dmi',
+
+		HEALTH_HUD = 'icons/mob/hud/medhud.dmi',
+		STATUS_HUD = 'icons/mob/hud/medhud.dmi',
+
+		ID_HUD = 'icons/mob/hud/sechud.dmi',
+		WANTED_HUD = 'icons/mob/hud/sechud.dmi',
+		IMPMINDSHIELD_HUD = 'icons/mob/hud/sechud.dmi',
+		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
+		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
+	)
+
 	for(var/hud in hud_possible)
-		var/hint = hud_possible[hud]
-		switch(hint)
-			if(HUD_LIST_LIST)
-				hud_list[hud] = list()
-			else
-				var/image/I = image('icons/mob/hud.dmi', src, "")
-				I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
-				hud_list[hud] = I
+		var/use_this_dmi = hud_dmis[hud]
+		if(!use_this_dmi)
+			use_this_dmi = 'icons/mob/hud/hud_misc.dmi'
+		var/image/I = image(use_this_dmi, src, "")
+		I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
+		hud_list[hud] = I
 
 /mob/proc/generate_name()
 	return name
