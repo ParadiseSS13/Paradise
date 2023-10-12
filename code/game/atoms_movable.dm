@@ -169,6 +169,7 @@
 			glide_for(movetime)
 		if(!(direct & (direct - 1))) //Cardinal move
 			. = ..(newloc, direct) // don't pass up movetime
+			setDir(direct)
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir
