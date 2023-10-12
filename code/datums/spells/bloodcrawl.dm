@@ -247,7 +247,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl
 	name = "Shadow Crawl"
-	desc = "Use darkness to phase out of existence."
+	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in brightened terrane."
 	allowed_type = /turf
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"
