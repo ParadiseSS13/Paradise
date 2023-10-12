@@ -227,7 +227,7 @@
 
 /obj/item/reagent_containers/glass/beaker/vial
 	name = "vial"
-	desc = "A small glass vial."
+	desc = "A small glass vial, often used by virologists of the 25th century."
 	icon_state = "vial"
 	belt_icon = "vial"
 	materials = list(MAT_GLASS=250)
