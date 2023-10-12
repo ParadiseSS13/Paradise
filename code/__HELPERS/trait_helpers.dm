@@ -219,6 +219,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define EXPIRED_LIFE_TRAIT "expired_life"
 #define TRAIT_BADASS "trait_badass"
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
+#define TRAIT_HAS_GPS "has_gps" // used for /Stat
+#define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.

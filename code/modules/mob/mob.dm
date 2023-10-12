@@ -971,20 +971,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE
 
 /mob/Stat()
-	..()
-
 	show_stat_turf_contents()
 
-	statpanel("Status") // We only want alt-clicked turfs to come before Status
-	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
-	stat(null, "Map: [SSmapping.map_datum.fluff_name]")
-	if(SSmapping.next_map)
-		stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
+	if(statpanel("Status"))
+		stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
+		stat(null, "Map: [SSmapping.map_datum.fluff_name]")
+		if(SSmapping.next_map)
+			stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
+		if(SSticker)
+			show_stat_station_time()
+		stat(null, "Players Connected: [length(GLOB.clients)]")
 
-	if(mob_spell_list && mob_spell_list.len)
+	if(length(mob_spell_list))
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
 			add_spell_to_statpanel(S)
-	if(mind && isliving(src) && mind.spell_list && mind.spell_list.len)
+	if(length(mind.spell_list))
 		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
 			add_spell_to_statpanel(S)
 
@@ -1042,13 +1043,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
 					if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
 						SS.stat_entry()
-
-	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
-
-	if(client?.statpanel == "Status")
-		if(SSticker)
-			show_stat_station_time()
-		stat(null, "Players Connected: [length(GLOB.clients)]")
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
