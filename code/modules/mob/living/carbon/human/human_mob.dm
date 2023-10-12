@@ -180,43 +180,41 @@
 
 /mob/living/carbon/human/Stat()
 	..()
-	statpanel("Status")
+	if(!statpanel("Status"))
+		return
 
 	stat(null, "Intent: [a_intent]")
 	stat(null, "Move Mode: [m_intent]")
 
 	show_stat_emergency_shuttle_eta()
 
-	if(client.statpanel == "Status")
-		var/total_user_contents = GetAllContents() // cache it
-		if(locate(/obj/item/gps) in total_user_contents)
-			var/turf/T = get_turf(src)
-			stat(null, "GPS: [COORD(T)]")
-		if(locate(/obj/item/assembly/health) in total_user_contents)
-			stat(null, "Health: [health]")
+	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
+	if(HAS_TRAIT(src, TRAIT_CAN_VIEW_HEALTH))
+		stat(null, "Health: [health]")
 
-		if(internal)
-			if(!internal.air_contents)
-				qdel(internal)
-			else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
-				stat(null, "Internals Tank Connected")
-			else
-				stat("Internal Atmosphere Info", internal.name)
-				stat("Tank Pressure", internal.air_contents.return_pressure())
-				stat("Distribution Pressure", internal.distribute_pressure)
+	if(internal)
+		if(!internal.air_contents)
+			qdel(internal)
+		else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
+			stat(null, "Internals Tank Connected")
+		else
+			stat("Internal Atmosphere Info", internal.name)
+			stat("Tank Pressure", internal.air_contents.return_pressure())
+			stat("Distribution Pressure", internal.distribute_pressure)
 
-		// I REALLY need to split up status panel things into datums
+	// I REALLY need to split up status panel things into datums
+	if(mind)
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling)
+			stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
+			stat("Absorbed DNA", cling.absorbed_count)
 
-		if(mind)
-			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
-			if(cling)
-				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
-				stat("Absorbed DNA", cling.absorbed_count)
-
-			var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
-			if(V)
-				stat("Total Blood", "[V.bloodtotal]")
-				stat("Usable Blood", "[V.bloodusable]")
+		var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
+		if(V)
+			stat("Total Blood", "[V.bloodtotal]")
+			stat("Usable Blood", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
