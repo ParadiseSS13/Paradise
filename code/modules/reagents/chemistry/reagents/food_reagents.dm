@@ -1015,3 +1015,10 @@
 	reagent_state = LIQUID
 	color = "#A7EE9F"
 	taste_description = "mint"
+
+/datum/reagent/consumable/vinegar
+	name = "Vinegar"
+	id = "vinegar"
+	description = "Useful for pickling, or putting on chips."
+	taste_description = "vinegar"
+	color = "#ffffff"
