@@ -7,14 +7,23 @@
 	var/max_mages = 0
 	var/making_mage = FALSE
 	var/mages_made = 1
-	var/time_checked = 0
+	COOLDOWN_DECLARE(time_checked)
 	var/players_per_mage = 10 // If the admin wants to tweak things or something
-	var/delay_per_mage = 4200 // Every 7 minutes by default
-	var/time_till_chaos = 18000 // Half-hour in
+	var/delay_per_mage = 7 MINUTES // Every 7 minutes by default
+	var/time_till_chaos = 30 MINUTES // Half-hour in
 
 /datum/game_mode/wizard/raginmages/announce()
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
 	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
+
+/datum/game_mode/wizard/post_setup()
+	// Makes magivends PLENTIFUL
+	for(var/obj/machinery/economy/vending/magivend/magic in GLOB.machines)
+		for(var/key in magic.products)
+			magic.products[key] = 20 // and so, there was prosperity for ragin mages everywhere
+		magic.product_records.Cut()
+		magic.build_inventory(magic.products, magic.product_records)
+	..()
 
 /datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
 	if(you_are)
@@ -33,21 +42,15 @@
 		if(isnull(wizard.current))
 			continue
 		if(wizard.current.stat == DEAD || isbrain(wizard.current) || !iscarbon(wizard.current))
-			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums.</span>")
-				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
-				end_squabble(get_area(wizard.current))
+			squabble_helper(wizard)
 			continue
 		if(wizard.current.stat == UNCONSCIOUS)
 			if(wizard.current.health < HEALTH_THRESHOLD_DEAD) //Lets make this not get funny rng crit involved
-				if(istype(get_area(wizard.current), /area/wizard_station))
-					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums.</span>")
-					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
-					end_squabble(get_area(wizard.current))
-				else
+				if(!squabble_helper(wizard))
 					to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
 					wizard.current.dust() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
 			continue
+
 		if(!wizard.current.client)
 			continue // Could just be a bad connection, so SSD wiz's shouldn't be gibbed over it, but they're not "alive" either
 		if(wizard.current.client.is_afk() > 10 MINUTES)
@@ -57,9 +60,10 @@
 		wizards_alive++
 
 	if(wizards_alive)
-		if(!time_checked) time_checked = world.time
-		if(world.time > time_till_chaos && world.time > time_checked + delay_per_mage && (mages_made < wizard_cap))
-			time_checked = world.time
+		if(!time_checked)
+			COOLDOWN_START(src, time_checked, delay_per_mage)
+		if(world.time > time_till_chaos && COOLDOWN_FINISHED(src, time_checked) && (mages_made < wizard_cap))
+			COOLDOWN_START(src, time_checked, delay_per_mage)
 			make_more_mages()
 	else
 		if(length(wizards) >= wizard_cap)
@@ -69,9 +73,17 @@
 			make_more_mages()
 	return ..()
 
+/datum/game_mode/wizard/raginmages/proc/squabble_helper(datum/mind/wizard)
+	if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
+		to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums.</span>")
+		message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
+		end_squabble(get_area(wizard.current))
+		return TRUE
+
 // To silence all struggles within the wizard's lair
 /datum/game_mode/wizard/raginmages/proc/end_squabble(area/wizard_station/A)
-	if(!istype(A)) return // You could probably do mean things with this otherwise
+	if(!istype(A))
+		return // You could probably do mean things with this otherwise
 	var/list/marked_for_death = list()
 	for(var/mob/living/L in A) // To hit non-wizard griefers
 		if(L.mind || L.client)
@@ -113,18 +125,19 @@
 		making_mage = FALSE
 		sleep(300)
 		return
+	harry = pick(candidates)
+	making_mage = FALSE
+	if(harry)
+		var/mob/living/carbon/human/new_character = makeBody(harry)
+		new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
+		new_character.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort(harry), SLOT_HUD_IN_BACKPACK)
+		// The first wiznerd can get their mugwort from the wizard's den, new ones will also need mugwort!
+		mages_made++
+		dust_if_respawnable(harry)
+		return TRUE
 	else
-		harry = pick(candidates)
-		making_mage = FALSE
-		if(harry)
-			var/mob/living/carbon/human/new_character= makeBody(harry)
-			new_character.mind.make_Wizard() // This puts them at the wizard spawn, worry not
-			mages_made++
-			dust_if_respawnable(harry)
-			return TRUE
-		else
-			. = FALSE
-			CRASH("The candidates list for ragin' mages contained non-observer entries!")
+		. = FALSE
+		CRASH("The candidates list for ragin' mages contained non-observer entries!")
 
 // ripped from -tg-'s wizcode, because whee lets make a very general proc for a very specific gamemode
 // This probably wouldn't do half bad as a proc in __HELPERS
@@ -140,5 +153,5 @@
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
 		SSticker.mode_result = "raging wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><FONT size = 3><B> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
+		to_chat(world, "<span class='warning'><font size = 3><b>The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</b></font></span>")
 	..(1)
