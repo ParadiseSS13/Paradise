@@ -20,7 +20,7 @@
 	name = "riot shield"
 	desc = "A shield adept at blocking blunt objects from connecting with the torso of the shield wielder."
 	icon_state = "riot"
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 10
 	throwforce = 5
 	throw_speed = 2
@@ -30,9 +30,10 @@
 	origin_tech = "materials=3;combat=4"
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
+	var/list/allowed_bashers = list(/obj/item/melee/baton, /obj/item/kitchen/knife/combat)
 
 /obj/item/shield/riot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/melee/baton))
+	if(is_type_in_list(W, allowed_bashers))
 		if(cooldown < world.time - 2.5 SECONDS)
 			user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
@@ -154,7 +155,7 @@
 		throwforce = 5
 		throw_speed = 2
 		w_class = WEIGHT_CLASS_BULKY
-		slot_flags = SLOT_BACK
+		slot_flags = SLOT_FLAG_BACK
 		to_chat(user, "<span class='notice'>You extend \the [src].</span>")
 	else
 		force = 3

@@ -160,6 +160,7 @@
 			return
 	if(has_explaination_verb)
 		H.verbs |= /mob/living/carbon/human/proc/martial_arts_help
+	temporary = make_temporary
 	owner_UID = H.UID()
 	H.mind.known_martial_arts.Add(src)
 	H.mind.martial_art = get_highest_weight(H)
@@ -258,12 +259,16 @@
 //ITEMS
 
 /obj/item/clothing/gloves/boxing
-	var/datum/martial_art/boxing/style = new
+	var/datum/martial_art/boxing/style
+
+/obj/item/clothing/gloves/boxing/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/clothing/gloves/boxing/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == slot_gloves)
+	if(slot == SLOT_HUD_GLOVES)
 		var/mob/living/carbon/human/H = user
 		style.teach(H, TRUE)
 	return
@@ -273,17 +278,21 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src)
+	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
 		style.remove(H)
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
-	var/datum/martial_art/wrestling/style = new
+	var/datum/martial_art/wrestling/style
+
+/obj/item/storage/belt/champion/wrestling/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == slot_belt)
+	if(slot == SLOT_HUD_BELT)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(user, "<span class='warning'>In spite of the grandiosity of the belt, you don't feel like getting into any fights.</span>")
@@ -297,7 +306,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_belt) == src)
+	if(H.get_item_by_slot(SLOT_HUD_BELT) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You no longer have an urge to flex your muscles.</span>")
 
@@ -383,7 +392,7 @@
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	throwforce = 20
 	throw_speed = 2
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")

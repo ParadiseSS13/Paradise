@@ -119,6 +119,6 @@
 	new /obj/item/watertank/atmos(src)
 	new /obj/item/clothing/suit/fire/atmos(src)
 	new /obj/item/clothing/head/hardhat/atmos(src)
-	new /obj/item/clothing/glasses/meson/engine/tray(src)
+	new /obj/item/clothing/glasses/meson/engine(src)
 	new /obj/item/rpd(src)
 	new /obj/item/destTagger(src)

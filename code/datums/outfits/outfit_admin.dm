@@ -9,7 +9,7 @@
 
 /datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	
+
 	if(visualsOnly)
 		return
 
@@ -80,7 +80,7 @@
 	name = "Syndicate Infiltrator"
 
 /datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
+	. = H.equip_syndicate_infiltrator(0, 100, FALSE)
 	H.sec_hud_set_ID()
 	H.faction |= "syndicate"
 
@@ -1173,7 +1173,7 @@
 	if(istype(C))
 		C.name = "ancient robes"
 		C.hood.name = "ancient hood"
-		H.equip_to_slot_or_del(C, slot_in_backpack)
+		H.equip_to_slot_or_del(C, SLOT_HUD_IN_BACKPACK)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
