@@ -231,7 +231,7 @@
 /obj/item/stack/medical/ointment/heal(mob/living/M, mob/user)
 	var/obj/item/organ/external/affecting = ..()
 	if((affecting.status & ORGAN_BURNT) && !(affecting.status & ORGAN_SALVED))
-		to_chat(affecting.owner, "<span class='notice'>As [src] applied to your burn wound, you feel a soothing cold and relax.</span>")
+		to_chat(affecting.owner, "<span class='notice'>As [src] is applied to your burn wound, you feel a soothing cold and relax.</span>")
 		affecting.status |= ORGAN_SALVED
 		addtimer(CALLBACK(affecting, TYPE_PROC_REF(/obj/item/organ/external, remove_ointment), heal_burn), 3 MINUTES)
 
