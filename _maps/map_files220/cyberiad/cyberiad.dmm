@@ -71481,10 +71481,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "ntg" = (
-/mob/living/simple_animal/hostile/retaliate/goat{
-	name = "Pete";
-	real_name = "Pete"
-	},
+/mob/living/simple_animal/hostile/retaliate/goat/chef,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4

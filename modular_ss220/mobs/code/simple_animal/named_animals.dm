@@ -14,6 +14,11 @@
 /mob/living/simple_animal/pig/Sanya/npc_safe(mob/user) // depriving the chef of his animals is not cool
 	return FALSE
 
+/mob/living/simple_animal/hostile/retaliate/goat/chef
+	name = "Боря"
+	desc = "Этот козёл - парнокопытное гурме шефа, в его мрачных глазах-бусинках так и читается амибициозный нрав! Он не твой друг, ведь за каждым игривым прыжком может скрываться неожиданный выпад."
+	gold_core_spawnable = NO_SPAWN
+
 /mob/living/simple_animal/cow/betsy
 	name = "Бетси"
 	desc = "Старая добрая старушка. Нескончаемый источник природного молока без ГМО. Ну почти без ГМО..."
