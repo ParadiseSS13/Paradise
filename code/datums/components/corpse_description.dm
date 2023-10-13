@@ -17,7 +17,7 @@
 
 /datum/component/corpse_description/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
-	RegisterSignal(parent, COMSIG_LIVING_REVIVE, PROC_REF(on_revived))
+	RegisterSignal(parent, COMSIG_LIVING_REVIVE, PROC_REF(signal_qdel))
 
 /datum/component/corpse_description/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_LIVING_REVIVE))
@@ -30,7 +30,3 @@
 		examine_list += "<span class='notice'>[naive_description]</span>"
 		return
 	examine_list += "<span class='notice'>[description_text]</span>"
-
-/datum/component/corpse_description/proc/on_revived(mob/living/formerly_dead)
-	SIGNAL_HANDLER
-	qdel(src) // It wouldn't be immersive if the circumstances of my grisly death remained after I was revived

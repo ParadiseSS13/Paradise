@@ -53,7 +53,7 @@
 	if(isnull(new_loc) || new_loc == get_turf(old_loc))
 		return // Didn't actually go anywhere
 	steps_travelled++
-	if(steps_travelled == steps_to_hatch * WATCHER_EGG_ACTIVE_MOD)
+	if(steps_travelled == steps_to_hatch * WATCHER_EGG_ACTIVE_MOD) //Halfway to hatching, start jiggling.
 		jiggle()
 		return
 	if(steps_travelled < steps_to_hatch)
