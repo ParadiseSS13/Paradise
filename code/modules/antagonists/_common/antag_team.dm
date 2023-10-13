@@ -204,7 +204,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	for(var/datum/mind/member in members)
 		if(!member.current || !isliving(member.current))
 			return
-		member.announce_objectives()
+		var/list/messages = list(member.prepare_announce_objectives())
+		to_chat(member.current, chat_box_red(messages.Join("<br>")))
 		SEND_SOUND(member.current, sound('sound/ambience/alarm4.ogg'))
 
 /**

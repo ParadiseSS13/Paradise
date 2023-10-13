@@ -222,10 +222,6 @@
 /obj/effect/overlay/palmtree_l,
 /turf/simulated/floor/beach/sand,
 /area/ruin/powered/beach)
-"aV" = (
-/obj/effect/mob_spawn/human/alive/beach,
-/turf/simulated/floor/beach/sand,
-/area/ruin/powered/beach)
 "aZ" = (
 /obj/effect/overlay/coconut,
 /turf/simulated/floor/beach/sand,
@@ -341,7 +337,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/mob_spawn/human/alive/beach/lifeguard,
 /turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "bJ" = (
@@ -481,10 +476,6 @@
 	},
 /obj/structure/flora/rock,
 /turf/simulated/floor/beach/sand,
-/area/ruin/powered/beach)
-"wb" = (
-/obj/effect/mob_spawn/human/alive/bartender,
-/turf/simulated/floor/wood,
 /area/ruin/powered/beach)
 "yc" = (
 /obj/structure/weightmachine/weightlifter,
@@ -808,7 +799,7 @@ af
 aj
 bE
 bE
-aV
+bE
 bE
 bE
 bE
@@ -1094,7 +1085,7 @@ bW
 au
 aC
 aC
-wb
+aC
 JF
 Ds
 bE
@@ -1136,7 +1127,7 @@ bE
 bE
 bE
 aK
-aZ
+bE
 bE
 bE
 bF
@@ -1385,7 +1376,7 @@ ap
 bE
 bE
 aq
-aV
+bE
 bE
 bE
 QS

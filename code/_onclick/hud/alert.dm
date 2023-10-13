@@ -772,9 +772,6 @@ so as to remain in compliance with the most up-to-date laws."
 		mymob.client.screen |= alert
 	return TRUE
 
-/mob
-	var/list/alerts // lazy list. contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
-
 /obj/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
 		return
