@@ -508,7 +508,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "bv" = (
 /obj/structure/closet/secure_closet/quartermaster/empty,
@@ -886,7 +886,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "ck" = (
 /obj/machinery/firealarm{
@@ -1365,7 +1365,7 @@
 	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "dn" = (
 /obj/machinery/conveyor{
@@ -1443,15 +1443,15 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Primary Maintenance"
 	},
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "dv" = (
 /obj/structure/cable{
@@ -1539,7 +1539,7 @@
 "dD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "dE" = (
 /obj/structure/extinguisher_cabinet{
@@ -1561,7 +1561,7 @@
 "dG" = (
 /obj/machinery/atmospherics/binary/pump/on,
 /obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "dH" = (
 /obj/machinery/suit_storage_unit/lavaland,
@@ -1577,7 +1577,7 @@
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "dJ" = (
 /turf/simulated/wall/r_wall,
@@ -1966,7 +1966,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "ew" = (
 /obj/structure/window/reinforced,
@@ -2008,7 +2008,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "ez" = (
 /obj/structure/cable{
@@ -2019,7 +2019,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "eA" = (
 /obj/structure/lattice/catwalk/mining,
@@ -2365,7 +2365,7 @@
 /area/mine/outpost/hallway/west)
 "fe" = (
 /obj/structure/reagent_dispensers/watertank,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "ff" = (
 /obj/effect/turf_decal/loading_area{
@@ -2659,7 +2659,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
 	dir = 6
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "fG" = (
 /obj/effect/turf_decal/caution,
@@ -2735,7 +2735,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "fO" = (
 /obj/structure/disposalpipe/segment,
@@ -3743,6 +3743,22 @@
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
+"kr" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/item/clothing/head/hardhat/orange{
+	pixel_y = 13;
+	pixel_x = 14
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/outpost/maintenance)
 "kt" = (
 /obj/structure/railing{
 	dir = 8
@@ -4686,12 +4702,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Primary Maintenance"
 	},
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "pN" = (
 /obj/structure/fans/tiny,
@@ -4707,7 +4723,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "pQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4772,7 +4788,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "qT" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
@@ -5211,6 +5227,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5574,7 +5591,7 @@
 "yr" = (
 /obj/structure/mopbucket/full,
 /obj/item/mop,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "yw" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5719,7 +5736,7 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "zy" = (
 /obj/machinery/camera{
@@ -5820,7 +5837,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "AB" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5931,7 +5948,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "BY" = (
 /obj/structure/lattice/catwalk/mining,
@@ -6147,7 +6164,7 @@
 	anchored = 1
 	},
 /obj/structure/cable/yellow,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "Dx" = (
 /obj/structure/sign/nanotrasen{
@@ -6229,7 +6246,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "Ej" = (
 /obj/structure/lattice/catwalk/mining,
@@ -7250,7 +7267,7 @@
 	},
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/structure/railing,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "Po" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7277,12 +7294,9 @@
 /obj/structure/railing/cap{
 	dir = 6
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "Ps" = (
-/obj/machinery/status_display{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/airlock)
 "Pu" = (
@@ -7653,7 +7667,7 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "Uy" = (
 /obj/structure/chair/comfy/shuttle{
@@ -7772,7 +7786,7 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/meter,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "VJ" = (
 /obj/structure/table,
@@ -8019,11 +8033,6 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
-"Xl" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/obj/effect/spawner/random_spawners/fungus_maybe,
-/turf/simulated/wall,
-/area/mine/outpost/cafeteria)
 "Xq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8201,7 +8210,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/catwalk,
 /area/mine/outpost/maintenance)
 "YF" = (
 /obj/machinery/suit_storage_unit/lavaland,
@@ -8341,6 +8350,11 @@
 /obj/item/cigbutt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"ZU" = (
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
+/area/mine/outpost/maintenance)
 "ZZ" = (
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
@@ -20396,7 +20410,7 @@ me
 bu
 YE
 fN
-YE
+kr
 ey
 YE
 du
@@ -21163,11 +21177,11 @@ gq
 AE
 AE
 cM
-cM
+fo
 cj
 dI
 dI
-cM
+ZU
 BT
 dR
 HI
@@ -21424,7 +21438,7 @@ dy
 dy
 dy
 dr
-Xl
+SQ
 BT
 dR
 bR
