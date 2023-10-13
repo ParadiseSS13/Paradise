@@ -617,17 +617,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return TRUE
 
 /datum/objective/destroy/post_target_cryo(list/owners)
-	var/datum/objective/new_objective
-	for(var/datum/mind/M in owners)
-		new_objective = new /datum/objective/assassinate
-		new_objective.owner = M
-		new_objective.find_target()
-		if(!new_objective.target)
-			qdel(new_objective)
-			continue
-		else
-			M.objectives += new_objective
-		M.remove_objective(src)
+	holder.replace_objective(src, /datum/objective/assassinate)
 	
 /datum/objective/steal_five_of_type
 	name = "Steal Five Items"
