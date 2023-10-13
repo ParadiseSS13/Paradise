@@ -64,7 +64,7 @@
 	for(var/turf/T in target_turfs)
 		if(isspaceturf(T))
 			continue
-		if(T.density)
+		if(is_blocked_turf(T))
 			continue
 		if(T.x > world.maxx - 5 || T.x < 5)
 			continue	//putting them at the edge is dumb
@@ -81,7 +81,7 @@
 	visible_message("<span class='warning'>[src] blinks away!</span>", "<span class='danger'>Your instincts kick in, and you blink away!</span>")
 	INVOKE_ASYNC(src, PROC_REF(after_the_attack), picked)
 
-	playsound(get_turf(src), 'sound/magic/blink.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/magic/blink.ogg', 50, TRUE)
 	return_timer = null
 	return TRUE
 
