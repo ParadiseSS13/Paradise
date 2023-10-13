@@ -762,6 +762,7 @@
 		/obj/item/reagent_containers/food/snacks/grown/onion,
 		/obj/item/reagent_containers/food/snacks/grown/peanuts,
 		/obj/item/reagent_containers/food/snacks/meatball,
+		/obj/item/reagent_containers/food/snacks/meatball,
 		/obj/item/reagent_containers/food/snacks/spaghetti
 	)
 	result = /obj/item/reagent_containers/food/snacks/soup/meatball_noodles
