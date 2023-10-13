@@ -242,6 +242,7 @@
 	bitesize = 2
 	list_reagents = list("nutriment"= 5, "protein" = 1)
 	tastes = list("bun" = 2, "dead rat" = 5)
+
 /obj/item/reagent_containers/food/snacks/appendixburger
 	name = "appendix burger"
 	desc = "Tastes like appendicitis."
@@ -382,8 +383,13 @@
 	icon_state = "peanut_butter_jelly_sandwich"
 	filling_color = "#9E3A78"
 	bitesize = 2
-	list_reagents = list("nutriment" = 5, "protein" = 2)
-	tastes = list("peanutbutter" = 3, "cherryjelly" = 3, "bread" = 2)
+	tastes = list("peanut butter" = 3, "jelly" = 3, "bread" = 2)
+
+/obj/item/reagent_containers/food/snacks/peanut_butter_jelly/slime
+	list_reagents = list("peanutbutter" = 2, "slimejelly" = 5, "nutriment" = 5, "protein" = 2)
+
+/obj/item/reagent_containers/food/snacks/peanut_butter_jelly/cherry
+	list_reagents = list("peanutbutter" = 2, "cherryjelly" = 5, "nutriment" = 5, "protein" = 2)
 
 /obj/item/reagent_containers/food/snacks/philly_cheesesteak
 	name = "Philly cheesesteak"

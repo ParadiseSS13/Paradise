@@ -505,13 +505,21 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/blt
 
-/datum/recipe/microwave/peanut_butter_jelly
+/datum/recipe/microwave/peanut_butter_jelly/cherry
 	reagents = list("cherryjelly" = 5, "peanutbutter" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/breadslice
 	)
-	result = /obj/item/reagent_containers/food/snacks/peanut_butter_jelly
+	result = /obj/item/reagent_containers/food/snacks/peanut_butter_jelly/cherry
+
+/datum/recipe/microwave/peanut_butter_jelly/slime
+	reagents = list("slimejelly" = 5, "peanutbutter" = 5)
+	items(
+		/obj/item/reagent_containers/food/snacks/breadslice,
+		/obj/item/reagent_containers/food/snacks/breadslice
+	)
+	result = /obj/item/reagent_containers/food/snacks/peanut_butter_jelly/slime
 
 /datum/recipe/microwave/peanut_butter_banana
 	reagents = list("peanutbutter" = 5)
