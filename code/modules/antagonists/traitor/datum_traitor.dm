@@ -139,8 +139,9 @@
  * Give human traitors their uplink, and AI traitors their law 0. Play the traitor an alert sound.
  */
 /datum/antagonist/traitor/finalize_antag()
+	var/list/messages = list()
 	if(give_codewords)
-		give_codewords()
+		messages.Add(give_codewords())
 	if(isAI(owner.current))
 		add_law_zero()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/malf.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
@@ -150,6 +151,8 @@
 		if(give_uplink)
 			give_uplink()
 		owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+
+	return messages
 
 /**
  * Notify the traitor of their codewords and write them to `antag_memory` (notes).
@@ -161,18 +164,19 @@
 
 	var/phrases = jointext(GLOB.syndicate_code_phrase, ", ")
 	var/responses = jointext(GLOB.syndicate_code_response, ", ")
-
-	to_chat(traitor_mob, "<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-	to_chat(traitor_mob, "<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-	to_chat(traitor_mob, "<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
+	var/list/messages = list()
+	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
+	messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
+	messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
 
 	antag_memory += "<b>Code Phrase</b>: <span class='red'>[phrases]</span><br>"
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
-	to_chat(traitor_mob, "Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-	to_chat(traitor_mob, "<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
 
 	traitor_mob.client.chatOutput?.notify_syndicate_codes()
+	return messages
 
 /**
  * Gives traitor AIs, and their connected cyborgs, a law 0. Additionally gives the AI their choose modules action button.

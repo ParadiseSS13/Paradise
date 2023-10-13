@@ -56,10 +56,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/max_save_slots = MAX_SAVE_SLOTS
 	var/max_gear_slots = 0
 
-	//non-preference stuff
-	var/last_ip
-	var/last_id
-
 	//game-preferences
 	var/lastchangelog = "1"				//Saved changlog timestamp (unix epoch) to detect if there was a change. Dont set this to 0 unless you want the last changelog date to be 4x longer than the expected lifespan of the universe.
 	var/lastchangelog_2 = "1" // Clone of the above var for viewing changes since last connection. This is never overriden. Yes it needs to exist.
