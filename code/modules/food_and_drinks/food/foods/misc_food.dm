@@ -73,6 +73,95 @@
 	list_reagents = list("nutriment" = 8, "omnizine" = 8, "vitamin" = 6)
 	tastes = list("divinity" = 1, "lettuce" = 1)
 
+/obj/item/reagent_containers/food/snacks/antipasto_salad
+	name = "antipasto salad"
+	desc = "A traditional Italian salad made of salami, mozzarella cheese, olives, and tomatoes. Often served as a first course meal."
+	icon_state = "antipasto_salad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#468C00"
+	bitesize = 3
+	list_reagents = list("nutriment" = 12, "protein" = 6, "vitamin"= 6)
+	tastes = list("lettuce" = 2, "salami" = 2, "mozzarella cheese" = 2, "tomatoes" = 2, "dressing" = 1)
+
+/obj/item/reagent_containers/food/snacks/caesar_salad
+	name = "Caesar salad"
+	desc = "A simple yet flavorful salad of onions, lettuce, croutons, and shreds of cheese dressed in oil. Comes with a slice of pita bread!"
+	icon_state = "caesar_salad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#468C00"
+	bitesize = 3
+	list_reagents = list("nutriment" = 12, "vitamin" = 6)
+	tastes = list("healthy greens" = 2, "olive dressing" = 2, "feta cheese" = 2, "pita bread" = 1)
+
+/obj/item/reagent_containers/food/snacks/fruitsalad
+	name = "fruit salad"
+	desc = "Your standard fruit salad."
+	icon_state = "fruitsalad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#468C00"
+	bitesize = 3
+	list_reagents = list("nutriment" = 9, "vitamin" = 4)
+	tastes = list("fruit" = 1)
+
+/obj/item/reagent_containers/food/snacks/greek_salad
+	name = "Greek salad"
+	desc = "A popular salad made of tomatoes, onions, feta cheese, and olives all drizzled in olive oil. Though it feels like it's missing something..."
+	icon_state = "greek_salad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#468C00"
+	bitesize = 3
+	list_reagents = list("nutriment" = 13, "vitamin" = 14)
+	tastes = list("healthy greens" = 2, "olive dressing" = 1, "feta cheese" = 1)
+
+/obj/item/reagent_containers/food/snacks/citrusdelight
+	name = "citrus delight"
+	desc = "Citrus overload!"
+	icon_state = "citrusdelight"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#468C00"
+	bitesize = 3
+	list_reagents = list("nutriment" = 11, "vitamin" = 7)
+	tastes = list("sourness" = 1, "leaves" = 1)
+
+/obj/item/reagent_containers/food/snacks/junglesalad
+	name = "jungle salad"
+	desc = "Exotic fruits in a bowl."
+	icon_state = "junglesalad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#468C00"
+	bitesize = 3
+	list_reagents = list("banana" = 5, "nutriment" = 11, "vitamin" = 7)
+	tastes = list("fruit" = 1, "the jungle" = 1)
+
+/obj/item/reagent_containers/food/snacks/kale_salad
+	name = "kale salad"
+	desc = "A healthy kale salad drizzled in oil, perfect for warm summer months."
+	icon_state = "kale_salad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#468C00"
+	bitesize = 3
+	list_reagents = list("nutriment" = 12, "vitamin" = 12)
+	tastes = list("healthy greens" = 2, "olive dressing" = 1)
+
+/obj/item/reagent_containers/food/snacks/potato_salad
+	name = "potato salad"
+	desc = "A dish of boiled potatoes mixed with boiled eggs, onions, and mayonnaise. A staple of every self-respecting barbeque."
+	icon_state = "potato_salad"
+	trash = /obj/item/trash/snack_bowl
+	filling_color = "#468C00"
+	bitesize = 3
+	list_reagents = list()
+	tastes = list()
+
+/obj/item/reagent_containers/food/snacks/melonfruitbowl
+	name = "melon fruit bowl"
+	desc = "For people who wants edible fruit bowls."
+	icon_state = "melonfruitbowl"
+	filling_color = "#468C00"
+	bitesize = 3
+	list_reagents = list("nutriment" = 6, "vitamin" = 4)
+	tastes = list("melon" = 1)
+
 /obj/item/reagent_containers/food/snacks/herbsalad
 	name = "herb salad"
 	desc = "A tasty salad with apples on top."

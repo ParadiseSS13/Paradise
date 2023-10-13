@@ -71,7 +71,7 @@
 	bitesize = 4
 
 /obj/item/reagent_containers/food/snacks/meat/tomatomeat
-	name = "tomato slice"
+	name = "tomato meat slice"
 	desc = "A slice from a huge tomato."
 	icon_state = "tomatomeat"
 	filling_color = "#DB0000"
