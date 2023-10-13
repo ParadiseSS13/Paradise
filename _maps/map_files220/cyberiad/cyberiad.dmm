@@ -3273,7 +3273,7 @@
 	},
 /area/station/security/prison/cell_block/A)
 "aoX" = (
-/obj/structure/bed,
+/obj/structure/bed/mattress,
 /obj/machinery/camera{
 	c_tag = "Brig Cell 3"
 	},
@@ -5184,6 +5184,9 @@
 /area/station/maintenance/fpmaint)
 "avE" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/mattress/dirty{
+	dir = 1
+	},
 /obj/item/stack/cable_coil/random,
 /mob/living/simple_animal/mouse/white,
 /turf/simulated/floor/plating,
@@ -7316,7 +7319,7 @@
 	},
 /area/station/security/prison/cell_block/A)
 "aCs" = (
-/obj/structure/bed,
+/obj/structure/bed/mattress,
 /obj/machinery/flasher{
 	id = "Cell 4";
 	pixel_y = -28
@@ -7343,7 +7346,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/meeting_room)
 "aCw" = (
-/obj/structure/bed,
+/obj/structure/bed/mattress/dirty,
 /obj/machinery/flasher{
 	id = "Cell 5";
 	pixel_y = -28
@@ -51813,6 +51816,13 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/toilet/lockerroom)
+"gdX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed/mattress/dirty{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/maintenance/port)
 "geb" = (
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
@@ -71853,8 +71863,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "nAy" = (
-/obj/structure/bed,
-/obj/item/bedsheet/orange,
+/obj/structure/bed/mattress/dirty,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
@@ -82085,8 +82094,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "rmH" = (
-/obj/structure/bed,
+/obj/structure/bed/mattress,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/bedsheet/blue,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "rmI" = (
@@ -115410,7 +115420,7 @@ aaa
 blQ
 bNP
 bCs
-svp
+gdX
 brF
 blQ
 aaa
