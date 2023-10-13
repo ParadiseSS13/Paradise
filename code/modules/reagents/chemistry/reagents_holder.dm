@@ -251,7 +251,7 @@
 /datum/reagents/proc/adjust_reagent_temp(amount, temperature_bound)
 	if(chem_temp == temperature_bound || !amount) // We don't need to do the mathy math
 		return
-	if(temperature_bound != null) // If we have a target temp, we only go until that temperature
+	if(!isnull(temperature_bound)) // If we have a target temp, we only go until that temperature
 		chem_temp = directional_bounded_sum(chem_temp, amount, temperature_bound, temperature_bound)
 	else
 		chem_temp += amount
