@@ -883,6 +883,9 @@
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/portable/pump,
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance)
 "ck" = (
@@ -1433,9 +1436,6 @@
 	},
 /area/mine/outpost/mechbay)
 "du" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Primary Maintenance"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -1447,6 +1447,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Primary Maintenance"
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
@@ -1534,10 +1537,8 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "dD" = (
-/obj/machinery/atmospherics/pipe/manifold/visible/cyan{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold4w/visible/cyan,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance)
 "dE" = (
@@ -1700,6 +1701,9 @@
 	c_tag = "Mining Outpost - Cafeteria";
 	dir = 1;
 	network = list("Mining Outpost")
+	},
+/obj/machinery/status_display{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -2213,6 +2217,10 @@
 	dir = 4;
 	pixel_y = -30
 	},
+/obj/structure/sign/directions/engineering{
+	pixel_y = -36;
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -2647,6 +2655,9 @@
 	},
 /obj/structure/cable/cyan{
 	icon_state = "1-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/cyan{
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance)
@@ -4519,9 +4530,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/obj/structure/sign/electricshock{
-	pixel_y = 32
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -4678,11 +4686,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance{
-	name = "Primary Maintenance"
-	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Primary Maintenance"
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance)
 "pN" = (
@@ -7241,6 +7249,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/structure/railing,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance)
 "Po" = (
@@ -7250,13 +7259,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/noticeboard{
-	pixel_y = 28
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/status_display{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7265,9 +7274,15 @@
 /area/mine/outpost/hallway/west)
 "Pp" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
+/obj/structure/railing/cap{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance)
 "Ps" = (
+/obj/machinery/status_display{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/airlock)
 "Pu" = (
@@ -7985,6 +8000,18 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Xe" = (
+/obj/structure/disposalpipe/segment{
+	dir = 8
+	},
+/obj/structure/noticeboard{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/west)
 "Xk" = (
 /obj/machinery/door/window,
 /turf/simulated/floor/plasteel{
@@ -21658,7 +21685,7 @@ dy
 pz
 fo
 bR
-lT
+Xe
 pQ
 gd
 sL
