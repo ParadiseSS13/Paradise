@@ -232,7 +232,7 @@
 	icon_state = "ratburger"
 	filling_color = "#808080"
 	bitesize = 2
-	list_reagents = list("nutriment"= 5, "protein" = 1)
+	list_reagents = list("nutriment" = 5, "protein" = 1)
 	tastes = list("bun" = 2, "dead rat" = 5)
 
 /obj/item/reagent_containers/food/snacks/appendixburger

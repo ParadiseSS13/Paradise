@@ -80,7 +80,7 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
-	list_reagents = list("nutriment" = 12, "protein" = 6, "vitamin"= 6)
+	list_reagents = list("nutriment" = 12, "protein" = 6, "vitamin" = 6)
 	tastes = list("lettuce" = 2, "salami" = 2, "mozzarella cheese" = 2, "tomatoes" = 2, "dressing" = 1)
 
 /obj/item/reagent_containers/food/snacks/caesar_salad
@@ -150,8 +150,8 @@
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
-	list_reagents = list()
-	tastes = list()
+	list_reagents = list("nutriment" = 10, "protein" = 4)
+	tastes = list("potato" = 2, "egg" = 2, "mayonnaise" = 2)
 
 /obj/item/reagent_containers/food/snacks/melonfruitbowl
 	name = "melon fruit bowl"
