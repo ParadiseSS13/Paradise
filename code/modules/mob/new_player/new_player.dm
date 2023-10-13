@@ -90,7 +90,7 @@
 	return
 
 /mob/new_player/Stat()
-	. = ..()
+	..()
 	if(statpanel("Status") && SSticker)
 		if(!SSticker.hide_mode)
 			stat("Game Mode: [GLOB.master_mode]")

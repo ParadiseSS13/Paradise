@@ -195,6 +195,7 @@
 					/obj/item/seeds/lemon = 3,
 					/obj/item/seeds/lime = 3,
 					/obj/item/seeds/mint = 3,
+					/obj/item/seeds/olive = 3,
 					/obj/item/seeds/onion = 3,
 					/obj/item/seeds/orange = 3,
 					/obj/item/seeds/peanuts = 3,
