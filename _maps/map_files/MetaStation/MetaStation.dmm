@@ -7267,9 +7267,8 @@
 	},
 /area/station/supply/miningdock)
 "aIP" = (
-/obj/machinery/door/airlock/hatch{
-	name = "Telecoms Control Room"
-	},
+/obj/machinery/door/airlock/hatch,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tcoms,
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -10990,9 +10989,8 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/door/airlock{
-	name = "Garden"
-	},
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -13269,9 +13267,8 @@
 /area/station/turret_protected/ai_upload/foyer)
 "aZP" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Fore Primary Hallway"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -13284,18 +13281,16 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Fore Primary Hallway"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "aZR" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Fore Primary Hallway"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -18623,9 +18618,8 @@
 /area/station/service/kitchen)
 "bnd" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Starboard Primary Hallway"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "cautioncorner"
@@ -19273,9 +19267,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Starboard Primary Hallway"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -19978,9 +19971,8 @@
 /area/station/hallway/primary/central)
 "bqw" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Starboard Primary Hallway"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/turf_decal/tile/bar,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -21045,9 +21037,8 @@
 /area/station/hallway/primary/port)
 "btI" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Port Primary Hallway"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -22096,9 +22087,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Port Primary Hallway"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -23062,9 +23052,8 @@
 /area/station/command/office/hop)
 "byf" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Port Primary Hallway"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -23696,16 +23685,14 @@
 /area/station/service/library)
 "bzM" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Library"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/carpet,
 /area/station/service/library)
 "bzN" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/public/glass{
-	name = "Library"
-	},
+/obj/machinery/door/airlock/public/glass,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/carpet,
@@ -30620,9 +30607,8 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock{
-	name = "Dormitories"
-	},
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -30642,9 +30628,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock{
-	name = "Dormitories"
-	},
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutralcorner"
@@ -32470,9 +32455,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/airlock{
-	name = "Locker Room"
-	},
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -33587,9 +33571,8 @@
 /area/station/maintenance/maintcentral)
 "cdP" = (
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock{
-	name = "Locker Room"
-	},
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -50370,7 +50353,7 @@
 "dZP" = (
 /obj/effect/spawner/lootdrop{
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -52079,7 +52062,9 @@
 "eRZ" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	name = "Chemistry Desk";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -52906,9 +52891,9 @@
 /area/station/medical/exam_room)
 "flY" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Prison Wing";
 	security_level = 1
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -53368,7 +53353,7 @@
 "fuy" = (
 /obj/effect/spawner/lootdrop{
 	icon_state = "grille";
-	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
+	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -53878,9 +53863,8 @@
 /area/station/security/brig)
 "fGE" = (
 /obj/machinery/smartfridge/medbay,
-/obj/machinery/door/window/classic/normal{
-	name = "Chemistry Desk"
-	},
+/obj/machinery/door/window/classic/normal,
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -55748,9 +55732,8 @@
 	pixel_x = 4;
 	pixel_y = -3
 	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Chemistry Desk"
-	},
+/obj/machinery/door/window/classic/reversed,
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "imnotmakingyoulubepissoff";
@@ -57578,7 +57561,9 @@
 "hqs" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	name = "Hydroponics Desk";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
 	},
 /obj/item/folder{
@@ -66081,7 +66066,9 @@
 	dir = 8
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Chemistry Desk";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
@@ -76430,7 +76417,9 @@
 /obj/machinery/door/firedoor,
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/reversed{
-	name = "Chemistry Desk";
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 8
 	},
 /obj/item/folder/white{
@@ -86059,7 +86048,9 @@
 "uBn" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/classic/normal{
-	name = "Hydroponics Desk";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
@@ -90705,8 +90696,10 @@
 /area/station/command/bridge)
 "wUL" = (
 /obj/machinery/door/window{
-	dir = 1;
-	name = "Captain's Bedroom"
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/captain{
 	dir = 1
@@ -91480,7 +91473,9 @@
 /obj/item/folder,
 /obj/item/pen,
 /obj/machinery/door/window/classic/normal{
-	name = "Research and Development Desk";
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk{
 	dir = 4
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -92187,9 +92182,9 @@
 "xCD" = (
 /obj/machinery/door/airlock/mining/glass{
 	id_tag = "mining_home";
-	locked = 1;
-	name = "Mining Dock"
+	locked = 1
 	},
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
