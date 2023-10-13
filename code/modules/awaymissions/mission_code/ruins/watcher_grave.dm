@@ -40,7 +40,7 @@
 	. = ..()
 	if(steps_travelled < (steps_to_hatch * WATCHER_EGG_ACTIVE_MOD))
 		. += "<span class='notice'>Something stirs listlessly inside.</span>"
-	else if(steps_travelled < steps_to_hatch * WATCHER_EGG_LIVELY_MOD)
+	else if(steps_travelled < (steps_to_hatch * WATCHER_EGG_LIVELY_MOD))
 		. += "<span class='notice'>Something is moving actively inside.</span>"
 	else
 		. += "<span class='boldnotice'>It's jiggling wildly, it's about to hatch!</span>"

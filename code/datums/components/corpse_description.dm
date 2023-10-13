@@ -24,9 +24,9 @@
 
 /datum/component/corpse_description/proc/on_examined(mob/living/corpse, mob/corpse_inspector, list/examine_list)
 	SIGNAL_HANDLER
-	if (corpse.stat != DEAD || !description_text)
+	if(corpse.stat != DEAD || !description_text)
 		return // Why the hell you put this on them then
-	if (naive_description && HAS_TRAIT(corpse_inspector, TRAIT_COMIC_SANS))
+	if(naive_description && HAS_TRAIT(corpse_inspector, TRAIT_COMIC_SANS))
 		examine_list += "<span class='notice'>[naive_description]</span>"
 		return
 	examine_list += "<span class='notice'>[description_text]</span>"

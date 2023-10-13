@@ -616,14 +616,14 @@
 	icon_state = "sleeper"
 	flavour_text = "Moo!"
 
-///these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
+/// these mob spawn subtypes trigger immediately (New or Initialize) and are not player controlled... since they're dead, you know?
 /obj/effect/mob_spawn/corpse
-	///when this mob spawn should auto trigger.
+	/// when this mob spawn should auto trigger.
 	var/spawn_when = CORPSE_INSTANT
 
-	///what environmental storytelling script should this corpse have
+	/// what environmental storytelling script should this corpse have
 	var/corpse_description = ""
-	///optionally different text to display if the target is a clown
+	/// optionally different text to display if the target is a clown
 	var/naive_corpse_description = ""
 
 /obj/effect/mob_spawn/corpse/Initialize(mapload, no_spawn)
