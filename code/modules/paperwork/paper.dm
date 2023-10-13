@@ -50,9 +50,6 @@
 
 /obj/item/paper/New()
 	..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
-
 	spawn(2)
 		update_icon()
 		updateinfolinks()
