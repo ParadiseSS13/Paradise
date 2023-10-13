@@ -819,7 +819,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Two-Piece Suit"
 	desc = "A snappy two-piece suit that any self-respecting Syndicate agent should wear. Perfect for professionals trying to go undetected, but moderately armored with experimental nanoweave in case things do get loud. Comes with two cashmere-lined pockets for maximum style and comfort."
 	reference = "SUIT"
-	item = /obj/item/clothing/suit/storage/lawyer/blackjacket/armored
+	item = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	cost = 5
 
 /datum/uplink_item/bundles_TC
