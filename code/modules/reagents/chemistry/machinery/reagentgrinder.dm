@@ -323,7 +323,7 @@
 		if("grind")
 			grind()
 		if("juice")
-			juice(ui.user)
+			juice()
 
 /obj/machinery/reagentgrinder/proc/detach(mob/user)
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
