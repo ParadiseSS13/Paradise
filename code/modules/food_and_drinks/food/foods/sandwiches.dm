@@ -145,85 +145,77 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 2, "capsaicin" = 3, "condensedcapsaicin" = 2)
 	tastes = list("bun" = 2, "meat" = 4, "cheese" = 2, "beef soaked in chili" = 3, "a smoking flare" = 2)
 
-/obj/item/reagent_containers/food/snacks/redburger
-	name = "red burger"
+/obj/item/reagent_containers/food/snacks/ppattyred
+	name = "red pretty patty"
 	desc = "Perfect for hiding the fact that it's burnt to a crisp."
-	icon_state = "burger"
+	icon_state = "ppatty-red"
 	filling_color = "#D63C3C"
-	color = COLOR_RED
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "red" = 2)
 
-/obj/item/reagent_containers/food/snacks/orangeburger
-	name = "orange burger"
+/obj/item/reagent_containers/food/snacks/ppattyorange
+	name = "orange pretty patty"
 	desc = "Contains 0% juice."
-	icon_state = "burger"
+	icon_state = "ppatty-orange"
 	filling_color = "#FFA500"
-	color = COLOR_ORANGE
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "orange" = 2)
 
-/obj/item/reagent_containers/food/snacks/yellowburger
-	name = "yellow burger"
+/obj/item/reagent_containers/food/snacks/ppattyyellow
+	name = "yellow pretty patty"
 	desc = "Bright to the last bite."
-	icon_state = "burger"
+	icon_state = "ppatty-yellow"
 	filling_color = "#FFFF00"
-	color = COLOR_YELLOW
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "yellow" = 2)
 
-/obj/item/reagent_containers/food/snacks/greenburger
-	name = "green burger"
+/obj/item/reagent_containers/food/snacks/ppattygreen
+	name = "green pretty patty"
 	desc = "It's not tainted meat, it's painted meat!"
-	icon_state = "burger"
+	icon_state = "ppatty-green"
 	filling_color = "#00FF00"
-	color = COLOR_GREEN
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "green" = 2)
 
-/obj/item/reagent_containers/food/snacks/blueburger
-	name = "blue burger"
+/obj/item/reagent_containers/food/snacks/ppattyblue
+	name = "blue pretty patty"
 	desc = "Is this blue rare?"
-	icon_state = "burger"
+	icon_state = "ppatty-blue"
 	filling_color = "#0000FF"
-	color = COLOR_BLUE
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "blue" = 2)
 
-/obj/item/reagent_containers/food/snacks/purpleburger
-	name = "purple burger"
+/obj/item/reagent_containers/food/snacks/ppattypurple
+	name = "purple pretty patty"
 	desc = "Regal and low class at the same time."
-	icon_state = "burger"
+	icon_state = "ppatty-purple"
 	filling_color = "#800080"
-	color = COLOR_PURPLE
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "purple" = 2)
 
-/obj/item/reagent_containers/food/snacks/blackburger
-	name = "black burger"
-	desc = "This is overcooked."
-	icon_state = "burger"
-	filling_color = "#000000"
-	color = COLOR_BLACK
-	bitesize = 2
-	list_reagents = list("nutriment" = 7, "protein" = 1)
-	tastes = list("bun" = 2, "meat" = 2, "black" = 2)
-
-/obj/item/reagent_containers/food/snacks/whiteburger
-	name = "white burger"
+/obj/item/reagent_containers/food/snacks/ppattywhite
+	name = "white pretty patty"
 	desc = "Delicious titanium!"
-	icon_state = "burger"
+	icon_state = "ppatty-mime"
 	filling_color = "#FFFFFF"
-	color = COLOR_WHITE
 	bitesize = 2
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "white" = 2)
+
+/obj/item/reagent_containers/food/snacks/ppattyrainbow
+	name = "rainbow pretty patty"
+	desc = "Taste the rainbow, eat the rainbow."
+	icon_state = "ppatty-rainbow"
+	filling_color = "#0000FF"
+	bitesize = 4
+	list_reagents = list("nutriment" = 14, "protein" = 5)
+	tastes = list("bun" = 2, "meat" = 2, "rainbow" = 5)
 
 /obj/item/reagent_containers/food/snacks/elecburger
 	name = "empowered burger"

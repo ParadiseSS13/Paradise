@@ -540,69 +540,73 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/philly_cheesesteak
 
-/datum/recipe/microwave/redburger
+/datum/recipe/microwave/ppattyred
+	reagents = list("cherryjelly" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/toy/crayon/red
+		/obj/item/reagent_containers/food/snacks/meat
 	)
-	result = /obj/item/reagent_containers/food/snacks/redburger
+	result = /obj/item/reagent_containers/food/snacks/ppattyred
 
-/datum/recipe/microwave/orangeburger
+/datum/recipe/microwave/ppattyorange
+	reagents = list("orangejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/toy/crayon/orange
+		/obj/item/reagent_containers/food/snacks/meat
 	)
-	result = /obj/item/reagent_containers/food/snacks/orangeburger
+	result = /obj/item/reagent_containers/food/snacks/ppattyorange
 
-/datum/recipe/microwave/yellowburger
+/datum/recipe/microwave/ppattyyellow
+	reagents = list("lemonjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/toy/crayon/yellow
+		/obj/item/reagent_containers/food/snacks/meat
 	)
-	result = /obj/item/reagent_containers/food/snacks/yellowburger
+	result = /obj/item/reagent_containers/food/snacks/ppattyyellow
 
-/datum/recipe/microwave/greenburger
+/datum/recipe/microwave/ppattygreen
+	reagents = list("limejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/toy/crayon/green
+		/obj/item/reagent_containers/food/snacks/meat
 	)
-	result = /obj/item/reagent_containers/food/snacks/greenburger
+	result = /obj/item/reagent_containers/food/snacks/ppattygreen
 
-/datum/recipe/microwave/blueburger
+/datum/recipe/microwave/ppattyblue
+	reagents = list("berryjuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/toy/crayon/blue
+		/obj/item/reagent_containers/food/snacks/meat
 	)
-	result = /obj/item/reagent_containers/food/snacks/blueburger
+	result = /obj/item/reagent_containers/food/snacks/ppattyblue
 
-/datum/recipe/microwave/purpleburger
+/datum/recipe/microwave/ppattypurple
+	reagents = list("grapejuice" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/toy/crayon/purple
+		/obj/item/reagent_containers/food/snacks/meat
 	)
-	result = /obj/item/reagent_containers/food/snacks/purpleburger
+	result = /obj/item/reagent_containers/food/snacks/ppattypurple
 
-/datum/recipe/microwave/blackburger
+/datum/recipe/microwave/ppattywhite
+	reagents = list("sugar" = 5)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/toy/crayon/black
+		/obj/item/reagent_containers/food/snacks/meat
 	)
-	result = /obj/item/reagent_containers/food/snacks/blackburger
+	result = /obj/item/reagent_containers/food/snacks/ppattywhite
 
-/datum/recipe/microwave/whiteburger
+/datum/recipe/microwave/ppattyrainbow
 	items = list(
-		/obj/item/reagent_containers/food/snacks/bun,
-		/obj/item/reagent_containers/food/snacks/meat,
-		/obj/item/toy/crayon/white
+		/obj/item/reagent_containers/food/snacks/ppattyred,
+		/obj/item/reagent_containers/food/snacks/ppattyorange,
+		/obj/item/reagent_containers/food/snacks/ppattyyellow,
+		/obj/item/reagent_containers/food/snacks/ppattygreen,
+		/obj/item/reagent_containers/food/snacks/ppattyblue,
+		/obj/item/reagent_containers/food/snacks/ppattypurple,
+		/obj/item/reagent_containers/food/snacks/ppattywhite
 	)
-	result = /obj/item/reagent_containers/food/snacks/whiteburger
+	result = /obj/item/reagent_containers/food/snacks/ppattyrainbow
 
 /datum/recipe/microwave/elecburger
 	items = list(
