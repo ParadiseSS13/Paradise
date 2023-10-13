@@ -515,7 +515,7 @@
 
 /datum/recipe/microwave/peanut_butter_jelly/slime
 	reagents = list("slimejelly" = 5, "peanutbutter" = 5)
-	items(
+	items = list(
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/breadslice
 	)
