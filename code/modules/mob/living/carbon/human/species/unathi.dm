@@ -128,6 +128,7 @@
 		)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
+	..()
 	var/datum/action/innate/ignite/ash_walker/fire = new()
 	fire.Grant(H)
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
