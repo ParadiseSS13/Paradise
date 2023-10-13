@@ -1,6 +1,14 @@
 /datum/preferences
 	var/discord_id
 
+/datum/configuration_section/ss220_misc_configuration
+	/// Force discord verification
+	var/force_discord_verification = FALSE
+
+/datum/configuration_section/ss220_misc_configuration/load_data(list/data)
+	. = ..()
+	CONFIG_LOAD_BOOL(force_discord_verification, data["force_discord_verification"])
+
 /client/verb/link_discord_account()
 	set name = "Привязка Discord"
 	set category = "Special Verbs"
@@ -43,7 +51,7 @@
 		return
 
 	if(href_list["observe"] || href_list["ready"] || href_list["late_join"])
-		if (GLOB.configuration.database.enabled && !(client.prefs.discord_id || client.prefs.get_discord_id()))
+		if (GLOB.configuration.database.enabled && GLOB.configuration.ss220_misc.force_discord_verification && !(client.prefs.discord_id || client.prefs.get_discord_id()))
 			to_chat(usr, span_danger("Вам необходимо привязать дискорд-профиль к аккаунту!"))
 			to_chat(usr, span_warning("Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций."))
 			return FALSE

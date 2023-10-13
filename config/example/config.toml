@@ -872,3 +872,11 @@ ffmpeg_cpuaffinity = ""
 
 
 ################################################################
+
+[ss220_misc_configuration]
+# This section contains everything that should be in general_configuration
+
+# Force discord verification
+force_discord_verification = false
+
+################################################################

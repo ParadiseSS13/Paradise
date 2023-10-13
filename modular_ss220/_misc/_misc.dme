@@ -1,3 +1,4 @@
 #include "_misc.dm"
 
+#include "code/ss220_general_config.dm"
 #include "code/icons.dm"
