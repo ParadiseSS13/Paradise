@@ -321,7 +321,7 @@
 		if("eject")
 			eject(ui.user)
 		if("grind")
-			grind(ui.user)
+			grind()
 		if("juice")
 			juice(ui.user)
 
