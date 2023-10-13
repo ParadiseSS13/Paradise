@@ -217,7 +217,7 @@
 		fallen_mob.notransform = FALSE
 		if(fallen_mob.stat != DEAD)
 			fallen_mob.death(TRUE)
-			fallen_mob.adjustBruteLoss(300)
+			fallen_mob.adjustBruteLoss(1000) //crunch from long fall, want it to be like legion in damage
 		fallen_mob.forceMove(storage)
 		return
 
@@ -269,7 +269,7 @@
 		ourturf.ChangeTurf(ourturf.baseturf)
 	escapee.flying = TRUE
 	escapee.forceMove(ourturf)
-	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
+	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
 	escapee.flying = FALSE
 	escapee.Sleeping(20 SECONDS)
 	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
