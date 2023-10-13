@@ -131,12 +131,15 @@
 	var/datum/action/innate/ignite/ash_walker/fire = new()
 	fire.Grant(H)
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
+	if(!is_mining_level(H.z))
+		speed_mod = 0
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
 	for(var/datum/action/innate/ignite/ash_walker/fire in H.actions)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
+	speed_mod = 0
 
 /datum/action/innate/ignite/ash_walker
 	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
