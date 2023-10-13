@@ -6,6 +6,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/meatbread
 	name = "meatbread loaf"
 	desc = "The culinary base of every self-respecting eloquen/tg/entleman."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "meatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/meatbreadslice
 	slices_num = 5
@@ -16,12 +17,14 @@
 /obj/item/reagent_containers/food/snacks/meatbreadslice
 	name = "meatbread slice"
 	desc = "A slice of delicious meatbread."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "meatbreadslice"
 	filling_color = "#FF7575"
 
 /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread
 	name = "xenomeatbread loaf"
 	desc = "The culinary base of every self-respecting eloquent gentleman. Extra Heretical."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "xenomeatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
 	slices_num = 5
@@ -32,12 +35,14 @@
 /obj/item/reagent_containers/food/snacks/xenomeatbreadslice
 	name = "xenomeatbread slice"
 	desc = "A slice of delicious meatbread. Extra Heretical."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "xenobreadslice"
 	filling_color = "#8AFF75"
 
 /obj/item/reagent_containers/food/snacks/sliceable/spidermeatbread
 	name = "spider meat loaf"
 	desc = "Reassuringly green meatloaf made from spider meat."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "spidermeatbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	slices_num = 5
@@ -47,12 +52,14 @@
 /obj/item/reagent_containers/food/snacks/spidermeatbreadslice
 	name = "spider meat bread slice"
 	desc = "A slice of meatloaf made from an animal that most likely still wants you dead."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "spidermeatslice"
 	list_reagents = list("toxin" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/bananabread
 	name = "banana-nut bread"
 	desc = "A heavenly and filling treat."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "bananabread"
 	slice_path = /obj/item/reagent_containers/food/snacks/bananabreadslice
 	slices_num = 5
@@ -63,6 +70,7 @@
 /obj/item/reagent_containers/food/snacks/bananabreadslice
 	name = "banana-nut bread slice"
 	desc = "A slice of delicious banana bread."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "bananabreadslice"
 	filling_color = "#EDE5AD"
 	tastes = list("bread" = 10)
@@ -70,6 +78,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/tofubread
 	name = "tofubread"
 	desc = "Like meatbread but for vegetarians. Not guaranteed to give superpowers."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "tofubread"
 	slice_path = /obj/item/reagent_containers/food/snacks/tofubreadslice
 	slices_num = 5
@@ -80,12 +89,14 @@
 /obj/item/reagent_containers/food/snacks/tofubreadslice
 	name = "tofubread slice"
 	desc = "A slice of delicious tofubread."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "tofubreadslice"
 	filling_color = "#F7FFE0"
 
 /obj/item/reagent_containers/food/snacks/sliceable/bread
 	name = "bread"
 	desc = "Some plain old Earthen bread."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "bread"
 	slice_path = /obj/item/reagent_containers/food/snacks/breadslice
 	slices_num = 6
@@ -96,6 +107,7 @@
 /obj/item/reagent_containers/food/snacks/breadslice
 	name = "bread slice"
 	desc = "A slice of home."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "breadslice"
 	filling_color = "#D27332"
 	list_reagents = list("nutriment" = 2, "bread" = 5)
@@ -104,6 +116,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread
 	name = "cream cheese bread"
 	desc = "Yum yum yum!"
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "creamcheesebread"
 	slice_path = /obj/item/reagent_containers/food/snacks/creamcheesebreadslice
 	slices_num = 5
@@ -114,6 +127,7 @@
 /obj/item/reagent_containers/food/snacks/creamcheesebreadslice
 	name = "cream cheese bread slice"
 	desc = "A slice of yum!"
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "creamcheesebreadslice"
 	filling_color = "#FFF896"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
@@ -122,6 +136,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/banarnarbread
 	name = "banarnarbread loaf"
 	desc = "A loaf of delicious mah'weyh pleggh at e'ntrath!"
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "banarnarbread"
 	slice_path = /obj/item/reagent_containers/food/snacks/banarnarbreadslice
 	slices_num = 5
@@ -132,6 +147,7 @@
 /obj/item/reagent_containers/food/snacks/banarnarbreadslice
 	name = "banarnarbread slice"
 	desc = "A slice of delicious mah'weyh pleggh at e'ntrath!"
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "banarnarbreadslice"
 	filling_color = "#6F0000"
 	list_reagents = list("nutriment" = 4, "vitamin" = 1)
@@ -162,6 +178,7 @@
 /obj/item/reagent_containers/food/snacks/baguette
 	name = "baguette"
 	desc = "Bon appetit!"
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "baguette"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -181,6 +198,7 @@
 /obj/item/reagent_containers/food/snacks/twobread
 	name = "two bread"
 	desc = "It is very bitter and winy."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "twobread"
 	filling_color = "#DBCC9A"
 	bitesize = 3
@@ -190,6 +208,7 @@
 /obj/item/reagent_containers/food/snacks/toast
 	name = "toast"
 	desc = "Yeah! Toast!"
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "toast"
 	filling_color = "#B2580E"
 	bitesize = 3
@@ -199,6 +218,7 @@
 /obj/item/reagent_containers/food/snacks/jelliedtoast
 	name = "jellied toast"
 	desc = "A slice of bread covered with delicious jam."
+	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "jellytoast"
 	filling_color = "#B572AB"
 	bitesize = 3
@@ -213,6 +233,7 @@
 /obj/item/reagent_containers/food/snacks/rofflewaffles
 	name = "roffle waffles"
 	desc = "Waffles from Roffle. Co."
+	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "rofflewaffles"
 	trash = /obj/item/trash/waffles
 	filling_color = "#FF00F7"
@@ -223,6 +244,7 @@
 /obj/item/reagent_containers/food/snacks/waffles
 	name = "waffles"
 	desc = "Mmm, waffles."
+	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "waffles"
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6DEB5"

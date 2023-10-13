@@ -781,6 +781,7 @@
 /obj/item/reagent_containers/food/snacks/plum_pie
 	name = "perfect plum pie"
 	desc = "The Jack Horner brand of pie. 2 big thumbs up."
+	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "plump_pie"
 	filling_color = "#B8279B"
 	bitesize = 10

@@ -66,6 +66,7 @@
 /obj/item/reagent_containers/food/snacks/aesirsalad
 	name = "aesir salad"
 	desc = "Probably too incredible for mortal men to fully enjoy."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "aesirsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -76,6 +77,7 @@
 /obj/item/reagent_containers/food/snacks/antipasto_salad
 	name = "antipasto salad"
 	desc = "A traditional Italian salad made of salami, mozzarella cheese, olives, and tomatoes. Often served as a first course meal."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "antipasto_salad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -86,6 +88,7 @@
 /obj/item/reagent_containers/food/snacks/caesar_salad
 	name = "Caesar salad"
 	desc = "A simple yet flavorful salad of onions, lettuce, croutons, and shreds of cheese dressed in oil. Comes with a slice of pita bread!"
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "caesar_salad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -96,6 +99,7 @@
 /obj/item/reagent_containers/food/snacks/fruitsalad
 	name = "fruit salad"
 	desc = "Your standard fruit salad."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "fruitsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -106,6 +110,7 @@
 /obj/item/reagent_containers/food/snacks/greek_salad
 	name = "Greek salad"
 	desc = "A popular salad made of tomatoes, onions, feta cheese, and olives all drizzled in olive oil. Though it feels like it's missing something..."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "greek_salad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -116,6 +121,7 @@
 /obj/item/reagent_containers/food/snacks/citrusdelight
 	name = "citrus delight"
 	desc = "Citrus overload!"
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "citrusdelight"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -126,6 +132,7 @@
 /obj/item/reagent_containers/food/snacks/junglesalad
 	name = "jungle salad"
 	desc = "Exotic fruits in a bowl."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "junglesalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -136,6 +143,7 @@
 /obj/item/reagent_containers/food/snacks/kale_salad
 	name = "kale salad"
 	desc = "A healthy kale salad drizzled in oil, perfect for warm summer months."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "kale_salad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -146,6 +154,7 @@
 /obj/item/reagent_containers/food/snacks/potato_salad
 	name = "potato salad"
 	desc = "A dish of boiled potatoes mixed with boiled eggs, onions, and mayonnaise. A staple of every self-respecting barbeque."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "potato_salad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -156,6 +165,7 @@
 /obj/item/reagent_containers/food/snacks/melonfruitbowl
 	name = "melon fruit bowl"
 	desc = "For people who wants edible fruit bowls."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "melonfruitbowl"
 	filling_color = "#468C00"
 	bitesize = 3
@@ -165,6 +175,7 @@
 /obj/item/reagent_containers/food/snacks/herbsalad
 	name = "herb salad"
 	desc = "A tasty salad with apples on top."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "herbsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
@@ -175,6 +186,7 @@
 /obj/item/reagent_containers/food/snacks/validsalad
 	name = "valid salad"
 	desc = "It's just an herb salad with meatballs and fried potato slices. Nothing suspicious about it."
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "validsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
