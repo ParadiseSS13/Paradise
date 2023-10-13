@@ -8,9 +8,6 @@
 	icon_state = "yellow"
 	ambientsounds = list('sound/music/clown.ogg')
 
-/area/ruin/powered/animal_hospital
-	icon_state = "yellow"
-
 /area/ruin/powered/snow_biodome
 	icon_state = "yellow"
 

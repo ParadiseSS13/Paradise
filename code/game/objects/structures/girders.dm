@@ -399,8 +399,10 @@
 		qdel(src)
 
 /obj/structure/girder/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
+	if(!height)
+		return TRUE
+	if(istype(mover) && mover.checkpass(PASSGIRDER))
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return prob(girderpasschance)
 	else

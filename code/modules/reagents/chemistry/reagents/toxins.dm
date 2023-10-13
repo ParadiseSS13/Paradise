@@ -1000,7 +1000,7 @@
 				M.Stun(2 SECONDS)
 				M.emote(pick("twitch","twitch","drool","shake","tremble"))
 			if(prob(5))
-				M.emote("collapse")
+				M.emote("faint")
 			if(prob(5))
 				M.Weaken(6 SECONDS)
 				M.visible_message("<span class='warning'>[M] has a seizure!</span>")
@@ -1011,7 +1011,7 @@
 				M.AdjustLoseBreath(2 SECONDS)
 		if(61 to INFINITY)
 			if(prob(15))
-				M.emote(pick("gasp", "choke", "cough","twitch", "shake", "tremble","quiver","drool", "twitch","collapse"))
+				M.emote(pick("gasp", "choke", "cough", "twitch", "shake", "tremble", "quiver", "drool", "twitch", "faint"))
 			M.LoseBreath(10 SECONDS)
 			update_flags |= M.adjustToxLoss(1, FALSE)
 			update_flags |= M.adjustBrainLoss(1, FALSE)
@@ -1101,10 +1101,12 @@
 			M.adjustToxLoss(damage)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
+			var/damage = 1
 			if(!C.wear_mask) // If not wearing a mask
-				C.adjustToxLoss(2)
+				damage *= 2
 			if(iskidan(C)) //RIP
-				C.adjustToxLoss(18)
+				damage *= 10
+			C.adjustToxLoss(damage) // Kidan get 10 damage if they're wearing a mask, and 20 if they're not
 
 /datum/reagent/capulettium
 	name = "Capulettium"

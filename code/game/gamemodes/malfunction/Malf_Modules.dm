@@ -807,13 +807,13 @@
 		return
 	is_active = TRUE
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
-	attached_action.adjust_uses(-1)
+	var/datum/action/innate/ai/ranged/repair_cyborg/actual_action = attached_action
+	actual_action.adjust_uses(-1)
 	robot_target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [robot_target]!</span>")
 	if(!do_mob(caller, robot_target, 10 SECONDS))
 		is_active = FALSE
 		return
 	is_active = FALSE
-	var/datum/action/innate/ai/ranged/repair_cyborg/actual_action = attached_action
 	actual_action.fix_borg(robot_target)
 	remove_ranged_ability(ranged_ability_user, "<span class='warning'>[robot_target] successfully rebooted.</span>")
 	return TRUE

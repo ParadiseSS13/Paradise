@@ -360,9 +360,9 @@
 "ba" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Security";
-	req_access_txt = "2"
+	name = "Labor Camp Security"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Labor";
 	name = "labor camp blast door"
@@ -594,9 +594,9 @@
 /area/mine/laborcamp)
 "bA" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Backroom";
-	req_access_txt = "2"
+	name = "Labor Camp Backroom"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	d1 = 4;
@@ -679,9 +679,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station Hallway";
-	req_access_txt = "48"
+	name = "Mining Station Hallway"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -722,9 +722,9 @@
 /area/mine/laborcamp)
 "bM" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Labor Camp Maintenance";
-	req_access_txt = "2"
+	name = "Labor Camp Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/structure/cable{
 	d1 = 1;
@@ -759,9 +759,9 @@
 "bP" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/maintenance{
-	name = "Catwalk Airlock";
-	req_access_txt = "48"
+	name = "Catwalk Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -782,7 +782,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "bR" = (
 /obj/machinery/recharge_station,
@@ -800,13 +800,13 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "bT" = (
 /obj/machinery/door/airlock/mining{
-	name = "Mining Station Storage";
-	req_access_txt = "48"
+	name = "Mining Station Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -829,7 +829,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "bW" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -1012,9 +1012,9 @@
 /area/mine/eva)
 "cr" = (
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station EVA";
-	req_access_txt = "54"
+	name = "Mining Station EVA"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -1162,7 +1162,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "cI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1236,7 +1236,7 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "cP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1247,7 +1247,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "cQ" = (
 /turf/simulated/wall/r_wall,
@@ -1324,9 +1324,9 @@
 "cZ" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/multi_tile/glass{
-	name = "Outpost Airlock";
-	req_access_txt = "54"
+	name = "Outpost Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1385,9 +1385,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/mining/glass{
-	req_access_txt = "54";
 	name = "Main Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1916,7 +1916,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "ed" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -1998,9 +1998,9 @@
 /area/mine/production)
 "ek" = (
 /obj/machinery/door/airlock/mining{
-	name = "Mining Station Storage";
-	req_access_txt = "48"
+	name = "Mining Station Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2275,9 +2275,9 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station Hallway";
-	req_access_txt = "48"
+	name = "Mining Station Hallway"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2449,9 +2449,9 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external/glass{
 	name = "Mining Shuttle Airlock";
-	id_tag = "mining_away";
-	req_access_txt = "48"
+	id_tag = "mining_away"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plating,
 /area/mine/production)
 "eX" = (
@@ -2494,9 +2494,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station Hallway";
-	req_access_txt = "48"
+	name = "Mining Station Hallway"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -2520,7 +2520,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "fd" = (
 /obj/structure/closet/emcloset,
@@ -2861,9 +2861,9 @@
 /area/mine/abandoned)
 "fJ" = (
 /obj/machinery/door/airlock/titanium{
-	id_tag = "s_docking_airlock";
-	req_access_txt = "48"
+	id_tag = "s_docking_airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/docking_port/mobile/mining,
 /obj/structure/fans/tiny,
 /obj/docking_port/stationary{
@@ -2987,7 +2987,7 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "fY" = (
 /obj/machinery/economy/vending/assist/free,
@@ -3044,9 +3044,9 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/mining/glass{
-	name = "Mining Station Hallway";
-	req_access_txt = "48"
+	name = "Mining Station Hallway"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3195,7 +3195,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "gr" = (
 /obj/structure/stone_tile{
@@ -3255,9 +3255,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/machinery/door/airlock/maintenance{
-	name = "Mining Station Maintenance";
-	req_access_txt = "48"
+	name = "Mining Station Maintenance"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "gw" = (
@@ -3309,7 +3309,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "gB" = (
 /obj/structure/stone_tile/block{
@@ -3819,9 +3819,9 @@
 /obj/structure/fans/tiny,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/multi_tile/glass{
-	name = "Outpost Airlock";
-	req_access_txt = "54"
+	name = "Outpost Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -4953,9 +4953,9 @@
 /area/mine/mechbay)
 "vk" = (
 /obj/machinery/door/airlock/titanium{
-	name = "Labor Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Labor Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
 "vq" = (
@@ -5040,7 +5040,7 @@
 /area/mine/laborcamp)
 "wt" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/siberia)
 "wD" = (
 /obj/effect/decal/remains/human,
@@ -5052,7 +5052,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/siberia)
 "wY" = (
 /obj/item/clothing/mask/gas/clown_hat,
@@ -5072,7 +5072,7 @@
 /area/mine/mechbay)
 "xo" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/mining)
 "xx" = (
 /obj/machinery/light/small{
@@ -5099,6 +5099,10 @@
 "xC" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/mining)
+"xG" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
 "xM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -5117,6 +5121,10 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
 /area/mine/cafeteria)
+"yj" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "ym" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -5202,7 +5210,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "zy" = (
 /turf/simulated/wall,
@@ -5268,6 +5276,10 @@
 "Bg" = (
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/siberia)
+"BB" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors)
 "BD" = (
 /obj/effect/turf_decal/bot_white,
 /obj/machinery/shower{
@@ -5280,9 +5292,9 @@
 /area/mine/sleeper)
 "BE" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Airlock Maintence";
-	req_access_txt = "54"
+	name = "Airlock Maintence"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plating,
 /area/mine/airlock)
 "BH" = (
@@ -5550,9 +5562,9 @@
 "FW" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
-	name = "Labor Shuttle Airlock";
-	req_access_txt = "2"
+	name = "Labor Shuttle Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/shuttle/siberia)
@@ -5585,9 +5597,9 @@
 "Hc" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "laborcamp_away";
-	name = "Labor Camp Airlock";
-	req_access_txt = "2"
+	name = "Labor Camp Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/mine/laborcamp/security)
@@ -5614,9 +5626,9 @@
 /area/mine/laborcamp)
 "HN" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Labor Camp Security";
-	req_access_txt = "2"
+	name = "Labor Camp Security"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp/security)
 "HT" = (
@@ -5751,6 +5763,10 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/cafeteria)
+"Kd" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored)
 "Kl" = (
 /obj/structure/table,
 /obj/item/trash/plate,
@@ -5774,6 +5790,10 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/siberia)
+"KU" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/volcanic/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Lr" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -6039,9 +6059,9 @@
 /area/mine/laborcamp)
 "QF" = (
 /obj/machinery/door/airlock{
-	name = "Abandoned Airlock";
-	req_access_txt = "48"
+	name = "Abandoned Airlock"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/barricade/wooden,
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -6090,7 +6110,7 @@
 /obj/machinery/door/airlock{
 	name = "Catwalk Airlock"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/mine/eva)
 "Ss" = (
 /obj/structure/rack,
@@ -21930,12 +21950,12 @@ am
 am
 am
 am
-am
-am
-ai
-aj
-aj
-AE
+Kd
+Kd
+BB
+xG
+xG
+KU
 AE
 cP
 AE
@@ -22187,12 +22207,12 @@ am
 am
 am
 am
-am
-ai
-aj
-aj
-ab
-aj
+Kd
+BB
+xG
+xG
+yj
+xG
 bf
 Rs
 bf
@@ -22444,12 +22464,12 @@ am
 am
 am
 am
-am
-ai
-aj
-aj
-aj
-aj
+Kd
+BB
+xG
+xG
+xG
+xG
 bf
 cU
 dH
@@ -22701,12 +22721,12 @@ am
 am
 am
 am
-am
-am
-ai
-aj
-aj
-aj
+Kd
+Kd
+BB
+xG
+xG
+xG
 bf
 bp
 bD
@@ -22958,12 +22978,12 @@ am
 am
 am
 am
-am
-am
-am
-ab
-ab
-aj
+Kd
+Kd
+Kd
+yj
+yj
+xG
 jP
 bt
 bY
@@ -23215,12 +23235,12 @@ am
 am
 am
 am
-am
-am
-ai
-ab
-aj
-aj
+Kd
+Kd
+BB
+yj
+xG
+xG
 bf
 bf
 jP
@@ -23472,12 +23492,12 @@ am
 am
 am
 am
-am
-am
-ai
-aj
-aj
-aj
+Kd
+Kd
+BB
+xG
+xG
+xG
 bf
 bX
 bX
@@ -23729,12 +23749,12 @@ am
 am
 am
 am
-am
-am
-ai
-aj
-aj
-aj
+Kd
+Kd
+BB
+xG
+xG
+xG
 bf
 eJ
 ef
@@ -23749,7 +23769,7 @@ Qq
 DA
 bq
 bq
-AE
+KU
 bq
 xl
 Ez
@@ -23986,12 +24006,12 @@ am
 am
 am
 am
-am
-am
-ai
-aj
-aj
-AE
+Kd
+Kd
+BB
+xG
+xG
+KU
 bf
 Eg
 ex
@@ -24005,9 +24025,9 @@ Dz
 Nk
 Dz
 Dz
-AE
-AE
-AE
+KU
+KU
+KU
 zy
 zy
 um
@@ -24243,12 +24263,12 @@ am
 am
 am
 am
-am
-am
-ai
-ab
-AE
-AE
+Kd
+Kd
+BB
+yj
+KU
+KU
 bf
 eo
 eS
@@ -24262,34 +24282,34 @@ cZ
 ds
 dE
 kf
-ab
-ab
-ab
-AE
-AE
-AE
-AE
-AE
-ab
-ab
-aj
-ab
-ab
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
+yj
+yj
+yj
+KU
+KU
+KU
+KU
+KU
+yj
+yj
+xG
+yj
+yj
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
 "}
 (70,1,1) = {"
 aa
@@ -24500,12 +24520,12 @@ am
 am
 am
 am
-am
-ai
-ab
-ab
-AE
-AE
+Kd
+BB
+yj
+yj
+KU
+KU
 bf
 dY
 dY
@@ -24519,34 +24539,34 @@ cD
 fG
 vT
 cD
-ab
-ab
-ab
-ab
-AE
-AE
-AE
-ab
-ab
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
+yj
+yj
+yj
+yj
+KU
+KU
+KU
+yj
+yj
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
 "}
 (71,1,1) = {"
 aa
@@ -24757,12 +24777,12 @@ am
 am
 am
 am
-ai
-ab
-ab
-ab
-AE
-AE
+BB
+yj
+yj
+yj
+KU
+KU
 bf
 bF
 bF
@@ -24776,34 +24796,34 @@ Dz
 Yv
 Yv
 Dz
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-ab
-aj
-ab
-aj
-aj
-aj
-aj
-aj
-ab
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+yj
+xG
+yj
+xG
+xG
+xG
+xG
+xG
+yj
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
 "}
 (72,1,1) = {"
 aa
@@ -25013,54 +25033,54 @@ ai
 am
 am
 am
-ai
-ab
-ab
-ab
-ab
-ab
-AE
-AE
-ab
-ab
-ab
-ab
-AE
-AE
-AE
-AE
-AE
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-ab
-aj
-aj
-ab
-aj
-aj
-aj
-aj
+BB
+yj
+yj
+yj
+yj
+yj
+KU
+KU
+yj
+yj
+yj
+yj
+KU
+KU
+KU
+KU
+KU
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+yj
+xG
+xG
+yj
+xG
+xG
+xG
+xG
 "}
 (73,1,1) = {"
 aa
@@ -25270,54 +25290,54 @@ ab
 ai
 ai
 am
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-AE
-AE
-ab
-ab
-ab
-AE
-AE
-AE
-AE
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-aj
-ab
-aj
-aj
-ab
-aj
-ab
-aj
-aj
-aj
-ab
-ab
-aj
-aj
-ab
-aj
-aj
-aj
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+KU
+KU
+yj
+yj
+yj
+KU
+KU
+KU
+KU
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+xG
+yj
+xG
+xG
+yj
+xG
+yj
+xG
+xG
+xG
+yj
+yj
+xG
+xG
+yj
+xG
+xG
+xG
 "}
 (74,1,1) = {"
 aa
@@ -25527,54 +25547,54 @@ ab
 ai
 ab
 ai
-am
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-ab
-aj
-aj
-aj
-aj
-ab
-ab
-aj
-ab
-aj
-aj
-ab
-ab
-ab
-ab
-aj
-aj
-aj
+Kd
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+yj
+xG
+xG
+xG
+xG
+yj
+yj
+xG
+yj
+xG
+xG
+yj
+yj
+yj
+yj
+xG
+xG
+xG
 "}
 (75,1,1) = {"
 aa
@@ -25784,54 +25804,54 @@ ab
 ab
 ab
 ab
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-aj
-ab
-ab
-ab
-aj
-aj
-aj
-ab
-ab
-ab
-aj
-aj
-aj
-ab
-ab
-ab
-aj
-ab
-aj
-aj
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+yj
+yj
+yj
+yj
+xG
+yj
+yj
+yj
+xG
+xG
+xG
+yj
+yj
+yj
+xG
+xG
+xG
+yj
+yj
+yj
+xG
+yj
+xG
+xG
 "}
 (76,1,1) = {"
 aa
@@ -26041,54 +26061,54 @@ ab
 ab
 ab
 ab
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ai
-ai
-ai
-ab
-ab
-aj
-ab
-ab
-ab
-aj
-aj
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-aj
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+BB
+BB
+BB
+yj
+yj
+xG
+yj
+yj
+yj
+xG
+xG
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+xG
 "}
 (77,1,1) = {"
 aa
@@ -26298,54 +26318,54 @@ ab
 ab
 ab
 ab
-ai
-ai
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ai
-ab
-ab
-aj
-ab
-ab
-ab
-ab
-ab
-aj
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-ab
-aj
+BB
+BB
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+BB
+BB
+BB
+BB
+BB
+BB
+BB
+yj
+yj
+xG
+yj
+yj
+yj
+yj
+yj
+xG
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+yj
+xG
 "}
 (78,1,1) = {"
 aa
@@ -26555,54 +26575,54 @@ ab
 ab
 ab
 ab
-ab
-ai
-ai
-ab
-ab
-ab
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ai
-aj
-aj
-aj
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-ab
-aj
-aj
+yj
+BB
+BB
+yj
+yj
+yj
+BB
+BB
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+BB
+xG
+xG
+xG
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+yj
+xG
+xG
 "}
 (79,1,1) = {"
 aa
@@ -26812,54 +26832,54 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-aj
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-ab
-aj
-aj
-aj
-aj
+yj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+xG
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+yj
+xG
+xG
+xG
+xG
 "}
 (80,1,1) = {"
 aa
@@ -27069,54 +27089,54 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-ab
-aj
-aj
-aj
+yj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+yj
+xG
+xG
+xG
 "}
 (81,1,1) = {"
 aa
@@ -27326,54 +27346,54 @@ ab
 ab
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-ab
-aj
-aj
+yj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+yj
+xG
+xG
 "}
 (82,1,1) = {"
 aa
@@ -27583,54 +27603,54 @@ ai
 ai
 ab
 ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-aj
-aj
-aj
-aj
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-aj
-aj
-aj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+xG
+xG
+xG
+xG
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+xG
+xG
+xG
 "}
 (83,1,1) = {"
 aa
@@ -27840,54 +27860,54 @@ am
 am
 ai
 ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ai
-ai
-ai
-ai
-ab
-aj
-aj
-aj
-aj
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-ab
-aj
-aj
-aj
-aj
-aj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+BB
+BB
+BB
+BB
+yj
+xG
+xG
+xG
+xG
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+yj
+xG
+xG
+xG
+xG
+xG
 "}
 (84,1,1) = {"
 aa
