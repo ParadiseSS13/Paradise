@@ -701,12 +701,12 @@
 						active_character.nanotrasen_relation = new_relation
 
 				if("physique")
-					var/new_physique = input(user, "Choose your descriptor for how built your character is on glance.", "Character Preference") as null|anything in list("rail thin", "thin", "average build", "well-built", "muscular", "overweight")
+					var/new_physique = input(user, "Choose your descriptor for how built your character is on glance.", "Character Preference") as null|anything in GLOB.character_physiques
 					if(new_physique)
 						active_character.physique = new_physique
 
 				if("height")
-					var/new_height = input(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference") as null|anything in list("very short", "short", "average height", "tall", "very tall")
+					var/new_height = input(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference") as null|anything in GLOB.character_heights
 					if(new_height)
 						active_character.height = new_height
 
