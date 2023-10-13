@@ -18,7 +18,7 @@
 		M = transform
 	else
 		M = new
-	M.Scale(nx,ny)
+	M.Scale(nx, ny)
 	transform = M
 
 /obj/effect/projectile/proc/turn_to(angle,override=TRUE)
@@ -47,13 +47,13 @@
 		look.appearance_flags = RESET_COLOR | RESET_ALPHA
 	icon_state = null
 	add_overlay(look)
-	scale_to(1,scaling, FALSE)
+	scale_to(1, scaling, FALSE)
 	turn_to(angle_override, FALSE)
 	if(!isnull(new_loc)) //If you want to null it just delete it...
 		forceMove(new_loc)
 	for(var/i in 1 to increment)
-		pixel_x += round((sin(angle_override)+16*sin(angle_override)*2), 1)
-		pixel_y += round((cos(angle_override)+16*cos(angle_override)*2), 1)
+		pixel_x += round((sin(angle_override) + 16 * sin(angle_override) * 2), 1)
+		pixel_y += round((cos(angle_override) + 16 * cos(angle_override) * 2), 1)
 
 /obj/effect/projectile_lighting
 	var/owner
