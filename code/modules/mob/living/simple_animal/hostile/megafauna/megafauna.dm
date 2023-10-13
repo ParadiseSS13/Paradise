@@ -148,8 +148,10 @@
 
 /mob/living/simple_animal/hostile/megafauna/proc/do_chasm()
 	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
+		if(!C.density)
+			continue
 		C.density = FALSE //I hate it.
-		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
+		addtimer(VARSET_CALLBACK(C, density, TRUE), 2.25 SECONDS) // Needed to make them path. I hate it.
 
 /// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
 /mob/living/simple_animal/hostile/megafauna/proc/enrage()

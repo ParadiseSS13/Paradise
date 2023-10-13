@@ -415,7 +415,7 @@
 		return P
 
 /mob/living/simple_animal/hostile/proc/CanSmashTurfs(turf/T)
-	return iswallturf(T) || ismineralturf(T)
+	return iswallturf(T) || ismineralturf(T) || (istype(T, /turf/simulated/floor/chasm) && (ismegafauna(src) || flying))
 
 /mob/living/simple_animal/hostile/Move(atom/newloc, dir , step_x , step_y)
 	if(!client && dodging && approaching_target && prob(dodge_prob) && !moving_diagonally && isturf(loc) && isturf(newloc))
@@ -439,6 +439,9 @@
 		return
 	if(T.Adjacent(targets_from))
 		if(CanSmashTurfs(T))
+			if(istype(T, /turf/simulated/floor/chasm))
+				forceMove(T)
+				return
 			T.attack_animal(src)
 			return
 	for(var/obj/O in T.contents)
