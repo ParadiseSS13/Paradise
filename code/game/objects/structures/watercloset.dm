@@ -78,6 +78,9 @@
 	if(istype(I, /obj/item/grab))
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/grab/G = I
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='danger'>Swirling [G.affecting] might hurt them!</span>")
+			return
 		if(!G.confirm())
 			return
 		if(isliving(G.affecting))
@@ -203,6 +206,9 @@
 	if(istype(I, /obj/item/grab))
 		var/obj/item/grab/G = I
 		if(!G.confirm())
+			return
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
 			return
 		if(isliving(G.affecting))
 			var/mob/living/GM = G.affecting
