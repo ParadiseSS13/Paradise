@@ -616,8 +616,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	to_chat(src, result.Join("\n"))
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if((!( istype(l_hand, /obj/item/grab)) && !( istype(r_hand, /obj/item/grab))))
-		if(!( L))
+	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
+		if(!L)
 			return null
 		else
 			return L.container
