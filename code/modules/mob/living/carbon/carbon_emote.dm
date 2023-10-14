@@ -168,23 +168,38 @@
 	if(!.)
 		return
 
-	if(user.l_hand || user.r_hand)
-		return TRUE
+	if(user.get_active_hand() || user.get_inactive_hand())
+		var/obj/item/thing
+
+		if(user.get_active_hand())
+			thing = user.get_active_hand()
+		else
+			thing = user.get_inactive_hand()
+
+		if(thing.flags & ABSTRACT && !istype(thing, /obj/item/grab))
+			to_chat(user, "<span class='warning'>You cannot twirl [thing]!</span>")
+			return FALSE
+		else
+			return TRUE
 
 	to_chat(user, "<span class='warning'>You need something in your hand to use this emote!</span>")
 	return FALSE
 
 /datum/emote/living/carbon/twirl/run_emote(mob/user, params, type_override, intentional)
 
-	var/obj/item/thing = user.l_hand || user.r_hand
-	if(thing.flags & ABSTRACT)
-		if(istype(thing, /obj/item/grab))
-			var/obj/item/grab/grabbed = thing
-			message = "twirls [grabbed.affecting.name] around!"
-			grabbed.affecting.emote("spin")
-		else
-			return
+	var/obj/item/thing
+
+	if(user.get_active_hand())
+		thing = user.get_active_hand()
+	else
+		thing = user.get_inactive_hand()
+
+	if(istype(thing, /obj/item/grab))
+		var/obj/item/grab/grabbed = thing
+		message = "twirls [grabbed.affecting.name] around!"
+		grabbed.affecting.emote("spin")
 	else
 		message = "twirls [thing] around in their hand!"
+
 	. = ..()
 	message = initial(message)
