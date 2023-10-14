@@ -61,6 +61,8 @@ Difficulty: Hard
 	var/revving_charge = FALSE
 	/// Is it on its enraged exclusive second life?
 	var/second_life = FALSE
+	/// Does it have a portal to the funny second life arena created?
+	var/obj/effect/portal/redspace/second_life_portal
 	/// Max healing bubblegum can get from being enraged
 	var/maximum_enraged_healing = 500
 	/// Enraged healing recived
@@ -151,6 +153,7 @@ Difficulty: Hard
 		great_chest_ahead.forceMove(jebait)
 	if(second_life)
 		var/area/A = get_area(src)
+		qdel(second_life_portal)
 		for(var/mob/M in A)
 			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
 			new /obj/effect/bubblegum_exit(get_turf(src))
@@ -646,7 +649,10 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Initialize(mapload)
 	. = ..()
+	for(var/obj/effect/landmark/spawner/bubblegum_exit/E in GLOB.landmarks_list)
+		second_life_portal = new /obj/effect/portal/redspace(get_turf(E), get_turf(src), null, 2 HOURS, src, FALSE)
+		break
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(20))
-		to_chat(H, "<span class='colossus'><b>I WILL END YOU HERE AND NOW!</b></span>")
+		to_chat(H, "<span class='colossus'><b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b></span>")
 		FindTarget(list(H), 1)
