@@ -7514,13 +7514,13 @@
 /obj/machinery/light/small,
 /obj/structure/closet,
 /obj/item/storage/bag/trash,
-/obj/item/storage/box/lights/bulbs,
 /obj/item/soap/nanotrasen,
 /obj/machinery/alarm{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/item/storage/box/lights/mixed,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners"
 	},

@@ -122,7 +122,7 @@
 	icon_state = "amaint"
 
 /area/mine/outpost/maintenance/east
-	name = "Mining Station South Maintenance"
+	name = "Mining Station East Maintenance"
 	icon_state = "smaint"
 
 /area/mine/outpost/medbay
