@@ -85,15 +85,25 @@
 	name = "Mining Station Communications"
 	icon_state = "tcomms"
 
+/area/mine/outpost/custodial
+	name = "Mining Station Custodial Storage"
+	icon_state = "janitor"
+
+/area/mine/outpost/engineering
+	name = "Mining Station Life Support"
+	icon_state = "engi"
+
 /area/mine/outpost/hallway
 	name = "Mining Station Central Wing"
 	icon_state = "hallC"
 
 /area/mine/outpost/hallway/east
 	name = "Mining Station East Wing"
+	icon_state = "hallS"
 
 /area/mine/outpost/hallway/west
 	name = "Mining Station West Wing"
+	icon_state = "hallP"
 
 /area/mine/outpost/lockers
 	name = "Mining Station Lockers"
@@ -104,8 +114,16 @@
 	icon_state = "storage"
 
 /area/mine/outpost/maintenance
-	name = "Mining Station Primary Maintenance"
-	icon_state = "engimaint"
+	name = "Mining Station Maintenance"
+	icon_state = "maintcentral"
+
+/area/mine/outpost/maintenance/south
+	name = "Mining Station South Maintenance"
+	icon_state = "amaint"
+
+/area/mine/outpost/maintenance/east
+	name = "Mining Station South Maintenance"
+	icon_state = "smaint"
 
 /area/mine/outpost/medbay
 	name = "Mining Station Infirmary"
