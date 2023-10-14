@@ -23,6 +23,7 @@
 	update_transform()
 
 /mob/living/carbon/human/monkey/magic
+	/// Stores the timer ID of the timer that happens in Life() to prevent multiple of the same timer happening.
 	var/return_timer
 
 /mob/living/carbon/human/monkey/magic/Initialize(mapload)
