@@ -40,6 +40,10 @@
 	var/nest_range = 10
 	var/chosen_attack = 1 // chosen attack num
 	var/list/attack_action_types = list()
+	/// Has someone enabled hard mode?
+	var/enraged = FALSE
+	/// Path of the hardmode loot disk, if applicable.
+	var/enraged_loot
 
 /mob/living/simple_animal/hostile/megafauna/Initialize(mapload)
 	. = ..()
@@ -54,6 +58,8 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/Moved()
+	if(target)
+		DestroySurroundings() //So they can path through chasms.
 	if(nest && nest.parent && get_dist(nest.parent, src) > nest_range)
 		var/turf/closest = get_turf(nest.parent)
 		for(var/i = 1 to nest_range)
@@ -72,6 +78,10 @@
 		var/datum/status_effect/crusher_damage/C = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
 		if(C && crusher_loot && C.total_damage >= maxHealth * 0.6)
 			spawn_crusher_loot()
+		if(enraged && length(loot) && enraged_loot) //Don't drop a disk if the boss drops no loot. Important for legion.
+			for(var/mob/living/M in urange(20, src)) //Yes big range, but for bubblegum arena
+				if(M.client)
+					loot += enraged_loot //Disk for each miner / borg.
 		if(!elimination)	//used so the achievment only occurs for the last legion to die.
 			SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
 	return ..()
@@ -87,9 +97,14 @@
 		var/mob/living/L = target
 		if(L.stat != DEAD)
 			if(!client && ranged && ranged_cooldown <= world.time)
-				OpenFire()
+				OpenFire(L)
 		else
 			devour(L)
+
+/mob/living/simple_animal/hostile/megafauna/onTransitZ(old_z, new_z)
+	. = ..()
+	if(!istype(get_area(src), /area/shuttle)) //I'll be funny and make non teleported enrage mobs not lose enrage. Harder to pull off, and also funny when it happens accidently. Or if one gets on the escape shuttle.
+		unrage()
 
 /mob/living/simple_animal/hostile/megafauna/onShuttleMove(turf/oldT, turf/T1, rotation, mob/caller)
 	var/turf/oldloc = loc
@@ -127,6 +142,21 @@
 /mob/living/simple_animal/hostile/megafauna/proc/SetRecoveryTime(buffer_time)
 	recovery_time = world.time + buffer_time
 	ranged_cooldown = world.time + buffer_time
+
+/// This proc is called by the HRD-MDE grenade to enrage the megafauna. This should increase the megafaunas attack speed if possible, give it new moves, or disable weak moves. This should be reverseable, and reverses on zlvl change.
+/mob/living/simple_animal/hostile/megafauna/proc/enrage()
+	if(enraged || ((health / maxHealth) * 100 <= 80))
+		return
+	enraged = TRUE
+
+/mob/living/simple_animal/hostile/megafauna/proc/unrage()
+	enraged = FALSE
+
+/mob/living/simple_animal/hostile/megafauna/DestroySurroundings()
+	. = ..()
+	for(var/turf/simulated/floor/chasm/C in circlerangeturfs(src, 1))
+		C.density = FALSE //I hate it.
+		addtimer(VARSET_CALLBACK(C, density, TRUE), 2 SECONDS) // Needed to make them path. I hate it.
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"

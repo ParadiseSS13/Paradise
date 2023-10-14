@@ -14,7 +14,7 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
 	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol","omnizine",
