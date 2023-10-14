@@ -5483,7 +5483,7 @@
 	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
+	icon_state = "darkgreencorners"
 	},
 /area/mine/outpost/custodial)
 "wg" = (
@@ -7063,7 +7063,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
+	icon_state = "darkgreencorners"
 	},
 /area/mine/outpost/custodial)
 "KA" = (
@@ -7414,7 +7414,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
+	icon_state = "darkgreencorners"
 	},
 /area/mine/outpost/custodial)
 "ND" = (
@@ -7533,7 +7533,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "greencorner"
+	icon_state = "darkgreencorners"
 	},
 /area/mine/outpost/custodial)
 "OU" = (
@@ -7843,7 +7843,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
 /area/mine/outpost/custodial)
 "Sb" = (
 /obj/machinery/light/small{
