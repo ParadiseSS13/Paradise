@@ -1213,6 +1213,9 @@
 	name = "West Switch";
 	dir = 4
 	},
+/obj/machinery/defibrillator_mount/loaded/locked{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
 	dir = 8
