@@ -622,7 +622,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		else
 			return L.container
 	else
-		if(!( L))
+		if(!L)
 			L = new /obj/effect/list_container/mobl( null )
 			L.container += src
 			L.master = src
