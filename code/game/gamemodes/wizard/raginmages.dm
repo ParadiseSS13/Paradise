@@ -24,14 +24,24 @@
 		magic.product_records.Cut()
 		magic.build_inventory(magic.products, magic.product_records)
 	..()
+<<<<<<< HEAD
 
 /datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
 	if(you_are)
 		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
 	to_chat(wizard.current, "<B>The Space Wizard Federation has given you the following tasks:</B>")
+=======
+>>>>>>> 6a2704a3ad53e9d65ce0534f9d5605cb5a932be0
 
-	to_chat(wizard.current, "<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
-	wizard.announce_objectives(title = FALSE)
+/datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
+	var/list/messages = list()
+	if(you_are)
+		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
+	messages.Add("<B>The Space Wizards Federation has given you the following tasks:</B>")
+
+	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
+	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
+	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	wizard.current.create_log(MISC_LOG, "[wizard.current] was made into a wizard")
 
 /datum/game_mode/wizard/raginmages/check_finished()

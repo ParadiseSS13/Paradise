@@ -318,7 +318,7 @@
 			status += " and "
 
 		if(LB.status & ORGAN_BURNT)
-			status += "critically burnt"
+			status += "critically burnt" + (LB.status & ORGAN_SALVED ? ", but salved" : "")
 		else
 			switch(burndamage)
 				if(0.1 to 10)
@@ -616,7 +616,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	for(var/obj/item/dualsaber/D in contents)
-		if(HAS_TRAIT(src, TRAIT_WIELDED) && D.force)
+		if(HAS_TRAIT(D, TRAIT_WIELDED) && D.force)
 			visible_message("<span class='danger'>[src] impales [C] with [D], before dropping them on the ground!</span>")
 			C.apply_damage(100, BRUTE, "chest", sharp = TRUE, used_weapon = "Impaled on [D].")
 			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
