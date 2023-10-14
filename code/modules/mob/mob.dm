@@ -638,7 +638,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if(!( flag))
+		if(!flag)
 			if(L.master == src)
 				var/list/temp = list(  )
 				temp += L.container
