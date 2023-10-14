@@ -151,7 +151,7 @@
 		var/obj/machinery/light/light = target
 		var/obj/item/light/L = light.drop_light_tube()
 		L.forceMove(src)
-		user.visible_message("<span class='warning'>[user] removes the light from the fixture!</span>", "<span class='notice'>You dislodge the light from the fixture.</span>")
+		user.visible_message("<span class='notice'>[user] removes the light from the fixture.</span>", "<span class='notice'>You dislodge the light from the fixture.</span>")
 
 	return TRUE
 
