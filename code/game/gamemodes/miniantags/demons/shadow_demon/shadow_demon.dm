@@ -19,7 +19,7 @@
 		"<b>Striking your victims with your shadow grapple extinguishes any light sources around them. Striking items silences any light within them.</b>",
 		"<b>You can wrap your dead victims into a shadow cocoon which provides a shroud of darkness which tears away any light near it.</b>",
 		"<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>",
-		"<br><span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Shadow_Demon)</span>"
+		"<br><span class='motd'>For more information, check the wiki page: [wiki_link("Shadow_Demon")]</span>"
 	)
 	to_chat(src, chat_box_red(L.Join("<br>")))
 
