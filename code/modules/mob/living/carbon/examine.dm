@@ -176,7 +176,10 @@
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
 
 	for(var/obj/item/abstract_item in abstract_items)
-		msg += abstract_item.customised_abstract_text()
+		var/text = abstract_item.customised_abstract_text()
+		if(!text)
+			continue
+		msg += "[text]\n"
 
 	//Jitters
 	switch(AmountJitter())

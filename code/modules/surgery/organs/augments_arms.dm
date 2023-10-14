@@ -488,7 +488,7 @@
 	if(!ishuman(loc))
 		return
 	var/mob/living/carbon/human/owner = loc
-	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] is covered in metal.</span>\n"
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] is covered in metal.</span>"
 
 /obj/item/shield/v1_arm/emp_act(severity)
 	if(disabled)

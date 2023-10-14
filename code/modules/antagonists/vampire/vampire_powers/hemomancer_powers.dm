@@ -72,7 +72,7 @@
 	if(!ishuman(loc))
 		return
 	var/mob/living/carbon/human/owner = loc
-	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>\n"
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
 /obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
