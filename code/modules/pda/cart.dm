@@ -170,7 +170,7 @@
 
 /obj/item/cartridge/hop
 	name = "HumanResources9001"
-	desc = "A data cartridge for portable microcomputers. Has security records, a custodial locator and a status display controller."
+	desc = "A data cartridge for portable microcomputers. Has security records, a custodial locator, and a status display controller."
 	icon_state = "cart-h"
 	programs = list(
 		new /datum/data/pda/app/crew_records/security,
