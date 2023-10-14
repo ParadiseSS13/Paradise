@@ -445,7 +445,7 @@
 	lastfired = world.time
 	var/turf/T = loc
 	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
-	if((!( U) || !( T)))
+	if((!U || !T))
 		return
 	while(!isturf(U))
 		U = U.loc
