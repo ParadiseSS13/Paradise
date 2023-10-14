@@ -89,6 +89,8 @@ research holder datum.
 /datum/research/proc/DesignHasReqs(datum/design/D)
 	if(D.id in blacklisted_designs)
 		return FALSE
+	if(D.requires_whitelist && !(known_designs[D.id]))
+		return FALSE
 	if(D.req_tech.len == 0)
 		return TRUE
 	for(var/req in D.req_tech)
@@ -388,11 +390,6 @@ datum/tech/robotics
 	var/default_name = "\improper Technology Disk"
 	var/default_desc = "A disk for storing technology data for further research."
 
-/obj/item/disk/tech_disk/Initialize(mapload)
-	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
-
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"
 	desc = T.desc + "\n <span class='notice'>Level: [T.level]</span>"
@@ -415,11 +412,6 @@ datum/tech/robotics
 	// Otherwise, I'd use "initial()"
 	var/default_name = "\improper Component Design Disk"
 	var/default_desc = "A disk for storing device design data for construction in lathes."
-
-/obj/item/disk/design_disk/Initialize(mapload)
-	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
 
 /obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
 	name = "[default_name] \[[D]\]"

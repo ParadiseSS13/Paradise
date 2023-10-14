@@ -253,7 +253,7 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 			break
 
 		var/list/L = list(45)
-		if(ISODD(dir2angle(dir)) && (!SSmapping.cave_theme == BLOCKED_BURROWS || prob(33))) // We're going at an angle and we want thick angled tunnels.
+		if(ISODD(dir2angle(dir)) && (!(SSmapping.cave_theme == BLOCKED_BURROWS) || prob(15)))
 			L += -45
 
 		// Expand the edges of our tunnel

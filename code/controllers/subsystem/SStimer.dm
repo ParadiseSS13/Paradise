@@ -582,7 +582,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 	set category = "Debug"
 	set desc = "Shows the log of what types created timers this round"
 
-	if(!check_rights(R_DEBUG))
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
 	var/list/sorted = sortTim(GLOB.timers_by_type, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
@@ -597,6 +597,9 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 	set name = "Debug Timers"
 	set category = "Debug"
 	set desc = "Shows currently active timers, grouped by callback"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
 
 	var/list/timers = list()
 	for(var/id in SStimer.timer_id_dict)

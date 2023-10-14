@@ -99,8 +99,8 @@
 	text_dehack = "You restore [name]'s combat inhibitor."
 	text_dehack_fail = "[name] ignores your attempts to restrict [p_them()]!"
 
-/mob/living/simple_animal/bot/ed209/show_controls(mob/M)
-	ui_interact(M)
+/mob/living/simple_animal/bot/ed209/show_controls(mob/user)
+	ui_interact(user)
 
 /mob/living/simple_animal/bot/ed209/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -109,22 +109,12 @@
 		ui.open()
 
 /mob/living/simple_animal/bot/ed209/ui_data(mob/user)
-	var/list/data = list(
-		"locked" = locked, // controls, locked or not
-		"noaccess" = topic_denied(user), // does the current user have access? admins, silicons etc can still access bots with locked controls
-		"maintpanel" = open,
-		"on" = on,
-		"autopatrol" = auto_patrol,
-		"painame" = paicard ? paicard.pai.name : null,
-		"canhack" = canhack(user),
-		"emagged" = emagged, // this is an int, NOT a boolean
-		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
-		"check_id" = idcheck,
-		"check_weapons" = weaponscheck,
-		"check_warrant" = check_records,
-		"arrest_mode" = arrest_type, // detain or arrest
-		"arrest_declare" = declare_arrests // announce arrests on radio
-	)
+	var/list/data = ..()
+	data["check_id"] = idcheck
+	data["check_weapons"] = weaponscheck
+	data["check_warrant"] = check_records
+	data["arrest_mode"] = arrest_type // detain or arrest
+	data["arrest_declare"] = declare_arrests // announce arrests on radio
 	return data
 
 /mob/living/simple_animal/bot/ed209/ui_act(action, params)

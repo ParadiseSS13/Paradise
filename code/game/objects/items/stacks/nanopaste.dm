@@ -2,7 +2,7 @@
 	name = "nanopaste"
 	singular_name = "nanite swarm"
 	desc = "A tube of paste containing swarms of repair nanites. Very effective in repairing robotic machinery."
-	icon = 'icons/obj/nanopaste.dmi'
+	icon = 'icons/obj/surgery.dmi'
 	icon_state = "tube"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;engineering=3"

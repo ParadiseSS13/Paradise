@@ -372,7 +372,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	linked_destroy.busy = FALSE
 	use_power(DECONSTRUCT_POWER)
-	menu = MENU_MAIN
+	menu = MENU_DESTROY
 	submenu = SUBMENU_MAIN
 	SStgui.update_uis(src)
 
@@ -459,8 +459,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/proc/finish_machine(key, amount, enough_materials,  obj/machinery/r_n_d/machine, datum/design/being_built, list/efficient_mats)
 	if(machine)
 		if(enough_materials && being_built)
+			SSblackbox.record_feedback("nested tally", "RND Production List", amount, list("[being_built.category]", "[being_built.name]"))
 			for(var/i in 1 to amount)
 				var/obj/item/new_item = new being_built.build_path(src)
+				new_item.pixel_x = rand(-5, 5)
+				new_item.pixel_y = rand(-5, 5)
 				if(istype(new_item, /obj/item/storage/backpack/holding))
 					new_item.investigate_log("built by [key]","singulo")
 				if(!istype(new_item, /obj/item/stack/sheet)) // To avoid materials dupe glitches

@@ -311,6 +311,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		var/obj/item/storage/S = src.loc
 		S.remove_from_storage(src)
 
+	if(..())
+		return
+
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
@@ -754,6 +757,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
 	remove_outline()
+	return ..()
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
 	if(!user || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == I)

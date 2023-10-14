@@ -70,6 +70,15 @@
 	icon_state = "meatwheat_clump"
 	bitesize = 4
 
+/obj/item/reagent_containers/food/snacks/meat/tomatomeat
+	name = "tomato slice"
+	desc = "A slice from a huge tomato."
+	icon_state = "tomatomeat"
+	filling_color = "#DB0000"
+	bitesize = 6
+	list_reagents = list("protein" = 2)
+	tastes = list("tomato" = 1)
+
 /obj/item/reagent_containers/food/snacks/rawcutlet
 	name = "raw cutlet"
 	desc = "A thin strip of raw meat."

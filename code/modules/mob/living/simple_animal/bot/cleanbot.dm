@@ -199,18 +199,8 @@
 		ui.open()
 
 /mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
-	var/list/data = list(
-		"locked" = locked, // controls, locked or not
-		"noaccess" = topic_denied(user), // does the current user have access? admins, silicons etc can still access bots with locked controls
-		"maintpanel" = open,
-		"on" = on,
-		"autopatrol" = auto_patrol,
-		"painame" = paicard ? paicard.pai.name : null,
-		"canhack" = canhack(user),
-		"emagged" = emagged, // this is an int, NOT a boolean
-		"remote_disabled" = remote_disabled, // -- STUFF BELOW HERE IS SPECIFIC TO THIS BOT
-		"cleanblood" = blood
-	)
+	var/list/data = ..()
+	data["cleanblood"] = blood
 	return data
 
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
