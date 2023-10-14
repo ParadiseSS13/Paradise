@@ -635,12 +635,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
+		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"))
 		return 1
 
 	face_atom(A)
 	var/list/result = A.examine(src)
-	to_chat(src, result.Join("\n"))
+	to_chat(src, chat_box_examine(result.Join("\n")))
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))

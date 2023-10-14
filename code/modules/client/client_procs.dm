@@ -326,8 +326,6 @@
 	view = prefs.viewrange
 
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
-	prefs.last_ip = address				//these are gonna be used for banning
-	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
 
 	// Log alts
