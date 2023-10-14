@@ -634,7 +634,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					G.affecting.ret_grab(L, 1)
 		if(istype(r_hand, /obj/item/grab))
 			var/obj/item/grab/G = r_hand
-			if(!( L.container.Find(G.affecting)))
+			if(!L.container.Find(G.affecting))
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
