@@ -4667,7 +4667,7 @@
 /area/mine/outpost/hallway/west)
 "oz" = (
 /obj/machinery/door/airlock/maintenance{
-	name = "Cleaning Supply Storage Maintence"
+	name = "Custodial Storage Maintence"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -7401,7 +7401,7 @@
 /area/mine/outpost/hallway/east)
 "Nz" = (
 /obj/machinery/door/airlock{
-	name = "Cleaning Supply Storage"
+	name = "Custodial Storage"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/cable{
@@ -7831,7 +7831,7 @@
 /area/mine/outpost/maintenance/south)
 "RZ" = (
 /obj/machinery/power/apc{
-	name = "Cleaning Supply Storage APC";
+	name = "Custodial Storage APC";
 	pixel_y = 24;
 	dir = 1
 	},
