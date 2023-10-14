@@ -150,7 +150,7 @@
 	else if(istype(target, /obj/machinery/light))
 		var/obj/machinery/light/light = target
 		light.drop_light_tube()
-		user.visible_message("<span class='warning'>[user] removes the light from the fixture!</span>", "You dislodge the light from the fixture.")
+		user.visible_message("<span class='warning'>[user] removes the light from the fixture!</span>", "<span class='notice'>You dislodge the light from the fixture.</span>")
 
 	return TRUE
 
