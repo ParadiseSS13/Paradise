@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(tts220)
 
 	var/list/tts_requests_queue = list()
 	var/tts_requests_queue_limit = 100
-	var/tts_rps_limit = 5
+	var/tts_rps_limit = 11
 
 	var/list/tts_queue = list()
 	var/list/tts_effects_queue = list()
