@@ -177,6 +177,14 @@
 /datum/emote/living/carbon/twirl/run_emote(mob/user, params, type_override, intentional)
 
 	var/obj/item/thing = user.l_hand || user.r_hand
-	message = "twirls [thing] around in their hand!"
+	if(thing.flags & ABSTRACT)
+		if(istype(thing, /obj/item/grab))
+			var/obj/item/grab/grabbed = thing
+			message = "twirls [grabbed.affecting.name] around!"
+			grabbed.affecting.emote("spin")
+		else
+			return
+	else
+		message = "twirls [thing] around in their hand!"
 	. = ..()
 	message = initial(message)
