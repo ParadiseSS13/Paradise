@@ -135,6 +135,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 */
 
 //***** MOB TRAITS *****//
+#define TRAIT_RESPAWNABLE		"can_respawn_as_ghost_roles"
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
@@ -215,6 +216,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
 #define TRAIT_BADASS "trait_badass"
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
+#define TRAIT_HAS_GPS "has_gps" // used for /Stat
+#define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
@@ -263,6 +266,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define SLIME_TRAIT "slime"
 #define BERSERK_TRAIT "berserk"
 #define EYES_OF_GOD "eyes_of_god"
+#define GHOSTED		"isghost"
+#define GHOST_ROLE	"ghost_role"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
@@ -286,6 +291,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define GLADIATOR "gladiator"
 #define PULSEDEMON_TRAIT "pulse_demon"
 
+
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
 #define TRAIT_TABLE_LEAP "table_leap"
@@ -308,3 +314,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CANNOT_PULL "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
+
+//***** TURF TRAITS *****//
+/// Removes slowdown while walking on these tiles.
+#define TRAIT_BLUESPACE_SPEED "bluespace_speed_trait"
+
+// turf trait sources
+#define FLOOR_EFFECT_TRAIT "floor_effect_trait"
