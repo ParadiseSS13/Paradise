@@ -385,7 +385,7 @@ Difficulty: Hard
 			var/turf/spot = pick_n_take(turfs)
 			if(!spot)
 				return
-			var/mob/living/simple_animal/hostile/construct/wraith/hostile/summon = new /mob/living/simple_animal/hostile/construct/wraith/hostile(spot)
+			var/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum/summon = new /mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum(spot)
 			summon.faction = faction.Copy()
 			constructs++
 
