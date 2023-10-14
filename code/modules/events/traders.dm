@@ -53,9 +53,9 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		var/mob/C = pick_n_take(candidates)
 		spawn_count--
 		if(C)
-			C.remove_from_respawnable_list()
 			var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
 			M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
+			dust_if_respawnable(C)
 			M.equipOutfit(/datum/outfit/admin/sol_trader)
 			M.dna.species.after_equip_job(null, M)
 			for(var/datum/objective/O in trader_objectives)
@@ -69,10 +69,10 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 		GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
 /datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
-	to_chat(M, "<span class='boldnotice'>You are a trader!</span>")
-	to_chat(M, "<span class='notice'>You are currently docked at [get_area(M)].</span>")
-	to_chat(M, "<span class='notice'>You are about to trade with [station_name()].</span>")
-	addtimer(CALLBACK(M.mind, TYPE_PROC_REF(/datum/mind, announce_objectives)), 2.5 SECONDS)
+	var/list/messages = list()
+	messages.Add("<span class='boldnotice'>You are a trader!</span><span class='notice'>You are currently docked at [get_area(M)].<br>You are about to trade with [station_name()].</span><br>")
+	messages.Add(M.mind.prepare_announce_objectives())
+	to_chat(M, chat_box_green(messages.Join("<br>")))
 	M.create_log(MISC_LOG, "[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()

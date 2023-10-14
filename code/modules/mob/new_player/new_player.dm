@@ -90,7 +90,7 @@
 	return
 
 /mob/new_player/Stat()
-	. = ..()
+	..()
 	if(statpanel("Status") && SSticker)
 		if(!SSticker.hide_mode)
 			stat("Game Mode: [GLOB.master_mode]")
@@ -203,7 +203,7 @@
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
 			observer.key = key
-			observer.add_to_respawnable_list()
+			ADD_TRAIT(observer, TRAIT_RESPAWNABLE, GHOSTED)
 			qdel(src)
 			return TRUE
 		return FALSE

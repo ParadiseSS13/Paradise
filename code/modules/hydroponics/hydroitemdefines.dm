@@ -242,8 +242,6 @@
 /obj/item/reagent_containers/glass/bottle/nutrient/Initialize(mapload)
 	. = ..()
 	add_lid()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/on_reagent_change()
 	. = ..()
