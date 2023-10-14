@@ -21,10 +21,10 @@
 	if(active_cameras[cam] || inactive_cameras[cam])
 		return
 	// Register all even though it is active/inactive. Won't get called incorrectly
-	RegisterSignal(cam, COMSIG_CAMERA_OFF, PROC_REF(deactivate_camera))
-	RegisterSignal(cam, COMSIG_CAMERA_ON, PROC_REF(activate_camera))
-	RegisterSignal(cam, COMSIG_PARENT_QDELETING, PROC_REF(remove_camera))
-	RegisterSignal(cam, COMSIG_CAMERA_MOVED, PROC_REF(camera_moved))
+	RegisterSignal(cam, COMSIG_CAMERA_OFF, PROC_REF(deactivate_camera), TRUE)
+	RegisterSignal(cam, COMSIG_CAMERA_ON, PROC_REF(activate_camera), TRUE)
+	RegisterSignal(cam, COMSIG_PARENT_QDELETING, PROC_REF(remove_camera), TRUE)
+	RegisterSignal(cam, COMSIG_CAMERA_MOVED, PROC_REF(camera_moved), TRUE)
 	if(cam.can_use())
 		active_cameras[cam] = cam
 	else
