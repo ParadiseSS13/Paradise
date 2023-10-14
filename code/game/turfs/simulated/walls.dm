@@ -453,7 +453,7 @@
 			visible_message("<span class='warning'>[user] disintegrates [src]!</span>","<span class='warning'>You hear the grinding of metal.</span>")
 		return TRUE
 
-	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
+	else if(istype(I, /obj/item/pyro_claws))
 		to_chat(user, "<span class='notice'>You begin to melt the wall.</span>")
 
 		if(do_after(user, isdiamond ? 60 * I.toolspeed : 30 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 3/1.5 seconds
@@ -548,5 +548,17 @@
 		dent_decals = list(decal)
 
 	update_icon()
+
+/turf/simulated/wall/MouseEntered(location, control, params)
+	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
+
+/turf/simulated/wall/MouseExited(location, control, params)
+	usr.hud_used.screentip_text.maptext = ""
 
 #undef MAX_DENT_DECALS

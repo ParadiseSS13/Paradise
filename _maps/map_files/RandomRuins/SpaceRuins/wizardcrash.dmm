@@ -376,7 +376,7 @@
 /area/ruin/space/unpowered)
 "bp" = (
 /obj/structure/rack,
-/obj/item/twohanded/staff,
+/obj/item/staff,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -400,7 +400,7 @@
 /area/ruin/space/unpowered)
 "bu" = (
 /obj/structure/rack,
-/obj/item/twohanded/staff/broom,
+/obj/item/staff/broom,
 /turf/simulated/floor/plasteel{
 	icon_state = "chapel"
 	},
@@ -470,7 +470,7 @@
 	dir = 1;
 	layer = 2.9
 	},
-/turf/simulated/floor/mineral/plasma,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,

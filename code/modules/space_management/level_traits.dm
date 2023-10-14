@@ -1,5 +1,5 @@
 /proc/is_level_reachable(z)
-	return check_level_trait(z, REACHABLE)
+	return check_level_trait(z, REACHABLE_BY_CREW)
 
 /proc/is_station_level(z)
 	return check_level_trait(z, STATION_LEVEL)

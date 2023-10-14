@@ -29,6 +29,7 @@ module.exports = (env = {}, argv) => {
           : path.resolve(__dirname, './public/.tmp'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].chunk.js',
+      hashFunction: 'SHA256',
     },
     resolve: {
       extensions: ['.mjs', '.js', '.jsx'],

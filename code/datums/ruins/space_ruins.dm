@@ -188,7 +188,7 @@
 	id = "blowntcommsat"
 	suffix = "blowntcommsat.dmm"
 	name = "Blown-out Telecommunications Satellite"
-	description = "The remains of an old telecommunications satellite once utilised by NanoTrasen. It lays derelict, with quite a few pieces missing."
+	description = "The remains of an old telecommunications satellite once utilised by Nanotrasen. It lays derelict, with quite a few pieces missing."
 	cost = 5 // This is a chonky boy
 	allow_duplicates = FALSE // Absolutely huge, also has its own APC and the area isnt set to allow many
 
@@ -326,3 +326,11 @@
 	description = "A cargo shuttle in a wrecked condition. There are many unknown horrors in space and looks like its last crew has faced one of them."
 	allow_duplicates = FALSE
 	cost = 1 // With the loot it contains it shouldn't be found frequently
+
+/datum/map_template/ruin/space/abandoned_engi_sat
+	id = "abandoned_engi_sat"
+	suffix = "abandoned_engi_sat.dmm"
+	name = "Abandoned NT Engineering Satellite"
+	description = "A derelict operating base for NT engineering crew."
+	allow_duplicates = FALSE
+	cost = 1

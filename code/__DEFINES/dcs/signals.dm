@@ -23,6 +23,8 @@
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
 /// ingame button pressed (/obj/machinery/button/button)
 #define COMSIG_GLOB_BUTTON_PRESSED "!button_pressed"
+/// cable was placed or joined somewhere : (turf)
+#define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
 
 /// signals from globally accessible objects
 
@@ -281,6 +283,8 @@
 	#define COMPONENT_CANCEL_THROW (1<<0)
 ///from base of atom/movable/throw_at(): (datum/thrownthing, spin)
 #define COMSIG_MOVABLE_POST_THROW "movable_post_throw"
+///from base of datum/thrownthing/finalize(): (obj/thrown_object, datum/thrownthing) used for when a throw is finished
+#define COMSIG_MOVABLE_THROW_LANDED "movable_throw_landed"
 ///from base of atom/movable/onTransitZ(): (old_z, new_z)
 #define COMSIG_MOVABLE_Z_CHANGED "movable_ztransit"
 ///called when the movable is placed in an unaccessible area, used for stationloving: ()
@@ -311,6 +315,8 @@
 
 ///from base of /mob/Login(): ()
 #define COMSIG_MOB_LOGIN "mob_login"
+///called in human/login
+#define	COMSIG_HUMAN_LOGIN "human_login"
 ///from base of /mob/Logout(): ()
 #define COMSIG_MOB_LOGOUT "mob_logout"
 ///from base of mob/death(): (gibbed)
@@ -338,7 +344,7 @@
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
 ///from base of /mob/living/proc/apply_damage(): (damage, damagetype, def_zone)
-#define COMSIG_MOB_APPLY_DAMGE	"mob_apply_damage"
+#define COMSIG_MOB_APPLY_DAMAGE	"mob_apply_damage"
 ///from base of obj/item/afterattack(): (atom/target, mob/user, proximity_flag, click_parameters)
 #define COMSIG_MOB_ITEM_AFTERATTACK "mob_item_afterattack"
 ///from base of obj/item/attack_qdeleted(): (atom/target, mob/user, proxiumity_flag, click_parameters)
@@ -390,8 +396,12 @@
 	#define COMPONENT_BLOCK_EMOTE_ACTION (1<<2)
 
 ///from base of mob/swap_hand(): (obj/item)
-#define COMSIG_MOB_SWAP_HANDS "mob_swap_hands"
+#define COMSIG_MOB_SWAPPING_HANDS "mob_swapping_hands"
+	/// Prevent the mob from changing hands
 	#define COMPONENT_BLOCK_SWAP (1<<0)
+
+/// Performed after the hands are swapped.
+#define COMSIG_MOB_SWAPPED_HANDS "mob_swap_hands"
 
 #define COMSIG_MOB_AUTOMUTE_CHECK "automute_check"
 	#define WAIVE_AUTOMUTE_CHECK (1<<0)
@@ -481,6 +491,8 @@
 #define COMSIG_CARBON_THROWN_ITEM_CAUGHT "carbon_thrown_item_caught"
 /// From /mob/living/carbon/flash_eyes()
 #define COMSIG_CARBON_FLASH_EYES "carbon_flash_eyes"
+/// From /mob/living/carbon/update_handcuffed()
+#define COMSIG_CARBON_UPDATE_HANDCUFFED "carbon_update_handcuff"
 /// From /mob/living/carbon/regenerate_icons()
 #define COMSIG_CARBON_REGENERATE_ICONS "carbon_regen_icons"
 
@@ -488,6 +500,8 @@
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)
+//Called when a /mob/living/simple_animal/hostile fines a new target: (atom/source, give_target)
+#define COMSIG_HOSTILE_FOUND_TARGET "comsig_hostile_found_target"
 
 // /obj signals
 
@@ -560,7 +574,7 @@
 #define COMSIG_ITEM_MICROWAVE_ACT "microwave_act"
 ///from base of item/sharpener/attackby(): (amount, max)
 #define COMSIG_ITEM_SHARPEN_ACT "sharpen_act"
-	#define COMPONENT_BLOCK_SHARPEN_APPLIED (1<<0)
+	#define COMPONENT_SHARPEN_APPLIED (1<<0)
 	#define COMPONENT_BLOCK_SHARPEN_BLOCKED (1<<1)
 	#define COMPONENT_BLOCK_SHARPEN_ALREADY (1<<2)
 	#define COMPONENT_BLOCK_SHARPEN_MAXED (1<<3)
@@ -706,6 +720,9 @@
 #define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
 ///From mob/living/carbon/human/do_suicide()
 #define COMSIG_HUMAN_SUICIDE_ACT "human_suicide_act"
+/// Sent from mob/living/carbon/human/do_cpr(): (mob/living/carbon/human/H, new_seconds_of_life)
+#define COMSIG_HUMAN_RECEIVE_CPR "human_receive_cpr"
+
 ///From mob/living/carbon/human/attackedby(): (mob/living/carbon/human/attacker). Also found on species/disarm and species/harm
 #define COMSIG_HUMAN_ATTACKED "human_attacked"
 

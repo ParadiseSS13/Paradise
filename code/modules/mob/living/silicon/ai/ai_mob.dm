@@ -1323,6 +1323,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		if(!mind)
 			to_chat(user, "<span class='warning'>No intelligence patterns detected.</span>")//No more magical carding of empty cores, AI RETURN TO BODY!!!11
 			return
+
+		if(stat != DEAD)
+			to_chat(user, "<span class='notice'>Beginning active intelligence transfer: please wait.</span>")
+
+			if(!do_after_once(user, 5 SECONDS, target = src) || !Adjacent(user))
+				to_chat(user, "<span class='warning'>Intelligence transfer aborted.</span>")
+				return
+
 		new /obj/structure/AIcore/deactivated(loc)//Spawns a deactivated terminal at AI location.
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		control_disabled = TRUE //Can't control things remotely if you're stuck in a card!
@@ -1378,7 +1386,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, "<span class='danger'>Hack aborted. [apc] is no longer responding to our systems.</span>")
 		SEND_SOUND(src, sound('sound/machines/buzz-sigh.ogg'))
 	else
-		malf_picker.processing_time += 10
+		malf_picker.processing_time += 15
 
 		apc.malfai = parent || src
 		apc.malfhack = TRUE

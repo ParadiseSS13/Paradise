@@ -73,14 +73,12 @@
 	update_health_hud()
 	med_hud_set_health()
 	med_hud_set_status()
-	if(!gibbed && !QDELETED(src))
-		addtimer(CALLBACK(src, PROC_REF(med_hud_set_status)), DEFIB_TIME_LIMIT + 1)
 
 	GLOB.alive_mob_list -= src
 	GLOB.dead_mob_list += src
 	if(mind)
 		mind.store_memory("Time of death: [station_time_timestamp("hh:mm:ss", timeofdeath)]", 0)
-		add_to_respawnable_list()
+		ADD_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)
 
 		if(mind.name && !isbrain(src)) // !isbrain() is to stop it from being called twice
 			var/turf/T = get_turf(src)
@@ -96,14 +94,20 @@
 	// u no we dead
 	return TRUE
 
-/mob/living/proc/delayed_gib()
+/mob/living/proc/delayed_gib(inflate_at_end = FALSE)
 	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
-	addtimer(CALLBACK(src, PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))
+	addtimer(CALLBACK(src, inflate_at_end ? PROC_REF(quick_explode_gib) : PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))
 
-/mob/living/carbon/proc/inflate_gib() // Plays an animation that makes mobs appear to inflate before finally gibbing
-	addtimer(CALLBACK(src, PROC_REF(gib), null, null, TRUE, TRUE), 25)
-	var/matrix/M = matrix()
+/mob/living/proc/inflate_gib() // Plays an animation that makes mobs appear to inflate before finally gibbing
+	addtimer(CALLBACK(src, PROC_REF(gib), null, null, TRUE, TRUE), 2.5 SECONDS)
+	var/matrix/M = transform
 	M.Scale(1.8, 1.2)
 	animate(src, time = 40, transform = M, easing = SINE_EASING)
+
+/mob/living/proc/quick_explode_gib()
+	addtimer(CALLBACK(src, PROC_REF(gib), null, null, TRUE, TRUE), 0.1 SECONDS)
+	var/matrix/M = transform
+	M.Scale(1.8, 1.2)
+	animate(src, time = 1, transform = M, easing = SINE_EASING)

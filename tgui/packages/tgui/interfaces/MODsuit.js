@@ -1,5 +1,20 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, ColorBox, LabeledList, ProgressBar, Section, Collapsible, Box, Icon, Flex, Table, Dimmer, NumberInput, AnimatedNumber, Dropdown } from '../components';
+import {
+  Button,
+  ColorBox,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Collapsible,
+  Box,
+  Icon,
+  Flex,
+  Table,
+  Dimmer,
+  NumberInput,
+  AnimatedNumber,
+  Dropdown,
+} from '../components';
 import { Window } from '../layouts';
 
 const ConfigureNumberEntry = (props, context) => {
@@ -93,13 +108,15 @@ const ConfigureDataEntry = (props, context) => {
 };
 
 const RadCounter = (props, context) => {
-  const { active, userradiated, usertoxins, usermaxtoxins, threatlevel } = props;
+  const { active, userradiated, usertoxins, usermaxtoxins, threatlevel } =
+    props;
   return (
     <Flex fill textAlign="center">
       <Flex.Item grow>
         <Section
           title="Radiation Level"
-          color={active && userradiated ? 'bad' : 'good'}>
+          color={active && userradiated ? 'bad' : 'good'}
+        >
           {active && userradiated ? 'IRRADIATED!' : 'RADIATION-FREE'}
         </Section>
       </Flex.Item>
@@ -111,7 +128,8 @@ const RadCounter = (props, context) => {
               good: [-Infinity, 0.2],
               average: [0.2, 0.5],
               bad: [0.5, Infinity],
-            }}>
+            }}
+          >
             <AnimatedNumber value={usertoxins} />
           </ProgressBar>
         </Section>
@@ -120,7 +138,8 @@ const RadCounter = (props, context) => {
         <Section
           title="Hazard Level"
           color={active && threatlevel ? 'bad' : 'good'}
-          bold>
+          bold
+        >
           {active && threatlevel ? threatlevel : 0}
         </Section>
       </Flex.Item>
@@ -147,7 +166,8 @@ const HealthAnalyzer = (props, context) => {
             good: [0.5, Infinity],
             average: [0.2, 0.5],
             bad: [-Infinity, 0.2],
-          }}>
+          }}
+        >
           <AnimatedNumber value={active ? userhealth : 0} />
         </ProgressBar>
       </Section>
@@ -160,7 +180,8 @@ const HealthAnalyzer = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? userbrute : 0} />
             </ProgressBar>
           </Section>
@@ -173,7 +194,8 @@ const HealthAnalyzer = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? userburn : 0} />
             </ProgressBar>
           </Section>
@@ -186,7 +208,8 @@ const HealthAnalyzer = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? usertoxin : 0} />
             </ProgressBar>
           </Section>
@@ -199,7 +222,8 @@ const HealthAnalyzer = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? useroxy : 0} />
             </ProgressBar>
           </Section>
@@ -247,7 +271,8 @@ const StatusReadout = (props, context) => {
             good: [0.5, Infinity],
             average: [0.2, 0.5],
             bad: [-Infinity, 0.2],
-          }}>
+          }}
+        >
           <AnimatedNumber value={active ? statushealth : 0} />
         </ProgressBar>
       </Section>
@@ -260,7 +285,8 @@ const StatusReadout = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? statusbrute : 0} />
             </ProgressBar>
           </Section>
@@ -273,7 +299,8 @@ const StatusReadout = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={active ? statusburn : 0} />
             </ProgressBar>
           </Section>
@@ -286,7 +313,8 @@ const StatusReadout = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={statustoxin} />
             </ProgressBar>
           </Section>
@@ -299,7 +327,8 @@ const StatusReadout = (props, context) => {
                 good: [-Infinity, 0.2],
                 average: [0.2, 0.5],
                 bad: [0.5, Infinity],
-              }}>
+              }}
+            >
               <AnimatedNumber value={statusoxy} />
             </ProgressBar>
           </Section>
@@ -414,7 +443,7 @@ const ConfigureScreen = (props, context) => {
   const configuration_keys = Object.keys(configuration_data);
   return (
     <Dimmer backgroundColor="rgba(0, 0, 0, 0.8)">
-      <Flex direction = "column">
+      <Flex direction="column">
         {configuration_keys.map((key) => {
           const data = configuration_data[key];
           return (
@@ -436,7 +465,8 @@ const ConfigureScreen = (props, context) => {
               fluid
               onClick={props.onExit}
               icon="times"
-              textAlign="center">
+              textAlign="center"
+            >
               Exit
             </Button>
           </Box>
@@ -473,8 +503,8 @@ const ParametersSection = (props, context) => {
   const status = malfunctioning
     ? 'Malfunctioning'
     : active
-      ? 'Active'
-      : 'Inactive';
+    ? 'Active'
+    : 'Inactive';
   return (
     <Section title="Parameters">
       <LabeledList>
@@ -486,7 +516,8 @@ const ParametersSection = (props, context) => {
               content={active ? 'Deactivate' : 'Activate'}
               onClick={() => act('activate')}
             />
-          }>
+          }
+        >
           {status}
         </LabeledList.Item>
         <LabeledList.Item
@@ -497,7 +528,8 @@ const ParametersSection = (props, context) => {
               content={locked ? 'Unlock' : 'Lock'}
               onClick={() => act('lock')}
             />
-          }>
+          }
+        >
           {locked ? 'Locked' : 'Unlocked'}
         </LabeledList.Item>
         <LabeledList.Item label="Cover">
@@ -577,7 +609,7 @@ const InfoSection = (props, context) => {
 
   return (
     <Section title="Info">
-      <Flex direction = "column">
+      <Flex direction="column">
         {(info_modules.length !== 0 &&
           info_modules.map((module) => {
             const Module = ID2MODULE[module.id];
@@ -596,7 +628,11 @@ const InfoSection = (props, context) => {
 const ModuleSection = (props, context) => {
   const { act, data } = useBackend(context);
   const { complexity_max, modules } = data;
-  const [configureState, setConfigureState] = useLocalState(context, 'module_configuration', null);
+  const [configureState, setConfigureState] = useLocalState(
+    context,
+    'module_configuration',
+    null
+  );
   return (
     <Section title="Modules" fill>
       <Flex direction="column">
@@ -730,7 +766,7 @@ export const MODsuitContent = (props, context) => {
   return (
     <Section>
       {(!!interface_break && <LockedInterface />) || (
-        <Flex direction = "column">
+        <Flex direction="column">
           <Flex.Item>
             <ParametersSection />
           </Flex.Item>
@@ -753,9 +789,7 @@ export const MODsuit = (props, context) => {
   const { act, data } = useBackend(context);
   const { ui_theme, interface_break } = data;
   return (
-    <Window
-      theme={ui_theme}
-      resizable>
+    <Window theme={ui_theme} resizable>
       <Window.Content scrollable={!interface_break}>
         <MODsuitContent />
       </Window.Content>

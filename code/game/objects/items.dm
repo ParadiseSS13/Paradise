@@ -311,6 +311,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		var/obj/item/storage/S = src.loc
 		S.remove_from_storage(src)
 
+	if(..())
+		return
+
 	if(throwing)
 		throwing.finalize(FALSE)
 	if(loc == user)
@@ -335,7 +338,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/attack_alien(mob/user)
 	var/mob/living/carbon/alien/A = user
 
-	if(!A.has_fine_manipulation)
+	if(!A.has_fine_manipulation && !HAS_TRAIT(src, TRAIT_XENO_INTERACTABLE))
 		if(src in A.contents) // To stop Aliens having items stuck in their pockets
 			A.unEquip(src)
 		to_chat(user, "<span class='warning'>Your claws aren't capable of such fine manipulation!</span>")
@@ -491,7 +494,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!initial)
 		if(equip_sound && slot == slot_bitfield_to_slot(slot_flags))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
-		else if(slot == slot_l_hand || slot == slot_r_hand)
+		else if(slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -562,6 +565,9 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	return loc
 
 /obj/item/proc/eyestab(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm other living beings!</span>")
+		return FALSE
 
 	var/mob/living/carbon/human/H = M
 	if(istype(H) && ( \
@@ -587,6 +593,13 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	playsound(loc, src.hitsound, 30, 1, -1)
 
 	user.do_attack_animation(M)
+
+	if(H.check_shields(src, force, "the [name]", MELEE_ATTACK, armour_penetration_flat, armour_penetration_percentage))
+		return FALSE
+
+	if(H.check_block())
+		visible_message("<span class='warning'>[H] blocks [src]!</span>")
+		return FALSE
 
 	if(M != user)
 		M.visible_message("<span class='danger'>[user] has stabbed [M] in the eye with [src]!</span>", \
@@ -697,7 +710,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 						"<span class='notice'>You wash [src] using [source].</span>")
 	return 1
 
-/obj/item/proc/is_crutch() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
+/obj/item/proc/get_crutch_efficiency() //Does an item prop up a human mob and allow them to stand if they are missing a leg/foot?
 	return 0
 
 // Return true if you don't want regular throw handling
@@ -744,6 +757,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
 	remove_outline()
+	return ..()
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
 	if(!user || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == I)
@@ -799,29 +813,29 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return
 	var/mob/owner = loc
 	var/flags = slot_flags
-	if(flags & SLOT_OCLOTHING)
+	if(flags & SLOT_FLAG_OCLOTHING)
 		owner.update_inv_wear_suit()
-	if(flags & SLOT_ICLOTHING)
+	if(flags & SLOT_FLAG_ICLOTHING)
 		owner.update_inv_w_uniform()
-	if(flags & SLOT_GLOVES)
+	if(flags & SLOT_FLAG_GLOVES)
 		owner.update_inv_gloves()
-	if(flags & SLOT_EYES)
+	if(flags & SLOT_FLAG_EYES)
 		owner.update_inv_glasses()
-	if(flags & SLOT_EARS)
+	if(flags & SLOT_FLAG_EARS)
 		owner.update_inv_ears()
-	if(flags & SLOT_MASK)
+	if(flags & SLOT_FLAG_MASK)
 		owner.update_inv_wear_mask()
-	if(flags & SLOT_HEAD)
+	if(flags & SLOT_FLAG_HEAD)
 		owner.update_inv_head()
-	if(flags & SLOT_FEET)
+	if(flags & SLOT_FLAG_FEET)
 		owner.update_inv_shoes()
-	if(flags & SLOT_ID)
+	if(flags & SLOT_FLAG_ID)
 		owner.update_inv_wear_id()
-	if(flags & SLOT_BELT)
+	if(flags & SLOT_FLAG_BELT)
 		owner.update_inv_belt()
-	if(flags & SLOT_BACK)
+	if(flags & SLOT_FLAG_BACK)
 		owner.update_inv_back()
-	if(flags & SLOT_PDA)
+	if(flags & SLOT_FLAG_PDA)
 		owner.update_inv_wear_pda()
 
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.

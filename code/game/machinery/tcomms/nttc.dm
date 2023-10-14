@@ -129,7 +129,7 @@
 		"Mime" = "srvradio",
 	)
 	/// List of Command jobs
-	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "AI")
+	var/list/heads = list("Captain", "Head of Personnel", "Nanotrasen Representative", "Blueshield", "Chief Engineer", "Chief Medical Officer", "Research Director", "Head of Security", "Magistrate", "Quartermaster", "AI")
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Inquisitor", "Emergency Response Team Janitor", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
@@ -257,6 +257,7 @@
 		else
 			job_class = all_jobs[rank]
 
+	tcm.pre_modify_name = tcm.sender_name
 	if(toggle_name_color)
 		var/new_name = "<span class=\"[job_class]\">[tcm.sender_name]</span>"
 		tcm.sender_name = new_name

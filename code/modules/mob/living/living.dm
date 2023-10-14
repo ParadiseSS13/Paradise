@@ -222,12 +222,19 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_AI_UNTRACKABLE))
 		return FALSE
-
+	if(user && user.is_jammed())
+		return FALSE
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))
 		return FALSE
 
 	return TRUE
+
+/mob/living/proc/is_jammed()
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
+		if(atoms_share_level(get_turf(src), get_turf(jammer)) && get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
+			return TRUE
+	return FALSE
 
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
@@ -874,7 +881,7 @@
  */
 /mob/living/proc/get_strip_slot_name_override(slot)
 	switch(slot)
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			return "PDA"
 
 // The src mob is trying to strip an item from someone
