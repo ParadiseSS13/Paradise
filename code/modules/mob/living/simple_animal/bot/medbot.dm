@@ -187,7 +187,7 @@
 	return data
 
 /mob/living/simple_animal/bot/medbot/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
