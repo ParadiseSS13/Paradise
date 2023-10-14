@@ -1577,15 +1577,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "rp" = (
-/obj/machinery/economy/vending/toyliberationstation{
-	req_access_txt = "150"
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
+/obj/machinery/economy/vending/toyliberationstation/secured,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"

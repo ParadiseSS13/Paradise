@@ -431,7 +431,7 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 
-	var/list/L = list("<br><br><center><span class='green'>----------------</span>")
+	var/list/L = list()
 	L.Add("<b>Your role on the station is: [alt_title ? alt_title : rank].")
 	L.Add("You answer directly to [job.supervisors]. Special circumstances may change this.")
 	L.Add("For more information on how the station works, see [wiki_link("Standard_Operating_Procedure", "Standard Operating Procedure (SOP)")].")
@@ -456,9 +456,8 @@ SUBSYSTEM_DEF(jobs)
 	L.Add("<br>If you need help, check the [wiki_link("Main_Page", "wiki")] or use Mentorhelp(F1)!</b>")
 	if(job.important_information)
 		L.Add("</b><span class='userdanger' style='width: 80%'>[job.important_information]</span>")
-	L.Add("<span class='green'>----------------</span></center><br><br>")
 
-	to_chat(H, L.Join("<br>"))
+	to_chat(H, chat_box_green(L.Join("<br>")))
 
 	return H
 

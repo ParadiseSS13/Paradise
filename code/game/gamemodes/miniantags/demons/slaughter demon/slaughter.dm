@@ -48,15 +48,18 @@
 
 /mob/living/simple_animal/demon/slaughter/proc/attempt_objectives()
 	if(mind)
-		to_chat(src, src.playstyle_string)
-		to_chat(src, "<B><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></B>")
+		var/list/messages = list()
+		messages.Add(playstyle_string)
+		messages.Add("<b><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></b>")
 		SEND_SOUND(src, sound('sound/misc/demon_dies.ogg'))
 		if(!vialspawned)
 			SSticker.mode.traitors |= mind
 			mind.add_mind_objective(/datum/objective/slaughter)
 			mind.add_mind_objective(/datum/objective/demon_fluff)
-			mind.announce_objectives(title = FALSE)
-		to_chat(src, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
+			messages.Add(mind.prepare_announce_objectives(FALSE))
+
+		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Slaughter_Demon)</span>")
+		to_chat(src, chat_box_red(messages.Join("<br>")))
 
 
 /obj/effect/decal/cleanable/blood/innards
@@ -153,7 +156,8 @@
 		AddSpell(SV)
 
 		S.mind.add_mind_objective(/datum/objective/cult_slaughter)
-		S.mind.announce_objectives(title = FALSE)
+		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
+		to_chat(S, chat_box_red(messages.Join("<br>")))
 
 ////////////////////The Powers
 
