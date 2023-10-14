@@ -359,18 +359,22 @@
 /obj/item/clothing/accessory/medal/gold/bubblegum
 	name = "bubblegum HRD-MDE award"
 	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
+	channel = null
 
 /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
 	name = "medal of incredible dedication"
 	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
+	channel = null
 
 /obj/item/clothing/accessory/medal/silver/colossus
 	name = "colossus HRD-MDE award"
 	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing a colossus."
+	channel = null
 
 /obj/item/clothing/accessory/medal/silver/legion
 	name = "legion HRD-MDE award"
 	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Legion."
+	channel = null
 
 /obj/item/clothing/accessory/medal/blood_drunk
 	name = "blood drunk HRD-MDE award"
