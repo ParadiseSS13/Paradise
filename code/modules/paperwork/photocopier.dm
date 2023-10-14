@@ -289,7 +289,7 @@
 	if(!cancopy(scancopy))
 		return
 	copying = TRUE
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 	if(istype(C, /obj/item/paper))
 		for(var/i in copies to 1 step -1)
 			if(!papercopy(C))
@@ -347,7 +347,7 @@
 	sleep(PHOTOCOPIER_DELAY)
 	LAZYADD(saved_documents, O)
 	copying = FALSE
-	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Document successfully scanned!")
 
 /obj/machinery/photocopier/proc/delete_file(uid)
@@ -410,6 +410,8 @@
 				. = TRUE
 		if("scandocument")
 			scan_document()
+		if("ai_text")
+			ai_text()
 		if("ai_pic")
 			ai_pic()
 		if("filecopy")
@@ -418,6 +420,24 @@
 			delete_file(params["uid"])
 			. = TRUE
 	update_icon()
+
+/obj/machinery/photocopier/proc/ai_text()
+	if(!issilicon(usr))
+		return
+	if(stat & (BROKEN|NOPOWER))
+		return
+	var/text = input("Enter what you want to write:", "Write", null, null) as message
+	if(!text)
+		return
+	if(toner >= 1)
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+		var/obj/item/paper/p = new /obj/item/paper (loc)
+		text = p.parsepencode(text, null, usr)
+		p.info = text
+		p.populatefields()
+		toner -= 1
+		use_power(active_power_consumption)
+		sleep(PHOTOCOPIER_DELAY)
 
 /obj/machinery/photocopier/proc/ai_pic()
 	if(!issilicon(usr))
@@ -435,7 +455,7 @@
 		if(!selection)
 			return
 
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
+		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 		var/obj/item/photo/p = new /obj/item/photo(loc)
 		p.construct(selection)
 		if(p.desc == "")
@@ -443,7 +463,8 @@
 		else
 			p.desc += " - Copied by [tempAI.name]"
 		toner -= 5
-		sleep(15)
+		use_power(active_power_consumption)
+		sleep(PHOTOCOPIER_DELAY)
 
 /obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
@@ -513,7 +534,7 @@
 		copyitem.forceMove(get_turf(src))
 		visible_message("<span class='notice'>[copyitem] is shoved out of the way by [copymob]!</span>")
 		copyitem = null
-	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	atom_say("Attention: Posterior Placed on Printing Plaque!")
 	SStgui.update_uis(src)
 	return TRUE
