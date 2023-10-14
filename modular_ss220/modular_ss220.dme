@@ -61,6 +61,7 @@
 #include "text_to_speech/_tts.dme"
 #include "title_screen/_title_screen.dme"
 #include "whitelist/_whitelist.dme"
+#include "credits/_credits.dme"
 
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY
