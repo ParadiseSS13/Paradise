@@ -53,6 +53,18 @@
 	var/force_stasis = FALSE
 
 	var/static/regex/slime_name_regex = new("\\w+ (baby|adult) slime \\(\\d+\\)")
+
+	/// Determines if the AI loop is activated
+	var/AIproc = FALSE
+	/// Attack cooldown
+	var/Atkcool = FALSE
+	/// Temporary temperature stuns
+	var/Tempstun = FALSE
+	/// If a slime has been hit with a freeze gun, or wrestled/attacked off a human, they become disciplined and don't attack anymore for a while
+	var/Discipline = 0
+	/// Stun variable
+	var/SStun = 0
+
 	///////////TIME FOR SUBSPECIES
 
 	var/colour = "grey"
