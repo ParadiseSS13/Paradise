@@ -385,6 +385,12 @@
 	name = "agent card"
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
 
+/obj/item/card/id/syndicate/ghost_bar
+	name = "ghost bar identification card"
+	assignment = "Ghost Bar Occupant"
+	initial_access = list() // This is for show, they don't need actual accesses
+	icon_state = "assistant"
+
 /obj/item/card/id/syndicate/command
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
 	icon_state = "commander"

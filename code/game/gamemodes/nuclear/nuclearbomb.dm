@@ -334,7 +334,10 @@ GLOBAL_VAR(bomb_set)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
-	attack_hand(user)
+	if(!panel_open)
+		return ui_interact(user, state = GLOB.viewer_state)
+	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
+		return wires.Interact(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if(!panel_open)
