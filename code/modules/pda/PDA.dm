@@ -89,7 +89,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/mob/M = loc
 	if(M.incapacitated())
 		return 0
-	if((src in M.contents) || ( isturf(loc) && in_range(src, M)))
+	if((src in M.contents) || (isturf(loc) && in_range(src, M)))
 		return 1
 	else
 		return 0
