@@ -56,7 +56,7 @@
 	if(eject_casing && !QDELETED(ammo_chambered))
 		ammo_chambered.forceMove(get_turf(src)) //Eject casing onto ground.
 		ammo_chambered.SpinAnimation(10, 1) //next gen special effects
-		playsound(src, chambered.casing_drop_sound, 100, 1)
+		playsound(src, chambered.casing_drop_sound, 60, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
@@ -82,7 +82,10 @@
 	user.remove_from_mob(AM)
 	magazine = AM
 	magazine.forceMove(src)
-	playsound(src, magin_sound, 50, 1)
+	if(w_class >= WEIGHT_CLASS_NORMAL && !suppressed)
+		playsound(src, magin_sound, 50, TRUE)
+	else
+		playsound(src, magin_sound, 50, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	chamber_round()
 	AM.update_icon()
 	update_icon()

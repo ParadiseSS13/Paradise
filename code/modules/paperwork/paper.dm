@@ -50,9 +50,6 @@
 
 /obj/item/paper/New()
 	..()
-	pixel_y = rand(-8, 8)
-	pixel_x = rand(-9, 9)
-
 	spawn(2)
 		update_icon()
 		updateinfolinks()
@@ -677,6 +674,18 @@
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Nanotrasen Central Command</h3><p style='text-align: center;font-family:Verdana;'>Official Expedited Memorandum</p></b><hr />"
 	info = ""
 	footer = "<hr /><p style='font-family:Verdana;'><em>Failure to adhere appropriately to orders that may be contained herein is in violation of Space Law, and punishments may be administered appropriately upon return to Central Command.</em><br /><em>The recipient(s) of this memorandum acknowledge by reading it that they are liable for any and all damages to crew or station that may arise from ignoring suggestions or advice given herein.</em></p>"
+
+/obj/item/paper/seed_vault
+	name = "Seed Vault Objective"
+	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 5 compact pickaxes <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
+
+/obj/item/paper/seed_vault/terraformation
+	name = "Terraformation Experiment for SN-856B"
+	info = "Thanks to genetic engineering, we modified this grass to be able grow on a rocky, waterless environment. Remember to grow the grass seeds first and when it matures, weave them together to create patches of grass; after you place them down, anchor it down to the terrain so they will start to spread roots deep inside. After all steps are done, repeat it until you cover as much ground as possible. After a certain amount of time it will start producing oxygen, with will begin to increase the density of the atmosphere."
+
+/obj/item/paper/seed_vault/autopilot_logs
+	name = "Automatical Logs Printout"
+	info = "<center>Hoverhock 'Bumblebee Bee' Online</center> <br><i>Auto-Pilot online.</i> <br><i>Loading destination...</i> Planet SN-856B in Jansev4 System <br><i>Loaging planet statistics...</i> <br><br><center>Planet SN-856B</center><br>    Planet Size: Small <br>    Planet Type: Rocky <br>    Planet Atmosphere: 76.325kpa (Thin) <br>    Contain Breathable Gasses: YES <br>    Contain Liquids: NO <br>    Terraformation: Possible <br><br><i>Destination Loaded, Departing.</i> <br><br><br><center>Traveled Distance: 143LY</center> \ <br>Auto-Log: Ship was traversing trough dense asteroid field, minor hull damage detected, initiating auto-repair module. <br><br><center>Traveled Distance: 255LY</center> \ <br>Auto-Log: Ship is passing through dead star nebula, detected high space radiation.  <br><br><center>Traveled Distance: 427LY</center> \ <br>Auto-Log: Ship is passing trough -/&^-/#@, detected malfunction of components, receiving signal from nearby planet bzz -/!#D^%- <br><center>System Reboot</center> <br><center>Aquired new destination: Lavaland</center> <br><center>Initiating Terraforming Protocole.</center> <br><br><center>End Logs</center>"
 
 /obj/item/paper/syndicate_druglab
 	name = "paper - 'Excerpt from a Diary'"

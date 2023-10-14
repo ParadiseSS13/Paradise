@@ -303,12 +303,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/syndicate_space_base/service)
-"bQ" = (
-/obj/effect/decal/warning_stripes/blue,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/arrivals)
 "bS" = (
 /obj/machinery/processor,
 /obj/structure/extinguisher_cabinet{
@@ -1979,29 +1973,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"kP" = (
-/obj/structure/rack{
-	dir = 8
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_x = -5;
-	pixel_y = -5
-	},
-/obj/item/stack/sheet/metal/fifty{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/metal/fifty,
-/obj/machinery/light_switch{
-	dir = 8;
-	pixel_x = 24;
-	name = "east bump"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "yellow"
-	},
-/area/ruin/unpowered/syndicate_space_base/storage)
 "kS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
@@ -3017,6 +2988,9 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
+"qF" = (
+/turf/simulated/floor/plating,
+/area/ruin/unpowered/syndicate_space_base/engineering)
 "qJ" = (
 /obj/structure/chair,
 /turf/simulated/floor/redgrid,
@@ -3263,6 +3237,12 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
+"sr" = (
+/obj/effect/decal/warning_stripes/blue,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "sy" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
@@ -7004,9 +6984,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"NQ" = (
-/turf/simulated/floor/plating,
-/area/ruin/unpowered/syndicate_space_base/engineering)
 "NS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -10094,13 +10071,13 @@ iW
 tG
 oj
 JU
-NQ
-NQ
-NQ
+qF
+qF
+qF
 cB
 JU
-NQ
-NQ
+qF
+qF
 tG
 kE
 kE
@@ -10201,7 +10178,7 @@ LE
 xn
 Dl
 xQ
-bQ
+sr
 xn
 cI
 hl
@@ -10243,9 +10220,9 @@ nu
 Pp
 OQ
 BZ
-NQ
+qF
 PA
-NQ
+qF
 Ao
 tG
 kE
@@ -10313,11 +10290,11 @@ Sz
 ia
 Tr
 JU
-NQ
+qF
 Zq
 rr
 Mn
-NQ
+qF
 tu
 tG
 kE
@@ -10460,8 +10437,8 @@ PS
 eq
 Cm
 ET
-NQ
-NQ
+qF
+qF
 JZ
 tG
 kE
@@ -10524,7 +10501,7 @@ iW
 eW
 iW
 tG
-NQ
+qF
 Fl
 nE
 Mp
@@ -10597,7 +10574,7 @@ eW
 eW
 tG
 iv
-NQ
+qF
 fi
 Kb
 zb
@@ -10605,7 +10582,7 @@ cM
 TN
 rr
 Yd
-NQ
+qF
 tu
 tG
 kE
@@ -10676,8 +10653,8 @@ tG
 tG
 tG
 XH
-NQ
-NQ
+qF
+qF
 LF
 tG
 kE
@@ -12516,7 +12493,7 @@ Mw
 mq
 Km
 Gd
-kP
+Wm
 bI
 ep
 Tt

@@ -474,14 +474,17 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 	resting = !resting // this happens before the do_mob so that you can stay resting if you are stunned.
 
+	if(resting)
+		to_chat(src, "<span class='notice'>You are now trying to rest.</span>")
+	else
+		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
+
 	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE))
 		return
 
 	if(resting)
-		to_chat(src, "<span class='notice'>You are now resting.</span>")
 		lay_down()
 	else
-		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
 		stand_up()
 
 /proc/get_multitool(mob/user as mob)
