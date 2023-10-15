@@ -181,17 +181,6 @@ REAGENT SCANNER
 			for(var/obj/item/organ/external/org in damaged)
 				msgs += "\t\t<span class='info'>[capitalize(org.name)]: [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font></span>" : "<font color='red'>0</font>"]-[(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"]"
 
-	// OX = H.getOxyLoss() > 50 ? 	"<font color='aqua'><b>Severe oxygen deprivation detected</b></font>" : ""
-	// TX = H.getToxLoss() > 50 ? 	"<font color='green'><b>Dangerous amount of toxins detected</b></font>" : ""
-	// BU = H.getFireLoss() > 50 ? 	"<font color='#FFA500'><b>Severe burn damage detected</b></font>" : ""
-	// BR = H.getBruteLoss() > 50 ? "<font color='red'><b>Severe anatomical damage detected</b></font>" : ""
-	// if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
-	// 	OX = fake_oxy > 50 ? 		"<span class='danger'>Severe oxygen deprivation detected</span>" : ""
-	// var/vitals = list(OX, TX, BU, BR)
-	// for(var/vital_msg in vitals)
-	// 	if(vital_msg)
-	// 		msgs += vital_msg
-
 	if(advanced)
 		msgs.Add(get_chemscan_results(user, H))
 	for(var/thing in H.viruses)
