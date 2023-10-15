@@ -126,12 +126,6 @@
 			to_chat(user, "<span class='warning'>You need more welding fuel to complete this task!</span>")
 		return FALSE
 
-// When welding is about to start, run a normal tool_use_check, then flash a mob if it succeeds.
-/obj/item/weldingtool/tool_start_check(atom/target, mob/living/user, amount=0)
-	. = tool_use_check(user, amount)
-	if(. && user && !ismob(target)) // Don't flash the user if they're repairing robo limbs or repairing a borg etc. Only flash them if the target is an object
-		user.flash_eyes(light_intensity)
-
 /obj/item/weldingtool/use(amount)
 	if(GET_FUEL < amount * requires_fuel)
 		return
