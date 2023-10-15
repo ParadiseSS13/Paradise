@@ -56986,6 +56986,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"dLz" = (
+/obj/machinery/computer/security/telescreen/entertainment/television,
+/turf/simulated/floor/carpet/royalblack,
+/area/station/maintenance/fore)
 "dLF" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
@@ -62198,6 +62202,11 @@
 	icon_state = "black"
 	},
 /area/station/security/permabrig)
+"gtM" = (
+/obj/machinery/atmospherics/pipe/simple/visible/purple,
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "gtZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -72376,6 +72385,10 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/misc_lab)
+"lOq" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint2)
 "lOM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -112583,7 +112596,7 @@ cgQ
 wNT
 fwz
 vkC
-oEm
+dLz
 cgQ
 puo
 lOM
@@ -127530,7 +127543,7 @@ oYb
 eTp
 iGv
 xzG
-nZP
+lOq
 mVr
 bbM
 dlv
@@ -128558,7 +128571,7 @@ dgQ
 edf
 roQ
 cQp
-nZP
+lOq
 khY
 bbO
 dlw
@@ -129586,7 +129599,7 @@ dgV
 rDW
 roQ
 cQp
-nZP
+lOq
 hrg
 bdG
 dlx
@@ -130595,19 +130608,19 @@ cxO
 cQp
 cZS
 jYu
-nZP
+lOq
 jYu
 cZS
 jYu
-nZP
+lOq
 jYu
 cZS
 jYu
-nZP
+lOq
 jYu
 cZS
 jYu
-nZP
+lOq
 jYu
 cZS
 aaa
@@ -135246,7 +135259,7 @@ dla
 cps
 dlN
 dml
-kIP
+gtM
 dng
 aaa
 aaa
