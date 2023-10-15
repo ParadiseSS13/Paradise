@@ -102,7 +102,7 @@
 
 	target.deathgasp_on_death = FALSE
 	target.death(FALSE)
-	target.deathgasp_on_death = TRUE
+	target.deathgasp_on_death = initial(target.deathgasp_on_death)
 	target.Drain()
 	return TRUE
 
