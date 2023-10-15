@@ -79,7 +79,7 @@
 
 	var/nanotrasen_relation = "Neutral"
 
-	var/physique = "average physique"
+	var/physique = "average"
 
 	var/height = "average height"
 
