@@ -140,7 +140,7 @@
 	name = "ammo box (12.7)"
 	desc = "Contains up to 100 12.7mm cartridges."
 	w_class = WEIGHT_CLASS_BULKY
-	ammo_type = /obj/item/ammo_casing/d44
+	ammo_type = /obj/item/ammo_casing/mm127
 	max_ammo = 100
 	icon = 'modular_ss220/objects/icons/ammo.dmi'
 	icon_state = "mm127_box"
