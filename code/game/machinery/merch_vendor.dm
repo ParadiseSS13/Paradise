@@ -1,6 +1,6 @@
 /obj/machinery/economy/merch
 	name = "Nanotrasen Merchandise Vendor"
-	desc = "The one-stop-shop for all your Nanotrasen Swag"
+	desc = "The one-stop-shop for all your Nanotrasen swag."
 	icon = 'icons/obj/vending.dmi'
 	icon_state = "nt_merch"
 	light_color = LIGHT_COLOR_GREEN

@@ -241,7 +241,7 @@
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, "<span class='notice'>Nuclear device armed.</span>")
 	GLOB.major_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", 'sound/AI/aimalf.ogg')
-	set_security_level("delta")
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
 	owner_AI.doomsday_device = DOOM
@@ -268,7 +268,7 @@
 
 /obj/machinery/doomsday_device/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
-	SSshuttle.emergencyNoEscape = 0
+	SSshuttle.clearHostileEnvironment(src)
 	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 		SSshuttle.emergency.mode = SHUTTLE_DOCKED
 		SSshuttle.emergency.timer = world.time
@@ -279,7 +279,7 @@
 	detonation_timer = world.time + default_timer
 	timing = TRUE
 	START_PROCESSING(SSfastprocess, src)
-	SSshuttle.emergencyNoEscape = 1
+	SSshuttle.registerHostileEnvironment(src)
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
 	. = max(0, (round(detonation_timer - world.time) / 10))
@@ -288,7 +288,7 @@
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
 		GLOB.major_announcement.Announce("DOOMSDAY DEVICE OUT OF STATION RANGE, ABORTING", "ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4", 'sound/misc/notice1.ogg')
-		SSshuttle.emergencyNoEscape = 0
+		SSshuttle.clearHostileEnvironment(src)
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time
@@ -810,13 +810,13 @@
 		return
 	is_active = TRUE
 	ranged_ability_user.playsound_local(ranged_ability_user, "sparks", 50, FALSE, use_reverb = FALSE)
-	attached_action.adjust_uses(-1)
+	var/datum/action/innate/ai/ranged/repair_cyborg/actual_action = attached_action
+	actual_action.adjust_uses(-1)
 	robot_target.audible_message("<span class='italics'>You hear a loud electrical buzzing sound coming from [robot_target]!</span>")
 	if(!do_mob(caller, robot_target, 10 SECONDS))
 		is_active = FALSE
 		return
 	is_active = FALSE
-	var/datum/action/innate/ai/ranged/repair_cyborg/actual_action = attached_action
 	actual_action.fix_borg(robot_target)
 	remove_ranged_ability(ranged_ability_user, "<span class='warning'>[robot_target] successfully rebooted.</span>")
 	return TRUE

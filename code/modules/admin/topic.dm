@@ -1140,8 +1140,8 @@
 		M.loc = prison_cell
 		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), SLOT_HUD_JUMPSUIT)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), SLOT_HUD_SHOES)
 
 		to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.")
@@ -1349,8 +1349,8 @@
 
 		if(ishuman(M))
 			var/mob/living/carbon/human/observer = M
-			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit(observer), slot_w_uniform)
-			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), slot_shoes)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit(observer), SLOT_HUD_JUMPSUIT)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), SLOT_HUD_SHOES)
 		if(isliving(M))
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
@@ -1618,6 +1618,14 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/datum/team/team
+		if(href_list["team_command"] == "new_custom_team") // this needs to be handled before all the other stuff, as the team doesn't exist yet
+			message_admins("[key_name_admin(usr)] created a new custom team.")
+			log_admin("[key_name(usr)] created a new custom team.")
+			team = new()
+			team.admin_rename_team(usr)
+			check_teams()
+			return
+
 		var/datum/mind/member
 		if(href_list["team"])
 			team = locateUID(href_list["team"])
@@ -1646,6 +1654,8 @@
 				show_player_panel(member.current)
 			if("add_objective")
 				team.admin_add_objective(usr)
+			if("announce_objectives")
+				team.admin_announce_objectives(usr)
 			if("remove_objective")
 				var/datum/objective/O = locateUID(href_list["objective"])
 				if(O)
@@ -1776,9 +1786,9 @@
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
 
-		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_l_hand )
+		H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_LEFT_HAND )
 		if(!(istype(H.l_hand,/obj/item/reagent_containers/food/snacks/cookie)))
-			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), slot_r_hand )
+			H.equip_to_slot_or_del( new /obj/item/reagent_containers/food/snacks/cookie(H), SLOT_HUD_RIGHT_HAND )
 			if(!(istype(H.r_hand,/obj/item/reagent_containers/food/snacks/cookie)))
 				log_admin("[key_name(H)] has their hands full, so they did not receive their cookie, spawned by [key_name(src.owner)].")
 				message_admins("[key_name_admin(H)] has [H.p_their()] hands full, so [H.p_they()] did not receive [H.p_their()] cookie, spawned by [key_name_admin(src.owner)].")
@@ -1991,6 +2001,7 @@
 					var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 					theghost = pick(candidates)
 					P.key = theghost.key
+					dust_if_respawnable(theghost)
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
@@ -2055,6 +2066,8 @@
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
 			ptypes += "Shamebrero"
+			ptypes += "Nugget"
+			ptypes += "Bread"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2112,7 +2125,7 @@
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP | DROPDEL
 				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
 				logmsg = "a mutagen cookie."
 			if("Hellwater Cookie")
 				var/obj/item/reagent_containers/food/snacks/cookie/evilcookie = new /obj/item/reagent_containers/food/snacks/cookie
@@ -2121,7 +2134,7 @@
 				evilcookie.bitesize = 100
 				evilcookie.flags = NODROP | DROPDEL
 				H.drop_l_hand()
-				H.equip_to_slot_or_del(evilcookie, slot_l_hand)
+				H.equip_to_slot_or_del(evilcookie, SLOT_HUD_LEFT_HAND)
 				logmsg = "a hellwater cookie."
 			if("Hunter")
 				ADD_TRAIT(H, TRAIT_BADDNA, "smiting")
@@ -2143,11 +2156,12 @@
 							possible_traitors -= player
 				if(possible_traitors.len)
 					var/datum/mind/newtraitormind = pick(possible_traitors)
+
 					var/datum/objective/assassinate/kill_objective = new()
 					kill_objective.target = H.mind
-					kill_objective.owner = newtraitormind
 					kill_objective.explanation_text = "Assassinate [H.mind.name], the [H.mind.assigned_role]"
-					newtraitormind.objectives += kill_objective
+					newtraitormind.add_mind_objective(kill_objective)
+
 					var/datum/antagonist/traitor/T = new()
 					T.give_objectives = FALSE
 					to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
@@ -2167,8 +2181,25 @@
 				if(H.head)
 					H.unEquip(H.head, TRUE)
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
-				H.equip_to_slot_or_del(S, slot_head)
+				H.equip_to_slot_or_del(S, SLOT_HUD_HEAD)
 				logmsg = "shamebrero"
+			if("Nugget")
+				H.Weaken(12 SECONDS, TRUE)
+				H.AdjustJitter(40 SECONDS)
+				to_chat(H, "<span class='danger'>You feel as if your limbs are being ripped from your body!</span>")
+				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
+				logmsg = "nugget"
+
+			if("Bread")
+				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
+				var/bready = pick(/obj/item/reagent_containers/food/snacks/customizable/cook/bread, /obj/item/reagent_containers/food/snacks/sliceable/meatbread, /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread, /obj/item/reagent_containers/food/snacks/sliceable/spidermeatbread, /obj/item/reagent_containers/food/snacks/sliceable/bananabread, /obj/item/reagent_containers/food/snacks/sliceable/tofubread, /obj/item/reagent_containers/food/snacks/sliceable/bread, /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread, /obj/item/reagent_containers/food/snacks/sliceable/banarnarbread, /obj/item/reagent_containers/food/snacks/flatbread, /obj/item/reagent_containers/food/snacks/baguette)
+				var/obj/item/bread = new bready(get_turf(H))
+				breadshade.forceMove(bread)
+				breadshade.key = H.key
+				breadshade.RegisterSignal(bread, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/bread, handle_bread_deletion))
+				qdel(H)
+				logmsg = "baked"
+				to_chat(breadshade, "<span class='warning'>Get bready for combat, you've been baked into a piece of bread! Before you break down and rye thinking that your life is over, people are after you waiting for a snack! If you'd rather not be toast, lunge away from any hungry crew else you bite the crust. At the yeast you may survive a little longer...</span>")
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
@@ -2895,8 +2926,8 @@
 								W.plane = initial(W.plane)
 						//teleport person to cell
 						H.loc = pick(GLOB.prisonwarp)
-						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), slot_w_uniform)
-						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), slot_shoes)
+						H.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(H), SLOT_HUD_JUMPSUIT)
+						H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), SLOT_HUD_SHOES)
 					else
 						//teleport security person
 						H.loc = pick(GLOB.prisonsecuritywarp)
@@ -3030,7 +3061,7 @@
 			if("eagles")//SCRAW
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
-					if(is_station_level(W.z) && !istype(get_area(W), /area/bridge) && !istype(get_area(W), /area/crew_quarters) && !istype(get_area(W), /area/security/prison))
+					if(is_station_level(W.z) && !istype(get_area(W), /area/station/command/bridge) && !istype(get_area(W), /area/station/public) && !istype(get_area(W), /area/station/security/prison))
 						W.req_access = list()
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.minor_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
@@ -3092,24 +3123,10 @@
 				if(confirmation == "No")
 					return
 				makeThunderdomeTeams()
-			if("securitylevel0")
-				set_security_level(0)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)
-			if("securitylevel1")
-				set_security_level(1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Blue.</span>", 1)
-			if("securitylevel2")
-				set_security_level(2)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Red.</span>", 1)
-			if("securitylevel3")
-				set_security_level(3)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Gamma.</span>", 1)
-			if("securitylevel4")
-				set_security_level(4)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Epsilon.</span>", 1)
-			if("securitylevel5")
-				set_security_level(5)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Delta.</span>", 1)
+			if("securitylevel")
+				var/level_number = text2num(href_list["number"])
+				SSsecurity_level.set_level(level_number)
+				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to [SSsecurity_level.number_level_to_text(level_number)].</span>")
 			if("moveminingshuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Mining Shuttle")
 				if(!SSshuttle.toggleShuttle("mining","mining_home","mining_away"))
@@ -3454,9 +3471,10 @@
 	hunter_mind.active = TRUE
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(GLOB.latejoin))
 	hunter_mind.transfer_to(hunter_mob)
+	dust_if_respawnable(C)
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
-	hunter_mob.equip_to_slot_or_del(N, slot_in_backpack)
+	hunter_mob.equip_to_slot_or_del(N, SLOT_HUD_IN_BACKPACK)
 	N.mode = 3 //MODE_ADV, not defined here
 	N.setting = 2 //SETTING_OBJECT, not defined here
 	N.target = H
@@ -3467,16 +3485,14 @@
 		D.implant(hunter_mob)
 	if(killthem)
 		var/datum/objective/assassinate/kill_objective = new
-		kill_objective.owner = hunter_mind
 		kill_objective.target = H.mind
 		kill_objective.explanation_text = "Kill [H.real_name], the [H.mind.assigned_role]."
-		hunter_mind.objectives += kill_objective
+		hunter_mind.add_mind_objective(kill_objective)
 	else
 		var/datum/objective/protect/protect_objective = new
-		protect_objective.owner = hunter_mind
 		protect_objective.target = H.mind
 		protect_objective.explanation_text = "Protect [H.real_name], the [H.mind.assigned_role]."
-		hunter_mind.objectives += protect_objective
+		hunter_mind.add_mind_objective(protect_objective)
 	SSticker.mode.traitors |= hunter_mob.mind
 	to_chat(hunter_mob, "<span class='danger'>ATTENTION:</span> You are now on a mission!")
 	to_chat(hunter_mob, "<b>Goal: <span class='danger'>[killthem ? "MURDER" : "PROTECT"] [H.real_name]</span>, currently in [get_area(H.loc)].</b>");

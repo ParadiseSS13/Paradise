@@ -94,11 +94,13 @@ const styleMapperByPropName = {
   textTransform: mapRawPropTo('text-transform'),
   wordWrap: mapRawPropTo('word-wrap'),
   textOverflow: mapRawPropTo('text-overflow'),
+  borderRadius: mapRawPropTo('border-radius'),
   // Boolean props
   inline: mapBooleanPropTo('display', 'inline-block'),
   bold: mapBooleanPropTo('font-weight', 'bold'),
   italic: mapBooleanPropTo('font-style', 'italic'),
   nowrap: mapBooleanPropTo('white-space', 'nowrap'),
+  prewrap: mapBooleanPropTo('white-space', 'pre-wrap'),
   // Margins
   m: mapDirectionalUnitPropTo('margin', halfUnit, [
     'top',

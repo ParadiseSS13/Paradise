@@ -14,7 +14,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 #define PROMOTIONS_FOR_EVERYONE 2000
 #define AMBASSADORS_OF_DISCOVERY 3000
 #define PRIDE_OF_SCIENCE 4000
-#define NANOTRANSEN_FINEST 5000
+#define NANOTRASEN_FINEST 5000
 
 /datum/scoreboard
 	/// Overall combined score for the whole round.
@@ -298,8 +298,8 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		if(MACHINE_THIRTEEN to PROMOTIONS_FOR_EVERYONE-1) score_rating = 			"Lean Mean Machine Thirteen"
 		if(PROMOTIONS_FOR_EVERYONE to AMBASSADORS_OF_DISCOVERY-1) score_rating = 	"Promotions for Everyone"
 		if(AMBASSADORS_OF_DISCOVERY to PRIDE_OF_SCIENCE-1) score_rating = 			"Ambassadors of Discovery"
-		if(PRIDE_OF_SCIENCE to NANOTRANSEN_FINEST-1) score_rating = 				"The Pride of Science Itself"
-		if(NANOTRANSEN_FINEST to INFINITY) score_rating = 							"Nanotrasen's Finest"
+		if(PRIDE_OF_SCIENCE to NANOTRASEN_FINEST-1) score_rating = 				"The Pride of Science Itself"
+		if(NANOTRASEN_FINEST to INFINITY) score_rating = 							"Nanotrasen's Finest"
 
 	dat += "<b><u>RATING:</u></b> [score_rating]"
 	GLOB.scoreboard = jointext(dat, "")
@@ -331,4 +331,4 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 #undef PROMOTIONS_FOR_EVERYONE
 #undef AMBASSADORS_OF_DISCOVERY
 #undef PRIDE_OF_SCIENCE
-#undef NANOTRANSEN_FINEST
+#undef NANOTRASEN_FINEST

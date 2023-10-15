@@ -14,6 +14,8 @@
 	origin_tech = "materials=3;magnets=3;engineering=3;plasmatech=3"
 	active_on_equip = FALSE
 
+	var/active_on_equip_rad = FALSE
+
 	var/list/modes = list(MODE_NONE = MODE_MESON, MODE_MESON = MODE_TRAY, MODE_TRAY = MODE_RAD, MODE_RAD = MODE_NONE)
 	var/mode = MODE_NONE
 	var/range = 1
@@ -27,6 +29,14 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/clothing/glasses/meson/engine/equipped(mob/user, slot, initial)
+	. = ..()
+	if(active_on_equip && mode == MODE_MESON && slot == SLOT_HUD_GLASSES)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
+
+	if(active_on_equip_rad && mode == MODE_RAD && slot == SLOT_HUD_GLASSES)
+		ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
+
 /obj/item/clothing/glasses/meson/engine/proc/toggle_mode(mob/user, voluntary)
 	mode = modes[mode]
 	to_chat(user, "<span class='[voluntary ? "notice" : "warning"]'>[voluntary ? "You turn the goggles" : "The goggles turn"] [mode ? "to [mode] mode" : "off"][voluntary ? "." : "!"]</span>")
@@ -38,6 +48,14 @@
 	else
 		REMOVE_TRAIT(user, TRAIT_MESON_VISION, "meson_glasses[UID()]")
 		active_on_equip = FALSE
+
+	if(mode == MODE_RAD)
+		if(!HAS_TRAIT_FROM(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]"))
+			ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
+		active_on_equip_rad = TRUE
+	else
+		REMOVE_TRAIT(user, SM_HALLUCINATION_IMMUNE, "meson_glasses[UID()]")
+		active_on_equip_rad = FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -77,7 +95,7 @@
 	item_state = icon_state
 	if(isliving(loc))
 		var/mob/living/user = loc
-		if(user.get_item_by_slot(slot_glasses) == src)
+		if(user.get_item_by_slot(SLOT_HUD_GLASSES) == src)
 			user.update_inv_glasses()
 		else
 			user.update_inv_l_hand()

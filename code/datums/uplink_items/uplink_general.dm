@@ -1,4 +1,7 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
+// This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
+// Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
+#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
@@ -24,7 +27,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 				uplink_items[I.category] = list()
 
 			uplink_items[I.category] += I
-			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 1)
+			if(I.limited_stock < 0 && !I.cant_discount && I.item && I.cost > 5)
 				sales_items += I
 
 		for(var/datum/uplink_item/I in last)
@@ -40,8 +43,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.limited_stock = 1
 		I.refundable = FALSE
 		A.refundable = FALSE
-		if(A.cost >= 20)
-			discount *= 0.5 // If the item costs 20TC or more, it's only 25% off.
+		if(A.cost >= 100)
+			discount *= 0.5 // If the item costs 100TC or more, it's only 25% off.
 		A.cost = max(round(A.cost * (1-discount)),1)
 		A.category = "Discounted Gear"
 		A.name += " ([round(((initial(A.cost)-A.cost)/initial(A.cost))*100)]% off!)"
@@ -83,6 +86,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
+	/// Our special little snowflakes that have to be spawned in a different way than normal, like a surplus crate spawning a crate or contractor kits
+	var/uses_special_spawn = FALSE
 
 /datum/uplink_item/proc/spawn_item(turf/loc, obj/item/uplink/U)
 
@@ -91,12 +96,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
-	if(item)
-		U.uses -= max(cost, 0)
-		U.used_TC += cost
-		SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
+	U.uses -= max(cost, 0)
+	U.used_TC += cost
+	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
+	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()
 	if(!desc)
@@ -105,47 +111,47 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		desc = replacetext(initial(temp.desc), "\n", "<br>")
 	return desc
 
-/datum/uplink_item/proc/buy(obj/item/uplink/hidden/U, mob/user)
+/datum/uplink_item/proc/buy_uplink_item(obj/item/uplink/hidden/U, mob/user, put_in_hands = TRUE)
 	if(!istype(U))
-		return FALSE
+		return
 
 	if(user.stat || user.restrained())
-		return FALSE
+		return
 
-	if(!(ishuman(user)))
-		return FALSE
+	if(!ishuman(user))
+		return
 
 	// If the uplink's holder is in the user's contents
 	if((U.loc in user.contents || (in_range(U.loc, user) && isturf(U.loc.loc))))
 		if(cost > U.uses)
-			return FALSE
+			return
+
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
-		if(I)
-			if(ishuman(user))
-				var/mob/living/carbon/human/A = user
-				if(limited_stock > 0)
-					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
-					if(!user.mind.special_role)
-						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
+		if(!I || I == UPLINK_SPECIAL_SPAWNING)
+			return // Failed to spawn, or we handled it with special spawning
+		if(limited_stock > 0)
+			limited_stock--
+			log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+			if(!user.mind.special_role)
+				message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 
-				else
-					log_game("[key_name(user)] purchased [name].")
-					if(!user.mind.special_role)
-						message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
+		else
+			log_game("[key_name(user)] purchased [name].")
+			if(!user.mind.special_role)
+				message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 
-				A.put_in_any_hand_if_possible(I)
+		if(istype(I, /obj/item/storage/box) && length(I.contents))
+			for(var/atom/o in I)
+				U.purchase_log += "<big>[bicon(o)]</big>"
 
-				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
-					for(var/atom/o in I)
-						U.purchase_log += "<BIG>[bicon(o)]</BIG>"
+		else
+			U.purchase_log += "<big>[bicon(I)]</big>"
 
-				else
-					U.purchase_log += "<BIG>[bicon(I)]</BIG>"
-
-		return TRUE
-	return FALSE
+		if(put_in_hands)
+			user.put_in_any_hand_if_possible(I)
+		return I
 
 /*
 //
@@ -207,15 +213,16 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Chainsaw"
 	desc = "A high powered chainsaw for cutting up ...you know...."
 	reference = "CH"
-	item = /obj/item/twohanded/chainsaw
+	item = /obj/item/butcher_chainsaw
 	cost = 65
+	surplus = 0 // This has caused major problems with un-needed chainsaw massacres. Bwoink bait.
 
 /datum/uplink_item/dangerous/universal_gun_kit
 	name = "Universal Self Assembling Gun Kit"
 	desc = "A universal gun kit, that can be combined with any weapon kit to make a functioning RND gun of your own. Uses built in allen keys to self assemble, just combine the kits by hitting them together."
 	reference = "IKEA"
 	item = /obj/item/weaponcrafting/gunkit/universal_gun_kit
-	cost = 40
+	cost = 25
 
 /datum/uplink_item/dangerous/batterer
 	name = "Mind Batterer"
@@ -236,6 +243,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "10MM"
 	item = /obj/item/ammo_box/magazine/m10mm
 	cost = 5
+	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolap
 	name = "Stechkin - 10mm Armour Piercing Magazine"
@@ -243,6 +251,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "10MMAP"
 	item = /obj/item/ammo_box/magazine/m10mm/ap
 	cost = 10
+	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolfire
 	name = "Stechkin - 10mm Incendiary Magazine"
@@ -250,6 +259,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
 	cost = 10
+	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolhp
 	name = "Stechkin - 10mm Hollow Point Magazine"
@@ -257,6 +267,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
 	cost = 10
+	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/revolver
 	name = ".357 Revolver - Speedloader"
@@ -264,6 +275,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "357"
 	item = /obj/item/ammo_box/a357
 	cost = 15
+	surplus = 0 // Miserable
 
 // STEALTHY WEAPONS
 
@@ -274,11 +286,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Fiber Wire Garrote"
 	desc = "A length of fiber wire between two wooden handles, perfect for the discrete assassin. This weapon, when used on a target from behind \
 			will instantly put them in your grasp and silence them, as well as causing rapid suffocation. Does not work on those who do not need to breathe."
+	item = /obj/item/garrote
 	reference = "GAR"
-	item = /obj/item/twohanded/garrote
 	cost = 30
-
-
 
 /datum/uplink_item/stealthy_weapons/cameraflash
 	name = "Camera Flash"
@@ -340,6 +350,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "TPB"
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 10
+	surplus = 0 // Requires another item to function.
 
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Universal Suppressor"
@@ -524,6 +535,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SCK"
 	item = /obj/item/storage/box/syndie_kit/safecracking
 	cost = 5
+	surplus = 0 // Far too objective specific.
+
+/datum/uplink_item/stealthy_tools/handheld_mirror
+	name = "Hand Held Mirror"
+	desc = "A pocket sized mirror. Allows you to change all your hair and facial features, from color to style, instantly while in your hand."
+	reference = "HM"
+	item = /obj/item/handheld_mirror
+	cost = 5
 
 // DEVICE AND TOOLS
 
@@ -668,7 +687,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
 	reference = "HAI"
 	item = /obj/item/aiModule/syndicate
-	cost = 60
+	cost = 15
 
 /datum/uplink_item/device_tools/powersink
 	name = "Power Sink"
@@ -771,7 +790,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Strong flavor, dense smoke, infused with omnizine."
 	reference = "SYSM"
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
-	cost = 10
+	cost = 7
 
 /datum/uplink_item/badass/syndiecash
 	name = "Syndicate Briefcase Full of Cash"
@@ -794,6 +813,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An awesome jacket to help you style on Nanotrasen with. The lining is made of a thin polymer to provide a small amount of armor. Does not provide any extra storage space."
 	reference = "JCKT"
 	item = /obj/item/clothing/suit/jacket/syndicatebomber
+	cost = 3
+
+/datum/uplink_item/badass/tpsuit
+	name = "Syndicate Two-Piece Suit"
+	desc = "A snappy two-piece suit that any self-respecting Syndicate agent should wear. Perfect for professionals trying to go undetected, but moderately armored with experimental nanoweave in case things do get loud. Comes with two cashmere-lined pockets for maximum style and comfort."
+	reference = "SUIT"
+	item = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	cost = 5
 
 /datum/uplink_item/bundles_TC

@@ -123,6 +123,11 @@
 	spawn(15) //give the AI a grace period to stop moving.
 		U.tracking = FALSE
 
+	if(target.is_jammed())
+		to_chat(U, "<span class='warning'>Unable to track [target.get_visible_name()]...</span>")
+		U.cameraFollow = null
+		return
+
 	if(!target || !target.can_track(usr))
 		to_chat(U, "<span class='warning'>Target is not near any active cameras.</span>")
 		U.cameraFollow = null

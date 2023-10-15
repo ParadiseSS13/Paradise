@@ -109,10 +109,13 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
-	var/mining_points = 0 //For redeeming at mining equipment lockers
+	/// For redeeming at mining equipment lockers
+	var/mining_points = 0
+	/// Total mining points for the Shift.
+	var/total_mining_points = 0
 	var/list/access = list()
 	var/registered_name = "Unknown" // The name registered_name on the card
-	slot_flags = SLOT_ID
+	slot_flags = SLOT_FLAG_ID
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/untrackable // Can not be tracked by AI's
@@ -174,7 +177,7 @@
 	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
 		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
 	if(mining_points)
-		to_chat(user, "There's [mining_points] mining equipment redemption points loaded onto this card.")
+		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
 	src.add_fingerprint(user)
 	return
 
@@ -330,6 +333,7 @@
 	data["account"] = associated_account_number
 	data["owner"] = registered_name
 	data["mining"] = mining_points
+	data["total_mining"] = total_mining_points
 	return data
 
 /obj/item/card/id/deserialize(list/data)
@@ -343,6 +347,7 @@
 	associated_account_number = data["account"]
 	registered_name = data["owner"]
 	mining_points = data["mining"]
+	total_mining_points = data["total_mining"]
 	// We'd need to use icon serialization(b64) to save the photo, and I don't feel like i
 	UpdateName()
 	RebuildHTML()
@@ -379,6 +384,12 @@
 /obj/item/card/id/syndicate/vox
 	name = "agent card"
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_VOX, ACCESS_EXTERNAL_AIRLOCKS)
+
+/obj/item/card/id/syndicate/ghost_bar
+	name = "ghost bar identification card"
+	assignment = "Ghost Bar Occupant"
+	initial_access = list() // This is for show, they don't need actual accesses
+	icon_state = "assistant"
 
 /obj/item/card/id/syndicate/command
 	initial_access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER, ACCESS_SYNDICATE_COMMAND, ACCESS_EXTERNAL_AIRLOCKS)
@@ -539,15 +550,16 @@
 						RebuildHTML()
 
 					if("Occupation")
-						var/list/departments =list(
-							"Assistant",
-							"Engineering",
-							"Medical",
-							"Science",
-							"Security",
-							"Support",
-							"Command",
-							"Custom",
+						var/list/departments = list(
+							"Assistant" = null,
+							"Engineering" = GLOB.engineering_positions,
+							"Medical" = GLOB.medical_positions,
+							"Science" = GLOB.science_positions,
+							"Security" = GLOB.security_positions,
+							"Support" = GLOB.support_positions,
+							"Supply" = GLOB.supply_positions,
+							"Command" = GLOB.command_positions,
+							"Custom" = null,
 						)
 
 						var/department = input(user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments
@@ -555,20 +567,8 @@
 
 						if(department == "Custom")
 							new_job = sanitize(stripped_input(user,"Choose a custom job title:","Agent Card Occupation", "Assistant", MAX_MESSAGE_LEN))
-						else if(department != "Assistant")
-							switch(department)
-								if("Engineering")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
-								if("Medical")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
-								if("Science")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
-								if("Security")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
-								if("Support")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
-								if("Command")
-									new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+						else if(department != "Assistant" && !isnull(departments[department]))
+							new_job = input(user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in departments[department]
 
 						if(!Adjacent(user))
 							return

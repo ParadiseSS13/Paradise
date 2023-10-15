@@ -217,8 +217,6 @@
 	var/heat_multiplier = 1
 	///amount of EER to ADD
 	var/power_additive = 0
-	/// A list of all previous events
-	var/list/last_events = list()
 	/// Time of next event
 	var/next_event_time
 	/// Run S-Class event? So we can only run one S-class event per round per crystal
@@ -239,7 +237,6 @@
 	if(is_main_engine)
 		GLOB.main_supermatter_engine = src
 	soundloop = new(list(src), TRUE)
-	make_next_event_time()
 
 /obj/machinery/atmospherics/supermatter_crystal/Destroy()
 	if(warp)
@@ -262,7 +259,7 @@
 	. = ..()
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
-		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && !HAS_TRAIT(H, SM_HALLUCINATION_IMMUNE) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += "<span class='danger'>You get headaches just from looking at it.</span>"
 	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.</span>"
 	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
@@ -422,9 +419,7 @@
 	try_events()
 	if(power > 100)
 		if(!has_been_powered)
-			investigate_log("has been powered for the first time.", "supermatter")
-			message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
-			has_been_powered = TRUE
+			enable_for_the_first_time()
 	//We vary volume by power, and handle OH FUCK FUSION IN COOLING LOOP noises.
 	if(power)
 		soundloop.volume = clamp((50 + (power / 50)), 50, 100)
@@ -687,9 +682,7 @@
 		if(power_changes) //This needs to be here I swear
 			power += Proj.damage * bullet_energy
 			if(!has_been_powered)
-				investigate_log("has been powered for the first time.", "supermatter")
-				message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
-				has_been_powered = TRUE
+				enable_for_the_first_time()
 	else if(takes_damage)
 		damage += Proj.damage * bullet_energy
 	return FALSE
@@ -756,6 +749,9 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_hand(mob/living/user)
 	..()
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
+		user.visible_message("<span class='notice'>[user] reaches out and pokes [src] harmlessly...somehow.</span>", "<span class='notice'>You poke [src].</span>")
+		return
 	dust_mob(user, cause = "hand")
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/dust_mob(mob/living/nom, vis_msg, mob_msg, cause)
@@ -777,32 +773,39 @@
 		return
 	if(moveable && default_unfasten_wrench(user, I, time = 20))
 		return
+
 	if(istype(I, /obj/item/scalpel/supermatter))
-		if(ishuman(user))
-			var/mob/living/carbon/human/M = user
-			var/obj/item/scalpel/supermatter/scalpel = I
-			to_chat(M, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
-			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
-				if(scalpel.uses_left)
-					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
-					matter_power += 800
-					scalpel.uses_left--
-					if(!scalpel.uses_left)
-						to_chat(M, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+		if(!ishuman(user))
+			return
 
-					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+		var/mob/living/carbon/human/H = user
+		var/obj/item/scalpel/supermatter/scalpel = I
 
-					var/obj/item/retractor/supermatter/tongs = M.is_in_hands(/obj/item/retractor/supermatter)
+		if(!scalpel.uses_left)
+			to_chat(H, "<span class='warning'>[scalpel] isn't sharp enough to carve a sliver off of [src]!</span>")
+			return
 
-					if(tongs && !tongs.sliver)
-						tongs.sliver = S
-						S.forceMove(tongs)
-						tongs.icon_state = "supermatter_tongs_loaded"
-						tongs.item_state = "supermatter_tongs_loaded"
-						to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
-				else
-					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+		var/obj/item/nuke_core/supermatter_sliver/sliver = carve_sliver(H)
+		if(sliver)
+			scalpel.uses_left--
+			if(!scalpel.uses_left)
+				to_chat(H, "<span class='boldwarning'>A tiny piece falls off of [scalpel]'s blade, rendering it useless!</span>")
+
+			var/obj/item/retractor/supermatter/tongs = H.is_in_hands(/obj/item/retractor/supermatter)
+
+			if(tongs && !tongs.sliver)
+				tongs.sliver = sliver
+				sliver.forceMove(tongs)
+				tongs.icon_state = "supermatter_tongs_loaded"
+				tongs.item_state = "supermatter_tongs_loaded"
+				to_chat(H, "<span class='notice'>You pick up [sliver] with [tongs]!</span>")
+
 		return
+
+	if(istype(I, /obj/item/supermatter_halberd))
+		carve_sliver(user)
+		return
+
 	if(istype(I, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[I] bounces off [src], you need to cut a sliver off first!</span>")
 	else if(user.drop_item())
@@ -816,6 +819,10 @@
 		radiation_pulse(src, 150, 4)
 
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/AM)
+
+	if(HAS_TRAIT(AM, TRAIT_SUPERMATTER_IMMUNE))
+		return
+
 	if(isliving(AM))
 		AM.visible_message("<span class='danger'>[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
 		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
@@ -831,7 +838,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
 	..()
-	Bumped(A)
+	if(!istype(A, /obj/machinery/atmospherics/supermatter_crystal))
+		Bumped(A)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
 	if(isliving(AM))
@@ -924,7 +932,14 @@
 		remove_filter("outline")
 		QDEL_NULL(warp)
 
+/obj/machinery/atmospherics/supermatter_crystal/proc/carve_sliver(mob/living/user)
+	to_chat(user, "<span class='notice'>You begin carving a sliver off of [src]...</span>")
+	if(do_after_once(user, 4 SECONDS, FALSE, src))
+		to_chat(user, "<span class='danger'>You carve a sliver off of [src], and it begins to react violently!</span>")
+		matter_power += 800
 
+		var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+		return S
 
 // Change how bright the rock is
 /obj/machinery/atmospherics/supermatter_crystal/proc/lights()
@@ -1025,6 +1040,8 @@
 			var/mob/M = P
 			if(M.mob_negates_gravity())
 				continue //You can't pull someone nailed to the deck
+			if(HAS_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE))
+				continue
 			else if(M.buckled)
 				var/atom/movable/buckler = M.buckled
 				if(buckler.unbuckle_mob(M, TRUE))
@@ -1184,7 +1201,7 @@
 		fake_time += rand(2 MINUTES, 10 MINUTES)
 	else if(fake_time > 15 MINUTES && prob(30))
 		fake_time -= rand(2 MINUTES, 10 MINUTES)
-	next_event_time += fake_time
+	next_event_time = fake_time + world.time
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
 	if(has_been_powered == FALSE)
@@ -1216,6 +1233,12 @@
 		log_debug("Attempted supermatter event aborted due to incorrect path. Incorrect path type: [event.type].")
 		return
 	event.start_event()
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/enable_for_the_first_time()
+	investigate_log("has been powered for the first time.", "supermatter")
+	message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
+	has_been_powered = TRUE
+	make_next_event_time()
 
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY

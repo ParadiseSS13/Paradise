@@ -19,9 +19,15 @@
 		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
 		return FALSE
 
+	var/brute_damage = H.getBruteLoss() * 0.66 // To offset the 1.5 brute/burn mod that monkeys have
+	var/burn_damage = H.getFireLoss() * 0.66
+
 	H.visible_message("<span class='warning'>[H] transforms!</span>")
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
 	H.monkeyize()
+
+	H.adjustBruteLoss(brute_damage)
+	H.adjustFireLoss(burn_damage)
 
 	cling.give_power(new /datum/action/changeling/humanform)
 

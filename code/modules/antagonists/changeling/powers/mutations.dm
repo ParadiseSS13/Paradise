@@ -99,8 +99,8 @@
 	user.unEquip(user.head)
 	user.unEquip(user.wear_suit)
 
-	user.equip_to_slot_if_possible(new suit_type(user), slot_wear_suit, TRUE, TRUE)
-	user.equip_to_slot_if_possible(new helmet_type(user), slot_head, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new suit_type(user), SLOT_HUD_OUTER_SUIT, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new helmet_type(user), SLOT_HUD_HEAD, TRUE, TRUE)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
@@ -186,6 +186,8 @@
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
 	icon = 'icons/obj/items.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "tentacle"
 	item_state = "tentacle"
 	flags = ABSTRACT | NODROP | NOBLUDGEON | DROPDEL
@@ -509,7 +511,7 @@
 
 	// snowflake checks my beloved
 	// this will become tooltype checks I swear
-	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/twohanded/required/chainsaw) && !istype(I, /obj/item/twohanded/chainsaw))
+	if(!istype(I, /obj/item/circular_saw) && !istype(I, /obj/item/chainsaw) && !istype(I, /obj/item/butcher_chainsaw))
 		return
 
 	user.visible_message(

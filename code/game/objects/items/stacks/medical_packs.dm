@@ -17,7 +17,7 @@
 	var/stop_bleeding = 0
 	var/healverb = "bandage"
 
-/obj/item/stack/medical/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/proc/apply(mob/living/M, mob/user)
 	if(get_amount() <= 0)
 		if(is_cyborg)
 			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [singular_name]\s!</span>")
@@ -76,6 +76,12 @@
 		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", \
 							"<span class='green'>You apply [src] on [M].</span>")
 		use(1)
+
+/obj/item/stack/medical/attack(mob/living/M, mob/user)
+	return apply(M, user)
+
+/obj/item/stack/medical/attack_self(mob/user)
+	return apply(user, user)
 
 /obj/item/stack/medical/proc/heal(mob/living/M, mob/user)
 	var/mob/living/carbon/human/H = M
@@ -141,7 +147,7 @@
 	else
 		return ..()
 
-/obj/item/stack/medical/bruise_pack/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/bruise_pack/apply(mob/living/M, mob/user)
 	if(..())
 		return TRUE
 
@@ -204,7 +210,7 @@
 	heal_burn = 10
 	dynamic_icon_state = TRUE
 
-/obj/item/stack/medical/ointment/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/ointment/apply(mob/living/M, mob/user)
 	if(..())
 		return 1
 
@@ -225,6 +231,7 @@
 /obj/item/stack/medical/ointment/heal(mob/living/M, mob/user)
 	var/obj/item/organ/external/affecting = ..()
 	if((affecting.status & ORGAN_BURNT) && !(affecting.status & ORGAN_SALVED))
+		to_chat(affecting.owner, "<span class='notice'>As [src] is applied to your burn wound, you feel a soothing cold and relax.</span>")
 		affecting.status |= ORGAN_SALVED
 		addtimer(CALLBACK(affecting, TYPE_PROC_REF(/obj/item/organ/external, remove_ointment), heal_burn), 3 MINUTES)
 
@@ -235,6 +242,9 @@
 		owner.updatehealth("permanent injury removal")
 	if(!perma_injury)
 		fix_burn_wound(update_health = FALSE)
+		to_chat(owner, "<span class='notice'>You feel your [src.name]'s burn wound has fully healed, and the rest of the salve absorbs into it.</span>")
+	else
+		to_chat(owner, "<span class='notice'>You feel your [src.name]'s burn wound has healed a little, but the applied salve has already vanished.</span>")
 
 /obj/item/stack/medical/ointment/advanced
 	name = "advanced burn kit"
@@ -292,7 +302,7 @@
 	self_delay = 100
 	var/other_delay = 0
 
-/obj/item/stack/medical/splint/attack(mob/living/M, mob/user)
+/obj/item/stack/medical/splint/apply(mob/living/M, mob/user)
 	if(..())
 		return TRUE
 

@@ -31,6 +31,10 @@
 	name = "Chips"
 	icon_state = "chips"
 
+/obj/item/trash/twimsts
+	name = "Twimsts"
+	icon_state = "twimsts"
+
 /obj/item/trash/popcorn
 	name = "Popcorn"
 	icon_state = "popcorn"
@@ -64,7 +68,7 @@
 	name = "Kentucky Fried Vox"
 	icon_state = "fried_vox_empty"
 	item_state = "fried_vox_empty"
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
 	sprite_sheets = list(
 	"Skrell" = 'icons/mob/clothing/species/skrell/head.dmi',
