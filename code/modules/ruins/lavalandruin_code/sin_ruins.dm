@@ -1,8 +1,6 @@
 //These objects are used in the cardinal sin-themed ruins (i.e. Gluttony, Pride...)
 
 // Greed
-#define WIN_PROB 5
-
 /// Greed's slot machine: Used in the Greed ruin. Deals damage on each use, with a successful use giving a d20 of fate.
 /obj/structure/cursed_slot_machine
 	name = "greed's slot machine"
