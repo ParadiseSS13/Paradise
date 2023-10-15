@@ -171,7 +171,7 @@
 	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
-	cost = 15
+	cost = 10
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Assistant
@@ -429,7 +429,7 @@
 	reference = "FRAME"
 	item = /obj/item/cartridge/frame
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	cost = 20
+	cost = 15
 
 /datum/uplink_item/stealthy_tools/voice_modulator
 	name = "Chameleon Voice Modulator Mask"
