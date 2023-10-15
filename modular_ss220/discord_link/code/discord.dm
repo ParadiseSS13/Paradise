@@ -28,7 +28,7 @@
 	if(!SSdbcore.IsConnected())
 		return
 
-	var/token = md5("[world.time+rand(1000,1000000)]")
+	var/token = "WyccStation_" + md5("[world.time+rand(1000,1000000)]")
 	var/datum/db_query/query_replace_token = SSdbcore.NewQuery("REPLACE INTO discord_links (ckey, timestamp, one_time_token) VALUES (:ckey, NOW(), :token)", list(
 		"token" = token,
 		"ckey" = ckey

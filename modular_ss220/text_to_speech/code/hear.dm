@@ -38,8 +38,7 @@
 	var/message_tts = combine_message_tts(message_pieces, speaker)
 	var/effect = isrobot(speaker) ? SOUND_EFFECT_ROBOT : SOUND_EFFECT_NONE
 	var/traits = TTS_TRAIT_RATE_FASTER
-	var/is_whisper = verb == "whispers"
-	if(is_whisper)
+	if(italics)
 		traits |= TTS_TRAIT_PITCH_WHISPER
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(tts_cast), speaker, src, message_tts, speaker.tts_seed, TRUE, effect, traits)
 

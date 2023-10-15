@@ -1172,7 +1172,7 @@
 									"CLEAR" = "Center"
 								)
 
-								new_key = key_map[new_key] || new_key
+								new_key = convert_ru_key_to_en_key(key_map[new_key] || new_key) // SS220 EDIT
 
 								var/full_key
 								switch(new_key)

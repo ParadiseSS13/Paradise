@@ -4,9 +4,9 @@
 	api_url = "http://s2.ss220.club:9999/voice"
 
 /datum/tts_provider/silero/vv_edit_var(var_name, var_value)
-	. = ..()
 	if(var_name == "api_url")
 		return FALSE
+	return ..()
 
 /datum/tts_provider/silero/request(text, datum/tts_seed/silero/seed, datum/callback/proc_callback)
 	if(throttle_check())

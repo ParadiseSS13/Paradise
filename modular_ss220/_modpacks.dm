@@ -8,8 +8,7 @@ SUBSYSTEM_DEF(modpacks)
 
 /datum/controller/subsystem/modpacks/Initialize()
 	var/list/all_modpacks = list()
-	for(var/modpack in subtypesof(/datum/modpack/))
-		all_modpacks.Add(new modpack)
+	init_subtypes(/datum/modpack/, all_modpacks)
 
 	loaded_modpacks = list()
 	// Pre-init and register all compiled modpacks.

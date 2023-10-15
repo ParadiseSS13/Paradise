@@ -105,3 +105,4 @@
 			to_chat(usr, span_danger("Выбранный голос персонажа более недоступен на текущем уровне подписки!"))
 			client.prefs.ShowChoices(src)
 			return FALSE
+	return TRUE
