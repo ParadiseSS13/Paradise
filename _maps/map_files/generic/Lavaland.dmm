@@ -499,25 +499,26 @@
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "bu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/cable/cyan{
+	icon_state = "4-8"
+	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
+/obj/structure/cable/orange{
+	icon_state = "0-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
+/obj/machinery/computer/monitor{
+	name = "Grid Power Monitoring Console"
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
@@ -596,12 +597,9 @@
 	},
 /area/mine/outpost/lockers)
 "bD" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
+/obj/machinery/economy/vending/coffee,
+/obj/machinery/status_display{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -775,6 +773,11 @@
 /area/mine/outpost/storage)
 "bY" = (
 /obj/structure/dispenser/oxygen,
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Suit Storage";
+	network = list("Mining Outpost");
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1350,19 +1353,11 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "dj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -1773,15 +1768,12 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "dV" = (
-/obj/machinery/camera{
-	c_tag = "Mining Outpost - Cafeteria";
-	dir = 1;
-	network = list("Mining Outpost")
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
-/obj/item/kirbyplants,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -1962,17 +1954,20 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "er" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
@@ -2054,8 +2049,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 1
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8;
+	initialize_directions = 11
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
@@ -2066,6 +2062,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/catwalk,
@@ -2648,6 +2647,9 @@
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/machinery/ai_status_display{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purplecorner";
@@ -4573,15 +4575,15 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /obj/structure/sign/directions/engineering{
 	pixel_y = 30;
 	dir = 8
 	},
 /obj/structure/sign/directions/cargo{
 	pixel_y = 24
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4775,6 +4777,9 @@
 /obj/effect/mapping_helpers/airlock/access/any/engineering/general,
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "pN" = (
@@ -4848,11 +4853,11 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/cable/orange{
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
@@ -5128,6 +5133,9 @@
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -5218,7 +5226,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/mechbay)
 "ur" = (
-/obj/item/kirbyplants,
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -5520,6 +5528,26 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
+"wJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/status_display{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/hallway/west)
 "wP" = (
 /obj/machinery/newscaster{
 	dir = 8;
@@ -5712,6 +5740,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5772,7 +5803,15 @@
 	},
 /area/mine/outpost/storage)
 "zb" = (
-/obj/structure/reagent_dispensers/water_cooler,
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Cafeteria";
+	dir = 1;
+	network = list("Mining Outpost")
+	},
+/obj/item/kirbyplants,
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_y = -31
+	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -5859,6 +5898,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "zy" = (
@@ -6456,12 +6498,12 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/cable/yellow,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Life Support";
 	dir = 5;
 	network = list("Mining Outpost")
 	},
+/obj/structure/cable/orange,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "Ej" = (
@@ -6693,6 +6735,19 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/storage)
+"Go" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 1
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/catwalk,
+/area/mine/outpost/engineering)
 "Gp" = (
 /obj/structure/sign/poster/contraband/clown,
 /obj/effect/spawner/random_spawners/wall_rusted_always,
@@ -6731,6 +6786,11 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/hologram/holopad,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7351,26 +7411,10 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
-	},
-/area/mine/outpost/hallway/west)
-"MP" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
 "Nb" = (
@@ -7381,6 +7425,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/light,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "Nc" = (
@@ -7654,26 +7701,6 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/engineering)
-"Po" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/hallway/west)
 "Pp" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /obj/structure/railing/cap{
@@ -8157,9 +8184,6 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "Uh" = (
-/obj/machinery/computer/monitor{
-	name = "Grid Power Monitoring Console"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -8169,10 +8193,6 @@
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -8242,6 +8262,9 @@
 /obj/machinery/light_switch{
 	name = "North Switch";
 	pixel_y = 24
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
@@ -8817,18 +8840,6 @@
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
-"YF" = (
-/obj/machinery/suit_storage_unit/lavaland,
-/obj/machinery/camera{
-	c_tag = "Mining Outpost - Suit Storage";
-	network = list("Mining Outpost");
-	dir = 6
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/storage)
 "YI" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel,
@@ -21013,7 +21024,7 @@ ec
 fo
 bu
 rz
-YE
+Go
 DB
 ey
 YE
@@ -23327,8 +23338,8 @@ bN
 Xy
 bN
 zb
-cF
-MP
+dy
+yq
 vA
 dg
 fE
@@ -23582,10 +23593,10 @@ dy
 Nc
 Jv
 er
-bN
 dV
-dy
-Po
+dV
+Ef
+ox
 el
 dg
 gn
@@ -23839,10 +23850,10 @@ bJ
 Ff
 Av
 dj
+bN
 bD
-bD
-Ef
-ox
+dy
+wJ
 el
 dg
 bi
@@ -25629,7 +25640,7 @@ vP
 vP
 AY
 cU
-YF
+jP
 bV
 Gl
 bE
