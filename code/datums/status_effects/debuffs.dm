@@ -1182,9 +1182,6 @@
 				playsound(human_owner, 'sound/weapons/sear.ogg', 50, TRUE)
 				var/obj/item/organ/external/affecting = human_owner.get_active_hand()
 				branded_hand = affecting
-				if(affecting.receive_damage(0, 5)) // 5 burn damage
-					human_owner.UpdateDamageIcon()
-					human_owner.updatehealth()
 
 			messages += "<span class='boldwarning'>Your hand burns, and you quickly let go of the lever! You feel a little sick as the nerves deaden in your hand...</span>"
 			messages += "<span class='boldwarning'>Some smoke appears to be coming out of your hand now, but it's not too bad...</span>"
@@ -1218,7 +1215,7 @@
 				to_chat(owner, "<span class='userdanger'>Do you <i>still</i> think you're in control?</span>")
 				return
 
-			to_chat(owner, "Why couldn't I get one more try?!</span>")
+			to_chat(owner, "Why couldn't I get one more try?!")
 			owner.gib()
 			qdel(src)
 			return
