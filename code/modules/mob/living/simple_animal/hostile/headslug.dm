@@ -107,8 +107,7 @@
 		cling.give_power(new /datum/action/changeling/humanform)
 		M.key = origin.key
 		M.revive() // better make sure some weird shit doesn't happen, because it has in the pas
-		var/turf/output_loc = owner.loc
-		M.forceMove(output_loc) // So that they are not stuck inside
+		M.forceMove(get_turf(owner)) // So that they are not stuck inside
 	owner.apply_damage(300, BRUTE, BODY_ZONE_CHEST)
 	owner.bleed(BLOOD_VOLUME_NORMAL)
 	var/obj/item/organ/external/chest = owner.get_organ(BODY_ZONE_CHEST)
