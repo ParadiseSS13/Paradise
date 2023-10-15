@@ -18941,9 +18941,7 @@
 /area/station/security/prison/cell_block)
 "bzq" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/structure/displaycase{
-	start_showpiece_type = /obj/item/reagent_containers/food/snacks/donut/sprinkles
-	},
+/obj/structure/displaycase/hos,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -73273,7 +73271,6 @@
 /obj/structure/closet/secure_closet/hos,
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/alarm/directional/south,
-/obj/item/clothing/gloves/combat,
 /obj/item/clothing/accessory/holster,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -77848,9 +77845,7 @@
 /obj/item/clothing/glasses/hud/health{
 	pixel_y = 2
 	},
-/obj/item/clothing/glasses/hud/health{
-	pixel_y = 0
-	},
+/obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},

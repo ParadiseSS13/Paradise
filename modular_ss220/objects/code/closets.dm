@@ -10,3 +10,7 @@
 	new /obj/item/gun/energy/laser/awaymission_aeg/rnd(src)
 	new /obj/item/storage/firstaid/regular(src)
 	new /obj/item/paper/pamphlet/gateway(src)
+
+/obj/structure/closet/secure_closet/hos/populate_contents()
+	. = ..()
+	new /obj/item/clothing/gloves/combat(src)

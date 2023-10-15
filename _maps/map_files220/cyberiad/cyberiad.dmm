@@ -10496,7 +10496,6 @@
 /area/station/hallway/primary/fore)
 "aNX" = (
 /obj/machinery/disposal,
-/obj/machinery/light_switch/west,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
@@ -69535,11 +69534,7 @@
 	},
 /area/station/service/chapel)
 "mEM" = (
-/obj/structure/closet/secure_closet/guncabinet{
-	name = "HoS personal weapons";
-	req_access = list(58)
-	},
-/obj/item/clothing/gloves/combat,
+/obj/structure/displaycase/hos,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -75984,6 +75979,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light_switch/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},

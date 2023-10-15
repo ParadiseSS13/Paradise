@@ -7,3 +7,4 @@
 #include "code/papershredder.dm"
 #include "code/platform.dm"
 #include "code/tribune.dm"
+#include "code/weapons.dm"
