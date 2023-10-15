@@ -274,7 +274,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A speed loader that contains seven additional .357 Magnum rounds for the syndicate revolver. For when you really need a lot of things dead."
 	reference = "357"
 	item = /obj/item/ammo_box/a357
-	cost = 10
+	cost = 15
 	surplus = 0 // Miserable
 
 // STEALTHY WEAPONS
@@ -442,7 +442,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	it can also be used in a washing machine to forge clothing."
 	reference = "CHST"
 	item = /obj/item/stamp/chameleon
-	cost = 5
+	cost = 2
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chameleonflag
@@ -526,7 +526,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	spraycan for changing their appearances."
 	reference = "ADCC"
 	item = /obj/item/storage/box/syndie_kit/cutouts
-	cost = 5
+	cost = 1
 	surplus = 20
 
 /datum/uplink_item/stealthy_tools/safecracking
@@ -777,7 +777,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			On activation, it will conceal you inside a chameleon cardboard box that is only revealed once someone bumps into it."
 	reference = "SI"
 	item = /obj/item/implanter/stealth
-	cost = 40
+	cost = 45
 
 // POINTLESS BADASSERY
 
