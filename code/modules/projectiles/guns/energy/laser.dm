@@ -198,9 +198,9 @@
 	speed = 0.5
 
 /obj/item/projectile/beam/laser/sniper/pierce/prehit(atom/target)
-    if(isturf(target) && !forcedodge)
-        forcedodge++ //Increases force dodge before turf consumes it.
-    ..()
+	if(isturf(target) && !forcedodge)
+		forcedodge++ //Increases force dodge before turf consumes it.
+	..()
 
 /obj/item/gun/energy/xray
 	name = "xray laser gun"
