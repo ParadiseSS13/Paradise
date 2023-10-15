@@ -1207,7 +1207,7 @@
 			messages += "<span class='boldwarning'>The ultimate test of mind over matter. You can jerk your own muscle back in order to prevent a terrible fate, but your life already is worth so little now.</span>"
 			messages += "<span class='boldwarning'>This is what they want, is it not? To witness your failure against itself? The compulsion carries you forward as a sinking feeling of dread fills your stomach.</span>"
 			messages += "<span class='boldwarning'>Paradoxically, where there is hopelessness, there is elation. Elation at the fact that there's still enough power in you for one more pull.</span>"
-			messages += "<span class='boldwarning'>Your legs desperate wish to jolt away on the thought of running away from this wretched machination, but your own arm remains complacent in the thought of seeing spinning wheels.</span>"
+			messages += "<span class='boldwarning'>Your legs desperately wish to jolt away on the thought of running away from this wretched machination, but your own arm remains complacent in the thought of seeing spinning wheels.</span>"
 			messages += "<span class='userdanger'>The toll has already been exacted. There is no longer death on 'your' terms. Is your dignity worth more than your life?</span>"
 
 		if(5 to INFINITY)
