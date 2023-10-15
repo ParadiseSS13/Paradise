@@ -529,8 +529,6 @@ SUBSYSTEM_DEF(ticker)
 	ending_station_state.count()
 	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(ending_station_state), 0.1), 100.0)
 
-	SScredits.roll_credits_for_all_clients()
-
 	to_chat(world, "<BR>[TAB]Shift Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>")
 	to_chat(world, "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>")
 	to_chat(world, "<BR>")
@@ -593,6 +591,8 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/datum/team/team in GLOB.antagonist_teams)
 		team.on_round_end()
+
+	SScredits.roll_credits_for_all_clients() // SS220 ADDITION
 
 	// Display the scoreboard window
 	score.scoreboard()

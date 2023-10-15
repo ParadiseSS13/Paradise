@@ -1,3 +1,6 @@
+#define CREDITS_BACKGROUND_PLANE 25
+#define CREDITS_PLANE 26
+
 SUBSYSTEM_DEF(credits)
 	name = "Credits"
 	runlevels = RUNLEVEL_POSTGAME
@@ -24,14 +27,14 @@ SUBSYSTEM_DEF(credits)
 	if(end_titles)
 		end_titles = generate_titles()
 
-	if(client.mob)
-		client.mob.overlay_fullscreen("black",/obj/screen/fullscreen/black)
-		SEND_SOUND(client, sound(title_music, repeat = 0, wait = 0, volume = 85 * client.prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC))
-
-	addtimer(CALLBACK(src, PROC_REF(roll_credits_for_client), client), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(roll_credits_for_client), client), 30 SECONDS, TIMER_CLIENT_TIME)
 
 /datum/controller/subsystem/credits/proc/roll_credits_for_client(client/client)
 	var/list/_credits = client.credits
+
+	if(client.mob)
+		client.mob.overlay_fullscreen("black",/obj/screen/fullscreen/black)
+		SEND_SOUND(client, sound(title_music, repeat = FALSE, wait = FALSE, volume = 85 * client.prefs.get_channel_volume(CHANNEL_LOBBYMUSIC), channel = CHANNEL_LOBBYMUSIC))
 
 	for(var/item in end_titles)
 		if(!client.credits)
@@ -41,7 +44,7 @@ SUBSYSTEM_DEF(credits)
 		title.rollem()
 		sleep(credit_spawn_speed)
 
-	addtimer(CALLBACK(src, PROC_REF(clear_credits), client), (credit_roll_speed))
+	addtimer(CALLBACK(src, PROC_REF(clear_credits), client), (credit_roll_speed), TIMER_CLIENT_TIME)
 
 /datum/controller/subsystem/credits/proc/clear_credits(client/client)
 	QDEL_NULL(client.credits)
@@ -153,7 +156,8 @@ SUBSYSTEM_DEF(credits)
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "black"
 	screen_loc = "WEST,SOUTH to EAST,NORTH"
-	layer = ABOVE_HUD_LAYER
+	plane = CREDITS_BACKGROUND_PLANE
+	show_when_dead = TRUE
 
 
 /obj/screen/credit
@@ -161,8 +165,7 @@ SUBSYSTEM_DEF(credits)
 	mouse_opacity = 0
 	alpha = 0
 	screen_loc = "CENTER-7,CENTER-7"
-	plane = HUD_PLANE
-	layer = HUD_LAYER
+	plane = CREDITS_PLANE
 	var/client/parent
 	var/matrix/target
 
@@ -194,3 +197,6 @@ SUBSYSTEM_DEF(credits)
 	return ..()
 
 /client/var/list/credits
+
+#undef CREDITS_PLANE
+#undef CREDITS_BACKGROUND_PLANE
