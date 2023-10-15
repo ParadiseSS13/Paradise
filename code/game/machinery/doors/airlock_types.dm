@@ -303,6 +303,18 @@
 	opacity = FALSE
 	glass = TRUE
 
+/obj/machinery/door/airlock/external_no_weld
+	name = "external airlock"
+	icon = 'icons/obj/doors/airlocks/external/external.dmi'
+	overlays_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
+	note_overlay_file = 'icons/obj/doors/airlocks/external/overlays.dmi'
+	assemblytype = /obj/structure/door_assembly/door_assembly_ext
+	doorOpen = 'sound/machines/airlock_ext_open.ogg'
+	doorClose = 'sound/machines/airlock_ext_close.ogg'
+
+/obj/machinery/door/airlock/external_no_weld/welder_act(mob/user, obj/item/I)
+	return
+
 //////////////////////////////////
 /*
 	CentCom Airlocks

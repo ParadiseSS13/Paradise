@@ -139,8 +139,11 @@
 
 		SStgui.on_transfer(current, new_character)
 
+		new_character.job = current.job //transfer our job over to the new body
+
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
+
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
@@ -149,10 +152,12 @@
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 	if(martial_art)
-		if(martial_art.temporary)
-			martial_art.remove(current)
-		else
-			martial_art.teach(current)
+		for(var/datum/martial_art/MA in known_martial_arts)
+			if(MA.temporary)
+				MA.remove(current)
+			else
+				MA.remove(current)
+				MA.teach(current)
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
@@ -1484,7 +1489,8 @@
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
 
 	else if(href_list["obj_announce"])
-		announce_objectives()
+		var/list/messages = prepare_announce_objectives()
+		to_chat(current, chat_box_red(messages.Join("<br>")))
 		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
@@ -1569,14 +1575,14 @@
 		else if(A.type == datum_type)
 			return A
 
-/datum/mind/proc/announce_objectives(title = TRUE)
+/datum/mind/proc/prepare_announce_objectives(title = TRUE)
 	if(!current)
 		return
 	var/list/text = list()
 	if(title)
 		text.Add("<span class='notice'>Your current objectives:</span>")
 	text.Add(gen_objective_text())
-	to_chat(current, text.Join("<br>"))
+	return text
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()
