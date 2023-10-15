@@ -8,7 +8,7 @@
 	department_head = list("Nanotrasen Navy Officer")
 	selection_color = "#ccccff"
 	req_admin_notify = 1
-	is_command = TRUE
+	job_department_flags = DEP_FLAG_COMMAND
 	department_account_access = TRUE
 	access = list() 			//See get_access()
 	minimal_access = list() 	//See get_access()
@@ -66,7 +66,7 @@
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = 1
-	is_command = 1
+	job_department_flags = DEP_FLAG_COMMAND
 	minimal_player_age = 21
 	department_account_access = TRUE
 	exp_map = list(EXP_TYPE_SERVICE = 1200)
@@ -115,7 +115,7 @@
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
-	is_command = TRUE
+	job_department_flags = DEP_FLAG_COMMAND
 	transfer_allowed = FALSE
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_COMMAND = 3000) // 50 hours baby
@@ -138,7 +138,7 @@
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
 	jobtype = /datum/job/nanotrasenrep
-	uniform = /obj/item/clothing/under/rank/centcom/representative
+	uniform = /obj/item/clothing/under/rank/procedure/representative
 	suit = /obj/item/clothing/suit/storage/ntrep
 	shoes = /obj/item/clothing/shoes/centcom
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -163,7 +163,7 @@
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
-	is_command = TRUE
+	job_department_flags = DEP_FLAG_COMMAND
 	transfer_allowed = FALSE
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_COMMAND = 3000) // 50 hours baby
@@ -183,7 +183,7 @@
 /datum/outfit/job/blueshield
 	name = "Blueshield"
 	jobtype = /datum/job/blueshield
-	uniform = /obj/item/clothing/under/rank/centcom/blueshield
+	uniform = /obj/item/clothing/under/rank/procedure/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -211,7 +211,7 @@
 	department_head = list("Captain")
 	selection_color = "#ddddff"
 	req_admin_notify = TRUE
-	is_legal = TRUE
+	job_department_flags = DEP_FLAG_LEGAL
 	transfer_allowed = FALSE
 	minimal_player_age = 30
 	exp_map = list(EXP_TYPE_SECURITY = 6000) // 100 hours baby
@@ -229,7 +229,7 @@
 /datum/outfit/job/judge
 	name = "Magistrate"
 	jobtype = /datum/job/judge
-	uniform = /obj/item/clothing/under/rank/centcom/magistrate
+	uniform = /obj/item/clothing/under/rank/procedure/magistrate
 	suit = /obj/item/clothing/suit/magirobe
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
@@ -255,7 +255,7 @@
 	department_flag = JOBCAT_SUPPORT
 	total_positions = 2
 	spawn_positions = 2
-	is_legal = 1
+	job_department_flags = DEP_FLAG_LEGAL
 	supervisors = "the magistrate"
 	department_head = list("Captain")
 	selection_color = "#ddddff"
@@ -271,8 +271,8 @@
 /datum/outfit/job/lawyer
 	name = "Internal Affairs Agent"
 	jobtype = /datum/job/lawyer
-	uniform = /obj/item/clothing/under/rank/civilian/internalaffairs
-	suit = /obj/item/clothing/suit/storage/internalaffairs
+	uniform = /obj/item/clothing/under/rank/procedure/iaa
+	suit = /obj/item/clothing/suit/storage/iaa/blackjacket
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_iaa/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only

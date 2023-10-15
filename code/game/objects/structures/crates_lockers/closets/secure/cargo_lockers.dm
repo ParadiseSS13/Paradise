@@ -11,6 +11,7 @@
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/head/soft(src)
+	new /obj/item/storage/bag/mail(src)
 //		new /obj/item/cartridge/quartermaster(src)
 
 
@@ -34,4 +35,5 @@
 	new /obj/item/destTagger(src)
 	new /obj/item/reagent_containers/food/drinks/mug/qm(src)
 	new /obj/item/flash(src)
+	new /obj/item/storage/bag/mail(src)
 

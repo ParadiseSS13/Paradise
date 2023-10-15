@@ -186,8 +186,8 @@
 		M.emote(pick("laugh", "giggle"))
 	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>You feel warm.</span>") // fever, gets worse with volume
-		M.bodytemperature += 30 * recent_consumption
-		M.Confused(1 SECONDS * recent_consumption) //let us see how this feels
+		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
+		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)) //let us see how this feels
 
 	if(prob(4))
 		to_chat(M, "<span class='notice'>You feel kinda awful!</span>")
@@ -902,8 +902,8 @@
 		to_chat(M, "<span class='notice'>[high_message]</span>")
 	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
-		M.bodytemperature += 30 * recent_consumption
-		M.Confused(2 SECONDS * recent_consumption)
+		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
+		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2))
 
 	return ..() | update_flags
 
@@ -966,8 +966,8 @@
 	M.Stuttering(10 SECONDS)
 	if(prob(5 * DRAWBACK_CHANCE_MODIFIER(recent_consumption)))
 		to_chat(M, "<span class='notice'>Your circuits overheat!</span>") // synth fever
-		M.bodytemperature += 30 * recent_consumption
-		M.Confused(2 SECONDS * recent_consumption)
+		M.bodytemperature += 30 * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2)
+		M.Confused(1 SECONDS * DRAWBACK_CHANCE_MODIFIER(recent_consumption * 2))
 	if(prob(10))
 		to_chat(M, "<span class='danger'>You experience a violent electrical discharge!</span>")
 		playsound(get_turf(M), 'sound/effects/eleczap.ogg', 75, TRUE)

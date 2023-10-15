@@ -21,7 +21,7 @@
 	allow_quick_empty = 1
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 // -----------------------------
 //          Trash bag
@@ -34,7 +34,6 @@
 	belt_icon = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = null
 	storage_slots = 30
@@ -44,7 +43,7 @@
 
 /obj/item/storage/bag/trash/proc/update_weight()
 	if(!length(contents))
-		w_class = WEIGHT_CLASS_NORMAL
+		w_class = WEIGHT_CLASS_SMALL
 		return
 
 	w_class = WEIGHT_CLASS_BULKY
@@ -121,7 +120,7 @@
 	icon = 'icons/obj/trash.dmi'
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
-	slot_flags = SLOT_HEAD|SLOT_BELT
+	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
@@ -132,14 +131,14 @@
 
 /obj/item/storage/bag/plasticbag/mob_can_equip(M as mob, slot)
 
-	if(slot==slot_head && contents.len)
+	if(slot==SLOT_HUD_HEAD && contents.len)
 		to_chat(M, "<span class='warning'>You need to empty the bag first!</span>")
 		return 0
 	return ..()
 
 
 /obj/item/storage/bag/plasticbag/equipped(mob/user, slot)
-	if(slot==slot_head)
+	if(slot==SLOT_HUD_HEAD)
 		storage_slots = 0
 		START_PROCESSING(SSobj, src)
 	return
@@ -148,7 +147,7 @@
 	if(is_equipped())
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
-			if(H.get_item_by_slot(slot_head) == src)
+			if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
 				if(H.internal)
 					return
 				H.AdjustLoseBreath(2 SECONDS)
@@ -167,7 +166,7 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags = SLOT_BELT | SLOT_POCKET
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_POCKET
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
@@ -535,4 +534,20 @@
 					/obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker,
 					/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/iv_bag,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine)
+	resistance_flags = FLAMMABLE
+
+/*
+ *	Mail bag
+ */
+
+/obj/item/storage/bag/mail
+	name = "mail bag"
+	desc = "A bag for envelopes, stamps, pens, and papers."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "mailbag"
+	item_state = "mailbag"
+	storage_slots = 14
+	max_combined_w_class = 28
+	w_class = WEIGHT_CLASS_TINY
+	can_hold = list(/obj/item/envelope, /obj/item/stamp, /obj/item/pen, /obj/item/paper, /obj/item/mail_scanner)
 	resistance_flags = FLAMMABLE

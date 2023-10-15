@@ -19,7 +19,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
-	slot_flags = SLOT_MASK
+	slot_flags = SLOT_FLAG_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
@@ -405,7 +405,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
-	if(enabled && slot == slot_wear_mask)
+	if(enabled && slot == SLOT_HUD_WEAR_MASK)
 		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
 			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 			to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")

@@ -279,7 +279,7 @@
 	desc = "God wills it!"
 	icon_state = "knight_templar"
 	item_state = "knight_templar"
-	allowed = list(/obj/item/nullrod/claymore)
+	allowed = list(/obj/item/nullrod/claymore, /obj/item/storage/bible)
 	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, RAD = 0, FIRE = 200, ACID = 200)
 
 /obj/item/clothing/suit/armor/vest/durathread
@@ -496,7 +496,7 @@
 
 /obj/item/clothing/suit/armor/reactive/fire/equipped(mob/user, slot)
 	..()
-	if(slot != slot_wear_suit)
+	if(slot != SLOT_HUD_OUTER_SUIT)
 		return
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, "[UID()]")
 
@@ -523,7 +523,7 @@
 
 /obj/item/clothing/suit/armor/reactive/cryo/equipped(mob/user, slot)
 	..()
-	if(slot != slot_wear_suit)
+	if(slot != SLOT_HUD_OUTER_SUIT)
 		return
 	ADD_TRAIT(user, TRAIT_RESISTCOLD, "[UID()]")
 
@@ -757,7 +757,7 @@
 	icon_state = "ertarmor_jan"
 
 //same defense as basic sec armor
-/obj/item/clothing/suit/storage/lawyer/blackjacket/armored
+/obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	desc = "A snappy dress jacket, reinforced with a layer of armor protecting the torso."
 	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/automatic/pistol)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO

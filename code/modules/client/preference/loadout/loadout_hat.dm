@@ -13,7 +13,7 @@
 
 /datum/gear/hat
 	main_typepath = /datum/gear/hat
-	slot = slot_head
+	slot = SLOT_HUD_HEAD
 	sort_category = "Headwear"
 
 /datum/gear/hat/hhat_yellow
@@ -76,6 +76,11 @@
 	display_name = "Security cap"
 	path = /obj/item/clothing/head/soft/sec
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
+
+/datum/gear/hat/deliverysoft
+	display_name = "Cap, delivery boy"
+	path = /obj/item/clothing/head/soft/deliverysoft
+	allowed_roles = list("Quartermaster", "Cargo Technician")
 
 /datum/gear/hat/capred
 	display_name = "Cap, red"

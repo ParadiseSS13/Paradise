@@ -385,8 +385,6 @@
 /obj/item/disk/plantgene/New()
 	..()
 	update_icon(UPDATE_OVERLAYS)
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
 
 /obj/item/disk/plantgene/Destroy()
 	QDEL_NULL(gene)

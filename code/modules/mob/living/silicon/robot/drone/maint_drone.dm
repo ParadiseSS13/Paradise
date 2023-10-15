@@ -99,6 +99,9 @@
 	scanner.Grant(src)
 	update_icons()
 
+	// Drones have laws to not attack people
+	ADD_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
+
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
 	connected_ai = null
@@ -234,6 +237,7 @@
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
+	REMOVE_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
 	set_zeroth_law("Only [H.real_name] and people [H.real_name] designates as being such are Syndicate Agents.")
 
 	to_chat(src, "<b>Obey these laws:</b>")

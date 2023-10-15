@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 //The return of data disks?? Just for transferring between genetics machine/cloning machine.
 //TO-DO: Make the genetics machine accept them.
 /obj/item/disk/data
-	name = "Cloning Data Disk"
+	name = "Genetics Data Disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
 	var/datum/dna2/record/buf = null
 	var/read_only = FALSE //Well,it's still a floppy disk
@@ -610,21 +610,16 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			occupant.reagents.add_reagent(bt, 1)
 
 /*
- *	Diskette Box
+ *	Genetics Diskette Box
  */
 
 /obj/item/storage/box/disks
-	name = "Diskette Box"
+	name = "Genetics Diskette Box"
 	icon_state = "disk_kit"
 
 /obj/item/storage/box/disks/populate_contents()
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
-	new /obj/item/disk/data(src)
+	for(var/i in 1 to 7)
+		new /obj/item/disk/data(src)
 
 /*
  *	Manual -- A big ol' manual.
