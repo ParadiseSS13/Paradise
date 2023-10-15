@@ -71364,15 +71364,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
-"nQR" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/station/public/locker)
 "nRh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -126397,7 +126388,7 @@ avv
 aQB
 aQC
 udB
-nQR
+eRU
 aVO
 aTp
 bbe
