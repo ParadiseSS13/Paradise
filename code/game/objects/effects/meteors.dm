@@ -133,7 +133,8 @@ GLOBAL_LIST_INIT(meteors_ops, list(/obj/effect/meteor/goreops)) //Meaty Ops
 	if(A)
 		ram_turf(get_turf(A))
 		playsound(loc, meteorsound, 40, TRUE)
-		get_hit()
+		if(!istype(A, /obj/structure/railing))
+			get_hit()
 
 /obj/effect/meteor/proc/ram_turf(turf/T)
 	//first bust whatever is in the turf
