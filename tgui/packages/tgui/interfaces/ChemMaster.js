@@ -1,4 +1,4 @@
-import { Fragment } from 'inferno';
+import { Component, Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, Flex, Icon, Input, LabeledList, Section, Slider, Tabs } from '../components';
 import { Window } from '../layouts';
@@ -403,10 +403,40 @@ const ChemMasterProductionChemical = (props, context) => {
   );
 };
 
+class ChemMasterNameInput extends Component {
+  constructor() {
+    super();
+
+    this.handleMouseUp = (e) => {
+      const { placeholder, onMouseUp } = this.props;
+
+      // Middle-click button
+      if (e.button === 1) {
+        e.target.value = placeholder;
+        e.target.select();
+      }
+
+      if (onMouseUp) {
+        onMouseUp(e);
+      }
+    }
+  }
+
+  render() {
+    const { data } = useBackend(this.context);
+    const {
+      max_name_length
+    } = data;
+
+    return (
+      <Input maxLength={max_name_length} onMouseUp={this.handleMouseUp} {...this.props} />
+    );
+  }
+}
+
 const ChemMasterProductionPills = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    max_name_length,
     pillamount: quantity,
     pillname: name,
     placeholdername,
@@ -428,7 +458,7 @@ const ChemMasterProductionPills = (props, context) => {
         <Slider value={quantity} minValue={1} maxValue={20} stepPixelSize={20} onChange={(e, value) => act("set_pill_amount", { newValue: value })} />
       </LabeledList.Item>
       <LabeledList.Item label="Name">
-        <Input fluid value={name} placeholder={placeholdername ?? "Medicine"} maxLength={max_name_length} onChange={(e, value) => act("set_pill_name", { newValue: value })} />
+        <ChemMasterNameInput fluid value={name} placeholder={placeholdername} onChange={(e, value) => act("set_pill_name", { newValue: value })} />
       </LabeledList.Item>
       <LabeledList.Item>
         <Button fluid content="Create" color="green" onClick={() => act('create_pills')} />
