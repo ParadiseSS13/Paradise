@@ -442,7 +442,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	it can also be used in a washing machine to forge clothing."
 	reference = "CHST"
 	item = /obj/item/stamp/chameleon
-	cost = 2
+	cost = 1
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chameleonflag
@@ -450,7 +450,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
 	reference = "CHFLAG"
 	item = /obj/item/flag/chameleon
-	cost = 3
+	cost = 1
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chamsechud
