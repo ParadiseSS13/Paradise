@@ -667,7 +667,7 @@
 							active_character.s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 						var/const/MAX_LINE_ENTRIES = 4
-						var/prompt = "Choose your character's skin tone: 1-[S.icon_skin_tones.len]\n("
+						var/prompt = "Choose your character's skin tone: 1-[length(S.icon_skin_tones)]\n("
 						prompt += "Light to Dark"
 						prompt += ")"
 						var/skin_c = input(user, prompt, "Character Preference") as num|null
