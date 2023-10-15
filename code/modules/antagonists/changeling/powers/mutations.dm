@@ -374,7 +374,7 @@
 	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more DNA we collect, the stronger it is. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
 	chemical_cost = 20
-	dna_cost = 4
+	dna_cost = 2
 	req_human = TRUE
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
