@@ -20,7 +20,7 @@
 		if(!shunted && !client)
 			msg += "[src]Core.exe has stopped responding! NTOS is searching for a solution to the problem...\n"
 		msg += "</span>"
-	msg += "*---------*</span>"
+	msg += "</span>"
 
 	. += msg
 	user.showLaws(src)

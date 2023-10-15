@@ -90,7 +90,7 @@
 			return ..()
 
 	if (istype(O, /obj/item/plant_analyzer))
-		var/msg = "<span class='info'>*---------*\n This is \a <span class='name'>[src].</span>\n"
+		var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
@@ -102,7 +102,6 @@
 
 		if(reag_txt)
 			msg += reag_txt
-			msg += "<br><span class='info'>*---------*</span>"
 		to_chat(user, msg)
 	else
 		if(seed)
