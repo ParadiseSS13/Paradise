@@ -31,7 +31,7 @@
 	var/active = FALSE
 	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
 	var/bypass_fake_death = FALSE
-	/// Where this ability should be stored in the chanegling menu
+	/// Where this ability should be stored in the changeling menu
 	var/menu_location
 
 /*
