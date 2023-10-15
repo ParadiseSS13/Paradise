@@ -38,18 +38,24 @@ export class Input extends Component {
     };
     this.handleBlur = (e) => {
       const { editing } = this.state;
-      const { onBlur } = this.props;
+      const { onChange, onBlur } = this.props;
       if (editing) {
         this.setEditing(false);
+        if (onChange) {
+          onChange(e, e.target.value);
+        }
       }
       if (onBlur) {
         onBlur(e);
       }
     };
     this.handleKeyDown = (e) => {
-      const { onInput, onEnter } = this.props;
+      const { onInput, onChange, onEnter } = this.props;
       if (e.keyCode === 13) {
         this.setEditing(false);
+        if (onChange) {
+          onChange(e, e.target.value);
+        }
         if (onInput) {
           onInput(e, e.target.value);
         }
@@ -139,7 +145,6 @@ export class Input extends Component {
             onInput={this.handleInput}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
-            onChange={onChange}
             maxLength={maxLength}
             cols={cols}
             rows={rows}
@@ -153,7 +158,6 @@ export class Input extends Component {
             onInput={this.handleInput}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
-            onChange={onChange}
             onKeyDown={this.handleKeyDown}
             maxLength={maxLength}
             disabled={disabled}
