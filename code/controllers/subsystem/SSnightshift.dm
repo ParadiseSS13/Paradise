@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(nightshift)
 /datum/controller/subsystem/nightshift/proc/check_nightshift(check_canfire=FALSE)
 	if(check_canfire && !can_fire)
 		return
-	var/emergency = GLOB.security_level >= SEC_LEVEL_RED
+	var/emergency = SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED
 	var/announcing = TRUE
 	var/time = station_time()
 	var/night_time = (time < nightshift_end_time) || (time > nightshift_start_time)
