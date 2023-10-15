@@ -46044,13 +46044,13 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot_red,
-/obj/machinery/door/window/classic/reversed{
-	dir = 1
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+/obj/machinery/door/window/classic/reversed{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -56989,7 +56989,7 @@
 "dLz" = (
 /obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/carpet/royalblack,
-/area/station/maintenance/fore)
+/area/station/maintenance/apmaint)
 "dLF" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/door/poddoor/preopen{
@@ -62206,7 +62206,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
-/area/station/maintenance/asmaint)
+/area/station/maintenance/aft)
 "gtZ" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -72388,7 +72388,7 @@
 "lOq" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
 /turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
+/area/station/engineering/atmos)
 "lOM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -79887,6 +79887,25 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/beach/sand,
 /area/station/hallway/secondary/exit)
+"pXE" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/research{
+	name = "Test Lab"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/science/tox,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/misc_lab)
 "pXQ" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "scimaint_door_ext";
@@ -142676,7 +142695,7 @@ qhq
 qhq
 yiF
 yiF
-oSr
+pXE
 yiF
 qhq
 rKV
