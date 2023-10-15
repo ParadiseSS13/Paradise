@@ -210,9 +210,10 @@
 "aI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/chair/sofa/bench/left,
-/obj/structure/extinguisher_cabinet{
+/obj/machinery/newscaster{
+	dir = 8;
 	name = "east bump";
-	pixel_x = 27
+	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -446,7 +447,7 @@
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/marker_beacon/dock_marker,
 /obj/structure/railing,
-/obj/effect/turf_decal/stripes,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "bp" = (
@@ -513,6 +514,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
@@ -894,6 +899,9 @@
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1184,8 +1192,8 @@
 "cR" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
-/obj/effect/turf_decal/stripes,
 /obj/structure/marker_beacon/dock_marker,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "cS" = (
@@ -1202,6 +1210,10 @@
 /obj/item/radio/intercom{
 	pixel_x = -11;
 	pixel_y = 5
+	},
+/obj/item/pen/multi{
+	pixel_x = -9;
+	pixel_y = -2
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
@@ -1258,7 +1270,9 @@
 /area/mine/outpost/hallway/east)
 "db" = (
 /obj/structure/table,
-/obj/item/clothing/head/welding,
+/obj/item/clothing/head/welding{
+	pixel_y = 4
+	},
 /obj/machinery/power/apc{
 	name = "Mech Bay APC";
 	pixel_y = 24;
@@ -1429,17 +1443,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
-"dr" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/mine/outpost/cafeteria)
 "ds" = (
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/effect/turf_decal/caution,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -1479,11 +1489,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /obj/machinery/door/airlock/atmos{
 	name = "Life Support"
 	},
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "dv" = (
@@ -1569,6 +1581,9 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1595,7 +1610,7 @@
 "dG" = (
 /obj/machinery/atmospherics/binary/pump/on,
 /obj/effect/baseturf_helper/lava_land/surface,
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -1719,7 +1734,7 @@
 	},
 /area/mine/outpost/medbay)
 "dR" = (
-/turf/simulated/mineral/volcanic/lava_land_surface,
+/turf/simulated/mineral/ancient,
 /area/mine/outpost/engineering)
 "dS" = (
 /obj/machinery/hologram/holopad,
@@ -1968,7 +1983,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -2060,7 +2075,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
@@ -2169,8 +2184,9 @@
 /area/mine/outpost/mechbay)
 "eL" = (
 /obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/item/vending_refill/wallmed,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "eM" = (
@@ -2374,11 +2390,11 @@
 	},
 /area/mine/outpost/hallway/west)
 "fe" = (
-/obj/effect/turf_decal/stripes{
-	dir = 5
-	},
 /obj/structure/table,
 /obj/machinery/cell_charger,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2494,7 +2510,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2574,8 +2590,11 @@
 	},
 /area/mine/outpost/hallway/west)
 "fz" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
+	},
+/obj/effect/turf_decal/caution{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2653,10 +2672,10 @@
 /area/mine/outpost/engineering)
 "fG" = (
 /obj/effect/turf_decal/caution,
-/obj/effect/turf_decal/stripes{
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2830,9 +2849,8 @@
 /obj/structure/chair/sofa/bench/left{
 	dir = 1
 	},
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
+/obj/machinery/economy/vending/wallmed{
+	name = "Emergency NanoMed";
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
@@ -2861,6 +2879,7 @@
 	icon_state = "2-5"
 	},
 /obj/item/trash/chips,
+/obj/effect/decal/cleanable/ants,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "gd" = (
@@ -3364,14 +3383,14 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
-	},
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Airlock";
 	network = list("Mining Outpost");
-	dir = 6
+	dir = 5
+	},
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4132,10 +4151,6 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
-"me" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/mine/outpost/engineering)
 "mi" = (
 /obj/machinery/computer/security{
 	dir = 4;
@@ -4579,6 +4594,15 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"nQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel,
+/area/mine/laborcamp)
 "nX" = (
 /obj/structure/disposaloutlet,
 /obj/structure/lattice/catwalk/mining,
@@ -4711,7 +4735,7 @@
 /obj/structure/railing{
 	dir = 6
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -4744,11 +4768,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /obj/machinery/door/airlock/atmos{
 	name = "Life Support"
 	},
+/obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "pN" = (
@@ -4822,12 +4848,11 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/extinguisher_cabinet{
-	name = "west bump";
-	pixel_x = -27
-	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
+	},
+/obj/machinery/light{
+	dir = 8
 	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
@@ -5071,7 +5096,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -5302,7 +5327,7 @@
 "vj" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
-/obj/effect/turf_decal/stripes,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "vq" = (
@@ -5429,11 +5454,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
-/obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5441,7 +5466,7 @@
 /area/mine/outpost/hallway/west)
 "vT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -5590,7 +5615,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "xP" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/carpet,
@@ -5622,10 +5647,16 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/item/stack/medical/splint,
+/obj/item/stack/medical/splint{
+	pixel_x = 5
+	},
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
+	},
+/obj/item/healthupgrade{
+	pixel_y = 7;
+	pixel_x = -7
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white";
@@ -5678,7 +5709,7 @@
 /area/mine/outpost/hallway/west)
 "yr" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
@@ -5726,6 +5757,7 @@
 "yR" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/decal/cleanable/spiderling_remains,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "yY" = (
@@ -6088,7 +6120,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -6242,7 +6274,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -6256,7 +6288,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -6314,14 +6346,23 @@
 	},
 /area/mine/outpost/hallway/west)
 "Dq" = (
-/obj/machinery/power/port_gen/pacman{
-	anchored = 1
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
-/obj/structure/cable/yellow,
-/obj/machinery/light{
-	dir = 8
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/turf/simulated/floor/catwalk,
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/structure/railing,
+/obj/structure/extinguisher_cabinet{
+	name = "west bump";
+	pixel_x = -27
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
 /area/mine/outpost/engineering)
 "Dx" = (
 /obj/structure/sign/nanotrasen{
@@ -6337,6 +6378,21 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
+"DB" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/railing/cap{
+	dir = 8
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/outpost/engineering)
 "DC" = (
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
@@ -6400,10 +6456,12 @@
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/structure/cable/yellow,
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Life Support";
+	dir = 5;
+	network = list("Mining Outpost")
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "Ej" = (
@@ -6771,8 +6829,8 @@
 	},
 /area/mine/outpost/cafeteria)
 "HI" = (
-/obj/effect/turf_decal/stripes/box,
 /obj/machinery/economy/vending/cigarette,
+/obj/effect/turf_decal/stripes/box,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7163,13 +7221,12 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "LO" = (
-/obj/effect/turf_decal/stripes,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -7181,6 +7238,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -7315,6 +7373,16 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
+"Nb" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/light,
+/turf/simulated/floor/catwalk,
+/area/mine/outpost/engineering)
 "Nc" = (
 /obj/machinery/light{
 	dir = 1
@@ -7503,6 +7571,10 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
+"OI" = (
+/obj/item/firealarm_electronics,
+/turf/simulated/floor/plating,
+/area/mine/outpost/maintenance/south)
 "OO" = (
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
@@ -7514,13 +7586,15 @@
 /obj/machinery/light/small,
 /obj/structure/closet,
 /obj/item/storage/bag/trash,
-/obj/item/soap/nanotrasen,
 /obj/machinery/alarm{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
 /obj/item/storage/box/lights/mixed,
+/obj/item/caution,
+/obj/item/caution,
+/obj/item/caution,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners"
 	},
@@ -7561,11 +7635,19 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "Ph" = (
-/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/structure/railing,
-/obj/effect/turf_decal/stripes,
-/obj/machinery/light{
-	dir = 4
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/computer/atmos_alert{
+	dir = 8
+	},
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7597,10 +7679,10 @@
 /obj/structure/railing/cap{
 	dir = 6
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/corner,
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7678,7 +7760,7 @@
 "Qa" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/pickaxe/mini,
+/obj/item/stack/marker_beacon/ten,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Qd" = (
@@ -7694,16 +7776,17 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Qv" = (
-/obj/structure/sign/poster/random{
-	pixel_y = 32
-	},
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /obj/structure/disposalpipe/segment/corner{
 	dir = 2
 	},
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
 /obj/structure/extinguisher_cabinet{
-	name = "east bump";
-	pixel_x = 27
+	name = "custom placement";
+	pixel_x = -5;
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7847,6 +7930,11 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
+"Sh" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall,
+/area/mine/outpost/production)
 "Sq" = (
 /obj/machinery/door/airlock/external/glass{
 	name = "Shuttle Dock"
@@ -7973,6 +8061,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "Ts" = (
@@ -8005,6 +8094,18 @@
 	icon_state = "darkfull"
 	},
 /area/mine/outpost/hallway/west)
+"TL" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
+/area/mine/outpost/engineering)
 "TN" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -8056,7 +8157,9 @@
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
 "Uh" = (
-/obj/machinery/computer/monitor,
+/obj/machinery/computer/monitor{
+	name = "Grid Power Monitoring Console"
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -8087,7 +8190,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
@@ -8127,6 +8230,21 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/hallway/east)
+"Vg" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	name = "North Switch";
+	pixel_y = 24
+	},
+/turf/simulated/floor/catwalk,
+/area/mine/outpost/engineering)
 "Vt" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Central";
@@ -8194,7 +8312,7 @@
 	dir = 6
 	},
 /obj/machinery/atmospherics/meter,
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
@@ -8284,6 +8402,10 @@
 	},
 /obj/item/kirbyplants,
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -8364,7 +8486,7 @@
 /obj/structure/railing{
 	dir = 10
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -8432,7 +8554,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -8501,11 +8623,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/structure/sign/kiddieplaque/remembrance/mining{
 	pixel_y = 32
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8530,11 +8652,11 @@
 /obj/machinery/economy/vending/wallmed{
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/stripes,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurplecorners"
@@ -8754,11 +8876,11 @@
 /turf/simulated/floor/plasteel/white,
 /area/mine/laborcamp)
 "Zf" = (
-/obj/item/kirbyplants,
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
+/obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowcorners"
@@ -8786,7 +8908,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -15217,7 +15339,7 @@ aq
 tZ
 qA
 JZ
-JZ
+nQ
 JZ
 JZ
 JZ
@@ -20888,11 +21010,11 @@ gh
 cO
 Qp
 ec
-me
+fo
 bu
 rz
 YE
-YE
+DB
 ey
 YE
 du
@@ -21145,7 +21267,7 @@ cO
 cO
 Qp
 fm
-me
+fo
 Uh
 VF
 dG
@@ -21407,7 +21529,7 @@ fF
 dD
 dm
 Ph
-ez
+Nb
 dR
 bR
 Xu
@@ -21661,7 +21783,7 @@ AE
 cM
 fo
 cj
-dI
+TL
 dI
 fo
 ez
@@ -21680,12 +21802,12 @@ AE
 AE
 AE
 Oq
-Oq
+dB
 dB
 Oq
 Oq
-Oq
-Oq
+dB
+dB
 OA
 aj
 ab
@@ -21919,9 +22041,9 @@ SQ
 dy
 dy
 dy
-dr
-SQ
-ez
+dy
+dy
+Vg
 dR
 bR
 vQ
@@ -21942,7 +22064,7 @@ We
 oq
 Ow
 dN
-dB
+Sh
 ab
 aj
 aj
@@ -22713,7 +22835,7 @@ eq
 fP
 en
 VK
-Oq
+dB
 AE
 ab
 aj
@@ -22964,13 +23086,13 @@ KD
 xT
 Qa
 Zh
-Oq
+dB
 fu
 et
 dn
 eN
 fn
-Oq
+dB
 AE
 AE
 ab
@@ -23221,13 +23343,13 @@ Ys
 gc
 km
 eM
-Oq
-Oq
+dB
+dB
 dB
 Oq
 Oq
 dB
-Oq
+dB
 AE
 AE
 aj
@@ -24246,7 +24368,7 @@ gd
 Kz
 OO
 DC
-uT
+OI
 uT
 eM
 Gt
@@ -24478,7 +24600,7 @@ vP
 vP
 vP
 vP
-cw
+cr
 cr
 bp
 cr
