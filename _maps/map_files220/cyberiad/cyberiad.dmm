@@ -55375,6 +55375,7 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
+/obj/structure/reagent_dispensers/virusfood/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
