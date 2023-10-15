@@ -1570,7 +1570,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Engines)
 "eM" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2667,7 +2667,7 @@
 /area/awaymission/BMPship/Fore)
 "hY" = (
 /obj/effect/gibspawner/robot,
-/turf/simulated,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
 "hZ" = (
 /obj/structure/window/reinforced{
@@ -4242,7 +4242,7 @@
 	dir = 4;
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "tA" = (
 /turf/simulated/wall/mineral/titanium,
@@ -5578,7 +5578,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "FQ" = (
 /obj/effect/landmark/damageturf,
@@ -6168,7 +6168,7 @@
 	dir = 4;
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Bath)
 "Ms" = (
 /obj/structure/cable{
@@ -6601,7 +6601,7 @@
 /area/awaymission/BMPship/MedBay)
 "RB" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "RF" = (
 /obj/structure/cable{
@@ -6683,7 +6683,7 @@
 	dir = 4;
 	tag = "icon-propulsion (WEST)"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Engines)
 "SJ" = (
 /obj/item/stack/ore/uranium,
@@ -7013,7 +7013,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Bath)
 "WD" = (
 /obj/effect/gibspawner/generic,
