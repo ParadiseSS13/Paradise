@@ -5,6 +5,7 @@
 	button_icon_state = "digital_camo"
 	dna_cost = 1
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_UTILITY
 
 /datum/action/changeling/digitalcamo/Remove(mob/M)
 	REMOVE_TRAIT(M, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT)
