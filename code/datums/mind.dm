@@ -31,6 +31,9 @@
 
 	var/memory
 
+	/// Memory that's added the end of the notes list
+	var/late_memory
+
 	var/assigned_role //assigned role is what job you're assigned to when you join the station.
 	var/playtime_role //if set, overrides your assigned_role for the purpose of playtime awards. Set by IDcomputer when your ID is changed.
 	var/special_role //special roles are typically reserved for antags or roles like ERT. If you want to avoid a character being automatically announced by the AI, on arrival (becuase they're an off station character or something); ensure that special_role and assigned_role are equal.
@@ -168,10 +171,13 @@
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"
 
+/datum/mind/proc/store_late_memory(new_text)
+	late_memory += "[new_text]<br>"
+
 /datum/mind/proc/wipe_memory()
 	memory = null
 
-/datum/mind/proc/show_memory(mob/recipient, window = 1)
+/datum/mind/proc/show_memory(mob/recipient, window = TRUE, add_to_notes = FALSE)
 	if(!recipient)
 		recipient = current
 	var/list/output = list()
@@ -193,12 +199,15 @@
 			output.Add("<LI><B>Task #[obj_count]</B>: [objective.description]</LI>")
 			obj_count++
 		output.Add("</UL>")
+	output.Add(late_memory)
 
 	output = output.Join("<br>")
 	if(window)
 		recipient << browse(output, "window=memory")
 	else
 		to_chat(recipient, "<i>[output]</i>")
+	if(add_to_notes)
+		recipient.mind.store_late_memory("[chat_box_red("[output]")]")
 
 /datum/mind/proc/gen_objective_text(admin = FALSE)
 	if(!has_objectives())

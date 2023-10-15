@@ -62,7 +62,7 @@
 
 	if(target.mind)//if the victim has got a mind
 
-		target.mind.show_memory(user, 0) //I can read your mind, kekeke. Output all their notes.
+		target.mind.show_memory(user, FALSE, TRUE) //I can read your mind, kekeke. Output all their notes.
 
 		//Some of target's recent speech, so the changeling can attempt to imitate them better.
 		//Recent as opposed to all because rounds tend to have a LOT of text.
@@ -74,14 +74,14 @@
 			recent_speech = target.say_log.Copy()
 
 		if(length(recent_speech))
-			user.mind.store_memory("<B>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</B>")
+			user.mind.store_late_memory("<B>[target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</B>")
 			var/list/recent_chats = list()
 			recent_chats += "<span class='boldnotice'>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</span>"
 			for(var/spoken_memory in recent_speech)
 				recent_chats += "<span class='notice'>\"[spoken_memory]\"</span>"
 			for(var/chat_log in target.say_log)
-				user.mind.store_memory("\"[chat_log]\"")
-			user.mind.store_memory("<B>We have no more knowledge of [target]'s speech patterns.</B>")
+				user.mind.store_late_memory("\"[chat_log]\"")
+			user.mind.store_late_memory("<B>We have no more knowledge of [target]'s speech patterns.</B>")
 			recent_chats += "<span class='boldnotice'>The rest of [target]'s extracted information can be found in the IC tab in the \"notes\" verb.</span>"
 			to_chat(user, chat_box_red(recent_chats.Join("<br>")))
 
