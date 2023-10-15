@@ -786,7 +786,7 @@
 	H.adjustFireLoss((overall_damage * ratio) * (H.getFireLoss() / overall_damage), FALSE, null, TRUE)
 	H.adjustBruteLoss((overall_damage * ratio) * (H.getBruteLoss() / overall_damage), FALSE, null, TRUE)
 	H.updatehealth()
-	playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25, SOUND_RANGE_SET(7))
+	playsound(get_turf(H), 'sound/magic/staff_healing.ogg', 25, extrarange = SOUND_RANGE_SET(7))
 	new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 	user.Beam(H, icon_state="sendbeam", time = 15)
 
@@ -820,7 +820,7 @@
 		M.visible_message("<span class='warning'>[M] is partially healed by [user]'s blood magic!</span>",
 			"<span class='cultitalic'>You are partially healed by [user]'s blood magic.</span>")
 		uses = 0
-	playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25, SOUND_RANGE_SET(7))
+	playsound(get_turf(M), 'sound/magic/staff_healing.ogg', 25, extrarange = SOUND_RANGE_SET(7))
 	user.Beam(M, icon_state = "sendbeam", time = 10)
 
 /obj/item/melee/blood_magic/manipulator/proc/steal_blood(mob/living/carbon/human/user, mob/living/carbon/human/H)
@@ -839,7 +839,7 @@
 	H.blood_volume -= 100
 	uses += 50
 	user.Beam(H, icon_state = "drainbeam", time = 10)
-	playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50, SOUND_RANGE_SET(7))
+	playsound(get_turf(H), 'sound/misc/enter_blood.ogg', 50, extrarange = SOUND_RANGE_SET(7))
 	H.visible_message("<span class='danger'>[user] has drained some of [H]'s blood!</span>",
 					"<span class='userdanger'>[user] has drained some of your blood!</span>")
 	to_chat(user, "<span class='cultitalic'>Your blood rite gains 50 charges from draining [H]'s blood.</span>")
@@ -868,7 +868,7 @@
 		if(candidate.blood)
 			uses += candidate.blood
 			to_chat(user, "<span class='warning'>You obtain [candidate.blood] blood from the orb of blood!</span>")
-			playsound(user, 'sound/misc/enter_blood.ogg', 50, SOUND_RANGE_SET(7))
+			playsound(user, 'sound/misc/enter_blood.ogg', 50, extrarange = SOUND_RANGE_SET(7))
 			qdel(candidate)
 			return
 	blood_draw(target, user)
@@ -892,7 +892,7 @@
 	if(temp)
 		user.Beam(T, icon_state = "drainbeam", time = 15)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(user))
-		playsound(T, 'sound/misc/enter_blood.ogg', 50., SOUND_RANGE_SET(7))
+		playsound(T, 'sound/misc/enter_blood.ogg', 50., extrarange = SOUND_RANGE_SET(7))
 		temp = round(temp)
 		to_chat(user, "<span class='cultitalic'>Your blood rite has gained [temp] charge\s from blood sources around you!</span>")
 		uses += max(1, temp)
