@@ -68,14 +68,12 @@
 	desc = "This doesn't look like meat, but your standards aren't <i>that</i> high to begin with."
 	list_reagents = list("nutriment" = 3, "vitamin" = 2, "blood" = 5)
 	filling_color = rgb(150, 0, 0)
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meatwheat_clump"
 	bitesize = 4
 
 /obj/item/reagent_containers/food/snacks/meat/tomatomeat
 	name = "tomato meat slice"
 	desc = "A slice from a huge tomato."
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "tomatomeat"
 	filling_color = "#DB0000"
 	bitesize = 6
@@ -123,7 +121,6 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/bearmeat
 	name = "bear meat"
 	desc = "A very manly slab of meat."
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "bearmeat"
 	filling_color = "#DB0000"
 	bitesize = 3
@@ -133,7 +130,6 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/xenomeat
 	name = "meat"
 	desc = "A slab of meat. It's green!"
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
 	bitesize = 6
@@ -143,7 +139,6 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/spidermeat
 	name = "spider meat"
 	desc = "A slab of spider meat. Not very appetizing."
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "spidermeat"
 	bitesize = 3
 	list_reagents = list("protein" = 3, "toxin" = 3, "vitamin" = 1)
@@ -152,7 +147,6 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/lizardmeat
 	name = "mutant lizard meat"
 	desc = "A peculiar slab of meat. It looks scaly and radioactive."
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "xenomeat"
 	filling_color = "#43DE18"
 	bitesize = 3
@@ -162,7 +156,6 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg
 	name = "spider leg"
 	desc = "A still twitching leg of a giant spider. You don't really want to eat this, do you?"
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "spiderleg"
 	list_reagents = list("protein" = 2, "toxin" = 2)
 	tastes = list("cobwebs" = 1, "creepy motion" = 1)
@@ -178,7 +171,6 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/spidereggs
 	name = "spider eggs"
 	desc = "A cluster of juicy spider eggs. A great side dish for when you don't care about your health."
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "spidereggs"
 	list_reagents = list("protein" = 2, "toxin" = 2)
 	tastes = list("cobwebs" = 1, "spider juice" = 1)
@@ -186,7 +178,6 @@
 /obj/item/reagent_containers/food/snacks/monstermeat/goliath
 	name = "goliath meat"
 	desc = "A slab of goliath meat. It's not very edible now, but it cooks great in lava."
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "goliathmeat"
 	list_reagents = list("protein" = 3, "toxin" = 5)
 	tastes = list("tough meat" = 1)
@@ -421,42 +412,34 @@
 		..()
 
 /obj/item/reagent_containers/food/snacks/egg/blue
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "egg-blue"
 	item_color = "blue"
 
 /obj/item/reagent_containers/food/snacks/egg/green
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "egg-green"
 	item_color = "green"
 
 /obj/item/reagent_containers/food/snacks/egg/mime
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "egg-mime"
 	item_color = "mime"
 
 /obj/item/reagent_containers/food/snacks/egg/orange
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "egg-orange"
 	item_color = "orange"
 
 /obj/item/reagent_containers/food/snacks/egg/purple
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "egg-purple"
 	item_color = "purple"
 
 /obj/item/reagent_containers/food/snacks/egg/rainbow
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "egg-rainbow"
 	item_color = "rainbow"
 
 /obj/item/reagent_containers/food/snacks/egg/red
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "egg-red"
 	item_color = "red"
 
 /obj/item/reagent_containers/food/snacks/egg/yellow
-	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "egg-yellow"
 	item_color = "yellow"
 
