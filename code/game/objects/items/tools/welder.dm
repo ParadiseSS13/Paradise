@@ -95,7 +95,7 @@
 	if(tool_enabled)
 		START_PROCESSING(SSobj, src)
 		damtype = BURN
-		force = 15
+		force = 12
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
 		set_light(light_intensity)
