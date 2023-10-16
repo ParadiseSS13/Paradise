@@ -1,6 +1,6 @@
 import { Component, Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, Collapsible, Flex, Icon, Input, LabeledList, Section, Slider, Tabs } from '../components';
+import { Box, Button, Flex, Icon, Input, LabeledList, Section, Slider, Tabs } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import {
@@ -476,10 +476,8 @@ const ChemMasterProductionPills = (props, context) => {
     );
   return (
     <ChemMasterProductionCommon maxQuantity={maxpills} medicineName={pillname} placeholderName={placeholdername} productionType="pills" quantity={pillamount}>
-      <LabeledList.Item>
-        <Collapsible title="Style">
-          {style_buttons}
-        </Collapsible>
+      <LabeledList.Item label="Style">
+        {style_buttons}
       </LabeledList.Item>
     </ChemMasterProductionCommon>
   );
@@ -516,10 +514,8 @@ const ChemMasterProductionBottles = (props, context) => {
     );
   return (
     <ChemMasterProductionCommon maxQuantity={maxbottles} medicineName={bottlename} placeholderName={placeholdername} productionType="pills" quantity={bottleamount}>
-      <LabeledList.Item>
-        <Collapsible title="Style">
-          {style_buttons}
-        </Collapsible>
+      <LabeledList.Item label="Style">
+        {style_buttons}
       </LabeledList.Item>
     </ChemMasterProductionCommon>
   );
