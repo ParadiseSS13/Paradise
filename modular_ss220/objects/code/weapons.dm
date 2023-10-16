@@ -8,6 +8,7 @@
 	righthand_file = 'modular_ss220/objects/icons/guns_righthand.dmi'
 	icon = 'modular_ss220/objects/icons/guns.dmi'
 	icon_state = "anaconda"
+	item_state = "anaconda"
 
 /obj/item/gun/projectile/revolver/anaconda/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/box_d44))
