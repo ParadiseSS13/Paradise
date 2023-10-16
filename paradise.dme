@@ -1117,7 +1117,6 @@
 #include "code\game\objects\items\weapons\implants\implant_death_alarm.dm"
 #include "code\game\objects\items\weapons\implants\implant_dust.dm"
 #include "code\game\objects\items\weapons\implants\implant_emp.dm"
-#include "code\game\objects\items\weapons\implants\implant_exile.dm"
 #include "code\game\objects\items\weapons\implants\implant_explosive.dm"
 #include "code\game\objects\items\weapons\implants\implant_freedom.dm"
 #include "code\game\objects\items\weapons\implants\implant_gorilla_rampage.dm"
