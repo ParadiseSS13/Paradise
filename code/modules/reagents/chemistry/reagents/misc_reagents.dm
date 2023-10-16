@@ -178,7 +178,9 @@
 	if(exposed_temperature <= T0C + 600)
 		return
 
-	var/violent = volume > 30
+	// Let's say burning boiling oil doubles in volume, can our max volume contain that?
+	var/boil_overflow = (holder.total_volume + volume) - holder.maximum_volume
+	var/violent = boil_overflow > 0
 	var/message_type = violent ? "class='boldwarning'" : "class='warning'"
 	holder.my_atom.visible_message("<span [message_type]>The oil [violent ? "boils and burns violently" : "burns"]!</span>")
 
