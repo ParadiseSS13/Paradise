@@ -125,6 +125,7 @@
 	new /obj/item/clothing/accessory/medal/silver(src)
 	new /obj/item/clothing/accessory/medal(src)
 
+	// Departmental medals
 	new /obj/item/clothing/accessory/medal/security(src)
 	new /obj/item/clothing/accessory/medal/science(src)
 	new /obj/item/clothing/accessory/medal/engineering(src)
