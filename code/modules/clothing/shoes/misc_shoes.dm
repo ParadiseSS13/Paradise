@@ -58,9 +58,8 @@
 	icon_state = "galoshes_dry"
 
 /obj/item/clothing/shoes/galoshes/dry/lightweight /// for red janitor ert.
-	name = "Lightweight absorbent galoshes"
+	name = "lightweight absorbent galoshes"
 	desc = "A pair of expensive looking lightweight rubber boots, designed to prevent slipping on wet surfaces while also drying them."
-	icon_state = "galoshes_dry"
 	slowdown = NONE
 
 /obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
