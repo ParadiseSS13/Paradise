@@ -89,7 +89,7 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the research director."
 
 /obj/item/storage/bag/garment/research_director/populate_contents()
-	new /obj/item/clothing/head/beret/sci
+	new /obj/item/clothing/head/beret/sci(src)
 	new /obj/item/clothing/under/rank/rnd/research_director(src)
 	new /obj/item/clothing/suit/storage/labcoat/rd(src)
 	new /obj/item/clothing/suit/mantle/labcoat(src)
