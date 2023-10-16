@@ -77,7 +77,7 @@
 	if(istype(H) && !ismonkeybasic(H)) //Monkeys are a snowflake because you can't remove accessories once added
 		if(H.wear_suit && H.wear_suit.flags_inv & HIDEJUMPSUIT)
 			to_chat(user, "[H]'s body is covered, and you cannot attach \the [src].")
-			return 1
+			return TRUE
 		var/obj/item/clothing/under/U = H.w_uniform
 		if(istype(U))
 			if(user == H)
