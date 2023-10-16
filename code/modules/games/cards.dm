@@ -252,7 +252,7 @@
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
-	if(cooldown < world.time - 5 SECONDS)
+	if(cooldown < world.time - 2 SECONDS)
 		cards = shuffle(cards)
 		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
 		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
