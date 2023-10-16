@@ -32,6 +32,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	var/gas_analyzer = FALSE //on click gas analyzer
 	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
@@ -529,14 +530,27 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
 		health_scan = TRUE
 
+/mob/dead/observer/verb/toggle_gas_anaylzer()
+	set name = "Toggle Gas Analyzer"
+	set desc = "Toggles wether you can anaylze gas contents on click"
+	set category = "Ghost"
+
+	if(gas_analyzer)
+		to_chat(src, "<span class='notice'>Gas Analyzer disabled.</span>")
+		gas_analyzer = FALSE
+	else
+		to_chat(src, "<span class='notice'>Gas Analyzer enabled.</span>")
+		gas_analyzer = TRUE
+
 /mob/dead/observer/verb/analyze_air()
 	set name = "Analyze Air"
 	set category = "Ghost"
 
 	if(!isobserver(usr))
 		return
-
+	gas_analyze()
 	// Shamelessly copied from the Gas Analyzers
+/mob/dead/observer/proc/gas_analyze(mob/user as mob)
 	if(!isturf(usr.loc))
 		return
 

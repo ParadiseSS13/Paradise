@@ -28,6 +28,9 @@
 		return
 	if(world.time <= next_move)
 		return
+	if(gas_analyzer && istype(A, /obj/machinery/atmospherics/pipe))
+		gas_analyze()
+
 
 	var/list/modifiers = params2list(params)
 	if(check_rights(R_ADMIN, 0)) // Admin click shortcuts
