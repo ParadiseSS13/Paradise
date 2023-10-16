@@ -205,7 +205,7 @@
 	BS.start()
 
 	if(!QDELETED(old_holder) && reagent_after_burning)
-		old_holder.add_reagent(reagent_after_burning, round(volume * 0.5))
+		old_holder.add_reagent(reagent_after_burning, round(volume * 0.6))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !(locate(/obj/effect/decal/cleanable/blood/oil) in T))
