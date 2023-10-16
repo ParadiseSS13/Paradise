@@ -32,7 +32,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
-	var/gas_analyzer = FALSE //on click gas analyzer
+	///toggle for ghost gas analyzer
+	var/gas_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
