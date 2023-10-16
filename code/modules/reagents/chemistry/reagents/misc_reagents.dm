@@ -191,7 +191,7 @@
 		// Log -> remove reagent -> fireflash, else the log fails or fireflash triggers a reaction again
 		fire_flash_log(holder, id)
 		holder.del_reagent(id)
-		fireflash(T, clamp(volume / 40, 0, 8))
+		fireflash(T, clamp(boil_overflow / 40, 0, 8))
 
 		smoke_type = /datum/effect_system/smoke_spread/bad
 	else
