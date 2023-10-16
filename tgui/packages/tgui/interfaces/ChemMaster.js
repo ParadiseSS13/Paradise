@@ -305,8 +305,7 @@ const ChemMasterProductionChemical = (props, context) => {
       case 1:
         return <ChemMasterProductionPills />;
       case 2:
-        // return <ChemMasterProductionPatches />;
-        break;
+        return <ChemMasterProductionPatches />;
       case 3:
         // return <ChemMasterProductionBottles />;
         break;
@@ -484,6 +483,19 @@ const ChemMasterProductionPills = (props, context) => {
         </Collapsible>
       </LabeledList.Item>
     </ChemMasterProductionCommon>
+  );
+}
+
+const ChemMasterProductionPatches = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    maxpatches,
+    patchamount,
+    patchname,
+    placeholdername,
+  } = data;
+  return (
+    <ChemMasterProductionCommon maxQuantity={maxpatches} medicineName={patchname} placeholderName={placeholdername} productionType="patches" quantity={patchamount} />
   );
 }
 

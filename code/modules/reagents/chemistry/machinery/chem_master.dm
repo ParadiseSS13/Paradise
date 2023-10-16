@@ -298,6 +298,45 @@
 				// Load the pills in the bottle if there's one loaded
 				if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
 					P.forceMove(loaded_pill_bottle)
+
+		// Patches
+		if("set_patches_amount")
+			var/new_value = text2num(params["newValue"])
+			if (new_value == null)
+				return
+			patchamount = clamp(new_value, 1, 20)
+		if("set_patches_name")
+			var/new_value = params["newValue"]
+			// Allow name to be set to empty
+			if (length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+				return
+			patchname = new_value
+		if("create_patches")
+			if(condi || !reagents.total_volume)
+				return
+
+			var/name = patchname
+			var/count = patchamount
+			if(length(name) <= 0 || name == null)
+				name = reagents.get_master_reagent_name()
+			var/amount_per_patch = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PATCH)
+			var/is_medical_patch = chemical_safety_check(reagents)
+			while(count--)
+				if(reagents.total_volume <= 0)
+					to_chat(usr, "<span class='notice'>Not enough reagents to create these patches!</span>")
+					return
+
+				var/obj/item/reagent_containers/food/pill/patch/P = new(loc)
+				P.name = "[answer] patch"
+				P.pixel_x = rand(-7, 7) // random position
+				P.pixel_y = rand(-7, 7)
+				reagents.trans_to(P, amount_per_patch)
+				if(is_medical_patch)
+					P.instant_application = TRUE
+					P.icon_state = "bandaid_med"
+				// Load the patches in the bottle if there's one loaded
+				if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
+					P.forceMove(loaded_pill_bottle)
 		else
 			return FALSE
 
