@@ -178,7 +178,7 @@
 /obj/item/reagent_containers/food/snacks/baguette
 	name = "baguette"
 	desc = "Bon appetit!"
-	icon = 'icons/obj/food/burgerbread.dmi'
+	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "baguette"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'

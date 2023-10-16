@@ -382,7 +382,7 @@
 /obj/item/reagent_containers/food/snacks/egg
 	name = "egg"
 	desc = "An egg!"
-	icon = 'icons/obj/food/meat.dmi'
+	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "egg"
 	filling_color = "#FDFFD1"
 	list_reagents = list("protein" = 1, "egg" = 5)
@@ -466,7 +466,7 @@
 /obj/item/reagent_containers/food/snacks/boiledegg
 	name = "boiled egg"
 	desc = "A hard boiled egg."
-	icon = 'icons/obj/food/meat.dmi'
+	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "egg"
 	filling_color = "#FFFFFF"
 	list_reagents = list("nutriment" = 2, "egg" = 5, "vitamin" = 1)
@@ -474,7 +474,7 @@
 /obj/item/reagent_containers/food/snacks/chocolateegg
 	name = "chocolate egg"
 	desc = "Such sweet, fattening food."
-	icon = 'icons/obj/food/meat.dmi'
+	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "chocolateegg"
 	filling_color = "#7D5F46"
 	list_reagents = list("nutriment" = 4, "sugar" = 2, "cocoa" = 2)
@@ -569,8 +569,8 @@
 /obj/item/reagent_containers/food/snacks/bbqribs
 	name = "BBQ ribs"
 	desc = "Sweet, smokey, savory, and gets everywhere. Perfect for Grilling."
+	icon = 'icons/obj/food/meat.dmi'
+	icon_state = "bbqribs"
 	list_reagents = list("nutriment" = 3, "protein" = 10, "bbqsauce" = 10)
 	filling_color = "#FF1C1C"
 	bitesize = 3
-	icon = 'icons/obj/food/meat.dmi'
-	icon_state = "bbqribs"

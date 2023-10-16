@@ -414,7 +414,6 @@
 /obj/item/reagent_containers/food/snacks/donut/Initialize(mapload)
 	. = ..()
 	if(randomized_sprinkles && prob(30))
-		icon = 'icons/obj/food/bakedgoods.dmi'
 		icon_state = "donut2"
 		name = "frosted donut"
 		reagents.add_reagent("sprinkles", 2)
@@ -423,7 +422,6 @@
 
 /obj/item/reagent_containers/food/snacks/donut/sprinkles
 	name = "frosted donut"
-	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "donut2"
 	list_reagents = list("nutriment" = 3, "sugar" = 2, "sprinkles" = 2)
 	filling_color = "#FF69B4"
@@ -441,7 +439,6 @@
 	extra_reagent = pick("nutriment", "capsaicin", "frostoil", "krokodil", "plasma", "cocoa", "slimejelly", "banana", "berryjuice", "omnizine")
 	reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
-		icon = 'icons/obj/food/bakedgoods.dmi'
 		icon_state = "donut2"
 		name = "frosted chaos donut"
 		reagents.add_reagent("sprinkles", 2)
@@ -450,7 +447,6 @@
 /obj/item/reagent_containers/food/snacks/donut/jelly
 	name = "jelly donut"
 	desc = "You jelly?"
-	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "jdonut1"
 	extra_reagent = "berryjuice"
 	tastes = list("jelly" = 1, "donut" = 3)
@@ -460,7 +456,6 @@
 	if(extra_reagent)
 		reagents.add_reagent("[extra_reagent]", 3)
 	if(prob(30))
-		icon = 'icons/obj/food/bakedgoods.dmi'
 		icon_state = "jdonut2"
 		name = "frosted jelly Donut"
 		donut_sprite_type = DONUT_FROSTED
@@ -470,14 +465,12 @@
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly
 	name = "jelly donut"
 	desc = "You jelly?"
-	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "jdonut1"
 	extra_reagent = "slimejelly"
 
 /obj/item/reagent_containers/food/snacks/donut/jelly/cherryjelly
 	name = "jelly donut"
 	desc = "You jelly?"
-	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "jdonut1"
 	extra_reagent = "cherryjelly"
 
@@ -512,14 +505,12 @@
 /obj/item/reagent_containers/food/snacks/pancake/berry_pancake
 	name = "berry pancake"
 	desc = "A pancake loaded with berries."
-	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "berry_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 3, "berryjuice" = 3)
 
 /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
 	name = "choc-chip pancake"
 	desc = "A pancake loaded with chocolate chips."
-	icon = 'icons/obj/food/breakfast.dmi'
 	icon_state = "choc_chip_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 3, "cocoa" = 3)
 
