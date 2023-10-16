@@ -60,7 +60,6 @@
 	new /obj/item/reagent_containers/food/drinks/mug/rd(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
 	new /obj/item/clothing/accessory/medal/science(src)
-	new /obj/item/clothing/glasses/welding/superior(src)
 
 
 /obj/structure/closet/secure_closet/research_reagents
