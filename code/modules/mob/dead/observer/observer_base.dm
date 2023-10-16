@@ -539,7 +539,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='notice'>Gas Analyzer disabled.</span>")
 		gas_analyzer = FALSE
 	else
-		to_chat(src, "<span class='notice'>Gas Analyzer enabled.</span>")
+		to_chat(src, "<span class='notice'>Gas Analyzer enabled. Click on a pipe to analyze.</span>")
 		gas_analyzer = TRUE
 
 /mob/dead/observer/verb/analyze_air()
