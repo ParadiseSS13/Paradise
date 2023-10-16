@@ -58,7 +58,7 @@
 		return
 
 	// A monkey, with a blink spell? Preposterous
-	playsound(get_turf(src), 'sound/magic/blink.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/magic/blink.ogg', 50, TRUE)
 
 	var/list/turfs = list()
 	var/list/target_turfs = range(src, 5) - range(src, 1)
