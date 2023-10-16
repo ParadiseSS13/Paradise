@@ -14,3 +14,5 @@
 /obj/structure/closet/secure_closet/hos/populate_contents()
 	. = ..()
 	new /obj/item/clothing/gloves/combat(src)
+	for(var/i in 1 to 3)
+		new /obj/item/ammo_box/speed_loader_d44(src)
