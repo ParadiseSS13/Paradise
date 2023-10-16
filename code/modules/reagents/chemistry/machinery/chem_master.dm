@@ -106,7 +106,7 @@
 			user.put_in_hands(beaker)
 			to_chat(user, "<span class='notice'>You swap [I] with [beaker] inside.</span>")
 		else
-			to_chat(user, "<span class='notice'>You add [I] to the machine!</span>")
+			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
 		beaker = I
 		SStgui.update_uis(src)
 		update_icon()
