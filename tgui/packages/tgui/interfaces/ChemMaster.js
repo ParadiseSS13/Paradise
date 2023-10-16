@@ -1,6 +1,6 @@
 import { Component, Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, Input, LabeledList, Section, Slider, Tabs } from '../components';
+import { Box, Button, Collapsible, Flex, Icon, Input, LabeledList, Section, Slider, Tabs } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import {
@@ -451,8 +451,10 @@ const ChemMasterProductionPills = (props, context) => {
     );
   return (
     <LabeledList>
-      <LabeledList.Item label="Style">
-        {style_buttons}
+      <LabeledList.Item>
+        <Collapsible title="Style">
+          {style_buttons}
+        </Collapsible>
       </LabeledList.Item>
       <LabeledList.Item label="Quantity">
         <Slider value={quantity} minValue={1} maxValue={20} stepPixelSize={20} onChange={(e, value) => act("set_pill_amount", { newValue: value })} />
