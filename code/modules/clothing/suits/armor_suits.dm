@@ -757,7 +757,7 @@
 	icon_state = "ertarmor_jan"
 
 //same defense as basic sec armor
-/obj/item/clothing/suit/storage/lawyer/blackjacket/armored
+/obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	desc = "A snappy dress jacket, reinforced with a layer of armor protecting the torso."
 	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/automatic/pistol)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
