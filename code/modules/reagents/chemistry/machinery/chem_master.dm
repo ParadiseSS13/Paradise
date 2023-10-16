@@ -364,6 +364,8 @@
 	data["bottlename"] = bottlename
 
 	data["maxpills"] = CHEMMASTER_MAX_PILLS
+	data["maxpatches"] = CHEMMASTER_MAX_PATCHES
+	data["maxbottles"] = CHEMMASTER_MAX_BOTTLES
 
 	switch(mode)
 		if(CHEMMASTER_PRODUCTION_MODE_PILLS)
