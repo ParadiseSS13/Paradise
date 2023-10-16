@@ -13073,12 +13073,12 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/storage/lockbox/medal,
 /obj/machinery/newscaster/security_unit{
 	dir = 8;
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/item/storage/lockbox/medal/cc,
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "UA" = (
