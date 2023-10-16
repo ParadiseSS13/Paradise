@@ -268,7 +268,7 @@
 			var/new_value = text2num(params["newValue"])
 			if (new_value == null)
 				return
-			pillamount = clamp(new_value, 1, 20)
+			pillamount = clamp(new_value, 1, CHEMMASTER_MAX_PILLS)
 		if("set_pills_name")
 			var/new_value = params["newValue"]
 			// Allow name to be set to empty
@@ -305,7 +305,7 @@
 			var/new_value = text2num(params["newValue"])
 			if (new_value == null)
 				return
-			patchamount = clamp(new_value, 1, 20)
+			patchamount = clamp(new_value, 1, CHEMMASTER_MAX_PATCHES)
 		if("set_patches_name")
 			var/new_value = params["newValue"]
 			// Allow name to be set to empty
@@ -349,7 +349,7 @@
 			var/new_value = text2num(params["newValue"])
 			if (new_value == null)
 				return
-			bottleamount = clamp(new_value, 1, 20)
+			bottleamount = clamp(new_value, 1, CHEMMASTER_MAX_BOTTLES)
 		if("set_bottles_name")
 			var/new_value = params["newValue"]
 			// Allow name to be set to empty
