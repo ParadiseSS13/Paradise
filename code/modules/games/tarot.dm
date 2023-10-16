@@ -29,7 +29,3 @@
 		user.visible_message("<span class='notice'>[user] shuffles [src].</span>", "<span class='notice'>You shuffle [src].</span>")
 		cooldown = world.time
 
-// This shuffles the deck, allowing you to do so without moving your mouse all the way to the top of the screen.
-/obj/item/deck/tarot/AltClick()
-	. = ..()
-	deckshuffle()
