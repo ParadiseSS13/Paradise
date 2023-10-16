@@ -437,6 +437,7 @@ class ChemMasterNameInput extends Component {
 const ChemMasterProductionCommon = (props, context) => {
   const { act, data } = useBackend(context);
   const {
+    children,
     maxQuantity,
     medicineName,
     placeholderName,
