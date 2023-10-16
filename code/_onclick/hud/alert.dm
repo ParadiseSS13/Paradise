@@ -112,6 +112,7 @@
 
 /obj/screen/alert/MouseExited()
 	closeToolTip(usr)
+	return ..()
 
 /obj/screen/alert/proc/do_timeout(mob/M, category)
 	if(!M || !M.alerts)
@@ -770,9 +771,6 @@ so as to remain in compliance with the most up-to-date laws."
 		alert.screen_loc = .
 		mymob.client.screen |= alert
 	return TRUE
-
-/mob
-	var/list/alerts // lazy list. contains /obj/screen/alert only // On /mob so clientless mobs will throw alerts properly
 
 /obj/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)

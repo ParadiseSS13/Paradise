@@ -40,7 +40,7 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 	var/static/list/protected_vars = list(
 		"asays", "admin_log", "logging", "open_logging_views"
 	)
-	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 	if(gvars_datum_protected_varlist[var_name])
 		return FALSE
