@@ -187,7 +187,7 @@
 	var/smoke_type = /datum/effect_system/smoke_spread
 
 	if(violent)
-		holder.my_atom.visible_message("<span class='boldwarning'>The oil boils and burns violently!</span>")
+		holder.my_atom.visible_message("<span class='boldwarning'>The oil boils out and burns violently!</span>")
 		// Log -> remove reagent -> fireflash, else the log fails or fireflash triggers a reaction again
 		fire_flash_log(holder, id)
 		holder.del_reagent(id)
@@ -195,7 +195,7 @@
 
 		smoke_type = /datum/effect_system/smoke_spread/bad
 	else
-		holder.my_atom.visible_message("<span class='warning'>The oil burns!</span>")
+		holder.my_atom.visible_message("<span class='notice'>The oil sizzles and burns down into residue.</span>")
 		holder.del_reagent(id)
 
 	// Flavor reaction effects
