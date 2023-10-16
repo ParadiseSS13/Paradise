@@ -592,7 +592,7 @@ SUBSYSTEM_DEF(ticker)
 	for(var/datum/team/team in GLOB.antagonist_teams)
 		team.on_round_end()
 
-	SScredits.roll_credits_for_all_clients() // SS220 ADDITION
+	play_cinematic(/datum/cinematic/credits, world)
 
 	// Display the scoreboard window
 	score.scoreboard()
