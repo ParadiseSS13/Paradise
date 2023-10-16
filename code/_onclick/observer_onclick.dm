@@ -29,7 +29,6 @@
 	if(world.time <= next_move)
 		return
 
-
 	var/list/modifiers = params2list(params)
 	if(check_rights(R_ADMIN, 0)) // Admin click shortcuts
 		var/mob/M
