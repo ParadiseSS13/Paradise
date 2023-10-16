@@ -465,10 +465,11 @@ const ChemMasterProductionPills = (props, context) => {
     pillamount,
     pillname,
     pillplaceholdername,
+    pillsprite,
     pillstyles,
   } = data;
   const style_buttons = pillstyles
-    .map(({ id, sprite }) => <Button key={id} selected={data.pillsprite === id} style={{ padding: 0, 'line-height': 0, }} onClick={() => act("set_pills_style", { newValue: id })}>
+    .map(({ id, sprite }) => <Button key={id} selected={pillsprite === id} style={{ padding: 0, 'line-height': 0, }} onClick={() => act("set_pills_style", { newValue: id })}>
         <span style={{ overflow: "hidden", display: 'inline-block', width: '26px', height: '26px', position: 'relative', }}>
           <img style={{ '-ms-interpolation-mode': 'nearest-neighbor', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%) scale(2)', 'margin-left': '1px' }} src={sprite} />
         </span>
