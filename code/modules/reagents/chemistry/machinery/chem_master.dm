@@ -43,7 +43,6 @@
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
-	var/static/list/bottle_style_sprites = list("bottle.png", "small_bottle.png", "wide_bottle.png", "round_bottle.png", "reagent_bottle.png")
 	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
 									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
 									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
@@ -343,8 +342,9 @@
 		// Bottles
 		if("set_bottles_style")
 			var/new_value = text2num(params["newValue"])
-			if (new_value in bottle_styles)
-				bottlesprite = new_value
+			if (new_value == null)
+				return
+			bottlesprite = clamp(new_value, 1, bottle_styles.len)
 		if("set_bottles_amount")
 			var/new_value = text2num(params["newValue"])
 			if (new_value == null)
@@ -463,7 +463,16 @@
 		))
 	data["pillstyles"] = pill_styles
 
-	data["bottlestyles"] = bottle_style_sprites
+
+	var/bottle_styles_with_sprite[0]
+	var/bottle_style_indexer = 0
+	for(var/style in bottle_styles)
+		bottle_style_indexer++
+		bottle_styles_with_sprite += list(list(
+			"id" = bottle_style_indexer,
+			"sprite" = "[style].png",
+		))
+	data["bottlestyles"] = bottle_styles_with_sprite
 
 	return data
 
