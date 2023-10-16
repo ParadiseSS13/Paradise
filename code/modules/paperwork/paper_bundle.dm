@@ -90,8 +90,7 @@
 	user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
 	"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 
-	if(user.is_in_inactive_hand(src))
-		user.unEquip(src)
+	user.unEquip(src)
 
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
