@@ -15,7 +15,7 @@
 
 /obj/item/deck/tarot/deckshuffle()
 	var/mob/living/user = usr
-	if(cooldown < world.time - 2 SECONDS)
+	if(cooldown < world.time - 1 SECONDS)
 		var/list/newcards = list()
 		while(cards.len)
 			var/datum/playingcard/P = pick(cards)
