@@ -20134,6 +20134,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/expedition,
 /turf/simulated/floor,
 /area/station/service/expedition)
 "beq" = (
@@ -41181,6 +41182,9 @@
 /obj/structure/railing{
 	dir = 5
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -50503,15 +50507,18 @@
 	},
 /area/station/engineering/control)
 "cuX" = (
-/obj/machinery/door/airlock/mining,
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock/maintenance{
+	name = "Expedition Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/expedition,
 /turf/simulated/floor/plating,
-/area/station/service/expedition)
+/area/station/maintenance/fsmaint)
 "cuY" = (
 /obj/machinery/suit_storage_unit/engine,
 /obj/machinery/ai_status_display{
@@ -82199,10 +82206,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"fug" = (
-/obj/machinery/alarm,
-/turf/simulated/wall,
-/area/station/service/expedition)
 "fuH" = (
 /obj/machinery/economy/vending/autodrobe,
 /obj/machinery/light/small{
@@ -82839,13 +82842,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/central)
-"gbO" = (
-/obj/machinery/light/small,
-/obj/structure/closet/secure_closet/explorer,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/station/service/expedition)
 "gcp" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -87093,9 +87089,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/checkpoint)
 "llR" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
@@ -87205,10 +87198,6 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/entry)
-"lqd" = (
-/obj/machinery/power/apc,
-/turf/simulated/wall,
-/area/station/service/expedition)
 "lqK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /obj/machinery/light_switch{
@@ -89480,8 +89469,10 @@
 	},
 /area/station/maintenance/apmaint)
 "nVp" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/mech_bay_recharge_floor,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "nVq" = (
 /obj/structure/table/reinforced,
@@ -92331,6 +92322,11 @@
 /obj/structure/railing{
 	dir = 9
 	},
+/obj/machinery/alarm{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -93288,6 +93284,11 @@
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -97383,6 +97384,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/light_switch{
+	dir = 1;
+	pixel_y = -24;
+	name = "south bump"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "wRN" = (
@@ -97653,12 +97659,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/secondary)
-"xha" = (
-/obj/machinery/mech_bay_recharge_port{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/service/expedition)
 "xhj" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -98113,13 +98113,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/launch)
 "xKE" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/structure/dispenser/oxygen,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
+/turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "xKN" = (
 /obj/machinery/hologram/holopad,
@@ -145413,7 +145408,7 @@ abj
 cyv
 ocr
 wRo
-aSb
+cyv
 aSb
 pfz
 aSb
@@ -145925,7 +145920,7 @@ aaa
 aaa
 aaa
 vaM
-nVp
+cyr
 web
 hBv
 xoA
@@ -146182,12 +146177,12 @@ aaa
 aaa
 aaa
 noc
-xha
+cCX
 xPe
 uPL
 uOa
 aRG
-gbO
+cCV
 tqI
 aaa
 aaa
@@ -146440,7 +146435,7 @@ aaa
 aaa
 cyv
 xKE
-cCX
+nVp
 rdb
 ydS
 shB
@@ -146698,9 +146693,9 @@ aaa
 cyv
 cyv
 jgm
-fug
+cyv
 cuX
-lqd
+cyv
 cyv
 cyv
 aaa

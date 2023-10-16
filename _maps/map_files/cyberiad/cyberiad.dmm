@@ -23986,19 +23986,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bny" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/station/service/expedition)
+/area/station/supply/storage)
 "bnz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -24719,6 +24711,9 @@
 /area/station/hallway/primary/central/nw)
 "bpn" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "bpo" = (
@@ -25783,8 +25778,8 @@
 	},
 /area/station/service/chapel)
 "bsc" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
+/obj/structure/sign/poster/contraband/syndicate_recruitment,
+/turf/simulated/wall,
 /area/station/service/expedition)
 "bsd" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -25856,12 +25851,6 @@
 	},
 /area/station/hallway/secondary/entry)
 "bsm" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2";
-	tag = ""
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "browncorner"
@@ -27439,8 +27428,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools/auxiliary)
 "bwu" = (
-/obj/machinery/door/airlock/maintenance,
-/turf/simulated/floor/plating,
+/obj/effect/decal/cleanable/cobweb,
+/turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "bwv" = (
 /turf/simulated/floor/plasteel,
@@ -27476,7 +27465,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "bwA" = (
-/obj/machinery/mech_bay_recharge_port,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -27685,9 +27673,12 @@
 /turf/simulated/wall,
 /area/station/supply/storage)
 "bxc" = (
-/obj/machinery/power/apc,
-/turf/simulated/wall,
-/area/station/service/expedition)
+/obj/machinery/door/airlock/maintenance{
+	name = "Cargo Bay Maintenance";
+	req_access_txt = "31"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "bxd" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -28786,6 +28777,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "bzD" = (
@@ -29347,6 +29339,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "bBl" = (
@@ -29634,11 +29627,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "bCf" = (
@@ -29740,6 +29729,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "bCw" = (
@@ -30203,6 +30193,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "bDL" = (
@@ -30553,6 +30548,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "bED" = (
@@ -49290,7 +49286,8 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/turf/simulated/floor/plating,
+/obj/effect/mapping_helpers/airlock/access/all/command/expedition,
+/turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "cGE" = (
 /obj/structure/cable{
@@ -69249,9 +69246,6 @@
 /area/station/science/hallway)
 "iam" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/machinery/mineral/equipment_vendor,
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
@@ -71414,6 +71408,20 @@
 	icon_state = "purple"
 	},
 /area/station/science/hallway)
+"jCQ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel,
+/area/station/service/expedition)
 "jDf" = (
 /obj/structure/table,
 /obj/item/hand_labeler,
@@ -74572,6 +74580,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"lEr" = (
+/obj/structure/sign/poster/contraband/syndicate_pistol,
+/turf/simulated/wall,
+/area/station/service/expedition)
 "lEy" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -74905,9 +74917,13 @@
 "lPA" = (
 /obj/effect/landmark/start/explorer,
 /obj/structure/cable{
-	d1 = 2;
 	d2 = 4;
-	icon_state = "2-4"
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -76541,6 +76557,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/mapping_helpers/airlock/access/all/command/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "mQt" = (
@@ -86360,7 +86377,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/turf/simulated/floor/mech_bay_recharge_floor,
+/turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "sZg" = (
 /obj/effect/decal/cleanable/dirt,
@@ -92175,9 +92192,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "wKR" = (
-/obj/machinery/alarm,
-/turf/simulated/wall,
-/area/station/service/expedition)
+/obj/structure/closet/crate,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "wLp" = (
 /obj/machinery/light,
 /obj/structure/disposalpipe/segment{
@@ -93076,6 +93094,18 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
+"xqq" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/supply/storage)
 "xqH" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -115323,9 +115353,9 @@ blR
 blR
 blR
 blQ
-bwu
-rqp
 bxb
+rqp
+bxc
 bxb
 bxb
 bxb
@@ -115580,9 +115610,9 @@ bqC
 bpb
 blR
 blR
-bKz
+bwu
 qaR
-bCj
+bKz
 bDI
 bzC
 bBk
@@ -115839,7 +115869,7 @@ bui
 blR
 bKz
 bKz
-bKz
+byw
 bKz
 kuN
 bGY
@@ -116094,14 +116124,14 @@ bnz
 bpi
 iYO
 blR
-bzC
-pNj
+xqq
+bny
 pNj
 byv
 bEB
 bKz
-bKz
-bKz
+byw
+byw
 bFq
 bxb
 bxb
@@ -116354,9 +116384,9 @@ blR
 aTy
 bKz
 bKz
-bKz
+byw
 bEC
-bBj
+wKR
 bCz
 bKz
 bKz
@@ -117122,8 +117152,8 @@ brE
 bsQ
 bsn
 bsn
-bwy
-bxc
+jCQ
+bsn
 bxe
 byy
 byy
@@ -117377,9 +117407,9 @@ epu
 blR
 blR
 blR
-blT
+bsn
 xjq
-bny
+bwy
 bsc
 bxd
 byk
@@ -117637,7 +117667,7 @@ bpl
 lPA
 bsm
 bBU
-bsc
+bsn
 bxd
 bDN
 bBn
@@ -117894,7 +117924,7 @@ bsR
 buj
 bvw
 bDJ
-bsc
+bsn
 oKs
 byl
 wbT
@@ -118151,7 +118181,7 @@ bsZ
 ujq
 bqJ
 bwA
-bsn
+blT
 bxf
 bzJ
 bzI
@@ -118408,7 +118438,7 @@ bsW
 buj
 eMM
 sZe
-bsn
+lEr
 lnv
 bzJ
 bzH
@@ -118918,7 +118948,7 @@ bmV
 bkq
 bsn
 bsn
-wKR
+bsn
 bnT
 cGD
 bsn

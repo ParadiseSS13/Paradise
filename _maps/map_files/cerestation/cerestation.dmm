@@ -30586,6 +30586,11 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/orange{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "cZf" = (
@@ -36685,6 +36690,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
+/obj/effect/mapping_helpers/airlock/access/all/command/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "dQZ" = (
@@ -42655,6 +42661,11 @@
 "glL" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee,
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition,
 /area/station/service/expedition)
@@ -42706,7 +42717,10 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/station/maintenance/apmaint)
 "gmZ" = (
-/turf/simulated/floor/mech_bay_recharge_floor,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "gnu" = (
 /turf/simulated/mineral/ancient,
@@ -54109,10 +54123,6 @@
 	icon_state = "white"
 	},
 /area/station/science/toxins/mixing)
-"kaw" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/turf/simulated/wall,
-/area/station/service/expedition)
 "kax" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -55587,6 +55597,9 @@
 /area/station/hallway/secondary/entry/south)
 "kyi" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "kyo" = (
@@ -60031,12 +60044,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
-"lSo" = (
-/obj/machinery/mech_bay_recharge_port{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
-/area/station/service/expedition)
 "lSt" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -68241,10 +68248,14 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "oKk" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
-/obj/machinery/alarm,
-/turf/simulated/wall,
-/area/station/service/expedition)
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24;
+	pixel_y = -5
+	},
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/auxsolarstarboard)
 "oKm" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -71822,8 +71833,12 @@
 	},
 /area/station/turret_protected/ai)
 "pTk" = (
-/obj/machinery/power/apc,
-/turf/simulated/wall,
+/obj/machinery/light_switch{
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "pTp" = (
 /obj/structure/cable/orange{
@@ -80189,11 +80204,6 @@
 	icon_state = "1-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/orange{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
@@ -83411,7 +83421,6 @@
 /turf/simulated/wall,
 /area/station/maintenance/electrical_shop)
 "tTc" = (
-/obj/effect/spawner/random_spawners/wall_rusted_always,
 /obj/machinery/firealarm,
 /turf/simulated/wall,
 /area/station/service/expedition)
@@ -84064,6 +84073,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
+/obj/effect/mapping_helpers/airlock/access/all/command/expedition,
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "ucV" = (
@@ -89128,12 +89138,17 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "vId" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/orange{
-	d1 = 1;
 	d2 = 2;
-	icon_state = "1-2"
+	icon_state = "0-2"
 	},
-/turf/simulated/floor/plasteel,
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
+	},
+/turf/simulated/floor/plating,
 /area/station/service/expedition)
 "vIi" = (
 /obj/structure/cable{
@@ -92156,7 +92171,10 @@
 	},
 /area/station/public/storage/tools)
 "wBp" = (
-/obj/structure/cable/orange,
+/obj/machinery/camera{
+	c_tag = "Departure Lounge - Security Post";
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/expedition)
 "wBr" = (
@@ -93737,9 +93755,12 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining,
+/obj/machinery/door/airlock/maintenance{
+	name = "Expedition Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/command/expedition,
 /turf/simulated/floor/plasteel,
-/area/station/service/expedition)
+/area/station/maintenance/fsmaint)
 "xaI" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -96123,7 +96144,6 @@
 /turf/simulated/floor/plating,
 /area/station/supply/miningdock)
 "xRP" = (
-/obj/machinery/light/small,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
@@ -149291,7 +149311,7 @@ kyi
 kZV
 bwM
 cJn
-kaw
+uot
 alc
 alc
 vpe
@@ -149546,9 +149566,9 @@ oQn
 hou
 upy
 sLD
-vId
+bwM
 wBp
-pTk
+uot
 alc
 rWb
 aRx
@@ -149805,7 +149825,7 @@ qOp
 juo
 bwM
 glL
-oKk
+uot
 alc
 aRx
 jPa
@@ -150314,11 +150334,11 @@ rWb
 rWb
 uot
 oVI
-bwM
+pTk
 qOp
-kCa
 gmZ
-lSo
+bwM
+kCa
 uot
 vpe
 iXm
@@ -150828,7 +150848,7 @@ rWb
 rWb
 qQc
 vpe
-yiW
+vId
 cZd
 eUS
 fDg
@@ -151088,7 +151108,7 @@ dkW
 alk
 klx
 vpe
-hFo
+oKk
 hFo
 iNu
 hFo

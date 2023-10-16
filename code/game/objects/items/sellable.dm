@@ -44,7 +44,7 @@
 
 /obj/item/sellable/salvage/ruin/carp
 	name = "Space Dragon Scales"
-	desc = "A tonne of salvage recovered from an abandoned ruin. Who spawned the base type? Report this on the github."
+	desc = "A collection of scales shed from a corrupted space carp. Their culinary potential could mean untold riches for Nanotrasen."
 
 /obj/item/sellable/salvage/ruin/pirate
 	name = "Salvage"
