@@ -112,11 +112,11 @@
 	if(myflashlight)
 		engicart_items["Flashlight"] = image(icon = myflashlight.icon, icon_state = myflashlight.icon_state)
 	if(mybluetoolbox)
-		engicart_items["Blue Toolbox"] = image(icon = mybluetoolbox.icon, icon_state = mybluetoolbox.icon_state)
+		engicart_items["Mechanical Toolbox"] = image(icon = mybluetoolbox.icon, icon_state = mybluetoolbox.icon_state)
 	if(myredtoolbox)
-		engicart_items["Red Toolbox"] = image(icon = myredtoolbox.icon, icon_state = myredtoolbox.icon_state)
+		engicart_items["Emergency Toolbox"] = image(icon = myredtoolbox.icon, icon_state = myredtoolbox.icon_state)
 	if(myyellowtoolbox)
-		engicart_items["Yellow Toolbox"] = image(icon = myyellowtoolbox.icon, icon_state = myyellowtoolbox.icon_state)
+		engicart_items["Electrical Toolbox"] = image(icon = myyellowtoolbox.icon, icon_state = myyellowtoolbox.icon_state)
 
 	if(!length(engicart_items))
 		return
@@ -151,19 +151,19 @@
 			user.put_in_hands(myflashlight)
 			to_chat(user, "<span class='notice'>You take [myflashlight] from [src].</span>")
 			myflashlight = null
-		if("Blue Toolbox")
+		if("Mechanical Toolbox")
 			if(!mybluetoolbox)
 				return
 			user.put_in_hands(mybluetoolbox)
 			to_chat(user, "<span class='notice'>You take [mybluetoolbox] from [src].</span>")
 			mybluetoolbox = null
-		if("Red Toolbox")
+		if("Emergency Toolbox")
 			if(!myredtoolbox)
 				return
 			user.put_in_hands(myredtoolbox)
 			to_chat(user, "<span class='notice'>You take [myredtoolbox] from [src].</span>")
 			myredtoolbox = null
-		if("Yellow Toolbox")
+		if("Electrical Toolbox")
 			if(!myyellowtoolbox)
 				return
 			user.put_in_hands(myyellowtoolbox)
