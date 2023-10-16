@@ -515,7 +515,7 @@ const ChemMasterProductionBottles = (props, context) => {
       </Button>
     );
   return (
-    <ChemMasterProductionCommon maxQuantity={maxbottles} medicineName={bottlename} placeholderName={bottleplaceholdername} productionType="pills" quantity={bottleamount}>
+    <ChemMasterProductionCommon maxQuantity={maxbottles} medicineName={bottlename} placeholderName={bottleplaceholdername} productionType="bottles" quantity={bottleamount}>
       <LabeledList.Item label="Style">
         {style_buttons}
       </LabeledList.Item>
