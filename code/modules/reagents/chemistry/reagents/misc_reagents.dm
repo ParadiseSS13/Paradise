@@ -181,21 +181,21 @@
 	// Let's say burning boiling oil doubles in volume, can our max volume contain that?
 	var/boil_overflow = (holder.total_volume + volume) - holder.maximum_volume
 	var/violent = boil_overflow > 0
-	var/message_type = violent ? "class='boldwarning'" : "class='warning'"
-	holder.my_atom.visible_message("<span [message_type]>The oil [violent ? "boils and burns violently" : "burns"]!</span>")
 
 	var/datum/reagents/old_holder = holder
 	var/turf/T = get_turf(holder.my_atom)
 	var/smoke_type = /datum/effect_system/smoke_spread
 
 	if(violent)
-		// Log -> remove reagent -> fireflash. Else the log fails or fireflash triggers a reaction again
+		holder.my_atom.visible_message("<span class='boldwarning'>The oil boils and burns violently!</span>")
+		// Log -> remove reagent -> fireflash, else the log fails or fireflash triggers a reaction again
 		fire_flash_log(holder, id)
 		holder.del_reagent(id)
 		fireflash(T, clamp(volume / 40, 0, 8))
 
 		smoke_type = /datum/effect_system/smoke_spread/bad
 	else
+		holder.my_atom.visible_message("<span class='warning'>The oil burns!</span>")
 		holder.del_reagent(id)
 
 	// Flavor reaction effects
