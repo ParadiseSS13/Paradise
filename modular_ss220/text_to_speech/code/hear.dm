@@ -38,8 +38,6 @@
 	var/message_tts = combine_message_tts(message_pieces, speaker)
 	var/effect = isrobot(speaker) ? SOUND_EFFECT_ROBOT : SOUND_EFFECT_NONE
 	var/traits = TTS_TRAIT_RATE_FASTER
-	if(italics)
-		traits |= TTS_TRAIT_PITCH_WHISPER
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(tts_cast), speaker, src, message_tts, speaker.tts_seed, TRUE, effect, traits)
 
 /mob/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, check_name_against)
