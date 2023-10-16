@@ -446,7 +446,7 @@ const ChemMasterProductionCommon = (props, context) => {
     <LabeledList>
       {children}
       <LabeledList.Item label="Quantity">
-        <Slider value={quantity} minValue={1} maxValue={maxQuantity} stepPixelSize={maxQuantity} onChange={(e, value) => act(`set_${productionType}_amount`, { newValue: value })} />
+        <Slider value={quantity} minValue={1} maxValue={maxQuantity} stepPixelSize={maxQuantity * (20 / maxQuantity)} onChange={(e, value) => act(`set_${productionType}_amount`, { newValue: value })} />
       </LabeledList.Item>
       <LabeledList.Item label="Name">
         <ChemMasterNameInput fluid value={medicineName} placeholder={placeholderName} onChange={(e, value) => act(`set_${productionType}_name`, { newValue: value })} />
