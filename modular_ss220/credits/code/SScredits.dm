@@ -75,6 +75,8 @@ SUBSYSTEM_DEF(credits)
 			continue
 		if(!human.last_known_ckey)
 			continue
+		if(!human.client?.holder)
+			continue
 		if(human.client.holder.rank == "Банда")
 			streamers += "<center>[human.real_name]([human.ckey]) в роли [human.job]<br><center>"
 			continue
