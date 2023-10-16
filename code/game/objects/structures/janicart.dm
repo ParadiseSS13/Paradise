@@ -183,11 +183,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/janitorialcart/proc/check_menu(mob/living/user)
-	if(!istype(user))
-		return FALSE
-	if(user.incapacitated())
-		return FALSE
-	return TRUE
+	return (istype(user) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 
 /obj/structure/janitorialcart/update_overlays()
 	. = ..()
