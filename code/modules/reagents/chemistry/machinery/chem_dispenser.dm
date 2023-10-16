@@ -244,15 +244,14 @@
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
+		I.forceMove(src)
 		if(beaker)
-			I.forceMove(src)
 			user.put_in_hands(beaker)
-			beaker = I
 			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
 		else
-			I.forceMove(src)
-			beaker = I
 			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
+		beaker = I
+
 		SStgui.update_uis(src) // update all UIs attached to src
 		update_icon(UPDATE_ICON_STATE)
 		return
