@@ -3220,7 +3220,7 @@
 	dir = 1;
 	network = list("SS13","QM")
 	},
-/obj/effect/landmark/start/cargo_technician,
+/obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3233,8 +3233,18 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
-/obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/light,
+/obj/machinery/driver_button{
+	id_tag = "trash";
+	pixel_x = -4;
+	pixel_y = -26
+	},
+/obj/machinery/door_control{
+	id = "Disposal Exit";
+	name = "Disposal Vent Control";
+	pixel_x = 6;
+	pixel_y = -26;
+	req_access_txt = "12"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26350,9 +26360,8 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/storage/box,
-/obj/item/storage/box,
-/obj/item/storage/box,
+/obj/item/stack/packageWrap,
+/obj/item/destTagger,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42391,6 +42400,10 @@
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/radio/intercom{
+	name = "custom placement";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -65219,6 +65232,7 @@
 	pixel_y = -24;
 	name = "south bump"
 	},
+/obj/effect/landmark/start/cargo_technician,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -68833,9 +68847,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/storage/box,
+/obj/item/storage/box,
+/obj/item/storage/box,
+/obj/machinery/light,
 /obj/structure/table,
-/obj/item/destTagger,
-/obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -83931,6 +83947,10 @@
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/station/maintenance/maintcentral)
+"ulz" = (
+/obj/machinery/mineral/stacking_unit_console,
+/turf/simulated/wall,
+/area/station/maintenance/disposal)
 "ulG" = (
 /obj/machinery/light_switch{
 	dir = 1;
@@ -84287,6 +84307,16 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port/east)
+"urK" = (
+/obj/machinery/mineral/stacking_machine{
+	stack_amt = 10;
+	output_dir = 2;
+	input_dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/maintenance/disposal)
 "urW" = (
 /turf/simulated/wall,
 /area/station/hallway/primary/port/east)
@@ -86187,24 +86217,8 @@
 	},
 /area/station/hallway/spacebridge/dockmed)
 "uWf" = (
-/obj/machinery/driver_button{
-	id_tag = "trash";
-	pixel_x = -4;
-	pixel_y = 26
-	},
-/obj/machinery/door_control{
-	id = "Disposal Exit";
-	name = "Disposal Vent Control";
-	pixel_x = 6;
-	pixel_y = 26;
-	req_access_txt = "12"
-	},
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
-	},
-/obj/item/radio/intercom{
-	pixel_x = 28;
-	name = "custom placement"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -146248,7 +146262,7 @@ arT
 asV
 asQ
 auf
-pKq
+rIu
 ayV
 woa
 hZJ
@@ -146502,7 +146516,7 @@ pGb
 pGb
 pGb
 knO
-rIu
+urK
 uWf
 iys
 pKq
@@ -146760,7 +146774,7 @@ rNK
 rIu
 paK
 rIu
-rIu
+ulz
 rIu
 rIu
 rIu
