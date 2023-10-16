@@ -80,3 +80,11 @@
 	name = "светло-голубой акулий капюшон"
 	icon_state = "shark_casual_light"
 	item_state = "shark_casual_light"
+
+/obj/item/clothing/suit/space/deathsquad/officer/syndie
+	name = "куртка офицера синдиката"
+	desc = "Длинная куртка из высокопрочного волокна."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "jacket_syndie"
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+	item_state = "jacket_syndie"

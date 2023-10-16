@@ -57,6 +57,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = /obj/item/ammo_casing/d44
 	max_ammo = 24
+	icon = 'modular_ss220/objects/icons/ammo.dmi'
 	icon_state = "44_box"
 
 /obj/structure/displaycase/hos

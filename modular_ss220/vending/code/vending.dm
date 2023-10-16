@@ -21,8 +21,9 @@
 		/obj/item/ammo_box/magazine/laser = 12,
 		/obj/item/ammo_box/magazine/wt550m9 = 8,
 		/obj/item/storage/box/rubbershot = 4,
-		/obj/item/ammo_box/magazine/m556 = 12,
-		/obj/item/ammo_box/a40mm = 4)
+		/obj/item/ammo_box/magazine/m556/arg = 12,
+		/obj/item/ammo_box/a40mm = 4,
+		/obj/item/ammo_box/magazine/smgm9mm = 12)
 
 /obj/machinery/economy/vending/nta/blue
 	name = "NT ERT Medium Gear & Ammunition"
@@ -46,8 +47,8 @@
 	desc = "A ERT Heavy equipment vendor."
 	ads_list = list("Круши черепа синдиката!","Не забывай, спасать - полезно!","Бжж-Бзз-з!.","Обезопасить, Удержать, Сохранить!","Стоять, снярядись на задание!")
 	products = list(
-		/obj/item/gun/projectile/automatic/ar = 3,
-		/obj/item/ammo_box/magazine/m556 = 6,
+		/obj/item/gun/projectile/automatic/proto = 3,
+		/obj/item/ammo_box/magazine/smgm9mm/ap = 6,
 		/obj/item/gun/energy/lasercannon = 3,
 		/obj/item/gun/energy/immolator = 3,
 		/obj/item/gun/energy/gun/nuclear = 3,
@@ -68,8 +69,9 @@
 		/obj/item/restraints/handcuffs/cable/zipties = 5,
 		/obj/item/grenade/flashbang = 3,
 		/obj/item/flash = 2,
-		/obj/item/gun/energy/gun/advtaser = 4,
+		/obj/item/gun/energy/disabler = 4,
 		/obj/item/gun/projectile/automatic/pistol/enforcer = 6,
+		/obj/item/ammo_box/magazine/enforcer = 12,
 		/obj/item/gun/projectile/shotgun/riot = 1,
 		/obj/item/storage/box/rubbershot = 3)
 
@@ -86,6 +88,7 @@
 		/obj/item/gun/energy/xray = 8,
 		/obj/item/gun/energy/pulse/destroyer/annihilator = 8,
 		/obj/item/gun/energy/immolator/multi = 8,
+		/obj/item/gun/energy/bsg/prebuilt/admin = 4,
 		/obj/item/grenade/clusterbuster/inferno = 3,
 		/obj/item/grenade/clusterbuster/emp = 3)
 

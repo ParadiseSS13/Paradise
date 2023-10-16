@@ -40,6 +40,7 @@
 #include "cinematics/_cinematics.dme"
 #include "closet_picklocking/_closet_picklocking.dme"
 #include "crawl_speed/_crawl_speed.dme"
+#include "credits/_credits.dme"
 #include "cyrillic_fixes/_cyrillic_fixes.dme"
 #include "debug/_debug.dme"
 #include "detective_rework/detective_rework.dme"
@@ -62,7 +63,7 @@
 #include "text_to_speech/_tts.dme"
 #include "title_screen/_title_screen.dme"
 #include "whitelist/_whitelist.dme"
-#include "credits/_credits.dme"
+#include "outfits/_outfits.dme"
 
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY
