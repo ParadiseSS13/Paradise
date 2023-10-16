@@ -307,8 +307,7 @@ const ChemMasterProductionChemical = (props, context) => {
       case 2:
         return <ChemMasterProductionPatches />;
       case 3:
-        // return <ChemMasterProductionBottles />;
-        break;
+        return <ChemMasterProductionBottles />;
       default:
         return "UNKNOWN INTERFACE";
     }
@@ -496,6 +495,33 @@ const ChemMasterProductionPatches = (props, context) => {
   } = data;
   return (
     <ChemMasterProductionCommon maxQuantity={maxpatches} medicineName={patchname} placeholderName={placeholdername} productionType="patches" quantity={patchamount} />
+  );
+}
+
+const ChemMasterProductionBottles = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    maxbottles,
+    bottleamount,
+    bottlename,
+    placeholdername,
+    bottlestyles,
+  } = data;
+  const style_buttons = bottlestyles
+    .map((sprite) => <Button key={sprite} selected={data.bottlesprite === sprite} style={{ padding: 0, 'line-height': 0, }} onClick={() => act("set_bottles_style", { newValue: sprite })}>
+        <span style={{ overflow: "hidden", display: 'inline-block', width: '26px', height: '26px', position: 'relative', }}>
+          <img style={{ '-ms-interpolation-mode': 'nearest-neighbor', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%) scale(2)', 'margin-left': '1px' }} src={sprite} />
+        </span>
+      </Button>
+    );
+  return (
+    <ChemMasterProductionCommon maxQuantity={maxbottles} medicineName={bottlename} placeholderName={placeholdername} productionType="pills" quantity={bottleamount}>
+      <LabeledList.Item>
+        <Collapsible title="Style">
+          {style_buttons}
+        </Collapsible>
+      </LabeledList.Item>
+    </ChemMasterProductionCommon>
   );
 }
 

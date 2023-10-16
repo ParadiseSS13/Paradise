@@ -2,6 +2,7 @@
 #define MAX_MULTI_AMOUNT 20 // Max number of pills/patches that can be made at once
 #define MAX_UNITS_PER_PILL 100 // Max amount of units in a pill
 #define MAX_UNITS_PER_PATCH 30 // Max amount of units in a patch
+#define MAX_UNITS_PER_BOTTLE 50 // Max amount of units in a bottle
 #define MAX_CUSTOM_NAME_LEN 64 // Max length of a custom pill/condiment/whatever
 
 #define CHEMMASTER_MIN_PRODUCTION_MODE 1
@@ -41,7 +42,8 @@
 	var/pillsprite = 1
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
-	var/static/list/bottle_styles
+	var/static/list/bottle_styles = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
+	var/static/list/bottle_style_images = list("bottle.png", "small_bottle.png", "wide_bottle.png", "round_bottle.png", "reagent_bottle.png")
 	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
 									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
 									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
@@ -337,6 +339,43 @@
 				// Load the patches in the bottle if there's one loaded
 				if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
 					P.forceMove(loaded_pill_bottle)
+
+		// Bottles
+		if("set_bottles_style")
+			var/new_value = text2num(params["newValue"])
+			if (new_value in bottle_styles)
+				bottlesprite = new_value
+		if("set_bottles_amount")
+			var/new_value = text2num(params["newValue"])
+			if (new_value == null)
+				return
+			bottleamount = clamp(new_value, 1, 20)
+		if("set_bottles_name")
+			var/new_value = params["newValue"]
+			// Allow name to be set to empty
+			if (length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+				return
+			bottlename = new_value
+		if("create_bottles")
+			if(condi || !reagents.total_volume)
+				return
+
+			var/name = bottlename
+			var/count = bottleamount
+			if(length(name) < 0 || length(name) > MAX_CUSTOM_NAME_LEN)
+				name = reagents.get_master_reagent_name()
+			var/amount_per_bottle = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_BOTTLE)
+			while(count--)
+				if(reagents.total_volume <= 0)
+					to_chat(usr, "<span class='notice'>Not enough reagents to create these bottles!</span>")
+					return
+
+				var/obj/item/reagent_containers/glass/bottle/reagent/P = new(loc)
+				P.name = "[name] bottle"
+				P.pixel_x = rand(-7, 7) // random position
+				P.pixel_y = rand(-7, 7)
+				P.icon_state = length(bottle_styles) && bottle_styles[bottlesprite] || "bottle"
+				reagents.trans_to(P, amount_per_pill)
 		else
 			return FALSE
 
@@ -423,6 +462,8 @@
 			"sprite" = "pill[i].png",
 		))
 	data["pillstyles"] = pill_styles
+
+	data["bottlestyles"] = bottle_styles
 
 	return data
 
@@ -704,6 +745,7 @@
 #undef MAX_MULTI_AMOUNT
 #undef MAX_UNITS_PER_PILL
 #undef MAX_UNITS_PER_PATCH
+#undef MAX_UNITS_PER_BOTTLE
 #undef MAX_CUSTOM_NAME_LEN
 
 #undef CHEMMASTER_MIN_PRODUCTION_MODE
