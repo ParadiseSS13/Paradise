@@ -7015,6 +7015,11 @@
 "yl" = (
 /turf/simulated/wall/indestructible/boss,
 /area/space/centcomm)
+"ym" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/bronze,
+/turf/simulated/floor/carpet/green,
+/area/ghost_bar)
 "yp" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = 28
@@ -71677,7 +71682,7 @@ Me
 bJ
 Jy
 qN
-Ah
+ym
 Ah
 Nh
 Me
@@ -72705,7 +72710,7 @@ Nr
 Jy
 Jy
 UH
-Ah
+ym
 JX
 yO
 qf
