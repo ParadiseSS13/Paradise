@@ -237,10 +237,6 @@
 	if(isrobot(user))
 		return
 
-	if(beaker)
-		to_chat(user, "<span class='warning'>Something is already loaded into the machine.</span>")
-		return
-
 	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks)) && user.a_intent != INTENT_HARM)
 		if(panel_open)
 			to_chat(user, "<span class='notice'>Close the maintenance panel first.</span>")
@@ -248,12 +244,19 @@
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
-		beaker =  I
-		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
+		if(beaker)
+			I.forceMove(src)
+			user.put_in_hands(beaker)
+			beaker = I
+			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
+		else
+			I.forceMove(src)
+			beaker = I
+			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src) // update all UIs attached to src
 		update_icon(UPDATE_ICON_STATE)
 		return
+
 	return ..()
 
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)

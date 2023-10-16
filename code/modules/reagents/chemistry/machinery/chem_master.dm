@@ -98,15 +98,18 @@
 		return TRUE
 
 	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
-		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
-		beaker = I
-		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
+		if(beaker)
+			I.forceMove(src)
+			user.put_in_hands(beaker)
+			beaker = I
+			to_chat(user, "<span class='notice'>You swap [I] with [beaker].</span>")
+		else
+			I.forceMove(src)
+			beaker = I
+			to_chat(user, "<span class='notice'>You set [I] on the machine.</span>")
 		SStgui.update_uis(src)
 		update_icon()
 
