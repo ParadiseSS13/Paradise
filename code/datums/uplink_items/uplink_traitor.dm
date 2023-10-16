@@ -412,6 +412,16 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	cant_discount = TRUE
 
+/datum/uplink_item/stealthy_weapons/bearserk
+	name = "Berserker Bear Pelt"
+	desc = "A bear pelt that grants the wearer Rage of the Space Bear, a strong and mysterious martial art, turning them into a deadly close-quarters threat. \
+			Also features robust, high coverage armor to further allow for berserk rampages. \
+			May instill cannibalistic tendancies, a desire to charge barechested into battle, and a thirst for vodka."
+	reference = "BBB"
+	item = /obj/item/clothing/head/bearpelt/bearserk
+	cost = 35
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/stealthy_tools/traitor_belt
 	name = "Traitor's Toolbelt"
 	desc = "A robust seven-slot belt made for carrying a broad variety of weapons, ammunition and explosives. It's modelled after the standard NT toolbelt so as to avoid suspicion while wearing it."
