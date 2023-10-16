@@ -239,6 +239,9 @@
 /obj/item/deck/attack_self()
 	deckshuffle()
 
+/obj/item/deck/AltClick()
+	deckshuffle()
+
 /obj/item/deck/verb/verb_shuffle()
 	if(!isobserver(usr))
 		set category = "Object"
