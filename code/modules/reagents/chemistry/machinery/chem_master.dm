@@ -43,7 +43,7 @@
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers
 	var/static/list/bottle_styles = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
-	var/static/list/bottle_style_images = list("bottle.png", "small_bottle.png", "wide_bottle.png", "round_bottle.png", "reagent_bottle.png")
+	var/static/list/bottle_style_sprites = list("bottle.png", "small_bottle.png", "wide_bottle.png", "round_bottle.png", "reagent_bottle.png")
 	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
 									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
 									"spaceacillin", "salglu_solution", "sal_acid", "cryoxadone", "blood", "synthflesh", "hydrocodone",
@@ -463,7 +463,7 @@
 		))
 	data["pillstyles"] = pill_styles
 
-	data["bottlestyles"] = bottle_styles
+	data["bottlestyles"] = bottle_style_sprites
 
 	return data
 
