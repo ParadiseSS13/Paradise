@@ -464,7 +464,7 @@ const ChemMasterProductionPills = (props, context) => {
     maxpills,
     pillamount,
     pillname,
-    placeholdername,
+    pillplaceholdername,
     pillstyles,
   } = data;
   const style_buttons = pillstyles
@@ -475,7 +475,7 @@ const ChemMasterProductionPills = (props, context) => {
       </Button>
     );
   return (
-    <ChemMasterProductionCommon maxQuantity={maxpills} medicineName={pillname} placeholderName={placeholdername} productionType="pills" quantity={pillamount}>
+    <ChemMasterProductionCommon maxQuantity={maxpills} medicineName={pillname} placeholderName={pillplaceholdername} productionType="pills" quantity={pillamount}>
       <LabeledList.Item label="Style">
         {style_buttons}
       </LabeledList.Item>
@@ -489,10 +489,10 @@ const ChemMasterProductionPatches = (props, context) => {
     maxpatches,
     patchamount,
     patchname,
-    placeholdername,
+    patchplaceholdername,
   } = data;
   return (
-    <ChemMasterProductionCommon maxQuantity={maxpatches} medicineName={patchname} placeholderName={placeholdername} productionType="patches" quantity={patchamount} />
+    <ChemMasterProductionCommon maxQuantity={maxpatches} medicineName={patchname} placeholderName={patchplaceholdername} productionType="patches" quantity={patchamount} />
   );
 }
 
@@ -502,7 +502,7 @@ const ChemMasterProductionBottles = (props, context) => {
     maxbottles,
     bottleamount,
     bottlename,
-    placeholdername,
+    bottleplaceholdername,
     bottlestyles,
   } = data;
   const style_buttons = bottlestyles
@@ -513,7 +513,7 @@ const ChemMasterProductionBottles = (props, context) => {
       </Button>
     );
   return (
-    <ChemMasterProductionCommon maxQuantity={maxbottles} medicineName={bottlename} placeholderName={placeholdername} productionType="pills" quantity={bottleamount}>
+    <ChemMasterProductionCommon maxQuantity={maxbottles} medicineName={bottlename} placeholderName={bottleplaceholdername} productionType="pills" quantity={bottleamount}>
       <LabeledList.Item label="Style">
         {style_buttons}
       </LabeledList.Item>

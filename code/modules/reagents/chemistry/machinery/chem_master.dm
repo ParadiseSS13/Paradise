@@ -448,12 +448,12 @@
 	switch(mode)
 		if(CHEMMASTER_PRODUCTION_MODE_PILLS)
 			var/amount_per_pill = clamp(reagents.total_volume / pillamount, 0, MAX_UNITS_PER_PILL)
-			data["placeholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
+			data["pillplaceholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
 		if(CHEMMASTER_PRODUCTION_MODE_PATCHES)
 			var/amount_per_patch = clamp(reagents.total_volume / patchamount, 0, MAX_UNITS_PER_PATCH)
-			data["placeholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
+			data["patchplaceholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
 		if(CHEMMASTER_PRODUCTION_MODE_BOTTLES)
-			data["placeholdername"] = reagents.get_master_reagent_name()
+			data["bottleplaceholdername"] = reagents.get_master_reagent_name()
 
 	var/pill_styles[0]
 	for(var/i = 1 to MAX_PILL_SPRITE)
