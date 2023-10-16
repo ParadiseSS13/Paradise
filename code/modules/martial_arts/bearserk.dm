@@ -43,8 +43,6 @@
 	flags = BLOCKHAIR
 	armor = list(MELEE = 40, BULLET = 20, LASER = 20, ENERGY = 10, BOMB = 10, RAD = 0, FIRE = 25, ACID = 25)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|HEAD|ARMS
-	heat_protection = UPPER_TORSO|LOWER_TORSO|HEAD|ARMS
-	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	var/datum/martial_art/bearserk/style = new
 
 /obj/item/clothing/head/bearpelt/bearserk/equipped(mob/user, slot)
