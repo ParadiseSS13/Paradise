@@ -85,7 +85,7 @@
 
 	user.visible_message("[class][user] holds [heating_object] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", "[class]You hold [heating_object] up to [src], burning it slowly.</span>")
 
-	if(!do_after(user, 2 SECONDS, target = src))
+	if(!do_after(user, 2 SECONDS, target = src) && is_hot(heating_object))
 		return
 	user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
 	"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
