@@ -4,7 +4,7 @@
 	icon_state = "sechudgoggles"
 
 /obj/item/clothing/glasses/hud/health/goggles
-	name = "medical HUD goggles"
+	name = "health HUD goggles"
 	desc = "Fashionable medical goggles."
 	icon_state = "medhudgoggles"
 

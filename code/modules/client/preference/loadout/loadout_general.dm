@@ -94,7 +94,7 @@
 	path = /obj/item/toy/plushie/shark
 
 /datum/gear/nohudgoggles
-	display_name = "Basic goggles"
+	display_name = "Goggles"
 	path = /obj/item/clothing/glasses/nohudgoggles
 
 /datum/gear/sechud
@@ -107,7 +107,7 @@
 	path = /obj/item/clothing/glasses/hud/security/goggles
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent","Magistrate")
 /datum/gear/medhudgoggles
-	display_name = "Medical HUD goggles"
+	display_name = "Health HUD goggles"
 	path = /obj/item/clothing/glasses/hud/health/goggles
 	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Geneticist", "Virologist", "Psychiatrist", "Paramedic")
 

@@ -281,7 +281,7 @@
 	item_state = "hipster_glasses"
 
 /obj/item/clothing/glasses/nohudgoggles
-	name = "basic goggles"
+	name = "goggles"
 	desc = "Just some basic goggles, rather fashionable."
 	icon_state = "nohudgoggles"
 	item_state = "nohudgoggles"
