@@ -417,7 +417,7 @@
 	desc = "A bear pelt that grants the wearer Rage of the Space Bear, a strong and mysterious martial art, turning them into a deadly close-quarters threat. \
 			Also features robust, high coverage armor to further allow for berserk rampages. \
 			May instill cannibalistic tendancies, a desire to charge barechested into battle, and a thirst for vodka."
-	reference = "BBB"
+	reference = "BBP"
 	item = /obj/item/clothing/head/bearpelt/bearserk
 	cost = 35
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
