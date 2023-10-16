@@ -425,11 +425,11 @@ class ChemMasterNameInput extends Component {
   render() {
     const { data } = useBackend(this.context);
     const {
-      max_name_length
+      maxnamelength
     } = data;
 
     return (
-      <Input maxLength={max_name_length} onMouseUp={this.handleMouseUp} {...this.props} />
+      <Input maxLength={maxnamelength} onMouseUp={this.handleMouseUp} {...this.props} />
     );
   }
 }

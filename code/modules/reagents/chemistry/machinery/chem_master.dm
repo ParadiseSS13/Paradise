@@ -356,7 +356,7 @@
 	// Transfer modal information if there is one
 	data["modal"] = ui_modal_data(src)
 
-	data["max_name_length"] = MAX_CUSTOM_NAME_LEN
+	data["maxnamelength"] = MAX_CUSTOM_NAME_LEN
 	data["production_mode"] = production_mode
 
 	data["pillname"] = pillname
