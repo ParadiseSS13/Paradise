@@ -256,17 +256,19 @@
 			if (new_mode == null)
 				return
 			production_mode = clamp(new_mode, CHEMMASTER_MIN_PRODUCTION_MODE, CHEMMASTER_MAX_PRODUCTION_MODE)
-		if("set_pill_style")
+
+		// Pills
+		if("set_pills_style")
 			var/new_value = text2num(params["newValue"])
 			if (new_value == null)
 				return
 			pillsprite = clamp(new_value, 1, MAX_PILL_SPRITE)
-		if("set_pill_amount")
+		if("set_pills_amount")
 			var/new_value = text2num(params["newValue"])
 			if (new_value == null)
 				return
 			pillamount = clamp(new_value, 1, 20)
-		if("set_pill_name")
+		if("set_pills_name")
 			var/new_value = params["newValue"]
 			// Allow name to be set to empty
 			if (length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
@@ -361,6 +363,8 @@
 	data["patchname"] = patchname
 	data["bottlename"] = bottlename
 
+	data["maxpills"] = CHEMMASTER_MAX_PILLS
+
 	switch(mode)
 		if(CHEMMASTER_PRODUCTION_MODE_PILLS)
 			var/amount_per_pill = clamp(reagents.total_volume / pillamount, 0, MAX_UNITS_PER_PILL)
@@ -377,7 +381,7 @@
 			"id" = i,
 			"sprite" = "pill[i].png",
 		))
-	data["pill_styles"] = pill_styles
+	data["pillstyles"] = pill_styles
 
 	return data
 

@@ -434,38 +434,55 @@ class ChemMasterNameInput extends Component {
   }
 }
 
+const ChemMasterProductionCommon = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    maxQuantity,
+    medicineName,
+    placeholderName,
+    productionType,
+    quantity,
+  } = props;
+  return (
+    <LabeledList>
+      {children}
+      <LabeledList.Item label="Quantity">
+        <Slider value={quantity} minValue={1} maxValue={maxQuantity} stepPixelSize={maxQuantity} onChange={(e, value) => act(`set_${productionType}_amount`, { newValue: value })} />
+      </LabeledList.Item>
+      <LabeledList.Item label="Name">
+        <ChemMasterNameInput fluid value={medicineName} placeholder={placeholderName} onChange={(e, value) => act(`set_${productionType}_name`, { newValue: value })} />
+      </LabeledList.Item>
+      <LabeledList.Item>
+        <Button fluid content="Create" color="green" onClick={() => act(`create_${productionType}`)} />
+      </LabeledList.Item>
+    </LabeledList>
+  );
+}
+
 const ChemMasterProductionPills = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    pillamount: quantity,
-    pillname: name,
+    maxpills,
+    pillamount,
+    pillname,
     placeholdername,
-    pill_styles
+    pillstyles,
   } = data;
-  const style_buttons = pill_styles
-    .map(({ id, sprite }) => <Button key={id} selected={data.pillsprite === id} style={{ padding: 0, 'line-height': 0, }} onClick={() => act("set_pill_style", { newValue: id })}>
+  const style_buttons = pillstyles
+    .map(({ id, sprite }) => <Button key={id} selected={data.pillsprite === id} style={{ padding: 0, 'line-height': 0, }} onClick={() => act("set_pills_style", { newValue: id })}>
         <span style={{ overflow: "hidden", display: 'inline-block', width: '26px', height: '26px', position: 'relative', }}>
           <img style={{ '-ms-interpolation-mode': 'nearest-neighbor', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%) scale(2)', 'margin-left': '1px' }} src={sprite} />
         </span>
       </Button>
     );
   return (
-    <LabeledList>
+    <ChemMasterProductionCommon maxQuantity={maxpills} medicineName={pillname} placeholderName={placeholdername} productionType="pills" quantity={pillamount}>
       <LabeledList.Item>
         <Collapsible title="Style">
           {style_buttons}
         </Collapsible>
       </LabeledList.Item>
-      <LabeledList.Item label="Quantity">
-        <Slider value={quantity} minValue={1} maxValue={20} stepPixelSize={20} onChange={(e, value) => act("set_pill_amount", { newValue: value })} />
-      </LabeledList.Item>
-      <LabeledList.Item label="Name">
-        <ChemMasterNameInput fluid value={name} placeholder={placeholdername} onChange={(e, value) => act("set_pill_name", { newValue: value })} />
-      </LabeledList.Item>
-      <LabeledList.Item>
-        <Button fluid content="Create" color="green" onClick={() => act('create_pills')} />
-      </LabeledList.Item>
-    </LabeledList>
+    </ChemMasterProductionCommon>
   );
 }
 
