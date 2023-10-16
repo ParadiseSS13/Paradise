@@ -42,6 +42,8 @@
 	var/cleanup_time = 30 SECONDS
 	/// Whether the cinematic turns off ooc when played globally.
 	var/stop_ooc = TRUE
+	// screen type for cinematic backdrop
+	var/backdrop_type = /obj/screen/fullscreen/cinematic_backdrop
 
 /datum/cinematic/New(watcher, datum/callback/special_callback)
 	screen = new(src)
@@ -118,7 +120,7 @@
 		return
 
 	watching += watching_client
-	watching_mob.overlay_fullscreen("cinematic", /obj/screen/fullscreen/cinematic_backdrop)
+	watching_mob.overlay_fullscreen("cinematic", backdrop_type)
 	watching_client.screen += screen
 	RegisterSignal(watching_client, COMSIG_PARENT_QDELETING, PROC_REF(remove_watcher))
 

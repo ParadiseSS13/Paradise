@@ -21,23 +21,30 @@ SUBSYSTEM_DEF(credits)
 		end_titles = generate_titles()
 
 	for(var/client/client in clients)
-		SScredits.roll_credits(client)
+		SScredits.roll_credits_for_client(client)
 
-/datum/controller/subsystem/credits/proc/roll_credits(client/client)
+/datum/controller/subsystem/credits/proc/roll_credits_for_client(client/client)
 	LAZYINITLIST(client.credits)
 
 	var/list/_credits = client.credits
+
+	var/obj/screen/credit/logo = new /obj/screen/credit/logo(null, "", client)
+
+	addtimer(CALLBACK(src, PROC_REF(roll_credits), _credits, logo, client), 5 SECONDS, TIMER_CLIENT_TIME)
+
+/datum/controller/subsystem/credits/proc/roll_credits(list/credits, obj/screen/credit/logo/logo, client/client)
+	credits += logo
+	logo.rollem()
 
 	for(var/item in end_titles)
 		if(!client?.credits)
 			return
 		var/obj/screen/credit/title = new(null, item, client)
-		_credits += title
+		credits += title
 		title.rollem()
 		sleep(credit_spawn_speed)
 
 	addtimer(CALLBACK(src, PROC_REF(clear_credits), client), (credit_roll_speed), TIMER_CLIENT_TIME)
-
 /datum/controller/subsystem/credits/proc/clear_credits(client/client)
 	if(!client)
 		return
@@ -169,12 +176,14 @@ SUBSYSTEM_DEF(credits)
 	animate(src, transform = M, time = SScredits.credit_roll_speed)
 	target = M
 	animate(src, alpha = 255, time = SScredits.credit_ease_duration, flags = ANIMATION_PARALLEL)
-	spawn(SScredits.credit_roll_speed - SScredits.credit_ease_duration)
-		if(!QDELETED(src))
-			animate(src, alpha = 0, transform = target, time = SScredits.credit_ease_duration)
-			sleep(SScredits.credit_ease_duration)
-			qdel(src)
+	addtimer(CALLBACK(src, PROC_REF(delete_credit)), SScredits.credit_roll_speed - SScredits.credit_ease_duration, TIMER_CLIENT_TIME)
 	parent.screen += src
+
+/obj/screen/credit/proc/delete_credit()
+	if(!QDELETED(src))
+		animate(src, alpha = 0, transform = target, time = SScredits.credit_ease_duration)
+		sleep(SScredits.credit_ease_duration)
+		qdel(src)
 
 /obj/screen/credit/Destroy()
 	if(parent)
@@ -183,8 +192,32 @@ SUBSYSTEM_DEF(credits)
 		parent = null
 	return ..()
 
+/obj/screen/credit/logo
+	icon = 'modular_ss220/credits/icons/logo.dmi'
+	icon_state = "ss220"
+	screen_loc = "CENTER - 2,CENTER - 3"
+	alpha = 100
 
 
+/obj/screen/credit/logo/Initialize(mapload, credited, client/client)
+	. = ..()
+	animate(src, alpha = 220, time = 3 SECONDS)
+	parent.screen += src
+
+/obj/screen/credit/logo/rollem()
+	var/matrix/M = matrix(transform)
+	M.Translate(0, SScredits.credit_animate_height / 2)
+	animate(src, transform = M, time = SScredits.credit_roll_speed / 2)
+	target = M
+	animate(src, alpha = 255, time = SScredits.credit_ease_duration / 2, flags = ANIMATION_PARALLEL)
+	addtimer(CALLBACK(src, PROC_REF(delete_credit)),(SScredits.credit_roll_speed - SScredits.credit_ease_duration) / 2, TIMER_CLIENT_TIME)
+
+
+/obj/screen/credit/logo/delete_credit()
+	if(!QDELETED(src))
+		animate(src, alpha = 0, transform = target, time = SScredits.credit_ease_duration / 2)
+		sleep(SScredits.credit_ease_duration / 2)
+		qdel(src)
 
 /client/var/list/credits
 

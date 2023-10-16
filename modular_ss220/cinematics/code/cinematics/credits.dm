@@ -1,6 +1,7 @@
 /datum/cinematic/credits
-	cleanup_time = 20 SECONDS
+	cleanup_time = 40 SECONDS
 	is_global = TRUE
+	backdrop_type = /obj/screen/fullscreen/cinematic_backdrop/credits
 
 /datum/cinematic/credits/New(watcher, datum/callback/special_callback)
 	. = ..()
@@ -25,8 +26,12 @@
 	special_callback?.Invoke()
 
 /obj/screen/cinematic/credits
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "black"
-	screen_loc = "WEST,SOUTH to EAST,NORTH"
-	plane = SPLASHSCREEN_PLANE
+	icon_state = "blank"
 
+/obj/screen/fullscreen/cinematic_backdrop/credits
+	alpha = 0
+
+/obj/screen/fullscreen/cinematic_backdrop/credits/Initialize(mapload)
+	. = ..()
+
+	animate(src, alpha = 220, time = 3 SECONDS)
