@@ -56,6 +56,13 @@
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
 		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
 		return FALSE
+	if(ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		var/obj/right_pocket = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
+		var/obj/left_pocket = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
+		if(left_pocket == src || right_pocket == src)
+			to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+			return FALSE
 	. = ..()
 
 /obj/item/storage/bag/trash/Initialize(mapload)
