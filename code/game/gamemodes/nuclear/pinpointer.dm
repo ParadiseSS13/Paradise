@@ -488,7 +488,7 @@
 
 		while(name in name_counts)
 			name_counts[name]++
-			name = text("[] ([])", name, name_counts[name])
+			name = "[name] ([name_counts[name]])"
 		names[name] = H
 		name_counts[name] = 1
 

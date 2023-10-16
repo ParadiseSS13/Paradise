@@ -407,7 +407,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		else if(isturf(target))
 			location = target
 		if(isliving(target) && message)
-			to_chat(target, text("[message]"))
+			to_chat(target, "[message]")
 		if(sparks_spread)
 			do_sparks(sparks_amt, 0, location)
 		if(smoke_type)

@@ -21,7 +21,7 @@
 //This is fine right now, if we're adding organ specific damage this needs to be updated
 /mob/living/carbon/alien/humanoid/Initialize(mapload)
 	if(name == "alien")
-		name = text("alien ([rand(1, 1000)])")
+		name = "alien ([rand(1, 1000)])"
 	real_name = name
 	add_language("Xenomorph")
 	add_language("Hivemind")
