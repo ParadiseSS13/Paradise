@@ -77,6 +77,7 @@
 	icon = 'modular_ss220/objects/icons/guns.dmi'
 	icon_state = "rsh12"
 	item_state = "rsh12"
+	fire_sound = 'modular_ss220/objects/sound/weapons/gunshots/gunshot_rsh12.ogg'
 	var/reclined = FALSE
 
 /obj/item/gun/projectile/revolver/rsh12/attack_self(mob/living/user)
