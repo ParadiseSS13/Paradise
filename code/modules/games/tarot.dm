@@ -15,7 +15,7 @@
 
 /obj/item/deck/tarot/deckshuffle()
 	var/mob/living/user = usr
-	if(cooldown < world.time - 5 SECONDS)
+	if(cooldown < world.time - 2.5 SECONDS)
 		var/list/newcards = list()
 		while(cards.len)
 			var/datum/playingcard/P = pick(cards)
@@ -28,3 +28,8 @@
 		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] shuffles [src].</span>", "<span class='notice'>You shuffle [src].</span>")
 		cooldown = world.time
+
+// This shuffles the deck, allowing you to do so without moving your mouse all the way to the top of the screen.
+/obj/item/deck/tarot/AltClick()
+	. = ..()
+	deckshuffle()
