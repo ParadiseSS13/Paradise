@@ -56,7 +56,7 @@
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
 		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
 		return FALSE
-	if(ishuman(loc))
+	if(ishuman(loc)) // If the trashbag is on a humanoid, they can't store things in it while it's in their pockets
 		var/mob/living/carbon/human/H = loc
 		var/obj/right_pocket = H.get_item_by_slot(SLOT_HUD_RIGHT_STORE)
 		var/obj/left_pocket = H.get_item_by_slot(SLOT_HUD_LEFT_STORE)
