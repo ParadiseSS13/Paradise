@@ -84,7 +84,7 @@
 				U.attach_accessory(src, user, TRUE)
 				return
 			user.visible_message("<span class='notice'>[user] is putting a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You begin to put a [src.name] on [H]'s [U.name]...</span>")
-			if(do_after(user, 40, target=H) && H.w_uniform == U)
+			if(do_after(user, 4 SECONDS, target = H) && H.w_uniform == U)
 				if(U.attach_accessory(src, user, TRUE))
 					user.visible_message("<span class='notice'>[user] puts a [src.name] on [H]'s [U.name]!</span>", "<span class='notice'>You finish putting a [src.name] on [H]'s [U.name].</span>")
 					after_successful_nonself_attach(H, user)
