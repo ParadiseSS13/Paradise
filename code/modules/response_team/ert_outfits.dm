@@ -541,7 +541,7 @@
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/grenade/clusterbuster/cleaner = 1,
 		/obj/item/storage/box/lights/mixed = 1,
-		/obj/item/push_broom,
+		/obj/item/push_broom = 1,
 		/obj/item/gun/energy/gun/nuclear = 1
 	)
 
