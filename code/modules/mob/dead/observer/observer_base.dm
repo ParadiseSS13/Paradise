@@ -548,9 +548,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(!isobserver(usr))
 		return
-	gas_analyze()
 	// Shamelessly copied from the Gas Analyzers
-/mob/dead/observer/proc/gas_analyze(mob/user as mob)
 	if(!isturf(usr.loc))
 		return
 
