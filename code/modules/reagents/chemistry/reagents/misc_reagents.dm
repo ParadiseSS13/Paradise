@@ -182,7 +182,6 @@
 	var/boil_overflow = (holder.total_volume + volume) - holder.maximum_volume
 	var/violent = boil_overflow > 0
 
-	var/datum/reagents/old_holder = holder
 	var/turf/T = get_turf(holder.my_atom)
 	var/smoke_type = /datum/effect_system/smoke_spread
 
@@ -196,16 +195,15 @@
 		smoke_type = /datum/effect_system/smoke_spread/bad
 	else
 		holder.my_atom.visible_message("<span class='notice'>The oil sizzles and burns down into residue.</span>")
+		var/datum/reagents/old_holder = holder // We might not have space if we add first, so cache this and add after deleting
 		holder.del_reagent(id)
+		old_holder.add_reagent(reagent_after_burning, volume * 0.6)
 
 	// Flavor reaction effects
 	playsound(T, 'sound/goonstation/misc/drinkfizz.ogg', 80, TRUE)
 	var/datum/effect_system/smoke_spread/BS = new smoke_type
 	BS.set_up(1, FALSE, T)
 	BS.start()
-
-	if(!QDELETED(old_holder) && reagent_after_burning)
-		old_holder.add_reagent(reagent_after_burning, round(volume * 0.6))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !(locate(/obj/effect/decal/cleanable/blood/oil) in T))
@@ -227,7 +225,6 @@
 	name = "Burned Cooking Oil"
 	description = "It's full of char and mixed with so much crud it's probably useless."
 	id = "cooking_oil_inert"
-	reagent_after_burning = null
 
 /datum/reagent/oil/cooking/inert/reaction_temperature(exposed_temperature, exposed_volume)
 	// don't do anything
