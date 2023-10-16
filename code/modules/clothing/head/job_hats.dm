@@ -57,6 +57,11 @@
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
 
+/obj/item/clothing/head/hopcap/beret
+	name = "head of personnel's beret"
+	icon_state = "hop_beret"
+	desc = "For doing paperwork with style."
+
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
 	name = "Nanotrasen Representative's hat"
