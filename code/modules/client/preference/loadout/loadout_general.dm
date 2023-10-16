@@ -105,7 +105,8 @@
 /datum/gear/sechudgoggles
 	display_name = "Security HUD goggles"
 	path = /obj/item/clothing/glasses/hud/security/goggles
-	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent","Magistrate")
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent", "Magistrate")
+
 /datum/gear/medhudgoggles
 	display_name = "Health HUD goggles"
 	path = /obj/item/clothing/glasses/hud/health/goggles
