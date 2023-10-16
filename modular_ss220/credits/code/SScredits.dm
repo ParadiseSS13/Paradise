@@ -82,9 +82,7 @@ SUBSYSTEM_DEF(credits)
 			continue
 		if(!human.last_known_ckey)
 			continue
-		if(!human.client?.holder)
-			continue
-		if(human.client.holder.rank == "Банда")
+		if(human.client?.holder?.rank == "Банда")
 			streamers += "<center>[human.real_name]([human.ckey]) в роли [human.job]<br><center>"
 			continue
 		if(!length(cast) && !chunksize)
@@ -113,7 +111,7 @@ SUBSYSTEM_DEF(credits)
 			corpses += human.real_name
 
 	if(length(corpses))
-		titles += "<center>Основано на реальных событиях<br>В память о [english_list(corpses)].</center>"
+		titles += "<center>Основано на реальных событиях:<br>В память о [english_list(corpses)].</center><br>"
 
 	var/list/staff = list("Съемочная группа:")
 	var/list/staffjobs = file2list("config/credits/jobs/staffjobs.txt")
