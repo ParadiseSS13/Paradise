@@ -466,22 +466,3 @@
 /obj/item/mod/module/plasma_stabilizer/on_unequip()
 	REMOVE_TRAIT(mod.wearer, TRAIT_NOSELFIGNITION_HEAD_ONLY, MODSUIT_TRAIT)
 
-/// Boot heater - for janitoral gamma ert
-/obj/item/mod/module/heated_shoes
-	name = "MOD boot heater"
-	desc = "This module heats the users boots externally to assist in drying wet floors."
-	icon_state = "regulator"
-	complexity = 1
-
-/obj/item/mod/module/heated_shoes/on_equip()
-	ADD_TRAIT(RegisterSignal, COMSIG_SHOES_STEP_ACTION, MODSUIT_TRAIT)
-
-/obj/item/mod/module/heated_shoes/on_unequip()
-	REMOVE_TRAIT(RegisterSignal, COMSIG_SHOES_STEP_ACTION, MODSUIT_TRAIT)
-
-/obj/item/clothing/shoes/mod/proc/on_step()
-	SIGNAL_HANDLER
-
-	var/turf/simulated/t_loc = get_turf(src)
-	if(istype(t_loc) && t_loc.wet)
-		t_loc.MakeDry(TURF_WET_WATER)

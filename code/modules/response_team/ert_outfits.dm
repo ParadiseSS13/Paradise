@@ -487,7 +487,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/ert/janitor
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
-	shoes = /obj/item/clothing/shoes/galoshes/dry/lightweight
+	shoes = /obj/item/clothing/shoes/galoshes/dry
 	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/ert/janitorial
 	pda = /obj/item/pda/heads/ert/janitor
@@ -516,6 +516,7 @@
 	name = "RT Janitor (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	shoes = /obj/item/clothing/shoes/galoshes/dry/lightweight
 	r_pocket = /obj/item/scythe/tele
 	suit_store = /obj/item/gun/energy/gun
 
