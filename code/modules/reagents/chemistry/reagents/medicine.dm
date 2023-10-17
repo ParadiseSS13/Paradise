@@ -806,7 +806,7 @@
 							// Per non-vital body part:
 							// 0% chance of necrosis within 1 minute of death
 							// 40% chance of necrosis after 20 minutes of death
-							if(!O.vital && prob(necrosis_prob))
+							if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
 								// side effects may include: Organ failure
 								O.necrotize(FALSE)
 								if(O.status & ORGAN_DEAD)

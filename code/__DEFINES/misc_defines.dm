@@ -553,6 +553,8 @@
 #define CLASSIC_CAVES "Classic Caves"
 #define DEADLY_DEEPROCK "Deadly Deeprock"
 
+///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
+#define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
 // Request console message priority defines
 
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message

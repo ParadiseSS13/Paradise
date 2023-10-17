@@ -8,11 +8,3 @@
 		verb = "loudly blorbles"
 
 	return verb
-
-/mob/living/simple_animal/slime/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
-	if(speaker != src && !stat)
-		if(speaker in Friends)
-			speech_buffer = list()
-			speech_buffer.Add(speaker)
-			speech_buffer.Add(lowertext(html_decode(multilingual_to_message(message_pieces))))
-	..()

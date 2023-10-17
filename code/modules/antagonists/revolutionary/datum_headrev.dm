@@ -16,7 +16,7 @@
 	INVOKE_ASYNC(revolting, TYPE_PROC_REF(/datum/team/revolution, process_promotion), REVOLUTION_PROMOTION_AT_LEAST_ONE)
 
 /datum/antagonist/rev/head/greet()
-	to_chat(owner.current, "<span class='userdanger'>You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!</span>")
+	return "<span class='userdanger'>You are a member of the revolutionaries' leadership! Mutiny against the station's command and take control!</span>"
 
 /datum/antagonist/rev/head/add_owner_to_gamemode()
 	SSticker.mode.head_revolutionaries |= owner
