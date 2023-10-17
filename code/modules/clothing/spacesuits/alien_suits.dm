@@ -155,7 +155,6 @@
 	icon_state = "vox-jumpsuit_s"
 	item_color = "vox-jumpsuit"
 	item_state = "vox-jumpsuit"
-	body_parts_covered = LEGS
 
 /obj/item/clothing/suit/hooded/vox_robes
 	name = "Vox robes"
