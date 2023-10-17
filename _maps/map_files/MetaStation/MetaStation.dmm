@@ -284,7 +284,7 @@
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/unary/outlet_injector/on,
 /turf/space,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "adG" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -495,7 +495,7 @@
 "aeN" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aeZ" = (
 /obj/machinery/atmospherics/air_sensor{
 	autolink_id = "n2_sensor"
@@ -504,7 +504,7 @@
 /area/station/engineering/atmos)
 "afb" = (
 /turf/simulated/wall,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "afl" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -789,7 +789,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aii" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/sillycup{
@@ -812,7 +812,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aij" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -822,24 +822,24 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aim" = (
 /obj/structure/closet/boxinggloves,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ain" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aio" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "air" = (
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
@@ -940,7 +940,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ajc" = (
 /obj/structure/chair,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -957,7 +957,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ajj" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -1007,7 +1007,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ajo" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/marker_beacon/dock_marker,
@@ -1018,7 +1018,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ajr" = (
 /obj/structure/table/wood,
 /obj/structure/mirror{
@@ -1159,7 +1159,7 @@
 /area/station/maintenance/fore)
 "akh" = (
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aki" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -1168,7 +1168,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "akj" = (
 /obj/structure/chair,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -1177,7 +1177,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "akk" = (
 /turf/simulated/floor/carpet/arcade,
 /area/station/public/arcade)
@@ -1190,19 +1190,19 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "akm" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "akn" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ako" = (
 /obj/structure/chair{
 	dir = 4
@@ -1211,7 +1211,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "akt" = (
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
@@ -1306,7 +1306,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ale" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -1317,7 +1317,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "alg" = (
 /obj/structure/bookcase{
 	name = "bookcase (Reference)"
@@ -1330,7 +1330,7 @@
 	name = "Holodeck Door"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "alj" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -1347,14 +1347,14 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "alk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "alm" = (
 /obj/machinery/light{
 	dir = 1
@@ -1544,7 +1544,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "amb" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1552,7 +1552,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ame" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -1560,7 +1560,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "amf" = (
 /obj/structure/chair{
 	dir = 8
@@ -1569,26 +1569,26 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "amh" = (
 /obj/structure/chair{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ami" = (
 /obj/machinery/computer/HolodeckControl{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "amj" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/landmark/start/assistant,
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "amk" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/gravitygenerator)
@@ -1691,7 +1691,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "amW" = (
 /obj/machinery/light{
 	dir = 1
@@ -1709,7 +1709,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "amX" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -1747,14 +1747,14 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "and" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "anf" = (
 /obj/effect/landmark/damageturf,
 /obj/machinery/airlock_controller/air_cycler{
@@ -1772,7 +1772,7 @@
 "anh" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ani" = (
 /obj/structure/table,
 /obj/item/paper{
@@ -1785,7 +1785,7 @@
 	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "anj" = (
 /obj/structure/chair{
 	dir = 8
@@ -1793,7 +1793,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ank" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1991,7 +1991,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "anQ" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2108,7 +2108,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aoE" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -2127,7 +2127,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aoG" = (
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
@@ -2417,7 +2417,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "apX" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -2426,13 +2426,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "apY" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "apZ" = (
 /obj/structure/chair{
 	dir = 4
@@ -2440,7 +2440,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aqc" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -2595,7 +2595,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "arf" = (
 /obj/item/storage/box/bodybags,
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
@@ -2621,13 +2621,13 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "arl" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "arm" = (
 /obj/structure/chair{
 	dir = 1
@@ -2639,7 +2639,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "arn" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
@@ -2659,7 +2659,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "arr" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -2835,7 +2835,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "asz" = (
 /obj/structure/table,
 /obj/item/paper_bin{
@@ -2856,7 +2856,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "asA" = (
 /obj/effect/landmark/start/clown,
 /obj/structure/cable/yellow{
@@ -2868,7 +2868,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "asB" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -2879,7 +2879,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "asC" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -2899,7 +2899,7 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "asE" = (
 /obj/effect/landmark/burnturf,
 /obj/structure/grille/broken,
@@ -3185,7 +3185,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "atO" = (
 /obj/machinery/newscaster{
 	dir = 1;
@@ -3196,7 +3196,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "atP" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -3205,7 +3205,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "atQ" = (
 /obj/structure/toilet{
 	dir = 1
@@ -3226,7 +3226,7 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "atS" = (
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
@@ -3251,7 +3251,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "atU" = (
 /obj/effect/spawner/window/reinforced/tinted,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -3284,7 +3284,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "atX" = (
 /obj/structure/sign/vacuum/external{
 	pixel_x = 32
@@ -3491,7 +3491,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "auO" = (
 /obj/structure/closet/wardrobe/mixed,
 /turf/simulated/floor/plasteel{
@@ -3516,7 +3516,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "auV" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -3725,7 +3725,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "avK" = (
 /obj/machinery/conveyor/north{
 	id = "QMLoad2"
@@ -3964,7 +3964,7 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "awu" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 1
@@ -4427,7 +4427,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "axX" = (
 /obj/machinery/conveyor_switch/oneway{
 	id = "QMLoad2";
@@ -5727,7 +5727,7 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aDe" = (
 /obj/machinery/power/grounding_rod{
 	anchored = 1
@@ -12166,7 +12166,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "aWe" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -24881,7 +24881,7 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "bCU" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/item/radio/intercom{
@@ -25295,7 +25295,7 @@
 "bDN" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "bDO" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -39769,7 +39769,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "cyI" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -45285,7 +45285,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "cRL" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -46609,7 +46609,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "cWZ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -46703,7 +46703,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "cXr" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
@@ -46794,7 +46794,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "cXJ" = (
 /obj/structure/table/wood,
 /obj/machinery/alarm{
@@ -46975,7 +46975,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "cYz" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=14.8-Dorms-Lockers";
@@ -46993,7 +46993,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "cYA" = (
 /turf/simulated/floor/plating/airless,
 /area/station/science/toxins/test)
@@ -47028,7 +47028,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "cYI" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical/glass,
@@ -49044,7 +49044,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "dox" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/mineral/tranquillite,
@@ -56130,7 +56130,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "gIL" = (
 /obj/machinery/alarm{
 	name = "north bump";
@@ -57517,7 +57517,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "hnR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/yellow{
@@ -60228,7 +60228,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "ivv" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -63232,7 +63232,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "jRX" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -63585,7 +63585,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "jYX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -64716,7 +64716,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "kDU" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -69741,7 +69741,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "mKI" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -70346,7 +70346,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "mXw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -71914,7 +71914,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "nDF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -74482,7 +74482,7 @@
 	dir = 1;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "oUU" = (
 /obj/machinery/camera{
 	c_tag = "Science - Robotics Workshop";
@@ -74518,7 +74518,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "oVX" = (
 /obj/structure/rack,
 /obj/item/clothing/head/helmet/riot{
@@ -74601,7 +74601,7 @@
 /area/station/engineering/atmos)
 "oWE" = (
 /turf/simulated/wall/r_wall,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "oWL" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -76229,7 +76229,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "pKE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -78147,7 +78147,7 @@
 	dir = 8;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "qAH" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker/large{
@@ -81940,7 +81940,7 @@
 	dir = 4;
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "srB" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -84828,7 +84828,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/public/recreation)
+/area/station/public/fitness)
 "tHm" = (
 /obj/structure/table/reinforced,
 /obj/structure/table/reinforced,
@@ -91684,7 +91684,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
-/area/station/public/recreation)
+/area/station/public/fitness)
 "xdT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
