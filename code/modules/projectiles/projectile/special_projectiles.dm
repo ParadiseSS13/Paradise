@@ -283,22 +283,6 @@
 	damage = 10
 	range = 9
 
-/obj/item/projectile/beam/emitter/hitscan
-	hitscan = TRUE
-	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
-	tracer_type = /obj/effect/projectile/tracer/laser/emitter
-	impact_type = /obj/effect/projectile/impact/laser/emitter
-	impact_effect_type = null
-	hitscan_light_intensity = 3
-	hitscan_light_range = 0.75
-	hitscan_light_color_override = LIGHT_COLOR_GREEN
-	muzzle_flash_intensity = 6
-	muzzle_flash_range = 2
-	muzzle_flash_color_override = LIGHT_COLOR_GREEN
-	impact_light_intensity = 7
-	impact_light_range = 2.5
-	impact_light_color_override = LIGHT_COLOR_GREEN
-
 /obj/item/projectile/energy/teleport
 	name = "teleportation burst"
 	icon_state = "bluespace"

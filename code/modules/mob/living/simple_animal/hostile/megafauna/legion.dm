@@ -167,7 +167,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/proc/fire_disintegration_laser(location)
 	playsound(loc, 'sound/weapons/marauder.ogg', 200, TRUE)
 	Beam(location, icon_state = "death_laser", time = 2 SECONDS, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration)
-	for(var/turf/t in getline(src, location))
+	for(var/turf/t in get_line(src, location))
 		if(ismineralturf(t))
 			var/turf/simulated/mineral/M = t
 			M.gets_drilled(src)

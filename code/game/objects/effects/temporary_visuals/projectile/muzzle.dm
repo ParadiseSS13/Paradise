@@ -1,3 +1,5 @@
+//These are directional muzzle effects used by hitscan projectiles. Unlike current muzzle effect, they rotate to face the point the hitscan beam came from.
+
 /obj/effect/projectile/muzzle
 	name = "muzzle flash"
 	icon = 'icons/obj/projectiles_muzzle.dmi'

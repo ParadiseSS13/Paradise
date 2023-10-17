@@ -67,7 +67,9 @@
 	var/has_cover = TRUE		//Hides the cover
 	/// Deployment override to allow turret popup on/under dense turfs/objects, for admin/CC turrets
 	var/deployment_override = FALSE
+	/// What lethal mode projectile with the turret start with?
 	var/initial_eprojectile = null
+	/// What non-lethal mode projectile with the turret start with?
 	var/initial_projectile = null
 
 

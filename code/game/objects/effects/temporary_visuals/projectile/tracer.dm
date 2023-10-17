@@ -1,3 +1,5 @@
+//These are the visual tracers, the beams you see with hitscan effects. This is the proc that generates said tracer
+
 /proc/generate_tracer_between_points(datum/position/starting, datum/position/ending, beam_type, color, qdel_in = 5, light_range = 2, light_color_override, light_intensity = 1, instance_key) //Do not pass z-crossing points as that will not be properly (and likely will never be properly until it's absolutely needed) supported!
 	if(isnull(starting))
 		return

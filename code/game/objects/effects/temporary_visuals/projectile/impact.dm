@@ -1,3 +1,5 @@
+//These are directional impact effects used by hitscan projectiles. Unlike current impact effect, they rotate to face the point the hitscan beam came from.
+
 /obj/effect/projectile/impact
 	name = "beam impact"
 	icon = 'icons/obj/projectiles_impact.dmi'

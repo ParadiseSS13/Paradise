@@ -1,3 +1,5 @@
+//This is the parent of all projectile effects, impact muzzle and tracer.
+
 /obj/effect/projectile
 	name = "pew"
 	icon = 'icons/obj/projectiles.dmi'

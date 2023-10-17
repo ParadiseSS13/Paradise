@@ -1,5 +1,7 @@
-#define MOVES_HITSCAN -1 //Not actually hitscan but close as we get without actual hitscan.
-#define MUZZLE_EFFECT_PIXEL_INCREMENT 17 //How many pixels to move the muzzle flash up so your character doesn't look like they're shitting out lasers.
+/// Is this a hitscan projectile or not, if so move like one
+#define MOVES_HITSCAN -1
+/// How many pixels to move the muzzle flash up so your character doesn't look like they're shitting out lasers.
+#define MUZZLE_EFFECT_PIXEL_INCREMENT 17
 
 /obj/item/projectile
 	name = "projectile"
@@ -480,6 +482,7 @@
 		beam_segments[beam_index] = null //record start.
 
 /obj/item/projectile/proc/process_hitscan()
+	//Safety here is to make hitscan stop if something goes wrong. Why is it equal to range * 10, when range is the maximum amount of tiles it can go? No clue.
 	var/safety = range * 10
 	record_hitscan_start(RETURN_POINT_VECTOR_INCREMENT(src, Angle, MUZZLE_EFFECT_PIXEL_INCREMENT, 1))
 	while(loc && !QDELETED(src))
