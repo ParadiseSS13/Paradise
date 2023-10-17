@@ -8,7 +8,7 @@
 	item_state = "welder"
 	belt_icon = "welder"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 3
 	throwforce = 5
 	throw_speed = 3

@@ -239,7 +239,7 @@
 	var/last_typed
 	/// Last time we typed something in to the typing popup
 	var/last_typed_time
-	// THESE DO NOT AFFECT THE BASE 1 DECISECOND DELAY OF NEXT_CLICK
+	// Used m
 	var/next_move
 	/// Unused
 	var/next_move_adjust = 0

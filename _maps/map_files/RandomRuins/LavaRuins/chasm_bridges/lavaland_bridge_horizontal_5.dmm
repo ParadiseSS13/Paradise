@@ -3,18 +3,18 @@
 /turf/simulated/wall/mineral/wood/nonmetal,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "b" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "c" = (
 /turf/template_noop,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "v" = (
-/turf/simulated/floor/wood{
+/turf/simulated/floor/wood/lavaland_air{
 	icon_state = "wood-broken3"
 	},
 /area/lavaland/surface/outdoors/unexplored/danger)
 "C" = (
-/turf/simulated/floor/wood{
+/turf/simulated/floor/wood/lavaland_air{
 	icon_state = "wood-broken7"
 	},
 /area/lavaland/surface/outdoors/unexplored/danger)
