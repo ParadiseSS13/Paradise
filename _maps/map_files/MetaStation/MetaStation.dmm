@@ -16694,7 +16694,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Arrivals Shuttle Airlock"
 	},
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "biq" = (

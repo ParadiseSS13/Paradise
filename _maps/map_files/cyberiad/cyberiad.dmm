@@ -15201,7 +15201,7 @@
 /area/shuttle/arrival/station)
 "aVX" = (
 /obj/machinery/door/airlock/titanium,
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aVY" = (

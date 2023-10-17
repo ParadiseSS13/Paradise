@@ -801,7 +801,7 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/east,
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "ahC" = (
@@ -812,7 +812,7 @@
 	id_tag = "s_docking_airlock"
 	},
 /obj/effect/decal/warning_stripes/west,
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "ahF" = (

@@ -65048,7 +65048,7 @@
 /area/station/maintenance/maintcentral)
 "nWk" = (
 /obj/machinery/door/airlock/titanium/glass,
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "nWt" = (
@@ -67649,7 +67649,7 @@
 	},
 /area/station/hallway/primary/fore/east)
 "oOV" = (
-/obj/structure/fans/tiny,
+/obj/structure/fans/tiny/invisible,
 /obj/machinery/door/airlock/titanium/glass,
 /turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
