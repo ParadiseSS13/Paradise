@@ -11,3 +11,4 @@ GLOBAL_LIST_EMPTY(new_player_list)
 
 /mob/new_player/Login()
 	. = ..()
+	show_title_screen()
