@@ -227,7 +227,7 @@
 	var/list/feet_blood_DNA
 	/// affects the blood color of your feet, color taken from the blood you step in
 	var/feet_blood_color
-	/// Affects blood some more
+	/// Weirdly named, effects how blood transfers onto objects
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	/// Doesn't really do much, xenos can't track blood and this doesn't seem to have much effect on anything
 	var/list/bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
@@ -239,17 +239,17 @@
 	var/last_typed
 	/// Last time we typed something in to the typing popup
 	var/last_typed_time
-	// Used m
+	// Ran after next_click on most item interactions, used in any case where we aren't required to use next click Eg: Action buttons
 	var/next_move
-	/// Unused
+	/// Unused, used to adjust our next move on a linar skill world.time + (how_many_deciseconds + Next move adjust) = Next move
 	var/next_move_adjust = 0
-	/// Value to multiply action delays by, actually used
+	/// Value to multiply action delays by, actually used world.time + (how_many_deciseconds * Next move Adjust) = Next move
 	var/next_move_modifier = 1
 	// 1 decisecond click delay (above and beyond mob/next_move)
 	/// This is mainly modified by click code, to modify click delays elsewhere, use next_move and changeNext_move(), Controls the click delay. Changed with
 	var/next_click	= 0
 
-	// THESE DO AFFECT THE BASE 1 DECISECOND DELAY OF NEXT_CLICK
+	// Does not effect the build in tick delay of click, can't go below 1 click per tick
 	/// Unused
 	var/next_click_adjust = 0
 	/// Unused
