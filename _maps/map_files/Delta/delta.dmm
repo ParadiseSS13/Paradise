@@ -36338,6 +36338,10 @@
 /obj/structure/transit_tube/cap{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
