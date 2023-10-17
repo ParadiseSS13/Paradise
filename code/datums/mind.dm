@@ -655,7 +655,7 @@
 							possible_targets_random += possible_target.current // For random picking, only valid targets
 
 				var/mob/def_target = null
-				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/assassinateonce, /datum/objective/protect, /datum/objective/debrain)
+				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/assassinate/assassinateonce, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)

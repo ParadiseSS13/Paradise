@@ -131,7 +131,7 @@
 		else if(prob(30))
 			add_antag_objective(/datum/objective/maroon)
 		else if(prob(30))
-			add_antag_objective(/datum/objective/assassinateonce)
+			add_antag_objective(/datum/objective/assassinate/assassinateonce)
 		else
 			add_antag_objective(/datum/objective/assassinate)
 	else
