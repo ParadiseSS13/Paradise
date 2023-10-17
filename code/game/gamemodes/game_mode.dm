@@ -18,6 +18,8 @@
 	var/config_tag = null
 	var/intercept_hacked = FALSE
 	var/votable = TRUE
+	/// This var is solely to track gamemodes to track suicides/cryoing/etc and doesnt declare this a "free for all" gamemode. This is for data tracking purposes only.
+	var/tdm_gamemode = FALSE
 	var/probability = 0
 	var/station_was_nuked = FALSE //see nuclearbomb.dm and malfunction.dm
 	var/explosion_in_progress = FALSE //sit back and relax
@@ -386,15 +388,6 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-/proc/show_objectives(datum/mind/player)
-	if(!player || !player.current) return
-
-	var/obj_count = 1
-	to_chat(player.current, "<span class='notice'>Your current objectives:</span>")
-	for(var/datum/objective/objective in player.objectives)
-		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
-
 /proc/get_roletext(role)
 	return role
 
@@ -423,6 +416,7 @@
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
 		M.ghostize()
 		M.key = theghost.key
+		dust_if_respawnable(theghost)
 	else
 		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [M.p_their()] place.")
 		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
@@ -464,7 +458,7 @@
 /proc/printobjectives(datum/mind/ply)
 	var/list/objective_parts = list()
 	var/count = 1
-	for(var/datum/objective/objective in ply.objectives)
+	for(var/datum/objective/objective in ply.get_all_objectives(include_team = FALSE))
 		if(objective.check_completion())
 			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 		else

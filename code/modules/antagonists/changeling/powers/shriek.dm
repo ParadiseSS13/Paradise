@@ -10,6 +10,8 @@
 
 //A flashy ability, good for crowd control and sowing chaos.
 /datum/action/changeling/resonant_shriek/sting_action(mob/user)
+	if(istype(user.loc, /obj/machinery/atmospherics))
+		return FALSE
 	for(var/mob/living/M in get_mobs_in_view(4, user))
 		if(iscarbon(M))
 			if(ishuman(M))
@@ -44,6 +46,8 @@
 
 //A flashy ability, good for crowd control and sewing chaos.
 /datum/action/changeling/dissonant_shriek/sting_action(mob/user)
+	if(istype(user.loc, /obj/machinery/atmospherics))
+		return FALSE
 	for(var/obj/machinery/light/L in range(5, usr))
 		L.on = TRUE
 		L.break_light_tube()

@@ -846,6 +846,8 @@
 		if(put_on_turf)
 			var/turf/T = get_turf(src)
 			vended.forceMove(T)
+			vended.pixel_x = rand(-5, 5)
+			vended.pixel_y = rand(-5, 5)
 		return TRUE
 	return FALSE
 
@@ -1026,7 +1028,7 @@
  * * crit - if true, some special damage effects might happen.
  * * from_combat - If true, hold off on some of the additional damage and extra effects.
  */
-/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE)
+/obj/machinery/economy/vending/proc/tilt(atom/victim, crit = FALSE, from_combat = FALSE, from_anywhere = FALSE)
 	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
 		return
 
@@ -1037,6 +1039,8 @@
 
 	. = FALSE
 
+	if(from_anywhere)
+		forceMove(get_turf(victim))
 	if(!victim || !in_range(victim, src))
 		tilt_over()
 		return
@@ -1118,7 +1122,10 @@
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))
 		return
 	add_attack_logs(attacker, target, "shoved into a vending machine ([src])")
-	tilt(target, from_combat = TRUE)
+	if(!HAS_TRAIT(attacker, TRAIT_PACIFISM))
+		tilt(target, from_combat = TRUE)
+	else
+		tilt(attacker, crit = TRUE, from_anywhere = TRUE) // get fucked
 	return TRUE
 
 /obj/machinery/economy/vending/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
