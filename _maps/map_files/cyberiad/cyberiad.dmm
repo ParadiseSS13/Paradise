@@ -14007,11 +14007,6 @@
 /obj/machinery/atmospherics/binary/valve/open{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "aSI" = (
@@ -23606,11 +23601,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /obj/machinery/atmospherics/meter,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "bsg" = (
@@ -27706,11 +27696,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
@@ -28896,11 +28881,6 @@
 "bHf" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -47409,11 +47389,6 @@
 /obj/machinery/atmospherics/binary/valve/open{
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cNB" = (
@@ -47874,12 +47849,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "cPj" = (
-/obj/machinery/power/apc{
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/alarm{
+	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/structure/cable,
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "cPk" = (
@@ -48912,8 +48887,11 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/alarm{
-	dir = 1;
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
 	},
@@ -57808,11 +57786,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
@@ -57835,11 +57808,6 @@
 /obj/machinery/atmospherics/meter,
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
@@ -59442,11 +59410,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/meter,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
@@ -63385,20 +63348,6 @@
 	icon_state = "red"
 	},
 /area/station/security/prisonlockers)
-"gZF" = (
-/obj/machinery/atmospherics/pipe/simple/visible/universal,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/obj/machinery/door/airlock/atmos{
-	name = "Fore-Port Secondary Atmospherics Maintenance"
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/fpmaint2)
 "gZH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/visible/supply{
@@ -65804,14 +65753,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/alarm{
+/obj/machinery/power/apc{
+	dir = 1;
 	name = "north bump";
 	pixel_y = 24
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
@@ -65880,6 +65829,17 @@
 	icon_state = "dark"
 	},
 /area/station/command/office/cmo)
+"ivu" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/obj/machinery/door/airlock/atmos{
+	name = "Aft-Port Atmospherics Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint)
 "ivE" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -66091,12 +66051,11 @@
 /area/station/maintenance/disposal)
 "iCq" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/power/apc{
-	dir = 4;
+/obj/machinery/alarm{
+	dir = 8;
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "iDg" = (
@@ -67663,6 +67622,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
+"jwV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/obj/machinery/door/airlock/atmos{
+	name = "Port Atmospherics Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/plating,
+/area/station/maintenance/port)
 "jxj" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -68596,19 +68566,15 @@
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
 "jZu" = (
-/obj/machinery/power/apc{
-	dir = 8;
-	name = "west bump";
-	pixel_x = -24
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/machinery/alarm{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "jZL" = (
@@ -70652,11 +70618,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "ldn" = (
@@ -70986,6 +70947,17 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel,
+/area/station/maintenance/apmaint2)
+"lmU" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/universal{
+	dir = 4
+	},
+/obj/machinery/door/airlock/atmos{
+	name = "Aft-Port Secondary Atmospherics Maintenance"
+	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "lnh" = (
 /obj/structure/chair/stool,
@@ -73416,14 +73388,9 @@
 	level = 1
 	},
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
-/obj/machinery/power/apc{
-	dir = 1;
+/obj/machinery/alarm{
 	name = "north bump";
 	pixel_y = 24
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
@@ -74597,22 +74564,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
-"nrj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/atmos{
-	name = "Aft-Port Atmospherics Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint)
 "nrD" = (
 /obj/machinery/alarm{
 	dir = 4;
@@ -75341,6 +75292,15 @@
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"nLW" = (
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
+/obj/machinery/door/airlock/atmos{
+	name = "Fore-Port Secondary Atmospherics Maintenance"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint2)
 "nLY" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -78198,11 +78158,6 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/meter,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
 "plq" = (
@@ -78604,22 +78559,6 @@
 /obj/effect/landmark/battle_mob_point,
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
-"pxe" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/atmos{
-	name = "Aft-Port Secondary Atmospherics Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/apmaint2)
 "pxv" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8;
@@ -79768,22 +79707,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"qfq" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/atmos{
-	name = "Port Atmospherics Maintenance"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "qfI" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass,
@@ -80358,6 +80281,12 @@
 	icon_state = "dark"
 	},
 /area/station/science/robotics/chargebay)
+"qsa" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/apmaint2)
 "qsB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
@@ -82608,11 +82537,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "rEx" = (
-/obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
@@ -82620,6 +82544,15 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
@@ -84769,11 +84702,6 @@
 /area/station/maintenance/apmaint)
 "sXR" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
@@ -85701,12 +85629,11 @@
 /area/station/maintenance/fpmaint2)
 "tzE" = (
 /obj/structure/cable{
-	d1 = 1;
 	d2 = 4;
-	icon_state = "1-4"
+	icon_state = "0-4"
 	},
-/obj/machinery/alarm{
-	dir = 4;
+/obj/machinery/power/apc{
+	dir = 8;
 	name = "west bump";
 	pixel_x = -24
 	},
@@ -87743,11 +87670,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "uEF" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -111768,8 +111690,8 @@ bat
 aOZ
 aOZ
 plj
-gZF
-aLp
+nLW
+aNI
 aLx
 pRR
 aGn
@@ -113088,7 +113010,7 @@ blM
 bvq
 blQ
 blQ
-qfq
+jwV
 blQ
 lKF
 bMg
@@ -114670,7 +114592,7 @@ cLi
 cZw
 rHY
 cLi
-pxe
+lmU
 cLi
 rEZ
 cLi
@@ -114927,7 +114849,7 @@ cLi
 rYt
 gSg
 ajF
-qod
+qsa
 cLi
 aaa
 aaa
@@ -117482,7 +117404,7 @@ nNh
 coP
 cqG
 cam
-nrj
+ivu
 cgQ
 gYs
 cgQ
