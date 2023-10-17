@@ -809,7 +809,6 @@
 "ub" = (
 /obj/item/clothing/under/rank/cargo/miner,
 /obj/effect/landmark/damageturf,
-/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
@@ -1798,7 +1797,6 @@
 	dir = 4;
 	invisibility = 101
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor{
 	temperature = 300;
 	oxygen = 14;
