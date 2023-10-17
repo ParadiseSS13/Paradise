@@ -252,3 +252,22 @@
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_WALLS, SMOOTH_GROUP_SYNDICATE_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_SYNDICATE_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS)
+
+/turf/simulated/wall/indestructible/titanium
+	desc = "A light-weight titanium wall used in shuttles."
+	icon = 'icons/turf/walls/plastinum_wall.dmi'
+	icon_state = "plastinum_wall-0"
+	base_icon_state = "plastinum_wall"
+	smoothing_flags = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_groups = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
+	canSmoothWith = list(SMOOTH_GROUP_TITANIUM_WALLS, SMOOTH_GROUP_AIRLOCK, SMOOTH_GROUP_SHUTTLE_PARTS, SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE)
+
+/turf/simulated/wall/indestructible/shuttleglass
+	name = "shuttle window"
+	desc = "A reinforced, air-locked pod window."
+	icon = 'icons/obj/smooth_structures/windows/shuttle_window.dmi'
+	icon_state = "shuttle_window-0"
+	base_icon_state = "shuttle_window"
+	opacity = FALSE
+	smoothing_groups = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)
+	canSmoothWith = list(SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE, SMOOTH_GROUP_TITANIUM_WALLS)

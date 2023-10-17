@@ -16688,17 +16688,17 @@
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai)
 "bin" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "bip" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Arrivals Shuttle Airlock"
 	},
-/turf/simulated/floor/plating,
+/obj/structure/fans/tiny,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "biq" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/shuttleglass,
 /area/shuttle/arrival/station)
 "bit" = (
 /obj/machinery/firealarm{
@@ -17399,18 +17399,18 @@
 	dir = 1
 	},
 /obj/structure/closet/walllocker/emerglocker/north,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bkb" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bkc" = (
 /obj/machinery/computer/arcade,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bkd" = (
 /obj/structure/closet/wardrobe/green,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bke" = (
 /obj/structure/closet/wardrobe/black,
@@ -17422,7 +17422,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bkf" = (
 /obj/structure/closet/wardrobe/mixed,
@@ -17431,11 +17431,11 @@
 	icon_state = "map-right-MS";
 	pixel_y = 32
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bkg" = (
 /obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bkh" = (
 /obj/machinery/camera{
@@ -17445,7 +17445,7 @@
 	dir = 1
 	},
 /obj/structure/closet/walllocker/emerglocker/north,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bkk" = (
 /obj/effect/spawner/window/reinforced,
@@ -18118,18 +18118,18 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "blQ" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "blS" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/plating/grey_titanium,
 /area/shuttle/arrival/station)
 "blU" = (
 /obj/structure/shuttle/engine/heater{
@@ -19511,13 +19511,13 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bpx" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bpy" = (
 /obj/machinery/conveyor_switch/oneway{
@@ -20249,14 +20249,14 @@
 /area/station/engineering/solar/auxport)
 "brp" = (
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "brq" = (
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "brr" = (
 /obj/structure/sign/double/map/left{
@@ -20265,7 +20265,7 @@
 	pixel_y = -32
 	},
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "brs" = (
 /obj/structure/sign/double/map/right{
@@ -20273,7 +20273,7 @@
 	icon_state = "map-right-MS";
 	pixel_y = -32
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "brt" = (
 /obj/machinery/requests_console{
@@ -20281,7 +20281,7 @@
 	pixel_y = -30
 	},
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bru" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -50353,7 +50353,7 @@
 "dZP" = (
 /obj/effect/spawner/lootdrop{
 	icon_state = "grille";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -53353,7 +53353,7 @@
 "fuy" = (
 /obj/effect/spawner/lootdrop{
 	icon_state = "grille";
-	loot = list(/obj/structure/grille = 8, /obj/structure/grille/broken = 2);
+	loot = list(/obj/structure/grille=8,/obj/structure/grille/broken=2);
 	name = "normal or broken grille spawner"
 	},
 /turf/simulated/floor/plating,
@@ -70022,7 +70022,7 @@
 	},
 /area/station/medical/break_room)
 "mXy" = (
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/plating/grey_titanium,
 /area/shuttle/arrival/station)
 "mXE" = (
 /obj/structure/table,
@@ -80333,7 +80333,7 @@
 /obj/machinery/door/airlock/titanium{
 	name = "Arrivals Shuttle Airlock"
 	},
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/plating/grey_titanium,
 /area/shuttle/arrival/station)
 "rJR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/purple,

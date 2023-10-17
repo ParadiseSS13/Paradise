@@ -92,3 +92,13 @@
 	return FALSE
 
 /turf/simulated/floor/indestructible/hierophant/two
+
+/turf/simulated/floor/indestructible/plating
+	name = "floor"
+	icon = 'icons/turf/floors.dmi'
+
+/turf/simulated/floor/indestructible/plating/blue_titanium
+	icon_state = "titanium_blue"
+
+/turf/simulated/floor/indestructible/plating/grey_titanium
+	icon_state = "titanium"

@@ -15202,11 +15202,10 @@
 "aVX" = (
 /obj/machinery/door/airlock/titanium,
 /obj/structure/fans/tiny,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aVY" = (
-/obj/effect/spawner/window/shuttle,
-/turf/simulated/floor/plating,
+/turf/simulated/wall/indestructible/shuttleglass,
 /area/shuttle/arrival/station)
 "aWb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -15765,40 +15764,40 @@
 /area/station/hallway/secondary/entry)
 "aXr" = (
 /obj/structure/closet/walllocker/emerglocker/north,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aXs" = (
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aXt" = (
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/machinery/computer/arcade,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aXu" = (
 /obj/structure/closet/wardrobe/black,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aXv" = (
 /obj/structure/closet/wardrobe/xenos,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aXw" = (
 /obj/structure/closet/wardrobe/mixed,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aXx" = (
 /obj/structure/closet/wardrobe/grey,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aXy" = (
 /obj/structure/closet/walllocker/emerglocker/north,
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aXA" = (
 /obj/structure/cable{
@@ -16255,11 +16254,11 @@
 	dir = 1
 	},
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aYM" = (
 /obj/structure/chair/comfy/shuttle,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aYO" = (
 /obj/structure/disposalpipe/segment{
@@ -16339,7 +16338,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/spawner/late/crew,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/plating/grey_titanium,
 /area/shuttle/arrival/station)
 "aZa" = (
 /obj/structure/table/reinforced,
@@ -17028,7 +17027,7 @@
 	icon_state = "spooky";
 	name = "Observer-Start"
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bbb" = (
 /obj/structure/cable{
@@ -17455,7 +17454,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bcs" = (
 /obj/structure/disposalpipe/segment{
@@ -17619,7 +17618,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bcO" = (
 /obj/item/radio/intercom{
@@ -18305,7 +18304,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bet" = (
 /obj/structure/chair{
@@ -18337,7 +18336,7 @@
 	name = "Arrival Shuttle Requests Console";
 	pixel_y = -30
 	},
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "bey" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -18360,7 +18359,7 @@
 /area/station/service/bar)
 "beG" = (
 /obj/machinery/light,
-/turf/simulated/floor/mineral/titanium/blue,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "beH" = (
 /obj/structure/disposalpipe/segment,
@@ -67780,7 +67779,7 @@
 	},
 /area/station/service/mime)
 "jyO" = (
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/plating/grey_titanium,
 /area/shuttle/arrival/station)
 "jza" = (
 /turf/simulated/floor/plasteel{
@@ -68167,7 +68166,7 @@
 /area/station/medical/virology)
 "jMw" = (
 /obj/machinery/door/airlock/titanium,
-/turf/simulated/floor/mineral/titanium,
+/turf/simulated/floor/indestructible/plating/grey_titanium,
 /area/shuttle/arrival/station)
 "jMx" = (
 /obj/structure/lattice/catwalk,
@@ -84352,6 +84351,9 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/maintenance/turbine)
+"sKA" = (
+/turf/simulated/wall/indestructible/titanium,
+/area/shuttle/arrival/station)
 "sKD" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -102797,11 +102799,11 @@ aaa
 aaa
 aaa
 aaa
-aVV
-aVV
+sKA
+sKA
 aVY
-aVV
-aVV
+sKA
+sKA
 aaa
 aaa
 aab
@@ -103054,11 +103056,11 @@ aab
 aab
 aaa
 aaa
-aVV
+sKA
 aYM
 jyO
 bcr
-aVV
+sKA
 aaa
 aaa
 aab
@@ -103311,11 +103313,11 @@ aab
 aLd
 aaa
 aaa
-aVV
+sKA
 aYL
 jyO
 bcN
-aVV
+sKA
 aaa
 aaa
 bjQ
@@ -103567,13 +103569,13 @@ apx
 aMs
 aLd
 aaa
-aVV
-aVV
-aVV
+sKA
+sKA
+sKA
 jMw
-aVV
-aVV
-aVV
+sKA
+sKA
+sKA
 aaa
 aLd
 aMs
@@ -103824,13 +103826,13 @@ aMB
 apx
 apx
 apx
-aVV
+sKA
 aXr
 jyO
 jyO
 jyO
 aXs
-aVV
+sKA
 apx
 apx
 apx
@@ -104338,13 +104340,13 @@ aMD
 apx
 apx
 apx
-aVV
+sKA
 aXt
 aXs
 aXs
 aXs
 beG
-aVV
+sKA
 apx
 apx
 apx
@@ -104595,13 +104597,13 @@ aME
 aTo
 aUl
 apx
-aVV
+sKA
 aXu
 aYZ
 aYZ
 aYZ
 bes
-aVV
+sKA
 apx
 bid
 aTo
@@ -105366,13 +105368,13 @@ aRd
 aTp
 aUm
 apx
-aVV
+sKA
 aXx
 aXs
 aXs
 aXs
 bex
-aVV
+sKA
 apx
 bjS
 aTp
@@ -105629,7 +105631,7 @@ aYZ
 aYZ
 aYZ
 beG
-aVV
+sKA
 apx
 apx
 apx
@@ -106137,13 +106139,13 @@ aRe
 apx
 apx
 apx
-aVV
-aVV
+sKA
+sKA
 aYV
 aYV
 aYV
-aVV
-aVV
+sKA
+sKA
 apx
 apx
 apx
@@ -106394,13 +106396,13 @@ aME
 aRO
 apx
 aUZ
-aVV
+sKA
 aXn
 aYT
 aYT
 aYT
 bey
-aVV
+sKA
 aUZ
 apx
 bpX
