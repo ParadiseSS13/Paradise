@@ -12483,13 +12483,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
-"RY" = (
-/obj/structure/rack,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -28
-	},
-/turf/simulated/floor/wood,
-/area/wizard_station)
 "RZ" = (
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
@@ -61001,8 +60994,8 @@ UJ
 xH
 ZL
 ed
+ed
 GG
-RY
 GN
 Ue
 RT
