@@ -6569,10 +6569,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
-"KT" = (
-/obj/item/paper/blueshield,
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/ruin/unpowered/syndicate_space_base/cave)
 "KZ" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
@@ -7253,7 +7249,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "PG" = (
-/obj/machinery/economy/merch,
+/obj/machinery/economy/vending/cigarette/syndicate/free,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8256,10 +8252,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Vh" = (
-/obj/machinery/economy/vending/toyliberationstation{
-	req_access_txt = "150"
+/obj/machinery/economy/vending/toyliberationstation/secured,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "brown"
 	},
-/turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "Vl" = (
 /turf/simulated/wall/indestructible/syndicate,
@@ -8529,9 +8526,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/cave)
 "WU" = (
-/obj/machinery/economy/vending/toyliberationstation{
-	req_access_txt = "150"
-	},
+/obj/machinery/economy/vending/toyliberationstation/secured,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -9635,7 +9630,7 @@ eW
 eW
 eW
 eW
-KT
+AD
 Mf
 AD
 kE

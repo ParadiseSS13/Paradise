@@ -987,8 +987,8 @@
 	new /obj/item/paper/hardmode(src)
 
 /obj/item/storage/box/foam_grenades
-	name = "Foam Grenades Box"
-	desc = "A box full of Foam Grenades."
+	name = "foam grenades box"
+	desc = "A box full of foam grenades."
 	icon_state = "flashbang"
 
 /obj/item/storage/box/foam_grenades/populate_contents()
