@@ -892,7 +892,7 @@
 	if(temp)
 		user.Beam(T, icon_state = "drainbeam", time = 15)
 		new /obj/effect/temp_visual/cult/sparks(get_turf(user))
-		playsound(T, 'sound/misc/enter_blood.ogg', 50., extrarange = SOUND_RANGE_SET(7))
+		playsound(T, 'sound/misc/enter_blood.ogg', 50, extrarange = SOUND_RANGE_SET(7))
 		temp = round(temp)
 		to_chat(user, "<span class='cultitalic'>Your blood rite has gained [temp] charge\s from blood sources around you!</span>")
 		uses += max(1, temp)
