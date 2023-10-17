@@ -37177,6 +37177,7 @@
 "cOs" = (
 /obj/structure/table,
 /obj/item/storage/fancy/donut_box,
+/obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -37568,6 +37569,7 @@
 	srange = 7
 	},
 /obj/structure/closet/athletic_mixed,
+/obj/effect/decal/warning_stripes/blue/partial,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -53743,8 +53745,23 @@
 	},
 /area/station/hallway/secondary/exit)
 "fRm" = (
-/obj/machinery/economy/vending/cola,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/table,
+/obj/item/clothing/accessory/medal{
+	name = "медаль хорошему мальчику";
+	desc = "Тот кто её носит - определенно заслужил её!"
+	},
+/obj/item/petcollar{
+	pixel_y = 7;
+	pixel_x = 6
+	},
+/obj/item/petcollar{
+	pixel_y = 3
+	},
+/obj/item/petcollar{
+	pixel_y = -2;
+	pixel_x = -6
+	},
+/obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -54690,8 +54707,8 @@
 	},
 /area/station/science/explab)
 "gkj" = (
-/obj/machinery/economy/vending/snack,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/economy/vending/crittercare,
+/obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -58264,6 +58281,13 @@
 	icon_state = "neutralfull"
 	},
 /area/station/security/checkpoint/south)
+"hEU" = (
+/obj/machinery/economy/vending/cola,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutralcorner"
+	},
+/area/station/public/fitness)
 "hFh" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -62089,6 +62113,9 @@
 /area/station/service/barber)
 "jbW" = (
 /obj/item/radio/intercom/directional/west,
+/obj/effect/decal/warning_stripes/blue/partial{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -67766,6 +67793,22 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/break_room)
+"lkf" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/decal/warning_stripes/blue/partial{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/public/fitness)
 "lkh" = (
 /obj/structure/filingcabinet/chestdrawer/autopsy,
 /obj/machinery/status_display/directional/west,
@@ -72047,6 +72090,7 @@
 /area/station/maintenance/starboard2)
 "mYH" = (
 /obj/machinery/newscaster/directional/west,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -155566,7 +155610,7 @@ iVg
 xql
 cAt
 cBZ
-ctx
+hEU
 mYH
 fLx
 cGX
@@ -155829,9 +155873,9 @@ olj
 cIs
 qfX
 olj
-olj
-olj
-olj
+lkf
+lkf
+lkf
 olj
 stG
 qfX
