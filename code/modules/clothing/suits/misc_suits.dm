@@ -821,6 +821,50 @@
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
 
+/obj/item/clothing/suit/jacket/varsity
+	name = "varsity jacket"
+	desc = "Stylish jacket for young and invincible."
+	icon_state = "varsity_classic"
+	item_state = "varsity_classic"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+	)
+
+/obj/item/clothing/suit/jacket/varsity_sport
+	name = "sport varsity jacket"
+	desc = "Stylish jacket for fast and furious."
+	icon_state = "varsity_sport"
+	item_state = "varsity_sport"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+	)
+
+/obj/item/clothing/suit/jacket/varsity_blood
+	name = "blood varsity jacket"
+	desc = "Stylish jacket for dangerous and violent."
+	icon_state = "varsity_blood"
+	item_state = "varsity_blood"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+	)
+
+/obj/item/clothing/suit/jacket/driver
+	name = "driver jacket"
+	desc = "Whoever wears such jacket is literally me."
+	icon_state = "driver_jacket"
+	item_state = "driver_jacket"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+	)
+
 /obj/item/clothing/suit/jacket/syndicatebomber
 	name = "suspicious bomber jacket"
 	desc = "A suspicious but extremely stylish jacket."
