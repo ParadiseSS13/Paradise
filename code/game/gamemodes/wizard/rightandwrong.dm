@@ -98,7 +98,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(H.stat == DEAD || !(H.client))
 		return
 	if(H.mind)
-		if(iswizard(H))
+		if(iswizard(H) || H.mind.offstation_role)
 			return
 
 	if(prob(GLOB.summon_guns_triggered) && !(H.mind in SSticker.mode.traitors))
@@ -120,7 +120,7 @@ GLOBAL_VAR_INIT(summon_magic_triggered, FALSE)
 	if(H.stat == DEAD || !(H.client))
 		return
 	if(H.mind)
-		if(iswizard(H))
+		if(iswizard(H) || H.mind.offstation_role)
 			return
 
 	if(prob(GLOB.summon_magic_triggered) && !(H.mind in SSticker.mode.traitors) && !jobban_isbanned(H, ROLE_SYNDICATE))
