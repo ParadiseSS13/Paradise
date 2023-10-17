@@ -2,6 +2,7 @@ GLOBAL_LIST_EMPTY(new_player_list)
 
 /mob/new_player/Initialize(mapload)
 	GLOB.new_player_list += src
+	show_title_screen()
 	. = ..()
 
 /mob/new_player/Destroy()
@@ -10,4 +11,3 @@ GLOBAL_LIST_EMPTY(new_player_list)
 
 /mob/new_player/Login()
 	. = ..()
-	show_title_screen()
