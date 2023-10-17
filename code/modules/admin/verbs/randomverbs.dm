@@ -848,7 +848,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		SSshuttle.emergency.canRecall = FALSE
 
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		SSshuttle.emergency.request(coefficient = 0.5, redAlert = TRUE)
 	else
 		SSshuttle.emergency.request()
