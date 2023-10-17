@@ -60,6 +60,22 @@
 	icon_opened = "crate_barrel_open"
 	icon_closed = "crate_barrel"
 
+/obj/structure/closet/crate/grave
+	name = "grave mound"
+	desc = "A simple and reliable way to keep the dead away."
+	icon = 'modular_ss220/maps220/icons/crates.dmi'
+	icon_state = "grave"
+	icon_opened = "graveopen"
+	icon_closed = "grave"
+	open_sound = 'sound/effects/shovel_dig.ogg'
+	close_sound = 'sound/effects/shovel_dig.ogg'
+
+/obj/structure/closet/crate/grave/gravelead
+	name = "ominous grave mound"
+	icon_state = "grave_lead"
+	icon_opened = "grave_leadopen"
+	icon_closed = "grave_lead"
+
 /* Syndicate Base - Mothership */
 // Machinery
 /obj/machinery/photocopier/syndie
@@ -231,3 +247,58 @@
 	projectile = /obj/item/projectile/bullet/midbullet2
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	projectile_energy_cost = 14
+
+//Immortality ring
+/obj/item/clothing/gloves/ring/immortality_ring
+	name = "старое кольцо"
+	icon_state = "shadowring"
+	ring_color = "shadow"
+	material = "shadow"
+	desc = "Кольцо цвета оникса из неизвестного материала. Позолоченные надписи на внешней стороне причудливо пульсируют, испуская зловещую дымку. Надеть его кажется не лучшей идеей..."
+	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	actions_types = list(/datum/action/item_action/immortality)
+	var/ability_delay = 100 SECONDS
+	var/invisibility_add = 101
+	var/invisibility_rmv = 0
+
+/datum/action/item_action/immortality
+	name = "Ring ability"
+
+/obj/item/clothing/gloves/ring/immortality_ring/proc/ring_ability(mob/user)
+	if(cooldown > world.time)
+		to_chat(user, span_warning("[name] еще перезаряжается!"))
+		return
+	cooldown = world.time + ability_delay
+	user.status_flags |= GODMODE
+	user.invisibility = invisibility_add
+	visible_message(span_danger("[user] исчезает из реальности!"))
+	to_chat(user, span_cultitalic("Ты чувствуешь чье-то ужасающее присутствие..."))
+	SEND_SOUND (user, sound('sound/hallucinations/i_see_you2.ogg'))
+	addtimer(CALLBACK(src, PROC_REF(ring_ability_end), user), 8 SECONDS)
+
+/obj/item/clothing/gloves/ring/immortality_ring/proc/ring_ability_end(mob/user)
+	user.status_flags &= ~GODMODE
+	user.invisibility = invisibility_rmv
+	visible_message(span_danger("[user] возвращается в реальность!"))
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	H.apply_damage(rand(10, 40), BURN, pick("r_hand"))
+	H.adjustCloneLoss(25, TRUE)
+	H.adjustBrainLoss(30, TRUE)
+
+/obj/item/clothing/gloves/ring/immortality_ring/ui_action_click(mob/user, immortality)
+	ring_ability(user)
+
+/obj/item/clothing/gloves/ring/immortality_ring/item_action_slot_check(slot, mob/user, immortality)
+	if(slot == SLOT_HUD_GLOVES)
+		return TRUE
+
+/obj/item/clothing/gloves/ring/immortality_ring/equipped(mob/user, slot)
+	..()
+	var/mob/living/carbon/human/H = user
+	if(istype(H) && slot == SLOT_HUD_GLOVES)
+		flags = NODROP
+		to_chat(user, span_danger("[name] туго обвивается вокруг твоего пальца!"))
+		SEND_SOUND (user, sound('modular_ss220/aesthetics_sounds/sound/creepy/demon2.ogg'))
+

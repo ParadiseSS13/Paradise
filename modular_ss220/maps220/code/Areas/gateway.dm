@@ -269,3 +269,22 @@
 	name = "MC-16"
 	icon_state = "awaycontent9"
 	ambientsounds = list('modular_ss220/aesthetics_sounds/sound/area_ambient/ambient_pulse1.ogg', 'modular_ss220/aesthetics_sounds/sound/area_ambient/ambient_pulse2.ogg')
+
+/* Caves */
+/area/awaymission/caves
+	name = "Caves"
+	icon_state = "away"
+	report_alerts = FALSE
+	always_unpowered = TRUE
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+
+/area/awaymission/caves/build
+	name = "Abandoned building"
+	icon_state = "awaycontent1"
+	always_unpowered = FALSE
+	requires_power = FALSE
+
+/area/awaymission/caves/build/reqpower_build
+	name = "Research Сomplex ''Mirror''"
+	icon_state = "awaycontent2"
+	requires_power = TRUE

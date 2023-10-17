@@ -188,6 +188,29 @@
 	melee_damage_upper = 30
 	speed = -1
 
+/mob/living/simple_animal/hostile/skeleton/deadwizard
+	name = "древний маг"
+	desc = "Древний волшебник, тысячелетиями властвующий над проклятым могильником."
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_living = "deadwizard"
+	icon_state = "deadwizard"
+	maxHealth = 300
+	health = 300
+	ranged = 1
+	rapid = 4
+	rapid_fire_delay = 1
+	retreat_distance = 4
+	minimum_distance = 4
+	del_on_death = 1
+	projectiletype = /obj/item/projectile/magic/arcane_barrage
+	projectilesound = 'sound/magic/blind.ogg'
+	loot = list(
+	/obj/effect/decal/remains/human,
+	/obj/item/clothing/head/crown,
+	/obj/item/clothing/suit/imperium_monk,
+	/obj/effect/particle_effect/smoke/bad,
+	/obj/item/necromantic_stone)
+
 /* Vox Raiders */
 /mob/living/simple_animal/hostile/vox
 	name = "Vox Raider"
@@ -569,3 +592,31 @@
 	faction = list("spooky")
 	del_on_death = TRUE
 	random_color = FALSE
+
+/* Clown */
+/mob/living/simple_animal/hostile/clown/mutant
+	name = "неизвестный"
+	desc = "Что бы это не было, уничтожь его!"
+	icon = 'modular_ss220/maps220/icons/clown_mobs.dmi'
+	icon_state = "mutant"
+	icon_living = "mutant"
+	move_resist = INFINITY
+	turns_per_move = 10
+	response_help = "осторожно погружает палец в"
+	response_disarm = "втягивается в"
+	response_harm = "втягивается в"
+	speak = list("уааааааааа-хааууууууаааааа!", "ААААаааууАААУааХУААААА!!!", "уууууууухххх.... ххххх-ххьооооонкккхх....", "ХХХХУУАААООНККК!!!")
+	speak_emote = list("извивается", "корчится", "пульсирует", "бурлит", "расползается")
+	speak_chance = 10
+	tts_seed = "Kleiner"
+	maxHealth = 500
+	health = 500
+	pixel_x = -16
+	speed = 3
+	move_to_delay = 3
+	harm_intent_damage = 10
+	melee_damage_lower = 30
+	melee_damage_upper = 40
+	attacktext = "неловко замахивается на"
+	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/effect/gibspawner/human, /obj/effect/gibspawner/human, /obj/item/grown/bananapeel, /obj/item/bikehorn/golden)
+	wander = FALSE

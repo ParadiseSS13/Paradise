@@ -5,7 +5,7 @@
 	icon = 'icons/turf/walls//smoothrocks.dmi'
 	icon_state = "smoothrocks-0"
 	base_icon_state = "smoothrocks"
-	color = COLOR_ANCIENT_ROCK
+	color = COLOR_ROCK
 	smoothing_flags = SMOOTH_BITMASK | SMOOTH_BORDER
 	smoothing_groups = list(SMOOTH_GROUP_SIMULATED_TURFS, SMOOTH_GROUP_MINERAL_WALLS)
 	canSmoothWith = list(SMOOTH_GROUP_MINERAL_WALLS)

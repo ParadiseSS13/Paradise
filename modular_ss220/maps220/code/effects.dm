@@ -51,3 +51,12 @@
 
 /obj/effect/turf_decal/siding/black/full
 	icon_state = "bs_full"
+
+/* Awaymission - Caves */
+//Decals
+/obj/effect/decal/solgov_logo
+	name = "SolGov logo"
+	icon = 'modular_ss220/maps220/icons/syndie_logo.dmi'
+	icon_state = "sol_logo1"
+	layer = TURF_LAYER
+	desc = "Glory to humanity!"
