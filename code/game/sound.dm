@@ -161,6 +161,13 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 
 	SEND_SOUND(src, S)
 
+/proc/sound_to_playing_players_on_station_level(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
+	if(!S)
+		S = sound(get_sfx(soundin))
+	for(var/mob/m as anything in GLOB.player_list)
+		if(!isnewplayer(m) && is_station_level(m.z))
+			m.playsound_local(m, null, volume, vary, frequency, null, channel, pressure_affected, S)
+
 /proc/sound_to_playing_players(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
 	if(!S)
 		S = sound(get_sfx(soundin))

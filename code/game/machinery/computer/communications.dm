@@ -61,15 +61,15 @@
 
 /obj/machinery/computer/communications/proc/change_security_level(new_level)
 	tmp_alertlevel = new_level
-	var/old_level = GLOB.security_level
+	var/old_level = SSsecurity_level.get_current_level_as_number()
 	if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
 	if(tmp_alertlevel < SEC_LEVEL_GREEN) tmp_alertlevel = SEC_LEVEL_GREEN
 	if(tmp_alertlevel > SEC_LEVEL_BLUE) tmp_alertlevel = SEC_LEVEL_BLUE //Cannot engage delta with this
-	set_security_level(tmp_alertlevel)
-	if(GLOB.security_level != old_level)
+	SSsecurity_level.set_level(tmp_alertlevel)
+	if(SSsecurity_level.get_current_level_as_number() != old_level)
 		//Only notify the admins if an actual change happened
-		log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
-		message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
+		log_game("[key_name(usr)] has changed the security level to [SSsecurity_level.get_current_level_as_text()].")
+		message_admins("[key_name_admin(usr)] has changed the security level to [SSsecurity_level.get_current_level_as_text()].")
 	tmp_alertlevel = 0
 
 /obj/machinery/computer/communications/ui_act(action, params)
@@ -132,7 +132,7 @@
 			var/obj/item/card/id/I = H.get_idcard(TRUE)
 			if(istype(I))
 				// You must have captain access and it must be red alert or lower (no getting off delta/epsilon)
-				if((ACCESS_CAPTAIN in I.access) && GLOB.security_level <= SEC_LEVEL_RED)
+				if((ACCESS_CAPTAIN in I.access) && SSsecurity_level.get_current_level_as_number() <= SEC_LEVEL_RED)
 					change_security_level(text2num(params["level"]))
 				else
 					to_chat(usr, "<span class='warning'>You are not authorized to do this.</span>")
@@ -355,8 +355,8 @@
 		)
 	)
 
-	data["security_level"] = GLOB.security_level
-	switch(GLOB.security_level)
+	data["security_level"] = SSsecurity_level.get_current_level_as_number()
+	switch(SSsecurity_level.get_current_level_as_number())
 		if(SEC_LEVEL_GREEN)
 			data["security_level_color"] = "green";
 		if(SEC_LEVEL_BLUE)
@@ -365,7 +365,7 @@
 			data["security_level_color"] = "red";
 		else
 			data["security_level_color"] = "purple";
-	data["str_security_level"] = capitalize(get_security_level())
+	data["str_security_level"] = capitalize(SSsecurity_level.get_current_level_as_text())
 	data["levels"] = list(
 		list("id" = SEC_LEVEL_GREEN, "name" = "Green", "icon" = "dove"),
 		list("id" = SEC_LEVEL_BLUE,  "name" = "Blue", "icon" = "eye"),
@@ -464,7 +464,7 @@
 			to_chat(user, "Under directive 7-10, [station_name()] is quarantined until further notice.")
 			return
 
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		SSshuttle.emergency.canRecall = FALSE
 		SSshuttle.emergency.request(null, 0.5, null, " Automatic Crew Transfer", 1)
 	else
