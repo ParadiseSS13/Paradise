@@ -112,6 +112,7 @@
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
+	var/EMP_flash_strength = 1
 
 /obj/item/organ/internal/eyes/cybernetic/emp_act(severity)
 	if(!owner || emp_proof)
@@ -119,7 +120,7 @@
 	if(prob(10 * severity))
 		return
 	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
-	owner.flash_eyes(visual = TRUE)
+	owner.flash_eyes(intensity = EMP_flash_strength, visual = TRUE)
 	..()
 
 /obj/item/organ/internal/eyes/cybernetic/meson
@@ -204,9 +205,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	eye_color = "#101010"
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
-
-/obj/item/organ/internal/eyes/cybernetic/shield/emp_act(severity)
-	return
+	EMP_flash_strength = 3
 
 #define INTACT 0
 #define ONE_SHATTERED 1
