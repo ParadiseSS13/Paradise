@@ -48,7 +48,7 @@
 		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/storage/box/syndie_kit/emp, // 2TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
 		/obj/item/encryptionkey/syndicate, // 2TC
@@ -74,7 +74,7 @@
 		/obj/item/jammer, // 4TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/clothing/gloves/color/latex/nitrile, // 0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
@@ -124,7 +124,7 @@
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/clothing/gloves/combat, // 0 TC
 		/obj/item/clothing/under/suit/really_black, // 0 TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/grenadier = list( // 20TC + Tactical Grenadier Belt

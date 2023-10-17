@@ -760,7 +760,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	return ..()
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == I)
+	if(!user || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == I || !isliving(user))
 		return
 
 	if(loc && I.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?

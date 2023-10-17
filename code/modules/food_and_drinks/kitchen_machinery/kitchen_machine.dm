@@ -288,6 +288,8 @@
 /obj/machinery/kitchen_machine/proc/dispose(mob/user)
 	for(var/obj/O in contents)
 		O.forceMove(loc)
+		O.pixel_y = rand(-5, 5)
+		O.pixel_x = rand(-5, 5)
 	if(reagents.total_volume)
 		dirty++
 	reagents.clear_reagents()
@@ -341,6 +343,8 @@
 		var/reagents_per_serving = temp_reagents.total_volume / portions
 		for(var/i in 1 to portions) // Extra servings when upgraded, ingredient reagents split equally
 			var/obj/cooked = new recipe.result(loc)
+			cooked.pixel_y = rand(-5, 5)
+			cooked.pixel_x = rand(-5, 5)
 			temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
 		temp_reagents.clear_reagents()
 
