@@ -69,7 +69,7 @@ GLOBAL_VAR(bomb_set)
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
-	previous_level = get_security_level()
+	previous_level = SSsecurity_level.get_current_level_as_text()
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
@@ -334,7 +334,10 @@ GLOBAL_VAR(bomb_set)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
-	attack_hand(user)
+	if(!panel_open)
+		return ui_interact(user, state = GLOB.viewer_state)
+	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
+		return wires.Interact(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if(!panel_open)
@@ -477,7 +480,7 @@ GLOBAL_VAR(bomb_set)
 			safety = !(safety)
 			if(safety)
 				if(!is_syndicate)
-					set_security_level(previous_level)
+					SSsecurity_level.set_level(previous_level)
 				timing = FALSE
 				GLOB.bomb_set = FALSE
 		if("toggle_armed")
@@ -495,13 +498,13 @@ GLOBAL_VAR(bomb_set)
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
-						set_security_level("delta")
+						SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
 				else
 					GLOB.bomb_set = TRUE
 			else
 				if(!is_syndicate)
-					set_security_level(previous_level)
+					SSsecurity_level.set_level(previous_level)
 				GLOB.bomb_set = FALSE
 				if(!lighthack)
 					icon_state = "nuclearbomb1"
@@ -605,7 +608,7 @@ GLOBAL_VAR(bomb_set)
 	safety = !safety
 	if(safety == 1)
 		if(!is_syndicate)
-			set_security_level(previous_level)
+			SSsecurity_level.set_level(previous_level)
 		visible_message("<span class='notice'>[src] quiets down.</span>")
 		if(!lighthack)
 			if(icon_state == "nuclearbomb2")

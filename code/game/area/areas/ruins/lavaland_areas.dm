@@ -47,6 +47,9 @@
 	icon_state = "red"
 
 /area/ruin/unpowered/althland_processing
+
+/area/ruin/unpowered/althland_excavation
+	name = "Excavation Pit"
 	icon_state = "red"
 
 // This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins

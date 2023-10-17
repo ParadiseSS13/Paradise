@@ -308,6 +308,8 @@
 					return
 
 				if(INTENT_HARM) //This checks that the user is on harm intent.
+					if(HAS_TRAIT(user, TRAIT_PACIFISM))
+						return
 					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
 						if(IS_HORIZONTAL(affecting))
 							return

@@ -143,13 +143,12 @@
 		L.adjustFireLoss(-1000)
 		L.adjustOxyLoss(-1000)
 		L.adjustToxLoss(-1000)
-		return
-	if((ishuman(victim) || isrobot(victim)))
+	else if((ishuman(victim) || isrobot(victim)))
 		to_chat(L, "<span class='warning'>You devour [victim], but their lack of intelligence renders their flesh dull and unappetising, leaving you wanting for more.</span>")
 		L.adjustBruteLoss(-50)
 		if(!isslaughterdemon(L))
 			L.adjustFireLoss(-50)
-	else
+	else if(isanimal(victim))
 		to_chat(L, "<span class='warning'>You devour [victim], but this measly meal barely sates your appetite!</span>")
 		L.adjustBruteLoss(-25)
 		if(!isslaughterdemon(L))
@@ -248,7 +247,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl
 	name = "Shadow Crawl"
-	desc = "Use darkness to phase out of existence."
+	desc = "Fade into the shadows, increasing your speed and making you incomprehensible. Will not work in brightened terrane."
 	allowed_type = /turf
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"
