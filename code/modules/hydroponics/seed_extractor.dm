@@ -157,7 +157,7 @@
 	. = FALSE
 	switch(action)
 		if("vend")
-			vend_seed(text2num(params["seedid"]), vend_amount)
+			vend_seed(text2num(params["seedid"]), params["seedvariant"], vend_amount)
 			add_fingerprint(usr)
 			. = TRUE
 		if("set_vend_amount")
@@ -167,12 +167,14 @@
 			add_fingerprint(usr)
 			. = TRUE
 
-/obj/machinery/seed_extractor/proc/vend_seed(seed_id, amount)
+/obj/machinery/seed_extractor/proc/vend_seed(seed_id, seed_variant, amount)
 	if(!seed_id)
 		return
+	if(!seed_variant)
+		to_chat(world,"<span class='warning'>no variant</span>")
 	var/datum/seed_pile/selected_pile
 	for(var/datum/seed_pile/N in piles)
-		if(N.id == seed_id)
+		if(N.id == seed_id && (N.variant == seed_variant || !seed_variant))
 			amount = clamp(amount, 0, N.amount)
 			N.amount -= amount
 			selected_pile = N
@@ -185,7 +187,7 @@
 	for(var/obj/item/seeds/O in contents)
 		if(amount_dispensed >= amount)
 			break
-		if(O.plantname == selected_pile.name && O.lifespan == selected_pile.lifespan && O.endurance == selected_pile.endurance && O.maturation == selected_pile.maturation && O.production == selected_pile.production && O.yield == selected_pile.yield && O.potency == selected_pile.potency)
+		if(O.plantname == selected_pile.name && O.variant == selected_pile.variant && O.lifespan == selected_pile.lifespan && O.endurance == selected_pile.endurance && O.maturation == selected_pile.maturation && O.production == selected_pile.production && O.yield == selected_pile.yield && O.potency == selected_pile.potency)
 			O.forceMove(loc)
 			amount_dispensed++
 
