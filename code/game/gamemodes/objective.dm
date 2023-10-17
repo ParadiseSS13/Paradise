@@ -173,7 +173,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target && target.current)
 		explanation_text = "Teach [target.current.real_name], the [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
-		RegisterSignal(target, COMSIG_MOB_DEATH, .proc/check_midround_completion)
+		RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(check_midround_completion))
 	else
 		explanation_text = "Free Objective"
 	return target
