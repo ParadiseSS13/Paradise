@@ -206,8 +206,6 @@
 	base_icon_state = "dispenser0"
 	hatch_state = TRANSIT_TUBE_OPEN
 
-
-
 /obj/structure/transit_tube/station/dispenser/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This station will create a pod for you to ride, no need to wait for one.</span>"

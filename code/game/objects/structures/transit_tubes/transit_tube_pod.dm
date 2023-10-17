@@ -93,7 +93,7 @@
 	deconstruct(FALSE)//we automatically deconstruct the pod
 	for(var/i in savedcontents)
 		var/atom/movable/AM = i
-		AM.throw_at(destination,rand(1,3),5)
+		AM.throw_at(destination, rand(1, 3), 5)
 
 
 /obj/structure/transit_tube_pod/proc/move_animation(stage = MOVE_ANIMATION_STAGE_ONE)
@@ -278,3 +278,6 @@
 /obj/structure/transit_tube_pod/dispensed/outside_tube()
 	if(!QDELETED(src))
 		qdel(src)
+
+#undef MOVE_ANIMATION_STAGE_TWO
+#undef MOVE_ANIMATION_STAGE_ONE
