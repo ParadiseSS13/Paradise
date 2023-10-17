@@ -35316,6 +35316,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "bTR" = (
@@ -36337,7 +36338,10 @@
 /obj/structure/transit_tube/cap{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
 /area/station/engineering/break_room)
 "bWl" = (
 /obj/machinery/keycard_auth{
@@ -45372,6 +45376,9 @@
 "ctJ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
 	dir = 4
 	},
 /turf/space,
@@ -119395,7 +119402,7 @@ byl
 byl
 abj
 csy
-acF
+abj
 bXU
 bZl
 cbb

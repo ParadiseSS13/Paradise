@@ -54749,7 +54749,7 @@
 /area/space/nearstation)
 "dmX" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube/horizontal,
+/obj/structure/transit_tube/crossing/horizontal,
 /turf/space,
 /area/space/nearstation)
 "dna" = (
