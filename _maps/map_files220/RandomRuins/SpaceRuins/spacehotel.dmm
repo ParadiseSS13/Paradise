@@ -24,7 +24,7 @@
 	},
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/curtain/black,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "av" = (
 /obj/machinery/conveyor/north/ccw{
@@ -54,7 +54,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom1)
 "az" = (
 /obj/structure/cable{
@@ -70,7 +70,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "aK" = (
 /obj/machinery/door/morgue{
@@ -116,7 +116,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "aU" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -189,7 +189,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "bs" = (
 /obj/structure/table/reinforced/brass,
@@ -201,7 +201,7 @@
 	dir = 10
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "by" = (
 /obj/machinery/light/directional/north,
@@ -222,7 +222,7 @@
 	pixel_y = -24
 	},
 /obj/structure/dresser,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom5)
 "bG" = (
 /obj/structure/lattice/catwalk,
@@ -280,7 +280,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood/corner,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "cb" = (
 /obj/machinery/power/apc/off_station{
@@ -323,7 +323,7 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/north,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "cp" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -340,12 +340,12 @@
 	id_tag = "gstroom6";
 	name = "Appartment 6"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom6)
 "cs" = (
 /obj/structure/bed,
 /obj/item/bedsheet/syndie,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom5)
 "cx" = (
 /obj/effect/turf_decal/siding/wood,
@@ -362,7 +362,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "cO" = (
 /obj/structure/chair/comfy/lime{
@@ -403,7 +403,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "dc" = (
 /obj/effect/turf_decal/delivery,
@@ -427,7 +427,7 @@
 /area/ruin/space/spacehotelv1/engi1)
 "df" = (
 /obj/effect/turf_decal/siding/wood/corner,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "di" = (
 /obj/structure/extinguisher_cabinet/directional/north,
@@ -498,7 +498,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "dG" = (
 /obj/machinery/disposal/deliveryChute,
@@ -514,7 +514,7 @@
 	dir = 9
 	},
 /obj/machinery/light/directional/west,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "dJ" = (
 /obj/structure/table/wood/fancy/black,
@@ -530,7 +530,7 @@
 /area/ruin/space/spacehotelv1/guestroom2)
 "dT" = (
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "dX" = (
 /obj/structure/cable{
@@ -551,7 +551,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "ed" = (
 /obj/machinery/light/directional/north,
@@ -572,7 +572,7 @@
 /obj/structure/table/holotable/wood,
 /obj/item/radio/headset,
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "ei" = (
 /obj/structure/sign/poster/random{
@@ -596,7 +596,7 @@
 	dir = 8
 	},
 /obj/structure/curtain/black,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "eC" = (
 /mob/living/simple_animal/hostile/retaliate/goat{
@@ -635,7 +635,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "eF" = (
 /turf/simulated/floor/plasteel/grimy,
@@ -653,7 +653,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood/corner,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "eO" = (
 /obj/structure/chair/wood,
@@ -686,7 +686,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "eY" = (
 /obj/machinery/light_switch{
@@ -704,7 +704,7 @@
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "fo" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -723,7 +723,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "fr" = (
 /obj/structure/cable{
@@ -739,14 +739,14 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "fx" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
 /obj/machinery/economy/vending/sovietsoda,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "fD" = (
 /obj/structure/cable{
@@ -775,7 +775,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom5)
 "fK" = (
 /turf/simulated/wall,
@@ -809,7 +809,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom4)
 "gb" = (
 /obj/machinery/suit_storage_unit/standard_unit,
@@ -821,12 +821,12 @@
 /obj/machinery/bottler{
 	pixel_y = 2
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "gl" = (
 /obj/structure/bed,
 /obj/item/bedsheet/fluff/hugosheet,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom2)
 "gp" = (
 /obj/structure/curtain/open/shower,
@@ -853,7 +853,7 @@
 	dir = 4
 	},
 /obj/item/toy/plushie/coffee_fox,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom6)
 "gx" = (
 /obj/structure/window/reinforced{
@@ -900,7 +900,7 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "gQ" = (
 /turf/simulated/floor/plasteel/freezer,
@@ -947,7 +947,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "hm" = (
 /obj/structure/cable{
@@ -1023,13 +1023,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/spacehotelv1/kitchen)
 "hI" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "hL" = (
 /obj/structure/table/wood/fancy/black,
 /obj/item/paper_bin,
 /obj/item/pen/multi,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom4)
 "hP" = (
 /obj/structure/cable{
@@ -1052,7 +1052,7 @@
 	dir = 4
 	},
 /obj/item/toy/plushie/corgi,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom4)
 "hT" = (
 /obj/structure/chair/wood{
@@ -1063,7 +1063,7 @@
 "hW" = (
 /obj/structure/filingcabinet,
 /obj/machinery/light/directional/west,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "if" = (
 /obj/structure/cable{
@@ -1074,7 +1074,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "ig" = (
 /obj/structure/window/reinforced,
@@ -1100,7 +1100,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "iq" = (
 /obj/effect/turf_decal/siding/wood/corner,
@@ -1112,7 +1112,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "is" = (
 /obj/structure/cable{
@@ -1246,7 +1246,7 @@
 	pixel_y = 5;
 	pixel_x = 3
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "jr" = (
 /obj/structure/cable{
@@ -1260,7 +1260,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "jw" = (
 /obj/structure/dispenser/oxygen,
@@ -1279,7 +1279,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "jC" = (
 /obj/structure/cable{
@@ -1323,7 +1323,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "jS" = (
 /mob/living/simple_animal/bot/medbot/adv{
@@ -1366,7 +1366,7 @@
 	pixel_y = 3;
 	pixel_x = 3
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "kg" = (
 /obj/structure/cable{
@@ -1384,7 +1384,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "kl" = (
 /obj/structure/cable{
@@ -1413,7 +1413,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "ky" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -1437,7 +1437,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "kG" = (
 /obj/structure/toilet,
@@ -1469,7 +1469,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "kV" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -1506,7 +1506,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "le" = (
 /obj/machinery/door/airlock/maintenance,
@@ -1535,7 +1535,7 @@
 	dir = 1
 	},
 /obj/machinery/economy/vending/dinnerware,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "ll" = (
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -1597,7 +1597,7 @@
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "lD" = (
 /obj/structure/table/wood/fancy/blue,
@@ -1660,12 +1660,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom3)
 "mb" = (
 /obj/structure/table/holotable/wood,
 /obj/item/instrument/saxophone,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "me" = (
 /obj/structure/cable{
@@ -1685,7 +1685,7 @@
 /area/ruin/space/spacehotelv1/bar)
 "mo" = (
 /obj/machinery/smartfridge/drinks,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "ms" = (
 /obj/structure/cable{
@@ -1720,7 +1720,7 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/curtain/black,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "mu" = (
 /obj/structure/cable{
@@ -1768,14 +1768,14 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/spacehotelv1/reception)
 "mO" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "mQ" = (
 /obj/machinery/economy/vending/autodrobe,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "mR" = (
 /obj/machinery/door/airlock/external{
@@ -1816,7 +1816,7 @@
 /obj/structure/chair/stool/bar{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "ni" = (
 /obj/structure/table/glass,
@@ -1845,7 +1845,7 @@
 	dir = 4
 	},
 /obj/machinery/light/directional/east,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "nn" = (
 /obj/structure/rack,
@@ -1865,7 +1865,7 @@
 /obj/structure/table/glass,
 /obj/item/paper_bin,
 /obj/item/pen/multi,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom3)
 "nu" = (
 /obj/structure/cable{
@@ -1884,7 +1884,7 @@
 	id = "gstroom1";
 	pixel_x = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom1)
 "ny" = (
 /obj/structure/cable{
@@ -1897,7 +1897,7 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/right,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "nC" = (
 /turf/simulated/wall,
@@ -1906,7 +1906,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "nI" = (
 /turf/simulated/wall,
@@ -1953,7 +1953,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "oa" = (
 /obj/structure/table/wood/fancy/red,
@@ -2036,7 +2036,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom1)
 "ot" = (
 /obj/structure/sign/vacuum{
@@ -2067,7 +2067,7 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "oL" = (
 /obj/structure/sink/directional/north,
@@ -2078,7 +2078,7 @@
 /area/ruin/space/spacehotelv1/janitor)
 "oQ" = (
 /obj/structure/table/holotable/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "oR" = (
 /obj/structure/disposalpipe/segment,
@@ -2102,7 +2102,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "oY" = (
 /obj/structure/chair{
@@ -2133,7 +2133,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "pj" = (
 /obj/item/holder/mouse{
@@ -2147,7 +2147,7 @@
 	dir = 1
 	},
 /obj/machinery/firealarm/directional/north,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "ps" = (
 /obj/machinery/power/smes{
@@ -2192,7 +2192,7 @@
 /obj/structure/railing/cap{
 	dir = 5
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "pD" = (
 /obj/structure/chair/sofa{
@@ -2215,7 +2215,7 @@
 /area/ruin/space/spacehotelv1/reception)
 "pH" = (
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "pJ" = (
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -2235,7 +2235,7 @@
 "pN" = (
 /obj/structure/table/wood/fancy,
 /obj/item/flashlight/lamp/green/off,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom4)
 "pR" = (
 /obj/structure/cable{
@@ -2260,7 +2260,7 @@
 	},
 /obj/structure/table/wood/fancy/black,
 /obj/item/paicard,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom2)
 "qg" = (
 /obj/structure/chair/sofa/right,
@@ -2309,7 +2309,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "qt" = (
 /obj/structure/AIcore,
@@ -2341,7 +2341,7 @@
 "qK" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/flashlight/lamp/green/off,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom5)
 "qN" = (
 /turf/simulated/wall,
@@ -2358,7 +2358,7 @@
 	icon_state = "1-8"
 	},
 /obj/effect/turf_decal/siding/wood/corner,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "qS" = (
 /obj/structure/cable{
@@ -2380,7 +2380,7 @@
 	dir = 6
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "qX" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -2403,7 +2403,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood/corner,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "rh" = (
 /obj/structure/sign/poster/random{
@@ -2416,12 +2416,12 @@
 "ri" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/economy/vending/shoedispenser,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "rj" = (
 /obj/structure/closet/emcloset,
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "rm" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -2437,7 +2437,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = -32
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "rp" = (
 /obj/effect/turf_decal/siding/wood{
@@ -2458,7 +2458,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "ry" = (
 /obj/effect/turf_decal/delivery,
@@ -2478,7 +2478,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "rD" = (
 /obj/structure/cable{
@@ -2510,7 +2510,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "rM" = (
 /obj/structure/cable{
@@ -2555,7 +2555,7 @@
 "rX" = (
 /obj/machinery/firealarm/directional/south,
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "sq" = (
 /obj/structure/rack,
@@ -2601,7 +2601,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "sV" = (
 /obj/structure/railing{
@@ -2691,14 +2691,14 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "tu" = (
 /obj/machinery/economy/vending/snack/free,
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "tB" = (
 /obj/structure/cable{
@@ -2725,7 +2725,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood/corner,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "tD" = (
 /obj/structure/cable{
@@ -2758,7 +2758,7 @@
 	dir = 4
 	},
 /obj/item/toy/plushie/tuxedo_cat,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom1)
 "tO" = (
 /obj/structure/cable{
@@ -2767,7 +2767,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "tQ" = (
 /obj/effect/turf_decal/siding/wood/corner{
@@ -2791,7 +2791,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "tX" = (
 /obj/structure/cable{
@@ -2809,13 +2809,13 @@
 	},
 /obj/machinery/economy/vending/snack/free,
 /obj/machinery/light/directional/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "tZ" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom3)
 "ub" = (
 /obj/structure/chair/wood,
@@ -2857,7 +2857,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "uA" = (
 /obj/structure/table/reinforced,
@@ -2881,7 +2881,7 @@
 	dir = 8
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "uD" = (
 /turf/simulated/floor/carpet/blue,
@@ -2910,12 +2910,12 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "uN" = (
 /obj/item/kirbyplants,
 /obj/effect/turf_decal/siding/wood/end,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "uP" = (
 /obj/structure/disposalpipe/segment{
@@ -2929,7 +2929,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom6)
 "uS" = (
 /obj/machinery/door/airlock/survival_pod,
@@ -2939,7 +2939,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "va" = (
 /obj/machinery/mass_driver{
@@ -2959,7 +2959,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "vi" = (
 /obj/structure/closet/cabinet,
@@ -3000,7 +3000,7 @@
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "vB" = (
 /obj/structure/sink/directional/west,
@@ -3016,7 +3016,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "vI" = (
 /obj/structure/lattice/catwalk,
@@ -3040,7 +3040,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "vK" = (
 /turf/simulated/floor/plasteel{
@@ -3065,7 +3065,7 @@
 	dir = 8
 	},
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "vV" = (
 /obj/structure/sink/directional/east,
@@ -3086,7 +3086,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/siding/wood/corner,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "wf" = (
 /obj/structure/cable{
@@ -3153,7 +3153,7 @@
 /obj/item/reagent_containers/glass/rag,
 /obj/item/book/manual/barman_recipes,
 /obj/item/lighter/zippo/engraved,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "wD" = (
 /obj/machinery/computer/arcade{
@@ -3166,7 +3166,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "wF" = (
 /obj/structure/chair/sofa/right{
@@ -3186,7 +3186,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "wI" = (
 /obj/structure/cable{
@@ -3269,12 +3269,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom2)
 "xf" = (
 /obj/structure/table/holotable/wood,
 /obj/item/instrument/violin,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "xg" = (
 /obj/structure/cable{
@@ -3282,7 +3282,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom3)
 "xl" = (
 /obj/machinery/door/airlock/multi_tile/glass,
@@ -3293,7 +3293,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "xm" = (
 /obj/machinery/door/poddoor{
@@ -3320,7 +3320,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "xr" = (
 /obj/structure/cable{
@@ -3386,7 +3386,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "xK" = (
 /obj/structure/lattice/catwalk,
@@ -3491,7 +3491,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "yD" = (
 /obj/structure/cable{
@@ -3585,7 +3585,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "zh" = (
 /obj/machinery/door/airlock,
@@ -3621,7 +3621,7 @@
 "zq" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/economy/vending/suitdispenser,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "zt" = (
 /obj/machinery/chem_master/condimaster,
@@ -3642,7 +3642,7 @@
 	id = "gstroom3";
 	pixel_x = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom3)
 "zx" = (
 /obj/structure/rack,
@@ -3661,7 +3661,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "zA" = (
 /obj/structure/filingcabinet,
@@ -3694,7 +3694,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "zJ" = (
 /obj/structure/cable{
@@ -3703,7 +3703,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "zM" = (
 /obj/effect/turf_decal/siding/wood/corner,
@@ -3769,7 +3769,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Aj" = (
 /obj/machinery/door/airlock/maintenance_hatch,
@@ -3846,14 +3846,14 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "AP" = (
 /obj/structure/closet/crate/can,
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "AT" = (
 /obj/structure/cable{
@@ -3873,7 +3873,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom4)
 "Bb" = (
 /mob/living/simple_animal/hostile/retaliate/carp/koi,
@@ -3905,7 +3905,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Bi" = (
 /obj/structure/cable{
@@ -3945,7 +3945,7 @@
 	dir = 6
 	},
 /obj/machinery/light/directional/east,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "By" = (
 /obj/machinery/power/terminal,
@@ -3984,7 +3984,7 @@
 "BN" = (
 /obj/structure/bed,
 /obj/item/bedsheet/rainbow,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom2)
 "BV" = (
 /obj/structure/cable{
@@ -4000,7 +4000,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "BW" = (
 /obj/machinery/light/directional/south,
@@ -4010,7 +4010,7 @@
 /obj/structure/chair/wood/wings{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "Cg" = (
 /obj/structure/kitchenspike,
@@ -4031,7 +4031,7 @@
 	},
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/light/directional/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "Ck" = (
 /obj/machinery/door/poddoor/shutters{
@@ -4052,7 +4052,7 @@
 	dir = 1
 	},
 /obj/item/toy/plushie/girly_corgi,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom4)
 "Cn" = (
 /obj/structure/chair/comfy/beige{
@@ -4084,7 +4084,7 @@
 "Cy" = (
 /obj/machinery/economy/vending/cigarette/free,
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Cz" = (
 /obj/structure/cable{
@@ -4120,7 +4120,7 @@
 	dir = 10
 	},
 /obj/machinery/light/directional/west,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "CO" = (
 /obj/structure/table/wood/poker,
@@ -4143,7 +4143,7 @@
 /obj/machinery/light_switch{
 	pixel_y = 24
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom1)
 "Dk" = (
 /obj/machinery/light/small/directional/south,
@@ -4159,7 +4159,7 @@
 "Dv" = (
 /obj/machinery/economy/vending/clothing,
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Dw" = (
 /obj/structure/cable{
@@ -4193,7 +4193,7 @@
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "DE" = (
 /obj/structure/cable{
@@ -4213,7 +4213,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "DH" = (
 /obj/structure/lattice,
@@ -4265,7 +4265,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom3)
 "DY" = (
 /obj/structure/sign/poster/random{
@@ -4274,7 +4274,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ec" = (
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -4329,12 +4329,12 @@
 /obj/structure/table/glass,
 /obj/item/cane,
 /obj/item/lighter/zippo,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom3)
 "Ev" = (
 /obj/structure/table/wood/fancy/blue,
 /obj/item/flashlight/lamp/green/off,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom6)
 "Ez" = (
 /obj/structure/cable{
@@ -4342,7 +4342,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom2)
 "EA" = (
 /obj/structure/flora/tree/palm,
@@ -4366,14 +4366,14 @@
 	dir = 4
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "EG" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "EV" = (
 /obj/structure/lattice/catwalk,
@@ -4451,7 +4451,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "Fm" = (
 /obj/structure/cable{
@@ -4495,7 +4495,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Fy" = (
 /obj/machinery/light/small/directional/north,
@@ -4617,7 +4617,7 @@
 	dir = 1
 	},
 /obj/structure/curtain/black,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "Gi" = (
 /turf/simulated/floor/plating/airless,
@@ -4632,7 +4632,7 @@
 	dir = 9
 	},
 /obj/machinery/economy/vending/coffee/free,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Gm" = (
 /obj/machinery/suit_storage_unit/engine,
@@ -4677,7 +4677,7 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Gz" = (
 /obj/structure/table/wood/fancy,
@@ -4754,7 +4754,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "Hb" = (
 /obj/machinery/door/airlock/freezer,
@@ -4806,12 +4806,12 @@
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "HB" = (
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "HL" = (
 /obj/effect/turf_decal/siding/wood/end,
 /obj/machinery/recharge_station,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "HM" = (
 /obj/structure/cable{
@@ -4847,7 +4847,7 @@
 /area/ruin/space/spacehotelv1/entryhallway)
 "HY" = (
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ib" = (
 /turf/simulated/wall,
@@ -4912,7 +4912,7 @@
 	dir = 5
 	},
 /obj/machinery/light/directional/east,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "IB" = (
 /obj/structure/rack,
@@ -4930,7 +4930,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "IK" = (
 /obj/structure/chair/barber{
@@ -4946,7 +4946,7 @@
 	},
 /obj/item/kirbyplants,
 /obj/machinery/light/directional/north,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "IT" = (
 /obj/structure/table,
@@ -5033,7 +5033,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "Jy" = (
 /obj/structure/lattice/catwalk,
@@ -5059,7 +5059,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "JR" = (
 /obj/structure/cable{
@@ -5070,10 +5070,10 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "JS" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "JT" = (
 /obj/structure/table/wood/fancy/royalblack,
@@ -5126,7 +5126,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ki" = (
 /obj/structure/cable,
@@ -5139,7 +5139,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "Ko" = (
 /obj/structure/cable{
@@ -5155,7 +5155,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "Kt" = (
 /obj/structure/chair/comfy/beige,
@@ -5215,7 +5215,7 @@
 	dir = 4
 	},
 /obj/item/toy/plushie/orange_cat,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom1)
 "KR" = (
 /obj/structure/closet/firecloset,
@@ -5306,7 +5306,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Lq" = (
 /obj/effect/turf_decal/siding/wood{
@@ -5314,7 +5314,7 @@
 	},
 /obj/structure/reagent_dispensers/water_cooler,
 /obj/machinery/light/directional/north,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Lr" = (
 /obj/effect/turf_decal/siding/wood,
@@ -5347,7 +5347,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "LC" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "LF" = (
 /turf/simulated/wall,
@@ -5357,7 +5357,7 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/north,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "LI" = (
 /obj/structure/lattice,
@@ -5378,7 +5378,7 @@
 	dir = 5
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "LQ" = (
 /obj/structure/railing/cap{
@@ -5406,14 +5406,14 @@
 	pixel_y = 10
 	},
 /obj/item/ashtray/bronze,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "Mb" = (
 /obj/machinery/light_switch{
 	pixel_y = -24;
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom4)
 "Mg" = (
 /obj/structure/lattice/catwalk,
@@ -5438,7 +5438,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/entryhallway)
 "Mo" = (
 /obj/structure/table/holotable/wood,
@@ -5447,11 +5447,11 @@
 	pixel_y = 8
 	},
 /obj/item/ashtray/bronze,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "Mr" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom5)
 "Ms" = (
 /turf/simulated/wall,
@@ -5516,7 +5516,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "MP" = (
 /obj/structure/cable{
@@ -5572,7 +5572,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "Ng" = (
 /obj/effect/turf_decal/siding/wood/corner{
@@ -5581,7 +5581,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "No" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -5593,7 +5593,7 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom4)
 "NC" = (
 /obj/structure/lattice/catwalk,
@@ -5612,7 +5612,7 @@
 	dir = 4
 	},
 /obj/item/toy/plushie/orange_fox,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom6)
 "NE" = (
 /obj/machinery/door/poddoor{
@@ -5662,12 +5662,12 @@
 	dir = 4
 	},
 /obj/structure/curtain/black,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "NV" = (
 /obj/structure/table/holotable/wood,
 /obj/item/instrument/guitar,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "NW" = (
 /obj/structure/lattice/catwalk,
@@ -5714,7 +5714,7 @@
 "Og" = (
 /obj/structure/closet/crate/can,
 /obj/structure/closet/walllocker/medlocker/west,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "Oj" = (
 /obj/structure/cable{
@@ -5754,10 +5754,10 @@
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet/directional/north,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Ox" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom6)
 "Oy" = (
 /obj/structure/cable,
@@ -5804,12 +5804,12 @@
 /area/ruin/space/spacehotelv1/reception)
 "OL" = (
 /obj/machinery/economy/vending/boozeomat,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "OR" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/machinery/economy/vending/hatdispenser,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "OT" = (
 /obj/structure/cable{
@@ -5888,7 +5888,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Pk" = (
 /obj/structure/cable{
@@ -5916,7 +5916,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "Pt" = (
 /obj/structure/disposalpipe/trunk{
@@ -5993,7 +5993,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Qc" = (
 /obj/machinery/constructable_frame/machine_frame,
@@ -6017,7 +6017,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "Qq" = (
 /obj/effect/turf_decal/delivery,
@@ -6051,7 +6051,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "QA" = (
 /turf/simulated/floor/plasteel/dark,
@@ -6066,7 +6066,7 @@
 "QF" = (
 /obj/structure/table/reinforced/brass,
 /obj/item/flashlight/lamp/bananalamp,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom1)
 "QH" = (
 /obj/machinery/light/directional/south,
@@ -6082,7 +6082,7 @@
 	dir = 8
 	},
 /obj/machinery/economy/atm/west,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "QO" = (
 /obj/structure/cable{
@@ -6099,7 +6099,7 @@
 	name = "Hotel pamphlet";
 	info = "<center><b>The Twin Nexus Hotel</center></b><br><center><i>A place of Sanctuary</i></center><br><br><center>Welcome to The Twin-Nexus Hotel, \[insert name here]! The loyal staff strive to their best effort to cater for the best possible experience for all space(wo)men! If you have any questions or comments, please ask one of our on-board staff for more information.</center>"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "QX" = (
 /obj/structure/cable{
@@ -6115,7 +6115,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Ra" = (
 /obj/structure/cable{
@@ -6183,7 +6183,7 @@
 	dir = 8
 	},
 /obj/machinery/light/directional/west,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "RS" = (
 /obj/structure/sink/directional/east,
@@ -6227,7 +6227,7 @@
 /area/ruin/space/spacehotelv1/guestroom1)
 "Sj" = (
 /obj/structure/coatrack,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom6)
 "So" = (
 /obj/structure/table/holotable/wood,
@@ -6239,7 +6239,7 @@
 	dir = 6
 	},
 /obj/machinery/economy/vending/cola/free,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Su" = (
 /turf/simulated/floor/plasteel{
@@ -6252,11 +6252,11 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "SA" = (
 /obj/machinery/computer/arcade,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "SB" = (
 /turf/simulated/floor/plasteel{
@@ -6296,7 +6296,7 @@
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "SU" = (
 /obj/structure/cable{
@@ -6363,7 +6363,7 @@
 /obj/machinery/fishtank/bowl{
 	pixel_y = 11
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Tz" = (
 /obj/machinery/door/firedoor,
@@ -6376,7 +6376,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "TA" = (
 /obj/machinery/door/airlock,
@@ -6429,7 +6429,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "TS" = (
 /obj/structure/cable{
@@ -6454,7 +6454,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi2)
 "TW" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom1)
 "Ua" = (
 /obj/structure/closet/crate/can,
@@ -6484,20 +6484,20 @@
 	dir = 5
 	},
 /obj/machinery/economy/vending/snack/free,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Uq" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "UA" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
 /obj/structure/closet/firecloset,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "UF" = (
 /obj/structure/cable{
@@ -6518,7 +6518,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom5)
 "UJ" = (
 /obj/structure/cable{
@@ -6573,7 +6573,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "UQ" = (
 /turf/simulated/floor/plasteel/stairs{
@@ -6589,7 +6589,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/reception)
 "UW" = (
 /obj/structure/cable{
@@ -6627,7 +6627,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Vh" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -6646,13 +6646,13 @@
 	dir = 1
 	},
 /obj/structure/chair/sofa/left,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Vq" = (
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt3)
 "Vr" = (
 /obj/effect/turf_decal/siding/wood,
@@ -6683,7 +6683,7 @@
 	dir = 1;
 	pixel_y = 24
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom2)
 "VH" = (
 /obj/structure/chair/wood{
@@ -6698,7 +6698,7 @@
 	},
 /obj/structure/table/wood/fancy/black,
 /obj/item/flashlight/lamp/green/off,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom2)
 "VJ" = (
 /obj/machinery/power/solar,
@@ -6777,7 +6777,7 @@
 	},
 /obj/structure/closet/crate/can,
 /obj/machinery/light/directional/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "Wj" = (
 /obj/structure/window/reinforced{
@@ -6801,7 +6801,7 @@
 	dir = 4
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/centralhallway)
 "Wq" = (
 /obj/machinery/door/airlock/maintenance,
@@ -6881,7 +6881,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/guestroom5)
 "Xb" = (
 /obj/structure/sign/securearea{
@@ -6976,7 +6976,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/siding/wood/corner,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "XU" = (
 /obj/structure/window/reinforced{
@@ -6998,7 +6998,7 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt1)
 "XX" = (
 /obj/effect/turf_decal/siding/wood{
@@ -7013,7 +7013,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "XY" = (
 /obj/structure/table/glass,
@@ -7024,7 +7024,7 @@
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "Yh" = (
 /obj/effect/spawner/window/reinforced/grilled,
@@ -7048,7 +7048,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "Yy" = (
 /obj/structure/cable{
@@ -7085,7 +7085,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "YG" = (
 /obj/machinery/light/small/directional/south,
@@ -7137,7 +7137,7 @@
 	dir = 1
 	},
 /obj/machinery/light/directional/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/bar)
 "Zf" = (
 /obj/machinery/door/airlock/multi_tile/glass{
@@ -7156,7 +7156,7 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/restoraunt2)
 "Zo" = (
 /obj/structure/cable{
@@ -7183,7 +7183,7 @@
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "ZA" = (
 /obj/machinery/economy/vending/chinese/free,
@@ -7248,7 +7248,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/spacehotelv1/forehallway)
 "ZZ" = (
 /obj/structure/curtain/open/shower,

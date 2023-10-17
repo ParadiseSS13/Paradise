@@ -98,9 +98,7 @@
 	dir = 1;
 	base_icon_state = "sleeper_s-open"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "ads" = (
 /obj/machinery/economy/vending/coffee/free,
@@ -205,7 +203,7 @@
 /obj/structure/mineral_door/wood{
 	name = "Changing chamber"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "ajk" = (
 /obj/effect/turf_decal/delivery,
@@ -270,9 +268,7 @@
 "als" = (
 /obj/structure/table/wood,
 /obj/item/storage/firstaid/tactical,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "alW" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -421,7 +417,7 @@
 /obj/structure/window/reinforced/clockwork{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "ase" = (
 /turf/simulated/floor/plasteel{
@@ -582,7 +578,7 @@
 	pixel_x = -6;
 	pixel_y = -1
 	},
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "avN" = (
 /obj/machinery/bluespace_beacon/syndicate,
@@ -725,9 +721,7 @@
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "aAG" = (
 /obj/item/kitchen/knife/butcher,
@@ -780,9 +774,7 @@
 	dir = 1
 	},
 /obj/item/autosurgeon/organ/syndicate,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "aDo" = (
 /obj/effect/turf_decal/delivery/white,
@@ -932,7 +924,7 @@
 "aIZ" = (
 /obj/machinery/computer/library,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "aJF" = (
 /obj/machinery/economy/vending/cigarette,
@@ -1135,7 +1127,7 @@
 "aSu" = (
 /obj/structure/safe,
 /obj/item/stack/spacecash/c10000,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "aSV" = (
 /obj/effect/spawner/lootdrop/maintenance,
@@ -1347,9 +1339,7 @@
 	anchored = 1
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "bfd" = (
 /turf/simulated/floor/plasteel{
@@ -1366,9 +1356,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "bfN" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
@@ -1458,9 +1446,7 @@
 /area/wizard_station)
 "bjf" = (
 /obj/item/flag/syndi,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "bjD" = (
 /obj/effect/turf_decal/siding/wood{
@@ -1508,7 +1494,7 @@
 /area/shuttle/escape)
 "bkK" = (
 /obj/machinery/photocopier,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "bkU" = (
 /obj/item/flashlight/lantern{
@@ -1517,7 +1503,7 @@
 	light_color = "#FF9F40";
 	on = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "bmv" = (
 /obj/structure/shuttle/engine/propulsion,
@@ -1575,7 +1561,7 @@
 /area/centcom/ss220/bar)
 "boV" = (
 /obj/structure/closet/masks,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "boW" = (
 /obj/effect/turf_decal/delivery,
@@ -1719,7 +1705,7 @@
 /turf/simulated/floor/carpet/green,
 /area/shuttle/trade/sol)
 "buT" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "bvs" = (
 /obj/structure/table,
@@ -1753,7 +1739,7 @@
 	pixel_y = 8;
 	req_one_access_txt = "101"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "bvE" = (
 /obj/structure/statue/sandstone/assistant{
@@ -2235,7 +2221,7 @@
 /obj/structure/chair/stool/bar/dark{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "bSm" = (
 /obj/structure/chair/sofa/corner{
@@ -2326,7 +2312,7 @@
 /area/centcom/ss220/admin3)
 "bVP" = (
 /obj/machinery/prize_counter,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "bVS" = (
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate{
@@ -2447,11 +2433,6 @@
 /obj/effect/spawner/window/plastitanium,
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/cargo)
-"bWb" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken4"
-	},
-/area/syndicate_mothership/infteam)
 "bWD" = (
 /obj/structure/closet/secure_closet/brig{
 	req_access_txt = "153"
@@ -2478,14 +2459,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/cargo)
-"bXa" = (
-/obj/effect/turf_decal/siding/brown{
-	dir = 9
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/infteam)
 "bXY" = (
 /obj/machinery/cryopod/offstation,
 /obj/structure/light_fake/spot{
@@ -2544,7 +2517,7 @@
 /area/shuttle/syndicate_sit)
 "caA" = (
 /obj/structure/showcase,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "caZ" = (
 /obj/machinery/sleeper,
@@ -2796,11 +2769,6 @@
 	icon_state = "barber"
 	},
 /area/shuttle/administration)
-"clZ" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/infteam)
 "cmL" = (
 /obj/machinery/cryopod/offstation,
 /obj/machinery/computer/cryopod{
@@ -3111,7 +3079,7 @@
 	dir = 8
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "cCy" = (
 /obj/machinery/door/airlock/centcom{
@@ -3163,9 +3131,7 @@
 /obj/structure/light_fake/small{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken7"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "cDV" = (
 /obj/structure/light_fake/spot{
@@ -3247,7 +3213,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 9
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "cFW" = (
 /obj/machinery/door/airlock/centcom{
@@ -3454,9 +3420,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin1)
 "cNm" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "cNn" = (
 /obj/structure/bed,
@@ -3511,7 +3475,7 @@
 /obj/structure/light_fake/small{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/evac)
 "cOS" = (
 /obj/machinery/conveyor_switch/oneway{
@@ -3553,12 +3517,10 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "cRb" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "cRs" = (
 /obj/structure/sign/poster/contraband/random{
@@ -3570,9 +3532,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "cRZ" = (
 /obj/machinery/door/poddoor/multi_tile/two_tile_ver{
@@ -3718,9 +3678,7 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "syndFB_teleport1"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "light-fancy-wood"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "cYN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3987,9 +3945,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "dkr" = (
 /obj/structure/closet,
@@ -4034,9 +3990,7 @@
 /obj/structure/chair/stool/bar{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "dmb" = (
 /obj/machinery/computer/cryopod{
@@ -4412,9 +4366,7 @@
 "dzI" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "dzJ" = (
 /turf/simulated/floor/plasteel/dark{
@@ -4432,9 +4384,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "dzS" = (
 /obj/structure/light_fake/spot,
@@ -4500,9 +4450,7 @@
 /obj/item/storage/backpack/duffel/syndie/med/surgery{
 	pixel_y = 6
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "dBF" = (
 /obj/structure/table/glass,
@@ -4605,9 +4553,7 @@
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "dGG" = (
 /obj/machinery/door/airlock/centcom{
@@ -4970,9 +4916,7 @@
 /obj/structure/chair/wheelchair/bike{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "dRV" = (
 /obj/structure/rack,
@@ -5210,7 +5154,7 @@
 /obj/machinery/economy/vending/artvend{
 	name = "\improper WizArtVend"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "eeQ" = (
 /turf/simulated/floor/plasteel{
@@ -5241,7 +5185,7 @@
 /obj/effect/decal/warning_stripes/blue/partial{
 	dir = 8
 	},
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "ehR" = (
 /obj/structure/table,
@@ -5323,7 +5267,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "ekl" = (
 /obj/effect/turf_decal/bot,
@@ -5353,7 +5297,7 @@
 /obj/structure/chair/stool/bar/dark{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "ent" = (
 /obj/structure/light_fake,
@@ -5429,7 +5373,7 @@
 /obj/machinery/door/airlock/multi_tile/glass{
 	name = "Парк"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "epd" = (
 /obj/structure/table/wood,
@@ -5486,7 +5430,7 @@
 "erh" = (
 /obj/structure/window/reinforced,
 /obj/structure/sign/poster/official/random/south,
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "erG" = (
 /obj/machinery/computer/shuttle/sit,
@@ -5573,9 +5517,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "evc" = (
 /obj/structure/table,
@@ -5638,7 +5580,7 @@
 "eyy" = (
 /obj/structure/closet/boxinggloves,
 /obj/structure/light_fake/spot,
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "eyC" = (
 /obj/machinery/computer/sm_monitor{
@@ -5937,7 +5879,7 @@
 	color = "red"
 	},
 /obj/structure/grille,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "eHi" = (
 /obj/machinery/door/poddoor/shutters{
@@ -6311,7 +6253,7 @@
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/dice,
 /obj/effect/turf_decal/woodsiding,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "eTS" = (
 /obj/structure/closet/secure_closet/engineering_electrical,
@@ -6359,9 +6301,7 @@
 	icon_state = "tesla";
 	name = "Syndie specops cybernetics implant"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "eVk" = (
 /obj/structure/table/reinforced,
@@ -6760,12 +6700,6 @@
 /obj/structure/flora/grass/jungle,
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/syndicate_mothership/outside)
-"fld" = (
-/obj/effect/turf_decal/siding/brown,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership/infteam)
 "flk" = (
 /obj/machinery/chem_dispenser/soda/upgraded,
 /obj/structure/table/wood{
@@ -6834,9 +6768,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "fms" = (
 /obj/structure/chair/comfy/shuttle{
@@ -7067,7 +6999,7 @@
 /area/syndicate_mothership/cargo)
 "fxa" = (
 /obj/structure/window/reinforced,
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "fxn" = (
 /obj/effect/spawner/window/reinforced/tinted/grilled,
@@ -7112,9 +7044,7 @@
 /area/centcom/ss220/admin2)
 "fzb" = (
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "fzc" = (
 /obj/machinery/computer/account_database{
@@ -7225,9 +7155,7 @@
 /area/syndicate_mothership/jail)
 "fCJ" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "fCL" = (
 /obj/machinery/door/airlock/centcom{
@@ -7380,9 +7308,7 @@
 /area/centcom/ss220/jail)
 "fMl" = (
 /obj/structure/light_fake/small,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "fMP" = (
 /obj/structure/light_fake/spot{
@@ -7496,9 +7422,7 @@
 /area/centcom/ss220/general)
 "fQY" = (
 /obj/machinery/economy/vending/cigarette/syndicate/free,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken6"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "fRW" = (
 /obj/effect/turf_decal/bot,
@@ -7690,7 +7614,7 @@
 	cover_color = "#68452a";
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "gcw" = (
 /obj/effect/turf_decal/loading_area/white{
@@ -7796,7 +7720,7 @@
 /area/centcom/ss220/supply)
 "giy" = (
 /obj/item/flag/wiz,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "giO" = (
 /obj/structure/railing,
@@ -7810,7 +7734,7 @@
 /area/syndicate_mothership/jail)
 "giY" = (
 /obj/structure/kitchenspike,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "gjt" = (
 /obj/machinery/door_control/no_emag/west{
@@ -7988,7 +7912,7 @@
 /obj/structure/chair/sofa{
 	color = "#63009c"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "gqj" = (
 /mob/living/simple_animal/turkey,
@@ -8467,9 +8391,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "gIb" = (
 /obj/structure/shuttle/engine/heater{
@@ -8822,7 +8744,7 @@
 /obj/item/candle/eternal/wizard{
 	pixel_y = 11
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "gXS" = (
 /obj/structure/fans/tiny/invisible,
@@ -8850,7 +8772,7 @@
 	pixel_y = 4;
 	req_one_access = list(101)
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "gZt" = (
 /obj/structure/chair/stool{
@@ -9057,9 +8979,7 @@
 /obj/structure/light_fake/spot{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "hiV" = (
 /obj/effect/turf_decal/siding/wood/corner,
@@ -9114,7 +9034,7 @@
 	cover_color = "#68452a";
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "hki" = (
 /obj/structure/sign/directions/engineering{
@@ -9655,9 +9575,7 @@
 /obj/structure/sign/poster/contraband/c20r{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "hGl" = (
 /turf/simulated/floor/plasteel{
@@ -9728,14 +9646,6 @@
 	icon_state = "darkyellowalt"
 	},
 /area/centcom/ss220/supply)
-"hIR" = (
-/obj/effect/turf_decal/siding/brown{
-	dir = 8
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken"
-	},
-/area/syndicate_mothership/infteam)
 "hJh" = (
 /obj/machinery/door/window/brigdoor{
 	color = "red";
@@ -9975,9 +9885,7 @@
 	id = "nukeop_storage";
 	name = "ATOM Storage"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "hPO" = (
 /obj/structure/table/reinforced,
@@ -10294,7 +10202,7 @@
 /area/centcom/ss220/evac)
 "iht" = (
 /obj/structure/filingcabinet/filingcabinet,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "ihK" = (
 /obj/structure/table/wood/fancy/black,
@@ -10312,9 +10220,7 @@
 /area/syndicate_mothership/cargo)
 "iiw" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "iiz" = (
 /obj/machinery/door/airlock/titanium{
@@ -10342,11 +10248,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/shuttle/trade/sol)
-"iiC" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken5"
-	},
-/area/syndicate_mothership)
 "ijw" = (
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "CC_DeathSquad";
@@ -10480,9 +10381,7 @@
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "iot" = (
 /obj/machinery/cryopod/offstation/right,
@@ -10823,9 +10722,7 @@
 "iwf" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/chocolatecakeslice,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "iwk" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -10980,7 +10877,7 @@
 	cover_color = "#68452a";
 	layer = 3.1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "iFr" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -11106,7 +11003,7 @@
 	cover_color = "#68452a";
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "iLT" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
@@ -11369,7 +11266,7 @@
 /obj/structure/holohoop{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "iXQ" = (
 /obj/structure/table/glass,
@@ -11408,11 +11305,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel/freezer,
 /area/ninja/holding)
-"jaL" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken4"
-	},
-/area/syndicate_mothership)
 "jaR" = (
 /obj/item/robot_parts/robot_component{
 	desc = "Некая блюспейс сущность, обещала когда нибудь его доделать...";
@@ -11435,9 +11327,7 @@
 /obj/structure/light_fake/small{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "jcg" = (
 /obj/structure/light_fake/spot,
@@ -11601,9 +11491,7 @@
 "jkN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "jlp" = (
 /obj/effect/spawner/window/shuttle,
@@ -11696,9 +11584,7 @@
 	dir = 1
 	},
 /obj/machinery/economy/vending/syndicigs,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "jqd" = (
 /obj/effect/decal/syndie_logo{
@@ -11848,7 +11734,7 @@
 	},
 /area/centcom/ss220/admin3)
 "juJ" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "jvw" = (
 /obj/machinery/conveyor/east{
@@ -12003,9 +11889,7 @@
 	pixel_x = -1;
 	pixel_y = 6
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "jAt" = (
 /obj/effect/turf_decal/bot,
@@ -12690,9 +12574,7 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "syndFB_med"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "light-fancy-wood"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "kkN" = (
 /turf/simulated/floor/plasteel{
@@ -12763,15 +12645,13 @@
 /obj/structure/chair/stool/bar{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "kof" = (
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "kok" = (
 /obj/machinery/door/airlock/external{
@@ -12882,7 +12762,7 @@
 	cover_color = "#68452a";
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "kth" = (
 /obj/machinery/bodyscanner{
@@ -12909,7 +12789,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/general)
 "ktP" = (
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "kue" = (
 /obj/effect/spawner/window/plastitanium,
@@ -12923,9 +12803,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/hatch/syndicate/command,
-/turf/simulated/floor/wood{
-	icon_state = "light-fancy-wood"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "kvd" = (
 /obj/effect/mapping_helpers/light,
@@ -12965,7 +12843,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/trash/candle,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/evac)
 "kxw" = (
 /obj/structure/chair/comfy/shuttle{
@@ -13038,7 +12916,7 @@
 	pixel_x = -7;
 	pixel_y = 15
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "kAS" = (
 /turf/simulated/wall/indestructible/opsglass,
@@ -13130,9 +13008,7 @@
 "kEs" = (
 /obj/effect/decal/cleanable/blood,
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "kEt" = (
 /obj/machinery/door/airlock/centcom{
@@ -13144,7 +13020,7 @@
 /area/centcom/ss220/admin2)
 "kEE" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "kEZ" = (
 /obj/machinery/door/airlock/external{
@@ -13371,7 +13247,7 @@
 /obj/structure/mineral_door/wood{
 	name = "Main chamber"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "kOF" = (
 /obj/structure/table/holotable/wood{
@@ -13393,14 +13269,6 @@
 /obj/item/bikehorn/airhorn,
 /turf/simulated/floor/plasteel/goonplaque/nosey,
 /area/wizard_station)
-"kPB" = (
-/obj/effect/turf_decal/siding/brown{
-	dir = 10
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership/infteam)
 "kPK" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -13472,7 +13340,7 @@
 /obj/machinery/economy/vending/cola/free{
 	name = "\improper Wizbust Softdrinks"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "kTZ" = (
 /obj/structure/window/reinforced{
@@ -13480,7 +13348,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/trash/candle,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/evac)
 "kUd" = (
 /obj/structure/table/reinforced,
@@ -13567,15 +13435,13 @@
 /area/syndicate_mothership/jail)
 "lbU" = (
 /obj/structure/punching_bag,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "lci" = (
 /obj/effect/turf_decal/siding/red{
 	color = "#aa2222"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "lcm" = (
 /turf/simulated/floor/mineral/plastitanium,
@@ -13634,7 +13500,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "leS" = (
 /obj/structure/chair/comfy/purp,
@@ -13731,9 +13597,7 @@
 	closingLayer = 3.11
 	},
 /obj/machinery/door/airlock/hatch/syndicate/command,
-/turf/simulated/floor/wood{
-	icon_state = "light-fancy-wood"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "ljn" = (
 /obj/machinery/economy/vending/boozeomat,
@@ -13760,13 +13624,11 @@
 /area/syndicate_mothership/control)
 "llM" = (
 /obj/effect/turf_decal/siding/brown,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "lmc" = (
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "lmy" = (
 /obj/item/storage/bible,
@@ -14169,9 +14031,7 @@
 	color = "red";
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "lxW" = (
 /obj/effect/turf_decal/arrows/white,
@@ -14236,7 +14096,7 @@
 /area/centcom/ss220/evac)
 "lAi" = (
 /obj/machinery/economy/slot_machine,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "lAx" = (
 /obj/structure/window/reinforced{
@@ -14383,7 +14243,7 @@
 "lGl" = (
 /obj/structure/bookcase/manuals,
 /obj/item/book/manual/wiki/sop_service,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "lGp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -14570,7 +14430,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "lKs" = (
 /obj/machinery/door/poddoor{
@@ -14702,14 +14562,6 @@
 	icon_state = "navybluealt"
 	},
 /area/syndicate_mothership/control)
-"lNw" = (
-/obj/effect/turf_decal/siding/brown/corner{
-	dir = 8
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
-/area/syndicate_mothership/infteam)
 "lNA" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -14755,9 +14607,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "lOq" = (
 /obj/structure/curtain/black{
@@ -14819,7 +14669,7 @@
 /obj/structure/light_fake/spot{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "lPW" = (
 /obj/item/kirbyplants,
@@ -14860,9 +14710,7 @@
 /obj/item/paicard/syndicate{
 	pixel_x = -4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "lRO" = (
 /turf/simulated/floor/plasteel/dark{
@@ -14894,7 +14742,7 @@
 /obj/structure/chair/sofa/right{
 	color = "#63009c"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "lSU" = (
 /obj/structure/chair{
@@ -15024,9 +14872,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "lXe" = (
 /obj/machinery/sleeper/syndie,
@@ -15104,9 +14950,7 @@
 "lZQ" = (
 /obj/structure/table,
 /obj/structure/bedsheetbin,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "maY" = (
 /obj/effect/decal/cleanable/blood,
@@ -15116,9 +14960,7 @@
 	pixel_y = -30
 	},
 /obj/machinery/recharge_station/upgraded,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "mbB" = (
 /obj/mecha/combat/gygax,
@@ -15169,9 +15011,7 @@
 "mcR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "mcX" = (
 /obj/machinery/door/poddoor/impassable{
@@ -15204,7 +15044,7 @@
 /area/shuttle/escape)
 "mfh" = (
 /obj/effect/decal/warning_stripes/white/hollow,
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "mgd" = (
 /obj/structure/sign/vacuum/external,
@@ -15224,14 +15064,6 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/carpet,
 /area/centcom/ss220/evac)
-"mhj" = (
-/obj/effect/turf_decal/siding/brown{
-	dir = 8
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/infteam)
 "mhk" = (
 /obj/structure/railing{
 	dir = 1
@@ -15489,7 +15321,7 @@
 /area/syndicate_mothership/control)
 "mpP" = (
 /obj/structure/reagent_dispensers/water_cooler,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "mpV" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
@@ -15580,9 +15412,7 @@
 /area/syndicate_mothership/control)
 "muB" = (
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "mvf" = (
 /turf/simulated/floor/plating/asteroid/ancient{
@@ -15634,9 +15464,7 @@
 	dir = 1;
 	base_icon_state = "sleeper_s-open"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "mws" = (
 /obj/machinery/bodyscanner,
@@ -15792,14 +15620,12 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/syndicate)
 "mGe" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "mGK" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/effect/turf_decal/woodsiding,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "mGP" = (
 /obj/item/kirbyplants,
@@ -15903,7 +15729,7 @@
 /obj/structure/light_fake/spot{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "mLO" = (
 /obj/structure/window/reinforced{
@@ -16057,7 +15883,7 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Казино"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "mSA" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -16307,14 +16133,6 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
-"ndm" = (
-/obj/effect/turf_decal/siding/brown/corner{
-	dir = 1
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/infteam)
 "neF" = (
 /obj/item/gun/rocketlauncher,
 /obj/item/gun/rocketlauncher,
@@ -16460,9 +16278,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "nlb" = (
 /obj/effect/spawner/random_spawners/syndicate/loot{
@@ -16542,9 +16358,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 9
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "noT" = (
 /obj/structure/table/abductor,
@@ -16637,9 +16451,7 @@
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Cargo Shuttle"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "nrJ" = (
 /obj/item/flag/nt,
@@ -17032,9 +16844,7 @@
 "nHx" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "nHO" = (
 /obj/effect/decal/cleanable/blood,
@@ -17486,9 +17296,7 @@
 	pixel_x = -32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "ogO" = (
 /obj/structure/window/reinforced{
@@ -17505,9 +17313,7 @@
 /obj/structure/light_fake/small{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "ohV" = (
 /obj/machinery/computer/shuttle/sst,
@@ -17571,11 +17377,6 @@
 	},
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/general)
-"olo" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken6"
-	},
-/area/syndicate_mothership)
 "olw" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/crate/medical,
@@ -17617,7 +17418,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/spawner/aroomwarp,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "ond" = (
 /obj/effect/decal/cleanable/blood,
@@ -18081,7 +17882,7 @@
 /area/centcom/ss220/bar)
 "oGb" = (
 /obj/structure/weightmachine/weightlifter,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "oGg" = (
 /obj/effect/turf_decal/siding/wood{
@@ -18299,9 +18100,7 @@
 /obj/structure/light_fake/spot{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "oPH" = (
 /obj/structure/closet/emcloset,
@@ -18349,9 +18148,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "oRq" = (
 /obj/effect/decal/syndie_logo{
@@ -18423,9 +18220,7 @@
 "oTB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/recharge_station/upgraded,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "oTI" = (
 /obj/structure/toilet{
@@ -18641,9 +18436,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "pai" = (
 /obj/structure/table/wood/fancy/royalblack,
@@ -18651,7 +18444,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "paM" = (
 /obj/structure/railing/corner{
@@ -18748,7 +18541,7 @@
 /turf/simulated/floor/grass/no_creep,
 /area/centcom/ss220/evac)
 "pfz" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/evac)
 "pfP" = (
 /obj/structure/closet/secure_closet/bar{
@@ -18820,9 +18613,7 @@
 /obj/machinery/door/poddoor/impassable{
 	id_tag = "syndFB_tool"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "light-fancy-wood"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "plv" = (
 /obj/structure/chair/stool,
@@ -18971,7 +18762,7 @@
 /obj/structure/light_fake/small{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/evac)
 "ptF" = (
 /obj/effect/turf_decal/box/red,
@@ -19296,7 +19087,7 @@
 	cover_color = "#68452a";
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "pHV" = (
 /obj/machinery/economy/vending/cigarette/free,
@@ -19392,9 +19183,7 @@
 	pixel_y = 32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "pLm" = (
 /obj/structure/table,
@@ -19505,9 +19294,7 @@
 "pNx" = (
 /obj/structure/table/wood,
 /obj/item/kitchen/knife,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "pNy" = (
 /obj/effect/decal/cleanable/dirt,
@@ -19838,9 +19625,7 @@
 	anchored = 1
 	},
 /obj/machinery/economy/vending/cola/free,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "qcz" = (
 /obj/effect/decal/warning_stripes/red,
@@ -20079,19 +19864,11 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/control)
-"qlV" = (
-/obj/effect/turf_decal/siding/brown{
-	dir = 1
-	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
-/area/syndicate_mothership/infteam)
 "qmm" = (
 /obj/machinery/economy/vending/snack/free{
 	name = "\improper Wizmore Chocolate Corp"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "qms" = (
 /obj/structure/table,
@@ -20221,7 +19998,7 @@
 	color = "#63009c";
 	dir = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "qsk" = (
 /obj/effect/turf_decal/delivery,
@@ -20237,18 +20014,16 @@
 	pixel_y = 32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "qsH" = (
 /obj/item/flag/nt,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "qsK" = (
 /obj/machinery/recharger,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "quh" = (
 /obj/machinery/door/poddoor/impassable{
@@ -20337,9 +20112,7 @@
 	req_access_txt = "153";
 	name = "Vault"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "light-fancy-wood"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "qyB" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -20516,9 +20289,7 @@
 	dir = 4;
 	light_range = 6
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "qFd" = (
 /obj/machinery/door/window/brigdoor{
@@ -20599,9 +20370,7 @@
 	pixel_y = 32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "qIX" = (
 /turf/simulated/floor/plasteel{
@@ -20617,15 +20386,13 @@
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "qJP" = (
 /obj/structure/holohoop{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "qKs" = (
 /obj/structure/closet/secure_closet/guncabinet{
@@ -20689,7 +20456,7 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "qLF" = (
 /obj/machinery/economy/vending/coffee/free,
@@ -20731,9 +20498,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/bed/dogbed,
 /mob/living/simple_animal/pet/dog/fox/Syndifox,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "qNB" = (
 /obj/structure/table/reinforced,
@@ -20961,7 +20726,7 @@
 /obj/item/candle/eternal/wizard{
 	pixel_y = 11
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "qXJ" = (
 /obj/machinery/door_control/no_emag/east{
@@ -21042,7 +20807,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 5
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "rak" = (
 /obj/structure/flora/rock/jungle,
@@ -21064,7 +20829,7 @@
 /area/syndicate_mothership/jail)
 "rbd" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "rbA" = (
 /obj/item/trash/plate,
@@ -21302,7 +21067,7 @@
 	anchored = 1;
 	color = "#996633"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "rmy" = (
 /obj/structure/bed/roller,
@@ -21332,9 +21097,7 @@
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_y = 30
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "rpv" = (
 /obj/docking_port/stationary/transit{
@@ -21422,9 +21185,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "rsA" = (
 /obj/machinery/teleport/station,
@@ -21484,9 +21245,7 @@
 	layer = 3.11;
 	closingLayer = 3.11
 	},
-/turf/simulated/floor/wood{
-	icon_state = "light-fancy-wood"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "rsT" = (
 /obj/machinery/door/window/classic/normal{
@@ -21683,11 +21442,6 @@
 "rwc" = (
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/evac)
-"rwn" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken3"
-	},
-/area/syndicate_mothership)
 "rwr" = (
 /obj/structure/rack,
 /obj/item/melee/classic_baton/telescopic{
@@ -21721,9 +21475,7 @@
 /obj/effect/turf_decal/siding/red{
 	color = "#aa2222"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "rxX" = (
 /obj/machinery/door/airlock/external{
@@ -21830,7 +21582,7 @@
 /obj/item/gavelhammer{
 	desc = "Order, order! No bombs in my council chamber."
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "rDf" = (
 /obj/machinery/economy/vending/chinese/free,
@@ -21844,9 +21596,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "rDS" = (
 /obj/machinery/hydroponics/constructable,
@@ -21905,9 +21655,7 @@
 /obj/effect/turf_decal/siding/red{
 	color = "#aa2222"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "rIi" = (
 /obj/structure/window/reinforced,
@@ -21922,7 +21670,7 @@
 	cover_color = "#68452a";
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "rJo" = (
 /obj/effect/turf_decal/siding/wood{
@@ -21946,9 +21694,7 @@
 	dir = 1
 	},
 /obj/item/flag/syndi,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "rKv" = (
 /obj/machinery/door/airlock/hatch/syndicate{
@@ -21960,9 +21706,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "rKA" = (
 /obj/effect/decal/syndie_logo{
@@ -22009,9 +21753,7 @@
 /area/centcom/ss220/admin1)
 "rMi" = (
 /obj/machinery/washing_machine,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "rNd" = (
 /obj/structure/table/wood,
@@ -22097,7 +21839,7 @@
 	cover_color = "#68452a";
 	layer = 3.1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "rQA" = (
 /obj/structure/rack,
@@ -22137,7 +21879,7 @@
 /obj/structure/chair/stool/bar/dark{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "rRY" = (
 /obj/structure/light_fake{
@@ -22145,9 +21887,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "rSQ" = (
 /obj/machinery/conveyor/west{
@@ -22173,9 +21913,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "rSX" = (
 /obj/machinery/door/airlock/centcom{
@@ -22384,9 +22122,7 @@
 	anchored = 1
 	},
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "rYm" = (
 /turf/simulated/floor/plasteel{
@@ -22414,9 +22150,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 30
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "rYI" = (
 /obj/machinery/computer/operating{
@@ -22429,9 +22163,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "rYT" = (
 /obj/machinery/computer/communications{
@@ -22439,11 +22171,6 @@
 	},
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
-"rZC" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken3"
-	},
-/area/syndicate_mothership/infteam)
 "saI" = (
 /obj/effect/turf_decal/siding/black{
 	dir = 1
@@ -22563,7 +22290,7 @@
 /obj/item/beach_ball{
 	pixel_y = 12
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "seb" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -22596,9 +22323,7 @@
 "sfM" = (
 /obj/structure/table,
 /obj/item/storage/fancy/crayons,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "sfS" = (
 /obj/effect/turf_decal/bot,
@@ -22848,9 +22573,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/centcom/ss220/park)
 "srn" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "srA" = (
 /obj/machinery/computer/shuttle/ert{
@@ -22875,7 +22598,7 @@
 	color = "#63009c";
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "stW" = (
 /obj/structure/shuttle/engine/huge,
@@ -23005,9 +22728,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 8
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "sDG" = (
 /obj/effect/landmark/abductor/scientist{
@@ -23369,9 +23090,7 @@
 /obj/effect/turf_decal/siding/red{
 	color = "#aa2222"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "sPz" = (
 /obj/machinery/light/small/directional/north,
@@ -23476,9 +23195,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "sUZ" = (
 /obj/effect/turf_decal/stripes/line,
@@ -23512,7 +23229,7 @@
 	on = 1;
 	pixel_y = 10
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "sXy" = (
 /obj/structure/barricade{
@@ -23606,9 +23323,7 @@
 	anchored = 1
 	},
 /obj/machinery/economy/vending/chinese/free,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "tbe" = (
 /obj/effect/turf_decal/siding/wood{
@@ -23664,7 +23379,7 @@
 /area/shuttle/escape)
 "tcB" = (
 /obj/machinery/economy/arcade/claw,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "tcQ" = (
 /obj/machinery/sleeper{
@@ -23837,9 +23552,7 @@
 /obj/structure/chair/stool/bar{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "tlS" = (
 /obj/structure/shuttle/engine/heater,
@@ -24019,7 +23732,7 @@
 /area/syndicate_mothership/control)
 "tti" = (
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/evac)
 "tut" = (
 /obj/structure/bed,
@@ -24050,9 +23763,7 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "twj" = (
 /obj/machinery/economy/vending/coffee,
@@ -24091,7 +23802,7 @@
 /area/syndicate_mothership/jail)
 "twu" = (
 /obj/structure/chair/stool/bar/dark,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "txK" = (
 /obj/structure/window/reinforced{
@@ -24118,7 +23829,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "txW" = (
 /obj/structure/light_fake/spot{
@@ -24146,11 +23857,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
-"tAk" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken7"
-	},
-/area/syndicate_mothership/infteam)
 "tAn" = (
 /obj/structure/light_fake/spot{
 	dir = 1
@@ -24176,9 +23882,7 @@
 	closingLayer = 3.1
 	},
 /obj/machinery/door/airlock/hatch/syndicate/command,
-/turf/simulated/floor/wood{
-	icon_state = "light-fancy-wood"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "tAJ" = (
 /obj/item/pizzabox/meat{
@@ -24246,9 +23950,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "tCg" = (
 /obj/structure/closet,
@@ -24326,9 +24028,7 @@
 	req_access_txt = "153";
 	name = "Vault"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "light-fancy-wood"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "tHw" = (
 /obj/structure/chair/sofa/corp/left{
@@ -24603,12 +24303,6 @@
 /obj/structure/light_fake/spot,
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/admin2)
-"tRH" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken4"
-	},
-/area/syndicate_mothership)
 "tRZ" = (
 /obj/structure/fence/post{
 	invulnerable = 1
@@ -24634,9 +24328,7 @@
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/item/reagent_containers/food/snacks/grown/banana,
 /obj/item/reagent_containers/food/snacks/grown/banana,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "tSu" = (
 /turf/simulated/floor/plasteel/dark{
@@ -24760,9 +24452,7 @@
 /area/centcom/ss220/admin1)
 "tWa" = (
 /obj/structure/light_fake/small,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "tWq" = (
 /obj/effect/turf_decal/stripes/line{
@@ -24805,9 +24495,7 @@
 /area/abductor_ship)
 "tYt" = (
 /obj/machinery/economy/vending/syndisnack,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "tYw" = (
 /obj/effect/decal/nanotrasen_logo/n1,
@@ -24819,7 +24507,7 @@
 /area/trader_station/sol)
 "tYW" = (
 /obj/structure/closet/boxinggloves,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "tZc" = (
 /obj/effect/landmark/abductor/scientist,
@@ -24889,9 +24577,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "ubR" = (
 /obj/item/kirbyplants,
@@ -25098,9 +24784,7 @@
 	dir = 1;
 	base_icon_state = "sleeper_s-open"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "ulL" = (
 /obj/effect/landmark/spawner/syndieprisonwarp,
@@ -25136,7 +24820,7 @@
 	pixel_y = 11
 	},
 /obj/item/coin/uranium,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "uns" = (
 /obj/structure/mirror{
@@ -25307,7 +24991,7 @@
 /obj/item/beach_ball{
 	pixel_y = 12
 	},
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "uvv" = (
 /obj/structure/chair/sofa/corp/right,
@@ -25322,9 +25006,7 @@
 "uwa" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "uws" = (
 /obj/structure/window/reinforced{
@@ -25344,9 +25026,7 @@
 	anchored = 1
 	},
 /obj/machinery/economy/vending/cigarette/free,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "uxI" = (
 /turf/simulated/floor/plasteel/dark{
@@ -25624,7 +25304,7 @@
 /area/shuttle/trade/sol)
 "uIE" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "uJb" = (
 /obj/structure/sink/kitchen/west,
@@ -25809,9 +25489,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/flashlight/seclite,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "uOO" = (
 /obj/structure/light_fake/small{
@@ -26130,9 +25808,7 @@
 /obj/structure/light_fake/small{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "vfs" = (
 /obj/effect/turf_decal/stripes/line{
@@ -26329,9 +26005,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 10
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "vmi" = (
 /obj/effect/turf_decal/delivery/white,
@@ -26457,13 +26131,11 @@
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/syndicate_mothership/outside)
 "vrg" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/admin1)
 "vru" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "vry" = (
 /obj/machinery/economy/vending/cola/free,
@@ -26489,9 +26161,7 @@
 	pixel_y = 32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "vsE" = (
 /obj/item/flag/nt,
@@ -26554,9 +26224,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "vuz" = (
 /obj/structure/table/reinforced,
@@ -26606,9 +26274,7 @@
 	pixel_x = 30
 	},
 /obj/item/reagent_containers/food/drinks/cans/beer,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "vwP" = (
 /obj/machinery/sleeper/upgraded{
@@ -26906,15 +26572,11 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "vJf" = (
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "vKj" = (
 /obj/item/kirbyplants,
@@ -27395,7 +27057,7 @@
 	cover_color = "#68452a";
 	layer = 3.1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "wfo" = (
 /obj/machinery/economy/vending/cola/free,
@@ -27470,9 +27132,7 @@
 	specialfunctions = 4;
 	wires = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "wgD" = (
 /obj/structure/table/reinforced,
@@ -27484,7 +27144,7 @@
 "wgG" = (
 /obj/structure/rack,
 /obj/item/kitchen/knife/carrotshiv,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "wgM" = (
 /obj/structure/curtain/black{
@@ -27510,9 +27170,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "wjw" = (
 /obj/effect/turf_decal/miscellaneous/goldensiding{
@@ -27560,9 +27218,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -30
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken4"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "wkC" = (
 /obj/machinery/door/poddoor{
@@ -27718,7 +27374,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "wtn" = (
 /obj/structure/table/wood,
@@ -27812,7 +27468,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 10
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "wxv" = (
 /obj/structure/shuttle/engine/platform{
@@ -28152,9 +27808,7 @@
 /obj/item/paper/syndimemo{
 	info = "ПОЛУЧИТЕ ЭТОТ ЕБУЧИЙ ДИСК!"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "wMP" = (
 /obj/effect/turf_decal/bot,
@@ -28195,7 +27849,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "wOm" = (
 /obj/structure/chair/sofa/corp/right{
@@ -28235,18 +27889,14 @@
 /turf/simulated/floor/plating,
 /area/centcom/ss220/admin2)
 "wOK" = (
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "wOX" = (
 /obj/machinery/economy/vending/tool/free,
 /obj/effect/turf_decal/siding/brown{
 	dir = 6
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "wPj" = (
 /obj/machinery/door/window/brigdoor{
@@ -28255,9 +27905,7 @@
 	icon_state = "rightsecure";
 	name = "Riot Control"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "wPL" = (
 /obj/structure/table/wood,
@@ -28356,12 +28004,6 @@
 	color = "#f63d3d"
 	},
 /area/syndicate_mothership/elite_squad)
-"wSw" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak-broken3"
-	},
-/area/syndicate_mothership)
 "wSY" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -28420,9 +28062,7 @@
 /obj/structure/sign/poster/contraband/c20r{
 	pixel_y = 32
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "wXx" = (
 /obj/structure/table/wood,
@@ -28434,9 +28074,7 @@
 	pixel_y = -32;
 	anchored = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "wYb" = (
 /obj/machinery/computer/shuttle/trade/sol,
@@ -28489,9 +28127,7 @@
 /obj/structure/chair/stool/bar{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "xau" = (
 /obj/docking_port/stationary/transit{
@@ -28548,13 +28184,13 @@
 /obj/effect/decal/warning_stripes/red/partial{
 	dir = 4
 	},
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "xbh" = (
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "xbw" = (
 /obj/structure/curtain/black{
@@ -28789,9 +28425,7 @@
 "xfp" = (
 /obj/structure/bed/dogbed,
 /mob/living/simple_animal/pet/cat/Syndi,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "xft" = (
 /obj/structure/bed,
@@ -28837,9 +28471,7 @@
 	dir = 1;
 	name = "Riot Control"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "xhK" = (
 /obj/effect/turf_decal/stripes/line{
@@ -29139,9 +28771,7 @@
 	dir = 1
 	},
 /obj/structure/rack/gunrack,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "xqM" = (
 /obj/item/flag/species/nian,
@@ -29245,9 +28875,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "xui" = (
 /obj/machinery/door/poddoor{
@@ -29285,9 +28913,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "xvt" = (
 /obj/structure/chair/comfy/shuttle/dark,
@@ -29302,9 +28928,7 @@
 	},
 /obj/structure/light_fake/small,
 /obj/effect/turf_decal/siding/brown,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "xvT" = (
 /obj/structure/table/wood{
@@ -29378,7 +29002,7 @@
 /area/shuttle/trade/sol)
 "xzc" = (
 /mob/living/carbon/human/monkey,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "xzF" = (
 /obj/effect/turf_decal/loading_area{
@@ -29433,9 +29057,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership)
 "xCA" = (
 /obj/machinery/light/spot,
@@ -29586,9 +29208,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 5
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-cherry"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/infteam)
 "xJF" = (
 /obj/structure/table/reinforced{
@@ -29700,7 +29320,7 @@
 /area/syndicate_mothership/control)
 "xPP" = (
 /obj/structure/weightmachine/stacklifter,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/park)
 "xQh" = (
 /obj/machinery/door/airlock/bathroom{
@@ -30027,15 +29647,13 @@
 	dir = 4
 	},
 /obj/structure/window/reinforced,
-/turf/simulated/floor/wood/fancy/light,
+/turf/simulated/floor/wood/fancy,
 /area/centcom/ss220/evac)
 "yfo" = (
 /obj/machinery/door/airlock/hatch/syndicate{
 	name = "Syndicate Base"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "fancy-wood-oak"
-	},
+/turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/elite_squad)
 "yfK" = (
 /obj/machinery/economy/vending/cola/free,
@@ -30047,7 +29665,7 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "ygI" = (
 /obj/machinery/conveyor/south{
@@ -30117,7 +29735,7 @@
 /obj/structure/light_fake/spot{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/centcom/ss220/bar)
 "yiU" = (
 /obj/machinery/economy/vending/boozeomat,
@@ -30190,7 +29808,7 @@
 /obj/structure/window/reinforced/clockwork{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "ylD" = (
 /obj/machinery/door/airlock/titanium/glass{
@@ -32281,16 +31899,16 @@ tJz
 gRN
 uOr
 mgo
-bXa
-mhj
+noE
+bfI
 vkV
 mqM
 sDK
 wPX
 eRO
 lae
-bXa
-mhj
+noE
+bfI
 vkV
 mgo
 tTd
@@ -32538,16 +32156,16 @@ vfU
 vfU
 eFJ
 mgo
-qlV
-clZ
+rSW
+wOK
 llM
 lWm
 rlY
 vtt
 itv
 hLU
-qlV
-clZ
+rSW
+wOK
 llM
 mgo
 mgo
@@ -32795,16 +32413,16 @@ yex
 vfU
 jhI
 mgo
-qlV
-clZ
+rSW
+wOK
 llM
 bIG
 pub
 rjq
 nuW
 owu
-qlV
-clZ
+rSW
+wOK
 llM
 mgo
 gDb
@@ -33052,16 +32670,16 @@ vfU
 vfU
 jJQ
 mgo
-qlV
-clZ
+rSW
+wOK
 llM
 wNi
 xKy
 vqa
 vKE
 fOP
-qlV
-clZ
+rSW
+wOK
 llM
 mgo
 mgo
@@ -33303,22 +32921,22 @@ mlS
 tJz
 vfU
 bfI
-kPB
+vkV
 vZM
 mgo
 xvf
 mgo
 mgo
-qlV
-clZ
+rSW
+wOK
 aAs
-mhj
-mhj
-mhj
-mhj
-mhj
-ndm
-clZ
+bfI
+bfI
+bfI
+bfI
+bfI
+dGk
+wOK
 llM
 mgo
 mgo
@@ -33560,7 +33178,7 @@ sIG
 tJz
 vfU
 jbl
-fld
+llM
 vZM
 gIY
 xvf
@@ -34074,7 +33692,7 @@ mvf
 mvf
 iUB
 wOK
-fld
+llM
 niK
 jyV
 vfU
@@ -34097,7 +33715,7 @@ vfU
 epI
 aaz
 rSW
-bWb
+wOK
 quh
 mvf
 mvf
@@ -34331,7 +33949,7 @@ mvf
 tJz
 vfU
 jbl
-fld
+llM
 naF
 iAz
 vfU
@@ -34588,7 +34206,7 @@ tJz
 tJz
 vfU
 wOK
-lNw
+aAs
 bfI
 bfI
 sDq
@@ -34605,7 +34223,7 @@ chG
 xny
 bDX
 vfU
-hIR
+bfI
 bfI
 dzR
 bfI
@@ -34867,7 +34485,7 @@ wOK
 wOK
 wOK
 wOK
-rZC
+wOK
 ubx
 gRN
 tJz
@@ -35380,7 +34998,7 @@ wOK
 wOK
 wOK
 wOK
-tAk
+wOK
 wOK
 ubx
 gRN
@@ -38481,7 +38099,7 @@ vru
 vru
 srn
 srn
-rwn
+srn
 lWU
 pUk
 tJz
@@ -38733,7 +38351,7 @@ fnU
 cFP
 gHP
 srn
-jaL
+srn
 srn
 srn
 srn
@@ -39251,7 +38869,7 @@ vgC
 aad
 rvd
 nby
-olo
+srn
 fnU
 fnU
 fnU
@@ -40020,7 +39638,7 @@ gHP
 vru
 srn
 vru
-iiC
+srn
 srn
 srn
 srn
@@ -41049,7 +40667,7 @@ ePf
 hOo
 hOo
 fnU
-jaL
+srn
 vru
 vru
 uln
@@ -41308,7 +40926,7 @@ ePf
 ios
 vru
 vru
-wSw
+vru
 mwf
 fnU
 bnr
@@ -43103,7 +42721,7 @@ vJf
 pUQ
 dCB
 pUQ
-rwn
+srn
 fnU
 kEs
 mEk
@@ -44129,7 +43747,7 @@ rnW
 fnU
 tYt
 srn
-iiC
+srn
 mEk
 suT
 fnU
@@ -44642,7 +44260,7 @@ epF
 hxf
 fnU
 lRu
-tRH
+vru
 iiw
 mEk
 bnr
@@ -45670,7 +45288,7 @@ sUZ
 gOQ
 fnU
 sfM
-rwn
+srn
 srn
 mEk
 mUc
@@ -46185,7 +45803,7 @@ gOQ
 fnU
 rMi
 veZ
-olo
+srn
 mEk
 jLT
 fnU

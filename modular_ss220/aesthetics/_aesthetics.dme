@@ -15,6 +15,7 @@
 #include "extinguisher\code\extinguisher.dm"
 #include "firealarm\code\firealarm.dm"
 #include "floors\code\floors.dm"
+#include "floors\code\tile_types.dm"
 #include "goonstation\code\items.dm"
 #include "hydroponics\code\hydroponics.dm"
 #include "keycard\code\keycard.dm"
@@ -39,7 +40,6 @@
 #include "intercom\code\intercom.dm"
 #include "walls\code\walls.dm"
 #include "windows\code\windows.dm"
-#include "floors\code\tile_types.dm"
 #include "decals\code\decals.dm"
 #include "airlocks\code\airlock.dm"
 #include "airlocks\code\airlock_types.dm"
@@ -49,3 +49,4 @@
 #include "sheets\code\sheets.dm"
 #include "applicator\code\applicator.dm"
 #include "satellite\code\satellite.dm"
+

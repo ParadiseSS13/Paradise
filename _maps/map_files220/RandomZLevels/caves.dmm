@@ -370,10 +370,8 @@
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "bG" = (
 /obj/structure/flora/rock/pile,
@@ -475,9 +473,8 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "cc" = (
 /obj/structure/flora/rock/pile,
@@ -701,7 +698,7 @@
 "db" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "dh" = (
 /obj/structure/statue{
@@ -740,7 +737,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "dk" = (
 /obj/effect/decal/cleanable/generic,
@@ -882,7 +879,7 @@
 	},
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "dU" = (
 /obj/structure/girder/reinforced,
@@ -1018,7 +1015,7 @@
 /obj/item/kirbyplants,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/light_construct/small/north,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "eK" = (
 /mob/living/simple_animal/hostile/abomination/altform4{
@@ -1192,9 +1189,8 @@
 	},
 /obj/structure/coatrack,
 /obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken2"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "fs" = (
 /obj/item/shard{
@@ -1275,7 +1271,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "fO" = (
 /obj/effect/spawner/random_spawners/grille_maybe,
@@ -1981,7 +1977,7 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/light_construct/small/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "jt" = (
 /obj/structure/statue{
@@ -2047,7 +2043,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "jM" = (
 /obj/structure/closet/radiation,
@@ -2875,7 +2871,7 @@
 "oa" = (
 /obj/structure/chair/comfy/black,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "oc" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3243,7 +3239,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/machinery/light_construct/small/east,
 /obj/structure/coatrack,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "qo" = (
 /obj/structure/closet/secure_closet{
@@ -3956,7 +3952,7 @@
 	dir = 6
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "ue" = (
 /obj/structure/stone_tile/slab/cracked{
@@ -4069,7 +4065,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "uJ" = (
 /obj/structure/chair/wood{
@@ -4235,7 +4231,7 @@
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/light_construct/small/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "vE" = (
 /obj/structure/closet/crate/freezer,
@@ -4294,7 +4290,7 @@
 	dir = 9
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "vS" = (
 /obj/structure/stone_tile/slab/cracked{
@@ -4660,9 +4656,8 @@
 	},
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken2"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "xS" = (
 /obj/effect/spawner/random_spawners/blood_often,
@@ -4695,9 +4690,8 @@
 /obj/effect/turf_decal/siding/wood/corner,
 /obj/structure/barricade/wooden,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "ye" = (
 /obj/structure/stone_tile/slab/cracked{
@@ -4909,9 +4903,8 @@
 	},
 /obj/structure/table/wood,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "zg" = (
 /obj/structure/dresser,
@@ -6095,7 +6088,7 @@
 /obj/item/pen,
 /obj/effect/turf_decal/siding/wood,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "FA" = (
 /obj/effect/spawner/random_spawners/blood_often,
@@ -6747,7 +6740,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "IS" = (
 /obj/effect/turf_decal/box,
@@ -7270,7 +7263,7 @@
 /area/awaymission/caves)
 "Ll" = (
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "Lm" = (
 /obj/structure/stone_tile/slab/cracked{
@@ -7355,7 +7348,7 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "LH" = (
 /turf/simulated/floor/plating/lavaland_air,
@@ -7370,7 +7363,7 @@
 /obj/structure/table,
 /obj/item/gun/projectile/revolver/russian,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "LM" = (
 /obj/machinery/computer{
@@ -7565,7 +7558,7 @@
 /area/awaymission/caves/build)
 "Nq" = (
 /obj/machinery/door/airlock/survival_pod,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "Nt" = (
 /obj/structure/stone_tile/slab/cracked{
@@ -7587,7 +7580,7 @@
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "NE" = (
 /obj/structure/cult/pylon,
@@ -7708,7 +7701,7 @@
 /mob/living/simple_animal/mouse,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "Og" = (
 /obj/effect/spawner/random_spawners/grille_often,
@@ -7878,7 +7871,7 @@
 	dir = 9
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "Pf" = (
 /obj/machinery/door/airlock/medical/glass,
@@ -8553,9 +8546,8 @@
 	amount = 3
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "SV" = (
 /obj/structure/sink/puddle,
@@ -8631,7 +8623,7 @@
 /area/awaymission/caves)
 "Tk" = (
 /obj/structure/bookcase/random,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "Tl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -9502,9 +9494,8 @@
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "Xc" = (
 /obj/effect/turf_decal/bot,
@@ -9698,11 +9689,7 @@
 /area/awaymission/caves)
 "XS" = (
 /obj/structure/bookcase/random,
-/turf/simulated/floor/wood{
-	nitrogen = 23;
-	oxygen = 14;
-	planetary_atmos = 1
-	},
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves)
 "XT" = (
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -9842,7 +9829,7 @@
 	dir = 4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "YI" = (
 /obj/structure/closet,
@@ -9971,9 +9958,8 @@
 	},
 /obj/structure/table/wood,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "Zz" = (
 /obj/structure/closet/crate/wooden/wooden_crate,
@@ -10061,9 +10047,8 @@
 "ZZ" = (
 /obj/effect/decal/cleanable/shreds,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken5"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 
 (1,1,1) = {"

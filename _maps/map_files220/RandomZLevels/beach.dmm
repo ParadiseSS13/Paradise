@@ -9,7 +9,7 @@
 	pixel_x = 6;
 	pixel_y = 2
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "bc" = (
 /obj/structure/flora/ausbushes/leafybush,
@@ -404,35 +404,35 @@
 /area/awaymission/beach)
 "cO" = (
 /obj/structure/chair/stool,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "cS" = (
 /obj/structure/closet/gmcloset{
 	name = "formal wardrobe"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "cU" = (
 /obj/structure/closet/secure_closet/bar,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "cV" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "cW" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/beer{
 	pixel_y = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "cX" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/soda{
 	pixel_y = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "cY" = (
 /obj/structure/flora/rock/pile,
@@ -442,16 +442,16 @@
 /obj/machinery/economy/vending/boozeomat{
 	emagged = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "da" = (
 /obj/structure/table/wood,
 /obj/item/clothing/glasses/sunglasses,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "db" = (
 /obj/machinery/economy/vending/cola,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "dc" = (
 /obj/structure/flora/ausbushes/palebush,
@@ -490,18 +490,18 @@
 /area/awaymission/beach)
 "dl" = (
 /obj/machinery/economy/vending/cigarette,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "dm" = (
 /obj/machinery/economy/vending/snack,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "dn" = (
 /obj/structure/curtain/open,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "dq" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "dr" = (
 /turf/simulated/floor/beach/away/water,
@@ -534,7 +534,7 @@
 /area/awaymission/beach)
 "dA" = (
 /obj/structure/mineral_door/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/awaymission/beach)
 "dB" = (
 /obj/structure/flora/grass/green,

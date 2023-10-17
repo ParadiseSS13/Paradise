@@ -17,25 +17,35 @@
 	floor_tile = /obj/item/stack/tile/wood/cherry
 	broken_states = list("wood-cherry-broken", "wood-cherry-broken2", "wood-cherry-broken3", "wood-cherry-broken4", "wood-cherry-broken5", "wood-cherry-broken6", "wood-cherry-broken7")
 
+/turf/simulated/floor/wood/fancy
+	icon_state = "fancy-wood"
+	floor_tile = /obj/item/stack/tile/wood/fancy
+	broken_states = list("fancy-wood-broken", "fancy-wood-broken2", "fancy-wood-broken3")
+
 /turf/simulated/floor/wood/fancy/oak
 	icon_state = "fancy-wood-oak"
 	floor_tile = /obj/item/stack/tile/wood/fancy/oak
-	broken_states = list("fancy-wood-oak-broken", "fancy-wood-oak-broken2", "fancy-wood-oak-broken3", "fancy-wood-oak-broken4", "fancy-wood-oak-broken5", "fancy-wood-oak-broken6", "fancy-wood-oak-broken7")
+	broken_states = list("fancy-wood-oak-broken", "fancy-wood-oak-broken2", "fancy-wood-oak-broken3")
 
 /turf/simulated/floor/wood/fancy/birch
 	icon_state = "fancy-wood-birch"
 	floor_tile = /obj/item/stack/tile/wood/fancy/birch
-	broken_states = list("fancy-wood-birch-broken", "fancy-wood-birch-broken2", "fancy-wood-birch-broken3", "fancy-wood-birch-broken4", "fancy-wood-birch-broken5", "fancy-wood-birch-broken6", "fancy-wood-birch-broken7")
+	broken_states = list("fancy-wood-birch-broken", "fancy-wood-birch-broken2", "fancy-wood-birch-broken3")
 
 /turf/simulated/floor/wood/fancy/cherry
 	icon_state = "fancy-wood-cherry"
 	floor_tile = /obj/item/stack/tile/wood/fancy/cherry
-	broken_states = list("fancy-wood-cherry-broken", "fancy-wood-cherry-broken2", "fancy-wood-cherry-broken3", "fancy-wood-cherry-broken4", "fancy-wood-cherry-broken5", "fancy-wood-cherry-broken6", "fancy-wood-cherry-broken7")
+	broken_states = list("fancy-wood-cherry-broken", "fancy-wood-cherry-broken2", "fancy-wood-cherry-broken3")
 
-/turf/simulated/floor/wood/fancy/light
-	icon_state = "light-fancy-wood"
-	floor_tile = /obj/item/stack/tile/wood/fancy/light
-	broken_states = list("light-fancy-wood-broken", "light-fancy-wood-broken2", "light-fancy-wood-broken3", "light-fancy-wood-broken4", "light-fancy-wood-broken5", "light-fancy-wood-broken6", "light-fancy-wood-broken7")
+/turf/simulated/floor/wood/parquet
+	icon_state = "wood_parquet"
+	floor_tile = /obj/item/stack/tile/wood/parquet
+	broken_states = list("wood_parquet-broken", "wood_parquet-broken2", "wood_parquet-broken3", "wood_parquet-broken4", "wood_parquet-broken5", "wood_parquet-broken6", "wood_parquet-broken7")
+
+/turf/simulated/floor/wood/parquet/tile
+	icon_state = "wood_tile"
+	floor_tile = /obj/item/stack/tile/wood/parquet/tile
+	broken_states = list("wood_tile-broken", "wood_tile-broken2", "wood_tile-broken3")
 
 // LIGHT FLOORS
 /turf/simulated/floor/light

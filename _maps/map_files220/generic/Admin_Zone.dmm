@@ -12,7 +12,7 @@
 "aw" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/immolator/multi,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "ax" = (
 /obj/structure/table,
@@ -22,7 +22,7 @@
 /obj/item/storage/box/mousetraps,
 /obj/item/storage/fancy/cigarettes,
 /obj/item/pen,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "aA" = (
 /obj/machinery/door/poddoor{
@@ -60,7 +60,7 @@
 "by" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/enforcer/lethal,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "bz" = (
 /obj/effect/decal/warning_stripes/blue,
@@ -81,7 +81,7 @@
 /obj/item/grenade/chem_grenade/large,
 /obj/item/grenade/chem_grenade/large,
 /obj/item/grenade/chem_grenade/large,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "bL" = (
 /turf/simulated/floor/plasteel{
@@ -100,13 +100,13 @@
 "cz" = (
 /obj/structure/table/wood,
 /obj/item/gun/medbeam,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "cB" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
 /obj/machinery/light/small/directional/south,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "cI" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -129,7 +129,7 @@
 /obj/item/clothing/gloves/space_ninja,
 /obj/item/clothing/suit/space/space_ninja,
 /obj/item/katana/energy,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "cT" = (
 /obj/machinery/door_control/no_emag{
@@ -158,12 +158,12 @@
 "dk" = (
 /obj/structure/table/wood,
 /obj/item/bostaff,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "dn" = (
 /obj/structure/table/wood,
 /obj/item/pizzabox/pizza_bomb,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "do" = (
 /obj/structure/table/wood,
@@ -173,7 +173,7 @@
 "dw" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/immolator,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "dx" = (
 /obj/machinery/door_control/no_emag{
@@ -189,7 +189,7 @@
 "dA" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/lasercannon,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "dB" = (
 /obj/structure/rack/holorack,
@@ -229,7 +229,7 @@
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator,
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator,
 /obj/item/ammo_box/magazine/sniper_rounds/penetrator,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "ea" = (
 /obj/structure/table/wood/poker,
@@ -273,7 +273,7 @@
 "er" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/teleport,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "ew" = (
 /obj/structure/holowindow,
@@ -296,7 +296,7 @@
 /obj/item/tank/internals/oxygen/yellow,
 /obj/random/bomb_supply,
 /obj/item/clothing/head/sombrero/shamebrero,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "eG" = (
 /obj/structure/table/wood,
@@ -315,12 +315,12 @@
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/boltaction,
 /obj/item/gun/projectile/shotgun/boltaction/enchanted,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "eY" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/proto,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "fb" = (
 /turf/simulated/floor/holofloor{
@@ -367,7 +367,7 @@
 "fF" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "fG" = (
 /obj/machinery/computer/security/telescreen{
@@ -389,17 +389,17 @@
 /obj/item/stack/cable_coil,
 /obj/item/stack/rods,
 /obj/item/pen,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "gd" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/grenadelauncher/multi/cyborg,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "gk" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/door,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "gq" = (
 /turf/simulated/wall/indestructible/fakeglass,
@@ -422,7 +422,7 @@
 /obj/item/paper{
 	info = "/obj/item/gun/projectile/shotgun/sc_pump"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "gS" = (
 /obj/structure/table/wood,
@@ -436,7 +436,7 @@
 /obj/item/encryptionkey/headset_sci,
 /obj/item/encryptionkey/headset_sec,
 /obj/item/encryptionkey/headset_service,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "hd" = (
 /obj/structure/table/holotable,
@@ -451,12 +451,12 @@
 /obj/mecha/combat/marauder/mauler/loaded{
 	operation_req_access = list(114)
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "hi" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/ar,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "ho" = (
 /obj/structure/table/wood,
@@ -499,7 +499,7 @@
 "hE" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/slipping/honkmother,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "hI" = (
 /obj/effect/landmark/spawner/tdome1,
@@ -521,12 +521,12 @@
 /obj/mecha/combat/gygax/dark/loaded{
 	operation_req_access = list(114)
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "hZ" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/c20r/toy,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "ib" = (
 /obj/structure/table/wood,
@@ -541,12 +541,12 @@
 "io" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/riot,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "iM" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/pistol,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "iY" = (
 /obj/machinery/light/small/directional/west,
@@ -570,12 +570,12 @@
 "jl" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/grenadelauncher,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "jq" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "jB" = (
 /obj/structure/table/wood,
@@ -609,12 +609,12 @@
 /obj/item/paper{
 	info = "Я так понял был энфорсер с Сибилом."
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "jM" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/change,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "jQ" = (
 /obj/structure/chair/comfy/black{
@@ -637,7 +637,7 @@
 "jZ" = (
 /obj/item/bedsheet/black,
 /obj/structure/bed,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "kb" = (
 /obj/machinery/door/poddoor{
@@ -657,12 +657,12 @@
 "ki" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/floragun,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "ko" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/resurrection,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "kq" = (
 /obj/structure/table/wood,
@@ -693,7 +693,7 @@
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /obj/item/reagent_containers/food/snacks/grown/corn,
 /obj/item/reagent_containers/food/snacks/grown/mushroom/amanita,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "kT" = (
 /obj/structure/table/wood,
@@ -705,7 +705,7 @@
 "kU" = (
 /obj/structure/table/wood,
 /obj/item/grenade/clusterbuster/syndieminibomb,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "kY" = (
 /turf/simulated/floor/holofloor{
@@ -736,7 +736,7 @@
 /area/holodeck/source_thunderdomecourt)
 "lt" = (
 /obj/machinery/light/small/directional/east,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "lA" = (
 /obj/item/storage/toolbox/syndicate{
@@ -745,16 +745,16 @@
 	name = "toolbox of robustness"
 	},
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "lE" = (
 /obj/machinery/light/small/directional/west,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "lR" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/deagle,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "lT" = (
 /obj/item/kirbyplants,
@@ -783,7 +783,7 @@
 "mn" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/nagant,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "mw" = (
 /obj/structure/table/holotable,
@@ -799,7 +799,7 @@
 "mB" = (
 /obj/item/gun/rocketlauncher,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "mC" = (
 /obj/machinery/status_display,
@@ -812,7 +812,7 @@
 	pixel_x = -6;
 	pixel_y = 6
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "mR" = (
 /obj/structure/table/wood,
@@ -826,7 +826,7 @@
 "mU" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/mateba,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "mX" = (
 /turf/simulated/floor/holofloor{
@@ -879,7 +879,7 @@
 /obj/structure/ninjatele{
 	pixel_x = -28
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "nM" = (
 /obj/structure/table/holotable,
@@ -895,14 +895,14 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "nU" = (
 /obj/structure/table/wood,
 /obj/item/paper{
 	info = "/obj/item/gun/projectile/shotgun/riot/buckshot"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "nW" = (
 /obj/structure/chair,
@@ -914,7 +914,7 @@
 /obj/item/paper{
 	info = "Какой-то /obj/item/gun/energy/laser/retro/sc_retro. Хз что это."
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "nZ" = (
 /turf/simulated/floor/holofloor{
@@ -934,7 +934,7 @@
 "og" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/detective,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "oh" = (
 /obj/structure/table/wood,
@@ -960,7 +960,7 @@
 /obj/item/dnainjector/stuttmut,
 /obj/item/dnainjector/telemut,
 /obj/item/dnainjector/tourmut,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "oj" = (
 /obj/structure/holowindow{
@@ -977,7 +977,7 @@
 	name = "Master R&amp;D Server Controller";
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "oB" = (
 /obj/structure/table/wood,
@@ -986,12 +986,12 @@
 /area/admin)
 "oL" = (
 /obj/machinery/chem_heater,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "oX" = (
 /obj/structure/table/wood,
 /obj/item/gun/syringe/rapidsyringe,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "pa" = (
 /turf/simulated/floor/holofloor{
@@ -1002,12 +1002,12 @@
 "pk" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/doublebarrel/improvised,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "pC" = (
 /obj/structure/table/wood,
 /obj/machinery/syndicatebomb/badmin,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "pE" = (
 /obj/structure/table/wood,
@@ -1028,9 +1028,7 @@
 	id_tag = "eventroom";
 	name = "Privacy Shutters"
 	},
-/turf/simulated/floor/wood{
-	icon_state = "woodalt"
-	},
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "pO" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -1038,19 +1036,19 @@
 "qd" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/xray,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "qh" = (
 /obj/structure/table,
 /obj/random/toolbox,
 /obj/random/bomb_supply,
 /obj/machinery/syndicatebomb/badmin/clown,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "qt" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/golden,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "qv" = (
 /obj/structure/holowindow,
@@ -1122,7 +1120,7 @@
 "ro" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/ionrifle,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "rq" = (
 /turf/simulated/floor/holofloor{
@@ -1163,7 +1161,7 @@
 /area/holodeck/source_basketball)
 "rG" = (
 /obj/mecha/combat/marauder/seraph/loaded,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "rM" = (
 /obj/structure/table/holotable,
@@ -1175,7 +1173,7 @@
 "rP" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/alien,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "sd" = (
 /obj/structure/holowindow{
@@ -1189,7 +1187,7 @@
 "sm" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/retro,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "sr" = (
 /turf/simulated/floor/holofloor{
@@ -1200,12 +1198,12 @@
 "su" = (
 /obj/item/gun/grenadelauncher,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "sA" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "sO" = (
 /obj/structure/holowindow,
@@ -1250,7 +1248,7 @@
 "tF" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "tI" = (
 /obj/item/kirbyplants,
@@ -1299,7 +1297,7 @@
 "ux" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/captain,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "uL" = (
 /obj/structure/table/wood,
@@ -1309,7 +1307,7 @@
 /obj/item/gun/energy/gun,
 /obj/item/gun/energy/gun/cyborg,
 /obj/item/gun/energy/gun/nuclear,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "uW" = (
 /obj/machinery/door/airlock/hatch/syndicate{
@@ -1322,7 +1320,7 @@
 "vb" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/e_gun/old,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "vc" = (
 /obj/structure/table/wood,
@@ -1361,7 +1359,7 @@
 /obj/item/suppressor,
 /obj/item/suppressor,
 /obj/item/suppressor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "vm" = (
 /obj/effect/overlay/palmtree_l,
@@ -1445,7 +1443,7 @@
 "we" = (
 /obj/structure/table/wood,
 /obj/machinery/syndicatebomb/emp,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "wf" = (
 /obj/structure/table/wood,
@@ -1453,17 +1451,17 @@
 /obj/item/gun/energy/disabler,
 /obj/item/gun/energy/disabler/cyborg,
 /obj/item/gun/energy/mimicgun,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "wh" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/captain/scattershot,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "wp" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/mini,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "wC" = (
 /turf/simulated/floor/holofloor{
@@ -1497,7 +1495,7 @@
 /obj/machinery/computer/card/centcom{
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "xe" = (
 /obj/structure/table/wood,
@@ -1521,7 +1519,7 @@
 /obj/item/dnainjector/antistutt,
 /obj/item/dnainjector/antitele,
 /obj/item/dnainjector/antitour,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "xh" = (
 /obj/structure/table/wood,
@@ -1533,7 +1531,7 @@
 "xq" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/c20r,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "xx" = (
 /obj/structure/table/wood,
@@ -1560,7 +1558,7 @@
 /obj/item/mecha_parts/mecha_equipment/rcd,
 /obj/item/mecha_parts/mecha_equipment/extinguisher,
 /obj/structure/closet/crate,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "xJ" = (
 /turf/simulated/floor/holofloor{
@@ -1572,13 +1570,13 @@
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "xN" = (
 /obj/structure/table/wood,
 /obj/machinery/syndicatebomb,
 /obj/machinery/syndicatebomb/training,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "xS" = (
 /turf/simulated/floor/holofloor{
@@ -1589,7 +1587,7 @@
 "xY" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "yj" = (
 /obj/structure/table/holotable,
@@ -1611,12 +1609,12 @@
 "yC" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/slipping,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "yH" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/nuclear,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "yI" = (
 /obj/structure/table/wood,
@@ -1625,12 +1623,12 @@
 /obj/item/gun/energy/laser/practice,
 /obj/item/gun/energy/laser/scatter,
 /obj/item/gun/energy/laser/tag,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "yM" = (
 /obj/structure/table/wood,
 /obj/item/grenade/smokebomb,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "yN" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -1642,7 +1640,7 @@
 "yX" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/destroyer,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "yY" = (
 /turf/simulated/floor/plasteel,
@@ -1672,17 +1670,17 @@
 "zs" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/instakill/red,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "zw" = (
 /obj/structure/table/wood,
 /obj/item/adminfu_scroll,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "zA" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic/combat,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "zF" = (
 /obj/effect/landmark/spawner/tdome2,
@@ -1698,7 +1696,7 @@
 /area/admin)
 "zT" = (
 /obj/structure/dresser,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Ah" = (
 /obj/effect/baseturf_helper{
@@ -1709,7 +1707,7 @@
 "At" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/m1911,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "AD" = (
 /turf/simulated/floor/holofloor{
@@ -1739,14 +1737,14 @@
 "AV" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/fireball,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "AW" = (
 /obj/machinery/computer/account_database{
 	name = "Admin Accounts Database";
 	dir = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Bb" = (
 /turf/simulated/floor/holofloor{
@@ -1757,20 +1755,20 @@
 "Bg" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Bh" = (
 /obj/machinery/chem_dispenser/upgraded{
 	hackedcheck = 1
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Bl" = (
 /obj/structure/table/wood,
 /obj/item/paper{
 	info = "Тут ничего не было. Я серьёзно."
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Bo" = (
 /obj/effect/landmark/spawner/tdomeobserve,
@@ -1789,7 +1787,7 @@
 /obj/structure/rack,
 /obj/item/tank/jetpack/oxygen,
 /obj/item/tank/jetpack/oxygen,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "BB" = (
 /obj/machinery/light/small/directional/west,
@@ -1815,7 +1813,7 @@
 "BM" = (
 /obj/item/gun/projectile/revolver/grenadelauncher/multi,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "BN" = (
 /obj/structure/table/wood,
@@ -1827,11 +1825,11 @@
 "BX" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/cyborg,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Ca" = (
 /obj/machinery/computer/operating,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Cc" = (
 /obj/structure/table,
@@ -1839,7 +1837,7 @@
 /obj/item/shard,
 /obj/item/kitchen/knife,
 /obj/item/storage/firstaid/tactical,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Cx" = (
 /obj/effect/turf_decal/bot,
@@ -1849,7 +1847,7 @@
 "CD" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/carbine,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "CI" = (
 /obj/structure/table/wood,
@@ -1861,12 +1859,12 @@
 /area/admin)
 "CM" = (
 /obj/machinery/optable,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "CN" = (
 /obj/item/gun/throw,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "CR" = (
 /obj/item/radio{
@@ -1891,7 +1889,7 @@
 "CT" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/tentacle,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "De" = (
 /turf/simulated/floor/holofloor{
@@ -1904,17 +1902,17 @@
 /obj/item/paper{
 	info = "Тут должен был быть доминатор, но к счастью его тут нет."
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Dt" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/advtaser,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "DB" = (
 /obj/structure/table/wood,
 /obj/item/grenade/syndieminibomb,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "DC" = (
 /obj/structure/flora/tree/dead,
@@ -1928,7 +1926,7 @@
 "DM" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/lasercannon/cyborg,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "DO" = (
 /turf/simulated/floor/holofloor{
@@ -1939,7 +1937,7 @@
 "DR" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "DZ" = (
 /obj/structure/holohoop,
@@ -1954,7 +1952,7 @@
 "Eh" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/mindflayer,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Ei" = (
 /obj/machinery/flasher{
@@ -2000,13 +1998,13 @@
 "ES" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/russian/soul,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "ET" = (
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "EV" = (
 /obj/structure/chair/comfy/beige{
@@ -2029,27 +2027,27 @@
 "Fb" = (
 /obj/item/gun/energy/taser,
 /obj/structure/table/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Fi" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/lwap,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Fk" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/pistol/m1911,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Fn" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/shotgun/bulldog,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Fp" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/bluespace_beacon/syndicate,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Fy" = (
 /obj/structure/table/wood,
@@ -2080,7 +2078,7 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "FU" = (
 /turf/simulated/floor/holofloor/carpet,
@@ -2088,7 +2086,7 @@
 "Ga" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/riot/short,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Gf" = (
 /turf/simulated/floor/holofloor{
@@ -2130,18 +2128,18 @@
 "Gr" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/l6_saw,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "GA" = (
 /obj/structure/table,
 /obj/item/storage/pill_bottle/random_drug_bottle,
 /obj/item/reagent_containers/glass/bottle/adminordrazine,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "GG" = (
 /obj/structure/table/wood,
 /obj/machinery/syndicatebomb/badmin/clown,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "GK" = (
 /obj/machinery/status_display,
@@ -2150,7 +2148,7 @@
 "GN" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/healing,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "GU" = (
 /obj/structure/holowindow,
@@ -2162,12 +2160,12 @@
 "GY" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/wormhole_projector,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Hc" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/gyropistol,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Hk" = (
 /obj/structure/table/wood,
@@ -2201,7 +2199,7 @@
 "HL" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "HP" = (
 /turf/simulated/floor/holofloor{
@@ -2234,7 +2232,7 @@
 	icon_opened = "cabinet_open";
 	req_access = list(114)
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Il" = (
 /turf/simulated/floor/holofloor{
@@ -2292,7 +2290,7 @@
 /area/tdome/tdomeadmin)
 "IV" = (
 /obj/structure/closet/secure_closet/personal,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "IW" = (
 /obj/structure/chair/stool/holostool{
@@ -2324,7 +2322,7 @@
 "Je" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/door,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Jk" = (
 /turf/simulated/floor/holofloor{
@@ -2335,7 +2333,7 @@
 /obj/machinery/mech_bay_recharge_port/upgraded/unsimulated{
 	dir = 2
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Jq" = (
 /turf/simulated/floor/plasteel/dark,
@@ -2363,7 +2361,7 @@
 "Jy" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/retro/old,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "JC" = (
 /turf/simulated/floor/holofloor{
@@ -2398,7 +2396,7 @@
 "JW" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/advtaser/mounted,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Ka" = (
 /turf/simulated/floor/holofloor{
@@ -2412,11 +2410,11 @@
 "Kk" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Km" = (
 /obj/structure/table/wood/poker,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Kn" = (
 /obj/machinery/flasher{
@@ -2450,7 +2448,7 @@
 "Ky" = (
 /obj/structure/table/wood,
 /obj/item/sleeping_carp_scroll,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Kz" = (
 /obj/structure/chair/comfy/beige{
@@ -2483,12 +2481,12 @@
 /obj/random/tool,
 /obj/item/clothing/gloves/color/yellow,
 /obj/item/pinpointer/advpinpointer,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "KH" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/advtaser/cyborg,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "KJ" = (
 /obj/machinery/computer/card/centcom,
@@ -2508,7 +2506,7 @@
 /obj/mecha/combat/marauder/loaded{
 	operation_req_access = list(114)
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "KS" = (
 /turf/simulated/floor/holofloor,
@@ -2516,7 +2514,7 @@
 "La" = (
 /obj/structure/table/wood,
 /obj/item/grenade/clusterbuster/booze,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Ld" = (
 /turf/simulated/floor/holofloor{
@@ -2535,7 +2533,7 @@
 "Lx" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "LA" = (
 /obj/effect/turf_decal/bot,
@@ -2545,12 +2543,12 @@
 "LK" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/lethal,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "LL" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/enforcer,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "LR" = (
 /turf/simulated/floor/holofloor{
@@ -2560,7 +2558,7 @@
 /area/holodeck/source_desert)
 "LW" = (
 /obj/machinery/computer/syndicate_depot/teleporter,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Mj" = (
 /obj/structure/table,
@@ -2579,7 +2577,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Mk" = (
 /obj/structure/table/wood,
@@ -2589,7 +2587,7 @@
 "MC" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "MD" = (
 /turf/simulated/floor/plasteel{
@@ -2600,7 +2598,7 @@
 "MF" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/pulse/destroyer/annihilator,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "MH" = (
 /obj/structure/table/wood,
@@ -2613,12 +2611,12 @@
 "MX" = (
 /obj/structure/table/wood,
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Np" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/chaos,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Nu" = (
 /obj/structure/chair/comfy/beige{
@@ -2626,7 +2624,7 @@
 	layer = 5;
 	pixel_y = -2
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Ny" = (
 /obj/structure/table/wood,
@@ -2655,7 +2653,7 @@
 "NQ" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/APS,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "NT" = (
 /obj/structure/table/wood,
@@ -2671,7 +2669,7 @@
 /obj/item/paper{
 	info = "/obj/item/gun/syringe/blowgun"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Oe" = (
 /obj/structure/chair/comfy/green{
@@ -2707,7 +2705,7 @@
 "Or" = (
 /obj/structure/table/wood,
 /obj/item/gun/syringe,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Ot" = (
 /turf/simulated/wall/indestructible/riveted,
@@ -2718,12 +2716,12 @@
 "Oz" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/instakill,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "OF" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/ionrifle/carbine,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "OH" = (
 /turf/simulated/floor/holofloor,
@@ -2732,7 +2730,7 @@
 /obj/structure/table/wood,
 /obj/item/clothing/suit/blacktrenchcoat,
 /obj/item/clothing/shoes/black,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "OS" = (
 /obj/structure/table/wood,
@@ -2757,7 +2755,7 @@
 "Pq" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/immolator/multi/cyborg,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Pt" = (
 /turf/simulated/floor/holofloor{
@@ -2768,12 +2766,12 @@
 "Py" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/hos,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Pz" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/spikethrower,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "PB" = (
 /obj/structure/table/wood,
@@ -2807,7 +2805,7 @@
 "PJ" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/doublebarrel,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "PQ" = (
 /obj/item/storage/box/syringes,
@@ -2832,7 +2830,7 @@
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
 /obj/item/ammo_casing/shotgun/dart,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "PT" = (
 /obj/structure/table/holotable,
@@ -2873,12 +2871,12 @@
 "Qt" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/tommygun,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "QA" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/blueshield/pdw9,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "QH" = (
 /obj/structure/table/wood,
@@ -2891,7 +2889,7 @@
 /obj/mecha/combat/honker/loaded{
 	operation_req_access = list(114)
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "QN" = (
 /obj/structure/table/wood,
@@ -2942,7 +2940,7 @@
 /area/admin)
 "RA" = (
 /obj/machinery/sleeper/upgraded,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "RI" = (
 /obj/machinery/door/poddoor{
@@ -3002,20 +3000,20 @@
 /area/admin)
 "Sy" = (
 /obj/machinery/r_n_d/server/centcom,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "SA" = (
 /obj/structure/mineral_door/wood,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "SK" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/mounted,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "SR" = (
 /obj/item/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "SU" = (
 /obj/item/radio{
@@ -3040,7 +3038,7 @@
 "Te" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/focus,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Th" = (
 /obj/structure/table/wood,
@@ -3091,7 +3089,7 @@
 /obj/item/radio/headset/syndicate/alt/syndteam{
 	name = "syndicate team headset"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Tu" = (
 /obj/structure/table/wood,
@@ -3116,12 +3114,12 @@
 "Tw" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/laser/instakill/blue,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "TH" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/deagle/gold,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "TI" = (
 /turf/simulated/floor/holofloor{
@@ -3140,11 +3138,11 @@
 "TN" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/gun/blueshield,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "TO" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "TW" = (
 /turf/simulated/floor/holofloor{
@@ -3163,7 +3161,7 @@
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/reagent_containers/glass/beaker/bluespace,
 /obj/item/storage/box/autoinjectors,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Uk" = (
 /obj/structure/table/wood,
@@ -3176,7 +3174,7 @@
 /obj/structure/table/wood,
 /obj/item/gun/energy/meteorgun,
 /obj/item/gun/energy/meteorgun/pen,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Up" = (
 /turf/simulated/wall/indestructible,
@@ -3191,16 +3189,16 @@
 /turf/simulated/floor/holofloor/grass,
 /area/holodeck/source_picnicarea)
 "UO" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "UQ" = (
 /obj/mecha/combat/reticence/loaded,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "UU" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol/deagle/camo,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "UW" = (
 /obj/effect/landmark/spawner/tdomeobserve,
@@ -3210,7 +3208,7 @@
 "Vb" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/mini_uzi,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Vh" = (
 /obj/structure/table/wood,
@@ -3252,16 +3250,16 @@
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
 /obj/item/assembly/prox_sensor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Vu" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/wand/polymorph,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Vw" = (
 /obj/machinery/chem_master,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Vy" = (
 /obj/structure/flora/ausbushes/sparsegrass,
@@ -3270,12 +3268,12 @@
 "VD" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/c20r/toy/riot,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "VK" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "VS" = (
 /turf/simulated/floor/holofloor{
@@ -3306,7 +3304,7 @@
 "Wx" = (
 /obj/structure/table/wood,
 /obj/item/gun/energy/arc_revolver,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "WA" = (
 /obj/structure/flora/grass/green,
@@ -3345,19 +3343,19 @@
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "WE" = (
 /obj/structure/table/wood,
 /obj/item/paper{
 	info = "Компактная снайперка /obj/item/gun/projectile/automatic/sniper_rifle/compact"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "WF" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/m90,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "WM" = (
 /turf/simulated/floor/holofloor{
@@ -3380,7 +3378,7 @@
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/head/helmet/space,
 /obj/item/clothing/head/helmet/space,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "WX" = (
 /obj/structure/table/wood,
@@ -3394,7 +3392,7 @@
 /obj/item/suppressor/specialoffer,
 /obj/item/suppressor/specialoffer,
 /obj/item/suppressor/specialoffer,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "WY" = (
 /turf/simulated/floor/holofloor{
@@ -3416,7 +3414,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Xb" = (
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser,
@@ -3429,17 +3427,17 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/flashbang/clusterbang,
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/scattershot,
 /obj/structure/closet/crate,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Xk" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/wt550,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Xm" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/lasercarbine,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Xy" = (
 /obj/structure/table/wood,
@@ -3452,23 +3450,23 @@
 "XB" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/speargun,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "XZ" = (
 /obj/structure/table/wood,
 /obj/item/melee/spellblade,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Yc" = (
 /obj/mecha/combat/phazon{
 	operation_req_access = list(114)
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Yd" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/revolver/russian,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Yl" = (
 /obj/structure/table/wood,
@@ -3478,7 +3476,7 @@
 "Yn" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/pistol,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "YA" = (
 /obj/structure/rack,
@@ -3513,7 +3511,7 @@
 "YZ" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/shotgun/automatic/dual_tube,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Zi" = (
 /turf/simulated/floor/holofloor{
@@ -3533,7 +3531,7 @@
 "Zo" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/animate,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 "Zp" = (
 /turf/simulated/floor/holofloor{
@@ -3544,7 +3542,7 @@
 "ZA" = (
 /obj/structure/table/wood,
 /obj/item/grenade/clusterbuster/mega_syndieminibomb,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/oak,
 /area/admin)
 
 (1,1,1) = {"

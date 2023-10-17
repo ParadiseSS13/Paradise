@@ -4559,10 +4559,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "rM" = (
 /obj/effect/baseturf_helper/lava_land/surface,
@@ -4729,9 +4727,8 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = 22
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "ug" = (
 /obj/item/cigbutt,
@@ -5033,10 +5030,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "zu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5271,9 +5266,8 @@
 /obj/item/radio/intercom/locked/prison{
 	pixel_y = 22
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken6"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "Dm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -5368,9 +5362,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "FO" = (
 /obj/structure/rack,
@@ -5546,9 +5539,8 @@
 	dir = 1;
 	network = list("Labor Camp")
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "JQ" = (
 /obj/machinery/light/small/directional/east,
@@ -5729,9 +5721,8 @@
 "ND" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "NG" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5974,10 +5965,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "Tn" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -6155,9 +6144,8 @@
 "VN" = (
 /obj/structure/bed,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood/oak,
 /area/mine/laborcamp)
 "VO" = (
 /obj/effect/decal/cleanable/dirt,
