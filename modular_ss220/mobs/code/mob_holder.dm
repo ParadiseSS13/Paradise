@@ -52,6 +52,7 @@
 	icon_state = "nymph"
 	origin_tech = "biotech=5"
 	slot_flags = SLOT_FLAG_HEAD|SLOT_FLAG_EARS
+	icon = 'icons/mob/animal.dmi'
 
 /obj/item/holder/pai
 	name = "pAI"
@@ -243,12 +244,13 @@
 /obj/item/holder/snake
 	name = "pet"
 	desc = "It's a pet"
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "snake"
 
 /obj/item/holder/parrot
 	name = "pet"
 	desc = "It's a pet"
-	icon = 'modular_ss220/mobs/icons/mob/animal.dmi'
+	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
 
 /obj/item/holder/axolotl

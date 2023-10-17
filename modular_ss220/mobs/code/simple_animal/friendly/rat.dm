@@ -38,10 +38,10 @@
 /mob/living/simple_animal/mouse/rat/color_pick()
 	if(!mouse_color)
 		mouse_color = pick(list("gray","white","irish"))
-		icon_state = "rat_[mouse_color]"
-		icon_living = "rat_[mouse_color]"
-		icon_dead = "rat_[mouse_color]_dead"
-		icon_resting = "rat_[mouse_color]_sleep"
+	icon_state = "rat_[mouse_color]"
+	icon_living = "rat_[mouse_color]"
+	icon_dead = "rat_[mouse_color]_dead"
+	icon_resting = "rat_[mouse_color]_sleep"
 
 /mob/living/simple_animal/mouse/rat/pull_constraint(atom/movable/AM, show_message = FALSE)
 	return TRUE
