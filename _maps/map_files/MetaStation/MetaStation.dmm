@@ -4737,15 +4737,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"azv" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/space,
-/area/space/nearstation)
 "azy" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plating,
@@ -5056,15 +5047,13 @@
 	},
 /area/station/legal/courtroom)
 "aAO" = (
-/obj/structure/transit_tube{
-	icon_state = "S-NW"
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/structure/transit_tube/curved/flipped,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -18284,8 +18273,8 @@
 /area/station/maintenance/fpmaint)
 "bmj" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
+/obj/structure/transit_tube/crossing{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -20138,12 +20127,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/ai)
-"bqY" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/turf/space,
-/area/space/nearstation)
 "bqZ" = (
 /obj/machinery/ai_slipper,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -20180,13 +20163,6 @@
 	icon_state = "cult"
 	},
 /area/station/legal/lawoffice)
-"brd" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/obj/structure/window/reinforced,
-/turf/space,
-/area/space/nearstation)
 "bre" = (
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
@@ -20783,7 +20759,7 @@
 	},
 /area/station/engineering/break_room)
 "bsJ" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /obj/structure/lattice/catwalk,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -20793,22 +20769,16 @@
 "bsK" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_4)
-"bsL" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/turf/space,
-/area/space/nearstation)
 "bsP" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube{
-	icon_state = "W-NE-SE"
+/obj/structure/transit_tube/junction{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
 "bsS" = (
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
+/obj/structure/transit_tube/curved{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -21273,9 +21243,7 @@
 	},
 /area/station/command/bridge)
 "bud" = (
-/obj/structure/transit_tube{
-	icon_state = "NE-SW"
-	},
+/obj/structure/transit_tube/diagonal,
 /turf/space,
 /area/space/nearstation)
 "bue" = (
@@ -21515,12 +21483,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/public/storage/emergency)
-"buM" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
-/turf/space,
-/area/space/nearstation)
 "buN" = (
 /obj/structure/transit_tube_pod,
 /obj/structure/window/reinforced{
@@ -21534,15 +21496,6 @@
 	icon_state = "vault"
 	},
 /area/station/aisat)
-"buO" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
 "buP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -21606,7 +21559,7 @@
 	},
 /area/station/hallway/primary/starboard)
 "buW" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
@@ -21821,9 +21774,8 @@
 	},
 /area/station/engineering/controlroom)
 "bvv" = (
-/obj/structure/transit_tube{
-	dir = 4;
-	icon_state = "Block"
+/obj/structure/transit_tube/cap{
+	dir = 4
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -22552,16 +22504,6 @@
 	icon_state = "darkbluecorners"
 	},
 /area/station/aisat)
-"bwX" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "bxb" = (
 /obj/structure/table/wood,
 /obj/machinery/light/small{
@@ -22618,12 +22560,6 @@
 	},
 /turf/simulated/floor/bluegrid/telecomms,
 /area/station/science/xenobiology)
-"bxk" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/turf/space,
-/area/space/nearstation)
 "bxl" = (
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -23406,8 +23342,8 @@
 	},
 /area/station/engineering/control)
 "bzc" = (
-/obj/structure/transit_tube{
-	icon_state = "E-SW"
+/obj/structure/transit_tube/curved/flipped{
+	dir = 4
 	},
 /turf/space,
 /area/space/nearstation)
@@ -23562,19 +23498,17 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
 "bzt" = (
-/obj/structure/transit_tube{
-	icon_state = "NW-SE"
-	},
+/obj/structure/transit_tube/diagonal/topleft,
 /turf/space,
 /area/space/nearstation)
 "bzu" = (
-/obj/structure/transit_tube{
-	icon_state = "N-SW"
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
 /obj/structure/window/reinforced,
+/obj/structure/transit_tube/curved{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -24088,16 +24022,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "bBa" = (
-/obj/structure/transit_tube{
-	icon_state = "E-NW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bBb" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/obj/structure/window/reinforced{
+/obj/structure/transit_tube/curved{
 	dir = 4
 	},
 /turf/space,
@@ -25539,8 +25464,8 @@
 	},
 /area/station/telecomms/computer)
 "bFk" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
+/obj/structure/transit_tube/crossing{
+	dir = 8
 	},
 /obj/structure/lattice,
 /turf/space,
@@ -25952,8 +25877,8 @@
 	},
 /area/station/aisat)
 "bGN" = (
-/obj/structure/transit_tube{
-	icon_state = "W-NE"
+/obj/structure/transit_tube/curved/flipped{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -29261,7 +29186,7 @@
 /turf/space,
 /area/space/nearstation)
 "bRq" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -81187,13 +81112,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/research)
-"sil" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "sjx" = (
 /obj/structure/chair{
 	dir = 1
@@ -87248,7 +87166,7 @@
 /area/station/security/prison/cell_block/A)
 "vbU" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
 "vbV" = (
@@ -91247,13 +91165,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/interrogation)
-"xhd" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "xhh" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "CMO"
@@ -93360,7 +93271,7 @@
 	},
 /area/station/science/toxins/launch)
 "yeg" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/space,
@@ -143942,9 +143853,9 @@ abq
 abq
 abq
 abq
-xhd
+abq
 bsP
-sil
+abq
 abq
 abq
 aef
@@ -144198,11 +144109,11 @@ aaa
 aaa
 aaa
 aaa
-bqY
+bwM
 bud
-bwX
+aef
 bzt
-bxk
+bwM
 aaa
 aef
 aaa
@@ -144456,9 +144367,9 @@ aaa
 aaa
 aaa
 bzc
-buM
+bwM
 aef
-bsL
+bwM
 bBa
 aaa
 aef
@@ -144970,9 +144881,9 @@ efR
 efR
 aXL
 bsS
-buO
+aXH
 bDg
-bBb
+aXH
 bGN
 aaa
 aaa
@@ -145226,11 +145137,11 @@ aUU
 blE
 dkq
 aXL
-brd
+aUU
 aAO
 buN
 bzu
-azv
+aQF
 aaa
 aaa
 aaa
