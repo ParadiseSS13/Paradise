@@ -849,7 +849,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/rack_parts,
 /obj/effect/landmark/damageturf,
-/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
 	oxygen = 14;
@@ -1231,11 +1230,6 @@
 	nitrogen = 23
 	},
 /area/ruin/unpowered/althland_processing)
-"DP" = (
-/obj/effect/mapping_helpers/no_lava,
-/obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "Ec" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor/southwest{
@@ -2656,7 +2650,7 @@ ap
 ab
 ab
 ab
-DP
+ab
 bT
 bT
 bT
