@@ -52663,9 +52663,8 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/structure/transit_tube{
-	dir = 4;
-	icon_state = "Block"
+/obj/structure/transit_tube/cap{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -52692,7 +52691,7 @@
 	},
 /obj/structure/transit_tube/station,
 /obj/structure/transit_tube_pod{
-	dir = 8
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -53091,8 +53090,8 @@
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
 "dhr" = (
-/obj/structure/transit_tube,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/station/maintenance/storage)
 "dhv" = (
@@ -54745,24 +54744,22 @@
 	},
 /area/station/aisat/hall)
 "dmW" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
 "dmX" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
 /obj/structure/lattice,
+/obj/structure/transit_tube/crossing/horizontal,
 /turf/space,
 /area/space/nearstation)
 "dna" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "dnb" = (
 /obj/structure/transit_tube/station,
 /obj/structure/transit_tube_pod{
-	dir = 4
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plating,
@@ -54857,9 +54854,8 @@
 	},
 /area/station/turret_protected/ai)
 "dno" = (
-/obj/structure/transit_tube{
-	dir = 8;
-	icon_state = "Block"
+/obj/structure/transit_tube/cap{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
@@ -73588,8 +73584,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "mHY" = (
-/obj/structure/transit_tube,
 /obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "mIu" = (
