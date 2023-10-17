@@ -50,14 +50,14 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
-		/obj/item/gun/projectile/revolver/anaconda  = 1,
+		/obj/item/gun/projectile/revolver/reclinable/anaconda  = 1,
 		/obj/item/ammo_box/speed_loader_d44 = 2,
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 1,
 		/obj/item/lighter/zippo/engraved = 1
 	)
 
 /datum/outfit/admin/soviet/officer
-	belt = /obj/item/gun/projectile/revolver/rsh12
+	belt = /obj/item/gun/projectile/revolver/reclinable/rsh12
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,
@@ -67,7 +67,7 @@
 	)
 
 /datum/outfit/admin/soviet/admiral
-	belt = /obj/item/gun/projectile/revolver/rsh12
+	belt = /obj/item/gun/projectile/revolver/reclinable/rsh12
 
 	backpack_contents = list(
 		/obj/item/storage/box/soviet = 1,

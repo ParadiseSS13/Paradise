@@ -1,6 +1,36 @@
+// Base heavy revolver
+/obj/item/gun/projectile/revolver/reclinable
+	var/snapback_sound = 'modular_ss220/objects/sound/weapons/cylinder/snapback_rsh12.ogg'
+	var/reclined_sound = 'modular_ss220/objects/sound/weapons/cylinder/reclined_rsh12.ogg'
+	var/dry_fire_sound = 'sound/weapons/empty.ogg'
+	var/reclined = FALSE
+
+/obj/item/gun/projectile/revolver/reclinable/attack_self(mob/living/user)
+	reclined = !reclined
+	playsound(user, reclined ? reclined_sound : snapback_sound, 50, 1)
+	update_icon()
+
+	if(reclined)
+		return ..()
+
+/obj/item/gun/projectile/revolver/reclinable/update_icon_state()
+	icon_state = initial(icon_state) + (reclined ? "_reclined" : "")
+
+/obj/item/gun/projectile/revolver/reclinable/attackby(obj/item/A, mob/user, params)
+	if(!reclined)
+		return
+	return ..()
+
+/obj/item/gun/projectile/revolver/reclinable/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
+	if (!reclined)
+		return ..()
+
+	to_chat(user, "<span class='danger'>*click*</span>")
+	playsound(user, dry_fire_sound, 100, 1)
+
 // Colt Anaconda .44
 
-/obj/item/gun/projectile/revolver/anaconda
+/obj/item/gun/projectile/revolver/reclinable/anaconda
 	name = "Анаконда"
 	desc = "Крупнокалиберный револьвер двадцатого века. Несмотря на то, что оружие хранилось в хороших условиях, старина даёт о себе знать."
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/d44
@@ -9,15 +39,12 @@
 	icon = 'modular_ss220/objects/icons/guns.dmi'
 	icon_state = "anaconda"
 	item_state = "anaconda"
+	fire_sound = 'modular_ss220/objects/sound/weapons/gunshots/gunshot_anaconda.ogg'
 
-/obj/item/gun/projectile/revolver/anaconda/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/reclinable/anaconda/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/box_d44))
 		return
 	return ..()
-
-/obj/item/gun/projectile/revolver/anaconda/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
-	bonus_spread += 30
-	. = ..()
 
 /obj/item/ammo_box/magazine/internal/cylinder/d44
 	name = ".44 revolver cylinder"
@@ -42,6 +69,7 @@
 	flag = "bullet"
 	hitsound_wall = "ricochet"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect
+	spread = 20
 
 /obj/item/ammo_box/speed_loader_d44
 	name = "speed loader (.44)"
@@ -63,12 +91,12 @@
 
 /obj/structure/displaycase/hos
 	alert = TRUE
-	start_showpiece_type = /obj/item/gun/projectile/revolver/anaconda
+	start_showpiece_type = /obj/item/gun/projectile/revolver/reclinable/anaconda
 	req_access = list(ACCESS_HOS)
 
 // RSH-12 12.7
 
-/obj/item/gun/projectile/revolver/rsh12
+/obj/item/gun/projectile/revolver/reclinable/rsh12
 	name = "РШ-12"
 	desc = "Тяжёлый револьвер винтовочного калибра с откидным стволом. По слухам, всё ещё находится на вооружении у СССП."
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rsh12
@@ -78,25 +106,9 @@
 	icon_state = "rsh12"
 	item_state = "rsh12"
 	fire_sound = 'modular_ss220/objects/sound/weapons/gunshots/gunshot_rsh12.ogg'
-	var/snapback_sound = 'modular_ss220/objects/sound/weapons/cylinder/snapback_rsh12.ogg'
-	var/reclined_sound = 'modular_ss220/objects/sound/weapons/cylinder/reclined_rsh12.ogg'
-	var/reclined = FALSE
 
-/obj/item/gun/projectile/revolver/rsh12/attack_self(mob/living/user)
-	reclined = !reclined
-	playsound(user, snapback_sound, 50, 1)
-	update_icon()
-	if(reclined)
-		playsound(user, reclined_sound, 50, 1)
-		return ..()
-
-/obj/item/gun/projectile/revolver/rsh12/update_icon_state()
-	icon_state = initial(icon_state) + (reclined ? "_reclined" : "")
-
-/obj/item/gun/projectile/revolver/rsh12/attackby(obj/item/A, mob/user, params)
+/obj/item/gun/projectile/revolver/reclinable/rsh12/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box/box_mm127))
-		return
-	if(!reclined)
 		return
 	return ..()
 
