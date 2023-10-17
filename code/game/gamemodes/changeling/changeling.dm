@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			text += "<br><b>Changeling ID:</b> [cling.changelingID]."
 			text += "<br><b>Genomes Extracted:</b> [cling.absorbed_count]"
 
-			var/list/all_objectives = changeling.get_all_objectives()
+			var/list/all_objectives = changeling.get_all_objectives(include_team = FALSE)
 
 			if(length(all_objectives))
 				var/count = 1

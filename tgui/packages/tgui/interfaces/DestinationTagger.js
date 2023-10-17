@@ -5,19 +5,18 @@ import { Window } from '../layouts';
 
 export const DestinationTagger = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    destinations,
-    selected_destination_id,
-  } = data;
+  const { destinations, selected_destination_id } = data;
 
-  let selected_destination = destinations[selected_destination_id - 1]
+  let selected_destination = destinations[selected_destination_id - 1];
 
   return (
     <Window resizable>
       <Window.Content scrollable>
         <Section title="TagMaster 3.0">
           <LabeledListItem>
-            <LabeledListItem label="Selected">{selected_destination.name ?? "None"}</LabeledListItem>
+            <LabeledListItem label="Selected">
+              {selected_destination.name ?? 'None'}
+            </LabeledListItem>
           </LabeledListItem>
           <br />
           <Box>
@@ -35,9 +34,11 @@ export const DestinationTagger = (props, context) => {
                     textAlign="center"
                     content={destination.name}
                     selected={destination.id === selected_destination_id}
-                    onClick={() => act("select_destination", {
-                      destination: destination.id
-                    })}
+                    onClick={() =>
+                      act('select_destination', {
+                        destination: destination.id,
+                      })
+                    }
                   />
                 </Flex.Item>
               ))}

@@ -42,6 +42,9 @@ $color-separator: colors.$primary !default;
 
 .Section__title {
   padding: 6px;
+}
+
+.Section__title--showBottom {
   border-bottom: 2px solid $color-separator;
 }
 
