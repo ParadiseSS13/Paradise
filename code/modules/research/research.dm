@@ -54,7 +54,7 @@ research holder datum.
 	var/list/possible_designs = list()		//List of all designs
 	var/list/known_designs = list()			//List of available designs
 	/// List of designs that have been blacklisted by the server controller
-	var/list/blacklisted_designs = list()		
+	var/list/blacklisted_designs = list()
 	/// Used during the rnd sync system, to ensure that blacklists are reverted, then cleared.
 	var/list/unblacklisted_designs = list()
 
@@ -390,11 +390,6 @@ datum/tech/robotics
 	var/default_name = "\improper Technology Disk"
 	var/default_desc = "A disk for storing technology data for further research."
 
-/obj/item/disk/tech_disk/Initialize(mapload)
-	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
-
 /obj/item/disk/tech_disk/proc/load_tech(datum/tech/T)
 	name = "[default_name] \[[T]\]"
 	desc = T.desc + "\n <span class='notice'>Level: [T.level]</span>"
@@ -417,11 +412,6 @@ datum/tech/robotics
 	// Otherwise, I'd use "initial()"
 	var/default_name = "\improper Component Design Disk"
 	var/default_desc = "A disk for storing device design data for construction in lathes."
-
-/obj/item/disk/design_disk/Initialize(mapload)
-	. = ..()
-	pixel_x = rand(-5, 5)
-	pixel_y = rand(-5, 5)
 
 /obj/item/disk/design_disk/proc/load_blueprint(datum/design/D)
 	name = "[default_name] \[[D]\]"
