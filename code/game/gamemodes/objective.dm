@@ -164,28 +164,31 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return FALSE
 	return TRUE
 
-/datum/objective/assassinate/assassinateonce
-	name = "AssassinateOnce"
-	martyr_compatible = 1
+/datum/objective/assassinateonce
+	name = "Assassinate once"
+	martyr_compatible = TRUE
 	var/won = FALSE
 
-/datum/objective/assassinate/assassinateonce/find_target(list/target_blacklist)
+/datum/objective/assassinateonce/find_target(list/target_blacklist)
 	..()
-	if(target && target.current)
+	if(target?.current)
 		explanation_text = "Teach [target.current.real_name], the [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
 		RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(check_midround_completion))
 	else
 		explanation_text = "Free Objective"
 	return target
 
-/datum/objective/assassinate/assassinateonce/check_completion()
-	return won || ..()
+/datum/objective/assassinateonce/check_completion()
+	if(target?.current)
+		if(!target.current.ckey) //if the target ghosts, we just count the objective as completed.
+			return TRUE
+	return won
 
-/datum/objective/assassinate/assassinateonce/proc/check_midround_completion()
+/datum/objective/assassinateonce/proc/check_midround_completion()
 	won = TRUE
 	UnregisterSignal(target, COMSIG_MOB_DEATH)
 
-/datum/objective/assassinate/assassinateonce/on_target_cryo()
+/datum/objective/assassinateonce/on_target_cryo()
 	if(won)
 		return
 	return ..()
