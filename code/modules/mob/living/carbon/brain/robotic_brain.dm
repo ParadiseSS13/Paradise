@@ -167,7 +167,6 @@
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
 	. += "Its speaker is turned [silenced ? "off" : "on"]."
-	. += "<span class='info'>*---------*</span>"
 	. = ..()
 
 	var/list/msg = list("<span class='info'>")
@@ -183,7 +182,7 @@
 				msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
 	else
 		msg += "<span class='deadsay'>It appears to be completely inactive.</span>\n"
-	msg += "*---------*</span>"
+	msg += "</span>"
 	. += msg.Join("")
 
 /obj/item/mmi/robotic_brain/emp_act(severity)

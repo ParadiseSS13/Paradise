@@ -2001,6 +2001,7 @@
 					var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 					theghost = pick(candidates)
 					P.key = theghost.key
+					dust_if_respawnable(theghost)
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
@@ -2065,6 +2066,8 @@
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
 			ptypes += "Shamebrero"
+			ptypes += "Nugget"
+			ptypes += "Bread"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2180,6 +2183,23 @@
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 				H.equip_to_slot_or_del(S, SLOT_HUD_HEAD)
 				logmsg = "shamebrero"
+			if("Nugget")
+				H.Weaken(12 SECONDS, TRUE)
+				H.AdjustJitter(40 SECONDS)
+				to_chat(H, "<span class='danger'>You feel as if your limbs are being ripped from your body!</span>")
+				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
+				logmsg = "nugget"
+
+			if("Bread")
+				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
+				var/bready = pick(/obj/item/reagent_containers/food/snacks/customizable/cook/bread, /obj/item/reagent_containers/food/snacks/sliceable/meatbread, /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread, /obj/item/reagent_containers/food/snacks/sliceable/spidermeatbread, /obj/item/reagent_containers/food/snacks/sliceable/bananabread, /obj/item/reagent_containers/food/snacks/sliceable/tofubread, /obj/item/reagent_containers/food/snacks/sliceable/bread, /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread, /obj/item/reagent_containers/food/snacks/sliceable/banarnarbread, /obj/item/reagent_containers/food/snacks/flatbread, /obj/item/reagent_containers/food/snacks/baguette)
+				var/obj/item/bread = new bready(get_turf(H))
+				breadshade.forceMove(bread)
+				breadshade.key = H.key
+				breadshade.RegisterSignal(bread, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/bread, handle_bread_deletion))
+				qdel(H)
+				logmsg = "baked"
+				to_chat(breadshade, "<span class='warning'>Get bready for combat, you've been baked into a piece of bread! Before you break down and rye thinking that your life is over, people are after you waiting for a snack! If you'd rather not be toast, lunge away from any hungry crew else you bite the crust. At the yeast you may survive a little longer...</span>")
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
@@ -3103,24 +3123,10 @@
 				if(confirmation == "No")
 					return
 				makeThunderdomeTeams()
-			if("securitylevel0")
-				set_security_level(0)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)
-			if("securitylevel1")
-				set_security_level(1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Blue.</span>", 1)
-			if("securitylevel2")
-				set_security_level(2)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Red.</span>", 1)
-			if("securitylevel3")
-				set_security_level(3)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Gamma.</span>", 1)
-			if("securitylevel4")
-				set_security_level(4)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Epsilon.</span>", 1)
-			if("securitylevel5")
-				set_security_level(5)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Delta.</span>", 1)
+			if("securitylevel")
+				var/level_number = text2num(href_list["number"])
+				SSsecurity_level.set_level(level_number)
+				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to [SSsecurity_level.number_level_to_text(level_number)].</span>")
 			if("moveminingshuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Mining Shuttle")
 				if(!SSshuttle.toggleShuttle("mining","mining_home","mining_away"))
@@ -3465,6 +3471,7 @@
 	hunter_mind.active = TRUE
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(GLOB.latejoin))
 	hunter_mind.transfer_to(hunter_mob)
+	dust_if_respawnable(C)
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, SLOT_HUD_IN_BACKPACK)

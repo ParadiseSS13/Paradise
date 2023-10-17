@@ -57,7 +57,7 @@
 	user.mind.transfer_to(target)
 	if(ghost && ghost.mind)
 		ghost.mind.transfer_to(user)
-		GLOB.non_respawnable_keys -= ghost.ckey //they have a new body, let them be able to re-enter their corpse if they die
+		GLOB.non_respawnable_keys -= ghost.ckey // Better make sure they can re-enter their new body
 		user.key = ghost.key
 	qdel(ghost)
 	if(ghosted)

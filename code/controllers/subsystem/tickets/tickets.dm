@@ -723,7 +723,7 @@ UI STUFF
 	var/static/list/protected_vars = list(
 		"allTickets"
 	)
-	if(!check_rights(R_ADMIN, FALSE, src) && (var_name in protected_vars))
+	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
 		return FALSE
 	return TRUE
 
