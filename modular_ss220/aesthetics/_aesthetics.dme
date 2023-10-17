@@ -48,3 +48,4 @@
 #include "skin\code\darkmode.dm"
 #include "sheets\code\sheets.dm"
 #include "applicator\code\applicator.dm"
+#include "satellite\code\satellite.dm"
