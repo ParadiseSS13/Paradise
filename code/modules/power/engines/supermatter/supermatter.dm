@@ -785,7 +785,7 @@
 			to_chat(H, "<span class='warning'>[scalpel] isn't sharp enough to carve a sliver off of [src]!</span>")
 			return
 
-		var/obj/item/nuke_core/supermatter_sliver/sliver = carve_sliver(scalpel, H)
+		var/obj/item/nuke_core/supermatter_sliver/sliver = carve_sliver(H)
 		if(sliver)
 			scalpel.uses_left--
 			if(!scalpel.uses_left)
@@ -803,7 +803,7 @@
 		return
 
 	if(istype(I, /obj/item/supermatter_halberd))
-		carve_sliver(I, user)
+		carve_sliver(user)
 		return
 
 	if(istype(I, /obj/item/retractor/supermatter))
@@ -838,7 +838,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
 	..()
-	Bumped(A)
+	if(!istype(A, /obj/machinery/atmospherics/supermatter_crystal))
+		Bumped(A)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
 	if(isliving(AM))
@@ -931,9 +932,9 @@
 		remove_filter("outline")
 		QDEL_NULL(warp)
 
-/obj/machinery/atmospherics/supermatter_crystal/proc/carve_sliver(obj/item/tool, mob/living/user)
+/obj/machinery/atmospherics/supermatter_crystal/proc/carve_sliver(mob/living/user)
 	to_chat(user, "<span class='notice'>You begin carving a sliver off of [src]...</span>")
-	if(tool.use_tool(src, user, 10 SECONDS, volume = 100))
+	if(do_after_once(user, 4 SECONDS, FALSE, src))
 		to_chat(user, "<span class='danger'>You carve a sliver off of [src], and it begins to react violently!</span>")
 		matter_power += 800
 

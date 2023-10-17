@@ -14,9 +14,12 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
+	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol","omnizine",
+									"stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
+									"sal_acid", "cryoxadone", "blood", "hydrocodone", "mitocholide", "rezadone", "menthol")
 
 /obj/item/reagent_containers/hypospray/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)
@@ -62,7 +65,7 @@
 	if(safety_hypo && !emagged)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
-			if(!GLOB.safe_chem_list.Find(R.id))
+			if(!safe_chem_list.Find(R.id))
 				reagents.del_reagent(R.id)
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
@@ -113,9 +116,9 @@
 	volume = 100
 	list_reagents = list("nanites" = 100)
 
-/obj/item/reagent_containers/hypospray/autoinjector
-	name = "emergency autoinjector"
-	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
+/obj/item/reagent_containers/hypospray/autoinjector // This is an empty variant
+	name = "empty autoinjector"
+	desc = "A rapid and safe way to inject chemicals into humanoids. This one is empty."
 	icon_state = "autoinjector"
 	item_state = "autoinjector"
 	belt_icon = "autoinjector"
@@ -125,7 +128,6 @@
 	ignore_flags = TRUE //so you can medipen through hardsuits
 	container_type = DRAWABLE
 	flags = null
-	list_reagents = list("epinephrine" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/M, mob/user)
 	if(!reagents.total_volume)
@@ -152,6 +154,11 @@
 		. += "<span class='notice'>It is currently loaded.</span>"
 	else
 		. += "<span class='notice'>It is spent.</span>"
+
+/obj/item/reagent_containers/hypospray/autoinjector/epinephrine
+	name = "emergency autoinjector"
+	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge."
+	list_reagents = list("epinephrine" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
@@ -181,7 +188,7 @@
 	icon_state = "survpen"
 	volume = 42
 	amount_per_transfer_from_this = 42
-	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5) //Short burst of healing, followed by minor healing from the saline
+	list_reagents = list("salbutamol" = 10, "teporone" = 15, "epinephrine" = 10, "lavaland_extract" = 2, "weak_omnizine" = 5)
 
 /obj/item/reagent_containers/hypospray/autoinjector/emergency_nuclear
 	name = "emergency stabilization medipen"
