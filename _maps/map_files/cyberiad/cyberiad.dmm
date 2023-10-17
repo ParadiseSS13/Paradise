@@ -4112,15 +4112,6 @@
 	icon_state = "rampbottom"
 	},
 /area/station/security/prison/cell_block/A)
-"apa" = (
-/obj/structure/table,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/processing)
 "apb" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -10989,31 +10980,6 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/station/security/detective)
-"aJm" = (
-/obj/structure/table/wood,
-/obj/item/storage/photo_album{
-	pixel_y = -10
-	},
-/obj/item/camera_film,
-/obj/item/camera_film,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
-/obj/machinery/requests_console{
-	name = "Detective Requests Console";
-	pixel_y = -30;
-	department = "Detective";
-	departmentType = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -21504,17 +21470,6 @@
 /area/station/service/library)
 "bmE" = (
 /obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/station/service/library)
-"bmF" = (
-/obj/structure/cult/archives,
-/obj/machinery/light_switch{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -32351,19 +32306,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/reception)
-"bRc" = (
-/obj/structure/table,
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = 3;
-	pixel_y = 3
-	},
-/obj/item/scalpel,
-/obj/item/autopsy_scanner,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/medical/morgue)
 "bRe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -52658,19 +52600,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"dfA" = (
-/obj/machinery/firealarm{
-	name = "north bump";
-	pixel_y = 24
-	},
-/obj/structure/transit_tube{
-	dir = 4;
-	icon_state = "Block"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/maintenance/storage)
 "dfB" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan,
 /turf/simulated/floor/plasteel,
@@ -52683,19 +52612,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
-	},
-/area/station/maintenance/storage)
-"dfE" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/structure/transit_tube/station,
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
 	},
 /area/station/maintenance/storage)
 "dfF" = (
@@ -53090,11 +53006,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/public/mrchangs)
-"dhr" = (
-/obj/structure/transit_tube,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/maintenance/storage)
 "dhv" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -54744,29 +54655,6 @@
 	icon_state = "dark"
 	},
 /area/station/aisat/hall)
-"dmW" = (
-/obj/structure/transit_tube,
-/turf/space,
-/area/space/nearstation)
-"dmX" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
-"dna" = (
-/obj/structure/transit_tube,
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat/interior)
-"dnb" = (
-/obj/structure/transit_tube/station,
-/obj/structure/transit_tube_pod{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat/interior)
 "dnc" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/r_wall,
@@ -54856,13 +54744,6 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/ai)
-"dno" = (
-/obj/structure/transit_tube{
-	dir = 8;
-	icon_state = "Block"
-	},
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat/interior)
 "dnq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -55052,19 +54933,6 @@
 	icon_state = "dark"
 	},
 /area/station/service/hydroponics)
-"dnM" = (
-/obj/structure/table/wood,
-/obj/item/taperecorder,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
-/obj/item/book/codex_gigas,
-/turf/simulated/floor/plasteel{
-	icon_state = "cult"
-	},
-/area/station/service/library)
 "dnN" = (
 /obj/machinery/light{
 	dir = 8
@@ -56582,6 +56450,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"dCJ" = (
+/obj/structure/transit_tube/cap{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "dCM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61416,6 +61290,19 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"fXw" = (
+/obj/machinery/status_display{
+	layer = 4;
+	pixel_y = 32
+	},
+/obj/structure/transit_tube/station,
+/obj/structure/transit_tube_pod{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/maintenance/storage)
 "fXL" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 4
@@ -62464,6 +62351,11 @@
 	icon_state = "wood-broken7"
 	},
 /area/station/maintenance/port)
+"gCu" = (
+/obj/structure/lattice,
+/obj/structure/transit_tube/crossing/horizontal,
+/turf/space,
+/area/space/nearstation)
 "gCE" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -63003,6 +62895,18 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"gQI" = (
+/obj/structure/table,
+/obj/item/camera/autopsy{
+	pixel_y = 3;
+	pixel_x = 3
+	},
+/obj/item/scalpel,
+/obj/item/autopsy_scanner,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/morgue)
 "gRe" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass,
@@ -64763,6 +64667,11 @@
 	icon_state = "dark"
 	},
 /area/station/engineering/smes)
+"hKO" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plating,
+/area/station/maintenance/storage)
 "hLh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -67206,6 +67115,18 @@
 	icon_state = "bot"
 	},
 /area/station/maintenance/fsmaint)
+"jhW" = (
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/transit_tube/cap{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/maintenance/storage)
 "jid" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
@@ -68301,6 +68222,15 @@
 	icon_state = "showroomfloor"
 	},
 /area/station/maintenance/asmaint)
+"jQb" = (
+/obj/structure/table/wood,
+/obj/item/taperecorder,
+/obj/item/camera,
+/obj/item/book/codex_gigas,
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/station/service/library)
 "jQt" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -71420,6 +71350,27 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"lvV" = (
+/obj/structure/table/wood,
+/obj/item/storage/photo_album{
+	pixel_y = -10
+	},
+/obj/item/camera_film,
+/obj/item/camera_film,
+/obj/item/camera/detective,
+/obj/machinery/requests_console{
+	name = "Detective Requests Console";
+	pixel_y = -30;
+	department = "Detective";
+	departmentType = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/station/security/detective)
 "lwt" = (
 /obj/machinery/computer/operating{
 	dir = 8
@@ -73587,11 +73538,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
-"mHY" = (
-/obj/structure/transit_tube,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/turret_protected/aisat/interior)
 "mIu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -74634,6 +74580,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"nrh" = (
+/obj/structure/transit_tube/station,
+/obj/structure/transit_tube_pod{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/yellow,
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "nrj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
@@ -74877,6 +74831,16 @@
 	icon_state = "brown"
 	},
 /area/station/supply/qm)
+"nxl" = (
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cult"
+	},
+/area/station/service/library)
 "nxm" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -75496,6 +75460,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/cmo)
+"nOO" = (
+/obj/structure/transit_tube/horizontal,
+/turf/space,
+/area/space/nearstation)
 "nPm" = (
 /obj/structure/railing{
 	dir = 4
@@ -82680,6 +82648,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
+"rFx" = (
+/obj/structure/table,
+/obj/item/camera,
+/turf/simulated/floor/plasteel,
+/area/station/security/processing)
 "rFK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/fueltank,
@@ -89949,6 +89922,11 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
+"vNc" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "vNn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -92315,6 +92293,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/public/dorms)
+"xkm" = (
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plating,
+/area/station/turret_protected/aisat/interior)
 "xkF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -125142,7 +125124,7 @@ aEp
 aFD
 aGB
 aEk
-aJm
+lvV
 axe
 avq
 sPN
@@ -126412,7 +126394,7 @@ ahC
 asq
 atB
 iWs
-apa
+rFx
 axt
 ati
 auT
@@ -127561,7 +127543,7 @@ cZS
 dcq
 lrP
 dcq
-dfA
+jhW
 dfT
 dcq
 aaa
@@ -127818,7 +127800,7 @@ cZS
 gYf
 aaa
 dcq
-dfE
+fXw
 dgd
 nAZ
 aaa
@@ -128075,7 +128057,7 @@ cZS
 aab
 aaa
 dcq
-dhr
+hKO
 nAZ
 dcq
 aaa
@@ -128332,7 +128314,7 @@ cZS
 aab
 aaa
 aaa
-dmW
+nOO
 aaa
 aab
 aaa
@@ -128589,7 +128571,7 @@ cZS
 aab
 aaa
 aaa
-dmW
+nOO
 aaa
 aab
 aaa
@@ -128846,7 +128828,7 @@ cZS
 aab
 aab
 aab
-dmX
+gCu
 aab
 aab
 aaa
@@ -129103,7 +129085,7 @@ cZS
 aaa
 aab
 aaa
-dmW
+nOO
 aaa
 aab
 aaa
@@ -129360,7 +129342,7 @@ cZS
 aaa
 aab
 aaa
-dmW
+nOO
 aaa
 aab
 aaa
@@ -129617,7 +129599,7 @@ cZS
 aaa
 aab
 aaa
-dmW
+nOO
 aaa
 aab
 aaa
@@ -129874,7 +129856,7 @@ cZS
 aaa
 aab
 aab
-dmX
+gCu
 aab
 hul
 aab
@@ -130131,7 +130113,7 @@ cZS
 aaa
 aab
 aaa
-dmW
+nOO
 tsy
 vtG
 tsy
@@ -130388,7 +130370,7 @@ aaa
 aaa
 aab
 aaa
-dmW
+nOO
 tsy
 cxB
 dnW
@@ -130645,7 +130627,7 @@ aaa
 aaa
 aab
 tsy
-mHY
+vNc
 tsy
 eqt
 xrQ
@@ -130902,7 +130884,7 @@ aaa
 aaa
 aab
 tsy
-dna
+xkm
 bfm
 gML
 dob
@@ -131159,7 +131141,7 @@ uZe
 aaa
 diu
 euN
-dnb
+nrh
 dhj
 dhz
 dii
@@ -131416,7 +131398,7 @@ aab
 aaa
 cQp
 tsy
-dno
+dCJ
 dnv
 dnW
 diz
@@ -133665,7 +133647,7 @@ chh
 chh
 bOT
 bNL
-bRc
+gQI
 nbE
 bEu
 fgv
@@ -140326,7 +140308,7 @@ baz
 mGP
 baz
 aYP
-dnM
+jQb
 bmG
 boy
 bcp
@@ -140584,7 +140566,7 @@ biq
 bjr
 aYP
 bkZ
-bmF
+nxl
 bau
 bqd
 brB
