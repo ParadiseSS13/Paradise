@@ -272,7 +272,11 @@
 	icon_state = "cap"
 
 /obj/structure/transit_tube/cap/init_tube_dirs()
-	tube_dirs = list(dir)  // back the way we came
+	tube_dirs = list(turn(dir, 180))  // back the way we came
 
 /obj/structure/transit_tube/cap/has_entrance(from_dir)
 	return FALSE
+
+/obj/structure/transit_tube/cap/create_tube_overlay()
+	// cap sprites already have overlays
+	return
