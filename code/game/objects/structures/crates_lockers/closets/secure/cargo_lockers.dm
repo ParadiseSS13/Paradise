@@ -12,8 +12,6 @@
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/storage/bag/mail(src)
-//		new /obj/item/cartridge/quartermaster(src)
-
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
@@ -35,5 +33,6 @@
 	new /obj/item/destTagger(src)
 	new /obj/item/reagent_containers/food/drinks/mug/qm(src)
 	new /obj/item/flash(src)
+	new /obj/item/cartridge/qm(src)
 	new /obj/item/storage/bag/mail(src)
 
