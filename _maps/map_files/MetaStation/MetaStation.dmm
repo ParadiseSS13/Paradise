@@ -46808,6 +46808,9 @@
 /obj/structure/cable/pink{
 	icon_state = "0-9"
 	},
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "cYj" = (
@@ -56325,6 +56328,9 @@
 /area/station/science/toxins/mixing)
 "gNO" = (
 /obj/item/wirecutters,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "gOb" = (
@@ -68033,6 +68039,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/fsmaint)
+"lRK" = (
+/obj/machinery/light/small,
+/turf/simulated/floor/catwalk,
+/area/station/maintenance/fore)
 "lRY" = (
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -130543,7 +130553,7 @@ afH
 khO
 aiL
 ajg
-aDY
+akT
 khy
 alW
 ajg
@@ -131059,7 +131069,7 @@ ajj
 ajg
 rDe
 khy
-aDY
+aQM
 ajg
 ajn
 akl
@@ -132342,7 +132352,7 @@ aaa
 aaa
 aaa
 ahH
-agi
+lRK
 ktZ
 oWE
 aeN
@@ -133113,7 +133123,7 @@ aaa
 aaa
 aaa
 ahH
-agi
+lRK
 ajg
 oWE
 air
