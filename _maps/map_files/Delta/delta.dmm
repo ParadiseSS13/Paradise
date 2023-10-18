@@ -16808,6 +16808,17 @@
 /area/station/supply/qm)
 "aYi" = (
 /obj/structure/table/reinforced,
+/obj/item/cartridge/cargo{
+	pixel_x = -3
+	},
+/obj/item/cartridge/cargo{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/cartridge/cargo{
+	pixel_x = -1;
+	pixel_y = 7
+	},
 /obj/item/gps/mining,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/keycard_auth,
@@ -24539,11 +24550,7 @@
 /area/station/supply/sorting)
 "bqJ" = (
 /obj/structure/table,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
+/obj/item/camera,
 /obj/machinery/camera{
 	c_tag = "Brig - Prisoner Processing";
 	dir = 8
@@ -31673,11 +31680,7 @@
 "bHL" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
+/obj/item/camera/detective,
 /obj/item/radio/intercom{
 	name = "north bump";
 	pixel_y = 28
@@ -35106,37 +35109,22 @@
 "bPS" = (
 /turf/simulated/wall,
 /area/space/nearstation)
-"bPT" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced,
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/turf/space,
-/area/space/nearstation)
 "bPU" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "E-SW"
+/obj/structure/transit_tube/curved/flipped{
+	dir = 4
 	},
 /turf/space,
 /area/space/nearstation)
 "bPV" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
 "bPW" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bPX" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
+/obj/structure/transit_tube/curved{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -35930,37 +35918,12 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/transit_tube{
-	icon_state = "S-NE"
-	},
+/obj/structure/transit_tube/curved,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
-"bRO" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bRP" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/turf/space,
-/area/space/nearstation)
 "bRQ" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "NW-SE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bRR" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
+/obj/structure/transit_tube/diagonal/topleft,
 /turf/space,
 /area/space/nearstation)
 "bRS" = (
@@ -36993,16 +36956,16 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "bTQ" = (
-/obj/item/radio/beacon,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "bTR" = (
@@ -38019,58 +37982,31 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/transit_tube{
-	icon_state = "N-SE"
+/obj/structure/transit_tube/curved/flipped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
-"bVZ" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/turf/space,
-/area/space/nearstation)
 "bWa" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
 /turf/space,
 /area/space/nearstation)
 "bWb" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "NE-SW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bWc" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bWd" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
+/obj/structure/transit_tube/diagonal,
 /turf/space,
 /area/space/nearstation)
 "bWf" = (
-/obj/structure/transit_tube,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
 	},
 /area/station/engineering/break_room)
 "bWg" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/break_room)
 "bWh" = (
@@ -38090,14 +38026,13 @@
 	},
 /area/station/security/warden)
 "bWi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/transit_tube/cap{
+	dir = 8
+	},
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/transit_tube{
-	dir = 8;
-	icon_state = "Block"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -38716,35 +38651,17 @@
 	icon_state = "vault"
 	},
 /area/station/turret_protected/aisat)
-"bXQ" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/turf/space,
-/area/space/nearstation)
 "bXR" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "E-NW"
+/obj/structure/transit_tube/curved{
+	dir = 4
 	},
 /turf/space,
 /area/space/nearstation)
 "bXS" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "W-NE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bXT" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
+/obj/structure/transit_tube/curved/flipped{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -42124,14 +42041,14 @@
 	},
 /area/station/hallway/primary/port)
 "cgD" = (
-/obj/structure/transit_tube/station/reverse{
-	dir = 1
-	},
 /obj/structure/transit_tube_pod{
 	dir = 8
 	},
 /obj/machinery/ai_status_display{
 	pixel_y = -32
+	},
+/obj/structure/transit_tube/station{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -43106,22 +43023,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
-"cjl" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
 "cjm" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -44954,14 +44855,14 @@
 /turf/simulated/floor/plating,
 /area/station/command/teleporter)
 "cnH" = (
-/obj/structure/transit_tube{
-	icon_state = "E-SW-NW"
-	},
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/transit_tube/junction{
 	dir = 4
 	},
 /turf/space,
@@ -45148,15 +45049,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "coi" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/transit_tube/crossing{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -46973,7 +46874,6 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "csr" = (
-/obj/structure/transit_tube,
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -46981,6 +46881,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
 "css" = (
@@ -47038,15 +46939,15 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
 "csy" = (
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/transit_tube/curved{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -47528,9 +47429,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "ctI" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -47544,13 +47442,13 @@
 /turf/space,
 /area/space/nearstation)
 "ctJ" = (
-/obj/structure/transit_tube{
-	icon_state = "E-NW"
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved{
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "ctK" = (
@@ -80875,8 +80773,7 @@
 /obj/item/storage/box/gloves{
 	pixel_y = 8
 	},
-/obj/item/camera{
-	name = "Autopsy Camera";
+/obj/item/camera/autopsy{
 	pixel_x = -2;
 	pixel_y = -2
 	},
@@ -82727,6 +82624,17 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/medbay)
+"jdJ" = (
+/obj/structure/transit_tube/horizontal,
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "jdU" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -95673,11 +95581,7 @@
 /obj/item/crowbar/red,
 /obj/item/book/manual/wiki/security_space_law,
 /obj/item/book/manual/detective,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
+/obj/item/camera/detective,
 /turf/simulated/floor/wood{
 	broken = 1;
 	icon_state = "wood-broken"
@@ -112032,11 +111936,11 @@ aaa
 aaa
 bUJ
 aaa
-bPT
+bku
 bRN
 bTU
 bVY
-bXQ
+brr
 aaa
 aaa
 aaa
@@ -112290,9 +112194,9 @@ aaa
 bUJ
 aaa
 bPU
-bRO
+bms
 bZw
-bVZ
+bms
 bXR
 aaa
 aaa
@@ -112804,7 +112708,7 @@ aaa
 bUJ
 aaa
 bPW
-bRP
+bWa
 chw
 bWa
 bXS
@@ -113060,11 +112964,11 @@ aaa
 aaa
 bUJ
 aaa
-bPX
+abj
 bRQ
-cjl
+chw
 bWb
-bXT
+abj
 aaa
 aaa
 aaa
@@ -113318,9 +113222,9 @@ aaa
 bUJ
 aaa
 abj
-bRR
+bWa
 cnH
-bWc
+bWa
 abj
 aaa
 aaa
@@ -119230,7 +119134,7 @@ dVS
 abj
 abj
 abj
-csr
+jdJ
 abj
 bXU
 bZk
@@ -119488,7 +119392,7 @@ byl
 byl
 abj
 csy
-bWd
+abj
 bXU
 bZl
 cbb
