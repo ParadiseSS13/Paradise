@@ -89,7 +89,7 @@
 	name = "Mining Station Custodial Storage"
 	icon_state = "janitor"
 
-/area/mine/outpost/engineering
+/area/mine/outpost/engineering // basically engi and atmos combined. I'm keeping it as "engineering" code wise, but "Life Support" sounds cooler in-game
 	name = "Mining Station Life Support"
 	icon_state = "engi"
 
@@ -106,7 +106,7 @@
 	icon_state = "hallP"
 
 /area/mine/outpost/lockers
-	name = "Mining Station Lockers"
+	name = "Mining Station Locker Room"
 	icon_state = "locker"
 
 /area/mine/outpost/storage

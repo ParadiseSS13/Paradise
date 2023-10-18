@@ -1677,9 +1677,6 @@
 "dM" = (
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /obj/effect/decal/cleanable/glass,
-/obj/item/gps/ruin{
-	pixel_y = 30
-	},
 /obj/machinery/requests_console{
 	department = "Mining Outpost";
 	departmentType = 2;
@@ -2392,6 +2389,9 @@
 /obj/machinery/cell_charger,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/structure/sign/nosmoking_1{
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3151,10 +3151,6 @@
 "gJ" = (
 /obj/machinery/light/small{
 	dir = 4
-	},
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
@@ -5512,6 +5508,9 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/structure/sign/fire{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "wD" = (
@@ -5634,6 +5633,14 @@
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
+"xQ" = (
+/obj/structure/lattice/catwalk/mining,
+/obj/structure/railing,
+/obj/structure/sign/fire{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/outpost/catwalk)
 "xR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6840,9 +6847,8 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
@@ -7088,6 +7094,11 @@
 "JB" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/mapping_helpers/no_lava,
+/obj/structure/railing{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk/mining,
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "JP" = (
@@ -7121,6 +7132,10 @@
 "JX" = (
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
@@ -7560,12 +7575,6 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
-"Ol" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/mining)
 "Oq" = (
 /turf/simulated/wall,
 /area/mine/outpost/production)
@@ -7720,7 +7729,7 @@
 /area/mine/outpost/engineering)
 "Pu" = (
 /obj/machinery/door/airlock/mining{
-	name = "Lockers"
+	name = "Miner Lockers"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/machinery/door/firedoor,
@@ -7963,6 +7972,11 @@
 	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30;
+	pixel_x = -5
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
@@ -8582,6 +8596,13 @@
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
+"WV" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/item/gps/ruin{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plating,
+/area/mine/outpost/maintenance/east)
 "WX" = (
 /obj/machinery/alarm{
 	dir = 8;
@@ -17710,7 +17731,7 @@ hC
 cR
 xC
 xC
-Ol
+Cf
 JX
 Vu
 ZG
@@ -21828,7 +21849,7 @@ eg
 aI
 XZ
 cl
-bH
+xQ
 ab
 ab
 AE
@@ -26186,7 +26207,7 @@ eO
 uO
 FH
 DA
-dW
+WV
 YS
 vh
 Xb
@@ -26707,7 +26728,7 @@ Ly
 AY
 AY
 AY
-AY
+KS
 AY
 AY
 Ly
