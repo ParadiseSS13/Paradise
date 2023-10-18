@@ -12601,10 +12601,6 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
 /area/station/public/arcade)
-"aXv" = (
-/obj/effect/spawner/random_spawners/cobweb_right_rare,
-/turf/space,
-/area/space)
 "aXw" = (
 /obj/effect/landmark/start/cargo_technician,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -121339,7 +121335,7 @@ aaa
 aaa
 ajo
 aaa
-aXv
+aaa
 rZN
 aHO
 qVY
