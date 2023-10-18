@@ -255,10 +255,6 @@
 /area/ruin/unpowered/syndicate_space_base/main)
 "bI" = (
 /obj/item/stack/sheet/glass/fifty{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/stack/sheet/glass/fifty{
 	pixel_x = -5;
 	pixel_y = -5
 	},
@@ -273,6 +269,10 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
+	},
+/obj/item/stack/sheet/glass/fifty{
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -718,6 +718,17 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
+"dZ" = (
+/obj/machinery/disposal{
+	name = "Toxins Bomb Transfer Unit"
+	},
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "ea" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable/green{
@@ -817,17 +828,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "eL" = (
-/obj/machinery/ignition_switch{
-	id = "syndbaseigniter";
-	pixel_x = 6;
-	pixel_y = 25
-	},
-/obj/machinery/door_control{
-	id = "syndbaseventing";
-	name = "Toxin Venting Control";
-	pixel_x = -8;
-	pixel_y = 26
-	},
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -1153,18 +1153,44 @@
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "gt" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/monkeycubes/syndicate,
-/obj/item/storage/box/monkeycubes/syndicate,
-/obj/item/storage/box/monkeycubes/syndicate,
-/obj/item/storage/box/monkeycubes/syndicate,
-/obj/item/storage/box/monkeycubes/syndicate,
-/obj/item/storage/box/monkeycubes/syndicate,
-/obj/item/storage/box/monkeycubes/syndicate,
-/obj/item/storage/box/monkeycubes/syndicate,
 /obj/machinery/alarm/syndicate{
 	pixel_x = -24;
 	name = "Syndie West Air Alarm";
 	dir = 4
+	},
+/obj/item/storage/box/monkeycubes/syndicate{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/storage/box/monkeycubes/syndicate{
+	pixel_x = 7;
+	pixel_y = 7
+	},
+/obj/item/storage/box/monkeycubes/syndicate{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/item/storage/box/monkeycubes/syndicate{
+	pixel_x = -7;
+	pixel_y = 7
+	},
+/obj/item/storage/box/monkeycubes/syndicate,
+/obj/item/storage/box/monkeycubes/syndicate,
+/obj/item/storage/box/monkeycubes/syndicate{
+	pixel_x = -7;
+	pixel_y = -7
+	},
+/obj/item/storage/box/monkeycubes/syndicate{
+	pixel_x = -7;
+	pixel_y = -7
+	},
+/obj/item/storage/box/monkeycubes/syndicate{
+	pixel_x = 7;
+	pixel_y = -7
+	},
+/obj/item/storage/box/monkeycubes/syndicate{
+	pixel_x = 7;
+	pixel_y = -7
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1353,13 +1379,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "hz" = (
-/obj/structure/cable/green{
-	d2 = 8;
-	icon_state = "4-8";
-	d1 = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
+	},
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "2-8";
+	d1 = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2243,9 +2269,6 @@
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "mF" = (
 /obj/effect/decal/warning_stripes/green/hollow,
-/obj/structure/computerframe{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2270,13 +2293,17 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "mJ" = (
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/cable/green{
-	d2 = 2;
-	icon_state = "1-2";
-	d1 = 1
+	d2 = 8;
+	icon_state = "2-8";
+	d1 = 2
+	},
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the test chamber.";
+	layer = 4;
+	name = "Test Chamber Telescreen";
+	network = list("SyndicateToxinsTest");
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2662,8 +2689,22 @@
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/metal/fifty,
-/obj/item/circuitboard/gibber,
-/obj/item/circuitboard/dish_drive,
+/obj/item/circuitboard/gibber{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/circuitboard/dish_drive{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/circuitboard/scan_consolenew{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/item/circuitboard/scan_consolenew{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -2914,7 +2955,6 @@
 	},
 /obj/item/hand_labeler,
 /obj/item/pen,
-/obj/item/circuitboard/scan_consolenew,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
@@ -3357,18 +3397,17 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "ti" = (
-/obj/item/storage/box/donkpockets{
-	pixel_x = -2;
-	pixel_y = 6
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_y = 3
-	},
-/obj/item/storage/box/donkpockets{
-	pixel_x = 2
-	},
 /obj/structure/rack{
 	dir = 8
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets{
+	pixel_x = -3;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -4689,17 +4728,8 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Ap" = (
-/obj/machinery/computer/security/telescreen{
-	desc = "Used for watching the test chamber.";
-	layer = 4;
-	name = "Test Chamber Telescreen";
-	network = list("SyndicateToxinsTest");
-	pixel_x = 32
-	},
-/obj/structure/cable/green{
-	d2 = 8;
-	icon_state = "2-8";
-	d1 = 2
+/obj/machinery/doppler_array{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5096,19 +5126,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/virology)
-"CT" = (
-/obj/machinery/alarm/syndicate{
-	pixel_y = -24;
-	dir = 1;
-	name = "Syndie South Air Alarm"
-	},
-/obj/structure/cable/green{
-	d2 = 8;
-	icon_state = "4-8";
-	d1 = 4
-	},
-/turf/simulated/floor/catwalk,
-/area/ruin/unpowered/syndicate_space_base/toxtest)
 "CU" = (
 /obj/machinery/cryopod/offstation{
 	dir = 2
@@ -5352,6 +5369,24 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
+"EF" = (
+/obj/structure/rack{
+	dir = 8
+	},
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "yellow"
+	},
+/area/ruin/unpowered/syndicate_space_base/storage)
 "EH" = (
 /obj/machinery/door/airlock/hatch/syndicate,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5823,29 +5858,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
 "GM" = (
-/obj/structure/table,
-/obj/item/stack/cable_coil{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/stack/cable_coil,
-/obj/item/taperecorder{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/analyzer{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
-	},
-/obj/item/analyzer{
-	pixel_x = -5;
-	pixel_y = 5
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/green{
+	d2 = 4;
+	icon_state = "1-4";
+	d1 = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -6073,12 +6090,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "Id" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'BOMB RANGE";
-	name = "BOMB RANGE"
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
-/area/ruin/unpowered/syndicate_space_base/toxtest)
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "Ij" = (
 /obj/machinery/economy/vending/cola/free,
 /turf/simulated/floor/plasteel{
@@ -6390,13 +6406,31 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Ju" = (
+/obj/structure/table,
+/obj/item/stack/cable_coil{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil,
+/obj/item/taperecorder{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/analyzer{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
+/obj/item/analyzer{
+	pixel_x = -5;
+	pixel_y = 5
+	},
 /obj/machinery/light,
-/obj/machinery/disposal{
-	name = "Toxins Bomb Transfer Unit"
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6538,6 +6572,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
+"KA" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "KG" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -7226,9 +7266,15 @@
 /obj/structure/rack{
 	dir = 8
 	},
+/obj/item/storage/box/foam_grenades{
+	pixel_x = 3;
+	pixel_y = 3
+	},
 /obj/item/storage/box/foam_grenades,
-/obj/item/storage/box/foam_grenades,
-/obj/item/storage/box/foam_grenades,
+/obj/item/storage/box/foam_grenades{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -7450,11 +7496,9 @@
 /turf/simulated/floor/transparent/glass/reinforced,
 /area/ruin/unpowered/syndicate_space_base/service)
 "QT" = (
-/obj/structure/closet/radiation,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/main)
+/obj/item/clothing/gloves/color/fyellow/old,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered/syndicate_space_base/inner)
 "QU" = (
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
@@ -7782,12 +7826,24 @@
 /area/ruin/unpowered/syndicate_space_base/virology)
 "SM" = (
 /obj/structure/table/reinforced,
-/obj/item/vending_refill/dinnerware,
-/obj/item/vending_refill/dinnerware,
+/obj/item/vending_refill/dinnerware{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/vending_refill/dinnerware{
+	pixel_x = 5;
+	pixel_y = 5
+	},
 /obj/item/vending_refill/hydronutrients,
 /obj/item/vending_refill/hydronutrients,
-/obj/item/vending_refill/hydroseeds,
-/obj/item/vending_refill/hydroseeds,
+/obj/item/vending_refill/hydroseeds{
+	pixel_x = -5;
+	pixel_y = -5
+	},
+/obj/item/vending_refill/hydroseeds{
+	pixel_x = -5;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -8017,14 +8073,20 @@
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "TE" = (
 /obj/structure/table/reinforced,
-/obj/item/vending_refill/medical,
-/obj/item/vending_refill/medical,
-/obj/item/vending_refill/medical,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
+	},
+/obj/item/vending_refill/medical{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/item/vending_refill/medical,
+/obj/item/vending_refill/medical{
+	pixel_x = -5;
+	pixel_y = -5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -8316,10 +8378,22 @@
 /obj/structure/rack{
 	dir = 8
 	},
-/obj/item/storage/box/stockparts/deluxe,
-/obj/item/storage/box/stockparts/deluxe,
-/obj/item/storage/box/stockparts/deluxe,
-/obj/item/storage/box/stockparts/deluxe,
+/obj/item/storage/box/stockparts/deluxe{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/storage/box/stockparts/deluxe{
+	pixel_x = 1;
+	pixel_y = 1
+	},
+/obj/item/storage/box/stockparts/deluxe{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/item/storage/box/stockparts/deluxe{
+	pixel_x = -5;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -11237,9 +11311,9 @@ jH
 FP
 qB
 vO
+nw
 Vr
 IX
-kE
 AD
 AD
 kE
@@ -11309,9 +11383,9 @@ aA
 nw
 AW
 nw
-GM
+nw
+Ju
 IX
-kE
 LE
 Mf
 kE
@@ -11380,10 +11454,10 @@ IX
 gX
 cS
 NS
+KA
 HM
 TW
 IX
-kE
 AD
 AD
 kE
@@ -11453,9 +11527,9 @@ IX
 IX
 SD
 nw
+nw
 ij
 IX
-kE
 Mf
 AD
 kE
@@ -11525,10 +11599,10 @@ yh
 Xa
 Cn
 xL
-Ju
+xL
+dZ
 IX
 Qv
-AD
 AD
 kE
 kE
@@ -11596,10 +11670,10 @@ IX
 cp
 Lt
 hz
+GM
 Uw
 hY
 IX
-kE
 AD
 AD
 kE
@@ -11670,8 +11744,8 @@ KG
 Ap
 mJ
 lN
+Id
 IX
-kE
 Mf
 Mf
 AD
@@ -11743,7 +11817,7 @@ IX
 IX
 pq
 IX
-kE
+IX
 AD
 Mf
 kE
@@ -12309,7 +12383,7 @@ kE
 kE
 Ri
 Ri
-if
+QT
 if
 if
 dA
@@ -12317,7 +12391,7 @@ dA
 if
 if
 FZ
-CT
+zE
 xW
 kE
 kE
@@ -12498,7 +12572,7 @@ Mw
 mq
 Km
 Gd
-Wm
+EF
 bI
 ep
 Tt
@@ -12534,7 +12608,7 @@ Vl
 Vl
 yC
 ph
-Id
+yC
 kE
 kE
 AD
@@ -12648,7 +12722,7 @@ FI
 uM
 VE
 mq
-QT
+am
 fA
 Xv
 PL
