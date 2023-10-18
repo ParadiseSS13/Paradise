@@ -808,6 +808,9 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
+/obj/effect/decal/warning_stripes/green/partial{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 4
@@ -1230,6 +1233,7 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "gO" = (
 /obj/machinery/dna_scannernew,
+/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 1
@@ -2238,7 +2242,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "mF" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/effect/decal/warning_stripes/green/hollow,
+/obj/structure/computerframe{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -2909,6 +2914,7 @@
 	},
 /obj/item/hand_labeler,
 /obj/item/pen,
+/obj/item/circuitboard/scan_consolenew,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkgreen"
@@ -4405,6 +4411,7 @@
 "zd" = (
 /obj/machinery/dna_scannernew,
 /obj/structure/disposalpipe/segment,
+/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgreen"
@@ -7324,6 +7331,7 @@
 /obj/machinery/computer/scan_consolenew{
 	dir = 8
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 1
@@ -7824,6 +7832,7 @@
 /obj/machinery/computer/scan_consolenew{
 	dir = 8
 	},
+/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen"
 	},
@@ -8508,6 +8517,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/decal/warning_stripes/green/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 4
