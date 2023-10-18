@@ -157,7 +157,7 @@
 	. = FALSE
 	switch(action)
 		if("vend")
-			vend_seed(text2num(params["seedid"]), params["seedvariant"], vend_amount)
+			vend_seed(text2num(params["seedid"]), params["seedvariant"], vend_amount, ui.user)
 			add_fingerprint(usr)
 			. = TRUE
 		if("set_vend_amount")
@@ -167,11 +167,11 @@
 			add_fingerprint(usr)
 			. = TRUE
 
-/obj/machinery/seed_extractor/proc/vend_seed(seed_id, seed_variant, amount)
+/obj/machinery/seed_extractor/proc/vend_seed(seed_id, seed_variant, amount, mob/user)
 	if(!seed_id)
 		return
 	if(!seed_variant)
-		to_chat(world,"<span class='warning'>no variant</span>")
+		to_chat(user, "<span class='warning'>No variant available!</span>")
 	var/datum/seed_pile/selected_pile
 	for(var/datum/seed_pile/N in piles)
 		if(N.id == seed_id && (N.variant == seed_variant || !seed_variant))
