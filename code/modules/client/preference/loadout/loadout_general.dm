@@ -93,9 +93,9 @@
 	display_name = "Shark plushie"
 	path = /obj/item/toy/plushie/shark
 
-/datum/gear/nohudgoggles
+/datum/gear/goggles
 	display_name = "Goggles"
-	path = /obj/item/clothing/glasses/nohudgoggles
+	path = /obj/item/clothing/glasses/goggles
 
 /datum/gear/sechud
 	display_name = "Classic security HUD"

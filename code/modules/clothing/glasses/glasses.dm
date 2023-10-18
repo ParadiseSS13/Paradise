@@ -280,11 +280,11 @@
 	icon_state = "hipster_glasses"
 	item_state = "hipster_glasses"
 
-/obj/item/clothing/glasses/nohudgoggles
+/obj/item/clothing/glasses/goggles
 	name = "goggles"
 	desc = "Just some basic goggles, rather fashionable."
-	icon_state = "nohudgoggles"
-	item_state = "nohudgoggles"
+	icon_state = "goggles"
+	item_state = "goggles"
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
