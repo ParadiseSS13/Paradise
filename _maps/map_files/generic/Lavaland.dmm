@@ -2379,7 +2379,6 @@
 	id_tag = "mining_away"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredfull"
@@ -7519,7 +7518,6 @@
 /obj/machinery/door/airlock{
 	name = "Custodial Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -7529,6 +7527,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners"
 	},
@@ -7998,7 +7998,6 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
-/obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredfull"
