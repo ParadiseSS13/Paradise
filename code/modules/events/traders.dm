@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 
 /datum/event/traders/fake_announce()
 	. = TRUE
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
 		return
 	GLOB.minor_announcement.Announce("A trading shuttle from Jupiter Station has been granted docking permission at [station_name()] arrivals port 4.", "Trader Shuttle Docking Request Accepted")
@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		GLOB.minor_announcement.Announce("A trading shuttle from Jupiter Station has been denied docking permission due to the heightened security alert aboard [station_name()].", "Trader Shuttle Docking Request Refused")
 		// if the docking request was refused, fire another major event in 60 seconds
 		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
