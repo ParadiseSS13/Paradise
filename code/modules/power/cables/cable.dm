@@ -88,28 +88,37 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(T.transparent_floor || T.intact)
 		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
 		return
+	add_fingerprint(user)
 
-	else if(istype(W, /obj/item/stack/cable_coil))
+	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/coil = W
 		if(coil.get_amount() < 1)
 			to_chat(user, "<span class='warning'>Not enough cable!</span>")
 			return
 		coil.cable_join(src, user)
+		return
 
-	else if(istype(W, /obj/item/rcl))
+	if(istype(W, /obj/item/rcl))
 		var/obj/item/rcl/R = W
 		if(R.loaded)
 			R.loaded.cable_join(src, user)
 			R.is_empty(user)
+		return
 
-	else if(istype(W, /obj/item/toy/crayon))
+	if(istype(W, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/C = W
 		cable_color(C.colourName)
+		return
 
-	else if(W.sharp)
+	if(W.sharp)
 		wirecutter_act(user, W)
+		return
 
-	add_fingerprint(user)
+	if((user.a_intent == INTENT_HARM) && (W.flags & CONDUCT))
+		if(!shock(user, 50, 0.7))
+			return
+		user.do_attack_animation(src, used_item=W)
+		user.visible_message("<span class='danger'>[user] has hit [src] with [W]!</span>", "<span class='danger'>You hit [src] with [W]!</span>")
 
 /obj/structure/cable/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -132,7 +141,7 @@ By design, d1 is the smallest direction and d2 is the highest
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(shock(user, 50))
+	if((I.flags & CONDUCT) && shock(user, 50))
 		return
 	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
 	investigate_log("was cut by [key_name(usr, 1)] in [get_area(user)]([T.x], [T.y], [T.z] - [ADMIN_JMP(T)])","wires")
