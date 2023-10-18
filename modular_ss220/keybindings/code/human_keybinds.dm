@@ -15,5 +15,5 @@
 	keys = list("H")
 
 /datum/keybinding/human/parry
-	name = "Паррировать"
+	name = "Парировать"
 	keys = list("Space")
