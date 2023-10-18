@@ -379,6 +379,9 @@
 		/obj/item/cane = 1
 	)
 
+	backpack = /obj/item/storage/backpack/mime
+	satchel = /obj/item/storage/backpack/mime
+
 /datum/outfit/job/mime/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(H.gender == FEMALE)
