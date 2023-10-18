@@ -56,7 +56,7 @@
 	return FALSE
 
 /turf/simulated/floor/plating/lava/proc/burn_stuff(AM)
-	. = 0
+	. = FALSE
 
 	if(find_safeties())
 		return FALSE
@@ -71,7 +71,7 @@
 				continue
 			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
 				continue
-			. = 1
+			. = TRUE
 			if((O.resistance_flags & (ON_FIRE)))
 				continue
 			if(!(O.resistance_flags & FLAMMABLE))
@@ -83,7 +83,7 @@
 			O.fire_act(10000, 1000)
 
 		else if(isliving(thing))
-			. = 1
+			. = TRUE
 			var/mob/living/L = thing
 			if(L.flying)
 				continue	//YOU'RE FLYING OVER IT
@@ -109,7 +109,20 @@
 
 
 /turf/simulated/floor/plating/lava/attackby(obj/item/C, mob/user, params) //Lava isn't a good foundation to build on
-	return
+	if(istype(C, /obj/item/stack/rods/lava))
+		var/obj/item/stack/rods/lava/R = C
+		var/obj/structure/lattice/lava/H = locate(/obj/structure/lattice/lava, src)
+		if(H)
+			to_chat(user, "<span class='warning'>There is already a lattice here!</span>")
+			return
+		if(R.use(1))
+			to_chat(user, "<span class='warning'>You construct a lattice.</span>")
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/lava(locate(x, y, z))
+		else
+			to_chat(user, "<span class='warning'>You need one rod to build a heatproof lattice.</span>")
+			return
+
 
 /turf/simulated/floor/plating/lava/screwdriver_act()
 	return
@@ -142,3 +155,111 @@
 
 /turf/simulated/floor/plating/lava/smooth/airless
 	temperature = TCMB
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
+	name = "liquid plasma"
+	desc = "A flowing stream of chilled liquid plasma. You probably shouldn't get in."
+	icon = 'icons/turf/floors/liquidplasma.dmi'
+	icon_state = "liquidplasma-255"
+	base_icon_state = "liquidplasma"
+	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma
+
+	light_range = 3
+	light_power = 0.75
+	light_color = LIGHT_COLOR_PINK
+
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>Some <b>liquid plasma<b> could probably be scooped up with a <b>container</b>.</span>"
+
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/attackby(obj/item/I, mob/user, params)
+	if(!I.is_open_container())
+		return ..()
+	if(!I.reagents.add_reagent("plasma", 10))
+		to_chat(user, "<span class='warning'>[I] is full.</span>")
+		return
+	to_chat(user, "<span class='notice'>You scoop out some plasma from the [src] using [I].</span>")
+
+/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma/burn_stuff(AM)
+	. = FALSE
+	if(find_safeties())
+		return FALSE
+
+	var/thing_to_check = src
+	if(AM)
+		thing_to_check = list(AM)
+	for(var/thing in thing_to_check)
+		if(isobj(thing))
+			var/obj/O = thing
+			if(!O.simulated)
+				continue
+			if((O.resistance_flags & (LAVA_PROOF|INDESTRUCTIBLE)) || O.throwing)
+				continue
+			. = TRUE
+			if((O.resistance_flags & ON_FIRE))
+				continue
+			if(!(O.resistance_flags & FLAMMABLE))
+				O.resistance_flags |= FLAMMABLE //Even fireproof things burn up in lava
+			if(O.resistance_flags & FIRE_PROOF)
+				O.resistance_flags &= ~FIRE_PROOF
+			if(O.armor.getRating(FIRE) > 50) //obj with 100% fire armor still get slowly burned away.
+				O.armor = O.armor.setRating(fire_value = 50)
+			O.fire_act(10000, 1000)
+
+		if(!isliving(thing))
+			continue
+		. = TRUE
+		var/mob/living/burn_living = thing
+		if(burn_living.flying)
+			continue	//YOU'RE FLYING OVER IT
+		var/buckle_check = burn_living.buckling
+		if(!buckle_check)
+			buckle_check = burn_living.buckled
+		if(isobj(buckle_check))
+			var/obj/O = buckle_check
+			if(O.resistance_flags & LAVA_PROOF)
+				continue
+		else if(isliving(buckle_check))
+			var/mob/living/live = buckle_check
+			if("lava" in live.weather_immunities)
+				continue
+		if("lava" in burn_living.weather_immunities)
+			continue
+		burn_living.adjustFireLoss(2)
+		if(QDELETED(burn_living))
+			return
+		burn_living.adjust_fire_stacks(20) //dipping into a stream of plasma would probably make you more flammable than usual
+		burn_living.IgniteMob()
+		burn_living.adjust_bodytemperature(-rand(50, 65)) //its cold, man
+		if(!ishuman(burn_living) || prob(65))
+			return
+		var/mob/living/carbon/human/burn_human = burn_living
+		var/datum/species/burn_species = burn_human.dna.species
+		if(istype(burn_species, /datum/species/plasmaman) || istype(burn_species, /datum/species/machine)) //ignore plasmamen/robotic species.
+			return
+
+		burn_human.adjustToxLoss(15) //Cold mutagen is bad for you, more at 11.
+		burn_human.adjustFireLoss(15)
+
+/turf/simulated/floor/plating/lava/smooth/mapping_lava
+	name = "Adaptive lava / chasm / plasma"
+	icon_state = "mappinglava"
+	base_icon_state = "mappinglava"
+	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23
+	planetary_atmos = TRUE
+
+
+/turf/simulated/floor/plating/lava/smooth/mapping_lava/Initialize(mapload)
+	. = ..()
+	return INITIALIZE_HINT_LATELOAD //Lateload is needed, otherwise atmos does not setup right on the turf roundstart, leading it to be vacume. This is bad.
+
+/turf/simulated/floor/plating/lava/smooth/mapping_lava/LateInitialize()
+	. = ..()
+	ChangeTurf(SSmapping.lavaland_theme, ignore_air = TRUE)
+
+

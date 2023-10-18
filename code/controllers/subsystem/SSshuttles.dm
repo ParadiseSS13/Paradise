@@ -19,10 +19,13 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergencyEscapeTime = SHUTTLE_ESCAPETIME	//time taken for emergency shuttle to reach a safe distance after leaving station (in deciseconds)
 	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
 	var/area/emergencyLastCallLoc
-	var/emergencyNoEscape
+	/// Things blocking escape shuttle from leaving.
+	var/list/hostile_environments = list()
 
 	//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
+	/// Supply shuttle turfs to make mail be put down faster
+	var/static/list/supply_shuttle_turfs = list()
 
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
@@ -115,7 +118,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/area/signal_origin = get_area(user)
 	var/emergency_reason = "\nNature of emergency:\n\n[call_reason]"
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		var/extra_minutes = 0
 		var/priority_time = emergencyCallTime * 0.5
 		if(world.time - emergency_sec_level_time < priority_time)
@@ -149,7 +152,7 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	if(!emergency.canRecall)
 		return
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		if(emergency.timeLeft(1) < emergencyCallTime * 0.25)
 			return
 	else
@@ -182,6 +185,12 @@ SUBSYSTEM_DEF(shuttle)
 			emergency.request(null, 2.5)
 			log_game("There is no means of calling the shuttle anymore. Shuttle automatically called.")
 			message_admins("All the communications consoles were destroyed and all AIs are inactive. Shuttle called.")
+
+/datum/controller/subsystem/shuttle/proc/registerHostileEnvironment(datum/bad)
+	hostile_environments |= bad
+
+/datum/controller/subsystem/shuttle/proc/clearHostileEnvironment(datum/bad)
+	hostile_environments -= bad
 
 //try to move/request to dockHome if possible, otherwise dockAway. Mainly used for admin buttons
 /datum/controller/subsystem/shuttle/proc/toggleShuttle(shuttleId, dockHome, dockAway, timed)
@@ -276,5 +285,22 @@ SUBSYSTEM_DEF(shuttle)
 		C.update_hidden_docking_ports(remove_images, add_images)
 
 	QDEL_LIST_CONTENTS(remove_images)
+
+/datum/controller/subsystem/shuttle/proc/mail_delivery()
+	for(var/obj/machinery/requests_console/console in GLOB.allRequestConsoles)
+		if(console.department != "Cargo Bay")
+			continue
+		console.createMessage("Messaging and Intergalactic Letters", "New Mail Crates ready to be ordered!", "A new mail crate is able to be shipped alongside your next orders!", RQ_NORMALPRIORITY)
+
+	if(!length(supply_shuttle_turfs))
+		for(var/turf/simulated/T in supply.areaInstance)
+			if(is_blocked_turf(T))
+				continue
+			supply_shuttle_turfs += T
+	if(!length(supply_shuttle_turfs)) // In case some nutjob walled the supply shuttle 10 minutes into the round
+		stack_trace("There were no available turfs on the Supply Shuttle to spawn a mail crate in!")
+		return
+	var/turf/spawn_location = pick(supply_shuttle_turfs)
+	new /obj/structure/closet/crate/mail(spawn_location)
 
 #undef CALL_SHUTTLE_REASON_LENGTH

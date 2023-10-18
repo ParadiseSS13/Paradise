@@ -113,88 +113,44 @@
 
 
 /obj/item/book/manual/supermatter_engine
-	name = "Supermatter Engine User's Guide"
-	desc = "An engineer's best tool for dealing with their worst frenemy: The Supermatter."
+	name = "Supermatter Engine Anomaly Reference"
+	desc = "An engineer's best tool for dealing with their worst frenemy: The Supermatter and its anomalous behavior."
 	icon_state = "bookParticleAccelerator"
-	author = "Waleed Asad"
-	title = "Supermatter Engine User's Guide"
+	author = "Vroo-Looum-Kloo"
+	title = "Supermatter Engine Anomaly Reference"
 
 	pages = list({"Engineering notes on single-stage Supermatter engine,</br>
-			-Waleed Asad</br>
+			Vroo-Looum-Kloo</br>
 
-			A word of caution, do not enter the engine room, for any reason, without radiation protection and mesons on. The status of the engine may be unpredictable even when you believe it is .off.. This is an important level of personal protection.</br></br>
+			The supermatter engine is a very powerful, yet strange method of power generation. This guide will serve as a pocket reference for the myriad of anomalous behaviors it may exhibit throughout your shift. Below is a table of events and their effects.</br></br></br>
 
-			The engine has two basic modes of functionality. He has observed that it is capable of both a safe level of operation and a modified, high output mode.</br></br>
+			D Class: Events that only affect certain types of NON-STANDARD setups, minimial operator intervention required. These events occur instantly and engineering will be alerted on telecomms.</br></br>
 
-			<center><b>Notes on starting the basic function mode, dubbed .Heat-Primary Mode..</b></center></br></br>
+			D-1: About 200 moles of nitrous oxide are released by the crystal.</br>
+			D-2: About 200 moles of nitrogen are released by the crystal</br>
+			D-3: About 250 moles of CO2 are released by the crystal</br></br></br>
 
-			1. Prepare collector arrays. This is done standard to any text on their function by wrenching them down, filling six plasma tanks with a plasma canister, and inserting the tank into the collectors one by one. Finally, initialize each collector.</br></br>
+			C Class: Events with mild effects to standard setups. Operator intervention MAY be required. Engineering will be alerted on telecomms.</br></br>
+			C-1: 250 moles of oxygen are released by the crystal</br>
+			C-2: 250 moles of plasma are released by the crystal</br>
+			C-3: The temperature at which the engine starts to lose integrity is lowered for a few minutes.</br></br></br>
 
-			2. Prepare gas system. Before introducing any gas to the Supermatter engine room, it is important to remember the small but vital steps to preparing this section. First, set the input gas pump and output gas flow pump to 4500, or maximum flow. Second, switch the digital switching valve into the .up. position, in order to circulate the gas back toward the coolers and collectors.</br></br>
+			B Class: Events with significant effects to standard setups. Action may need to be taken to prevent a delamination event.</br></br>
+			B-1: The amount of plasma and O2 released by the engine is doubled for a few minutes.</br>
+			B-2: The amount of heat released by the engine is increased for a few minutes.</br>
+			B-3: The engine's EER is raised slightly above critically for several minutes, regardless of outside factors.</br></br></br>
 
-			3. Apply N2 gas. Retrieve the two N2 canisters from storage and bring them to the engine room. Attach one of them to the input section of the engine gas system located next to the collectors. Keep it attached until the N2 pressure is low enough to turn the canister light red. Replace it with the second canister to keep N2 pressure at optimal levels.</br></br>
+			A Class: Events with SEVERE effects to standard setups. Action will need to be taken to prevent a delamination event.</br></br>
+			A-1: The engine's APC is shorted due to a power spike, requiring its wires to be mended.</br>
+			A-2: The engine's air alarm resets its self as an effect of radiological interference.</br>
+			A-3: The amount of plasma and O2 released by the engine is quadrupled for a few minutes.</br></br>
 
-			4. Begin primary emitter burst series. This means firing a single emitter for its first four shots. It is important to move to this step quickly. The onboard SMES units may not have enough power to run the emitters if left alone too long on-station. This engine can produce enough power on its own to run the entire station, ignoring the SMES units completely, and is wired to do so.</br></br>
+			S Class events: Events that require immediate intervention and a specialized response to prevent a delamination event. Coordination with other departments is HIGHLY recommended. A warning will be broadcasted on engineering communications before these events.</br></br>
+			Arc Type: The engine's EER is raised massively several minutes, resulting it a supercritical state.</br>
+			Heat Type: The amount of heat released by the engine is massively increased for several minutes.</br></br>
 
-			5. Switch SMES units to primary settings. Maximize input and set the devices to automatically charge, additionally turn their outputs on if they are off unless power is to be saved (Which can be useful in case of later failures.)</br></br>
-
-			6. Begin secondary emitter burst series. Before firing the emitter again, check the power in the line with a multimeter (Do not forget electrical gloves.) The engine is running at high efficiency when the value exceeds 200,000 power units.</br></br>
-
-			7. Maintain engine power. When power in the lines gets low, add an additional emitter burst series to bring power to normal levels.</br></br></br>
-
-
-
-			<center>The second mode for running the engine uses a gas mix to produce a reaction within the Supermatter. This mode requires CE or Atmospheric help to setup. <b>This has been dubbed the .O2-Reaction Mode..</b></center></br></br>
-
-			<b><u>THIS MODE CAN CAUSE A RUNAWAY REACTION, LEADING TO CATASTROPHIC FAILURE IF NOT MAINTAINED. NEVER FORGET ABOUT THE ENGINE IN THIS MODE.</u></b></br></br>
-
-			Additionally, this mode can be used for what is called a .Cold Start.. If the station has no power in the SMES to run the emitters, using this mode will allow enough power output to run them, and quickly reach an acceptable level of power output.</br></br>
-
-			1. Prepare collector arrays. This is done standard to any text on their function by wrenching them down, filling six plasma tanks with a plasma canister, and inserting the tank into the collectors one by one. Finally, initialize each collector.</br></br>
-
-			2. Prepare gas system. Before introducing any gas to the Supermatter engine room, it is important to remember the small but vital steps to preparing this section. First, set the input gas pump and output gas flow pump to 4500, or maximum flow. Second, switch the digital switching valve into the .up. position, in order to circulate the gas back toward the coolers and collectors.</br></br>
-
-			3. Modify the engine room filters. Unlike the Heat-Primary Mode, it is important to change the filters attached to the gas system to stop filtering O2, and start filtering Carbon Molecules. O2-Reaction Mode produces far more plasma than Heat-Primary, therefor filtering it off is essential.</br></br>
-
-			4. Switch SMES units to primary settings. Maximize input and set the devices to automatically charge, additionally turn their outputs on if they are off unless power is to be saved (Which can be useful in case of later failures.) If you check the power in the system lines at this point you will find that it is constantly going up. Indeed, with just the addition of O2 to the Supermatter, it will begin outputting power.</br></br>
-
-			5. Begin primary emitter burst series. Fire a single emitter for a series of four pulses, or a single series, and turn it off. Do not over power the Supermatter. The reaction is self sustaining and propagating. As long as O2 is in the chamber, it will continue outputting MORE power.</br></br>
-
-			6. Maintain follow up operations. Remember to check the temp of the core gas and switch to the Heat-Primary function, or vent the core room when problems begin if required.</br></br>
-
-			Notes on Supermatter Reaction Function and Drawbacks-</br></br>
-
-			After several hours of observation an interesting phenomenon was witnessed. The Supermatter undergoes a constant self-sustaining reaction when given an extremely high O2 concentration. Anything about 80% or higher typically will cause this reaction. The Supermatter will continue to react whenever this gas mix is in the same room as the Supermatter.</br></br>
-
-			To understand why O2-Reaction mode is dangerous, the core principle of the Supermatter must be understood. The Supermatter emits three things when .not safe,. that is any time it is giving off power. These things are:</br></br>
-
-			*Radiation (which is converted into power by the collectors,)</br>
-			*Heat (which is removed via the gas exchange system and coolers,)</br>
-			*External gas (in the form of plasma and O2.)</br>
-
-			When in Heat-Primary mode, far more heat and plasma are produced than radiation. In O2-Reaction mode, very little heat and only moderate amounts of plasma are produced, however HUGE amounts of energy leaving the Supermatter is in the form of radiation.</br></br>
-
-			The O2-Reaction engine mode has a single drawback which has been eluded to more than once so far and that is very simple. The engine room will continue to grow hotter as the constant reaction continues. Eventually, there will be what he calls the .critical gas mix.. This is the point at which the constant adding of plasma to the mix of air around the Supermatter changes the gas concentration to below the tolerance. When this happens, two things occur. First, the Supermatter switches to its primary mode of operation where in huge amounts of heat are produced by the engine rather than low amounts with high power output. Second, an uncontrollable increase in heat within the Supermatter chamber will occur. This will lead to a spark-up, igniting the plasma in the Supermatter chamber, wildly increasing both pressure and temperature.</br></br>
-
-			While the O2-Reaction mode is dangerous, it does produce heavy amounts of energy. Consider using this mode only in short amounts to fill the SMES, and switch back later in the shift to keep things flowing normally.</br></br>
-
-
-			Notes on Supermatter Containment and Emergency Procedures-</br></br>
-
-			While a constant vigil on the Supermatter is not required, regular checkups are important. Verify the temp of gas leaving the Supermatter chamber for unsafe levels, and ensure that the plasma in the chamber is at a safe concentration. Of course, also make sure the chamber is not on fire. A fire in the core chamber is very difficult to put out. As any Toxin scientist can tell you, even low amounts of plasma can burn at very high temperatures. This burning creates a huge increase in pressure and more importantly, temperature of the crystal itself.</br></br>
-
-			The Supermatter is strong, but not invincible. When the Supermatter is heated too much, its crystal structure will attempt to liquify. The change in atomic structure of the Supermatter leads to a single reaction, a massive explosion. The computer chip attached to the Supermatter core will warn the station when stability is threatened. It will then offer a second warning, when things have become dangerously close to total destruction of the core.</br></br>
-
-			Located both within the supermatter monitoring room and engine room is the vent control button. This button allows the Core Vent Controls to be accessed, venting the room to space. Remember however, that this process takes time. If a fire is raging, and the pressure is higher than fathomable, it will take a great deal of time to vent the room. Also located in the supermatter monitoring room is the emergency core eject button. A new core can be ordered from cargo. It is often not worth the lives of the crew to hold on to it, not to mention the structural damage. However, if by some mistake the Supermatter is pushed off or removed from the mass ejector it sits on, manual reposition will be required. Which is very dangerous and often leads to death.</br></br>
-
-			The Supermatter is extremely dangerous. More dangerous than people give it credit for. It can destroy you in an instant, without hesitation, reducing you to a pile of dust. When working closely with Supermatter it is.. suggested to get a genetic backup and do not wear any items of value to you. The Supermatter core can be pulled if grabbed properly by the base, but <b>pushing is not possible.</b></br></br></br>
-
-
-			In Closing-</br></br>
-
-			Remember that the Supermatter is dangerous, and the core is dangerous still. Venting the core room is always an option if you are even remotely worried, utilizing Atmospherics to properly ready the room once more for core function. It is always a good idea to check up regularly on the temperature of gas leaving the chamber, as well as the power in the system lines. Lastly, once again remember, never touch the Supermatter with anything. Ever.</br></br>
-
-			-Waleed Asad, Senior Engine Technician."})
+			In the event that an anomaly NOT on this list presents itself, contact your local Nanotrasen Engineering Officer as soon as possible.</br>
+			-Vroo-Looum-Kloo, Senior Engine Technician."})
 
 /obj/item/book/manual/atmospipes
 	name = "Pipes and You: Getting To Know Your Scary Tools"
@@ -223,59 +179,62 @@
 					<li><a href="#HES">Heat Exchange Systems</a></li>
 					<li><a href="#Final">Final Checks</a></li>
 				</ol>
-				<br><BR>
-				<h1><a name="Forward"><U><B>HOW TO NOT SUCK QUITE SO HARD AT ATMOSPHERICS</B></U></a></h1><BR>
-				<I>Or: What the fuck does a "passive gate" do?</I><BR><BR>
+				<br><br>
+				<h1><a name="Forward"><u><b>HOW TO NOT SUCK QUITE SO HARD AT ATMOSPHERICS</b></u></a></h1><br>
+				<i>Or: What the fuck does a "passive gate" do?</i><br><br>
 				Alright. It has come to my attention that a variety of people are unsure of what a "pipe" is and what it does.
 				Apparently there is an unnatural fear of these arcane devices and their "gases". Spooky, spooky. So,
 				this will tell you what every device constructable by an ordinary pipe dispenser within atmospherics actually does.
 				You are not going to learn what to do with them to be the super best person ever, or how to play guitar with passive gates,
-				or something like that. Just what stuff does.<BR><BR>
-				<h1><a name="Basic"><B>Basic Pipes</B></a></h1><BR>
-				<I>The boring ones.</I><BR>
-				TMost ordinary pipes are pretty straightforward. They hold gas. If gas is moving in a direction for some reason, gas will flow in that direction.
-				That's about it. Even so, here's all of your wonderful pipe options.<BR>
-				<li><I>Straight pipes:</I> They're pipes. One-meter sections. Straight line. Pretty simple. Just about every pipe and device is based around this
+				or something like that. Just what stuff does.<br><br>
+				<h1><a name="Basic"><b>Basic Pipes</b></a></h1><br>
+				<i>The boring ones.</i><br>
+				Most ordinary pipes are pretty straightforward. They hold gas. If gas is moving in a direction for some reason, gas will flow in that direction.
+				That's about it. Even so, here's all of your wonderful pipe options.<br>
+				<li><i>Straight pipes:</i> They're pipes. One-meter sections. Straight line. Pretty simple. Just about every pipe and device is based around this
 				standard one-meter size, so most things will take up as much space as one of these.</li>
-				<li><I>Bent pipes:</I> Pipes with a 90 degree bend at the half-meter mark. My goodness.</li>
-				<li><I>Pipe manifolds:</I> Pipes that are essentially a "T" shape, allowing you to connect three things at one point.</li>
-				<li><I>4-way manifold:</I> A four-way junction.</li>
-				<li><I>Pipe cap:</I> Caps off the end of a pipe. Open ends don't actually vent air, because of the way the pipes are assembled, so, uh. Use them to decorate your house or something.</li>
-				<li><I>Manual Valve:</I> A valve that will block off airflow when turned. Can't be used by the AI or cyborgs, because they don't have hands.</li>
-				<li><I>Manual T-Valve:</I> Like a manual valve, but at the center of a manifold instead of a straight pipe.</li><BR><BR>
-				<h1><a name="Insulated"><B>Insulated Pipes</B></a></h1><BR>
-				<I>Special Public Service Announcement.</I><BR>
-				Our regular pipes are already insulated. These are completely worthless. Punch anyone who uses them.<BR><BR>
-				<h1><a name="Devices"><B>Devices: </B></a></h1><BR>
-				<I>They actually do something.</I><BR>
+				<li><i>Bent pipes:</i> Pipes with a 90 degree bend at the half-meter mark. My goodness.</li>
+				<li><i>Pipe manifolds:</i> Pipes that are essentially a "T" shape, allowing you to connect three things at one point.</li>
+				<li><i>4-way manifold:</i> A four-way junction.</li>
+				<li><i>Pipe cap:</i> Caps off the end of a pipe. Open ends don't actually vent gas, because of the way the pipes are assembled, so, uh. Use them to decorate your house or something.</li>
+				<li><i>Manual/Digital Valves:</i> A valve that will block off gas flow when turned. Manual valves can't be used by the AI or cyborgs because they don't have hands, but they can access digital valves.</li>
+				<li><i>Manual/Digital T-Valves:</i> Like a straight valve, but at the center of a manifold instead of a straight pipe, allowing you to swap between two different pipe networks.</li><BR><BR>
+				<h1><a name="Insulated"><b>Insulated Pipes</b></a></h1><br>
+				<i>Special Public Service Announcement.</i><br>
+				Our regular pipes are already insulated. These are completely worthless. Punch anyone who uses them.<br><br>
+				<h1><a name="Devices"><b>Devices: </b></a></h1><br>
+				<i>They actually do something.</i><br>
 				This is usually where people get frightened, </font><font face="Verdana" color=black>afraid, and start calling on their gods and/or cowering in fear. Yes, I can see you doing that right now.
-				Stop it. It's unbecoming. Most of these are fairly straightforward.<BR>
-				<li><I>Gas Pump:</I> Take a wild guess. It moves gas in the direction it's pointing (marked by the red line on one end). It moves it based on pressure, the maximum output being 4500 kPa (kilopascals).
+				Stop it. It's unbecoming. Most of these are fairly straightforward.<br>
+				<li><i>Gas Pump:</i> Take a wild guess. It moves gas in the direction it's pointing (marked by the red line on one end). It moves it based on pressure, the maximum output being 4500 kPa (kilopascals).
 				Ordinary atmospheric pressure, for comparison, is 101.3 kPa, and the minimum pressure of room-temperature pure oxygen needed to not suffocate in a matter of minutes is 16 kPa
 				(though 18 is preferred using internals, for various reasons).</li>
-				<li><I>Volume pump:</I> This pump goes based on volume, instead of pressure, and the possible maximum pressure it can create in the pipe on the receiving end is double the gas pump because of this,
+				<li><i>Volume pump:</i> This pump goes based on volume, instead of pressure, and the possible maximum pressure it can create in the pipe on the receiving end is double the gas pump because of this,
 				clocking in at an incredible 9000 kPa. If a pipe with this is destroyed or damaged, and this pressure of gas escapes, it can be incredibly dangerous depending on the size of the pipe filled.
 				Don't hook this to the distribution loop, or you will make babies cry and the Chief Engineer brutally beat you.</li>
-				<li><I>Passive gate:</I> This is essentially a cap on the pressure of gas allowed to flow in a specific direction.
+				<li><i>Passive gate:</i> This is essentially a cap on the pressure of gas allowed to flow in a specific direction.
 				When turned on, instead of actively pumping gas, it measures the pressure flowing through it, and whatever pressure you set is the maximum: it'll cap after that.
-				In addition, it only lets gas flow one way. The direction the gas flows is opposite the red handle on it, which is confusing to people used to the red stripe on pumps pointing the way.</li>
-				<li><I>Unary vent:</I> The basic vent used in rooms. It pumps gas into the room, but can't suck it back out. Controlled by the room's air alarm system.</li>
-				<li><I>Scrubber:</I> The other half of room equipment. Filters air, and can suck it in entirely in what's called a "panic siphon". Actvating a panic siphon without very good reason will kill someone. Don't do it.</li>
-				<li><I>Meter:</I> A little box with some gagues and numbers. Fasten it to any pipe or manifold, and it'll read you the pressure in it. Very useful.</li>
-				<li><I>Gas mixer:</I> Two sides are input, one side is output. Mixes the gases pumped into it at the ratio defined. The side perpendicular to the other two is "node 2", for reference.
+				In addition, it only lets gas flow one way. As with pumps, the red handle on a passive gate indicates the direction the passive gate will output its gas when active.</li>
+				<li><i>Unary vent:</i> The basic vent used in rooms. It pumps or siphons gas in or out of a room depending on the setting. Controlled by the room's air alarm system.</li>
+				<li><i>Scrubber:</i> The other half of room equipment. Filters air and can suck it in entirely in what's called a "panic siphon". Activating a panic siphon without very good reason will kill someone. Don't do it.
+				Scrubbers also have an extended mode that can be enabled to expand the range and increase the amount of gas being filtered.</li>
+				<li><i>Passive Vent:</i> Passive vents are the lesser known cousin to Unary vents. Passive vents will exchange gas between the surrounding atmosphere and its connected pipe until the pressure between the two has reached an equilibrium.</li>
+				<li><i>Meter:</i> A little box with some gauges and numbers. Fasten it to any pipe or manifold, and it'll read you the pressure in it. Very useful.</li>
+				<li><i>Gas mixer:</i> Two sides are input, one side is output. Mixes the gases pumped into it at the ratio defined. The side perpendicular to the other two is "node 2", for reference.
 				Can output this gas at pressures from 0-4500 kPa.</li>
-				<li><I>Gas filter:</I> Essentially the opposite of a gas mixer. One side is input. The other two sides are output. One gas type will be filtered into the perpendicular output pipe,
+				<li><i>Gas filter:</i> Essentially the opposite of a gas mixer. One side is input. The other two sides are output. The selected gas type will be filtered into the perpendicular output pipe,
 				the rest will continue out the other side. Can also output from 0-4500 kPa.</li>
-				<h1><a name="HES"><B>Heat Exchange Systems</B></a></h1><BR>
-				<I>Will not set you on fire.</I><BR>
+				<h1><a name="HES"><b>Heat Exchange Systems</b></a></h1><br>
+				<i>Will not set you on fire.</i><br>
 				These systems are used to transfer heat only between two pipes. They will not move gases or any other element, but will equalize the temperature (eventually). Note that because of how gases work (remember: pv=nRt),
-				a higher temperature will raise pressure, and a lower one will lower temperature.<BR>
-				<li><I>Pipe:</I> This is a pipe that will exchange heat with the surrounding atmosphere. Place in fire for superheating. Place in space for supercooling.</li>
-				<li><I>Bent Pipe:</I> Take a wild guess.</li>
-				<li><I>Junction:</I><I>Junction:</I>The point where you connect your normal pipes to heat exchange pipes. Not necessary for heat exchangers, but necessary for H/E pipes/bent pipes.</li>
-				<li><I>Heat Exchanger:</I> These funky-looking bits attach to an open pipe end. Put another heat exchanger directly across from it, and you can transfer heat across two pipes without having to have the gases touch.
+				a higher temperature will raise pressure, and a lower one will lower temperature.<br>
+				<li><i>Pipe:</i> This is a pipe that will exchange heat with the surrounding atmosphere. Place in a fire for superheating. Place in space for supercooling.</li>
+				<li><i>Bent Pipe:</i> Take a wild guess.</li>
+				<li><i>Junction:</i><i>Junction:</i>The point where you connect your normal pipes to heat exchange pipes. Not necessary for heat exchangers, but necessary for H/E pipes/bent pipes.</li>
+				<li><i>Heat Exchanger:</i> These funky-looking bits attach to an open pipe end. Put another heat exchanger directly across from it, and you can transfer heat across two pipes without having to have the gases mix.
 				This normally shouldn't exchange with the ambient air, despite being totally exposed. Just don't ask questions...</li><BR>
-				That's about it for pipes. Go forth, armed with this knowledge, and try not to break, burn down, or kill anything. Please.</font>
+				<h1><a name="HES"><b>Final Checks</b></a></h1><br>
+				That's about it for pipes. Remember to turn your magboots on and keep a fire extinguisher near. Go forth, armed with this knowledge, and try not to break, burn down, or kill anything. Please.</font>
 				</body>
 				</html>
 			"})
@@ -775,7 +734,7 @@
 	name = "Chef Recipes"
 	desc = "Knives, Ovens, and You: A guide to cooking."
 	icon_state = "cook_book"
-	author = "NanoTrasen"
+	author = "Nanotrasen"
 	title = "Chef Recipes"
 	wiki_article_title = "Guide_to_Food_and_Drinks#Food"
 
@@ -789,7 +748,7 @@
 
 /obj/item/book/manual/wiki/faxes
 	name = "Guide to Faxes"
-	desc = "NanoTrasen's own manual on how to write faxes."
+	desc = "Nanotrasen's own manual on how to write faxes."
 	icon_state ="bookEngineering"
 	author = "Nanotrasen"
 	title = "Faxes and You!"

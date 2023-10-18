@@ -140,7 +140,7 @@
 
 /obj/item/projectile/bullet/midbullet
 	damage = 20
-	stamina = 65 //two rounds from the c20r knocks people down
+	stamina = 45 // Three rounds from the c20r knocks unarmoured people down, four for people with bulletproof
 
 /obj/item/projectile/bullet/midbullet_r
 	damage = 5

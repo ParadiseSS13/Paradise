@@ -30,8 +30,8 @@
 //Along with damage_penalty_point, makes flux anomalies.
 /// The cutoff for the minimum amount of power required to trigger the crystal invasion delamination event.
 #define EVENT_POWER_PENALTY_THRESHOLD 4500
-#define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of pyro anomalies, +2 bolts of electricity
-#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of pyro anomalies
+#define POWER_PENALTY_THRESHOLD 5000          //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
+#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
 #define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
 #define HEAT_PENALTY_THRESHOLD 40             //Higher == Crystal safe operational temperature is higher.
 #define DAMAGE_HARDCAP 0.002
@@ -58,7 +58,7 @@
 
 #define GRAVITATIONAL_ANOMALY "gravitational_anomaly"
 #define FLUX_ANOMALY "flux_anomaly"
-#define PYRO_ANOMALY "pyro_anomaly"
+#define CRYO_ANOMALY "cryo_anomaly"
 
 //If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
 #define SUPERMATTER_DELAM_PERCENT 5
@@ -155,6 +155,8 @@
 	var/dynamic_heat_resistance = 1
 	///Uses powerloss_dynamic_scaling and combined_gas to lessen the effects of our powerloss functions
 	var/powerloss_inhibitor = 1
+	///value plus T0C = temp at which the SM starts to take damage. Variable for event usage
+	var/heat_penalty_threshold = HEAT_PENALTY_THRESHOLD
 	///Based on co2 percentage, slowly moves between 0 and 1. We use it to calc the powerloss_inhibitor
 	var/powerloss_dynamic_scaling= 0
 	///Affects the amount of radiation the sm makes. We multiply this with power to find the rads.
@@ -206,6 +208,21 @@
 	///Disables the sm's proccessing totally.
 	var/processes = TRUE
 
+	//vars used for supermatter events (Anomalous crystal activityw)
+	/// Do we have an active event?
+	var/datum/supermatter_event/event_active
+	///flat multiplies the amount of gas released by the SM.
+	var/gas_multiplier = 1
+	///flat multiplies the heat released by the SM
+	var/heat_multiplier = 1
+	///amount of EER to ADD
+	var/power_additive = 0
+	/// Time of next event
+	var/next_event_time
+	/// Run S-Class event? So we can only run one S-class event per round per crystal
+	var/has_run_sclass = FALSE
+
+
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
 	supermatter_id = global_supermatter_id++
@@ -242,7 +259,7 @@
 	. = ..()
 	var/mob/living/carbon/human/H = user
 	if(istype(H))
-		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+		if(!HAS_TRAIT(H, TRAIT_MESON_VISION) && !HAS_TRAIT(H, SM_HALLUCINATION_IMMUNE) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 			. += "<span class='danger'>You get headaches just from looking at it.</span>"
 	. += "<span class='notice'>When actived by an item hitting this awe-inspiring feat of engineering, it emits radiation and heat. This is the basis of the use of the pseudo-perpetual energy source, the supermatter crystal.</span>"
 	. +="<span class='notice'>Any object that touches [src] instantly turns to dust, be it complex as a human or as simple as a metal rod. These bursts of energy can cause hallucinations if meson scanners are not worn near the crystal.</span>"
@@ -399,6 +416,10 @@
 			visible_message("<span class='warning'>[src] melts through [T]!</span>")
 		return
 
+	try_events()
+	if(power > 100)
+		if(!has_been_powered)
+			enable_for_the_first_time()
 	//We vary volume by power, and handle OH FUCK FUSION IN COOLING LOOP noises.
 	if(power)
 		soundloop.volume = clamp((50 + (power / 50)), 50, 100)
@@ -439,7 +460,7 @@
 			//((((some value between 0.5 and 1 * temp - ((273.15 + 40) * some values between 1 and 10)) * some number between 0.25 and knock your socks off / 150) * 0.25
 			//Heat and mols account for each other, a lot of hot mols are more damaging then a few
 			//Mols start to have a positive effect on damage after 350
-			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature - ((T0C + HEAT_PENALTY_THRESHOLD)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
+			damage = max(damage + (max(clamp(removed.total_moles() / 200, 0.5, 1) * removed.temperature - ((T0C + heat_penalty_threshold)*dynamic_heat_resistance), 0) * mole_heat_penalty / 150 ) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Power only starts affecting damage when it is above 5000
 			damage = max(damage + (max(power - POWER_PENALTY_THRESHOLD, 0)/500) * DAMAGE_INCREASE_MULTIPLIER, 0)
 			//Molar count only starts affecting damage when it is above 1800
@@ -449,7 +470,7 @@
 			//healing damage
 			if(combined_gas < MOLE_PENALTY_THRESHOLD)
 				//Only has a net positive effect when the temp is below 313.15, heals up to 2 damage. Psycologists increase this temp min by up to 45
-				damage = max(damage + (min(removed.temperature - (T0C + HEAT_PENALTY_THRESHOLD), 0) / 150 ), 0)
+				damage = max(damage + (min(removed.temperature - (T0C + heat_penalty_threshold), 0) / 150 ), 0)
 
 			//Check for holes in the SM inner chamber
 			for(var/t in RANGE_TURFS(1, loc))
@@ -538,15 +559,15 @@
 		//Also keep in mind we are only adding this temperature to (efficiency)% of the one tile the rock
 		//is on. An increase of 4*C @ 25% efficiency here results in an increase of 1*C / (#tilesincore) overall.
 		//Power * 0.55 * (some value between 1.5 and 23) / 5
-		removed.temperature += ((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER)
+		removed.temperature += (((device_energy * dynamic_heat_modifier) / THERMAL_RELEASE_MODIFIER) * heat_multiplier)
 		//We can only emit so much heat, that being 57500
 		removed.temperature = max(0, min(removed.temperature, 2500 * dynamic_heat_modifier))
 
 		//Calculate how much gas to release
 		//Varies based on power and gas content
-		removed.toxins += max((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER, 0)
+		removed.toxins += max(((device_energy * dynamic_heat_modifier) / PLASMA_RELEASE_MODIFIER) * gas_multiplier, 0)
 		//Varies based on power, gas content, and heat
-		removed.oxygen += max(((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER, 0)
+		removed.oxygen += max((((device_energy + removed.temperature * dynamic_heat_modifier) - T0C) / OXYGEN_RELEASE_MODIFIER) * gas_multiplier, 0)
 
 		if(produces_gas)
 			env.merge(removed)
@@ -565,7 +586,7 @@
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
 	if(power_changes)
-		power = max(power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor), 0)
+		power = max((power - min(((power / 500) ** 3) * powerloss_inhibitor, power * 0.83 * powerloss_inhibitor) + power_additive), 0)
 	//After this point power is lowered
 	//This wraps around to the begining of the function
 	//Handle high power zaps/anomaly generation
@@ -611,7 +632,7 @@
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, GRAVITATIONAL_ANOMALY, rand(5, 10))
 		if((power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2)) || (prob(0.3) && power > POWER_PENALTY_THRESHOLD))
-			supermatter_anomaly_gen(src, PYRO_ANOMALY, rand(5, 10))
+			supermatter_anomaly_gen(src, CRYO_ANOMALY, rand(5, 10))
 
 	if(prob(15))
 		supermatter_pull(loc, min(power / 850, 3)) //850, 1700, 2550
@@ -649,7 +670,6 @@
 		//Boom (Mind blown)
 		if(damage > explosion_point)
 			countdown()
-
 	return 1
 
 /obj/machinery/atmospherics/supermatter_crystal/bullet_act(obj/item/projectile/Proj)
@@ -662,9 +682,7 @@
 		if(power_changes) //This needs to be here I swear
 			power += Proj.damage * bullet_energy
 			if(!has_been_powered)
-				investigate_log("has been powered for the first time.", "supermatter")
-				message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
-				has_been_powered = TRUE
+				enable_for_the_first_time()
 	else if(takes_damage)
 		damage += Proj.damage * bullet_energy
 	return FALSE
@@ -731,6 +749,9 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/attack_hand(mob/living/user)
 	..()
+	if(HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
+		user.visible_message("<span class='notice'>[user] reaches out and pokes [src] harmlessly...somehow.</span>", "<span class='notice'>You poke [src].</span>")
+		return
 	dust_mob(user, cause = "hand")
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/dust_mob(mob/living/nom, vis_msg, mob_msg, cause)
@@ -752,32 +773,39 @@
 		return
 	if(moveable && default_unfasten_wrench(user, I, time = 20))
 		return
+
 	if(istype(I, /obj/item/scalpel/supermatter))
-		if(ishuman(user))
-			var/mob/living/carbon/human/M = user
-			var/obj/item/scalpel/supermatter/scalpel = I
-			to_chat(M, "<span class='notice'>You carefully begin to scrape [src] with [I]...</span>")
-			if(I.use_tool(src, M, 10 SECONDS, volume = 100))
-				if(scalpel.uses_left)
-					to_chat(M, "<span class='danger'>You extract a sliver from [src], and it begins to react violently!</span>")
-					matter_power += 800
-					scalpel.uses_left--
-					if(!scalpel.uses_left)
-						to_chat(M, "<span class='boldwarning'>A tiny piece of [I] falls off, rendering it useless!</span>")
+		if(!ishuman(user))
+			return
 
-					var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+		var/mob/living/carbon/human/H = user
+		var/obj/item/scalpel/supermatter/scalpel = I
 
-					var/obj/item/retractor/supermatter/tongs = M.is_in_hands(/obj/item/retractor/supermatter)
+		if(!scalpel.uses_left)
+			to_chat(H, "<span class='warning'>[scalpel] isn't sharp enough to carve a sliver off of [src]!</span>")
+			return
 
-					if(tongs && !tongs.sliver)
-						tongs.sliver = S
-						S.forceMove(tongs)
-						tongs.icon_state = "supermatter_tongs_loaded"
-						tongs.item_state = "supermatter_tongs_loaded"
-						to_chat(M, "<span class='notice'>You pick up [S] with [tongs]!</span>")
-				else
-					to_chat(user, "<span class='warning'>You fail to extract a sliver from [src]! [I] isn't sharp enough anymore.</span>")
+		var/obj/item/nuke_core/supermatter_sliver/sliver = carve_sliver(H)
+		if(sliver)
+			scalpel.uses_left--
+			if(!scalpel.uses_left)
+				to_chat(H, "<span class='boldwarning'>A tiny piece falls off of [scalpel]'s blade, rendering it useless!</span>")
+
+			var/obj/item/retractor/supermatter/tongs = H.is_in_hands(/obj/item/retractor/supermatter)
+
+			if(tongs && !tongs.sliver)
+				tongs.sliver = sliver
+				sliver.forceMove(tongs)
+				tongs.icon_state = "supermatter_tongs_loaded"
+				tongs.item_state = "supermatter_tongs_loaded"
+				to_chat(H, "<span class='notice'>You pick up [sliver] with [tongs]!</span>")
+
 		return
+
+	if(istype(I, /obj/item/supermatter_halberd))
+		carve_sliver(user)
+		return
+
 	if(istype(I, /obj/item/retractor/supermatter))
 		to_chat(user, "<span class='notice'>[I] bounces off [src], you need to cut a sliver off first!</span>")
 	else if(user.drop_item())
@@ -791,6 +819,10 @@
 		radiation_pulse(src, 150, 4)
 
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/AM)
+
+	if(HAS_TRAIT(AM, TRAIT_SUPERMATTER_IMMUNE))
+		return
+
 	if(isliving(AM))
 		AM.visible_message("<span class='danger'>[AM] slams into [src] inducing a resonance... [AM.p_their()] body starts to glow and burst into flames before flashing into dust!</span>",\
 		"<span class='userdanger'>You slam into [src] as your ears are filled with unearthly ringing. Your last thought is \"Oh, fuck.\"</span>",\
@@ -806,7 +838,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
 	..()
-	Bumped(A)
+	if(!istype(A, /obj/machinery/atmospherics/supermatter_crystal))
+		Bumped(A)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
 	if(isliving(AM))
@@ -899,7 +932,14 @@
 		remove_filter("outline")
 		QDEL_NULL(warp)
 
+/obj/machinery/atmospherics/supermatter_crystal/proc/carve_sliver(mob/living/user)
+	to_chat(user, "<span class='notice'>You begin carving a sliver off of [src]...</span>")
+	if(do_after_once(user, 4 SECONDS, FALSE, src))
+		to_chat(user, "<span class='danger'>You carve a sliver off of [src], and it begins to react violently!</span>")
+		matter_power += 800
 
+		var/obj/item/nuke_core/supermatter_sliver/S = new /obj/item/nuke_core/supermatter_sliver(drop_location())
+		return S
 
 // Change how bright the rock is
 /obj/machinery/atmospherics/supermatter_crystal/proc/lights()
@@ -1000,6 +1040,8 @@
 			var/mob/M = P
 			if(M.mob_negates_gravity())
 				continue //You can't pull someone nailed to the deck
+			if(HAS_TRAIT(M, TRAIT_SUPERMATTER_IMMUNE))
+				continue
 			else if(M.buckled)
 				var/atom/movable/buckler = M.buckled
 				if(buckler.unbuckle_mob(M, TRUE))
@@ -1015,8 +1057,8 @@
 				A.explosive = FALSE
 			if(GRAVITATIONAL_ANOMALY)
 				new /obj/effect/anomaly/grav(L, 250, FALSE, FALSE)
-			if(PYRO_ANOMALY)
-				new /obj/effect/anomaly/pyro(L, 200, FALSE)
+			if(CRYO_ANOMALY)
+				new /obj/effect/anomaly/cryo(L, 200, FALSE)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list())
 	if(QDELETED(zapstart))
@@ -1152,10 +1194,56 @@
 	power += amount
 	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
 
+/obj/machinery/atmospherics/supermatter_crystal/proc/make_next_event_time()
+	// Some completely random bullshit to make a "bell curve"
+	var/fake_time = rand(5 MINUTES, 25 MINUTES)
+	if(fake_time < 15 MINUTES && prob(30))
+		fake_time += rand(2 MINUTES, 10 MINUTES)
+	else if(fake_time > 15 MINUTES && prob(30))
+		fake_time -= rand(2 MINUTES, 10 MINUTES)
+	next_event_time = fake_time + world.time
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/try_events()
+	if(has_been_powered == FALSE)
+		return
+	if(!next_event_time) // for when the SM starts
+		make_next_event_time()
+		return
+	if(world.time < next_event_time)
+		return
+	if(event_active)
+		return
+	var/static/list/events = list(/datum/supermatter_event/delta_tier = 40,
+								/datum/supermatter_event/charlie_tier = 40,
+								/datum/supermatter_event/bravo_tier = 15,
+								/datum/supermatter_event/alpha_tier = 5,
+								/datum/supermatter_event/sierra_tier = 1)
+
+	var/datum/supermatter_event/event = pick(subtypesof(pickweight(events)))
+	if(istype(event, /datum/supermatter_event/sierra_tier) && has_run_sclass)
+		make_next_event_time()
+		return // We're only gonna have one s-class per round, take a break engineers
+	run_event(event)
+	make_next_event_time()
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/run_event(datum/supermatter_event/event) // mostly admin testing and stuff
+	if(ispath(event))
+		event = new event(src)
+	if(!istype(event))
+		log_debug("Attempted supermatter event aborted due to incorrect path. Incorrect path type: [event.type].")
+		return
+	event.start_event()
+
+/obj/machinery/atmospherics/supermatter_crystal/proc/enable_for_the_first_time()
+	investigate_log("has been powered for the first time.", "supermatter")
+	message_admins("[src] has been powered for the first time [ADMIN_JMP(src)].")
+	has_been_powered = TRUE
+	make_next_event_time()
+
 #undef HALLUCINATION_RANGE
 #undef GRAVITATIONAL_ANOMALY
 #undef FLUX_ANOMALY
-#undef PYRO_ANOMALY
+#undef CRYO_ANOMALY
 #undef COIL
 #undef ROD
 #undef LIVING

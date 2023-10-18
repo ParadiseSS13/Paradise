@@ -49,9 +49,9 @@
 	status_type = STATUS_EFFECT_REPLACE
 	alert_type = null
 	var/mutable_appearance/marked_underlay
-	var/obj/item/twohanded/kinetic_crusher/hammer_synced
+	var/obj/item/kinetic_crusher/hammer_synced
 
-/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/twohanded/kinetic_crusher/new_hammer_synced)
+/datum/status_effect/crusher_mark/on_creation(mob/living/new_owner, obj/item/kinetic_crusher/new_hammer_synced)
 	. = ..()
 	if(.)
 		hammer_synced = new_hammer_synced
@@ -203,12 +203,12 @@
 			return
 		if(teleports < 6)
 			to_chat(M, "<span class='warning'>You feel a bit sick!</span>")
-			M.vomit(lost_nutrition = 15, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 15, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(2 SECONDS)
 		else
 			to_chat(M, "<span class='danger'>You feel really sick!</span>")
 			M.adjustBruteLoss(rand(0, teleports * 2))
-			M.vomit(lost_nutrition = 30, blood = 0, stun = 0, distance = 0, message = 1)
+			M.vomit(lost_nutrition = 30, blood = 0, should_confuse = FALSE, distance = 0, message = 1)
 			M.Weaken(6 SECONDS)
 
 /datum/status_effect/pacifism
@@ -848,6 +848,7 @@
 #define FAKE_FOOD_POISONING 2
 #define FAKE_RETRO_VIRUS 3
 #define FAKE_TURBERCULOSIS 4
+#define FAKE_BRAINROT 5
 
 /datum/status_effect/fake_virus
 	id = "fake_virus"
@@ -865,7 +866,7 @@
 	var/list/fake_emote
 
 /datum/status_effect/fake_virus/on_creation()
-	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS)
+	current_fake_disease = pick(FAKE_COLD, FAKE_FOOD_POISONING, FAKE_RETRO_VIRUS, FAKE_TURBERCULOSIS, FAKE_BRAINROT)
 	switch(current_fake_disease)
 		if(FAKE_COLD)
 			fake_msg = list(
@@ -895,7 +896,12 @@
 						list("<span class='danger'>Your skin feels loose.</span>", "You feel very strange.", "<span class='danger'>You feel a stabbing pain in your head!</span>", "<span class='danger'>Your stomach churns.</span>"),
 						list("<span class='danger'>Your entire body vibrates.</span>")
 			)
-		else
+			fake_emote = list(
+						list(),
+						list(),
+						list()
+			)
+		if(FAKE_TURBERCULOSIS)
 			fake_msg = list(
 						list("<span class='danger'>Your chest hurts.</span>", "<span class='danger'>Your stomach violently rumbles!</span>", "<span class='danger'>You feel a cold sweat form.</span>"),
 						list("<span class='danger'>You feel a sharp pain from your lower chest!</span>", "<span class='danger'>You feel air escape from your lungs painfully.</span>"),
@@ -905,6 +911,17 @@
 						list("cough"),
 						list("gasp"),
 						list()
+			)
+		else // FAKE_BRAINROT
+			fake_msg = list(
+						list("<span class='danger'>You don't feel like yourself.</span>"),
+						list("<span class='danger'>Your try to remember something important...but can't.</span>"),
+						list("<span class='danger'>Strange buzzing fills your head, removing all thoughts.</span>")
+			)
+			fake_emote = list(
+						list("blink", "yawn"),
+						list("stare", "drool"),
+						list("stare", "drool")
 			)
 	. = ..()
 
@@ -941,6 +958,7 @@
 #undef FAKE_FOOD_POISONING
 #undef FAKE_RETRO_VIRUS
 #undef FAKE_TURBERCULOSIS
+#undef FAKE_BRAINROT
 
 /datum/status_effect/cryo_beam
 	id = "cryo beam"
@@ -967,3 +985,135 @@
 		owner.reagents.remove_reagent(R.id, 0.75)
 	if(prob(10))
 		to_chat(owner, "<span class='userdanger'>Your blood freezes in your veins, get away!</span>")
+
+/datum/status_effect/bubblegum_curse
+	id = "bubblegum curse"
+	alert_type = /obj/screen/alert/status_effect/bubblegum_curse
+	duration = -1 //Kill it. There is no other option.
+	tick_interval = 1 SECONDS
+	/// The damage the status effect does per tick.
+	var/damage = 0.75
+	var/source_UID
+	/// Are we starting the process to check if the person has still gotten out of range of bubble / crossed zlvls.
+	var/coward_checking = FALSE
+
+/datum/status_effect/bubblegum_curse/on_creation(mob/living/new_owner, mob/living/source)
+	. = ..()
+	source_UID = source.UID()
+	owner.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 1)
+
+/datum/status_effect/bubblegum_curse/tick()
+	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
+	if(!attacker)
+		qdel(src)
+	if(attacker.health <= attacker.maxHealth / 2)
+		owner.clear_fullscreen("Bubblegum")
+		owner.overlay_fullscreen("Bubblegum", /obj/screen/fullscreen/fog, 2)
+	if(!coward_checking)
+		if(owner.z != attacker.z)
+			addtimer(CALLBACK(src, PROC_REF(onstation_coward_callback)), 12 SECONDS)
+			coward_checking = TRUE
+		else if(get_dist(attacker, owner) >= 25)
+			addtimer(CALLBACK(src, PROC_REF(runaway_coward_callback)), 12 SECONDS)
+			coward_checking = TRUE
+
+	owner.apply_damage(damage, BRUTE)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.bleed(0.33)
+	if(prob(5))
+		to_chat(owner, "<span class='userdanger'>[pick("You feel your sins crawling on your back.", "You felt your sins weighing on your neck.", "You feel your blood pulsing inside you.", "<b>YOU'LL NEVER ESCAPE ME</b>", "<b>YOU'LL DIE FOR INSULTING ME LIKE THIS</b>")]</span>")
+
+/datum/status_effect/bubblegum_curse/on_remove()
+	owner.clear_fullscreen("Bubblegum")
+
+/datum/status_effect/bubblegum_curse/proc/onstation_coward_callback()
+	coward_checking = FALSE
+	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
+	if(owner.z != attacker.z)
+		to_chat(owner, "<span class='colossus'><b>YOU CHALLENGE ME LIKE THIS... AND YOU RUN WITH YOUR FALSE MAGICS?</b></span>")
+	else
+		return
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>REALLY?</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>SUCH INSOLENCE!</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>SO PATHETIC...</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>...SO FOOLISH!</b></span>")
+	get_over_here()
+
+/datum/status_effect/bubblegum_curse/proc/runaway_coward_callback()
+	coward_checking = FALSE
+	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
+	if(get_dist(attacker, owner) >= 25)
+		to_chat(owner, "<span class='colossus'><b>My my, you can run FAST.</b></span>")
+	else
+		return
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>I thought you wanted a true fight?</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>Perhaps I was mistaken.</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>You are a coward who does not want a fight...</b></span>")
+	SLEEP_CHECK_QDEL(2 SECONDS)
+	to_chat(owner, "<span class='colossus'><b>...BUT I WANT YOU DEAD!</b></span>")
+	get_over_here()
+
+/datum/status_effect/bubblegum_curse/proc/get_over_here()
+	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
+	if(!attacker)
+		return //Let's not nullspace
+	var/turf/TA = get_turf(owner)
+	owner.Immobilize(3 SECONDS)
+	new /obj/effect/decal/cleanable/blood/bubblegum(TA)
+	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TA)
+	sleep(6)
+	var/turf/TB = get_turf(owner)
+	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	playsound(TB, attacker.attack_sound, 100, TRUE, -1)
+	owner.adjustBruteLoss(10)
+	new /obj/effect/decal/cleanable/blood/bubblegum(TB)
+	new /obj/effect/temp_visual/bubblegum_hands/leftsmack(TB)
+	sleep(6)
+	var/turf/TC = get_turf(owner)
+	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	playsound(TC, attacker.attack_sound, 100, TRUE, -1)
+	owner.adjustBruteLoss(10)
+	new /obj/effect/decal/cleanable/blood/bubblegum(TC)
+	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TC)
+	sleep(6)
+	var/turf/TD = get_turf(owner)
+	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	playsound(TD, attacker.attack_sound, 100, TRUE, -1)
+	owner.adjustBruteLoss(10)
+	new /obj/effect/temp_visual/bubblegum_hands/leftpaw(TD)
+	new /obj/effect/temp_visual/bubblegum_hands/leftthumb(TD)
+	sleep(8)
+	to_chat(owner, "<span class='userdanger'>[attacker] drags you through the blood!</span>")
+	playsound(TD, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
+	var/turf/targetturf = get_step(attacker, attacker.dir)
+	owner.forceMove(targetturf)
+	playsound(targetturf, 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
+	addtimer(CALLBACK(attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/bubblegum, FindTarget), list(owner), 1), 2)
+
+/obj/screen/alert/status_effect/bubblegum_curse
+	name = "I SEE YOU"
+	desc = "YOUR SOUL WILL BE MINE FOR YOUR INSOLENCE"
+	icon_state = "bubblegumjumpscare"
+
+/obj/screen/alert/status_effect/bubblegum_curse/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/screen/alert/status_effect/bubblegum_curse/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/screen/alert/status_effect/bubblegum_curse/process()
+	var/new_filter = isnull(get_filter("ray"))
+	ray_filter_helper(1, 40,"#ce3030", 6, 20)
+	if(new_filter)
+		animate(get_filter("ray"), offset = 10, time = 10 SECONDS, loop = -1)
+		animate(offset = 0, time = 10 SECONDS)

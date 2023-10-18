@@ -95,7 +95,7 @@
 
 /obj/machinery/keycard_auth/ui_data()
 	var/list/data = list()
-	data["redAvailable"] = GLOB.security_level == SEC_LEVEL_RED ? FALSE : TRUE
+	data["redAvailable"] = SSsecurity_level.get_current_level_as_number() != SEC_LEVEL_RED
 	data["swiping"] = swiping
 	data["busy"] = busy
 	data["event"] = active && event_source && event_source.event ? event_source.event : event
@@ -117,7 +117,7 @@
 	. = TRUE
 	switch(action)
 		if("ert")
-			ert_reason = stripped_input(usr, "Reason for ERT Call:", "", "")
+			ert_reason = input(usr, "Reason for ERT Call:", "", "") // we strip this later in ERT_Announce
 		if("reset")
 			reset()
 		if("triggerevent")
@@ -169,9 +169,10 @@
 	addtimer(CALLBACK(src, PROC_REF(reset)), confirm_delay)
 
 /obj/machinery/keycard_auth/proc/trigger_event()
+	SHOULD_NOT_SLEEP(TRUE) // trigger_armed_response_team sleeps, which can cause issues for procs that call trigger_event(). We want to avoid that
 	switch(event)
 		if("Red Alert")
-			set_security_level(SEC_LEVEL_RED)
+			INVOKE_ASYNC(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_RED)
 		if("Grant Emergency Maintenance Access")
 			make_maint_all_access()
 		if("Revoke Emergency Maintenance Access")
@@ -187,18 +188,20 @@
 			atom_say("ERT request transmitted!")
 			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name, follow_target_override = src)
 			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
+			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
 
 			var/fullmin_count = 0
 			for(var/client/C in GLOB.admins)
 				if(check_rights(R_EVENT, 0, C.mob))
 					fullmin_count++
 			if(!fullmin_count)
-				trigger_armed_response_team(new /datum/response_team/amber) // No admins? No problem. Automatically send a code amber ERT.
+				// No admins? No problem. Automatically send a code amber ERT.
+				INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(trigger_armed_response_team), new /datum/response_team/amber)
+				ert_reason = null
 				return
 
 			ERT_Announce(ert_reason, triggered_by, repeat_warning = FALSE)
-			SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("ert", "called"))
-			addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, triggered_by), 5 MINUTES)
+			addtimer(CALLBACK(src, PROC_REF(remind_admins), ert_reason, triggered_by), 15 MINUTES)
 			ert_reason = null
 
 /obj/machinery/keycard_auth/proc/remind_admins(old_reason, the_triggerer) // im great at naming variables
@@ -215,7 +218,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 
 // Why are these global procs?
 /proc/make_maint_all_access()
-	for(var/area/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
+	for(var/area/station/maintenance/A in world) // Why are these global lists? AAAAAAAAAAAAAA
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 1
 			D.update_icon()
@@ -224,7 +227,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /proc/revoke_maint_all_access()
-	for(var/area/maintenance/A in world)
+	for(var/area/station/maintenance/A in world)
 		for(var/obj/machinery/door/airlock/D in A)
 			D.emergency = 0
 			D.update_icon()

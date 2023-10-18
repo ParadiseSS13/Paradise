@@ -91,6 +91,34 @@
 	. = ..()
 	. += "[get_ammo(0,0)] of those are live rounds."
 
+/obj/item/gun/projectile/revolver/fake
+
+/obj/item/gun/projectile/revolver/fake/examine(mob/user)
+	. = ..()
+	if(HAS_TRAIT(user, TRAIT_CLUMSY))
+		. += "<span class='sans'>Its mechanism seems to shoot backwards.</span>"
+
+/obj/item/gun/projectile/revolver/fake/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
+	var/zone = "chest"
+	if(user.has_organ("head"))
+		zone = "head"
+	add_fingerprint(user)
+	if(!chambered)
+		shoot_with_empty_chamber(user)
+		return
+	if(!chambered.fire(target = user, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone, spread = 0, firer_source_atom = src))
+		shoot_with_empty_chamber(user)
+		return
+	process_chamber()
+	update_icon()
+	playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, TRUE)
+	user.visible_message("<span class='danger'>[src] goes off!</span>")
+	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
+	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
+	user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
+	user.bleed(BLOOD_VOLUME_NORMAL)
+	user.death() // Just in case
+
 /obj/item/gun/projectile/revolver/fingergun //Summoned by the Finger Gun spell, from advanced mimery traitor item
 	name = "\improper finger gun"
 	desc = "Bang bang bang!"
@@ -304,7 +332,7 @@
 	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
@@ -319,7 +347,6 @@
 	options["Faded Grey"] = "dbshotgun_g"
 	options["Maple"] = "dbshotgun_l"
 	options["Rosewood"] = "dbshotgun_p"
-	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
@@ -382,7 +409,7 @@
 		if(sling)
 			to_chat(user, "<span class='warning'>The shotgun already has a sling!</span>")
 		else if(C.use(10))
-			slot_flags = SLOT_BACK
+			slot_flags = SLOT_FLAG_BACK
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
 			sling = TRUE
 			update_icon()
@@ -425,8 +452,8 @@
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....
 
-/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/is_crutch()
-	return 1
+/obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/get_crutch_efficiency()
+	return 2
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane/update_icon_state()
 	return

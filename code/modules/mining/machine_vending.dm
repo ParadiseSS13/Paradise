@@ -69,7 +69,7 @@
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
-		EQUIPMENT("Kinetic Crusher", /obj/item/twohanded/kinetic_crusher, 750),
+		EQUIPMENT("Kinetic Crusher", /obj/item/kinetic_crusher, 750),
 		EQUIPMENT("Resonator", /obj/item/resonator, 800),
 		EQUIPMENT("Silver Pickaxe", /obj/item/pickaxe/silver, 1000),
 		EQUIPMENT("Super Resonator", /obj/item/resonator/upgraded, 2500),
@@ -91,6 +91,7 @@
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
 		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
 		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
+		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 5000) //I want miners have to pay a lot to get this, but be set once they do.
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 
@@ -238,7 +239,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter Kit", "Jaunter Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -261,7 +262,13 @@
 			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
-			new /obj/item/twohanded/kinetic_crusher(drop_location)
+			new /obj/item/kinetic_crusher(drop_location)
+		if("Plasma Cutter Kit")
+			new /obj/item/gun/energy/plasmacutter(drop_location)
+			new /obj/item/survivalcapsule(drop_location)
+		if("Jaunter Kit")
+			new /obj/item/wormhole_jaunter(drop_location)
+			new /obj/item/stack/medical/bruise_pack/advanced(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 
@@ -343,6 +350,7 @@
 		EQUIPMENT("Dnd set", /obj/item/storage/box/characters, 500),
 		EQUIPMENT("Dice set", /obj/item/storage/box/dice, 250),
 		EQUIPMENT("Cards", /obj/item/deck/cards, 150),
+		EQUIPMENT("UNUM!", /obj/item/deck/unum, 200),
 		EQUIPMENT("Guitar", /obj/item/instrument/guitar, 750),
 		EQUIPMENT("Synthesizer", /obj/item/instrument/piano_synth, 1500),
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),

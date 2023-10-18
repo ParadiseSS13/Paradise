@@ -52,9 +52,12 @@
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_RESIN)
 	max_integrity = 200
 	var/resintype = null
+	var/is_alien = TRUE
 
 /obj/structure/alien/resin/Initialize(mapload)
 	air_update_turf(1)
+	if(!is_alien)
+		return ..()
 	for(var/obj/structure/alien/weeds/node/W in get_turf(src))
 		qdel(W)
 	if(locate(/obj/structure/alien/weeds) in get_turf(src))
@@ -239,6 +242,7 @@
 	smoothing_flags = SMOOTH_BITMASK
 	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
 	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS, SMOOTH_GROUP_WALLS)
+	creates_cover = TRUE
 	var/obj/structure/alien/weeds/node/linked_node = null
 	var/obj/structure/alien/wallweed/wall_weed // This var is used to handle wall-weed interactions for when they need to be deleted
 	var/static/list/weedImageCache
@@ -346,7 +350,7 @@
 		return
 
 	for(var/turf/T in U.GetAtmosAdjacentTurfs())
-		if(locate(/obj/structure/alien/weeds) in T || isspaceturf(T))
+		if((locate(/obj/structure/alien/weeds) in T) || isspaceturf(T) || islava(T) || ischasm(T))
 			continue
 		new /obj/structure/alien/weeds(T, linked_node)
 		check_surroundings()
@@ -480,6 +484,8 @@
 		obj_integrity = integrity_failure
 	else if(status != GROWN)
 		addtimer(CALLBACK(src, PROC_REF(grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
+	if(status == GROWN)
+		AddComponent(/datum/component/proximity_monitor)
 
 /obj/structure/alien/egg/attack_alien(mob/living/carbon/alien/user)
 	return attack_hand(user)

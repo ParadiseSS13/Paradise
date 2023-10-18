@@ -165,7 +165,7 @@
 	if(!drops_core)
 		return
 	var/turf/T = get_turf(src)
-	if(T && GLOB.gravity_generators["[T.z]"])
+	if(T && length(GLOB.gravity_generators["[T.z]"]))
 		var/obj/machinery/gravity_generator/main/G = pick(GLOB.gravity_generators["[T.z]"])
 		G.set_broken() //Requires engineering to fix the gravity generator, as it gets overloaded by the anomaly.
 
@@ -361,6 +361,7 @@
 		var/mob/dead/observer/chosen = pick(candidates)
 		S.key = chosen.key
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
+		dust_if_respawnable(chosen)
 		log_game("[key_name(S.key)] was made into a slime by pyroclastic anomaly at [AREACOORD(T)].")
 
 /////////////////////
@@ -377,6 +378,9 @@
 	var/list/turf_targets = list()
 	for(var/turf/T in oview(get_turf(src), 7))
 		turf_targets += T
+
+	for(var/mob/living/carbon/human/H in view(get_turf(src), 3))
+		shootAt(H)
 
 	for(var/I in 1 to rand(1, 3))
 		var/turf/target = pick(turf_targets)
@@ -404,6 +408,9 @@
 		return
 	var/obj/item/projectile/temp/basilisk/O = new /obj/item/projectile/temp/basilisk(T)
 	playsound(get_turf(src), 'sound/weapons/taser2.ogg', 75, TRUE)
+	if(drops_core)
+		O.stun = 0.5 SECONDS
+	O.original = target
 	O.current = T
 	O.yo = U.y - T.y
 	O.xo = U.x - T.x

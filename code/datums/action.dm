@@ -65,6 +65,10 @@
 		return FALSE
 	return TRUE
 
+/datum/action/proc/AltTrigger()
+	Trigger()
+	return FALSE
+
 /datum/action/proc/Process()
 	return
 
@@ -575,6 +579,12 @@
 	if(target)
 		var/obj/effect/proc_holder/spell = target
 		spell.Click()
+		return TRUE
+
+/datum/action/spell_action/AltTrigger()
+	if(target)
+		var/obj/effect/proc_holder/spell/spell = target
+		spell.AltClick(usr)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable()

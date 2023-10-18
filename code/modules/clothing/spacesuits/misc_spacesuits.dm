@@ -14,7 +14,7 @@
 		)
 
 /obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot)
-	if(ishuman(user) && slot == slot_head)
+	if(ishuman(user) && slot == SLOT_HUD_HEAD)
 		if(isvox(user))
 			if(flags & BLOCKHAIR)
 				flags &= ~BLOCKHAIR

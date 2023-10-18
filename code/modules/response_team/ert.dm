@@ -12,6 +12,7 @@ GLOBAL_VAR_INIT(responseteam_age, 21) // Minimum account age to play as an ERT m
 GLOBAL_DATUM(active_team, /datum/response_team)
 GLOBAL_VAR_INIT(send_emergency_team, FALSE)
 GLOBAL_VAR_INIT(ert_request_answered, FALSE)
+GLOBAL_LIST_EMPTY(ert_request_messages)
 
 /client/proc/response_team()
 	set name = "Dispatch CentComm Response Team"
@@ -29,33 +30,29 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 		to_chat(usr, "<span class='warning'>The round hasn't started yet!</span>")
 		return
 
-	if(GLOB.send_emergency_team)
-		to_chat(usr, "<span class='warning'>Central Command has already dispatched an emergency response team!</span>")
-		return
-
 	var/datum/ui_module/ert_manager/E = new()
 	E.ui_interact(usr)
 
 
-/mob/dead/observer/proc/JoinResponseTeam()
+/mob/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
 		to_chat(src, "<span class='warning'>No emergency response team is currently being sent.</span>")
-		return 0
+		return FALSE
 
 	if(jobban_isbanned(src, ROLE_ERT))
 		to_chat(src, "<span class='warning'>You are jobbanned from playing on an emergency response team!</span>")
-		return 0
+		return FALSE
 
 	var/player_age_check = check_client_age(client, GLOB.responseteam_age)
 	if(player_age_check && GLOB.configuration.gamemode.antag_account_age_restriction)
 		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
-		return 0
+		return FALSE
 
 	if(cannotPossess(src))
 		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-		return 0
+		return FALSE
 
-	return 1
+	return TRUE
 
 /proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
 	GLOB.response_team_members = list()
@@ -65,23 +62,26 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	GLOB.send_emergency_team = TRUE
 	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Join the Emergency Response Team?",, GLOB.responseteam_age, 45 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
-	if(!ert_candidates.len)
+	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
 
 	// Respawnable players get first dibs
-	for(var/mob/dead/observer/M in ert_candidates)
+	for(var/mob/M in ert_candidates)
 		if(jobban_isbanned(M, ROLE_TRAITOR) || jobban_isbanned(M, "Security Officer") || jobban_isbanned(M, "Captain") || jobban_isbanned(M, "Cyborg"))
 			continue
-		if((M in GLOB.respawnable_list) && M.JoinResponseTeam())
+		if((HAS_TRAIT(M, TRAIT_RESPAWNABLE)) && M.JoinResponseTeam())
 			GLOB.response_team_members |= M
+			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob, remove_from_ert_list), TRUE)
+
 	// If there's still open slots, non-respawnable players can fill them
-	for(var/mob/dead/observer/M in (ert_candidates - GLOB.respawnable_list))
+	for(var/mob/M in (ert_candidates - GLOB.response_team_members))
 		if(M.JoinResponseTeam())
 			GLOB.response_team_members |= M
+			M.RegisterSignal(M, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob, remove_from_ert_list), TRUE)
 
-	if(!GLOB.response_team_members.len)
+	if(!length(GLOB.response_team_members))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
 		return
@@ -133,6 +133,7 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 					break
 				new_commando.mind.key = M.key
 				new_commando.key = M.key
+				dust_if_respawnable(M)
 				new_commando.update_icons()
 				break
 	GLOB.send_emergency_team = FALSE
@@ -220,6 +221,9 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 
 	return M
 
+/mob/proc/remove_from_ert_list(ghost)
+	SIGNAL_HANDLER
+	GLOB.response_team_members -= src
 
 /datum/response_team
 	var/list/slots = list(
@@ -241,6 +245,9 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	var/paranormal_outfit
 	var/borg_path = /mob/living/silicon/robot/ert
 	var/cyborg_security_permitted = FALSE
+
+	/// Whether the ERT announcement should be hidden from the station
+	var/silent
 
 /datum/response_team/proc/setSlots(com=1, sec=4, med=0, eng=0, jan=0, par=0, cyb=0)
 	slots["Commander"] = com
@@ -287,9 +294,14 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 			M.equipOutfit(command_outfit)
 
 /datum/response_team/proc/cannot_send_team()
+	if(silent)
+		message_admins("A silent response team failed to spawn. Likely, no one signed up.")
+		return
 	GLOB.major_announcement.Announce("[station_name()], we are unfortunately unable to send you an Emergency Response Team at this time.", "ERT Unavailable")
 
 /datum/response_team/proc/announce_team()
+	if(silent)
+		return
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a team of highly trained assistants to aid(?) you. Standby.", "ERT En-Route")
 
 // -- AMBER TEAM --
@@ -303,6 +315,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	paranormal_outfit = /datum/outfit/job/centcom/response_team/paranormal/amber
 
 /datum/response_team/amber/announce_team()
+	if(silent)
+		return
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code AMBER light Emergency Response Team. Standby.", "ERT En-Route")
 
 // -- RED TEAM --
@@ -317,6 +331,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/red
 
 /datum/response_team/red/announce_team()
+	if(silent)
+		return
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code RED Emergency Response Team. Standby.", "ERT En-Route")
 
 // -- GAMMA TEAM --
@@ -331,6 +347,8 @@ GLOBAL_VAR_INIT(ert_request_answered, FALSE)
 	borg_path = /mob/living/silicon/robot/ert/gamma
 
 /datum/response_team/gamma/announce_team()
+	if(silent)
+		return
 	GLOB.major_announcement.Announce("Attention, [station_name()]. We are sending a code GAMMA elite Emergency Response Team. Standby.", "ERT En-Route")
 
 /datum/outfit/job/centcom/response_team

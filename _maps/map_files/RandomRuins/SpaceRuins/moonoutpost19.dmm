@@ -5,9 +5,6 @@
 "ab" = (
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
-"ac" = (
-/turf/simulated/floor/plating/asteroid,
-/area/ruin/space/unpowered)
 "ad" = (
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/unpowered)
@@ -28,7 +25,7 @@
 	id_tag = "Awaybiohazard";
 	name = "Acid-Proof biohazard containment door"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "ai" = (
@@ -250,7 +247,7 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aF" = (
@@ -639,7 +636,7 @@
 	id_tag = "Awaylab";
 	name = "Acid-Proof containment chamber blast door"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "br" = (
@@ -1331,7 +1328,7 @@
 	name = "Acid-Proof containment chamber blast door"
 	},
 /obj/structure/cable,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cD" = (
@@ -1524,7 +1521,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "cU" = (
@@ -2733,7 +2730,7 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fk" = (
 /obj/structure/table,
@@ -2742,7 +2739,7 @@
 	pixel_y = 6
 	},
 /obj/effect/landmark/burnturf,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fl" = (
 /obj/structure/table,
@@ -2878,7 +2875,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fC" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},
@@ -2924,7 +2921,7 @@
 /obj/structure/sign/poster/official/ue_no{
 	pixel_y = 32
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "fJ" = (
 /obj/structure/sign/science{
@@ -2951,7 +2948,7 @@
 	},
 /area/ruin/space/unpowered)
 "fM" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
 	},
@@ -3254,7 +3251,7 @@
 	},
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "go" = (
 /obj/structure/cable{
@@ -3268,7 +3265,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "gp" = (
 /obj/machinery/light/small{
@@ -3284,7 +3281,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "gq" = (
 /obj/structure/cable{
@@ -3298,7 +3295,7 @@
 	},
 /obj/effect/landmark/burnturf,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "gr" = (
 /obj/structure/cable{
@@ -3541,11 +3538,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"gP" = (
-/obj/effect/landmark/damageturf,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/unpowered)
 "gQ" = (
 /turf/simulated/floor/plating/airless{
 	name = "plating"
@@ -3571,7 +3563,7 @@
 "gT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "gU" = (
 /obj/machinery/door/firedoor{
@@ -4224,7 +4216,7 @@
 	desc = "A warning sign which reads 'HOSTILE ATMOSPHERE AHEAD'";
 	name = "\improper HOSTILE ATMOSPHERE AHEAD"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "iB" = (
@@ -4692,7 +4684,7 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /obj/item/clothing/accessory/black,
-/obj/item/clothing/under/rank/civilian/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/black,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "barber";
 	name = "floor"
@@ -4702,7 +4694,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
 "jJ" = (
 /obj/machinery/alarm/monitor{
@@ -4904,7 +4896,7 @@
 /area/ruin/space/unpowered)
 "kg" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "kh" = (
@@ -4943,7 +4935,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "km" = (
-/obj/item/twohanded/required/kirbyplants{
+/obj/item/kirbyplants{
 	desc = "A plastic potted plant.";
 	pixel_y = 3
 	},
@@ -4988,12 +4980,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/space/unpowered)
-"WQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel,
+"Wd" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"
@@ -6171,7 +6160,7 @@ ag
 fC
 bB
 gH
-bX
+Wd
 ad
 hu
 ij
@@ -6231,7 +6220,7 @@ af
 fD
 bB
 gI
-bX
+Wd
 ad
 hu
 ik
@@ -6291,7 +6280,7 @@ ag
 fE
 bA
 gH
-bX
+Wd
 ad
 hO
 ij
@@ -6411,7 +6400,7 @@ ag
 fG
 gd
 gH
-bX
+Wd
 hu
 hP
 hP
@@ -6471,7 +6460,7 @@ af
 fD
 ge
 gI
-bX
+Wd
 hu
 hQ
 im
@@ -6500,7 +6489,7 @@ aa
 ab
 ab
 ab
-ac
+ad
 ad
 ad
 ad
@@ -6531,13 +6520,13 @@ ag
 fH
 gf
 gI
-bX
+Wd
 ad
 ad
 ad
-bX
+Wd
 iV
-bX
+Wd
 ad
 ad
 ad
@@ -6560,7 +6549,7 @@ aa
 ab
 ab
 ab
-ac
+ad
 ad
 ad
 ad
@@ -6597,7 +6586,7 @@ ad
 ad
 iA
 bP
-bX
+Wd
 ad
 ad
 ad
@@ -6620,7 +6609,7 @@ aa
 ab
 ab
 ab
-ac
+ad
 ad
 ad
 ad
@@ -6653,13 +6642,13 @@ gh
 gK
 aM
 aM
-bX
-bX
-bX
+Wd
+Wd
+Wd
 iW
-bX
-bX
-bX
+Wd
+Wd
+Wd
 aM
 aM
 aM
@@ -6834,12 +6823,12 @@ ak
 hg
 hx
 hT
-bX
-bX
+Wd
+Wd
 aM
-bX
-bX
-bX
+Wd
+Wd
+Wd
 aM
 jL
 jV
@@ -6867,7 +6856,7 @@ ad
 ad
 ad
 ad
-ac
+ad
 ab
 ab
 ab
@@ -6894,7 +6883,7 @@ gN
 aL
 aL
 aL
-bX
+Wd
 ad
 iY
 ad
@@ -6926,8 +6915,8 @@ ab
 ad
 ad
 ad
-ac
-ac
+ad
+ad
 ab
 ab
 ab
@@ -6986,7 +6975,7 @@ ab
 ad
 ad
 ad
-ac
+ad
 ab
 ab
 ab
@@ -7010,7 +6999,7 @@ ab
 ad
 fM
 gm
-gP
+yh
 fM
 ad
 ad
@@ -7045,8 +7034,8 @@ ab
 ab
 ab
 ad
-ac
-ac
+ad
+ad
 ab
 ab
 af
@@ -7190,7 +7179,7 @@ ad
 ae
 aM
 gp
-WQ
+gS
 aM
 hz
 ad
@@ -7250,7 +7239,7 @@ ad
 ad
 fM
 gq
-ak
+Of
 aM
 aL
 aM
@@ -7310,7 +7299,7 @@ fc
 fn
 fN
 gr
-gP
+yh
 aM
 hA
 cm
@@ -7503,7 +7492,7 @@ jB
 jI
 jQ
 gS
-ak
+Of
 Of
 kl
 fM
@@ -7546,7 +7535,7 @@ ad
 ad
 ad
 ad
-bX
+Wd
 fp
 ak
 gf
@@ -7606,7 +7595,7 @@ ad
 ad
 ad
 ad
-bX
+Wd
 fq
 ak
 gd
@@ -7667,7 +7656,7 @@ ad
 ab
 ab
 aL
-fr
+cm
 aA
 gd
 aL
@@ -8324,7 +8313,7 @@ ad
 ad
 ad
 ad
-bX
+Wd
 eO
 fe
 fv
@@ -8384,7 +8373,7 @@ ad
 ad
 ad
 ad
-bX
+Wd
 eP
 ff
 fv
@@ -8444,7 +8433,7 @@ ad
 ad
 ad
 ad
-bX
+Wd
 eQ
 fg
 fw
@@ -8636,7 +8625,7 @@ hJ
 ia
 ib
 iN
-bX
+Wd
 ad
 ad
 ad
@@ -8696,7 +8685,7 @@ dL
 ib
 ia
 iO
-bX
+Wd
 ad
 ad
 ad
@@ -8756,7 +8745,7 @@ dL
 ia
 ia
 iP
-bX
+Wd
 ad
 ad
 ad
@@ -8928,7 +8917,7 @@ ab
 aL
 aL
 aM
-bX
+Wd
 aL
 aL
 aL

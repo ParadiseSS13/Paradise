@@ -101,7 +101,7 @@
 	item_state = "candlebox5"
 	storage_slots = 5
 	throwforce = 2
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 
 /obj/item/storage/fancy/candle_box/full/populate_contents()
@@ -173,7 +173,7 @@
 	belt_icon = "patch_pack"
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 2
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	storage_slots = 6
 	max_combined_w_class = 6
 	can_hold = list(/obj/item/clothing/mask/cigarette,
@@ -202,7 +202,7 @@
 			var/obj/item/I = contents[num]
 			if(istype(I, /obj/item/clothing/mask/cigarette))
 				var/obj/item/clothing/mask/cigarette/C = I
-				user.equip_to_slot_if_possible(C, slot_wear_mask)
+				user.equip_to_slot_if_possible(C, SLOT_HUD_WEAR_MASK)
 				to_chat(user, "<span class='notice'>You take \a [C.name] out of the pack.</span>")
 				update_icon()
 				got_cig = 1

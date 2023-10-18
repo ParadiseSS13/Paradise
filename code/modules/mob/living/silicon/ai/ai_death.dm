@@ -16,14 +16,14 @@
 	SSshuttle.autoEvac()
 
 	if(nuking)
-		set_security_level("red")
+		SSsecurity_level.set_level(SEC_LEVEL_RED)
 		nuking = FALSE
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = null //Point back to the disk.
 
 	if(doomsday_device)
 		doomsday_device.timing = FALSE
-		SSshuttle.emergencyNoEscape = 0
+		SSshuttle.clearHostileEnvironment(doomsday_device)
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
 			SSshuttle.emergency.mode = SHUTTLE_DOCKED
 			SSshuttle.emergency.timer = world.time
