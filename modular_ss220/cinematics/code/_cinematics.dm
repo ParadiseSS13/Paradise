@@ -32,6 +32,8 @@
 	var/list/client/watching = list()
 	/// A list of all mobs who have notransform set while watching the cinematic
 	var/list/datum/locked = list()
+	// Whether the cinematic locks watchers or not
+	var/should_lock_watchers = TRUE
 	/// Whether the cinematic is a global cinematic or not
 	var/is_global = FALSE
 	/// Refernce to the cinematic screen shown to everyohne
@@ -112,7 +114,7 @@
 	// so we'll only lock down all viewing mobs who don't have it already set.
 	// This does potentially mean some mobs could lose their notrasnform and
 	// not be locked down by cinematics, but that should be very unlikely.
-	if(!watching_mob.notransform)
+	if(!watching_mob.notransform && should_lock_watchers)
 		lock_mob(watching_mob)
 
 	// Only show the actual cinematic to cliented mobs.
@@ -122,7 +124,9 @@
 	watching += watching_client
 	watching_mob.overlay_fullscreen("cinematic", backdrop_type)
 	watching_client.screen += screen
-	RegisterSignal(watching_client, COMSIG_PARENT_QDELETING, PROC_REF(remove_watcher))
+	watching_client.verbs += /client/proc/cinematic_leave
+
+	RegisterSignal(watching_client, list(COMSIG_PARENT_QDELETING, COMSIG_CINEMATIC_WATCHER_LEAVES), PROC_REF(remove_watcher))
 
 /// Simple helper for playing sounds from the cinematic.
 /datum/cinematic/proc/play_cinematic_sound(sound_to_play)
@@ -173,10 +177,16 @@
 	if(!(no_longer_watching in watching))
 		CRASH("cinematic remove_watcher was passed a client which wasn't watching.")
 
-	UnregisterSignal(no_longer_watching, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(no_longer_watching, list(COMSIG_PARENT_QDELETING, COMSIG_CINEMATIC_WATCHER_LEAVES))
+
+	if(no_longer_watching.mob)
+		unlock_mob(no_longer_watching.mob)
+		locked -= no_longer_watching.mob
+
 	// We'll clear the cinematic if they have a mob which has one,
 	// but we won't remove notransform. Wait for the cinematic end to do that.
 	no_longer_watching.mob?.clear_fullscreen("cinematic")
 	no_longer_watching.screen -= screen
 
+	no_longer_watching.verbs -= /client/proc/cinematic_leave
 	watching -= no_longer_watching

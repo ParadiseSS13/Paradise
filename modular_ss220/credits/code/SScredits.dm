@@ -14,8 +14,6 @@ SUBSYSTEM_DEF(credits)
 
 /datum/controller/subsystem/credits/Initialize()
 	credit_animate_height = 16 * world.icon_size
-	title_music = pick(file2list("config/credits/sounds/title_music.txt"))
-
 
 /datum/controller/subsystem/credits/proc/roll_credits_for_clients(list/clients)
 	end_titles = new /datum/credits/default()
@@ -29,10 +27,13 @@ SUBSYSTEM_DEF(credits)
 
 	var/obj/screen/credit/logo = new /obj/screen/credit/logo(null, "", client)
 
-	addtimer(CALLBACK(src, PROC_REF(roll_credits), client.credits, logo, client), 5 SECONDS, TIMER_CLIENT_TIME)
+	client.credits += logo
 
-/datum/controller/subsystem/credits/proc/roll_credits(list/credits, obj/screen/credit/logo/logo, client/client)
-	credits += logo
+	addtimer(CALLBACK(src, PROC_REF(roll_credits), logo, client), 5 SECONDS, TIMER_CLIENT_TIME)
+
+/datum/controller/subsystem/credits/proc/roll_credits(obj/screen/credit/logo/logo, client/client)
+	if(!client?.credits)
+		return
 
 	addtimer(CALLBACK(logo, TYPE_PROC_REF(/obj/screen/credit/logo, rollem)), credit_roll_speed / 2.5, TIMER_CLIENT_TIME)
 
@@ -41,7 +42,7 @@ SUBSYSTEM_DEF(credits)
 			if(!client?.credits)
 				return
 			var/obj/screen/credit/title = new(null, item, client)
-			credits += title
+			client.credits += title
 			title.rollem()
 			sleep(credit_spawn_speed)
 
@@ -50,14 +51,19 @@ SUBSYSTEM_DEF(credits)
 /datum/controller/subsystem/credits/proc/clear_credits(client/client)
 	if(!client)
 		return
-	QDEL_NULL(client.credits)
+
+	for(var/credit in client.credits)
+		QDEL_NULL(credit)
 
 /datum/credits
 	var/list/credits = list()
 	var/playing_time = 5 SECONDS
+	var/soundtrack
 
 /datum/credits/New()
 	. = ..()
+
+	soundtrack = pick(file2list("config/credits/sounds/title_music.txt"))
 
 	fill_credits()
 
@@ -139,6 +145,38 @@ SUBSYSTEM_DEF(credits)
 	. = ..()
 	var/list/streamers = list()
 
+	if(GLOB.configuration.admin.use_database_admins)
+		database_rank_check(streamers)
+	else
+		no_database_rank_check(streamers)
+
+	if(length(streamers))
+		content += "<hr>"
+		content += "<center><br>Приглашенные звезды:<br>[jointext(streamers, "<br>")]</center>"
+
+
+/datum/credit/streamers/proc/database_rank_check(list/streamers)
+	if(!SSdbcore.IsConnected())
+		to_chat(src, "Warning, MYSQL database is not connected.")
+		return
+
+	var/datum/db_query/ranks_ckey_read = SSdbcore.NewQuery(
+		"SELECT admin_rank, ckey FROM admin WHERE admin_rank=:rank",
+			list("rank" = "Банда"))
+
+	if(!ranks_ckey_read.warn_execute())
+		qdel(ranks_ckey_read)
+		return
+
+	while(ranks_ckey_read.NextRow())
+		var/client/client = get_client_by_ckey(ranks_ckey_read.item[2])
+		if(!client.mob?.name)
+			continue
+		streamers += "<center>[client.mob.name])] a.k.a. ([client.ckey])<center>"
+
+	qdel(ranks_ckey_read)
+
+/datum/credit/streamers/proc/no_database_rank_check(list/streamers)
 	for(var/iterator_key in GLOB.configuration.admin.ckey_rank_map)
 		if(!(GLOB.configuration.admin.ckey_rank_map[iterator_key] == "Банда"))
 			continue
@@ -148,10 +186,6 @@ SUBSYSTEM_DEF(credits)
 		if(!client)
 			continue
 		streamers += "<center>[client.mob.name] a.k.a. ([ckey])<center>"
-
-	if(length(streamers))
-		content += "<hr>"
-		content += "<center><br>Приглашенные звезды:<br>[jointext(streamers, "<br>")]</center>"
 
 /datum/credit/enormeus_crewlist_debug
 
@@ -235,7 +269,8 @@ SUBSYSTEM_DEF(credits)
 		else if(human.real_name)
 			corpses += human.real_name
 	if(length(corpses))
-		content += "<center>Основано на реальных событиях:<br>В память о [english_list(corpses)].<br></center>"
+		content += "<hr>"
+		content += "<center><br>Основано на реальных событиях:<br>В память о [english_list(corpses)].<br></center>"
 
 /datum/credit/staff
 

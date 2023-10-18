@@ -14,3 +14,15 @@
 		return
 
 	play_cinematic(choice, world)
+
+/client/proc/cinematic_leave()
+	set name = "Прекратить смотреть синематик"
+	set category = "OOC"
+	set desc = "Отключить проигрывание синематика."
+
+	verbs -= /client/proc/cinematic_leave
+
+	if(!mob.screens["cinematic"])
+		return
+
+	SEND_SIGNAL(src, COMSIG_CINEMATIC_WATCHER_LEAVES)

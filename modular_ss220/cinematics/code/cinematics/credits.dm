@@ -1,5 +1,6 @@
 /datum/cinematic/credits
 	is_global = TRUE
+	should_lock_watchers = FALSE
 	backdrop_type = /obj/screen/fullscreen/cinematic_backdrop/credits
 
 /datum/cinematic/credits/New(watcher, datum/callback/special_callback)
@@ -20,9 +21,9 @@
 	start_cinematic(src.watching)
 
 /datum/cinematic/credits/play_cinematic()
-	play_cinematic_sound(sound(SScredits.title_music, volume = 20))
 
 	SScredits.roll_credits_for_clients(watching)
+	play_cinematic_sound(sound(SScredits.end_titles.soundtrack, volume = 20))
 
 	cleanup_time = SScredits.end_titles.playing_time + 3 SECONDS
 
@@ -35,6 +36,11 @@
 	UnregisterSignal(SSdcs, COMSIG_GLOB_CINEMATIC_STOPPED_PLAYING)
 
 	. = ..()
+
+/datum/cinematic/credits/remove_watcher(client/no_longer_watching)
+	. = ..()
+
+	SScredits.clear_credits(no_longer_watching)
 
 /obj/screen/cinematic/credits
 	icon_state = "blank"
