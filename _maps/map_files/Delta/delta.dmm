@@ -16808,17 +16808,6 @@
 /area/station/supply/qm)
 "aYi" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/quartermaster{
-	pixel_x = -3
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = 5;
-	pixel_y = 3
-	},
-/obj/item/cartridge/quartermaster{
-	pixel_x = -1;
-	pixel_y = 7
-	},
 /obj/item/gps/mining,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/keycard_auth,
@@ -48271,7 +48260,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cvo" = (
-/obj/structure/cult/archives,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
@@ -85738,12 +85726,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
-"myi" = (
-/obj/machinery/economy/vending/cola,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/station/science/break_room)
 "myN" = (
 /obj/structure/bed,
 /obj/item/bedsheet/hos,
@@ -134213,7 +134195,7 @@ lyD
 uic
 kME
 oyR
-myi
+ozw
 iqc
 sJI
 dID
