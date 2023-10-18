@@ -33515,14 +33515,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/aft)
-"cFj" = (
-/obj/machinery/power/grounding_rod{
-	anchored = 1
-	},
-/obj/effect/decal/warning_stripes/southwest,
-/obj/machinery/light/directional/east,
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/control)
 "cFm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -36417,7 +36409,6 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/machinery/light/directional/north,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "cPH" = (
@@ -37914,7 +37905,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/light/directional/north,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "cUe" = (
@@ -59208,7 +59198,6 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/machinery/light/directional/south,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "iLA" = (
@@ -75979,7 +75968,6 @@
 /area/station/maintenance/asmaint2)
 "oZe" = (
 /obj/structure/lattice,
-/obj/machinery/light/directional/west,
 /turf/space,
 /area/station/engineering/control)
 "oZi" = (
@@ -88261,7 +88249,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/light/directional/south,
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "tCS" = (
@@ -96068,14 +96055,6 @@
 	icon_state = "cafeteria"
 	},
 /area/station/service/kitchen)
-"wvq" = (
-/obj/machinery/power/grounding_rod{
-	anchored = 1
-	},
-/obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/light/directional/east,
-/turf/simulated/floor/plating/airless,
-/area/station/engineering/control)
 "wvz" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -124120,7 +124099,7 @@ cSU
 cSU
 vDt
 cSU
-cFj
+cPn
 aab
 afO
 cLC
@@ -124134,7 +124113,7 @@ cYQ
 cLC
 afO
 aab
-wvq
+qJO
 cSU
 bYQ
 cSU
