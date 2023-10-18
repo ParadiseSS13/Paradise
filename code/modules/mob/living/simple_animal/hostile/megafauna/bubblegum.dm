@@ -146,6 +146,7 @@ Difficulty: Hard
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
+	qdel(second_life_portal)
 	if(enraged && !second_life)
 		var/obj/structure/closet/crate/necropolis/bubblegum/bait/jebait = new /obj/structure/closet/crate/necropolis/bubblegum/bait(get_turf(src))
 		var/obj/effect/bubblegum_trigger/great_chest_ahead = new /obj/effect/bubblegum_trigger(jebait, ListTargets())
@@ -153,10 +154,9 @@ Difficulty: Hard
 		great_chest_ahead.forceMove(jebait)
 	if(second_life)
 		var/area/A = get_area(src)
-		qdel(second_life_portal)
 		for(var/mob/M in A)
 			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
-			new /obj/effect/bubblegum_exit(get_turf(src))
+		new /obj/effect/bubblegum_exit(get_turf(src))
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)

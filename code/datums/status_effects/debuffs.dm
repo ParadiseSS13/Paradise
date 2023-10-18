@@ -1004,7 +1004,7 @@
 
 /datum/status_effect/bubblegum_curse/tick()
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
-	if(!attacker)
+	if(!attacker || attacker.loc == null)
 		qdel(src)
 	if(attacker.health <= attacker.maxHealth / 2)
 		owner.clear_fullscreen("Bubblegum")
