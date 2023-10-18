@@ -85441,6 +85441,12 @@
 	icon_state = "wood-broken"
 	},
 /area/station/maintenance/gambling_den)
+"mmt" = (
+/obj/machinery/economy/vending/cola,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurple"
+	},
+/area/station/science/break_room)
 "mmw" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -134195,7 +134201,7 @@ lyD
 uic
 kME
 oyR
-ozw
+mmt
 iqc
 sJI
 dID
