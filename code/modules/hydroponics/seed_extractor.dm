@@ -157,7 +157,7 @@
 	. = FALSE
 	switch(action)
 		if("vend")
-			vend_seed(text2num(params["seedid"]), params["seedvariant"], vend_amount, ui.user)
+			vend_seed(text2num(params["seedid"]), params["seedvariant"], vend_amount)
 			add_fingerprint(usr)
 			. = TRUE
 		if("set_vend_amount")
@@ -167,7 +167,7 @@
 			add_fingerprint(usr)
 			. = TRUE
 
-/obj/machinery/seed_extractor/proc/vend_seed(seed_id, seed_variant, amount, mob/user)
+/obj/machinery/seed_extractor/proc/vend_seed(seed_id, seed_variant, amount)
 	if(!seed_id)
 		return
 	var/datum/seed_pile/selected_pile
