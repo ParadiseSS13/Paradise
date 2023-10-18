@@ -33,8 +33,6 @@
 	air_contents.nitrogen = MOLES_N2STANDARD
 	air_contents.temperature = T20C
 
-	// Give auto tubes time to align before trying to start moving
-
 	for(var/obj/structure/transit_tube/tube in loc)
 		dir = pick(tube.directions())
 		break
