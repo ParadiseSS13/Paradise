@@ -23602,16 +23602,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
 "bqP" = (
-/obj/structure/transit_tube{
-	icon_state = "NW-SE"
-	},
 /obj/structure/lattice/catwalk,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice,
 /obj/structure/transit_tube/diagonal/topleft,
 /turf/space,
 /area/space/nearstation)
@@ -75683,22 +75674,7 @@
 	},
 /area/station/maintenance/library)
 "fIk" = (
-/obj/structure/transit_tube{
-	icon_state = "E-SW-NW"
-	},
 /obj/structure/lattice/catwalk,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/transit_tube/junction{
 	dir = 4
 	},
@@ -76026,26 +76002,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
 "fRW" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
 /obj/structure/lattice/catwalk,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
 /obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
 /turf/space,
@@ -76363,21 +76324,6 @@
 /area/station/medical/reception)
 "giK" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/transit_tube/curved{
 	dir = 8
 	},
@@ -77895,16 +77841,7 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "hyX" = (
-/obj/structure/transit_tube{
-	icon_state = "E-SW"
-	},
 /obj/structure/lattice/catwalk,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice,
 /obj/structure/transit_tube/curved/flipped{
 	dir = 4
 	},
@@ -78109,21 +78046,6 @@
 /area/station/security/evidence)
 "hFE" = (
 /obj/structure/lattice/catwalk,
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/structure/transit_tube/crossing{
 	dir = 8
 	},
@@ -80977,24 +80899,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
-"jWz" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/transit_tube,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/transit_tube/horizontal,
-/turf/space,
-/area/space/nearstation)
 "jWY" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -84847,14 +84751,7 @@
 /turf/simulated/floor/engine,
 /area/station/science/explab)
 "nmF" = (
-/obj/structure/transit_tube,
 /obj/structure/lattice/catwalk,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice,
 /obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
@@ -85264,7 +85161,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -87859,22 +87755,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
-"pFn" = (
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
-/obj/structure/lattice/catwalk,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice,
-/obj/structure/transit_tube/curved{
-	dir = 8
-	},
-/turf/space,
-/area/space/nearstation)
 "pFT" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -88113,16 +87993,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "pMI" = (
-/obj/structure/transit_tube{
-	icon_state = "W-NE"
-	},
 /obj/structure/lattice/catwalk,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice,
 /obj/structure/transit_tube/curved/flipped{
 	dir = 8
 	},
@@ -89063,28 +88934,6 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
-"qEa" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/obj/structure/lattice,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
 "qET" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -93972,24 +93821,6 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
-"upV" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/transit_tube,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/transit_tube/horizontal,
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
 "upW" = (
 /obj/machinery/firealarm{
 	name = "north bump";
@@ -94161,16 +93992,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
 "uDs" = (
-/obj/structure/transit_tube{
-	icon_state = "E-NW"
-	},
 /obj/structure/lattice/catwalk,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice,
 /obj/structure/transit_tube/curved{
 	dir = 4
 	},
@@ -97817,16 +97639,7 @@
 	},
 /area/station/security/storage)
 "xMr" = (
-/obj/structure/transit_tube{
-	icon_state = "NE-SW"
-	},
 /obj/structure/lattice/catwalk,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/lattice,
 /obj/structure/transit_tube/diagonal,
 /turf/space,
 /area/space/nearstation)
@@ -112848,7 +112661,7 @@ aaa
 aaa
 bUJ
 aaa
-pFn
+giK
 xLV
 xLV
 xLV
@@ -113107,7 +112920,7 @@ bUJ
 aaa
 abj
 bqP
-qEa
+abj
 xMr
 abj
 aaa
@@ -113878,7 +113691,7 @@ abj
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -114135,7 +113948,7 @@ abj
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -114649,7 +114462,7 @@ abj
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -114906,7 +114719,7 @@ abj
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -115420,7 +115233,7 @@ abj
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -115677,7 +115490,7 @@ abj
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -116191,7 +116004,7 @@ abj
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -116448,7 +116261,7 @@ abj
 abj
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -116962,7 +116775,7 @@ dij
 abj
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -117219,7 +117032,7 @@ dij
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 aaa
@@ -117733,7 +117546,7 @@ dij
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 bXU
@@ -117990,7 +117803,7 @@ dij
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 abj
 bXU
@@ -118504,7 +118317,7 @@ dij
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 bXU
 bXU
@@ -118761,7 +118574,7 @@ abj
 aaa
 bUJ
 aaa
-jWz
+nmF
 aaa
 bXU
 bZj
@@ -119018,7 +118831,7 @@ bVs
 bXG
 bYJ
 abj
-jWz
+nmF
 abj
 bXU
 bZj
@@ -119275,7 +119088,7 @@ dVS
 abj
 abj
 abj
-upV
+nmF
 abj
 bXU
 bZk
