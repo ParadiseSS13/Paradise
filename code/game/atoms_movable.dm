@@ -719,7 +719,7 @@
  * * angle - The angle by which we'll rotate. If this is null/0, we'll randomly rotate 90 degrees clockwise or counterclockwise.
  * * rightable - If true, the tilted component will be applied, allowing people to alt-click to right it.
  * * block_interactions_until_righted - If true, interactions with the object will be blocked until it's righted.
- * * crush_dir - An override on the direction we're crushing. If NO_CRUSH_DIR, we'll
+ * * crush_dir - An override on the cardinal direction we're crushing.
  */
 /atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time = 4 SECONDS, knockdown_time = 10 SECONDS, ignore_gravity = FALSE, should_rotate = TRUE, angle, rightable = FALSE, block_interactions_until_righted = FALSE, crush_dir = NO_CRUSH_DIR)
 	if(QDELETED(src) || isnull(target_turf))
