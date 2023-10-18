@@ -821,6 +821,8 @@
 		return
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_TRY_UNTILT, user) & COMPONENT_BLOCK_UNTILT)
 		return
+	if(!istype(user) || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
 
 	if(user)
 		user.visible_message(
