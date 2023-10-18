@@ -51,6 +51,16 @@
 		EQUIPMENT("Stabilizing Serum", /obj/item/hivelordstabilizer, 400),
 		EQUIPMENT("Survival Medipen", /obj/item/reagent_containers/hypospray/autoinjector/survival, 500),
 	)
+	prize_list["Mining MODsuit"] = list(
+		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining/vendor, 3500),
+		EQUIPMENT("Asteroid MODsuit Skin", /obj/item/mod/skin_applier/asteroid, 1000),
+		EQUIPMENT("MOD ion jetpack module", /obj/item/mod/module/jetpack/advanced, 2000),
+		EQUIPMENT("MOD meson visor module", /obj/item/mod/module/visor/meson, 750),
+		EQUIPMENT("MOD flashlight module", /obj/item/mod/module/flashlight, 1000),
+		EQUIPMENT("MOD internal GPS module", /obj/item/mod/module/gps, 1000),
+		EQUIPMENT("MOD drill module", /obj/item/mod/module/drill, 1250),
+		EQUIPMENT("MOD springlock module", /obj/item/mod/module/springlock, 2500),
+	)
 	prize_list["Kinetic Accelerator"] = list(
 		EQUIPMENT("Kinetic Accelerator", /obj/item/gun/energy/kinetic_accelerator, 750),
 		EQUIPMENT("KA Adjustable Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer/adjustable, 150),
@@ -62,16 +72,6 @@
 		EQUIPMENT("KA Range Increase", /obj/item/borg/upgrade/modkit/range, 1000),
 		EQUIPMENT("KA Super Chassis", /obj/item/borg/upgrade/modkit/chassis_mod, 250),
 		EQUIPMENT("KA White Tracer Rounds", /obj/item/borg/upgrade/modkit/tracer, 100),
-	)
-	prize_list["Mining MODsuit"] = list(
-		EQUIPMENT("Mining MODsuit", /obj/item/mod/control/pre_equipped/mining/vendor, 3500),
-		EQUIPMENT("Asteroid MODsuit Skin", /obj/item/mod/skin_applier/asteroid, 1000),
-		EQUIPMENT("MOD ion jetpack module", /obj/item/mod/module/jetpack/advanced, 2000),
-		EQUIPMENT("MOD meson visor module", /obj/item/mod/module/visor/meson, 750),
-		EQUIPMENT("MOD flashlight module", /obj/item/mod/module/flashlight, 1000),
-		EQUIPMENT("MOD internal GPS module", /obj/item/mod/module/gps, 1000),
-		EQUIPMENT("MOD drill module", /obj/item/mod/module/drill, 1250),
-		EQUIPMENT("MOD springlock module", /obj/item/mod/module/springlock, 2000),
 	)
 	prize_list["Digging Tools"] = list(
 		EQUIPMENT("Diamond Pickaxe", /obj/item/pickaxe/diamond, 2000),
