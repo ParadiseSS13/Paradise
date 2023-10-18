@@ -6583,12 +6583,15 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "KL" = (
-/obj/item/holosign_creator/atmos,
 /obj/structure/table,
 /obj/machinery/light_switch{
 	pixel_y = 24;
 	name = "north bump"
 	},
+/obj/item/rpd{
+	pixel_y = 3
+	},
+/obj/item/holosign_creator/atmos,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
