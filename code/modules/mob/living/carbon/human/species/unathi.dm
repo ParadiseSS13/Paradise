@@ -128,15 +128,20 @@
 		)
 
 /datum/species/unathi/ashwalker/on_species_gain(mob/living/carbon/human/H)
+	..()
+	for(var/datum/action/innate/ignite/fire in H.actions)
+		fire.Remove(H)
 	var/datum/action/innate/ignite/ash_walker/fire = new()
 	fire.Grant(H)
 	RegisterSignal(H, COMSIG_MOVABLE_Z_CHANGED, PROC_REF(speedylegs))
+	speedylegs(H)
 
 /datum/species/unathi/ashwalker/on_species_loss(mob/living/carbon/human/H)
 	..()
 	for(var/datum/action/innate/ignite/ash_walker/fire in H.actions)
 		fire.Remove(H)
 	UnregisterSignal(H, COMSIG_MOVABLE_Z_CHANGED)
+	speedylegs(H)
 
 /datum/action/innate/ignite/ash_walker
 	desc = "You form a fire in your mouth, fierce enough to... light a cigarette."
