@@ -13861,6 +13861,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"aTl" = (
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/station/engineering/ai_transit_tube)
 "aTp" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel{
@@ -16123,14 +16133,14 @@
 /area/station/supply/qm)
 "aYi" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/cargo{
 	pixel_x = -3
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/cargo{
 	pixel_x = 5;
 	pixel_y = 3
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/cargo{
 	pixel_x = -1;
 	pixel_y = 7
 	},
@@ -23574,25 +23584,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/maintenance/starboard)
-"bqJ" = (
-/obj/structure/table,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
-/obj/machinery/camera{
-	c_tag = "Brig - Prisoner Processing";
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/station/security/processing)
 "bqK" = (
 /obj/item/chair/light,
 /turf/simulated/floor/plating,
@@ -23610,6 +23601,20 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/security/prisonershuttle)
+"bqP" = (
+/obj/structure/transit_tube{
+	icon_state = "NW-SE"
+	},
+/obj/structure/lattice/catwalk,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice,
+/obj/structure/transit_tube/diagonal/topleft,
+/turf/space,
+/area/space/nearstation)
 "bqU" = (
 /obj/structure/chair{
 	dir = 1
@@ -30401,20 +30406,6 @@
 /obj/structure/closet/secure_closet/detective,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/detective)
-"bHL" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
-/obj/item/radio/intercom{
-	name = "north bump";
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/security/detective)
 "bHM" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -33636,40 +33627,6 @@
 "bPS" = (
 /turf/simulated/wall,
 /area/space/nearstation)
-"bPT" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced,
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bPU" = (
-/obj/structure/transit_tube{
-	icon_state = "E-SW"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
-"bPV" = (
-/obj/structure/transit_tube,
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
-"bPW" = (
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
-"bPX" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/turf/space,
-/area/space/nearstation)
 "bPY" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -34337,47 +34294,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
-"bRN" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/transit_tube{
-	icon_state = "S-NE"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/aisat)
-"bRO" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bRP" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bRQ" = (
-/obj/structure/transit_tube{
-	icon_state = "NW-SE"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
-"bRR" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/turf/space,
-/area/space/nearstation)
 "bRS" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -35294,21 +35210,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/turf/simulated/floor/plasteel/dark,
-/area/station/aisat)
-"bTQ" = (
-/obj/item/radio/beacon,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "bTR" = (
@@ -36269,65 +36170,6 @@
 /obj/structure/cable,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
-"bVY" = (
-/obj/structure/window/reinforced,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/transit_tube{
-	icon_state = "N-SE"
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/aisat)
-"bVZ" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bWa" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bWb" = (
-/obj/structure/transit_tube{
-	icon_state = "NE-SW"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
-"bWc" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bWd" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bWf" = (
-/obj/structure/transit_tube,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/station/engineering/ai_transit_tube)
-"bWg" = (
-/obj/structure/transit_tube,
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/ai_transit_tube)
 "bWh" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -36344,21 +36186,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/warden)
-"bWi" = (
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/transit_tube{
-	dir = 8;
-	icon_state = "Block"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/station/engineering/ai_transit_tube)
 "bWl" = (
 /obj/machinery/keycard_auth{
 	pixel_x = -24
@@ -36954,38 +36781,6 @@
 	icon_state = "vault"
 	},
 /area/station/turret_protected/aisat)
-"bXQ" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bXR" = (
-/obj/structure/transit_tube{
-	icon_state = "E-NW"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
-"bXS" = (
-/obj/structure/transit_tube{
-	icon_state = "W-NE"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
-"bXT" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
-/turf/space,
-/area/space/nearstation)
 "bXU" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/control)
@@ -40265,21 +40060,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/station/hallway/primary/port)
-"cgD" = (
-/obj/structure/transit_tube/station/reverse{
-	dir = 1
-	},
-/obj/structure/transit_tube_pod{
-	dir = 8
-	},
-/obj/machinery/ai_status_display{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "vault"
-	},
-/area/station/engineering/ai_transit_tube)
 "cgF" = (
 /obj/machinery/flasher{
 	id = "hopflash";
@@ -40516,9 +40296,6 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/station/command/teleporter)
-"chw" = (
-/turf/space,
-/area/space/nearstation)
 "chx" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -41183,16 +40960,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/public/locker)
-"cjl" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "cjm" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -42939,13 +42706,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/command/teleporter)
-"cnH" = (
-/obj/structure/transit_tube{
-	icon_state = "E-SW-NW"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "cnJ" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -43115,13 +42875,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
-"coi" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
-/turf/space,
-/area/space/nearstation)
 "coj" = (
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -44870,11 +44623,6 @@
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
-"csr" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/transit_tube,
-/turf/space,
-/area/space/nearstation)
 "css" = (
 /obj/structure/table/reinforced,
 /obj/machinery/cell_charger,
@@ -44929,13 +44677,6 @@
 /obj/machinery/power/emitter,
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
-"csy" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
-/turf/space,
-/area/space/nearstation)
 "csz" = (
 /obj/structure/closet/crate{
 	name = "solar pack crate"
@@ -45398,26 +45139,6 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
-"ctI" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
-"ctJ" = (
-/obj/structure/transit_tube{
-	icon_state = "E-NW"
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "ctK" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/crayons,
@@ -46099,13 +45820,6 @@
 "cvn" = (
 /obj/structure/table/wood,
 /obj/item/storage/briefcase,
-/turf/simulated/floor/plasteel/dark,
-/area/station/service/library)
-"cvo" = (
-/obj/structure/cult/archives,
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cvp" = (
@@ -75028,6 +74742,21 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/explab)
+"eTI" = (
+/obj/structure/table,
+/obj/item/storage/box/gloves{
+	pixel_y = 8
+	},
+/obj/item/camera/autopsy{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/medical/morgue)
 "eUn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -75953,10 +75682,43 @@
 	icon_state = "wood-broken3"
 	},
 /area/station/maintenance/library)
+"fIk" = (
+/obj/structure/transit_tube{
+	icon_state = "E-SW-NW"
+	},
+/obj/structure/lattice/catwalk,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/transit_tube/junction{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "fIn" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plating,
 /area/station/maintenance/abandonedbar)
+"fIp" = (
+/obj/structure/table/wood,
+/obj/item/crowbar/red,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/book/manual/detective,
+/obj/item/camera/detective,
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/station/maintenance/starboard)
 "fIv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -76263,6 +76025,31 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
+"fRW" = (
+/obj/structure/transit_tube{
+	icon_state = "D-SW"
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "fSl" = (
 /obj/item/radio/intercom{
 	name = "west bump";
@@ -76574,6 +76361,28 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/reception)
+"giK" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube{
+	icon_state = "W-SE"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/transit_tube/curved{
+	dir = 8
+	},
+/turf/space,
+/area/space/nearstation)
 "giQ" = (
 /obj/structure/closet/lasertag/blue,
 /turf/simulated/floor/plasteel{
@@ -77843,22 +77652,6 @@
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
-"hlI" = (
-/obj/structure/table,
-/obj/item/storage/box/gloves{
-	pixel_y = 8
-	},
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/obj/structure/window/reinforced{
-	dir = 8;
-	pixel_x = -4
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/medical/morgue)
 "hlY" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/yellow{
 	dir = 4
@@ -78101,6 +77894,22 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
+"hyX" = (
+/obj/structure/transit_tube{
+	icon_state = "E-SW"
+	},
+/obj/structure/lattice/catwalk,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice,
+/obj/structure/transit_tube/curved/flipped{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "hzb" = (
 /obj/machinery/flasher_button{
 	id = "Execution";
@@ -78298,6 +78107,28 @@
 	icon_state = "dark"
 	},
 /area/station/security/evidence)
+"hFE" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube{
+	icon_state = "E-W-Pass"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/transit_tube/crossing{
+	dir = 8
+	},
+/turf/space,
+/area/space/nearstation)
 "hFR" = (
 /obj/machinery/economy/vending/medical,
 /turf/simulated/floor/plasteel{
@@ -81146,6 +80977,24 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
+"jWz" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/transit_tube/horizontal,
+/turf/space,
+/area/space/nearstation)
 "jWY" = (
 /obj/docking_port/stationary{
 	dir = 8;
@@ -82000,6 +81849,16 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
+"kSJ" = (
+/obj/structure/table/wood,
+/obj/item/book/manual/wiki/security_space_law,
+/obj/item/camera/detective,
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/security/detective)
 "kSX" = (
 /obj/structure/closet/crate,
 /obj/item/flashlight,
@@ -84839,6 +84698,16 @@
 	icon_state = "dark"
 	},
 /area/station/security/warden)
+"niC" = (
+/obj/structure/window/reinforced,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/transit_tube/curved/flipped{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/aisat)
 "njE" = (
 /obj/machinery/light{
 	dir = 1
@@ -84977,6 +84846,18 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/explab)
+"nmF" = (
+/obj/structure/transit_tube,
+/obj/structure/lattice/catwalk,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice,
+/obj/structure/transit_tube/horizontal,
+/turf/space,
+/area/space/nearstation)
 "nng" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering{
@@ -85368,6 +85249,36 @@
 /obj/item/paper/monitorkey,
 /turf/simulated/floor/plasteel/white,
 /area/station/command/office/rd)
+"nCh" = (
+/obj/item/radio/beacon,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/item/radio/beacon,
+/turf/simulated/floor/plasteel/dark,
+/area/station/aisat)
 "nCu" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -87948,6 +87859,22 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
+"pFn" = (
+/obj/structure/transit_tube{
+	icon_state = "W-SE"
+	},
+/obj/structure/lattice/catwalk,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice,
+/obj/structure/transit_tube/curved{
+	dir = 8
+	},
+/turf/space,
+/area/space/nearstation)
 "pFT" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
@@ -88185,6 +88112,22 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
+"pMI" = (
+/obj/structure/transit_tube{
+	icon_state = "W-NE"
+	},
+/obj/structure/lattice/catwalk,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice,
+/obj/structure/transit_tube/curved/flipped{
+	dir = 8
+	},
+/turf/space,
+/area/space/nearstation)
 "pML" = (
 /obj/structure/chair/sofa/corp/right{
 	dir = 8
@@ -88537,6 +88480,17 @@
 	icon_state = "blue"
 	},
 /area/station/engineering/atmos)
+"qbl" = (
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/transit_tube/curved,
+/turf/simulated/floor/plasteel/dark,
+/area/station/aisat)
 "qbz" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "apsolar_door_int";
@@ -89109,6 +89063,28 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/apmaint)
+"qEa" = (
+/obj/structure/transit_tube{
+	icon_state = "D-NE"
+	},
+/obj/structure/transit_tube{
+	icon_state = "D-SE"
+	},
+/obj/structure/lattice,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "qET" = (
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
@@ -89253,6 +89229,12 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
+"qJY" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/service/library)
 "qOd" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -89525,6 +89507,16 @@
 	icon_state = "dark"
 	},
 /area/station/security/interrogation)
+"qYL" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "qYT" = (
 /obj/machinery/light{
 	dir = 1
@@ -89827,6 +89819,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard)
+"rjL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/transit_tube/cap{
+	dir = 8
+	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/station/engineering/ai_transit_tube)
 "rke" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -93363,6 +93369,10 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/research)
+"tUL" = (
+/obj/structure/transit_tube/horizontal,
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/ai_transit_tube)
 "tUS" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sop_science,
@@ -93962,6 +93972,24 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
+"upV" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/transit_tube/horizontal,
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "upW" = (
 /obj/machinery/firealarm{
 	name = "north bump";
@@ -94132,6 +94160,22 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/cmo)
+"uDs" = (
+/obj/structure/transit_tube{
+	icon_state = "E-NW"
+	},
+/obj/structure/lattice/catwalk,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice,
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
+/turf/space,
+/area/space/nearstation)
 "uDz" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -94293,6 +94337,21 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/robotics/showroom)
+"uKi" = (
+/obj/structure/table,
+/obj/item/camera,
+/obj/machinery/camera{
+	c_tag = "Brig - Prisoner Processing";
+	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
+	},
+/area/station/security/processing)
 "uKt" = (
 /obj/structure/cable{
 	d2 = 2;
@@ -95284,21 +95343,6 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/public/vacant_office)
-"vFf" = (
-/obj/structure/table/wood,
-/obj/item/crowbar/red,
-/obj/item/book/manual/wiki/security_space_law,
-/obj/item/book/manual/detective,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/station/maintenance/starboard)
 "vFs" = (
 /obj/machinery/door/airlock/research{
 	name = "Toxins Storage"
@@ -96413,6 +96457,21 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
+"wOE" = (
+/obj/structure/transit_tube_pod{
+	dir = 8
+	},
+/obj/machinery/ai_status_display{
+	pixel_y = -32
+	},
+/obj/structure/transit_tube/station{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/station/engineering/ai_transit_tube)
 "wOL" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
@@ -97749,11 +97808,28 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/medical/psych)
+"xLV" = (
+/turf/space,
+/area/space/nearstation)
 "xMm" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
 /area/station/security/storage)
+"xMr" = (
+/obj/structure/transit_tube{
+	icon_state = "NE-SW"
+	},
+/obj/structure/lattice/catwalk,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/lattice,
+/obj/structure/transit_tube/diagonal,
+/turf/space,
+/area/space/nearstation)
 "xMN" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -110975,7 +111051,7 @@ cDb
 brr
 bku
 bRL
-bTQ
+nCh
 bmY
 brr
 aaa
@@ -112001,11 +112077,11 @@ aaa
 aaa
 bUJ
 aaa
-bPT
-bRN
+bku
+qbl
 bTU
-bVY
-bXQ
+niC
+brr
 aaa
 aaa
 aaa
@@ -112258,11 +112334,11 @@ aaa
 aaa
 bUJ
 aaa
-bPU
-bRO
+hyX
 bms
-bVZ
-bXR
+bms
+bms
+uDs
 aaa
 aaa
 aaa
@@ -112515,11 +112591,11 @@ aaa
 aaa
 bUJ
 abj
-bPV
+nmF
 abj
 abj
 abj
-bPV
+nmF
 aaa
 aaa
 aaa
@@ -112772,11 +112848,11 @@ aaa
 aaa
 bUJ
 aaa
-bPW
-bRP
-chw
-bWa
-bXS
+pFn
+xLV
+xLV
+xLV
+pMI
 aaa
 aaa
 aaa
@@ -113029,11 +113105,11 @@ aaa
 aaa
 bUJ
 aaa
-bPX
-bRQ
-cjl
-bWb
-bXT
+abj
+bqP
+qEa
+xMr
+abj
 aaa
 aaa
 aaa
@@ -113287,9 +113363,9 @@ aaa
 bUJ
 aaa
 abj
-bRR
-cnH
-bWc
+xLV
+fIk
+xLV
 abj
 aaa
 aaa
@@ -113545,7 +113621,7 @@ bVf
 bXG
 bYl
 abj
-coi
+hFE
 abj
 abj
 aaa
@@ -113802,7 +113878,7 @@ abj
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -114059,7 +114135,7 @@ abj
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -114316,7 +114392,7 @@ abj
 abj
 bUJ
 abj
-coi
+hFE
 abj
 abj
 aaa
@@ -114573,7 +114649,7 @@ abj
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -114830,7 +114906,7 @@ abj
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -115087,7 +115163,7 @@ abj
 abj
 bUJ
 abj
-coi
+hFE
 abj
 abj
 aaa
@@ -115344,7 +115420,7 @@ abj
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -115601,7 +115677,7 @@ abj
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -115858,7 +115934,7 @@ abj
 abj
 bUJ
 abj
-coi
+hFE
 abj
 abj
 aaa
@@ -116115,7 +116191,7 @@ abj
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -116372,7 +116448,7 @@ abj
 abj
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -116629,7 +116705,7 @@ aaa
 aaa
 bUJ
 abj
-coi
+hFE
 abj
 abj
 aaa
@@ -116886,7 +116962,7 @@ dij
 abj
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -117143,7 +117219,7 @@ dij
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 aaa
@@ -117400,7 +117476,7 @@ abj
 abj
 bUJ
 abj
-coi
+hFE
 abj
 abj
 aaa
@@ -117657,7 +117733,7 @@ dij
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 bXU
@@ -117914,7 +117990,7 @@ dij
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 abj
 bXU
@@ -118171,7 +118247,7 @@ abj
 abj
 bUJ
 abj
-coi
+hFE
 abj
 abj
 bXU
@@ -118428,7 +118504,7 @@ dij
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 bXU
 bXU
@@ -118685,7 +118761,7 @@ abj
 aaa
 bUJ
 aaa
-csr
+jWz
 aaa
 bXU
 bZj
@@ -118942,7 +119018,7 @@ bVs
 bXG
 bYJ
 abj
-csr
+jWz
 abj
 bXU
 bZj
@@ -119199,7 +119275,7 @@ dVS
 abj
 abj
 abj
-csr
+upV
 abj
 bXU
 bZk
@@ -119456,8 +119532,8 @@ dcp
 qGf
 qGf
 abj
-csy
-bWd
+giK
+abj
 bXU
 bZl
 cbb
@@ -119713,8 +119789,8 @@ wZD
 bVt
 qGf
 bZf
-ctI
-ctJ
+fRW
+qYL
 bXU
 bZm
 cbe
@@ -119971,7 +120047,7 @@ qGf
 qGf
 bRT
 bUc
-bWf
+aTl
 bXU
 bXU
 bZl
@@ -120228,7 +120304,7 @@ bNW
 bUP
 bNX
 bUd
-bWg
+tUL
 bXU
 bXU
 bZl
@@ -120485,7 +120561,7 @@ iTz
 nEq
 bRU
 bUe
-cgD
+wOE
 bXU
 bXU
 bZl
@@ -120742,7 +120818,7 @@ iPP
 bUP
 bNY
 bUf
-bWi
+rjL
 bXU
 bZn
 cdb
@@ -131552,7 +131628,7 @@ mss
 crl
 bYj
 ctM
-cvo
+qJY
 cwM
 bYj
 drn
@@ -141612,7 +141688,7 @@ dqB
 dpn
 dsY
 duk
-hlI
+eTI
 dwB
 dxO
 lsu
@@ -145920,7 +145996,7 @@ gUe
 aaa
 aaa
 bLn
-bHL
+kSJ
 bJx
 bLq
 dDN
@@ -152076,7 +152152,7 @@ biB
 qYC
 oei
 uih
-bqJ
+uKi
 xJL
 bmd
 buf
@@ -152921,7 +152997,7 @@ cRC
 dGr
 uAP
 cPC
-vFf
+fIp
 pBz
 ojw
 koC
