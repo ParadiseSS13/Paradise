@@ -450,7 +450,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
 
 	if(istype(landmark))
-		var/datum/map_template/ruin/template = landmark.ruin_template
 		forceMove(get_turf(landmark))
 		update_parallax_contents()
 
