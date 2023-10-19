@@ -9,17 +9,22 @@
 	var/mob/living/owner
 	var/gain_desc
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
-	var/requires_process = FALSE
 
 /datum/mindflayer_passive/New()
 	..()
-	START_PROCESSING(SSobj, src)
 	if(!gain_desc)
 		gain_desc = "You can now use [src]."
 
-/datum/mindflayer_passive/Destroy(force, ...)
+///This is for passives that need to use SSProcessing
+/datum/mindflayer_passive/processed
+
+/datum/mindflayer_passive/processed/New()
+	..()
+	START_PROCESSING(SSobj, src)
+
+/datum/mindflayer_passive/processed/Destroy(force, ...)
+	. = ..()
 	STOP_PROCESSING(SSobj, src)
-	return ..()
 
 
 /datum/mindflayer_passive/proc/on_apply(datum/antagonist/mindflayer/flayer)
@@ -80,17 +85,17 @@
 /datum/mindflayer_passive/new_crit/on_apply(datum/antagonist/mindflayer/flayer)
 	owner.dna.species.dies_at_threshold = FALSE
 
-/datum/mindflayer_passive/regen
-	purchase_text = "We passively regenerate health"
+/datum/mindflayer_passive/processed/regen
+	purchase_text = "We passively regenerate health."
 	upgrade_text = "Our regeneration accelerates."
 	gain_desc = "Diverting resources to repairing chassis."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
 
-/datum/mindflayer_passive/regen/process()
-	owner.heal_overall_damage(level, level)
+/datum/mindflayer_passive/processed/regen/process()
+	owner.heal_overall_damage(level, level) //Heals 1 brute/burn for each level of the passive
 //MINION PASSIVES
-/datum/mindflayer_passive/regen/minion
+/datum/mindflayer_passive/processed/regen/minion
 	purchase_text = "Your minions passively regenerate health."
 	upgrade_text = "The swarms begin replicating and repairing themselves at an alarming rate."
 	gain_desc = "Commanding all autonomous units to begin self-repair protocol."
