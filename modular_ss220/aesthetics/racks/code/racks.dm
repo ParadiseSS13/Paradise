@@ -44,7 +44,7 @@
 		to_chat(user, span_warning("This item doesn't fit!"))
 		return
 	. = ..()
-	if(W.loc == src)
+	if(W.loc == get_turf(src))
 		add_fingerprint(user)
 		var/obj/item/gun/our_gun = W
 		our_gun.place_on_rack()
