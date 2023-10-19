@@ -413,13 +413,13 @@
 	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/bearserk
-	name = "Berserker Bear Pelt"
+	name = "Bearserker Pelt"
 	desc = "A bear pelt that grants the wearer Rage of the Space Bear, a strong and mysterious martial art, turning them into a deadly close-quarters threat. \
 			Also features robust, high coverage armor to further allow for berserk rampages. \
 			May instill cannibalistic tendancies, a desire to charge barechested into battle, and a thirst for vodka."
 	reference = "BBP"
 	item = /obj/item/clothing/head/bearpelt/bearserk
-	cost = 35
+	cost = 50
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/traitor_belt
