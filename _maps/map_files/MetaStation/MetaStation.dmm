@@ -59048,11 +59048,6 @@
 	},
 /turf/simulated/floor/engine/vacuum,
 /area/station/science/toxins/mixing)
-"hVG" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "hVK" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -121371,7 +121366,7 @@ alq
 ajo
 abq
 abq
-hVG
+abq
 abq
 abq
 abq
