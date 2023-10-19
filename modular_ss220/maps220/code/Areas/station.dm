@@ -2,6 +2,9 @@
 /area/station/security/checkpoint/south
 	name = "\improper Escape Security Checkpoint"
 
+/area/station/security/visitingroom
+	name = "\improper Brig Visiting Room"
+	icon_state = "brig"
 /area/station/bridge/checkpoint
 	name = "\improper Command Checkpoint"
 
