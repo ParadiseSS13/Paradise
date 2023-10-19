@@ -44052,15 +44052,14 @@
 /area/station/science/research)
 "dzV" = (
 /obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/trunk{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dzW" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -44069,6 +44068,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 2;
+	name = "Sci Robotics";
+	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
