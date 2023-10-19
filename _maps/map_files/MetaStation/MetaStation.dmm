@@ -1979,7 +1979,7 @@
 	},
 /area/station/public/fitness)
 "anQ" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/machinery/light{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -3525,9 +3525,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/airlock/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/iaa,
-/obj/machinery/door/airlock/glass,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "IAA"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
 	},
@@ -4858,6 +4861,9 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -28579,6 +28585,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -52523,6 +52530,9 @@
 	},
 /area/station/medical/reception)
 "fax" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -58808,10 +58818,14 @@
 	},
 /area/station/security/storage)
 "hOP" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/visible/purple,
-/turf/space,
-/area/space/nearstation)
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
+/area/station/security/main)
 "hPb" = (
 /obj/machinery/light{
 	dir = 8
@@ -60990,6 +61004,9 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "iLq" = (
@@ -61852,12 +61869,12 @@
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "jln" = (
-/obj/machinery/light,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
 	},
-/area/station/public/locker)
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "jlL" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Danger: Conveyor Access";
@@ -76165,9 +76182,6 @@
 	pixel_x = -3;
 	pixel_y = -5
 	},
-/obj/machinery/light{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -76235,10 +76249,11 @@
 	},
 /area/station/medical/reception)
 "pIi" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/unary/outlet_injector/on,
-/turf/space,
-/area/space/nearstation)
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "pIt" = (
 /obj/effect/turf_decal/stripes/white/line,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -77134,6 +77149,10 @@
 /area/station/security/main)
 "qaA" = (
 /obj/structure/cable/yellow,
+/obj/machinery/power/apc{
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
 	},
@@ -80021,6 +80040,9 @@
 	},
 /area/station/aisat)
 "rsQ" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -85082,9 +85104,6 @@
 /area/station/security/brig)
 "tKm" = (
 /obj/machinery/economy/vending/security,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -85857,6 +85876,9 @@
 /obj/item/clothing/gloves/color/fyellow,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "ufw" = (
@@ -122902,7 +122924,7 @@ aaa
 cZn
 rsQ
 fax
-fax
+hOP
 atS
 wdi
 aEr
@@ -129370,7 +129392,7 @@ aTu
 jCi
 aVV
 fWg
-jln
+aYK
 aLl
 avA
 heC
@@ -131426,7 +131448,7 @@ aQX
 akk
 apR
 aiY
-dAH
+jln
 baD
 aFO
 aLl
@@ -132710,7 +132732,7 @@ aQi
 aPk
 aUI
 ayv
-avA
+pIi
 mdS
 aLl
 aLl
@@ -138092,9 +138114,9 @@ nbN
 pxj
 axM
 aBZ
-aCg
-aCg
-aCg
+aHi
+aHi
+aHi
 aCg
 lLt
 aMQ
@@ -139884,8 +139906,8 @@ aef
 aef
 aef
 aef
-pIi
-hOP
+aef
+bOn
 kmb
 blA
 vmv
