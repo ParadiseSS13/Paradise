@@ -61,7 +61,7 @@
 
 /datum/gear/racial/vox_casual
 	display_name = "Vox jumpsuit"
-	description = "These loose clothes are optimized for the labors of the lower castes aboard the arkships. Large openings in the top allow for breathability while the pants are durable yet flexible enough to not restrict movement."
+	description = "These loose clothes are optimized for the labors of the lower castes onboard the arkships. Large openings in the top allow for breathability while the pants are durable yet flexible enough to not restrict movement."
 	path = /obj/item/clothing/under/vox/vox_casual
 	slot = SLOT_HUD_JUMPSUIT
 
