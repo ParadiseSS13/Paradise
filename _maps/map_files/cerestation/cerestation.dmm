@@ -12442,21 +12442,6 @@
 	icon_state = "red"
 	},
 /area/station/security/processing)
-"bsG" = (
-/obj/structure/table,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
-	},
-/area/station/security/processing)
 "bsK" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -14026,21 +14011,6 @@
 	icon_state = "white"
 	},
 /area/station/medical/medbay)
-"bzc" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/table,
-/obj/item/autopsy_scanner,
-/obj/item/camera{
-	name = "Autopsy Camera";
-	pixel_x = -2;
-	pixel_y = -2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/medical/morgue)
 "bzd" = (
 /obj/structure/sign/poster/contraband/random,
 /turf/simulated/mineral/ancient,
@@ -60051,18 +60021,6 @@
 "mjo" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/launch)
-"mju" = (
-/obj/item/radio/intercom{
-	pixel_x = -28;
-	name = "custom placement"
-	},
-/obj/structure/table/wood,
-/obj/item/camera,
-/obj/item/taperecorder,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/service/library)
 "mjG" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
@@ -60132,6 +60090,17 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
+"mlf" = (
+/obj/structure/table,
+/obj/item/camera,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "red"
+	},
+/area/station/security/processing)
 "mlu" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 4
@@ -65924,6 +65893,20 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
+"olz" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/table,
+/obj/item/autopsy_scanner,
+/obj/item/camera/autopsy{
+	pixel_x = -2;
+	pixel_y = -2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/medical/morgue)
 "olT" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -68371,6 +68354,19 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
+"pam" = (
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	name = "custom placement"
+	},
+/obj/structure/table/wood,
+/obj/item/camera,
+/obj/item/taperecorder,
+/obj/item/book/codex_gigas,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/library)
 "paF" = (
 /obj/structure/disposalpipe/segment/corner{
 	dir = 8
@@ -73167,6 +73163,16 @@
 	icon_state = "white"
 	},
 /area/station/science/misc_lab)
+"qBt" = (
+/obj/item/radio/intercom{
+	pixel_y = 28;
+	name = "custom placement"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/library)
 "qBx" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -83702,6 +83708,22 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"ujb" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
+	},
+/obj/structure/table/wood,
+/obj/item/clothing/glasses/sunglasses,
+/obj/item/ashtray/bronze,
+/obj/item/storage/fancy/cigarettes/dromedaryco,
+/obj/item/camera/detective,
+/obj/item/flashlight/lamp/green{
+	on = 0;
+	pixel_x = -3;
+	pixel_y = 8
+	},
+/turf/simulated/floor/carpet,
+/area/station/security/detective)
 "ujm" = (
 /obj/effect/landmark/start/chaplain,
 /turf/simulated/floor/carpet/red,
@@ -93982,18 +94004,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/morgue)
-"xos" = (
-/obj/item/radio/intercom{
-	pixel_y = 28;
-	name = "custom placement"
-	},
-/obj/item/book/codex_gigas,
-/obj/structure/cult/archives,
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/service/library)
 "xoO" = (
 /obj/structure/cable/orange{
 	d1 = 1;
@@ -96042,26 +96052,6 @@
 "xYM" = (
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_1)
-"xYR" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
-/obj/structure/table/wood,
-/obj/item/clothing/glasses/sunglasses,
-/obj/item/ashtray/bronze,
-/obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/item/camera{
-	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
-	},
-/obj/item/flashlight/lamp/green{
-	on = 0;
-	pixel_x = -3;
-	pixel_y = 8
-	},
-/turf/simulated/floor/carpet,
-/area/station/security/detective)
 "xYZ" = (
 /turf/simulated/wall,
 /area/station/command/bridge)
@@ -112151,7 +112141,7 @@ bfx
 eoD
 aEe
 bGx
-mju
+pam
 pdC
 aEe
 bLI
@@ -112334,7 +112324,7 @@ xrZ
 xrZ
 xrZ
 xrZ
-bsG
+mlf
 dxo
 qej
 dxo
@@ -112407,7 +112397,7 @@ vtY
 bfx
 ccx
 aEe
-xos
+qBt
 aju
 jIb
 aEe
@@ -116470,7 +116460,7 @@ bWx
 iEe
 keF
 rHk
-xYR
+ujb
 etG
 lKg
 abW
@@ -151207,7 +151197,7 @@ vIS
 bil
 bwV
 byb
-bzc
+olz
 bAf
 oOu
 bCu
