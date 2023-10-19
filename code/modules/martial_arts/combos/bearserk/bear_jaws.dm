@@ -20,7 +20,6 @@
 					"<span class='userdanger'>[user] [atk_verb] you!</span>")
 	playsound(get_turf(target), 'sound/weapons/bite.ogg', 25, TRUE, -1)
 	target.apply_damage (15, BRUTE, user.zone_selected, sharp = TRUE)
-	target.grabbedby(user, 1)
 	if(target.stat != DEAD)
 		user.adjustStaminaLoss(-15)
 	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
