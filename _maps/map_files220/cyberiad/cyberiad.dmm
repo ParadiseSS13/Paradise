@@ -17376,6 +17376,10 @@
 /obj/machinery/computer/monitor{
 	name = "Bridge Power Monitoring Computer"
 	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -17679,6 +17683,11 @@
 	},
 /area/station/command/bridge)
 "bpq" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellowcorner"
@@ -22036,8 +22045,7 @@
 	},
 /obj/machinery/light/directional/north,
 /obj/machinery/button/windowtint/west{
-	id = "rnd";
-	pixel_y = -9
+	id = "rnd"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -27834,10 +27842,6 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/ntrep)
 "ciI" = (
-/obj/machinery/conveyor_switch/oneway{
-	id = "garbage";
-	name = "disposal coveyor"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
@@ -34590,6 +34594,16 @@
 /obj/effect/turf_decal/bot_red,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/machinery/door/window/classic/reversed{
+	dir = 1;
+	name = "Testing Chamber Delivery Chute"
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/science/tox{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -52640,6 +52654,7 @@
 "gsg" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
 "gsh" = (
@@ -55135,7 +55150,7 @@
 /obj/machinery/conveyor/east{
 	id = "garbage"
 	},
-/obj/machinery/alarm/directional/north,
+/obj/machinery/recycler,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "hjX" = (
@@ -60228,6 +60243,25 @@
 	icon_state = "darkred"
 	},
 /area/station/security/warden)
+"jfJ" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "jfQ" = (
 /obj/machinery/firealarm/directional/east,
 /obj/machinery/camera{
@@ -62974,7 +63008,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
 "klN" = (
-/mob/living/simple_animal/hostile/feral_cat,
+/mob/living/simple_animal/hostile/feral_cat/forsaken,
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/apmaint)
 "klS" = (
@@ -81101,7 +81135,6 @@
 /turf/simulated/floor/plating/airless,
 /area/space/nearstation)
 "qPt" = (
-/obj/machinery/recycler,
 /obj/machinery/conveyor/east{
 	dir = 6;
 	id = "QMLoad2"
@@ -82677,7 +82710,6 @@
 /turf/simulated/wall,
 /area/station/maintenance/apmaint)
 "rzr" = (
-/mob/living/simple_animal/mouse,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -83245,7 +83277,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 5
 	},
-/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
 "rMq" = (
@@ -89808,6 +89839,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal)
 "ueH" = (
@@ -90925,7 +90957,10 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/mouse/rat,
+/obj/machinery/conveyor_switch/oneway{
+	id = "garbage";
+	name = "disposal coveyor"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "uAb" = (
@@ -91916,6 +91951,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)
 "uUf" = (
@@ -95612,8 +95648,9 @@
 /area/station/engineering/supermatter_room)
 "wnR" = (
 /obj/machinery/mineral/stacking_machine{
-	input_dir = 1;
-	stack_amt = 10
+	input_dir = 8;
+	stack_amt = 10;
+	output_dir = 2
 	},
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
 /turf/simulated/floor/plating,
@@ -129438,8 +129475,8 @@ bbr
 blU
 bnV
 bpq
-bqS
-hBF
+oTG
+jfJ
 bxw
 beE
 bxp
