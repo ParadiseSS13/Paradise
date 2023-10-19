@@ -5,6 +5,10 @@
 	var/obj/item/storage/equipped_item
 	if(isstorage(item_in_slot))
 		equipped_item = item_in_slot
+	if(!istype(equipped_item) && ismodcontrol(item_in_slot))
+		var/obj/item/mod/control/mod = item_in_slot
+		if(mod.bag)
+			equipped_item = mod.bag
 	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(!istype(equipped_item))
