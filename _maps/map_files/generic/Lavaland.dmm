@@ -729,9 +729,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/mapping_helpers/airlock/unres{
-	dir = 1
-	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "bU" = (
@@ -5863,7 +5860,6 @@
 /obj/machinery/door/airlock/maintenance/external/glass{
 	name = "Landing Pad"
 	},
-/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "zn" = (
