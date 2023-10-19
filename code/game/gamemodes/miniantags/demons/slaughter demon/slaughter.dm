@@ -156,7 +156,7 @@
 		AddSpell(SV)
 
 		S.mind.add_mind_objective(/datum/objective/cult_slaughter)
-		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
+		var/list/messages = S.mind.prepare_announce_objectives(FALSE)
 		to_chat(S, chat_box_red(messages.Join("<br>")))
 
 ////////////////////The Powers

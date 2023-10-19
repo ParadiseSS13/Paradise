@@ -132,7 +132,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		holder.remove_objective(src)
 		// even if we have to remove the objective, still announce it
 	for(var/datum/mind/M in owners)
-		var/list/messages = list(M.prepare_announce_objectives(FALSE))
+		var/list/messages = M.prepare_announce_objectives(FALSE)
 		to_chat(M.current, chat_box_red(messages.Join("<br>")))
 
 // Borgs, brains, AIs, etc count as dead for traitor objectives
