@@ -201,7 +201,7 @@
 	DA.update_name()
 	qdel(src)
 
-/obj/machinery/door/airlock/plasma/attackby(obj/C, mob/user, params)
+/obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
 	if(C.how_hot > 300)
 		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		log_game("Plasma airlock ignited by [key_name(user)] in ([x],[y],[z])")
