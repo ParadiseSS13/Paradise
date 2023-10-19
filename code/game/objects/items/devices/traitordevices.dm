@@ -416,6 +416,7 @@
 /obj/item/handheld_mirror/attack_self(mob/user)
 	if(ishuman(user))
 		appearance_changer_holder = new(src, user)
+		appearance_changer_holder.flags = APPEARANCE_ALL_BODY
 		ui_interact(user)
 
 /obj/item/handheld_mirror/Initialize(mapload)
