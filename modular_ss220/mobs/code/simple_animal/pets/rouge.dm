@@ -39,15 +39,15 @@
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/emote(act, m_type = 1, message = null, intentional, force)
+/mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/emote(emote_key, type_override = 1, message, intentional, force_silence)
 	if(incapacitated())
 		return
 
-	act = lowertext(act)
-	if(!force && act == "hiss" && start_audio_emote_cooldown())
+	emote_key = lowertext(emote_key)
+	if(!force_silence && emote_key == "hiss" && start_audio_emote_cooldown())
 		return
 
-	switch(act)
+	switch(emote_key)
 		if("hiss")
 			message = "<B>[src]</B> [pick(src.speak_emote)]!"
 	..()

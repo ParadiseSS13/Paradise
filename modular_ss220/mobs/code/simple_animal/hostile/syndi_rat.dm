@@ -92,25 +92,25 @@
 			to_chat(M, "<span class='notice'>[bicon(src)] Squeek!</span>")
 	..()
 
-/mob/living/simple_animal/hostile/retaliate/syndirat/emote(act, m_type = 1, message = null, intentional, force)
+/mob/living/simple_animal/hostile/retaliate/syndirat/emote(emote_key, type_override = 1, message, intentional, force_silence)
 	if(stat != CONSCIOUS)
 		return
 
 	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
+	emote_key = lowertext(emote_key)
+	switch(emote_key)
 		if("squeak")		//Mouse time
 			on_CD = start_audio_emote_cooldown()
 		else
 			on_CD = 0
 
-	if(!force && on_CD == 1)
+	if(!force_silence && on_CD == 1)
 		return
 
-	switch(act)
+	switch(emote_key)
 		if("squeak")
 			message = "[pick(emote_hear)]!"
-			m_type = 2 //audible
+			type_override = 2 //audible
 			playsound(src, squeak_sound, 40, 1)
 		if("help")
 			to_chat(src, "scream, squeak")

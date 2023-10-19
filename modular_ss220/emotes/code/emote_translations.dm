@@ -1,6 +1,7 @@
 //////////////////////
 /// Living Emotes ///
 ////////////////////
+
 /datum/emote/living/scream
 	message = "кричит!"
 	message_mime = "как будто кричит!"
@@ -27,8 +28,16 @@
 	message = "отрыгивает."
 	message_mime = "довольно противно открывает рот."
 
+/datum/emote/living/choke
+	message = "подавился!"
+	message_mime = "отчаянно хватается за горло!"
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+
 /datum/emote/living/collapse
 	message = "падает!"
+
+/datum/emote/living/dance
+	message = "радостно танцует."
 
 /datum/emote/living/deathgasp
 	message = "цепенеет и расслабляется, взгляд становится пустым и безжизненным..."
@@ -88,6 +97,11 @@
 /datum/emote/living/shiver
 	message = "дрожит."
 
+/datum/emote/living/sigh
+	message = "вздыхает."
+	message_mime = "беззвучно вздыхает."
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
+
 /datum/emote/living/sigh/happy
 	message = "Удовлетворённо вздыхает."
 	message_mime = "кажется, удовлетворенно вздыхает"
@@ -103,6 +117,19 @@
 /datum/emote/living/smug
 	message = "самодовольно ухмыляется."
 	message_param = "самодовольно ухмыляется, смотря на %t."
+
+/datum/emote/living/sniff
+	message = "нюхает."
+	message_mime = "бесшумно нюхнул."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/snore
+	message = "храпит."
+	message_mime = "крепко спит."
+	message_simple = "ворочается во сне."
+	message_robot = "мечтает об электроовцах"
+	stat_allowed = CONSCIOUS
+	max_stat_allowed = CONSCIOUS
 
 /datum/emote/living/nightmare
 	message = "ворочается во сне."
@@ -152,6 +179,7 @@
 //////////////////////
 /// Carbon Emotes ///
 ////////////////////
+
 /datum/emote/living/carbon/blink
 	message = "моргает."
 
@@ -159,17 +187,27 @@
 	key = "blink_r"
 	message = "быстро моргает."
 
-/datum/emote/living/carbon/human/clap
-	message = "хлопает."
-	message_mime = "бесшумно хлопает."
-	message_param = "хлопает %t."
-	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
-
 /datum/emote/living/carbon/chuckle
 	message = "усмехается."
 	message_mime = "бесшумно усмехается."
-	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH | EMOTE_VISIBLE
 	muzzled_noises = list("радостно", "оптимистично")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH | EMOTE_VISIBLE
+
+/datum/emote/living/carbon/cough
+	message = "кашляет!"
+	message_mime = "бесшумно кашляет!"
+	emote_type = EMOTE_VISIBLE | EMOTE_MOUTH | EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/moan
+	message = "стонет!"
+	message_mime = "как будто стонет!"
+	muzzled_noises = list("болезненно")
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/giggle
+	message = "хихикает."
+	message_mime = "бесшумно хихикает!"
+	muzzled_noises = list("булькающе")
 
 /datum/emote/living/carbon/gurgle
 	message = "издает неприятное бульканье."
@@ -191,8 +229,20 @@
 	message = "машет."
 	message_param = "машет %t."
 
+/datum/emote/living/carbon/yawn
+	message = "зевает."
+	muzzled_noises = list("устало", "медленно", "сонно")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH | EMOTE_SOUND
+
 /datum/emote/living/carbon/exhale
 	message = "выдыхает."
+
+/datum/emote/living/carbon/laugh
+	message = "смеется."
+	message_mime = "бесшумно смеется!"
+	message_param = "смеется над %t."
+	muzzled_noises = list("счастливо", "весело")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/scowl
 	message = "хмурится."
@@ -211,16 +261,23 @@
 /datum/emote/living/carbon/faint
 	message = "падает в обморок."
 
-/datum/emote/living/carbon/cough
-	message = "кашляет!"
-	message_mime = "бесшумно кашляет!"
-	emote_type = EMOTE_VISIBLE | EMOTE_MOUTH | EMOTE_AUDIBLE
-
 /////////////////////
 /// Human Emotes ///
 ///////////////////
+
 /datum/emote/living/carbon/human/airguitar
 	message = "натягивает струны и бьет головой, как шимпанзе в сафари."
+
+/datum/emote/living/carbon/human/clap
+	message = "хлопает."
+	message_mime = "бесшумно хлопает."
+	message_param = "хлопает %t."
+	emote_type = EMOTE_AUDIBLE | EMOTE_VISIBLE
+
+/datum/emote/living/carbon/human/cry
+	message = "плачет."
+	muzzled_noises = list("слабо", "жалко", "грустно")
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH | EMOTE_VISIBLE
 
 /datum/emote/living/carbon/human/crack
 	message = "хрустит пальцами."
@@ -228,6 +285,21 @@
 /datum/emote/living/carbon/human/eyebrow
 	message = "приподнимает бровь."
 	message_param = "приподнимает бровь на %t."
+
+/datum/emote/living/carbon/human/wince
+	message = "морщиться."
+	message_param = "морщиться на %t."
+
+/datum/emote/living/carbon/human/squint
+	message = "прищуривается."
+	message_param = "прищуривается на %t."
+
+/datum/emote/living/carbon/human/facepalm
+	message = "хлопает себя по лбу."
+
+/datum/emote/living/carbon/human/palm
+	message = "ожидающе протягивает руку."
+	message_param = "ожидающе протягивает руку к %t."
 
 /datum/emote/living/carbon/human/grumble
 	message = "ворчит!"
@@ -258,6 +330,11 @@
 /datum/emote/living/carbon/human/raise
 	message = "поднимает руку."
 
+/datum/emote/living/carbon/human/salute
+	message = "салютует."
+	message_param = "салютует %t."
+	emote_type = EMOTE_VISIBLE
+
 /datum/emote/living/carbon/human/shrug
 	message = "пожимает плечами."
 
@@ -265,12 +342,21 @@
 	message = "затягивается сигаретой и выдыхает дым в форме своего имени."
 	message_param = "тупо"
 
+/datum/emote/living/carbon/human/sneeze
+	message = "чихает."
+	muzzled_noises = list("странно", "остро")
+
 /datum/emote/living/carbon/human/wink
 	message = "подмигивает."
 
 /datum/emote/living/carbon/human/snap
 	message = "щелкает пальцами."
 	message_param = "щелкает пальцами на %t."
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/human/fart
+	message = "пердит."
+	message_param = "пердит в направлении %t."
 	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/sign/signal
@@ -282,6 +368,20 @@
 
 /datum/emote/living/carbon/human/wag/stop
 	message = "перестает вилять хвостом."
+
+/datum/emote/living/carbon/human/scream
+	message = "кричит!"
+	message_mime = "как будто кричит!"
+	message_simple = "скулит."
+	message_alien = "рычит!"
+	message_postfix = "на %t!"
+	muzzled_noises = list("очень громко")
+	emote_type = EMOTE_VISIBLE | EMOTE_MOUTH
+
+/datum/emote/living/carbon/human/gasp
+	message = "задыхается!"
+	message_mime = "кажется, задыхается!"
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/scream/screech
 	message = "визжит!"
@@ -330,7 +430,6 @@
 	message = "жужжит."
 	message_param = "жужжит на %t."
 
-
 /datum/emote/living/carbon/human/drask_talk/hum
 	message = "напевает."
 	message_param = "напевает %t."
@@ -374,32 +473,6 @@
 /datum/emote/living/carbon/human/crack/diona
 	message = "трещит ветками!"
 
-/datum/emote/living/carbon/human/snuffle
-	key = "snuffle"
-	key_third_person = "snuffles"
-	message = "шмыгает носом."
-	message_param = "шмыгает носом на %t."
-
-/datum/emote/living/carbon/human/hem
-	key = "hem"
-	key_third_person = "hems"
-	message = "хмыкает."
-	message_param = "хмыкает %t."
-
-/datum/emote/living/carbon/human/scratch
-	key = "scratch"
-	key_third_person = "scratch"
-	message = "чешется."
-	message_param = "чешет %t."
-
-/datum/emote/living/carbon/human/whistle
-	key = "whistle"
-	key_third_person = "whistles"
-	message = "свистит."
-	message_param = "свистит на %t."
-	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH | EMOTE_VISIBLE
-	sound = "modular_ss220/emotes/audio/whistle.ogg"
-
 /datum/emote/living/carbon/human/warble
 	message = "издаёт трель."
 	message_param = "издаёт трель для %t."
@@ -413,6 +486,7 @@
 /////////////////////
 /// Alien Emotes ///
 ///////////////////
+
 /datum/emote/living/carbon/alien/humanoid/roar
 	message = "ревет!"
 	message_param = "ревет на %t!"
@@ -428,6 +502,7 @@
 /////////////////////
 /// Brain Emotes ///
 ///////////////////
+
 /datum/emote/living/carbon/brain/alarm
 	message = "подает сигнал тревоги."
 	self_message = "Вы подаете сигнал тревоги."

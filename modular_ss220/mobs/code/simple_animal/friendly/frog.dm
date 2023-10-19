@@ -122,25 +122,25 @@
 			custom_emote(1,"издаёт боевой клич!")
 			playsound(src, pick(src.scream_sound), 50, TRUE)
 
-/mob/living/simple_animal/frog/emote(act, m_type = 1, message = null, intentional, force)
+/mob/living/simple_animal/frog/emote(emote_key, type_override = 1, message, intentional, force_silence)
 	if(incapacitated())
 		return
 
 	var/on_CD = 0
-	act = lowertext(act)
-	switch(act)
+	emote_key = lowertext(emote_key)
+	switch(emote_key)
 		if("warcry")
 			on_CD = start_audio_emote_cooldown()
 		else
 			on_CD = 0
 
-	if(!force && on_CD == 1)
+	if(!force_silence && on_CD == 1)
 		return
 
-	switch(act)
+	switch(emote_key)
 		if("warcry")
 			message = "издаёт боевой клич!"
-			m_type = 2 //audible
+			type_override = 2 //audible
 			playsound(src, pick(src.scream_sound), 50, TRUE)
 		if("help")
 			to_chat(src, "warcry")

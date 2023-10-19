@@ -1,5 +1,8 @@
 #include "_emotes.dm"
 
+#include "code/emote_keybindings.dm"
+#include "code/emote_panel_names.dm"
+#include "code/emote_panel.dm"
 #include "code/emote.dm"
 #include "code/emote_verbs.dm"
 #include "code/emote_translations.dm"
