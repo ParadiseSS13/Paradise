@@ -172,7 +172,7 @@ Difficulty: Very Hard
 	dir_shots(GLOB.diagonals)
 	SLEEP_CHECK_DEATH(rage)
 	dir_shots(GLOB.cardinal)
-	if(telegraphing)
+	if(telegraphing && enraged)
 		alternating_dir_shots(FALSE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
