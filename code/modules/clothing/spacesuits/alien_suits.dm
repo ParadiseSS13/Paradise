@@ -151,14 +151,14 @@
 
 /obj/item/clothing/under/vox/vox_casual
 	name = "Vox jumpsuit"
-	desc = "These loose clothes are optimized for the labors of the lower castes onboard the arkships. Large openings in the top allow for breathability while the pants are durable yet flexible enough to not restrict movement."
+	desc = "These loose clothes are optimized for the labors of the lower castes aboard the arkships. Large openings in the top allow for breathability while the pants are durable yet flexible enough to not restrict movement."
 	icon_state = "vox-jumpsuit_s"
 	item_color = "vox-jumpsuit"
 	item_state = "vox-jumpsuit"
 
 /obj/item/clothing/suit/hooded/vox_robes
 	name = "Vox robes"
-	desc = "Large, comfortable robes worn by those who need a bit more covering. The thick fabric contains a pocket suitable for those that need their hands free during their work, while the cloth serves to cover scars or other damage to the wearer's body."
+	desc = "Large, comfortable robes worn by those who need a bit more covering. The thick fabric contains a pocket suitable for those that need their hands free during their work, while the cloth serves to cover scars or other injuries to the wearer's body."
 	icon = 'icons/mob/clothing/species/vox/suit.dmi'
 	icon_state = "vox-robes"
 	item_color = "vox-robes"
@@ -173,7 +173,7 @@
 //Vox Robes Hood
 /obj/item/clothing/head/hooded/vox_robe_hood
 	name = "Vox hood"
-	desc = "The thick fabric of this hood serves a variety of purposes to the vox wearing it - serving as a method to hide a scarred face or way to keep warm in the colder areas onboard the ship."
+	desc = "The thick fabric of this hood serves a variety of purposes to the vox wearing it - serving as a method to hide a scarred face or a way to keep warm in the coldest areas onboard the ship."
 	icon = 'icons/mob/clothing/species/vox/head.dmi'
 	icon_state = "vox-robes-hood"
 	item_color = "vox-robes-hood"
