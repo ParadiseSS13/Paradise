@@ -34337,7 +34337,6 @@
 /obj/item/stamp/hop,
 /obj/item/eftpos,
 /obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
 /obj/item/book/manual/wiki/sop_command,
 /obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel,
