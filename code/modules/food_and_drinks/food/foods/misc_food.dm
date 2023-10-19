@@ -67,14 +67,13 @@
 	name = "salad"
 	desc = "Should not spawn or be possible to be created. Contact a coder if this somehow exists."
 	icon = 'icons/obj/food/soupsalad.dmi'
+	trash = /obj/item/trash/snack_bowl
 	icon_state = "aesirsalad"
 
 /obj/item/reagent_containers/food/snacks/salad/aesir
 	name = "aesir salad"
 	desc = "Probably too incredible for mortal men to fully enjoy."
-	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "aesirsalad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "omnizine" = 8, "vitamin" = 6)
@@ -84,7 +83,6 @@
 	name = "antipasto salad"
 	desc = "A traditional Italian salad made of salami, mozzarella cheese, olives, and tomatoes. Often served as a first course meal."
 	icon_state = "antipasto_salad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 12, "protein" = 6, "vitamin" = 6)
@@ -94,7 +92,6 @@
 	name = "Caesar salad"
 	desc = "A simple yet flavorful salad of onions, lettuce, croutons, and shreds of cheese dressed in oil. Comes with a slice of pita bread!"
 	icon_state = "caesar_salad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 12, "vitamin" = 6)
@@ -104,7 +101,6 @@
 	name = "fruit salad"
 	desc = "Your standard fruit salad."
 	icon_state = "fruitsalad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 9, "vitamin" = 4)
@@ -114,7 +110,6 @@
 	name = "Greek salad"
 	desc = "A popular salad made of tomatoes, onions, feta cheese, and olives all drizzled in olive oil. Though it feels like it's missing something..."
 	icon_state = "greek_salad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 13, "vitamin" = 14)
@@ -124,7 +119,6 @@
 	name = "citrus delight"
 	desc = "Citrus overload!"
 	icon_state = "citrusdelight"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 11, "vitamin" = 7)
@@ -134,7 +128,6 @@
 	name = "jungle salad"
 	desc = "Exotic fruits in a bowl."
 	icon_state = "junglesalad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("banana" = 5, "nutriment" = 11, "vitamin" = 7)
@@ -144,7 +137,6 @@
 	name = "kale salad"
 	desc = "A healthy kale salad drizzled in oil, perfect for warm summer months."
 	icon_state = "kale_salad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 12, "vitamin" = 12)
@@ -154,7 +146,6 @@
 	name = "potato salad"
 	desc = "A dish of boiled potatoes mixed with boiled eggs, onions, and mayonnaise. A staple of every self-respecting barbeque."
 	icon_state = "potato_salad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 10, "protein" = 4)
@@ -164,6 +155,7 @@
 	name = "melon fruit bowl"
 	desc = "For people who wants edible fruit bowls."
 	icon_state = "melonfruitbowl"
+	trash = null
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 4)
@@ -173,7 +165,6 @@
 	name = "herb salad"
 	desc = "A tasty salad with apples on top."
 	icon_state = "herbsalad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "vitamin" = 2)
@@ -183,7 +174,6 @@
 	name = "valid salad"
 	desc = "It's just an herb salad with meatballs and fried potato slices. Nothing suspicious about it."
 	icon_state = "validsalad"
-	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
 	bitesize = 3
 	list_reagents = list("nutriment" = 8, "salglu_solution" = 5, "vitamin" = 2)
