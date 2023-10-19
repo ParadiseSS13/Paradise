@@ -604,7 +604,7 @@
 
 	if(!check_death_method())
 		if(health <= HEALTH_THRESHOLD_DEAD)
-			var/deathchance = min(99, ((getBrainLoss() * -5) + (health + (getOxyLoss() / 2))) * -0.01)
+			var/deathchance = min(99, ((getBrainLoss() / 5) + (health + (getOxyLoss() / -2))) * -0.1)
 			if(prob(deathchance))
 				death()
 				return
