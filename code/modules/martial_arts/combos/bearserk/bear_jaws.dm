@@ -11,7 +11,6 @@
 		playsound(get_turf(target), 'sound/weapons/bite.ogg', 25, TRUE, -1)
 		target.apply_damage(20, BRUTE, user.zone_selected, sharp = TRUE)
 		if(target.stat != DEAD)
-			user.heal_overall_damage(5, 5)
 			user.adjustStaminaLoss(-45)
 		add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
