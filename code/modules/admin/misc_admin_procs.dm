@@ -956,7 +956,7 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		if(ask != "Yes")
 			return TRUE
 
-		if(!frommob || !tothing) //make sure the mobs don't go away while we waited for a response
+		if(QDELETED(frommob) || QDELETED(tothing)) //make sure the mobs don't go away while we waited for a response
 			return TRUE
 
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of an empty AI core.</span>")
