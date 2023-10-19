@@ -417,8 +417,8 @@
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
-	icon_state = "ishotgun[sling ? "_sling" : ""]"
-	item_state = "ishotgun[sling ? "_sling" : ""]"
+	icon_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"
+	item_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
