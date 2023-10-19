@@ -133,7 +133,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
-	/// How how it our item?
+	/// How hot is our item?
 	var/how_hot
 
 
