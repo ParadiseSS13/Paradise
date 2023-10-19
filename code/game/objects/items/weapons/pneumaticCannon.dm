@@ -10,16 +10,16 @@
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 60, ACID = 50)
-	var/maxWeightClass = 20 //The max weight of items that can fit into the cannon
-	var/loadedWeightClass = 0 //The weight of items currently in the cannon
+	var/max_weight_class = 20 //The max weight of items that can fit into the cannon
+	var/loaded_weight_class = 0 //The weight of items currently in the cannon
 	var/obj/item/tank/internals/tank = null //The gas tank that is drawn from to fire things
-	var/gasPerThrow = 3 //How much gas is drawn from a tank's pressure to fire
-	var/list/loadedItems = list() //The items loaded into the cannon that will be fired out
-	var/pressureSetting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
+	var/gas_per_throw = 3 //How much gas is drawn from a tank's pressure to fire
+	var/list/loaded_items = list() //The items loaded into the cannon that will be fired out
+	var/pressure_setting = 1 //How powerful the cannon is - higher pressure = more gas but more powerful throws
 
 /obj/item/pneumatic_cannon/Destroy()
 	QDEL_NULL(tank)
-	QDEL_LIST_CONTENTS(loadedItems)
+	QDEL_LIST_CONTENTS(loaded_items)
 	return ..()
 
 /obj/item/pneumatic_cannon/examine(mob/user)
@@ -29,7 +29,7 @@
 	else
 		if(tank)
 			. += "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>"
-		for(var/obj/item/I in loadedItems)
+		for(var/obj/item/I in loaded_items)
 			. += "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>"
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
@@ -44,16 +44,16 @@
 		to_chat(user, "<span class='warning'>You're fairly certain that putting a pneumatic cannon inside another pneumatic cannon would cause a spacetime disruption.</span>")
 		return
 	if(istype(W, /obj/item/wrench))
-		switch(pressureSetting)
+		switch(pressure_setting)
 			if(1)
-				pressureSetting = 2
+				pressure_setting = 2
 			if(2)
-				pressureSetting = 3
+				pressure_setting = 3
 			if(3)
-				pressureSetting = 1
-		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressureSetting].</span>")
+				pressure_setting = 1
+		to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressure_setting].</span>")
 		return
-	if(loadedWeightClass >= maxWeightClass)
+	if(loaded_weight_class >= max_weight_class)
 		to_chat(user, "<span class='warning'>\The [src] can't hold any more items!</span>")
 		return
 	if(isitem(W))
@@ -61,7 +61,7 @@
 		if(IW.flags & (ABSTRACT | NODROP | DROPDEL))
 			to_chat(user, "<span class='warning'>You can't put [IW] into [src]!</span>")
 			return
-		if((loadedWeightClass + IW.w_class) > maxWeightClass)
+		if((loaded_weight_class + IW.w_class) > max_weight_class)
 			to_chat(user, "<span class='warning'>\The [IW] won't fit into \the [src]!</span>")
 			return
 		if(IW.w_class > src.w_class)
@@ -70,8 +70,8 @@
 		if(!user.unEquip(W))
 			return
 		to_chat(user, "<span class='notice'>You load \the [IW] into \the [src].</span>")
-		loadedItems.Add(IW)
-		loadedWeightClass += IW.w_class
+		loaded_items.Add(IW)
+		loaded_weight_class += IW.w_class
 		IW.loc = src
 		return
 
@@ -98,13 +98,13 @@
 	if(!istype(user) && !target)
 		return
 	var/discharge = 0
-	if(!loadedItems || !loadedWeightClass)
+	if(!loaded_items || !loaded_weight_class)
 		to_chat(user, "<span class='warning'>\The [src] has nothing loaded.</span>")
 		return
 	if(!tank)
 		to_chat(user, "<span class='warning'>\The [src] can't fire without a source of gas.</span>")
 		return
-	if(tank && !tank.air_contents.remove(gasPerThrow * pressureSetting))
+	if(tank && !tank.air_contents.remove(gas_per_throw * pressure_setting))
 		to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss and doesn't react!</span>")
 		return
 	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
@@ -121,14 +121,14 @@
 							"<span class='danger'>You fire \the [src]!</span>")
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
-	for(var/obj/item/ITD in loadedItems) //Item To Discharge
+	for(var/obj/item/ITD in loaded_items) //Item To Discharge
 		spawn(0)
-			loadedItems.Remove(ITD)
-			loadedWeightClass -= ITD.w_class
-			ITD.throw_speed = pressureSetting * 2
+			loaded_items.Remove(ITD)
+			loaded_weight_class -= ITD.w_class
+			ITD.throw_speed = pressure_setting * 2
 			ITD.loc = get_turf(src)
-			ITD.throw_at(target, pressureSetting * 5, pressureSetting * 2,user)
-	if(pressureSetting >= 3 && user)
+			ITD.throw_at(target, pressure_setting * 5, pressure_setting * 2,user)
+	if(pressure_setting >= 3 && user)
 		user.visible_message("<span class='warning'>[user] is thrown down by the force of the cannon!</span>", "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
 		user.Weaken(3)
 
@@ -138,8 +138,8 @@
 	desc = "A gas-powered, object-firing cannon made out of common parts."
 	force = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	maxWeightClass = 7
-	gasPerThrow = 5
+	max_weight_class = 7
+	gas_per_throw = 5
 
 /datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
 	name = "Pneumatic Cannon"
