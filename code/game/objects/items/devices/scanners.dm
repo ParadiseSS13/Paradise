@@ -138,8 +138,8 @@ REAGENT SCANNER
 		//these sensors are designed for organic life
 
 		msgs += "<span class='notice'>Analyzing Results for ERROR:\n\t Overall Status: ERROR</span>"
-		msgs += "\t Key: <font color='aqua'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
-		msgs += "\t Damage Specifics: <font color='aqua'>?</font> - <font color='green'>?</font> - <font color='#FFA500'>?</font> - <font color='red'>?</font>"
+		msgs += "\t Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
+		msgs += "\t Damage Specifics: <span class='healthscan_oxy'>?</span> - <font color='green'>?</font> - <font color='#FFA500'>?</font> - <font color='red'>?</font>"
 		msgs += "<span class='notice'>Body Temperature: [M.bodytemperature-T0C]&deg;C ([M.bodytemperature*1.8-459.67]&deg;F)</span>"
 		msgs += "<span class='warning'><b>Warning: Blood Level ERROR: --% --cl.</span><span class='notice'>Type: ERROR</span>"
 		msgs += "<span class='notice'>Subject's pulse: <font color='red'>-- bpm.</font></span>"
@@ -164,8 +164,8 @@ REAGENT SCANNER
 			status = "[H.health]% Healthy"
 
 	msgs += "<span class='notice'>Analyzing Results for [H]:\n\t Overall Status: [status]"
-	msgs += "\t Key: <font color='aqua'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
-	msgs += "\t Damage Specifics: <font color='aqua'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
+	msgs += "\t Key: <span class='healthscan_oxy'>Suffocation</span>/<font color='green'>Toxin</font>/<font color='#FFA500'>Burns</font>/<font color='red'>Brute</font>"
+	msgs += "\t Damage Specifics: <span class='healthscan_oxy'>[OX]</span> - <font color='green'>[TX]</font> - <font color='#FFA500'>[BU]</font> - <font color='red'>[BR]</font>"
 	if(H.timeofdeath && (H.stat == DEAD || (HAS_TRAIT(H, TRAIT_FAKEDEATH))))
 		msgs += "<span class='notice'>Time of Death: [station_time_timestamp("hh:mm:ss", H.timeofdeath)]</span>"
 		var/tdelta = round(world.time - H.timeofdeath)
