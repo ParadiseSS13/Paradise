@@ -6,6 +6,7 @@
 /datum/modpack/cyrillic_fixes/initialize()
 	. = ..()
 	update_cyrillic_radio()
+	update_cyrillic_languages()
 
 /datum/modpack/cyrillic_fixes/proc/update_cyrillic_radio()
 	GLOB.department_radio_keys |= list(
@@ -73,3 +74,14 @@
 		":-" = "Special Ops",	"#-" = "Special Ops",	"№-" = "Special Ops",	".-" = "Special Ops",
 		":+" = "special",		"#+" = "special",		"№+" = "special",		".+" = "special" //activate radio-specific special functions
 )
+
+/datum/modpack/cyrillic_fixes/proc/update_cyrillic_languages()
+	for(var/language_name in GLOB.all_languages)
+		var/datum/language/L = GLOB.all_languages[language_name]
+		if(!(L.flags & NONGLOBAL))
+			GLOB.language_keys[":[lowertext(convert_en_key_to_ru_key(L.key))]"] = L
+			GLOB.language_keys[".[lowertext(convert_en_key_to_ru_key(L.key))]"] = L
+			GLOB.language_keys["#[lowertext(convert_en_key_to_ru_key(L.key))]"] = L
+			GLOB.language_keys["№[lowertext(convert_en_key_to_ru_key(L.key))]"] = L
+
+			GLOB.language_keys["№[lowertext(L.key)]"] = L
