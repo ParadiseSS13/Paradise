@@ -18713,12 +18713,6 @@
 /obj/item/hand_labeler_refill,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
-"bmL" = (
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/public/locker)
 "bmM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -79761,6 +79755,7 @@
 /obj/machinery/economy/atm{
 	pixel_y = -32
 	},
+/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -127593,7 +127588,7 @@ aTp
 qvm
 aTu
 aTo
-bmL
+aYK
 aLl
 bcj
 vmT
