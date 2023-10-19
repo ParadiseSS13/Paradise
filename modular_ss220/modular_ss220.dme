@@ -38,6 +38,7 @@
 #include "agent_id_tgui/_agent_id_tgui.dme"
 #include "balance/_balance.dme"
 #include "bureaucracy/_bureaucracy.dme"
+#include "camera_nanomap/camera.dme"
 #include "cinematics/_cinematics.dme"
 #include "closet_picklocking/_closet_picklocking.dme"
 #include "crawl_speed/_crawl_speed.dme"
