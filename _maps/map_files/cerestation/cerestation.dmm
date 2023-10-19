@@ -84309,7 +84309,6 @@
 /area/station/hallway/primary/port/east)
 "urK" = (
 /obj/machinery/mineral/stacking_machine{
-	stack_amt = 10;
 	output_dir = 2;
 	input_dir = 8
 	},
