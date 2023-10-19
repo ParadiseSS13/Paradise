@@ -2801,7 +2801,7 @@
 
 	else if(href_list["secretsfun"])
 		if(!check_rights(R_SERVER|R_EVENT))	return
-
+		if(alert("Are you sure you want to run this secret?","Confirmation","Yes","Cancel") != "Yes") return
 		var/ok = 0
 		switch(href_list["secretsfun"])
 			if("sec_clothes")
