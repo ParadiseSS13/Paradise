@@ -311,7 +311,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /**
  * Similar to show_radial_menu, but choices is a list of atoms, for which icons will be automatically generated.
- * Supports multiple items of the same name, 2 soaps will become soap (1) and soap (2) to the user
+ * Supports multiple items of the same name, 2 soaps will become soap (1) and soap (2) to the user.
+ * Otherwise, has the exact same arguments as show_radial_menu
  */
 /proc/radial_menu_helper(mob/user, atom/anchor, list/choices, uniqueid, radius, datum/callback/custom_check, require_near = FALSE)
 	var/list/duplicate_amount = list()
@@ -324,24 +325,24 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 	var/list/icon_state_choices = list()
 	var/list/return_choices = list()
-	for(var/atom/atom in choices)
-		if(!istype(atom))
-			stack_trace("radial_menu_helper was passed a non-atom (\"[atom]\", [atom.type]) as a choice")
+	for(var/atom/possible_atom in choices)
+		if(!istype(possible_atom))
+			stack_trace("radial_menu_helper was passed a non-atom (\"[possible_atom]\", [possible_atom.type]) as a choice")
 			continue
-		var/mutable_appearance/atom_appearance = new(atom.appearance)
+		var/mutable_appearance/atom_appearance = new(possible_atom.appearance)
 
-		var/hover_outline_index = atom.get_filter("hover_outline")
+		var/hover_outline_index = possible_atom.get_filter("hover_outline")
 		if(!isnull(hover_outline_index))
 			atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
 
-		var/key = atom.name
-		if(duplicate_amount[atom.name])
-			var/number = duplicate_amount[atom.name] - duplicate_indexes[atom.name]
-			duplicate_indexes[atom.name]--
-			key = "[atom.name] ([number + 1])"
+		var/key = possible_atom.name
+		if(duplicate_amount[key])
+			var/number = duplicate_amount[key] - duplicate_indexes[key]
+			duplicate_indexes[key]--
+			key = "[key] ([number + 1])"
 
 		icon_state_choices[key] = atom_appearance
-		return_choices[key] = atom
+		return_choices[key] = possible_atom
 
 	var/chosen_key = show_radial_menu(user, anchor, icon_state_choices, uniqueid, radius, custom_check, require_near)
 
