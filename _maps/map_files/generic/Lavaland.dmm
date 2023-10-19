@@ -729,6 +729,9 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "bU" = (
@@ -1625,6 +1628,9 @@
 "dI" = (
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 8
+	},
+/obj/machinery/ai_status_display{
+	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3153,6 +3159,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "gK" = (
@@ -3324,6 +3331,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
+"hU" = (
+/obj/effect/spawner/random_spawners/dirt_maybe,
+/mob/living/simple_animal/mouse,
+/turf/simulated/floor/plating,
+/area/mine/outpost/maintenance/south)
 "hW" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -4908,7 +4920,7 @@
 "rB" = (
 /obj/machinery/mineral/equipment_vendor,
 /obj/machinery/camera{
-	c_tag = "Mining Outpost - Lockers";
+	c_tag = "Mining Outpost - Miner Lockers";
 	dir = 1;
 	network = list("Mining Outpost")
 	},
@@ -4964,15 +4976,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -5;
-	pixel_y = 30
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "north bump";
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5106,7 +5117,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -5506,6 +5516,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
+"wi" = (
+/obj/machinery/door/firedoor,
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/plating,
+/area/mine/outpost/cafeteria)
 "wy" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -5847,6 +5863,7 @@
 /obj/machinery/door/airlock/maintenance/external/glass{
 	name = "Landing Pad"
 	},
+/obj/effect/mapping_helpers/airlock/unres,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/hallway/west)
 "zn" = (
@@ -6204,6 +6221,7 @@
 /obj/structure/window/basic{
 	dir = 1
 	},
+/obj/item/clothing/glasses/sunglasses_fake,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -6636,6 +6654,7 @@
 /obj/structure/chair{
 	dir = 4
 	},
+/obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -6849,15 +6868,6 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
-"Hk" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/structure/sign/poster/official/random{
-	pixel_y = -32
-	},
-/turf/simulated/floor/mineral/titanium/blue,
-/area/shuttle/mining)
 "Hm" = (
 /obj/structure/lattice/catwalk/mining,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
@@ -7136,12 +7146,15 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "JX" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
+/obj/effect/turf_decal/bot,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Shuttle";
+	dir = 5;
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
@@ -7488,10 +7501,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
-"Nk" = (
-/obj/effect/spawner/random_spawners/wall_rusted_maybe,
-/turf/simulated/wall,
-/area/mine/outpost/airlock)
 "Np" = (
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
@@ -7561,10 +7570,21 @@
 /obj/machinery/computer/shuttle/mining,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
+"NT" = (
+/obj/structure/sign/nanotrasen,
+/turf/simulated/wall,
+/area/mine/outpost/lockers)
 "NW" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating,
 /area/shuttle/siberia)
+"NY" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/mining)
 "NZ" = (
 /obj/structure/toilet,
 /obj/effect/decal/cleanable/cobweb,
@@ -7575,6 +7595,16 @@
 /obj/structure/chair/office/dark,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
+"Oc" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/shuttle/mining)
 "Oh" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7876,6 +7906,22 @@
 /obj/effect/spawner/random_spawners/fungus_maybe,
 /turf/simulated/wall,
 /area/mine/outpost/custodial)
+"QI" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/condiment/peppermill{
+	pixel_x = 2;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/condiment/saltshaker{
+	pixel_x = -2;
+	pixel_y = 4
+	},
+/obj/effect/turf_decal/bot,
+/turf/simulated/floor/plasteel{
+	icon_regular_floor = "yellowsiding";
+	icon_state = "tranquillite"
+	},
+/area/mine/outpost/cafeteria)
 "QR" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -7974,16 +8020,19 @@
 	},
 /area/mine/outpost/custodial)
 "Sb" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
-	pixel_y = -30;
-	pixel_x = -5
+	pixel_y = -30
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
+/obj/machinery/light/small{
+	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
@@ -7998,6 +8047,10 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkredfull"
@@ -8823,7 +8876,6 @@
 "Ys" = (
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/item/trash/chips,
-/obj/effect/decal/cleanable/ants,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Yv" = (
@@ -8998,10 +9050,11 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Mining Outpost - Shuttle";
-	dir = 4;
-	network = list("Mining Outpost")
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/obj/machinery/light/small{
+	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
@@ -17740,9 +17793,9 @@ hC
 cR
 xC
 xC
-Cf
+NY
 JX
-Vu
+Oc
 ZG
 xC
 CX
@@ -17999,8 +18052,8 @@ tb
 NP
 Wo
 rM
+Oc
 Vu
-Hk
 xC
 CX
 Hm
@@ -18256,7 +18309,7 @@ xC
 xC
 gJ
 Cf
-Vu
+Oc
 Sb
 xC
 CX
@@ -19547,7 +19600,7 @@ gi
 gi
 gi
 gi
-gi
+NT
 aj
 aj
 aj
@@ -21088,7 +21141,7 @@ Zf
 gi
 gi
 gi
-rk
+gi
 rk
 Dx
 aj
@@ -23660,7 +23713,7 @@ gd
 Ba
 QX
 At
-ao
+hU
 KH
 eM
 Fa
@@ -24155,8 +24208,8 @@ FA
 aj
 aj
 ab
-bJ
-eW
+wi
+QI
 zu
 gL
 bN
@@ -26471,7 +26524,7 @@ ii
 on
 dc
 Dz
-Nk
+Dz
 Dz
 Dz
 VG
