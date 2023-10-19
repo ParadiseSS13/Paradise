@@ -42,7 +42,7 @@
 		return TRUE
 
 /obj/item/candle/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W))
+	if(W.how_hot)
 		light("<span class='notice'>[user] lights [src] with [W].</span>")
 		return
 	return ..()
@@ -62,6 +62,7 @@
 		lit = TRUE
 		if(show_message)
 			usr.visible_message(show_message)
+		how_hot = 1000
 		set_light(CANDLE_LUM)
 		START_PROCESSING(SSobj, src)
 		update_icon(UPDATE_ICON_STATE)
@@ -110,6 +111,7 @@
 	if(lit)
 		lit = FALSE
 		update_icon(UPDATE_ICON_STATE)
+		how_hot = null
 		set_light(0)
 
 

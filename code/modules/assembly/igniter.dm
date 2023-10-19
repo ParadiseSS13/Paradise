@@ -4,6 +4,7 @@
 	icon_state = "igniter"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
 	origin_tech = "magnets=1"
+	how_hot = 2000
 	var/datum/effect_system/spark_spread/sparks
 
 /obj/item/assembly/igniter/Initialize(mapload)

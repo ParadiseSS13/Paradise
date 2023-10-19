@@ -264,7 +264,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list (
 	return TRUE
 
 /obj/item/stack/sheet/mineral/plasma/attackby(obj/item/I, mob/living/user, params)
-	if(is_hot(I))
+	if(I.how_hot)
 		log_and_set_aflame(user, I)
 	else
 		return ..()

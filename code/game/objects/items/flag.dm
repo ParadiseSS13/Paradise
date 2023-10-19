@@ -13,7 +13,7 @@
 
 /obj/item/flag/attackby(obj/item/W, mob/user, params)
 	. = ..()
-	if(is_hot(W) && !(resistance_flags & ON_FIRE))
+	if(W.how_hot && !(resistance_flags & ON_FIRE))
 		user.visible_message("<span class='notice'>[user] lights [src] with [W].</span>", "<span class='notice'>You light [src] with [W].</span>", "<span class='warning'>You hear a low whoosh.</span>")
 		fire_act()
 
@@ -259,7 +259,7 @@
 			log_game("[key_name(user)] has hidden [I] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")
 			investigate_log("[key_name(user)] has hidden [I] in [src] ready for detonation at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).", INVESTIGATE_BOMB)
 			add_attack_logs(user, src, "has hidden [I] ready for detonation in", ATKLOG_MOST)
-	else if(is_hot(I) && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
+	else if(I.how_hot && !(resistance_flags & ON_FIRE) && boobytrap && trapper)
 		var/turf/bombturf = get_turf(src)
 		var/area/A = get_area(bombturf)
 		log_game("[key_name_admin(user)] has lit [src] trapped with [boobytrap] by [key_name_admin(trapper)] at [A.name] ([bombturf.x],[bombturf.y],[bombturf.z]).")

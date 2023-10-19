@@ -45,6 +45,7 @@
 	damtype = BURN
 	hitsound = 'sound/items/welder.ogg'
 	attack_verb = list("burnt", "singed")
+	how_hot = 1500
 
 	update_icon()
 	attempt_light(user)
@@ -72,6 +73,7 @@
 	hitsound = "swing_hit"
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
+	how_hot = null
 
 	update_icon()
 	if(user)
@@ -233,6 +235,7 @@
 		name = "lit match"
 		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
+		how_hot = 1000
 		START_PROCESSING(SSobj, src)
 		update_icon()
 		return TRUE
@@ -248,6 +251,7 @@
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
+		how_hot = null
 		STOP_PROCESSING(SSobj, src)
 		return TRUE
 

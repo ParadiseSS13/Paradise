@@ -164,6 +164,7 @@
 	sharp = TRUE
 	can_charge = FALSE
 	can_holster = TRUE
+	how_how = 3800
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))

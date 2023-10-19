@@ -26,12 +26,13 @@
 /obj/item/proc/pre_attack(atom/A, mob/living/user, params) //do stuff before attackby!
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
-	if(is_hot(src) && A.reagents && !ismob(A))
+
+	if(src.how_hot && A.reagents && !ismob(A) && !istype(A, /obj/item/clothing/mask/cigarette))
 		var/reagent_temp = A.reagents.chem_temp
-		var/time = (reagent_temp / 10) / (is_hot(src) / 1000)
+		var/time = (reagent_temp / 10) / (how_hot / 1000)
 		if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
 			to_chat(user, "<span class='notice'>You heat [A] with [src].</span>")
-			A.reagents.temperature_reagents(is_hot(src))
+			A.reagents.temperature_reagents(how_hot)
 	return TRUE //return FALSE to avoid calling attackby after this proc does stuff
 
 // No comment

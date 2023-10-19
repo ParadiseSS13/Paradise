@@ -187,6 +187,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			var/mob/living/carbon/C = loc
 			if(C.wear_mask == src) // Don't update if it's just in their hand
 				C.wear_mask_update(src)
+		how_hot = 1000
 		set_light(2, 0.25, "#E38F46")
 		START_PROCESSING(SSobj, src)
 		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)

@@ -99,6 +99,7 @@
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
 		set_light(light_intensity)
+		how_hot = 2500
 	else
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
@@ -107,6 +108,7 @@
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
 		set_light(0)
+		how_hot = null
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc
