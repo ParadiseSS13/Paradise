@@ -382,6 +382,14 @@
 	else
 		. += "ledb"
 
+/obj/item/storage/lockbox/vials/AltClick(mob/user)
+	if(Adjacent(user) && allowed(user))
+		locked = !locked
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] \the [src].</span>")
+		update_icon()
+	else
+		to_chat(user, "<span class='warning'>Access denied.</span>")
+
 /obj/item/storage/lockbox/vials/attackby(obj/item/I, mob/user, params)
 	..()
 	update_icon()
