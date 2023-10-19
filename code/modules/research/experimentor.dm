@@ -499,6 +499,8 @@
 			if(tracked_ian)
 				throwSmoke(tracked_ian.loc)
 				tracked_ian.loc = loc
+				if(tracked_ian.buckled)
+					tracked_ian.buckled.unbuckle_mob(tracked_ian, TRUE)
 				investigate_log("Experimentor has stolen Ian!", "experimentor") //...if anyone ever fixes it...
 			else
 				new /mob/living/simple_animal/pet/dog/corgi(loc)
@@ -511,6 +513,8 @@
 			if(tracked_runtime)
 				throwSmoke(tracked_runtime.loc)
 				tracked_runtime.loc = loc
+				if(tracked_runtime.buckled)
+					tracked_runtime.buckled.unbuckle_mob(tracked_runtime, TRUE)
 				investigate_log("Experimentor has stolen Runtime!", "experimentor")
 			else
 				new /mob/living/simple_animal/pet/cat(loc)
