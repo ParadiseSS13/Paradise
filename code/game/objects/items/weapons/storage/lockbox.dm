@@ -49,7 +49,7 @@
 		return
 	if(allowed(user))
 		locked = !locked
-		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] \the [src] interface.</span>")
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
 		icon_state = "[locked ? icon_locked : icon_closed]"
 	else
 		to_chat(user, "<span class='warning'>Access denied.</span>")
