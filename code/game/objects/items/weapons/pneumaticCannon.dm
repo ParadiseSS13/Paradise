@@ -146,7 +146,7 @@
 
 /obj/item/pneumatic_cannon/admin
 	name = "admin pnuematic cannon"
-	desc = "Infinite gas and infinite capacity, go crazy"
+	desc = "Infinite gas and infinite capacity, go crazy."
 	requires_tank = FALSE
 	max_weight_class = INFINITY
 
