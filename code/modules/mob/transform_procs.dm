@@ -269,7 +269,7 @@
 	if(stat == DEAD)
 		return
 
-	for(var/obj/item/W in src)
+	for(var/obj/item/W in get_all_slots())
 		unEquip(W)
 
 	regenerate_icons()

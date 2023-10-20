@@ -857,7 +857,7 @@ $(function() {
 		) {
 			opts.mouseDownX = null;
 			opts.mouseDownY = null;
-			runByond('byond://winset?mapwindow.map.focus=true');
+			runByond('byond://winset?paramapwindow.map.focus=true');
 		}
 	});
 
@@ -935,17 +935,17 @@ $(function() {
 			command = opts.macros[c];
 
 		if (command) {
-			runByond('byond://winset?mapwindow.map.focus=true;command='+command);
+			runByond('byond://winset?paramapwindow.map.focus=true;command='+command);
 			return false;
 		}
 		else if (c.length == 0) {
 			if (!e.shiftKey) {
 				c = c.toLowerCase();
 			}
-			runByond('byond://winset?mapwindow.map.focus=true;mainwindow.input.text='+c);
+			runByond('byond://winset?paramapwindow.map.focus=true;mainwindow.input.text='+c);
 			return false;
 		} else {
-			runByond('byond://winset?mapwindow.map.focus=true');
+			runByond('byond://winset?paramapwindow.map.focus=true');
 			return false;
 		}
 	});
@@ -977,7 +977,7 @@ $(function() {
 		var messagesHeight = $messages.outerHeight();
 		$('body,html').scrollTop(messagesHeight);
 		$('#newMessages').remove();
-        runByond("byond://winset?mapwindow.map.focus=true");
+		runByond("byond://winset?paramapwindow.map.focus=true");
 	});
 
 	$('#toggleOptions').click(function(e) {
