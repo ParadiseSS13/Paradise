@@ -27,17 +27,20 @@
 	new /obj/item/organ/internal/eyes/cybernetic/meson(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
 	new /obj/item/clothing/accessory/medal/supply(src)
-	new /obj/item/fulton_core(src)
-	new /obj/item/extraction_pack(src)
-	new /obj/item/gps/mining(src)
 	new /obj/item/rcs(src)
 	new /obj/item/destTagger(src)
 	new /obj/item/reagent_containers/food/drinks/mug/qm(src)
 	new /obj/item/flash(src)
 	new /obj/item/storage/bag/mail(src)
 
-/obj/structure/closet/secure_closet/quartermaster/empty //used in mining outpost
+/obj/structure/closet/secure_closet/quartermaster/lavaland //used in mining outpost
 	name = "quartermaster's secondary locker"
 
-/obj/structure/closet/secure_closet/quartermaster/empty/populate_contents()
-	return
+/obj/structure/closet/secure_closet/quartermaster/lavaland/populate_contents()
+	new /obj/item/storage/bag/garment/quartermaster/lavaland(src)
+	new /obj/item/fulton_core(src)
+	new /obj/item/extraction_pack(src)
+	new /obj/item/gps/mining(src)
+	new /obj/item/book/manual/wiki/sop_supply(src)
+	new /obj/item/folder/yellow(src)
+	new /obj/item/fan(src)

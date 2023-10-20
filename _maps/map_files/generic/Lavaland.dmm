@@ -528,7 +528,6 @@
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "bv" = (
-/obj/structure/closet/secure_closet/quartermaster/empty,
 /obj/machinery/newscaster{
 	name = "north bump";
 	pixel_y = 28
@@ -540,6 +539,7 @@
 	name = "Quartermaster Requests Console";
 	pixel_x = 30
 	},
+/obj/structure/closet/secure_closet/quartermaster/lavaland,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "bx" = (
@@ -1212,12 +1212,12 @@
 	pixel_x = -11;
 	pixel_y = 5
 	},
-/obj/item/pen/multi{
-	pixel_x = -9;
-	pixel_y = -2
-	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
+	},
+/obj/item/pen/multi{
+	pixel_x = -9;
+	pixel_y = -1
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
@@ -3277,14 +3277,13 @@
 	},
 /area/mine/laborcamp)
 "hz" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/structure/table,
-/obj/item/flashlight/lamp{
-	pixel_x = -9;
-	pixel_y = 9
-	},
 /obj/item/gps/mining{
-	pixel_x = 3
+	pixel_x = 5
+	},
+/obj/item/flashlight/lamp{
+	pixel_x = -8;
+	pixel_y = 8
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
@@ -5797,6 +5796,7 @@
 	dir = 9;
 	network = list("Mining Outpost")
 	},
+/obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "yO" = (
