@@ -9,6 +9,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -86,6 +87,7 @@
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
+	execution_speed = 8 SECONDS
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator
@@ -130,6 +132,7 @@
 	/// Is the scope fully online or not?
 	var/scope_active = FALSE
 	var/stored_dir
+	execution_speed = 8 SECONDS
 
 /obj/item/gun/energy/lwap/zoom(mob/living/user, forced_zoom)
 	. = ..()

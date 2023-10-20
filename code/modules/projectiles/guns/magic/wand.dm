@@ -11,6 +11,7 @@
 	can_charge = FALSE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = 1
+	execution_speed = 3 SECONDS
 
 /obj/item/gun/magic/wand/Initialize(mapload)
 	. = ..()
