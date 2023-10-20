@@ -37,10 +37,12 @@
 	name = "quartermaster's secondary locker"
 
 /obj/structure/closet/secure_closet/quartermaster/lavaland/populate_contents()
-	new /obj/item/storage/bag/garment/quartermaster/lavaland(src)
 	new /obj/item/fulton_core(src)
 	new /obj/item/extraction_pack(src)
 	new /obj/item/gps/mining(src)
+	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/clothing/suit/hooded/explorer(src)
+	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/book/manual/wiki/sop_supply(src)
 	new /obj/item/folder/yellow(src)
 	new /obj/item/fan(src)

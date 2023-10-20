@@ -201,13 +201,6 @@
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)
 
-/obj/item/storage/bag/garment/quartermaster/lavaland //can be found inside of the outpost
-
-/obj/item/storage/bag/garment/quartermaster/lavaland/populate_contents()
-	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/clothing/suit/hooded/explorer(src)
-	new /obj/item/clothing/glasses/meson(src)
-
 /obj/item/storage/bag/garment/warden
 	name = "warden's garment bag"
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the warden."
