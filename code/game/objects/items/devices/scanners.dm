@@ -614,8 +614,8 @@ REAGENT SCANNER
 	var/printing = FALSE
 	var/time_to_use = 0 // How much time remaining before next scan is available.
 	var/usecharge = 750
-	var/scan_time = 10 SECONDS //how long does it take to scan
-	var/scan_cd = 60 SECONDS //how long before we can scan again
+	var/scan_time = 5 SECONDS //how long does it take to scan
+	var/scan_cd = 30 SECONDS //how long before we can scan again
 
 /obj/item/bodyanalyzer/get_cell()
 	return cell
