@@ -107,12 +107,7 @@
 	if(distance < 0.01)				//We're already all set.
 		return
 
-	message_admins("current  [current]")
-	message_admins("darkness [darkness]")
-	message_admins("distance [distance]")
-	message_admins("alpha    [S.alpha]")
-
-	animate(S, alpha = (darkness * 255), time = (1 SECONDS)) //Vite in umbra!
+	animate(S, alpha = (darkness * 255), time = (distance * 10 SECONDS)) //Vite in umbra!
 
 /mob/living/proc/handle_breathing(times_fired)
 	return
