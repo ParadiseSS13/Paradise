@@ -81,6 +81,8 @@
 /obj/item/clothing/shoes/magboots/syndie/elite //For the Syndicate Strike Team/SolGov/Tactical Teams
 	name = "elite tactical magboots"
 	desc = "Advanced magboots used by strike teams across the System. Allows for tactical insertion into low-gravity areas of operation."
+	icon_state = "elitemag0"
+	magboot_state = "elitemag"
 	slowdown_active = SHOES_SLOWDOWN
 
 /obj/item/clothing/shoes/magboots/clown
