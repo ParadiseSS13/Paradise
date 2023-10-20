@@ -200,6 +200,11 @@
 	forcedodge = 1 // Can pierce one mob.
 	speed = 0.5
 
+/obj/item/projectile/beam/laser/sniper/pierce/prehit(atom/target)
+	if(isturf(target) && !forcedodge)
+		forcedodge++ //Increases force dodge before turf consumes it.
+	..()
+
 /obj/item/gun/energy/xray
 	name = "xray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated xray blasts. These blasts will penetrate solid objects, but will decrease in power the longer they have to travel."
