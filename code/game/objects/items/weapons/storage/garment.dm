@@ -203,7 +203,7 @@
 
 /obj/item/storage/bag/garment/quartermaster/lavaland //can be found inside of the outpost
 
-/obj/item/storage/bag/garment/quartermaster/populate_contents()
+/obj/item/storage/bag/garment/quartermaster/lavaland/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/clothing/suit/hooded/explorer(src)
 	new /obj/item/clothing/glasses/meson(src)
