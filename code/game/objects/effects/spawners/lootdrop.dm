@@ -275,7 +275,7 @@
 
 				// Research / Experimentor
 				/obj/item/paper/researchnotes = 125, // papers that give random R&D levels
-				/obj/item/circuitboard/telesci_console = 25, // Code green or blue. Probably not antags. People haven't touched it in ages. Let us see what happens.
+				/obj/item/storage/box/telescience = 25, // Code green or blue. Probably not antags. People haven't touched it in ages. Let us see what happens.
 
 				// Xenobio
 				/obj/item/slimepotion/sentience = 50, // Low-value, but we want to encourage getting more players back in the round.
