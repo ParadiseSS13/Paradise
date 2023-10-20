@@ -18,7 +18,7 @@
 	var/obj/item/tank/internals/tank = null
 	///If the cannon needs a tank at all
 	var/requires_tank = TRUE
-	///How much gas is drawn from a tank's pressure to fire
+	///How many moles of gas is drawn from a tank's pressure to fire
 	var/gas_per_throw = 3
 	///The items loaded into the cannon that will be fired out
 	var/list/loaded_items = list()
@@ -52,14 +52,14 @@
 		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
 		return FALSE
 	if((loaded_weight_class + I.w_class) > max_weight_class)
-		to_chat(user, "<span class='warning'>\The [I] won't fit into \the [src]!</span>")
+		to_chat(user, "<span class='warning'>[I] won't fit into \the [src]!</span>")
 		return FALSE
 	if(I.w_class > src.w_class)
-		to_chat(user, "<span class='warning'>\The [I] is too large to fit into \the [src]!</span>")
+		to_chat(user, "<span class='warning'>[I] is too large to fit into \the [src]!</span>")
 		return FALSE
 	if(!user.unEquip(I))
 		return FALSE
-	to_chat(user, "<span class='notice'>You load \the [I] into \the [src].</span>")
+	to_chat(user, "<span class='notice'>You load[I] into \the [src].</span>")
 	loaded_items.Add(I)
 	loaded_weight_class += I.w_class
 	I.forceMove(src)
@@ -73,7 +73,7 @@
 			pressure_setting = 3
 		if(3)
 			pressure_setting = 1
-	to_chat(user, "<span class='notice'>You tweak \the [src]'s pressure output to [pressure_setting].</span>")
+	to_chat(user, "<span class='notice'>You tweak [src]'s pressure output to [pressure_setting].</span>")
 	return TRUE
 
 
@@ -81,7 +81,7 @@
 	..()
 	if(istype(W, /obj/item/tank/internals) && !tank)
 		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
-			to_chat(user, "<span class='warning'>\The [W] is too small for \the [src].</span>")
+			to_chat(user, "<span class='warning'>[W] is too small for \the [src].</span>")
 			return
 		add_tank(W, user)
 		return
@@ -111,14 +111,14 @@
 		return
 	var/has_discharged = FALSE
 	if(!loaded_items || !loaded_weight_class)
-		to_chat(user, "<span class='warning'>\The [src] has nothing loaded.</span>")
+		to_chat(user, "<span class='warning'>[src] has nothing loaded.</span>")
 		return
 	if(requires_tank)
 		if(!tank)
-			to_chat(user, "<span class='warning'>\The [src] can't fire without a source of gas.</span>")
+			to_chat(user, "<span class='warning'>[src] can't fire without a source of gas.</span>")
 			return
 		if(!tank.air_contents.remove(gas_per_throw * pressure_setting))
-			to_chat(user, "<span class='warning'>\The [src] lets out a weak hiss and doesn't react!</span>")
+			to_chat(user, "<span class='warning'>[src] lets out a weak hiss and doesn't react!</span>")
 			return
 	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
 		user.visible_message("<span class='warning'>[user] loses [user.p_their()] grip on [src], causing it to go off!</span>", "<span class='userdanger'>[src] slips out of your hands and goes off!</span>")
@@ -130,8 +130,8 @@
 			var/list/possible_targets = range(3,src)
 			target = pick(possible_targets)
 	if(!has_discharged)
-		user.visible_message("<span class='danger'>[user] fires \the [src]!</span>", \
-							"<span class='danger'>You fire \the [src]!</span>")
+		user.visible_message("<span class='danger'>[user] fires [src]!</span>", \
+							"<span class='danger'>You fire [src]!</span>")
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
 	for(var/obj/item/I in loaded_items)
