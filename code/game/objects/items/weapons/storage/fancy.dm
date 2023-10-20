@@ -383,7 +383,9 @@
 		. += "ledb"
 
 /obj/item/storage/lockbox/vials/AltClick(mob/user)
-	if(Adjacent(user) && allowed(user))
+	if(!Adjacent(user))
+		return
+	if(allowed(user))
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] \the [src].</span>")
 		update_icon()
