@@ -97,8 +97,6 @@
 /obj/item/pneumatic_cannon/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
 	if(isstorage(target)) //So you can store it in backpacks
 		return ..()
-	if(istype(target, /obj/structure/closet)) //So you can store it in closets
-		return ..()
 	if(istype(target, /obj/structure/rack)) //So you can store it on racks
 		return ..()
 	if(!istype(user))
