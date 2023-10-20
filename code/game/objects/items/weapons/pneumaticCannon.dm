@@ -134,12 +134,12 @@
 							"<span class='danger'>You fire [src]!</span>")
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
-	for(var/obj/item/I in loaded_items)
-		loaded_items.Remove(I)
-		loaded_weight_class -= I.w_class
-		I.throw_speed = pressure_setting * 2
-		I.forceMove(get_turf(src))
-		I.throw_at(target, pressure_setting * 5, pressure_setting * 2, user)
+	for(var/obj/item/loaded_item in loaded_items)
+		loaded_items.Remove(loaded_item)
+		loaded_weight_class -= loaded_item.w_class
+		loaded_item.throw_speed = pressure_setting * 2
+		loaded_item.forceMove(get_turf(src))
+		loaded_item.throw_at(target, pressure_setting * 5, pressure_setting * 2, user)
 	if(pressure_setting >= 3 && user)
 		user.visible_message("<span class='warning'>[user] is thrown down by the force of the cannon!</span>", "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
 		user.KnockDown(3 SECONDS)
