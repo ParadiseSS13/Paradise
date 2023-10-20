@@ -749,6 +749,12 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/pyro_claws/customised_abstract_text()
+	if(!ishuman(loc))
+		return
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] energy claws extending [owner.p_their(FALSE)] wrists.</span>"
+
 /obj/item/pyro_claws/process()
 	lifetime -= 2 SECONDS
 	if(lifetime <= 0)
