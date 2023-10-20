@@ -34,7 +34,7 @@
 		/obj/item/flashlight = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 		/obj/item/ammo_box/magazine/m50 = 2,
-		/obj/item/clothing/shoes/magboots/syndie/elite = 1,
+		/obj/item/clothing/shoes/magboots/elite = 1,
 		/obj/item/lighter/zippo/gonzofist = 1,
 		/obj/item/storage/box/matches = 1
 	)

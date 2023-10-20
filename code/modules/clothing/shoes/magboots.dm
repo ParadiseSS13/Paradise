@@ -78,12 +78,14 @@
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-/obj/item/clothing/shoes/magboots/syndie/elite //For the Syndicate Strike Team/SolGov/Tactical Teams
+/obj/item/clothing/shoes/magboots/elite //For the Syndicate Strike Team/SolGov/Tactical Teams
 	name = "elite tactical magboots"
 	desc = "Advanced magboots used by strike teams across the System. Allows for tactical insertion into low-gravity areas of operation."
 	icon_state = "elitemag0"
 	magboot_state = "elitemag"
+	origin_tech = null
 	slowdown_active = SHOES_SLOWDOWN
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/shoes/magboots/clown
 	name = "clown shoes"
