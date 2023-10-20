@@ -397,7 +397,7 @@
 
 				// Chef
 				/obj/item/storage/box/chef_rare_ingredients_kit = 100,
-				/obj/item/mod/module/dispenser = 50 // Prints burgers. When you want to be space mcdonalds.
+				/obj/item/mod/module/dispenser = 50, // Prints burgers. When you want to be space mcdonalds.
 				// It would be nice to also have items for other service jobs: Mime, Librarian, Chaplain, etc
 
 				// Chaplain
