@@ -566,7 +566,7 @@
 
 /obj/item/melee/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/C, mob/living/user)
 	if(!C.handcuffed)
-		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -10)
+		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, SOUND_RANGE_SET(7))
 		C.visible_message("<span class='danger'>[user] begins restraining [C] with dark magic!</span>", \
 		"<span class='userdanger'>[user] begins shaping dark magic shackles around your wrists!</span>")
 		if(do_mob(user, C, 30))
