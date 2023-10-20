@@ -19,6 +19,8 @@
 	var/portal_duration = 5 MINUTES
 	/// How long a target remains in the Syndicate jail.
 	var/prison_time = 4 MINUTES
+	/// How long an antagonist target remains in the Syndicate jail.
+	var/felony_time = 10 MINUTES
 	/// List of items a target can get randomly after their return.
 	var/list/obj/item/souvenirs = list(
 		/obj/item/bedsheet/syndie,
@@ -334,8 +336,8 @@
 	var/mob/living/carbon/human/H = M
 
 	// Prepare their return
-	if(isAntag(M))
-		prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), 10 MINUTES, TIMER_STOPPABLE)
+	if(M.mind.special_role && !(M.mind.special_role in list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD)))
+		prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), felony_time, TIMER_STOPPABLE)
 	else
 		prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), prison_time, TIMER_STOPPABLE)
 
@@ -380,9 +382,9 @@
 			if(isplasmaman(H) && I == H.head)
 				continue
 
-		// Any kind of non-syndie implant gets potentially removed (mindshield, etc)
+		// Any kind of implant gets potentially removed (mindshield, freedoms, etc)
 		if(istype(I, /obj/item/implant))
-			if(istype(I, /obj/item/implant/storage)) // Storage stays, but items within get confiscated
+			if(istype(I, /obj/item/implant/storage)) // Storage items are removed and placed in the confiscation locker before the implant is taken.
 				var/obj/item/implant/storage/storage_implant = I
 				for(var/it in storage_implant.storage)
 					storage_implant.storage.remove_from_storage(it)
