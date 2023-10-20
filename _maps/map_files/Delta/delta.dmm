@@ -35690,13 +35690,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
-"bUR" = (
-/obj/item/kirbyplants,
-/obj/machinery/keycard_auth{
-	pixel_y = 24
-	},
-/turf/simulated/floor/wood,
-/area/station/command/office/hop)
 "bUT" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/wood,
@@ -135068,7 +135061,7 @@ bMR
 bOI
 bQH
 ciB
-bUR
+bUT
 chi
 cbT
 chi
