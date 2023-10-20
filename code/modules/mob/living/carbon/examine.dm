@@ -125,6 +125,8 @@
 	// All the things wielded/worn that can be reasonably described with a common template:
 	var/list/message_parts = examine_visible_clothing(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
 
+	var/list/abstract_items = list()
+
 	for(var/parts in message_parts)
 		var/action = parts[1]
 		var/obj/item/item = parts[2]
@@ -134,20 +136,23 @@
 		if(length(parts) >= 5)
 			accessories = parts[5]
 
-		if(item && !(item.flags & ABSTRACT))
-			var/item_words = item.name
-			if(item.blood_DNA)
-				item_words = "[item.blood_color != "#030303" ? "blood-stained" : "oil-stained"] [item_words]"
-			var/submsg = "[p_they(TRUE)] [action] [bicon(item)] \a [item_words]"
-			if(accessories)
-				submsg += " with [accessories]"
-			if(limb_name)
-				submsg += " [preposition] [p_their()] [limb_name]"
-			if(item.blood_DNA)
-				submsg = "<span class='warning'>[submsg]!</span>\n"
+		if(item)
+			if(item.flags & ABSTRACT)
+				abstract_items |= item
 			else
-				submsg = "[submsg].\n"
-			msg += submsg
+				var/item_words = item.name
+				if(item.blood_DNA)
+					item_words = "[item.blood_color != "#030303" ? "blood-stained" : "oil-stained"] [item_words]"
+				var/submsg = "[p_they(TRUE)] [action] [bicon(item)] \a [item_words]"
+				if(accessories)
+					submsg += " with [accessories]"
+				if(limb_name)
+					submsg += " [preposition] [p_their()] [limb_name]"
+				if(item.blood_DNA)
+					submsg = "<span class='warning'>[submsg]!</span>\n"
+				else
+					submsg = "[submsg].\n"
+				msg += submsg
 		else
 			// add any extra info on the limbs themselves
 			msg += examine_handle_individual_limb(limb_name)
@@ -169,6 +174,12 @@
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!</span>\n"
 		else
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
+
+	for(var/obj/item/abstract_item in abstract_items)
+		var/text = abstract_item.customised_abstract_text()
+		if(!text)
+			continue
+		msg += "[text]\n"
 
 	//Jitters
 	switch(AmountJitter())
