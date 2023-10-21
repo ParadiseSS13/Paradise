@@ -97,6 +97,7 @@ const ChemMasterBeaker = (props, context) => {
     <Section
       title="Beaker"
       flexGrow="1"
+      minHeight="100px"
       buttons={
         bufferNonEmpty ? (
           <Button.Confirm
@@ -180,6 +181,7 @@ const ChemMasterBuffer = (props, context) => {
     <Section
       title="Buffer"
       flexGrow="1"
+      minHeight="100px"
       buttons={
         <Box color="label">
           Transferring to&nbsp;
