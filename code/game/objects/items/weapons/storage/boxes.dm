@@ -61,8 +61,8 @@
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
 	else
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
@@ -74,8 +74,8 @@
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
 	else
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 		new /obj/item/flashlight/flare/glowstick/emergency(src)
@@ -86,9 +86,9 @@
 /obj/item/storage/box/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
-		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
@@ -100,9 +100,9 @@
 /obj/item/storage/box/survival_mining/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer(src)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
-		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 		new /obj/item/tank/internals/emergency_oxygen/double(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
+		new /obj/item/flashlight/flare(src)
 	else
 		new /obj/item/tank/internals/emergency_oxygen/engi(src)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)

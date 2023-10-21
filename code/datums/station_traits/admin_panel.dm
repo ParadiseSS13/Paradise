@@ -71,8 +71,8 @@
 			message_admins(message)
 
 			station_trait.revert()
-
 			return TRUE
+
 		if("setup_future_traits")
 			if(too_late_for_future_traits())
 				to_chat(usr, "<span class='warning'>It's too late to add future station traits, the round is already over!</span>")
@@ -81,7 +81,7 @@
 			var/list/new_future_traits = list()
 			var/list/station_trait_names = list()
 			var/station_trait_text = params["station_traits"]
-			var/list/temp_list = list(splittext(station_trait_text, ","))
+			var/list/temp_list = splittext(station_trait_text, ",")
 			for(var/thing in temp_list) //TODO QWERTY / HI REVIEWERS NAME THIS BETTER BUT ITS ALMOST MIDNIGHT AND i HATE MYSELF
 				for(var/second_thing in thing)
 					var/datum/station_trait/station_trait_path = text2path(second_thing)
@@ -105,8 +105,8 @@
 			fdel("data/next_traits.txt") //Delete it.
 			var/F = file("data/next_traits.txt")
 			F << params["station_traits"]
-
 			return TRUE
+			
 		if("clear_future_traits")
 			if(!future_traits)
 				to_chat(usr, "<span class='warning'>There are no future station traits.</span>")

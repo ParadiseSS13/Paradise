@@ -145,7 +145,7 @@
 
 ///returns a random non starting / kill crew lawset if the station has a unique ai lawset
 /proc/pick_unique_lawset()
-	var/list/law_options[0]
+	var/list/law_options = list()
 	var/paths = subtypesof(/datum/ai_laws)
 	for(var/law in paths)
 		var/datum/ai_laws/L = new law

@@ -250,7 +250,7 @@ AI MODULES
 	target.show_laws()
 
 /obj/item/aiModule/reset/handle_unique_ai()
-	return
+	return FALSE
 
 /******************** Purge ********************/
 /obj/item/aiModule/purge // -- TLE
