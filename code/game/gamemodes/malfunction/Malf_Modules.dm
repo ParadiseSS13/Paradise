@@ -376,7 +376,10 @@
 
 /datum/action/innate/ai/destroy_rcds/Activate()
 	for(var/obj/item/rcd/RCD in GLOB.rcd_list)
-		if(!istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
+		if(istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
+			continue
+		var/turf/RCD_turf = get_turf(RCD)
+		if(is_level_reachable(RCD_turf.z))
 			RCD.detonate_pulse()
 
 	to_chat(owner, "<span class='danger'>RCD detonation pulse emitted.</span>")
