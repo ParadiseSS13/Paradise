@@ -149,16 +149,10 @@
 	else
 		addtimer(CALLBACK(src, PROC_REF(convert_biomass)), 10 SECONDS)
 
-// Checks if there is enough compost to make the desired amount of soil
-/obj/machinery/compost_bin/proc/enough_compost(amount)
-	if(compost < SOIL_COST * amount)
-		return FALSE
-	return TRUE
-
 // Makes soil from compost
 /obj/machinery/compost_bin/proc/create_soil(amount)
-	// Creating soil
-	if(!enough_compost(amount))
+// Verify theres enough compost
+	if(compost < (SOIL_COST * amount))
 		return
 	new /obj/item/stack/sheet/soil(loc, amount)
 	compost -= SOIL_COST * amount
