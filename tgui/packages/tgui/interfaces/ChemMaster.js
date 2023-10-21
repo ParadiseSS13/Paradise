@@ -10,13 +10,6 @@ import {
 } from './common/ComplexModal';
 
 const transferAmounts = [1, 5, 10];
-const bottleStyles = [
-  'bottle.png',
-  'small_bottle.png',
-  'wide_bottle.png',
-  'round_bottle.png',
-  'reagent_bottle.png',
-];
 
 const analyzeModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
