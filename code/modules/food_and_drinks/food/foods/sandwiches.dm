@@ -152,7 +152,7 @@
 	list_reagents = list("nutriment" = 10, "vitamin" = 2, "capsaicin" = 3, "condensedcapsaicin" = 2)
 	tastes = list("bun" = 2, "meat" = 4, "cheese" = 2, "beef soaked in chili" = 3, "a smoking flare" = 2)
 
-/obj/item/reagent_containers/food/snacks/burger/ppattywhite
+/obj/item/reagent_containers/food/snacks/burger/ppatty/white
 	name = "white pretty patty"
 	desc = "Delicious titanium!"
 	icon_state = "ppatty-mime"
@@ -161,7 +161,7 @@
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "white" = 2)
 
-/obj/item/reagent_containers/food/snacks/burger/ppattyred
+/obj/item/reagent_containers/food/snacks/burger/ppatty/red
 	name = "red pretty patty"
 	desc = "Perfect for hiding the fact that it's burnt to a crisp."
 	icon_state = "ppatty-red"
@@ -170,7 +170,7 @@
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "red" = 2)
 
-/obj/item/reagent_containers/food/snacks/burger/ppattyorange
+/obj/item/reagent_containers/food/snacks/burger/ppatty/orange
 	name = "orange pretty patty"
 	desc = "Contains 0% juice."
 	icon_state = "ppatty-orange"
@@ -179,7 +179,7 @@
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "orange" = 2)
 
-/obj/item/reagent_containers/food/snacks/burger/ppattyyellow
+/obj/item/reagent_containers/food/snacks/burger/ppatty/yellow
 	name = "yellow pretty patty"
 	desc = "Bright to the last bite."
 	icon_state = "ppatty-yellow"
@@ -188,7 +188,7 @@
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "yellow" = 2)
 
-/obj/item/reagent_containers/food/snacks/burger/ppattygreen
+/obj/item/reagent_containers/food/snacks/burger/ppatty/green
 	name = "green pretty patty"
 	desc = "It's not tainted meat, it's painted meat!"
 	icon_state = "ppatty-green"
@@ -197,7 +197,7 @@
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "green" = 2)
 
-/obj/item/reagent_containers/food/snacks/burger/ppattyblue
+/obj/item/reagent_containers/food/snacks/burger/ppatty/blue
 	name = "blue pretty patty"
 	desc = "Is this blue rare?"
 	icon_state = "ppatty-blue"
@@ -206,7 +206,7 @@
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "blue" = 2)
 
-/obj/item/reagent_containers/food/snacks/burger/ppattypurple
+/obj/item/reagent_containers/food/snacks/burger/ppatty/purple
 	name = "purple pretty patty"
 	desc = "Regal and low class at the same time."
 	icon_state = "ppatty-purple"
@@ -215,7 +215,7 @@
 	list_reagents = list("nutriment" = 7, "protein" = 1)
 	tastes = list("bun" = 2, "meat" = 2, "purple" = 2)
 
-/obj/item/reagent_containers/food/snacks/burger/ppattyrainbow
+/obj/item/reagent_containers/food/snacks/burger/ppatty/rainbow
 	name = "rainbow pretty patty"
 	desc = "Taste the rainbow, eat the rainbow."
 	icon_state = "ppatty-rainbow"
