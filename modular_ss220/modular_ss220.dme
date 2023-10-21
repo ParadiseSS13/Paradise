@@ -31,6 +31,7 @@
 #include "unique_objects/_unique_objects.dme"
 #include "vending/vending.dme"
 #include "wire_splicing/wiresplicing.dme"
+#include "silicons/_silicons.dme"
 
 // --- MISC --- //
 #include "administration/_administration.dme"
