@@ -81,12 +81,6 @@ SUBSYSTEM_DEF(mapping)
 				spawn_rivers(level_name_to_num(MINING), nodes = 6, turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava, whitelist_area = /area/lavaland/surface/outdoors, min_x = 50, min_y = 7, max_x = 250, max_y = 225, prob = 10, prob_loss = 5)
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
-		if(time_spent >= 10)
-			log_startup_progress("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!") //In 3 testing cases so far, I have had it take far too long to generate. I am 99% sure I have fixed this issue, but never hurts to be sure
-			WARNING("!!!ERROR!!! Lavaland took FAR too long to generate at [time_spent] seconds. Notify maintainers immediately! !!!ERROR!!!")
-			var/loud_annoying_alarm = sound('sound/machines/engine_alert1.ogg')
-			for(var/get_player_attention in GLOB.player_list)
-				SEND_SOUND(get_player_attention, loud_annoying_alarm)
 	else
 		log_startup_progress("Skipping lavaland ruins...")
 

@@ -421,7 +421,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, "<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
+		to_chat(world, chat_box_notice("<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p></span>"))
 		log_admin("Announce: [key_name(usr)] : [message]")
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
