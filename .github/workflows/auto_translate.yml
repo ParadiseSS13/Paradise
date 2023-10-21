@@ -17,7 +17,7 @@ jobs:
       - name: 'Update Branch'
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Installing Python
         uses: actions/setup-python@v4
@@ -33,6 +33,7 @@ jobs:
         run: |
           git branch -f translate_tmp
           git checkout translate_tmp
+          git branch
           git reset --hard origin/master
 
       - name: Apply existing translation
