@@ -99,9 +99,8 @@
 /mob/living/proc/handle_light_adjustment(obj/screen/fullscreen/see_through_darkness/S)
 	var/current = S.alpha / 255		//Our current adjustedness.
 	var/brightness = 0				//We'll assume it's superdark if we can't find something else..
-	if(isturf(loc))
-		var/turf/T = loc			//Will be true 99% of the time, thus avoiding the whole elif chain.
-		brightness = T.get_lumcount()
+	var/turf/T = get_turf(src)
+	brightness = T.get_lumcount()
 	var/darkness = 1 - brightness	//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
 	var/distance = abs(current - darkness) //Used for how long to animate for.
 	if(distance < 0.01)				//We're already all set.
