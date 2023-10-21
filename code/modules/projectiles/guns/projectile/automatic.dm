@@ -287,6 +287,7 @@
 	burst_size = 1
 	fire_delay = 0
 	actions_types = list()
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/projectile/automatic/shotgun/bulldog/Initialize(mapload)
 	. = ..()
@@ -333,6 +334,7 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = FALSE
 	burst_size = 2
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
 	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"

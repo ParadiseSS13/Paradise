@@ -170,8 +170,6 @@
 /obj/machinery/seed_extractor/proc/vend_seed(seed_id, seed_variant, amount)
 	if(!seed_id)
 		return
-	if(!seed_variant)
-		to_chat(world,"<span class='warning'>no variant</span>")
 	var/datum/seed_pile/selected_pile
 	for(var/datum/seed_pile/N in piles)
 		if(N.id == seed_id && (N.variant == seed_variant || !seed_variant))
