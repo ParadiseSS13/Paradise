@@ -1,5 +1,4 @@
 #define MAX_PILL_SPRITE 20 //max icon state of the pill sprites
-#define MAX_MULTI_AMOUNT 20 // Max number of pills/patches that can be made at once
 #define MAX_UNITS_PER_PILL 100 // Max amount of units in a pill
 #define MAX_UNITS_PER_PATCH 30 // Max amount of units in a patch
 #define MAX_UNITS_PER_BOTTLE 50 // Max amount of units in a bottle
@@ -502,25 +501,6 @@
 
 					arguments["analysis"] = result
 					ui_modal_message(src, id, "", null, arguments)
-				if("change_pill_bottle_style")
-					if(!loaded_pill_bottle)
-						return
-					if(!pill_bottle_wrappers)
-						pill_bottle_wrappers = list(
-							"CLEAR" = "Default",
-							COLOR_RED = "Red",
-							COLOR_GREEN = "Green",
-							COLOR_PALE_BTL_GREEN = "Pale green",
-							COLOR_BLUE = "Blue",
-							COLOR_CYAN_BLUE = "Light blue",
-							COLOR_TEAL = "Teal",
-							COLOR_YELLOW = "Yellow",
-							COLOR_ORANGE = "Orange",
-							COLOR_PINK = "Pink",
-							COLOR_MAROON = "Brown"
-						)
-					var/current = pill_bottle_wrappers[loaded_pill_bottle.wrapper_color] || "Default"
-					ui_modal_choice(src, id, "Please select a wrapper color:", null, arguments, current, pill_bottle_wrappers)
 				if("addcustom")
 					if(!beaker || !beaker.reagents.total_volume)
 						return
@@ -533,78 +513,11 @@
 					if(!condi || !reagents.total_volume)
 						return
 					ui_modal_input(src, id, "Please name your new condiment pack:", null, arguments, reagents.get_master_reagent_name(), MAX_CUSTOM_NAME_LEN)
-				if("create_pill")
-					if(condi || !reagents.total_volume)
-						return
-
-					var/num = arguments["num"] || 1 // Multi puts a string in `num`, single leaves it null
-					num = clamp(round(text2num(num)), 0, MAX_MULTI_AMOUNT)
-					if(!num)
-						return
-					arguments["num"] = num
-
-					var/amount_per_pill = clamp(reagents.total_volume / num, 0, MAX_UNITS_PER_PILL)
-					var/default_name = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
-					var/pills_text = num == 1 ? "new pill" : "[num] new pills"
-					ui_modal_input(src, id, "Please name your [pills_text]:", null, arguments, default_name, MAX_CUSTOM_NAME_LEN)
-				if("create_pill_multiple")
-					if(condi || !reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount of pills to make (max [MAX_MULTI_AMOUNT] at a time):", null, arguments, pillamount, 5)
-				if("change_pill_style")
-					var/list/choices = list()
-					for(var/i = 1 to MAX_PILL_SPRITE)
-						choices += "pill[i].png"
-					ui_modal_bento(src, id, "Please select the new style for pills:", null, arguments, pillsprite, choices)
-				if("create_patch")
-					if(condi || !reagents.total_volume)
-						return
-
-					var/num = arguments["num"] || 1 // Multi puts a string in `num`, single leaves it null
-					num = clamp(round(text2num(num)), 0, MAX_MULTI_AMOUNT)
-					if(!num)
-						return
-					arguments["num"] = num
-
-					var/amount_per_patch = clamp(reagents.total_volume / num, 0, MAX_UNITS_PER_PATCH)
-					var/default_name = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
-					var/patches_text = num == 1 ? "new patch" : "[num] new patches"
-					ui_modal_input(src, id, "Please name your [patches_text]:", null, arguments, default_name, MAX_CUSTOM_NAME_LEN)
-				if("create_patch_multiple")
-					if(condi || !reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please enter the amount of patches to make (max [MAX_MULTI_AMOUNT] at a time):", null, arguments, pillamount, 5)
-				if("create_bottle")
-					if(condi || !reagents.total_volume)
-						return
-					ui_modal_input(src, id, "Please name your bottle:", null, arguments, reagents.get_master_reagent_name(), MAX_CUSTOM_NAME_LEN)
-				if("change_bottle_style")
-					if(!bottle_styles)
-						bottle_styles = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
-					var/list/bottle_styles_png = list()
-					for(var/style in bottle_styles)
-						bottle_styles_png += "[style].png"
-					ui_modal_bento(src, id, "Please select the new style for bottles:", null, arguments, bottlesprite, bottle_styles_png)
 				else
 					return FALSE
 		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
-				if("change_pill_bottle_style")
-					if(!pill_bottle_wrappers || !loaded_pill_bottle) // wat?
-						return
-					var/color = "CLEAR"
-					for(var/col in pill_bottle_wrappers)
-						var/col_name = pill_bottle_wrappers[col]
-						if(col_name == answer)
-							color = col
-							break
-					if(length(color) && color != "CLEAR")
-						loaded_pill_bottle.wrapper_color = color
-						loaded_pill_bottle.apply_wrap()
-					else
-						loaded_pill_bottle.wrapper_color = null
-						loaded_pill_bottle.cut_overlays()
 				if("addcustom")
 					var/amount = isgoodnumber(text2num(answer))
 					if(!amount || !arguments["id"])
@@ -625,89 +538,6 @@
 					P.name = "[answer] pack"
 					P.desc = "A small condiment pack. The label says it contains [answer]."
 					reagents.trans_to(P, 10)
-				if("create_pill")
-					if(condi || !reagents.total_volume)
-						return
-					var/count = text2num(arguments["num"])
-					if(!count)
-						return
-
-					if(!length(answer))
-						answer = reagents.get_master_reagent_name()
-					var/amount_per_pill = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PILL)
-					while(count--)
-						if(reagents.total_volume <= 0)
-							to_chat(usr, "<span class='notice'>Not enough reagents to create these pills!</span>")
-							return
-
-						var/obj/item/reagent_containers/food/pill/P = new(loc)
-						P.name = "[answer] pill"
-						P.pixel_x = rand(-7, 7) // Random position
-						P.pixel_y = rand(-7, 7)
-						P.icon_state = "pill[pillsprite]"
-						reagents.trans_to(P, amount_per_pill)
-						// Load the pills in the bottle if there's one loaded
-						if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
-							P.forceMove(loaded_pill_bottle)
-				if("create_pill_multiple")
-					if(condi || !reagents.total_volume)
-						return
-					ui_act("modal_open", list("id" = "create_pill", "arguments" = list("num" = answer)), ui, state)
-				if("change_pill_style")
-					var/new_style = clamp(text2num(answer) || 0, 0, MAX_PILL_SPRITE)
-					if(!new_style)
-						return
-					pillsprite = new_style
-				if("create_patch")
-					if(condi || !reagents.total_volume)
-						return
-					var/count = text2num(arguments["num"])
-					if(!count)
-						return
-
-					if(!length(answer))
-						answer = reagents.get_master_reagent_name()
-					var/amount_per_patch = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PATCH)
-					var/is_medical_patch = chemical_safety_check(reagents)
-					while(count--)
-						if(reagents.total_volume <= 0)
-							to_chat(usr, "<span class='notice'>Not enough reagents to create these patches!</span>")
-							return
-
-						var/obj/item/reagent_containers/food/pill/patch/P = new(loc)
-						P.name = "[answer] patch"
-						P.pixel_x = rand(-7, 7) // random position
-						P.pixel_y = rand(-7, 7)
-						reagents.trans_to(P, amount_per_patch)
-						if(is_medical_patch)
-							P.instant_application = TRUE
-							P.icon_state = "bandaid_med"
-						// Load the patches in the bottle if there's one loaded
-						if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
-							P.forceMove(loaded_pill_bottle)
-				if("create_patch_multiple")
-					if(condi || !reagents.total_volume)
-						return
-					ui_act("modal_open", list("id" = "create_patch", "arguments" = list("num" = answer)), ui, state)
-				if("create_bottle")
-					if(condi || !reagents.total_volume)
-						return
-
-					if(!length(answer))
-						answer = reagents.get_master_reagent_name()
-					var/obj/item/reagent_containers/glass/bottle/reagent/P = new(loc)
-					P.name = "[answer] bottle"
-					P.pixel_x = rand(-7, 7) // random position
-					P.pixel_y = rand(-7, 7)
-					P.icon_state = length(bottle_styles) && bottle_styles[bottlesprite] || "bottle"
-					reagents.trans_to(P, 50)
-				if("change_bottle_style")
-					if(!bottle_styles)
-						return
-					var/new_sprite = text2num(answer) || 1
-					if(new_sprite < 1 || new_sprite > length(bottle_styles))
-						return
-					bottlesprite = new_sprite
 				else
 					return FALSE
 		else
@@ -747,7 +577,6 @@
 	RefreshParts()
 
 #undef MAX_PILL_SPRITE
-#undef MAX_MULTI_AMOUNT
 #undef MAX_UNITS_PER_PILL
 #undef MAX_UNITS_PER_PATCH
 #undef MAX_UNITS_PER_BOTTLE
