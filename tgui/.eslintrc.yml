@@ -1,5 +1,4 @@
 parser: '@babel/eslint-parser'
-root: ''
 parserOptions:
   ecmaVersion: 2019
   sourceType: module
