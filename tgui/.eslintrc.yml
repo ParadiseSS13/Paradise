@@ -1,6 +1,6 @@
 parser: '@babel/eslint-parser'
+root: ''
 parserOptions:
-  requireConfigFile: false
   ecmaVersion: 2019
   sourceType: module
   ecmaFeatures:
