@@ -19,6 +19,7 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	slot_flags = SLOT_FLAG_BACK
 	actions_types = list()
+	execution_speed = 8 SECONDS
 
 /obj/item/gun/projectile/automatic/sniper_rifle/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(istype(chambered.BB, /obj/item/projectile/bullet/sniper) && !zoomed)

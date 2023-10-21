@@ -4,7 +4,7 @@
 	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process will seem suspicious to any observers."
 	button_icon_state = "cling_mindswap"
 	chemical_cost = 40
-	dna_cost = 1
+	dna_cost = 2
 	req_human = TRUE //Monkeys can't grab
 	power_type = CHANGELING_PURCHASABLE_POWER
 
