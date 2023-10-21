@@ -1,3 +1,4 @@
 #include "code\SScredits.dm"
+#include "code\credits.dm"
 
 #include "_credits.dm"
