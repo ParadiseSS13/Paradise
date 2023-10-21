@@ -66,6 +66,7 @@
 #include "title_screen/_title_screen.dme"
 #include "whitelist/_whitelist.dme"
 #include "outfits/_outfits.dme"
+#include "world_view_bigger/_world_view_bigger.dme"
 
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY
