@@ -46,6 +46,7 @@ jobs:
       - name: 'Generate Translation'
         run: |
           python ./tools/translator/converter.py
+          [ ! -f ./ss220replace.json ] || mv ./ss220replace.json ./tools/translator/ss220replace.json
           git add ./tools/translator/ss220replace.json
 
       - name: 'Push Translation'
