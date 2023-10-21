@@ -42,6 +42,7 @@ jobs:
 
       - name: Apply PR translation
         run: |
+          git fetch origin translate
           git cherry-pick -n origin/translate
 
       - name: 'Generate Translation'
@@ -55,4 +56,4 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "SS220Manager"
           git commit -m "Generate translation file"
-          git push -u -f origin/translate
+          git push -u -f origin translate
