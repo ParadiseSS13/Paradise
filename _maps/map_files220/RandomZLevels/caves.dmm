@@ -237,11 +237,7 @@
 /area/awaymission/caves/build/reqpower_build)
 "bc" = (
 /obj/structure/mecha_wreckage/ripley/firefighter,
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/mech_bay_recharge_floor{
-	nitrogen = 23;
-	oxygen = 14
-	},
+/turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "bd" = (
 /obj/structure/constructshell,
@@ -3552,10 +3548,6 @@
 	icon_state = "white"
 	},
 /area/awaymission/caves/build)
-"sf" = (
-/obj/structure/flora/rock/pile,
-/turf/simulated/floor/mineral/gold/fancy,
-/area/awaymission/caves)
 "sh" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/lavaland_air,
@@ -3608,9 +3600,6 @@
 "sr" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/awaymission/caves)
-"sv" = (
-/turf/simulated/floor/mineral/gold/fancy,
 /area/awaymission/caves)
 "sw" = (
 /obj/structure/spider/stickyweb,
@@ -6164,10 +6153,7 @@
 /obj/structure/mecha_wreckage/ripley,
 /obj/machinery/light_construct/small/south,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/mech_bay_recharge_floor{
-	nitrogen = 23;
-	oxygen = 14
-	},
+/turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "FR" = (
 /obj/effect/decal/cleanable/blood/oil,
@@ -8669,6 +8655,9 @@
 "Tu" = (
 /obj/structure/table,
 /obj/item/extinguisher/mini,
+/obj/item/card/id/away/old{
+	name = "Miner's Personal ID"
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves/build)
 "Tv" = (
@@ -18423,7 +18412,7 @@ Dv
 Dv
 mz
 mz
-sv
+Xq
 Dv
 UI
 aE
@@ -18654,8 +18643,8 @@ UN
 Dv
 Dv
 mz
-sv
-sv
+Xq
+Xq
 Dv
 Yk
 PP
@@ -18883,14 +18872,14 @@ LU
 LU
 mz
 mz
-sv
+Xq
 Dv
-sv
-sv
-sv
+Xq
+Xq
+Xq
 Dv
 Dv
-sv
+Xq
 Bw
 TK
 TK
@@ -19118,12 +19107,12 @@ mz
 mz
 Dv
 mz
-sv
+Xq
 mz
 Dv
 GJ
 mz
-sf
+wQ
 mz
 TK
 TK
@@ -19347,15 +19336,15 @@ LU
 mz
 mz
 mz
-sv
+Xq
 Dv
-sv
-sv
-sv
+Xq
+Xq
+Xq
 Dv
 Dv
-sv
-sv
+Xq
+Xq
 mz
 TK
 TK
@@ -19578,15 +19567,15 @@ LU
 LU
 mz
 Bz
-sv
-sv
+Xq
+Xq
 Dv
-sv
-sv
-sv
+Xq
+Xq
+Xq
 Dv
 Dv
-sv
+Xq
 mz
 mz
 TK
@@ -19810,8 +19799,8 @@ LU
 LU
 mz
 mz
-sv
-sv
+Xq
+Xq
 Dv
 Dv
 Dv
@@ -20274,8 +20263,8 @@ LU
 LU
 mz
 mz
-sv
-sv
+Xq
+Xq
 Dv
 Dv
 Dv
@@ -20506,15 +20495,15 @@ LU
 LU
 mz
 Bz
-sv
-sv
+Xq
+Xq
 Dv
-sv
-sv
-sv
+Xq
+Xq
+Xq
 Dv
 Dv
-sv
+Xq
 mz
 mz
 mz
@@ -20739,15 +20728,15 @@ LU
 mz
 mz
 mz
-sv
+Xq
 Dv
-sv
-sv
-sv
+Xq
+Xq
+Xq
 Dv
 Dv
-sv
-sv
+Xq
+Xq
 mz
 TK
 TK
@@ -20974,12 +20963,12 @@ mz
 mz
 Dv
 mz
-sv
+Xq
 mz
 Dv
 Dv
 mz
-sv
+Xq
 mz
 TK
 TK
@@ -21203,15 +21192,15 @@ LU
 LU
 mz
 mz
-sv
+Xq
 Dv
-sv
-sv
-sv
+Xq
+Xq
+Xq
 Dv
 Dv
-sv
-sv
+Xq
+Xq
 mz
 TK
 nx
@@ -21438,12 +21427,12 @@ UN
 Dv
 Dv
 mz
-sv
-sv
+Xq
+Xq
 Dv
 Dv
-sv
-sv
+Xq
+Xq
 mz
 mz
 mz
@@ -21671,11 +21660,11 @@ Dv
 Dv
 mz
 mz
-sv
+Xq
 Dv
 Dv
-sv
-sv
+Xq
+Xq
 mz
 TK
 mz
@@ -25584,7 +25573,7 @@ nQ
 aV
 RY
 Jd
-aV
+Ge
 ZJ
 TK
 LU
