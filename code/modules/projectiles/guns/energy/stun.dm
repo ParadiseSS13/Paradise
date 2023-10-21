@@ -53,6 +53,7 @@
 	flight_x_offset = 15
 	flight_y_offset = 10
 	can_holster = TRUE
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/disabler/Initialize(mapload)
 	. = ..()
@@ -85,3 +86,4 @@
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/silencer_ammo)
 	suppressed = TRUE
+	execution_speed = 4 SECONDS

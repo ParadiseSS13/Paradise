@@ -420,7 +420,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/storage/bible = 1
 	)
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -463,7 +464,8 @@
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/gun/energy/gun/nuclear = 1
+		/obj/item/gun/energy/gun/nuclear = 1,
+		/obj/item/storage/bible = 1
 	)
 
 	cybernetic_implants = list(

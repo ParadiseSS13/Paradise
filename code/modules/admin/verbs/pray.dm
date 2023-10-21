@@ -1,7 +1,3 @@
-#define NUKE_INTACT 0
-#define NUKE_CORE_MISSING 1
-#define NUKE_MISSING 2
-
 /mob/living/verb/pray(msg as text)
 	set category = "IC"
 	set name = "Pray"
@@ -97,6 +93,3 @@
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
 
-#undef NUKE_INTACT
-#undef NUKE_CORE_MISSING
-#undef NUKE_MISSING

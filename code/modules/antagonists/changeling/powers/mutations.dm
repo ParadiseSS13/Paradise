@@ -116,7 +116,7 @@
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
 	chemical_cost = 25
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
@@ -181,7 +181,7 @@
 	Cannot be used while in our lesser form."
 	button_icon_state = "tentacle"
 	chemical_cost = 10
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
@@ -386,7 +386,7 @@
 	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more DNA we collect, the stronger it is. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
 	chemical_cost = 20
-	dna_cost = 1
+	dna_cost = 2
 	req_human = TRUE
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
@@ -434,7 +434,7 @@
 	helptext = "We must constantly repair our form to make it space proof, reducing chemical production while we are protected. Cannot be used in lesser form."
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/space/changeling
@@ -480,7 +480,7 @@
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 25
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/armor/changeling
