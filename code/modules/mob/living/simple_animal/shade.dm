@@ -70,6 +70,16 @@
 	if(istype(host_sword))
 		health = host_sword.obj_integrity
 
+/mob/living/simple_animal/shade/sword/bread
+	name = "Bread spirit"
+
+/mob/living/simple_animal/shade/sword/bread/update_runechat_msg_location()
+	runechat_msg_location = loc.UID()
+
+/mob/living/simple_animal/shade/sword/bread/proc/handle_bread_deletion(source)
+	SIGNAL_HANDLER
+	qdel(src)
+
 /mob/living/simple_animal/shade/update_runechat_msg_location()
 	if(istype(loc, /obj/item/soulstone) || istype(loc, /obj/item/nullrod/scythe/talking))
 		runechat_msg_location = loc.UID()

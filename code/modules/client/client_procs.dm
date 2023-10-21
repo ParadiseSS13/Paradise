@@ -159,13 +159,13 @@
 	if(href_list["__keydown"])
 		var/keycode = href_list["__keydown"]
 		if(keycode)
-			KeyDown(keycode)
+			Key_Down(keycode)
 		return
 
 	if(href_list["__keyup"])
 		var/keycode = href_list["__keyup"]
 		if(keycode)
-			KeyUp(keycode)
+			Key_Up(keycode)
 		return
 
 
@@ -326,8 +326,6 @@
 	view = prefs.viewrange
 
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
-	prefs.last_ip = address				//these are gonna be used for banning
-	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
 
 	// Log alts
@@ -964,9 +962,6 @@
 	/* Rpane */
 	winset(src, "rpane", "background-color=#202020")
 	winset(src, "rpane.rpanewindow", "background-color=#202020")
-	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=#171717")
-	winset(src, "browserwindow.browser", "background-color=#171717")
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
 	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
@@ -998,9 +993,6 @@
 	/* Rpane */
 	winset(src, "rpane", "background-color=none")
 	winset(src, "rpane.rpanewindow", "background-color=none")
-	/* Browserwindow */
-	winset(src, "browserwindow", "background-color=none")
-	winset(src, "browserwindow.browser", "background-color=none")
 	/* Infowindow */
 	winset(src, "infowindow", "background-color=none;text-color=#000000")
 	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")

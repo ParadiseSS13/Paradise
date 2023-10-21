@@ -310,6 +310,7 @@
 			to_chat(user, "You already have a [mob_name]!")
 			used = FALSE
 			return
+		dust_if_respawnable(theghost)
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")

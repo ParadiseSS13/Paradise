@@ -159,10 +159,13 @@
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/list/matter = list("metal" = 2000)
 	var/pictures_max = 10
-	var/pictures_left = 10
+	// cameras historically were varedited to start with 30 shots despite
+	// cartridges only being 10 extra shots, hency why pictures_left >
+	// pictures_max, at least to start
+	var/pictures_left = 30
 	var/on = TRUE
 	var/on_cooldown = FALSE
 	var/blueprints = 0
@@ -172,6 +175,12 @@
 	var/see_ghosts = FALSE //for the spoop of it
 	var/current_photo_num = 1
 	var/digital = FALSE
+
+/obj/item/camera/autopsy
+	name = "autopsy camera"
+
+/obj/item/camera/detective
+	name = "detective's camera"
 
 /obj/item/camera/examine(mob/user)
 	. = ..()
@@ -616,7 +625,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 /obj/item/videocam/advanced
 	name = "advanced video camera"
 	desc = "This video camera allows you to send live feeds even when attached to a belt."
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 #undef CAMERA_STATE_COOLDOWN
 
