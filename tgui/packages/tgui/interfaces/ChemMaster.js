@@ -458,6 +458,21 @@ const ChemMasterProductionCommon = (props, context) => {
   );
 }
 
+const SpriteStyleButton = (props, context) => {
+  const {
+    icon,
+    imageTransform,
+    ...restProps
+  } = props;
+  return (
+    <Button style={{ padding: 0, 'line-height': 0, }} {...restProps}>
+      <span style={{ overflow: "hidden", display: 'inline-block', width: '26px', height: '26px', position: 'relative', }}>
+        <img style={{ '-ms-interpolation-mode': 'nearest-neighbor', position: 'absolute', top: '50%', left: '50%', transform: `translate(-50%, -50%) ${imageTransform || ''}`, 'margin-left': '1px' }} src={icon} />
+      </span>
+    </Button>
+  );
+}
+
 const ChemMasterProductionPills = (props, context) => {
   const { act, data } = useBackend(context);
   const {
@@ -469,12 +484,9 @@ const ChemMasterProductionPills = (props, context) => {
     pillstyles,
   } = data;
   const style_buttons = pillstyles
-    .map(({ id, sprite }) => <Button key={id} selected={pillsprite === id} style={{ padding: 0, 'line-height': 0, }} onClick={() => act("set_pills_style", { newValue: id })}>
-        <span style={{ overflow: "hidden", display: 'inline-block', width: '26px', height: '26px', position: 'relative', }}>
-          <img style={{ '-ms-interpolation-mode': 'nearest-neighbor', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%) scale(2)', 'margin-left': '1px' }} src={sprite} />
-        </span>
-      </Button>
-    );
+    .map(({ id, sprite }) => (
+      <SpriteStyleButton key={id} icon={sprite} imageTransform="scale(2)" onClick={() => act("set_pills_style", { newValue: id })} selected={pillsprite === id} />
+    ));
   return (
     <ChemMasterProductionCommon maxQuantity={maxpills} medicineName={pillname} placeholderName={pillplaceholdername} productionType="pills" quantity={pillamount}>
       <LabeledList.Item label="Style">
@@ -508,12 +520,9 @@ const ChemMasterProductionBottles = (props, context) => {
     bottlestyles,
   } = data;
   const style_buttons = bottlestyles
-    .map(({ id, sprite }) => <Button key={id} selected={bottlesprite === id} style={{ padding: 0, 'line-height': 0, }} onClick={() => act("set_bottles_style", { newValue: id })}>
-        <span style={{ overflow: "hidden", display: 'inline-block', width: '26px', height: '26px', position: 'relative', }}>
-          <img style={{ '-ms-interpolation-mode': 'nearest-neighbor', position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', 'margin-left': '1px', }} src={sprite} />
-        </span>
-      </Button>
-    );
+    .map(({ id, sprite }) => (
+      <SpriteStyleButton key={id} icon={sprite} onClick={() => act("set_bottles_style", { newValue: id })} selected={bottlesprite === id} />
+    ));
   return (
     <ChemMasterProductionCommon maxQuantity={maxbottles} medicineName={bottlename} placeholderName={bottleplaceholdername} productionType="bottles" quantity={bottleamount}>
       <LabeledList.Item label="Style">
