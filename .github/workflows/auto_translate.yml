@@ -31,11 +31,8 @@ jobs:
 
       - name: Create temporary branch
         run: |
-          git branch -f translate_tmp
-          git checkout translate_tmp
-          git branch
+          git checkout -b translate_tmp
           git reset --hard origin/master
-
       - name: Apply existing translation
         run: |
           git fetch origin translate

@@ -1,6 +1,6 @@
 import git
 import json
-BUILD_PATH = "./../../"
+BUILD_PATH = "./"
 
 
 repo = git.Repo(BUILD_PATH)
