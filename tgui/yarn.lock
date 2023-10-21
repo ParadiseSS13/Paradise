@@ -2416,6 +2416,14 @@ babel-plugin-inferno@^6.1.0:
     "@babel/plugin-syntax-jsx" "^7"
     "@babel/types" "^7"
 
+babel-plugin-inferno@^6.7.0:
+  version "6.7.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-inferno/-/babel-plugin-inferno-6.7.0.tgz#a51aeecef9664167e725678e2996c79de2482365"
+  integrity sha512-CLDNIoctex09NRbPP3GOq+B18Tj0luQOOevTAQzKWkwa45SqeoeFCY1XBq7p2TXrmifUAXbuCRrFKmA05codAA==
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7"
+    "@babel/types" "^7"
+
 babel-plugin-polyfill-corejs2@^0.3.0:
   version "0.3.1"
   resolved "https://registry.npmjs.org/babel-plugin-polyfill-corejs2/-/babel-plugin-polyfill-corejs2-0.3.1.tgz"
