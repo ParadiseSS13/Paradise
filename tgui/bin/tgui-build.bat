@@ -3,4 +3,4 @@ cd "%~dp0\.."
 call yarn install
 call yarn prettier --write
 call yarn run build
-pause
+timeout /t 9
