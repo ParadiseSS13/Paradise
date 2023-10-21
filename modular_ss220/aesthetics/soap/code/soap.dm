@@ -1,2 +1,2 @@
 /obj/item/soap
-	//TODO: what is this soap?
+	icon = 'modular_ss220/aesthetics/soap/icons/soap.dmi'
