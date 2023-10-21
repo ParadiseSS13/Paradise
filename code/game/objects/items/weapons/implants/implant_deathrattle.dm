@@ -20,37 +20,21 @@
 /datum/deathrattle_group/proc/register(obj/item/implant/deathrattle/implant)
 	if(implant in implants)
 		return
-	RegisterSignal(implant, COMSIG_IMPLANT_IMPLANTED, PROC_REF(on_implant_implantation))
-	RegisterSignal(implant, COMSIG_IMPLANT_REMOVED, PROC_REF(on_implant_removal))
 	RegisterSignal(implant, COMSIG_PARENT_QDELETING, PROC_REF(on_implant_destruction))
+	RegisterSignal(implant, COMSIG_IMPLANT_ACTIVATED, PROC_REF(on_user_death))
 
 	implants += implant
 
-	if(implant.imp_in)
-		on_implant_implantation(implant.imp_in)
-
-/datum/deathrattle_group/proc/on_implant_implantation(obj/item/implant/implant, mob/living/target, mob/user, silent = FALSE, force = FALSE)
-	SIGNAL_HANDLER
-
-	RegisterSignal(src, COMSIG_MOB_DEATH, PROC_REF(on_user_statchange))
-
-/datum/deathrattle_group/proc/on_implant_removal(obj/item/implant/implant, mob/living/source, silent = FALSE, special = 0)
-	SIGNAL_HANDLER
-
-	UnregisterSignal(source, COMSIG_MOB_STATCHANGE)
 
 /datum/deathrattle_group/proc/on_implant_destruction(obj/item/implant/implant)
 	SIGNAL_HANDLER
 
 	implants -= implant
 
-/datum/deathrattle_group/proc/on_user_statchange(mob/living/owner, new_stat)
+/datum/deathrattle_group/proc/on_user_death(obj/item/implant/implant, source, mob/owner)
 	SIGNAL_HANDLER
-
-	if(new_stat != DEAD)
-		return
-
-	var/name = owner.mind ? owner.mind.name : owner.real_name
+	message_admins("hi yes we worked?")
+	var/victim_name = owner.mind ? owner.mind.name : owner.real_name
 	// All "hearers" hear the same sound.
 	var/sound = pick(
 		'sound/items/knell1.ogg',
@@ -60,25 +44,33 @@
 	)
 
 
-	for(var/_implant in implants)
-		var/obj/item/implant/deathrattle/implant = _implant
+	for(var/obj/item/implant/deathrattle/other_implant as anything in implants)
 
 		// Skip the unfortunate soul, and any unimplanted implants
-		if(implant.imp_in == owner || !implant.imp_in)
+		if(implant == other_implant || !implant.imp_in)
 			continue
 
 		var/mob/living/recipient = implant.imp_in
-		to_chat(recipient, "<i>You hear a strange, robotic voice in your head...</i> <span class='robot'>\"<b>[name]</b> has died...\"</span>")
+		to_chat(recipient, "<i>You hear a strange, robotic voice in your head...</i> <span class='robot'>\"<b>[victim_name]</b> has died...\"</span>")
 		recipient.playsound_local(get_turf(recipient), sound, vol = 75, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	qdel(implant)
 
 /obj/item/implant/deathrattle
 	name = "deathrattle implant"
 	desc = "Hope no one else dies, prepare for when they do."
 	activated = BIOCHIP_ACTIVATED_PASSIVE
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ONCE
 	implant_data = /datum/implant_fluff/deathrattle
 	implant_state = "implant-nanotrasen"
 
 	actions_types = null
+
+/obj/item/implant/deathrattle/emp_act(severity)
+	activate("emp")
+
+/obj/item/implant/deathrattle/death_trigger(mob/source, gibbed)
+	activate("death")
+	message_admins("yea")
 
 
 /obj/item/implantcase/deathrattle

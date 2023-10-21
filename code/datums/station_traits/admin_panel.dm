@@ -83,19 +83,18 @@
 			var/station_trait_text = params["station_traits"]
 			var/list/temp_list = splittext(station_trait_text, ",")
 			for(var/thing in temp_list) //TODO QWERTY / HI REVIEWERS NAME THIS BETTER BUT ITS ALMOST MIDNIGHT AND i HATE MYSELF
-				for(var/second_thing in thing)
-					var/datum/station_trait/station_trait_path = text2path(second_thing)
-					if(!ispath(station_trait_path, /datum/station_trait) || station_trait_path == /datum/station_trait)
-						log_admin("[key_name(usr)] tried to set an invalid future station trait: [station_trait_text]")
-						to_chat(usr, "<span class='warning'>Invalid future station trait: [station_trait_text]</span>")
-						return TRUE
+				var/datum/station_trait/station_trait_path = text2path(thing)
+				if(!ispath(station_trait_path, /datum/station_trait) || station_trait_path == /datum/station_trait)
+					log_admin("[key_name(usr)] tried to set an invalid future station trait: [station_trait_text]")
+					to_chat(usr, "<span class='warning'>Invalid future station trait: [station_trait_text]</span>")
+					return TRUE
 
-					station_trait_names += initial(station_trait_path.name)
+				station_trait_names += initial(station_trait_path.name)
 
-					new_future_traits += list(list(
-						"name" = initial(station_trait_path.name),
-						"path" = station_trait_path
-					))
+				new_future_traits += list(list(
+					"name" = initial(station_trait_path.name),
+					"path" = station_trait_path
+				))
 
 			var/message = "[key_name(usr)] has prepared the following station traits for next round: [station_trait_names.Join(", ") || "None"]"
 			log_admin(message)
@@ -106,7 +105,7 @@
 			var/F = file("data/next_traits.txt")
 			F << params["station_traits"]
 			return TRUE
-			
+
 		if("clear_future_traits")
 			if(!future_traits)
 				to_chat(usr, "<span class='warning'>There are no future station traits.</span>")

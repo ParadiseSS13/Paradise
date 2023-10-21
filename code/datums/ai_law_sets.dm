@@ -29,7 +29,6 @@
 	name = "Quarantine"
 	law_header = "NT Quarantine Lawset"
 	selectable = TRUE
-	unique_ai = TRUE //Sorry miners / explorers.
 
 /datum/ai_laws/quarantine/New()
 	add_inherent_law("Uphold station quarantine until the active biohazard has been neutralized.")

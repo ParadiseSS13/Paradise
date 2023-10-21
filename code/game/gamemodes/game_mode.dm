@@ -499,12 +499,14 @@
 		G.print_result()
 
 /datum/game_mode/proc/generate_station_trait_report()
+	var/something_to_print = FALSE
 	var/list/trait_list_desc = list("<hr><b>Identified shift divergencies:</b>")
 	for(var/datum/station_trait/station_trait as anything in SSstation.station_traits)
 		if(!station_trait.show_in_report)
 			continue
 		trait_list_desc += station_trait.get_report()
-	if(trait_list_string != "")
+		something_to_print = TRUE
+	if(something_to_print)
 		print_command_report(trait_list_desc.Join("<br>"), "NAS Trurl Detected Divergencies", FALSE)
 
 

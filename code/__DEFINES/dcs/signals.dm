@@ -640,7 +640,7 @@
 #define COMSIG_SUIT_SPACE_TOGGLE "suit_space_toggle"
 
 // /obj/item/implant signals
-///from base of /obj/item/implant/proc/activate(): ()
+///from base of /obj/item/implant/proc/activate(): (source, mob/owner)
 #define COMSIG_IMPLANT_ACTIVATED "implant_activated"
 ///from base of /obj/item/implant/proc/implant(): (list/args)
 #define COMSIG_IMPLANT_IMPLANTING "implant_implanting"

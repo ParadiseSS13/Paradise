@@ -1,3 +1,4 @@
+/// This uplink catagory is for uplink items avalible by special circumstances. Think station traits, or if some event rolling in a round gave traitors special items, or an objective.
 /datum/uplink_item/special
 	category = "Special Offers"
 	cant_discount = TRUE

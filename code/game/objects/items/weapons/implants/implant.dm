@@ -144,6 +144,7 @@
 	return
 
 /obj/item/implant/proc/activate(cause)
+	SEND_SIGNAL(src, COMSIG_IMPLANT_ACTIVATED, cause, imp_in)
 	return
 
 /obj/item/implant/ui_action_click()
