@@ -560,3 +560,13 @@
 /obj/machinery/power/apc {pixel_y=24;name="Engineering Engine Super APC"} : /obj/machinery/power/apc/super/north
 /obj/machinery/power/apc {pixel_x=-24;name="Engineering Engine Super APC"} : /obj/machinery/power/apc/super/west
 /obj/machinery/power/apc {pixel_x=24;name="Engineering Engine Super APC"} : /obj/machinery/power/apc/super/east
+
+/obj/machinery/power/apc/off_station {pixel_y=-24} : /obj/machinery/power/apc/off_station/south
+/obj/machinery/power/apc/off_station {pixel_y=24} : /obj/machinery/power/apc/off_station/north
+/obj/machinery/power/apc/off_station {pixel_x=-24} : /obj/machinery/power/apc/off_station/west
+/obj/machinery/power/apc/off_station {pixel_x=24} : /obj/machinery/power/apc/off_station/east
+
+/obj/machinery/power/apc/off_station/empty_charge {pixel_y=-24} : /obj/machinery/power/apc/off_station/empty_charge/south
+/obj/machinery/power/apc/off_station/empty_charge {pixel_y=24} : /obj/machinery/power/apc/off_station/empty_charge/north
+/obj/machinery/power/apc/off_station/empty_charge {pixel_x=-24} : /obj/machinery/power/apc/off_station/empty_charge/west
+/obj/machinery/power/apc/off_station/empty_charge {pixel_x=24} : /obj/machinery/power/apc/off_station/empty_charge/east

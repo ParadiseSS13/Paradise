@@ -1435,11 +1435,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "amu" = (
-/obj/machinery/status_display{
-	layer = 4;
-	pixel_y = 32
-	},
-/obj/machinery/light,
+/obj/machinery/status_display/directional/north,
+/obj/machinery/light/directional/south,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
@@ -26373,11 +26370,10 @@
 	locked = 1;
 	name = "Prison Wing"
 	},
-/obj/machinery/access_button{
+/obj/machinery/access_button/east{
 	autolink_id = "perma_btn_ext";
 	name = "Prison Wing Access Button";
-	req_one_access_txt = "2";
-	pixel_x = 24
+	req_one_access_txt = "2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -58518,10 +58514,9 @@
 	locked = 1;
 	name = "Prison Wing"
 	},
-/obj/machinery/access_button{
+/obj/machinery/access_button/south{
 	autolink_id = "perma_btn_int";
 	name = "Prison Wing Access Button";
-	pixel_y = -24;
 	req_one_access_txt = "2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
@@ -64708,10 +64703,9 @@
 	locked = 1;
 	name = "Prison Wing"
 	},
-/obj/machinery/access_button{
+/obj/machinery/access_button/north{
 	autolink_id = "perma_btn_int";
 	name = "Prison Wing Access Button";
-	pixel_y = 24;
 	req_one_access_txt = "2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
@@ -101663,11 +101657,10 @@
 	locked = 1;
 	name = "Prison Wing"
 	},
-/obj/machinery/access_button{
+/obj/machinery/access_button/west{
 	autolink_id = "perma_btn_ext";
 	name = "Prison Wing Access Button";
-	req_one_access_txt = "2";
-	pixel_x = -24
+	req_one_access_txt = "2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/general,
 /obj/effect/mapping_helpers/airlock/autoname,

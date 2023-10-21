@@ -498,6 +498,36 @@
 	pixel_x = 24
 	dir = 4
 
+/obj/machinery/power/apc/off_station/south
+	pixel_y = -24
+
+/obj/machinery/power/apc/off_station/north
+	pixel_y = 24
+	dir = 1
+
+/obj/machinery/power/apc/off_station/west
+	pixel_x = -24
+	dir = 8
+
+/obj/machinery/power/apc/off_station/east
+	pixel_x = 24
+	dir = 4
+
+/obj/machinery/power/apc/off_station/empty_charge/south
+	pixel_y = -24
+
+/obj/machinery/power/apc/off_station/empty_charge/north
+	pixel_y = 24
+	dir = 1
+
+/obj/machinery/power/apc/off_station/empty_charge/west
+	pixel_x = -24
+	dir = 8
+
+/obj/machinery/power/apc/off_station/empty_charge/east
+	pixel_x = 24
+	dir = 4
+
 /* Wall Tanks */
 /obj/structure/reagent_dispensers/fueltank/chem
 	name = "\improper fuel tank"

@@ -5559,11 +5559,7 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 4;
-	nightshift_allowed = 0;
-	nightshift_enabled = 1
-	},
+/obj/machinery/light/nightshifted/east,
 /turf/simulated/floor/beach/water{
 	icon_state = "seadeep"
 	},
@@ -10787,9 +10783,8 @@
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external,
-/obj/machinery/access_button{
+/obj/machinery/access_button/north{
 	autolink_id = "apsolar_btn_ext";
-	pixel_y = 24;
 	req_one_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
@@ -16973,7 +16968,7 @@
 /turf/simulated/floor/wood/oak,
 /area/station/service/library)
 "bmE" = (
-/obj/machinery/light/small,
+/obj/machinery/light/small/directional/south,
 /mob/living/simple_animal/pet/dog/bullterrier/Genn,
 /obj/structure/bed/dogbed,
 /turf/simulated/floor/plasteel{
@@ -28741,9 +28736,8 @@
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/external,
-/obj/machinery/access_button{
+/obj/machinery/access_button/south{
 	autolink_id = "apsolar_btn_int";
-	pixel_y = -24;
 	req_one_access_txt = "13"
 	},
 /turf/simulated/floor/plating,
