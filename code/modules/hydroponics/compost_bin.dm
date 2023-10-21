@@ -30,6 +30,7 @@
 /obj/machinery/compost_bin/Initialize(mapload)
 	return ..()
 
+//Yo IconDiffBot.
 
 /obj/machinery/compost_bin/on_deconstruction()
 	// returns wood instead of the non-existent components
