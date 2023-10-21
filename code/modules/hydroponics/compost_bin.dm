@@ -26,7 +26,6 @@
 	var/biomass_capacity = BASE_BIOMASS_CAPACITY
 	/// The maximum amount of compost the compost bin can store.
 	var/compost_capacity = BASE_COMPOST_CAPACITY
-	var/composting = FALSE
 
 /obj/machinery/compost_bin/Initialize(mapload)
 	return ..()
@@ -98,7 +97,6 @@
 		return TRUE
 
 	to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
-	return ..()
 
 /obj/machinery/compost_bin/attack_hand(mob/user)
 	ui_interact(user)
@@ -137,7 +135,7 @@
 
 // Makes soil from compost
 /obj/machinery/compost_bin/proc/create_soil(amount)
-// Verify theres enough compost
+	// Verify theres enough compost
 	if(compost < (SOIL_COST * amount))
 		return
 	new /obj/item/stack/sheet/soil(loc, amount)
