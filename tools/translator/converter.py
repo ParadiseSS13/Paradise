@@ -38,3 +38,4 @@ for line in diff:
 
 with open('ss220replace.json', 'w+', encoding='utf-8') as f:
     json.dump(translation, f, ensure_ascii=False, indent=2)
+print(f"Added translation for {len(translation['files'])} files.")

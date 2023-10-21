@@ -53,4 +53,4 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "SS220Manager"
           git commit -m "Generate translation file"
-          git push -u -f origin translate
+          git push -f origin translate_tmp:translate
