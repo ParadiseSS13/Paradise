@@ -1,6 +1,3 @@
-/mob
-	var/list/screens = list()
-
 /mob/proc/overlay_fullscreen(category, type, severity)
 	var/obj/screen/fullscreen/screen = screens[category]
 	if (!screen || screen.type != type)
@@ -103,6 +100,11 @@
 	icon = 'icons/mob/screen_payback.dmi'
 	icon_state = "payback"
 	show_when_dead = TRUE
+
+/obj/screen/fullscreen/fog
+	icon = 'icons/mob/screen_fog.dmi'
+	icon_state = "fog"
+	color = "#FF0000"
 
 /obj/screen/fullscreen/flash
 	icon = 'icons/mob/screen_gen.dmi'

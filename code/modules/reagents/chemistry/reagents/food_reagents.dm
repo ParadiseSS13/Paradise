@@ -140,6 +140,23 @@
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
 
+/datum/reagent/consumable/mayonnaise
+	name = "Mayonnaise"
+	id = "mayonnaise"
+	description = "A white and oily mixture of mixed egg yolks."
+	reagent_state = LIQUID
+	color = "#DFDFDF" // rgb: 223, 223, 223
+	taste_description = "mayonnaise"
+
+/datum/reagent/consumable/peanutbutter
+	name = "Peanut Butter"
+	id = "peanutbutter"
+	description = "A rich, creamy spread made by grinding peanuts."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#D9A066" // rgb: 217, 160, 102
+	taste_description = "peanuts"
+
 /datum/reagent/consumable/bbqsauce
 	name = "BBQ Sauce"
 	id = "bbqsauce"
@@ -381,6 +398,23 @@
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "oil"
 
+/datum/reagent/consumbale/olivepaste
+	name = "Olive Paste"
+	id = "olivepaste"
+	description = "A mushy pile of freshly ground olives."
+	reagent_state = LIQUID
+	color = "#adcf77" //rgb: 173, 207, 119
+	taste_description = "mushy olives"
+
+/datum/reagent/consumable/oliveoil
+	name = "Olive Oil"
+	id = "oliveoil"
+	description = "A high quality oil derived from olives. Suitable for dishes or mixtures requiring oil."
+	reagent_state = LIQUID
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	color = "#DBCF5C" //rgb: 219, 207, 92
+	taste_description = "olive oil"
+
 /datum/reagent/consumable/cornoil/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
 		return
@@ -584,6 +618,7 @@
 	description = "A rather bitter herb once thought to hold magical protective properties."
 	reagent_state = LIQUID
 	color = "#21170E"
+	process_flags = ORGANIC | SYNTHETIC	
 	taste_description = "tea"
 	harmless = TRUE
 
@@ -1015,3 +1050,10 @@
 	reagent_state = LIQUID
 	color = "#A7EE9F"
 	taste_description = "mint"
+
+/datum/reagent/consumable/vinegar
+	name = "Vinegar"
+	id = "vinegar"
+	description = "Useful for pickling, or putting on chips."
+	taste_description = "vinegar"
+	color = "#ffffff"

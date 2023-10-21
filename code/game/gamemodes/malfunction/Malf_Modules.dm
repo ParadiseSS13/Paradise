@@ -241,7 +241,7 @@
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, "<span class='notice'>Nuclear device armed.</span>")
 	GLOB.major_announcement.Announce("Hostile runtimes detected in all station systems, please deactivate your AI to prevent possible damage to its morality core.", "Anomaly Alert", 'sound/AI/aimalf.ogg')
-	set_security_level("delta")
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)
 	owner_AI.doomsday_device = DOOM
@@ -376,7 +376,10 @@
 
 /datum/action/innate/ai/destroy_rcds/Activate()
 	for(var/obj/item/rcd/RCD in GLOB.rcd_list)
-		if(!istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
+		if(istype(RCD, /obj/item/rcd/borg)) //Ensures that cyborg RCDs are spared.
+			continue
+		var/turf/RCD_turf = get_turf(RCD)
+		if(is_level_reachable(RCD_turf.z))
 			RCD.detonate_pulse()
 
 	to_chat(owner, "<span class='danger'>RCD detonation pulse emitted.</span>")

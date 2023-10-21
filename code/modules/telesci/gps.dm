@@ -48,6 +48,14 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	else if(tracking)
 		. += "working"
 
+/obj/item/gps/pickup(mob/user)
+	..()
+	ADD_TRAIT(user, TRAIT_HAS_GPS, "GPS[UID()]")
+
+/obj/item/gps/dropped(mob/user, silent)
+	REMOVE_TRAIT(user, TRAIT_HAS_GPS, "GPS[UID()]")
+	return ..()
+
 /obj/item/gps/emp_act(severity)
 	emped = TRUE
 	update_icon(UPDATE_OVERLAYS)
@@ -169,6 +177,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	icon_state = "gps-m"
 	gpstag = "MOD0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, after you have become lost from rolling around at the speed of sound."
+	flags = NODROP
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
