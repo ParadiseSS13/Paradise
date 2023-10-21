@@ -37,12 +37,12 @@ jobs:
 
       - name: Apply existing translation
         run: |
+          git fetch origin translate
           git checkout origin/translate -- ./tools/translator/ss220replace.json
           ./tools/translator/ss220_replacer_linux --prefix=ss220 --root=./../../ --location=./
 
       - name: Apply PR translation
         run: |
-          git fetch origin translate
           git cherry-pick -n origin/translate
 
       - name: 'Generate Translation'
