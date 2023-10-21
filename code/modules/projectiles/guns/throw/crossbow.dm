@@ -29,7 +29,7 @@
 
 /obj/item/gun/throw/crossbow/emp_act(severity)
 	if(cell && severity)
-		emp_act(severity)
+		cell.emp_act(severity)
 
 /obj/item/gun/throw/crossbow/update_icon_state()
 	if(!tension)
