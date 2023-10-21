@@ -66,7 +66,8 @@
 							/obj/item/grenade/barrier/dropwall,
 							/obj/item/toy/figure/crew/detective,
 							/obj/item/toy/figure/crew/hos,
-							/obj/item/toy/figure/crew/secofficer)
+							/obj/item/toy/figure/crew/secofficer,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Head of Security", "Security Officer", "Detective", "Warden")
 
 /obj/item/envelope/science
@@ -83,8 +84,9 @@
 							/obj/item/toy/figure/crew/geneticist,
 							/obj/item/toy/figure/crew/rd,
 							/obj/item/toy/figure/crew/roboticist,
-							/obj/item/toy/figure/crew/scientist)
-	job_list = list("Research Director", "Roboticist", "Geneticist",  "Scientist")
+							/obj/item/toy/figure/crew/scientist,
+							/obj/item/storage/box/scratch_cards)
+	job_list = list("Research Director", "Roboticist", "Geneticist", "Scientist")
 
 /obj/item/envelope/supply
 	icon_state = "mail_sup"
@@ -98,7 +100,8 @@
 							/obj/item/stack/wrapping_paper,
 							/obj/item/toy/figure/crew/cargotech,
 							/obj/item/toy/figure/crew/qm,
-							/obj/item/toy/figure/crew/miner)
+							/obj/item/toy/figure/crew/miner,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner")
 
 /obj/item/envelope/medical
@@ -115,7 +118,8 @@
 							/obj/item/toy/figure/crew/chemist,
 							/obj/item/toy/figure/crew/geneticist,
 							/obj/item/toy/figure/crew/md,
-							/obj/item/toy/figure/crew/virologist)
+							/obj/item/toy/figure/crew/virologist,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
 
 /obj/item/envelope/engineering
@@ -130,7 +134,8 @@
 							/obj/item/grenade/gas/oxygen,
 							/obj/item/toy/figure/crew/atmos,
 							/obj/item/toy/figure/crew/ce,
-							/obj/item/toy/figure/crew/engineer)
+							/obj/item/toy/figure/crew/engineer,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
 /obj/item/envelope/bread
@@ -147,7 +152,8 @@
 							/obj/item/toy/figure/crew/botanist,
 							/obj/item/toy/figure/crew/chef,
 							/obj/item/toy/figure/crew/janitor,
-							/obj/item/toy/figure/crew/librarian)
+							/obj/item/toy/figure/crew/librarian,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Bartender", "Chef", "Botanist", "Janitor", "Barber", "Librarian", "Barber")
 
 /obj/item/envelope/circuses
@@ -163,7 +169,8 @@
 							/obj/item/toy/figure/crew/clown,
 							/obj/item/toy/figure/crew/hop,
 							/obj/item/toy/figure/crew/chaplain,
-							/obj/item/toy/figure/crew/mime)
+							/obj/item/toy/figure/crew/mime,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Clown", "Mime", "Head of Personnel", "Chaplain")
 
 
@@ -179,7 +186,8 @@
 							/obj/item/clothing/head/collectable/petehat,
 							/obj/item/toy/figure/crew/captain,
 							/obj/item/toy/figure/crew/lawyer,
-							/obj/item/toy/figure/crew/dsquad)
+							/obj/item/toy/figure/crew/dsquad,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent")
 
 /obj/item/envelope/misc
@@ -193,7 +201,8 @@
 							/obj/item/clothing/head/cakehat,
 							/obj/item/toy/figure/crew/assistant,
 							/obj/item/toy/figure/owl,
-							/obj/item/toy/figure/griffin)
+							/obj/item/toy/figure/griffin,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Assistant", "Explorer")
 
 

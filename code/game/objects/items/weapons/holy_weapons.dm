@@ -255,6 +255,8 @@
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
 
 /obj/item/nullrod/scythe/spellblade
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "spellblade"
 	item_state = "spellblade"
 	icon = 'icons/obj/guns/magic.dmi'
@@ -264,6 +266,8 @@
 
 /obj/item/nullrod/scythe/talking
 	name = "possessed blade"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "talking_sword"
 	item_state = "talking_sword"
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
@@ -294,6 +298,7 @@
 		S.real_name = name
 		S.name = name
 		S.ckey = theghost.ckey
+		dust_if_respawnable(theghost)
 		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
 
 		if(src && input)

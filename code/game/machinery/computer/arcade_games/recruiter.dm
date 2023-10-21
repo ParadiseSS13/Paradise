@@ -86,7 +86,7 @@
 										/datum/species/diona, /datum/species/machine, /datum/species/slime,
 										/datum/species/moth, /datum/species/vox)
 	/// Species that are NOT hirable in the eyes of NT
-	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey, /datum/species/nucleation,
+	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey,
 										/datum/species/shadow, /datum/species/skeleton, /datum/species/golem)
 
 	/// Is he a good candidate for hiring?

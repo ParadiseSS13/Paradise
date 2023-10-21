@@ -113,6 +113,7 @@
 			return
 		var/mob/dead/observer/O = pick(candidates)
 		R.key = O.key
+		dust_if_respawnable(O)
 
 /obj/machinery/transformer/mime
 	name = "Mimetech Greyscaler"
