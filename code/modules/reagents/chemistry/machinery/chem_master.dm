@@ -327,7 +327,7 @@
 					return
 
 				var/obj/item/reagent_containers/food/pill/patch/P = new(loc)
-				P.name = "[answer] patch"
+				P.name = "[name] patch"
 				P.pixel_x = rand(-7, 7) // random position
 				P.pixel_y = rand(-7, 7)
 				reagents.trans_to(P, amount_per_patch)
@@ -374,7 +374,7 @@
 				P.pixel_x = rand(-7, 7) // random position
 				P.pixel_y = rand(-7, 7)
 				P.icon_state = length(bottle_styles) && bottle_styles[bottlesprite] || "bottle"
-				reagents.trans_to(P, amount_per_pill)
+				reagents.trans_to(P, amount_per_bottle)
 		else
 			return FALSE
 
