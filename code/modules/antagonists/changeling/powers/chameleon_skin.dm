@@ -3,7 +3,7 @@
 	desc = "Our skin pigmentation rapidly changes to suit our current environment. Costs 25 chemicals."
 	helptext = "Allows us to become invisible after a few seconds of standing still. Can be toggled on and off."
 	button_icon_state = "chameleon_skin"
-	dna_cost = 2
+	dna_cost = 4
 	chemical_cost = 25
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER

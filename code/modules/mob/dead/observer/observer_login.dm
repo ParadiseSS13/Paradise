@@ -4,7 +4,7 @@
 		ghostimage.icon_state = src.icon_state
 	updateghostimages()
 
-	if(mind?.current)
+	if(isliving(mind?.current))
 		mind.current.med_hud_set_status()
 
 	if(GLOB.non_respawnable_keys[ckey])
