@@ -32,6 +32,7 @@
 #include "vending/vending.dme"
 #include "wire_splicing/wiresplicing.dme"
 #include "silicons/_silicons.dme"
+#include "silicon_hats/_silicon_hats.dme"
 
 // --- MISC --- //
 #include "administration/_administration.dme"
