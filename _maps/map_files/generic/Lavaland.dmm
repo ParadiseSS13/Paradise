@@ -2301,7 +2301,9 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
-/obj/effect/mapping_helpers/airlock/polarized,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "mining qm"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2708,9 +2710,7 @@
 /area/mine/outpost/production)
 "fJ" = (
 /obj/structure/lattice/catwalk/mining,
-/obj/machinery/floodlight{
-	anchored = 1
-	},
+/obj/machinery/floodlight/anchored,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "fK" = (
@@ -5379,7 +5379,9 @@
 /obj/machinery/door/airlock/command/glass{
 	name = "Quartermaster's Office"
 	},
-/obj/effect/mapping_helpers/airlock/polarized,
+/obj/effect/mapping_helpers/airlock/polarized{
+	id = "mining qm"
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/quartermaster)
 "vw" = (
