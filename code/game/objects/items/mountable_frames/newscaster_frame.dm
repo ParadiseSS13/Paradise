@@ -32,11 +32,13 @@
 /obj/item/mounted/frame/display/display_frame
 	name = "status display frame"
 	desc = "Used to build status displays, just secure to the wall."
+	icon_state = "frame_unanchored"
 	build_path = /obj/machinery/status_display
 
 /obj/item/mounted/frame/display/ai_display_frame
 	name = "ai status display frame"
 	desc = "Used to build ai status displays, just secure to the wall."
+	icon_state = "frame_unanchored"
 	build_path = /obj/machinery/ai_status_display
 
 /obj/item/mounted/frame/display/entertainment_frame
