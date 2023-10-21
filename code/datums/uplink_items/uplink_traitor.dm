@@ -429,7 +429,7 @@
 	reference = "FRAME"
 	item = /obj/item/cartridge/frame
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	cost = 15
+	cost = 20
 
 /datum/uplink_item/stealthy_tools/voice_modulator
 	name = "Chameleon Voice Modulator Mask"
