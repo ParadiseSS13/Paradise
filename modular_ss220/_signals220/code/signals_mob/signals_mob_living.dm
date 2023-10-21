@@ -26,3 +26,7 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_PROCESS_SPACEMOVE, movement_dir) & COMPONENT_BLOCK_SPACEMOVE)
 		return FALSE
 	. = ..()
+
+/mob/living/say(message, verb, sanitize, ignore_speech_problems, ignore_atmospherics, ignore_languages)
+	SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
+	. = ..()

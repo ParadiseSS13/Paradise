@@ -4,6 +4,7 @@
 #include "code/shoes.dm"
 #include "code/gloves.dm"
 #include "code/helmet.dm"
+#include "code/mask.dm"
 #include "code/under.dm"
 #include "code/cloaks.dm"
 #include "code/garment_bag.dm"
