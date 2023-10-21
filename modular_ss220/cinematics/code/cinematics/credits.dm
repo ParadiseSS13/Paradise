@@ -1,6 +1,7 @@
 /datum/cinematic/credits
 	is_global = TRUE
 	should_lock_watchers = FALSE
+	stop_ooc = FALSE
 	backdrop_type = /obj/screen/fullscreen/cinematic_backdrop/credits
 
 /datum/cinematic/credits/New(watcher, datum/callback/special_callback)
