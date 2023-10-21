@@ -74,10 +74,6 @@
 	if(stat != DEAD)
 		handle_status_effects() //all special effects, stunned, weakened, jitteryness, hallucination, sleeping, etc
 
-	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
-	if(S)
-		handle_light_adjustment(S)
-
 	if(stat != DEAD)
 		if(forced_look)
 			if(!isnum(forced_look))
@@ -95,18 +91,6 @@
 
 	if(stat != DEAD)
 		return TRUE
-
-/mob/living/proc/handle_light_adjustment(obj/screen/fullscreen/see_through_darkness/S)
-	var/current = S.alpha / 255		//Our current adjustedness.
-	var/brightness = 0				//We'll assume it's superdark if we can't find something else..
-	var/turf/T = get_turf(src)
-	brightness = T.get_lumcount()
-	var/darkness = 1 - brightness	//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
-	var/distance = abs(current - darkness) //Used for how long to animate for.
-	if(distance < 0.01)				//We're already all set.
-		return
-
-	animate(S, alpha = (darkness * 255), time = (distance * 10 SECONDS)) //Vite in umbra!
 
 /mob/living/proc/handle_breathing(times_fired)
 	return
