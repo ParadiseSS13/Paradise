@@ -1,0 +1,35 @@
+name: Update translate branch
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ['master']
+
+jobs:
+  add_translation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+    - name: 'Update Branch'
+      uses: actions/checkout@v4
+
+    - name: Create temporary branch
+      run: |
+        git branch -f translate_tmp
+        git checkout translate_tmp
+        git reset --hard origin/master
+
+    - name: Apply existing translation
+      run: |
+        git checkout origin/translate -- ./tools/translator/ss220replace.json
+        ./tools/translator/ss220_replacer_linux --prefix=ss220 --root=./../../ --location=./
+
+    - name: 'Push Translation'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "SS220Manager"
+        git commit -m "Generate translation file"
+        git push -u -f origin translate
