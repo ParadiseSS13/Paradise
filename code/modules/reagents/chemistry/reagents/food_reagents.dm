@@ -618,6 +618,7 @@
 	description = "A rather bitter herb once thought to hold magical protective properties."
 	reagent_state = LIQUID
 	color = "#21170E"
+	process_flags = ORGANIC | SYNTHETIC	
 	taste_description = "tea"
 	harmless = TRUE
 

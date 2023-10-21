@@ -145,6 +145,29 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 		return 1
 	return 0
 
+/**
+ * Requires the holder to have all the rights specified
+ *
+ * rights_required = R_ADMIN|R_EVENT means they must have both flags, or it will return false
+ */
+/proc/check_rights_all(rights_required, show_msg = TRUE, mob/user = usr)
+	if(!user?.client)
+		return FALSE
+	if(!rights_required)
+		if(user.client.holder)
+			return TRUE
+		if(show_msg)
+			to_chat(user, "<font color='red'>Error: You are not an admin.</font>")
+		return FALSE
+
+	if(!user.client.holder)
+		return FALSE
+	if((user.client.holder.rights & rights_required) == rights_required)
+		return TRUE
+	if(show_msg)
+		to_chat(user, "<font color='red'>Error: You do not have sufficient rights to do that. You require all of the following flags:[rights2text(rights_required, " ")].</font>")
+	return FALSE
+
 /datum/admins/vv_edit_var(var_name, var_value)
 	return FALSE // no admin abuse
 

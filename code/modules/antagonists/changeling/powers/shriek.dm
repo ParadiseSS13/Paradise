@@ -4,7 +4,7 @@
 	helptext = "Emits a high frequency sound that confuses and deafens humans, blows out nearby lights and overloads cyborg sensors."
 	button_icon_state = "resonant_shriek"
 	chemical_cost = 30
-	dna_cost = 1
+	dna_cost = 2
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 
@@ -41,7 +41,7 @@
 	desc = "We shift our vocal cords to release a high frequency sound that overloads nearby electronics. Costs 30 chemicals."
 	button_icon_state = "dissonant_shriek"
 	chemical_cost = 30
-	dna_cost = 1
+	dna_cost = 2
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 //A flashy ability, good for crowd control and sewing chaos.

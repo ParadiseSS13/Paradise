@@ -27,6 +27,7 @@ To draw a rune, use a ritual dagger.
 	mouse_opacity = MOUSE_OPACITY_OPAQUE // So that runes aren't so hard to click
 	var/visibility = 0
 	var/view_range = 7
+	invisibility = 25
 	layer = SIGIL_LAYER
 	color = COLOR_BLOOD_BASE
 
@@ -126,7 +127,7 @@ To draw a rune, use a ritual dagger.
 	alpha = 100 //To help ghosts distinguish hidden runes
 
 /obj/effect/rune/cult_reveal() //for revealing spell
-	invisibility = 0
+	invisibility = initial(invisibility)
 	visible_message("<span class='danger'>[src] suddenly appears!</span>")
 	alpha = initial(alpha)
 

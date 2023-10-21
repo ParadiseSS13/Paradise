@@ -318,7 +318,7 @@
 			status += " and "
 
 		if(LB.status & ORGAN_BURNT)
-			status += "critically burnt"
+			status += "critically burnt" + (LB.status & ORGAN_SALVED ? ", but salved" : "")
 		else
 			switch(burndamage)
 				if(0.1 to 10)

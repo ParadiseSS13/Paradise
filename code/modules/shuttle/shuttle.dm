@@ -630,7 +630,7 @@
 					L.gib()
 
 			// Move unanchored atoms
-			if(!AM.anchored)
+			if(!AM.anchored && !ismob(AM))
 				step(AM, dir)
 			else
 				if(AM.simulated) // Don't qdel lighting overlays, they are static
