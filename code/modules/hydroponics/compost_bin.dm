@@ -16,6 +16,8 @@
 	power_state = NO_POWER_USE
 	density = TRUE
 	anchored = TRUE
+	/// stage in the process, for timing purposes.
+	var/process_counter = 0
 	/// amount of biomass in the compost bin
 	var/biomass = 0
 	/// amount of compost in the compost bin
@@ -27,9 +29,6 @@
 	var/composting = FALSE
 
 /obj/machinery/compost_bin/Initialize(mapload)
-	// If the bin is made with biomass in it try to compost it
-	if(biomass > 0)
-		compost()
 	return ..()
 
 
@@ -75,9 +74,6 @@
 			PB.remove_from_storage(G, src)
 			make_biomass(G)
 
-		// start composting after plants are inserted
-		compost()
-
 		if(biomass < biomass_capacity)
 			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
 		else
@@ -96,8 +92,6 @@
 
 		O.forceMove(src)
 		make_biomass(O)
-		// start composting after plants are inserted
-		compost()
 		to_chat(user, "<span class='info'>You put [O] in [src].</span>")
 		SStgui.update_uis(src)
 		update_icon_state()
@@ -126,28 +120,20 @@
 	data["compost_capacity"] = compost_capacity
 	return data
 
-// Start composting if there is enough biomass and space for compost
-/obj/machinery/compost_bin/proc/compost()
-	// Prevents the compost bin from starting to compost again while already composting
-	if(composting)
-		return
+//Compost compostable material if there is any
+/obj/machinery/compost_bin/process()
 	if(compost >= compost_capacity || biomass <= 0)
 		return
-	composting = TRUE
-	addtimer(CALLBACK(src, PROC_REF(convert_biomass)), 10 SECONDS)
-
-// Convert biomass to compost, then continue composting
-/obj/machinery/compost_bin/proc/convert_biomass()
-	//converts 20% of the biomass to compost each cycle, unless there isn't enough comopst space or there is 10 or less biomass
+	process_counter++
+	if(process_counter < 5)
+		return
+	process_counter = 0
+	//converts 20% of the biomass to compost each cycle, unless there isn't enough compost space or there is 10 or less biomass
 	var/conversion_amount = clamp(DECAY * biomass, min(MIN_CONVERSION, biomass), compost_capacity - compost)
 	biomass -= conversion_amount
 	compost += conversion_amount
 	update_icon_state()
 	SStgui.update_uis(src)
-	if(compost >= compost_capacity || biomass <= 0)
-		composting = FALSE
-	else
-		addtimer(CALLBACK(src, PROC_REF(convert_biomass)), 10 SECONDS)
 
 // Makes soil from compost
 /obj/machinery/compost_bin/proc/create_soil(amount)
@@ -157,7 +143,6 @@
 	new /obj/item/stack/sheet/soil(loc, amount)
 	compost -= SOIL_COST * amount
 	update_icon_state()
-	compost()
 	SStgui.update_uis(src)
 
 // calls functions according to ui interaction(just making compost for now)
