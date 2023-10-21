@@ -222,9 +222,9 @@
 		return
 	if(!assailant.Adjacent(affecting)) // To prevent teleportation via grab
 		return
-	if(IS_HORIZONTAL(affecting) && state != GRAB_KILL)
-		animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
-		return //KJK
+	// if(IS_HORIZONTAL(affecting) && state != GRAB_KILL)
+		// animate(affecting, pixel_x = 0, pixel_y = 0, 5, 1, LINEAR_EASING)
+		// return //KJK
 	/*	if(force_down) //THIS GOES ABOVE THE RETURN LABELED KJK
 			affecting.setDir(SOUTH)*///This shows how you can apply special directions based on a variable. //face up
 
