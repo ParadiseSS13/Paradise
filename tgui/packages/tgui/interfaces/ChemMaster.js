@@ -476,31 +476,86 @@ const ChemMasterProductionCondiment = (props, context) => {
 
 const ChemMasterCustomization = (props, context) => {
   const { act, data } = useBackend(context);
-  if (!data.loaded_pill_bottle) {
-    return (
-      <Section title="Container Customization">
-        <Box color="label">No pill bottle or patch pack loaded.</Box>
-      </Section>
-    );
-  }
+  const {
+    loaded_pill_bottle_style,
+    containerstyles,
+    loaded_pill_bottle,
+  } = data;
 
+  const style_button_size = { width: "20px", height: "20px" };
+  const style_buttons = containerstyles
+    .map(({ color, name }) => {
+      let selected = loaded_pill_bottle_style === color;
+      return (
+        <Button
+          key={color}
+          style={{
+            position: 'relative',
+            width: style_button_size.width,
+            height: style_button_size.height,
+          }}
+          onClick={() => act("set_container_style", { newValue: color })}
+          icon={selected && 'check'}
+          iconStyle={{
+            position: 'relative',
+            'z-index': 1,
+          }}
+          tooltip={name}
+          tooltipPosition="top"
+        >
+          {/* Required. Removing this causes non-selected elements to flow up */}
+          {(!selected && <div style={{ display: "inline-block" }} />)}
+          <span
+            className='Button'
+            style={{
+              display: "inline-block",
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              margin: 0,
+              padding: 0,
+              width: style_button_size.width,
+              height: style_button_size.height,
+              "background-color": color,
+              opacity: 0.6,
+              filter: "alpha(opacity=60)",
+            }}
+          />
+        </Button>
+      );
+    });
   return (
-    <Section title="Container Customization">
-      <Button
-        disabled={!data.loaded_pill_bottle}
-        icon="eject"
-        content={
-          data.loaded_pill_bottle ? data.loaded_pill_bottle_name : 'None loaded'
-        }
-        onClick={() => act('ejectp')}
-      />
-      <Button
-        disabled={!data.loaded_pill_bottle}
-        icon="palette"
-        content="Change wrapper"
-        mb="0"
-        onClick={() => modalOpen(context, 'change_pill_bottle_style')}
-      />
+    <Section
+      title="Container Customization"
+      buttons={(
+        <Button
+          icon="eject"
+          disabled={!loaded_pill_bottle}
+          content="Eject Container"
+          onClick={() => act('ejectp')}
+        />
+      )}
+    >
+      {!loaded_pill_bottle ? (
+        <Box color="label">No pill bottle or patch pack loaded.</Box>
+      ) : (
+        <LabeledList>
+          <LabeledList.Item label="Style" style={{ position: 'relative' }}>
+            <Button
+              style={{
+                width: style_button_size.width,
+                height: style_button_size.height,
+              }}
+              icon="tint-slash"
+              onClick={() => act("clear_container_style")}
+              selected={!loaded_pill_bottle_style}
+              tooltip="Default"
+              tooltipPosition="top"
+            />
+            {style_buttons}
+          </LabeledList.Item>
+        </LabeledList>
+      )}
     </Section>
   );
 };

@@ -40,7 +40,18 @@
 	var/production_mode = 1
 	var/pillsprite = 1
 	var/printing = FALSE
-	var/static/list/pill_bottle_wrappers
+	var/static/list/pill_bottle_wrappers = list(
+		COLOR_RED = "Red",
+		COLOR_GREEN = "Green",
+		COLOR_PALE_BTL_GREEN = "Pale Green",
+		COLOR_BLUE = "Blue",
+		COLOR_CYAN_BLUE = "Light Blue",
+		COLOR_TEAL = "Teal",
+		COLOR_YELLOW = "Yellow",
+		COLOR_ORANGE = "Orange",
+		COLOR_PINK = "Pink",
+		COLOR_MAROON = "Brown",
+	)
 	var/static/list/bottle_styles = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
 	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
 									"omnizine", "stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "styptic_powder",
@@ -375,6 +386,20 @@
 				P.pixel_y = rand(-7, 7)
 				P.icon_state = length(bottle_styles) && bottle_styles[bottlesprite] || "bottle"
 				reagents.trans_to(P, amount_per_bottle)
+
+		// Container Customization
+		if("clear_container_style")
+			if(!loaded_pill_bottle)
+				return
+			loaded_pill_bottle.wrapper_color = null
+			loaded_pill_bottle.cut_overlays()
+		if("set_container_style")
+			if(!loaded_pill_bottle) // wat?
+				return
+			var/new_color = params["newValue"]
+			if(pill_bottle_wrappers[new_color])
+				loaded_pill_bottle.wrapper_color = new_color
+				loaded_pill_bottle.apply_wrap()
 		else
 			return FALSE
 
@@ -407,6 +432,7 @@
 		data["loaded_pill_bottle_name"] = loaded_pill_bottle.name
 		data["loaded_pill_bottle_contents_len"] = loaded_pill_bottle.contents.len
 		data["loaded_pill_bottle_storage_slots"] = loaded_pill_bottle.storage_slots
+		data["loaded_pill_bottle_style"] = loaded_pill_bottle.wrapper_color
 
 	data["beaker"] = beaker ? TRUE : FALSE
 	if(beaker)
@@ -468,6 +494,14 @@
 			"sprite" = "[style].png",
 		))
 	data["bottlestyles"] = bottle_styles_with_sprite
+
+	var/pill_bottle_styles[0]
+	for(var/style in pill_bottle_wrappers)
+		pill_bottle_styles += list(list(
+			"color" = style,
+			"name" = pill_bottle_wrappers[style],
+		))
+	data["containerstyles"] = pill_bottle_styles
 
 	return data
 
