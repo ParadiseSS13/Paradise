@@ -47,7 +47,6 @@ jobs:
 
       - name: 'Generate Translation'
         run: |
-          git add ./tools/translator/ss220replace.json
           python ./tools/translator/converter.py
           git add ./tools/translator/ss220replace.json
 
