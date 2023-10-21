@@ -15769,12 +15769,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
-"aXj" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/engineering/atmos)
 "aXk" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -122714,9 +122708,9 @@ aQV
 aSD
 aPF
 aSI
-aXj
 aVO
-ban
+oqP
+onT
 ban
 ban
 ban
@@ -122971,11 +122965,11 @@ aQW
 aSD
 aUc
 aVF
-ban
-oqP
-onT
-ban
-ban
+aXl
+aXo
+uFd
+bbP
+xGb
 ban
 gBL
 sno
@@ -123228,11 +123222,11 @@ aQX
 aSD
 aUc
 aVF
-aXl
-aXo
-uFd
-bbP
-xGb
+ban
+beJ
+ban
+ban
+eVw
 ban
 qIf
 ban
@@ -123486,10 +123480,10 @@ aSD
 aUc
 aVF
 ban
-beJ
 ban
 ban
-eVw
+ban
+ban
 ban
 qIf
 ban
