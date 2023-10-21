@@ -150,8 +150,8 @@ const GarMenu = (props, context) => {
         </p>
         <p>
           <b>Overwhelming force</b>: Unlocked at 600 blood, when toggled, if you
-          bump into a door that you do not have access to, it will force it open.
-          In addition, you cannot be pushed or pulled while it is active.
+          bump into a door that you do not have access to, it will force it
+          open. In addition, you cannot be pushed or pulled while it is active.
         </p>
         <p>
           <b>Demonic grasp</b>: Unlocked at 800 blood, allows you to send out a
@@ -222,8 +222,8 @@ const DantMenu = (props, context) => {
         <p>
           <b>Full Power</b>
           <Divider />
-          <b>Mass Hysteria</b>: Casts a powerful illusion that blinds and then makes
-          everyone nearby perceive others as random animals.
+          <b>Mass Hysteria</b>: Casts a powerful illusion that blinds and then
+          makes everyone nearby perceive others as random animals.
         </p>
         <Button content="Dantalion" onClick={() => act('dantalion')} />
       </Section>
