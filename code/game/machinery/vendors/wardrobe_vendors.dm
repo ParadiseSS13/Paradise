@@ -378,7 +378,7 @@
 	icon_addon = "robodrobe"
 	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("You turn me TRUE, use defines!",
-					"0110001101101100011011110111010001101000011001010111001101101000011001010111001001100101")
+					"01000011011011000110111101110100011010000110010101110011001000000110100001100101011100100110010100100001") //This translates to "Clothes here!"
 
 	vend_reply = "Thank you for using the RoboDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/roboticist = 3,
@@ -393,7 +393,8 @@
 					/obj/item/clothing/shoes/white = 3,
 					/obj/item/clothing/shoes/black = 3)
 
-	contraband = list(/obj/item/toy/figure/crew/roboticist = 1)
+	contraband = list(/obj/item/toy/figure/crew/roboticist = 1,
+					/obj/item/toy/figure/crew/borg = 1)
 
 	prices = list(/obj/item/clothing/under/rank/rnd/roboticist = 50,
 				/obj/item/clothing/under/rank/rnd/roboticist/skirt = 50,
