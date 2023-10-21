@@ -88,6 +88,13 @@
 		medhud.remove_from_hud(H)
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.add_to_hud(H)
+
+	// i love snowflake code
+	var/image/health_bar = H.hud_list[DIAG_HUD]
+	health_bar.icon = 'icons/mob/hud/medhud.dmi'
+	var/image/status_box = H.hud_list[DIAG_STAT_HUD]
+	status_box.icon = 'icons/mob/hud/medhud.dmi'
+
 	H.med_hud_set_health()
 	H.med_hud_set_status()
 
@@ -99,6 +106,13 @@
 		diag_hud.remove_from_hud(H)
 	for(var/datum/atom_hud/data/human/medical/medhud in GLOB.huds)
 		medhud.add_to_hud(H)
+
+	// i love snowflake code
+	var/image/health_bar = H.hud_list[DIAG_HUD]
+	health_bar.icon = 'icons/mob/hud/diaghud.dmi'
+	var/image/status_box = H.hud_list[DIAG_STAT_HUD]
+	status_box.icon = 'icons/mob/hud/diaghud.dmi'
+
 	H.med_hud_set_health()
 	H.med_hud_set_status()
 
