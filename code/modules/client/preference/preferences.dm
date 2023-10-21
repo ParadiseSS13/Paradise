@@ -157,9 +157,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/proc/ShowChoices(mob/user)
 	if(!user || !user.client)
 		return
-	active_character.update_preview_icon()
-	user << browse_rsc(active_character.preview_icon_front, "previewicon.png")
-	user << browse_rsc(active_character.preview_icon_side, "previewicon2.png")
+	if(SSatoms.initialized) // DNA won't be set up on our dummy mob if it's not ready
+		active_character.update_preview_icon()
+		user << browse_rsc(active_character.preview_icon_front, "previewicon.png")
+		user << browse_rsc(active_character.preview_icon_side, "previewicon2.png")
 
 	var/list/dat = list()
 	dat += "<center>"
