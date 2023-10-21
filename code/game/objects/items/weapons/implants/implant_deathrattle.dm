@@ -33,7 +33,6 @@
 
 /datum/deathrattle_group/proc/on_user_death(obj/item/implant/implant, source, mob/owner)
 	SIGNAL_HANDLER
-	message_admins("hi yes we worked?")
 	var/victim_name = owner.mind ? owner.mind.name : owner.real_name
 	// All "hearers" hear the same sound.
 	var/sound = pick(
@@ -70,7 +69,6 @@
 
 /obj/item/implant/deathrattle/death_trigger(mob/source, gibbed)
 	activate("death")
-	message_admins("yea")
 
 
 /obj/item/implantcase/deathrattle

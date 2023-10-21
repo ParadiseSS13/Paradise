@@ -3,13 +3,13 @@
 	set name = "Modify Station Traits"
 	set category = "Event"
 
-	var/static/datum/station_traits_panel/station_traits_panel = new
+	var/static/datum/ui_module/station_traits_panel/station_traits_panel = new
 	station_traits_panel.ui_interact(usr)
 
-/datum/station_traits_panel
+/datum/ui_module/station_traits_panel
 	var/static/list/future_traits
 
-/datum/station_traits_panel/ui_data(mob/user)
+/datum/ui_module/station_traits_panel/ui_data(mob/user)
 	var/list/data = list()
 
 	data["too_late_to_revert"] = too_late_to_revert()
@@ -27,7 +27,7 @@
 
 	return data
 
-/datum/station_traits_panel/ui_static_data(mob/user)
+/datum/ui_module/station_traits_panel/ui_static_data(mob/user)
 	var/list/data = list()
 
 	var/list/valid_station_traits = list()
@@ -42,7 +42,7 @@
 
 	return data
 
-/datum/station_traits_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+/datum/ui_module/station_traits_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	if(.)
 		return
@@ -120,13 +120,13 @@
 
 			return TRUE
 
-/datum/station_traits_panel/proc/too_late_for_future_traits()
+/datum/ui_module/station_traits_panel/proc/too_late_for_future_traits()
 	return SSticker.current_state >= GAME_STATE_FINISHED
 
-/datum/station_traits_panel/proc/too_late_to_revert()
+/datum/ui_module/station_traits_panel/proc/too_late_to_revert()
 	return SSticker.current_state >= GAME_STATE_PLAYING
 
-/datum/station_traits_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
+/datum/ui_module/station_traits_panel/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
 		ui = new(user, src, ui_key, "StationTraitsPanel", "Station Traits Panel", 700, 600, master_ui, state = state)
