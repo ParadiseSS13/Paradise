@@ -814,6 +814,14 @@ GLOBAL_LIST_EMPTY(multiverse)
 		H.real_name = "Neko-chan"
 	else
 		H.real_name = "[H.name]-chan"
+
+	H.mind.assigned_role = SPECIAL_ROLE_WIZARD
+	H.mind.special_role = SPECIAL_ROLE_WIZARD
+
+	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
+	wizhud.join_hud(H)
+	set_antag_hud(H, "apprentice")
+
 	H.say("NYA!~")
 
 /obj/item/necromantic_stone/nya
