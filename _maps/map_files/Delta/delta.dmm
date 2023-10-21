@@ -11364,11 +11364,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/cable,
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel/dark,
@@ -11563,10 +11558,6 @@
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
 	},
 /obj/structure/cable,
 /obj/effect/decal/warning_stripes/southwest,
@@ -45828,7 +45819,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cvo" = (
-/obj/structure/cult/archives,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
