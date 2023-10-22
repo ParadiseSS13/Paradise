@@ -7322,11 +7322,6 @@
 /obj/structure/railing{
 	dir = 10
 	},
-/obj/machinery/camera{
-	c_tag = "Mining Outpost - Bridge";
-	dir = 8;
-	network = list("Mining Outpost")
-	},
 /obj/structure/extinguisher_cabinet{
 	name = "east bump";
 	pixel_x = 27
@@ -8052,6 +8047,11 @@
 	},
 /obj/structure/sign/nanotrasen{
 	pixel_x = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Mining Outpost - Bridge";
+	dir = 9;
+	network = list("Mining Outpost")
 	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
