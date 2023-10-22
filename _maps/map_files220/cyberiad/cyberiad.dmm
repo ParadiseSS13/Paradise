@@ -16976,7 +16976,7 @@
 	},
 /area/station/service/library)
 "bmF" = (
-/obj/structure/cult/archives,
+/obj/structure/cult/functional/archives,
 /obj/machinery/light_switch/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -55942,12 +55942,12 @@
 /area/station/supply/storage)
 "hyR" = (
 /obj/item/toy/figure/crew/cargotech,
-/obj/item/cartridge/quartermaster,
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/qm,
+/obj/item/cartridge/qm{
 	pixel_x = -4;
 	pixel_y = 7
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/qm{
 	pixel_x = 6;
 	pixel_y = 5
 	},
@@ -75847,7 +75847,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "oWW" = (
-/obj/structure/cult/archives,
+/obj/structure/cult/functional/archives,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "oXo" = (
