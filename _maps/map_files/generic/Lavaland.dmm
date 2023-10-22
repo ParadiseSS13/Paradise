@@ -8623,7 +8623,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/item/gps/ruin{
 	pixel_x = 32;
-	gpstag = "Nanotrasen Outpost"
+	gpstag = "Nanotrasen Mining Outpost"
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
