@@ -173,7 +173,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/engineeringcart/proc/check_menu(mob/living/user)
-	return (istype(user) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	return istype(user) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED)
 
 /obj/structure/engineeringcart/update_overlays()
 	. = ..()
