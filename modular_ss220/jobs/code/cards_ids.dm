@@ -18,7 +18,7 @@ GLOBAL_LIST_INIT(Jobs_SS220, list("intern", "cadet", "trainee", "student"))
 
 /mob/living/carbon/human/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
-	holder.icon = 'icons/mob/hud.dmi'
+	holder.icon = 'icons/mob/hud/sechud.dmi'
 	if(wear_id && (wear_id.get_job_name() in GLOB.Jobs_SS220))
 		holder.icon = 'modular_ss220/jobs/icons/hud.dmi'
 	. = ..()
