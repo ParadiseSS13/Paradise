@@ -4,8 +4,8 @@
 /datum/preferences/New(client/C, datum/db_query/Q)
 	. = ..()
 	volume_mixer |= (list(
-		"1013" = 20, // CHANNEL_TTS_RADIO
-		"1012" = 50, // CHANNEL_TTS_LOCAL
+		"[CHANNEL_TTS_RADIO]" = 20, // CHANNEL_TTS_RADIO
+		"[CHANNEL_TTS_LOCAL]" = 50, // CHANNEL_TTS_LOCAL
 	))
 
 /datum/character_save
