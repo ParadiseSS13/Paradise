@@ -16976,7 +16976,7 @@
 	},
 /area/station/service/library)
 "bmF" = (
-/obj/structure/cult/functional/archives,
+/obj/structure/cult/archives,
 /obj/machinery/light_switch/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "cult"
@@ -75847,7 +75847,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "oWW" = (
-/obj/structure/cult/functional/archives,
+/obj/structure/cult/archives,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "oXo" = (

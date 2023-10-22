@@ -29514,7 +29514,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cvo" = (
-/obj/structure/cult/functional/archives,
+/obj/structure/cult/archives,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cvp" = (

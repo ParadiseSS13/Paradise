@@ -112,3 +112,11 @@
 		/obj/item/encryptionkey,
 		/obj/item/clothing/gloves/ring)
 
+// These objects are deleted by Offs, i returned them
+// Archive structure
+/obj/structure/cult/archives
+	name = "Desk"
+	desc = "A desk covered in arcane manuscripts and tomes in unknown languages. Looking at the text makes your skin crawl."
+	icon_state = "archives"
+	light_range = 1.5
+	light_color = LIGHT_COLOR_FIRE

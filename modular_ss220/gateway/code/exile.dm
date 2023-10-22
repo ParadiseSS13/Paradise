@@ -14,6 +14,24 @@
 	notes = "The onboard station gateway system has been modified to reject entry by individuals containing this bio-chip."
 	function = "Prevents the user from reentering the station through the gateway.... alive."
 
+/datum/supply_packs/security/armory/exileimp
+	name = "Exile Bio-chips Crate"
+	contains = list(/obj/item/storage/box/exileimp)
+	cost = 600
+	containername = "exile bio-chip crate"
+
+/obj/item/storage/box/exileimp
+	name = "boxed exile bio-chip kit"
+	desc = "Box of exile bio-chips. It has a picture of a clown being booted through the Gateway."
+
+/obj/item/storage/box/exileimp/populate_contents()
+	new /obj/item/implanter/exile(src)
+	new /obj/item/implantcase/exile(src)
+	new /obj/item/implantcase/exile(src)
+	new /obj/item/implantcase/exile(src)
+	new /obj/item/implantcase/exile(src)
+	new /obj/item/implantcase/exile(src)
+
 /obj/item/implanter/exile
 	name = "bio-chip implanter (exile)"
 	implant_type = /obj/item/implant/exile
