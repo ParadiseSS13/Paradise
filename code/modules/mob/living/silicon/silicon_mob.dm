@@ -429,6 +429,7 @@
 /mob/living/silicon/on_standing_up()
 	return // Silicons are always standing by default.
 
-/mob/living/silicon/throw_impact(atom/hit_atom, throwingdatum)
+/mob/living/silicon/throw_impact(atom/hit_atom, throwingdatum, speed = 1)
 	. = ..()
+	var/damage = 10 + 1.5 * speed
 	hit_atom.hit_by_thrown_silicon(src, throwingdatum, damage, FALSE, FALSE)
