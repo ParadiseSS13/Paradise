@@ -50,7 +50,7 @@
 		COLOR_YELLOW = "Yellow",
 		COLOR_ORANGE = "Orange",
 		COLOR_PINK = "Pink",
-		COLOR_MAROON = "Brown",
+		COLOR_MAROON = "Brown"
 	)
 	var/static/list/bottle_styles = list("bottle", "small_bottle", "wide_bottle", "round_bottle", "reagent_bottle")
 	var/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "silver_sulfadiazine", "salbutamol",
@@ -264,7 +264,7 @@
 			reagents.trans_to(P, 50)
 		if("set_production_mode")
 			var/new_mode = text2num(params["mode"])
-			if (new_mode == null)
+			if(new_mode == null)
 				return
 			production_mode = clamp(new_mode, CHEMMASTER_MIN_PRODUCTION_MODE, CHEMMASTER_MAX_PRODUCTION_MODE)
 
