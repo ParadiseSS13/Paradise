@@ -314,6 +314,9 @@
 				closest_type = LIVING
 				closest_atom = A
 
+		else if(closest_type >= APC)
+			continue
+
 		else if(istype(A, /obj/machinery/power/apc))
 			closest_type = APC
 			closest_atom = A
