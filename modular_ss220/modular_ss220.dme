@@ -69,6 +69,7 @@
 #include "whitelist/_whitelist.dme"
 #include "outfits/_outfits.dme"
 #include "world_view_bigger/_world_view_bigger.dme"
+#include "mecha_skins/mecha_skins.dme"
 
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY
