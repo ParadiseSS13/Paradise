@@ -606,9 +606,6 @@
 /area/mine/outpost/lockers)
 "bD" = (
 /obj/machinery/economy/vending/coffee,
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -1157,6 +1154,7 @@
 /area/mine/outpost/hallway/east)
 "cM" = (
 /obj/effect/spawner/random_spawners/fungus_maybe,
+/obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "cN" = (
@@ -1530,11 +1528,14 @@
 	pixel_x = -2;
 	pixel_y = -1
 	},
-/obj/machinery/light/small,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
 	pixel_x = -24
+	},
+/obj/item/radio/intercom{
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3279,7 +3280,8 @@
 "hz" = (
 /obj/structure/table,
 /obj/item/gps/mining{
-	pixel_x = 5
+	pixel_x = 5;
+	gpstag = "QM"
 	},
 /obj/item/flashlight/lamp{
 	pixel_x = -8;
@@ -4616,6 +4618,10 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/mine/outpost/storage)
+"oe" = (
+/obj/machinery/status_display,
+/turf/simulated/wall,
+/area/mine/outpost/cafeteria)
 "oj" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -5539,26 +5545,6 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
-"wJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/status_display{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkfull"
-	},
-/area/mine/outpost/hallway/west)
 "wO" = (
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/mine/outpost/hallway/east)
@@ -5708,9 +5694,6 @@
 /area/mine/outpost/medbay)
 "yj" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom{
-	pixel_y = 28
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 8
 	},
@@ -7503,6 +7486,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7863,11 +7849,6 @@
 	},
 /obj/structure/sign/poster/random{
 	pixel_x = 32
-	},
-/obj/structure/extinguisher_cabinet{
-	name = "custom placement";
-	pixel_x = -5;
-	pixel_y = 30
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -8641,7 +8622,8 @@
 "WV" = (
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/item/gps/ruin{
-	pixel_x = 32
+	pixel_x = 32;
+	gpstag = "Nanotrasen Outpost"
 	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
@@ -23931,8 +23913,8 @@ Av
 dj
 bN
 bD
-dy
-wJ
+oe
+CF
 el
 dg
 bi
