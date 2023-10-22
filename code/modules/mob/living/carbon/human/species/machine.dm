@@ -127,6 +127,28 @@
 			H.update_hair()
 			H.update_fhair()
 
+/datum/species/machine/handle_life(mob/living/carbon/human/H) // Handles IPC starvation
+	if(isLivingSSD(H)) // We don't want AFK people dying from this
+		return
+	if(H.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA)
+		return
+
+	var/obj/item/organ/internal/cell/microbattery = H.get_organ_slot("heart")
+	if(!istype(microbattery)) //Maybe they're powered by an abductor gland or sheer force of will
+		return
+	if(prob(6))
+		to_chat(H, "<span class='warning'>Error 74: Microbattery critical malfunction, likely cause: Extended strain.</span>")
+		microbattery.receive_damage(4, TRUE)
+	else if(prob(4))
+		H.Weaken(6 SECONDS)
+		H.Stuttering(20 SECONDS)
+		to_chat(H, "<span class='warning'>Power critical, shutting down superfluous functions.</span>")
+		H.emote("collapse")
+		microbattery.receive_damage(2, TRUE)
+	else if(prob(4))
+		to_chat(H, "<span class='warning'>Redirecting excess power from servos to vital components.</span>")
+		H.Slowed(rand(15 SECONDS, 32 SECONDS))
+
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
 	name = "Change Monitor"

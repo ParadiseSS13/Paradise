@@ -247,7 +247,10 @@
 			msg += "[p_they(TRUE)] look[p_s()] absolutely soaked.\n"
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
+		if(ismachineperson(src))
+			msg += "[p_their(TRUE)] power indicator is flashing red.\n"
+		else
+			msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
 
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		msg += "[p_they(TRUE)] [p_are()] morbidly obese.\n"
