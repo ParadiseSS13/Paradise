@@ -372,7 +372,7 @@
 
 			var/name = bottlename
 			var/count = bottleamount
-			if(length(name) < 0 || length(name) > MAX_CUSTOM_NAME_LEN)
+			if(length(name) <= 0 || name == null)
 				name = reagents.get_master_reagent_name()
 			var/amount_per_bottle = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_BOTTLE)
 			while(count--)
