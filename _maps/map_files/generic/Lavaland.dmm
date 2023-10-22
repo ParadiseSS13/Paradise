@@ -3368,7 +3368,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Mining Outpost - Airlock";
+	c_tag = "Mining Outpost - Main Airlock";
 	network = list("Mining Outpost");
 	dir = 5
 	},
@@ -6050,7 +6050,7 @@
 	},
 /obj/effect/mapping_helpers/no_lava,
 /obj/machinery/camera{
-	c_tag = "Mining Outpost - Main Airlock";
+	c_tag = "Mining Outpost - Main Airlock - External";
 	dir = 4;
 	network = list("Mining Outpost")
 	},
@@ -8655,7 +8655,7 @@
 "Xb" = (
 /obj/structure/closet/crate/freezer/iv_storage,
 /obj/machinery/camera{
-	c_tag = "Mining Outpost - Medical Bay";
+	c_tag = "Mining Outpost - Infirmary";
 	network = list("Mining Outpost")
 	},
 /obj/structure/extinguisher_cabinet{
