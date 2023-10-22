@@ -28893,13 +28893,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/bridge)
-"bEd" = (
-/obj/item/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/station/command/bridge)
 "bEe" = (
 /obj/structure/table/wood,
 /obj/structure/window/reinforced{
@@ -35434,16 +35427,6 @@
 	},
 /area/station/command/office/ce)
 "bUl" = (
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/ce)
-"bUn" = (
-/obj/item/kirbyplants,
-/obj/machinery/firealarm{
-	dir = 8;
-	name = "custom placement";
-	pixel_x = -26;
-	pixel_y = -26
-	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/ce)
 "bUn" = (
@@ -46262,14 +46245,6 @@
 	icon_state = "neutralfull"
 	},
 /area/station/engineering/control)
-"cwy" = (
-/obj/item/kirbyplants,
-/obj/structure/sign/electricshock{
-	pixel_y = 32
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/hardsuitstorage)
 "cwy" = (
 /obj/item/kirbyplants,
 /obj/structure/sign/electricshock{
@@ -63249,10 +63224,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
-"dqH" = (
-/obj/item/kirbyplants,
-/turf/simulated/floor/plasteel/dark,
-/area/station/command/office/cmo)
 "dqH" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel/dark,
@@ -86698,10 +86669,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/virology)
-"oEG" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "oFL" = (
 /obj/machinery/power/apc{
 	dir = 8;
