@@ -1,5 +1,6 @@
 #include "_aesthetics_sounds.dm"
 
+#include "code/alerts.dm"
 #include "code/closet.dm"
 #include "code/items.dm"
 #include "code/wilhelm.dm"
