@@ -69,13 +69,14 @@ Difficulty: Medium
 	legiontwo.crusher_loot = list(/datum/nothing)
 	legiontwo.health = 1250
 	legiontwo.maxHealth = 1250
+	legiontwo.enraged = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/legion/unrage()
 	. = ..()
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
-			other.loot = initial(loot)
-			other.crusher_loot = initial(crusher_loot)
+			other.loot = list(/obj/item/storm_staff)
+			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 			other.maxHealth = 2500
 			other.health = 2500
 	qdel(src) //Suprise, it's the one on lavaland that regrows to full.
@@ -83,8 +84,8 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
-			other.loot = initial(loot)
-			other.crusher_loot = initial(crusher_loot)
+			other.loot = list(/obj/item/storm_staff)
+			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
