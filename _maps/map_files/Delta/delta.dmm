@@ -310,7 +310,7 @@
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible/airless,
 /area/shuttle/arrival/station)
 "aef" = (
 /obj/machinery/door/airlock/external{
@@ -646,7 +646,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible/airless,
 /area/shuttle/arrival/station)
 "agp" = (
 /obj/structure/table/reinforced,
@@ -703,7 +703,8 @@
 /turf/simulated/wall/indestructible/titanium,
 /area/shuttle/arrival/station)
 "agF" = (
-/turf/simulated/wall/indestructible/shuttleglass,
+/obj/indestructible/structure/window/shuttle,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "agH" = (
 /turf/simulated/floor/plasteel{
@@ -899,7 +900,8 @@
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/stalkybush,
-/turf/simulated/wall/indestructible/shuttleglass,
+/obj/indestructible/structure/window/shuttle,
+/turf/simulated/floor/indestructible/plating/blue_titanium,
 /area/shuttle/arrival/station)
 "aiH" = (
 /obj/structure/chair{

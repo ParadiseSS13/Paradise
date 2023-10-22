@@ -47070,7 +47070,7 @@
 /area/station/science/misc_lab)
 "igy" = (
 /obj/structure/shuttle/engine/propulsion,
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/indestructible/airless,
 /area/shuttle/arrival/station)
 "igZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -68907,7 +68907,8 @@
 	},
 /area/station/security/warden)
 "pkt" = (
-/turf/simulated/wall/indestructible/shuttleglass,
+/obj/indestructible/structure/window/shuttle,
+/turf/simulated/floor/indestructible/plating/grey_titanium,
 /area/shuttle/arrival/station)
 "pkO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
