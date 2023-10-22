@@ -211,7 +211,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "aQ" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Gate)
 "aR" = (
 /obj/effect/landmark/damageturf,
@@ -625,7 +625,8 @@
 	},
 /obj/machinery/door/poddoor{
 	layer = 2.8;
-	id_tag = "packerCaptain"
+	id_tag = "packerCaptain";
+	closingLayer = 3.11
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1323,7 +1324,7 @@
 /area/awaymission/BMPship/Engines)
 "ea" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/Kitchen)
 "eb" = (
 /obj/machinery/door/window/classic/reversed{
@@ -1711,7 +1712,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "ff" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/Buffer)
 "fg" = (
 /obj/structure/cable{
@@ -1886,7 +1887,8 @@
 	},
 /obj/machinery/door/poddoor{
 	layer = 2.71;
-	id_tag = "packerCargo"
+	id_tag = "packerCargo";
+	closingLayer = 3.11
 	},
 /obj/machinery/door/airlock/silver{
 	locked = 1
@@ -2543,7 +2545,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Buffer)
 "hF" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission)
 "hG" = (
 /obj/machinery/fishtank,
@@ -2742,7 +2744,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "ir" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Fore)
 "is" = (
 /obj/item/kitchen/knife/butcher,
@@ -2969,7 +2971,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
 "jg" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Engines)
 "jh" = (
 /obj/structure/cable{
@@ -3640,7 +3642,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Armory)
 "ov" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/Dormitories)
 "oy" = (
 /obj/item/shard{
@@ -3782,7 +3784,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "pr" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/CommonArea)
 "pt" = (
 /obj/machinery/light_construct/small/south,
@@ -4232,7 +4234,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "tA" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Kitchen)
 "tE" = (
 /obj/effect/landmark/damageturf,
@@ -4302,7 +4304,7 @@
 /area/awaymission/BMPship/Containment)
 "uo" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Buffer)
 "ur" = (
 /obj/machinery/door/airlock/titanium{
@@ -4406,7 +4408,7 @@
 /turf/space,
 /area/space)
 "ve" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/MedBay)
 "vi" = (
 /obj/machinery/door/airlock/vault{
@@ -4720,7 +4722,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "xG" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Dormitories)
 "xI" = (
 /obj/structure/cable{
@@ -4765,7 +4767,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
 "yh" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/Fore)
 "yu" = (
 /obj/item/reagent_containers/food/snacks/meat,
@@ -4781,7 +4783,7 @@
 /area/awaymission/BMPship/Containment)
 "yv" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Fore)
 "yw" = (
 /obj/machinery/door/airlock/titanium,
@@ -4924,7 +4926,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "zX" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Buffer)
 "Ab" = (
 /obj/item/clothing/gloves/color/yellow,
@@ -4957,7 +4959,7 @@
 	},
 /area/awaymission/BMPship/Dormitories)
 "Ak" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Armory)
 "Ao" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -5356,7 +5358,7 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "Eh" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/Gate)
 "Ej" = (
 /obj/structure/table,
@@ -5450,7 +5452,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "EL" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/Kitchen)
 "EO" = (
 /obj/item/reagent_containers/food/snacks/meat,
@@ -5775,14 +5777,14 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/awaymission/BMPship/Mining)
 "HV" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/TurretsSouth)
 "HW" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_y = 10;
 	pixel_x = -13
 	},
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/MedBay)
 "HZ" = (
 /obj/structure/alien/weeds,
@@ -5963,7 +5965,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Buffer)
 "JS" = (
-/turf/simulated/wall/mineral/titanium/nodiagonal,
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
 /area/awaymission/BMPship/Bath)
 "Kd" = (
 /obj/machinery/door/airlock/titanium,
@@ -6038,6 +6040,9 @@
 /obj/item/storage/secure/briefcase/syndie,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
+"Ld" = (
+/turf/simulated/wall/indestructible/whiteshuttle/nodiagonal,
+/area/awaymission/BMPship/Engines)
 "Le" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_y = 16;
@@ -6101,7 +6106,7 @@
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "LR" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Bath)
 "LT" = (
 /obj/structure/spider/stickyweb,
@@ -6189,7 +6194,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Nd" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Mining)
 "Nf" = (
 /obj/structure/closet/crate,
@@ -6566,7 +6571,7 @@
 /area/awaymission/BMPship/Fore)
 "Rn" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/MedBay)
 "RB" = (
 /obj/structure/shuttle/engine/propulsion,
@@ -6766,7 +6771,7 @@
 /area/awaymission/BMPship/Containment)
 "Ug" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/Armory)
 "Uh" = (
 /obj/structure/cable{
@@ -6828,7 +6833,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "UT" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/TurretsNorth)
 "UZ" = (
 /obj/structure/cable{
@@ -6946,7 +6951,7 @@
 /area/awaymission/BMPship/Gate)
 "VV" = (
 /obj/effect/landmark/damageturf,
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/TurretsNorth)
 "VX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7106,7 +7111,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "XQ" = (
-/turf/simulated/wall/mineral/titanium,
+/turf/simulated/wall/indestructible/whiteshuttle,
 /area/awaymission/BMPship/CommonArea)
 "XT" = (
 /obj/structure/window/reinforced{
@@ -13602,7 +13607,7 @@ Vn
 bl
 oC
 bR
-ir
+yh
 wg
 dR
 Md
@@ -13862,7 +13867,7 @@ em
 Jj
 Gn
 Rm
-ir
+yh
 cC
 CI
 Qj
@@ -14128,10 +14133,10 @@ ir
 ir
 ir
 ir
-ir
+yh
 hy
 Bx
-ir
+yh
 ir
 ir
 ir
@@ -14252,7 +14257,7 @@ QY
 uC
 YA
 CA
-zX
+ff
 eE
 ci
 PF
@@ -14512,7 +14517,7 @@ uu
 ar
 ar
 zP
-zX
+ff
 eE
 JL
 eE
@@ -17647,10 +17652,10 @@ gW
 xG
 gU
 gX
-xG
+ov
 qF
 Vi
-xG
+ov
 GI
 AL
 xG
@@ -17907,10 +17912,10 @@ fB
 xG
 xy
 xj
-xG
+ov
 EA
 im
-xG
+ov
 gG
 hx
 xG
@@ -18158,19 +18163,19 @@ FZ
 XQ
 XQ
 XQ
-XQ
+pr
 Sd
 Sd
-XQ
+pr
 XQ
 XQ
 xG
 sq
 GI
-xG
+ov
 Af
 im
-xG
+ov
 GI
 co
 xG
@@ -18427,10 +18432,10 @@ GG
 xG
 ie
 hf
-xG
+ov
 Af
 im
-xG
+ov
 gG
 qI
 xG
@@ -18687,10 +18692,10 @@ dK
 xG
 dg
 lu
-xG
+ov
 Af
 im
-xG
+ov
 GI
 YO
 xG
@@ -18936,9 +18941,9 @@ Ak
 Ak
 tA
 tA
-tA
+EL
 cy
-tA
+EL
 EL
 UF
 zo
@@ -18947,10 +18952,10 @@ eO
 xG
 bO
 Aw
-xG
+ov
 Af
 im
-xG
+ov
 FK
 dM
 xG
@@ -19207,10 +19212,10 @@ gv
 xG
 dc
 GI
-xG
+ov
 Af
 im
-xG
+ov
 GI
 pC
 xG
@@ -19467,10 +19472,10 @@ fs
 xG
 Dn
 hf
-xG
+ov
 Af
 im
-xG
+ov
 gG
 hu
 xG
@@ -19603,7 +19608,7 @@ nQ
 ov
 xG
 xG
-xG
+ov
 Gv
 KK
 KK
@@ -19726,7 +19731,7 @@ fq
 UF
 eJ
 js
-LR
+JS
 rL
 sj
 Cn
@@ -19863,7 +19868,7 @@ SV
 SV
 SV
 SV
-LR
+JS
 dh
 HV
 HV
@@ -19986,7 +19991,7 @@ ec
 Ri
 vy
 cm
-LR
+JS
 PY
 SV
 dm
@@ -20880,7 +20885,7 @@ aa
 aa
 aa
 aQ
-aQ
+Eh
 FL
 FL
 FL
@@ -20899,7 +20904,7 @@ jg
 WC
 WC
 WC
-LR
+JS
 LR
 aa
 aa
@@ -21409,8 +21414,8 @@ jg
 SF
 SF
 SF
-jg
-jg
+Ld
+Ld
 SF
 SF
 SF
