@@ -78,8 +78,6 @@
 		ui = new(user, src, ui_key, "BotHonk", name, 500, 520)
 		ui.open()
 
-/mob/living/simple_animal/bot/honkbot/ui_data(mob/user)
-
 /mob/living/simple_animal/bot/honkbot/ui_act(action, params, datum/tgui/ui)
 	if(..())
 		return
