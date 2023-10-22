@@ -29514,7 +29514,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cvo" = (
-/obj/structure/cult/archives,
+/obj/structure/cult/functional/archives,
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "cvp" = (
@@ -79464,14 +79464,14 @@
 /area/station/engineering/control)
 "pNk" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/qm{
 	pixel_x = -3
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/qm{
 	pixel_x = -1;
 	pixel_y = 7
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/cartridge/qm{
 	pixel_x = 5;
 	pixel_y = 3
 	},

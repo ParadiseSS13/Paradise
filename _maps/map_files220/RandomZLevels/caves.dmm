@@ -205,7 +205,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "aW" = (
-/obj/structure/cult/archives,
+/obj/structure/cult/functional/archives,
 /obj/item/spellbook/oneuse/fake_gib,
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/decal/cleanable/dust,
