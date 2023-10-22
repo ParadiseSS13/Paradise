@@ -30,9 +30,6 @@
 	var/master_uid = null
 
 /obj/item/mmi/attackby(obj/item/O as obj, mob/user as mob, params)
-	if(istype(O, /obj/item/organ/internal/brain/crystal))
-		to_chat(user, "<span class='warning'> This brain is too malformed to be able to use with [src].</span>")
-		return
 	if(istype(O, /obj/item/organ/internal/brain/golem))
 		to_chat(user, "<span class='warning'>You can't find a way to plug [O] into [src].</span>")
 		return

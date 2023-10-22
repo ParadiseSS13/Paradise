@@ -7,13 +7,6 @@
 	allow_duplicates = FALSE
 	ci_exclude = /datum/map_template/ruin/lavaland/biodome // This is a parent holder, not a ruin itself
 
-/datum/map_template/ruin/lavaland/biodome/beach
-	name = "Biodome Beach"
-	id = "biodome-beach"
-	description = "Seemingly plucked from a tropical destination, this beach is calm and cool, with the salty waves roaring softly in the background. \
-	Comes with a rustic wooden bar and suicidal bartender."
-	suffix = "lavaland_biodome_beach.dmm"
-
 /datum/map_template/ruin/lavaland/biodome/winter
 	name = "Biodome Winter"
 	id = "biodome-winter"
@@ -69,6 +62,15 @@
 	Once a beacon of mining promise, it now stands as a stark reminder of the company's catastrophic demise."
 	cost = 5
 	suffix = "lavaland_surface_althland_facility.dmm"
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/althland_excavation
+	name = "Althland Excavation"
+	id = "althland-excavation"
+	description = "An abandoned mining pit, once operated by the late Althland Mining Corporation, stands as a testament to the extensive efforts of numerous labor groups who endeavored to exploit the ore-rich depths of the planet.  \
+	Now, it lies abandoned, wholly reclaimed by the hostile environment, transforming into yet another relic of a lost company."
+	cost = 5
+	suffix = "lavaland_surface_althland_excavation.dmm"
 	allow_duplicates = FALSE
 
 /datum/map_template/ruin/lavaland/sin

@@ -110,9 +110,13 @@
 	var/numMinutes = (seconds - numSeconds) / 60
 	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
 
-//Take a value in seconds and makes it display like a clock
+/// Take a value in seconds and makes it display like a clock. Hours are stripped. (mm:ss)
 /proc/seconds_to_clock(seconds as num)
 	return "[add_zero(num2text((seconds / 60) % 60), 2)]:[add_zero(num2text(seconds % 60), 2)]"
+
+/// Take a value in seconds and makes it display like a clock (h:mm:ss)
+/proc/seconds_to_full_clock(seconds as num)
+	return "[round(seconds / 3600)]:[add_zero(num2text((seconds / 60) % 60), 2)]:[add_zero(num2text(seconds % 60), 2)]"
 
 //Takes a value of time in deciseconds.
 //Returns a text value of that number in hours, minutes, or seconds.

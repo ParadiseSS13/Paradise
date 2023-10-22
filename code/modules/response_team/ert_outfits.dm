@@ -233,7 +233,8 @@
 		/obj/item/t_scanner = 1,
 		/obj/item/stack/sheet/glass/fifty = 1,
 		/obj/item/stack/sheet/metal/fifty = 1,
-		/obj/item/flashlight = 1
+		/obj/item/flashlight = 1,
+		/obj/item/rpd = 1
 	)
 
 	cybernetic_implants = list(
@@ -254,7 +255,8 @@
 	backpack_contents = list(
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
-		/obj/item/gun/energy/gun = 1
+		/obj/item/gun/energy/gun = 1,
+		/obj/item/rpd = 1
 	)
 
 	cybernetic_implants = list(
@@ -280,7 +282,8 @@
 	backpack_contents = list(
 		/obj/item/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 3,
-		/obj/item/gun/energy/gun/blueshield/pdw9 = 1
+		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
+		/obj/item/rpd = 1
 	)
 
 	cybernetic_implants = list(
@@ -417,7 +420,8 @@
 
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
-		/obj/item/flashlight/seclite = 1
+		/obj/item/flashlight/seclite = 1,
+		/obj/item/storage/bible = 1
 	)
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -460,7 +464,8 @@
 	backpack_contents = list(
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/gun/energy/gun/nuclear = 1
+		/obj/item/gun/energy/gun/nuclear = 1,
+		/obj/item/storage/bible = 1
 	)
 
 	cybernetic_implants = list(

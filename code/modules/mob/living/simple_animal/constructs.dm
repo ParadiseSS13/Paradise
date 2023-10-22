@@ -92,7 +92,7 @@
 		else
 			msg += "<B>It looks severely dented!</B>\n"
 		msg += "</span>"
-	msg += "*---------*</span>"
+	msg += "</span>"
 
 	. += msg
 

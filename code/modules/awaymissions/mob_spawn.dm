@@ -308,41 +308,6 @@
 
 //////////Alive ones, used as "core" for ghost roles now and in future.//////////
 
-//Lavaland Bartender (ghost role).
-/obj/effect/mob_spawn/human/alive/bartender
-	random = TRUE
-	allow_species_pick = TRUE
-	name = "bartender sleeper"
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	description = "Stuck on Lavaland, you could try getting back to civilisation...or serve drinks to those that wander by."
-	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
-	assignedrole = "Space Bartender"
-	outfit = /datum/outfit/spacebartender
-
-//Lavaland Beach Turist(?) (ghost role).
-/obj/effect/mob_spawn/human/alive/beach
-	random = TRUE
-	allow_species_pick = TRUE
-	mob_name = "Beach Bum"
-	name = "beach bum sleeper"
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "You are a beach bum! You think something just happened to the beach but you don't really pay too much attention."
-	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
-	assignedrole = "Beach Bum"
-	outfit = /datum/outfit/beachbum
-
-//Lavaland Beach Guard (ghost role).
-/obj/effect/mob_spawn/human/alive/beach/lifeguard
-	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell. \
-	You aren't trained for this, but you'll still keep your guests alive!"
-	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
-	mob_gender = "female"
-	name = "lifeguard sleeper"
-	id_job = "Lifeguard"
-	uniform = /obj/item/clothing/under/pants/shorts/red
-
 //Space(?) Bar Patron (ghost role).
 /obj/effect/mob_spawn/human/alive/space_bar_patron
 	name = "Bar cryogenics"
