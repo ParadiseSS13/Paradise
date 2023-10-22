@@ -216,7 +216,7 @@
 		var/mob/living/fallen_mob = AM
 		fallen_mob.notransform = FALSE
 		if(fallen_mob.stat != DEAD)
-			fallen_mob.death(TRUE)
+			fallen_mob.death()
 			fallen_mob.adjustBruteLoss(1000) //crunch from long fall, want it to be like legion in damage
 		fallen_mob.forceMove(storage)
 		return
