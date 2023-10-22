@@ -3314,8 +3314,7 @@
 /obj/structure/table,
 /obj/item/camera{
 	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
+	name = "Camera"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
@@ -6003,7 +6002,6 @@
 /obj/item/camera{
 	desc = "A one use - polaroid camera. 30 photos left.";
 	name = "detectives camera";
-	pictures_left = 30;
 	pixel_y = 2
 	},
 /turf/simulated/floor/wood/oak,
@@ -32786,10 +32784,10 @@
 	},
 /area/station/science/hallway)
 "cCh" = (
-/obj/structure/transit_tube{
-	icon_state = "N-SE"
-	},
 /obj/structure/lattice,
+/obj/structure/transit_tube/curved/flipped{
+	dir = 1
+	},
 /turf/space,
 /area/space/nearstation)
 "cCi" = (
@@ -41502,9 +41500,8 @@
 /area/station/maintenance/turbine)
 "dgT" = (
 /obj/machinery/firealarm/directional/north,
-/obj/structure/transit_tube{
-	dir = 4;
-	icon_state = "Block"
+/obj/structure/transit_tube/cap{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -41544,10 +41541,10 @@
 	},
 /area/station/engineering/supermatter_room)
 "dgX" = (
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
 /obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved{
+	dir = 8
+	},
 /turf/space,
 /area/space/nearstation)
 "dgZ" = (
@@ -41571,7 +41568,7 @@
 /area/space/nearstation)
 "dhk" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/crossing/horizontal,
 /turf/simulated/floor/plating,
 /area/station/engineering/aitransit)
 "dhp" = (
@@ -42230,10 +42227,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "djM" = (
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
 /obj/structure/lattice,
+/obj/structure/transit_tube/crossing,
 /turf/space,
 /area/space/nearstation)
 "djO" = (
@@ -42538,10 +42533,8 @@
 /turf/simulated/floor/plating,
 /area/station/aisat/hall)
 "dkZ" = (
-/obj/structure/transit_tube{
-	icon_state = "N-S-Pass"
-	},
 /obj/structure/lattice,
+/obj/structure/transit_tube,
 /turf/space,
 /area/space/nearstation)
 "dlb" = (
@@ -42737,13 +42730,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/engineering/hallway)
-"dlS" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "dlT" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -43334,8 +43320,7 @@
 /obj/item/taperecorder,
 /obj/item/camera{
 	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "Camera";
-	pictures_left = 30
+	name = "Camera"
 	},
 /obj/item/book/codex_gigas,
 /turf/simulated/floor/plasteel{
@@ -44343,10 +44328,10 @@
 	},
 /area/station/engineering/hallway)
 "dsI" = (
-/obj/structure/transit_tube{
-	icon_state = "E-NW"
-	},
 /obj/structure/lattice,
+/obj/structure/transit_tube/curved{
+	dir = 4
+	},
 /turf/space,
 /area/space/nearstation)
 "dsJ" = (
@@ -57353,13 +57338,6 @@
 	icon_state = "dark"
 	},
 /area/station/maintenance/asmaint)
-"hXT" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "hYf" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -63148,13 +63126,6 @@
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"kqh" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/obj/structure/lattice,
-/turf/space,
-/area/space/nearstation)
 "kqi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -73616,13 +73587,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"oiR" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "N-S"
-	},
-/turf/space,
-/area/space/nearstation)
 "oiS" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/poddoor{
@@ -81677,11 +81641,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "raN" = (
-/obj/structure/transit_tube{
-	dir = 1;
-	icon_state = "Block"
-	},
 /obj/effect/decal/warning_stripes/eastsouthwest,
+/obj/structure/transit_tube/cap{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "raP" = (
@@ -81963,10 +81926,10 @@
 	},
 /area/station/command/office/hop)
 "rfB" = (
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
 /obj/structure/lattice,
+/obj/structure/transit_tube/curved{
+	dir = 8
+	},
 /turf/space,
 /area/space/nearstation)
 "rgl" = (
@@ -84191,10 +84154,8 @@
 	},
 /area/station/medical/morgue)
 "seH" = (
-/obj/structure/transit_tube{
-	icon_state = "S-NW"
-	},
 /obj/structure/lattice,
+/obj/structure/transit_tube/curved/flipped,
 /turf/space,
 /area/space/nearstation)
 "seI" = (
@@ -100264,9 +100225,7 @@
 /area/station/maintenance/apmaint)
 "xXe" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/transit_tube{
-	icon_state = "N-S-Pass"
-	},
+/obj/structure/transit_tube/crossing,
 /turf/simulated/floor/plating,
 /area/station/turret_protected/aisat/interior)
 "xXt" = (
@@ -141104,7 +141063,7 @@ doE
 sds
 doE
 dgX
-dlS
+doE
 doE
 doE
 doE
@@ -141360,17 +141319,17 @@ cxO
 aab
 aab
 aab
-hXT
+aab
 seH
-djM
-djM
-dkZ
-dkZ
 dkZ
 djM
+dkZ
 djM
+dkZ
+djM
+dkZ
 cCh
-kqh
+aab
 aaa
 doE
 aab
@@ -141626,7 +141585,7 @@ aab
 aaa
 aab
 aab
-hXT
+aab
 dsI
 aab
 doE
@@ -141885,7 +141844,7 @@ cxO
 cxO
 aab
 rfB
-kqh
+aab
 doE
 dmB
 kYd
@@ -142141,9 +142100,9 @@ bDr
 cyJ
 cAe
 aaa
-hXT
+aab
 seH
-oiR
+dkZ
 xXe
 uwh
 raN

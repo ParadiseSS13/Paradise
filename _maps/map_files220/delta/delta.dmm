@@ -18868,8 +18868,7 @@
 /obj/structure/closet/secure_closet/detective,
 /obj/item/camera{
 	desc = "A one use - polaroid camera. 30 photos left.";
-	name = "detectives camera";
-	pictures_left = 30
+	name = "detectives camera"
 	},
 /obj/item/restraints/handcuffs,
 /obj/item/storage/lockbox/spy_kit,
@@ -21192,37 +21191,22 @@
 "bPS" = (
 /turf/simulated/wall,
 /area/space/nearstation)
-"bPT" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced,
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/turf/space,
-/area/space/nearstation)
 "bPU" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "E-SW"
+/obj/structure/transit_tube/curved/flipped{
+	dir = 4
 	},
 /turf/space,
 /area/space/nearstation)
 "bPV" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
 "bPW" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bPX" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
+/obj/structure/transit_tube/curved{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -21807,37 +21791,12 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/transit_tube{
-	icon_state = "S-NE"
-	},
+/obj/structure/transit_tube/curved,
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
-"bRO" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bRP" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/turf/space,
-/area/space/nearstation)
 "bRQ" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "NW-SE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bRR" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
+/obj/structure/transit_tube/diagonal/topleft,
 /turf/space,
 /area/space/nearstation)
 "bRS" = (
@@ -23183,43 +23142,24 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/transit_tube{
-	icon_state = "N-SE"
+/obj/structure/transit_tube/curved/flipped{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
-"bVZ" = (
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bWa" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/turf/space,
-/area/space/nearstation)
 "bWb" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "NE-SW"
-	},
-/turf/space,
-/area/space/nearstation)
-"bWc" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
-	},
+/obj/structure/transit_tube/diagonal,
 /turf/space,
 /area/space/nearstation)
 "bWd" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
+/obj/structure/transit_tube/horizontal,
+/obj/structure/lattice/catwalk,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/space,
 /area/space/nearstation)
@@ -23606,35 +23546,17 @@
 	icon_state = "vault"
 	},
 /area/station/turret_protected/aisat)
-"bXQ" = (
-/obj/structure/lattice,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/turf/space,
-/area/space/nearstation)
 "bXR" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "E-NW"
+/obj/structure/transit_tube/curved{
+	dir = 4
 	},
 /turf/space,
 /area/space/nearstation)
 "bXS" = (
 /obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "W-NE"
-	},
-/turf/space,
-/area/space/nearstation)
-"bXT" = (
-/obj/structure/lattice,
-/obj/structure/transit_tube{
-	icon_state = "D-NW"
+/obj/structure/transit_tube/curved/flipped{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -26583,22 +26505,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/station/legal/magistrate)
-"cjl" = (
-/obj/structure/transit_tube{
-	icon_state = "D-NE"
-	},
-/obj/structure/transit_tube{
-	icon_state = "D-SE"
-	},
-/obj/structure/lattice/catwalk,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/space,
-/area/space/nearstation)
 "cjm" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -27614,14 +27520,14 @@
 /turf/simulated/floor/plating,
 /area/station/command/teleporter)
 "cnH" = (
-/obj/structure/transit_tube{
-	icon_state = "E-SW-NW"
-	},
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/transit_tube/junction{
 	dir = 4
 	},
 /turf/space,
@@ -27739,15 +27645,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "coi" = (
-/obj/structure/transit_tube{
-	icon_state = "E-W-Pass"
-	},
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/transit_tube/crossing{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -28781,7 +28687,6 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/control)
 "csr" = (
-/obj/structure/transit_tube,
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -28789,6 +28694,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/transit_tube/horizontal,
 /turf/space,
 /area/space/nearstation)
 "css" = (
@@ -28840,15 +28746,15 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/equipmentstorage)
 "csy" = (
-/obj/structure/transit_tube{
-	icon_state = "W-SE"
-	},
 /obj/structure/lattice/catwalk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
+	},
+/obj/structure/transit_tube/curved{
+	dir = 8
 	},
 /turf/space,
 /area/space/nearstation)
@@ -29087,9 +28993,6 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/library)
 "ctI" = (
-/obj/structure/transit_tube{
-	icon_state = "D-SW"
-	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -29103,13 +29006,13 @@
 /turf/space,
 /area/space/nearstation)
 "ctJ" = (
-/obj/structure/transit_tube{
-	icon_state = "E-NW"
+/obj/structure/lattice/catwalk,
+/obj/structure/transit_tube/curved{
+	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
 "ctK" = (
@@ -47864,9 +47767,8 @@
 "eJn" = (
 /obj/item/radio/intercom/directional/south,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/transit_tube{
-	dir = 8;
-	icon_state = "Block"
+/obj/structure/transit_tube/cap{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -54729,13 +54631,13 @@
 	},
 /area/station/supply/qm)
 "hgg" = (
-/obj/structure/transit_tube/station/reverse{
+/obj/machinery/ai_status_display/south,
+/obj/structure/transit_tube/station{
 	dir = 1
 	},
 /obj/structure/transit_tube_pod{
 	dir = 8
 	},
-/obj/machinery/ai_status_display/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -60492,8 +60394,7 @@
 "jeM" = (
 /obj/structure/rack/gunrack,
 /obj/item/gun/energy/laser{
-	pixel_x = -2;
-	pixel_y = 0
+	pixel_x = -2
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/item/gun/energy/laser,
@@ -61134,7 +61035,7 @@
 	},
 /area/station/hallway/primary/fore)
 "jof" = (
-/obj/structure/transit_tube,
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/aitransit)
 "jog" = (
@@ -99634,10 +99535,10 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit/maintenance)
 "wWX" = (
-/obj/structure/transit_tube,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/transit_tube/horizontal,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -117037,11 +116938,11 @@ aaa
 aaa
 bUJ
 aaa
-bPT
+bku
 bRN
 bTU
 bVY
-bXQ
+brr
 aaa
 aaa
 aaa
@@ -117295,9 +117196,9 @@ aaa
 bUJ
 aaa
 bPU
-bRO
+bms
 bZw
-bVZ
+bms
 bXR
 aaa
 aaa
@@ -117809,9 +117710,9 @@ aaa
 bUJ
 aaa
 bPW
-bRP
+wXe
 chw
-bWa
+wXe
 bXS
 aaa
 aaa
@@ -118065,11 +117966,11 @@ aaa
 aaa
 bUJ
 aaa
-bPX
+abj
 bRQ
-cjl
+chw
 bWb
-bXT
+abj
 aaa
 aaa
 aaa
@@ -118323,9 +118224,9 @@ aaa
 bUJ
 aaa
 abj
-bRR
+wXe
 cnH
-bWc
+wXe
 abj
 aaa
 aaa
@@ -124235,7 +124136,7 @@ bUJ
 abj
 abj
 abj
-csr
+bWd
 abj
 bXU
 bZk
@@ -124493,7 +124394,7 @@ qwS
 qwS
 abj
 csy
-bWd
+abj
 bXU
 bZl
 cbb

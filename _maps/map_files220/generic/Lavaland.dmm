@@ -1111,7 +1111,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/item/radio/intercom/locked/prison{
-	pixel_y = 24
+	pixel_y = 22
 	},
 /turf/simulated/floor/plating,
 /area/mine/laborcamp)
@@ -2162,6 +2162,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -7193,6 +7194,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -7699,9 +7701,8 @@
 /obj/structure/bed,
 /obj/item/bedsheet/orange,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken7"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "Fs" = (
 /obj/structure/stone_tile/block/burnt{
@@ -8375,9 +8376,8 @@
 	dir = 1;
 	network = list("Labor Camp")
 	},
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/wood,
 /area/mine/laborcamp)
 "JQ" = (
 /obj/machinery/light/small/directional/east,
