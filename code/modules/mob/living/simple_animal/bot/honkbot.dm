@@ -79,8 +79,6 @@
 		ui.open()
 
 /mob/living/simple_animal/bot/honkbot/ui_data(mob/user)
-	var/list/data = ..()
-	return data
 
 /mob/living/simple_animal/bot/honkbot/ui_act(action, params, datum/tgui/ui)
 	if(..())
