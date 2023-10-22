@@ -4,6 +4,7 @@
 	slot_flags = SLOT_FLAG_BACK
 	ammo_type = /obj/item/ammo_casing/magic
 	flags_2 = NO_MAT_REDEMPTION_2
+	execution_speed = 3 SECONDS
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
