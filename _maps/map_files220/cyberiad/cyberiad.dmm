@@ -18592,7 +18592,7 @@
 /area/station/science/rnd)
 "btA" = (
 /obj/structure/table/wood,
-/obj/item/bee_briefcase,
+/obj/item/storage/briefcase,
 /turf/simulated/floor/carpet,
 /area/station/public/vacant_office)
 "btB" = (
