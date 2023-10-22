@@ -1221,7 +1221,7 @@
 			return
 	for(var/message in messages)
 		to_chat(owner, message)
-		sleep(1.5 SECONDS) // yes yes a bit fast but it can be a lot of text and i want the whole thing to send before the cooldown on the slot machine might expire
+		sleep(3 SECONDS) // yes yes a bit fast but it can be a lot of text and i want the whole thing to send before the cooldown on the slot machine might expire
 	monologuing = FALSE
 
 /// Cleans ourselves up and removes our curses. Meant to be done in a "positive" way, when the curse is broken. Directly use qdel otherwise.
@@ -1258,7 +1258,7 @@
 		return // you get one "freebie" (single damage) to nudge you into thinking this is a bad idea before the house begins to win.
 
 	// the house won.
-	var/ticked_coefficient = (rand(15, 40) * 2 / 100 )
+	var/ticked_coefficient = rand(15, 40) * 2 / 100
 	var/effective_percentile_chance = ((curse_count == 2 ? 1 : curse_count) * damage_chance * ticked_coefficient)
 
 	if(prob(effective_percentile_chance))
