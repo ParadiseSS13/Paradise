@@ -1,16 +1,5 @@
 /obj/indestructible
 
-/obj/indestructible/New()
-	..()
-	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
-		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
-			QUEUE_SMOOTH(src)
-			QUEUE_SMOOTH_NEIGHBORS(src)
-		if(smoothing_flags & SMOOTH_CORNERS)
-			icon_state = ""
-	if(SSticker)
-		GLOB.cameranet.updateVisibility(src)
-
 /obj/indestructible/ex_act(severity)
 	return
 
@@ -44,6 +33,17 @@
 /obj/indestructible/structure
 	anchored = TRUE
 	density = TRUE
+
+/obj/indestructible/structure/New()
+	..()
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK))
+		if(SSticker && SSticker.current_state == GAME_STATE_PLAYING)
+			QUEUE_SMOOTH(src)
+			QUEUE_SMOOTH_NEIGHBORS(src)
+		if(smoothing_flags & SMOOTH_CORNERS)
+			icon_state = ""
+	if(SSticker)
+		GLOB.cameranet.updateVisibility(src)
 
 /obj/indestructible/structure/window
 	smoothing_flags = SMOOTH_BITMASK
