@@ -3,14 +3,16 @@
 //		Burgers		//
 //////////////////////
 
-/obj/item/reagent_containers/food/snacks/burger // Abstract object used for inheritance. Should never spawn. Needed to not break recipes.
+// Abstract object used for inheritance. Should never spawn. Needed to not break recipes that use plain burgers; recipes that use "burger" would accept any burger and transfer reagents otherwise.
+
+/obj/item/reagent_containers/food/snacks/burger
 	name = "burger"
 	desc = "If you got this, something broke! Contact a coder if this somehow spawns."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "burger"
 
 /obj/item/reagent_containers/food/snacks/burger/plain
-	name = "plain burger"
+	name = "burger"
 	desc = "The cornerstone of every nutritious breakfast."
 	icon_state = "hburger"
 	filling_color = "#D63C3C"
