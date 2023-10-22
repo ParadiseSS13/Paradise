@@ -67681,11 +67681,6 @@
 	},
 /area/station/security/evidence)
 "pdh" = (
-/obj/machinery/camera{
-	c_tag = "Research Quantum Pad";
-	dir = 4;
-	network = list("SS13","RD")
-	},
 /obj/structure/sign/directions/security{
 	dir = 1;
 	pixel_y = 39
@@ -87030,6 +87025,9 @@
 	pixel_x = 24;
 	name = "east bump"
 	},
+/obj/item/kirbyplants{
+	icon_state = "plant-25"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -91506,8 +91504,10 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_3)
 "wAO" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-25"
+/obj/machinery/camera{
+	c_tag = "Research Quantum Pad";
+	dir = 4;
+	network = list("SS13","RD")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
