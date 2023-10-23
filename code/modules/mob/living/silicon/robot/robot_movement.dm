@@ -20,5 +20,5 @@
 	return ..() || mob_negates_gravity()
 
 /mob/living/silicon/robot/experience_pressure_difference(pressure_difference, direction)
-	if(!magpulse)
+	if(!HAS_TRAIT(src, TRAIT_MAGPULSE))
 		return ..()
