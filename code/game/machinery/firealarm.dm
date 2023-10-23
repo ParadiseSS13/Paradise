@@ -37,8 +37,14 @@ FIRE ALARM
 
 	var/last_time_pulled //used to prevent pulling spam by same persons
 
-/obj/machinery/firealarm/Initialize(mapload)
+/obj/machinery/firealarm/Initialize(mapload, direction, building)
 	. = ..()
+
+	if(building)
+		buildstage = 0
+		wiresexposed = TRUE
+		setDir(direction)
+		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
 	LAZYADD(get_area(src).firealarms, src)
 
@@ -48,15 +54,6 @@ FIRE ALARM
 	name = "fire alarm"
 	set_light(1, LIGHTING_MINIMUM_POWER) //for emissives
 	update_icon()
-
-/obj/machinery/firealarm/New(location, direction, building = 0)
-	..()
-	if(building)
-		buildstage = 0
-		wiresexposed = TRUE
-		setDir(direction)
-		set_pixel_offsets_from_dir(26, -26, 26, -26)
-		update_icon()
 
 /obj/machinery/firealarm/no_alarm
 	report_fire_alarms = FALSE
