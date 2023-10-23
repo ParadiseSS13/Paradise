@@ -1,32 +1,34 @@
 /obj/mecha/attackby(obj/item/W, mob/user, params)
-	. = ..()
-	if(istype(W, /obj/item/paintkit))
-		if(occupant)
-			to_chat(user, "Вы не можете кастомизировать экзокостюм, пока кто-то его пилотирует - это небезопасно!")
-			return
+	if(!istype(W, /obj/item/paintkit))
+		return ..()
+	if(occupant)
+		to_chat(user, "Вы не можете кастомизировать экзокостюм, пока кто-то его пилотирует - это небезопасно!")
+		return
 
-		var/obj/item/paintkit/P = W
-		var/found = null
+	var/obj/item/paintkit/P = W
+	var/found = null
 
-		for(var/type in P.allowed_types)
-			if(type == initial_icon)
-				found = 1
-				break
+	for(var/type in P.allowed_types)
+		if(type == initial_icon)
+			found = 1
+			break
 
-		if(!found)
-			to_chat(user, "Этот комплект не предназначен для использования на экзокостюме данного класса.")
-			return
+	if(!found)
+		to_chat(user, "Этот комплект не предназначен для использования на экзокостюме данного класса.")
+		return
 
-		user.visible_message("[user] открывает [P] и проводит некоторое время за кастомизацией [src].")
-		if(do_after_once(user, 3 SECONDS, target = src))
+	user.visible_message("[user] открывает [P] и проводит некоторое время за кастомизацией [src].")
+	if(!do_after_once(user, 3 SECONDS, target = src))
+		to_chat(user, "Вы должны стоять смирно при настройке экзокостюма!")
+		return
+	name = P.new_name
+	desc = P.new_desc
+	icon = 'modular_ss220/mecha_skins/code/mecha.dmi'
+	initial_icon = P.new_icon
+	wreckage = P.new_wreckage
+	reset_icon()
+	qdel(P)
 
-			name = P.new_name
-			desc = P.new_desc
-			icon = 'modular_ss220/mecha_skins/code/mecha.dmi'
-			initial_icon = P.new_icon
-			wreckage = P.new_wreckage
-			reset_icon()
-			qdel(P)
 
 //RIP AND PEPPERONI
 
