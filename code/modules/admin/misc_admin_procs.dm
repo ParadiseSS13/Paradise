@@ -122,6 +122,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
 		body += "<A href='?_src_=holder;shownoteckey=[M.ckey]'>Notes</A> | "
+		body += "<b>Has enabled antag hud</b>: [(M.ckey in GLOB.antag_hud_users) ? "false" : "<b><font color='red'>TRUE</font>"]"
+		body += "<b>Was roundstart observer</b>: [(M.ckey in GLOB.roundstart_observer_keys) ? "false" : "true"]"
 		if(GLOB.configuration.url.forum_playerinfo_url)
 			body += "<A href='?_src_=holder;webtools=[M.ckey]'>WebInfo</A> | "
 	if(M.client)

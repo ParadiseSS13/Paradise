@@ -121,6 +121,9 @@
 	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed  or placed into a mech in the future.</b>")
 	brainmob.mind.assigned_role = "Positronic Brain"
 
+	if(brainmob.ckey in GLOB.antag_hud_users)
+		log_and_message_admins("[key_name(brainmob)] has joined as a robot brain, after having toggled antag hud.")
+
 	visible_message("<span class='notice'>[src] chimes quietly.</span>")
 	become_occupied(occupied_icon)
 
