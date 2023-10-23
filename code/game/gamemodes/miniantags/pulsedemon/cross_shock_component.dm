@@ -8,6 +8,8 @@
 /datum/component/cross_shock/Initialize(_shock_damage, _energy_cost, _delay_between_shocks, _requires_cable = TRUE)
 	if(ismovable(parent))
 		RegisterSignal(parent, list(COMSIG_MOVABLE_CROSSED, COMSIG_CROSSED_MOVABLE), PROC_REF(do_shock))
+		if(ismob(parent))
+			RegisterSignal(parent, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(on_organ_removal))
 	else if(isarea(parent))
 		RegisterSignal(parent, COMSIG_ATOM_EXITED, PROC_REF(do_shock))
 	else if(isturf(parent))
@@ -45,3 +47,7 @@
 		thing_were_gonna_shock.electrocute_act(shock_damage, src)
 		playsound(get_turf(parent), 'sound/effects/eleczap.ogg', 30, TRUE)
 	COOLDOWN_START(src, last_shock, delay_between_shocks)
+
+/datum/component/cross_shock/proc/on_organ_removal(datum/source)
+	SIGNAL_HANDLER
+	qdel(src)

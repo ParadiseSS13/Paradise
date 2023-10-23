@@ -811,7 +811,7 @@
 
 /obj/item/organ/internal/heart/demon/pulse/Initialize(mapload)
 	. = ..()
-	set_light(20, 2, "#bbbb00")
+	set_light(13, 2, "#bbbb00")
 
 /obj/item/organ/internal/heart/demon/pulse/attack_self(mob/living/user)
 	. = ..()
@@ -825,10 +825,21 @@
 	M.set_light(3, 2, "#bbbb00")
 
 /obj/item/organ/internal/heart/demon/pulse/remove(mob/living/carbon/M, special)
-	..()
-	qdel(M.GetComponent(/datum/component/cross_shock))
+	. = ..()
 	REMOVE_TRAIT(M, TRAIT_SHOCKIMMUNE, UNIQUE_TRAIT_SOURCE(src))
 	M.remove_light()
+
+/obj/item/organ/internal/heart/demon/pulse/on_life()
+	if(!owner)
+		return
+	for(var/obj/item/stock_parts/cell/cell_to_charge in owner.GetAllContents())
+		var/newcharge = min(0.05 * cell_to_charge.maxcharge + cell_to_charge.charge, cell_to_charge.maxcharge)
+		if(cell_to_charge.charge < newcharge)
+			cell_to_charge.charge = newcharge
+			if(isobj(cell_to_charge.loc))
+				var/obj/cell_location = cell_to_charge.loc
+				cell_location.update_icon() //update power meters and such
+			cell_to_charge.update_icon()
 
 /obj/screen/alert/pulse_nopower
 	name = "No Power"
