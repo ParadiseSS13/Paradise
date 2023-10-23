@@ -1167,3 +1167,15 @@
 	C.take_organ_damage(damage)
 	C.KnockDown(3 SECONDS)
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
+
+/mob/living/hit_by_thrown_silicon(mob/living/silicon/S, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(S == src || flying || !density)
+		return
+	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	if(mob_hurt)
+		return
+	if(!self_hurt)
+		take_organ_damage(damage)
+	S.take_organ_damage(damage)
+	S.Weaken(3 SECONDS)
+	S.visible_message("<span class='danger'>[S] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
