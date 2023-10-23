@@ -39,6 +39,9 @@
 	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL
 
+	//Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
+	var/can_leave_fibers = TRUE
+
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return

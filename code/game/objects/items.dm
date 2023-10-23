@@ -133,8 +133,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
-	//Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
-	var/can_leave_fibers = TRUE
 
 /obj/item/New()
 	..()
