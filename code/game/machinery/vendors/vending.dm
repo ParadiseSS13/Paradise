@@ -1135,6 +1135,12 @@
 	mob_hurt = TRUE
 	return ..()
 
+/obj/machinery/economy/vending/hit_by_thrown_silicon(mob/living/silicon/S, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(HAS_TRAIT(S, TRAIT_FLATTENED))
+		return ..()
+	tilt(S, from_combat = TRUE)
+	mob_hurt = TRUE
+	return ..()
 
 /*
  * Vending machine types

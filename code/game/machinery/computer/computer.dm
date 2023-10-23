@@ -184,3 +184,9 @@
 		self_hurt = TRUE
 	return ..()
 
+/obj/machinery/computer/hit_by_thrown_silicon(mob/living/silicon/S, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(!self_hurt && prob(50 * (damage / 15)))
+		obj_break(MELEE)
+		take_damage(damage, BRUTE)
+		self_hurt = TRUE
+	return ..()
