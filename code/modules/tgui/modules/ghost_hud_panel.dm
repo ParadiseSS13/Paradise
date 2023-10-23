@@ -62,7 +62,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				to_chat(ghost, "<span class='danger'>You have been banned from using this feature.</span>")
 				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
-			if(!check_rights(R_ADMIN | R_MOD, FALSE) && !(ghost.ckey in GLOB.roundstart_observer_keys) && !ghost.has_enabled_antagHUD && GLOB.configuration.general.restrict_antag_hud_rejoin)
+			if(!check_rights(R_ADMIN | R_MOD, FALSE) && !(ghost.ckey in GLOB.roundstart_observer_keys) && GLOB.configuration.general.restrict_antag_hud_rejoin && !(ghost.ckey in GLOB.antag_hud_users))
 				var/response = alert(ghost, "If you turn this on, you will not be able to take any part in the round.", "Are you sure you want to enable antag HUD?", "Yes", "No")
 				if(response == "No")
 					return FALSE
@@ -71,8 +71,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 				REMOVE_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 				log_and_message_admins("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")
 
-			else if (ghost.ckey in GLOB.roundstart_observer_keys && !ghost.has_enabled_antagHUD)
-				ghost.has_enabled_antagHUD = TRUE
+			else if(ghost.ckey in GLOB.roundstart_observer_keys && !(ghost.ckey in GLOB.antag_hud_users))
 				log_admin("[key_name(ghost)] has enabled antaghud for the first time as a roundstart observer, keeping respawnability.")
 
 			GLOB.antag_hud_users |= ghost.ckey

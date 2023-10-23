@@ -291,10 +291,10 @@
 
 	var/action=""
 	if(GLOB.configuration.general.allow_antag_hud)
+		GLOB.antag_hud_users.Cut()
 		for(var/mob/dead/observer/g in get_ghosts())
 			if(g.antagHUD)
 				g.antagHUD = FALSE						// Disable it on those that have it enabled
-				g.has_enabled_antagHUD = FALSE			// We'll allow them to respawn
 				to_chat(g, "<span class='danger'>The Administrators have disabled AntagHUD </span>")
 		GLOB.configuration.general.allow_antag_hud = FALSE
 		to_chat(src, "<span class='danger'>AntagHUD usage has been disabled</span>")
@@ -332,7 +332,7 @@
 			to_chat(g, "<span class='danger'>The administrator has placed restrictions on joining the round if you use AntagHUD</span>")
 			to_chat(g, "<span class='danger'>Your AntagHUD has been disabled, you may choose to re-enabled it but will be under restrictions </span>")
 			g.antagHUD = FALSE
-			g.has_enabled_antagHUD = FALSE
+			GLOB.antag_hud_users -= g.ckey
 		action = "placed restrictions"
 		GLOB.configuration.general.restrict_antag_hud_rejoin = TRUE
 		to_chat(src, "<span class='danger'>AntagHUD restrictions have been enabled</span>")

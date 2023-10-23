@@ -139,7 +139,7 @@
 
 /proc/cannotPossess(A)
 	var/mob/dead/observer/G = A
-	if(G.has_enabled_antagHUD && GLOB.configuration.general.restrict_antag_hud_rejoin && !(G.ckey in GLOB.roundstart_observer_keys))
+	if(GLOB.configuration.general.restrict_antag_hud_rejoin && !(G.ckey in GLOB.roundstart_observer_keys) && (G.key in GLOB.antag_hud_users))
 		return TRUE
 	return FALSE
 
