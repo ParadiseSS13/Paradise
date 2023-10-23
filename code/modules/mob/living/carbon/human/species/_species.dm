@@ -1,6 +1,10 @@
 /datum/species
-	var/name                     // Species name.
-	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
+	/// Species name
+	var/name
+	/// Pluralized name (since "[name]s" is not always valid)
+	var/name_plural
+	/// The corresponding key for spritesheets
+	var/sprite_sheet_name
 	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
 	/// Because it's unathi's turn to be special snowflakes.
 	var/article_override
@@ -193,6 +197,8 @@
 
 /datum/species/New()
 	unarmed = new unarmed_type()
+	if(!sprite_sheet_name)
+		sprite_sheet_name = name
 
 /datum/species/proc/get_random_name(gender)
 	var/datum/language/species_language = GLOB.all_languages[language]

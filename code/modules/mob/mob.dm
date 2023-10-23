@@ -42,15 +42,42 @@
 
 /atom/proc/prepare_huds()
 	hud_list = list()
+	var/static/list/hud_dmis = list(
+		SPECIALROLE_HUD = 'icons/mob/hud/antaghud.dmi',
+
+		DIAG_TRACK_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_AIRLOCK_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_STAT_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_BATT_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_MECH_HUD = 'icons/mob/hud/diaghud.dmi',
+		DIAG_BOT_HUD = 'icons/mob/hud/diaghud.dmi',
+
+		PLANT_NUTRIENT_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_WATER_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_STATUS_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_HEALTH_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_TOXIN_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_PEST_HUD = 'icons/mob/hud/hydrohud.dmi',
+		PLANT_WEED_HUD = 'icons/mob/hud/hydrohud.dmi',
+
+		HEALTH_HUD = 'icons/mob/hud/medhud.dmi',
+		STATUS_HUD = 'icons/mob/hud/medhud.dmi',
+
+		ID_HUD = 'icons/mob/hud/sechud.dmi',
+		WANTED_HUD = 'icons/mob/hud/sechud.dmi',
+		IMPMINDSHIELD_HUD = 'icons/mob/hud/sechud.dmi',
+		IMPCHEM_HUD = 'icons/mob/hud/sechud.dmi',
+		IMPTRACK_HUD = 'icons/mob/hud/sechud.dmi',
+	)
+
 	for(var/hud in hud_possible)
-		var/hint = hud_possible[hud]
-		switch(hint)
-			if(HUD_LIST_LIST)
-				hud_list[hud] = list()
-			else
-				var/image/I = image('icons/mob/hud.dmi', src, "")
-				I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
-				hud_list[hud] = I
+		var/use_this_dmi = hud_dmis[hud]
+		if(!use_this_dmi)
+			use_this_dmi = 'icons/mob/hud/hud_misc.dmi'
+		var/image/I = image(use_this_dmi, src, "")
+		I.appearance_flags = RESET_COLOR | RESET_TRANSFORM
+		hud_list[hud] = I
 
 /mob/proc/generate_name()
 	return name
@@ -608,12 +635,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
+		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"))
 		return 1
 
 	face_atom(A)
 	var/list/result = A.examine(src)
-	to_chat(src, result.Join("\n"))
+	to_chat(src, chat_box_examine(result.Join("\n")))
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
@@ -971,20 +998,21 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return FALSE
 
 /mob/Stat()
-	..()
-
 	show_stat_turf_contents()
 
-	statpanel("Status") // We only want alt-clicked turfs to come before Status
-	stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
-	stat(null, "Map: [SSmapping.map_datum.fluff_name]")
-	if(SSmapping.next_map)
-		stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
+	if(statpanel("Status"))
+		stat(null, "Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]")
+		stat(null, "Map: [SSmapping.map_datum.fluff_name]")
+		if(SSmapping.next_map)
+			stat(null, "Next Map: [SSmapping.next_map.fluff_name]")
+		if(SSticker)
+			show_stat_station_time()
+		stat(null, "Players Connected: [length(GLOB.clients)]")
 
-	if(mob_spell_list && mob_spell_list.len)
+	if(length(mob_spell_list))
 		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
 			add_spell_to_statpanel(S)
-	if(mind && isliving(src) && mind.spell_list && mind.spell_list.len)
+	if(length(mind.spell_list))
 		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
 			add_spell_to_statpanel(S)
 
@@ -1042,13 +1070,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
 					if((SS.cpu_display == SS_CPUDISPLAY_HIGH) && !(SS.flags & SS_NO_FIRE))
 						SS.stat_entry()
-
-	statpanel("Status") // Switch to the Status panel again, for the sake of the lazy Stat procs
-
-	if(client?.statpanel == "Status")
-		if(SSticker)
-			show_stat_station_time()
-		stat(null, "Players Connected: [length(GLOB.clients)]")
 
 // this function displays the station time in the status panel
 /mob/proc/show_stat_station_time()
@@ -1148,14 +1169,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/activate_hand(selhand)
 	return
 
-/mob/proc/add_to_respawnable_list()
-	GLOB.respawnable_list += src
-	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_respawnable_list))
-
-/mob/proc/remove_from_respawnable_list()
-	GLOB.respawnable_list -= src
-	UnregisterSignal(src, COMSIG_PARENT_QDELETING)
-
 /mob/dead/observer/verb/respawn()
 	set name = "Respawn as NPC"
 	set category = "Ghost"
@@ -1168,7 +1181,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		to_chat(src, "<span class='warning'>You can't respawn as an NPC before the game starts!</span>")
 		return
 
-	if((usr in GLOB.respawnable_list) && (stat == DEAD || isobserver(usr)))
+	if((HAS_TRAIT(usr, TRAIT_RESPAWNABLE)) && (stat == DEAD || isobserver(usr)))
 		var/list/creatures = list("Mouse")
 		for(var/mob/living/simple_animal/L in GLOB.alive_mob_list)
 			if(!(is_station_level(L.z) || is_admin_level(L.z))) // Prevents players from spawning in space
@@ -1178,12 +1191,10 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
 		switch(picked)
 			if("Mouse")
-				if(become_mouse()) // Only remove respawnability if the player successfully becomes a mouse
-					remove_from_respawnable_list()
+				become_mouse()
 			else
 				var/mob/living/NPC = picked
 				if(istype(NPC) && !NPC.key)
-					remove_from_respawnable_list()
 					NPC.key = key
 	else
 		to_chat(usr, "You are not dead or you have given up your right to be respawned!")

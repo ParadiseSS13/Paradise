@@ -16,6 +16,17 @@
 	var/max_items = 7
 	var/obj/item/storage/backpack/modstorage/bag
 
+/obj/item/mod/module/storage/serialize()
+	var/list/data = ..()
+	data["bag"] = bag.serialize()
+	return data
+
+/obj/item/mod/module/storage/deserialize(list/data)
+	. = ..()
+	qdel(bag)
+	bag = list_to_object(data["bag"], src)
+	bag.source = src
+
 /obj/item/mod/module/storage/Initialize(mapload)
 	. = ..()
 	var/obj/item/storage/backpack/modstorage/S = new(src)

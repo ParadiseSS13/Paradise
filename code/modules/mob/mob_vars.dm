@@ -216,3 +216,8 @@
 	var/runechat_msg_location
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
+
+	/// lazy list. contains /obj/screen/alert only. On /mob so clientless mobs will throw alerts properly
+	var/list/alerts
+
+	var/list/screens = list()

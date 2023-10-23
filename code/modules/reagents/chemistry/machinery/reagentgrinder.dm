@@ -42,6 +42,8 @@
 		/obj/item/reagent_containers/food/snacks/grown/bluecherries = list("bluecherryjelly" = 0),
 		/obj/item/reagent_containers/food/snacks/egg = list("egg" = -5),
 		/obj/item/reagent_containers/food/snacks/grown/rice = list("rice" = -5),
+		/obj/item/reagent_containers/food/snacks/grown/olive = list("olivepaste" = 0, "sodiumchloride" = 0),
+		/obj/item/reagent_containers/food/snacks/grown/peanuts = list("peanutbutter" = 0),
 
 		//Grinder stuff, but only if dry
 		/obj/item/reagent_containers/food/snacks/grown/coffee/robusta = list("coffeepowder" = 0, "morphine" = 0),

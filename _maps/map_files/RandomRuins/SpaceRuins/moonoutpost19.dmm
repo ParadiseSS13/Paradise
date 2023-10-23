@@ -4684,7 +4684,7 @@
 /obj/structure/table,
 /obj/structure/bedsheetbin,
 /obj/item/clothing/accessory/black,
-/obj/item/clothing/under/rank/civilian/lawyer/black,
+/obj/item/clothing/under/rank/procedure/lawyer/black,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "barber";
 	name = "floor"

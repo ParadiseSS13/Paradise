@@ -28,9 +28,10 @@
 
 /mob/living/carbon/human/proc/mind_checks()
 	if(!mind)
-		return
+		return FALSE
 	if(mind.miming)
 		qdel(GetComponent(/datum/component/footstep))
+	return TRUE
 
 /**
   * Sets up DNA and species.
@@ -155,9 +156,6 @@
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
 
-/mob/living/carbon/human/nucleation/Initialize(mapload)
-	. = ..(mapload, /datum/species/nucleation)
-
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
@@ -183,43 +181,41 @@
 
 /mob/living/carbon/human/Stat()
 	..()
-	statpanel("Status")
+	if(!statpanel("Status"))
+		return
 
 	stat(null, "Intent: [a_intent]")
 	stat(null, "Move Mode: [m_intent]")
 
 	show_stat_emergency_shuttle_eta()
 
-	if(client.statpanel == "Status")
-		var/total_user_contents = GetAllContents() // cache it
-		if(locate(/obj/item/gps) in total_user_contents)
-			var/turf/T = get_turf(src)
-			stat(null, "GPS: [COORD(T)]")
-		if(locate(/obj/item/assembly/health) in total_user_contents)
-			stat(null, "Health: [health]")
+	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
+	if(HAS_TRAIT(src, TRAIT_CAN_VIEW_HEALTH))
+		stat(null, "Health: [health]")
 
-		if(internal)
-			if(!internal.air_contents)
-				qdel(internal)
-			else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
-				stat(null, "Internals Tank Connected")
-			else
-				stat("Internal Atmosphere Info", internal.name)
-				stat("Tank Pressure", internal.air_contents.return_pressure())
-				stat("Distribution Pressure", internal.distribute_pressure)
+	if(internal)
+		if(!internal.air_contents)
+			qdel(internal)
+		else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
+			stat(null, "Internals Tank Connected")
+		else
+			stat("Internal Atmosphere Info", internal.name)
+			stat("Tank Pressure", internal.air_contents.return_pressure())
+			stat("Distribution Pressure", internal.distribute_pressure)
 
-		// I REALLY need to split up status panel things into datums
+	// I REALLY need to split up status panel things into datums
+	if(mind)
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling)
+			stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
+			stat("Absorbed DNA", cling.absorbed_count)
 
-		if(mind)
-			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
-			if(cling)
-				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
-				stat("Absorbed DNA", cling.absorbed_count)
-
-			var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
-			if(V)
-				stat("Total Blood", "[V.bloodtotal]")
-				stat("Usable Blood", "[V.bloodusable]")
+		var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
+		if(V)
+			stat("Total Blood", "[V.bloodtotal]")
+			stat("Usable Blood", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
@@ -1687,13 +1683,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			H.receiving_cpr = FALSE
 			return
 
-		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || !H.is_revivable())
+		if(!H.is_revivable())
 			to_chat(src, "<span class='warning'>[H] is already too far gone for CPR...</span>")
 			H.receiving_cpr = FALSE
 			return
 
 		visible_message("<span class='danger'>[src] is trying to perform CPR on [H]'s lifeless body!</span>", "<span class='danger'>You start trying to perform CPR on [H]'s lifeless body!</span>")
-		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD) && H.is_revivable())
+		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)) && H.is_revivable())
 			var/timer_restored
 			if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
 				visible_message("<span class='notice'>[src] gives [H] chest compressions.</span>", "<span class='notice'>You can't make rescue breaths work, so you do your best to give chest compressions.</span>")

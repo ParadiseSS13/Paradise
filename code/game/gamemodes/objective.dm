@@ -132,7 +132,8 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		holder.remove_objective(src)
 		// even if we have to remove the objective, still announce it
 	for(var/datum/mind/M in owners)
-		M.announce_objectives()
+		var/list/messages = M.prepare_announce_objectives(FALSE)
+		to_chat(M.current, chat_box_red(messages.Join("<br>")))
 
 // Borgs, brains, AIs, etc count as dead for traitor objectives
 /datum/objective/proc/is_special_dead(mob/target_current, check_silicon = TRUE)
@@ -640,6 +641,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		return FALSE
 	return TRUE
 
+/datum/objective/destroy/post_target_cryo(list/owners)
+	holder.replace_objective(src, /datum/objective/assassinate)
+	
 /datum/objective/steal_five_of_type
 	name = "Steal Five Items"
 	explanation_text = "Steal at least five items!"

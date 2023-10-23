@@ -294,16 +294,6 @@
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
 
-/obj/item/storage/box/exileimp
-	name = "boxed exile bio-chip kit"
-	desc = "Box of exile bio-chips. It has a picture of a clown being booted through the Gateway."
-	icon_state = "implant"
-
-/obj/item/storage/box/exileimp/populate_contents()
-	for(var/I in 1 to 5)
-		new /obj/item/implantcase/exile(src)
-	new /obj/item/implanter(src)
-
 /obj/item/storage/box/deathimp
 	name = "death alarm bio-chip kit"
 	desc = "Box of life sign monitoring bio-chips."
@@ -975,6 +965,16 @@
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/screwdriver(src)
+
+/obj/item/storage/box/hardmode_box
+	name = "box of HRD-MDE project box"
+	desc = "Contains everything needed to get yourself killed for a medal."
+
+/obj/item/storage/box/hardmode_box/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/megafauna_hardmode(src)
+	new /obj/item/storage/lockbox/medal/hardmode_box(src)
+	new /obj/item/paper/hardmode(src)
 
 #undef NODESIGN
 #undef NANOTRASEN
