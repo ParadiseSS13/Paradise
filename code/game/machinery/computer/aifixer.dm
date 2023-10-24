@@ -95,6 +95,8 @@
 
 /obj/machinery/computer/aifixer/update_overlays()
 	. = ..()
+	if((stat & (BROKEN|NOPOWER)))
+		return
 	if(active)
 		. += "ai-fixer-on"
 	if(occupant)
@@ -103,7 +105,7 @@
 				. += "ai-fixer-full"
 			if(2)
 				. += "ai-fixer-404"
-	if(!(stat & (BROKEN|NOPOWER)))
+	else
 		. += "ai-fixer-empty"
 
 /obj/machinery/computer/aifixer/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
