@@ -95,7 +95,7 @@
 
 /obj/machinery/computer/aifixer/update_overlays()
 	. = ..()
-	if((stat & (BROKEN|NOPOWER)))
+	if(stat & (BROKEN|NOPOWER))
 		return
 	if(active)
 		. += "ai-fixer-on"
