@@ -326,7 +326,7 @@
 		. += (1.5 - flight)
 
 	if(H.bodytemperature < H.dna.species.cold_level_1 && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
-		. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+		. += (H.dna.species.cold_level_1 - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	var/leftover = .
 	. = round_down(. * SLOWDOWN_MULTIPLIER) / SLOWDOWN_MULTIPLIER //This allows us to round in values of 0.5 A slowdown of 0.55 becomes 1.10, which is rounded to 1, then reduced to 0.5
