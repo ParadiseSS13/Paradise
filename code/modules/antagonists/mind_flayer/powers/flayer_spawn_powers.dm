@@ -37,6 +37,7 @@
 	var/mob/living/simple_animal/hostile/flayer/flayerbot = new mob_to_spawn(user_turf)
 	current_mobs += flayerbot
 	flayerbot.key = key
+	RegisterSignal(flayerbot, COMSIG_MOB_DEATH, PROC_REF(deduct_mob_from_list))
 	to_chat(flayerbot, "You are a [name] bound to serve [user.real_name].") //TODO: make these into one to_chat
 	to_chat(flayerbot, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
 	to_chat(flayerbot, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
@@ -44,6 +45,6 @@
 
 //	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]")
 
-/obj/effect/proc_holder/spell/flayer/self/summon/proc/deduct_mob_from_list(mob_to_remove)
+/obj/effect/proc_holder/spell/flayer/self/summon/proc/deduct_mob_from_list(gibbed, mob_to_remove)
 	SIGNAL_HANDLER
 	current_mobs -= mob_to_remove

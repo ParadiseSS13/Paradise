@@ -23,7 +23,3 @@
 	AIStatus = AI_OFF
 	/// This is the reference to our master flayer
 	var/mob/living/carbon/human/flayer
-
-/mob/living/simple_animal/hostile/flayer/death(gibbed)
-	. = ..()
-	flayer.mind.
