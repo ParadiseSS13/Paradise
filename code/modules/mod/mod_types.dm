@@ -50,7 +50,7 @@
 		/obj/item/mod/module/storage/large_capacity,
 		/obj/item/mod/module/welding,
 		/obj/item/mod/module/flashlight,
-		/obj/item/mod/module/jetpack,
+		/obj/item/mod/module/jetpack
 	)
 
 /obj/item/mod/control/pre_equipped/engineering

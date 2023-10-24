@@ -32,8 +32,8 @@
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-	/mob/living/simple_animal/hostile/pirate/Process_Spacemove(movement_dir = 0)
-		return TRUE
+/mob/living/simple_animal/hostile/pirate/Process_Spacemove(movement_dir = 0)
+	return TRUE
 
 /mob/living/simple_animal/hostile/pirate/ranged
 	name = "Pirate Gunner"
@@ -50,4 +50,5 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 				/obj/item/gun/energy/laser,
 				/obj/item/clothing/head/helmet/space/pirate,
-				/obj/item/sellable/salvage/loot,)
+				/obj/item/sellable/salvage/loot
+				)

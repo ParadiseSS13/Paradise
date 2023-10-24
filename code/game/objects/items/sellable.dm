@@ -50,7 +50,6 @@
 	name = "Salvage"
 	desc = "A tonne of salvage recovered from an abandoned ruin. Who spawned the base type? Report this on the github."
 
-
 /// Loot salvage, gained from fighting space simplemobs.
 
 /obj/item/sellable/salvage/loot

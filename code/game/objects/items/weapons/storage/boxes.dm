@@ -987,7 +987,6 @@
 	new /obj/item/stock_parts/manipulator(src, 2)
 	new /obj/item/stack/cable_coil(src, 7)
 
-
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(economy)
 	/// points gained per research design returned
 	var/credits_per_design = 20
 	/// points gained per salvage sold
-	var/credits_per_salvage = 250
+	var/credits_per_salvage = 100
 
 	/// Remarks from Centcom on how well you checked the last order.
 	var/centcom_message

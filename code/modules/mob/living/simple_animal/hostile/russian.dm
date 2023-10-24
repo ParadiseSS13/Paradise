@@ -25,8 +25,8 @@
 	faction = list("russian")
 	status_flags = CANPUSH
 	loot = list(/obj/effect/mob_spawn/human/corpse/russian,
-			/obj/item/kitchen/knife,
-			/obj/item/sellable/salvage/loot)
+				/obj/item/kitchen/knife,
+				/obj/item/sellable/salvage/loot)
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_OTHER
 	footstep_type = FOOTSTEP_MOB_SHOE
