@@ -1,10 +1,6 @@
 /obj/structure/rack
 	icon = 'modular_ss220/aesthetics/racks/icons/racks.dmi'
 
-/obj/structure/rack/skeletal_bar
-	icon = 'icons/obj/stationobjs.dmi'
-	//TODO: need icon
-
 /obj/structure/rack/gunrack
 	name = "gun rack"
 	desc = "A gun rack for storing guns."
