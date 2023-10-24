@@ -109,8 +109,8 @@
 	return
 
 /obj/item/gun/medbeam/proc/on_beam_tick(mob/living/target)
-	target.adjustBruteLoss(-4)
-	target.adjustFireLoss(-4)
+	target.adjustBruteLoss(-4, robotic = TRUE)
+	target.adjustFireLoss(-4, robotic = TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		for(var/obj/item/organ/external/E in H.bodyparts)
