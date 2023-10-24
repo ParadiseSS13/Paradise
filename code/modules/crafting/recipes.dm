@@ -58,6 +58,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/shiv
+	name = "Shiv"
+	result = list(/obj/item/kitchen/knife/shiv)
+	reqs = list(/obj/item/stack/cable_coil = 5,
+				/obj/item/shard = 1,
+				/obj/item/stack/sheet/cloth = 1)
+	time = 2 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/bola
 	name = "Bola"
 	result = list(/obj/item/restraints/legcuffs/bola)

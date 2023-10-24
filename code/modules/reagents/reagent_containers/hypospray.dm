@@ -14,12 +14,14 @@
 	possible_transfer_amounts = list(1,2,3,4,5,10,15,20,25,30)
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
-	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol","omnizine",
-									"stimulants", "synaptizine", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
-									"sal_acid", "cryoxadone", "blood", "hydrocodone", "mitocholide", "rezadone", "menthol")
+	var/static/list/safe_chem_list = list("antihol", "charcoal", "epinephrine", "insulin", "teporone", "salbutamol", "omnizine",
+									"weak_omnizine", "godblood", "potass_iodide", "oculine", "mannitol", "spaceacillin", "salglu_solution",
+									"sal_acid", "cryoxadone", "sugar", "hydrocodone", "mitocholide", "rezadone", "menthol",
+									"mutadone", "sanguine_reagent", "iron", "ephedrine", "heparin", "corazone", "sodiumchloride",
+									"lavaland_extract", "synaptizine", "bicaridine", "kelotane")
 
 /obj/item/reagent_containers/hypospray/proc/apply(mob/living/M, mob/user)
 	if(!reagents.total_volume)

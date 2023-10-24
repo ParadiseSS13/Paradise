@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	icon_state = "pda"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_ID | SLOT_BELT | SLOT_PDA
+	slot_flags = SLOT_FLAG_ID | SLOT_FLAG_BELT | SLOT_FLAG_PDA
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	origin_tech = "programming=2"
@@ -37,12 +37,24 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/detonate = TRUE // Can the PDA be blown up?
 	var/ttone = "beep" //The ringtone!
 	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
-								"boom" = 'sound/effects/explosionfar.ogg',
+								"boop" = 'sound/machines/boop.ogg',
+								"electronic" = 'sound/machines/notif1.ogg',
+								"chime" = 'sound/machines/notif2.ogg',
 								"slip" = 'sound/misc/slip.ogg',
 								"honk" = 'sound/items/bikehorn.ogg',
 								"SKREE" = 'sound/voice/shriek1.ogg',
 								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
-								"xeno" = 'sound/voice/hiss1.ogg')
+								"boom" = 'sound/effects/explosionfar.ogg',
+								"gavel" = 'sound/items/gavel.ogg',
+								"xeno" = 'sound/voice/hiss1.ogg',
+								"smoke" = 'sound/magic/smoke.ogg',
+								"shatter" = 'sound/effects/pylon_shatter.ogg',
+								"energy" = 'sound/weapons/egloves.ogg',
+								"flare" = 'sound/goonstation/misc/matchstick_light.ogg',
+								"interference" = 'sound/misc/interference.ogg',
+								"zap" = 'sound/effects/eleczap.ogg',
+								"disgusting" = 'sound/effects/blobattack.ogg',
+								"hungry" = 'sound/weapons/bite.ogg')
 
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,

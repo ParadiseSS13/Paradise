@@ -276,6 +276,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		choose_targets(usr)
 	return 1
 
+/obj/effect/proc_holder/spell/AltClick(mob/user)
+	return Click()
+
 /obj/effect/proc_holder/spell/InterceptClickOn(mob/user, params, atom/A)
 	. = ..()
 	if(.)

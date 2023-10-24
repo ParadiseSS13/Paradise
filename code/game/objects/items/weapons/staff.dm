@@ -3,6 +3,8 @@
 	desc = "Apparently a staff used by the wizard."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "staff"
+	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	force = 3.0
 	throwforce = 5.0
 	throw_speed = 1
@@ -75,6 +77,8 @@
 	name = "stick"
 	desc = "A great tool to drag someone else's drinks across the bar."
 	icon_state = "stick"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "stick"
 	force = 3.0
 	throwforce = 5.0

@@ -49,6 +49,9 @@
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
 
+	// Allow storage items of the same size to be put inside
+	var/allow_same_size = FALSE
+
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 	can_hold = typecacheof(can_hold)
@@ -407,7 +410,7 @@
 		return FALSE
 
 	if(I.w_class >= w_class && isstorage(I))
-		if(!istype(src, /obj/item/storage/backpack/holding))	//BoHs should be able to hold backpacks again. The override for putting a BoH in a BoH is in backpack.dm.
+		if(!allow_same_size)	//BoHs should be able to hold backpacks again. The override for putting a BoH in a BoH is in backpack.dm.
 			if(!stop_messages)
 				to_chat(usr, "<span class='warning'>[src] cannot hold [I] as it's a storage item of the same size.</span>")
 			return FALSE //To prevent the stacking of same sized storage items.

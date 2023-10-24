@@ -85,7 +85,7 @@
 /area/ruin/space/tcommsat)
 "fS" = (
 /obj/structure/rack,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/tcommsat)
@@ -172,7 +172,7 @@
 "le" = (
 /obj/structure/rack,
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/tcommsat)
@@ -242,7 +242,7 @@
 "oZ" = (
 /obj/structure/rack,
 /obj/item/circuitboard/teleporter,
-/turf/simulated/floor/plasteel{
+/turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},
 /area/ruin/space/tcommsat)
@@ -681,6 +681,10 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"Th" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
 "Tt" = (
 /obj/structure/kitchenspike,
 /obj/effect/decal/cleanable/blood,
@@ -721,6 +725,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
+"UK" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
 /area/ruin/space/tcommsat)
 "UP" = (
 /obj/structure/window/reinforced{
@@ -1088,7 +1097,7 @@ Wr
 Is
 Wc
 Wr
-sb
+UK
 le
 Wr
 zE
@@ -1142,7 +1151,7 @@ Wr
 Wc
 Is
 ot
-sb
+UK
 fS
 Wr
 Jr
@@ -1196,7 +1205,7 @@ Cq
 Sp
 Wc
 jk
-sb
+UK
 oZ
 ot
 Jr
@@ -1250,7 +1259,7 @@ Wr
 Is
 Sp
 Wr
-sb
+UK
 fS
 Wr
 Jr
@@ -1775,7 +1784,7 @@ Is
 Wc
 Wc
 Is
-QN
+Th
 PO
 PO
 PO
@@ -1830,7 +1839,7 @@ Is
 Wc
 Wc
 rM
-QN
+Th
 nX
 nX
 Zi
@@ -1884,7 +1893,7 @@ Em
 Bq
 ko
 KR
-QN
+Th
 nX
 nX
 SS
@@ -1938,7 +1947,7 @@ Wc
 Wc
 WC
 Up
-QN
+Th
 nX
 nX
 Zi
@@ -1991,7 +2000,7 @@ Wc
 Wc
 Is
 Wc
-QN
+Th
 PO
 PO
 PO

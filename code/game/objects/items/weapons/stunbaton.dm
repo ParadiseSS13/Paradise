@@ -5,7 +5,7 @@
 	var/base_icon = "stunbaton"
 	item_state = null
 	belt_icon = "stunbaton"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
@@ -83,7 +83,7 @@
 	return cell
 
 /obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE)
-	if(turned_on && (slot == slot_belt || slot == slot_s_store))
+	if(turned_on && (slot == SLOT_HUD_BELT || slot == SLOT_HUD_SUIT_STORE))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
 	return ..(user, slot, disable_warning = TRUE) // call parent but disable warning
@@ -293,7 +293,7 @@
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
-	slot_flags = SLOT_BACK | SLOT_BELT
+	slot_flags = SLOT_FLAG_BACK | SLOT_FLAG_BELT
 	var/obj/item/assembly/igniter/sparkler = null
 
 /obj/item/melee/baton/cattleprod/Initialize(mapload)

@@ -3,7 +3,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "cham_counter"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "syndicate=1;magnets=3"

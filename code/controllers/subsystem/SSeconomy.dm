@@ -92,6 +92,8 @@ SUBSYSTEM_DEF(economy)
 	var/next_paycheck_delay = 0
 	/// total paydays this round
 	var/payday_count = 0
+	/// Time until the next mail shipment
+	var/next_mail_delay = 0
 
 	var/global_paycheck_bonus = 0
 	var/global_paycheck_deduction = 0
@@ -132,6 +134,7 @@ SUBSYSTEM_DEF(economy)
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	next_paycheck_delay = 30 MINUTES + world.time
+	next_mail_delay = 15 MINUTES + world.time
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)
@@ -141,6 +144,11 @@ SUBSYSTEM_DEF(economy)
 		next_data_check = 10 MINUTES + world.time
 		record_economy_data()
 	process_job_tasks()
+	if(next_mail_delay <= world.time)
+		if(!is_admin_level(SSshuttle.supply.z) || SSshuttle.supply.areaInstance.moving)
+			return
+		next_mail_delay = 15 MINUTES + world.time
+		SSshuttle.mail_delivery()
 
 /datum/controller/subsystem/economy/proc/record_economy_data()
 	economy_data["totalcash"] += total_space_cash

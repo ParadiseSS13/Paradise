@@ -232,14 +232,6 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	pipe_category = RPD_DEVICES
 	rpd_dispensable = TRUE
 
-/datum/pipes/atmospheric/dual_vent_pump
-	pipe_name = "dual-port vent pump"
-	pipe_id = PIPE_DP_VENT
-	orientations = 2
-	pipe_icon = "dual-port vent"
-	pipe_category = RPD_DEVICES
-	rpd_dispensable = TRUE
-
 /datum/pipes/atmospheric/injector
 	pipe_name = "air injector"
 	pipe_id = PIPE_INJECTOR

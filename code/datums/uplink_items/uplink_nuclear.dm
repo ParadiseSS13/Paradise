@@ -294,7 +294,7 @@
 /datum/uplink_item/ammo/sniper/antimatter
 	name = "Sniper - .50 Antimatter Magazine"
 	desc = "A 6-round magazine of antimatter ammo for use with .50 sniper rifles. \
-	Able to heavily damage objects, and delimb people."
+	Able to heavily damage objects, and delimb people. Requires zooming in for accurate aiming."
 	reference = "50A"
 	item = /obj/item/ammo_box/magazine/sniper_rounds/antimatter
 	cost = 30
@@ -537,7 +537,7 @@
 	desc = "A bio-chip injected into the body, and later activated either manually or automatically upon death. Upon death, releases a massive explosion that will wipe out everything nearby."
 	reference = "HAB"
 	item = /obj/item/implanter/explosive_macro
-	cost = 100
+	cost = 50
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 

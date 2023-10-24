@@ -301,7 +301,11 @@ const ColorContent = (props, context) => {
       {colorOptions.map(
         (c) =>
           !!data[c.key] && (
-            <Button content={c.text} onClick={() => act(c.action)} />
+            <Button
+              key={c.key}
+              content={c.text}
+              onClick={() => act(c.action)}
+            />
           )
       )}
     </LabeledList.Item>

@@ -293,7 +293,10 @@
 	if(!istype(I, /obj/item/reagent_containers/syringe))
 		return ..()
 	var/obj/item/reagent_containers/syringe/S = I
-	if(S.reagents.has_reagent("royal_bee_jelly", 5))
+	if(S.reagents.has_reagent("royal_bee_jelly")) // We check it twice because if we use an if/else statement, it won't catch the check for blacklisted chemicals below
+		if(!S.reagents.has_reagent("royal_bee_jelly", 5))
+			to_chat(user, "<span class='warning'>You don't have enough royal bee jelly to split a bee in two!</span>")
+			return
 		S.reagents.remove_reagent("royal_bee_jelly", 5)
 		var/obj/item/queen_bee/qb = new(user.drop_location())
 		qb.queen = new(qb)
@@ -301,9 +304,8 @@
 			qb.queen.assign_reagent(queen.beegent) //Bees use the global singleton instances of reagents, so we don't need to worry about one bee being deleted and her copies losing their reagents.
 		user.put_in_active_hand(qb)
 		user.visible_message("<span class='notice'>[user] injects [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>", "<span class='warning'>You inject [src] with royal bee jelly, causing it to split into two bees, MORE BEES!</span>")
-	else
-		to_chat(user, "<span class='warning'>You don't have enough royal bee jelly to split a bee in two!</span>")
 		return
+
 	var/datum/reagent/R = GLOB.chemical_reagents_list[S.reagents.get_master_reagent_id()]
 	if(R && S.reagents.has_reagent(R.id, 5))
 		S.reagents.remove_reagent(R.id, 5) // Whether or not the chemical is blocked, we want it gone just because you tried to

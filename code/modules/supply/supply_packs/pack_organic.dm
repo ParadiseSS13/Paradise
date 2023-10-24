@@ -58,6 +58,23 @@
 	containertype = /obj/structure/closet/crate/freezer
 	department_restrictions = list(DEPARTMENT_SERVICE)
 
+/datum/supply_packs/organic/condiments
+	name = "Condiment Crate"
+	contains = list(/obj/item/reagent_containers/food/condiment/ketchup,
+					/obj/item/reagent_containers/food/condiment/bbqsauce,
+					/obj/item/reagent_containers/food/condiment/soysauce,
+					/obj/item/reagent_containers/food/condiment/mayonnaise,
+					/obj/item/reagent_containers/food/condiment/cherryjelly,
+					/obj/item/reagent_containers/food/condiment/peanutbutter,
+					/obj/item/reagent_containers/food/condiment/honey,
+					/obj/item/reagent_containers/food/condiment/oliveoil,
+					/obj/item/reagent_containers/food/condiment/frostoil,
+					/obj/item/reagent_containers/food/condiment/capsaicin,
+					/obj/item/reagent_containers/food/condiment/wasabi,
+					/obj/item/reagent_containers/food/condiment/vinegar)
+	cost = 300
+	containername = "condiment crate"
+
 /datum/supply_packs/organic/monkey
 	name = "Monkey Crate"
 	contains = list (/obj/item/storage/box/monkeycubes)

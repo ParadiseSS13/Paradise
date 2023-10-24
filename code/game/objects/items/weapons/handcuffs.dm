@@ -11,7 +11,7 @@
 	icon_state = "handcuff"
 	belt_icon = "handcuffs"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -63,8 +63,10 @@
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-
-			add_attack_logs(user, C, "Handcuffed ([src])")
+			if(breakouttime != 0)
+				add_attack_logs(user, C, "Handcuffed ([src])")
+			else
+				add_attack_logs(user, C, "Handcuffed (Fake/Breakable!) ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
 			return FALSE

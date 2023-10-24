@@ -340,11 +340,12 @@
 		if(T && T.implanted)
 			qdel(T)
 	visible_message("<span class='warning'>[H] gets an eerie red glow in their eyes!</span>")
+
 	var/datum/objective/protect/protect_objective = new
-	protect_objective.owner = H.mind
 	protect_objective.target = M.mind
 	protect_objective.explanation_text = "Protect [M.real_name]."
-	H.mind.objectives += protect_objective
+	H.mind.add_mind_objective(protect_objective)
+
 	add_attack_logs(M, H, "Vampire-sired")
 	H.mind.make_vampire()
 	H.revive()

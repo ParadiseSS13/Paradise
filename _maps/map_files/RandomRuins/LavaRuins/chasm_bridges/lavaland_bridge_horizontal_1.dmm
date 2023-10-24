@@ -3,7 +3,7 @@
 /turf/simulated/wall/clockwork,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "b" = (
-/turf/simulated/floor/clockwork,
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "c" = (
 /turf/template_noop,

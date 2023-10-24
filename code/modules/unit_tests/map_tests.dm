@@ -107,7 +107,7 @@
 /datum/map_per_tile_test/structures_in_farspace_checker
 
 /datum/map_per_tile_test/structures_in_farspace_checker/CheckTile(turf/T)
-	if(T.loc.type == /area/space && locate(/obj/structure) in T.contents)
+	if((T.loc.type == /area/space || T.loc.type == /area/space/centcomm) && locate(/obj/structure) in T.contents)
 		Fail(T, "tile contains at least one structure found in non-near space area")
 
 /datum/map_per_tile_test/nearspace_checker

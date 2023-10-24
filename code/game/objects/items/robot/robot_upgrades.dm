@@ -139,7 +139,7 @@
 
 /obj/item/borg/upgrade/vtec
 	name = "robotic VTEC Module"
-	desc = "Used to kick in a robot's VTEC systems, increasing their speed."
+	desc = "Used to activate a cyborg's VTEC systems, increasing their speed."
 	icon_state = "cyborg_upgrade2"
 	require_module = TRUE
 	origin_tech = "engineering=4;materials=5;programming=4"
@@ -197,7 +197,7 @@
 
 /obj/item/borg/upgrade/ddrill
 	name = "mining cyborg diamond drill"
-	desc = "A diamond drill replacement for the mining module's standard drill."
+	desc = "A diamond drill replacement for the mining cyborg's standard drill."
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;materials=5"
 	require_module = TRUE
@@ -219,7 +219,7 @@
 
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
-	desc = "An experimental upgrade that replaces an engineering cyborgs tools with the abductor version."
+	desc = "An experimental upgrade that replaces an engineering cyborg's tools with the abductor versions."
 	icon_state = "abductor_mod"
 	origin_tech = "engineering=6;materials=6;abductor=3"
 	require_module = TRUE
@@ -238,7 +238,7 @@
 
 /obj/item/borg/upgrade/abductor_medi
 	name = "medical cyborg abductor upgrade"
-	desc = "An experimental upgrade that replaces a medical cyborgs tools with the abductor version."
+	desc = "An experimental upgrade that replaces a medical cyborg's tools with the abductor versions."
 	icon_state = "abductor_mod"
 	origin_tech = "biotech=6;materials=6;abductor=2"
 	require_module = TRUE
@@ -273,7 +273,7 @@
 	if(R.weapons_unlock)
 		return // They already had the safety override upgrade, or they're a cyborg type which has this by default.
 	R.weapons_unlock = TRUE
-	to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have be disabled.</span>")
+	to_chat(R, "<span class='warning'>Warning: safety protocols have been disabled!</span>")
 	return TRUE
 
 /obj/item/borg/upgrade/lavaproof
@@ -431,7 +431,7 @@
 
 /obj/item/borg/upgrade/rcd
 	name = "R.C.D. upgrade"
-	desc = "A modified rapid construction device, able to pull energy directly from a cyborgs internal power cell."
+	desc = "A modified Rapid Construction Device, able to pull energy directly from a cyborg's internal power cell."
 	icon_state = "cyborg_upgrade5"
 	origin_tech = "engineering=4;materials=5;powerstorage=4"
 	require_module = TRUE

@@ -77,6 +77,7 @@ export const Photocopier = (props, context) => {
 
 const Actions = (props, context) => {
   const { act, data } = useBackend(context);
+  const { issilicon } = data;
   return (
     <Fragment>
       <Button
@@ -95,6 +96,17 @@ const Actions = (props, context) => {
         content="Scan"
         onClick={() => act('scandocument')}
       />
+      {!!issilicon && (
+        <Button
+          fluid
+          icon="image"
+          color="green"
+          float="center"
+          textAlign="center"
+          content="Print from database"
+          onClick={() => act('ai_pic')}
+        />
+      )}
     </Fragment>
   );
 };

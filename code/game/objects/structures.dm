@@ -4,6 +4,8 @@
 	max_integrity = 300
 	face_while_pulling = TRUE
 	var/climbable
+	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
+	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
 
@@ -23,6 +25,8 @@
 /obj/structure/Initialize(mapload)
 	if(!armor)
 		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	if(creates_cover && isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/structure/Destroy()
@@ -32,7 +36,21 @@
 		var/turf/T = get_turf(src)
 		QUEUE_SMOOTH_NEIGHBORS(T)
 	REMOVE_FROM_SMOOTH_QUEUE(src)
+	if(creates_cover && isturf(loc))
+		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
+
+/obj/structure/Move()
+	var/atom/old = loc
+	if(!..())
+		return FALSE
+
+	if(creates_cover)
+		if(isturf(old))
+			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+		if(isturf(loc))
+			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+	return TRUE
 
 /obj/structure/proc/climb_on()
 

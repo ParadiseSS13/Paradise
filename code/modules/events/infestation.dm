@@ -5,27 +5,29 @@
 /datum/event/infestation
 	announceWhen = 10
 	endWhen = 11
-	var/location
-	var/locstring
+	/// Which kind of vermin we'll be spawning (one of the three defines)
 	var/vermin
+	/// Pretty name for the vermin we're spawning
 	var/vermstring
+	/// The area we'll be spawning things in
+	var/area/spawn_area_type
+	/// All possible areas for spawning, matched with their pretty names
 	var/static/list/spawn_areas = list(
-		/area/station/service/kitchen = "the kitchen",
-		/area/station/engineering/atmos = "atmospherics",
-		/area/station/maintenance/incinerator = "the incinerator",
-		/area/station/service/chapel = "the chapel",
-		/area/station/service/library = "the library",
-		/area/station/service/hydroponics = "hydroponics",
-		/area/station/command/vault = "the vault",
-		/area/station/public/construction = "the construction area",
-		/area/station/engineering/tech_storage = "technical storage",
-		/area/station/security/armory/secure = "the armory"
+		/area/station/service/kitchen,
+		/area/station/engineering/atmos,
+		/area/station/maintenance/incinerator,
+		/area/station/service/chapel,
+		/area/station/service/library,
+		/area/station/service/hydroponics,
+		/area/station/command/vault,
+		/area/station/public/construction,
+		/area/station/engineering/tech_storage,
+		/area/station/security/armory/secure
 	)
 
 /datum/event/infestation/start()
 	var/list/turf/simulated/floor/turfs = list()
-	var/area/spawn_area_type = pick(spawn_areas)
-	locstring = spawn_areas[location]
+	spawn_area_type = pick(spawn_areas)
 	for(var/areapath in typesof(spawn_area_type))
 		var/area/A = locate(areapath)
 		if(!A)
@@ -67,12 +69,15 @@
 
 /datum/event/infestation/announce(false_alarm)
 	var/vermin_chosen = vermstring || pick("spiders", "lizards", "mice")
-	var/location_str = locstring
-	if(false_alarm)
-		var/area/loc_area = pick(spawn_areas)
-		location_str = spawn_areas[loc_area]
+	if(!spawn_area_type)
+		if(false_alarm)
+			spawn_area_type = pick(spawn_areas)
+		else
+			log_debug("Infestation Event didn't provide an area to announce(), something is likely broken.")
+			kill()
 
-	GLOB.minor_announcement.Announce("Bioscans indicate that [vermin_chosen] have been breeding in [location_str]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+	GLOB.minor_announcement.Announce("Bioscans indicate that [vermin_chosen] have been breeding in \the [initial(spawn_area_type.name)]. Clear them out, before this starts to affect productivity.", "Lifesign Alert")
+	spawn_area_type = null
 
 #undef VERM_MICE
 #undef VERM_LIZARDS
