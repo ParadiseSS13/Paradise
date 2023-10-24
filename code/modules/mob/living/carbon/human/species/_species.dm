@@ -325,7 +325,7 @@
 	if(HAS_TRAIT(H, TRAIT_FAT))
 		. += (1.5 - flight)
 
-	if(H.bodytemperature < H.dna.species.cold_level_1 && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
+	if(H.bodytemperature < H.dna.species.cold_level_1 && !HAS_TRAIT(H, TRAIT_RESISTCOLD))
 		. += (H.dna.species.cold_level_1 - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	var/leftover = .
