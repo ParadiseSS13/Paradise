@@ -114,7 +114,6 @@
 	uniform = /obj/item/clothing/under/rank/centcom/captain/solgov
 	suit = /obj/item/clothing/suit/space/deathsquad/officer/solgov
 	head = /obj/item/clothing/head/helmet/space/deathsquad/beret/solgov
-	mask = /obj/item/clothing/mask/holo_cigar
 
 /datum/outfit/job/ntspecops/solgovspecops/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
