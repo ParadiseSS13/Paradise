@@ -1,5 +1,6 @@
 #include "_balance.dm"
 
+#include "code/items/projectiles.dm"
 #include "code/items/weapons.dm"
 #include "code/jobs/warden.dm"
 #include "code/species/nucleation.dm"
