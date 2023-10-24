@@ -33076,9 +33076,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "cew" = (
-/obj/structure/sign/securearea{
-	pixel_y = 32
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 2;
 	icon_state = "pipe-c"
@@ -33088,12 +33085,6 @@
 "cex" = (
 /obj/machinery/status_display{
 	layer = 4;
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/south)
-"cey" = (
-/obj/structure/sign/securearea{
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel,
@@ -46233,9 +46224,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_x = 32
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bluecorner"
 	},
@@ -52956,12 +52944,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
-"dXP" = (
-/obj/structure/sign/electricshock{
-	pixel_x = -32
-	},
-/turf/simulated/floor/transparent/glass,
-/area/station/command/bridge)
 "dXX" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -54012,11 +53994,11 @@
 /area/station/science/rnd)
 "evX" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "exh" = (
@@ -74953,6 +74935,19 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/medbay)
+"oxX" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/computer/security/telescreen/entertainment{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bluecorner"
+	},
+/area/station/hallway/primary/central/west)
 "oym" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 1
@@ -75703,6 +75698,9 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/toxins/mixing)
+"oRE" = (
+/turf/simulated/wall,
+/area/station/command/teleporter)
 "oRH" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
@@ -76450,6 +76448,9 @@
 	icon_state = "dark"
 	},
 /area/station/turret_protected/aisat/interior)
+"pjR" = (
+/turf/simulated/wall,
+/area/station/maintenance/maintcentral)
 "pjX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
@@ -87593,12 +87594,6 @@
 /obj/item/book/random/triple,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"uDx" = (
-/obj/structure/sign/radiation/rad_area{
-	pixel_x = 32
-	},
-/turf/simulated/floor/transparent/glass,
-/area/station/command/bridge)
 "uDI" = (
 /obj/effect/decal/warning_stripes/northwest,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -89009,11 +89004,11 @@
 /area/station/maintenance/fpmaint2)
 "vqX" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
 	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/command/bridge)
 "vqY" = (
@@ -120098,7 +120093,7 @@ bMu
 bMu
 cYP
 cZj
-bMu
+oxX
 iwZ
 cdI
 dlF
@@ -122417,10 +122412,10 @@ bQo
 bQo
 bQo
 bQo
-bMG
-bMG
+bQo
+bQo
 ucL
-bMG
+bQo
 bMG
 cdY
 cgb
@@ -122674,7 +122669,7 @@ cgx
 dxW
 eYy
 eYy
-bMG
+bQo
 iyD
 pdf
 gqK
@@ -122931,7 +122926,7 @@ uyB
 ooI
 mdS
 waK
-bMG
+bQo
 frn
 bUr
 oUv
@@ -123188,7 +123183,7 @@ xuw
 xuw
 ooI
 mdS
-bMG
+bQo
 pUU
 idA
 prQ
@@ -123442,10 +123437,10 @@ iCI
 dCe
 ocy
 bqS
-dXP
+xuw
 xuw
 dxW
-bMG
+bQo
 bMG
 qWs
 bMG
@@ -124221,7 +124216,7 @@ bmc
 fqw
 evX
 qSY
-cey
+cdN
 cgm
 jft
 cdN
@@ -124470,10 +124465,10 @@ qcs
 pYW
 gsO
 bqS
-uDx
+xuw
 xuw
 dxW
-dvc
+pjR
 dvc
 dvc
 dvc
@@ -124730,7 +124725,7 @@ xuw
 xuw
 ooI
 mdS
-dvc
+pjR
 vaM
 lgV
 jOD
@@ -124987,7 +124982,7 @@ cgx
 ooI
 mdS
 waK
-dvc
+pjR
 ppz
 huU
 mbk
@@ -125244,7 +125239,7 @@ uyB
 dxW
 eYy
 eYy
-dvc
+pjR
 dJf
 dJf
 gAK
@@ -125500,11 +125495,11 @@ bOK
 bOK
 bOK
 bOK
-bSi
-bSi
-bSi
-bSi
-bSi
+oRE
+oRE
+oRE
+oRE
+oRE
 bSi
 ceC
 cgj
@@ -125757,7 +125752,7 @@ bOK
 kwM
 ryC
 bUD
-bSi
+oRE
 gMQ
 est
 hPy
@@ -126014,7 +126009,7 @@ wmZ
 gir
 lQz
 vTg
-bSi
+oRE
 qIu
 iqt
 xjq
@@ -126271,7 +126266,7 @@ bOK
 tow
 bTn
 bQw
-bSi
+oRE
 qQB
 yaW
 oLZ
@@ -126528,7 +126523,7 @@ bOK
 bQy
 bOK
 bOK
-bSi
+oRE
 ubJ
 jTq
 oLZ
@@ -126785,7 +126780,7 @@ bOK
 uRL
 dqb
 wIv
-bSi
+oRE
 tSY
 yaW
 rtl
@@ -127042,7 +127037,7 @@ bOK
 bOK
 bOK
 bOK
-bSi
+oRE
 mEQ
 ipf
 uCi
