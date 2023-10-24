@@ -103,7 +103,7 @@
 				. += "ai-fixer-full"
 			if(2)
 				. += "ai-fixer-404"
-	else
+	if(!(stat & (BROKEN|NOPOWER)))
 		. += "ai-fixer-empty"
 
 /obj/machinery/computer/aifixer/transfer_ai(interaction, mob/user, mob/living/silicon/ai/AI, obj/item/aicard/card)
