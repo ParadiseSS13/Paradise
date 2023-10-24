@@ -354,7 +354,8 @@
 				/obj/machinery/disco = 20,
 				/obj/structure/spirit_board = 20,
 				/obj/mecha/combat/durand/old = 20,
-				/obj/machinery/snow_machine = 20
+				/obj/machinery/snow_machine = 20,
+				/obj/machinery/cooker/cerealmaker = 20
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/vehicle
