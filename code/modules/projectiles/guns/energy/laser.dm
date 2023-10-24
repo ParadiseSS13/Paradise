@@ -203,16 +203,12 @@
 	var/hit_a_r_wall = FALSE
 
 /obj/item/projectile/beam/laser/sniper/pierce/prehit(atom/target)
-	if(!isturf(target))
-		return ..() //Not a wall, act like a normal projectile
-	if(!istype(target, /turf/simulated/wall/r_wall))
-		if(!forcedodge) //We are a wall, do we need to increase pierce so we don't die in a wall?
-			forcedodge++ //Increases force dodge before turf consumes it.
-		return ..()
-	if(hit_a_r_wall) //We are a rwall, have we hit one before and should not pierce?
-		return ..() //We want it to pierce ONE reinforced wall, sorry, no easy 2 shotting the AI.
-	hit_a_r_wall = TRUE
-	if(!forcedodge) //We have not hit an rwall before, let us check if we need to increase
+	if(istype(target, /turf/simulated/wall/r_wall))
+		if(!hit_a_r_wall)
+			hit_a_r_wall = TRUE
+			if(!forcedodge)
+				forcedodge++
+	else if((isturf(target) || istype(target, /obj/structure/alien/resin)) && !forcedodge)
 		forcedodge++
 	..()
 
