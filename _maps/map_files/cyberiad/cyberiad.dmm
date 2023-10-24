@@ -28751,9 +28751,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 1
-	},
+/obj/structure/statue/cyberiad/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "black"
 	},
@@ -37938,9 +37936,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 5
-	},
+/obj/structure/statue/cyberiad/northeast,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blackcorner"
@@ -53100,6 +53096,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "ecY" = (
+/obj/machinery/blackbox_recorder,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -55472,9 +55469,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 8
-	},
+/obj/structure/statue/cyberiad/west,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "black"
@@ -60912,9 +60907,10 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 10
+/obj/effect/turf_decal/woodsiding/end{
+	dir = 8
 	},
+/obj/structure/statue/cyberiad/southwest,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blackcorner"
@@ -66035,6 +66031,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "kdm" = (
@@ -68478,9 +68479,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 4
-	},
+/obj/structure/statue/cyberiad/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "black"
@@ -69180,6 +69179,9 @@
 	dir = 8;
 	name = "east bump";
 	pixel_x = 24
+	},
+/obj/machinery/computer/message_monitor{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -69919,6 +69921,13 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
+"lRB" = (
+/obj/machinery/message_server,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/station/engineering/gravitygenerator)
 "lSg" = (
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/spawner/random_spawners/cobweb_right_frequent,
@@ -76489,6 +76498,10 @@
 	pixel_y = 24
 	},
 /obj/item/flag/nt,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "pll" = (
@@ -82846,7 +82859,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "spy" = (
-/obj/effect/turf_decal/woodsiding/box,
+/obj/structure/statue/cyberiad/center,
 /turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/station/command/bridge)
 "spH" = (
@@ -83457,6 +83470,10 @@
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/woodsiding,
+/obj/structure/statue/cyberiad/south,
+/obj/effect/turf_decal/woodsiding{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -86115,9 +86132,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 9
-	},
+/obj/structure/statue/cyberiad/northwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "blackcorner"
 	},
@@ -90343,9 +90358,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/woodsiding{
-	dir = 6
+/obj/effect/turf_decal/woodsiding/end{
+	dir = 4
 	},
+/obj/structure/statue/cyberiad/southeast,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blackcorner"
@@ -124713,7 +124729,7 @@ xbk
 bFC
 bFC
 mWW
-ecY
+lRB
 lya
 ecY
 oFr

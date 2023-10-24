@@ -349,3 +349,64 @@
 	..()
 	qdel(src)
 
+/obj/structure/statue/cyberiad
+	name = "NSS Cyberiad"
+	desc = "A giant model of the Cyberiad science station. Judging by the differences in design, the station has been rebuilt several times."
+	icon = 'icons/obj/statuelarge.dmi'
+	anchored = TRUE
+	max_integrity = 500
+	oreAmount = 0
+
+/obj/structure/statue/cyberiad/Destroy()
+	. = ..()
+	// Delete all the nearby cyberiad statue parts
+	for(var/obj/structure/statue/cyberiad/bigass_statue in range(2))
+		qdel(bigass_statue)
+
+// Top layer of the statue is not dense
+
+/obj/structure/statue/cyberiad/northwest
+	icon_state = "nw"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/cyberiad/north
+	icon_state = "north"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/cyberiad/northeast
+	icon_state = "ne"
+	density = FALSE
+	layer = ABOVE_ALL_MOB_LAYER
+
+// Adds transparency to said top layer when the player gets behind or near it
+/obj/structure/statue/cyberiad/northwest/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, -3, -2, 6, 4)
+
+/obj/structure/statue/cyberiad/north/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, -3, -2, 6, 4)
+
+/obj/structure/statue/cyberiad/northeast/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/largetransparency, -3, -2, 6, 4)
+
+/obj/structure/statue/cyberiad/west
+	icon_state = "west"
+
+/obj/structure/statue/cyberiad/center
+	icon_state = "center"
+
+/obj/structure/statue/cyberiad/east
+	icon_state = "east"
+
+/obj/structure/statue/cyberiad/southwest
+	icon_state = "sw"
+
+/obj/structure/statue/cyberiad/south
+	icon_state = "south"
+
+/obj/structure/statue/cyberiad/southeast
+	icon_state = "se"
