@@ -71,7 +71,7 @@
 /datum/crafting_recipe/hudgoghealth
 	name = "Health HUD goggles"
 	result = list(/obj/item/clothing/glasses/hud/health/goggles)
-	time = 20
+	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
 				/obj/item/clothing/glasses/goggles = 1,
