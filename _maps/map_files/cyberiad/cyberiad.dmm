@@ -44676,13 +44676,6 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/explab)
-"cEm" = (
-/obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/scarybat,
-/turf/simulated/floor/plasteel{
-	icon_state = "vault"
-	},
-/area/station/maintenance/apmaint)
 "cEn" = (
 /obj/machinery/requests_console{
 	department = "Science";
@@ -83609,6 +83602,7 @@
 	req_one_access_txt = "33;41"
 	},
 /obj/effect/spawner/lootdrop/maintenance/eight,
+/mob/living/simple_animal/hostile/scarybat,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -114864,7 +114858,7 @@ xUW
 why
 cvp
 vxu
-cEm
+xHy
 cvp
 dEq
 cZw
