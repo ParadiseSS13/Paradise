@@ -43,7 +43,7 @@ export const CompostBin = (props, context) => {
           </Flex>
           <Flex>
             <LabeledList>
-              <LabeledList.Item label="compost">
+              <LabeledList.Item label="Compost">
                 <ProgressBar
                   value={compost}
                   minValue={0}
