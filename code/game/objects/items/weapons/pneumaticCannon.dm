@@ -59,7 +59,7 @@
 		return FALSE
 	if(!user.unEquip(I))
 		return FALSE
-	to_chat(user, "<span class='notice'>You load[I] into \the [src].</span>")
+	to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
 	loaded_items.Add(I)
 	loaded_weight_class += I.w_class
 	I.forceMove(src)
