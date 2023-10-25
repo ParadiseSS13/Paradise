@@ -181,7 +181,7 @@
 /obj/item/pneumatic_cannon/proc/remove_tank(mob/living/carbon/human/user)
 	if(!tank)
 		return FALSE
-	to_chat(user, "<span class='notice'>You detach \the [tank] from \the [src].</span>")
+	to_chat(user, "<span class='notice'>You detach [tank] from [src].</span>")
 	user.put_in_hands(tank)
 	tank = null
 	update_icons()
