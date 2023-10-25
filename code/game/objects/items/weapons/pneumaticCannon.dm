@@ -36,7 +36,7 @@
 		. += "<span class='notice'>You'll need to get closer to see any more.</span>"
 	else
 		if(tank)
-			. += "<span class='notice'>[bicon(tank)] It has \the [tank] mounted onto it.</span>"
+			. += "<span class='notice'>[bicon(tank)] It has [tank] mounted onto it.</span>"
 		for(var/obj/item/I in loaded_items)
 			. += "<span class='info'>[bicon(I)] It has \the [I] loaded.</span>"
 
