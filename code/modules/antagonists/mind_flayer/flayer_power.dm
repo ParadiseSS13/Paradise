@@ -1,5 +1,5 @@
 // OOORAAAH WE HAVE POWERS
-#define POWER_LEVEL_ZERO	0 // Only used for mobs to check what powers they should have
+#define POWER_LEVEL_ZERO	0 // Only used for mobs to check what powers they should have // TODO: figure out wtf I meant with this comment
 #define POWER_LEVEL_ONE		1
 #define POWER_LEVEL_TWO		2
 #define POWER_LEVEL_THREE	3
@@ -22,7 +22,6 @@
 	var/req_stat = CONSCIOUS
 	/// If it's only unlocked after buying a different ability, or abilities. Should be a list of ability paths required for purchase.
 	var/list/prerequisite = list()
-
 
 /obj/effect/proc_holder/spell/flayer/self/create_new_targeting()
 	return new /datum/spell_targeting/self

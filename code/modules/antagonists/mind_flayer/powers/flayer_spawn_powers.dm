@@ -21,6 +21,11 @@
 	var/max_summons = 1
 	/// What projectile should our mob fire
 	var/projectile_type
+	/// How much damage should our melee attacks do
+	var/melee_damage
+	/// If we want the mobs to do different kinds of damage
+	var/damage_type
+
 	var/failure_message = "Failed to create a robot!" // TODO: make this message not shit
 
 /obj/effect/proc_holder/spell/flayer/self/summon/cast(list/targets, mob/user)
@@ -55,28 +60,34 @@
 	current_mobs -= mob_to_remove
 
 /*
-	* Okay so, this is just a footnote for now. This is the barebones equipment to spawn this, and if this actually makes it into the final version, I'd be VERY surprised.
-	* I fully intend to make this Not Shit:tm: in the near future. It's currently 5 am and I just want some motivation to work on this again.
-	* Anyways I expect nobody to read this before it's gone, so hi github
+	*
+	*
+	*
 */
 
-/obj/effect/proc_holder/spell/flayer/self/summon/proc/on_spell_upgrade(type, upgrade_level)
+/obj/effect/proc_holder/spell/flayer/self/summon/on_purchase_upgrade(upgrade_type)
 	switch(type)
 		if(RANGED_ATTACK_BASE)
 			check_which_projectile()
-			for(var/mob/living/simple_animal/hostile/flayer/flayer_bot in current_mobs)
-				flayer_bot.projectiletype = projectile_type
 		if(MELEE_ATTACK_BASE)
 			check_melee_upgrade()
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/check_melee_upgrade()
 	switch(level)
 		if(POWER_LEVEL_ONE)
-			for(var/mob/living/simple_animal/hostile/flayer/flayer_bot in current_mobs) // Look, I'm not happy about the foresight of repeating this a lot more later, which is why I won't. This will stay here for now until I convert it into a helper proc later.
-				flayer_bot.melee_damage_lower += 10
-				flayer_bot.melee_damage_upper += 10
+			melee_damage = 30 // 20 is at base
+		if(POWER_LEVEL_TWO)
+			melee_damage = 40
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/check_which_projectile()
 	switch(level)
 		if(POWER_LEVEL_ONE)
 			projectile_type = /obj/item/projectile/beam/laser
+
+/obj/effect/proc_holder/spell/flayer/self/summon/proc/upgrade_all_mobs()
+	for(var/mob/living/simple_animal/hostile/flayer/flayer_bot in current_mobs)
+		flayer_bot.projectiletype = projectile_type
+		flayer_bot.melee_damage_lower = melee_damage
+		flayer_bot.melee_damage_upper = melee_damage
+		if(damage_type)
+			flayer_bot.melee_damage_type = damage_type

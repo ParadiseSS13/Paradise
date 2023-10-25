@@ -129,12 +129,13 @@
 * Arguments:
 * * path - Some path to a passive or spell, either datum/mindflayer_passive or obj/effect/proc_holder/spell
 * * set_owner - An optional datum/antagonist/mindflayer if the owner of the new ability needs to be set manually
+* * type - optional argument if you need to communicate a define to the spell in question, mostly useful for branching upgrades
 */
-/datum/antagonist/mindflayer/proc/add_ability(path, set_owner = null)
-	if(!get_ability(path)) //TODO: make a working check for if the mindflayer already has the spell you're trying to add
+/datum/antagonist/mindflayer/proc/add_ability(path, set_owner = null, upgrade_type)
+	if(!get_ability(path))
 		force_add_ability(path, set_owner)
 		return
-	force_upgrade_ability(path)
+	force_upgrade_ability(path, upgrade_type)
 
 /datum/antagonist/mindflayer/proc/force_add_ability(path, set_owner = null)
 	var/spell = new path(owner)
@@ -149,11 +150,11 @@
 		passive.on_apply(src)
 	powers += spell
 
-/datum/antagonist/mindflayer/proc/force_upgrade_ability(path)
+/datum/antagonist/mindflayer/proc/force_upgrade_ability(path, upgrade_type)
 	var/spell = get_ability(path)
 	if(isspell(spell))
 		var/obj/effect/proc_holder/spell/flayer/power = spell
-		power.on_purchase_upgrade()
+		power.on_purchase_upgrade(upgrade_type)
 	if(ispassive(spell))
 		var/datum/mindflayer_passive/passive = spell
 		passive.on_apply(src)
@@ -171,11 +172,12 @@
 		passive.on_remove(src)
 		qdel(passive)
 	powers -= spell
+
 /**
 * * Arguments: path - Some path to a passive or spell, either datum/mindflayer_passive or obj/effect/proc_holder/spell
 * * Returns: A matching power in the mind flayer's list of powers
 */
-/datum/antagonist/mindflayer/proc/get_ability(path)
+/datum/antagonist/mindflayer/proc/get_ability(path) // Still gotta test if this works as expected, but I think it does?
 	for(var/power as anything in powers)
 		if(istype(power, path))
 			return power

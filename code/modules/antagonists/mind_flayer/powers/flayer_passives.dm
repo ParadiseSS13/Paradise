@@ -98,7 +98,7 @@
 	owner.heal_overall_damage(level, level) //Heals 1 brute/burn for each level of the passive
 
 //MINION PASSIVES
-/datum/mindflayer_passive/processed/regen/minion
+/datum/mindflayer_passive/processed/regen/minion // Note: this isn't something that should be handled here, namely it should be done in the summon mobs spell file, which I'll implement later
 	purchase_text = "Your minions passively regenerate health."
 	upgrade_text = "The swarms begin replicating and repairing themselves at an alarming rate."
 	gain_desc = "Commanding all autonomous units to begin self-repair protocol."

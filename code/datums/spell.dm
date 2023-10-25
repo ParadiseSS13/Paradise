@@ -286,7 +286,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	targeting.InterceptClickOn(user, params, A, src)
 
 ///Lets the spell have a special effect applied to it when upgraded. By default, does nothing.
-/obj/effect/proc_holder/spell/proc/on_purchase_upgrade()
+/obj/effect/proc_holder/spell/proc/on_purchase_upgrade(upgrade_type)
 	return
 
 /**
