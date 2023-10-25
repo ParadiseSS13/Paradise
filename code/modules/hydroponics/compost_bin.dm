@@ -44,15 +44,13 @@
 	// no panel either
 	return default_deconstruction_crowbar(user, I, ignore_panel = TRUE)
 
-
-// accepts inserted plants and converts to biomass
+// Accepts inserted plants and converts them to biomass
 /obj/machinery/compost_bin/proc/make_biomass(obj/item/reagent_containers/food/snacks/grown/O)
 	// calculate biomass from plant nutriment and plant matter
 	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
 	biomass += clamp(plant_biomass * 10, 1, biomass_capacity-biomass)
 	//plant delenda est
 	qdel(O)
-
 
 // takes care of plant insertion and conversion to biomass, and start composting what was inserted
 /obj/machinery/compost_bin/attackby(obj/item/O, mob/user, params)
@@ -97,26 +95,6 @@
 
 	to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
 
-/obj/machinery/compost_bin/attack_hand(mob/user)
-	ui_interact(user)
-
-
-/obj/machinery/compost_bin/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
-	if(!ui)
-		ui = new(user, src, ui_key, "CompostBin", "CompostBin", 390, 200, master_ui, state)
-		ui.set_autoupdate(FALSE)
-		ui.open()
-
-
-/obj/machinery/compost_bin/ui_data(mob/user)
-	var/list/data = list()
-	data["biomass"] = biomass
-	data["biomass_capacity"] = biomass_capacity
-	data["compost"] = compost
-	data["compost_capacity"] = compost_capacity
-	return data
-
 //Compost compostable material if there is any
 /obj/machinery/compost_bin/process()
 	if(compost >= compost_capacity || biomass <= 0)
@@ -141,6 +119,24 @@
 	compost -= SOIL_COST * amount
 	update_icon_state()
 	SStgui.update_uis(src)
+
+/obj/machinery/compost_bin/attack_hand(mob/user)
+	ui_interact(user)
+
+/obj/machinery/compost_bin/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "CompostBin", "Compost Bin", 390, 200, master_ui, state)
+		ui.set_autoupdate(FALSE)
+		ui.open()
+
+/obj/machinery/compost_bin/ui_data(mob/user)
+	var/list/data = list()
+	data["biomass"] = biomass
+	data["biomass_capacity"] = biomass_capacity
+	data["compost"] = compost
+	data["compost_capacity"] = compost_capacity
+	return data
 
 // calls functions according to ui interaction(just making compost for now)
 /obj/machinery/compost_bin/ui_act(action, list/params)
