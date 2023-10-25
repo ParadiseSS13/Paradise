@@ -135,7 +135,7 @@
 /datum/crafting_recipe/hudgogskillsremoval
 	name = "Skills HUD removal (goggles)"
 	result = list(/obj/item/clothing/glasses/goggles, /obj/item/clothing/glasses/hud/skills)
-	time = 20
+	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/skills/goggles = 1)
 	category = CAT_CLOTHING
