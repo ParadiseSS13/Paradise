@@ -44,6 +44,7 @@
 
 	a_intent = INTENT_HELP
 	var/gestalt_alert = "merged with gestalt" //used in adding and clearing alert
+	var/nymph_alert = "merged with nymph" //As above, but for the gestalt's alert.
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
 	var/awareness_donors = 3 //amount of blood donors needed for understand language
 	var/nutrition_need = 500 //amount of nutrition needed before evolving
@@ -106,6 +107,7 @@
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 			throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+			M.throw_alert(nymph_alert, /obj/screen/alert/gestalt, new_master = src)
 			forceMove(M)
 		else if(isrobot(M))
 			M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
@@ -139,6 +141,7 @@
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 		forceMove(M)
 		throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+		M.throw_alert(nymph_alert, /obj/screen/alert/gestalt, new_master = src)
 		return TRUE
 	else
 		return FALSE
@@ -160,6 +163,7 @@
 			hasMobs = TRUE
 	if(!hasMobs)
 		D.status_flags &= ~PASSEMOTES
+		D.clear_alert(nymph_alert)
 
 	clear_alert(gestalt_alert)
 	return TRUE
