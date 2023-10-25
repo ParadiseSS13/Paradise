@@ -169,11 +169,11 @@
 
 /obj/item/pneumatic_cannon/proc/add_tank(obj/item/tank/new_tank, mob/living/carbon/human/user)
 	if(tank)
-		to_chat(user, "<span class='warning'>\The [src] already has a tank.</span>")
+		to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
 		return
 	if(!user.unEquip(new_tank))
 		return
-	to_chat(user, "<span class='notice'>You hook \the [new_tank] up to \the [src].</span>")
+	to_chat(user, "<span class='notice'>You hook [new_tank] up to [src].</span>")
 	new_tank.forceMove(src)
 	tank = new_tank
 	update_icons()
