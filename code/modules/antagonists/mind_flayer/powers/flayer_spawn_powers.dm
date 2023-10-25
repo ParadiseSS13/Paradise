@@ -5,6 +5,9 @@
  *
  */
 
+#define RANGED_ATTACK_BASE "base ranged attack"
+#define MELEE_ATTACK_BASE "base melee attack"
+
 /obj/effect/proc_holder/spell/flayer/self/summon
 	name = "Summon minion"
 	desc = "This really shouldn't be here"
@@ -16,6 +19,8 @@
 	var/list/current_mobs = list()
 	/// What is the max amount of mobs we can even spawn?
 	var/max_summons = 1
+	/// What projectile should our mob fire
+	var/projectile_type
 	var/failure_message = "Failed to create a robot!" // TODO: make this message not shit
 
 /obj/effect/proc_holder/spell/flayer/self/summon/cast(list/targets, mob/user)
@@ -43,8 +48,35 @@
 	to_chat(flayerbot, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
 	to_chat(flayerbot, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Guardian)</span>")
 
-//	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]")
+//	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]") // TODO: make a tally
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/deduct_mob_from_list(gibbed, mob_to_remove)
 	SIGNAL_HANDLER
 	current_mobs -= mob_to_remove
+
+/*
+	* Okay so, this is just a footnote for now. This is the barebones equipment to spawn this, and if this actually makes it into the final version, I'd be VERY surprised.
+	* I fully intend to make this Not Shit:tm: in the near future. It's currently 5 am and I just want some motivation to work on this again.
+	* Anyways I expect nobody to read this before it's gone, so hi github
+*/
+
+/obj/effect/proc_holder/spell/flayer/self/summon/proc/on_spell_upgrade(type, upgrade_level)
+	switch(type)
+		if(RANGED_ATTACK_BASE)
+			check_which_projectile()
+			for(var/mob/living/simple_animal/hostile/flayer/flayer_bot in current_mobs)
+				flayer_bot.projectiletype = projectile_type
+		if(MELEE_ATTACK_BASE)
+			check_melee_upgrade()
+
+/obj/effect/proc_holder/spell/flayer/self/summon/proc/check_melee_upgrade()
+	switch(level)
+		if(POWER_LEVEL_ONE)
+			for(var/mob/living/simple_animal/hostile/flayer/flayer_bot in current_mobs) // Look, I'm not happy about the foresight of repeating this a lot more later, which is why I won't. This will stay here for now until I convert it into a helper proc later.
+				flayer_bot.melee_damage_lower += 10
+				flayer_bot.melee_damage_upper += 10
+
+/obj/effect/proc_holder/spell/flayer/self/summon/proc/check_which_projectile()
+	switch(level)
+		if(POWER_LEVEL_ONE)
+			projectile_type = /obj/item/projectile/beam/laser

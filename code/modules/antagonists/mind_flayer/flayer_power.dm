@@ -1,4 +1,10 @@
 // OOORAAAH WE HAVE POWERS
+#define POWER_LEVEL_ZERO	0 // Only used for mobs to check what powers they should have
+#define POWER_LEVEL_ONE		1
+#define POWER_LEVEL_TWO		2
+#define POWER_LEVEL_THREE	3
+#define POWER_LEVEL_FOUR	4
+
 
 /obj/effect/proc_holder/spell/flayer
 	panel = "Vampire"
@@ -27,7 +33,7 @@
 	flayer.powers -= src
 	flayer = null
 	return ..()
-	
+
 ///The shop for purchasing and upgrading abilities
 /obj/effect/proc_holder/spell/flayer/self/augment_menu
 	name = "Self-Augment Operations"

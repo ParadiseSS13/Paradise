@@ -23,3 +23,4 @@
 	AIStatus = AI_OFF
 	/// This is the reference to our master flayer
 	var/mob/living/carbon/human/flayer
+	projectiletype = null // This stays here so I don't forget what the var is - remove after testing

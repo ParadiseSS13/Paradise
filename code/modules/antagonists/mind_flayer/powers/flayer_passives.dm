@@ -28,7 +28,7 @@
 
 
 /datum/mindflayer_passive/proc/on_apply(datum/antagonist/mindflayer/flayer)
-	if(level > max_level)
+	if(level >= max_level)
 		flayer.send_swarm_message("We cannot upgrade this aspect further.")
 		return
 	level++
@@ -50,8 +50,10 @@
 
 /datum/mindflayer_passive/armored_plating/on_apply(datum/antagonist/mindflayer/flayer)
 	..()
-	armor_value = 5 * level
-	owner.dna.species.armor += armor_value
+	var/owner_armor = owner.dna.species.armor
+	var/temp_armor_value = owner_armor - (5 * (level - 1)) // We store our current armor value here just in case they already have armor
+	armor_value = temp_armor_value + 5 * level
+	owner.dna.species.armor = armor_value
 
 /datum/mindflayer_passive/armored_plating/on_remove(datum/antagonist/mindflayer/flayer)
 	armor_value = 5 * level
@@ -67,10 +69,10 @@
 /datum/mindflayer_passive/fluid_feet/on_apply(datum/antagonist/mindflayer/flayer)
 	..()
 	switch(level)
-		if(1)
+		if(POWER_LEVEL_ONE)
 			qdel(owner.GetComponent(/datum/component/footstep))
-		if(2)
-			owner.flags |= NOSLIP // Does this work? We'll find out once the Tgui is working
+		if(POWER_LEVEL_TWO)
+			owner.flags |= NOSLIP // Doesn't work, TODO: refactor noslips to work with traits
 
 /datum/mindflayer_passive/fluid_feet/on_remove(datum/antagonist/mindflayer/flayer)
 	owner.AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 1, -6)
@@ -80,7 +82,7 @@
 	purchase_text = "I give up, IPCs are based now"
 	upgrade_text = "Add this later"
 	gain_desc = "Ayyyy lmao"
-	power_type = FLAYER_INNATE_POWER //Just for testing
+	power_type = FLAYER_PURCHASABLE_POWER //Just for testing
 
 /datum/mindflayer_passive/new_crit/on_apply(datum/antagonist/mindflayer/flayer)
 	owner.dna.species.dies_at_threshold = FALSE
@@ -94,6 +96,7 @@
 
 /datum/mindflayer_passive/processed/regen/process()
 	owner.heal_overall_damage(level, level) //Heals 1 brute/burn for each level of the passive
+
 //MINION PASSIVES
 /datum/mindflayer_passive/processed/regen/minion
 	purchase_text = "Your minions passively regenerate health."
