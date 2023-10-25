@@ -55,7 +55,7 @@
 		to_chat(user, "<span class='warning'>[I] won't fit into [src]!</span>")
 		return FALSE
 	if(I.w_class > src.w_class)
-		to_chat(user, "<span class='warning'>[I] is too large to fit into \the [src]!</span>")
+		to_chat(user, "<span class='warning'>[I] is too large to fit into [src]!</span>")
 		return FALSE
 	if(!user.unEquip(I))
 		return FALSE
