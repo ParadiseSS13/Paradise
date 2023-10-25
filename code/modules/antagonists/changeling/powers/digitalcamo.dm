@@ -1,9 +1,10 @@
 /datum/action/changeling/digitalcamo
 	name = "Digital Camouflage"
-	desc = "By evolving the ability to distort our form and proportions, we defeat common algorithms used to detect lifeforms on cameras."
+	desc = "By evolving the ability to distort our form and proportions, we defeat common algorithms used to detect lifeforms on cameras. Requires at least 4 stored DNA."
 	helptext = "We cannot be tracked by camera while using this skill."
 	button_icon_state = "digital_camo"
 	dna_cost = 2
+	req_dna = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/digitalcamo/Remove(mob/M)

@@ -1,10 +1,11 @@
 /datum/action/changeling/swap_form
 	name = "Swap Forms"
-	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind. Costs 40 chemicals."
+	desc = "We force ourselves into the body of another form, pushing their consciousness into the form we left behind. Costs 40 chemicals. Requires at least 6 stored DNA."
 	helptext = "We will bring all our abilities with us, but we will lose our old form DNA in exchange for the new one. The process will seem suspicious to any observers."
 	button_icon_state = "cling_mindswap"
 	chemical_cost = 40
 	dna_cost = 2
+	req_dna = 6
 	req_human = TRUE //Monkeys can't grab
 	power_type = CHANGELING_PURCHASABLE_POWER
 

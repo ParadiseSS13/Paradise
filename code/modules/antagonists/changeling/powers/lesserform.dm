@@ -1,10 +1,11 @@
 /datum/action/changeling/lesserform
 	name = "Lesser form"
-	desc = "We debase ourselves and become lesser. We become a monkey. Costs 5 chemicals."
+	desc = "We debase ourselves and become lesser. We become a monkey. Costs 5 chemicals. Requires at least 4 stored DNA."
 	helptext = "The transformation greatly reduces our size, allowing us to slip out of cuffs and climb through vents."
 	button_icon_state = "lesser_form"
 	chemical_cost = 5
 	dna_cost = 2
+	req_dna = 4
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 

@@ -1,9 +1,10 @@
 /datum/action/changeling/contort_body
 	name = "Contort Body"
-	desc = "We contort our body, allowing us to fit in and under things we normally wouldn't be able to. Costs 25 chemicals."
+	desc = "We contort our body, allowing us to fit in and under things we normally wouldn't be able to. Costs 25 chemicals. Requires at least 6 stored DNA."
 	button_icon_state = "contort_body"
 	chemical_cost = 25
 	dna_cost = 4
+	req_dna = 6
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/contort_body/Remove(mob/M)

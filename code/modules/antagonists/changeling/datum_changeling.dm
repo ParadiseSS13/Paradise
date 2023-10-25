@@ -21,7 +21,7 @@
 	/// A list of [/datum/action/changeling] typepaths with a `power_type` of `CHANGELING_PURCHASABLE_POWER`.
 	var/static/list/purchaseable_powers
 	/// How many total DNA strands the changeling can store for transformation.
-	var/dna_max = 5
+	var/dna_max = 4
 	/// Number of victims the changeling has absorbed.
 	var/absorbed_count = 1
 	/// The current amount of chemicals the changeling has stored.
@@ -86,10 +86,10 @@
 /datum/antagonist/changeling/greet()
 	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	return . += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
+	return . += "<span class='danger'>Use your DNA sting to extract identities from the crew to unlock new abilities.</span>"
 
 /datum/antagonist/changeling/farewell()
-	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
+	to_chat(owner.current, "<span class='danger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()

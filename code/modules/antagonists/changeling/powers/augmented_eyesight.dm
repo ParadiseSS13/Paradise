@@ -1,10 +1,11 @@
 /datum/action/changeling/augmented_eyesight
 	name = "Augmented Eyesight"
-	desc = "Creates more light sensing rods in our eyes, allowing our vision to penetrate most blocking objects. Protects our vision from flashes while inactive."
+	desc = "Creates more light sensing rods in our eyes, allowing our vision to penetrate most blocking objects. Protects our vision from flashes while inactive. Requires at least 4 stored DNA."
 	helptext = "Grants us x-ray vision or flash protection. We will become a lot more vulnerable to flash-based devices while x-ray vision is active."
 	button_icon_state = "augmented_eyesight"
 	chemical_cost = 0
 	dna_cost = 4
+	req_dna = 4
 	active = FALSE
 	power_type = CHANGELING_PURCHASABLE_POWER
 

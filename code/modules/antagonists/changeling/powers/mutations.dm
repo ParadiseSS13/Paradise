@@ -112,11 +112,12 @@
 \***************************************/
 /datum/action/changeling/weapon/arm_blade
 	name = "Arm Blade"
-	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
+	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals. Requires at least 8 stored DNA."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
 	chemical_cost = 25
 	dna_cost = 4
+	req_dna = 8
 	req_human = TRUE
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
@@ -172,7 +173,7 @@
 
 /datum/action/changeling/weapon/tentacle
 	name = "Tentacle"
-	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals."
+	desc = "We ready a tentacle to grab items or victims with. Costs 10 chemicals. Requires at least 8 stored DNA."
 	helptext = "We can use it once to retrieve a distant item. If used on living creatures, the effect depends on the intent: \
 	Help will drag the target closer and shake them up. \
 	Disarm will grab whatever the target is holding, and knock them down if they are not holding anything. \
@@ -182,6 +183,7 @@
 	button_icon_state = "tentacle"
 	chemical_cost = 10
 	dna_cost = 4
+	req_dna = 8
 	req_human = TRUE
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
@@ -382,11 +384,12 @@
 \***************************************/
 /datum/action/changeling/weapon/shield
 	name = "Organic Shield"
-	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals."
+	desc = "We reform one of our arms into a hard shield. Costs 20 chemicals. Requires at least 8 stored DNA."
 	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more DNA we collect, the stronger it is. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
 	chemical_cost = 20
 	dna_cost = 2
+	req_dna = 8
 	req_human = TRUE
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
@@ -430,11 +433,12 @@
 \***************************************/
 /datum/action/changeling/suit/organic_space_suit
 	name = "Organic Space Suit"
-	desc = "We grow an organic suit to protect ourselves from space exposure. Costs 20 chemicals."
+	desc = "We grow an organic suit to protect ourselves from space exposure. Costs 20 chemicals. Requires at least 8 stored DNA."
 	helptext = "We must constantly repair our form to make it space proof, reducing chemical production while we are protected. Cannot be used in lesser form."
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
 	dna_cost = 4
+	req_dna = 8
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/space/changeling
@@ -476,11 +480,12 @@
 \***************************************/
 /datum/action/changeling/suit/armor
 	name = "Chitinous Armor"
-	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals."
+	desc = "We turn our skin into tough chitin to protect us from damage. Costs 25 chemicals. Requires at least 8 stored DNA."
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 25
 	dna_cost = 4
+	req_dna = 8
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/armor/changeling

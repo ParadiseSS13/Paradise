@@ -3,11 +3,12 @@
 
 /datum/action/changeling/strained_muscles
 	name = "Strained Muscles"
-	desc = "We evolve the ability to reduce the acid buildup in our muscles, allowing us to move much faster."
+	desc = "We evolve the ability to reduce the acid buildup in our muscles, allowing us to move much faster. Requires at least 6 stored DNA."
 	helptext = "The strain will use up our chemicals faster over time, and is not sustainable. Can not be used in lesser form."
 	button_icon_state = "strained_muscles"
 	chemical_cost = 0
 	dna_cost = 2
+	req_dna = 6
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 

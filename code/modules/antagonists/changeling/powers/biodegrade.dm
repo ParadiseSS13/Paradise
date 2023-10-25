@@ -1,10 +1,11 @@
 /datum/action/changeling/biodegrade
 	name = "Biodegrade"
-	desc = "Dissolves restraints or other objects preventing free movement if we are restrained. Prepares hand to vomit acid on other objects, doesn't work on living targets. Costs 30 chemicals."
+	desc = "Dissolves restraints or other objects preventing free movement if we are restrained. Prepares hand to vomit acid on other objects, doesn't work on living targets. Costs 30 chemicals. Requires at least 6 stored DNA."
 	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
 	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
 	dna_cost = 4
+	req_dna = 6
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	/// Type of acid hand we give to person

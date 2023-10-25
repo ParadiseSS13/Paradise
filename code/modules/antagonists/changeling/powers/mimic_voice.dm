@@ -1,10 +1,11 @@
 /datum/action/changeling/mimicvoice
 	name = "Mimic Voice"
-	desc = "We shape our vocal glands to sound like a desired voice."
+	desc = "We shape our vocal glands to sound like a desired voice. Requires at least 4 stored DNA."
 	helptext = "Will turn your voice into the name that you enter."
 	button_icon_state = "mimic_voice"
 	chemical_cost = 0
 	dna_cost = 2
+	req_dna = 4
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 

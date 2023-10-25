@@ -1,9 +1,10 @@
 /datum/action/changeling/chameleon_skin
 	name = "Chameleon Skin"
-	desc = "Our skin pigmentation rapidly changes to suit our current environment. Costs 25 chemicals."
+	desc = "Our skin pigmentation rapidly changes to suit our current environment. Costs 25 chemicals. Requires at least 4 stored DNA."
 	helptext = "Allows us to become invisible after a few seconds of standing still. Can be toggled on and off."
 	button_icon_state = "chameleon_skin"
 	dna_cost = 4
+	req_dna = 4
 	chemical_cost = 25
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER

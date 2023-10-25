@@ -93,12 +93,13 @@
 
 /datum/action/changeling/sting/mute
 	name = "Mute Sting"
-	desc = "We silently sting a human, completely silencing them for a short time. Costs 20 chemicals."
+	desc = "We silently sting a human, completely silencing them for a short time. Costs 20 chemicals. Requires at least 4 stored DNA."
 	helptext = "Does not provide a warning to the victim that they have been stung, until they try to speak and cannot."
 	button_icon_state = "sting_mute"
 	sting_icon = "sting_mute"
 	chemical_cost = 20
 	dna_cost = 4
+	req_dna = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/sting/mute/sting_action(mob/user, mob/living/carbon/target)
@@ -109,12 +110,13 @@
 
 /datum/action/changeling/sting/blind
 	name = "Blind Sting"
-	desc = "We temporarily blind our victim. Costs 25 chemicals."
+	desc = "We temporarily blind our victim. Costs 25 chemicals. Requires at least 4 stored DNA."
 	helptext = "This sting completely blinds a target for a short time, and leaves them with blurred vision for a long time."
 	button_icon_state = "sting_blind"
 	sting_icon = "sting_blind"
 	chemical_cost = 25
 	dna_cost = 2
+	req_dna = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/sting/blind/sting_action(mob/living/user, mob/living/target)
@@ -128,12 +130,13 @@
 
 /datum/action/changeling/sting/cryo //Enable when mob cooling is fixed so that frostoil actually makes you cold, instead of mostly just hungry.
 	name = "Cryogenic Sting"
-	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 15 chemicals."
+	desc = "We silently sting our victim with a cocktail of chemicals that freezes them from the inside. Costs 15 chemicals. Requires at least 4 stored DNA."
 	helptext = "Does not provide a warning to the victim, though they will likely realize they are suddenly freezing."
 	button_icon_state = "sting_cryo"
 	sting_icon = "sting_cryo"
 	chemical_cost = 15
 	dna_cost = 4
+	req_dna = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/sting/cryo/sting_action(mob/user, mob/target)

@@ -88,7 +88,7 @@
 		return FALSE
 	var/datum/action/changeling/power = power_type
 	if(cling.absorbed_count < initial(power.req_dna))
-		to_chat(owner, "<span class='warning'>We must absorb more victims before we can evolve this ability!</span>")
+		to_chat(owner, "<span class='warning'>We must extract more DNA before we can evolve this ability!</span>")
 		return FALSE
 	if(cling.genetic_points < initial(power.dna_cost))
 		to_chat(owner, "<span class='warning'>We cannot afford to evolve this ability!</span>")
