@@ -24,6 +24,8 @@
 	var/list/loaded_items = list()
 	///How powerful the cannon is - higher pressure = more gas but more powerful throws
 	var/pressure_setting = 1
+	///In case we want a really strong cannon
+	var/max_pressure_setting = 3
 
 /obj/item/pneumatic_cannon/Destroy()
 	QDEL_NULL(tank)
@@ -48,16 +50,14 @@
 * * True if item was loaded, false if it failed
 */
 /obj/item/pneumatic_cannon/proc/load_item(obj/item/I, mob/user)
-	if(I.flags & (ABSTRACT | NODROP | DROPDEL))
-		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
-		return FALSE
 	if((loaded_weight_class + I.w_class) > max_weight_class)
 		to_chat(user, "<span class='warning'>[I] won't fit into [src]!</span>")
 		return FALSE
 	if(I.w_class > w_class)
 		to_chat(user, "<span class='warning'>[I] is too large to fit into [src]!</span>")
 		return FALSE
-	if(!user.unEquip(I))
+	if(!user.unEquip(I) || I.flags & (ABSTRACT | NODROP | DROPDEL))
+		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
 		return FALSE
 	to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
 	loaded_items.Add(I)
@@ -66,13 +66,10 @@
 	return TRUE
 
 /obj/item/pneumatic_cannon/wrench_act(mob/living/user, obj/item/I)
-	switch(pressure_setting)
-		if(1)
-			pressure_setting = 2
-		if(2)
-			pressure_setting = 3
-		if(3)
-			pressure_setting = 1
+	if(pressure_setting == max_pressure_setting)
+		pressure_setting = 1
+	else
+		pressure_setting++
 	to_chat(user, "<span class='notice'>You tweak [src]'s pressure output to [pressure_setting].</span>")
 	return TRUE
 
