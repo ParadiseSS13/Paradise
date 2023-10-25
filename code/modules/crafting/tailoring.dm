@@ -117,7 +117,7 @@
 /datum/crafting_recipe/hudgoghydroponicremoval
 	name = "Hydroponic HUD removal (goggles)"
 	result = list(/obj/item/clothing/glasses/goggles, /obj/item/clothing/glasses/hud/hydroponic)
-	time = 20
+	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/hydroponic/goggles = 1)
 	category = CAT_CLOTHING
