@@ -79,17 +79,3 @@
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
 		)
-	var/magbooted
-
-/obj/item/clothing/shoes/mod/negates_gravity()
-	return magbooted
-
-/obj/item/clothing/shoes/mod/equipped(mob/user, slot, initial)
-	. = ..()
-	if(magbooted)
-		ADD_TRAIT(user, TRAIT_MAGPULSE, "magbooted")
-
-/obj/item/clothing/shoes/mod/dropped(mob/user, silent)
-	. = ..()
-	if(magbooted)
-		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magbooted")

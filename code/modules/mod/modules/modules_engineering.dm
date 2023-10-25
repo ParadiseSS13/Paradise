@@ -59,7 +59,7 @@
 		return
 	mod.boots.flags |= NOSLIP
 	mod.slowdown += slowdown_active
-	mod.boots.magbooted = TRUE
+	ADD_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 
 /obj/item/mod/module/magboot/on_deactivation(display_message = TRUE, deleting = FALSE)
 	. = ..()
@@ -67,7 +67,7 @@
 		return
 	mod.boots.flags ^= NOSLIP
 	mod.slowdown -= slowdown_active
-	mod.boots.magbooted = FALSE
+	REMOVE_TRAIT(mod.wearer, TRAIT_MAGPULSE, "magbooted")
 
 /obj/item/mod/module/magboot/advanced
 	name = "MOD advanced magnetic stability module"
