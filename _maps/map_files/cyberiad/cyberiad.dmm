@@ -44676,6 +44676,13 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/explab)
+"cEm" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/scarybat,
+/turf/simulated/floor/plasteel{
+	icon_state = "vault"
+	},
+/area/station/maintenance/apmaint)
 "cEn" = (
 /obj/machinery/requests_console{
 	department = "Science";
@@ -71303,12 +71310,27 @@
 /area/station/command/office/ce)
 "lvs" = (
 /obj/structure/closet/crate{
-	name = "Silver Crate";
-	opened = 1
+	name = "Silver Crate"
 	},
-/obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/item/coin/silver{
+	pixel_x = 5;
+	pixel_y = -8
+	},
+/obj/item/coin/silver{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/coin/silver{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/coin/silver{
+	pixel_x = 7;
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -83586,7 +83608,7 @@
 	req_one_access = list(33,41);
 	req_one_access_txt = "33;41"
 	},
-/mob/living/simple_animal/hostile/scarybat,
+/obj/effect/spawner/lootdrop/maintenance/eight,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},
@@ -85794,7 +85816,6 @@
 /area/station/maintenance/fsmaint)
 "tDB" = (
 /obj/structure/safe/floor,
-/obj/item/soap/homemade,
 /obj/item/key/janitor{
 	name = "spare key";
 	pixel_y = 7
@@ -85802,6 +85823,8 @@
 /obj/item/bikehorn/rubberducky,
 /obj/item/clothing/head/crown,
 /obj/effect/decal/warning_stripes/northwestcorner,
+/obj/item/stack/spacecash/c500,
+/obj/item/soap/deluxe,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86061,8 +86084,8 @@
 "tLs" = (
 /obj/structure/safe/floor,
 /obj/item/coin/mythril,
-/obj/item/stack/spacecash/c1000,
 /obj/item/instrument/violin/golden,
+/obj/item/stack/spacecash/c200,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
 "tLB" = (
@@ -114841,7 +114864,7 @@ xUW
 why
 cvp
 vxu
-xHy
+cEm
 cvp
 dEq
 cZw
