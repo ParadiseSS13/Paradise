@@ -81,7 +81,7 @@
 	..()
 	if(istype(W, /obj/item/tank/internals) && !tank)
 		if(istype(W, /obj/item/tank/internals/emergency_oxygen))
-			to_chat(user, "<span class='warning'>[W] is too small for \the [src].</span>")
+			to_chat(user, "<span class='warning'>[W] is too small for [src].</span>")
 			return
 		add_tank(W, user)
 		return
