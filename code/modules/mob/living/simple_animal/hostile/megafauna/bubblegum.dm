@@ -652,3 +652,4 @@ Difficulty: Hard
 	if(!istype(get_area(src), /area/ruin/space/bubblegum_arena))
 		for(var/obj/effect/landmark/spawner/bubblegum/B in GLOB.landmarks_list)
 			forceMove(get_turf(B))
+			break
