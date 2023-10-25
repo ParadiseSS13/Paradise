@@ -107,7 +107,7 @@
 /datum/crafting_recipe/hudgoghydroponic
 	name = "Hydroponic HUD goggles"
 	result = list(/obj/item/clothing/glasses/hud/hydroponic/goggles)
-	time = 20
+	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/hydroponic = 1,
 				/obj/item/clothing/glasses/goggles = 1,
