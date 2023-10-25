@@ -436,7 +436,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	recipes = GLOB.cardboard_recipes
 	return ..()
 
-
 /*
  * soil
  */
