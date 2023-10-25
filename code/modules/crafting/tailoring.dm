@@ -99,7 +99,7 @@
 /datum/crafting_recipe/hudgogdiagnosticremoval
 	name = "Diagnostic HUD removal (goggles)"
 	result = list(/obj/item/clothing/glasses/goggles, /obj/item/clothing/glasses/hud/diagnostic)
-	time = 20
+	time = 2 SECONDS
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/goggles = 1)
 	category = CAT_CLOTHING
