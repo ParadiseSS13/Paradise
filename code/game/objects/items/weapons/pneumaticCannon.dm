@@ -195,7 +195,7 @@
 
 /obj/item/pneumatic_cannon/flayer/process()
 
-	var/obj/item/shard/shard = new /obj/item/shard
+//	var/obj/item/shard/shard = new /obj/item/shard
 	. = ..()
 
 /obj/item/pneumatic_cannon/flayer/attackby(obj/item/W, mob/user, params)
