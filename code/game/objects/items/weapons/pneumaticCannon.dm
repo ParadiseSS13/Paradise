@@ -52,7 +52,7 @@
 		to_chat(user, "<span class='warning'>You can't put [I] into [src]!</span>")
 		return FALSE
 	if((loaded_weight_class + I.w_class) > max_weight_class)
-		to_chat(user, "<span class='warning'>[I] won't fit into \the [src]!</span>")
+		to_chat(user, "<span class='warning'>[I] won't fit into [src]!</span>")
 		return FALSE
 	if(I.w_class > src.w_class)
 		to_chat(user, "<span class='warning'>[I] is too large to fit into \the [src]!</span>")
