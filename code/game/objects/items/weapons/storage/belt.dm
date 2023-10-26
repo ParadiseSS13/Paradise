@@ -10,6 +10,7 @@
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
 	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
+	ignoreunder = TRUE
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
 	/// Bypasses the "belt in bag" prevention if TRUE

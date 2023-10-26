@@ -757,7 +757,7 @@
 				return FALSE
 			var/obj/item/organ/external/O = H.get_organ(BODY_ZONE_CHEST)
 
-			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT))
+			if(!H.w_uniform && !nojumpsuit && !(O?.status & ORGAN_ROBOT) && !I.ignoreunder)
 				if(!disable_warning)
 					to_chat(H, "<span class='alert'>You need a jumpsuit before you can attach this [I.name].</span>")
 				return FALSE

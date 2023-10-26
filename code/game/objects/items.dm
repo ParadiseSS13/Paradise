@@ -42,6 +42,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	var/attack_effect_override
 	var/list/attack_verb //Used in attackby() to say how something was attacked "[x] has been [z.attack_verb] by [y] with [z]"
 	var/w_class = WEIGHT_CLASS_NORMAL
+	var/ignoreunder = FALSE //Used to specify if we want an item to ignore being unequipped when the wearer has no jumpsuits
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	pass_flags = PASSTABLE
 	pressure_resistance = 4

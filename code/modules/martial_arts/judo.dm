@@ -18,6 +18,7 @@
 	icon_state = "judobelt"
 	item_state = "judo"
 	slot_flags = SLOT_FLAG_BELT
+	ignoreunder = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	var/datum/martial_art/judo/style
 

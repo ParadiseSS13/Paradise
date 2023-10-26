@@ -87,7 +87,7 @@
 			unEquip(l_store, 1)
 		if(wear_id)
 			unEquip(wear_id)
-		if(belt)
+		if(belt && !belt.ignoreunder)
 			unEquip(belt)
 		w_uniform = null
 		update_inv_w_uniform()
