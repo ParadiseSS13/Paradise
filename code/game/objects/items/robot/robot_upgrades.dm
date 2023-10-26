@@ -421,7 +421,7 @@
 
 /obj/item/borg/upgrade/syndie_soap
 	name = "janitor cyborg syndicate soap"
-	desc = "Using forbidden technology and some red dye, upgrade a janitoral cyborg's soap performance by 90 percent!"
+	desc = "Using forbidden technology and some red dye, upgrade a janitorial cyborg's soap performance by 90 percent!"
 	icon_state = "cyborg_upgrade4"
 	require_module = TRUE
 	module_type = /obj/item/robot_module/janitor
