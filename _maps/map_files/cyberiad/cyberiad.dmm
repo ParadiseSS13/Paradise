@@ -81874,14 +81874,14 @@
 	dir = 8;
 	location = "Research Division"
 	},
-/obj/machinery/door/window/classic/reversed{
-	name = "Research Division Delivery";
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/research{
+	dir = 8
+	},
+/obj/machinery/door/window/classic/reversed{
+	name = "Research Division Delivery";
 	dir = 8
 	},
 /turf/simulated/floor/plating,
