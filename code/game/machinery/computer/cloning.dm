@@ -349,19 +349,18 @@
 		set_scan_temp("Subject has committed suicide and is not clonable.", "bad")
 		SStgui.update_uis(src)
 		return
+	if(HAS_TRAIT(subject, TRAIT_BADDNA) && src.scanner.scan_level < 2)
+		set_scan_temp("Insufficient level of biofluids detected within subject. Scanner upgrades may be required to improve scan capabilities.", "bad")
+		SStgui.update_uis(src)
+		return
+	if(HAS_TRAIT(subject, TRAIT_HUSK) && src.scanner.scan_level < 2)
+		set_scan_temp("Subject is husked. Treat condition or upgrade scanning module to proceed with scan.", "bad")
+		SStgui.update_uis(src)
+		return
 	if((!subject.ckey) || (!subject.client))
 		set_scan_temp("Subject's brain is not responding. Further attempts after a short delay may succeed.", "bad")
 		SStgui.update_uis(src)
 		return
-	if(HAS_TRAIT(subject, TRAIT_HUSK) && src.scanner.scan_level < 2)
-		if(HAS_TRAIT(subject, TRAIT_BADDNA))
-			set_scan_temp("Insufficient level of biofluids detected within subject. Scanner upgrades may be required to improve scan capabilities.", "bad")
-			SStgui.update_uis(src)
-			return
-		set_scan_temp("Subject is husked. Treat condition or upgrade scanning module to proceed with scan.", "bad")
-		SStgui.update_uis(src)
-		return
-
 	if(!isnull(find_record(subject.ckey)))
 		set_scan_temp("Subject already in database.")
 		SStgui.update_uis(src)
