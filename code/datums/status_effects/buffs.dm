@@ -21,7 +21,7 @@
 	desc += "<br><font size=3><b>Current Bloodthirst: [HG.bloodlust]</b></font>\
 	<br>Becomes undroppable at <b>[100]</b>\
 	<br>Will consume you at <b>[140]</b>\
-	<br>You have offered [his_grace.victims] out of [his_grace.victims_needed] sacrifices needed before ascension.</b>"
+	<br>You have offered [HG.his_grace.victims] out of [HG.his_grace.victims_needed] sacrifices needed before ascension.</b>"
 	..()
 
 /datum/status_effect/his_grace/on_apply()
@@ -36,6 +36,7 @@
 	held_items += owner.l_hand
 	held_items += owner.r_hand
 	for(var/obj/item/his_grace/HG in held_items)
+		his_grace = HG
 		if(HG.bloodthirst > bloodlust)
 			bloodlust = HG.bloodthirst
 		if(HG.awakened)
