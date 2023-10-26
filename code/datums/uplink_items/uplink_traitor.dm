@@ -414,9 +414,9 @@
 
 /datum/uplink_item/stealthy_weapons/bearserk
 	name = "Bearserker Pelt"
-	desc = "A bear pelt that grants the wearer Rage of the Space Bear, a strong and mysterious martial art, turning them into a deadly close-quarters threat. \
-			Also features robust, high coverage armor to further allow for berserk rampages. \
-			May instill cannibalistic tendancies, a desire to charge barechested into battle, and a thirst for vodka."
+	desc = "A bear pelt that infuses the wearer with bear spirits and knowledge on an occultic martial art known as Rage of the Space Bear. \
+			The pelt itself is also armored, providing the wearer great longevity. \
+			Made with love and vodka by the Sydnicate-affiliated cult, Children of Ursa Major."
 	reference = "BBP"
 	item = /obj/item/clothing/head/bearpelt/bearserk
 	cost = 50
