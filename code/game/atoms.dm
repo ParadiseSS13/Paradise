@@ -37,9 +37,6 @@
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
 
-	//Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
-	var/can_leave_fibers = TRUE
-
 	var/admin_spawned = FALSE	//was this spawned by an admin? used for stat tracking stuff.
 
 	var/initialized = FALSE
