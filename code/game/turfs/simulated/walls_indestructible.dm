@@ -104,6 +104,9 @@
 	base_icon_state = "sandstone_wall"
 	smoothing_flags = SMOOTH_BITMASK
 
+
+GLOBAL_DATUM(title_splash, /turf/simulated/wall/indestructible/splashscreen)
+
 /turf/simulated/wall/indestructible/splashscreen
 	name = "Space Station 13"
 	icon = 'config/title_screens/images/blank.png'
@@ -113,6 +116,16 @@
 	// Pixel shifts below are needed to centrally position the black placeholder icon within the start area at compile-time. This is overridden when a "real" lobby art image is chosen by SStitlescreen
 	pixel_x = -288
 	pixel_y = -224
+
+// This needs to load immediately. I am sad I cant Initialize() this.
+/turf/simulated/wall/indestructible/splashscreen/New(loc)
+	..()
+	GLOB.title_splash = src
+
+// GC cleanup because some silly bugger will delete this
+/turf/simulated/wall/indestructible/splashscreen/Destroy()
+	GLOB.title_splash = null
+	return ..()
 
 /turf/simulated/wall/indestructible/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'

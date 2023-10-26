@@ -52,6 +52,9 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	/// The type of the last subsystem to be fire()'d.
 	var/last_type_processed
 
+	/// Cache for the loading screen - cleared after
+	var/list/ss_in_init_order = list()
+
 	/// Start of queue linked list
 	var/datum/controller/subsystem/queue_head
 	/// End of queue linked list (used for appending to the list)
@@ -215,14 +218,31 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	// Sort subsystems by init_order, so they initialize in the correct order.
 	sortTim(subsystems, GLOBAL_PROC_REF(cmp_subsystem_init))
 
+	// Copy this - we will need it soon
+	ss_in_init_order = subsystems.Copy()
+
+	// Prepare for init text
+	GLOB.title_splash.maptext_x = 96
+	GLOB.title_splash.maptext_y = 32
+	GLOB.title_splash.maptext_width = 480
+	GLOB.title_splash.maptext_height = 480
+
 	var/start_timeofday = REALTIMEOFDAY
 	// Initialize subsystems.
 	current_ticklimit = GLOB.configuration.mc.world_init_tick_limit
 	for(var/datum/controller/subsystem/SS in subsystems)
 		if(SS.flags & SS_NO_INIT)
 			continue
+
+		// Upate the loading screen
+		update_ss_loadingscreen(SS.ss_id)
 		SS.call_init(REALTIMEOFDAY)
 		CHECK_TICK
+
+	// Clear init text
+	ss_in_init_order.Cut()
+	GLOB.title_splash.maptext = null
+
 	current_ticklimit = TICK_LIMIT_RUNNING
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
@@ -675,3 +695,79 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			. = "<font color='#eb4034'>[cpu_var]</font>"
 		if(100 to INFINITY) // >100 = bold red
 			. = "<font color='#eb4034'><b>[cpu_var]</b></font>"
+
+// Updates SS loading stuff on the lobby
+/datum/controller/master/proc/update_ss_loadingscreen(current_ss_id)
+	// We are done, clear it
+	if(!length(ss_in_init_order))
+		GLOB.title_splash.maptext = null
+		return
+
+	var/list/columns = list()
+	columns += list(list()) // Init our first column
+
+	var/spacer = "        " // 8 characters width space
+	// You can comfortably fit 33 lines of text on the lobby screen, so we have to do column memes to make the text work
+	var/max_per_col = 33
+
+
+	var/i = 0 // We dont iterate the below loop on i because we only care about initters
+	for(var/datum/controller/subsystem/SS in ss_in_init_order)
+		if(SS.flags & SS_NO_INIT)
+			continue
+
+		i++
+
+		var/list/target_col = columns[length(columns)] // Get most recent once
+
+		if(ceil(i / (max_per_col * length(columns))) > 1)
+			// New column needed
+			var/list/newcol = list()
+			columns += list(newcol)
+
+			target_col = newcol
+
+		// Handle SS state
+
+		// Loaded - mark it as DONE
+		if(SS.initialized)
+			target_col += "\[ <font color='#00ff00'>DONE</font> ] [SS.name]"
+
+		// Loading - mark it as LOAD
+		else if(SS.ss_id == current_ss_id)
+			target_col += "\[ <font color='#ffaa00'>LOAD</font> ] [SS.name]"
+
+		// Not reached yet - mark it as WAIT
+		else
+			target_col += "\[ <font color='#ff0000'>WAIT</font> ] [SS.name]"
+
+	// Now render it on the lobby image - turn the columns to rows
+
+	// First figure out max lengths
+	var/column_maxes = list()
+	for(var/list/col in columns)
+		var/col_max = 0
+
+		for(var/entry in col)
+			var/col_len = length(entry)
+			if(col_len > col_max)
+				col_max = col_len
+
+		column_maxes += col_max
+
+	var/list/rows = list()
+
+	for(var/i3 in 1 to max_per_col)
+		var/list/this_row = list()
+
+		for(var/i2 in 1 to length(columns))
+			// The col contains i, lets use it
+			if(length(columns[i2]) >= i3)
+				var/spaces_needed = column_maxes[i2] - length(columns[i2][i3])
+				var/this_entry = "[columns[i2][i3]][add_tspace("", spaces_needed)][spacer]"
+
+				this_row += this_entry
+
+		rows += this_row.Join("")
+
+	GLOB.title_splash.maptext = "<span style='font-family: Courier New; background-color: rgba(39, 39, 39, 0.5);'>\n[rows.Join("\n")]\n</span>"
