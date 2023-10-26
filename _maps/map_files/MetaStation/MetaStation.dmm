@@ -2416,7 +2416,6 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
@@ -56280,6 +56279,9 @@
 	name = "Prison Blast Door"
 	},
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "gSf" = (
@@ -74271,8 +74273,10 @@
 	id_tag = "Secure Gate";
 	name = "brig shutters"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/supply/mule_bot,
 /obj/machinery/door/window/classic/reversed{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
@@ -86843,6 +86847,9 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/brig,
 /obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/unres{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "uJF" = (
