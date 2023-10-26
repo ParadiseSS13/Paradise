@@ -111,6 +111,29 @@
 	new /obj/item/clothing/accessory/medal/silver/valor(src)
 	new /obj/item/clothing/accessory/medal/heart(src)
 
+/obj/item/storage/lockbox/medal/cc
+	name = "central command medal box"
+	desc = "A locked box used to store ALL the medals you could ever need."
+	max_combined_w_class = 30
+	storage_slots = 15
+	req_access = list(ACCESS_CENT_COMMANDER)
+
+/obj/item/storage/lockbox/medal/cc/populate_contents()
+	new /obj/item/clothing/accessory/medal/gold/heroism(src)
+	..()
+	new /obj/item/clothing/accessory/medal/gold(src)
+	new /obj/item/clothing/accessory/medal/silver(src)
+	new /obj/item/clothing/accessory/medal(src)
+
+	// Departmental medals
+	new /obj/item/clothing/accessory/medal/security(src)
+	new /obj/item/clothing/accessory/medal/science(src)
+	new /obj/item/clothing/accessory/medal/engineering(src)
+	new /obj/item/clothing/accessory/medal/service(src)
+	new /obj/item/clothing/accessory/medal/medical(src)
+	new /obj/item/clothing/accessory/medal/legal(src)
+	new /obj/item/clothing/accessory/medal/supply(src)
+
 /obj/item/storage/lockbox/medal/hardmode_box
 	name = "\improper HRD-MDE program medal box"
 	desc = "A locked box used to store medals of pride. Use a fauna research disk on the box to transmit the data and print a medal."

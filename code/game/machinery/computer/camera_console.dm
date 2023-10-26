@@ -85,6 +85,7 @@
 /obj/machinery/computer/security/ui_close(mob/user)
 	..()
 	watchers -= user.UID()
+	user.client.clear_map(map_name)
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()

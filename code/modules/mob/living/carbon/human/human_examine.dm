@@ -138,7 +138,7 @@
 				wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is barely attached!\n"
 
 			else if(E.status & ORGAN_BURNT)
-				wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is badly burnt!\n"
+				wound_flavor_text["[E.limb_name]"] = "[p_their(TRUE)] [E.name] is badly burnt" + (E.status & ORGAN_SALVED ? ", but salved" : "") + "!\n"
 
 		if(E.open)
 			if(E.is_robotic())

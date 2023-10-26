@@ -186,18 +186,23 @@
 
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		var/revivable
+		var/revivable_state = "dead"
 		if(!ghost_can_reenter()) // DNR or AntagHUD
-			revivable = FALSE
-		else if(ismachineperson(src))
-			revivable = TRUE
-		else if(timeofdeath && is_revivable())
-			revivable = TRUE
-
-		if(revivable)
-			holder.icon_state = "hudflatline"
+			revivable_state = "dead"
+		else if(ismachineperson(src) || (timeofdeath && is_revivable()))
+			revivable_state = "flatline"
+		else if(!mind)
+			revivable_state = "dead"
 		else
-			holder.icon_state = "huddead"
+			var/foundghost = FALSE
+			for(var/mob/dead/observer/G in GLOB.player_list)
+				if(G.mind.current == src)
+					foundghost = (G.can_reenter_corpse && G.client)
+					break
+			if(foundghost || key)
+				revivable_state = "hassoul"
+
+		holder.icon_state = "hud[revivable_state]"
 
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"

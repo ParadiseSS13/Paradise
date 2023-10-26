@@ -62,47 +62,84 @@
 /area/mine/unexplored/cere/orbiting
 	name = "Near Station Asteroids"
 
-/area/mine/lobby
+/**********************Outpost areas**************************/
+
+/area/mine/outpost
 	name = "Mining Station"
+	icon_state = "mining"
+	sound_environment = SOUND_AREA_STANDARD_STATION
 
-/area/mine/storage
-	name = "Mining Station Storage"
-
-/area/mine/production
-	name = "Mining Station Starboard Wing"
-	icon_state = "mining_production"
-
-/area/mine/abandoned
-	name = "Abandoned Mining Station"
-
-/area/mine/comms
-	name = "Mining Station Communications"
-
-/area/mine/living_quarters
-	name = "Mining Station Port Wing"
-	icon_state = "mining_living"
-
-/area/mine/eva
-	name = "Mining Station EVA"
+/area/mine/outpost/airlock
+	name = "Mining Station Airlock"
 	icon_state = "mining_eva"
 
-/area/mine/maintenance
+/area/mine/outpost/cafeteria
+	name = "Mining Station Cafeteria"
+	icon_state = "mining_living"
+
+/area/lavaland/surface/outdoors/outpost/catwalk //subtype of /surface so storms hit there
+	name = "Mining Station Catwalk"
+	icon_state = "mining"
+
+/area/mine/outpost/comms
 	name = "Mining Station Communications"
+	icon_state = "tcomms"
 
-/area/mine/cafeteria
-	name = "Mining station Cafeteria"
+/area/mine/outpost/custodial
+	name = "Mining Station Custodial Storage"
+	icon_state = "janitor"
 
-/area/mine/hydroponics
-	name = "Mining station Hydroponics"
+/area/mine/outpost/engineering // basically engi and atmos combined. I'm keeping it as "engineering" code wise, but "Life Support" sounds cooler in-game
+	name = "Mining Station Life Support"
+	icon_state = "engi"
 
-/area/mine/sleeper
-	name = "Mining station Emergency Sleeper"
+/area/mine/outpost/hallway
+	name = "Mining Station Central Wing"
+	icon_state = "hallC"
 
-/area/mine/north_outpost
-	name = "North Mining Outpost"
+/area/mine/outpost/hallway/east
+	name = "Mining Station East Wing"
+	icon_state = "hallS"
 
-/area/mine/west_outpost
-	name = "West Mining Outpost"
+/area/mine/outpost/hallway/west
+	name = "Mining Station West Wing"
+	icon_state = "hallP"
+
+/area/mine/outpost/lockers
+	name = "Mining Station Locker Room"
+	icon_state = "locker"
+
+/area/mine/outpost/storage
+	name = "Mining Station Storage"
+	icon_state = "storage"
+
+/area/mine/outpost/maintenance
+	name = "Mining Station Maintenance"
+	icon_state = "maintcentral"
+
+/area/mine/outpost/maintenance/south
+	name = "Mining Station South Maintenance"
+	icon_state = "amaint"
+
+/area/mine/outpost/maintenance/east
+	name = "Mining Station East Maintenance"
+	icon_state = "smaint"
+
+/area/mine/outpost/medbay
+	name = "Mining Station Infirmary"
+	icon_state = "medbay"
+
+/area/mine/outpost/mechbay
+	name = "Mining Station Mechbay"
+	icon_state = "mechbay"
+
+/area/mine/outpost/production
+	name = "Mining Station Production Room"
+	icon_state = "mining_production"
+
+/area/mine/outpost/quartermaster
+	name = "Mining Station Quartermaster's Office"
+	icon_state = "qm"
 
 /area/mine/laborcamp
 	name = "Labor Camp"
@@ -112,15 +149,6 @@
 	name = "Labor Camp Security"
 	icon_state = "security"
 	ambientsounds = HIGHSEC_SOUNDS
-
-/area/mine/podbay
-	name = "Mining Podbay"
-
-/area/mine/airlock
-	name = "Mining Airlock"
-
-/area/mine/mechbay
-	name = "Mining Mechbay Storage"
 
 
 /**********************Lavaland Areas**************************/

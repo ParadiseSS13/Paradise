@@ -294,16 +294,6 @@
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
 
-/obj/item/storage/box/exileimp
-	name = "boxed exile bio-chip kit"
-	desc = "Box of exile bio-chips. It has a picture of a clown being booted through the Gateway."
-	icon_state = "implant"
-
-/obj/item/storage/box/exileimp/populate_contents()
-	for(var/I in 1 to 5)
-		new /obj/item/implantcase/exile(src)
-	new /obj/item/implanter(src)
-
 /obj/item/storage/box/deathimp
 	name = "death alarm bio-chip kit"
 	desc = "Box of life sign monitoring bio-chips."
