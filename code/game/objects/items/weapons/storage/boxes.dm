@@ -558,7 +558,7 @@
 
 /obj/item/storage/box/botany_labled_seeds
 	name = "botanist labled random seeds kit"
-	desc = "A box intended for experienced botanists"
+	desc = "A box intended for experienced botanists."
 
 /obj/item/storage/box/botany_labled_seeds/populate_contents()
 	for(var/I in 1 to 7)
