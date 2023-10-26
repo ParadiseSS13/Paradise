@@ -112,7 +112,7 @@
 	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
-	var/EMP_flash_strength = 1
+	var/flash_intensity = 1
 
 /obj/item/organ/internal/eyes/cybernetic/emp_act(severity)
 	if(!owner || emp_proof)
