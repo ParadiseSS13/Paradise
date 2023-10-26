@@ -416,7 +416,7 @@
 	name = "Bearserker Pelt"
 	desc = "A bear pelt that infuses the wearer with bear spirits and knowledge on an occultic martial art known as Rage of the Space Bear. \
 			The pelt itself is also armored, providing the wearer great longevity. \
-			Made with love and vodka by the Sydnicate-affiliated cult, Children of Ursa Major."
+			Made with love and copious amounts of vodka by the Sydnicate-affiliated cult, Children of Ursa Major."
 	reference = "BBP"
 	item = /obj/item/clothing/head/bearpelt/bearserk
 	cost = 50
