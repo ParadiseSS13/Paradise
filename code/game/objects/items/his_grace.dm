@@ -122,7 +122,7 @@
 		if(bloodthirst > HIS_GRACE_CONSUME_OWNER) // They could not offer enough sacrifices.
 			master.visible_message("<span class='boldwarning'>[src] turns on [master]!</span>",
 									"<span class='his_grace big bold'>[src] turns on you!</span>")
-			do_attack_animation(master, null, src)
+			do_attack_animation(master, used_item = src)
 			master.emote("scream")
 			master.remove_status_effect(STATUS_EFFECT_HISGRACE)
 			flags &= ~NODROP
@@ -203,15 +203,18 @@
 	playsound(meal, 'sound/misc/desceration-02.ogg', 75, TRUE)
 	playsound(src, 'sound/items/eatfood.ogg', 100, TRUE)
 	meal.forceMove(src)
+
 	if(ascended)
 		force_bonus += ASCEND_BONUS
 	else
 		force_bonus += HIS_GRACE_FORCE_BONUS
+
 	prev_bloodthirst = bloodthirst
 	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)
 		bloodthirst = length(contents) //Never fully sated, and His hunger will only grow.
 	else
 		bloodthirst = HIS_GRACE_CONSUME_OWNER
+
 	if(meal.mind)
 		victims++
 	if(victims >= victims_needed)
