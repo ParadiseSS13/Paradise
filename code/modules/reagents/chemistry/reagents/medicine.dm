@@ -360,7 +360,7 @@
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
 	if(HAS_TRAIT(M, TRAIT_BADASS))
-		return
+		return list(0, STATUS_UPDATE_NONE)
 
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
