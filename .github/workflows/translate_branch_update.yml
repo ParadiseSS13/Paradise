@@ -5,6 +5,10 @@ on:
   push:
     branches: ['master']
 
+concurrency:
+  group: translation
+  cancel-in-progress: false
+
 jobs:
   update_translation:
     runs-on: ubuntu-latest
