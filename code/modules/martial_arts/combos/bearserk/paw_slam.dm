@@ -1,7 +1,7 @@
 /datum/martial_combo/bearserk/paw_slam
 	name = "Paw Slam"
 	steps = list(MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Slap an opponent with a mighty paw, knocking them down."
+	explaination_text = "Slap an opponent with a mighty paw, knocking them down. Beats down harder on already knocked down opponents."
 
 /datum/martial_combo/bearserk/paw_slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.IsWeakened() || IS_HORIZONTAL(target))
