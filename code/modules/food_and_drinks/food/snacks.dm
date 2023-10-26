@@ -167,7 +167,7 @@
 				D.taste(reagents)
 		else if(ismouse(M))
 			var/mob/living/simple_animal/mouse/N = M
-			to_chat(N, text("<span class='notice'>You nibble away at [src].</span>"))
+			to_chat(N, "<span class='notice'>You nibble away at [src].</span>")
 			if(prob(50))
 				N.visible_message("[N] nibbles away at [src].", "")
 			N.adjustHealth(-2)
