@@ -133,7 +133,7 @@
 	return TRUE
 
 /obj/structure/filingcabinet/proc/retrieve(obj/item/O, mob/user)
-	if(!(istype(O) && (O.loc == src) && src.Adjacent(user)))
+	if(!(istype(O) && (O.loc == src) && Adjacent(user)))
 		return
 	if(!user.put_in_hands(O))
 		O.forceMove(loc)
