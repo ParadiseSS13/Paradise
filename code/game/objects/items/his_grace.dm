@@ -117,10 +117,7 @@
 
 	var/turf/location = get_turf(src)
 	for(var/mob/living/carbon/human/master in location.contents)
-		var/list/held_items = list()
-		held_items += master.l_hand
-		held_items += master.r_hand
-		if(!(src in held_items))
+		if(src != master.l_hand || src != master.r_hand)
 			continue
 		if(bloodthirst > HIS_GRACE_CONSUME_OWNER) // They could not offer enough sacrifices.
 			master.visible_message("<span class='boldwarning'>[src] turns on [master]!</span>",
