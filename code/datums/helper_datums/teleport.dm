@@ -53,7 +53,7 @@
 	if(!setPrecision(aprecision))
 		return 0
 	if(do_effect)
-		setEffects(aeffectin,aeffectout)
+		setEffects(aeffectin, aeffectout)
 	setForceTeleport(afteleport)
 	setSounds(asoundin,asoundout)
 	ignore_area_flag = bypass_area_flag
