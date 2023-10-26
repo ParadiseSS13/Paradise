@@ -1138,6 +1138,7 @@
 	materials = list(MAT_GOLD = 1250, MAT_PLASMA = 2500, MAT_SILVER = 1250)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
+	
 /datum/design/borg_upgrade_rcd
 	name = "Cyborg Upgrade (Rapid Construction Device)"
 	id = "borg_upgrade_RCD"

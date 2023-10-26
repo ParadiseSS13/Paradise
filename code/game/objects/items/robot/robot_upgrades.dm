@@ -428,6 +428,7 @@
 	items_to_replace = list(
 		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
 	)
+	
 /obj/item/borg/upgrade/bluespace_trash_bag
 	name = "janitor cyborg trash bag of holding upgrade"
 	desc = "An advanced trash bag upgrade board with bluespace properties that can be attached to janitorial cyborgs."
