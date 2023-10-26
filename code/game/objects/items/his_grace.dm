@@ -38,7 +38,7 @@
 	var/prev_bloodthirst = HIS_GRACE_SATIATED
 	var/force_bonus = 0
 	var/ascended = FALSE
-	var/victims
+	var/victims = 0
 	var/victims_needed = 20
 
 /obj/item/his_grace/Initialize(mapload)
