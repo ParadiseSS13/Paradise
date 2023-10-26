@@ -11,8 +11,8 @@
 	selection_deactivated_message = "<span class='notice'>You decide that your current form is good enough.</span>"
 	cooldown_min = 200 //100 deciseconds reduction per rank
 	var/list/protected_roles = list(SPECIAL_ROLE_WIZARD, SPECIAL_ROLE_CHANGELING, SPECIAL_ROLE_CULTIST) //which roles are immune to the spell
-	var/paralysis_amount_caster = 40 SECONDS //how much the caster is paralysed for after the spell
-	var/paralysis_amount_victim = 40 SECONDS //how much the victim is paralysed for after the spell
+	var/paralysis_amount_caster = 10 SECONDS //how much the caster is paralysed for after the spell
+	var/paralysis_amount_victim = 15 SECONDS //how much the victim is paralysed for after the spell
 	action_icon_state = "mindswap"
 
 /obj/effect/proc_holder/spell/mind_transfer/create_new_targeting()

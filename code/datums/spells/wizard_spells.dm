@@ -12,10 +12,11 @@
 	proj_icon_state = "magicm"
 	proj_name = "a magic missile"
 	proj_lingering = 1
+	pass_flags = PASSDOOR
 	proj_type = "/obj/effect/proc_holder/spell/inflict_handler/magic_missile"
 
 	proj_lifespan = 20
-	proj_step_delay = 5
+	proj_step_delay = 2
 
 	proj_trail = 1
 	proj_trail_lifespan = 5
@@ -283,12 +284,12 @@
 	desc = "This spell temporarily blinds a single person and does not require wizard garb."
 
 	school = "transmutation"
-	base_cooldown = 300
+	base_cooldown = 10 SECONDS
 	clothes_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
 	message = "<span class='notice'>Your eyes cry out in pain!</span>"
-	cooldown_min = 50 //12 deciseconds reduction per rank
+	cooldown_min = 2 SECONDS
 
 	starting_spells = list("/obj/effect/proc_holder/spell/inflict_handler/blind","/obj/effect/proc_holder/spell/genetic/blind")
 
