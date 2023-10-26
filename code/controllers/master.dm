@@ -218,8 +218,12 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	// Sort subsystems by init_order, so they initialize in the correct order.
 	sortTim(subsystems, GLOBAL_PROC_REF(cmp_subsystem_init))
 
-	// Copy this - we will need it soon
-	ss_in_init_order = subsystems.Copy()
+	// Get SSs that will init
+	for(var/datum/controller/subsystem/SS in subsystems)
+		if(SS.flags & SS_NO_INIT)
+			continue
+
+		ss_in_init_order += SS
 
 	// Prepare for init text
 	GLOB.title_splash.maptext_x = 96
@@ -228,18 +232,21 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	GLOB.title_splash.maptext_height = 480
 
 	var/start_timeofday = REALTIMEOFDAY
+
 	// Initialize subsystems.
 	current_ticklimit = GLOB.configuration.mc.world_init_tick_limit
-	for(var/datum/controller/subsystem/SS in subsystems)
-		if(SS.flags & SS_NO_INIT)
-			continue
+
+	for(var/i in 1 to length(ss_in_init_order))
+		var/datum/controller/subsystem/SS = ss_in_init_order[i]
 
 		// Upate the loading screen
-		update_ss_loadingscreen(SS.ss_id)
+		update_ss_loadingscreen(SS.ss_id, i)
+
+		// Do the do
 		SS.call_init(REALTIMEOFDAY)
 		CHECK_TICK
 
-	// Clear init text
+	// Clear init text stuff
 	ss_in_init_order.Cut()
 	GLOB.title_splash.maptext = null
 
@@ -303,7 +310,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/proc/Loop()
 	. = -1
 	//Prep the loop (most of this is because we want MC restarts to reset as much state as we can, and because
-	// local vars rock
+	// local vars rock)
 
 	//all this shit is here so that flag edits can be refreshed by restarting the MC. (and for speed)
 	var/list/tickersubsystems = list()
@@ -697,7 +704,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			. = "<font color='#eb4034'><b>[cpu_var]</b></font>"
 
 // Updates SS loading stuff on the lobby
-/datum/controller/master/proc/update_ss_loadingscreen(current_ss_id)
+/datum/controller/master/proc/update_ss_loadingscreen(current_ss_id, loaded_amount)
 	// We are done, clear it
 	if(!length(ss_in_init_order))
 		GLOB.title_splash.maptext = null
@@ -707,67 +714,74 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	columns += list(list()) // Init our first column
 
 	var/spacer = "        " // 8 characters width space
-	// You can comfortably fit 33 lines of text on the lobby screen, so we have to do column memes to make the text work
-	var/max_per_col = 33
+	// You can comfortably fit 33 lines of text on the lobby screen, but having an even number makes this easier
+	var/max_height = 32
+	var/either_side = max_height / 2
 
+	var/list/all_rows = list()
 
-	var/i = 0 // We dont iterate the below loop on i because we only care about initters
 	for(var/datum/controller/subsystem/SS in ss_in_init_order)
-		if(SS.flags & SS_NO_INIT)
-			continue
-
-		i++
-
-		var/list/target_col = columns[length(columns)] // Get most recent once
-
-		if(ceil(i / (max_per_col * length(columns))) > 1)
-			// New column needed
-			var/list/newcol = list()
-			columns += list(newcol)
-
-			target_col = newcol
-
 		// Handle SS state
 
 		// Loaded - mark it as DONE
 		if(SS.initialized)
-			target_col += "\[ <font color='#00ff00'>DONE</font> ] [SS.name]"
+			all_rows += "\[ <font color='#00ff00'>DONE</font> ] [SS.name]"
 
 		// Loading - mark it as LOAD
 		else if(SS.ss_id == current_ss_id)
-			target_col += "\[ <font color='#ffaa00'>LOAD</font> ] [SS.name]"
+			all_rows += "\[ <font color='#ffaa00'>LOAD</font> ] [SS.name]"
 
 		// Not reached yet - mark it as WAIT
 		else
-			target_col += "\[ <font color='#ff0000'>WAIT</font> ] [SS.name]"
+			all_rows += "\[ <font color='#ff0000'>WAIT</font> ] [SS.name]"
 
 	// Now render it on the lobby image - turn the columns to rows
 
-	// First figure out max lengths
-	var/column_maxes = list()
-	for(var/list/col in columns)
-		var/col_max = 0
+	// First figure out max length
+	var/col_max = 0
+	for(var/entry in all_rows)
+		var/col_len = length(entry)
+		if(col_len > col_max)
+			col_max = col_len
 
-		for(var/entry in col)
-			var/col_len = length(entry)
-			if(col_len > col_max)
-				col_max = col_len
+	var/list/formatted_rows = list()
 
-		column_maxes += col_max
+	for(var/entry in all_rows)
+		var/spaces_needed = col_max - length(entry)
+		var/this_entry = "[entry][add_tspace("", spaces_needed)][spacer]"
 
-	var/list/rows = list()
+		formatted_rows += this_entry
 
-	for(var/i3 in 1 to max_per_col)
-		var/list/this_row = list()
+	// Now we have the rows, decide what to show, it needs to scroll fluidly
+	var/list/output_rows = list()
 
-		for(var/i2 in 1 to length(columns))
-			// The col contains i, lets use it
-			if(length(columns[i2]) >= i3)
-				var/spaces_needed = column_maxes[i2] - length(columns[i2][i3])
-				var/this_entry = "[columns[i2][i3]][add_tspace("", spaces_needed)][spacer]"
+	var/ss_total = length(formatted_rows)
+	if(ss_total <= max_height)
+		// We have less rows than height - show it all
+		output_rows = formatted_rows
 
-				this_row += this_entry
+	else if(loaded_amount < either_side)
+		// We have loaded less than half the display - show the first height entries
+		for(var/i in 1 to max_height)
+			output_rows += formatted_rows[i]
 
-		rows += this_row.Join("")
+	else if(loaded_amount > (ss_total - either_side))
+		// We have loaded more than the remaining half, show the last height entries
+		for(var/i in 1 to max_height)
+			// Invert it
+			var/offset_i = ss_total - max_height
+			output_rows += formatted_rows[i + offset_i]
 
-	GLOB.title_splash.maptext = "<span style='font-family: Courier New; background-color: rgba(39, 39, 39, 0.5);'>\n[rows.Join("\n")]\n</span>"
+	else
+		// Get the first half of our offset
+		var/firsthalf_offset = loaded_amount - either_side
+		for(var/i in 1 to either_side)
+			output_rows += formatted_rows[i + firsthalf_offset]
+
+		// Get the last half of our offset
+		// If we are at SS 14, we need to take from SS 15 and take the next half onwards
+		for(var/i in 1 to either_side)
+			output_rows += formatted_rows[i + loaded_amount]
+
+
+	GLOB.title_splash.maptext = "<span style='font-family: Courier New; background-color: rgba(39, 39, 39, 0.5);'>\n[output_rows.Join("\n")]\n</span>"
