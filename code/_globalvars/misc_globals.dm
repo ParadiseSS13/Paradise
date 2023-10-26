@@ -13,6 +13,7 @@ GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_co
 /proc/create_global_announcer()
 	spawn(0)
 		GLOB.global_announcer = new(null)
+		GLOB.global_announcer.config(list("Common", "Engineering", "Medical", "Supply", "Command", "Science", "Service", "Security", "Procedure"))
 	return
 
 /proc/create_command_announcer()
