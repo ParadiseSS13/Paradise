@@ -1,5 +1,5 @@
 /datum/martial_art/bearserk
-	weight = 8 // Higher weight than Krav-Maga, brute force overrules
+	weight = 9 // Higher weight than Krav-Maga, brute force overrules
 	name = "Rage of the Space Bear"
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/bearserk/bear_jaws, /datum/martial_combo/bearserk/paw_slam, /datum/martial_combo/bearserk/smokey)
@@ -18,7 +18,7 @@
 
 /datum/martial_art/bearserk/explaination_header(user)
 	to_chat(usr, "<b><i>Quelling the ursine rage for a moment, you ponder on how a Space Bear fights...</i></b>")
-	
+
 /datum/martial_art/bearserk/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
@@ -33,7 +33,7 @@
 /datum/martial_art/bearserk/remove(mob/living/carbon/human/H)
 	..()
 	to_chat(H, "<span class = 'sciradio'>The ancient fury of bears leaves your mind...</span>")
-		
+
 // The Pelt
 
 /obj/item/clothing/head/bearpelt/bearserk
@@ -49,20 +49,20 @@
 /obj/item/clothing/head/bearpelt/bearserk/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == slot_head)
+	if(slot == SLOT_HUD_HEAD)
 		var/mob/living/carbon/human/H = user
 		style.teach(H,1)
 		H.faction |= "russian" // Russian Hardbass Begins
 		H.physiology.stun_mod *= 0.5
 		H.physiology.stamina_mod *= 0.75
 		H.physiology.heat_mod *= 0.5
-		
+
 /obj/item/clothing/head/bearpelt/bearserk/dropped(mob/user, datum/reagent/R)
 	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_head) == src)
+	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
 		style.remove(H)
 		H.faction -= "russian" // Hardbass stops
 		H.physiology.stun_mod /= 0.5
