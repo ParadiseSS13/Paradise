@@ -24,6 +24,8 @@
 	var/cooldown = 3.5 SECONDS
 	/// the time it takes before the target falls over
 	var/knockdown_delay = 2.5 SECONDS
+	///Chance for the baton to stun when thrown at someone
+	var/throw_hit_chance = 35
 
 /obj/item/melee/baton/Initialize(mapload)
 	. = ..()
@@ -161,7 +163,7 @@
 
 /obj/item/melee/baton/throw_impact(mob/living/carbon/human/hit_mob)
 	. = ..()
-	if(!. && turned_on && istype(hit_mob))
+	if(!. && turned_on && istype(hit_mob) && prob(throw_hit_chance))
 		thrown_baton_stun(hit_mob)
 
 /obj/item/melee/baton/attack(mob/M, mob/living/user)
@@ -293,6 +295,7 @@
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
+	throw_hit_chance = 10
 	slot_flags = SLOT_FLAG_BACK | SLOT_FLAG_BELT
 	var/obj/item/assembly/igniter/sparkler = null
 
