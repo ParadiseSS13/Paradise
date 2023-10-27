@@ -32,7 +32,8 @@
 	var/deactivation_sound = 'sound/items/welderdeactivate.ogg'
 	var/light_intensity = 2
 	var/low_fuel_changes_icon = TRUE//More than one icon_state due to low fuel?
-	var/progress_flash_divisor = 40 //Length of time between each "eye flash"
+	var/progress_heavy_flash_divisor = 40 //Length of time between each strong "eye flash"
+	var/progress_light_flash_divisor = 19 //Length of time between each weak "eye flash"
 
 /obj/item/weldingtool/Initialize(mapload)
 	..()
@@ -144,18 +145,29 @@
 	if(did_thing)
 		remove_fuel(1) //Consume some fuel after we do a welding action
 	if(delay)
-		progress_flash_divisor = initial(progress_flash_divisor)
+		progress_heavy_flash_divisor = initial(progress_heavy_flash_divisor)
+	if(delay)
+		progress_light_flash_divisor = initial(progress_light_flash_divisor)
 	target.cut_overlay(GLOB.welding_sparks)
 	return did_thing
 
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
 	. = ..()
 	if(!. && user)
-		if(progress_flash_divisor == 0)
+		if(progress_heavy_flash_divisor == 0)
 			user.flash_eyes(min(light_intensity, 2))
-			progress_flash_divisor = initial(progress_flash_divisor)
+			progress_heavy_flash_divisor = initial(progress_heavy_flash_divisor)
 		else
-			progress_flash_divisor--
+			progress_heavy_flash_divisor--
+
+/obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)
+	. = ..()
+	if(!. && user)
+		if(progress_light_flash_divisor == 0)
+			user.flash_eyes(min(light_intensity, 1))
+			progress_light_flash_divisor = initial(progress_light_flash_divisor)
+		else
+			progress_light_flash_divisor--
 
 /obj/item/weldingtool/proc/remove_fuel(amount) //NB: doesn't check if we have enough fuel, it just removes however much is left if there's not enough
 	reagents.remove_reagent("fuel", amount * requires_fuel)
