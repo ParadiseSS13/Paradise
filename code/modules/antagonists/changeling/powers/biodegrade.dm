@@ -4,7 +4,7 @@
 	helptext = "This is obvious to nearby people, and can destroy standard restraints and closets, and break you out of grabs."
 	button_icon_state = "biodegrade"
 	chemical_cost = 30 //High cost to prevent spam
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	/// Type of acid hand we give to person

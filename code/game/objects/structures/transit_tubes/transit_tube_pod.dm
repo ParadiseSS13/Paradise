@@ -33,9 +33,10 @@
 	air_contents.nitrogen = MOLES_N2STANDARD
 	air_contents.temperature = T20C
 
-	// Give auto tubes time to align before trying to start moving
-	spawn(5)
-		follow_tube()
+	for(var/obj/structure/transit_tube/tube in loc)
+		dir = pick(tube.directions())
+		break
+	follow_tube()
 
 /obj/structure/transit_tube_pod/update_icon_state()
 	. = ..()
@@ -224,9 +225,9 @@
 
 		if(!moving)
 			for(var/obj/structure/transit_tube/station/station in loc)
-				if(dir in station.directions())
+				if((dir in station.directions()) || (turn(dir, 180) in station.directions()))
 					if(!station.pod_moving)
-						if(direction == station.dir)
+						if(direction == turn(station.boarding_dir, 180))
 							if(station.hatch_state == TRANSIT_TUBE_OPEN)
 								eject(mob, direction)
 

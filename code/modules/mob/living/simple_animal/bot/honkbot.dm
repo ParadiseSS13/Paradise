@@ -73,13 +73,11 @@
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += text({"
+	dat += {"
 	<TT><B>Honkomatic Bike Horn Unit v1.0.7 controls</B></TT><BR><BR>
-	Status: []<BR>
+	Status: <A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>
 	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-	Maintenance panel is [open ? "opened" : "closed"]<BR>"},
-
-	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>")
+	Maintenance panel is [open ? "opened" : "closed"]<BR>"}
 
 	if(!locked || issilicon(user) || user.can_admin_interact())
 		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
