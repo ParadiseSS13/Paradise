@@ -36,7 +36,8 @@
 		adjustBruteLoss(-20)
 
 /mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/A)
-	attack_sound = pick('sound/shadowdemon/shadowattack2.ogg', 'sound/shadowdemon/shadowattack3.ogg', 'sound/shadowdemon/shadowattack4.ogg')///Adds attack sounds unique to shadow demon
+	// Pick a random attack sound for each attack
+	attack_sound = pick('sound/shadowdemon/shadowattack2.ogg', 'sound/shadowdemon/shadowattack3.ogg', 'sound/shadowdemon/shadowattack4.ogg')
 	if(!ishuman(A))
 		if(isitem(A))
 			A.extinguish_light()
