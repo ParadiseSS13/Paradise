@@ -67,31 +67,28 @@
 	name = "\improper ЦК"
 	icon_state = "centcom"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_DISABLED
+	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 	nad_allowed = TRUE
 
 /area/centcom/ss220/evac
 	name = "\improper ЦК - Эвакуационный шаттл"
 	icon_state = "centcom_evac"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/centcom/ss220/park
 	name = "\improper ЦК - Парк"
-	icon_state ="centcom"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	icon_state = "centcom"
 
 /area/centcom/ss220/bar
 	name = "\improper ЦК - Бар"
-	icon_state ="centcom"
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	icon_state = "centcom"
 
 /area/centcom/ss220/general
 	name = "\improper ЦК - Зона персонала"
-	icon_state ="centcom"
+	icon_state = "centcom"
 
 /area/centcom/ss220/supply
 	name = "\improper ЦК - Доставка"
-	icon_state ="centcom"
+	icon_state = "centcom_supply"
 
 /area/centcom/ss220/admin1
 	name = "\improper ЦК - Коридоры ЦК"
@@ -99,15 +96,31 @@
 
 /area/centcom/ss220/admin2
 	name = "\improper ЦК - Офисы"
-	icon_state ="centcom"
+	icon_state = "centcom"
 
 /area/centcom/ss220/admin3
 	name = "\improper ЦК - ОБР"
-	icon_state ="centcom"
+	icon_state = "centcom_specops"
+
+/area/centcom/ss220/medbay
+	name = "\improper ЦК - Лазарет"
+	icon_state = "centcom"
+
+/area/centcom/ss220/court
+	name = "\improper ЦК - Зал суда"
+	icon_state = "centcom"
+
+/area/centcom/ss220/library
+	name = "\improper ЦК - Библиотека"
+	icon_state = "centcom"
+
+/area/centcom/ss220/command
+	name = "\improper ЦК - Командный центр"
+	icon_state = "centcom_ctrl"
 
 /area/centcom/ss220/jail
 	name = "\improper ЦК - Тюрьма"
-	icon_state ="centcom"
+	icon_state = "centcom"
 
 /* Syndicate Base - Mothership */
 /area/syndicate_mothership

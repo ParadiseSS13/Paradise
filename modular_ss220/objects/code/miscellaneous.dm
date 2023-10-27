@@ -2,6 +2,22 @@
 * Use that for creating non-varedited objects,
 * or that you don't want to specify because they're insignificant for personal DM file
 */
+// Fountain
+/obj/structure/statue/fountain
+	name = "фонтан"
+	desc = "Фонтан, собранный из настоящего, тёсанного камня."
+	icon = 'modular_ss220/objects/icons/fountain.dmi'
+	icon_state = "fountain_g"
+	layer = ABOVE_ALL_MOB_LAYER
+	anchored = TRUE
+	pixel_x = -16
+
+/obj/structure/statue/fountain/aged
+	name = "старый фонтан"
+	desc = "Фонтан, собранный из настоящего, тёсанного камня. Его помотало временем."
+	icon = 'modular_ss220/objects/icons/fountain.dmi'
+	icon_state = "fountain"
+
 // Spotlights, used for floors on station
 /obj/structure/marker_beacon/spotlight
 	name = "напольный прожектор"
