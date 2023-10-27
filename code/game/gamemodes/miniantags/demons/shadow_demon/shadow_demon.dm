@@ -82,7 +82,7 @@
 
 /obj/structure/shadowcocoon/Initialize(mapload)
 	. = ..()
-	playsound(loc, 'sound/shadowdemon/shadownode.ogg', 5, TRUE, -1) ///plays sound when finished wrapping a body
+	playsound(loc, 'sound/shadowdemon/shadownode.ogg', 5, TRUE, -1)
 	START_PROCESSING(SSobj, src)
 
 
