@@ -116,7 +116,8 @@
 ///custom sounds added to hallucination to be more creepy and unnerving
 
 
-/obj/structure/shadowcocoon/AltClick(mob/user)///Allows you to turn on cocoons making hallucination sounds or not
+// Allows you to turn on cocoons making hallucination sounds or not
+/obj/structure/shadowcocoon/AltClick(mob/user)
 	if(!isdemon(user))
 		return ..()
 	if(silent)
