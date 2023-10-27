@@ -863,13 +863,11 @@
 /obj/item/id_decal/centcom,
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
 /obj/item/clothing/accessory/storage/black_vest,
 /obj/structure/alien/weeds,
-/obj/structure/alien/resin{
-	layer = 3.1
-	},
+/obj/item/storage/box/buck,
+/obj/item/storage/box/buck,
+/obj/structure/alien/resin,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "cQ" = (
@@ -3313,9 +3311,7 @@
 /obj/item/clothing/suit/jacket/miljacket,
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/eyepro,
 /obj/structure/alien/weeds,
-/obj/structure/alien/resin{
-	layer = 3.1
-	},
+/obj/structure/alien/resin,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "lH" = (
@@ -3740,13 +3736,11 @@
 /obj/item/id_decal/gold,
 /obj/item/clothing/head/helmet,
 /obj/item/clothing/suit/armor/vest,
-/obj/item/storage/box/slug,
-/obj/item/storage/box/slug,
 /obj/item/clothing/accessory/storage/black_vest,
 /obj/structure/alien/weeds,
-/obj/structure/alien/resin{
-	layer = 3.1
-	},
+/obj/item/storage/box/buck,
+/obj/item/storage/box/buck,
+/obj/structure/alien/resin,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "pn" = (
@@ -3852,9 +3846,7 @@
 /obj/item/clothing/suit/jacket/miljacket/navy,
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/eyepro,
 /obj/structure/alien/weeds,
-/obj/structure/alien/resin{
-	layer = 3.1
-	},
+/obj/structure/alien/resin,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "pT" = (
@@ -4360,9 +4352,7 @@
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/eyepro,
 /obj/item/clothing/suit/jacket/miljacket/desert,
 /obj/structure/alien/weeds,
-/obj/structure/alien/resin{
-	layer = 3.1
-	},
+/obj/structure/alien/resin,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "uR" = (
@@ -4605,9 +4595,7 @@
 	},
 /obj/item/gun/energy/laser,
 /obj/structure/alien/weeds,
-/obj/structure/alien/resin{
-	layer = 3.1
-	},
+/obj/structure/alien/resin,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "wV" = (
@@ -4819,9 +4807,7 @@
 /obj/item/clothing/suit/jacket/leather/overcoat,
 /obj/item/clothing/glasses/hud/security/sunglasses/fluff/eyepro,
 /obj/structure/alien/weeds,
-/obj/structure/alien/resin{
-	layer = 3.1
-	},
+/obj/structure/alien/resin,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "yN" = (
