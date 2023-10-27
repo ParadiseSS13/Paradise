@@ -386,7 +386,7 @@
 				/obj/item/borg/upgrade/modkit/aoe/turfs/andmobs = 100,
 
 				// Botanist
-				/obj/item/storage/box/botany_labled_seeds = 100,
+				/obj/item/storage/box/botany_labelled_seeds = 100,
 
 				// Clown
 				/obj/item/grenade/clusterbuster/honk = 100,

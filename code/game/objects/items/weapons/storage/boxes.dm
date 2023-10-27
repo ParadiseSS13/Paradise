@@ -556,11 +556,11 @@
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
-/obj/item/storage/box/botany_labled_seeds
-	name = "botanist lablled random seeds kit"
+/obj/item/storage/box/botany_labelled_seeds
+	name = "botanist labelled random seeds kit"
 	desc = "A box intended for experienced botanists."
 
-/obj/item/storage/box/botany_labled_seeds/populate_contents()
+/obj/item/storage/box/botany_labelled_seeds/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/seeds/random/labelled(src)
 
