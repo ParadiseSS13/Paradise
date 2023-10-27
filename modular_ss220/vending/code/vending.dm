@@ -154,3 +154,11 @@
 		/obj/item/clothing/mask/gas = 3,
 		/obj/item/watertank/janitor  = 4,
 		/obj/item/lightreplacer = 2,)
+
+/obj/machinery/economy/vending/cola/red
+	name = "\improper Автомат с космической колой"
+	desc = "Тут можно купить колу, в космосе."
+	icon = 'modular_ss220/vending/icons/vending.dmi'
+	icon_state = "Cola_Machine_Red"
+	icon_lightmask = "Cola_Machine_Red"
+	slogan_list = list("Кола в космосе!")

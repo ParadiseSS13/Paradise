@@ -22,6 +22,56 @@
 	if(isliving(mover) || mover.density)
 		return FALSE
 
+/turf/simulated/floor/beach/away/sand_alternative
+	icon = 'modular_ss220/maps220/icons/floors.dmi'
+	icon_state = "sand"
+	base_icon_state = "sand"
+	mouse_opacity = MOUSE_OPACITY_ICON
+	water_overlay_image = null
+	baseturf = /turf/simulated/floor/beach/away/sand_alternative
+
+/turf/simulated/floor/beach/away/sand_alternative/Initialize(mapload)
+	. = ..()
+	if(prob(15))
+		icon_state = "sand[rand(1,4)]"
+
+/turf/simulated/floor/beach/away/sand_alternative/remove_plating(mob/user)
+	return
+
+/turf/simulated/floor/beach/away/sand_alternative/crowbar_act(mob/user, obj/item/I)
+	return
+
+/turf/simulated/floor/beach/away/sand_alternative/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
+/turf/simulated/floor/beach/away/coastline/alternative
+	icon = 'modular_ss220/maps220/icons/floors.dmi'
+	icon_state = "beach"
+	base_icon_state = "beach"
+	water_overlay_image = null
+	baseturf = /turf/simulated/floor/beach/away/coastline/alternative
+
+/turf/simulated/floor/beach/away/coastline/beachcorner/alternative
+	icon = 'modular_ss220/maps220/icons/floors.dmi'
+	icon_state = "beach-corner"
+	base_icon_state = "beach-corner"
+	water_overlay_image = null
+	baseturf = /turf/simulated/floor/beach/away/coastline/beachcorner/alternative
+
+/turf/simulated/floor/beach/away/water/drop_no_overlay
+	name = "Water"
+	icon = 'icons/turf/floors/seadrop.dmi'
+	icon_state = "seadrop-0"
+	base_icon_state = "seadrop"
+	water_overlay_image = null
+	smoothing_flags = SMOOTH_BITMASK
+	canSmoothWith = list(SMOOTH_GROUP_BEACH_WATER)
+	baseturf = /turf/simulated/floor/beach/away/water/drop_no_overlay
+
+/turf/simulated/floor/beach/away/water/drop_no_overlay/dense
+	density = TRUE
+	baseturf = /turf/simulated/floor/beach/away/water/drop_no_overlay/dense
+
 /* Lavaland */
 /turf/simulated/floor/plasteel/lavaland_air
 	name = "floor"

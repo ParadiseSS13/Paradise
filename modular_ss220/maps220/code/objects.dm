@@ -301,4 +301,3 @@
 		flags = NODROP
 		to_chat(user, span_danger("[name] туго обвивается вокруг твоего пальца!"))
 		SEND_SOUND (user, sound('modular_ss220/aesthetics_sounds/sound/creepy/demon2.ogg'))
-

@@ -673,6 +673,18 @@
 	dir = 8
 
 /* Posters */
+/obj/structure/sign/poster/random/south
+	pixel_y = -32
+
+/obj/structure/sign/poster/random/north
+	pixel_y = 32
+
+/obj/structure/sign/poster/random/west
+	pixel_x = -32
+
+/obj/structure/sign/poster/random/east
+	pixel_x = 32
+
 /obj/structure/sign/poster/contraband/random/south
 	pixel_y = -32
 

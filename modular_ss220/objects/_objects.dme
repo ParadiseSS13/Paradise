@@ -2,9 +2,13 @@
 
 #include "code/closets.dm"
 #include "code/mattress.dm"
+#include "code/big_bed.dm"
 #include "code/miscellaneous.dm"
 #include "code/officetoys.dm"
 #include "code/papershredder.dm"
 #include "code/platform.dm"
 #include "code/tribune.dm"
 #include "code/weapons.dm"
+#include "code/beach_umbrella.dm"
+#include "code/billboard.dm"
+#include "code/plastic_chair.dm"

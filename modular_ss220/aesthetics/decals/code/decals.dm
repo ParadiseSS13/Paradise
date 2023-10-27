@@ -13,6 +13,16 @@
 /obj/effect/turf_decal/siding/wood/end
 	icon_state = "siding_wood_end"
 
+/obj/effect/turf_decal/siding/wood/alternative
+	icon_state = "siding_wood_line"
+	color = "#5d341f"
+
+/obj/effect/turf_decal/siding/wood/alternative/corner
+	icon_state = "siding_wood_corner"
+
+/obj/effect/turf_decal/siding/wood/alternative/end
+	icon_state = "siding_wood_end"
+
 /obj/effect/turf_decal/siding/white
 	color = "#BCBCBC"
 
@@ -29,6 +39,15 @@
 	icon_state = "siding_corner"
 
 /obj/effect/turf_decal/siding/red/end
+	icon_state = "siding_end"
+
+/obj/effect/turf_decal/siding/dark_red
+	color = "#B11111"
+
+/obj/effect/turf_decal/siding/dark_red/corner
+	icon_state = "siding_corner"
+
+/obj/effect/turf_decal/siding/dark_red/end
 	icon_state = "siding_end"
 
 /obj/effect/turf_decal/siding/green
@@ -249,3 +268,11 @@ TILE_DECAL_SUBTYPE_HELPER(/obj/effect/turf_decal/tile/neutral)
 	icon_state = "dust"
 	base_icon_state = "dust"
 	mouse_opacity = FALSE
+
+/* Fake Lattice */
+/obj/effect/decal/fakelattice
+	name = "lattice"
+	desc = "A lightweight support lattice."
+	icon = 'icons/obj/smooth_structures/lattice.dmi'
+	icon_state = "lattice-255"
+	density = TRUE

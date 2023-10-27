@@ -34,8 +34,8 @@
 	name = "Анаконда"
 	desc = "Крупнокалиберный револьвер двадцатого века. Несмотря на то, что оружие хранилось в хороших условиях, старина даёт о себе знать."
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/d44
-	lefthand_file = 'modular_ss220/objects/icons/guns_lefthand.dmi'
-	righthand_file = 'modular_ss220/objects/icons/guns_righthand.dmi'
+	lefthand_file = 'modular_ss220/objects/icons/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_ss220/objects/icons/inhands/guns_righthand.dmi'
 	icon = 'modular_ss220/objects/icons/guns.dmi'
 	icon_state = "anaconda"
 	item_state = "anaconda"
@@ -100,8 +100,8 @@
 	name = "РШ-12"
 	desc = "Тяжёлый револьвер винтовочного калибра с откидным стволом. По слухам, всё ещё находится на вооружении у СССП."
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rsh12
-	lefthand_file = 'modular_ss220/objects/icons/guns_lefthand.dmi'
-	righthand_file = 'modular_ss220/objects/icons/guns_righthand.dmi'
+	lefthand_file = 'modular_ss220/objects/icons/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_ss220/objects/icons/inhands/guns_righthand.dmi'
 	icon = 'modular_ss220/objects/icons/guns.dmi'
 	icon_state = "rsh12"
 	item_state = "rsh12"
