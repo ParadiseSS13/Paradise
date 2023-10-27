@@ -2,7 +2,7 @@
 	name = "Plant weeds"
 	desc = "Allows you to plant some alien weeds on the floor below you. Does not work while in space."
 	plasma_cost = 50
-	var/weed_type = /obj/structure/alien/weeds/node
+	var/atom/weed_type = /obj/structure/alien/weeds/node
 	var/weed_name = "alien weed node"
 	action_icon_state = "alien_plant"
 
@@ -23,6 +23,11 @@
 
 	if(!isturf(T))
 		to_chat(user, "<span class='noticealien'>You cannot plant [weed_name]s inside something!</span>")
+		revert_cast()
+		return
+
+	user.visible_message("<span class='warning'>Vines burst from the back of [user], quickly scurring to the ground and swarm onto [user.loc].</span>", "<span class='warning'>You begin infesting [user.loc] with [initial(weed_type.name)].</span>")
+	if(!do_mob(user, user, 2 SECONDS))
 		revert_cast()
 		return
 

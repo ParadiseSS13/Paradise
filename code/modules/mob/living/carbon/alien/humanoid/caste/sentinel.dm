@@ -12,13 +12,6 @@
 	pixel_x = -16
 	maxHealth = 200
 	health = 200
-	large = 1
-
-/mob/living/carbon/alien/humanoid/sentinel/praetorian
-	name = "alien praetorian"
-	maxHealth = 200
-	health = 200
-	large = 1
 
 /mob/living/carbon/alien/humanoid/sentinel/large/update_icons()
 	overlays.Cut()
@@ -34,8 +27,7 @@
 
 /mob/living/carbon/alien/humanoid/sentinel/Initialize(mapload)
 	. = ..()
-	if(name == "alien sentinel")
-		name = "alien sentinel ([rand(1, 1000)])"
+	name = "alien sentinel ([rand(1, 1000)])"
 	real_name = name
 
 /mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()

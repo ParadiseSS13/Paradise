@@ -317,6 +317,22 @@
 		nodamage = TRUE
 	. = ..() // Execute the rest of the code.
 
+/obj/item/projectile/bullet/anti_alien_toxin
+	name = "neurotoxin spit"
+	icon_state = "neurotoxin"
+	damage = 15 // FRENDLY FIRE FRENDLY FIRE
+	damage_type = BURN
+
+/obj/item/projectile/bullet/anti_alien_toxin/on_hit(atom/target, blocked = 0)
+	if(isalien(target))
+		var/mob/living/alien = target
+		if(alien.IsSlowed())
+			knockdown = 10 SECONDS
+		else
+			alien.Slowed(2.5 SECONDS, 0.5)
+
+	. = ..() // Execute the rest of the code.
+
 /obj/item/projectile/bullet/cap
 	name = "cap"
 	damage = 0

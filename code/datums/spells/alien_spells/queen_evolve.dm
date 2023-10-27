@@ -17,8 +17,7 @@
 	// If there is no queen, that means we can evolve
 	to_chat(user, "<span class='noticealien'>You begin to evolve!</span>")
 	user.visible_message("<span class='alertalien'>[user] begins to twist and contort!</span>")
-	var/turf/userloc = user.loc
-	var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(userloc)
+	var/mob/living/carbon/alien/humanoid/queen/new_xeno = new(get_turf(user))
 	user.mind.transfer_to(new_xeno)
 	new_xeno.mind.name = new_xeno.name
 	SSblackbox.record_feedback("tally", "alien_growth", 1, "queen")

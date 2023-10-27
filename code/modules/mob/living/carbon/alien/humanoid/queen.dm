@@ -6,8 +6,6 @@
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	loudspeaker = TRUE
-	heal_rate = 5
-	large = 1
 	ventcrawler = 0
 	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
 	move_resist = MOVE_FORCE_STRONG //Yes, queenos is huge and heavy
@@ -17,19 +15,7 @@
 
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	. = ..()
-	//there should only be one queen
-	for(var/mob/living/carbon/alien/humanoid/queen/Q in GLOB.alive_mob_list)
-		if(Q == src)
-			ADD_TRAIT(Q, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
-			continue
-		if(Q.stat == DEAD)
-			ADD_TRAIT(Q, TRAIT_FORCE_DOORS, VAMPIRE_TRAIT)
-			continue
-		if(Q.client)
-			name = "alien princess ([rand(1, 999)])"	//if this is too cutesy feel free to change it/remove it.
-			break
-
-	real_name = src.name
+	ADD_TRAIT(src, TRAIT_FORCE_DOORS, UNIQUE_TRAIT_SOURCE(src))
 
 /mob/living/carbon/alien/humanoid/queen/get_caste_organs()
 	. = ..()
@@ -51,7 +37,6 @@
 	icon = 'icons/mob/alienlarge.dmi'
 	icon_state = "queen_s"
 	pixel_x = -16
-	large = 1
 
 /mob/living/carbon/alien/humanoid/queen/large/update_icons()
 	overlays.Cut()
