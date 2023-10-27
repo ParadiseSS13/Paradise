@@ -113,7 +113,6 @@
 	if(!silent && time_since_last_hallucination >= rand(8, 12))
 		playsound(src, pick('sound/shadowdemon/shadowhalluc1.ogg', 'sound/shadowdemon/shadowhalluc2.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/shadowdemon/shadowhalluc3.ogg', get_sfx("bodyfall"), 'sound/weapons/egloves.ogg'), 50)
 		time_since_last_hallucination = 0
-///custom sounds added to hallucination to be more creepy and unnerving
 
 
 // Allows you to turn on cocoons making hallucination sounds or not
