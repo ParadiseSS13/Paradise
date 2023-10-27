@@ -13,9 +13,21 @@ SUBSYSTEM_DEF(credits)
 /datum/controller/subsystem/credits/Initialize()
 	credit_animate_height = 16 * world.icon_size
 
-/datum/controller/subsystem/credits/proc/roll_credits_for_clients(list/clients)
-	end_titles = new /datum/credits/default()
+/datum/controller/subsystem/credits/proc/play_credits_cinematic()
+	var/cinematic_type
 
+	if(HALLOWEEN in SSholiday.holidays)
+		end_titles = new /datum/credits/halloween()
+		cinematic_type = /datum/cinematic/credits/halloween
+	else
+		end_titles = new /datum/credits/default()
+		cinematic_type = /datum/cinematic/credits
+
+	title_music = end_titles.soundtrack
+
+	play_cinematic(cinematic_type, world)
+
+/datum/controller/subsystem/credits/proc/roll_credits_for_clients(list/clients)
 	end_titles.roll_credits_for_clients(clients)
 
 /datum/controller/subsystem/credits/proc/clear_credits(client/client)

@@ -6,7 +6,7 @@
 
 /datum/cinematic/credits/New(watcher, datum/callback/special_callback)
 	. = ..()
-	screen = new/obj/screen/cinematic/credits(src)
+	screen = new /obj/screen/cinematic/credits(src)
 
 /datum/cinematic/credits/start_cinematic(list/watchers)
 	if(!(SEND_GLOBAL_SIGNAL(COMSIG_GLOB_PLAY_CINEMATIC, src) & COMPONENT_GLOB_BLOCK_CINEMATIC))
@@ -24,6 +24,7 @@
 /datum/cinematic/credits/play_cinematic()
 
 	SScredits.roll_credits_for_clients(watching)
+
 	play_cinematic_sound(sound(SScredits.end_titles.soundtrack))
 
 	cleanup_time = SScredits.end_titles.playing_time + 3 SECONDS
@@ -43,8 +44,25 @@
 
 	SScredits.clear_credits(no_longer_watching)
 
+/datum/cinematic/credits/halloween
+
+/datum/cinematic/credits/halloween/New(watcher, datum/callback/special_callback)
+	. = ..()
+
+	screen = new /obj/screen/cinematic/credits/halloween()
+
 /obj/screen/cinematic/credits
 	icon_state = "blank"
+	alpha = 0
+
+/obj/screen/cinematic/credits/Initialize(mapload)
+	. = ..()
+
+	animate(src, alpha = 120, time = 3 SECONDS)
+
+/obj/screen/cinematic/credits/halloween
+	icon = 'modular_ss220/cinematics/icons/backdrops.dmi'
+	icon_state = "halloween"
 
 /obj/screen/fullscreen/cinematic_backdrop/credits
 	alpha = 0
