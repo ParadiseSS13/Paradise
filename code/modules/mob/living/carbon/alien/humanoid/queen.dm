@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/queen
 	name = "alien queen"
 	caste = "q"
-	maxHealth = 250
-	health = 250
+	maxHealth = 300
+	health = 300
 	icon_state = "alienq_s"
 	status_flags = CANPARALYSE
 	loudspeaker = TRUE
@@ -16,6 +16,7 @@
 /mob/living/carbon/alien/humanoid/queen/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_FORCE_DOORS, UNIQUE_TRAIT_SOURCE(src))
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/tail_lash)
 
 /mob/living/carbon/alien/humanoid/queen/get_caste_organs()
 	. = ..()

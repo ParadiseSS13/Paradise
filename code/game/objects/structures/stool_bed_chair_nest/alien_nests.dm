@@ -173,13 +173,14 @@
 			if(buckled_mob.stat == DEAD && !revive_or_decay_timer)
 				revive_or_decay_timer = addtimer(CALLBACK(src, PROC_REF(revive_dead_alien), buckled_mob), 40 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 		else
-			buckled_mob.adjustBruteLoss(-3)
-			buckled_mob.adjustFireLoss(-3)
+			buckled_mob.adjustBruteLoss(3)
+			buckled_mob.adjustFireLoss(3)
 			if(buckled_mob.stat == DEAD && !revive_or_decay_timer)
 				revive_or_decay_timer = addtimer(CALLBACK(src, PROC_REF(decay_dead_carbon), buckled_mob), 40 SECONDS, TIMER_UNIQUE|TIMER_STOPPABLE)
 
 /obj/structure/bed/revival_nest/proc/revive_dead_alien(mob/living/carbon/alien/dead_alien)
 	dead_alien.revive()
+	dead_alien.visible_message("<span class='warning'>Vines seep into the back of [dead_alien], and it awakes with a burning rage!</span>")
 	if(dead_alien.ghost_can_reenter())
 		dead_alien.grab_ghost()
 		SEND_SOUND(dead_alien, sound('sound/voice/hiss5.ogg'))
@@ -196,10 +197,15 @@
 		SEND_SOUND(dead_alien, sound('sound/voice/hiss5.ogg'))
 
 /obj/structure/bed/revival_nest/proc/decay_dead_carbon(mob/living/carbon/human/dead_carbon)
+	if(HAS_TRAIT(dead_carbon, TRAIT_SKELETONIZED))
+		return
+	if(ismachineperson(dead_carbon) || isrobot(dead_carbon)) // A potential idea is to make these function like working joes in isolation, but I don't have sprites for em
+		return
 	if(istype(dead_carbon))
+		dead_carbon.visible_message("<span class='warning'>[dead_carbon]'s skeleton slides out of the mass slowly... an egg forms in their place.</span>")
 		dead_carbon.makeSkeleton()
-	new /obj/structure/alien/egg(get_turf(src))
-	qdel(src)
+		new /obj/structure/alien/egg(get_turf(src))
+		qdel(src)
 
 /obj/structure/bed/revival_nest/user_buckle_mob(mob/living/M, mob/living/user)
 	if(!istype(M) || (get_dist(src, user) > 1) || (M.loc != loc) || user.incapacitated() || M.buckled)

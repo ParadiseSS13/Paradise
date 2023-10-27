@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/sentinel
 	name = "alien sentinel"
 	caste = "s"
-	maxHealth = 150
-	health = 150
+	maxHealth = 175
+	health = 175
 	icon_state = "aliens_s"
 
 /mob/living/carbon/alien/humanoid/sentinel/large

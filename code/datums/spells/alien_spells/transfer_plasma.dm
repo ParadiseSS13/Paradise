@@ -14,7 +14,7 @@
 		revert_cast()
 		return FALSE
 
-	user.Beam(target, icon_state = "sendbeam", time = 2 SECONDS)
+	user.Beam(target, icon_state = "sendbeam", time = 2 SECONDS, beam_color = "#f180bd")
 	target.add_plasma(50)
 	to_chat(user, "<span class='noticealien'>You have transfered 50 plasma to [target].</span>")
 	to_chat(target, "<span class='noticealien'>[user] has transfered 50 plasma to you!</span>")
@@ -37,7 +37,7 @@
 		revert_cast()
 		return FALSE
 
-	user.Beam(target, icon_state = "drainbeam", time = 2 SECONDS)
+	user.Beam(target, icon_state = "drainbeam", time = 2 SECONDS, beam_color = "#f180bd")
 	var/obj/item/organ/internal/alien/plasmavessel/vessel = target.get_int_organ(/obj/item/organ/internal/alien/plasmavessel)
 	if(!vessel)
 		return

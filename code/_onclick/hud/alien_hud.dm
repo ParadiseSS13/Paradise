@@ -18,6 +18,19 @@
 	var/mob/living/carbon/alien/humanoid/A = usr
 	A.nightvisiontoggle()
 
+/mob/living/carbon/alien/proc/nightvisiontoggle()
+	if(!nightvision)
+		see_in_dark = 8
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		nightvision = TRUE
+		hud_used.nightvisionicon.icon_state = "nightvision1"
+	else if(nightvision)
+		see_in_dark = initial(see_in_dark)
+		lighting_alpha = initial(lighting_alpha)
+		nightvision = FALSE
+		hud_used.nightvisionicon.icon_state = "nightvision0"
+
+	update_sight()
 
 /obj/screen/alien/plasma_display
 	icon = 'icons/mob/screen_gen.dmi'

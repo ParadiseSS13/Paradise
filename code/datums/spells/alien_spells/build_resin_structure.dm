@@ -70,11 +70,13 @@
 		to_chat(user, "<span class='noticealien'>You don't have enough plasma to perform this action!</span>")
 		return
 	var/static/list/resin_objects = list(/obj/structure/alien/resin, /obj/structure/alien/egg, /obj/structure/bed/nest, /obj/structure/bed/revival_nest)
-	for(var/atom/resin_type in resin_objects)
+	for(var/resin_type in resin_objects)
 		if(!istype(target, resin_type))
+			to_chat(user, "type to check: [resin_type]")
 			continue
+			to_chat(user, "Got past the istype checks")
 		user.visible_message("<span class='alertalien'>[user] rips and tears into [target] with their teeth!</span>")
-		if(!do_after(user, 3 SECONDS, target))
+		if(!do_after(user, 3 SECONDS, target = target))
 			return
 		to_chat(user, "<span class='alertalien'>You viciously rip apart and consume [target]!</span>")
 		user.add_plasma(-25)

@@ -131,24 +131,6 @@
 /mob/living/carbon/alien/setDNA()
 	return
 
-/mob/living/carbon/alien/verb/nightvisiontoggle()
-	set name = "Toggle Night Vision"
-	set category = "Alien"
-
-	if(!nightvision)
-		see_in_dark = 8
-		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-		nightvision = TRUE
-		usr.hud_used.nightvisionicon.icon_state = "nightvision1"
-	else if(nightvision)
-		see_in_dark = initial(see_in_dark)
-		lighting_alpha = initial(lighting_alpha)
-		nightvision = FALSE
-		usr.hud_used.nightvisionicon.icon_state = "nightvision0"
-
-	update_sight()
-
-
 /mob/living/carbon/alien/assess_threat(mob/living/simple_animal/bot/secbot/judgebot, lasercolor)
 	if(judgebot.emagged == 2)
 		return 10 //Everyone is a criminal!
@@ -198,9 +180,6 @@
 
 /mob/living/carbon/alien/proc/deathrattle_message()
 	return "<i><span class='alien'>The hivemind echoes: [name] has been slain!</span></i>"
-
-/mob/living/carbon/alien/CanContractDisease(datum/disease/D)
-	return FALSE
 
 /*----------------------------------------
 Proc: AddInfectionImages()
