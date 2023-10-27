@@ -419,7 +419,7 @@
 			Made with love, lots of spirits and lots of the other kind of spirits by the Sydnicate-affiliated cult, Children of Ursa Major."
 	reference = "BSP"
 	item = /obj/item/clothing/head/bearpelt/bearserk
-	cost = 50
+	cost = 65
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/traitor_belt
