@@ -328,7 +328,7 @@
 	check_friendly_fire = 1
 	status_flags = CANPUSH
 	unsuitable_atmos_damage = 10
-	loot = list(/obj/effect/decal/cleanable/blood/gibs)
+	loot = list(/obj/effect/gibspawner/human)
 	del_on_death = 1
 	footstep_type = FOOTSTEP_MOB_SHOE
 

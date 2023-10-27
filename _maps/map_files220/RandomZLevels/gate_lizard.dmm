@@ -360,14 +360,6 @@
 	icon_state = "darkgrey"
 	},
 /area/awaymission/jungle_planet/outside)
-"awp" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/outside/river)
 "axq" = (
 /obj/effect/landmark/awaymissions/gate_lizard/mine_spawner{
 	id = "pathway12"
@@ -509,11 +501,6 @@
 /area/awaymission/jungle_planet/outside)
 "aJz" = (
 /obj/effect/turf_decal/caution,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -546,19 +533,6 @@
 "aLT" = (
 /obj/item/mod/construction/broken_core,
 /turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
-"aMB" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "aMI" = (
 /obj/effect/decal/warning_stripes/southeastcorner,
@@ -823,11 +797,6 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -849,17 +818,6 @@
 	water_overlay_image = null
 	},
 /area/awaymission/jungle_planet/outside)
-"bjS" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "bjW" = (
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
@@ -907,15 +865,6 @@
 	icon_state = "darkgrey"
 	},
 /area/awaymission/jungle_planet/outside)
-"blp" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
 "blr" = (
 /obj/structure/flora/junglebush{
 	anchored = 1
@@ -1018,11 +967,6 @@
 	pixel_x = -3;
 	pixel_y = 18
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
@@ -1049,11 +993,6 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "brp" = (
 /obj/structure/railing,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -1155,11 +1094,6 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "bus" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1331,15 +1265,6 @@
 	icon_state = "bcircuitoff"
 	},
 /area/awaymission/jungle_planet/outside/cave)
-"bFl" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
 "bFX" = (
 /obj/structure/table,
 /obj/item/megaphone,
@@ -1529,11 +1454,6 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "bSK" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -1607,11 +1527,6 @@
 /area/awaymission/jungle_planet/outside/abandoned)
 "bYg" = (
 /obj/effect/decal/cleanable/generic,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1667,20 +1582,6 @@
 	dir = 4;
 	icon_state = "darkgrey"
 	},
-/area/awaymission/jungle_planet/inside/complex)
-"cbG" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "cbH" = (
 /obj/structure/chair/wood{
@@ -1782,11 +1683,6 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "cjo" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1964,15 +1860,6 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
-"cuf" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
 "cum" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/spawner/random_spawners/dirt_maybe,
@@ -1986,18 +1873,6 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/abandoned)
-"cwa" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "cwo" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
@@ -2028,11 +1903,6 @@
 "cyh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
@@ -2307,11 +2177,6 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "cLm" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor/closed,
 /obj/item/stack/cable_coil{
 	pixel_y = -11;
@@ -2412,11 +2277,6 @@
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/jungle_planet/outside/river)
 "cUf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/item/camera_assembly,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -2602,15 +2462,6 @@
 	water_overlay_image = null
 	},
 /area/awaymission/jungle_planet/outside)
-"diJ" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/glass,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
 "diO" = (
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/turf_decal/caution/stand_clear,
@@ -2651,11 +2502,6 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "dkV" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/arrows,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
@@ -2884,20 +2730,6 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside)
-"dxa" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
 "dxA" = (
 /obj/random/toolbox,
 /obj/machinery/door/window/reinforced/normal{
@@ -3031,11 +2863,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "dNU" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/item/radio,
 /turf/simulated/floor/plasteel,
@@ -3121,11 +2948,6 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "dSl" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/railing/corner{
 	dir = 1
 	},
@@ -3276,34 +3098,6 @@
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
-"eaI" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/item/stack/rods,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/outside/river)
-"ebr" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/jungle_planet/outside/river)
-"ebM" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "ebS" = (
 /obj/structure/sink/directional/west,
 /obj/effect/decal/cleanable/cobweb2,
@@ -3471,17 +3265,6 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
-"enP" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "epa" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/ore_box,
@@ -3524,11 +3307,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "ere" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/item/stack/cable_coil{
 	pixel_y = 10;
 	amount = 2
@@ -3609,11 +3387,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "euW" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/light_emitter{
 	light_color = "#FFFFFF";
 	set_cap = 1;
@@ -3675,25 +3448,6 @@
 /turf/simulated/floor/beach/away/water{
 	water_overlay_image = null
 	},
-/area/awaymission/jungle_planet/inside/complex)
-"exr" = (
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/mining{
-	locked = 1;
-	name = "main hangar";
-	req_access = list(271)
-	},
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	id_tag = "Hang in";
-	requires_power = 0
-	},
-/turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "eyi" = (
 /obj/effect/turf_decal/bot_red,
@@ -4042,11 +3796,6 @@
 "eUc" = (
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/turf_decal/arrows,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -4159,15 +3908,6 @@
 "ffh" = (
 /obj/item/ammo_casing/caseless/arrow,
 /obj/effect/spawner/random_spawners/blood_often,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
-"ffA" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "ffL" = (
@@ -4284,11 +4024,6 @@
 	amount = 2
 	},
 /obj/machinery/door/firedoor/closed,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Right in";
 	dir = 8;
@@ -4674,11 +4409,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "fKx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/light_construct/directional/west,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -4709,11 +4439,6 @@
 "fLt" = (
 /obj/effect/turf_decal/arrows{
 	dir = 8
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -4809,18 +4534,6 @@
 	water_overlay_image = null
 	},
 /area/awaymission/jungle_planet/outside/river)
-"fTr" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "fTv" = (
 /obj/structure/computerframe{
 	anchored = 1
@@ -4856,11 +4569,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "fYj" = (
 /obj/structure/railing,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4914,11 +4622,6 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "gbN" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -4973,14 +4676,6 @@
 /obj/effect/mist,
 /turf/simulated/floor/beach/away/water/deep/dense_canpass,
 /area/awaymission/jungle_planet/outside/waterfall)
-"gfL" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/outside/river)
 "gfM" = (
 /obj/machinery/light/directional/north,
 /obj/effect/landmark/damageturf,
@@ -5313,11 +5008,6 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "gGN" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/door_assembly,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
@@ -5349,11 +5039,6 @@
 "gJg" = (
 /obj/structure/chair/sofa/right{
 	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
 	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /obj/effect/landmark/damageturf,
@@ -5710,11 +5395,6 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "hfB" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/structure/sign/securearea{
 	pixel_y = -32
 	},
@@ -5955,15 +5635,6 @@
 	icon_state = "darkgrey"
 	},
 /area/awaymission/jungle_planet/inside)
-"hsO" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/jungle_planet/inside/complex)
 "htc" = (
 /obj/structure/table,
 /obj/item/analyzer,
@@ -6010,21 +5681,7 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
-"huK" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plating,
-/area/awaymission/jungle_planet/inside/complex)
 "huL" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6151,14 +5808,6 @@
 	water_overlay_image = null
 	},
 /area/awaymission/jungle_planet/outside/river)
-"hEX" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
 "hFe" = (
 /obj/structure/flora/junglebush{
 	icon_state = "bush5"
@@ -6489,11 +6138,6 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "iaV" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/arrows{
 	dir = 4
@@ -6574,11 +6218,6 @@
 /area/awaymission/jungle_planet/inside)
 "iek" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/security{
 	locked = 1;
 	name = "security";
@@ -6612,26 +6251,9 @@
 	name = "ground"
 	},
 /area/awaymission/jungle_planet/outside/cave)
-"ifC" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
 "ifJ" = (
-/obj/structure{
-	icon_state = "smes";
-	desc = "A high-capacity superconducting magnetic energy storage (SMES) unit.";
-	name = "power storage unit";
-	icon = 'icons/obj/power.dmi';
-	density = 1
+/obj/machinery/constructable_frame{
+	icon_state = "box_1"
 	},
 /obj/effect/decal/cleanable/cobweb2{
 	icon_state = "cobweb1"
@@ -6658,22 +6280,12 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "igR" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "igW" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/decal/warning_stripes/west,
 /obj/machinery/door/airlock/mining{
 	locked = 1;
@@ -6724,11 +6336,6 @@
 "ikN" = (
 /obj/structure/railing{
 	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
@@ -7068,11 +6675,6 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/light_emitter{
 	light_color = "#FFFFFF";
 	set_cap = 1;
@@ -7244,11 +6846,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "iRg" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -7330,11 +6927,6 @@
 /turf/simulated/floor/engine,
 /area/awaymission/jungle_planet/inside/complex)
 "iXs" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -7360,11 +6952,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "iXN" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/item/ammo_casing/caseless/arrow,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -7418,11 +7005,6 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "jck" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7452,14 +7034,6 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
-"jdV" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/outside/river)
 "jei" = (
 /obj/effect/turf_decal/caution/stand_clear/red,
 /obj/effect/spawner/random_spawners/dirt_frequent,
@@ -7596,7 +7170,6 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "jlU" = (
-/obj/item/mounted/frame/apc_frame,
 /obj/item/stack/cable_coil{
 	pixel_y = 10;
 	amount = 2
@@ -7711,11 +7284,6 @@
 /area/awaymission/jungle_planet/outside/cave)
 "jtx" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/glass,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
@@ -8086,11 +7654,6 @@
 	pixel_y = -11;
 	amount = 2
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -8117,11 +7680,6 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "jPS" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
@@ -8360,11 +7918,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "khX" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8659,11 +8212,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "kxM" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/machinery/light_construct/directional/west,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
@@ -9103,11 +8651,6 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/southwestcorner,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9120,11 +8663,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "kZu" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/engine,
 /area/awaymission/jungle_planet/inside/complex)
 "kZx" = (
@@ -9286,17 +8824,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
-"liL" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "liO" = (
 /obj/item/reagent_containers/food/drinks/mushroom_bowl{
 	pixel_y = -11;
@@ -9480,11 +9007,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "lsj" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/blood/writing{
 	icon_state = "tracks";
 	dir = 4
@@ -9602,27 +9124,6 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
-"lBd" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "lCT" = (
 /obj/structure/reagent_dispensers/fueltank/chem{
 	pixel_y = 30
@@ -9660,11 +9161,6 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "lFP" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -9960,15 +9456,6 @@
 /obj/machinery/light_construct/directional/north,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/jungle_planet/outside/abandoned)
-"mbt" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plating,
-/area/awaymission/jungle_planet/inside/complex)
 "mbT" = (
 /obj/structure/flora/tree/jungle/small,
 /obj/effect/light_emitter{
@@ -9986,11 +9473,6 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "mdf" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/firealarm{
 	name = "north fire alarm";
 	pixel_y = 24
@@ -10022,11 +9504,6 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "mfd" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -10097,15 +9574,6 @@
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
-"mhX" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/window/full/plasmareinforced,
-/turf/simulated/floor/indestructible,
-/area/awaymission/jungle_planet/inside/complex)
 "mij" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating/asteroid/ancient{
@@ -10118,11 +9586,6 @@
 	icon_state = "small"
 	},
 /obj/item/shard,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -10190,11 +9653,6 @@
 	req_access = list(271)
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "mkW" = (
@@ -10412,15 +9870,6 @@
 	icon_state = "purple"
 	},
 /area/awaymission/jungle_planet/inside/complex)
-"mwX" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/outside/river)
 "mxg" = (
 /obj/effect/turf_decal/grass{
 	dir = 5
@@ -10575,11 +10024,6 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "mFZ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/sign/poster/official/random/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -10676,11 +10120,6 @@
 	},
 /area/awaymission/jungle_planet/outside/waterfall)
 "mKz" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -11074,25 +10513,7 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
-"ngc" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "ngO" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/blood/writing{
 	icon_state = "tracks";
 	dir = 5
@@ -11170,17 +10591,6 @@
 	dir = 4
 	},
 /area/awaymission/jungle_planet/outside/river)
-"nma" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "nok" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mushroom_bowl,
@@ -11231,11 +10641,6 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
@@ -11270,11 +10675,6 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "nwi" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/item/stock_parts/micro_laser,
 /turf/simulated/floor/engine,
 /area/awaymission/jungle_planet/inside/complex)
@@ -11293,11 +10693,6 @@
 	},
 /area/awaymission/jungle_planet/outside/abandoned)
 "nwM" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/light/directional/west,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -11586,11 +10981,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "nSy" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/railing/corner{
 	dir = 4
 	},
@@ -11893,32 +11283,14 @@
 /obj/structure/flora/rock,
 /turf/simulated/floor/beach/away/water/deep/dense_canpass,
 /area/awaymission/jungle_planet/outside/cave)
-"ood" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
 "ooe" = (
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "oov" = (
 /obj/structure/railing{
 	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -11941,14 +11313,6 @@
 	name = "ground"
 	},
 /area/awaymission/jungle_planet/outside/river)
-"opL" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/jungle_planet/inside/complex)
 "oqn" = (
 /obj/structure/flora/junglebush/large{
 	icon_state = "bush2"
@@ -12065,19 +11429,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/abandoned)
-"oxO" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/jungle_planet/inside/complex)
 "oyb" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
@@ -12199,11 +11550,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "oDv" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
@@ -12255,11 +11601,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "oHE" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/blood/writing,
 /obj/structure/sign/poster/official/random/west,
 /obj/machinery/light_construct/directional/west,
@@ -12408,18 +11749,6 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/jungle_planet/outside/cave/pirate)
-"oQC" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "oQY" = (
 /obj/effect/landmark/awaymissions/gate_lizard/mine_spawner{
 	id = "cave6"
@@ -12515,18 +11844,6 @@
 	dir = 1
 	},
 /area/awaymission/jungle_planet/outside/river)
-"oWz" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "oXX" = (
 /obj/effect/turf_decal/grass{
 	icon_state = "grass_edge_big_full"
@@ -12815,11 +12132,6 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "pqt" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south fire alarm";
@@ -12830,16 +12142,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "prp" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/glass,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -13157,18 +12459,6 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/abandoned)
-"pQX" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "pRD" = (
 /obj/item/cigbutt,
 /turf/simulated/floor/wood/oak,
@@ -13302,18 +12592,6 @@
 /obj/machinery/atmospherics/portable/pump,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
-/area/awaymission/jungle_planet/inside/complex)
-"qbt" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plasteel{
-	dir = 2;
-	icon_state = "yellowcorner"
-	},
 /area/awaymission/jungle_planet/inside/complex)
 "qbS" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
@@ -13632,11 +12910,6 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "quj" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/southwestcorner,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -13777,11 +13050,6 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/inside/complex)
 "qBi" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/structure/closet/crate/radiation,
 /obj/item/stack/sheet/mineral/uranium{
 	amount = 30
@@ -13814,11 +13082,6 @@
 "qEe" = (
 /obj/structure/railing{
 	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
 	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
@@ -13873,15 +13136,6 @@
 	icon_state = "darkgrey"
 	},
 /area/awaymission/jungle_planet/inside)
-"qFK" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
 "qGN" = (
 /obj/structure/flora/junglebush{
 	anchored = 1
@@ -13904,11 +13158,6 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside)
 "qJj" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor/closed,
 /obj/machinery/door/airlock/engineering{
 	name = "engineering";
@@ -13927,11 +13176,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "qJI" = (
 /obj/item/storage/fancy/donut_box/empty,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -14191,11 +13435,6 @@
 "rbm" = (
 /obj/structure/chair/sofa/left{
 	dir = 4
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/wood/oak,
@@ -14821,11 +14060,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "rNb" = (
 /obj/structure/railing,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
@@ -15285,24 +14519,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
-"spr" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/wood/oak,
-/area/awaymission/jungle_planet/inside/complex)
 "spE" = (
 /obj/item/stack/cable_coil{
 	pixel_y = -11;
 	amount = 2
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -15341,22 +14561,12 @@
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "srB" = (
 /obj/structure/ore_box,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "srO" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -15657,18 +14867,6 @@
 	icon_state = "darkgrey"
 	},
 /area/awaymission/jungle_planet/inside)
-"sKS" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "sMs" = (
 /obj/structure/kitchenspike_frame,
 /obj/effect/landmark/damageturf,
@@ -15779,26 +14977,6 @@
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
-"sTG" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/decal/cleanable/blood/writing{
-	icon_state = "tracks";
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "sTK" = (
 /obj/structure/flora/rock/jungle,
 /turf/simulated/floor/beach/away/sand,
@@ -15841,11 +15019,6 @@
 "sUU" = (
 /obj/effect/turf_decal/arrows{
 	dir = 8
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
@@ -16060,29 +15233,6 @@
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
-"tiq" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/inside/complex)
-"tiD" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/wood/oak,
-/area/awaymission/jungle_planet/inside/complex)
 "tiT" = (
 /obj/effect/waterfall{
 	dir = 4
@@ -16171,14 +15321,9 @@
 /area/awaymission/jungle_planet/inside)
 "tnX" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
 	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /turf/simulated/floor/engine,
 /area/awaymission/jungle_planet/inside/complex)
@@ -16455,23 +15600,6 @@
 	icon_state = "bcircuitoff"
 	},
 /area/awaymission/jungle_planet/outside/cave)
-"tHr" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "tHT" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plasteel,
@@ -16550,18 +15678,6 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/random/toolbox,
 /turf/simulated/floor/plating,
-/area/awaymission/jungle_planet/inside/complex)
-"tMH" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
 /area/awaymission/jungle_planet/inside/complex)
 "tNq" = (
 /obj/effect/waterfall{
@@ -16691,11 +15807,6 @@
 /area/awaymission/jungle_planet/outside/river)
 "tUy" = (
 /obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Right in";
 	dir = 8;
@@ -16807,11 +15918,6 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "ubw" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/plasteel,
@@ -16879,11 +15985,6 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "ueO" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/railing/corner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -17155,11 +16256,6 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "uue" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel{
@@ -17207,18 +16303,6 @@
 /obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
-"uyo" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/blood_often,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "uyI" = (
 /mob/living/simple_animal/hostile/panther/huge_panther{
 	wander = 0
@@ -17418,11 +16502,6 @@
 /area/awaymission/jungle_planet/inside/complex)
 "uJY" = (
 /obj/effect/decal/cleanable/generic,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
@@ -17545,11 +16624,6 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "uRs" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 6;
 	pixel_y = 30
@@ -17640,18 +16714,6 @@
 	water_overlay_image = null
 	},
 /area/awaymission/jungle_planet/outside/cave)
-"uZC" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "uZY" = (
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -17897,11 +16959,6 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "voq" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/blood/writing{
 	icon_state = "tracks";
 	dir = 4
@@ -17949,11 +17006,6 @@
 /area/awaymission/jungle_planet/inside)
 "vqB" = (
 /obj/structure/closet/crate,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/item/stack/sheet/mineral/gold{
 	amount = 43
 	},
@@ -18046,11 +17098,6 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "vwd" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/blood/writing{
 	icon_state = "tracks";
 	dir = 5
@@ -18103,16 +17150,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
-/area/awaymission/jungle_planet/inside/complex)
-"vye" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "vzJ" = (
 /obj/structure/flora/ausbushes/ywflowers,
@@ -18310,11 +17347,6 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "vIV" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/firedoor/closed,
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "Sec in";
@@ -18332,18 +17364,8 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "vJx" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/west,
 /obj/effect/decal/warning_stripes/south,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -18650,11 +17672,6 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "wdb" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/machinery/door/firedoor,
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel,
@@ -18664,11 +17681,6 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "weh" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/blood/writing{
 	icon_state = "tracks";
 	dir = 10
@@ -18888,19 +17900,6 @@
 "wyt" = (
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/abandoned)
-"wyx" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/caution,
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "wyS" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/structure/closet/crate,
@@ -18976,11 +17975,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/generic,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -19142,21 +18136,6 @@
 /obj/structure/flora/junglebush,
 /turf/simulated/floor/indestructible/grass/no_creep,
 /area/awaymission/jungle_planet/outside)
-"wKi" = (
-/obj/effect/turf_decal/arrows{
-	dir = 8
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "wMa" = (
 /obj/effect/turf_decal/grass{
 	icon_state = "grass_edge_big_corner";
@@ -19380,11 +18359,6 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "wYy" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -19601,27 +18575,6 @@
 /obj/effect/decal/cleanable/blood/gibs/old,
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
-"xky" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "xkA" = (
 /obj/structure/flora/ausbushes/fullgrass,
 /turf/simulated/floor/indestructible/grass,
@@ -19817,18 +18770,6 @@
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
-"xBt" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/railing{
-	dir = 1
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/plasteel,
-/area/awaymission/jungle_planet/outside/river)
 "xBG" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -19880,21 +18821,6 @@
 	water_overlay_image = null
 	},
 /area/awaymission/jungle_planet/outside/river)
-"xDa" = (
-/obj/effect/turf_decal/arrows{
-	dir = 8
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/spawner/random_spawners/dirt_frequent,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkgrey"
-	},
-/area/awaymission/jungle_planet/inside/complex)
 "xDc" = (
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/engine/cult,
@@ -20233,21 +19159,6 @@
 /obj/item/stack/cable_coil{
 	pixel_y = -11;
 	amount = 2
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
 	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel,
@@ -23933,7 +22844,7 @@ nSX
 fht
 fht
 sXj
-mbt
+pHo
 gaK
 wOR
 hmr
@@ -24307,7 +23218,7 @@ krt
 fck
 cku
 sXj
-hsO
+aud
 cku
 sXj
 odX
@@ -24681,7 +23592,7 @@ sXj
 sXj
 sXj
 jFa
-ebM
+wft
 cku
 tSG
 bNI
@@ -24862,7 +23773,7 @@ syQ
 hFQ
 cku
 gfM
-spr
+bti
 cku
 nMQ
 kre
@@ -25049,13 +23960,13 @@ rHT
 tCl
 bql
 nMQ
-spr
+bti
 cDY
 pbE
 fFW
 sXj
 sBv
-hEX
+uJW
 iVc
 hGt
 apx
@@ -25236,7 +24147,7 @@ sXj
 sXj
 cku
 nMQ
-vye
+iRJ
 cku
 sXj
 sXj
@@ -25423,13 +24334,13 @@ bND
 pzW
 bql
 vSc
-spr
+bti
 gxN
 kwD
 kCn
 sXj
 iGS
-qFK
+lJK
 njs
 jEQ
 mzx
@@ -25610,7 +24521,7 @@ kZZ
 bti
 cku
 bqx
-opL
+dGT
 sXj
 eGY
 mdt
@@ -25803,7 +24714,7 @@ cku
 sXj
 sXj
 lme
-qFK
+lJK
 cku
 ibb
 xBG
@@ -25984,13 +24895,13 @@ dqk
 fET
 jMH
 nMQ
-spr
+bti
 fOl
 pnG
 kxM
 cyh
-ffA
-dxa
+lJK
+lJK
 iAq
 iPQ
 mzx
@@ -26171,13 +25082,13 @@ fWS
 wpb
 pFI
 nMQ
-tiD
+bti
 bqF
 rbm
 gJg
 wQo
 vmE
-bFl
+szb
 cku
 agV
 rMO
@@ -26364,7 +25275,7 @@ caT
 lAr
 wQo
 btI
-bFl
+szb
 sXj
 dud
 dud
@@ -26925,7 +25836,7 @@ mph
 wvP
 sXj
 lJK
-bFl
+szb
 cku
 bKN
 lIF
@@ -27299,14 +26210,14 @@ haC
 adt
 omz
 ooe
-tiq
-vSq
-ffA
-ffA
-vSq
+szb
+szb
+lJK
+lJK
+szb
 nwM
-oWz
-oQC
+dGF
+vkC
 szn
 sXj
 sMO
@@ -27485,7 +26396,7 @@ sXj
 qgA
 eHa
 omz
-qFK
+lJK
 szb
 pHo
 cgI
@@ -27493,7 +26404,7 @@ lJK
 tdt
 ssu
 dGF
-sKS
+rJC
 vkC
 sXj
 wSt
@@ -27672,7 +26583,7 @@ omz
 jHd
 jHd
 omz
-exr
+qzh
 qzh
 jHd
 dmi
@@ -28055,12 +26966,12 @@ mqZ
 lWe
 jHd
 uRs
-pQX
-pQX
+vkC
+vkC
 ngO
 oHE
 weh
-uZC
+dGF
 bES
 fQm
 ukM
@@ -28233,7 +27144,7 @@ dWW
 dWW
 lJK
 vhL
-uyo
+rpw
 rlZ
 vKb
 uJW
@@ -28247,7 +27158,7 @@ mKX
 pHo
 btI
 rAr
-fTr
+dGF
 hfY
 wJh
 rdZ
@@ -28434,7 +27345,7 @@ omz
 jHd
 sdf
 jgY
-fTr
+dGF
 xaS
 fQm
 fTv
@@ -28621,7 +27532,7 @@ uJW
 omz
 wME
 mYW
-tMH
+vkC
 mzt
 wJh
 uBr
@@ -28794,7 +27705,7 @@ dGT
 plk
 rBb
 rFs
-sTG
+lsj
 kXJ
 iXs
 mfd
@@ -28803,11 +27714,11 @@ srO
 gbN
 dSl
 dkV
-pQX
-wyx
+vkC
+xaI
 igW
 eUc
-ngc
+lGm
 vJx
 szb
 wJh
@@ -29355,7 +28266,7 @@ wRw
 rUm
 hFe
 kEk
-sKS
+rJC
 dGF
 omz
 omz
@@ -29542,7 +28453,7 @@ vjv
 exm
 nUo
 xOj
-xDa
+pyX
 fgp
 jHd
 szb
@@ -29729,7 +28640,7 @@ lyb
 qNs
 vPB
 iMH
-tHr
+rJC
 cbj
 omz
 vEO
@@ -29743,7 +28654,7 @@ eIw
 omz
 haX
 gAO
-fTr
+dGF
 qxu
 hxY
 rRv
@@ -29930,7 +28841,7 @@ xRv
 omz
 prI
 qee
-ebM
+wft
 wft
 iXz
 eag
@@ -30103,7 +29014,7 @@ xlu
 dGT
 vmE
 nWh
-fTr
+dGF
 mYW
 bCI
 lms
@@ -30477,7 +29388,7 @@ aIM
 nZX
 oHz
 xqn
-wKi
+fgp
 pyX
 nfW
 oTf
@@ -30664,7 +29575,7 @@ pHo
 szb
 qxu
 rJC
-ebM
+wft
 nNY
 bCI
 oTf
@@ -30684,7 +29595,7 @@ jKq
 ljO
 szb
 wak
-nma
+mDQ
 uJW
 fBw
 lgq
@@ -30850,8 +29761,8 @@ kHW
 njP
 szb
 qxu
-cwa
-enP
+rJC
+wft
 kIg
 omz
 xPj
@@ -30871,7 +29782,7 @@ koU
 icJ
 xZe
 btI
-nma
+mDQ
 stk
 gaK
 fpQ
@@ -31036,9 +29947,9 @@ oKw
 mtZ
 jjL
 uJW
-liL
-lBd
-bjS
+wft
+wft
+wft
 eRi
 omz
 iKW
@@ -31058,7 +29969,7 @@ jHd
 hUH
 aLO
 qJI
-xky
+mDQ
 bYg
 omz
 elg
@@ -31245,7 +30156,7 @@ gaK
 cWO
 wFg
 iek
-opL
+dGT
 xUs
 gaK
 gaK
@@ -31431,8 +30342,8 @@ lIv
 lqX
 bzW
 lqX
-gfL
-gfL
+lIv
+lIv
 lIv
 lIv
 aKg
@@ -31619,8 +30530,8 @@ bzW
 lqX
 iZU
 prp
-wPk
-gfL
+eKx
+lIv
 eIQ
 kEE
 nDj
@@ -31805,9 +30716,9 @@ lXp
 wxj
 aks
 vTx
-eaI
+crg
 fOZ
-ebr
+lqX
 mbT
 vGM
 xMU
@@ -33093,8 +32004,8 @@ drq
 drq
 oUq
 kSX
-xBt
-mwX
+glO
+rBC
 gGN
 crg
 gTg
@@ -33282,7 +32193,7 @@ drq
 oUq
 nub
 xWD
-awp
+lIv
 iBX
 iDD
 drq
@@ -33468,7 +32379,7 @@ drq
 drq
 sXj
 aPs
-cuf
+geP
 aPs
 cku
 sXj
@@ -33655,7 +32566,7 @@ drq
 drq
 sXj
 dGT
-cbG
+sPM
 mKz
 jOs
 fKx
@@ -33846,7 +32757,7 @@ sUU
 fLt
 cUf
 huL
-oxO
+dGT
 cku
 rIP
 faH
@@ -34033,18 +32944,18 @@ lbI
 cPv
 cku
 dGT
-aMB
-diJ
-jdV
-jdV
+dGT
+aPs
+lIv
+lIv
 euW
-jdV
-jdV
-jdV
-jdV
-jdV
+lIv
+lIv
+lIv
+lIv
+lIv
 cLm
-huK
+pHo
 vTu
 iUT
 cfe
@@ -34220,18 +33131,18 @@ skh
 hAD
 sXj
 pJO
-blp
-ood
-jdV
-jdV
-jdV
-jdV
-jdV
+sPM
+uJW
+lIv
+lIv
+lIv
+lIv
+lIv
 euW
-jdV
-jdV
+lIv
+lIv
 qJj
-ifC
+uJW
 oYz
 koU
 tWr
@@ -34606,8 +33517,8 @@ bhA
 dVh
 koU
 kxC
-qbt
-mhX
+vTu
+jtW
 nwi
 usE
 iXr
@@ -35170,9 +34081,9 @@ fSv
 vTu
 jtW
 qBi
-gYy
-gYy
-gYy
+kZu
+kZu
+kZu
 hfB
 koU
 gFb
