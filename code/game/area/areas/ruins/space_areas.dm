@@ -167,3 +167,7 @@
 	name = "Listening Post Asteroid"
 	icon_state = "dark"
 	requires_power = FALSE
+
+/area/ruin/space/abandoned_engi_sat
+	name = "Abandoned NT Engineering Satellite"
+	apc_starts_off = TRUE

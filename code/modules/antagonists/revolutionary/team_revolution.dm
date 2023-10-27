@@ -2,6 +2,7 @@
 	name = "Revolution"
 	antag_datum_type = /datum/antagonist/rev
 	var/max_headrevs = REVOLUTION_MAX_HEADREVS // adminbus is possible
+	var/have_we_won = FALSE
 
 /datum/team/revolution/New()
 	..()
@@ -56,6 +57,11 @@
 			. = TRUE
 
 /datum/team/revolution/proc/check_all_victory()
+	if(have_we_won)
+		return
+	if(!length(members)) // all the minds got removed/deleted somehow, perhaps admin stuff. Best to just remove the team altogether.
+		qdel(src)
+		return
 	update_team_objectives()
 	check_rev_victory()
 	check_heads_victory()
@@ -66,6 +72,7 @@
 			return FALSE
 
 	SSshuttle.clearHostileEnvironment(src) // revs can take the shuttle too if they want
+	have_we_won = TRUE
 
 	log_admin("Revolutionary win conditions met. All command, security, and legal jobs are now closed.")
 	message_admins("The revolutionaries have won! All command, security, and legal jobs have been closed. You can change this with the \"Free Job Slot\" verb.")

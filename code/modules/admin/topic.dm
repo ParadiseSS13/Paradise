@@ -2067,6 +2067,7 @@
 			ptypes += "Floor Cluwne"
 			ptypes += "Shamebrero"
 			ptypes += "Nugget"
+			ptypes += "Bread"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2189,6 +2190,16 @@
 				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
 				logmsg = "nugget"
 
+			if("Bread")
+				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
+				var/bready = pick(/obj/item/reagent_containers/food/snacks/customizable/cook/bread, /obj/item/reagent_containers/food/snacks/sliceable/meatbread, /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread, /obj/item/reagent_containers/food/snacks/sliceable/spidermeatbread, /obj/item/reagent_containers/food/snacks/sliceable/bananabread, /obj/item/reagent_containers/food/snacks/sliceable/tofubread, /obj/item/reagent_containers/food/snacks/sliceable/bread, /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread, /obj/item/reagent_containers/food/snacks/sliceable/banarnarbread, /obj/item/reagent_containers/food/snacks/flatbread, /obj/item/reagent_containers/food/snacks/baguette)
+				var/obj/item/bread = new bready(get_turf(H))
+				breadshade.forceMove(bread)
+				breadshade.key = H.key
+				breadshade.RegisterSignal(bread, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/bread, handle_bread_deletion))
+				qdel(H)
+				logmsg = "baked"
+				to_chat(breadshade, "<span class='warning'>Get bready for combat, you've been baked into a piece of bread! Before you break down and rye thinking that your life is over, people are after you waiting for a snack! If you'd rather not be toast, lunge away from any hungry crew else you bite the crust. At the yeast you may survive a little longer...</span>")
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
@@ -3112,24 +3123,10 @@
 				if(confirmation == "No")
 					return
 				makeThunderdomeTeams()
-			if("securitylevel0")
-				set_security_level(0)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)
-			if("securitylevel1")
-				set_security_level(1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Blue.</span>", 1)
-			if("securitylevel2")
-				set_security_level(2)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Red.</span>", 1)
-			if("securitylevel3")
-				set_security_level(3)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Gamma.</span>", 1)
-			if("securitylevel4")
-				set_security_level(4)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Epsilon.</span>", 1)
-			if("securitylevel5")
-				set_security_level(5)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Delta.</span>", 1)
+			if("securitylevel")
+				var/level_number = text2num(href_list["number"])
+				SSsecurity_level.set_level(level_number)
+				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to [SSsecurity_level.number_level_to_text(level_number)].</span>")
 			if("moveminingshuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Mining Shuttle")
 				if(!SSshuttle.toggleShuttle("mining","mining_home","mining_away"))
@@ -3157,7 +3154,7 @@
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
 			if(ok)
-				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
+				to_chat(world, "<b>A secret has been activated by [usr.key]!</b>")
 
 	else if(href_list["secretsadmin"])
 		if(!check_rights(R_ADMIN))	return
@@ -3198,7 +3195,7 @@
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					if(H.ckey)
-						dat += text("<tr><td>[]</td><td>[]</td></tr>", H.name, H.get_assignment())
+						dat += "<tr><td>[H.name]</td><td>[H.get_assignment()]</td></tr>"
 				dat += "</table>"
 				usr << browse(dat, "window=manifest;size=440x410")
 			if("check_antagonist")
@@ -3250,7 +3247,7 @@
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
 			if(ok)
-				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
+				to_chat(world, "<b>A secret has been activated by [usr.key]!</b>")
 
 	else if(href_list["secretscoder"])
 		if(!check_rights(R_DEBUG))	return

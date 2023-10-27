@@ -37,6 +37,12 @@
 				to_chat(user, "<span class='warning'>You forcefully pry off the planks, destroying them in the process.</span>")
 	return make_plating()
 
+/turf/simulated/floor/wood/airless
+	name = "wood" // yes really
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
 /turf/simulated/floor/wood/cold
 	oxygen = 22
 	nitrogen = 82
@@ -191,6 +197,11 @@
 	floor_tile = /obj/item/stack/tile/carpet/royalblue
 	smoothing_groups = list(SMOOTH_GROUP_TURF, SMOOTH_GROUP_CARPET, SMOOTH_GROUP_CARPET_ROYALBLUE)
 	canSmoothWith = list(SMOOTH_GROUP_CARPET_ROYALBLUE)
+
+/turf/simulated/floor/carpet/airless
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
 
 //End of carpets
 

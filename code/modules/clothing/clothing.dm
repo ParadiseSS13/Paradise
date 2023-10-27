@@ -39,6 +39,9 @@
 	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL
 
+	/// Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
+	var/can_leave_fibers = TRUE
+
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return
@@ -610,7 +613,7 @@
 	if(ishuman(user) && hide_tail_by_species && slot == SLOT_HUD_OUTER_SUIT)
 		if("modsuit" in hide_tail_by_species)
 			return
-		if(user.dna.species.name in hide_tail_by_species)
+		if(user.dna.species.sprite_sheet_name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
 		else
@@ -756,7 +759,7 @@
 	if(istype(I, /obj/item/clothing/accessory))
 		attach_accessory(I, user, TRUE)
 
-	if(accessories.len)
+	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attackby(I, user, params)
 		return TRUE
@@ -849,8 +852,8 @@
 			to_chat(usr, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 		else
-			if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name]))
-				if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
+			if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.sprite_sheet_name]))
+				if(H.w_uniform.sprite_sheets[H.dna.species.sprite_sheet_name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.sprite_sheet_name], "[basecolor]_d_s"))
 					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 					usr.update_inv_w_uniform()
 			else
@@ -882,11 +885,14 @@
 		return
 	if(!Adjacent(usr))
 		return
-	if(!accessories.len)
+	if(!length(accessories))
 		return
 	var/obj/item/clothing/accessory/A
-	if(accessories.len > 1)
-		A = input("Select an accessory to remove from [src]") as null|anything in accessories
+	if(length(accessories) > 1)
+		var/pick = radial_menu_helper(usr, src, accessories, custom_check = FALSE, require_near = TRUE)
+		if(!pick)
+			return
+		A = pick
 	else
 		A = accessories[1]
 	remove_accessory(usr,A)
@@ -904,7 +910,7 @@
 	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
 
 /obj/item/clothing/under/emp_act(severity)
-	if(accessories.len)
+	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()

@@ -66,6 +66,7 @@
 	item = /obj/item/storage/box/syndie_kit/mimery
 	cost = 50
 	job = list("Mime")
+	surplus = 0 // I feel this just isn't healthy to be in these crates.
 
 /datum/uplink_item/jobspecific/combat_baking
 	name = "Combat Bakery Kit"
@@ -83,6 +84,7 @@
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 25 //you need two for full damage, so total of 50 for maximum damage
 	job = list("Shaft Miner")
+	surplus = 0 // Requires a KA to even be used.
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -92,6 +94,7 @@
 	item = /obj/item/reagent_containers/food/condiment/syndisauce
 	cost = 10
 	job = list("Chef")
+	surplus = 0 // Far too specific in its use.
 
 /datum/uplink_item/jobspecific/meatcleaver
 	name = "Meat Cleaver"
@@ -118,6 +121,7 @@
 	item = /obj/item/storage/box/syndie_kit/missionary_set
 	cost = 75
 	job = list("Chaplain")
+	surplus = 0 // Controversial maybe, but with the ease of mindslaving with this item I'd prefer it stay chaplain specific.
 
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "His Grace"
@@ -260,6 +264,7 @@
 	item = /obj/item/seeds/ambrosia/cruciatus
 	cost = 5
 	job = list("Botanist")
+	surplus = 0 // Even botanists would struggle to use this effectively, nevermind a coroner.
 
 //Atmos Tech
 /datum/uplink_item/jobspecific/contortionist
@@ -393,6 +398,7 @@
 	cost = 60
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
+	surplus = 0 // This being refundable makes this a big no no in my mind.
 	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/martialarts
@@ -474,6 +480,7 @@
 	reference = "DRL"
 	item = /obj/item/thermal_drill/syndicate
 	cost = 5
+	surplus = 0 // I feel like its amazing for one objective and one objective only. Far too specific.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/modsuit
