@@ -36,9 +36,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "j" = (
-/obj/effect/spawner/window/reinforced{
-	useFull = 0
-	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "k" = (

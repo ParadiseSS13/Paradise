@@ -241,22 +241,18 @@
 	if(!mind)
 		return
 	mind.wipe_memory()
-	var/list/greeting = list(src, "<br>")
+	var/list/greeting = list()
 	greeting.Add("<span class='warning'><font size=3><b>You are a pulse demon.</b></font></span>")
 	greeting.Add("<b>A being made of pure electrical energy, you travel through the station's wires and infest machinery.</b>")
 	greeting.Add("<b>Navigate the station's power cables to find power sources to steal from, and hijack APCs to interact with their connected machines.</b>")
 	greeting.Add("<b>If the wire or power source you're connected to runs out of power you'll start losing health and eventually die, but you are otherwise immune to damage.</b>")
 	greeting.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Pulse_Demon)</span>")
-	to_chat(src, greeting.Join("<br>"))
-	var/amount_of_objectives = 1
-	var/list/objective_types = list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper)
-	for(var/p in objective_types)
-		var/datum/objective/objective_to_give = new p
-		objective_to_give.owner = mind
-		mind.objectives += objective_to_give
-		to_chat(src, "<b>Objective #[amount_of_objectives++]</b>: [objective_to_give.explanation_text]")
+	for(var/datum/objective/new_obj in list(/datum/objective/pulse_demon/infest, /datum/objective/pulse_demon/drain, /datum/objective/pulse_demon/tamper))
+		mind.add_mind_objective(new_obj)
+	greeting.Add(mind.prepare_announce_objectives(FALSE))
+	to_chat(src, chat_box_red(greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
-	return amount_of_objectives
+	return
 
 /mob/living/simple_animal/demon/pulse_demon/proc/give_spells()
 	AddSpell(new /obj/effect/proc_holder/spell/pulse_demon/cycle_camera)

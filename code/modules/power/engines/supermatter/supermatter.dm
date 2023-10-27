@@ -838,7 +838,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
 	..()
-	Bumped(A)
+	if(!istype(A, /obj/machinery/atmospherics/supermatter_crystal))
+		Bumped(A)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
 	if(isliving(AM))

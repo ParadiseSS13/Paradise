@@ -29,7 +29,8 @@
 		/obj/effect/ebeam,
 		/obj/effect/spawner,
 		/obj/structure/railing,
-		/obj/machinery/atmospherics/pipe/simple
+		/obj/machinery/atmospherics/pipe/simple,
+		/mob/living/simple_animal/hostile/megafauna //failsafe
 		))
 	var/drop_x = 1
 	var/drop_y = 1
@@ -44,6 +45,12 @@
 	if(!drop_stuff())
 		STOP_PROCESSING(SSprocessing, src)
 
+/turf/simulated/floor/chasm/CanPathfindPass(obj/item/card/id/ID, to_dir, caller, no_id = FALSE)
+	if(!isliving(caller))
+		return TRUE
+	var/mob/living/L = caller
+	return (L.flying || ismegafauna(caller))
+
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
@@ -52,19 +59,26 @@
 /turf/simulated/floor/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
 	..()
 	if(istype(C, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		var/obj/item/O = user.get_inactive_hand()
 		if(!L)
-			if(O?.tool_behaviour == TOOL_SCREWDRIVER)
-				if(R.use(1))
-					to_chat(user, "<span class='notice'>You construct a lattice.</span>")
-					playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
-					ReplaceWithLattice()
-				else
-					to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-			else
+			var/obj/item/inactive = user.get_inactive_hand()
+
+			if(isrobot(user))
+				for(var/obj/item/thing in user.get_all_slots())
+					if(thing.tool_behaviour == TOOL_SCREWDRIVER)
+						inactive = thing
+						break
+
+			if(!inactive || inactive.tool_behaviour != TOOL_SCREWDRIVER)
 				to_chat(user, "<span class='warning'>You need to hold a screwdriver in your other hand to secure this lattice.</span>")
+				return
+			var/obj/item/stack/rods/R = C
+			if(R.use(1))
+				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
+				playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+				ReplaceWithLattice()
+			else
+				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 			return
 	if(istype(C, /obj/item/stack/tile/plasteel))
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
@@ -153,6 +167,10 @@
 	light_range = 2
 	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
+
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize()
+	. = ..()
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
 	//Make sure the item is still there after our sleep

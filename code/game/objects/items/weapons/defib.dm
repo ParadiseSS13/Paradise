@@ -6,7 +6,7 @@
 	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibunit"
 	item_state = "defibunit"
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	throwforce = 6
 	w_class = WEIGHT_CLASS_BULKY
@@ -165,12 +165,12 @@
 
 /obj/item/defibrillator/equipped(mob/user, slot)
 	..()
-	if(slot != slot_back)
+	if(slot != SLOT_HUD_BACK)
 		remove_paddles(user)
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/item_action_slot_check(slot, mob/user)
-	if(slot == slot_back)
+	if(slot == SLOT_HUD_BACK)
 		return TRUE
 
 /obj/item/defibrillator/proc/remove_paddles(mob/user) // from your hands
@@ -208,7 +208,7 @@
 	item_state = "defibcompact"
 	sprite_sheets = null //Because Vox had the belt defibrillator sprites in back.dm
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "biotech=5"
 
 /obj/item/defibrillator/compact/loaded/Initialize(mapload)
@@ -217,7 +217,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user)
-	if(slot == slot_belt)
+	if(slot == SLOT_HUD_BELT)
 		return TRUE
 
 /obj/item/defibrillator/compact/combat

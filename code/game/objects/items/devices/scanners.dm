@@ -13,7 +13,7 @@ REAGENT SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
 	var/on = FALSE
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	materials = list(MAT_METAL = 300)
@@ -91,7 +91,7 @@ REAGENT SCANNER
 	item_state = "healthanalyzer"
 	belt_icon = "health_analyzer"
 	flags = CONDUCT | NOBLUDGEON
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
 	throw_speed = 3
@@ -256,7 +256,7 @@ REAGENT SCANNER
 		else
 			to_chat(user, "<span class='info'>Blood level [blood_percent] %, [H.blood_volume] cl, type: [blood_type]</span>")
 
-	to_chat(user, "<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse(GETPULSE_TOOL)] bpm.</font></span>")
+	to_chat(user, "<span class='notice'>Subject's pulse: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "blue"]'>[H.get_pulse()] bpm.</font></span>")
 	var/implant_detect
 	for(var/obj/item/organ/internal/O in H.internal_organs)
 		if(O.is_robotic())
@@ -331,7 +331,7 @@ REAGENT SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
 	item_state = "analyzer"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -473,7 +473,7 @@ REAGENT SCANNER
 	item_state = "analyzer"
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 20
@@ -548,7 +548,7 @@ REAGENT SCANNER
 	icon_state = "adv_spectrometer_s"
 	item_state = "analyzer"
 	origin_tech = "biotech=2"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	throwforce = 0
@@ -602,7 +602,7 @@ REAGENT SCANNER
 	icon = 'icons/obj/device.dmi'
 	icon_state = "bodyanalyzer_0"
 	item_state = "healthanalyser"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 3
 	throw_speed = 5

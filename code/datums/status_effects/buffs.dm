@@ -736,3 +736,7 @@
 /datum/status_effect/rev_protection/on_remove()
 	UnregisterSignal(owner, COMSIG_HUMAN_ATTACKED)
 	. = ..()
+
+/datum/status_effect/bookwyrm
+	duration = BRAIN_DAMAGE_MOB_TIME
+	alert_type = null

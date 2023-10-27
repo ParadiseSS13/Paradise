@@ -93,6 +93,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 	plane = GAME_PLANE
 	add_observer_verbs()
+	ADD_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
@@ -178,9 +179,8 @@ Works together with spawning an observer, noted above.
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		remove_from_respawnable_list()
 		if(ghost.can_reenter_corpse)
-			ghost.add_to_respawnable_list()
+			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
@@ -203,6 +203,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
 		return
 
+	if(HAS_TRAIT(M, TRAIT_RESPAWNABLE))
+		ghostize(1)
+		return
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"
@@ -277,10 +280,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/Stat()
 	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
+	if(statpanel("Status"))
 		show_stat_emergency_shuttle_eta()
-		stat(null, "Respawnability: [(src in GLOB.respawnable_list) ? "Yes" : "No"]")
+		stat(null, "Respawnability: [HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -544,39 +546,43 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	to_chat(src, "<span class='boldnotice'>Results:</span>")
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		to_chat(src, "<span class='notice'>Pressure: [round(pressure,0.1)] kPa</span>")
+		to_chat(src, "<span class='notice'>Pressure: [round(pressure, 0.1)] kPa</span>")
 	else
-		to_chat(src, "<span class='warning'>Pressure: [round(pressure,0.1)] kPa</span>")
+		to_chat(src, "<span class='warning'>Pressure: [round(pressure, 0.1)] kPa</span>")
 	if(total_moles)
-		var/o2_concentration = environment.oxygen/total_moles
-		var/n2_concentration = environment.nitrogen/total_moles
-		var/co2_concentration = environment.carbon_dioxide/total_moles
-		var/plasma_concentration = environment.toxins/total_moles
+		var/o2_concentration = environment.oxygen / total_moles
+		var/n2_concentration = environment.nitrogen / total_moles
+		var/co2_concentration = environment.carbon_dioxide / total_moles
+		var/plasma_concentration = environment.toxins / total_moles
+		var/n2o_concentration = environment.sleeping_agent / total_moles
 
-		var/unknown_concentration =  1-(o2_concentration+n2_concentration+co2_concentration+plasma_concentration)
+		var/unknown_concentration = 1 - (o2_concentration + n2_concentration + co2_concentration + plasma_concentration + n2o_concentration)
 		if(abs(n2_concentration - N2STANDARD) < 20)
-			to_chat(src, "<span class='notice'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
+			to_chat(src, "<span class='notice'>Nitrogen: [round(n2_concentration * 100)]% ([round(environment.nitrogen, 0.01)] moles)</span>")
 		else
-			to_chat(src, "<span class='warning'>Nitrogen: [round(n2_concentration*100)]% ([round(environment.nitrogen,0.01)] moles)</span>")
+			to_chat(src, "<span class='warning'>Nitrogen: [round(n2_concentration * 100)]% ([round(environment.nitrogen, 0.01)] moles)</span>")
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
-			to_chat(src, "<span class='notice'>Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)</span>")
+			to_chat(src, "<span class='notice'>Oxygen: [round(o2_concentration * 100)]% ([round(environment.oxygen, 0.01)] moles)</span>")
 		else
-			to_chat(src, "<span class='warning'>Oxygen: [round(o2_concentration*100)]% ([round(environment.oxygen,0.01)] moles)</span>")
+			to_chat(src, "<span class='warning'>Oxygen: [round(o2_concentration * 100)]% ([round(environment.oxygen, 0.01)] moles)</span>")
 
 		if(co2_concentration > 0.01)
-			to_chat(src, "<span class='warning'>CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)</span>")
+			to_chat(src, "<span class='warning'>CO2: [round(co2_concentration * 100)]% ([round(environment.carbon_dioxide, 0.01)] moles)</span>")
 		else
-			to_chat(src, "<span class='notice'>CO2: [round(co2_concentration*100)]% ([round(environment.carbon_dioxide,0.01)] moles)</span>")
+			to_chat(src, "<span class='notice'>CO2: [round(co2_concentration * 100)]% ([round(environment.carbon_dioxide, 0.01)] moles)</span>")
 
 		if(plasma_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Plasma: [round(plasma_concentration*100)]% ([round(environment.toxins,0.01)] moles)</span>")
+			to_chat(src, "<span class='warning'>Plasma: [round(plasma_concentration * 100)]% ([round(environment.toxins, 0.01)] moles)</span>")
+
+		if(n2o_concentration > 0.01)
+			to_chat(src, "<span class='warning'>N2O: [round(n2o_concentration * 100)]% ([round(environment.sleeping_agent, 0.01)] moles)</span>")
 
 		if(unknown_concentration > 0.01)
-			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration*100)]% ([round(unknown_concentration*total_moles,0.01)] moles)</span>")
+			to_chat(src, "<span class='warning'>Unknown: [round(unknown_concentration * 100)]% ([round(unknown_concentration * total_moles, 0.01)] moles)</span>")
 
-		to_chat(src, "<span class='notice'>Temperature: [round(environment.temperature-T0C,0.1)]&deg;C</span>")
-		to_chat(src, "<span class='notice'>Heat Capacity: [round(environment.heat_capacity(),0.1)]</span>")
+		to_chat(src, "<span class='notice'>Temperature: [round(environment.temperature - T0C, 0.1)]&deg;C</span>")
+		to_chat(src, "<span class='notice'>Heat Capacity: [round(environment.heat_capacity(), 0.1)]</span>")
 
 /mob/dead/observer/verb/view_manifest()
 	set name = "View Crew Manifest"
@@ -653,10 +659,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 	to_chat(usr, "You [(ghostvision?"now":"no longer")] have ghost vision.")
 
-/mob/dead/observer/verb/pick_darkness()
+/mob/dead/observer/verb/pick_darkness(desired_dark as num)
 	set name = "Pick Darkness"
+	set desc = "Choose how much darkness you want to see, (0 - 255). Higher numbers being darker."
 	set category = "Ghost"
-	var/desired_dark = input(src, "Choose how much darkness you want to see, (0 - 255). Higher numbers being darker.", "Pick Darkness", null) as null|num
 	if(isnull(desired_dark))
 		return
 	if(!client)

@@ -16,12 +16,12 @@
 	req_access_txt = "150"
 	products = list(/obj/item/stack/medical/bruise_pack = 2,
 					/obj/item/stack/medical/ointment = 2,
+					/obj/item/reagent_containers/syringe/charcoal = 4,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine = 4,
 					/obj/item/healthanalyzer = 1)
 
-	contraband = list(/obj/item/reagent_containers/syringe/charcoal = 4,
-						/obj/item/reagent_containers/syringe/antiviral = 4,
-						/obj/item/reagent_containers/food/pill/tox = 1)
+	contraband = list(/obj/item/reagent_containers/syringe/antiviral = 4,
+					/obj/item/reagent_containers/food/pill/tox = 1)
 
 /obj/machinery/economy/vending/syndicigs
 	name = "\improper Suspicious Cigarette Machine"
@@ -179,3 +179,21 @@
 
 	armor = list(MELEE = 100, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 0, RAD = 0, FIRE = 100, ACID = 50)
 	resistance_flags = FIRE_PROOF
+
+/obj/machinery/economy/vending/toyliberationstation/secured
+
+/obj/machinery/economy/vending/toyliberationstation/secured/crowbar_act(mob/user, obj/item/I)
+	if(tilted)
+		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	to_chat(user, "<span class='warning'>You are unable to remove the electronics from the vendor!</span>")
+
+/obj/machinery/economy/vending/toyliberationstation/secured/wrench_act(mob/user, obj/item/I)
+	if(tilted)
+		to_chat(user, "<span class='warning'>The fastening bolts aren't on the ground, you'll need to right it first!</span>")
+		return
+	if(!I.use_tool(src, user, 0, volume = 0))
+		return
+	to_chat(user, "<span class='warning'>You are unable to loosen the bolts!</span>")

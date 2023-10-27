@@ -1056,3 +1056,18 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	new drop_item(dropzone)
+
+
+// Common data shared among all the bots, used by BotStatus.js
+/mob/living/simple_animal/bot/ui_data(mob/user)
+	var/list/data = list()
+	data["locked"] = locked // controls, locked or not
+	data["noaccess"] = topic_denied(user) // does the current user have access? admins, silicons etc can still access bots with locked controls
+	data["maintpanel"] = open
+	data["on"] = on
+	data["autopatrol"] = auto_patrol
+	data["painame"] = paicard ? paicard.pai.name : null
+	data["canhack"] = canhack(user)
+	data["emagged"] = emagged // this is an int, NOT a boolean
+	data["remote_disabled"] = remote_disabled
+	return data

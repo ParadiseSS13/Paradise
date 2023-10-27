@@ -11,7 +11,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK	//ERROOOOO
+	slot_flags = SLOT_FLAG_BACK	//ERROOOOO
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
@@ -655,6 +655,7 @@
 			if(prob(50))
 				new /obj/item/sord(src)
 				value -= 1 //Useless joke, might as well give them a value point back.
+			else
 				new /obj/item/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
 	//Wands
 	var/wands = 0

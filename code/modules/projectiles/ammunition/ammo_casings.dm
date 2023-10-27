@@ -481,6 +481,7 @@
 	projectile_type = /obj/item/projectile/bullet/cap
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	harmful = FALSE
 
 /obj/item/ammo_casing/caseless/laser
 	desc = "An experimental laser casing, designed to vaporize when fired."
