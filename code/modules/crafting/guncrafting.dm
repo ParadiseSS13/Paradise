@@ -106,7 +106,7 @@
 
 /obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov
 	name = "\improper sol gov universal self assembling gun parts kit"
-	icon_state = "totallynotikea"
+	icon_state = "solcase" //Ikea reference pending.
 
 /obj/item/weaponcrafting/gunkit/universal_gun_kit/afterattack(obj/item/weaponcrafting/gunkit/gunkit_to_use, mob/user, flag)
 	if(!istype(gunkit_to_use))
