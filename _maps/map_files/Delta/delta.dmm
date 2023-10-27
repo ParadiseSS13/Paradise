@@ -94159,6 +94159,11 @@
 /turf/simulated/floor/wood,
 /area/station/service/clown)
 "uGY" = (
+/obj/machinery/alarm{
+	dir = 4;
+	name = "west bump";
+	pixel_x = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "caution"
