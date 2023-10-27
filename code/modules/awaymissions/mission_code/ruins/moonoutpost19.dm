@@ -10,7 +10,7 @@
 
 /obj/item/paper/fluff/ruins/moonoutpost19/rockstarcop
 	name = "eerie note"
-	info = "(you see some unintelligible scribbles covered in blood, only words you can choose are...) <br><br>If everybody knew, I never knew <br>I will wake up in a new life<br> Down by the seaside..."
+	info = "(you see some unintelligible scribbles covered in dried blood, the only words you can recognize are...) <br><br>If everybody knew, I never knew <br>I will wake up in a new life<br> Down by the seaside..."
 
 /obj/item/paper/fluff/ruins/moonoutpost19/engineering
 	name = "emergency procedures"
