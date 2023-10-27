@@ -17,7 +17,6 @@
 		EXTRACTION_DIFFICULTY_EASY = list(
 			// Rooms
 			"Alternate Construction Area",
-			"Barber Shop",
 			"Escape Shuttle Hallway Podbay",
 			"Garden",
 			"Incinerator",

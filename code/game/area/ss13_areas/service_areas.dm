@@ -50,10 +50,6 @@
 	name = "\improper Mime's Office"
 	icon_state = "mime_office"
 
-/area/station/service/barber
-	name = "\improper Barber Shop"
-	icon_state = "barber"
-
 /area/station/service/janitor
 	name = "\improper Custodial Closet"
 	icon_state = "janitor"

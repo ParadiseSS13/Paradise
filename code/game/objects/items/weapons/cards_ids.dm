@@ -486,7 +486,6 @@
 							"assistant",
 							"clown",
 							"mime",
-							"barber",
 							"botanist",
 							"librarian",
 							"chaplain",
@@ -977,12 +976,6 @@
 	icon_state = "mime"
 	desc = "..."
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-
-/obj/item/card/id/barber
-	name = "Barber ID"
-	registered_name = "Barber"
-	icon_state = "barber"
-	access = list(ACCESS_MAINT_TUNNELS)
 
 /obj/item/card/id/botanist
 	name = "Botanist ID"
