@@ -33,7 +33,7 @@
 	},
 /obj/structure/railing,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ag" = (
 /obj/structure/railing{
@@ -193,7 +193,7 @@
 /area/lavaland/surface/outdoors)
 "aB" = (
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aC" = (
 /obj/structure/railing/corner{
@@ -228,7 +228,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aK" = (
 /obj/structure/sign/explosives,
@@ -354,7 +354,7 @@
 "br" = (
 /obj/structure/lattice,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bx" = (
 /obj/structure/railing{
@@ -630,7 +630,7 @@
 "hn" = (
 /obj/structure/railing,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "hL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -684,7 +684,7 @@
 	},
 /obj/structure/lattice/lava,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1045,7 +1045,7 @@
 "BW" = (
 /obj/structure/lattice/lava,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "BZ" = (
 /obj/machinery/atmospherics/binary/pump{

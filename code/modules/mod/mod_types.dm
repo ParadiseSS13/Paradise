@@ -68,6 +68,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/t_ray,
 		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/firefighting_tank,
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,
