@@ -572,7 +572,6 @@
 	new /obj/item/circuitboard/telesci_pad(src)
 	new /obj/item/circuitboard/telesci_console(src)
 
-
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
 	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
