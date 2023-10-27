@@ -746,7 +746,6 @@
 	options["The Original"] = "handgun"
 	options["Golden Mamba"] = "handgun_golden-mamba"
 	options["NT's Finest"] = "handgun_nt-finest"
-	options["Cancel"] = null
 
 /obj/item/gun/energy/detective/Destroy()
 	QDEL_NULL(Announcer)

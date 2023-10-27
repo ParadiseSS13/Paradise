@@ -17,7 +17,6 @@
 	var/destination_x
 	var/destination_y
 	plane = PLANE_SPACE
-	flags = NO_SCREENTIPS
 
 /turf/space/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)

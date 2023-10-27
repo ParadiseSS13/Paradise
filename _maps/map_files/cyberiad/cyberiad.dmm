@@ -28353,12 +28353,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/disposal)
 "bCg" = (
-/obj/machinery/computer/security/telescreen/entertainment{
-	icon_state = "television";
-	icon_screen = "detective_tv";
-	name = "television";
-	desc = "A relic of a bygone age."
-	},
+/obj/machinery/computer/security/telescreen/entertainment/television,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
 "bCh" = (
@@ -65560,6 +65555,9 @@
 /obj/item/storage/fancy/rollingpapers,
 /obj/item/storage/box/matches,
 /obj/item/seeds/tobacco,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/security/permabrig)
 "hpR" = (
@@ -82137,7 +82135,6 @@
 /area/station/engineering/hardsuitstorage)
 "qLU" = (
 /obj/structure/table,
-/obj/item/key/janitor,
 /obj/item/key/janitor,
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,

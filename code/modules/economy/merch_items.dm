@@ -40,6 +40,13 @@
 	cost = 100
 	category = MERCH_CAT_TOY
 
+/datum/merch_item/scratch_card
+	name = "Scratch Cards Box"
+	desc = "Contains 5 scratch cards. Become rich today!"
+	typepath = /obj/item/storage/box/scratch_cards
+	cost = 100
+	category = MERCH_CAT_TOY
+
 /datum/merch_item/nanomob_booster
 	name = "Nano-Mob Hunter Trading Card Booster Pack"
 	desc = "Contains 6 random Nano-Mob Hunter Trading Cards. May contain a holographic card!"

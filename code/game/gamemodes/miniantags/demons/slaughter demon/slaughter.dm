@@ -144,6 +144,7 @@
 		var/client/C = M.client
 
 		S.key = C.key
+		dust_if_respawnable(M)
 		S.mind.assigned_role = "Harbinger of the Slaughter"
 		S.mind.special_role = "Harbinger of the Slaughter"
 		to_chat(S, playstyle_string)

@@ -91,6 +91,7 @@
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
 		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
 		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
+		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 5000) //I want miners have to pay a lot to get this, but be set once they do.
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 

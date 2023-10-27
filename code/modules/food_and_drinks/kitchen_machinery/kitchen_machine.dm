@@ -117,6 +117,9 @@
 				return TRUE
 	else if(istype(O, /obj/item/grab))
 		var/obj/item/grab/G = O
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
+			return
 		return special_attack_grab(G, user)
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")

@@ -150,6 +150,9 @@
 	icon_state = "dark"
 	requires_power = FALSE
 
+/area/ruin/space/bubblegum_arena
+	name = "Bubblegum Arena"
+
 /area/ruin/space/wreck_cargoship
 	name = "Faint Signal"
 	icon_state = "yellow"
