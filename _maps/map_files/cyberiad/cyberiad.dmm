@@ -33663,18 +33663,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/hallway)
-"cgr" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/se)
 "cgs" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/mixing)
@@ -33729,10 +33717,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
+/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -34444,6 +34429,9 @@
 	c_tag = "Central Primary Hallway Psychiatrist Office";
 	dir = 1
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "cjo" = (
@@ -34452,7 +34440,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/junction{
+	dir = 8;
+	icon_state = "pipe-j2"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "cjp" = (
@@ -34460,6 +34451,9 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
@@ -34480,6 +34474,10 @@
 	d1 = 1;
 	d2 = 8;
 	icon_state = "1-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
@@ -55918,7 +55916,7 @@
 "frn" = (
 /obj/item/bedsheet/hop,
 /obj/structure/bed,
-/obj/machinery/alarm{
+/obj/machinery/firealarm{
 	name = "north bump";
 	pixel_y = 24
 	},
@@ -58082,10 +58080,6 @@
 /obj/item/flashlight/lamp/green{
 	pixel_x = -6;
 	pixel_y = 3
-	},
-/obj/item/radio/intercom{
-	name = "south bump";
-	pixel_y = -28
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -64660,19 +64654,6 @@
 	icon_state = "barber"
 	},
 /area/station/service/barber)
-"juT" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/se)
 "jvs" = (
 /obj/machinery/computer/monitor{
 	name = "Bridge Power Monitoring Computer"
@@ -67475,19 +67456,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"kJw" = (
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-j2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/se)
 "kJy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -74233,18 +74201,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block/A)
-"ohg" = (
-/obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/se)
 "ohG" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
@@ -75890,10 +75846,9 @@
 /area/station/science/hallway)
 "oUv" = (
 /obj/item/kirbyplants,
-/obj/machinery/firealarm{
-	dir = 1;
+/obj/item/radio/intercom{
 	name = "south bump";
-	pixel_y = -24
+	pixel_y = -28
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
@@ -76959,12 +76914,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/primary)
-"pvR" = (
-/obj/structure/flora/ausbushes/palebush,
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/effect/spawner/window,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/south)
 "pvS" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -81191,9 +81140,9 @@
 	dir = 1
 	},
 /obj/machinery/alarm{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/captain/bedroom)
@@ -90540,6 +90489,11 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/machinery/light_switch{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral)
@@ -125459,7 +125413,7 @@ gqK
 bMG
 nSl
 nSl
-pvR
+izs
 fqA
 cdN
 cgj
@@ -127004,8 +126958,8 @@ vWv
 rtl
 bMG
 ccn
-juT
-ohg
+cgo
+gVV
 dhw
 ssK
 ssK
@@ -127261,7 +127215,7 @@ bMG
 bMG
 bMG
 jfa
-cgr
+cgo
 cjm
 crD
 crD
@@ -127518,7 +127472,7 @@ lry
 lry
 tgQ
 cco
-cgr
+cgo
 cjp
 vFJ
 cea
@@ -127775,7 +127729,7 @@ xig
 xBy
 tgQ
 bFO
-kJw
+cgo
 cjo
 gvE
 cdW
