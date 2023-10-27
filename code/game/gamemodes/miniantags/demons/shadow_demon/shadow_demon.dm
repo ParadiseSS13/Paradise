@@ -7,7 +7,7 @@
 	move_resist = MOVE_FORCE_STRONG
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
-	death_sound = 'sound/shadowdemon/shadowdeath.ogg'///Adds death sound unique to shadow demon
+	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
 
