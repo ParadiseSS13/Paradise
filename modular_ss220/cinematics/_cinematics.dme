@@ -2,6 +2,7 @@
 
 #include "code/_defines.dm"
 #include "code/_cinematics.dm"
+#include "code/cinematics_preferences.dm"
 #include "code/cinematics_client_proc.dm"
 #include "code/cinematics_screen.dm"
 #include "code/cinematics_ticker.dm"

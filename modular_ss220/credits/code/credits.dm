@@ -340,6 +340,7 @@
 
 	if(length(staff))
 		content += "<center><h1>Съемочная группа:<br></h1></center>"
+		content += "<hr>"
 		content += "<center>[jointext(staff,"<br>")]<br></center>"
 
 	if(length(goodboys))

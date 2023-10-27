@@ -24,7 +24,7 @@
 /datum/cinematic/credits/play_cinematic()
 
 	SScredits.roll_credits_for_clients(watching)
-	play_cinematic_sound(sound(SScredits.end_titles.soundtrack, volume = 20))
+	play_cinematic_sound(sound(SScredits.end_titles.soundtrack))
 
 	cleanup_time = SScredits.end_titles.playing_time + 3 SECONDS
 
