@@ -557,7 +557,7 @@
 		B.name = "[reag] bottle"
 
 /obj/item/storage/box/botany_labled_seeds
-	name = "botanist labled random seeds kit"
+	name = "botanist lablled random seeds kit"
 	desc = "A box intended for experienced botanists."
 
 /obj/item/storage/box/botany_labled_seeds/populate_contents()
