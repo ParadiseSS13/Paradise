@@ -2,7 +2,7 @@
 
 /obj/item/paper/fluff/ruins/moonoutpost19/lobby
 	name = "a note to Joe"
-	info = "<br>Hey Joe, since you keep forgetting here's the list of lockdown areas and the locations of control buttons. Thank me later.<br><br><b>(Lobby)</b><br><br>- Research Division lockdown<br>- Medical Ward lockdown<br>- Cargo Bay gates<br><br><b>(Cargo Bay)</b><br><br>- Exterior hangar gate<br>- Cargo bay gates<br><br><b>(Senior Researcher's Office)</b><br><br>- Specimen Containtment Zone lockdown<br><br>Note: keep in mind, in case of power outages these buttons won't be functional. In this case you'll find a few generators in engineering wing, set them up properly then report to technicians ASAP."
+	info = "<br>Hey Joe, since you keep forgetting here's the list of lockdown areas and the locations of control buttons. Thank me later.<br><br><b>(Lobby)</b><br><br>- Research Division lockdown<br>- Medical Ward lockdown<br>- Cargo Bay gates<br><br><b>(Cargo Bay)</b><br><br>- Exterior hangar gate<br>- Cargo bay gates<br><br><b>(Senior Researcher's Office)</b><br><br>- Specimen Containment Zone lockdown<br><br>Note: keep in mind, in case of power outages these buttons won't be functional. In this case you'll find a few generators in engineering wing, set them up properly then report to technicians ASAP."
 
 /obj/item/paper/fluff/ruins/moonoutpost19/entrance
 	name = "hastily written note"
@@ -14,7 +14,7 @@
 
 /obj/item/paper/fluff/ruins/moonoutpost19/engineering
 	name = "emergency procedures"
-	info = "(most of the parts are unreadable due to stains on the paper, the only words you can make out is...)<br><br> ...incase of power outages, use the provided portable generators. It is recommended that setting up two of them at once rather than working with one generator on high power levels. It is also recommended using the pre-marked spots for generator setup. If you are uncertain where it is, use a t-ray scanner to check the floors. Provided plasma sheets will suffice until maintai..."
+	info = "(most of the parts are unreadable due to stains on the paper, the only words you can make out is...)<br><br> ...in case of power outages, use the provided portable generators. It is recommended setting up two of them at once rather than working with one generator on high power levels. It is also recommended using the pre-marked spots for generator setup. If you are uncertain where it is, use a t-ray scanner to check the floors. Provided plasma sheets will suffice until maintai..."
 
 /obj/item/paper/fluff/ruins/moonoutpost19/rdnote
 	name = "Personal Log"
@@ -26,12 +26,12 @@
 
 /obj/item/paper/fluff/ruins/moonoutpost19/log1
 	name = "Chamber #1 Log"
-	info = "<hr><b>Data Log #82<br><br> Subject: Yes<br><br> Details:</b><br><br> I fricking hate our so called 'Senior Researcher' Mr. Wood. Someone has to show him how we handle the pricks whose nose in the air in this line of business.<br><br> Therefore i have developed a gas cannon. What this device does is simply compressing air and releasing it in a specific direction -in this case it would be the airlock of this very chamber- at a funny velocity. He checks the containtment chambers daily, all i have to do is keep this beauty locked and loaded until he opens the airlock. Afterall the only difference between messing around and science is writing it down. I bet you won't be so senior about this."
+	info = "<hr><b>Data Log #82<br><br> Subject: Yes<br><br> Details:</b><br><br> I fricking hate our so called 'Senior Researcher' Mr. Wood. Someone has to show him how we handle the pricks whose nose in the air in this line of business.<br><br> Therefore i have developed a gas cannon. What this device does is simply compressing air and releasing it in a specific direction -in this case it would be the airlock of this very chamber- at a funny velocity. He checks the containment chambers daily, all i have to do is keep this beauty locked and loaded until he opens the airlock. After all the only difference between messing around and science is writing it down. I bet you won't be so senior about this."
 
 /obj/item/paper/fluff/ruins/moonoutpost19/log2
 	name = "Chamber #2 Log"
-	info = "<hr><b>Data Log #74<br><br> Subject: Bizzare Bread<br><br> Details:</b><br><br> So, a few weeks ago our custodian Bob noticed loaf of breads appearing around the outpost. At first we didn't believe him of course, there is no reasonable way to put this situation in this colorful existence... Until i get the honor to actually witnessing it. Someone or something was teleporting bread directly to this location.<br><br> Despite my best efforts to isolate outpost from this specific bluespace frequency the results have met with failure. This was silly and i couldn't be arsed so i told Bob to do his damn job. A few days later something extraordinary happened, the object has shown the sign of a sort of decay process which resembling more of a mutation. An object was experiencing mutation as if it was a living organism!<br><br> Investigations are still in progress, we'll be keeping all specimens locked in this chamber."
+	info = "<hr><b>Data Log #74<br><br> Subject: Bizarre Bread<br><br> Details:</b><br><br> So, a few weeks ago our custodian Bob noticed loaf of breads appearing around the outpost. At first we didn't believe him of course, there is no reasonable way to put this situation in this colorful existence... Until i get the honor to actually witnessing it. Someone or something was teleporting bread directly to this location.<br><br> Despite my best efforts to isolate the outpost from this specific bluespace frequency the results have met with failure. This was silly and i couldn't be arsed so i told Bob to do his damn job. A few days later something extraordinary happened, the object has shown the sign of a sort of decay process which resembles a mutation. An object was experiencing mutation as if it was a living organism!<br><br> Investigations are still in progress, we'll be keeping all specimens locked in this chamber."
 
 /obj/item/paper/fluff/ruins/moonoutpost19/truth
 	name = "unsent note"
-	info = "As you have ordered, i managed to insert the device in one of the containtment shield generators and cut one or two wires feeding the emergency systems. Remote signal is clear and in range, waiting for next step... <br><br>This will cost many lives but whatever make you guys satisfied and lessens my debt."
+	info = "As you have ordered, i managed to insert the device in one of the containment shield generators and cut one or two wires feeding the emergency systems. Remote signal is clear and in range, waiting for next step... <br><br>This will cost many lives but whatever make you guys satisfied and lessens my debt."
