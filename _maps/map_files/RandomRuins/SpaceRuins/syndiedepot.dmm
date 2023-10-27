@@ -270,7 +270,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/turf_decal/delivery/blue,
+/obj/effect/decal/warning_stripes/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -282,7 +282,7 @@
 	},
 /area/syndicate_depot/core)
 "aT" = (
-/obj/effect/turf_decal/delivery,
+/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/bluespace_beacon/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -593,7 +593,7 @@
 	},
 /area/syndicate_depot/core)
 "bM" = (
-/obj/effect/turf_decal/delivery/red,
+/obj/effect/decal/warning_stripes/red,
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
@@ -784,9 +784,7 @@
 	},
 /area/syndicate_depot/core)
 "cl" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -910,9 +908,7 @@
 	},
 /area/syndicate_depot/core)
 "cA" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
@@ -922,9 +918,7 @@
 	},
 /area/syndicate_depot/core)
 "cB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/north,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},

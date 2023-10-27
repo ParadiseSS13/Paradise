@@ -88,9 +88,7 @@
 	tag = ""
 	},
 /obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -233,9 +231,7 @@
 	name = "xenobiology monitor";
 	network = list("MO19X")
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -368,9 +364,7 @@
 	pixel_y = 8
 	},
 /obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -602,9 +596,7 @@
 "bm" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bn" = (
@@ -628,9 +620,7 @@
 /obj/structure/closet/l3closet/scientist,
 /obj/structure/window/reinforced,
 /obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -789,9 +779,7 @@
 	tag = ""
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "bD" = (
@@ -833,9 +821,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1088,9 +1074,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "cf" = (
@@ -1115,9 +1099,7 @@
 	},
 /obj/structure/closet/l3closet/scientist,
 /obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1278,26 +1260,20 @@
 	pixel_y = 5
 	},
 /obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/unpowered)
 "cx" = (
 /obj/structure/alien/weeds/node,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/unpowered)
 "cy" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1308,9 +1284,7 @@
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1333,9 +1307,7 @@
 	name = "Acid-Proof disposal pipe"
 	},
 /obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1533,9 +1505,7 @@
 	},
 /obj/item/pen,
 /obj/item/radio/off,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1691,9 +1661,7 @@
 "dg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/alien/weeds,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2146,7 +2114,7 @@
 	id_tag = "Awaybiohazard";
 	name = "Acid-Proof biohazard containment door"
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -2160,7 +2128,7 @@
 	name = "Acid-Proof biohazard containment door"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/delivery,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2172,7 +2140,7 @@
 	id_tag = "Awaybiohazard";
 	name = "Acid-Proof biohazard containment door"
 	},
-/obj/effect/turf_decal/delivery,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -2321,9 +2289,7 @@
 	dir = 8
 	},
 /obj/item/circuitboard/teleporter,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
+/obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2333,18 +2299,14 @@
 /obj/item/paicard{
 	pixel_x = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/unpowered)
 "er" = (
 /obj/structure/rack,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
+/obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2483,9 +2445,7 @@
 	},
 /area/ruin/space/unpowered)
 "eE" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2508,9 +2468,7 @@
 	info = "<i>19 06 2554</i><br><br><i>I fucking knew it. There was a major breach, that idiotic force field failed, and the xenomorphs rushed out and took out the scientists. I've managed to make it to my office and closed the blast doors. I can hear them trying to pry open the doors. Probably don't have long. I have no clue what has happened to the rest of the crew, for all I know they've been killed to produce more of the fucks.</i>";
 	name = "Hastily Written Note"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2523,18 +2481,14 @@
 	dir = 4;
 	name = "emergency shower"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
+/obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/unpowered)
 "eI" = (
 /obj/structure/closet/firecloset,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
+/obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2675,18 +2629,14 @@
 	},
 /obj/structure/table,
 /obj/machinery/computer/id_upgrader,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
+/obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
 /area/ruin/space/unpowered)
 "eY" = (
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2697,9 +2647,7 @@
 /obj/item/taperecorder{
 	pixel_x = -3
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
+/obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2711,9 +2659,7 @@
 	pixel_y = 2
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
+/obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -2721,9 +2667,7 @@
 "fb" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/light/small,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
+/obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -3851,9 +3795,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "hy" = (
@@ -4023,24 +3965,18 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "hR" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "hS" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/decal/warning_stripes/southeastcorner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "hT" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes/dromedaryco,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
+/obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "hU" = (
@@ -4176,9 +4112,7 @@
 /area/ruin/space/powered)
 "in" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "io" = (
@@ -4288,9 +4222,7 @@
 "iB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "iC" = (
@@ -4463,9 +4395,7 @@
 	network = list("MO19")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "iY" = (
@@ -4562,9 +4492,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "ji" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
@@ -4652,9 +4580,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "ju" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "jv" = (
@@ -4698,9 +4624,7 @@
 /area/ruin/space/unpowered)
 "jA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "jB" = (

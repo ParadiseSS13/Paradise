@@ -443,7 +443,7 @@
 "by" = (
 /obj/structure/table,
 /obj/item/storage/firstaid,
-/obj/effect/turf_decal/delivery/hollow,
+/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "bz" = (
@@ -768,9 +768,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "cm" = (

@@ -1,15 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ab" = (
 /obj/structure/computerframe,
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
+/obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "ad" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
+/obj/effect/decal/warning_stripes/southwest,
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
@@ -33,9 +29,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "bg" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "bx" = (
@@ -58,9 +52,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "eu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "eM" = (
@@ -174,9 +166,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "kP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "le" = (
@@ -219,9 +209,7 @@
 	},
 /area/ruin/space/tcommsat)
 "nv" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "nG" = (
@@ -338,9 +326,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "tr" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
@@ -352,9 +338,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "vl" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
+/obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "wO" = (
@@ -531,9 +515,7 @@
 /area/template_noop)
 "KD" = (
 /obj/machinery/teleport/station,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "KH" = (
@@ -626,9 +608,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "PP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
+/obj/effect/decal/warning_stripes/west,
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
@@ -684,9 +664,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Rc" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
+/obj/effect/decal/warning_stripes/northwestcorner,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Sp" = (
@@ -765,9 +743,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Vh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
+/obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Vx" = (
@@ -808,9 +784,7 @@
 /turf/template_noop,
 /area/space/nearstation)
 "Yt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Yu" = (
@@ -850,9 +824,7 @@
 /area/ruin/space/tcommsat)
 "Za" = (
 /obj/machinery/teleport/hub,
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
+/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Zd" = (
