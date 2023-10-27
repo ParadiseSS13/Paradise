@@ -200,7 +200,7 @@
 	name = "shadow hand"
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
-	hitsound = 'sound/shadowdemon/shadowattack1.ogg'///Plays sound when grabbing something living or light
+	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
 	var/hit = FALSE
 
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
