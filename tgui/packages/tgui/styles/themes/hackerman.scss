@@ -31,9 +31,7 @@
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: (
-      'color-disabled': #4a6a4a,
-    )
+    $with: ('color-disabled': #4a6a4a)
   );
   @include meta.load-css('../components/Modal.scss');
   @include meta.load-css('../components/Section.scss');
