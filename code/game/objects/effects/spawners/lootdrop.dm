@@ -412,14 +412,14 @@
 			/obj/item/reagent_containers/food/snacks/soup/nettlesoup,
 			/obj/item/reagent_containers/food/snacks/soup/meatballsoup)
 	var/salads = list(
-			/obj/item/reagent_containers/food/snacks/herbsalad,
-			/obj/item/reagent_containers/food/snacks/validsalad,
-			/obj/item/reagent_containers/food/snacks/aesirsalad)
+			/obj/item/reagent_containers/food/snacks/salad/herb,
+			/obj/item/reagent_containers/food/snacks/salad/valid,
+			/obj/item/reagent_containers/food/snacks/salad/aesir)
 	var/mains = list(
 			/obj/item/reagent_containers/food/snacks/enchiladas,
 			/obj/item/reagent_containers/food/snacks/stewedsoymeat,
-			/obj/item/reagent_containers/food/snacks/bigbiteburger,
-			/obj/item/reagent_containers/food/snacks/superbiteburger)
+			/obj/item/reagent_containers/food/snacks/burger/bigbite,
+			/obj/item/reagent_containers/food/snacks/burger/superbite)
 
 /obj/effect/spawner/lootdrop/three_course_meal/Initialize(mapload)
 	loot = list(pick(soups) = 1,pick(salads) = 1,pick(mains) = 1)
