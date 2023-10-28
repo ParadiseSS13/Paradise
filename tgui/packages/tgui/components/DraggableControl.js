@@ -16,9 +16,9 @@ export class DraggableControl extends Component {
     this.inputRef = createRef();
     this.state = {
       value: props.value,
+      originalValue: props.value,
       dragging: false,
       editing: false,
-      internalValue: null,
       origin: null,
       suppressingFlicker: false,
     };
@@ -52,9 +52,9 @@ export class DraggableControl extends Component {
       this.ref = e.target;
       this.setState({
         dragging: false,
+        originalValue: value,
         origin: getScalarScreenOffset(e, dragMatrix),
         value,
-        internalValue: value,
       });
       this.timer = setTimeout(() => {
         this.setState({
@@ -87,21 +87,13 @@ export class DraggableControl extends Component {
         const state = { ...prevState };
         const offset = getScalarScreenOffset(e, dragMatrix) - state.origin;
         if (prevState.dragging) {
-          const stepOffset = Number.isFinite(minValue) ? minValue % step : 0;
           // Translate mouse movement to value
-          // Give it some headroom (by increasing clamp range by 1 step)
-          state.internalValue = clamp(
-            state.internalValue + (offset * step) / stepPixelSize,
-            minValue - step,
-            maxValue + step
-          );
           // Clamp the final value
           state.value = clamp(
-            state.internalValue - (state.internalValue % step) + stepOffset,
+            state.originalValue + Math.trunc(offset / stepPixelSize) * step,
             minValue,
             maxValue
           );
-          state.origin = getScalarScreenOffset(e, dragMatrix);
         } else if (Math.abs(offset) > 4) {
           state.dragging = true;
         }
@@ -111,7 +103,7 @@ export class DraggableControl extends Component {
 
     this.handleDragEnd = (e) => {
       const { onChange, onDrag } = this.props;
-      const { dragging, value, internalValue } = this.state;
+      const { dragging, value } = this.state;
       document.body.style['pointer-events'] = 'auto';
       clearTimeout(this.timer);
       clearInterval(this.dragInterval);
@@ -132,7 +124,7 @@ export class DraggableControl extends Component {
         }
       } else if (this.inputRef) {
         const input = this.inputRef.current;
-        input.value = internalValue;
+        input.value = value;
         // IE8: Dies when trying to focus a hidden element
         // (Error: Object does not support this action)
         try {
