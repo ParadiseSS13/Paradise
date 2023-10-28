@@ -158,17 +158,21 @@ export const MagnetController = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        {linkedMagnets.map(({ powerState, electricityLevel, magneticField, }, i) => {
+        {linkedMagnets.map(({ uid, powerState, electricityLevel, magneticField, }, i) => {
           return (
             <Section
-              key={i}
+              key={uid}
               title={`Magnet #${i} Configuration`}
               buttons={
                 <Button
                   icon={powerState ? 'power-off' : 'times'}
                   content={powerState ? 'On' : 'Off'}
                   selected={powerState}
-                  onClick={() => act('toggle_power')}
+                  onClick={() =>
+                    act('toggle_magnet_power', {
+                      id: uid,
+                    })
+                  }
                 />
               }
             >
@@ -181,6 +185,7 @@ export const MagnetController = (props, context) => {
                     stepPixelSize={20}
                     onChange={(e, value) =>
                       act("set_electricity_level", {
+                        id: uid,
                         newValue: value,
                       })
                     }
@@ -194,6 +199,7 @@ export const MagnetController = (props, context) => {
                     stepPixelSize={20}
                     onChange={(e, value) =>
                       act("set_magnetic_field", {
+                        id: uid,
                         newValue: value,
                       })
                     }
