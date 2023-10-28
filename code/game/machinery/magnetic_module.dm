@@ -270,10 +270,10 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
+	add_fingerprint(usr)
+
 	if(ui_act_modal(action, params, ui, state))
 		return TRUE
-
-	add_fingerprint(usr)
 
 	. = TRUE
 	switch(action)
