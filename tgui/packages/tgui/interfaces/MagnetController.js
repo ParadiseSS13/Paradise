@@ -50,9 +50,13 @@ const pathCodeMap = new Map([
 export const MagnetController = (props, context) => {
   const { act, data } = useBackend(context);
   const {
+    autolink,
+    code,
+    frequency,
     linkedMagnets,
     magnetConfiguration,
     path,
+    probing,
     powerState,
     speed,
   } = data;
@@ -60,6 +64,27 @@ export const MagnetController = (props, context) => {
   return (
     <Window resizable>
       <Window.Content scrollable>
+        {!autolink && <Section
+          buttons={
+            <Button
+              content="Probe"
+              icon={probing ? "spinner" : "sync"}
+              iconSpin={!!probing}
+              disabled={probing}
+              onClick={() => act("probe_magnets")}
+            />
+          }
+          title="Magnet Linking"
+        >
+          <LabeledList>
+            <LabeledList.Item label="Frequency">
+              {frequency}
+            </LabeledList.Item>
+            <LabeledList.Item label="Code">
+              {code}
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>}
         <Section
           buttons={
             <Button
