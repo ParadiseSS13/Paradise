@@ -2,7 +2,7 @@ import { toFixed } from 'common/math'
 import { useBackend } from '../backend'
 import { BlockQuote, Button, LabeledList, Section, Slider } from '../components'
 import { Window } from '../layouts'
-import { modalOpen } from './common/ComplexModal'
+import { ComplexModal, modalOpen } from './common/ComplexModal'
 
 const pathCodeMap = new Map([
   [
@@ -66,6 +66,7 @@ export const MagnetController = (props, context) => {
 
   return (
     <Window resizable>
+      <ComplexModal />
       <Window.Content scrollable>
         {!autolink && <Section
           buttons={
