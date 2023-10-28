@@ -1137,7 +1137,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /mob/living/carbon/proc/eat(obj/item/reagent_containers/to_eat, mob/user, bitesize_override)
 	if(ispill(to_eat) || ispatch(to_eat))
-		return consume_patch_or_pill(to_eat, self_feed, user)
+		return consume_patch_or_pill(to_eat, user)
 
 	if(!isfood(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
 		return FALSE
