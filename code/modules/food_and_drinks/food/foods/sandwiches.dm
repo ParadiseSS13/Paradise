@@ -18,7 +18,7 @@
 	filling_color = "#D63C3C"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4, "meat" = 1, "the jungle" = 1)
+	tastes = list("bun" = 4, "meat" = 1)
 
 /obj/item/reagent_containers/food/snacks/burger/brain
 	name = "brainburger"
@@ -116,7 +116,7 @@
 	filling_color = "#CD853F"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bun" = 4)
+	tastes = list("bun" = 4, "a homerun" = 3)
 
 /obj/item/reagent_containers/food/snacks/burger/spell
 	name = "spell burger"
@@ -223,7 +223,7 @@
 	icon_state = "ppatty-rainbow"
 	filling_color = "#0000FF"
 	bitesize = 4
-	list_reagents = list("nutriment" = 14, "protein" = 5)
+	list_reagents = list("nutriment" = 14, "protein" = 5, "omnizine" = 10)
 	tastes = list("bun" = 2, "meat" = 2, "rainbow" = 5)
 
 /obj/item/reagent_containers/food/snacks/burger/elec
@@ -248,55 +248,56 @@
 	name = "appendix burger"
 	desc = "Tastes like appendicitis."
 	icon_state = "appendixburger"
-	list_reagents = list("nutriment" = 2, "protein" = 6, "vitamin" = 6)
-	bitesize = 3
-	tastes = list("bun" = 1, "grass" = 1)
 	filling_color = "#F2B6EA"
+	bitesize = 3
+	list_reagents = list("nutriment" = 2, "protein" = 6, "vitamin" = 6)
+	tastes = list("bun" = 1, "grass" = 1)
 
 /obj/item/reagent_containers/food/snacks/burger/bacon
 	name = "bacon burger"
 	desc = "The perfect combination of all things American."
 	icon_state = "baconburger"
-	tastes = list("bun" = 1, "bacon" = 1)
-	list_reagents = list("nutriment" = 3, "vitamin" = 2, "protein" = 6)
 	filling_color = "#F2B6EA"
 	bitesize = 3
+	list_reagents = list("nutriment" = 3, "vitamin" = 2, "protein" = 6)
+	tastes = list("bun" = 1, "bacon" = 1)
+
 
 /obj/item/reagent_containers/food/snacks/burger/bearger
 	name = "bearger"
 	desc = "Best served rawr."
 	icon_state = "bearger"
-	tastes = list("bun" = 1, "meat" = 1, "salmon" = 1)
-	list_reagents = list("nutriment" = 3, "protein" = 6, "vitamin" = 2)
 	filling_color = "#F2B6EA"
 	bitesize = 3
+	list_reagents = list("nutriment" = 3, "protein" = 6, "vitamin" = 2)
+	tastes = list("bun" = 1, "meat" = 1, "salmon" = 1)
 
 /obj/item/reagent_containers/food/snacks/burger/fivealarm
 	name = "five alarm burger"
 	desc = "HOT! HOT!"
 	icon_state = "fivealarmburger"
-	list_reagents = list("nutriment" = 4, "protein" = 6, "condensedcapsaicin" = 5, "capsaicin" = 5)
-	tastes = list("bun" = 1, "extreme heat" = 1)
 	bitesize = 3
 	filling_color = "#F2B6EA"
+	list_reagents = list("nutriment" = 4, "protein" = 6, "condensedcapsaicin" = 5, "capsaicin" = 5)
+	tastes = list("bun" = 1, "extreme heat" = 1)
 
 /obj/item/reagent_containers/food/snacks/burger/mcguffin
 	name = "mcGuffin"
 	desc = "A cheap and greasy imitation of an eggs benedict."
 	icon_state = "mcguffin"
-	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 1)
-	tastes = list("muffin" = 1, "bacon" = 1)
 	bitesize = 3
 	filling_color = "#F2B6EA"
+	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 1)
+	tastes = list("muffin" = 1, "bacon" = 1)
 
 /obj/item/reagent_containers/food/snacks/burger/mcrib
 	name = "mcRib"
 	desc = "An elusive rib shaped burger with limited availablity across the galaxy. Not as good as you remember it."
 	icon_state = "mcrib"
-	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 4, "bbqsauce" = 1)
-	tastes = list("bun" = 1, "pork" = 1, "patty" = 1)
 	bitesize = 3
 	filling_color = "#F2B6EA"
+	list_reagents = list("nutriment" = 2, "protein" = 7, "vitamin" = 4, "bbqsauce" = 1)
+	tastes = list("bun" = 1, "pork" = 1, "patty" = 1)
 
 /obj/item/reagent_containers/food/snacks/burger/jelly
 	name = "jelly burger"

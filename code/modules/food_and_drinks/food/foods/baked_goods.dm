@@ -486,6 +486,7 @@
 	filling_color = "#E7D8AB"
 	bitesize = 2
 	list_reagents = list("nutriment" = 3, "sugar" = 3)
+	tastes = list("sweet cake" = 1)
 
 /obj/item/reagent_containers/food/snacks/pancake/attack_tk(mob/user)
 	if(src in user.tkgrabbed_objects)
@@ -507,12 +508,14 @@
 	desc = "A pancake loaded with berries."
 	icon_state = "berry_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 3, "berryjuice" = 3)
+	tastes = list("sweet cake" = 2, "berries" = 2)
 
 /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
 	name = "choc-chip pancake"
 	desc = "A pancake loaded with chocolate chips."
 	icon_state = "choc_chip_pancake"
 	list_reagents = list("nutriment" = 3, "sugar" = 3, "cocoa" = 3)
+	tastes = list("sweet cake" = 2, "chocolate" = 3)
 
 //////////////////////
 //		Misc		//

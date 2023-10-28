@@ -54,6 +54,7 @@
 	desc = "A slice of meatloaf made from an animal that most likely still wants you dead."
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "spidermeatslice"
+	tastes = list("bread" = 10, "cobwebs" = 5)
 	list_reagents = list("toxin" = 2)
 
 /obj/item/reagent_containers/food/snacks/sliceable/bananabread
@@ -65,7 +66,7 @@
 	slices_num = 5
 	filling_color = "#EDE5AD"
 	list_reagents = list("banana" = 20, "nutriment" = 20)
-	tastes = list("bread" = 10)
+	tastes = list("bread" = 10, "banana" = 5)
 
 /obj/item/reagent_containers/food/snacks/bananabreadslice
 	name = "banana-nut bread slice"
@@ -73,7 +74,7 @@
 	icon = 'icons/obj/food/burgerbread.dmi'
 	icon_state = "bananabreadslice"
 	filling_color = "#EDE5AD"
-	tastes = list("bread" = 10)
+	tastes = list("bread" = 10, "banana" = 5)
 
 /obj/item/reagent_containers/food/snacks/sliceable/tofubread
 	name = "tofubread"
@@ -102,7 +103,7 @@
 	slices_num = 6
 	filling_color = "#FFE396"
 	list_reagents = list("nutriment" = 10)
-	tastes = list("bread" = 10)
+	tastes = list("bread" = 1)
 
 /obj/item/reagent_containers/food/snacks/breadslice
 	name = "bread slice"
@@ -111,7 +112,7 @@
 	icon_state = "breadslice"
 	filling_color = "#D27332"
 	list_reagents = list("nutriment" = 2, "bread" = 5)
-	tastes = list("bread" = 10)
+	tastes = list("bread" = 1)
 
 /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread
 	name = "cream cheese bread"
@@ -173,7 +174,7 @@
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "flatbread"
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bread" = 2)
+	tastes = list("bread" = 1)
 
 /obj/item/reagent_containers/food/snacks/baguette
 	name = "baguette"
@@ -185,7 +186,7 @@
 	filling_color = "#E3D796"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "vitamin" = 1)
-	tastes = list("bread" = 2)
+	tastes = list("bread" = 1)
 
 /obj/item/reagent_containers/food/snacks/baguette/combat
 	sharp = TRUE
@@ -203,7 +204,7 @@
 	filling_color = "#DBCC9A"
 	bitesize = 3
 	list_reagents = list("nutriment" = 2, "vitamin" = 2)
-	tastes = list("bread" = 2)
+	tastes = list("bread" = 1)
 
 /obj/item/reagent_containers/food/snacks/toast
 	name = "toast"
@@ -213,7 +214,7 @@
 	filling_color = "#B2580E"
 	bitesize = 3
 	list_reagents = list("nutriment" = 3)
-	tastes = list("toast" = 2)
+	tastes = list("toast" = 1)
 
 /obj/item/reagent_containers/food/snacks/jelliedtoast
 	name = "jellied toast"

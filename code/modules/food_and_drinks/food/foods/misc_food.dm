@@ -28,7 +28,7 @@
 	trash = /obj/item/trash/waffles
 	filling_color = "#E6FA61"
 	list_reagents = list("nutriment" = 10, "vitamin" = 1)
-	tastes = list("waffles" = 10)
+	tastes = list("waffles" = 1)
 
 /obj/item/reagent_containers/food/snacks/monkeysdelight
 	name = "monkey's delight"
@@ -72,7 +72,7 @@
 	filling_color = "#468C00"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6,"vitamin" = 4)
-	tastes = list("lettuce" = 2)
+	tastes = list("lettuce" = 1)
 
 /obj/item/reagent_containers/food/snacks/salad/aesir
 	name = "aesir salad"
@@ -258,7 +258,7 @@
 	icon_state = "boiledrorocore"
 	bitesize = 3
 	list_reagents = list("slimejelly" = 5)
-	tastes = list("jelly" = 3)
+	tastes = list("jelly" = 1)
 
 /obj/item/reagent_containers/food/snacks/popcorn
 	name = "popcorn"

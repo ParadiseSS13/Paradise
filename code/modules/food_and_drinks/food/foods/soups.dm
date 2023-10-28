@@ -137,14 +137,14 @@
 	desc = "Delicious sweet potato in soup form."
 	icon_state = "sweetpotatosoup"
 	list_reagents = list("nutriment" = 5)
-	tastes = list("sweet potato" = 3)
+	tastes = list("sweet potato" = 1)
 
 /obj/item/reagent_containers/food/snacks/soup/redbeetsoup
 	name = "red beet soup"
 	desc = "Quite a delicacy."
 	icon_state = "redbeetsoup"
 	list_reagents = list("nutriment" = 5)
-	tastes = list("red beet" = 3)
+	tastes = list("red beet" = 1)
 
 /obj/item/reagent_containers/food/snacks/soup/frenchonionsoup
 	name = "french onion soup"
