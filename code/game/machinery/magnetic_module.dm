@@ -203,9 +203,6 @@
 
 	radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
 
-	if(path) // check for default path
-		filter_path() // renders rpath
-
 	if(autolink)
 		return INITIALIZE_HINT_LATELOAD
 
@@ -375,7 +372,7 @@
 	looping = FALSE
 
 
-/obj/machinery/magnetic_controller/proc/filter_path()
+/obj/machinery/magnetic_controller/proc/filter_path(path)
 	// Generates the rpath variable using the path string, think of this as "string2list"
 	// Doesn't use params2list() because of the akward way it stacks entities
 	rpath = list() //  clear rpath
