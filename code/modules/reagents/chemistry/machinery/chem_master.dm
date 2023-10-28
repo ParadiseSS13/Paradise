@@ -229,6 +229,20 @@
 			if(new_mode == null)
 				return
 			production_mode = clamp(new_mode, CHEMMASTER_MIN_PRODUCTION_MODE, CHEMMASTER_MAX_PRODUCTION_MODE)
+
+		// Container Customization
+		if("clear_container_style")
+			if(!loaded_pill_bottle)
+				return
+			loaded_pill_bottle.wrapper_color = null
+			loaded_pill_bottle.cut_overlays()
+		if("set_container_style")
+			if(!loaded_pill_bottle) // wat?
+				return
+			var/new_color = params["newValue"]
+			if(pill_bottle_wrappers[new_color])
+				loaded_pill_bottle.wrapper_color = new_color
+				loaded_pill_bottle.apply_wrap()
 		else
 			. = FALSE
 
@@ -386,20 +400,6 @@
 				P.pixel_y = rand(-7, 7)
 				P.icon_state = length(bottle_styles) && bottle_styles[bottlesprite] || "bottle"
 				reagents.trans_to(P, amount_per_bottle)
-
-		// Container Customization
-		if("clear_container_style")
-			if(!loaded_pill_bottle)
-				return
-			loaded_pill_bottle.wrapper_color = null
-			loaded_pill_bottle.cut_overlays()
-		if("set_container_style")
-			if(!loaded_pill_bottle) // wat?
-				return
-			var/new_color = params["newValue"]
-			if(pill_bottle_wrappers[new_color])
-				loaded_pill_bottle.wrapper_color = new_color
-				loaded_pill_bottle.apply_wrap()
 		else
 			return FALSE
 
