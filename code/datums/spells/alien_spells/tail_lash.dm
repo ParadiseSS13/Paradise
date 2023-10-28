@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/alien_spell/tail_lash
 	name = "Tail lash"
 	desc = "Knocks down anyone around you."
-	icon_state = "tailsweep"
+	action_icon_state = "tailsweep"
 	base_cooldown = 10 SECONDS
 
 /obj/effect/proc_holder/spell/alien_spell/tail_lash/create_new_targeting()

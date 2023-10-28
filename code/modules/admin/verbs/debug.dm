@@ -888,61 +888,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	text += "</ul>"
 	usr << browse(text.Join(), "window=gcqueuestatus")
 
-/mob/verb/show_world_contents()
-	set name = "View world contents"
-	set category = "Debug"
-	set desc = "Shows the list of whats currently in a GC queue"
-
-	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
-		return
-
-	var/list/queue_counts = list()
-
-	// Iterate that target and see whats what
-	var/total_contents = 0
-	for(var/datum/queue_entry)
-		if(!queue_counts[queue_entry.type])
-			queue_counts[queue_entry.type] = 0
-
-		queue_counts[queue_entry.type]++
-		total_contents++
-
-
-	for(var/list/queue_entry)
-		if(!queue_counts[queue_entry.type])
-			queue_counts[queue_entry.type] = 0
-
-		queue_counts[queue_entry.type]++
-		total_contents++
-	for(var/icon/queue_entry)
-		if(!queue_counts["icon"])
-			queue_counts["icon"] = 0
-
-		queue_counts["icon"]++
-		total_contents++
-	for(var/savefile/queue_entry)
-		if(!queue_counts["savefile"])
-			queue_counts["savefile"] = 0
-
-		queue_counts["savefile"]++
-		total_contents++
-	for(var/datum/queue_entry in world.contents)
-		if(!queue_counts[queue_entry.type])
-			queue_counts[queue_entry.type] = 0
-
-		queue_counts[queue_entry.type]++
-		total_contents++
-	// Sort it the right way
-	var/list/sorted = sortTim(queue_counts, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
-
-	// And make a nice little menu
-	var/list/text = list("<h1>Current status of world contents: [total_contents]</h1>", "<ul>")
-	for(var/key in sorted)
-		text += "<li>[key] - [sorted[key]]</li>"
-
-	text += "</ul>"
-	usr << browse(text.Join(), "window=worldcontents")
-
 /client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
 		return

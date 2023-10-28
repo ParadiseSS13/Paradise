@@ -5,6 +5,7 @@
 	weed_type = /obj/structure/alien/egg
 	weed_name = "alien egg"
 	action_icon_state = "alien_egg"
+	requires_do_after = FALSE
 
 /obj/effect/proc_holder/spell/alien_spell/combust_facehuggers
 	name = "Combust facehuggers and eggs"

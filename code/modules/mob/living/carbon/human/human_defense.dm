@@ -667,7 +667,10 @@ emp_act
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			apply_effect(10 SECONDS, KNOCKDOWN, run_armor_check(affecting, MELEE))
 			adjustStaminaLoss(M.alien_disarm_damage)
-			M.changeNext_move(2 SECONDS)
+			var/obj/item/I = get_active_hand()
+			if(I)
+				unEquip(I)
+			M.changeNext_move(1.6 SECONDS)
 			add_attack_logs(M, src, "Alien tackled")
 			visible_message("<span class='danger'>[M] has tackled down [src]!</span>", "<span class='hear'>You hear aggressive shuffling!</span>")
 

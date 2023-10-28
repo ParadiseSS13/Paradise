@@ -5,6 +5,7 @@
 	var/atom/weed_type = /obj/structure/alien/weeds/node
 	var/weed_name = "alien weed node"
 	action_icon_state = "alien_plant"
+	var/requires_do_after = TRUE
 
 /obj/effect/proc_holder/spell/alien_spell/plant_weeds/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -27,7 +28,7 @@
 		return
 
 	user.visible_message("<span class='warning'>Vines burst from the back of [user], quickly scurring to the ground and swarm onto [user.loc].</span>", "<span class='warning'>You begin infesting [user.loc] with [initial(weed_type.name)].</span>")
-	if(!do_mob(user, user, 2 SECONDS))
+	if(requires_do_after && !do_mob(user, user, 2 SECONDS))
 		revert_cast()
 		return
 

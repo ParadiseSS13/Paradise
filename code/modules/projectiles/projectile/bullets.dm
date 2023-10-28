@@ -331,7 +331,7 @@
 		if(alien.IsSlowed())
 			knockdown = 10 SECONDS
 		else
-			alien.Slowed(2.5 SECONDS, 0.5)
+			alien.Slowed(5 SECONDS, 0.5)
 
 	. = ..() // Execute the rest of the code.
 
