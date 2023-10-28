@@ -230,6 +230,55 @@
 				return
 			production_mode = clamp(new_mode, CHEMMASTER_MIN_PRODUCTION_MODE, CHEMMASTER_MAX_PRODUCTION_MODE)
 
+		// Pills
+		if("set_pills_style")
+			var/new_value = text2num(params["newValue"])
+			if(new_value == null)
+				return
+			pillsprite = clamp(new_value, 1, MAX_PILL_SPRITE)
+		if("set_pills_amount")
+			var/new_value = text2num(params["newValue"])
+			if(new_value == null)
+				return
+			pillamount = clamp(new_value, 1, CHEMMASTER_MAX_PILLS)
+		if("set_pills_name")
+			var/new_value = params["newValue"]
+			// Allow name to be set to empty
+			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+				return
+			pillname = new_value
+
+		// Patches
+		if("set_patches_amount")
+			var/new_value = text2num(params["newValue"])
+			if(new_value == null)
+				return
+			patchamount = clamp(new_value, 1, CHEMMASTER_MAX_PATCHES)
+		if("set_patches_name")
+			var/new_value = params["newValue"]
+			// Allow name to be set to empty
+			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+				return
+			patchname = new_value
+
+		// Bottles
+		if("set_bottles_style")
+			var/new_value = text2num(params["newValue"])
+			if(new_value == null)
+				return
+			bottlesprite = clamp(new_value, 1, bottle_styles.len)
+		if("set_bottles_amount")
+			var/new_value = text2num(params["newValue"])
+			if(new_value == null)
+				return
+			bottleamount = clamp(new_value, 1, CHEMMASTER_MAX_BOTTLES)
+		if("set_bottles_name")
+			var/new_value = params["newValue"]
+			// Allow name to be set to empty
+			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+				return
+			bottlename = new_value
+
 		// Container Customization
 		if("clear_container_style")
 			if(!loaded_pill_bottle)
@@ -281,24 +330,6 @@
 				return
 			var/obj/item/reagent_containers/food/condiment/P = new(loc)
 			reagents.trans_to(P, 50)
-
-		// Pills
-		if("set_pills_style")
-			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
-				return
-			pillsprite = clamp(new_value, 1, MAX_PILL_SPRITE)
-		if("set_pills_amount")
-			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
-				return
-			pillamount = clamp(new_value, 1, CHEMMASTER_MAX_PILLS)
-		if("set_pills_name")
-			var/new_value = params["newValue"]
-			// Allow name to be set to empty
-			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
-				return
-			pillname = new_value
 		if("create_pills")
 			var/name = pillname
 			var/count = pillamount
@@ -323,19 +354,6 @@
 				// Load the pills in the bottle if there's one loaded
 				if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
 					P.forceMove(loaded_pill_bottle)
-
-		// Patches
-		if("set_patches_amount")
-			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
-				return
-			patchamount = clamp(new_value, 1, CHEMMASTER_MAX_PATCHES)
-		if("set_patches_name")
-			var/new_value = params["newValue"]
-			// Allow name to be set to empty
-			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
-				return
-			patchname = new_value
 		if("create_patches")
 			if(condi || !reagents.total_volume)
 				return
@@ -362,24 +380,6 @@
 				// Load the patches in the bottle if there's one loaded
 				if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
 					P.forceMove(loaded_pill_bottle)
-
-		// Bottles
-		if("set_bottles_style")
-			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
-				return
-			bottlesprite = clamp(new_value, 1, bottle_styles.len)
-		if("set_bottles_amount")
-			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
-				return
-			bottleamount = clamp(new_value, 1, CHEMMASTER_MAX_BOTTLES)
-		if("set_bottles_name")
-			var/new_value = params["newValue"]
-			// Allow name to be set to empty
-			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
-				return
-			bottlename = new_value
 		if("create_bottles")
 			if(condi || !reagents.total_volume)
 				return
