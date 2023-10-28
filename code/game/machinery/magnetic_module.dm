@@ -206,7 +206,7 @@
 	radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
 
 	if(path) // check for default path
-		filter_path(path) // renders rpath
+		filter_path() // renders rpath
 
 	if(autolink)
 		return INITIALIZE_HINT_LATELOAD
@@ -305,6 +305,7 @@
 			moving = FALSE
 			pathpos = 1
 			rpath += code
+			path = rpath.Join(";")
 		if("path_remove")
 			var/index = text2num(params["index"])
 			if(index == null || index < 0 || index > rpath.len)
@@ -316,10 +317,12 @@
 			pathpos = 1
 			if(rpath[index] == code)
 				rpath.Cut(index, index + 1)
+			path = rpath.Join(";")
 		if("path_clear")
 			moving = FALSE
 			pathpos = 1
 			rpath = list()
+			path = ""
 
 		if("toggle_magnet_power")
 			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
@@ -405,7 +408,8 @@
 						return
 					moving = FALSE
 					pathpos = 1
-					filter_path(new_path)
+					path = new_path
+					filter_path()
 				else
 					return FALSE
 		else
@@ -457,7 +461,7 @@
 	looping = FALSE
 
 
-/obj/machinery/magnetic_controller/proc/filter_path(path)
+/obj/machinery/magnetic_controller/proc/filter_path()
 	// Generates the rpath variable using the path string, think of this as "string2list"
 	// Doesn't use params2list() because of the akward way it stacks entities
 	rpath = list() //  clear rpath
