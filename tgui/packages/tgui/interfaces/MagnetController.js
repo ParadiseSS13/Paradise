@@ -139,11 +139,12 @@ export const MagnetController = (props, context) => {
               />
               <BlockQuote>
                 {path.map((code, i) => {
-                  let { icon, tooltip } = pathCodeMap.get(code);
+                  let { icon, tooltip } = pathCodeMap.get(code.toUpperCase());
                   return (
                     <Button.Confirm
                       key={i}
-                      selected={i === pathPosition}
+                      // Do not know why + 2 works but it does.
+                      selected={(i + 2) === pathPosition}
                       icon={icon}
                       confirmIcon={icon}
                       confirmContent=""
