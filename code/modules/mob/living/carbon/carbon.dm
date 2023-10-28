@@ -1212,7 +1212,7 @@ so that different stomachs can handle things in different ways VB*/
 	if(satiety > -200)
 		satiety -= to_eat.junkiness
 	if(to_eat.consume_sound)
-		playsound(loc, to_eat.consume_sound, rand(10,50), 1)
+		playsound(loc, to_eat.consume_sound, rand(10, 50), TRUE)
 	if(to_eat.reagents.total_volume)
 		taste(to_eat.reagents)
 		var/fraction = min(this_bite / to_eat.reagents.total_volume, 1)
@@ -1238,9 +1238,9 @@ so that different stomachs can handle things in different ways VB*/
 		if(patch.instant_application)
 			instant = TRUE
 
-	if(!(user == src) && !instant)
+	if(user != src && !instant)
 		if(requires_mouth && !head && ismachineperson(src)) // You will not feed the IPC
-			to_chat(user, "<span class='warning'>You cannot feed [src] [p_or_p]!.</span>")
+			to_chat(user, "<span class='warning'>You cannot feed [src] [p_or_p]!</span>")
 			return FALSE
 		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [p_or_p].</span>")
 		if(!do_after(user, 3 SECONDS, TRUE, src, TRUE))
