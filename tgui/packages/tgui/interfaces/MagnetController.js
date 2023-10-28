@@ -1,3 +1,4 @@
+import { toFixed } from 'common/math'
 import { useBackend } from '../backend'
 import { BlockQuote, Button, LabeledList, Section, Slider } from '../components'
 import { Window } from '../layouts'
@@ -80,7 +81,7 @@ export const MagnetController = (props, context) => {
         >
           <LabeledList>
             <LabeledList.Item label="Frequency">
-              {frequency}
+              {toFixed(frequency / 10, 1)}
             </LabeledList.Item>
             <LabeledList.Item label="Code">
               {code}
