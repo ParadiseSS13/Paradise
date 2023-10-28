@@ -133,7 +133,7 @@ export const MagnetController = (props, context) => {
                 float="right"
                 tooltip="Manually input path"
                 tooltipPosition="left"
-                onClick={() => act('path_custom_input')}
+                onClick={() => modalOpen('path_custom_input')}
               />
               <BlockQuote>
                 {path.map((code, i) => {
