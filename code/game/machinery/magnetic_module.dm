@@ -381,6 +381,8 @@
 		"max" = MAX_CONTROLLER_SPEED,
 	)
 
+	data["modal"] = ui_modal_data(src)
+
 	return data
 
 /obj/machinery/magnetic_controller/proc/ui_act_modal(action, params, datum/tgui/ui, datum/ui_state/state)
