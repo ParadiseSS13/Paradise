@@ -4,6 +4,7 @@
 #define MAX_ELECTRICITY_LEVEL 12
 #define MIN_MAGNETIC_FIELD 1
 #define MAX_MAGNETIC_FIELD 4
+#define MAX_PATH_LENGTH 50
 
 // Magnetic attractor, creates variable magnetic fields and attraction.
 // Can also be used to emit electron/proton beams to create a center of magnetism on another tile
@@ -378,7 +379,7 @@
 	// Generates the rpath variable using the path string, think of this as "string2list"
 	// Doesn't use params2list() because of the akward way it stacks entities
 	rpath = list() //  clear rpath
-	var/maximum_character = min( 50, length(path) ) // chooses the maximum length of the iterator. 50 max length
+	var/maximum_character = min( MAX_PATH_LENGTH, length(path) ) // chooses the maximum length of the iterator. 50 max length
 
 	for(var/i=1, i<=maximum_character, i++) // iterates through all characters in path
 
@@ -397,3 +398,4 @@
 #undef MAX_ELECTRICITY_LEVEL
 #undef MIN_MAGNETIC_FIELD
 #undef MAX_MAGNETIC_FIELD
+#undef MAX_PATH_LENGTH
