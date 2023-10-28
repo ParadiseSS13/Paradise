@@ -239,17 +239,17 @@
 		ui.open()
 
 /obj/machinery/magnetic_controller/attack_ai(mob/user as mob)
-	if (..())
+	if(..())
 		return TRUE
 	ui_interact(user)
 
 /obj/machinery/magnetic_controller/attack_ghost(mob/user)
-	if (..())
+	if(..())
 		return TRUE
 	ui_interact(user)
 
 /obj/machinery/magnetic_controller/attack_hand(mob/user as mob)
-	if (..())
+	if(..())
 		return TRUE
 	ui_interact(user)
 
@@ -318,15 +318,15 @@
 
 		if("toggle_magnet_power")
 			var/magnet = find_magnet(params["id"])
-			if (!magnet)
+			if(!magnet)
 				return
 			magnet?.Cmd("toggle-power")
 		if("set_electricity_level")
 			var/magnet = find_magnet(params["id"])
-			if (!magnet)
+			if(!magnet)
 				return
 			var/new_value = text2num(params["newValue"])
-			if (new_value == null)
+			if(new_value == null)
 				return
 			magnet?.Cmd("set-electriclevel", clamp(new_value, MIN_ELECTRICITY_LEVEL, MAX_ELECTRICITY_LEVEL))
 		if("set_magnetic_field")
