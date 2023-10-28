@@ -41,10 +41,7 @@
   );
   @include meta.load-css(
     '../components/ProgressBar.scss',
-    $with: (
-      'color-background': rgba(0, 0, 0, 0.5),
-      'color-disabled': #363636
-    )
+    $with: ('color-background': rgba(0, 0, 0, 0.5), 'color-disabled': #363636)
   );
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css(
