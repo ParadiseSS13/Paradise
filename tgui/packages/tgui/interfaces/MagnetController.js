@@ -57,6 +57,7 @@ export const MagnetController = (props, context) => {
     linkedMagnets,
     magnetConfiguration,
     path,
+    pathPosition,
     probing,
     powerState,
     speed,
@@ -142,6 +143,7 @@ export const MagnetController = (props, context) => {
                   return (
                     <Button.Confirm
                       key={i}
+                      selected={i == pathPosition}
                       icon={icon}
                       confirmIcon={icon}
                       confirmContent=""

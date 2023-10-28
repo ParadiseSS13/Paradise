@@ -372,6 +372,7 @@
 	)
 
 	data["path"] = rpath
+	data["pathPosition"] = pathpos
 	data["probing"] = probing
 	data["powerState"] = moving
 	data["speed"] = list(
