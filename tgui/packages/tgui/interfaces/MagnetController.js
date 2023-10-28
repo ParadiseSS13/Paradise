@@ -116,7 +116,7 @@ export const MagnetController = (props, context) => {
                   key={code}
                   icon={icon}
                   tooltip={tooltip}
-                  onClick={() => act(`path_add_${code}`)}
+                  onClick={() => act(`path_add`, { code: code })}
                 />
               ))}
               <Button.Confirm
