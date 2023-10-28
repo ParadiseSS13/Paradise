@@ -254,7 +254,7 @@
 	ui_interact(user)
 
 /obj/machinery/magnetic_controller/proc/find_magnet(uid)
-	for(var/obj/machinery/magnetic_controller/M in magnets)
+	for(var/obj/machinery/magnetic_module/M in magnets)
 		if(M.UID() == uid)
 			return M
 	return null
@@ -317,12 +317,12 @@
 			rpath = list()
 
 		if("toggle_magnet_power")
-			var/magnet = find_magnet(params["id"])
+			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
 			if(!magnet)
 				return
 			magnet?.Cmd("toggle-power")
 		if("set_electricity_level")
-			var/magnet = find_magnet(params["id"])
+			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
 			if(!magnet)
 				return
 			var/new_value = text2num(params["newValue"])
@@ -330,7 +330,7 @@
 				return
 			magnet?.Cmd("set-electriclevel", clamp(new_value, MIN_ELECTRICITY_LEVEL, MAX_ELECTRICITY_LEVEL))
 		if("set_magnetic_field")
-			var/magnet = find_magnet(params["id"])
+			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
 			if(!magnet)
 				return
 			var/new_value = text2num(params["newValue"])
