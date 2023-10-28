@@ -78,7 +78,7 @@ export class DraggableControl extends Component {
       if (disabled) {
         return;
       }
-      const defaultStepPixelSize = e.target.offsetWidth / ((maxValue - minValue) / step);
+      const defaultStepPixelSize = this.ref.offsetWidth / ((maxValue - minValue) / step);
       let stepPixelSize = this.props.stepPixelSize ?? defaultStepPixelSize;
       if (typeof stepPixelSize === 'function') {
         stepPixelSize = stepPixelSize(defaultStepPixelSize);
