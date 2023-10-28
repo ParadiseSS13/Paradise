@@ -484,6 +484,11 @@
 	var/disabled = FALSE
 	var/force_when_disabled = 5 //still basically a metal pipe, just hard to move
 
+/obj/item/shield/v1_arm/customised_abstract_text()
+	if(!ishuman(loc))
+		return
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] is covered in metal.</span>"
 
 /obj/item/shield/v1_arm/emp_act(severity)
 	if(disabled)

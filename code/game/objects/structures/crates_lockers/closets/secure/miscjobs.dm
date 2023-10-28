@@ -28,6 +28,8 @@
 
 /obj/structure/closet/secure_closet/mime/populate_contents()
 	new /obj/item/clothing/head/beret(src)
+	new /obj/item/clothing/head/beret/black(src)
+	new /obj/item/clothing/head/beret/white(src)
 	new /obj/item/clothing/mask/gas/mime(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/under/rank/civilian/mime(src)

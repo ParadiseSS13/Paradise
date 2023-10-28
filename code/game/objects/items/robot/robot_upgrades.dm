@@ -419,6 +419,16 @@
 		cyborg = null
 	return ..()
 
+/obj/item/borg/upgrade/syndie_soap
+	name = "janitor cyborg syndicate soap"
+	desc = "Using forbidden technology and some red dye, upgrade a janitorial cyborg's soap performance by 90 percent!"
+	icon_state = "cyborg_upgrade4"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/janitor
+	items_to_replace = list(
+		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
+	)
+	
 /obj/item/borg/upgrade/bluespace_trash_bag
 	name = "janitor cyborg trash bag of holding upgrade"
 	desc = "An advanced trash bag upgrade board with bluespace properties that can be attached to janitorial cyborgs."
