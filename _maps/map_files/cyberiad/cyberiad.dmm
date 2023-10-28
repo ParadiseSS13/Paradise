@@ -14781,7 +14781,7 @@
 /area/station/medical/reception)
 "aUQ" = (
 /turf/simulated/wall,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "aUR" = (
 /obj/machinery/atmospherics/pipe/manifold/visible/cyan{
 	dir = 8
@@ -15562,14 +15562,13 @@
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "aWZ" = (
-/obj/machinery/door/airlock{
-	name = "Unisex Restrooms"
-	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "aXa" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -29884,7 +29883,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "bJV" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/shaker,
@@ -49795,7 +49794,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "cVw" = (
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 4
@@ -53003,13 +53002,12 @@
 	},
 /area/station/engineering/control)
 "dhw" = (
-/obj/machinery/door/airlock{
-	name = "Unisex Restrooms"
-	},
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "dhx" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
@@ -53085,7 +53083,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "dhO" = (
 /obj/machinery/recharge_station,
 /obj/machinery/door_control{
@@ -53098,7 +53096,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "dhQ" = (
 /obj/structure/grille,
 /turf/simulated/floor/plating,
@@ -53117,7 +53115,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "dhV" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 25
@@ -56883,7 +56881,7 @@
 "dMK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/wall,
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "dMM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /obj/effect/spawner/random_spawners/oil_maybe,
@@ -61253,7 +61251,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "fXt" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/atmospherics/binary/valve{
@@ -62238,7 +62236,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "gyA" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -63585,7 +63583,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "hhX" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Prison Cafeteria"
@@ -67525,7 +67523,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "juH" = (
 /obj/item/storage/fancy/cigarettes/cigpack_random,
 /turf/simulated/floor/plating,
@@ -68376,7 +68374,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "jUt" = (
 /obj/machinery/light{
 	dir = 4
@@ -70433,7 +70431,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "kYS" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -71121,7 +71119,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "lqw" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -71757,7 +71755,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "lHw" = (
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/structure/closet/crate/freezer,
@@ -75372,7 +75370,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "nNh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/mineral/equipment_vendor,
@@ -75478,9 +75476,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/assembly_line)
 "nPU" = (
-/obj/machinery/door/airlock{
-	name = "Unisex Restrooms"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -75489,10 +75484,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/door/airlock,
+/obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "nQD" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
@@ -79565,7 +79562,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "qcM" = (
 /obj/machinery/door/airlock/command/glass{
 	id_tag = "ntrepofficedoor";
@@ -82086,7 +82083,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "rrg" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -82879,7 +82876,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "rPS" = (
 /obj/structure/grille/broken,
 /obj/item/stack/rods,
@@ -83792,7 +83789,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "ssL" = (
 /obj/effect/spawner/lootdrop/maintenance{
 	lootcount = 3;
@@ -85074,7 +85071,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "thV" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -90975,7 +90972,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "wuZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -93570,7 +93567,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
-/area/station/public/toilet)
+/area/station/public/toilet/unisex)
 "xVr" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
