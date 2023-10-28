@@ -6,7 +6,6 @@
 	item_state = "bandaid"
 	possible_transfer_amounts = null
 	volume = 30
-	var/apply_method = "apply"
 	temperature_min = 270
 	temperature_max = 350
 	var/instant_application = FALSE
@@ -38,7 +37,7 @@
 	name = "brute patch"
 	desc = "Helps with brute injuries."
 	icon_state = "bandaid_brute"
-	instant_application = 1
+	instant_application = TRUE
 	list_reagents = list("styptic_powder" = 30)
 
 /obj/item/reagent_containers/patch/styptic/small
@@ -49,7 +48,7 @@
 	name = "burn patch"
 	desc = "Helps with burn injuries."
 	icon_state = "bandaid_burn"
-	instant_application = 1
+	instant_application = TRUE
 	list_reagents = list("silver_sulfadiazine" = 30)
 
 /obj/item/reagent_containers/patch/silver_sulf/small

@@ -9,7 +9,6 @@
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
 	var/consume_sound = 'sound/items/eatfood.ogg'
-	var/apply_method = "swallow"
 	var/antable = TRUE // Will ants come near it?
 	/// location checked every 5 minutes. If its the same place, the food has a chance to spawn ants
 	var/ant_location
