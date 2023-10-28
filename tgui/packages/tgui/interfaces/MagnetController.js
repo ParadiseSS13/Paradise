@@ -166,7 +166,7 @@ export const MagnetController = (props, context) => {
           return (
             <Section
               key={uid}
-              title={`Magnet #${i} Configuration`}
+              title={`Magnet #${i + 1} Configuration`}
               buttons={
                 <Button
                   icon={powerState ? 'power-off' : 'times'}
