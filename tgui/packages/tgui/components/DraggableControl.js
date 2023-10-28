@@ -246,7 +246,6 @@ DraggableControl.defaultProps = {
   minValue: -Infinity,
   maxValue: +Infinity,
   step: 1,
-  stepPixelSize: 1,
   suppressFlicker: 50,
   dragMatrix: [1, 0],
 };
