@@ -140,7 +140,7 @@ export const MagnetController = (props, context) => {
               />
               <BlockQuote>
                 {path.map((code, i) => {
-                  let { icon, tooltip } = pathCodeMap.get(code.toUpperCase());
+                  let { icon, tooltip } = pathCodeMap.get(code) || { icon: 'question' };
                   return (
                     <Button.Confirm
                       key={i}
