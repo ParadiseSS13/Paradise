@@ -179,7 +179,7 @@
 							/obj/item/storage/fancy/cigarettes/cigpack_robustgold,
 							/obj/item/poster/random_official,
 							/obj/item/book/manual/wiki/sop_command,
-							/obj/item/reagent_containers/food/pill/patch/synthflesh,
+							/obj/item/reagent_containers/patch/synthflesh,
 							/obj/item/paper_bin/nanotrasen,
 							/obj/item/reagent_containers/food/snacks/spesslaw,
 							/obj/item/clothing/head/collectable/petehat,
