@@ -918,6 +918,10 @@
 	name = "Mining Outpost Requests Console";
 	pixel_x = 30
 	},
+/obj/item/radio/intercom{
+	name = "north bump";
+	pixel_y = 28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
