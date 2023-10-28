@@ -374,7 +374,11 @@
 	data["path"] = rpath
 	data["probing"] = probing
 	data["powerState"] = moving
-	data["speed"] = speed
+	data["speed"] = list(
+		"value" = speed,
+		"min" = MIN_CONTROLLER_SPEED,
+		"max" = MAX_CONTROLLER_SPEED,
+	)
 
 	return data
 
