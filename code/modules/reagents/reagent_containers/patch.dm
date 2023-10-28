@@ -12,15 +12,7 @@
 	var/needs_to_apply_reagents = TRUE
 
 /obj/item/reagent_containers/patch/attack(mob/living/carbon/M, mob/user, def_zone)
-	if(!istype(M))
-		return FALSE
-	if(M.eat(src, user))
-		if(user.get_active_hand() == src)
-			user.drop_item() // Only drop if they're holding the patch directly
-		forceMove(M)
-		LAZYADD(M.processing_patches, src)
-		return TRUE
-	return FALSE
+	return apply(M, user)
 
 /obj/item/reagent_containers/patch/attack_self(mob/user)
 	return apply(user, user)
@@ -29,7 +21,10 @@
 	if(!istype(M))
 		return FALSE
 	if(M.eat(src, user))
-		qdel(src)
+		if(user.get_active_hand() == src)
+			user.drop_item() // Only drop if they're holding the patch directly
+		forceMove(M)
+		LAZYADD(M.processing_patches, src)
 		return TRUE
 	return FALSE
 
