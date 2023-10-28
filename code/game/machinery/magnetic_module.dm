@@ -191,6 +191,7 @@
 	var/probing = FALSE
 
 	var/pathpos = 1 // position in the path
+	var/path = "NULL" // text path of the magnet
 	var/speed = MIN_CONTROLLER_SPEED
 	var/list/rpath = list() // real path of the magnet, used in iterator
 	var/static/list/valid_paths = list("N", "S", "E", "W", "C", "R")
@@ -203,6 +204,9 @@
 	. = ..()
 
 	radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
+
+	if(path) // check for default path
+		filter_path() // renders rpath
 
 	if(autolink)
 		return INITIALIZE_HINT_LATELOAD
