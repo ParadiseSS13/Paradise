@@ -1,3 +1,10 @@
+#define MIN_CONTROLLER_SPEED 1
+#define MAX_CONTROLLER_SPEED 10
+#define MIN_ELECTRICITY_LEVEL 1
+#define MAX_ELECTRICITY_LEVEL 12
+#define MIN_MAGNETIC_FIELD 1
+#define MAX_MAGNETIC_FIELD 4
+
 // Magnetic attractor, creates variable magnetic fields and attraction.
 // Can also be used to emit electron/proton beams to create a center of magnetism on another tile
 
@@ -16,8 +23,8 @@
 	idle_power_consumption = 50
 
 	var/freq = AIRLOCK_FREQ		// radio frequency
-	var/electricity_level = 1 // intensity of the magnetic pull
-	var/magnetic_field = 1 // the range of magnetic attraction
+	var/electricity_level = MIN_ELECTRICITY_LEVEL // intensity of the magnetic pull
+	var/magnetic_field = MIN_MAGNETIC_FIELD // the range of magnetic attraction
 	var/code = 0 // frequency code, they should be different unless you have a group of magnets working together or something
 	var/turf/center // the center of magnetic attraction
 	var/on = FALSE
@@ -71,20 +78,20 @@
 
 			if("add-elec")
 				electricity_level++
-				if(electricity_level > 12)
-					electricity_level = 12
+				if(electricity_level > MAX_ELECTRICITY_LEVEL)
+					electricity_level = MAX_ELECTRICITY_LEVEL
 			if("sub-elec")
 				electricity_level--
-				if(electricity_level <= 0)
-					electricity_level = 1
+				if(electricity_level < MIN_ELECTRICITY_LEVEL)
+					electricity_level = MIN_ELECTRICITY_LEVEL
 			if("add-mag")
 				magnetic_field++
-				if(magnetic_field > 4)
-					magnetic_field = 4
+				if(magnetic_field > MAX_MAGNETIC_FIELD)
+					magnetic_field = MAX_MAGNETIC_FIELD
 			if("sub-mag")
 				magnetic_field--
-				if(magnetic_field <= 0)
-					magnetic_field = 1
+				if(magnetic_field < MIN_MAGNETIC_FIELD)
+					magnetic_field = MIN_MAGNETIC_FIELD
 
 			if("set-x")
 				if(modifier)	center_x = modifier
@@ -120,10 +127,10 @@
 		on = FALSE
 
 	// Sanity checks:
-	if(electricity_level <= 0)
-		electricity_level = 1
-	if(magnetic_field <= 0)
-		magnetic_field = 1
+	if(electricity_level < MIN_ELECTRICITY_LEVEL)
+		electricity_level = MIN_ELECTRICITY_LEVEL
+	if(magnetic_field < MIN_MAGNETIC_FIELD)
+		magnetic_field = MIN_MAGNETIC_FIELD
 
 
 	// Limitations:
@@ -131,10 +138,10 @@
 		center_x = max_dist
 	if(abs(center_y) > max_dist)
 		center_y = max_dist
-	if(magnetic_field > 4)
-		magnetic_field = 4
-	if(electricity_level > 12)
-		electricity_level = 12
+	if(magnetic_field > MAX_MAGNETIC_FIELD)
+		magnetic_field = MAX_MAGNETIC_FIELD
+	if(electricity_level > MAX_ELECTRICITY_LEVEL)
+		electricity_level = MAX_ELECTRICITY_LEVEL
 
 	// Update power usage:
 	if(on)
@@ -183,7 +190,7 @@
 
 	var/pathpos = 1 // position in the path
 	var/path = "NULL" // text path of the magnet
-	var/speed = 1 // lowest = 1, highest = 10
+	var/speed = MIN_CONTROLLER_SPEED
 	var/list/rpath = list() // real path of the magnet, used in iterator
 
 	var/moving = 0 // 1 if scheduled to loop
@@ -267,7 +274,7 @@
 
 		// Prepare signal beforehand, because this is a radio operation
 		var/datum/signal/signal = new
-		signal.transmission_method = 1 // radio transmission
+		signal.transmission_method = TRANSMISSION_RADIO // radio transmission
 		signal.source = src
 		signal.frequency = frequency
 		signal.data["code"] = code
@@ -299,12 +306,12 @@
 		switch(href_list["operation"])
 			if("plusspeed")
 				speed++
-				if(speed > 10)
-					speed = 10
+				if(speed > MAX_CONTROLLER_SPEED)
+					speed = MAX_CONTROLLER_SPEED
 			if("minusspeed")
 				speed --
-				if(speed <= 0)
-					speed = 1
+				if(speed < MIN_CONTROLLER_SPEED)
+					speed = MIN_CONTROLLER_SPEED
 			if("setpath")
 				var/newpath = sanitize(copytext(input(usr, "Please define a new path!",,path) as text|null,1,MAX_MESSAGE_LEN))
 				if(newpath && newpath != "")
@@ -333,7 +340,7 @@
 
 		// Prepare the radio signal
 		var/datum/signal/signal = new
-		signal.transmission_method = 1 // radio transmission
+		signal.transmission_method = TRANSMISSION_RADIO // radio transmission
 		signal.source = src
 		signal.frequency = frequency
 		signal.data["code"] = code
@@ -359,10 +366,10 @@
 		spawn()
 			radio_connection.post_signal(src, signal, filter = RADIO_MAGNETS)
 
-		if(speed == 10)
+		if(speed >= MAX_CONTROLLER_SPEED)
 			sleep(1)
 		else
-			sleep(12-speed)
+			sleep(MAX_ELECTRICITY_LEVEL-speed)
 
 	looping = 0
 
@@ -381,3 +388,12 @@
 			rpath += copytext(path, i, i+1) // else, add to list
 
 		// there doesn't HAVE to be separators but it makes paths syntatically visible
+
+
+
+#undef MIN_CONTROLLER_SPEED
+#undef MAX_CONTROLLER_SPEED
+#undef MIN_ELECTRICITY_LEVEL
+#undef MAX_ELECTRICITY_LEVEL
+#undef MIN_MAGNETIC_FIELD
+#undef MAX_MAGNETIC_FIELD
