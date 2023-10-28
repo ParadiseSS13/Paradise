@@ -153,7 +153,7 @@ export const MagnetController = (props, context) => {
                       tooltip={tooltip}
                       onClick={() =>
                         act('path_remove', {
-                          index: i,
+                          index: i + 1,
                           code: code
                         })
                       }
