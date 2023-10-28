@@ -1136,23 +1136,19 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return 1
 
 /mob/living/carbon/proc/eat(obj/item/reagent_containers/to_eat, mob/user, bitesize_override)
-	var/self_feed = FALSE
-	if(user == src)
-		self_feed = TRUE
-
 	if(ispill(to_eat) || ispatch(to_eat))
 		return consume_patch_or_pill(to_eat, self_feed, user)
 
 	if(!isfood(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
 		return FALSE
 
-	var/obj/item/reagent_containers/food/food = to_eat
+	var/obj/item/reagent_containers/food/food = to_eat // It's not a patch or a pill so it must be food
 	var/fullness = nutrition + 10
 	if(istype(food, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
 
-	if(self_feed)
+	if(user == src)
 		if(istype(food, /obj/item/reagent_containers/food/drinks))
 			if(!selfDrink(food))
 				return FALSE
@@ -1242,7 +1238,7 @@ so that different stomachs can handle things in different ways VB*/
 		if(patch.instant_application)
 			instant = TRUE
 
-	if(!self_feed && !instant)
+	if(!(user == src) && !instant)
 		if(requires_mouth && !head && ismachineperson(src)) // You will not feed the IPC
 			to_chat(user, "<span class='warning'>You cannot feed [src] [p_or_p]!.</span>")
 			return FALSE
