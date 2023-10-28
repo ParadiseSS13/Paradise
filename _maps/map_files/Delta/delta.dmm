@@ -12952,7 +12952,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/folder/yellow,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/patch/silver_sulf,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -34400,7 +34400,7 @@
 /obj/item/cartridge/engineering{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/patch/silver_sulf,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
