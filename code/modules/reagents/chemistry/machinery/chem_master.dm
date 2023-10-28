@@ -224,6 +224,11 @@
 			P.name = "Chemical Analysis - [R.name]"
 			spawn(50)
 				printing = FALSE
+		if("set_production_mode")
+			var/new_mode = text2num(params["mode"])
+			if(new_mode == null)
+				return
+			production_mode = clamp(new_mode, CHEMMASTER_MIN_PRODUCTION_MODE, CHEMMASTER_MAX_PRODUCTION_MODE)
 		else
 			. = FALSE
 
@@ -262,11 +267,6 @@
 				return
 			var/obj/item/reagent_containers/food/condiment/P = new(loc)
 			reagents.trans_to(P, 50)
-		if("set_production_mode")
-			var/new_mode = text2num(params["mode"])
-			if(new_mode == null)
-				return
-			production_mode = clamp(new_mode, CHEMMASTER_MIN_PRODUCTION_MODE, CHEMMASTER_MAX_PRODUCTION_MODE)
 
 		// Pills
 		if("set_pills_style")
