@@ -187,15 +187,15 @@
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"
-	var/autolink = 0 // if set to 1, can't probe for other magnets!
+	var/autolink = FALSE // if set to 1, can't probe for other magnets!
 
 	var/pathpos = 1 // position in the path
 	var/path = "NULL" // text path of the magnet
 	var/speed = MIN_CONTROLLER_SPEED
 	var/list/rpath = list() // real path of the magnet, used in iterator
 
-	var/moving = 0 // 1 if scheduled to loop
-	var/looping = 0 // 1 if looping
+	var/moving = FALSE // 1 if scheduled to loop
+	var/looping = FALSE // 1 if looping
 
 
 /obj/machinery/magnetic_controller/Initialize(mapload)
@@ -372,7 +372,7 @@
 		else
 			sleep(MAX_ELECTRICITY_LEVEL-speed)
 
-	looping = 0
+	looping = FALSE
 
 
 /obj/machinery/magnetic_controller/proc/filter_path()
