@@ -1229,17 +1229,19 @@ so that different stomachs can handle things in different ways VB*/
 	var/reagent_application = REAGENT_INGEST
 	var/requires_mouth = TRUE
 	var/instant = FALSE
+	var/efficiency = 1
 
 	if(ispatch(p_or_p))
 		apply_method = "apply"
 		reagent_application = REAGENT_TOUCH
 		requires_mouth = FALSE
+		efficiency = 0.5 // Patches aren't that good at transporting reagents into the bloodstream
 		var/obj/item/reagent_containers/patch/patch = p_or_p
 		if(patch.instant_application)
 			instant = TRUE
 
 	if(user != src && !instant)
-		if(requires_mouth && !head && ismachineperson(src)) // You will not feed the IPC
+		if(requires_mouth && (!head || ismachineperson(src))) // You will not feed the IPC
 			to_chat(user, "<span class='warning'>You cannot feed [src] [p_or_p]!</span>")
 			return FALSE
 		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [p_or_p].</span>")
@@ -1254,7 +1256,7 @@ so that different stomachs can handle things in different ways VB*/
 	var/fraction = min(1 / p_or_p.reagents.total_volume, 1)
 	if(fraction)
 		p_or_p.reagents.reaction(src, reagent_application, fraction)
-		p_or_p.reagents.trans_to(src, p_or_p.reagents.total_volume * 0.5) // Patches aren't that good at transporting reagents into the bloodstream
+		p_or_p.reagents.trans_to(src, p_or_p.reagents.total_volume * efficiency)
 	return TRUE
 
 /mob/living/carbon/get_access()
