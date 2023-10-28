@@ -391,6 +391,8 @@
 			switch(id)
 				if("path_custom_input")
 					ui_modal_input(src, id, "Please enter the new path:", null, arguments, rpath.Join(";"), MAX_PATH_LENGTH)
+				else
+					return FALSE
 		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
@@ -401,6 +403,10 @@
 					moving = FALSE
 					pathpos = 1
 					filter_path(new_path)
+				else
+					return FALSE
+		else
+			return FALSE
 
 /obj/machinery/magnetic_controller/proc/MagnetMove()
 	if(looping) return
