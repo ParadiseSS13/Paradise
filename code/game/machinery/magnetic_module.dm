@@ -194,7 +194,7 @@
 	var/path = "NULL" // text path of the magnet
 	var/speed = MIN_CONTROLLER_SPEED
 	var/list/rpath = list() // real path of the magnet, used in iterator
-	var/static/list/valid_paths = list("N", "S", "E", "W", "C", "R")
+	var/static/list/valid_paths = list("n", "s", "e", "w", "c", "r")
 
 	var/moving = FALSE // TRUE if scheduled to loop
 	var/looping = FALSE // TRUE if looping
@@ -308,7 +308,7 @@
 			path = rpath.Join(";")
 		if("path_remove")
 			var/index = text2num(params["index"])
-			if(index == null || index < 0 || index > rpath.len)
+			if(index == null || index < 0 || index >= rpath.len)
 				return
 			var/code = params["code"]
 			if(!(code in valid_paths))

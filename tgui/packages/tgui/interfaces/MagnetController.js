@@ -6,42 +6,42 @@ import { modalOpen } from './common/ComplexModal'
 
 const pathCodeMap = new Map([
   [
-    'N',
+    'n',
     {
       icon: 'arrow-up',
       tooltip: 'Move North',
     },
   ],
   [
-    'E',
+    'e',
     {
       icon: 'arrow-right',
       tooltip: 'Move East',
     },
   ],
   [
-    'S',
+    's',
     {
       icon: 'arrow-down',
       tooltip: 'Move South',
     },
   ],
   [
-    'W',
+    'w',
     {
       icon: 'arrow-left',
       tooltip: 'Move West',
     },
   ],
   [
-    'C',
+    'c',
     {
       icon: 'crosshairs',
       tooltip: 'Move to Magnet',
     },
   ],
   [
-    'R',
+    'r',
     {
       icon: 'dice',
       tooltip: 'Move Randomly',
