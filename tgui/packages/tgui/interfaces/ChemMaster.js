@@ -254,7 +254,7 @@ const ChemMasterBuffer = (props, context) => {
 
 const ChemMasterProduction = (props, context) => {
   const { act } = useBackend(context);
-  if (!props.bufferNonEmpty) {
+  if (!props.bufferNonEmpty && props.isCondiment) {
     return (
       <Section title="Production">
         <Flex height="100%" style={{ 'padding-top': '20px', 'padding-bottom': '20px', }}>
@@ -363,6 +363,9 @@ const ChemMasterProductionCommon = (props, context) => {
     productionType,
     quantity,
   } = props;
+  const {
+    buffer_reagents = [],
+  } = data;
   return (
     <LabeledList>
       {children}
@@ -373,7 +376,7 @@ const ChemMasterProductionCommon = (props, context) => {
         <ChemMasterNameInput fluid value={medicineName} placeholder={placeholderName} onChange={(e, value) => act(`set_${productionType}_name`, { newValue: value })} />
       </LabeledList.Item>
       <LabeledList.Item>
-        <Button fluid content="Create" color="green" onClick={() => act(`create_${productionType}`)} />
+        <Button fluid content="Create" color="green" disabled={buffer_reagents.length <= 0} onClick={() => act(`create_${productionType}`)} />
       </LabeledList.Item>
     </LabeledList>
   );
