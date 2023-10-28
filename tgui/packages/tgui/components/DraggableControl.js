@@ -73,10 +73,15 @@ export class DraggableControl extends Component {
     };
 
     this.handleDragMove = (e) => {
-      const { minValue, maxValue, step, stepPixelSize, dragMatrix, disabled } =
+      const { minValue, maxValue, step, dragMatrix, disabled } =
         this.props;
       if (disabled) {
         return;
+      }
+      const defaultStepPixelSize = e.target.offsetWidth / ((maxValue - minValue) / step);
+      let stepPixelSize = this.props.stepPixelSize ?? defaultStepPixelSize;
+      if (typeof stepPixelSize === 'function') {
+        stepPixelSize = stepPixelSize(defaultStepPixelSize);
       }
       this.setState((prevState) => {
         const state = { ...prevState };
