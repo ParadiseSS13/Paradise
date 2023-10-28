@@ -470,11 +470,12 @@
 	data["maxpatches"] = CHEMMASTER_MAX_PATCHES
 	data["maxbottles"] = CHEMMASTER_MAX_BOTTLES
 
-	var/amount_per_pill = clamp(reagents.total_volume / pillamount, 0, MAX_UNITS_PER_PILL)
-	data["pillplaceholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
-	var/amount_per_patch = clamp(reagents.total_volume / patchamount, 0, MAX_UNITS_PER_PATCH)
-	data["patchplaceholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
-	data["bottleplaceholdername"] = reagents.get_master_reagent_name()
+	if(reagents.total_volume)
+		var/amount_per_pill = clamp(reagents.total_volume / pillamount, 0, MAX_UNITS_PER_PILL)
+		data["pillplaceholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
+		var/amount_per_patch = clamp(reagents.total_volume / patchamount, 0, MAX_UNITS_PER_PATCH)
+		data["patchplaceholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
+		data["bottleplaceholdername"] = reagents.get_master_reagent_name()
 
 	var/pill_styles[0]
 	for(var/i = 1 to MAX_PILL_SPRITE)
