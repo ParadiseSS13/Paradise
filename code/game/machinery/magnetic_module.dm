@@ -206,7 +206,7 @@
 	radio_connection = SSradio.add_object(src, frequency, RADIO_MAGNETS)
 
 	if(path) // check for default path
-		filter_path() // renders rpath
+		filter_path(path) // renders rpath
 
 	if(autolink)
 		return INITIALIZE_HINT_LATELOAD
