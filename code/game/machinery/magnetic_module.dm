@@ -297,7 +297,7 @@
 			speed = clamp(new_value, MIN_CONTROLLER_SPEED, MAX_CONTROLLER_SPEED)
 
 		if("path_add")
-			if(rpath.len > MAX_PATH_LENGTH / 2)
+			if(rpath.len >= MAX_PATH_LENGTH / 2)
 				return
 			var/code = params["code"]
 			if(!(code in valid_paths))
