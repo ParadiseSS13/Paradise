@@ -333,7 +333,7 @@
 			var/new_value = text2num(params["newValue"])
 			if(new_value == null)
 				return
-			magnet?.Cmd("set-electriclevel", clamp(new_value, MIN_ELECTRICITY_LEVEL, MAX_ELECTRICITY_LEVEL))
+			magnet.Cmd("set-electriclevel", clamp(new_value, MIN_ELECTRICITY_LEVEL, MAX_ELECTRICITY_LEVEL))
 		if("set_magnetic_field")
 			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
 			if(!magnet)
@@ -341,7 +341,7 @@
 			var/new_value = text2num(params["newValue"])
 			if(new_value == null)
 				return
-			magnet?.Cmd("set-magneticfield", clamp(new_value, MIN_MAGNETIC_FIELD, MAX_MAGNETIC_FIELD))
+			magnet.Cmd("set-magneticfield", clamp(new_value, MIN_MAGNETIC_FIELD, MAX_MAGNETIC_FIELD))
 
 /obj/machinery/magnetic_controller/ui_data(mob/user)
 	var/data[0]
