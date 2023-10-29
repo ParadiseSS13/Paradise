@@ -3,7 +3,7 @@
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "floorbot0"
+	icon_state = "floorbot"
 	density = FALSE
 	anchored = FALSE
 	health = 25
@@ -370,14 +370,20 @@
 	target = null
 	mode = BOT_IDLE
 
-/mob/living/simple_animal/bot/floorbot/update_icon_state()
+/mob/living/simple_animal/bot/floorbot/update_overlays()
+	. = ..()
+	. += "[toolbox_color]floorbot_[on ? "on" : "off"]"
+
+/*/mob/living/simple_animal/bot/floorbot/update_icon_state()
 	if(mode == BOT_REPAIRING)
 		icon_state = "[toolbox_color]floorbot-c"
 		return
-	if(amount > 0)
+	iSf(amount > 0)
 		icon_state = "[toolbox_color]floorbot[on]"
 	else
 		icon_state = "[toolbox_color]floorbot[on]e"
+*/
+//SELF NOTE
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
