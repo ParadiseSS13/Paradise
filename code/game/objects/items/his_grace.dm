@@ -110,7 +110,7 @@
 	if(!bloodthirst)
 		drowse()
 		return
-	if(bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
+	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
 		adjust_bloodthirst(0.5 + FLOOR(length(contents) * 0.25, 1))
 	else
 		adjust_bloodthirst(0.5) //don't cool off rapidly once we're at the point where His Grace consumes all.
@@ -118,16 +118,16 @@
 	var/mob/living/carbon/human/master = get_atom_on_turf(src, /mob/living/carbon/human) // Only humans may wield Him
 	var/list/held_items = list()
 	if(!master || !istype(master))
-		go_rabid()
+		go_rabid("A")
 		return
 
 	held_items += master.l_hand
 	held_items += master.r_hand
 	if(!(src in held_items))
-		go_rabid()
+		go_rabid("B")
 		return
 
-	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
+	if(bloodthirst < HIS_GRACE_CONSUME_OWNER || ascended)
 		master.apply_status_effect(STATUS_EFFECT_HISGRACE)
 		return
 
@@ -141,10 +141,11 @@
 	master.Weaken(6 SECONDS)
 	master.adjustBruteLoss(1000)
 	playsound(master, 'sound/effects/splat.ogg', 100, FALSE)
-	go_rabid()
+	go_rabid("C")
 
-/obj/item/his_grace/proc/go_rabid() // She Caerbannog on my rabid till I-
+/obj/item/his_grace/proc/go_rabid(message) // She Caerbannog on my rabid till I-
 	forceMove(get_turf(src)) //no you can't put His Grace in a locker you just have to deal with Him
+	message_admins("[message]")
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
 		return
 	if(bloodthirst >= HIS_GRACE_FALL_ASLEEP)
