@@ -116,11 +116,11 @@
 		adjust_bloodthirst(0.5) //don't cool off rapidly once we're at the point where His Grace consumes all.
 
 	var/mob/living/carbon/human/master = get_atom_on_turf(src, /mob/living/carbon/human) // Only humans may wield Him
-	var/list/held_items = list()
 	if(!master || !istype(master))
 		go_rabid()
 		return
 
+	var/list/held_items = list()
 	held_items += master.l_hand
 	held_items += master.r_hand
 	if(!(src in held_items))
