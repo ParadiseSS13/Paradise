@@ -59,42 +59,11 @@
 	build_path = /obj/item/reagent_containers/food/snacks/monkeycube
 	category = list("initial", "Food")
 
-/datum/design/farwa_cube
-	name = "Farwa cube"
-	id = "fcube"
-	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
-	category = list("initial", "Food")
-
-/datum/design/wolpin_cube
-	name = "Wolpin cube"
-	id = "wcube"
-	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
-	category = list("initial", "Food")
-
-/datum/design/stok_cube
-	name = "Stok cube"
-	id = "scube"
-	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
-	category = list("initial", "Food")
-
-/datum/design/neaera_cube
-	name = "Neaera cube"
-	id = "ncube"
-	build_type = BIOGENERATOR
-	materials = list(MAT_BIOMASS = 250)
-	build_path = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
-	category = list("initial", "Food")
-
 /datum/design/ez_nut
 	name = "E-Z-Nutrient"
 	id = "ez_nut"
 	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 10)
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	category = list("initial","Botany Chemicals")
 
