@@ -370,9 +370,13 @@
 	target = null
 	mode = BOT_IDLE
 
+/mob/living/simple_animal/bot/floorbot/update_icon_state()
+    return
+
 /mob/living/simple_animal/bot/floorbot/update_overlays()
 	. = ..()
 	. += "[toolbox_color]floorbot_[on ? "on" : "off"]"
+	. += "[toolbox_color]floorbot_[amount > 0 "metal" : ]"
 
 /*/mob/living/simple_animal/bot/floorbot/update_icon_state()
 	if(mode == BOT_REPAIRING)
