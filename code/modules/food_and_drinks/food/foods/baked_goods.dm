@@ -70,7 +70,7 @@
 	tastes = list("cake" = 4, "cream cheese" = 3)
 
 /obj/item/reagent_containers/food/snacks/sliceable/plaincake
-	name = "vanilla cake"
+	name = "cake"
 	desc = "A plain cake, not a lie."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "plaincake"
@@ -82,7 +82,7 @@
 	tastes = list("cake" = 5, "vanilla" = 1, "sweetness" = 2)
 
 /obj/item/reagent_containers/food/snacks/plaincakeslice
-	name = "vanilla cake slice"
+	name = "cake slice"
 	desc = "Just a slice of cake, it is enough for everyone."
 	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "plaincake_slice"

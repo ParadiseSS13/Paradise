@@ -618,7 +618,7 @@
 	description = "A rather bitter herb once thought to hold magical protective properties."
 	reagent_state = LIQUID
 	color = "#21170E"
-	process_flags = ORGANIC | SYNTHETIC	
+	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "tea"
 	harmless = TRUE
 
@@ -721,6 +721,14 @@
 /datum/reagent/consumable/weird_cheese/reaction_turf(turf/T, volume)
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/item/reagent_containers/food/snacks/weirdcheesewedge(T)
+
+/datum/reagent/consumable/yoghurt
+	name = "yoghurt"
+	id = "yoghurt"
+	description = "Some yoghurt, produced by bacterial fermentation of milk. Yum."
+	reagent_state = LIQUID
+	color = "#FFFFFF"
+	taste_description = "yoghurt"
 
 /datum/reagent/consumable/beans
 	name = "Refried beans"

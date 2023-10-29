@@ -83,6 +83,52 @@
 	being_cooked.reagents.del_reagent("egg")
 	return being_cooked
 
+/datum/recipe/candy/wafflecone
+	reagents = list("milk" = 1, "sugar" = 1)
+	result = /obj/item/reagent_containers/food/snacks/wafflecone
+
+/datum/recipe/candy/moffmallows
+	reagents = list("vanilla" = 5, "sugar" = 15, "rum" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/grown/soybeans
+	)
+	result = /obj/item/reagent_containers/food/snacks/moffmallows
+
+/datum/recipe/candy/candiedpineapple
+	reagents = list("sugar" = 2, "water" = 2)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/pineappleslice
+	)
+	result = /obj/item/reagent_containers/food/snacks/candiedapple
+
+/datum/recipe/candy/chocolateorange
+	items = list(
+		/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
+		/obj/item/reagent_containers/food/snacks/chocolatebar
+	)
+	result = /obj/item/reagent_containers/food/snacks/chocolateorange
+
+/datum/recipe/candy/chocolatecoin
+	items = list(
+		/obj/item/coin,
+		/obj/item/reagent_containers/food/snacks/chocolatebar
+	)
+	result = /obj/item/reagent_containers/food/snacks/chocolatecoin
+
+/datum/recipe/candy/chocolatebunny
+	reagents = list("sugar" = 2)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/chocolatebar
+	)
+	result = /obj/item/reagent_containers/food/snacks/chocolatebunny
+
+/datum/recipe/candy/fudgedice
+	items = list(
+		/obj/item/dice,
+		/obj/item/reagent_containers/food/snacks/chocolatebar
+	)
+	result = /obj/item/reagent_containers/food/snacks/fudgedice
+
 // ***********************************************************
 // Base Candy Recipes (unflavored / plain)
 // ***********************************************************

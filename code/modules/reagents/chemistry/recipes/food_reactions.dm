@@ -77,6 +77,26 @@
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel(location)
 
+/datum/chemical_reaction/curdcheese
+	name = "Churd Cheese"
+	id = "curdcheese"
+	result = null
+	required_reagents = list("milk" = 15, "vinegar" = 5, "cream" = 5)
+	result_amount = 1
+	min_temp = T0C + 80
+
+/datum/chemical_reaction/curdcheese/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i = 1, i <= created_volume, i++)
+		new /obj/item/reagent_containers/food/snacks/curdcheese(location)
+
+/datum/chemical_reaction/yoghurt
+	name = "Yoghurt"
+	id = "yoghurt"
+	result = "yoghurt"
+	required_reagents = list("milk" = 10, "virusfood" = 2)
+	result_amount = 10
+
 /datum/chemical_reaction/syntiflesh
 	name = "Syntiflesh"
 	id = "syntiflesh"
