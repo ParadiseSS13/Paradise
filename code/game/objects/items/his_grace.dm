@@ -115,24 +115,35 @@
 	else
 		adjust_bloodthirst(0.5) //don't cool off rapidly once we're at the point where His Grace consumes all.
 
-	var/turf/location = get_turf(src)
-	for(var/mob/living/carbon/human/master in location.contents)
-		if(src != master.l_hand || src != master.r_hand)
-			continue
-		if(bloodthirst > HIS_GRACE_CONSUME_OWNER) // They could not offer enough sacrifices.
-			master.visible_message("<span class='boldwarning'>[src] turns on [master]!</span>",
-									"<span class='his_grace big bold'>[src] turns on you!</span>")
-			do_attack_animation(master, used_item = src)
-			master.emote("scream")
-			master.remove_status_effect(STATUS_EFFECT_HISGRACE)
-			flags &= ~NODROP
-			master.Weaken(6 SECONDS)
-			master.adjustBruteLoss(1000)
-			playsound(master, 'sound/effects/splat.ogg', 100, FALSE)
-		else
-			master.apply_status_effect(STATUS_EFFECT_HISGRACE)
+	var/mob/living/carbon/human/master = get_atom_on_turf(src, /mob/living/carbon/human) // Only humans may wield Him
+	var/list/held_items = list()
+	if(!master || !istype(master))
+		go_rabid()
 		return
 
+	held_items += master.l_hand
+	held_items += master.r_hand
+	if(!(src in held_items))
+		go_rabid()
+		return
+
+	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
+		master.apply_status_effect(STATUS_EFFECT_HISGRACE)
+		return
+
+	// They didn't sacrifice enough people, so this is where we go ham
+	master.visible_message("<span class='boldwarning'>[src] turns on [master]!</span>",
+							"<span class='his_grace big bold'>[src] turns on you!</span>")
+	do_attack_animation(master, used_item = src)
+	master.emote("scream")
+	master.remove_status_effect(STATUS_EFFECT_HISGRACE)
+	flags &= ~NODROP
+	master.Weaken(6 SECONDS)
+	master.adjustBruteLoss(1000)
+	playsound(master, 'sound/effects/splat.ogg', 100, FALSE)
+	go_rabid()
+
+/obj/item/his_grace/proc/go_rabid() // She Caerbannog on my rabid till I-
 	forceMove(get_turf(src)) //no you can't put His Grace in a locker you just have to deal with Him
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
 		return

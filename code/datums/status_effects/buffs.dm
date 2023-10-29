@@ -6,8 +6,8 @@
 	tick_interval = 4
 	alert_type = /obj/screen/alert/status_effect/his_grace
 	var/bloodlust = 0
-	/// Reference to the parent toolbox
-	var/obj/item/his_grace/his_grace
+	var/victims = 0
+	var/victims_needed = 20 // Will get updated anyways, but just in case
 
 /obj/screen/alert/status_effect/his_grace
 	name = "His Grace"
@@ -21,7 +21,7 @@
 	desc += "<br><font size=3><b>Current Bloodthirst: [HG.bloodlust]</b></font>\
 	<br>Becomes undroppable at <b>[100]</b>\
 	<br>Will consume you at <b>[140]</b>\
-	<br>You have offered [HG.his_grace.victims] out of [HG.his_grace.victims_needed] sacrifices needed before ascension.</b>"
+	<br>You have offered [HG.victims] out of [HG.victims_needed] sacrifices needed before ascension."
 	..()
 
 /datum/status_effect/his_grace/on_apply()
@@ -36,7 +36,8 @@
 	held_items += owner.l_hand
 	held_items += owner.r_hand
 	for(var/obj/item/his_grace/HG in held_items)
-		his_grace = HG
+		victims = HG.victims
+		victims_needed = HG.victims_needed
 		if(HG.bloodthirst > bloodlust)
 			bloodlust = HG.bloodthirst
 		if(HG.awakened)
