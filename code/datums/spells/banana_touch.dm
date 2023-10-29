@@ -11,6 +11,9 @@
 	cooldown_min = 100 //50 deciseconds reduction per rank
 	action_icon_state = "clown"
 
+/obj/effect/proc_holder/spell/touch/banana/apprentice
+	hand_path = /obj/item/melee/touch_attack/banana/apprentice
+
 /obj/item/melee/touch_attack/banana
 	name = "banana touch"
 	desc = "It's time to start clowning around."
@@ -30,6 +33,14 @@
 	to_chat(user, "<font color='red' size='6'>HONK</font>")
 	var/mob/living/carbon/human/H = target
 	H.bananatouched()
+	..()
+
+/obj/item/melee/touch_attack/banana/apprentice
+
+/obj/item/melee/touch_attack/banana/apprentice/afterattack(atom/target, mob/living/carbon/user, proximity)
+	if(iswizard(target) && target != user)
+		to_chat(user, "<span class='danger'>Seriously?! Honk them not us!</span>")
+		return
 	..()
 
 /mob/living/carbon/human/proc/bananatouched()

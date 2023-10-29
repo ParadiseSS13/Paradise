@@ -26,21 +26,31 @@ export const WizardApprenticeContract = (props, context) => {
         </Section>
         <Section title="Which school of magic is your apprentice studying?">
           <LabeledList>
-            <LabeledList.Item label="Destruction">
-              Your apprentice is skilled in offensive magic. They know Magic
-              Missile and Fireball.
+            <LabeledList.Item label="Fire">
+              Your apprentice is skilled in offensive magic. They know Fireball
+              and Ethereal Jaunt.
               <br />
               <Button
                 content="Select"
                 disabled={used}
-                onClick={() => act('destruction')}
+                onClick={() => act('fire')}
               />
             </LabeledList.Item>
             <LabeledList.Divider />
-            <LabeledList.Item label="Bluespace Manipulation">
-              Your apprentice is able to defy physics, melting through solid
-              objects and travelling great distances in the blink of an eye.
-              They know Teleport and Ethereal Jaunt.
+            <LabeledList.Item label="Earth">
+              Your apprentice is learning how to manipulate matter. They know
+              Flesh to Stone and Ethereal Jaunt.
+              <br />
+              <Button
+                content="Select"
+                disabled={used}
+                onClick={() => act('earth')}
+              />
+            </LabeledList.Item>
+            <LabeledList.Divider />
+            <LabeledList.Item label="Bluespace">
+              Your apprentice is able to defy physics, learning how to move
+              through bluespace. They know Blink and Ethereal Jaunt.
               <br />
               <Button
                 content="Select"
@@ -49,26 +59,17 @@ export const WizardApprenticeContract = (props, context) => {
               />
             </LabeledList.Item>
             <LabeledList.Divider />
-            <LabeledList.Item label="Healing">
-              Your apprentice is training to cast spells that will aid your
-              survival. They know Forcewall and Charge and come with a Staff of
-              Healing.
+            <LabeledList.Item label="Honk">
+              Your apprentice is here to spread the Honkmother's blessings. They
+              know Banana Touch, Instant Summons, Ethereal jaunt, and comes
+              equipped with a Staff of Slipping. While under your tutelage, they
+              have been 'blessed' with clown shoes that are impossible to
+              remove.
               <br />
               <Button
                 content="Select"
                 disabled={used}
-                onClick={() => act('healing')}
-              />
-            </LabeledList.Item>
-            <LabeledList.Divider />
-            <LabeledList.Item label="Robeless">
-              Your apprentice is training to cast spells without their robes.
-              They know Knock and Mindswap.
-              <br />
-              <Button
-                content="Select"
-                disabled={used}
-                onClick={() => act('robeless')}
+                onClick={() => act('honk')}
               />
             </LabeledList.Item>
             <LabeledList.Divider />

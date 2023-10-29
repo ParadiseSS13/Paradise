@@ -360,6 +360,9 @@
 
 	return TRUE
 
+/obj/effect/proc_holder/spell/fireball/apprentice
+	centcom_cancast = FALSE
+
 /obj/effect/proc_holder/spell/fireball/toolbox
 	name = "Homing Toolbox"
 	desc = "This spell summons and throws a magical homing toolbox at your opponent."
