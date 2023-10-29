@@ -35,26 +35,31 @@
 /**
  * Lists all active jobbans for src client
  *
- * silent_if_none - If true, user will not recieve any info in chat if they have no job bans, used when a player loads into to the lobby.
+ * on_connect_call - If true, user will not recieve any info in chat if they have no job bans, used when a player loads into to the lobby.
  */
-/client/proc/display_job_bans(silent_if_none = FALSE)
-	jbh.reload_jobbans(src)
+/client/proc/display_job_bans(on_connect_call = FALSE)
+	if(!on_connect_call) // Only reload if this is being checked by a user manually, as we load job bans at client new anyway
+		jbh.reload_jobbans(src)
 
 	if(!length(jbh.job_bans))
-		if(!silent_if_none)
-			to_chat(src, "<span class='warning'>You have no active jobbans!</span>")
+		if(!on_connect_call)
+			to_chat(src, chat_box_red("<span class='warning'>You have no active jobbans!</span>"))
 		return
+
+	var/list/messages = list()
 
 	for(var/ban in jbh.job_bans)
 		var/datum/job_ban/JB = jbh.job_bans[ban] // Remember. Its assoc.
 		switch(JB.bantype)
 			if("JOB_PERMABAN")
-				to_chat(src, "<span class='warning'>[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]</span>")
+				messages.Add("<span class='warning'>[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]</span>")
 			if("JOB_TEMPBAN")
-				to_chat(src, "<span class='warning'>[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]; [JB.duration]; expires [JB.expiration_time]</span>")
+				messages.Add("<span class='warning'>[JB.bantype]: [JB.job] - REASON: [JB.reason], by [JB.a_ckey]; [JB.bantime]; [JB.duration]; expires [JB.expiration_time]</span>")
 
 	if(GLOB.configuration.url.banappeals_url)
-		to_chat(src, "<span class='warning'>You can appeal the bans at: [GLOB.configuration.url.banappeals_url]</span>")
+		messages.Add("<span class='warning'>You can appeal the bans at: [GLOB.configuration.url.banappeals_url]</span>")
+
+	to_chat(src, chat_box_red(messages.Join("<br>")))
 
 /client/verb/displayjobbans() //Shell verb to call the proc
 	set category = "OOC"

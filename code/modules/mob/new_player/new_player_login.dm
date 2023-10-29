@@ -29,7 +29,6 @@
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
 		client.verbs += /client/proc/readmin
 
-	client.display_job_bans(TRUE)
 	client.playtitlemusic()
 	client.update_active_keybindings()
 
