@@ -239,6 +239,9 @@
 /obj/item/deck/attack_self()
 	deckshuffle()
 
+/obj/item/deck/AltClick()
+	deckshuffle()
+
 /obj/item/deck/verb/verb_shuffle()
 	if(!isobserver(usr))
 		set category = "Object"
@@ -249,7 +252,7 @@
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
-	if(cooldown < world.time - 5 SECONDS)
+	if(cooldown < world.time - 1 SECONDS)
 		cards = shuffle(cards)
 		user.visible_message("<span class='notice'>[user] shuffles [src].</span>")
 		playsound(user, 'sound/items/cardshuffle.ogg', 50, 1)

@@ -38,6 +38,9 @@
 	defib = new/obj/item/defibrillator/loaded(src)
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/machinery/defibrillator_mount/loaded/locked
+	clamps_locked = TRUE
+
 /obj/machinery/defibrillator_mount/Destroy()
 	QDEL_NULL(defib)
 	return ..()
