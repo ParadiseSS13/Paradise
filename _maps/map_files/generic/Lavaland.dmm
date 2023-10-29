@@ -1428,11 +1428,6 @@
 /area/mine/outpost/hallway/west)
 "dq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -1672,8 +1667,7 @@
 /area/mine/outpost/hallway/east)
 "dL" = (
 /obj/machinery/door/airlock/maintenance/external{
-	name = "Processing Room";
-	welded = 1
+	name = "Processing Room"
 	},
 /obj/structure/fans/tiny,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -1686,6 +1680,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "dM" = (
@@ -1957,6 +1952,11 @@
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "mining qm"
 	},
+/obj/structure/cable{
+	icon_state = "1-4";
+	d1 = 1;
+	d2 = 4
+	},
 /turf/simulated/floor/plating,
 /area/mine/outpost/quartermaster)
 "eq" = (
@@ -2022,6 +2022,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
@@ -2465,11 +2470,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
