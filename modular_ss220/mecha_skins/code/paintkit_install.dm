@@ -29,6 +29,9 @@
 	reset_icon()
 	qdel(P)
 
+/obj/mecha/go_out(forced, atom/newloc = loc)
+	. = ..()
+	icon_state = reset_icon(icon_state)+"-open"
 
 //RIP AND PEPPERONI
 
