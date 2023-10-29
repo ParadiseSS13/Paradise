@@ -99521,7 +99521,12 @@
 /area/station/science/research)
 "wXz" = (
 /obj/structure/table/wood,
-/obj/item/megaphone,
+/obj/item/megaphone{
+	pixel_y = 9
+	},
+/obj/item/stamp/hos{
+	pixel_y = -4
+	},
 /turf/simulated/floor/carpet/red,
 /area/station/command/office/hos)
 "wXE" = (
