@@ -49,7 +49,7 @@ export class DraggableControl extends Component {
         return;
       }
       document.body.style['pointer-events'] = 'none';
-      this.ref = e.target;
+      this.ref = e.currentTarget;
       this.setState({
         dragging: false,
         originalValue: value,
