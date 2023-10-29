@@ -183,7 +183,14 @@
 	if(HAS_TRAIT(M, TRAIT_COMIC_SANS) || issmall(M))
 		update_flags |= M.adjustBruteLoss(-1, FALSE)
 		update_flags |= M.adjustFireLoss(-1, FALSE)
+	if(M.mind.assigned_role == "Clown")
+		M.AddComponent(/datum/component/slippery, M, 8 SECONDS, 100, 0, FALSE, TRUE, "slip", TRUE)
+
 	return ..() | update_flags
+
+/datum/reagent/consumable/drink/banana/on_mob_delete(mob/living/M)
+	qdel(M.GetComponent(/datum/component/slippery))
+	return
 
 /datum/reagent/consumable/drink/nothing
 	name = "Nothing"
