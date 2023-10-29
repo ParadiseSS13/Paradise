@@ -61,7 +61,7 @@ export const WizardApprenticeContract = (props, context) => {
             <LabeledList.Divider />
             <LabeledList.Item label="Honk">
               Your apprentice is here to spread the Honkmother's blessings. They
-              know Banana Touch, Instant Summons, Ethereal jaunt, and comes
+              know Banana Touch, Instant Summons, Ethereal Jaunt, and comes
               equipped with a Staff of Slipping. While under your tutelage, they
               have been 'blessed' with clown shoes that are impossible to
               remove.
