@@ -378,7 +378,7 @@
 	icon_addon = "robodrobe"
 	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("You turn me TRUE, use defines!",
-					"0110001101101100011011110111010001101000011001010111001101101000011001010111001001100101")
+					"01000011011011000110111101110100011010000110010101110011001000000110100001100101011100100110010100100001") //This translates to "Clothes here!"
 
 	vend_reply = "Thank you for using the RoboDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/roboticist = 3,
@@ -393,7 +393,8 @@
 					/obj/item/clothing/shoes/white = 3,
 					/obj/item/clothing/shoes/black = 3)
 
-	contraband = list(/obj/item/toy/figure/crew/roboticist = 1)
+	contraband = list(/obj/item/toy/figure/crew/roboticist = 1,
+					/obj/item/toy/figure/crew/borg = 1)
 
 	prices = list(/obj/item/clothing/under/rank/rnd/roboticist = 50,
 				/obj/item/clothing/under/rank/rnd/roboticist/skirt = 50,
@@ -579,6 +580,7 @@
 					/obj/item/clothing/suit/chef/classic = 2,
 					/obj/item/clothing/head/chefhat = 2,
 					/obj/item/clothing/head/soft/mime = 2,
+					/obj/item/clothing/head/beret/white = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/white = 2,
 					/obj/item/clothing/shoes/black = 2,
@@ -594,6 +596,7 @@
 				/obj/item/clothing/suit/chef/classic = 50,
 				/obj/item/clothing/head/chefhat = 50,
 				/obj/item/clothing/head/soft/mime = 30,
+				/obj/item/clothing/head/beret/white = 20,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/white = 20,
 				/obj/item/clothing/shoes/black = 20,
@@ -617,6 +620,7 @@
 					/obj/item/clothing/under/misc/sl_suit = 2,
 					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/soft/black = 2,
+					/obj/item/clothing/head/beret/black = 2,
 					/obj/item/clothing/suit/blacktrenchcoat = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/black = 2,
@@ -630,6 +634,7 @@
 				/obj/item/clothing/under/misc/sl_suit = 50,
 				/obj/item/clothing/head/that = 20,
 				/obj/item/clothing/head/soft/black = 20,
+				/obj/item/clothing/head/beret/black = 20,
 				/obj/item/clothing/suit/blacktrenchcoat = 75,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/black = 20,
