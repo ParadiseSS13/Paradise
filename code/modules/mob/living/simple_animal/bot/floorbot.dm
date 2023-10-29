@@ -389,7 +389,7 @@
 	mode = BOT_IDLE
 
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
-    return
+	return
 
 /mob/living/simple_animal/bot/floorbot/update_overlays()
 	. = ..()
