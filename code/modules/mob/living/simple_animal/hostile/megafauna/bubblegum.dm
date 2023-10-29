@@ -1,6 +1,7 @@
 #define BUBBLEGUM_SMASH (health <= maxHealth * 0.5 || second_life) // angery
 #define BUBBLEGUM_CAN_ENRAGE (enrage_till + (enrage_time * 2) <= world.time)
 #define BUBBLEGUM_IS_ENRAGED (enrage_till > world.time)
+#define MAXIMUM_ENRAGED_HEALLING 500
 
 
 /*
@@ -64,7 +65,7 @@ Difficulty: Hard
 	/// Does it have a portal to the funny second life arena created?
 	var/obj/effect/portal/redspace/second_life_portal
 	/// Max healing bubblegum can get from being enraged
-	var/maximum_enraged_healing = 500
+	var/maximum_enraged_healing = MAXIMUM_ENRAGED_HEALLING
 	/// Enraged healing recived
 	var/enraged_healing = 0
 	internal_gps = /obj/item/gps/internal/bubblegum

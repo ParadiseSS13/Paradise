@@ -209,7 +209,8 @@ Difficulty: Medium
 			else
 				for(var/mob/living/carbon/human/H in range(7, src))
 					if(H.stat == DEAD)
-						A.GiveTarget(target)
+						A.GiveTarget(H)
+						break
 			A.friends = friends
 			A.faction = faction
 
