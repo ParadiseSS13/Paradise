@@ -97,7 +97,7 @@
 			auto_patrol = !auto_patrol
 			bot_reset()
 		if("hack")
-			handle_hacking(usr)
+			handle_hacking(user)
 		if("disableremote")
 			remote_disabled = !remote_disabled
 
