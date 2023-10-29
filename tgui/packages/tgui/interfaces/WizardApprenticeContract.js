@@ -27,7 +27,7 @@ export const WizardApprenticeContract = (props, context) => {
         <Section title="Which school of magic is your apprentice studying?">
           <LabeledList>
             <LabeledList.Item label="Fire">
-              Your apprentice is skilled in offensive magic. They know Fireball
+              Your apprentice is skilled in combat magic. They know Fireball
               and Ethereal Jaunt.
               <br />
               <Button
