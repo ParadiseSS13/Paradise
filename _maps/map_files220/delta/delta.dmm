@@ -19243,12 +19243,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/miningdock)
 "bJK" = (
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_access_txt = "4"
-	},
 /obj/machinery/alarm/directional/east,
+/obj/structure/closet,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "bJO" = (
@@ -54223,11 +54219,6 @@
 /turf/space,
 /area/space)
 "hoh" = (
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_access_txt = "4"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/general{
 	dir = 4
 	},
@@ -54236,6 +54227,7 @@
 	dir = 4;
 	name = "Evidence"
 	},
+/obj/structure/closet,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "hoj" = (
@@ -57758,6 +57750,9 @@
 "itF" = (
 /obj/structure/closet/l3closet/security,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "itL" = (
@@ -75257,11 +75252,6 @@
 	dir = 4;
 	name = "Evidence"
 	},
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_access_txt = "4"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/general{
 	dir = 4
 	},
@@ -75271,6 +75261,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/closet,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "oxu" = (
@@ -83914,11 +83905,6 @@
 	dir = 8;
 	name = "Evidence"
 	},
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_access_txt = "4"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/general{
 	dir = 8
 	},
@@ -83927,6 +83913,7 @@
 	c_tag = "Brig Evidence";
 	dir = 8
 	},
+/obj/structure/closet,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "rwY" = (
@@ -91148,11 +91135,6 @@
 	},
 /area/station/hallway/primary/starboard)
 "tYs" = (
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_access_txt = "4"
-	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/security/general{
 	dir = 8
 	},
@@ -91161,6 +91143,7 @@
 	dir = 8;
 	name = "Evidence"
 	},
+/obj/structure/closet,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "tYw" = (
@@ -94339,6 +94322,9 @@
 "vbK" = (
 /obj/structure/closet/bombclosetsecurity,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/machinery/recharger/wallcharger{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "vbQ" = (
@@ -97509,11 +97495,6 @@
 	},
 /area/station/medical/storage)
 "wjk" = (
-/obj/structure/closet/secure_closet{
-	anchored = 1;
-	name = "Evidence Storage";
-	req_access_txt = "4"
-	},
 /obj/machinery/power/apc/directional/west,
 /obj/structure/cable{
 	d2 = 4;
@@ -97525,6 +97506,7 @@
 	icon_state = "1-4"
 	},
 /obj/item/radio/intercom/directional/south,
+/obj/structure/closet,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/evidence)
 "wjm" = (
