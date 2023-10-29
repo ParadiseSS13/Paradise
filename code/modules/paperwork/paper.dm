@@ -560,6 +560,10 @@
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
 
+/obj/item/paper/crumpled/bloody/ruins/lavaland/seed_vault/discovery
+	name = "discoveries and toughts"
+	info = "We dionas wake up on ship with objective of terraformation, it gone great we were making plants and discovering new ones over time, we spread 'special' grass around our ship, it gone great, over time we started lack oxygen in our tanks to continue spreading of grass, so we started to mutate plans in way to discover ability to breathe little longer in low oxygen enviornement, after trails of fails and success we discovered a few species of plants with can be usefull like healing plants, addiction plants, glowing shrooms with are usefull for us so we don't die from lack of light, and way more plants, but there was one with brough most of our attention, it may not give us oxygen but allowed us to breathe in low oxygen enviornement, we called it 'space tobacco' its poisonous but it contain Salbutamol chemical with allow you to breathe in low oxygen enviornement, only downsite is you need extract bad chemicals away just for this one, after we did it, we started spreading grass but after some travel i got attacked by strange creature and got chased, i wandered too far from ship and my storage of plant is running out like my ability to breathe for longer, i am starting to suffocate, i need find my way back quickly before i will suffocate."
+
 /obj/item/paper/fortune
 	name = "fortune"
 	icon_state = "slip"
@@ -677,7 +681,7 @@
 
 /obj/item/paper/seed_vault
 	name = "Seed Vault Objective"
-	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 5 compact pickaxes <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
+	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tank <br>- 4 breathing masks <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
 
 /obj/item/paper/seed_vault/terraformation
 	name = "Terraformation Experiment for SN-856B"
