@@ -104,6 +104,10 @@
 	desc = "A suitcase containing the necessary gun parts to build a full gun, when combined with a gun kit. Use it directly on a gunkit to rapidly assemble it."
 	icon_state = "syndicase"
 
+/obj/item/weaponcrafting/gunkit/universal_gun_kit/sol_gov
+	name = "\improper sol gov universal self assembling gun parts kit"
+	icon_state = "solcase" //Ikea reference pending.
+
 /obj/item/weaponcrafting/gunkit/universal_gun_kit/afterattack(obj/item/weaponcrafting/gunkit/gunkit_to_use, mob/user, flag)
 	if(!istype(gunkit_to_use))
 		return
