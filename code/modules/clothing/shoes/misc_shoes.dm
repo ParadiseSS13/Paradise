@@ -57,6 +57,11 @@
 	desc = "A pair of purple rubber boots, designed to prevent slipping on wet surfaces while also drying them."
 	icon_state = "galoshes_dry"
 
+/obj/item/clothing/shoes/galoshes/dry/lightweight /// for red janitor ert.
+	name = "lightweight absorbent galoshes"
+	desc = "A pair of expensive looking lightweight rubber boots, designed to prevent slipping on wet surfaces while also drying them."
+	slowdown = NONE
+
 /obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
@@ -174,6 +179,14 @@
 	can_cut_open = 0
 	icon_state = "jacksandal"
 	item_color = "jacksandal"
+
+/obj/item/clothing/shoes/jackboots/noisy
+	name = "heavy jackboots"
+	desc = "Outdated heavier versions of the standard Nanotrasen-issue Security combat boots. Pick up that can."
+
+/obj/item/clothing/shoes/jackboots/noisy/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/squeak, list('sound/effects/jackboot1.ogg' = 1, 'sound/effects/jackboot2.ogg' = 1), 50, falloff_exponent = 20)
 
 /obj/item/clothing/shoes/workboots
 	name = "work boots"

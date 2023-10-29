@@ -102,6 +102,8 @@
 	icon_state = icons_charges[charges + 1]
 
 /obj/item/teleporter/proc/attempt_teleport(mob/user, EMP_D = FALSE)
+	for(var/obj/item/grab/G in user)
+		qdel(G)
 	dir_correction(user)
 	if(!charges && !EMP_D) //If it's empd, you are moving no matter what.
 		to_chat(user, "<span class='warning'>[src] is still recharging.</span>")

@@ -80,7 +80,7 @@
 	name = "Syndicate Infiltrator"
 
 /datum/outfit/admin/syndicate_infiltrator/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = H.equip_syndicate_infiltrator(0, 20, FALSE)
+	. = H.equip_syndicate_infiltrator(0, 100, FALSE)
 	H.sec_hud_set_ID()
 	H.faction |= "syndicate"
 

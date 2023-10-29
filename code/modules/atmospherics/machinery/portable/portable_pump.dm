@@ -7,7 +7,7 @@
 #define DIRECTION_OUT 1
 
 /obj/machinery/atmospherics/portable/pump
-	name = "Portable Air Pump"
+	name = "portable air pump"
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "psiphon:0"
 	density = TRUE
@@ -21,8 +21,9 @@
 /obj/machinery/atmospherics/portable/pump/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Invaluable for filling air in a room rapidly after a breach repair. The internal gas container can be filled by \
-			connecting it to a connector port. The pump can pump the air in (sucking) or out (blowing), at a specific target pressure. The powercell inside can be \
-			replaced by using a screwdriver, and then adding a new cell. A tank of gas can also be attached to the air pump.</span>"
+			connecting it to a connector port, you're unable to have it both connected, and on at the same time. \
+			[src] can pump the air in (sucking) or out (blowing), at a specific target pressure. \
+			A tank of gas can also be attached to the air pump, allowing you to fill or empty the tank, via the internal one.</span>"
 
 /obj/machinery/atmospherics/portable/pump/update_icon_state()
 	icon_state = "psiphon:[on]"

@@ -23,7 +23,7 @@
 	},
 /area/ruin/space/powered/bar)
 "af" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ah" = (
@@ -170,7 +170,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "aQ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "aS" = (
@@ -605,7 +605,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "zy" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/space/nearstation)
 "zC" = (

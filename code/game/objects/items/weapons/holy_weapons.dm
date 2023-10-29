@@ -122,6 +122,12 @@
 	damtype = BURN
 	attack_verb = list("punched", "cross countered", "pummeled")
 
+/obj/item/nullrod/godhand/customised_abstract_text()
+	if(!ishuman(loc))
+		return
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in holy fire.</span>"
+
 /obj/item/nullrod/staff
 	name = "red holy staff"
 	desc = "It has a mysterious, protective aura."
@@ -255,6 +261,8 @@
 	attack_verb = list("chopped", "sliced", "cut", "zandatsu'd")
 
 /obj/item/nullrod/scythe/spellblade
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "spellblade"
 	item_state = "spellblade"
 	icon = 'icons/obj/guns/magic.dmi'
@@ -264,6 +272,8 @@
 
 /obj/item/nullrod/scythe/talking
 	name = "possessed blade"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "talking_sword"
 	item_state = "talking_sword"
 	desc = "When the station falls into chaos, it's nice to have a friend by your side."
@@ -294,6 +304,7 @@
 		S.real_name = name
 		S.name = name
 		S.ckey = theghost.ckey
+		dust_if_respawnable(theghost)
 		var/input = stripped_input(S, "What are you named?", null, "", MAX_NAME_LEN)
 
 		if(src && input)
@@ -423,6 +434,12 @@
 	flags = ABSTRACT | NODROP
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
+
+/obj/item/nullrod/armblade/customised_abstract_text()
+	if(!ishuman(loc))
+		return
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>"
 
 /obj/item/nullrod/armblade/mining
 	flags = NODROP

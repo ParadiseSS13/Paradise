@@ -45,7 +45,7 @@
 				msg += "<span class='deadsay'>It looks like its internal subsystems are beyond repair and require replacing.</span>\n"
 			else
 				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
-	msg += "*---------*</span>"
+	msg += "</span>"
 
 	if(print_flavor_text())
 		msg += "\n[print_flavor_text()]\n"

@@ -205,17 +205,17 @@
 
 /datum/gear/uniform/skirt/job/magistrate
 	display_name = "Skirt, magistrate"
-	path = /obj/item/clothing/under/rank/centcom/magistrate/skirt
+	path = /obj/item/clothing/under/rank/procedure/magistrate/skirt
 	allowed_roles = list("Magistrate")
 
 /datum/gear/uniform/skirt/job/ntrep
 	display_name = "Skirt, nt rep"
-	path = /obj/item/clothing/under/rank/centcom/representative/skirt
+	path = /obj/item/clothing/under/rank/procedure/representative/skirt
 	allowed_roles = list("Nanotrasen Representative")
 
 /datum/gear/uniform/skirt/job/blueshield
 	display_name = "Skirt, blueshield"
-	path = /obj/item/clothing/under/rank/centcom/blueshield/skirt
+	path = /obj/item/clothing/under/rank/procedure/blueshield/skirt
 	allowed_roles = list("Blueshield")
 
 
