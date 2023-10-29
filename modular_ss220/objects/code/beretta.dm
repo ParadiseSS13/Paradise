@@ -4,37 +4,42 @@
 	name = "Беретта M9"
 	desc = "Один из самых распространенных и узнаваемых пистолетов во вселенной. Старая добрая классика."
 	icon = 'modular_ss220/objects/icons/guns.dmi'
+	lefthand_file = 'modular_ss220/objects/icons/inhands/guns_lefthand.dmi'
+	righthand_file = 'modular_ss220/objects/icons/inhands/guns_righthand.dmi'
 	icon_state = "beretta"
 	item_state = "beretta"
+	can_suppress = FALSE
 	mag_type = /obj/item/ammo_box/magazine/beretta
 	fire_sound = 'modular_ss220/objects/sound/weapons/gunshots/beretta_shot.ogg'
 
 /obj/item/ammo_box/magazine/beretta
 	name = "beretta rubber 9x19mm magazine"
+	desc = "Магазин резиновых патронов калибра 9x19mm."
 	icon = 'modular_ss220/objects/icons/ammo.dmi'
 	icon_state = "berettar"
 	multi_sprite_step = 2
 	ammo_type = /obj/item/ammo_casing/beretta/mmrub919
 	max_ammo = 10
-	caliber = "919mmr"
+	caliber = "919mm"
 
 /obj/item/ammo_box/magazine/beretta/mm919
 	name = "beretta lethal 9x19mm magazine"
+	desc = "Магазин летальных патронов калибра 9x19mm."
 	icon_state = "berettal"
 	ammo_type = /obj/item/ammo_casing/beretta/mm919
-	caliber = "919mm"
 
 /obj/item/ammo_box/magazine/beretta/mmbsp919
 	name = "beretta bluespace 9x19mm magazine"
+	desc = "Магазин экспериментальных блюспейс патронов калибра 9x19mm. Из-за особенности корпуса вмещает только блюспейс патроны."
 	icon_state = "berettab"
 	ammo_type = /obj/item/ammo_casing/beretta/mmbsp919
 	caliber = "919bmm"
 
 /obj/item/ammo_box/magazine/beretta/mmap919
 	name = "beretta armor-piercing 9x19mm magazine"
+	desc = "Магазин бронебойных патронов калибра 9x19mm."
 	icon_state = "berettaap"
 	ammo_type = /obj/item/ammo_casing/beretta/mmap919
-	caliber = "919apmm"
 
 /obj/item/ammo_casing/beretta/mmbsp919
 	caliber = "919bmm"
@@ -48,7 +53,7 @@
 	speed = 0.2
 
 /obj/item/ammo_casing/beretta/mmap919
-	caliber = "919apmm"
+	caliber = "919mm"
 	name = "9x19mm armor-piercing bullet casing"
 	desc = "A 9x19 armor-piercing bullet casing."
 	projectile_type = /obj/item/projectile/bullet/mmap919
@@ -60,20 +65,24 @@
 	armour_penetration_flat = 15
 
 /obj/item/ammo_casing/beretta/mmrub919
-	caliber = "919mmr"
-	icon = 'modular_ss220/objects/icons/ammo.dmi'
-	icon_state = "casingmm919"
-	projectile_type = /obj/item/projectile/bullet/weakbullet4
-
-/obj/item/ammo_casing/beretta/mm919
+	name = "9x19mm rubber bullet casing"
 	caliber = "919mm"
 	icon = 'modular_ss220/objects/icons/ammo.dmi'
 	icon_state = "casingmm919"
+	desc = "A 9x19 rubber bullet casing."
+	projectile_type = /obj/item/projectile/bullet/weakbullet4
+
+/obj/item/ammo_casing/beretta/mm919
+	name = "9x19mm lethal bullet casing"
+	caliber = "919mm"
+	icon = 'modular_ss220/objects/icons/ammo.dmi'
+	icon_state = "casingmm919"
+	desc = "A 9x19 lethal bullet casing."
 	projectile_type = /obj/item/projectile/bullet/weakbullet3
 
 /obj/item/ammo_box/beretta
 	name = "box of rubber 9x19mm cartridges"
-	desc = "Contains up to 30 rubber 9x19mm cartridges."
+	desc = "Содержит до 30 резиновых патронов калибра 9x19mm."
 	w_class = WEIGHT_CLASS_NORMAL
 	ammo_type = /obj/item/ammo_casing/beretta/mmrub919
 	max_ammo = 30
@@ -82,21 +91,21 @@
 
 /obj/item/ammo_box/beretta/mm919
 	name = "box of lethal 9x19mm cartridges"
-	desc = "Contains up to 20 9x19mm cartridges."
+	desc = "Содержит до 20 летальных патронов калибра 9x19mm."
 	ammo_type = /obj/item/ammo_casing/beretta/mm919
 	max_ammo = 20
 	icon_state = "9mm_box"
 
 /obj/item/ammo_box/beretta/mmbsp919
 	name = "box of bluespace 9x19mm cartridges"
-	desc = "Contains up to 20 bluespace 9x19mm cartridges."
+	desc = "Содержит до 20 блюспейс патронов калибра 9x19mm."
 	ammo_type = /obj/item/ammo_casing/beretta/mmbsp919
 	max_ammo = 20
 	icon_state = "9mmb_box"
 
 /obj/item/ammo_box/beretta/mmap919
 	name = "box of armor-penetration 9x19mm cartridges"
-	desc = "Contains up to 20 armor-penetration 9x19mm cartridges."
+	desc = "Содержит до 20 бронебойных патронов калибра 9x19mm."
 	ammo_type = /obj/item/ammo_casing/beretta/mmap919
 	max_ammo = 20
 	icon_state = "9mmap_box"
