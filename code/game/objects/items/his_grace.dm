@@ -127,7 +127,7 @@
 		go_rabid("B")
 		return
 
-	if(bloodthirst < HIS_GRACE_CONSUME_OWNER || ascended)
+	if(bloodthirst <= HIS_GRACE_CONSUME_OWNER || ascended)
 		master.apply_status_effect(STATUS_EFFECT_HISGRACE)
 		return
 
