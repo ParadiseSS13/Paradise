@@ -69,6 +69,7 @@
 	text_dehack = "You reboot [name] and restore the sound control system."
 	text_dehack_fail = "[name] refuses to accept your authority!"
 
+<<<<<<< HEAD
 /mob/living/simple_animal/bot/honkbot/show_controls(mob/user)
 	ui_interact(user)
 
@@ -77,6 +78,17 @@
 	if(!ui)
 		ui = new(user, src, ui_key, "BotHonk", name, 500, 220)
 		ui.open()
+=======
+/mob/living/simple_animal/bot/honkbot/get_controls(mob/user)
+	var/dat
+	dat += hack(user)
+	dat += showpai(user)
+	dat += {"
+	<TT><B>Honkomatic Bike Horn Unit v1.0.7 controls</B></TT><BR><BR>
+	Status: <A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>
+	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
+	Maintenance panel is [open ? "opened" : "closed"]<BR>"}
+>>>>>>> upstream/master
 
 /mob/living/simple_animal/bot/honkbot/ui_act(action, params, datum/tgui/ui)
 	if(..())
