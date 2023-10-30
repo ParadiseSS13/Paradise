@@ -285,3 +285,6 @@
 	if(!jobban_isbanned(user, ROLE_NYMPH))
 		return TRUE
 	return FALSE
+
+#undef GESTALT_ALERT
+#undef NYMPH_ALERT
