@@ -59,8 +59,8 @@
 
 /obj/item/clothing/head/hopcap/beret
 	name = "head of personnel's beret"
-	icon_state = "hop_beret"
 	desc = "For doing paperwork with style."
+	icon_state = "hop_beret"
 
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
