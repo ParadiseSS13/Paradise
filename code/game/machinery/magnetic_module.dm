@@ -259,7 +259,9 @@
 	ui_interact(user)
 
 /obj/machinery/magnetic_controller/proc/find_magnet(uid)
-	locateUID()
+	var/potential_magnet = locateUID(uid)
+	if(istype(potential_magnet, /obj/machinery/magnetic_module))
+		return potential_magnet
 	return null
 
 /obj/machinery/magnetic_controller/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
