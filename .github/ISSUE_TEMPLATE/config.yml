@@ -7,3 +7,6 @@ contact_links:
 - name: Feature Request
   url: https://www.paradisestation.org/forum/60-suggestions/
   about: Please place all feature requests here
+- name: Exploit Report
+  url: https://www.paradisestation.org/forum/179-exploit-reports/
+  about: Exploit reports goes to forum
