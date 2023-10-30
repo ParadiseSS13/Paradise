@@ -646,3 +646,10 @@ Difficulty: Hard
 	for(var/mob/living/carbon/human/H in range(20))
 		to_chat(H, "<span class='colossus'><b>I WILL END YOU HERE AND NOW!</b></span>")
 		FindTarget(list(H), 1)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Life(seconds, times_fired)
+	. = ..()
+	if(!istype(get_area(src), /area/ruin/space/bubblegum_arena))
+		for(var/obj/effect/landmark/spawner/bubblegum/B in GLOB.landmarks_list)
+			forceMove(get_turf(B))
+			break

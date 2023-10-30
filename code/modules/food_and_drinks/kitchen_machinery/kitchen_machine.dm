@@ -528,11 +528,6 @@
 
 	return data
 
-/obj/machinery/kitchen_machine/ui_static_data(mob/user)
-	var/list/data = list()
-	data["name"] = name
-	return data
-
 /obj/machinery/kitchen_machine/ui_act(action, params, datum/tgui/ui)
 	. = ..()
 	if(.)
