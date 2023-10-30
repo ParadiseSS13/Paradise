@@ -55,7 +55,7 @@
 	if(skip_jumpsuit && skip_face || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
 		msg += "!"    //omit the species when examining
 	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
-		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!"
+		msg += ", \a [height]<b><font color='[examine_color]'> slime person</font></b> with \a [physique] physique!"
 	else
 		msg += ", \a [height]<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b> with \a [physique] physique!" //Look I know it uses physique twice, lets not think about it too much ok?
 	return msg
