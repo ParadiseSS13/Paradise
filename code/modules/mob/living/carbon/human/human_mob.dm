@@ -770,7 +770,7 @@
 		add_comment(usr, "security", sanitized)
 
 	if(href_list["medical"])
-		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			if(usr.incapacitated())
 				return
 			var/modified = 0
@@ -782,7 +782,7 @@
 						if(R.fields["id"] == E.fields["id"])
 							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
-							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
 									modified = 1
@@ -796,7 +796,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["mental"])
-		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			if(usr.incapacitated())
 				return
 			var/modified = 0
@@ -808,7 +808,7 @@
 						if(R.fields["id"] == E.fields["id"])
 							var/setmental = input(usr, "Specify a new mental status for this person.", "Medical HUD", R.fields["m_stat"]) in list("*Insane*", "*Unstable*", "*Watch*", "Stable", "Cancel")
 
-							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 								if(setmental != "Cancel")
 									R.fields["m_stat"] = setmental
 									modified = 1
@@ -819,7 +819,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecord"])
-		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
 			if(usr.incapacitated())
 				return
 			var/read = 0
@@ -829,7 +829,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
 								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]")
 								to_chat(usr, "<b>DNA:</b> [R.fields["b_dna"]]")
 								to_chat(usr, "<b>Minor Disabilities:</b> [R.fields["mi_dis"]]")
@@ -844,7 +844,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordComment"])
-		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
 			if(usr.incapacitated())
 				return
 			var/perpname = get_visible_name(TRUE)
@@ -854,7 +854,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
 								read = TRUE
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
@@ -867,11 +867,11 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordadd"])
-		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			return
 		var/raw_input = input("Add Comment:", "Medical records", null, null) as message
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
-		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_MEDICAL))
+		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_MEDICAL_WRITE))
 			return
 		add_comment(usr, "medical", sanitized)
 

@@ -65,5 +65,6 @@
 // on-screen icons, but rather go to examine text.
 #define EXAMINE_HUD_SECURITY_READ "security_read"
 #define EXAMINE_HUD_SECURITY_WRITE "security_write"
-#define EXAMINE_HUD_MEDICAL "medical"
+#define EXAMINE_HUD_MEDICAL_READ "medical_read"
+#define EXAMINE_HUD_MEDICAL_WRITE "medical_write"
 #define EXAMINE_HUD_SKILLS "skills"
