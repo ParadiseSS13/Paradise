@@ -329,6 +329,7 @@
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/hud/security/chameleon
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
 	flash_protect = FLASH_PROTECTION_FLASH
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
