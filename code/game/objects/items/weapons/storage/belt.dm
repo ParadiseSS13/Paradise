@@ -522,7 +522,7 @@
 /obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
-	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
+	new /obj/item/storage/bag/trash/bluespace(src)
 	new /obj/item/soap/deluxe(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
