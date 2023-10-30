@@ -222,14 +222,18 @@
 	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
 		var/perpname = get_visible_name(TRUE)
 		var/medical = "None"
+		var/mental = "None"
 
 		for(var/datum/data/record/E in GLOB.data_core.general)
 			if(E.fields["name"] == perpname)
 				for(var/datum/data/record/R in GLOB.data_core.general)
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
+						mental = R.fields["m_stat"]
+
 
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='?src=[UID()];medical=1'>\[[medical]\]</a>\n"
+		msg += "<span class = 'deptradio'>Mental Status:</span> <a href='?src=[UID()];mental=1'>\[[mental]\]</a>\n"
 		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 

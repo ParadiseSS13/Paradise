@@ -795,6 +795,29 @@
 			if(!modified)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
+	if(href_list["mental"])
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+			if(usr.incapacitated())
+				return
+			var/modified = 0
+			var/perpname = get_visible_name(TRUE)
+
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					for(var/datum/data/record/R in GLOB.data_core.general)
+						if(R.fields["id"] == E.fields["id"])
+							var/setmental = input(usr, "Specify a new mental status for this person.", "Medical HUD", R.fields["m_stat"]) in list("*Insane*", "*Unstable*", "*Watch*", "Stable", "Cancel")
+
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+								if(setmental != "Cancel")
+									R.fields["m_stat"] = setmental
+									modified = 1
+									spawn()
+										sec_hud_set_security_status()
+
+			if(!modified)
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
+
 	if(href_list["medrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 			if(usr.incapacitated())
