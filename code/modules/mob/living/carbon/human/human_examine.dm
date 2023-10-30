@@ -54,10 +54,11 @@
 				break
 	if(skip_jumpsuit && skip_face || HAS_TRAIT(src, TRAIT_NOEXAMINE)) //either obscured or on the nospecies list
 		msg += "!"    //omit the species when examining
-	else if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
-		msg += ", a<b><font color='[examine_color]'> slime person</font></b>!"
 	else
-		msg += ", \a [height]<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b> with \a [physique] physique!" //Look I know it uses physique twice, lets not think about it too much ok?
+		var/species_name =  lowertext(displayed_species)
+		if(displayed_species == "Slime People") //snowflakey because Slime People are defined as a plural
+			species_name = "slime person"
+		msg += ", \a [height]<b><font color='[examine_color]'> [species_name]</font></b> with \a [physique] physique!"
 	return msg
 
 /mob/living/carbon/human/examine_start_damage_block(skip_gloves = FALSE, skip_suit_storage = FALSE, skip_jumpsuit = FALSE, skip_shoes = FALSE, skip_mask = FALSE, skip_ears = FALSE, skip_eyes = FALSE, skip_face = FALSE)
