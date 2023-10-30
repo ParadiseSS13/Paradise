@@ -228,7 +228,7 @@
 			M.fakevomit(1)
 		else
 			M.fakevomit(0)
-	update_flags |= M.adjustToxLoss(2 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+	update_flags |= M.adjustToxLoss(1 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
 /datum/reagent/fishwater/toiletwater
