@@ -421,7 +421,7 @@
 			. = TRUE
 	update_icon()
 
-/obj/machinery/photocopier/proc/ai_text()
+/obj/machinery/photocopier/proc/ai_text(mob/user)
 	if(!issilicon(user))
 		return
 	if(stat & (BROKEN|NOPOWER))
