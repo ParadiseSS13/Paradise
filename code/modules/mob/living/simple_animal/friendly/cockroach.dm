@@ -45,3 +45,11 @@
 /mob/living/simple_animal/cockroach/ex_act() //Explosions are a terrible way to handle a cockroach.
 	return
 
+//mining pet
+/mob/living/simple_animal/cockroach/Brad
+	name = "Brad"
+	desc = "Lavaland's most resilient cockroach. Seeing this little guy walk through the wastes almost makes you wish for nuclear winter."
+	response_help = "carefully pets"
+	weather_immunities = list("ash")
+	unique_pet = TRUE
+	gold_core_spawnable = NO_SPAWN
