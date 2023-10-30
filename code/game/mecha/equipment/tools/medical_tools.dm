@@ -299,6 +299,7 @@
 	var/turf/trg = get_turf(target)
 	var/obj/item/reagent_containers/syringe/mechsyringe = syringes[1]
 	mechsyringe.forceMove(get_turf(chassis))
+	mechsyringe.mode = 1
 	reagents.trans_to(mechsyringe, min(mechsyringe.volume, reagents.total_volume))
 	syringes -= mechsyringe
 	mechsyringe.icon = 'icons/obj/chemical.dmi'
