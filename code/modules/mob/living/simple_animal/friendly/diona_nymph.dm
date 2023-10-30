@@ -3,6 +3,9 @@
  */
 
 //Mob defines.
+#define GESTALT_ALERT "gestalt screen alert"
+#define NYMPH_ALERT "nymph screen alert"
+
 /mob/living/simple_animal/diona
 	name = "diona nymph"
 	icon = 'icons/mob/monkey.dmi'
@@ -43,8 +46,6 @@
 	can_collar = TRUE
 
 	a_intent = INTENT_HELP
-	var/gestalt_alert = "merged with gestalt" //used in adding and clearing alert
-	var/nymph_alert = "merged with nymph" //As above, but for the gestalt's alert.
 	var/evolve_donors = 5 //amount of blood donors needed before evolving
 	var/awareness_donors = 3 //amount of blood donors needed for understand language
 	var/nutrition_need = 500 //amount of nutrition needed before evolving
@@ -106,8 +107,8 @@
 		if(isdiona(M))
 			to_chat(M, "You feel your being twine with that of [src] as it merges with your biomass.")
 			to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
-			throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
-			M.throw_alert(nymph_alert, /obj/screen/alert/gestalt, new_master = src)
+			throw_alert(GESTALT_ALERT, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+			M.throw_alert(NYMPH_ALERT, /obj/screen/alert/gestalt, new_master = src)
 			forceMove(M)
 		else if(isrobot(M))
 			M.visible_message("<span class='notice'>[M] playfully boops [src] on the head!</span>", "<span class='notice'>You playfully boop [src] on the head!</span>")
@@ -140,8 +141,8 @@
 		M.status_flags |= PASSEMOTES
 		to_chat(src, "You feel your being twine with that of [M] as you merge with its biomass.")
 		forceMove(M)
-		throw_alert(gestalt_alert, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
-		M.throw_alert(nymph_alert, /obj/screen/alert/gestalt, new_master = src)
+		throw_alert(GESTALT_ALERT, /obj/screen/alert/nymph, new_master = src) //adds a screen alert that can call resist
+		M.throw_alert(NYMPH_ALERT, /obj/screen/alert/gestalt, new_master = src)
 		return TRUE
 	else
 		return FALSE
@@ -163,9 +164,9 @@
 			hasMobs = TRUE
 	if(!hasMobs)
 		D.status_flags &= ~PASSEMOTES
-		D.clear_alert(nymph_alert)
+		D.clear_alert(NYMPH_ALERT)
 
-	clear_alert(gestalt_alert)
+	clear_alert(GESTALT_ALERT)
 	return TRUE
 
 /mob/living/simple_animal/diona/proc/evolve()
