@@ -548,7 +548,7 @@
 		/obj/item/reagent_containers/food/snacks/breadslice,
 		/obj/item/reagent_containers/food/snacks/cutlet,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
-		/obj/item/reagent_containers/food/snacks/grown/cabbage
+		/obj/item/reagent_containers/food/snacks/grown/onion
 	)
 	result = /obj/item/reagent_containers/food/snacks/philly_cheesesteak
 
