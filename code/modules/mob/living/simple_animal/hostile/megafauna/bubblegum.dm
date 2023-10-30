@@ -413,7 +413,7 @@ Difficulty: Hard
 	if(!BUBBLEGUM_CAN_ENRAGE)
 		return FALSE
 	enrage_till = world.time + enrage_time
-	if(enraged && enraged_healing < MAXIMUM_ENRAGED_HEALING && !second_life)
+	if(enraged && (enraged_healing < MAXIMUM_ENRAGED_HEALING) && !second_life)
 		adjustHealth(-75)
 	update_approach()
 	change_move_delay(enraged ? 3 : 4) //3 if enraged, 4 otherwise
