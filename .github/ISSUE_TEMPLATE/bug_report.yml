@@ -18,9 +18,6 @@ description: Create a report to help us improve. If this doesn't look right
 body:
 - type: markdown
   attributes:
-    value: "Paradise Station Bug Report"
-- type: markdown
-  attributes:
     value: "**IMPORTANT** <br> If your issue is an ingame exploit that allows players to gain an unfair advantage, or an issue which could affect server stability or security, please file it at https://www.paradisestation.org/forum/179-exploit-reports/ so that it is safe from prying eyes"
 - type: textarea
   id: Issue
