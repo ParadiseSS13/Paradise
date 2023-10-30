@@ -332,6 +332,8 @@
 					add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
 					mechsyringe.reagents.reaction(M, REAGENT_INGEST)
 					mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
+					if(!mechsyringe.reagents.total_volume)
+						mechsyringe.mode = 0
 					M.take_organ_damage(2)
 				break
 			else if(mechsyringe.loc == trg)
