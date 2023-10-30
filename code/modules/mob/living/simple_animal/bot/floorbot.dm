@@ -396,7 +396,7 @@
 	if(mode == BOT_REPAIRING)
 		. += "floorbot_work"
 	else
-		. += "floorbot_[on ? "on" : "off"]"
+		. += "floorbot_[on ? "on" : "off" ]"
 		. += "floorbot_[amount > 0 ? "metal" : "" ]"
 
 /mob/living/simple_animal/bot/floorbot/explode()
