@@ -797,9 +797,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * If allow_roundstart_observers is FALSE (TRUE by default), then any observers who were able to ahud due to joining roundstart will be excluded as well.
  */
 /mob/dead/observer/proc/check_ahud_rejoin_eligibility(allow_roundstart_observers=TRUE)
-	if(!GLOB.configuration.general.restrict_antag_hud_rejoin || !(key in GLOB.antag_hud_users))
+	if(!GLOB.configuration.general.restrict_antag_hud_rejoin || !has_ahudded())
 		return TRUE
 
 	if(ckey in GLOB.roundstart_observer_keys)
 		return allow_roundstart_observers
 	return FALSE
+
+/mob/dead/observer/proc/is_roundstart_observer()
+	return (ckey in GLOB.roundstart_observer_keys)
+
+/mob/dead/observer/proc/has_ahudded()
+	return (ckey in GLOB.antag_hud_users)

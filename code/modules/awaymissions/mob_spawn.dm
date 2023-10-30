@@ -82,6 +82,9 @@
 	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
+	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
+		to_chat(user, "<span class='warning'>You currently do not have respawnability!</span>")
+		return FALSE
 	if(isobserver(user))
 		var/mob/dead/observer/O = user
 		if(!O.check_ahud_rejoin_eligibility())
