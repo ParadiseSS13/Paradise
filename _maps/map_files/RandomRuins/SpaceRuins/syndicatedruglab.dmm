@@ -126,7 +126,9 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "rn" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/closet/walllocker/emerglocker/west,
 /turf/simulated/floor/plating,
@@ -152,7 +154,9 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "te" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
@@ -176,7 +180,9 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "vz" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
@@ -206,7 +212,9 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "ym" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light/small{
 	dir = 8
@@ -225,7 +233,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "AI" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/machinery/door_control{
 	id = "syndicatedruglab";
 	name = "Syndicate Drug Lab Hangar";
@@ -307,7 +317,9 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "II" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 8;
 	icon_state = "pipe-c"
@@ -324,11 +336,15 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/syndicate_druglab)
 "KI" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "LQ" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
@@ -339,15 +355,21 @@
 /turf/simulated/wall/mineral/titanium/survival,
 /area/ruin/space/syndicate_druglab)
 "Ou" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "Oy" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "Oz" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
@@ -387,7 +409,9 @@
 /turf/simulated/floor/carpet/black,
 /area/ruin/space/syndicate_druglab)
 "TJ" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/blood/oil/streak,
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
@@ -418,7 +442,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 "Yw" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/syndicate_druglab)
 
