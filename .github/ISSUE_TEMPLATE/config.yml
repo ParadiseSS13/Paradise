@@ -1,3 +1,7 @@
+#DOCS
+#https://docs.github.com/en/github-ae@latest/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser
+#
+
 blank_issues_enabled: false
 contact_links:
 - name: Feature Request
