@@ -357,7 +357,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "dP" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -1064,7 +1064,7 @@
 /area/ruin/unpowered/syndicate_space_base/telecomms)
 "kI" = (
 /obj/machinery/atmospherics/portable/canister/toxins,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "kU" = (
@@ -1134,7 +1134,7 @@
 /area/ruin/unpowered/syndicate_space_base/cargo)
 "lw" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -1447,7 +1447,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "oZ" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/binary/pump{
 	dir = 1
 	},
@@ -1655,7 +1657,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "rW" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/atmospherics/binary/pump,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -1669,7 +1673,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "sr" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2005,7 +2009,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplefull"
@@ -2615,7 +2619,7 @@
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Cr" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Cv" = (
@@ -3121,7 +3125,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "He" = (
 /obj/machinery/atmospherics/portable/scrubber,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -3451,7 +3455,7 @@
 /area/ruin/unpowered/syndicate_space_base/bar)
 "KH" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24
 	},
@@ -4083,7 +4087,7 @@
 /area/ruin/unpowered/syndicate_space_base/virology)
 "RN" = (
 /obj/structure/reagent_dispensers/watertank,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -4132,7 +4136,7 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "SI" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/bluespace_beacon/syndicate/infiltrator,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4377,7 +4381,7 @@
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Vg" = (
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Vl" = (
@@ -4719,7 +4723,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/bar)
 "Zo" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/computer/general_air_control/large_tank_control{
 	inlet_injector_autolink_id = "syndiebase_mix_in";
 	outlet_vent_autolink_id = "syndiebase_mix_out";
