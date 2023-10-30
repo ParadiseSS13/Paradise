@@ -75,7 +75,7 @@ Difficulty: Medium
 	. = ..()
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
-			other.loot = list(/obj/item/storm_staff)
+			other.loot = list(/obj/item/storm_staff) //Initial does not work with lists.
 			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 			other.maxHealth = 2500
 			other.health = 2500
@@ -84,7 +84,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
-			other.loot = list(/obj/item/storm_staff)
+			other.loot = list(/obj/item/storm_staff) //Initial does not work with lists.
 			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	. = ..()
 
