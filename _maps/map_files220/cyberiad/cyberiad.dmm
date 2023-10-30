@@ -49627,6 +49627,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "foi" = (
@@ -73982,6 +73983,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "oqc" = (

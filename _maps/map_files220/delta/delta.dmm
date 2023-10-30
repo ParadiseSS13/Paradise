@@ -63670,6 +63670,7 @@
 	id = "qm"
 	},
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "kvQ" = (
@@ -90312,6 +90313,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel,
 /area/station/supply/qm)
 "tJa" = (

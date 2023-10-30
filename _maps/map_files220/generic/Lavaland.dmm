@@ -2374,6 +2374,7 @@
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "mining qm"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -10592,6 +10593,7 @@
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "mining qm"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/quartermaster)
 "YV" = (
