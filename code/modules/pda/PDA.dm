@@ -37,12 +37,24 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/detonate = TRUE // Can the PDA be blown up?
 	var/ttone = "beep" //The ringtone!
 	var/list/ttone_sound = list("beep" = 'sound/machines/twobeep.ogg',
-								"boom" = 'sound/effects/explosionfar.ogg',
+								"boop" = 'sound/machines/boop.ogg',
+								"electronic" = 'sound/machines/notif1.ogg',
+								"chime" = 'sound/machines/notif2.ogg',
 								"slip" = 'sound/misc/slip.ogg',
 								"honk" = 'sound/items/bikehorn.ogg',
 								"SKREE" = 'sound/voice/shriek1.ogg',
 								"holy" = 'sound/items/PDA/ambicha4-short.ogg',
-								"xeno" = 'sound/voice/hiss1.ogg')
+								"boom" = 'sound/effects/explosionfar.ogg',
+								"gavel" = 'sound/items/gavel.ogg',
+								"xeno" = 'sound/voice/hiss1.ogg',
+								"smoke" = 'sound/magic/smoke.ogg',
+								"shatter" = 'sound/effects/pylon_shatter.ogg',
+								"energy" = 'sound/weapons/egloves.ogg',
+								"flare" = 'sound/goonstation/misc/matchstick_light.ogg',
+								"interference" = 'sound/misc/interference.ogg',
+								"zap" = 'sound/effects/eleczap.ogg',
+								"disgusting" = 'sound/effects/blobattack.ogg',
+								"hungry" = 'sound/weapons/bite.ogg')
 
 	var/list/programs = list(
 		new/datum/data/pda/app/main_menu,
