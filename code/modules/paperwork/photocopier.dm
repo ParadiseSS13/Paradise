@@ -411,7 +411,7 @@
 		if("scandocument")
 			scan_document()
 		if("ai_text")
-			ai_text()
+			ai_text(usr)
 		if("ai_pic")
 			ai_pic()
 		if("filecopy")
