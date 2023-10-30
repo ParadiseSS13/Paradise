@@ -82,9 +82,11 @@
 	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
-	if(cannotPossess(user))
-		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-		return FALSE
+	if(isobserver(user))
+		var/mob/dead/observer/O = user
+		if(!O.check_ahud_rejoin_eligibility())
+			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return FALSE
 	if(time_check(user))
 		return FALSE
 	return TRUE

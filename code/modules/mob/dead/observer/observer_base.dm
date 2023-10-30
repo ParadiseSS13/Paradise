@@ -790,3 +790,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/datum/spawners_menu/menu = new /datum/spawners_menu(src)
 	menu.ui_interact(src)
+
+/**
+ * Check if a player has antag-hudded, and if so, if they can rejoin.
+ * Returns TRUE if the player can rejoin, and FALSE if the player is ineligible to rejoin.
+ * If allow_roundstart_observers is FALSE (TRUE by default), then any observers who were able to ahud due to joining roundstart will be excluded as well.
+ */
+/mob/dead/observer/proc/check_ahud_rejoin_eligibility(allow_roundstart_observers=TRUE)
+	if(!GLOB.configuration.general.restrict_antag_hud_rejoin || !(key in GLOB.antag_hud_users))
+		return TRUE
+
+	if(ckey in GLOB.roundstart_observer_keys)
+		return allow_roundstart_observers
+	return FALSE

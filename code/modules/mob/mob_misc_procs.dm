@@ -137,13 +137,6 @@
 
 	return 1
 
-/proc/cannotPossess(A)
-	var/mob/dead/observer/G = A
-	if(GLOB.configuration.general.restrict_antag_hud_rejoin && !(G.ckey in GLOB.roundstart_observer_keys) && (G.key in GLOB.antag_hud_users))
-		return TRUE
-	return FALSE
-
-
 /proc/iscuffed(A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
