@@ -422,7 +422,7 @@
 	update_icon()
 
 /obj/machinery/photocopier/proc/ai_text()
-	if(!issilicon(usr))
+	if(!issilicon(user))
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
