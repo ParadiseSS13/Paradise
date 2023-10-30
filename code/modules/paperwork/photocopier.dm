@@ -429,15 +429,16 @@
 	var/text = input("Enter what you want to write:", "Write", null, null) as message
 	if(!text)
 		return
-	if(toner >= 1)
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-		var/obj/item/paper/p = new /obj/item/paper (loc)
-		text = p.parsepencode(text, null, usr)
-		p.info = text
-		p.populatefields()
-		toner -= 1
-		use_power(active_power_consumption)
-		sleep(PHOTOCOPIER_DELAY)
+	if(toner < 1 || !user)
+		return
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	var/obj/item/paper/p = new /obj/item/paper(loc)
+	text = p.parsepencode(text, null, user)
+	p.info = text
+	p.populatefields()
+	toner -= 1
+	use_power(active_power_consumption)
+	sleep(PHOTOCOPIER_DELAY)
 
 /obj/machinery/photocopier/proc/ai_pic()
 	if(!issilicon(usr))
