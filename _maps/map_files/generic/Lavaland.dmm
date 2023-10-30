@@ -412,7 +412,7 @@
 /area/mine/laborcamp)
 "bi" = (
 /obj/machinery/computer/mech_bay_power_console,
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/right,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "bk" = (
@@ -1312,7 +1312,7 @@
 	},
 /area/mine/outpost/airlock)
 "dd" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
 	dir = 1
@@ -1453,7 +1453,7 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
 	},
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/right,
 /obj/machinery/door_control{
 	id = "mining_mechbay";
 	req_access_txt = "54";
@@ -1698,7 +1698,7 @@
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "dO" = (
@@ -1813,7 +1813,7 @@
 	},
 /area/mine/outpost/storage)
 "dY" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2042,7 +2042,7 @@
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "ex" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plasteel{
@@ -2287,7 +2287,7 @@
 	},
 /area/mine/outpost/cafeteria)
 "eS" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/machinery/light/small{
 	dir = 1
@@ -2653,7 +2653,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "fE" = (
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -3151,7 +3151,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -3369,7 +3369,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ii" = (
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/shower{
 	dir = 4
 	},
@@ -5024,7 +5024,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "ss" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plasteel{
@@ -5313,7 +5313,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "va" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Box Storage";
@@ -5555,7 +5555,7 @@
 "wi" = (
 /obj/machinery/door/firedoor,
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
 "wy" = (
@@ -7142,7 +7142,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/laborcamp)
 "JX" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -7588,7 +7588,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/siberia)
 "NY" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -7638,7 +7638,7 @@
 	},
 /area/mine/laborcamp/security)
 "Ow" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -8248,7 +8248,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "TS" = (
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable,
 /obj/machinery/camera{
