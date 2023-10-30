@@ -1,14 +1,17 @@
 // OOORAAAH WE HAVE POWERS
-#define POWER_LEVEL_ZERO	0 // Only used for mobs to check what powers they should have // TODO: figure out wtf I meant with this comment
+#define POWER_LEVEL_ZERO	0 // Only used for mobs to check what powers they should have // TODO: figure out wtf I meant with this comment // Okay so I think I meant this as a define to use in comparison with something, to check if it's bought or not?
 #define POWER_LEVEL_ONE		1
 #define POWER_LEVEL_TWO		2
 #define POWER_LEVEL_THREE	3
 #define POWER_LEVEL_FOUR	4
 
+// These defines are used
+#define RANGED_ATTACK_BASE "base ranged attack"
+#define MELEE_ATTACK_BASE "base melee attack"
 
 /obj/effect/proc_holder/spell/flayer
-	panel = "Vampire"
-	school = "vampire"
+//	panel = "Vampire"
+//	school = "vampire"
 	action_background_icon_state = "bg_vampire" // TODO: flayer background
 	human_req = TRUE
 	clothes_req = FALSE

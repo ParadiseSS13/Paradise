@@ -5,12 +5,10 @@
  *
  */
 
-#define RANGED_ATTACK_BASE "base ranged attack"
-#define MELEE_ATTACK_BASE "base melee attack"
-
 /obj/effect/proc_holder/spell/flayer/self/summon
 	name = "Summon minion"
 	desc = "This really shouldn't be here"
+	action_icon_state = "artificer"
 	power_type = FLAYER_UNOBTAINABLE_POWER
 	base_cooldown = 10 SECONDS
 	/// What kind of mob we have to spawn
@@ -33,8 +31,8 @@
 		check_for_ghosts(user)
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/check_for_ghosts(mob/user)
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the ([mob_to_spawn]) of [user.real_name]?", ROLE_MIND_FLAYER, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_to_spawn]")
-	var/mob/dead/observer/theghost = null
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the ([mob_to_spawn]) of [user.real_name]?", poll_time = 10 SECONDS, source = src, role_cleanname = "[mob_to_spawn]")
+	var/mob/dead/observer/theghost
 
 	if(length(candidates))
 		theghost = pick(candidates)
@@ -44,7 +42,7 @@
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/spawn_the_mob(mob/living/user, key, guardian_type)
 	var/turf/user_turf = get_turf(user)
-	var/mob/living/simple_animal/hostile/flayer/flayerbot = new mob_to_spawn(user_turf)
+	var/mob/living/simple_animal/flayerbot = new mob_to_spawn(user_turf)
 	current_mobs += flayerbot
 	flayerbot.key = key
 	RegisterSignal(flayerbot, COMSIG_MOB_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/flayer/self/summon, deduct_mob_from_list))
@@ -91,3 +89,15 @@
 		flayer_bot.melee_damage_upper = melee_damage
 		if(damage_type)
 			flayer_bot.melee_damage_type = damage_type
+
+/*
+	* Alright, this is where the actual mindflayer spells come in.
+	* - List different bots here
+	*
+*/
+
+/obj/effect/proc_holder/spell/flayer/self/summon/melee
+	name = "Summon melee robot"
+	desc = "Summmon a robot powered by the souls of the dead to fight for you!"
+	mob_to_spawn = /mob/living/simple_animal/hostile/flayer
+	power_type = FLAYER_INNATE_POWER
