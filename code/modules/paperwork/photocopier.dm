@@ -386,7 +386,7 @@
 			data["files"] += list(document_data)
 	return data
 
-/obj/machinery/photocopier/ui_act(action, list/params)
+/obj/machinery/photocopier/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 	. = FALSE
@@ -411,7 +411,7 @@
 		if("scandocument")
 			scan_document()
 		if("ai_text")
-			ai_text(usr)
+			ai_text(ui.user)
 		if("ai_pic")
 			ai_pic()
 		if("filecopy")
