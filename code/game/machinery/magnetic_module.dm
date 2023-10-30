@@ -259,9 +259,7 @@
 	ui_interact(user)
 
 /obj/machinery/magnetic_controller/proc/find_magnet(uid)
-	for(var/obj/machinery/magnetic_module/M in magnets)
-		if(M.UID() == uid)
-			return M
+	locateUID()
 	return null
 
 /obj/machinery/magnetic_controller/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -278,7 +276,7 @@
 	. = TRUE
 	switch(action)
 		if("probe_magnets")
-			if(probing)
+			if(probing || autolink)
 				return
 			probing = TRUE
 			link_magnets()
