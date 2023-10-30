@@ -308,7 +308,7 @@
 			path = rpath.Join(";")
 		if("path_remove")
 			var/index = text2num(params["index"])
-			if(index == null || index < 0 || index >= rpath.len)
+			if(index == null || index < 0 || index > rpath.len)
 				return
 			var/code = params["code"]
 			if(!(code in valid_paths))
