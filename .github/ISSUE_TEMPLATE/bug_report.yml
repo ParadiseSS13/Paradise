@@ -1,0 +1,86 @@
+name: "Bug Report"
+description: "File a bug report to make us aware of an issue."
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: checkboxes
+    id: not_an_exploit
+    attributes:
+      label: Exploit Reports
+      description: [If your issue is an ingame exploit that allows players to gain an unfair advantage, or an issue which could affect server stability or security, please file it at this link so that it is safe from prying eyes.](https://www.paradisestation.org/forum/179-exploit-reports/)
+      options:
+        - label: I confirm this bug is not an exploit.
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: BYOND Version
+      description: "What BYOND version were you using when the issue occured? (Find this by pressing the cog in the top-right of the main BYOND menu, then 'About BYOND...')"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: What is the problem?
+      placeholder: I tried buckling myself to a chair but ended up on lavaland!
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: What did you expect to happen:
+      description: Why do you think this is an issue?
+      placeholder: I expected to be strapped to a chair.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened instead
+      description: How is what happened different from what you expected?
+      placeholder: I got sent to lavaland and died.
+
+  - type: textarea
+    id: why-bad
+    attributes:
+      label: Why is this bad/What are the consequences
+      description: Why do you think this is an important issue?
+      placeholder: People sitting in chairs on the station should not end up being devoured by drakes.
+
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: Steps to reproduce the problem
+      description: The most important section. Review everything you did leading up to causing the issue.
+      placeholder: Find a chair, buckle yourself into it, be eaten by dragon.
+    validations:
+      required: true
+
+  - type: textarea
+    id: when-problem-start
+    attributes:
+      label: When did the problem start happening
+      description: If your report is about something that used to work but no longer does, when was the last time you remember it working?
+      placeholder: I could sit fine last week, so sometime around then.
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra-information
+    attributes:
+      label: Extra information
+      description: Anything else you can tell us.
+      placeholder: "I think this bug was introduced in issue #18477"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output/runtime error
+      description: Please copy and paste any relevant log output or runtime if you have access to this. Please censor any ckeys or IP addresses.
+      render: DM
+
