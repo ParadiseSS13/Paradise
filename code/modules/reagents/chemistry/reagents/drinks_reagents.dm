@@ -190,7 +190,7 @@
 
 /datum/reagent/consumable/drink/banana/on_mob_delete(mob/living/M)
 	qdel(M.GetComponent(/datum/component/slippery))
-	return
+	return ..()
 
 /datum/reagent/consumable/drink/nothing
 	name = "Nothing"
