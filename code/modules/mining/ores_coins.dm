@@ -99,6 +99,7 @@
 	singular_name = "sand pile"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
+	merge_type = /obj/item/stack/ore/glass
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
@@ -349,9 +350,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/New()
 	..()
-	pixel_x = rand(0,16)-8
-	pixel_y = rand(0,8)-8
-
 	icon_state = "coin_[cmineral]_[sideslist[1]]"
 	if(cmineral && name_by_cmineral)
 		name = "[cmineral] coin"

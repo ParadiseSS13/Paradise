@@ -180,7 +180,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "aK" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -239,7 +239,9 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
 "aU" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "aV" = (
@@ -1335,7 +1337,7 @@
 /turf/simulated/floor/plating,
 /area/ninja/holding)
 "fj" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1433,10 +1435,6 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
-"fz" = (
-/mob/living/carbon/human/monkey,
-/turf/simulated/floor/wood,
-/area/wizard_station)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -1498,7 +1496,7 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "fL" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
@@ -1538,7 +1536,7 @@
 /area/ghost_bar)
 "fR" = (
 /obj/structure/barricade/sandbags,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "fS" = (
@@ -1923,7 +1921,7 @@
 /area/tdome/tdomeobserve)
 "hk" = (
 /obj/structure/barricade/sandbags,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "hl" = (
@@ -2000,7 +1998,9 @@
 	},
 /area/tdome/tdomeadmin)
 "hp" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2326,7 +2326,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
 "ij" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "ik" = (
@@ -2335,7 +2335,7 @@
 /area/syndicate_mothership)
 "il" = (
 /obj/machinery/bluespace_beacon/syndicate/infiltrator,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "in" = (
@@ -2561,7 +2561,7 @@
 /area/syndicate_mothership)
 "iZ" = (
 /obj/mecha/combat/marauder/mauler/loaded,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jb" = (
@@ -2746,7 +2746,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom)
 "jK" = (
-/obj/effect/decal/warning_stripes/white/partial{
+/obj/effect/turf_decal/delivery/white/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2874,12 +2874,12 @@
 /area/abductor_ship)
 "kd" = (
 /obj/machinery/economy/vending/cola,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "ke" = (
 /obj/mecha/combat/gygax/dark/loaded,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kf" = (
@@ -3561,19 +3561,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/admin)
-"mh" = (
-/obj/structure/rack,
-/obj/item/clothing/under/rank/centcom/captain{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/clothing/under/rank/centcom/officer,
-/obj/item/clothing/under/rank/procedure/representative{
-	pixel_x = 3;
-	pixel_y = -3
-	},
-/turf/simulated/floor/plasteel,
-/area/admin)
 "mi" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/pirate_black{
@@ -4148,11 +4135,15 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "nN" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nO" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nP" = (
@@ -4186,7 +4177,9 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "nS" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nT" = (
@@ -4311,7 +4304,9 @@
 	},
 /area/centcom/control)
 "ot" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "ou" = (
@@ -4340,7 +4335,9 @@
 /turf/simulated/floor/plating,
 /area/shuttle/assault_pod)
 "oA" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "oB" = (
@@ -4581,7 +4578,9 @@
 	},
 /area/syndicate_mothership)
 "pA" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "pD" = (
@@ -4807,7 +4806,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "qp" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "qq" = (
@@ -4843,7 +4844,9 @@
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "qv" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "qw" = (
@@ -5540,7 +5543,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sM" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sO" = (
@@ -5556,7 +5559,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sS" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "sT" = (
@@ -5597,7 +5602,9 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "tb" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "tc" = (
@@ -5610,11 +5617,15 @@
 /turf/simulated/floor/plating,
 /area/shuttle/assault_pod)
 "td" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "te" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "tf" = (
@@ -5654,7 +5665,9 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "tp" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "tq" = (
@@ -7039,7 +7052,7 @@
 /area/centcom/control)
 "yu" = (
 /obj/machinery/economy/vending/snack,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "yv" = (
@@ -7402,6 +7415,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
+"Ar" = (
+/obj/structure/rack,
+/obj/item/clothing/under/rank/centcom/captain{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/clothing/under/rank/centcom/officer,
+/obj/item/clothing/under/rank/procedure/representative{
+	pixel_x = 3;
+	pixel_y = -3
+	},
+/turf/simulated/floor/plasteel,
+/area/admin)
 "As" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass/devilskiss,
@@ -7863,7 +7889,9 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Cl" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "Cm" = (
@@ -8606,13 +8634,15 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "EQ" = (
-/obj/effect/decal/warning_stripes/white/partial,
+/obj/effect/turf_decal/delivery/white/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ghost_bar)
 "ET" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "EU" = (
@@ -8906,7 +8936,9 @@
 	},
 /area/centcom/specops)
 "FZ" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "Ga" = (
@@ -9089,7 +9121,7 @@
 /area/shuttle/administration)
 "GF" = (
 /obj/mecha/combat/marauder/loaded,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GG" = (
@@ -9153,7 +9185,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GP" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "GQ" = (
@@ -9388,7 +9422,9 @@
 /turf/simulated/floor/indestructible/necropolis,
 /area/ruin/space/bubblegum_arena)
 "HH" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "HI" = (
@@ -9470,7 +9506,7 @@
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -10157,7 +10193,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Kn" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/mecha/combat/marauder/seraph/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -10924,7 +10960,7 @@
 /area/centcom/specops)
 "MO" = (
 /obj/mecha/combat/marauder/loaded,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -11127,7 +11163,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/control)
 "No" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -11330,7 +11366,9 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Of" = (
@@ -11654,13 +11692,13 @@
 "OZ" = (
 /obj/structure/table,
 /obj/item/storage/firstaid,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
 "Pa" = (
-/obj/effect/decal/warning_stripes/white/partial,
+/obj/effect/turf_decal/delivery/white/partial,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Pb" = (
@@ -11854,7 +11892,9 @@
 	},
 /area/centcom/evac)
 "PJ" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "PM" = (
@@ -12477,7 +12517,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "RZ" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -12581,6 +12621,10 @@
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/wood,
 /area/centcom/control)
+"Sv" = (
+/mob/living/carbon/human/monkey/magic,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "Sw" = (
 /obj/structure/sign/poster/official/high_class_martini,
 /turf/simulated/wall/indestructible/riveted,
@@ -13073,12 +13117,12 @@
 	pixel_x = 5;
 	pixel_y = 5
 	},
-/obj/item/storage/lockbox/medal,
 /obj/machinery/newscaster/security_unit{
 	dir = 8;
 	name = "east bump";
 	pixel_x = 28
 	},
+/obj/item/storage/lockbox/medal/cc,
 /turf/simulated/floor/carpet,
 /area/centcom/specops)
 "UA" = (
@@ -13566,7 +13610,7 @@
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "WA" = (
@@ -14574,7 +14618,7 @@
 	},
 /area/centcom/specops)
 "ZF" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
 	id_tag = "ASSAULT";
 	name = "Assault Armor"
@@ -61499,7 +61543,7 @@ BX
 UJ
 GN
 BR
-fz
+Sv
 ed
 fx
 GN
@@ -68522,7 +68566,7 @@ wk
 lI
 lY
 mb
-mh
+Ar
 mx
 mU
 nm

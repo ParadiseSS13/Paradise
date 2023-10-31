@@ -20,18 +20,9 @@
 
 /datum/ui_module/ert_manager/ui_data(mob/user)
 	var/list/data = list()
-	data["str_security_level"] = capitalize(get_security_level())
-	switch(GLOB.security_level)
-		if(SEC_LEVEL_GREEN)
-			data["security_level_color"] = "green"
-		if(SEC_LEVEL_BLUE)
-			data["security_level_color"] = "blue"
-		if(SEC_LEVEL_RED)
-			data["security_level_color"] = "red"
-		else
-			data["security_level_color"] = "purple"
+	data["str_security_level"] = capitalize(SSsecurity_level.get_current_level_as_text())
+	data["security_level_color"] = SSsecurity_level.current_security_level.color
 	data["ert_request_answered"] = GLOB.ert_request_answered
-
 	data["ert_type"] = ert_type
 	data["com"] = commander_slots
 	data["sec"] = security_slots

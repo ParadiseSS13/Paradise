@@ -135,9 +135,6 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/outlet_injector))
 			pipe_type = PIPE_INJECTOR
 
-		else if(istype(make_from, /obj/machinery/atmospherics/binary/dp_vent_pump))
-			pipe_type = PIPE_DP_VENT
-
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/passive_vent))
 			pipe_type = PIPE_PASV_VENT
 
@@ -542,13 +539,6 @@
 
 		if(PIPE_INJECTOR)		// air injector
 			var/obj/machinery/atmospherics/unary/outlet_injector/P = new(loc)
-			if(pipename)
-				P.name = pipename
-
-			P.on_construction(dir, pipe_dir, color)
-
-		if(PIPE_DP_VENT)
-			var/obj/machinery/atmospherics/binary/dp_vent_pump/P = new(loc)
 			if(pipename)
 				P.name = pipename
 

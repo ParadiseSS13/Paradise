@@ -34,7 +34,6 @@
 	belt_icon = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = null
 	storage_slots = 30
@@ -44,7 +43,7 @@
 
 /obj/item/storage/bag/trash/proc/update_weight()
 	if(!length(contents))
-		w_class = WEIGHT_CLASS_NORMAL
+		w_class = WEIGHT_CLASS_SMALL
 		return
 
 	w_class = WEIGHT_CLASS_BULKY
@@ -57,6 +56,11 @@
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
 		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
 		return FALSE
+	if(ishuman(loc)) // If the trashbag is on a humanoid, they can't store things in it while it's in their pockets
+		var/mob/living/carbon/human/H = loc
+		if(H.l_store == src || H.r_store == src)
+			to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+			return FALSE
 	. = ..()
 
 /obj/item/storage/bag/trash/Initialize(mapload)
