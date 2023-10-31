@@ -46,7 +46,7 @@ export class RecordsTable extends Component {
             columns={columns}
             filter={(data) =>
               data.filter(createSearch(searchText,
-                (datum) => columns.map(c => `${c.name}:${datum[c.id]}`).join('|')
+                (datum) => columns.map(c => datum[c.id]).join('|')
               ))
             }
             {...rest}
