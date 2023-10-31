@@ -25,6 +25,7 @@
 	if(length(ability_list))
 		return // List is already populated.
 
+	// This is a list of lists, each lower-level list corresponding to one of the CLING_MENU section
 	ability_list = list(list(), list(), list(), list())
 
 	for(var/power_path in cling.purchaseable_powers)
