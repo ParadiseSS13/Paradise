@@ -24,7 +24,7 @@ export class IndexedTable extends Component {
     } = this.state;
     return (
       <Flex direction="column" height="100%">
-        <Flex className={[ "SortableTable_SearchFlex", ]}>
+        <Flex className="SortableTable_Toolbar">
           {leftButtons}
           <FlexItem grow="1">
             <Input
