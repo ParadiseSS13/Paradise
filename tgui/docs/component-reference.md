@@ -44,7 +44,7 @@ Make sure to add new items to this list if you document new components.
   - [`Table`](#table)
   - [`Table.Row`](#tablerow)
   - [`Table.Cell`](#tablecell)
-  - [`Table.Cell`](#tablesortable)
+  - [`Table.Sortable`](#tablesortable)
   - [`Tabs`](#tabs)
   - [`Tabs.Tab`](#tabstab)
   - [`Tooltip`](#tooltip)
