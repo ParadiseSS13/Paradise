@@ -28,8 +28,7 @@ export const WizardApprenticeContract = (props, context) => {
           <LabeledList>
             <LabeledList.Item label="Fire">
               Your apprentice is skilled in bending fire. <br />
-              They know Fireball,
-              Sacred Flame, and Ethereal Jaunt.
+              They know Fireball, Sacred Flame, and Ethereal Jaunt.
               <br />
               <Button
                 content="Select"
@@ -53,9 +52,9 @@ export const WizardApprenticeContract = (props, context) => {
             <LabeledList.Item label="Restoration">
               Your apprentice is dedicated to supporting your magical prowess.
               <br />
-              They come equipped with a Healing Staff and Healing Wand, 
-              have the unique ability to teleport back to you, 
-              and know Instant Summons and Charge.
+              They come equipped with a Healing Staff and Healing Wand, have the
+              unique ability to teleport back to you, and know Instant Summons
+              and Charge.
               <br />
               <Button
                 content="Select"
@@ -67,10 +66,10 @@ export const WizardApprenticeContract = (props, context) => {
             <LabeledList.Item label="Stealth">
               Your apprentice is learning the art of infiltrating mundane
               facilities. <br />
-              They know Mindswap, Knock, Homing Toolbox, Forcewall, 
-              and Instant Summons, all of which can be cast without robes.
-              They also join you in a Maintenance Dweller disguise, 
-              complete with Gloves of Shock Immunity and a Belt of Tools.
+              They know Mindswap, Knock, Homing Toolbox, Forcewall, and Instant
+              Summons, all of which can be cast without robes. They also join
+              you in a Maintenance Dweller disguise, complete with Gloves of
+              Shock Immunity and a Belt of Tools.
               <br />
               <Button
                 content="Select"
@@ -82,10 +81,10 @@ export const WizardApprenticeContract = (props, context) => {
             <LabeledList.Item label="Honk">
               Your apprentice is here to spread the Honkmother&apos;s blessings.
               <br />
-              They know Banana Touch, Instant Summons, Ethereal Jaunt, 
-              and come equipped with a Staff of Slipping. <br />
-              While under your tutelage, they have been &apos;blessed&apos; 
-              with clown shoes that are impossible to remove.
+              They know Banana Touch, Instant Summons, Ethereal Jaunt, and come
+              equipped with a Staff of Slipping. <br />
+              While under your tutelage, they have been &apos;blessed&apos; with
+              clown shoes that are impossible to remove.
               <br />
               <Button
                 content="Select"
