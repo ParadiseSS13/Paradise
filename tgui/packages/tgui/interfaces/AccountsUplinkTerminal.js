@@ -127,7 +127,6 @@ const DepartmentAccountsList = (props, context) => {
   } = data;
   return (
     <RecordsTable
-      className="AccountsUplinkTerminal__list"
       columns={[
         { id: "name", name: "Department Name", },
         { id: "account_number", name: "Account Number", },
