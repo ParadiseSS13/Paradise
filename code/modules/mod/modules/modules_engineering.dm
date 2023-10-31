@@ -246,6 +246,9 @@
 			if(metal_synthesis_charge <= 0)
 				to_chat(user, "<span class='warning'>Metal foam mix is still being synthesized.</span>")
 				return
+			if(reagents.total_volume < 10)
+				to_chat(user, "<span class='warning'>You need at least 10 units of water to use the metal foam synthesizer!</span>")
+				return
 			var/obj/effect/particle_effect/foam/F = new/obj/effect/particle_effect/foam(get_turf(target), 1)
 			F.amount = 0
 			reagents.remove_any(10)
