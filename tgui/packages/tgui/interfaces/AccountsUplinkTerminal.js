@@ -111,6 +111,7 @@ const AccountsRecordList = (props, context) => {
       })}
       datumCellChildren={{
         owner_name: (value) => <><Icon name="user" /> {value}</>,
+        account_number: (value) => <>#{value}</>,
       }}
     />
   );
@@ -149,6 +150,7 @@ const DepartmentAccountsList = (props, context) => {
       })}
       datumCellChildren={{
         name: (value) => <><Icon name="wallet" /> {value}</>,
+        account_number: (value) => <>#{value}</>,
       }}
     />
   );
