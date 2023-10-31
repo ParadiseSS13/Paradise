@@ -489,7 +489,7 @@
 	uniform = /obj/item/clothing/under/rank/centcom/ert/janitor
 	back = /obj/item/storage/backpack/ert/janitor
 	belt = /obj/item/storage/belt/janitor/full
-	shoes = /obj/item/clothing/shoes/galoshes
+	shoes = /obj/item/clothing/shoes/galoshes/dry
 	l_ear = /obj/item/radio/headset/ert/alt
 	id = /obj/item/card/id/ert/janitorial
 	pda = /obj/item/pda/heads/ert/janitor
@@ -497,8 +497,6 @@
 
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
-		/obj/item/lightreplacer = 1,
-		/obj/item/storage/bag/trash = 1,
 		/obj/item/push_broom,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1
@@ -509,22 +507,23 @@
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
 	head = /obj/item/clothing/head/helmet/ert/janitor
 	glasses = /obj/item/clothing/glasses/sunglasses
-	r_pocket = /obj/item/flashlight
+	r_pocket = /obj/item/flashlight/seclite
 	suit_store = /obj/item/gun/energy/disabler
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/advmop
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/red
 	name = "RT Janitor (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	shoes = /obj/item/clothing/shoes/galoshes/dry/lightweight
 	r_pocket = /obj/item/scythe/tele
-	suit_store = /obj/item/gun/energy/gun/mini
+	suit_store = /obj/item/gun/energy/gun
 
 	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/arm/janitorial,
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
@@ -544,15 +543,13 @@
 		/obj/item/grenade/chem_grenade/antiweed = 2,
 		/obj/item/grenade/clusterbuster/cleaner = 1,
 		/obj/item/storage/box/lights/mixed = 1,
-		/obj/item/storage/bag/trash/bluespace = 1,
-		/obj/item/lightreplacer/bluespace = 1,
-		/obj/item/melee/flyswatter = 1,
-		/obj/item/gun/energy/gun = 1
+		/obj/item/push_broom = 1,
+		/obj/item/gun/energy/gun/nuclear = 1
 	)
 
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/chest/nutriment/plus/hardened,
-		/obj/item/organ/internal/cyberimp/arm/advmop,
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	)
 

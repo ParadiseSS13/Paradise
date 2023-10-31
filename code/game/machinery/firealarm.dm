@@ -37,7 +37,7 @@ FIRE ALARM
 
 	var/last_time_pulled //used to prevent pulling spam by same persons
 
-/obj/machinery/firealarm/Initialize(mapload, location, direction, building)
+/obj/machinery/firealarm/Initialize(mapload, direction, building)
 	. = ..()
 
 	if(building)
