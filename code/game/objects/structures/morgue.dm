@@ -48,34 +48,34 @@
 
 	if(connected)
 		status = EXTENDED_TRAY
-		return
 
-	if(!length(contents))
+	else if(!length(contents))
 		status = EMPTY_MORGUE
-		return
 
-	var/mob/living/M = locate() in contents
-	var/obj/structure/closet/body_bag/B = locate() in contents
+	else
+		var/mob/living/M = locate() in contents
+		var/obj/structure/closet/body_bag/B = locate() in contents
 
-	if(!M)
-		M = locate() in B
+		if(!M)
+			M = locate() in B
 
-	if(!M)
-		status = NOT_BODY
-		return
+		if(!M)
+			status = NOT_BODY
+			return update_icon(UPDATE_OVERLAYS)
 
-	var/mob/dead/observer/G = M.get_ghost()
+		var/mob/dead/observer/G = M.get_ghost()
 
-	if(M.mind && !M.mind.suicided && !M.suiciding)
-		if(M.client)
-			status = REVIVABLE
-			return
+		status = UNREVIVABLE
 
-		if(G && G.client) //There is a ghost and it is connected to the server
-			status = GHOST_CONNECTED
-			return
+		if(M.mind && !M.mind.suicided && !M.suiciding)
+			if(M.client)
+				status = REVIVABLE
 
-	status = UNREVIVABLE
+			else if(G && G.client) //There is a ghost and it is connected to the server
+				status = GHOST_CONNECTED
+
+	update_icon(UPDATE_OVERLAYS)
+
 
 /obj/structure/morgue/update_overlays()
 	. = ..()

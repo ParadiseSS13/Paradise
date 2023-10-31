@@ -239,13 +239,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		// Respawnable
 		ghostize(1)
 
-	// If mob in morgue tray, update tray
-	var/obj/structure/morgue/Morgue = locate() in M.loc
-	if(istype(M.loc, /obj/structure/morgue))
-		Morgue = M.loc
-	if(Morgue)
-		Morgue.update_state()
-
 	// If mob in cryopod, despawn mob
 	if(P)
 		if(!P.control_computer)
