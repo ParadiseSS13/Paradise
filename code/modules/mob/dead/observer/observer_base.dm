@@ -808,8 +808,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /obj/effect/proc_holder/spell/boo
 	name = "Boo!"
 	desc = "Fuck with the living."
-	selection_deactivated_message	= "<span class='notice'>Your presence will not be known. For now.</span>"
-	selection_activated_message		= "<span class='notice'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
+	selection_deactivated_message = "<span class='notice'>Your presence will not be known. For now.</span>"
+	selection_activated_message = "<span class='notice'>You prepare to reach across the veil. <b>Left-click to influence a target!</b></span>"
 
 	ghost = TRUE
 
