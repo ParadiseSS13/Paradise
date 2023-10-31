@@ -1,3 +1,6 @@
+#define MAX_MESSINESS 10
+#define WALKING_REDUCE_PROBABILITY 50
+
 /obj/effect/spawner/wire_splicing
 	name = "wiring splicing spawner"
 	icon = 'modular_ss220/wire_splicing/structures_spawners.dmi'
@@ -5,14 +8,14 @@
 
 /obj/effect/spawner/wire_splicing/Initialize()
 	. = ..()
-	new/obj/structure/wire_splicing(get_turf(src))
+	new /obj/structure/wire_splicing(get_turf(src))
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/wire_splicing/thirty //70% chance to be nothing
 	name = "wiring splicing spawner 30%"
 
 /obj/effect/spawner/wire_splicing/thirty/Initialize(mapload)
-	if (prob(70))
+	if(prob(70))
 		return INITIALIZE_HINT_QDEL
 	. = ..()
 
@@ -26,18 +29,17 @@
 	flags = CONDUCT
 	layer = WIRE_TERMINAL_LAYER
 	var/messiness = 0 // How bad the splicing was, determines the chance of shock
+	var/shock_chance_per_messiness = 10
 
 /obj/structure/wire_splicing/Initialize(mapload)
 	. = ..()
-	messiness = rand (1,10)
-	icon_state = "wire_splicing[messiness]"
-
+	messiness = rand(1, MAX_MESSINESS)
+	update_icon(UPDATE_ICON_STATE)
 
 	//At messiness of 2 or below, triggering when walking on a catwalk is impossible
 	//Above that it becomes possible, so we will change the layer to make it poke through catwalks
 	if (messiness > 2)
 		layer = LOW_OBJ_LAYER  // I wont do such stuff on splicing "reinforcement". Take it as nasty feature
-
 
 	//Wire splice can only exist on a cable. Lets try to place it in a good location
 	if (locate(/obj/structure/cable) in get_turf(src)) //if we're already in a good location, no problem!
@@ -90,60 +92,69 @@
 
 	loc = pick(candidates)
 
-/obj/structure/wire_splicing/examine(mob/user)
-	..()
-	to_chat(user, "It has [messiness] wire[messiness > 1?"s":""] dangling around.")
+/obj/structure/wire_splicing/update_icon_state()
+	icon_state = "wire_splicing[messiness]"
 
-/obj/structure/wire_splicing/Crossed(AM as mob|obj)
+/obj/structure/wire_splicing/examine(mob/user)
+	. = ..()
+	. += span_warning("It has [messiness] wire[messiness > 1 ? "s" : ""] dangling around.")
+
+/obj/structure/wire_splicing/Crossed(atom/movable/AM, oldloc)
 	. = ..()
 	if(isliving(AM))
-		var/mob/living/L = AM
-		//var/turf/T = get_turf(src)
-		var/chance_to_shock = messiness * 10
+		var/chance_to_shock = messiness * shock_chance_per_messiness
 		/*
+		var/turf/T = get_turf(src)
 		if(locate(/obj/structure/catwalk) in T)
 			chance_to_shock -= 20
 		*/
-		shock(L, chance_to_shock)
+		shock(AM, chance_to_shock)
 
-/obj/structure/wire_splicing/proc/shock(mob/user, prb, siemens_coeff = 1)
-	if(!in_range(src, user))//To prevent TK and mech users from getting shocked
-		return FALSE
+/obj/structure/wire_splicing/proc/shock(mob/living/user, prb, siemens_coeff = 1)
+	. = FALSE
+	if(!in_range(src, user)) //To prevent TK and mech users from getting shocked
+		return
+	if(user.m_intent == MOVE_INTENT_WALK) // Walk slowly to try to step over
+		prb = max(prb - WALKING_REDUCE_PROBABILITY, 0)
 	if(!prob(prb))
-		return FALSE
+		return
 	var/turf/T = get_turf(src)
 	var/obj/structure/cable/C = locate(/obj/structure/cable) in T
 	if(!C)
-		return FALSE
-	if (electrocute_mob(user, C.powernet, src, siemens_coeff))
+		return
+	if(electrocute_mob(user, C.powernet, src, siemens_coeff))
 		do_sparks(5, TRUE, src)
-		return TRUE
-	else
-		return FALSE
+		. = TRUE
 
+/obj/structure/wire_splicing/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return
+	if(shock(user, 50))
+		return
+	user.visible_message(span_notice("[user] cuts the splicing."), span_notice("You cut the splicing."))
+	investigate_log(" was cut by [key_name(usr)] in [AREACOORD(src)]")
+	qdel(src)
 
 /obj/structure/wire_splicing/attackby(obj/item/I, mob/user, params)
-	if(I.tool_behaviour == TOOL_WIRECUTTER)
-		if(I.use_tool(src, user, 2 SECONDS, volume = 50))
-			if (shock(user, 50))
-				return
-			user.visible_message("[user] cuts the splicing.", span_notice("You cut the splicing."))
-			investigate_log(" was cut by [key_name(usr)] in [AREACOORD(src)]")
-			qdel(src)
-
 	if(istype(I, /obj/item/stack/cable_coil) && user.a_intent == INTENT_HARM)
 		var/obj/item/stack/cable_coil/coil = I
-		if(coil.get_amount() >= 1)
-			reinforce(user, coil)
+		reinforce(user, coil)
+		return
+	. = ..()
 
 /obj/structure/wire_splicing/proc/reinforce(mob/user, obj/item/stack/cable_coil/coil)
-	if(messiness >= 10)
-		to_chat(user,span_warning("You can't seem to jam more cable into the splicing!"))
+	if(messiness >= MAX_MESSINESS)
+		to_chat(user, span_warning("You can't seem to jam more cable into the splicing!"))
 		return
-	if(!do_after(user, 2 SECONDS, src))
+	if(!do_after(user, 2 SECONDS, target = src, progress = TRUE))
 		return
-	messiness = min(messiness + 1, 10)
-	investigate_log("wire splicing was reinforced to [messiness] by [key_name(usr)] in [AREACOORD(src)]")
+	if(messiness >= MAX_MESSINESS)
+		return
+	messiness = min(messiness + 1, MAX_MESSINESS)
 	coil.use(1)
-	if(messiness < 10 && coil.get_amount() >= 1)
-		reinforce(user, coil)
+	update_icon(UPDATE_ICON_STATE)
+	investigate_log("wire splicing was reinforced to [messiness] by [key_name(usr)] in [AREACOORD(src)]")
+
+#undef MAX_MESSINESS
+#undef WALKING_REDUCE_PROBABILITY
