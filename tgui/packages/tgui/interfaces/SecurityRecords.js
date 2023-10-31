@@ -126,7 +126,6 @@ const SecurityRecordsPageList = (props, context) => {
           icon={isPrinting ? 'spinner' : 'print'}
           iconSpin={!!isPrinting}
           content="Print Cell Log"
-          ml="0.25rem"
           onClick={() => modalOpen(context, 'print_cell_log')}
         />
       </>}

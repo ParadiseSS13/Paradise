@@ -137,7 +137,6 @@ const MedicalRecordsList = (props, context) => {
         <Button
           content="Manage Records"
           icon="wrench"
-          ml="0.25rem"
           onClick={() => act('screen', { screen: 3 })}
         />
       }
