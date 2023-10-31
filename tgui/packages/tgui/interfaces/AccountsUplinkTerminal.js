@@ -89,7 +89,6 @@ const AccountsRecordList = (props, context) => {
   } = data;
   return (
     <RecordsTable
-      className="AccountsUplinkTerminal__list"
       columns={[
         { id: 'owner_name', name: 'Account Holder', },
         { id: 'account_number', name: 'Account Number', },

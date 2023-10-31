@@ -104,7 +104,6 @@ const SecurityRecordsPageList = (props, context) => {
   } = data;
   return (
     <RecordsTable
-      className="SecurityRecords__list"
       columns={[
         { id: 'name', name: 'Name', },
         { id: 'id', name: 'ID', },

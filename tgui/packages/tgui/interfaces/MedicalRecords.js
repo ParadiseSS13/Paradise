@@ -122,7 +122,6 @@ const MedicalRecordsList = (props, context) => {
   } = data;
   return (
     <RecordsTable
-      className="MedicalRecords__list"
       columns={[
         { id: 'name', name: 'Name' },
         { id: 'id', name: 'ID' },
@@ -340,7 +339,6 @@ const MedicalRecordsViruses = (props, context) => {
   } = data;
   return (
     <RecordsTable
-      className="MedicalRecords__list"
       columns={[
         { id: 'name', name: 'Name', },
         { id: 'max_stages', name: 'Max Stages', },
