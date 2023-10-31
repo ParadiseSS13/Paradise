@@ -38,7 +38,7 @@
 	set src in usr
 
 	if(t)
-		src.name = text("Data Disk- '[]'", t)
+		src.name = "Data Disk- '[t]'"
 	else
 		src.name = "Data Disk"
 	src.add_fingerprint(usr)
@@ -471,7 +471,7 @@
 							"paramedic",
 							"psychiatrist",
 							"research",
-							"robotcist",
+							"roboticist",
 							"quartermaster",
 							"cargo",
 							"shaftminer",

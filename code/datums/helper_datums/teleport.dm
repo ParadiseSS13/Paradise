@@ -12,17 +12,18 @@
  * - sound_out - The sound played at the destination turf
  * - bypass_area_flag - Whether is_teleport_allowed is skipped or not
  * - safe_turf_pick - Whether the chosen random turf from the variance is prefered to be a safe turf or not
+ * - do_effect - Whether to play the effect or not
  */
-/proc/do_teleport(atom_to_teleport, destination, variance_range = 0, force_teleport = TRUE, datum/effect_system/effect_in = null, datum/effect_system/effect_out = null, sound_in = null, sound_out = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+/proc/do_teleport(atom_to_teleport, destination, variance_range = 0, force_teleport = TRUE, datum/effect_system/effect_in = null, datum/effect_system/effect_out = null, sound_in = null, sound_out = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE, do_effect = TRUE)
 	var/datum/teleport/instant/science/D = new // default here
-	if(isnull(effect_in) || isnull(effect_out)) // Set default effects
+	if((isnull(effect_in) || isnull(effect_out)) && do_effect) // Set default effects
 		var/datum/effect_system/spark_spread/effect = new
 		effect.set_up(5, 1, atom_to_teleport)
 		if(isnull(effect_in))
 			effect_in = effect
 		if(isnull(effect_out))
 			effect_out = effect
-	if(D.start(atom_to_teleport, destination, variance_range, force_teleport, effect_in, effect_out, sound_in, sound_out, bypass_area_flag, safe_turf_pick))
+	if(D.start(atom_to_teleport, destination, variance_range, force_teleport, effect_in, effect_out, sound_in, sound_out, bypass_area_flag, safe_turf_pick, do_effect))
 		return 1
 	return 0
 
@@ -38,12 +39,12 @@
 	var/ignore_area_flag = FALSE
 	var/safe_turf_first = FALSE //If the teleport isn't precise and this is TRUE, only non-space, non-dense turfs will be selected, unless there's no other option for teleportation.
 
-/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+/datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE, do_effect = FALSE)
 	if(!initTeleport(arglist(args)))
 		return 0
 	return 1
 
-/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, safe_turf_pick = FALSE)
+/datum/teleport/proc/initTeleport(ateleatom, adestination, aprecision, afteleport, aeffectin, aeffectout, asoundin, asoundout, bypass_area_flag = FALSE, safe_turf_pick = FALSE, do_effect = FALSE)
 	if(!setTeleatom(ateleatom))
 		return 0
 	if(!setDestination(adestination))
@@ -51,7 +52,8 @@
 	safe_turf_first = safe_turf_pick //before precision for bag of holding interference
 	if(!setPrecision(aprecision))
 		return 0
-	setEffects(aeffectin,aeffectout)
+	if(do_effect)
+		setEffects(aeffectin, aeffectout)
 	setForceTeleport(afteleport)
 	setSounds(asoundin,asoundout)
 	ignore_area_flag = bypass_area_flag
