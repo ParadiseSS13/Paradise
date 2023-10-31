@@ -495,7 +495,7 @@
 			if(!space) //if no free space - exit
 				break
 			O.amount -= 1 //remove one from stack
-			for(var/r_id in allowed)
+			for (var/r_id in allowed)
 				var/spaceused = min(allowed[r_id] * efficiency, space)
 				space -= spaceused
 				beaker.reagents.add_reagent(r_id, spaceused)
@@ -508,7 +508,7 @@
 		if(beaker.reagents.holder_full())
 			break
 		var/allowed = get_allowed_by_id(O)
-		for(var/r_id in allowed)
+		for (var/r_id in allowed)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = allowed[r_id]
 			if(amount == 0)
