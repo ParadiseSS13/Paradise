@@ -18,6 +18,7 @@ import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
+import { IndexedTable } from './common/IndexedTable'
 
 const statusStyles = {
   '*Execute*': 'execute',
@@ -95,106 +96,26 @@ const SecurityRecordsNavigation = (properties, context) => {
   );
 };
 
-const SecurityRecordsPageList = (properties, context) => {
+const SecurityRecordsPageList = (props, context) => {
   const { act, data } = useBackend(context);
-  const { records } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const {
+    isPrinting,
+    records,
+  } = data;
   return (
-    <Flex direction="column" height="100%">
-      <SecurityRecordsActions />
-      <Section flexGrow="1" mt="0.5rem">
-        <Table className="SecurityRecords__list">
-          <Table.Row bold>
-            <SortButton id="name">Name</SortButton>
-            <SortButton id="id">ID</SortButton>
-            <SortButton id="rank">Assignment</SortButton>
-            <SortButton id="fingerprint">Fingerprint</SortButton>
-            <SortButton id="status">Criminal Status</SortButton>
-          </Table.Row>
-          {records
-            .filter(
-              createSearch(searchText, (record) => {
-                return (
-                  record.name +
-                  '|' +
-                  record.id +
-                  '|' +
-                  record.rank +
-                  '|' +
-                  record.fingerprint +
-                  '|' +
-                  record.status
-                );
-              })
-            )
-            .sort((a, b) => {
-              const i = sortOrder ? 1 : -1;
-              return a[sortId].localeCompare(b[sortId]) * i;
-            })
-            .map((record) => (
-              <Table.Row
-                key={record.id}
-                className={
-                  'SecurityRecords__listRow--' + statusStyles[record.status]
-                }
-                onClick={() =>
-                  act('view', {
-                    uid_gen: record.uid_gen,
-                    uid_sec: record.uid_sec,
-                  })
-                }
-              >
-                <Table.Cell>
-                  <Icon name="user" /> {record.name}
-                </Table.Cell>
-                <Table.Cell>{record.id}</Table.Cell>
-                <Table.Cell>{record.rank}</Table.Cell>
-                <Table.Cell>{record.fingerprint}</Table.Cell>
-                <Table.Cell>{record.status}</Table.Cell>
-              </Table.Row>
-            ))}
-        </Table>
-      </Section>
-    </Flex>
-  );
-};
+    <IndexedTable
+      className="SecurityRecords__list"
+      columns={[
+        { id: 'name', name: 'Name', },
+        { id: 'id', name: 'ID', },
+        { id: 'rank', name: 'Assignment', },
+        { id: 'fingerprint', name: 'Fingerprint', },
+        { id: 'status', name: 'Criminal Status', },
+      ]}
+      data={records}
+      datumID={(datum) => datum.id}
 
-const SortButton = (properties, context) => {
-  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
-  const { id, children } = properties;
-  return (
-    <Table.Cell>
-      <Button
-        color={sortId !== id && 'transparent'}
-        width="100%"
-        onClick={() => {
-          if (sortId === id) {
-            setSortOrder(!sortOrder);
-          } else {
-            setSortId(id);
-            setSortOrder(true);
-          }
-        }}
-      >
-        {children}
-        {sortId === id && (
-          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
-        )}
-      </Button>
-    </Table.Cell>
-  );
-};
-
-const SecurityRecordsActions = (properties, context) => {
-  const { act, data } = useBackend(context);
-  const { isPrinting } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  return (
-    <Flex>
-      <FlexItem>
+      leftButtons={<>
         <Button
           content="New Record"
           icon="plus"
@@ -208,17 +129,22 @@ const SecurityRecordsActions = (properties, context) => {
           ml="0.25rem"
           onClick={() => modalOpen(context, 'print_cell_log')}
         />
-      </FlexItem>
-      <FlexItem grow="1" ml="0.5rem">
-        <Input
-          placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
-          width="100%"
-          onInput={(e, value) => setSearchText(value)}
-        />
-      </FlexItem>
-    </Flex>
+      </>}
+      searchPlaceholder="Search by Name, ID, Assignment, Fingerprint, Status"
+
+      datumRowProps={(datum) => ({
+        className: `SecurityRecords__listRow--${statusStyles[datum.status]}`,
+        onClick: () => act('view', {
+          uid_gen: datum.uid_gen,
+          uid_sec: datum.uid_sec,
+        }),
+      })}
+      datumCellChildren={{
+        name: (value) => <><Icon name="user" /> {value}</>,
+      }}
+    />
   );
-};
+}
 
 const SecurityRecordsPageView = (properties, context) => {
   const { act, data } = useBackend(context);
