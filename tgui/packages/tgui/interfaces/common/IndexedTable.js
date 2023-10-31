@@ -2,6 +2,7 @@ import { Component } from 'inferno'
 import { Flex, Input, Section, Table } from '../../components'
 import { FlexItem } from '../../components/Flex'
 import { createSearch } from 'common/string'
+import { classes } from 'common/react'
 
 export class IndexedTable extends Component {
   constructor() {
@@ -13,6 +14,7 @@ export class IndexedTable extends Component {
 
   render() {
     const {
+      className,
       columns,
       leftButtons,
       rightButtons,
@@ -37,6 +39,10 @@ export class IndexedTable extends Component {
         </Flex>
         <Section flexGrow="1" mt="0.5rem">
           <Table.Sortable
+            className={classes([
+              "IndexedTable",
+              className,
+            ])}
             columns={columns}
             filter={(data) =>
               data.filter(createSearch(searchText,
