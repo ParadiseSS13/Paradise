@@ -1,0 +1,54 @@
+import { Component } from 'inferno'
+import { Flex, Input, Section, Table } from '../../components'
+import { FlexItem } from '../../components/Flex'
+import { createSearch } from 'common/string'
+
+export class IndexedTable extends Component {
+  constructor() {
+    super();
+    this.state = {
+      searchText: '',
+    };
+  }
+
+  render() {
+    const {
+      columns,
+      leftButtons,
+      rightButtons,
+      searchPlaceholder,
+      ...rest
+    } = this.props;
+    const {
+      searchText,
+    } = this.state;
+    return (
+      <Flex direction="column" height="100%">
+        <Flex className={[ "SortableTable_SearchFlex", ]}>
+          {leftButtons}
+          <FlexItem grow="1">
+            <Input
+              placeholder={searchPlaceholder}
+              width="100%"
+              onInput={(e, value) => this.setState({ searchText: value })}
+            />
+          </FlexItem>
+          {rightButtons}
+        </Flex>
+        <Section flexGrow="1" mt="0.5rem">
+          <Table.Sortable
+            columns={columns}
+            filter={(data) =>
+              data.filter(createSearch(searchText,
+                (datum) => columns.map(c => `${c.name}:${datum[c.id]}`).join('|')
+              ))
+            }
+            {...rest}
+          />
+        </Section>
+      </Flex>
+    );
+  }
+}
+
+
