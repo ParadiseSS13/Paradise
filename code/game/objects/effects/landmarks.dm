@@ -246,7 +246,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 	return QDEL_HINT_HARDDEL_NOW
 
 /obj/effect/landmark/proc/set_tag()
-	tag = text("landmark*[]", name)
+	tag = "landmark*[name]"
 
 /obj/effect/landmark/singularity_act()
 	return
