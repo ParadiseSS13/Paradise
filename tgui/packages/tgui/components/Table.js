@@ -210,7 +210,7 @@ class SortableTable extends Component {
       ;
 
     return (
-      <Table className={classes([ 'SortableTable', className, computeBoxClassName(rest) ])} {...rest}>
+      <Table className={classes([ 'SortableTable', className, ])} {...rest}>
         <Table.Row bold {...headerRowProps}>
           {columnHeaders}
         </Table.Row>
