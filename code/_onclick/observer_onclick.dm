@@ -91,3 +91,12 @@
 /obj/effect/portal/attack_ghost(mob/user as mob)
 	if(target)
 		user.forceMove(get_turf(target))
+
+/obj/machinery/atmospherics/attack_ghost(mob/dead/observer/user)
+	if(user.gas_analyzer)
+		if(istype(src, /obj/machinery/atmospherics/pipe))
+			var/obj/machinery/atmospherics/pipe/T = src
+			atmosanalyzer_scan(T.parent.air, user, T)
+		else if(istype(src, /obj/machinery/atmospherics/unary))
+			var/obj/machinery/atmospherics/unary/T = src
+			atmosanalyzer_scan(T.air_contents, user, T)
