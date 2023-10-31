@@ -64,6 +64,40 @@ const resolveFunctionalProp = (props, ...data) =>
   : undefined
   ;
 
+class HoverableIcon extends Component {
+  constructor() {
+    super();
+    this.state = {
+      hovering: false,
+    };
+    this.handleMouseOver = (e) => {
+      this.setState({ hovering: true, });
+    };
+    this.handleMouseOut = (e) => {
+      this.setState({ hovering: false, });
+    }
+  }
+
+  render() {
+    const {
+      hoverIcon,
+      name,
+      ...rest
+    } = this.props;
+    const {
+      hovering
+    } = this.state;
+    return (
+      <Icon
+        name={hovering ? hoverIcon : name}
+        {...rest}
+        onMouseOver={this.handleMouseOver}
+        onMouseOut={this.handleMouseOut}
+      />
+    )
+  }
+}
+
 class SortableTable extends Component {
   constructor(props) {
     super();
@@ -110,23 +144,25 @@ class SortableTable extends Component {
                 });
               }
             }}
-            onDblClick={() =>
-              this.setState({
-                sortId: null,
-              })
-            }
             {...headerCellProps?.all}
             {...headerCellProps?.[id]}
           >
             {name}
             {sortId === id && (
-              <Icon
+              <HoverableIcon
                 name={sortOrder ? 'sort-up' : 'sort-down'}
+                hoverIcon="times"
                 position="absolute"
                 right={0}
                 top="50%"
                 style={{
                   transform: "translate(0, -50%)"
+                }}
+                onClick={(e) => {
+                  this.setState({
+                    sortId: null,
+                  });
+                  e.preventDefault();
                 }}
               />
             )}
