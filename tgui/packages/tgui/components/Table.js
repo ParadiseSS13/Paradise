@@ -98,44 +98,6 @@ class HoverableIcon extends Component {
   }
 }
 
-const Compare = (a, b) => {
-  const typeofA = typeof a;
-  const typeofB = typeof b;
-
-  const nullToNumber = (x) =>
-    x === undefined
-    ? 0
-    : x === null
-      ? 1
-      : 2
-    ;
-  const aNullNumber = nullToNumber(a);
-  const bNullNumber = nullToNumber(b);
-  if (aNullNumber < 2 || bNullNumber < 2) {
-    return aNullNumber - bNullNumber;
-  }
-
-  if (typeofA === 'function' || typeofB === 'function') {
-    throw new TypeError("Can't sort functions.");
-  }
-
-  if (typeofA === 'number' || typeofA === 'bigint') {
-    if (typeofB === 'number' || typeofB === 'bigint') {
-      return a - b;
-    }
-  }
-
-  if (typeofA === 'boolean' && typeofB === 'boolean') {
-    return a === b
-      ? 0
-      : a
-        ? 1
-        : -1
-  }
-
-  return a.toString().localeCompare(b.toString());
-}
-
 class SortableTable extends Component {
   constructor(props) {
     super();
@@ -212,7 +174,7 @@ class SortableTable extends Component {
       .sort((a, b) => {
         if (sortId) {
           const i = sortOrder ? 1 : -1;
-          return Compare(a[sortId], b[sortId]) * i;
+          return a[sortId].toString().localeCompare(b[sortId].toString()) * i;
         } else {
           return 0;
         }
