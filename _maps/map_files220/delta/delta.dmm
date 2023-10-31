@@ -66851,6 +66851,11 @@
 	icon_state = "green"
 	},
 /area/station/medical/virology/lab)
+"lzQ" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel,
+/area/station/public/storage/tools)
 "lAk" = (
 /obj/machinery/power/apc/directional/south,
 /obj/structure/cable,
@@ -94090,9 +94095,7 @@
 	},
 /area/station/public/locker)
 "uXf" = (
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -134633,7 +134636,7 @@ aor
 bOC
 bCg
 bDS
-bFr
+lzQ
 bHc
 bIT
 bFr

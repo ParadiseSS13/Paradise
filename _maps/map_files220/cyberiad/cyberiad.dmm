@@ -3319,13 +3319,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "apc" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/pen,
 /obj/machinery/newscaster/security_unit/east,
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "apd" = (
@@ -3987,9 +3982,6 @@
 	},
 /area/station/security/brig)
 "arE" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5794,6 +5786,12 @@
 	pixel_y = -22;
 	dir = 1
 	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 7
+	},
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -25043,6 +25041,7 @@
 	},
 /area/station/medical/sleeper)
 "bXI" = (
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -60241,6 +60240,7 @@
 	c_tag = "Medbay Treatment East";
 	dir = 8
 	},
+/obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whiteblue"
@@ -62382,6 +62382,14 @@
 	icon_state = "darkyellowcorners"
 	},
 /area/station/engineering/hallway)
+"jZQ" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redcorner"
+	},
+/area/station/security/processing)
 "kaa" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -133250,7 +133258,7 @@ avB
 avB
 aAF
 aAF
-axR
+jZQ
 lSU
 azW
 aBb
