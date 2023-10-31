@@ -31,7 +31,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/mob/living/carbon/human/H = mind.current
 		if(ismindshielded(H)) //mindshield protects against conversions unless removed
 			return FALSE
-		if(HAS_TRAIT(H, TRAIT_HOLY))
+		if(HAS_TRAIT(H.mind, TRAIT_HOLY))
 			return FALSE
 	if(mind.offstation_role)
 		return FALSE
