@@ -27,11 +27,11 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE
 	if(iscultist(mind.current))
 		return TRUE //If they're already in the cult, assume they are convertable
-	if(mind.isholy)
-		return FALSE
 	if(ishuman(mind.current))
 		var/mob/living/carbon/human/H = mind.current
 		if(ismindshielded(H)) //mindshield protects against conversions unless removed
+			return FALSE
+		if(HAS_TRAIT(H, TRAIT_HOLY))
 			return FALSE
 	if(mind.offstation_role)
 		return FALSE

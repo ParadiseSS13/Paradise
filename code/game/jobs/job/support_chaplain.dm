@@ -33,8 +33,7 @@
 	if(visualsOnly)
 		return
 
-	if(H.mind)
-		H.mind.isholy = TRUE
+	ADD_TRAIT(H, TRAIT_HOLY, H.mind)
 
 	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
 
