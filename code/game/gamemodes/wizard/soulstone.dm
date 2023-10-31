@@ -38,7 +38,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		return FALSE
 
-	if(iscultist(user) || iswizard(user) || HAS_TRAIT(user.mind, TRAIT_HOLY) && purified || usability == TRUE)
+	if(iscultist(user) || iswizard(user) || (HAS_TRAIT(user.mind, TRAIT_HOLY) && purified) || usability)
 		return TRUE
 
 	return FALSE
