@@ -294,7 +294,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	mind.current.key = key
 
-	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_REVIVABILITY)
+	SEND_SIGNAL(mind.current, COMSIG_LIVING_UPDATE_REVIVABILITY)
 
 	return 1
 
