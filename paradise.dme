@@ -906,7 +906,6 @@
 #include "code\game\objects\effects\decals\misc_decals.dm"
 #include "code\game\objects\effects\decals\remains.dm"
 #include "code\game\objects\effects\decals\turf_decal.dm"
-#include "code\game\objects\effects\decals\warning_stripes.dm"
 #include "code\game\objects\effects\decals\Cleanable\alien_blood.dm"
 #include "code\game\objects\effects\decals\Cleanable\fuel.dm"
 #include "code\game\objects\effects\decals\Cleanable\humans.dm"
