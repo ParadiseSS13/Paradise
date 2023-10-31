@@ -46,8 +46,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 		/mob/dead/observer/proc/dead_tele,
 		/mob/dead/observer/proc/open_spawners_menu)
 
-	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2
-
 	// Our new boo spell.
 	AddSpell(new /obj/effect/proc_holder/spell/boo(null))
 
