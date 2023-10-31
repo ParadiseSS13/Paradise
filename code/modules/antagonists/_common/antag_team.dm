@@ -167,9 +167,11 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!message)
 		return
 
+	var/team_message = chat_box_red("<font color='#d6000b'><span class='bold'>Admin '[name]' Team Message ([user.key]): </span></font><span class='notice'>[message]</span>")
+	var/team_alert_sound = sound('sound/effects/adminticketopen.ogg')
 	for(var/datum/mind/M as anything in members)
-		SEND_SOUND(M.current, sound('sound/effects/adminticketopen.ogg'))
-		to_chat(M.current, chat_box_red("<font color='#d6000b'><span class='bold'>Admin Team Message ([user.key]): </span></font><span class='notice'>[message]</span>"))
+		SEND_SOUND(M.current, team_alert_sound)
+		to_chat(M.current, "[team_message]")
 
 	message_admins("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 	log_admin("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
