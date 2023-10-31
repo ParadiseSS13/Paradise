@@ -7,7 +7,7 @@
 	belt_icon = "space_cleaner"
 	flags = NOBLUDGEON
 	container_type = OPENCONTAINER
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3

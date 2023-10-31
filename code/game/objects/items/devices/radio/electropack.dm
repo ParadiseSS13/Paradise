@@ -5,7 +5,7 @@
 	icon_state = "electropack0"
 	item_state = "electropack"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL = 10000, MAT_GLASS = 2500)
 	/// The integrated signaler

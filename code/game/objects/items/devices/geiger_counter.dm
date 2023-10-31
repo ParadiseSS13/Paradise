@@ -11,7 +11,7 @@
 	icon_state = "geiger_off"
 	item_state = "multitool"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	flags = NOBLUDGEON
 	materials = list(MAT_METAL = 210, MAT_GLASS = 150)
 

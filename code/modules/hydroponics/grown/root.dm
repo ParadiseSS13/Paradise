@@ -34,7 +34,7 @@
 /obj/item/reagent_containers/food/snacks/grown/carrot/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
 		to_chat(user, "<span class='notice'>You sharpen the carrot into a shiv with [I].</span>")
-		var/obj/item/kitchen/knife/carrotshiv/Shiv = new /obj/item/kitchen/knife/carrotshiv
+		var/obj/item/kitchen/knife/shiv/carrot/Shiv = new ()
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
 		user.put_in_hands(Shiv)

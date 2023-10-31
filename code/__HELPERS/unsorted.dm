@@ -260,6 +260,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	user.visible_message("[user] has used the analyzer on [target].", "<span class='notice'>You use the analyzer on [target].</span>")
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
+	var/volume = air_contents.return_volume()
 
 	user.show_message("<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>", 1)
 	if(total_moles>0)
@@ -281,8 +282,10 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
 		user.show_message("<span class='notice'>Total: [round(total_moles,0.01)] moles</span>", 1)
 		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>", 1)
+		user.show_message("<span class='notice'>Volume: [round(volume)] Liters</span>", 1)
 	else
 		user.show_message("<span class='notice'>[target] is empty!</span>", 1)
+		user.show_message("<span class='notice'>Volume: [round(volume)] Liters</span>", 1)
 	return
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -1593,17 +1596,21 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 		y = t_center.y + c_dist - 1
 		x = t_center.x + c_dist
+		var/list/temp_list_one = list()
 		for(y in t_center.y-c_dist to y)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_one += T
+		L += reverselist(temp_list_one)
 
 		y = t_center.y - c_dist
 		x = t_center.x + c_dist - 1
+		var/list/temp_list_two = list()
 		for(x in t_center.x-c_dist to x)
 			T = locate(x,y,t_center.z)
 			if(T)
-				L += T
+				temp_list_two += T
+		L += reverselist(temp_list_two)
 
 		y = t_center.y - c_dist + 1
 		x = t_center.x - c_dist
@@ -2054,33 +2061,35 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 			return "Ash Storms"
 		if(CHANNEL_RADIO_NOISE)
 			return "Radio Noise"
+		if(CHANNEL_BOSS_MUSIC)
+			return "Boss Music"
 
 /proc/slot_bitfield_to_slot(input_slot_flags) // Kill off this garbage ASAP; slot flags and clothing flags should be IDENTICAL. GOSH DARN IT. Doesn't work with ears or pockets, either.
 	switch(input_slot_flags)
-		if(SLOT_OCLOTHING)
-			return slot_wear_suit
-		if(SLOT_ICLOTHING)
-			return slot_w_uniform
-		if(SLOT_GLOVES)
-			return slot_gloves
-		if(SLOT_EYES)
-			return slot_glasses
-		if(SLOT_MASK)
-			return slot_wear_mask
-		if(SLOT_HEAD)
-			return slot_head
-		if(SLOT_FEET)
-			return slot_shoes
-		if(SLOT_ID)
-			return slot_wear_id
-		if(SLOT_BELT)
-			return slot_belt
-		if(SLOT_BACK)
-			return slot_back
-		if(SLOT_PDA)
-			return slot_wear_pda
-		if(SLOT_TIE)
-			return slot_tie
+		if(SLOT_FLAG_OCLOTHING)
+			return SLOT_HUD_OUTER_SUIT
+		if(SLOT_FLAG_ICLOTHING)
+			return SLOT_HUD_JUMPSUIT
+		if(SLOT_FLAG_GLOVES)
+			return SLOT_HUD_GLOVES
+		if(SLOT_FLAG_EYES)
+			return SLOT_HUD_GLASSES
+		if(SLOT_FLAG_MASK)
+			return SLOT_HUD_WEAR_MASK
+		if(SLOT_FLAG_HEAD)
+			return SLOT_HUD_HEAD
+		if(SLOT_FLAG_FEET)
+			return SLOT_HUD_SHOES
+		if(SLOT_FLAG_ID)
+			return SLOT_HUD_WEAR_ID
+		if(SLOT_FLAG_BELT)
+			return SLOT_HUD_BELT
+		if(SLOT_FLAG_BACK)
+			return SLOT_HUD_BACK
+		if(SLOT_FLAG_PDA)
+			return SLOT_HUD_WEAR_PDA
+		if(SLOT_FLAG_TIE)
+			return SLOT_HUD_TIE
 
 
 /**

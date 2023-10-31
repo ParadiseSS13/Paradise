@@ -138,7 +138,7 @@
 /datum/outfit/job/nanotrasenrep
 	name = "Nanotrasen Representative"
 	jobtype = /datum/job/nanotrasenrep
-	uniform = /obj/item/clothing/under/rank/centcom/representative
+	uniform = /obj/item/clothing/under/rank/procedure/representative
 	suit = /obj/item/clothing/suit/storage/ntrep
 	shoes = /obj/item/clothing/shoes/centcom
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
@@ -183,7 +183,7 @@
 /datum/outfit/job/blueshield
 	name = "Blueshield"
 	jobtype = /datum/job/blueshield
-	uniform = /obj/item/clothing/under/rank/centcom/blueshield
+	uniform = /obj/item/clothing/under/rank/procedure/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
 	gloves = /obj/item/clothing/gloves/combat
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -229,7 +229,7 @@
 /datum/outfit/job/judge
 	name = "Magistrate"
 	jobtype = /datum/job/judge
-	uniform = /obj/item/clothing/under/rank/centcom/magistrate
+	uniform = /obj/item/clothing/under/rank/procedure/magistrate
 	suit = /obj/item/clothing/suit/magirobe
 	gloves = /obj/item/clothing/gloves/color/white
 	shoes = /obj/item/clothing/shoes/centcom
@@ -271,8 +271,8 @@
 /datum/outfit/job/lawyer
 	name = "Internal Affairs Agent"
 	jobtype = /datum/job/lawyer
-	uniform = /obj/item/clothing/under/rank/civilian/internalaffairs
-	suit = /obj/item/clothing/suit/storage/internalaffairs
+	uniform = /obj/item/clothing/under/rank/procedure/iaa
+	suit = /obj/item/clothing/suit/storage/iaa/blackjacket
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_iaa/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only

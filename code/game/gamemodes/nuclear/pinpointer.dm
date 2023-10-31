@@ -16,7 +16,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_PDA | SLOT_BELT
+	slot_flags = SLOT_FLAG_PDA | SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	throw_speed = 4
@@ -279,7 +279,7 @@
 ///////////////////////
 /obj/item/pinpointer/nukeop
 	var/obj/docking_port/mobile/home = null
-	slot_flags = SLOT_BELT | SLOT_PDA
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_PDA
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
 
@@ -488,7 +488,7 @@
 
 		while(name in name_counts)
 			name_counts[name]++
-			name = text("[] ([])", name, name_counts[name])
+			name = "[name] ([name_counts[name]])"
 		names[name] = H
 		name_counts[name] = 1
 

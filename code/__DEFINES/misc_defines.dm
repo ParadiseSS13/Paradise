@@ -375,7 +375,7 @@
 #define INVESTIGATE_BOMB "bombs"
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 52
+#define SQL_VERSION 53
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -553,6 +553,8 @@
 #define CLASSIC_CAVES "Classic Caves"
 #define DEADLY_DEEPROCK "Deadly Deeprock"
 
+///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
+#define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;
 // Request console message priority defines
 
 #define RQ_NONEW_MESSAGES 0 	// RQ_NONEWMESSAGES = no new message
@@ -568,3 +570,10 @@
 #define BRAIN_DAMAGE_BOOK_TIME 45 SECONDS
 /// The amount of time a mob needs to wait between any book reading
 #define BRAIN_DAMAGE_MOB_TIME 10 SECONDS
+
+/// Takes a datum as input, returns its ref string, or a cached version of it
+/// This allows us to cache \ref creation, which ensures it'll only ever happen once per datum, saving string tree time
+/// It is slightly less optimal then a []'d datum, but the cost is massively outweighed by the potential savings
+/// It will only work for datums mind, for datum reasons
+/// : because of the embedded typecheck
+#define text_ref(datum) (isdatum(datum) ? (datum:cached_ref ||= "\ref[datum]") : ("\ref[datum]"))

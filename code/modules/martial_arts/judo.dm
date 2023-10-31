@@ -17,7 +17,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	icon_state = "judobelt"
 	item_state = "judo"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_BULKY
 	var/datum/martial_art/judo/style
 
@@ -28,12 +28,12 @@
 /obj/item/judobelt/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == slot_belt)
+	if(slot == SLOT_HUD_BELT)
 		var/mob/living/carbon/human/H = user
 		if(HAS_TRAIT(user, TRAIT_PACIFISM))
 			to_chat(H, "<span class='warning'>The arts of Corporate Judo echo uselessly in your head, the thought of violence disgusts you!</span>")
 			return
-		style.teach(H, 1)
+		style.teach(H, TRUE)
 		to_chat(H, "<span class='userdanger'>The belt's nanites infuse you with the prowess of a black belt in Corporate Judo!</span>")
 		to_chat(H, "<span class='danger'>See the martial arts tab for an explanation of combos.</span>")
 		return
@@ -43,7 +43,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_belt) == src)
+	if(H.get_item_by_slot(SLOT_HUD_BELT) == src)
 		style.remove(H)
 		to_chat(user, "<span class='sciradio'>You suddenly forget the arts of Corporate Judo...</span>")
 

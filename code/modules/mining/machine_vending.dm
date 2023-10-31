@@ -91,6 +91,7 @@
 		EQUIPMENT("Soap", /obj/item/soap/nanotrasen, 200),
 		EQUIPMENT("Space Cash", /obj/item/stack/spacecash/c200, 2000),
 		EQUIPMENT("Whiskey", /obj/item/reagent_containers/food/drinks/bottle/whiskey, 100),
+		EQUIPMENT("HRD-MDE Project Box", /obj/item/storage/box/hardmode_box, 3500) //I want miners have to pay a lot to get this, but be set once they do.
 	)
 	prize_list["Extra"] = list() // Used in child vendors
 
@@ -238,7 +239,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter Kit", "Jaunter Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -265,6 +266,9 @@
 		if("Plasma Cutter Kit")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
 			new /obj/item/survivalcapsule(drop_location)
+		if("Jaunter Kit")
+			new /obj/item/wormhole_jaunter(drop_location)
+			new /obj/item/stack/medical/bruise_pack/advanced(drop_location)
 		if("Mining Conscription Kit")
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 
@@ -338,8 +342,8 @@
 		EQUIPMENT("Medical Marijuana", /obj/item/storage/fancy/cigarettes/cigpack_med, 250),
 		EQUIPMENT("Cigar", /obj/item/clothing/mask/cigarette/cigar/havana, 150),
 		EQUIPMENT("Box of matches", /obj/item/storage/box/matches, 50),
-		EQUIPMENT("Cheeseburger", /obj/item/reagent_containers/food/snacks/cheeseburger, 150),
-		EQUIPMENT("Big Burger", /obj/item/reagent_containers/food/snacks/bigbiteburger, 250),
+		EQUIPMENT("Cheeseburger", /obj/item/reagent_containers/food/snacks/burger/cheese, 150),
+		EQUIPMENT("Big Burger", /obj/item/reagent_containers/food/snacks/burger/bigbite, 250),
 		EQUIPMENT("Recycled Prisoner", /obj/item/reagent_containers/food/snacks/soylentgreen, 500),
 		EQUIPMENT("Crayons", /obj/item/storage/fancy/crayons, 350),
 		EQUIPMENT("Plushie", /obj/random/plushie, 750),

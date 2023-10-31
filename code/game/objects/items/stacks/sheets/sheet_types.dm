@@ -4,10 +4,12 @@
  * Plasteel
  * Wood
  * Cloth
- * Plastic
+ * Durathread
  * Cardboard
  * Runed Metal (cult)
  * Brass (clockwork cult)
+ * Bones
+ * Plastic
  */
 
 /*
@@ -37,7 +39,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("bench (right)", /obj/structure/chair/sofa/bench/right, 1, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe("barber chair", /obj/structure/chair/barber, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("bronze ashtray", /obj/item/ashtray/bronze, 1, time = 1 SECONDS),
@@ -161,6 +163,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 5 SECONDS, one_per_turf = TRUE),
+	new /datum/stack_recipe("hardened wheelchair", /obj/structure/chair/wheelchair/plasteel, 15, time = 6 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe_list("airlock assemblies", list(
 		new /datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -319,6 +322,10 @@ GLOBAL_LIST_INIT(cloth_recipes, list (
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
 
+/*
+ * Durathread
+ */
+
 GLOBAL_LIST_INIT(durathread_recipes, list (
 	new /datum/stack_recipe("durathread jumpsuit", /obj/item/clothing/under/misc/durathread, 4, time = 4 SECONDS),
 	new /datum/stack_recipe("durathread beret", /obj/item/clothing/head/beret/durathread, 2, time = 4 SECONDS),
@@ -432,7 +439,7 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
  */
 
 GLOBAL_LIST_INIT(cult_recipes, list (
-	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 1, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
@@ -546,6 +553,10 @@ GLOBAL_LIST_INIT(brass_recipes, list (
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
+
+/*
+ * Plastic
+ */
 
 GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("plastic flaps", /obj/structure/plasticflaps, 5, one_per_turf = TRUE, on_floor = TRUE, time = 4 SECONDS),

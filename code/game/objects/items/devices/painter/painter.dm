@@ -5,7 +5,7 @@
 	usesound = 'sound/effects/spray2.ogg'
 	flags = CONDUCT | NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL = 5000, MAT_GLASS = 2000)
 	/// Associative list of painter types, with the value being the datum. (For use in the radial menu)
 	var/static/list/painter_type_list = list(

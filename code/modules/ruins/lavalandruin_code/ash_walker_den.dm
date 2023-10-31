@@ -71,7 +71,8 @@
 	important_info = "Do not leave Lavaland without admin permission. Do not attack the mining outpost without being provoked."
 	description = "You are an ashwalker, a native inhabitant of Lavaland. Try to survive with nothing but spears and other tribal technology. Bring dead bodies back to your tendril to create more of your kind. You are free to attack miners and other outsiders."
 	flavour_text = "Your tribe worships the Necropolis. The wastes are sacred ground, its monsters a blessed bounty. \
-	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest."
+	You have seen lights in the distance... they foreshadow the arrival of outsiders that seek to tear apart the Necropolis and its domain. Fresh sacrifices for your nest. \
+	Keep in mind - your speed is given to you by the power of the Necropolis, <b>leaving the planet will make your body more lethargic!</b>"
 	assignedrole = "Ash Walker"
 
 /obj/effect/mob_spawn/human/alive/ash_walker/special(mob/living/carbon/human/new_spawn)

@@ -32,6 +32,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/health_scan = FALSE //does the ghost have health scanner mode on? by default it should be off
+	///toggle for ghost gas analyzer
+	var/gas_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
 
 /mob/dead/observer/New(mob/body=null, flags=1)
@@ -93,6 +95,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	..()
 	plane = GAME_PLANE
 	add_observer_verbs()
+	ADD_TRAIT(src, TRAIT_RESPAWNABLE, GHOSTED)
 
 /mob/dead/observer/Destroy()
 	toggle_all_huds_off()
@@ -178,9 +181,8 @@ Works together with spawning an observer, noted above.
 			flags &= ~GHOST_CAN_REENTER
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		remove_from_respawnable_list()
 		if(ghost.can_reenter_corpse)
-			ghost.add_to_respawnable_list()
+			ADD_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
 		ghost.key = key
@@ -203,6 +205,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
 		return
 
+	if(HAS_TRAIT(M, TRAIT_RESPAWNABLE))
+		ghostize(1)
+		return
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
 			warningmsg = "It's too early in the shift to enter cryo"
@@ -277,10 +282,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/Stat()
 	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
+	if(statpanel("Status"))
 		show_stat_emergency_shuttle_eta()
-		stat(null, "Respawnability: [(src in GLOB.respawnable_list) ? "Yes" : "No"]")
+		stat(null, "Respawnability: [HAS_TRAIT(src, TRAIT_RESPAWNABLE) ? "Yes" : "No"]")
 
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
@@ -526,6 +530,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='notice'>Health scan enabled.</span>")
 		health_scan = TRUE
 
+/mob/dead/observer/verb/toggle_gas_anaylzer()
+	set name = "Toggle Gas Analyzer"
+	set desc = "Toggles wether you can anaylze gas contents on click"
+	set category = "Ghost"
+
+	if(gas_analyzer)
+		to_chat(src, "<span class='notice'>Gas Analyzer disabled.</span>")
+		gas_analyzer = FALSE
+	else
+		to_chat(src, "<span class='notice'>Gas Analyzer enabled. Click on a pipe to analyze.</span>")
+		gas_analyzer = TRUE
+
 /mob/dead/observer/verb/analyze_air()
 	set name = "Analyze Air"
 	set category = "Ghost"
@@ -657,10 +673,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 	to_chat(usr, "You [(ghostvision?"now":"no longer")] have ghost vision.")
 
-/mob/dead/observer/verb/pick_darkness()
+/mob/dead/observer/verb/pick_darkness(desired_dark as num)
 	set name = "Pick Darkness"
+	set desc = "Choose how much darkness you want to see, (0 - 255). Higher numbers being darker."
 	set category = "Ghost"
-	var/desired_dark = input(src, "Choose how much darkness you want to see, (0 - 255). Higher numbers being darker.", "Pick Darkness", null) as null|num
 	if(isnull(desired_dark))
 		return
 	if(!client)

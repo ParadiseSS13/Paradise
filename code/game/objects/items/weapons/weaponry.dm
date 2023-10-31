@@ -6,7 +6,7 @@
 	name = "banhammer"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "toyhammer"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
@@ -32,7 +32,7 @@
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 2
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -51,7 +51,7 @@
 	item_state = "claymore"
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 40
 	throwforce = 10
 	sharp = TRUE
@@ -82,7 +82,7 @@
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
 	force = 40
 	throwforce = 10
 	sharp = TRUE

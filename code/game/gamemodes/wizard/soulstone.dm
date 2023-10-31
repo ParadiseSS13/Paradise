@@ -8,7 +8,7 @@
 	var/icon_state_full = "soulstone2"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "bluespace=4;materials=5"
 
 	/// The body/brain of the player inside this construct, transferred over from the soulstone.
@@ -505,5 +505,6 @@
 	if(length(contents)) //If they used the soulstone on someone else in the meantime
 		return FALSE
 	M.ckey = chosen_ghost.ckey
+	dust_if_respawnable(chosen_ghost)
 	init_shade(M, user)
 	return TRUE

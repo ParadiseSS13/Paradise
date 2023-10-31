@@ -94,6 +94,7 @@ const styleMapperByPropName = {
   textTransform: mapRawPropTo('text-transform'),
   wordWrap: mapRawPropTo('word-wrap'),
   textOverflow: mapRawPropTo('text-overflow'),
+  borderRadius: mapRawPropTo('border-radius'),
   // Boolean props
   inline: mapBooleanPropTo('display', 'inline-block'),
   bold: mapBooleanPropTo('font-weight', 'bold'),
