@@ -1,9 +1,7 @@
-import { createSearch } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
-  Flex,
   Icon,
   Input,
   LabeledList,
@@ -11,8 +9,6 @@ import {
   Table,
   Tabs,
 } from '../components';
-import { FlexItem } from '../components/Flex';
-import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
