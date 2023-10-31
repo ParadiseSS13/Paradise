@@ -8,6 +8,7 @@
 	righthand_file = 'modular_ss220/objects/icons/inhands/guns_righthand.dmi'
 	icon_state = "beretta"
 	item_state = "beretta"
+	w_class = WEIGHT_CLASS_NORMAL
 	can_suppress = FALSE
 	mag_type = /obj/item/ammo_box/magazine/beretta
 	fire_sound = 'modular_ss220/objects/sound/weapons/gunshots/beretta_shot.ogg'
@@ -20,6 +21,8 @@
 	multi_sprite_step = 2
 	ammo_type = /obj/item/ammo_casing/beretta/mmrub919
 	max_ammo = 10
+	multiload = 0
+	slow_loading = TRUE
 	caliber = "919mm"
 
 /obj/item/ammo_box/magazine/beretta/mm919
@@ -121,8 +124,6 @@
 	name = "Beretta M9 Rubber Ammunition Crate"
 	contains = list(/obj/item/ammo_box/beretta,
 					/obj/item/ammo_box/beretta,
-					/obj/item/ammo_box/beretta,
-					/obj/item/ammo_box/beretta,
 					/obj/item/ammo_box/magazine/beretta,
 					/obj/item/ammo_box/magazine/beretta)
 	cost = 350
@@ -131,8 +132,6 @@
 /datum/supply_packs/security/armory/berettalethalammo
 	name = "Beretta M9 Lethal Ammunition Crate"
 	contains = list(/obj/item/ammo_box/beretta/mm919,
-					/obj/item/ammo_box/beretta/mm919,
-					/obj/item/ammo_box/beretta/mm919,
 					/obj/item/ammo_box/beretta/mm919,
 					/obj/item/ammo_box/magazine/beretta/mm919,
 					/obj/item/ammo_box/magazine/beretta/mm919)
@@ -143,8 +142,6 @@
 	name = "Beretta M9 Bluespace Ammunition Crate"
 	contains = list(/obj/item/ammo_box/beretta/mmbsp919,
 					/obj/item/ammo_box/beretta/mmbsp919,
-					/obj/item/ammo_box/beretta/mmbsp919,
-					/obj/item/ammo_box/beretta/mmbsp919,
 					/obj/item/ammo_box/magazine/beretta/mmbsp919,
 					/obj/item/ammo_box/magazine/beretta/mmbsp919)
 	cost = 650
@@ -153,8 +150,6 @@
 /datum/supply_packs/security/armory/berettaarmorpiercingammo
 	name = "Beretta M9 Armor-piercing Ammunition Crate"
 	contains = list(/obj/item/ammo_box/beretta/mmap919,
-					/obj/item/ammo_box/beretta/mmap919,
-					/obj/item/ammo_box/beretta/mmap919,
 					/obj/item/ammo_box/beretta/mmap919,
 					/obj/item/ammo_box/magazine/beretta/mmap919,
 					/obj/item/ammo_box/magazine/beretta/mmap919)
@@ -174,7 +169,7 @@
 /datum/design/box_beretta/ap
 	name = "Beretta M9 AP Ammo Box (9mm)"
 	desc = "A box of 20 armor-piercing rounds for Beretta M9"
-	id = "box_beretta"
+	id = "box_beretta_ap"
 	req_tech = list("combat" = 3, "materials" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 6000, MAT_SILVER = 600, MAT_GLASS = 1000)
@@ -184,7 +179,7 @@
 /datum/design/box_beretta/bluespace
 	name = "Beretta M9 Bluespace Ammo Box (9mm)"
 	desc = "A box of 20 high velocity bluespace rounds for Beretta M9"
-	id = "box_beretta"
+	id = "box_beretta_bsp"
 	req_tech = list("combat" = 6, "materials" = 5, "bluespace" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 8000, MAT_SILVER = 600, MAT_BLUESPACE = 1000)
