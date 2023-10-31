@@ -44,38 +44,37 @@
 	set_light(1, LIGHTING_MINIMUM_POWER)
 
 /obj/structure/morgue/proc/update_state()
-	. = UPDATE_OVERLAYS
-
 	if(connected)
 		status = EXTENDED_TRAY
+		return update_icon(UPDATE_OVERLAYS)
 
-	else if(!length(contents))
+	if(!length(contents))
 		status = EMPTY_MORGUE
+		return update_icon(UPDATE_OVERLAYS)
 
-	else
-		var/mob/living/M = locate() in contents
-		var/obj/structure/closet/body_bag/B = locate() in contents
+	var/mob/living/M = locate() in contents
+	var/obj/structure/closet/body_bag/B = locate() in contents
 
-		if(!M)
-			M = locate() in B
+	if(!M)
+		M = locate() in B.contents
 
-		if(!M)
-			status = NOT_BODY
+	if(!M)
+		status = NOT_BODY
+		return update_icon(UPDATE_OVERLAYS)
+
+	var/mob/dead/observer/G = M.get_ghost()
+
+	if(M.mind && !M.mind.suicided && !M.suiciding)
+		if(M.client)
+			status = REVIVABLE
 			return update_icon(UPDATE_OVERLAYS)
 
-		var/mob/dead/observer/G = M.get_ghost()
+		if(G && G.client) //There is a ghost and it is connected to the server
+			status = GHOST_CONNECTED
+			return update_icon(UPDATE_OVERLAYS)
 
-		status = UNREVIVABLE
-
-		if(M.mind && !M.mind.suicided && !M.suiciding)
-			if(M.client)
-				status = REVIVABLE
-
-			else if(G && G.client) //There is a ghost and it is connected to the server
-				status = GHOST_CONNECTED
-
+	status = UNREVIVABLE
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/structure/morgue/update_overlays()
 	. = ..()
@@ -129,7 +128,7 @@
 		connect()
 
 	add_fingerprint(user)
-	update_icon(update_state())
+	update_state()
 	return
 
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
