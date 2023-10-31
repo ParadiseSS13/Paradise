@@ -74,7 +74,7 @@ body:
     attributes:
       label: Extra information
       description: Anything else you can tell us.
-      placeholder: I think this bug was introduced in issue #18477
+      placeholder: "I think this bug was introduced in the following PR https://github.com/ParadiseSS13/Paradise/pull/18477"
 
   - type: textarea
     id: logs
