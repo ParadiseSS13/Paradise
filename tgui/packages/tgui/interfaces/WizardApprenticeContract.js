@@ -40,7 +40,7 @@ export const WizardApprenticeContract = (props, context) => {
             <LabeledList.Item label="Translocation">
               Your apprentice is able to defy physics, learning how to move
               through bluespace. <br />
-              They know Teleport, Blink and Ethereal Jant.
+              They know Teleport, Blink and Ethereal Jaunt.
               <br />
               <Button
                 content="Select"
