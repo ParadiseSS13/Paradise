@@ -53,7 +53,7 @@
 
 /datum/component/tilted/proc/on_alt_click(atom/source, mob/user)
 	SIGNAL_HANDLER  // COMSIG_CLICK_ALT
-	INVOKE_ASYNC(parent, TYPE_PROC_REF(/atom/movable, untilt), user, untilt_duration)
+	INVOKE_ASYNC(src, PROC_REF(untilt), user, untilt_duration)
 	return COMPONENT_CANCEL_ALTCLICK
 
 /datum/component/tilted/proc/on_interact(atom/source, mob/user)
@@ -68,5 +68,42 @@
 
 /datum/component/tilted/proc/on_try_untilt(atom/source, mob/living/user)
 	SIGNAL_HANDLER
+	INVOKE_ASYNC(src, PROC_REF(untilt), user, untilt_duration)
+
+/// Untilt a tilted object.
+/datum/component/tilted/proc/untilt(mob/living/user, duration = 10 SECONDS)
+	var/atom/movable/atom_parent = parent
+
+	if(!istype(atom_parent))
+		return
+
+	if(!istype(user) || !atom_parent.Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(user)
+		user.visible_message(
+			"[user] begins to right [parent].",
+			"You begin to right [parent]."
+		)
+		if(!do_after(user, duration, TRUE, parent))
+			return
+		user.visible_message(
+			"<span class='notice'>[user] rights [parent].</span>",
+			"<span class='notice'>You right [parent].</span>",
+			"<span class='notice'>You hear a loud clang.</span>"
+		)
+
+	if(QDELETED(atom_parent))
+		return
+
+	atom_parent.unbuckle_all_mobs(TRUE)
+
+	SEND_SIGNAL(parent, COMSIG_MOVABLE_UNTILTED, user)
+
+	atom_parent.layer = initial(atom_parent.layer)
+
+	var/matrix/M = matrix()
+	M.Turn(0)
+	atom_parent.transform = M
 	if(istype(user) && user.incapacitated())
 		return COMPONENT_BLOCK_UNTILT

@@ -817,35 +817,8 @@
 
 /// Untilt a tilted object.
 /atom/movable/proc/untilt(mob/living/user, duration = 10 SECONDS)
-	if(!GetComponent(/datum/component/tilted))
-		return
-	if(SEND_SIGNAL(src, COMSIG_MOVABLE_TRY_UNTILT, user) & COMPONENT_BLOCK_UNTILT)
-		return
-	if(!istype(user) || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+	SEND_SIGNAL(src, COMSIG_MOVABLE_TRY_UNTILT, user)
 
-	if(user)
-		user.visible_message(
-			"[user] begins to right [src].",
-			"You begin to right [src]."
-		)
-		if(!do_after(user, duration, TRUE, src))
-			return
-		user.visible_message(
-			"<span class='notice'>[user] rights [src].</span>",
-			"<span class='notice'>You right [src].</span>",
-			"<span class='notice'>You hear a loud clang.</span>"
-		)
-
-	unbuckle_all_mobs(TRUE)
-
-	SEND_SIGNAL(src, COMSIG_MOVABLE_UNTILTED, user)
-
-	layer = initial(layer)
-
-	var/matrix/M = matrix()
-	M.Turn(0)
-	transform = M
 
 /// useful callback for things that want special behavior on crush
 /atom/movable/proc/on_crush_thing(atom/thing)
