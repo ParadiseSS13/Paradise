@@ -1282,7 +1282,7 @@
 /datum/recipe/microwave/antpopsicle
 	reagents = list("sugar" = 5, "water" = 5, "ants" = 10)
 	items = list(
-		/obj/item/stack/rods
+		/obj/item/popsicle_stick
 	)
 	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/ant
 
