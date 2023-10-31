@@ -44,12 +44,15 @@ Make sure to add new items to this list if you document new components.
   - [`Table`](#table)
   - [`Table.Row`](#tablerow)
   - [`Table.Cell`](#tablecell)
+  - [`Table.Cell`](#tablesortable)
   - [`Tabs`](#tabs)
   - [`Tabs.Tab`](#tabstab)
   - [`Tooltip`](#tooltip)
 - [`tgui/layouts`](#tguilayouts)
   - [`Window`](#window)
   - [`Window.Content`](#windowcontent)
+- [`tgui/interfaces/common/`](#tguiinterfacescommon)
+  - [`RecordsTable`](#recordstable)
 
 ## General Concepts
 
@@ -844,6 +847,82 @@ A straight forward mapping to `<td>` element.
 - `collapsing: boolean` - Collapses table cell to the smallest possible size,
   and stops any text inside from wrapping.
 
+### `Table.Sortable`
+
+A managed sortable table.
+
+**Props:**
+
+- See inherited props: [Table](#table)
+- `columns: [{ id: string, name: string }]` - A list of data fields to be
+  used.
+- `data: object[]` - The data to put into the table.
+- `datumID: object => object` - A function which takes in a datum and returns
+  an id.
+- `filter: object[] => object[]` - A function applied to the data before
+  sorting the table. The `createSearch` function can be applied here.
+- `headerRowProps: object` - Props to apply to the header row.
+- `headerCellProps: { column: object | object => object, ... }` - Props to
+  apply to   the header row's cells.
+- `datumRowProps: object | object => object` - Props to apply to the data
+  rows. If a function is specified instead, the data associated with that row
+  is passed into it.
+- `datumCellProps:  { column: object | object => object, ... }` - Props to
+  apply to the data cells.
+- `datumCellChildren: { column: Component | object => Component, ... }`
+  - Overrides of the data cells' children. The default contents of a cell is
+  the value of the field in the at aat that particular row, or in other words,
+  `data[row][column.id]`. If a function is specified instead, then the default
+  value of that cell is passed to the function.
+- `...rest` - Applied on to the table.
+- `children: Component[]` - Not supported. Do not use.
+
+`headerCellProps`, `datumCellProps`, `datumCellChildren` share the same
+structure. That is, the key must be a column ID as defined in the columns
+prop, and the value can either be the props directly or a function which
+takes in the data associated with that cell and returns the props.
+
+The following is an example of how to use `Table.Sortable`.
+```jsx
+const data = [
+  { 'account_number': 6224001, 'name': 'Command Account', 'suspended': 'Active', 'money': 7000, },
+  { 'account_number': 3099002, 'name': 'Security Account', 'suspended': 'Active', 'money': 14000, },
+  { 'account_number': 8652003, 'name': 'Science Account', 'suspended': 'Active', 'money': 7000, },
+  { 'account_number': 8422004, 'name': 'Service Account', 'suspended': 'Active', 'money': 7000, },
+  { 'account_number': 9853005, 'name': 'Supply Account', 'suspended': 'Active', 'money': 7000, },
+  { 'account_number': 1866006, 'name': 'Engineering Account', 'suspended': 'Active', 'money': 7250, },
+  { 'account_number': 3811007, 'name': 'Medical Account', 'suspended': 'Active', 'money': 7000, },
+  { 'account_number': 3945008, 'name': 'Assistant Account', 'suspended': 'Active', 'money': 4500, },
+]
+
+<Table.Sortable
+  columns={[
+    { id: "name", name: "Department Name", },
+    { id: "account_number", name: "Account Number", },
+    { id: "suspended", name: "Account Status", },
+    { id: "money", name: "Account Balance", },
+  ]}
+  data={department_accounts}
+  datumID={(datum) => datum.account_number}
+
+  datumRowProps={(datum) => ({
+    className: `AccountsUplinkTerminal__listRow--${datum.suspended}`,
+  })}
+  datumCellChildren={{
+    name: (value) => <><Icon name="wallet" /> {value}</>,
+  }}
+/>
+```
+In the above example, the `columns` prop defines the fields in the data that
+are used. `columns.id` is the key or the name of the property on the data,
+while `columns.name` is what the user sees on the UI. `datumID` selects which
+field in the data to use as the key for render caching. `datumID` can return
+anything as long as it is unique.
+
+`datumRowProps` applies a class to a row if the account associated with that
+row is suspended, and `datumCellChildren` prepends a wallet to the contents
+of the `name` column.
+
 ### `Tabs`
 
 Tabs make it easy to explore and switch between different views.
@@ -968,3 +1047,17 @@ Can be scrollable.
 - `className: string` - Applies a CSS class to the element.
 - `scrollable: boolean` - Shows or hides the scrollbar.
 - `children: any` - Main content of your window.
+
+## `tgui/interfaces/common`
+
+## `RecordsTable`
+
+An extension to [`Table.Sortable`](#tablesortable) which provides a search box,
+and slots for buttons.
+
+**Props:**
+
+- See inherited props: [`Table.Sortable`](#tablesortable)
+- `leftButtons: Component[]` - Optional buttons to add left of the search box.
+- `rightButtons: Component[]` - Optional buttons to add right of the search box.
+- `searchPlaceholder: string` - The default text in the searchbox.
