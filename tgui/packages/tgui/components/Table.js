@@ -102,14 +102,35 @@ const Compare = (a, b) => {
   const typeofA = typeof a;
   const typeofB = typeof b;
 
+  const nullToNumber = (x) =>
+    x === undefined
+    ? 0
+    : x === null
+      ? 1
+      : 2
+    ;
+  const aNullNumber = nullToNumber(a);
+  const bNullNumber = nullToNumber(b);
+  if (aNullNumber < 2 || bNullNumber < 2) {
+    return aNullNumber - bNullNumber;
+  }
+
   if (typeofA === 'function' || typeofB === 'function') {
     throw new TypeError("Can't sort functions.");
   }
 
-  if (typeofA === 'number') {
-    if (typeofB === 'number') {
+  if (typeofA === 'number' || typeofA === 'bigint') {
+    if (typeofB === 'number' || typeofB === 'bigint') {
       return a - b;
     }
+  }
+
+  if (typeofA === 'boolean' && typeofB === 'boolean') {
+    return a === b
+      ? 0
+      : a
+        ? 1
+        : -1
   }
 
   return a.toString().localeCompare(b.toString());
