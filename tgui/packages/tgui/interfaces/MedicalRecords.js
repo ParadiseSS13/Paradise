@@ -132,13 +132,7 @@ const MedicalRecordsList = (props, context) => {
       ]}
       data={records}
       datumID={(datum) => datum.ref}
-      datumRowProps={(datum) => ({
-        className: `MedicalRecords__listRow--${medStatusStyles[datum.p_stat]}`,
-        onClick: () => act('view_record', { view_record: datum.ref }),
-      })}
-      datumCellChildren={{
-        name: (value) => <><Icon name="user" /> {value}</>,
-      }}
+
       leftButtons={
         <Button
           content="Manage Records"
@@ -148,6 +142,14 @@ const MedicalRecordsList = (props, context) => {
         />
       }
       searchPlaceholder="Search by Name, ID, Physical Status, or Mental Status"
+
+      datumRowProps={(datum) => ({
+        className: `MedicalRecords__listRow--${medStatusStyles[datum.p_stat]}`,
+        onClick: () => act('view_record', { view_record: datum.ref }),
+      })}
+      datumCellChildren={{
+        name: (value) => <><Icon name="user" /> {value}</>,
+      }}
     />
   );
 }
@@ -347,19 +349,21 @@ const MedicalRecordsViruses = (props, context) => {
       ]}
       data={virus}
       datumID={(datum) => datum.id}
+
+      searchPlaceholder="Search by Name, Max Stages, or Severity"
+
       datumRowProps={(datum) => ({
         className: `MedicalRecords__listVirus--${datum.severity}`,
         onClick: () => act('vir', { vir: datum.D }),
       })}
-      datumCellChildren={{
-        name: (value) => <><Icon name="virus" /> {value}</>,
-      }}
       datumCellProps={{
         severity: (value) => ({
           color: severities[value],
         })
       }}
-      searchPlaceholder="Search by Name, Max Stages, or Severity"
+      datumCellChildren={{
+        name: (value) => <><Icon name="virus" /> {value}</>,
+      }}
     />
   );
 }
