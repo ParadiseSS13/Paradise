@@ -61,5 +61,5 @@ body:
 - type: input
   id: Discord
   attributes:
-    label: Discord ID
-    description: (OPTIONAL) You may provide your discord in case we need to contact you further
+    label: Discord ID (Optional)
+    description: You may provide your discord in case we need to contact you further
