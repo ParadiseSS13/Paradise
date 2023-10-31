@@ -65,7 +65,7 @@
 
 /obj/item/reagent_containers/food/snacks/salad
 	name = "salad"
-	desc = "This salad is blander than the jokes of the clown. But it is also low in carbohydrates."
+	desc = "This salad is blander than the jokes of the clown, but is also low in carbohydrates!"
 	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "salad"
 	trash = /obj/item/trash/snack_bowl
