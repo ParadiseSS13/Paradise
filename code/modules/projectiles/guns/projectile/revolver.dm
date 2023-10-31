@@ -7,6 +7,7 @@
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
 	can_holster = TRUE
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()

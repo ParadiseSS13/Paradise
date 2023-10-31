@@ -59,7 +59,7 @@
 	desc = "A flamethrower, fuelled by a portion of highly flammable bio-toxins stolen previously from Nanotrasen stations. Make a statement by roasting the filth in their own greed. Use with caution."
 	reference = "FT"
 	item = /obj/item/flamethrower/full/tank
-	cost = 5
+	cost = 3
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 40
 
@@ -102,14 +102,14 @@
 	This model lacks a method of space propulsion, and therefore it is advised to repair the mothership's teleporter if you wish to make use of it."
 	reference = "GE"
 	item = /obj/mecha/combat/gygax/dark/loaded
-	cost = 450
+	cost = 400
 
 /datum/uplink_item/support/mauler
 	name = "Mauler Exosuit"
 	desc = "A massive and incredibly deadly Syndicate exosuit. Features long-range targeting, thrust vectoring, and deployable smoke."
 	reference = "ME"
 	item = /obj/mecha/combat/marauder/mauler/loaded
-	cost = 700
+	cost = 599 // Today only 599 TC! Get yours today!
 
 /datum/uplink_item/support/reinforcement
 	name = "Reinforcement"
@@ -129,7 +129,7 @@
 	reference = "SAC"
 	item = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
 	refund_path = /obj/item/antag_spawner/nuke_ops/borg_tele/assault
-	cost = 325
+	cost = 250
 
 /datum/uplink_item/support/reinforcement/medical_borg
 	name = "Syndicate Medical Cyborg"
@@ -374,7 +374,7 @@
 	desc = "A belt containing 26 lethally dangerous and destructive grenades."
 	reference = "GRB"
 	item = /obj/item/storage/belt/grenade/full
-	cost = 150
+	cost = 120
 	surplus = 0
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -383,7 +383,7 @@
 	desc = "A unique grenade that deploys a swarm of viscerators upon activation, which will chase down and shred any non-operatives in the area."
 	reference = "VDG"
 	item = /obj/item/grenade/spawnergrenade/manhacks
-	cost = 25
+	cost = 10
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 35
 
@@ -414,7 +414,7 @@
 	and other medical supplies helpful for a medical field operative."
 	reference = "SCMK"
 	item = /obj/item/storage/firstaid/tactical
-	cost = 20
+	cost = 30
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/device_tools/vtec
@@ -466,7 +466,7 @@
 	desc = "An incredibly useful personal shield projector, capable of reflecting energy projectiles, but it cannot block other attacks. Pair with an Energy Sword for a killer combination."
 	item = /obj/item/shield/energy
 	reference = "ESD"
-	cost = 80
+	cost = 40
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 20
 
