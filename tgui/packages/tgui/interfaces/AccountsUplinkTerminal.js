@@ -43,7 +43,7 @@ export const AccountsUplinkTerminal = (properties, context) => {
 
   return (
     <Window resizable>
-      <Window.Content scrollable>
+      <Window.Content scrollable className="Layout__content--flexColumn">
         <LoginInfo />
         <AccountsUplinkTerminalNavigation />
         {body}
