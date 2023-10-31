@@ -426,7 +426,7 @@
 
 /datum/outfit/job/centcom/response_team/paranormal/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
-	ADD_TRAIT(H.mind, TRAIT_HOLY, "paranormal")
+	ADD_TRAIT(H.mind, TRAIT_HOLY, "roundstart")
 
 /datum/outfit/job/centcom/response_team/paranormal/amber
 	name = "RT Paranormal (Amber)"
