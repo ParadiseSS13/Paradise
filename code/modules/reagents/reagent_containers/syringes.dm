@@ -143,6 +143,15 @@
 
 				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
+			if(istype(target, /obj/item/reagent_containers/food))
+
+				var/list/chemicals = list()
+				for(var/datum/reagent/chem in reagents.reagent_list)
+					chemicals += chem.name
+				var/contained_chemicals = english_list(chemicals)
+
+				add_attack_logs(user, target, "Injected [amount_per_transfer_from_this]u [contained_chemicals] into food item")
+
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 			reagents.reaction(L, REAGENT_INGEST, fraction)
 			reagents.trans_to(target, amount_per_transfer_from_this)

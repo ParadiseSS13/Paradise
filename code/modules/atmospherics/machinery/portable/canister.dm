@@ -159,7 +159,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 */
 
 	if(stat & BROKEN)
-		icon_state = text("[]-1", canister_color["prim"])//yes, I KNOW the colours don't reflect when the can's borked, whatever.
+		icon_state = "[canister_color["prim"]]-1"//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 		return
 
 	if(icon_state != canister_color["prim"])

@@ -1,6 +1,10 @@
 /datum/species
-	var/name                     // Species name.
-	var/name_plural 			// Pluralized name (since "[name]s" is not always valid)
+	/// Species name
+	var/name
+	/// Pluralized name (since "[name]s" is not always valid)
+	var/name_plural
+	/// The corresponding key for spritesheets
+	var/sprite_sheet_name
 	/// Article to use when referring to an individual of the species, if pronunciation is different from expected.
 	/// Because it's unathi's turn to be special snowflakes.
 	var/article_override
@@ -193,6 +197,8 @@
 
 /datum/species/New()
 	unarmed = new unarmed_type()
+	if(!sprite_sheet_name)
+		sprite_sheet_name = name
 
 /datum/species/proc/get_random_name(gender)
 	var/datum/language/species_language = GLOB.all_languages[language]
@@ -319,8 +325,8 @@
 	if(HAS_TRAIT(H, TRAIT_FAT))
 		. += (1.5 - flight)
 
-	if(H.bodytemperature < H.dna.species.cold_level_1 && !(HAS_TRAIT(H, TRAIT_RESISTCOLD)))
-		. += (BODYTEMP_COLD_DAMAGE_LIMIT - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
+	if(H.bodytemperature < H.dna.species.cold_level_1 && !HAS_TRAIT(H, TRAIT_RESISTCOLD))
+		. += (H.dna.species.cold_level_1 - H.bodytemperature) / COLD_SLOWDOWN_FACTOR
 
 	var/leftover = .
 	. = round_down(. * SLOWDOWN_MULTIPLIER) / SLOWDOWN_MULTIPLIER //This allows us to round in values of 0.5 A slowdown of 0.55 becomes 1.10, which is rounded to 1, then reduced to 0.5

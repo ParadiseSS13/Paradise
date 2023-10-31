@@ -154,13 +154,8 @@
 
 /mob/living/silicon/pai/Stat()
 	..()
-	statpanel("Status")
-	if(client.statpanel == "Status")
+	if(statpanel("Status"))
 		show_silenced()
-
-	if(proc_holder_list.len)//Generic list for proc_holder objects.
-		for(var/obj/effect/proc_holder/P in proc_holder_list)
-			statpanel("[P.panel]","",P)
 
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
@@ -453,7 +448,7 @@
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
-	msg += "\n*---------*</span>"
+	msg += "\n</span>"
 
 	. += msg
 
