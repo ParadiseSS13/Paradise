@@ -102,7 +102,11 @@ class SortableTable extends Component {
   constructor(props) {
     super();
     this.state = {
-      sortId: props.sortId ?? props.columns[0].id,
+      // Allow null
+      sortId: props.sortId === undefined
+        ? props.columns[0].id
+        : props.sortId
+        ,
       sortOrder: props.sortOrder ?? 1,
     };
   }
