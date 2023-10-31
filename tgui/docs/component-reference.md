@@ -855,7 +855,8 @@ A managed sortable table.
 
 - See inherited props: [Table](#table)
 - `columns: [{ id: string, name: string }]` - A list of data fields to be
-  used.
+  used. The order in which columns are specified is the order in which they
+  appear in the UI.
 - `data: object[]` - The data to put into the table.
 - `datumID: object => object` - A function which takes in a datum and returns
   an id.
