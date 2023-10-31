@@ -161,3 +161,6 @@
 			. +="<span class='notice'>The panel is <b>pried</b> open, looks like you could fit a cell in there.</span>"
 		else
 			. +="<span class='notice'>The panel looks like it could be <b>pried</b> open, or <b>screwed</b> shut.</span>"
+
+/obj/machinery/floodlight/anchored
+	anchored = TRUE

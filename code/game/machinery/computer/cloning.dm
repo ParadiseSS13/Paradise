@@ -322,19 +322,23 @@
 		return
 	if(isnull(subject) || (!(ishuman(subject))) || (!subject.dna))
 		if(isalien(subject))
-			set_scan_temp("Xenomorphs are not scannable.", "bad")
+			set_scan_temp("Safety interlocks engaged. Nanotrasen Directive 7b forbids the cloning of biohazardous alien species.", "bad")
 			SStgui.update_uis(src)
 			return
 		// can add more conditions for specific non-human messages here
 		else
-			set_scan_temp("Subject species is not scannable.", "bad")
+			set_scan_temp("Subject species is not clonable.", "bad")
 			SStgui.update_uis(src)
 			return
 	if(subject.get_int_organ(/obj/item/organ/internal/brain))
 		var/obj/item/organ/internal/brain/Brn = subject.get_int_organ(/obj/item/organ/internal/brain)
 		if(istype(Brn))
+			if(Brn.dna.species.name == "Machine")
+				set_scan_temp("No organic tissue detected within subject. Alternative revival methods recommended.", "bad")
+				SStgui.update_uis(src)
+				return
 			if(NO_CLONESCAN in Brn.dna.species.species_traits)
-				set_scan_temp("[Brn.dna.species.name_plural] are not scannable.", "bad")
+				set_scan_temp("[Brn.dna.species.name_plural] are not clonable. Alternative revival methods recommended.", "bad")
 				SStgui.update_uis(src)
 				return
 	if(!subject.get_int_organ(/obj/item/organ/internal/brain))
@@ -342,15 +346,19 @@
 		SStgui.update_uis(src)
 		return
 	if(subject.suiciding)
-		set_scan_temp("Subject has committed suicide and is not scannable.", "bad")
+		set_scan_temp("Subject has committed suicide and is not clonable.", "bad")
+		SStgui.update_uis(src)
+		return
+	if(HAS_TRAIT(subject, TRAIT_BADDNA) && src.scanner.scan_level < 2)
+		set_scan_temp("Insufficient level of biofluids detected within subject. Scanner upgrades may be required to improve scan capabilities.", "bad")
+		SStgui.update_uis(src)
+		return
+	if(HAS_TRAIT(subject, TRAIT_HUSK) && src.scanner.scan_level < 2)
+		set_scan_temp("Subject is husked. Treat condition or upgrade scanning module to proceed with scan.", "bad")
 		SStgui.update_uis(src)
 		return
 	if((!subject.ckey) || (!subject.client))
 		set_scan_temp("Subject's brain is not responding. Further attempts after a short delay may succeed.", "bad")
-		SStgui.update_uis(src)
-		return
-	if(HAS_TRAIT(subject, TRAIT_BADDNA) && src.scanner.scan_level < 2)
-		set_scan_temp("Subject has incompatible genetic mutations.", "bad")
 		SStgui.update_uis(src)
 		return
 	if(!isnull(find_record(subject.ckey)))

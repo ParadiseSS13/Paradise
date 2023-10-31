@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 		return
 	switch(severity)
 		if(1.0)
-			ChangeTurf(baseturf)
+			ChangeTurf(baseturf, keep_icon = FALSE) // we do not keep the icon so that asteroid platings can work properly
 		if(2.0)
 			switch(pick(1,2;75,3))
 				if(1)

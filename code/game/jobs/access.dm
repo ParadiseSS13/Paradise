@@ -291,7 +291,7 @@
 		if(ACCESS_RESEARCH)
 			return "Science"
 		if(ACCESS_MINING)
-			return "Mining"
+			return "Mining Dock"
 		if(ACCESS_MINING_OFFICE)
 			return "Mining Office"
 		if(ACCESS_MAILSORTING)
@@ -303,7 +303,7 @@
 		if(ACCESS_HEADS_VAULT)
 			return "Main Vault"
 		if(ACCESS_MINING_STATION)
-			return "Mining EVA"
+			return "Mining Outpost"
 		if(ACCESS_XENOBIOLOGY)
 			return "Xenobiology Lab"
 		if(ACCESS_XENOARCH)

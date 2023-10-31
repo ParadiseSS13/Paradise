@@ -53,6 +53,9 @@
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 1)
 
+/obj/item/reagent_containers/food/snacks/cheesewedge/presliced
+	list_reagents = list("nutriment" = 3, "vitamin" = 1, "cheese" = 4)
+	
 /obj/item/reagent_containers/food/snacks/weirdcheesewedge
 	name = "weird cheese"
 	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the broad sense of the word."
