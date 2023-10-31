@@ -18,7 +18,7 @@ import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { IndexedTable } from './common/IndexedTable'
+import { RecordsTable } from './common/RecordsTable'
 
 const statusStyles = {
   '*Execute*': 'execute',
@@ -103,7 +103,7 @@ const SecurityRecordsPageList = (props, context) => {
     records,
   } = data;
   return (
-    <IndexedTable
+    <RecordsTable
       className="SecurityRecords__list"
       columns={[
         { id: 'name', name: 'Name', },

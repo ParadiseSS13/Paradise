@@ -16,7 +16,7 @@ import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
-import { IndexedTable } from './common/IndexedTable'
+import { RecordsTable } from './common/RecordsTable'
 
 export const AccountsUplinkTerminal = (properties, context) => {
   const { act, data } = useBackend(context);
@@ -88,7 +88,7 @@ const AccountsRecordList = (props, context) => {
     accounts
   } = data;
   return (
-    <IndexedTable
+    <RecordsTable
       className="AccountsUplinkTerminal__list"
       columns={[
         { id: 'owner_name', name: 'Account Holder', },
@@ -127,7 +127,7 @@ const DepartmentAccountsList = (props, context) => {
     department_accounts,
   } = data;
   return (
-    <IndexedTable
+    <RecordsTable
       className="AccountsUplinkTerminal__list"
       columns={[
         { id: "name", name: "Department Name", },

@@ -4,7 +4,7 @@ import { FlexItem } from '../../components/Flex'
 import { createSearch } from 'common/string'
 import { classes } from 'common/react'
 
-export class IndexedTable extends Component {
+export class RecordsTable extends Component {
   constructor() {
     super();
     this.state = {
@@ -26,7 +26,7 @@ export class IndexedTable extends Component {
     } = this.state;
     return (
       <Flex direction="column" height="100%">
-        <Flex className="SortableTable_Toolbar">
+        <Flex className="RecordsTable_Toolbar">
           {leftButtons}
           <FlexItem grow="1">
             <Input
@@ -40,7 +40,7 @@ export class IndexedTable extends Component {
         <Section flexGrow="1" mt="0.5rem">
           <Table.Sortable
             className={classes([
-              "IndexedTable",
+              "RecordsTable",
               className,
             ])}
             columns={columns}

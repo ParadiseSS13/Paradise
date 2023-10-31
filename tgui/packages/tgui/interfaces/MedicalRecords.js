@@ -20,7 +20,7 @@ import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { IndexedTable } from './common/IndexedTable'
+import { RecordsTable } from './common/RecordsTable'
 
 const severities = {
   'Minor': 'lightgray',
@@ -121,7 +121,7 @@ const MedicalRecordsList = (props, context) => {
     records
   } = data;
   return (
-    <IndexedTable
+    <RecordsTable
       className="MedicalRecords__list"
       columns={[
         { id: 'name', name: 'Name' },
@@ -339,7 +339,7 @@ const MedicalRecordsViruses = (props, context) => {
     virus
   } = data;
   return (
-    <IndexedTable
+    <RecordsTable
       className="MedicalRecords__list"
       columns={[
         { id: 'name', name: 'Name', },
