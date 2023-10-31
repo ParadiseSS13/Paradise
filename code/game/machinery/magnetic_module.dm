@@ -262,7 +262,6 @@
 	var/potential_magnet = locateUID(uid)
 	if(istype(potential_magnet, /obj/machinery/magnetic_module))
 		return potential_magnet
-	return null
 
 /obj/machinery/magnetic_controller/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -297,7 +296,7 @@
 			speed = clamp(new_value, MIN_CONTROLLER_SPEED, MAX_CONTROLLER_SPEED)
 
 		if("path_add")
-			if(rpath.len >= MAX_PATH_LENGTH / 2)
+			if(length(rpath) >= MAX_PATH_LENGTH / 2)
 				return
 			var/code = params["code"]
 			if(!(code in valid_paths))
@@ -308,7 +307,7 @@
 			path = rpath.Join(";")
 		if("path_remove")
 			var/index = text2num(params["index"])
-			if(index == null || index < 0 || index > rpath.len)
+			if(index == null || index < 0 || index > length(rpath))
 				return
 			var/code = params["code"]
 			if(!(code in valid_paths))
@@ -347,7 +346,7 @@
 			magnet.Cmd("set-magneticfield", clamp(new_value, MIN_MAGNETIC_FIELD, MAX_MAGNETIC_FIELD))
 
 /obj/machinery/magnetic_controller/ui_data(mob/user)
-	var/data[0]
+	var/data = list()
 
 	data["autolink"] = autolink
 	data["code"] = code
@@ -456,7 +455,7 @@
 		if(speed >= MAX_CONTROLLER_SPEED)
 			sleep(1)
 		else
-			sleep(MAX_ELECTRICITY_LEVEL-speed)
+			sleep(MAX_ELECTRICITY_LEVEL - speed)
 
 	looping = FALSE
 
