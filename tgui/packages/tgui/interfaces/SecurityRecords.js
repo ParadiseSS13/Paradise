@@ -138,7 +138,7 @@ const SecurityRecordsPageList = (props, context) => {
       }}
     />
   );
-}
+};
 
 const SecurityRecordsPageView = (properties, context) => {
   const { act, data } = useBackend(context);

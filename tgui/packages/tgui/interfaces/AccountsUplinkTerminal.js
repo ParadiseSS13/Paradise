@@ -114,7 +114,7 @@ const AccountsRecordList = (props, context) => {
       }}
     />
   );
-}
+};
 
 const DepartmentAccountsList = (props, context) => {
   const { act, data } = useBackend(context);
@@ -152,7 +152,7 @@ const DepartmentAccountsList = (props, context) => {
       }}
     />
   );
-}
+};
 
 const DetailedAccountInfo = (properties, context) => {
   const { act, data } = useBackend(context);

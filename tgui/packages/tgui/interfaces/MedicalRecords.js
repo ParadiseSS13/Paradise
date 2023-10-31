@@ -149,7 +149,7 @@ const MedicalRecordsList = (props, context) => {
       }}
     />
   );
-}
+};
 
 const MedicalRecordsMaintenance = (_properties, context) => {
   const { act } = useBackend(context);
@@ -362,7 +362,7 @@ const MedicalRecordsViruses = (props, context) => {
       }}
     />
   );
-}
+};
 
 const MedicalRecordsMedbots = (_properties, context) => {
   const { act, data } = useBackend(context);
