@@ -2071,9 +2071,32 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	dna.UpdateSE()
 
 /mob/living/carbon/human/get_spooked()
-	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
+	var/list/message_list =	list("You feel a chill run down your spine.",
+								"You think you see a figure in your peripheral vision.",
+								"What was that?",
+								"The hairs stand up on the back of your neck.",
+								"You are filled with a great sadness.",
+								"Something doesn't feel right...",
+								"You feel a presence in the room.",
+								"It feels like someone's standing behind you."
+	)
+	var/message = pick(message_list)
+	to_chat(src, "<span class='whisper'>[message]</span>")
 	return TRUE
 
+
+/*
+(boo_phrases, list(
+	"You feel a chill run down your spine.",
+	"You think you see a figure in your peripheral vision.",
+	"What was that?",
+	"The hairs stand up on the back of your neck.",
+	"You are filled with a great sadness.",
+	"Something doesn't feel right...",
+	"You feel a presence in the room.",
+	"It feels like someone's standing behind you.",
+))
+*/
 /mob/living/carbon/human/extinguish_light(force = FALSE)
 	// Parent function handles stuff the human may be holding
 	..()
