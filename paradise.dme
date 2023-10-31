@@ -103,6 +103,7 @@
 #include "code\__DEFINES\subsystems.dm"
 #include "code\__DEFINES\supermatter_defines.dm"
 #include "code\__DEFINES\surgery_defines.dm"
+#include "code\__DEFINES\syringe_defines.dm"
 #include "code\__DEFINES\text_defines.dm"
 #include "code\__DEFINES\tg_cooldowns.dm"
 #include "code\__DEFINES\tgs.dm"
