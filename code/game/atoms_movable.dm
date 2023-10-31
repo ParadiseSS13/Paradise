@@ -850,24 +850,3 @@
 /// useful callback for things that want special behavior on crush
 /atom/movable/proc/on_crush_thing(atom/thing)
 	return
-
-/obj/item/tilter
-	name = "tilter"
-	icon = 'icons/obj/tools.dmi'
-	icon_state = "multitool"
-	var/turf/saved_turf
-	var/atom/movable/tilting_thing
-
-/obj/item/tilter/afterattack(atom/target, mob/user, proximity, params)
-	. = ..()
-	if(isturf(target))
-		saved_turf = get_turf(target)
-		atom_say("[target] registered as target!")
-	else if(ismovable(target))
-		tilting_thing = target
-		atom_say("[tilting_thing] registered as tilter!")
-
-/obj/item/tilter/attack_self(mob/user)
-	. = ..()
-	if(tilting_thing && saved_turf)
-		tilting_thing.fall_and_crush(saved_turf, 5, prob(50), 2, null, 4 SECONDS, 14 SECONDS, FALSE)
