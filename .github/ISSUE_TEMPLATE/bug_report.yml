@@ -12,7 +12,7 @@
 #
 name: Bug Report
 #title: "[Bug]: " | if you want to have a have it automatically say [Bug] when they start the form
-description: Create a report to help us improve. If this doesn't look right
+description: Create a report to help us improve.
 #labels: [Bug] | Auto labels the post, as we do not use this, commenting out, purely as reference
 
 body:
@@ -54,12 +54,4 @@ body:
   attributes:
     label: Extra information
     description: If your report is about something that used to work but no longer does, when was the last time you remember it working?
-- type: input
-  id: Round-ID
-  attributes:
-    label: Round-ID
-- type: input
-  id: Discord
-  attributes:
-    label: Discord ID (Optional)
-    description: You may provide your discord in case we need to contact you further
+    placeholder: Relevant Images, Round ID etc.
