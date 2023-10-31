@@ -49,11 +49,7 @@ const EvolutionPoints = (props, context) => {
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
   const { evo_points, ability_list, purchased_abilities, view_mode } = data;
-  const [tab, setTab] = useLocalState(
-    context,
-    'tab',
-    0
-  );
+  const [tab, setTab] = useLocalState(context, 'tab', 0);
   return (
     <Section
       title="Abilities"
@@ -87,7 +83,7 @@ const Abilities = (props, context) => {
         <Tabs.Tab
           selected={tab === 0}
           onClick={() => {
-            setTab(0)
+            setTab(0);
           }}
         >
           Offense
@@ -95,21 +91,15 @@ const Abilities = (props, context) => {
         <Tabs.Tab
           selected={tab === 1}
           onClick={() => {
-            setTab(1)
+            setTab(1);
           }}
         >
           Defense
         </Tabs.Tab>
-        <Tabs.Tab
-          selected={tab === 2}
-          onClick={() => setTab(2)}
-        >
+        <Tabs.Tab selected={tab === 2} onClick={() => setTab(2)}>
           Utility
         </Tabs.Tab>
-        <Tabs.Tab
-          selected={tab === 3}
-          onClick={() => setTab(3)}
-        >
+        <Tabs.Tab selected={tab === 3} onClick={() => setTab(3)}>
           Stings
         </Tabs.Tab>
       </Tabs>

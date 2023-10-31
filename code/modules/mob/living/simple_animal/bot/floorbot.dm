@@ -19,7 +19,6 @@
 	window_name = "Automatic Station Floor Repairer v1.1"
 
 	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
-	var/targetdirection
 	var/amount = 10
 	var/replacetiles = 0
 	var/eattiles = 0
@@ -34,7 +33,6 @@
 	var/toolbox_color = ""
 
 	#define HULL_BREACH		1
-	#define BRIDGE_MODE		2
 	#define FIX_TILE		3
 	#define AUTO_TILE		4
 	#define REPLACE_TILE	5
@@ -65,33 +63,65 @@
 	text_dehack = "You detect errors in [name] and reset [p_their()] programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
-/mob/living/simple_animal/bot/floorbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += "<TT><B>Floor Repairer Controls v1.1</B></TT><BR><BR>"
-	dat += "Status: <A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A><BR>"
-	dat += "Maintenance panel panel is [open ? "opened" : "closed"]<BR>"
-	dat += "Tiles left: [amount]<BR>"
-	dat += "Behvaiour controls are [locked ? "locked" : "unlocked"]<BR>"
-	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Add tiles to new hull plating: <A href='?src=[UID()];operation=autotile'>[autotile ? "Yes" : "No"]</A><BR>"
-		dat += "Replace floor tiles: <A href='?src=[UID()];operation=replace'>[replacetiles ? "Yes" : "No"]</A><BR>"
-		dat += "Finds tiles: <A href='?src=[UID()];operation=tiles'>[eattiles ? "Yes" : "No"]</A><BR>"
-		dat += "Make pieces of metal into tiles when empty: <A href='?src=[UID()];operation=make'>[maketiles ? "Yes" : "No"]</A><BR>"
-		dat += "Transmit notice when empty: <A href='?src=[UID()];operation=emptynag'>[nag_on_empty ? "Yes" : "No"]</A><BR>"
-		dat += "Repair damaged tiles and platings: <A href='?src=[UID()];operation=fix'>[fixfloors ? "Yes" : "No"]</A><BR>"
-		dat += "Traction Magnets: <A href='?src=[UID()];operation=anchor'>[anchored ? "Engaged" : "Disengaged"]</A><BR>"
-		dat += "Patrol Station: <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "Yes" : "No"]</A><BR>"
-		var/bmode
-		if(targetdirection)
-			bmode = dir2text(targetdirection)
-		else
-			bmode = "disabled"
-		dat += "Bridge Mode : <A href='?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
+/mob/living/simple_animal/bot/floorbot/show_controls(mob/user)
+	ui_interact(user)
 
-	return dat
+/mob/living/simple_animal/bot/floorbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BotFloor", name, 500, 520)
+		ui.open()
 
+/mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
+	var/list/data = ..()
+	data["hullplating"] = autotile
+	data["replace"] = replacetiles
+	data["eat"] = eattiles
+	data["make"] = maketiles
+	data["fixfloor"] = fixfloors
+	data["nag_empty"] = nag_on_empty
+	data["magnet"] = anchored
+	data["tiles_amount"] = amount
+	return data
+
+/mob/living/simple_animal/bot/floorbot/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	var/mob/user = ui.user
+	if(topic_denied(user))
+		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(user)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(usr)
+		if("disableremote")
+			remote_disabled = !remote_disabled
+		if("autotile")
+			autotile = !autotile
+		if("replacetiles")
+			replacetiles = !replacetiles
+		if("eattiles")
+			eattiles = !eattiles
+		if("maketiles")
+			maketiles = !maketiles
+		if("nagonempty")
+			nag_on_empty = !nag_on_empty
+		if("fixfloors")
+			fixfloors = !fixfloors
+		if("anchored")
+			anchored = !anchored
+		if("ejectpai")
+			ejectpai()
 
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
@@ -115,41 +145,6 @@
 	if(emagged == 2)
 		if(user)
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
-
-/mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
-	if(..())
-		return 1
-
-	switch(href_list["operation"])
-		if("replace")
-			replacetiles = !replacetiles
-		if("tiles")
-			eattiles = !eattiles
-		if("make")
-			maketiles = !maketiles
-		if("fix")
-			fixfloors = !fixfloors
-		if("autotile")
-			autotile = !autotile
-		if("emptynag")
-			nag_on_empty = !nag_on_empty
-		if("anchor")
-			anchored = !anchored
-
-		if("bridgemode")
-			var/setdir = input("Select construction direction:") as null|anything in list("north","east","south","west","disable")
-			switch(setdir)
-				if("north")
-					targetdirection = 1
-				if("south")
-					targetdirection = 2
-				if("east")
-					targetdirection = 4
-				if("west")
-					targetdirection = 8
-				if("disable")
-					targetdirection = null
-	update_controls()
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
 	if(!..())
@@ -176,16 +171,6 @@
 
 	//Normal scanning procedure. We have tiles loaded, are not emagged.
 	if(!target && emagged < 2 && amount > 0)
-		if(targetdirection != null) //The bot is in bridge mode.
-			//Try to find a space tile immediately in our selected direction.
-			var/turf/T = get_step(src, targetdirection)
-			if(isspaceturf(T))
-				target = T
-
-			else //Find a space tile farther way!
-				target = scan(/turf/space)
-			process_type = BRIDGE_MODE
-
 		if(!target)
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
 			target = scan(/turf/space)
@@ -279,10 +264,6 @@
 			if(is_hull_breach(scan_target)) //Ensure that the targeted space turf is actually part of the station, and not random space.
 				result = scan_target
 				anchored = TRUE //Prevent the floorbot being blown off-course while trying to reach a hull breach.
-		if(BRIDGE_MODE) //Only space turfs in our chosen direction are considered.
-			if(get_dir(src, scan_target) == targetdirection)
-				result = scan_target
-				anchored = TRUE
 		if(REPLACE_TILE)
 			F = scan_target
 			if(istype(F, /turf/simulated/floor/plating)) //The floor must not already have a tile.
@@ -301,8 +282,8 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/repair(turf/target_turf)
 	if(isspaceturf(target_turf))
-		//Must be a hull breach or in bridge mode to continue.
-		if(!is_hull_breach(target_turf) && !targetdirection)
+		//Must be a hull breach to continue.
+		if(!is_hull_breach(target_turf))
 			target = null
 			return
 
@@ -317,7 +298,7 @@
 	anchored = TRUE
 
 	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
-		visible_message("<span class='notice'>[targetdirection ? "[src] begins installing a bridge plating." : "[src] begins to repair the hole."] </span>")
+		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
 		mode = BOT_REPAIRING
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
@@ -343,13 +324,19 @@
 	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
+	var/turf/simulated/floor/F = target
 	if(mode != BOT_REPAIRING)
 		return
 
-	if(autotile) //Build the floor and include a tile.
+	if(replacetiles)
+		F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
-	else //Build a hull plating without a floor tile.
-		target_turf.ChangeTurf(/turf/simulated/floor/plating)
+	else
+		if(autotile) //Build the floor and include a tile.
+			F.break_tile_to_plating()
+			target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
+		else //Build a hull plating without a floor tile.
+			target_turf.ChangeTurf(/turf/simulated/floor/plating)
 	mode = BOT_IDLE
 	amount--
 	update_icon(UPDATE_ICON_STATE)
