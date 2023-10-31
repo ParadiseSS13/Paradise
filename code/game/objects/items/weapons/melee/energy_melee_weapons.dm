@@ -63,7 +63,6 @@
 			icon_state = "sword[item_color]"
 			set_light(brightness_on, l_color=colormap[item_color])
 		w_class = w_class_on
-		how_hot = 3500
 		playsound(user, 'sound/weapons/saberon.ogg', 35, 1) //changed it from 50% volume to 35% because deafness
 		to_chat(user, "<span class='notice'>[src] is now active.</span>")
 	else
@@ -75,7 +74,6 @@
 			attack_verb = list()
 		icon_state = initial(icon_state)
 		w_class = initial(w_class)
-		how_hot = initial(how_hot)
 		playsound(user, 'sound/weapons/saberoff.ogg', 35, 1)  //changed it from 50% volume to 35% because deafness
 		set_light(0)
 		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
@@ -85,6 +83,9 @@
 		H.update_inv_r_hand()
 	add_fingerprint(user)
 	return
+
+/obj/item/melee/energy/get_heat()
+	return active * 3500
 
 /obj/item/melee/energy/axe
 	name = "energy axe"

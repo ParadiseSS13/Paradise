@@ -195,7 +195,6 @@
 	on = FALSE
 	force = initial(force)
 	damtype = initial(damtype)
-	how_hot = initial(how_hot)
 	update_brightness()
 
 /obj/item/flashlight/flare/attack_self(mob/user)
@@ -214,7 +213,6 @@
 		if(produce_heat)
 			force = on_damage
 			damtype = "fire"
-			how_hot = 1000
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -224,6 +222,9 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/obj/item/flashlight/flare/get_heat()
+	return produce_heat * on * 1000
 
 // GLOWSTICKS
 

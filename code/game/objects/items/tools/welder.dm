@@ -99,7 +99,6 @@
 		hitsound = 'sound/items/welder.ogg'
 		playsound(loc, activation_sound, 50, 1)
 		set_light(light_intensity)
-		how_hot = 2500
 	else
 		if(!refills_over_time)
 			STOP_PROCESSING(SSobj, src)
@@ -108,7 +107,6 @@
 		hitsound = "swing_hit"
 		playsound(loc, deactivation_sound, 50, 1)
 		set_light(0)
-		how_hot = null
 	update_icon()
 	if(ismob(loc))
 		var/mob/M = loc
@@ -206,6 +204,9 @@
 /obj/item/weldingtool/cyborg_recharge(coeff, emagged)
 	if(reagents.check_and_add("fuel", maximum_fuel, 2 * coeff))
 		update_icon()
+
+/obj/item/weldingtool/get_heat()
+	return tool_enabled * 2500
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"

@@ -164,7 +164,6 @@
 	sharp = TRUE
 	can_charge = FALSE
 	can_holster = TRUE
-	how_hot = 3800
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
 	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
@@ -190,6 +189,9 @@
 
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
+
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"

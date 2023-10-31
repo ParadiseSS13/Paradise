@@ -760,6 +760,6 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	if(P.how_hot)
+	if(P.get_heat())
 		visible_message("<span class='danger'>[src] bursts into flames!</span>")
 		fire_act()

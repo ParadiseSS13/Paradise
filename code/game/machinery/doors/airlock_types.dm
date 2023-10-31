@@ -202,11 +202,11 @@
 	qdel(src)
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/C, mob/user, params)
-	if(C.how_hot > 300)
+	if(C.get_heat() > 300)
 		message_admins("Plasma airlock ignited by [key_name_admin(user)] in ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 		log_game("Plasma airlock ignited by [key_name(user)] in ([x],[y],[z])")
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]","atmos")
-		ignite(C.how_hot)
+		ignite(C.get_heat())
 	else
 		return ..()
 

@@ -133,10 +133,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	/// Holder var for the item outline filter, null when no outline filter on the item.
 	var/outline_filter
 
-	/// How hot is our item?
-	var/how_hot
-
-
 /obj/item/New()
 	..()
 
@@ -656,7 +652,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(w_class < WEIGHT_CLASS_BULKY)
 			itempush = FALSE //too light to push anything
 		if(isliving(hit_atom)) //Living mobs handle hit sounds differently.
-			if(how_hot)
+			if(get_heat())
 				var/mob/living/L = hit_atom
 				L.IgniteMob()
 			var/volume = get_volume_by_throwforce_and_or_w_class()
@@ -911,3 +907,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.regenerate_icons()
+
+/obj/item/proc/get_heat()
+	return

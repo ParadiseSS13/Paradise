@@ -45,7 +45,6 @@
 	damtype = BURN
 	hitsound = 'sound/items/welder.ogg'
 	attack_verb = list("burnt", "singed")
-	how_hot = 1500
 
 	update_icon()
 	attempt_light(user)
@@ -73,7 +72,6 @@
 	hitsound = "swing_hit"
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
-	how_hot = null
 
 	update_icon()
 	if(user)
@@ -126,6 +124,9 @@
 /obj/item/lighter/update_overlays()
 	item_state = "[initial(item_state)][lit ? "-on" : ""]"
 	return ..()
+
+/obj/item/lighter/get_heat()
+	return lit * 1500
 
 // Zippo lighters
 /obj/item/lighter/zippo
@@ -235,7 +236,6 @@
 		name = "lit match"
 		desc = "A match. This one is lit."
 		attack_verb = list("burnt","singed")
-		how_hot = 1000
 		START_PROCESSING(SSobj, src)
 		update_icon()
 		return TRUE
@@ -251,7 +251,6 @@
 		name = "burnt match"
 		desc = "A match. This one has seen better days."
 		attack_verb = list("flicked")
-		how_hot = null
 		STOP_PROCESSING(SSobj, src)
 		return TRUE
 
@@ -307,6 +306,9 @@
 	var/mask_item = M.get_item_by_slot(SLOT_HUD_WEAR_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
+
+/obj/item/match/get_heat()
+	return lit * 1000
 
 /obj/item/match/firebrand
 	name = "firebrand"
