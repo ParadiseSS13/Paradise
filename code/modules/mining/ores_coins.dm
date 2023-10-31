@@ -99,6 +99,7 @@
 	singular_name = "sand pile"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
+	merge_type = /obj/item/stack/ore/glass
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 
 GLOBAL_LIST_INIT(sand_recipes, list(\
