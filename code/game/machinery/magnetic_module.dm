@@ -266,10 +266,8 @@
 /obj/machinery/magnetic_controller/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
-		return
 
-	add_fingerprint(usr)
+	add_fingerprint(ui.user)
 
 	if(ui_act_modal(action, params, ui, state))
 		return TRUE
@@ -281,14 +279,12 @@
 				return
 			probing = TRUE
 			link_magnets()
-			spawn(50)
-				probing = FALSE
+			addtimer(VARSET_CALLBACK(src, probing, FALSE), 5 SECONDS)
 
 		if("toggle_power")
 			moving = !moving
 			if(moving)
-				spawn()
-					MagnetMove()
+				INVOKE_ASYNC(src, PROC_REF(MagnetMove))
 		if("set_speed")
 			var/new_value = text2num(params["newValue"])
 			if(new_value == null)
@@ -327,7 +323,7 @@
 			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
 			if(!magnet)
 				return
-			magnet?.Cmd("toggle-power")
+			magnet.Cmd("toggle-power")
 		if("set_electricity_level")
 			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
 			if(!magnet)
