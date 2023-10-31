@@ -883,6 +883,9 @@ prop, and the value can either be the props(or children) directly or a
 function which takes in the data associated with that cell and returns
 the props(or children).
 
+`headerCellProps.all` and `datumCellProps.all` can be used to specify props
+for all cells in all columns.
+
 The following is an example of how to use `Table.Sortable`.
 ```jsx
 const data = [
