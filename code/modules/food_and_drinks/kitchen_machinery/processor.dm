@@ -119,10 +119,6 @@
 	input =  /obj/item/reagent_containers/food/snacks/grown/carrot
 	output = /obj/item/reagent_containers/food/snacks/grown/carrot/wedges
 
-/datum/food_processor_process/towercap
-	input =  /obj/item/grown/log
-	output = /obj/item/popsicle_stick
-
 /////////////////////////
 ///END OBJECT RECIPIES///
 /////////////////////////

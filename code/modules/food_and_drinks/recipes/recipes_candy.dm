@@ -83,10 +83,6 @@
 	being_cooked.reagents.del_reagent("egg")
 	return being_cooked
 
-/datum/recipe/candy/wafflecone
-	reagents = list("milk" = 1, "sugar" = 1)
-	result = /obj/item/reagent_containers/food/snacks/wafflecone
-
 /datum/recipe/candy/moffmallows
 	reagents = list("vanilla" = 5, "sugar" = 15, "rum" = 5)
 	items = list(
