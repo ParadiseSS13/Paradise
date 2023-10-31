@@ -59,12 +59,7 @@
 	if(.)
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
-	// If mob in morgue tray, update tray
-	var/obj/structure/morgue/Morgue = locate() in loc
-	if(istype(loc, /obj/structure/morgue))
-		Morgue = loc
-	if(Morgue)
-		Morgue.update_state()
+	SEND_SIGNAL(src, COMSIG_LIVING_UPDATE_REVIVABILITY)
 
 /mob/living/proc/OpenCraftingMenu()
 	return

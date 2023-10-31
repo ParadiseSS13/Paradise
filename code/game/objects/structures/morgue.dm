@@ -43,6 +43,21 @@
 	update_icon(update_state())
 	set_light(1, LIGHTING_MINIMUM_POWER)
 
+/obj/structure/morgue/proc/get_revivable(closing)
+	var/mob/living/M = locate() in contents
+	var/obj/structure/closet/body_bag/B = locate() in contents
+
+	if(!M)
+		M = locate() in B
+
+	if(!M)
+		return
+
+	if(closing)
+		RegisterSignal(M, COMSIG_LIVING_UPDATE_REVIVABILITY, PROC_REF(update_state))
+	else
+		UnregisterSignal(M, COMSIG_LIVING_UPDATE_REVIVABILITY)
+
 /obj/structure/morgue/proc/update_state()
 	if(connected)
 		status = EXTENDED_TRAY
@@ -56,7 +71,7 @@
 	var/obj/structure/closet/body_bag/B = locate() in contents
 
 	if(!M)
-		M = locate() in B.contents
+		M = locate() in B
 
 	if(!M)
 		status = NOT_BODY
@@ -119,12 +134,14 @@
 /obj/structure/morgue/attack_hand(mob/user as mob)
 	if(connected)
 		for(var/atom/movable/A in connected.loc)
-			if(!( A.anchored ))
+			if(!(A.anchored))
 				A.forceMove(src)
+		get_revivable(TRUE)
 		playsound(loc, open_sound, 50, 1)
 		QDEL_NULL(connected)
 	else
 		playsound(loc, open_sound, 50, 1)
+		get_revivable(FALSE)
 		connect()
 
 	add_fingerprint(user)
