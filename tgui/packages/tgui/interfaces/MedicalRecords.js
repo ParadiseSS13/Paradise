@@ -116,7 +116,7 @@ export const MedicalRecords = (_properties, context) => {
 };
 
 const MedicalRecordsList = (props, context) => {
-  const { act, data } = context;
+  const { act, data } = useBackend(context);
   const {
     records
   } = data;
