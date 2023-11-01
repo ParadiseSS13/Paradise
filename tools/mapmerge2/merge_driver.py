@@ -17,7 +17,7 @@ def make_conflict_marker(type="/obj", name=""):
     # same path, or create a new object/denote an existing object in the
     # obj_path define.
     obj_path = f"{type}/merge_conflict_marker"
-    obj_name = f"Merge Conflict Marker{': ' + name if name else ''}"
+    obj_name = f"Merge Conflict Marker{(': ' + name) if name else ''}"
     return f'{obj_path}{{name = "{obj_name}"}}'
 
 
