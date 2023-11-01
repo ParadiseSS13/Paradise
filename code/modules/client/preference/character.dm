@@ -79,6 +79,10 @@
 
 	var/nanotrasen_relation = "Neutral"
 
+	var/physique = "average"
+
+	var/height = "average height"
+
 	// OOC Metadata:
 	var/metadata = ""
 
@@ -176,6 +180,8 @@
 					organ_data=:organlist,
 					rlimb_data=:rlimblist,
 					nanotrasen_relation=:nanotrasen_relation,
+					physique=:physique,
+					height=:height,
 					speciesprefs=:speciesprefs,
 					socks=:socks,
 					body_accessory=:body_accessory,
@@ -234,6 +240,8 @@
 						"organlist" = (organlist ? organlist : ""),
 						"rlimblist" = (rlimblist ? rlimblist : ""),
 						"nanotrasen_relation" = nanotrasen_relation,
+						"physique" = physique,
+						"height" = height,
 						"speciesprefs" = speciesprefs,
 						"socks" = socks,
 						"body_accessory" = (body_accessory ? body_accessory : ""),
@@ -283,7 +291,7 @@
 			sec_record,
 			gen_record,
 			player_alt_titles,
-			disabilities, organ_data, rlimb_data, nanotrasen_relation, speciesprefs,
+			disabilities, organ_data, rlimb_data, nanotrasen_relation, physique, height, speciesprefs,
 			socks, body_accessory, gear, autohiss,
 			hair_gradient, hair_gradient_offset, hair_gradient_colour, hair_gradient_alpha, custom_emotes, tts_seed)
 		VALUES
@@ -310,7 +318,7 @@
 			:sec_record,
 			:gen_record,
 			:playertitlelist,
-			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :speciesprefs,
+			:disabilities, :organlist, :rlimblist, :nanotrasen_relation, :physique, :height, :speciesprefs,
 			:socks, :body_accessory, :gearlist, :autohiss_mode,
 			:h_grad_style, :h_grad_offset, :h_grad_colour, :h_grad_alpha, :custom_emotes, :tts_seed)
 	"}, list(
@@ -361,6 +369,8 @@
 		"organlist" = (organlist ? organlist : ""),
 		"rlimblist" = (rlimblist ? rlimblist : ""),
 		"nanotrasen_relation" = nanotrasen_relation,
+		"physique" = physique,
+		"height" = height,
 		"speciesprefs" = speciesprefs,
 		"socks" = socks,
 		"body_accessory" = (body_accessory ? body_accessory : ""),
@@ -457,7 +467,9 @@
 	h_grad_colour = query.item[53]
 	h_grad_alpha = query.item[54]
 	var/custom_emotes_tmp = query.item[55]
-	tts_seed = query.item[56]
+	physique = query.item[56]
+	height = query.item[57]
+	tts_seed = query.item[58]
 
 	//Sanitize
 	var/datum/species/SP = GLOB.all_species[species]
@@ -477,6 +489,12 @@
 
 	if(isnull(nanotrasen_relation))
 		nanotrasen_relation = initial(nanotrasen_relation)
+
+	if(isnull(physique))
+		physique = initial(physique)
+
+	if(isnull(height))
+		height = initial(height)
 
 	if(isnull(speciesprefs))
 		speciesprefs = initial(speciesprefs)
@@ -1782,6 +1800,8 @@
 	character.dna.real_name = real_name
 	character.name = character.real_name
 
+	character.physique = physique
+	character.height = height
 	character.flavor_text = flavor_text
 	character.med_record = med_record
 	character.sec_record = sec_record

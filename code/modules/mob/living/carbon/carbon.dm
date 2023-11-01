@@ -1347,3 +1347,8 @@ so that different stomachs can handle things in different ways VB*/
 		if(wear_suit.flags_inv & HIDEGLOVES)
 			clean_hands = FALSE
 	..(clean_hands, clean_mask, clean_feet)
+
+/mob/living/carbon/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate = TRUE, angle)
+	// keep most of what's passed in, but don't change the angle
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
+	KnockDown(10 SECONDS)

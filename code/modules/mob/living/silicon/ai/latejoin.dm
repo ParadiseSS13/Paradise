@@ -33,6 +33,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 			continue
 		O.on_target_cryo()
 
+	view_core()
 	// Ghost the current player and disallow them to return to the body
 	if(TOO_EARLY_TO_GHOST)
 		ghostize(FALSE)

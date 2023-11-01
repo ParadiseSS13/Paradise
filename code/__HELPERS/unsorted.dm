@@ -260,6 +260,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 	user.visible_message("[user] has used the analyzer on [target].", "<span class='notice'>You use the analyzer on [target].</span>")
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
+	var/volume = air_contents.return_volume()
 
 	user.show_message("<span class='notice'>Results of analysis of [bicon(icon)] [target].</span>", 1)
 	if(total_moles>0)
@@ -281,8 +282,10 @@ Turf and target are seperate in case you want to teleport some distance from a t
 			user.show_message("<span class='danger'>Unknown: [round(unknown_concentration*100)] % ([round(unknown_concentration*total_moles,0.01)] moles)</span>", 1)
 		user.show_message("<span class='notice'>Total: [round(total_moles,0.01)] moles</span>", 1)
 		user.show_message("<span class='notice'>Temperature: [round(air_contents.temperature-T0C)] &deg;C</span>", 1)
+		user.show_message("<span class='notice'>Volume: [round(volume)] Liters</span>", 1)
 	else
 		user.show_message("<span class='notice'>[target] is empty!</span>", 1)
+		user.show_message("<span class='notice'>Volume: [round(volume)] Liters</span>", 1)
 	return
 
 //Picks a string of symbols to display as the law number for hacked or ion laws
@@ -624,7 +627,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	return 1
 
-/proc/is_blocked_turf(turf/T, exclude_mobs)
+/proc/is_blocked_turf(turf/T, exclude_mobs, list/excluded_objs)
 	if(T.density)
 		return TRUE
 	if(locate(/mob/living/silicon/ai) in T) //Prevents jaunting onto the AI core cheese, AI should always block a turf due to being a dense mob even when unanchored
@@ -633,7 +636,10 @@ Returns 1 if the chain up to the area contains the given typepath
 		for(var/mob/living/L in T)
 			if(L.density)
 				return TRUE
+	var/any_excluded_objs = length(excluded_objs)
 	for(var/obj/O in T)
+		if(any_excluded_objs && (O in excluded_objs))
+			continue
 		if(O.density)
 			return TRUE
 	return FALSE

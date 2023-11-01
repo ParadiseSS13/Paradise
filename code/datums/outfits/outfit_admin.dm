@@ -281,7 +281,7 @@
 	belt = /obj/item/gun/projectile/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat
 	uniform = /obj/item/clothing/under/rank/centcom/deathsquad
-	shoes = /obj/item/clothing/shoes/magboots/advance
+	shoes = /obj/item/clothing/shoes/magboots/elite
 	glasses = /obj/item/clothing/glasses/thermal
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
@@ -784,6 +784,7 @@
 	head = /obj/item/clothing/head/beret/solgov/command
 	glasses = /obj/item/clothing/glasses/night
 	back = /obj/item/storage/backpack/satchel
+	shoes = /obj/item/clothing/shoes/magboots/elite
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	l_hand = null
 	belt = /obj/item/melee/baton/loaded
@@ -791,7 +792,6 @@
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
-		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/clothing/mask/gas/explorer/marines = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
@@ -805,9 +805,9 @@
 	head = null
 	mask = /obj/item/clothing/mask/gas/explorer/marines
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
+	shoes = /obj/item/clothing/shoes/magboots/elite
 	l_hand = /obj/item/gun/projectile/automatic/ar
 	backpack_contents = list(
-		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1
 	)
@@ -833,7 +833,6 @@
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
-		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
 		/obj/item/ammo_box/magazine/m50 = 3
 	)
