@@ -39,7 +39,7 @@
 
 /obj/item/melee/touch_attack/banana/apprentice/afterattack(atom/target, mob/living/carbon/user, proximity)
 	if(iswizard(target) && target != user)
-		to_chat(user, "<span class='danger'>Seriously?! Honk them not us!</span>")
+		to_chat(user, "<span class='danger'>Seriously ?! Honk THEM, not me!</span>")
 		return
 	..()
 

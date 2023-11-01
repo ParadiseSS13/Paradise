@@ -77,14 +77,6 @@
 	new /obj/structure/closet/statue(L.loc, L)
 	..()
 
-/obj/item/melee/touch_attack/fleshtostone/apprentice
-
-/obj/item/melee/touch_attack/fleshtostone/apprentice/afterattack(atom/target, mob/living/carbon/user, proximity)
-	if(iswizard(target) && target != user)
-		to_chat(user, "<span class='danger'>What do you think you're doing?!</span>")
-		return
-	..()
-
 /obj/item/melee/touch_attack/fake_disintegrate
 	name = "toy plastic hand"
 	desc = "This hand of mine glows with an awesome power! Ok, maybe just batteries."
