@@ -20,7 +20,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	if(fexists("data/next_traits.txt"))
 		var/forced_traits_contents = file2list("data/next_traits.txt")
 		fdel("data/next_traits.txt")
-		var/list/temp_list = splittext(forced_traits_contents[1], ",") //Tomorow, you need to make delete the file before making it, then split it
+		var/list/temp_list = splittext(forced_traits_contents[1], ",")
 
 		for(var/trait_text_path in temp_list)
 			var/station_trait_path = text2path(trait_text_path)
