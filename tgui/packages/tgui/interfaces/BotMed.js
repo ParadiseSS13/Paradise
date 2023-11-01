@@ -59,9 +59,6 @@ export const BotMed = (props, context) => {
                 minValue={heal_threshold.min}
                 maxValue={heal_threshold.max}
                 step={5}
-                stepPixelSize={
-                  300 / ((heal_threshold.max - heal_threshold.min) / 5)
-                }
                 disabled={noaccess}
                 onChange={(e, value) =>
                   act('set_heal_threshold', {
@@ -76,9 +73,6 @@ export const BotMed = (props, context) => {
                 minValue={injection_amount.min}
                 maxValue={injection_amount.max}
                 step={5}
-                stepPixelSize={
-                  300 / ((injection_amount.max - injection_amount.min) / 5)
-                }
                 format={(value) => `${value}u`}
                 disabled={noaccess}
                 onChange={(e, value) =>

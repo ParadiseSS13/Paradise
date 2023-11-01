@@ -15,6 +15,7 @@
 	base_icon_state = "wall"
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
+	layer = TURF_LAYER
 
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2

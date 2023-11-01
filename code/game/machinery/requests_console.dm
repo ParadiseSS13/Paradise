@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	desc = "A console intended to send requests to different departments on the station."
 	anchored = TRUE
 	icon = 'icons/obj/terminals.dmi'
-	icon_state = "req_comp0"
+	icon_state = "req_comp_off"
 	max_integrity = 300
 	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, RAD = 0, FIRE = 90, ACID = 90)
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
@@ -75,13 +75,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		set_light(1, LIGHTING_MINIMUM_POWER)
 	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 
-/obj/machinery/requests_console/update_icon_state()
-	if(stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
-	else
-		icon_state = "req_comp[newmessagepriority]"
-
 /obj/machinery/requests_console/update_overlays()
 	. = ..()
 	underlays.Cut()
@@ -89,11 +82,9 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	if(stat & NOPOWER)
 		return
 
-	if(newmessagepriority == RQ_NONEW_MESSAGES)
-		underlays += emissive_appearance(icon, "req_comp_lightmask")
-	else
-		underlays += emissive_appearance(icon, "req_comp2_lightmask")
+	. += "req_comp[newmessagepriority]"
 
+	underlays += emissive_appearance(icon, "req_comp_lightmask")
 
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
@@ -263,7 +254,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 					if(Console.department == department)
 						Console.newmessagepriority = RQ_NONEW_MESSAGES
-						Console.icon_state = "req_comp0"
+						Console.update_icon(UPDATE_OVERLAYS)
 						Console.set_light(1)
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
