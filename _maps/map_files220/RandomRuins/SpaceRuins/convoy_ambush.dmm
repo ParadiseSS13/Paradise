@@ -512,7 +512,9 @@
 /turf/template_noop,
 /area/template_noop)
 "wf" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/machinery/atmospherics/unary/tank/air{
 	dir = 4
 	},
@@ -871,7 +873,9 @@
 /turf/simulated/floor,
 /area/ruin/space/unpowered/unpowered_structures)
 "KK" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/computerframe{
 	dir = 4
 	},
@@ -905,7 +909,9 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "Lo" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure{
 	desc = "A power generator that runs on solid plasma sheets. Rated for 80 kW max safe output.";
 	icon = 'icons/obj/power.dmi';
@@ -1193,7 +1199,9 @@
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "Wq" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered/unpowered_structures)

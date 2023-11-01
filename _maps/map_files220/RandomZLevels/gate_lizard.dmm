@@ -95,7 +95,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "ahk" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -163,7 +165,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "ajJ" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/structure/railing{
 	dir = 2
 	},
@@ -179,7 +183,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "akZ" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -535,7 +541,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "aMI" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "aNk" = (
@@ -875,7 +883,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "blW" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/railing{
 	dir = 2
 	},
@@ -1753,7 +1763,9 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "cnH" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
@@ -1773,7 +1785,7 @@
 /area/awaymission/jungle_planet/inside)
 "cod" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "coG" = (
@@ -1944,7 +1956,9 @@
 	icon_state = "tracks";
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2169,7 +2183,9 @@
 	icon_state = "tracks";
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2190,7 +2206,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "cLG" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -2463,7 +2481,9 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "diO" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
@@ -2556,7 +2576,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "dno" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/light_emitter{
 	light_color = "#FFFFFF";
 	set_cap = 1;
@@ -2855,7 +2877,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/inside/complex)
 "dNR" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
@@ -2951,7 +2975,9 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2959,7 +2985,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "dSA" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3140,7 +3168,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "eew" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -3450,7 +3480,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "eyi" = (
-/obj/effect/turf_decal/bot_red,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/mecha_wreckage/ripley,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
@@ -3465,7 +3495,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
 "eAe" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -3794,7 +3826,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "eUc" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3837,7 +3871,9 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "eVl" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "eVr" = (
@@ -4043,7 +4079,9 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -4625,7 +4663,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4660,7 +4700,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "geg" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/turf_decal/arrows,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
@@ -4696,7 +4738,9 @@
 /area/awaymission/jungle_planet/outside)
 "giu" = (
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4876,7 +4920,7 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "gxQ" = (
-/obj/effect/turf_decal/bot_red,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -4943,7 +4987,9 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave/pirate)
 "gAO" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5069,7 +5115,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "gLf" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/structure/railing{
 	dir = 10
 	},
@@ -5098,7 +5146,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "gMI" = (
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/delivery/partial,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/awaymission/jungle_planet/outside/abandoned)
 "gMT" = (
@@ -5139,7 +5187,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "gQD" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -5341,7 +5391,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "hdu" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -5730,7 +5782,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "hxY" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6138,7 +6192,9 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "iaV" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/turf_decal/arrows{
 	dir = 4
 	},
@@ -6204,7 +6260,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "idC" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "idR" = (
@@ -6286,7 +6344,9 @@
 /area/awaymission/jungle_planet/inside/complex)
 "igW" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/door/airlock/mining{
 	locked = 1;
 	name = "main hangar";
@@ -6316,7 +6376,9 @@
 /area/awaymission/jungle_planet/inside/complex)
 "ikb" = (
 /obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "ikG" = (
@@ -6374,7 +6436,9 @@
 /turf/simulated/floor/indestructible,
 /area/awaymission/jungle_planet/outside)
 "ina" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "iob" = (
@@ -6551,7 +6615,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/abandoned)
 "izy" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -6931,7 +6997,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/arrows,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7431,7 +7499,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside)
 "jCQ" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -7529,7 +7597,9 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/awaymission/jungle_planet/inside/complex)
 "jHM" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/turf_decal/caution{
 	icon_state = "caution";
 	dir = 8
@@ -7589,7 +7659,9 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "jKi" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -7599,7 +7671,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "jKX" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
@@ -8125,7 +8199,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "kuH" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -8283,7 +8359,9 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "kDq" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -8650,7 +8728,9 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -8659,7 +8739,7 @@
 /area/awaymission/jungle_planet/inside/complex)
 "kZj" = (
 /obj/machinery/atmospherics/portable/scrubber,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "kZu" = (
@@ -8687,7 +8767,9 @@
 	dir = 8
 	},
 /obj/effect/spawner/random_spawners/oil_maybe,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "lbI" = (
@@ -9167,7 +9249,9 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "lGm" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9507,7 +9591,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9823,7 +9909,7 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "mtZ" = (
-/obj/effect/turf_decal/bot_red,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/mecha_wreckage/ripley,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -10145,7 +10231,9 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "mLM" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -10371,7 +10459,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "mYb" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
@@ -10711,7 +10801,7 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "nyz" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
@@ -10794,7 +10884,9 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "nEG" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -11197,7 +11289,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "oiX" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 4
 	},
@@ -11531,7 +11625,7 @@
 	density = 1;
 	anchored = 1
 	},
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/effect/light_emitter{
 	light_color = "#FFFFFF";
 	set_cap = 1;
@@ -11557,7 +11651,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "oDF" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/structure/railing{
 	dir = 2
 	},
@@ -11572,7 +11668,9 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "oFc" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -11652,7 +11750,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "oKw" = (
-/obj/effect/turf_decal/bot_red,
+/obj/effect/turf_decal/delivery/red/hollow,
 /obj/structure/mecha_wreckage/ripley/firefighter,
 /obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/plasteel,
@@ -11924,7 +12022,9 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/outside/cave)
 "pcp" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/light_emitter{
 	light_color = "#FFFFFF";
 	set_cap = 1;
@@ -11955,7 +12055,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside/river)
 "pdY" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "peh" = (
@@ -12209,7 +12311,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
 "pwd" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -12590,7 +12694,7 @@
 	},
 /obj/machinery/light/small/directional/west,
 /obj/machinery/atmospherics/portable/pump,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "qbS" = (
@@ -12701,7 +12805,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "qjI" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -12891,7 +12997,9 @@
 	},
 /area/awaymission/jungle_planet/outside/cave)
 "qsJ" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/railing{
 	dir = 8
 	},
@@ -12910,7 +13018,9 @@
 	},
 /area/awaymission/jungle_planet/inside)
 "quj" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -13145,7 +13255,9 @@
 "qIk" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel{
@@ -13350,7 +13462,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/waterfall)
 "qUO" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "qVg" = (
@@ -13590,7 +13704,9 @@
 /obj/structure/railing{
 	dir = 2
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -13793,7 +13909,9 @@
 /turf/simulated/floor/beach/away/sand,
 /area/awaymission/jungle_planet/outside/river)
 "ryt" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -13849,7 +13967,9 @@
 /area/awaymission/jungle_planet/inside/complex)
 "rAs" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/door/airlock/mining{
 	name = "main hangar";
 	req_access = list(271)
@@ -14064,7 +14184,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/outside/river)
 "rNB" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "rNE" = (
@@ -14163,7 +14285,9 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "rRv" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -14493,8 +14617,12 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "snP" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -14570,7 +14698,9 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
@@ -14836,7 +14966,9 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "sJd" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
 "sKo" = (
@@ -14935,7 +15067,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "sQH" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/door_control/shutter/south{
 	id = "Cargo in";
 	req_access = list(271)
@@ -14994,7 +15128,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "sTV" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/turf_decal/arrows{
 	dir = 4
 	},
@@ -15371,7 +15507,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "tqF" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/effect/light_emitter{
 	light_color = "#FFFFFF";
 	set_cap = 1;
@@ -15403,7 +15541,7 @@
 /area/awaymission/jungle_planet/outside)
 "trH" = (
 /obj/machinery/atmospherics/portable/canister,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "tsv" = (
@@ -15541,7 +15679,9 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/jungle_planet/inside/complex)
 "tDf" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -15686,7 +15826,9 @@
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/jungle_planet/outside/cave)
 "tNF" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
@@ -15780,7 +15922,9 @@
 /obj/structure/railing{
 	dir = 2
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkgrey"
@@ -16151,7 +16295,9 @@
 /turf/simulated/floor/indestructible/grass,
 /area/awaymission/jungle_planet/outside/river)
 "uoY" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -16652,7 +16798,9 @@
 	},
 /area/awaymission/jungle_planet/outside)
 "uSt" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -17364,8 +17512,12 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "vJx" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -17407,7 +17559,9 @@
 	},
 /area/awaymission/jungle_planet/outside/cave/small)
 "vMf" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/turf_decal/caution,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)
@@ -17426,7 +17580,9 @@
 /area/awaymission/jungle_planet/outside/cave)
 "vMv" = (
 /obj/effect/decal/cleanable/generic,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -17719,7 +17875,9 @@
 /area/awaymission/jungle_planet/inside/complex)
 "wgn" = (
 /obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -17985,7 +18143,7 @@
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
 "wDF" = (
-/obj/effect/turf_decal/bot_red,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside/complex)
 "wEc" = (
@@ -18159,7 +18317,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "wMO" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/turf_decal/caution{
 	icon_state = "caution";
 	dir = 8
@@ -18359,7 +18519,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "wYy" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -18385,7 +18547,9 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "wZQ" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/outside)

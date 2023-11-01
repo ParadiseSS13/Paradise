@@ -773,7 +773,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "sb" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/mecha_wreckage/ripley{
 	obj_integrity = 20
 	},
@@ -887,7 +887,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "vc" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/mecha_parts/part/odysseus_torso,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
@@ -1273,7 +1273,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Cz" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/mecha_wreckage/durand/old,
 /obj/effect/decal/cleanable/dirt{
 	obj_integrity = 200
@@ -1312,7 +1312,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "CZ" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/mecha_wreckage/gygax,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,

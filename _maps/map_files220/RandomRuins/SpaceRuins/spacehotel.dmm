@@ -985,7 +985,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "hD" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/cargostorage)
 "hE" = (
@@ -3209,7 +3209,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/forestarboardmaints)
 "wS" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plating,
@@ -4429,7 +4429,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/spacehotelv1/engi1)
 "Fo" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/rack,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/storage/box/lights/mixed,

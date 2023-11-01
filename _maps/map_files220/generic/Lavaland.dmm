@@ -708,7 +708,7 @@
 "bJ" = (
 /obj/machinery/door/firedoor,
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
 "bK" = (
@@ -844,7 +844,7 @@
 	},
 /area/mine/outpost/cafeteria)
 "bW" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -865,7 +865,7 @@
 	network = list("Mining Outpost");
 	dir = 6
 	},
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1351,7 +1351,7 @@
 	},
 /area/mine/outpost/airlock)
 "dd" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/north,
 /obj/structure/extinguisher_cabinet/directional/north,
@@ -1513,7 +1513,7 @@
 /obj/machinery/computer/mech_bay_power_console{
 	dir = 1
 	},
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/right,
 /obj/machinery/door_control/shutter/east{
 	id = "mining_mechbay";
 	req_access_txt = "54";
@@ -1852,7 +1852,7 @@
 	},
 /area/mine/outpost/storage)
 "dY" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Box Storage";
@@ -2015,7 +2015,7 @@
 /area/mine/outpost/hallway/west)
 "em" = (
 /obj/machinery/computer/mech_bay_power_console,
-/obj/effect/turf_decal/bot/right,
+/obj/effect/turf_decal/delivery/hollow/right,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "en" = (
@@ -2106,7 +2106,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "ex" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plasteel{
@@ -2347,7 +2347,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "eS" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
@@ -2742,7 +2742,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "fE" = (
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -3284,7 +3284,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/sign/poster/official/random/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3643,7 +3643,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "ii" = (
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/shower{
 	dir = 4
 	},
@@ -3778,7 +3778,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "iQ" = (
-/obj/effect/turf_decal/bot/left,
+/obj/effect/turf_decal/delivery/hollow/left,
 /obj/machinery/mech_bay_recharge_port,
 /obj/structure/cable,
 /obj/machinery/camera{
@@ -4276,7 +4276,7 @@
 	},
 /area/mine/outpost/airlock)
 "lc" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/ore_box,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plasteel{
@@ -7377,7 +7377,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "CX" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/camera{
 	c_tag = "Mining Outpost - Shuttle";
@@ -8217,7 +8217,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "IN" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
@@ -9233,7 +9233,7 @@
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/directional/south,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "PQ" = (
@@ -9422,7 +9422,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/west)
 "Rj" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
