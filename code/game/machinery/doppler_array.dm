@@ -12,6 +12,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	var/explosion_target
 	var/datum/tech/toxins/toxins_tech
 	var/max_toxins_tech = 7
+	var/print_timer
 
 /datum/explosion_log
 	var/logged_time
@@ -89,11 +90,11 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	if(!logged_explosions.len)
 		atom_say("No logs currently stored in internal database.")
 		return
-	if(active_timers)
+	if(print_timer)
 		to_chat(user, "<span class='notice'>[src] is already printing something, please wait.</span>")
 		return
 	atom_say("Printing explosive log. Standby...")
-	addtimer(CALLBACK(src, PROC_REF(print)), 50)
+	print_timer = addtimer(CALLBACK(src, PROC_REF(print)), 5 SECONDS)
 
 /obj/machinery/doppler_array/proc/print()
 	visible_message("<span class='notice'>[src] prints a piece of paper!</span>")
@@ -109,6 +110,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 		</tr>"
 	P.info += "</table><hr/>\
 	<em>Printed at [station_time_timestamp()].</em>"
+	print_timer = null
 
 /obj/machinery/doppler_array/proc/sense_explosion(var/x0,var/y0,var/z0,var/devastation_range,var/heavy_impact_range,var/light_impact_range,
 												var/took,var/orig_dev_range,var/orig_heavy_range,var/orig_light_range)
@@ -196,7 +198,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	data["explosion_target"] = explosion_target
 	data["toxins_tech"] = toxins_tech.level
 	data["records"] = records
-	data["printing"] = active_timers
+	data["printing"] = print_timer
 	return data
 
 /obj/machinery/doppler_array/ui_act(action, params)

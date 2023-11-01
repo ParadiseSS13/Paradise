@@ -28,8 +28,8 @@
 
 #define NEW_SS_GLOBAL(varname) if(varname != src){if(istype(varname)){Recover();qdel(varname);}varname = src;}
 
-#define START_PROCESSING(Processor, Datum) if (!Datum.isprocessing) {Datum.isprocessing = TRUE;Processor.processing += Datum}
-#define STOP_PROCESSING(Processor, Datum) Datum.isprocessing = FALSE;Processor.processing -= Datum
+#define START_PROCESSING(Processor, Datum) if (!HAS_TRAIT(Datum, TRAIT_PROCESSING)) {ADD_TRAIT(Datum, TRAIT_PROCESSING, TRAIT_SOURCE_PROCESSING);Processor.processing += Datum}
+#define STOP_PROCESSING(Processor, Datum) REMOVE_TRAIT(Datum, TRAIT_PROCESSING, TRAIT_SOURCE_PROCESSING);Processor.processing -= Datum
 
 //SubSystem flags (Please design any new flags so that the default is off, to make adding flags to subsystems easier)
 

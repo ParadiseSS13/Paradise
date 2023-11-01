@@ -134,6 +134,12 @@
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
+//Datum Traits
+/// this datum is being processed in SSobj
+#define TRAIT_PROCESSING	"Processing"
+/// This datum has been var edited by an admin
+#define TRAIT_VAR_EDITED	"variable_edited"
+
 //***** MOB TRAITS *****//
 #define TRAIT_RESPAWNABLE		"can_respawn_as_ghost_roles"
 #define TRAIT_BLIND 			"blind"
@@ -268,6 +274,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define EYES_OF_GOD "eyes_of_god"
 #define GHOSTED		"isghost"
 #define GHOST_ROLE	"ghost_role"
+#define TRAIT_SOURCE_PROCESSING "processinginssobj"
+#define TRAIT_SOURCE_ADMIN "adminabuse"
 
 // unique trait sources
 #define STATUE_MUTE "statue"

@@ -113,7 +113,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /turf/simulated/floor/transparent/glass/Destroy()
-	if(isprocessing)
+	if(HAS_TRAIT(src, TRAIT_PROCESSING))
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 

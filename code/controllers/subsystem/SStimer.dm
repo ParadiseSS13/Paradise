@@ -418,8 +418,8 @@ SUBSYSTEM_DEF(timer)
 	if ((timeToRun < world.time || timeToRun < SStimer.head_offset) && !(flags & TIMER_CLIENT_TIME))
 		CRASH("Invalid timer state: Timer created that would require a backtrack to run (addtimer would never let this happen): [SStimer.get_timer_debug_string(src)]")
 
-	if (callBack.object != GLOBAL_PROC && !QDESTROYING(callBack.object))
-		LAZYADD(callBack.object.active_timers, src)
+	if(callBack.object != GLOBAL_PROC && flags & TIMER_DELETE_ME && !QDESTROYING(callBack.object))
+		RegisterSignal(callBack.object, COMSIG_PARENT_QDELETING, GLOBAL_PROC_REF(qdel))
 
 	bucketJoin()
 
@@ -427,10 +427,6 @@ SUBSYSTEM_DEF(timer)
 	..()
 	if (flags & TIMER_UNIQUE && hash)
 		SStimer.hashes -= hash
-
-	if (callBack && callBack.object && callBack.object != GLOBAL_PROC && callBack.object.active_timers)
-		callBack.object.active_timers -= src
-		UNSETEMPTY(callBack.object.active_timers)
 
 	callBack = null
 
@@ -695,16 +691,16 @@ GLOBAL_LIST_EMPTY(timers_by_type)
  * * id a timerid or a /datum/timedevent
  */
 /proc/deltimer(id)
-	if (!id)
+	if(!id)
 		return FALSE
-	if (id == TIMER_ID_NULL)
+	if(id == TIMER_ID_NULL)
 		CRASH("Tried to delete a null timerid. Use TIMER_STOPPABLE flag")
-	if (istype(id, /datum/timedevent))
+	if(istype(id, /datum/timedevent))
 		qdel(id)
 		return TRUE
 	//id is string
 	var/datum/timedevent/timer = SStimer.timer_id_dict[id]
-	if (timer && (!timer.spent || timer.flags & TIMER_DELETE_ME))
+	if(timer && (!timer.spent || timer.flags & TIMER_DELETE_ME))
 		qdel(timer)
 		return TRUE
 	return FALSE

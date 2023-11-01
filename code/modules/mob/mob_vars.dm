@@ -94,7 +94,6 @@
 
 	var/list/grabbed_by = list()
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-	var/list/mapobjs = list()
 
 	var/in_throw_mode = FALSE
 
@@ -129,19 +128,6 @@
 	var/can_change_intents = TRUE //all mobs can change intents by default.
 	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
-
-//Generic list for proc holders. Only way I can see to enable certain verbs/procs. Should be modified if needed.
-	var/proc_holder_list[] = list()
-
-	/* //Also unlike the spell list, this would only store the object in contents, not an object in itself.
-
-	Add this line to whatever stat module you need in order to use the proc holder list.
-	Unlike the object spell system, it's also possible to attach verb procs from these objects to right-click menus.
-	This requires creating a verb for the object proc holder.
-
-	if(proc_holder_list.len)//Generic list for proc_holder objects.
-		for(var/obj/effect/proc_holder/P in proc_holder_list)
-			statpanel("[P.panel]","",P)*/
 
 //The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
 	var/mob/living/carbon/LAssailant = null
@@ -178,7 +164,6 @@
 	var/player_ghosted = 0
 
 	var/turf/listed_turf = null  //the current turf being examined in the stat panel
-	var/list/shouldnt_see = list()	//list of objects that this mob shouldn't see in the stat panel. this silliness is needed because of AI alt+click and cult blood runes
 
 	var/stance_damage = 0 //Whether this mob's ability to stand has been affected
 

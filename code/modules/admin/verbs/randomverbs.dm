@@ -1185,7 +1185,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 	chosen_trait = availible_traits[chosen_trait]
 
-	var/source = "adminabuse"
+	var/source = TRAIT_SOURCE_ADMIN
 	switch(add_or_remove)
 		if("Add") //Not doing source choosing here intentionally to make this bit faster to use, you can always vv it.
 			ADD_TRAIT(D, chosen_trait, source)

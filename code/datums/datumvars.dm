@@ -32,21 +32,9 @@
 	switch(var_name)
 		if("vars")
 			return FALSE
-		if("var_edited")
+		if(TRAIT_VAR_EDITED)
 			return FALSE
-	var_edited = TRUE
-	vars[var_name] = var_value
-
-	. = TRUE
-
-
-/client/vv_edit_var(var_name, var_value) //called whenever a var is edited
-	switch(var_name)
-		if("vars")
-			return FALSE
-		if("var_edited")
-			return FALSE
-	var_edited = TRUE
+	ADD_TRAIT(src, TRAIT_VAR_EDITED, TRAIT_SOURCE_ADMIN)
 	vars[var_name] = var_value
 
 	. = TRUE
@@ -187,7 +175,7 @@
 			varedited_line += "<br><font size='1' color='red'><b>Admin Spawned</b></font>"
 
 
-	if(!islist && D.var_edited)
+	if(!islist && HAS_TRAIT(D, TRAIT_VAR_EDITED))
 		varedited_line += "<br><font size='1' color='red'><b>Var Edited</b></font>"
 
 
@@ -843,7 +831,7 @@
 		var/obj/A = locateUID(href_list["makespeedy"])
 		if(!istype(A))
 			return
-		A.var_edited = TRUE
+		ADD_TRAIT(A, TRAIT_VAR_EDITED, TRAIT_SOURCE_ADMIN)
 		A.makeSpeedProcess()
 		log_admin("[key_name(usr)] has made [A] speed process")
 		message_admins("<span class='notice'>[key_name(usr)] has made [A] speed process</span>")
@@ -855,7 +843,7 @@
 		var/obj/A = locateUID(href_list["makenormalspeed"])
 		if(!istype(A))
 			return
-		A.var_edited = TRUE
+		ADD_TRAIT(A, TRAIT_VAR_EDITED, TRAIT_SOURCE_ADMIN)
 		A.makeNormalProcess()
 		log_admin("[key_name(usr)] has made [A] process normally")
 		message_admins("<span class='notice'>[key_name(usr)] has made [A] process normally</span>")
@@ -867,7 +855,7 @@
 		var/obj/A = locateUID(href_list["modifyarmor"])
 		if(!istype(A))
 			return
-		A.var_edited = TRUE
+		ADD_TRAIT(A, TRAIT_VAR_EDITED, TRAIT_SOURCE_ADMIN)
 		var/list/armorlist = A.armor.getList()
 		var/list/displaylist
 

@@ -34,7 +34,7 @@
 
 /obj/item/reagent_containers/food/Destroy()
 	ant_location = null
-	if(isprocessing)
+	if(HAS_TRAIT(src, TRAIT_PROCESSING))
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 

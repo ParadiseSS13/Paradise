@@ -87,7 +87,7 @@ SUBSYSTEM_DEF(machines)
 		else
 			processing -= thing
 			if(!QDELETED(thing))
-				thing.isprocessing = FALSE
+				REMOVE_TRAIT(thing, TRAIT_PROCESSING, TRAIT_SOURCE_PROCESSING)
 		if(MC_TICK_CHECK)
 			return
 

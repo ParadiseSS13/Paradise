@@ -146,7 +146,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	ui_interact(user)
 
 /obj/machinery/computer/general_air_control/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	if(!isprocessing)
+	if(!HAS_TRAIT(src, TRAIT_PROCESSING))
 		START_PROCESSING(SSmachines, src)
 		refresh_all()
 

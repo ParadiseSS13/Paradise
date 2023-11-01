@@ -3,7 +3,7 @@ GLOBAL_LIST_INIT(VVicon_edit_lock, list("icon", "icon_state", "overlays", "under
 GLOBAL_LIST_INIT(VVckey_edit, list("key", "ckey")) // R_EVENT | R_DEBUG
 GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_height", "bound_width", "bound_x", "bound_y")) // R_DEBUG + warning
 // Stuff that can break the server in weird ways and shouldnt be messed with unless you actually know what you are doing
-GLOBAL_LIST_INIT(VVmaint_only, list("vars", "var_edited", "contents"))
+GLOBAL_LIST_INIT(VVmaint_only, list("vars", TRAIT_VAR_EDITED, "contents"))
 
 // Protect ALL these
 GLOBAL_PROTECT(VVlocked)

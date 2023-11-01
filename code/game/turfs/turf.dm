@@ -42,10 +42,6 @@
 
 	var/list/blueprint_data //for the station blueprints, images of objects eg: pipes
 
-	/// How pathing algorithm will check if this turf is passable by itself (not including content checks). By default it's just density check.
-	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
-	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
-
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(initialized)

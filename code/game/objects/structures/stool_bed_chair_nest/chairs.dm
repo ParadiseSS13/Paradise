@@ -613,7 +613,7 @@
 	turns = 0
 	if(!istype(user) || user.incapacitated() || !in_range(src, user))
 		return
-	if(!isprocessing)
+	if(!HAS_TRAIT(src, TRAIT_PROCESSING))
 		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \
 		"<span class='notice'>Automated spinny chairs. The pinnacle of Ratvarian technology.</span>")
 		START_PROCESSING(SSfastprocess, src)

@@ -395,16 +395,8 @@
 
 	var/actual_dir = get_dir(src, destination_turf)
 
-	/// These are generally cheaper than looping contents so they go first
-	switch(destination_turf.pathing_pass_method)
-		if(TURF_PATHING_PASS_DENSITY)
-			if(destination_turf.density)
-				return TRUE
-		if(TURF_PATHING_PASS_PROC)
-			if(!destination_turf.CanPathfindPass(ID, actual_dir, caller, no_id = no_id))
-				return TRUE
-		if(TURF_PATHING_PASS_NO)
-			return TRUE
+	if(destination_turf.density)
+		return TRUE
 
 	// Source border object checks
 	for(var/obj/structure/window/iter_window in src)
