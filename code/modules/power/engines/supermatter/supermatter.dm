@@ -1197,6 +1197,9 @@
 	power += amount
 	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
 
+/obj/machinery/atmospherics/supermatter_crystal/on_crush_thing(atom/thing)
+	Bumped(thing)
+
 /obj/machinery/atmospherics/supermatter_crystal/proc/make_next_event_time()
 	// Some completely random bullshit to make a "bell curve"
 	var/fake_time = rand(5 MINUTES, 25 MINUTES)

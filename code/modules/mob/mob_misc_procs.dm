@@ -247,9 +247,9 @@
 	p = 1
 	while(p <= n)
 		if((copytext_char(te, p, p + 1) == " " || prob(pr)))	// SS220 EDIT - ORIGINAL: copytext
-			t = text("[][]", t, copytext_char(te, p, p + 1))	// SS220 EDIT - ORIGINAL: copytext
+			t = "[t][copytext_char(te, p, p + 1)]"	// SS220 EDIT - ORIGINAL: copytext
 		else
-			t = text("[]*", t)
+			t = "[t]*"
 		p++
 	return t
 

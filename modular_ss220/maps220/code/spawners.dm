@@ -16,7 +16,7 @@
 	lootcount = 5
 	loot = list(
 		/obj/item/reagent_containers/food/snacks/lasagna=10,
-		/obj/item/reagent_containers/food/snacks/bigbiteburger=10,
+		/obj/item/reagent_containers/food/snacks/burger/bigbite=10,
 		/obj/item/reagent_containers/food/snacks/fishandchips=10,
 		/obj/item/reagent_containers/food/snacks/fishburger=10,
 		/obj/item/reagent_containers/food/snacks/hotdog=10,

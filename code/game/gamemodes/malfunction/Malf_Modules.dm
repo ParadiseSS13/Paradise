@@ -1,3 +1,9 @@
+#define MALF_AI_ROLL_TIME 0.5 SECONDS
+#define MALF_AI_ROLL_COOLDOWN (1 SECONDS + MALF_AI_ROLL_TIME)
+#define MALF_AI_ROLL_DAMAGE 75
+// crit percent
+#define MALF_AI_ROLL_CRIT_CHANCE 5
+
 //The malf AI action subtype. All malf actions are subtypes of this.
 /datum/action/innate/ai
 	name = "AI Action"
@@ -474,7 +480,7 @@
 
 /obj/effect/proc_holder/ranged_ai/overload_machine
 	active = FALSE
-	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
+	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	enable_text = "<span class='notice'>You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.</span>"
 	disable_text = "<span class='notice'>You release your hold on the powernet.</span>"
 
@@ -820,3 +826,91 @@
 	actual_action.fix_borg(robot_target)
 	remove_ranged_ability(ranged_ability_user, "<span class='warning'>[robot_target] successfully rebooted.</span>")
 	return TRUE
+
+/datum/AI_Module/core_tilt
+	module_name = "Rolling Servos"
+	mod_pick_name = "watchforrollingcores"
+	description = "Allows you to slowly roll your core around, crushing anything in your path with your bulk."
+	cost = 10
+	one_purchase = FALSE
+	power_type = /datum/action/innate/ai/ranged/core_tilt
+	unlock_sound = 'sound/effects/bang.ogg'
+	unlock_text = "<span class='notice'>You gain the ability to roll over and crush anything in your way.</span>"
+
+/datum/action/innate/ai/ranged/core_tilt
+	name = "Roll Over"
+	button_icon_state = "roll_over"
+	desc = "Allows you to roll over in the direction of your choosing, crushing anything in your way."
+	auto_use_uses = FALSE
+	linked_ability_type = /obj/effect/proc_holder/ranged_ai/roll_over
+
+
+/obj/effect/proc_holder/ranged_ai/roll_over
+	active = FALSE
+	ranged_mousepointer = 'icons/effects/cult_target.dmi'
+	enable_text = "<span class='notice'>Your inner servos shift as you prepare to roll around. Click adjacent tiles to roll into them!</span>"
+	disable_text = "<span class='notice'>You disengage your rolling protocols.</span>"
+	COOLDOWN_DECLARE(time_til_next_tilt)
+	/// How long does it take us to roll?
+	var/roll_over_time = MALF_AI_ROLL_TIME
+	/// How long does it take for the ability to cool down, on top of [roll_over_time]?
+	var/roll_over_cooldown = MALF_AI_ROLL_COOLDOWN
+
+
+/obj/effect/proc_holder/ranged_ai/roll_over/InterceptClickOn(mob/living/caller, params, atom/target_atom)
+	if(..())
+		return
+	if(!isAI(ranged_ability_user))
+		return
+	if(ranged_ability_user.incapacitated() || !isturf(ranged_ability_user.loc))
+		remove_ranged_ability()
+		return
+	if(!COOLDOWN_FINISHED(src, time_til_next_tilt))
+		to_chat(ranged_ability_user, "<span class='warning'>Your rolling capacitors are still powering back up!</span>")
+		return
+
+	var/turf/target = get_turf(target_atom)
+	if(isnull(target))
+		return
+
+	if(target == get_turf(ranged_ability_user))
+		to_chat(ranged_ability_user, "<span class='warning'>You can't roll over on yourself!</span>")
+		return
+
+	var/picked_dir = get_dir(caller, target)
+	if(!picked_dir)
+		return FALSE
+	// we can move during the timer so we cant just pass the ref
+	var/turf/temp_target = get_step(ranged_ability_user, picked_dir)
+
+	new /obj/effect/temp_visual/single_user/ai_telegraph(temp_target, ranged_ability_user)
+	ranged_ability_user.visible_message("<span class='danger'>[ranged_ability_user] seems to be winding up!</span>")
+	addtimer(CALLBACK(src, PROC_REF(do_roll_over), caller, picked_dir), MALF_AI_ROLL_TIME)
+
+	to_chat(ranged_ability_user, "<span class='warning'>Overloading machine circuitry...</span>")
+
+	COOLDOWN_START(src, time_til_next_tilt, roll_over_cooldown)
+
+	return TRUE
+
+/obj/effect/proc_holder/ranged_ai/roll_over/proc/do_roll_over(mob/living/silicon/ai/ai_caller, picked_dir)
+	var/turf/target = get_step(ai_caller, picked_dir) // in case we moved we pass the dir not the target turf
+
+	if(isnull(target) || ai_caller.incapacitated() || !isturf(ai_caller.loc))
+		return
+
+
+	var/paralyze_time = clamp(6 SECONDS, 0 SECONDS, (roll_over_cooldown * 0.9)) // the clamp prevents stunlocking as the max is always a little less than the cooldown between rolls
+	ai_caller.allow_teleporter = TRUE
+	ai_caller.fall_and_crush(target, MALF_AI_ROLL_DAMAGE, prob(MALF_AI_ROLL_CRIT_CHANCE), 2, null, paralyze_time, crush_dir = picked_dir, angle = get_rotation_from_dir(picked_dir))
+	ai_caller.allow_teleporter = FALSE
+
+/obj/effect/proc_holder/ranged_ai/roll_over/proc/get_rotation_from_dir(dir)
+	switch(dir)
+		if(NORTH, NORTHWEST, WEST, SOUTHWEST)
+			return 270 // try our best to not return 180 since it works badly with animate
+		if(EAST, NORTHEAST, SOUTH, SOUTHEAST)
+			return 90
+		else
+			stack_trace("non-standard dir entered to get_rotation_from_dir. (got: [dir])")
+			return 0

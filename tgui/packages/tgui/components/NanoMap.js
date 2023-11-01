@@ -118,20 +118,21 @@ export class NanoMap extends Component {
       'margin-left': offsetX + 'px',
       'overflow': 'hidden',
       'position': 'relative',
-      'background-image': 'url(' + mapUrl + ')',
       'background-size': 'cover',
       'background-repeat': 'no-repeat',
       'text-align': 'center',
       'cursor': dragging ? 'move' : 'auto',
+      '-ms-interpolation-mode': 'nearest-neighbor',
     };
 
     return (
       <Box className="NanoMap__container">
-        <Box
-          style={newStyle}
-          textAlign="center"
-          onMouseDown={this.handleDragStart}
-        >
+        <Box>
+          <img
+            src={mapUrl}
+            style={newStyle}
+            onMouseDown={this.handleDragStart}
+          />
           <Box>{children}</Box>
         </Box>
         <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} />
