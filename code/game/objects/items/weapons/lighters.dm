@@ -23,6 +23,7 @@
 	..()
 	var/color = pick("r","c","y","g")
 	icon_state = "lighter-[color]"
+	item_state = "lighter-[color]"
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
