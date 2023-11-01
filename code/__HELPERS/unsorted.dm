@@ -257,7 +257,9 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /obj/proc/atmosanalyzer_scan(datum/gas_mixture/air_contents, mob/user, obj/target = src)
 	var/obj/icon = target
-	user.visible_message("[user] has used the analyzer on [target].", "<span class='notice'>You use the analyzer on [target].</span>")
+	to_chat(user,"<span class='notice'>You use the analyzer on [target].</span>" )
+	if(!istype(user, /mob/dead/observer))
+		user.visible_message("<span class='notice'>[user] has used the analyzer on [target].</span>")
 	var/pressure = air_contents.return_pressure()
 	var/total_moles = air_contents.total_moles()
 	var/volume = air_contents.return_volume()
