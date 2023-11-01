@@ -25,7 +25,7 @@
 	..()
 
 /datum/wires/explosive/gibtonite
-	holder_type = /obj/item/twohanded/required/gibtonite
+	holder_type = /obj/item/gibtonite
 
 /datum/wires/explosive/gibtonite/interactable(mob/user)
 	return TRUE
@@ -34,5 +34,5 @@
 	return
 
 /datum/wires/explosive/gibtonite/explode()
-	var/obj/item/twohanded/required/gibtonite/P = holder
+	var/obj/item/gibtonite/P = holder
 	P.GibtoniteReaction(null, 2)

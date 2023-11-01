@@ -7,7 +7,7 @@
 	implant_state = "implant-nanotrasen"
 
 /obj/item/implant/mindshield/can_implant(mob/source, mob/user)
-	if(source.mind in SSticker.mode.head_revolutionaries)
+	if(source.mind?.has_antag_datum(/datum/antagonist/rev/head))
 		source.visible_message("<span class='biggerdanger'>[source] seems to resist [src]!</span>",
 								"<span class='warning'>You feel something interfering with your mental conditioning, but you resist it!</span>")
 		return FALSE
@@ -17,7 +17,7 @@
 	if(!..())
 		return FALSE
 	if(target.mind)
-		if(target.mind in SSticker.mode.revolutionaries)
+		if(target.mind.has_antag_datum(/datum/antagonist/rev))
 			SSticker.mode.remove_revolutionary(target.mind)
 		if(target.mind in SSticker.mode.cult)
 			to_chat(target, "<span class='warning'>You feel the corporate tendrils of Nanotrasen try to invade your mind!</span>")

@@ -261,7 +261,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset/rpd/register()
 	for(var/state in icon_states('icons/obj/pipe-item.dmi'))
-		if(!(state in list("cap", "connector", "dtvalve", "dual-port vent", "dvalve", "filter", "he", "heunary", "injector", "junction", "manifold", "mixer", "tvalve", "mvalve", "passive vent", "passivegate", "pump", "scrubber", "simple", "universal", "uvent", "volumepump"))) //Basically all the pipes we want sprites for
+		if(!(state in list("cap", "connector", "dtvalve", "dvalve", "filter", "he", "heunary", "injector", "junction", "manifold", "mixer", "tvalve", "mvalve", "passive vent", "passivegate", "pump", "scrubber", "simple", "universal", "uvent", "volumepump"))) //Basically all the pipes we want sprites for
 			continue
 		if(state in list("he", "simple"))
 			for(var/D in GLOB.alldirs)

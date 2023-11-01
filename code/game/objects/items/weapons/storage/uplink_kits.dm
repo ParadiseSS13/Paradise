@@ -25,7 +25,7 @@
 		/obj/item/suppressor, // 1TC
 		/obj/item/ammo_box/magazine/m10mm,  // 1TC
 		/obj/item/ammo_box/magazine/m10mm/hp, // 2TC
-		/obj/item/twohanded/garrote, // 6TC
+		/obj/item/garrote, // 6TC
 		/obj/item/door_remote/omni/access_tuner, // 6TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/implanter/freedom, // 5TC
@@ -48,7 +48,7 @@
 		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/storage/box/syndie_kit/emp, // 2TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
 		/obj/item/encryptionkey/syndicate, // 2TC
@@ -74,7 +74,7 @@
 		/obj/item/jammer, // 4TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/clothing/gloves/color/latex/nitrile, // 0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
@@ -124,7 +124,7 @@
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/clothing/gloves/combat, // 0 TC
 		/obj/item/clothing/under/suit/really_black, // 0 TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/grenadier = list( // 20TC + Tactical Grenadier Belt
@@ -263,11 +263,17 @@
 		new /obj/item/ammo_casing/shotgun/assassination(src)
 	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
 
+/obj/item/storage/box/syndie_kit/fake_minibomb
+	name = "trick minibomb kit"
+
+/obj/item/storage/box/syndie_kit/fake_minibomb/populate_contents()
+	new /obj/item/grenade/syndieminibomb/fake(src)
+
 /obj/item/storage/box/syndie_kit/fake_revolver
 	name = "trick revolver kit"
 
 /obj/item/storage/box/syndie_kit/fake_revolver/populate_contents()
-	new /obj/item/toy/russian_revolver/trick_revolver(src)
+	new /obj/item/gun/projectile/revolver/fake(src)
 
 /obj/item/storage/box/syndie_kit/mimery
 	name = "advanced mimery kit"
@@ -276,6 +282,11 @@
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
+/obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
+	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
+	for(var/i in 1 to 2)
+		new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
 	name = "atmos N2O grenades"

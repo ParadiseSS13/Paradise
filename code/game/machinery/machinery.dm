@@ -7,7 +7,6 @@
 	layer = BELOW_OBJ_LAYER
 	armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, rad = 0, fire = 50, acid = 70)
 	atom_say_verb = "beeps"
-	pull_speed = 0.5
 	var/stat = 0
 
 	/// How is this machine currently passively consuming power?
@@ -541,3 +540,6 @@
  */
 /obj/machinery/proc/flicker()
 	return FALSE
+
+/obj/machinery/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable, block_interactions)
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, should_rotate = TRUE, rightable = TRUE, block_interactions_until_righted = TRUE)

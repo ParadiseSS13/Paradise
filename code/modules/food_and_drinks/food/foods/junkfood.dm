@@ -100,6 +100,27 @@
 	list_reagents = list("nutriment" = 10, "sugar" = 4)
 	tastes = list("syrup" = 3, "waffle" = 2)
 
+/obj/item/reagent_containers/food/snacks/twimsts
+	name = "Twimsts"
+	desc = "Sweet twisted sticks made of liquorice, can be used to make edible handcuffs!"
+	icon_state = "twimsts"
+	trash = /obj/item/trash/twimsts
+	antable = FALSE
+	filling_color = "#E31818"
+	junkiness = 5
+	list_reagents = list("nutriment" = 2, "sugar" = 10)
+	tastes = list("sweetness" = 3, "liquorice" = 2)
+
+/obj/item/reagent_containers/food/snacks/twimsts/attack_self(mob/user)
+	var/obj/item/restraints/handcuffs/twimsts/L = new /obj/item/restraints/handcuffs/twimsts
+	L.create_reagents(100)
+	reagents.copy_to(L, reagents.total_volume)
+	user.unEquip(src)
+	var/obj/item/trash_item = generate_trash(user)
+	user.unEquip(trash_item)
+	user.put_in_hands(L)
+	qdel(src)
+
 //////////////////////
 //		Homemade	//
 //////////////////////

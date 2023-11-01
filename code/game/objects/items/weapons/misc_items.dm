@@ -4,6 +4,7 @@
 /*CURRENT CONTENTS
 	Ball Toy
 	Cane
+	Crutches
 	Cardboard Tube
 	Fan
 	Gaming Kit
@@ -33,8 +34,78 @@
 	materials = list(MAT_METAL=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed", "Vaudevilled")
 
-/obj/item/cane/is_crutch()
-	return 1
+/obj/item/cane/get_crutch_efficiency()
+	return 2
+
+/obj/item/crutches
+	name = "crutches"
+	desc = "A medical device to help those who have injured or missing legs to walk."
+	gender = PLURAL
+	icon = 'icons/obj/surgery.dmi' // I mean like... cmon its basically medical.dmi
+	icon_state = "crutches0"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	flags = CONDUCT
+	force = 5
+	throwforce = 7
+	w_class = WEIGHT_CLASS_BULKY
+	materials = list(MAT_METAL = 500)
+	attack_verb = list("bludgeoned", "whacked", "cracked")
+	/// Is the secret compartment open?
+	var/is_open = FALSE
+	/// Tiny item that can be hidden on crutches with a screwdriver
+	var/obj/item/hidden = null
+
+/obj/item/crutches/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded = 5, force_wielded = 5, icon_wielded = "crutches1")
+
+/obj/item/crutches/Destroy()
+	if(hidden)
+		hidden.forceMove(get_turf(src))
+		hidden = null
+	return ..()
+
+/obj/item/crutches/update_icon_state() //Currently only here to fuck with the on-mob icons.
+	icon_state = "crutches0"
+	return ..()
+
+/obj/item/crutches/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!is_open)
+		return
+	if(!hidden && I.tool_behaviour != TOOL_SCREWDRIVER && I.w_class == WEIGHT_CLASS_TINY)
+		if(istype(I, /obj/item/disk/nuclear))
+			to_chat(user, "<span class='warning'>You think you're gonna need more than crutches if your employers find out what you just tried to do...</span>")
+			return
+		if(I.flags & ABSTRACT)
+			return
+		if(!user.unEquip(I))
+			to_chat(user, "<span class='notice'>[I] doesn't seem to want to go into [src]!</span>")
+			return
+		I.forceMove(src)
+		hidden = I
+		to_chat(user, "<span class='notice'>You hide [I] inside the crutch tip.</span>")
+
+/obj/item/crutches/attack_hand(mob/user, pickupfireoverride)
+	if(!is_open)
+		return ..()
+	if(hidden)
+		user.put_in_hands(hidden)
+		to_chat(user, "<span class='notice'>You remove [hidden] from the crutch tip!</span>")
+		hidden = null
+
+	add_fingerprint(user)
+
+/obj/item/crutches/screwdriver_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	to_chat(user, "<span class='notice'>You screw the crutch tip [is_open ? "closed" : "open"].</span>")
+	is_open = !is_open
+
+/obj/item/crutches/get_crutch_efficiency()
+	// 6 when wielded, 2 when not. Basically a small upgrade to just having 2 canes in each hand
+	return 2 + (4 * HAS_TRAIT(src, TRAIT_WIELDED)) // less efficient when you're holding both in a single hand
 
 /obj/item/c_tube
 	name = "cardboard tube"

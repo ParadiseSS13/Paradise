@@ -10,14 +10,15 @@
 	canSmoothWith = null
 	smoothing_flags = NONE
 	var/growth_time = 120 SECONDS
+	is_alien = FALSE
 
-/obj/structure/alien/resin/flower_bud_enemy/New()
-	..()
+/obj/structure/alien/resin/flower_bud_enemy/Initialize(mapload)
+	. = ..()
 	var/list/anchors = list()
-	anchors += locate(x-2,y+2,z)
-	anchors += locate(x+2,y+2,z)
-	anchors += locate(x-2,y-2,z)
-	anchors += locate(x+2,y-2,z)
+	anchors += locate(x - 2, y + 2, z)
+	anchors += locate(x + 2, y + 2, z)
+	anchors += locate(x - 2, y - 2, z)
+	anchors += locate(x + 2, y - 2, z)
 
 	for(var/turf/T in anchors)
 		var/datum/beam/B = Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
@@ -37,13 +38,12 @@
 
 
 /obj/effect/ebeam/vine/Crossed(atom/movable/AM, oldloc)
-	if(isliving(AM))
-		var/mob/living/L = AM
-		if(!("vines" in L.faction))
-			L.adjustBruteLoss(5)
-			to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
-
-
+	if(!isliving(AM))
+		return
+	var/mob/living/L = AM
+	if(!("vines" in L.faction))
+		L.adjustBruteLoss(5)
+		to_chat(L, "<span class='alert'>You cut yourself on the thorny vines.</span>")
 
 /mob/living/simple_animal/hostile/venus_human_trap
 	name = "venus human trap"

@@ -121,7 +121,7 @@
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
 
 
-/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, radio_freq)
+/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, check_name_against)
 	if(!client)
 		return
 
@@ -137,7 +137,7 @@
 	if(!follow_target)
 		follow_target = speaker
 
-	var/speaker_name = handle_speaker_name(speaker, vname, hard_to_hear)
+	var/speaker_name = handle_speaker_name(speaker, vname, hard_to_hear, check_name_against)
 	track = handle_track(message, verb, speaker, speaker_name, follow_target, hard_to_hear)
 
 	if(!can_hear())

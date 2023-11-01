@@ -102,11 +102,22 @@
 		return
 	var/turf/newLoc = get_step(src,direction)
 	setDir(direction)
+	movedelay = world.time + movespeed
 	if(can_move(newLoc))
 		forceMove(newLoc)
-	else
+		return
+	if(!IS_DIR_DIAGONAL(direction))
 		to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
-	movedelay = world.time + movespeed
+		return
+	var/turf/possible_1 = get_step(src, turn(direction, 45))
+	var/turf/possible_2 = get_step(src, turn(direction, -45))
+	if(can_move(possible_1))
+		forceMove(possible_1)
+		return
+	if(can_move(possible_2))
+		forceMove(possible_2)
+		return
+	to_chat(user, "<span class='warning'>Something is blocking the way!</span>")
 
 /obj/effect/dummy/spell_jaunt/proc/can_move(turf/T)
 	if(T.flags & NOJAUNT)

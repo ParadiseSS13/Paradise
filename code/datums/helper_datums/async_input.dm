@@ -13,6 +13,7 @@
 	A.show()
 	return A
 
+/// THIS WILL BE REMOVED IN THE FUTURE, I STRONGLY SUGGEST AGAINST USING THIS - GDN
 /datum/async_input
 	var/datum/browser/popup
 	// If associative list, key will be used for display, but the final result will be the value
@@ -38,6 +39,7 @@
 /datum/async_input/proc/close()
 	if(popup)
 		popup.close()
+		QDEL_NULL(popup)
 	if(result && choices[result])
 		result = choices[result]
 	if(onCloseCb)

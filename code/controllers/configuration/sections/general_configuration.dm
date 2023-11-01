@@ -36,6 +36,8 @@
 	var/starlight = TRUE
 	/// Disable lobby music?
 	var/disable_lobby_music = FALSE
+	/// Disable ambient sound and white noise
+	var/disable_ambient_noise = FALSE
 	/// Disable a popup if 2 users are on the same CID?
 	var/disable_cid_warning_popup = FALSE
 	/// Amount of loadout points non-donors should get
@@ -97,6 +99,7 @@
 	CONFIG_LOAD_BOOL(ghost_interaction, data["ghost_interaction"])
 	CONFIG_LOAD_BOOL(starlight, data["starlight"])
 	CONFIG_LOAD_BOOL(disable_lobby_music, data["disable_lobby_music"])
+	CONFIG_LOAD_BOOL(disable_ambient_noise, data["disable_ambient_noise"])
 	CONFIG_LOAD_BOOL(disable_cid_warning_popup, data["disable_cid_warning_popup"])
 	CONFIG_LOAD_BOOL(enable_ooc_emoji, data["enable_ooc_emoji"])
 	CONFIG_LOAD_BOOL(developer_express_start, data["developer_express_start"])

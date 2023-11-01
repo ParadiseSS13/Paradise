@@ -28,9 +28,9 @@
 
 /proc/apc_overload_failure(announce=TRUE)
 	var/list/skipped_areas_apc = list(
-		/area/engine/engineering,
-		/area/engine/supermatter,
-		/area/turret_protected/ai)
+		/area/station/engineering/engine,
+		/area/station/engineering/engine/supermatter,
+		/area/station/turret_protected/ai)
 
 	if(announce)
 		GLOB.minor_announcement.Announce("Overload detected in [station_name()]'s powernet. Engineering, please check all underfloor APC terminals.", "Critical Power Failure", 'sound/AI/power_overload.ogg')

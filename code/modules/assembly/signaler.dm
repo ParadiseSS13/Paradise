@@ -2,10 +2,10 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 
 /obj/item/assembly/signaler
 	name = "remote signaling device"
-	desc = "Used to remotely activate devices."
+	desc = "Used to remotely activate devices. Allows for syncing when using a signaler on another."
 	icon_state = "signaller"
 	item_state = "signaler"
-	materials = list(MAT_METAL=400, MAT_GLASS=120)
+	materials = list(MAT_METAL = 400, MAT_GLASS = 120)
 	origin_tech = "magnets=1;bluespace=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 	secured = TRUE
@@ -28,6 +28,20 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 /obj/item/assembly/signaler/examine(mob/user)
 	. = ..()
 	. += "The power light is [receiving ? "on" : "off"]"
+	. += "<span class='notice'>Alt+Click to send a signal.</span>"
+
+/obj/item/assembly/signaler/AltClick(mob/user)
+	to_chat(user, "<span class='notice'>You activate [src].</span>")
+	activate()
+
+/obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
+	if(issignaler(W))
+		var/obj/item/assembly/signaler/signaler2 = W
+		if(secured && signaler2.secured)
+			code = signaler2.code
+			frequency = signaler2.frequency
+			to_chat(user, "You transfer the frequency and code to [src].")
+	return ..()
 
 /// Called from activate(), actually invokes the signal on other signallers in the world
 /obj/item/assembly/signaler/proc/signal()
@@ -42,6 +56,7 @@ GLOBAL_LIST_EMPTY(remote_signalers)
 	if(usr) // sometimes (like when a prox sensor sends a signal) there is no usr
 		invoking_ckey = usr.key
 	GLOB.lastsignalers.Add("[SQLtime()] <b>:</b> [invoking_ckey] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
+	investigate_log("[SQLtime()] <b>:</b> [invoking_ckey] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]", "signalers")
 
 /obj/item/assembly/signaler/proc/signal_callback()
 	pulse(1)

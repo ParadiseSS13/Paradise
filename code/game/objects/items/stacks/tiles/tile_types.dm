@@ -288,3 +288,7 @@
 	mineralType = "metal"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
+
+/obj/item/stack/tile/catwalk/cyborg
+	energy_type = /datum/robot_energy_storage/catwalk
+	is_cyborg = TRUE

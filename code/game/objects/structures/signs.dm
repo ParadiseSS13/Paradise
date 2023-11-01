@@ -103,6 +103,11 @@
 	if(user.client)
 		user.client.webmap()
 
+/obj/structure/sign/nanotrasen
+	name = "\improper NANOTRASEN"
+	desc = "A sign that indicates an NT turf."
+	icon_state = "nanotrasen"
+
 /obj/structure/sign/securearea
 	name = "\improper SECURE AREA"
 	desc = "A warning sign which reads 'SECURE AREA'"
@@ -187,7 +192,7 @@
 
 /obj/structure/sign/greencross
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
+	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
 	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque
@@ -207,6 +212,9 @@
 /obj/structure/sign/kiddieplaque/remembrance
 	name = "Remembrance Plaque"
 	desc = "A plaque commemorating the fallen, may they rest in peace, forever asleep amongst the stars. Someone has drawn a picture of a crying badger at the bottom."
+
+/obj/structure/sign/kiddieplaque/remembrance/mining
+	desc = "A plaque commemorating the fallen, may they rest in peace, forever asleep amongst the ashes. Someone has drawn a picture of a crying badger at the bottom."
 
 /obj/structure/sign/kiddieplaque/perfect_man
 	name = "\improper 'Perfect Man' sign"

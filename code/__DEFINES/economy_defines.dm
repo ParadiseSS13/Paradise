@@ -22,7 +22,7 @@
 #define DEPARTMENT_BALANCE_HIGH			1500
 
 /////BASE PAY AMOUNTS///
-#define CREW_BASE_PAY_LOW   125
+#define CREW_BASE_PAY_LOW   100
 #define CREW_PAY_MEDIUM 	250
 #define CREW_PAY_HIGH   	300
 
@@ -62,3 +62,6 @@
 #define SUPPLY_VEND 		9
 
 #define DEFAULT_CRATE_VALUE 15
+
+/// mail deliveries
+#define MAIL_DELIVERY_BONUS	100

@@ -23,16 +23,13 @@
 	},
 /area/ruin/space/powered/bar)
 "af" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
-/area/ruin/space/powered)
-"ag" = (
-/turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered)
 "ah" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "ai" = (
 /turf/simulated/mineral,
@@ -82,7 +79,7 @@
 "au" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/poddoor/preopen,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "av" = (
 /obj/structure/table/wood,
@@ -102,9 +99,9 @@
 /area/ruin/space/powered)
 "ay" = (
 /obj/machinery/door/airlock{
-	name = "Bar Storage";
-	req_access_txt = "25"
+	name = "Bar Storage"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/service/bar,
 /turf/simulated/floor/wood,
 /area/ruin/space/powered/bar)
 "aA" = (
@@ -139,7 +136,7 @@
 /area/ruin/space/powered/bar)
 "aI" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "aJ" = (
 /turf/simulated/wall,
@@ -168,12 +165,14 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered/bar)
 "aP" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/marker_beacon/dock_marker,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "aQ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "aS" = (
@@ -226,7 +225,7 @@
 /obj/item/scalpel,
 /obj/structure/table,
 /obj/item/wirecutters,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "aZ" = (
 /obj/item/radio/beacon,
@@ -283,7 +282,7 @@
 /area/ruin/space/powered/bar)
 "bh" = (
 /obj/item/stack/ore/glass,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "bi" = (
 /obj/machinery/teleport/station,
@@ -291,7 +290,7 @@
 /area/ruin/space/powered/bar)
 "bj" = (
 /obj/item/stack/ore/glass,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "bk" = (
 /turf/simulated/floor/plasteel{
@@ -324,18 +323,22 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "bo" = (
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "bq" = (
 /obj/machinery/light,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "br" = (
 /turf/template_noop,
 /area/space/nearstation)
 "bt" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "bF" = (
@@ -373,11 +376,17 @@
 /obj/item/id_decal/gold,
 /obj/item/screwdriver,
 /obj/item/toy/plushie/carpplushie/gold,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/space/nearstation)
+"eC" = (
+/obj/item/stack/ore/bluespace_crystal/refined,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "eG" = (
 /obj/effect/landmark/damageturf,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "fg" = (
@@ -389,9 +398,9 @@
 /area/ruin/space/powered/bar)
 "gy" = (
 /obj/item/stack/cable_coil{
-	amount = 5
+	amount = 1
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "gM" = (
 /obj/structure/marker_beacon/dock_marker/collision,
@@ -455,7 +464,7 @@
 /area/ruin/space/powered/bar)
 "lS" = (
 /obj/item/restraints/handcuffs/cable/red,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "mb" = (
 /obj/structure/table/wood,
@@ -465,7 +474,10 @@
 "mu" = (
 /obj/structure/bed/roller,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/space/nearstation)
+"oJ" = (
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "pb" = (
 /obj/item/stack/tile/mineral,
@@ -486,7 +498,7 @@
 /obj/machinery/atmospherics/portable/canister/air{
 	filled = 1
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "rQ" = (
 /obj/structure/chair/stool{
@@ -551,7 +563,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "wy" = (
 /obj/effect/landmark/damageturf,
@@ -599,7 +611,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "zy" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/space/nearstation)
 "zC" = (
@@ -654,9 +666,13 @@
 	id_tag = "pod cycle";
 	name = "airlock dock"
 	},
-/obj/effect/decal/warning_stripes/south,
-/obj/effect/decal/warning_stripes/north,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "DT" = (
 /obj/structure/toilet{
@@ -692,7 +708,7 @@
 	dir = 1
 	},
 /obj/item/stack/ore/glass,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "FY" = (
 /obj/machinery/reagentgrinder,
@@ -702,9 +718,9 @@
 "Gv" = (
 /obj/item/pickaxe,
 /obj/item/stack/cable_coil{
-	amount = 5
+	amount = 1
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "Gz" = (
 /turf/simulated/wall/mineral/iron,
@@ -725,6 +741,9 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/powered/bar)
+"JK" = (
+/turf/simulated/floor/plating/asteroid/ancient,
+/area/ruin/space/powered)
 "JW" = (
 /obj/structure/rack{
 	dir = 1
@@ -732,7 +751,7 @@
 /obj/item/shovel{
 	pixel_x = -5
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "Kp" = (
 /obj/effect/decal/cleanable/blood,
@@ -743,7 +762,9 @@
 /area/ruin/space/powered/bar)
 "KM" = (
 /obj/effect/landmark/damageturf,
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -756,7 +777,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "Lh" = (
 /obj/structure/table/wood,
@@ -770,7 +791,7 @@
 /area/space/nearstation)
 "Lu" = (
 /obj/effect/decal/cleanable/blood/writing,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "Ly" = (
 /obj/machinery/door_control{
@@ -809,7 +830,7 @@
 /area/ruin/space/powered/bar)
 "Nl" = (
 /obj/item/pickaxe,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "Np" = (
 /obj/item/stack/ore/bluespace_crystal/refined,
@@ -819,7 +840,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "NE" = (
 /obj/structure/closet/secure_closet/bar{
@@ -841,7 +862,7 @@
 /area/ruin/space/powered/bar)
 "Ow" = (
 /obj/item/stack/ore/glass/basalt,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "Pr" = (
 /obj/structure/chair/stool,
@@ -860,7 +881,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/powered)
 "QU" = (
 /obj/effect/landmark/damageturf,
@@ -878,7 +899,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered/bar)
 "RX" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/marker_beacon/dock_marker,
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
@@ -890,7 +913,7 @@
 /area/ruin/space/powered/bar)
 "UA" = (
 /obj/structure/glowshroom,
-/turf/simulated/floor/plating/asteroid/airless,
+/turf/simulated/floor/plating/asteroid/ancient,
 /area/space/nearstation)
 "UO" = (
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
@@ -919,7 +942,9 @@
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
-/obj/item/stack/cable_coil,
+/obj/item/stack/cable_coil{
+	amount = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -942,9 +967,13 @@
 	id_tag = "pod cycle";
 	name = "airlock dock"
 	},
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plating,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered)
 "ZM" = (
 /obj/machinery/light{
@@ -1120,7 +1149,7 @@ ac
 ac
 ab
 ab
-ag
+JK
 ai
 ai
 aG
@@ -1171,24 +1200,24 @@ ad
 ab
 ab
 ab
-ag
+JK
 bj
 ai
-ag
+JK
 Nr
-ag
-ag
-ag
+JK
+JK
+JK
 aG
 af
 af
 af
 af
 aG
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 aG
 ab
 ab
@@ -1224,23 +1253,23 @@ ab
 ab
 ab
 ai
-ag
+JK
 Ow
-ag
-ag
-ag
+JK
+JK
+JK
 bj
-ag
+JK
 Nr
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 Nr
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 QG
 ai
 ai
@@ -1274,29 +1303,29 @@ ad
 ad
 ab
 ab
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 ai
 ai
-ag
+JK
 bj
 ai
 ai
-ag
+JK
 ai
-ag
-ag
+JK
+JK
 Ow
 bj
-ag
+JK
 af
 ad
 ad
@@ -1327,26 +1356,26 @@ ab
 ab
 ab
 bj
-ag
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 bj
 ai
 ai
 ai
 ai
 Ow
-ag
+JK
 bj
-ag
-ag
-ag
+JK
+JK
+JK
 bq
 aJ
 aJ
@@ -1379,27 +1408,27 @@ ab
 ab
 ab
 ai
-ag
+JK
 ak
 Cx
 ax
 aB
-ag
-ag
-ag
+JK
+JK
+JK
 ai
-ag
-ag
-ai
-ai
+JK
+JK
 ai
 ai
-ag
-ag
-ag
-ag
-ag
-ag
+ai
+ai
+JK
+JK
+JK
+JK
+JK
+JK
 RX
 au
 aP
@@ -1431,27 +1460,27 @@ ab
 ac
 ab
 ab
-ag
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
 ai
 ai
-ag
+JK
 bj
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 bj
-ag
-ag
+JK
+JK
 bt
 au
 bo
@@ -1485,25 +1514,25 @@ ac
 ab
 ai
 Ow
-ag
-ag
-ag
+JK
+JK
+JK
 bj
-ag
-ag
-ag
+JK
+JK
+JK
 Ow
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 bt
 au
 bo
@@ -1537,25 +1566,25 @@ ab
 ab
 ai
 ai
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 bt
 au
 bo
@@ -1587,27 +1616,27 @@ ab
 ab
 ab
 ab
-ag
-ag
-ag
+JK
+JK
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
 RX
 au
 aP
@@ -1639,26 +1668,26 @@ ac
 ab
 ab
 Ow
-ag
+JK
 bj
-ag
+JK
 ak
 ax
 ax
 aB
-ag
-ag
+JK
+JK
 bj
-ag
+JK
 ak
 ax
 ax
 aB
-ag
-ag
-ag
+JK
+JK
+JK
 bj
-ag
+JK
 bq
 aJ
 aJ
@@ -1690,25 +1719,25 @@ ac
 ab
 ab
 ab
-ag
+JK
 Nl
-ag
-ag
+JK
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
 aj
 aj
 aj
 aA
-ag
-ag
-ag
+JK
+JK
+JK
 Ow
 Nl
 Ow
@@ -1745,20 +1774,20 @@ Np
 ai
 Ow
 Ow
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 bj
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
 Ow
 bj
 ai
@@ -1797,20 +1826,20 @@ ab
 ab
 ab
 ai
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
-ag
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
+JK
 ai
 ai
 ai
@@ -1848,16 +1877,16 @@ ab
 ab
 ab
 ai
-ag
+JK
 ai
-ag
+JK
 ai
 vT
 FO
 rN
-ag
-ag
-ag
+JK
+JK
+JK
 JW
 KO
 ai
@@ -1865,8 +1894,8 @@ ai
 ai
 ai
 ai
-ag
-ag
+JK
+JK
 ai
 ai
 ab
@@ -1901,7 +1930,7 @@ ab
 ab
 ab
 ab
-ag
+JK
 ai
 ai
 am
@@ -1916,10 +1945,10 @@ ai
 ai
 ai
 ai
-ag
+JK
 ai
-ag
-ag
+JK
+JK
 ab
 ab
 ab
@@ -2181,7 +2210,7 @@ bb
 bb
 am
 ab
-ac
+oJ
 ab
 ab
 ab
@@ -2233,7 +2262,7 @@ bk
 bk
 QY
 gy
-ac
+oJ
 mu
 ab
 ab
@@ -2339,7 +2368,7 @@ am
 ab
 Gv
 ab
-ac
+oJ
 ab
 ab
 ad
@@ -2365,7 +2394,7 @@ ab
 ab
 ab
 ee
-ac
+oJ
 ab
 am
 av
@@ -2390,7 +2419,7 @@ bk
 am
 ab
 ab
-Np
+eC
 ab
 ab
 ad
@@ -2441,7 +2470,7 @@ bk
 qZ
 am
 ab
-ac
+oJ
 ab
 ab
 ad
@@ -2470,7 +2499,7 @@ ac
 ab
 ab
 ab
-ac
+oJ
 QY
 as
 as

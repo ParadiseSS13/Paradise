@@ -201,7 +201,7 @@
 				user.adjustBrainLoss(10)
 		else
 			to_chat(user, "<span class='notice'>You attach the ends of the two energy swords, making a single double-bladed weapon! You're cool.</span>")
-			var/obj/item/twohanded/dualsaber/newSaber = new /obj/item/twohanded/dualsaber(user.loc)
+			var/obj/item/dualsaber/newSaber = new /obj/item/dualsaber(user.loc)
 			if(src.hacked) // That's right, we'll only check the "original" esword.
 				newSaber.hacked = TRUE
 				newSaber.item_color = "rainbow"
@@ -292,7 +292,7 @@
 	inhand_y_dimension = 64
 	icon_state = "cleaving_saw"
 	icon_state_on = "cleaving_saw_open"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	var/attack_verb_off = list("attacked", "sawed", "sliced", "torn", "ripped", "diced", "cut")
 	attack_verb_on = list("cleaved", "swiped", "slashed", "chopped")
 	hitsound = 'sound/weapons/bladeslice.ogg'

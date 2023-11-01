@@ -49,6 +49,9 @@
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
 
+	// Allow storage items of the same size to be put inside
+	var/allow_same_size = FALSE
+
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 	can_hold = typecacheof(can_hold)
@@ -205,7 +208,7 @@
 	user.client.screen += closer
 	user.client.screen += contents
 	user.s_active = src
-	LAZYADDOR(mobs_viewing, user)
+	LAZYDISTINCTADD(mobs_viewing, user)
 
 /**
   * Hides the current container interface from `user`.
@@ -407,7 +410,7 @@
 		return FALSE
 
 	if(I.w_class >= w_class && isstorage(I))
-		if(!istype(src, /obj/item/storage/backpack/holding))	//BoHs should be able to hold backpacks again. The override for putting a BoH in a BoH is in backpack.dm.
+		if(!allow_same_size)	//BoHs should be able to hold backpacks again. The override for putting a BoH in a BoH is in backpack.dm.
 			if(!stop_messages)
 				to_chat(usr, "<span class='warning'>[src] cannot hold [I] as it's a storage item of the same size.</span>")
 			return FALSE //To prevent the stacking of same sized storage items.
@@ -533,6 +536,8 @@
 		var/obj/item/hand_labeler/labeler = I
 		if(labeler.mode)
 			return FALSE
+	if(user.a_intent != INTENT_HELP && issimulatedturf(loc)) // Stops you from putting your baton in the storage on accident
+		return FALSE
 	. = TRUE //no afterattack
 	if(isrobot(user))
 		return //Robots can't interact with storage items.

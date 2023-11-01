@@ -5,6 +5,7 @@
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
 	var/datum/action/neutral_stance/neutral = new/datum/action/neutral_stance()
+	can_horizontally_grab = FALSE
 
 /datum/action/neutral_stance
 	name = "Neutral Stance - You relax, cancelling your last Krav Maga stance attack."
@@ -137,27 +138,31 @@
 //Krav Maga Gloves
 
 /obj/item/clothing/gloves/color/black/krav_maga
-	var/datum/martial_art/krav_maga/style = new
+	var/datum/martial_art/krav_maga/style
 	can_be_cut = FALSE
 	resistance_flags = NONE
+
+/obj/item/clothing/gloves/color/black/krav_maga/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/clothing/gloves/color/black/krav_maga/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
-	if(slot == slot_gloves)
+	if(slot == SLOT_HUD_GLOVES)
 		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
+		style.teach(H, TRUE)
 
 /obj/item/clothing/gloves/color/black/krav_maga/dropped(mob/user)
 	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src)
+	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src)
 		style.remove(H)
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec//more obviously named, given to sec
-	name = "krav maga gloves"
+	name = "Krav Maga gloves"
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
@@ -167,7 +172,7 @@
 	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/clothing/gloves/color/black/krav_maga/combat // for nukies
-	name = "combat gloves plus"
+	name = "Combat gloves plus"
 	desc = "These combat gloves have been upgraded with nanochips that teach the wearer Krav Maga."
 	icon_state = "combat"
 	item_state = "swat_gl"

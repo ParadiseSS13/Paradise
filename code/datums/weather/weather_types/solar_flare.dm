@@ -16,17 +16,17 @@
 	end_message = null
 	area_type = /area // read generate_area_list() as well below
 	protected_areas = list(/area/shuttle/arrival/station)
-	target_trait = STATION_LEVEL
+	target_trait = REACHABLE_SPACE_ONLY
 	immunity_type = "burn"
 	var/damage = 4
 	/// Areas which are "semi-protected". Mobs inside these areas take reduced burn damage from the solar flare.
-	var/list/semi_protected_areas = list(/area/hallway/secondary/entry)
+	var/list/semi_protected_areas = list(/area/station/hallway/secondary/entry, /area/ruin)
 
 /datum/weather/solar_flare/generate_area_list()
 	..()
-	var/list/bonus_areas = get_areas(/area/solar)
+	var/list/bonus_areas = get_areas(/area/station/engineering/solar)
 	// no, solars in space are NOT a subtype of /area/space.
-	// no, we don't want to re-path every reference to all the subtypes of /area/solar across every map file.
+	// no, we don't want to re-path every reference to all the subtypes of /area/station/engineering/solar across every map file.
 	// no, we don't want to change /datum/weather/var/area_type into a list as that requires changing every item that touches weather
 	for(var/V in bonus_areas)
 		var/area/A = V

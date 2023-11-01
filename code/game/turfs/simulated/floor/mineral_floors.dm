@@ -86,6 +86,9 @@
 	floor_tile = /obj/item/stack/tile/mineral/silver/fancy
 	icons = list("silverfancy","silverfancy_dam")
 
+/turf/simulated/floor/mineral/silver/biodome_snow
+	temperature = 180
+
 //TITANIUM (shuttle)
 
 /turf/simulated/floor/mineral/titanium
@@ -279,3 +282,8 @@
 
 /turf/simulated/floor/plating/abductor2/burn_tile()
 	return //unburnable
+
+/turf/simulated/floor/plating/abductor/lavaland_air
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23

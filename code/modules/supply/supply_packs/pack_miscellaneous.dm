@@ -151,7 +151,7 @@
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/reagent_containers/glass/bucket,
 					/obj/item/mop,
-					/obj/item/twohanded/push_broom,
+					/obj/item/push_broom,
 					/obj/item/caution,
 					/obj/item/caution,
 					/obj/item/caution,
@@ -225,7 +225,7 @@
 
 /datum/supply_packs/misc/costume
 	name = "Costume Crate"
-	contains = list(/obj/item/twohanded/staff,
+	contains = list(/obj/item/staff,
 					/obj/item/clothing/suit/wizrobe/fake,
 					/obj/item/clothing/shoes/sandal,
 					/obj/item/clothing/head/wizard/fake,
@@ -269,6 +269,14 @@
 					/obj/item/clothing/glasses/sunglasses)
 	cost = 450
 	containername = "sunglasses crate"
+
+/datum/supply_packs/misc/welding_goggles
+	name = "Welding Goggles Crate"
+	contains = list(/obj/item/clothing/glasses/welding,
+					/obj/item/clothing/glasses/welding,
+					/obj/item/clothing/glasses/welding)
+	cost = 300
+	containername = "welding goggles crate"
 
 /datum/supply_packs/misc/randomised
 	var/num_contained = 3 //number of items picked to be contained in a randomised crate
@@ -376,12 +384,12 @@
 	contains = list(/obj/item/clothing/under/dress/blacktango,
 					/obj/item/clothing/under/misc/assistantformal,
 					/obj/item/clothing/under/misc/assistantformal,
-					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
-					/obj/item/clothing/suit/storage/lawyer/bluejacket,
-					/obj/item/clothing/under/rank/civilian/lawyer/purple,
-					/obj/item/clothing/suit/storage/lawyer/purpjacket,
-					/obj/item/clothing/under/rank/civilian/lawyer/black,
-					/obj/item/clothing/suit/storage/lawyer/blackjacket,
+					/obj/item/clothing/under/rank/procedure/iaa/blue,
+					/obj/item/clothing/suit/storage/iaa/bluejacket,
+					/obj/item/clothing/under/rank/procedure/iaa/purple,
+					/obj/item/clothing/suit/storage/iaa/purplejacket,
+					/obj/item/clothing/under/rank/procedure/iaa,
+					/obj/item/clothing/suit/storage/iaa/blackjacket,
 					/obj/item/clothing/accessory/waistcoat,
 					/obj/item/clothing/accessory/blue,
 					/obj/item/clothing/accessory/red,
@@ -433,12 +441,12 @@
 /datum/supply_packs/misc/polo			//For space polo! Or horsehead Quiditch
 	name = "Polo Supply Crate"
 	// 6 brooms, 6 horse masks for the brooms, and 1 beach ball
-	contains = list(/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
-					/obj/item/twohanded/staff/broom,
+	contains = list(/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
+					/obj/item/staff/broom,
 					/obj/item/clothing/mask/horsehead,
 					/obj/item/clothing/mask/horsehead,
 					/obj/item/clothing/mask/horsehead,

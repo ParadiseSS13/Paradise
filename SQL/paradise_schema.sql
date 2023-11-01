@@ -67,6 +67,8 @@ CREATE TABLE `characters` (
   `organ_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `rlimb_data` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `nanotrasen_relation` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `physique` varchar(45) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
+  `height` varchar(45) NULL DEFAULT NULL COLLATE utf8mb4_unicode_ci,
   `speciesprefs` int(1) NOT NULL,
   `socks` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `body_accessory` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -117,6 +119,7 @@ CREATE TABLE `death` (
   `coord` text NOT NULL COMMENT 'X, Y, Z POD',
   `tod` datetime NOT NULL COMMENT 'Time of death',
   `death_rid` INT NULL,
+  `last_words` text NULL DEFAULT NULL,
   `server_id` TEXT NULL DEFAULT NULL,
   `job` text NOT NULL,
   `special` text NOT NULL,
@@ -473,7 +476,17 @@ CREATE TABLE `playtime_history` (
   `ckey` varchar(32) NOT NULL,
   `date` DATE NOT NULL,
   `time_living` SMALLINT NOT NULL,
+  `time_crew` SMALLINT NOT NULL,
+  `time_special` SMALLINT NOT NULL,
   `time_ghost` SMALLINT NOT NULL,
+  `time_command` SMALLINT NOT NULL,
+  `time_engineering` SMALLINT NOT NULL,
+  `time_medical` SMALLINT NOT NULL,
+  `time_science` SMALLINT NOT NULL,
+  `time_supply` SMALLINT NOT NULL,
+  `time_security` SMALLINT NOT NULL,
+  `time_silicon` SMALLINT NOT NULL,
+  `time_service` SMALLINT NOT NULL,
   PRIMARY KEY (`ckey`, `date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -606,3 +619,19 @@ CREATE TABLE `tickets` (
 	CONSTRAINT `all_responses` CHECK (json_valid(`all_responses`)),
 	CONSTRAINT `awho` CHECK (json_valid(`awho`))
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
+
+--
+-- Table structure for table `json_datum_saves`
+--
+DROP TABLE IF EXISTS `json_datum_saves`;
+CREATE TABLE `json_datum_saves` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`slotname` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`slotjson` LONGTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+	`created` DATETIME NOT NULL DEFAULT current_timestamp(),
+	`updated` DATETIME NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	PRIMARY KEY (`id`) USING BTREE,
+	UNIQUE INDEX `ckey_unique` (`ckey`, `slotname`) USING BTREE,
+	INDEX `ckey` (`ckey`) USING BTREE
+) COLLATE = 'utf8mb4_general_ci' ENGINE = InnoDB;

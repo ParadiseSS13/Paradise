@@ -70,7 +70,7 @@
 	GLOB.cameranet.cameras -= src
 	if(isarea(get_area(src)))
 		LAZYREMOVE(get_area(src).cameras, UID())
-	var/area/ai_monitored/A = get_area(src)
+	var/area/station/ai_monitored/A = get_area(src)
 	if(istype(A))
 		A.motioncameras -= src
 	area_motion = null
@@ -183,7 +183,7 @@
 				AI.last_paper_seen = "<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>"
 			else if(O.client && O.client.eye == src)
 				to_chat(O, "[U] holds \a [itemname] up to one of the cameras ...")
-				O << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", itemname, info), text("window=[]", itemname))
+				O << browse("<HTML><HEAD><TITLE>[itemname]</TITLE></HEAD><BODY><TT>[info]</TT></BODY></HTML>", "window=[itemname]")
 
 	else if(istype(I, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/L = I

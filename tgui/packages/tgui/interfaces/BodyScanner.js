@@ -32,9 +32,9 @@ const damages = [
   ['Respiratory', 'oxyLoss'],
   ['Brain', 'brainLoss'],
   ['Toxin', 'toxLoss'],
-  ['Radioactive', 'radLoss'],
+  ['Radiation', 'radLoss'],
   ['Brute', 'bruteLoss'],
-  ['Genetic', 'cloneLoss'],
+  ['Cellular', 'cloneLoss'],
   ['Burn', 'fireLoss'],
   ['Inebriation', 'drunkenness'],
 ];
@@ -199,7 +199,7 @@ const BodyScannerMainAbnormalities = (props) => {
       {abnormalities.map((a, i) => {
         if (occupant[a[0]]) {
           return (
-            <Box color={a[1]} bold={a[1] === 'bad'}>
+            <Box key={a[2]} color={a[1]} bold={a[1] === 'bad'}>
               {a[2]}
             </Box>
           );

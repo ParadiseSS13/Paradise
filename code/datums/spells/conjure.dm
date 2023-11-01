@@ -28,7 +28,7 @@
 			targets -= T
 	playsound(get_turf(src), cast_sound, 50, 1)
 
-	if(do_after(user, delay, target = user))
+	if(delay <= 0 || do_after(user, delay, target = user))
 		for(var/i=0,i<summon_amt,i++)
 			if(!targets.len)
 				break

@@ -1,0 +1,159 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"m" = (
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel,
+/area/tdome/arena)
+"n" = (
+/obj/machinery/flasher{
+	id = "tdomeflash";
+	name = "Thunderdome Flash"
+	},
+/turf/simulated/floor/plasteel,
+/area/tdome/arena)
+"o" = (
+/obj/machinery/igniter/on,
+/turf/simulated/floor/plasteel,
+/area/tdome/arena)
+"Q" = (
+/turf/simulated/floor/plasteel,
+/area/tdome/arena)
+"R" = (
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/tdome/arena)
+
+(1,1,1) = {"
+o
+Q
+Q
+Q
+Q
+Q
+o
+"}
+(2,1,1) = {"
+m
+Q
+Q
+Q
+Q
+Q
+m
+"}
+(3,1,1) = {"
+R
+m
+Q
+Q
+Q
+m
+R
+"}
+(4,1,1) = {"
+Q
+R
+Q
+Q
+Q
+R
+Q
+"}
+(5,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+"}
+(6,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+"}
+(7,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+"}
+(8,1,1) = {"
+Q
+Q
+Q
+n
+Q
+Q
+Q
+"}
+(9,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+"}
+(10,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+"}
+(11,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+"}
+(12,1,1) = {"
+Q
+R
+Q
+Q
+Q
+R
+Q
+"}
+(13,1,1) = {"
+R
+m
+Q
+Q
+Q
+m
+R
+"}
+(14,1,1) = {"
+m
+Q
+Q
+Q
+Q
+Q
+m
+"}
+(15,1,1) = {"
+o
+Q
+Q
+Q
+Q
+Q
+o
+"}

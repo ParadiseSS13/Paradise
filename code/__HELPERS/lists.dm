@@ -683,12 +683,11 @@
 #define UNSETEMPTY(L) if (L && !L.len) L = null
 #define LAZYREMOVE(L, I) if(L) { L -= I; if(!L.len) { L = null; } }
 #define LAZYADD(L, I) if(!L) { L = list(); } L += I;
-#define LAZYADDOR(L, I) if(!L) { L = list(); } L |= I;
+/// Adds I to L, initializing L if necessary, if I is not already in L
+#define LAZYDISTINCTADD(L, I) if(!L) { L = list(); } L |= I;
 #define LAZYACCESS(L, I) (L ? (isnum(I) ? (I > 0 && I <= L.len ? L[I] : null) : L[I]) : null)
 #define LAZYLEN(L) length(L) // Despite how pointless this looks, it's still needed in order to convey that the list is specificially a 'Lazy' list.
 #define LAZYCLEARLIST(L) if(L) L.Cut()
-/// Adds I to L, initializing L if necessary, if I is not already in L
-#define LAZYDISTINCTADD(L, I) if(!L) { L = list(); } L |= I;
 
 // LAZYING PT 2: THE LAZENING
 #define LAZYREINITLIST(L) LAZYCLEARLIST(L); LAZYINITLIST(L);

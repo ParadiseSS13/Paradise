@@ -88,25 +88,33 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Delta)
 "aw" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "ax" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "ay" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/meat,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "az" = (
 /obj/structure/table,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aA" = (
@@ -115,11 +123,15 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aB" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aC" = (
@@ -137,7 +149,9 @@
 	pixel_y = 24;
 	req_access = ""
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aD" = (
@@ -152,7 +166,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Delta)
 "aH" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aI" = (
@@ -182,7 +198,9 @@
 /area/ruin/unpowered/BMPship/Delta)
 "aN" = (
 /obj/structure/largecrate,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aO" = (
@@ -200,20 +218,28 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/BMPship/Fore)
 "aR" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "aS" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "aT" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "aU" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "aV" = (
@@ -271,7 +297,9 @@
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/BMPship/Fore)
 "bj" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "bk" = (
@@ -301,7 +329,9 @@
 "bp" = (
 /obj/structure/closet/crate,
 /obj/item/stack/spacecash/c100,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bq" = (
@@ -310,16 +340,22 @@
 	},
 /area/ruin/unpowered/BMPship/Fore)
 "br" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "bs" = (
 /obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "bt" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "bu" = (
@@ -344,7 +380,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bC" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bE" = (
@@ -363,42 +401,56 @@
 /area/ruin/unpowered/BMPship/Delta)
 "bH" = (
 /obj/structure/largecrate,
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bI" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bJ" = (
 /obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bK" = (
 /obj/structure/kitchenspike,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bL" = (
 /obj/structure/closet/crate,
 /obj/item/analyzer,
 /obj/item/stack/spacecash/c10,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bM" = (
 /obj/structure/closet/crate,
 /obj/item/stack/spacecash/c100,
 /obj/item/stack/spacecash/c50,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bN" = (
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/hugemushroomslice,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bO" = (
@@ -407,7 +459,9 @@
 	pixel_y = -24
 	},
 /obj/machinery/light/small,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bP" = (
@@ -417,11 +471,15 @@
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bQ" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bS" = (
@@ -654,7 +712,9 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "cA" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -751,7 +811,9 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "cS" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "cT" = (
@@ -776,7 +838,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "cV" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "cW" = (
@@ -845,7 +909,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/computer/monitor/secret,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "dk" = (
@@ -1026,7 +1092,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "dG" = (
@@ -1138,10 +1206,10 @@
 	},
 /area/ruin/unpowered/BMPship/Midship)
 "dT" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
+/obj/effect/turf_decal/delivery/partial{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/arrow{
+/obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -1222,7 +1290,9 @@
 "ed" = (
 /obj/structure/rack,
 /obj/item/storage/box/lights,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -1402,7 +1472,9 @@
 "ez" = (
 /obj/structure/rack,
 /obj/item/storage/belt/utility/full,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -1510,7 +1582,9 @@
 /area/ruin/unpowered/BMPship/Aft)
 "eM" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "eQ" = (
@@ -1712,7 +1786,9 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Aft)
 "fw" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
 	},
@@ -1836,7 +1912,9 @@
 /area/ruin/unpowered/BMPship/Aft)
 "fM" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "fN" = (
@@ -1890,7 +1968,9 @@
 	},
 /area/ruin/unpowered/BMPship/Aft)
 "fW" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "fX" = (
@@ -2132,7 +2212,7 @@
 /obj/item/clothing/head/bio_hood,
 /obj/item/clothing/suit/bio_suit,
 /obj/item/clothing/gloves/color/black,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gJ" = (
 /turf/simulated/floor/engine,
@@ -2146,24 +2226,21 @@
 /area/ruin/unpowered/BMPship/Fore)
 "gM" = (
 /obj/effect/gibspawner/robot,
-/turf/simulated,
+/turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/BMPship/Fore)
 "gN" = (
 /obj/structure/reagent_dispensers/beerkeg,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gO" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/cans/beer,
 /obj/item/grenade/chem_grenade/drugs,
-/turf/simulated/floor/plating,
-/area/ruin/powered)
-"gP" = (
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gQ" = (
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gR" = (
 /obj/structure/bed,
@@ -2183,33 +2260,33 @@
 /area/ruin/unpowered/BMPship/Aft)
 "gT" = (
 /obj/structure/closet,
-/obj/item/clothing/under/rank/civilian/lawyer/bluesuit,
+/obj/item/clothing/under/rank/procedure/iaa/blue,
 /obj/item/clothing/suit/apron,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/BMPship/Aft)
 "gU" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/item/clothing/mask/gas/syndicate,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gV" = (
 /obj/item/ammo_casing{
 	pixel_y = 3
 	},
 /obj/effect/decal/cleanable/blood/drip,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gW" = (
 /obj/machinery/door/airlock/external{
 	name = "Crackden Airlock"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gX" = (
 /obj/machinery/door/airlock/external{
 	name = "Plain Airlock"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "gY" = (
 /obj/machinery/door/airlock/titanium,
@@ -2277,13 +2354,13 @@
 "hh" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hi" = (
 /obj/item/ammo_casing{
 	pixel_y = 3
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hj" = (
 /obj/structure/closet/crate,
@@ -2305,15 +2382,15 @@
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
 /obj/item/reagent_containers/glass/beaker/drugs/meth,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hm" = (
 /obj/effect/decal/cleanable/blood/oil,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hn" = (
 /obj/item/reagent_containers/food/snacks/chips,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "ho" = (
 /obj/effect/spawner/window/shuttle,
@@ -2346,25 +2423,21 @@
 "ht" = (
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hu" = (
 /obj/machinery/chem_dispenser,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hv" = (
 /obj/machinery/chem_master,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hw" = (
 /obj/machinery/floodlight{
 	in_use = 1
 	},
-/turf/simulated/floor/plating,
-/area/ruin/powered)
-"hx" = (
-/obj/machinery/atmospherics/portable/canister/air,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/powered)
 "hy" = (
 /turf/simulated/mineral/random/high_chance/clown,
@@ -3695,8 +3768,8 @@ aK
 aK
 aK
 gO
-gP
-gP
+bd
+bd
 ht
 aK
 aK
@@ -3745,11 +3818,11 @@ aK
 aK
 aK
 gI
-gP
-gP
+bd
+bd
 hm
-gP
-hx
+bd
+gB
 aK
 aK
 aK
@@ -3796,10 +3869,10 @@ aK
 aK
 aK
 aK
-gP
+bd
 hi
-gP
-gP
+bd
+bd
 hw
 aK
 aK
@@ -3848,8 +3921,8 @@ aK
 aK
 gN
 gQ
-gP
-gP
+bd
+bd
 hu
 aK
 aK
@@ -3899,8 +3972,8 @@ aK
 aK
 aK
 gU
-gP
-gP
+bd
+bd
 hv
 aK
 aK
@@ -3950,10 +4023,10 @@ bc
 aK
 aK
 gV
-gP
-gP
-gP
-gP
+bd
+bd
+bd
+bd
 aK
 aK
 aK
@@ -4000,8 +4073,8 @@ be
 aJ
 bc
 aK
-gP
-gP
+bd
+bd
 hn
 hw
 aK
@@ -4053,7 +4126,7 @@ bc
 aK
 gW
 aK
-gP
+bd
 aK
 aK
 aK
@@ -4102,7 +4175,7 @@ bd
 bd
 bc
 aK
-gP
+bd
 aK
 aK
 aK
@@ -4153,7 +4226,7 @@ aJ
 bd
 bc
 aK
-gP
+bd
 aK
 aJ
 aJ

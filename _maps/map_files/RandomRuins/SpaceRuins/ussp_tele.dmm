@@ -154,7 +154,7 @@
 /area/ruin/space/derelict/teleporter)
 "z" = (
 /obj/effect/landmark/damageturf,
-/obj/item/twohanded/required/kirbyplants/dead{
+/obj/item/kirbyplants/dead{
 	desc = "A dead potted plant. Must have died from lack of EVA equipment.";
 	item_state = "plant-dead";
 	name = "potted plant"

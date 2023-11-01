@@ -20,7 +20,7 @@
 	/// Default skin of the MOD.
 	var/default_skin = "standard"
 	/// The slot this mod theme fits on
-	var/slot_flags = SLOT_BACK
+	var/slot_flags = SLOT_FLAG_BACK
 	/// Armor shared across the MOD parts.
 	var/obj/item/mod/armor/armor_type_1 = /obj/item/mod/armor/mod_theme
 	/// the actual armor object placed in a datum as I am tired and I just want this to work
@@ -129,7 +129,7 @@
 	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
-		/obj/item/twohanded/fireaxe,
+		/obj/item/fireaxe,
 	)
 	skins = list(
 		"engineering" = list(
@@ -181,7 +181,7 @@
 	slowdown_active = 0.75
 	allowed_suit_storage = list(
 		/obj/item/rcd,
-		/obj/item/twohanded/fireaxe/,
+		/obj/item/fireaxe/,
 		/obj/item/rpd,
 		/obj/item/t_scanner,
 		/obj/item/analyzer
@@ -239,7 +239,7 @@
 	allowed_suit_storage = list(
 		/obj/item/analyzer,
 		/obj/item/rcd,
-		/obj/item/twohanded/fireaxe,
+		/obj/item/fireaxe,
 		/obj/item/melee/classic_baton/telescopic,
 		/obj/item/rpd,
 		/obj/item/t_scanner,
@@ -309,7 +309,7 @@
 		/obj/item/mining_scanner,
 		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/pickaxe,
-		/obj/item/twohanded/kinetic_crusher,
+		/obj/item/kinetic_crusher,
 		/obj/item/stack/ore/plasma,
 		/obj/item/storage/bag/ore,
 		/obj/item/gun/energy/kinetic_accelerator,
@@ -391,8 +391,7 @@
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 5
 	slowdown_inactive = 0.5
 	slowdown_active = 0
-	allowed_suit_storage = list(
-	)
+	allowed_suit_storage = list()
 	inbuilt_modules = list(/obj/item/mod/module/hydraulic, /obj/item/mod/module/clamp/loader, /obj/item/mod/module/magnet)
 	skins = list(
 		"loader" = list(

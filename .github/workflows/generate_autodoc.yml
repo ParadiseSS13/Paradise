@@ -8,10 +8,10 @@ on:
 jobs:
   generate_docs:
     name: 'Generate Documentation'
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     steps:
     - name: 'Update Branch'
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 1
         ref: master
@@ -24,7 +24,7 @@ jobs:
       # Nojekyll is important to disable jeykll syntax, which can mess with files that start with underscores
 
     - name: 'Deploy Documentation'
-      uses: crazy-max/ghaction-github-pages@v3
+      uses: crazy-max/ghaction-github-pages@v4
       with:
         keep_history: false
         build_dir: dmdoc

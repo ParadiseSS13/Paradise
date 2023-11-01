@@ -16,6 +16,7 @@
 	var/list/data = list()
 	data["spawners"] = list()
 	for(var/spawner in GLOB.mob_spawners)
+		var/is_perm_spawner = FALSE
 		var/list/this = list()
 		this["name"] = spawner
 		this["desc"] = ""
@@ -30,10 +31,12 @@
 					this["desc"] = MS.description
 					this["important_info"] = MS.important_info
 					this["fluff"] = MS.flavour_text
+					if(MS.permanent)
+						is_perm_spawner = TRUE
 				else
 					var/obj/O = spawner_obj
 					this["desc"] = O.desc
-		this["amount_left"] = LAZYLEN(GLOB.mob_spawners[spawner])
+		this["amount_left"] = is_perm_spawner ? "Infinite uses" : LAZYLEN(GLOB.mob_spawners[spawner])
 		data["spawners"] += list(this)
 	return data
 

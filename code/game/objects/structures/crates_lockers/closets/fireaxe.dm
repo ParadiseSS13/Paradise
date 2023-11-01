@@ -2,7 +2,7 @@
 /obj/structure/closet/fireaxecabinet
 	name = "fire axe cabinet"
 	desc = "There is small label that reads \"For Emergency use only\" along with details for safe use of the axe. As if."
-	var/obj/item/twohanded/fireaxe/fireaxe
+	var/obj/item/fireaxe/fireaxe
 	icon_state = "fireaxe_full_0hits"
 	icon_closed = "fireaxe_full_0hits"
 	icon_opened = "fireaxe_full_open"
@@ -18,7 +18,7 @@
 	var/has_axe = null // Use a string over a boolean value to make the sprite names more readable
 
 /obj/structure/closet/fireaxecabinet/populate_contents()
-	fireaxe = new/obj/item/twohanded/fireaxe(src)
+	fireaxe = new/obj/item/fireaxe(src)
 	has_axe = "full"
 	update_icon(UPDATE_ICON_STATE)	// So its initial icon doesn't show it without the fireaxe
 
@@ -60,10 +60,10 @@
 					localopened = TRUE
 			update_icon(UPDATE_ICON_STATE)
 		return
-	if(istype(O, /obj/item/twohanded/fireaxe) && localopened)
+	if(istype(O, /obj/item/fireaxe) && localopened)
 		if(!fireaxe)
-			var/obj/item/twohanded/fireaxe/F = O
-			if(F.wielded)
+			var/obj/item/fireaxe/F = O
+			if(HAS_TRAIT(F, TRAIT_WIELDED))
 				to_chat(user, "<span class='warning'>Unwield \the [F] first.</span>")
 				return
 			if(!user.unEquip(F, FALSE))

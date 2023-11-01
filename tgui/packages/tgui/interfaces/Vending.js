@@ -27,7 +27,7 @@ const VendingRow = (props, context) => {
   let buttonDisabled =
     !vend_ready ||
     productStock === 0 ||
-    (!free && (product.price > usermoney && product.price > inserted_cash));
+    (!free && product.price > usermoney && product.price > inserted_cash);
   return (
     <Table.Row>
       <Table.Cell collapsing>
@@ -100,25 +100,25 @@ export const Vending = (props, context) => {
       <Window.Content scrollable>
         {!!chargesMoney && (
           <Section title="User">
-            {(user && (
+            {user && (
               <Box>
                 Welcome, <b>{user.name}</b>, <b>{user.job || 'Unemployed'}</b>!
                 <br />
                 Your balance is <b>{usermoney} credits</b>.
                 <br />
               </Box>
-            ))}
+            )}
             <Box>
-                There is <b>{inserted_cash} credits </b> of space cash inserted.
-                <br />
-                <Button
-                  disabled={!inserted_cash}
-                  icon="money-bill-wave-alt"
-                  content="Dispense Change"
-                  textAlign="left"
-                  onClick={() => act('change')}
-                />
-              </Box>
+              There is <b>{inserted_cash} credits </b> of space cash inserted.
+              <br />
+              <Button
+                disabled={!inserted_cash}
+                icon="money-bill-wave-alt"
+                content="Dispense Change"
+                textAlign="left"
+                onClick={() => act('change')}
+              />
+            </Box>
           </Section>
         )}
         {!!inserted_item_name && (

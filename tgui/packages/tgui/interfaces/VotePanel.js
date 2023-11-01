@@ -4,31 +4,27 @@ import { Window } from '../layouts';
 
 export const VotePanel = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    remaining,
-    question,
-    choices,
-    user_vote,
-    counts,
-    show_counts,
-   } = data;
+  const { remaining, question, choices, user_vote, counts, show_counts } = data;
   return (
     <Window>
       <Window.Content scrollable>
         <Section title={question}>
-          <Box mb={1}>
-            Time remaining: {Math.round(remaining / 10)}s
-          </Box>
-          {choices.map(choice => (
+          <Box mb={1}>Time remaining: {Math.round(remaining / 10)}s</Box>
+          {choices.map((choice) => (
             <Box key={choice}>
               <Button
-                content={choice + (show_counts ? " (" + (counts[choice] || 0) + ")" : "")}
-                onClick={() => act("vote", { "target": choice })}
-                selected={choice === user_vote} />
+                multiLine={choice}
+                content={
+                  choice +
+                  (show_counts ? ' (' + (counts[choice] || 0) + ')' : '')
+                }
+                onClick={() => act('vote', { 'target': choice })}
+                selected={choice === user_vote}
+              />
             </Box>
           ))}
         </Section>
       </Window.Content>
     </Window>
   );
-}
+};

@@ -33,14 +33,14 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/freegolem)
 "i" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 4;
 	icon_state = "burst_l"
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/freegolem)
 "j" = (
 /obj/machinery/light/small,
@@ -88,7 +88,7 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "t" = (
-/obj/effect/mob_spawn/human/golem/adamantine,
+/obj/effect/mob_spawn/human/alive/golem/adamantine,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/shuttle/freegolem)
 "u" = (

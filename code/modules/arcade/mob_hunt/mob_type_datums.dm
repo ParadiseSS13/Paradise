@@ -22,12 +22,11 @@
 					TYPE_GRASS,
 					TYPE_ICE,
 					TYPE_STEEL)
-	area_blacklist = list(/area/crew_quarters/toilet,
-						/area/crew_quarters/locker/locker_toilet,
-						/area/toxins/server_coldroom)
-	area_whitelist = list(/area/maintenance/turbine,
-						/area/maintenance/incinerator,
-						/area/crew_quarters/kitchen)
+	area_blacklist = list(/area/station/public/toilet,
+						/area/station/science/server/coldroom)
+	area_whitelist = list(/area/station/maintenance/turbine,
+						/area/station/maintenance/incinerator,
+						/area/station/service/kitchen)
 	turf_blacklist = list(/turf/simulated/floor/beach/water)
 
 /datum/mob_type/water
@@ -38,11 +37,10 @@
 					TYPE_ICE,
 					TYPE_STEEL,
 					TYPE_WATER)
-	area_blacklist = list(/area/maintenance/turbine,
-						/area/maintenance/incinerator,
-						/area/crew_quarters/kitchen)
-	area_whitelist = list(/area/crew_quarters/toilet,
-						/area/crew_quarters/locker/locker_toilet)
+	area_blacklist = list(/area/station/maintenance/turbine,
+						/area/station/maintenance/incinerator,
+						/area/station/service/kitchen)
+	area_whitelist = list(/area/station/public/toilet)
 	turf_whitelist = list(/turf/simulated/floor/beach/water)
 
 /datum/mob_type/grass
@@ -56,9 +54,9 @@
 					TYPE_GRASS,
 					TYPE_ELECTRIC,
 					TYPE_GROUND)
-	area_blacklist = list(/area/toxins)
-	area_whitelist = list(/area/hydroponics,
-						/area/hallway/secondary/construction)
+	area_blacklist = list(/area/station/science)
+	area_whitelist = list(/area/station/service/hydroponics,
+						/area/station/public/construction) // dont ask me why grass types can appear in construction sites, I'm just migrating areas
 	turf_whitelist = list(/turf/simulated/floor/grass)
 
 /datum/mob_type/electric
@@ -67,14 +65,14 @@
 	resistance = list(TYPE_ELECTRIC,
 					TYPE_FLYING,
 					TYPE_STEEL)
-	area_whitelist = list(/area/engine,
-						/area/toxins/server,
-						/area/maintenance,
-						/area/turret_protected/ai,
-						/area/turret_protected/ai_upload,
-						/area/turret_protected/aisat_interior,
-						/area/aisat,
-						/area/assembly)
+	area_whitelist = list(/area/station/engineering/engine,
+						/area/station/science/server,
+						/area/station/maintenance,
+						/area/station/turret_protected/ai,
+						/area/station/turret_protected/ai_upload,
+						/area/station/turret_protected/aisat/interior,
+						/area/station/aisat,
+						/area/station/science/robotics)
 	turf_whitelist = list(/turf/simulated/floor/bluegrid)
 
 /datum/mob_type/ground
@@ -97,8 +95,8 @@
 					TYPE_FLYING,
 					TYPE_POISON,
 					TYPE_NORMAL)
-	area_whitelist = list(/area/quartermaster,
-						/area/maintenance/disposal)
+	area_whitelist = list(/area/station/supply,
+						/area/station/maintenance/disposal)
 	turf_whitelist = list(/turf/simulated/wall,
 						/turf/simulated/floor/mineral)
 
@@ -110,9 +108,9 @@
 	resistance = list(TYPE_GRASS,
 					TYPE_GROUND,
 					TYPE_FIGHTING)
-	area_blacklist = list(/area/toxins)
-	area_whitelist = list(/area/hydroponics,
-						/area/hallway/secondary/construction)
+	area_blacklist = list(/area/station/science)
+	area_whitelist = list(/area/station/service/hydroponics,
+						/area/station/public/construction) // dont ask me why bug types can appear in construction sites, I'm just migrating areas
 	turf_whitelist = list(/turf/simulated/floor/grass)
 
 /datum/mob_type/poison
@@ -123,13 +121,12 @@
 					TYPE_BUG,
 					TYPE_POISON,
 					TYPE_FIGHTING)
-	area_blacklist = list(/area/medical,
-						/area/janitor)
-	area_whitelist = list(/area/medical/virology,
-						/area/toxins,
-						/area/medical/research,
-						/area/crew_quarters/hor,
-						/area/maintenance/asmaint2)
+	area_blacklist = list(/area/station/medical,
+						/area/station/service/janitor)
+	area_whitelist = list(/area/station/medical/virology,
+						/area/station/science,
+						/area/station/command/office/rd,
+						/area/station/maintenance/asmaint2)
 
 /datum/mob_type/normal
 	name = "Normal"
@@ -143,10 +140,10 @@
 	resistance = list(TYPE_ROCK,
 					TYPE_BUG,
 					TYPE_DARK)
-	area_blacklist = list(/area/medical)
-	area_whitelist = list(/area/crew_quarters/bar,
-						/area/crew_quarters/fitness,
-						/area/security)
+	area_blacklist = list(/area/station/medical)
+	area_whitelist = list(/area/station/service/bar,
+						/area/station/public/fitness,
+						/area/station/security)
 	turf_whitelist = list(/turf/simulated/floor/wood)
 
 /datum/mob_type/psychic
@@ -156,14 +153,14 @@
 					TYPE_DARK)
 	resistance = list(TYPE_FIGHTING,
 					TYPE_PSYCHIC)
-	area_blacklist = list(/area/toxins,
-						/area/medical/research,
-						/area/crew_quarters/hor,
-						/area/maintenance/asmaint2,
-						/area/teleporter)
-	area_whitelist = list(/area/library,
-						/area/chapel,
-						/area/medical/psych)
+	area_blacklist = list(/area/station/science,
+						/area/station/command/office/rd,
+						/area/station/maintenance/asmaint2,
+						/area/station/command/teleporter,
+						/area/station/command/gateway)
+	area_whitelist = list(/area/station/service/library,
+						/area/station/service/chapel,
+						/area/station/medical/psych)
 
 /datum/mob_type/ghost
 	name = "Ghost"
@@ -173,9 +170,9 @@
 					TYPE_POISON)
 	immunity = list(TYPE_NORMAL,
 					TYPE_FIGHTING)
-	area_whitelist = list(/area/medical/morgue,
-						/area/chapel,
-						/area/medical/genetics_cloning)
+	area_whitelist = list(/area/station/medical/morgue,
+						/area/station/service/chapel,
+						/area/station/medical/cloning)
 
 /datum/mob_type/ice
 	name = "Ice"
@@ -184,10 +181,10 @@
 					TYPE_FIGHTING,
 					TYPE_STEEL)
 	resistance = list(TYPE_ICE)
-	area_blacklist = list(/area/maintenance/turbine,
-						/area/maintenance/incinerator,
-						/area/crew_quarters/kitchen)
-	area_whitelist = list(/area/toxins/server_coldroom)
+	area_blacklist = list(/area/station/maintenance/turbine,
+						/area/station/maintenance/incinerator,
+						/area/station/service/kitchen)
+	area_whitelist = list(/area/station/science/server/coldroom)
 
 /datum/mob_type/flying
 	name = "Flying"
@@ -198,8 +195,8 @@
 					TYPE_BUG,
 					TYPE_FIGHTING)
 	immunity = list(TYPE_GROUND)
-	area_blacklist = list(/area/maintenance)
-	area_whitelist = list(/area/hallway)
+	area_blacklist = list(/area/station/maintenance)
+	area_whitelist = list(/area/station/hallway)
 
 /datum/mob_type/bluespace
 	name = "Bluespace"
@@ -217,15 +214,14 @@
 	resistance = list(TYPE_GHOST,
 					TYPE_DARK)
 	immunity = list(TYPE_PSYCHIC)
-	area_blacklist = list(/area/solar,
-						/area/maintenance/auxsolarport,
-						/area/maintenance/starboardsolar,
-						/area/maintenance/portsolar,
-						/area/maintenance/auxsolarstarboard,
-						/area/clownoffice)
-	area_whitelist = list(/area/maintenance,
-						/area/assembly/assembly_line,
-						/area/mimeoffice)
+	area_blacklist = list(/area/station/engineering/solar,
+						/area/station/maintenance/auxsolarport,
+						/area/station/maintenance/starboardsolar,
+						/area/station/maintenance/portsolar,
+						/area/station/maintenance/auxsolarstarboard,
+						/area/station/service/clown)
+	area_whitelist = list(/area/station/maintenance,
+						/area/station/service/mime)
 	turf_blacklist = list(/turf/simulated/floor/light)
 
 /datum/mob_type/steel

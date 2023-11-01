@@ -55,6 +55,7 @@
 @include meta.load-css('./interfaces/RndConsole.scss');
 @include meta.load-css('./interfaces/Roulette.scss');
 @include meta.load-css('./interfaces/Safe.scss');
+@include meta.load-css('./interfaces/SecureStorage.scss');
 @include meta.load-css('./interfaces/SecurityRecords.scss');
 @include meta.load-css('./interfaces/MedicalRecords.scss');
 

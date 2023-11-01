@@ -21,7 +21,6 @@
 	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
 	new /obj/item/reagent_containers/glass/bottle/charcoal(src)
 
-
 /obj/structure/closet/secure_closet/medical2
 	name = "anesthetic locker"
 	desc = "Used to knock people out."
@@ -204,16 +203,19 @@
 	req_access = list(ACCESS_PARAMEDIC)
 
 /obj/structure/closet/secure_closet/paramedic/populate_contents()
+	new /obj/item/radio/headset/headset_med/para(src)
 	new /obj/item/mod/control/pre_equipped/rescue(src)
-	new /obj/item/sensor_device(src)
 	new /obj/item/key/ambulance(src)
-	new /obj/item/pinpointer/crew(src)
 	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/storage/bag/garment/paramedic(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/storage/firstaid/adv(src)
-	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/storage/toolbox/emergency(src)
+	new /obj/item/fulton_core(src)
+	new /obj/item/extraction_pack(src)
+	new /obj/item/gps/mining(src)
+	new /obj/item/gun/energy/plasmacutter(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"

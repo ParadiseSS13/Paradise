@@ -118,6 +118,10 @@
 	display_name = "Deck of tarot cards"
 	path = /obj/item/deck/tarot
 
+/datum/gear/unum
+	display_name = "Deck of UNUM! cards"
+	path = /obj/item/deck/unum
+
 /datum/gear/headphones
 	display_name = "Headphones"
 	path = /obj/item/clothing/ears/headphones

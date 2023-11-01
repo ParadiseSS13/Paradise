@@ -8,7 +8,7 @@
 				/obj/item/seeds/sunflower/moonflower = 8
 				)
 
-/obj/effect/mob_spawn/human/seed_vault
+/obj/effect/mob_spawn/human/alive/seed_vault
 	name = "preserved terrarium"
 	desc = "An ancient machine that seems to be used for storing plant matter. The glass is obstructed by a mat of vines."
 	mob_name = "a lifebringer"
@@ -24,11 +24,11 @@
 	for contact from your creators. Estimated time of last contact: Deployment, 5x10^3 millennia ago."
 	assignedrole = "Lifebringer"
 
-/obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
+/obj/effect/mob_spawn/human/alive/seed_vault/special(mob/living/new_spawn)
 	var/plant_name = pick("Tomato", "Potato", "Broccoli", "Carrot", "Ambrosia", "Pumpkin", "Ivy", "Kudzu", "Banana", "Moss", "Flower", "Bloom", "Root", "Bark", "Glowshroom", "Petal", "Leaf", \
 	"Venus", "Sprout","Cocoa", "Strawberry", "Citrus", "Oak", "Cactus", "Pepper", "Juniper")
 	new_spawn.rename_character(null, plant_name)
 
-/obj/effect/mob_spawn/human/seed_vault/Destroy()
+/obj/effect/mob_spawn/human/alive/seed_vault/Destroy()
 	new/obj/structure/fluff/empty_terrarium(get_turf(src))
 	return ..()

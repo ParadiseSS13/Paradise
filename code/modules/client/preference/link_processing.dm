@@ -700,6 +700,16 @@
 					if(new_relation)
 						active_character.nanotrasen_relation = new_relation
 
+				if("physique")
+					var/new_physique = input(user, "Choose your descriptor for how built your character is on glance.", "Character Preference") as null|anything in GLOB.character_physiques
+					if(new_physique)
+						active_character.physique = new_physique
+
+				if("height")
+					var/new_height = input(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference") as null|anything in GLOB.character_heights
+					if(new_height)
+						active_character.height = new_height
+
 				if("flavor_text")
 					var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.","Flavor Text",html_decode(active_character.flavor_text)) as message
 
@@ -959,7 +969,7 @@
 						var/list/actualview = getviewsize(parent.view)
 						parent.void.UpdateGreed(actualview[1],actualview[2])
 
-					parent.debug_text_overlay.update_view(parent)
+					parent.debug_text_overlay?.update_view(parent)
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
@@ -1085,6 +1095,10 @@
 					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
+
+				if("parallax_darkness")
+					toggles2 ^= PREFTOGGLE_2_PARALLAX_IN_DARKNESS
+					parent.mob?.hud_used?.update_parallax_pref()
 
 				if("screentip_mode")
 					var/desired_screentip_mode = clamp(input(user, "Pick a screentip size, pick 0 to disable screentips. (We suggest a number between 8 and 15):", "Screentip Size") as null|num, 0, 20)

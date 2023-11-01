@@ -7,6 +7,7 @@
 #define ASSIGNMENT_MEDICAL "Medical"
 #define ASSIGNMENT_SCIENTIST "Scientist"
 #define ASSIGNMENT_SECURITY "Security"
+#define ASSIGNMENT_CHEMIST "Chemist"
 
 GLOBAL_LIST_INIT(severity_to_string, list(EVENT_LEVEL_MUNDANE = "Mundane", EVENT_LEVEL_MODERATE = "Moderate", EVENT_LEVEL_MAJOR = "Major"))
 GLOBAL_LIST_EMPTY(event_last_fired)
@@ -141,10 +142,11 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Vermin Infestation",/datum/event/infestation, 		100,	list(ASSIGNMENT_JANITOR = 100)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Sentience",			/datum/event/sentience,			50),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Wallrot",			/datum/event/wallrot, 			0,		list(ASSIGNMENT_ENGINEER = 30, ASSIGNMENT_GARDENER = 50)),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Fungal Growth",		/datum/event/wallrot/fungus, 	50, 	list(ASSIGNMENT_CHEMIST = 50)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Koi School",		/datum/event/carp_migration/koi,		80),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Camera Failure",	/datum/event/camera_failure,		100, list(ASSIGNMENT_ENGINEER = 10)),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Fake Virus",		/datum/event/fake_virus,		50),
-		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Bureaucratic Error",/datum/event/bureaucratic_error,					80, TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Bureaucratic Error",/datum/event/bureaucratic_error,					40, TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MUNDANE, "Disease Outbreak",	/datum/event/disease_outbreak, 			50,		list(ASSIGNMENT_MEDICAL = 25), TRUE)
 	)
 
@@ -186,6 +188,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Gravitational Anomaly",	/datum/event/anomaly/anomaly_grav,		200),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Revenant", 				/datum/event/revenant, 					150),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Morph Spawn", 				/datum/event/spawn_morph, 				40,		list(ASSIGNMENT_SECURITY = 10), is_one_shot = TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Pulse Demon Infiltration",	/datum/event/spawn_pulsedemon,			150,	list(ASSIGNMENT_ENGINEER = 10), is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Disease Outbreak",			/datum/event/disease_outbreak, 			50,		list(ASSIGNMENT_MEDICAL = 30), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Door Runtime",				/datum/event/door_runtime,				50,		list(ASSIGNMENT_ENGINEER = 25, ASSIGNMENT_AI = 150), TRUE)
 	)
@@ -197,12 +200,12 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Carp Migration",		/datum/event/carp_migration,	10,		list(ASSIGNMENT_SECURITY =  3), TRUE),
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",	/datum/event/prison_break/station,	0,			list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "APC Overload",		/datum/event/apc_overload,		0),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Blob",				/datum/event/blob, 				30,		list(ASSIGNMENT_ENGINEER =  5), TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Blob",				/datum/event/blob, 				20,		list(ASSIGNMENT_ENGINEER =  4), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Meteor Wave",			/datum/event/meteor_wave,		0,		list(ASSIGNMENT_ENGINEER =  10),	TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Abductor Visit",		/datum/event/abductor, 		    20, 	list(ASSIGNMENT_SECURITY =  3), TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Alien Infestation",	/datum/event/alien_infestation, 20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Alien Infestation",	/datum/event/alien_infestation, 15,		list(ASSIGNMENT_SECURITY = 3), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Traders",				/datum/event/traders,			85, 	is_one_shot = TRUE),
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",		/datum/event/spider_terror, 	20,		list(ASSIGNMENT_SECURITY = 4), TRUE),
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Terror Spiders",		/datum/event/spider_terror, 	15,		list(ASSIGNMENT_SECURITY = 3), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Slaughter Demon",		/datum/event/spawn_slaughter,	20,  	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Shadow Demon", /datum/event/spawn_slaughter/shadow,	20, 	is_one_shot = TRUE)
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Floor Cluwne",	/datum/event/spawn_floor_cluwne,	15, is_one_shot = TRUE)
@@ -218,3 +221,4 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 #undef ASSIGNMENT_MEDICAL
 #undef ASSIGNMENT_SCIENTIST
 #undef ASSIGNMENT_SECURITY
+#undef ASSIGNMENT_CHEMIST

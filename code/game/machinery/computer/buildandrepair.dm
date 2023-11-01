@@ -222,6 +222,11 @@
 	build_path = /obj/machinery/computer/card/minor/cmo
 	target_dept = TARGET_DEPT_MED
 
+/obj/item/circuitboard/card/minor/qm
+	board_name = "Supply ID Computer"
+	build_path = /obj/machinery/computer/card/minor/qm
+	target_dept = TARGET_DEPT_SUP
+
 /obj/item/circuitboard/card/minor/rd
 	board_name = "Science ID Computer"
 	icon_state = "science"
@@ -304,6 +309,12 @@
 	board_name = "Orion Trail"
 	icon_state = "generic"
 	build_path = /obj/machinery/computer/arcade/orion_trail
+	origin_tech = "programming=1"
+
+/obj/item/circuitboard/arcade/recruiter
+	board_name = "Nanotrasen Recruiter Simulator"
+	icon_state = "generic"
+	build_path = /obj/machinery/computer/arcade/recruiter
 	origin_tech = "programming=1"
 
 /obj/item/circuitboard/solar_control
