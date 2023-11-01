@@ -93,6 +93,8 @@
 		user.forceMove(get_turf(target))
 
 /obj/machinery/atmospherics/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle gas analyzer var.
+		return
 	if(user.gas_analyzer)
 		if(istype(src, /obj/machinery/atmospherics/pipe))
 			var/obj/machinery/atmospherics/pipe/T = src
