@@ -272,6 +272,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
+	execution_speed = 2 SECONDS
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -319,6 +320,7 @@
 	var/charging = FALSE
 	var/charge_failure = FALSE
 	var/mob/living/carbon/holder = null
+	execution_speed = 4 SECONDS
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()

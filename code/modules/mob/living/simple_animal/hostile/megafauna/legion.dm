@@ -69,13 +69,14 @@ Difficulty: Medium
 	legiontwo.crusher_loot = list(/datum/nothing)
 	legiontwo.health = 1250
 	legiontwo.maxHealth = 1250
+	legiontwo.enraged = TRUE
 
 /mob/living/simple_animal/hostile/megafauna/legion/unrage()
 	. = ..()
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
-			other.loot = initial(loot)
-			other.crusher_loot = initial(crusher_loot)
+			other.loot = list(/obj/item/storm_staff) //Initial does not work with lists.
+			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 			other.maxHealth = 2500
 			other.health = 2500
 	qdel(src) //Suprise, it's the one on lavaland that regrows to full.
@@ -83,8 +84,8 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
 	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
 		if(other != src)
-			other.loot = initial(loot)
-			other.crusher_loot = initial(crusher_loot)
+			other.loot = list(/obj/item/storm_staff) //Initial does not work with lists.
+			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
 	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
@@ -171,6 +172,9 @@ Difficulty: Medium
 		if(ismineralturf(t))
 			var/turf/simulated/mineral/M = t
 			M.gets_drilled(src)
+		if(iswallturf(t))
+			var/turf/simulated/wall/W = t
+			W.thermitemelt(speed = 1 SECONDS) //Melt that shit DOWN
 		for(var/mob/living/M in t)
 			if(faction_check(M.faction, faction, FALSE))
 				continue
@@ -203,7 +207,13 @@ Difficulty: Medium
 				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced(loc)
 			else
 				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(loc)
-			A.GiveTarget(target)
+			if(!enraged || prob(33))
+				A.GiveTarget(target)
+			else
+				for(var/mob/living/carbon/human/H in range(7, src))
+					if(H.stat == DEAD)
+						A.GiveTarget(H)
+						break
 			A.friends = friends
 			A.faction = faction
 

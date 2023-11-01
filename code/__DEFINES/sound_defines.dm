@@ -23,6 +23,8 @@
 
 ///Default range of a sound.
 #define SOUND_RANGE 17
+///Easy-to-math sound range for simpler coding with specific variables. Insert the exact range you wish the sound to be heard from.
+#define SOUND_RANGE_SET(amount) amount - 17
 ///default extra range for sounds considered to be quieter
 #define SHORT_RANGE_SOUND_EXTRARANGE -9
 ///The range deducted from sound range for things that are considered silent / sneaky

@@ -1,7 +1,7 @@
 /datum/martial_art/wrestling
 	name = "Wrestling"
 	weight = 3
-	help_verb = /mob/living/carbon/human/proc/wrestling_help
+	has_explaination_verb = TRUE
 
 //	combo refence since wrestling uses a different format to sleeping carp and plasma fist.
 //	Clinch "G"
@@ -57,12 +57,12 @@
 	D.apply_damage(10, STAMINA, affecting, armor_block)
 	return 1
 
-/mob/living/carbon/human/proc/wrestling_help()
-	set name = "Recall Teachings"
-	set desc = "Remember how to wrestle."
-	set category = "Wrestling"
+/datum/martial_art/wrestling/explaination_header(user)
+	. = ..()
+	to_chat(user, "<b><i>You flex your muscles and have a revelation...</i></b>")
 
-	to_chat(usr, "<b><i>You flex your muscles and have a revelation...</i></b>")
-	to_chat(usr, "<span class='notice'>Clinch</span>: Grab. Passively gives you a chance to immediately aggressively grab someone. Not always successful.")
-	to_chat(usr, "<span class='notice'>Suplex</span>: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
-	to_chat(usr, "<span class='notice'>Advanced grab</span>: Grab. Passively causes stamina damage when grabbing someone.")
+/datum/martial_art/wrestling/explaination_combos(user)
+	. = ..()
+	to_chat(user, "<span class='notice'>Clinch</span>: Grab. Passively gives you a chance to immediately aggressively grab someone. Not always successful.")
+	to_chat(user, "<span class='notice'>Suplex</span>: Disarm someone you are grabbing. Suplexes your target to the floor. Greatly injures them and leaves both you and your target on the floor.")
+	to_chat(user, "<span class='notice'>Advanced grab</span>: Grab. Passively causes stamina damage when grabbing someone.")

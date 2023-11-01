@@ -10,6 +10,19 @@
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
 
+/mob/living/simple_animal/demon/shadow/Login()
+	..()
+	var/list/L = list(
+		"<span class='deadsay'><font size=3><b>You are a shadow demon!</b></font></span>",
+		"<b>You are a lethal ambush predator who thrives in the darkness, calling upon the shadows to heal your injured form and increase your speed.</b>",
+		"<b>Light is however your worst enemy and being exposed for too long will be fatal.</b>",
+		"<b>Striking your victims with your shadow grapple extinguishes any light sources around them. Striking items silences any light within them.</b>",
+		"<b>You can wrap your dead victims into a shadow cocoon which provides a shroud of darkness which tears away any light near it.</b>",
+		"<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>",
+		"<br><span class='motd'>For more information, check the wiki page: [wiki_link("Shadow_Demon")]</span>"
+	)
+	to_chat(src, chat_box_red(L.Join("<br>")))
+
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
 	var/lum_count = check_darkness()
@@ -67,6 +80,13 @@
 /obj/structure/shadowcocoon/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+
+
+/obj/structure/shadowcocoon/examine(mob/user)
+	. = ..()
+	if(istype(user, /mob/living/simple_animal/demon/shadow))
+		. += silent ? "<span class='notice'>The tendrils are idle and will not produce noise.</span>" : "<span class='notice'>The tendrils are agitated <b>and will occasionally produce noise to lure in more prey.</b></span>"
+		. += "<span class='notice'>Alt+Click to toggle whether [src] should produce noise to lure in victims.</span>"
 
 /obj/structure/shadowcocoon/process()
 	time_since_last_hallucination++
@@ -152,7 +172,7 @@
 
 /obj/effect/proc_holder/spell/fireball/shadow_grapple
 	name = "Shadow Grapple"
-	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure."
+	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure. Any light source hit with this will be disabled in a two tile radius."
 	base_cooldown = 10 SECONDS
 	fireball_type = /obj/item/projectile/magic/shadow_hand
 
