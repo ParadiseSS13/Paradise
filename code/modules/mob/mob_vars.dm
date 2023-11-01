@@ -216,7 +216,7 @@
 	/// The datum receiving keyboard input. parent mob by default.
 	var/datum/input_focus = null
 	/// Is our mob currently suiciding? Used for suicide code along with many different revival checks
-	var/suiciding = 0
+	var/suiciding = FALSE
 	/// Used for some screen objects, such as
 	var/list/screens = list()
 	/// lazy list. contains /obj/screen/alert only,  On /mob so clientless mobs will throw alerts properly
