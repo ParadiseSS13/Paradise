@@ -556,6 +556,22 @@
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
+/obj/item/storage/box/botany_labelled_seeds
+	name = "botanist labelled random seeds kit"
+	desc = "A box intended for experienced botanists."
+
+/obj/item/storage/box/botany_labelled_seeds/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/seeds/random/labelled(src)
+
+/obj/item/storage/box/telescience
+	name = "babies first telescience kit"
+	desc = "A now restricted kit for those who want to learn about telescience!"
+
+/obj/item/storage/box/telescience/populate_contents()
+	new /obj/item/circuitboard/telesci_pad(src)
+	new /obj/item/circuitboard/telesci_console(src)
+
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
 	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."

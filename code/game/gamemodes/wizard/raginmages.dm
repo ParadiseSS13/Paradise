@@ -11,19 +11,12 @@
 	var/players_per_mage = 10 // If the admin wants to tweak things or something
 	var/delay_per_mage = 7 MINUTES // Every 7 minutes by default
 	var/time_till_chaos = 30 MINUTES // Half-hour in
+	/// Tracks a one-time restock of all magivends once we get a second wizard
+	var/have_we_populated_magivends = FALSE
 
 /datum/game_mode/wizard/raginmages/announce()
 	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
 	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
-
-/datum/game_mode/wizard/post_setup()
-	// Makes magivends PLENTIFUL
-	for(var/obj/machinery/economy/vending/magivend/magic in GLOB.machines)
-		for(var/key in magic.products)
-			magic.products[key] = 20 // and so, there was prosperity for ragin mages everywhere
-		magic.product_records.Cut()
-		magic.build_inventory(magic.products, magic.product_records)
-	..()
 
 /datum/game_mode/wizard/raginmages/greet_wizard(datum/mind/wizard, you_are=1)
 	var/list/messages = list()
@@ -116,6 +109,8 @@
 	if(making_mage || SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		return FALSE
 	making_mage = TRUE
+	if(!have_we_populated_magivends)
+		populate_magivends()
 
 	var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a raging Space Wizard?", ROLE_WIZARD, TRUE, poll_time = 20 SECONDS, source = source)
@@ -157,3 +152,13 @@
 		SSticker.mode_result = "raging wizard loss - wizard killed"
 		to_chat(world, "<span class='warning'><font size = 3><b>The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</b></font></span>")
 	..(1)
+
+/datum/game_mode/wizard/raginmages/proc/populate_magivends()
+	// Makes magivends PLENTIFUL
+	for(var/obj/machinery/economy/vending/magivend/magic in GLOB.machines)
+		for(var/key in magic.products)
+			magic.products[key] = 20 // and so, there was prosperity for ragin mages everywhere
+		magic.product_records.Cut()
+		magic.build_inventory(magic.products, magic.product_records)
+
+	have_we_populated_magivends = TRUE
