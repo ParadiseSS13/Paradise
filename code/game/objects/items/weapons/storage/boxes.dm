@@ -294,16 +294,6 @@
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
 
-/obj/item/storage/box/exileimp
-	name = "boxed exile bio-chip kit"
-	desc = "Box of exile bio-chips. It has a picture of a clown being booted through the Gateway."
-	icon_state = "implant"
-
-/obj/item/storage/box/exileimp/populate_contents()
-	for(var/I in 1 to 5)
-		new /obj/item/implantcase/exile(src)
-	new /obj/item/implanter(src)
-
 /obj/item/storage/box/deathimp
 	name = "death alarm bio-chip kit"
 	desc = "Box of life sign monitoring bio-chips."
@@ -566,6 +556,22 @@
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
+/obj/item/storage/box/botany_labelled_seeds
+	name = "botanist labelled random seeds kit"
+	desc = "A box intended for experienced botanists."
+
+/obj/item/storage/box/botany_labelled_seeds/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/seeds/random/labelled(src)
+
+/obj/item/storage/box/telescience
+	name = "babies first telescience kit"
+	desc = "A now restricted kit for those who want to learn about telescience!"
+
+/obj/item/storage/box/telescience/populate_contents()
+	new /obj/item/circuitboard/telesci_pad(src)
+	new /obj/item/circuitboard/telesci_console(src)
+
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
 	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
@@ -622,7 +628,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -975,6 +981,16 @@
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/screwdriver(src)
+
+/obj/item/storage/box/hardmode_box
+	name = "box of HRD-MDE project box"
+	desc = "Contains everything needed to get yourself killed for a medal."
+
+/obj/item/storage/box/hardmode_box/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/megafauna_hardmode(src)
+	new /obj/item/storage/lockbox/medal/hardmode_box(src)
+	new /obj/item/paper/hardmode(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

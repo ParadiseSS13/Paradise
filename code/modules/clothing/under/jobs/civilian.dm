@@ -28,6 +28,19 @@
 	item_state = "hopwhimsy"
 	item_color = "hopwhimsy"
 
+/obj/item/clothing/under/rank/civilian/head_of_personnel/oldman
+	name = "old man's suit"
+	desc = "A classic suit for the older gentleman with built in back support."
+	icon_state = "oldman"
+	item_state = "oldman"
+	item_color = "oldman"
+
+/obj/item/clothing/under/rank/civilian/head_of_personnel/dress_hr
+	name = "human resources director's uniform"
+	desc = "Superior class for the nosy H.R. Director."
+	icon_state = "huresource"
+	item_color = "huresource"
+
 /obj/item/clothing/under/rank/civilian/bartender
 	desc = "It looks like it could use some more flair."
 	name = "bartender's uniform"
@@ -128,58 +141,3 @@
 	icon_state = "barber"
 	item_state = "barber"
 	item_color = "barber"
-
-
-/obj/item/clothing/under/rank/civilian/internalaffairs
-	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
-	name = "Internal Affairs uniform"
-	icon_state = "internalaffairs"
-	item_state = "internalaffairs"
-	item_color = "internalaffairs"
-
-/obj/item/clothing/under/rank/civilian/lawyer
-	name = "lawyer suit"
-	desc = "Slick threads."
-
-/obj/item/clothing/under/rank/civilian/lawyer/black
-	icon_state = "lawyer_black"
-	item_state = "lawyer_black"
-	item_color = "lawyer_black"
-
-/obj/item/clothing/under/rank/civilian/lawyer/red
-	name = "lawyer red suit"
-	icon_state = "lawyer_red"
-	item_state = "lawyer_red"
-	item_color = "lawyer_red"
-
-/obj/item/clothing/under/rank/civilian/lawyer/blue
-	name = "lawyer blue suit"
-	icon_state = "lawyer_blue"
-	item_state = "lawyer_blue"
-	item_color = "lawyer_blue"
-
-/obj/item/clothing/under/rank/civilian/lawyer/purple
-	name = "lawyer purple suit"
-	icon_state = "lawyer_purp"
-	item_state = "lawyer_purp"
-	item_color = "lawyer_purp"
-
-/obj/item/clothing/under/rank/civilian/lawyer/bluesuit
-	name = "blue suit"
-	desc = "A classy suit and tie"
-	icon_state = "bluesuit"
-	item_state = "bluesuit"
-	item_color = "bluesuit"
-
-/obj/item/clothing/under/rank/civilian/lawyer/oldman
-	name = "Old Man's Suit"
-	desc = "A classic suit for the older gentleman with built in back support."
-	icon_state = "oldman"
-	item_state = "oldman"
-	item_color = "oldman"
-
-/obj/item/clothing/under/rank/civilian/lawyer/dress_hr
-	name = "human resources director's uniform"
-	desc = "Superior class for the nosy H.R. Director."
-	icon_state = "huresource"
-	item_color = "huresource"

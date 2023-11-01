@@ -66,3 +66,6 @@ GLOBAL_LIST_EMPTY(blurb_witnesses)
 
 /// List of looping sounds
 GLOBAL_LIST_EMPTY(looping_sounds)
+
+/// List of possible crits from things tipping over
+GLOBAL_LIST_EMPTY(tilt_crits)

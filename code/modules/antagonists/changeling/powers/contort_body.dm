@@ -3,8 +3,9 @@
 	desc = "We contort our body, allowing us to fit in and under things we normally wouldn't be able to. Costs 25 chemicals."
 	button_icon_state = "contort_body"
 	chemical_cost = 25
-	dna_cost = 2
+	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_UTILITY
 
 /datum/action/changeling/contort_body/Remove(mob/M)
 	REMOVE_TRAIT(M, TRAIT_CONTORTED_BODY, CHANGELING_TRAIT)

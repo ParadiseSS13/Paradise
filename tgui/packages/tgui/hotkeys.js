@@ -48,6 +48,16 @@ export const KEY_W = 87;
 export const KEY_X = 88;
 export const KEY_Y = 89;
 export const KEY_Z = 90;
+export const KEY_NUMPAD_0 = 96;
+export const KEY_NUMPAD_1 = 97;
+export const KEY_NUMPAD_2 = 98;
+export const KEY_NUMPAD_3 = 99;
+export const KEY_NUMPAD_4 = 100;
+export const KEY_NUMPAD_5 = 101;
+export const KEY_NUMPAD_6 = 102;
+export const KEY_NUMPAD_7 = 103;
+export const KEY_NUMPAD_8 = 104;
+export const KEY_NUMPAD_9 = 105;
 export const KEY_EQUAL = 187;
 export const KEY_MINUS = 189;
 

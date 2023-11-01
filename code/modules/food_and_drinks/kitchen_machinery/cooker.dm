@@ -83,6 +83,9 @@
 		return FALSE
 	if(!istype(G))
 		return FALSE
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
+		return FALSE
 	if(!iscarbon(G.affecting))
 		if(verbose)
 			to_chat(user, "<span class='warning'>You can't shove that in there!</span>")

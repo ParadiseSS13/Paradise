@@ -13,7 +13,7 @@
 
 /datum/gear/hat
 	main_typepath = /datum/gear/hat
-	slot = slot_head
+	slot = SLOT_HUD_HEAD
 	sort_category = "Headwear"
 
 /datum/gear/hat/hhat_yellow
@@ -145,6 +145,10 @@
 /datum/gear/hat/beret_black
 	display_name = "Beret, black"
 	path = /obj/item/clothing/head/beret/black
+
+/datum/gear/hat/beret_white
+	display_name = "Beret, white"
+	path = /obj/item/clothing/head/beret/white
 
 /datum/gear/hat/beret_blue
 	display_name = "Beret, blue"

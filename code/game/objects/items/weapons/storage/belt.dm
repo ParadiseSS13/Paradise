@@ -6,7 +6,7 @@
 	item_state = "utility"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
 	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
@@ -522,7 +522,7 @@
 /obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
-	new /obj/item/reagent_containers/spray/cleaner/advanced(src)
+	new /obj/item/storage/bag/trash/bluespace(src)
 	new /obj/item/soap/deluxe(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)

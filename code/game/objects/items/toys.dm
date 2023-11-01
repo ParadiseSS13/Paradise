@@ -176,6 +176,8 @@
 /obj/item/toy/sword
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sword0"
 	item_state = "sword0"
 	var/active = FALSE
@@ -251,10 +253,12 @@
 /obj/item/toy/katana
 	name = "replica katana"
 	desc = "Woefully underpowered in D20."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -425,7 +429,7 @@
 	desc = "This baby looks almost real. Wait, did it just burp?"
 	force = 5
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 
 
 //This should really be somewhere else but I don't know where. w/e
@@ -436,7 +440,7 @@
 	icon_state = "inflatable"
 	item_state = "inflatable"
 	icon = 'icons/obj/clothing/belts.dmi'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 
 /*
  * Fake meteor
@@ -857,6 +861,8 @@
 	desc = "it says \"Sternside Changs #1 fan\" on it. "
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamblade"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	item_state = "arm_blade"
 	attack_verb = list("pricked", "absorbed", "gored")
 	w_class = WEIGHT_CLASS_SMALL
@@ -1112,7 +1118,7 @@
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	hitsound = "swing_hit"
 	flags =  CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	materials = list(MAT_METAL=2000)
 	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
@@ -1242,7 +1248,9 @@
  */
 /obj/item/toy/chainsaw
 	name = "Toy Chainsaw"
-	desc = "A toy chainsaw with a rubber edge. Ages 8 and up"
+	desc = "A toy chainsaw with a rubber edge. Ages 8 and up."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "chainsaw0"
 	base_icon_state = "chainsaw"
 	force = 0

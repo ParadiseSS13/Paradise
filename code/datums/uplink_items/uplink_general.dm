@@ -1,4 +1,7 @@
 GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
+// This define is used when we have to spawn in an uplink item in a weird way, like a Surplus crate spawning an actual crate.
+// Use this define by setting `uses_special_spawn` to TRUE on the item, and then checking if the parent proc of `spawn_item` returns this define. If it does, implement your special spawn after that.
+#define UPLINK_SPECIAL_SPAWNING "ONE PINK CHAINSAW PLEASE"
 
 /proc/get_uplink_items(obj/item/uplink/U)
 	var/list/uplink_items = list()
@@ -83,6 +86,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refundable = FALSE
 	var/refund_path = null // Alternative path for refunds, in case the item purchased isn't what is actually refunded (ie: holoparasites).
 	var/refund_amount // specified refund amount in case there needs to be a TC penalty for refunds.
+	/// Our special little snowflakes that have to be spawned in a different way than normal, like a surplus crate spawning a crate or contractor kits
+	var/uses_special_spawn = FALSE
 
 /datum/uplink_item/proc/spawn_item(turf/loc, obj/item/uplink/U)
 
@@ -91,12 +96,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			to_chat(usr, "<span class='warning'>The Syndicate will only issue this extremely dangerous item to agents assigned the Hijack objective.</span>")
 			return
 
-	if(item)
-		U.uses -= max(cost, 0)
-		U.used_TC += cost
-		SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
+	U.uses -= max(cost, 0)
+	U.used_TC += cost
+	SSblackbox.record_feedback("nested tally", "traitor_uplink_items_bought", 1, list("[initial(name)]", "[cost]"))
+	if(item && !uses_special_spawn)
 		return new item(loc)
 
+	return UPLINK_SPECIAL_SPAWNING
 
 /datum/uplink_item/proc/description()
 	if(!desc)
@@ -105,47 +111,47 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		desc = replacetext(initial(temp.desc), "\n", "<br>")
 	return desc
 
-/datum/uplink_item/proc/buy(obj/item/uplink/hidden/U, mob/user)
+/datum/uplink_item/proc/buy_uplink_item(obj/item/uplink/hidden/U, mob/user, put_in_hands = TRUE)
 	if(!istype(U))
-		return FALSE
+		return
 
 	if(user.stat || user.restrained())
-		return FALSE
+		return
 
-	if(!(ishuman(user)))
-		return FALSE
+	if(!ishuman(user))
+		return
 
 	// If the uplink's holder is in the user's contents
 	if((U.loc in user.contents || (in_range(U.loc, user) && isturf(U.loc.loc))))
 		if(cost > U.uses)
-			return FALSE
+			return
+
 
 		var/obj/I = spawn_item(get_turf(user), U)
 
-		if(I)
-			if(ishuman(user))
-				var/mob/living/carbon/human/A = user
-				if(limited_stock > 0)
-					log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
-					if(!user.mind.special_role)
-						message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
+		if(!I || I == UPLINK_SPECIAL_SPAWNING)
+			return // Failed to spawn, or we handled it with special spawning
+		if(limited_stock > 0)
+			limited_stock--
+			log_game("[key_name(user)] purchased [name]. [name] was discounted to [cost].")
+			if(!user.mind.special_role)
+				message_admins("[key_name_admin(user)] purchased [name] (discounted to [cost]), as a non antagonist.")
 
-				else
-					log_game("[key_name(user)] purchased [name].")
-					if(!user.mind.special_role)
-						message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
+		else
+			log_game("[key_name(user)] purchased [name].")
+			if(!user.mind.special_role)
+				message_admins("[key_name_admin(user)] purchased [name], as a non antagonist.")
 
-				A.put_in_any_hand_if_possible(I)
+		if(istype(I, /obj/item/storage/box) && length(I.contents))
+			for(var/atom/o in I)
+				U.purchase_log += "<big>[bicon(o)]</big>"
 
-				if(istype(I,/obj/item/storage/box/) && I.contents.len>0)
-					for(var/atom/o in I)
-						U.purchase_log += "<BIG>[bicon(o)]</BIG>"
+		else
+			U.purchase_log += "<big>[bicon(I)]</big>"
 
-				else
-					U.purchase_log += "<BIG>[bicon(I)]</BIG>"
-
-		return TRUE
-	return FALSE
+		if(put_in_hands)
+			user.put_in_any_hand_if_possible(I)
+		return I
 
 /*
 //
@@ -209,6 +215,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "CH"
 	item = /obj/item/butcher_chainsaw
 	cost = 65
+	surplus = 0 // This has caused major problems with un-needed chainsaw massacres. Bwoink bait.
 
 /datum/uplink_item/dangerous/universal_gun_kit
 	name = "Universal Self Assembling Gun Kit"
@@ -235,28 +242,32 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are cheap but around half as effective as .357"
 	reference = "10MM"
 	item = /obj/item/ammo_box/magazine/m10mm
-	cost = 5
+	cost = 3
+	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolap
 	name = "Stechkin - 10mm Armour Piercing Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds that are less effective at injuring the target but penetrate protective gear."
 	reference = "10MMAP"
 	item = /obj/item/ammo_box/magazine/m10mm/ap
-	cost = 10
+	cost = 6
+	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolfire
 	name = "Stechkin - 10mm Incendiary Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
 	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
-	cost = 10
+	cost = 6
+	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolhp
 	name = "Stechkin - 10mm Hollow Point Magazine"
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
-	cost = 10
+	cost = 6
+	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/revolver
 	name = ".357 Revolver - Speedloader"
@@ -264,6 +275,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "357"
 	item = /obj/item/ammo_box/a357
 	cost = 15
+	surplus = 0 // Miserable
 
 // STEALTHY WEAPONS
 
@@ -315,7 +327,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A modified briefcase capable of storing and firing a gun under a false bottom. Use a screwdriver to pry away the false bottom and make modifications. Distinguishable upon close examination due to the added weight."
 	reference = "FBBC"
 	item = /obj/item/storage/briefcase/false_bottomed
-	cost = 15
+	cost = 10
 
 /datum/uplink_item/stealthy_weapons/soap
 	name = "Syndicate Soap"
@@ -338,6 +350,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "TPB"
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 10
+	surplus = 0 // Requires another item to function.
 
 /datum/uplink_item/stealthy_weapons/silencer
 	name = "Universal Suppressor"
@@ -429,7 +442,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	it can also be used in a washing machine to forge clothing."
 	reference = "CHST"
 	item = /obj/item/stamp/chameleon
-	cost = 5
+	cost = 1
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chameleonflag
@@ -437,7 +450,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A flag that can be disguised as any other known flag. There is a hidden spot in the pole to boobytrap the flag with a grenade or minibomb, which will detonate some time after the flag is set on fire."
 	reference = "CHFLAG"
 	item = /obj/item/flag/chameleon
-	cost = 5
+	cost = 1
 	surplus = 35
 
 /datum/uplink_item/stealthy_tools/chamsechud
@@ -452,7 +465,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "These glasses are thermals with Syndicate chameleon technology built into them. They allow you to see organisms through walls by capturing the upper portion of the infra-red light spectrum, emitted as heat and light by objects. Hotter objects, such as warm bodies, cybernetic organisms and artificial intelligence cores emit more of this light than cooler objects like walls and airlocks."
 	reference = "THIG"
 	item = /obj/item/clothing/glasses/chameleon/thermal
-	cost = 30
+	cost = 15
 
 /datum/uplink_item/stealthy_tools/agent_card
 	name = "Agent ID Card"
@@ -488,7 +501,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "A syringe with one injection that randomizes appearance and name upon use. A cheaper but less versatile alternative to an agent card and voice changer."
 	reference = "DNAS"
 	item = /obj/item/dnascrambler
-	cost = 10
+	cost = 7
 
 /datum/uplink_item/stealthy_tools/smugglersatchel
 	name = "Smuggler's Satchel"
@@ -513,7 +526,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	spraycan for changing their appearances."
 	reference = "ADCC"
 	item = /obj/item/storage/box/syndie_kit/cutouts
-	cost = 5
+	cost = 1
 	surplus = 20
 
 /datum/uplink_item/stealthy_tools/safecracking
@@ -522,6 +535,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	reference = "SCK"
 	item = /obj/item/storage/box/syndie_kit/safecracking
 	cost = 5
+	surplus = 0 // Far too objective specific.
 
 /datum/uplink_item/stealthy_tools/handheld_mirror
 	name = "Hand Held Mirror"
@@ -690,7 +704,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			sends you a small beacon that will teleport the larger beacon to your location upon activation."
 	reference = "SNGB"
 	item = /obj/item/radio/beacon/syndicate
-	cost = 30
+	cost = 10
 	surplus = 0
 	hijack_only = TRUE //This is an item only useful for a hijack traitor, as such, it should only be available in those scenarios.
 	cant_discount = TRUE
@@ -763,7 +777,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			On activation, it will conceal you inside a chameleon cardboard box that is only revealed once someone bumps into it."
 	reference = "SI"
 	item = /obj/item/implanter/stealth
-	cost = 40
+	cost = 45
 
 // POINTLESS BADASSERY
 
@@ -805,8 +819,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Two-Piece Suit"
 	desc = "A snappy two-piece suit that any self-respecting Syndicate agent should wear. Perfect for professionals trying to go undetected, but moderately armored with experimental nanoweave in case things do get loud. Comes with two cashmere-lined pockets for maximum style and comfort."
 	reference = "SUIT"
-	item = /obj/item/clothing/suit/storage/lawyer/blackjacket/armored
-	cost = 5
+	item = /obj/item/clothing/suit/storage/iaa/blackjacket/armored
+	cost = 3
 
 /datum/uplink_item/bundles_TC
 	category = "Bundles and Telecrystals"

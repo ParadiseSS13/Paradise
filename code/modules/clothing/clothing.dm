@@ -39,6 +39,9 @@
 	var/blockTracking
 	w_class = WEIGHT_CLASS_SMALL
 
+	/// Detective Work, used for allowing a given atom to leave its fibers on stuff. Allowed by default
+	var/can_leave_fibers = TRUE
+
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return
@@ -87,7 +90,7 @@
 		return 0
 
 	// Skip species restriction checks on non-equipment slots
-	if(slot in list(slot_r_hand, slot_l_hand, slot_in_backpack, slot_l_store, slot_r_store))
+	if(slot in list(SLOT_HUD_RIGHT_HAND, SLOT_HUD_LEFT_HAND, SLOT_HUD_IN_BACKPACK, SLOT_HUD_LEFT_STORE, SLOT_HUD_RIGHT_STORE))
 		return 1
 
 	if(species_restricted && ishuman(M))
@@ -136,7 +139,7 @@
 	name = "ears"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 2
-	slot_flags = SLOT_EARS
+	slot_flags = SLOT_FLAG_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi') //We read you loud and skree-er.
@@ -158,7 +161,7 @@
 		return
 
 	var/obj/item/clothing/ears/O
-	if(slot_flags & SLOT_TWOEARS )
+	if(slot_flags & SLOT_FLAG_TWOEARS )
 		O = (H.l_ear == src ? H.r_ear : H.l_ear)
 		user.unEquip(O)
 		if(!istype(src, /obj/item/clothing/ears/offear))
@@ -182,7 +185,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "block"
-	slot_flags = SLOT_EARS | SLOT_TWOEARS
+	slot_flags = SLOT_FLAG_EARS | SLOT_FLAG_TWOEARS
 
 /obj/item/clothing/ears/offear/New(obj/O)
 	. = ..()
@@ -199,7 +202,7 @@
 	icon = 'icons/obj/clothing/glasses.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	flags_cover = GLASSESCOVERSEYES
-	slot_flags = SLOT_EYES
+	slot_flags = SLOT_FLAG_EYES
 	materials = list(MAT_GLASS = 250)
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
@@ -257,7 +260,7 @@
 	icon = 'icons/obj/clothing/gloves.dmi'
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
-	slot_flags = SLOT_GLOVES
+	slot_flags = SLOT_FLAG_GLOVES
 	attack_verb = list("challenged")
 	var/transfer_prints = FALSE
 	///Master pickpocket?
@@ -372,7 +375,7 @@
 	name = "head"
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_HEAD
+	slot_flags = SLOT_FLAG_HEAD
 	var/HUDType = null
 
 	var/vision_flags = 0
@@ -388,7 +391,7 @@
 	name = "mask"
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
-	slot_flags = SLOT_MASK
+	slot_flags = SLOT_FLAG_MASK
 	var/adjusted_flags = null
 	strip_delay = 40
 	put_on_delay = 40
@@ -474,7 +477,7 @@
 	var/can_cut_open = FALSE
 	var/cut_open = FALSE
 	body_parts_covered = FEET
-	slot_flags = SLOT_FEET
+	slot_flags = SLOT_FLAG_FEET
 
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
 	var/list/bloody_shoes = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
@@ -543,7 +546,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/cloth_pickup.ogg'
-	slot_flags = SLOT_OCLOTHING
+	slot_flags = SLOT_FLAG_OCLOTHING
 	var/blood_overlay_type = "suit"
 	var/suit_toggled = FALSE
 	var/suit_adjusted = FALSE
@@ -607,10 +610,10 @@
 
 /obj/item/clothing/suit/equipped(mob/living/carbon/human/user, slot) //Handle tail-hiding on a by-species basis.
 	..()
-	if(ishuman(user) && hide_tail_by_species && slot == slot_wear_suit)
+	if(ishuman(user) && hide_tail_by_species && slot == SLOT_HUD_OUTER_SUIT)
 		if("modsuit" in hide_tail_by_species)
 			return
-		if(user.dna.species.name in hide_tail_by_species)
+		if(user.dna.species.sprite_sheet_name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
 		else
@@ -683,7 +686,7 @@
 	name = "under"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
-	slot_flags = SLOT_ICLOTHING
+	slot_flags = SLOT_FLAG_ICLOTHING
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 0)
 	equip_sound = 'sound/items/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/cloth_drop.ogg'
@@ -724,7 +727,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_w_uniform) == src)
+	if(H.get_item_by_slot(SLOT_HUD_JUMPSUIT) == src)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_unequip()
 
@@ -732,7 +735,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == slot_w_uniform)
+	if(slot == SLOT_HUD_JUMPSUIT)
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attached_equip()
 
@@ -756,7 +759,7 @@
 	if(istype(I, /obj/item/clothing/accessory))
 		attach_accessory(I, user, TRUE)
 
-	if(accessories.len)
+	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.attackby(I, user, params)
 		return TRUE
@@ -845,12 +848,12 @@
 		if(copytext(item_color,-2) != "_d")
 			basecolor = item_color
 
-		if(usr.get_item_by_slot(slot_w_uniform) != src)
+		if(usr.get_item_by_slot(SLOT_HUD_JUMPSUIT) != src)
 			to_chat(usr, "<span class='notice'>You must wear the uniform to adjust it!</span>")
 
 		else
-			if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.name]))
-				if(H.w_uniform.sprite_sheets[H.dna.species.name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.name], "[basecolor]_d_s"))
+			if((basecolor + "_d_s") in icon_states(H.w_uniform.sprite_sheets[H.dna.species.sprite_sheet_name]))
+				if(H.w_uniform.sprite_sheets[H.dna.species.sprite_sheet_name] && icon_exists(H.w_uniform.sprite_sheets[H.dna.species.sprite_sheet_name], "[basecolor]_d_s"))
 					item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 					usr.update_inv_w_uniform()
 			else
@@ -882,11 +885,14 @@
 		return
 	if(!Adjacent(usr))
 		return
-	if(!accessories.len)
+	if(!length(accessories))
 		return
 	var/obj/item/clothing/accessory/A
-	if(accessories.len > 1)
-		A = input("Select an accessory to remove from [src]") as null|anything in accessories
+	if(length(accessories) > 1)
+		var/pick = radial_menu_helper(usr, src, accessories, custom_check = FALSE, require_near = TRUE)
+		if(!pick)
+			return
+		A = pick
 	else
 		A = accessories[1]
 	remove_accessory(usr,A)
@@ -904,7 +910,7 @@
 	to_chat(user, "<span class='notice'>You remove [A] from [src].</span>")
 
 /obj/item/clothing/under/emp_act(severity)
-	if(accessories.len)
+	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			A.emp_act(severity)
 	..()

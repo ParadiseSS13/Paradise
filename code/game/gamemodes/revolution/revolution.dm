@@ -3,7 +3,6 @@
 // Just make sure the converter is a head before you call it!
 // To remove a rev (from brainwashing or w/e), call SSticker.mode.remove_revolutionary(_THE_PLAYERS_MIND_),
 // this will also check they're not a head, so it can just be called freely
-// If the game somtimes isn't registering a win properly, then SSticker.mode.check_win() isn't being called somewhere.
 
 #define REV_VICTORY 1
 #define STATION_VICTORY 2
@@ -76,7 +75,7 @@
 	check_counter++
 	if(check_counter >= 5)
 		if(!finished)
-			rev_team.update_team_objectives()
+			rev_team.check_all_victory()
 		check_counter = 0
 	return FALSE
 
@@ -128,6 +127,7 @@
 	conversion_target.Silence(10 SECONDS)
 	conversion_target.Stun(10 SECONDS)
 	return TRUE
+
 //////////////////////////////////////////////////////////////////////////////
 //Deals with players being converted from the revolution (Not a rev anymore)//  // Modified to handle borged MMIs.  Accepts another var if the target is being borged at the time  -- Polymorph.
 //////////////////////////////////////////////////////////////////////////////

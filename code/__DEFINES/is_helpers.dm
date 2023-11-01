@@ -1,3 +1,6 @@
+// Datums
+#define isdatum(thing) (istype(thing, /datum))
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -118,3 +121,11 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 // Modsuits
 #define ismodcontrol(A) istype(A, /obj/item/mod/control)
+
+// Meteors
+GLOBAL_LIST_INIT(turfs_pass_meteor, typecacheof(list(
+	/turf/simulated/floor/plating/asteroid,
+	/turf/space
+)))
+
+#define ispassmeteorturf(A) (is_type_in_typecache(A, GLOB.turfs_pass_meteor))

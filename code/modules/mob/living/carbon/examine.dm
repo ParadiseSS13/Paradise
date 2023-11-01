@@ -114,7 +114,7 @@
 		skipface |= wear_mask.flags_inv & HIDEFACE
 		skipeyes |= wear_mask.flags_inv & HIDEEYES
 
-	var/msg = "<span class='info'>*---------*\nThis is "
+	var/msg = "<span class='info'>This is "
 
 	msg += "<em>[name]</em>"
 
@@ -125,6 +125,8 @@
 	// All the things wielded/worn that can be reasonably described with a common template:
 	var/list/message_parts = examine_visible_clothing(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
 
+	var/list/abstract_items = list()
+
 	for(var/parts in message_parts)
 		var/action = parts[1]
 		var/obj/item/item = parts[2]
@@ -134,20 +136,23 @@
 		if(length(parts) >= 5)
 			accessories = parts[5]
 
-		if(item && !(item.flags & ABSTRACT))
-			var/item_words = item.name
-			if(item.blood_DNA)
-				item_words = "[item.blood_color != "#030303" ? "blood-stained" : "oil-stained"] [item_words]"
-			var/submsg = "[p_they(TRUE)] [action] [bicon(item)] \a [item_words]"
-			if(accessories)
-				submsg += " with [accessories]"
-			if(limb_name)
-				submsg += " [preposition] [p_their()] [limb_name]"
-			if(item.blood_DNA)
-				submsg = "<span class='warning'>[submsg]!</span>\n"
+		if(item)
+			if(item.flags & ABSTRACT)
+				abstract_items |= item
 			else
-				submsg = "[submsg].\n"
-			msg += submsg
+				var/item_words = item.name
+				if(item.blood_DNA)
+					item_words = "[item.blood_color != "#030303" ? "blood-stained" : "oil-stained"] [item_words]"
+				var/submsg = "[p_they(TRUE)] [action] [bicon(item)] \a [item_words]"
+				if(accessories)
+					submsg += " with [accessories]"
+				if(limb_name)
+					submsg += " [preposition] [p_their()] [limb_name]"
+				if(item.blood_DNA)
+					submsg = "<span class='warning'>[submsg]!</span>\n"
+				else
+					submsg = "[submsg].\n"
+				msg += submsg
 		else
 			// add any extra info on the limbs themselves
 			msg += examine_handle_individual_limb(limb_name)
@@ -170,6 +175,12 @@
 		else
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
 
+	for(var/obj/item/abstract_item in abstract_items)
+		var/text = abstract_item.customised_abstract_text()
+		if(!text)
+			continue
+		msg += "[text]\n"
+
 	//Jitters
 	switch(AmountJitter())
 		if(600 SECONDS to INFINITY)
@@ -184,7 +195,7 @@
 	var/just_sleeping = FALSE //We don't appear as dead upon casual examination, just sleeping
 
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		var/obj/item/clothing/glasses/E = get_item_by_slot(slot_glasses)
+		var/obj/item/clothing/glasses/E = get_item_by_slot(SLOT_HUD_GLASSES)
 		var/are_we_in_weekend_at_bernies = E?.tint && istype(buckled, /obj/structure/chair) //Are we in a chair with our eyes obscured?
 
 		if(isliving(user) && are_we_in_weekend_at_bernies)
@@ -236,7 +247,10 @@
 			msg += "[p_they(TRUE)] look[p_s()] absolutely soaked.\n"
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
+		if(ismachineperson(src))
+			msg += "[p_their(TRUE)] power indicator is flashing red.\n"
+		else
+			msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
 
 	if(HAS_TRAIT(src, TRAIT_FAT))
 		msg += "[p_they(TRUE)] [p_are()] morbidly obese.\n"
@@ -275,7 +289,7 @@
 			if(!(H.status & ORGAN_DISFIGURED))
 				msg += "[print_flavor_text()]\n"
 
-	msg += "*---------*</span>"
+	msg += "</span>"
 	if(pose)
 		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.

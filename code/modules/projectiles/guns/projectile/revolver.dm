@@ -7,6 +7,7 @@
 	origin_tech = "combat=3;materials=2"
 	fire_sound = 'sound/weapons/gunshots/gunshot_strong.ogg'
 	can_holster = TRUE
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/projectile/revolver/Initialize(mapload)
 	. = ..()
@@ -332,7 +333,7 @@
 	weapon_weight = WEAPON_HEAVY
 	force = 10
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/dual
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	sawn_desc = "Omar's coming!"
@@ -347,7 +348,6 @@
 	options["Faded Grey"] = "dbshotgun_g"
 	options["Maple"] = "dbshotgun_l"
 	options["Rosewood"] = "dbshotgun_p"
-	options["Cancel"] = null
 
 /obj/item/gun/projectile/revolver/doublebarrel/attackby(obj/item/A, mob/user, params)
 	if(istype(A, /obj/item/ammo_box) || istype(A, /obj/item/ammo_casing))
@@ -410,7 +410,7 @@
 		if(sling)
 			to_chat(user, "<span class='warning'>The shotgun already has a sling!</span>")
 		else if(C.use(10))
-			slot_flags = SLOT_BACK
+			slot_flags = SLOT_FLAG_BACK
 			to_chat(user, "<span class='notice'>You tie the lengths of cable to the shotgun, making a sling.</span>")
 			sling = TRUE
 			update_icon()
@@ -418,8 +418,8 @@
 			to_chat(user, "<span class='warning'>You need at least ten lengths of cable if you want to make a sling!</span>")
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/update_icon_state()
-	icon_state = "ishotgun[sling ? "_sling" : ""]"
-	item_state = "ishotgun[sling ? "_sling" : ""]"
+	icon_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"
+	item_state = "ishotgun[sling ? "_sling" : sawn_state == SAWN_OFF ? "_sawn" : ""]"
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/sawoff(mob/user)
 	. = ..()
