@@ -446,7 +446,7 @@
 	tastes = list("чеснок" = 1, "сыр" = 2, "морепродукты" = 1, "кислинка" = 1)
 
 /datum/recipe/oven/seapizza
-	reagents = list("herbs" = 1, "garlic_sauce" = 1)
+	reagents = list("herbsmix" = 1, "garlic_sauce" = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
@@ -506,7 +506,7 @@
 	tastes = list("томат" = 1, "сыр" = 2, "таярони" = 1, "оливки" = 1)
 
 /datum/recipe/oven/tajarpizza
-	reagents = list("herbs" = 1, "tomato_sauce" = 1, "blackpepper" = 1)
+	reagents = list("herbsmix" = 1, "tomato_sauce" = 1, "blackpepper" = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
@@ -535,7 +535,7 @@
 	tastes = list("остроту" = 1, "сыр" = 2, "мясо" = 1, "специи" = 1)
 
 /datum/recipe/oven/diablopizza
-	reagents = list("herbs" = 1, "diablo_sauce" = 1)
+	reagents = list("herbsmix" = 1, "diablo_sauce" = 1)
 	items = list(
 		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
 		/obj/item/reagent_containers/food/snacks/cheesewedge,
