@@ -49277,6 +49277,12 @@
 	icon_state = "asteroidplating"
 	},
 /area/station/maintenance/apmaint)
+"jeR" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/primary/aft/west)
 "jeS" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -86980,7 +86986,7 @@
 	dir = 10
 	},
 /turf/simulated/wall,
-/area/mine/unexplored/cere/research)
+/area/station/hallway/primary/aft/west)
 "vgJ" = (
 /obj/structure/disposalpipe/segment{
 	color = "#954535"
@@ -115092,7 +115098,7 @@ cdb
 cdb
 cdb
 cdb
-rWw
+vkl
 qUt
 oTn
 dIi
@@ -115349,8 +115355,8 @@ cdb
 cdb
 cdb
 cdb
-rWw
-chQ
+vkl
+jeR
 pMB
 xIr
 fEl
@@ -134891,7 +134897,7 @@ rNK
 rNK
 bhO
 bhO
-nFW
+sHm
 jqW
 oym
 mqR
@@ -135148,7 +135154,7 @@ bhO
 bhO
 bhO
 bhO
-nFW
+sHm
 abZ
 dbg
 mqR
@@ -135405,7 +135411,7 @@ aXn
 aXn
 aXn
 aXn
-mic
+sHm
 tbP
 dbg
 mqR
