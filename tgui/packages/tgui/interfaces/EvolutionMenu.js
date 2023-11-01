@@ -1,6 +1,6 @@
 import { Fragment } from 'inferno';
-import { useBackend } from '../backend';
-import { Box, Button, Flex, Section } from '../components';
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Flex, Icon, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const EvolutionMenu = (props, context) => {
@@ -49,6 +49,7 @@ const EvolutionPoints = (props, context) => {
 const Abilities = (props, context) => {
   const { act, data } = useBackend(context);
   const { evo_points, ability_list, purchased_abilities, view_mode } = data;
+  const [tab, setTab] = useLocalState(context, 'tab', 0);
   return (
     <Section
       title="Abilities"
@@ -78,7 +79,31 @@ const Abilities = (props, context) => {
         </Fragment>
       }
     >
-      {ability_list.map((ability, i) => (
+      <Tabs>
+        <Tabs.Tab
+          selected={tab === 0}
+          onClick={() => {
+            setTab(0);
+          }}
+        >
+          Offense
+        </Tabs.Tab>
+        <Tabs.Tab
+          selected={tab === 1}
+          onClick={() => {
+            setTab(1);
+          }}
+        >
+          Defense
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 2} onClick={() => setTab(2)}>
+          Utility
+        </Tabs.Tab>
+        <Tabs.Tab selected={tab === 3} onClick={() => setTab(3)}>
+          Stings
+        </Tabs.Tab>
+      </Tabs>
+      {ability_list[tab].map((ability, i) => (
         <Box key={i} p={0.5} mx={-1} className="candystripe">
           <Flex align="center">
             <Flex.Item ml={0.5} color="#dedede">
