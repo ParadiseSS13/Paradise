@@ -321,7 +321,7 @@
 		/obj/item/borg/upgrade/selfrepair = 1,
 		/obj/item/stack/sheet/mineral/diamond{amount = 10} = 1,
 		/obj/item/stack/sheet/mineral/uranium{amount = 10} = 1,
-		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
+		/obj/item/clothing/shoes/magboots/elite = 1,
 		/obj/item/grenade/empgrenade = 1,
 		/obj/item/grenade/clown_grenade = 1,
 		/obj/item/grenade/spawnergrenade/feral_cats = 1,
