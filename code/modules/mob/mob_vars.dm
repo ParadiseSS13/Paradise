@@ -229,7 +229,7 @@
 	var/feet_blood_color
 	/// Weirdly named, effects how blood transfers onto objects
 	var/blood_state = BLOOD_STATE_NOT_BLOODY
-	/// Doesn't really do much, xenos can't track blood and this doesn't seem to have much effect on anything
+	/// Assoc list for tracking how "bloody" a mobs feet are, used for creating bloody foot/shoeprints on turfs when moving
 	var/list/bloody_feet = list(BLOOD_STATE_HUMAN = 0, BLOOD_STATE_XENO = 0, BLOOD_STATE_NOT_BLOODY = 0, BLOOD_BASE_ALPHA = BLOODY_FOOTPRINT_BASE_ALPHA)
 	/// set when typing in an input window instead of chatline, this var could probably be removed soon enough
 	var/hud_typing = 0
