@@ -39,7 +39,7 @@
 	/// If the changeling is in the process of absorbing someone.
 	var/is_absorbing = FALSE
 	/// The amount of points available to purchase changeling abilities.
-	var/genetic_points = 10
+	var/genetic_points = 20
 	/// A name that will display in place of the changeling's real name when speaking.
 	var/mimicing = ""
 	/// If the changeling can respec their purchased abilities.

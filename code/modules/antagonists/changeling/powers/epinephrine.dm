@@ -4,10 +4,11 @@
 	helptext = "Removes all stuns instantly and adds a short term reduction in further stuns. Can be used while unconscious. Continued use poisons the body."
 	button_icon_state = "adrenaline"
 	chemical_cost = 30
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	req_stat = UNCONSCIOUS
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_DEFENSE
 
 //Recover from stuns.
 /datum/action/changeling/epinephrine/sting_action(mob/living/user)

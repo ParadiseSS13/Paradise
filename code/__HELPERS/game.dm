@@ -95,7 +95,7 @@
 	var/BT = get_turf(B)
 	if(AT == BT)
 		return 1
-	var/list/line = getline(A, B)
+	var/list/line = get_line(A, B)
 	for(var/turf/T in line)
 		if(T == AT || T == BT)
 			break

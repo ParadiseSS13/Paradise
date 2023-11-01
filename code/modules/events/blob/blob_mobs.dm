@@ -205,7 +205,7 @@
 /mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
 	. = ..()
 	if(name == "blobbernaut")
-		name = text("blobbernaut ([rand(1, 1000)])")
+		name = "blobbernaut ([rand(1, 1000)])"
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/death(gibbed)
 	// Only execute the below if we successfully died
