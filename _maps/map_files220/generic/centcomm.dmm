@@ -37,7 +37,6 @@
 /obj/effect/turf_decal/plaque{
 	layer = 3
 	},
-/obj/structure/statue/ell_good,
 /obj/structure/sign/poster/contraband/random/east,
 /turf/simulated/floor/redgrid,
 /area/syndicate_mothership)
@@ -5349,16 +5348,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/jail)
 "dGO" = (
-/obj/structure/statue/ell_good{
+/obj/structure/statue/elwycco{
 	layer = 4;
-	pixel_y = 8
+	pixel_y = 9
 	},
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Comemmorative Plaque"
-	},
+/turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/centcom/ss220/park)
 "dHo" = (
 /obj/machinery/light/spot,
@@ -5382,12 +5376,7 @@
 	layer = 4;
 	pixel_y = 9
 	},
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Comemmorative Plaque"
-	},
+/turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/centcom/ss220/park)
 "dIb" = (
 /obj/machinery/economy/vending/security,
@@ -5665,16 +5654,9 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/ss220/library)
 "dOQ" = (
-/obj/structure/statue/elwycco{
-	layer = 4;
-	pixel_y = 9
-	},
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Comemmorative Plaque"
-	},
+/obj/structure/flora/junglebush,
+/obj/effect/turf_decal/siding/wideplating/dark,
+/turf/simulated/floor/grass/jungle/no_creep,
 /area/centcom/ss220/park)
 "dOS" = (
 /obj/structure/chair/office/dark,
@@ -10905,12 +10887,12 @@
 	},
 /area/centcom/ss220/admin1)
 "hqY" = (
-/obj/effect/turf_decal/plaque{
-	layer = 3
+/obj/structure/flora/grass/jungle,
+/obj/effect/turf_decal/siding/wideplating/dark/corner{
+	dir = 8
 	},
-/obj/structure/statue/furukai,
-/turf/simulated/floor/redgrid,
-/area/syndicate_mothership)
+/turf/simulated/floor/grass/jungle/no_creep,
+/area/centcom/ss220/park)
 "hra" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -20547,16 +20529,9 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_sit)
 "oks" = (
-/obj/structure/statue/mooniverse{
-	layer = 4;
-	pixel_y = 8
-	},
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Comemmorative Plaque"
-	},
+/obj/structure/flora/grass/jungle,
+/obj/effect/turf_decal/siding/wideplating/dark/corner,
+/turf/simulated/floor/grass/jungle/no_creep,
 /area/centcom/ss220/park)
 "okL" = (
 /obj/machinery/economy/vending/clothing,
@@ -25540,6 +25515,7 @@
 	pixel_y = 0
 	},
 /obj/structure/flora/junglebush,
+/obj/effect/turf_decal/siding/wideplating/dark,
 /turf/simulated/floor/grass/jungle/no_creep,
 /area/centcom/ss220/park)
 "rLD" = (
@@ -31426,16 +31402,11 @@
 	},
 /area/syndicate_mothership)
 "vWq" = (
-/obj/structure/statue/furukai{
+/obj/structure/statue/mooniverse{
 	layer = 4;
 	pixel_y = 8
 	},
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Comemmorative Plaque"
-	},
+/turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/centcom/ss220/park)
 "vWR" = (
 /obj/machinery/door/airlock/centcom{
@@ -32639,6 +32610,15 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
+"wNr" = (
+/obj/effect/turf_decal/plaque{
+	layer = 3
+	},
+/obj/structure/statue/ell_good{
+	pixel_y = 6
+	},
+/turf/simulated/floor/redgrid,
+/area/syndicate_mothership)
 "wNB" = (
 /turf/simulated/floor/carpet/red,
 /area/centcom/ss220/admin2)
@@ -34340,12 +34320,7 @@
 	layer = 4;
 	pixel_y = 9
 	},
-/turf/simulated/floor/plasteel{
-	desc = "\"This is a plaque in honour of our comrades on the G4407 Stations. Hopefully TG4407 model can live up to your fame and fortune.\" Scratched in beneath that is a crude image of a meteor and a spaceman. The spaceman is laughing. The meteor is exploding.";
-	dir = 4;
-	icon_state = "plaque";
-	name = "Comemmorative Plaque"
-	},
+/turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/centcom/ss220/park)
 "xOF" = (
 /turf/simulated/floor/plating,
@@ -43253,7 +43228,7 @@ gOQ
 gOQ
 gOQ
 fnU
-hqY
+cFP
 gHP
 srn
 srn
@@ -43510,7 +43485,7 @@ nGr
 nXD
 rrb
 fnU
-cFP
+wNr
 gHP
 srn
 srn
@@ -54655,7 +54630,7 @@ pGW
 qvv
 xGd
 xkj
-eVw
+hqY
 dGO
 buT
 buT
@@ -54914,7 +54889,7 @@ qvv
 qvv
 eVw
 rLs
-dOQ
+buT
 buT
 buT
 buT
@@ -55170,8 +55145,8 @@ qvv
 qvv
 qvv
 mcG
-pUg
-oks
+dOQ
+buT
 buT
 buT
 buT
@@ -55426,7 +55401,7 @@ iKO
 xGd
 qvv
 pUg
-eVw
+oks
 vWq
 kAL
 buT
