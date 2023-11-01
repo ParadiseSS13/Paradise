@@ -226,6 +226,8 @@
 #define COMSIG_CLICK_CTRL "ctrl_click"
 ///from base of atom/AltClick(): (/mob)
 #define COMSIG_CLICK_ALT "alt_click"
+	/// Cancel the alt-click, since this isn't properly part of the attack chain
+	#define COMPONENT_CANCEL_ALTCLICK (1<<0)
 ///from base of atom/CtrlShiftClick(/mob)
 #define COMSIG_CLICK_CTRL_SHIFT "ctrl_shift_click"
 ///from base of atom/MouseDrop(): (/atom/over, /mob/user)
@@ -303,6 +305,13 @@
 	/* #define HEARING_RADIO_FREQ 5
 	#define HEARING_SPANS 6
 	#define HEARING_MESSAGE_MODE 7 */
+
+/// Called just before something gets untilted
+#define COMSIG_MOVABLE_TRY_UNTILT "movable_try_untilt"
+	/// Return this to block an untilt attempt
+	#define COMPONENT_BLOCK_UNTILT (1<<0)
+/// Called when something gets untilted, from /datum/element/tilted/proc/do_untilt(atom/movable/source, mob/user)
+#define COMSIG_MOVABLE_UNTILTED "movable_untilted"
 
 ///called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"

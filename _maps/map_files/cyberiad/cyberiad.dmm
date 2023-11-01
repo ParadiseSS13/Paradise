@@ -74470,7 +74470,7 @@
 /turf/simulated/floor/plating,
 /area/station/science/xenobiology)
 "mSV" = (
-/mob/living/simple_animal/hostile/feral_cat/forsaken,
+/mob/living/simple_animal/pet/cat/Var,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "mTj" = (
@@ -85820,11 +85820,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cryo)
-"tnh" = (
-/obj/effect/spawner/window/reinforced,
-/obj/effect/spawner/window/reinforced/grilled,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "tnJ" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/item/clothing/head/soft/rainbow,
@@ -104632,7 +104627,7 @@ aaa
 aaa
 aaa
 aaa
-tnh
+apx
 aaa
 aaa
 aaa
@@ -107179,11 +107174,11 @@ aRT
 aLd
 aLd
 aLd
-tnh
-tnh
-tnh
-tnh
-tnh
+apx
+apx
+apx
+apx
+apx
 aLd
 aLd
 aLd
