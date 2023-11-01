@@ -28,7 +28,7 @@
 	if(special_die == "100")
 		new /obj/item/dice/d100(src)
 
-/obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
+/obj/item/storage/bag/dice/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is gambling with death! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (OXYLOSS)
 
