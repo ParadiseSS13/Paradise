@@ -16,6 +16,8 @@
 	var/obj/machinery/clonescanner/scanner
 	/// Which tab we're currently on
 	var/tab = TAB_MAIN
+	/// What feedback to give for the most recent scan.
+	var/scan_feedback
 	//datum for testing
 	var/datum/cloning_data/healthy_data = new /datum/cloning_data/
 
@@ -145,12 +147,32 @@
 	else
 		data["hasScanner"] = FALSE
 
+	data["hasScanned"] = scanner.has_scanned
+
 	if(scanner?.last_scan)
-		data["hasScanned"] = TRUE
 		data["patientLimbData"] = scanner.last_scan.limbs
+		var/list/allLimbs = list()
+		for(var/limb in scanner.last_scan.limbs)
+			allLimbs += limb
+		data["limbList"] = allLimbs
+
 		data["patientOrganData"] = scanner.last_scan.organs
-	else if(scanner && !scanner.last_scan)
-		data["hasScanned"] = FALSE
+		var/list/allOrgans = list()
+		for(var/organ in scanner.last_scan.organs)
+			allOrgans += organ
+		data["organList"] = allOrgans
+
+	data["scannerFeedback"] = scan_feedback
+
+	if(scan_feedback && scan_feedback["color"] == "good")
+		data["scanSuccessful"] = TRUE
+	else
+		data["scanSuccessful"] = FALSE
+
+	if(scanner?.occupant)
+		data["scannerHasPatient"] = TRUE
+	else
+		data["scannerHasPatient"] = FALSE
 
 	var/list/pod_data = list()
 	if(length(pods))
@@ -187,6 +209,20 @@
 		if("select_pod")
 			selected_pod = locateUID(params["uid"])
 			return TRUE
+		if("scan")
+			switch(scanner.try_scan(scanner.occupant))
+				if(SCANNER_MISC)
+					scan_feedback = list("text" = "Unable to analyze patient's genetic sequence.", "color" = "bad")
+				if(SCANNER_UNCLONEABLE_SPECIES)
+					scan_feedback = list("text" = "[scanner.occupant.dna.species.name_plural] cannot be scanned.", "color" = "bad")
+				if(SCANNER_HUSKED)
+					scan_feedback = list("text" = "The patient is husked.", "color" = "bad")
+				if(SCANNER_NO_SOUL)
+					scan_feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average")
+				if(SCANNER_SUCCESSFUL)
+					scan_feedback = list("text" = "Successfully scanned the patient.", "color" = "good")
+			return TRUE
+
 
 	src.add_fingerprint(usr)
 

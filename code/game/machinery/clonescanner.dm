@@ -9,11 +9,11 @@
 	var/datum/mind/mind
 
 	//The patient's external organs (limbs) and their data, stored as an associated list of lists.
-	//List format: limb = list(brute, burn, status, missing)
+	//List format: limb = list(brute, burn, status, missing, name)
 	var/list/limbs = list()
 
 	//The patient's internal organs and their data, stored as an associated list of lists.
-	//List format: organ = list(damage, status, missing)
+	//List format: organ = list(damage, status, missing, name)
 	var/list/organs = list()
 
 	//The patient's DNA
@@ -50,6 +50,7 @@
 #define SCANNER_HUSKED "husked"
 #define SCANNER_NO_SOUL "soulless"
 #define SCANNER_MISC "miscellanious"
+#define SCANNER_SUCCESSFUL "successful"
 
 //The cloning scanner itself.
 /obj/machinery/clonescanner
@@ -68,6 +69,8 @@
 	var/mob/living/carbon/human/occupant
 	//The scanner's latest scan result
 	var/datum/cloning_data/last_scan
+	/// Whether or not we've tried to scan the current patient
+	var/has_scanned = FALSE
 
 /obj/machinery/clonescanner/Initialize(mapload)
 	. = ..()
@@ -124,15 +127,24 @@
 		return
 	remove(user)
 
-/obj/machinery/clonescanner/proc/can_scan(mob/living/carbon/human/scanned)
+/obj/machinery/clonescanner/proc/try_scan(mob/living/carbon/human/scanned)
+	if(!scanned)
+		return
+
+	has_scanned = TRUE
+
 	if(!scanned.dna || HAS_TRAIT(scanned, TRAIT_GENELESS))
 		return SCANNER_MISC
 	if(HAS_TRAIT(scanned, TRAIT_BADDNA) && scanning_tier < 4)
 		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
 		return SCANNER_UNCLONEABLE_SPECIES
+	if(!scanned.ckey || !scanned.client)
+	//	return SCANNER_NO_SOUL COMMENTED OUT FOR TESTING
 
-	return TRUE
+	scan(scanned)
+
+	return SCANNER_SUCCESSFUL
 
 /obj/machinery/clonescanner/proc/scan(mob/living/carbon/human/scanned)
 	var/datum/cloning_data/scan_result = new /datum/cloning_data
@@ -147,18 +159,22 @@
 			scan_result.limbs[limb] = list(active_limb.brute_dam,
 											active_limb.burn_dam,
 											active_limb.status,
-											FALSE)
+											FALSE,
+											active_limb.name,
+											active_limb.max_damage)
 		else
-			scan_result.limbs[limb] = list(0, 0, 0, TRUE) //no damage if it's missing!
+			scan_result.limbs[limb] = list(0, 0, 0, TRUE, scanned.dna.species.has_limbs[limb]["descriptor"], 0) //no damage if it's missing!
 
 	for(var/organ in scanned.dna.species.has_organ)
 		var/obj/item/organ/internal/active_organ = scanned.get_int_organ(scanned.dna.species.has_organ[organ]) //this is icky
 		if(istype(active_organ))
 			scan_result.organs[organ] = list(active_organ.damage,
 											active_organ.status,
-											FALSE)
+											FALSE,
+											active_organ.name,
+											active_organ.max_damage)
 		else
-			scan_result.organs[organ] = list(0, 0, TRUE)
+			scan_result.organs[organ] = list(0, 0, TRUE, organ, 0)
 
 	last_scan = scan_result
 	return scan_result
@@ -177,6 +193,7 @@
 		return
 	removed.forceMove(loc)
 	occupant = null
+	has_scanned = FALSE
 
 /obj/machinery/clonescanner/multitool_act(mob/user, obj/item/I)
 	. = TRUE
