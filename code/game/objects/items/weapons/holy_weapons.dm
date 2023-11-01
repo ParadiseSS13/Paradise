@@ -45,7 +45,7 @@
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
 	if(sanctify_force)
-		if(!user.mind || !HAS_TRAIT(user.mind, TRAIT_HOLY))
+		if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
 			user.Weaken(10 SECONDS)
@@ -57,7 +57,7 @@
 
 
 /obj/item/nullrod/attack_self(mob/user)
-	if(HAS_TRAIT(user.mind, TRAIT_HOLY) && !reskinned)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY) && !reskinned)
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/examine(mob/living/user)
@@ -467,7 +467,7 @@
 /obj/item/nullrod/carp/attack_self(mob/living/user)
 	if(used_blessing)
 		return
-	if(user.mind && !HAS_TRAIT(user.mind, TRAIT_HOLY))
+	if(user.mind && !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		return
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
@@ -539,7 +539,7 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(!user.mind || !HAS_TRAIT(user.mind, TRAIT_HOLY))
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
 		return
 
@@ -592,7 +592,7 @@
 
 /obj/item/nullrod/salt/attack_self(mob/user)
 
-	if(!user.mind || !HAS_TRAIT(user.mind, TRAIT_HOLY))
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
 		return
 

@@ -126,7 +126,8 @@
 			: FALSE)\
 		: FALSE)
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (length(target.status_traits[trait] - source) > 0) : FALSE) : FALSE)
-
+//Mind trait defines
+#define HAS_MIND_TRAIT(target, trait) (HAS_TRAIT(target, trait) || (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
 /// Gives a unique trait source for any given datum
 #define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
 
@@ -216,9 +217,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
 #define TRAIT_BADASS "trait_badass"
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
-#define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
+
+//***** MIND TRAITS *****/
+#define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
