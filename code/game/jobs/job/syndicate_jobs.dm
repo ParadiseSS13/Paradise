@@ -23,7 +23,7 @@
 	back = /obj/item/storage/backpack
 	head = /obj/item/clothing/head/beret
 	gloves = /obj/item/clothing/gloves/combat
-	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
+	shoes = /obj/item/clothing/shoes/magboots/elite
 	mask = /obj/item/clothing/mask/holo_cigar
 	belt = /obj/item/storage/belt/military
 	l_ear = /obj/item/radio/headset/syndicate/alt/syndteam
