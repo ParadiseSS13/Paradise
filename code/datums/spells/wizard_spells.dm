@@ -370,6 +370,15 @@
 	selection_activated_message		= "<span class='notice'>Your prepare to cast your homing toolbox! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You unrobust your toolbox...for now.</span>"
 
+/obj/effect/proc_holder/spell/fireball/homing
+	name = "Greater Homing Fireball"
+	desc = "This spell fires a strong homing fireball at a target."
+	invocation = "ZI-ONI SOMA"
+	fireball_type = /obj/item/projectile/homing/magic/homing_fireball
+
+	selection_activated_message	= "<span class='notice'>Your prepare to cast your greater homing fireball spell! <B>Left-click to cast at a target!</B></span>"
+	base_cooldown = 6 SECONDS
+
 /obj/effect/proc_holder/spell/aoe/repulse
 	name = "Repulse"
 	desc = "This spell throws everything around the user away."

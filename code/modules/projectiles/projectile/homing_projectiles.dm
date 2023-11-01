@@ -50,3 +50,43 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/E = pick(H.bodyparts)
 		E.add_embedded_object(T)
+
+/obj/item/projectile/homing/magic/homing_fireball
+	name = "greater bolt of fireball"
+	icon_state = "fireball"
+	damage = 20
+	damage_type = BRUTE
+	nodamage = FALSE
+
+	//explosion values
+	var/exp_devastate = 0
+	var/exp_heavy = 1
+	var/exp_light = 3
+	var/exp_flash = 4
+	var/exp_fire = 3
+
+/obj/item/projectile/homing/magic/homing_fireball/Range()
+	var/turf/T1 = get_step(src,turn(dir, -45))
+	var/turf/T2 = get_step(src,turn(dir, 45))
+	var/turf/T3 = get_step(src,dir)
+	var/mob/living/L = locate(/mob/living) in T1 //if there's a mob alive in our front right diagonal, we hit it.
+	if(L && L.stat != DEAD)
+		Bump(L) //Magic Bullet #teachthecontroversy
+		return
+	L = locate(/mob/living) in T2
+	if(L && L.stat != DEAD)
+		Bump(L)
+		return
+	L = locate(/mob/living) in T3
+	if(L && L.stat != DEAD)
+		Bump(L)
+		return
+	..()
+
+/obj/item/projectile/homing/magic/homing_fireball/on_hit(target)
+	. = ..()
+	var/turf/T = get_turf(target)
+	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
+	if(ismob(target)) //multiple flavors of pain
+		var/mob/living/M = target
+		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
