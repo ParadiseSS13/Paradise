@@ -180,12 +180,11 @@
 
 	// Let's say burning boiling oil doubles in volume, can our max volume contain that?
 	var/boil_overflow = (holder.total_volume + volume) - holder.maximum_volume
-	var/violent = boil_overflow > 0
 
 	var/turf/T = get_turf(holder.my_atom)
 	var/smoke_type = /datum/effect_system/smoke_spread
 
-	if(violent)
+	if(boil_overflow > 0)
 		holder.my_atom.visible_message("<span class='boldwarning'>The oil boils out and burns violently!</span>")
 		// Log -> remove reagent -> fireflash, else the log fails or fireflash triggers a reaction again
 		fire_flash_log(holder, id)
