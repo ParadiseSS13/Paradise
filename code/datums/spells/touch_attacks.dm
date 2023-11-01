@@ -71,6 +71,3 @@
 	cooldown_min = 200 //100 deciseconds reduction per rank
 
 	action_icon_state = "statue"
-
-/obj/effect/proc_holder/spell/touch/flesh_to_stone/apprentice
-	hand_path = /obj/item/melee/touch_attack/fleshtostone/apprentice
