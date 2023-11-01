@@ -132,8 +132,10 @@
 /datum/spellbook_entry/loadout/fireball/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(!user)
 		return
-	qdel(user.wear_suit)
-	qdel(user.head)
+	if(user.wear_suit)
+		qdel(user.wear_suit)
+	if(user.head)
+		qdel(user.head)
 
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
