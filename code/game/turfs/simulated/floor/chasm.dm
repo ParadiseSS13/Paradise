@@ -30,6 +30,8 @@
 		/obj/effect/spawner,
 		/obj/structure/railing,
 		/obj/machinery/atmospherics/pipe/simple,
+		/obj/effect/projectile,
+		/obj/effect/projectile_lighting,
 		/mob/living/simple_animal/hostile/megafauna //failsafe
 		))
 	var/drop_x = 1
