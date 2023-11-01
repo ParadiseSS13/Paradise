@@ -195,7 +195,7 @@
 		should_recharge_after_cast = TRUE
 		return
 	var/wall_count
-	for(var/turf/T in getline(target_turf, start_turf))
+	for(var/turf/T in get_line(target_turf, start_turf))
 		if(max_walls <= wall_count)
 			break
 		new /obj/structure/blood_barrier(T)
