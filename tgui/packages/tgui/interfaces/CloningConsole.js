@@ -185,10 +185,10 @@ const CloningConsoleDamage = (props, context) => {
       <Section layer={2} title="Damages Breakdown">
         <Box>{/* Mass-selection buttons for fixing and stuff TBD later*/}</Box>
         <Box>
-          {!scanSuccessful && (
+          {(!scanSuccessful || !hasScanned) && (
             <Box color="average">No valid scan detected.</Box>
           )}
-          {!!scanSuccessful && (
+          {!!scanSuccessful && !!hasScanned && (
             <Box>
               <LimbsMenu />
               <OrgansMenu />
