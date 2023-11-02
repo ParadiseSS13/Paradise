@@ -314,14 +314,17 @@
 */
 /obj/machinery/teleport/proc/blockAI(atom/A)
 	if(isAI(A) || istype(A, /obj/structure/AIcore))
-		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
 		if(isAI(A))
 			var/mob/living/silicon/ai/T = A
+			if(T.allow_teleporter)
+				return FALSE
 			var/list/TPError = list("<span class='warning'>Firmware instructions dictate you must remain on your assigned station!</span>",
 			"<span class='warning'>You cannot interface with this technology and get rejected!</span>",
 			"<span class='warning'>External firewalls prevent you from utilizing this machine!</span>",
 			"<span class='warning'>Your AI core's anti-bluespace failsafes trigger and prevent teleportation!</span>")
 			to_chat(T, "[pick(TPError)]")
+
+		visible_message("<span class='warning'>The teleporter rejects the AI unit.</span>")
 		return TRUE
 	return FALSE
 

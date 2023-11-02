@@ -178,32 +178,31 @@
 	if(exposed_temperature <= T0C + 600)
 		return
 
-	var/violent = volume > 30
-	var/message_type = violent ? "class='boldwarning'" : "class='warning'"
-	holder.my_atom.visible_message("<span [message_type]>The oil [violent ? "boils and burns violently" : "burns"]!</span>")
+	// Let's say burning boiling oil doubles in volume, can our max volume contain that?
+	var/boil_overflow = (holder.total_volume + volume) - holder.maximum_volume
 
-	var/datum/reagents/old_holder = holder
 	var/turf/T = get_turf(holder.my_atom)
 	var/smoke_type = /datum/effect_system/smoke_spread
 
-	if(violent)
-		// Log -> remove reagent -> fireflash. Else the log fails or fireflash triggers a reaction again
+	if(boil_overflow > 0)
+		holder.my_atom.visible_message("<span class='boldwarning'>The oil boils out and burns violently!</span>")
+		// Log -> remove reagent -> fireflash, else the log fails or fireflash triggers a reaction again
 		fire_flash_log(holder, id)
 		holder.del_reagent(id)
-		fireflash(T, clamp(volume / 40, 0, 8))
+		fireflash(T, clamp(boil_overflow / 40, 0, 8))
 
 		smoke_type = /datum/effect_system/smoke_spread/bad
 	else
+		holder.my_atom.visible_message("<span class='notice'>The oil sizzles and burns down into residue.</span>")
+		var/datum/reagents/old_holder = holder // We might not have space if we add first, so cache this and add after deleting
 		holder.del_reagent(id)
+		old_holder.add_reagent(reagent_after_burning, volume * 0.6)
 
 	// Flavor reaction effects
 	playsound(T, 'sound/goonstation/misc/drinkfizz.ogg', 80, TRUE)
 	var/datum/effect_system/smoke_spread/BS = new smoke_type
 	BS.set_up(1, FALSE, T)
 	BS.start()
-
-	if(!QDELETED(old_holder) && reagent_after_burning)
-		old_holder.add_reagent(reagent_after_burning, round(volume * 0.5))
 
 /datum/reagent/oil/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T) && !(locate(/obj/effect/decal/cleanable/blood/oil) in T))
@@ -225,7 +224,6 @@
 	name = "Burned Cooking Oil"
 	description = "It's full of char and mixed with so much crud it's probably useless."
 	id = "cooking_oil_inert"
-	reagent_after_burning = null
 
 /datum/reagent/oil/cooking/inert/reaction_temperature(exposed_temperature, exposed_volume)
 	// don't do anything
