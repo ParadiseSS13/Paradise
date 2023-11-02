@@ -1,8 +1,14 @@
-import { toFixed } from 'common/math'
-import { useBackend } from '../backend'
-import { BlockQuote, Button, LabeledList, Section, Slider } from '../components'
-import { Window } from '../layouts'
-import { ComplexModal, modalOpen } from './common/ComplexModal'
+import { toFixed } from 'common/math';
+import { useBackend } from '../backend';
+import {
+  BlockQuote,
+  Button,
+  LabeledList,
+  Section,
+  Slider,
+} from '../components';
+import { Window } from '../layouts';
+import { ComplexModal, modalOpen } from './common/ComplexModal';
 
 const pathCodeMap = new Map([
   [
@@ -68,27 +74,27 @@ export const MagnetController = (props, context) => {
     <Window resizable>
       <ComplexModal />
       <Window.Content scrollable>
-        {!autolink && <Section
-          buttons={
-            <Button
-              content="Probe"
-              icon={probing ? "spinner" : "sync"}
-              iconSpin={!!probing}
-              disabled={probing}
-              onClick={() => act("probe_magnets")}
-            />
-          }
-          title="Magnet Linking"
-        >
-          <LabeledList>
-            <LabeledList.Item label="Frequency">
-              {toFixed(frequency / 10, 1)}
-            </LabeledList.Item>
-            <LabeledList.Item label="Code">
-              {code}
-            </LabeledList.Item>
-          </LabeledList>
-        </Section>}
+        {!autolink && (
+          <Section
+            buttons={
+              <Button
+                content="Probe"
+                icon={probing ? 'spinner' : 'sync'}
+                iconSpin={!!probing}
+                disabled={probing}
+                onClick={() => act('probe_magnets')}
+              />
+            }
+            title="Magnet Linking"
+          >
+            <LabeledList>
+              <LabeledList.Item label="Frequency">
+                {toFixed(frequency / 10, 1)}
+              </LabeledList.Item>
+              <LabeledList.Item label="Code">{code}</LabeledList.Item>
+            </LabeledList>
+          </Section>
+        )}
         <Section
           buttons={
             <Button
@@ -108,21 +114,23 @@ export const MagnetController = (props, context) => {
                 maxValue={speed.max}
                 stepPixelSize={20}
                 onChange={(e, value) =>
-                  act("set_speed", {
+                  act('set_speed', {
                     newValue: value,
                   })
                 }
               />
             </LabeledList.Item>
             <LabeledList.Item label="Path">
-              {Array.from(pathCodeMap.entries()).map(([ code, { icon, tooltip } ]) => (
-                <Button
-                  key={code}
-                  icon={icon}
-                  tooltip={tooltip}
-                  onClick={() => act(`path_add`, { code: code })}
-                />
-              ))}
+              {Array.from(pathCodeMap.entries()).map(
+                ([code, { icon, tooltip }]) => (
+                  <Button
+                    key={code}
+                    icon={icon}
+                    tooltip={tooltip}
+                    onClick={() => act(`path_add`, { code: code })}
+                  />
+                )
+              )}
               <Button.Confirm
                 icon="trash"
                 confirmIcon="trash"
@@ -141,12 +149,14 @@ export const MagnetController = (props, context) => {
               />
               <BlockQuote>
                 {path.map((code, i) => {
-                  let { icon, tooltip } = pathCodeMap.get(code) || { icon: 'question' };
+                  let { icon, tooltip } = pathCodeMap.get(code) || {
+                    icon: 'question',
+                  };
                   return (
                     <Button.Confirm
                       key={i}
                       // Do not know why + 2 works but it does.
-                      selected={(i + 2) === pathPosition}
+                      selected={i + 2 === pathPosition}
                       icon={icon}
                       confirmIcon={icon}
                       confirmContent=""
@@ -154,7 +164,7 @@ export const MagnetController = (props, context) => {
                       onClick={() =>
                         act('path_remove', {
                           index: i + 1,
-                          code: code
+                          code: code,
                         })
                       }
                     />
@@ -164,57 +174,59 @@ export const MagnetController = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        {linkedMagnets.map(({ uid, powerState, electricityLevel, magneticField, }, i) => {
-          return (
-            <Section
-              key={uid}
-              title={`Magnet #${i + 1} Configuration`}
-              buttons={
-                <Button
-                  icon={powerState ? 'power-off' : 'times'}
-                  content={powerState ? 'On' : 'Off'}
-                  selected={powerState}
-                  onClick={() =>
-                    act('toggle_magnet_power', {
-                      id: uid,
-                    })
-                  }
-                />
-              }
-            >
-              <LabeledList>
-                <LabeledList.Item label="Move Speed">
-                  <Slider
-                    value={electricityLevel}
-                    minValue={magnetConfiguration.electricityLevel.min}
-                    maxValue={magnetConfiguration.electricityLevel.max}
-                    stepPixelSize={20}
-                    onChange={(e, value) =>
-                      act("set_electricity_level", {
+        {linkedMagnets.map(
+          ({ uid, powerState, electricityLevel, magneticField }, i) => {
+            return (
+              <Section
+                key={uid}
+                title={`Magnet #${i + 1} Configuration`}
+                buttons={
+                  <Button
+                    icon={powerState ? 'power-off' : 'times'}
+                    content={powerState ? 'On' : 'Off'}
+                    selected={powerState}
+                    onClick={() =>
+                      act('toggle_magnet_power', {
                         id: uid,
-                        newValue: value,
                       })
                     }
                   />
-                </LabeledList.Item>
-                <LabeledList.Item label="Field Size">
-                  <Slider
-                    value={magneticField}
-                    minValue={magnetConfiguration.magneticField.min}
-                    maxValue={magnetConfiguration.magneticField.max}
-                    stepPixelSize={20}
-                    onChange={(e, value) =>
-                      act("set_magnetic_field", {
-                        id: uid,
-                        newValue: value,
-                      })
-                    }
-                  />
-                </LabeledList.Item>
-              </LabeledList>
-            </Section>
-          );
-        })}
+                }
+              >
+                <LabeledList>
+                  <LabeledList.Item label="Move Speed">
+                    <Slider
+                      value={electricityLevel}
+                      minValue={magnetConfiguration.electricityLevel.min}
+                      maxValue={magnetConfiguration.electricityLevel.max}
+                      stepPixelSize={20}
+                      onChange={(e, value) =>
+                        act('set_electricity_level', {
+                          id: uid,
+                          newValue: value,
+                        })
+                      }
+                    />
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Field Size">
+                    <Slider
+                      value={magneticField}
+                      minValue={magnetConfiguration.magneticField.min}
+                      maxValue={magnetConfiguration.magneticField.max}
+                      stepPixelSize={20}
+                      onChange={(e, value) =>
+                        act('set_magnetic_field', {
+                          id: uid,
+                          newValue: value,
+                        })
+                      }
+                    />
+                  </LabeledList.Item>
+                </LabeledList>
+              </Section>
+            );
+          }
+        )}
       </Window.Content>
     </Window>
   );
