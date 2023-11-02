@@ -83,10 +83,8 @@
 		return
 	..()
 
-/obj/item/projectile/homing/magic/homing_fireball/on_hit(target)
+/obj/item/projectile/homing/magic/homing_fireball/on_hit(mob/living/target)
 	. = ..()
-	var/turf/T = get_turf(target)
-	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
-	if(ismob(target)) //multiple flavors of pain
-		var/mob/living/M = target
-		M.adjustFireLoss(10) // does 20 brute, and 10 burn + explosion. Pretty brutal.
+	explosion(get_turf(target), exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
+	if(istype(target)) //multiple flavors of pain
+		target.adjustFireLoss(10) // does 20 brute, and 10 burn + explosion. Pretty brutal.
