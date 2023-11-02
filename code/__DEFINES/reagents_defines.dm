@@ -25,6 +25,7 @@
 ///Amount of synthflesh required to unhusk someone
 #define SYNTHFLESH_UNHUSK_AMOUNT 100
 
+///Syringe mob interaction modes
 #define SYRINGE_DRAW 0
 #define SYRINGE_INJECT 1
 #define SYRINGE_BROKEN 2
