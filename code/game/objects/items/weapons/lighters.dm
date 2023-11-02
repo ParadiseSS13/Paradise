@@ -5,8 +5,8 @@
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
-	icon_state = "lighter-g"
-	item_state = "lighter-g"
+	icon_state = "lighter-"
+	item_state = "lighter-"
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 4
 	flags = CONDUCT
@@ -20,10 +20,13 @@
 	var/next_off_message
 	var/lighter_color = "g"
 
-/obj/item/lighter/random/New()
-	..()
+/obj/item/lighter/Initialize(mapload)
+	. = ..()
+	icon_state = "[icon_state][lighter_color]"
+
+/obj/item/lighter/random/Initialize(mapload)
 	lighter_color = pick("r","c","y","g")
-	icon_state = "lighter-[lighter_color]"
+	. = ..()
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
@@ -119,11 +122,11 @@
 	return
 
 /obj/item/lighter/update_icon_state()
-	icon_state = "lighter-[lighter_color][lit ? "-on" : ""]"
+	icon_state = "[initial(icon_state)][lighter_color][lit ? "-on" : ""]"
 	return ..()
 
 /obj/item/lighter/update_overlays()
-	item_state = "lighter-[lighter_color][lit ? "-on" : ""]"
+	item_state = "[initial(icon_state)][lighter_color][lit ? "-on" : ""]"
 	return ..()
 
 // Zippo lighters
@@ -132,6 +135,7 @@
 	desc = "The zippo."
 	icon_state = "zippo"
 	item_state = "zippo"
+	lighter_color = ""
 
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
