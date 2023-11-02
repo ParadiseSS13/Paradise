@@ -120,7 +120,9 @@
 	id_tag = "bayext1";
 	name = "mining drone bay blast door"
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/drone_bay)
 "at" = (
@@ -128,7 +130,9 @@
 	id_tag = "bayext2";
 	name = "mining drone bay blast door"
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/drone_bay)
 "au" = (
@@ -136,7 +140,9 @@
 	id_tag = "bayext3";
 	name = "mining drone bay blast door"
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/drone_bay)
 "av" = (
@@ -144,7 +150,9 @@
 	id_tag = "bayext4";
 	name = "mining drone bay blast door"
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/drone_bay)
 "aw" = (
@@ -211,7 +219,9 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/drone_bay)
 "aG" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/onehalf/drone_bay)
 "aH" = (
@@ -387,16 +397,22 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "ba" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "bb" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "bc" = (
@@ -615,7 +631,9 @@
 /area/ruin/space/onehalf/hallway)
 "by" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "bz" = (
@@ -1293,7 +1311,9 @@
 	name = "Mining Drone Bay APC";
 	pixel_y = 24
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/drone_bay)
 "Ab" = (

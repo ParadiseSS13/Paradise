@@ -235,47 +235,10 @@
 				return
 			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L)) //xenobio moment
 				continue
-			new /obj/effect/temp_visual/lwap_ping(owner.loc, owner, L)
+			new /obj/effect/temp_visual/single_user/lwap_ping(owner.loc, owner, L)
 			locks++
 
 #undef LWAP_LOCK_CAP
-
-/obj/effect/temp_visual/lwap_ping
-	duration = 0.5 SECONDS
-	randomdir = FALSE
-	icon = 'icons/obj/projectiles.dmi'
-	/// The image shown to lwap users
-	var/image/lwap_image
-	/// The person with the lwap at the moment, really just used to remove this from their screen
-	var/source_UID
-	/// The icon state applied to the image created for this ping.
-	var/real_icon_state = "red_laser"
-
-/obj/effect/temp_visual/lwap_ping/Initialize(mapload, mob/living/looker, mob/living/creature)
-	. = ..()
-	if(!looker || !creature)
-		return INITIALIZE_HINT_QDEL
-	lwap_image = image(icon = icon, loc = src, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * 32), pixel_y = ((creature.y - looker.y) * 32))
-	lwap_image.plane = ABOVE_LIGHTING_PLANE
-	lwap_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	source_UID = looker.UID()
-	add_mind(looker)
-
-/obj/effect/temp_visual/lwap_ping/Destroy()
-	var/mob/living/previous_user = locateUID(source_UID)
-	if(previous_user)
-		remove_mind(previous_user)
-	// Null so we don't shit the bed when we delete
-	lwap_image = null
-	return ..()
-
-/// Add the image to the lwap user's screen
-/obj/effect/temp_visual/lwap_ping/proc/add_mind(mob/living/looker)
-	looker.client?.images |= lwap_image
-
-/// Remove the image from the lwap user's screen
-/obj/effect/temp_visual/lwap_ping/proc/remove_mind(mob/living/looker)
-	looker.client?.images -= lwap_image
 
 /datum/status_effect/delayed
 	id = "delayed_status_effect"
