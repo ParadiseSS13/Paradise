@@ -5864,10 +5864,6 @@
 	dir = 8
 	},
 /area/ruin/space/unpowered)
-"tU" = (
-/obj/structure/alien/weeds,
-/turf/simulated/wall/r_wall,
-/area/ruin/space/unpowered)
 "tV" = (
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "red"
@@ -6659,6 +6655,16 @@
 /area/ruin/space/unpowered)
 "xL" = (
 /turf/simulated/floor/plasteel/stairs{
+	dir = 8
+	},
+/area/ruin/space/unpowered)
+"xM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/splatter{
+	color = s
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white";
 	dir = 8
 	},
 /area/ruin/space/unpowered)
@@ -7483,14 +7489,6 @@
 	dir = 6
 	},
 /area/ruin/space/unpowered)
-"Ba" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitecorner";
-	dir = 8
-	},
-/area/ruin/space/unpowered)
 "Bd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -7729,14 +7727,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitehall"
-	},
-/area/ruin/space/unpowered)
-"Cl" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "cautioncorner";
-	dir = 4
 	},
 /area/ruin/space/unpowered)
 "Cm" = (
@@ -13993,7 +13983,7 @@ kM
 aC
 il
 fi
-Oc
+xM
 Ap
 Kb
 AS
@@ -15011,7 +15001,7 @@ aK
 Hx
 aK
 qx
-Cl
+Ak
 gl
 dz
 jU
@@ -15168,7 +15158,7 @@ ag
 af
 oL
 tx
-tU
+ag
 ag
 ag
 lM
@@ -15405,7 +15395,7 @@ Pr
 Af
 UH
 iG
-Ba
+QS
 PF
 NS
 aA
@@ -15582,7 +15572,7 @@ XX
 Pr
 dT
 ag
-tU
+ag
 uS
 QM
 rK
@@ -15590,7 +15580,7 @@ ag
 XM
 ak
 Er
-sy
+ag
 ag
 af
 af
