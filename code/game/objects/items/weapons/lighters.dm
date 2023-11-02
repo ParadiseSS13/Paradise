@@ -22,7 +22,7 @@
 
 /obj/item/lighter/random/New()
 	..()
-	lighter_color = pick("r","c","y","g")
+	lighter_color = pick("r", "c", "y", "g")
 	icon_state = "lighter-[lighter_color]"
 
 /obj/item/lighter/attack_self(mob/living/user)
