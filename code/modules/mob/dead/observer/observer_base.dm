@@ -796,7 +796,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
  * Returns TRUE if the player can rejoin, and FALSE if the player is ineligible to rejoin.
  * If allow_roundstart_observers is FALSE (TRUE by default), then any observers who were able to ahud due to joining roundstart will be excluded as well.
  */
-/mob/dead/observer/proc/check_ahud_rejoin_eligibility(allow_roundstart_observers=TRUE)
+/mob/dead/observer/proc/check_ahud_rejoin_eligibility(allow_roundstart_observers = TRUE)
 	if(!GLOB.configuration.general.restrict_antag_hud_rejoin || !has_ahudded())
 		return TRUE
 
