@@ -1,22 +1,24 @@
+/// A limb that's not missing with no damages or flags.
 #define HEALTHY_LIMB list(0, 0, 0, FALSE)
+/// As above, but for organs.
 #define HEALTHY_ORGAN list(0, 0, FALSE)
 
-//A datum to store the information gained by scanning a patient OR the fixes to be made to their body.
+/// A datum to store the information gained by scanning a patient OR the fixes to be made to their body.
 /datum/cloning_data
-	//The patient's name.
+	/// The patient's name.
 	var/name
-	//The patient's mind.
+	/// The patient's mind.
 	var/datum/mind/mind
 
-	//The patient's external organs (limbs) and their data, stored as an associated list of lists.
-	//List format: limb = list(brute, burn, status, missing, name)
+	/// The patient's external organs (limbs) and their data, stored as an associated list of lists.
+	/// List format: limb = list(brute, burn, status, missing, name)
 	var/list/limbs = list()
 
-	//The patient's internal organs and their data, stored as an associated list of lists.
-	//List format: organ = list(damage, status, missing, name)
+	/// The patient's internal organs and their data, stored as an associated list of lists.
+	/// List format: organ = list(damage, status, missing, name)
 	var/list/organs = list()
 
-	//The patient's DNA
+	/// The patient's DNA
 	var/datum/dna/genetic_info
 
 //this is mostly an example
