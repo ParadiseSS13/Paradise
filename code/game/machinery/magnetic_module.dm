@@ -286,10 +286,10 @@
 			if(moving)
 				INVOKE_ASYNC(src, PROC_REF(MagnetMove))
 		if("set_speed")
-			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
+			var/new_speed = text2num(params["speed"])
+			if(new_speed == null)
 				return
-			speed = clamp(new_value, MIN_CONTROLLER_SPEED, MAX_CONTROLLER_SPEED)
+			speed = clamp(new_speed, MIN_CONTROLLER_SPEED, MAX_CONTROLLER_SPEED)
 
 		if("path_add")
 			if(length(rpath) >= MAX_PATH_LENGTH / 2)
@@ -328,18 +328,18 @@
 			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
 			if(!magnet)
 				return
-			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
+			var/newElectricityLevel = text2num(params["electricityLevel"])
+			if(newElectricityLevel == null)
 				return
-			magnet.Cmd("set-electriclevel", clamp(new_value, MIN_ELECTRICITY_LEVEL, MAX_ELECTRICITY_LEVEL))
+			magnet.Cmd("set-electriclevel", clamp(newElectricityLevel, MIN_ELECTRICITY_LEVEL, MAX_ELECTRICITY_LEVEL))
 		if("set_magnetic_field")
 			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
 			if(!magnet)
 				return
-			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
+			var/newMagneticField = text2num(params["magneticField"])
+			if(newMagneticField == null)
 				return
-			magnet.Cmd("set-magneticfield", clamp(new_value, MIN_MAGNETIC_FIELD, MAX_MAGNETIC_FIELD))
+			magnet.Cmd("set-magneticfield", clamp(newMagneticField, MIN_MAGNETIC_FIELD, MAX_MAGNETIC_FIELD))
 
 /obj/machinery/magnetic_controller/ui_data(mob/user)
 	var/data = list()

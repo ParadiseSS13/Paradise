@@ -115,7 +115,7 @@ export const MagnetController = (props, context) => {
                 stepPixelSize={20}
                 onChange={(e, value) =>
                   act('set_speed', {
-                    newValue: value,
+                    speed: value,
                   })
                 }
               />
@@ -203,7 +203,7 @@ export const MagnetController = (props, context) => {
                       onChange={(e, value) =>
                         act('set_electricity_level', {
                           id: uid,
-                          newValue: value,
+                          electricityLevel: value,
                         })
                       }
                     />
@@ -217,7 +217,7 @@ export const MagnetController = (props, context) => {
                       onChange={(e, value) =>
                         act('set_magnetic_field', {
                           id: uid,
-                          newValue: value,
+                          magneticField: value,
                         })
                       }
                     />
