@@ -1,20 +1,13 @@
 import { decodeHtmlEntities } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Icon,
-  LabeledList,
-  Section,
-  Tabs,
-} from '../components';
+import { Box, Button, Icon, LabeledList, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { RecordsTable } from './common/RecordsTable'
+import { RecordsTable } from './common/RecordsTable';
 
 const statusStyles = {
   '*Execute*': 'execute',
@@ -94,47 +87,49 @@ const SecurityRecordsNavigation = (properties, context) => {
 
 const SecurityRecordsPageList = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    isPrinting,
-    records,
-  } = data;
+  const { isPrinting, records } = data;
   return (
     <RecordsTable
       columns={[
-        { id: 'name', name: 'Name', },
-        { id: 'id', name: 'ID', },
-        { id: 'rank', name: 'Assignment', },
-        { id: 'fingerprint', name: 'Fingerprint', },
-        { id: 'status', name: 'Criminal Status', },
+        { id: 'name', name: 'Name' },
+        { id: 'id', name: 'ID' },
+        { id: 'rank', name: 'Assignment' },
+        { id: 'fingerprint', name: 'Fingerprint' },
+        { id: 'status', name: 'Criminal Status' },
       ]}
       data={records}
       datumID={(datum) => datum.id}
-
-      leftButtons={<>
-        <Button
-          content="New Record"
-          icon="plus"
-          onClick={() => act('new_general')}
-        />
-        <Button
-          disabled={isPrinting}
-          icon={isPrinting ? 'spinner' : 'print'}
-          iconSpin={!!isPrinting}
-          content="Print Cell Log"
-          onClick={() => modalOpen(context, 'print_cell_log')}
-        />
-      </>}
+      leftButtons={
+        <>
+          <Button
+            content="New Record"
+            icon="plus"
+            onClick={() => act('new_general')}
+          />
+          <Button
+            disabled={isPrinting}
+            icon={isPrinting ? 'spinner' : 'print'}
+            iconSpin={!!isPrinting}
+            content="Print Cell Log"
+            onClick={() => modalOpen(context, 'print_cell_log')}
+          />
+        </>
+      }
       searchPlaceholder="Search by Name, ID, Assignment, Fingerprint, Status"
-
       datumRowProps={(datum) => ({
         className: `SecurityRecords__listRow--${statusStyles[datum.status]}`,
-        onClick: () => act('view', {
-          uid_gen: datum.uid_gen,
-          uid_sec: datum.uid_sec,
-        }),
+        onClick: () =>
+          act('view', {
+            uid_gen: datum.uid_gen,
+            uid_sec: datum.uid_sec,
+          }),
       })}
       datumCellChildren={{
-        name: (value) => <><Icon name="user" /> {value}</>,
+        name: (value) => (
+          <>
+            <Icon name="user" /> {value}
+          </>
+        ),
       }}
     />
   );

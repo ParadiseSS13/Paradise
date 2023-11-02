@@ -1,8 +1,8 @@
 import { classes, pureComponentHooks } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from './Box';
-import { Component } from 'inferno'
-import { Button } from './Button'
-import { Icon } from './Icon'
+import { Component } from 'inferno';
+import { Button } from './Button';
+import { Icon } from './Icon';
 
 export const Table = (props) => {
   const { className, collapsing, children, ...rest } = props;
@@ -57,13 +57,7 @@ export const TableCell = (props) => {
 };
 
 const resolveFunctionalProp = (props, ...data) =>
-  props
-  ? props instanceof Function
-    ? props(...data)
-    : props
-  : undefined
-  ;
-
+  props ? (props instanceof Function ? props(...data) : props) : undefined;
 class HoverableIcon extends Component {
   constructor() {
     super();
@@ -71,22 +65,16 @@ class HoverableIcon extends Component {
       hovering: false,
     };
     this.handleMouseOver = (e) => {
-      this.setState({ hovering: true, });
+      this.setState({ hovering: true });
     };
     this.handleMouseOut = (e) => {
-      this.setState({ hovering: false, });
-    }
+      this.setState({ hovering: false });
+    };
   }
 
   render() {
-    const {
-      hoverIcon,
-      name,
-      ...rest
-    } = this.props;
-    const {
-      hovering
-    } = this.state;
+    const { hoverIcon, name, ...rest } = this.props;
+    const { hovering } = this.state;
     return (
       <Icon
         name={hovering ? hoverIcon : name}
@@ -94,7 +82,7 @@ class HoverableIcon extends Component {
         onMouseOver={this.handleMouseOver}
         onMouseOut={this.handleMouseOut}
       />
-    )
+    );
   }
 }
 
@@ -103,10 +91,7 @@ class SortableTable extends Component {
     super();
     this.state = {
       // Allow null
-      sortId: props.sortId === undefined
-        ? props.columns[0].id
-        : props.sortId
-        ,
+      sortId: props.sortId === undefined ? props.columns[0].id : props.sortId,
       sortOrder: props.sortOrder ?? 1,
     };
   }
@@ -125,10 +110,7 @@ class SortableTable extends Component {
       datumCellChildren,
       ...rest
     } = this.props;
-    const {
-      sortId,
-      sortOrder,
-    } = this.state;
+    const { sortId, sortOrder } = this.state;
 
     const columnHeaders = columns.map(({ id, name }) => {
       return (
@@ -160,7 +142,7 @@ class SortableTable extends Component {
                 right={0}
                 top="50%"
                 style={{
-                  transform: "translate(0, -50%)"
+                  transform: 'translate(0, -50%)',
                 }}
                 onClick={(e) => {
                   this.setState({
@@ -184,33 +166,30 @@ class SortableTable extends Component {
         }
       })
       .map((datum) => {
-        let cells = columns
-          .map(({ id, name }) => {
-            return (
-              <Table.Cell
-                key={id}
-                {...resolveFunctionalProp(datumCellProps?.all, datum[id]) ?? []}
-                {...resolveFunctionalProp(datumCellProps?.[id], datum[id]) ?? []}
-              >
-                {resolveFunctionalProp(datumCellChildren?.[id], datum[id]) ?? datum[id]}
-              </Table.Cell>
-            );
-          })
-          ;
-
+        let cells = columns.map(({ id, name }) => {
+          return (
+            <Table.Cell
+              key={id}
+              {...(resolveFunctionalProp(datumCellProps?.all, datum[id]) ?? [])}
+              {...(resolveFunctionalProp(datumCellProps?.[id], datum[id]) ??
+                [])}
+            >
+              {resolveFunctionalProp(datumCellChildren?.[id], datum[id]) ??
+                datum[id]}
+            </Table.Cell>
+          );
+        });
         return (
           <Table.Row
             key={datumID(datum)}
-            {...resolveFunctionalProp(datumRowProps, datum) ?? []}
+            {...(resolveFunctionalProp(datumRowProps, datum) ?? [])}
           >
             {cells}
           </Table.Row>
         );
-      })
-      ;
-
+      });
     return (
-      <Table className={classes([ 'SortableTable', className, ])} {...rest}>
+      <Table className={classes(['SortableTable', className])} {...rest}>
         <Table.Row bold {...headerRowProps}>
           {columnHeaders}
         </Table.Row>

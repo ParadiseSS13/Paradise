@@ -1,8 +1,8 @@
-import { Component } from 'inferno'
-import { Flex, Input, Section, Table } from '../../components'
-import { FlexItem } from '../../components/Flex'
-import { createSearch } from 'common/string'
-import { classes } from 'common/react'
+import { Component } from 'inferno';
+import { Flex, Input, Section, Table } from '../../components';
+import { FlexItem } from '../../components/Flex';
+import { createSearch } from 'common/string';
+import { classes } from 'common/react';
 
 export class RecordsTable extends Component {
   constructor() {
@@ -21,9 +21,7 @@ export class RecordsTable extends Component {
       searchPlaceholder,
       ...rest
     } = this.props;
-    const {
-      searchText,
-    } = this.state;
+    const { searchText } = this.state;
     return (
       <Flex direction="column" height="100%">
         <Flex className="RecordsTable_Toolbar">
@@ -39,15 +37,14 @@ export class RecordsTable extends Component {
         </Flex>
         <Section flexGrow="1" mt="0.5rem">
           <Table.Sortable
-            className={classes([
-              "RecordsTable",
-              className,
-            ])}
+            className={classes(['RecordsTable', className])}
             columns={columns}
             filter={(data) =>
-              data.filter(createSearch(searchText,
-                (datum) => columns.map(c => datum[c.id]).join('|')
-              ))
+              data.filter(
+                createSearch(searchText, (datum) =>
+                  columns.map((c) => datum[c.id]).join('|')
+                )
+              )
             }
             {...rest}
           />
@@ -56,5 +53,3 @@ export class RecordsTable extends Component {
     );
   }
 }
-
-

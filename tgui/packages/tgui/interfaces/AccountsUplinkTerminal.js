@@ -12,7 +12,7 @@ import {
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
-import { RecordsTable } from './common/RecordsTable'
+import { RecordsTable } from './common/RecordsTable';
 
 export const AccountsUplinkTerminal = (properties, context) => {
   const { act, data } = useBackend(context);
@@ -80,20 +80,17 @@ const AccountsUplinkTerminalContent = (props, context) => {
 
 const AccountsRecordList = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    accounts
-  } = data;
+  const { accounts } = data;
   return (
     <RecordsTable
       columns={[
-        { id: 'owner_name', name: 'Account Holder', },
-        { id: 'account_number', name: 'Account Number', },
-        { id: 'suspended', name: 'Account Status', },
-        { id: 'money', name: 'Account Balance', },
+        { id: 'owner_name', name: 'Account Holder' },
+        { id: 'account_number', name: 'Account Number' },
+        { id: 'suspended', name: 'Account Status' },
+        { id: 'money', name: 'Account Balance' },
       ]}
       data={accounts}
       datumID={(datum) => datum.account_number}
-
       leftButtons={
         <Button
           content="New Account"
@@ -102,15 +99,19 @@ const AccountsRecordList = (props, context) => {
         />
       }
       searchPlaceholder="Search by account holder, number, status"
-
       datumRowProps={(datum) => ({
         className: `AccountsUplinkTerminal__listRow--${datum.suspended}`,
-        onClick: () => act('view_account_detail', {
-          account_num: datum.account_number,
-        }),
+        onClick: () =>
+          act('view_account_detail', {
+            account_num: datum.account_number,
+          }),
       })}
       datumCellChildren={{
-        owner_name: (value) => <><Icon name="user" /> {value}</>,
+        owner_name: (value) => (
+          <>
+            <Icon name="user" /> {value}
+          </>
+        ),
         account_number: (value) => <>#{value}</>,
       }}
     />
@@ -119,20 +120,17 @@ const AccountsRecordList = (props, context) => {
 
 const DepartmentAccountsList = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    department_accounts,
-  } = data;
+  const { department_accounts } = data;
   return (
     <RecordsTable
       columns={[
-        { id: "name", name: "Department Name", },
-        { id: "account_number", name: "Account Number", },
-        { id: "suspended", name: "Account Status", },
-        { id: "money", name: "Account Balance", },
+        { id: 'name', name: 'Department Name' },
+        { id: 'account_number', name: 'Account Number' },
+        { id: 'suspended', name: 'Account Status' },
+        { id: 'money', name: 'Account Balance' },
       ]}
       data={department_accounts}
       datumID={(datum) => datum.account_number}
-
       leftButtons={
         <Button
           content="New Account"
@@ -141,15 +139,19 @@ const DepartmentAccountsList = (props, context) => {
         />
       }
       searchPlaceholder="Search by department name, account number, status, and balance"
-
       datumRowProps={(datum) => ({
         className: `AccountsUplinkTerminal__listRow--${datum.suspended}`,
-        onClick: () => act('view_account_detail', {
-          account_num: datum.account_number,
-        }),
+        onClick: () =>
+          act('view_account_detail', {
+            account_num: datum.account_number,
+          }),
       })}
       datumCellChildren={{
-        name: (value) => <><Icon name="wallet" /> {value}</>,
+        name: (value) => (
+          <>
+            <Icon name="wallet" /> {value}
+          </>
+        ),
         account_number: (value) => <>#{value}</>,
       }}
     />

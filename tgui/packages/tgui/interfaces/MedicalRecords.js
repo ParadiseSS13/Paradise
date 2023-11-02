@@ -19,7 +19,7 @@ import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { RecordsTable } from './common/RecordsTable'
+import { RecordsTable } from './common/RecordsTable';
 
 const severities = {
   'Minor': 'lightgray',
@@ -116,9 +116,7 @@ export const MedicalRecords = (_properties, context) => {
 
 const MedicalRecordsList = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    records
-  } = data;
+  const { records } = data;
   return (
     <RecordsTable
       columns={[
@@ -130,7 +128,6 @@ const MedicalRecordsList = (props, context) => {
       ]}
       data={records}
       datumID={(datum) => datum.ref}
-
       leftButtons={
         <Button
           content="Manage Records"
@@ -139,13 +136,16 @@ const MedicalRecordsList = (props, context) => {
         />
       }
       searchPlaceholder="Search by Name, ID, Physical Status, or Mental Status"
-
       datumRowProps={(datum) => ({
         className: `MedicalRecords__listRow--${medStatusStyles[datum.p_stat]}`,
         onClick: () => act('view_record', { view_record: datum.ref }),
       })}
       datumCellChildren={{
-        name: (value) => <><Icon name="user" /> {value}</>,
+        name: (value) => (
+          <>
+            <Icon name="user" /> {value}
+          </>
+        ),
       }}
     />
   );
@@ -333,21 +333,17 @@ const MedicalRecordsViewMedical = (_properties, context) => {
 
 const MedicalRecordsViruses = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    virus
-  } = data;
+  const { virus } = data;
   return (
     <RecordsTable
       columns={[
-        { id: 'name', name: 'Name', },
-        { id: 'max_stages', name: 'Max Stages', },
-        { id: 'severity', name: 'Severity', },
+        { id: 'name', name: 'Name' },
+        { id: 'max_stages', name: 'Max Stages' },
+        { id: 'severity', name: 'Severity' },
       ]}
       data={virus}
       datumID={(datum) => datum.id}
-
       searchPlaceholder="Search by Name, Max Stages, or Severity"
-
       datumRowProps={(datum) => ({
         className: `MedicalRecords__listVirus--${datum.severity}`,
         onClick: () => act('vir', { vir: datum.D }),
@@ -355,10 +351,14 @@ const MedicalRecordsViruses = (props, context) => {
       datumCellProps={{
         severity: (value) => ({
           color: severities[value],
-        })
+        }),
       }}
       datumCellChildren={{
-        name: (value) => <><Icon name="virus" /> {value}</>,
+        name: (value) => (
+          <>
+            <Icon name="virus" /> {value}
+          </>
+        ),
       }}
     />
   );
