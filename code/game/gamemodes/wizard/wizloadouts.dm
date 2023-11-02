@@ -131,12 +131,15 @@
 
 /datum/spellbook_entry/loadout/fireball/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(user.wear_suit)
+		var/jumpsuit = user.wear_suit
 		user.unEquip(user.wear_suit, TRUE)
-		qdel(user.wear_suit)
+		qdel(jumpsuit)
 	if(user.head)
+		var/head = user.head
 		user.unEquip(user.head, TRUE)
-		qdel(user.head)
+		qdel(head)
 
+	// Part of Sacred Flame
 	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
 	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
 	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)

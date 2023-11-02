@@ -59,32 +59,14 @@
 	nodamage = FALSE
 
 	//explosion values
-	var/exp_devastate = 0
-	var/exp_heavy = 1
-	var/exp_light = 3
-	var/exp_flash = 4
-	var/exp_fire = 3
-
-/obj/item/projectile/homing/magic/homing_fireball/Range()
-	var/turf/T1 = get_step(src,turn(dir, -45))
-	var/turf/T2 = get_step(src,turn(dir, 45))
-	var/turf/T3 = get_step(src,dir)
-	var/mob/living/L = locate(/mob/living) in T1 //if there's a mob alive in our front right diagonal, we hit it.
-	if(L && L.stat != DEAD)
-		Bump(L) //Magic Bullet #teachthecontroversy
-		return
-	L = locate(/mob/living) in T2
-	if(L && L.stat != DEAD)
-		Bump(L)
-		return
-	L = locate(/mob/living) in T3
-	if(L && L.stat != DEAD)
-		Bump(L)
-		return
-	..()
+	var/explosion_devastate = 0
+	var/explosion_heavy = 1
+	var/explosion_light = 3
+	var/explosion_flash = 4
+	var/explosion_fire = 3
 
 /obj/item/projectile/homing/magic/homing_fireball/on_hit(mob/living/target)
 	. = ..()
-	explosion(get_turf(target), exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire)
+	explosion(get_turf(target), explosion_devastate, explosion_heavy, explosion_light, explosion_flash, 0, flame_range = explosion_fire)
 	if(istype(target)) //multiple flavors of pain
 		target.adjustFireLoss(10) // does 20 brute, and 10 burn + explosion. Pretty brutal.
