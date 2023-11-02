@@ -6,3 +6,4 @@
 
 /mob/dead
 	move_resist = INFINITY
+	flags_2 = IMMUNE_TO_SHUTTLECRUSH_2

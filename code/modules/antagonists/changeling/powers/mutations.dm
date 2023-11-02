@@ -121,6 +121,7 @@
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_ATTACK
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
@@ -187,6 +188,7 @@
 	weapon_name_simple = "tentacle"
 	silent = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_ATTACK
 
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
@@ -391,6 +393,7 @@
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_DEFENSE
 
 /datum/action/changeling/weapon/shield/sting_action(mob/user)
 	var/obj/item/shield/changeling/S = ..(user)
@@ -443,6 +446,7 @@
 	helmet_name_simple = "space helmet"
 	recharge_slowdown = 0.5
 	blood_on_castoff = 1
+	menu_location = CLING_MENU_UTILITY
 
 /obj/item/clothing/suit/space/changeling
 	name = "flesh mass"
@@ -488,6 +492,7 @@
 	suit_name_simple = "armor"
 	helmet_name_simple = "helmet"
 	recharge_slowdown = 0.25
+	menu_location = CLING_MENU_DEFENSE
 
 /obj/item/clothing/suit/armor/changeling
 	name = "chitinous mass"
