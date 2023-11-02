@@ -70,12 +70,12 @@ export class DraggableControl extends Component {
     };
 
     this.handleDragMove = (e) => {
-      const { minValue, maxValue, step, dragMatrix, disabled } =
-        this.props;
+      const { minValue, maxValue, step, dragMatrix, disabled } = this.props;
       if (disabled) {
         return;
       }
-      const defaultStepPixelSize = this.ref.offsetWidth / ((maxValue - minValue) / step);
+      const defaultStepPixelSize =
+        this.ref.offsetWidth / ((maxValue - minValue) / step);
       let stepPixelSize = this.props.stepPixelSize ?? defaultStepPixelSize;
       if (typeof stepPixelSize === 'function') {
         stepPixelSize = stepPixelSize(defaultStepPixelSize);
@@ -83,14 +83,21 @@ export class DraggableControl extends Component {
       this.setState((prevState) => {
         const state = { ...prevState };
         const oldOffset = prevState.oldOffset;
-        const offset = getScalarScreenOffset(e, dragMatrix) - this.ref.getBoundingClientRect().left - window.screenX;
+        const offset =
+          getScalarScreenOffset(e, dragMatrix) -
+          this.ref.getBoundingClientRect().left -
+          window.screenX;
         if (prevState.dragging) {
-          if (oldOffset !== undefined && oldOffset !== null && offset !== oldOffset) {
+          if (
+            oldOffset !== undefined &&
+            oldOffset !== null &&
+            offset !== oldOffset
+          ) {
             const maxStep = maxValue / step;
-            const toNearestStep = offset > oldOffset
-              ? Math.floor  // Increasing
-              : Math.ceil   // Decreasing
-              ;
+            const toNearestStep =
+              offset > oldOffset
+                ? Math.floor // Increasing
+                : Math.ceil; // Decreasing
             /* ● = step, o = oldOffset, n = offset
              * There are four cases to consider for the following code:
              * Case 1: Increasing(offset > oldOffset), moving between steps
@@ -107,11 +114,23 @@ export class DraggableControl extends Component {
              * Case 4: Decreasing, offset is behind step
              * ●-n-●-o-● ; ●-n-●---●-o
              * Same as Case 3, but decrease instead of increase
-            */
-            const oldStep = clamp(toNearestStep(oldOffset / stepPixelSize), 0, maxStep);
-            const newStep = clamp(toNearestStep(offset / stepPixelSize), 0, maxStep);
+             */
+            const oldStep = clamp(
+              toNearestStep(oldOffset / stepPixelSize),
+              0,
+              maxStep
+            );
+            const newStep = clamp(
+              toNearestStep(offset / stepPixelSize),
+              0,
+              maxStep
+            );
             const stepDifference = newStep - oldStep;
-            state.value = clamp(state.value + stepDifference * step, minValue, maxValue);
+            state.value = clamp(
+              state.value + stepDifference * step,
+              minValue,
+              maxValue
+            );
           }
           state.oldOffset = offset;
         } else if (Math.abs(offset) > 4) {
@@ -130,7 +149,7 @@ export class DraggableControl extends Component {
       this.setState({
         dragging: false,
         editing: !dragging,
-        oldOffset: null
+        oldOffset: null,
       });
       document.removeEventListener('mousemove', this.handleDragMove);
       document.removeEventListener('mouseup', this.handleDragEnd);
