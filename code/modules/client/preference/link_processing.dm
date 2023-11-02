@@ -700,6 +700,16 @@
 					if(new_relation)
 						active_character.nanotrasen_relation = new_relation
 
+				if("physique")
+					var/new_physique = input(user, "Choose your descriptor for how built your character is on glance.", "Character Preference") as null|anything in GLOB.character_physiques
+					if(new_physique)
+						active_character.physique = new_physique
+
+				if("height")
+					var/new_height = input(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference") as null|anything in GLOB.character_heights
+					if(new_height)
+						active_character.height = new_height
+
 				if("flavor_text")
 					var/msg = input(usr,"Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.","Flavor Text",html_decode(active_character.flavor_text)) as message
 

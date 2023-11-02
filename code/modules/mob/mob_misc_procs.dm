@@ -247,9 +247,9 @@
 	p = 1
 	while(p <= n)
 		if((copytext_char(te, p, p + 1) == " " || prob(pr)))	// SS220 EDIT - ORIGINAL: copytext
-			t = text("[][]", t, copytext_char(te, p, p + 1))	// SS220 EDIT - ORIGINAL: copytext
+			t = "[t][copytext_char(te, p, p + 1)]"	// SS220 EDIT - ORIGINAL: copytext
 		else
-			t = text("[]*", t)
+			t = "[t]*"
 		p++
 	return t
 
@@ -807,3 +807,16 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 /mob/proc/attempt_listen_to_deadsay()
 
+
+/// Proc to PROPERLY set mob invisibility, huds gotta get set too!
+/mob/proc/set_invisible(invis_value)
+	if(invis_value)
+		invisibility = invis_value
+	else
+		invisibility = initial(invisibility)
+	for(var/hud in hud_possible)
+		var/image/actual_hud = hud_list[hud]
+		if(invis_value)
+			actual_hud.invisibility = invis_value
+		else
+			actual_hud.invisibility = initial(actual_hud.invisibility)

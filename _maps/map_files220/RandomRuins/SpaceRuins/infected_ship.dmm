@@ -123,11 +123,15 @@
 	suit_type = null;
 	req_access = null
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "do" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -173,8 +177,12 @@
 /area/ruin/space/powered/requires_power_space)
 "ep" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "eq" = (
@@ -321,7 +329,9 @@
 /obj/machinery/constructable_frame{
 	icon_state = "box_1"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "hP" = (
@@ -562,7 +572,9 @@
 /area/ruin/space/powered/requires_power_space)
 "lu" = (
 /obj/structure/bed/nest,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "lA" = (
@@ -583,7 +595,9 @@
 /area/ruin/space/powered/requires_power_space)
 "mW" = (
 /obj/structure/alien/resin/wall,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "nd" = (
@@ -792,8 +806,12 @@
 /area/ruin/space/powered/requires_power_space)
 "rP" = (
 /obj/structure/alien/resin/wall,
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "sb" = (
@@ -852,7 +870,9 @@
 "tF" = (
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/structure/alien/egg/burst,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
@@ -864,7 +884,9 @@
 /area/ruin/space/powered/requires_power_space)
 "tX" = (
 /obj/structure/mecha_wreckage/mauler,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "ue" = (
@@ -1059,7 +1081,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
 "Ai" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/decal/cleanable/dirt/blackpowder,
 /obj/effect/spawner/random_spawners/blood_often,
@@ -1310,7 +1334,9 @@
 "JH" = (
 /obj/machinery/light_construct/directional/north,
 /obj/structure/dispenser/oxygen,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/sign/poster/contraband/random/north,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
@@ -1365,7 +1391,9 @@
 	},
 /area/ruin/space/powered/requires_power_space)
 "LO" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/blood/drip,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/decal/cleanable/blood/gibs/body,
@@ -1459,7 +1487,9 @@
 /area/ruin/space/powered/requires_power_space)
 "OL" = (
 /obj/structure/alien/egg/burst,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
@@ -1523,7 +1553,9 @@
 	state_open = 1;
 	req_access = null
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Rg" = (
@@ -1745,7 +1777,9 @@
 	icon_state = "borgdecon2";
 	name = "cyborg recharging station"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/sign/poster/contraband/random/south,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)

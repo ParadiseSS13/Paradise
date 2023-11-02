@@ -211,7 +211,7 @@
 
 	var/n_name = sanitize(copytext_char(input(usr, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
 	if((loc == usr && usr.stat == 0))
-		name = "[(n_name ? text("[n_name]") : "paper bundle")]"
+		name = "[(n_name ? "[n_name]" : "paper bundle")]"
 
 	add_fingerprint(usr)
 

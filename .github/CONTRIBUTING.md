@@ -759,6 +759,7 @@ Each role inherits the lower role's responsibilities (IE: Headcoders also have c
 * [Sirryan2002](https://github.com/Sirryan2002)
 * [Contrabang](https://github.com/Contrabang)
 * [Burzah](https://github.com/Burzah)
+* [DGamerL](https://github.com/DGamerL)
 
 ---
 

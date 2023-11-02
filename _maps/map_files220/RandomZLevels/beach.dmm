@@ -2266,7 +2266,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/awaymission/beach)
 "Ew" = (
-/obj/effect/turf_decal/stripes/white/full,
+/obj/effect/turf_decal/stripes/white,
 /turf/simulated/floor/beach/away/sand_alternative,
 /area/awaymission/beach)
 "Ez" = (

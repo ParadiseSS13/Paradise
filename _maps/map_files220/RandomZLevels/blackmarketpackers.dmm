@@ -182,7 +182,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/TurretsNorth)
 "aI" = (
-/obj/effect/decal/warning_stripes/red/partial{
+/obj/effect/turf_decal/delivery/red/partial{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -207,7 +207,9 @@
 /area/space)
 "aN" = (
 /obj/structure/kitchenspike,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "aQ" = (
@@ -265,7 +267,9 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "bh" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/structure/largecrate,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -273,7 +277,9 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/meat,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bk" = (
@@ -319,7 +325,7 @@
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/lizard,
-/obj/effect/decal/warning_stripes/red/partial{
+/obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -337,12 +343,16 @@
 /area/awaymission/BMPship/Buffer)
 "br" = (
 /obj/machinery/light/small/directional/south,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/largecrate/goat,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bs" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -451,7 +461,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "bJ" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -535,7 +547,9 @@
 	},
 /area/awaymission/BMPship/Fore)
 "bT" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -559,7 +573,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bY" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/chair/office{
 	dir = 8
 	},
@@ -567,7 +583,9 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "bZ" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/item/reagent_containers/food/drinks/sillycup,
 /obj/item/reagent_containers/food/pill/methamphetamine,
 /turf/simulated/floor/wood/fancy/oak,
@@ -603,7 +621,9 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "cd" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	d2 = 8;
@@ -704,7 +724,9 @@
 /turf/space,
 /area/space)
 "cu" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/monstermeat/bearmeat,
 /obj/item/reagent_containers/food/snacks/monstermeat/bearmeat,
@@ -789,7 +811,9 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "cF" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"
@@ -822,7 +846,9 @@
 /obj/structure/table,
 /obj/item/storage/box,
 /obj/machinery/light/small/directional/north,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "cL" = (
@@ -986,7 +1012,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/TurretsSouth)
 "dj" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/sign/securearea{
 	name = "MAXIMUM ATTENTION";
 	pixel_x = -32
@@ -1109,7 +1137,9 @@
 /area/awaymission/BMPship/Armory)
 "dz" = (
 /obj/structure/reagent_dispensers/fueltank,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
@@ -1130,7 +1160,9 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "dC" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/structure/largecrate,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -1172,7 +1204,9 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "dG" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/largecrate/lisa,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -1296,19 +1330,25 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "dV" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/structure/spider/stickyweb,
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "dX" = (
-/obj/effect/decal/warning_stripes/east,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "dY" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "dZ" = (
@@ -1598,8 +1638,10 @@
 /obj/item/stack/medical/bruise_pack,
 /obj/item/stack/medical/splint,
 /obj/item/stack/medical/splint,
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "eQ" = (
@@ -1696,8 +1738,10 @@
 /obj/item/clothing/suit/space/nasavoid,
 /obj/item/clothing/head/helmet/space/nasavoid,
 /obj/item/clothing/mask/gas/explorer,
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
@@ -1875,7 +1919,9 @@
 /area/awaymission/BMPship/Kitchen)
 "fz" = (
 /obj/item/beach_ball/holoball,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
@@ -2292,7 +2338,7 @@
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "gJ" = (
-/obj/effect/decal/warning_stripes/red/partial{
+/obj/effect/turf_decal/delivery/red/partial{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -2367,7 +2413,9 @@
 	id = "packerCargo"
 	},
 /obj/machinery/light/small/directional/south,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -2475,7 +2523,9 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "ht" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/atmospherics/portable/canister/air,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
@@ -2604,7 +2654,7 @@
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
-/obj/effect/decal/warning_stripes/red/partial{
+/obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -2641,7 +2691,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/red/partial{
+/obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2754,7 +2804,9 @@
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/meat,
 /obj/item/reagent_containers/food/snacks/hugemushroomslice,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/item/reagent_containers/food/snacks/monstermeat/spidermeat,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -2927,7 +2979,9 @@
 /obj/machinery/computer/monitor{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "iX" = (
@@ -2975,7 +3029,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/red/partial{
+/obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
 /turf/simulated/floor/vault,
@@ -3015,11 +3069,13 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "jr" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/structure/closet/crate/plastic,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/item/reagent_containers/spray/cleaner,
-/obj/effect/decal/warning_stripes/red/partial,
+/obj/effect/turf_decal/delivery/red/partial,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "js" = (
@@ -3034,8 +3090,10 @@
 /obj/structure/closet/walllocker/medlocker/west,
 /obj/item/storage/firstaid/toxin,
 /obj/item/storage/firstaid/toxin,
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "jw" = (
@@ -3076,10 +3134,6 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/xenomeatbreadslice{
 	pixel_x = -8
-	},
-/obj/item/reagent_containers/food/snacks/xenoburger{
-	pixel_x = 6;
-	pixel_y = 8
 	},
 /obj/item/trash/plate{
 	pixel_x = 6;
@@ -3471,7 +3525,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "nl" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "nn" = (
@@ -3614,7 +3670,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "or" = (
-/obj/effect/decal/warning_stripes/red/partial{
+/obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
 /obj/effect/landmark/damageturf,
@@ -3829,7 +3885,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/dispenser/oxygen,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
@@ -3891,7 +3949,7 @@
 /obj/structure/holohoop{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "ql" = (
@@ -3990,7 +4048,7 @@
 /area/awaymission/BMPship/TraderShuttle)
 "rg" = (
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/red/partial{
+/obj/effect/turf_decal/delivery/red/partial{
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter{
@@ -4034,7 +4092,9 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Buffer)
 "rJ" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/sheet/wood,
@@ -4206,7 +4266,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "tx" = (
-/obj/effect/decal/warning_stripes/white/partial,
+/obj/effect/turf_decal/delivery/white/partial,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -4310,8 +4370,10 @@
 "uu" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/explorer,
-/obj/effect/decal/warning_stripes/north,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -4331,7 +4393,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Engines)
 "uC" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/closet/walllocker/emerglocker/west,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
@@ -4599,7 +4663,9 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "wV" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /mob/living/simple_animal/lizard,
 /obj/structure/sign/engineering{
 	pixel_y = 32
@@ -4616,7 +4682,9 @@
 	icon_state = "0-2";
 	pixel_y = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/power/apc/off_station{
 	dir = 1;
 	lighting_channel = 2;
@@ -4811,7 +4879,9 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/BMPship/Armory)
 "yN" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
@@ -4899,7 +4969,9 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "zP" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -5042,7 +5114,9 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "Bn" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -5114,8 +5188,10 @@
 /obj/structure/closet/walllocker/medlocker/west,
 /obj/item/storage/firstaid/o2,
 /obj/item/storage/firstaid/o2,
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "BS" = (
@@ -5180,7 +5256,9 @@
 	},
 /area/awaymission/BMPship/Dormitories)
 "CA" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /obj/structure/closet/walllocker/medlocker/west,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
@@ -5223,11 +5301,13 @@
 /obj/item/clothing/suit/space/nasavoid/yellow,
 /obj/item/clothing/head/helmet/space/nasavoid/yellow,
 /obj/item/clothing/mask/gas/explorer,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "Dn" = (
@@ -5460,8 +5540,10 @@
 /obj/item/stack/medical/ointment/advanced,
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/stack/medical/bruise_pack/advanced,
-/obj/effect/decal/warning_stripes/west,
-/obj/effect/decal/warning_stripes/green,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery/green,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "Fe" = (
@@ -5501,7 +5583,9 @@
 /obj/structure/sign/vacuum{
 	pixel_x = 32
 	},
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -5693,7 +5777,9 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "Hd" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/firealarm/no_alarm{
 	pixel_y = 28
 	},
@@ -5814,7 +5900,9 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Engines)
 "Iy" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5853,7 +5941,9 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "IG" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/sign/securearea{
 	name = "MAXIMUM ATTENTION";
 	pixel_x = -32
@@ -5868,7 +5958,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Armory)
 "IJ" = (
-/obj/effect/decal/warning_stripes/white/partial,
+/obj/effect/turf_decal/delivery/white/partial,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -5965,7 +6055,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
 "Ky" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/largecrate/cow,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -6077,7 +6169,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Lx" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
@@ -6100,7 +6194,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "LV" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /mob/living/simple_animal/mouse/brown,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -6396,7 +6492,9 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "PR" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/largecrate/cat,
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -6509,8 +6607,10 @@
 /area/awaymission/BMPship/CommonArea)
 "QY" = (
 /obj/structure/rack,
-/obj/effect/decal/warning_stripes/northwest,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "QZ" = (
@@ -6596,7 +6696,9 @@
 /area/awaymission/BMPship/CommonArea)
 "Sf" = (
 /obj/structure/table,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/item/trash/fried_vox{
 	pixel_y = 8
 	},
@@ -6676,7 +6778,9 @@
 /area/awaymission/BMPship/Containment)
 "Tt" = (
 /obj/structure/closet/crate/freezer,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/item/reagent_containers/food/snacks/meat/corgi,
 /obj/item/reagent_containers/food/snacks/meat/corgi,
 /obj/item/reagent_containers/food/snacks/meat/corgi,
@@ -6797,7 +6901,9 @@
 	},
 /area/awaymission/BMPship/CommonArea)
 "UH" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/machinery/light/small/directional/west,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
@@ -6825,7 +6931,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -6921,9 +7029,11 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "VL" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/largecrate,
-/obj/effect/decal/warning_stripes/red,
+/obj/effect/turf_decal/delivery/red,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "VO" = (
@@ -7037,7 +7147,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "Xn" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/punching_bag,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
@@ -7147,7 +7259,7 @@
 /turf/simulated/floor/engine,
 /area/awaymission/BMPship/Containment)
 "Yl" = (
-/obj/effect/decal/warning_stripes/white/partial{
+/obj/effect/turf_decal/delivery/white/partial{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -7177,12 +7289,16 @@
 /area/awaymission/BMPship/Containment)
 "YA" = (
 /obj/machinery/light_construct/small/west,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/closet/walllocker/firelocker/west,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "YL" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -7291,7 +7407,9 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/MedBay)
 "ZY" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "hydrofloor"

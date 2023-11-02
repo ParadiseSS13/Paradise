@@ -63,7 +63,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "bz" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/wall/indestructible,
 /area/admin)
 "bI" = (
@@ -1285,7 +1285,7 @@
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -1840,7 +1840,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "Cx" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
@@ -1963,7 +1963,7 @@
 /area/tdome/arena_source)
 "Eo" = (
 /obj/structure/barricade/sandbags,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "Ep" = (
@@ -2045,7 +2045,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "Fp" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/bluespace_beacon/syndicate,
 /turf/simulated/floor/wood/oak,
 /area/admin)
@@ -2346,7 +2346,7 @@
 /area/holodeck/source_emptycourt)
 "Jt" = (
 /obj/structure/barricade/sandbags,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/arena)
 "Jv" = (
@@ -2536,7 +2536,7 @@
 /turf/simulated/floor/wood/oak,
 /area/admin)
 "LA" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel/dark,
 /area/tdome/arena)
