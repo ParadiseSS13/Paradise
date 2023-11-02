@@ -261,7 +261,7 @@
 		M.mind.AddSpell(new /obj/effect/proc_holder/spell/bloodcrawl(null))
 
 /obj/item/organ/internal/heart/demon/slaughter/remove(mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 	if(M.mind)
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL, "bloodcrawl")
 		REMOVE_TRAIT(M, TRAIT_BLOODCRAWL_EAT, "bloodcrawl_eat")
