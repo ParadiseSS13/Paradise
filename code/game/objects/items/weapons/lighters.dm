@@ -25,7 +25,7 @@
 	icon_state = "[icon_state][lighter_color]"
 
 /obj/item/lighter/random/Initialize(mapload)
-	lighter_color = pick("r","c","y","g")
+	lighter_color = pick("r", "c", "y", "g")
 	. = ..()
 
 /obj/item/lighter/attack_self(mob/living/user)
