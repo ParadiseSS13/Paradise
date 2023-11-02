@@ -270,6 +270,10 @@
 	icon = 'modular_ss220/aesthetics/boxes/icons/boxes.dmi'
 	icon_state = "wizard_box"
 
+/obj/item/storage/box/wizard/hardsuit
+	icon = 'modular_ss220/aesthetics/boxes/icons/boxes.dmi'
+	icon_state = "wizard_box"
+
 /obj/item/storage/box/breaching
 	icon = 'modular_ss220/aesthetics/boxes/icons/boxes.dmi'
 	icon_state = "flashbang_box"
