@@ -611,19 +611,42 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "baguette"
 	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
+	var/list/smited_clowns
+
+/obj/item/nullrod/rosary/bread/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(ishuman(user) && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND))
+		START_PROCESSING(SSobj, src)
+	else
+		STOP_PROCESSING(SSobj, src)
+
+/obj/item/nullrod/rosary/bread/dropped(mob/user, silent)
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/nullrod/rosary/bread/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	for(var/clown in smited_clowns)
+		unsmite_clown(clown)
+	return ..()
 
 /obj/item/nullrod/rosary/bread/process()
-	if(ishuman(loc))
-		var/mob/living/carbon/human/holder = loc
-		//would like to make the holder mime if they have it in on thier person in general
-		if(src == holder.l_hand || src == holder.r_hand)
-			for(var/mob/living/carbon/human/H in range(5, loc))
-				if(H.mind.assigned_role == "Clown")
-					H.Silence(20 SECONDS)
-					animate_fade_grayscale(H,20)
-					if(prob(10))
-						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
+	var/mob/living/carbon/human/holder = loc
+	//would like to make the holder mime if they have it in on thier person in general
+	for(var/mob/living/carbon/human/H in range(5, loc))
+		if(H.mind.assigned_role == "Clown" && !LAZYACCESS(smited_clowns, H))
+			LAZYSET(smited_clowns, H, TRUE)
+			H.Silence(20 SECONDS)
+			animate_fade_grayscale(H, 2 SECONDS)
 
+			addtimer(CALLBACK(src, PROC_REF(unsmite_clown), H), 20 SECONDS)
+
+			if(prob(10))
+				to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
+
+/obj/item/nullrod/rosary/bread/proc/unsmite_clown(mob/living/carbon/human/hell_spawn)
+	animate_fade_colored(hell_spawn, 2 SECONDS)
+	LAZYREMOVE(smited_clowns, hell_spawn)
 
 /obj/item/nullrod/missionary_staff
 	name = "holy staff"
