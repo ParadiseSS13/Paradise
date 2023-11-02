@@ -6658,16 +6658,6 @@
 	dir = 8
 	},
 /area/ruin/space/unpowered)
-"xM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood/splatter{
-	color = s
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white";
-	dir = 8
-	},
-/area/ruin/space/unpowered)
 "xO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -13983,7 +13973,7 @@ kM
 aC
 il
 fi
-xM
+Oc
 Ap
 Kb
 AS
