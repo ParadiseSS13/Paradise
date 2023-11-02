@@ -396,7 +396,6 @@ const ChemMasterProductionCommon = (props, context) => {
           value={quantity}
           minValue={1}
           maxValue={maxQuantity}
-          stepPixelSize={maxQuantity * (20 / maxQuantity)}
           onChange={(e, value) =>
             act(`set_${productionType}_amount`, { newValue: value })
           }
