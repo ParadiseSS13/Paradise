@@ -9,8 +9,8 @@
 	icon = 'icons/mob/mob.dmi'
 	health = 60
 	maxHealth = 60
-	melee_damage_lower = 35
-	melee_damage_upper = 30
+	melee_damage_lower = 30
+	melee_damage_upper = 35
 	melee_damage_type = STAMINA
 	attacktext = "gnaws"
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -24,7 +24,7 @@
 	density = FALSE
 	ventcrawler = 2
 	a_intent = INTENT_HARM
-	speed = 0.2
+	speed = 0.3
 	can_hide = TRUE
 	pass_door_while_hidden = TRUE
 	var/datum/mind/origin
