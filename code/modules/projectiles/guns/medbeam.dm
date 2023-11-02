@@ -88,7 +88,7 @@
 		return FALSE
 	var/obj/dummy = new(user_turf)
 	dummy.pass_flags |= PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE //Grille/Glass so it can be used through common windows
-	for(var/turf/turf in getline(user_turf,target))
+	for(var/turf/turf in get_line(user_turf,target))
 		if(turf.density)
 			qdel(dummy)
 			return FALSE

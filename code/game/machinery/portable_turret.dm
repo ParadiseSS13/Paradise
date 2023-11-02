@@ -67,6 +67,10 @@
 	var/has_cover = TRUE		//Hides the cover
 	/// Deployment override to allow turret popup on/under dense turfs/objects, for admin/CC turrets
 	var/deployment_override = FALSE
+	/// What lethal mode projectile with the turret start with?
+	var/initial_eprojectile = null
+	/// What non-lethal mode projectile with the turret start with?
+	var/initial_projectile = null
 
 
 /obj/machinery/porta_turret/Initialize(mapload)
@@ -142,8 +146,12 @@
 			egun = 1
 
 		if(/obj/item/gun/energy/pulse/turret)
-			eprojectile = /obj/item/projectile/beam/pulse
+			eprojectile = /obj/item/projectile/beam/pulse/hitscan
 			eshot_sound = 'sound/weapons/pulse.ogg'
+	if(initial_eprojectile)
+		eprojectile = initial_eprojectile
+	if(initial_projectile)
+		projectile = initial_projectile
 
 GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/update_icon_state()
@@ -760,6 +768,13 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	else
 		A.throw_at(target, scan_range, 1)
 	return A
+
+/obj/machinery/porta_turret/ai_turret
+	initial_eprojectile = /obj/item/projectile/beam/laser/ai_turret
+
+/obj/machinery/porta_turret/ai_turret/disable
+	name = "hallway turret"
+	initial_projectile = /obj/item/projectile/beam/disabler
 
 /obj/machinery/porta_turret/centcom
 	name = "\improper Centcomm turret"

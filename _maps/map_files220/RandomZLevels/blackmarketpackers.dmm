@@ -3135,10 +3135,6 @@
 /obj/item/reagent_containers/food/snacks/xenomeatbreadslice{
 	pixel_x = -8
 	},
-/obj/item/reagent_containers/food/snacks/xenoburger{
-	pixel_x = 6;
-	pixel_y = 8
-	},
 /obj/item/trash/plate{
 	pixel_x = 6;
 	pixel_y = 5;
