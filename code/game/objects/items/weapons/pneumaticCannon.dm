@@ -128,7 +128,7 @@
 		user.visible_message("<span class='danger'>[user] fires [src]!</span>", \
 							"<span class='danger'>You fire [src]!</span>")
 	add_attack_logs(user, target, "Fired [src]")
-	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
+	playsound(loc, 'sound/weapons/sonic_jackhammer.ogg', 50, TRUE)
 	for(var/obj/item/loaded_item in loaded_items)
 		loaded_items.Remove(loaded_item)
 		loaded_weight_class -= loaded_item.w_class
