@@ -1,6 +1,16 @@
 import { Component, Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, Input, LabeledList, Section, Slider, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+  Slider,
+  Tabs,
+} from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
 import {
@@ -257,7 +267,13 @@ const ChemMasterProduction = (props, context) => {
   if (!props.bufferNonEmpty && props.isCondiment) {
     return (
       <Section title="Production">
-        <Flex height="100%" style={{ 'padding-top': '20px', 'padding-bottom': '20px', }}>
+        <Flex
+          height="100%"
+          style={{
+            'padding-top': '20px',
+            'padding-bottom': '20px',
+          }}
+        >
           <Flex.Item grow="1" align="center" textAlign="center" color="label">
             <Icon name="tint-slash" mb="0.5rem" size="5" />
             <br />
@@ -283,16 +299,16 @@ const ChemMasterProductionChemical = (props, context) => {
   const { act, data } = useBackend(context);
   const tabs = [
     {
-      "name": "Pills",
-      "icon": "pills",
+      'name': 'Pills',
+      'icon': 'pills',
     },
     {
-      "name": "Patches",
-      "icon": "plus-square",
+      'name': 'Patches',
+      'icon': 'plus-square',
     },
     {
-      "name": "Bottles",
-      "icon": "wine-bottle",
+      'name': 'Bottles',
+      'icon': 'wine-bottle',
     },
   ];
   const decideTab = (mode) => {
@@ -304,16 +320,22 @@ const ChemMasterProductionChemical = (props, context) => {
       case 3:
         return <ChemMasterProductionBottles />;
       default:
-        return "UNKNOWN INTERFACE";
+        return 'UNKNOWN INTERFACE';
     }
-  }
+  };
   return (
     <>
       <Tabs>
         {tabs.map((t, i) => {
           i += 1;
           return (
-            <Tabs.Tab key={i} content={t.name} icon={t.icon} selected={data.production_mode === i} onClick={() => act('set_production_mode', { mode: i })} />
+            <Tabs.Tab
+              key={i}
+              content={t.name}
+              icon={t.icon}
+              selected={data.production_mode === i}
+              onClick={() => act('set_production_mode', { mode: i })}
+            />
           );
         })}
       </Tabs>
@@ -338,17 +360,19 @@ class ChemMasterNameInput extends Component {
       if (onMouseUp) {
         onMouseUp(e);
       }
-    }
+    };
   }
 
   render() {
     const { data } = useBackend(this.context);
-    const {
-      maxnamelength
-    } = data;
+    const { maxnamelength } = data;
 
     return (
-      <Input maxLength={maxnamelength} onMouseUp={this.handleMouseUp} {...this.props} />
+      <Input
+        maxLength={maxnamelength}
+        onMouseUp={this.handleMouseUp}
+        {...this.props}
+      />
     );
   }
 }
@@ -363,39 +387,72 @@ const ChemMasterProductionCommon = (props, context) => {
     productionType,
     quantity,
   } = props;
-  const {
-    buffer_reagents = [],
-  } = data;
+  const { buffer_reagents = [] } = data;
   return (
     <LabeledList>
       {children}
       <LabeledList.Item label="Quantity">
-        <Slider value={quantity} minValue={1} maxValue={maxQuantity} stepPixelSize={maxQuantity * (20 / maxQuantity)} onChange={(e, value) => act(`set_${productionType}_amount`, { newValue: value })} />
+        <Slider
+          value={quantity}
+          minValue={1}
+          maxValue={maxQuantity}
+          stepPixelSize={maxQuantity * (20 / maxQuantity)}
+          onChange={(e, value) =>
+            act(`set_${productionType}_amount`, { newValue: value })
+          }
+        />
       </LabeledList.Item>
       <LabeledList.Item label="Name">
-        <ChemMasterNameInput fluid value={medicineName} placeholder={placeholderName} onChange={(e, value) => act(`set_${productionType}_name`, { newValue: value })} />
+        <ChemMasterNameInput
+          fluid
+          value={medicineName}
+          placeholder={placeholderName}
+          onChange={(e, value) =>
+            act(`set_${productionType}_name`, { newValue: value })
+          }
+        />
       </LabeledList.Item>
       <LabeledList.Item>
-        <Button fluid content="Create" color="green" disabled={buffer_reagents.length <= 0} onClick={() => act(`create_${productionType}`)} />
+        <Button
+          fluid
+          content="Create"
+          color="green"
+          disabled={buffer_reagents.length <= 0}
+          onClick={() => act(`create_${productionType}`)}
+        />
       </LabeledList.Item>
     </LabeledList>
   );
-}
+};
 
 const SpriteStyleButton = (props, context) => {
-  const {
-    icon,
-    imageTransform,
-    ...restProps
-  } = props;
+  const { icon, imageTransform, ...restProps } = props;
   return (
-    <Button style={{ padding: 0, 'line-height': 0, }} {...restProps}>
-      <span style={{ overflow: "hidden", display: 'inline-block', width: '26px', height: '26px', position: 'relative', }}>
-        <img style={{ '-ms-interpolation-mode': 'nearest-neighbor', position: 'absolute', top: '50%', left: '50%', transform: `translate(-50%, -50%) ${imageTransform || ''}`, 'margin-left': '1px' }} src={icon} />
+    <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
+      <span
+        style={{
+          overflow: 'hidden',
+          display: 'inline-block',
+          width: '26px',
+          height: '26px',
+          position: 'relative',
+        }}
+      >
+        <img
+          style={{
+            '-ms-interpolation-mode': 'nearest-neighbor',
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: `translate(-50%, -50%) ${imageTransform || ''}`,
+            'margin-left': '1px',
+          }}
+          src={icon}
+        />
       </span>
     </Button>
   );
-}
+};
 
 const ChemMasterProductionPills = (props, context) => {
   const { act, data } = useBackend(context);
@@ -407,31 +464,41 @@ const ChemMasterProductionPills = (props, context) => {
     pillsprite,
     pillstyles,
   } = data;
-  const style_buttons = pillstyles
-    .map(({ id, sprite }) => (
-      <SpriteStyleButton key={id} icon={sprite} imageTransform="scale(2)" onClick={() => act("set_pills_style", { newValue: id })} selected={pillsprite === id} />
-    ));
+  const style_buttons = pillstyles.map(({ id, sprite }) => (
+    <SpriteStyleButton
+      key={id}
+      icon={sprite}
+      imageTransform="scale(2)"
+      onClick={() => act('set_pills_style', { newValue: id })}
+      selected={pillsprite === id}
+    />
+  ));
   return (
-    <ChemMasterProductionCommon maxQuantity={maxpills} medicineName={pillname} placeholderName={pillplaceholdername} productionType="pills" quantity={pillamount}>
-      <LabeledList.Item label="Style">
-        {style_buttons}
-      </LabeledList.Item>
+    <ChemMasterProductionCommon
+      maxQuantity={maxpills}
+      medicineName={pillname}
+      placeholderName={pillplaceholdername}
+      productionType="pills"
+      quantity={pillamount}
+    >
+      <LabeledList.Item label="Style">{style_buttons}</LabeledList.Item>
     </ChemMasterProductionCommon>
   );
-}
+};
 
 const ChemMasterProductionPatches = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    maxpatches,
-    patchamount,
-    patchname,
-    patchplaceholdername,
-  } = data;
+  const { maxpatches, patchamount, patchname, patchplaceholdername } = data;
   return (
-    <ChemMasterProductionCommon maxQuantity={maxpatches} medicineName={patchname} placeholderName={patchplaceholdername} productionType="patches" quantity={patchamount} />
+    <ChemMasterProductionCommon
+      maxQuantity={maxpatches}
+      medicineName={patchname}
+      placeholderName={patchplaceholdername}
+      productionType="patches"
+      quantity={patchamount}
+    />
   );
-}
+};
 
 const ChemMasterProductionBottles = (props, context) => {
   const { act, data } = useBackend(context);
@@ -443,18 +510,26 @@ const ChemMasterProductionBottles = (props, context) => {
     bottleplaceholdername,
     bottlestyles,
   } = data;
-  const style_buttons = bottlestyles
-    .map(({ id, sprite }) => (
-      <SpriteStyleButton key={id} icon={sprite} onClick={() => act("set_bottles_style", { newValue: id })} selected={bottlesprite === id} />
-    ));
+  const style_buttons = bottlestyles.map(({ id, sprite }) => (
+    <SpriteStyleButton
+      key={id}
+      icon={sprite}
+      onClick={() => act('set_bottles_style', { newValue: id })}
+      selected={bottlesprite === id}
+    />
+  ));
   return (
-    <ChemMasterProductionCommon maxQuantity={maxbottles} medicineName={bottlename} placeholderName={bottleplaceholdername} productionType="bottles" quantity={bottleamount}>
-      <LabeledList.Item label="Style">
-        {style_buttons}
-      </LabeledList.Item>
+    <ChemMasterProductionCommon
+      maxQuantity={maxbottles}
+      medicineName={bottlename}
+      placeholderName={bottleplaceholdername}
+      productionType="bottles"
+      quantity={bottleamount}
+    >
+      <LabeledList.Item label="Style">{style_buttons}</LabeledList.Item>
     </ChemMasterProductionCommon>
   );
-}
+};
 
 const ChemMasterProductionCondiment = (props, context) => {
   const { act } = useBackend(context);
@@ -479,65 +554,61 @@ const ChemMasterProductionCondiment = (props, context) => {
 
 const ChemMasterCustomization = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    loaded_pill_bottle_style,
-    containerstyles,
-    loaded_pill_bottle,
-  } = data;
+  const { loaded_pill_bottle_style, containerstyles, loaded_pill_bottle } =
+    data;
 
-  const style_button_size = { width: "20px", height: "20px" };
-  const style_buttons = containerstyles
-    .map(({ color, name }) => {
-      let selected = loaded_pill_bottle_style === color;
-      return (
-        <Button
-          key={color}
+  const style_button_size = { width: '20px', height: '20px' };
+  const style_buttons = containerstyles.map(({ color, name }) => {
+    let selected = loaded_pill_bottle_style === color;
+    return (
+      <Button
+        key={color}
+        style={{
+          position: 'relative',
+          width: style_button_size.width,
+          height: style_button_size.height,
+        }}
+        onClick={() => act('set_container_style', { newValue: color })}
+        icon={selected && 'check'}
+        iconStyle={{
+          position: 'relative',
+          'z-index': 1,
+        }}
+        tooltip={name}
+        tooltipPosition="top"
+      >
+        {/* Required. Removing this causes non-selected elements to flow up */}
+        {!selected && <div style={{ display: 'inline-block' }} />}
+        <span
+          className="Button"
           style={{
-            position: 'relative',
+            display: 'inline-block',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            margin: 0,
+            padding: 0,
             width: style_button_size.width,
             height: style_button_size.height,
+            'background-color': color,
+            opacity: 0.6,
+            filter: 'alpha(opacity=60)',
           }}
-          onClick={() => act("set_container_style", { newValue: color })}
-          icon={selected && 'check'}
-          iconStyle={{
-            position: 'relative',
-            'z-index': 1,
-          }}
-          tooltip={name}
-          tooltipPosition="top"
-        >
-          {/* Required. Removing this causes non-selected elements to flow up */}
-          {(!selected && <div style={{ display: "inline-block" }} />)}
-          <span
-            className='Button'
-            style={{
-              display: "inline-block",
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              margin: 0,
-              padding: 0,
-              width: style_button_size.width,
-              height: style_button_size.height,
-              "background-color": color,
-              opacity: 0.6,
-              filter: "alpha(opacity=60)",
-            }}
-          />
-        </Button>
-      );
-    });
+        />
+      </Button>
+    );
+  });
   return (
     <Section
       title="Container Customization"
-      buttons={(
+      buttons={
         <Button
           icon="eject"
           disabled={!loaded_pill_bottle}
           content="Eject Container"
           onClick={() => act('ejectp')}
         />
-      )}
+      }
     >
       {!loaded_pill_bottle ? (
         <Box color="label">No pill bottle or patch pack loaded.</Box>
@@ -550,7 +621,7 @@ const ChemMasterCustomization = (props, context) => {
                 height: style_button_size.height,
               }}
               icon="tint-slash"
-              onClick={() => act("clear_container_style")}
+              onClick={() => act('clear_container_style')}
               selected={!loaded_pill_bottle_style}
               tooltip="Default"
               tooltipPosition="top"
