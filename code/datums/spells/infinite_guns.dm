@@ -8,7 +8,6 @@
 	clothes_req = TRUE
 	cooldown_min = 10 //Gun wizard
 	action_icon_state = "bolt_action"
-
 	var/gun_type = /obj/item/gun/projectile/shotgun/boltaction/enchanted
 
 /obj/effect/proc_holder/spell/infinite_guns/create_new_targeting()
@@ -32,9 +31,7 @@
 	clothes_req = FALSE
 	invocation = "ONI SOMA-SOMA-SOMA"
 	invocation_type = "shout"
-
 	action_icon_state = "explosion"
-
 	gun_type = /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/fireball
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage/fireball

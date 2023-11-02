@@ -626,9 +626,7 @@
 	desc = "\"Use Fireball and only Fireball. Nothing but fireball. Just Fireball. <b>Just Fireball.</b>\""
 	icon_state = "militarybelt"
 	item_state = "military"
-	can_hold = list(
-		/obj/item/gun/magic/wand/fireball
-	)
+	can_hold = list(/obj/item/gun/magic/wand/fireball)
 
 /obj/item/storage/belt/wands/fireballs/populate_contents()
 	for(var/count in 1 to storage_slots)
