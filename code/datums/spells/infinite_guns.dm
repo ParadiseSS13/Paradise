@@ -24,7 +24,6 @@
 /obj/effect/proc_holder/spell/infinite_guns/fireball
 	name = "Rapid-fire Fireball"
 	desc = "Multiple Fireballs. Need I explain more? Requires both hands free to use."
-	invocation_type = "none"
 
 	school = "evocation"
 	base_cooldown = 30 SECONDS
