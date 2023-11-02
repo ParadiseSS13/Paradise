@@ -141,8 +141,9 @@
 		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
 		return SCANNER_UNCLONEABLE_SPECIES
-	if(!scanned.ckey || !scanned.client)
-	//	return SCANNER_NO_SOUL COMMENTED OUT FOR TESTING
+	//if(!scanned.ckey || !scanned.client)
+	//	return SCANNER_NO_SOUL
+	// This is commented out for testing
 
 	scan(scanned)
 
