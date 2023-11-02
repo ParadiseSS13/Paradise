@@ -18,11 +18,12 @@
 	var/next_on_message
 	/// Cooldown until the next turned off message/sound can be activated
 	var/next_off_message
+	var/lighter_color = "g"
 
 /obj/item/lighter/random/New()
 	..()
-	var/color = pick("r","c","y","g")
-	icon_state = "lighter-[color]"
+	lighter_color = pick("r","c","y","g")
+	icon_state = "lighter-[lighter_color]"
 
 /obj/item/lighter/attack_self(mob/living/user)
 	. = ..()
@@ -118,11 +119,11 @@
 	return
 
 /obj/item/lighter/update_icon_state()
-	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"
+	icon_state = "lighter-[lighter_color][lit ? "-on" : ""]"
 	return ..()
 
 /obj/item/lighter/update_overlays()
-	item_state = "[initial(item_state)][lit ? "-on" : ""]"
+	item_state = "lighter-[lighter_color][lit ? "-on" : ""]"
 	return ..()
 
 // Zippo lighters
