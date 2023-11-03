@@ -36,8 +36,6 @@
 		. += "It can restock [num] item\s."
 
 /obj/item/vending_refill/get_part_rating()
-	if (!products || !contraband || !premium)
-		return INFINITY
 	. = 0
 	for(var/key in products)
 		. += products[key]
@@ -45,6 +43,9 @@
 		. += contraband[key]
 	for(var/key in premium)
 		. += premium[key]
+
+	if(. > 30)
+		return INFINITY
 
 /obj/item/vending_refill/boozeomat
 	machine_name = "Booze-O-Mat"
