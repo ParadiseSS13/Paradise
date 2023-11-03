@@ -66,13 +66,15 @@
 	return TRUE
 
 /obj/item/pneumatic_cannon/wrench_act(mob/living/user, obj/item/I)
+	adjust_setting(user)
+	return TRUE
+
+/obj/item/pneumatic_cannon/proc/adjust_setting(mob/living/user)
 	if(pressure_setting == max_pressure_setting)
 		pressure_setting = 1
 	else
 		pressure_setting++
 	to_chat(user, "<span class='notice'>You tweak [src]'s pressure output to [pressure_setting].</span>")
-	return TRUE
-
 
 /obj/item/pneumatic_cannon/attackby(obj/item/W, mob/user, params)
 	..()
