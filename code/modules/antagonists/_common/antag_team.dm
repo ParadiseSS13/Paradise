@@ -167,8 +167,13 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!message)
 		return
 
+	var/team_message = chat_box_red("<font color='#d6000b'><span class='bold'>Admin '[name]' Team Message ([user.key]): </span></font><span class='notice'>[message]</span>")
+	var/team_alert_sound = sound('sound/effects/adminticketopen.ogg')
 	for(var/datum/mind/M as anything in members)
-		to_chat(M.current, "<font color='#d6000b'><span class='bold'>Admin Team Message ([user.key]): </span><span class='notice'>[message]</span>")
+		if(QDELETED(M.current))
+			continue
+		SEND_SOUND(M.current, team_alert_sound)
+		to_chat(M.current, team_message)
 
 	message_admins("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 	log_admin("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
@@ -204,7 +209,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	for(var/datum/mind/member in members)
 		if(!member.current || !isliving(member.current))
 			return
-		var/list/messages = list(member.prepare_announce_objectives())
+		var/list/messages = member.prepare_announce_objectives()
 		to_chat(member.current, chat_box_red(messages.Join("<br>")))
 		SEND_SOUND(member.current, sound('sound/ambience/alarm4.ogg'))
 

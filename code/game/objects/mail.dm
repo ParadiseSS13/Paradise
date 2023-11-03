@@ -13,7 +13,8 @@
 	var/list/possible_contents = list()
 	/// A list that contains the names of the jobs that can receive this type of letter. Only the base job has to be put in it, alternative titles have the same definition on the mind. Name of the job can be found in `mind.assigned_role`
 	var/list/job_list = list()
-	var/mob/living/recipient
+	/// The real name required to open the letter
+	var/recipient
 	var/has_been_scanned = FALSE
 
 /obj/item/envelope/suicide_act(mob/user)
@@ -24,7 +25,7 @@
 /obj/item/envelope/attack_self(mob/user)
 	if(!user?.mind)
 		return
-	if(user.real_name != recipient.real_name)
+	if(user.real_name != recipient)
 		to_chat(user, "<span class='warning'>You don't want to open up another person's mail, that's an invasion of their privacy!</span>")
 		return
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
@@ -46,8 +47,8 @@
 		if(mail_attracted_people.offstation_role || !ishuman(mail_attracted_people.current) || is_admin_level(T.z))
 			continue
 		if(mail_attracted_people.assigned_role in job_list)
-			recipient = mail_attracted_people.current
-			name = "letter to [recipient.real_name]"
+			recipient = mail_attracted_people.current.real_name
+			name = "letter to [recipient]"
 			return
 	if(!admin_spawned)
 		log_debug("Failed to find a new name to assign to [src]!")
@@ -265,7 +266,7 @@
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
-		if(M.real_name != saved.recipient.real_name)
+		if(M.real_name != saved.recipient)
 			to_chat(user, "<span class='warning'>'Identity Verification failed: Target is not an authorized recipient of this package!</span>")
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
