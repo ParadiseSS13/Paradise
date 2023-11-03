@@ -44,6 +44,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	see_in_dark = 100
 	verbs += list(
 		/mob/dead/observer/proc/dead_tele,
+		/mob/dead/observer/proc/jump_to_ruin,
 		/mob/dead/observer/proc/open_spawners_menu)
 
 	// Our new boo spell.
@@ -412,6 +413,38 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	var/target = input("Area to teleport to", "Teleport to a location") as null|anything in SSmapping.ghostteleportlocs
 	teleport(SSmapping.ghostteleportlocs[target])
+
+/mob/dead/observer/proc/jump_to_ruin()
+	set category = "Ghost"
+	set name = "Jump to Ruin"
+	set desc = "Displays a list of all placed ruins to teleport to."
+
+	if(!isobserver(usr))
+		to_chat(usr, "Not when you're not dead!")
+		return
+
+	var/list/names = list()
+	for(var/i in GLOB.ruin_landmarks)
+		var/obj/effect/landmark/ruin/ruin_landmark = i
+		var/datum/map_template/ruin/template = ruin_landmark.ruin_template
+
+		var/count = 1
+		var/name = template.name
+		var/original_name = name
+
+		while(name in names)
+			count++
+			name = "[original_name] ([count])"
+
+		names[name] = ruin_landmark
+
+	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in names
+
+	var/obj/effect/landmark/ruin/landmark = names[ruinname]
+
+	if(istype(landmark))
+		forceMove(get_turf(landmark))
+		update_parallax_contents()
 
 /mob/dead/observer/proc/teleport(area/A)
 	if(!A || !isobserver(usr))
