@@ -44,10 +44,8 @@
 	for(var/key in premium)
 		. += premium[key]
 
-	if (. > 30)
+	if(. > 30)
 		return INFINITY
-	else
-		return .
 
 /obj/item/vending_refill/boozeomat
 	machine_name = "Booze-O-Mat"
