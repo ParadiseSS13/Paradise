@@ -15,6 +15,8 @@
 	integrity_failure = 100
 	atom_say_verb = "bleeps"
 
+	COOLDOWN_DECLARE(copying_cooldown)
+
 	var/insert_anim = "bigscanner1"
 	///Is the photocopier performing an action currently?
 	var/copying = FALSE
@@ -38,6 +40,7 @@
 	///Total copies printed from copymachines globally
 	var/static/total_copies = 0
 	var/static/max_copies_reached = FALSE
+
 
 /obj/machinery/photocopier/attack_ai(mob/user)
 	return attack_hand(user)
@@ -344,7 +347,7 @@
 		copying = FALSE
 		return
 	use_power(active_power_consumption)
-	sleep(PHOTOCOPIER_DELAY)
+	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
 	LAZYADD(saved_documents, O)
 	copying = FALSE
 	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
@@ -390,6 +393,9 @@
 	if(..())
 		return
 	. = FALSE
+	if(!COOLDOWN_FINISHED(src, copying_cooldown))
+		to_chat(usr, "<span class='warning'>[src] is busy, try again in a few seconds.</span>")
+		return
 	add_fingerprint(usr)
 	switch(action)
 		if("copy")
@@ -438,34 +444,34 @@
 	p.populatefields()
 	toner -= 1
 	use_power(active_power_consumption)
-	sleep(PHOTOCOPIER_DELAY)
+	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
 
 /obj/machinery/photocopier/proc/ai_pic()
 	if(!issilicon(usr))
 		return
 	if(stat & (BROKEN|NOPOWER))
 		return
+	if(toner < 5)
+		return
+	var/mob/living/silicon/tempAI = usr
+	var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
 
-	if(toner >= 5)
-		var/mob/living/silicon/tempAI = usr
-		var/obj/item/camera/siliconcam/camera = tempAI.aiCamera
+	if(!camera)
+		return
+	var/datum/picture/selection = camera.selectpicture()
+	if(!selection)
+		return
 
-		if(!camera)
-			return
-		var/datum/picture/selection = camera.selectpicture()
-		if(!selection)
-			return
-
-		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-		var/obj/item/photo/p = new /obj/item/photo(loc)
-		p.construct(selection)
-		if(p.desc == "")
-			p.desc += "Copied by [tempAI.name]"
-		else
-			p.desc += " - Copied by [tempAI.name]"
-		toner -= 5
-		use_power(active_power_consumption)
-		sleep(PHOTOCOPIER_DELAY)
+	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	var/obj/item/photo/p = new /obj/item/photo(loc)
+	p.construct(selection)
+	if(p.desc == "")
+		p.desc += "Copied by [tempAI.name]"
+	else
+		p.desc += " - Copied by [tempAI.name]"
+	toner -= 5
+	use_power(active_power_consumption)
+	COOLDOWN_START(src, copying_cooldown, PHOTOCOPIER_DELAY)
 
 /obj/machinery/photocopier/attackby(obj/item/O, mob/user, params)
 	if(istype(O, /obj/item/paper) || istype(O, /obj/item/photo) || istype(O, /obj/item/paper_bundle))
