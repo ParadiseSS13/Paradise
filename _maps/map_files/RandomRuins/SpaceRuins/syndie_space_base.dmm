@@ -59,11 +59,6 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/storage)
 "ap" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Chamical Test Chamber APC";
-	pixel_y = -24
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -71,6 +66,7 @@
 	d2 = 2;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/syndicate/south,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "aq" = (
@@ -675,6 +671,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
+"dM" = (
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "4-8";
+	d1 = 4
+	},
+/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/area/ruin/unpowered/syndicate_space_base/dormitories)
 "dP" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -747,17 +751,13 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "eg" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Chemistry APC";
-	pixel_x = 24
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-8"
 	},
+/obj/machinery/power/apc/syndicate/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkpurple"
@@ -1031,12 +1031,7 @@
 	d2 = 2;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Engine APC";
-	shock_proof = 1;
-	pixel_x = -24
-	},
+/obj/machinery/power/apc/syndicate/west,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "fF" = (
@@ -1111,12 +1106,18 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/ruin/unpowered/syndicate_space_base/testlab)
-"fV" = (
-/obj/machinery/door/airlock/hatch/syndicate,
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/main)
+"fV" = (
+/obj/machinery/door_control{
+	id = "SSBrestricted";
+	name = "Shutters Control";
+	pixel_x = -24;
+	req_access_txt = "151"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/arrivals)
 "fY" = (
 /obj/machinery/cooker/deepfryer,
 /turf/simulated/floor/plasteel{
@@ -1261,8 +1262,8 @@
 /obj/machinery/dna_scannernew,
 /obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgreen";
-	dir = 1
+	dir = 5;
+	icon_state = "darkgreen"
 	},
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "gQ" = (
@@ -1873,15 +1874,11 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Medical APC";
-	pixel_y = 24
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-8"
 	},
+/obj/machinery/power/apc/syndicate/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -1974,15 +1971,11 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "kK" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Service APC";
-	pixel_y = -24
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-4"
 	},
+/obj/machinery/power/apc/syndicate/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -2130,15 +2123,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "lF" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Arrivals APC";
-	pixel_x = 24
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-8"
 	},
+/obj/machinery/power/apc/syndicate/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2180,6 +2169,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
+"lW" = (
+/obj/machinery/power/apc/syndicate/north,
+/obj/structure/cable/green{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "ma" = (
 /obj/structure/rack{
 	dir = 8
@@ -2759,6 +2758,35 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"pe" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "4-8";
+	d1 = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/green{
+	d2 = 8;
+	icon_state = "1-8";
+	d1 = 1
+	},
+/obj/structure/cable/green{
+	d2 = 4;
+	icon_state = "1-4";
+	d1 = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/main)
 "pf" = (
 /turf/simulated/mineral/ancient/outer,
 /area/ruin/unpowered/syndicate_space_base/storage)
@@ -2816,9 +2844,6 @@
 /turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "ps" = (
-/obj/machinery/disposal/deliveryChute{
-	dir = 8
-	},
 /obj/structure/window/plasmareinforced,
 /obj/structure/window/plasmareinforced{
 	dir = 1
@@ -2828,6 +2853,9 @@
 	},
 /obj/structure/disposalpipe/trunk{
 	dir = 1
+	},
+/obj/structure/disposaloutlet{
+	dir = 8
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
@@ -2893,13 +2921,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "pH" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Atmospheric APC";
-	shock_proof = 1;
-	pixel_x = -24
-	},
 /obj/structure/cable/green,
+/obj/machinery/power/apc/syndicate/west,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "pM" = (
@@ -3700,15 +3723,11 @@
 /obj/structure/sign/poster/official/here_for_your_safety{
 	pixel_x = 32
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Control Room APC";
-	pixel_y = 24
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-8"
 	},
+/obj/machinery/power/apc/syndicate/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3901,13 +3920,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "vO" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Toxins Launch APC";
-	shock_proof = 1;
-	pixel_x = -24
-	},
 /obj/structure/cable/green,
+/obj/machinery/power/apc/syndicate/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4665,7 +4679,9 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "Ab" = (
-/obj/machinery/computer/syndicate_depot/teleporter,
+/obj/machinery/computer/syndicate_depot/teleporter{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5116,12 +5132,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "CS" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Virology APC";
-	pixel_x = 24
-	},
 /obj/structure/cable/green,
+/obj/machinery/power/apc/syndicate/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5169,15 +5181,11 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Toxins Test APC";
-	pixel_y = -24
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-8"
 	},
+/obj/machinery/power/apc/syndicate/south,
 /turf/simulated/floor/catwalk,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "Dl" = (
@@ -5315,15 +5323,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
 "Ef" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Dominatories APC";
-	pixel_y = 24
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/syndicate/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -5881,15 +5885,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
 "GP" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Genetics Lab APC";
-	pixel_x = -24
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/power/apc/syndicate/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 8
@@ -5970,15 +5970,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Hr" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Storage APC";
-	pixel_x = 24
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-8"
 	},
+/obj/machinery/power/apc/syndicate/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -6522,6 +6518,11 @@
 	d2 = 4;
 	icon_state = "2-4";
 	d1 = 2
+	},
+/obj/structure/cable/green{
+	d2 = 4;
+	icon_state = "1-4";
+	d1 = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_space_base/storage)
@@ -7767,15 +7768,15 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
 "Sz" = (
-/obj/machinery/power/smes/engineering{
-	charge = 0
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-8"
+	},
+/obj/machinery/power/smes/engineering{
+	charge = 0
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
@@ -8364,15 +8365,11 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/chemistry)
 "VB" = (
-/obj/machinery/power/apc/syndicate{
-	dir = 1;
-	name = "Telecomms APC";
-	pixel_x = 24
-	},
 /obj/structure/cable/green{
 	d2 = 2;
 	icon_state = "0-8"
 	},
+/obj/machinery/power/apc/syndicate/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8447,18 +8444,26 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/genetics)
 "VU" = (
-/obj/machinery/door/airlock/hatch/syndicate,
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/structure/table/glass,
+/obj/item/storage/box/syringes,
+/obj/item/storage/box/disks,
+/obj/item/storage/box/beakers,
+/obj/item/storage/box/bodybags,
+/obj/item/paper_bin{
+	pixel_x = -3;
+	pixel_y = 14
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/item/storage/box/monkeycubes/syndicate,
+/obj/machinery/light{
+	dir = 8
 	},
+/obj/item/hand_labeler,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
+	dir = 10;
+	icon_state = "darkgreen"
 	},
-/area/ruin/unpowered/syndicate_space_base/arrivals)
+/area/ruin/unpowered/syndicate_space_base/genetics)
 "VW" = (
 /obj/machinery/computer/arcade/recruiter,
 /turf/simulated/floor/plasteel{
@@ -8620,7 +8625,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
 "WV" = (
-/obj/machinery/disposal/deliveryChute,
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
@@ -8633,6 +8637,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
+/obj/structure/disposaloutlet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9978,7 +9983,7 @@ jS
 wL
 Fz
 xn
-VU
+Ln
 xn
 xn
 LS
@@ -10259,7 +10264,7 @@ AD
 LE
 xn
 Dl
-xQ
+fV
 sr
 xn
 cI
@@ -10765,7 +10770,7 @@ Mf
 Mf
 AD
 Mf
-fV
+Lj
 iX
 mO
 Qr
@@ -10837,7 +10842,7 @@ Mf
 AD
 Mf
 AD
-fV
+Lj
 am
 LN
 am
@@ -12426,8 +12431,8 @@ Sl
 iw
 dT
 az
-am
-Mw
+lW
+pe
 mq
 lP
 wI
@@ -13019,7 +13024,7 @@ JE
 Tj
 jf
 eD
-pV
+VU
 DX
 kE
 kE
@@ -13073,7 +13078,7 @@ mX
 aO
 DL
 kB
-az
+dM
 AQ
 am
 OR
