@@ -52,7 +52,6 @@
 	var/obj/item/reagent_containers/syringe/S
 	if(length(syringes))
 		S = syringes[length(syringes)]
-		S.mode = SYRINGE_INJECT
 	else if(chambered.BB)
 		// Remove the chambered syringe only if there's no syringe left
 		S = new()
