@@ -44703,6 +44703,12 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -57124,6 +57130,20 @@
 	icon_state = "green"
 	},
 /area/station/medical/virology)
+"faq" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai_upload)
 "fav" = (
 /obj/structure/table,
 /obj/item/folder/yellow,
@@ -57325,6 +57345,9 @@
 	d1 = 1;
 	d2 = 4;
 	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
@@ -59665,6 +59688,10 @@
 	icon_state = "white"
 	},
 /area/station/science/robotics)
+"gkC" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai_upload)
 "gkP" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/structure/sign/poster/official/nanotrasen_logo{
@@ -65383,6 +65410,12 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
+"jbv" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai_upload)
 "jbW" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6;
@@ -70446,6 +70479,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "lBg" = (
@@ -71263,6 +71302,9 @@
 /area/station/hallway/primary/aft)
 "lUD" = (
 /obj/structure/window/reinforced,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "lVb" = (
@@ -81182,6 +81224,10 @@
 	icon_state = "dark"
 	},
 /area/station/medical/medbay2)
+"qKh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai_upload)
 "qKk" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -82749,6 +82795,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
+"rBC" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/hallway)
 "rBN" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/decal/cleanable/cobweb,
@@ -88435,6 +88492,12 @@
 	icon_state = "whitebluecorner"
 	},
 /area/station/medical/reception)
+"uAQ" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai_upload)
 "uBn" = (
 /obj/item/tank/internals/emergency_oxygen/nitrogen{
 	pixel_x = -4
@@ -92505,6 +92568,12 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
 "wFR" = (
@@ -95073,6 +95142,12 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/xenobiology)
+"xUa" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
+	},
+/turf/simulated/floor/bluegrid,
+/area/station/turret_protected/ai_upload)
 "xUK" = (
 /obj/structure/table/glass,
 /obj/item/radio/intercom{
@@ -122594,7 +122669,7 @@ oRE
 bTS
 tvD
 iLY
-bZa
+cbl
 bSi
 cdJ
 cfT
@@ -122851,7 +122926,7 @@ oRE
 bTO
 wHN
 scq
-cbl
+bZa
 bSi
 cdX
 rME
@@ -141896,9 +141971,9 @@ cGz
 cIO
 bvX
 dQE
-bxq
-bxq
-bxq
+jbv
+qKh
+xUa
 bxq
 bvX
 yjH
@@ -142668,8 +142743,8 @@ ktw
 bvX
 dQE
 lAT
-bxq
-bxq
+gkC
+uAQ
 wQp
 bvX
 rSr
@@ -142924,7 +142999,7 @@ sBG
 oqc
 bvX
 bIM
-lAT
+faq
 cKs
 byP
 arq
@@ -143695,7 +143770,7 @@ iaj
 cdi
 mdt
 fbS
-chW
+rBC
 izl
 oBf
 qcy
