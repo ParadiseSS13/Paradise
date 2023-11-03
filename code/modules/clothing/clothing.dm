@@ -493,7 +493,6 @@
 	if(!no_slip || slot != slot_shoes)
 		return
 	ADD_TRAIT(user, TRAIT_NOSLIP, UID())
-	to_chat(user, "[src] equipped on [user]")
 
 /obj/item/clothing/shoes/dropped(mob/user)
 	..()
@@ -501,9 +500,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(slot_shoes) == src)
-		to_chat(user, "Attempted remove trait on [user] from [src]")
 		REMOVE_TRAIT(H, TRAIT_NOSLIP, UID())
-	to_chat(user, "Shoes dropped")
 
 /obj/item/clothing/shoes/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/match) && src.loc == user)
