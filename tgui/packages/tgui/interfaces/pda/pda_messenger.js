@@ -167,7 +167,8 @@ export const MessengerList = (props, context) => {
 
   const data = props.data;
 
-  const { convopdas, pdas, charges, silent, toff, ringtone_list, ringtone } = data;
+  const { convopdas, pdas, charges, silent, toff, ringtone_list, ringtone } =
+    data;
 
   const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
 
@@ -204,7 +205,9 @@ export const MessengerList = (props, context) => {
               selected={ringtone}
               width="110px"
               options={Object.keys(ringtone_list)}
-              onSelected={(value) => act('Available_Ringtones', {selected_ringtone: value,})}
+              onSelected={(value) =>
+                act('Available_Ringtones', { selected_ringtone: value })
+              }
             />
           </Button>
         </LabeledList.Item>
