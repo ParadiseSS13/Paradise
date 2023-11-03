@@ -1,5 +1,3 @@
-#define BASE_BIOMASS_CAPACITY 1500
-#define BASE_COMPOST_CAPACITY 1500
 #define SOIL_COST 25
 #define DECAY 0.2
 #define MIN_CONVERSION 10
@@ -23,12 +21,9 @@
 	/// amount of compost in the compost bin
 	var/compost = 0
 	/// The maximum amount of biomass the compost bin can store.
-	var/biomass_capacity = BASE_BIOMASS_CAPACITY
+	var/biomass_capacity = 1500
 	/// The maximum amount of compost the compost bin can store.
-	var/compost_capacity = BASE_COMPOST_CAPACITY
-
-/obj/machinery/compost_bin/Initialize(mapload)
-	return ..()
+	var/compost_capacity = 1500
 
 /obj/machinery/compost_bin/on_deconstruction()
 	// returns wood instead of the non-existent components
@@ -48,7 +43,7 @@
 /obj/machinery/compost_bin/proc/make_biomass(obj/item/reagent_containers/food/snacks/grown/O)
 	// calculate biomass from plant nutriment and plant matter
 	var/plant_biomass = O.reagents.get_reagent_amount("nutriment") + O.reagents.get_reagent_amount("plantmatter")
-	biomass += clamp(plant_biomass * 10, 1, biomass_capacity-biomass)
+	biomass += clamp(plant_biomass * 10, 1, biomass_capacity - biomass)
 	//plant delenda est
 	qdel(O)
 
@@ -65,15 +60,15 @@
 		var/obj/item/storage/bag/plants/PB = O
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in PB.contents)
 
-			if(biomass >= biomass_capacity)
-				break
 			PB.remove_from_storage(G, src)
 			make_biomass(G)
 
+			if(biomass >= biomass_capacity)
+				to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
+				break
+
 		if(biomass < biomass_capacity)
 			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
-		else
-			to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
 
 		SStgui.update_uis(src)
 		update_icon_state()
@@ -160,8 +155,6 @@
 	else
 		icon_state = "compost_bin-3"
 
-#undef BASE_BIOMASS_CAPACITY
-#undef BASE_COMPOST_CAPACITY
 #undef SOIL_COST
 #undef DECAY
 #undef MIN_CONVERSION

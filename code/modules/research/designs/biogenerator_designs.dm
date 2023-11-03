@@ -140,7 +140,7 @@
 	category = list("initial", "Botany Chemicals")
 
 /datum/design/soil
-	name = "Clump of soil"
+	name = "Clump of Soil"
 	id = "soil"
 	build_type = BIOGENERATOR
 	materials = list(MAT_BIOMASS = 50)
