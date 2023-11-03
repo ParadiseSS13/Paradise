@@ -839,4 +839,4 @@
 
 /obj/item/paper/instruction/pacman_generator
 	name = "Instructions for P.A.C.M.A.N. Generator series"
-	info = "P.A.C.K.M.A.N. generators are commonly used as 'Emergency' power generators and other upgraded versions of this generator commonly use uranium or plasma sheets to generate power, simply anchor on the power cable node, insert the plasma sheet, select the level and turn it ON to generate power, just make sure to not overheat it or it will explode."
+	info = "P.A.C.M.A.N. are commonly used as 'Emergency' power generators, with its upgraded version being capable of utilizing uranium and plasma sheets to function. Simply anchor on the power cable node, insert the plasma sheet, select the level and turn it ON to generate power, just make sure to not overheat it or it will explode."

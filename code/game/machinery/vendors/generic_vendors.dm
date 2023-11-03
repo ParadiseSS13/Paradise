@@ -1050,6 +1050,9 @@
 				/obj/item/toner = 40,
 				/obj/item/pen/fancy = 40)
 
+/obj/machinery/economy/vending/artvend/free
+	prices = list()
+
 /obj/machinery/economy/vending/tool
 	name = "\improper YouTool"
 	desc = "Tools for tools."
