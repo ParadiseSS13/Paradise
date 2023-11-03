@@ -175,7 +175,7 @@
 
 /datum/gear/hat/beret_job/hop
 	display_name = "Beret, head of personnel's"
-	path = /obj/item/clothing/head/beret/hop
+	path = /obj/item/clothing/head/hopcap/beret
 	allowed_roles = list("Head of Personnel")
 
 /datum/gear/hat/beret_job/sci
