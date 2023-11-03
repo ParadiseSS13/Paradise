@@ -109,13 +109,21 @@ export class NanoMap extends Component {
       'background-repeat': 'no-repeat',
       'text-align': 'center',
       'cursor': dragging ? 'move' : 'auto',
+    };
+    const mapStyle = {
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
       '-ms-interpolation-mode': 'nearest-neighbor',
     };
 
     return (
       <Box className="NanoMap__container">
-        <Box>
-          <img src={mapUrl} style={newStyle} onMouseDown={this.handleDragStart} />
+        <Box style={newStyle} onMouseDown={this.handleDragStart}>
+          <img src={mapUrl} style={mapStyle} />
           <Box>{children}</Box>
         </Box>
         <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} />

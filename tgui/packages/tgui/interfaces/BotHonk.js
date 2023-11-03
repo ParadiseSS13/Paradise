@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Box, Section} from '../components';
+import { Button, LabeledList, Box, Section } from '../components';
 import { Window } from '../layouts';
 import { BotStatus } from './common/BotStatus';
 

@@ -9,6 +9,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	chemical_cost = 10
 	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_UTILITY
 
 /datum/action/changeling/hivemind_pick/on_purchase(mob/user, datum/antagonist/changeling/C)
 	if(!..())
