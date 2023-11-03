@@ -24116,28 +24116,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "bridge blast east";
-	name = "Bridge Blast Doors"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
@@ -26114,17 +26094,22 @@
 	},
 /area/station/hallway/primary/central/nw)
 "bAC" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/highsecurity,
+/obj/effect/mapping_helpers/airlock/autoname,
+/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/any/science/rd,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "blue"
+	icon_state = "dark"
 	},
-/area/station/command/bridge)
+/area/station/engineering/gravitygenerator/entry)
 "bAE" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27966,9 +27951,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/west)
 "bHB" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "vault"
+	icon_state = "darkblue"
 	},
 /area/station/engineering/gravitygenerator)
 "bHC" = (
@@ -27982,9 +27970,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "bHD" = (
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/station/engineering/gravitygenerator)
 "bHF" = (
@@ -29000,13 +28994,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/medical/reception)
-"bLi" = (
-/obj/machinery/gravity_generator/main/station,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "vault"
-	},
-/area/station/engineering/gravitygenerator)
 "bLj" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -55230,7 +55217,7 @@
 	},
 /area/station/hallway/secondary/exit)
 "ecY" = (
-/obj/machinery/power/port_gen/pacman,
+/obj/machinery/blackbox_recorder,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -57968,6 +57955,15 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/hallway)
+"fpA" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "vault"
+	},
+/area/station/engineering/gravitygenerator)
 "fpO" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /turf/space,
@@ -61680,14 +61676,12 @@
 /obj/structure/sign/radiation/rad_area{
 	pixel_x = 32
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
+/obj/machinery/shower{
+	pixel_y = 20
 	},
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "darkblue"
-	},
-/area/station/engineering/gravitygenerator)
+/obj/structure/curtain/open/shower,
+/turf/simulated/floor/noslip,
+/area/station/engineering/gravitygenerator/entry)
 "hcE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -61869,7 +61863,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkbluecorners"
 	},
 /area/station/engineering/gravitygenerator)
 "hiO" = (
@@ -63899,7 +63894,10 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/radiation,
+/obj/machinery/power/port_gen/pacman,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -65075,19 +65073,16 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/delivery/partial,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+	icon_state = "dark"
 	},
-/area/station/engineering/gravitygenerator)
+/area/station/engineering/gravitygenerator/entry)
 "iRC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -68341,6 +68336,21 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"kxA" = (
+/obj/machinery/camera{
+	c_tag = "Gravity Generator Room"
+	},
+/obj/structure/closet/radiation,
+/obj/effect/turf_decal/stripes/corner,
+/obj/machinery/alarm{
+	name = "north bump";
+	pixel_y = 24
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "darkblue"
+	},
+/area/station/engineering/gravitygenerator/entry)
 "kxY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -68655,22 +68665,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/medical/medbay2)
-"kGd" = (
-/obj/machinery/camera{
-	c_tag = "Bridge Central";
-	dir = 1
-	},
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Bridge";
-	departmentType = 5;
-	name = "Bridge Requests Console";
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
-/area/station/command/bridge)
 "kGB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood,
@@ -68741,22 +68735,23 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "kIz" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/highsecurity,
-/obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/effect/mapping_helpers/airlock/access/any/science/rd,
+/obj/effect/turf_decal/delivery/partial,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
-/area/station/engineering/gravitygenerator)
+/area/station/engineering/gravitygenerator/entry)
 "kIP" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /obj/effect/spawner/window/reinforced/grilled,
@@ -69162,24 +69157,16 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 4;
+	icon_state = "darkblue"
 	},
 /area/station/engineering/gravitygenerator)
 "kRK" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/power/apc{
-	name = "south bump Engineering";
-	pixel_y = -24;
-	shock_proof = 1
-	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/gravity_generator/main/station,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
+	dir = 4;
+	icon_state = "vault"
 	},
 /area/station/engineering/gravitygenerator)
 "kSn" = (
@@ -70478,7 +70465,9 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/machinery/blackbox_recorder,
+/obj/machinery/computer/message_monitor{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -71277,9 +71266,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
 "lRB" = (
-/obj/machinery/computer/message_monitor{
-	dir = 8
-	},
+/obj/machinery/message_server,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -72666,14 +72653,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint2)
-"mEv" = (
-/obj/machinery/ai_status_display{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
-/area/station/command/bridge)
 "mEJ" = (
 /obj/structure/closet/emcloset,
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
@@ -72779,7 +72758,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure/closet/radiation,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -73398,7 +73376,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/message_server,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -73476,13 +73456,19 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "mZb" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/door/window/classic/normal{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkbluecorners"
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/station/engineering/gravitygenerator)
 "mZf" = (
@@ -74664,6 +74650,24 @@
 	icon_state = "whitegreenfull"
 	},
 /area/station/medical/virology)
+"nJv" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/extinguisher_cabinet{
+	name = "south bump";
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "nKg" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -75485,6 +75489,23 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/science/robotics)
+"odC" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/ai_status_display{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "odD" = (
 /obj/structure/bookcase,
 /turf/simulated/floor/wood,
@@ -75672,13 +75693,19 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/window/classic/reversed{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/autoname{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkbluecorners"
+	icon_state = "darkblue"
 	},
 /area/station/engineering/gravitygenerator)
 "oij" = (
@@ -76243,6 +76270,15 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
+"osT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "vault"
+	},
+/area/station/engineering/gravitygenerator)
 "osZ" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -76690,18 +76726,6 @@
 	id_tag = "bridge blast west";
 	name = "Bridge Blast Doors"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/sign/securearea{
-	pixel_x = 32
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/preopen{
-	name = "Bridge Blast Doors";
-	id_tag = "bridge blast west"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "oDT" = (
@@ -76851,14 +76875,19 @@
 /area/station/science/toxins/mixing)
 "oGx" = (
 /obj/structure/cable{
-	d1 = 4;
 	d2 = 8;
-	icon_state = "4-8"
+	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/stripes/corner{
+/obj/machinery/power/apc{
+	name = "south bump Engineering";
+	pixel_y = -24;
+	shock_proof = 1
+	},
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "darkblue"
 	},
 /area/station/engineering/gravitygenerator)
@@ -78650,6 +78679,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"pAJ" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "vault"
+	},
+/area/station/engineering/gravitygenerator)
 "pAM" = (
 /obj/structure/table,
 /obj/item/soap/deluxe,
@@ -80597,6 +80635,9 @@
 	icon_state = "blue"
 	},
 /area/station/command/bridge)
+"qxz" = (
+/turf/simulated/wall/r_wall,
+/area/station/engineering/gravitygenerator/entry)
 "qxF" = (
 /obj/item/storage/firstaid/o2{
 	pixel_x = 5;
@@ -80701,9 +80742,13 @@
 /area/station/science/toxins/mixing)
 "qAE" = (
 /obj/effect/turf_decal/stripes/corner{
-	dir = 1
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
+	dir = 10;
 	icon_state = "darkblue"
 	},
 /area/station/engineering/gravitygenerator)
@@ -81508,6 +81553,24 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"qRr" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Bridge Central";
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "qRu" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -82420,15 +82483,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/public/toilet)
-"rqQ" = (
-/obj/structure/extinguisher_cabinet{
-	name = "south bump";
-	pixel_y = -30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "blue"
-	},
-/area/station/command/bridge)
 "rrg" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -82594,15 +82648,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
 	},
-/obj/machinery/camera{
-	c_tag = "Gravity Generator Room"
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkblue"
+	dir = 4;
+	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/gravitygenerator)
+/area/station/engineering/gravitygenerator/entry)
 "rxg" = (
 /obj/structure/plasticflaps{
 	opacity = 1
@@ -84438,12 +84491,12 @@
 /obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
 	},
-/obj/effect/turf_decal/stripes/corner,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
+/obj/machinery/shower{
+	pixel_y = 20
 	},
-/area/station/engineering/gravitygenerator)
+/obj/structure/curtain/open/shower,
+/turf/simulated/floor/noslip,
+/area/station/engineering/gravitygenerator/entry)
 "svp" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -84532,7 +84585,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	icon_state = "darkbluecorners"
 	},
 /area/station/engineering/gravitygenerator)
 "syL" = (
@@ -85003,26 +85056,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/preopen{
-	name = "Bridge Blast Doors";
-	id_tag = "bridge blast west"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
@@ -86447,16 +86480,15 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "tBI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/firealarm{
 	dir = 1;
 	name = "south bump";
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
+	dir = 1;
+	icon_state = "vault"
 	},
 /area/station/engineering/gravitygenerator)
 "tCq" = (
@@ -89830,6 +89862,27 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/engineering/engine/supermatter)
+"vmZ" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "Bridge Requests Console";
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel,
+/area/station/command/bridge)
 "vns" = (
 /obj/machinery/r_n_d/server/robotics,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging{
@@ -90733,6 +90786,26 @@
 	icon_state = "bluecorner"
 	},
 /area/station/hallway/secondary/exit)
+"vGD" = (
+/obj/structure/closet/radiation,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/machinery/power/apc{
+	cell_type = 25000;
+	dir = 1;
+	name = "north bump";
+	pixel_y = 24
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/station/engineering/gravitygenerator/entry)
 "vHd" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -93514,15 +93587,6 @@
 	id_tag = "bridge blast west";
 	name = "Bridge Blast Doors"
 	},
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/poddoor/preopen{
-	name = "Bridge Blast Doors";
-	id_tag = "bridge blast west"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "xfI" = (
@@ -94798,7 +94862,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "dark"
+	dir = 8;
+	icon_state = "darkblue"
 	},
 /area/station/engineering/gravitygenerator)
 "xMy" = (
@@ -94917,12 +94982,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkblue"
+	icon_state = "darkbluecorners"
 	},
-/area/station/engineering/gravitygenerator)
+/area/station/engineering/gravitygenerator/entry)
 "xRr" = (
 /obj/machinery/door/airlock/engineering{
 	name = "Fore Port Solar Access"
@@ -95178,12 +95245,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "xUY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
+	dir = 8;
+	icon_state = "vault"
 	},
 /area/station/engineering/gravitygenerator)
 "xVe" = (
@@ -123942,7 +124008,7 @@ bqS
 sIn
 owy
 hsH
-bFC
+qxz
 bFC
 bFC
 bFC
@@ -124198,8 +124264,8 @@ bpt
 rOm
 seQ
 oVu
-bFC
-bFC
+qxz
+qxz
 iiN
 mGH
 imy
@@ -124453,9 +124519,9 @@ uco
 jvs
 vre
 bqS
-sIn
-rqQ
-bFC
+nJv
+qxz
+qxz
 suM
 ohY
 syC
@@ -124710,13 +124776,13 @@ aSv
 bnY
 bpu
 bqU
-sIn
-kGd
-bFC
+qRr
+qxz
+vGD
 xRp
 bHB
+pAJ
 bHz
-bLi
 kRK
 bFC
 aIa
@@ -124971,9 +125037,9 @@ ojx
 bAC
 kIz
 iRr
-bHz
+bHB
+osT
 bFE
-bHz
 xUY
 bFC
 ntk
@@ -125224,13 +125290,13 @@ qCN
 boa
 iFa
 bqV
-sIn
-lOQ
-bFC
+vmZ
+qxz
+kxA
 rxa
 bHD
+fpA
 bHz
-bHB
 tBI
 bFC
 lsL
@@ -125481,9 +125547,9 @@ qCN
 aYf
 aYg
 bqS
-sIn
-mEv
-bFC
+odC
+qxz
+qxz
 hcv
 mZb
 hiH
@@ -125740,8 +125806,8 @@ bpt
 bup
 mFb
 xbk
-bFC
-bFC
+qxz
+qxz
 mWW
 lRB
 lya
@@ -125998,7 +126064,7 @@ bqS
 vmz
 hCa
 wCG
-bFC
+qxz
 bFC
 bFC
 bFC
