@@ -366,7 +366,6 @@
 		qdel(bigass_statue)
 
 // Top layer of the statue is not dense
-
 /obj/structure/statue/cyberiad/north
 	icon_state = "north"
 	density = FALSE
