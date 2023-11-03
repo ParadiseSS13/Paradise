@@ -239,7 +239,7 @@
 		var/name = P.owner
 		if(name in names)
 			namecounts[name]++
-			name = text("[name] ([namecounts[name]])")
+			name = "[name] ([namecounts[name]])"
 		else
 			names.Add(name)
 			namecounts[name] = 1

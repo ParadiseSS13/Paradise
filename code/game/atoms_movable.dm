@@ -663,3 +663,164 @@
 
 /atom/movable/MouseExited(location, control, params)
 	usr.hud_used.screentip_text.maptext = ""
+
+/atom/movable/proc/choose_crush_crit(mob/living/carbon/victim)
+	if(!length(GLOB.tilt_crits))
+		return
+	for(var/crit_path in shuffle(GLOB.tilt_crits))
+		var/datum/tilt_crit/C = GLOB.tilt_crits[crit_path]
+		if(C.is_valid(src, victim))
+			return C
+
+/atom/movable/proc/handle_squish_carbon(mob/living/carbon/victim, damage_to_deal, datum/tilt_crit/crit)
+
+	// Damage points to "refund", if a crit already beats the shit out of you we can shelve some of the extra damage.
+	var/crit_rebate = 0
+
+	if(HAS_TRAIT(victim, TRAIT_DWARF))
+		// also double damage if you're short
+		damage_to_deal *= 2
+
+	if(crit)
+		crit_rebate = crit.tip_crit_effect(src, victim)
+		if(crit.harmless)
+			return
+
+		add_attack_logs(null, victim, "critically crushed by [src] causing [crit]")
+	else
+		add_attack_logs(null, victim, "crushed by [src]")
+
+	// 30% chance to spread damage across the entire body, 70% chance to target two limbs in particular
+	damage_to_deal = max(damage_to_deal - crit_rebate, 0)
+	if(prob(30))
+		victim.apply_damage(damage_to_deal, BRUTE, BODY_ZONE_CHEST, spread_damage = TRUE)
+	else
+		var/picked_zone
+		var/num_parts_to_pick = 2
+		for(var/i in 1 to num_parts_to_pick)
+			picked_zone = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD, BODY_ZONE_L_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_ARM, BODY_ZONE_R_LEG)
+			victim.apply_damage((damage_to_deal) * (1 / num_parts_to_pick), BRUTE, picked_zone)
+
+	victim.AddElement(/datum/element/squish, 80 SECONDS)
+
+#define NO_CRUSH_DIR "no_dir"
+
+/**
+ * Tip over this atom onto a turf, crushing things in its path.
+ *
+ * Arguments:
+ * * target_turf - The turf to fall onto.
+ * * should_crit - If true, we'll try to crit things that we crush.
+ * * crit_damage_factor - If a crit is rolled, crush_damage will be multiplied by this amount.
+ * * forced_crit - If passed, this crit will be applied to everything it crushes.
+ * * weaken_time - The amount of time that weaken will be applied to crushed mobs.
+ * * knockdown_time - The amount of time that knockdown will be applied to crushed mobs.
+ * * ignore_gravity - If false, we won't fall over in zero G.
+ * * should_rotate - If false, we won't rotate when we fall.
+ * * angle - The angle by which we'll rotate. If this is null/0, we'll randomly rotate 90 degrees clockwise or counterclockwise.
+ * * rightable - If true, the tilted component will be applied, allowing people to alt-click to right it.
+ * * block_interactions_until_righted - If true, interactions with the object will be blocked until it's righted.
+ * * crush_dir - An override on the cardinal direction we're crushing.
+ */
+/atom/movable/proc/fall_and_crush(turf/target_turf, crush_damage, should_crit = FALSE, crit_damage_factor = 2, datum/tilt_crit/forced_crit, weaken_time = 4 SECONDS, knockdown_time = 10 SECONDS, ignore_gravity = FALSE, should_rotate = TRUE, angle, rightable = FALSE, block_interactions_until_righted = FALSE, crush_dir = NO_CRUSH_DIR)
+	if(QDELETED(src) || isnull(target_turf))
+		return
+
+	if(crush_dir == NO_CRUSH_DIR)
+		crush_dir = get_dir(get_turf(src), target_turf)
+
+	var/has_tried_to_move = FALSE
+
+	if(is_blocked_turf(target_turf, TRUE, excluded_objs=list(src)))
+		has_tried_to_move = TRUE
+		if(!Move(target_turf, crush_dir))
+			// we'll try to move, and if we didn't end up going anywhere, then we do nothing.
+			visible_message("<span class='warning'>[src] seems to rock, but doesn't fall over!</span>")
+			return
+
+	for(var/atom/target in (target_turf.contents) + target_turf)
+		if(isarea(target) || target == src)  // don't crush ourselves
+			continue
+
+		if(isobserver(target))
+			continue
+
+		// ignore things that are under the ground
+		if(isobj(target) && (target.invisibility > SEE_INVISIBLE_LIVING) || iseffect(target) || isitem(target) || target.level == 1)
+			continue
+
+		var/datum/tilt_crit/crit_case = forced_crit
+		if(isnull(forced_crit) && should_crit)
+			crit_case = choose_crush_crit(target)
+		// note that it could still be null after this point, in which case it won't crit
+		var/damage_to_deal = crush_damage
+
+		if(isliving(target))
+			var/mob/living/L = target
+
+			if(crit_case)
+				damage_to_deal *= crit_damage_factor
+			if(iscarbon(L))
+				handle_squish_carbon(L, damage_to_deal, crit_case)
+			else
+				L.apply_damage(damage_to_deal, BRUTE)
+			L.Weaken(weaken_time)
+			L.emote("scream")
+			L.KnockDown(knockdown_time)
+			playsound(L, 'sound/effects/blobattack.ogg', 40, TRUE)
+			playsound(L, 'sound/effects/splat.ogg', 50, TRUE)
+			add_attack_logs(src, L, "crushed by [src]")
+
+
+		else if(isobj(target))  // don't crush things on the floor, that'd probably be annoying
+			var/obj/O = target
+			O.take_damage(damage_to_deal, BRUTE, "", FALSE)
+		else
+			continue
+
+		target.visible_message(
+			"<span class='danger'>[target] is crushed by [src]!</span>",
+			"<span class='userdanger'>[src] crushes you!</span>",
+			"<span class='warning'>You hear a loud crunch!</span>"
+		)
+
+	tilt_over(target_turf, angle, should_rotate, rightable, block_interactions_until_righted)
+	// for things that trigger on Crossed()
+	if(!has_tried_to_move)
+		Move(target_turf, crush_dir)
+
+	return TRUE
+
+#undef NO_CRUSH_DIR
+
+/**
+ * Tip over an atom without too much fuss. This won't cause damage to anything, and just rotates the thing and (optionally) adds the component.
+ *
+ * Arguments:
+ * * target - The turf to tilt over onto
+ * * rotation_angle - The angle to rotate by. If not given, defaults to random rotating by 90 degrees clockwise or counterclockwise
+ * * should_rotate - Whether or not we should rotate at all
+ * * rightable - Whether or not this object should be rightable, attaching the tilted component to it
+ * * block_interactions_until_righted - If true, this object will need to be righted before it can be interacted with
+ */
+/atom/movable/proc/tilt_over(turf/target, rotation_angle, should_rotate, rightable, block_interactions_until_righted)
+	visible_message("<span class='danger'>[src] tips over!</span>", "<span class='danger'>You hear a loud crash!</span>")
+	playsound(src, "sound/effects/bang.ogg", 100, TRUE)
+	var/rot_angle = rotation_angle ? rotation_angle : pick(90, -90)
+	if(should_rotate)
+		var/matrix/to_turn = turn(transform, rot_angle)
+		animate(src, transform = to_turn, 0.2 SECONDS)
+	if(target && target != get_turf(src))
+		throw_at(target, 1, 1, spin = FALSE)
+	if(rightable)
+		layer = ABOVE_MOB_LAYER
+		AddComponent(/datum/component/tilted, 14 SECONDS, block_interactions_until_righted, rot_angle)
+
+/// Untilt a tilted object.
+/atom/movable/proc/untilt(mob/living/user, duration = 10 SECONDS)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_TRY_UNTILT, user)
+
+
+/// useful callback for things that want special behavior on crush
+/atom/movable/proc/on_crush_thing(atom/thing)
+	return

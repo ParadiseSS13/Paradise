@@ -259,7 +259,7 @@
 	required_reagents = list("potassium" = 1, "sugar" = 1, "phosphorus" = 1)
 	result_amount = 1
 	mix_message = "The mixture quickly turns into a pall of smoke!"
-	var/forbidden_reagents = list("sugar", "phosphorus", "potassium", "stimulants", "smoke_powder") //Do not transfer this stuff through smoke.
+	var/forbidden_reagents = list("sugar", "phosphorus", "potassium", "stimulants", "smoke_powder", "fishwater", "toiletwater") //Do not transfer this stuff through smoke.
 
 /datum/chemical_reaction/smoke/on_reaction(datum/reagents/holder, created_volume)
 	for(var/f_reagent in forbidden_reagents)
