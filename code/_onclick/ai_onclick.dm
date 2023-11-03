@@ -218,7 +218,6 @@
 	if(user.can_instant_lockdown() || do_after_once(user, 3 SECONDS, needhand = FALSE, target = src, allow_moving = TRUE, attempt_cancel_message = "Bolting [src] cancelled.", special_identifier = "Bolt"))
 		toggle_bolt(user) // Bolt after a delay unless emagged.
 
-
 /obj/machinery/door/airlock/AIAltClick(mob/living/silicon/user) // Electrifies doors.
 	if(!ai_control_check(user))
 		return
