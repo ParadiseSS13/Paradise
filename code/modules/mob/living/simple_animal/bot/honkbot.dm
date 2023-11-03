@@ -69,22 +69,37 @@
 	text_dehack = "You reboot [name] and restore the sound control system."
 	text_dehack_fail = "[name] refuses to accept your authority!"
 
-/mob/living/simple_animal/bot/honkbot/get_controls(mob/user)
-	var/dat
-	dat += hack(user)
-	dat += showpai(user)
-	dat += text({"
-	<TT><B>Honkomatic Bike Horn Unit v1.0.7 controls</B></TT><BR><BR>
-	Status: []<BR>
-	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-	Maintenance panel is [open ? "opened" : "closed"]<BR>"},
+/mob/living/simple_animal/bot/honkbot/show_controls(mob/user)
+	ui_interact(user)
 
-	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>")
+/mob/living/simple_animal/bot/honkbot/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "BotHonk", name, 500, 220)
+		ui.open()
 
-	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
-
-	return	dat
+/mob/living/simple_animal/bot/honkbot/ui_act(action, params, datum/tgui/ui)
+	if(..())
+		return
+	var/mob/user = ui.user
+	if(topic_denied(user))
+		to_chat(user, "<span class='warning'>[src]'s interface is not responding!</span>")
+		return
+	add_fingerprint(user)
+	. = TRUE
+	switch(action)
+		if("power")
+			if(on)
+				turn_off()
+			else
+				turn_on()
+		if("autopatrol")
+			auto_patrol = !auto_patrol
+			bot_reset()
+		if("hack")
+			handle_hacking(user)
+		if("disableremote")
+			remote_disabled = !remote_disabled
 
 /mob/living/simple_animal/bot/honkbot/proc/retaliate(mob/living/carbon/human/H)
 	threatlevel = 6

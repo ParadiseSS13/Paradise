@@ -63,7 +63,6 @@
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
 
-	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
@@ -135,6 +134,8 @@
 		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
+		if(isliving(current))
+			current.med_hud_set_status()
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
 
 		SStgui.on_transfer(current, new_character)

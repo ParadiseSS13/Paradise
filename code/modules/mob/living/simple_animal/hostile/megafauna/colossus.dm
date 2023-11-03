@@ -172,7 +172,7 @@ Difficulty: Very Hard
 	dir_shots(GLOB.diagonals)
 	SLEEP_CHECK_DEATH(rage)
 	dir_shots(GLOB.cardinal)
-	if(telegraphing)
+	if(telegraphing && enraged)
 		alternating_dir_shots(FALSE)
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/select_spiral_attack()
@@ -235,7 +235,7 @@ Difficulty: Very Hard
 	ranged_cooldown = world.time + 20
 	if(do_sleep)
 		telegraph(BLAST)
-		SLEEP_CHECK_DEATH(enraged ? 0.1 SECONDS : 1.5 SECONDS)
+		SLEEP_CHECK_DEATH(enraged ? 0.75 SECONDS : 1.5 SECONDS)
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, TRUE, 2)
 	newtonian_move(get_dir(target_turf, src))
@@ -346,6 +346,8 @@ Difficulty: Very Hard
 	. = ..()
 	if(isturf(target) || isobj(target))
 		target.ex_act(2)
+		for(var/obj/machinery/light/L in range(2, src))
+			L.break_light_tube(0, 1) //No leaving lights floating their as colossus breaks the station
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.stat == DEAD)

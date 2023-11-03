@@ -1,6 +1,7 @@
 #define BUBBLEGUM_SMASH (health <= maxHealth * 0.5 || second_life) // angery
 #define BUBBLEGUM_CAN_ENRAGE (enrage_till + (enrage_time * 2) <= world.time)
 #define BUBBLEGUM_IS_ENRAGED (enrage_till > world.time)
+#define MAXIMUM_ENRAGED_HEALING 500
 
 
 /*
@@ -61,6 +62,10 @@ Difficulty: Hard
 	var/revving_charge = FALSE
 	/// Is it on its enraged exclusive second life?
 	var/second_life = FALSE
+	/// Does it have a portal to the funny second life arena created?
+	var/obj/effect/portal/redspace/second_life_portal
+	/// Enraged healing recived
+	var/enraged_healing = 0
 	internal_gps = /obj/item/gps/internal/bubblegum
 	medal_type = BOSS_MEDAL_BUBBLEGUM
 	score_type = BUBBLEGUM_SCORE
@@ -140,6 +145,7 @@ Difficulty: Hard
 
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/death(gibbed)
+	qdel(second_life_portal)
 	if(enraged && !second_life)
 		var/obj/structure/closet/crate/necropolis/bubblegum/bait/jebait = new /obj/structure/closet/crate/necropolis/bubblegum/bait(get_turf(src))
 		var/obj/effect/bubblegum_trigger/great_chest_ahead = new /obj/effect/bubblegum_trigger(jebait, ListTargets())
@@ -149,7 +155,7 @@ Difficulty: Hard
 		var/area/A = get_area(src)
 		for(var/mob/M in A)
 			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
-			new /obj/effect/bubblegum_exit(get_turf(src))
+		new /obj/effect/bubblegum_exit(get_turf(src))
 	return ..()
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/OpenFire(atom/A)
@@ -376,12 +382,12 @@ Difficulty: Hard
 		if(T in range(2, target))
 			continue
 		turfs += T
-		var/amount = enraged ? 4 : 3
+		var/amount = second_life ? 4 : 3
 		while(constructs < amount && length(turfs))
 			var/turf/spot = pick_n_take(turfs)
 			if(!spot)
 				return
-			var/mob/living/simple_animal/hostile/construct/wraith/hostile/summon = new /mob/living/simple_animal/hostile/construct/wraith/hostile(spot)
+			var/mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum/summon = new /mob/living/simple_animal/hostile/construct/wraith/hostile/bubblegum(spot)
 			summon.faction = faction.Copy()
 			constructs++
 
@@ -407,7 +413,7 @@ Difficulty: Hard
 	if(!BUBBLEGUM_CAN_ENRAGE)
 		return FALSE
 	enrage_till = world.time + enrage_time
-	if(enraged)
+	if(enraged && (enraged_healing < MAXIMUM_ENRAGED_HEALING) && !second_life)
 		adjustHealth(-75)
 	update_approach()
 	change_move_delay(enraged ? 3 : 4) //3 if enraged, 4 otherwise
@@ -642,7 +648,17 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Initialize(mapload)
 	. = ..()
+	for(var/obj/effect/landmark/spawner/bubblegum_exit/E in GLOB.landmarks_list)
+		second_life_portal = new /obj/effect/portal/redspace(get_turf(E), get_turf(src), null, 2 HOURS, src, FALSE)
+		break
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(20))
-		to_chat(H, "<span class='colossus'><b>I WILL END YOU HERE AND NOW!</b></span>")
+		to_chat(H, "<span class='colossus'><b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b></span>")
 		FindTarget(list(H), 1)
+
+/mob/living/simple_animal/hostile/megafauna/bubblegum/round_2/Life(seconds, times_fired)
+	. = ..()
+	if(!istype(get_area(src), /area/ruin/space/bubblegum_arena))
+		for(var/obj/effect/landmark/spawner/bubblegum/B in GLOB.landmarks_list)
+			forceMove(get_turf(B))
+			break

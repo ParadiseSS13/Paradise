@@ -326,7 +326,8 @@
 			FindTarget()
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
-	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
+	if(SEND_SIGNAL(target, COMSIG_HOSTILE_ATTACKINGTARGET, src) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return FALSE
 	in_melee = TRUE
 	return target.attack_animal(src)
 
@@ -369,7 +370,7 @@
 
 /mob/living/simple_animal/hostile/proc/CheckFriendlyFire(atom/A)
 	if(check_friendly_fire)
-		for(var/turf/T in getline(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
+		for(var/turf/T in get_line(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
 			for(var/mob/living/L in T)
 				if(L == src || L == A)
 					continue

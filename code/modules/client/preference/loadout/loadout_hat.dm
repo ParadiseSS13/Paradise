@@ -146,6 +146,10 @@
 	display_name = "Beret, black"
 	path = /obj/item/clothing/head/beret/black
 
+/datum/gear/hat/beret_white
+	display_name = "Beret, white"
+	path = /obj/item/clothing/head/beret/white
+
 /datum/gear/hat/beret_blue
 	display_name = "Beret, blue"
 	path = /obj/item/clothing/head/beret/blue

@@ -3,3 +3,7 @@ help:
   make sure everything in that area is correct.
 /obj/merge_conflict_marker:
   banned: true
+/area/merge_conflict_marker:
+  banned: true
+/turf/merge_conflict_marker:
+  banned: true
