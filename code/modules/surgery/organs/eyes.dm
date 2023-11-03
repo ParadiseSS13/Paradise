@@ -120,7 +120,7 @@
 	if(prob(10 * severity))
 		return
 	to_chat(owner, "<span class='warning'>Static obfuscates your vision!</span>")
-	owner.flash_eyes(intensity = EMP_flash_strength, visual = TRUE)
+	owner.flash_eyes(flash_intensity, visual = TRUE)
 	..()
 
 /obj/item/organ/internal/eyes/cybernetic/meson
@@ -205,7 +205,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	eye_color = "#101010"
 	origin_tech = "materials=4;biotech=3;engineering=4;plasmatech=3"
-	EMP_flash_strength = 3
+	flash_intensity = 3
 
 #define INTACT 0
 #define ONE_SHATTERED 1
@@ -357,3 +357,7 @@
 	icon_state = "shield_reversed"
 	duration = 2 SECONDS
 	invisibility = INVISIBILITY_LEVEL_TWO
+
+#undef INTACT
+#undef ONE_SHATTERED
+#undef BOTH_SHATTERED
