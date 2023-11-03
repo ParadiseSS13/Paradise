@@ -63,7 +63,6 @@
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
 
-	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 

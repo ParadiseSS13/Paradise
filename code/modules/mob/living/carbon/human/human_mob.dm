@@ -1709,7 +1709,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			SEND_SIGNAL(H, COMSIG_HUMAN_RECEIVE_CPR, (new_time SECONDS))
 
 			if(prob(5))
-				if(timer_restored > 4 SECONDS)
+				if(timer_restored >= CPR_BREATHS_RESTORATION)
 					to_chat(src, pick(effective_cpr_messages))
 				else
 					to_chat(src, pick(ineffective_cpr_messages))

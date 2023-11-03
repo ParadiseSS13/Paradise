@@ -1,0 +1,12 @@
+#DOCS
+#https://docs.github.com/en/github-ae@latest/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser
+#
+
+blank_issues_enabled: false
+contact_links:
+- name: Feature Request
+  url: https://www.paradisestation.org/forum/60-suggestions/
+  about: Please place all feature requests here
+- name: Exploit Report
+  url: https://www.paradisestation.org/forum/179-exploit-reports/
+  about: Exploit reports go on the forum

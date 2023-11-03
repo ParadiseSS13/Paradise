@@ -59,6 +59,7 @@
 	if(.)
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
+	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /mob/living/proc/OpenCraftingMenu()
 	return
