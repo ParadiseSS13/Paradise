@@ -33,7 +33,8 @@
 	if(visualsOnly)
 		return
 
-	ADD_TRAIT(H.mind, TRAIT_HOLY, ROUNDSTART_TRAIT)
+	if(istype(H.mind))
+		ADD_TRAIT(H.mind, TRAIT_HOLY, ROUNDSTART_TRAIT)
 
 	INVOKE_ASYNC(src, PROC_REF(religion_pick), H)
 
