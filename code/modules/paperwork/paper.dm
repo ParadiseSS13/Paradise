@@ -560,6 +560,11 @@
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
 
+/obj/item/paper/crumpled/bloody/station/meta/hacker
+	name = "burned paper scrap"
+	icon_state = "scrap_bloodied"
+	info = "<p style='text-align:center;font-family;font-size:120%;font-weight:bold;'>FINALLY, I DECIPHERED NTS' FAXING NETWO-</p>"
+
 /obj/item/paper/fortune
 	name = "fortune"
 	icon_state = "slip"
