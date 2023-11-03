@@ -20924,7 +20924,7 @@
 	pixel_y = -25
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
+/area/station/hallway/primary/central/se)
 "bkD" = (
 /obj/item/stack/rods{
 	amount = 10
@@ -25947,9 +25947,6 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
-"bAf" = (
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
 "bAg" = (
 /obj/structure/sign/directions/evac{
 	dir = 4;
@@ -25963,13 +25960,8 @@
 	dir = 1;
 	pixel_y = 39
 	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
+/area/station/hallway/primary/central/ne)
 "bAh" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -25990,16 +25982,11 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
 	},
-/area/station/hallway/primary/central/east)
+/area/station/hallway/primary/central/ne)
 "bAm" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -26364,9 +26351,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/sign/poster/official/nanotrasen_logo{
-	pixel_x = 32
-	},
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "bBF" = (
@@ -26374,16 +26358,11 @@
 	c_tag = "Central Hallway East";
 	dir = 4
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
 	},
-/area/station/hallway/primary/central/east)
+/area/station/hallway/primary/central/se)
 "bBG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -26681,17 +26660,6 @@
 	icon_state = "green"
 	},
 /area/station/hallway/secondary/exit)
-"bCY" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/station/hallway/primary/central/east)
 "bCZ" = (
 /obj/structure/extinguisher_cabinet{
 	name = "south bump";
@@ -27028,11 +26996,6 @@
 /turf/simulated/wall,
 /area/station/medical/morgue)
 "bEw" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -27183,13 +27146,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
+/area/station/hallway/primary/central/ne)
 "bFj" = (
 /obj/machinery/camera{
 	c_tag = "Starboard Primary Hallway 1"
@@ -27461,11 +27419,6 @@
 	},
 /area/station/medical/morgue)
 "bFU" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -27881,7 +27834,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
+/area/station/hallway/primary/central/se)
 "bHr" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -27889,15 +27842,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
-"bHs" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
 "bHt" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -28351,7 +28295,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
+/area/station/hallway/primary/central/se)
 "bIS" = (
 /obj/machinery/economy/vending/cargodrobe,
 /turf/simulated/floor/plasteel{
@@ -29428,11 +29372,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -29934,11 +29873,6 @@
 /obj/structure/extinguisher_cabinet{
 	name = "west bump";
 	pixel_x = -27
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
@@ -30608,11 +30542,6 @@
 	},
 /area/station/medical/morgue)
 "bRf" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -31348,11 +31277,6 @@
 	dir = 2;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -31586,11 +31510,6 @@
 /area/station/command/office/hop)
 "bUG" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -31855,11 +31774,6 @@
 /area/station/hallway/primary/central/se)
 "bVT" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "bVU" = (
@@ -32445,11 +32359,6 @@
 	dir = 1;
 	icon_state = "pipe-c"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "bYc" = (
@@ -32791,11 +32700,6 @@
 	},
 /area/station/medical/cloning)
 "bZt" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/camera{
 	c_tag = "Central Hallway South East";
 	dir = 4
@@ -33407,11 +33311,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "cbo" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -63426,6 +63325,9 @@
 	name = "south bump";
 	pixel_y = -30
 	},
+/obj/structure/sign/poster/official/nanotrasen_logo{
+	pixel_x = 32
+	},
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
 "hWk" = (
@@ -78965,18 +78867,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"pIo" = (
-/obj/machinery/door/airlock/public/glass{
-	name = "Central Access"
-	},
-/obj/machinery/door/firedoor,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/starboard/west)
 "pIq" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -90272,18 +90162,6 @@
 	icon_state = "whitebluefull"
 	},
 /area/station/medical/medbay)
-"vvM" = (
-/obj/machinery/power/apc{
-	dir = 1;
-	name = "north bump";
-	pixel_y = 24
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/starboard/west)
 "vwg" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -91818,14 +91696,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"whE" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/east)
 "whN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
@@ -128895,7 +128765,7 @@ bwj
 bza
 bAl
 bBF
-bCY
+bFU
 bEw
 bFU
 bFU
@@ -129407,9 +129277,9 @@ buC
 bhq
 bhq
 bzb
-whE
-bHs
-bAf
+bhq
+cgo
+bFO
 bEn
 bFW
 bFO
@@ -129665,7 +129535,7 @@ bsN
 aUS
 aUS
 bAg
-bHs
+cgo
 bkC
 ogI
 ogI
@@ -129921,7 +129791,7 @@ bmq
 bmq
 bxx
 aUS
-pIo
+bAh
 bHu
 bAh
 ogI
@@ -130178,7 +130048,7 @@ byD
 bmq
 bmq
 aUS
-vvM
+bAk
 bHy
 bAk
 ogI
