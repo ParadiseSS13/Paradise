@@ -112,7 +112,7 @@
 		if(!tank)
 			to_chat(user, "<span class='warning'>[src] can't fire without a source of gas.</span>")
 			return
-		if(!tank.air_contents.remove(gas_per_throw * pressure_setting))
+		if(!tank.air_contents.boolean_remove(gas_per_throw * pressure_setting))
 			to_chat(user, "<span class='warning'>[src] lets out a weak hiss and doesn't react!</span>")
 			return
 	if(user && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(75))
