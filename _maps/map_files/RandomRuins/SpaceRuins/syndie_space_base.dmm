@@ -149,11 +149,11 @@
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/unpowered/syndicate_space_base/cave)
 "aM" = (
-/obj/effect/decal/warning_stripes/blue,
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -680,7 +680,6 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_space_base/dormitories)
 "dP" = (
-/obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -716,8 +715,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/storage)
 "dX" = (
-/obj/effect/decal/warning_stripes/green,
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
+/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -770,7 +769,6 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/toxtest)
 "ep" = (
-/obj/effect/decal/warning_stripes/yellow,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -819,9 +817,6 @@
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/green/partial{
-	dir = 1
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 4
@@ -1048,10 +1043,10 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/medbay)
 "fH" = (
-/obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
 	},
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "fI" = (
@@ -1244,10 +1239,10 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "gG" = (
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1260,7 +1255,6 @@
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "gO" = (
 /obj/machinery/dna_scannernew,
-/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkgreen"
@@ -1572,6 +1566,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2232,8 +2229,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
 "ml" = (
-/obj/effect/decal/warning_stripes/white,
 /obj/machinery/atmospherics/portable/canister,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "mq" = (
@@ -2266,12 +2263,6 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/unpowered/syndicate_space_base/dormitories)
-"mF" = (
-/obj/effect/decal/warning_stripes/green/hollow,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/genetics)
 "mG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -2657,14 +2648,8 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
-"oe" = (
-/obj/effect/decal/warning_stripes/green,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "oj" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "ol" = (
@@ -2711,14 +2696,13 @@
 /area/ruin/unpowered/syndicate_space_base/storage)
 "oA" = (
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "oD" = (
 /obj/machinery/atmospherics/portable/pump,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -3240,8 +3224,8 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
-/obj/effect/decal/warning_stripes/green,
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
+/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3306,12 +3290,6 @@
 	icon_state = "cafeteria"
 	},
 /area/ruin/unpowered/syndicate_space_base/service)
-"sr" = (
-/obj/effect/decal/warning_stripes/blue,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/unpowered/syndicate_space_base/arrivals)
 "sy" = (
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
@@ -3385,7 +3363,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "sX" = (
-/obj/effect/decal/warning_stripes/red/hollow,
 /mob/living/simple_animal/bot/ed209/syndicate,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4464,7 +4441,6 @@
 "zd" = (
 /obj/machinery/dna_scannernew,
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/green,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgreen"
@@ -4481,7 +4457,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "zh" = (
-/obj/effect/decal/warning_stripes/green,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
@@ -4655,7 +4630,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/atmos)
 "zT" = (
-/obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/bluespace_beacon/syndicate/infiltrator,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5480,8 +5454,8 @@
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_space_base/testlab)
 "EV" = (
-/obj/effect/decal/warning_stripes/blue,
 /obj/machinery/atmospherics/portable/canister/oxygen,
+/obj/effect/turf_decal/delivery/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -5706,7 +5680,6 @@
 /area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "FU" = (
 /obj/machinery/atmospherics/portable/pump,
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "yellow"
@@ -7251,7 +7224,6 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/main)
 "Pn" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7381,7 +7353,6 @@
 /obj/machinery/computer/scan_consolenew{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 1
@@ -7892,7 +7863,6 @@
 /obj/machinery/computer/scan_consolenew{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen"
 	},
@@ -8026,7 +7996,6 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "Tt" = (
-/obj/effect/decal/warning_stripes/yellow,
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -8471,8 +8440,8 @@
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
 "VY" = (
-/obj/effect/decal/warning_stripes/red,
 /obj/machinery/atmospherics/portable/canister/toxins,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8599,7 +8568,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/green/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreen";
 	dir = 4
@@ -8826,7 +8794,7 @@
 /obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_space_base/engineering)
 "XL" = (
@@ -10265,7 +10233,7 @@ LE
 xn
 Dl
 fV
-sr
+xQ
 xn
 cI
 hl
@@ -10956,7 +10924,7 @@ am
 Mw
 IX
 rS
-oe
+nw
 hA
 EV
 EV
@@ -13163,11 +13131,11 @@ OR
 pf
 OR
 Qf
-mF
+pu
 EP
 pu
 El
-mF
+pu
 SS
 DX
 WT
