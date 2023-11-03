@@ -123,6 +123,6 @@
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	belt = /obj/item/storage/bag/plants
 	mask = /obj/item/clothing/mask/breath
-	r_pocket = /obj/item/paper/crumpled/bloody/ruins/lavaland/seed_vault/discovery
+	r_pocket = /obj/item/paper/crumpled/ruins/lavaland/seed_vault/discovery
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/engi/empty
 
