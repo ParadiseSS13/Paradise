@@ -200,12 +200,12 @@ export const MessengerList = (props, context) => {
             Set Custom Ringtone
           </Button>
           <Button>
-          <Dropdown
-            selected={ringtone}
-            width="110px"
-            options={Object.keys(ringtone_list)}
-            onSelected={(value) => act('Available_Ringtones', {selected_ringtone: value,})}
-          />
+            <Dropdown
+              selected={ringtone}
+              width="110px"
+              options={Object.keys(ringtone_list)}
+              onSelected={(value) => act('Available_Ringtones', {selected_ringtone: value,})}
+            />
           </Button>
         </LabeledList.Item>
       </LabeledList>
