@@ -2,16 +2,41 @@
 
 /obj/item/gun/projectile/automatic/pistol/beretta
 	name = "Беретта M9"
-	desc = "Один из самых распространенных и узнаваемых пистолетов во вселенной. Старая добрая классика."
+	desc = "Один из самых распространенных и узнаваемых пистолетов во вселенной. К сожалению, из-за особенности ствола, на пистолет нельзя приделать глушитель. Старая добрая классика."
 	icon = 'modular_ss220/objects/icons/guns.dmi'
 	lefthand_file = 'modular_ss220/objects/icons/inhands/guns_lefthand.dmi'
 	righthand_file = 'modular_ss220/objects/icons/inhands/guns_righthand.dmi'
-	icon_state = "beretta"
-	item_state = "beretta"
+	icon_state = "beretta_modified"
+	item_state = "beretta_modified"
 	w_class = WEIGHT_CLASS_NORMAL
 	can_suppress = FALSE
+	can_flashlight = TRUE
+	unique_reskin = TRUE
 	mag_type = /obj/item/ammo_box/magazine/beretta
 	fire_sound = 'modular_ss220/objects/sound/weapons/gunshots/beretta_shot.ogg'
+
+/obj/item/gun/projectile/automatic/pistol/beretta/Initialize(mapload)
+	. = ..()
+	options["Modified grip"] = "beretta_modified"
+	options["Black skin"] = "beretta_black"
+	options["Desert skin"] = "beretta_desert"
+
+/obj/item/gun/projectile/automatic/pistol/beretta/update_icon_state()
+	if(current_skin)
+		icon_state = "[current_skin][chambered ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/pistol/beretta/update_overlays()
+	. = list()
+	if(gun_light)
+		var/flashlight = "beretta_light"
+		if(gun_light.on)
+			flashlight = "beretta_light-on"
+		. += image(icon = icon, icon_state = flashlight, pixel_x = 0)
+
+/obj/item/gun/projectile/automatic/pistol/beretta/ui_action_click()
+	toggle_gunlight()
 
 /obj/item/ammo_box/magazine/beretta
 	name = "beretta rubber 9x19mm magazine"
@@ -117,7 +142,7 @@
 	name = "Beretta M9 Crate"
 	contains = list(/obj/item/gun/projectile/automatic/pistol/beretta,
 					/obj/item/gun/projectile/automatic/pistol/beretta)
-	cost = 450
+	cost = 650
 	containername = "beretta m9 pack"
 
 /datum/supply_packs/security/armory/berettarubberammo
