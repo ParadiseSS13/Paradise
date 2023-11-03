@@ -10,22 +10,22 @@
 #    label:       | Box title |
 #    description: | Box small text - Description |
 #
-name: "Bug Report"
+name: "Issue Report"
 #title: "[Bug]: " | if you want to have a have it automatically say [Bug] when they start the form
-description: "File a bug report to make us aware of an issue."
+description: "File an issue report to make us aware of a bug or issue."
 #labels: [Bug] | Auto labels the post, as we do not use this, commenting out, purely as reference
 
 body:
   - type: markdown
     attributes:
-      value: Thanks for taking the time to fill out this bug report! Don't forget to give it a meaningful title so users can find the report easily.
+      value: Thanks for taking the time to fill out this issue report! Don't forget to give it a meaningful title so users can find the report easily.
   - type: checkboxes
     id: not_an_exploit
     attributes:
       label: Exploit Reports
       description: "[If your issue is an ingame exploit that allows players to gain an unfair advantage, or an issue which could affect server stability or security, please file it at this link so that it is safe from prying eyes.](https://www.paradisestation.org/forum/179-exploit-reports/)"
       options:
-        - label: I confirm this bug is not an exploit. (Required)
+        - label: I confirm this issue is not an exploit. (Required)
           required: true
 
   - type: input
@@ -69,7 +69,7 @@ body:
   - type: textarea
     id: how-to-reproduce
     attributes:
-      label: Steps to reproduce the problem
+      label: Steps to reproduce the issue
       description: The most important section. Review everything you did leading up to causing the issue. (Required)
       placeholder: Find a chair, buckle yourself into it, be eaten by dragon.
     validations:
@@ -89,7 +89,7 @@ body:
     attributes:
       label: Extra information
       description: Anything else you can tell us.
-      placeholder: "I think this bug was introduced in the following PR https://github.com/ParadiseSS13/Paradise/pull/18477"
+      placeholder: "I think this issue was introduced in the following PR https://github.com/ParadiseSS13/Paradise/pull/18477"
 
   - type: textarea
     id: logs
