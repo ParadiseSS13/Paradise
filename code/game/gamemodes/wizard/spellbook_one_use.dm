@@ -1,3 +1,8 @@
+/*
+  * This file contains all of the entries of the one use / single use books
+  * For the actual spellbook, go to spellbook.dm
+*/
+
 //Single Use Spellbooks
 /obj/item/spellbook/oneuse
 	var/spell = /obj/effect/proc_holder/spell/projectile/magic_missile //just a placeholder to avoid runtimes if someone spawned the generic
