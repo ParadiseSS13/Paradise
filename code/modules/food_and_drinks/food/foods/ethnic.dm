@@ -65,7 +65,7 @@
 /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball
 	name = "sweet & sour chicken balls"
 	desc = "Is this chicken cooked? The odds are better than wok paper scissors."
-	icon = 'icons/obj/food/soupsalad.dmi'
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "chickenball"
 	item_state = "chinese3"
 	junkiness = 25
