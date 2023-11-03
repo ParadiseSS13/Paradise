@@ -1,5 +1,20 @@
+#For more details
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
+# https://docs.gitea.com/1.19/usage/issue-pull-request-templates
+#Be sure to check the docs
+#
+#Format
+#- type: | markdown | textarea | input | checkboxes |
+#  id:   | just an id, no actual relevance |
+#  attributes:
+#    label:       | Box title |
+#    description: | Box small text - Description |
+#
 name: "Bug Report"
+#title: "[Bug]: " | if you want to have a have it automatically say [Bug] when they start the form
 description: "File a bug report to make us aware of an issue."
+#labels: [Bug] | Auto labels the post, as we do not use this, commenting out, purely as reference
+
 body:
   - type: markdown
     attributes:

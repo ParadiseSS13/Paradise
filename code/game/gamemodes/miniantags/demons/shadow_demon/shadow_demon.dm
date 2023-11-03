@@ -235,6 +235,6 @@
 		M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
 
 /obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 	if(M.mind)
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)
