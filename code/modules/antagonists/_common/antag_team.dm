@@ -170,6 +170,8 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/team_message = chat_box_red("<font color='#d6000b'><span class='bold'>Admin '[name]' Team Message ([user.key]): </span></font><span class='notice'>[message]</span>")
 	var/team_alert_sound = sound('sound/effects/adminticketopen.ogg')
 	for(var/datum/mind/M as anything in members)
+		if(QDELETED(M.current))
+			continue
 		SEND_SOUND(M.current, team_alert_sound)
 		to_chat(M.current, team_message)
 
