@@ -276,6 +276,20 @@
 	list_reagents = list("wasabi" = 50)
 	possible_states = list()
 
+/obj/item/reagent_containers/food/condiment/vinegar
+	name = "vinegar"
+	desc = "Useful for pickling, or putting on chips."
+	icon_state = "vinegar"
+	list_reagents = list("vinegar" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/ketchup
+	name = "ketchup"
+	desc = "You feel more American already."
+	icon_state = "ketchup"
+	list_reagents = list("ketchup" = 50)
+	possible_states = list()
+
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
 /obj/item/reagent_containers/food/condiment/pack

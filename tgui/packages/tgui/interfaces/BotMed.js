@@ -1,7 +1,14 @@
-import { useBackend } from '../backend'
-import { Button, Flex, LabeledList, ProgressBar, Section, Slider } from '../components'
-import { Window } from '../layouts'
-import { BotStatus } from './common/BotStatus'
+import { useBackend } from '../backend';
+import {
+  Button,
+  Flex,
+  LabeledList,
+  ProgressBar,
+  Section,
+  Slider,
+} from '../components';
+import { Window } from '../layouts';
+import { BotStatus } from './common/BotStatus';
 
 export const BotMed = (props, context) => {
   const { act, data } = useBackend(context);
@@ -22,7 +29,7 @@ export const BotMed = (props, context) => {
     injection_amount,
     use_beaker,
     treat_virus,
-    reagent_glass
+    reagent_glass,
   } = data;
   return (
     <Window>
@@ -52,11 +59,10 @@ export const BotMed = (props, context) => {
                 minValue={heal_threshold.min}
                 maxValue={heal_threshold.max}
                 step={5}
-                stepPixelSize={300 / ((heal_threshold.max - heal_threshold.min) / 5)}
                 disabled={noaccess}
                 onChange={(e, value) =>
                   act('set_heal_threshold', {
-                    target: value
+                    target: value,
                   })
                 }
               />
@@ -67,20 +73,19 @@ export const BotMed = (props, context) => {
                 minValue={injection_amount.min}
                 maxValue={injection_amount.max}
                 step={5}
-                stepPixelSize={300 / ((injection_amount.max - injection_amount.min) / 5)}
                 format={(value) => `${value}u`}
                 disabled={noaccess}
                 onChange={(e, value) =>
                   act('set_injection_amount', {
-                    target: value
+                    target: value,
                   })
                 }
               />
             </LabeledList.Item>
             <LabeledList.Item label="Reagent Source">
               <Button
-                content={use_beaker ? "Beaker" : "Internal Synthesizer"}
-                icon={use_beaker ? "flask" : "cogs"}
+                content={use_beaker ? 'Beaker' : 'Internal Synthesizer'}
+                icon={use_beaker ? 'flask' : 'cogs'}
                 disabled={noaccess}
                 onClick={() => act('toggle_use_beaker')}
               />
@@ -89,7 +94,13 @@ export const BotMed = (props, context) => {
               <LabeledList.Item label="Beaker">
                 <Flex inline width="100%">
                   <Flex.Item grow={1}>
-                    <ProgressBar value={reagent_glass.amount} minValue={0} maxValue={reagent_glass.max_amount}>{reagent_glass.amount} / {reagent_glass.max_amount}</ProgressBar>
+                    <ProgressBar
+                      value={reagent_glass.amount}
+                      minValue={0}
+                      maxValue={reagent_glass.max_amount}
+                    >
+                      {reagent_glass.amount} / {reagent_glass.max_amount}
+                    </ProgressBar>
                   </Flex.Item>
                   <Flex.Item ml={1}>
                     <Button
@@ -130,5 +141,5 @@ export const BotMed = (props, context) => {
         )}
       </Window.Content>
     </Window>
-  )
-}
+  );
+};
