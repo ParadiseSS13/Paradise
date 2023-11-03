@@ -44,6 +44,15 @@
 		to_chat(user, "<span class='warning'>It's locked!</span>")
 	return
 
+/obj/item/storage/lockbox/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(allowed(user))
+		locked = !locked
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
+		icon_state = "[locked ? icon_locked : icon_closed]"
+	else
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/item/storage/lockbox/show_to(mob/user as mob)
 	if(locked)
