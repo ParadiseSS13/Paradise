@@ -1,6 +1,7 @@
 /// A datum to handle the busywork of registering signals to handle in depth tracking of a movable
 /datum/movement_detector
 	var/atom/movable/tracked
+	/// Listner is whatever callback that will increase the tracking of the movable, usually on stepped
 	var/datum/callback/listener
 
 /datum/movement_detector/New(atom/movable/target, datum/callback/listener)
