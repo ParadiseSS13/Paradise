@@ -27895,7 +27895,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/west)
 "bHB" = (
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -27917,7 +27917,7 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
+/obj/structure/window/plasmareinforced{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -61572,13 +61572,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/structure/sign/radiation/rad_area{
-	pixel_x = 32
-	},
 /obj/machinery/shower{
-	pixel_y = 20
+	dir = 8
 	},
-/obj/structure/curtain/open/shower,
 /turf/simulated/floor/noslip,
 /area/station/engineering/gravitygenerator/entry)
 "hcE" = (
@@ -62471,17 +62467,6 @@
 /obj/item/robotanalyzer,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"hCa" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "bluecorner"
-	},
-/area/station/command/bridge)
 "hCr" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel,
@@ -63799,6 +63784,9 @@
 /obj/machinery/power/port_gen/pacman,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
+	},
+/obj/structure/sign/radiation/rad_area{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -68245,9 +68233,11 @@
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/stripes/corner,
 /obj/machinery/alarm{
-	name = "north bump";
-	pixel_y = 24
+	dir = 8;
+	name = "east bump";
+	pixel_x = 24
 	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -70362,11 +70352,6 @@
 	},
 /area/station/security/permabrig)
 "lya" = (
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
 /obj/machinery/computer/message_monitor{
 	dir = 8
 	},
@@ -71796,6 +71781,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/ai_status_display{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "miM" = (
@@ -72594,6 +72582,16 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "mFn" = (
@@ -73281,6 +73279,13 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
+/obj/structure/sign/radiation/rad_area{
+	pixel_x = 32
+	},
+/obj/machinery/firealarm{
+	name = "north bump";
+	pixel_y = 24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkblue"
@@ -73359,7 +73364,7 @@
 /area/station/engineering/control)
 "mZb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/door/window/classic/normal{
+/obj/machinery/door/window/reinforced/normal{
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/autoname{
@@ -75403,8 +75408,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/ai_status_display{
-	pixel_y = -32
+/obj/machinery/newscaster/security_unit{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
@@ -75596,7 +75603,7 @@
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/window/classic/reversed{
+/obj/machinery/door/window/reinforced/reversed{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -80637,6 +80644,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/alarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkblue"
@@ -82535,9 +82547,7 @@
 	},
 /area/station/science/robotics/chargebay)
 "rxa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -84378,13 +84388,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/structure/sign/radiation/rad_area{
-	pixel_x = -32
-	},
 /obj/machinery/shower{
-	pixel_y = 20
+	dir = 4
 	},
-/obj/structure/curtain/open/shower,
 /turf/simulated/floor/noslip,
 /area/station/engineering/gravitygenerator/entry)
 "svp" = (
@@ -86371,11 +86377,6 @@
 /area/station/maintenance/apmaint)
 "tBI" = (
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/firealarm{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -24
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "vault"
@@ -89716,25 +89717,6 @@
 	icon_state = "dark"
 	},
 /area/station/medical/medbay2)
-"vmz" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/station/command/bridge)
 "vmA" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -90678,6 +90660,12 @@
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/firealarm{
+	dir = 8;
+	name = "west bump";
+	pixel_x = -24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -92343,6 +92331,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/ai_status_display{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel,
 /area/station/command/bridge)
 "wza" = (
@@ -92440,12 +92431,7 @@
 /area/station/science/toxins/mixing)
 "wCG" = (
 /obj/structure/filingcabinet/filingcabinet,
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
 /obj/machinery/light,
-/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "blue"
@@ -93276,11 +93262,11 @@
 	},
 /area/station/science/xenobiology)
 "xbk" = (
-/obj/machinery/newscaster/security_unit{
-	dir = 1;
+/obj/machinery/power/apc{
 	name = "south bump";
-	pixel_y = -28
+	pixel_y = -24
 	},
+/obj/structure/cable,
 /turf/simulated/floor/plasteel{
 	icon_state = "blue"
 	},
@@ -94849,9 +94835,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -125931,8 +125915,8 @@ iSg
 jgu
 hzl
 bqS
-vmz
-hCa
+sIn
+mgA
 wCG
 qxz
 bFC
