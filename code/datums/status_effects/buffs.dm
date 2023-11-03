@@ -19,8 +19,8 @@
 	desc = initial(desc)
 	var/datum/status_effect/his_grace/HG = attached_effect
 	desc += "<br><font size=3><b>Current Bloodthirst: [HG.bloodlust]</b></font>\
-	<br>Becomes undroppable at <b>[100]</b>\
-	<br>Will consume you at <b>[140]</b>\
+	<br>Becomes undroppable at <b>[HIS_GRACE_FAMISHED]</b>\
+	<br>Will consume you at <b>[HIS_GRACE_CONSUME_OWNER]</b>\
 	<br>You have offered [HG.victims] out of [HG.victims_needed] sacrifices needed before ascension."
 	..()
 

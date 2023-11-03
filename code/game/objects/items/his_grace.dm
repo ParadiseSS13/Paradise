@@ -5,17 +5,6 @@
 // Leaving His Grace alone for some time will reset His thirst and put Him to sleep.
 // Using His Grace effectively requires extreme speed and care.
 
-#define HIS_GRACE_SATIATED 		0 		// He hungers not. If bloodthirst is set to this, His Grace is asleep.
-#define HIS_GRACE_PECKISH 		20 		// Slightly hungry.
-#define HIS_GRACE_HUNGRY 		60 		// Getting closer. Increases damage up to a minimum of 20.
-#define HIS_GRACE_FAMISHED 		100 	// Dangerous. Increases damage up to a minimum of 25 and cannot be dropped. If edited, edit the one in buffs.dm
-#define HIS_GRACE_STARVING 		120 	// Incredibly close to breaking loose. Increases damage up to a minimum of 25.
-#define HIS_GRACE_CONSUME_OWNER 140 	// His Grace consumes His owner at this point and becomes aggressive. If edited, edit the one in buffs.dm
-#define HIS_GRACE_FALL_ASLEEP 	160 	// If it reaches this point, He falls asleep and resets.
-
-#define HIS_GRACE_FORCE_BONUS 	5 		// How much force is gained per kill.
-#define ASCEND_BONUS			20		// How much force we get on ascend per kill
-
 /obj/item/his_grace
 	name = "artistic toolbox"
 	desc = "A toolbox painted bright green. Looking at it makes you feel uneasy."
@@ -215,10 +204,7 @@
 	playsound(src, 'sound/items/eatfood.ogg', 100, TRUE)
 	meal.forceMove(src)
 
-	if(ascended)
-		force_bonus += ASCEND_BONUS
-	else
-		force_bonus += HIS_GRACE_FORCE_BONUS
+	force_bonus += (ascended ? ASCEND_BONUS : HIS_GRACE_FORCE_BONUS)
 
 	prev_bloodthirst = bloodthirst
 	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)
