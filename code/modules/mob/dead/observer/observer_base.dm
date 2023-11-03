@@ -294,7 +294,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	mind.current.key = key
 
-	SEND_SIGNAL(mind.current, COMSIG_LIVING_UPDATE_REVIVABILITY)
+	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 
 	return 1
 
@@ -397,6 +397,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
 			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
+		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
+		
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"

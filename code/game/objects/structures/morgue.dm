@@ -54,9 +54,13 @@
 		return
 
 	if(closing)
-		RegisterSignal(M, COMSIG_LIVING_UPDATE_REVIVABILITY, PROC_REF(update_state))
+		RegisterSignal(M, COMSIG_LIVING_GHOSTIZED, PROC_REF(update_state))
+		RegisterSignal(M, COMSIG_LIVING_REENTERED_BODY, PROC_REF(update_state))
+		RegisterSignal(M, COMSIG_LIVING_SET_DNR, PROC_REF(update_state))
 	else
-		UnregisterSignal(M, COMSIG_LIVING_UPDATE_REVIVABILITY)
+		UnregisterSignal(M, COMSIG_LIVING_GHOSTIZED)
+		UnregisterSignal(M, COMSIG_LIVING_REENTERED_BODY)
+		UnregisterSignal(M, COMSIG_LIVING_SET_DNR)
 
 /obj/structure/morgue/proc/update_state()
 	if(connected)
