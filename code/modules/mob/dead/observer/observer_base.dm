@@ -241,13 +241,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		// Respawnable
 		ghostize(1)
 
-	// If mob in morgue tray, update tray
-	var/obj/structure/morgue/Morgue = locate() in M.loc
-	if(istype(M.loc, /obj/structure/morgue))
-		Morgue = M.loc
-	if(Morgue)
-		Morgue.update_state()
-
 	// If mob in cryopod, despawn mob
 	if(P)
 		if(!P.control_computer)
@@ -303,11 +296,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	mind.current.key = key
 
-	var/obj/structure/morgue/Morgue = locate() in mind.current.loc
-	if(istype(mind.current.loc,/obj/structure/morgue))
-		Morgue = mind.current.loc
-	if(Morgue)
-		Morgue.update_state()
+	SEND_SIGNAL(mind.current, COMSIG_LIVING_REENTERED_BODY)
 
 	return 1
 
@@ -410,6 +399,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		can_reenter_corpse = FALSE
 		if(!QDELETED(mind.current)) // Could change while they're choosing
 			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
+		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
+		
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
