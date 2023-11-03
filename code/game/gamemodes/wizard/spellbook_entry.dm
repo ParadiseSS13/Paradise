@@ -12,9 +12,11 @@
 	var/category = "Offensive"
 	var/cost = 2
 	var/refundable = TRUE
-	var/obj/effect/proc_holder/spell/S = null //Since spellbooks can be used by only one person anyway we can track the actual spell
+	/// Since spellbooks can be used by only one person anyway we can track the actual spell
+	var/obj/effect/proc_holder/spell/S = null
 	var/buy_word = "Learn"
-	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
+	/// used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
+	var/limit
 
 //Main category - Spells
 //Offensive
