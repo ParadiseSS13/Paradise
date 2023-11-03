@@ -60,15 +60,15 @@
 		var/obj/item/storage/bag/plants/PB = O
 		for(var/obj/item/reagent_containers/food/snacks/grown/G in PB.contents)
 
-			if(biomass >= biomass_capacity)
-				break
 			PB.remove_from_storage(G, src)
 			make_biomass(G)
 
+			if(biomass >= biomass_capacity)
+				to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
+				break
+
 		if(biomass < biomass_capacity)
 			to_chat(user, "<span class='info'>You empty [PB] into [src].</span>")
-		else
-			to_chat(user, "<span class='info'>You fill [src] to its capacity.</span>")
 
 		SStgui.update_uis(src)
 		update_icon_state()
