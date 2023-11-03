@@ -3724,9 +3724,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "avN" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /obj/machinery/computer/security/telescreen/minisat{
 	dir = 4;
 	pixel_x = -29
@@ -12338,9 +12336,7 @@
 	},
 /area/station/engineering/atmos/distribution)
 "aXK" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /obj/machinery/computer/security/telescreen/minisat{
 	dir = 8;
 	pixel_x = 29
@@ -18397,9 +18393,7 @@
 	},
 /area/station/maintenance/fsmaint)
 "bmT" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -19049,9 +19043,7 @@
 	},
 /area/station/command/bridge)
 "boH" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /obj/machinery/flasher{
 	id = "AI";
 	pixel_y = 21
@@ -77251,9 +77243,7 @@
 	},
 /area/station/engineering/tech_storage)
 "qfR" = (
-/obj/machinery/porta_turret{
-	dir = 8
-	},
+/obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
