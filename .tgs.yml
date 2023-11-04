@@ -1,6 +1,6 @@
 # This file is stolen from tg
 version: 1
-byond: "515.1614"
+byond: "515.1619"
 # Folders to create in "<instance_path>/Configuration/GameStaticFiles/"
 static_files:
   # Config directory should be static
