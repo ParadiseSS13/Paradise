@@ -181,7 +181,6 @@
 	/// Mob that threw the grenade.
 	var/mob/living/thrower
 
-
 /obj/item/grenade/jaunter_grenade/Destroy()
 	thrower = null
 	return ..()
@@ -208,14 +207,15 @@
 				new /obj/effect/temp_visual/thunderbolt(T) //Visual feedback it worked.
 				playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
 		qdel(src)
-	else
-		var/list/portal_turfs = list()
-		for(var/turf/PT in circleviewturfs(T, 3))
-			if(!PT.density)
-				portal_turfs += PT
-		playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
-		for(var/turf/drunk_dial in shuffle(destinations))
-			var/drunken_opening = pick_n_take(portal_turfs)
-			new /obj/effect/portal/jaunt_tunnel(drunken_opening, drunk_dial, src, 100, thrower)
-			new /obj/effect/temp_visual/thunderbolt(drunken_opening)
-		qdel(src)
+		return
+		
+	var/list/portal_turfs = list()
+	for(var/turf/PT in circleviewturfs(T, 3))
+		if(!PT.density)
+			portal_turfs += PT
+	playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+	for(var/turf/drunk_dial in shuffle(destinations))
+		var/drunken_opening = pick_n_take(portal_turfs)
+		new /obj/effect/portal/jaunt_tunnel(drunken_opening, drunk_dial, src, 100, thrower)
+		new /obj/effect/temp_visual/thunderbolt(drunken_opening)
+	qdel(src)

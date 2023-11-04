@@ -224,9 +224,8 @@
 	if(istype(AM, /obj/item/grenade/jaunter_grenade))
 		AM.forceMove(storage)
 		return
-	else
-		for(var/mob/M in AM.contents)
-			M.forceMove(src)
+	for(var/mob/M in AM.contents)
+		M.forceMove(src)
 
 	qdel(AM)
 
@@ -272,7 +271,6 @@
 	escapee.flying = FALSE
 	escapee.Sleeping(20 SECONDS)
 	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
-
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD
