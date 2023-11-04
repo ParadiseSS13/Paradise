@@ -391,7 +391,7 @@
 	target = null
 	mode = BOT_IDLE
 
-/mob/living/simple_animal/bot/floorbot/uPDATE_OVERLAYS()
+/mob/living/simple_animal/bot/floorbot/update_icon()
 	if(mode == BOT_REPAIRING)
 		icon_state = "[toolbox_color]floorbot-c"
 		return
