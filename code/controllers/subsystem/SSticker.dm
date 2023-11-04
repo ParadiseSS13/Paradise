@@ -99,7 +99,7 @@ SUBSYSTEM_DEF(ticker)
 			if(!delay_end)
 				pregame_timeleft = max(0, round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
 			else
-				pregame_timeleft = max(0, pregame_timeleft - 1 SECONDS) // If roundstart was delayed, we should resume the countdown where it left off
+				pregame_timeleft = max(0, pregame_timeleft - wait) // If roundstart was delayed, we should resume the countdown where it left off
 
 			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
 				send_tip_of_the_round()
