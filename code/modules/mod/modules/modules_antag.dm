@@ -407,3 +407,64 @@
 
 /obj/item/mod/module/ert_camera/on_suit_deactivation(deleting = FALSE)
 	QDEL_NULL(camera)
+
+///Energy Shield - Gives you a rechargeable energy shield that nullifies attacks.
+/obj/item/mod/module/energy_shield
+	name = "MOD energy shield module"
+	desc = "A personal, protective forcefield typically seen in military applications. \
+		This advanced deflector shield is essentially a scaled down version of those seen on starships, \
+		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
+		though with its' low amount of separate charges, the user remains mortal."
+	icon_state = "energy_shield"
+	complexity = 3
+	idle_power_cost = DEFAULT_CHARGE_DRAIN * 0.5
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 2
+	incompatible_modules = list(/obj/item/mod/module/energy_shield)
+	/// Max charges of the shield.
+	var/max_charges = 3
+	/// The time it takes for the first charge to recover.
+	var/recharge_start_delay = 20 SECONDS
+	/// How much time it takes for charges to recover after they started recharging.
+	var/charge_increment_delay = 1 SECONDS
+	/// How much charge is recovered per recovery.
+	var/charge_recovery = 1
+	/// Whether or not this shield can lose multiple charges.
+	var/lose_multiple_charges = FALSE
+	/// The item path to recharge this shielkd.
+	var/recharge_path = null
+	/// The icon file of the shield.
+	var/shield_icon_file = 'icons/effects/effects.dmi'
+	/// The icon_state of the shield.
+	var/shield_icon = "shield-red"
+	/// Charges the shield should start with.
+	var/charges
+
+/obj/item/mod/module/energy_shield/Initialize(mapload)
+	. = ..()
+	charges = max_charges
+
+/obj/item/mod/module/energy_shield/on_suit_activation()
+	mod.AddComponent(/datum/component/shielded, max_charges = max_charges, recharge_start_delay = recharge_start_delay, charge_increment_delay = charge_increment_delay, \
+	charge_recovery = charge_recovery, lose_multiple_charges = lose_multiple_charges, recharge_path = recharge_path, starting_charges = charges, shield_icon_file = shield_icon_file, shield_icon = shield_icon)
+	RegisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS, PROC_REF(shield_reaction))
+
+/obj/item/mod/module/energy_shield/on_suit_deactivation(deleting = FALSE)
+	var/datum/component/shielded/shield = mod.GetComponent(/datum/component/shielded)
+	charges = shield.current_charges
+	qdel(shield)
+	UnregisterSignal(mod.wearer, COMSIG_HUMAN_CHECK_SHIELDS)
+
+/obj/item/mod/module/energy_shield/proc/shield_reaction(mob/living/carbon/human/owner,
+	atom/movable/hitby,
+	damage = 0,
+	attack_text = "the attack",
+	attack_type = MELEE_ATTACK,
+	armour_penetration = 0,
+	damage_type = BRUTE
+)
+	SIGNAL_HANDLER
+
+	if(SEND_SIGNAL(mod, COMSIG_ITEM_HIT_REACT, owner, hitby, attack_text, 0, damage, attack_type, damage_type) & COMPONENT_BLOCK_SUCCESSFUL)
+		drain_power(use_power_cost)
+		return SHIELD_BLOCK
+	return NONE

@@ -204,6 +204,9 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	magical = TRUE
 
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 0 SECONDS)
+
 /obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch
 	desc = "For the arch wizard in need of additional protection."
 	recharge_rate = 5
@@ -214,6 +217,9 @@
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard/arch
+
+/obj/item/clothing/suit/space/hardsuit/shielded/wizard/arch/setup_shielding()
+	AddComponent(/datum/component/shielded, max_charges = 15, recharge_start_delay = 1 SECONDS, charge_increment_delay = 1 SECONDS)
 
 /obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard
 	name = "battlemage helmet"
