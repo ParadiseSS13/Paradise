@@ -2237,15 +2237,13 @@
 	icon_state = "1-2";
 	d1 = 1
 	},
-/obj/structure/disposalpipe/segment/corner{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/disposalpipe/junction,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2664,6 +2662,12 @@
 	icon_state = "dark"
 	},
 /area/ruin/unpowered/syndicate_space_base/arrivals)
+"oe" = (
+/obj/effect/turf_decal/delivery/green/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/unpowered/syndicate_space_base/toxlaunch)
 "ol" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -4537,6 +4541,7 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/effect/turf_decal/delivery/green/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7999,15 +8004,15 @@
 	icon_state = "2-4";
 	d1 = 2
 	},
-/obj/structure/disposalpipe/junction/reversed{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8;
 	initialize_directions = 11
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
+	},
+/obj/structure/disposalpipe/segment/corner{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9116,7 +9121,9 @@
 	icon_state = "1-2";
 	d1 = 1
 	},
-/obj/structure/disposalpipe/segment/corner,
+/obj/structure/disposalpipe/junction/y{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9208,6 +9215,7 @@
 	icon_state = "1-2";
 	d1 = 1
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -11045,7 +11053,7 @@ am
 Mw
 IX
 rS
-nw
+oe
 hA
 EV
 EV
@@ -12310,9 +12318,9 @@ hc
 zz
 mn
 Zv
-lo
-lo
-lo
+fP
+fP
+fP
 YU
 mi
 fP
