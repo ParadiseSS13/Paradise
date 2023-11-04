@@ -251,7 +251,6 @@
 	if(isliving(gone))
 		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
 
-#define CHASM_TRAIT "chasm trait"
 /**
  * Called if something comes back to life inside the pit. Expected sources are badmins and changelings.
  * Ethereals should take enough damage to be smashed and not revive.
@@ -274,7 +273,6 @@
 	escapee.Sleeping(20 SECONDS)
 	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
 
-#undef CHASM_TRAIT
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD
