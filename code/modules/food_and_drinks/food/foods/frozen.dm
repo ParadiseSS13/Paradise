@@ -16,14 +16,13 @@
 	desc = "A funny cake with a clown face on it."
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "clowncake"
-	slice_path = /obj/item/reagent_containers/food/snacks/clowncakeslice
+	slice_path = /obj/item/reagent_containers/food/snacks/frozen/clowncakeslice
 	list_reagents = list("nutriment" = 20, "sugar" = 5, "vitamin" = 5, "banana" = 15)
 	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
 
-/obj/item/reagent_containers/food/snacks/clowncakeslice
+/obj/item/reagent_containers/food/snacks/frozen/clowncakeslice
 	name = "clown cake slice"
 	desc = "A slice of bad jokes, and silly props."
-	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "clowncake_slice"
 	trash = /obj/item/trash/plate
 	filling_color = "#FFD675"
@@ -37,9 +36,9 @@
 	list_reagents = list("nutriment" = 2, "ice" = 2)
 	tastes = list("ice cream" = 1, "banana" = 1)
 
-//////////////////////
-//	Ice Cream		//
-//////////////////////
+///////////////////
+//	Ice Cream	//
+//////////////////
 
 /obj/item/reagent_containers/food/snacks/frozen/icecream
 	name = "ice cream"
@@ -142,9 +141,9 @@
 	list_reagents = list("nutriment" = 8, "vitamin" = 5, "bluecherryjelly" = 5)
 	tastes = list("blue cherries" = 2, "ice cream" = 2)
 
-//////////////////////
-//	Snow Cones		//
-//////////////////////
+///////////////////
+//	Snow Cones	//
+//////////////////
 
 /obj/item/reagent_containers/food/snacks/frozen/snowcone
 	name = "flavorless snowcone"
@@ -259,9 +258,9 @@
 	list_reagents = list("water" = 10, "ice" = 5, "nutriment" = 1, "spacemountainwind" = 5)
 	tastes = list("ice" = 1, "water" = 1, "mountain wind" = 5)
 
-//////////////////////
-//	Popsicles		//
-//////////////////////
+///////////////////
+//	Popsicles	//
+/////////////////
 
 /obj/item/reagent_containers/food/snacks/frozen/popsicle
 	name = "jumbo icecream"
