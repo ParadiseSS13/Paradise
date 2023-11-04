@@ -23,30 +23,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Installing Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Installing deps
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r ./tools/translator/requirements.txt
-
-      - name: Create temporary branch
-        run: |
-          git checkout -b translate_tmp
-          git reset --hard origin/master
-
-      - name: Apply existing translation
-        run: |
-          git fetch origin translate
-          git checkout origin/translate -- ./tools/translator/ss220replace.json
-          ./tools/translator/ss220_replacer_linux --prefix=ss220 --root=./../../ --location=./
-
-      - name: 'Push Translation'
+      - name: 'Git config'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "SS220Manager"
-          git commit -m "Generate translation file"
-          git push -f origin translate_tmp:translate
+
+      - name: 'Update translate branch'
+        run: |
+          git fetch origin translate
+          git checkout translate
+          git merge master
+
+      - name: 'Push'
+        run: |
+          git push origin translate:translate

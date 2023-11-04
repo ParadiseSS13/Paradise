@@ -35,28 +35,22 @@ jobs:
 
       - name: Create temporary branch
         run: |
-          git checkout -b translate_tmp
-          git reset --hard origin/master
-      - name: Apply existing translation
-        run: |
-          git fetch origin translate
-          git checkout origin/translate -- ./tools/translator/ss220replace.json
-          ./tools/translator/ss220_replacer_linux --prefix=ss220 --root=./../../ --location=./
+          git checkout -b translate_tmp $(git log -n 1 --pretty=format:%H origin/translate -- tools/translator/ss220replace.json)
 
       - name: Apply PR translation
         run: |
-          git cherry-pick -n origin/translate
+          git diff ..$(git log -n 1 --pretty=format:%H origin/translate) | git apply
 
       - name: 'Generate Translation'
         run: |
-          git add ./tools/translator/ss220replace.json
           python ./tools/translator/converter.py
-          [ ! -f ./ss220replace.json ] || mv ./ss220replace.json ./tools/translator/ss220replace.json
           git add ./tools/translator/ss220replace.json
+          git checkout -- .
 
       - name: 'Push Translation'
         run: |
+          git checkout translate
           git config --local user.email "action@github.com"
           git config --local user.name "SS220Manager"
           git commit -m "Generate translation file"
-          git push -f origin translate_tmp:translate
+          git push origin translate:translate
