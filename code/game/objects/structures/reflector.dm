@@ -105,7 +105,7 @@
 		return
 
 	if(anchored)
-		to_chat(usr, "<span class='warning'>You cannot rotate [src] right now. It is fastened to the floor!</span>")
+		to_chat(user, "<span class='warning'>You cannot rotate [src] right now. It is fastened to the floor!</span>")
 		return
 	dir = turn(dir, 90)
 

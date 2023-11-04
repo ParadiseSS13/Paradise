@@ -71,11 +71,7 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	rotate(user)
 
 /obj/machinery/doppler_array/proc/rotate(mob/user)
-	if(user.stat)
-		return
-	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
-	if(!Adjacent(user))
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do that!</span>")

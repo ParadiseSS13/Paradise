@@ -32,7 +32,7 @@
 
 /obj/machinery/washing_machine/proc/start(mob/user)
 	if(state != 4)
-		to_chat(user, "The washing machine cannot run in this state.")
+		to_chat(user, "<span class='notice'>The washing machine cannot run in this state.</span>")
 		return
 
 	if( locate(/mob,contents) )

@@ -291,9 +291,9 @@ REAGENT SCANNER
 	mode = !mode
 	switch(mode)
 		if(1)
-			to_chat(user, "The scanner now shows specific limb damage.")
+			to_chat(user, "<span class='notice'>The scanner now shows specific limb damage.</span>")
 		if(0)
-			to_chat(user, "The scanner no longer shows limb damage.")
+			to_chat(user, "<span class='notice'>The scanner no longer shows limb damage.</span>")
 
 /obj/item/healthanalyzer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/healthupgrade))

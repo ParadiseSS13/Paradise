@@ -130,7 +130,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return
 
 	if(scan)
-		to_chat(user, "You remove \the [scan] from \the [src].")
+		to_chat(user, "<span class='notice'>You remove \the [scan] from \the [src].</span>")
 		if(!user.get_active_hand())
 			user.put_in_hands(scan)
 		else if(!user.put_in_inactive_hand(scan))
@@ -139,7 +139,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 		return
 	else if(modify)
-		to_chat(user, "You remove \the [modify] from \the [src].")
+		to_chat(user, "<span class='notice'>You remove \the [modify] from \the [src].</span>")
 		if(!user.get_active_hand())
 			user.put_in_hands(modify)
 		else if(!user.put_in_inactive_hand(modify))

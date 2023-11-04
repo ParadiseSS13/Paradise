@@ -105,8 +105,7 @@
 		return
 	if(user.stat)
 		return
-	src.go_out()
-	return
+	go_out()
 
 /obj/machinery/recharge_station/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -186,14 +185,11 @@
 	return TRUE
 
 /obj/machinery/recharge_station/proc/move_inside(mob/user, mob/target)
-	if(!user)
-		return
-
-	if(user.stat != CONSCIOUS)
+	if(!user || user.stat)
 		return
 
 	if(get_dist(src, user) > 2 || get_dist(target, user) > 1)
-		to_chat(user, "They are too far away to put inside")
+		to_chat(user, "<span class='notice'>[target] is too far away to put inside [src].</span>")
 		return
 
 	if(panel_open)

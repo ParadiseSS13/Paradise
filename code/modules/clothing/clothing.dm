@@ -239,7 +239,7 @@
 	var/action_fluff = "You adjust \the [src]"
 	if(user.glasses == src)
 		if(!user.canUnEquip(src))
-			to_chat(user, "[src] is stuck to you!")
+			to_chat(user, "<span class='warning'>[src] is stuck to you!</span>")
 			return
 		if(attack_hand(user)) //Remove the glasses for this action. Prevents logic-defying instances where glasses phase through your mask as it ascends/descends to another plane of existence.
 			action_fluff = "You remove \the [src] and adjust it"
@@ -300,7 +300,7 @@
 	sensor_mode = SUIT_SENSOR_OFF
 	return TRUE
 
-/obj/item/clothing/under/proc/set_sensors(mob/user as mob)
+/obj/item/clothing/under/proc/set_sensors(mob/user)
 	if(!user.Adjacent(src) || !ishuman(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(has_sensor >= 2)
@@ -322,7 +322,7 @@
 
 	sensor_mode = modes.Find(switchMode) - 1
 
-	if(src.loc == user)
+	if(loc == user)
 		switch(sensor_mode)
 			if(SUIT_SENSOR_OFF)
 				to_chat(user, "You disable your suit's remote sensing equipment.")
@@ -337,20 +337,20 @@
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-	else if(ismob(src.loc))
+	else if(ismob(loc))
 		switch(sensor_mode)
 			if(SUIT_SENSOR_OFF)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("<span class='warning'>[user] disables [src.loc]'s remote sensing equipment.</span>", 1)
+					V.show_message("<span class='warning'>[user] disables [loc]'s remote sensing equipment.</span>", 1)
 			if(SUIT_SENSOR_BINARY)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("[user] turns [src.loc]'s remote sensors to binary.", 1)
+					V.show_message("[user] turns [loc]'s remote sensors to binary.", 1)
 			if(SUIT_SENSOR_VITAL)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("[user] sets [src.loc]'s sensors to track vitals.", 1)
+					V.show_message("[user] sets [loc]'s sensors to track vitals.", 1)
 			if(SUIT_SENSOR_TRACKING)
 				for(var/mob/V in viewers(user, 1))
-					V.show_message("[user] sets [src.loc]'s sensors to maximum.", 1)
+					V.show_message("[user] sets [loc]'s sensors to maximum.", 1)
 		if(ishuman(src))
 			var/mob/living/carbon/human/H = src
 			if(H.w_uniform == src)
@@ -838,7 +838,7 @@
 
 	else
 		if((basecolor + "_d_s") in icon_states(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name]))
-				if(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name] && icon_exists(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name], "[basecolor]_d_s"))
+			if(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name] && icon_exists(user.w_uniform.sprite_sheets[user.dna.species.sprite_sheet_name], "[basecolor]_d_s"))
 				item_color = item_color == "[basecolor]" ? "[basecolor]_d" : "[basecolor]"
 				user.update_inv_w_uniform()
 

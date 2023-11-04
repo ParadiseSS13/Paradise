@@ -66,7 +66,7 @@
 		C.spin()
 		chamber_round(0)
 		playsound(get_turf(user), 'sound/weapons/revolver_spin.ogg', 50, 1)
-		user.visible_message("[usr] spins [src]'s chamber.", "<span class='notice'>You spin [src]'s chamber.</span>")
+		user.visible_message("<span class='warning'>[usr] spins [src]'s chamber.</span>", "<span class='notice'>You spin [src]'s chamber.</span>")
 
 /obj/item/gun/projectile/revolver/can_shoot()
 	return get_ammo(0,0)

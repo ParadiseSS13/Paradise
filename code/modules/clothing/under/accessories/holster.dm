@@ -101,10 +101,10 @@
 		return
 
 	if(!holstered)
-		if(!istype(user.get_active_hand(), /obj/item/gun))
+		var/obj/item/gun/gun = user.get_active_hand()
+		if(!istype(gun))
 			to_chat(user, "<span class='warning'>You need your gun equiped to holster it.</span>")
 			return
-		var/obj/item/gun/gun = user.get_active_hand()
 		holster(gun, user)
 	else
 		unholster(user)

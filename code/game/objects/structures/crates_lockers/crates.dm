@@ -229,7 +229,7 @@
 
 /obj/structure/closet/crate/secure/AltClick(mob/user)
 	if(Adjacent(user) && !opened)
-		if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat ) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
+		if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || user.stat) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
 			return
 		togglelock()
 		return

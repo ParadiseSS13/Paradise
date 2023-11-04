@@ -136,8 +136,8 @@
 /obj/structure/chair/attack_ghost(mob/user)
 	if(GLOB.configuration.general.ghost_interaction)
 		rotate()
-	else
-		..()
+		return
+	..()
 
 /obj/structure/chair/proc/rotate()
 	setDir(turn(dir, (360 / possible_dirs)))
