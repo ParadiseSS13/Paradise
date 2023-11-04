@@ -51,7 +51,7 @@
 	icon_state = "gravgen"
 
 /area/station/engineering/gravitygenerator/entry
-	name = "\improper Gravity Generator prep room"
+	name = "\improper Gravity Generator Prep Room"
 
 /area/station/engineering/ai_transit_tube
 	name = "\improper Ai Minisat Tranit Tube"
