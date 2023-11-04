@@ -4,7 +4,16 @@ import { classes } from 'common/react';
 import { createSearch } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Button, ByondUi, Input, Section, Box, NanoMap, Tabs, Icon } from '../components';
+import {
+  Button,
+  ByondUi,
+  Input,
+  Section,
+  Box,
+  NanoMap,
+  Tabs,
+  Icon,
+} from '../components';
 import { refocusLayout, Window } from '../layouts';
 
 /**
@@ -15,13 +24,10 @@ const prevNextCamera = (cameras, activeCamera) => {
   if (!activeCamera) {
     return [];
   }
-  const index = cameras.findIndex(camera => (
-    camera.name === activeCamera.name
-  ));
-  return [
-    cameras[index - 1]?.name,
-    cameras[index + 1]?.name,
-  ];
+  const index = cameras.findIndex(
+    (camera) => camera.name === activeCamera.name
+  );
+  return [cameras[index - 1]?.name, cameras[index + 1]?.name];
 };
 
 /**
@@ -30,20 +36,20 @@ const prevNextCamera = (cameras, activeCamera) => {
  * Filters cameras, applies search terms and sorts the alphabetically.
  */
 const selectCameras = (cameras, searchText = '') => {
-  const testSearch = createSearch(searchText, camera => camera.name);
+  const testSearch = createSearch(searchText, (camera) => camera.name);
   return flow([
     // Null camera filter
-    filter(camera => camera?.name),
+    filter((camera) => camera?.name),
     // Optional search term
     searchText && filter(testSearch),
     // Slightly expensive, but way better than sorting in BYOND
-    sortBy(camera => camera.name),
+    sortBy((camera) => camera.name),
   ])(cameras);
 };
 
 export const CameraConsole220 = (props, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const decideTab = index => {
+  const decideTab = (index) => {
     switch (index) {
       case 0:
         return <CameraConsoleMapContent />;
@@ -62,13 +68,15 @@ export const CameraConsole220 = (props, context) => {
             <Tabs.Tab
               key="Map"
               selected={0 === tabIndex}
-              onClick={() => setTabIndex(0)}>
+              onClick={() => setTabIndex(0)}
+            >
               <Icon name="map-marked-alt" /> Карта
             </Tabs.Tab>
             <Tabs.Tab
               key="List"
               selected={1 === tabIndex}
-              onClick={() => setTabIndex(1)}>
+              onClick={() => setTabIndex(1)}
+            >
               <Icon name="table" /> Список
             </Tabs.Tab>
           </Tabs>
@@ -84,59 +92,70 @@ export const CameraConsoleMapContent = (props, context) => {
   const cameras = selectCameras(data.cameras);
   const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
   const { mapRef, activeCamera, stationLevel } = data;
-  const [prevCameraName, nextCameraName] = prevNextCamera(cameras, activeCamera);
+  const [prevCameraName, nextCameraName] = prevNextCamera(
+    cameras,
+    activeCamera
+  );
   return (
     <Box height="100%" display="flex">
       <Box height="100%" flex="0 0 500px" display="flex">
-        <NanoMap onZoom={v => setZoom(v)}>
-          {cameras.filter(cam => cam.z === stationLevel).map(cm => (
-            <NanoMap.NanoButton
-              activeCamera={activeCamera}
-              key={cm.ref}
-              x={cm.x}
-              y={cm.y}
-              context={context}
-              zoom={zoom}
-              icon="circle"
-              tooltip={cm.name}
-              name={cm.name}
-              color={"blue"}
-              status={cm.status}
-            />
-          ))}
+        <NanoMap onZoom={(v) => setZoom(v)}>
+          {cameras
+            .filter((cam) => cam.z === stationLevel)
+            .map((cm) => (
+              <NanoMap.NanoButton
+                activeCamera={activeCamera}
+                key={cm.ref}
+                x={cm.x}
+                y={cm.y}
+                context={context}
+                zoom={zoom}
+                icon="circle"
+                tooltip={cm.name}
+                name={cm.name}
+                color={'blue'}
+                status={cm.status}
+              />
+            ))}
         </NanoMap>
       </Box>
       <Box height="100%" resizable className="CameraConsole__new__right">
         <div className="CameraConsole__header">
           <div className="CameraConsole__title">
             <b>Камера: </b>
-            {activeCamera
-              && activeCamera.name
-              || '—'}
+            {(activeCamera && activeCamera.name) || '—'}
           </div>
           <div className="CameraConsole__toolbarRight">
             <Button
               icon="chevron-left"
               disabled={!prevCameraName}
-              onClick={() => act('switch_camera', {
-                name: prevCameraName,
-              })} />
+              onClick={() =>
+                act('switch_camera', {
+                  name: prevCameraName,
+                })
+              }
+            />
             <Button
               icon="chevron-right"
               disabled={!nextCameraName}
-              onClick={() => act('switch_camera', {
-                name: nextCameraName,
-              })} />
+              onClick={() =>
+                act('switch_camera', {
+                  name: nextCameraName,
+                })
+              }
+            />
           </div>
         </div>
-        <ByondUi resizable
+        <ByondUi
+          resizable
           className="CameraConsole__map"
           overflow="hidden"
           params={{
             id: mapRef,
             parent: config.window,
             type: 'map',
-          }} />
+          }}
+        />
       </Box>
     </Box>
   );
@@ -145,15 +164,12 @@ export const CameraConsoleMapContent = (props, context) => {
 export const CameraConsoleOldContent = (props, context) => {
   const { act, data, config } = useBackend(context);
   const { mapRef, activeCamera } = data;
-  const [
-    searchText,
-    setSearchText,
-  ] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   const cameras = selectCameras(data.cameras, searchText);
-  const [
-    prevCameraName,
-    nextCameraName,
-  ] = prevNextCamera(cameras, activeCamera);
+  const [prevCameraName, nextCameraName] = prevNextCamera(
+    cameras,
+    activeCamera
+  );
   return (
     <Box>
       <div className="CameraConsole__left">
@@ -163,9 +179,10 @@ export const CameraConsoleOldContent = (props, context) => {
               fluid
               mb={1}
               placeholder="Найти камеру"
-              onInput={(e, value) => setSearchText(value)} />
+              onInput={(e, value) => setSearchText(value)}
+            />
             <Section>
-              {cameras.map(camera => (
+              {cameras.map((camera) => (
                 // We're not using the component here because performance
                 // would be absolutely abysmal (50+ ms for each re-render).
                 <div
@@ -174,18 +191,21 @@ export const CameraConsoleOldContent = (props, context) => {
                   className={classes([
                     'Button',
                     'Button--fluid',
-                    camera.status ? 'Button--color--transparent' : 'Button--color--danger',
+                    camera.status
+                      ? 'Button--color--transparent'
+                      : 'Button--color--danger',
                     'Button--ellipsis',
-                    activeCamera
-                    && camera.name === activeCamera.name
-                    && 'Button--selected',
+                    activeCamera &&
+                      camera.name === activeCamera.name &&
+                      'Button--selected',
                   ])}
                   onClick={() => {
                     refocusLayout();
                     act('switch_camera', {
                       name: camera.name,
                     });
-                  }}>
+                  }}
+                >
                   {camera.name}
                 </div>
               ))}
@@ -196,23 +216,27 @@ export const CameraConsoleOldContent = (props, context) => {
       <div className="CameraConsole__right">
         <div className="CameraConsole__toolbar">
           <b>Камера: </b>
-          {activeCamera
-            && activeCamera.name
-            || '—'}
+          {(activeCamera && activeCamera.name) || '—'}
         </div>
         <div className="CameraConsole__toolbarRight">
           <Button
             icon="chevron-left"
             disabled={!prevCameraName}
-            onClick={() => act('switch_camera', {
-              name: prevCameraName,
-            })} />
+            onClick={() =>
+              act('switch_camera', {
+                name: prevCameraName,
+              })
+            }
+          />
           <Button
             icon="chevron-right"
             disabled={!nextCameraName}
-            onClick={() => act('switch_camera', {
-              name: nextCameraName,
-            })} />
+            onClick={() =>
+              act('switch_camera', {
+                name: nextCameraName,
+              })
+            }
+          />
         </div>
         <ByondUi
           className="CameraConsole__map"
@@ -220,7 +244,8 @@ export const CameraConsoleOldContent = (props, context) => {
             id: mapRef,
             parent: config.window,
             type: 'map',
-          }} />
+          }}
+        />
       </div>
     </Box>
   );

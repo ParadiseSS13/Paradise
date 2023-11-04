@@ -16,47 +16,39 @@ export const EmotePanelContent = (props, context) => {
   const { act, data } = useBackend(context);
   const { emotes } = data;
 
-  const [searchText, setSearchText] = useLocalState(
-    context,
-    'searchText',
-    ''
-  );
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   const [filterVisible, toggleVisualFilter] = useLocalState(
     context,
     'filterVisible',
     ''
-  )
+  );
 
   const [filterAudible, toggleAudibleFilter] = useLocalState(
     context,
     'filterAudible',
     ''
-  )
+  );
 
   const [filterSound, toggleSoundFilter] = useLocalState(
     context,
     'filterSound',
     ''
-  )
+  );
 
   const [filterHands, toggleHandsFilter] = useLocalState(
     context,
     'filterHands',
     ''
-  )
+  );
 
   const [filterTargettable, toggleTargettableFilter] = useLocalState(
     context,
     'filterTargettable',
     ''
-  )
+  );
 
-  const [useTarget, toggleUseTarget] = useLocalState(
-    context,
-    'useTarget',
-    ''
-  )
+  const [useTarget, toggleUseTarget] = useLocalState(context, 'useTarget', '');
 
   let searchBar = (
     <Input
@@ -78,7 +70,7 @@ export const EmotePanelContent = (props, context) => {
               height="100%"
               align="center"
               tooltip="Видимый"
-              selected = {filterVisible}
+              selected={filterVisible}
               onClick={() => toggleVisualFilter(!filterVisible)}
             />
             <Button
@@ -87,16 +79,16 @@ export const EmotePanelContent = (props, context) => {
               height="100%"
               align="center"
               tooltip="Слышимый"
-              selected = {filterAudible}
+              selected={filterAudible}
               onClick={() => toggleAudibleFilter(!filterAudible)}
             />
-             <Button
+            <Button
               icon="volume-up"
               width="100%"
               height="100%"
               align="center"
               tooltip="Звук"
-              selected = {filterSound}
+              selected={filterSound}
               onClick={() => toggleSoundFilter(!filterSound)}
             />
             <Button
@@ -105,7 +97,7 @@ export const EmotePanelContent = (props, context) => {
               height="100%"
               align="center"
               tooltip="Руки"
-              selected = {filterHands}
+              selected={filterHands}
               onClick={() => toggleHandsFilter(!filterHands)}
             />
             <Button
@@ -114,7 +106,7 @@ export const EmotePanelContent = (props, context) => {
               height="100%"
               align="center"
               tooltip="Цель"
-              selected = {filterTargettable}
+              selected={filterTargettable}
               onClick={() => toggleTargettableFilter(!filterTargettable)}
             />
           </Flex>
@@ -132,50 +124,51 @@ export const EmotePanelContent = (props, context) => {
         buttons={
           <Button
             icon="crosshairs"
-            selected = {useTarget}
+            selected={useTarget}
             onClick={() => toggleUseTarget(!useTarget)}
           >
             Выбирать цель
           </Button>
         }
-        >
+      >
         <Flex>
           <Flex.Item>
-          {emotes
-          .filter(emote => emote.key &&
-            (searchText.length > 0 ? (emote.key.toLowerCase().includes(searchText.toLowerCase()) || emote.name.toLowerCase().includes(searchText.toLowerCase())) : true) &&
-            (filterVisible ? emote.visible : true) &&
-            (filterAudible ? emote.audible : true) &&
-            (filterSound ? emote.sound : true) &&
-            (filterHands ? emote.hands : true) &&
-            (filterTargettable ? emote.targettable : true))
-          .map((emote) =>
-            <Button
-              key={emote.name}
-              onClick={() =>
-                act('play_emote', {
-                  emote_path: emote.emote_path,
-                  useTarget: useTarget,
-                })
-              }>
-              {emote.visible ? (<Icon
-                name="eye"
-              />) : ''}
-              {emote.audible ? (<Icon
-                name="comment"
-              />) : ''}
-              {emote.sound ? (<Icon
-                name="volume-up"
-              />) : ''}
-              {emote.hands ? (<Icon
-                name="hand-paper"
-              />) : ''}
-              {emote.targettable ? (<Icon
-                name="crosshairs"
-              />) : ''}
-              {emote.name.toUpperCase()}
-            </Button>
-          )}
+            {emotes
+              .filter(
+                (emote) =>
+                  emote.key &&
+                  (searchText.length > 0
+                    ? emote.key
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                      emote.name
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase())
+                    : true) &&
+                  (filterVisible ? emote.visible : true) &&
+                  (filterAudible ? emote.audible : true) &&
+                  (filterSound ? emote.sound : true) &&
+                  (filterHands ? emote.hands : true) &&
+                  (filterTargettable ? emote.targettable : true)
+              )
+              .map((emote) => (
+                <Button
+                  key={emote.name}
+                  onClick={() =>
+                    act('play_emote', {
+                      emote_path: emote.emote_path,
+                      useTarget: useTarget,
+                    })
+                  }
+                >
+                  {emote.visible ? <Icon name="eye" /> : ''}
+                  {emote.audible ? <Icon name="comment" /> : ''}
+                  {emote.sound ? <Icon name="volume-up" /> : ''}
+                  {emote.hands ? <Icon name="hand-paper" /> : ''}
+                  {emote.targettable ? <Icon name="crosshairs" /> : ''}
+                  {emote.name.toUpperCase()}
+                </Button>
+              ))}
           </Flex.Item>
         </Flex>
       </Section>

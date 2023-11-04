@@ -16,11 +16,7 @@ export const ModpacksListContent = (props, context) => {
   const { act, data } = useBackend(context);
   const { modpacks } = data;
 
-  const [searchText, setSearchText] = useLocalState(
-    context,
-    'searchText',
-    ''
-  );
+  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   const searchBar = (
     <Input
@@ -32,11 +28,7 @@ export const ModpacksListContent = (props, context) => {
 
   return (
     <Section>
-      <Section
-        title="Фильтры"
-      >
-        {searchBar}
-      </Section>
+      <Section title="Фильтры">{searchBar}</Section>
       <Section
         title={
           searchText.length > 0
@@ -44,38 +36,31 @@ export const ModpacksListContent = (props, context) => {
             : `Все модификации`
         }
         fill
-        >
+      >
         <Flex>
-          <Flex.Item
-            grow="1"
-            basis="100%"
-            width="100%"
-            display="inline-block"
-          >
-          {modpacks
-          .filter(modpack => modpack.name &&
-            (searchText.length > 0 ?
-              (modpack.name.toLowerCase().includes(searchText.toLowerCase()) ||
-              modpack.desc.toLowerCase().includes(searchText.toLowerCase()) ||
-              modpack.author.toLowerCase().includes(searchText.toLowerCase())
-              ) : true))
-          .map((modpack) =>
-            <Collapsible
-              key={modpack.name}
-              title={modpack.name}
-            >
-              <Section
-                title="Авторы"
-              >
-                {modpack.author}
-              </Section>
-              <Section
-                title="Описание"
-              >
-                {modpack.desc}
-              </Section>
-            </Collapsible>
-          )}
+          <Flex.Item grow="1" basis="100%" width="100%" display="inline-block">
+            {modpacks
+              .filter(
+                (modpack) =>
+                  modpack.name &&
+                  (searchText.length > 0
+                    ? modpack.name
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                      modpack.desc
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase()) ||
+                      modpack.author
+                        .toLowerCase()
+                        .includes(searchText.toLowerCase())
+                    : true)
+              )
+              .map((modpack) => (
+                <Collapsible key={modpack.name} title={modpack.name}>
+                  <Section title="Авторы">{modpack.author}</Section>
+                  <Section title="Описание">{modpack.desc}</Section>
+                </Collapsible>
+              ))}
           </Flex.Item>
         </Flex>
       </Section>
