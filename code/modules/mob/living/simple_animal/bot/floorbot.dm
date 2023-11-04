@@ -334,11 +334,8 @@
 	if(mode != BOT_REPAIRING)
 		return
 
-	if(process_type == HULL_BREACH) // If repairing hull breach, there is no floor to break, causes runtime otherwise
-		return
-
 	if(autotile || replacetiles)
-		F.break_tile_to_plating()
+		process_type == HULL_BREACH ? "" : F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 	else
 		target_turf.ChangeTurf(/turf/simulated/floor/plating)
