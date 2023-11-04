@@ -3,7 +3,7 @@
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "floorbot0"
+	icon_state = "floorbot"
 	density = FALSE
 	anchored = FALSE
 	health = 25
@@ -305,36 +305,39 @@
 
 	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
 		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
-		mode = HULL_BREACH ? HULL_BREACH : BOT_REPAIRING // I hate this but it works
+		mode = BOT_REPAIRING
 		update_icon(UPDATE_OVERLAYS)
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
 
 	else
 		var/turf/simulated/floor/F = target_turf
-		mode = HULL_BREACH ? HULL_BREACH : BOT_REPAIRING
+		mode = BOT_REPAIRING
 		update_icon(UPDATE_OVERLAYS)
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
-///mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
-//	if(mode != BOT_REPAIRING)
-//		return
-//
-//	F.broken = FALSE
-//	F.burnt = FALSE
-//	F.ChangeTurf(/turf/simulated/floor/plasteel)
-//	mode = BOT_IDLE
-//	amount--
-//	update_icon(UPDATE_OVERLAYS)
-//	anchored = FALSE
-//	target = null
+/mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
+	if(mode != BOT_REPAIRING)
+		return
+
+	F.broken = FALSE
+	F.burnt = FALSE
+	F.ChangeTurf(/turf/simulated/floor/plasteel)
+	mode = BOT_IDLE
+	amount--
+	update_icon(UPDATE_OVERLAYS)
+	anchored = FALSE
+	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
 	var/turf/simulated/floor/F = target
 	if(mode != BOT_REPAIRING)
 		return
 
-	if(mode != HULL_BREACH && autotile || replacetiles) // if repairing hull breach, do not call break tile or else it enters an infinite loop
+	if(process_type == HULL_BREACH) // If repairing hull breach, there is no floor to break, causes runtime otherwise
+		return
+
+	if(autotile || replacetiles)
 		F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 	else
@@ -391,15 +394,16 @@
 	target = null
 	mode = BOT_IDLE
 
+/mob/living/simple_animal/bot/floorbot/update_icon_state()
+	return
+
 /mob/living/simple_animal/bot/floorbot/update_overlays()
 	. = ..()
 	if(mode == BOT_REPAIRING)
-		icon_state = "[toolbox_color]floorbot-c"
-		return
-	if(amount > 0)
-		icon_state = "[toolbox_color]floorbot[on]"
+		. += "floorbot_work"
 	else
-		icon_state = "[toolbox_color]floorbot[on]e"
+		. += "floorbot_[on ? "on" : "off"]"
+		. += "floorbot_[amount > 0 ? "metal" : ""]"
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
