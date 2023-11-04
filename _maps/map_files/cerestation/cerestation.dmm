@@ -42032,14 +42032,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
-"gwT" = (
-/obj/structure/cable/orange{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating/asteroid/ancient,
-/area/station/maintenance/asmaint)
 "gxk" = (
 /obj/structure/closet/emcloset,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -84407,7 +84399,9 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/turf/simulated/floor/plating/asteroid/ancient,
+/turf/simulated/floor/plating{
+	icon_state = "asteroidplating"
+	},
 /area/station/maintenance/asmaint)
 "uor" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -144675,7 +144669,7 @@ rIn
 mJk
 mJk
 mJk
-gwT
+mJk
 cdj
 vpJ
 vpJ
@@ -144925,8 +144919,8 @@ aXn
 yev
 vRX
 pob
-gwT
-gwT
+mJk
+mJk
 yjS
 uom
 vWF
