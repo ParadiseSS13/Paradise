@@ -334,7 +334,7 @@
 	if(mode != BOT_REPAIRING)
 		return
 
-	if(autotile || replacetiles)
+	if(mode != HULL_BREACH && autotile || replacetiles) // if repairing hull breach, do not call break tile or else it enters an infinite loop
 		F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 	else
