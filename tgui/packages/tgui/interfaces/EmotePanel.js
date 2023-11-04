@@ -156,7 +156,7 @@ export const EmotePanelContent = (props, context) => {
                   key={emote.name}
                   onClick={() =>
                     act('play_emote', {
-                      emote_path: emote.emote_path,
+                      emote_key: emote.key,
                       useTarget: useTarget,
                     })
                   }
