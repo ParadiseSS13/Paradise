@@ -33,6 +33,8 @@
 	COOLDOWN_DECLARE(charge_add_cd)
 	/// A callback for the sparks/message that play when a charge is used, see [/datum/component/shielded/proc/default_run_hit_callback]
 	var/datum/callback/on_hit_effects
+	///The visual effect
+	var/mutable_appearance/shield
 
 /datum/component/shielded/Initialize(max_charges = 3, recharge_start_delay = 20 SECONDS, charge_increment_delay = 1 SECONDS, charge_recovery = 1, lose_multiple_charges = FALSE, show_charge_as_alpha = FALSE, recharge_path = null, starting_charges = null, shield_icon_file = 'icons/effects/effects.dmi', shield_icon = "shield-old", shield_inhand = FALSE, run_hit_callback)
 	if(!isitem(parent) || max_charges <= 0)
@@ -112,7 +114,7 @@
 	if((slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND) && !shield_inhand)
 		lost_wearer(source, user)
 		return
-	set_wearer(source, user)
+	set_wearer(user)
 
 /// Either we've been dropped or our wearer has been QDEL'd. Either way, they're no longer our problem
 /datum/component/shielded/proc/lost_wearer(datum/source, mob/user)
@@ -120,6 +122,7 @@
 
 	if(wearer)
 		UnregisterSignal(wearer, list(COMSIG_ATOM_UPDATE_OVERLAYS, COMSIG_PARENT_QDELETING))
+		wearer.cut_overlay(shield)
 		wearer.update_appearance(UPDATE_ICON)
 		wearer = null
 
@@ -131,20 +134,20 @@
 		wearer.update_appearance(UPDATE_ICON)
 
 /// Used to draw the shield overlay on the wearer
-/datum/component/shielded/proc/on_update_overlays(atom/parent_atom, list/overlays)
+/datum/component/shielded/proc/on_update_overlays(atom/parent_atom)
 	SIGNAL_HANDLER
-
+	wearer.cut_overlay(shield)
 	var/mutable_appearance/shield_appearance = mutable_appearance(shield_icon_file, (current_charges > 0 ? shield_icon : "broken"), MOB_LAYER + 0.01)
 	if(show_charge_as_alpha)
 		shield_appearance.alpha = (current_charges/max_charges)*255
-	overlays += shield_appearance
-	message_admins("hi yes")
+	wearer.add_overlay(shield_appearance)
+	shield = shield_appearance
 
 /**
  * This proc fires when we're hit, and is responsible for checking if we're charged, then deducting one + returning that we're blocking if so.
  * It then runs the callback in [/datum/component/shielded/var/on_hit_effects] which handles the messages/sparks (so the visuals)
  */
-/datum/component/shielded/proc/on_hit_react(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type, damage_type)
+/datum/component/shielded/proc/on_hit_react(datum/source, mob/living/carbon/human/owner, atom/movable/hitby, damage, attack_type)
 	SIGNAL_HANDLER
 
 	COOLDOWN_START(src, recently_hit_cd, recharge_start_delay)
@@ -155,17 +158,20 @@
 
 	var/charge_loss = 1 // how many charges do we lose
 
+	if(istype(hitby, /obj/item/projectile))
+		var/obj/item/projectile/P = hitby
+		if(P.shield_buster)
+			charge_loss = 3
+			if(lose_multiple_charges)
+				charge_loss = damage //Double dip if health based instead
+
 	if(lose_multiple_charges) // if the shield has health like damage we'll lose charges equal to the damage of the hit
-		charge_loss = damage
-	else
-		if(istype(hitby, /obj/item/projectile))
-			var/obj/item/projectile/P = hitby
-			if(P.shield_buster)
-				charge_loss = 3
+		charge_loss += damage
 
 	adjust_charge(-charge_loss)
+	wearer.update_appearance(UPDATE_ICON)
 
-	INVOKE_ASYNC(src, PROC_REF(actually_run_hit_callback), owner, attack_text, current_charges)
+	INVOKE_ASYNC(src, PROC_REF(actually_run_hit_callback), owner, hitby, current_charges)
 
 	if(!recharge_start_delay) // if recharge_start_delay is 0, we don't recharge
 		return

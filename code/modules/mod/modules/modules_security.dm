@@ -167,7 +167,7 @@
 /obj/effect/temp_visual/sonar_ping/proc/remove_mind(mob/living/looker)
 	looker?.client?.images -= modsuit_image
 
-///Teleporter - Lets the user teleport to a nearby location.
+///Firewall. Deployable dropwall that lights projectiles on fire.
 /obj/item/mod/module/anomaly_locked/firewall
 	name = "MOD firewall module"
 	desc = "A module that uses a pyroclastic core to make immolating dropwalls."

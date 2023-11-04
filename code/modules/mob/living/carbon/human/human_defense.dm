@@ -255,7 +255,7 @@ emp_act
 	if(head && head.hit_reaction(src, AM, attack_text, 0, damage, attack_type))
 		return TRUE
 
-	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
+	if(SEND_SIGNAL(src, COMSIG_HUMAN_CHECK_SHIELDS, AM, attack_text, 0, damage, attack_type) & SHIELD_BLOCK)
 		return TRUE
 
 	return FALSE

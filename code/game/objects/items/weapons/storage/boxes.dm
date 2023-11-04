@@ -948,7 +948,7 @@
 	icon_state = "box_wizard"
 
 /obj/item/storage/box/wizard/hardsuit/populate_contents()
-	new /obj/item/clothing/suit/space/hardsuit/shielded/wizard(src)
+	new /obj/item/clothing/suit/space/hardsuit/wizard(src)
 	new /obj/item/clothing/shoes/magboots/wizard(src)
 
 /obj/item/storage/box/breaching

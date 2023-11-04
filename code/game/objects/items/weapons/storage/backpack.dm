@@ -699,7 +699,7 @@
 		/obj/item/organ/internal/vocal_cords/colossus/wizard = 2,
 		/obj/item/warp_cube/red = 1,
 		/obj/item/reagent_containers/food/drinks/everfull = 2,
-		/obj/item/clothing/suit/space/hardsuit/shielded/wizard = 2,
+		/obj/item/clothing/suit/space/hardsuit/wizard = 2,
 		/obj/item/jacobs_ladder = 1, //funny
 		/obj/item/immortality_talisman = 1 ) //spells recharge when invincible
 	var/obj/item/pickeda = pick(list_a)

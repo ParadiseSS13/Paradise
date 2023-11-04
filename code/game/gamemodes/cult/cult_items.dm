@@ -151,9 +151,6 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
-	var/current_charges = 3
-	var/shield_state = "shield-cult"
-	var/shield_on = "shield-cult"
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist hood"
