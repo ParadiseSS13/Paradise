@@ -38,7 +38,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		return FALSE
 
-	if(iscultist(user) || iswizard(user) || (user.mind?.isholy && purified || usability == TRUE))
+	if(iscultist(user) || iswizard(user) || (HAS_MIND_TRAIT(user, TRAIT_HOLY) && purified) || usability)
 		return TRUE
 
 	return FALSE
@@ -69,7 +69,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		to_chat(user, "<span class='danger'>[src] reeks of holy magic. You will need to cleanse it with a ritual dagger before anything can be done with it.</span>")
 		return
-	if(user.mind?.isholy)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up [src]. It looks fragile enough to break with your hands.</span>")
 		return
 	if(!can_use(user))
@@ -178,7 +178,7 @@
 	return
 
 /obj/item/soulstone/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
+	if(istype(O, /obj/item/storage/bible) && !iscultist(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		if(purified)
 			return
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
@@ -238,7 +238,7 @@
 		release_shades(user)
 		return
 
-	if(!user.mind.isholy)
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>The shard feels too tough to shatter, you are not holy enough to free its captive!</span>")
 		return
 
