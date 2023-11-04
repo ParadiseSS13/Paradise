@@ -399,6 +399,77 @@
 	icon_state = "rcd_short_reverse"
 	duration = 3.1 SECONDS
 
+/**
+ * A visual effect that will be shown only to a particular user for a period of time.
+ */
+/obj/effect/temp_visual/single_user
+	/// The image to show to the user
+	var/image/displayed_image
+	/// The UID of the person who the image is being displayed to
+	var/source_UID
+	/// The real icon state to be applied to the image
+	var/image_icon_state
+	/// The plane to apply the image to
+	var/image_plane = ABOVE_LIGHTING_PLANE
+	/// The layer to apply the image to
+	var/image_layer = ABOVE_ALL_MOB_LAYER
+	/// The icon to pull the image from
+	var/image_icon
+
+
+/obj/effect/temp_visual/single_user/Initialize(mapload, mob/living/user)
+	. = ..()
+	if(!user)
+		return INITIALIZE_HINT_QDEL
+	displayed_image = create_image(user)
+	displayed_image.plane = image_plane
+	displayed_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	source_UID = user.UID()
+	add_mind(user)
+
+
+/obj/effect/temp_visual/single_user/proc/create_image(mob/living/looker)
+	return image(icon = image_icon, loc = src, icon_state = image_icon_state, layer = image_layer)
+
+
+/obj/effect/temp_visual/single_user/Destroy()
+	var/mob/living/previous_user = locateUID(source_UID)
+	if(previous_user)
+		remove_mind(previous_user)
+	// Null so we don't shit the bed when we delete
+	displayed_image = null
+	return ..()
+
+/// Add the image to the user's screen
+/obj/effect/temp_visual/single_user/proc/add_mind(mob/living/looker)
+	looker.client?.images |= displayed_image
+
+/// Remove the image from the user's screen
+/obj/effect/temp_visual/single_user/proc/remove_mind(mob/living/looker)
+	looker.client?.images -= displayed_image
+
+/obj/effect/temp_visual/single_user/lwap_ping
+	duration = 0.5 SECONDS
+	randomdir = FALSE
+	image_icon = 'icons/obj/projectiles.dmi'
+	image_icon_state = "red_laser"
+
+/obj/effect/temp_visual/single_user/lwap_ping/Initialize(mapload, mob/living/looker, mob/living/creature)
+	if(!looker || !creature)
+		return INITIALIZE_HINT_QDEL
+	. = ..()
+	displayed_image.pixel_x = (creature.x - looker.x) * 32
+	displayed_image.pixel_y = (creature.y - looker.y) * 32
+
+/obj/effect/temp_visual/single_user/ai_telegraph
+	duration = 2 SECONDS
+	randomdir = FALSE
+	image_layer = BELOW_MOB_LAYER
+	image_plane = GAME_PLANE
+	image_icon = 'icons/mob/telegraphing/telegraph_holographic.dmi'
+	image_icon_state = "target_box"
+
+
 /obj/effect/temp_visual/obliteration
 	duration = 2 SECONDS
 
