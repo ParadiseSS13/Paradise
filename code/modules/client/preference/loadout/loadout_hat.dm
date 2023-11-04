@@ -178,7 +178,7 @@
 	allowed_roles = list("Head of Security", "Warden", "Security Officer")
 
 /datum/gear/hat/beret_job/hop
-	display_name = "Beret, head of personnel's"
+	display_name = "Beret, head of personnel"
 	path = /obj/item/clothing/head/hopcap/beret
 	allowed_roles = list("Head of Personnel")
 
