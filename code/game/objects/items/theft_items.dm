@@ -187,7 +187,7 @@
 		tongs.icon_state = "supermatter_tongs_loaded"
 		tongs.item_state = "supermatter_tongs_loaded"
 		to_chat(user, "<span class='notice'>You carefully pick up [src] with [tongs].</span>")
-	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
+	else if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter) || HAS_TRAIT(I, TRAIT_SUPERMATTER_IMMUNE)) // we don't want it to dust
 		return
 	else
 		if(issilicon(user))
@@ -207,7 +207,7 @@
 	if(!isliving(hit_atom))
 		return ..()
 	var/mob/living/victim = hit_atom
-	if(victim.incorporeal_move || victim.status_flags & GODMODE) //try to keep this in sync with supermatter's consume fail conditions
+	if(victim.incorporeal_move || victim.status_flags & GODMODE || HAS_TRAIT(victim, TRAIT_SUPERMATTER_IMMUNE)) //try to keep this in sync with supermatter's consume fail conditions
 		return ..()
 	if(throwingdatum?.thrower)
 		var/mob/user = throwingdatum.thrower

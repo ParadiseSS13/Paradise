@@ -270,7 +270,7 @@
 		if(!lastbang)
 			lastbang = 1
 			for(var/mob/M in hearers(src, null))
-				to_chat(M, text("<FONT size=[]>BANG, bang!</FONT>", max(0, 5 - get_dist(src, M))))
+				to_chat(M, "<FONT size=[max(0, 5 - get_dist(src, M))]>BANG, bang!</FONT>")
 			spawn(30)
 				lastbang = 0
 
@@ -409,7 +409,6 @@
 	icon_state = "bluespace"
 	open_door_sprite = "bluespace_door"
 	storage_capacity = 60
-	pull_speed = 0
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 
 /obj/structure/closet/bluespace/CheckExit(atom/movable/AM)

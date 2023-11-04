@@ -262,22 +262,22 @@
 				if(job.is_position_available())
 					var/list/opening_data = list("title" = job.title)
 					// Is the job a command job?
-					if(job.title in GLOB.command_positions)
+					if(job.job_department_flags & DEP_FLAG_COMMAND)
 						opening_data["is_command"] = TRUE
 					// Add the job opening to the corresponding categories
 					// Ugly!
 					opening_data = list(opening_data)
-					if(job.is_security)
+					if(job.job_department_flags & DEP_FLAG_SECURITY)
 						jobs["security"] += opening_data
-					if(job.is_engineering)
+					if(job.job_department_flags & DEP_FLAG_ENGINEERING)
 						jobs["engineering"] += opening_data
-					if(job.is_medical)
+					if(job.job_department_flags & DEP_FLAG_MEDICAL)
 						jobs["medical"] += opening_data
-					if(job.is_science)
+					if(job.job_department_flags & DEP_FLAG_SCIENCE)
 						jobs["science"] += opening_data
-					if(job.is_service)
+					if(job.job_department_flags & DEP_FLAG_SERVICE)
 						jobs["service"] += opening_data
-					if(job.is_supply)
+					if(job.job_department_flags & DEP_FLAG_SUPPLY)
 						jobs["supply"] += opening_data
 
 	// Append temp photo

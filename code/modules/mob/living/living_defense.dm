@@ -268,6 +268,10 @@
 		return FALSE
 	if(user.pull_force < move_force)
 		return FALSE
+	// This if-statement checks if the user is horizontal, and if the user either has no martial art, or has judo, drunk fighting or krav, in which case it should also fail
+	if(IS_HORIZONTAL(user) && (!user.mind.martial_art || !user.mind.martial_art.can_horizontally_grab))
+		to_chat(user, "<span class='warning'>You fail to get a good grip on [src]!</span>")
+		return
 
 	for(var/obj/item/grab/G in grabbed_by)
 		if(G.assailant == user)

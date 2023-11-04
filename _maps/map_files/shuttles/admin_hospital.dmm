@@ -180,9 +180,9 @@
 /area/shuttle/administration)
 "aT" = (
 /obj/machinery/door/airlock/titanium/glass{
-	name = "Chemistry";
-	req_access_txt = "33"
+	name = "Chemistry"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/chemistry,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aU" = (
@@ -346,9 +346,9 @@
 /area/shuttle/administration)
 "bD" = (
 /obj/machinery/door/airlock/command{
-	name = "Command Center";
-	req_access_txt = "19"
+	name = "Command Center"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bE" = (
@@ -376,9 +376,9 @@
 /area/shuttle/administration)
 "bI" = (
 /obj/machinery/door/airlock/titanium/glass{
-	name = "Operating Room";
-	req_access_txt = "45"
+	name = "Operating Room"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/surgery,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bJ" = (
@@ -666,7 +666,9 @@
 "wk" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
-	req_access_txt = "33";
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/medical/chemistry{
 	dir = 8
 	},
 /obj/structure/window/reinforced{

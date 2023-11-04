@@ -128,9 +128,9 @@
 /area/shuttle/escape)
 "aF" = (
 /obj/machinery/door/airlock/wood/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	name = "Escape Shuttle Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/grass,
 /area/shuttle/escape)
 "aG" = (
@@ -260,9 +260,9 @@
 /area/shuttle/escape)
 "bj" = (
 /obj/machinery/door/airlock/wood/glass{
-	name = "Escape Shuttle Cell";
-	req_access_txt = "63"
+	name = "Escape Shuttle Cell"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/mineral/plastitanium/red/brig{
 	icon_state = "wood"
 	},

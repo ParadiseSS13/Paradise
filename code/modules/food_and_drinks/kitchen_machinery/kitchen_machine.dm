@@ -117,6 +117,9 @@
 				return TRUE
 	else if(istype(O, /obj/item/grab))
 		var/obj/item/grab/G = O
+		if(HAS_TRAIT(user, TRAIT_PACIFISM))
+			to_chat(user, "<span class='danger'>Slamming [G.affecting] into [src] might hurt them!</span>")
+			return
 		return special_attack_grab(G, user)
 	else
 		to_chat(user, "<span class='alert'>You have no idea what you can cook with [O].</span>")
@@ -285,6 +288,8 @@
 /obj/machinery/kitchen_machine/proc/dispose(mob/user)
 	for(var/obj/O in contents)
 		O.forceMove(loc)
+		O.pixel_y = rand(-5, 5)
+		O.pixel_x = rand(-5, 5)
 	if(reagents.total_volume)
 		dirty++
 	reagents.clear_reagents()
@@ -338,6 +343,8 @@
 		var/reagents_per_serving = temp_reagents.total_volume / portions
 		for(var/i in 1 to portions) // Extra servings when upgraded, ingredient reagents split equally
 			var/obj/cooked = new recipe.result(loc)
+			cooked.pixel_y = rand(-5, 5)
+			cooked.pixel_x = rand(-5, 5)
 			temp_reagents.trans_to(cooked, reagents_per_serving, no_react = TRUE) // Don't react with the abstract holder please
 		temp_reagents.clear_reagents()
 
@@ -519,11 +526,6 @@
 
 		data["ingredients"] += list(data_pr)
 
-	return data
-
-/obj/machinery/kitchen_machine/ui_static_data(mob/user)
-	var/list/data = list()
-	data["name"] = name
 	return data
 
 /obj/machinery/kitchen_machine/ui_act(action, params, datum/tgui/ui)

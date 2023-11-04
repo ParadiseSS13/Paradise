@@ -45,7 +45,7 @@
 /obj/item/storage/box/survival/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_vox
@@ -54,7 +54,7 @@
 /obj/item/storage/box/survival_vox/populate_contents()
 	new /obj/item/clothing/mask/breath/vox(src)
 	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_plasmaman
@@ -63,7 +63,7 @@
 /obj/item/storage/box/survival_plasmaman/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/engineer
@@ -72,7 +72,7 @@
 /obj/item/storage/box/engineer/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_mining
@@ -81,7 +81,7 @@
 /obj/item/storage/box/survival_mining/populate_contents()
 	new /obj/item/clothing/mask/gas/explorer(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/flashlight/flare/glowstick/emergency(src)
 
 /obj/item/storage/box/survival_syndi
@@ -91,7 +91,7 @@
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/crowbar/small(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 
@@ -293,16 +293,6 @@
 		new /obj/item/implantcase/chem(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-
-/obj/item/storage/box/exileimp
-	name = "boxed exile bio-chip kit"
-	desc = "Box of exile bio-chips. It has a picture of a clown being booted through the Gateway."
-	icon_state = "implant"
-
-/obj/item/storage/box/exileimp/populate_contents()
-	for(var/I in 1 to 5)
-		new /obj/item/implantcase/exile(src)
-	new /obj/item/implanter(src)
 
 /obj/item/storage/box/deathimp
 	name = "death alarm bio-chip kit"
@@ -566,6 +556,22 @@
 		B.reagents.add_reagent(reag, 30)
 		B.name = "[reag] bottle"
 
+/obj/item/storage/box/botany_labelled_seeds
+	name = "botanist labelled random seeds kit"
+	desc = "A box intended for experienced botanists."
+
+/obj/item/storage/box/botany_labelled_seeds/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/seeds/random/labelled(src)
+
+/obj/item/storage/box/telescience
+	name = "babies first telescience kit"
+	desc = "A now restricted kit for those who want to learn about telescience!"
+
+/obj/item/storage/box/telescience/populate_contents()
+	new /obj/item/circuitboard/telesci_pad(src)
+	new /obj/item/circuitboard/telesci_console(src)
+
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
 	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
@@ -622,7 +628,7 @@
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	drop_sound = 'sound/items/handling/matchbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
@@ -656,7 +662,7 @@
 
 /obj/item/storage/box/autoinjectors/populate_contents()
 	for(var/I in 1 to storage_slots)
-		new /obj/item/reagent_containers/hypospray/autoinjector(src)
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/box/autoinjector/utility
 	name = "autoinjector kit"
@@ -834,7 +840,7 @@
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
 	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/box/deathsquad
 	name = "boxed death kit"
@@ -857,7 +863,7 @@
 /obj/item/storage/box/soviet/populate_contents()
 	new /obj/item/clothing/mask/breath(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
@@ -975,6 +981,25 @@
 	new /obj/item/stock_parts/manipulator(src)
 	new /obj/item/stock_parts/matter_bin(src)
 	new /obj/item/screwdriver(src)
+
+/obj/item/storage/box/hardmode_box
+	name = "box of HRD-MDE project box"
+	desc = "Contains everything needed to get yourself killed for a medal."
+
+/obj/item/storage/box/hardmode_box/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/megafauna_hardmode(src)
+	new /obj/item/storage/lockbox/medal/hardmode_box(src)
+	new /obj/item/paper/hardmode(src)
+
+/obj/item/storage/box/foam_grenades
+	name = "foam grenades box"
+	desc = "A box full of foam grenades."
+	icon_state = "flashbang"
+
+/obj/item/storage/box/foam_grenades/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/chem_grenade/metalfoam(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

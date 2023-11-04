@@ -15,6 +15,7 @@
 	var/applied_amount = 8 // How much it applies
 	var/applying = FALSE // So it can't be spammed.
 	var/measured_health = 0 // Used for measuring health; we don't want this to stop applying once the person's health isn't changing.
+	var/static/list/safe_chem_applicator_list = list("silver_sulfadiazine", "styptic_powder", "synthflesh")
 
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)
@@ -29,7 +30,7 @@
 	if(!emagged)
 		var/found_forbidden_reagent = FALSE
 		for(var/datum/reagent/R in reagents.reagent_list)
-			if(!GLOB.safe_chem_applicator_list.Find(R.id))
+			if(!safe_chem_applicator_list.Find(R.id))
 				reagents.del_reagent(R.id)
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)

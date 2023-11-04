@@ -58,6 +58,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/shiv
+	name = "Shiv"
+	result = list(/obj/item/kitchen/knife/shiv)
+	reqs = list(/obj/item/stack/cable_coil = 5,
+				/obj/item/shard = 1,
+				/obj/item/stack/sheet/cloth = 1)
+	time = 2 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/bola
 	name = "Bola"
 	result = list(/obj/item/restraints/legcuffs/bola)
@@ -66,6 +76,17 @@
 	time = 20//15 faster than crafting them by hand!
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/throwing_croissant
+	name = "Throwing croissant"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/croissant = 1,
+		/obj/item/stack/rods = 1
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/croissant)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_availible = FALSE
 
 /datum/crafting_recipe/advancedegun
 	name = "Advanced Energy Gun"
@@ -347,7 +368,7 @@
 	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/pulseslug
-	name = "Pulse Slug Shell"
+	name = "Proto Pulse Slug Shell"
 	result = list(/obj/item/ammo_casing/shotgun/pulseslug)
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/capacitor/adv = 2,

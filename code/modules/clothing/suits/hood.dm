@@ -25,11 +25,11 @@
 	ToggleHood()
 
 /obj/item/clothing/suit/hooded/item_action_slot_check(slot, mob/user)
-	if(slot == slot_wear_suit)
+	if(slot == SLOT_HUD_OUTER_SUIT)
 		return 1
 
 /obj/item/clothing/suit/hooded/equipped(mob/user, slot)
-	if(slot != slot_wear_suit)
+	if(slot != SLOT_HUD_OUTER_SUIT)
 		RemoveHood()
 	..()
 
@@ -61,7 +61,7 @@
 			if(H.head)
 				to_chat(H,"<span class='warning'>You're already wearing something on your head!</span>")
 				return
-			else if(H.equip_to_slot_if_possible(hood, slot_head, FALSE, FALSE))
+			else if(H.equip_to_slot_if_possible(hood, SLOT_HUD_HEAD, FALSE, FALSE))
 				suit_adjusted = 1
 				icon_state = "[initial(icon_state)]_hood"
 				H.update_inv_wear_suit()
@@ -69,7 +69,7 @@
 					var/datum/action/A = X
 					A.UpdateButtonIcon()
 	else
-		if((hood.flags & NODROP) && respects_nodrop)
+		if((hood?.flags & NODROP) && respects_nodrop)
 			if(ishuman(loc))
 				var/mob/living/carbon/human/H = loc
 				to_chat(H, "<span class='warning'>[hood] is stuck to your head!</span>")
@@ -90,7 +90,7 @@
 
 /obj/item/clothing/head/hooded/equipped(mob/user, slot)
 	..()
-	if(slot != slot_head)
+	if(slot != SLOT_HUD_HEAD)
 		if(suit)
 			suit.RemoveHood()
 		else

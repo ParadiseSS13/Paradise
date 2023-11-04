@@ -3,6 +3,5 @@
 	startWhen = 10
 	announceWhen = 3
 	anomaly_path = /obj/effect/anomaly/bhole
-
-/datum/event/anomaly/anomaly_vortex/announce()
-	GLOB.minor_announcement.Announce("Localized high-intensity vortex anomaly detected on long range scanners. Expected location: [impact_area.name]", "Anomaly Alert", 'sound/AI/anomaly_vortex.ogg')
+	prefix_message = "Localized high-intensity vortex anomaly detected on long range scanners."
+	announce_sound = 'sound/AI/anomaly_vortex.ogg'

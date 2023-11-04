@@ -163,6 +163,7 @@
 	density = FALSE // prevents it blocking all movement
 	max_integrity = 20 // two welders, or one laser shot (15 for the normal spider webs)
 	icon_state = "stickyweb1"
+	creates_cover = TRUE
 	var/creator_ckey = null
 
 /obj/structure/spider/terrorweb/Initialize(mapload)

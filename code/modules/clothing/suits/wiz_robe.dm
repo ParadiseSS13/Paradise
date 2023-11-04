@@ -189,6 +189,7 @@
 	desc = "Not all wizards are afraid of getting up close and personal."
 	icon_state = "hardsuit-wiz"
 	item_state = "wiz_hardsuit"
+	recharge_rate = 0
 	///The amount of charges the suit currently has
 	current_charges = 15
 	///The max number of charges the suit can hold

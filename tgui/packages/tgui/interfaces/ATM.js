@@ -308,7 +308,9 @@ const ViewTransactionLogs = (props, context) => {
           <Table.Row key={t}>
             <Table.Cell>{t.time}</Table.Cell>
             <Table.Cell>{t.purpose}</Table.Cell>
-            <Table.Cell color={t.is_deposit ? 'green' : 'red'}>${t.amount}</Table.Cell>
+            <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
+              ${t.amount}
+            </Table.Cell>
             <Table.Cell>{t.target_name}</Table.Cell>
           </Table.Row>
         ))}

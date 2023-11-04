@@ -78,10 +78,14 @@
 	magboot_state = "syndiemag"
 	origin_tech = "magnets=4;syndicate=2"
 
-/obj/item/clothing/shoes/magboots/syndie/advance //For the Syndicate Strike Team
-	name = "advanced blood-red magboots"
-	desc = "Reverse-engineered magboots that appear to be based on an advanced model, as they have a lighter magnetic pull. Property of Gorlex Marauders."
+/obj/item/clothing/shoes/magboots/elite //For the Syndicate Strike Team/SolGov/Tactical Teams
+	name = "elite tactical magboots"
+	desc = "Advanced magboots used by strike teams across the system. Allows for tactical insertion into low-gravity areas of operation."
+	icon_state = "elitemag0"
+	magboot_state = "elitemag"
+	origin_tech = null
 	slowdown_active = SHOES_SLOWDOWN
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
 /obj/item/clothing/shoes/magboots/clown
 	name = "clown shoes"
@@ -103,7 +107,7 @@
 
 /obj/item/clothing/shoes/magboots/clown/equipped(mob/user, slot)
 	. = ..()
-	if(slot == slot_shoes && enabled_waddle)
+	if(slot == SLOT_HUD_SHOES && enabled_waddle)
 		user.AddElement(/datum/element/waddling)
 
 /obj/item/clothing/shoes/magboots/clown/dropped(mob/user)
@@ -155,7 +159,7 @@
 	slowdown_active = SHOES_SLOWDOWN
 	magboot_state = "gravboots"
 	magpulse_name = "micro gravitational traction system"
-	var/datum/martial_art/grav_stomp/style = new //Only works with core and cell installed.
+	var/datum/martial_art/grav_stomp/style //Only works with core and cell installed.
 	var/jumpdistance = 5
 	var/jumpspeed = 3
 	var/recharging_rate = 6 SECONDS
@@ -164,6 +168,10 @@
 	var/power_consumption_rate = 30 // How much power is used by the boots each cycle when magboots are active
 	var/obj/item/assembly/signaler/anomaly/grav/core = null
 	var/obj/item/stock_parts/cell/cell = null
+
+/obj/item/clothing/shoes/magboots/gravity/Initialize()
+	. = ..()
+	style = new()
 
 /obj/item/clothing/shoes/magboots/gravity/Destroy()
 	QDEL_NULL(style)
@@ -255,7 +263,7 @@
 	..()
 	if(!ishuman(user))
 		return
-	if(slot == slot_shoes && cell && core)
+	if(slot == SLOT_HUD_SHOES && cell && core)
 		style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/user)
@@ -263,14 +271,14 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_shoes) == src)
+	if(H.get_item_by_slot(SLOT_HUD_SHOES) == src)
 		style.remove(H)
 		if(magpulse)
 			to_chat(user, "<span class='notice'>As [src] are removed, they deactivate.</span>")
 			attack_self(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/item_action_slot_check(slot)
-	if(slot == slot_shoes)
+	if(slot == SLOT_HUD_SHOES)
 		return TRUE
 
 /obj/item/clothing/shoes/magboots/gravity/proc/dash(mob/user, action)

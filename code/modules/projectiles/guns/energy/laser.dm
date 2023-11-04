@@ -9,6 +9,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	execution_speed = 5 SECONDS
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -42,7 +43,7 @@
 
 /obj/item/gun/energy/laser/captain/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The power cell of this item slowly recharges on it's own. This caused the station pictured to explode. Cannot be recharged in a recharger.</span>"
+	. += "<span class='notice'>The power cell of this item slowly recharges on it's own. This caused the station pictured to explode.</span>"
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -81,11 +82,12 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
 	flags =  CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	can_holster = FALSE
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/accelerator)
 	ammo_x_offset = 3
+	execution_speed = 8 SECONDS
 
 /obj/item/ammo_casing/energy/laser/accelerator
 	projectile_type = /obj/item/projectile/beam/laser/accelerator
@@ -111,8 +113,6 @@
 /obj/item/gun/energy/lasercannon/cyborg/emp_act()
 	return
 
-#define PROCESS_TIME_PLUS_DECISECOND 2.1 SECONDS //This ensures that you cant move and scope the lwap.
-
 /obj/item/gun/energy/lwap
 	name = "LWAP laser sniper"
 	desc = "A highly advanced laser sniper that does more damage the farther away the target is, but fires slowly. Comes with a super advanced scope, which can highlight threats through walls, and pierce one object, after being deployed for a while."
@@ -121,7 +121,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	force = 12
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	can_holster = FALSE
 	weapon_weight = WEAPON_HEAVY
 	origin_tech = "combat=6;magnets=6;powerstorage=4"
@@ -132,15 +132,7 @@
 	/// Is the scope fully online or not?
 	var/scope_active = FALSE
 	var/stored_dir
-
-/obj/item/gun/energy/lwap/Initialize(mapload, ...)
-	. = ..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/gun/energy/lwap/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
+	execution_speed = 8 SECONDS
 
 /obj/item/gun/energy/lwap/zoom(mob/living/user, forced_zoom)
 	. = ..()
@@ -163,19 +155,14 @@
 	if(zoomed)
 		zoom(user, FALSE) //Moved while scope was booting, so we unzoom
 
-/obj/item/gun/energy/lwap/process()
-	. = ..()
-	if(!isliving(loc))
-		return
-	var/mob/living/M = loc
-	if(world.time - M.last_movement <= PROCESS_TIME_PLUS_DECISECOND && scope_active) //If they have moved in the last process cycle.
-		to_chat(M, "<span class='warning'>[src]'s scope is overloaded by movement and shuts down!</span>")
-		zoom(M, FALSE)
+/obj/item/gun/energy/lwap/on_mob_move(dir, mob/user)
+	if(scope_active)
+		to_chat(user, "<span class='warning'>[src]'s scope is overloaded by movement and shuts down!</span>")
+		zoom(user, FALSE)
 
 /obj/item/gun/energy/lwap/attack_self()
 	return //no manual ammo changing.
 
-#undef PROCESS_TIME_PLUS_DECISECOND
 /obj/item/ammo_casing/energy/laser/sniper
 	projectile_type = /obj/item/projectile/beam/laser/sniper
 	muzzle_flash_color = LIGHT_COLOR_PINK
@@ -210,8 +197,20 @@
 	can_knockdown = FALSE //Projectiles that pierce can not knockdown, no wall knockdowns.
 
 /obj/item/projectile/beam/laser/sniper/pierce
-	forcedodge = 1 // Can pierce one mob.
+	forcedodge = 1 // Can pierce one non wall thing.
 	speed = 0.5
+	/// Have we hit an r_wall? If we have, don't pierce it again so we don't become too effective on reinforced locations (AI sat)
+	var/hit_a_r_wall = FALSE
+
+/obj/item/projectile/beam/laser/sniper/pierce/prehit(atom/target)
+	if(istype(target, /turf/simulated/wall/r_wall))
+		if(!hit_a_r_wall)
+			hit_a_r_wall = TRUE
+			if(!forcedodge)
+				forcedodge++
+	else if((isturf(target) || istype(target, /obj/structure/alien/resin)) && !forcedodge)
+		forcedodge++
+	..()
 
 /obj/item/gun/energy/xray
 	name = "xray laser gun"

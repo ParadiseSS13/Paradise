@@ -1,5 +1,3 @@
-/mob/var/suiciding = 0
-
 /mob/living/verb/suicide() // imagine this shit with BORERS lmao
 	set hidden = 1
 
@@ -45,6 +43,8 @@
 		suiciding = TRUE
 		do_suicide()
 		create_log(ATTACK_LOG, "Attempted suicide")
+		if(SSticker.mode.tdm_gamemode)
+			SSblackbox.record_feedback("nested tally", "TDM_quitouts", 1, list(SSticker.mode.name, "TDM Suicides"))
 
 /mob/living/proc/do_suicide()
 	return

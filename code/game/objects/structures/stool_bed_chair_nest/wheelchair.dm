@@ -4,7 +4,6 @@
 	item_chair = null
 	anchored = FALSE
 	movable = TRUE
-	pull_speed = 0
 	buildstackamount = 15
 
 	var/move_delay = null
@@ -96,6 +95,22 @@
 			victim.take_organ_damage(10)
 
 		occupant.visible_message("<span class='danger'>[occupant] crashed into \the [A]!</span>")
+
+/obj/structure/chair/wheelchair/plasteel
+	name = "hardened wheelchair"
+	desc = "Made from a mixture of metal-plasma sheets, this wheelchair is 3 times stronger than the classic model, and is very resistant to acid and corrosion. Thanks to this it can be used in hazardous environments without much worry."
+	icon_state = "h_wheelchair"
+	max_integrity = 750
+	resistance_flags = ACID_PROOF
+	buildstacktype = /obj/item/stack/sheet/plasteel
+
+/obj/structure/chair/wheelchair/plastitanium
+	name = "reinforced wheelchair"
+	desc = "Made from a mixture of titanium-plasma sheets, this wheelchair is 6 times stronger than the classic model, and is very resistant to acid, corrosion and fire! Thanks to this it can be used in hazardous environments without much worry... <i>but remember not to try to bathe in lava.</i>"
+	icon_state = "r_wheelchair"
+	max_integrity = 1500
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	buildstacktype = /obj/item/stack/sheet/mineral/plastitanium
 
 /obj/structure/chair/wheelchair/bike
 	name = "bicycle"

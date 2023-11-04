@@ -59,6 +59,7 @@
 	if(.)
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
+	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /mob/living/proc/OpenCraftingMenu()
 	return
@@ -881,7 +882,7 @@
  */
 /mob/living/proc/get_strip_slot_name_override(slot)
 	switch(slot)
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			return "PDA"
 
 // The src mob is trying to strip an item from someone

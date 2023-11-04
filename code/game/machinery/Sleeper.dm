@@ -120,9 +120,13 @@
 
 			if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
 				occupant.transfer_blood_to(beaker, 1)
-				for(var/datum/reagent/x in occupant.reagents.reagent_list)
-					occupant.reagents.trans_to(beaker, 3)
+				for(var/datum/reagent/R in occupant.reagents.reagent_list)
 					occupant.transfer_blood_to(beaker, 1)
+					if(R.id in GLOB.blocked_chems)
+						occupant.reagents.remove_reagent(R.id, 3)
+						beaker.reagents.add_reagent("saturated_charcoal", 3)
+						continue
+					occupant.reagents.trans_to(beaker, 3)
 
 		for(var/A in occupant.reagents.addiction_list)
 			var/datum/reagent/R = A
@@ -216,7 +220,7 @@
 		// I'm not sure WHY you'd want to put a simple_animal in a sleeper, but precedent is precedent
 		// Runtime is aptly named, isn't she?
 		if(ishuman(occupant) && !(NO_BLOOD in occupant.dna.species.species_traits))
-			occupantData["pulse"] = occupant.get_pulse(GETPULSE_TOOL)
+			occupantData["pulse"] = occupant.get_pulse()
 			occupantData["hasBlood"] = 1
 			occupantData["bloodLevel"] = round(occupant.blood_volume)
 			occupantData["bloodMax"] = occupant.max_blood

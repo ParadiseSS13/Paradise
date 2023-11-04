@@ -53,9 +53,11 @@
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/tether,
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/tether,
 	)
 
 /obj/item/mod/control/pre_equipped/atmospheric
@@ -66,6 +68,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/t_ray,
 		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/firefighting_tank,
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,
@@ -331,7 +334,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
-	additional_module = /obj/item/mod/module/clamp
+	additional_module = list(/obj/item/mod/module/clamp, /obj/item/mod/module/boot_heating)
 
 /obj/item/mod/control/pre_equipped/responsory/clown
 	insignia_type = /obj/item/mod/module/insignia/clown
@@ -420,7 +423,15 @@
 		/obj/item/mod/module/bikehorn,
 		/obj/item/mod/module/rad_protection,
 		/obj/item/mod/module/injector,
+		/obj/item/mod/module/magboot/advanced,
+		/obj/item/mod/module/jetpack/advanced,
+		/obj/item/mod/module/stealth/ninja,
+		/obj/item/mod/module/noslip
 	)
+	default_pins = list(
+		/obj/item/mod/module/bikehorn,
+	)
+	activation_step_time = 0.1 SECONDS // coders are cooler than admins
 
 /obj/item/mod/control/pre_equipped/administrative
 	theme = /datum/mod_theme/administrative

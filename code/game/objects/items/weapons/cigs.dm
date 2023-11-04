@@ -19,7 +19,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigoff"
 	throw_speed = 0.5
 	item_state = "cigoff"
-	slot_flags = SLOT_MASK
+	slot_flags = SLOT_FLAG_MASK
 	w_class = WEIGHT_CLASS_TINY
 	body_parts_covered = null
 	attack_verb = null
@@ -98,6 +98,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/lighter/L = I
 		if(L.lit)
 			light("<span class='notice'>After some fiddling, [user] manages to light [user.p_their()] [name] with [L].</span>")
+
+	else if(istype(I, /obj/item/match/unathi))
+		var/obj/item/match/unathi/U = I
+		if(U.lit)
+			playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
+			light("<span class='rose'>[user] spits fire at [user.p_their()] [name], igniting it.</span>")
+			U.matchburnout()
 
 	else if(istype(I, /obj/item/match))
 		var/obj/item/match/M = I
@@ -398,7 +405,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/holo_cigar/equipped(mob/user, slot, initial)
 	. = ..()
-	if(enabled && slot == slot_wear_mask)
+	if(enabled && slot == SLOT_HUD_WEAR_MASK)
 		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR))
 			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR)
 			to_chat(user, "<span class='notice'>You feel more badass while smoking [src].</span>")

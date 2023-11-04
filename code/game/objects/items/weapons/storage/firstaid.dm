@@ -40,7 +40,7 @@
 	new /obj/item/reagent_containers/applicator/burn(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf/small(src)
 	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 
 /obj/item/storage/firstaid/fire/empty/populate_contents()
@@ -57,7 +57,7 @@
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/firstaid/regular/empty/populate_contents()
 	return
@@ -73,7 +73,7 @@
 	new /obj/item/reagent_containers/food/pill/patch/silver_sulf(src)
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	new /obj/item/healthanalyzer/advanced(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/firstaid/toxin
 	name = "toxin first aid kit"
@@ -127,7 +127,7 @@
 	new /obj/item/reagent_containers/applicator/brute(src)
 	new /obj/item/reagent_containers/food/pill/patch/styptic/small(src)
 	new /obj/item/healthanalyzer(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/stack/medical/bruise_pack(src)
 
 /obj/item/storage/firstaid/brute/empty/populate_contents()
@@ -146,7 +146,7 @@
 	new /obj/item/stack/medical/bruise_pack/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
 	new /obj/item/stack/medical/ointment/advanced(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/firstaid/adv/empty/populate_contents()
