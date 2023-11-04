@@ -243,7 +243,7 @@
 				return
 			pillamount = clamp(new_value, 1, CHEMMASTER_MAX_PILLS)
 		if("set_pills_name")
-			var/new_value = params["newValue"]
+			var/new_value = sanitize(params["newValue"])
 			// Allow name to be set to empty
 			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
 				return
@@ -256,7 +256,7 @@
 				return
 			patchamount = clamp(new_value, 1, CHEMMASTER_MAX_PATCHES)
 		if("set_patches_name")
-			var/new_value = params["newValue"]
+			var/new_value = sanitize(params["newValue"])
 			// Allow name to be set to empty
 			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
 				return
@@ -274,7 +274,7 @@
 				return
 			bottleamount = clamp(new_value, 1, CHEMMASTER_MAX_BOTTLES)
 		if("set_bottles_name")
-			var/new_value = params["newValue"]
+			var/new_value = sanitize(params["newValue"])
 			// Allow name to be set to empty
 			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
 				return
