@@ -343,7 +343,7 @@
 
 			for(var/i in 1 to count)
 				if(reagents.total_volume <= 0)
-					to_chat(usr, "<span class='notice'>Not enough reagents to create these pills!</span>")
+					to_chat(ui.user, "<span class='notice'>Not enough reagents to create these pills!</span>")
 					return
 
 				var/obj/item/reagent_containers/food/pill/P = new(loc)
@@ -367,7 +367,7 @@
 			var/is_medical_patch = chemical_safety_check(reagents)
 			for(var/i in 1 to count)
 				if(reagents.total_volume <= 0)
-					to_chat(usr, "<span class='notice'>Not enough reagents to create these patches!</span>")
+					to_chat(ui.user, "<span class='notice'>Not enough reagents to create these patches!</span>")
 					return
 
 				var/obj/item/reagent_containers/food/pill/patch/P = new(loc)
@@ -392,7 +392,7 @@
 			var/amount_per_bottle = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_BOTTLE)
 			for(var/i in 1 to count)
 				if(reagents.total_volume <= 0)
-					to_chat(usr, "<span class='notice'>Not enough reagents to create these bottles!</span>")
+					to_chat(ui.user, "<span class='notice'>Not enough reagents to create these bottles!</span>")
 					return
 
 				var/obj/item/reagent_containers/glass/bottle/reagent/P = new(loc)
