@@ -146,6 +146,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 			SSticker.minds += R.mind
 		SSticker.mode.traitors += R.mind
 		R.key = ghost_mob.key
+		dust_if_respawnable(ghost_mob)
 		if(nuke_code)
 			R.mind.store_memory("<b>Nuke Code:</b> <span class='warning'>[nuke_code].</span>")
 		R.mind.store_memory("<b>Mission:</b> <span class='warning'>[mission].</span>")
@@ -154,6 +155,7 @@ GLOBAL_VAR_INIT(deathsquad_sent, FALSE)
 		var/mob/living/carbon/human/new_commando = create_deathsquad_commando(L, is_leader)
 		new_commando.mind.key = ghost_mob.key
 		new_commando.key = ghost_mob.key
+		dust_if_respawnable(ghost_mob)
 		new_commando.update_action_buttons_icon()
 		if(nuke_code)
 			new_commando.mind.store_memory("<b>Nuke Code:</b> <span class='warning'>[nuke_code].</span>")

@@ -151,8 +151,8 @@
 // Crew Manifest //
 /datum/pai_software/crew_manifest
 	name = "Crew Manifest"
-	ram_cost = 5
 	id = "manifest"
+	default = TRUE
 	template_file = "pai_manifest"
 	ui_icon = "users"
 
@@ -227,8 +227,8 @@
 // Messenger //
 /datum/pai_software/messenger
 	name = "Digital Messenger"
-	ram_cost = 5
 	id = "messenger"
+	default = TRUE
 	template_file = "pai_messenger"
 	ui_icon = "envelope"
 

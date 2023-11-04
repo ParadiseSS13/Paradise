@@ -7,17 +7,25 @@
   ],
   "scripts": {
     "build": "eslint packages && cd packages/tgui && npx webpack --mode=production",
-    "watch": "cd packages/tgui-dev-server && node --experimental-modules index.js",
+    "watch": "cd packages/tgui-dev-server && set NODE_OPTIONS=--openssl-legacy-provider --no-experimental-fetch && node --experimental-modules index.js",
     "analyze": "cd packages/tgui && npx webpack --mode=production --env.analyze=1",
     "lint": "eslint packages",
-    "prettier": "prettier --check packages"
+    "prettier": "prettier --check packages",
+    "prettier-write": "prettier --check packages --write"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.17.0",
-    "eslint": "^8.15.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.17.0",
-    "prettier": "npm:prettierx@0.19.0"
+    "@babel/eslint-parser": "^7.22.15",
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-transform-jscript": "^7.22.5",
+    "babel-plugin-inferno": "^6.7.0",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "eslint": "^8.49.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "prettier": "^3.0.3"
   }
 }

@@ -60,7 +60,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 	var/category = "[P.hash]_notify_action"
 
 	var/notice_sound = sound('sound/misc/notice2.ogg')
-	for(var/mob/dead/observer/M in (ignore_respawnability ? GLOB.player_list : GLOB.respawnable_list))
+	for(var/mob/M in (GLOB.player_list))
 		if(!is_eligible(M, role, antag_age_check, role, min_hours, check_antaghud))
 			continue
 
@@ -140,7 +140,14 @@ SUBSYSTEM_DEF(ghost_spawns)
 
 	// Sleep until the time is up
 	UNTIL(P.finished)
-	return P.signed_up
+	if(!ignore_respawnability)
+		var/list/eligable_mobs = list()
+		for(var/mob/signed_up in P.signed_up)
+			if(HAS_TRAIT(signed_up, TRAIT_RESPAWNABLE))
+				eligable_mobs += signed_up
+		return eligable_mobs
+	else
+		return P.signed_up
 
 /**
   * Returns whether an observer is eligible to be an event mob
@@ -153,9 +160,11 @@ SUBSYSTEM_DEF(ghost_spawns)
   * * min_hours - The amount of minimum hours the client needs before being eligible
   * * check_antaghud - Whether to consider a client who enabled AntagHUD ineligible or not
   */
-/datum/controller/subsystem/ghost_spawns/proc/is_eligible(mob/M, role, antag_age_check, role_text, min_hours, check_antaghud)
+/datum/controller/subsystem/ghost_spawns/proc/is_eligible(mob/M, role, antag_age_check, role_text, min_hours, check_antaghud, ignore_respawnability)
 	. = FALSE
 	if(!M.key || !M.client)
+		return
+	if(!ignore_respawnability && !HAS_TRAIT(M, TRAIT_RESPAWNABLE))
 		return
 	if(role)
 		if(!(role in M.client.prefs.be_special))
@@ -213,7 +222,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 	var/role // The role the poll is for
 	var/question // The question asked to observers
 	var/duration // The duration of the poll
-	var/list/mob/dead/observer/signed_up // The players who signed up to this poll
+	var/list/signed_up // The players who signed up to this poll
 	var/time_started // The world.time at which the poll was created
 	var/finished = FALSE // Whether the polling is finished
 	var/hash // Used to categorize in the alerts system
@@ -236,9 +245,9 @@ SUBSYSTEM_DEF(ghost_spawns)
   * * M - The (controlled) mob to sign up
   * * silent - Whether no messages should appear or not. If not TRUE, signing up to this poll will also sign the mob up for identical polls
   */
-/datum/candidate_poll/proc/sign_up(mob/dead/observer/M, silent = FALSE)
+/datum/candidate_poll/proc/sign_up(mob/M, silent = FALSE)
 	. = FALSE
-	if(!istype(M) || !M.key || !M.client)
+	if(!HAS_TRAIT(M, TRAIT_RESPAWNABLE) || !M.key || !M.client)
 		return
 	if(M in signed_up)
 		if(!silent)
@@ -269,9 +278,9 @@ SUBSYSTEM_DEF(ghost_spawns)
  * * M - The mob to remove from the poll, if present.
  * * silent - If TRUE, no messages will be sent to M about their removal.
  */
-/datum/candidate_poll/proc/remove_candidate(mob/dead/observer/M, silent = FALSE)
+/datum/candidate_poll/proc/remove_candidate(mob/M, silent = FALSE)
 	. = FALSE
-	if(!istype(M) || !M.key || !M.client)
+	if(!HAS_TRAIT(M, TRAIT_RESPAWNABLE) || !M.key || !M.client)
 		return
 	if(!(M in signed_up))
 		if(!silent)

@@ -206,7 +206,7 @@
 	lefthand_file = 'icons/mob/inhands/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/staves_righthand.dmi'
 	item_state = "lavastaff"
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	force = 25
 	damtype = BURN

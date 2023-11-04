@@ -95,7 +95,7 @@ const BotStatus = (props, context) => {
             onClick={() =>
               act('set_pickup_type', {
                 // Using just ! doesnt work here, because !null is still null
-                autopick: (pick ? 0 : 1),
+                autopick: pick ? 0 : 1,
               })
             }
           />
@@ -107,7 +107,7 @@ const BotStatus = (props, context) => {
             onClick={() =>
               act('set_auto_return', {
                 // Using just ! doesnt work here, because !null is still null
-                autoret: (retn ? 0 : 1),
+                autoret: retn ? 0 : 1,
               })
             }
           />

@@ -8,7 +8,7 @@
 	desc = "A small scoop to collect fish eggs with."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "egg_scoop"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -19,7 +19,7 @@
 	desc = "A tiny net to capture fish with. It's a death sentence!"
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "net"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -44,7 +44,7 @@
 	desc = "A brush for cleaning the inside of aquariums. Contains a built-in odor neutralizer."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "brush"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3

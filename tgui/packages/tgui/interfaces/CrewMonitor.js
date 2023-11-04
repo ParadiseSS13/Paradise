@@ -1,7 +1,17 @@
 import { sortBy } from 'common/collections';
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Dropdown, Flex, Icon, Input, NanoMap, Table, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Flex,
+  Icon,
+  Input,
+  NanoMap,
+  Table,
+  Tabs,
+} from '../components';
 import { TableCell } from '../components/Table';
 import { COLORS } from '../constants.js';
 import { Window } from '../layouts';
@@ -79,12 +89,12 @@ export const CrewMonitor = (props, context) => {
                   <Dropdown
                     options={possible_levels}
                     selected={viewing_current_z_level}
-                    onSelected={(val) => act("switch_level", {new_level: val})}
-                    />
+                    onSelected={(val) =>
+                      act('switch_level', { new_level: val })
+                    }
+                  />
                 </FlexItem>
-              ) : (
-                null
-              )}
+              ) : null}
             </Flex>
           </Tabs>
           {decideTab(tabIndex)}
@@ -162,7 +172,7 @@ const CrewMonitorDataView = (_properties, context) => {
                   cm.area + ' (' + cm.x + ', ' + cm.y + ')'
                 )
               ) : (
-                <Box inline color='grey'>
+                <Box inline color="grey">
                   Not Available
                 </Box>
               )}

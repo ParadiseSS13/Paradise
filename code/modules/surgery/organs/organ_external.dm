@@ -552,6 +552,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				"<span class='danger'>\The [owner]'s [name] explodes[gore]!</span>",\
 				"<span class='moderate'><b>Your [name] explodes[gore]!</b></span>",\
 				"<span class='danger'>You hear the [gore_sound].</span>")
+			disembowel(limb_name)
 
 	var/mob/living/carbon/human/victim = owner //Keep a reference for post-removed().
 	// Let people make limbs become fun things when removed

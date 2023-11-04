@@ -242,10 +242,10 @@
 /obj/effect/anomaly/bluespace/anomalyEffect()
 	..()
 	for(var/mob/living/M in range(4, src))
-		do_teleport(M, locate(M.x, M.y, M.z), 4)
+		do_teleport(M, locate(M.x, M.y, M.z), 4, do_effect = drops_core)
 	for(var/obj/O in range (4, src))
 		if(!O.anchored && O.invisibility == 0 && prob(50))
-			do_teleport(O, locate(O.x, O.y, O.z), 6)
+			do_teleport(O, locate(O.x, O.y, O.z), 6, do_effect = drops_core )
 
 /obj/effect/anomaly/bluespace/Bumped(atom/movable/AM)
 	if(isliving(AM))
@@ -361,6 +361,7 @@
 		var/mob/dead/observer/chosen = pick(candidates)
 		S.key = chosen.key
 		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
+		dust_if_respawnable(chosen)
 		log_game("[key_name(S.key)] was made into a slime by pyroclastic anomaly at [AREACOORD(T)].")
 
 /////////////////////

@@ -11,7 +11,7 @@
 	throw_speed = 3
 	var/obj/item/pen/containedpen
 	var/obj/item/toppaper
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	resistance_flags = FLAMMABLE
 
 /obj/item/clipboard/New()

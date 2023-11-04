@@ -1,6 +1,14 @@
 import { filter } from 'common/collections';
-import { useBackend, useLocalState } from "../../backend";
-import { Box, Button, Icon, Input, LabeledList, Section } from "../../components";
+import { useBackend, useLocalState } from '../../backend';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Icon,
+  Input,
+  LabeledList,
+  Section,
+} from '../../components';
 
 export const pda_messenger = (props, context) => {
   const { act, data } = useBackend(context);
@@ -159,7 +167,8 @@ export const MessengerList = (props, context) => {
 
   const data = props.data;
 
-  const { convopdas, pdas, charges, silent, toff } = data;
+  const { convopdas, pdas, charges, silent, toff, ringtone_list, ringtone } =
+    data;
 
   const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
 
@@ -181,15 +190,25 @@ export const MessengerList = (props, context) => {
           >
             Messenger: {toff ? 'Off' : 'On'}
           </Button>
-          <Button icon="bell" onClick={() => act('Ringtone')}>
-            Set Ringtone
-          </Button>
           <Button
             icon="trash"
             color="bad"
             onClick={() => act('Clear', { option: 'All' })}
           >
             Delete All Conversations
+          </Button>
+          <Button icon="bell" onClick={() => act('Ringtone')}>
+            Set Custom Ringtone
+          </Button>
+          <Button>
+            <Dropdown
+              selected={ringtone}
+              width="110px"
+              options={Object.keys(ringtone_list)}
+              onSelected={(value) =>
+                act('Available_Ringtones', { selected_ringtone: value })
+              }
+            />
           </Button>
         </LabeledList.Item>
       </LabeledList>
@@ -206,12 +225,27 @@ export const MessengerList = (props, context) => {
             <Box>No current conversations</Box>
           )) || (
             <Box>
-              Search: <Input value={searchTerm} onInput={(e, value) => { setSearchTerm(value); }} />
-              <PDAList title="Current Conversations" data={data}
+              Search:{' '}
+              <Input
+                value={searchTerm}
+                onInput={(e, value) => {
+                  setSearchTerm(value);
+                }}
+              />
+              <PDAList
+                title="Current Conversations"
+                data={data}
                 pdas={convopdas}
                 msgAct="Select Conversation"
-                searchTerm={searchTerm} />
-              <PDAList title="Other PDAs" pdas={pdas} msgAct="Message" data={data} searchTerm={searchTerm} />
+                searchTerm={searchTerm}
+              />
+              <PDAList
+                title="Other PDAs"
+                pdas={pdas}
+                msgAct="Message"
+                data={data}
+                searchTerm={searchTerm}
+              />
             </Box>
           )}
         </Box>
@@ -224,12 +258,7 @@ const PDAList = (props, context) => {
   const { act } = useBackend(context);
   const data = props.data;
 
-  const {
-    pdas,
-    title,
-    msgAct,
-    searchTerm,
-  } = props;
+  const { pdas, title, msgAct, searchTerm } = props;
 
   const { charges, plugins } = data;
 
@@ -244,23 +273,30 @@ const PDAList = (props, context) => {
   return (
     <Section level={2} title={title}>
       {pdas
-        .filter(pda => { return pda.Name.toLowerCase().includes(searchTerm.toLowerCase()); })
-        .map(pda => (
+        .filter((pda) => {
+          return pda.Name.toLowerCase().includes(searchTerm.toLowerCase());
+        })
+        .map((pda) => (
           <Box key={pda.uid}>
             <Button
               icon="arrow-circle-down"
               content={pda.Name}
-              onClick={() => act(msgAct, { target: pda.uid })} />
-            {!!charges && plugins.map(plugin => (
-              <Button
-                key={plugin.uid}
-                icon={plugin.icon}
-                content={plugin.name}
-                onClick={() => act("Messenger Plugin", {
-                  plugin: plugin.uid,
-                  target: pda.uid,
-                })} />
-            ))}
+              onClick={() => act(msgAct, { target: pda.uid })}
+            />
+            {!!charges &&
+              plugins.map((plugin) => (
+                <Button
+                  key={plugin.uid}
+                  icon={plugin.icon}
+                  content={plugin.name}
+                  onClick={() =>
+                    act('Messenger Plugin', {
+                      plugin: plugin.uid,
+                      target: pda.uid,
+                    })
+                  }
+                />
+              ))}
           </Box>
         ))}
     </Section>

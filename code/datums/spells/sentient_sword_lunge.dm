@@ -12,7 +12,7 @@
 	return new /datum/spell_targeting/clicked_atom
 
 /obj/effect/proc_holder/spell/sentient_sword_lunge/cast(list/targets, mob/user = usr)
-	if(!istype(user.loc, /obj/item/nullrod/scythe/talking))
+	if(!istype(user.loc, /obj/item))
 		to_chat(user, "<span class='warning'>You cannot use this ability if you're outside a blade!</span>")
 		return
 	var/obj/item/nullrod/scythe/talking/user_sword = user.loc

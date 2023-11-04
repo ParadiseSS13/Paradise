@@ -27,8 +27,6 @@
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5) //Randomizes postion
-	pixel_y = rand(-5, 5)
 	if(antable)
 		START_PROCESSING(SSobj, src)
 		ant_location = get_turf(src)

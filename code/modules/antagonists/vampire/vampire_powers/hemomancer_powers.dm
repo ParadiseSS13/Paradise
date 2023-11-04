@@ -38,8 +38,10 @@
 
 /obj/item/vamp_claws
 	name = "vampiric claws"
-	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid"
+	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid."
 	icon = 'icons/effects/vampire_effects.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
@@ -65,6 +67,12 @@
 		parent_spell.UnregisterSignal(parent_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
 		parent_spell = null
 	return ..()
+
+/obj/item/vamp_claws/customised_abstract_text()
+	if(!ishuman(loc))
+		return
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
 /obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
@@ -187,7 +195,7 @@
 		should_recharge_after_cast = TRUE
 		return
 	var/wall_count
-	for(var/turf/T in getline(target_turf, start_turf))
+	for(var/turf/T in get_line(target_turf, start_turf))
 		if(max_walls <= wall_count)
 			break
 		new /obj/structure/blood_barrier(T)

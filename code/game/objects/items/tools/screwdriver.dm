@@ -6,7 +6,7 @@
 	icon_state = "screwdriver_map"
 	belt_icon = "screwdriver"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 5
 	w_class = WEIGHT_CLASS_TINY
 	throwforce = 5

@@ -283,11 +283,12 @@
 
 			H.equipOutfit(/datum/outfit/butler)
 			var/datum/mind/servant_mind = new /datum/mind()
+
 			var/datum/objective/O = new
-			O.owner = servant_mind
 			O.target = user.mind
 			O.explanation_text = "Serve [user.real_name]."
-			servant_mind.objectives += O
+			servant_mind.add_mind_objective(O)
+
 			servant_mind.transfer_to(H)
 
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the servant of [user.real_name]?", poll_time = 30 SECONDS, source = H)
@@ -295,6 +296,7 @@
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
 				H.key = C.key
+				dust_if_respawnable(C)
 				to_chat(H, "<span class='notice'>You are a servant of [user.real_name]. You must do everything in your power to follow their orders.</span>")
 
 			var/obj/effect/proc_holder/spell/summonmob/S = new
