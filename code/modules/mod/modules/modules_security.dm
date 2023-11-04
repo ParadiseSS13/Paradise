@@ -166,3 +166,33 @@
 /// Remove the image from the modsuit wearer's screen
 /obj/effect/temp_visual/sonar_ping/proc/remove_mind(mob/living/looker)
 	looker?.client?.images -= modsuit_image
+
+///Teleporter - Lets the user teleport to a nearby location.
+/obj/item/mod/module/anomaly_locked/firewall
+	name = "MOD firewall module"
+	desc = "A module that uses a pyroclastic core to make immolating dropwalls."
+	icon_state = "teleporter" //change
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
+	cooldown_time = 20 SECONDS
+	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/pyro)
+	/// Path we dispense.
+	var/dispense_type = /obj/item/grenade/barrier/dropwall/firewall
+
+/obj/item/mod/module/anomaly_locked/firewall/on_use()
+	. = ..()
+	if(!.)
+		return
+	var/obj/item/dispensed = new dispense_type(mod.wearer.loc)
+	mod.wearer.put_in_hands(dispensed)
+	playsound(src, 'sound/machines/click.ogg', 100, TRUE)
+	drain_power(use_power_cost)
+	var/obj/item/grenade/mirage/grenade = dispensed
+	grenade.attack_self(mod.wearer)
+	return grenade
+
+/obj/item/mod/module/anomaly_locked/firewall/prebuilt
+	prebuilt = TRUE
+	removable = FALSE // No switching it into another suit / no free anomaly core
+
