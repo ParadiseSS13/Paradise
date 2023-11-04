@@ -1,0 +1,99 @@
+#For more details
+# https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/syntax-for-issue-forms
+# https://docs.gitea.com/1.19/usage/issue-pull-request-templates
+#Be sure to check the docs
+#
+#Format
+#- type: | markdown | textarea | input | checkboxes |
+#  id:   | just an id, no actual relevance |
+#  attributes:
+#    label:       | Box title |
+#    description: | Box small text - Description |
+#
+name: "Issue Report"
+#title: "[Bug]: " | if you want to have a have it automatically say [Bug] when they start the form
+description: "File an issue report to make us aware of a bug or issue."
+#labels: [Bug] | Auto labels the post, as we do not use this, commenting out, purely as reference
+
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to fill out this issue report! Don't forget to give it a meaningful title so users can find the report easily.
+  - type: checkboxes
+    id: not_an_exploit
+    attributes:
+      label: Exploit Reports
+      description: "[If your issue is an ingame exploit that allows players to gain an unfair advantage, or an issue which could affect server stability or security, please file it at this link so that it is safe from prying eyes.](https://www.paradisestation.org/forum/179-exploit-reports/)"
+      options:
+        - label: I confirm this issue is not an exploit. (Required)
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: BYOND Version
+      description: "What BYOND version were you using when the issue occured? (Find this by pressing the cog in the top-right of the main BYOND menu, then 'About BYOND...') (Required)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Issue Description
+      description: What is the problem? (Required)
+      placeholder: I tried buckling myself to a chair but ended up on lavaland!
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: What did you expect to happen?
+      description: Why do you think this is an issue?
+      placeholder: I expected to be strapped to a chair.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened instead?
+      description: How is what happened different from what you expected?
+      placeholder: I got sent to lavaland and died.
+
+  - type: textarea
+    id: why-bad
+    attributes:
+      label: Why is this bad/What are the consequences?
+      description: Why do you think this is an important issue?
+      placeholder: People sitting in chairs on the station should not end up being devoured by drakes.
+
+  - type: textarea
+    id: how-to-reproduce
+    attributes:
+      label: Steps to reproduce the issue.
+      description: The most important section. Review everything you did leading up to causing the issue. (Required)
+      placeholder: Find a chair, buckle yourself into it, be eaten by dragon.
+    validations:
+      required: true
+
+  - type: textarea
+    id: when-problem-start
+    attributes:
+      label: When did the problem start happening?
+      description: If your report is about something that used to work but no longer does, when was the last time you remember it working? (Required)
+      placeholder: I could sit fine last week, so sometime around then.
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra-information
+    attributes:
+      label: Extra information
+      description: Anything else you can tell us.
+      placeholder: "I think this issue was introduced in the following PR https://github.com/ParadiseSS13/Paradise/pull/18477"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output/runtime error
+      description: Please copy and paste any relevant log output or runtime if you have access to this. Please censor any ckeys or IP addresses.
+      render: DM

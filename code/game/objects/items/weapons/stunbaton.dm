@@ -294,6 +294,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
 	slot_flags = SLOT_FLAG_BACK | SLOT_FLAG_BELT
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	var/obj/item/assembly/igniter/sparkler = null
 
 /obj/item/melee/baton/cattleprod/Initialize(mapload)
