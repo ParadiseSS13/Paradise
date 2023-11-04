@@ -34,6 +34,8 @@ GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"UO71",
 	"Xeno",
 	"SyndicateTestLab"
+	"SyndicateToxinsTest"
+	"SyndicateCaves"
 	)) //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 
 GLOBAL_LIST_INIT(ruin_landmarks, list())
