@@ -227,19 +227,19 @@
 				printing = FALSE
 		if("set_production_mode")
 			var/new_mode = text2num(params["mode"])
-			if(new_mode == null)
+			if(isnull(new_mode))
 				return
 			production_mode = clamp(new_mode, CHEMMASTER_MIN_PRODUCTION_MODE, CHEMMASTER_MAX_PRODUCTION_MODE)
 
 		// Pills
 		if("set_pills_style")
 			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
+			if(isnull(new_value))
 				return
 			pillsprite = clamp(new_value, 1, MAX_PILL_SPRITE)
 		if("set_pills_amount")
 			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
+			if(isnull(new_value))
 				return
 			pillamount = clamp(new_value, 1, CHEMMASTER_MAX_PILLS)
 		if("set_pills_name")
@@ -252,7 +252,7 @@
 		// Patches
 		if("set_patches_amount")
 			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
+			if(isnull(new_value))
 				return
 			patchamount = clamp(new_value, 1, CHEMMASTER_MAX_PATCHES)
 		if("set_patches_name")
@@ -265,12 +265,12 @@
 		// Bottles
 		if("set_bottles_style")
 			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
+			if(isnull(new_value))
 				return
-			bottlesprite = clamp(new_value, 1, bottle_styles.len)
+			bottlesprite = clamp(new_value, 1, length(bottle_styles))
 		if("set_bottles_amount")
 			var/new_value = text2num(params["newValue"])
-			if(new_value == null)
+			if(isnull(new_value))
 				return
 			bottleamount = clamp(new_value, 1, CHEMMASTER_MAX_BOTTLES)
 		if("set_bottles_name")
@@ -335,13 +335,13 @@
 			var/name = pillname
 			var/count = pillamount
 			var/amount_per_pill = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PILL)
-			if(length(pillname) <= 0 || pillname == null)
+			if(length(pillname) <= 0 || isnull(pillname))
 				name = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
 
 			if(condi || !reagents.total_volume)
 				return
 
-			while(count--)
+			for(var/i in 1 to count)
 				if(reagents.total_volume <= 0)
 					to_chat(usr, "<span class='notice'>Not enough reagents to create these pills!</span>")
 					return
@@ -361,11 +361,11 @@
 
 			var/name = patchname
 			var/count = patchamount
-			if(length(name) <= 0 || name == null)
+			if(length(name) <= 0 || isnull(name))
 				name = reagents.get_master_reagent_name()
 			var/amount_per_patch = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PATCH)
 			var/is_medical_patch = chemical_safety_check(reagents)
-			while(count--)
+			for(var/i in 1 to count)
 				if(reagents.total_volume <= 0)
 					to_chat(usr, "<span class='notice'>Not enough reagents to create these patches!</span>")
 					return
@@ -387,10 +387,10 @@
 
 			var/name = bottlename
 			var/count = bottleamount
-			if(length(name) <= 0 || name == null)
+			if(length(name) <= 0 || isnull(name))
 				name = reagents.get_master_reagent_name()
 			var/amount_per_bottle = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_BOTTLE)
-			while(count--)
+			for(var/i in 1 to count)
 				if(reagents.total_volume <= 0)
 					to_chat(usr, "<span class='notice'>Not enough reagents to create these bottles!</span>")
 					return
@@ -478,8 +478,8 @@
 		data["patchplaceholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
 		data["bottleplaceholdername"] = reagents.get_master_reagent_name()
 
-	var/pill_styles[0]
-	for(var/i = 1 to MAX_PILL_SPRITE)
+	var/pill_styles = list()
+	for(var/i in 1 to MAX_PILL_SPRITE)
 		pill_styles += list(list(
 			"id" = i,
 			"sprite" = "pill[i].png",
@@ -487,7 +487,7 @@
 	data["pillstyles"] = pill_styles
 
 
-	var/bottle_styles_with_sprite[0]
+	var/bottle_styles_with_sprite = list()
 	var/bottle_style_indexer = 0
 	for(var/style in bottle_styles)
 		bottle_style_indexer++
