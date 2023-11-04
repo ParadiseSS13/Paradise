@@ -397,7 +397,7 @@ const ChemMasterProductionCommon = (props, context) => {
           minValue={1}
           maxValue={maxQuantity}
           onChange={(e, value) =>
-            act(`set_${productionType}_amount`, { newValue: value })
+            act(`set_${productionType}_amount`, { amount: value })
           }
         />
       </LabeledList.Item>
@@ -407,7 +407,7 @@ const ChemMasterProductionCommon = (props, context) => {
           value={medicineName}
           placeholder={placeholderName}
           onChange={(e, value) =>
-            act(`set_${productionType}_name`, { newValue: value })
+            act(`set_${productionType}_name`, { name: value })
           }
         />
       </LabeledList.Item>
@@ -468,7 +468,7 @@ const ChemMasterProductionPills = (props, context) => {
       key={id}
       icon={sprite}
       imageTransform="scale(2)"
-      onClick={() => act('set_pills_style', { newValue: id })}
+      onClick={() => act('set_pills_style', { style: id })}
       selected={pillsprite === id}
     />
   ));
@@ -513,7 +513,7 @@ const ChemMasterProductionBottles = (props, context) => {
     <SpriteStyleButton
       key={id}
       icon={sprite}
-      onClick={() => act('set_bottles_style', { newValue: id })}
+      onClick={() => act('set_bottles_style', { style: id })}
       selected={bottlesprite === id}
     />
   ));
@@ -567,7 +567,7 @@ const ChemMasterCustomization = (props, context) => {
           width: style_button_size.width,
           height: style_button_size.height,
         }}
-        onClick={() => act('set_container_style', { newValue: color })}
+        onClick={() => act('set_container_style', { style: color })}
         icon={selected && 'check'}
         iconStyle={{
           position: 'relative',

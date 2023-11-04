@@ -233,52 +233,52 @@
 
 		// Pills
 		if("set_pills_style")
-			var/new_value = text2num(params["newValue"])
-			if(isnull(new_value))
+			var/new_style = text2num(params["style"])
+			if(isnull(new_style))
 				return
-			pillsprite = clamp(new_value, 1, MAX_PILL_SPRITE)
+			pillsprite = clamp(new_style, 1, MAX_PILL_SPRITE)
 		if("set_pills_amount")
-			var/new_value = text2num(params["newValue"])
-			if(isnull(new_value))
+			var/new_amount = text2num(params["amount"])
+			if(isnull(new_amount))
 				return
-			pillamount = clamp(new_value, 1, CHEMMASTER_MAX_PILLS)
+			pillamount = clamp(new_amount, 1, CHEMMASTER_MAX_PILLS)
 		if("set_pills_name")
-			var/new_value = sanitize(params["newValue"])
+			var/new_name = sanitize(params["name"])
 			// Allow name to be set to empty
-			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+			if(length(new_name) < 0 || length(new_name) > MAX_CUSTOM_NAME_LEN)
 				return
-			pillname = new_value
+			pillname = new_name
 
 		// Patches
 		if("set_patches_amount")
-			var/new_value = text2num(params["newValue"])
-			if(isnull(new_value))
+			var/new_amount = text2num(params["amount"])
+			if(isnull(new_amount))
 				return
-			patchamount = clamp(new_value, 1, CHEMMASTER_MAX_PATCHES)
+			patchamount = clamp(new_amount, 1, CHEMMASTER_MAX_PATCHES)
 		if("set_patches_name")
-			var/new_value = sanitize(params["newValue"])
+			var/new_name = sanitize(params["name"])
 			// Allow name to be set to empty
-			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+			if(length(new_name) < 0 || length(new_name) > MAX_CUSTOM_NAME_LEN)
 				return
-			patchname = new_value
+			patchname = new_name
 
 		// Bottles
 		if("set_bottles_style")
-			var/new_value = text2num(params["newValue"])
-			if(isnull(new_value))
+			var/new_style = text2num(params["style"])
+			if(isnull(new_style))
 				return
-			bottlesprite = clamp(new_value, 1, length(bottle_styles))
+			bottlesprite = clamp(new_style, 1, length(bottle_styles))
 		if("set_bottles_amount")
-			var/new_value = text2num(params["newValue"])
-			if(isnull(new_value))
+			var/new_amount = text2num(params["amount"])
+			if(isnull(new_amount))
 				return
-			bottleamount = clamp(new_value, 1, CHEMMASTER_MAX_BOTTLES)
+			bottleamount = clamp(new_amount, 1, CHEMMASTER_MAX_BOTTLES)
 		if("set_bottles_name")
-			var/new_value = sanitize(params["newValue"])
+			var/new_name = sanitize(params["name"])
 			// Allow name to be set to empty
-			if(length(new_value) < 0 || length(new_value) > MAX_CUSTOM_NAME_LEN)
+			if(length(new_name) < 0 || length(new_name) > MAX_CUSTOM_NAME_LEN)
 				return
-			bottlename = new_value
+			bottlename = new_name
 
 		// Container Customization
 		if("clear_container_style")
@@ -289,7 +289,7 @@
 		if("set_container_style")
 			if(!loaded_pill_bottle) // wat?
 				return
-			var/new_color = params["newValue"]
+			var/new_color = params["style"]
 			if(pill_bottle_wrappers[new_color])
 				loaded_pill_bottle.wrapper_color = new_color
 				loaded_pill_bottle.apply_wrap()
