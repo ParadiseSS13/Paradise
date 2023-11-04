@@ -57,8 +57,7 @@
 		/obj/item/ammo_box/magazine/m10mm = 1,
 		/obj/item/flashlight/seclite = 1,
 		/obj/item/clothing/mask/gas/syndicate = 1,
-		/obj/item/tank/internals/emergency_oxygen/engi/syndi = 1,
-		/obj/item/stack/spacecash/c100 = 1
+		/obj/item/tank/internals/emergency_oxygen/engi/syndi = 1
 	)
 
 /datum/outfit/spacebase_syndicate/post_equip(mob/living/carbon/human/H)
