@@ -270,7 +270,6 @@
 	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
 	escapee.flying = FALSE
 	escapee.Sleeping(20 SECONDS)
-	UnregisterSignal(escapee, COMSIG_LIVING_REVIVE)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD
