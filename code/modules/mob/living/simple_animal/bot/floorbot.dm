@@ -3,7 +3,7 @@
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "floorbot"
+	icon_state = "floorbot0"
 	density = FALSE
 	anchored = FALSE
 	health = 25
@@ -305,29 +305,29 @@
 
 	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
 		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
-		mode = BOT_REPAIRING
-		update_icon(UPDATE_OVERLAYS)
+		mode = HULL_BREACH ? HULL_BREACH : BOT_REPAIRING // I hate this but it works
+		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
 
 	else
 		var/turf/simulated/floor/F = target_turf
-		mode = BOT_REPAIRING
-		update_icon(UPDATE_OVERLAYS)
+		mode = HULL_BREACH ? HULL_BREACH : BOT_REPAIRING
+		update_icon(UPDATE_ICON_STATE)
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
-/mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
-	if(mode != BOT_REPAIRING)
-		return
-
-	F.broken = FALSE
-	F.burnt = FALSE
-	F.ChangeTurf(/turf/simulated/floor/plasteel)
-	mode = BOT_IDLE
-	amount--
-	update_icon(UPDATE_OVERLAYS)
-	anchored = FALSE
-	target = null
+///mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
+//	if(mode != BOT_REPAIRING)
+//		return
+//
+//	F.broken = FALSE
+//	F.burnt = FALSE
+//	F.ChangeTurf(/turf/simulated/floor/plasteel)
+//	mode = BOT_IDLE
+//	amount--
+//	update_icon(UPDATE_ICON_STATE)
+//	anchored = FALSE
+//	target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
 	var/turf/simulated/floor/F = target
@@ -342,7 +342,7 @@
 
 	mode = BOT_IDLE
 	amount--
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE)
 	anchored = FALSE
 	target = null
 
@@ -367,7 +367,7 @@
 		qdel(T)
 	target = null
 	mode = BOT_IDLE
-	update_icon(UPDATE_OVERLAYS)
+	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/bot/floorbot/proc/start_maketile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
@@ -392,15 +392,13 @@
 	mode = BOT_IDLE
 
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
-	return
-
-/mob/living/simple_animal/bot/floorbot/update_overlays()
-	. = ..()
 	if(mode == BOT_REPAIRING)
-		. += "floorbot_work"
+		icon_state = "[toolbox_color]floorbot-c"
+		return
+	if(amount > 0)
+		icon_state = "[toolbox_color]floorbot[on]"
 	else
-		. += "floorbot_[on ? "on" : "off"]"
-		. += "floorbot_[amount > 0 ? "metal" : ""]"
+		icon_state = "[toolbox_color]floorbot[on]e"
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
