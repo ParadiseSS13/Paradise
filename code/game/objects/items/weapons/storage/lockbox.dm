@@ -198,3 +198,36 @@
 		locked = FALSE
 		icon_state = icon_broken
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
+
+/obj/item/storage/lockbox/experimental_weapon
+	name = "class A-113 classified lockbox"
+	desc = "Contains a classifed item for experimental purposes. Looks like some acid was spilt on it."
+	req_access = list(ACCESS_SEC_DOORS) //officers, heads
+
+/obj/item/storage/lockbox/experimental_weapon/populate_contents()
+	if(prob(90))
+		switch(rand(1, 4))
+			if(1)
+				new /obj/item/gun/energy/kinetic_accelerator/experimental(src)
+			if(2)
+				new /obj/item/surveillance_upgrade(src)
+			if(3)
+				new /obj/item/mod/module/stealth/ninja(src)
+			if(4)	//organ time. I want this to be more balanced in distribution, so organs are under a prob 25
+				switch(rand(5, 10))
+					if(5)
+						new /obj/item/organ/internal/cyberimp/arm/katana(src)
+					if(6)
+						new /obj/item/organ/internal/cyberimp/arm/toolset_abductor(src)
+					if(7)
+						new /obj/item/organ/internal/cyberimp/arm/esword(src)
+					if(8)
+						new /obj/item/organ/internal/heart/demon/pulse(src)
+					if(9)
+						new /obj/item/organ/internal/eyes/cybernetic/eyesofgod(src)
+					if(10) //Disected drone before the place got wiped. No hivenode.
+						new /obj/item/organ/internal/alien/plasmavessel/drone(src)
+						new /obj/item/organ/internal/alien/acidgland(src)
+						new /obj/item/organ/internal/alien/resinspinner(src)
+		return
+	new /obj/item/clothing/mask/facehugger(src) //Suprise! Storing facehuggers improperly is what lead to this mess.
