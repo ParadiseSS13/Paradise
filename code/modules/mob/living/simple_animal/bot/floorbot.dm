@@ -392,6 +392,7 @@
 	mode = BOT_IDLE
 
 /mob/living/simple_animal/bot/floorbot/update_overlays()
+	. = ..()
 	if(mode == BOT_REPAIRING)
 		icon_state = "[toolbox_color]floorbot-c"
 		return
