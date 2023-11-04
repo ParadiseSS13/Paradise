@@ -20,16 +20,22 @@
 
 	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
 	var/amount = 10
-	var/replacetiles = 0
-	var/eattiles = 0
-	var/maketiles = 0
-	var/fixfloors = 0
-	var/autotile = 0
-	var/nag_on_empty = 1
-	var/nagged = 0 //Prevents the Floorbot nagging more than once per refill.
+	/// Add tiles to existing floor
+	var/replacetiles = FALSE
+	/// Add floor tiles to inventory
+	var/eattiles = FALSE
+	/// Convert metal into floor tiles (drops on floor)
+	var/maketiles = FALSE
+	var/fixfloors = FALSE
+	/// Fix the floor and include a tile.
+	var/autotile = FALSE
+	var/nag_on_empty = TRUE
+	/// Prevents the Floorbot nagging more than once per refill.
+	var/nagged = FALSE
 	var/max_targets = 50
 	var/turf/target
-	var/oldloc = null
+	var/avoid_other_bots = TRUE
+	var/oldloc
 	var/toolbox_color = ""
 
 	#define HULL_BREACH		1
@@ -37,6 +43,7 @@
 	#define AUTO_TILE		4
 	#define REPLACE_TILE	5
 	#define TILE_EMAG		6
+	#define MAX_AMOUNT		50  // Maximum tiles bot can have in storage
 
 /mob/living/simple_animal/bot/floorbot/Initialize(mapload, new_toolbox_color)
 	. = ..()
@@ -126,9 +133,9 @@
 /mob/living/simple_animal/bot/floorbot/attackby(obj/item/W , mob/user, params)
 	if(istype(W, /obj/item/stack/tile/plasteel))
 		var/obj/item/stack/tile/plasteel/T = W
-		if(amount >= 50)
+		if(amount >= MAX_AMOUNT)
 			return
-		var/loaded = min(50-amount, T.amount)
+		var/loaded = min(MAX_AMOUNT-amount, T.amount)
 		T.use(loaded)
 		amount += loaded
 		if(loaded > 0)
@@ -328,15 +335,12 @@
 	if(mode != BOT_REPAIRING)
 		return
 
-	if(replacetiles)
+	if(autotile || replacetiles)
 		F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 	else
-		if(autotile) //Build the floor and include a tile.
-			F.break_tile_to_plating()
-			target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
-		else //Build a hull plating without a floor tile.
-			target_turf.ChangeTurf(/turf/simulated/floor/plating)
+		target_turf.ChangeTurf(/turf/simulated/floor/plating)
+
 	mode = BOT_IDLE
 	amount--
 	update_icon(UPDATE_ICON_STATE)
@@ -355,8 +359,8 @@
 		target = null
 		mode = BOT_IDLE
 		return
-	if(amount + T.amount > 50)
-		var/i = 50 - amount
+	if(amount + T.amount > MAX_AMOUNT)
+		var/i = MAX_AMOUNT - amount
 		amount += i
 		T.amount -= i
 	else
