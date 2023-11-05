@@ -13,7 +13,8 @@
 	var/list/possible_contents = list()
 	/// A list that contains the names of the jobs that can receive this type of letter. Only the base job has to be put in it, alternative titles have the same definition on the mind. Name of the job can be found in `mind.assigned_role`
 	var/list/job_list = list()
-	var/mob/living/recipient
+	/// The real name required to open the letter
+	var/recipient
 	var/has_been_scanned = FALSE
 
 /obj/item/envelope/suicide_act(mob/user)
@@ -24,7 +25,7 @@
 /obj/item/envelope/attack_self(mob/user)
 	if(!user?.mind)
 		return
-	if(user.real_name != recipient.real_name)
+	if(user.real_name != recipient)
 		to_chat(user, "<span class='warning'>You don't want to open up another person's mail, that's an invasion of their privacy!</span>")
 		return
 	if(do_after(user, 1 SECONDS, target = user) && !QDELETED(src))
@@ -46,8 +47,8 @@
 		if(mail_attracted_people.offstation_role || !ishuman(mail_attracted_people.current) || is_admin_level(T.z))
 			continue
 		if(mail_attracted_people.assigned_role in job_list)
-			recipient = mail_attracted_people.current
-			name = "letter to [recipient.real_name]"
+			recipient = mail_attracted_people.current.real_name
+			name = "letter to [recipient]"
 			return
 	if(!admin_spawned)
 		log_debug("Failed to find a new name to assign to [src]!")
@@ -65,7 +66,8 @@
 							/obj/item/grenade/barrier/dropwall,
 							/obj/item/toy/figure/crew/detective,
 							/obj/item/toy/figure/crew/hos,
-							/obj/item/toy/figure/crew/secofficer)
+							/obj/item/toy/figure/crew/secofficer,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Head of Security", "Security Officer", "Detective", "Warden")
 
 /obj/item/envelope/science
@@ -82,8 +84,9 @@
 							/obj/item/toy/figure/crew/geneticist,
 							/obj/item/toy/figure/crew/rd,
 							/obj/item/toy/figure/crew/roboticist,
-							/obj/item/toy/figure/crew/scientist)
-	job_list = list("Research Director", "Roboticist", "Geneticist",  "Scientist")
+							/obj/item/toy/figure/crew/scientist,
+							/obj/item/storage/box/scratch_cards)
+	job_list = list("Research Director", "Roboticist", "Geneticist", "Scientist")
 
 /obj/item/envelope/supply
 	icon_state = "mail_sup"
@@ -97,7 +100,8 @@
 							/obj/item/stack/wrapping_paper,
 							/obj/item/toy/figure/crew/cargotech,
 							/obj/item/toy/figure/crew/qm,
-							/obj/item/toy/figure/crew/miner)
+							/obj/item/toy/figure/crew/miner,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Quartermaster", "Cargo Technician", "Shaft Miner")
 
 /obj/item/envelope/medical
@@ -114,7 +118,8 @@
 							/obj/item/toy/figure/crew/chemist,
 							/obj/item/toy/figure/crew/geneticist,
 							/obj/item/toy/figure/crew/md,
-							/obj/item/toy/figure/crew/virologist)
+							/obj/item/toy/figure/crew/virologist,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Virologist", "Psychiatrist", "Paramedic")
 
 /obj/item/envelope/engineering
@@ -129,7 +134,8 @@
 							/obj/item/grenade/gas/oxygen,
 							/obj/item/toy/figure/crew/atmos,
 							/obj/item/toy/figure/crew/ce,
-							/obj/item/toy/figure/crew/engineer)
+							/obj/item/toy/figure/crew/engineer,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Chief Engineer", "Station Engineer", "Life Support Specialist")
 
 /obj/item/envelope/bread
@@ -146,7 +152,8 @@
 							/obj/item/toy/figure/crew/botanist,
 							/obj/item/toy/figure/crew/chef,
 							/obj/item/toy/figure/crew/janitor,
-							/obj/item/toy/figure/crew/librarian)
+							/obj/item/toy/figure/crew/librarian,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Bartender", "Chef", "Botanist", "Janitor", "Barber", "Librarian", "Barber")
 
 /obj/item/envelope/circuses
@@ -162,7 +169,8 @@
 							/obj/item/toy/figure/crew/clown,
 							/obj/item/toy/figure/crew/hop,
 							/obj/item/toy/figure/crew/chaplain,
-							/obj/item/toy/figure/crew/mime)
+							/obj/item/toy/figure/crew/mime,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Clown", "Mime", "Head of Personnel", "Chaplain")
 
 
@@ -178,7 +186,8 @@
 							/obj/item/clothing/head/collectable/petehat,
 							/obj/item/toy/figure/crew/captain,
 							/obj/item/toy/figure/crew/lawyer,
-							/obj/item/toy/figure/crew/dsquad)
+							/obj/item/toy/figure/crew/dsquad,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Captain", "Magistrate", "Nanotrasen Representative", "Blueshield", "Internal Affairs Agent")
 
 /obj/item/envelope/misc
@@ -192,7 +201,8 @@
 							/obj/item/clothing/head/cakehat,
 							/obj/item/toy/figure/crew/assistant,
 							/obj/item/toy/figure/owl,
-							/obj/item/toy/figure/griffin)
+							/obj/item/toy/figure/griffin,
+							/obj/item/storage/box/scratch_cards)
 	job_list = list("Assistant", "Explorer")
 
 
@@ -219,7 +229,7 @@
 	lefthand_file = 'icons/mob/inhands/items/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items/devices_righthand.dmi'
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1"
 	/// The reference to the envelope that is currently stored in the mail scanner. It will be cleared upon confirming a correct delivery
@@ -256,7 +266,7 @@
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return
 
-		if(M.real_name != saved.recipient.real_name)
+		if(M.real_name != saved.recipient)
 			to_chat(user, "<span class='warning'>'Identity Verification failed: Target is not an authorized recipient of this package!</span>")
 			playsound(loc, 'sound/mail/maildenied.ogg', 50, TRUE)
 			return

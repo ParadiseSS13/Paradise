@@ -19,6 +19,8 @@
 	name = "tomato"
 	desc = "I say to-mah-to, you say tom-mae-to."
 	icon_state = "tomato"
+	slice_path = /obj/item/reagent_containers/food/snacks/tomatoslice
+	slices_num = 4
 	splat_type = /obj/effect/decal/cleanable/tomato_smudge
 	filling_color = "#FF6347"
 	tastes = list("tomato" = 1)

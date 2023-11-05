@@ -252,13 +252,17 @@ GLOBAL_LIST_EMPTY(antagonists)
 	add_owner_to_gamemode()
 	if(give_objectives)
 		give_objectives()
+	var/list/messages = list()
 	if(!silent)
-		greet()
-		owner.announce_objectives()
+		messages.Add(greet())
+		messages.Add(owner.prepare_announce_objectives())
 	apply_innate_effects()
-	finalize_antag()
+	messages.Add(finalize_antag())
 	if(wiki_page_name)
-		to_chat(owner.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
+		messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/[wiki_page_name])</span>")
+
+	to_chat(owner.current, chat_box_red(messages.Join("<br>")))
+
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
@@ -300,6 +304,7 @@ GLOBAL_LIST_EMPTY(antagonists)
 	message_admins("[key_name_admin(C)] has taken control of ([key_name_admin(owner.current)]) to replace a jobbaned player.")
 	owner.current.ghostize(FALSE)
 	owner.current.key = C.key
+	dust_if_respawnable(C)
 	return TRUE
 
 /**
@@ -308,8 +313,10 @@ GLOBAL_LIST_EMPTY(antagonists)
  * Called in `on_gain()` if silent it set to FALSE.
  */
 /datum/antagonist/proc/greet()
+	var/list/messages = list()
+	. = messages
 	if(owner && owner.current)
-		to_chat(owner.current, "<span class='userdanger'>You are a [special_role]!</span>")
+		messages.Add("<span class='userdanger'>You are a [special_role]!</span>")
 
 /**
  * Displays a message to the antag mob while the datum is being deleted, i.e. "Your powers are gone and you're no longer a vampire!"

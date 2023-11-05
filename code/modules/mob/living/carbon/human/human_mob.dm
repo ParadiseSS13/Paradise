@@ -28,9 +28,10 @@
 
 /mob/living/carbon/human/proc/mind_checks()
 	if(!mind)
-		return
+		return FALSE
 	if(mind.miming)
 		qdel(GetComponent(/datum/component/footstep))
+	return TRUE
 
 /**
   * Sets up DNA and species.
@@ -155,9 +156,6 @@
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
 
-/mob/living/carbon/human/nucleation/Initialize(mapload)
-	. = ..(mapload, /datum/species/nucleation)
-
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
@@ -183,43 +181,41 @@
 
 /mob/living/carbon/human/Stat()
 	..()
-	statpanel("Status")
+	if(!statpanel("Status"))
+		return
 
 	stat(null, "Intent: [a_intent]")
 	stat(null, "Move Mode: [m_intent]")
 
 	show_stat_emergency_shuttle_eta()
 
-	if(client.statpanel == "Status")
-		var/total_user_contents = GetAllContents() // cache it
-		if(locate(/obj/item/gps) in total_user_contents)
-			var/turf/T = get_turf(src)
-			stat(null, "GPS: [COORD(T)]")
-		if(locate(/obj/item/assembly/health) in total_user_contents)
-			stat(null, "Health: [health]")
+	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
+	if(HAS_TRAIT(src, TRAIT_CAN_VIEW_HEALTH))
+		stat(null, "Health: [health]")
 
-		if(internal)
-			if(!internal.air_contents)
-				qdel(internal)
-			else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
-				stat(null, "Internals Tank Connected")
-			else
-				stat("Internal Atmosphere Info", internal.name)
-				stat("Tank Pressure", internal.air_contents.return_pressure())
-				stat("Distribution Pressure", internal.distribute_pressure)
+	if(internal)
+		if(!internal.air_contents)
+			qdel(internal)
+		else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
+			stat(null, "Internals Tank Connected")
+		else
+			stat("Internal Atmosphere Info", internal.name)
+			stat("Tank Pressure", internal.air_contents.return_pressure())
+			stat("Distribution Pressure", internal.distribute_pressure)
 
-		// I REALLY need to split up status panel things into datums
+	// I REALLY need to split up status panel things into datums
+	if(mind)
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling)
+			stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
+			stat("Absorbed DNA", cling.absorbed_count)
 
-		if(mind)
-			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
-			if(cling)
-				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
-				stat("Absorbed DNA", cling.absorbed_count)
-
-			var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
-			if(V)
-				stat("Total Blood", "[V.bloodtotal]")
-				stat("Usable Blood", "[V.bloodusable]")
+		var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
+		if(V)
+			stat("Total Blood", "[V.bloodtotal]")
+			stat("Usable Blood", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
@@ -306,21 +302,21 @@
 	var/list/obscured = check_obscured_slots()
 
 	var/dat = {"<table>
-	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[slot_l_hand]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
-	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[slot_r_hand]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Left Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_HAND]'>[(l_hand && !(l_hand.flags&ABSTRACT)) ? html_encode(l_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
+	<tr><td><B>Right Hand:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_HAND]'>[(r_hand && !(r_hand.flags&ABSTRACT)) ? html_encode(r_hand) : "<font color=grey>Empty</font>"]</A></td></tr>
 	<tr><td>&nbsp;</td></tr>"}
 
-	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[slot_back]'>[(back && !(back.flags&ABSTRACT)) ? html_encode(back) : "<font color=grey>Empty</font>"]</A>"
+	dat += "<tr><td><B>Back:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_BACK]'>[(back && !(back.flags&ABSTRACT)) ? html_encode(back) : "<font color=grey>Empty</font>"]</A>"
 	if(has_breathable_mask && istype(back, /obj/item/tank))
-		dat += "&nbsp;<A href='?src=[UID()];internal=[slot_back]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+		dat += "&nbsp;<A href='?src=[UID()];internal=[SLOT_HUD_BACK]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 
 	dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
-	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[slot_head]'>[(head && !(head.flags&ABSTRACT)) ? html_encode(head) : "<font color=grey>Empty</font>"]</A></td></tr>"
+	dat += "<tr><td><B>Head:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_HEAD]'>[(head && !(head.flags&ABSTRACT)) ? html_encode(head) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 	var/obj/item/organ/internal/headpocket/C = get_int_organ(/obj/item/organ/internal/headpocket)
 	if(C)
-		if(slot_wear_mask in obscured)
+		if(SLOT_HUD_WEAR_MASK in obscured)
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Headpocket:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
 			if(C.held_item)
@@ -328,10 +324,10 @@
 			else
 				dat += "<tr><td>&nbsp;&#8627;<B>Headpocket:</B></td><td><font color=grey>Empty</font></td></tr>"
 
-	if(slot_wear_mask in obscured)
+	if(SLOT_HUD_WEAR_MASK in obscured)
 		dat += "<tr><td><font color=grey><B>Mask:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 	else
-		dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[slot_wear_mask]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? html_encode(wear_mask) : "<font color=grey>Empty</font>"]</A>"
+		dat += "<tr><td><B>Mask:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_MASK]'>[(wear_mask && !(wear_mask.flags&ABSTRACT)) ? html_encode(wear_mask) : "<font color=grey>Empty</font>"]</A>"
 
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle))
 			var/obj/item/clothing/mask/muzzle/M = wear_mask
@@ -341,57 +337,57 @@
 		dat += "</td></tr><tr><td>&nbsp;</td></tr>"
 
 	if(!issmall(src))
-		if(slot_glasses in obscured)
+		if(SLOT_HUD_GLASSES in obscured)
 			dat += "<tr><td><font color=grey><B>Eyes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[UID()];item=[slot_glasses]'>[(glasses && !(glasses.flags&ABSTRACT))	? html_encode(glasses) : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Eyes:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_GLASSES]'>[(glasses && !(glasses.flags&ABSTRACT))	? html_encode(glasses) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_l_ear in obscured)
+		if(SLOT_HUD_LEFT_EAR in obscured)
 			dat += "<tr><td><font color=grey><B>Left Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[slot_l_ear]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? html_encode(l_ear)	: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Left Ear:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_LEFT_EAR]'>[(l_ear && !(l_ear.flags&ABSTRACT))		? html_encode(l_ear)	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_r_ear in obscured)
+		if(SLOT_HUD_RIGHT_EAR in obscured)
 			dat += "<tr><td><font color=grey><B>Right Ear:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Right Ear:</B></td><td><A href='?src=[UID()];item=[slot_r_ear]'>[(r_ear && !(r_ear.flags&ABSTRACT))		? html_encode(r_ear)		: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Right Ear:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_RIGHT_EAR]'>[(r_ear && !(r_ear.flags&ABSTRACT))		? html_encode(r_ear)		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
 		dat += "<tr><td>&nbsp;</td></tr>"
 
-		dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[slot_wear_suit]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? html_encode(wear_suit) : "<font color=grey>Empty</font>"]</A></td></tr>"
+		dat += "<tr><td><B>Exosuit:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_OUTER_SUIT]'>[(wear_suit && !(wear_suit.flags&ABSTRACT)) ? html_encode(wear_suit) : "<font color=grey>Empty</font>"]</A></td></tr>"
 		if(wear_suit)
-			dat += "<tr><td>&nbsp;&#8627;<B>Suit Storage:</B></td><td><A href='?src=[UID()];item=[slot_s_store]'>[(s_store && !(s_store.flags&ABSTRACT)) ? html_encode(s_store) : "<font color=grey>Empty</font>"]</A>"
+			dat += "<tr><td>&nbsp;&#8627;<B>Suit Storage:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_SUIT_STORE]'>[(s_store && !(s_store.flags&ABSTRACT)) ? html_encode(s_store) : "<font color=grey>Empty</font>"]</A>"
 			if(has_breathable_mask && istype(s_store, /obj/item/tank))
-				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_s_store]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+				dat += "&nbsp;<A href='?src=[UID()];internal=[SLOT_HUD_SUIT_STORE]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 			dat += "</td></tr>"
 		else
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Storage:</B></font></td></tr>"
 
-		if(slot_shoes in obscured)
+		if(SLOT_HUD_SHOES in obscured)
 			dat += "<tr><td><font color=grey><B>Shoes:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[html_encode(slot_shoes)]'>[(shoes && !(shoes.flags&ABSTRACT))		? html_encode(shoes)		: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Shoes:</B></td><td><A href='?src=[UID()];item=[html_encode(SLOT_HUD_SHOES)]'>[(shoes && !(shoes.flags&ABSTRACT))		? html_encode(shoes)		: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_gloves in obscured)
+		if(SLOT_HUD_GLOVES in obscured)
 			dat += "<tr><td><font color=grey><B>Gloves:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=[UID()];item=[slot_gloves]'>[(gloves && !(gloves.flags&ABSTRACT))		? html_encode(gloves)	: "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Gloves:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_GLOVES]'>[(gloves && !(gloves.flags&ABSTRACT))		? html_encode(gloves)	: "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if(slot_w_uniform in obscured)
+		if(SLOT_HUD_JUMPSUIT in obscured)
 			dat += "<tr><td><font color=grey><B>Uniform:</B></font></td><td><font color=grey>Obscured</font></td></tr>"
 		else
-			dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[UID()];item=[slot_w_uniform]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? html_encode(w_uniform) : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td><B>Uniform:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_JUMPSUIT]'>[(w_uniform && !(w_uniform.flags&ABSTRACT)) ? html_encode(w_uniform) : "<font color=grey>Empty</font>"]</A></td></tr>"
 
-		if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (slot_w_uniform in obscured))
+		if((w_uniform == null && !(dna && dna.species.nojumpsuit)) || (SLOT_HUD_JUMPSUIT in obscured))
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Pockets:</B></font></td></tr>"
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>ID:</B></font></td></tr>"
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Belt:</B></font></td></tr>"
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>Suit Sensors:</B></font></td></tr>"
 			dat += "<tr><td><font color=grey>&nbsp;&#8627;<B>PDA:</B></font></td></tr>"
 		else
-			dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[UID()];item=[slot_belt]'>[(belt && !(belt.flags&ABSTRACT)) ? html_encode(belt) : "<font color=grey>Empty</font>"]</A>"
+			dat += "<tr><td>&nbsp;&#8627;<B>Belt:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_BELT]'>[(belt && !(belt.flags&ABSTRACT)) ? html_encode(belt) : "<font color=grey>Empty</font>"]</A>"
 			if(has_breathable_mask && istype(belt, /obj/item/tank))
-				dat += "&nbsp;<A href='?src=[UID()];internal=[slot_belt]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
+				dat += "&nbsp;<A href='?src=[UID()];internal=[SLOT_HUD_BELT]'>[internal ? "Disable Internals" : "Set Internals"]</A>"
 			dat += "</td></tr>"
 			// Pockets
 			dat += "<tr><td>&nbsp;&#8627;<B>Pockets:</B></td><td><A href='?src=[UID()];pockets=left'>"
@@ -409,8 +405,8 @@
 			else
 				dat += "<font color=grey>Right (Empty)</font>"
 			dat += "</A></td></tr>"
-			dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[UID()];item=[slot_wear_id]'>[(wear_id && !(wear_id.flags&ABSTRACT)) ? html_encode(wear_id) : "<font color=grey>Empty</font>"]</A></td></tr>"
-			dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[slot_wear_pda]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? "Full" : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td>&nbsp;&#8627;<B>ID:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_ID]'>[(wear_id && !(wear_id.flags&ABSTRACT)) ? html_encode(wear_id) : "<font color=grey>Empty</font>"]</A></td></tr>"
+			dat += "<tr><td>&nbsp;&#8627;<B>PDA:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_WEAR_PDA]'>[(wear_pda && !(wear_pda.flags&ABSTRACT)) ? "Full" : "<font color=grey>Empty</font>"]</A></td></tr>"
 
 			if(istype(w_uniform, /obj/item/clothing/under))
 				var/obj/item/clothing/under/U = w_uniform
@@ -421,9 +417,9 @@
 
 
 	if(handcuffed)
-		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[slot_handcuffed]'>Remove</A></td></tr>"
+		dat += "<tr><td><B>Handcuffed:</B> <A href='?src=[UID()];item=[SLOT_HUD_HANDCUFFED]'>Remove</A></td></tr>"
 	if(legcuffed)
-		dat += "<tr><td><b>Legcuffed:</b> <a href='?src=[UID()];item=[slot_legcuffed]'>Remove</a></td></tr>"
+		dat += "<tr><td><b>Legcuffed:</b> <a href='?src=[UID()];item=[SLOT_HUD_LEGCUFFED]'>Remove</a></td></tr>"
 
 	dat += {"</table>
 	<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>
@@ -644,8 +640,8 @@
 
 		if(href_list["pockets"])
 			var/pocket_side = href_list["pockets"]
-			var/pocket_id = (pocket_side == "right" ? slot_r_store : slot_l_store)
-			var/obj/item/pocket_item = (pocket_id == slot_r_store ? r_store : l_store)
+			var/pocket_id = (pocket_side == "right" ? SLOT_HUD_RIGHT_STORE : SLOT_HUD_LEFT_STORE)
+			var/obj/item/pocket_item = (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)
 			var/obj/item/place_item = usr.get_active_hand() // Item to place in the pocket, if it's empty
 
 			var/delay_denominator = 1
@@ -661,7 +657,7 @@
 
 			if(do_mob(usr, src, POCKET_STRIP_DELAY/delay_denominator)) //placing an item into the pocket is 4 times faster
 				if(pocket_item)
-					if(pocket_item == (pocket_id == slot_r_store ? r_store : l_store)) //item still in the pocket we search
+					if(pocket_item == (pocket_id == SLOT_HUD_RIGHT_STORE ? r_store : l_store)) //item still in the pocket we search
 						unEquip(pocket_item)
 						if(thief_mode)
 							usr.put_in_hands(pocket_item)
@@ -1066,20 +1062,20 @@
 
 	if(wear_suit)
 		if(wear_suit.flags_inv & HIDEGLOVES)
-			obscured |= slot_gloves
+			obscured |= SLOT_HUD_GLOVES
 		if(wear_suit.flags_inv & HIDEJUMPSUIT)
-			obscured |= slot_w_uniform
+			obscured |= SLOT_HUD_JUMPSUIT
 		if(wear_suit.flags_inv & HIDESHOES)
-			obscured |= slot_shoes
+			obscured |= SLOT_HUD_SHOES
 
 	if(head)
 		if(head.flags_inv & HIDEMASK)
-			obscured |= slot_wear_mask
+			obscured |= SLOT_HUD_WEAR_MASK
 		if(head.flags_inv & HIDEEYES)
-			obscured |= slot_glasses
+			obscured |= SLOT_HUD_GLASSES
 		if(head.flags_inv & HIDEEARS)
-			obscured |= slot_r_ear
-			obscured |= slot_l_ear
+			obscured |= SLOT_HUD_RIGHT_EAR
+			obscured |= SLOT_HUD_LEFT_EAR
 
 	if(obscured.len > 0)
 		return obscured
@@ -1096,7 +1092,7 @@
 /mob/living/carbon/human/proc/get_visible_gender()
 	var/list/obscured = check_obscured_slots()
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
-	if((slot_w_uniform in obscured) && skipface)
+	if((SLOT_HUD_JUMPSUIT in obscured) && skipface)
 		return PLURAL
 	return gender
 
@@ -1300,7 +1296,7 @@
 	if(!(dna.species.bodyflags & HAS_SKIN_TONE))
 		s_tone = 0
 
-	var/list/thing_to_check = list(slot_wear_mask, slot_head, slot_shoes, slot_gloves, slot_l_ear, slot_r_ear, slot_glasses, slot_l_hand, slot_r_hand)
+	var/list/thing_to_check = list(SLOT_HUD_WEAR_MASK, SLOT_HUD_HEAD, SLOT_HUD_SHOES, SLOT_HUD_GLOVES, SLOT_HUD_LEFT_EAR, SLOT_HUD_RIGHT_EAR, SLOT_HUD_GLASSES, SLOT_HUD_LEFT_HAND, SLOT_HUD_RIGHT_HAND)
 	var/list/kept_items[0]
 	var/list/item_flags[0]
 	for(var/thing in thing_to_check)
@@ -1687,13 +1683,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			H.receiving_cpr = FALSE
 			return
 
-		if(HAS_TRAIT(H, TRAIT_FAKEDEATH) || !H.is_revivable())
+		if(!H.is_revivable())
 			to_chat(src, "<span class='warning'>[H] is already too far gone for CPR...</span>")
 			H.receiving_cpr = FALSE
 			return
 
 		visible_message("<span class='danger'>[src] is trying to perform CPR on [H]'s lifeless body!</span>", "<span class='danger'>You start trying to perform CPR on [H]'s lifeless body!</span>")
-		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD) && H.is_revivable())
+		while(do_mob(src, H, 4 SECONDS) && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)) && H.is_revivable())
 			var/timer_restored
 			if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
 				visible_message("<span class='notice'>[src] gives [H] chest compressions.</span>", "<span class='notice'>You can't make rescue breaths work, so you do your best to give chest compressions.</span>")
@@ -1713,7 +1709,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			SEND_SIGNAL(H, COMSIG_HUMAN_RECEIVE_CPR, (new_time SECONDS))
 
 			if(prob(5))
-				if(timer_restored > 4 SECONDS)
+				if(timer_restored >= CPR_BREATHS_RESTORATION)
 					to_chat(src, pick(effective_cpr_messages))
 				else
 					to_chat(src, pick(ineffective_cpr_messages))
@@ -1963,8 +1959,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		organs_list[O.name] = O.serialize()
 
 	// Equipment
-	equip_list.len = slots_amt
-	for(var/i = 1, i < slots_amt, i++)
+	equip_list.len = SLOT_HUD_AMOUNT
+	for(var/i = 1, i < SLOT_HUD_AMOUNT, i++)
 		var/obj/item/thing = get_item_by_slot(i)
 		if(thing != null)
 			equip_list[i] = thing.serialize()
@@ -2023,16 +2019,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	// #1: Jumpsuit
 	// #2: Outer suit
 	// #3+: Everything else
-	if(islist(equip_list[slot_w_uniform]))
-		var/obj/item/clothing/C = list_to_object(equip_list[slot_w_uniform], T)
-		equip_to_slot_if_possible(C, slot_w_uniform)
+	if(islist(equip_list[SLOT_HUD_JUMPSUIT]))
+		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_JUMPSUIT], T)
+		equip_to_slot_if_possible(C, SLOT_HUD_JUMPSUIT)
 
-	if(islist(equip_list[slot_wear_suit]))
-		var/obj/item/clothing/C = list_to_object(equip_list[slot_wear_suit], T)
-		equip_to_slot_if_possible(C, slot_wear_suit)
+	if(islist(equip_list[SLOT_HUD_OUTER_SUIT]))
+		var/obj/item/clothing/C = list_to_object(equip_list[SLOT_HUD_OUTER_SUIT], T)
+		equip_to_slot_if_possible(C, SLOT_HUD_OUTER_SUIT)
 
-	for(var/i = 1, i < slots_amt, i++)
-		if(i == slot_w_uniform || i == slot_wear_suit)
+	for(var/i = 1, i < SLOT_HUD_AMOUNT, i++)
+		if(i == SLOT_HUD_JUMPSUIT || i == SLOT_HUD_OUTER_SUIT)
 			continue
 		if(islist(equip_list[i]))
 			var/obj/item/clothing/C = list_to_object(equip_list[i], T)

@@ -561,6 +561,7 @@
 	category = "Summons"
 	limit = 3
 	cost = 1
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/item/hugbottle
 	name = "Bottle of Tickles"
@@ -582,6 +583,7 @@
 	item_path = /obj/item/antag_spawner/slaughter_demon
 	category = "Summons"
 	limit = 3
+	is_ragin_restricted = TRUE
 
 /datum/spellbook_entry/item/shadowbottle
 	name = "Bottle of Shadows"
@@ -1078,7 +1080,7 @@
 		magichead.voicechange = TRUE	//NEEEEIIGHH
 		if(!user.unEquip(user.wear_mask))
 			qdel(user.wear_mask)
-		user.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)
+		user.equip_to_slot_if_possible(magichead, SLOT_HUD_WEAR_MASK, TRUE, TRUE)
 		qdel(src)
 	else
 		to_chat(user, "<span class='notice'>I say thee neigh</span>")

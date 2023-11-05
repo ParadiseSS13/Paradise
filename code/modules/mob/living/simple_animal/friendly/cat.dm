@@ -176,6 +176,11 @@
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
+/mob/living/simple_animal/pet/cat/Var
+	name = "Var"
+	desc = "Maintenance Cat!"
+	gold_core_spawnable = NO_SPAWN
+
 /mob/living/simple_animal/pet/cat/kitten
 	name = "kitten"
 	desc = "D'aaawwww"

@@ -29,7 +29,7 @@
 	cant_hold = list(
 		/obj/item/screwdriver/power
 	)
-	slot_flags = SLOT_ID
+	slot_flags = SLOT_FLAG_ID
 
 	var/obj/item/card/id/front_id = null
 

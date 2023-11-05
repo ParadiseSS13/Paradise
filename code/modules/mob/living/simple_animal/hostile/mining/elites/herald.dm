@@ -264,7 +264,7 @@
 	icon_state = "herald_cloak"
 	item_state = "herald_cloak"
 	item_color = "herald_cloak"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	allow_duplicates = FALSE
 	actions_types = list(/datum/action/item_action/accessory/herald)
 

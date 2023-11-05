@@ -220,7 +220,7 @@
 		user.unEquip(src, 1)
 		user.Confused(20 SECONDS)
 		user.Weaken(10 SECONDS)
-	else if(slot == slot_wear_suit)
+	else if(slot == SLOT_HUD_OUTER_SUIT)
 		ADD_TRAIT(user, TRAIT_GOTTAGOFAST, "cultrobes[UID()]")
 
 /obj/item/clothing/suit/hooded/cultrobes/flagellant_robe/dropped(mob/user)
@@ -810,7 +810,7 @@
 		exit = new /obj/effect/cult_portal_exit(target)
 
 /obj/effect/portal/cult/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user) || istype(I, /obj/item/nullrod) && user.mind.isholy)
+	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user) || istype(I, /obj/item/nullrod) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You close the portal with your [I].</span>")
 		playsound(src, 'sound/magic/magic_missile.ogg', 100, TRUE)
 		qdel(src)

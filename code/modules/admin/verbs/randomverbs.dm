@@ -38,8 +38,8 @@
 		M.loc = pick(GLOB.prisonwarp)
 		if(ishuman(M))
 			var/mob/living/carbon/human/prisoner = M
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), slot_w_uniform)
-			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), slot_shoes)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/under/color/orange(prisoner), SLOT_HUD_JUMPSUIT)
+			prisoner.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(prisoner), SLOT_HUD_SHOES)
 		spawn(50)
 			to_chat(M, "<span class='warning'>You have been sent to the prison station!</span>")
 		log_admin("[key_name(usr)] sent [key_name(M)] to the prison station.")
@@ -56,7 +56,7 @@
 	if(!check_rights(R_EVENT))
 		return
 
-	var/msg = clean_input("Message:", text("Subtle PM to [M.key]"))
+	var/msg = clean_input("Message:", "Subtle PM to [M.key]")
 
 	if(!msg)
 		return
@@ -117,7 +117,7 @@
 	if(!check_rights(R_SERVER|R_EVENT))
 		return
 
-	var/msg = clean_input("Message:", text("Enter the text you wish to appear to everyone:"))
+	var/msg = clean_input("Message:", "Enter the text you wish to appear to everyone:")
 
 	if(!msg)
 		return
@@ -140,7 +140,7 @@
 	if(!M)
 		return
 
-	var/msg = clean_input("Message:", text("Enter the text you wish to appear to your target:"))
+	var/msg = clean_input("Message:", "Enter the text you wish to appear to your target:")
 
 	if( !msg )
 		return
@@ -712,15 +712,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_DEBUG|R_EVENT))
 		return
 
-	var/devastation = input("Range of total devastation. -1 to none", text("Input"))  as num|null
+	var/devastation = input("Range of total devastation. -1 to none", "Input")  as num|null
 	if(devastation == null) return
-	var/heavy = input("Range of heavy impact. -1 to none", text("Input"))  as num|null
+	var/heavy = input("Range of heavy impact. -1 to none", "Input")  as num|null
 	if(heavy == null) return
-	var/light = input("Range of light impact. -1 to none", text("Input"))  as num|null
+	var/light = input("Range of light impact. -1 to none", "Input")  as num|null
 	if(light == null) return
-	var/flash = input("Range of flash. -1 to none", text("Input"))  as num|null
+	var/flash = input("Range of flash. -1 to none", "Input")  as num|null
 	if(flash == null) return
-	var/flames = input("Range of flames. -1 to none", text("Input"))  as num|null
+	var/flames = input("Range of flames. -1 to none", "Input")  as num|null
 	if(flames == null) return
 
 	if((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
@@ -743,9 +743,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_DEBUG|R_EVENT))
 		return
 
-	var/heavy = input("Range of heavy pulse.", text("Input"))  as num|null
+	var/heavy = input("Range of heavy pulse.", "Input")  as num|null
 	if(heavy == null) return
-	var/light = input("Range of light pulse.", text("Input"))  as num|null
+	var/light = input("Range of light pulse.", "Input")  as num|null
 	if(light == null) return
 
 	if(heavy || light)
@@ -848,7 +848,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		SSshuttle.emergency.canRecall = FALSE
 
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		SSshuttle.emergency.request(coefficient = 0.5, redAlert = TRUE)
 	else
 		SSshuttle.emergency.request()
@@ -924,7 +924,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(usr, text("<span class='danger'>Attack Log for []</span>", mob))
+	to_chat(usr, "<span class='danger'>Attack Log for [mob]</span>")
 	for(var/t in M.attack_log_old)
 		to_chat(usr, t)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Attack Log") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!

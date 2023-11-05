@@ -12,7 +12,7 @@
 	throwforce = 15
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	toolspeed = 0.25
 	attack_verb = list("attacked", "chopped", "cleaved", "torn", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -234,7 +234,7 @@
 	desc = "A haphazardly-constructed yet still deadly weapon of ancient design."
 	force = 10
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	var/force_unwielded = 10
 	var/force_wielded = 18
 	throwforce = 20
@@ -542,7 +542,7 @@
 	icon_state = "singulohammer0"
 	base_icon_state = "singulohammer"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	throwforce = 15
 	throw_range = 1
@@ -613,7 +613,7 @@
 	icon_state = "mjollnir0"
 	base_icon_state = "mjollnir"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	throwforce = 30
 	throw_range = 7
@@ -660,7 +660,7 @@
 	icon_state = "knighthammer0"
 	base_icon_state = "knighthammer"
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	force = 5
 	throwforce = 15
 	throw_range = 1
@@ -749,6 +749,12 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/item/pyro_claws/customised_abstract_text()
+	if(!ishuman(loc))
+		return
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] energy claws extending [owner.p_their(FALSE)] wrists.</span>"
+
 /obj/item/pyro_claws/process()
 	lifetime -= 2 SECONDS
 	if(lifetime <= 0)
@@ -808,7 +814,7 @@
 		. += "<span class='warning'>It is missing a pyroclastic anomaly core.</span>"
 
 /obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot)
-	if(slot == slot_gloves)
+	if(slot == SLOT_HUD_GLOVES)
 		return TRUE
 
 /obj/item/clothing/gloves/color/black/pyro_claws/ui_action_click(mob/user)
@@ -905,16 +911,21 @@
 	var/obj/vehicle/janicart/jani_vehicle = locate(/obj/vehicle/janicart) in new_item_loc.contents
 	var/trash_amount = 1
 	for(var/obj/item/garbage in current_item_loc.contents)
-		if(!garbage.anchored)
-			if(jani_vehicle?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
-				move_into_storage(user, jani_vehicle.mybag, garbage)
-			else if(jani_cart?.mybag && garbage.w_class <= WEIGHT_CLASS_SMALL)
-				move_into_storage(user, jani_cart.mybag, garbage)
-			else if(target_bin)
-				move_into_storage(user, target_bin, garbage)
-			else
-				garbage.Move(new_item_loc, user.dir)
-			trash_amount++
+		if(garbage.anchored)
+			continue
+		var/obj/item/storage/bag/trash/bag = jani_vehicle?.mybag || jani_cart?.mybag
+		var/obj/trashed_into
+		if(bag?.can_be_inserted(garbage, TRUE))
+			bag.handle_item_insertion(garbage, TRUE)
+			trashed_into = bag
+		else if(target_bin)
+			move_into_storage(user, target_bin, garbage)
+			trashed_into = target_bin
+		else
+			garbage.Move(new_item_loc, user.dir)
+		if(trashed_into)
+			to_chat(user, "<span class='notice'>You sweep the pile of garbage into [trashed_into].</span>")
+		trash_amount++
 		if(trash_amount > BROOM_PUSH_LIMIT)
 			break
 	if(trash_amount > 1)
@@ -923,7 +934,6 @@
 /obj/item/push_broom/proc/move_into_storage(mob/user, obj/storage, obj/trash)
 	trash.forceMove(storage)
 	storage.update_icon()
-	to_chat(user, "<span class='notice'>You sweep the pile of garbage into [storage].</span>")
 
 /obj/item/push_broom/proc/janicart_insert(mob/user, obj/structure/janitorialcart/cart)
 	cart.mybroom = src
@@ -1018,7 +1028,7 @@
 	sharp = TRUE
 	damtype = BURN
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	throwforce = 15
 	toolspeed = 0.25
 	attack_verb = list("enlightened", "enforced", "cleaved", "stabbed", "whacked")

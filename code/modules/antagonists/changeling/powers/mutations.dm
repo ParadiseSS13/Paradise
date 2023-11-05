@@ -99,8 +99,8 @@
 	user.unEquip(user.head)
 	user.unEquip(user.wear_suit)
 
-	user.equip_to_slot_if_possible(new suit_type(user), slot_wear_suit, TRUE, TRUE)
-	user.equip_to_slot_if_possible(new helmet_type(user), slot_head, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new suit_type(user), SLOT_HUD_OUTER_SUIT, TRUE, TRUE)
+	user.equip_to_slot_if_possible(new helmet_type(user), SLOT_HUD_HEAD, TRUE, TRUE)
 
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
@@ -116,11 +116,12 @@
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
 	chemical_cost = 25
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_ATTACK
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
@@ -160,6 +161,12 @@
 		var/obj/machinery/computer/C = target
 		C.attack_alien(user) //muh copypasta
 
+/obj/item/melee/arm_blade/customised_abstract_text()
+	if(!ishuman(loc))
+		return
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>"
+
 /***************************************\
 |***********COMBAT TENTACLES*************|
 \***************************************/
@@ -175,12 +182,13 @@
 	Cannot be used while in our lesser form."
 	button_icon_state = "tentacle"
 	chemical_cost = 10
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	weapon_type = /obj/item/gun/magic/tentacle
 	weapon_name_simple = "tentacle"
 	silent = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_ATTACK
 
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
@@ -200,6 +208,12 @@
 	throw_range = 0
 	throw_speed = 0
 	var/datum/action/changeling/weapon/parent_action
+
+/obj/item/gun/magic/tentacle/customised_abstract_text()
+	if(!ishuman(loc))
+		return
+	var/mob/living/carbon/human/owner = loc
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque tentacle.</span>"
 
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
 	. = ..()
@@ -374,11 +388,12 @@
 	helptext = "Organic tissue cannot resist damage forever. The shield will break after it is hit too much. The more DNA we collect, the stronger it is. Cannot be used while in lesser form."
 	button_icon_state = "organic_shield"
 	chemical_cost = 20
-	dna_cost = 1
+	dna_cost = 2
 	req_human = TRUE
 	weapon_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_DEFENSE
 
 /datum/action/changeling/weapon/shield/sting_action(mob/user)
 	var/obj/item/shield/changeling/S = ..(user)
@@ -422,7 +437,7 @@
 	helptext = "We must constantly repair our form to make it space proof, reducing chemical production while we are protected. Cannot be used in lesser form."
 	button_icon_state = "organic_suit"
 	chemical_cost = 20
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/space/changeling
@@ -431,6 +446,7 @@
 	helmet_name_simple = "space helmet"
 	recharge_slowdown = 0.5
 	blood_on_castoff = 1
+	menu_location = CLING_MENU_UTILITY
 
 /obj/item/clothing/suit/space/changeling
 	name = "flesh mass"
@@ -468,7 +484,7 @@
 	helptext = "Upkeep of the armor requires a low expenditure of chemicals. The armor is strong against brute force, but does not provide much protection from lasers. Cannot be used in lesser form."
 	button_icon_state = "chitinous_armor"
 	chemical_cost = 25
-	dna_cost = 2
+	dna_cost = 4
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	suit_type = /obj/item/clothing/suit/armor/changeling
@@ -476,6 +492,7 @@
 	suit_name_simple = "armor"
 	helmet_name_simple = "helmet"
 	recharge_slowdown = 0.25
+	menu_location = CLING_MENU_DEFENSE
 
 /obj/item/clothing/suit/armor/changeling
 	name = "chitinous mass"

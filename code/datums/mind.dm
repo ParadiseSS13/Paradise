@@ -63,7 +63,6 @@
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
 
-	var/isholy = FALSE // is this person a chaplain or admin role allowed to use bibles
 	var/isblessed = FALSE // is this person blessed by a chaplain?
 	var/num_blessed = 0 // for prayers
 
@@ -135,12 +134,17 @@
 		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 	if(current)					//remove ourself from our old body's mind variable
 		current.mind = null
+		if(isliving(current))
+			current.med_hud_set_status()
 		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
 
 		SStgui.on_transfer(current, new_character)
 
+		new_character.job = current.job //transfer our job over to the new body
+
 	if(new_character.mind)		//remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
+
 	current = new_character		//link ourself to our new body
 	new_character.mind = src	//and link our new body to ourself
 	for(var/a in antag_datums)	//Makes sure all antag datums effects are applied in the new body
@@ -149,10 +153,12 @@
 	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
 	transfer_actions(new_character)
 	if(martial_art)
-		if(martial_art.temporary)
-			martial_art.remove(current)
-		else
-			martial_art.teach(current)
+		for(var/datum/martial_art/MA in known_martial_arts)
+			if(MA.temporary)
+				MA.remove(current)
+			else
+				MA.remove(current)
+				MA.teach(current)
 	if(active)
 		new_character.key = key		//now transfer the key to link the client to our new body
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
@@ -625,7 +631,7 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
+			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
 			"nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
 		if(!new_obj_type)
 			return
@@ -633,7 +639,7 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate","protect","debrain", "maroon")
+			if("assassinate", "assassinateonce", "protect","debrain", "maroon")
 				//To determine what to name the objective in explanation text.
 				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
@@ -648,7 +654,7 @@
 							possible_targets_random += possible_target.current // For random picking, only valid targets
 
 				var/mob/def_target = null
-				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
+				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/assassinateonce, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)
@@ -1484,7 +1490,8 @@
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] an uplink")
 
 	else if(href_list["obj_announce"])
-		announce_objectives()
+		var/list/messages = prepare_announce_objectives()
+		to_chat(current, chat_box_red(messages.Join("<br>")))
 		SEND_SOUND(current, sound('sound/ambience/alarm4.ogg'))
 		log_admin("[key_name(usr)] has announced [key_name(current)]'s objectives")
 		message_admins("[key_name_admin(usr)] has announced [key_name_admin(current)]'s objectives")
@@ -1569,14 +1576,14 @@
 		else if(A.type == datum_type)
 			return A
 
-/datum/mind/proc/announce_objectives(title = TRUE)
+/datum/mind/proc/prepare_announce_objectives(title = TRUE)
 	if(!current)
 		return
 	var/list/text = list()
 	if(title)
 		text.Add("<span class='notice'>Your current objectives:</span>")
 	text.Add(gen_objective_text())
-	to_chat(current, text.Join("<br>"))
+	return text
 
 /datum/mind/proc/find_syndicate_uplink()
 	var/list/L = current.get_contents()

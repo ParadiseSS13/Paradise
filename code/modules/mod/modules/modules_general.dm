@@ -16,6 +16,17 @@
 	var/max_items = 7
 	var/obj/item/storage/backpack/modstorage/bag
 
+/obj/item/mod/module/storage/serialize()
+	var/list/data = ..()
+	data["bag"] = bag.serialize()
+	return data
+
+/obj/item/mod/module/storage/deserialize(list/data)
+	. = ..()
+	qdel(bag)
+	bag = list_to_object(data["bag"], src)
+	bag.source = src
+
 /obj/item/mod/module/storage/Initialize(mapload)
 	. = ..()
 	var/obj/item/storage/backpack/modstorage/S = new(src)
@@ -292,7 +303,7 @@
 	incompatible_modules = list(/obj/item/mod/module/dispenser)
 	cooldown_time = 5 SECONDS
 	/// Path we dispense.
-	var/dispense_type = /obj/item/reagent_containers/food/snacks/cheeseburger
+	var/dispense_type = /obj/item/reagent_containers/food/snacks/burger/cheese
 	/// Time it takes for us to dispense.
 	var/dispense_time = 0 SECONDS
 
