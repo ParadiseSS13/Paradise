@@ -30,6 +30,9 @@
 	icon_state = "engibreak"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
+/area/station/engineering/break_room/secondary
+	name = "\improper Secondary Engineering Foyer"
+
 /area/station/engineering/equipmentstorage
 	name = "Engineering Equipment Storage"
 	icon_state = "engilocker"
@@ -46,6 +49,11 @@
 /area/station/engineering/gravitygenerator
 	name = "\improper Gravity Generator"
 	icon_state = "gravgen"
+
+/area/station/engineering/ai_transit_tube
+	name = "\improper Ai Minisat Tranit Tube"
+	icon_state = "ai"
+	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 // engine areas
 

@@ -176,7 +176,7 @@ Difficulty: Medium
 	changeNext_move(CLICK_CD_MELEE)
 	miner_saw.melee_attack_chain(src, target)
 	if(guidance)
-		adjustHealth(enraged ? -10 : -2)
+		adjustHealth(enraged ? -6 : -2)
 	if(prob(50))
 		transform_weapon() //Still follows the normal rules for cooldown between swaps.
 	return TRUE
@@ -239,7 +239,7 @@ Difficulty: Medium
 			turf_dist_to_target += get_dist(dash_target, O)
 		if(get_dist(src, O) >= MINER_DASH_RANGE && turf_dist_to_target <= self_dist_to_target && !islava(O) && !ischasm(O))
 			var/valid = TRUE
-			for(var/turf/T in getline(own_turf, O))
+			for(var/turf/T in get_line(own_turf, O))
 				if(is_blocked_turf(T, TRUE))
 					valid = FALSE
 					continue
