@@ -18,6 +18,135 @@
 	/// used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 	var/limit
 
+/datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user, obj/item/spellbook/book) // Specific circumstances
+	if(book.uses < cost || limit == 0)
+		return FALSE
+	return TRUE
+
+/datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user, obj/item/spellbook/book) //return TRUE on success
+	if(!S)
+		S = new spell_type()
+
+	return LearnSpell(user, book, S)
+
+/datum/spellbook_entry/proc/LearnSpell(mob/living/carbon/human/user, obj/item/spellbook/book, obj/effect/proc_holder/spell/newspell)
+	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
+		if(initial(newspell.name) == initial(aspell.name)) // Not using directly in case it was learned from one spellbook then upgraded in another
+			if(aspell.spell_level >= aspell.level_max)
+				to_chat(user, "<span class='warning'>This spell cannot be improved further.</span>")
+				return FALSE
+			else
+				aspell.name = initial(aspell.name)
+				aspell.spell_level++
+				aspell.cooldown_handler.recharge_duration = round(aspell.base_cooldown - aspell.spell_level * (aspell.base_cooldown - aspell.cooldown_min) / aspell.level_max)
+				switch(aspell.spell_level)
+					if(1)
+						to_chat(user, "<span class='notice'>You have improved [aspell.name] into Efficient [aspell.name].</span>")
+						aspell.name = "Efficient [aspell.name]"
+					if(2)
+						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Quickened [aspell.name].</span>")
+						aspell.name = "Quickened [aspell.name]"
+					if(3)
+						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Free [aspell.name].</span>")
+						aspell.name = "Free [aspell.name]"
+					if(4)
+						to_chat(user, "<span class='notice'>You have further improved [aspell.name] into Instant [aspell.name].</span>")
+						aspell.name = "Instant [aspell.name]"
+				if(aspell.spell_level >= aspell.level_max)
+					to_chat(user, "<span class='notice'>This spell cannot be strengthened any further.</span>")
+				aspell.on_purchase_upgrade()
+				return TRUE
+	//No same spell found - just learn it
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	user.mind.AddSpell(newspell)
+	to_chat(user, "<span class='notice'>You have learned [newspell.name].</span>")
+	return TRUE
+
+/datum/spellbook_entry/proc/CanRefund(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(!refundable)
+		return FALSE
+	if(!S)
+		S = new spell_type()
+	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
+		if(initial(S.name) == initial(aspell.name))
+			return TRUE
+	return FALSE
+
+/datum/spellbook_entry/proc/Refund(mob/living/carbon/human/user, obj/item/spellbook/book) //return point value or -1 for failure
+	var/area/wizard_station/A = locate()
+	if(!(user in A.contents))
+		to_chat(user, "<span class='warning'>You can only refund spells at the wizard lair.</span>")
+		return -1
+	if(!S) //This happens when the spell's source is from another spellbook, from loadouts, or adminery, this create a new template temporary spell
+		S = new spell_type()
+	var/spell_levels = 0
+	for(var/obj/effect/proc_holder/spell/aspell in user.mind.spell_list)
+		if(initial(S.name) == initial(aspell.name))
+			spell_levels = aspell.spell_level
+			user.mind.spell_list.Remove(aspell)
+			qdel(aspell)
+			if(S) //If we created a temporary spell above, delete it now.
+				QDEL_NULL(S)
+			return cost * (spell_levels + 1)
+	return -1
+
+/datum/spellbook_entry/proc/GetInfo()
+	if(!S)
+		S = new spell_type()
+	var/dat =""
+	dat += "<b>[name]</b>"
+	dat += " Cooldown:[S.base_cooldown/10]"
+	dat += " Cost:[cost]<br>"
+	dat += "<i>[S.desc][desc]</i><br>"
+	dat += "[S.clothes_req?"Needs wizard garb":"Can be cast without wizard garb"]<br>"
+	return dat
+
+//Spell loadouts datum, list of loadouts is in wizloadouts.dm
+/datum/spellbook_entry/loadout
+	name = "Standard Loadout"
+	cost = 10
+	category = "Standard"
+	refundable = FALSE
+	buy_word = "Summon"
+	var/list/items_path = list()
+	var/list/spells_path = list()
+	var/destroy_spellbook = FALSE //Destroy the spellbook when bought, for loadouts containing non-standard items/spells, otherwise wiz can refund spells
+
+/datum/spellbook_entry/loadout/GetInfo()
+	var/dat = ""
+	dat += "<b>[name]</b>"
+	if(cost > 0)
+		dat += " Cost:[cost]<br>"
+	else
+		dat += " No Cost<br>"
+	dat += "<i>[desc]</i><br>"
+	return dat
+
+/datum/spellbook_entry/loadout/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(destroy_spellbook)
+		var/response = alert(user, "The [src] loadout cannot be refunded once bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
+		if(response == "No")
+			return FALSE
+		to_chat(user, "<span class='notice'>[book] crumbles to ashes as you acquire its knowledge.</span>")
+		qdel(book)
+	else if(items_path.len)
+		var/response = alert(user, "The [src] loadout contains items that will not be refundable if bought. Are you sure this is what you want?", "No refunds!", "No", "Yes")
+		if(response == "No")
+			return FALSE
+	if(items_path.len)
+		var/obj/item/storage/box/wizard/B = new(src)
+		for(var/path in items_path)
+			new path(B)
+		user.put_in_hands(B)
+	for(var/path in spells_path)
+		var/obj/effect/proc_holder/spell/S = new path()
+		LearnSpell(user, book, S)
+	OnBuy(user, book)
+	return TRUE
+
+/datum/spellbook_entry/loadout/proc/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	return
+
 //Main category - Spells
 //Offensive
 /datum/spellbook_entry/blind
