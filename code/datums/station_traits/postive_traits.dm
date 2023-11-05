@@ -182,13 +182,13 @@
 		/datum/job/doctor = /obj/item/organ/internal/cyberimp/arm/surgery,
 		/datum/job/geneticist = /obj/item/organ/internal/alien/plasmavessel/hunter, //we don't care about implants, we have cancer.
 		/datum/job/hop = /obj/item/organ/internal/eyes/cybernetic/shield,
-		/datum/job/hos = /obj/item/organ/internal/cyberimp/arm/baton, //not giving them thermals
+		/datum/job/hos = /obj/item/organ/internal/cyberimp/arm/telebaton, //not giving them thermals
 		/datum/job/janitor = /obj/item/organ/internal/cyberimp/arm/janitorial, //Not giving them bloody xray
 		/datum/job/lawyer = /obj/item/organ/internal/heart/cybernetic/upgraded,
 		/datum/job/mime = /obj/item/organ/internal/cyberimp/brain/anti_stam, //...
 		/datum/job/paramedic = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 		/datum/job/psychiatrist = /obj/item/organ/internal/heart/cybernetic/upgraded, //heart of gold. Or at least part gold
-		/datum/job/qm = /obj/item/organ/internal/cyberimp/arm/baton,
+		/datum/job/qm = /obj/item/organ/internal/cyberimp/arm/telebaton,
 		/datum/job/rd = /obj/item/organ/internal/cyberimp/arm/muscle, //Horrible idea. Anyway.
 		/datum/job/roboticist = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
 		/datum/job/scientist = /obj/item/organ/internal/ears/cybernetic,
