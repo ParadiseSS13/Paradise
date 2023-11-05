@@ -87,8 +87,8 @@
 
 	if(!do_after(user, 2 SECONDS, target = src) && is_hot(heating_object))
 		return
-	user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-	"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+	user.visible_message("[class][user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+	"[class]You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 
 	user.unEquip(src)
 
