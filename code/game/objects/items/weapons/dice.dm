@@ -44,9 +44,6 @@
 	var/rigged = DICE_NOT_RIGGED
 	var/rigged_value
 
-	var/times_eaten = 0 // nom nom
-	var/max_bites = 1 // no more nom nom :(
-
 /obj/item/dice/Initialize(mapload)
 	. = ..()
 	if(!result)
@@ -342,27 +339,6 @@
 /obj/item/dice/attack_self(mob/user)
 	diceroll(user)
 
-/obj/item/dice/attack(mob/living/M, mob/user)
-	if(M == user)
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			if(!H.check_has_mouth())
-				to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
-				return
-		times_eaten++
-		playsound(loc, 'sound/items/eatfood.ogg', 50, 0)
-		if(times_eaten < max_bites)
-			to_chat(user, "<span class='notice'>You take a ["bite"] of the [name]. Delicious!</span>")
-		else
-			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
-			qdel(src)
-
-		diceswallowroll(M, user)
-		M.emote("gasp")
-		// M.AdjustLoseBreath(6 SECONDS)
-	else
-		..()
-
 /obj/item/dice/throw_impact(atom/target)
 	diceroll(locateUID(thrownby))
 	. = ..()
@@ -394,20 +370,6 @@
 							"<span class='italics'>You hear [src] rolling, it sounds like a [fake_result].</span>")
 	else if(!throwing) //Dice was thrown and is coming to rest
 		visible_message("<span class='notice'>[src] rolls to a stop, landing on [result]. [comment]</span>")
-
-/obj/item/dice/proc/diceswallowroll(mob/living/M, mob/user)
-	result = roll(sides)
-	if(rigged != DICE_NOT_RIGGED && result != rigged_value)
-		if(rigged == DICE_BASICALLY_RIGGED && prob(clamp(1 / (sides - 1) * 100, 25, 80)))
-			result = rigged_value
-		else if(rigged == DICE_TOTALLY_RIGGED)
-			result = rigged_value
-
-	. = result
-
-	to_chat(user, "<span class='danger'>You cannot breathe!</span>")
-	M.AdjustLoseBreath(result SECONDS)
-
 
 /obj/item/dice/d20/e20/diceroll(mob/user, thrown)
 	if(triggered)
