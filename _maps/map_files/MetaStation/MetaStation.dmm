@@ -46514,6 +46514,12 @@
 	icon_state = "white"
 	},
 /area/station/science/xenobiology)
+"dnm" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboard)
 "dnE" = (
 /obj/item/target/alien,
 /obj/item/target/syndicate,
@@ -79150,6 +79156,15 @@
 	icon_state = "darkgrey"
 	},
 /area/station/aisat)
+"rsI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/cyan{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/maintenance/starboard)
 "rsQ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -87198,14 +87213,12 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/mouse,
-/obj/machinery/atmospherics/pipe/manifold/hidden/cyan{
-	dir = 8
-	},
 /obj/structure/cable/yellow{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/machinery/atmospherics/pipe/manifold4w/hidden/cyan,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -132043,7 +132056,7 @@ kZl
 xbt
 aoG
 bPg
-asJ
+dnm
 bTP
 mVF
 bnc
@@ -132300,7 +132313,7 @@ bJP
 oNz
 aoG
 bPh
-aNR
+rsI
 bSB
 aoG
 asJ
