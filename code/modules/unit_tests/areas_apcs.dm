@@ -10,7 +10,7 @@
 			continue
 		if(length(A.apc) == 0)
 			Fail("Area [A.type] has [length(A.apc)] apcs, instead of 1.")
-		else if (length(A.apc) > 1)
+		else if(length(A.apc) > 1)
 			var/list/locations = list()
 			for(var/atom/probably_an_apc as anything in A.apc)
 				locations += "([probably_an_apc.x], [probably_an_apc.y], [probably_an_apc.z])"
