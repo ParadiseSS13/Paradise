@@ -1189,7 +1189,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return TRUE
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/to_eat, mob/user, fullness)
-	if(fullness >= (600 * (1 + overeatduration / 1000)))
+	if(fullness > (600 * (1 + overeatduration / 1000)))
 		visible_message("<span class='warning'>[user] cannot force anymore of [to_eat] down [src]'s throat.</span>")
 		return FALSE
 
@@ -1241,7 +1241,7 @@ so that different stomachs can handle things in different ways VB*/
 			instant = TRUE
 
 	if(user != src && !instant)
-		if(requires_mouth && (!head || ismachineperson(src))) // You will not feed the IPC
+		if(requires_mouth && (!head || !dna.species.dietflags)) // You will not feed the IPC
 			to_chat(user, "<span class='warning'>You cannot feed [src] [p_or_p]!</span>")
 			return FALSE
 		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [p_or_p].</span>")
@@ -1251,7 +1251,6 @@ so that different stomachs can handle things in different ways VB*/
 		visible_message("<span class='warning'>[user] forces [src] to [apply_method] [p_or_p].</span>")
 	else
 		to_chat(user, "You [apply_method] [p_or_p].")
-
 
 	var/fraction = min(1 / p_or_p.reagents.total_volume, 1)
 	if(fraction)
