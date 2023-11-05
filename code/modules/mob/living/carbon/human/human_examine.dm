@@ -209,9 +209,9 @@
 
 		var/medical_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='?src=[UID()];medical=1'>\[[medical]\]</a>" : "\[[medical]\]"
 		var/mental_status = hasHUD(user, EXAMINE_HUD_MEDICAL_WRITE) ? "<a href='?src=[UID()];mental=1'>\[[mental]\]</a>" : "\[[mental]\]"
-		msg += "<span class = 'deptradio'>Physical status: </span>[medical_status]\n"
-		msg += "<span class = 'deptradio'>Mental Status: </span>[mental_status]\n"
-		msg += "<span class = 'deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
+		msg += "<span class='deptradio'>Physical status: </span>[medical_status]\n"
+		msg += "<span class='deptradio'>Mental Status: </span>[mental_status]\n"
+		msg += "<span class='deptradio'>Medical records:</span> <a href='?src=[UID()];medrecord=`'>\[View\]</a> <a href='?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(TRUE)
