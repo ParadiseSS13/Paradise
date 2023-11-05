@@ -65,3 +65,7 @@
 	icon_state = "expedition"
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
+
+/area/station/service/casino
+	name = "\improper Casino"
+	icon = "casino"
