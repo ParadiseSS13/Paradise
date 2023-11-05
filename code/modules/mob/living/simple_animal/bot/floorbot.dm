@@ -156,27 +156,12 @@
 	if(!..())
 		return
 
-	if(mode == BOT_REPAIRING)
-		return
-
-	if(amount <= 0 && !target) //Out of tiles! We must refill!
-		if(eattiles) //Configured to find and consume floortiles!
-			target = scan(/obj/item/stack/tile/plasteel)
-			process_type = null
-
-		if(!target && maketiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
-			target = scan(/obj/item/stack/sheet/metal)
-			process_type = null
-			return
-		else
-			if(nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
-				nag()
 
 	if(prob(5))
 		audible_message("[src] makes an excited booping beeping sound!")
 
 	//Normal scanning procedure. We have tiles loaded, are not emagged.
-	if(!target && emagged < 2 && amount > 0)
+	if(!target && emagged < 2 && amount)
 		if(!target)
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
 			target = scan(/turf/space, avoid_bot = /mob/living/simple_animal/bot/floorbot)
@@ -192,6 +177,22 @@
 	if(!target && emagged == 2) //We are emagged! Time to rip up the floors!
 		process_type = TILE_EMAG
 		target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
+
+	if(amount < MAX_AMOUNT && !target) //Out of tiles! We must refill!
+		if(eattiles) //Configured to find and consume floortiles!
+			target = scan(/obj/item/stack/tile/plasteel)
+			process_type = null
+
+		if(!target && maketiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
+			target = scan(/obj/item/stack/sheet/metal)
+			process_type = null
+			return
+		else
+			if(nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
+				nag()
+
+	if(mode == (BOT_REPAIRING || BOT_MAKETILE || BOT_EATTILE))
+		return
 
 
 	if(!target)
@@ -316,18 +317,18 @@
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
-/mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
-	if(mode != BOT_REPAIRING)
-		return
-
-	F.broken = FALSE
-	F.burnt = FALSE
-	F.ChangeTurf(/turf/simulated/floor/plasteel)
-	mode = BOT_IDLE
-	amount--
-	update_icon(UPDATE_OVERLAYS)
-	anchored = FALSE
-	target = null
+//	/mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
+//		if(mode != BOT_REPAIRING)
+//			return
+//
+//		F.broken = FALSE
+//		F.burnt = FALSE
+//		F.ChangeTurf(/turf/simulated/floor/plasteel)
+//		mode = BOT_IDLE
+//		amount--
+//		update_icon(UPDATE_OVERLAYS)
+//		anchored = FALSE
+//		target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
 	var/turf/simulated/floor/F = target
@@ -350,7 +351,7 @@
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
-	mode = BOT_REPAIRING
+	mode = BOT_EATTILE
 	addtimer(CALLBACK(src, PROC_REF(do_eattile), T), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eattile(obj/item/stack/tile/plasteel/T)
@@ -373,7 +374,7 @@
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
-	mode = BOT_REPAIRING
+	mode = BOT_MAKETILE
 	addtimer(CALLBACK(src, PROC_REF(do_maketile), M), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_maketile(obj/item/stack/sheet/metal/M)
@@ -396,7 +397,7 @@
 
 /mob/living/simple_animal/bot/floorbot/update_overlays()
 	. = ..()
-	if(mode == BOT_REPAIRING)
+	if(mode == (BOT_REPAIRING || BOT_MAKETILE || BOT_EATTILE))
 		. += "floorbot_work"
 	else
 		. += "floorbot_[on ? "on" : "off"]"
