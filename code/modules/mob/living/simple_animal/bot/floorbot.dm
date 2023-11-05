@@ -179,19 +179,19 @@
 	if(!target && emagged < 2 && amount > 0)
 		if(!target)
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
-			target = scan(/turf/space, avoid = /mob/living/simple_animal/bot/floorbot)
+			target = scan(/turf/space, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
 		if(!target && replacetiles) //Finds a floor without a tile and gives it one.
 			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
-			target = scan(/turf/simulated/floor, avoid = /mob/living/simple_animal/bot/floorbot)
+			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
 		if(!target && fixfloors) //Repairs damaged floors and tiles.
 			process_type = FIX_TILE
-			target = scan(/turf/simulated/floor, avoid = /mob/living/simple_animal/bot/floorbot)
+			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
 	if(!target && emagged == 2) //We are emagged! Time to rip up the floors!
 		process_type = TILE_EMAG
-		target = scan(/turf/simulated/floor, avoid = /mob/living/simple_animal/bot/floorbot)
+		target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
 
 	if(!target)
