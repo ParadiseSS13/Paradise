@@ -202,7 +202,7 @@
 	return ..()
 
 /mob/living/simple_animal/bot/mob_negates_gravity()
-    return anchored
+	return anchored
 
 /mob/living/simple_animal/bot/death(gibbed)
 	// Only execute the below if we successfully died
