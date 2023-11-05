@@ -485,7 +485,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			continue //If not, keep searching!
 		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
-		if(avoid_bot && (locate(avoid_bot) in A)) //Hopefully ignores targets that already have a bot on it, meant for cleanbot and floorbot seperation
+		if(avoid_bot && (locate(avoid_bot) in get_turf(A))) //Hopefully ignores targets that already have a bot on it, meant for cleanbot and floorbot seperation
 			continue
 		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
