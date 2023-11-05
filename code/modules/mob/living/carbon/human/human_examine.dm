@@ -233,9 +233,9 @@
 								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
 
 			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
-			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class = 'deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
-			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
+			msg += "<span class='deptradio'>Criminal status:</span> [criminal_status]\n"
+			msg += "<span class='deptradio'>Security records:</span> <a href='?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
+			msg += "<span class='deptradio'>Latest entry:</span> [commentLatest]\n"
 
 
 	return msg
