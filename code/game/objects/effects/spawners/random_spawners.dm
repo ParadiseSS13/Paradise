@@ -193,7 +193,6 @@
 	result = list(/datum/nothing = 1,
 		/obj/machinery/porta_turret/syndicate/exterior = 1)
 
-
 // Mobs
 
 /obj/effect/spawner/random_spawners/syndicate/mob
