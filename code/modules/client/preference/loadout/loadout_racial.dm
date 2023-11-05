@@ -58,3 +58,15 @@
 	display_name = "Cloth footwraps"
 	path = /obj/item/clothing/shoes/footwraps
 	slot = SLOT_HUD_SHOES
+
+/datum/gear/racial/vox_casual
+	display_name = "Vox jumpsuit"
+	description = "These loose clothes are optimized for the labors of the lower castes onboard the arkships. Large openings in the top allow for breathability while the pants are durable yet flexible enough to not restrict movement."
+	path = /obj/item/clothing/under/vox/vox_casual
+	slot = SLOT_HUD_JUMPSUIT
+
+/datum/gear/racial/vox_robes
+	display_name = "Vox robes"
+	description = "Large, comfortable robes worn by those who need a bit more covering. The thick fabric contains a pocket suitable for those that need their hands free during their work, while the cloth serves to cover scars or other injuries to the wearer's body."
+	path = /obj/item/clothing/suit/hooded/vox_robes
+	slot = SLOT_HUD_OUTER_SUIT

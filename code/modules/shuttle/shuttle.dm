@@ -1000,4 +1000,5 @@
 		T.set_light(light_range, light_power, light_color)
 	if(T.dir != dir)
 		T.setDir(dir)
+	TransferComponents(T)
 	return T
