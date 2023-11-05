@@ -200,7 +200,7 @@
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 
 /obj/item/storage/lockbox/experimental_weapon
-	name = "class A-113 classified lockbox"
+	name = "A-113 classified lockbox"
 	desc = "Contains a classifed item for experimental purposes. Looks like some acid was spilt on it."
 	req_access = list(ACCESS_SEC_DOORS) //officers, heads
 
