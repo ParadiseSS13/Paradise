@@ -7261,7 +7261,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -7269,7 +7269,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -9333,10 +9332,11 @@
 	pixel_y = 24
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/firealarm{
@@ -9617,10 +9617,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/service/bar)
 "aHO" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -13976,10 +13977,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "aTl" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -21654,7 +21656,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -58383,7 +58384,9 @@
 	name = "Brig - Prisoner Release"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/mapping_helpers/airlock/unres{
 	dir = 4
 	},
@@ -58415,7 +58418,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -60124,7 +60126,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -60137,7 +60141,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -61104,7 +61107,9 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -61112,7 +61117,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/barricade/wooden,
@@ -64852,7 +64856,7 @@
 "dvi" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -64860,7 +64864,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/hologram/holopad,
@@ -66527,13 +66530,14 @@
 /area/station/maintenance/starboard)
 "dBx" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -70609,7 +70613,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -70617,7 +70621,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -73952,7 +73955,9 @@
 "efv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -73960,7 +73965,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -74147,7 +74151,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -74155,7 +74159,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -74302,7 +74305,7 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -74310,7 +74313,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera{
@@ -74639,10 +74641,11 @@
 /area/station/security/brig)
 "eyz" = (
 /obj/item/kirbyplants,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/item/kirbyplants,
@@ -74771,10 +74774,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "eEE" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -75013,7 +75015,7 @@
 	icon_state = "2-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -75021,7 +75023,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -75382,7 +75383,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -75750,7 +75750,9 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "fqa" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -75768,7 +75770,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -76334,7 +76335,7 @@
 /area/station/science/genetics)
 "fLR" = (
 /obj/structure/closet/crate/secure/loot,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -76342,7 +76343,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/closet/crate/secure/loot,
@@ -76482,7 +76482,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -76490,7 +76490,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -76523,10 +76522,9 @@
 /area/station/security/storage)
 "fPF" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -77063,7 +77061,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -77071,7 +77069,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/alarm{
@@ -77440,10 +77437,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -78130,10 +78126,11 @@
 /area/station/engineering/control)
 "hhU" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -78262,7 +78259,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -78270,7 +78267,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -78923,7 +78919,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
@@ -78931,7 +78929,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -79603,7 +79600,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -79611,7 +79610,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -79775,10 +79773,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/status_display{
@@ -79820,10 +79819,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -79884,7 +79882,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -79892,7 +79890,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -80108,7 +80105,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -80116,7 +80115,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -81862,10 +81860,11 @@
 	pixel_y = 32;
 	req_access_txt = "2"
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/flasher_button{
@@ -82273,14 +82272,15 @@
 	dir = 1
 	},
 /obj/machinery/gibber,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/light_switch{
 	name = "north bump";
 	pixel_y = 24
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/light{
@@ -82448,7 +82448,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -82456,7 +82458,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -82755,10 +82756,9 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -82963,10 +82963,9 @@
 /area/station/science/test_chamber)
 "kWJ" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -83152,10 +83151,9 @@
 /area/station/service/hydroponics)
 "lcJ" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -83179,7 +83177,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -83557,7 +83554,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -83764,7 +83760,7 @@
 	pixel_x = 32
 	},
 /obj/structure/dispenser,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -83772,7 +83768,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera{
@@ -83967,7 +83962,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -83975,7 +83970,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/hologram/holopad,
@@ -84151,7 +84145,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -84159,7 +84155,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -84929,10 +84924,9 @@
 /area/station/maintenance/port)
 "mAs" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -84982,7 +84976,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -85269,10 +85262,9 @@
 /area/station/science/toxins/mixing)
 "mNL" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -85602,7 +85594,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -85610,7 +85604,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/light,
@@ -85673,7 +85666,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -85681,7 +85674,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -85808,11 +85800,12 @@
 /turf/simulated/floor/plating,
 /area/station/engineering/break_room)
 "naG" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/disposalpipe/segment,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -86070,7 +86063,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -86078,7 +86071,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -86508,7 +86500,9 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/light_switch{
 	dir = 1;
 	name = "south bump";
@@ -86516,7 +86510,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/light,
@@ -86557,10 +86550,11 @@
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/barricade/wooden,
@@ -86611,8 +86605,8 @@
 /area/station/hallway/primary/central)
 "nBh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow,
-/obj/effect/decal/warning_stripes/yellow/partial,
+/obj/effect/turf_decal/arrows/black,
+/obj/effect/turf_decal/delivery/partial,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -86620,7 +86614,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -86637,7 +86630,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -86645,7 +86640,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -87727,13 +87721,14 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/disposalpipe/segment{
@@ -88091,10 +88086,9 @@
 /area/station/maintenance/portsolar)
 "ozr" = (
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -88322,7 +88316,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -88330,7 +88324,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -88407,7 +88400,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -88415,7 +88410,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable/yellow{
@@ -88903,10 +88897,11 @@
 	name = "Public Access"
 	},
 /obj/machinery/door/firedoor,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/airlock/public/glass{
@@ -89626,7 +89621,9 @@
 "pIy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -89634,7 +89631,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -90157,7 +90153,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -90165,7 +90161,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -90221,7 +90216,7 @@
 "qau" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
 	d1 = 1;
@@ -90230,7 +90225,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/hologram/holopad,
@@ -90325,10 +90319,9 @@
 /area/station/medical/surgery/primary)
 "qdq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -90638,7 +90631,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -90646,7 +90639,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -90714,13 +90706,14 @@
 /turf/simulated/wall,
 /area/station/medical/exam_room)
 "qwg" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -90983,7 +90976,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -90991,7 +90984,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -91009,7 +91001,6 @@
 "qIr" = (
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -91100,10 +91091,9 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/spawner/window/reinforced/grilled,
@@ -91127,10 +91117,11 @@
 /turf/simulated/floor/plating,
 /area/station/security/permasolitary)
 "qMp" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -91561,10 +91552,11 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -92193,7 +92185,9 @@
 "rwF" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -92206,7 +92200,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -92642,7 +92635,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -92650,7 +92645,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -93384,7 +93378,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -93392,7 +93388,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -93582,7 +93577,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -93590,7 +93587,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -93732,10 +93728,9 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -94045,7 +94040,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/disposalpipe/segment,
@@ -94071,7 +94065,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -94079,7 +94075,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -94275,7 +94270,9 @@
 "sOq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -94283,7 +94280,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -94302,7 +94298,9 @@
 /area/station/security/permabrig)
 "sPg" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
@@ -94311,7 +94309,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -94447,14 +94444,15 @@
 /obj/machinery/camera{
 	c_tag = "Central Ring Hallway South"
 	},
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/camera{
@@ -94674,7 +94672,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -94682,7 +94682,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -94695,7 +94694,9 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "sZJ" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -94703,7 +94704,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -96084,10 +96084,9 @@
 /area/station/maintenance/port)
 "uhI" = (
 /obj/machinery/hologram/holopad,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/hologram/holopad,
@@ -96476,7 +96475,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -96484,7 +96483,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -96730,7 +96728,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /turf/simulated/floor/plating,
@@ -96797,7 +96794,9 @@
 	},
 /area/station/hallway/secondary/entry)
 "uJC" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/disposalpipe/segment{
 	dir = 4;
 	icon_state = "pipe-c"
@@ -96809,7 +96808,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -97277,7 +97275,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -97285,7 +97283,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -97458,7 +97455,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -97466,7 +97463,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -97757,7 +97753,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -97765,7 +97761,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -98327,7 +98322,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -98335,7 +98330,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/hologram/holopad,
@@ -98394,7 +98388,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -98402,7 +98398,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -98738,7 +98733,7 @@
 "wnt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/maintenance/two,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -98746,7 +98741,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -98820,7 +98814,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/hologram/holopad,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -98828,7 +98822,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -99156,7 +99149,9 @@
 	name = "Engineering Junction";
 	sort_type_txt = "4"
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -99169,7 +99164,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -99231,7 +99225,7 @@
 	dir = 8
 	},
 /obj/machinery/door/window,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/disposalpipe/segment{
 	dir = 1;
 	icon_state = "pipe-c"
@@ -99243,7 +99237,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/window/reinforced{
@@ -99321,7 +99314,7 @@
 /area/station/science/break_room)
 "wJP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -99334,7 +99327,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -99408,11 +99400,10 @@
 	pixel_y = 6
 	},
 /obj/item/tank/jetpack/carbondioxide,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/table/reinforced,
@@ -99589,7 +99580,7 @@
 	name = "south bump";
 	pixel_y = -28
 	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -99597,7 +99588,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/newscaster{
@@ -99660,7 +99650,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -99668,7 +99658,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/door/firedoor,
@@ -100472,10 +100461,11 @@
 	},
 /area/station/medical/reception)
 "xyI" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -100760,10 +100750,9 @@
 	},
 /area/station/security/processing)
 "xIy" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/structure/cable{
@@ -101248,7 +101237,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -101331,7 +101319,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -101339,7 +101327,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -101391,7 +101378,9 @@
 "yib" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -101399,7 +101388,6 @@
 	},
 /obj/merge_conflict_marker{
 	name = "---Merge Conflict Marker---";
-	
 	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
