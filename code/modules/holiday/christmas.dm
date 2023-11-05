@@ -7,7 +7,7 @@
 	for(var/mob/living/simple_animal/pet/dog/corgi/Ian/Ian in GLOB.mob_list)
 		Ian.place_on_head(new /obj/item/clothing/head/helmet/space/santahat)
 	for(var/datum/crafting_recipe/snowman/S in GLOB.crafting_recipes)
-		S.always_availible = TRUE
+		S.always_available = TRUE
 		break
 	//The following spawn is necessary as both the timer and the shuttle systems initialise after the events system does, so we can't add stuff to the shuttle system as it doesn't exist yet and we can't use a timer
 	spawn(60 SECONDS)
