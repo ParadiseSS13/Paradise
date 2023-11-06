@@ -189,14 +189,18 @@
 		/datum/job/paramedic = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
 		/datum/job/psychiatrist = /obj/item/organ/internal/heart/cybernetic/upgraded, //heart of gold. Or at least part gold
 		/datum/job/qm = /obj/item/organ/internal/cyberimp/arm/telebaton,
-		/datum/job/rd = /obj/item/organ/internal/cyberimp/arm/muscle, //Horrible idea. Anyway.
+		/datum/job/rd = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
 		/datum/job/roboticist = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
 		/datum/job/scientist = /obj/item/organ/internal/ears/cybernetic,
-		/datum/job/officer = /obj/item/organ/internal/cyberimp/arm/flash,
-		/datum/job/mining = /obj/item/organ/internal/regenerative_core/legion/already_preserved,
-		/datum/job/engineer = /obj/item/organ/internal/cyberimp/arm/toolset,
+		/datum/job/officer = /obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/datum/job/mining = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+		/datum/job/engineer = /obj/item/organ/internal/cyberimp/brain/wire_interface,
 		/datum/job/virologist = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
-		/datum/job/warden = /obj/item/organ/internal/cyberimp/eyes/hud/security
+		/datum/job/warden = /obj/item/organ/internal/cyberimp/arm/flash,
+		/datum/job/judge = /obj/item/organ/internal/cyberimp/arm/telebaton,
+		/datum/job/explorer = /obj/item/organ/internal/cyberimp/arm/toolset,
+		/datum/job/nanotrasenrep = /obj/item/organ/internal/heart/cybernetic/upgraded,
+		/datum/job/blueshield = /obj/item/organ/internal/heart/cybernetic/upgraded,
 	)
 
 /datum/station_trait/cybernetic_revolution/New()
