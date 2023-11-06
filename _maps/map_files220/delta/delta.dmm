@@ -48467,8 +48467,11 @@
 "eMw" = (
 /obj/structure/extinguisher_cabinet/directional/west,
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson,
+/obj/structure/curtain/open/shower/engineering,
+/obj/machinery/shower{
+	dir = 4;
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "eMB" = (
@@ -99108,8 +99111,11 @@
 	network = list("SS13","Engineering")
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/obj/structure/closet/radiation,
-/obj/item/clothing/glasses/meson,
+/obj/structure/curtain/open/shower/engineering,
+/obj/machinery/shower{
+	dir = 4;
+	pixel_x = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "whM" = (
