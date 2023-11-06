@@ -2805,24 +2805,21 @@
 		var/ok = 0
 		switch(href_list["secretsfun"])
 			if("sec_clothes")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove 'internal' clothing")
 				for(var/obj/item/clothing/under/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_all_clothes")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove ALL clothing")
 				for(var/obj/item/clothing/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_classic1")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove firesuits, grilles, and pods")
 				for(var/obj/item/clothing/suit/fire/O in world)
@@ -2830,8 +2827,7 @@
 				for(var/obj/structure/grille/O in world)
 					qdel(O)
 			if("monkey")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Monkeyize All Humans")
 				for(var/thing in GLOB.human_list)
@@ -2840,8 +2836,7 @@
 						H.monkeyize()
 				ok = 1
 			if("corgi")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Corgize All Humans")
 				for(var/thing in GLOB.human_list)
@@ -2912,8 +2907,7 @@
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
 				message_admins("<span class='notice'>[key_name_admin(usr)] teleported all players to the prison station.</span>", 1)
@@ -2954,8 +2948,7 @@
 				if(!SSticker)
 					alert("The game hasn't started yet!")
 					return
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
@@ -3036,29 +3029,25 @@
 					L.fix()
 					L.switchcount = 0
 			if("floorlava")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
 				SSweather.run_weather(/datum/weather/floor_is_lava)
 				message_admins("[key_name_admin(usr)] made the floor lava")
 			if("fakelava")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
 				SSweather.run_weather(/datum/weather/floor_is_lava/fake)
 				message_admins("[key_name_admin(usr)] made aesthetic lava on the floor")
 			if("weatherashstorm")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("stupify")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Mass Braindamage")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
@@ -3066,8 +3055,7 @@
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody stupid")
 			if("fakeguns")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
@@ -3078,8 +3066,7 @@
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
 			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				for(var/obj/item/clothing/under/W in world)
@@ -3089,8 +3076,7 @@
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				SEND_SOUND(world, sound('sound/AI/animes.ogg'))
 			if("eagles")//SCRAW
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
@@ -3099,21 +3085,18 @@
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.minor_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()
 //				message_admins("[key_name_admin(usr)] has triggered HIGHLANDER")
 			if("onlyme")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only Me")
 				usr.client.only_me()
 			if("onlyoneteam")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One Team")
 				usr.client.only_one_team()
