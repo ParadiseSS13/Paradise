@@ -57,6 +57,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/found_target()
 	return target
 
+/datum/objective/proc/establish_signals()
+	/**
+	 * This is for objectives that need to register signals, so place them in here. Makes it easier for add_objective to call it.
+	 */
+
 /**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
  *
@@ -174,10 +179,13 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	..()
 	if(target?.current)
 		explanation_text = "Teach [target.current.real_name], the [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
-		RegisterSignal(target.current, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(check_midround_completion))
+		establish_signals()
 	else
 		explanation_text = "Free Objective"
 	return target
+
+/datum/objective/assassinateonce/establish_signals()
+	RegisterSignal(target.current, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(check_midround_completion))
 
 /datum/objective/assassinateonce/check_completion()
 	return won || completed || !target?.current?.ckey
@@ -670,7 +678,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/destroy/post_target_cryo(list/owners)
 	holder.replace_objective(src, /datum/objective/assassinate)
-	
+
 /datum/objective/steal_five_of_type
 	name = "Steal Five Items"
 	explanation_text = "Steal at least five items!"
