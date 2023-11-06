@@ -734,7 +734,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 // IMPLANTS
 
 /datum/uplink_item/implants
-	category = "Implants"
+	category = "Bio-chips"
 
 /datum/uplink_item/implants/freedom
 	name = "Freedom Bio-chip"
