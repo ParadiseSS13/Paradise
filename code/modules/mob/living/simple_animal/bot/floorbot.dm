@@ -156,6 +156,8 @@
 	if(!..())
 		return
 
+	if(mode == (BOT_REPAIRING || BOT_MAKETILE || BOT_EATTILE))
+		return
 
 	if(prob(5))
 		audible_message("[src] makes an excited booping beeping sound!")
@@ -190,9 +192,6 @@
 		else
 			if(nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
 				nag()
-
-	if(mode == (BOT_REPAIRING || BOT_MAKETILE || BOT_EATTILE))
-		return
 
 
 	if(!target)
@@ -317,18 +316,6 @@
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
-//	/mob/living/simple_animal/bot/floorbot/proc/make_floor(turf/simulated/floor/F)
-//		if(mode != BOT_REPAIRING)
-//			return
-//
-//		F.broken = FALSE
-//		F.burnt = FALSE
-//		F.ChangeTurf(/turf/simulated/floor/plasteel)
-//		mode = BOT_IDLE
-//		amount--
-//		update_icon(UPDATE_OVERLAYS)
-//		anchored = FALSE
-//		target = null
 
 /mob/living/simple_animal/bot/floorbot/proc/make_bridge_plating(turf/target_turf)
 	var/turf/simulated/floor/F = target
