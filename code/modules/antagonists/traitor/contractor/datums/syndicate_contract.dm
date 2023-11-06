@@ -92,16 +92,16 @@
 	if(!implants_to_keep)
 		implants_to_keep = typecacheof(list(
 			// These two are specifically handled in code to prevent usage, but are included here for clarity.
-			/obj/item/implant/storage,
-			/obj/item/implant/uplink,
+			/obj/item/bio_chip/storage,
+			/obj/item/bio_chip/uplink,
 			// The rest
-			/obj/item/implant/adrenalin,
-			/obj/item/implant/emp,
-			/obj/item/implant/explosive,
-			/obj/item/implant/freedom,
-			/obj/item/implant/traitor,
-			/obj/item/implant/gorilla_rampage,
-			/obj/item/implant/stealth
+			/obj/item/bio_chip/adrenalin,
+			/obj/item/bio_chip/emp,
+			/obj/item/bio_chip/explosive,
+			/obj/item/bio_chip/freedom,
+			/obj/item/bio_chip/traitor,
+			/obj/item/bio_chip/gorilla_rampage,
+			/obj/item/bio_chip/stealth
 		))
 	// Initialize
 	owning_hub = hub
@@ -395,15 +395,15 @@
 				continue
 
 		// Any kind of non-syndie implant gets potentially removed (mindshield, etc)
-		if(istype(I, /obj/item/implant))
-			if(istype(I, /obj/item/implant/storage)) // Storage stays, but items within get confiscated
-				var/obj/item/implant/storage/storage_implant = I
+		if(istype(I, /obj/item/bio_chip))
+			if(istype(I, /obj/item/bio_chip/storage)) // Storage stays, but items within get confiscated
+				var/obj/item/bio_chip/storage/storage_implant = I
 				for(var/it in storage_implant.storage)
 					storage_implant.storage.remove_from_storage(it)
 					stuff_to_transfer += it
 				continue
-			else if(istype(I, /obj/item/implant/uplink)) // Uplink stays, but is jammed while in jail
-				var/obj/item/implant/uplink/uplink_implant = I
+			else if(istype(I, /obj/item/bio_chip/uplink)) // Uplink stays, but is jammed while in jail
+				var/obj/item/bio_chip/uplink/uplink_implant = I
 				uplink_implant.hidden_uplink.is_jammed = TRUE
 				continue
 			else if(is_type_in_typecache(I, implants_to_keep))
@@ -581,7 +581,7 @@
 	victim_belongings = list()
 
 	// Clean up
-	var/obj/item/implant/uplink/uplink_implant = locate() in M
+	var/obj/item/bio_chip/uplink/uplink_implant = locate() in M
 	uplink_implant?.hidden_uplink?.is_jammed = FALSE
 
 	QDEL_LIST_CONTENTS(temp_objs)

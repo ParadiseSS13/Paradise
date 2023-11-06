@@ -10,7 +10,7 @@
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
-		/obj/item/implanter/storage, // 8TC
+		/obj/item/bio_chip_implanter/storage, // 8TC
 		/obj/item/pen/edagger, // 2TC
 		/obj/item/pinpointer/advpinpointer, // 4TC
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 2TC
@@ -28,7 +28,7 @@
 		/obj/item/garrote, // 6TC
 		/obj/item/door_remote/omni/access_tuner, // 6TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
-		/obj/item/implanter/freedom, // 5TC
+		/obj/item/bio_chip_implanter/freedom, // 5TC
 		/obj/item/coin/gold, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
@@ -82,12 +82,12 @@
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/implant = list( // 40TC
-		/obj/item/implanter/freedom, // 5TC
-		/obj/item/implanter/uplink, // 14TC (ten free TC)
-		/obj/item/implanter/emp, // 1TC
-		/obj/item/implanter/adrenalin, // 8TC
-		/obj/item/implanter/explosive, // 2TC
-		/obj/item/implanter/storage, // 8TC
+		/obj/item/bio_chip_implanter/freedom, // 5TC
+		/obj/item/bio_chip_implanter/uplink, // 14TC (ten free TC)
+		/obj/item/bio_chip_implanter/emp, // 1TC
+		/obj/item/bio_chip_implanter/adrenalin, // 8TC
+		/obj/item/bio_chip_implanter/explosive, // 2TC
+		/obj/item/bio_chip_implanter/storage, // 8TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/hacker = list( // 39TC + Toy AI Uploader
@@ -203,7 +203,7 @@
 /obj/item/storage/box/syndie_kit/emp/populate_contents()
 	new /obj/item/grenade/empgrenade(src)
 	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/implanter/emp/(src)
+	new /obj/item/bio_chip_implanter/emp/(src)
 
 /obj/item/storage/box/syndie_kit/poisoner
 	name = "poisoner's kit"

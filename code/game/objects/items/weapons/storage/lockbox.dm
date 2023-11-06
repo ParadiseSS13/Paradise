@@ -90,7 +90,7 @@
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implantcase/mindshield(src)
 	new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implanter/mindshield(src)
+	new /obj/item/bio_chip_implanter/mindshield(src)
 
 /obj/item/storage/lockbox/clusterbang
 	name = "lockbox (clusterbang)"

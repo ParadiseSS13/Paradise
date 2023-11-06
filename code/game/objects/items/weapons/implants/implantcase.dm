@@ -11,8 +11,8 @@
 	container_type = OPENCONTAINER | INJECTABLE | DRAWABLE
 	materials = list(MAT_GLASS = 500)
 
-	var/obj/item/implant/imp
-	var/obj/item/implant/implant_type
+	var/obj/item/bio_chip/imp
+	var/obj/item/bio_chip/implant_type
 
 /obj/item/implantcase/Initialize(mapload)
 	. = ..()
@@ -48,8 +48,8 @@
 
 	if(is_pen(W))
 		rename_interactive(user, W)
-	else if(istype(W, /obj/item/implanter))
-		var/obj/item/implanter/I = W
+	else if(istype(W, /obj/item/bio_chip_implanter))
+		var/obj/item/bio_chip_implanter/I = W
 		if(I.imp)
 			if(imp || I.imp.implanted)
 				return

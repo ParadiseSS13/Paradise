@@ -85,8 +85,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/commander/gamma
@@ -114,8 +114,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// SECURITY ///////////////////
@@ -170,8 +170,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/security/gamma
@@ -202,8 +202,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// ENGINEER ///////////////////
@@ -266,8 +266,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/engineer/gamma
@@ -295,8 +295,8 @@
 		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	)
 
-	implants = list(/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+	implants = list(/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// MEDIC ///////////////////
@@ -362,8 +362,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/medic/gamma
@@ -397,8 +397,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// PARANORMAL ///////////////////
@@ -449,8 +449,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/paranormal/gamma
@@ -475,8 +475,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 //////////////////// JANITORIAL ///////////////////
@@ -528,8 +528,8 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
@@ -554,6 +554,6 @@
 	)
 
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/death_alarm
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/death_alarm
 	)

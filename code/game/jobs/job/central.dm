@@ -29,8 +29,8 @@
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/dust
 	)
 	backpack = /obj/item/storage/backpack/satchel
 	backpack_contents = list(
@@ -89,8 +89,8 @@
 		/obj/item/storage/box/zipties = 1
 	)
 	implants = list(
-		/obj/item/implant/mindshield,
-		/obj/item/implant/dust
+		/obj/item/bio_chip/mindshield,
+		/obj/item/bio_chip/dust
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/eyes/cybernetic/xray/hardened,

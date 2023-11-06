@@ -116,7 +116,7 @@
 
 	//Copy implants
 	O.implants = list()
-	for(var/obj/item/implant/I in contents)
+	for(var/obj/item/bio_chip/I in contents)
 		if(istype(I))
 			O.implants |= I.type
 

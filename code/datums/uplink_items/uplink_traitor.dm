@@ -300,7 +300,7 @@
 	desc = "A single-use bio-chip which contains an experimental serum that causes rapid muscular growth in Hominidae. \
 			Side-affects may include hypertrichosis, violent outbursts, and an unending affinity for bananas."
 	reference = "MAG"
-	item = /obj/item/implanter/gorilla_rampage
+	item = /obj/item/bio_chip_implanter/gorilla_rampage
 	cost = 25
 	job = list("Research Director", "Geneticist")
 
@@ -350,7 +350,7 @@
 	name = "Synthetic Supercharge Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to inject a chemical cocktail, which has the effect of removing and reducing the time of all stuns and increasing movement speed. Can be activated up to 3 times."
 	reference = "SSI"
-	item = /obj/item/implanter/supercharge
+	item = /obj/item/bio_chip_implanter/supercharge
 	cost = 40
 	species = list("Machine")
 	surplus = 0
@@ -510,7 +510,7 @@
 	name = "Uplink Bio-chip"
 	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 50 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
-	item = /obj/item/implanter/uplink
+	item = /obj/item/bio_chip_implanter/uplink
 	cost = 70
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 0

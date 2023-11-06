@@ -22,7 +22,7 @@
 	)
 	var/list/own_blacklist = list(
 		/obj/item/organ,
-		/obj/item/implant
+		/obj/item/bio_chip
 	)
 
 /datum/spell_targeting/matter_eater/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)

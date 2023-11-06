@@ -67,7 +67,7 @@ Frequency:
 						temp += "[W.code]: [TB.x], [TB.y], [TB.z]<BR>"
 
 			temp += "<B>Located Implants:</B><BR>"
-			for(var/obj/item/implant/tracking/T in GLOB.tracked_implants)
+			for(var/obj/item/bio_chip/tracking/T in GLOB.tracked_implants)
 				if(!T.implanted || !T.imp_in)
 					continue
 				var/turf/Tr = get_turf(T)

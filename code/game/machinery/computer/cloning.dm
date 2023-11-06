@@ -230,7 +230,7 @@
 					qdel(active_record)
 					set_temp("Error: Record corrupt.", "danger")
 				else
-					var/obj/item/implant/health/H = null
+					var/obj/item/bio_chip/health/H = null
 					if(active_record.implant)
 						H = locate(active_record.implant)
 					var/list/payload = list(
@@ -398,9 +398,9 @@
 	R.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
 	R.languages=subject.languages
 	//Add an implant if needed
-	var/obj/item/implant/health/imp = locate(/obj/item/implant/health, subject)
+	var/obj/item/bio_chip/health/imp = locate(/obj/item/bio_chip/health, subject)
 	if(!imp)
-		imp = new /obj/item/implant/health(subject)
+		imp = new /obj/item/bio_chip/health(subject)
 		imp.implant(subject)
 	R.implant = "\ref[imp]"
 

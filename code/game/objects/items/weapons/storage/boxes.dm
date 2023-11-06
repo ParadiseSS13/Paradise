@@ -266,7 +266,7 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implanter(src)
+	new /obj/item/bio_chip_implanter(src)
 	new /obj/item/implantpad(src)
 	new /obj/item/gps/security(src)
 
@@ -279,7 +279,7 @@
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implantcase/tracking(src)
 	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implanter(src)
+	new /obj/item/bio_chip_implanter(src)
 	new /obj/item/implantpad(src)
 	new /obj/item/gps/mining(src)
 
@@ -291,7 +291,7 @@
 /obj/item/storage/box/chemimp/populate_contents()
 	for(var/I in 1 to 5)
 		new /obj/item/implantcase/chem(src)
-	new /obj/item/implanter(src)
+	new /obj/item/bio_chip_implanter(src)
 	new /obj/item/implantpad(src)
 
 /obj/item/storage/box/deathimp
@@ -302,7 +302,7 @@
 /obj/item/storage/box/deathimp/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implanter/death_alarm (src)
+	new /obj/item/bio_chip_implanter/death_alarm (src)
 
 /obj/item/storage/box/tapes
 	name = "Tape Box"
@@ -821,7 +821,7 @@
 
 	new /obj/item/radio/centcom(src)
 	new /obj/item/door_remote/omni(src)
-	new /obj/item/implanter/death_alarm(src)
+	new /obj/item/bio_chip_implanter/death_alarm(src)
 
 	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
 	new /obj/item/pinpointer(src)
@@ -967,7 +967,7 @@
 /obj/item/storage/box/mindshield/populate_contents()
 	for(var/I in 1 to 3)
 		new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implanter/mindshield(src)
+	new /obj/item/bio_chip_implanter/mindshield(src)
 
 /obj/item/storage/box/dish_drive
 	name = "DIY Dish Drive Kit"

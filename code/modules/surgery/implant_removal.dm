@@ -31,7 +31,7 @@
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
 	time = 6.4 SECONDS
 	repeatable = TRUE
-	var/obj/item/implant/I = null
+	var/obj/item/bio_chip/I = null
 	var/max_times_to_check = 5
 
 /datum/surgery_step/extract_implant/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -45,7 +45,7 @@
 		)
 		return SURGERY_BEGINSTEP_SKIP
 
-	I = locate(/obj/item/implant) in target
+	I = locate(/obj/item/bio_chip) in target
 	user.visible_message(
 		"[user] starts poking around inside [target]'s [affected.name] with \the [tool].",
 		"You start poking around inside [target]'s [affected.name] with \the [tool]."
@@ -66,7 +66,7 @@
 
 /datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	I = locate(/obj/item/implant) in target
+	I = locate(/obj/item/bio_chip) in target
 	if(I && prob(80)) //implant removal only works on the chest.
 		user.visible_message(
 			"<span class='notice'>[user] takes something out of [target]'s [affected.name] with \the [tool].</span>",

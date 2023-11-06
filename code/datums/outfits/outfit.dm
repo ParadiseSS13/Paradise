@@ -138,7 +138,7 @@
 
 	if(implants)
 		for(var/implant_type in implants)
-			var/obj/item/implant/I = new implant_type(H)
+			var/obj/item/bio_chip/I = new implant_type(H)
 			I.implant(H, null)
 
 	H.update_body()

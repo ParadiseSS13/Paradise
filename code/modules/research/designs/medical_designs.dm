@@ -544,14 +544,14 @@
 ////////////Regular Implants/////////////
 /////////////////////////////////////////
 
-/datum/design/implanter
+/datum/design/bio_chip_implanter
 	name = "Bio-chip Implanter"
 	desc = "A sterile automatic bio-chip injector."
 	id = "implanter"
 	req_tech = list("materials" = 2, "biotech" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 600, MAT_GLASS = 200)
-	build_path = /obj/item/implanter
+	build_path = /obj/item/bio_chip_implanter
 	category = list("Medical")
 
 /datum/design/implantcase
