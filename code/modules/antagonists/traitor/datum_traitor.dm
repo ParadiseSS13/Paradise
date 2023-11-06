@@ -130,6 +130,8 @@
 			add_antag_objective(/datum/objective/debrain)
 		else if(prob(30))
 			add_antag_objective(/datum/objective/maroon)
+		else if(prob(30))
+			add_antag_objective(/datum/objective/assassinateonce)
 		else
 			add_antag_objective(/datum/objective/assassinate)
 	else
