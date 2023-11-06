@@ -74905,7 +74905,7 @@
 /obj/item/toy/crayon/white{
 	pixel_y = -4
 	},
-/obj/item/implanter{
+/obj/item/bio_chip_implanter{
 	pixel_x = 5;
 	pixel_y = 12
 	},
