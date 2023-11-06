@@ -48,7 +48,7 @@
 	name = "bio-chip implanter (uplink)"
 	implant_type = /obj/item/bio_chip/uplink
 
-/obj/item/implantcase/uplink
+/obj/item/bio_chip_case/uplink
 	name = "bio-chip case - 'Syndicate Uplink'"
 	desc = "A glass case containing an uplink bio-chip."
 	implant_type = /obj/item/bio_chip/uplink
@@ -57,6 +57,6 @@
 	name = "bio-chip implanter (Nuclear Agent Uplink)"
 	implant_type = /obj/item/bio_chip/uplink/nuclear
 
-/obj/item/implantcase/nuclear
+/obj/item/bio_chip_case/nuclear
 	name = "bio-chip case - 'Nuclear Agent Uplink'"
 	implant_type = /obj/item/bio_chip/uplink/nuclear

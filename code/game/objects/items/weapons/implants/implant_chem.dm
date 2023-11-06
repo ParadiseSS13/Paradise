@@ -46,7 +46,7 @@
 	name = "bio-chip implanter (chem)"
 	implant_type = /obj/item/bio_chip/chem
 
-/obj/item/implantcase/chem
+/obj/item/bio_chip_case/chem
 	name = "bio-chip case - 'Remote Chemical'"
 	desc = "A glass case containing a remote chemical bio-chip."
 	implant_type = /obj/item/bio_chip/chem

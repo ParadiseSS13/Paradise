@@ -75,14 +75,14 @@
 
 		I.removed(target)
 
-		var/obj/item/implantcase/case
+		var/obj/item/bio_chip_case/case
 
-		if(istype(user.get_item_by_slot(SLOT_HUD_LEFT_HAND), /obj/item/implantcase))
+		if(istype(user.get_item_by_slot(SLOT_HUD_LEFT_HAND), /obj/item/bio_chip_case))
 			case = user.get_item_by_slot(SLOT_HUD_LEFT_HAND)
-		else if(istype(user.get_item_by_slot(SLOT_HUD_RIGHT_HAND), /obj/item/implantcase))
+		else if(istype(user.get_item_by_slot(SLOT_HUD_RIGHT_HAND), /obj/item/bio_chip_case))
 			case = user.get_item_by_slot(SLOT_HUD_RIGHT_HAND)
 		else
-			case = locate(/obj/item/implantcase) in get_turf(target)
+			case = locate(/obj/item/bio_chip_case) in get_turf(target)
 
 		if(case && !case.imp)
 			case.imp = I

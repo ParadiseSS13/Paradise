@@ -19,7 +19,7 @@
 	name = "bio-chip implanter (magillitis serum)"
 	implant_type = /obj/item/bio_chip/gorilla_rampage
 
-/obj/item/implantcase/gorilla_rampage
+/obj/item/bio_chip_case/gorilla_rampage
 	name = "bio-chip case - 'magillitis serum'"
 	desc = "A glass case containing a magillitis bio-chip."
 	implant_type = /obj/item/bio_chip/gorilla_rampage

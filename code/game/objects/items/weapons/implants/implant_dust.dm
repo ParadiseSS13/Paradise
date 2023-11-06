@@ -29,7 +29,7 @@
 	name = "bio-chip implanter (Dust-on-death)"
 	implant_type = /obj/item/bio_chip/dust
 
-/obj/item/implantcase/dust
+/obj/item/bio_chip_case/dust
 	name = "bio-chip case - 'Dust'"
 	desc = "A glass case containing a dust bio-chip."
 	implant_type = /obj/item/bio_chip/dust

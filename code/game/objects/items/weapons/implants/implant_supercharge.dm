@@ -28,7 +28,7 @@
 	name = "bio-chip implanter (supercharge)"
 	implant_type = /obj/item/bio_chip/supercharge
 
-/obj/item/implantcase/supercharge
+/obj/item/bio_chip_case/supercharge
 	name = "bio-chip case - 'supercharge'"
 	desc = "A glass case containing an supercharge bio-chip."
 	implant_type = /obj/item/bio_chip/supercharge

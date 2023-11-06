@@ -23,7 +23,7 @@
 	name = "bio-chip implanter (krav maga)"
 	implant_type = /obj/item/bio_chip/krav_maga
 
-/obj/item/implantcase/krav_maga
+/obj/item/bio_chip_case/krav_maga
 	name = "bio-chip case - 'Krav Maga'"
 	desc = "A glass case containing a bio-chip that can teach the user the art of Krav Maga."
 	implant_type = /obj/item/bio_chip/krav_maga

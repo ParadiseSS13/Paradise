@@ -87,9 +87,9 @@
 	req_access = list(ACCESS_SECURITY)
 
 /obj/item/storage/lockbox/mindshield/populate_contents()
-	new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implantcase/mindshield(src)
-	new /obj/item/implantcase/mindshield(src)
+	new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_case/mindshield(src)
+	new /obj/item/bio_chip_case/mindshield(src)
 	new /obj/item/bio_chip_implanter/mindshield(src)
 
 /obj/item/storage/lockbox/clusterbang

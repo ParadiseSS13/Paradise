@@ -37,7 +37,7 @@
 	name = "bio-chip implanter (tracking)"
 	implant_type = /obj/item/bio_chip/tracking
 
-/obj/item/implantcase/tracking
+/obj/item/bio_chip_case/tracking
 	name = "bio-chip case - 'Tracking'"
 	desc = "A glass case containing a tracking bio-chip."
 	implant_type = /obj/item/bio_chip/tracking

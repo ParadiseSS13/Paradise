@@ -561,7 +561,7 @@
 	req_tech = list("biotech" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500)
-	build_path = /obj/item/implantcase
+	build_path = /obj/item/bio_chip_case
 	category = list("Medical")
 
 /datum/design/implant_chem
@@ -571,7 +571,7 @@
 	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 700)
-	build_path = /obj/item/implantcase/chem
+	build_path = /obj/item/bio_chip_case/chem
 	category = list("Medical")
 
 /datum/design/implant_sadtrombone
@@ -581,7 +581,7 @@
 	req_tech = list("materials" = 3, "biotech" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 500, MAT_BANANIUM = 500)
-	build_path = /obj/item/implantcase/sad_trombone
+	build_path = /obj/item/bio_chip_case/sad_trombone
 	category = list("Medical")
 
 /datum/design/implant_tracking
@@ -591,7 +591,7 @@
 	req_tech = list("materials" = 2, "biotech" = 3, "magnets" = 3, "programming" = 2)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
-	build_path = /obj/item/implantcase/tracking
+	build_path = /obj/item/bio_chip_case/tracking
 	category = list("Medical")
 
 //Cybernetic organs

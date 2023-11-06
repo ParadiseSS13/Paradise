@@ -57,7 +57,7 @@
 	name = "bio-chip implanter (Death Alarm)"
 	implant_type = /obj/item/bio_chip/death_alarm
 
-/obj/item/implantcase/death_alarm
+/obj/item/bio_chip_case/death_alarm
 	name = "bio-chip Case - 'Death Alarm'"
 	desc = "A case containing a death alarm bio-chip."
 	implant_type = /obj/item/bio_chip/death_alarm

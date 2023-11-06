@@ -17,7 +17,7 @@
 	name = "implanter (health)"
 	implant_type = /obj/item/bio_chip/health
 
-/obj/item/implantcase/health
+/obj/item/bio_chip_case/health
 	name = "implant case - 'Health'"
 	desc = "A glass case containing a health implant."
 	implant_type = /obj/item/bio_chip/health

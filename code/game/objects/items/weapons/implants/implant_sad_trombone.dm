@@ -21,7 +21,7 @@
 	name = "bio-chip implanter (sad trombone)"
 	implant_type = /obj/item/bio_chip/sad_trombone
 
-/obj/item/implantcase/sad_trombone
+/obj/item/bio_chip_case/sad_trombone
 	name = "bio-chip case - 'Sad Trombone'"
 	desc = "A glass case containing a sad trombone bio-chip."
 	implant_type = /obj/item/bio_chip/sad_trombone

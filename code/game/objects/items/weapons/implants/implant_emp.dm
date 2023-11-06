@@ -17,7 +17,7 @@
 	name = "bio-chip implanter (EMP)"
 	implant_type = /obj/item/bio_chip/emp
 
-/obj/item/implantcase/emp
+/obj/item/bio_chip_case/emp
 	name = "bio-chip case - 'EMP'"
 	desc = "A glass case containing an EMP bio-chip."
 	implant_type = /obj/item/bio_chip/emp

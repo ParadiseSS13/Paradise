@@ -133,7 +133,7 @@
 	name = "bio-chip implanter (explosive)"
 	implant_type = /obj/item/bio_chip/explosive
 
-/obj/item/implantcase/explosive
+/obj/item/bio_chip_case/explosive
 	name = "bio-chip case - 'Micro Explosive'"
 	desc = "A glass case containing a micro explosive bio-chip."
 	implant_type = /obj/item/bio_chip/explosive
@@ -142,7 +142,7 @@
 	name = "bio-chip implanter (macro-explosive)"
 	implant_type = /obj/item/bio_chip/explosive/macro
 
-/obj/item/implantcase/explosive_macro
+/obj/item/bio_chip_case/explosive_macro
 	name = "bio-chip case - 'Macro Explosive'"
 	desc = "A glass case containing a macro explosive bio-chip."
 	implant_type = /obj/item/bio_chip/explosive/macro

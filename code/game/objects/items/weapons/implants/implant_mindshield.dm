@@ -37,7 +37,7 @@
 	name = "bio-chip implanter (mindshield)"
 	implant_type = /obj/item/bio_chip/mindshield
 
-/obj/item/implantcase/mindshield
+/obj/item/bio_chip_case/mindshield
 	name = "bio-chip case - 'mindshield'"
 	desc = "A glass case containing a mindshield bio-chip."
 	implant_type = /obj/item/bio_chip/mindshield

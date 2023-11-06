@@ -31,7 +31,7 @@
 	name = "bio-chip implanter (freedom)"
 	implant_type = /obj/item/bio_chip/freedom
 
-/obj/item/implantcase/freedom
+/obj/item/bio_chip_case/freedom
 	name = "bio-chip case - 'Freedom'"
 	desc = "A glass case containing a freedom bio-chip."
 	implant_type = /obj/item/bio_chip/freedom
@@ -50,7 +50,7 @@
 	name = "bio-chip implanter (proto-freedom)"
 	implant_type = /obj/item/bio_chip/freedom/prototype
 
-/obj/item/implantcase/freedom/prototype
+/obj/item/bio_chip_case/freedom/prototype
 	name = "bio-chip case - 'Proto-Freedom'"
 	desc = "A glass case containing a prototype freedom bio-chip."
 	implant_type = /obj/item/bio_chip/freedom/prototype

@@ -53,7 +53,7 @@
 	name = "bio-chip implanter (abductor)"
 	implant_type = /obj/item/bio_chip/abductor
 
-/obj/item/implantcase/abductor
+/obj/item/bio_chip_case/abductor
 	name = "bio-chip case - 'abductor'"
 	desc = "A glass case containing an abductor bio-chip."
 	implant_type = /obj/item/bio_chip/abductor

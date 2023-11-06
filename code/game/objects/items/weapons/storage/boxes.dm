@@ -262,12 +262,12 @@
 	icon_state = "implant"
 
 /obj/item/storage/box/trackimp/populate_contents()
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
 	new /obj/item/bio_chip_implanter(src)
-	new /obj/item/implantpad(src)
+	new /obj/item/bio_chip_pad(src)
 	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/minertracker
@@ -276,11 +276,11 @@
 	icon_state = "implant"
 
 /obj/item/storage/box/minertracker/populate_contents()
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
+	new /obj/item/bio_chip_case/tracking(src)
 	new /obj/item/bio_chip_implanter(src)
-	new /obj/item/implantpad(src)
+	new /obj/item/bio_chip_pad(src)
 	new /obj/item/gps/mining(src)
 
 /obj/item/storage/box/chemimp
@@ -290,9 +290,9 @@
 
 /obj/item/storage/box/chemimp/populate_contents()
 	for(var/I in 1 to 5)
-		new /obj/item/implantcase/chem(src)
+		new /obj/item/bio_chip_case/chem(src)
 	new /obj/item/bio_chip_implanter(src)
-	new /obj/item/implantpad(src)
+	new /obj/item/bio_chip_pad(src)
 
 /obj/item/storage/box/deathimp
 	name = "death alarm bio-chip kit"
@@ -301,7 +301,7 @@
 
 /obj/item/storage/box/deathimp/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/implantcase/death_alarm(src)
+		new /obj/item/bio_chip_case/death_alarm(src)
 	new /obj/item/bio_chip_implanter/death_alarm (src)
 
 /obj/item/storage/box/tapes
@@ -966,7 +966,7 @@
 
 /obj/item/storage/box/mindshield/populate_contents()
 	for(var/I in 1 to 3)
-		new /obj/item/implantcase/mindshield(src)
+		new /obj/item/bio_chip_case/mindshield(src)
 	new /obj/item/bio_chip_implanter/mindshield(src)
 
 /obj/item/storage/box/dish_drive

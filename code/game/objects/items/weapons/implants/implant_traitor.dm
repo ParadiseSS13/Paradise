@@ -49,7 +49,7 @@
 	name = "bio-chip implanter (Mindslave)"
 	implant_type = /obj/item/bio_chip/traitor
 
-/obj/item/implantcase/traitor
+/obj/item/bio_chip_case/traitor
 	name = "bio-chip case - 'Mindslave'"
 	desc = "A glass case containing a mindslave bio-chip."
 	implant_type = /obj/item/bio_chip/traitor

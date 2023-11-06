@@ -1,4 +1,4 @@
-/obj/item/implantcase
+/obj/item/bio_chip_case
 	name = "bio-chip case"
 	desc = "A glass case containing a bio-chip."
 	icon = 'icons/obj/implants.dmi'
@@ -14,19 +14,19 @@
 	var/obj/item/bio_chip/imp
 	var/obj/item/bio_chip/implant_type
 
-/obj/item/implantcase/Initialize(mapload)
+/obj/item/bio_chip_case/Initialize(mapload)
 	. = ..()
 	if(!implant_type)
 		return
 	imp = new implant_type(src)
 	update_state()
 
-/obj/item/implantcase/Destroy()
+/obj/item/bio_chip_case/Destroy()
 	if(imp)
 		QDEL_NULL(imp)
 	return ..()
 
-/obj/item/implantcase/proc/update_state()
+/obj/item/bio_chip_case/proc/update_state()
 	if(imp)
 		origin_tech = imp.origin_tech
 		flags = imp.flags & ~DROPDEL
@@ -37,13 +37,13 @@
 		reagents = null
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/implantcase/update_overlays()
+/obj/item/bio_chip_case/update_overlays()
 	. = ..()
 	if(imp)
 		var/image/implant_overlay = image('icons/obj/implants.dmi', imp.implant_state)
 		. += implant_overlay
 
-/obj/item/implantcase/attackby(obj/item/W, mob/user)
+/obj/item/bio_chip_case/attackby(obj/item/W, mob/user)
 	..()
 
 	if(is_pen(W))

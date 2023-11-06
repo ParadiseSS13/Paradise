@@ -28,7 +28,7 @@
 	name = "bio-chip implanter (adrenalin)"
 	implant_type = /obj/item/bio_chip/adrenalin
 
-/obj/item/implantcase/adrenaline
+/obj/item/bio_chip_case/adrenaline
 	name = "bio-chip case - 'Adrenaline'"
 	desc = "A glass case containing an adrenaline bio-chip."
 	implant_type = /obj/item/bio_chip/adrenalin
