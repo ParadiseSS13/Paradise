@@ -31652,7 +31652,7 @@
 /area/shuttle/escape)
 "wgG" = (
 /obj/structure/rack,
-/obj/item/kitchen/knife/carrotshiv,
+/obj/item/kitchen/knife/shiv/carrot,
 /turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "wgM" = (

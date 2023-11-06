@@ -2904,7 +2904,7 @@
 /area/admin)
 "QP" = (
 /obj/structure/table/wood,
-/obj/item/kitchen/knife/carrotshiv,
+/obj/item/kitchen/knife/shiv/carrot,
 /turf/simulated/floor/plasteel{
 	icon_state = "hierophant1"
 	},
