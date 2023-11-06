@@ -594,6 +594,8 @@ SUBSYSTEM_DEF(jobs)
 
 //fuck
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/H, rank, datum/job/job)
+	if(istype(job, /datum/job/cyborg) || istype(job, /datum/job/ai)) // They don't need bank accounts, robots don't get paid.
+		return
 	var/starting_balance = job?.department_account_access ? COMMAND_MEMBER_STARTING_BALANCE : CREW_MEMBER_STARTING_BALANCE
 	var/datum/money_account/account = GLOB.station_money_database.create_account(H.real_name, starting_balance, ACCOUNT_SECURITY_ID, "NAS Trurl Accounting", TRUE)
 
