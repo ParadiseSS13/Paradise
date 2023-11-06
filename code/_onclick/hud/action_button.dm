@@ -38,8 +38,7 @@
 		var/keybind_to_set_to = uppertext(input(usr, "What keybind do you want to set this action button to?") as text)
 		if(keybind_to_set_to)
 			if(linked_keybind)
-				usr.client.active_keybindings[linked_keybind.binded_to] -= (linked_keybind)
-				QDEL_NULL(linked_keybind)
+				clean_up_keybinds(usr)
 			var/datum/keybinding/mob/trigger_action_button/triggerer = new
 			triggerer.linked_action = linked_action
 			usr.client.active_keybindings[keybind_to_set_to] += list(triggerer)
@@ -47,6 +46,11 @@
 			triggerer.binded_to = keybind_to_set_to
 			to_chat(usr, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
 			return TRUE
+		else
+			if(linked_keybind)
+				clean_up_keybinds(usr)
+				to_chat(usr, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")
+				return TRUE
 	if(usr.next_click > world.time)
 		return FALSE
 	usr.changeNext_click(1)
@@ -75,6 +79,14 @@
 
 /obj/screen/movable/action_button/AltClick(mob/user)
 	return linked_action.AltTrigger()
+
+/obj/screen/movable/action_button/proc/clean_up_keybinds(mob/owner)
+	if(linked_keybind)
+		owner.client.active_keybindings[linked_keybind.binded_to] -= (linked_keybind)
+		if(!length(owner.client.active_keybindings[linked_keybind.binded_to]))
+			owner.client.active_keybindings[linked_keybind.binded_to] = null
+			owner.client.active_keybindings -= linked_keybind.binded_to
+		QDEL_NULL(linked_keybind)
 
 //Hide/Show Action Buttons ... Button
 /obj/screen/movable/action_button/hide_toggle
@@ -136,7 +148,14 @@
 /obj/screen/movable/action_button/MouseEntered(location, control, params)
 	. = ..()
 	if(!QDELETED(src))
-		openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)
+		if(!linked_keybind)
+			openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)
+		else
+			var/list/desc_information = list()
+			desc_information += desc
+			desc_information += "This action is currently bound to the [linked_keybind.binded_to] key."
+			desc_information = desc_information.Join(" ")
+			openToolTip(usr, src, params, title = name, content = desc_information, theme = actiontooltipstyle)
 
 /obj/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)

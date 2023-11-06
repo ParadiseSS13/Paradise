@@ -32,9 +32,6 @@
 	button.desc = our_description.Join(" ")
 
 /datum/action/Destroy()
-	if(button.linked_keybind)
-		owner.client.active_keybindings[button.linked_keybind.binded_to] -= (button.linked_keybind)
-		QDEL_NULL(button.linked_keybind)
 	if(owner)
 		Remove(owner)
 	if(target)
@@ -62,6 +59,7 @@
 		M.client.screen -= button
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
+	button.clean_up_keybinds(M)
 	M.actions -= src
 	M.update_action_buttons()
 
