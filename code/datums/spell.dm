@@ -17,7 +17,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.")
 		user.ranged_ability.remove_ranged_ability(user)
 		return TRUE //TRUE for failed, FALSE for passed.
-	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	user.face_atom(A)
 	return FALSE
 
@@ -539,6 +538,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(custom_handler && !custom_handler.can_cast(user, charge_check, show_message, src))
 		return FALSE
 
+	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	return TRUE
 /obj/effect/proc_holder/spell/summonmob
 	name = "Summon Servant"
