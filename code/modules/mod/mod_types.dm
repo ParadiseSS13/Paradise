@@ -226,6 +226,11 @@
 		/obj/item/mod/module/jetpack,
 	)
 
+/obj/item/mod/control/pre_equipped/traitor/Initialize(mapload)
+	. = ..()
+	new /obj/item/clothing/mask/gas/syndicate(bag)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
+
 /obj/item/mod/control/pre_equipped/traitor_elite
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
@@ -241,6 +246,11 @@
 		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack/advanced,
 	)
+
+/obj/item/mod/control/pre_equipped/traitor_elite/Initialize(mapload)
+	. = ..()
+	new /obj/item/clothing/mask/gas/syndicate(bag)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
 
 /obj/item/mod/control/pre_equipped/nuclear
 	theme = /datum/mod_theme/syndicate
