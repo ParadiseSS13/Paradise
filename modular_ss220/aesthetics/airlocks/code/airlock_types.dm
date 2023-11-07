@@ -225,6 +225,10 @@
 	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/atmospheric_glass_large.dmi'
 	assemblytype = /obj/structure/door_assembly/multi_tile/atmospheric
 
+/obj/machinery/door/airlock/multi_tile/supply
+	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/supply_glass_large.dmi'
+	assemblytype = /obj/structure/door_assembly/multi_tile/supply
+
 // Multi-tile airlocks glass
 /obj/machinery/door/airlock/multi_tile/command/glass
 	opacity = FALSE
@@ -239,5 +243,9 @@
 	glass = TRUE
 
 /obj/machinery/door/airlock/multi_tile/atmospheric/glass
+	opacity = FALSE
+	glass = TRUE
+
+/obj/machinery/door/airlock/multi_tile/supply/glass
 	opacity = FALSE
 	glass = TRUE

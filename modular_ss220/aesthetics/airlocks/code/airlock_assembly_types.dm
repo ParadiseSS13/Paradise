@@ -197,3 +197,9 @@
 	base_name = "atmospheric large airlock"
 	airlock_type = /obj/machinery/door/airlock/multi_tile/atmospheric
 	glass_type = /obj/machinery/door/airlock/multi_tile/atmospheric/glass
+
+/obj/structure/door_assembly/multi_tile/supply
+	icon = 'modular_ss220/aesthetics/airlocks/icons/glass_large/supply_glass_large.dmi'
+	base_name = "supply large airlock"
+	airlock_type = /obj/machinery/door/airlock/multi_tile/supply
+	glass_type = /obj/machinery/door/airlock/multi_tile/supply/glass
