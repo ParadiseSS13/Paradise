@@ -367,6 +367,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/toy/plushie/carpplushie/dehy_carp
 	cost = 5
 
+/datum/uplink_item/stealthy_weapons/powergloves
+	name = "Power Gloves"
+	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. \
+			Must be standing on a powered cable to use. \
+			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on."
+	reference = "PG"
+	item = /obj/item/clothing/gloves/color/yellow/power
+	cost = 50
+
 
 // GRENADES AND EXPLOSIVES
 
@@ -544,6 +553,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/handheld_mirror
 	cost = 5
 
+/datum/uplink_item/stealthy_tools/pickpocketgloves
+	name = "Pickpocket's Gloves"
+	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
+	reference = "PPG"
+	item = /obj/item/clothing/gloves/color/black/thief
+	cost = 30
+
 // DEVICE AND TOOLS
 
 /datum/uplink_item/device_tools
@@ -596,6 +612,12 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/teleporter
 	cost = 40
 
+/datum/uplink_item/jdevice_tools/syndidonk
+	name = "Syndicate Donk Pockets"
+	desc = "A box of highly specialized Donk pockets with a number of regenerative and stimulating chemicals inside of them; the box comes equipped with a self-heating mechanism."
+	reference = "SDP"
+	item = /obj/item/storage/box/syndidonkpockets
+	cost = 10
 
 
 //Space Suits and Hardsuits

@@ -104,14 +104,6 @@
 	cost = 40
 	job = list("Chef")
 
-/datum/uplink_item/jobspecific/syndidonk
-	name = "Syndicate Donk Pockets"
-	desc = "A box of highly specialized Donk pockets with a number of regenerative and stimulating chemicals inside of them; the box comes equipped with a self-heating mechanism."
-	reference = "SDP"
-	item = /obj/item/storage/box/syndidonkpockets
-	cost = 10
-	job = list("Chef")
-
 //Chaplain
 
 /datum/uplink_item/jobspecific/missionary_kit
@@ -174,16 +166,6 @@
 	cost = 10
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
-//Assistant
-
-/datum/uplink_item/jobspecific/pickpocketgloves
-	name = "Pickpocket's Gloves"
-	desc = "A pair of sleek gloves to aid in pickpocketing. While wearing these, you can loot your target without them knowing. Pickpocketing puts the item directly into your hand."
-	reference = "PPG"
-	item = /obj/item/clothing/gloves/color/black/thief
-	cost = 30
-	job = list("Assistant")
-
 //Bartender
 
 /datum/uplink_item/jobspecific/drunkbullets
@@ -213,18 +195,6 @@
 	item = /obj/item/bee_briefcase
 	cost = 50
 	job = list("Botanist")
-
-//Engineer
-
-/datum/uplink_item/jobspecific/powergloves
-	name = "Power Gloves"
-	desc = "Insulated gloves that can utilize the power of the station to deliver a short arc of electricity at a target. \
-			Must be standing on a powered cable to use. \
-			Activated by alt-clicking, or pressing the middle mouse button. Disarm intent will deal stamina damage and cause jittering, while harm intent will deal damage based on the power of the cable you're standing on."
-	reference = "PG"
-	item = /obj/item/clothing/gloves/color/yellow/power
-	cost = 50
-	job = list("Station Engineer", "Chief Engineer")
 
 //RD
 
@@ -282,16 +252,6 @@
 	item = /obj/item/fireaxe/energized
 	cost = 40
 	job = list("Life Support Specialist")
-
-//Stimulants
-
-/datum/uplink_item/jobspecific/stims
-	name = "Stimulants"
-	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
-	reference = "ST"
-	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
-	cost = 40
-	job = list("Scientist", "Research Director", "Geneticist", "Chief Medical Officer", "Medical Doctor", "Psychiatrist", "Chemist", "Paramedic", "Coroner", "Virologist")
 
 // Genetics
 
@@ -596,6 +556,14 @@
 		return FALSE
 
 	new /obj/structure/closet/crate/surplus(loc, U, crate_value, cost)
+
+/datum/uplink_item/device_tools/stims
+	name = "Stimulants"
+	desc = "A highly illegal compound contained within a compact auto-injector; when injected it makes the user extremely resistant to incapacitation and greatly enhances the body's ability to repair itself."
+	reference = "ST"
+	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
+	cost = 40
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // -----------------------------------
 // PRICES OVERRIDEN FOR NUCLEAR AGENTS
