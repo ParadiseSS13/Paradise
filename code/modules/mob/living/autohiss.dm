@@ -95,8 +95,8 @@
 			. += message
 			break
 		. += copytext(message, 1, min_index)
-		if(copytext(message, min_index, min_index+1) == uppertext(min_char))
-			. += capitalize(pick(map[min_char]))
+		if(copytext(message, min_index, min_index + 1) == uppertext(min_char))
+			. += uppertext(pick(map[min_char]))
 		else
 			. += pick(map[min_char])
 		message = copytext(message, min_index + 1)

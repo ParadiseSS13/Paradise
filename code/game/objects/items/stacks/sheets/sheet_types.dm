@@ -6,6 +6,7 @@
  * Cloth
  * Durathread
  * Cardboard
+ * Soil
  * Runed Metal (cult)
  * Brass (clockwork cult)
  * Bones
@@ -240,7 +241,8 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("loom", /obj/structure/loom, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS)
+	new /datum/stack_recipe("fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS),
+	new /datum/stack_recipe("compost bin", /obj/machinery/compost_bin, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 ))
 
 /obj/item/stack/sheet/wood
@@ -432,6 +434,28 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 
 /obj/item/stack/sheet/cardboard/New(loc, amt = null)
 	recipes = GLOB.cardboard_recipes
+	return ..()
+
+/*
+ * soil
+ */
+GLOBAL_LIST_INIT(soil_recipes, list (
+	new /datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
+))
+
+/obj/item/stack/sheet/soil
+	name = "soil"
+	desc = "A clump of fertile soil which can be used to make a plot."
+	singular_name = "soil clump"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-soil"
+	item_state = "sheet-soil"
+	origin_tech = "materials=1"
+	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/sheet/soil
+
+/obj/item/stack/sheet/soil/Initialize(loc, amt)
+	recipes = GLOB.soil_recipes
 	return ..()
 
 /*
