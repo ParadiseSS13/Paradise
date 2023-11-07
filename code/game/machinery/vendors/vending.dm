@@ -354,19 +354,19 @@
 	if(refill_canister && istype(I, refill_canister))
 		if(stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
-		else
-			//if the panel is open we attempt to refill the machine
-			var/obj/item/vending_refill/canister = I
-			if(canister.get_part_rating() == 0)
-				to_chat(user, "<span class='warning'>[canister] is empty!</span>")
-			else
-				// instantiate canister if needed
-				var/transferred = restock(canister)
-				if(transferred)
-					to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
-				else
-					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
+			return
+
+		var/obj/item/vending_refill/canister = I
+		var/transferred = restock(canister)
+		if(!transferred && !canister.get_part_rating()) // It transferred no products and has no products left, thus it is empty
+			to_chat(user, "<span class='warning'>[canister] is empty!</span>")
+			return
+		else if(transferred) // We transferred some items
+			to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
+		else // Nothing transferred, parts are still left, nothing to restock!
+			to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
 		return
+
 	if(item_slot_check(user, I))
 		insert_item(user, I)
 		return
