@@ -52704,10 +52704,6 @@
 /obj/machinery/tcomms/core/station,
 /turf/simulated/floor/bluegrid,
 /area/station/telecomms/chamber)
-"gar" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/station/maintenance/aft2)
 "gas" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -126711,7 +126707,7 @@ coG
 iRX
 ntd
 tmz
-gar
+coG
 coG
 coG
 abq
