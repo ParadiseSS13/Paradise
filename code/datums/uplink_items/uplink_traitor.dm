@@ -264,17 +264,6 @@
 	cost = 25
 	job = list("Research Director", "Geneticist")
 
-// Paper contact poison pen
-
-/datum/uplink_item/jobspecific/poison_pen
-	name = "Poison Pen"
-	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with various delayed poisons based on the selected color. Black ink is normal ink, red ink is a highly lethal poison, green ink causes radiation, blue ink will periodically shock the victim, and yellow ink will paralyze. The included gloves will protect you from your own poisons."
-	reference = "PP"
-	item = /obj/item/storage/box/syndie_kit/poisoner
-	cost = 10
-	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
-	job = list("Head of Personnel", "Quartermaster", "Cargo Technician", "Librarian", "Coroner", "Psychiatrist", "Virologist")
-
 
 //--------------------------//
 // Species Restricted Gear //
@@ -563,6 +552,14 @@
 	reference = "ST"
 	item = /obj/item/reagent_containers/hypospray/autoinjector/stimulants
 	cost = 40
+	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_weapons/poison_pen
+	name = "Poison Pen"
+	desc = "Cutting edge of deadly writing implements technology, this gadget will infuse any piece of paper with various delayed poisons based on the selected color. Black ink is normal ink, red ink is a highly lethal poison, green ink causes radiation, blue ink will periodically shock the victim, and yellow ink will paralyze. The included gloves will protect you from your own poisons."
+	reference = "PP"
+	item = /obj/item/storage/box/syndie_kit/poisoner
+	cost = 10
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 // -----------------------------------
