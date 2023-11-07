@@ -51,3 +51,9 @@
 	path = /obj/item/clothing/under/costume/katarina_cybersuit
 	donator_tier = 4
 	cost = 1
+
+/datum/gear/donor/v_jacket
+	display_name = "Куртка Вай"
+	path = /obj/item/clothing/suit/hooded/vi_arcane
+	donator_tier = 3
+	cost = 2
