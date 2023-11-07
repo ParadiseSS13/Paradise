@@ -134,7 +134,7 @@
 		var/obj/item/stack/tile/plasteel/T = W
 		if(amount >= MAX_AMOUNT)
 			return
-		var/loaded = min(MAX_AMOUNT-amount, T.amount)
+		var/loaded = min(MAX_AMOUNT - amount, T.amount)
 		T.use(loaded)
 		amount += loaded
 		if(loaded > 0)
@@ -156,7 +156,7 @@
 	if(!..())
 		return
 
-	if(mode == (BOT_REPAIRING || BOT_MAKETILE || BOT_EATTILE))
+	if(mode == (BOT_REPAIRING || BOT_MAKE_TILE || BOT_EAT_TILE))
 		return
 
 	if(prob(5))
@@ -338,7 +338,7 @@
 	if(!istype(T, /obj/item/stack/tile/plasteel))
 		return
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
-	mode = BOT_EATTILE
+	mode = BOT_EAT_TILE
 	addtimer(CALLBACK(src, PROC_REF(do_eattile), T), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eattile(obj/item/stack/tile/plasteel/T)
@@ -361,7 +361,7 @@
 	if(!istype(M, /obj/item/stack/sheet/metal))
 		return
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
-	mode = BOT_MAKETILE
+	mode = BOT_MAKE_TILE
 	addtimer(CALLBACK(src, PROC_REF(do_maketile), M), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_maketile(obj/item/stack/sheet/metal/M)
@@ -384,7 +384,7 @@
 
 /mob/living/simple_animal/bot/floorbot/update_overlays()
 	. = ..()
-	if(mode == (BOT_REPAIRING || BOT_MAKETILE || BOT_EATTILE))
+	if(mode == (BOT_REPAIRING || BOT_MAKE_TILE || BOT_EAT_TILE))
 		. += "floorbot_work"
 	else
 		. += "floorbot_[on ? "on" : "off"]"
