@@ -17,6 +17,9 @@
 "Кибериада":
 - '_maps/map_files220/cyberiad/cyberiad.dmm'
 
+"Цереброн":
+- '_maps/map_files220/MetaStation/MetaStation.dmm'
+
 "НЕ МОДУЛЬНО":
 - all: ['code/**']
 
