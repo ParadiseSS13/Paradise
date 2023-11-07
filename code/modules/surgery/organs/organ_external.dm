@@ -205,7 +205,7 @@
 	if((brute <= 0) && (burn <= 0))
 		return 0
 
-	if(!ignore_resists)
+	if(!ignore_resists && !ismachineperson(owner)) //Machine people can't have augmented limbs, and this lets us give them no strange damage issues from countering the 33% resist
 		brute *= brute_mod
 		burn *= burn_mod
 
