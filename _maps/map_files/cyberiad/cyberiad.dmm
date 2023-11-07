@@ -67386,16 +67386,6 @@
 	icon_state = "freezerfloor"
 	},
 /area/station/medical/cryo)
-"jro" = (
-/obj/structure/sign/barber{
-	pixel_x = 30
-	},
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/station/public/dorms)
 "jrq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line,
@@ -125803,7 +125793,7 @@ aTi
 qcN
 dwV
 gPu
-jro
+gPu
 qCk
 fMW
 djf

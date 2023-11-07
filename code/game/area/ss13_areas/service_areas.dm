@@ -68,4 +68,3 @@
 
 /area/station/service/casino
 	name = "\improper Casino"
-	icon = "casino"
