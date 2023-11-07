@@ -213,7 +213,8 @@
 				/obj/item/clothing/mask/holo_cigar = 100,
 				/obj/item/storage/box/syndie_kit/chameleon = 50, //costumes!
 				/obj/item/storage/backpack/satchel_flat = 50,
-				/obj/item/book_of_babel = 50
+				/obj/item/book_of_babel = 50,
+				/obj/item/clothing/mask/whistle = 50
 				)
 
 /obj/effect/spawner/lootdrop/trade_sol/minerals
