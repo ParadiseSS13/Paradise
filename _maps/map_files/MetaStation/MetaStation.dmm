@@ -49271,7 +49271,7 @@
 /obj/machinery/camera{
 	c_tag = "Secure Lab - Test Chamber";
 	dir = 8;
-	network = d
+	network = list("TestChamber","SS13","Research")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/purple{
 	dir = 10
