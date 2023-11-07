@@ -459,6 +459,13 @@
 #define COMSIG_LIVING_FIRE_TICK "living_fire_tick"
 //sent from living mobs when they are ahealed
 #define COMSIG_LIVING_AHEAL "living_aheal"
+//sent from mobs when they exit their body as a ghost
+#define COMSIG_LIVING_GHOSTIZED "ghostized"
+//sent from mobs when they re-enter their body as a ghost
+#define COMSIG_LIVING_REENTERED_BODY "reentered_body"
+//sent from a mob when they set themselves to DNR
+#define COMSIG_LIVING_SET_DNR "set_dnr"
+
 
 //ALL OF THESE DO NOT TAKE INTO ACCOUNT WHETHER AMOUNT IS 0 OR LOWER AND ARE SENT REGARDLESS!
 // none of these are called as of right now, as there is nothing listening for them.
