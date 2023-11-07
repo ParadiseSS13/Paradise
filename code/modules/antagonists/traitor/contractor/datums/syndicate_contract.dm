@@ -5,6 +5,7 @@
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
 #define RETURN_INJURY_CHANCE 85
 #define RETURN_SOUVENIR_CHANCE 10
+#define ANTAG_CONTRACT_TIME 10 MINUTES
 
 /**
   * # Syndicate Contract
@@ -20,8 +21,6 @@
 	/// How long a target remains in the Syndicate jail.
 	var/prison_time = 4 MINUTES
 	/// How long an antagonist target remains in the Syndicate jail.
-	var/felony_time = 10 MINUTES
-	/// List of items a target can get randomly after their return.
 	var/list/obj/item/souvenirs = list(
 		/obj/item/bedsheet/syndie,
 		/obj/item/clothing/under/syndicate/tacticool,
@@ -337,9 +336,9 @@
 
 	// Prepare their return
 	if(M.mind.special_role && !(M.mind.special_role in list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD)))
-		prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), felony_time, TIMER_STOPPABLE)
-	else
-		prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), prison_time, TIMER_STOPPABLE)
+		prison_time = ANTAG_CONTRACT_TIME
+
+	prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), prison_time, TIMER_STOPPABLE)
 
 	LAZYSET(GLOB.prisoner_belongings.prisoners, M, src)
 
@@ -641,3 +640,4 @@
 #undef COMPLETION_NOTIFY_DELAY
 #undef RETURN_INJURY_CHANCE
 #undef RETURN_SOUVENIR_CHANCE
+#undef ANTAG_CONTRACT_TIME
