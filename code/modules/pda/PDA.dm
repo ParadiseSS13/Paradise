@@ -177,15 +177,19 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
 /obj/item/pda/AltClick(mob/user)
-	..()
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(!Adjacent(user) && !(loc == user))
+		return
+
 	if(issilicon(user))
 		return
 
-	if(can_use(user))
-		if(id)
-			remove_id(user)
-		else
-			to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
+	if(id)
+		remove_id(user)
+	else
+		to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
 
 /obj/item/pda/CtrlClick(mob/user)
 	..()
@@ -310,12 +314,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 				playsound(src, 'sound/machines/terminal_success.ogg', 50, TRUE)
 		else
 			//Basic safety check. If either both objects are held by user or PDA is on ground and card is in hand.
-			if(((src in user.contents) && (C in user.contents)) || (isturf(loc) && in_range(src, user) && (C in user.contents)) )
-				if( can_use(user) )//If they can still act.
-					id_check(user, 2)
-					to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
-					update_icon(UPDATE_OVERLAYS)
-					SStgui.update_uis(src)
+			if(!HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && ((src in user) || (isturf(loc) && in_range(src, user))))
+				id_check(user, 2)
+				to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.<br>You can remove it with ALT click.</span>")
+				update_icon(UPDATE_OVERLAYS)
+				SStgui.update_uis(src)
 
 	else if(istype(C, /obj/item/paicard) && !src.pai)
 		user.drop_item()

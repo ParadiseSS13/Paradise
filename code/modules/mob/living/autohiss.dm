@@ -95,8 +95,8 @@
 			. += message
 			break
 		. += copytext_char(message, 1, min_index)									// SS220 EDIT - ORIGINAL: copytext
-		if(copytext_char(message, min_index, min_index+1) == uppertext(min_char))	// SS220 EDIT - ORIGINAL: copytext
-			. += capitalize(pick(map[min_char]))
+		if(copytext_char(message, min_index, min_index + 1) == uppertext(min_char))	// SS220 EDIT - ORIGINAL: copytext
+			. += uppertext(pick(map[min_char]))
 		else
 			. += pick(map[min_char])
 		message = copytext_char(message, min_index + 1)								// SS220 EDIT - ORIGINAL: copytext

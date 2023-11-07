@@ -560,6 +560,10 @@
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"
 
+/obj/item/paper/crumpled/ruins/lavaland/seed_vault/discovery
+	name = "discoveries and thoughts"
+	info = "As the Diona species, we awoke aboard our terraformation vessel with the primary goal of reshaping the alien world. Our endeavors were highly successful, as we cultivated various plant species and made astonishing discoveries throughout our journey. We seeded a remarkable 'special' grass around our ship, which thrived splendidly. However, as time passed, we faced a growing challenge - a shortage of oxygen in our containment tanks hindered our ability to spread the grass further. In response, we embarked on a series of trials and experiments to engineer plants with the capacity to survive in low-oxygen environments, thus extending our breath of life. <br>Through a series of trials, combining failures and successes, we unveiled several plant species with unique attributes. Some proved to be valuable for healing purposes, while others offered addictive properties. Glowing mushrooms emerged as a source of vital light, preventing us from succumbing to the darkness. Among these discoveries, one plant commanded our utmost attention – the 'space tobacco.' While this species did not generate oxygen, it contained a chemical known as Salbutamol, enabling us to respire in low-oxygen conditions when consumed. The only drawback was the need to meticulously extract harmful compounds for its safe utilization. <br>Amid our efforts to expand the greenery, an unexpected encounter transpired. I found myself under assault by an enigmatic creature, and I was forced to flee in haste, straying too far from our vessel. As I stand now, my supplies of life-sustaining plants are dwindling, as is my ability to endure in this low-oxygen environment. Suffocation looms, and I must hasten my return to the safety of our ship to avert this dire fate."
+
 /obj/item/paper/fortune
 	name = "fortune"
 	icon_state = "slip"
@@ -677,7 +681,7 @@
 
 /obj/item/paper/seed_vault
 	name = "Seed Vault Objective"
-	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 5 compact pickaxes <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
+	info = "<center><i>Seed Vault objective:</i></center> \ Your creator send you to planet SN-856B in Jansev4 system to preform terraformation. <br>To Help you with terraforming we provided you with: <br>- 4 compact pickaxes <br>- 4 extended-capacity emergency oxygen tank <br>- 4 breathing masks <br>- 4 bees starter kits <br>- Full botanical setup <br><br>Introduction for Experimental terraformation you will find inside Pilot room."
 
 /obj/item/paper/seed_vault/terraformation
 	name = "Terraformation Experiment for SN-856B"
@@ -833,3 +837,10 @@
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
+
+/obj/item/paper/instruction
+	name = "Instruction Notes"
+
+/obj/item/paper/instruction/pacman_generator
+	name = "Instructions for P.A.C.M.A.N. Generator series"
+	info = "P.A.C.M.A.N. are commonly used as 'Emergency' power generators, with its upgraded version being capable of utilizing uranium and plasma sheets to function. Simply anchor on the power cable node, insert the plasma sheet, select the level and turn it ON to generate power, just make sure to not overheat it or it will explode."
