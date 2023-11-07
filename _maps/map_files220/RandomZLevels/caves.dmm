@@ -95,9 +95,9 @@
 /area/awaymission/caves/build/reqpower_build)
 "au" = (
 /obj/effect/decal/cleanable/glass/plasma,
-/obj/item/shard/plasma,
 /obj/effect/landmark/damageturf,
 /obj/effect/landmark/burnturf,
+/obj/item/shard,
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "av" = (
@@ -321,7 +321,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "bq" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
@@ -431,6 +431,7 @@
 "bS" = (
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/stack/rods,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -472,6 +473,11 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
+"ca" = (
+/obj/structure/flora/ash/stem_shroom,
+/obj/structure/spacevine,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/caves)
 "cc" = (
 /obj/structure/flora/rock/pile,
 /obj/effect/landmark/burnturf,
@@ -775,8 +781,8 @@
 /area/awaymission/caves/build/reqpower_build)
 "ds" = (
 /obj/effect/decal/cleanable/glass/plasma,
-/obj/item/shard/plasma{
-	icon_state = "plasmasmall"
+/obj/item/shard{
+	icon_state = "medium"
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
@@ -889,9 +895,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/awaymission/caves/build/reqpower_build)
 "dX" = (
-/turf/simulated/floor/plating/asteroid/airless/cave/volcanic{
-	planetary_atmos = 1
-	},
+/turf/simulated/floor/plating/asteroid/airless/cave/volcanic,
 /area/awaymission/caves)
 "ea" = (
 /mob/living/simple_animal/hostile/asteroid/hivelord{
@@ -916,9 +920,9 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "ef" = (
-/obj/structure/railing,
 /obj/structure/sink/directional/west,
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/stack/rods,
 /turf/simulated/floor/plasteel/dark{
 	icon_state = "darkredalt"
 	},
@@ -1024,8 +1028,8 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "eL" = (
-/obj/effect/spawner/random_spawners/grille_often,
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/structure/flora/ash/rock/style_random,
+/obj/structure/spacevine,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "eM" = (
@@ -1565,7 +1569,7 @@
 	},
 /area/awaymission/caves)
 "hD" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/fans/tiny/invisible,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating,
@@ -1961,6 +1965,7 @@
 	},
 /obj/item/reagent_containers/syringe/insulin,
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/dnascrambler,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -2182,8 +2187,9 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/caves/build)
 "kC" = (
-/obj/item/clothing/suit/armor/riot/knight/red,
 /obj/effect/decal/remains/human,
+/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/clothing/suit/armor/riot/knight/red,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "kD" = (
@@ -2363,6 +2369,14 @@
 /area/awaymission/caves)
 "lx" = (
 /obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel/lavaland_air,
+/area/awaymission/caves/build)
+"ly" = (
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/card/id/away/old{
+	name = "Miner's Personal ID";
+	pixel_x = -5
+	},
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/awaymission/caves/build)
 "lD" = (
@@ -2702,11 +2716,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "ns" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/structure/fans/tiny/invisible,
-/obj/effect/mapping_helpers/damaged_window,
-/turf/simulated/floor/plating/lavaland_air,
-/area/awaymission/caves/build/reqpower_build)
+/obj/structure/spacevine,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/caves)
 "nt" = (
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/gibspawner/human,
@@ -2870,7 +2882,12 @@
 /turf/simulated/floor/wood/oak,
 /area/awaymission/caves/build/reqpower_build)
 "oc" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/obj/effect/spawner/random_spawners/blood_often,
+/obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/stack/rods,
+/turf/simulated/floor/plasteel/dark{
+	icon_state = "darkredalt"
+	},
 /area/awaymission/caves/build/reqpower_build)
 "oi" = (
 /obj/mecha/working/ripley{
@@ -3401,14 +3418,12 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "rm" = (
-/mob/living/simple_animal/hostile/skeleton/deadwizard{
-	wander = 0
+/obj/item/bonegel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "dark"
 	},
-/obj/structure/stone_tile/slab,
-/turf/simulated/floor/engine/cult/lavaland_air{
-	planetary_atmos = 1
-	},
-/area/awaymission/caves)
+/area/awaymission/caves/build/reqpower_build)
 "ro" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/effect/mapping_helpers/machinery/destroyed,
@@ -3548,6 +3563,11 @@
 	icon_state = "white"
 	},
 /area/awaymission/caves/build)
+"sf" = (
+/obj/structure/flora/ash/tall_shroom,
+/obj/structure/spacevine,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/caves)
 "sh" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/lavaland_air,
@@ -4081,8 +4101,14 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "uO" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/turf/simulated/floor/plating/lavaland_air,
+/mob/living/simple_animal/hostile/skeleton/deadwizard{
+	wander = 0
+	},
+/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/slab,
+/turf/simulated/floor/engine/cult/lavaland_air{
+	planetary_atmos = 1
+	},
 /area/awaymission/caves)
 "uP" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -5012,6 +5038,15 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
+"zK" = (
+/obj/structure/stone_tile/slab/cracked{
+	dir = 9
+	},
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/engine/cult/lavaland_air{
+	planetary_atmos = 1
+	},
+/area/awaymission/caves)
 "zO" = (
 /obj/structure/stone_tile/slab,
 /mob/living/simple_animal/hostile/skeleton,
@@ -5675,10 +5710,11 @@
 /area/awaymission/caves/build)
 "Do" = (
 /obj/effect/decal/cleanable/glass/plasma,
-/obj/item/shard/plasma{
-	icon_state = "plasmamedium"
-	},
 /obj/effect/landmark/damageturf,
+/obj/item/shard{
+	icon_state = "small";
+	pixel_x = 10
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "Dt" = (
@@ -6498,6 +6534,7 @@
 /obj/structure/stone_tile/slab,
 /obj/item/toy/character/lich,
 /obj/effect/decal/cleanable/dust,
+/obj/item/clothing/shoes/sandal/magic,
 /turf/simulated/floor/engine/cult/lavaland_air{
 	planetary_atmos = 1
 	},
@@ -6946,9 +6983,6 @@
 /area/awaymission/caves)
 "JU" = (
 /obj/structure/railing/cap{
-	dir = 6
-	},
-/obj/structure/railing/cap{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood/gibs/old,
@@ -7368,14 +7402,6 @@
 	planetary_atmos = 1
 	},
 /area/awaymission/caves)
-"LP" = (
-/obj/structure/railing,
-/obj/effect/decal/cleanable/glass,
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel/dark{
-	icon_state = "darkredalt"
-	},
-/area/awaymission/caves/build/reqpower_build)
 "LR" = (
 /obj/machinery/door/airlock/hatch,
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -7538,6 +7564,13 @@
 	icon_state = "darkredalt"
 	},
 /area/awaymission/caves/build/reqpower_build)
+"No" = (
+/obj/structure/mineral_door/iron,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/engine/cult/lavaland_air{
+	planetary_atmos = 1
+	},
+/area/awaymission/caves)
 "Np" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/plasteel/lavaland_air,
@@ -7629,7 +7662,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "NN" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /obj/effect/mapping_helpers/damaged_window,
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
@@ -7721,16 +7754,20 @@
 /area/awaymission/caves)
 "Oo" = (
 /obj/machinery/door/airlock/survival_pod,
-/obj/structure/fans/tiny/invisible,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
 	},
 /area/awaymission/caves/build/reqpower_build)
 "Or" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/effect/mapping_helpers/damaged_window,
-/turf/simulated/floor/plating,
+/obj/structure/stone_tile/slab/cracked{
+	dir = 2
+	},
+/obj/structure/flora/rock,
+/turf/simulated/floor/engine/cult/lavaland_air{
+	planetary_atmos = 1
+	},
 /area/awaymission/caves)
 "Os" = (
 /obj/structure/table/wood,
@@ -7748,10 +7785,14 @@
 	},
 /area/awaymission/caves)
 "Ox" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/structure/fans/tiny/invisible,
-/turf/simulated/floor/plating/lavaland_air,
-/area/awaymission/caves/build/reqpower_build)
+/obj/structure/stone_tile/slab/cracked{
+	dir = 5
+	},
+/obj/structure/flora/rock,
+/turf/simulated/floor/engine/cult/lavaland_air{
+	planetary_atmos = 1
+	},
+/area/awaymission/caves)
 "OA" = (
 /obj/machinery/atmospherics/unary/tank/air,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -8060,11 +8101,13 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "Qg" = (
-/obj/item/shard/plasma{
-	icon_state = "plasmasmall"
-	},
 /obj/effect/decal/cleanable/glass/plasma,
 /obj/effect/landmark/damageturf,
+/obj/item/shard{
+	icon_state = "medium";
+	pixel_x = -7;
+	pixel_y = -10
+	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
 "Qm" = (
@@ -8243,9 +8286,9 @@
 /area/awaymission/caves/build/reqpower_build)
 "Rw" = (
 /obj/structure/fence/door{
-	dir = 4
+	dir = 4;
+	open = 1
 	},
-/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel/lavaland_air{
 	icon_state = "dark"
 	},
@@ -8365,9 +8408,7 @@
 /area/awaymission/caves)
 "RX" = (
 /obj/machinery/hydroponics/soil,
-/turf/simulated/floor/plating/asteroid/airless/cave/volcanic{
-	planetary_atmos = 1
-	},
+/turf/simulated/floor/plating/asteroid/airless/cave/volcanic,
 /area/awaymission/caves)
 "RY" = (
 /turf/simulated/floor/plasteel/lavaland_air,
@@ -8538,9 +8579,7 @@
 "SV" = (
 /obj/structure/sink/puddle,
 /obj/item/reagent_containers/glass/bucket/wooden,
-/turf/simulated/floor/plating/asteroid/airless/cave/volcanic{
-	planetary_atmos = 1
-	},
+/turf/simulated/floor/plating/asteroid/airless/cave/volcanic,
 /area/awaymission/caves)
 "SX" = (
 /obj/machinery/power/smes,
@@ -8555,6 +8594,7 @@
 /obj/structure/table/glass,
 /obj/item/surgicaldrill,
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/bonesetter,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -9053,7 +9093,9 @@
 /turf/simulated/floor/plating,
 /area/awaymission/caves/build/reqpower_build)
 "Vd" = (
-/obj/effect/baseturf_helper/asteroid/basalt,
+/obj/effect/baseturf_helper/asteroid/basalt{
+	baseturf = /turf/simulated/floor/plating
+	},
 /turf/simulated/wall/indestructible/rock/mineral,
 /area/awaymission/caves/build/reqpower_build)
 "Vi" = (
@@ -9260,6 +9302,7 @@
 	list_reagents = list("methamphetamine" = 30)
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/dnascrambler,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -9306,9 +9349,6 @@
 /obj/item/card/id/away/old{
 	name = "Miner's Personal ID";
 	pixel_x = -5
-	},
-/obj/item/card/id/away/old{
-	name = "Miner's Personal ID"
 	},
 /turf/simulated/floor/plating/lavaland_air,
 /area/awaymission/caves)
@@ -9539,17 +9579,6 @@
 	planetary_atmos = 1
 	},
 /area/awaymission/caves)
-"Xu" = (
-/obj/structure/railing/cap{
-	dir = 6
-	},
-/obj/effect/spawner/random_spawners/blood_often,
-/obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor/plasteel/dark{
-	dir = 2;
-	icon_state = "darkredaltstrip"
-	},
-/area/awaymission/caves/build/reqpower_build)
 "Xv" = (
 /obj/structure/bonfire,
 /obj/structure{
@@ -9613,6 +9642,10 @@
 	icon_state = "dark"
 	},
 /area/awaymission/caves)
+"XG" = (
+/obj/item/wisp_lantern,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/awaymission/caves)
 "XH" = (
 /obj/effect/turf_decal/miscellaneous/goldensiding/corner,
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -9651,6 +9684,7 @@
 /area/awaymission/caves)
 "XN" = (
 /obj/machinery/optable,
+/obj/item/FixOVein/alien,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"
@@ -9801,7 +9835,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/awaymission/caves)
 "Yx" = (
-/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/awaymission/caves)
 "YC" = (
@@ -9954,7 +9988,10 @@
 /obj/structure/closet/crate/wooden/wooden_crate,
 /obj/structure/stone_tile/slab,
 /obj/item/reagent_containers/food/drinks/trophy/bronze_cup,
-/obj/item/reagent_containers/food/drinks/bottle/wine,
+/obj/item/reagent_containers/food/drinks/bottle/wine{
+	name = "Thousand-year-old wine";
+	icon_state = "patronbottle"
+	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/engine/cult/lavaland_air{
 	planetary_atmos = 1
@@ -16737,10 +16774,10 @@ Lr
 kD
 VD
 ZJ
-eL
-eL
-eL
-eL
+Pb
+Pb
+Pb
+Pb
 TK
 TK
 TK
@@ -16972,8 +17009,8 @@ ZJ
 ZJ
 ZJ
 ZJ
-eL
-eL
+Pb
+Pb
 TK
 TK
 TK
@@ -17476,7 +17513,7 @@ LU
 LU
 LU
 LU
-LU
+Or
 LU
 LU
 LU
@@ -17708,9 +17745,9 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
+iE
+Ox
+mz
 LU
 LU
 LU
@@ -17907,8 +17944,8 @@ NJ
 tW
 gq
 kG
-eL
-TK
+Pb
+ZJ
 TK
 TK
 TK
@@ -17939,10 +17976,10 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
+mz
+wC
+zK
+mz
 LU
 LU
 LU
@@ -18139,7 +18176,7 @@ ts
 tW
 tW
 kG
-eL
+Pb
 ZJ
 ZJ
 ZJ
@@ -18168,12 +18205,12 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
+mz
+mz
+mz
+mz
+No
+No
 mz
 mz
 mz
@@ -18371,7 +18408,7 @@ NJ
 NJ
 Kl
 kG
-eL
+Pb
 ZJ
 ZJ
 ZJ
@@ -18400,18 +18437,18 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 UN
 Dv
-Dv
+Xq
+Xq
+ET
+Xq
+Xq
 mz
 mz
+mz
+Xq
 Xq
 Dv
 UI
@@ -18632,17 +18669,17 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 UN
 Dv
 Dv
+Xq
+Xq
+Xq
+Xq
+Dv
 mz
+Xq
 Xq
 Xq
 Dv
@@ -18864,19 +18901,19 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 mz
-Xq
 Dv
-Xq
-Xq
-Xq
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
 Dv
 Dv
 Xq
@@ -19096,22 +19133,22 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 mz
-mz
-Dv
 mz
 Xq
-mz
+Xq
+Xq
+Dv
+Xq
+Xq
+Dv
+Xq
+Xq
+Xq
 Dv
 GJ
-mz
+Xq
 wQ
 mz
 TK
@@ -19327,15 +19364,15 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 mz
 mz
+Dv
+Xq
+Xq
+Dv
+Xq
+Xq
 Xq
 Dv
 Xq
@@ -19516,7 +19553,7 @@ ZJ
 bO
 Uh
 jA
-NS
+ly
 hw
 ew
 wh
@@ -19559,14 +19596,14 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 Bz
+Dv
+Dv
+Xq
+Dv
+Xq
+Xq
 Xq
 Xq
 Dv
@@ -19791,16 +19828,16 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 mz
-Xq
-Xq
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
 Dv
 Dv
 Dv
@@ -20023,15 +20060,15 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 WF
-rm
+uO
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
 Dv
 Dv
 Dv
@@ -20255,16 +20292,16 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 mz
-Xq
-Xq
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
 Dv
 Dv
 Dv
@@ -20487,14 +20524,14 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 Bz
+Dv
+Dv
+Xq
+Dv
+Xq
+Xq
 Xq
 Xq
 Dv
@@ -20719,15 +20756,15 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 mz
 mz
+Dv
+Xq
+Xq
+Dv
+Xq
+Xq
 Xq
 Dv
 Xq
@@ -20952,22 +20989,22 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 mz
-mz
-Dv
 mz
 Xq
-mz
+Xq
+Xq
+Dv
+Xq
+Xq
+Dv
+Xq
+Xq
+Xq
 Dv
 Dv
-mz
+Xq
 Xq
 mz
 TK
@@ -21184,19 +21221,19 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 mz
-Xq
 Dv
-Xq
-Xq
-Xq
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
+Dv
 Dv
 Dv
 Xq
@@ -21416,17 +21453,17 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 UN
 Dv
 Dv
+Xq
+Xq
+Xq
+Xq
+Dv
 mz
+Xq
 Xq
 Xq
 Dv
@@ -21648,18 +21685,18 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
 mz
 UN
 Dv
-Dv
+Xq
+Xq
+Xq
+Xq
+Xq
 mz
 mz
+mz
+Xq
 Xq
 Dv
 Dv
@@ -21880,12 +21917,12 @@ LU
 LU
 LU
 LU
-LU
-LU
-LU
-LU
-LU
-LU
+mz
+mz
+mz
+mz
+mz
+mz
 mz
 mz
 mz
@@ -24476,10 +24513,10 @@ TK
 TK
 TK
 TK
-ZJ
-va
-ZJ
-ZJ
+ns
+sf
+ns
+ns
 TK
 TK
 TK
@@ -24707,10 +24744,10 @@ TK
 TK
 TK
 TK
-ZJ
-ZJ
-ZJ
-ZJ
+ns
+ns
+ns
+ns
 TK
 TK
 TK
@@ -24941,9 +24978,9 @@ TK
 TK
 ZJ
 Aq
-ZJ
-ZJ
-CO
+ns
+ns
+ca
 TK
 TK
 TK
@@ -25168,10 +25205,10 @@ TK
 ZJ
 TK
 ZJ
-ZJ
+ns
 TK
 TK
-ZJ
+ns
 ZJ
 ZJ
 ZJ
@@ -25398,17 +25435,17 @@ TK
 TK
 TK
 TK
-ZJ
-va
-ZJ
+ns
+sf
+ns
 TK
 TK
 ZJ
 TK
 TK
 ZJ
-ZJ
-ZJ
+ns
+ns
 TK
 TK
 TK
@@ -25640,8 +25677,8 @@ TK
 TK
 TK
 TK
-ZJ
-ZJ
+ns
+ns
 TK
 TK
 BH
@@ -25866,14 +25903,14 @@ ZJ
 ZJ
 ZJ
 TK
-ZJ
-ZJ
+ns
+ns
 TK
 Aq
 TK
 TK
-ZJ
-Aq
+ns
+eL
 TK
 TK
 BH
@@ -26097,14 +26134,14 @@ TK
 TK
 TK
 Aq
-ZJ
-ZJ
-ZJ
+ns
+ns
+ns
 TK
-ZJ
+XG
 bV
 va
-ZJ
+ns
 TK
 TK
 TK
@@ -26329,10 +26366,10 @@ TK
 TK
 TK
 ZJ
-ZJ
+ns
 hu
-ZJ
-ZJ
+ns
+ns
 ZJ
 kC
 TK
@@ -29178,43 +29215,43 @@ LU
 LU
 LU
 LU
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 as
 as
 as
 as
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -29410,27 +29447,27 @@ LU
 LU
 LU
 LU
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 as
 as
 mX
@@ -29441,12 +29478,12 @@ as
 as
 as
 as
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -29642,27 +29679,27 @@ LU
 LU
 LU
 LU
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 as
 dV
 pk
@@ -29673,12 +29710,12 @@ Mp
 Tk
 SU
 as
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -29874,27 +29911,27 @@ LU
 LU
 LU
 LU
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 as
 gk
 pk
@@ -29905,12 +29942,12 @@ GN
 XT
 ae
 as
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -30106,27 +30143,27 @@ LU
 LU
 LU
 LU
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 as
 as
 as
 as
 as
 as
-lD
+LU
 as
 vh
 pk
@@ -30138,11 +30175,11 @@ XT
 Mp
 as
 Ol
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -30338,27 +30375,27 @@ LU
 LU
 LU
 LU
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 as
 Ri
 Ry
 Ri
 Rg
 as
-lD
+LU
 as
 QF
 pk
@@ -30374,7 +30411,7 @@ as
 as
 as
 as
-lD
+LU
 LU
 LU
 LU
@@ -30570,27 +30607,27 @@ LU
 LU
 LU
 LU
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 as
 Ri
 Ri
 Ri
 Ri
 as
-lD
+LU
 as
 fq
 xQ
@@ -30606,7 +30643,7 @@ ah
 zx
 vE
 as
-lD
+LU
 LU
 LU
 LU
@@ -30802,27 +30839,27 @@ LU
 LU
 LU
 LU
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 as
 Rg
 xE
 nb
 Ri
 as
-lD
+LU
 as
 as
 Fp
@@ -30838,7 +30875,7 @@ dP
 Ei
 iR
 as
-lD
+LU
 LU
 LU
 LU
@@ -31034,27 +31071,27 @@ LU
 LU
 LU
 LU
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
 as
 as
 as
 as
 as
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
 as
 OL
 TG
 IY
 ro
 as
-lD
+LU
 as
 eW
 Rk
@@ -31070,7 +31107,7 @@ bY
 as
 vl
 as
-lD
+LU
 LU
 LU
 LU
@@ -31275,8 +31312,8 @@ iu
 Dw
 iu
 as
-lD
-lD
+LU
+LU
 as
 as
 as
@@ -31286,7 +31323,7 @@ hG
 PA
 Vc
 as
-lD
+LU
 as
 Uj
 vg
@@ -31302,7 +31339,7 @@ vC
 as
 as
 as
-lD
+LU
 LU
 LU
 LU
@@ -31508,7 +31545,7 @@ XH
 dP
 as
 as
-lD
+LU
 as
 Tl
 Tl
@@ -31518,7 +31555,7 @@ xS
 aa
 or
 as
-lD
+LU
 as
 as
 as
@@ -31532,9 +31569,9 @@ dj
 uI
 ud
 as
-lD
-lD
-lD
+LU
+LU
+LU
 LU
 LU
 LU
@@ -31740,7 +31777,7 @@ yY
 Xz
 vY
 as
-lD
+LU
 as
 Az
 dr
@@ -31750,8 +31787,8 @@ xS
 xS
 Pq
 as
-lD
-lD
+LU
+LU
 as
 Ol
 Uv
@@ -31765,8 +31802,8 @@ as
 as
 as
 as
-lD
-lD
+LU
+LU
 LU
 LU
 LU
@@ -31972,7 +32009,7 @@ aa
 EJ
 Mo
 as
-lD
+LU
 as
 aF
 zG
@@ -31982,8 +32019,8 @@ bb
 Fo
 aa
 as
-lD
-lD
+LU
+LU
 as
 QO
 xS
@@ -31998,7 +32035,7 @@ XN
 AK
 as
 as
-lD
+LU
 LU
 LU
 LU
@@ -32215,7 +32252,7 @@ as
 ot
 as
 as
-lD
+LU
 as
 as
 ON
@@ -32230,7 +32267,7 @@ iv
 ZU
 oK
 as
-lD
+LU
 LU
 LU
 LU
@@ -32447,8 +32484,8 @@ Hd
 Vn
 di
 as
-lD
-lD
+LU
+LU
 as
 Rn
 Rn
@@ -32462,7 +32499,7 @@ yW
 Ug
 as
 as
-lD
+LU
 LU
 LU
 LU
@@ -32679,7 +32716,7 @@ qX
 ff
 pB
 as
-lD
+LU
 as
 as
 We
@@ -32690,11 +32727,11 @@ iQ
 as
 as
 pV
-yW
+rm
 MC
 Zr
 as
-lD
+LU
 LU
 LU
 LU
@@ -32911,12 +32948,12 @@ jM
 OZ
 zY
 as
-lD
+LU
 as
 lv
 aa
 JU
-Xu
+nl
 bS
 Zn
 FL
@@ -32926,7 +32963,7 @@ bQ
 DT
 as
 as
-lD
+LU
 LU
 LU
 LU
@@ -33148,7 +33185,7 @@ as
 as
 hk
 ef
-LP
+Wb
 vL
 Nh
 as
@@ -33158,7 +33195,7 @@ as
 as
 as
 as
-lD
+LU
 LU
 LU
 LU
@@ -34317,8 +34354,8 @@ as
 as
 as
 as
-lD
-lD
+LU
+LU
 LU
 LU
 LU
@@ -34550,7 +34587,7 @@ kp
 PO
 as
 as
-lD
+LU
 LU
 LU
 LU
@@ -34782,7 +34819,7 @@ RR
 Zn
 fW
 as
-lD
+LU
 LU
 LU
 LU
@@ -35014,7 +35051,7 @@ Md
 YI
 as
 as
-lD
+LU
 LU
 LU
 LU
@@ -35246,7 +35283,7 @@ Rk
 GH
 gj
 as
-lD
+LU
 LU
 LU
 LU
@@ -35468,7 +35505,7 @@ as
 QO
 so
 JU
-Xu
+nl
 Gg
 Ke
 rM
@@ -35478,7 +35515,7 @@ aD
 SY
 as
 as
-lD
+LU
 LU
 LU
 LU
@@ -35700,7 +35737,7 @@ as
 as
 Jt
 ef
-lW
+oc
 ZE
 nm
 as
@@ -35709,8 +35746,8 @@ as
 as
 as
 as
-lD
-lD
+LU
+LU
 LU
 LU
 LU
@@ -35936,13 +35973,13 @@ KF
 as
 as
 as
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -36168,13 +36205,13 @@ oG
 as
 Wz
 as
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -36400,13 +36437,13 @@ nl
 Ce
 PY
 as
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -36632,13 +36669,13 @@ vr
 as
 SR
 as
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -36864,13 +36901,13 @@ zF
 as
 as
 as
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -37095,14 +37132,14 @@ lE
 Rg
 lD
 lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -37204,7 +37241,7 @@ OK
 OK
 GF
 FF
-GF
+AE
 GF
 GF
 mz
@@ -37327,14 +37364,14 @@ HZ
 gs
 jy
 lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -37559,14 +37596,14 @@ dP
 lD
 lD
 lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -37623,9 +37660,9 @@ bO
 bO
 bO
 ZJ
-ZJ
-TK
-TK
+bO
+bO
+bO
 TK
 TK
 TK
@@ -37633,7 +37670,7 @@ bO
 bO
 bO
 bO
-TK
+bO
 bO
 bO
 bO
@@ -37791,14 +37828,14 @@ lD
 lD
 lD
 lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -37855,20 +37892,20 @@ bO
 bO
 bO
 bO
-TK
-TK
-TK
-TK
 bO
 bO
 bO
 bO
+bO
+bO
+bO
+bO
+bO
+bO
 TK
 TK
-TK
-TK
-TK
-Pb
+bO
+bO
 aV
 ZJ
 nx
@@ -37900,7 +37937,7 @@ FF
 GF
 GF
 GF
-AE
+GF
 GF
 Vt
 GF
@@ -38023,14 +38060,14 @@ lD
 lD
 lD
 lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+LU
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -38094,13 +38131,13 @@ bO
 bO
 bO
 bO
+bO
+bO
 TK
 TK
 TK
 TK
-TK
-TK
-TK
+aV
 kD
 ZJ
 TK
@@ -38255,14 +38292,14 @@ xf
 xf
 oY
 xi
-oc
-lD
-lD
-lD
-lD
-lD
-lD
-lD
+ZJ
+LU
+LU
+LU
+LU
+LU
+LU
+LU
 LU
 LU
 LU
@@ -38324,16 +38361,16 @@ bO
 bO
 bO
 bO
-TK
-TK
-TK
+bO
+bO
+bO
 TK
 TK
 TK
 TK
 TK
 Aq
-ZJ
+Ge
 TK
 TK
 LU
@@ -38556,9 +38593,9 @@ bO
 bO
 bO
 bO
-TK
-TK
-TK
+bO
+bO
+bO
 TK
 TK
 TK
@@ -38788,8 +38825,8 @@ bO
 bO
 bO
 bO
-ZJ
-TK
+bO
+bO
 TK
 TK
 ZJ
@@ -39635,7 +39672,7 @@ GA
 Ce
 dP
 dP
-dP
+Rg
 dP
 as
 sn
@@ -39862,8 +39899,8 @@ xf
 xf
 xf
 xf
-Ox
-ns
+bq
+hD
 xf
 xf
 xf
@@ -40407,7 +40444,7 @@ TK
 TK
 TK
 TK
-TK
+bO
 bO
 bO
 TK
@@ -40637,9 +40674,9 @@ TK
 TK
 TK
 TK
-TK
-TK
-TK
+bO
+bO
+bO
 bO
 TK
 TK
@@ -40802,7 +40839,7 @@ BH
 Og
 dU
 zm
-Yx
+pZ
 BH
 BH
 BH
@@ -41034,7 +41071,7 @@ BH
 BH
 NN
 vZ
-Or
+NN
 BH
 BH
 BH
@@ -41264,9 +41301,9 @@ BH
 BH
 BH
 BH
-uO
+pZ
 aV
-Or
+NN
 BH
 BH
 BH
@@ -41496,9 +41533,9 @@ BH
 BH
 Th
 BH
-uO
+pZ
 vZ
-Or
+NN
 BH
 BH
 BH
@@ -41730,7 +41767,7 @@ oB
 Yx
 nu
 aV
-Yx
+pZ
 BH
 BH
 BH
@@ -44099,10 +44136,10 @@ bO
 bO
 bO
 bO
-bO
-bO
-bO
-bO
+ZJ
+TK
+TK
+TK
 ZJ
 ZJ
 ZJ
@@ -44331,10 +44368,10 @@ bO
 bO
 bO
 bO
-bO
-bO
-bO
-bO
+ZJ
+ZJ
+TK
+TK
 bO
 bO
 bO
@@ -44564,9 +44601,9 @@ bO
 bO
 bO
 bO
-bO
-bO
-bO
+ZJ
+ZJ
+ZJ
 bO
 bO
 bO
@@ -44801,8 +44838,8 @@ bO
 bO
 bO
 bO
-bO
-bO
+ZJ
+ZJ
 TK
 TK
 TK

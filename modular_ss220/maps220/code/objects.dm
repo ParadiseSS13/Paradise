@@ -248,7 +248,7 @@
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	projectile_energy_cost = 14
 
-//Immortality ring
+/* Caves awaymission */
 /obj/item/clothing/gloves/ring/immortality_ring
 	name = "старое кольцо"
 	icon_state = "shadowring"
@@ -301,3 +301,95 @@
 		flags = NODROP
 		to_chat(user, span_danger("[name] туго обвивается вокруг твоего пальца!"))
 		SEND_SOUND (user, sound('modular_ss220/aesthetics_sounds/sound/creepy/demon2.ogg'))
+
+/obj/item/emerald_stone
+	name = "изумрудный камень"
+	desc = "Маленькая серебряная побрякушка, инкрустированная ярким изумрудом бриллиантовой огранки. На верхушечной площадке камня выгравирован череп."
+	icon = 'icons/obj/wizard.dmi'
+	icon_state = "necrostone"
+	item_state = "electronic"
+	origin_tech = "bluespace=4;materials=4"
+	w_class = WEIGHT_CLASS_TINY
+	var/list/skeletons = list()
+	var/number = 2 // for ingame VV change
+
+/obj/item/emerald_stone/attack(mob/living/carbon/human/undead, mob/living/carbon/human/user)
+
+	if(!istype(undead))
+		return ..()
+
+	if(!istype(user))
+		return
+
+	if(undead.skeleton)
+		to_chat(user, span_warning("Этот воин уже отслужил свое."))
+		return
+
+	if(undead.stat != DEAD)
+		to_chat(user, span_warning("Этот артефакт подействует лишь на мертвеца!"))
+		return
+
+	if((!undead.mind || !undead.client) && !undead.grab_ghost())
+		to_chat(user, span_warning("Это тело никогда не было обременено душой..."))
+		return
+
+	check_skeletons() // clean out/refresh the list
+
+	if(length(skeletons) >= number)
+		to_chat(user, span_warning("Этот артефакт может поддерживать только одного мертвеца!</span>"))
+		return
+
+	else
+		undead.set_species(/datum/species/skeleton) // OP skellybones
+		undead.visible_message(span_warning ("[undead] отторгает бренную оболочку и предстает в виде скелета!"))
+		undead.grab_ghost() // yoinks the ghost if its not in the body
+		undead.revive()
+		equip_undead(undead)
+	skeletons |= undead
+	to_chat(undead, span_danger("Вас возродил </span><B>[user.real_name]!</B>"))
+	to_chat(undead, span_danger("[user.p_theyre(TRUE)] теперь ваш хозяин, служите ему, чего бы это вам не стоило!</span>"))
+
+/obj/item/emerald_stone/proc/check_skeletons()
+	for(var/count in skeletons)
+		if(!ishuman(count))
+			skeletons.Remove(count)
+			continue
+		var/mob/living/carbon/human/undead = count
+		if(undead.stat == DEAD)
+			skeletons.Remove(count)
+			continue
+	listclearnulls(skeletons)
+
+/obj/item/emerald_stone/proc/equip_undead(mob/living/carbon/human/raised)
+	for(var/obj/item/I in raised)
+		raised.unEquip(I)
+	var/randomUndead = "roman" // defualt
+	randomUndead = pick("roman","pirate","clown")
+
+	switch(randomUndead)
+		if("roman")
+			var/hat = pick(/obj/item/clothing/head/helmet/roman, /obj/item/clothing/head/helmet/roman/legionaire)
+			raised.equip_to_slot_or_del(new hat(raised), SLOT_HUD_HEAD)
+			raised.equip_to_slot_or_del(new /obj/item/clothing/under/costume/roman(raised), SLOT_HUD_JUMPSUIT)
+			raised.equip_to_slot_or_del(new /obj/item/clothing/shoes/roman(raised), SLOT_HUD_SHOES)
+			raised.equip_to_slot_or_del(new /obj/item/shield/riot/roman(raised), SLOT_HUD_LEFT_HAND)
+			raised.equip_to_slot_or_del(new /obj/item/claymore/ceremonial(raised), SLOT_HUD_RIGHT_HAND)
+			raised.equip_to_slot_or_del(new /obj/item/spear(raised), SLOT_HUD_BACK)
+		if("pirate")
+			raised.equip_to_slot_or_del(new /obj/item/clothing/under/costume/pirate(raised), SLOT_HUD_JUMPSUIT)
+			raised.equip_to_slot_or_del(new /obj/item/clothing/suit/pirate_brown(raised),  SLOT_HUD_OUTER_SUIT)
+			raised.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(raised), SLOT_HUD_HEAD)
+			raised.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(raised), SLOT_HUD_SHOES)
+			raised.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(raised), SLOT_HUD_GLASSES)
+			raised.equip_to_slot_or_del(new /obj/item/claymore/ceremonial(raised), SLOT_HUD_RIGHT_HAND)
+			raised.equip_to_slot_or_del(new /obj/item/spear(raised), SLOT_HUD_BACK)
+			raised.equip_to_slot_or_del(new /obj/item/shield/riot/roman(raised), SLOT_HUD_LEFT_HAND)
+		if("clown")
+			raised.equip_to_slot_or_del(new /obj/item/clothing/under/rank/civilian/clown(raised), SLOT_HUD_JUMPSUIT)
+			raised.equip_to_slot_or_del(new /obj/item/clothing/shoes/clown_shoes(raised), SLOT_HUD_SHOES)
+			raised.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(raised), SLOT_HUD_WEAR_MASK)
+			raised.equip_to_slot_or_del(new /obj/item/clothing/head/stalhelm(raised), SLOT_HUD_HEAD)
+			raised.equip_to_slot_or_del(new /obj/item/bikehorn(raised), SLOT_HUD_LEFT_STORE)
+			raised.equip_to_slot_or_del(new /obj/item/claymore/ceremonial(raised), SLOT_HUD_RIGHT_HAND)
+			raised.equip_to_slot_or_del(new /obj/item/shield/riot/roman(raised), SLOT_HUD_LEFT_HAND)
+			raised.equip_to_slot_or_del(new /obj/item/spear(raised), SLOT_HUD_BACK)
