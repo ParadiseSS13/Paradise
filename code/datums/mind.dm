@@ -801,7 +801,7 @@
 				for(var/obj/item/bio_chip/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><Font size =3><B>Your mindshield bio-chip has been deactivated.</B></FONT></span>")
+				to_chat(H, "<span class='notice'><font size='3'><b>Your mindshield bio-chip has been deactivated.</b></font></span>")
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield bio-chip")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield bio-chip")
 			if("add")
