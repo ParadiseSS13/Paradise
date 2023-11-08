@@ -530,15 +530,16 @@
 /* Abomination */
 /mob/living/simple_animal/hostile/abomination
 	name = "мерзость"
-	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент абдукторов. Что именно они пытались создать?"
+	desc = "Скуластое, громоздкое чудовище. Еще один неудачный эксперимент. Что именно они пытались создать?"
 	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
 	icon_state = "abomination1"
 	icon_living = "abomination1"
 	icon_dead = "abomination_dead"
-	health = 300
-	maxHealth = 300
-	melee_damage_lower = 25
+	health = 230
+	maxHealth = 230
+	melee_damage_lower = 15
 	melee_damage_upper = 25
+	obj_damage = 60
 	attacktext = "грызёт"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("abomination")
@@ -553,8 +554,8 @@
 	icon_state = "abomination_headcrab"
 	icon_living = "abomination_headcrab"
 	icon_dead = "abomination_headcrab_dead"
-	health = 250
-	maxHealth = 250
+	health = 200
+	maxHealth = 200
 
 /mob/living/simple_animal/hostile/abomination/altform1
 	icon_state = "abomination2"
