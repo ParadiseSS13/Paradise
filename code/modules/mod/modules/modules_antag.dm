@@ -473,9 +473,9 @@
 	shield_icon = "shield-old"
 
 /obj/item/mod/module/anomaly_locked/teslawall
-	name = "MOD teslawall module" // temp
-	desc = "A module that uses a flux core to make immolating dropwalls." //change
-	icon_state = "teleporter" //change
+	name = "MOD arc-shield module" // temp
+	desc = "A module that uses a flux core to project an unstable protective shield." //change
+	icon_state = "tesla"
 	complexity = 3
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 75
@@ -541,7 +541,6 @@
 	return NONE
 
 /obj/item/mod/module/anomaly_locked/teslawall/proc/arc_flash(mob/owner, atom/movable/hitby, damage, attack_type)
-	message_admins("[hitby] [damage] [owner]")
 	if(attack_type == PROJECTILE_ATTACK || attack_type == THROWN_PROJECTILE_ATTACK)
 		tesla_zap(owner, zap_range, power, zap_flags)
 		return

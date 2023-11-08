@@ -108,6 +108,9 @@
 				M.KnockDown(4 SECONDS)
 			else
 				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
+			if(immolate)
+				M.adjust_fire_stacks(immolate)
+				M.IgniteMob()
 		else
 			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
 			add_attack_logs(src, M, "Hit lightly by [src]")
@@ -144,7 +147,7 @@
 			A.duration += 10 SECONDS
 			qdel(src)
 			return
-	new /obj/effect/abstract/arc_revolver(target, charge_number)
+	new /obj/effect/abstract/arc_revolver(target, charge_number, immolate)
 	qdel(src)
 
 
@@ -156,12 +159,14 @@
 	var/list/chains = list()
 	var/successfulshocks = 0
 	var/wait_for_three = 0
+	var/our_immolate = 0
 
-/obj/effect/abstract/arc_revolver/Initialize(mapload, charge_number)
+/obj/effect/abstract/arc_revolver/Initialize(mapload, charge_number, immolate)
 	. = ..()
 	charge_numbers += charge_number
 	START_PROCESSING(SSfastprocess, src)
 	GLOB.arc_emitters += src
+	our_immolate = immolate / 5
 	build_chains()
 
 /obj/effect/abstract/arc_revolver/proc/build_chains()
@@ -232,6 +237,9 @@
 					)
 				var/damage = (2 - isliving(B.origin) + 2 - isliving(B.target)) //Damage is upped depending if the origin is a mob or not. Wall to wall hurts more than mob to wall, or mob to mob
 				L.adjustFireLoss(damage) //time to die
+				if(our_immolate)
+					L.adjust_fire_stacks(our_immolate)
+					L.IgniteMob()
 				. = 1
 
 /obj/effect/abstract/arc_revolver/proc/removechains()

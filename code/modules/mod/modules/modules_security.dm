@@ -171,7 +171,8 @@
 /obj/item/mod/module/anomaly_locked/firewall
 	name = "MOD firewall module"
 	desc = "A module that uses a pyroclastic core to make immolating dropwalls."
-	icon_state = "teleporter" //change
+	icon_state = "firewall"
+	overlay_state_inactive = "module_mirage_grenade"
 	module_type = MODULE_ACTIVE
 	complexity = 3
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 5
@@ -196,3 +197,27 @@
 	prebuilt = TRUE
 	removable = FALSE // No switching it into another suit / no free anomaly core
 
+/obj/item/mod/module/anomaly_locked/vortex_shotgun
+	name = "MOD vortex shotgun module"
+	desc = "A module that uses a vortex core to rend the fabric of space time in front of it" //change
+	icon_state = "vortex"
+	module_type = MODULE_ACTIVE
+	complexity = 3
+	use_power_cost = DEFAULT_CHARGE_DRAIN * 750
+	incompatible_modules = list(/obj/item/mod/module/gps)
+	cooldown_time = 0.5 SECONDS
+	device = /obj/item/gun/energy/vortex_shotgun
+	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/vortex)
+
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/Initialize(mapload)
+	. = ..()
+	RegisterSignal(device, COMSIG_GUN_FIRED, PROC_REF(on_gun_fire))
+
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/proc/on_gun_fire()
+	SIGNAL_HANDLER
+	if(!drain_power(use_power_cost)) //Drain the rest dry
+		drain_power(mod.core.check_charge())
+
+/obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt
+	prebuilt = TRUE
+	removable = FALSE // No switching it into another suit / no free anomaly core

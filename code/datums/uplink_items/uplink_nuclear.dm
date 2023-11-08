@@ -504,7 +504,7 @@
 		and the power cost can be an easy indicator of this. However, it is capable of blocking nearly any incoming attack, \
 		though with its' low amount of separate charges, the user remains mortal."
 	item = /obj/item/mod/module/energy_shield
-	cost = 110
+	cost = 150
 	reference = "SHS"
 	excludefrom = list()
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

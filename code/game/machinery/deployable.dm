@@ -418,7 +418,7 @@
 		new /obj/item/grenade/barrier/dropwall(src)
 
 /obj/item/grenade/barrier/dropwall/firewall
-	name = "firewwall shield generator"
+	name = "firewall shield generator"
 	generator_type = /obj/structure/dropwall_generator/firewall
 
 /obj/structure/dropwall_generator/firewall
