@@ -42853,7 +42853,6 @@
 /area/station/engineering/atmos/control)
 "cHz" = (
 /obj/machinery/status_display{
-	layer = 4;
 	pixel_y = -32
 	},
 /obj/structure/window/reinforced{
@@ -57826,10 +57825,6 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard";
-	name = "Biohazard Shutter"
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard";
@@ -85521,7 +85516,6 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/status_display{
-	layer = 4;
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -86997,7 +86991,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
 "tMd" = (
-/obj/machinery/status_display/supply_display{
+/obj/machinery/ai_status_display{
 	pixel_y = 32
 	},
 /obj/machinery/computer/borgupload,
@@ -92852,6 +92846,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard";
+	name = "Biohazard Shutter"
 	},
 /turf/simulated/floor/bluegrid,
 /area/station/turret_protected/ai_upload)
