@@ -83564,7 +83564,7 @@
 /area/station/public/sleep)
 "rTx" = (
 /obj/structure/chair/comfy/brown{
-	dir = 4
+	dir = 8
 	},
 /obj/effect/landmark/start/captain,
 /turf/simulated/floor/carpet/royalblue,
@@ -85138,7 +85138,7 @@
 	id = "gravity";
 	pixel_x = -8;
 	pixel_y = 24;
-	name = "Radiation shielding control"
+	name = "radiation shielding control"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
@@ -91369,7 +91369,7 @@
 /area/station/science/server)
 "vTg" = (
 /obj/structure/chair/comfy/brown{
-	dir = 4
+	dir = 8
 	},
 /obj/machinery/camera{
 	c_tag = "Captain's Quarters";
@@ -95933,7 +95933,7 @@
 /obj/item/crowbar,
 /obj/machinery/camera{
 	c_tag = "Captain's Office";
-	dir = 8
+	dir = 4
 	},
 /obj/structure/sign/bobross{
 	pixel_x = -32
