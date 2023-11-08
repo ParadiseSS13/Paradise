@@ -79100,10 +79100,6 @@
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/book/manual/wiki/sop_supply{
-	pixel_x = -6;
-	pixel_y = 7
-	},
 /obj/item/book/manual/wiki/sop_service{
 	pixel_x = 6;
 	pixel_y = 4
