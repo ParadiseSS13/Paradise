@@ -655,9 +655,17 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Public Station Announcements"
+	newChannel.channel_name = "Station Command Announcements"
 	newChannel.author = "Automated Announcement Listing"
 	newChannel.icon = "bullhorn"
+	newChannel.frozen = TRUE
+	newChannel.admin_locked = TRUE
+	GLOB.news_network.channels += newChannel
+
+	newChannel = new /datum/feed_channel
+	newChannel.channel_name = "Public Station Announcements"
+	newChannel.author = "Automated Announcement Listing"
+	newChannel.icon = "users"
 	newChannel.is_public = TRUE
 	GLOB.news_network.channels += newChannel
 
