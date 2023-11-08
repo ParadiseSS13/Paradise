@@ -79,6 +79,7 @@
 // 2. Так модпаки прайма будут включены в тестах и линтере.
 #ifndef MODPACK_MAIN_ONLY
 #include "security_redalert_accesses/_security_redalert_accesses.dme"
+#include "prime_only/_prime.dme"
 #endif
 
 // --- UNUSED MODS --- //

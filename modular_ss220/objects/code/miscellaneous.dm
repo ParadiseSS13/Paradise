@@ -136,3 +136,9 @@
 	icon_state = "archives"
 	light_range = 1.5
 	light_color = LIGHT_COLOR_FIRE
+
+// Display Cases
+/obj/structure/displaycase/hos
+	alert = TRUE
+	start_showpiece_type = /obj/item/reagent_containers/food/snacks/donut/sprinkles
+	req_access = list(ACCESS_HOS)

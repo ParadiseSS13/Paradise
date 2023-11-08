@@ -29,7 +29,6 @@
 	playsound(user, dry_fire_sound, 100, 1)
 
 // Colt Anaconda .44
-
 /obj/item/gun/projectile/revolver/reclinable/anaconda
 	name = "Анаконда"
 	desc = "Крупнокалиберный револьвер двадцатого века. Несмотря на то, что оружие хранилось в хороших условиях, старина даёт о себе знать."
@@ -89,13 +88,7 @@
 	icon = 'modular_ss220/objects/icons/ammo.dmi'
 	icon_state = "44_box"
 
-/obj/structure/displaycase/hos
-	alert = TRUE
-	start_showpiece_type = /obj/item/gun/projectile/revolver/reclinable/anaconda
-	req_access = list(ACCESS_HOS)
-
 // RSH-12 12.7
-
 /obj/item/gun/projectile/revolver/reclinable/rsh12
 	name = "РШ-12"
 	desc = "Тяжёлый револьвер винтовочного калибра с откидным стволом. По слухам, всё ещё находится на вооружении у СССП."
