@@ -60,11 +60,6 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		message_language.scramble(subtitle)
 	)
 
-	formatted_message += "\n"
-	formatted_message += "message: [message]\n"
-	formatted_message += "title: [title]\n"
-	formatted_message += "subtitle: [subtitle]\n"
-
 	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers)
 
 	var/datum/feed_message/FM = new
