@@ -60,13 +60,18 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 		message_language.scramble(subtitle)
 	)
 
+	formatted_message += "\n"
+	formatted_message += "message: [message]\n"
+	formatted_message += "title: [title]\n"
+	formatted_message += "subtitle: [subtitle]\n"
+
 	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers)
 
 	var/datum/feed_message/FM = new
-	FM.author = author
-	FM.title = title + subtitle ? ": [subtitle]" : ""
+	FM.author = author ? author : "Automated Announcement System"
+	FM.title = subtitle ? "[title]: [subtitle]" : "[title]"
 	FM.body = message
-	GLOB.news_network.get_channel_by_name("Station Command Announcements")?.add_message(FM)
+	GLOB.news_network.get_channel_by_name("Station Announcements Log")?.add_message(FM)
 
 	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	if(message_sound2)
