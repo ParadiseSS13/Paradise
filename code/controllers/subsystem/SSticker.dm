@@ -658,7 +658,7 @@ SUBSYSTEM_DEF(ticker)
 	newChannel.channel_name = "Public Station Announcements"
 	newChannel.author = "Automated Announcement Listing"
 	newChannel.icon = "bullhorn"
-	newChannel.is_public = FALSE
+	newChannel.is_public = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
