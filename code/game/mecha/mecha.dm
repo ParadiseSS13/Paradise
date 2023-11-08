@@ -1341,7 +1341,7 @@
 	if(istype(I, /obj/item/pda))
 		var/obj/item/pda/pda = I
 		I = pda.id
-	if(istype(I, /obj/item/storage/wallet))
+	else if(istype(I, /obj/item/storage/wallet))
 		var/obj/item/storage/wallet/wallet = I
 		I = wallet.front_id
 	if(!istype(I) || !I.access) //not ID or no access
