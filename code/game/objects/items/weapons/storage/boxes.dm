@@ -111,6 +111,15 @@
 	for(var/I in 1 to 6)
 		new /obj/item/tape/random(src)
 
+/obj/item/storage/box/cups
+	name = "box of paper cups"
+	desc = "It has pictures of paper cups on the front."
+	icon_state = "cup_box"
+
+/obj/item/storage/box/cups/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/food/drinks/sillycup(src)
+
 /obj/item/storage/box/drinkingglasses
 	name = "box of drinking glasses"
 	desc = "It has a picture of drinking glasses on it."
@@ -127,14 +136,14 @@
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/condiment(src)
 
-/obj/item/storage/box/cups
-	name = "box of paper cups"
-	desc = "It has pictures of paper cups on the front."
-	icon_state = "cup_box"
+/obj/item/storage/box/mousetraps
+	name = "box of Pest-B-Gon mousetraps"
+	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
+	icon_state = "mousetraps_box"
 
-/obj/item/storage/box/cups/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/food/drinks/sillycup(src)
+/obj/item/storage/box/mousetraps/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/assembly/mousetrap(src)
 
 /obj/item/storage/box/ids
 	name = "spare IDs"
@@ -144,49 +153,6 @@
 /obj/item/storage/box/ids/populate_contents()
 	for(var/I in 1 to 7)
 		new /obj/item/card/id(src)
-
-/obj/item/storage/box/bartender_rare_ingredients_kit
-	name = "bartender rare reagents kit"
-	desc = "A box intended for experienced bartenders."
-
-/obj/item/storage/box/bartender_rare_ingredients_kit/populate_contents()
-	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
-	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
-		B.reagents.add_reagent(reag, 30)
-		B.name = "[reag] bottle"
-
-/obj/item/storage/box/chef_rare_ingredients_kit
-	name = "chef rare reagents kit"
-	desc = "A box intended for experienced chefs."
-
-/obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
-	new /obj/item/reagent_containers/food/condiment/soysauce(src)
-	new /obj/item/reagent_containers/food/condiment/enzyme(src)
-	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
-	new /obj/item/kitchen/knife/butcher(src)
-	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
-	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
-		B.reagents.add_reagent(reag, 30)
-		B.name = "[reag] bottle"
-
-/obj/item/storage/box/botany_labelled_seeds
-	name = "botanist labelled random seeds kit"
-	desc = "A box intended for experienced botanists."
-
-/obj/item/storage/box/botany_labelled_seeds/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/seeds/random/labelled(src)
-
-/obj/item/storage/box/mousetraps
-	name = "box of Pest-B-Gon mousetraps"
-	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
-	icon_state = "mousetraps_box"
-
-/obj/item/storage/box/mousetraps/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/assembly/mousetrap(src)
 
 /obj/item/storage/box/lights
 	name = "replacement bulbs"
@@ -218,32 +184,6 @@
 		new /obj/item/light/tube(src)
 	for(var/I in 1 to 7)
 		new /obj/item/light/bulb(src)
-
-/obj/item/storage/box/barber
-	name = "Barber Starter Kit"
-	desc = "For all hairstyling needs."
-
-/obj/item/storage/box/barber/populate_contents()
-	new /obj/item/scissors/barber(src)
-	new /obj/item/hair_dye_bottle(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hair_dye(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent(src)
-	new /obj/item/reagent_containers/dropper(src)
-	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
-
-/obj/item/storage/box/lip_stick
-	name = "Lipstick Kit"
-	desc = "For all your lip coloring needs."
-
-/obj/item/storage/box/lip_stick/populate_contents()
-	new /obj/item/lipstick(src)
-	new /obj/item/lipstick/purple(src)
-	new /obj/item/lipstick/jade(src)
-	new /obj/item/lipstick/black(src)
-	new /obj/item/lipstick/green(src)
-	new /obj/item/lipstick/blue(src)
-	new /obj/item/lipstick/white(src)
 
 /obj/item/storage/box/disks_plantgene
 	name = "plant data disks box"
@@ -280,6 +220,69 @@
 	new /obj/item/pda(src)
 	new /obj/item/cartridge/head(src)
 	new newcart(src)
+
+///////////////////
+/* Special Boxes */
+///////////////////
+/obj/item/storage/box/bartender_rare_ingredients_kit
+	name = "bartender rare reagents kit"
+	desc = "A box intended for experienced bartenders."
+
+/obj/item/storage/box/bartender_rare_ingredients_kit/populate_contents()
+	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
+	for(var/reag in reagent_list)
+		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		B.reagents.add_reagent(reag, 30)
+		B.name = "[reag] bottle"
+
+/obj/item/storage/box/chef_rare_ingredients_kit
+	name = "chef rare reagents kit"
+	desc = "A box intended for experienced chefs."
+
+/obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
+	new /obj/item/reagent_containers/food/condiment/soysauce(src)
+	new /obj/item/reagent_containers/food/condiment/enzyme(src)
+	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
+	new /obj/item/kitchen/knife/butcher(src)
+	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
+	for(var/reag in reagent_list)
+		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		B.reagents.add_reagent(reag, 30)
+		B.name = "[reag] bottle"
+
+/obj/item/storage/box/botany_labelled_seeds
+	name = "botanist labelled random seeds kit"
+	desc = "A box intended for experienced botanists."
+
+/obj/item/storage/box/botany_labelled_seeds/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/seeds/random/labelled(src)
+
+/obj/item/storage/box/barber
+	name = "Barber Starter Kit"
+	desc = "For all hairstyling needs."
+
+/obj/item/storage/box/barber/populate_contents()
+	new /obj/item/scissors/barber(src)
+	new /obj/item/hair_dye_bottle(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/hair_dye(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent(src)
+	new /obj/item/reagent_containers/dropper(src)
+	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
+
+/obj/item/storage/box/lip_stick
+	name = "Lipstick Kit"
+	desc = "For all your lip coloring needs."
+
+/obj/item/storage/box/lip_stick/populate_contents()
+	new /obj/item/lipstick(src)
+	new /obj/item/lipstick/purple(src)
+	new /obj/item/lipstick/jade(src)
+	new /obj/item/lipstick/black(src)
+	new /obj/item/lipstick/green(src)
+	new /obj/item/lipstick/blue(src)
+	new /obj/item/lipstick/white(src)
 
 //////////////////
 /* Monkey Boxes */
@@ -323,36 +326,6 @@
 	desc = "Drymate brand wolpin cubes. Just add water!"
 	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
-
-////////////////
-/* Donk Boxes */
-////////////////
-/obj/item/storage/box/donkpockets
-	name = "box of donk-pockets"
-	desc = "A heavy, insulated box that reads, <b>Instructions:</b> <i>Heat in microwave. Product will cool if not eaten within seven minutes. Store product in box to keep warm.</i>"
-	icon_state = "donk_box"
-	storage_slots = 6
-	can_hold = list(
-		/obj/item/reagent_containers/food/snacks/donkpocket,
-		/obj/item/reagent_containers/food/snacks/warmdonkpocket,
-		/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket)
-
-/obj/item/storage/box/donkpockets/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
-
-/obj/item/storage/box/donkpockets/empty/populate_contents()
-	return
-
-/obj/item/storage/box/syndidonkpockets
-	name = "box of donk-pockets"
-	desc = "This box feels slightly warm"
-	icon_state = "donk_box"
-
-/obj/item/storage/box/syndidonkpockets/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
 
 ///////////////////
 /* Medical Boxes */
@@ -685,6 +658,35 @@
 	for(var/I in 1 to 7)
 		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
+////////////////
+/* Donk Boxes */
+////////////////
+/obj/item/storage/box/donkpockets
+	name = "box of donk-pockets"
+	desc = "A heavy, insulated box that reads, <b>Instructions:</b> <i>Heat in microwave. Product will cool if not eaten within seven minutes. Store product in box to keep warm.</i>"
+	icon_state = "donk_box"
+	storage_slots = 6
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/donkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak,
+		/obj/item/reagent_containers/food/snacks/syndidonkpocket)
+
+/obj/item/storage/box/donkpockets/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
+
+/obj/item/storage/box/donkpockets/empty/populate_contents()
+	return
+
+/obj/item/storage/box/syndidonkpockets
+	name = "box of donk-pockets"
+	desc = "This box feels slightly warm"
+	icon_state = "donk_box"
+
+/obj/item/storage/box/syndidonkpockets/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
 
 ////////////////
 /* Misc Boxes */
@@ -739,6 +741,7 @@
 /obj/item/storage/box/telescience
 	name = "babies first telescience kit"
 	desc = "A now restricted kit for those who want to learn about telescience!"
+	icon_state = "circuit_box"
 
 /obj/item/storage/box/telescience/populate_contents()
 	new /obj/item/circuitboard/telesci_pad(src)
@@ -915,6 +918,7 @@
 /obj/item/storage/box/rndboards
 	name = "the Liberator's legacy"
 	desc = "A box containing a gift for worthy golems."
+	icon_state = "circuit_box"
 
 /obj/item/storage/box/rndboards/populate_contents()
 	new /obj/item/circuitboard/protolathe(src)
