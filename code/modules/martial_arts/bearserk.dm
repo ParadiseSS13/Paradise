@@ -73,4 +73,3 @@
 
 /datum/martial_art/bearserk/explaination_footer(user)
 	to_chat(user, "<b>All combos recover stamina and grant a stamina resistance buff, so get aggressive!.</b>")
- stuns by half, so get aggressive!.</b>")
