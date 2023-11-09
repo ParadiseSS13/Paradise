@@ -125,6 +125,30 @@
 	if(owner && vital)
 		owner.setBrainLoss(120)
 
+/obj/item/organ/internal/brain/on_life()
+	if(decoy_brain || damage < 10) return
+	switch(damage)
+		if(10 to 30)
+			handle_minor_brain_damage()
+		if(30 to 60)
+			handle_moderate_brain_damage()
+		if(60 to 80)
+			handle_severe_brain_damage()
+		if(80 to 100)
+			handle_critical_brain_damage()
+
+/obj/item/organ/internal/brain/proc/handle_minor_brain_damage()
+	if(prob(5))
+		owner.Dizzy(5 SECONDS)
+		to_chat(owner, "<span class='warning'>You feel lightheaded.</span>")
+	else if(prob(4))
+
+/obj/item/organ/internal/brain/proc/handle_moderate_brain_damage()
+
+/obj/item/organ/internal/brain/proc/handle_severe_brain_damage()
+
+/obj/item/organ/internal/brain/proc/handle_critical_brain_damage()
+
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
 
