@@ -554,7 +554,7 @@
 	build_path = /obj/item/bio_chip_implanter
 	category = list("Medical")
 
-/datum/design/implantcase
+/datum/design/bio_chip_case
 	name = "Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implantcase"
