@@ -14,4 +14,6 @@
 		BB.hit_prone_targets = TRUE
 
 /mob/living/carbon/human/projectile_hit_check(obj/item/projectile/P)
-	return !P.hit_prone_targets && !density
+	if(stat == CONSCIOUS)
+		return !P.hit_prone_targets && !density
+	return !density
