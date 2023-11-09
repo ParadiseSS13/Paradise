@@ -21,7 +21,8 @@
 	return attack_hand(user)
 
 /obj/machinery/photocopier/attack_ghost(mob/user)
-	ui_interact(user)
+	if(user.can_advanced_admin_interact())
+		ui_interact(user)
 	return attack_hand(user)
 
 /obj/machinery/photocopier/attack_hand(mob/user)

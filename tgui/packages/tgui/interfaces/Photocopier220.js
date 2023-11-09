@@ -121,7 +121,7 @@ export const Photocopier220 = (props, context) => {
                       icon="terminal"
                       disabled={data.toner < 5}
                       content="Фото из БД"
-                      onClick={() => act('aipic')}
+                      onClick={() => act('ai_pic')}
                     />
                   )}
                 </Flex.Item>
