@@ -4800,7 +4800,7 @@
 /area/shuttle/escape)
 "qm" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "qn" = (
@@ -10679,7 +10679,7 @@
 /area/shuttle/escape)
 "LT" = (
 /obj/structure/table/wood/fancy/royalblack,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/effect/turf_decal/woodsiding{
 	dir = 1
 	},
@@ -12893,7 +12893,7 @@
 	},
 /area/centcom/evac)
 "TN" = (
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = -3;
 	pixel_y = 5
 	},

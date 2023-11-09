@@ -26024,7 +26024,7 @@
 /area/station/service/bar)
 "bHQ" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
@@ -31259,7 +31259,7 @@
 /area/station/science/robotics/showroom)
 "bYg" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -51901,7 +51901,7 @@
 "eVz" = (
 /obj/structure/table,
 /obj/item/storage/fancy/rollingpapers,
-/obj/item/storage/box/matches,
+/obj/item/storage/fancy/matches,
 /obj/item/seeds/tobacco,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
@@ -79055,7 +79055,7 @@
 /obj/item/candle{
 	pixel_x = -5
 	},
-/obj/item/storage/box/matches{
+/obj/item/storage/fancy/matches{
 	pixel_x = 1;
 	pixel_y = -1
 	},
