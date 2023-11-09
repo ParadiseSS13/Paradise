@@ -43,7 +43,6 @@ GLOBAL_LIST_INIT(global_radios, list())				//list of all radios, across all z-le
 GLOBAL_LIST_INIT(meteor_list, list())				//list of all meteors
 GLOBAL_LIST_INIT(poi_list, list())					//list of points of interest for observe/follow
 GLOBAL_LIST_INIT(active_jammers, list())             // List of active radio jammers
-GLOBAL_LIST_EMPTY(ladders)
 GLOBAL_LIST_EMPTY(mirrors) //list of all mirrors and mirror shields.
 GLOBAL_LIST_EMPTY(arc_emitters) 					//list of all arc emitters
 
