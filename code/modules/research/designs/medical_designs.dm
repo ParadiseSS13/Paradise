@@ -574,7 +574,7 @@
 	build_path = /obj/item/bio_chip_case/chem
 	category = list("Medical")
 
-/datum/design/implant_sadtrombone
+/datum/design/bio_chip_sad_trombone
 	name = "Sad Trombone Bio-chip Case"
 	desc = "Makes death amusing."
 	id = "implant_trombone"
