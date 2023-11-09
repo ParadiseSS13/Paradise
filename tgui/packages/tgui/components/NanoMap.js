@@ -22,7 +22,7 @@ export class NanoMap extends Component {
     super(props);
 
     // Auto center based on window size
-    const Xcenter = window.innerWidth / 2 - 256;
+    const Xcenter = 0;
     const Ycenter = window.innerHeight / 2 - 256;
 
     this.state = {
