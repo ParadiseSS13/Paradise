@@ -136,7 +136,7 @@
 	uplink_uses = 200
 	id_access = "Syndicate Agent"
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/dust
 	)
 
@@ -183,7 +183,7 @@
 		/obj/item/storage/box/centcomofficer = 1,
 		/obj/item/bio_chip_implanter/death_alarm = 1
 	)
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/dust
 	)
@@ -214,7 +214,7 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/bio_chip_implanter/death_alarm = 1,
 	)
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/dust
 	)
@@ -246,7 +246,7 @@
 		/obj/item/flashlight = 1,
 		/obj/item/pinpointer/crew = 1
 	)
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/dust
 	)
 	cybernetic_implants = list(
@@ -299,7 +299,7 @@
 		/obj/item/shield/energy,
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield, // No death alarm, Deathsquad are silent
 		/obj/item/bio_chip/dust
 	)
@@ -705,7 +705,7 @@
 		/obj/item/bio_chip_implanter/death_alarm = 1,
 	)
 
-	implants = list(/obj/item/bio_chip/mindshield,
+	bio_chips = list(/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
 
@@ -749,7 +749,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened,
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
-	implants = list(/obj/item/bio_chip/mindshield,
+	bio_chips = list(/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
 
@@ -1274,7 +1274,7 @@
 		/obj/item/storage/box/survival = 1,
 		/obj/item/flashlight = 1,
 	)
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/dust
 	)
 

@@ -28,7 +28,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/dust
 	)
@@ -88,7 +88,7 @@
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/storage/box/zipties = 1
 	)
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/dust
 	)

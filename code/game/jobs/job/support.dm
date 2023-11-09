@@ -290,7 +290,7 @@
 		/obj/item/instrument/bikehorn = 1
 	)
 
-	implants = list(/obj/item/bio_chip/sad_trombone)
+	bio_chips = list(/obj/item/bio_chip/sad_trombone)
 
 	backpack = /obj/item/storage/backpack/clown
 	satchel = /obj/item/storage/backpack/clown

@@ -36,7 +36,7 @@
 		/obj/item/gun/projectile/automatic/pistol/deagle/camo = 1,
 		/obj/item/clothing/accessory/holster = 1
 	)
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/dust,
 		/obj/item/bio_chip/freedom,
 		/obj/item/bio_chip/adrenalin

@@ -84,7 +84,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -113,7 +113,7 @@
 		/obj/item/organ/internal/cyberimp/arm/flash
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -169,7 +169,7 @@
 		/obj/item/organ/internal/cyberimp/eyes/hud/security
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -201,7 +201,7 @@
 		/obj/item/organ/internal/cyberimp/chest/reviver/hardened
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -265,7 +265,7 @@
 	/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -295,7 +295,7 @@
 		/obj/item/organ/internal/cyberimp/brain/wire_interface/hardened
 	)
 
-	implants = list(/obj/item/bio_chip/mindshield,
+	bio_chips = list(/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
 
@@ -361,7 +361,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -396,7 +396,7 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -448,7 +448,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -474,7 +474,7 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -527,7 +527,7 @@
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
@@ -553,7 +553,7 @@
 		/obj/item/organ/internal/cyberimp/brain/anti_stam/hardened
 	)
 
-	implants = list(
+	bio_chips = list(
 		/obj/item/bio_chip/mindshield,
 		/obj/item/bio_chip/death_alarm
 	)
