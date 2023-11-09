@@ -1,5 +1,5 @@
 /datum/martial_art/bearserk
-	weight = 8 // Higher weight than Krav-Maga, brute force overrules
+	weight = 9 // Higher weight than Krav-Maga, brute force overrules
 	name = "Rage of the Space Bear"
 	has_explaination_verb = TRUE
 	combos = list(/datum/martial_combo/bearserk/bear_jaws, /datum/martial_combo/bearserk/paw_slam, /datum/martial_combo/bearserk/smokey)
