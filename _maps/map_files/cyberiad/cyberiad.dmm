@@ -18946,6 +18946,9 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -34732,10 +34735,6 @@
 "cgs" = (
 /turf/simulated/wall/r_wall,
 /area/station/science/toxins/mixing)
-"cgv" = (
-/obj/machinery/gameboard,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "cgA" = (
 /obj/machinery/alarm{
 	name = "north bump";
@@ -41191,6 +41190,12 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/station/medical/storage)
+"cCS" = (
+/obj/machinery/gibber,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "cCT" = (
 /obj/structure/closet/l3closet/scientist,
 /turf/simulated/floor/plasteel{
@@ -43549,6 +43554,14 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/aft)
+"cKl" = (
+/obj/structure/sink/kitchen{
+	pixel_y = 25
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "cKn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -48844,6 +48857,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
+"dcX" = (
+/obj/structure/chair/wood{
+	dir = 8
+	},
+/obj/structure/window{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "dda" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
@@ -53369,6 +53391,12 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/service/chapel)
+"dAE" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "dBt" = (
 /obj/structure/chair/sofa/bench/left{
 	dir = 4
@@ -57623,6 +57651,10 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
 	},
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -59073,6 +59105,12 @@
 	icon_state = "wood-broken3"
 	},
 /area/station/maintenance/fpmaint2)
+"gxV" = (
+/mob/living/simple_animal/hostile/retaliate/goat/chef,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "gyt" = (
 /obj/structure/toilet{
 	dir = 4
@@ -63556,6 +63594,12 @@
 	icon_state = "yellow"
 	},
 /area/station/command/office/ce)
+"jaQ" = (
+/obj/structure/window{
+	dir = 8
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "jaY" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -64512,11 +64556,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space/nearstation)
-"jEt" = (
-/obj/structure/table/holotable/wood,
-/obj/item/deck/cards,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "jFf" = (
 /obj/structure/closet/crate/secure{
 	req_one_access = list(33,41);
@@ -64682,6 +64721,12 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"jMj" = (
+/obj/structure/closet/crate/freezer,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/hydroponics)
 "jMw" = (
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/mineral/titanium,
@@ -65336,6 +65381,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"kfp" = (
+/obj/structure/closet/secure_closet/freezer/meat,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "kfu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -65841,10 +65892,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
-"krM" = (
-/obj/structure/chair/wood/wings,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "krV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door_control{
@@ -66096,6 +66143,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
+"kxV" = (
+/obj/machinery/chem_master/condimaster{
+	name = "CondiMaster Neo";
+	pixel_x = -5
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "kxY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -66575,11 +66631,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/starboard/east)
-"kKS" = (
-/obj/structure/table/holotable/wood,
-/obj/structure/table/holotable/wood,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "kKV" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -67597,6 +67648,16 @@
 	icon_state = "barber"
 	},
 /area/station/public/mrchangs)
+"lmX" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/woodsiding,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/station/service/bar)
 "lnh" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/wood,
@@ -68900,6 +68961,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"lWJ" = (
+/obj/machinery/economy/vending/chefdrobe,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/maintenance/fsmaint)
 "lXd" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/utensil/pfork,
@@ -69214,6 +69281,12 @@
 /obj/item/seeds/orange,
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
+"mfW" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "mgx" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical,
@@ -69262,7 +69335,7 @@
 	},
 /area/station/maintenance/asmaint)
 "mhs" = (
-/obj/structure/chair/wood/wings{
+/obj/structure/chair/wood{
 	dir = 8
 	},
 /turf/simulated/floor/wood,
@@ -70785,6 +70858,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonlockers)
+"naH" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "nbx" = (
 /obj/machinery/hydroponics/soil,
 /turf/simulated/floor/grass,
@@ -71027,6 +71106,12 @@
 	icon_state = "blackcorner"
 	},
 /area/station/security/permabrig)
+"nlt" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Kitchen Maintenance"
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/fsmaint)
 "nlK" = (
 /obj/machinery/light{
 	dir = 8
@@ -71450,11 +71535,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"nyi" = (
-/obj/structure/table/holotable/wood,
-/obj/item/clothing/head/cakehat,
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "nyC" = (
 /obj/structure/rack,
 /turf/simulated/floor/plating,
@@ -73994,6 +74074,12 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/asmaint)
+"oQy" = (
+/obj/effect/landmark/spawner/xeno,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "oRn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -79992,6 +80078,9 @@
 /obj/effect/turf_decal/woodsiding{
 	dir = 8
 	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -81857,6 +81946,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/medical/morgue)
+"ttz" = (
+/obj/structure/chair/wood,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "tue" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/wood{
@@ -84327,12 +84420,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
-"uJp" = (
-/obj/structure/chair/wood/wings{
-	dir = 1
-	},
-/turf/simulated/floor/wood,
-/area/station/service/bar)
 "uJq" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -86246,8 +86333,11 @@
 	},
 /area/station/science/hallway)
 "vOw" = (
-/obj/structure/chair/wood/wings{
+/obj/structure/chair/wood{
 	dir = 4
+	},
+/obj/structure/window{
+	dir = 8
 	},
 /turf/simulated/floor/wood,
 /area/station/service/bar)
@@ -124405,10 +124495,10 @@ wWW
 pCq
 gkv
 bmq
-bmq
-bmq
-bmq
-bmq
+ttz
+snc
+snc
+naH
 bmq
 kzf
 aUS
@@ -124662,10 +124752,10 @@ did
 did
 did
 bmq
-bmq
-vOw
-vOw
-vOw
+ttz
+snc
+snc
+naH
 bmq
 ybv
 aUS
@@ -124920,9 +125010,9 @@ did
 did
 bmq
 bmq
-snc
-nyi
-snc
+bmq
+bmq
+bmq
 bmq
 bmq
 aUS
@@ -125177,9 +125267,9 @@ did
 did
 bmq
 bmq
-mhs
-mhs
-mhs
+bmq
+bmq
+bmq
 bmq
 bmq
 tSx
@@ -125948,11 +126038,11 @@ fHC
 kJH
 bmr
 bmq
-krM
-snc
-kKS
-uJp
+dAE
+dAE
 bmq
+dAE
+dAE
 aUS
 cMK
 bHy
@@ -126205,11 +126295,11 @@ aZR
 pBU
 bmr
 bmq
-krM
 snc
-jEt
-uJp
+snc
 bmq
+snc
+snc
 aUS
 bAk
 bHy
@@ -126462,11 +126552,11 @@ aZR
 uxT
 bmr
 bmq
+dcX
+dcX
 bmq
-bmq
-bmq
-bmq
-bmq
+dcX
+dcX
 aUS
 bAk
 bHy
@@ -126719,10 +126809,10 @@ aZR
 eXm
 bmr
 bmq
+vOw
+vOw
 bmq
-bmq
-bmq
-bmq
+jaQ
 vOw
 bze
 bFj
@@ -126976,11 +127066,11 @@ bEE
 jsB
 bmr
 bmq
-krM
 snc
-uJp
+snc
 bmq
-cgv
+bmq
+snc
 aUS
 bAk
 bHy
@@ -127230,11 +127320,11 @@ bdT
 qjB
 bEE
 bEE
-eXm
+lmX
 bmr
 bmq
-bmq
-bmq
+mhs
+mhs
 bmq
 bmq
 mhs
@@ -127995,11 +128085,11 @@ bjl
 iUz
 aGY
 aGX
-gEf
-gEf
-gEf
+cKl
+mfW
+mfW
+kxV
 bdT
-bof
 bof
 bof
 bof
@@ -128251,12 +128341,12 @@ bhi
 aIc
 bjz
 bjz
-aGX
+nlt
 jhq
 gEf
+oQy
 gEf
 bdT
-bof
 bof
 bof
 bof
@@ -128509,11 +128599,11 @@ aIc
 bjz
 bjz
 aGX
+cCS
+gxV
 gEf
-gEf
-gEf
+kfp
 bdT
-bof
 bof
 bof
 bof
@@ -128766,11 +128856,11 @@ aBD
 bjz
 bjz
 aGX
-jhq
+lWJ
 jhq
 boV
+jMj
 beb
-rar
 rar
 bof
 bof
@@ -129026,8 +129116,8 @@ bbd
 jhq
 boV
 boV
+boV
 dEV
-rar
 rar
 bof
 bof
