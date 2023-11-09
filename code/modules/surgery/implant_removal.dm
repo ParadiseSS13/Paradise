@@ -9,7 +9,7 @@
 		/datum/surgery_step/generic/clamp_bleeders,
 		/datum/surgery_step/generic/retract_skin,
 		/datum/surgery_step/proxy/open_organ,
-		/datum/surgery_step/extract_implant,
+		/datum/surgery_step/extract_bio_chip,
 		/datum/surgery_step/generic/cauterize
 	)
 	possible_locs = list(BODY_ZONE_CHEST)
@@ -21,12 +21,12 @@
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
 		/datum/surgery_step/proxy/robotics/repair_limb,
-		/datum/surgery_step/extract_implant/synth,
+		/datum/surgery_step/extract_bio_chip/synth,
 		/datum/surgery_step/robotics/external/close_hatch
 	)
 	requires_organic_bodypart = FALSE
 
-/datum/surgery_step/extract_implant
+/datum/surgery_step/extract_bio_chip
 	name = "extract bio-chip"
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
 	time = 6.4 SECONDS
@@ -53,7 +53,7 @@
 	target.custom_pain("The pain in your [affected.name] is living hell!")
 	return ..()
 
-/datum/surgery_step/extract_implant/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_bio_chip/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	. = ..()
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -64,7 +64,7 @@
 	affected.receive_damage(10)
 	return SURGERY_STEP_RETRY
 
-/datum/surgery_step/extract_implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+/datum/surgery_step/extract_bio_chip/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	I = locate(/obj/item/bio_chip) in target
 	if(I && prob(80)) //implant removal only works on the chest.
@@ -98,6 +98,6 @@
 		)
 	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/extract_implant/synth
+/datum/surgery_step/extract_bio_chip/synth
 	allowed_tools = list(TOOL_WIRECUTTER = 100, TOOL_HEMOSTAT = 60)
 
