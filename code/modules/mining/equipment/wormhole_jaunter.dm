@@ -173,3 +173,49 @@
 	. = ..()
 	playsound(loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	set_light(8, l_color = "#FFD165")
+
+/obj/item/grenade/jaunter_grenade
+	name = "chasm jaunter recovery grenade"
+	desc = "NT-Drunk Dialer Grenade. Originally built by NT for locating all beacons in an area and creating wormholes to them, it now finds use to miners for recovering allies from chasms."
+	icon_state = "mirage"
+	/// Mob that threw the grenade.
+	var/mob/living/thrower
+
+/obj/item/grenade/jaunter_grenade/Destroy()
+	thrower = null
+	return ..()
+
+/obj/item/grenade/jaunter_grenade/attack_self(mob/user)
+	. = ..()
+	thrower = user
+
+/obj/item/grenade/jaunter_grenade/prime()
+	update_mob()
+	var/list/destinations = list()
+	for(var/obj/item/radio/beacon/B in GLOB.global_radios)
+		var/turf/BT = get_turf(B)
+		if(is_station_level(BT.z))
+			destinations += BT
+	var/turf/T = get_turf(src)
+	if(istype(T, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
+		for(var/obj/effect/abstract/chasm_storage/C in T)
+			var/found_mob = FALSE
+			for(var/mob/M in C)
+				found_mob = TRUE
+				do_teleport(M, pick(destinations))
+			if(found_mob)
+				new /obj/effect/temp_visual/thunderbolt(T) //Visual feedback it worked.
+				playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+		qdel(src)
+		return
+		
+	var/list/portal_turfs = list()
+	for(var/turf/PT in circleviewturfs(T, 3))
+		if(!PT.density)
+			portal_turfs += PT
+	playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+	for(var/turf/drunk_dial in shuffle(destinations))
+		var/drunken_opening = pick_n_take(portal_turfs)
+		new /obj/effect/portal/jaunt_tunnel(drunken_opening, drunk_dial, src, 100, thrower)
+		new /obj/effect/temp_visual/thunderbolt(drunken_opening)
+	qdel(src)
