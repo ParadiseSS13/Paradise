@@ -20,8 +20,10 @@
 /obj/item/flashlight/update_icon_state()
 	if(on)
 		icon_state = "[initial(icon_state)]-on"
+		item_state = "[initial(item_state)]-on"
 	else
 		icon_state = "[initial(icon_state)]"
+		item_state = "[initial(item_state)]"
 
 /obj/item/flashlight/proc/update_brightness()
 	if(on)
