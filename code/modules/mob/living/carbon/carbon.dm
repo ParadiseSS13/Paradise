@@ -1220,9 +1220,9 @@ so that different stomachs can handle things in different ways VB*/
 			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
 			to_eat.reagents.trans_to(src, this_bite)
 
-/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/p_or_p, user) // p_or_p = patch or pill
+/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/medicine, user) // medicine = patch or pill
 	// The reason why this is bundled up is to avoid 2 procs that will be practically identical
-	if(!p_or_p.reagents.total_volume)
+	if(!medicine.reagents.total_volume)
 		return TRUE // Doesn't have reagents, would be fine to use up
 
 	var/apply_method = "swallow"
@@ -1231,31 +1231,31 @@ so that different stomachs can handle things in different ways VB*/
 	var/instant = FALSE
 	var/efficiency = 1
 
-	if(ispatch(p_or_p))
+	if(ispatch(medicine))
 		apply_method = "apply"
 		reagent_application = REAGENT_TOUCH
 		requires_mouth = FALSE
 		efficiency = 0.5 // Patches aren't that good at transporting reagents into the bloodstream
-		var/obj/item/reagent_containers/patch/patch = p_or_p
+		var/obj/item/reagent_containers/patch/patch = medicine
 		if(patch.instant_application)
 			instant = TRUE
 
 	if(user != src && !instant)
 		if(requires_mouth && (!head || !dna.species.dietflags)) // You will not feed the IPC
-			to_chat(user, "<span class='warning'>You cannot feed [src] [p_or_p]!</span>")
+			to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
 			return FALSE
-		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [p_or_p].</span>")
+		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
 		if(!do_after(user, 3 SECONDS, TRUE, src, TRUE))
 			return FALSE
-		forceFedAttackLog(p_or_p, user)
-		visible_message("<span class='warning'>[user] forces [src] to [apply_method] [p_or_p].</span>")
+		forceFedAttackLog(medicine, user)
+		visible_message("<span class='warning'>[user] forces [src] to [apply_method] [medicine].</span>")
 	else
-		to_chat(user, "You [apply_method] [p_or_p].")
+		to_chat(user, "You [apply_method] [medicine].")
 
-	var/fraction = min(1 / p_or_p.reagents.total_volume, 1)
+	var/fraction = min(1 / medicine.reagents.total_volume, 1)
 	if(fraction)
-		p_or_p.reagents.reaction(src, reagent_application, fraction)
-		p_or_p.reagents.trans_to(src, p_or_p.reagents.total_volume * efficiency)
+		medicine.reagents.reaction(src, reagent_application, fraction)
+		medicine.reagents.trans_to(src, medicine.reagents.total_volume * efficiency)
 	return TRUE
 
 /mob/living/carbon/get_access()
