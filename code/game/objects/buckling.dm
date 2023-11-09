@@ -49,7 +49,7 @@
 	if(!istype(M))
 		return FALSE
 
-	if(check_loc && !in_range(M, src))
+	if(check_loc && !M.Adjacent(src))
 		return FALSE
 
 	if(check_loc && M.loc != loc && !M.Move(loc))
