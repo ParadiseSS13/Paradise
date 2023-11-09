@@ -1354,7 +1354,7 @@
 	subcategory = CAT_LARGE_DECORATIONS
 
 /datum/crafting_recipe/gauze
-	name = "Treated Gauze"
+	name = "Treated gauze"
 	time = 3 SECONDS
 	result = list(/obj/item/stack/medical/bruise_pack)
 	reqs = list(/obj/item/stack/medical/bruise_pack/improvised = 6,
