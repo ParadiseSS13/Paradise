@@ -24,7 +24,7 @@
 	addtimer(CALLBACK(SSqueue, TYPE_PROC_REF(/datum/controller/subsystem/queue, reserve_queue_slot), last_known_ckey), 10 MINUTES)
 
 
-/datum/controller/subsystem/queue/proc/reserve_queue_slot(var/reserved_ckey)
+/datum/controller/subsystem/queue/proc/reserve_queue_slot(reserved_ckey)
 	if(reserved_ckey in GLOB.player_list)
 		return
 
