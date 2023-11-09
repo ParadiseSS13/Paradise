@@ -21,10 +21,11 @@
 /mob/new_player/Logout()
 	. = ..()
 
-	addtimer(CALLBACK(src, PROC_REF(reserve_queue_slot)), 10 MINUTES)
+	addtimer(CALLBACK(SSqueue, TYPE_PROC_REF(/datum/controller/subsystem/queue, reserve_queue_slot), last_known_ckey), 10 MINUTES)
 
-/mob/new_player/proc/reserve_queue_slot()
-	if(client?.ckey in GLOB.player_list)
+
+/datum/controller/subsystem/queue/proc/reserve_queue_slot(var/reserved_ckey)
+	if(reserved_ckey in GLOB.player_list)
 		return
 
-	SSqueue.queue_bypass_list.Remove(last_known_ckey)
+	queue_bypass_list.Remove(reserved_ckey)
