@@ -41,21 +41,20 @@
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
-	flags = BLOCKHAIR
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = 20, ACID = 20)
+	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = 10, ACID = 10)
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
 	var/datum/martial_art/bearserk/style = new
 
 /obj/item/clothing/head/bearpelt/bearserk/equipped(mob/user, slot)
 	if(!ishuman(user))
 		return
+	if(!isAntag(user))
+		return
 	if(slot == SLOT_HUD_HEAD)
 		var/mob/living/carbon/human/H = user
-		style.teach(H,1)
+		style.teach(H, 1)
 		H.faction |= "russian" // Russian Hardbass Begins
-		H.physiology.stun_mod *= 0.5
-		H.physiology.stamina_mod *= 0.75
-		H.physiology.heat_mod *= 0.5
+		H.physiology.stun_mod *= 0.80
 
 /obj/item/clothing/head/bearpelt/bearserk/dropped(mob/user, datum/reagent/R)
 	..()
@@ -63,19 +62,15 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(SLOT_HUD_HEAD) == src)
-		style.remove(H)
 		H.faction -= "russian" // Hardbass stops
-		H.physiology.stun_mod /= 0.5
-		H.physiology.stamina_mod /= 0.75
-		H.physiology.heat_mod /= 0.5
+		H.physiology.stun_mod /= 0.80
 
 /obj/item/clothing/head/bearpelt/bearserk/examine(mob/user)
 	. = ..()
 	if(isAntag(user))
 		. += "<span class='warning'>Wearing this armored pelt grants you the strength of the space bear. \
 		It also makes wild bears and Russians neutral towards you.</span>"
-	else
-		. += "<span class='warning'>This pelt feels oddly heavy, and smells faintly of vodka.</span>"
 
 /datum/martial_art/bearserk/explaination_footer(user)
-	to_chat(user, "<b>All combos recover decent amounts of stamina while the pelt reduces stuns by half, so get aggressive!.</b>")
+	to_chat(user, "<b>All combos recover stamina and grant a stamina resistance buff, so get aggressive!.</b>")
+ stuns by half, so get aggressive!.</b>")

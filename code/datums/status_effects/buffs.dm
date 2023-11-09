@@ -740,3 +740,25 @@
 /datum/status_effect/bookwyrm
 	duration = BRAIN_DAMAGE_MOB_TIME
 	alert_type = null
+
+/datum/status_effect/bearserker_rage
+	id = "bearserker rage"
+	duration = 5 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+
+/datum/status_effect/bearserker_rage/on_apply()
+	. = ..()
+	if(.)
+		if(ishuman(owner))
+			var/mob/living/carbon/human/H = owner
+			H.physiology.stamina_mod *= 0.75
+			H.physiology.heat_mod *= 0.5
+		add_attack_logs(owner, owner, "gained bearserker stamina resistance", ATKLOG_ALL)
+
+/datum/status_effect/bearserker_rage/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.stamina_mod /= 0.75
+		H.physiology.heat_mod /= 0.5
+	add_attack_logs(owner, owner, "lost bearserker stamina resistance", ATKLOG_ALL)

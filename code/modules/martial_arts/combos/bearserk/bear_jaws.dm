@@ -6,12 +6,14 @@
 /datum/martial_combo/bearserk/bear_jaws/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.IsWeakened() || IS_HORIZONTAL(target))
 		user.do_attack_animation(target, ATTACK_EFFECT_BITE)
-		target.visible_message("<span class='warning'>[user] leaps onto [target] and bites them, how barbaric!</span>", \
+		target.visible_message("<span class='warning'>[user] leaps onto [target] and bites them, how barbaric!</span>",
 						"<span class='userdanger'>[user] leaps onto you and bites you like a real savage!</span>")
 		playsound(get_turf(target), 'sound/weapons/bite.ogg', 25, TRUE, -1)
 		target.apply_damage(20, BRUTE, user.zone_selected, sharp = TRUE)
-		if(target.stat != DEAD)
-			user.adjustStaminaLoss(-45)
+		if(isliving(target))
+			if(target.stat != DEAD)
+				user.adjustStaminaLoss(-30)
+				user.apply_status_effect(STATUS_EFFECT_BEARSERKER_RAGE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
 		return MARTIAL_COMBO_DONE
 	user.do_attack_animation(target, ATTACK_EFFECT_BITE)
@@ -20,7 +22,10 @@
 					"<span class='userdanger'>[user] [atk_verb] you!</span>")
 	playsound(get_turf(target), 'sound/weapons/bite.ogg', 25, TRUE, -1)
 	target.apply_damage (10, BRUTE, user.zone_selected, sharp = TRUE)
-	if(target.stat != DEAD)
-		user.adjustStaminaLoss(-15)
-	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
+	if(isliving(target))
+		if(target.stat != DEAD)
+			user.adjustStaminaLoss(-15)
+			user.apply_status_effect(STATUS_EFFECT_BEARSERKER_RAGE)
+aLoss(-15)
+t, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
