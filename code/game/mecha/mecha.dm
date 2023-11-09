@@ -1338,12 +1338,7 @@
 		return 1
 	if(!access_list.len) //no requirements
 		return 1
-	if(istype(I, /obj/item/pda))
-		var/obj/item/pda/pda = I
-		I = pda.id
-	else if(istype(I, /obj/item/storage/wallet))
-		var/obj/item/storage/wallet/wallet = I
-		I = wallet.front_id
+	I = I.GetID()
 	if(!istype(I) || !I.access) //not ID or no access
 		return 0
 	if(access_list==operation_req_access)
