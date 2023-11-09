@@ -6,6 +6,7 @@
  * Cloth
  * Durathread
  * Cardboard
+ * Soil
  * Runed Metal (cult)
  * Brass (clockwork cult)
  * Bones
@@ -39,7 +40,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 		new /datum/stack_recipe("bench (right)", /obj/structure/chair/sofa/bench/right, 1, one_per_turf = TRUE, on_floor = TRUE),
 		)),
 	new /datum/stack_recipe("barber chair", /obj/structure/chair/barber, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("wheelchair", /obj/structure/chair/wheelchair, 15, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("bronze ashtray", /obj/item/ashtray/bronze, 1, time = 1 SECONDS),
@@ -163,6 +164,7 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	new /datum/stack_recipe("Surgery Table", /obj/machinery/optable, 5, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Metal crate", /obj/structure/closet/crate, 10, time = 5 SECONDS, one_per_turf = TRUE),
 	new /datum/stack_recipe("Mass Driver frame", /obj/machinery/mass_driver_frame, 3, time = 5 SECONDS, one_per_turf = TRUE),
+	new /datum/stack_recipe("hardened wheelchair", /obj/structure/chair/wheelchair/plasteel, 15, time = 6 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	null,
 	new /datum/stack_recipe_list("airlock assemblies", list(
 		new /datum/stack_recipe("high security airlock assembly", /obj/structure/door_assembly/door_assembly_highsecurity, 6, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
@@ -239,7 +241,8 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("honey frame", /obj/item/honey_frame, 5, time = 1 SECONDS),
 	new /datum/stack_recipe("ore box", /obj/structure/ore_box, 4, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("loom", /obj/structure/loom, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS)
+	new /datum/stack_recipe("fermenting barrel", /obj/structure/fermenting_barrel, 30, time = 5 SECONDS),
+	new /datum/stack_recipe("compost bin", /obj/machinery/compost_bin, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
 ))
 
 /obj/item/stack/sheet/wood
@@ -434,11 +437,33 @@ GLOBAL_LIST_INIT(cardboard_recipes, list (
 	return ..()
 
 /*
+ * soil
+ */
+GLOBAL_LIST_INIT(soil_recipes, list (
+	new /datum/stack_recipe("pile of dirt", /obj/machinery/hydroponics/soil, 3, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE)
+))
+
+/obj/item/stack/sheet/soil
+	name = "soil"
+	desc = "A clump of fertile soil which can be used to make a plot."
+	singular_name = "soil clump"
+	icon = 'icons/obj/stacks/organic.dmi'
+	icon_state = "sheet-soil"
+	item_state = "sheet-soil"
+	origin_tech = "materials=1"
+	resistance_flags = FIRE_PROOF
+	merge_type = /obj/item/stack/sheet/soil
+
+/obj/item/stack/sheet/soil/Initialize(loc, amt)
+	recipes = GLOB.soil_recipes
+	return ..()
+
+/*
  * Runed Metal
  */
 
 GLOBAL_LIST_INIT(cult_recipes, list (
-	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 1, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
+	new /datum/stack_recipe/cult("runed door (stuns non-cultists)", /obj/machinery/door/airlock/cult, 3, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("runed girder (used to make cult walls)", /obj/structure/girder/cult, 1, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("pylon (heals nearby cultists)", /obj/structure/cult/functional/pylon, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 	new /datum/stack_recipe/cult("forge (crafts shielded robes, flagellant's robes, and mirror shields)", /obj/structure/cult/functional/forge, 3, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),

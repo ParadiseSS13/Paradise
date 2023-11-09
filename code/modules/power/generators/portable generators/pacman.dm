@@ -264,6 +264,7 @@
 
 	data["anchored"] = anchored
 	data["broken"] = is_broken()
+	data["emagged"] = emagged
 	data["output_set"] = power_output
 	data["output_max"] = max_power_output
 	data["output_safe"] = max_safe_output

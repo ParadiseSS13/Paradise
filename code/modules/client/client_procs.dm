@@ -159,13 +159,13 @@
 	if(href_list["__keydown"])
 		var/keycode = href_list["__keydown"]
 		if(keycode)
-			KeyDown(keycode)
+			Key_Down(keycode)
 		return
 
 	if(href_list["__keyup"])
 		var/keycode = href_list["__keyup"]
 		if(keycode)
-			KeyUp(keycode)
+			Key_Up(keycode)
 		return
 
 
@@ -326,8 +326,6 @@
 	view = prefs.viewrange
 
 	prefs.init_keybindings(prefs.keybindings_overrides) //The earliest sane place to do it where prefs are not null, if they are null you can't do crap at lobby
-	prefs.last_ip = address				//these are gonna be used for banning
-	prefs.last_id = computer_id			//these are gonna be used for banning
 	fps = prefs.clientfps
 
 	// Log alts
@@ -436,7 +434,7 @@
 	// Tell client about their connection
 	to_chat(src, "<span class='notice'>You are currently connected [prefs.server_region ? "via the <b>[prefs.server_region]</b> relay" : "directly"] to Paradise.</span>")
 	to_chat(src, "<span class='notice'>You can change this using the <code>Change Region</code> verb in the OOC tab, as selecting a region closer to you may reduce latency.</span>")
-
+	display_job_bans(TRUE)
 
 /client/proc/is_connecting_from_localhost()
 	var/static/list/localhost_addresses = list("127.0.0.1", "::1")

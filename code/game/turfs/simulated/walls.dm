@@ -307,7 +307,7 @@
 			dismantle_wall(1)
 			to_chat(M, "<span class='info'>You smash through the wall.</span>")
 		else
-			to_chat(M, text("<span class='notice'>You smash against the wall.</span>"))
+			to_chat(M, "<span class='notice'>You smash against the wall.</span>")
 			take_damage(rand(25, 75))
 			return
 
@@ -324,7 +324,7 @@
 	else
 		playsound(src, 'sound/effects/bang.ogg', 50, 1)
 		add_dent(WALL_DENT_HIT)
-		to_chat(user, text("<span class='notice'>You punch the wall.</span>"))
+		to_chat(user, "<span class='notice'>You punch the wall.</span>")
 	return TRUE
 
 /turf/simulated/wall/attack_hand(mob/user)
@@ -548,5 +548,17 @@
 		dent_decals = list(decal)
 
 	update_icon()
+
+/turf/simulated/wall/MouseEntered(location, control, params)
+	var/datum/hud/active_hud = usr.hud_used // Don't nullcheck this stuff, if it breaks we wanna know it breaks
+	var/screentip_mode = usr.client.prefs.screentip_mode
+	if(screentip_mode == 0 || (flags & NO_SCREENTIPS))
+		active_hud.screentip_text.maptext = ""
+		return
+	//We inline a MAPTEXT() here, because there's no good way to statically add to a string like this
+	active_hud.screentip_text.maptext = "<span class='maptext' style='font-family: sans-serif; text-align: center; font-size: [screentip_mode]px; color: [usr.client.prefs.screentip_color]'>[name]</span>"
+
+/turf/simulated/wall/MouseExited(location, control, params)
+	usr.hud_used.screentip_text.maptext = ""
 
 #undef MAX_DENT_DECALS

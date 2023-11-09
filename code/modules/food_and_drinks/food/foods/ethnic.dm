@@ -65,6 +65,7 @@
 /obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball
 	name = "sweet & sour chicken balls"
 	desc = "Is this chicken cooked? The odds are better than wok paper scissors."
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "chickenball"
 	item_state = "chinese3"
 	junkiness = 25
@@ -150,3 +151,12 @@
 	trash = /obj/item/stack/rods
 	filling_color = "#FFFEE0"
 	list_reagents = list("nutriment" = 8)
+
+/obj/item/reagent_containers/food/snacks/picoss_kabob
+	name = "picoss-kabob"
+	desc = "A popular Moghes streetfood consisting of vinegar-marinated space carp on a skewer with onion and chillis."
+	icon_state = "picoss_skewer"
+	trash = /obj/item/stack/rods
+	list_reagents = list("protein" = 8, "vitamin" = 4, "vinegar" = 1, "capsaicin" = 1)
+	filling_color = "#A85340"
+	tastes = list("fish" = 4, "acid" = 1, "onion" = 1, "heat" = 1)

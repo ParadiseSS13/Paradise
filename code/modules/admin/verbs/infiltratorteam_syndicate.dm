@@ -85,6 +85,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 				new_syndicate_infiltrator.key = theguy.key
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_action_buttons_icon()
+				dust_if_respawnable(theguy)
 			infiltrators -= theguy
 		to_chat(new_syndicate_infiltrator, "<span class='danger'>You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B></span>")
 		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink bio-chip to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
@@ -180,7 +181,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
 	W.assignment = "Assistant"
 	W.access += get_access("Assistant")
-	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
+	W.access += list(ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
 		W.assignment = "Syndicate Management Consultant"
 		W.access += get_syndicate_access("Syndicate Commando")

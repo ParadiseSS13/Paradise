@@ -151,7 +151,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal(src), SLOT_HUD_GLASSES)
 		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), SLOT_HUD_BELT)
 		equip_to_slot_or_del(new /obj/item/tank/internals/oxygen/red(src), SLOT_HUD_SUIT_STORE)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), SLOT_HUD_SHOES)
+		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/elite(src), SLOT_HUD_SHOES)
 		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), SLOT_HUD_RIGHT_HAND)
 		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), SLOT_HUD_IN_BACKPACK)
 

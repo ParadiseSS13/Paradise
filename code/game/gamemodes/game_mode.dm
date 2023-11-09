@@ -1,6 +1,3 @@
-#define NUKE_INTACT 0
-#define NUKE_CORE_MISSING 1
-#define NUKE_MISSING 2
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -404,7 +401,7 @@
 		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)
-				nuke_status = NUKE_INTACT
+				nuke_status = NUKE_STATUS_INTACT
 	return nuke_status
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
@@ -416,6 +413,7 @@
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
 		M.ghostize()
 		M.key = theghost.key
+		dust_if_respawnable(theghost)
 	else
 		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [M.p_their()] place.")
 		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
@@ -507,7 +505,3 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
-
-#undef NUKE_INTACT
-#undef NUKE_CORE_MISSING
-#undef NUKE_MISSING

@@ -164,7 +164,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
-	/client/proc/jump_to_ruin,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
@@ -250,7 +249,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/show_gc_queues,
 	/client/proc/toggle_mctabs,
 	/client/proc/debug_global_variables,
-	/client/proc/visualise_active_turfs
+	/client/proc/visualise_active_turfs,
+	/client/proc/debug_timers,
+	/client/proc/timer_log
 ))
 
 /client/proc/on_holder_add()
@@ -366,6 +367,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(isobserver(mob))
 		//re-enter
 		var/mob/dead/observer/ghost = mob
+		var/old_turf = get_turf(ghost)
 		ghost.can_reenter_corpse = 1			//just in-case.
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
@@ -373,6 +375,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if(ishuman(mob))
 			var/mob/living/carbon/human/H = mob
 			H.regenerate_icons() // workaround for #13269
+		if(isAI(mob)) // client.mob, built in byond client var
+			var/mob/living/silicon/ai/ai = mob
+			ai.eyeobj.setLoc(old_turf)
 	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
@@ -972,8 +977,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(T, "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>")
-	to_chat(T, "<span class='notice'>Move on.</span>")
+	to_chat(T, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
 	SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
 	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
@@ -992,7 +996,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(confirm == "Yes")
 		var/manned_up_sound = sound('sound/voice/manup1.ogg')
 		for(var/sissy in GLOB.player_list)
-			to_chat(sissy, "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>")
+			to_chat(sissy, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
 			SEND_SOUND(sissy, manned_up_sound)
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")

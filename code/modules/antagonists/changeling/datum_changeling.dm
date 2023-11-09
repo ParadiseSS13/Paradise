@@ -39,7 +39,7 @@
 	/// If the changeling is in the process of absorbing someone.
 	var/is_absorbing = FALSE
 	/// The amount of points available to purchase changeling abilities.
-	var/genetic_points = 10
+	var/genetic_points = 20
 	/// A name that will display in place of the changeling's real name when speaking.
 	var/mimicing = ""
 	/// If the changeling can respec their purchased abilities.
@@ -84,9 +84,9 @@
 	return ..()
 
 /datum/antagonist/changeling/greet()
-	..()
+	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	to_chat(owner.current, "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>")
+	return . += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
 
 /datum/antagonist/changeling/farewell()
 	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")

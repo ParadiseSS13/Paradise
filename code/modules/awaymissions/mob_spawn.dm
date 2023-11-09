@@ -36,29 +36,17 @@
 	var/death_cooldown = 0 // How long you have to wait after dying before using it again, in deciseconds. People that join as observers are not included.
 
 /obj/effect/mob_spawn/attack_ghost(mob/user)
-	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
-		return
-	if(!uses)
-		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
-		return
-	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
-		to_chat(user, "<span class='warning'>You are jobanned!</span>")
-		return
-	if(cannotPossess(user))
-		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
-		return
-	if(time_check(user))
+	if(!valid_to_spawn(user))
 		return
 	var/ghost_role = alert("Become [mob_name]? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(ghost_role == "No")
 		return
 	if(!species_prompt())
 		return
-	if(!loc || !uses || QDELETED(src) || QDELETED(user))
+	if(!loc || !uses && !permanent || QDELETED(src) || QDELETED(user))
 		to_chat(user, "<span class='warning'>The [name] is no longer usable!</span>")
 		return
-	log_game("[user.ckey] became [mob_name]")
-	create(ckey = user.ckey)
+	create(ckey = user.ckey, user = user)
 
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
@@ -85,6 +73,22 @@
 /obj/effect/mob_spawn/proc/equip(mob/M)
 	return
 
+/obj/effect/mob_spawn/proc/valid_to_spawn(mob/user)
+	if(SSticker.current_state != GAME_STATE_PLAYING || !loc || !ghost_usable)
+		return FALSE
+	if(!uses && !permanent)
+		to_chat(user, "<span class='warning'>This spawner is out of charges!</span>")
+		return FALSE
+	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
+		to_chat(user, "<span class='warning'>You are jobanned!</span>")
+		return FALSE
+	if(cannotPossess(user))
+		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+		return FALSE
+	if(time_check(user))
+		return FALSE
+	return TRUE
+
 /obj/effect/mob_spawn/proc/time_check(mob/user)
 	var/deathtime = world.time - user.timeofdeath
 	var/joinedasobserver = FALSE
@@ -109,7 +113,8 @@
 		return TRUE
 	return FALSE
 
-/obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name)
+/obj/effect/mob_spawn/proc/create(ckey, flavour = TRUE, name, mob/user = usr)
+	log_game("[ckey] became [mob_name]")
 	var/mob/living/M = new mob_type(get_turf(src)) //living mobs only
 	if(!random)
 		M.real_name = mob_name ? mob_name : M.name
@@ -302,41 +307,6 @@
 
 
 //////////Alive ones, used as "core" for ghost roles now and in future.//////////
-
-//Lavaland Bartender (ghost role).
-/obj/effect/mob_spawn/human/alive/bartender
-	random = TRUE
-	allow_species_pick = TRUE
-	name = "bartender sleeper"
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	description = "Stuck on Lavaland, you could try getting back to civilisation...or serve drinks to those that wander by."
-	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
-	assignedrole = "Space Bartender"
-	outfit = /datum/outfit/spacebartender
-
-//Lavaland Beach Turist(?) (ghost role).
-/obj/effect/mob_spawn/human/alive/beach
-	random = TRUE
-	allow_species_pick = TRUE
-	mob_name = "Beach Bum"
-	name = "beach bum sleeper"
-	icon = 'icons/obj/cryogenic2.dmi'
-	icon_state = "sleeper"
-	flavour_text = "You are a beach bum! You think something just happened to the beach but you don't really pay too much attention."
-	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
-	assignedrole = "Beach Bum"
-	outfit = /datum/outfit/beachbum
-
-//Lavaland Beach Guard (ghost role).
-/obj/effect/mob_spawn/human/alive/beach/lifeguard
-	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell. \
-	You aren't trained for this, but you'll still keep your guests alive!"
-	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
-	mob_gender = "female"
-	name = "lifeguard sleeper"
-	id_job = "Lifeguard"
-	uniform = /obj/item/clothing/under/pants/shorts/red
 
 //Space(?) Bar Patron (ghost role).
 /obj/effect/mob_spawn/human/alive/space_bar_patron

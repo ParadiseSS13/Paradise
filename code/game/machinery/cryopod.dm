@@ -581,7 +581,7 @@
 	time_entered = world.time
 	if(findtext("[E.key]","@",1,2))
 		var/FT = replacetext(E.key, "@", "")
-		for(var/mob/dead/observer/Gh in GLOB.respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
+		for(var/mob/dead/observer/Gh in GLOB.player_list) //this may not be foolproof but it seemed like a better option than 'in world'
 			if(Gh.key == FT)
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
 					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")

@@ -85,6 +85,8 @@
 		P.loc = user.loc
 		user.put_in_hands(P)
 		P.add_fingerprint(user)
+		P.pixel_x = rand(-9, 9) // Random position
+		P.pixel_y = rand(-8, 8)
 		to_chat(user, "<span class='notice'>You take [P] out of [src].</span>")
 	else
 		to_chat(user, "<span class='notice'>[src] is empty!</span>")

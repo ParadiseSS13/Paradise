@@ -56,10 +56,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/max_save_slots = MAX_SAVE_SLOTS
 	var/max_gear_slots = 0
 
-	//non-preference stuff
-	var/last_ip
-	var/last_id
-
 	//game-preferences
 	var/lastchangelog = "1"				//Saved changlog timestamp (unix epoch) to detect if there was a change. Dont set this to 0 unless you want the last changelog date to be 4x longer than the expected lifespan of the universe.
 	var/lastchangelog_2 = "1" // Clone of the above var for viewing changes since last connection. This is never overriden. Yes it needs to exist.
@@ -89,6 +85,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		"1016" = 100, // CHANNEL_FIREALARM
 		"1015" = 100, // CHANNEL_ASH_STORM
 		"1014" = 100, // CHANNEL_RADIO_NOISE
+		"1013" = 100 // CHANNEL_BOSS_MUSIC
 	)
 	/// The volume mixer save timer handle. Used to debounce the DB call to save, to avoid spamming.
 	var/volume_mixer_saving = null
@@ -160,9 +157,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/proc/ShowChoices(mob/user)
 	if(!user || !user.client)
 		return
-	active_character.update_preview_icon()
-	user << browse_rsc(active_character.preview_icon_front, "previewicon.png")
-	user << browse_rsc(active_character.preview_icon_side, "previewicon2.png")
+	if(SSatoms.initialized) // DNA won't be set up on our dummy mob if it's not ready
+		active_character.update_preview_icon()
+		user << browse_rsc(active_character.preview_icon_front, "previewicon.png")
+		user << browse_rsc(active_character.preview_icon_side, "previewicon2.png")
 
 	var/list/dat = list()
 	dat += "<center>"
@@ -226,6 +224,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Skin Tone:</b> <a href='?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[active_character.s_tone]" : "[-active_character.s_tone + 35]/220"]</a><br>"
 			dat += "<b>Disabilities:</b> <a href='?_src_=prefs;preference=disabilities'>\[Set\]</a><br>"
 			dat += "<b>Nanotrasen Relation:</b> <a href ='?_src_=prefs;preference=nt_relation;task=input'>[active_character.nanotrasen_relation]</a><br>"
+			dat += "<b>Physique:</b> <a href='?_src_=prefs;preference=physique;task=input'>[active_character.physique]</a><br>"
+			dat += "<b>Height:</b> <a href ='?_src_=prefs;preference=height;task=input'>[active_character.height]</a><br>"
 			dat += "<a href='byond://?_src_=prefs;preference=flavor_text;task=input'>Set Flavor Text</a><br>"
 			if(length(active_character.flavor_text) <= 40)
 				if(!length(active_character.flavor_text))

@@ -358,10 +358,10 @@
 		else
 			var/timeleft = SSshuttle.emergency.timeLeft()
 			if(SSshuttle.emergency.mode < SHUTTLE_DOCKED)
-				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
+				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[seconds_to_full_clock(timeleft)]</a><br>"
 				dat += "<a href='?_src_=holder;call_shuttle=2'>Send Back</a><br>"
 			else
-				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
+				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[seconds_to_full_clock(timeleft)]</a><br>"
 
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		dat += "<br><b>Antagonist Teams</b><br>"
