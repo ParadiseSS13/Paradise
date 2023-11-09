@@ -16,7 +16,7 @@
 			SSqueue.queue_bypass_list |= ckey
 			return
 
-		src << link(GLOB.configuration.overflow.overflow_server_location)
+		src << link("byond://[GLOB.configuration.overflow.overflow_server_location]")
 
 /mob/new_player/Logout()
 	. = ..()
