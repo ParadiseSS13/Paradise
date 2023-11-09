@@ -808,6 +808,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
+	var/datum/ui_module/botcall/botcall
+	botcall	= new(src)
+	botcall.ui_interact(usr)
+
 	var/d
 	var/area/bot_area
 	d += "<A HREF=?src=[UID()];botrefresh=\ref[Bot]>Query network status</A><br>"
@@ -824,7 +828,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			d += "<td width='10%'><A HREF=?src=[UID()];callbot=\ref[Bot]>Call</A></td>"
 			d += "</tr>"
 			d = format_text(d)
-
 	var/datum/browser/popup = new(src, "botcall", "Remote Robot Control", 700, 400)
 	popup.set_content(d)
 	popup.open()

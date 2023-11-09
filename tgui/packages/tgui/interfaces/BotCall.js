@@ -1,0 +1,140 @@
+import { useBackend, useLocalState } from '../backend';
+import { Box, Button, Icon, NanoMap, Table, Tabs } from '../components';
+import { TableCell } from '../components/Table';
+import { Window } from '../layouts';
+
+// export const BotClean = (props, context) => {
+//   const { act, data } = useBackend(context);
+//   const {
+//     name,
+//     area,
+//     mode,
+//     model,
+//   } = data;
+//   return (
+//     <Window resizable>
+//       <Window.Content scrollable>
+//         <Tabs>
+//           <Tabs.Tab>
+//
+//           </Tabs.Tab>
+//         </Tabs>
+//       </Window.Content>
+//     </Window>
+//   );
+// };
+
+
+
+export const BotCall = (props, context) => {
+  const { act, data } = useBackend(context);
+  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const decideTab = (index) => {
+    switch (index) {
+      case 0:
+        return <SecuritronView />;
+//      case 1:
+//        return <MedibotView />;
+//      case 2:
+//        return <CleanbotView />;
+//      case 3:
+//        return <FloorbotView />;
+//      case 4:
+//        return <MuleView />;
+      default:
+        return "WE SHOULDN'T BE HERE!"; // Blatant copy past from atmos UI
+    }
+  };
+
+  return (
+    <Window resizable>
+      <Window.Content scrollable={tabIndex === 0}>
+        <Box fillPositionedParent>
+          <Tabs>
+            <Tabs.Tab
+              key="Securitron"
+              selected={tabIndex === 0}
+              onClick={() => setTabIndex(0)}
+            >
+              Securitron
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Medibot"
+              selected={tabIndex === 1}
+              onClick={() => setTabIndex(1)}
+            >
+              Medibot
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Cleanbot"
+              selected={tabIndex === 2}
+              onClick={() => setTabIndex(1)}
+            >
+              Cleanbot
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Floorbot"
+              selected={tabIndex === 3}
+              onClick={() => setTabIndex(1)}
+            >
+              Floorbot
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="Mule"
+              selected={tabIndex === 4}
+              onClick={() => setTabIndex(1)}
+            >
+              Mule
+            </Tabs.Tab>
+          </Tabs>
+          {decideTab(tabIndex)}
+        </Box>
+      </Window.Content>
+    </Window>
+  );
+};
+
+
+const SecuritronView = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    secbot,
+    medbot,
+  } = data;
+  return (
+    <Box>
+      <Table m="0.5rem">
+        <Table.Row header>
+          <Table.Cell>Name</Table.Cell>
+          <Table.Cell>Model</Table.Cell>
+          <Table.Cell>Status</Table.Cell>
+          <Table.Cell>Location</Table.Cell>
+          <Table.Cell>Interface</Table.Cell>
+          <Table.Cell>Call</Table.Cell>
+        </Table.Row>
+      {secbot.map((bot) => (
+        <Table.Row key={bot.model}>
+          <TableCell>{bot.bot_name ? bot.bot_name : bot.model}</TableCell>
+          <TableCell>{bot.model}</TableCell>
+          <TableCell>{bot.mode}</TableCell>
+          <TableCell>{bot.area}</TableCell>
+          <TableCell>
+              <Button
+                content="Interface"
+                onClick={() => act('interface',
+                {botref: bot.ref})}
+              />
+          </TableCell>
+          <TableCell>
+              <Button
+                content="Call"
+                onClick={() => act('call',
+                {botref: bot.ref})}
+              />
+          </TableCell>
+        </Table.Row>
+      ))}
+      </Table>
+    </Box>
+  );
+};
