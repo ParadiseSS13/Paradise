@@ -554,7 +554,7 @@
 	build_path = /obj/item/bio_chip_implanter
 	category = list("Medical")
 
-/datum/design/implantcase
+/datum/design/bio_chip_case
 	name = "Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implantcase"
@@ -564,7 +564,7 @@
 	build_path = /obj/item/bio_chip_case
 	category = list("Medical")
 
-/datum/design/implant_chem
+/datum/design/bio_chip_chem
 	name = "Chemical Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implant_chem"
@@ -574,7 +574,7 @@
 	build_path = /obj/item/bio_chip_case/chem
 	category = list("Medical")
 
-/datum/design/implant_sadtrombone
+/datum/design/bio_chip_sad_trombone
 	name = "Sad Trombone Bio-chip Case"
 	desc = "Makes death amusing."
 	id = "implant_trombone"
@@ -584,7 +584,7 @@
 	build_path = /obj/item/bio_chip_case/sad_trombone
 	category = list("Medical")
 
-/datum/design/implant_tracking
+/datum/design/bio_chip_tracking
 	name = "Tracking Bio-chip Case"
 	desc = "A glass case containing a bio-chip."
 	id = "implant_tracking"
