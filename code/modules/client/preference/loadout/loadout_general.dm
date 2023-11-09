@@ -42,7 +42,7 @@
 
 /datum/gear/matches
 	display_name = "Box of matches"
-	path = /obj/item/storage/box/matches
+	path = /obj/item/storage/fancy/matches
 
 /datum/gear/candlebox
 	display_name = "Box of candles"

@@ -81,7 +81,7 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
-	r_pocket = /obj/item/storage/box/matches
+	r_pocket = /obj/item/storage/fancy/matches
 	back = /obj/item/storage/backpack/satchel
 	box = /obj/item/storage/box/centcomofficer
 	backpack_contents = list(
