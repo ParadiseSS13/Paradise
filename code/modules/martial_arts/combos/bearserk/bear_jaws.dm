@@ -26,5 +26,5 @@
 		if(target.stat != DEAD)
 			user.adjustStaminaLoss(-15)
 			user.apply_status_effect(STATUS_EFFECT_BEARSERKER_RAGE)
-t, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
+	add_attack_logs(user, target, "Melee attacked with martial-art [MA] : Bear Jaws", ATKLOG_ALL)
 	return MARTIAL_COMBO_DONE
