@@ -322,7 +322,7 @@
 	P.info = {"
 <font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Prototype Emergency Repair Nanites</B><HR></center><BR><BR>
 
-<B>Usage:</B> <BR><BR><BR>
+<b>Usage:</b><br><br><br>
 
 <font size = "1">This is a highly experimental prototype chemical designed to fully mend limbs and organs of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a classifed payload. The nanites will simultaneously shut down body systems whilst aiding in repair.<BR><BR><BR>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <B>Do not use with any kind of stimulant or drugs. Serious damage can occur!</B><BR><BR><BR>
 
