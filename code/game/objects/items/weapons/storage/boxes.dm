@@ -284,6 +284,20 @@
 	new /obj/item/lipstick/blue(src)
 	new /obj/item/lipstick/white(src)
 
+/obj/item/storage/box/characters
+	name = "Box of Miniatures"
+	desc = "The nerd's best friends."
+	icon_state = "toy_box"
+
+/obj/item/storage/box/characters/populate_contents()
+	new /obj/item/toy/character/alien(src)
+	new /obj/item/toy/character/cleric(src)
+	new /obj/item/toy/character/warrior(src)
+	new /obj/item/toy/character/thief(src)
+	new /obj/item/toy/character/wizard(src)
+	new /obj/item/toy/character/cthulhu(src)
+	new /obj/item/toy/character/lich(src)
+
 //////////////////
 /* Monkey Boxes */
 //////////////////
@@ -391,12 +405,11 @@
 	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
-/obj/item/storage/box/autoinjector/utility
+/obj/item/storage/box/autoinjectors/utility
 	name = "autoinjector kit"
 	desc = "A box with several utility autoinjectors for the economical miner."
-	icon_state = "injector_box"
 
-/obj/item/storage/box/autoinjector/utility/populate_contents()
+/obj/item/storage/box/autoinjectors/utility/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector/teporone(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/teporone(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
@@ -987,7 +1000,7 @@
 /obj/item/storage/box/breaching
 	name = "breaching charges"
 	desc = "Contains three T4 thermal breaching charges."
-	icon_state = "flashbang_box"
+	icon_state = "grenade_box"
 
 /obj/item/storage/box/breaching/populate_contents()
 	for(var/I in 1 to 3)
