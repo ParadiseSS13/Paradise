@@ -40,6 +40,9 @@
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
 
+////////////////////
+/* Survival Boxes */
+////////////////////
 /obj/item/storage/box/survival
 	icon_state = "civ_box"
 
@@ -96,215 +99,9 @@
 	new /obj/item/reagent_containers/food/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 
-/obj/item/storage/box/gloves
-	name = "box of latex gloves"
-	desc = "Contains white gloves."
-	icon_state = "latex_box"
-
-/obj/item/storage/box/gloves/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/clothing/gloves/color/latex(src)
-
-/obj/item/storage/box/masks
-	name = "sterile masks"
-	desc = "This box contains masks of sterility."
-	icon_state = "sterile_box"
-
-/obj/item/storage/box/masks/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/clothing/mask/surgical(src)
-
-/obj/item/storage/box/syringes
-	name = "syringes"
-	desc = "A box full of syringes."
-	icon_state = "syringe_box"
-
-/obj/item/storage/box/syringes/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/syringe(src)
-
-/obj/item/storage/box/beakers
-	name = "beaker box"
-	icon_state = "beaker_box"
-
-/obj/item/storage/box/beakers/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker(src)
-
-/obj/item/storage/box/beakers/bluespace
-	name = "box of bluespace beakers"
-	icon_state = "beaker_bs_box"
-
-/obj/item/storage/box/beakers/bluespace/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
-
-/obj/item/storage/box/iv_bags
-	name = "IV Bags"
-	desc = "A box full of empty IV bags."
-	icon_state = "iv_box"
-
-/obj/item/storage/box/iv_bags/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/reagent_containers/iv_bag(src)
-
-/obj/item/storage/box/injectors
-	name = "\improper DNA injectors"
-	desc = "This box contains injectors it seems."
-	icon_state = "injector_box"
-
-/obj/item/storage/box/injectors/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/dnainjector/h2m(src)
-
-/obj/item/storage/box/slug
-	name = "ammunition box (Slug)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "slug_box"
-
-/obj/item/storage/box/slug/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun(src)
-
-/obj/item/storage/box/buck
-	name = "ammunition box (Buckshot)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "buckshot_box"
-
-/obj/item/storage/box/buck/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-
-/obj/item/storage/box/dragonsbreath
-	name = "ammunition box (Dragonsbreath)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "dragonsbreath_box"
-
-/obj/item/storage/box/dragonsbreath/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-
-/obj/item/storage/box/stun
-	name = "ammunition box (Stun shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "stun_box"
-
-/obj/item/storage/box/stun/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-
-/obj/item/storage/box/beanbag
-	name = "ammunition box (Beanbag shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "beanbag_box"
-
-/obj/item/storage/box/beanbag/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-
-/obj/item/storage/box/rubbershot
-	name = "ammunition box (Rubbershot shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "rubbershot_box"
-
-/obj/item/storage/box/rubbershot/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-
-/obj/item/storage/box/tranquilizer
-	name = "ammunition box (Tranquilizer darts)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "tranq_box"
-
-/obj/item/storage/box/tranquilizer/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
-
-/obj/item/storage/box/flashbangs
-	name = "box of flashbangs (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
-	icon_state = "flashbang_box"
-
-/obj/item/storage/box/flashbangs/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/grenade/flashbang(src)
-
-/obj/item/storage/box/flashes
-	name = "box of flashbulbs"
-	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
-	icon_state = "flash_box"
-
-/obj/item/storage/box/flashes/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/flash(src)
-
-/obj/item/storage/box/teargas
-	name = "box of tear gas grenades (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
-	icon_state = "teargas_box"
-
-/obj/item/storage/box/teargas/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/grenade/chem_grenade/teargas(src)
-
-/obj/item/storage/box/emps
-	name = "emp grenades"
-	desc = "A box with 5 emp grenades."
-	icon_state = "emp_box"
-
-/obj/item/storage/box/emps/populate_contents()
-	for(var/I in 1 to 5)
-		new /obj/item/grenade/empgrenade(src)
-
-
-/obj/item/storage/box/trackimp
-	name = "tracking bio-chip kit"
-	desc = "Box full of scum-bag tracking utensils."
-	icon_state = "implant_box"
-
-/obj/item/storage/box/trackimp/populate_contents()
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implanter(src)
-	new /obj/item/implantpad(src)
-	new /obj/item/gps/security(src)
-
-/obj/item/storage/box/minertracker
-	name = "boxed tracking bio-chip kit"
-	desc = "For finding those who have died on the accursed lavaworld."
-	icon_state = "implant_box"
-
-/obj/item/storage/box/minertracker/populate_contents()
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implanter(src)
-	new /obj/item/implantpad(src)
-	new /obj/item/gps/mining(src)
-
-/obj/item/storage/box/chemimp
-	name = "chemical bio-chip kit"
-	desc = "Box of stuff used to bio-chip chemicals."
-	icon_state = "implant_box"
-
-/obj/item/storage/box/chemimp/populate_contents()
-	for(var/I in 1 to 5)
-		new /obj/item/implantcase/chem(src)
-	new /obj/item/implanter(src)
-	new /obj/item/implantpad(src)
-
-/obj/item/storage/box/deathimp
-	name = "death alarm bio-chip kit"
-	desc = "Box of life sign monitoring bio-chips."
-	icon_state = "implant_box"
-
-/obj/item/storage/box/deathimp/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implanter/death_alarm (src)
-
+//////////////////
+/* Common Boxes */
+//////////////////
 /obj/item/storage/box/tapes
 	name = "Tape Box"
 	desc = "A box of spare recording tapes"
@@ -313,15 +110,6 @@
 /obj/item/storage/box/tapes/populate_contents()
 	for(var/I in 1 to 6)
 		new /obj/item/tape/random(src)
-
-/obj/item/storage/box/rxglasses
-	name = "prescription glasses"
-	desc = "This box contains nerd glasses."
-	icon_state = "glasses_box"
-
-/obj/item/storage/box/rxglasses/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/clothing/glasses/regular(src)
 
 /obj/item/storage/box/drinkingglasses
 	name = "box of drinking glasses"
@@ -348,33 +136,154 @@
 	for(var/I in 1 to 7)
 		new /obj/item/reagent_containers/food/drinks/sillycup(src)
 
-/obj/item/storage/box/donkpockets
-	name = "box of donk-pockets"
-	desc = "A heavy, insulated box that reads, <b>Instructions:</b> <i>Heat in microwave. Product will cool if not eaten within seven minutes. Store product in box to keep warm.</i>"
-	storage_slots = 6
-	can_hold = list(
-		/obj/item/reagent_containers/food/snacks/donkpocket,
-		/obj/item/reagent_containers/food/snacks/warmdonkpocket,
-		/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak,
-		/obj/item/reagent_containers/food/snacks/syndidonkpocket)
-	icon_state = "donk_box"
+/obj/item/storage/box/ids
+	name = "spare IDs"
+	desc = "Has so many empty IDs."
+	icon_state = "id_box"
 
-/obj/item/storage/box/donkpockets/populate_contents()
+/obj/item/storage/box/ids/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/card/id(src)
+
+/obj/item/storage/box/bartender_rare_ingredients_kit
+	name = "bartender rare reagents kit"
+	desc = "A box intended for experienced bartenders."
+
+/obj/item/storage/box/bartender_rare_ingredients_kit/populate_contents()
+	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
+	for(var/reag in reagent_list)
+		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		B.reagents.add_reagent(reag, 30)
+		B.name = "[reag] bottle"
+
+/obj/item/storage/box/chef_rare_ingredients_kit
+	name = "chef rare reagents kit"
+	desc = "A box intended for experienced chefs."
+
+/obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
+	new /obj/item/reagent_containers/food/condiment/soysauce(src)
+	new /obj/item/reagent_containers/food/condiment/enzyme(src)
+	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
+	new /obj/item/kitchen/knife/butcher(src)
+	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
+	for(var/reag in reagent_list)
+		var/obj/item/reagent_containers/glass/bottle/B = new(src)
+		B.reagents.add_reagent(reag, 30)
+		B.name = "[reag] bottle"
+
+/obj/item/storage/box/botany_labelled_seeds
+	name = "botanist labelled random seeds kit"
+	desc = "A box intended for experienced botanists."
+
+/obj/item/storage/box/botany_labelled_seeds/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/seeds/random/labelled(src)
+
+/obj/item/storage/box/mousetraps
+	name = "box of Pest-B-Gon mousetraps"
+	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
+	icon_state = "mousetraps_box"
+
+/obj/item/storage/box/mousetraps/populate_contents()
 	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
+		new /obj/item/assembly/mousetrap(src)
 
-/obj/item/storage/box/donkpockets/empty/populate_contents()
-	return
+/obj/item/storage/box/lights
+	name = "replacement bulbs"
+	icon_state = "light_box"
+	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
+	storage_slots = 21
+	can_hold = list(/obj/item/light/tube, /obj/item/light/bulb)
+	max_combined_w_class = 21
+	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try
 
-/obj/item/storage/box/syndidonkpockets
-	name = "box of donk-pockets"
-	desc = "This box feels slightly warm"
-	icon_state = "donk_box"
+/obj/item/storage/box/lights/bulbs/populate_contents()
+	for(var/I in 1 to storage_slots)
+		new /obj/item/light/bulb(src)
 
-/obj/item/storage/box/syndidonkpockets/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
+/obj/item/storage/box/lights/tubes
+	name = "replacement tubes"
+	icon_state = "light_tube_box"
 
+/obj/item/storage/box/lights/tubes/populate_contents()
+	for(var/I in 1 to storage_slots)
+		new /obj/item/light/tube(src)
+
+/obj/item/storage/box/lights/mixed
+	name = "replacement lights"
+	icon_state = "light_mixed_box"
+
+/obj/item/storage/box/lights/mixed/populate_contents()
+	for(var/I in 1 to 14)
+		new /obj/item/light/tube(src)
+	for(var/I in 1 to 7)
+		new /obj/item/light/bulb(src)
+
+/obj/item/storage/box/barber
+	name = "Barber Starter Kit"
+	desc = "For all hairstyling needs."
+
+/obj/item/storage/box/barber/populate_contents()
+	new /obj/item/scissors/barber(src)
+	new /obj/item/hair_dye_bottle(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent/hair_dye(src)
+	new /obj/item/reagent_containers/glass/bottle/reagent(src)
+	new /obj/item/reagent_containers/dropper(src)
+	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
+
+/obj/item/storage/box/lip_stick
+	name = "Lipstick Kit"
+	desc = "For all your lip coloring needs."
+
+/obj/item/storage/box/lip_stick/populate_contents()
+	new /obj/item/lipstick(src)
+	new /obj/item/lipstick/purple(src)
+	new /obj/item/lipstick/jade(src)
+	new /obj/item/lipstick/black(src)
+	new /obj/item/lipstick/green(src)
+	new /obj/item/lipstick/blue(src)
+	new /obj/item/lipstick/white(src)
+
+/obj/item/storage/box/disks_plantgene
+	name = "plant data disks box"
+	icon_state = "disk_box"
+
+/obj/item/storage/box/disks_plantgene/populate_contents()
+	for(var/i in 1 to 7)
+		new /obj/item/disk/plantgene(src)
+
+/obj/item/storage/box/disks
+	name = "Genetics Diskette Box"
+	icon_state = "disk_box"
+
+/obj/item/storage/box/disks/populate_contents()
+	for(var/i in 1 to 7)
+		new /obj/item/disk/data(src)
+
+/obj/item/storage/box/PDAs
+	name = "spare PDAs"
+	desc = "A box of spare PDA microcomputers."
+	icon_state = "pda_box"
+
+/obj/item/storage/box/PDAs/populate_contents()
+	var/newcart = pick(
+		/obj/item/cartridge/engineering,
+		/obj/item/cartridge/security,
+		/obj/item/cartridge/medical,
+		/obj/item/cartridge/signal/toxins,
+		/obj/item/cartridge/cargo)
+
+	new /obj/item/pda(src)
+	new /obj/item/pda(src)
+	new /obj/item/pda(src)
+	new /obj/item/pda(src)
+	new /obj/item/cartridge/head(src)
+	new newcart(src)
+
+//////////////////
+/* Monkey Boxes */
+//////////////////
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"
@@ -415,24 +324,186 @@
 	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
 
-/obj/item/storage/box/permits
-	name = "box of construction permits"
-	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
-	icon_state = "id_box"
+////////////////
+/* Donk Boxes */
+////////////////
+/obj/item/storage/box/donkpockets
+	name = "box of donk-pockets"
+	desc = "A heavy, insulated box that reads, <b>Instructions:</b> <i>Heat in microwave. Product will cool if not eaten within seven minutes. Store product in box to keep warm.</i>"
+	icon_state = "donk_box"
+	storage_slots = 6
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/donkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket,
+		/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak,
+		/obj/item/reagent_containers/food/snacks/syndidonkpocket)
 
-/obj/item/storage/box/permits/populate_contents()
+/obj/item/storage/box/donkpockets/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
+
+/obj/item/storage/box/donkpockets/empty/populate_contents()
+	return
+
+/obj/item/storage/box/syndidonkpockets
+	name = "box of donk-pockets"
+	desc = "This box feels slightly warm"
+	icon_state = "donk_box"
+
+/obj/item/storage/box/syndidonkpockets/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
+
+///////////////////
+/* Medical Boxes */
+///////////////////
+/obj/item/storage/box/gloves
+	name = "box of latex gloves"
+	desc = "Contains white gloves."
+	icon_state = "latex_box"
+
+/obj/item/storage/box/gloves/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/areaeditor/permit(src)
+		new /obj/item/clothing/gloves/color/latex(src)
 
+/obj/item/storage/box/masks
+	name = "sterile masks"
+	desc = "This box contains masks of sterility."
+	icon_state = "mask_box"
 
-/obj/item/storage/box/ids
-	name = "spare IDs"
-	desc = "Has so many empty IDs."
-	icon_state = "id_box"
-
-/obj/item/storage/box/ids/populate_contents()
+/obj/item/storage/box/masks/populate_contents()
 	for(var/I in 1 to 7)
-		new /obj/item/card/id(src)
+		new /obj/item/clothing/mask/surgical(src)
+
+/obj/item/storage/box/syringes
+	name = "syringes"
+	desc = "A box full of syringes."
+	icon_state = "syringe_box"
+
+/obj/item/storage/box/syringes/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/syringe(src)
+
+/obj/item/storage/box/beakers
+	name = "beaker box"
+	icon_state = "beaker_box"
+
+/obj/item/storage/box/beakers/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/glass/beaker(src)
+
+/obj/item/storage/box/beakers/bluespace
+	name = "box of bluespace beakers"
+	icon_state = "beaker_bs_box"
+
+/obj/item/storage/box/beakers/bluespace/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
+
+/obj/item/storage/box/iv_bags
+	name = "IV Bags"
+	desc = "A box full of empty IV bags."
+	icon_state = "iv_box"
+
+/obj/item/storage/box/iv_bags/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/iv_bag(src)
+
+/obj/item/storage/box/autoinjectors
+	name = "box of injectors"
+	desc = "Contains autoinjectors."
+	icon_state = "injector_box"
+
+/obj/item/storage/box/autoinjectors/populate_contents()
+	for(var/I in 1 to storage_slots)
+		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+
+/obj/item/storage/box/autoinjector/utility
+	name = "autoinjector kit"
+	desc = "A box with several utility autoinjectors for the economical miner."
+	icon_state = "injector_box"
+
+/obj/item/storage/box/autoinjector/utility/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector/teporone(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/teporone(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
+
+/obj/item/storage/box/pillbottles
+	name = "box of pill bottles"
+	desc = "It has pictures of pill bottles on its front."
+	icon_state = "pillbox_box"
+
+/obj/item/storage/box/pillbottles/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/pill_bottle(src)
+
+/obj/item/storage/box/patch_packs
+	name = "box of patch packs"
+	desc = "It has pictures of patch packs on its front."
+	icon_state = "patch_box"
+
+/obj/item/storage/box/patch_packs/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/pill_bottle/patch_pack(src)
+
+/obj/item/storage/box/bodybags
+	name = "body bags"
+	desc = "This box contains body bags."
+	icon_state = "bodybags_box"
+
+/obj/item/storage/box/bodybags/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/bodybag(src)
+
+/obj/item/storage/box/rxglasses
+	name = "prescription glasses"
+	desc = "This box contains nerd glasses."
+	icon_state = "glasses_box"
+
+/obj/item/storage/box/rxglasses/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/clothing/glasses/regular(src)
+
+////////////////////
+/* Security Boxes */
+////////////////////
+/obj/item/storage/box/flashbangs
+	name = "box of flashbangs (WARNING)"
+	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
+	icon_state = "flashbang_box"
+
+/obj/item/storage/box/flashbangs/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/flashbang(src)
+
+/obj/item/storage/box/flashes
+	name = "box of flashbulbs"
+	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
+	icon_state = "flash_box"
+
+/obj/item/storage/box/flashes/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/flash(src)
+
+/obj/item/storage/box/teargas
+	name = "box of tear gas grenades (WARNING)"
+	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
+	icon_state = "teargas_box"
+
+/obj/item/storage/box/teargas/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/chem_grenade/teargas(src)
+
+/obj/item/storage/box/emps
+	name = "emp grenades"
+	desc = "A box with 5 emp grenades."
+	icon_state = "emp_box"
+
+/obj/item/storage/box/emps/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/empgrenade(src)
 
 /obj/item/storage/box/prisoner
 	name = "prisoner IDs"
@@ -497,6 +568,136 @@
 	for(var/I in 1 to 7)
 		new /obj/item/restraints/handcuffs/cable/zipties(src)
 
+////////////////////
+/* Implants Boxes */
+////////////////////
+/obj/item/storage/box/trackimp
+	name = "tracking bio-chip kit"
+	desc = "Box full of scum-bag tracking utensils."
+	icon_state = "implant_box"
+
+/obj/item/storage/box/trackimp/populate_contents()
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implanter(src)
+	new /obj/item/implantpad(src)
+	new /obj/item/gps/security(src)
+
+/obj/item/storage/box/minertracker
+	name = "boxed tracking bio-chip kit"
+	desc = "For finding those who have died on the accursed lavaworld."
+	icon_state = "implant_box"
+
+/obj/item/storage/box/minertracker/populate_contents()
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implantcase/tracking(src)
+	new /obj/item/implanter(src)
+	new /obj/item/implantpad(src)
+	new /obj/item/gps/mining(src)
+
+/obj/item/storage/box/chemimp
+	name = "chemical bio-chip kit"
+	desc = "Box of stuff used to bio-chip chemicals."
+	icon_state = "implant_box"
+
+/obj/item/storage/box/chemimp/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/implantcase/chem(src)
+	new /obj/item/implanter(src)
+	new /obj/item/implantpad(src)
+
+/obj/item/storage/box/deathimp
+	name = "death alarm bio-chip kit"
+	desc = "Box of life sign monitoring bio-chips."
+	icon_state = "implant_box"
+
+/obj/item/storage/box/deathimp/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/implantcase/death_alarm(src)
+	new /obj/item/implanter/death_alarm (src)
+
+////////////////
+/* Ammo Boxes */
+////////////////
+/obj/item/storage/box/slug
+	name = "ammunition box (Slug)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "slug_box"
+
+/obj/item/storage/box/slug/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun(src)
+
+/obj/item/storage/box/buck
+	name = "ammunition box (Buckshot)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "buckshot_box"
+
+/obj/item/storage/box/buck/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/buckshot(src)
+
+/obj/item/storage/box/dragonsbreath
+	name = "ammunition box (Dragonsbreath)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "dragonsbreath_box"
+
+/obj/item/storage/box/dragonsbreath/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
+
+/obj/item/storage/box/stun
+	name = "ammunition box (Stun shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "stun_box"
+
+/obj/item/storage/box/stun/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/stunslug(src)
+
+/obj/item/storage/box/beanbag
+	name = "ammunition box (Beanbag shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "beanbag_box"
+
+/obj/item/storage/box/beanbag/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+
+/obj/item/storage/box/rubbershot
+	name = "ammunition box (Rubbershot shells)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "rubbershot_box"
+
+/obj/item/storage/box/rubbershot/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/rubbershot(src)
+
+/obj/item/storage/box/tranquilizer
+	name = "ammunition box (Tranquilizer darts)"
+	desc = "A small box capable of holding seven shotgun shells."
+	icon_state = "tranq_box"
+
+/obj/item/storage/box/tranquilizer/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
+
+
+////////////////
+/* Misc Boxes */
+////////////////
+/obj/item/storage/box/permits
+	name = "box of construction permits"
+	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
+	icon_state = "id_box"
+
+/obj/item/storage/box/permits/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/areaeditor/permit(src)
+
 /obj/item/storage/box/alienhandcuffs
 	name = "box of spare handcuffs"
 	desc = "A box full of handcuffs."
@@ -535,40 +736,6 @@
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 
-/obj/item/storage/box/bartender_rare_ingredients_kit
-	name = "bartender rare reagents kit"
-	desc = "A box intended for experienced bartenders."
-
-/obj/item/storage/box/bartender_rare_ingredients_kit/populate_contents()
-	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
-	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
-		B.reagents.add_reagent(reag, 30)
-		B.name = "[reag] bottle"
-
-/obj/item/storage/box/chef_rare_ingredients_kit
-	name = "chef rare reagents kit"
-	desc = "A box intended for experienced chefs."
-
-/obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
-	new /obj/item/reagent_containers/food/condiment/soysauce(src)
-	new /obj/item/reagent_containers/food/condiment/enzyme(src)
-	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
-	new /obj/item/kitchen/knife/butcher(src)
-	var/list/reagent_list = list("msg", "triple_citrus", "salglu_solution", "nutriment", "gravy", "honey", "vitfro")
-	for(var/reag in reagent_list)
-		var/obj/item/reagent_containers/glass/bottle/B = new(src)
-		B.reagents.add_reagent(reag, 30)
-		B.name = "[reag] bottle"
-
-/obj/item/storage/box/botany_labelled_seeds
-	name = "botanist labelled random seeds kit"
-	desc = "A box intended for experienced botanists."
-
-/obj/item/storage/box/botany_labelled_seeds/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/seeds/random/labelled(src)
-
 /obj/item/storage/box/telescience
 	name = "babies first telescience kit"
 	desc = "A now restricted kit for those who want to learn about telescience!"
@@ -576,42 +743,6 @@
 /obj/item/storage/box/telescience/populate_contents()
 	new /obj/item/circuitboard/telesci_pad(src)
 	new /obj/item/circuitboard/telesci_console(src)
-
-/obj/item/storage/box/mousetraps
-	name = "box of Pest-B-Gon mousetraps"
-	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
-	icon_state = "mousetraps_box"
-
-/obj/item/storage/box/mousetraps/populate_contents()
-	for(var/I in 1 to 6)
-		new /obj/item/assembly/mousetrap(src)
-
-/obj/item/storage/box/pillbottles
-	name = "box of pill bottles"
-	desc = "It has pictures of pill bottles on its front."
-	icon_state = "pillbox_box"
-
-/obj/item/storage/box/pillbottles/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle(src)
-
-/obj/item/storage/box/patch_packs
-	name = "box of patch packs"
-	desc = "It has pictures of patch packs on its front."
-	icon_state = "patch_box"
-
-/obj/item/storage/box/patch_packs/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/storage/pill_bottle/patch_pack(src)
-
-/obj/item/storage/box/bodybags
-	name = "body bags"
-	desc = "This box contains body bags."
-	icon_state = "bodybags_box"
-
-/obj/item/storage/box/bodybags/populate_contents()
-	for(var/I in 1 to 7)
-		new /obj/item/bodybag(src)
 
 /obj/item/storage/box/snappops
 	name = "snap pop box"
@@ -624,119 +755,15 @@
 	for(var/I in 1 to storage_slots)
 		new /obj/item/toy/snappop(src)
 
-/obj/item/storage/box/disks_plantgene
-	name = "plant data disks box"
-	icon_state = "disk_box"
-
-/obj/item/storage/box/disks_plantgene/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/disk/plantgene(src)
-
-/obj/item/storage/box/disks
-	name = "Genetics Diskette Box"
-	icon_state = "disk_box"
-
-/obj/item/storage/box/disks/populate_contents()
-	for(var/i in 1 to 7)
-		new /obj/item/disk/data(src)
-
-/obj/item/storage/box/PDAs
-	name = "spare PDAs"
-	desc = "A box of spare PDA microcomputers."
-	icon_state = "pda_box"
-
-/obj/item/storage/box/PDAs/populate_contents()
-	var/newcart = pick(
-		/obj/item/cartridge/engineering,
-		/obj/item/cartridge/security,
-		/obj/item/cartridge/medical,
-		/obj/item/cartridge/signal/toxins,
-		/obj/item/cartridge/cargo)
-
-	new /obj/item/pda(src)
-	new /obj/item/pda(src)
-	new /obj/item/pda(src)
-	new /obj/item/pda(src)
-	new /obj/item/cartridge/head(src)
-	new newcart(src)
-
-/obj/item/storage/box/autoinjectors
-	name = "box of injectors"
-	desc = "Contains autoinjectors."
+/obj/item/storage/box/injectors
+	name = "\improper DNA injectors"
+	desc = "This box contains injectors it seems."
 	icon_state = "injector_box"
 
-/obj/item/storage/box/autoinjectors/populate_contents()
-	for(var/I in 1 to storage_slots)
-		new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
+/obj/item/storage/box/injectors/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/dnainjector/h2m(src)
 
-/obj/item/storage/box/autoinjector/utility
-	name = "autoinjector kit"
-	desc = "A box with several utility autoinjectors for the economical miner."
-	icon_state = "injector_box"
-
-/obj/item/storage/box/autoinjector/utility/populate_contents()
-	new /obj/item/reagent_containers/hypospray/autoinjector/teporone(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/teporone(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
-
-/obj/item/storage/box/lights
-	name = "replacement bulbs"
-	icon_state = "light_box"
-	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
-	storage_slots = 21
-	can_hold = list(/obj/item/light/tube, /obj/item/light/bulb)
-	max_combined_w_class = 21
-	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try
-
-/obj/item/storage/box/lights/bulbs/populate_contents()
-	for(var/I in 1 to storage_slots)
-		new /obj/item/light/bulb(src)
-
-/obj/item/storage/box/lights/tubes
-	name = "replacement tubes"
-	icon_state = "light_tube_box"
-
-/obj/item/storage/box/lights/tubes/populate_contents()
-	for(var/I in 1 to storage_slots)
-		new /obj/item/light/tube(src)
-
-/obj/item/storage/box/lights/mixed
-	name = "replacement lights"
-	icon_state = "light_mixed_box"
-
-/obj/item/storage/box/lights/mixed/populate_contents()
-	for(var/I in 1 to 14)
-		new /obj/item/light/tube(src)
-	for(var/I in 1 to 7)
-		new /obj/item/light/bulb(src)
-
-/obj/item/storage/box/barber
-	name = "Barber Starter Kit"
-	desc = "For all hairstyling needs."
-
-/obj/item/storage/box/barber/populate_contents()
-	new /obj/item/scissors/barber(src)
-	new /obj/item/hair_dye_bottle(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent/hair_dye(src)
-	new /obj/item/reagent_containers/glass/bottle/reagent(src)
-	new /obj/item/reagent_containers/dropper(src)
-	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
-
-/obj/item/storage/box/lip_stick
-	name = "Lipstick Kit"
-	desc = "For all your lip coloring needs."
-
-/obj/item/storage/box/lip_stick/populate_contents()
-	new /obj/item/lipstick(src)
-	new /obj/item/lipstick/purple(src)
-	new /obj/item/lipstick/jade(src)
-	new /obj/item/lipstick/black(src)
-	new /obj/item/lipstick/green(src)
-	new /obj/item/lipstick/blue(src)
-	new /obj/item/lipstick/white(src)
 
 #define NODESIGN "None"
 #define NANOTRASEN "NanotrasenStandard"
