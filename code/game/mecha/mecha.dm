@@ -1338,7 +1338,7 @@
 		return 1
 	if(!access_list.len) //no requirements
 		return 1
-	I = I.GetID()
+	I = I?.GetID()
 	if(!istype(I) || !I.access) //not ID or no access
 		return 0
 	if(access_list==operation_req_access)
