@@ -566,6 +566,11 @@ overflow_server = "byond://yourdomain.com:1111"
 # List of ckeys who will not get rerouted to the overflow server
 overflow_whitelist = ["keyhere", "anotherhere"]
 
+# SS220 addition
+# Slot saving  time for client reconnection (in seconds)
+reservation_time = 10
+
+
 
 ################################################################
 

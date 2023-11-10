@@ -21,7 +21,8 @@
 /mob/new_player/Logout()
 	. = ..()
 
-	addtimer(CALLBACK(SSqueue, TYPE_PROC_REF(/datum/controller/subsystem/queue, reserve_queue_slot), last_known_ckey), 10 MINUTES)
+	if(SSqueue.queue_enabled)
+		addtimer(CALLBACK(SSqueue, TYPE_PROC_REF(/datum/controller/subsystem/queue, reserve_queue_slot), last_known_ckey), GLOB.configuration.overflow.reservation_time)
 
 
 /datum/controller/subsystem/queue/proc/reserve_queue_slot(reserved_ckey)
