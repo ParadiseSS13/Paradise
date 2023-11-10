@@ -96,10 +96,10 @@ const CloningConsoleMain = (props, context) => {
               <Flex.Item>
                 <LabeledList>
                   <LabeledList.Item label="Progress">
-                    {!pod['currently_cloning'] && (
+                    {!pod['cloning'] && (
                       <Box color="average">Pod is inactive.</Box>
                     )}
-                    {!!pod['currently_cloning'] && (
+                    {!!pod['cloning'] && (
                       <ProgressBar
                         value={pod['clone_progress']}
                         maxValue={100}
@@ -151,14 +151,12 @@ const CloningConsoleMain = (props, context) => {
 const CloningConsoleDamage = (props, context) => {
   const { act, data } = useBackend(context);
   const {
+    selectedPodData,
     hasScanned,
     scannerHasPatient,
-    scannerFeedback,
+    feedback,
     scanSuccessful,
-    patientLimbData,
-    limbList,
-    patientOrganData,
-    organList,
+    cloningCost,
   } = data;
   return (
     <Box>
@@ -179,17 +177,110 @@ const CloningConsoleDamage = (props, context) => {
           </Box>
         )}
         {!!hasScanned && (
-          <Box color={scannerFeedback['color']}>{scannerFeedback['text']}</Box>
+          <Box color={feedback['color']}>{feedback['text']}</Box>
         )}
       </Section>
       <Section layer={2} title="Damages Breakdown">
-        <Box>{/* Mass-selection buttons for fixing and stuff TBD later*/}</Box>
         <Box>
           {(!scanSuccessful || !hasScanned) && (
             <Box color="average">No valid scan detected.</Box>
           )}
           {!!scanSuccessful && !!hasScanned && (
             <Box>
+              <Flex>
+                <Flex.Item>
+                  <Button onClick={() => act('fix_all')}>
+                    Repair All Damages
+                  </Button>
+                  <Button onClick={() => act('fix_none')}>
+                    Repair No Damages
+                  </Button>
+                </Flex.Item>
+                <Flex.Item grow={1} />
+                <Flex.Item>
+                  <Button onClick={() => act('clone')}>Clone</Button>
+                </Flex.Item>
+              </Flex>
+              <Flex height="25px">
+                <Flex.Item width="50%">
+                  <ProgressBar
+                    value={cloningCost[0]}
+                    maxValue={selectedPodData['biomass_storage_capacity']}
+                    ranges={{
+                      bad: [
+                        (2 * selectedPodData['biomass_storage_capacity']) / 3,
+                        selectedPodData['biomass_storage_capacity'],
+                      ],
+                      average: [
+                        selectedPodData['biomass_storage_capacity'] / 3,
+                        (2 * selectedPodData['biomass_storage_capacity']) / 3,
+                      ],
+                      good: [
+                        0,
+                        selectedPodData['biomass_storage_capacity'] / 3,
+                      ],
+                    }}
+                    color={
+                      cloningCost[0] > selectedPodData['biomass'] ? 'bad' : null
+                    }
+                  >
+                    Biomass: {cloningCost[0]}/{selectedPodData['biomass']}/
+                    {selectedPodData['biomass_storage_capacity']}
+                  </ProgressBar>
+                </Flex.Item>
+                <Flex.Item width="25%" mx="2px">
+                  <ProgressBar
+                    value={cloningCost[1]}
+                    maxValue={selectedPodData['max_reagent_capacity']}
+                    ranges={{
+                      bad: [
+                        (2 * selectedPodData['max_reagent_capacity']) / 3,
+                        selectedPodData['max_reagent_capacity'],
+                      ],
+                      average: [
+                        selectedPodData['max_reagent_capacity'] / 3,
+                        (2 * selectedPodData['max_reagent_capacity']) / 3,
+                      ],
+                      good: [0, selectedPodData['max_reagent_capacity'] / 3],
+                    }}
+                    color={
+                      cloningCost[1] > selectedPodData['sanguine_reagent']
+                        ? 'bad'
+                        : 'good'
+                    }
+                  >
+                    Sanguine: {cloningCost[1]}/
+                    {selectedPodData['sanguine_reagent']}/
+                    {selectedPodData['max_reagent_capacity']}
+                  </ProgressBar>
+                </Flex.Item>
+                <Flex.Item width="25%">
+                  <ProgressBar
+                    value={cloningCost[2]}
+                    maxValue={selectedPodData['max_reagent_capacity']}
+                    ranges={{
+                      bad: [
+                        (2 * selectedPodData['max_reagent_capacity']) / 3,
+                        selectedPodData['max_reagent_capacity'],
+                      ],
+                      average: [
+                        selectedPodData['max_reagent_capacity'] / 3,
+                        (2 * selectedPodData['max_reagent_capacity']) / 3,
+                      ],
+                      good: [0, selectedPodData['max_reagent_capacity'] / 3],
+                    }}
+                    color={
+                      cloningCost[1] > selectedPodData['osseous_reagent']
+                        ? 'bad'
+                        : 'good'
+                    }
+                  >
+                    Osseous: {cloningCost[2]}/
+                    {selectedPodData['osseous_reagent']}/
+                    {selectedPodData['max_reagent_capacity']}
+                  </ProgressBar>
+                </Flex.Item>
+              </Flex>
               <LimbsMenu />
               <OrgansMenu />
             </Box>
@@ -202,7 +293,7 @@ const CloningConsoleDamage = (props, context) => {
 
 const LimbsMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { patientLimbData, limbList } = data;
+  const { patientLimbData, limbList, desiredLimbData } = data;
   return (
     <Collapsible title="Limbs">
       {limbList.map((limb, i) => (
@@ -246,34 +337,72 @@ const LimbsMenu = (props, context) => {
             )}
           </Flex>
           <Flex>
-            <Flex.Item>
-              <Button.Checkbox
-                disabled={
-                  !(patientLimbData[limb][0] || patientLimbData[limb][1])
-                }
-                checked={1}
-              >
-                Repair Damages
-              </Button.Checkbox>
-              <Button.Checkbox
-                disabled={!(patientLimbData[limb][2] & brokenFlag)}
-                checked={1}
-              >
-                Mend Bone
-              </Button.Checkbox>
-              <Button.Checkbox
-                disabled={!(patientLimbData[limb][2] & internalBleedingFlag)}
-                checked={1}
-              >
-                Mend IB
-              </Button.Checkbox>
-              <Button.Checkbox
-                disabled={!(patientLimbData[limb][2] & burnWoundFlag)}
-                checked={1}
-              >
-                Mend Critical Burn
-              </Button.Checkbox>
-            </Flex.Item>
+            {!!patientLimbData[limb][3] && (
+              <Flex.Item>
+                <Button.Checkbox
+                  checked={!desiredLimbData[limb][3]}
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'replace' })
+                  }
+                >
+                  Replace Limb
+                </Button.Checkbox>
+              </Flex.Item>
+            )}
+            {!patientLimbData[limb][3] && (
+              <Flex.Item>
+                <Button.Checkbox
+                  disabled={
+                    !(patientLimbData[limb][0] || patientLimbData[limb][1])
+                  }
+                  checked={
+                    !(desiredLimbData[limb][0] || desiredLimbData[limb][1]) &&
+                    (patientLimbData[limb][0] || patientLimbData[limb][1])
+                  }
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'damage' })
+                  }
+                >
+                  Repair Damages
+                </Button.Checkbox>
+                <Button.Checkbox
+                  disabled={!(patientLimbData[limb][2] & brokenFlag)}
+                  checked={
+                    !(desiredLimbData[limb][2] & brokenFlag) &&
+                    patientLimbData[limb][2] & brokenFlag
+                  }
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'bone' })
+                  }
+                >
+                  Mend Bone
+                </Button.Checkbox>
+                <Button.Checkbox
+                  disabled={!(patientLimbData[limb][2] & internalBleedingFlag)}
+                  checked={
+                    !(desiredLimbData[limb][2] & internalBleedingFlag) &&
+                    patientLimbData[limb][2] & internalBleedingFlag
+                  }
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'ib' })
+                  }
+                >
+                  Mend IB
+                </Button.Checkbox>
+                <Button.Checkbox
+                  disabled={!(patientLimbData[limb][2] & burnWoundFlag)}
+                  checked={
+                    !(desiredLimbData[limb][2] & burnWoundFlag) &&
+                    patientLimbData[limb][2] & burnWoundFlag
+                  }
+                  onClick={() =>
+                    act('toggle_limb_repair', { limb: limb, type: 'critburn' })
+                  }
+                >
+                  Mend Critical Burn
+                </Button.Checkbox>
+              </Flex.Item>
+            )}
           </Flex>
         </Box>
       ))}
@@ -283,7 +412,7 @@ const LimbsMenu = (props, context) => {
 
 const OrgansMenu = (props, context) => {
   const { act, data } = useBackend(context);
-  const { patientOrganData, organList } = data;
+  const { patientOrganData, organList, desiredOrganData } = data;
   return (
     <Collapsible title="Organs">
       {organList.map((organ, i) => (
@@ -292,22 +421,56 @@ const OrgansMenu = (props, context) => {
             <Flex.Item color="label" width="20%" height="20px">
               {patientOrganData[organ][3]}:{' '}
             </Flex.Item>
-            <Flex.Item>
-              {!!patientOrganData[organ][2] && (
-                <Button.Checkbox checked={1}>Replace Organ</Button.Checkbox>
-              )}
-              {!patientOrganData[organ][2] && (
-                <Box>
-                  <Button.Checkbox
-                    disabled={!patientOrganData[organ][0]}
-                    checked={1}
-                  >
-                    Repair Damages
-                  </Button.Checkbox>
-                  <Button.Checkbox checked={1}>Replace Organ</Button.Checkbox>
-                </Box>
-              )}
-            </Flex.Item>
+            {!(patientOrganData[organ][5] === 'heart') && (
+              <Box>
+                <Flex.Item>
+                  {!!(
+                    patientOrganData[organ][2] || patientOrganData[organ][1]
+                  ) && (
+                    <Button.Checkbox
+                      checked={
+                        !desiredOrganData[organ][2] &&
+                        !desiredOrganData[organ][1]
+                      }
+                      onClick={() =>
+                        act('toggle_organ_repair', {
+                          organ: organ,
+                          type: 'replace',
+                        })
+                      }
+                    >
+                      Replace Organ
+                    </Button.Checkbox>
+                  )}
+                  {!(
+                    patientOrganData[organ][2] || patientOrganData[organ][1]
+                  ) && (
+                    <Box>
+                      <Button.Checkbox
+                        disabled={!patientOrganData[organ][0]}
+                        checked={
+                          !desiredOrganData[organ][0] &&
+                          patientOrganData[organ][0]
+                        }
+                        onClick={() =>
+                          act('toggle_organ_repair', {
+                            organ: organ,
+                            type: 'damage',
+                          })
+                        }
+                      >
+                        Repair Damages
+                      </Button.Checkbox>
+                    </Box>
+                  )}
+                </Flex.Item>
+              </Box>
+            )}
+            {!!(patientOrganData[organ][5] === 'heart') && (
+              <Box color="average">
+                Heart replacement is required for cloning.
+              </Box>
+            )}
             <Flex.Item grow={1} />
             <Flex.Item width="35%">
               {!!patientOrganData[organ][2] && (

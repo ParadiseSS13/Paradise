@@ -17,9 +17,9 @@
 	/// Which tab we're currently on
 	var/tab = TAB_MAIN
 	/// What feedback to give for the most recent scan.
-	var/scan_feedback
-	//datum for testing
-	var/datum/cloning_data/healthy_data = new /datum/cloning_data/
+	var/feedback
+	/// The desired outcome of the cloning process.
+	var/datum/cloning_data/desired_data
 
 /obj/machinery/computer/cloning/Initialize(mapload)
 	. = ..()
@@ -35,30 +35,6 @@
 	scanner = locate(/obj/machinery/clonescanner, orange(5, src))
 
 	selected_pod = pick(pods)
-
-	healthy_data.limbs = list(
-		"head"   = list(0, 5, 0, FALSE),
-		"chest"  = list(5, 0, 0, FALSE),
-		"groin"  = list(0, 0, 0, FALSE),
-		"r_arm"  = list(0, 0, 0, FALSE),
-		"r_hand" = list(0, 0, 0, FALSE),
-		"l_arm"  = list(0, 0, 0, FALSE),
-		"l_hand" = list(0, 0, 0, FALSE),
-		"r_leg"  = list(0, 0, 0, FALSE),
-		"r_foot" = list(0, 0, 0, FALSE),
-		"l_leg"  = list(0, 0, 0, FALSE),
-		"l_foot" = list(0, 0, 0, FALSE)
-	)
-
-	healthy_data.organs = list(
-		"heart"    = list(0, 0, FALSE),
-		"lungs"    = list(0, 0, FALSE),
-		"liver"    = list(0, 0, FALSE),
-		"kidneys"  = list(0, 0, FALSE),
-		"brain"    = list(0, 0, FALSE),
-		"appendix" = list(0, 0, FALSE),
-		"eyes"     = list(0, 0, FALSE)
-	)
 
 /obj/machinery/computer/cloning/Destroy()
 	return ..()
@@ -125,6 +101,26 @@
 	*/
 	ui_interact(user)
 
+/obj/machinery/computer/cloning/proc/generate_healthy_data(datum/cloning_data/patient_data)
+	var/datum/cloning_data/desired_data = new /datum/cloning_data()
+
+	for(var/limb in patient_data.limbs)
+		desired_data.limbs[limb] = list(0,
+										0,
+										0,
+										FALSE,
+										patient_data.limbs[limb][5],
+										patient_data.limbs[limb][6])
+
+	for(var/organ in patient_data.organs)
+		desired_data.organs[organ] = list(0,
+										0,
+										FALSE,
+										patient_data.organs[organ][4],
+										patient_data.organs[organ][5])
+
+	return desired_data
+
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & (NOPOWER|BROKEN))
 		return
@@ -162,9 +158,12 @@
 			allOrgans += organ
 		data["organList"] = allOrgans
 
-	data["scannerFeedback"] = scan_feedback
+		data["desiredLimbData"] = desired_data.limbs
+		data["desiredOrganData"] = desired_data.organs
 
-	if(scan_feedback && scan_feedback["color"] == "good")
+	data["feedback"] = feedback
+
+	if(feedback && feedback["color"] == "good")
 		data["scanSuccessful"] = TRUE
 	else
 		data["scanSuccessful"] = FALSE
@@ -185,8 +184,17 @@
 							"sanguine_reagent" = pod.reagents.get_reagent_amount("sanguine_reagent"),
 							"osseous_reagent" = pod.reagents.get_reagent_amount("osseous_reagent")))
 
+	if(selected_pod)
+		data["selectedPodData"] = list("biomass" = selected_pod.biomass,
+										"biomass_storage_capacity" = selected_pod.biomass_storage_capacity,
+										"sanguine_reagent" = selected_pod.reagents.get_reagent_amount("sanguine_reagent"),
+										"osseous_reagent" = selected_pod.reagents.get_reagent_amount("osseous_reagent"),
+										"max_reagent_capacity" = selected_pod.reagents.maximum_volume)
+		data["selectedPodUID"] = selected_pod.UID()
+		if(scanner?.last_scan && desired_data)
+			data["cloningCost"] = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
+
 	data["pods"] = pod_data
-	data["selectedPodUID"] = selected_pod.UID()
 	data["podAmount"] = length(pods)
 
 	return data
@@ -196,6 +204,8 @@
 		return
 	if(stat & (NOPOWER|BROKEN))
 		return
+
+	var/datum/cloning_data/patient_data = scanner.last_scan //For readability, mostly
 
 	switch(action)
 		if("menu")
@@ -209,18 +219,77 @@
 		if("select_pod")
 			selected_pod = locateUID(params["uid"])
 			return TRUE
+		if("clone")
+			var/cost = selected_pod.get_cloning_cost(scanner.last_scan, desired_data)
+			if((selected_pod.biomass < cost[1]) || (selected_pod.reagents.get_reagent_amount("sanguine_reagent") < cost[2]) || (selected_pod.reagents.get_reagent_amount("osseous_reagent") < cost[3]))
+				feedback = list("text" = "The cloning operation is too expensive!", "color" = "bad")
+			else
+				selected_pod.start_cloning(scanner.last_scan, desired_data)
+			return TRUE
 		if("scan")
 			switch(scanner.try_scan(scanner.occupant))
 				if(SCANNER_MISC)
-					scan_feedback = list("text" = "Unable to analyze patient's genetic sequence.", "color" = "bad")
+					feedback = list("text" = "Unable to analyze patient's genetic sequence.", "color" = "bad")
 				if(SCANNER_UNCLONEABLE_SPECIES)
-					scan_feedback = list("text" = "[scanner.occupant.dna.species.name_plural] cannot be scanned.", "color" = "bad")
+					feedback = list("text" = "[scanner.occupant.dna.species.name_plural] cannot be scanned.", "color" = "bad")
 				if(SCANNER_HUSKED)
-					scan_feedback = list("text" = "The patient is husked.", "color" = "bad")
+					feedback = list("text" = "The patient is husked.", "color" = "bad")
 				if(SCANNER_NO_SOUL)
-					scan_feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average")
+					feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average")
 				if(SCANNER_SUCCESSFUL)
-					scan_feedback = list("text" = "Successfully scanned the patient.", "color" = "good")
+					feedback = list("text" = "Successfully scanned the patient.", "color" = "good")
+					desired_data = generate_healthy_data(scanner.last_scan)
+			return TRUE
+		if("fix_all")
+			desired_data = generate_healthy_data(scanner.last_scan)
+			return TRUE
+		if("fix_none")
+			desired_data = scanner.last_scan
+			return TRUE
+		if("toggle_limb_repair")
+			switch(params["type"])
+				if("replace")
+					if(desired_data.limbs[params["limb"]][4])
+						desired_data.limbs[params["limb"]][4] = FALSE
+					else
+						desired_data.limbs[params["limb"]][4] = TRUE
+				if("damage")
+					if(desired_data.limbs[params["limb"]][1] || desired_data.limbs[params["limb"]][2])
+						desired_data.limbs[params["limb"]][1] = 0
+						desired_data.limbs[params["limb"]][2] = 0
+					else
+						desired_data.limbs[params["limb"]][1] = patient_data.limbs[params["limb"]][1]
+						desired_data.limbs[params["limb"]][2] = patient_data.limbs[params["limb"]][2]
+				if("bone")
+					if(desired_data.limbs[params["limb"]][3] & ORGAN_BROKEN)
+						desired_data.limbs[params["limb"]][3] &= ~ORGAN_BROKEN
+					else
+						desired_data.limbs[params["limb"]][3] |= ORGAN_BROKEN
+				if("ib")
+					if(desired_data.limbs[params["limb"]][3] & ORGAN_INT_BLEEDING)
+						desired_data.limbs[params["limb"]][3] &= ~ORGAN_INT_BLEEDING
+					else
+						desired_data.limbs[params["limb"]][3] |= ORGAN_INT_BLEEDING
+				if("critburn")
+					if(desired_data.limbs[params["limb"]][3] & ORGAN_BURNT)
+						desired_data.limbs[params["limb"]][3] &= ~ORGAN_BURNT
+					else
+						desired_data.limbs[params["limb"]][3] |= ORGAN_BURNT
+			return TRUE
+		if("toggle_organ_repair")
+			switch(params["type"])
+				if("replace")
+					if(desired_data.organs[params["organ"]][3] || desired_data.organs[params["organ"]][2])
+						desired_data.organs[params["organ"]][3] = FALSE
+						desired_data.organs[params["organ"]][2] = 0
+					else
+						desired_data.organs[params["organ"]][3] = patient_data.organs[params["organ"]][3]
+						desired_data.organs[params["organ"]][2] = patient_data.organs[params["organ"]][2]
+				if("damage")
+					if(desired_data.organs[params["organ"]][1])
+						desired_data.organs[params["organ"]][1] = 0
+					else
+						desired_data.organs[params["organ"]][1] = patient_data.organs[params["organ"]][1]
 			return TRUE
 
 

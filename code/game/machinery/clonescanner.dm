@@ -11,11 +11,11 @@
 	var/datum/mind/mind
 
 	/// The patient's external organs (limbs) and their data, stored as an associated list of lists.
-	/// List format: limb = list(brute, burn, status, missing, name)
+	/// List format: limb = list(brute, burn, status, missing, name, max damage)
 	var/list/limbs = list()
 
 	/// The patient's internal organs and their data, stored as an associated list of lists.
-	/// List format: organ = list(damage, status, missing, name)
+	/// List format: organ = list(damage, status, missing, name, max damage, organ tag)
 	var/list/organs = list()
 
 	/// The patient's DNA
@@ -175,9 +175,10 @@
 											active_organ.status,
 											FALSE,
 											active_organ.name,
-											active_organ.max_damage)
+											active_organ.max_damage,
+											active_organ.organ_tag)
 		else
-			scan_result.organs[organ] = list(0, 0, TRUE, organ, 0)
+			scan_result.organs[organ] = list(0, 0, TRUE, organ, 0, organ)
 
 	last_scan = scan_result
 	return scan_result

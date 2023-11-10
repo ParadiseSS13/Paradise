@@ -201,6 +201,7 @@
 
 	if(clone)
 		clone.SetSleeping(4 SECONDS) //make sure they stay asleep
+		clone.reagents.add_reagent("perfluorodecalin", REAGENTS_METABOLISM)
 
 	//Actually grow clones (this is the fun part of the proc!)
 	if(currently_cloning)
@@ -267,6 +268,11 @@
 	patient_data = _patient_data
 	desired_data = _desired_data
 
+	var/cost = get_cloning_cost(patient_data, desired_data)
+	biomass -= cost[1]
+	reagents.remove_reagent("sanguine_reagent", cost[2])
+	reagents.remove_reagent("osseous_reagent", cost[3])
+
 //Creates the clone! Used once the cloning pod reaches ~20% completion.
 /obj/machinery/clonepod/proc/create_clone()
 	clone = new /mob/living/carbon/human(src)
@@ -310,12 +316,8 @@
 
 	clone.set_heartattack(FALSE) //you are not allowed to die
 	clone.adjustCloneLoss(25) //to punish early ejects
+	clone.reagents.add_reagent("perfluorodecalin", 2)
 
-	patient_data.mind.transfer_to(clone)
-	clone.grab_ghost()
-	clone.update_revive()
-	to_chat(clone, "<span class='userdanger'>You remember nothing from the time you were dead!</span>")
-	to_chat(clone, "<span class='notice'>Your mind sparks to life. You're floating in a blissful void, numb to the machines stitching you back together...</span>")
 	clone.SetSleeping(4 SECONDS)
 
 //Ejects a clone. The force var ejects even if there's still clone damage.
@@ -344,6 +346,12 @@
 			desired_data = null
 			clone_progress = 0
 			desc_flavor = initial(desc_flavor)
+
+			patient_data.mind.transfer_to(clone)
+			clone.grab_ghost()
+			clone.update_revive()
+			to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+			to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
 			return TRUE
 		else
 			return FALSE
@@ -355,6 +363,12 @@
 		desired_data = null
 		clone_progress = 0
 		desc_flavor = initial(desc_flavor)
+
+		patient_data.mind.transfer_to(clone)
+		clone.grab_ghost()
+		clone.update_revive()
+		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
 		return TRUE
 
 //This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
@@ -417,6 +431,10 @@
 
 		var/list/desired_organ_info = d_data.organs[organ]
 		var/desired_organ_status = desired_organ_info[2]
+
+		if(patient_organ_info[3] && !desired_organ_info[3]) //If it's missing, and we don't want it to be, replace the organ
+			cloning_cost[1] += BIOMASS_NEW_ORGAN_COST * price_modifier
+			continue
 
 		if((desired_organ_status & ORGAN_DEAD) && !(patient_organ_status & ORGAN_DEAD)) //if the patient's organ is dead and we want it to not be
 			cloning_cost[1] += BIOMASS_NEW_ORGAN_COST * price_modifier
