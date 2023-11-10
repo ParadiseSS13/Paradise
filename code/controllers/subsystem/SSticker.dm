@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(ticker)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
+	wait = 1 SECONDS
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
@@ -98,7 +99,7 @@ SUBSYSTEM_DEF(ticker)
 			if(!delay_end)
 				pregame_timeleft = max(0, round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
 			else
-				pregame_timeleft = max(0, pregame_timeleft - 20) // If roundstart was delayed, we should resume the countdown where it left off
+				pregame_timeleft = max(0, pregame_timeleft - wait) // If roundstart was delayed, we should resume the countdown where it left off
 
 			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
 				send_tip_of_the_round()

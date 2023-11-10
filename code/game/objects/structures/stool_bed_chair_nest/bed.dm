@@ -280,3 +280,8 @@
 	desc = "A comfy-looking cat bed. You can even strap your pet in, in case the gravity turns off."
 	name = "Runtime's bed"
 	anchored = TRUE
+
+/obj/structure/bed/dogbed/brad
+	name = "Brad's bed"
+	desc = "Brad's bed! Why does a cockroach get this amount of love?"
+	anchored = TRUE

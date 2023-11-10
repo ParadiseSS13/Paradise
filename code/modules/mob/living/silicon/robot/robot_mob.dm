@@ -621,7 +621,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
-		dat += text("<B>[cat]</B><BR>\n")
+		dat += "<B>[cat]</B><BR>\n"
 		var/list/list/L = temp_alarm_list[cat].Copy()
 		for(var/alarm in L)
 			var/list/list/alm = L[alarm].Copy()
@@ -633,7 +633,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 					L -= alarm
 					continue
 				dat += "<NOBR>"
-				dat += text("-- [area_name]")
+				dat += "-- [area_name]"
 				dat += "</NOBR><BR>\n"
 		if(!L.len)
 			dat += "-- All Systems Nominal<BR>\n"
@@ -675,9 +675,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
 	if(cell)
-		stat(null, text("Charge Left: [cell.charge]/[cell.maxcharge]"))
+		stat(null, "Charge Left: [cell.charge]/[cell.maxcharge]")
 	else
-		stat(null, text("No Cell Inserted!"))
+		stat(null, "No Cell Inserted!")
 
 /mob/living/silicon/robot/proc/show_gps_coords()
 	if(locate(/obj/item/gps/cyborg) in module.modules)
@@ -1122,7 +1122,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return 1
 
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
+		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
 		src << browse(null, t1)
 		return 1

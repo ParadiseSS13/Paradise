@@ -68,6 +68,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/t_ray,
 		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/firefighting_tank,
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,
@@ -333,7 +334,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
-	additional_module = /obj/item/mod/module/clamp
+	additional_module = list(/obj/item/mod/module/clamp, /obj/item/mod/module/boot_heating)
 
 /obj/item/mod/control/pre_equipped/responsory/clown
 	insignia_type = /obj/item/mod/module/insignia/clown
