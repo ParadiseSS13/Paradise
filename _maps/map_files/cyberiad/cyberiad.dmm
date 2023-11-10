@@ -31498,7 +31498,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "bUD" = (
-/obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -32344,22 +32343,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
-"bYa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/se)
-"bYb" = (
-/obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/primary/central/se)
 "bYc" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -32703,10 +32686,7 @@
 	c_tag = "Central Hallway South East";
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
+/obj/structure/disposalpipe/junction/reversed,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "bluecorner"
@@ -34357,6 +34337,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
@@ -55729,6 +55710,7 @@
 /obj/machinery/computer/guestpass/hop{
 	pixel_x = -28
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "eoT" = (
@@ -55874,6 +55856,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "esD" = (
@@ -59603,9 +59586,6 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "giQ" = (
@@ -60830,6 +60810,7 @@
 	d2 = 4;
 	icon_state = "2-4"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "gNs" = (
@@ -66424,10 +66405,6 @@
 /mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
@@ -83207,6 +83184,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "rJm" = (
@@ -83688,7 +83666,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "rWA" = (
@@ -86091,11 +86068,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 1;
-	name = "HoP Office";
-	sort_type_txt = "15"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "toQ" = (
@@ -90653,13 +90626,11 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "vzU" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 8;
-	name = "HoP Office";
-	sort_type_txt = "15"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/se)
 "vAK" = (
@@ -91798,8 +91769,10 @@
 /turf/simulated/wall/r_wall,
 /area/station/maintenance/apmaint2)
 "wcQ" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/sortjunction{
+	dir = 8;
+	name = "HoP Office";
+	sort_type_txt = "15"
 	},
 /obj/structure/cable{
 	d1 = 4;
@@ -91928,6 +91901,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central/south)
 "whn" = (
@@ -94638,9 +94612,7 @@
 	pixel_x = -24
 	},
 /obj/machinery/disposal,
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
+/obj/structure/disposalpipe/trunk,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/wood,
@@ -96258,6 +96230,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/autoname,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "yks" = (
@@ -129160,7 +129133,7 @@ bTG
 bUG
 bVT
 bVT
-bYb
+bVT
 bZt
 cbo
 hdR
@@ -129417,7 +129390,7 @@ bKN
 bKN
 bKN
 bVS
-bYa
+bKN
 vzU
 cbm
 bKN
