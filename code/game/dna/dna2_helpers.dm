@@ -206,7 +206,7 @@
 
 	//Hair Gradient
 	var/gradient = GetUIValueRange(DNA_UI_HAIR_GRADIENT_STYLE,GLOB.hair_gradients_list.len)
-	if((gradient > 0) && (gradient <= GLOB.hair_gradients_list.len))
+	if((gradient > 0) && (gradient <= length(GLOB.hair_gradients_list)))
 		head_organ.h_grad_style = GLOB.hair_gradients_list[gradient]
 		head_organ.h_grad_offset_x = GetUIValueRange(DNA_UI_HAIR_GRADIENT_X, 32) - 16
 		head_organ.h_grad_offset_y = GetUIValueRange(DNA_UI_HAIR_GRADIENT_Y, 32) - 16
