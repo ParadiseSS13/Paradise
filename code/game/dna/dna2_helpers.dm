@@ -300,7 +300,7 @@
 
 	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		GLOB.hair_styles_full_list.len,		 1)
 	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		GLOB.facial_hair_styles_list.len,	 1)
-	SetUIValueRange(DNA_UI_HAIR_GRADIENT_STYLE,	gradient,		GLOB.hair_gradients_list.len,	 1)
+	SetUIValueRange(DNA_UI_HAIR_GRADIENT_STYLE,	gradient,		length(GLOB.hair_gradients_list),	 1)
 
 	var/list/available = character.generate_valid_head_accessories()
 	SetUIValueRange(DNA_UI_HACC_STYLE, available.Find(head_organ.ha_style), max(length(available), 1), 1)
