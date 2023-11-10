@@ -7,6 +7,8 @@
 	density = TRUE
 	layer = 3
 	var/finished = FALSE
+	var/obj/item/stack/sheet/buildstacktype
+	var/buildstackamount
 
 
 /obj/structure/reflector/bullet_act(obj/item/projectile/P)
@@ -47,7 +49,7 @@
 				return
 			else
 				S.use(5)
-				new /obj/structure/reflector/single (src.loc)
+				new /obj/structure/reflector/single (loc)
 				qdel(src)
 		if(istype(W,/obj/item/stack/sheet/rglass))
 			if(S.get_amount() < 10)
@@ -55,12 +57,12 @@
 				return
 			else
 				S.use(10)
-				new /obj/structure/reflector/double (src.loc)
+				new /obj/structure/reflector/double (loc)
 				qdel(src)
 		if(istype(W, /obj/item/stack/sheet/mineral/diamond))
 			if(S.get_amount() >= 1)
 				S.use(1)
-				new /obj/structure/reflector/box (src.loc)
+				new /obj/structure/reflector/box (loc)
 				qdel(src)
 		return
 	return ..()
@@ -77,7 +79,9 @@
 		return
 	playsound(user, 'sound/items/Ratchet.ogg', 50, 1)
 	TOOL_DISMANTLE_SUCCESS_MESSAGE
-	new /obj/item/stack/sheet/metal(src.loc, 5)
+	new /obj/item/stack/sheet/metal(loc, 5)
+	if(buildstacktype)
+		new buildstacktype(loc, buildstackamount)
 	qdel(src)
 
 /obj/structure/reflector/welder_act(mob/user, obj/item/I)
@@ -136,6 +140,9 @@
 	icon_state = "reflector"
 	desc = "A double sided angled mirror for reflecting lasers. This one does so at a 90 degree angle."
 	finished = TRUE
+	buildstacktype = /obj/item/stack/sheet/glass
+	buildstackamount = 5
+
 	var/static/list/rotations = list("[NORTH]" = list("[SOUTH]" = WEST, "[EAST]" = NORTH),
 "[EAST]" = list("[SOUTH]" = EAST, "[WEST]" = NORTH),
 "[SOUTH]" = list("[NORTH]" = EAST, "[WEST]" = SOUTH),
@@ -153,6 +160,8 @@
 	icon_state = "reflector_double"
 	desc = "A double sided angled mirror for reflecting lasers. This one does so at a 90 degree angle."
 	finished = TRUE
+	buildstacktype = /obj/item/stack/sheet/rglass
+	buildstackamount = 10
 	var/static/list/double_rotations = list("[NORTH]" = list("[NORTH]" = WEST, "[EAST]" = SOUTH, "[SOUTH]" = EAST, "[WEST]" = NORTH),
 "[EAST]" = list("[NORTH]" = EAST, "[WEST]" = SOUTH, "[SOUTH]" = WEST, "[EAST]" = NORTH),
 "[SOUTH]" = list("[NORTH]" = EAST, "[WEST]" = SOUTH, "[SOUTH]" = WEST, "[EAST]" = NORTH),
@@ -170,6 +179,8 @@
 	icon_state = "reflector_box"
 	desc = "A box with an internal set of mirrors that reflects all laser fire in a single direction."
 	finished = TRUE
+	buildstacktype = /obj/item/stack/sheet/mineral/diamond
+	buildstackamount = 1
 	var/static/list/box_rotations = list("[NORTH]" = list("[SOUTH]" = NORTH, "[EAST]" = NORTH, "[WEST]" = NORTH, "[NORTH]" = NORTH),
 "[EAST]" = list("[SOUTH]" = EAST, "[EAST]" = EAST, "[WEST]" = EAST, "[NORTH]" = EAST),
 "[SOUTH]" = list("[SOUTH]" = SOUTH, "[EAST]" = SOUTH, "[WEST]" = SOUTH, "[NORTH]" = SOUTH),
