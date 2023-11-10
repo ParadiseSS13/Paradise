@@ -128,7 +128,7 @@
 	if(machine_powernet.powernet_area != get_area(src))
 		var/area/machine_area = get_area(src)
 		if(machine_area)
-			machine_powernet.unregister_machine(src)
+			machine_powernet?.unregister_machine(src)
 			machine_powernet = machine_area.powernet
 			machine_powernet.register_machine(src)
 	if(has_power(power_channel) || !requires_power) //if we don't require power, we don't give a shit about the power channel!
