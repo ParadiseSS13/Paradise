@@ -58,6 +58,7 @@
 	icon_state = "mail_sec"
 	possible_contents = list(/obj/item/reagent_containers/food/snacks/donut/sprinkles,
 							/obj/item/megaphone,
+							/obj/item/clothing/mask/whistle,
 							/obj/item/poster/random_official,
 							/obj/item/restraints/handcuffs/pinkcuffs,
 							/obj/item/restraints/legcuffs/bola/energy,

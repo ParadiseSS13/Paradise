@@ -34583,7 +34583,6 @@
 /obj/item/stamp/hop,
 /obj/item/eftpos,
 /obj/item/book/manual/wiki/sop_service,
-/obj/item/book/manual/wiki/sop_supply,
 /obj/item/book/manual/wiki/sop_command,
 /obj/item/paper_bin/nanotrasen,
 /turf/simulated/floor/plasteel,
@@ -76997,14 +76996,14 @@
 	},
 /area/station/medical/reception)
 "ooS" = (
-/obj/machinery/mineral/stacking_machine{
-	input_dir = 1;
-	stack_amt = 10
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
+	},
+/obj/machinery/mineral/stacking_machine{
+	output_dir = 2;
+	input_dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal)

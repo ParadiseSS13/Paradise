@@ -44,7 +44,7 @@
 			var/datum/reagent/R = X
 			if(R.id in required_reagents)
 				continue
-			if(R in GLOB.blocked_chems)
+			if(R.id in GLOB.blocked_chems)
 				continue
 			beeagents += R
 		var/bee_amount = round(created_volume * 0.2)
