@@ -69,7 +69,9 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 				ghost.can_reenter_corpse = FALSE
 				REMOVE_TRAIT(ghost, TRAIT_RESPAWNABLE, GHOSTED)
-				log_and_message_admins("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")
+				log_admin("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")
+				message_admins("[key_name(ghost)] has enabled antaghud as an observer and forfeited respawnability.")
+
 
 			else if(ghost.is_roundstart_observer() && !ghost.has_ahudded())
 				log_admin("[key_name(ghost)] has enabled antaghud for the first time as a roundstart observer, keeping respawnability.")
