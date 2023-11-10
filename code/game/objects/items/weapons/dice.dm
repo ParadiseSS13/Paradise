@@ -6,7 +6,8 @@
 	can_hold = list(/obj/item/dice)
 	allow_wrap = FALSE
 	use_sound = "rustle"
-
+	var/rapid_intake_message_dice = "unties the dice bag and begins dumping the entire contents down their throat!"
+	var/rapid_post_intake_message_dice = "downs the entire bag of dice in one go!"
 /obj/item/storage/pill_bottle/dice/populate_contents()
 	var/special_die = pick("1","2","fudge","00","100")
 	if(special_die == "1")
@@ -44,6 +45,10 @@
 	var/rigged = DICE_NOT_RIGGED
 	var/rigged_value
 
+	// nom noms left
+	var/times_eaten = 0
+	// no more nom noms :(
+	var/max_bites = 1
 /obj/item/dice/Initialize(mapload)
 	. = ..()
 	if(!result)
@@ -86,6 +91,16 @@
 	icon_state = "fudge"
 	special_faces = list("minus","blank","plus")
 
+/obj/item/dice/fudge/attack(mob/living/M, mob/user)
+	if(M == user)
+		var/mob/living/carbon/human/H = user
+		if(!H.check_has_mouth())
+			to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
+			return
+		else
+			to_chat(user, "<span class='warning'>You try to swallow the dice but you just can't get yourself to do it</span>")
+	else
+		..()
 /obj/item/dice/d8
 	name = "d8"
 	desc = "A die with eight sides. It feels... lucky."
@@ -338,6 +353,37 @@
 
 /obj/item/dice/attack_self(mob/user)
 	diceroll(user)
+
+/obj/item/dice/attack(mob/living/M, mob/user)
+	if(M == user)
+		var/mob/living/carbon/human/H = user
+		if(!H.check_has_mouth())
+			to_chat(user, "<span class='warning'>You do not have a mouth!</span>")
+			return
+		if(times_eaten < max_bites)
+			times_eaten++
+			to_chat(user, "<span class='notice'>You swallow the dice. Delicious!</span>")
+			diceroll(H)
+			to_chat(user, "<span class='danger'>You swallowed a [result]!</span>")
+			H.AdjustLoseBreath(result SECONDS)
+			to_chat(user, "<span class='warning'>There is no more of [name] left!</span>")
+			qdel(src)
+	else
+		..()
+
+/obj/item/storage/pill_bottle/dice/MouseDrop(obj/over_object)
+	if(iscarbon(over_object))
+		var/mob/living/carbon/C = over_object
+		if(loc == C && src == C.get_active_hand())
+			if(!contents.len)
+				to_chat(C, "<span class='notice'>There is nothing in [src]!</span>")
+				return
+			C.visible_message("<span class='danger'>[C] [rapid_intake_message_dice]</span>")
+			if(do_mob(C, C, 100)) // 10 seconds
+				for(var/obj/item/dice/D in contents)
+					D.attack(C, C)
+				C.visible_message("<span class='danger'>[C] [rapid_post_intake_message_dice]</span>")
+			return
 
 /obj/item/dice/throw_impact(atom/target)
 	diceroll(locateUID(thrownby))
