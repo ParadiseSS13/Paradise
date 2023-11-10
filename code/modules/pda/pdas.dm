@@ -110,11 +110,11 @@
 	icon_state = "pda-chaplain"
 
 /obj/item/pda/cargo
-	default_cartridge = /obj/item/cartridge/quartermaster
+	default_cartridge = /obj/item/cartridge/cargo
 	icon_state = "pda-cargo"
 
 /obj/item/pda/quartermaster
-	default_cartridge = /obj/item/cartridge/quartermaster
+	default_cartridge = /obj/item/cartridge/qm
 	icon_state = "pda-qm"
 
 /obj/item/pda/shaftminer
@@ -205,5 +205,5 @@
 						/obj/item/cartridge/security,
 						/obj/item/cartridge/medical,
 						/obj/item/cartridge/signal/toxins,
-						/obj/item/cartridge/quartermaster)
+						/obj/item/cartridge/cargo)
 	new newcart(src)
