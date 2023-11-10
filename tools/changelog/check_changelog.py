@@ -11,7 +11,7 @@ GITHUB_EVENT_PATH: path to JSON file containing the event info (Action provided)
 import os
 import re
 from pathlib import Path
-from ruamel import yaml
+from ruamel.yaml import YAML
 from github import Github
 import json
 
@@ -88,7 +88,8 @@ if not write_cl['author']:
     print("There are spaces or tabs instead of author username")
 
 with open(Path.cwd().joinpath("tags.yml")) as file:
-    tags = yaml.safe_load(file)
+    yaml = YAML(type='safe',pure=True)
+    tags = yaml.load(file)
 
 write_cl['changes'] = []
 
