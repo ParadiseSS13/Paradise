@@ -49,7 +49,7 @@
 				return
 			else
 				S.use(5)
-				new /obj/structure/reflector/single (loc)
+				new /obj/structure/reflector/single(loc)
 				qdel(src)
 		if(istype(W,/obj/item/stack/sheet/rglass))
 			if(S.get_amount() < 10)
@@ -57,12 +57,12 @@
 				return
 			else
 				S.use(10)
-				new /obj/structure/reflector/double (loc)
+				new /obj/structure/reflector/double(loc)
 				qdel(src)
 		if(istype(W, /obj/item/stack/sheet/mineral/diamond))
 			if(S.get_amount() >= 1)
 				S.use(1)
-				new /obj/structure/reflector/box (loc)
+				new /obj/structure/reflector/box(loc)
 				qdel(src)
 		return
 	return ..()
