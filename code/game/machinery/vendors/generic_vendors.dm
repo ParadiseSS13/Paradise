@@ -231,6 +231,9 @@
 
 	refill_canister = /obj/item/vending_refill/hatdispenser
 
+/obj/machinery/economy/vending/hatdispenser/free
+	prices = list()
+
 /obj/machinery/economy/vending/suitdispenser
 	name = "\improper Suitlord 9000"
 	desc = "You wonder for a moment why all of your shirts and pants come conjoined. This hurts your head and you stop thinking about it."
@@ -298,6 +301,9 @@
 
 	refill_canister = /obj/item/vending_refill/suitdispenser
 
+/obj/machinery/economy/vending/suitdispenser/free
+	prices = list()
+
 /obj/machinery/economy/vending/shoedispenser
 	name = "\improper Shoelord 9000"
 	desc = "Wow, hatlord looked fancy, suitlord looked streamlined, and this is just normal. The guy who designed these must be an idiot."
@@ -348,6 +354,9 @@
 				/obj/item/clothing/shoes/rainbow = 40)
 
 	refill_canister = /obj/item/vending_refill/shoedispenser
+
+/obj/machinery/economy/vending/shoedispenser/free
+	prices = list()
 
 //don't forget to change the refill size if you change the machine's contents!
 /obj/machinery/economy/vending/clothing
@@ -436,6 +445,7 @@
 					/obj/item/clothing/mask/bandana/black = 2,
 					/obj/item/clothing/glasses/regular = 2,
 					/obj/item/clothing/glasses/sunglasses_fake = 2,
+					/obj/item/clothing/glasses/goggles = 2,
 					/obj/item/clothing/gloves/fingerless = 2,
 					/obj/item/storage/belt/fannypack = 1,
 					/obj/item/storage/belt/fannypack/blue = 1,
@@ -519,6 +529,7 @@
 				/obj/item/clothing/suit/browntrenchcoat = 75,
 				/obj/item/clothing/glasses/regular = 20,
 				/obj/item/clothing/glasses/sunglasses_fake = 20,
+				/obj/item/clothing/glasses/goggles = 40,
 				/obj/item/clothing/suit/ianshirt = 75,
 				/obj/item/clothing/mask/bandana = 30,
 				/obj/item/clothing/mask/bandana/black = 30,
@@ -532,6 +543,9 @@
 				/obj/item/clothing/under/misc/mailman = 100)
 
 	refill_canister = /obj/item/vending_refill/clothing
+
+/obj/machinery/economy/vending/clothing/free
+	prices = list()
 
 /obj/machinery/economy/vending/magivend
 	name = "\improper MagiVend"
@@ -821,6 +835,8 @@
 
 	refill_canister = /obj/item/vending_refill/autodrobe
 
+/obj/machinery/economy/vending/autodrobe/free
+	prices = list()
 
 //Generic food vendors
 
@@ -1043,6 +1059,9 @@
 	prices = list(/obj/item/stack/cable_coil/random = 20,
 				/obj/item/toner = 40,
 				/obj/item/pen/fancy = 40)
+
+/obj/machinery/economy/vending/artvend/free
+	prices = list()
 
 /obj/machinery/economy/vending/tool
 	name = "\improper YouTool"

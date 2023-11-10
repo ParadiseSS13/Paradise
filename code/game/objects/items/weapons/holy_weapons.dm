@@ -37,7 +37,7 @@
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()
 	var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && V && user.mind.isholy)
+	if(ishuman(M) && V && HAS_MIND_TRAIT(M, TRAIT_HOLY))
 		if(!V.get_ability(/datum/vampire_passive/full))
 			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
 			V.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
@@ -45,7 +45,7 @@
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
 	if(sanctify_force)
-		if(!user.mind || !user.mind.isholy)
+		if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
 			user.Weaken(10 SECONDS)
@@ -57,7 +57,7 @@
 
 
 /obj/item/nullrod/attack_self(mob/user)
-	if(user.mind?.isholy && !reskinned)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY) && !reskinned)
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/examine(mob/living/user)
@@ -469,7 +469,7 @@
 /obj/item/nullrod/carp/attack_self(mob/living/user)
 	if(used_blessing)
 		return
-	if(user.mind && !user.mind.isholy)
+	if(user.mind && !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		return
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
@@ -541,7 +541,7 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(!user.mind || !user.mind.isholy)
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
 		return
 
@@ -594,7 +594,7 @@
 
 /obj/item/nullrod/salt/attack_self(mob/user)
 
-	if(!user.mind || !user.mind.isholy)
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
 		return
 

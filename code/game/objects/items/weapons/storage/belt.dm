@@ -7,6 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	slot_flags = SLOT_FLAG_BELT
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 | BLOCKS_LIGHT_2
 	attack_verb = list("whipped", "lashed", "disciplined")
 	max_integrity = 300
 	equip_sound = 'sound/items/equip/toolbelt_equip.ogg'
@@ -617,6 +618,20 @@
 	new /obj/item/gun/magic/wand/fireball(src)
 
 	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
+		W.max_charges = initial(W.max_charges)
+		W.charges = W.max_charges
+	update_icon()
+
+/obj/item/storage/belt/wands/fireballs
+	name = "infernal belt"
+	desc = "\"Use Fireball and only Fireball. Nothing but fireball. Just Fireball. <b>Just Fireball.</b>\""
+	icon_state = "militarybelt"
+	item_state = "military"
+	can_hold = list(/obj/item/gun/magic/wand/fireball)
+
+/obj/item/storage/belt/wands/fireballs/populate_contents()
+	for(var/count in 1 to storage_slots)
+		var/obj/item/gun/magic/wand/fireball/W = new /obj/item/gun/magic/wand/fireball(src)
 		W.max_charges = initial(W.max_charges)
 		W.charges = W.max_charges
 	update_icon()

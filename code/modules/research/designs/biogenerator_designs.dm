@@ -139,6 +139,14 @@
 	build_path = /obj/item/reagent_containers/glass/bottle/nutrient/empty
 	category = list("initial", "Botany Chemicals")
 
+/datum/design/soil
+	name = "Clump of Soil"
+	id = "soil"
+	build_type = BIOGENERATOR
+	materials = list(MAT_BIOMASS = 50)
+	build_path = /obj/item/stack/sheet/soil
+	category = list("initial", "Organic Materials")
+
 /datum/design/cloth
 	name = "Roll of cloth"
 	id = "cloth"
