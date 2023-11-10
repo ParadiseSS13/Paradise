@@ -265,7 +265,7 @@
 
 	if(!head_organ.h_grad_style)
 		head_organ.h_grad_style = "None"
-	var/gradient	= GLOB.hair_gradients_list.Find(head_organ.h_grad_style)
+	var/gradient = GLOB.hair_gradients_list.Find(head_organ.h_grad_style)
 
 	// Head Accessory
 	if(!head_organ.ha_style)
