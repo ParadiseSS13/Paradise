@@ -125,17 +125,19 @@
 */
 /obj/machinery/proc/power_change()
 	var/old_stat = stat
-	if(machine_powernet.powernet_area != get_area(src))
-		var/area/machine_area = get_area(src)
-		if(machine_area)
-			machine_powernet?.unregister_machine(src)
-			machine_powernet = machine_area.powernet
-			machine_powernet.register_machine(src)
 	if(has_power(power_channel) || !requires_power) //if we don't require power, we don't give a shit about the power channel!
 		stat &= ~NOPOWER
 	else
 		stat |= NOPOWER
 	return old_stat != stat //performance saving for machines that use power_change() to update icons!
+
+/obj/machinery/proc/reregister_machine()
+	if(machine_powernet?.powernet_area != get_area(src))
+		var/area/machine_area = get_area(src)
+		if(machine_area)
+			machine_powernet?.unregister_machine(src)
+			machine_powernet = machine_area.powernet
+			machine_powernet.register_machine(src)
 
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
@@ -326,6 +328,7 @@
 /obj/machinery/default_unfasten_wrench(mob/user, obj/item/I, time)
 	. = ..()
 	if(.)
+		reregister_machine()
 		power_change()
 
 /obj/machinery/attackby(obj/item/O, mob/user, params)
