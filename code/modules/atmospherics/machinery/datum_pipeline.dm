@@ -113,51 +113,6 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 	E.other_atmosmch.Cut()
 	qdel(E)
 
-/*
-/datum/pipeline/proc/split(obj/machinery/atmospherics/A)
-
-	var/datum/pipeline/new_pipeline = new()
-	/*
-	var/list/uncheckednodes = nodes
-	var/list/new_networks
-	for(node in uncheckednodes)
-		var/list/possible_expansions = list(node)
-		var/list/next_pipes
-		for(var/obj/machinery/atmospherics/borderline in possible_expansions)
-			var/list/result = borderline.pipeline_expansion(src)
-			if(result.len>0)
-				for(n in result)
-					if(n in uncheckednodes)
-						uncheckednodes -= n
-						next_piptes += n
-
-		new_networks += next_pipes
-		//KEEP TRACK OF THE NETWORK SIZE, LARGEST NETWORK BECOMES BASE NETWORK,
-		OTHER NETWORKS GET SPLIT OFF
-	main_network = largest(new_networks)
-	new_networks -= main_network
-	for(network in new_networks)
-		new_network = new /datum/pipeline(network[1])
-		new_network.build_pipeline(network[1])
-		main_network.subtract(new_network)
-	*/
-
-	/*
-	air.volume += E.air.volume
-	members.Add(E.members)
-	for(var/obj/machinery/atmospherics/pipe/S in E.members)
-		S.parent = src
-	air.merge(E.air)
-	for(var/obj/machinery/atmospherics/A in E.other_atmosmch)
-		A.replacePipenet(E, src)
-	other_atmosmch.Add(E.other_atmosmch)
-	other_airs.Add(E.other_airs)
-	E.members.Cut()
-	E.other_atmosmch.Cut()
-	qdel(E)
-	*/
-*/
-
 /obj/machinery/atmospherics/proc/addMember(obj/machinery/atmospherics/A)
 	var/datum/pipeline/P = returnPipenet(A)
 	P.addMember(A, src)
