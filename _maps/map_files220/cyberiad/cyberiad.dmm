@@ -8394,8 +8394,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/flask/detflask{
 	pixel_x = 16;
-	pixel_y = 4;
-	initialized = 1
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
