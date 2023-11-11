@@ -179,6 +179,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				S = GLOB.all_species[active_character.species]
 				active_character.randomise()
 
+			dat += "<b>Name: </b>"
 			dat += "<div class='statusDisplay' style='max-width: 128px; position: absolute; left: 150px; top: 150px'><img src=previewicon.png class='charPreview'><img src=previewicon2.png class='charPreview'></div>"
 			dat += "<table width='100%'><tr><td width='405px' height='25px' valign='top'>"
 			dat += "<b>Name: </b>"
@@ -382,6 +383,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br>"
+
+			dat += "<h2>Species Information</h2>"
+			var/datum/species/myspecies = GLOB.all_species[active_character.species]
+			dat += "<br><b>Species Description:</b> [myspecies.blurb]<br>"
 
 			dat += "</td></tr></table>"
 
