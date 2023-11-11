@@ -194,16 +194,6 @@
 	cost = 10
 	job = list("Bartender")
 
-//Barber
-
-/datum/uplink_item/jobspecific/safety_scissors //Hue
-	name = "Safety Scissors"
-	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
-	reference = "CTS"
-	item = /obj/item/scissors/safety
-	cost = 15
-	job = list("Barber")
-
 //Botanist
 
 /datum/uplink_item/jobspecific/bee_briefcase
