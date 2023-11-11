@@ -51,6 +51,10 @@
 	name = "\improper Mime's Office"
 	icon_state = "mime_office"
 
+/area/station/service/barber
+	name = "\improper Barber Shop"
+	icon_state = "barber"
+
 /area/station/service/janitor
 	name = "\improper Custodial Closet"
 	icon_state = "janitor"
@@ -66,6 +70,3 @@
 	icon_state = "expedition"
 	ambientsounds = ENGINEERING_SOUNDS
 	sound_environment = SOUND_AREA_STANDARD_STATION
-
-/area/station/service/casino
-	name = "\improper Casino"

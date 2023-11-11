@@ -11239,7 +11239,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "aLH" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -49269,7 +49269,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "cBZ" = (
 /obj/structure/table,
 /obj/item/folder,
@@ -52933,7 +52933,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "cLt" = (
 /obj/structure/closet/masks,
 /turf/simulated/floor/plasteel{
@@ -54444,7 +54444,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "cPZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -54518,7 +54518,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "cQk" = (
 /obj/machinery/light{
 	dir = 8
@@ -80281,7 +80281,7 @@
 "ipz" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/service/casino)
+/area/station/service/barber)
 "ipD" = (
 /obj/structure/closet/wardrobe/pjs,
 /turf/simulated/floor/plasteel{
@@ -84289,7 +84289,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "lSc" = (
 /obj/machinery/camera{
 	c_tag = "Research South Hallway";
@@ -88127,7 +88127,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "oHh" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -88542,7 +88542,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "oYX" = (
 /obj/machinery/door/airlock/virology{
 	name = "Virology Lobby"
@@ -89257,7 +89257,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "pEJ" = (
 /obj/structure/cable{
 	d2 = 8;
@@ -91570,7 +91570,7 @@
 /area/station/command/office/hop)
 "rwU" = (
 /turf/simulated/wall,
-/area/station/service/casino)
+/area/station/service/barber)
 "rxb" = (
 /obj/machinery/computer/secure_data,
 /obj/machinery/newscaster/security_unit{
@@ -93405,7 +93405,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "sPz" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -94008,7 +94008,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "tsL" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/external{
@@ -94313,7 +94313,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "tFK" = (
 /obj/item/soap/nanotrasen,
 /obj/machinery/light/small{

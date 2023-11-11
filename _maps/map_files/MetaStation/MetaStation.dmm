@@ -13730,7 +13730,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "bbH" = (
 /turf/simulated/wall,
 /area/station/engineering/tech_storage)
@@ -17829,7 +17829,7 @@
 "blC" = (
 /obj/effect/spawner/window,
 /turf/simulated/floor/plating,
-/area/station/service/casino)
+/area/station/service/barber)
 "blE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -20548,7 +20548,7 @@
 /area/station/legal/lawoffice)
 "bsm" = (
 /turf/simulated/wall,
-/area/station/service/casino)
+/area/station/service/barber)
 "bsp" = (
 /turf/simulated/wall,
 /area/station/service/bar)
@@ -20566,7 +20566,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "bsw" = (
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel{
@@ -21342,7 +21342,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "buI" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -22320,7 +22320,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "bwS" = (
 /obj/effect/turf_decal/tile/bar,
 /obj/machinery/door/firedoor,
@@ -22640,7 +22640,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "bxJ" = (
 /obj/structure/cable/yellow{
 	d2 = 2;
@@ -60379,7 +60379,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "iGw" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -91602,7 +91602,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "xaq" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{

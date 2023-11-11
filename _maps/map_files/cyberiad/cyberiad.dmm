@@ -9330,7 +9330,7 @@
 /area/station/public/mrchangs)
 "aDP" = (
 /turf/simulated/wall,
-/area/station/service/casino)
+/area/station/service/barber)
 "aDQ" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -11150,7 +11150,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "aJv" = (
 /obj/machinery/gameboard,
 /obj/structure/sign/poster/contraband/random{
@@ -42262,7 +42262,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "cwk" = (
 /obj/machinery/optable,
 /obj/effect/decal/cleanable/cobweb2,
@@ -64256,7 +64256,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "hnB" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
@@ -65535,7 +65535,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "hUX" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -65910,7 +65910,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "ihx" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -66362,7 +66362,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "ivQ" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 1;
@@ -67389,7 +67389,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "jaY" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -68071,7 +68071,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "juT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4;
@@ -69016,7 +69016,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "jWg" = (
 /obj/machinery/disposal,
 /obj/structure/window/reinforced{
@@ -70263,7 +70263,7 @@
 "kFj" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/service/casino)
+/area/station/service/barber)
 "kFu" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -71444,7 +71444,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "llj" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -72655,7 +72655,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "lRt" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/hatch{
@@ -73036,7 +73036,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "mdn" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -75577,7 +75577,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "nBU" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
@@ -77146,7 +77146,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "otg" = (
 /obj/machinery/door/window/classic/normal{
 	name = "Containment Pen"
@@ -79576,7 +79576,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "pHF" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Chapel Maintenance"
@@ -80913,7 +80913,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "qrJ" = (
 /obj/machinery/camera{
 	c_tag = "Research Mech Bay";
@@ -81760,7 +81760,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "qMY" = (
 /obj/effect/turf_decal{
 	dir = 8
@@ -86724,7 +86724,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "tKe" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/structure/cable{
@@ -88999,7 +88999,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "uZe" = (
 /obj/structure/grille/broken,
 /turf/simulated/wall,
@@ -91609,7 +91609,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "wua" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass{
@@ -92082,7 +92082,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/casino)
+/area/station/service/barber)
 "wKx" = (
 /obj/structure/railing{
 	dir = 1
