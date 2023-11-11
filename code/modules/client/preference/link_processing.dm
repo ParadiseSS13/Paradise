@@ -1115,6 +1115,16 @@
 					INVOKE_ASYNC(user.client, TYPE_PROC_REF(/client, edit_2fa))
 					return // We return here to avoid focus being lost
 
+				if("set_dark_mode")
+					var/client/our_client = user.client
+					our_client.prefs.toggles ^= PREFTOGGLE_UI_DARKMODE
+					our_client.prefs.save_preferences(our_client)
+					if(our_client.prefs.toggles & PREFTOGGLE_UI_DARKMODE)
+						our_client.activate_darkmode()
+					else
+						our_client.deactivate_darkmode()
+					SSblackbox.record_feedback("tally", "toggle_verbs", 1, "Toggle Darkmode")
+
 				if("keybindings")
 					if(!keybindings_overrides)
 						keybindings_overrides = list()
@@ -1248,7 +1258,10 @@
 
 					init_keybindings(keybindings_overrides)
 					save_preferences(user) //Ideally we want to save people's keybinds when they enter them
-
+				if("preference_toggles")
+					if(href_list["toggle"])
+						var/datum/preference_toggle/toggle = locateUID(href_list["toggle"])
+						toggle.set_toggles(user.client)
 
 	ShowChoices(user)
-	return 1
+	return TRUE

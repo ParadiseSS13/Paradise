@@ -703,7 +703,7 @@
 			else
 				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L]\">set default</a><br>[L.desc]<br><br>"
 
-/mob/verb/check_languages()
+/mob/living/verb/check_languages()
 	set name = "Check Known Languages"
 	set category = "IC"
 	set src = usr

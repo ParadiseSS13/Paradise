@@ -367,7 +367,7 @@
 	screen_loc = ui_language_menu
 
 /obj/screen/language_menu/Click()
-	var/mob/M = usr
+	var/mob/living/M = usr
 	if(!istype(M))
 		return
 	M.check_languages()

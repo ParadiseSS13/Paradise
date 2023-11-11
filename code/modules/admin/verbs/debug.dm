@@ -249,31 +249,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 				lst += holder.marked_datum
 	return lst
 
-/client/proc/Cell()
-	set category = "Debug"
-	set name = "Air Status in Location"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	if(!mob)
-		return
-	var/turf/T = mob.loc
-
-	if(!isturf(T))
-		return
-
-	var/datum/gas_mixture/env = T.return_air()
-
-	var/t = ""
-	t+= "Nitrogen : [env.nitrogen]\n"
-	t+= "Oxygen : [env.oxygen]\n"
-	t+= "Plasma : [env.toxins]\n"
-	t+= "CO2: [env.carbon_dioxide]\n"
-
-	usr.show_message(t, 1)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Air Status (Location)") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /client/proc/cmd_admin_robotize(mob/M in GLOB.mob_list)
 	set category = "Event"
 	set name = "Make Robot"

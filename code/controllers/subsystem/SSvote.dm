@@ -20,4 +20,5 @@ SUBSYSTEM_DEF(vote)
 
 /datum/controller/subsystem/vote/Topic(href, list/href_list)
 	if(href_list["vote"] == "open")
-		usr.client.vote()
+		if(SSvote.active_vote)
+			SSvote.active_vote.ui_interact(usr)

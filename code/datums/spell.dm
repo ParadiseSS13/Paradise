@@ -1,5 +1,4 @@
 /obj/effect/proc_holder
-	var/panel = "Debug"//What panel the proc holder needs to go on.
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
 	var/mob/ranged_ability_user
@@ -75,7 +74,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell
 	name = "Spell" // Only rename this if the spell you're making is not abstract
 	desc = "A wizard spell"
-	panel = "Spells"//What panel the proc holder needs to go on.
 	density = FALSE
 	opacity = FALSE
 
@@ -196,7 +194,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(action)
 		action.UpdateButtonIcon()
 
-/obj/effect/proc_holder/spell/proc/invocation(mob/user) //spelling the spell out and setting it on recharge/reducing charges amount
+/obj/effect/proc_holder/spell/proc/invocation(mob/living/user) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
 		if("shout")
 			if(!user.IsVocal())

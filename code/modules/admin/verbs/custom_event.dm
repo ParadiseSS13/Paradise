@@ -28,12 +28,14 @@
 	set category = "OOC"
 	set name = "Custom Event Info"
 
+	var/list/custom_event_information = list()
 	if(!GLOB.custom_event_msg || GLOB.custom_event_msg == "")
-		to_chat(src, "There currently is no known custom event taking place.")
-		to_chat(src, "Keep in mind: it is possible that an admin has not properly set this.")
+		custom_event_information += "There currently is no known custom event taking place."
+		custom_event_information += "Keep in mind: it is possible that an admin has not properly set this."
+		to_chat(src, chat_box_regular(custom_event_information.Join("<br>")))
 		return
 
-	to_chat(src, "<h1 class='alert'>Custom Event</h1>")
-	to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-	to_chat(src, "<span class='alert'>[html_encode(GLOB.custom_event_msg)]</span>")
-	to_chat(src, "<br>")
+	custom_event_information += "<h1 class='alert'>Custom Event</h1>"
+	custom_event_information += "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>"
+	custom_event_information += "<span class='alert'>[html_encode(GLOB.custom_event_msg)]</span>"
+	to_chat(src, chat_box_regular(custom_event_information.Join("<br>")))

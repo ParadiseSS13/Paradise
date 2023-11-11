@@ -124,7 +124,7 @@
 /mob/living/simple_animal/parrot/Stat()
 	..()
 	if(statpanel("Status"))
-		stat("Held Item", held_item)
+		stat(null, "Held Item: [held_item]")
 
 /*
  * Inventory

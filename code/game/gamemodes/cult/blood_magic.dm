@@ -187,7 +187,8 @@
 						"<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
 	owner.emp_act(2)
 	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(empulse), owner, 2, 5, TRUE, "cult")
-	owner.whisper(invocation)
+	var/mob/living/proper_owner = owner
+	proper_owner.whisper(invocation)
 	charges--
 	if(charges <= 0)
 		qdel(src)
@@ -322,7 +323,8 @@
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(4)) // If Cult is risen/ascendant.
 		else
 			playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE, SOUND_RANGE_SET(1)) // If Cult is unpowered.
-		owner.whisper(invocation)
+		var/mob/living/proper_owner = owner
+		proper_owner.whisper(invocation)
 		for(var/obj/O in range(4, owner))
 			O.cult_conceal()
 		revealing = TRUE // Switch on use
@@ -333,7 +335,8 @@
 		owner.visible_message("<span class='warning'>A flash of light shines from [owner]'s hand!</span>", \
 		"<span class='cultitalic'>You invoke the counterspell, revealing nearby runes and cult structures.</span>")
 		charges--
-		owner.whisper(invocation)
+		var/mob/living/proper_owner = owner
+		proper_owner.whisper(invocation)
 		if(!SSticker.mode.cult_risen || !SSticker.mode.cult_ascendant)
 			playsound(owner, 'sound/misc/enter_blood.ogg', 25, TRUE, SOUND_RANGE_SET(7)) // If Cult is risen/ascendant.
 		else

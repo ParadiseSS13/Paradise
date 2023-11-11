@@ -615,3 +615,6 @@
 // No hearing announcements
 /mob/new_player/can_hear()
 	return 0
+
+/mob/new_player/say_verb()
+	set hidden = TRUE

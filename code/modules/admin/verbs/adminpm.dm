@@ -253,7 +253,7 @@
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"
-	set category = "OOC"
+	set category = "Admin"
 	pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)

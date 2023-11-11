@@ -686,7 +686,8 @@
 	if(!desired_emote)
 		return
 
-	C.mob.me_verb(html_decode(desired_emote)) //do the thing!
+	var/mob/living/mob_to_emote = C.mob
+	mob_to_emote.me_verb(html_decode(desired_emote)) //do the thing!
 
 /datum/keybinding/custom/can_use(client/C, mob/M)
 	if(donor_exclusive && !(C.donator_level || C.holder || C.prefs.unlock_content)) //is this keybind restricted to donors/byond members/admins, and are you one or not?

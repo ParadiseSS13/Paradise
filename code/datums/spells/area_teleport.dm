@@ -78,7 +78,7 @@
 
 	return
 
-/obj/effect/proc_holder/spell/area_teleport/invocation(mob/user)
+/obj/effect/proc_holder/spell/area_teleport/invocation(mob/living/user)
 	if(!invocation_area || !selected_area)
 		return
 	switch(invocation_type)

@@ -5,11 +5,6 @@
 /mob/proc/say()
 	return
 
-/mob/verb/whisper(message as text)
-	set name = "Whisper"
-	set category = "IC"
-	return
-
 /mob/verb/say_verb(message as text)
 	set name = "Say"
 	set category = "IC"
@@ -31,7 +26,7 @@
 	usr.say(message)
 
 
-/mob/verb/me_verb(message as text)
+/mob/living/verb/me_verb(message as text)
 	set name = "Me"
 	set category = "IC"
 
@@ -42,7 +37,6 @@
 		custom_emote(usr.emote_type, message, intentional = TRUE)
 	else
 		usr.emote(message, intentional = TRUE)
-
 
 /mob/proc/say_dead(message)
 	if(client)

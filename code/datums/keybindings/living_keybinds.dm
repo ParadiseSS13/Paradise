@@ -27,7 +27,7 @@
 	keys = list("U")
 
 /datum/keybinding/living/whisper/down(client/C)
-	var/mob/M = C.mob
+	var/mob/living/M = C.mob
 	M.set_typing_indicator(TRUE)
 	M.hud_typing = 1
 	var/message = typing_input(M, "", "Whisper (text)")

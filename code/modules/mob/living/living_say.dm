@@ -304,7 +304,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 /mob/living/proc/GetVoice()
 	return name
 
-/mob/living/whisper(message as text)
+/mob/living/verb/whisper(message as text)
+	set name = "Whisper"
+	set category = "IC"
 	message = trim_strip_html_properly(message)
 
 	//parse the language code and consume it

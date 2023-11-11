@@ -1055,7 +1055,6 @@
 
 		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
 
-
 /**
   * Retrieves the BYOND accounts data from the BYOND servers
   *

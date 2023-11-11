@@ -201,21 +201,21 @@
 		else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
 			stat(null, "Internals Tank Connected")
 		else
-			stat("Internal Atmosphere Info", internal.name)
-			stat("Tank Pressure", internal.air_contents.return_pressure())
-			stat("Distribution Pressure", internal.distribute_pressure)
+			stat(null, "Internal Atmosphere Info: [internal.name]")
+			stat(null, "Tank Pressure: [internal.air_contents.return_pressure()]")
+			stat(null, "Distribution Pressure: [internal.distribute_pressure]")
 
 	// I REALLY need to split up status panel things into datums
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
-			stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
-			stat("Absorbed DNA", cling.absorbed_count)
+			stat(null, "Chemical Storage: [cling.chem_charges]/[cling.chem_storage]")
+			stat(null, "Absorbed DNA: [cling.absorbed_count]")
 
 		var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(V)
-			stat("Total Blood", "[V.bloodtotal]")
-			stat("Usable Blood", "[V.bloodusable]")
+			stat(null, "Total Blood: [V.bloodtotal]")
+			stat(null, "Usable Blood: [V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
@@ -2109,7 +2109,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/verb/Examine_OOC()
 	set name = "Examine Meta-Info (OOC)"
-	set category = "OOC"
+	set category = null
 	set src in view()
 
 	if(GLOB.configuration.general.allow_character_metadata)

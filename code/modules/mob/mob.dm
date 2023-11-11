@@ -85,25 +85,6 @@
 /mob/proc/GetAltName()
 	return ""
 
-/mob/proc/Cell()
-	set category = "Admin"
-	set hidden = 1
-
-	if(!loc) return 0
-
-	var/datum/gas_mixture/environment = loc.return_air()
-
-	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
-	t+= "<span class='notice'>Nitrogen: [environment.nitrogen] \n</span>"
-	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
-	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
-	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
-	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
-
-	usr.show_message(t, EMOTE_VISIBLE)
-
 /mob/proc/show_message(msg, type, alt, alt_type)//Message, type of message (1 or 2), alternative message, alt message type (1 or 2)
 
 	if(!client)	return
@@ -629,7 +610,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
 	set name = "Examine"
-	set category = "IC"
+	set category = null
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
@@ -712,7 +693,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 */
 
 
-/mob/verb/memory()
+/mob/living/verb/memory()
 	set name = "Notes"
 	set category = "IC"
 	if(mind)
@@ -720,7 +701,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
-/mob/verb/add_memory(msg as message)
+/mob/living/verb/add_memory(msg as message)
 	set name = "Add Note"
 	set category = "IC"
 
@@ -735,20 +716,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
-
-/mob/proc/store_memory(msg as message, popup, sane = 1)
-	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-
-	if(sane)
-		msg = sanitize(msg)
-
-	if(length(memory) == 0)
-		memory += msg
-	else
-		memory += "<BR>[msg]"
-
-	if(popup)
-		memory()
 
 /mob/proc/update_flavor_text()
 	set src in usr
@@ -780,110 +747,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/is_dead()
 	return stat == DEAD
-
-/mob/verb/abandon_mob()
-	set name = "Respawn"
-	set category = "OOC"
-
-	if(!GLOB.configuration.general.respawn_enabled)
-		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
-		return
-
-	if(stat != DEAD || !SSticker)
-		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
-		return
-
-	log_game("[key_name(usr)] has respawned.")
-
-	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
-
-	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
-		return
-	client.screen.Cut()
-	client.screen += client.void
-
-	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
-		return
-
-	var/mob/new_player/M = new /mob/new_player()
-	if(!client)
-		log_game("[key_name(usr)] respawn failed due to disconnect.")
-		qdel(M)
-		return
-
-	M.key = key
-	return
-
-/mob/verb/observe()
-	set name = "Observe"
-	set category = "OOC"
-	var/is_admin = 0
-
-	if(client.holder && (client.holder.rights & R_ADMIN))
-		is_admin = 1
-	else if(stat != DEAD || isnewplayer(src))
-		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
-		return
-
-	if(is_admin && stat == DEAD)
-		is_admin = 0
-
-	var/list/names = list()
-	var/list/namecounts = list()
-	var/list/creatures = list()
-
-	for(var/obj/O in GLOB.poi_list)
-		if(!O.loc)
-			continue
-		if(istype(O, /obj/item/disk/nuclear))
-			var/name = "Nuclear Disk"
-			if(names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
-		if(istype(O, /obj/singularity))
-			var/name = "Singularity"
-			if(names.Find(name))
-				namecounts[name]++
-				name = "[name] ([namecounts[name]])"
-			else
-				names.Add(name)
-				namecounts[name] = 1
-			creatures[name] = O
-
-
-	for(var/mob/M in sortAtom(GLOB.mob_list))
-		var/name = M.name
-		if(names.Find(name))
-			namecounts[name]++
-			name = "[name] ([namecounts[name]])"
-		else
-			names.Add(name)
-			namecounts[name] = 1
-
-		creatures[name] = M
-
-
-	client.perspective = EYE_PERSPECTIVE
-
-	var/eye_name = null
-
-	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
-	eye_name = input("Please, select a player!", ok, null, null) as null|anything in creatures
-
-	if(!eye_name)
-		return
-
-	var/mob/mob_eye = creatures[eye_name]
-
-	if(client && mob_eye)
-		client.eye = mob_eye
 
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
@@ -1006,13 +869,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			show_stat_station_time()
 		stat(null, "Players Connected: [length(GLOB.clients)]")
 
-	if(length(mob_spell_list))
-		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
-			add_spell_to_statpanel(S)
-	if(length(mind.spell_list))
-		for(var/obj/effect/proc_holder/spell/S in mind.spell_list)
-			add_spell_to_statpanel(S)
-
 	// Allow admins + PR reviewers to VIEW the panel. Doesnt mean they can click things.
 	if((is_admin(src) || check_rights(R_VIEWRUNTIMES, FALSE)) && client?.prefs.toggles2 & PREFTOGGLE_2_MC_TABS)
 		// Below are checks to see which MC panel you are looking at
@@ -1099,9 +955,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					continue
 				statpanel_things += A
 			statpanel(listed_turf.name, null, statpanel_things)
-
-/mob/proc/add_spell_to_statpanel(obj/effect/proc_holder/spell/S)
-	statpanel(S.panel,"[S.cooldown_handler.statpanel_info()]", S)
 
 // facing verbs
 /mob/proc/canface()

@@ -6,23 +6,6 @@
 		return message
 	return dna.species.handle_autohiss(message, L, client.prefs.active_character.autohiss_mode)
 
-/client/verb/toggle_autohiss()
-	set name = "Toggle Auto-Accent"
-	set desc = "Toggle automatic accents for your species"
-	set category = "OOC"
-
-	prefs.active_character.autohiss_mode = (prefs.active_character.autohiss_mode + 1) % AUTOHISS_NUM
-	switch(prefs.active_character.autohiss_mode)
-		if(AUTOHISS_OFF)
-			to_chat(src, "Auto-hiss is now OFF.")
-		if(AUTOHISS_BASIC)
-			to_chat(src, "Auto-hiss is now BASIC.")
-		if(AUTOHISS_FULL)
-			to_chat(src, "Auto-hiss is now FULL.")
-		else
-			prefs.active_character.autohiss_mode = AUTOHISS_OFF
-			to_chat(src, "Auto-hiss is now OFF.")
-
 /datum/species
 	var/list/autohiss_basic_map = null
 	var/list/autohiss_extra_map = null

@@ -401,7 +401,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(!QDELETED(mind.current)) // Could change while they're choosing
 			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
 		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
-		
+
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
@@ -533,14 +533,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		M.update_parallax_contents()
 		return
 	to_chat(A, "This mob is not located in the game world.")
-
-/mob/dead/observer/memory()
-	set hidden = 1
-	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
-
-/mob/dead/observer/add_memory()
-	set hidden = 1
-	to_chat(src, "<span class='warning'>You are dead! You have no mind to store memory!</span>")
 
 /mob/dead/observer/verb/toggle_health_scan()
 	set name = "Toggle Health Scan"
