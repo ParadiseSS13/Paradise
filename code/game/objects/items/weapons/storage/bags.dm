@@ -56,6 +56,11 @@
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
 		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
 		return FALSE
+	if(ishuman(loc)) // If the trashbag is on a humanoid, they can't store things in it while it's in their pockets
+		var/mob/living/carbon/human/H = loc
+		if(H.l_store == src || H.r_store == src)
+			to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+			return FALSE
 	. = ..()
 
 /obj/item/storage/bag/trash/Initialize(mapload)

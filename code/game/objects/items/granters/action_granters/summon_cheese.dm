@@ -35,7 +35,7 @@
 	overlay = null
 	action_icon_state = "cheese_wedge"
 	action_background_icon_state = "bg_spell"
-	summon_type = list(/obj/item/reagent_containers/food/snacks/cheesewedge)
+	summon_type = list(/obj/item/reagent_containers/food/snacks/cheesewedge/presliced)
 	summon_amt = 9
 	aoe_range = 1
 	summon_ignore_prev_spawn_points = TRUE

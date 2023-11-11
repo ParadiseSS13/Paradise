@@ -42,7 +42,9 @@
 	dir = 8;
 	name = "Construction Driver"
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction{
 	dir = 8
 	},
@@ -59,7 +61,9 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "cD" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "cH" = (
@@ -289,7 +293,9 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "jm" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
@@ -299,7 +305,9 @@
 /area/ruin/space/abandoned_engi_sat)
 "jK" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "jR" = (
@@ -360,7 +368,9 @@
 /turf/simulated/floor/carpet/airless,
 /area/ruin/space/abandoned_engi_sat)
 "kJ" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/structure/sign/poster/ripped{
 	pixel_y = 32;
 	name = "torn sign";
@@ -389,7 +399,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "lu" = (
@@ -469,7 +481,9 @@
 	dir = 8
 	},
 /obj/structure/cable,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "ne" = (
@@ -656,7 +670,9 @@
 /turf/simulated/floor/wood/airless,
 /area/ruin/space/abandoned_engi_sat)
 "to" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -694,7 +710,9 @@
 	pixel_x = 0;
 	pixel_y = 32
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "vn" = (
@@ -736,7 +754,9 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "xp" = (
@@ -927,7 +947,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "Db" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -952,7 +974,9 @@
 	},
 /area/ruin/space/abandoned_engi_sat)
 "DJ" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
@@ -1052,7 +1076,9 @@
 /turf/template_noop,
 /area/ruin/space/abandoned_engi_sat)
 "GP" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)
 "Ha" = (
@@ -1173,7 +1199,9 @@
 	dir = 8;
 	name = "Construction Driver"
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction{
 	dir = 8
 	},
@@ -1492,14 +1520,18 @@
 	dir = 8;
 	name = "Construction Driver"
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/engineering/construction{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/abandoned_engi_sat)
 "Zs" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/abandoned_engi_sat)

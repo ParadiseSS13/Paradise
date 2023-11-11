@@ -36,8 +36,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 
 /obj/item/stack/cable_coil/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-2,2)
-	pixel_y = rand(-2,2)
 	update_icon()
 	recipes = GLOB.cable_coil_recipes
 	update_wclass()
@@ -381,8 +379,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe/cable_restrain
 /obj/item/stack/cable_coil/cut/Initialize(mapload)
 	. = ..()
 	src.amount = rand(1,2)
-	pixel_x = rand(-2,2)
-	pixel_y = rand(-2,2)
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	update_wclass()
 

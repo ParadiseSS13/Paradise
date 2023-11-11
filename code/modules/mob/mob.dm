@@ -210,7 +210,7 @@
 
 /mob/proc/findname(msg)
 	for(var/mob/M in GLOB.mob_list)
-		if(M.real_name == text("[]", msg))
+		if(M.real_name == "[msg]")
 			return M
 	return 0
 
@@ -635,12 +635,12 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/run_examinate(atom/A)
 	if(!has_vision(information_only = TRUE) && !isobserver(src))
-		to_chat(src, "<span class='notice'>Something is there but you can't see it.</span>")
+		to_chat(src, chat_box_regular("<span class='notice'>Something is there but you can't see it.</span>"))
 		return 1
 
 	face_atom(A)
 	var/list/result = A.examine(src)
-	to_chat(src, result.Join("\n"))
+	to_chat(src, chat_box_examine(result.Join("\n")))
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
@@ -781,9 +781,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/is_dead()
 	return stat == DEAD
 
-/mob
-	var/newPlayerType = /mob/new_player
-
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
@@ -899,7 +896,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/Topic(href, href_list)
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
+		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
 		src << browse(null, t1)
 
@@ -924,7 +921,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			usr << browse(null,"window=mob\ref[src]")
 
 	if(href_list["flavor_more"])
-		usr << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", name, replacetext(flavor_text, "\n", "<BR>")), text("window=[];size=500x200", name))
+		usr << browse(text("<HTML><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>", name, replacetext(flavor_text, "\n", "<BR>")), "window=[name];size=500x200")
 		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
