@@ -38,7 +38,6 @@
 	var/species = "Human"
 	var/language = "None"				//Secondary language
 	var/autohiss_mode = AUTOHISS_OFF	//Species autohiss level. OFF, BASIC, FULL.
-	var/blurb = "None"
 
 	/// The body accessory name of the mob (e.g. wings, tail).
 	var/body_accessory = null
