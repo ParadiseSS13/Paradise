@@ -92,12 +92,11 @@
 			attacker.adjustStaminaLoss(-20) // security is dead
 			attacker.heal_overall_damage(4, 4) // the station is full
 			attacker.AdjustKnockDown(-1 SECONDS) // blood is fuel
-
-	if(!V.get_ability(/datum/vampire_passive/blood_spill))
-		durability--
-		if(durability <= 0)
-			qdel(src)
-			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+		if(!V.get_ability(/datum/vampire_passive/blood_spill))
+			durability--
+			if(durability <= 0)
+				qdel(src)
+				to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
 /obj/item/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
