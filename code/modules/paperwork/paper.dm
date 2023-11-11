@@ -553,9 +553,11 @@
 		icon_state = "scrap_words"
 
 /obj/item/paper/crumpled/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["wood"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"

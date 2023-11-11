@@ -41,10 +41,12 @@
 		. += "lid_[icon_state]"
 
 /obj/item/reagent_containers/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!reagents.total_volume)
-		C.stored_comms["glass"] += 3
-		qdel(src)
-		return TRUE
+	if(isdrone(user))
+		if(!reagents.total_volume)
+			C.stored_comms["glass"] += 3
+			qdel(src)
+			return TRUE
+		return
 	return ..()
 
 /obj/item/reagent_containers/glass/bottle/toxin

@@ -293,10 +293,12 @@
 		..()
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(burnt)
-		C.stored_comms["wood"] += 1
-		qdel(src)
-		return TRUE
+	if(isdrone(user))
+		if(burnt)
+			C.stored_comms["wood"] += 1
+			qdel(src)
+			return TRUE
+		return
 	return ..()
 
 /obj/item/proc/help_light_cig(mob/living/M)

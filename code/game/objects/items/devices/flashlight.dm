@@ -216,11 +216,13 @@
 		START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/flare/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!fuel)
-		C.stored_comms["metal"] += 1
-		C.stored_comms["glass"] += 1
-		qdel(src)
-		return TRUE
+	if(isdrone(user))
+		if(!fuel)
+			C.stored_comms["metal"] += 1
+			C.stored_comms["glass"] += 1
+			qdel(src)
+			return TRUE
+		return
 	return ..()
 
 // GLOWSTICKS

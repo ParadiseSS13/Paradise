@@ -26,10 +26,12 @@
 	icon_state = "remainsrobot"
 
 /obj/effect/decal/remains/robot/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["glass"] += 2
-	C.stored_comms["metal"] += 3
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["glass"] += 2
+		C.stored_comms["metal"] += 3
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/effect/decal/remains/slime
 	name = "You shouldn't see this"

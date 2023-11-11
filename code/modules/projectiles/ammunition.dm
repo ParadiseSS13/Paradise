@@ -100,10 +100,12 @@
 
 
 /obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!BB)
-		C.stored_comms["metal"] += 1
-		qdel(src)
-		return TRUE
+	if(isdrone(user))
+		if(!BB)
+			C.stored_comms["metal"] += 1
+			qdel(src)
+			return TRUE
+		return
 	return ..()
 
 /obj/item/ammo_casing/emp_act(severity)
