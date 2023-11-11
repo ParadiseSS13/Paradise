@@ -12,7 +12,7 @@
 
 /obj/item/scissors/barber
 	name = "Barber's Scissors"
-	desc = "A pair of scissors used by the barber."
+	desc = "A pair of scissors used by a barber."
 	icon_state = "bscissor"
 	item_state = "scissor"
 	attack_verb = list("beautifully sliced", "artistically cut", "smoothly stabbed", "quickly jabbed")

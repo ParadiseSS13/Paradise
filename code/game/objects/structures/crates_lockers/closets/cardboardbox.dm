@@ -78,7 +78,7 @@
 			qdel(src)
 			return
 		if(is_pen(W))
-			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Barber", "Blueshield", "Captain",
+			var/decalselection = input("Please select a decal") as null|anything in list("Atmospherics", "Bartender", "Blueshield", "Captain",
 			"Cargo", "Chief Engineer",	"Chaplain",	"Chef", "Chemist", "Assistant", "Clown", "CMO", "Coroner", "Detective", "Engineering", "Genetics", "HOP",
 			"HOS", "Hydroponics", "Internal Affairs Agent", "Janitor",	"Magistrate", "Medical", "Mime", "Mining", "NT Representative", "Paramedic",
 			"Prisoner",	"Research Director", "Security", "Syndicate", "Therapist", "Virology", "Warden", "Xenobiology")

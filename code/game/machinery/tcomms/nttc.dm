@@ -112,7 +112,6 @@
 		"Shaft Miner" = "supradio",
 		"Spelunker" = "supradio",
 		// Service
-		"Barber" = "srvradio",
 		"Bartender" = "srvradio",
 		"Beautician" = "srvradio",
 		"Botanical Researcher" = "srvradio",
