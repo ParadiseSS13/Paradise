@@ -57,10 +57,11 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/proc/found_target()
 	return target
 
+/**
+ * This is for objectives that need to register signals, so place them in here. Makes it easier for add_objective to call it.
+ */
 /datum/objective/proc/establish_signals()
-	/**
-	 * This is for objectives that need to register signals, so place them in here. Makes it easier for add_objective to call it.
-	 */
+	return
 
 /**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
