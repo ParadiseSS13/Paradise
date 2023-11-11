@@ -45,6 +45,7 @@
 
 /area/station/service/clown/secret
 	name = "\improper Top Secret Clown HQ"
+	requires_power = FALSE
 
 /area/station/service/mime
 	name = "\improper Mime's Office"

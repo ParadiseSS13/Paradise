@@ -402,6 +402,26 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 		var/mob/living/simple_animal/diona/D = usr
 		return D.resist()
 
+/obj/screen/alert/gestalt
+	name = "Merged nymph"
+	desc = "You have merged with one or more diona nymphs. Click here to drop it (or one of them)."
+
+/obj/screen/alert/gestalt/Click()
+	if(!usr || !usr.client)
+		return
+
+	var/list/nymphs = list()
+	for(var/mob/living/simple_animal/diona/D in usr.contents)
+		nymphs += D
+
+	if(length(nymphs) == 1)
+		var/mob/living/simple_animal/diona/D = nymphs[1]
+		D.split()
+	else
+		var/mob/living/simple_animal/diona/D = input("Select a nymph to drop:", "Nymph Dropping", nymphs[1]) as anything in nymphs
+		if(D in usr.contents)
+			D.split()
+
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /obj/screen/alert/hacked
 	name = "Hacked"
