@@ -9429,7 +9429,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "bjr" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -17431,7 +17431,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "bUj" = (
 /turf/simulated/floor/engine{
 	name = "air floor";
@@ -38853,7 +38853,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "gdV" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -53833,7 +53833,7 @@
 "kOk" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/station/service/barber)
+/area/station/service/casino)
 "kOs" = (
 /obj/structure/chair/comfy/red{
 	dir = 4
@@ -55162,7 +55162,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "liT" = (
 /obj/item/reagent_containers/food/drinks/shaker,
 /obj/structure/table/wood,
@@ -55385,7 +55385,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "lmA" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -56373,7 +56373,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "lBJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -57311,7 +57311,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "lRt" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -58252,7 +58252,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "mfj" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Starboard Asteroid Maintenance Access"
@@ -58651,7 +58651,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "mmn" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/regular,
@@ -63771,7 +63771,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "nQN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -66706,7 +66706,7 @@
 /area/station/medical/break_room)
 "oOg" = (
 /turf/simulated/wall,
-/area/station/service/barber)
+/area/station/service/casino)
 "oOh" = (
 /obj/machinery/power/apc{
 	name = "south bump";
@@ -70163,7 +70163,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "pOn" = (
 /obj/machinery/door/airlock/command{
 	name = "Teleport Access"
@@ -76562,7 +76562,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "rSO" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Fore Asteroid Maintenance Access"
@@ -85548,7 +85548,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "uNG" = (
 /turf/simulated/wall/r_wall,
 /area/station/engineering/break_room/secondary)
@@ -85946,7 +85946,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "uTg" = (
 /obj/structure/cable/orange{
 	d1 = 4;
@@ -87943,7 +87943,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "vyk" = (
 /obj/structure/disposalpipe/segment/corner,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -90552,7 +90552,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "wmC" = (
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
@@ -93658,7 +93658,6 @@
 /turf/simulated/floor/carpet/cyan,
 /area/station/public/fitness)
 "xhr" = (
-/obj/effect/landmark/start/barber,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -93669,7 +93668,7 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
-/area/station/service/barber)
+/area/station/service/casino)
 "xhB" = (
 /obj/structure/cable/orange{
 	d1 = 1;
