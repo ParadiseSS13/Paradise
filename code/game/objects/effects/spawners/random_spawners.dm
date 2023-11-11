@@ -309,7 +309,7 @@
 	result = list(/datum/nothing = 25,
 		/obj/item/jammer = 1,
 		/obj/item/storage/firstaid/regular = 1,
-		/obj/item/storage/box/syndie_kit/bonerepair = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
 		/obj/item/card/emag = 1,

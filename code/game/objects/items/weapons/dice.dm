@@ -248,7 +248,7 @@
 				/obj/item/chameleon_counterfeiter,
 				/obj/item/clothing/shoes/chameleon/noslip,
 				/obj/item/pinpointer/advpinpointer,
-				/obj/item/storage/box/syndie_kit/bonerepair,
+				/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 				/obj/item/storage/backpack/duffel/syndie/med/surgery,
 				/obj/item/storage/toolbox/syndicate,
 				/obj/item/storage/backpack/clown/syndie,
