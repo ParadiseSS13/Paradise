@@ -51,6 +51,6 @@ jobs:
         run: |
           git checkout translate
           git config --local user.email "action@github.com"
-          git config --local user.name "SS220Manager"
+          git config --local user.name "ss220bot"
           git commit -m "Generate translation file"
           git push origin translate:translate
