@@ -471,7 +471,7 @@
 							"paramedic",
 							"psychiatrist",
 							"research",
-							"robotcist",
+							"roboticist",
 							"quartermaster",
 							"cargo",
 							"shaftminer",
