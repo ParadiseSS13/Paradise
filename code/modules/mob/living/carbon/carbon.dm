@@ -1225,6 +1225,10 @@ so that different stomachs can handle things in different ways VB*/
 	if(!medicine.reagents.total_volume)
 		return TRUE // Doesn't have reagents, would be fine to use up
 
+	if(!dna.species.dietflags) // You will not feed the IPC
+		to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
+		return FALSE
+
 	var/apply_method = "swallow"
 	var/reagent_application = REAGENT_INGEST
 	var/requires_mouth = TRUE
@@ -1241,7 +1245,7 @@ so that different stomachs can handle things in different ways VB*/
 			instant = TRUE
 
 	if(user != src && !instant)
-		if(requires_mouth && (!head || !dna.species.dietflags)) // You will not feed the IPC
+		if(requires_mouth && !head)
 			to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
 			return FALSE
 		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
@@ -1253,9 +1257,8 @@ so that different stomachs can handle things in different ways VB*/
 		to_chat(user, "You [apply_method] [medicine].")
 
 	var/fraction = min(1 / medicine.reagents.total_volume, 1)
-	if(fraction)
-		medicine.reagents.reaction(src, reagent_application, fraction)
-		medicine.reagents.trans_to(src, medicine.reagents.total_volume * efficiency)
+	medicine.reagents.reaction(src, reagent_application, fraction)
+	medicine.reagents.trans_to(src, medicine.reagents.total_volume * efficiency)
 	return TRUE
 
 /mob/living/carbon/get_access()
