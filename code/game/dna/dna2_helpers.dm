@@ -205,7 +205,7 @@
 	head_organ.sec_hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_B, 255))
 
 	//Hair Gradient
-	var/gradient = GetUIValueRange(DNA_UI_HAIR_GRADIENT_STYLE,GLOB.hair_gradients_list.len)
+	var/gradient = GetUIValueRange(DNA_UI_HAIR_GRADIENT_STYLE, length(GLOB.hair_gradients_list))
 	if(ISINDEXSAFE(GLOB.hair_gradients_list, gradient))
 		head_organ.h_grad_style = GLOB.hair_gradients_list[gradient]
 		head_organ.h_grad_offset_x = GetUIValueRange(DNA_UI_HAIR_GRADIENT_X, 32) - 16
