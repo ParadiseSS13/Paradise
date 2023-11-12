@@ -54,15 +54,6 @@ do {\
 	else
 		..()
 
-/obj/item/reagent_containers/food/snacks/customizable/sandwich
-	name = "sandwich"
-	desc = "A sandwich! A timeless classic."
-	icon_state = "breadslice"
-	baseicon = "sandwichcustom"
-	basename = "sandwich"
-
-
-
 /obj/item/reagent_containers/food/snacks/customizable
 	name = "sandwich"
 	desc = "A sandwich! A timeless classic."
@@ -88,6 +79,13 @@ do {\
 	if(top)
 		top_image = new(icon, "[baseicon]_top")
 		add_overlay(top_image)
+
+/obj/item/reagent_containers/food/snacks/customizable/sandwich
+	name = "sandwich"
+	desc = "A sandwich! A timeless classic."
+	icon_state = "sandwichcustom"
+	baseicon = "sandwichcustom"
+	basename = "sandwich"
 
 /obj/item/reagent_containers/food/snacks/customizable/pizza
 	name = "personal pizza"
