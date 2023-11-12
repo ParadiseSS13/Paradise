@@ -85,6 +85,10 @@
 			/datum/job/syndicateofficer
 		)
 
+/obj/machinery/newscaster/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
+
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
 	viewing_channel = null
@@ -723,15 +727,10 @@
 /**
   * Ejects the currently loaded photo if there is one.
   */
-/obj/machinery/newscaster/verb/eject_photo_verb()
-	set name = "Eject Photo"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/newscaster/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-
-	eject_photo(usr)
+	eject_photo(user)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH

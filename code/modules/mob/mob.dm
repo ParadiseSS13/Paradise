@@ -781,6 +781,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/is_dead()
 	return stat == DEAD
 
+// Nobody in their right mind will have this enabled on the production server, uncomment if you want this for some reason
+/*
 /mob/verb/abandon_mob()
 	set name = "Respawn"
 	set category = "OOC"
@@ -816,6 +818,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	M.key = key
 	return
 
+*/
 /mob/verb/observe()
 	set name = "Observe"
 	set category = "OOC"

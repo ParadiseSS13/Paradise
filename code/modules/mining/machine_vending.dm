@@ -240,7 +240,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter Kit", "Jaunter Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter", "Jaunter Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -264,9 +264,8 @@
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/kinetic_crusher(drop_location)
-		if("Plasma Cutter Kit")
+		if("Plasma Cutter")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
-			new /obj/item/survivalcapsule(drop_location)
 		if("Jaunter Kit")
 			new /obj/item/wormhole_jaunter(drop_location)
 			new /obj/item/stack/medical/bruise_pack/advanced(drop_location)
