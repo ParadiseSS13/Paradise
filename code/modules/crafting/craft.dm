@@ -195,8 +195,8 @@
 /datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)
 	var/list/surroundings = get_environment(user)
 	var/list/parts_used = list()
+	var/list/reagent_containers_for_deletion = list()
 	var/list/item_stacks_for_deletion = list()
-	var/list/reagent_list_for_deletion = list()
 
 	for(var/thing in recipe.reqs)
 		var/needed_amount = recipe.reqs[thing]
@@ -206,13 +206,13 @@
 				part_reagent = new thing()
 				parts_used += part_reagent
 
-			for(var/obj/item/reagent_containers/container in surroundings)
+			for(var/obj/item/reagent_containers/container in (surroundings - reagent_containers_for_deletion))
 				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
 				if(!contained_reagent)
 					continue
 
 				var/extracted_amount = min(contained_reagent.volume, needed_amount)
-				reagent_list_for_deletion[thing] += list(list(container, extracted_amount))
+				reagent_containers_for_deletion[container] = list(contained_reagent, extracted_amount)
 				part_reagent.volume += extracted_amount
 				part_reagent.data += contained_reagent.data
 				needed_amount -= extracted_amount
@@ -258,12 +258,16 @@
 					continue
 				parts_used += part_atom
 
-	for(var/datum/reagent/reagent_to_delete as anything in reagent_list_for_deletion)
-		for(var/list/reagent_info in reagent_list_for_deletion[reagent_to_delete])
-			var/obj/item/reagent_containers/container = reagent_info[1]
-			var/amount_to_delete = reagent_info[2]
+	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
+		var/datum/reagent/reagent_to_delete = reagent_containers_for_deletion[container_to_clear][1]
+		var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][2]
 
-			container.reagents.remove_reagent(reagent_to_delete.id, amount_to_delete)
+		if(amount_to_delete < reagent_to_delete.volume)
+			reagent_to_delete.volume -= amount_to_delete
+		else
+			container_to_clear.reagents.reagent_list -= reagent_to_delete
+		container_to_clear.reagents.conditional_update(container_to_clear)
+		container_to_clear.update_icon()
 
 	for(var/obj/item/stack/stack_to_delete as anything in item_stacks_for_deletion)
 		var/amount_to_delete = item_stacks_for_deletion[stack_to_delete]
