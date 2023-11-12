@@ -7,7 +7,7 @@
 	dna_cost = 2
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_DEFENSE
+	category = /datum/changeling_power_category/defence
 
 /datum/action/changeling/headslug/try_to_sting(mob/user, mob/target)
 	if(alert("Are you sure you wish to do this? This action cannot be undone.",,"Yes","No") == "No")
