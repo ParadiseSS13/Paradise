@@ -5,6 +5,7 @@
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
 #define RETURN_INJURY_CHANCE 85
 #define RETURN_SOUVENIR_CHANCE 10
+/// How long an antagonist target remains in the Syndicate jail.
 #define ANTAG_CONTRACT_TIME 10 MINUTES
 
 /**
@@ -20,7 +21,6 @@
 	var/portal_duration = 5 MINUTES
 	/// How long a target remains in the Syndicate jail.
 	var/prison_time = 4 MINUTES
-	/// How long an antagonist target remains in the Syndicate jail.
 	var/list/obj/item/souvenirs = list(
 		/obj/item/bedsheet/syndie,
 		/obj/item/clothing/under/syndicate/tacticool,
