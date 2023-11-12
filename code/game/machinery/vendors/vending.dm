@@ -360,7 +360,6 @@
 		var/transferred = restock(canister)
 		if(!transferred && !canister.get_part_rating()) // It transferred no products and has no products left, thus it is empty
 			to_chat(user, "<span class='warning'>[canister] is empty!</span>")
-			return
 		else if(transferred) // We transferred some items
 			to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
 		else // Nothing transferred, parts are still left, nothing to restock!
