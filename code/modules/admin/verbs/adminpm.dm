@@ -13,51 +13,42 @@
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_panel()
 	set category = "Admin"
-	set name = "Admin PM Name"
+	set name = "Admin PM"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
+	var/to_sort_by = alert(usr, "How do you want this list sorted?", , "By mob name", "By mob key", "Cancel")
+	if(to_sort_by == "Cancel" || !to_sort_by)
+		return
+
 	var/list/client/targets[0]
-	for(var/client/T)
-		if(T.mob)
-			if(isnewplayer(T.mob))
-				targets["(New Player) - [T]"] = T
-			else if(isobserver(T.mob))
-				targets["[T.mob.name](Ghost) - [T]"] = T
+	if(to_sort_by == "By mob name")
+		for(var/client/T)
+			if(T.mob)
+				if(isnewplayer(T.mob))
+					targets["(New Player) - [T]"] = T
+				else if(isobserver(T.mob))
+					targets["[T.mob.name](Ghost) - [T]"] = T
+				else
+					targets["[T.mob.real_name](as [T.mob.name]) - [T]"] = T
 			else
-				targets["[T.mob.real_name](as [T.mob.name]) - [T]"] = T
-		else
-			targets["(No Mob) - [T]"] = T
+				targets["(No Mob) - [T]"] = T
+	else
+		for(var/client/T)
+			if(T.mob)
+				if(isnewplayer(T.mob))
+					targets["[T] - (New Player)"] = T
+				else if(isobserver(T.mob))
+					targets["[T] - [T.mob.name](Ghost)"] = T
+				else
+					targets["[T] - [T.mob.real_name](as [T.mob.name])"] = T
+			else
+				targets["(No Mob) - [T]"] = T
 	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted|null
+	var/target = input(src,"To whom shall we send a message?","Admin PM") as null|anything in sorted|null
 	if(!target)
 		return
 	cmd_admin_pm(targets[target],null)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Name") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-//shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
-/client/proc/cmd_admin_pm_by_key_panel()
-	set category = "Admin"
-	set name = "Admin PM Key"
-	if(!check_rights(R_ADMIN|R_MENTOR))
-		return
-	var/list/client/targets[0]
-	for(var/client/T)
-		if(T.mob)
-			if(isnewplayer(T.mob))
-				targets["[T] - (New Player)"] = T
-			else if(isobserver(T.mob))
-				targets["[T] - [T.mob.name](Ghost)"] = T
-			else
-				targets["[T] - [T.mob.real_name](as [T.mob.name])"] = T
-		else
-			targets["(No Mob) - [T]"] = T
-	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Admin PM",null) as null|anything in sorted
-	if(!target)
-		return
-	cmd_admin_pm(targets[target],null)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Admin PM Key") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client

@@ -400,30 +400,3 @@
 	route_linkage()
 	setup_space_destinations(force_all_rebuilds = TRUE)
 
-// A debugging proc that expresses the map's shape as a bunch of turfs
-/datum/zlev_manager/proc/map_as_turfs(turf/center)
-	// size is odd
-	// -1, /2 to get distance from the center
-	// center - radius = bottom left coordinate
-	var/datum/point/P
-	var/turf/our_spot
-	var/grid_desc = ""
-	for(var/i = linkage_map.min_x, i <= linkage_map.max_x, i++)
-		for(var/j = linkage_map.min_y, j <= linkage_map.max_y, j++)
-			P = linkage_map.get(i, j)
-			our_spot = locate(center.x + i, center.y + j, center.z)
-			grid_desc = "([i],[j])"
-			if(!isnull(P))
-				our_spot = our_spot.ChangeTurf(/turf/simulated/floor/plating/snow)
-				grid_desc += ": Z level [P.spl.zpos]. "
-				var/datum/space_level/up = P.spl.get_connection(Z_LEVEL_NORTH)
-				var/datum/space_level/down = P.spl.get_connection(Z_LEVEL_SOUTH)
-				var/datum/space_level/right = P.spl.get_connection(Z_LEVEL_EAST)
-				var/datum/space_level/left = P.spl.get_connection(Z_LEVEL_WEST)
-				grid_desc += "Up: [up.zpos], "
-				grid_desc += "Down: [down.zpos], "
-				grid_desc += "Right: [right.zpos], "
-				grid_desc += "Left: [left.zpos]"
-			else
-				our_spot = our_spot.ChangeTurf(/turf/simulated/floor/fakespace)
-			our_spot.desc = grid_desc

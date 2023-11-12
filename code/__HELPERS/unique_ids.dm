@@ -73,12 +73,8 @@ GLOBAL_LIST_EMPTY(uid_log)
   *
   * In-round ability to view what has created a UID, and how many times a UID for that path has been declared
   */
-/client/proc/uid_log()
-	set name = "View UID Log"
-	set category = "Debug"
-	set desc = "Shows the log of created UIDs this round"
-
-	if(!check_rights(R_DEBUG))
+/client/proc/uid_log(mob/user)
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
 	var/list/sorted = sortTim(GLOB.uid_log, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
@@ -87,4 +83,4 @@ GLOBAL_LIST_EMPTY(uid_log)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	usr << browse(text.Join(), "window=uidlog")
+	user << browse(text.Join(), "window=uidlog")

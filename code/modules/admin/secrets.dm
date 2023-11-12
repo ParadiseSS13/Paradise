@@ -83,6 +83,7 @@
 					<BR>
 					<b>Reinforce Station</b><BR>
 					<A href='?src=[UID()];secretsfun=gammashuttle'>Move the Gamma Armory</A>&nbsp;&nbsp;
+					<A href='?src=[UID()];secretsfun=delete_singulo'>Delete all singularites</A>&nbsp;&nbsp;
 					<BR>
 					</center>"}
 

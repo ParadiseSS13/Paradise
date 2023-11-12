@@ -211,7 +211,7 @@
 
 /client/proc/check_bomb_impacts()
 	set name = "Check Bomb Impact"
-	set category = "Debug"
+	set category = null
 
 	var/newmode = alert("Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
 	var/turf/epicenter = get_turf(mob)
@@ -246,9 +246,7 @@
 	var/max_range = max(dev, heavy, light)
 	var/x0 = epicenter.x
 	var/y0 = epicenter.y
-	var/list/wipe_colours = list()
 	for(var/turf/T in spiral_range_turfs(max_range, epicenter))
-		wipe_colours += T
 		var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 
 		if(newmode == "Yes")
@@ -263,21 +261,16 @@
 					dist += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
 
 		if(dist < dev)
-			T.color = "red"
-			T.maptext = "Dev"
+			var/image/dev_image = image('icons/effects/alphacolors.dmi', T, "red")
+			images += dev_image
 		else if(dist < heavy)
-			T.color = "yellow"
-			T.maptext = "Heavy"
+			var/image/heavy_image = image('icons/effects/alphacolors.dmi', T, "green")
+			images += heavy_image
 		else if(dist < light)
-			T.color = "blue"
-			T.maptext = "Light"
+			var/image/light_image = image('icons/effects/alphacolors.dmi', T, "blue")
+			images += light_image
 		else
 			continue
-
-	sleep(100)
-	for(var/turf/T in wipe_colours)
-		T.color = null
-		T.maptext = ""
 
 #undef CREAK_DELAY
 #undef DEVASTATION_PROB

@@ -1509,19 +1509,6 @@
 
 		usr.client.cmd_admin_slimeize(H)
 
-	else if(href_list["makesuper"])
-		if(!check_rights(R_SPAWN))	return
-
-		var/mob/living/carbon/human/H = locateUID(href_list["makesuper"])
-		if(!istype(H))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
-			return
-
-		if(alert(usr, "Confirm make superhero?",, "Yes", "No") != "Yes")
-			return
-
-		usr.client.cmd_admin_super(H)
-
 	else if(href_list["makerobot"])
 		if(!check_rights(R_SPAWN))	return
 
@@ -2638,6 +2625,16 @@
 			return
 		show_traitor_panel(M)
 
+	else if(href_list["game_manager"])
+		if(!check_rights(R_ADMIN))
+			return
+		return open_game_manager(usr)
+
+	else if(href_list["game_manager_open"])
+		if(!check_rights(R_ADMIN))
+			return
+		our_game_manager.manage_input(usr, href_list)
+
 	else if(href_list["create_object"])
 		if(!check_rights(R_SPAWN))	return
 		return create_object(usr)
@@ -3150,6 +3147,20 @@
 				message_admins("[key_name_admin(usr)] moved the gamma armory")
 				log_admin("[key_name(usr)] moved the gamma armory")
 				move_gamma_ship()
+
+			if("delete_singulo")
+				var/confirm = alert("This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
+				if(confirm != "Yes")
+					return
+
+				for(var/I in GLOB.singularities)
+					var/obj/singularity/S = I
+					if(!is_level_reachable(S.z))
+						continue
+					qdel(S)
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Delete all Singularities")
+				message_admins("[key_name_admin(usr)] deleted all the Singularities")
+				log_admin("[key_name(usr)] deleted all the Singularities")
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")

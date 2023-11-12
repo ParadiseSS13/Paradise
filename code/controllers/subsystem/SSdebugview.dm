@@ -68,26 +68,3 @@ SUBSYSTEM_DEF(debugview)
 /obj/screen/debugtextholder/proc/update_view(client/C)
 	var/list/viewsizes = getviewsize(C.view)
 	maptext_width = viewsizes[1] * world.icon_size
-
-// Make a verb for dumping full SS stats
-/client/proc/ss_breakdown()
-	set name = "SS Info Breakdown"
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
-		return
-
-	var/datum/browser/popup = new(usr, "ss_breakdown", "Subsystem Breakdown", 1100, 850)
-
-	var/list/html = list()
-	html += "CPU: [round(world.cpu, 1)] | MCPU: [round(world.map_cpu, 1)] | FPS/TPS: [world.fps] | Clients: [length(GLOB.clients)] | BYOND: [world.byond_version].[world.byond_build]"
-	html += "--- SS BREAKDOWN ---"
-	for(var/datum/controller/subsystem/SS as anything in Master.subsystems)
-		// We dont care about subsystems that arent firing (or are unable to)
-		if((SS.flags & SS_NO_FIRE) || !SS.can_fire)
-			continue
-
-		html += "[SS.state_colour()]\[[SS.state_letter()]][SS.ss_id]</font>\t[round(SS.cost, 1)]ms | [round(SS.tick_usage, 1)]% | [SS.get_stat_details()]"
-
-	popup.set_content(html.Join("<br>"))
-	popup.open(FALSE)

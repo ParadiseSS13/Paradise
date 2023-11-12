@@ -577,11 +577,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
   *
   * In-round ability to view what has created a timer, and how many times a timer for that path has been created
   */
-/client/proc/timer_log()
-	set name = "View Timer Log"
-	set category = "Debug"
-	set desc = "Shows the log of what types created timers this round"
-
+/client/proc/get_timer_log(mob/user)
 	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
@@ -591,13 +587,9 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	usr << browse(text.Join(), "window=timerlog")
+	user << browse(text.Join(), "window=timerlog")
 
-/client/proc/debug_timers()
-	set name = "Debug Timers"
-	set category = "Debug"
-	set desc = "Shows currently active timers, grouped by callback"
-
+/client/proc/debug_timers(mob/user)
 	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
 		return
 
@@ -633,8 +625,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 		text += "<li>[key] - [sorted2[key]]</li>"
 
 	text += "</ul>"
-	usr << browse(text.Join(), "window=timerdebug")
-
+	user << browse(text.Join(), "window=timerdebug")
 
 /**
  * Create a new timer and insert it in the queue.

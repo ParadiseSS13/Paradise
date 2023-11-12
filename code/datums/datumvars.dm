@@ -704,7 +704,14 @@
 			to_chat(usr, "This can only be used on instances of type /mob")
 			return
 
-		src.cmd_admin_gib(M)
+		var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
+		if(confirm != "Yes")
+			return
+
+		M.gib()
+		log_admin("[key_name(usr)] has gibbed [key_name(M)]")
+		message_admins("[key_name_admin(usr)] has gibbed [key_name_admin(M)]", 1)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Gib")
 
 	else if(href_list["build_mode"])
 		if(!check_rights(R_BUILDMODE))	return
@@ -1229,6 +1236,13 @@
 		if(!istype(A))
 			return
 		holder.modify_traits(A)
+	else if(href_list["reset_powernet"])
+		if(!check_rights(R_ADMIN))
+			return
+		SSmachines.makepowernets()
+		log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
+		message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets")
 
 	if(href_list["datumrefresh"])
 		var/datum/DAT = locateUID(href_list["datumrefresh"])

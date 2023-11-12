@@ -127,3 +127,7 @@ SUBSYSTEM_DEF(machines)
 		processing = SSmachines.processing
 	if(istype(SSmachines.powernets))
 		powernets = SSmachines.powernets
+
+/datum/controller/subsystem/machines/vv_get_dropdown()
+	. = ..()
+	.["Reset Powernets"] = "?_src_=vars;reset_powernet=[UID()]"

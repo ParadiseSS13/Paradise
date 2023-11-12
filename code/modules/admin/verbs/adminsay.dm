@@ -80,12 +80,8 @@
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Msay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/toggle_mentor_chat()
-	set category = "Server"
-	set name = "Toggle Mentor Chat"
-	set desc = "Toggle whether mentors have access to the msay command"
-
-	if(!check_rights(R_ADMIN))
+/proc/toggle_mentor_chat(mob/user)
+	if(!check_rights(R_ADMIN, user = user))
 		return
 
 	var/enabling

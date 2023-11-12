@@ -367,93 +367,6 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	else
 		alert("Invalid mob")
 
-/client/proc/cmd_admin_super(mob/M in GLOB.mob_list)
-	set category = "Event"
-	set name = "Make Superhero"
-
-	if(!check_rights(R_SPAWN))
-		return
-
-	if(!SSticker)
-		alert("Wait until the game starts")
-		return
-	if(ishuman(M))
-		var/type = input("Pick the Superhero","Superhero") as null|anything in GLOB.all_superheroes
-		var/datum/superheroes/S = GLOB.all_superheroes[type]
-		if(S)
-			S.create(M)
-		log_admin("[key_name(src)] has turned [M.key] into a Superhero.")
-		message_admins("<span class='notice'>[key_name_admin(usr)] made [key_name(M)] into a Superhero.</span>", 1)
-	else
-		alert("Invalid mob")
-
-/client/proc/cmd_debug_del_sing()
-	set category = "Debug"
-	set name = "Del Singulo / Tesla"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	//This gets a confirmation check because it's way easier to accidentally hit this and delete things than it is with qdel-all
-	var/confirm = alert("This will delete ALL Singularities and Tesla orbs except for any that are on away mission z-levels or the centcomm z-level. Are you sure you want to delete them?", "Confirm Panic Button", "Yes", "No")
-	if(confirm != "Yes")
-		return
-
-	for(var/I in GLOB.singularities)
-		var/obj/singularity/S = I
-		if(!is_level_reachable(S.z))
-			continue
-		qdel(S)
-	log_admin("[key_name(src)] has deleted all Singularities and Tesla orbs.")
-	message_admins("[key_name_admin(src)] has deleted all Singularities and Tesla orbs.", 0)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Del Singulo/Tesla") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/cmd_debug_make_powernets()
-	set category = "Debug"
-	set name = "Make Powernets"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	SSmachines.makepowernets()
-	log_admin("[key_name(src)] has remade the powernet. makepowernets() called.")
-	message_admins("[key_name_admin(src)] has remade the powernets. makepowernets() called.", 0)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Powernets") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/cmd_admin_grantfullaccess(mob/M in GLOB.mob_list)
-	set category = "Admin"
-	set name = "Grant Full Access"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	if(!SSticker)
-		alert("Wait until the game starts")
-		return
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.wear_id)
-			var/obj/item/card/id/id = H.wear_id
-			if(istype(H.wear_id, /obj/item/pda))
-				var/obj/item/pda/pda = H.wear_id
-				id = pda.id
-			id.icon_state = "gold"
-			id:access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
-		else
-			var/obj/item/card/id/id = new/obj/item/card/id(M)
-			id.icon_state = "gold"
-			id:access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
-			id.registered_name = H.real_name
-			id.assignment = "Captain"
-			id.name = "[id.registered_name]'s ID Card ([id.assignment])"
-			H.equip_to_slot_or_del(id, SLOT_HUD_WEAR_ID)
-			H.update_inv_wear_id()
-	else
-		alert("Invalid mob")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Grant Full Access") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(src)] has granted [M.key] full access.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] has granted [M.key] full access.</span>", 1)
-
 /client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Assume direct control"
@@ -478,7 +391,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 
 /client/proc/cmd_admin_areatest()
-	set category = "Mapping"
+	set category = "Debug"
 	set name = "Test areas"
 
 	if(!check_rights(R_DEBUG))
@@ -494,9 +407,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	var/list/areas_with_camera = list()
 
 	var/list/areas_with_multiple_APCs = list()
-	var/list/areas_with_multiple_air_alarms = list()
 
-	for(var/area/A in world)
+	for(var/area/station/A in world)
 		areas_all |= A.type
 
 	for(var/thing in GLOB.apcs)
@@ -514,10 +426,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		var/area/A = get_area(alarm)
 		if(!A)
 			continue
-		if(!(A.type in areas_with_air_alarm))
-			areas_with_air_alarm |= A.type
-		else
-			areas_with_multiple_air_alarms |= A.type
+		areas_with_air_alarm |= A.type
 
 	for(var/obj/machinery/requests_console/RC in GLOB.machines)
 		var/area/A = get_area(RC)
@@ -551,47 +460,46 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	var/list/areas_without_APC = areas_all - areas_with_APC
 	var/list/areas_without_air_alarm = areas_all - areas_with_air_alarm
-	var/list/areas_without_RC = areas_all - areas_with_RC
 	var/list/areas_without_light = areas_all - areas_with_light
 	var/list/areas_without_LS = areas_all - areas_with_LS
 	var/list/areas_without_intercom = areas_all - areas_with_intercom
 	var/list/areas_without_camera = areas_all - areas_with_camera
 
-	to_chat(world, "<b>AREAS WITHOUT AN APC:</b>")
-	for(var/areatype in areas_without_APC)
-		to_chat(world, "* [areatype]")
 
-	to_chat(world, "<b>AREAS WITHOUT AN AIR ALARM:</b>")
+	var/list/arealog = list("<B>List of areas with odd traits<BR><BR><ol>")
+
+	arealog += "<b>AREAS WITHOUT AN APC:</b>"
+	for(var/area/areatype as anything in areas_without_APC)
+		if(areatype.requires_power && !areatype.always_unpowered)
+			arealog += "* [areatype]"
+
+	arealog += "<b>AREAS WITHOUT AN AIR ALARM:</b>"
 	for(var/areatype in areas_without_air_alarm)
-		to_chat(world, "* [areatype]")
+		arealog += "* [areatype]"
 
-	to_chat(world, "<b>AREAS WITH TOO MANY APCS:</b>")
+	arealog += "<b>AREAS WITH TOO MANY APCS:</b>"
 	for(var/areatype in areas_with_multiple_APCs)
-		to_chat(world, "* [areatype]")
+		arealog += "* [areatype]"
 
-	to_chat(world, "<b>AREAS WITH TOO MANY AIR ALARMS:</b>")
-	for(var/areatype in areas_with_multiple_air_alarms)
-		to_chat(world, "* [areatype]")
-
-	to_chat(world, "<b>AREAS WITHOUT A REQUEST CONSOLE:</b>")
-	for(var/areatype in areas_without_RC)
-		to_chat(world, "* [areatype]")
-
-	to_chat(world, "<b>AREAS WITHOUT ANY LIGHTS:</b>")
+	arealog += "<b>AREAS WITHOUT ANY LIGHTS:</b>"
 	for(var/areatype in areas_without_light)
-		to_chat(world, "* [areatype]")
+		arealog += "* [areatype]"
 
-	to_chat(world, "<b>AREAS WITHOUT A LIGHT SWITCH:</b>")
+	arealog += "<b>AREAS WITHOUT A LIGHT SWITCH:</b>"
 	for(var/areatype in areas_without_LS)
-		to_chat(world, "* [areatype]")
+		arealog += "* [areatype]"
 
-	to_chat(world, "<b>AREAS WITHOUT ANY INTERCOMS:</b>")
+	arealog += "<b>AREAS WITHOUT ANY INTERCOMS:</b>"
 	for(var/areatype in areas_without_intercom)
-		to_chat(world, "* [areatype]")
+		arealog += "* [areatype]"
 
-	to_chat(world, "<b>AREAS WITHOUT ANY CAMERAS:</b>")
+	arealog += "<b>AREAS WITHOUT ANY CAMERAS:</b>"
 	for(var/areatype in areas_without_camera)
-		to_chat(world, "* [areatype]")
+		arealog += "* [areatype]"
+
+	arealog += "</ol>"
+
+	usr << browse(arealog.Join("<br>"), "window=arealog")
 
 /client/proc/cmd_admin_dress(mob/living/carbon/human/M in GLOB.human_list)
 	set category = "Event"
@@ -677,91 +585,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	return dresscode
 
-/client/proc/startSinglo()
-	set category = "Debug"
-	set name = "Start Singularity"
-	set desc = "Sets up the singularity and all machines to get power flowing through the station"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	if(alert("Are you sure? This will start up the engine. Should only be used during debug!",,"Yes","No") != "Yes")
-		return
-
-	for(var/obj/machinery/power/emitter/E in GLOB.machines)
-		if(E.anchored)
-			E.active = TRUE
-
-	for(var/obj/machinery/field/generator/F in GLOB.machines)
-		if(!F.active)
-			F.active = TRUE
-			F.state = 2
-			F.power = 250
-			F.anchored = TRUE
-			F.warming_up = 3
-			F.start_fields()
-			F.update_icon()
-
-	spawn(30)
-		for(var/obj/machinery/the_singularitygen/G in GLOB.machines)
-			if(G.anchored)
-				var/obj/singularity/S = new /obj/singularity(get_turf(G))
-				S.energy = 800
-				break
-
-	for(var/obj/machinery/power/rad_collector/Rad in GLOB.machines)
-		if(Rad.anchored)
-			if(!Rad.loaded_tank)
-				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
-				Plasma.air_contents.toxins = 70
-				Rad.drainratio = 0
-				Rad.loaded_tank = Plasma
-				Plasma.loc = Rad
-
-			if(!Rad.active)
-				Rad.toggle_power()
-
-	for(var/obj/machinery/power/smes/SMES in GLOB.machines)
-		if(SMES.anchored)
-			SMES.input_attempt = 1
-
-/client/proc/cmd_debug_mob_lists()
-	set category = "Debug"
-	set name = "Debug Mob Lists"
-	set desc = "For when you just gotta know"
-
-	if(!check_rights(R_DEBUG))
-		return
-
-	switch(input("Which list?") in list("Players", "Admins", "Mobs", "Living Mobs", "Alive Mobs", "Dead Mobs", "Silicons", "Clients", "Respawnable Mobs"))
-		if("Players")
-			to_chat(usr, jointext(GLOB.player_list, ","))
-		if("Admins")
-			to_chat(usr, jointext(GLOB.admins, ","))
-		if("Mobs")
-			to_chat(usr, jointext(GLOB.mob_list, ","))
-		if("Living Mobs")
-			to_chat(usr, jointext(GLOB.mob_living_list, ","))
-		if("Alive Mobs")
-			to_chat(usr, jointext(GLOB.alive_mob_list, ","))
-		if("Dead Mobs")
-			to_chat(usr, jointext(GLOB.dead_mob_list, ","))
-		if("Silicons")
-			to_chat(usr, jointext(GLOB.silicon_mob_list, ","))
-		if("Clients")
-			to_chat(usr, jointext(GLOB.clients, ","))
-		if("Respawnable Mobs")
-			var/list/respawnable_mobs
-			for(var/mob/potential_respawnable in GLOB.player_list)
-				if(HAS_TRAIT(potential_respawnable, TRAIT_RESPAWNABLE))
-					respawnable_mobs += potential_respawnable
-			to_chat(usr, jointext(respawnable_mobs, ", "))
-
-/client/proc/cmd_display_del_log()
-	set category = "Debug"
-	set name = "Display del() Log"
-	set desc = "Display del's log of everything that's passed through it."
-
+/client/proc/get_full_del_log(mob/user)
 	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
@@ -787,13 +611,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	dellog += "</ol>"
 
-	usr << browse(dellog.Join(), "window=dellog")
+	user << browse(dellog.Join(), "window=dellog")
 
-/client/proc/cmd_display_del_log_simple()
-	set category = "Debug"
-	set name = "Display Simple del() Log"
-	set desc = "Display a compacted del's log."
-
+/client/proc/get_simple_del_log(mob/user)
 	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
@@ -815,13 +635,9 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		if(I.slept_destroy)
 			dat += "[I]<BR>"
 
-	usr << browse(dat, "window=simpledellog")
+	user << browse(dat, "window=simpledellog")
 
-/client/proc/show_gc_queues()
-	set name = "View GC Queue"
-	set category = "Debug"
-	set desc = "Shows the list of whats currently in a GC queue"
-
+/client/proc/show_gc_queues(mob/user)
 	if(!check_rights(R_DEBUG|R_VIEWRUNTIMES))
 		return
 
@@ -861,7 +677,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	usr << browse(text.Join(), "window=gcqueuestatus")
+	user << browse(text.Join(), "window=gcqueuestatus")
 
 /client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
@@ -950,3 +766,28 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 	vis.set_content(ui_dat.Join(""))
 	vis.open(FALSE)
+
+/client/proc/view_debug_logs()
+	set category = "Debug"
+	set name = "View debug logs"
+
+	if(!check_rights(R_DEBUG | R_VIEWRUNTIMES))
+		return
+
+	var/static/list/debug_log_options = list("Del() Log", "Simple Del() Log", "GC queue", "Timers in bucket", "Timer Log", "UID Log")
+	var/input =	input("Input the debug log to sort through", "Select Debugging Log") as null|anything in debug_log_options
+	if(!input)
+		return
+	switch(input)
+		if("Del() Log")
+			get_full_del_log(usr)
+		if("Simple Del() Log")
+			get_simple_del_log(usr)
+		if("GC queue")
+			show_gc_queues(usr)
+		if("Timers in bucket")
+			debug_timers(usr)
+		if("Timer Log")
+			get_timer_log(usr)
+		if("UID Log")
+			uid_log(usr)

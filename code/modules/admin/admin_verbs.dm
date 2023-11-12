@@ -15,9 +15,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggle_view_range,		/*changes how far we can see*/
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
-	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
-	/client/proc/cmd_admin_check_contents,	/*displays the contents of an instance*/
 	/client/proc/cmd_admin_open_logging_view,
 	/client/proc/getserverlogs,			/*allows us to fetch server logs (diary) for other days*/
 	/client/proc/Getmob,				/*teleports a mob to our location*/
@@ -32,11 +30,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
 	/client/proc/dsay,					/*talk in deadchat using our ckey/fakekey*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
-	/datum/admins/proc/toggleooc,		/*toggles ooc on/off for everyone*/
-	/datum/admins/proc/togglelooc,		/*toggles looc on/off for everyone*/
-	/datum/admins/proc/toggleoocdead,	/*toggles ooc on/off for everyone who is dead*/
-	/datum/admins/proc/toggledsay,		/*toggles dsay on/off for everyone*/
-	/datum/admins/proc/toggleemoji,     /*toggles using emoji in ooc for everyone*/
 	/client/proc/game_panel,			/*game panel, allows to change game-mode etc*/
 	/client/proc/cmd_admin_say,			/*admin-only ooc chat*/
 	/datum/admins/proc/PlayerNotes,
@@ -45,16 +38,12 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/update_mob_sprite,
 	/client/proc/man_up,
-	/client/proc/global_man_up,
 	/client/proc/library_manager,
 	/client/proc/view_asays,
-	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
 	/client/proc/secrets,
 	/client/proc/debug_variables,
-	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
-	/client/proc/toggle_mentor_chat,
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
@@ -77,14 +66,12 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
 	/client/proc/cmd_admin_dress,
-	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/economy_manager,
 	/client/proc/make_sound,
-	/client/proc/toggle_random_events,
 	/client/proc/toggle_random_events,
 	/client/proc/toggle_ert_calling,
 	/client/proc/show_tip,
@@ -117,44 +104,25 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/restart,
 	/datum/admins/proc/end_round,
 	/datum/admins/proc/delay,
-	/datum/admins/proc/toggleaban,
-	/datum/admins/proc/toggleenter,		/*toggles whether people can join the current game*/
-	/datum/admins/proc/toggleguests,	/*toggles whether guests can join the current game*/
-	/client/proc/toggle_log_hrefs,
 	/client/proc/everyone_random,
-	/datum/admins/proc/toggleAI,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
-	/client/proc/cmd_debug_del_sing,
 	/client/proc/library_manager,
 	/client/proc/view_asays,
-	/client/proc/toggle_antagHUD_use,
-	/client/proc/toggle_antagHUD_restrictions,
 	/client/proc/set_next_map,
 	/client/proc/manage_queue,
 	/client/proc/add_queue_server_bypass
 	))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/cmd_admin_list_open_jobs,
-	/client/proc/cmd_debug_make_powernets,
-	/client/proc/debug_controller,
-	/client/proc/cmd_debug_mob_lists,
 	/client/proc/cmd_admin_delete,
-	/client/proc/cmd_debug_del_sing,
 	/client/proc/restart_controller,
-	/client/proc/cmd_display_del_log,
-	/client/proc/cmd_display_del_log_simple,
-	/client/proc/check_bomb_impacts,
-	/client/proc/test_movable_UI,
-	/client/proc/test_snap_UI,
-	/proc/machine_upgrade,
+	/obj/machinery/proc/machine_upgrade,
 	/client/proc/map_template_load,
 	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
-	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
-	/client/proc/ss_breakdown,
 	#ifdef REFERENCE_TRACKING
 	/datum/proc/find_refs,
 	/datum/proc/qdel_then_find_references,
@@ -162,27 +130,13 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	#endif
 	/client/proc/dmapi_debug,
 	/client/proc/dmapi_log,
-	/client/proc/timer_log,
-	/client/proc/debug_timers,
-	/client/proc/force_verb_bypass,
-	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
-	/client/proc/camera_view,
-	/client/proc/sec_camera_report,
-	/client/proc/intercom_view,
-	/client/proc/atmosscan, //check plumbing
-	/client/proc/powerdebug, //check power
-	/client/proc/count_objects_on_z_level,
-	/client/proc/count_objects_all,
 	/client/proc/cmd_assume_direct_control,
-	/client/proc/startSinglo,
-	/client/proc/cmd_admin_grantfullaccess,
 	/client/proc/cmd_admin_areatest,
 	/client/proc/cmd_admin_rejuvenate,
 	/datum/admins/proc/show_traitor_panel,
 	/client/proc/forceEvent,
 	/client/proc/admin_redo_space_transitions,
-	/client/proc/make_turf_space_map,
 	))
 GLOBAL_LIST_INIT(admin_verbs_possess, list(
 	/proc/possess,
@@ -199,7 +153,6 @@ GLOBAL_LIST_INIT(admin_verbs_rejuv, list(
 GLOBAL_LIST_INIT(admin_verbs_mod, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
-	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/cmd_mentor_say,
@@ -213,7 +166,6 @@ GLOBAL_LIST_INIT(admin_verbs_mod, list(
 GLOBAL_LIST_INIT(admin_verbs_mentor, list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
-	/client/proc/cmd_admin_pm_by_key_panel,	/*admin-pm list by key*/
 	/client/proc/openMentorTicketUI,
 	/client/proc/cmd_mentor_say	/* mentor say*/
 	// cmd_mentor_say is added/removed by the toggle_mentor_chat verb
@@ -233,22 +185,16 @@ GLOBAL_LIST_INIT(admin_verbs_ticket, list(
 // If you are adding something here, you MUST justify it
 GLOBAL_LIST_INIT(admin_verbs_maintainer, list(
 	/client/proc/ticklag, // This adjusts the server tick rate and is VERY easy to hard lockup the server with
-	/client/proc/debugNatureMapGenerator, // This lags like hell, and is very easy to nuke half the server with
 	/client/proc/vv_by_ref, // This allows you to lookup **ANYTHING** in the server memory by spamming refs. Locked for security.
 	/client/proc/cinematic, // This will break everyone's screens in the round. Dont use this for adminbus.
 	/client/proc/throw_runtime, // Do I even need to explain why this is locked?
 ))
 GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/view_runtimes,
-	/client/proc/cmd_display_del_log,
-	/client/proc/cmd_display_del_log_simple,
 	/client/proc/debug_variables, /*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
-	/client/proc/ss_breakdown,
-	/client/proc/show_gc_queues,
 	/client/proc/debug_global_variables,
 	/client/proc/visualise_active_turfs,
-	/client/proc/debug_timers,
-	/client/proc/timer_log
+	/client/proc/view_debug_logs,
 ))
 
 /client/proc/on_holder_add()
@@ -761,20 +707,17 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		GLOB.de_mentors -= ckey
 		return
 
-/client/proc/toggle_log_hrefs()
-	set name = "Toggle href logging"
-	set category = "Server"
-
-	if(!check_rights(R_SERVER))
+/proc/toggle_log_hrefs(mob/user)
+	if(!check_rights(R_SERVER, user = user))
 		return
 
 	// Why would we ever turn this off?
 	if(GLOB.configuration.logging.href_logging)
 		GLOB.configuration.logging.href_logging = FALSE
-		to_chat(src, "<b>Stopped logging hrefs</b>")
+		to_chat(usr, "<b>Stopped logging hrefs</b>")
 	else
 		GLOB.configuration.logging.href_logging = TRUE
-		to_chat(src, "<b>Started logging hrefs</b>")
+		to_chat(usr, "<b>Started logging hrefs</b>")
 
 /client/proc/check_ai_laws()
 	set name = "Check AI Laws"
@@ -893,25 +836,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
 	message_admins("[key_name_admin(usr)] told [key_name(T)] to man up and deal with it.")
-
-/client/proc/global_man_up()
-	set category = "Admin"
-	set name = "Man Up Global"
-	set desc = "Tells everyone to man up and deal with it."
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/confirm = alert("Are you sure you want to send the global message?", "Confirm Man Up Global", "Yes", "No")
-
-	if(confirm == "Yes")
-		var/manned_up_sound = sound('sound/voice/manup1.ogg')
-		for(var/sissy in GLOB.player_list)
-			to_chat(sissy, chat_box_notice_thick("<span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span>"))
-			SEND_SOUND(sissy, manned_up_sound)
-
-		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
-		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")
 
 /client/proc/toggle_advanced_interaction()
 	set name = "Toggle Advanced Admin Interaction"

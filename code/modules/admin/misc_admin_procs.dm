@@ -194,8 +194,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				body += {"<A href='?_src_=holder;makeai=[M.UID()]'>Make AI</A> |
 					<A href='?_src_=holder;makerobot=[M.UID()]'>Make Robot</A> |
 					<A href='?_src_=holder;makealien=[M.UID()]'>Make Alien</A> |
-					<A href='?_src_=holder;makeslime=[M.UID()]'>Make Slime</A> |
-					<A href='?_src_=holder;makesuper=[M.UID()]'>Make Superhero</A>
+					<A href='?_src_=holder;makeslime=[M.UID()]'>Make Slime</A>
 				"}
 
 			//Simple Animals
@@ -323,6 +322,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(GLOB.master_mode == "secret")
 		dat += "<p><a href='?src=[cached_UID];f_secret=1'>(Force Secret Mode)</a><br></p>"
 	dat += "<hr><br>"
+	dat += "<p><a href='?src=[cached_UID];game_manager=1'>Game Manager</a><br></p>"
 	dat += "<p><a href='?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
 	dat += "<p><a href='?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
 	dat += "<p><a href='?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
@@ -429,24 +429,16 @@ GLOBAL_VAR_INIT(nologevent, 0)
 				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/toggleooc()
-	set category = "Server"
-	set desc="Globally Toggles OOC"
-	set name="Toggle OOC"
-
-	if(!check_rights(R_ADMIN))
+/proc/toggleooc(mob/user)
+	if(!check_rights(R_ADMIN, user = user))
 		return
 
 	toggle_ooc()
 	log_and_message_admins("toggled OOC.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/togglelooc()
-	set category = "Server"
-	set desc="Globally Toggles LOOC"
-	set name="Toggle LOOC"
-
-	if(!check_rights(R_ADMIN))
+/proc/togglelooc(mob/user)
+	if(!check_rights(R_ADMIN, user = user))
 		return
 
 	GLOB.looc_enabled = !(GLOB.looc_enabled)
@@ -457,12 +449,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_and_message_admins("toggled LOOC.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle LOOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/toggledsay()
-	set category = "Server"
-	set desc="Globally Toggles DSAY"
-	set name="Toggle DSAY"
-
-	if(!check_rights(R_ADMIN))
+/proc/toggledeadchat(mob/user)
+	if(!check_rights(R_ADMIN, user = user))
 		return
 
 	GLOB.dsay_enabled = !(GLOB.dsay_enabled)
@@ -474,12 +462,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	message_admins("[key_name_admin(usr)] toggled deadchat.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deadchat") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc
 
-/datum/admins/proc/toggleoocdead()
-	set category = "Server"
-	set desc="Toggle Dead OOC."
-	set name="Toggle Dead OOC"
-
-	if(!check_rights(R_ADMIN))
+/proc/toggleoocdead(mob/user)
+	if(!check_rights(R_ADMIN, user = user))
 		return
 
 	GLOB.dooc_enabled = !(GLOB.dooc_enabled)
@@ -487,12 +471,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	message_admins("[key_name_admin(usr)] toggled Dead OOC.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead OOC") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/toggleemoji()
-	set category = "Server"
-	set desc = "Toggle OOC Emoji"
-	set name = "Toggle OOC Emoji"
-
-	if(!check_rights(R_ADMIN))
+/proc/toggleemoji(mob/user)
+	if(!check_rights(R_ADMIN, user = user))
 		return
 
 	GLOB.configuration.general.enable_ooc_emoji = !(GLOB.configuration.general.enable_ooc_emoji)
@@ -529,16 +509,12 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(usr, "<font color='red'>Error: Start Now: Game has already started.</font>")
 		return
 
-/datum/admins/proc/toggleenter()
-	set category = "Server"
-	set desc="People can't enter"
-	set name="Toggle Entering"
-
-	if(!check_rights(R_SERVER))
+/proc/toggleenter(mob/user)
+	if(!check_rights(R_SERVER, user = user))
 		return
 
-	GLOB.enter_allowed = !( GLOB.enter_allowed )
-	if(!( GLOB.enter_allowed ))
+	GLOB.enter_allowed = !(GLOB.enter_allowed)
+	if(!(GLOB.enter_allowed))
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>New players may now enter the game.</B>")
@@ -547,14 +523,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Entering") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/toggleAI()
-	set category = "Event"
-	set desc="People can't be AI"
-	set name="Toggle AI"
-
-	if(!check_rights(R_EVENT))
+/proc/toggleAI(mob/user)
+	if(!check_rights(R_EVENT, user = user))
 		return
-
 
 	GLOB.configuration.jobs.allow_ai = !(GLOB.configuration.jobs.allow_ai)
 	if(!GLOB.configuration.jobs.allow_ai)
@@ -565,24 +536,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_admin("[key_name(usr)] toggled AI allowed.")
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/datum/admins/proc/toggleaban()
-	set category = "Server"
-	set desc="Toggle the ability for players to respawn."
-	set name="Toggle Respawn"
-
-	if(!check_rights(R_SERVER))
-		return
-
-	GLOB.configuration.general.respawn_enabled = !(GLOB.configuration.general.respawn_enabled)
-	if(GLOB.configuration.general.respawn_enabled)
-		to_chat(world, "<B>You may now respawn.</B>")
-	else
-		to_chat(world, "<B>You may no longer respawn</B>")
-	message_admins("[key_name_admin(usr)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].", 1)
-	log_admin("[key_name(usr)] toggled respawn to [GLOB.configuration.general.respawn_enabled ? "On" : "Off"].")
-	world.update_status()
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
 	set category = "Server"
@@ -759,12 +712,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	M.mind.edit_memory()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Traitor Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/datum/admins/proc/toggleguests()
-	set category = "Server"
-	set desc="Guests can't enter"
-	set name="Toggle Guests"
-
-	if(!check_rights(R_SERVER))
+/proc/toggleguests(mob/user)
+	if(!check_rights(R_SERVER, user = user))
 		return
 
 	GLOB.configuration.general.guest_ban = !(GLOB.configuration.general.guest_ban)
@@ -772,8 +721,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(world, "<B>Guests may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>Guests may now enter the game.</B>")
-	log_admin("[key_name(usr)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.")
-	message_admins("<span class='notice'>[key_name_admin(usr)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.</span>", 1)
+	log_admin("[key_name(user)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.")
+	message_admins("<span class='notice'>[key_name_admin(user)] toggled guests game entering [GLOB.configuration?.general.guest_ban ? "dis" : ""]allowed.</span>", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Guests") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/output_ai_laws()

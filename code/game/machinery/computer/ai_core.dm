@@ -265,18 +265,15 @@
 		GLOB.empty_playable_ai_cores -= src
 	return ..()
 
-/client/proc/empty_ai_core_toggle_latejoin()
-	set name = "Toggle AI Core Latejoin"
-	set category = "Admin"
-
+/client/proc/empty_ai_core_toggle_latejoin(mob/user)
 	var/list/cores = list()
 	for(var/obj/structure/AIcore/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D
 
-	if(!cores.len)
+	if(!length(cores))
 		to_chat(src, "No deactivated AI cores were found.")
 
-	var/id = input("Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores
+	var/id = input(user, "Which core?", "Toggle AI Core Latejoin", null) as null|anything in cores
 	if(!id) return
 
 	var/obj/structure/AIcore/deactivated/D = cores[id]

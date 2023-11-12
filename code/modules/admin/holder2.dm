@@ -13,6 +13,7 @@ GLOBAL_PROTECT(admin_datums) // This is protected because we dont want people ma
 	var/admincaster_screen = 0	//See newscaster.dm under machinery for a full description
 	var/datum/feed_message/admincaster_feed_message = new /datum/feed_message   //These two will act as holders.
 	var/datum/feed_channel/admincaster_feed_channel = new /datum/feed_channel
+	var/datum/game_manager/our_game_manager = new /datum/game_manager
 	var/admincaster_signature	//What you'll sign the newsfeeds as
 
 /datum/admins/New(initial_rank = "Temporary Admin", initial_rights = 0, ckey)
