@@ -287,20 +287,6 @@
 	add_fingerprint(user)
 	toggle(user)
 
-/obj/structure/closet/verb/verb_toggleopen()
-	set src in oview(1)
-	set category = null
-	set name = "Toggle Open"
-
-	if(usr.incapacitated())
-		return
-
-	if(ishuman(usr) || isrobot(usr))
-		add_fingerprint(usr)
-		toggle(usr)
-		return
-	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
-
 /obj/structure/closet/update_icon_state()
 	if(!opened)
 		icon_state = "[icon_closed][transparent ? "_trans" : ""]"

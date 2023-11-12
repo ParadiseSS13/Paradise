@@ -129,8 +129,7 @@
  */
 /mob/verb/pointed(atom/A as mob|obj|turf in view())
 	set name = "Point To"
-	set category = "Object"
-
+	set category = null
 	if(next_move >= world.time)
 		return
 

@@ -23,9 +23,6 @@
 		mode = SYRINGE_INJECT
 		update_icon()
 
-/obj/item/reagent_containers/syringe/set_APTFT()
-	set hidden = TRUE
-
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
 
