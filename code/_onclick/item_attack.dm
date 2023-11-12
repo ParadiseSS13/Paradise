@@ -28,7 +28,7 @@
 		return TRUE
 
 	var/temperature = get_heat()
-	if(temperature && A.reagents && !ismob(A) && !istype(A, /obj/item/clothing/mask/cigarette))
+	if(temperature && A.reagents && !ismob(A))
 		var/reagent_temp = A.reagents.chem_temp
 		var/time = (reagent_temp / 10) / (temperature / 1000)
 		if(do_after_once(user, time, TRUE, user, TRUE, attempt_cancel_message = "You stop heating up [A]."))
