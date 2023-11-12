@@ -131,7 +131,7 @@
 	smash(target, thrower, ranged = TRUE)
 
 /obj/item/reagent_containers/food/drinks/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(isdrone(user) && !reagents.total_volume)
+	if(!reagents.total_volume)
 		C.stored_comms["glass"] += 3
 		qdel(src)
 		return TRUE
@@ -155,11 +155,9 @@
 	sharp = TRUE
 
 /obj/item/broken_bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(isdrone(user))
 		C.stored_comms["glass"] += 3
 		qdel(src)
 		return TRUE
-	return ..()
 
 /obj/item/reagent_containers/food/drinks/bottle/gin
 	name = "Griffeater Gin"

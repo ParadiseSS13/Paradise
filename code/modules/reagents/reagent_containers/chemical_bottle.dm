@@ -41,7 +41,7 @@
 		. += "lid_[icon_state]"
 
 /obj/item/reagent_containers/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(isdrone(user) && !reagents.total_volume)
+	if(!reagents.total_volume)
 		C.stored_comms["glass"] += 3
 		qdel(src)
 		return TRUE
