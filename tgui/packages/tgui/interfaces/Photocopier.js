@@ -97,7 +97,7 @@ const Actions = (props, context) => {
         onClick={() => act('scandocument')}
       />
       {!!issilicon && (
-        <div>
+        <>
           <Button
             fluid
             icon="file"
@@ -116,7 +116,7 @@ const Actions = (props, context) => {
             content="Print Image"
             onClick={() => act('ai_pic')}
           />
-        </div>
+        </>
       )}
     </Fragment>
   );
