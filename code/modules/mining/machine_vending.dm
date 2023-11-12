@@ -48,6 +48,7 @@
 		EQUIPMENT("Brute First-Aid Kit", /obj/item/storage/firstaid/brute, 600),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
 		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 750),
+		EQUIPMENT("Chasm Jaunter Recovery Grenade", /obj/item/grenade/jaunter_grenade, 1500),
 		EQUIPMENT("Lazarus Injector", /obj/item/lazarus_injector, 1000),
 		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
 		EQUIPMENT("Shelter Capsule", /obj/item/survivalcapsule, 400),
