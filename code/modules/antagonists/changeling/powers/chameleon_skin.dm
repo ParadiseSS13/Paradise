@@ -11,12 +11,22 @@
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)
 	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = TRUE
+	if(HAS_TRAIT_FROM(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT))
+		REMOVE_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT)
+	else
+		ADD_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT)
 	if(H.dna.GetSEState(GLOB.chameleonblock))
 		H.dna.SetSEState(GLOB.chameleonblock, 0)
 		singlemutcheck(H, GLOB.chameleonblock, MUTCHK_FORCED)
 	else
 		H.dna.SetSEState(GLOB.chameleonblock, 1)
 		singlemutcheck(H, GLOB.chameleonblock, MUTCHK_FORCED)
+	if(H.dna.GetSEState(GLOB.noprintsblock))
+		H.dna.SetSEState(GLOB.noprintsblock, 0)
+		singlemutcheck(H, GLOB.noprintsblock, MUTCHK_FORCED)
+	else
+		H.dna.SetSEState(GLOB.noprintsblock, 1)
+		singlemutcheck(H, GLOB.noprintsblock, MUTCHK_FORCED)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
@@ -26,4 +36,7 @@
 	if(C.dna.GetSEState(GLOB.chameleonblock))
 		C.dna.SetSEState(GLOB.chameleonblock, 0)
 		singlemutcheck(C, GLOB.chameleonblock, MUTCHK_FORCED)
+	if(C.dna.GetSEState(GLOB.noprintsblock))
+		C.dna.SetSEState(GLOB.noprintsblock, 0)
+		singlemutcheck(C, GLOB.noprintsblock, MUTCHK_FORCED)
 	..()
