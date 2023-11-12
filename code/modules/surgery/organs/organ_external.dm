@@ -716,7 +716,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(limb_flags & CANNOT_INT_BLEED)
 		return
 	status |= ORGAN_INT_BLEEDING
-	owner.custom_pain("You feel something rip in your [name]!")
+	custom_pain("You feel something rip in your [name]!")
 
 /obj/item/organ/external/proc/fix_internal_bleeding()
 	if(is_robotic())

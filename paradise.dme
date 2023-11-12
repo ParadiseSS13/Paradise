@@ -2747,6 +2747,7 @@
 #include "code\modules\unit_tests\_unit_tests.dm"
 #include "code\modules\vehicle\ambulance.dm"
 #include "code\modules\vehicle\atv.dm"
+#include "code\modules\vehicle\bicycle.dm"
 #include "code\modules\vehicle\janivehicle.dm"
 #include "code\modules\vehicle\motorcycle.dm"
 #include "code\modules\vehicle\secway.dm"
