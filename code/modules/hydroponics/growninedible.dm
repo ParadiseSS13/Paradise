@@ -37,7 +37,7 @@
 
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
 	..()
-	if (istype(O, /obj/item/plant_analyzer))
+	if(istype(O, /obj/item/plant_analyzer))
 		var/msg = "<span class='info'>This is \a <span class='name'>[src]</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()

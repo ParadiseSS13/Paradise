@@ -15,7 +15,7 @@ do { \
 	var/timer = start_watch(); \
 	proc2run ;\
 	log_debug("\[MAZE] Operation '[opname]' on maze at [x],[y],[z] took [stop_watch(timer)]s"); \
-} while (FALSE)
+} while(FALSE)
 
 
 // These defines are used to mark the cells as explored or not
