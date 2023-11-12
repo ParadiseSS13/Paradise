@@ -43,6 +43,39 @@ GLOBAL_LIST_INIT(Jobs_SS220, list("intern", "cadet", "trainee", "student"))
 
 	. = ..()
 
+/obj/machinery/computer/card/ui_data(mob/user)
+	var/list/data = ..()
+
+	switch(mode)
+		if(IDCOMPUTER_SCREEN_TRANSFER) // JOB TRANSFER
+			if(modify)
+				if(!scan)
+					return data
+
+				if(!target_dept)
+					data["jobs_engineering"] |= "Trainee Engineer"
+					data["jobs_medical"] 	|= "Intern"
+					data["jobs_science"] 	|= "Student Scientist"
+					data["jobs_security"] 	|= "Security Cadet"
+					data["card_skins"] |= format_card_skins(GLOB.Jobs_SS220) // + format_card_skins(list("intern", "cadet", "trainee", "student"))
+
+	return data
+
+/obj/machinery/computer/card/ui_act(action, params)
+	if(!..())
+		return FALSE
+	. = TRUE
+
+	switch(action)
+		if("skin")
+			if(!modify)
+				return FALSE
+			var/skin = params["skin_target"]
+			var/skin_list = GLOB.Jobs_SS220
+			if(skin in skin_list)
+				modify.icon_state = skin
+			return
+
 /obj/item/card/id/medical/intern
 	name = "Intern ID"
 	registered_name = "Intern"
