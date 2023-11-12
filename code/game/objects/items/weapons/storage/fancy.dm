@@ -66,12 +66,10 @@
 	return
 
 /obj/item/storage/fancy/donut_box/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(isdrone(user))
-		if(!length(contents))
-			C.stored_comms["wood"] += 1
-			qdel(src)
-			return TRUE
-		return
+	if(isdrone(user) && !length(contents))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
 	return ..()
 
 /*
