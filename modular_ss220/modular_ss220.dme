@@ -38,6 +38,7 @@
 #include "administration/_administration.dme"
 #include "aesthetics_sounds/_aesthetics_sounds.dme"
 #include "agent_id_tgui/_agent_id_tgui.dme"
+#include "animations/_animations.dme"
 #include "balance/_balance.dme"
 #include "bureaucracy/_bureaucracy.dme"
 #include "camera_nanomap/camera.dme"
