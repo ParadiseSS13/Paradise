@@ -837,3 +837,10 @@
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
 	name = "research notes - [mytech] [mylevel]"
+
+/obj/item/paper/instruction
+	name = "Instruction Notes"
+
+/obj/item/paper/instruction/pacman_generator
+	name = "Instructions for P.A.C.M.A.N. Generator series"
+	info = "P.A.C.M.A.N. are commonly used as 'Emergency' power generators, with its upgraded version being capable of utilizing uranium and plasma sheets to function. Simply anchor on the power cable node, insert the plasma sheet, select the level and turn it ON to generate power, just make sure to not overheat it or it will explode."

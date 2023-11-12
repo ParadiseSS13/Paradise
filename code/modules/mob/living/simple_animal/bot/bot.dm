@@ -133,7 +133,7 @@
 	on = TRUE
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(initial(light_range))
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_controls()
 	diag_hud_set_botstat()
 	return 1
@@ -143,7 +143,7 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(0)
 	bot_reset() //Resets an AI's call, should it exist.
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_controls()
 
 /mob/living/simple_animal/bot/Initialize(mapload)
