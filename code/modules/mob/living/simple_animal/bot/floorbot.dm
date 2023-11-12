@@ -3,7 +3,7 @@
 	name = "\improper Floorbot"
 	desc = "A little floor repairing robot, he looks so excited!"
 	icon = 'icons/obj/aibots.dmi'
-	icon_state = "floorbot0"
+	icon_state = "floorbot"
 	density = FALSE
 	anchored = FALSE
 	health = 25
@@ -300,13 +300,13 @@
 	if(isspaceturf(target_turf)) //If we are fixing an area not part of pure space, it is
 		visible_message("<span class='notice'>[src] begins to repair the hole.</span>")
 		mode = BOT_REPAIRING
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_OVERLAYS)
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), target_turf), 5 SECONDS)
 
 	else
 		var/turf/simulated/floor/F = target_turf
 		mode = BOT_REPAIRING
-		update_icon(UPDATE_ICON_STATE)
+		update_icon(UPDATE_OVERLAYS)
 		visible_message("<span class='notice'>[src] begins repairing the floor.</span>")
 		addtimer(CALLBACK(src, PROC_REF(make_bridge_plating), F), 5 SECONDS)
 
@@ -319,7 +319,7 @@
 	F.ChangeTurf(/turf/simulated/floor/plasteel)
 	mode = BOT_IDLE
 	amount--
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 	anchored = FALSE
 	target = null
 
@@ -339,7 +339,7 @@
 			target_turf.ChangeTurf(/turf/simulated/floor/plating)
 	mode = BOT_IDLE
 	amount--
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 	anchored = FALSE
 	target = null
 
@@ -364,7 +364,7 @@
 		qdel(T)
 	target = null
 	mode = BOT_IDLE
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/floorbot/proc/start_maketile(obj/item/stack/sheet/metal/M)
 	if(!istype(M, /obj/item/stack/sheet/metal))
@@ -389,13 +389,15 @@
 	mode = BOT_IDLE
 
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
+	return
+
+/mob/living/simple_animal/bot/floorbot/update_overlays()
+	. = ..()
 	if(mode == BOT_REPAIRING)
-		icon_state = "[toolbox_color]floorbot-c"
-		return
-	if(amount > 0)
-		icon_state = "[toolbox_color]floorbot[on]"
+		. += "floorbot_work"
 	else
-		icon_state = "[toolbox_color]floorbot[on]e"
+		. += "floorbot_[on ? "on" : "off"]"
+		. += "floorbot_[amount > 0 ? "metal" : ""]"
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE

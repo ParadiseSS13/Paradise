@@ -1352,3 +1352,22 @@
 				/obj/item/toy/crayon/red)
 	category = CAT_DECORATIONS
 	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/gauze
+	name = "Treated gauze"
+	time = 3 SECONDS
+	result = list(/obj/item/stack/medical/bruise_pack)
+	reqs = list(/obj/item/stack/medical/bruise_pack/improvised = 6,
+				/datum/reagent/medicine/styptic_powder = 30,
+				/datum/reagent/medicine/sterilizine = 10)
+	category = CAT_MISC
+
+/datum/crafting_recipe/ointment
+	name = "Ointment"
+	time = 3 SECONDS
+	result = list(/obj/item/stack/medical/ointment)
+	reqs = list(/obj/item/stack/sheet/plastic = 2,
+				/datum/reagent/water = 10,
+				/datum/reagent/medicine/silver_sulfadiazine = 30,
+				/datum/reagent/medicine/sterilizine = 10)
+	category = CAT_MISC

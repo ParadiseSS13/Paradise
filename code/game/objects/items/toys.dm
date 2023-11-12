@@ -259,6 +259,7 @@
 	item_state = "katana"
 	flags = CONDUCT
 	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -441,6 +442,7 @@
 	item_state = "inflatable"
 	icon = 'icons/obj/clothing/belts.dmi'
 	slot_flags = SLOT_FLAG_BELT
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2
 
 /*
  * Fake meteor
