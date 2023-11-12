@@ -131,12 +131,10 @@
 	smash(target, thrower, ranged = TRUE)
 
 /obj/item/reagent_containers/food/drinks/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(isdrone(user))
-		if(!reagents.total_volume)
-			C.stored_comms["glass"] += 3
-			qdel(src)
-			return TRUE
-		return
+	if(isdrone(user) && !reagents.total_volume)
+		C.stored_comms["glass"] += 3
+		qdel(src)
+		return TRUE
 	return ..()
 
 //Keeping this here for now, I'll ask if I should keep it here.
