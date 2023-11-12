@@ -4983,7 +4983,6 @@
 	name = "Cell 3"
 	},
 /obj/machinery/door/firedoor,
-/obj/item/radio/intercom/directional/east,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
@@ -6228,7 +6227,6 @@
 	id = "Cell 4";
 	name = "Cell 4"
 	},
-/obj/item/radio/intercom/directional/east,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Secure Gate";
 	name = "Security Blast Door"
