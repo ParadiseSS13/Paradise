@@ -30,3 +30,8 @@
 				head = /obj/item/clothing/head/soft/orange
 			if("Engineer Student")
 				head = /obj/item/clothing/head/beret/eng
+
+// Identification jobs for console
+/datum/job/engineer/trainee
+	title = "Trainee Engineer"
+	hidden_from_job_prefs = TRUE

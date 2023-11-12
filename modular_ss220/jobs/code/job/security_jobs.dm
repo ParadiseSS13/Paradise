@@ -24,3 +24,8 @@
 					uniform = /obj/item/clothing/under/rank/security/cadet/assistant/skirt
 			if("Security Graduate")
 				head = /obj/item/clothing/head/beret/sec
+
+// Identification jobs for console
+/datum/job/officer/cadet
+	title = "Security Cadet"
+	hidden_from_job_prefs = TRUE
