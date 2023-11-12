@@ -34,6 +34,7 @@
 #include "newscaster\code\newscaster.dm"
 #include "piano\code\piano.dm"
 #include "racks\code\racks.dm"
+#include "railings\code\railings.dm"
 #include "requests_console\code\requests_console.dm"
 #include "rollerbed\code\rollerbed.dm"
 #include "rust\code\walls.dm"

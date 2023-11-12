@@ -20643,6 +20643,7 @@
 /area/station/medical/chemistry)
 "bCX" = (
 /obj/machinery/light/directional/south,
+/obj/structure/railing/cap/reversed,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
@@ -20765,6 +20766,7 @@
 "bDp" = (
 /obj/machinery/status_display/directional/south,
 /obj/machinery/light/directional/south,
+/obj/structure/railing/cap/normal,
 /turf/simulated/floor/plasteel{
 	icon_state = "green"
 	},
@@ -36309,10 +36311,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "cOn" = (
+/obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
 "cOq" = (
@@ -67990,11 +67992,11 @@
 	},
 /area/station/service/kitchen)
 "lSz" = (
+/obj/structure/flora/ausbushes/fullgrass,
+/obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/flora/ausbushes/fullgrass,
-/obj/structure/flora/ausbushes/ywflowers,
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
 "lSU" = (
@@ -97727,10 +97729,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/maintcentral2)
 "wKx" = (
+/obj/structure/flora/ausbushes/brflowers,
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
 "wKB" = (

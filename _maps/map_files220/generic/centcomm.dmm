@@ -9070,7 +9070,6 @@
 /turf/simulated/floor/wood/oak,
 /area/wizard_station)
 "giO" = (
-/obj/structure/railing,
 /obj/structure/light_fake/small{
 	dir = 1
 	},
@@ -16296,14 +16295,6 @@
 	icon_state = "blackfull"
 	},
 /area/syndicate_mothership)
-"los" = (
-/obj/structure/railing{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkredaltstrip"
-	},
-/area/syndicate_mothership/jail)
 "loL" = (
 /obj/structure/table,
 /obj/item/kitchen/knife/butcher,
@@ -23848,7 +23839,6 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "qGe" = (
-/obj/structure/railing,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkredaltstrip"
@@ -24137,9 +24127,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "qSC" = (
@@ -58338,7 +58326,7 @@ aOu
 eOW
 qGe
 pFk
-los
+mpn
 eOW
 ovZ
 uns
@@ -58595,7 +58583,7 @@ ref
 eOW
 giO
 atc
-los
+mpn
 eOW
 oYe
 ulL
@@ -58852,7 +58840,7 @@ lCD
 eOW
 qGe
 pFk
-los
+mpn
 eOW
 raB
 bda
