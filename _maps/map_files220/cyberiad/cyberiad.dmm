@@ -70065,6 +70065,16 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
+"mCW" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/random/hampter,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/station/maintenance/fpmaint2)
 "mDs" = (
 /obj/machinery/light/small/directional/east,
 /obj/structure/cable{
@@ -72837,6 +72847,12 @@
 	},
 /turf/simulated/floor/carpet,
 /area/station/command/office/hop)
+"nDi" = (
+/obj/structure/bed,
+/obj/machinery/light/small/directional/east,
+/obj/random/hampter,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fore)
 "nDq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -97933,6 +97949,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/black,
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
+/obj/random/hampter,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
 "wOf" = (
@@ -118104,7 +118121,7 @@ aII
 aDC
 aEK
 aFX
-aHk
+mCW
 aHl
 aKW
 aDD
@@ -139164,7 +139181,7 @@ nCV
 ifJ
 dEI
 atG
-apY
+nDi
 arS
 aqc
 auZ

@@ -33,6 +33,7 @@
 #include "wire_splicing/wiresplicing.dme"
 #include "silicons/_silicons.dme"
 #include "silicon_hats/_silicon_hats.dme"
+#include "hampter/_hampter.dme"
 
 // --- MISC --- //
 #include "administration/_administration.dme"

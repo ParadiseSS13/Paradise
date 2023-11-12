@@ -40047,6 +40047,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "cKC" = (
+/obj/random/hampter,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/station/maintenance/apmaint)
 "cKD" = (
@@ -45782,6 +45783,13 @@
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/exit)
+"dAN" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/random/hampter,
+/turf/simulated/floor/plating,
+/area/station/maintenance/fpmaint)
 "dAO" = (
 /obj/structure/cable/yellow{
 	d2 = 2;
@@ -49485,6 +49493,10 @@
 	icon_state = "darkgrey"
 	},
 /area/station/engineering/tech_storage)
+"fpi" = (
+/obj/random/hampter,
+/turf/simulated/floor/plating,
+/area/station/maintenance/asmaint)
 "fpk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
@@ -110137,7 +110149,7 @@ aky
 anI
 aph
 aqA
-auE
+dAN
 ksz
 auE
 aOB
@@ -126419,7 +126431,7 @@ bHo
 emj
 cPc
 cTk
-emj
+fpi
 gVL
 dhl
 emj
