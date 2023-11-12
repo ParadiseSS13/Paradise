@@ -18,15 +18,15 @@
 	if(H.dna.GetSEState(GLOB.chameleonblock))
 		H.dna.SetSEState(GLOB.chameleonblock, 0)
 		singlemutcheck(H, GLOB.chameleonblock, MUTCHK_FORCED)
+		H.dna.SetSEState(GLOB.noprintsblock, 0)
+		singlemutcheck(H, GLOB.noprintsblock, MUTCHK_FORCED)
+		REMOVE_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT)
 	else
 		H.dna.SetSEState(GLOB.chameleonblock, 1)
 		singlemutcheck(H, GLOB.chameleonblock, MUTCHK_FORCED)
-	if(H.dna.GetSEState(GLOB.noprintsblock))
-		H.dna.SetSEState(GLOB.noprintsblock, 0)
-		singlemutcheck(H, GLOB.noprintsblock, MUTCHK_FORCED)
-	else
 		H.dna.SetSEState(GLOB.noprintsblock, 1)
 		singlemutcheck(H, GLOB.noprintsblock, MUTCHK_FORCED)
+		ADD_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT)
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
