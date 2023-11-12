@@ -282,7 +282,7 @@
 /obj/item/reagent_containers/food/snacks/wingfangchu
 	name = "wing fang chu"
 	desc = "A savory dish of alien wing wang in soy. Wait, what?"
-	icon = 'icons/obj/food/meat.dmi'
+	icon = 'icons/obj/food/soupsalad.dmi'
 	icon_state = "wingfangchu"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#43DE18"
