@@ -58,7 +58,9 @@
 #define DNA_UI_HEAD_MARK_STYLE	43
 #define DNA_UI_BODY_MARK_STYLE	44
 #define DNA_UI_TAIL_MARK_STYLE	45
-#define DNA_UI_LENGTH		46 // Update this when you add something, or you WILL break shit.
+#define DNA_UI_PHYSIQUE		46
+#define DNA_UI_HEIGHT		47
+#define DNA_UI_LENGTH		48 // Update this when you add something, or you WILL break shit.
 
 #define DNA_SE_LENGTH 55 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
 
