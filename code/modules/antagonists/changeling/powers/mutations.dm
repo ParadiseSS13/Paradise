@@ -166,6 +166,7 @@
 		return
 	var/mob/living/carbon/human/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>"
+	SEND_SOUND(M, sound('sound/effects/clingscream.ogg'))
 
 /***************************************\
 |***********COMBAT TENTACLES*************|
