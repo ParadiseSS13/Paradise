@@ -39,4 +39,6 @@
 	if(C.dna.GetSEState(GLOB.noprintsblock))
 		C.dna.SetSEState(GLOB.noprintsblock, 0)
 		singlemutcheck(C, GLOB.noprintsblock, MUTCHK_FORCED)
+		if(HAS_TRAIT_FROM(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT))
+			REMOVE_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT)
 	..()
