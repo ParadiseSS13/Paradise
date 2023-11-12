@@ -385,6 +385,9 @@
 /obj/item/storage/lockbox/vials/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
+	if(broken)
+		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+		return
 	if(allowed(user))
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
