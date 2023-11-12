@@ -180,8 +180,7 @@
 	icon_opened = "tac_open"
 	open_door_sprite = "syndicate_door"
 
-/obj/structure/mecha_wreckage/durand/rover
-	icon_state = "darkdurand-broken"
+
 
 /obj/structure/closet/secure_closet/syndicate/medbay/populate_contents()
 	new /obj/item/storage/backpack/duffel/syndie/med/surgery
@@ -199,45 +198,6 @@
 	new /obj/item/clothing/head/headmirror(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
 	new /obj/item/storage/backpack/duffel/syndie(src)
-
-// Mecha
-/obj/mecha/combat/durand/rover
-	desc = "Combat exosuit, developed by syndicate from the Durand Mk. II by scraping unnecessary things, and adding some of their tech. Much more protected from any Nanotrasen hazards."
-	name = "Rover"
-	icon = 'modular_ss220/maps220/icons/mecha.dmi'
-	icon_state = "darkdurand"
-	initial_icon = "darkdurand"
-	armor = list(melee = 30, bullet = 40, laser = 50, energy = 50, bomb = 20, rad = 50, fire = 100, acid = 100)
-	operation_req_access = list(ACCESS_SYNDICATE)
-	wreckage = /obj/structure/mecha_wreckage/durand/rover
-	max_equip = 4
-	internal_damage_threshold = 35
-	starting_voice = /obj/item/mecha_modkit/voice/syndicate
-	destruction_sleep_duration = 1
-
-/obj/mecha/combat/durand/rover/GrantActions(mob/living/user, human_occupant = 0)
-	..()
-	thrusters_action.Grant(user, src)
-	defense_action.Grant(user, src)
-
-/obj/mecha/combat/durand/rover/RemoveActions(mob/living/user, human_occupant = 0)
-	..()
-	thrusters_action.Remove(user)
-	defense_action.Remove(user)
-
-/obj/mecha/combat/durand/rover/loaded/Initialize(mapload)
-	. = ..()
-	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/repair_droid
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
-	ME.attach(src)
-	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
-	ME.attach(src)
-
-/obj/mecha/combat/durand/rover/loaded/add_cell()
-	cell = new /obj/item/stock_parts/cell/bluespace(src)
 
 // Mecha equipment
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg/syndi

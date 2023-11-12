@@ -2698,7 +2698,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate_mothership/cargo)
 "bVM" = (
-/obj/mecha/combat/gygax/dark/loaded,
+/obj/mecha/combat/gygax/nt/loaded_red,
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/centcom/ss220/admin3)
 "bVP" = (
@@ -20942,7 +20942,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/ss220/command)
 "oAD" = (
-/obj/mecha/combat/gygax/dark/loaded,
+/obj/mecha/combat/gygax/nt/loaded_epsilon,
 /turf/simulated/floor/plasteel/dark{
 	dir = 1;
 	icon_state = "darkbrown"
@@ -23389,7 +23389,7 @@
 	},
 /area/centcom/ss220/bar)
 "qpJ" = (
-/obj/mecha/combat/gygax/dark/loaded,
+/obj/mecha/combat/gygax/nt/loaded_epsilon,
 /turf/simulated/floor/plasteel/dark{
 	dir = 9;
 	icon_state = "darkbrown"
