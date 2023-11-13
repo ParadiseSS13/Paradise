@@ -392,12 +392,11 @@
 	if(B && HAS_TRAIT(user, TRAIT_SLIGHT_OF_HAND))
 		for(var/i in 1 to shells_to_load)
 			var/obj/item/ammo_casing/shotgun/shell = B.retrieve_item_of_type(/obj/item/ammo_casing/shotgun)
-			if(shell)
-				magazine.stored_ammo += shell
-				shell.forceMove(magazine)
-				to_chat(user, "<span class='notice'>You quickly load a shell from your bandolier into [src].</span>")
-			else
+			if(!shell)
 				break
+			magazine.stored_ammo += shell
+			shell.forceMove(magazine)
+			to_chat(user, "<span class='notice'>You quickly load a shell from your bandolier into [src].</span>")
 		B.update_icon()  // Update the bandolier's icon
 		B.orient2hud(user)  // Update the displayed items and their counts
 
