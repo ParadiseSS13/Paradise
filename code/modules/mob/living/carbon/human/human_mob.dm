@@ -28,9 +28,10 @@
 
 /mob/living/carbon/human/proc/mind_checks()
 	if(!mind)
-		return
+		return FALSE
 	if(mind.miming)
 		qdel(GetComponent(/datum/component/footstep))
+	return TRUE
 
 /**
   * Sets up DNA and species.
@@ -155,9 +156,6 @@
 /mob/living/carbon/human/golem/Initialize(mapload)
 	. = ..(mapload, /datum/species/golem)
 
-/mob/living/carbon/human/nucleation/Initialize(mapload)
-	. = ..(mapload, /datum/species/nucleation)
-
 /mob/living/carbon/human/drask/Initialize(mapload)
 	. = ..(mapload, /datum/species/drask)
 
@@ -183,43 +181,41 @@
 
 /mob/living/carbon/human/Stat()
 	..()
-	statpanel("Status")
+	if(!statpanel("Status"))
+		return
 
 	stat(null, "Intent: [a_intent]")
 	stat(null, "Move Mode: [m_intent]")
 
 	show_stat_emergency_shuttle_eta()
 
-	if(client.statpanel == "Status")
-		var/total_user_contents = GetAllContents() // cache it
-		if(locate(/obj/item/gps) in total_user_contents)
-			var/turf/T = get_turf(src)
-			stat(null, "GPS: [COORD(T)]")
-		if(locate(/obj/item/assembly/health) in total_user_contents)
-			stat(null, "Health: [health]")
+	if(HAS_TRAIT(src, TRAIT_HAS_GPS))
+		var/turf/T = get_turf(src)
+		stat(null, "GPS: [COORD(T)]")
+	if(HAS_TRAIT(src, TRAIT_CAN_VIEW_HEALTH))
+		stat(null, "Health: [health]")
 
-		if(internal)
-			if(!internal.air_contents)
-				qdel(internal)
-			else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
-				stat(null, "Internals Tank Connected")
-			else
-				stat("Internal Atmosphere Info", internal.name)
-				stat("Tank Pressure", internal.air_contents.return_pressure())
-				stat("Distribution Pressure", internal.distribute_pressure)
+	if(internal)
+		if(!internal.air_contents)
+			qdel(internal)
+		else if(client?.prefs.toggles2 & PREFTOGGLE_2_SIMPLE_STAT_PANEL)
+			stat(null, "Internals Tank Connected")
+		else
+			stat("Internal Atmosphere Info", internal.name)
+			stat("Tank Pressure", internal.air_contents.return_pressure())
+			stat("Distribution Pressure", internal.distribute_pressure)
 
-		// I REALLY need to split up status panel things into datums
+	// I REALLY need to split up status panel things into datums
+	if(mind)
+		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
+		if(cling)
+			stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
+			stat("Absorbed DNA", cling.absorbed_count)
 
-		if(mind)
-			var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
-			if(cling)
-				stat("Chemical Storage", "[cling.chem_charges]/[cling.chem_storage]")
-				stat("Absorbed DNA", cling.absorbed_count)
-
-			var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
-			if(V)
-				stat("Total Blood", "[V.bloodtotal]")
-				stat("Usable Blood", "[V.bloodusable]")
+		var/datum/antagonist/vampire/V = mind.has_antag_datum(/datum/antagonist/vampire)
+		if(V)
+			stat("Total Blood", "[V.bloodtotal]")
+			stat("Usable Blood", "[V.bloodusable]")
 
 /mob/living/carbon/human/ex_act(severity)
 	if(status_flags & GODMODE)
@@ -1201,7 +1197,7 @@
 		return 0
 
 	if(!L.is_bruised())
-		custom_pain("You feel a stabbing pain in your chest!")
+		L.custom_pain("You feel a stabbing pain in your chest!")
 		L.damage = L.min_bruised_damage
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
@@ -1230,7 +1226,7 @@
 	if(include_species_change)
 		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
-	if (include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
+	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
@@ -1622,7 +1618,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
+		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer"))
 			. = 100
 		if(mind.assigned_role == "Clown")
 			. = rand(-1000, 1000)
@@ -1713,7 +1709,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			SEND_SIGNAL(H, COMSIG_HUMAN_RECEIVE_CPR, (new_time SECONDS))
 
 			if(prob(5))
-				if(timer_restored > 4 SECONDS)
+				if(timer_restored >= CPR_BREATHS_RESTORATION)
 					to_chat(src, pick(effective_cpr_messages))
 				else
 					to_chat(src, pick(ineffective_cpr_messages))

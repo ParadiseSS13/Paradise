@@ -43,6 +43,20 @@
 	required_reagents = list("soymilk" = 1,"sodiumchloride" = 1, "water" = 8)
 	result_amount = 10
 
+/datum/chemical_reaction/oliveoil
+	name = "Olive Oil"
+	id = "oliveoil"
+	result = "oliveoil"
+	required_reagents = list("olivepaste" = 5, "water" = 5)
+	result_amount = 10
+
+/datum/chemical_reaction/mayonnaise
+	name = "Mayonnaise"
+	id = "mayonnaise"
+	result = "mayonnaise"
+	required_reagents = list("egg" = 5, "sodiumchloride" = 1, "oliveoil" = 5)
+	result_amount = 10
+
 /datum/chemical_reaction/bbqsauce
 	name = "BBQ Sauce"
 	id = "bbqsauce"
@@ -217,3 +231,10 @@
 	min_temp = T0C + 480
 	mix_message = "The mixture emits a horrible smell as you heat up the contents. Luckily, enzymes don't stink."
 	mix_sound = 'sound/goonstation/misc/fuse.ogg'
+
+/datum/chemical_reaction/vinegar
+	name = "Vinegar"
+	id = "vinegar"
+	result = "vinegar"
+	required_reagents = list("acetic_acid" = 1, "water" = 9)
+	result_amount = 10

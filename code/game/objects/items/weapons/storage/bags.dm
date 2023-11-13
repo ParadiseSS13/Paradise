@@ -17,8 +17,8 @@
 
 //  Generic non-item
 /obj/item/storage/bag
-	allow_quick_gather = 1
-	allow_quick_empty = 1
+	allow_quick_gather = TRUE
+	allow_quick_empty = TRUE
 	display_contents_with_number = 1 // should work fine now
 	use_to_pickup = 1
 	slot_flags = SLOT_FLAG_BELT
@@ -34,7 +34,6 @@
 	belt_icon = "trashbag"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
-	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_SMALL
 	slot_flags = null
 	storage_slots = 30
@@ -44,7 +43,7 @@
 
 /obj/item/storage/bag/trash/proc/update_weight()
 	if(!length(contents))
-		w_class = WEIGHT_CLASS_NORMAL
+		w_class = WEIGHT_CLASS_SMALL
 		return
 
 	w_class = WEIGHT_CLASS_BULKY
@@ -57,6 +56,11 @@
 	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding))
 		to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
 		return FALSE
+	if(ishuman(loc)) // If the trashbag is on a humanoid, they can't store things in it while it's in their pockets
+		var/mob/living/carbon/human/H = loc
+		if(H.l_store == src || H.r_store == src)
+			to_chat(usr, "<span class='warning'>You can't seem to fit [I] into [src].</span>")
+			return FALSE
 	. = ..()
 
 /obj/item/storage/bag/trash/Initialize(mapload)
@@ -249,7 +253,7 @@
 	var/capacity = 300; //the number of sheets it can carry.
 	w_class = WEIGHT_CLASS_NORMAL
 
-	allow_quick_empty = 1 // this function is superceded
+	allow_quick_empty = TRUE // this function is superceded
 
 /obj/item/storage/bag/sheetsnatcher/can_be_inserted(obj/item/W as obj, stop_messages = 0)
 	if(!istype(W,/obj/item/stack/sheet) || istype(W,/obj/item/stack/sheet/mineral/sandstone) || istype(W,/obj/item/stack/sheet/wood))
@@ -329,8 +333,7 @@
 	return
 
 
-// Modified quick_empty verb drops appropriate sized stacks
-/obj/item/storage/bag/sheetsnatcher/quick_empty()
+/obj/item/storage/bag/sheetsnatcher/drop_inventory(mob/user)
 	var/location = get_turf(src)
 	for(var/obj/item/stack/sheet/S in contents)
 		while(S.amount)
@@ -340,8 +343,8 @@
 			S.amount -= stacksize
 		if(!S.amount)
 			qdel(S) // todo: there's probably something missing here
-	if(usr.s_active)
-		usr.s_active.show_to(usr)
+	if(user.s_active)
+		user.s_active.show_to(user)
 	update_icon()
 
 // Instead of removing
@@ -456,7 +459,7 @@
 /obj/item/storage/bag/tray/cyborg
 
 /obj/item/storage/bag/tray/cyborg/afterattack(atom/target, mob/user as mob)
-	if( isturf(target) || istype(target,/obj/structure/table) )
+	if(isturf(target) || istype(target,/obj/structure/table))
 		var/found_table = istype(target,/obj/structure/table/)
 		if(!found_table) //it must be a turf!
 			for(var/obj/structure/table/T in target)
@@ -466,7 +469,7 @@
 		var/turf/dropspot
 		if(!found_table) // don't unload things onto walls or other silly places.
 			dropspot = user.loc
-		else if( isturf(target) ) // they clicked on a turf with a table in it
+		else if(isturf(target)) // they clicked on a turf with a table in it
 			dropspot = target
 		else					// they clicked on a table
 			dropspot = target.loc

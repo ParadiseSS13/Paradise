@@ -240,6 +240,7 @@
 	if(candidates.len)
 		var/mob/C = pick(candidates)
 		SM.key = C.key
+		dust_if_respawnable(C)
 		SM.universal_speak = TRUE
 		SM.faction = user.faction
 		SM.master_commander = user

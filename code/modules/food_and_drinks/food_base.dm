@@ -27,8 +27,6 @@
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
-	pixel_x = rand(-5, 5) //Randomizes postion
-	pixel_y = rand(-5, 5)
 	if(antable)
 		START_PROCESSING(SSobj, src)
 		ant_location = get_turf(src)
@@ -45,10 +43,6 @@
 		return PROCESS_KILL
 	if(world.time > last_ant_time + 5 MINUTES)
 		check_for_ants()
-
-/obj/item/reagent_containers/food/set_APTFT()
-	set hidden = TRUE
-	..()
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	last_ant_time = world.time

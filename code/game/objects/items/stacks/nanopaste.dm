@@ -2,7 +2,7 @@
 	name = "nanopaste"
 	singular_name = "nanite swarm"
 	desc = "A tube of paste containing swarms of repair nanites. Very effective in repairing robotic machinery."
-	icon = 'icons/obj/nanopaste.dmi'
+	icon = 'icons/obj/surgery.dmi'
 	icon_state = "tube"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;engineering=3"
@@ -15,7 +15,7 @@
 		return 0
 	if(isrobot(M))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
-		if(R.getBruteLoss() || R.getFireLoss() )
+		if(R.getBruteLoss() || R.getFireLoss())
 			R.heal_overall_damage(15, 15)
 			use(1)
 			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\

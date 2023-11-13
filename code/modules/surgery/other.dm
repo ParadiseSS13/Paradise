@@ -92,7 +92,7 @@
 		"[user] starts patching the damaged vein in [target]'s [affected.name] with \the [tool].",
 		"You start patching the damaged vein in [target]'s [affected.name] with \the [tool]."
 	)
-	target.custom_pain("The pain in your [affected.name] is unbearable!")
+	affected.custom_pain("The pain in your [affected.name] is unbearable!")
 	return ..()
 
 
@@ -141,7 +141,7 @@
 		"[user] starts to treat the scorched tissue in [target]'s [affected.name] with [tool].",
 		"You start to treat the scorched tissue in [target]'s [affected.name] with [tool]."
 	)
-	target.custom_pain("Your [affected.name] flares with agony as its burn is touched!")
+	affected.custom_pain("Your [affected.name] flares with agony as its burn is touched!")
 
 	return ..()
 
@@ -192,7 +192,7 @@
 		"[user] starts cutting away necrotic tissue in [target]'s [affected.name] with \the [tool].",
 		"You start cutting away necrotic tissue in [target]'s [affected.name] with \the [tool]."
 	)
-	target.custom_pain("The pain in [affected.name] is unbearable!")
+	affected.custom_pain("The pain in [affected.name] is unbearable!")
 	return ..()
 
 /datum/surgery_step/fix_dead_tissue/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -254,7 +254,7 @@
 		"[user] starts applying medication to the affected tissue in [target]'s [affected.name] with \the [tool].",
 		"You start applying medication to the affected tissue in [target]'s [affected.name] with \the [tool]."
 	)
-	target.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
+	affected.custom_pain("Something in your [affected.name] is causing you a lot of pain!")
 	return ..()
 
 /datum/surgery_step/treat_necrosis/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

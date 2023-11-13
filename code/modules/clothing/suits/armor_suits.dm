@@ -537,7 +537,7 @@
 	if(reaction_check(hitby) && use_power())
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out freezing bolts!</span>")
 
-		for(var/mob/M in oview(get_turf(src), 7))
+		for(var/mob/living/M in oview(get_turf(src), 7))
 			shootAt(M)
 
 		if(prob(10)) //rarely vent gasses
@@ -757,7 +757,7 @@
 	icon_state = "ertarmor_jan"
 
 //same defense as basic sec armor
-/obj/item/clothing/suit/storage/lawyer/blackjacket/armored
+/obj/item/clothing/suit/storage/iaa/blackjacket/armored
 	desc = "A snappy dress jacket, reinforced with a layer of armor protecting the torso."
 	allowed = list(/obj/item/tank/internals/emergency_oxygen, /obj/item/gun/projectile/revolver, /obj/item/gun/projectile/automatic/pistol)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO

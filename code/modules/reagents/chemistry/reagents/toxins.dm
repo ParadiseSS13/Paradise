@@ -1101,10 +1101,12 @@
 			M.adjustToxLoss(damage)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
+			var/damage = 1
 			if(!C.wear_mask) // If not wearing a mask
-				C.adjustToxLoss(2)
+				damage *= 2
 			if(iskidan(C)) //RIP
-				C.adjustToxLoss(18)
+				damage *= 10
+			C.adjustToxLoss(damage) // Kidan get 10 damage if they're wearing a mask, and 20 if they're not
 
 /datum/reagent/capulettium
 	name = "Capulettium"
