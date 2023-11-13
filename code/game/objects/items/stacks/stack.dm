@@ -157,7 +157,7 @@
 			var/datum/stack_recipe/single_recipe = recipe
 			recipes_data["[single_recipe.title]"] = build_recipe_data(single_recipe)
 
-		else if (istype(recipe, /datum/stack_recipe_list))
+		else if(istype(recipe, /datum/stack_recipe_list))
 			var/datum/stack_recipe_list/recipe_list = recipe
 			recipes_data["[recipe_list.title]"] = recursively_build_recipes(recipe_list.recipes)
 
