@@ -74,6 +74,8 @@
 		/obj/item/ammo_box/speed_loader_mm127 = 3
 	)
 
+/datum/outfit/job/ntnavyofficer
+	l_pocket = /obj/item/melee/baseball_bat/homerun/central_command
 
 /obj/item/clothing/under/solgov/srt
 	name = "marine uniform"
