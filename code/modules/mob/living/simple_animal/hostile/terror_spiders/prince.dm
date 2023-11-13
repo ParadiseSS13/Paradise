@@ -73,7 +73,7 @@
 	if(isliving(user))
 		var/mob/living/L = user
 		L.apply_status_effect(STATUS_EFFECT_CHARGING)
-		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
+		L.throw_at(target, 9, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/prince/throw_impact(atom/hit_atom, throwingdatum)
 	. = ..()
