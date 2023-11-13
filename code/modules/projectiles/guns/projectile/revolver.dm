@@ -406,11 +406,6 @@
 	else
 		to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
-
-
-
-
-
 // IMPROVISED SHOTGUN //
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised
