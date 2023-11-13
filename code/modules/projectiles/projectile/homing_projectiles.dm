@@ -50,3 +50,23 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/E = pick(H.bodyparts)
 		E.add_embedded_object(T)
+
+/obj/item/projectile/homing/magic/homing_fireball
+	name = "greater bolt of fireball"
+	icon_state = "fireball"
+	damage = 20
+	damage_type = BRUTE
+	nodamage = FALSE
+
+	//explosion values
+	var/explosion_devastate = 0
+	var/explosion_heavy = 1
+	var/explosion_light = 3
+	var/explosion_flash = 4
+	var/explosion_fire = 3
+
+/obj/item/projectile/homing/magic/homing_fireball/on_hit(mob/living/target)
+	. = ..()
+	explosion(get_turf(target), explosion_devastate, explosion_heavy, explosion_light, explosion_flash, 0, flame_range = explosion_fire)
+	if(istype(target)) //multiple flavors of pain
+		target.adjustFireLoss(10) // does 20 brute, and 10 burn + explosion. Pretty brutal.

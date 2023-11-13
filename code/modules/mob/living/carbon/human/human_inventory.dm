@@ -87,7 +87,7 @@
 			unEquip(l_store, 1)
 		if(wear_id)
 			unEquip(wear_id)
-		if(belt)
+		if(belt && !(belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
 			unEquip(belt)
 		w_uniform = null
 		update_inv_w_uniform()

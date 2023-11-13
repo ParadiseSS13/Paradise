@@ -160,7 +160,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/Recover()
 	var/msg = "## DEBUG: [time2text(world.timeofday)] MC restarted. Reports:\n"
 	for(var/varname in Master.vars)
-		switch (varname)
+		switch(varname)
 			if("name", "tag", "bestF", "type", "parent_type", "vars", "statclick") // Built-in junk.
 				continue
 			else

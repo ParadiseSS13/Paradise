@@ -56,7 +56,7 @@
 	var/miming = 0 // Mime's vow of silence
 	/// A list of all the antagonist datums that the player is (does not include undatumized antags)
 	var/list/antag_datums
-	/// A lazy list of all teams the player is part of but doesnt have an antag role for (i.e. a custom admin team)
+	/// A lazy list of all teams the player is part of but doesnt have an antag role for, (i.e. a custom admin team)
 	var/list/teams
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
@@ -631,7 +631,7 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
+			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
 			"nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
 		if(!new_obj_type)
 			return
@@ -639,7 +639,7 @@
 		var/datum/objective/new_objective = null
 
 		switch(new_obj_type)
-			if("assassinate","protect","debrain", "maroon")
+			if("assassinate", "assassinateonce", "protect","debrain", "maroon")
 				//To determine what to name the objective in explanation text.
 				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
 				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
@@ -654,7 +654,7 @@
 							possible_targets_random += possible_target.current // For random picking, only valid targets
 
 				var/mob/def_target = null
-				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/protect, /datum/objective/debrain)
+				var/objective_list[] = list(/datum/objective/assassinate, /datum/objective/assassinateonce, /datum/objective/protect, /datum/objective/debrain)
 				if(objective&&(objective.type in objective_list) && objective:target)
 					def_target = objective.target.current
 				possible_targets = sortAtom(possible_targets)

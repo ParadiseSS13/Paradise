@@ -34,6 +34,10 @@
 	melee_damage_type = STAMINA
 	admin_spawned = TRUE
 
+/mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload, mob/living/host)
+	. = ..()
+	AddSpell(new /obj/effect/proc_holder/spell/summon_guardian_beacon(null))
+
 /mob/living/simple_animal/hostile/guardian/healer/Destroy()
 	QDEL_NULL(beacon)
 	return ..()
@@ -109,21 +113,6 @@
 	else
 		to_chat(src, "<span class='danger'>You have to be recalled to toggle modes!</span>")
 
-/mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
-	set name = "Place Bluespace Beacon"
-	set category = "Guardian"
-	set desc = "Mark a floor as your beacon point, allowing you to warp targets to it. Your beacon will not work in unfavorable atmospheric conditions."
-	if(beacon_cooldown < world.time)
-		var/turf/beacon_loc = get_turf(loc)
-		if(isfloorturf(beacon_loc) && !islava(beacon_loc) && !ischasm(beacon_loc))
-			QDEL_NULL(beacon)
-			beacon = new(beacon_loc)
-			to_chat(src, "<span class='danger'>Beacon placed! You may now warp targets to it, including your user, via Alt+Click. </span>")
-			beacon_cooldown = world.time + default_beacon_cooldown
-
-	else
-		to_chat(src, "<span class='danger'>Your power is on cooldown! You must wait another [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] seconds before you can place another beacon.</span>")
-
 /obj/effect/bluespace_beacon
 	name = "bluespace receiving pad"
 	desc = "A receiving zone for bluespace teleportations. Building a wall over it should disable it."
@@ -147,7 +136,7 @@
 		to_chat(src, "<span class='danger'>Your target can not be anchored!</span>")
 		return
 	to_chat(src, "<span class='danger'>You begin to warp [A]</span>")
-	if(do_mob(src, A, 50))
+	if(do_mob(src, A, 5 SECONDS))
 		if(!A.anchored)
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
 				to_chat(src, "<span class='danger'>You need a beacon to warp things!</span>")

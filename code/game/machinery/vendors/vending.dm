@@ -354,19 +354,18 @@
 	if(refill_canister && istype(I, refill_canister))
 		if(stat & (BROKEN|NOPOWER))
 			to_chat(user, "<span class='notice'>[src] does not respond.</span>")
-		else
-			//if the panel is open we attempt to refill the machine
-			var/obj/item/vending_refill/canister = I
-			if(canister.get_part_rating() == 0)
-				to_chat(user, "<span class='warning'>[canister] is empty!</span>")
-			else
-				// instantiate canister if needed
-				var/transferred = restock(canister)
-				if(transferred)
-					to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
-				else
-					to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
+			return
+
+		var/obj/item/vending_refill/canister = I
+		var/transferred = restock(canister)
+		if(!transferred && !canister.get_part_rating()) // It transferred no products and has no products left, thus it is empty
+			to_chat(user, "<span class='warning'>[canister] is empty!</span>")
+		else if(transferred) // We transferred some items
+			to_chat(user, "<span class='notice'>You loaded [transferred] items in [src].</span>")
+		else // Nothing transferred, parts are still left, nothing to restock!
+			to_chat(user, "<span class='warning'>There's nothing to restock!</span>")
 		return
+
 	if(item_slot_check(user, I))
 		insert_item(user, I)
 		return
@@ -622,7 +621,7 @@
 				data["user"]["job"] = C.rank ? C.rank : "No Job"
 
 	data["stock"] = list()
-	for (var/datum/data/vending_product/R in product_records + hidden_records)
+	for(var/datum/data/vending_product/R in product_records + hidden_records)
 		data["stock"][R.name] = R.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
@@ -649,7 +648,7 @@
 		)
 		data["product_records"] += list(data_pr)
 	data["hidden_records"] = list()
-	for (var/datum/data/vending_product/R in hidden_records)
+	for(var/datum/data/vending_product/R in hidden_records)
 		var/list/data_hr = list(
 			path = replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-"),
 			name = R.name,
