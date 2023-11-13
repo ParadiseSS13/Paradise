@@ -57,9 +57,7 @@ GLOBAL_LIST_INIT(Jobs_SS220, list("intern", "cadet", "trainee", "student"))
 	return data
 
 /obj/machinery/computer/card/ui_act(action, params)
-	if(!..())
-		return FALSE
-	. = TRUE
+	. = ..()
 
 	switch(action)
 		if("skin")
