@@ -161,8 +161,6 @@
 			var/datum/stack_recipe_list/recipe_list = recipe
 			recipes_data["[recipe_list.title]"] = recursively_build_recipes(recipe_list.recipes)
 
-	to_chat(world, json_encode(recipes_data))
-
 	return recipes_data
 
 /obj/item/stack/proc/build_recipe_data(datum/stack_recipe/recipe)
