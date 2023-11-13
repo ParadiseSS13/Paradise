@@ -36580,6 +36580,7 @@
 	pixel_y = 24
 	},
 /obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -64753,6 +64754,7 @@
 	name = "custom placement";
 	pixel_y = -4
 	},
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"

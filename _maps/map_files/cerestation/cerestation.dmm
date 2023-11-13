@@ -9468,6 +9468,7 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -75048,6 +75049,7 @@
 	},
 /obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/stack/medical/ointment/advanced,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
