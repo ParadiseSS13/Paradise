@@ -42,7 +42,7 @@
 	if(!S.get_damage())
 		to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
 		return
-		use(1)
+	use(1)
 	var/remaining_heal = 15
 	var/new_remaining_heal = 0
 	S.heal_damage(robo_repair = 1) //should in, theory, heal the robotic organs in just the targeted area with it being S instead of E
