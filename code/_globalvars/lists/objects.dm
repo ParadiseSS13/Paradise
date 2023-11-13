@@ -4,7 +4,6 @@ GLOBAL_LIST(chemical_reactions_list)			//list of all /datum/chemical_reaction da
 GLOBAL_LIST(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
 GLOBAL_LIST_INIT(landmarks_list, list())				//list of all landmarks created
 GLOBAL_LIST_INIT(surgery_steps, list())				//list of all surgery steps  |BS12
-GLOBAL_LIST_INIT(side_effects, list())				//list of all medical sideeffects types by thier names |BS12
 GLOBAL_LIST_INIT(mechas_list, list())				//list of all mechs. Used by hostile mobs target tracking.
 GLOBAL_LIST_INIT(joblist, list())					//list of all jobstypes, minus borg and AI
 GLOBAL_LIST_INIT(airlocks, list())					//list of all airlocks
@@ -50,7 +49,6 @@ GLOBAL_LIST_EMPTY(arc_emitters) 					//list of all arc emitters
 GLOBAL_LIST_INIT(active_diseases, list()) 			//List of Active disease in all mobs; purely for quick referencing.
 
 GLOBAL_LIST_EMPTY(mob_spawners) 		    // All mob_spawn objects
-GLOBAL_LIST_EMPTY(explosive_walls)
 
 GLOBAL_LIST_EMPTY(engine_beacon_list)
 

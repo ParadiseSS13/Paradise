@@ -1543,7 +1543,6 @@
 #include "code\modules\client\preference\link_processing.dm"
 #include "code\modules\client\preference\preferences.dm"
 #include "code\modules\client\preference\preferences_mysql.dm"
-#include "code\modules\client\preference\preferences_spawnpoints.dm"
 #include "code\modules\client\preference\preferences_toggles.dm"
 #include "code\modules\client\preference\preferences_volume_mixer.dm"
 #include "code\modules\client\preference\loadout\gear_tweaks.dm"
