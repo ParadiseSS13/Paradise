@@ -46,7 +46,8 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	if(!winexists(owner, "browseroutput"))
 		spawn()
-			alert(owner.mob, "Updated chat window does not exist. If you are using a custom skin file please allow the game to update.")
+			alert(owner.mob, "Updated chat window does not exist. Please go to your byond file, grab the skin file and put it in #coding chat on the paradise discord, then reconnect.")
+			stack_trace("[owner] had no browseroutput window! [owner]'s byond version is [owner.byond_version][owner.byond_build]")
 		broken = TRUE
 		return 0
 
