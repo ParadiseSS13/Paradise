@@ -372,7 +372,7 @@
 			cyborg.cell.use(5)
 		repair_tick = 0
 
-		if((world.time - 2000) > msg_cooldown )
+		if((world.time - 2000) > msg_cooldown)
 			var/msgmode = "standby"
 			if(cyborg.health < 0)
 				msgmode = "critical"
