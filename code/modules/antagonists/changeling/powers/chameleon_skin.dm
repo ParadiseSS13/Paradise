@@ -11,10 +11,6 @@
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)
 	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = TRUE
-	if(HAS_TRAIT_FROM(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT))
-		REMOVE_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT)
-	else
-		ADD_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT)
 	if(H.dna.GetSEState(GLOB.chameleonblock))
 		H.dna.SetSEState(GLOB.chameleonblock, 0)
 		singlemutcheck(H, GLOB.chameleonblock, MUTCHK_FORCED)
