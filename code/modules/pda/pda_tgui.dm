@@ -94,6 +94,8 @@
 				playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 		if("Authenticate") //Checks for ID
 			id_check(usr, 1)
+		if("Available_Ringtones")
+			ttone = params["selected_ringtone"]
 		if("Ringtone")
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
