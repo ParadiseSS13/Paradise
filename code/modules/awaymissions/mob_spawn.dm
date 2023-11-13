@@ -2,11 +2,11 @@
 
 //If someone can do this in a neater way, be my guest-Kor
 
-//To do: Allow customizing the bodies appearance (they're all bald and white right now).
+// To do: Allow customizing the bodies appearance (they're all bald and white right now).
 
-///this mob spawn creates the corpse instantly
+/// this mob spawn creates the corpse instantly
 #define CORPSE_INSTANT 1
-///this mob spawn creates the corpse during GAME_STATE_PLAYING
+/// this mob spawn creates the corpse during GAME_STATE_PLAYING
 #define CORPSE_ROUNDSTART 2
 
 /obj/effect/mob_spawn
