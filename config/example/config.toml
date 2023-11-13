@@ -306,7 +306,7 @@ disable_ambient_noise = false
 # Enable this if you want to disable the popup alert for people on the same CID
 disable_cid_warning_popup = false
 # Amount of loadout points people should get
-base_loadout_points = 5
+base_loadout_points = 4
 # Respawnability loss penalty if you cryo below this threshold (Minutes)
 cryo_penalty_period = 30
 # Enable twitter emojis in OOC?

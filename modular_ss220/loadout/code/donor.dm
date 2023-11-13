@@ -57,3 +57,48 @@
 	path = /obj/item/clothing/suit/hooded/vi_arcane
 	donator_tier = 3
 	cost = 2
+
+/datum/gear/donor/wallet
+	display_name = "Бумажник"
+	path = /obj/item/storage/wallet
+	cost = 12
+
+/datum/gear/donor/firefirstaid
+	display_name = "Набор первой медицинской помощи от премиальной страховки"
+	path = /obj/item/storage/firstaid/regular/donor
+	cost = 12
+
+/datum/gear/donor/airtank
+	display_name = "Спаренный балон от премиальной страховки"
+	path = /obj/item/tank/internals/emergency_oxygen/double
+	cost = 3
+
+/datum/gear/donor/toolbelt
+	display_name = "Дедушкин пояс с инструментами"
+	path = /obj/item/storage/belt/utility
+	cost = 8
+
+/datum/gear/donor/bruise_pack
+	display_name = "Медицинские бинты"
+	path = /obj/item/stack/medical/bruise_pack
+	cost = 2
+
+/datum/gear/donor/ointment
+	display_name = "Мазь от ожогов"
+	path = /obj/item/stack/medical/ointment
+	cost = 2
+
+/datum/gear/donor/charcoal
+	display_name = "Активированный уголь"
+	path = /obj/item/reagent_containers/syringe/charcoal
+	cost = 2
+
+/datum/gear/donor/epinephrine
+	display_name = "Эпинефрин"
+	path = /obj/item/reagent_containers/hypospray/autoinjector/epinephrine
+	cost = 2
+
+/datum/gear/donor/healthanalyzer
+	display_name = "Медицинский анализатор"
+	path = /obj/item/healthanalyzer
+	cost = 2

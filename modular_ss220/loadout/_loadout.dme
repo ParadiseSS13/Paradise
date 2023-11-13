@@ -3,3 +3,4 @@
 #include "code/donor.dm"
 #include "code/shoes.dm"
 #include "code/suit.dm"
+#include "code/donor_items.dm"
