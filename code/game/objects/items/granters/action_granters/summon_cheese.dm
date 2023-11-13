@@ -22,7 +22,7 @@
 
 /obj/item/book/granter/spell/summon_cheese/recoil(mob/living/user)
 	to_chat(user, "<span class='warning'>[src] turns into a wedge of cheese!</span>")
-	var/obj/item/reagent_containers/food/snacks/cheesewedge/book_cheese = new
+	var/obj/item/reagent_containers/food/snacks/cheesewedge/presliced/book_cheese = new
 	user.drop_item()
 	user.put_in_hands(book_cheese)
 	qdel(src)

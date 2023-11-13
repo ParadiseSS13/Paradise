@@ -41,18 +41,26 @@
 #define DNA_UI_TAIL_MARK_R	26
 #define DNA_UI_TAIL_MARK_G	27
 #define DNA_UI_TAIL_MARK_B	28
-#define DNA_UI_EYES_R		29
-#define DNA_UI_EYES_G		30
-#define DNA_UI_EYES_B		31
-#define DNA_UI_GENDER		32
-#define DNA_UI_BEARD_STYLE	33
-#define DNA_UI_HAIR_STYLE	34
-#define DNA_UI_HACC_STYLE	35
-#define DNA_UI_BACC_STYLE	36
-#define DNA_UI_HEAD_MARK_STYLE	37
-#define DNA_UI_BODY_MARK_STYLE	38
-#define DNA_UI_TAIL_MARK_STYLE	39
-#define DNA_UI_LENGTH		40 // Update this when you add something, or you WILL break shit.
+#define DNA_UI_HAIR_GRADIENT_R	29
+#define DNA_UI_HAIR_GRADIENT_G	30
+#define DNA_UI_HAIR_GRADIENT_B	31
+#define DNA_UI_HAIR_GRADIENT_X	32
+#define DNA_UI_HAIR_GRADIENT_Y	33
+#define DNA_UI_EYES_R		34
+#define DNA_UI_EYES_G		35
+#define DNA_UI_EYES_B		36
+#define DNA_UI_GENDER		37
+#define DNA_UI_BEARD_STYLE	38
+#define DNA_UI_HAIR_STYLE	39
+#define DNA_UI_HACC_STYLE	40
+#define DNA_UI_BACC_STYLE	41
+#define DNA_UI_HAIR_GRADIENT_STYLE	42
+#define DNA_UI_HEAD_MARK_STYLE	43
+#define DNA_UI_BODY_MARK_STYLE	44
+#define DNA_UI_TAIL_MARK_STYLE	45
+#define DNA_UI_PHYSIQUE		46
+#define DNA_UI_HEIGHT		47
+#define DNA_UI_LENGTH		48 // Update this when you add something, or you WILL break shit.
 
 #define DNA_SE_LENGTH 55 // Was STRUCDNASIZE, size 27. 15 new blocks added = 42, plus room to grow.
 
