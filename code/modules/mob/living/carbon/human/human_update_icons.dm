@@ -628,7 +628,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			uniform_slots += wear_id
 			uniform_slots += wear_pda
 			uniform_slots += belt
-		if(belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2)
+		if(belt && (belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
 			uniform_slots -= belt
 
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
