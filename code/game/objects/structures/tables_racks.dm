@@ -41,6 +41,8 @@
 	var/slippery = FALSE
 	/// The minimum level of environment_smash required for simple animals to be able to one-shot this.
 	var/minimum_env_smash = ENVIRONMENT_SMASH_WALLS
+	/// Can this table be flipped?
+	var/can_be_flipped = TRUE
 
 /obj/structure/table/Initialize(mapload)
 	. = ..()
@@ -50,6 +52,11 @@
 /obj/structure/table/examine(mob/user)
 	. = ..()
 	. += deconstruction_hints(user)
+	if(can_be_flipped)
+		if(flipped)
+			. += "<span class='info'><b>Alt-Shift-Click</b> to right the table again.</span>"
+		else
+			. += "<span class='info'><b>Alt-Shift-Click</b> to flip over the table.</span>"
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
 	return "<span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
@@ -65,7 +72,7 @@
 	if(flipped)
 		var/type = 0
 		var/subtype = null
-		for(var/direction in list(turn(dir,90), turn(dir,-90)) )
+		for(var/direction in list(turn(dir,90), turn(dir,-90)))
 			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,direction))
 			if(T && T.flipped)
 				type++
@@ -183,7 +190,7 @@
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
 	if(..())
 		return TRUE
-	if((!( isitem(O) ) || user.get_active_hand() != O))
+	if((!isitem(O) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return
@@ -318,49 +325,29 @@
 			return 0
 	return T.straight_table_check(direction)
 
-/obj/structure/table/verb/do_flip()
-	set name = "Flip table"
-	set desc = "Flips a non-reinforced table"
-	set category = null
-	set src in oview(1)
-
-	if(!can_touch(usr) || ismouse(usr))
+/obj/structure/table/AltShiftClick(mob/living/carbon/human/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !can_be_flipped)
 		return
 
-	if(!flip(get_cardinal_dir(usr,src)))
-		to_chat(usr, "<span class='notice'>It won't budge.</span>")
-		return
+	if(!flipped)
+		if(!flip(get_cardinal_dir(user, src)))
+			to_chat(user, "<span class='notice'>It won't budge.</span>")
+			return
 
-	usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
+		user.visible_message("<span class='warning'>[user] flips \the [src]!</span>")
 
-	if(climbable)
-		structure_shaken()
-
-	return
-
-/obj/structure/table/proc/do_put()
-	set name = "Put table back"
-	set desc = "Puts flipped table back"
-	set category = "Object"
-	set src in oview(1)
-
-	if(!can_touch(usr) || ismouse(usr))
-		return
-
-	if(!unflip())
-		to_chat(usr, "<span class='notice'>It won't budge.</span>")
-		return
-
+		if(climbable)
+			structure_shaken()
+	else
+		if(!unflip())
+			to_chat(user, "<span class='notice'>It won't budge.</span>")
 
 /obj/structure/table/proc/flip(direction)
 	if(flipped)
 		return 0
 
-	if( !straight_table_check(turn(direction,90)) || !straight_table_check(turn(direction,-90)) )
+	if(!straight_table_check(turn(direction,90)) || !straight_table_check(turn(direction,-90)))
 		return 0
-
-	verbs -=/obj/structure/table/verb/do_flip
-	verbs +=/obj/structure/table/proc/do_put
 
 	dir = direction
 	if(dir != NORTH)
@@ -396,9 +383,6 @@
 			can_flip = 0
 	if(!can_flip)
 		return 0
-
-	verbs -=/obj/structure/table/proc/do_put
-	verbs +=/obj/structure/table/verb/do_flip
 
 	layer = initial(layer)
 	flipped = FALSE
@@ -800,12 +784,12 @@
 	icon_state = "tray"
 	buildstack = /obj/item/stack/sheet/mineral/titanium
 	buildstackamount = 2
+	can_be_flipped = FALSE
 	var/list/typecache_can_hold = list(/mob, /obj/item)
 	var/list/held_items = list()
 
 /obj/structure/table/tray/Initialize()
 	. = ..()
-	verbs -= /obj/structure/table/verb/do_flip
 	typecache_can_hold = typecacheof(typecache_can_hold)
 	for(var/atom/movable/held in get_turf(src))
 		if(!held.anchored && held.move_resist != INFINITY && is_type_in_typecache(held, typecache_can_hold))
@@ -909,7 +893,7 @@
 		. = . || mover.checkpass(PASSTABLE)
 
 /obj/structure/rack/MouseDrop_T(obj/O, mob/user)
-	if((!( isitem(O) ) || user.get_active_hand() != O))
+	if((!isitem(O) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return

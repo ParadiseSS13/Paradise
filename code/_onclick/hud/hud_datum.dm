@@ -203,16 +203,12 @@
 /datum/hud/proc/persistent_inventory_update()
 	return
 
-//Triggered when F12 is pressed (Unless someone changed something in the DMF)
-/mob/verb/button_pressed_F12()
-	set name = "F12"
-	set hidden = TRUE
-
+/mob/proc/hide_hud()
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, "<span class ='info'>Switched HUD mode. Press F12 to toggle.</span>")
+		to_chat(src, "<span class ='info'>Switched HUD mode. Press the key you just pressed to toggle the HUD mode again.</span>")
 	else
-		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
+		to_chat(src, "<span class ='warning'>This mob type does not use a HUD.</span>")
 
 /datum/hud/proc/update_locked_slots()
 	return

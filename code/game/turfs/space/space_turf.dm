@@ -42,10 +42,10 @@
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
 
-	if (light_power && light_range)
+	if(light_power && light_range)
 		update_light()
 
-	if (opacity)
+	if(opacity)
 		has_opaque_atom = TRUE
 
 	return INITIALIZE_HINT_NORMAL
