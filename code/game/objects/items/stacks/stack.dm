@@ -324,6 +324,7 @@
 	add_fingerprint(user)
 	F.add_fingerprint(user)
 	use(amount)
+	SStgui.update_uis(src)
 
 /obj/item/stack/attackby(obj/item/W, mob/user, params)
 	if((!parent_stack && istype(W, merge_type)) || (parent_stack && W.type == type))
@@ -365,6 +366,7 @@
 	S.copy_evidences(src)
 	S.add(transfer)
 	use(transfer)
+	SStgui.update_uis(S)
 	return transfer
 
 /obj/item/stack/proc/copy_evidences(obj/item/stack/from)
