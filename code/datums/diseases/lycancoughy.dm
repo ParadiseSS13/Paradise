@@ -42,7 +42,7 @@
 													"<span class='userdanger'>You cough up [initial(puppypicked.name)]?!</span>")
 				new puppypicked(affected_mob.loc)
 				new puppypicked(affected_mob.loc)
-				barklimit ++
+				barklimit++
 			if(prob(1))
 				var/list/plushtype = list(/obj/item/toy/plushie/orange_fox, /obj/item/toy/plushie/corgi, /obj/item/toy/plushie/robo_corgi, /obj/item/toy/plushie/pink_fox)
 				var/obj/item/toy/plushie/coughfox = pick(plushtype)

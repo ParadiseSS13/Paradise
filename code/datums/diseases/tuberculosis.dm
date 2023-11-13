@@ -13,7 +13,7 @@
 	severity = DANGEROUS
 	bypasses_immunity = TRUE //Fungal and bacterial in nature; also infects the lungs
 
-/datum/disease/tuberculosis/stage_act() //it begins
+/datum/disease/tuberculosis/stage_act()
 	if(!..())
 		return FALSE
 	switch(stage)

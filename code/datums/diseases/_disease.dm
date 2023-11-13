@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
 	var/virus_heal_resistant = FALSE // Some things aren't technically viruses/traditional diseases and should be immune to edge case cure methods, like healing viruses.
 	var/permeability_mod = 1
-	var/severity =	NONTHREAT
+	var/severity = NONTHREAT
 	var/list/required_organs = list()
 	var/needs_all_cures = TRUE
 	var/list/strain_data = list() //dna_spread special bullshit

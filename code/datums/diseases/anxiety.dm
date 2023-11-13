@@ -15,7 +15,7 @@
 	if(!..())
 		return FALSE
 	switch(stage)
-		if(2) //also changes say, see say.dm
+		if(2)
 			if(prob(5))
 				to_chat(affected_mob, "<span class='notice'>You feel anxious.</span>")
 		if(3)

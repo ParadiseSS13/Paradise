@@ -8,7 +8,6 @@
 	cure_chance = 100
 	agent = "Rincewindus Vulgaris"
 	viable_mobtypes = list(/mob/living/carbon/human)
-	disease_flags = CAN_CARRY|CAN_RESIST|CURABLE
 	permeability_mod = 0.75
 	severity = HARMFUL
 	required_organs = list(/obj/item/organ/external/head)
