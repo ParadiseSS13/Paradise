@@ -106,7 +106,7 @@
 	var/static/list/cardinal_sidestep_directions = list(-90, -45, 0, 45, 90)
 	var/static/list/diagonal_sidestep_directions = list(-45, 0, 45)
 	var/chosen_dir = 0
-	if (target_dir & (target_dir - 1))
+	if(target_dir & (target_dir - 1))
 		chosen_dir = pick(diagonal_sidestep_directions)
 	else
 		chosen_dir = pick(cardinal_sidestep_directions)
@@ -392,7 +392,7 @@
 	ranged_cooldown = world.time + ranged_cooldown_time
 
 /mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)
-	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
+	if(QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from)
 		return
 	var/turf/startloc = get_turf(targets_from)
 	if(casingtype)

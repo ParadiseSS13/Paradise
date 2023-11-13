@@ -72,7 +72,7 @@
 	if(flipped)
 		var/type = 0
 		var/subtype = null
-		for(var/direction in list(turn(dir,90), turn(dir,-90)) )
+		for(var/direction in list(turn(dir,90), turn(dir,-90)))
 			var/obj/structure/table/T = locate(/obj/structure/table,get_step(src,direction))
 			if(T && T.flipped)
 				type++
@@ -190,7 +190,7 @@
 /obj/structure/table/MouseDrop_T(obj/O, mob/user)
 	if(..())
 		return TRUE
-	if((!( isitem(O) ) || user.get_active_hand() != O))
+	if((!isitem(O) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return
@@ -346,7 +346,7 @@
 	if(flipped)
 		return 0
 
-	if( !straight_table_check(turn(direction,90)) || !straight_table_check(turn(direction,-90)) )
+	if(!straight_table_check(turn(direction,90)) || !straight_table_check(turn(direction,-90)))
 		return 0
 
 	dir = direction
@@ -893,7 +893,7 @@
 		. = . || mover.checkpass(PASSTABLE)
 
 /obj/structure/rack/MouseDrop_T(obj/O, mob/user)
-	if((!( isitem(O) ) || user.get_active_hand() != O))
+	if((!isitem(O) || user.get_active_hand() != O))
 		return
 	if(isrobot(user))
 		return
