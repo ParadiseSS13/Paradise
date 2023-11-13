@@ -26,8 +26,6 @@
 	var/max_amount = 50 //also see stack recipes initialisation, param "max_res_amount" must be equal to this max_amount
 	/// This path and its children should merge with this stack, defaults to src.type
 	var/merge_type = null
-	var/recipe_width = 400 //Width of the recipe popup
-	var/recipe_height = 400 //Height of the recipe popup
 	/// What sort of table is made when applying this stack to a frame?
 	var/table_type
 	/// If this stack has a dynamic icon_state based on amount / max_amount
@@ -106,10 +104,10 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stack/attack_self(mob/user)
-	list_recipes(user)
+	ui_interact(user)
 
 /obj/item/stack/attack_self_tk(mob/user)
-	list_recipes(user)
+	ui_interact(user)
 
 /obj/item/stack/attack_tk(mob/user)
 	if(user.stat || !isturf(loc)) return
@@ -124,169 +122,56 @@
 	else
 		..()
 
+/obj/item/stack/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state = GLOB.hands_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "StackCraft", name, 400, 400, master_ui, state)
+		ui.set_autoupdate(TRUE)
+		ui.open()
 
-/obj/item/stack/proc/list_recipes(mob/user, recipes_sublist)
-	if(!recipes)
-		return
+/obj/item/stack/ui_data(mob/user)
+	var/list/data = list()
+	data["amount"] = get_amount()
+	return data
 
-	if(get_amount() <= 0)
-		user << browse(null, "window=stack")
-		if(is_cyborg)
-			to_chat(user, "<span class='warning'>You don't have enough energy to dispense more [name]!</span>")
-		return
+/obj/item/stack/ui_static_data(mob/user)
+	var/list/data = list()
+	data["recipes"] = recursively_build_recipes(recipes)
+	return data
 
-	user.set_machine(src) //for correct work of onclose
+/obj/item/stack/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return FALSE
 
-	var/list/recipe_list = recipes
-	if(recipes_sublist && recipe_list[recipes_sublist] && istype(recipe_list[recipes_sublist], /datum/stack_recipe_list))
-		var/datum/stack_recipe_list/srl = recipe_list[recipes_sublist]
-		recipe_list = srl.recipes
+	switch(action)
+		if("make")
+			var/datum/stack_recipe/recipe = locateUID(params["recipe_uid"])
+			var/multiplier = text2num(params["multiplier"])
+			return make(usr, recipe, multiplier)
 
-	var/t1 = "Amount Left: [get_amount()]<br>"
-	for(var/i in 1 to recipe_list.len)
-		var/E = recipe_list[i]
-		if(isnull(E))
-			t1 += "<hr>"
-			continue
 
-		if(i > 1 && !isnull(recipe_list[i - 1]))
-			t1 += "<br>"
+/obj/item/stack/proc/recursively_build_recipes(list/recipes_to_iterate)
+	var/list/recipes_data = list()
+	for(var/recipe in recipes_to_iterate)
+		if(istype(recipe, /datum/stack_recipe))
+			var/datum/stack_recipe/single_recipe = recipe
+			recipes_data["[single_recipe.title]"] = build_recipe_data(single_recipe)
 
-		if(istype(E, /datum/stack_recipe_list))
-			var/datum/stack_recipe_list/srl = E
-			t1 += "<a href='?src=[UID()];sublist=[i]'>[srl.title]</a>"
+		else if (istype(recipe, /datum/stack_recipe_list))
+			var/datum/stack_recipe_list/recipe_list = recipe
+			recipes_data["[recipe_list.title]"] = recursively_build_recipes(recipe_list.recipes)
 
-		if(istype(E, /datum/stack_recipe))
-			var/datum/stack_recipe/R = E
-			var/max_multiplier = round(get_amount() / R.req_amount)
-			var/title
-			var/can_build = 1
-			can_build = can_build && (max_multiplier > 0)
+	to_chat(world, json_encode(recipes_data))
 
-			if(R.res_amount > 1)
-				title += "[R.res_amount]x [R.title]\s"
-			else
-				title += "[R.title]"
-			title += " ([R.req_amount] [src.singular_name]\s)"
-			if(can_build)
-				t1 += "<A href='?src=[UID()];sublist=[recipes_sublist];make=[i]'>[title]</A>  "
-			else
-				t1 += "[title]"
-				continue
-			if(R.max_res_amount > 1 && max_multiplier > 1)
-				max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
-				t1 += " |"
+	return recipes_data
 
-				var/list/multipliers = list(5, 10, 25)
-				for(var/n in multipliers)
-					if(max_multiplier >= n)
-						t1 += " <A href='?src=[UID()];make=[i];multiplier=[n]'>[n * R.res_amount]x</A>"
-				if(!(max_multiplier in multipliers))
-					t1 += " <A href='?src=[UID()];make=[i];multiplier=[max_multiplier]'>[max_multiplier * R.res_amount]x</A>"
-
-	var/datum/browser/popup = new(user, "stack", name, recipe_width, recipe_height)
-	popup.set_content(t1)
-	popup.open(0)
-	onclose(user, "stack")
-
-/obj/item/stack/Topic(href, href_list)
-	..()
-	if(usr.incapacitated() || !usr.is_in_active_hand(src))
-		return 0
-
-	if(href_list["sublist"] && !href_list["make"])
-		list_recipes(usr, text2num(href_list["sublist"]))
-
-	if(href_list["make"])
-		if(amount < 0 && !is_cyborg)
-			qdel(src) //Never should happen
-
-		var/list/recipes_list = recipes
-		if(href_list["sublist"])
-			var/datum/stack_recipe_list/srl = recipes_list[text2num(href_list["sublist"])]
-			recipes_list = srl.recipes
-
-		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
-		var/multiplier = text2num(href_list["multiplier"])
-		if(!multiplier || multiplier <= 0 || multiplier > 50 || !IS_INT(multiplier)) // Href exploit checks
-			if(multiplier) // It existed but they tried to fuck with it
-				message_admins("[key_name_admin(usr)] just attempted to href exploit sheet crafting with an invalid multiplier. Ban highly advised.")
-			multiplier = 1
-
-		if(get_amount() < R.req_amount * multiplier)
-			if(R.req_amount * multiplier > 1)
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.req_amount * multiplier] [R.title]\s!</span>")
-			else
-				to_chat(usr, "<span class='warning'>You haven't got enough [src] to build \the [R.title]!</span>")
-			return FALSE
-
-		if(R.window_checks && !valid_window_location(get_turf(src), usr.dir))
-			to_chat(usr, "<span class='warning'>\The [R.title] won't fit here!</span>")
-			return FALSE
-
-		if(R.one_per_turf && (locate(R.result_type) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>There is another [R.title] here!</span>")
-			return FALSE
-
-		if(R.on_floor && !issimulatedturf(get_turf(src)))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor!</span>")
-			return FALSE
-		if(R.on_floor_or_lattice && !(issimulatedturf(get_turf(src)) || locate(/obj/structure/lattice) in get_turf(src)))
-			to_chat(usr, "<span class='warning'>\The [R.title] must be constructed on the floor or lattice!</span>")
-			return FALSE
-
-		if(R.cult_structure)
-			if(usr.holy_check())
-				return
-			if(!is_level_reachable(usr.z))
-				to_chat(usr, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
-				return
-			if(locate(/obj/structure/cult) in get_turf(src))
-				to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-				return FALSE
-
-		if(R.time)
-			to_chat(usr, "<span class='notice'>Building [R.title]...</span>")
-			if(!do_after(usr, R.time, target = loc))
-				return FALSE
-
-		if(R.cult_structure && locate(/obj/structure/cult) in get_turf(src)) //Check again after do_after to prevent queuing construction exploit.
-			to_chat(usr, "<span class='warning'>There is a structure here!</span>")
-			return FALSE
-
-		if(get_amount() < R.req_amount * multiplier)
-			return
-
-		var/atom/O
-		if(R.max_res_amount > 1) //Is it a stack?
-			O = new R.result_type(get_turf(src), R.res_amount * multiplier)
-		else
-			O = new R.result_type(get_turf(src))
-		O.setDir(usr.dir)
-		use(R.req_amount * multiplier)
-		updateUsrDialog()
-
-		R.post_build(src, O)
-
-		if(amount < 1) // Just in case a stack's amount ends up fractional somehow
-			var/oldsrc = src
-			src = null //dont kill proc after qdel()
-			usr.unEquip(oldsrc, 1)
-			qdel(oldsrc)
-			if(isitem(O))
-				usr.put_in_hands(O)
-
-		O.add_fingerprint(usr)
-		//BubbleWrap - so newly formed boxes are empty
-		if(isstorage(O))
-			for(var/obj/item/I in O)
-				qdel(I)
-		//BubbleWrap END
-
-	if(src && usr.machine == src) //do not reopen closed window
-		spawn(0)
-			interact(usr)
-			return
+/obj/item/stack/proc/build_recipe_data(datum/stack_recipe/recipe)
+	var/list/data = list()
+	data["uid"] = recipe.UID()
+	data["required_amount"] = recipe.req_amount
+	data["result_amount"] = recipe.res_amount
+	data["max_result_amount"] = recipe.max_res_amount
+	return data
 
 /obj/item/stack/use(used, check = TRUE)
 	if(check && zero_amount())
@@ -299,6 +184,85 @@
 	if(check)
 		zero_amount()
 	update_icon(UPDATE_ICON_STATE)
+	return TRUE
+
+/obj/item/stack/proc/make(mob/user, datum/stack_recipe/recipe_to_make, multiplier)
+	if(get_amount() < 1 && !is_cyborg)
+		qdel(src)
+		return FALSE
+
+	if(!validate_build(user, recipe_to_make, multiplier))
+		return FALSE
+
+	if(recipe_to_make.time)
+		to_chat(usr, "<span class='notice'>Building [recipe_to_make.title]...</span>")
+		if(!do_after(usr, recipe_to_make.time, target = user))
+			return FALSE
+
+		if(!validate_build(user, recipe_to_make, multiplier))
+			return FALSE
+
+	var/atom/created
+	var/atom/drop_location = user.drop_location()
+	if(recipe_to_make.max_res_amount > 1) //Is it a stack?
+		created = new recipe_to_make.result_type(drop_location, recipe_to_make.res_amount * multiplier)
+	else
+		created = new recipe_to_make.result_type(drop_location)
+	created.setDir(user.dir)
+
+	use(recipe_to_make.req_amount * multiplier)
+
+	recipe_to_make.post_build(src, created)
+	if(isitem(created))
+		user.put_in_hands(created)
+
+	created.add_fingerprint(user)
+
+	//BubbleWrap - so newly formed boxes are empty
+	if(isstorage(created))
+		for(var/obj/item/thing in created)
+			qdel(thing)
+	//BubbleWrap END
+
+	return TRUE
+
+/obj/item/stack/proc/validate_build(mob/builder, datum/stack_recipe/recipe_to_build, multiplier)
+	if(!multiplier || multiplier <= 0 || multiplier > 50 || !IS_INT(multiplier)) // Href exploit checks
+		message_admins("[key_name_admin(builder)] just attempted to href exploit sheet crafting with an invalid multiplier. Ban highly advised.")
+		return FALSE
+
+	if(get_amount() < recipe_to_build.req_amount * multiplier)
+		if(recipe_to_build.req_amount * multiplier > 1)
+			to_chat(builder, "<span class='warning'>You haven't got enough [src] to build \the [recipe_to_build.req_amount * multiplier] [recipe_to_build.title]\s!</span>")
+		else
+			to_chat(builder, "<span class='warning'>You haven't got enough [src] to build \the [recipe_to_build.title]!</span>")
+		return FALSE
+
+	var/turf/target_turf = get_turf(src)
+	if(recipe_to_build.window_checks && !valid_window_location(target_turf, builder.dir))
+		to_chat(builder, "<span class='warning'>\The [recipe_to_build.title] won't fit here!</span>")
+		return FALSE
+
+	if(recipe_to_build.one_per_turf && (locate(recipe_to_build.result_type) in target_turf))
+		to_chat(builder, "<span class='warning'>There is another [recipe_to_build.title] here!</span>")
+		return FALSE
+
+	if(recipe_to_build.on_floor && !issimulatedturf(target_turf))
+		to_chat(builder, "<span class='warning'>\The [recipe_to_build.title] must be constructed on the floor!</span>")
+		return FALSE
+
+	if(recipe_to_build.on_floor_or_lattice && !(issimulatedturf(target_turf) || locate(/obj/structure/lattice) in target_turf))
+		to_chat(builder, "<span class='warning'>\The [recipe_to_build.title] must be constructed on the floor or lattice!</span>")
+		return FALSE
+
+	if(recipe_to_build.cult_structure)
+		if(builder.holy_check())
+			return FALSE
+
+		if(!is_level_reachable(builder.z))
+			to_chat(builder, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+			return FALSE
+
 	return TRUE
 
 /obj/item/stack/proc/get_amount()
