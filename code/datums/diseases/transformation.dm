@@ -85,7 +85,6 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 1
 	cure_chance = 1
-	disease_flags = CAN_CARRY|CAN_RESIST
 	desc = "Monkeys with this disease will bite humans, causing humans to mutate into a monkey."
 	stage_prob = 4
 	visibility_flags = 0
