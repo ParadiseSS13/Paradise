@@ -34,7 +34,7 @@
 
 /obj/structure/statue/mooniverse
 	name = "Неизвестный агент"
-	desc = "Информация на табличке под статуей исцарапана и нечитабельна... Поверх написано невнятное словосочетание из слов \"Furry\" и \"Universe\""
+	desc = "Информация на табличке под статуей исцарапана и нечитабельна... Поверх написано невнятное словосочетание из слов \"Moon\" и \"Universe\""
 	icon = 'modular_ss220/unique_objects/icons/statuelarge.dmi'
 	icon_state = "mooniverse"
 	pixel_y = 7

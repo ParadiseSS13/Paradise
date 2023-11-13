@@ -1011,6 +1011,11 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/elite_squad)
+"aGA" = (
+/turf/simulated/floor/plasteel/stairs{
+	dir = 4
+	},
+/area/syndicate_mothership/outside)
 "aGF" = (
 /obj/machinery/computer/camera_advanced{
 	dir = 1
@@ -1852,12 +1857,6 @@
 /obj/structure/flora/tree/palm{
 	pixel_x = 8;
 	pixel_y = 8
-	},
-/obj/item/stock_parts/cell/infinite{
-	desc = "Интересная батарейка золотого цвета, главный вопрос который вас терзает - а что она делает в космосе? \n Жаль что контакты окислились.";
-	name = "Батарейка в космосе?";
-	pixel_x = 2;
-	pixel_y = 7
 	},
 /turf/simulated/floor/beach/away/sand,
 /area/centcom/ss220/evac)
@@ -15331,15 +15330,12 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/centcom/ss220/general)
 "kAL" = (
-/obj/item/flashlight/lantern{
+/obj/structure/statue/diamond/captain{
+	pixel_y = 9;
 	anchored = 1;
-	layer = 6;
-	light_color = "#FF9F40";
-	on = 1;
-	pixel_x = -7;
-	pixel_y = 15
+	layer = 4
 	},
-/turf/simulated/floor/wood/oak,
+/turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/centcom/ss220/park)
 "kAS" = (
 /turf/simulated/wall/indestructible/opsglass,
@@ -17693,6 +17689,14 @@
 	},
 /turf/simulated/floor/carpet/arcade,
 /area/syndicate_mothership/infteam)
+"lYo" = (
+/obj/structure/statue/gold/cmo{
+	anchored = 1;
+	pixel_y = 9;
+	layer = 4
+	},
+/turf/simulated/floor/plasteel/goonplaque/memorial,
+/area/centcom/ss220/park)
 "lYs" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plating{
@@ -19771,6 +19775,13 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/command)
+"nGd" = (
+/obj/structure/statue/mooniverse{
+	layer = 4;
+	pixel_y = 8
+	},
+/turf/simulated/floor/plasteel/goonplaque/memorial,
+/area/syndicate_mothership/outside)
 "nGg" = (
 /obj/structure/toilet{
 	dir = 4
@@ -27495,6 +27506,17 @@
 /obj/effect/landmark/spawner/syndicate_infiltrator_leader,
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/infteam)
+"thM" = (
+/obj/item/flashlight/lantern{
+	anchored = 1;
+	layer = 6;
+	light_color = "#FF9F40";
+	on = 1;
+	pixel_x = -7;
+	pixel_y = 15
+	},
+/turf/simulated/floor/plasteel/stairs,
+/area/syndicate_mothership/outside)
 "tiB" = (
 /obj/structure/light_fake/small{
 	dir = 1
@@ -27816,6 +27838,13 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/shuttle/syndicate)
+"tuO" = (
+/obj/item/reagent_containers/food/snacks/pie{
+	pixel_x = -8;
+	pixel_y = 13
+	},
+/turf/space,
+/area/space/centcomm)
 "tvv" = (
 /obj/machinery/computer/shuttle/syndicate{
 	name = "Nuclear Operatives Shuttle Console"
@@ -30472,6 +30501,11 @@
 	},
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
+"vqr" = (
+/turf/simulated/floor/plasteel/stairs{
+	dir = 1
+	},
+/area/syndicate_mothership/outside)
 "vqP" = (
 /obj/structure/window/reinforced{
 	color = "red";
@@ -31324,9 +31358,10 @@
 	},
 /area/syndicate_mothership)
 "vWq" = (
-/obj/structure/statue/mooniverse{
-	layer = 4;
-	pixel_y = 8
+/obj/structure/statue/gold/hop{
+	pixel_y = 9;
+	anchored = 1;
+	layer = 4
 	},
 /turf/simulated/floor/plasteel/goonplaque/memorial,
 /area/centcom/ss220/park)
@@ -31400,6 +31435,11 @@
 	icon_state = "grimy"
 	},
 /area/syndicate_mothership)
+"vYH" = (
+/turf/simulated/floor/plasteel/stairs{
+	dir = 8
+	},
+/area/syndicate_mothership/outside)
 "vYO" = (
 /obj/machinery/cryopod/offstation,
 /turf/simulated/floor/plasteel/dark{
@@ -32889,6 +32929,10 @@
 	pixel_x = -2;
 	pixel_y = -2
 	},
+/obj/item/clothing/mask/cigarette{
+	pixel_x = -8;
+	pixel_y = -3
+	},
 /turf/simulated/floor/beach/away/sand,
 /area/centcom/ss220/evac)
 "wZp" = (
@@ -33703,6 +33747,10 @@
 	},
 /turf/simulated/floor/grass/jungle,
 /area/centcom/ss220/park)
+"xtm" = (
+/obj/item/bikehorn/golden,
+/turf/space,
+/area/space/centcomm)
 "xty" = (
 /obj/machinery/door/window/brigdoor{
 	color = "red";
@@ -38054,7 +38102,7 @@ tJz
 chQ
 tJz
 tJz
-tJz
+vYH
 tJz
 mlS
 tPk
@@ -38310,9 +38358,9 @@ tJz
 mlS
 tPk
 tJz
-tJz
-tJz
-tJz
+vqr
+nGd
+thM
 tJz
 tJz
 mAN
@@ -38568,7 +38616,7 @@ tJz
 tJz
 chQ
 tJz
-tJz
+aGA
 tJz
 tJz
 tJz
@@ -48909,7 +48957,7 @@ bnh
 adJ
 bnh
 adJ
-adJ
+xtm
 bnh
 adJ
 adJ
@@ -49425,7 +49473,7 @@ bnh
 adJ
 adJ
 bnh
-adJ
+tuO
 adJ
 bnh
 adJ
@@ -54287,7 +54335,7 @@ iKO
 qvv
 nnF
 eVw
-dHW
+lYo
 buT
 buT
 buT
@@ -54545,7 +54593,7 @@ qvv
 xGd
 xkj
 hqY
-dGO
+dHW
 buT
 buT
 buT
@@ -54803,7 +54851,7 @@ qvv
 qvv
 eVw
 rLs
-buT
+dGO
 buT
 buT
 buT
@@ -55060,7 +55108,7 @@ qvv
 qvv
 mcG
 dOQ
-buT
+kAL
 buT
 buT
 buT
@@ -55317,7 +55365,7 @@ qvv
 pUg
 oks
 vWq
-kAL
+buT
 buT
 buT
 qvv
