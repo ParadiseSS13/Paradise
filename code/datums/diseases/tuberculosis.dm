@@ -10,7 +10,7 @@
 	cure_chance = 5//like hell are you getting out of hell
 	desc = "A rare highly transmittable virulent virus. Few samples exist, rumoured to be carefully grown and cultured by clandestine bio-weapon specialists. Causes fever, blood vomiting, lung damage, weight loss, and fatigue."
 	required_organs = list(/obj/item/organ/internal/lungs)
-	severity = DANGEROUS
+	severity = HARMFUL
 	bypasses_immunity = TRUE //Fungal and bacterial in nature; also infects the lungs
 
 /datum/disease/tuberculosis/stage_act()

@@ -9,7 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will probably drive others to insanity."
-	severity = MEDIUM
+	severity = MINOR
 
 /datum/disease/pierrot_throat/stage_act()
 	if(!..())
@@ -39,7 +39,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will probably drive others to insanity and go insane themselves."
-	severity = DANGEROUS
+	severity = MINOR
 
 /datum/disease/pierrot_throat/advanced/stage_act()
 	if(!..())

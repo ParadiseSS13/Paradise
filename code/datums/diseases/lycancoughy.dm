@@ -9,7 +9,7 @@
 	agent = "Excess Snuggles"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/human/monkey)
 	desc = "If left untreated subject will regurgitate... puppies."
-	severity = MEDIUM
+	severity = HARMFUL
 	var/barklimit = 0
 
 /datum/disease/lycan/stage_act()

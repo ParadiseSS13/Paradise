@@ -9,7 +9,7 @@
 	agent = "Rincewindus Vulgaris"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
-	severity = HARMFUL
+	severity = MINOR
 	required_organs = list(/obj/item/organ/external/head)
 
 /*

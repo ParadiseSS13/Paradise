@@ -9,7 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 1
 	desc = "If left untreated the subject will become very weak, and may vomit often."
-	severity = "Dangerous!"
+	severity = MINOR
 	disease_flags = CAN_CARRY|CAN_RESIST
 	visibility_flags = HIDDEN_PANDEMIC
 	required_organs = list(/obj/item/organ/internal/appendix)

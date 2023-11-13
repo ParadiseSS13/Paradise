@@ -29,7 +29,7 @@
 	cure_chance = 10
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 6
-	severity = DANGEROUS
+	severity = MINOR
 	disease_flags = CURABLE
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
@@ -91,7 +91,7 @@
 	needs_all_cures = FALSE
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 5
-	severity = DANGEROUS
+	severity = HARMFUL
 	disease_flags = CURABLE
 	required_organs = list(/obj/item/organ/internal/heart)
 	bypasses_immunity = TRUE
@@ -143,7 +143,7 @@
 	cure_text = "Eating or administration of vitamins or nutrients"
 	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 1
-	severity = DANGEROUS
+	severity = MINOR
 	disease_flags = CURABLE
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE

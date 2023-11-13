@@ -9,7 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
-	severity = DANGEROUS
+	severity = BIOHAZARD
 
 /datum/disease/kingstons/stage_act()
 	if(!..())
