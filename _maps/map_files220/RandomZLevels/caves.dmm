@@ -4099,11 +4099,9 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "uO" = (
-/mob/living/simple_animal/hostile/skeleton/deadwizard{
-	wander = 0
-	},
 /obj/structure/stone_tile/slab,
 /obj/structure/stone_tile/slab,
+/mob/living/simple_animal/hostile/deadwizard,
 /turf/simulated/floor/engine/cult/lavaland_air{
 	planetary_atmos = 1
 	},
@@ -5732,14 +5730,14 @@
 	},
 /area/awaymission/caves)
 "Dw" = (
-/obj/structure{
-	icon_state = "holopad_open";
-	icon = 'icons/obj/stationobjs.dmi';
-	desc = "Holopad for long-distance communication.";
-	name = "holopad"
-	},
-/obj/effect/spawner/random_spawners/dirt_often,
 /obj/machinery/light/small/directional/west,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil{
+	amount = 5
+	},
+/obj/item/stock_parts/capacitor/adv,
+/obj/item/circuitboard/holopad,
+/obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "dark"

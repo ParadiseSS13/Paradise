@@ -188,42 +188,6 @@
 	melee_damage_upper = 30
 	speed = -1
 
-/mob/living/simple_animal/hostile/skeleton/deadwizard
-	name = "древний маг"
-	desc = "Древний волшебник, тысячелетиями властвующий над проклятым могильником."
-	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
-	icon_living = "deadwizard"
-	icon_state = "deadwizard"
-	maxHealth = 400
-	health = 400
-	ranged = 1
-	retreat_distance = 7
-	minimum_distance = 5
-	ranged_cooldown_time = 5
-	ranged_ignores_vision = TRUE
-	aggro_vision_range = 12
-	vision_range = 12
-	del_on_death = 1
-	projectilesound = 'sound/magic/blind.ogg'
-	loot = list(
-	/obj/effect/decal/remains/human,
-	/obj/item/clothing/head/crown,
-	/obj/item/clothing/suit/imperium_monk,
-	/obj/effect/particle_effect/smoke/bad,
-	/obj/item/emerald_stone)
-
-/mob/living/simple_animal/hostile/skeleton/deadwizard/Shoot(atom/targeted_atom)
-	..()
-	if (get_dist(src, targeted_atom) > 9)
-		rapid = 1
-		ranged_cooldown_time = 15
-		projectiletype = /obj/item/projectile/magic/fireball/infernal
-	else
-		projectiletype = /obj/item/projectile/magic/arcane_barrage
-		rapid = 4
-		rapid_fire_delay = 1
-		ranged_cooldown_time = 15
-
 /* Vox Raiders */
 /mob/living/simple_animal/hostile/vox
 	name = "Vox Raider"
@@ -548,6 +512,9 @@
 	minbodytemp = 0
 	weather_immunities = list("ash")
 	stat_attack = UNCONSCIOUS
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	tts_seed = "Anubarak"
 
 /mob/living/simple_animal/hostile/abomination/super
 	desc = "Оскалившийся, страшный монстр. Этот кажется проворным."
@@ -607,7 +574,7 @@
 	del_on_death = TRUE
 	random_color = FALSE
 
-/* Clown */
+/* Caves bosses */
 /mob/living/simple_animal/hostile/clown/mutant
 	name = "неизвестный"
 	desc = "Что бы это не было, уничтожь его!"
@@ -634,3 +601,56 @@
 	attacktext = "неловко замахивается на"
 	loot = list(/obj/item/clothing/mask/gas/clown_hat, /obj/effect/gibspawner/human, /obj/effect/gibspawner/human, /obj/item/grown/bananapeel, /obj/item/bikehorn/golden)
 	wander = FALSE
+
+/mob/living/simple_animal/hostile/deadwizard
+	name = "\improper древний маг"
+	desc = "Древний некромант, тысячелетиями властвующий над проклятым могильником."
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_living = "deadwizard"
+	icon_state = "deadwizard"
+	mob_biotypes = MOB_UNDEAD | MOB_HUMANOID
+	turns_per_move = 5
+	speak_emote = list("rattles")
+	emote_see = list("rattles")
+	a_intent = INTENT_HARM
+	maxHealth = 400
+	health = 400
+	ranged = TRUE
+	retreat_distance = 7
+	minimum_distance = 5
+	ranged_cooldown_time = 5
+	ranged_ignores_vision = TRUE
+	robust_searching = TRUE
+	aggro_vision_range = 12
+	vision_range = 12
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	minbodytemp = 0
+	maxbodytemp = 1500
+	speed = 1
+	healable = FALSE
+	stat_attack = UNCONSCIOUS
+	faction = list("skeleton")
+	projectilesound = 'sound/magic/blind.ogg'
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	deathmessage = "collapses into a pile of bones!"
+	del_on_death = TRUE
+	loot = list(
+	/obj/effect/decal/remains/human,
+	/obj/item/clothing/head/crown,
+	/obj/item/clothing/suit/imperium_monk,
+	/obj/effect/particle_effect/smoke/bad,
+	/obj/item/emerald_stone)
+	tts_seed = "Abaddon"
+
+/mob/living/simple_animal/hostile/deadwizard/Shoot(atom/targeted_atom)
+	..()
+	if (get_dist(src, targeted_atom) > 9)
+		rapid = 1
+		ranged_cooldown_time = 15
+		projectiletype = /obj/item/projectile/magic/fireball/infernal
+	else
+		projectiletype = /obj/item/projectile/magic/arcane_barrage
+		rapid = 4
+		rapid_fire_delay = 1
+		ranged_cooldown_time = 15
