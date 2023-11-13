@@ -258,6 +258,7 @@
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
 	add_attack_logs(user, L, "stunned")
+	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
 	return TRUE
 
