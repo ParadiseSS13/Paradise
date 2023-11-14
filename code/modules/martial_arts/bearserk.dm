@@ -39,7 +39,12 @@
 /obj/item/clothing/head/bearpelt/bearserk
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 20, RAD = 0, FIRE = 10, ACID = 10)
 	body_parts_covered = UPPER_TORSO|HEAD|ARMS
-	var/datum/martial_art/bearserk/style = new
+	var/datum/martial_art/bearserk/style
+	
+/obj/item/clothing/head/bearpelt/bearserk/Initialize()
+	. = ..()
+	style = new()
+
 
 /obj/item/clothing/head/bearpelt/bearserk/equipped(mob/user, slot)
 	..()
