@@ -369,7 +369,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		H.remove_hud_from(src)
 
 /mob/dead/observer/proc/set_radiation_view(enabled)
-	if (enabled)
+	if(enabled)
 		seerads = TRUE
 		START_PROCESSING(SSobj, src)
 	else
@@ -711,7 +711,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 
 /mob/dead/observer/update_sight()
-	if (!ghostvision)
+	if(!ghostvision)
 		see_invisible = SEE_INVISIBLE_LIVING
 	else
 		see_invisible = SEE_INVISIBLE_OBSERVER
