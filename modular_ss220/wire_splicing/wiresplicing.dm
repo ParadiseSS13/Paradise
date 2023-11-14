@@ -38,11 +38,11 @@
 
 	//At messiness of 2 or below, triggering when walking on a catwalk is impossible
 	//Above that it becomes possible, so we will change the layer to make it poke through catwalks
-	if (messiness > 2)
+	if(messiness > 2)
 		layer = LOW_OBJ_LAYER  // I wont do such stuff on splicing "reinforcement". Take it as nasty feature
 
 	//Wire splice can only exist on a cable. Lets try to place it in a good location
-	if (locate(/obj/structure/cable) in get_turf(src)) //if we're already in a good location, no problem!
+	if(locate(/obj/structure/cable) in get_turf(src)) //if we're already in a good location, no problem!
 		return
 
 	//Make a list of turfs with cables in them
@@ -54,11 +54,11 @@
 		var/turf/simulated/floor/T = get_turf(C)
 
 		//Wire inside a wall? can't splice there
-		if (!istype(T))
+		if(!istype(T))
 			continue
 
 		//We already checked this one
-		if (T in candidates)
+		if(T in candidates)
 			continue
 
 		var/turf_score = 0
@@ -66,28 +66,28 @@
 		//Nobody walks on underplating so we don't want to place traps there
 
 		var/turf/space/W = get_turf(C)
-		if (!istype(W))
+		if(!istype(W))
 			continue //No traps in space
 
 		/*
 		//Catwalks are made for walking on, we definitely want traps there
-		if (locate(/obj/structure/catwalk) in T)
+		if(locate(/obj/structure/catwalk) in T)
 			turf_score += 2
 		*/
 
 		//If its below the threshold ignore it
-		if (turf_score < best_score)
+		if(turf_score < best_score)
 			continue
 
 		//If it sets a new threshold, discard everything before
-		else if (turf_score > best_score)
+		else if(turf_score > best_score)
 			best_score = turf_score
 			candidates.Cut()
 
 		candidates.Add(T)
 
 	//No nearby cables? Cancel
-	if (!length(candidates))
+	if(!length(candidates))
 		return INITIALIZE_HINT_QDEL
 
 	loc = pick(candidates)

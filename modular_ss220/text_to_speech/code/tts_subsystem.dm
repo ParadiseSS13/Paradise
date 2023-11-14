@@ -333,7 +333,7 @@ SUBSYSTEM_DEF(tts220)
 
 	rustg_ss220_file_write_b64decode(voice, "[filename].ogg")
 
-	if (!GLOB.configuration.tts.tts_cache_enabled)
+	if(!GLOB.configuration.tts.tts_cache_enabled)
 		addtimer(CALLBACK(src, PROC_REF(cleanup_tts_file), "[filename].ogg"), 30 SECONDS)
 
 	for(var/datum/callback/cb in tts_queue[filename])
