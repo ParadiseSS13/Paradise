@@ -46,6 +46,7 @@
 	var/datum/martial_art/bearserk/style = new
 
 /obj/item/clothing/head/bearpelt/bearserk/equipped(mob/user, slot)
+	..()
 	if(!ishuman(user))
 		return
 	if(!isAntag(user))
