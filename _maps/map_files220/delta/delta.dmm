@@ -73929,12 +73929,12 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_y = 6;
-	pixel_x = -6
+	pixel_x = -6;
 	volume = 0
 	},
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_y = 6;
-	pixel_x = 8
+	pixel_x = 8;
 	volume = 0
 	},
 /obj/machinery/light/small/directional/south,
@@ -101432,7 +101432,7 @@
 /obj/machinery/light/small/directional/south,
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_y = 6;
-	pixel_x = 8
+	pixel_x = 8;
 	volume = 0
 	},
 /turf/simulated/floor/plasteel{
