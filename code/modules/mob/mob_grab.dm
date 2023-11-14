@@ -87,7 +87,7 @@
 	if(!assailant.Adjacent(old_turf))
 		qdel(src)
 		return
-	var/grab_states_not_moving = list(GRAB_KILL, GRAB_NECK) //states of grab when we dont need affecting to be moved by himself
+	var/list/grab_states_not_moving = list(GRAB_KILL, GRAB_NECK) //states of grab when we dont need affecting to be moved by himself
 	var/assailant_glide_speed = TICKS2DS(world.icon_size/assailant.glide_size)
 	if(state in grab_states_not_moving)
 		affecting.glide_for(assailant_glide_speed)
