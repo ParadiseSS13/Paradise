@@ -11544,7 +11544,6 @@
 	pixel_y = 30
 	},
 /obj/item/reagent_containers/food/drinks/britcup{
-	initialized = 1;
 	list_reagents = list("tea"=15);
 	pixel_x = 4;
 	pixel_y = 2
@@ -32216,7 +32215,6 @@
 	},
 /obj/machinery/light/directional/south,
 /obj/item/reagent_containers/food/drinks/britcup{
-	initialized = 1;
 	list_reagents = list("tea"=15);
 	pixel_x = 4;
 	pixel_y = 2
@@ -48258,18 +48256,15 @@
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka{
 	pixel_y = 12;
-	pixel_x = 6;
-	initialized = 1
+	pixel_x = 6
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_y = 8;
-	pixel_x = -1;
-	initialized = 1
+	pixel_x = -1
 	},
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
 	pixel_y = 2;
-	pixel_x = -1;
-	initialized = 1
+	pixel_x = -1
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -56913,8 +56908,7 @@
 	},
 /obj/item/reagent_containers/food/snacks/grown/banana{
 	pixel_x = -4;
-	pixel_y = -6;
-	initialized = 1
+	pixel_y = -6
 	},
 /obj/item/bikehorn{
 	pixel_y = 4;
@@ -67457,8 +67451,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/bottle/holywater{
 	pixel_y = 4;
-	pixel_x = -8;
-	initialized = 1
+	pixel_x = -8
 	},
 /obj/structure/sign/poster/official/random/north,
 /obj/effect/decal/cleanable/dust,
