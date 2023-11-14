@@ -626,11 +626,7 @@
 		else if(effect <= 8)
 			M.Druggy(30 SECONDS)
 	else if(severity == 2)
-		if(effect <= 2)
-			to_chat(M, "<span class='warning'>Something doesn't feel quite right...</span>")
-			M.Druggy(30 SECONDS)
-			M.AdjustHallucinate(30 SECONDS)
-		else if(effect <= 4)
+		if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
@@ -642,6 +638,11 @@
 		else if(effect <= 15)
 			to_chat(M, "<span class='warning'>You feel a wave of drowsiness wash over you.</span>")
 			M.SetSleeping(5 SECONDS)
+		else if(effect <= 20)
+			to_chat("<span class='warning'>Something doesn't feel quite right!</span>")
+			M.Druggy(30 SECONDS)
+		if(effect <= 30)
+			M.AdjustHallucinate(30 SECONDS)
 	return list(effect, update_flags)
 
 /datum/reagent/medicine/morphine
