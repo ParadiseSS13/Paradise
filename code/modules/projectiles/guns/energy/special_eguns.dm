@@ -553,7 +553,7 @@
 	var/max_temp = 500
 
 	/// How fast the gun changes temperature
-	var/recharge_multiplier = 10
+	var/temperature_multiplier = 10
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -596,17 +596,17 @@
 		to_chat(user, "<span class='warning'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
-		recharge_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
+		temperature_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
 
 /obj/item/gun/energy/temperature/process()
 	..()
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
-		if(difference >= recharge_multiplier)
+		if(difference >= temperature_multiplier)
 			if(target_temperature < temperature)
-				temperature -= recharge_multiplier
+				temperature -= temperature_multiplier
 			else
-				temperature += recharge_multiplier
+				temperature += temperature_multiplier
 		else
 			temperature = target_temperature
 		update_icon()
