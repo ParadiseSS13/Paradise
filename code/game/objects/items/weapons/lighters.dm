@@ -128,7 +128,7 @@
 	return ..()
 
 /obj/item/lighter/update_overlays()
-	icon_state = "[base_item_state ? "[base_item_state]" : "[initial(item_state)]"][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
+	item_state = "[base_item_state ? "[base_item_state]" : "[initial(item_state)]"][lighter_color ? "-[lighter_color]" : ""][lit ? "-on" : ""]"
 	return ..()
 
 // Zippo lighters
