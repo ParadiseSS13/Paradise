@@ -65,6 +65,7 @@
 #include "radio_sound/radio_sound.dme"
 #include "screentip_change/_screentip_change.dme"
 #include "smart_equip_targeted/_smart_equip_targeted.dme"
+#include "sm_space_drop/sm_space_drop.dme"
 #include "text_to_speech/_tts.dme"
 #include "title_screen/_title_screen.dme"
 #include "whitelist/_whitelist.dme"
