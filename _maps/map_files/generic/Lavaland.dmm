@@ -769,10 +769,10 @@
 	},
 /area/mine/outpost/storage)
 "bW" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -1054,10 +1054,10 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "cy" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "cz" = (
@@ -1630,10 +1630,10 @@
 /area/mine/outpost/airlock)
 "dG" = (
 /obj/machinery/atmospherics/binary/pump/on,
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -2128,7 +2128,6 @@
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "eD" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2143,6 +2142,7 @@
 	d2 = 8;
 	icon_state = "4-9"
 	},
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "eE" = (
@@ -2578,7 +2578,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "fv" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3442,7 +3442,7 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "ir" = (
@@ -3837,10 +3837,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kA" = (
-/obj/structure/stone_tile,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
+/obj/effect/baseturf_helper/asteroid/basalt,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
 "kB" = (
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/surrounding_tile{
@@ -4681,15 +4680,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"nQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/alarm{
-	dir = 8;
-	name = "east bump";
-	pixel_x = 24
-	},
-/turf/simulated/floor/plasteel,
-/area/mine/laborcamp)
 "nX" = (
 /obj/structure/disposaloutlet,
 /obj/structure/lattice/catwalk/mining,
@@ -5126,7 +5116,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "rM" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "rP" = (
@@ -5861,7 +5851,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "xA" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
@@ -5872,6 +5861,7 @@
 	icon_state = "1-2"
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -5986,8 +5976,8 @@
 	},
 /area/mine/laborcamp)
 "yp" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "yq" = (
@@ -6052,7 +6042,7 @@
 	dir = 9;
 	network = list("Mining Outpost")
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "yO" = (
@@ -6297,7 +6287,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Av" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -6902,8 +6892,8 @@
 	},
 /area/mine/outpost/lockers)
 "EF" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/item/cigbutt,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7318,10 +7308,10 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull";
 	dir = 8
@@ -7428,7 +7418,6 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Jb" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -7441,6 +7430,7 @@
 	d2 = 4
 	},
 /obj/item/radio/beacon,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -7620,7 +7610,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -7628,6 +7617,7 @@
 	c_tag = "Mining Outpost - Custodial Storage";
 	network = list("Mining Outpost")
 	},
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreencorners"
 	},
@@ -8606,7 +8596,6 @@
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "SX" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -8617,6 +8606,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-4"
 	},
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/comms)
 "Ta" = (
@@ -8657,7 +8647,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "Ts" = (
@@ -8873,6 +8863,11 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"Vq" = (
+/obj/structure/stone_tile,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Vt" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp Central";
@@ -9058,7 +9053,6 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "Wf" = (
-/obj/effect/baseturf_helper/lava_land/surface,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -9068,6 +9062,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -12644,7 +12639,7 @@ BP
 Bg
 kI
 iB
-pq
+kA
 pq
 IR
 xD
@@ -15979,7 +15974,7 @@ aq
 tZ
 qA
 JZ
-nQ
+JZ
 JZ
 JZ
 JZ
@@ -36656,7 +36651,7 @@ Ly
 IZ
 Ly
 Ly
-kA
+Vq
 pn
 Cg
 pT
@@ -36906,7 +36901,7 @@ VU
 nr
 Ly
 Ly
-kA
+Vq
 Ly
 Ly
 Ly
@@ -37674,7 +37669,7 @@ Ly
 Ly
 rW
 GC
-kA
+Vq
 Ly
 Ly
 Xc
@@ -38705,9 +38700,9 @@ Ly
 Ly
 Ly
 GC
-kA
+Vq
 Ly
-kA
+Vq
 Ly
 rP
 GC
@@ -39230,7 +39225,7 @@ Ci
 Ly
 Ly
 Ly
-kA
+Vq
 Ly
 aa
 ak
@@ -39985,7 +39980,7 @@ aa
 sW
 GC
 jC
-kA
+Vq
 FL
 Ly
 Ly
@@ -40246,7 +40241,7 @@ MS
 Ly
 jC
 GC
-kA
+Vq
 Ly
 VU
 Ly
@@ -41022,7 +41017,7 @@ rP
 Ly
 Ly
 Ly
-kA
+Vq
 sW
 hF
 Ly
@@ -41272,7 +41267,7 @@ GC
 jC
 Ly
 nB
-kA
+Vq
 rP
 Ly
 VU
@@ -41281,7 +41276,7 @@ SS
 Ly
 sW
 Ly
-kA
+Vq
 rP
 nr
 Ly
@@ -41513,7 +41508,7 @@ VU
 Ly
 sW
 Ly
-kA
+Vq
 Ly
 XE
 Ly
@@ -41783,7 +41778,7 @@ rW
 FF
 FF
 FF
-kA
+Vq
 Fv
 Zs
 vo
@@ -41795,7 +41790,7 @@ Ly
 or
 rb
 Ly
-kA
+Vq
 Xl
 rb
 vo
@@ -42032,7 +42027,7 @@ Ly
 XE
 Ly
 Ly
-kA
+Vq
 wd
 rP
 Ly
@@ -42534,7 +42529,7 @@ lw
 aj
 wf
 wf
-kA
+Vq
 Ly
 Ly
 Ly
@@ -42817,7 +42812,7 @@ EQ
 VU
 sW
 Ly
-kA
+Vq
 Ly
 SS
 Ly
@@ -43073,7 +43068,7 @@ jC
 jC
 Ly
 Fv
-kA
+Vq
 sW
 Ly
 Ly
@@ -43085,7 +43080,7 @@ Ly
 jC
 jC
 Ly
-kA
+Vq
 Ly
 aa
 ak
@@ -43846,7 +43841,7 @@ GC
 jC
 VU
 Ly
-kA
+Vq
 Ly
 rP
 Ly
@@ -44114,7 +44109,7 @@ Xl
 sW
 GC
 jC
-kA
+Vq
 aa
 ak
 ak
@@ -44364,7 +44359,7 @@ ft
 VU
 IZ
 Ly
-kA
+Vq
 IZ
 Ly
 Ly
@@ -44611,7 +44606,7 @@ aa
 Ly
 Ly
 Ly
-kA
+Vq
 Ly
 Ly
 Ly
@@ -45138,7 +45133,7 @@ Ly
 ft
 Ly
 Ly
-kA
+Vq
 Ly
 rW
 Ly
@@ -47182,7 +47177,7 @@ aa
 wf
 ta
 DR
-kA
+Vq
 kT
 Ly
 Ly

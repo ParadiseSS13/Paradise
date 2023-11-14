@@ -686,6 +686,7 @@
 					new_objective:target = new_target:mind
 					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
 					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+					new_objective.establish_signals()
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
