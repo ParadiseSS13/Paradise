@@ -5,6 +5,7 @@
 #include "code/big_bed.dm"
 #include "code/billboard.dm"
 #include "code/closets.dm"
+#include "code/hampters.dm"
 #include "code/mattress.dm"
 #include "code/miscellaneous.dm"
 #include "code/officetoys.dm"
