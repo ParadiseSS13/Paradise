@@ -295,7 +295,7 @@
 			else
 				to_chat(usr, "<span class='danger'>This person is not in good enough condition for sleepers to be effective! Use another means of treatment, such as cryogenics!</span>")
 		if("removebeaker")
-			remove_beaker()
+			remove_beaker(usr)
 		if("togglefilter")
 			toggle_filter()
 		if("ejectify")
