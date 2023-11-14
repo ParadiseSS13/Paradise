@@ -257,7 +257,7 @@
 
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
-	L.visible_message("<span class='danger'>[src] has stunned [L]!</span>")
+	L.visible_message("<span class='danger'>[src] stuns [L]!</span>")
 	add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
