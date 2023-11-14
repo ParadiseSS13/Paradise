@@ -545,7 +545,6 @@
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	selfcharge = TRUE
 
 	// Measured in Kelvin
 	var/temperature = T20C
@@ -553,8 +552,8 @@
 	var/min_temp = 0
 	var/max_temp = 500
 
-	/// How fast the gun recharges
-	var/recharge_multiplier = 1
+	// This var is actually how fast the gun changes temperature, uses this var for some god forsaken reason..
+	var/recharge_multiplier = 10
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -597,17 +596,17 @@
 		to_chat(user, "<span class='caution'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
-		recharge_multiplier = 5  //so emagged temp guns adjust their temperature much more quickly
+		recharge_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
 
 /obj/item/gun/energy/temperature/process()
 	..()
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
-		if(difference >= (10 * recharge_multiplier))
+		if(difference >= (recharge_multiplier))
 			if(target_temperature < temperature)
-				temperature -= (10 * recharge_multiplier)
+				temperature -= (recharge_multiplier)
 			else
-				temperature += (10 * recharge_multiplier)
+				temperature += (recharge_multiplier)
 		else
 			temperature = target_temperature
 		update_icon()
