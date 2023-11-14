@@ -65,9 +65,8 @@
 		var/mob/M = pick_n_take(candidates)
 		S.key = M.key
 		dust_if_respawnable(M)
-		if(infestation_type != PRINCE_SPIDER)
-			S.forceMove(vent)
-			S.add_ventcrawl(vent)
+		S.forceMove(vent)
+		S.add_ventcrawl(vent)
 		SEND_SOUND(S, sound('sound/ambience/antag/terrorspider.ogg'))
 		S.give_intro_text()
 		spawncount--
