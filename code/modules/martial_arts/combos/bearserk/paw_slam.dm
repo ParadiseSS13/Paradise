@@ -4,7 +4,7 @@
 	explaination_text = "Slap an opponent with a mighty paw, knocking them down. Beats down harder on already knocked down opponents."
 
 /datum/martial_combo/bearserk/paw_slam/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(target.IsWeakened() || IS_HORIZONTAL(target))
+	if(IS_HORIZONTAL(target))
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 		target.visible_message("<span class='warning'>[user] pounds down on [target] with both fists!</span>", \
 						"<span class='userdanger'>[user] pounds down on you with both fists!</span>")
