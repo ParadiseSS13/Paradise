@@ -51,9 +51,7 @@
 
 /obj/item/clothing/head/bearpelt/bearserk/equipped(mob/user, slot)
 	..()
-	if(!ishuman(user))
-		return
-	if(!isAntag(user))
+	if(!ishuman(user) && (!isAntag(user))
 		return
 	if(slot == SLOT_HUD_HEAD)
 		var/mob/living/carbon/human/H = user
