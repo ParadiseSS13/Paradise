@@ -304,6 +304,10 @@
 		for(var/obj/item/grab/G in target.grabbed_by)
 			if(ishuman(G.assailant))
 				excess_shock(user, target, G.assailant, defib_ref)
+		if(target.receiving_cpr_from)
+			var/mob/living/L = locateUID(target.receiving_cpr_from)
+			if(istype(L))
+				excess_shock(user, target, L, defib_ref)
 
 		target.med_hud_set_health()
 		target.med_hud_set_status()
