@@ -29,8 +29,6 @@ Bonus
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/carbon/M = A.affected_mob
-		if(!M) // Don't know how we got here, but we did
-			return
 		to_chat(M, "<span class='warning'>[pick("You feel cold.", "You start shivering.")]</span>")
 		if(M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT)
 			Chill(M, A)
