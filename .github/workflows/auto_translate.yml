@@ -33,6 +33,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r ./tools/translator/requirements.txt
 
+      - name: Git fetch
+        run: |
+          git fetch
+
       - name: Create temporary branch
         run: |
           git checkout -b translate_tmp ${{ github.sha }}^
@@ -49,7 +53,7 @@ jobs:
 
       - name: 'Push Translation'
         run: |
-          git checkout translate
+          git checkout origin/translate
           git config --local user.email "action@github.com"
           git config --local user.name "ss220bot"
           git commit -m "Generate translation file"
