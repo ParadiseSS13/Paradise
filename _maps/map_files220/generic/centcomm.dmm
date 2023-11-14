@@ -5696,7 +5696,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/centcom/ss220/admin2)
 "dRR" = (
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/bike{
 	dir = 8
 	},
 /turf/simulated/floor/wood/oak,
@@ -22781,7 +22781,7 @@
 /area/shuttle/gamma/space)
 "pSB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/bike{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -25929,7 +25929,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/ss220/admin3)
 "rYA" = (
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/bike{
 	dir = 8
 	},
 /obj/structure/sign/poster/contraband/random{
@@ -29333,7 +29333,7 @@
 	},
 /area/syndicate_mothership/cargo)
 "uze" = (
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/bike{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -34000,7 +34000,7 @@
 	},
 /area/syndicate_mothership)
 "xCo" = (
-/obj/structure/chair/wheelchair/bike{
+/obj/vehicle/bike{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,

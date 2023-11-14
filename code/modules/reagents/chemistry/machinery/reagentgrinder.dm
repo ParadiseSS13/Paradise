@@ -348,13 +348,13 @@
 	SStgui.update_uis(src)
 
 /obj/machinery/reagentgrinder/proc/is_allowed(obj/item/reagent_containers/O)
-	for (var/i in blend_items)
+	for(var/i in blend_items)
 		if(istype(O, i))
 			return TRUE
 	return FALSE
 
 /obj/machinery/reagentgrinder/proc/get_allowed_by_id(obj/item/O)
-	for (var/i in blend_items)
+	for(var/i in blend_items)
 		if(istype(O, i))
 			return blend_items[i]
 
@@ -405,7 +405,7 @@
 		SStgui.update_uis(src)
 
 	//Snacks
-	for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+	for(var/obj/item/reagent_containers/food/snacks/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 
@@ -413,7 +413,7 @@
 		if(isnull(allowed))
 			break
 
-		for (var/r_id in allowed)
+		for(var/r_id in allowed)
 
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = get_juice_amount(O)
@@ -443,7 +443,7 @@
 		SStgui.update_uis(src)
 
 	//Snacks and Plants
-	for (var/obj/item/reagent_containers/food/snacks/O in holdingitems)
+	for(var/obj/item/reagent_containers/food/snacks/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 
@@ -451,7 +451,7 @@
 		if(isnull(allowed))
 			break
 
-		for (var/r_id in allowed)
+		for(var/r_id in allowed)
 
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = allowed[r_id]
@@ -482,7 +482,7 @@
 			remove_object(O)
 
 	//Sheets and rods(!)
-	for (var/obj/item/stack/O in holdingitems)
+	for(var/obj/item/stack/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 
@@ -495,7 +495,7 @@
 			if(!space) //if no free space - exit
 				break
 			O.amount -= 1 //remove one from stack
-			for (var/r_id in allowed)
+			for(var/r_id in allowed)
 				var/spaceused = min(allowed[r_id] * efficiency, space)
 				space -= spaceused
 				beaker.reagents.add_reagent(r_id, spaceused)
@@ -504,11 +504,11 @@
 				break
 
 	//Plants
-	for (var/obj/item/grown/O in holdingitems)
+	for(var/obj/item/grown/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 		var/allowed = get_allowed_by_id(O)
-		for (var/r_id in allowed)
+		for(var/r_id in allowed)
 			var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
 			var/amount = allowed[r_id]
 			if(amount == 0)
@@ -522,7 +522,7 @@
 		remove_object(O)
 
 	//Slime Extractis
-	for (var/obj/item/slime_extract/O in holdingitems)
+	for(var/obj/item/slime_extract/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 		var/space = beaker.reagents.maximum_volume - beaker.reagents.total_volume
@@ -534,7 +534,7 @@
 		remove_object(O)
 
 	//Everything else - Transfers reagents from it into beaker
-	for (var/obj/item/reagent_containers/O in holdingitems)
+	for(var/obj/item/reagent_containers/O in holdingitems)
 		if(beaker.reagents.holder_full())
 			break
 		var/amount = O.reagents.total_volume

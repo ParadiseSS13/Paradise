@@ -50,7 +50,7 @@
 		"[user] starts poking around inside [target]'s [affected.name] with \the [tool].",
 		"You start poking around inside [target]'s [affected.name] with \the [tool]."
 	)
-	target.custom_pain("The pain in your [affected.name] is living hell!")
+	affected.custom_pain("The pain in your [affected.name] is living hell!")
 	return ..()
 
 /datum/surgery_step/extract_implant/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
