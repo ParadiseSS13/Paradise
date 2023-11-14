@@ -50947,8 +50947,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/tray,
 /obj/item/ashtray/glass{
-	pixel_y = 4;
-	initialized = 1
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -73931,13 +73930,11 @@
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_y = 6;
 	pixel_x = -6;
-	initialized = 1;
 	volume = 0
 	},
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_y = 6;
 	pixel_x = 8;
-	initialized = 1;
 	volume = 0
 	},
 /obj/machinery/light/small/directional/south,
@@ -82917,8 +82914,7 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/bottle/holywater{
 	pixel_y = 4;
-	pixel_x = -8;
-	initialized = 1
+	pixel_x = -8
 	},
 /obj/item/storage/bible{
 	pixel_y = 6;
@@ -84947,8 +84943,7 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_y = 8;
-	pixel_x = -6;
-	initialized = 1
+	pixel_x = -6
 	},
 /obj/item/paper/pamphlet/deltainfo{
 	pixel_y = 4;
@@ -86683,8 +86678,7 @@
 	},
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_y = 6;
-	pixel_x = -6;
-	initialized = 1
+	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -101439,7 +101433,6 @@
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_y = 6;
 	pixel_x = 8;
-	initialized = 1;
 	volume = 0
 	},
 /turf/simulated/floor/plasteel{
