@@ -4,7 +4,7 @@
 	explaination_text = "Bite your opponent like a true lunatic, with even more savagery against knocked down targets."
 
 /datum/martial_combo/bearserk/bear_jaws/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
-	if(target.IsWeakened() || IS_HORIZONTAL(target))
+	if(IS_HORIZONTAL(target))
 		user.do_attack_animation(target, ATTACK_EFFECT_BITE)
 		target.visible_message("<span class='warning'>[user] leaps onto [target] and bites them, how barbaric!</span>",
 						"<span class='userdanger'>[user] leaps onto you and bites you like a real savage!</span>")
