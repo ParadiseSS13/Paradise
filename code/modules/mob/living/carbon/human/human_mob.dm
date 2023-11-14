@@ -1660,7 +1660,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
 		return
-	if(H.receiving_cpr_from) // To prevent spam stacking
+	if(!isnull(H.receiving_cpr_from)) // To prevent spam stacking
 		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
 		return
 	if(!can_use_hands() || !has_both_hands())
