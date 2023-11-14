@@ -224,7 +224,7 @@
 	message_mime = "acts out a scream!"
 	message_simple = "whimpers."
 	message_alien = "roars!"
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_MOUTH | EMOTE_AUDIBLE
 	mob_type_blacklist_typecache = list(
 		// Humans and silicons get specialized scream.
 		/mob/living/carbon/human,
