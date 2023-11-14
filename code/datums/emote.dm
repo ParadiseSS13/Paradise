@@ -220,7 +220,7 @@
 		else
 			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how someone [msg]</span>")
 
-		if(!((emote_type & EMOTE_FORCE_NO_RUNECHAT) || suppressed)) && !isobserver(user))
+		if(!((emote_type & EMOTE_FORCE_NO_RUNECHAT) || suppressed) && !isobserver(user))
 			runechat_emote(user, msg)
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key), src, key, emote_type, message, intentional)
