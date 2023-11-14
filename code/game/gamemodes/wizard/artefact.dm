@@ -40,7 +40,7 @@
 		new /obj/effect/particle_effect/smoke(H.loc)
 		var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
 		M.key = C.key
-		to_chat(M, "<B>You are the [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing their goals.")
+		to_chat(M, "<B>You are [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing their goals.")
 		equip_apprentice(action, M, H)
 		var/wizard_name_first = pick(GLOB.wizard_first)
 		var/wizard_name_second = pick(GLOB.wizard_second)
@@ -54,7 +54,6 @@
 		M.name = newname
 
 		var/datum/objective/protect/new_objective = new /datum/objective/protect
-		new_objective.owner = M.mind
 		new_objective.target = H.mind
 		new_objective.explanation_text = "Protect and obey [H.real_name], your teacher."
 		M.mind.add_mind_objective(new_objective)
@@ -109,16 +108,17 @@
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(M), SLOT_HUD_HEAD)
 			to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned reality bending mobility spells. You are able to cast Teleport, Blink and Ethereal Jaunt.")
 		if("restoration")
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
-			//TODO : replace jaunt with teleport to teacher
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt(null))
+			M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
+			var/obj/effect/proc_holder/spell/returntoteacher/S = new /obj/effect/proc_holder/spell/returntoteacher(null)
+			S.teacher = H.mind
+			M.mind.AddSpell(S)
 			M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), SLOT_HUD_RIGHT_HAND)
-			M.equip_to_slot_or_del(new /obj/item/gun/magic/wand/resurrection(M), SLOT_HUD_IN_BACKPACK)
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal/marisa(M), SLOT_HUD_SHOES)
 			M.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/marisa(M), SLOT_HUD_OUTER_SUIT)
 			M.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/marisa(M), SLOT_HUD_HEAD)
-			to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast Instant Summons and Charge for your Staff and Wand of Healing, and possess the ability to teleport back to your teacher.")
+			to_chat(M, "<B>Your service has not gone unrewarded, however. Studying under [H.real_name], you have learned livesaving survival spells. You are able to cast Charge and Knock, and possess the ability to teleport back to your teacher.")
+			to_chat(M, "<B>Your Charge spell can be used to recharge your Staff of Healing or reduce the cooldowns of your teacher, if you are grabbing them with empty hands.")
 		if("stealth")
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))

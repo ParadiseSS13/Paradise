@@ -52,9 +52,9 @@ export const WizardApprenticeContract = (props, context) => {
             <LabeledList.Item label="Restoration">
               Your apprentice is dedicated to supporting your magical prowess.
               <br />
-              They come equipped with a Healing Staff and Healing Wand, have the
-              unique ability to teleport back to you, and know Instant Summons
-              and Charge.
+              They come equipped with a Healing Staff, have the
+              unique ability to teleport back to you, and know Charge and
+              Knock.
               <br />
               <Button
                 content="Select"
