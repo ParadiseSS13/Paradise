@@ -644,7 +644,7 @@
 			to_chat(M, "<span class='warning'>You feel a wave of drowsiness wash over you.</span>")
 			M.SetSleeping(5 SECONDS)
 		else if(effect <= 20)
-			to_chat("<span class='warning'>Something doesn't feel quite right!</span>")
+			to_chat(M, "<span class='warning'>Something doesn't feel quite right!</span>")
 			M.Druggy(30 SECONDS)
 	return list(effect, update_flags)
 
