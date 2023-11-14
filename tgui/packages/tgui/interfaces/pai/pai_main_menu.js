@@ -85,8 +85,8 @@ export const pai_main_menu = (props, context) => {
               onClick={() => act('setSpeechStyle', { speech_state: s.name })}
             />
           ))}
-          </LabeledList.Item>
-          <LabeledList.Item label="Select Chassis Type">
+        </LabeledList.Item>
+        <LabeledList.Item label="Select Chassis Type">
           {available_chassises.map((c) => (
             <Button
               key={c.id}
