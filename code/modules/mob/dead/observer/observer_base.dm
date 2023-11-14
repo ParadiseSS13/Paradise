@@ -800,12 +800,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!GLOB.configuration.general.restrict_antag_hud_rejoin || !has_ahudded())
 		return TRUE
 
-	if(ckey in GLOB.roundstart_observer_keys)
+	if(is_roundstart_observer())
 		return allow_roundstart_observers
 	return FALSE
 
-/mob/dead/observer/proc/is_roundstart_observer()
-	return (ckey in GLOB.roundstart_observer_keys)
-
-/mob/dead/observer/proc/has_ahudded()
-	return (ckey in GLOB.antag_hud_users)

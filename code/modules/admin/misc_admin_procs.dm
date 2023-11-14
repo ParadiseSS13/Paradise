@@ -118,8 +118,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
 	if(M.ckey)
-		body += "<b>Has enabled antag hud</b>: [(M.ckey in GLOB.antag_hud_users) ? "false" : "<b><font color='red'>TRUE</font>"]<br>"
-		body += "<b>Was roundstart observer</b>: [(M.ckey in GLOB.roundstart_observer_keys) ? "false" : "true"]<br>"
+		body += "<b>Enabled AntagHUD</b>: [M.has_ahudded() ? "<b><font color='red'>TRUE</font>" : "false"]<br>"
+		body += "<b>Roundstart observer</b>: [M.is_roundstart_observer() ? "<b>true</b>" : "false"]<br>"
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "

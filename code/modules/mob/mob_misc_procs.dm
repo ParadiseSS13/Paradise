@@ -800,3 +800,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 /mob/proc/attempt_listen_to_deadsay()
 
+
+/mob/proc/is_roundstart_observer()
+	return (ckey in GLOB.roundstart_observer_keys)
+
+/mob/proc/has_ahudded()
+	return (ckey in GLOB.antag_hud_users)
