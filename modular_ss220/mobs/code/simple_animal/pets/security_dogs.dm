@@ -306,7 +306,7 @@
 			DF.obj_color = inventory_head.color
 
 
-		if (icon_state == icon_resting)
+		if(icon_state == icon_resting)
 			head_icon = DF.get_overlay()
 			head_icon.pixel_y = -2
 		else

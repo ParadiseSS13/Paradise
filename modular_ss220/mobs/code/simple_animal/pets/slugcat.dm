@@ -114,7 +114,7 @@
 		usr.unset_machine()
 		return
 
-	if (stat == DEAD)
+	if(stat == DEAD)
 		return 0
 
 	if(href_list["remove_inv"])

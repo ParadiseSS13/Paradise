@@ -105,7 +105,7 @@
 	if(!gripped_item)
 		return
 	gripped_item.tool_act(user, tool, tool_type)
-	if (QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
+	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
 
 /obj/item/gripper/attackby(obj/item/weapon, mob/user, params)

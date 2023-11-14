@@ -270,11 +270,11 @@
 				if(event.keyCode == 13){	//Enter / return
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for ( var i = 0; i < lis.length; ++i )
+					for(var i = 0; i < lis.length; ++i)
 					{
 						try{
 							var li = lis\[i\];
-							if ( li.style.backgroundColor == "#ffee88" )
+							if(li.style.backgroundColor == "#ffee88")
 							{
 								alist = lis\[i\].getElementsByTagName("a")
 								if(alist.length > 0){
@@ -288,13 +288,13 @@
 				if(event.keyCode == 38){	//Up arrow
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for ( var i = 0; i < lis.length; ++i )
+					for(var i = 0; i < lis.length; ++i)
 					{
 						try{
 							var li = lis\[i\];
-							if ( li.style.backgroundColor == "#ffee88" )
+							if(li.style.backgroundColor == "#ffee88")
 							{
-								if( (i-1) >= 0){
+								if((i-1) >= 0){
 									var li_new = lis\[i-1\];
 									li.style.backgroundColor = "white";
 									li_new.style.backgroundColor = "#ffee88";
@@ -308,13 +308,13 @@
 				if(event.keyCode == 40){	//Down arrow
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for ( var i = 0; i < lis.length; ++i )
+					for(var i = 0; i < lis.length; ++i)
 					{
 						try{
 							var li = lis\[i\];
-							if ( li.style.backgroundColor == "#ffee88" )
+							if(li.style.backgroundColor == "#ffee88")
 							{
-								if( (i+1) < lis.length){
+								if((i+1) < lis.length){
 									var li_new = lis\[i+1\];
 									li.style.backgroundColor = "white";
 									li_new.style.backgroundColor = "#ffee88";
@@ -337,11 +337,11 @@
 				}else{
 					var vars_ol = document.getElementById('vars');
 					var lis = vars_ol.getElementsByTagName("li");
-					for ( var i = 0; i < lis.length; ++i )
+					for(var i = 0; i < lis.length; ++i)
 					{
 						try{
 							var li = lis\[i\];
-							if ( li.innerText.toLowerCase().indexOf(filter) == -1 )
+							if(li.innerText.toLowerCase().indexOf(filter) == -1)
 							{
 								vars_ol.removeChild(li);
 								i--;
@@ -350,10 +350,10 @@
 					}
 				}
 				var lis_new = vars_ol.getElementsByTagName("li");
-				for ( var j = 0; j < lis_new.length; ++j )
+				for(var j = 0; j < lis_new.length; ++j)
 				{
 					var li1 = lis\[j\];
-					if (j == 0){
+					if(j == 0){
 						li1.style.backgroundColor = "#ffee88";
 					}else{
 						li1.style.backgroundColor = "white";
@@ -365,7 +365,7 @@
 				filter_text.focus();
 				filter_text.select();
 				var lastsearch = getCookie("[refid][cookieoffset]search");
-				if (lastsearch) {
+				if(lastsearch) {
 					filter_text.value = lastsearch;
 					updateSearch();
 				}
@@ -381,8 +381,8 @@
 				var ca = document.cookie.split(';');
 				for(var i=0; i<ca.length; i++) {
 					var c = ca\[i\];
-					while (c.charAt(0)==' ') c = c.substring(1,c.length);
-					if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+					while(c.charAt(0)==' ') c = c.substring(1,c.length);
+					if(c.indexOf(name)==0) return c.substring(name.length,c.length);
 				}
 				return "";
 			}
@@ -573,7 +573,7 @@
 			return
 
 		var/new_name = reject_bad_name(sanitize(copytext_char(input(usr, "What would you like to name this mob?", "Input a name", M.real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)	// SS220 EDIT - ORIGINAL: copytext
-		if( !new_name || !M )	return
+		if(!new_name || !M)	return
 
 		message_admins("Admin [key_name_admin(usr)] renamed [key_name_admin(M)] to [new_name].")
 		M.rename_character(M.real_name, new_name)

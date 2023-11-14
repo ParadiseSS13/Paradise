@@ -58,7 +58,7 @@
 		usr.unset_machine()
 		return FALSE
 
-	if (!can_be_hatted)
+	if(!can_be_hatted)
 		return FALSE
 
 	if(href_list["remove_inv"])

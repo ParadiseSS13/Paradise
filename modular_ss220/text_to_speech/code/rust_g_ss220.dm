@@ -19,14 +19,14 @@
 /* This comment bypasses grep checks */ /var/__rust_g_ss220
 
 /proc/__detect_rust_g_ss220()
-	if (world.system_type == UNIX)
-		if (fexists("./librust_g_ss220.so"))
+	if(world.system_type == UNIX)
+		if(fexists("./librust_g_ss220.so"))
 			// No need for LD_LIBRARY_PATH badness.
 			return __rust_g_ss220 = "./librust_g_ss220.so"
-		else if (fexists("./rust_g_ss220"))
+		else if(fexists("./rust_g_ss220"))
 			// Old dumb filename.
 			return __rust_g_ss220 = "./rust_g_ss220"
-		else if (fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g_ss220"))
+		else if(fexists("[world.GetConfig("env", "HOME")]/.byond/bin/rust_g_ss220"))
 			// Old dumb filename in `~/.byond/bin`.
 			return __rust_g_ss220 = "rust_g_ss220"
 		else

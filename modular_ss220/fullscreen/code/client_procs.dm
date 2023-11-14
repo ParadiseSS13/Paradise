@@ -4,7 +4,7 @@
 
 	fullscreen = !fullscreen
 
-	if (fullscreen)
+	if(fullscreen)
 		winset(usr, "mainwindow", "on-size=")
 		winset(usr, "mainwindow", "titlebar=false")
 		winset(usr, "mainwindow", "can-resize=false")

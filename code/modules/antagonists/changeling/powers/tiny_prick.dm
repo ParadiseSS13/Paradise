@@ -144,3 +144,20 @@
 		target.reagents.add_reagent("ice", 30)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE
+
+/datum/action/changeling/sting/lethargic
+	name = "Lethargic Sting"
+	desc = "We silently sting our victim with a chemical that will gradually drain their stamina. Costs 50 chemicals."
+	helptext = "Does not provide a warning to the victim, though they will quickly realize they have been poisoned."
+	button_icon_state = "sting_lethargic"
+	sting_icon = "sting_lethargic"
+	chemical_cost = 50
+	dna_cost = 4
+	power_type = CHANGELING_PURCHASABLE_POWER
+
+/datum/action/changeling/sting/lethargic/sting_action(mob/user, mob/target)
+	add_attack_logs(user, target, "Lethargic sting (changeling)")
+	if(target.reagents)
+		target.reagents.add_reagent("tirizene", 10)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
+	return TRUE

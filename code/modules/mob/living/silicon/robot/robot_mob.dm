@@ -1294,8 +1294,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(W)
 		W.attack_self(src)
 
-	return
-
 /mob/living/silicon/robot/proc/SetLockdown(state = 1)
 	// They stay locked down if their wire is cut.
 	if(wires.is_cut(WIRE_BORG_LOCKED))

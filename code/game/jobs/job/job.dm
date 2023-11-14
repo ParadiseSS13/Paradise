@@ -17,6 +17,8 @@
 	var/job_departments = list()
 	///Can this role access its department money account?
 	var/department_account_access = FALSE
+	/// Does this job get a bank account?
+	var/has_bank_account = TRUE
 	//How many players can be this job
 	var/total_positions = 0
 

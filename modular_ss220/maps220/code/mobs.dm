@@ -645,7 +645,7 @@
 
 /mob/living/simple_animal/hostile/deadwizard/Shoot(atom/targeted_atom)
 	..()
-	if (get_dist(src, targeted_atom) > 9)
+	if(get_dist(src, targeted_atom) > 9)
 		rapid = 1
 		ranged_cooldown_time = 15
 		projectiletype = /obj/item/projectile/magic/fireball/infernal
