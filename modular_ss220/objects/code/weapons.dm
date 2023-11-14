@@ -22,7 +22,7 @@
 	return ..()
 
 /obj/item/gun/projectile/revolver/reclinable/process_fire(atom/target, mob/living/user, message, params, zone_override, bonus_spread)
-	if (!reclined)
+	if(!reclined)
 		return ..()
 
 	to_chat(user, "<span class='danger'>*click*</span>")

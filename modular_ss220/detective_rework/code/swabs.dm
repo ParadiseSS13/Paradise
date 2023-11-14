@@ -83,7 +83,7 @@
 			return
 
 		if(sample_type)
-			if (!dispenser)
+			if(!dispenser)
 				dna = target_dna
 				gsr = target_gsr
 				set_used(sample_type, H)
@@ -154,7 +154,7 @@
 
 		if(sample_type)
 			user.visible_message("[user] берёт мазок с [A] для анализа.", "Вы берёте мазок с [A] для анализа.")
-			if (!dispenser)
+			if(!dispenser)
 				dna = target_dna
 				gsr = target_gsr
 				set_used(sample_type, A)

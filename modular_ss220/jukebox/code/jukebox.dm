@@ -208,7 +208,7 @@
 				volume = max_volume
 				return TRUE
 			else if(text2num(new_volume) != null)
-				if (text2num(new_volume) > max_volume)
+				if(text2num(new_volume) > max_volume)
 					volume = max_volume
 				else
 					volume = text2num(new_volume)

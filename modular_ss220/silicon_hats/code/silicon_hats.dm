@@ -109,10 +109,10 @@
 			hat_offset_y = -6
 
 	if(inventory_head)
-		if (!can_be_hatted)
+		if(!can_be_hatted)
 			remove_from_head(usr)
 			return
-		if (!can_wear_blacklisted_hats && is_type_in_list(inventory_head, blacklisted_hats))
+		if(!can_wear_blacklisted_hats && is_type_in_list(inventory_head, blacklisted_hats))
 			remove_from_head(usr)
 			return
 
@@ -146,7 +146,7 @@
 		borgI.alpha = hat_alpha
 		borgI.color = hat_color
 		borgI.pixel_y = hat_offset_y
-		if (!is_centered)
+		if(!is_centered)
 			borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 		return borgI
 
@@ -174,7 +174,7 @@
 		to_chat(user, span_warning("[item_to_add] застрял в ваших руках, вы не можете его надеть на голову [src]!"))
 		return FALSE
 
-	if (!can_wear_blacklisted_hats && is_type_in_list(item_to_add, blacklisted_hats))
+	if(!can_wear_blacklisted_hats && is_type_in_list(item_to_add, blacklisted_hats))
 		to_chat(user, span_warning("[item_to_add] не помещается на голову [src]!"))
 		return FALSE
 
