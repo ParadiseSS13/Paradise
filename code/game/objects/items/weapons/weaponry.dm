@@ -173,25 +173,6 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/throwing_star/changeling
-	name = "bone shard"
-	desc = "A serrated shard of bone, laden with viscous barbs."
-	icon_state = "bone_star"
-	force = 2
-	throwforce = 15
-	embedded_fall_chance = 5
-	embedded_impact_pain_multiplier = 3
-	embedded_unsafe_removal_pain_multiplier = 6
-	embedded_pain_chance = 10
-
-/obj/item/throwing_star/changeling/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
-	if(isliving(hit_atom))
-		name = "bone fragment"
-		desc = "A dull shard of bone, fractured and of little use as a weapon."
-		throwforce = 0
-		embed_chance = 0
-
 /obj/item/spear/kidan
 	name = "\improper Kidan spear"
 	desc = "A one-handed spear brought over from the Kidan homeworld."

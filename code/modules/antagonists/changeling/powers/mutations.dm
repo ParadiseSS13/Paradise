@@ -5,6 +5,7 @@
 		Space Suit
 		Shield
 		Armor
+		Bone Shard
 */
 
 /datum/action/changeling/weapon
@@ -572,3 +573,51 @@
 	flags = BLOCKHAIR | NODROP | DROPDEL
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, RAD = 0, FIRE = 90, ACID = 90)
 	flags_inv = HIDEEARS
+
+// Osseus Pitch
+
+/datum/action/changeling/weapon/osseus
+	name = "Osseus Pitch"
+	desc = "We evolve the ability to break off shards of our bone, and shape them into throwing weapons to embed into our foes. Costs 15 chemicals."
+	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
+	button_icon_state = "boneshard"
+	chemical_cost = 15
+	dna_cost = 3
+	req_human = TRUE
+	weapon_type = /obj/item/boneshard
+	weapon_name_simple = "bone"
+	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_ATTACK
+
+/obj/item/boneshard
+	name = "bone shard"
+	desc = "A serrated shard of bone, laden with viscous barbs."
+	icon_state = "bone_star"
+	force = 2
+	throwforce = 20
+	throw_speed = 5
+	embedded_pain_multiplier = 4
+	w_class = WEIGHT_CLASS_SMALL
+	embed_chance = 100
+	embedded_fall_chance = 0
+	embedded_impact_pain_multiplier = 3
+	embedded_unsafe_removal_pain_multiplier = 6
+	embedded_pain_chance = 10
+	sharp = TRUE
+
+/obj/item/boneshard/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	..()
+	if(isliving(hit_atom))
+		name = "bone fragment"
+		desc = "A dull shard of bone, fractured and of little use as a weapon."
+		throwforce = 0
+		embed_chance = 0
+
+/obj/item/boneshard/Initialize(mapload)
+	. = ..()
+	if(iscarbon(loc))
+		var/mob/living/carbon/C = loc
+		C.throw_mode_on()
+		if(ismob(loc))
+			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, 1)
+			loc.visible_message("<span class='warning'>Shards of bones grow from [loc.name]'s arms, piercing their skin, and fall into their hands!</span>", "<span class='warning'>We sharpen our new bone growths, and expel them from our body.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
