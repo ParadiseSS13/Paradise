@@ -332,6 +332,9 @@
 
 	active = FALSE
 
+/obj/effect/proc_holder/spell/fireball/apprentice
+	centcom_cancast = FALSE
+
 /obj/effect/proc_holder/spell/fireball/create_new_targeting()
 	var/datum/spell_targeting/clicked_atom/C = new()
 	C.range = 20
