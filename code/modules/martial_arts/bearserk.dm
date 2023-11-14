@@ -32,7 +32,7 @@
 
 /datum/martial_art/bearserk/remove(mob/living/carbon/human/H)
 	..()
-	to_chat(H, "<span class = 'sciradio'>The ancient fury of bears leaves your mind...</span>")
+	to_chat(H, "<span class='sciradio'>The ancient fury of bears leaves your mind...</span>")
 
 // The Pelt
 
