@@ -10,7 +10,7 @@
 
 /datum/component/corpse_description/Initialize(description_text = "", naive_description = "")
 	. = ..()
-	if (!isliving(parent))
+	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
 	src.description_text = description_text
 	src.naive_description = naive_description
