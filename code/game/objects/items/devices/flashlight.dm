@@ -175,6 +175,11 @@
 	..()
 
 /obj/item/flashlight/flare/update_icon_state()
+	if(on)
+		item_state = "[initial(item_state)]-on"
+	else
+		item_state = "[initial(item_state)]"
+
 	if(!fuel)
 		icon_state = "[initial(icon_state)]-empty"
 		return
