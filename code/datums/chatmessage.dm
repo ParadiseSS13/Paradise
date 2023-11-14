@@ -133,6 +133,10 @@
 		if(RUNECHAT_SYMBOL_EMOTE)
 			symbol = "<span style='font-size: 9px; color: #3399FF;'>*</span> "
 			size = size || "small"
+		if(RUNECHAT_SYMBOL_LOOC)
+			symbol = "<span style='font-size: 5px; color: #6699cc;'><b>\[LOOC]</b></span> "
+			size = size || "small"
+			output_color = "gray"
 		else
 			symbol = null
 
