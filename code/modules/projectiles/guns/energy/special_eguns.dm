@@ -552,7 +552,7 @@
 	var/min_temp = 0
 	var/max_temp = 500
 
-	// This var is actually how fast the gun changes temperature, uses this var for some god forsaken reason..
+	/// How fast the gun changes temperature
 	var/recharge_multiplier = 10
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
@@ -593,7 +593,7 @@
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='caution'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+		to_chat(user, "<span class='warning'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
 		recharge_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
@@ -602,11 +602,11 @@
 	..()
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
-		if(difference >= (recharge_multiplier))
+		if(difference >= recharge_multiplier)
 			if(target_temperature < temperature)
-				temperature -= (recharge_multiplier)
+				temperature -= recharge_multiplier
 			else
-				temperature += (recharge_multiplier)
+				temperature += recharge_multiplier
 		else
 			temperature = target_temperature
 		update_icon()
