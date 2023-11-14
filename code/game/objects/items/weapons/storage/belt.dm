@@ -622,6 +622,20 @@
 		W.charges = W.max_charges
 	update_icon()
 
+/obj/item/storage/belt/wands/fireballs
+	name = "infernal belt"
+	desc = "\"Use Fireball and only Fireball. Nothing but fireball. Just Fireball. <b>Just Fireball.</b>\""
+	icon_state = "militarybelt"
+	item_state = "military"
+	can_hold = list(/obj/item/gun/magic/wand/fireball)
+
+/obj/item/storage/belt/wands/fireballs/populate_contents()
+	for(var/count in 1 to storage_slots)
+		var/obj/item/gun/magic/wand/fireball/W = new /obj/item/gun/magic/wand/fireball(src)
+		W.max_charges = initial(W.max_charges)
+		W.charges = W.max_charges
+	update_icon()
+
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
 	desc = "A dorky fannypack for keeping small items in."

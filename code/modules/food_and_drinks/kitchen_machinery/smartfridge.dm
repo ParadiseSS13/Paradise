@@ -587,6 +587,7 @@
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
 		/obj/item/reagent_containers/food/pill,
+		/obj/item/stack/medical
 	))
 
 /**
@@ -626,6 +627,7 @@
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
 		/obj/item/reagent_containers/food/pill,
+		/obj/item/stack/medical
 	))
 
 /**

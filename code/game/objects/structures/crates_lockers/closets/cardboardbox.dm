@@ -90,7 +90,7 @@
 			if(W != user.get_active_hand())
 				to_chat(user, "You must be holding the pen to perform this action.")
 				return
-			if(! Adjacent(user))
+			if(!Adjacent(user))
 				to_chat(user, "You have moved too far away from the cardboard box.")
 				return
 			decalselection = replacetext(decalselection, " ", "_")

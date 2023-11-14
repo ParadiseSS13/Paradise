@@ -20,10 +20,7 @@
 			return 0
 		return 1
 
-/mob/living/simple_animal/slime/verb/Feed()
-	set category = "Slime"
-	set desc = "This will let you feed on any valid creature in the surrounding area. This should also be used to halt the feeding process."
-
+/mob/living/simple_animal/slime/proc/Feed()
 	if(stat)
 		return 0
 
@@ -123,10 +120,7 @@
 		layer = initial(layer)
 		buckled.unbuckle_mob(src,force=TRUE)
 
-/mob/living/simple_animal/slime/verb/Evolve()
-	set category = "Slime"
-	set desc = "This will let you evolve from baby to adult slime."
-
+/mob/living/simple_animal/slime/proc/Evolve()
 	if(stat)
 		to_chat(src, "<i>I must be conscious to do this...</i>")
 		return
@@ -156,10 +150,7 @@
 		var/datum/action/innate/slime/reproduce/A = new
 		A.Grant(S)
 
-/mob/living/simple_animal/slime/verb/Reproduce()
-	set category = "Slime"
-	set desc = "This will make you split into four Slimes."
-
+/mob/living/simple_animal/slime/proc/Reproduce()
 	if(stat)
 		to_chat(src, "<i>I must be conscious to do this...</i>")
 		return

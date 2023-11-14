@@ -205,7 +205,7 @@
 	if((brute <= 0) && (burn <= 0))
 		return 0
 
-	if(!ignore_resists)
+	if(!ignore_resists && !ismachineperson(owner)) //Machine people can't have augmented limbs, and this lets us give them no strange damage issues from countering the 33% resist
 		brute *= brute_mod
 		burn *= burn_mod
 
@@ -716,7 +716,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 	if(limb_flags & CANNOT_INT_BLEED)
 		return
 	status |= ORGAN_INT_BLEEDING
-	owner.custom_pain("You feel something rip in your [name]!")
+	custom_pain("You feel something rip in your [name]!")
 
 /obj/item/organ/external/proc/fix_internal_bleeding()
 	if(is_robotic())
