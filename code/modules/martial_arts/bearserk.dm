@@ -19,6 +19,9 @@
 /datum/martial_art/bearserk/explaination_header(user)
 	to_chat(usr, "<b><i>Quelling the ursine rage for a moment, you ponder on how a Space Bear fights...</i></b>")
 
+/datum/martial_art/bearserk/explaination_footer(user)
+	to_chat(user, "<b>All combos recover stamina and grant a stamina resistance buff, so get aggressive!.</b>")
+
 /datum/martial_art/bearserk/teach(mob/living/carbon/human/H, make_temporary=0)
 	..()
 	if(HAS_TRAIT(H, TRAIT_PACIFISM))
@@ -72,6 +75,3 @@
 	if(isAntag(user))
 		. += "<span class='warning'>Wearing this armored pelt grants you the strength of the space bear. \
 		It also makes wild bears and Russians neutral towards you.</span>"
-
-/datum/martial_art/bearserk/explaination_footer(user)
-	to_chat(user, "<b>All combos recover stamina and grant a stamina resistance buff, so get aggressive!.</b>")
