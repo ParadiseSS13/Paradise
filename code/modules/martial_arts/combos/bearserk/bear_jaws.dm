@@ -20,7 +20,7 @@
 	target.visible_message("<span class='danger'>[user] [atk_verb] [target]!</span>",
 					"<span class='userdanger'>[user] [atk_verb] you!</span>")
 	playsound(get_turf(target), 'sound/weapons/bite.ogg', 25, TRUE, -1)
-	target.apply_damage (10, BRUTE, user.zone_selected, sharp = TRUE)
+	target.apply_damage(10, BRUTE, user.zone_selected, sharp = TRUE)
 	if(isliving(target))
 		if(target.stat != DEAD)
 			user.adjustStaminaLoss(-15)
