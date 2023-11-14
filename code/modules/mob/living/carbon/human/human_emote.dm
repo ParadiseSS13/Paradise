@@ -79,7 +79,7 @@
 	key = "crack"
 	key_third_person = "cracks"
 	message = "cracks their knuckles."
-	emote_type = EMOTE_AUDIBLE | EMOTE_AUDIBLE
+	emote_type = EMOTE_AUDIBLE
 	// knuckles.ogg by CGEffex. Shortened and cut.
 	// https://freesound.org/people/CGEffex/sounds/93981/
 	sound = "sound/effects/mob_effects/knuckles.ogg"
