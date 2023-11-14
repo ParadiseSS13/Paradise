@@ -10,17 +10,31 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	severity = MINOR
-	required_organs = list(/obj/item/organ/external/head)
+	/// A mapping of `num2text(SLOT_HUD_XYZ)` -> item path
+	var/list/magic_fashion = new
 
-/*
-BIRUZ BENNAR
-SCYAR NILA - teleport
-NEC CANTIO - dis techno
-EI NATH - shocking grasp
-AULIE OXIN FIERA - knock
-TARCOL MINTI ZHERI - forcewall
-STI KALY - blind
-*/
+
+/datum/disease/wizarditis/New()
+	. = ..()
+
+	var/list/magic_fashion_slot_IDs = list(
+		SLOT_HUD_RIGHT_HAND,
+		SLOT_HUD_LEFT_HAND,
+		SLOT_HUD_HEAD,
+		SLOT_HUD_OUTER_SUIT,
+		SLOT_HUD_SHOES
+		)
+	var/list/magic_fashion_items = list(
+		/obj/item/staff,
+		/obj/item/staff,
+		/obj/item/clothing/head/wizard,
+		/obj/item/clothing/suit/wizrobe,
+		/obj/item/clothing/shoes/sandal
+		)
+	for(var/i in 1 to length(magic_fashion_slot_IDs))
+		var/slot = num2text(magic_fashion_slot_IDs[i])
+		var/item = magic_fashion_items[i]
+		magic_fashion[slot] = item
 
 /datum/disease/wizarditis/stage_act()
 	if(!..())
@@ -29,7 +43,7 @@ STI KALY - blind
 	switch(stage)
 		if(2)
 			if(prob(0.5))
-				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"))
+				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlin's beard!", "Feel the power of the Dark Side!"))
 			if(prob(0.5))
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
 
@@ -47,44 +61,36 @@ STI KALY - blind
 				return
 			if(prob(0.5))
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
-				spawn_wizard_clothes(50)
+				spawn_wizard_clothes()
 			if(prob(0.01))
 				teleport()
 	return
 
+/datum/disease/wizarditis/proc/spawn_wizard_clothes()
+	var/mob/living/carbon/human/H = affected_mob
 
+	// Which slots can we replace?
+	var/list/eligible_slot_IDs = new
+	for(var/slot in magic_fashion)
+		var/slot_ID = text2num(slot) // Convert back to numeric defines
 
-/datum/disease/wizarditis/proc/spawn_wizard_clothes(chance = 0)
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/human/H = affected_mob
-		if(prob(chance) && !isplasmaman(H))
-			if(!istype(H.head, /obj/item/clothing/head/wizard))
-				if(!H.unEquip(H.head))
-					qdel(H.head)
-				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), SLOT_HUD_HEAD)
-			return
-		if(prob(chance))
-			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
-				if(!H.unEquip(H.wear_suit))
-					qdel(H.wear_suit)
-				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), SLOT_HUD_OUTER_SUIT)
-			return
-		if(prob(chance))
-			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
-				if(!H.unEquip(H.shoes))
-					qdel(H.shoes)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
-			return
-	else
-		var/mob/living/carbon/H = affected_mob
-		if(prob(chance))
-			if(!istype(H.r_hand, /obj/item/staff))
-				H.drop_r_hand()
-				H.put_in_r_hand( new /obj/item/staff(H) )
-			return
-	return
+		if(locate(magic_fashion[slot]) in H || !H.has_organ_for_slot(slot_ID) || !H.canUnEquip(H.get_item_by_slot(slot_ID)))
+			continue
 
+		switch(slot_ID) // Extra filtering for specific slots
+			if(SLOT_HUD_HEAD)
+				if(isplasmaman(H))
+					continue // We want them to spread the magical joy, not burn to death in agony
 
+		eligible_slot_IDs.Add(slot_ID)
+	if(!length(eligible_slot_IDs))
+		return
+
+	// Pick the magical winner and apply
+	var/chosen_slot_ID = pick(eligible_slot_IDs)
+	var/obj/item/chosen_fashion = magic_fashion[num2text(chosen_slot_ID)]
+	H.unEquip(H.get_item_by_slot(chosen_slot_ID))
+	H.equip_to_slot_or_del(new chosen_fashion, chosen_slot_ID)
 
 /datum/disease/wizarditis/proc/teleport()
 	if(!is_teleport_allowed(affected_mob.z))
@@ -117,4 +123,3 @@ STI KALY - blind
 
 	affected_mob.say("SCYAR NILA [uppertext(chosen_area.name)]!")
 	affected_mob.forceMove(pick(teleport_turfs))
-
