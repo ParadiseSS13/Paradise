@@ -147,8 +147,8 @@
 	else
 		..()
 
-	if( possessed_item.loc != src )
-		if ( isturf(possessed_item.loc) ) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
+	if(possessed_item.loc != src)
+		if(isturf(possessed_item.loc)) // If we've, say, placed the possessed item on the table move onto the table ourselves instead and put it back inside of us.
 			forceMove(possessed_item.loc)
 			possessed_item.forceMove(src)
 		else // If we're inside a toolbox or something, we are inside the item rather than the item inside us. This is so people can see the item in the toolbox.

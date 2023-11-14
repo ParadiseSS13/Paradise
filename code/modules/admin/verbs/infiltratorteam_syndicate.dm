@@ -156,7 +156,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	// Uplink
 	var/obj/item/implant/uplink/sit/U = new /obj/item/implant/uplink/sit(src)
 	U.implant(src)
-	if (flag_mgmt)
+	if(flag_mgmt)
 		U.hidden_uplink.uses = 2500
 	else
 		U.hidden_uplink.uses = num_tc
@@ -174,14 +174,14 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), SLOT_HUD_SHOES)
 
 	var/obj/item/card/id/syndicate/W = new(src)
-	if (flag_mgmt)
+	if(flag_mgmt)
 		W.icon_state = "commander"
 	else
 		W.icon_state = "id"
 	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
 	W.assignment = "Assistant"
 	W.access += get_access("Assistant")
-	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
+	W.access += list(ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
 		W.assignment = "Syndicate Management Consultant"
 		W.access += get_syndicate_access("Syndicate Commando")

@@ -86,10 +86,12 @@
 			for(var/i = 1 to (slices_num - slices_lost))
 				var/obj/slice = new slice_path (loc)
 				reagents.trans_to(slice, reagents_per_slice)
+				slice.pixel_x = rand(-7, 7)
+				slice.pixel_y = rand(-7, 7)
 			qdel(src)
 			return ..()
 
-	if (istype(O, /obj/item/plant_analyzer))
+	if(istype(O, /obj/item/plant_analyzer))
 		var/msg = "<span class='info'>This is \a <span class='name'>[src].</span>\n"
 		if(seed)
 			msg += seed.get_analyzer_text()
