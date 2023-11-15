@@ -591,7 +591,7 @@
 
 /obj/item/boneshard
 	name = "bone shard"
-	desc = "A serrated shard of bone, laden with viscous barbs."
+	desc = "A serrated shard of bone laden with vicious barbs."
 	icon_state = "bone_star"
 	force = 2
 	throwforce = 20
