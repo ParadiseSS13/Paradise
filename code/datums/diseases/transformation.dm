@@ -8,7 +8,6 @@
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/alien)
 	severity = BIOHAZARD
 	stage_prob = 10
-	visibility_flags = HIDDEN_SCANNER|HIDDEN_PANDEMIC
 	disease_flags = CURABLE
 	var/list/stage1 = list("You feel unremarkable.")
 	var/list/stage2 = list("You feel boring.")
@@ -81,13 +80,10 @@
 	cure_text = "Bananas"
 	cures = list("banana")
 	spread_text = "Monkey Bites"
-	spread_flags = SPECIAL
 	viable_mobtypes = list(/mob/living/carbon/human)
-	permeability_mod = 1
 	cure_chance = 1
 	desc = "Monkeys with this disease will bite humans, causing humans to mutate into a monkey."
 	stage_prob = 4
-	visibility_flags = 0
 	agent = "Kongey Vibrion M-909"
 	new_form = /mob/living/carbon/human/monkey
 
@@ -125,7 +121,6 @@
 	cure_chance = 5
 	agent = "R2D2 Nanomachines"
 	desc = "This disease, actually acute nanomachine infection, converts the victim into a cyborg."
-	visibility_flags = 0
 	stage1	= null
 	stage2	= list("Your joints feel stiff.", "<span class='danger'>Beep...boop..</span>")
 	stage3	= list("<span class='danger'>Your joints feel very stiff.</span>", "Your skin feels loose.", "<span class='danger'>You can feel something move...inside.</span>")
@@ -157,7 +152,6 @@
 	cure_chance = 5
 	agent = "Rip-LEY Alien Microbes"
 	desc = "This disease changes the victim into a xenomorph."
-	visibility_flags = 0
 	stage1	= null
 	stage2	= list("Your throat feels scratchy.", "<span class='danger'>Kill...</span>")
 	stage3	= list("<span class='danger'>Your throat feels very scratchy.</span>", "Your skin feels tight.", "<span class='danger'>You can feel something move...inside.</span>")
@@ -185,7 +179,6 @@
 	cure_chance = 80
 	agent = "Advanced Mutation Toxin"
 	desc = "This highly concentrated extract converts anything into more of itself."
-	visibility_flags = 0
 	stage1	= list("You don't feel very well.")
 	stage2	= list("Your skin feels a little slimy.")
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
@@ -213,7 +206,6 @@
 	cures = list("adminordrazine")
 	agent = "Fell Doge Majicks"
 	desc = "This disease transforms the victim into a corgi."
-	visibility_flags = 0
 	stage1	= list("BARK.")
 	stage2	= list("You feel the need to wear silly hats.")
 	stage3	= list("<span class='danger'>Must... eat... chocolate....</span>", "<span class='danger'>YAP</span>")
@@ -238,7 +230,6 @@
 	agent = "Gluttony's Blessing"
 	desc = "A 'gift' from somewhere terrible."
 	stage_prob = 20
-	visibility_flags = 0
 	stage1	= list("Your stomach rumbles.")
 	stage2	= list("Your skin feels saggy.")
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")

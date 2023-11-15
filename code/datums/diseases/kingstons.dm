@@ -47,7 +47,7 @@
 					catface.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
 
-/datum/disease/kingstons_advanced //this used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
+/datum/disease/kingstons_advanced // This used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
 	name = "Advanced Kingstons Syndrome"
 	medical_name = "Advanced Kingstons Syndrome"
 	max_stages = 4
