@@ -84619,10 +84619,6 @@
 	icon_state = "wood-broken"
 	},
 /area/station/maintenance/gambling_den)
-"mlX" = (
-/obj/machinery/economy/vending/cigarette,
-/turf/simulated/wall,
-/area/station/command/office/captain)
 "mmt" = (
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
@@ -141276,7 +141272,7 @@ bAD
 bCw
 byU
 bFN
-mlX
+bWX
 bJj
 bLc
 bLc
