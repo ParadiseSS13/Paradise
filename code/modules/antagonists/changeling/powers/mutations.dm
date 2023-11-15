@@ -620,4 +620,4 @@
 		C.throw_mode_on()
 		if(ismob(loc))
 			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, 1)
-			loc.visible_message("<span class='warning'>Shards of bones grow from [loc.name]'s arms, piercing their skin, and fall into their hands!</span>", "<span class='warning'>We sharpen our new bone growths, and expel them from our body.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
+			C.visible_message("<span class='warning'>Shards of bone grow through [C.name]'s palms and fall into [C.p_their()] hands!</span>", "<span class='warning'>We expel shards of bone into our hands.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
