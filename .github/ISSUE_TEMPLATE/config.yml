@@ -1,12 +1,11 @@
 #DOCS
 #https://docs.github.com/en/github-ae@latest/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository#configuring-the-template-chooser
 #
-
 blank_issues_enabled: false
 contact_links:
-- name: Feature Request
-  url: https://www.paradisestation.org/forum/60-suggestions/
-  about: Please place all feature requests here
-- name: Exploit Report
-  url: https://www.paradisestation.org/forum/179-exploit-reports/
-  about: Exploit reports go on the forum
+  - name: Feature Request
+    url: https://www.paradisestation.org/forum/60-suggestions/
+    about: Please place all feature requests at the following link. (Paradise Station Forums)
+  - name: Exploit Reports
+    url: https://www.paradisestation.org/forum/179-exploit-reports/
+    about: If your issue is an ingame exploit that allows players to gain an unfair advantage, or an issue which could affect server stability or security, please file it here so that it is safe from prying eyes. (Paradise Station Forums)

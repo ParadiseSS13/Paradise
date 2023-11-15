@@ -941,7 +941,7 @@
 
 		if(hair_style.secondary_theme)
 			var/icon/hair_secondary_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_[hair_style.secondary_theme]_s")
-			if(!hair_style.no_sec_colour && hair_style.do_colouration )
+			if(!hair_style.no_sec_colour && hair_style.do_colouration)
 				hair_secondary_s.Blend(h_sec_colour, ICON_ADD)
 			hair_s.Blend(hair_secondary_s, ICON_OVERLAY)
 

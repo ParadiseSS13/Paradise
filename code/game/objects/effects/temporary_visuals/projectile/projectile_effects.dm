@@ -38,7 +38,7 @@
 	return ..()
 
 /obj/effect/projectile/proc/apply_vars(angle_override, p_x = 0, p_y = 0, color_override, scaling = 1, new_loc, increment = 0)
-	var/mutable_appearance/look = new(src)
+	var/mutable_appearance/look = mutable_appearance(icon, icon_state, layer)
 	look.appearance_flags = RESET_COLOR | RESET_ALPHA
 	look.pixel_x = p_x
 	look.pixel_y = p_y

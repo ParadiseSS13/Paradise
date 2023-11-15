@@ -417,7 +417,7 @@
 			available_accesses = get_region_accesses(i)
 		for(var/access in available_accesses)
 			var/access_desc = (i == REGION_CENTCOMM) ? get_centcom_access_desc(access) : get_access_desc(access)
-			if (access_desc)
+			if(access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
 					"ref" = access,

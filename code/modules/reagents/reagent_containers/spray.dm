@@ -95,19 +95,16 @@
 	. = ..()
 	if(get_dist(user, src) && user == loc)
 		. += "[round(reagents.total_volume)] units left."
+	. += "<span class='info'><b>Alt-Click</b> to empty it.</span>"
 
-/obj/item/reagent_containers/spray/verb/empty()
-
-	set name = "Empty Spray Bottle"
-	set category = "Object"
-	set src in usr
-	if(usr.stat || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.restrained())
+/obj/item/reagent_containers/spray/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(alert(usr, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
+	if(alert(user, "Are you sure you want to empty that?", "Empty Bottle:", "Yes", "No") != "Yes")
 		return
-	if(isturf(usr.loc) && loc == usr)
-		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
-		reagents.reaction(usr.loc)
+	if(isturf(user.loc) && loc == user)
+		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")
+		reagents.reaction(user.loc)
 		reagents.clear_reagents()
 
 //space cleaner

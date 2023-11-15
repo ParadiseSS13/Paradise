@@ -15,7 +15,7 @@
 		return 0
 	if(isrobot(M))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
-		if(R.getBruteLoss() || R.getFireLoss() )
+		if(R.getBruteLoss() || R.getFireLoss())
 			R.heal_overall_damage(15, 15)
 			use(1)
 			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\

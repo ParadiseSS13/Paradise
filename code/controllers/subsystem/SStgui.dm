@@ -35,7 +35,7 @@ SUBSYSTEM_DEF(tgui)
 
 
 /datum/controller/subsystem/tgui/fire(resumed = 0)
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = processing_uis.Copy()
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(tgui)
 			ui.process()
 		else
 			processing_uis.Remove(ui)
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return
 
 /**
