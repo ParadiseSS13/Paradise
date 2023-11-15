@@ -77443,7 +77443,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port2)
 "fUl" = (
-/obj/machinery/economy/vending/cigarette/free,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/captain)
 "fVi" = (
@@ -84619,6 +84619,10 @@
 	icon_state = "wood-broken"
 	},
 /area/station/maintenance/gambling_den)
+"mlX" = (
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/wall,
+/area/station/command/office/captain)
 "mmt" = (
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
@@ -141272,7 +141276,7 @@ bAD
 bCw
 byU
 bFN
-bWX
+mlX
 bJj
 bLc
 bLc

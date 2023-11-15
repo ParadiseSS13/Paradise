@@ -24297,7 +24297,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
 "bCm" = (
-/obj/machinery/economy/vending/cigarette/free,
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bCo" = (
