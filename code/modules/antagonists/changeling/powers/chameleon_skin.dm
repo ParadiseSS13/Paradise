@@ -28,6 +28,5 @@
 	if(C.dna.GetSEState(GLOB.chameleonblock))
 		C.dna.SetSEState(GLOB.chameleonblock, 0)
 		singlemutcheck(C, GLOB.chameleonblock, MUTCHK_FORCED)
-	if(HAS_TRAIT_FROM(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT))
 		REMOVE_TRAIT(user, TRAIT_SILENT_FOOTSTEPS, CHANGELING_TRAIT)
 	..()
