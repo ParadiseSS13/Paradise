@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/simulated/wall/indestructible/boss,
+/turf/simulated/wall/boss,
 /area/lavaland/surface/outdoors)
 "ab" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -22,12 +22,14 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "af" = (
 /obj/structure/necropolis_gate/legion_gate,
 /obj/structure/necropolis_arch,
 /obj/structure/stone_tile/slab,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "ag" = (
@@ -41,6 +43,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ah" = (
@@ -54,6 +57,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ai" = (
@@ -1454,7 +1458,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "ds" = (
 /obj/machinery/light/small{
@@ -2799,15 +2803,6 @@
 "fS" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
-"fT" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "fU" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "s_docking_airlock";
@@ -2998,10 +2993,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
-"go" = (
-/obj/structure/stone_tile/block,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/lavaland/surface/outdoors)
 "gp" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Central Hallway Maintence"
@@ -3032,6 +3023,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gs" = (
@@ -3045,6 +3037,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gt" = (
@@ -3107,6 +3100,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gB" = (
@@ -3119,6 +3113,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gC" = (
@@ -3160,6 +3155,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gH" = (
@@ -3223,12 +3219,6 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
-"gM" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/lavaland/surface/outdoors)
 "gN" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -3241,12 +3231,6 @@
 	dir = 8
 	},
 /area/mine/outpost/medbay)
-"gO" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/lavaland/surface/outdoors)
 "gP" = (
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -3256,6 +3240,7 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "hf" = (
@@ -3292,12 +3277,6 @@
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/stone_tile/slab,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"hs" = (
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "hv" = (
@@ -3361,6 +3340,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "hJ" = (
@@ -3392,6 +3372,11 @@
 	},
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
+"hZ" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "ic" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -3435,7 +3420,7 @@
 "il" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "im" = (
 /obj/structure/grille/broken,
@@ -3492,6 +3477,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/block/cracked,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "iK" = (
@@ -3564,6 +3550,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ji" = (
@@ -3595,6 +3582,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jl" = (
@@ -3608,6 +3596,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center/cracked,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jm" = (
@@ -3621,6 +3610,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jn" = (
@@ -3685,7 +3675,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "jF" = (
 /obj/structure/stone_tile/surrounding_tile,
@@ -3696,6 +3686,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "jH" = (
@@ -3707,6 +3698,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "jJ" = (
@@ -3738,6 +3730,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "jN" = (
@@ -3749,6 +3742,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center/cracked,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "jP" = (
@@ -3787,6 +3781,7 @@
 /area/mine/outpost/airlock)
 "kg" = (
 /obj/structure/fluff/drake_statue,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kj" = (
@@ -3796,10 +3791,12 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kl" = (
 /obj/structure/fluff/drake_statue/falling,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "km" = (
@@ -3818,6 +3815,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kt" = (
@@ -3849,6 +3847,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "kD" = (
@@ -3862,6 +3861,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "kH" = (
@@ -3873,6 +3873,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/center/cracked,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "kI" = (
@@ -3889,6 +3890,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/center,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "kM" = (
@@ -3901,10 +3903,6 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
-"kR" = (
-/obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "kS" = (
@@ -3933,6 +3931,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lf" = (
@@ -3946,6 +3945,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lh" = (
@@ -3961,6 +3961,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ll" = (
@@ -3988,6 +3989,8 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lq" = (
@@ -3995,6 +3998,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lr" = (
@@ -4002,6 +4006,8 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ls" = (
@@ -4017,6 +4023,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lv" = (
@@ -4027,6 +4034,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lw" = (
@@ -4046,6 +4054,7 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lB" = (
@@ -4064,6 +4073,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lE" = (
@@ -4073,6 +4083,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lF" = (
@@ -4085,6 +4096,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lG" = (
@@ -4092,6 +4104,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/block,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lH" = (
@@ -4138,23 +4151,15 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lQ" = (
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 6
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/lavaland/surface/outdoors)
-"lR" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked,
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "lS" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4166,6 +4171,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lT" = (
@@ -4182,6 +4188,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lZ" = (
@@ -4191,6 +4198,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "ma" = (
@@ -4200,6 +4208,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "mb" = (
@@ -4210,7 +4219,17 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
+"md" = (
+/obj/structure/stone_tile/block/cracked,
+/obj/structure/stone_tile/block/cracked{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "mi" = (
 /obj/machinery/computer/security{
@@ -4234,6 +4253,7 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ml" = (
@@ -4241,6 +4261,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "mn" = (
@@ -4445,6 +4466,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "mO" = (
@@ -4692,10 +4714,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /turf/simulated/floor/plating/lavaland_air,
 /area/mine/outpost/hallway/east)
-"nZ" = (
-/obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "oa" = (
 /obj/machinery/computer/card/minor/qm,
 /obj/machinery/alarm{
@@ -4858,7 +4876,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "pq" = (
 /turf/simulated/floor/mineral/titanium,
@@ -4928,7 +4946,7 @@
 "pT" = (
 /obj/structure/stone_tile/slab,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "qb" = (
 /obj/structure/girder,
@@ -4945,7 +4963,7 @@
 	},
 /obj/structure/stone_tile,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "qv" = (
 /obj/structure/table/reinforced,
@@ -5150,7 +5168,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "sk" = (
 /obj/machinery/door/firedoor,
@@ -5263,7 +5281,7 @@
 	},
 /obj/structure/stone_tile,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "tb" = (
 /obj/effect/spawner/window/shuttle,
@@ -5443,7 +5461,7 @@
 "ux" = (
 /obj/structure/stone_tile/block,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "uB" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -5751,10 +5769,6 @@
 	icon_state = "darkgreencorners"
 	},
 /area/mine/outpost/custodial)
-"wf" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/wall/indestructible/boss,
-/area/lavaland/surface/outdoors)
 "wg" = (
 /obj/machinery/mineral/equipment_vendor/labor,
 /turf/simulated/floor/plasteel,
@@ -5874,6 +5888,11 @@
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/lavaland_air,
 /area/shuttle/siberia)
+"xE" = (
+/obj/structure/stone_tile/cracked,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "xG" = (
 /obj/structure/disposalpipe/segment{
 	dir = 8
@@ -5894,8 +5913,12 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
+"xN" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "xP" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -5930,6 +5953,11 @@
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
+"ya" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/boss,
+/area/lavaland/surface/outdoors)
 "yb" = (
 /obj/structure/table/glass,
 /obj/machinery/firealarm{
@@ -6206,7 +6234,7 @@
 "zW" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "zY" = (
 /obj/structure/chair{
@@ -6279,6 +6307,10 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/comms)
+"Ao" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/indestructible/boss/see_through,
+/area/lavaland/surface/outdoors)
 "At" = (
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /obj/structure/cable{
@@ -6453,7 +6485,14 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/area/lavaland/surface/outdoors)
+"BM" = (
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "BP" = (
 /obj/structure/chair/comfy/shuttle{
@@ -6485,10 +6524,6 @@
 "Cf" = (
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
-"Cg" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "Ci" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -6628,7 +6663,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "CT" = (
 /obj/effect/spawner/window,
@@ -6776,7 +6811,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "DT" = (
 /obj/machinery/computer/shuttle/labor/one_way,
@@ -7966,7 +8001,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "ND" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8195,7 +8230,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Pp" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
@@ -8403,6 +8438,10 @@
 	icon_state = "brown"
 	},
 /area/mine/laborcamp)
+"Rl" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/boss,
+/area/lavaland/surface/outdoors)
 "Rs" = (
 /obj/structure/closet/crate/trashcart,
 /obj/item/trash/liquidfood,
@@ -8478,7 +8517,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Sh" = (
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
@@ -8764,7 +8803,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Uy" = (
 /obj/structure/chair/comfy/shuttle{
@@ -8810,7 +8849,7 @@
 	},
 /obj/structure/stone_tile,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Ve" = (
 /obj/structure/disposalpipe/segment,
@@ -9520,6 +9559,12 @@
 /obj/effect/spawner/random_spawners/wall_rusted_maybe,
 /turf/simulated/wall,
 /area/mine/outpost/maintenance/south)
+"Zj" = (
+/obj/structure/stone_tile/slab,
+/obj/effect/mapping_helpers/no_lava,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Zk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -35281,7 +35326,7 @@ am
 am
 am
 am
-am
+ai
 am
 am
 am
@@ -35356,17 +35401,17 @@ ak
 ak
 ak
 ak
-ak
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ak
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
 ak
 ak
 ak
@@ -35530,17 +35575,17 @@ ab
 ab
 ab
 ai
+ai
+am
+am
+ai
 am
 am
 am
-am
-am
-am
-am
-am
-am
-am
-am
+ai
+ab
+ai
+ai
 am
 am
 am
@@ -35611,21 +35656,21 @@ ak
 ak
 ak
 ak
-ak
-aa
-aa
-Cg
-wf
-wf
-Cg
-Cg
-Cg
-wf
-wf
-Cg
-aa
-aa
-ak
+Rl
+Rl
+Rl
+vP
+Rl
+Rl
+vP
+vP
+vP
+Rl
+Rl
+vP
+Rl
+Rl
+Rl
 ak
 ak
 ak
@@ -35786,22 +35831,22 @@ ab
 ab
 ab
 ai
+ai
+ab
+ai
+ai
+ab
+ai
 am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
+ai
+ab
+ab
+ab
+ai
+ab
+ai
+ai
+ai
 ai
 aj
 aj
@@ -35866,25 +35911,25 @@ ak
 ak
 ak
 ak
-aa
-aa
-aa
-Cg
-wf
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-wf
-Cg
-aa
-aa
-aa
+Rl
+Rl
+Rl
+vP
+Rl
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+Rl
+vP
+Rl
+Rl
+Rl
 ak
 ak
 ak
@@ -36042,23 +36087,23 @@ ab
 ab
 ab
 ab
+ab
+ab
+ab
 ai
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
+ai
+ab
+ab
+ai
+ab
+ab
+ab
+ab
+ai
+ab
+ai
+ab
+ai
 ab
 aj
 aj
@@ -36123,25 +36168,25 @@ ak
 ak
 ak
 ak
-aa
-wf
-Cg
+Rl
+Rl
+vP
 pT
 Ur
-wf
-wf
-Cg
-Cg
-Cg
-Cg
-Cg
-wf
-wf
+Rl
+Rl
+vP
+vP
+vP
+vP
+vP
+Rl
+Rl
 qo
 il
-Cg
-wf
-aa
+vP
+Rl
+Rl
 ak
 ak
 ak
@@ -36298,24 +36343,24 @@ ab
 ai
 ai
 ab
+ab
+ab
+ab
+ab
 ai
-am
-am
-am
-am
-am
-am
-am
-am
-am
-am
-ak
-ak
-am
-am
-am
-am
-fS
+ai
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ai
+ab
+ab
 ab
 aj
 aj
@@ -36379,13 +36424,13 @@ ak
 ak
 ak
 ak
-ak
-aa
-Cg
+Rl
+Rl
+vP
 NA
-Cg
+vP
 ux
-Cg
+vP
 Ly
 qk
 Ly
@@ -36393,13 +36438,13 @@ Ly
 Ly
 rW
 Ly
-Cg
+vP
 CS
-Cg
+vP
 pn
-Cg
-aa
-ak
+vP
+Rl
+Rl
 ak
 ak
 ak
@@ -36555,24 +36600,24 @@ ab
 ai
 am
 ai
-am
-am
 ai
-am
-am
-am
-am
-am
-am
-ak
-ak
-ak
-ak
-ak
-am
-am
-am
-fS
+ai
+ab
+ab
+ab
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ai
+ab
 ab
 aj
 aj
@@ -36636,10 +36681,10 @@ ak
 ak
 ak
 ak
-aa
-Cg
+Rl
+vP
 il
-Cg
+vP
 NA
 rP
 Ly
@@ -36653,10 +36698,10 @@ Ly
 Ly
 Vq
 pn
-Cg
+vP
 pT
-Cg
-aa
+vP
+Rl
 ak
 ak
 ak
@@ -36813,23 +36858,23 @@ am
 am
 am
 am
-am
-am
-am
-am
-am
-am
-am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-am
-am
-am
+ai
+ab
+ab
+ab
+ai
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -36892,9 +36937,9 @@ ak
 ak
 ak
 ak
-ak
-aa
-wf
+Rl
+Rl
+Rl
 xJ
 Pi
 VU
@@ -36912,9 +36957,9 @@ nB
 sW
 Pi
 dr
-wf
-aa
-ak
+Rl
+Rl
+Rl
 ak
 ak
 ak
@@ -37070,23 +37115,23 @@ am
 am
 am
 am
-am
-am
-am
-am
-am
-am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -37149,11 +37194,11 @@ ak
 ak
 ak
 ak
-aa
-Cg
-Cg
-wf
-Cg
+Rl
+vP
+vP
+Rl
+vP
 Ly
 Ly
 nr
@@ -37167,11 +37212,11 @@ Ly
 nB
 Ly
 Ly
-Cg
-wf
-Cg
-Cg
-aa
+vP
+Rl
+vP
+vP
+Rl
 ak
 ak
 ak
@@ -37328,25 +37373,25 @@ am
 am
 am
 am
-am
-am
-am
-am
-am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
-aj
-aj
+ab
 aj
 aj
 aj
@@ -37406,10 +37451,10 @@ ak
 ak
 ak
 ak
-aa
-wf
-Cg
-wf
+Rl
+Rl
+vP
+Rl
 Ly
 Ly
 Ly
@@ -37425,10 +37470,10 @@ Ly
 Ly
 Ly
 Ly
-wf
-Cg
-wf
-aa
+Rl
+vP
+Rl
+Rl
 ak
 ak
 ak
@@ -37584,23 +37629,23 @@ am
 am
 am
 am
-am
-am
-am
-am
-am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -37663,8 +37708,8 @@ ak
 ak
 ak
 ak
-aa
-wf
+Rl
+Rl
 Ly
 Ly
 rW
@@ -37684,8 +37729,8 @@ GC
 PF
 Ly
 Ly
-wf
-aa
+Rl
+Rl
 ak
 ak
 ak
@@ -37842,26 +37887,26 @@ am
 am
 am
 am
-am
-am
-am
-am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
-aj
+ab
 aj
 aj
 aj
@@ -37920,7 +37965,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -37942,7 +37987,7 @@ Ly
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -38100,22 +38145,22 @@ am
 am
 am
 am
-am
-am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aj
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -38177,7 +38222,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -38199,7 +38244,7 @@ Ly
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -38357,21 +38402,21 @@ am
 am
 am
 am
-am
-am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -38434,7 +38479,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 GC
@@ -38456,7 +38501,7 @@ GC
 GC
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -38613,23 +38658,23 @@ am
 am
 am
 am
-am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aj
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -38691,7 +38736,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 GO
 jC
 Ly
@@ -38713,7 +38758,7 @@ Ly
 Ly
 jC
 KB
-aa
+Rl
 ak
 ak
 ak
@@ -38869,24 +38914,24 @@ am
 am
 am
 am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aj
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -38948,7 +38993,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 rW
@@ -38970,7 +39015,7 @@ Ly
 rW
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -39125,25 +39170,25 @@ am
 am
 am
 am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aj
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -39205,7 +39250,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 rP
 Ly
@@ -39227,7 +39272,7 @@ Ly
 Ly
 Vq
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -39378,29 +39423,29 @@ am
 am
 am
 am
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aj
+am
+am
+am
+am
+am
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -39462,7 +39507,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -39484,7 +39529,7 @@ sW
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -39634,30 +39679,30 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aj
+am
+am
+am
+am
+am
+am
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -39719,13 +39764,13 @@ ak
 ak
 ak
 ak
-aa
-Ly
-Ly
+Rl
+sW
+GC
 Ly
 ft
 Ly
-Ly
+SS
 ft
 sW
 Ly
@@ -39735,13 +39780,13 @@ IZ
 Ly
 VU
 IZ
-Ly
+SS
 Ly
 IZ
 Ly
-Ly
-Ly
-aa
+GC
+VU
+Rl
 ak
 ak
 ak
@@ -39893,28 +39938,28 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
-aj
+am
+am
+am
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -39976,9 +40021,9 @@ ak
 ak
 ak
 ak
-aa
-sW
-GC
+Rl
+Ly
+Ly
 jC
 Vq
 FL
@@ -39996,9 +40041,9 @@ Ly
 Ci
 rP
 jC
-GC
-VU
-aa
+Ly
+Ly
+Rl
 ak
 ak
 ak
@@ -40151,26 +40196,26 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 ab
 aj
@@ -40233,7 +40278,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -40255,7 +40300,7 @@ AW
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -40409,25 +40454,25 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 ab
 aj
 aj
@@ -40455,7 +40500,7 @@ ae
 jg
 gB
 gB
-js
+BM
 ab
 ab
 ab
@@ -40490,7 +40535,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 jC
@@ -40512,7 +40557,7 @@ Ly
 jC
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -40666,25 +40711,25 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -40713,7 +40758,7 @@ gr
 gs
 gr
 gr
-kR
+PF
 ab
 ab
 ab
@@ -40747,7 +40792,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -40769,7 +40814,7 @@ Ly
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -40923,25 +40968,25 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -40968,10 +41013,10 @@ aa
 gR
 ag
 jF
-gM
+Pi
 kB
 jm
-ix
+hZ
 ab
 jS
 aj
@@ -41004,7 +41049,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 sW
 Ly
@@ -41026,7 +41071,7 @@ GC
 Ly
 VU
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -41180,25 +41225,25 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -41222,15 +41267,15 @@ aa
 aa
 aa
 aa
-aa
+Rl
 gG
-go
+ux
 kg
-hs
+CS
 gr
 hH
-ab
-ab
+Ly
+Ly
 aj
 ly
 aj
@@ -41242,26 +41287,26 @@ aj
 ls
 aj
 aj
-jx
-jS
-iy
-al
-ak
-al
-jq
-ab
-kN
-ab
-ab
-jx
-ab
-ab
+sW
+wr
+xE
+Gb
+xN
+Gb
+Vq
+Ly
+XE
+Ly
+Ly
+sW
+Ly
+Ly
 mN
-al
-ak
+Gb
+xN
 aa
 aa
-aa
+Rl
 GC
 GC
 jC
@@ -41283,7 +41328,7 @@ Ly
 jC
 GC
 GC
-aa
+Rl
 ak
 ak
 ak
@@ -41437,25 +41482,25 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+am
+ai
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -41479,15 +41524,15 @@ nc
 aa
 aa
 fV
-fV
+Ao
 gr
 jH
-gO
+DR
 kD
 ag
 le
-aa
-aa
+Rl
+Rl
 ls
 aj
 aj
@@ -41499,8 +41544,8 @@ aj
 aj
 aj
 lI
-wf
-wf
+Rl
+Rl
 wr
 Ly
 Ly
@@ -41540,7 +41585,7 @@ Ly
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -41694,25 +41739,25 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aj
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -41736,28 +41781,28 @@ ne
 aa
 aa
 fV
-fV
+Ao
 jk
 gr
 gr
 gr
 gr
 gs
-aa
+ya
 lp
-lp
+Eq
 lz
-lp
+Eq
 lF
-lp
+Eq
 lP
 lS
-lp
+Eq
 lZ
 lS
 lS
 Eq
-wf
+Rl
 hF
 Ly
 Ly
@@ -41797,7 +41842,7 @@ vo
 rP
 Ly
 sW
-aa
+Rl
 ak
 ak
 ak
@@ -41951,26 +41996,26 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aj
-aj
+am
+am
+ai
+ab
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -41995,13 +42040,13 @@ ac
 ac
 af
 lg
-fT
+HE
 kj
-fT
-fT
+HE
+HE
 lg
-gP
-lq
+Zj
+md
 lu
 lq
 lD
@@ -42054,7 +42099,7 @@ rb
 Ly
 Ly
 rW
-aa
+Rl
 ak
 ak
 ak
@@ -42208,26 +42253,26 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-aj
-aj
+am
+am
+am
+ai
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -42250,28 +42295,28 @@ ng
 aa
 aa
 fV
-fV
+Ao
 jl
 gr
 ah
 gG
 gs
 gy
-aa
+ya
 lr
 lv
 lv
 lE
 lv
 lE
-lR
+bc
 lv
 lv
 mb
-lR
+bc
 ml
 bc
-wf
+Rl
 IZ
 Ly
 Ly
@@ -42311,7 +42356,7 @@ hF
 sW
 Ly
 rP
-aa
+Rl
 ak
 ak
 ak
@@ -42466,27 +42511,27 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
-aj
-aj
+ab
+ab
 aj
 aj
 aj
@@ -42507,15 +42552,15 @@ id
 aa
 aa
 fV
-fV
+Ao
 jm
 jL
-gM
+Pi
 kH
 gr
 hH
-aa
-aa
+Rl
+Rl
 lw
 aj
 aj
@@ -42527,8 +42572,8 @@ aj
 aj
 lw
 aj
-wf
-wf
+Rl
+Rl
 Vq
 Ly
 Ly
@@ -42568,7 +42613,7 @@ Ly
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -42723,23 +42768,23 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-al
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -42764,15 +42809,15 @@ aa
 aa
 aa
 aa
-aa
+Rl
 gr
-go
+ux
 kl
-hs
+CS
 gG
 lj
-ab
-ab
+Ly
+Ly
 aj
 aj
 mv
@@ -42784,26 +42829,26 @@ aj
 lI
 aj
 aj
-kN
-jq
-jS
-jx
-jS
-ab
-ab
-ab
-ab
-ab
-ab
-jR
-ak
-jS
-kN
-ab
-nZ
+XE
+Vq
+wr
+sW
+wr
+Ly
+Ly
+Ly
+Ly
+Ly
+Ly
+wd
+xN
+wr
+XE
+Ly
+Ly
 aa
 aa
-aa
+Rl
 jC
 jC
 GC
@@ -42825,7 +42870,7 @@ Ly
 GC
 jC
 jC
-aa
+Rl
 ak
 ak
 ak
@@ -42980,23 +43025,23 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+am
+ai
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -43024,10 +43069,10 @@ aa
 gR
 ah
 jN
-gO
+DR
 kJ
 gr
-it
+IZ
 ab
 ab
 aj
@@ -43060,7 +43105,7 @@ ab
 mP
 ak
 ak
-aa
+Rl
 Ly
 rP
 Ly
@@ -43082,7 +43127,7 @@ jC
 Ly
 Vq
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -43238,22 +43283,22 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -43283,7 +43328,7 @@ gr
 gr
 gr
 jm
-gP
+rW
 ab
 ab
 ab
@@ -43317,7 +43362,7 @@ al
 fQ
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -43339,7 +43384,7 @@ Ly
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -43495,23 +43540,23 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -43539,7 +43584,7 @@ ae
 gr
 jm
 ko
-iu
+jC
 ab
 ab
 ab
@@ -43574,7 +43619,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 GC
@@ -43596,7 +43641,7 @@ Ly
 GC
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -43752,23 +43797,23 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -43831,7 +43876,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -43853,7 +43898,7 @@ td
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -44008,24 +44053,24 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+am
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 ab
 aj
@@ -44088,7 +44133,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 GC
@@ -44108,9 +44153,9 @@ Ly
 Xl
 sW
 GC
-jC
-Vq
-aa
+Ly
+Ly
+Rl
 ak
 ak
 ak
@@ -44265,23 +44310,23 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+ai
+ab
+ab
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -44345,7 +44390,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 rP
 jC
 Ly
@@ -44361,13 +44406,13 @@ IZ
 Ly
 Vq
 IZ
-Ly
+SS
 Ly
 IZ
 Ly
-Ly
-Ly
-aa
+jC
+Vq
+Rl
 ak
 ak
 ak
@@ -44522,23 +44567,23 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+ai
+ab
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -44602,7 +44647,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -44624,7 +44669,7 @@ rP
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -44779,23 +44824,23 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-fQ
+am
+am
+am
+ai
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
 aj
 aj
 aj
@@ -44859,7 +44904,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 sW
 Ly
@@ -44881,7 +44926,7 @@ Ly
 Ly
 VU
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -45037,22 +45082,22 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+am
+am
+ai
+ab
+ai
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ab
+ai
 aj
 aj
 aj
@@ -45116,7 +45161,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 rb
 Ly
 rW
@@ -45138,7 +45183,7 @@ Ly
 rW
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -45295,21 +45340,21 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+am
+ai
+ab
+ai
+ab
+ai
+ab
+ab
+ab
+ab
+ab
+ai
+ai
 aj
 aj
 aj
@@ -45373,7 +45418,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 uR
 GC
 Ly
@@ -45395,7 +45440,7 @@ Ly
 Ly
 GC
 Vm
-aa
+Rl
 ak
 ak
 ak
@@ -45552,21 +45597,21 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+am
+am
+ai
+ai
+ab
+ai
+ai
+ab
+ab
+ab
+ab
+ai
+ai
 aj
 aj
 aj
@@ -45630,7 +45675,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 jC
@@ -45652,7 +45697,7 @@ jC
 jC
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -45811,19 +45856,19 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+am
+am
+ai
+am
+ai
+ab
+ai
+ab
+ab
+ab
+ai
 aj
 aj
 aj
@@ -45887,7 +45932,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -45909,7 +45954,7 @@ Ly
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -46069,18 +46114,18 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+am
+am
+am
+am
+ai
+am
+ai
+ai
+ab
+ab
 aj
 aj
 aj
@@ -46144,7 +46189,7 @@ ak
 ak
 ak
 ak
-aa
+Rl
 Ly
 Ly
 Ly
@@ -46166,7 +46211,7 @@ Ly
 Ly
 Ly
 Ly
-aa
+Rl
 ak
 ak
 ak
@@ -46329,15 +46374,15 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+am
+am
+am
+am
+am
+ai
+ai
 aj
 aj
 aj
@@ -46401,8 +46446,8 @@ ak
 ak
 ak
 ak
-aa
-wf
+Rl
+Rl
 Ly
 Ly
 qk
@@ -46422,8 +46467,8 @@ jC
 wA
 Ly
 Ly
-wf
-aa
+Rl
+Rl
 ak
 ak
 ak
@@ -46588,13 +46633,13 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
-ak
-ak
-ak
-ak
+am
+am
+am
+am
+am
+am
+am
 aj
 aj
 aj
@@ -46658,10 +46703,10 @@ ak
 ak
 ak
 ak
-aa
-wf
-Cg
-wf
+Rl
+Rl
+vP
+Rl
 Ly
 Ly
 Ly
@@ -46677,10 +46722,10 @@ Ly
 Ly
 Ly
 Ly
-wf
-Cg
-wf
-aa
+Rl
+vP
+Rl
+Rl
 ak
 ak
 ak
@@ -46849,9 +46894,9 @@ ak
 ak
 ak
 ak
-ak
-ak
-ak
+am
+am
+am
 aj
 aj
 aj
@@ -46915,11 +46960,11 @@ ak
 ak
 ak
 ak
-aa
-Cg
-Cg
-wf
-Cg
+Rl
+vP
+vP
+Rl
+vP
 Ly
 Ly
 kT
@@ -46933,11 +46978,11 @@ Ly
 nr
 Ly
 Ly
-Cg
-wf
-Cg
-Cg
-aa
+vP
+Rl
+vP
+vP
+Rl
 ak
 ak
 ak
@@ -47172,9 +47217,9 @@ ak
 ak
 ak
 ak
-ak
-aa
-wf
+Rl
+Rl
+Rl
 ta
 DR
 Vq
@@ -47192,9 +47237,9 @@ nr
 rP
 DR
 Sd
-wf
-aa
-ak
+Rl
+Rl
+Rl
 ak
 ak
 ak
@@ -47430,10 +47475,10 @@ ak
 ak
 ak
 ak
-aa
-Cg
+Rl
+vP
 il
-Cg
+vP
 BL
 sW
 Ly
@@ -47447,10 +47492,10 @@ Ly
 Ly
 VU
 NA
-Cg
+vP
 zW
-Cg
-aa
+vP
+Rl
 ak
 ak
 ak
@@ -47687,13 +47732,13 @@ ak
 ak
 ak
 ak
-ak
-aa
-Cg
+Rl
+Rl
+vP
 BL
-Cg
+vP
 ux
-Cg
+vP
 Ly
 PF
 Ly
@@ -47701,13 +47746,13 @@ Ly
 Ly
 qk
 Ly
-Cg
+vP
 CS
-Cg
+vP
 UU
-Cg
-aa
-ak
+vP
+Rl
+Rl
 ak
 ak
 ak
@@ -47945,25 +47990,25 @@ ak
 ak
 ak
 ak
-aa
-wf
-Cg
+Rl
+Rl
+vP
 RJ
 jD
-wf
-wf
-Cg
-Cg
-Cg
-Cg
-Cg
-wf
-wf
+Rl
+Rl
+vP
+vP
+vP
+vP
+vP
+Rl
+Rl
 sg
 hm
-Cg
-wf
-aa
+vP
+Rl
+Rl
 ak
 ak
 ak
@@ -48202,25 +48247,25 @@ ak
 ak
 ak
 ak
-aa
-aa
-aa
-Cg
-wf
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-Cg
-wf
-Cg
-aa
-aa
-aa
+Rl
+Rl
+Rl
+vP
+Rl
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+vP
+Rl
+vP
+Rl
+Rl
+Rl
 ak
 ak
 ak
@@ -48461,21 +48506,21 @@ ak
 ak
 ak
 ak
-ak
-aa
-aa
-Cg
-wf
-wf
-Cg
-Cg
-Cg
-wf
-wf
-Cg
-aa
-aa
-ak
+Rl
+Rl
+Rl
+vP
+Rl
+Rl
+vP
+vP
+vP
+Rl
+Rl
+vP
+Rl
+Rl
+Rl
 ak
 ak
 ak
@@ -48720,17 +48765,17 @@ ak
 ak
 ak
 ak
-ak
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-ak
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
+Rl
 ak
 ak
 ak
