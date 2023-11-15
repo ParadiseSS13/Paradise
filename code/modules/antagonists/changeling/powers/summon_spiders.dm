@@ -5,18 +5,17 @@
 
 /datum/action/changeling/spiders
 	name = "Spread Infestation"
-	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend. Costs 45 chemicals."
-	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Requires at least 7 stored DNA. Their orders can be changed via remote hivemind (Alt+Shift click)."
+	desc = "Our form divides, creating an aggressive arachnid which will regard us as a friend. Costs 40 chemicals."
+	helptext = "The spiders are thoughtless creatures, but will not attack their creators. Their orders can be changed via remote hivemind (Alt+Shift click)."
 	button_icon_state = "spread_infestation"
-	chemical_cost = 45
+	chemical_cost = 40
 	dna_cost = 4
-	req_dna = 7
 	/// This var keeps track of the changeling's spider count
 	var/spider_counter = 0
 	/// Checks if changeling is already spawning a spider
 	var/is_operating = FALSE
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_UTILITY
+	menu_location = CLING_MENU_ATTACK
 
 /// Makes a spider. Good for setting traps and combat.
 /datum/action/changeling/spiders/sting_action(mob/user)
@@ -28,7 +27,7 @@
 		is_operating = FALSE
 		return FALSE
 	user.visible_message("<span class='danger'>[user] begins vomiting an arachnid!</span>")
-	if(do_after(user, 4 SECONDS, FALSE, target = user)) // Takes 4 seconds to spawn a spider
+	if(do_mob(user, user, 4 SECONDS, only_use_extra_checks = TRUE)) // Takes 4 seconds to spawn a spider
 		spider_counter++
 		user.visible_message("<span class='danger'>[user] vomits up an arachnid!</span>")
 		var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/S = new(user.loc)
@@ -42,6 +41,11 @@
 
 /// Child of giant_spider because this should do everything the spider does and more
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider
+	name = "flesh spider"
+	desc = "Dripping with blood, this amalgamation of flesh resembling a spider looks at you with a remarkable intelligence."
+	icon_state = "flesh_spider"
+	icon_living = "flesh_spider"
+	icon_dead = "flesh_spider_dead"
 	/// References to the owner changeling
 	var/mob/owner_UID
 	/// Handles the spider's behavior
@@ -51,6 +55,7 @@
 	venom_per_bite = 3
 	speak_chance = 0
 	wander = 0
+	move_to_delay = 3
 	/// To check and gib the spider when dead, then remove only one of the counter for the changeling owner
 	var/gibbed = FALSE
 
