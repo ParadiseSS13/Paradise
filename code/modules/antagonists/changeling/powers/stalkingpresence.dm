@@ -1,6 +1,6 @@
 /datum/action/changeling/stalking_presence
 	name = "Stalking Presence"
-	desc = "We evolve a keen intution, able to detect the anxieties of nearby lifeforms."
+	desc = "We evolve a keen intuition, allowing us to detect the anxieties of nearby lifeforms."
 	helptext = "We will be able to detect the room, and direction of our prey as well as if they are injured."
 	button_icon_state = "stalking"
 	dna_cost = 1
