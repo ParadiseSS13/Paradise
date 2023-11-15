@@ -26765,7 +26765,7 @@
 	},
 /area/station/turret_protected/ai_upload)
 "bzX" = (
-/obj/machinery/economy/vending/cigarette,
+/obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/wood,
 /area/station/command/office/captain)
 "bzY" = (

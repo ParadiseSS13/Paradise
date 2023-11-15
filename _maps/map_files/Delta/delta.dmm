@@ -77443,7 +77443,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port2)
 "fUl" = (
-/obj/machinery/economy/vending/cigarette,
+/obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/office/captain)
 "fVi" = (

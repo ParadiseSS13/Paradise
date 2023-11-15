@@ -73639,9 +73639,7 @@
 	},
 /area/station/supply/office)
 "qEF" = (
-/obj/machinery/economy/vending/cigarette{
-	extended_inventory = 1
-	},
+/obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain)
 "qEL" = (
