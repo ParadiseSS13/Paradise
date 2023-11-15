@@ -98,11 +98,15 @@
 
 	if(is_pen(user.get_active_hand()))
 		rename(user)
+	else if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/I = H.is_in_hands(/obj/item/paper)
+		if(I)
+			ProcFoldPlane(H, I)
 	else
 		return ..()
 
 /obj/item/paper/proc/rename(mob/user)
-
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
