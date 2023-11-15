@@ -22,7 +22,7 @@
 	if(!target_name)
 		return
 	var/mob/living/carbon/human/target = targets_by_name[target_name]
-	var/message = "[target_name] is in [get_area(target)], [dir2text(get_dir(user, target))] from you."
+	var/message = "[target_name] is in [get_area(target)], [dir2text(get_dir(user, target))] of you."
 	if(target.get_damage_amount() >= 40 || target.bleed_rate)
 		message += "<i> They are wounded...</i>"
 	to_chat(user, "<span class='changeling'>[message]</span>")
