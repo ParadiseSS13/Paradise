@@ -78,7 +78,7 @@ Thus, the two variables affect pump operation are set in New():
 
 	var/output_starting_pressure = air2.return_pressure()
 
-	if( (target_pressure - output_starting_pressure) < 0.01)
+	if((target_pressure - output_starting_pressure) < 0.01)
 		//No need to pump gas if target is already reached!
 		return 1
 

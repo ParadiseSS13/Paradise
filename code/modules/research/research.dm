@@ -110,7 +110,7 @@ research holder datum.
 	known_tech[T.id] = T
 
 /datum/research/proc/CanAddDesign2Known(datum/design/D)
-	if (D.id in known_designs)
+	if(D.id in known_designs)
 		return FALSE
 	if(D.id in blacklisted_designs)
 		return FALSE

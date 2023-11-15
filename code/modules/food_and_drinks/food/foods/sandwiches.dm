@@ -371,7 +371,7 @@
 /obj/item/reagent_containers/food/snacks/wrap
 	name = "egg wrap"
 	desc = "The precursor to Pigs in a Blanket."
-	icon = 'icons/obj/food/burgerbread.dmi'
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "wrap"
 	list_reagents = list("nutriment" = 5)
 	tastes = list("egg" = 1)
