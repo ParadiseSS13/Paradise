@@ -8,8 +8,6 @@
 	menu_location = CLING_MENU_UTILITY
 
 
-/datum/action/changeling/apex_predator/proc/valid_target(mob/target, mob/user)
-	return (target.z == user.z) && target.mind
 
 /datum/action/changeling/apex_predator/sting_action(mob/user)
 	var/targets_by_name = list()
