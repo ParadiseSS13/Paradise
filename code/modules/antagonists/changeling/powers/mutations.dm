@@ -578,7 +578,7 @@
 
 /datum/action/changeling/weapon/osseus
 	name = "Osseus Pitch"
-	desc = "We evolve the ability to break off shards of our bone, and shape them into throwing weapons to embed into our foes. Costs 15 chemicals."
+	desc = "We evolve the ability to break off shards of our bone and shape them into throwing weapons which embed into our foes. Costs 15 chemicals."
 	helptext = "The shards of bone will dull upon hitting a target, rendering them unusable as weapons."
 	button_icon_state = "boneshard"
 	chemical_cost = 15
