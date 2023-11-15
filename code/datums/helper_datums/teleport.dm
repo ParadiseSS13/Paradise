@@ -38,6 +38,7 @@
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
 	var/ignore_area_flag = FALSE
 	var/safe_turf_first = FALSE //If the teleport isn't precise and this is TRUE, only non-space, non-dense turfs will be selected, unless there's no other option for teleportation.
+	var/static/list/blacklisted = list(/obj/machinery/teleport/perma, /obj/machinery/teleport/hub) //List of objects that the destination turf cannot contain
 
 /datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, safe_turf_pick = FALSE, do_effect = FALSE)
 	if(!initTeleport(arglist(args)))
@@ -141,6 +142,12 @@
 		destturf = safepick(posturfs)
 	else
 		destturf = get_turf(destination)
+	
+	// Make sure the target tile does not contain a teleporter on it
+	for(var/teleporter_type in blacklisted)
+		var/teleporters = destturf.search_contents_for(teleporter_type)
+		if(length(teleporters))
+			return 0
 
 	if(!is_teleport_allowed(destturf.z) && !ignore_area_flag)
 		return 0
