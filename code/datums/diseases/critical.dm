@@ -1,4 +1,12 @@
 /datum/disease/critical
+	form = "Medical Emergency"
+	max_stages = 3
+	spread_flags = SPECIAL
+	viable_mobtypes = list(/mob/living/carbon/human)
+	severity = MINOR
+	disease_flags = CURABLE
+	bypasses_immunity = TRUE
+	virus_heal_resistant = TRUE
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior
 	stage = min(stage, max_stages)
@@ -20,19 +28,11 @@
 
 /datum/disease/critical/shock
 	name = "Shock"
-	form = "Medical Emergency"
-	spread_text = "The patient is in shock"
-	max_stages = 3
-	spread_flags = SPECIAL
+	spread_text = "The patient is in shock."
 	cure_text = "Saline-Glucose Solution"
 	cures = list("salglu_solution", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
-	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 6
-	severity = MINOR
-	disease_flags = CURABLE
-	bypasses_immunity = TRUE
-	virus_heal_resistant = TRUE
 
 /datum/disease/critical/shock/stage_act()
 	if(..())
@@ -81,21 +81,13 @@
 
 /datum/disease/critical/heart_failure
 	name = "Cardiac Failure"
-	form = "Medical Emergency"
-	spread_text = "The patient is having a cardiac emergency"
-	max_stages = 3
-	spread_flags = SPECIAL
+	spread_text = "The patient is having a cardiac emergency."
 	cure_text = "Atropine, Epinephrine, or Heparin"
 	cures = list("atropine", "epinephrine", "heparin", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
-	needs_all_cures = FALSE
-	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 5
 	severity = HARMFUL
-	disease_flags = CURABLE
 	required_organs = list(/obj/item/organ/internal/heart)
-	bypasses_immunity = TRUE
-	virus_heal_resistant = TRUE
 
 /datum/disease/critical/heart_failure/stage_act()
 	if(..())
@@ -136,17 +128,9 @@
 
 /datum/disease/critical/hypoglycemia
 	name = "Hypoglycemia"
-	form = "Medical Emergency"
-	max_stages = 3
-	spread_flags = SPECIAL
 	spread_text = "The patient has low blood sugar."
 	cure_text = "Eating or administration of vitamins or nutrients"
-	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 1
-	severity = MINOR
-	disease_flags = CURABLE
-	bypasses_immunity = TRUE
-	virus_heal_resistant = TRUE
 
 /datum/disease/critical/hypoglycemia/has_cure()
 	if(ishuman(affected_mob))
