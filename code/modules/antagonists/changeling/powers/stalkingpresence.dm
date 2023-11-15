@@ -18,7 +18,7 @@
 			continue
 		targets_by_name[H.real_name] = H
 
-	var/target_name = input(user, "Person to Locate", "Fear") in targets_by_name
+	var/target_name = input(user, "Person to Locate", "Prey") in targets_by_name
 	if(!target_name)
 		return
 	var/mob/living/carbon/human/target = targets_by_name[target_name]
