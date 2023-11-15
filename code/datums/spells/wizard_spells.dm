@@ -190,7 +190,7 @@
 /obj/effect/proc_holder/spell/area_teleport/teleport/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/returntoteacher
+/obj/effect/proc_holder/spell/return_to_teacher
 	name = "Return to Teacher"
 	desc = "This spell teleports you back to your teacher."
 
@@ -204,10 +204,10 @@
 	action_icon_state = "spell_teleport"
 	var/datum/mind/teacher = null
 
-/obj/effect/proc_holder/spell/returntoteacher/create_new_targeting()
+/obj/effect/proc_holder/spell/return_to_teacher/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/returntoteacher/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/return_to_teacher/cast(list/targets, mob/living/user = usr)
 	if(!(teacher && teacher.current))
 		to_chat(user, "<span class='danger'>The link to your teacher is broken!</span>")
 		return

@@ -110,7 +110,7 @@
 		if("restoration")
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/charge(null))
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
-			var/obj/effect/proc_holder/spell/returntoteacher/S = new /obj/effect/proc_holder/spell/returntoteacher(null)
+			var/obj/effect/proc_holder/spell/return_to_teacher/S = new /obj/effect/proc_holder/spell/return_to_teacher(null)
 			S.teacher = H.mind
 			M.mind.AddSpell(S)
 			M.equip_to_slot_or_del(new /obj/item/gun/magic/staff/healing(M), SLOT_HUD_RIGHT_HAND)
