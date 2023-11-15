@@ -609,7 +609,7 @@
 	..()
 	if(isliving(hit_atom))
 		name = "bone fragment"
-		desc = "A dull shard of bone, fractured and of little use as a weapon."
+		desc = "A dull shard of fractured bone. It has little use as a weapon."
 		throwforce = 0
 		embed_chance = 0
 
