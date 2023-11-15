@@ -9,7 +9,7 @@
 
 
 /datum/action/changeling/stalking_presence/proc/valid_target(mob/target, mob/user)
-	return target.z == user.z && target.mind
+	return (target.z == user.z) && target.mind
 
 /datum/action/changeling/stalking_presence/sting_action(mob/user)
 	var/targets_by_name = list()
