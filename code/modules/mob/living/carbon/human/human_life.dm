@@ -47,6 +47,9 @@
 	if(player_logged > 0 && stat != DEAD && job)
 		handle_ssd()
 
+	if(mind && !mind.antag_datums) // Only humans with a mind and no antags
+		handle_light_adjustment()
+
 	if(stat != DEAD)
 		return TRUE
 
@@ -70,6 +73,21 @@
 		cryo_ssd(src)
 		if(A.fast_despawn)
 			force_cryo_human(src)
+
+/mob/living/carbon/human/proc/handle_light_adjustment()
+	var/obj/screen/fullscreen/see_through_darkness/S = screens["see_through_darkness"]
+	if(!S)
+		return
+	var/current = S.alpha / 255		//Our current adjustedness.
+	var/brightness = 0				//We'll assume it's superdark if we can't find something else..
+	var/turf/T = get_turf(src)
+	brightness = T.get_lumcount()
+	var/darkness = 1 - brightness	//Silly, I know, but 'alpha' and 'darkness' go the same direction on a number line.
+	var/distance = abs(current - darkness) //Used for how long to animate for.
+	if(distance < 0.01)				//We're already all set.
+		return
+
+	animate(S, alpha = (darkness * 255), time = (distance * 10 SECONDS)) //Vite in umbra!
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	..()
