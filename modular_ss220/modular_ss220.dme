@@ -34,6 +34,7 @@
 #include "silicons/_silicons.dme"
 #include "silicon_hats/_silicon_hats.dme"
 #include "windows_airbag/_windows_airbag.dme"
+#include "clumsy_table/_clumsy_table.dme"
 
 // --- MISC --- //
 #include "administration/_administration.dme"

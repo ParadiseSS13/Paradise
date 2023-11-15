@@ -11,3 +11,4 @@
 #include "code/cult_defines_ss220.dm"
 #include "code/hud_ss220.dm"
 #include "code/layers_ss220.dm"
+#include "code/signals_atom.dm"

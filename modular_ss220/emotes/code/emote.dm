@@ -14,6 +14,10 @@
 	. = ..()
 	user.spin(dance_time, pick(0.1 SECONDS, 0.2 SECONDS))
 	user.do_jitter_animation(rand(8 SECONDS, 16 SECONDS), dance_time / 4)
+	var/obj/structure/table/danced_on = locate() in user.loc
+	if(danced_on)
+		SEND_SIGNAL(danced_on, COMSIG_DANCED_ON, user)
+
 
 /datum/emote/living/choke/get_sound(mob/living/user)
 	. = ..()
