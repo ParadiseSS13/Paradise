@@ -12765,10 +12765,6 @@
 /obj/item/storage/fancy/crayons,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/art)
-"aPT" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "aPU" = (
 /obj/structure/table/wood,
 /obj/item/instrument/guitar,
@@ -13409,15 +13405,6 @@
 	icon_state = "bar"
 	},
 /area/station/service/bar)
-"aRu" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/eight,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/space/nearstation)
 "aRv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -25116,10 +25103,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
-"btJ" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "btK" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -36184,13 +36167,6 @@
 	departmentType = 5;
 	name = "Head of Personnel Requests Console";
 	pixel_y = 30
-	},
-/turf/simulated/floor/wood,
-/area/station/command/office/hop)
-"bUR" = (
-/obj/item/kirbyplants,
-/obj/machinery/keycard_auth{
-	pixel_y = 24
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
@@ -85248,6 +85224,10 @@
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
+"mIl" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "mJw" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay Maintenance"
@@ -98342,6 +98322,10 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
+"xcn" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "xcs" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -99039,6 +99023,15 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fsmaint)
+"xGL" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/space/nearstation)
 "xGY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -132760,7 +132753,7 @@ azd
 aAp
 awX
 abj
-aRu
+xGL
 ghZ
 aFq
 aVK
@@ -133016,7 +133009,7 @@ aCo
 azd
 aAq
 awX
-aPT
+xcn
 abj
 aVK
 aGp
@@ -136660,7 +136653,7 @@ bMR
 bOI
 bQH
 ciB
-bUR
+bUT
 chi
 cbT
 chi
@@ -151526,7 +151519,7 @@ abj
 aaa
 abj
 abj
-btJ
+mIl
 aaa
 ygH
 tFK
@@ -151783,7 +151776,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 abj
 ygH
 aJx
@@ -152040,7 +152033,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 ygH
 uUu
@@ -154918,7 +154911,7 @@ nlB
 aaa
 abj
 abj
-btJ
+mIl
 abj
 abj
 iuY
@@ -155432,7 +155425,7 @@ aaa
 aaa
 aaa
 abj
-btJ
+mIl
 abj
 abj
 iuY
@@ -155947,7 +155940,7 @@ aaa
 aaa
 abj
 abj
-btJ
+mIl
 abj
 iuY
 rEQ
@@ -157980,10 +157973,10 @@ aaa
 aaa
 abj
 abj
-btJ
-btJ
-btJ
-btJ
+mIl
+mIl
+mIl
+mIl
 abj
 abj
 fhF
@@ -158242,7 +158235,7 @@ aaa
 abj
 abj
 aaa
-btJ
+mIl
 fhF
 fhF
 fhF
@@ -158252,7 +158245,7 @@ fhF
 fhF
 abj
 abj
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -158496,10 +158489,10 @@ aaa
 abj
 abj
 abj
-btJ
-btJ
-btJ
-btJ
+mIl
+mIl
+mIl
+mIl
 fhF
 fhF
 fhF
@@ -158509,7 +158502,7 @@ fhF
 fhF
 abj
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -158766,7 +158759,7 @@ fhF
 fhF
 abj
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -159013,7 +159006,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 fhF
 fhF
 fhF
@@ -159021,9 +159014,9 @@ fhF
 fhF
 fhF
 fhF
-btJ
+mIl
 abj
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -159264,13 +159257,13 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 fhF
 fhF
 fhF
@@ -159278,7 +159271,7 @@ fhF
 fhF
 fhF
 fhF
-btJ
+mIl
 abj
 abj
 aaa
@@ -159521,20 +159514,20 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
 aaa
 aaa
 bPS
-btJ
-btJ
+mIl
+mIl
 abj
 bPS
 abj
-btJ
-btJ
+mIl
+mIl
 bPS
 aaa
 aaa
@@ -159778,7 +159771,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -160043,11 +160036,11 @@ aaa
 aaa
 aaa
 aaa
-btJ
-btJ
-btJ
-btJ
-btJ
+mIl
+mIl
+mIl
+mIl
+mIl
 aaa
 aaa
 aaa

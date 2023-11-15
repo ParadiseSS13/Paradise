@@ -102,7 +102,6 @@
 		return ..()
 
 /obj/item/paper/proc/rename(mob/user)
-
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
@@ -559,9 +558,11 @@
 		icon_state = "scrap_words"
 
 /obj/item/paper/crumpled/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["wood"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"

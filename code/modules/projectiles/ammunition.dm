@@ -100,7 +100,7 @@
 
 
 /obj/item/ammo_casing/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!BB)
+	if(isdrone(user) && !BB)
 		C.stored_comms["metal"] += 1
 		qdel(src)
 		return TRUE
