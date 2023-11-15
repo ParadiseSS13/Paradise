@@ -195,11 +195,11 @@
 	desc = "This spell teleports you back to your teacher."
 
 	school = "abjuration"
-	base_cooldown = 300
+	base_cooldown = 30 SECONDS
 	clothes_req = TRUE
 	invocation = "SCYAR TESO"
 	invocation_type = "shout"
-	cooldown_min = 100 //50 deciseconds reduction per rank
+	cooldown_min = 10 SECONDS //5 Second reduction per rank
 
 	action_icon_state = "spell_teleport"
 	var/datum/mind/teacher = null
