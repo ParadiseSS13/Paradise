@@ -98,10 +98,13 @@
 	item_state = "flare"
 	var/destination
 
-/obj/item/wormhole_jaunter/contractor/verb/set_destination()
-	set category = "Object"
-	set name = "Change Portal Destination"
-	set src in usr
+/obj/item/wormhole_jaunter/contractor/examine(mob/user)
+	. = ..()
+	. += "<span class='info'>You can <b>Alt-Click</b> [src] to change its destination!</span>"
+
+/obj/item/wormhole_jaunter/contractor/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
 	var/list/L = list()
 	var/list/areaindex = list()
@@ -121,7 +124,6 @@
 
 	var/desc = input("Please select a location to target.", "Flare Target Interface") in L
 	destination = L[desc]
-	return
 
 /obj/item/wormhole_jaunter/contractor/attack_self(mob/user) // message is later down
 	activate(user, TRUE)
