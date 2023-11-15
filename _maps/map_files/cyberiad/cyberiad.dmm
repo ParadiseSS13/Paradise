@@ -8032,6 +8032,13 @@
 "aAf" = (
 /turf/simulated/wall,
 /area/station/maintenance/abandonedbar)
+"aAh" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/chair/sofa/bench/left,
+/turf/simulated/floor/plasteel,
+/area/station/service/barber)
 "aAm" = (
 /turf/simulated/wall/r_wall,
 /area/station/legal/courtroom)
@@ -25870,6 +25877,12 @@
 /obj/structure/sink/puddle,
 /turf/simulated/floor/beach/sand,
 /area/station/hallway/secondary/exit)
+"bGP" = (
+/obj/machinery/floodlight,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/hydroponics)
 "bGR" = (
 /obj/structure/rack{
 	dir = 8;
@@ -41164,6 +41177,9 @@
 /area/station/medical/storage)
 "cCS" = (
 /obj/machinery/gibber,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -43529,6 +43545,9 @@
 "cKl" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 25
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -56032,6 +56051,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
+"eTi" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/kitchen)
 "eTp" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	dir = 1;
@@ -64727,6 +64752,7 @@
 /area/station/medical/virology)
 "jMj" = (
 /obj/structure/closet/crate/freezer,
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -65404,6 +65430,7 @@
 /area/station/maintenance/aft)
 "kfp" = (
 /obj/structure/closet/secure_closet/freezer/meat,
+/obj/effect/turf_decal/weather/snow/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -66171,6 +66198,9 @@
 /obj/machinery/chem_master/condimaster{
 	name = "CondiMaster Neo";
 	pixel_x = -5
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -68045,11 +68075,6 @@
 	icon_state = "grimy"
 	},
 /area/station/security/detective)
-"lwm" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/simulated/floor/plating,
-/area/station/service/mime)
 "lwt" = (
 /obj/machinery/computer/operating{
 	dir = 8
@@ -68980,6 +69005,9 @@
 /area/station/maintenance/aft)
 "lWJ" = (
 /obj/machinery/economy/vending/chefdrobe,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -69300,6 +69328,9 @@
 /area/station/security/permabrig)
 "mfW" = (
 /obj/structure/kitchenspike,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -77801,6 +77832,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/structure/chair/sofa/bench/right,
 /turf/simulated/floor/plasteel,
 /area/station/service/barber)
 "qMN" = (
@@ -84841,6 +84873,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
 /area/station/command/meeting_room)
+"uWn" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/chair/sofa/bench,
+/turf/simulated/floor/plasteel,
+/area/station/service/barber)
 "uWp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
@@ -84868,6 +84907,16 @@
 	icon_state = "hydrofloor"
 	},
 /area/station/maintenance/asmaint)
+"uXV" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/hydroponics)
 "uZe" = (
 /obj/structure/grille/broken,
 /turf/simulated/wall,
@@ -85454,6 +85503,14 @@
 	icon_state = "whiteyellow"
 	},
 /area/station/medical/chemistry)
+"vpC" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/station/service/hydroponics)
 "vpQ" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -88260,6 +88317,12 @@
 	icon_state = "white"
 	},
 /area/station/medical/chemistry)
+"wYk" = (
+/obj/machinery/disposal,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/service/hydroponics)
 "wYs" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/sign/poster/contraband/random{
@@ -124073,7 +124136,7 @@ xEW
 jzA
 mZw
 nLd
-qMk
+uWn
 myO
 myO
 myO
@@ -124330,7 +124393,7 @@ aTJ
 jlF
 beW
 yjB
-qMk
+aAh
 myO
 myO
 myO
@@ -128448,7 +128511,7 @@ nlt
 gEf
 gEf
 oQy
-gEf
+eTi
 bdT
 bdT
 bdT
@@ -129216,10 +129279,10 @@ prT
 aGY
 aGY
 bbd
-boV
-boV
-boV
-boV
+vpC
+vpC
+vpC
+vpC
 dEV
 bof
 bof
@@ -130757,14 +130820,14 @@ aLA
 sDA
 xEU
 aGY
-aGY
+aNh
 beb
 bjN
 bjN
 beb
 bhM
 bmA
-bmA
+uXV
 bpV
 bpV
 bqa
@@ -131011,7 +131074,7 @@ bYt
 oHE
 pBI
 jEk
-lwm
+sDA
 ntY
 bbX
 fzc
@@ -132561,10 +132624,10 @@ bdV
 bfL
 bhR
 beb
-bmA
-bmA
-bmA
-bmA
+wYk
+bGP
+bqa
+bqa
 bqa
 bqa
 bqa
