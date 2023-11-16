@@ -23,9 +23,7 @@
 		attached_spell.UnregisterSignal(attached_spell.action.owner, COMSIG_MOB_WILLINGLY_DROP)
 	return ..()
 
-/obj/item/melee/touch_attack/customised_abstract_text()
-	if(!ishuman(loc))
-		return
+/obj/item/melee/touch_attack/customized_abstract_text()
 	var/mob/living/carbon/human/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in magic fire.</span>"
 

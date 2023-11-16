@@ -161,9 +161,7 @@
 		var/obj/machinery/computer/C = target
 		C.attack_alien(user) //muh copypasta
 
-/obj/item/melee/arm_blade/customised_abstract_text()
-	if(!ishuman(loc))
-		return
+/obj/item/melee/arm_blade/customized_abstract_text()
 	var/mob/living/carbon/human/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>"
 
@@ -209,9 +207,7 @@
 	throw_speed = 0
 	var/datum/action/changeling/weapon/parent_action
 
-/obj/item/gun/magic/tentacle/customised_abstract_text()
-	if(!ishuman(loc))
-		return
+/obj/item/gun/magic/tentacle/customized_abstract_text()
 	var/mob/living/carbon/human/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque tentacle.</span>"
 
