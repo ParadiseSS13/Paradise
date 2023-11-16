@@ -388,9 +388,6 @@
 
 	return ..()
 
-/obj/structure/closet/prevents_ants()
-	return opened
-
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"

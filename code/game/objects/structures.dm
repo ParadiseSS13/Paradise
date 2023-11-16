@@ -192,10 +192,6 @@
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE
 
-/// Whether this structure should prevent food on its turf from being infested by ants
-/obj/structure/proc/prevents_ants()
-	return FALSE
-
 /obj/structure/zap_act(power, zap_flags)
 	if(zap_flags & ZAP_OBJ_DAMAGE)
 		take_damage(power / 8000, BURN, ENERGY)

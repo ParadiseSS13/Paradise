@@ -22,6 +22,8 @@
 	var/antable = TRUE
 	/// Location checked every 5 minutes. If its the same place, the food has a chance to spawn ants
 	var/ant_location
+	/// Things that suppress food from being infested by ants when on the same turf
+	var/static/list/ant_suppressors
 	/// Time we last checked for ants
 	var/last_ant_time = 0
 	/// Name of the food to show up in kitchen machines (microwaves, ovens, etc)
@@ -32,10 +34,19 @@
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
-	if(antable)
-		START_PROCESSING(SSobj, src)
-		ant_location = get_turf(src)
-		last_ant_time = world.time
+	if(!antable)
+		return
+
+	if(!ant_suppressors)
+		to_chat(world, "building ant suppressor typecache")
+		ant_suppressors = typecacheof(list(
+			/obj/structure/table,
+			/obj/structure/rack,
+			/obj/structure/closet
+		))
+	START_PROCESSING(SSobj, src)
+	ant_location = get_turf(src)
+	last_ant_time = world.time
 
 /obj/item/reagent_containers/food/Destroy()
 	ant_location = null
@@ -64,7 +75,7 @@
 
 	var/protected = FALSE // Check if some object on our turf protects the food from ants
 	for(var/obj/structure/S in T)
-		if(S.prevents_ants())
+		if(is_type_in_typecache(S, ant_suppressors))
 			protected = TRUE
 			break
 	if(protected)

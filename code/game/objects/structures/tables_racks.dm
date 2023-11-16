@@ -408,9 +408,6 @@
 		remove_atom_colour(FIXED_COLOUR_PRIORITY)
 		REMOVE_TRAIT(src, TRAIT_OIL_SLICKED, "potion")
 
-/obj/structure/table/prevents_ants()
-	return TRUE
-
 /*
  * Glass Tables
  */
@@ -941,9 +938,6 @@
 				playsound(loc, 'sound/weapons/tap.ogg', 50, TRUE)
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 40, TRUE)
-
-/obj/structure/rack/prevents_ants(obj/item/reagent_containers/food/F)
-	return TRUE
 
 /obj/structure/rack/skeletal_bar
 	name = "skeletal minibar"
