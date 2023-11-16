@@ -95,12 +95,12 @@
 			switch(rand(1,33))
 				if(1) //There are # X on the station
 					switch(rand(1,3)) //What is X?
-					if(1) //X is a threat
-						message = "THERE ARE [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ionthreats] ON THE STATION..."
-					if(2) //X is a crewmember/job
-						message = "THERE ARE [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ioncrew1] ON THE STATION"
-					if(3) //X is an object
-						message = "THERE ARE [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ionobjects] ON THE STATION"
+						if(1) //X is a threat
+							message = "THERE ARE [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ionthreats] ON THE STATION..."
+						if(2) //X is a crewmember/job
+							message = "THERE ARE [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ioncrew1] ON THE STATION"
+						if(3) //X is an object
+							message = "THERE ARE [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ionobjects] ON THE STATION"
 				if(2 to 3) //You can't call the shuttle because X is on the station
 					switch(rand(1,3)) //What is X?
 						if(1) //X is a threat
