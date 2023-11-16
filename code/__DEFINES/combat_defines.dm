@@ -131,10 +131,10 @@
 
 #define HIS_GRACE_SATIATED 		0 		// He hungers not. If bloodthirst is set to this, His Grace is asleep.
 #define HIS_GRACE_PECKISH 		20 		// Slightly hungry.
-#define HIS_GRACE_HUNGRY 		60 		// Getting closer. Increases damage up to a minimum of 20.
-#define HIS_GRACE_FAMISHED 		100 	// Dangerous. Increases damage up to a minimum of 25 and cannot be dropped. If edited, edit the one in buffs.dm
-#define HIS_GRACE_STARVING 		120 	// Incredibly close to breaking loose. Increases damage up to a minimum of 25.
-#define HIS_GRACE_CONSUME_OWNER 140 	// His Grace consumes His owner at this point and becomes aggressive. If edited, edit the one in buffs.dm
+#define HIS_GRACE_HUNGRY 		60 		// Getting closer.
+#define HIS_GRACE_FAMISHED 		100 	// Dangerously close.
+#define HIS_GRACE_STARVING 		120 	// Incredibly close to breaking loose.
+#define HIS_GRACE_CONSUME_OWNER 140 	// His Grace consumes His owner at this point and becomes aggressive.
 #define HIS_GRACE_FALL_ASLEEP 	160 	// If it reaches this point, He falls asleep and resets.
 
 #define HIS_GRACE_FORCE_BONUS 	5 		// How much force is gained per kill.

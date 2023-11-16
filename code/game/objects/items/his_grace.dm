@@ -20,7 +20,7 @@
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
 
-	/// Is our little toolbox still sleeping?
+	/// Is our little toolbox awake?
 	var/awakened = FALSE
 	/// How hungry is His Grace?
 	var/bloodthirst = HIS_GRACE_SATIATED
