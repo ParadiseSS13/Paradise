@@ -9697,6 +9697,7 @@
 	name = "exterior access button";
 	req_access_txt = "32"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "aVg" = (
@@ -17508,7 +17509,6 @@
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Foyer"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -17520,6 +17520,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "bDj" = (
@@ -17631,7 +17632,6 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -17644,6 +17644,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bDu" = (
@@ -17990,7 +17991,6 @@
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -18002,6 +18002,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bEK" = (
@@ -18672,7 +18673,6 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -18697,6 +18697,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -20727,7 +20728,6 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -20736,6 +20736,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
 "bNZ" = (
@@ -27091,7 +27092,8 @@
 	},
 /obj/machinery/door_control/shutter/east{
 	id = "Singularity";
-	name = "Containment Blast Doors"
+	name = "Containment Blast Doors";
+	req_one_access_txt = "32"
 	},
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -30151,7 +30153,6 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering Storage"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -30174,6 +30175,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/equipment,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "czw" = (
@@ -58793,7 +58795,6 @@
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Engineering"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -58818,6 +58819,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -61189,13 +61191,13 @@
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "jkP" = (
@@ -79291,13 +79293,13 @@
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "pwZ" = (
@@ -82766,6 +82768,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/delivery,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/maintenance,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
 "qIl" = (
@@ -87218,7 +87221,6 @@
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -87233,6 +87235,7 @@
 	name = "interior access button";
 	req_access_txt = "10;13"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "siY" = (
@@ -87649,6 +87652,7 @@
 	name = "interior access button";
 	req_access_txt = "32"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/gravitygenerator)
 "srJ" = (
@@ -99082,7 +99086,6 @@
 	name = "Engineering External Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -99094,6 +99097,7 @@
 	name = "exterior access button";
 	req_access_txt = "10;13"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "woQ" = (
