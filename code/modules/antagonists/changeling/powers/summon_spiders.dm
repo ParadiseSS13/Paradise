@@ -30,6 +30,7 @@
 	if(do_mob(user, user, 4 SECONDS, only_use_extra_checks = TRUE)) // Takes 4 seconds to spawn a spider
 		spider_counter++
 		user.visible_message("<span class='danger'>[user] vomits up an arachnid!</span>")
+		user.fakevomit()
 		var/mob/living/simple_animal/hostile/poison/giant_spider/hunter/infestation_spider/S = new(user.loc)
 		S.owner_UID = user.UID()
 		S.faction |= list("spiders", "\ref[owner]") // Makes them friendly only to the owner & other spiders
