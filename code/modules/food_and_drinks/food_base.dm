@@ -52,17 +52,27 @@
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	last_ant_time = world.time
 	var/turf/T = get_turf(src)
-	if(!isturf(loc))
+
+	// Are we unshielded from the fury of space ants?
+	if(!prob(15)) // Ants are often not the smartest
 		return
-	if((locate(/obj/structure/table) in T) || (locate(/obj/structure/rack) in T) || (locate(/obj/structure/closet) in T))
+	if(!isturf(loc)) // Being inside something protects the food
+		return
+	if(T != ant_location) // Moving the food before a full ant swarm can arrive to the location also helps
+		ant_location = T
 		return
 
-	if(ant_location == T) // It must have been on the same floor since at least the last check_for_ants()
-		if(prob(15))
-			if(!locate(/obj/effect/decal/cleanable/ants) in T)
-				new /obj/effect/decal/cleanable/ants(T)
-				antable = FALSE
-				desc += " It appears to be infested with ants. Yuck!"
-				reagents.add_reagent("ants", 1) // Don't eat things with ants in it you weirdo.
-	else
-		ant_location = T
+	var/protected = FALSE // Check if some object on our turf protects the food from ants
+	for(var/obj/structure/S in T)
+		if(S.prevents_ants())
+			protected = TRUE
+			break
+	if(protected)
+		return
+
+	// Dinner time!
+	if(!locate(/obj/effect/decal/cleanable/ants) in T)
+		new /obj/effect/decal/cleanable/ants(T)
+	antable = FALSE
+	desc += " It appears to be infested with ants. Yuck!"
+	reagents.add_reagent("ants", 1) // Don't eat things with ants in it you weirdo.

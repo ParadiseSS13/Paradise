@@ -388,6 +388,10 @@
 
 	return ..()
 
+/obj/structure/closet/prevents_ants()
+	return opened
+
+
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."

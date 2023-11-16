@@ -98,3 +98,6 @@
 			icon_opened = ("cardboard_open_"+decalselection)
 			icon_closed = ("cardboard_"+decalselection)
 			update_icon() // a proc declared in the closets parent file used to update opened/closed sprites on normal closets
+
+/obj/structure/closet/cardboard/prevents_ants()
+	return FALSE // This thing is open from the bottom, no way ants won't find food in here
