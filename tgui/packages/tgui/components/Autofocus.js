@@ -1,12 +1,12 @@
-import { Component, createRef } from "inferno"
+import { Component, createRef } from 'inferno';
 
 export class Autofocus extends Component {
-  ref = createRef()
+  ref = createRef();
 
   componentDidMount() {
     setTimeout(() => {
-      this.ref.current?.focus()
-    }, 1)
+      this.ref.current?.focus();
+    }, 1);
   }
 
   render() {
@@ -14,6 +14,6 @@ export class Autofocus extends Component {
       <div ref={this.ref} tabIndex={-1}>
         {this.props.children}
       </div>
-    )
+    );
   }
 }
