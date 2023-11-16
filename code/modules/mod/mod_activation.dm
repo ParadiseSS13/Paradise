@@ -191,6 +191,9 @@
 	SEND_SIGNAL(src, COMSIG_MOD_TOGGLED, user)
 	return TRUE
 
+/obj/item/mod/control/proc/is_sealed(obj/item/clothing/part)
+	return part.icon_state == "[skin]-[part.base_icon_state]-sealed"
+
 ///Seals or unseals the given part
 /obj/item/mod/control/proc/seal_part(obj/item/clothing/part, seal)
 	if(seal)
