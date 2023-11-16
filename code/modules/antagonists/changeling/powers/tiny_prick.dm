@@ -79,7 +79,9 @@
 	button_icon_state = "sting_extract"
 	sting_icon = "sting_extract"
 	chemical_cost = 25
-	power_type = CHANGELING_INNATE_POWER
+	dna_cost = 1
+	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_UTILITY
 
 /datum/action/changeling/sting/extract_dna/can_sting(mob/user, mob/target)
 	if(..())

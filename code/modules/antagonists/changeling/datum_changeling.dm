@@ -86,10 +86,10 @@
 /datum/antagonist/changeling/greet()
 	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/ling_alert.ogg'))
-	return . += "<span class='danger'>Remember: you get all of their absorbed DNA if you absorb a fellow changeling.</span>"
+	return . += "<span class='danger'>If your true identity is revealed, Nanotrasen will not take you alive.</span>"
 
 /datum/antagonist/changeling/farewell()
-	to_chat(owner.current, "<span class='biggerdanger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
+	to_chat(owner.current, "<span class='danger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
@@ -149,7 +149,6 @@
  * If they have two objectives as well as absorb, they must survive rather than escape.
  */
 /datum/antagonist/changeling/give_objectives()
-	add_antag_objective(/datum/objective/absorb)
 
 	if(prob(60))
 		add_antag_objective(/datum/objective/steal)
