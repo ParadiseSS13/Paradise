@@ -760,4 +760,4 @@
 		var/mob/living/carbon/human/H = owner
 		H.physiology.stamina_mod /= 0.75
 		H.physiology.heat_mod /= 0.5
-	add_attack_logs(owner, owner, "lost bearserker stamina resistance", ATKLOG_ALL)
+		add_attack_logs(owner, owner, "lost bearserker stamina resistance", ATKLOG_ALL)
