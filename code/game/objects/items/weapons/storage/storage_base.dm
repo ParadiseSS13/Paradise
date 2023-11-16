@@ -433,14 +433,14 @@
 		if(!usr.unEquip(I, silent = TRUE))
 			return FALSE
 		usr.update_icons()	//update our overlays
+	if(QDELING(I))
+		return FALSE
 	if(silent)
 		prevent_warning = TRUE
 	I.forceMove(src)
 	if(QDELING(I))
 		return FALSE
 	I.on_enter_storage(src)
-	if(QDELING(I))
-		return FALSE
 
 	for(var/_M in mobs_viewing)
 		var/mob/M = _M
