@@ -133,7 +133,7 @@
 
 /obj/item/storage/backpack/mime
 	name = "Pierre the Panda"
-	desc = "A backpack modelled after Pierre the Panda - the official SolGov representative for the Mime Planet."
+	desc = "A backpack modelled after Pierre the Panda - the official mascot for the Université du Mime."
 	icon_state = "mimepack"
 	item_state = "mimepack"
 
