@@ -57578,8 +57578,7 @@
 	},
 /obj/machinery/computer/aiupload,
 /obj/machinery/door/window/classic/reversed{
-	name = "Upload Console Window";
-	dir = 2
+	name = "Upload Console Window"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -66177,8 +66176,7 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Request Window";
-	dir = 2
+	name = "Request Window"
 	},
 /obj/item/pen,
 /obj/item/paper,
@@ -69135,7 +69133,6 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
 	name = "Reception Window"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -76940,8 +76937,7 @@
 	},
 /obj/machinery/computer/borgupload,
 /obj/machinery/door/window/classic/normal{
-	name = "Cyborg Upload Console Window";
-	dir = 2
+	name = "Cyborg Upload Console Window"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -84321,7 +84317,6 @@
 /obj/item/camera{
 	desc = "A one use - polaroid camera. 30 photos left.";
 	name = "detective's camera";
-	pictures_left = 30;
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -87415,8 +87410,7 @@
 /area/station/hallway/secondary/entry)
 "uWQ" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Court Cell";
-	dir = 2
+	name = "Court Cell"
 	},
 /obj/machinery/light/small{
 	dir = 8
