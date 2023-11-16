@@ -89,7 +89,7 @@
 	return . += "<span class='danger'>If your true identity is revealed, Nanotrasen will not take you alive.</span>"
 
 /datum/antagonist/changeling/farewell()
-	to_chat(owner.current, "<span class='danger'><B>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</span>")
+	to_chat(owner.current, "<span class='danger'><b>You grow weak and lose your powers! You are no longer a changeling and are stuck in your current form!</b></span>")
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
 	var/mob/living/L = ..()
