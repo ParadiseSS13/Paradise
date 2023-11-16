@@ -108,7 +108,7 @@
  * the window was closed by the user.
  */
 /datum/tgui_list_input/proc/wait()
-	while (!choice && !closed)
+	while(!choice && !closed)
 		stoplag(1)
 
 /datum/tgui_list_input/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
