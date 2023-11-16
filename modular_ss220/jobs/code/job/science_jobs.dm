@@ -20,3 +20,8 @@
 				uniform = /obj/item/clothing/under/rank/scientist/student/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/scientist/student/assistant/skirt
+
+// Identification jobs for console
+/datum/job/scientist/student
+	title = "Student Scientist"
+	hidden_from_job_prefs = TRUE

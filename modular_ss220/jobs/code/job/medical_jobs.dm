@@ -30,3 +30,8 @@
 			if("Student Medical Doctor")
 				head = /obj/item/clothing/head/surgery/green/light
 				uniform = /obj/item/clothing/under/rank/medical/scrubs/green/light
+
+// Identification jobs for console
+/datum/job/doctor/intern
+	title = "Intern"
+	hidden_from_job_prefs = TRUE
