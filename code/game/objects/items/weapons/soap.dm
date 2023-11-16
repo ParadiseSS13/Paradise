@@ -56,7 +56,7 @@
 		. += "<span class='notice'>[src] has been eaten down to a sliver!</span>"
 
 /obj/item/soap/attack(mob/target as mob, mob/user as mob)
-	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth" )
+	if(target && user && ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == "mouth")
 		user.visible_message("<span class='warning'>[user] starts washing [target]'s mouth out with [name]!</span>")
 		if(do_after(user, cleanspeed, target = target))
 			user.visible_message("<span class='warning'>[user] washes [target]'s mouth out with [name]!</span>")
