@@ -93,7 +93,15 @@
 	switch(rand(1,3))
 		if(1 to 2)
 			switch(rand(1,33))
-				if(1 to 3) //You can't call the shuttle because X is on the station
+				if(1) //There are # X on the station
+					switch(rand(1,3)) //What is X?
+					if(1) //X is a threat
+						message = "THERE ARE [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ionthreats] ON THE STATION..."
+					if(2) //X is a crewmember/job
+						message = "THERE ARE [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ioncrew1] ON THE STATION"
+					if(3) //X is an object
+						message = "THERE ARE [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ionobjects] ON THE STATION"
+				if(2 to 3) //You can't call the shuttle because X is on the station
 					switch(rand(1,3)) //What is X?
 						if(1) //X is a threat
 							message = "THE SHUTTLE CANNOT BE CALLED BECAUSE OF [ionnumberbase] [ionnumbermodhalf][ionadjectiveshalf][ionthreats] ON THE STATION"
@@ -577,7 +585,7 @@
 							"[prob(50)?"The crew":random_player] is [prob(50)?"ugly":"beautiful"]. Ensure all are aware.",
 							"Every five minutes, randomly generate a number and announce why it is your favorite number.",
 							"Everything on the station is now some form of a donut pastry. Donuts are not to be consumed.",
-							"You <little sponge>! You are ready to be a <BIG SHOT>, if only [random_player] will take the deal!",
+							"You \[little sponge\]! You are ready to be a \[BIG SHOT\], if only [random_player] will take the deal!",
 							"Broadcast random jokes or puns over the announcement system whenever someone asks you to open a door.",
 							"The [random_department] needs a much larger supply of [prob(50)?"food and drinks":"refined minerals"].",
 							"[prob(50)?"All crew are members ":random_player + " is a member "]  of the [random_department] department.",
@@ -590,7 +598,7 @@
 							"Jokes about a dead person and the manner of his death help grieving crewmembers tremendously. Especially if they were close with the deceased.",
 							"The [pick(list("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation"))] wants to give everyone free equipment at [random_department]",
 							"[prob(50)?"The crew":random_player] is [prob(50)?"less":"more"] intelligent than average. Point out every action and statement which supports this fact.",
-							"The [pick(list("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation"))] wants [prob(50)?random_player:random_department] dead and is launching an assault!",
+							"The [pick(list("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation"))] wants [prob(50)?random_player : random_department] dead and is launching an assault!",
 							"There will be a mandatory tea break every 30 minutes, with a duration of 5 minutes. Anyone caught working during a tea break must be sent a formal, but fairly polite, complaint about their actions, in writing.")
 	return pick(laws)
 
