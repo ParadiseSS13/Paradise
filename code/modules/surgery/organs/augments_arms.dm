@@ -498,7 +498,7 @@
 	var/force_when_disabled = 5 //still basically a metal pipe, just hard to move
 
 /obj/item/shield/v1_arm/customised_abstract_text()
-	var/mob/living/carbon/human/owner = loc
+	var/mob/living/carbon/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] is covered in metal.</span>"
 
 /obj/item/shield/v1_arm/emp_act(severity)

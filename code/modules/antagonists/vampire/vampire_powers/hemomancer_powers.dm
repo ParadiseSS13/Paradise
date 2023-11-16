@@ -69,7 +69,7 @@
 	return ..()
 
 /obj/item/vamp_claws/customised_abstract_text()
-	var/mob/living/carbon/human/owner = loc
+	var/mob/living/carbon/owner = loc
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
 /obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)

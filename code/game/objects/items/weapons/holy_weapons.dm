@@ -123,7 +123,7 @@
 	attack_verb = list("punched", "cross countered", "pummeled")
 
 /obj/item/nullrod/godhand/customised_abstract_text()
-	var/mob/living/carbon/human/owner = loc
+	var/mob/living/carbon/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in holy fire.</span>"
 
 /obj/item/nullrod/staff
@@ -436,7 +436,7 @@
 	sharp = TRUE
 
 /obj/item/nullrod/armblade/customised_abstract_text()
-	var/mob/living/carbon/human/owner = loc
+	var/mob/living/carbon/owner = loc
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] has been turned into a grotesque meat-blade.</span>"
 
 /obj/item/nullrod/armblade/mining
