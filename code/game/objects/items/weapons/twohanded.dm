@@ -749,8 +749,7 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/pyro_claws/customised_abstract_text()
-	var/mob/living/carbon/owner = loc
+/obj/item/pyro_claws/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] energy claws extending [owner.p_their(FALSE)] wrists.</span>"
 
 /obj/item/pyro_claws/process()
