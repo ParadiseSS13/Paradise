@@ -984,7 +984,7 @@
 			if("changeling")
 				if(!ischangeling(current))
 					add_antag_datum(/datum/antagonist/changeling)
-					to_chat(current, "<span class='danger'>With a flash of light, your gestation is complete. You are a changeling!</span>")
+					to_chat(current, "<span class='danger'>With a flash of light, our gestation is complete. We are a changeling!</span>")
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 
