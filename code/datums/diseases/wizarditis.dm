@@ -51,7 +51,7 @@
 				affected_mob.say(pick("FORTI GY AMA!", "GITTAH WEIGH!", "TOKI WO TOMARE!", "TARCOL MINTI ZHERI!", "ONI SOMA!", "EI NATH!", "BIRUZ BENNAR!", "NWOLC EGNEVER!"))
 			if(prob(3)) // Last stage, so we'll have plenty of time to show these off even with a lower prob.
 				to_chat(affected_mob, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside", "that this location gives you a +2 to INT and +1 to WIS", "an urge to teleport", "the magic bubbling in your veins", "an urge to summon familiar")].</span>")
-			if(prob(5))
+			if(prob(3)) // About 1 minute per item on average
 				spawn_wizard_clothes()
 			if(prob(0.033)) // Assuming 50 infected, someone should teleport every ~2 minutes on average
 				teleport()
@@ -78,9 +78,12 @@
 
 	// Pick the magical winner and apply
 	var/chosen_slot_ID = pick(eligible_slot_IDs)
-	var/obj/item/chosen_fashion = magic_fashion[num2text(chosen_slot_ID)]
+	var/chosen_fashion = magic_fashion[num2text(chosen_slot_ID)]
+
 	H.unEquip(H.get_item_by_slot(chosen_slot_ID))
-	H.equip_to_slot_or_del(new chosen_fashion, chosen_slot_ID)
+	var/obj/item/magic_attire = new chosen_fashion
+	magic_attire.flags |= DROPDEL
+	H.equip_to_slot_or_del(magic_attire, chosen_slot_ID)
 
 /datum/disease/wizarditis/proc/teleport()
 	if(!is_teleport_allowed(affected_mob.z))
