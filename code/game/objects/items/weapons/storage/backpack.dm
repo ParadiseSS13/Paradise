@@ -132,7 +132,7 @@
 	new /obj/item/gun/projectile/revolver/capgun(src)
 
 /obj/item/storage/backpack/mime
-	name = "Pete the Panda"
+	name = "Pierre the Panda"
 	desc = "What sound does the panda make? Silence. They're extinct."
 	icon_state = "mimepack"
 	item_state = "mimepack"
