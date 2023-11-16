@@ -38,7 +38,6 @@
 		return
 
 	if(!ant_suppressors)
-		to_chat(world, "building ant suppressor typecache")
 		ant_suppressors = typecacheof(list(
 			/obj/structure/table,
 			/obj/structure/rack,
@@ -74,7 +73,7 @@
 		return
 
 	var/protected = FALSE // Check if some object on our turf protects the food from ants
-	for(var/obj/structure/S in T)
+	for(var/obj/O in T)
 		if(is_type_in_typecache(S, ant_suppressors))
 			protected = TRUE
 			break
