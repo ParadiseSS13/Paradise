@@ -1,15 +1,15 @@
 /datum/job/engineer/New()
 	. = ..()
-	alt_titles |= get_all_engineering_novice_tittles()
+	alt_titles |= get_all_engineering_novice_titles()
 
 /datum/station_department/engineering/New()
 	. = ..()
-	department_roles |= get_all_engineering_novice_tittles()
+	department_roles |= get_all_engineering_novice_titles()
 
 /datum/outfit/job/engineer/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
-		if(H.mind.role_alt_title in get_all_engineering_novice_tittles())
+		if(H.mind.role_alt_title in get_all_engineering_novice_titles())
 			uniform = /obj/item/clothing/under/rank/engineer/trainee
 			if(H.gender == FEMALE)
 				uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt

@@ -1,20 +1,21 @@
 // Для отрисовки ХУД'ов.
 GLOBAL_LIST_INIT(Jobs_SS220, list("intern", "cadet", "trainee", "student"))
+GLOBAL_LIST_INIT(Jobs_titles_SS220, list("Intern", "Security Cadet", "Trainee Engineer", "Student Scientist"))
 
-/proc/get_all_medical_novice_tittles()
+/proc/get_all_medical_novice_titles()
 	return list("Intern", "Medical Assistant", "Student Medical Doctor")
 
-/proc/get_all_security_novice_tittles()
+/proc/get_all_security_novice_titles()
 	return list("Security Cadet", "Security Assistant", "Security Graduate")
 
-/proc/get_all_engineering_novice_tittles()
+/proc/get_all_engineering_novice_titles()
 	return list("Trainee Engineer", "Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
 
-/proc/get_all_science_novice_tittles()
+/proc/get_all_science_novice_titles()
 	return list("Student Scientist", "Scientist Assistant", "Scientist Pregraduate", "Scientist Graduate", "Scientist Postgraduate")
 
-/proc/get_all_novice_tittles()
-	return get_all_medical_novice_tittles() + get_all_security_novice_tittles() + get_all_engineering_novice_tittles() + get_all_science_novice_tittles()
+/proc/get_all_novice_titles()
+	return get_all_medical_novice_titles() + get_all_security_novice_titles() + get_all_engineering_novice_titles() + get_all_science_novice_titles()
 
 /mob/living/carbon/human/sec_hud_set_ID()
 	var/image/holder = hud_list[ID_HUD]
@@ -27,10 +28,10 @@ GLOBAL_LIST_INIT(Jobs_SS220, list("intern", "cadet", "trainee", "student"))
 	var/assignmentName = get_ID_assignment(if_no_id = "Unknown")
 	var/rankName = get_ID_rank(if_no_id = "Unknown")
 
-	var/novmed = get_all_medical_novice_tittles()
-	var/novsec = get_all_security_novice_tittles()
-	var/noveng = get_all_engineering_novice_tittles()
-	var/novrnd = get_all_science_novice_tittles()
+	var/novmed = get_all_medical_novice_titles()
+	var/novsec = get_all_security_novice_titles()
+	var/noveng = get_all_engineering_novice_titles()
+	var/novrnd = get_all_science_novice_titles()
 
 	if((assignmentName in novmed) || (rankName in novmed))
 		return "intern"

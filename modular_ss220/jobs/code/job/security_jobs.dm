@@ -1,15 +1,15 @@
 /datum/job/officer/New()
 	. = ..()
-	alt_titles = get_all_security_novice_tittles() // =, а не |=, т.к. отсутствуют альт. названия
+	alt_titles = get_all_security_novice_titles() // =, а не |=, т.к. отсутствуют альт. названия
 
 /datum/station_department/security/New()
 	. = ..()
-	department_roles |= get_all_security_novice_tittles()
+	department_roles |= get_all_security_novice_titles()
 
 /datum/outfit/job/officer/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
-		if(H.mind.role_alt_title in get_all_security_novice_tittles())
+		if(H.mind.role_alt_title in get_all_security_novice_titles())
 			uniform = /obj/item/clothing/under/rank/security/cadet
 			if(H.gender == FEMALE)
 				uniform = /obj/item/clothing/under/rank/security/cadet/skirt

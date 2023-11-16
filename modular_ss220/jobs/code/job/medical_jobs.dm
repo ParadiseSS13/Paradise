@@ -1,15 +1,15 @@
 /datum/job/doctor/New()
 	. = ..()
-	alt_titles |= get_all_medical_novice_tittles()
+	alt_titles |= get_all_medical_novice_titles()
 
 /datum/station_department/medical/New()
 	. = ..()
-	department_roles |= get_all_medical_novice_tittles()
+	department_roles |= get_all_medical_novice_titles()
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
-		if(H.mind.role_alt_title in get_all_medical_novice_tittles())
+		if(H.mind.role_alt_title in get_all_medical_novice_titles())
 			uniform = /obj/item/clothing/under/rank/medical/intern
 			if(H.gender == FEMALE)
 				uniform = /obj/item/clothing/under/rank/medical/intern/skirt
