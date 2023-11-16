@@ -132,8 +132,8 @@
 	new /obj/item/gun/projectile/revolver/capgun(src)
 
 /obj/item/storage/backpack/mime
-	name = "Parcel Parceaux"
-	desc = "A silent backpack made for those silent workers. Silence Co."
+	name = "Pete the Panda"
+	desc = "What sound does the panda make? Silence. They're extinct."
 	icon_state = "mimepack"
 	item_state = "mimepack"
 
