@@ -542,6 +542,9 @@
 /obj/machinery/computer/monitor{
 	name = "Grid Power Monitoring Console"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/engineering)
 "bv" = (
@@ -631,7 +634,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/laborcamp)
 "bC" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -1081,7 +1084,7 @@
 	},
 /area/mine/outpost/hallway/west)
 "cy" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1169,7 +1172,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "cK" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -1662,7 +1665,7 @@
 /area/mine/outpost/hallway/west)
 "dG" = (
 /obj/machinery/atmospherics/binary/pump/on,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -1833,7 +1836,7 @@
 "dW" = (
 /obj/machinery/light/small/directional/north,
 /obj/effect/spawner/random_spawners/dirt_maybe,
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/east)
 "dX" = (
@@ -2172,7 +2175,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/hallway/east)
 "eD" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -2336,7 +2339,7 @@
 	dir = 9;
 	network = list("Mining Outpost")
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/carpet,
 /area/mine/outpost/quartermaster)
 "eR" = (
@@ -2649,7 +2652,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/mining)
 "fv" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkfull"
@@ -3662,7 +3665,7 @@
 /obj/structure/disposalpipe/segment/corner{
 	dir = 1
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	icon_regular_floor = "yellowsiding";
 	icon_state = "tranquillite"
@@ -5481,7 +5484,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "rM" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/mining)
 "rO" = (
@@ -6354,7 +6357,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "wG" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -6482,7 +6485,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/outpost/mechbay)
 "xA" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 1
@@ -6595,7 +6598,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/mine/outpost/comms)
 "yp" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
@@ -7600,7 +7603,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/lavaland/surface/outdoors/legion)
 "EF" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8779,7 +8782,7 @@
 /obj/structure/sign/poster/random{
 	pixel_x = -32
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "Mt" = (
@@ -9237,7 +9240,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/production)
 "PQ" = (
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -9967,7 +9970,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
@@ -10022,7 +10025,7 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/baseturf_helper/lava_land/surface,
+/obj/effect/baseturf_helper/asteroid/basalt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -10072,6 +10075,10 @@
 	icon_state = "tranquillite"
 	},
 /area/mine/outpost/cafeteria)
+"VI" = (
+/obj/effect/baseturf_helper/asteroid/basalt,
+/turf/simulated/floor/mineral/titanium,
+/area/shuttle/siberia)
 "VJ" = (
 /obj/structure/table,
 /obj/item/stack/medical/bruise_pack/advanced,
@@ -13830,7 +13837,7 @@ BP
 Bg
 kI
 iB
-pq
+VI
 pq
 wP
 wt
