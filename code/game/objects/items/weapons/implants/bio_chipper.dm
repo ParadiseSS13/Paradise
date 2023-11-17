@@ -1,7 +1,7 @@
 /obj/item/bio_chip_implanter
 	name = "bio-chip implanter"
 	desc = "A sterile automatic bio-chip injector."
-	icon = 'icons/obj/implants.dmi'
+	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "implanter0"
 	item_state = "syringe_0"
 	throw_speed = 3

@@ -1,7 +1,7 @@
 /obj/item/bio_chip_pad
 	name = "bio-chip pad"
 	desc = "Used to modify bio-chips."
-	icon = 'icons/obj/implants.dmi'
+	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "implantpad-off"
 	item_state = "electronic"
 	throw_speed = 3

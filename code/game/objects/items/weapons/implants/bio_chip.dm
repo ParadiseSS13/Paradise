@@ -25,14 +25,14 @@
  */
 /obj/item/bio_chip
 	name = "bio-chip"
-	icon = 'icons/obj/implants.dmi'
+	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
 	origin_tech = "materials=2;biotech=3;programming=2"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
 	item_color = "black"
 	flags = DROPDEL  // By default, don't let implants be harvestable.
 
-	///which implant overlay should be used for implant cases. This should point to a state in implants.dmi
+	///which implant overlay should be used for implant cases. This should point to a state in bio_chips.dmi
 	var/implant_state = "implant-default"
 	/// How the implant is activated.
 	var/activated = BIOCHIP_ACTIVATED_ACTIVE

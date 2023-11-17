@@ -1,7 +1,7 @@
 /obj/item/bio_chip_case
 	name = "bio-chip case"
 	desc = "A glass case containing a bio-chip."
-	icon = 'icons/obj/implants.dmi'
+	icon = 'icons/obj/bio_chips.dmi'
 	icon_state = "implantcase"
 	item_state = "implantcase"
 	throw_speed = 2
@@ -40,7 +40,7 @@
 /obj/item/bio_chip_case/update_overlays()
 	. = ..()
 	if(imp)
-		var/image/implant_overlay = image('icons/obj/implants.dmi', imp.implant_state)
+		var/image/implant_overlay = image('icons/obj/bio_chips.dmi', imp.implant_state)
 		. += implant_overlay
 
 /obj/item/bio_chip_case/attackby(obj/item/W, mob/user)
