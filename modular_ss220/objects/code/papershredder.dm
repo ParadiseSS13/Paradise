@@ -55,24 +55,23 @@
 	else
 		WRENCH_UNANCHOR_MESSAGE
 
-/obj/machinery/papershredder/AltClick(mob/user)
+/obj/machinery/papershredder/examine(mob/user)
 	. = ..()
-	empty_contents()
+	. += span_notice("<b>Alt-Click</b> to empty [src].")
 
-/obj/machinery/papershredder/verb/empty_contents()
-	set name = "Empty Bin"
-	set category = "Object"
-	set src in oview(1)
+/obj/machinery/papershredder/AltClick(mob/user)
+	empty_contents(user)
 
-	if(usr.stat || usr.restrained())
-		to_chat(usr, span_notice("You need your hands and legs free for this."))
+/obj/machinery/papershredder/proc/empty_contents(mob/user)
+	if(user.stat || user.restrained())
+		to_chat(user, span_notice("You need your hands and legs free for this."))
 		return
 
 	if(!paperamount)
-		to_chat(usr, span_notice("[src] is empty."))
+		to_chat(user, span_notice("[src] is empty."))
 		return
 
-	empty_bin(usr)
+	empty_bin(user)
 
 /obj/machinery/papershredder/proc/empty_bin(mob/living/user, obj/item/storage/empty_into)
 

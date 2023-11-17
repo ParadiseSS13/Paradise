@@ -58,10 +58,6 @@
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-/obj/item/pet_carrier/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE, TRUE))
-		try_free_content(user = user)
-
 /obj/item/pet_carrier/proc/put_in_carrier(mob/living/target, mob/living/user)
 	if(!opened)
 		to_chat(user, "<span class='warning'>Ваша переноска закрыта!</span>")
@@ -200,25 +196,28 @@
 			change_state()
 		return
 
-/obj/item/pet_carrier/verb/open_close()
-	set name = "Открыть/закрыть переноску"
-	set desc = "Меняет состояние дверцы переноски, блокируя или разблокируя возможность достать содержимое."
-	set category = "Object"
+/obj/item/pet_carrier/examine(mob/user)
+	. = ..()
+	. += span_notice("<b>Alt-Click</b> to unload.")
+	. += span_notice("<b>Alt-Shift-Click</b> to toggle lock.")
 
-	if(usr.stat || !ishuman(usr) || usr.restrained())
+/obj/item/pet_carrier/AltClick(mob/user)
+	unload_content(user)
+
+/obj/item/pet_carrier/AltShiftClick(mob/user)
+	open_close(user)
+
+/obj/item/pet_carrier/proc/open_close(mob/user)
+	if(user.stat || !ishuman(user) || user.restrained())
 		return
 
 	change_state()
 
-/obj/item/pet_carrier/verb/unload_content()
-	set name = "Опустошить переноску"
-	set desc = "Вытаскивает животное из переноски."
-	set category = "Object"
-
-	if(usr.stat || !ishuman(usr) || usr.restrained())
+/obj/item/pet_carrier/proc/unload_content(mob/user)
+	if(user.stat || !ishuman(user) || user.restrained())
 		return
 
-	try_free_content(user = usr)
+	try_free_content(user)
 
 /obj/item/pet_carrier/MouseDrop(obj/over_object)
 	if(ishuman(usr))

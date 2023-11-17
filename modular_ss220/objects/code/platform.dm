@@ -41,47 +41,25 @@
 /obj/structure/platform/examine(mob/user)
 	. = ..()
 	. += span_notice("[src] is [anchored == TRUE ? "screwed" : "unscrewed"] [anchored == TRUE ? "to" : "from"] the floor.")
+	. += span_notice("<b>Alt-Click</b> to rotate.")
 
-/obj/structure/platform/verb/rotate()
-	set name = "Rotate Platform Counter-Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/structure/platform/proc/rotate(mob/user)
+	if(user.incapacitated())
 		return
 
 	if(anchored)
-		to_chat(usr, span_warning("[src] cannot be rotated while it is screwed to the floor!"))
+		to_chat(user, span_warning("[src] cannot be rotated while it is screwed to the floor!"))
 		return FALSE
 
 	var/target_dir = turn(dir, 90)
 
 	setDir(target_dir)
 	air_update_turf(1)
-	add_fingerprint(usr)
-	return TRUE
-
-/obj/structure/platform/verb/revrotate()
-	set name = "Rotate Platform Clockwise"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
-		return
-
-	if(anchored)
-		to_chat(usr, span_warning("[src] cannot be rotated while it is screwed to the floor!"))
-		return FALSE
-
-	var/target_dir = turn(dir, 270)
-
-	setDir(target_dir)
-	air_update_turf(1)
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	return TRUE
 
 /obj/structure/platform/AltClick(mob/user)
-	rotate()
+	rotate(user)
 
 // Construction
 /obj/structure/platform/screwdriver_act(mob/user, obj/item/I)

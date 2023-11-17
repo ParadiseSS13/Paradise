@@ -116,12 +116,12 @@
 	update_icon()
 	return TRUE
 
-/obj/item/toy/desk/verb/rotate()
-	set name = "Rotate"
-	set category = "Object"
-	set src in oview(1)
+/obj/item/toy/desk/examine(mob/user)
+	. = ..()
+	. += span_notice("<b>Alt-Click</b> to rotate.")
 
-	if(usr.incapacitated())
+/obj/item/toy/desk/proc/rotate(mob/user)
+	if(user.incapacitated())
 		return
 	dir = turn(dir, 270)
 	return TRUE
@@ -133,7 +133,7 @@
 	if(!in_range(src, user))
 		return
 	else
-		rotate()
+		rotate(user)
 
 /obj/item/toy/desk/officetoy
 	name = "office toy"
