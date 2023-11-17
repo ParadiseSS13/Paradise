@@ -28,11 +28,11 @@
 	icon_state = "barrel"
 	color = "#7e5c00" // So that it's slightly different from normal kegs
 
-/obj/structure/salvage/armaments_crate
+/obj/item/sellable/salvage/ruin/armaments_crate
 	name = "Armaments crate"
 	desc = "A crate stocked to the brim with weaponry. A faded TSF logo can be seen on the side."
-	icon = 'icons/obj/sellable.dmi'
 	icon_state = "weapon_crate"
+
 /obj/item/sellable/salvage/ruin/russian
 	name = "Armaments Cache"
 	desc = "A crate of old disused Belastrav ballistic firearms clearly long past their usability. This crate would make good scrap metal for shuttle construction."
