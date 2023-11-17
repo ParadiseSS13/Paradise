@@ -7,8 +7,6 @@
 	power_type = CHANGELING_PURCHASABLE_POWER
 	menu_location = CLING_MENU_UTILITY
 
-
-
 /datum/action/changeling/apex_predator/sting_action(mob/user)
 	var/targets_by_name = list()
 	for(var/mob/living/carbon/human/H in GLOB.human_list)
