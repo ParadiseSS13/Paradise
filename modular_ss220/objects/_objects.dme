@@ -4,6 +4,7 @@
 #include "code/beretta.dm"
 #include "code/big_bed.dm"
 #include "code/billboard.dm"
+#include "code/card_skins.dm"
 #include "code/closets.dm"
 #include "code/hampters.dm"
 #include "code/mattress.dm"

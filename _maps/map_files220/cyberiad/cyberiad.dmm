@@ -50583,6 +50583,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/effect/spawner/random_spawners/id_skins,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "fwy" = (
@@ -79847,6 +79848,7 @@
 /obj/item/clothing/under/color/grey,
 /obj/item/clothing/under/color/grey,
 /obj/machinery/light_construct/small/north,
+/obj/effect/spawner/random_spawners/id_skins,
 /turf/simulated/floor/wood/fancy/birch,
 /area/station/maintenance/fsmaint)
 "qgz" = (
@@ -85596,6 +85598,7 @@
 	req_one_access_txt = "33;41"
 	},
 /mob/living/simple_animal/hostile/scarybat,
+/obj/effect/spawner/random_spawners/id_skins,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
 	},

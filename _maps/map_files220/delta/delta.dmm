@@ -3415,6 +3415,7 @@
 	},
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood,
+/obj/effect/spawner/random_spawners/id_skins,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -29619,15 +29620,10 @@
 	},
 /area/station/public/locker)
 "cxt" = (
-/obj/structure/table,
-/obj/item/storage/briefcase{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/station/public/locker)
+/obj/structure/table/wood/poker,
+/obj/effect/spawner/random_spawners/id_skins,
+/turf/simulated/floor/plasteel/grimy,
+/area/station/maintenance/abandonedbar)
 "cxw" = (
 /obj/structure/closet/wardrobe/green,
 /turf/simulated/floor/plasteel{
@@ -30009,6 +30005,10 @@
 /obj/structure/table,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
+	},
+/obj/item/storage/briefcase{
+	pixel_x = 4;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -69458,6 +69458,13 @@
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel/dark,
 /area/station/command/bridge)
+"mbV" = (
+/obj/structure/table,
+/obj/effect/spawner/random_spawners/id_skins,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/station/public/locker)
 "mbY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -101591,6 +101598,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/id_skins,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "xlZ" = (
@@ -123733,7 +123741,7 @@ yeh
 dcM
 daf
 lTi
-dhv
+cxt
 lYq
 dYm
 lTi
@@ -151206,7 +151214,7 @@ lgO
 ctp
 xKs
 crW
-cxs
+mbV
 cyO
 crJ
 cBQ
@@ -151463,7 +151471,7 @@ uKK
 ctq
 cuA
 crW
-cxt
+cxs
 cyP
 crW
 cBT

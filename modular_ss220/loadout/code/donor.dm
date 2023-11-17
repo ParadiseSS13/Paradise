@@ -102,3 +102,93 @@
 	display_name = "Медицинский анализатор"
 	path = /obj/item/healthanalyzer
 	cost = 2
+
+// ID Skins
+/datum/gear/donor/id_decal_colored
+	display_name = "Наклейка на карту (Голографическая)"
+	path = /obj/item/id_skin/colored
+	cost = 2
+
+/datum/gear/donor/id_decal_silver_colored
+	display_name = "Серебрянная наклейка на карту (Голографическая)"
+	path = /obj/item/id_skin/colored/silver
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_silver
+	display_name = "Серебрянная наклейка на карту"
+	path = /obj/item/id_skin/silver
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_gold
+	display_name = "Золотая наклейка на карту"
+	path = /obj/item/id_skin/gold
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_business
+	display_name = "Бизнесменская наклейка на карту"
+	path = /obj/item/id_skin/business
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_lifetime
+	display_name = "Стильная наклейка на карту"
+	path = /obj/item/id_skin/lifetime
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_ussp
+	display_name = "Коммунистическая наклейка на карту"
+	path = /obj/item/id_skin/ussp
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_clown
+	display_name = "Клоунская наклейка на карту"
+	path = /obj/item/id_skin/clown
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_neon
+	display_name = "Неоновая наклейка на карту"
+	path = /obj/item/id_skin/neon
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_neon_colored
+	display_name = "Неоновая наклейка на карту (Голографическая)"
+	path = /obj/item/id_skin/colored/neon
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_rainbow
+	display_name = "Радужная наклейка на карту"
+	path = /obj/item/id_skin/rainbow
+	donator_tier = 4
+	cost = 3
+
+/datum/gear/donor/id_decal_space
+	display_name = "КОСМИЧЕСКАЯ наклейка на карту"
+	path = /obj/item/id_skin/space
+	donator_tier = 4
+	cost = 3
+
+/datum/gear/donor/id_decal_kitty
+	display_name = "Кото-клейка на карту"
+	path = /obj/item/id_skin/kitty
+	donator_tier = 4
+	cost = 3
+
+/datum/gear/donor/id_decal_kitty_colored
+	display_name = "Кото-клейка на карту (Голографическая)"
+	path = /obj/item/id_skin/colored/kitty
+	donator_tier = 4
+	cost = 3
+
+/datum/gear/donor/id_decal_snake
+	display_name = "Бегущая наклейка на карту"
+	path = /obj/item/id_skin/colored/snake
+	donator_tier = 4
+	cost = 3

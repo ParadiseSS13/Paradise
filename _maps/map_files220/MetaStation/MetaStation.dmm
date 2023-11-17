@@ -4455,6 +4455,7 @@
 /obj/effect/decal/cleanable/cobweb,
 /obj/structure/closet/crate,
 /obj/machinery/light/small/directional/north,
+/obj/effect/spawner/random_spawners/id_skins/no_chance,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "azj" = (
@@ -10963,10 +10964,7 @@
 /area/station/public/locker)
 "aVT" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft/grey{
-	pixel_x = -2;
-	pixel_y = 3
-	},
+/obj/effect/spawner/random_spawners/id_skins,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "aVU" = (
@@ -24001,6 +23999,7 @@
 /area/station/hallway/secondary/garden)
 "bHo" = (
 /obj/effect/decal/cleanable/vomit,
+/obj/effect/spawner/random_spawners/id_skins,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "bHp" = (
@@ -41037,6 +41036,7 @@
 	req_access_txt = "25"
 	},
 /obj/machinery/light_switch/north,
+/obj/effect/spawner/random_spawners/id_skins/no_chance,
 /turf/simulated/floor/wood,
 /area/station/maintenance/apmaint)
 "cOB" = (
