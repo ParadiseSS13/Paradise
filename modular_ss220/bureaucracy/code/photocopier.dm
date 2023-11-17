@@ -1,4 +1,5 @@
 /obj/machinery/photocopier
+	toner = 30
 	/// Selected form's category
 	var/category = ""
 	/// Selected form's id
@@ -54,6 +55,8 @@
 		if("choose_category")
 			category = params["category"]
 			. = TRUE
+		if("copies")
+			copies = clamp(text2num(params["new"]), 0, maxcopies)
 
 /obj/machinery/photocopier/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
@@ -68,7 +71,8 @@
 	var/list/data = list()
 
 	data["isAI"] = issilicon(user)
-	data["copynumber"] = copies
+	data["copies"] = copies
+	data["maxcopies"] = maxcopies
 	data["toner"] = toner
 	data["copyitem"] = (copyitem ? copyitem.name : null)
 	data["folder"] = (folder ? folder.name : null)
