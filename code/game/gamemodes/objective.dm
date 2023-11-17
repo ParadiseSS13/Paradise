@@ -617,43 +617,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			message_admins("[ADMIN_LOOKUPFLW(H)] Failed to spawn with their [item_path] theft kit.")
 			qdel(I)
 
-
-/datum/objective/absorb
-	name = "Absorb DNA"
-	needs_target = FALSE
-
-/datum/objective/absorb/New(text, datum/team/team_to_join)
-	. = ..()
-	gen_amount_goal()
-
-/datum/objective/absorb/proc/gen_amount_goal(lowbound = 6, highbound = 8)
-	target_amount = rand (lowbound,highbound)
-	if(SSticker)
-		var/n_p = 1 //autowin
-		if(SSticker.current_state == GAME_STATE_SETTING_UP)
-			for(var/mob/new_player/P in GLOB.player_list)
-				if(P.client && P.ready && !(P.mind in get_owners()))
-					if(P.client.prefs && (P.client.prefs.active_character.species == "Machine")) // Special check for species that can't be absorbed. No better solution.
-						continue
-					n_p++
-		else if(SSticker.current_state == GAME_STATE_PLAYING)
-			for(var/mob/living/carbon/human/P in GLOB.player_list)
-				if(HAS_TRAIT(P, TRAIT_GENELESS))
-					continue
-				if(P.client && !(P.mind in SSticker.mode.changelings) && !(P.mind in get_owners()))
-					n_p++
-		target_amount = min(target_amount, n_p)
-
-	explanation_text = "Acquire [target_amount] compatible genomes. The 'Extract DNA Sting' can be used to stealthily get genomes without killing somebody."
-	return target_amount
-
-/datum/objective/absorb/check_completion()
-	for(var/datum/mind/M in get_owners())
-		var/datum/antagonist/changeling/cling = M?.has_antag_datum(/datum/antagonist/changeling)
-		if(cling?.absorbed_dna && (cling.absorbed_count >= target_amount))
-			return TRUE
-	return FALSE
-
 /datum/objective/destroy
 	name = "Destroy AI"
 	martyr_compatible = 1
