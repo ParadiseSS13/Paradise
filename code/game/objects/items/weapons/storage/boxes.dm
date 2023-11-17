@@ -104,7 +104,7 @@
 //////////////////
 /obj/item/storage/box/tapes
 	name = "Tape Box"
-	desc = "A box of spare recording tapes"
+	desc = "A box of spare recording tapes."
 	icon_state = "tape_box"
 
 /obj/item/storage/box/tapes/populate_contents()
@@ -156,12 +156,12 @@
 
 /obj/item/storage/box/lights
 	name = "replacement bulbs"
-	icon_state = "light_box"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
+	icon_state = "light_box"
 	storage_slots = 21
 	can_hold = list(/obj/item/light/tube, /obj/item/light/bulb)
 	max_combined_w_class = 21
-	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try
+	use_to_pickup = TRUE // for picking up broken bulbs, not that most people will try
 
 /obj/item/storage/box/lights/bulbs/populate_contents()
 	for(var/I in 1 to storage_slots)
@@ -194,7 +194,7 @@
 		new /obj/item/disk/plantgene(src)
 
 /obj/item/storage/box/disks
-	name = "Genetics Diskette Box"
+	name = "genetics diskette box"
 	icon_state = "disk_box"
 
 /obj/item/storage/box/disks/populate_contents()
@@ -259,7 +259,7 @@
 		new /obj/item/seeds/random/labelled(src)
 
 /obj/item/storage/box/barber
-	name = "Barber Starter Kit"
+	name = "barber starter kit"
 	desc = "For all hairstyling needs."
 
 /obj/item/storage/box/barber/populate_contents()
@@ -272,7 +272,7 @@
 	new /obj/item/clothing/mask/fakemoustache(src) //totally necessary for successful barbering -Fox
 
 /obj/item/storage/box/lip_stick
-	name = "Lipstick Kit"
+	name = "lipstick kit"
 	desc = "For all your lip coloring needs."
 
 /obj/item/storage/box/lip_stick/populate_contents()
@@ -285,7 +285,7 @@
 	new /obj/item/lipstick/white(src)
 
 /obj/item/storage/box/characters
-	name = "Box of Miniatures"
+	name = "box of miniatures"
 	desc = "The nerd's best friends."
 	icon_state = "toy_box"
 
@@ -516,8 +516,8 @@
 
 /obj/item/storage/box/holobadge
 	name = "holobadge box"
-	icon_state = "badge_box"
 	desc = "A box claiming to contain holobadges."
+	icon_state = "badge_box"
 
 /obj/item/storage/box/holobadge/populate_contents()
 	new /obj/item/clothing/accessory/holobadge(src)

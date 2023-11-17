@@ -187,7 +187,7 @@
 /obj/item/storage/fancy/matches/attackby(obj/item/match/W, mob/user, params)
 	if(istype(W, /obj/item/match) && !W.lit)
 		W.matchignite()
-		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
+		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
 	return
 
 /obj/item/storage/fancy/matches/update_icon_state()
