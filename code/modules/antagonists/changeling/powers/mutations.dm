@@ -608,5 +608,5 @@
 		var/mob/living/carbon/C = loc
 		C.throw_mode_on()
 		if(loc)
-			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, 1)
+			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 			C.visible_message("<span class='warning'>Shards of bone grow through [C.name]'s palms and fall into [C.p_their()] hands!</span>", "<span class='warning'>We expel shards of bone into our hands.</span>", "<span class='hear'>You hear organic matter ripping and tearing!</span>")
