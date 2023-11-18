@@ -38,7 +38,7 @@
 	var/last_found //There's a delay
 	var/declare_arrests = TRUE //When making an arrest, should it notify everyone wearing sechuds?
 	var/idcheck = FALSE //If true, arrest people with no IDs
-	var/weaponscheck = TRUE //If true, arrest people for weapons if they don't have access
+	var/weapons_check = TRUE //If true, arrest people for weapons if they don't have access
 	var/check_records = TRUE //Does it check security records?
 	var/arrest_type = FALSE //If true, don't handcuff
 	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
@@ -111,7 +111,7 @@
 /mob/living/simple_animal/bot/ed209/ui_data(mob/user)
 	var/list/data = ..()
 	data["check_id"] = idcheck
-	data["check_weapons"] = weaponscheck
+	data["check_weapons"] = weapons_check
 	data["check_warrant"] = check_records
 	data["arrest_mode"] = arrest_type // detain or arrest
 	data["arrest_declare"] = declare_arrests // announce arrests on radio
@@ -139,7 +139,7 @@
 		if("disableremote")
 			remote_disabled = !remote_disabled
 		if("authweapon")
-			weaponscheck = !weaponscheck
+			weapons_check = !weapons_check
 		if("authid")
 			idcheck = !idcheck
 		if("authwarrant")
