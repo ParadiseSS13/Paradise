@@ -21,12 +21,12 @@
 	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
 	var/amount = 10
 	/// Add tiles to existing floor
-	var/replacetiles = FALSE
+	var/replace_tiles = FALSE
 	/// Add floor tiles to inventory
-	var/eattiles = FALSE
+	var/eat_tiles = FALSE
 	/// Convert metal into floor tiles (drops on floor)
-	var/maketiles = FALSE
-	var/fixfloors = FALSE
+	var/make_tiles = FALSE
+	var/fix_floor = FALSE
 	/// Fix the floor and include a tile.
 	var/autotile = FALSE
 	var/nag_on_empty = TRUE
@@ -81,10 +81,10 @@
 /mob/living/simple_animal/bot/floorbot/ui_data(mob/user)
 	var/list/data = ..()
 	data["hullplating"] = autotile
-	data["replace"] = replacetiles
-	data["eat"] = eattiles
-	data["make"] = maketiles
-	data["fixfloor"] = fixfloors
+	data["replace"] = replace_tiles
+	data["eat"] = eat_tiles
+	data["make"] = make_tiles
+	data["fixfloor"] = fix_floor
 	data["nag_empty"] = nag_on_empty
 	data["magnet"] = anchored
 	data["tiles_amount"] = amount
@@ -114,16 +114,16 @@
 			remote_disabled = !remote_disabled
 		if("autotile")
 			autotile = !autotile
-		if("replacetiles")
-			replacetiles = !replacetiles
-		if("eattiles")
-			eattiles = !eattiles
-		if("maketiles")
-			maketiles = !maketiles
+		if("replace_tiles")
+			replace_tiles = !replace_tiles
+		if("eat_tiles")
+			eat_tiles = !eat_tiles
+		if("make_tiles")
+			make_tiles = !make_tiles
 		if("nagonempty")
 			nag_on_empty = !nag_on_empty
-		if("fixfloors")
-			fixfloors = !fixfloors
+		if("fix_floor")
+			fix_floor = !fix_floor
 		if("anchored")
 			anchored = !anchored
 		if("ejectpai")
@@ -168,11 +168,11 @@
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
 			target = scan(/turf/space, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
-		if(!target && replacetiles) //Finds a floor without a tile and gives it one.
+		if(!target && replace_tiles) //Finds a floor without a tile and gives it one.
 			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
 			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
-		if(!target && fixfloors) //Repairs damaged floors and tiles.
+		if(!target && fix_floor) //Repairs damaged floors and tiles.
 			process_type = FIX_TILE
 			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
@@ -181,11 +181,11 @@
 		target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
 
 	if(amount < MAX_AMOUNT && !target) //Out of tiles! We must refill!
-		if(eattiles) //Configured to find and consume floortiles!
+		if(eat_tiles) //Configured to find and consume floortiles!
 			target = scan(/obj/item/stack/tile/plasteel)
 			process_type = null
 
-		if(!target && maketiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
+		if(!target && make_tiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
 			target = scan(/obj/item/stack/sheet/metal)
 			process_type = null
 			return
@@ -322,7 +322,7 @@
 	if(mode != BOT_REPAIRING)
 		return
 
-	if(autotile || replacetiles)
+	if(autotile || replace_tiles)
 		process_type == HULL_BREACH ? "" : F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 	else
