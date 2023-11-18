@@ -72,7 +72,6 @@
 	if(H.bleed_rate && ismachineperson(H))
 		H.bleed_rate = 0
 
-
 /obj/item/stack/nanopaste/cyborg
 	energy_type = /datum/robot_energy_storage/medical/nanopaste
 	is_cyborg = TRUE
