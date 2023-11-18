@@ -45,7 +45,7 @@
 	use(1)
 	var/remaining_heal = 15
 	var/new_remaining_heal = 0
-	S.heal_damage(robo_repair = 1) //should in, theory, heal the robotic organs in just the targeted area with it being S instead of E
+	S.heal_damage(robo_repair = TRUE) //should in, theory, heal the robotic organs in just the targeted area with it being S instead of E
 	var/list/childlist
 	if(!isnull(S.children))
 		childlist = S.children.Copy()
@@ -66,8 +66,7 @@
 		else
 			break
 		new_remaining_heal = max(remaining_heal - E.get_damage(), 0)
-		E.heal_damage(remaining_heal, 0, 0, 1) //Healing Brute
-		E.heal_damage(0, remaining_heal, 0, 1) //Healing Burn
+		E.heal_damage(remaining_heal, remaining_heal, FALSE, TRUE)
 		remaining_heal = new_remaining_heal
 		user.visible_message("<span class='notice'>[user] applies some nanite paste at [H]'s [E.name] with [src].</span>")
 	if(H.bleed_rate && ismachineperson(H))
