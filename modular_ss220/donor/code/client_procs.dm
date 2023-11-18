@@ -1,4 +1,4 @@
-#define MAX_SAVE_SLOTS_SS220 3
+#define MAX_SAVE_SLOTS_SS220 5
 
 /datum/client_login_processor/donator_check/process_result(datum/db_query/Q, client/C)
 	if(IsGuestKey(C.ckey))
@@ -7,6 +7,7 @@
 	if(check_rights_client(R_ADMIN, FALSE, C))
 		C.donator_level = DONATOR_LEVEL_MAX
 		C.donor_loadout_points()
+		C.donor_character_slots()
 		return
 
 	while(Q.NextRow())
@@ -60,19 +61,7 @@
 	if(!prefs)
 		return
 
-	prefs.max_save_slots = MAX_SAVE_SLOTS_SS220
-
-	switch(donator_level)
-		if(1)
-			prefs.max_save_slots += 2
-		if(2)
-			prefs.max_save_slots += 4
-		if(3)
-			prefs.max_save_slots += 6
-		if(4)
-			prefs.max_save_slots += 8
-		if(5)
-			prefs.max_save_slots += 10
+	prefs.max_save_slots = MAX_SAVE_SLOTS_SS220 + 5 * donator_level
 
 	prefs.character_saves.len = prefs.max_save_slots
 
