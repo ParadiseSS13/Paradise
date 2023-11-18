@@ -17,8 +17,9 @@
 	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 	window_id = "autofloor"
 	window_name = "Automatic Station Floor Repairer v1.1"
-
-	var/process_type //Determines what to do when process_scan() recieves a target. See process_scan() for details.
+	/// Determines what to do when process_scan() recieves a target. See process_scan() for details.
+	var/process_type
+	/// Tiles in inventory
 	var/amount = 10
 	/// Add tiles to existing floor
 	var/replace_tiles = FALSE
@@ -257,9 +258,9 @@
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
 	var/area/t_area = get_area(t)
 	if(t_area && (t_area.name == "Space"))
-		return 0
+		return FALSE
 	else
-		return 1
+		return TRUE
 
 //Floorbots, having several functions, need sort out special conditions here.
 /mob/living/simple_animal/bot/floorbot/process_scan(atom/scan_target)
