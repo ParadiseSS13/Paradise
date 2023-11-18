@@ -36,7 +36,7 @@
 
 		my_tag = destination_id
 		playsound(host, 'sound/machines/terminal_select.ogg', 15, TRUE)
-		SStgui.update_uis(src)
+		. = TRUE
 		// Handle setting tags (and flushing for drones)
 		if(istype(host, /obj/item/destTagger))
 			var/obj/item/destTagger/O = host
