@@ -18,7 +18,7 @@ export class DraggableControl extends Component {
       value: props.value,
       dragging: false,
       editing: false,
-      oldOffset: null,
+      origin: null,
       suppressingFlicker: false,
     };
 
@@ -52,6 +52,10 @@ export class DraggableControl extends Component {
       this.setState({
         dragging: false,
         value,
+        origin:
+          getScalarScreenOffset(e, dragMatrix) -
+          this.ref.getBoundingClientRect().left -
+          window.screenX,
       });
       this.timer = setTimeout(() => {
         this.setState({
@@ -82,57 +86,19 @@ export class DraggableControl extends Component {
       }
       this.setState((prevState) => {
         const state = { ...prevState };
-        const oldOffset = prevState.oldOffset;
+        const origin = prevState.origin;
         const offset =
           getScalarScreenOffset(e, dragMatrix) -
           this.ref.getBoundingClientRect().left -
-          window.screenX;
+          window.screenX -
+          origin;
         if (prevState.dragging) {
-          if (
-            oldOffset !== undefined &&
-            oldOffset !== null &&
-            offset !== oldOffset
-          ) {
-            const maxStep = maxValue / step;
-            const toNearestStep =
-              offset > oldOffset
-                ? Math.floor // Increasing
-                : Math.ceil; // Decreasing
-            /* ● = step, o = oldOffset, n = offset
-             * There are four cases to consider for the following code:
-             * Case 1: Increasing(offset > oldOffset), moving between steps
-             * ●--o--n-●
-             * value should not change. Since both offsets are subject to floor,
-             * they have the same nearest steps and the difference cancels out,
-             * leaving value the same
-             * Case 2: Decreasing(offset < oldOffset), moving between steps
-             * ●--n--o-●
-             * Same as Case 1 except the function is ceil not floor
-             * Case 3: Increasing, offset is past step
-             * ●-o-●-n-● ; ●-o-●---●-n
-             * value should increase by 1, or however many steps o is behind n
-             * Case 4: Decreasing, offset is behind step
-             * ●-n-●-o-● ; ●-n-●---●-o
-             * Same as Case 3, but decrease instead of increase
-             */
-            const oldStep = clamp(
-              toNearestStep(oldOffset / stepPixelSize),
-              0,
-              maxStep
-            );
-            const newStep = clamp(
-              toNearestStep(offset / stepPixelSize),
-              0,
-              maxStep
-            );
-            const stepDifference = newStep - oldStep;
-            state.value = clamp(
-              state.value + stepDifference * step,
-              minValue,
-              maxValue
-            );
-          }
-          state.oldOffset = offset;
+          const stepDifference = Math.trunc(offset / stepPixelSize);
+          state.value = clamp(
+            Math.floor(this.props.value / step) * step + stepDifference * step,
+            minValue,
+            maxValue
+          );
         } else if (Math.abs(offset) > 4) {
           state.dragging = true;
         }
@@ -149,7 +115,7 @@ export class DraggableControl extends Component {
       this.setState({
         dragging: false,
         editing: !dragging,
-        oldOffset: null,
+        origin: null,
       });
       document.removeEventListener('mousemove', this.handleDragMove);
       document.removeEventListener('mouseup', this.handleDragEnd);
