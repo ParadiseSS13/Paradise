@@ -49,16 +49,11 @@ export class DraggableControl extends Component {
       }
       document.body.style['pointer-events'] = 'none';
       this.ref = e.currentTarget;
-      const boundingRect = this.ref.getBoundingClientRect();
       this.setState({
         dragging: false,
         value,
         origin:
           getScalarScreenOffset(e, dragMatrix) -
-          getScalarScreenOffset(
-            { screenX: boundingRect.left, screenY: boundingRect.top },
-            dragMatrix
-          ) -
           getScalarScreenOffset(window, dragMatrix),
       });
       this.timer = setTimeout(() => {
@@ -91,13 +86,8 @@ export class DraggableControl extends Component {
       this.setState((prevState) => {
         const state = { ...prevState };
         const origin = prevState.origin;
-        const boundingRect = this.ref.getBoundingClientRect();
         const offset =
           getScalarScreenOffset(e, dragMatrix) -
-          getScalarScreenOffset(
-            { screenX: boundingRect.left, screenY: boundingRect.top },
-            dragMatrix
-          ) -
           getScalarScreenOffset(window, dragMatrix) -
           origin;
         if (prevState.dragging) {
