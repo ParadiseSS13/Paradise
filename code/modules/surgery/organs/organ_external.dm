@@ -164,7 +164,6 @@
 	if(!HAS_TRAIT(owner, TRAIT_IB_IMMUNE))
 		limb_flags &= ~CANNOT_INT_BLEED
 
-
 /obj/item/organ/external/attack(mob/M, mob/living/user)
 	if(!ishuman(M))
 		return
