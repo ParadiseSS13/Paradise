@@ -52661,7 +52661,6 @@
 	},
 /area/station/medical/reception)
 "cKS" = (
-/obj/structure/table/tray,
 /obj/item/stack/medical/bruise_pack/advanced{
 	pixel_x = -7;
 	pixel_y = 7
@@ -58763,7 +58762,6 @@
 /area/station/maintenance/starboard)
 "dbA" = (
 /obj/item/hemostat,
-/obj/structure/table/tray,
 /obj/machinery/newscaster{
 	dir = 1;
 	name = "south bump";
@@ -66286,14 +66284,6 @@
 /area/station/medical/medbay)
 "dwL" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/machinery/status_display{
 	pixel_y = -32
@@ -67597,15 +67587,13 @@
 "dBO" = (
 /obj/structure/table/reinforced,
 /obj/item/robotanalyzer,
-/obj/item/bonegel,
-/obj/item/FixOVein,
-/obj/item/surgicaldrill,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/button/windowtint{
 	id = "RoboSurgery";
 	pixel_x = 24;
 	dir = 8
 	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dBP" = (
@@ -67899,12 +67887,6 @@
 /area/station/maintenance/theatre)
 "dCr" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /obj/machinery/firealarm{
 	dir = 8;
 	name = "west bump";
@@ -68438,17 +68420,8 @@
 	},
 /area/station/medical/medbay)
 "dEu" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/structure/table/tray,
-/obj/item/scalpel,
+/obj/structure/table/glass,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -68657,12 +68630,11 @@
 	dir = 8;
 	id = "RoboSurgery"
 	},
-/obj/item/tank/internals/anesthetic,
-/obj/item/clothing/mask/breath/medical,
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/mmi,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dFx" = (
@@ -68680,15 +68652,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/retractor,
-/obj/item/hemostat,
-/obj/item/bonesetter,
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = -4;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/spray/cleaner,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dFB" = (
@@ -69294,13 +69259,16 @@
 	dir = 8;
 	id = "RoboSurgery"
 	},
-/obj/item/mmi,
-/obj/item/storage/box/gloves{
-	pixel_x = 3;
-	pixel_y = 5
+/obj/effect/turf_decal/delivery/hollow,
+/obj/item/storage/box/bodybags{
+	pixel_x = -4;
+	pixel_y = -4
 	},
 /obj/item/storage/box/masks,
-/obj/effect/turf_decal/delivery/hollow,
+/obj/item/storage/box/gloves{
+	pixel_x = 4;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dHT" = (
@@ -72107,12 +72075,9 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/circular_saw,
-/obj/item/cautery,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dQr" = (
@@ -72146,17 +72111,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "dQu" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/structure/table/tray,
-/obj/item/scalpel,
+/obj/item/storage/surgical_tray,
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -72582,12 +72538,6 @@
 /area/station/service/chapel)
 "dRx" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -79532,14 +79482,6 @@
 /area/station/engineering/control)
 "hLZ" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/machinery/camera{
 	c_tag = "Medbay Surgery West";

@@ -34057,20 +34057,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
 "cgH" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/table/tray,
-/obj/item/scalpel,
+/obj/structure/table/glass,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -38211,12 +38202,6 @@
 /area/station/maintenance/turbine)
 "cuS" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -43303,20 +43288,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/science/robotics)
 "cMx" = (
-/obj/item/bonegel{
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/obj/item/cautery,
-/obj/item/FixOVein{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/table/tray,
-/obj/item/scalpel,
+/obj/structure/table/glass,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -44605,12 +44581,6 @@
 /area/station/hallway/secondary/exit)
 "cRp" = (
 /obj/structure/table/glass,
-/obj/item/circular_saw,
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/surgicaldrill,
 /obj/item/radio/intercom{
 	name = "east bump";
 	pixel_x = 28
@@ -56317,11 +56287,11 @@
 	pixel_x = -4;
 	pixel_y = -4
 	},
+/obj/item/storage/box/masks,
 /obj/item/storage/box/gloves{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/storage/box/masks,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -62800,14 +62770,6 @@
 /area/station/security/permabrig)
 "jOX" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
@@ -68385,14 +68347,6 @@
 /area/station/security/permabrig)
 "mgK" = (
 /obj/structure/table,
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/bonegel,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
 /obj/machinery/light/small,
 /obj/machinery/button/windowtint{
 	dir = 1;
@@ -81789,14 +81743,7 @@
 /area/station/supply/lobby)
 "sol" = (
 /obj/structure/table,
-/obj/item/scalpel{
-	pixel_y = 12
-	},
-/obj/item/bonesetter{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/item/circular_saw,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -83080,18 +83027,9 @@
 /area/station/medical/virology)
 "sRb" = (
 /obj/structure/table,
-/obj/item/surgicaldrill{
-	pixel_x = 17;
-	pixel_y = 4
-	},
-/obj/item/stack/medical/bruise_pack/advanced{
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/item/cautery,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -83758,14 +83696,6 @@
 /area/station/security/processing)
 "tfV" = (
 /obj/structure/table/glass,
-/obj/item/hemostat{
-	pixel_x = 6
-	},
-/obj/item/retractor{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/stack/medical/bruise_pack/advanced,
 /obj/item/reagent_containers/iv_bag/salglu,
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
