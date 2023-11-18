@@ -48247,15 +48247,15 @@
 /obj/item/tank/internals/anesthetic{
 	pixel_x = 2
 	},
+/obj/item/clothing/mask/breath/medical,
+/obj/machinery/light{
+	dir = 1
+	},
 /obj/item/reagent_containers/spray/cleaner{
 	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
 	name = "Surgery Cleaner";
 	pixel_x = -10;
 	pixel_y = 1
-	},
-/obj/item/clothing/mask/breath/medical,
-/obj/machinery/light{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -54027,7 +54027,6 @@
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/item/mmi,
-/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -64422,7 +64421,6 @@
 /obj/machinery/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/storage/firstaid/machine,
 /obj/structure/noticeboard{
 	dir = 8;
 	pixel_x = 32
@@ -68354,6 +68352,9 @@
 	pixel_x = -6;
 	pixel_y = -24
 	},
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitepurple"

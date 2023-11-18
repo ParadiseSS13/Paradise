@@ -21166,7 +21166,6 @@
 	name = "custom placement"
 	},
 /obj/structure/table,
-/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -76992,6 +76991,7 @@
 	dir = 8
 	},
 /obj/structure/table,
+/obj/item/storage/surgical_tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

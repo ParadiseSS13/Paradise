@@ -1964,6 +1964,7 @@
 /obj/item/scalpel{
 	pixel_y = 12
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -2383,6 +2384,7 @@
 /obj/item/circular_saw{
 	pixel_y = 10
 	},
+/obj/structure/table,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "fJ" = (
