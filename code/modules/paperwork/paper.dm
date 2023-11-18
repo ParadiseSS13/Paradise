@@ -102,7 +102,6 @@
 		return ..()
 
 /obj/item/paper/proc/rename(mob/user)
-
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
 		return
