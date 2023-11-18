@@ -41,7 +41,7 @@
 	if(!M.w_uniform)
 		return
 	var/obj/item/clothing/accessory/holster/H = locate() in M.w_uniform
-	H?.holster_verb()
+	H?.handle_holster_usage(M)
 
 /datum/keybinding/human/parry
 	name = "Parry"

@@ -103,6 +103,8 @@
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
+	. += "<span class='info'><b>Alt-Shift-Click</b> [src] to undo the paper bundle.</span>"
 	if(in_range(user, src))
 		show_content(user)
 	else
@@ -199,38 +201,31 @@
 /obj/item/paper_bundle/AltClick(mob/user)
 	if(in_range(user, src) && !user.incapacitated())
 		if(is_pen(user.get_active_hand()))
-			rename()
+			rename(user)
 		return
 
 	. = ..()
 
-/obj/item/paper_bundle/verb/rename()
-	set name = "Rename bundle"
-	set category = "Object"
-	set src in usr
-
-	var/n_name = sanitize(copytext(input(usr, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
-	if((loc == usr && usr.stat == 0))
+/obj/item/paper_bundle/proc/rename(mob/user)
+	var/n_name = sanitize(copytext(input(user, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	if((loc == user && !user.stat))
 		name = "[(n_name ? "[n_name]" : "paper bundle")]"
 
-	add_fingerprint(usr)
+	add_fingerprint(user)
 
+/obj/item/paper_bundle/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-
-/obj/item/paper_bundle/verb/remove_all()
-	set name = "Loose bundle"
-	set category = "Object"
-	set src in usr
-
-	to_chat(usr, "<span class='notice'>You loosen the bundle.</span>")
+	to_chat(user, "<span class='notice'>You loosen the bundle.</span>")
 
 	for(var/obj/O in src)
-		O.loc = usr.loc
+		O.forceMove(get_turf(user))
 		O.layer = initial(O.layer)
 		O.plane = initial(O.plane)
-		O.add_fingerprint(usr)
+		O.add_fingerprint(user)
 
-	usr.unEquip(src)
+	user.unEquip(src)
 	qdel(src)
 
 /obj/item/paper_bundle/update_desc()

@@ -17,8 +17,6 @@
 			QUEUE_SMOOTH_NEIGHBORS(src)
 		if(smoothing_flags & SMOOTH_CORNERS)
 			icon_state = ""
-	if(climbable)
-		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 
@@ -51,15 +49,6 @@
 		if(isturf(loc))
 			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return TRUE
-
-/obj/structure/proc/climb_on()
-
-	set name = "Climb structure"
-	set desc = "Climbs onto a structure."
-	set category = null
-	set src in oview(1)
-
-	do_climb(usr)
 
 /obj/structure/MouseDrop_T(atom/movable/C, mob/user as mob)
 	if(..())
@@ -186,6 +175,8 @@
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status
+	if(climbable)
+		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the table after a short delay.</span>"
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
