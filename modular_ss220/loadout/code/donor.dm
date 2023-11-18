@@ -66,7 +66,7 @@
 /datum/gear/donor/firefirstaid
 	display_name = "Набор первой медицинской помощи от премиальной страховки"
 	path = /obj/item/storage/firstaid/regular/donor
-	cost = 12
+	cost = 8
 
 /datum/gear/donor/airtank
 	display_name = "Спаренный балон от премиальной страховки"
@@ -75,7 +75,7 @@
 
 /datum/gear/donor/toolbelt
 	display_name = "Дедушкин пояс с инструментами"
-	path = /obj/item/storage/belt/utility
+	path = /obj/item/storage/belt/utility/full
 	cost = 8
 
 /datum/gear/donor/bruise_pack

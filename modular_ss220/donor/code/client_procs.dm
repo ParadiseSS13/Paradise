@@ -22,8 +22,9 @@
 				C.donator_level = 4
 			if(10000 to INFINITY)
 				C.donator_level = DONATOR_LEVEL_MAX
-		C.donor_loadout_points()
-		C.donor_character_slots()
+
+	C.donor_loadout_points()
+	C.donor_character_slots()
 
 /datum/client_login_processor/donator_check/get_query(client/C)
 	var/datum/db_query/query = SSdbcore.NewQuery({"
