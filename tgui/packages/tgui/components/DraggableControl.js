@@ -228,7 +228,14 @@ export class DraggableControl extends Component {
           if (!editing) {
             return;
           }
-          const value = clamp(e.target.value, minValue, maxValue);
+          const inputValue = parseInt(e.target.value, 10);
+          if (isNaN(inputValue) || e.target.value.match(/[^0-9]/g)) {
+            this.setState({
+              editing: false,
+            });
+            return;
+          }
+          const value = clamp(inputValue, minValue, maxValue);
           this.setState({
             editing: false,
             value,
@@ -243,7 +250,14 @@ export class DraggableControl extends Component {
         }}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {
-            const value = clamp(e.target.value, minValue, maxValue);
+            const inputValue = parseInt(e.target.value, 10);
+            if (isNaN(inputValue) || e.target.value.match(/[^0-9]/g)) {
+              this.setState({
+                editing: false,
+              });
+              return;
+            }
+            const value = clamp(inputValue, minValue, maxValue);
             this.setState({
               editing: false,
               value,
