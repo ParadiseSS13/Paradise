@@ -69,7 +69,7 @@
 		E.heal_damage(remaining_heal, 0, 0, 1) //Healing Brute
 		E.heal_damage(0, remaining_heal, 0, 1) //Healing Burn
 		remaining_heal = new_remaining_heal
-		user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [H]'s [E.name] with \the [src].</span>")
+		user.visible_message("<span class='notice'>[user] applies some nanite paste at [H]'s [E.name] with [src].</span>")
 	if(H.bleed_rate && ismachineperson(H))
 		H.bleed_rate = 0
 

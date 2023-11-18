@@ -501,7 +501,7 @@
 		to_chat(H, "<span class='warning'>Your magnetic joints lose power!</span>")
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(E.body_part != UPPER_TORSO && E.body_part != LOWER_TORSO)
-				E.droplimb(1) //lego disasemble sound
+				E.droplimb(TRUE) //lego disasemble sound
 
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/magnetic_joints/insert(mob/living/carbon/M, special = FALSE)
 	ADD_TRAIT(M, TRAIT_IPC_JOINTS_MAG, "ipc_joint[UID()]")
