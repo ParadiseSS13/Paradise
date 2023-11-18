@@ -15,6 +15,7 @@ export class DraggableControl extends Component {
     super(props);
     this.inputRef = createRef();
     this.state = {
+      originalValue: props.value,
       value: props.value,
       dragging: false,
       editing: false,
@@ -50,6 +51,7 @@ export class DraggableControl extends Component {
       document.body.style['pointer-events'] = 'none';
       this.ref = e.currentTarget;
       this.setState({
+        originalValue: value,
         dragging: false,
         value,
         origin:
@@ -93,7 +95,8 @@ export class DraggableControl extends Component {
         if (prevState.dragging) {
           const stepDifference = Math.trunc(offset / stepPixelSize);
           state.value = clamp(
-            Math.floor(this.props.value / step) * step + stepDifference * step,
+            Math.floor(state.originalValue / step) * step +
+              stepDifference * step,
             minValue,
             maxValue
           );
@@ -111,6 +114,7 @@ export class DraggableControl extends Component {
       clearTimeout(this.timer);
       clearInterval(this.dragInterval);
       this.setState({
+        originalValue: null,
         dragging: false,
         editing: !dragging,
         origin: null,
