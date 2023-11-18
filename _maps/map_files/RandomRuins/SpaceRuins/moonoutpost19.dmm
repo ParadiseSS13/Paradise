@@ -10647,7 +10647,6 @@
 /obj/structure/railing{
 	dir = 10
 	},
-/obj/structure/table/tray,
 /obj/item/scalpel{
 	pixel_y = 12
 	},
@@ -10655,6 +10654,7 @@
 /obj/item/hemostat,
 /obj/item/retractor,
 /obj/item/stack/cable_coil,
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	dir = 1
