@@ -53,3 +53,10 @@
 	if(!(ckey in GLOB.configuration.overflow.overflow_whitelist))
 		check_whitelist()
 	. = ..()
+
+/world/IsBanned(key, address, computer_id, type, check_ipintel, check_2fa, check_guest, log_info, check_tos)
+	var/ckey = ckey(key)
+	if(GLOB.configuration.overflow.reroute_cap == 0.5 && ckey && !(ckey in GLOB.configuration.overflow.overflow_whitelist))
+		return list("reason"="no-whitelist", "desc"="\nReason: Вас([key]) нету в вайтлисте этого сервера.")
+
+	. = ..()
