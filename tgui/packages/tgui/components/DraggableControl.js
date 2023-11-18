@@ -54,9 +54,7 @@ export class DraggableControl extends Component {
         originalValue: value,
         dragging: false,
         value,
-        origin:
-          getScalarScreenOffset(e, dragMatrix) -
-          getScalarScreenOffset(window, dragMatrix),
+        origin: getScalarScreenOffset(e, dragMatrix),
       });
       this.timer = setTimeout(() => {
         this.setState({
@@ -88,10 +86,7 @@ export class DraggableControl extends Component {
       this.setState((prevState) => {
         const state = { ...prevState };
         const origin = prevState.origin;
-        const offset =
-          getScalarScreenOffset(e, dragMatrix) -
-          getScalarScreenOffset(window, dragMatrix) -
-          origin;
+        const offset = getScalarScreenOffset(e, dragMatrix) - origin;
         if (prevState.dragging) {
           const stepDifference = Math.trunc(offset / stepPixelSize);
           state.value = clamp(
