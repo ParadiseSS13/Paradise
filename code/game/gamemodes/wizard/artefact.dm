@@ -40,7 +40,7 @@
 		new /obj/effect/particle_effect/smoke(H.loc)
 		var/mob/living/carbon/human/M = new/mob/living/carbon/human(H.loc)
 		M.key = C.key
-		to_chat(M, "<b>You are [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing their goals.</b>")
+		to_chat(M, "<b>You are [H.real_name]'s apprentice! You are bound by magic contract to follow [H.p_their()] orders and help [H.p_them()] in accomplishing [H.p_their()] goals.</b>")
 		equip_apprentice(action, M, H)
 		var/wizard_name_first = pick(GLOB.wizard_first)
 		var/wizard_name_second = pick(GLOB.wizard_second)
