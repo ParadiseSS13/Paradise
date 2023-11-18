@@ -1,3 +1,4 @@
+// Sprites from CM13
 /obj/item/storage/surgical_tray
 	name = "surgical tray"
 	desc = "A small metallic tray covered in sterile tarp. Intended to store surgical tools in a neat and clean fashion."
