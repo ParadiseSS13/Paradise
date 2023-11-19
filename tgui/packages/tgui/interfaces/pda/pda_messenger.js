@@ -3,6 +3,7 @@ import { useBackend, useLocalState } from '../../backend';
 import {
   Box,
   Button,
+  Dropdown,
   Icon,
   Input,
   LabeledList,
@@ -166,7 +167,8 @@ export const MessengerList = (props, context) => {
 
   const data = props.data;
 
-  const { convopdas, pdas, charges, silent, toff } = data;
+  const { convopdas, pdas, charges, silent, toff, ringtone_list, ringtone } =
+    data;
 
   const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
 
@@ -188,15 +190,25 @@ export const MessengerList = (props, context) => {
           >
             Messenger: {toff ? 'Off' : 'On'}
           </Button>
-          <Button icon="bell" onClick={() => act('Ringtone')}>
-            Set Ringtone
-          </Button>
           <Button
             icon="trash"
             color="bad"
             onClick={() => act('Clear', { option: 'All' })}
           >
             Delete All Conversations
+          </Button>
+          <Button icon="bell" onClick={() => act('Ringtone')}>
+            Set Custom Ringtone
+          </Button>
+          <Button>
+            <Dropdown
+              selected={ringtone}
+              width="110px"
+              options={Object.keys(ringtone_list)}
+              onSelected={(value) =>
+                act('Available_Ringtones', { selected_ringtone: value })
+              }
+            />
           </Button>
         </LabeledList.Item>
       </LabeledList>

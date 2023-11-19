@@ -10,13 +10,13 @@ SELECT_LEFT = 'left'
 SELECT_RIGHT = 'right'
 
 
-def make_conflict_marker(type="/obj", name=""):
+def make_conflict_marker(typ, name):
     # Note that if you do not have an object that matches this path in
     # your DME, the invalid path may be discarded when the map is loaded
     # into a map editor. To rectify this, either add an object with this
     # same path, or create a new object/denote an existing object in the
     # obj_path define.
-    obj_path = f"{type}/merge_conflict_marker"
+    obj_path = f"{typ}/merge_conflict_marker"
     obj_name = f"Merge Conflict Marker{(': ' + name) if name else ''}"
     return f'{obj_path}{{name = "{obj_name}"}}'
 
@@ -133,7 +133,7 @@ def three_way_merge(base: dmm.DMM, left: dmm.DMM, right: dmm.DMM):
         elif select_movable == SELECT_RIGHT:
             tile += right_movables
         else:
-            tile += [make_conflict_marker("<<<")] + left_movables + [make_conflict_marker("---")] + right_movables + [make_conflict_marker(">>>")]
+            tile += [make_conflict_marker("/obj", "<<<")] + left_movables + [make_conflict_marker("/obj", "---")] + right_movables + [make_conflict_marker("/obj", ">>>")]
             print(f"    Left and right movable groups are split by an object conflict marker.")
 
         if select_turf == SELECT_LEFT:

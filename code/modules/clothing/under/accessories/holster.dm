@@ -95,41 +95,19 @@
 	else
 		. += "It is empty."
 
-/obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/S, mob/user as mob)
-	..()
-	has_suit.verbs += /obj/item/clothing/accessory/holster/verb/holster_verb
-
-/obj/item/clothing/accessory/holster/on_removed(mob/user as mob)
-	has_suit.verbs -= /obj/item/clothing/accessory/holster/verb/holster_verb
-	..()
-
 //For the holster hotkey
-/obj/item/clothing/accessory/holster/verb/holster_verb()
-	set name = "Holster"
-	set category = "Object"
-	set src in usr
-	if(!isliving(usr)) return
-	if(usr.stat) return
+/obj/item/clothing/accessory/holster/proc/handle_holster_usage(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-	var/obj/item/clothing/accessory/holster/H = null
-	if(istype(src, /obj/item/clothing/accessory/holster))
-		H = src
-	else if(istype(src, /obj/item/clothing/under))
-		var/obj/item/clothing/under/S = src
-		if(S.accessories.len)
-			H = locate() in S.accessories
-
-	if(!H)
-		to_chat(usr, "<span class='warning'>Something is very wrong.</span>")
-
-	if(!H.holstered)
-		if(!istype(usr.get_active_hand(), /obj/item/gun))
-			to_chat(usr, "<span class='warning'>You need your gun equiped to holster it.</span>")
+	if(!holstered)
+		var/obj/item/gun/gun = user.get_active_hand()
+		if(!istype(gun))
+			to_chat(user, "<span class='warning'>You need your gun equiped to holster it.</span>")
 			return
-		var/obj/item/gun/W = usr.get_active_hand()
-		H.holster(W, usr)
+		holster(gun, user)
 	else
-		H.unholster(usr)
+		unholster(user)
 
 /obj/item/clothing/accessory/holster/armpit
 	name = "shoulder holster"
