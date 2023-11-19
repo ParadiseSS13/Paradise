@@ -236,8 +236,7 @@
 					i++
 			text += "<br>"
 
-		to_chat(world, text.Join(""))
-	return 1
+		return text.Join("")
 
 //OTHER PROCS
 

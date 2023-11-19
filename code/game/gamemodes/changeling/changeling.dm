@@ -107,7 +107,4 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			else
 				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "FAIL")
-
-		to_chat(world, text.Join(""))
-
-	return TRUE
+		return text.Join("")

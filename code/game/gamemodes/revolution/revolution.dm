@@ -186,11 +186,10 @@
 		for(var/datum/mind/headrev in head_revolutionaries)
 			text += printplayer(headrev, 1)
 		text += "<br>"
-		to_chat(world, text.Join(""))
 
 		// we dont show the revolutionaries because there are a LOT of them
 
-		text = "<br><font size=3><b>The heads of staff were:</b></font>"
+		text = list("<br><font size=3><b>The heads of staff were:</b></font>")
 		var/list/heads = get_all_heads()
 		for(var/datum/mind/head in heads)
 			var/target = (head in targets)
@@ -198,7 +197,7 @@
 				text += "<span class='boldannounce'>Target</span>"
 			text += printplayer(head, 1)
 		text += "<br>"
-		to_chat(world, text)
+		return text.Join("")
 
 /datum/game_mode/revolution/set_scoreboard_vars() // this proc is never called, someone remove it
 	var/datum/scoreboard/scoreboard = SSticker.score

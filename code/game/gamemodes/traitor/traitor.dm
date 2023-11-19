@@ -159,5 +159,4 @@
 		text += "<br><br><b>The code phrases were:</b> <span class='danger'>[phrases]</span><br>\
 					<b>The code responses were:</b> <span class='danger'>[responses]</span><br><br>"
 
-		to_chat(world, text.Join(""))
-	return TRUE
+		return text.Join("")

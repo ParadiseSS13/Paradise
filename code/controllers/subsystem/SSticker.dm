@@ -543,7 +543,12 @@ SUBSYSTEM_DEF(ticker)
 			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>"
 		else
 			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>"
-		aiPlayer.show_laws(TRUE)
+		aiPlayer.laws_sanity_check()
+		for(var/datum/ai_law/law as anything in aiPlayer.laws.sorted_laws)
+			if(law == aiPlayer.laws.zeroth_law)
+				end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+			else
+				end_of_round_info += "[law.get_index()]. [law.law]"
 
 		if(length(aiPlayer.connected_robots))
 			end_of_round_info += "<b>The AI's loyal minions were:</b> "
@@ -567,8 +572,12 @@ SUBSYSTEM_DEF(ticker)
 			else
 				end_of_round_info += "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>"
 
-			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
-				robo.laws.show_laws(world)
+			robo.laws_sanity_check()
+			for(var/datum/ai_law/law as anything in robo.laws.sorted_laws)
+				if(law == robo.laws.zeroth_law)
+					end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+				else
+					end_of_round_info += "[law.get_index()]. [law.law]"
 
 	if(dronecount)
 		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round."
@@ -581,13 +590,14 @@ SUBSYSTEM_DEF(ticker)
 
 	mode.declare_completion()//To declare normal completion.
 
-	//calls auto_declare_completion_* for all modes // This is the WORST fucking thing I've seen in awhile
-	for(var/handler in typesof(/datum/game_mode/proc))
-		if(findtext("[handler]","auto_declare_completion_"))
-			call(mode, handler)()
+	end_of_round_info += mode.get_end_of_round_antagonist_statistics()
 
 	for(var/datum/team/team in GLOB.antagonist_teams)
 		team.on_round_end()
+
+	// Save the data before end of the round griefing
+	SSpersistent_data.save()
+	to_chat(world, end_of_round_info.Join("<br>"))
 
 	// Display the scoreboard window
 	score.scoreboard()
@@ -597,10 +607,6 @@ SUBSYSTEM_DEF(ticker)
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()
-
-	// Save the data before end of the round griefing
-	SSpersistent_data.save()
-	to_chat(world, end_of_round_info.Join("<br>"))
 
 	//make big obvious note in game logs that round ended
 	log_game("///////////////////////////////////////////////////////")

@@ -226,7 +226,7 @@
 				text += "<br>"
 				text += printobjectives(abductee_mind)
 				text += "<br>"
-	to_chat(world, text.Join(""))
+		return text.Join("")
 
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships

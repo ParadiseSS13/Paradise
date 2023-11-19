@@ -420,8 +420,7 @@
 		if(TC_uses==0 && station_was_nuked && !is_operatives_are_dead())
 			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/badass.dmi'] ICONSTATE='badass'></BIG>"
 
-		to_chat(world, text.Join(""))
-	return 1
+		return text.Join("")
 
 /proc/nukelastname(mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
 	var/randomname = pick(GLOB.last_names)
