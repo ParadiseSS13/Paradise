@@ -871,6 +871,8 @@ enabled_away_missions = [
 tts_enabled = false
 # If enabled, what token does it use for API
 tts_token_silero = ""
+# api url for your tts provider
+tts_api_url_silero = "http://you.tts.provider.com:port/endpoint"
 # Are the audio files saved after usage
 tts_cache_enabled = false
 # What CPU threads are used for ffmpeg. Example valid values: "0-3" or "1,4-7"

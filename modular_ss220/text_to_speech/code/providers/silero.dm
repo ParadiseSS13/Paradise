@@ -1,12 +1,6 @@
 /datum/tts_provider/silero
 	name = "Silero"
 	is_enabled = TRUE
-	api_url = "http://s2.ss220.club:9999/voice"
-
-/datum/tts_provider/silero/vv_edit_var(var_name, var_value)
-	if(var_name == "api_url")
-		return FALSE
-	return ..()
 
 /datum/tts_provider/silero/request(text, datum/tts_seed/silero/seed, datum/callback/proc_callback)
 	if(throttle_check())
@@ -28,7 +22,7 @@
 	req_body["format"] = "ogg"
 	req_body["word_ts"] = FALSE
 
-	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, api_url, json_encode(req_body), list("content-type" = "application/json"), proc_callback)
+	SShttp.create_async_request(RUSTG_HTTP_METHOD_POST, GLOB.configuration.tts.tts_api_url_silero , json_encode(req_body), list("content-type" = "application/json"), proc_callback)
 
 	return TRUE
 
