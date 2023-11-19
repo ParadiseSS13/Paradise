@@ -200,6 +200,7 @@ export const ListInput = (props, context) => {
                   fluid
                   color="good"
                   content="Confirm"
+                  disabled={selectedButton === null}
                   onClick={() => act('choose', { choice: selectedButton })}
                 />
               </Flex.Item>
@@ -208,7 +209,6 @@ export const ListInput = (props, context) => {
                   fluid
                   color="bad"
                   content="Cancel"
-                  disabled={selectedButton === null}
                   onClick={() => act('cancel')}
                 />
               </Flex.Item>
