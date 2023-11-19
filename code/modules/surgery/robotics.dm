@@ -363,7 +363,7 @@
 		to_chat(user, "There are no damaged components in [affected].")
 		return SURGERY_BEGINSTEP_SKIP
 
-	target.custom_pain("The pain in your [affected.name] is living hell!")
+	affected.custom_pain("The pain in your [affected.name] is living hell!")
 	return ..()
 
 
@@ -427,7 +427,7 @@
 		"You start reattaching [target]'s [tool]."
 	)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	target.custom_pain("Someone's rooting around in your [affected.name]!")
+	affected.custom_pain("Someone's rooting around in your [affected.name]!")
 	return ..()
 
 /datum/surgery_step/robotics/manipulate_robotic_organs/implant/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -482,7 +482,7 @@
 				"You start to decouple [target]'s [I] with \the [tool]."
 			)
 
-			target.custom_pain("The pain in your [affected.name] is living hell!")
+			affected.custom_pain("The pain in your [affected.name] is living hell!")
 		else
 			return SURGERY_BEGINSTEP_SKIP
 
@@ -603,7 +603,7 @@
 		"You start to decouple [target]'s [affected.name] with \the [tool]."
 	)
 
-	target.custom_pain("Your [affected.amputation_point] is being ripped apart!")
+	affected.custom_pain("Your [affected.amputation_point] is being ripped apart!")
 	return ..()
 
 /datum/surgery_step/robotics/external/amputate/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

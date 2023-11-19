@@ -100,30 +100,14 @@
 /obj/structure/reflector/proc/get_reflection(srcdir,pdir)
 	return 0
 
-
-/obj/structure/reflector/verb/rotate()
-	set name = "Rotate"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
-		return
-	if(anchored)
-		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
-		return 0
-	dir = turn(dir, 270)
-	return 1
-
-
 /obj/structure/reflector/AltClick(mob/user)
-	..()
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(!in_range(src, user))
+
+	if(anchored)
+		to_chat(user, "<span class='warning'>You cannot rotate [src] right now. It is fastened to the floor!</span>")
 		return
-	else
-		rotate()
+	dir = turn(dir, 90)
 
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX

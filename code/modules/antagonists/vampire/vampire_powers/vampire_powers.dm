@@ -8,7 +8,7 @@
 	if(V?.get_ability(/datum/vampire_passive/full))
 		return TRUE
 	//Holy characters are resistant to vampire powers
-	if(mind?.isholy)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		return FALSE
 	return TRUE
 

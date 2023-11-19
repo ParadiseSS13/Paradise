@@ -400,7 +400,7 @@
 
 /obj/item/used_dropwall
 	name = "broken dropwall generator"
-	desc = "This dropwall has ran out of charge, but some materials could possibly be reclamed."
+	desc = "This dropwall has ran out of charge, but some materials could possibly be reclaimed."
 	icon = 'icons/obj/dropwall.dmi'
 	icon_state = "dropwall_dead"
 	item_state = "grenade"

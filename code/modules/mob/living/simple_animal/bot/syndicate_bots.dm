@@ -162,7 +162,7 @@
 		wreck.name = "sentry bot wreckage"
 
 		raise_alert("[src] destroyed.")
-		..()
+		qdel(src)
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
 	projectile = /obj/item/projectile/bullet/a40mm
