@@ -137,7 +137,7 @@
 			accessories = parts[5]
 
 		if(item)
-			if(istype(item, /obj/item/grab)
+			if(istype(item, /obj/item/grab))
 				grab_items |= item
 			if(item.flags & ABSTRACT)
 				abstract_items |= item
@@ -176,7 +176,6 @@
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] ensnared in a beartrap!</span>\n"
 		else
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
-
 
 	for(var/obj/item/abstract_item in abstract_items)
 		var/text = abstract_item.customised_abstract_text()

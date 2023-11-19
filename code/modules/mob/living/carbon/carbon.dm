@@ -891,7 +891,6 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(ACTION_RESIST_BUCKLE in current_actions)
 		to_chat(src, "<span class='notice'>You are already trying to unbuckle!</span>")
 		return
-
 	current_actions |= ACTION_RESIST_BUCKLE
 	var/time = I.breakouttime
 	visible_message("<span class='warning'>[src] attempts to unbuckle [p_themselves()]!</span>",
