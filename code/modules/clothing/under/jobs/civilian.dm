@@ -34,8 +34,8 @@
 	item_color = "hop_formal"
 
 /obj/item/clothing/under/rank/civilian/hop/whimsy
-	desc = "A blue sweater and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
 	name = "head of personnel's suit"
+	desc = "A blue sweater and red tie, with matching red cuffs! Snazzy. Wearing this makes you feel more important than your job title does."
 	icon_state = "hop_whimsy"
 	item_state = "hop_whimsy"
 	item_color = "hop_whimsy"
