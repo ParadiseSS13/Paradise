@@ -28079,8 +28079,7 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/ntrep)
 "ciI" = (
-/obj/machinery/conveyor/west{
-	dir = 10;
+/obj/machinery/conveyor/southwest{
 	id = "garbage"
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -96652,9 +96651,8 @@
 	},
 /area/station/engineering/supermatter_room)
 "wnR" = (
-/obj/machinery/conveyor/east{
-	dir = 6;
-	id = "QMLoad2"
+/obj/machinery/conveyor/southeast{
+	id = "garbage"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
