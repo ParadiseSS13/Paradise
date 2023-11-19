@@ -120,7 +120,17 @@ const MedicalRecordsList = (props, context) => {
   return (
     <RecordsTable
       columns={[
-        { id: 'name', name: 'Name' },
+        {
+          id: 'name',
+          name: 'Name',
+          datum: {
+            children: (value) => (
+              <>
+                <Icon name="user" /> {value}
+              </>
+            ),
+          },
+        },
         { id: 'id', name: 'ID' },
         { id: 'rank', name: 'Assignment' },
         { id: 'p_stat', name: 'Patient Status' },
@@ -140,13 +150,6 @@ const MedicalRecordsList = (props, context) => {
         className: `MedicalRecords__listRow--${medStatusStyles[datum.p_stat]}`,
         onClick: () => act('view_record', { view_record: datum.ref }),
       })}
-      datumCellChildren={{
-        name: (value) => (
-          <>
-            <Icon name="user" /> {value}
-          </>
-        ),
-      }}
     />
   );
 };
@@ -337,9 +340,27 @@ const MedicalRecordsViruses = (props, context) => {
   return (
     <RecordsTable
       columns={[
-        { id: 'name', name: 'Name' },
+        {
+          id: 'name',
+          name: 'Name',
+          datum: {
+            children: (value) => (
+              <>
+                <Icon name="virus" /> {value}
+              </>
+            ),
+          },
+        },
         { id: 'max_stages', name: 'Max Stages' },
-        { id: 'severity', name: 'Severity' },
+        {
+          id: 'severity',
+          name: 'Severity',
+          datum: {
+            props: (value) => ({
+              color: severities[value],
+            }),
+          },
+        },
       ]}
       data={virus}
       datumID={(datum) => datum.id}
@@ -348,18 +369,6 @@ const MedicalRecordsViruses = (props, context) => {
         className: `MedicalRecords__listVirus--${datum.severity}`,
         onClick: () => act('vir', { vir: datum.D }),
       })}
-      datumCellProps={{
-        severity: (value) => ({
-          color: severities[value],
-        }),
-      }}
-      datumCellChildren={{
-        name: (value) => (
-          <>
-            <Icon name="virus" /> {value}
-          </>
-        ),
-      }}
     />
   );
 };

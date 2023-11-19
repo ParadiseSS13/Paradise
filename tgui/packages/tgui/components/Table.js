@@ -99,63 +99,66 @@ class SortableTable extends Component {
   render() {
     const {
       className,
+      columnDefaults,
       columns,
       data,
       datumID,
       filter,
       headerRowProps,
-      headerCellProps,
       datumRowProps,
-      datumCellProps,
-      datumCellChildren,
       ...rest
     } = this.props;
     const { sortId, sortOrder } = this.state;
 
-    const columnHeaders = columns.map(({ id, name }) => {
-      return (
-        <Table.Cell key={id}>
-          <Button
-            color={sortId !== id && 'transparent'}
-            width="100%"
-            onClick={() => {
-              if (sortId === id) {
-                this.setState({
-                  sortOrder: !sortOrder,
-                });
-              } else {
-                this.setState({
-                  sortId: id,
-                  sortOrder: true,
-                });
-              }
-            }}
-            {...headerCellProps?.all}
-            {...headerCellProps?.[id]}
-          >
-            {name}
-            {sortId === id && (
-              <HoverableIcon
-                name={sortOrder ? 'sort-up' : 'sort-down'}
-                hoverIcon="times"
-                position="absolute"
-                right={0}
-                top="50%"
-                style={{
-                  transform: 'translate(0, -50%)',
-                }}
-                onClick={(e) => {
+    const columnHeaders = columns.map(
+      ({ id, name, header: { props } = {} }) => {
+        const {
+          header: { props: defaultProps },
+        } = columnDefaults;
+        return (
+          <Table.Cell key={id}>
+            <Button
+              color={sortId !== id && 'transparent'}
+              width="100%"
+              onClick={() => {
+                if (sortId === id) {
                   this.setState({
-                    sortId: null,
+                    sortOrder: !sortOrder,
                   });
-                  e.preventDefault();
-                }}
-              />
-            )}
-          </Button>
-        </Table.Cell>
-      );
-    });
+                } else {
+                  this.setState({
+                    sortId: id,
+                    sortOrder: true,
+                  });
+                }
+              }}
+              {...defaultProps}
+              {...props}
+            >
+              {name}
+              {sortId === id && (
+                <HoverableIcon
+                  name={sortOrder ? 'sort-up' : 'sort-down'}
+                  hoverIcon="times"
+                  position="absolute"
+                  right={0}
+                  top="50%"
+                  style={{
+                    transform: 'translate(0, -50%)',
+                  }}
+                  onClick={(e) => {
+                    this.setState({
+                      sortId: null,
+                    });
+                    e.preventDefault();
+                  }}
+                />
+              )}
+            </Button>
+          </Table.Cell>
+        );
+      }
+    );
     const dataRows = (filter ? filter(data) : data)
       .sort((a, b) => {
         if (sortId) {
@@ -166,19 +169,24 @@ class SortableTable extends Component {
         }
       })
       .map((datum) => {
-        let cells = columns.map(({ id, name }) => {
-          return (
-            <Table.Cell
-              key={id}
-              {...(resolveFunctionalProp(datumCellProps?.all, datum[id]) ?? [])}
-              {...(resolveFunctionalProp(datumCellProps?.[id], datum[id]) ??
-                [])}
-            >
-              {resolveFunctionalProp(datumCellChildren?.[id], datum[id]) ??
-                datum[id]}
-            </Table.Cell>
-          );
-        });
+        let cells = columns.map(
+          ({ id, name, datum: { props, children } = {} }) => {
+            const {
+              datum: { children: defaultChildren, props: defaultProps },
+            } = columnDefaults;
+            return (
+              <Table.Cell
+                key={id}
+                {...(resolveFunctionalProp(defaultProps, datum[id]) ?? [])}
+                {...(resolveFunctionalProp(props, datum[id]) ?? [])}
+              >
+                {resolveFunctionalProp(children, datum[id]) ??
+                  resolveFunctionalProp(defaultChildren, datum[id]) ??
+                  datum[id]}
+              </Table.Cell>
+            );
+          }
+        );
         return (
           <Table.Row
             key={datumID(datum)}

@@ -91,7 +91,17 @@ const SecurityRecordsPageList = (props, context) => {
   return (
     <RecordsTable
       columns={[
-        { id: 'name', name: 'Name' },
+        {
+          id: 'name',
+          name: 'Name',
+          datum: {
+            children: (value) => (
+              <>
+                <Icon name="user" /> {value}
+              </>
+            ),
+          },
+        },
         { id: 'id', name: 'ID' },
         { id: 'rank', name: 'Assignment' },
         { id: 'fingerprint', name: 'Fingerprint' },
@@ -124,13 +134,6 @@ const SecurityRecordsPageList = (props, context) => {
             uid_sec: datum.uid_sec,
           }),
       })}
-      datumCellChildren={{
-        name: (value) => (
-          <>
-            <Icon name="user" /> {value}
-          </>
-        ),
-      }}
     />
   );
 };

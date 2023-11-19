@@ -84,8 +84,22 @@ const AccountsRecordList = (props, context) => {
   return (
     <RecordsTable
       columns={[
-        { id: 'owner_name', name: 'Account Holder' },
-        { id: 'account_number', name: 'Account Number' },
+        {
+          id: 'owner_name',
+          name: 'Account Holder',
+          datum: {
+            children: (value) => (
+              <>
+                <Icon name="user" /> {value}
+              </>
+            ),
+          },
+        },
+        {
+          id: 'account_number',
+          name: 'Account Number',
+          datum: { children: (value) => <>#{value}</> },
+        },
         { id: 'suspended', name: 'Account Status' },
         { id: 'money', name: 'Account Balance' },
       ]}
@@ -106,14 +120,6 @@ const AccountsRecordList = (props, context) => {
             account_num: datum.account_number,
           }),
       })}
-      datumCellChildren={{
-        owner_name: (value) => (
-          <>
-            <Icon name="user" /> {value}
-          </>
-        ),
-        account_number: (value) => <>#{value}</>,
-      }}
     />
   );
 };
@@ -124,8 +130,22 @@ const DepartmentAccountsList = (props, context) => {
   return (
     <RecordsTable
       columns={[
-        { id: 'name', name: 'Department Name' },
-        { id: 'account_number', name: 'Account Number' },
+        {
+          id: 'name',
+          name: 'Department Name',
+          datum: {
+            children: (value) => (
+              <>
+                <Icon name="wallet" /> {value}
+              </>
+            ),
+          },
+        },
+        {
+          id: 'account_number',
+          name: 'Account Number',
+          datum: { children: (value) => <>#{value}</> },
+        },
         { id: 'suspended', name: 'Account Status' },
         { id: 'money', name: 'Account Balance' },
       ]}
@@ -146,14 +166,6 @@ const DepartmentAccountsList = (props, context) => {
             account_num: datum.account_number,
           }),
       })}
-      datumCellChildren={{
-        name: (value) => (
-          <>
-            <Icon name="wallet" /> {value}
-          </>
-        ),
-        account_number: (value) => <>#{value}</>,
-      }}
     />
   );
 };

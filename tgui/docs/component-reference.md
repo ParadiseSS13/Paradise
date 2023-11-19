@@ -854,40 +854,55 @@ A managed sortable table.
 **Props:**
 
 - See inherited props: [Table](#table)
-- `columns: [{ id: string, name: string }]` - A list of data fields to be
+- `columns: Column[]` - A list of data fields to be
   used. The order in which columns are specified is the order in which they
   appear in the UI.
+- `columnDefaults: UnnamedColumn` - Default values for all columns.
+  `columnDefaults.datum.children` can be used to specify the default children,
+  but will get overriden by children defined at each column.
+  `columnDefaults.datum.props` and `columnDefaults.header.props` can be used to
+  specify additional props for the datum and header respectively.
 - `data: object[]` - The data to put into the table.
 - `datumID: object => object` - A function which takes in a datum and returns
   an id.
 - `filter: object[] => object[]` - A function applied to the data before
   sorting the table. The `createSearch` function can be applied here.
 - `headerRowProps: object` - Props to apply to the header row.
-- `headerCellProps: { column: object | object => object, ... }` - Props to
-  apply to the header row's cells.
 - `datumRowProps: object | object => object` - Props to apply to the data
   rows. If a function is specified instead, the data associated with that row
   is passed into it.
-- `datumCellProps: { column: object | object => object, ... }` - Props to
-  apply to the data cells.
-- `datumCellChildren: { column: Component | object => Component, ... }` -
-  Overrides of the data cells' children. The default contents of a cell is
-  the value of the field in the data at that particular row, or in other words,
-  `data[row][column.id]`. If a function is specified instead, then the default
-  value of that cell is passed to the function.
 - `...rest` - The rest of the props are applied on the table.
 - `children: Component[]` - Not supported. Do not use.
 
-`headerCellProps`, `datumCellProps`, `datumCellChildren` share the same
-structure. That is, the key must be a column ID as defined in the columns
-prop, and the value can either be the props(or children) directly or a
-function which takes in the data associated with that cell and returns
-the props(or children).
+The column types is defined as such:
 
-`headerCellProps.all` and `datumCellProps.all` can be used to specify props
-for all cells in all columns.
+```ts
+interface UnnamedColumn {
+  // ? signifies optional
+  datum?: {
+    // Pass the children directly or pass a function which takes the value of
+    // the cell and returns the props. Setting this property overrides the
+    // default children.
+    children?: React.ReactNode | ((value: object) => React.ReactNode);
+    // Pass the additional props directly or pass a function which takes the
+    // value of the cell and returns the additional props.
+    props?: CellProps | ((value: object) => CellProps);
+  };
+  header?: {
+    // Additional props for the header cell.
+    props?: HeaderProps;
+  };
+}
+
+// Inherits properties from UnnamedColumn
+type Column = UnnamedColumn & {
+  id: string;
+  name: string;
+};
+```
 
 The following is an example of how to use `Table.Sortable`.
+
 ```jsx
 const data = [
   { 'account_number': 6224001, 'name': 'Command Account', 'suspended': 'Active', 'money': 7000, },
@@ -918,6 +933,7 @@ const data = [
   }}
 />
 ```
+
 In the above example, the `columns` prop defines the fields in the data that
 are used. `columns.id` is the key or the name of the property on the data,
 while `columns.name` is what the user sees on the UI. `datumID` selects which
