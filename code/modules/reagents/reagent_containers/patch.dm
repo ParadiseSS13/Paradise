@@ -54,7 +54,7 @@
 	name = "synthflesh patch"
 	desc = "Helps with brute and burn injuries."
 	icon_state = "bandaid_med"
-	instant_application = 1
+	instant_application = TRUE
 	list_reagents = list("synthflesh" = 10)
 
 /obj/item/reagent_containers/patch/nicotine
