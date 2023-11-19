@@ -1133,7 +1133,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return shock_reduction
 
 /mob/living/carbon/proc/can_eat(flags = 255)
-	return 1
+	return TRUE
 
 /mob/living/carbon/proc/eat(obj/item/reagent_containers/to_eat, mob/user, bitesize_override)
 	if(ispill(to_eat) || ispatch(to_eat))
