@@ -20,8 +20,8 @@
 
 // Boiled Buckwheat
 /obj/item/reagent_containers/food/snacks/boiledbuckwheat
-	name = "варённая гречка"
-	desc = "Это просто варённая гречка, ничего необычного."
+	name = "варёная гречка"
+	desc = "Это просто варёная гречка, ничего необычного."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "boiledbuckwheat"
 	trash = /obj/item/trash/plate
@@ -36,7 +36,7 @@
 // Merchant Buckwheat
 /obj/item/reagent_containers/food/snacks/buckwheat_merchant
 	name = "гречка по-купечески"
-	desc = "Тушённая гречка с овощами и мясом."
+	desc = "Тушёная гречка с овощами и мясом."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "buckwheat_merchant"
 	trash = /obj/item/trash/plate
@@ -62,7 +62,7 @@
 	filling_color = "#C2CFAB"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "kelotane" = 2, "vitamin" = 2)
-	tastes = list("варённая картошка" = 1, "огурец" = 1, "морковка" = 1, "яйцо" = 1, "Новый Год" = 1)
+	tastes = list("варёная картошка" = 1, "огурец" = 1, "морковка" = 1, "яйцо" = 1, "Новый Год" = 1)
 
 /datum/recipe/microwave/oliviersalad
 	reagents = list("cream" = 10, "sodiumchloride" = 5)
@@ -84,7 +84,7 @@
 	filling_color = "#C2CFAB"
 	bitesize = 3
 	list_reagents = list("nutriment" = 6, "kelotane" = 2, "vitamin" = 3)
-	tastes = list("варённая картошка" = 1, "огурец" = 1, "морковка" = 1, "яйца" = 1, "странно" = 1, "Новый Год" = 1)
+	tastes = list("варёная картошка" = 1, "огурец" = 1, "морковка" = 1, "яйца" = 1, "странно" = 1, "Новый Год" = 1)
 
 /datum/recipe/microwave/weirdoliviersalad
 	reagents = list("cream" = 10, "sodiumchloride" = 5)
@@ -823,7 +823,7 @@
 		..()
 
 /obj/item/reagent_containers/food/snacks/boiledpelmeni
-	name = "варённые пельмени"
+	name = "варёные пельмени"
 	desc = "Мы не знаем, какой была Сибирь, но эти вкусные пельмени определенно прибыли оттуда."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "boiledpelmeni"
@@ -840,7 +840,7 @@
 
 // Smoked Sausage
 /obj/item/reagent_containers/food/snacks/smokedsausage
-	name = "копчённая колбаска"
+	name = "копчёная колбаска"
 	desc = "Кусок копченой колбасы. Под пивко пойдёт."
 	icon = 'modular_ss220/food/icons/food.dmi'
 	icon_state = "smokedsausage"
