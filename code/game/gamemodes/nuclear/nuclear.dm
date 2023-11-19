@@ -389,8 +389,8 @@
 
 
 /datum/game_mode/proc/auto_declare_completion_nuclear()
-	if(syndicates.len || GAMEMODE_IS_NUCLEAR)
-		var/text = "<br><FONT size=3><B>The syndicate operatives were:</B></FONT>"
+	if(length(syndicates) || GAMEMODE_IS_NUCLEAR)
+		var/list/text = list("<br><FONT size=3><B>The syndicate operatives were:</B></FONT>")
 
 		var/purchases = ""
 		var/TC_uses = 0
@@ -420,7 +420,7 @@
 		if(TC_uses==0 && station_was_nuked && !is_operatives_are_dead())
 			text += "<BIG><IMG CLASS=icon SRC=\ref['icons/badass.dmi'] ICONSTATE='badass'></BIG>"
 
-		to_chat(world, text)
+		to_chat(world, text.Join(""))
 	return 1
 
 /proc/nukelastname(mob/M as mob) //--All praise goes to NEO|Phyte, all blame goes to DH, and it was Cindi-Kate's idea. Also praise Urist for copypasta ho.
