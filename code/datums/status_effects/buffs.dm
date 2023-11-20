@@ -755,6 +755,7 @@
 			H.physiology.stamina_mod *= 0.75
 			H.physiology.heat_mod *= 0.5
 		add_attack_logs(owner, owner, "gained bearserker stamina resistance", ATKLOG_ALL)
+		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 10, TRUE, use_reverb = FALSE)
 
 /datum/status_effect/bearserker_rage/on_remove()
 	if(ishuman(owner))

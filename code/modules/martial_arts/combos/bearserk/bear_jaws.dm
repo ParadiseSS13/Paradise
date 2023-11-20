@@ -5,7 +5,7 @@
 
 /datum/martial_combo/bearserk/bear_jaws/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	user.do_attack_animation(target, ATTACK_EFFECT_BITE)
-	playsound(get_turf(target), 'sound/weapons/bite.ogg', 25, TRUE, -1)
+	playsound(get_turf(target), 'sound/weapons/bite.ogg', 25, vary = TRUE, extrarange = -1)
 	if(IS_HORIZONTAL(target))
 		target.visible_message("<span class='warning'>[user] leaps onto [target] and bites them!</span>",
 						"<span class='userdanger'>[user] leaps onto you and bites you like a real savage!</span>")
