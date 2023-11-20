@@ -100,7 +100,6 @@
 	if(!can_touch(user) || !climbable)
 		return FALSE
 
-	var/old_loc = user.loc
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
 		if(HAS_TRAIT(user, TRAIT_TABLE_LEAP))
