@@ -75,6 +75,7 @@
 
 	if(!awakened)
 		. += "<span class='his_grace'>[src] is latched closed.</span>"
+		return
 
 	switch(bloodthirst)
 		if(HIS_GRACE_SATIATED to HIS_GRACE_PECKISH)
