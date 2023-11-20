@@ -102,7 +102,6 @@
 
 	var/old_loc = user.loc
 	user.forceMove(get_turf(src))
-	user.Moved(old_loc, get_dir(old_loc, user.loc), FALSE)
 	if(get_turf(user) == get_turf(src))
 		if(HAS_TRAIT(user, TRAIT_TABLE_LEAP))
 			user.visible_message("<span class='warning'>[user] leaps up onto [src]!</span>")
