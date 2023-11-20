@@ -218,7 +218,6 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/proc/show_to(mob/M)
 	if(!M.client || !anchor)
 		return
-	//Blank
 	close_button.screen_loc = "CENTER:[pixel_x_difference],CENTER:[pixel_y_difference]"
 	current_user.screen += close_button
 
