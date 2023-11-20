@@ -112,6 +112,7 @@
 
 	if(has_ahudded())
 		message_admins("[key_name(src)] has joined as a pAI, having previously enabled antag hud.")
+		log_admin("[key_name(src)] has joined as a pAI, having previously enabled antag hud.")
 
 	// Software modules. No these var names have nothing to do with photoshop
 	for(var/PS in subtypesof(/datum/pai_software))
