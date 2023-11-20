@@ -2,7 +2,8 @@ import git
 import json
 import re
 import os
-BUILD_PATH = "./"
+import hashlib
+BUILD_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..")
 
 allowPathsRegexp = re.compile('^code/.*')
 
@@ -26,15 +27,13 @@ diff = [line for line in diff.split("\n") if line[0] in "+-" and not line.starts
 #   "replace": ["Тест", "Тест2"]
 # }
 prepare = []
-lastFile = ''
 for line in diff:
     if line.startswith("---"):
-        lastFile = line[6:]
-        prepare.append({"file": lastFile, "origin": [], "replace": []})
+        prepare.append({"file": line[6:], "origin": [], "replace": []})
     elif line.startswith("-"):
-        prepare[-1]['origin'].append(line[1:])
+        prepare[-1]['origin'].append(line[1:].strip())
     elif line.startswith("+"):
-        prepare[-1]['replace'].append(line[1:])
+        prepare[-1]['replace'].append(line[1:].strip())
 
 # Фильтруем структуру: Оставляем только разрешенные файлы
 filtered = []
@@ -79,7 +78,22 @@ fullTranslation = json.load(open(jsonFilePath, encoding='utf-8'))
 for file in jsonStructure['files']:
     fullTranslation["files"].append(file)
 
+# Убираем дубли
+hashCache = {}
+filteredTranslation = {"files": []}
+for file in fullTranslation['files']:
+    filteredFile = {"path": file["path"], "replaces": []}
+    for replace in file['replaces']:
+        hash = hashlib.sha256((file['path'] + replace["original"]).encode("utf-8")).hexdigest()
+        if hash in hashCache:
+            continue
+        hashCache[hash] = hash
+
+        filteredFile["replaces"].append({"original": replace["original"], "replace": replace["replace"]})
+
+    filteredTranslation["files"].append(filteredFile)
+
 with open(jsonFilePath, 'w+', encoding='utf-8') as f:
-    json.dump(fullTranslation, f, ensure_ascii=False, indent=2)
+    json.dump(filteredTranslation, f, ensure_ascii=False, indent=2)
 
 print(f"Added translation for {len(jsonStructure['files'])} files.")
