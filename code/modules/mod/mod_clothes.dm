@@ -16,6 +16,7 @@
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
 		)
+	var/sealed = FALSE
 
 /obj/item/clothing/suit/mod
 	name = "MOD chestplate"
@@ -41,6 +42,7 @@
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
 		)
+	var/sealed = FALSE
 
 
 /obj/item/clothing/gloves/mod
@@ -60,6 +62,7 @@
 		"Tajaran" = 'icons/mob/clothing/modsuit/species/taj_modsuits.dmi',
 		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
 		)
+	var/sealed = FALSE
 
 
 /obj/item/clothing/shoes/mod
@@ -80,6 +83,7 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi'
 		)
 	var/magbooted
+	var/sealed = FALSE
 
 /obj/item/clothing/shoes/mod/negates_gravity()
 	return magbooted
