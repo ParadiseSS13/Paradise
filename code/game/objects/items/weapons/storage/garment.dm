@@ -53,6 +53,7 @@
 
 /obj/item/storage/bag/garment/head_of_personnel/populate_contents()
 	new /obj/item/clothing/head/hopcap(src)
+	new /obj/item/clothing/head/hopcap/beret(src)
 	new /obj/item/clothing/suit/mantle/armor/head_of_personnel(src)
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel(src)
@@ -89,12 +90,16 @@
 	desc = "A bag for storing extra clothes and shoes. This one belongs to the research director."
 
 /obj/item/storage/bag/garment/research_director/populate_contents()
+	new /obj/item/clothing/head/beret/sci(src)
 	new /obj/item/clothing/under/rank/rnd/research_director(src)
 	new /obj/item/clothing/suit/storage/labcoat/rd(src)
 	new /obj/item/clothing/suit/mantle/labcoat(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/gloves/color/latex(src)
+	new /obj/item/clothing/glasses/science(src)
+	new /obj/item/clothing/glasses/welding/superior(src)
+	new /obj/item/clothing/glasses/hud/diagnostic/sunglasses(src)
 
 
 /obj/item/storage/bag/garment/chief_medical_officer
@@ -192,12 +197,11 @@
 	new /obj/item/clothing/under/rank/cargo/quartermaster/skirt(src)
 	new /obj/item/clothing/shoes/brown(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/cargo(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/miner(src)
 	new /obj/item/clothing/suit/jacket/cargobomber(src)
+	new /obj/item/clothing/suit/jacket/miningbomber(src)
 	new /obj/item/clothing/head/hardhat/orange(src)
 	new /obj/item/clothing/suit/storage/hazardvest(src)
-	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/clothing/suit/hooded/explorer(src)
-	new /obj/item/clothing/glasses/meson(src)
 	new /obj/item/clothing/head/soft(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/tank/internals/emergency_oxygen/double(src)

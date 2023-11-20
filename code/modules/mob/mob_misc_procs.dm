@@ -240,9 +240,9 @@
 	p = 1
 	while(p <= n)
 		if((copytext(te, p, p + 1) == " " || prob(pr)))
-			t = text("[][]", t, copytext(te, p, p + 1))
+			t = "[t][copytext(te, p, p + 1)]"
 		else
-			t = text("[]*", t)
+			t = "[t]*"
 		p++
 	return t
 
@@ -625,7 +625,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		var/search_pda = 1
 
 		for(var/A in searching)
-			if( search_id && istype(A,/obj/item/card/id) )
+			if(search_id && istype(A,/obj/item/card/id))
 				var/obj/item/card/id/ID = A
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname
@@ -634,7 +634,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/pda) )
+			else if(search_pda && istype(A,/obj/item/pda))
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
@@ -806,3 +806,16 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 /mob/proc/has_ahudded()
 	return (ckey in GLOB.antag_hud_users)
+
+/// Proc to PROPERLY set mob invisibility, huds gotta get set too!
+/mob/proc/set_invisible(invis_value)
+	if(invis_value)
+		invisibility = invis_value
+	else
+		invisibility = initial(invisibility)
+	for(var/hud in hud_possible)
+		var/image/actual_hud = hud_list[hud]
+		if(invis_value)
+			actual_hud.invisibility = invis_value
+		else
+			actual_hud.invisibility = initial(actual_hud.invisibility)

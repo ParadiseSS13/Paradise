@@ -37,7 +37,7 @@ FIRE ALARM
 
 	var/last_time_pulled //used to prevent pulling spam by same persons
 
-/obj/machinery/firealarm/Initialize(mapload, location, direction, building)
+/obj/machinery/firealarm/Initialize(mapload, direction, building)
 	. = ..()
 
 	if(building)
@@ -220,7 +220,7 @@ FIRE ALARM
 				alarm()
 
 /obj/machinery/firealarm/singularity_pull(S, current_size)
-	if (current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
+	if(current_size >= STAGE_FIVE) // If the singulo is strong enough to pull anchored objects, the fire alarm experiences integrity failure
 		deconstruct()
 	..()
 

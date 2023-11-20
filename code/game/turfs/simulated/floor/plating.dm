@@ -155,7 +155,7 @@
 	if(baseturf == /turf/space)
 		ReplaceWithLattice()
 	else
-		TerraformTurf(baseturf)
+		TerraformTurf(baseturf, keep_icon = FALSE)
 
 /turf/simulated/floor/plating/airless
 	icon_state = "plating"

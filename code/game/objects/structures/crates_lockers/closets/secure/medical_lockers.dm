@@ -215,7 +215,7 @@
 	new /obj/item/fulton_core(src)
 	new /obj/item/extraction_pack(src)
 	new /obj/item/gps/mining(src)
-	new /obj/item/gun/energy/plasmacutter(src)
+	new /obj/item/pickaxe/drill(src)
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"

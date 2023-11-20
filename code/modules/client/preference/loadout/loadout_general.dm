@@ -93,10 +93,39 @@
 	display_name = "Shark plushie"
 	path = /obj/item/toy/plushie/shark
 
+/datum/gear/goggles
+	display_name = "Goggles"
+	path = /obj/item/clothing/glasses/goggles
+
 /datum/gear/sechud
 	display_name = "Classic security HUD"
 	path = /obj/item/clothing/glasses/hud/security
 	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent","Magistrate")
+
+/datum/gear/sechudgoggles
+	display_name = "Security HUD goggles"
+	path = /obj/item/clothing/glasses/hud/security/goggles
+	allowed_roles = list("Head of Security", "Warden", "Security Officer", "Internal Affairs Agent", "Magistrate")
+
+/datum/gear/medhudgoggles
+	display_name = "Health HUD goggles"
+	path = /obj/item/clothing/glasses/hud/health/goggles
+	allowed_roles = list("Chief Medical Officer", "Medical Doctor", "Coroner", "Chemist", "Geneticist", "Virologist", "Psychiatrist", "Paramedic")
+
+/datum/gear/diaghudgoggles
+	display_name = "Diagnostic HUD goggles"
+	path = /obj/item/clothing/glasses/hud/diagnostic/goggles
+	allowed_roles = list("Research Director", "Scientist", "Roboticist")
+
+/datum/gear/hydrohudgoggles
+	display_name = "Hydroponic HUD goggles"
+	path = /obj/item/clothing/glasses/hud/hydroponic/goggles
+	allowed_roles = list("Botanist")
+
+/datum/gear/skillhudgoggles
+	display_name = "Skill HUD goggles"
+	path = /obj/item/clothing/glasses/hud/skills/goggles
+	allowed_roles = list("Psychiatrist", "Nanotrasen Representative", "Head of Personnel", "Captain")
 
 /datum/gear/cryaonbox
 	display_name = "Box of crayons"
@@ -161,6 +190,11 @@
 /datum/gear/skullbandana
 	display_name = "Bandana, skull"
 	path = /obj/item/clothing/mask/bandana/skull
+
+/datum/gear/pAI
+	display_name = "Personal Artificial Intelligence"
+	path = /obj/item/paicard
+	cost = 2
 
 /datum/gear/mob_hunt_game
 	display_name = "Nano-Mob Hunter GO! Cartridge"

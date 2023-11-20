@@ -33,6 +33,7 @@
 	var/fire_delay = 0					//rate of fire for burst firing and semi auto
 	var/firing_burst = 0				//Prevent the weapon from firing again while already firing
 	var/semicd = 0						//cooldown handler
+	var/execution_speed = 6 SECONDS
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
 
@@ -239,7 +240,7 @@
 			if(!user)
 				break
 			if(!issilicon(user))
-				if( i>1 && !(src in get_both_hands(user))) //for burst firing
+				if(i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
 				sprd = round((pick(0.5, -0.5)) * (randomized_gun_spread + randomized_bonus_spread))
@@ -365,10 +366,6 @@
 		clear_bayonet()
 
 /obj/item/gun/proc/toggle_gunlight()
-	set name = "Toggle Gun Light"
-	set category = "Object"
-	set desc = "Click to toggle your weapon's attached flashlight."
-
 	if(!gun_light)
 		return
 	gun_light.on = !gun_light.on
@@ -458,7 +455,7 @@
 
 	semicd = 1
 
-	if(!do_mob(user, target, 120) || user.zone_selected != "mouth")
+	if(!do_mob(user, target, execution_speed) || user.zone_selected != "mouth")
 		if(user)
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")

@@ -441,6 +441,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	throw_speed = 1
 	origin_tech = "materials=6;abductor=1"
 	sheettype = "abductor"
+	merge_type = /obj/item/stack/sheet/mineral/abductor
 	table_type = /obj/structure/table/abductor
 
 /obj/item/stack/sheet/mineral/abductor/fifty

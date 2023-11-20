@@ -505,7 +505,7 @@
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
-	for (var/i in 1 to 32)
+	for(var/i in 1 to 32)
 		. += hex2num(md5[i])
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
@@ -540,3 +540,6 @@
  */
 /obj/machinery/proc/flicker()
 	return FALSE
+
+/obj/machinery/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable, block_interactions)
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity = FALSE, should_rotate = TRUE, rightable = TRUE, block_interactions_until_righted = TRUE)
