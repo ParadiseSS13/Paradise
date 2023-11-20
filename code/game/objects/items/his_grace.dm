@@ -110,10 +110,7 @@
 		go_rabid()
 		return
 
-	var/list/held_items = list()
-	held_items += master.l_hand
-	held_items += master.r_hand
-	if(!(src in held_items))
+	if(!(src in list(master.l_hand, master.r_hand)))
 		go_rabid()
 		return
 
