@@ -51,12 +51,6 @@
 	notes = "An minituarized nuclear squib fit snuggly into a bio-chip."
 	function = "Upon detonization the bio-chip will release an EMP affecting the immediate area around the user."
 
-/datum/implant_fluff/exile
-	name = "Nanotrasen Employee Exile Bio-chip"
-	life = "Known to last up to 3 to 4 years."
-	notes = "The onboard station gateway system has been modified to reject entry by individuals containing this bio-chip."
-	function = "Prevents the user from reentering the station through the gateway.... alive."
-
 /datum/implant_fluff/explosive
 	name = "Cybersun Industries RX-78 Employee Management Bio-chip"
 	life = "Destroyed upon activation."

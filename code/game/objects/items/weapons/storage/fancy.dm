@@ -66,7 +66,7 @@
 	return
 
 /obj/item/storage/fancy/donut_box/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!length(contents))
+	if(isdrone(user) && !length(contents))
 		C.stored_comms["wood"] += 1
 		qdel(src)
 		return TRUE
@@ -229,7 +229,7 @@
 	. = ..()
 
 /obj/item/storage/fancy/cigarettes/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(!length(contents))
+	if(isdrone(user) && !length(contents))
 		C.stored_comms["wood"] += 1
 		qdel(src)
 		return TRUE
@@ -381,6 +381,19 @@
 			. += "cover"
 	else
 		. += "ledb"
+
+/obj/item/storage/lockbox/vials/AltClick(mob/user)
+	if(!Adjacent(user))
+		return
+	if(broken)
+		to_chat(user, "<span class='warning'>It appears to be broken.</span>")
+		return
+	if(allowed(user))
+		locked = !locked
+		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src].</span>")
+		update_icon()
+	else
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/item/storage/lockbox/vials/attackby(obj/item/I, mob/user, params)
 	..()

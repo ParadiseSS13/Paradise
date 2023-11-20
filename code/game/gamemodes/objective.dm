@@ -58,6 +58,12 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target
 
 /**
+ * This is for objectives that need to register signals, so place them in here. Makes it easier for add_objective to call it.
+ */
+/datum/objective/proc/establish_signals()
+	return
+
+/**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
  *
  * Use this over directly referencing `owner` in most cases.
@@ -107,6 +113,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 		possible_targets += possible_target
 
+
 	if(possible_targets.len > 0)
 		target = pick(possible_targets)
 
@@ -132,7 +139,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		holder.remove_objective(src)
 		// even if we have to remove the objective, still announce it
 	for(var/datum/mind/M in owners)
-		var/list/messages = list(M.prepare_announce_objectives(FALSE))
+		var/list/messages = M.prepare_announce_objectives(FALSE)
 		to_chat(M.current, chat_box_red(messages.Join("<br>")))
 
 // Borgs, brains, AIs, etc count as dead for traitor objectives
@@ -163,6 +170,35 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return TRUE
 		return FALSE
 	return TRUE
+
+/datum/objective/assassinateonce
+	name = "Assassinate once"
+	martyr_compatible = TRUE
+	var/won = FALSE
+
+/datum/objective/assassinateonce/find_target(list/target_blacklist)
+	..()
+	if(target?.current)
+		explanation_text = "Teach [target.current.real_name], the [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
+		establish_signals()
+	else
+		explanation_text = "Free Objective"
+	return target
+
+/datum/objective/assassinateonce/establish_signals()
+	RegisterSignal(target.current, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(check_midround_completion))
+
+/datum/objective/assassinateonce/check_completion()
+	return won || completed || !target?.current?.ckey
+
+/datum/objective/assassinateonce/proc/check_midround_completion()
+	won = TRUE
+	UnregisterSignal(target.current, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING))
+
+/datum/objective/assassinateonce/on_target_cryo()
+	if(won)
+		return
+	return ..()
 
 
 /datum/objective/mutiny
@@ -640,6 +676,9 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			return TRUE
 		return FALSE
 	return TRUE
+
+/datum/objective/destroy/post_target_cryo(list/owners)
+	holder.replace_objective(src, /datum/objective/assassinate)
 
 /datum/objective/steal_five_of_type
 	name = "Steal Five Items"

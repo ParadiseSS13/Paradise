@@ -41,7 +41,7 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 
 	if(target.get_spooked())
 		var/area/spook_zone = get_area(target)
-		if (spook_zone.is_haunted == TRUE)
+		if(spook_zone.is_haunted == TRUE)
 			to_chat(usr, "<span class='notice'>The veil is weak in [spook_zone], it took less effort to influence [target].</span>")
 			cooldown_handler.start_recharge(cooldown_handler.recharge_duration / 2)
 		return

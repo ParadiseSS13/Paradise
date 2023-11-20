@@ -342,7 +342,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 					usr.mind.add_mind_objective(hijack_objective)
-					var/list/messages = list(user.mind.prepare_announce_objectives(FALSE))
+					var/list/messages = user.mind.prepare_announce_objectives(FALSE)
 					to_chat(user, chat_box_red(messages.Join("<br>")))
 
 					SSticker.mode.traitors += usr.mind
@@ -354,7 +354,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
 					usr.mind.add_mind_objective(new_objective)
-					var/list/messages = list(user.mind.prepare_announce_objectives(FALSE))
+					var/list/messages = user.mind.prepare_announce_objectives(FALSE)
 					to_chat(user, chat_box_red(messages.Join("<br>")))
 
 					SSticker.mode.traitors += usr.mind
@@ -412,7 +412,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 		hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 		M.mind.add_mind_objective(hijack_objective)
-		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
+		var/list/messages = M.mind.prepare_announce_objectives(FALSE)
 		to_chat(M, chat_box_red(messages.Join("<br>")))
 
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
@@ -422,7 +422,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		new_objective.target = usr.mind
 		new_objective.explanation_text = "Protect [usr.real_name], your copy, and help [usr.p_them()] defend the innocent from the mobs of multiverse clones."
 		M.mind.add_mind_objective(new_objective)
-		var/list/messages = list(M.mind.prepare_announce_objectives(FALSE))
+		var/list/messages = M.mind.prepare_announce_objectives(FALSE)
 		to_chat(M, chat_box_red(messages.Join("<br>")))
 
 		M.mind.special_role = SPECIAL_ROLE_MULTIVERSE
@@ -814,6 +814,14 @@ GLOBAL_LIST_EMPTY(multiverse)
 		H.real_name = "Neko-chan"
 	else
 		H.real_name = "[H.name]-chan"
+
+	H.mind.assigned_role = SPECIAL_ROLE_WIZARD
+	H.mind.special_role = SPECIAL_ROLE_WIZARD
+
+	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
+	wizhud.join_hud(H)
+	set_antag_hud(H, "apprentice")
+
 	H.say("NYA!~")
 
 /obj/item/necromantic_stone/nya

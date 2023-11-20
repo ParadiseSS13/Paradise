@@ -41,10 +41,6 @@
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
 	return
 
-/obj/item/reagent_containers/food/condiment/set_APTFT()
-	set hidden = FALSE
-	..()
-
 /obj/item/reagent_containers/food/condiment/attack(mob/M, mob/user, def_zone)
 
 	if(!reagents || !reagents.total_volume)
@@ -274,6 +270,20 @@
 	desc= "A pungent paste commonly served in tiny amounts with sushi. Spicy!"
 	icon_state = "wasabibottle"
 	list_reagents = list("wasabi" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/vinegar
+	name = "vinegar"
+	desc = "Useful for pickling, or putting on chips."
+	icon_state = "vinegar"
+	list_reagents = list("vinegar" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/ketchup
+	name = "ketchup"
+	desc = "You feel more American already."
+	icon_state = "ketchup"
+	list_reagents = list("ketchup" = 50)
 	possible_states = list()
 
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!

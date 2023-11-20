@@ -75,12 +75,17 @@
 	var/current_pda_messaging = null
 	var/custom_sprite = FALSE
 	var/slowdown = 0
+	var/speech_state = "Robotic" // Needed for TGUI shit
 
 /mob/living/silicon/pai/Initialize(mapload)
 	. = ..()
 
 	if(istype(loc, /obj/item/paicard))
 		card = loc
+	else
+		card = new(get_turf(src))
+		forceMove(card)
+		card.setPersonality(src)
 
 	if(card)
 		faction = card.faction.Copy()
@@ -98,9 +103,8 @@
 	add_language("Gutter")
 	add_language("Trinary")
 
-	//Verbs for pAI mobile form, chassis and Say flavor text
-	verbs += /mob/living/silicon/pai/proc/choose_chassis
-	verbs += /mob/living/silicon/pai/proc/choose_verbs
+	AddSpell(new /obj/effect/proc_holder/spell/access_software_pai)
+	AddSpell(new /obj/effect/proc_holder/spell/unfold_chassis_pai)
 
 	//PDA
 	pda = new(src)
@@ -233,27 +237,27 @@
 // mobile pai mob. This also includes handling some of the general shit that can occur
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
 
-/mob/living/silicon/pai/verb/fold_out()
-	set category = "pAI Commands"
-	set name = "Unfold Chassis"
+/obj/effect/proc_holder/spell/unfold_chassis_pai
+	name = "Unfold/Fold Chassis"
+	desc = "Allows you to fold in/out of your mobile form."
+	clothes_req = FALSE
+	base_cooldown = 20 SECONDS
+	action_icon_state = "repairbot"
+	action_background_icon_state = "bg_tech_blue"
 
-	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
-		return
+/obj/effect/proc_holder/spell/unfold_chassis_pai/create_new_targeting()
+	return new /datum/spell_targeting/self
 
-	if(loc != card)
-		to_chat(src, "<span class='warning'>You are already in your mobile form!</span>")
-		return
+/obj/effect/proc_holder/spell/unfold_chassis_pai/cast(list/targets, mob/living/user = usr)
+	var/mob/living/silicon/pai/pai_user = user
 
-	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before folding your chassis out again!</span>")
-		return
+	if(pai_user.loc != pai_user.card)
+		pai_user.close_up()
+		return TRUE
+	pai_user.force_fold_out()
 
-	last_special = world.time + 200
-
-	//I'm not sure how much of this is necessary, but I would rather avoid issues.
-	force_fold_out()
-
-	visible_message("<span class='notice'>[src] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
+	pai_user.visible_message("<span class='notice'>[pai_user] folds outwards, expanding into a mobile form.</span>", "<span class='notice'>You fold outwards, expanding into a mobile form.</span>")
+	return TRUE
 
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(ismob(card.loc))
@@ -267,73 +271,6 @@
 
 	card.forceMove(src)
 	card.screen_loc = null
-
-/mob/living/silicon/pai/verb/fold_up()
-	set category = "pAI Commands"
-	set name = "Collapse Chassis"
-
-	if(stat || IsSleeping() || IsParalyzed() || IsWeakened())
-		return
-
-	if(loc == card)
-		to_chat(src, "<span class='warning'>You are already in your card form!</span>")
-		return
-
-	if(world.time <= last_special)
-		to_chat(src, "<span class='warning'>You must wait before returning to your card form!</span>")
-		return
-
-	close_up()
-
-/mob/living/silicon/pai/proc/choose_chassis()
-	set category = "pAI Commands"
-	set name = "Choose Chassis"
-
-	var/list/my_choices = list()
-	var/choice
-	var/finalized = "No"
-
-	//check for custom_sprite
-	if(!custom_sprite)
-		if(ckey in GLOB.configuration.custom_sprites.pai_holoform_ckeys)
-			custom_sprite = TRUE
-			my_choices["Custom"] = "[ckey]-pai"
-
-	my_choices = possible_chassis.Copy()
-	if(custom_sprite)
-		my_choices["Custom"] = "[ckey]-pai"
-
-	if(loc == card)		//don't let them continue in card form, since they won't be able to actually see their new mobile form sprite.
-		to_chat(src, "<span class='warning'>You must be in your mobile form to reconfigure your chassis.</span>")
-		return
-
-	while(finalized == "No" && client)
-		choice = input(usr,"What would you like to use for your mobile chassis icon? This decision can only be made once.") as null|anything in my_choices
-		if(!choice) return
-		if(choice == "Custom")
-			icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		else
-			icon = 'icons/mob/pai.dmi'
-		icon_state = my_choices[choice]
-		finalized = alert("Look at your sprite. Is this what you wish to use?",,"No","Yes")
-
-	chassis = my_choices[choice]
-	verbs -= /mob/living/silicon/pai/proc/choose_chassis
-
-/mob/living/silicon/pai/proc/choose_verbs()
-	set category = "pAI Commands"
-	set name = "Choose Speech Verbs"
-
-	var/choice = input(usr,"What theme would you like to use for your speech verbs? This decision can only be made once.") as null|anything in possible_say_verbs
-	if(!choice) return
-
-	var/list/sayverbs = possible_say_verbs[choice]
-	speak_statement = sayverbs[1]
-	speak_exclamation = sayverbs[(sayverbs.len>1 ? 2 : sayverbs.len)]
-	speak_query = sayverbs[(sayverbs.len>2 ? 3 : sayverbs.len)]
-
-	verbs -= /mob/living/silicon/pai/proc/choose_verbs
-
 
 /mob/living/silicon/pai/rest()
 	set name = "Rest"
@@ -390,8 +327,6 @@
 
 //I'm not sure how much of this is necessary, but I would rather avoid issues.
 /mob/living/silicon/pai/proc/close_up()
-
-	last_special = world.time + 200
 	stand_up()
 	if(loc == card)
 		return
@@ -445,7 +380,7 @@
 		msg += "\n[print_flavor_text()]"
 
 	if(pose)
-		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
+		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\nIt is [pose]"
 	msg += "\n</span>"

@@ -225,8 +225,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
-		var/mob/living/carbon/C = target
-		C.custom_pain("The pain in your [affected.name] is living hell!")
+		affected.custom_pain("The pain in your [affected.name] is living hell!")
 
 	return ..()
 
@@ -320,7 +319,7 @@
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/affected = H.get_organ(user.zone_selected)
 		if(H && affected)
-			H.custom_pain("The pain in your [affected.name] is living hell!")
+			affected.custom_pain("The pain in your [affected.name] is living hell!")
 	else
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -414,8 +413,7 @@
 			"[user] starts transplanting [tool] into [target]'s [affected.name].",
 			"You start transplanting [tool] into [target]'s [affected.name]."
 		)
-		var/mob/living/carbon/human/H = target
-		H.custom_pain("Someone's rooting around in your [affected.name]!")
+		affected.custom_pain("Someone's rooting around in your [affected.name]!")
 	else
 		user.visible_message(
 			"[user] starts transplanting [tool] into [target]'s [parse_zone(target_zone)].",
@@ -495,7 +493,7 @@
 			msg = "[user] begins injecting [tool] into [target]'s [I.name]."
 			self_msg = "You begin injecting [tool] into [target]'s [I.name]."
 		user.visible_message(msg, self_msg)
-		target.custom_pain("Something burns horribly in your [parse_zone(target_zone)]!")
+		affected.custom_pain("Something burns horribly in your [parse_zone(target_zone)]!")
 
 	return ..()
 
@@ -633,7 +631,7 @@
 		user.visible_message(msg, self_msg)
 
 	if(H && affected)
-		H.custom_pain("Something hurts horribly in your [affected.name]!")
+		affected.custom_pain("Something hurts horribly in your [affected.name]!")
 
 	return ..()
 
@@ -822,7 +820,7 @@
 		"[user] is beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
 		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool]."
 	)
-	target.custom_pain("Your [zone] is being burned!")
+	to_chat(user, "<span class='userdanger'>Your [zone] is being burned!</span>") // No custom pain because xenos are special
 	return ..()
 
 /datum/surgery_step/generic/seal_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
