@@ -47,6 +47,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
+	RegisterSignal(src, COMSIG_ITEM_PRE_ATTACK, PROC_REF(light))
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
@@ -152,6 +153,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(!lit)
+		. = COMPONENT_CANCEL_ATTACK_CHAIN // To stop the pre_attack chain
 		lit = TRUE
 		name = "lit [name]"
 		attack_verb = list("burnt", "singed")

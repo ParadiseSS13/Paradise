@@ -27,6 +27,9 @@
 	if(SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
 
+	if(SEND_SIGNAL(A, COMSIG_ITEM_PRE_ATTACK, A, user, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+
 	var/temperature = get_heat()
 	if(temperature && A.reagents && !ismob(A) && !istype(A, /obj/item/clothing/mask/cigarette))
 		var/reagent_temp = A.reagents.chem_temp
