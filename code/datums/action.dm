@@ -57,9 +57,9 @@
 		return
 	if(M.client)
 		M.client.screen -= button
+		button.clean_up_keybinds(M)
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
-	button.clean_up_keybinds(M)
 	M.actions -= src
 	M.update_action_buttons()
 
