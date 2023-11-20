@@ -1,9 +1,4 @@
 #define TS_HIGHPOP_TRIGGER 80
-#define GREEN_SPIDER 1
-#define PRINCE_SPIDER 2
-#define WHITE_SPIDER 3
-#define PRINCESS_SPIDER 4
-#define QUEEN_SPIDER 5
 
 /datum/event/spider_terror
 	announceWhen = 240
@@ -71,10 +66,6 @@
 		S.give_intro_text()
 		spawncount--
 		successSpawn = TRUE
+	SSevents.biohazards_this_round += infestation_type
 
 #undef TS_HIGHPOP_TRIGGER
-#undef GREEN_SPIDER
-#undef PRINCE_SPIDER
-#undef WHITE_SPIDER
-#undef PRINCESS_SPIDER
-#undef QUEEN_SPIDER

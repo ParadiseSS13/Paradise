@@ -577,3 +577,12 @@
 /// It will only work for datums mind, for datum reasons
 /// : because of the embedded typecheck
 #define text_ref(datum) (isdatum(datum) ? (datum:cached_ref ||= "\ref[datum]") : ("\ref[datum]"))
+
+#define NUCLEAR 1
+#define CREW_TRANSFER 2
+#define FORCED_ROUND_END 3
+#define GREEN_SPIDER 1
+#define PRINCE_SPIDER 2
+#define WHITE_SPIDER 3
+#define PRINCESS_SPIDER 4
+#define QUEEN_SPIDER 5
