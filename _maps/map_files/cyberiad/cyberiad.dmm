@@ -57511,6 +57511,23 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)
+"fir" = (
+/obj/structure/safe/floor,
+/obj/item/key/janitor{
+	name = "spare key";
+	pixel_y = 7
+	},
+/obj/item/bikehorn/rubberducky,
+/obj/item/clothing/head/crown,
+/obj/item/stack/spacecash/c500,
+/obj/item/soap/deluxe,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/maintenance/apmaint)
 "fiz" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -70259,12 +70276,27 @@
 /area/station/command/office/ce)
 "lvs" = (
 /obj/structure/closet/crate{
-	name = "Silver Crate";
-	opened = 1
+	name = "Silver Crate"
 	},
-/obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/obj/item/coin/silver{
+	pixel_x = 5;
+	pixel_y = -8
+	},
+/obj/item/coin/silver{
+	pixel_x = 12;
+	pixel_y = 7
+	},
+/obj/item/coin/silver{
+	pixel_x = -6;
+	pixel_y = 5
+	},
+/obj/item/coin/silver{
+	pixel_x = 7;
+	pixel_y = 12
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault"
@@ -84195,6 +84227,7 @@
 	req_one_access = list(33,41);
 	req_one_access_txt = "33;41"
 	},
+/obj/effect/spawner/lootdrop/maintenance/eight,
 /mob/living/simple_animal/hostile/scarybat,
 /turf/simulated/floor/plasteel{
 	icon_state = "vault"
@@ -86634,22 +86667,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"tDB" = (
-/obj/structure/safe/floor,
-/obj/item/soap/homemade,
-/obj/item/key/janitor{
-	name = "spare key";
-	pixel_y = 7
-	},
-/obj/item/bikehorn/rubberducky,
-/obj/item/clothing/head/crown,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/station/maintenance/apmaint)
 "tDM" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "HoS"
@@ -86947,8 +86964,8 @@
 "tLs" = (
 /obj/structure/safe/floor,
 /obj/item/coin/mythril,
-/obj/item/stack/spacecash/c1000,
 /obj/item/instrument/violin/golden,
+/obj/item/stack/spacecash/c200,
 /turf/simulated/floor/carpet/royalblack,
 /area/station/maintenance/apmaint)
 "tLB" = (
@@ -117332,7 +117349,7 @@ gzN
 lTc
 dlZ
 cvp
-tDB
+fir
 xHy
 cyk
 cZw
