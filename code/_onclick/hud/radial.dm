@@ -82,37 +82,6 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/hudfix_method = TRUE //TRUE to change anchor to user, FALSE to shift by py_shift
 	var/py_shift = 0
 
-//If we swap to vis_contens inventory these will need a redo
-/datum/radial_menu/proc/check_screen_border(mob/user)
-	if(!istype(anchor))
-		return
-	current_user = user.client
-	var/mob/living/carbon/H
-	if(ishuman(user))
-		H = user
-	if((anchor in user.client.screen) || (H && (anchor in H.internal_organs)))
-		if(hudfix_method)
-			anchor = user
-		else
-			py_shift = 32
-			restrict_to_dir(NORTH) //I was going to parse screen loc here but that's more effort than it's worth.
-
-//Sets defaults
-//These assume 45 deg min_angle
-/datum/radial_menu/proc/restrict_to_dir(dir)
-	switch(dir)
-		if(NORTH)
-			starting_angle = 270
-			ending_angle = 135
-		if(SOUTH)
-			starting_angle = 90
-			ending_angle = 315
-		if(EAST)
-			starting_angle = 0
-			ending_angle = 225
-		if(WEST)
-			starting_angle = 180
-			ending_angle = 45
 
 /datum/radial_menu/proc/setup_menu()
 	if(ending_angle > starting_angle)
@@ -155,8 +124,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/proc/update_screen_objects()
 	var/list/page_choices = page_data[current_page]
 	var/angle_per_element = round(zone / page_choices.len)
-	pixel_x_difference = (world.icon_size * anchor.x + anchor.step_x + anchor.pixel_x) - (world.icon_size * current_user.mob.x + current_user.mob.step_x + current_user.mob.pixel_x)
-	pixel_y_difference = (world.icon_size * anchor.y + anchor.step_y + anchor.pixel_y) - (world.icon_size * current_user.mob.y + current_user.mob.step_y + current_user.mob.pixel_y)
+	pixel_x_difference = ((world.icon_size * anchor.x) + anchor.step_x + anchor.pixel_x) - ((world.icon_size * current_user.mob.x) + current_user.mob.step_x + current_user.mob.pixel_x)
+	pixel_y_difference = ((world.icon_size * anchor.y) + anchor.step_y + anchor.pixel_y) - ((world.icon_size * current_user.mob.y) + current_user.mob.step_y + current_user.mob.pixel_y)
 	for(var/i in 1 to elements.len)
 		var/obj/screen/radial/E = elements[i]
 		var/angle = WRAP(starting_angle + (i - 1) * angle_per_element, 0, 360)
@@ -176,11 +145,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 /datum/radial_menu/proc/SetElement(obj/screen/radial/slice/E, choice_id, angle)
 	//Position
-	var/py = round(cos(angle) * radius) + py_shift
-	var/px = round(sin(angle) * radius)
-	E.pixel_y = py
-	E.pixel_x = px
-	E.screen_loc = "CENTER:[E.pixel_x + pixel_x_difference], CENTER:[E.pixel_y + pixel_y_difference]"
+	E.pixel_y = round(cos(angle) * radius) + py_shift
+	E.pixel_x = round(sin(angle) * radius)
+	E.screen_loc = "CENTER:[E.pixel_x + pixel_x_difference],CENTER:[E.pixel_y + pixel_y_difference]"
 
 	current_user.screen += E
 
@@ -252,13 +219,19 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	if(!M.client || !anchor)
 		return
 	//Blank
-	close_button.screen_loc = "CENTER:[pixel_x_difference], CENTER:[pixel_y_difference]"
+	close_button.screen_loc = "CENTER:[pixel_x_difference],CENTER:[pixel_y_difference]"
 	current_user.screen += close_button
 
 /datum/radial_menu/proc/wait(mob/user, atom/anchor, require_near = FALSE)
+	var/last_location = user.loc
 	while(current_user && !finished && !selected_choice)
-		if(require_near && !user.Adjacent(get_turf(anchor)))
-			return
+		if(require_near)
+			if(!user.Adjacent(get_turf(anchor)))
+				return
+			if(last_location != user.loc)
+				update_screen_objects()
+				close_button.screen_loc = "CENTER:[pixel_x_difference],CENTER:[pixel_y_difference]"
+				last_location = user.loc
 		if(custom_check_callback && next_check < world.time)
 			if(!custom_check_callback.Invoke())
 				return
@@ -293,8 +266,11 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		menu.radius = radius
 	if(istype(custom_check))
 		menu.custom_check_callback = custom_check
-	menu.anchor = anchor
-	menu.check_screen_border(user) //Do what's needed to make it look good near borders or on hud
+	if(anchor in user.client.screen)
+		menu.anchor = user
+	else
+		menu.anchor = anchor
+	menu.current_user = user.client
 	menu.set_choices(choices)
 	menu.show_to(user)
 	menu.wait(user, anchor, require_near)
