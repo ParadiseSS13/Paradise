@@ -15,6 +15,10 @@
 		eject_case()
 	return ..()
 
+/obj/item/implantpad/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove it's stored implant.</span>"
+
 /obj/item/implantpad/update_icon_state()
 	if(case)
 		icon_state = "implantpad-on"
@@ -56,15 +60,11 @@
 	case = null
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/implantpad/verb/remove_implant()
-	set category = "Object"
-	set name = "Remove Bio-chip"
-	set src in usr
-
-	if(usr.stat || usr.restrained())
+/obj/item/implantpad/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	eject_case(usr)
+	eject_case(user)
 
 /obj/item/implantpad/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

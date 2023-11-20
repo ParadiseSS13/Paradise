@@ -154,7 +154,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
 	anchored = FALSE
-	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
 

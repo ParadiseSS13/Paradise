@@ -104,6 +104,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/acceleration = 1
 	var/tracking = FALSE //this is 1 if the AI is currently tracking somebody, but the track has not yet been completed.
 
+	/// If true, this AI core can use the teleporter.
+	var/allow_teleporter = FALSE
+
 	var/obj/machinery/camera/portable/builtInCamera
 
 	var/obj/structure/AIcore/deactivated/linked_core //For exosuit control

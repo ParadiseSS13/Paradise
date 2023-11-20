@@ -50,6 +50,7 @@
 /obj/item/organ/internal/remove(mob/living/carbon/M, special = 0)
 	if(!owner)
 		stack_trace("\'remove\' called on [src] without an owner! Mob: [M], [atom_loc_line(M)]")
+	SEND_SIGNAL(owner, COMSIG_CARBON_LOSE_ORGAN)
 	owner = null
 	if(M)
 		M.internal_organs -= src
