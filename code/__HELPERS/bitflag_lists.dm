@@ -22,4 +22,4 @@ GLOBAL_LIST_EMPTY(bitflag_lists)
 			GLOB.bitflag_lists[txt_signature] = new_bitflag_list; \
 		}; \
 		target = GLOB.bitflag_lists[txt_signature]; \
-	} while (FALSE)
+	} while(FALSE)
