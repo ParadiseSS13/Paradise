@@ -66,6 +66,7 @@
 	name = "head of personnel's beret"
 	desc = "For doing paperwork with style."
 	icon_state = "beret_hop"
+	dog_fashion = /datum/dog_fashion/head/hop
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
 		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
