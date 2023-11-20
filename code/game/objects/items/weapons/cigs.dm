@@ -57,6 +57,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/proc/can_light(obj/item/lighting_item)
 	if(lighting_item.get_heat())
 		light()
+		return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/clothing/mask/cigarette/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["wood"] += 1
@@ -157,7 +158,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
 	if(!lit)
-		. = COMPONENT_CANCEL_ATTACK_CHAIN // To stop the pre_attack chain
 		lit = TRUE
 		name = "lit [name]"
 		attack_verb = list("burnt", "singed")
