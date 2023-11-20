@@ -127,14 +127,15 @@
 
 /obj/item/organ/internal/brain/on_life()
 	if(decoy_brain || damage < 10) return
-	switch(damage)
-		if(10 to 30)
+	var/severity = (max_damage / damage) * 10 //Effectively splits
+	switch(severity)
+		if(1 to 3)
 			handle_minor_brain_damage()
-		if(30 to 60)
+		if(3 to 6)
 			handle_moderate_brain_damage()
-		if(60 to 80)
+		if(6 to 8)
 			handle_severe_brain_damage()
-		if(80 to 100)
+		if(8 to 10)
 			handle_critical_brain_damage()
 
 /obj/item/organ/internal/brain/proc/handle_minor_brain_damage()
@@ -142,6 +143,10 @@
 		owner.Dizzy(5 SECONDS)
 		to_chat(owner, "<span class='warning'>You feel lightheaded.</span>")
 	else if(prob(4))
+		owner.vomit()
+		to_chat(owner, "<span class='warning>'You feel nauseous.</span>")
+
+/obj/item/organ/internal/brain/proc/handle_moderate_brain_damage()
 
 /obj/item/organ/internal/brain/proc/handle_moderate_brain_damage()
 
