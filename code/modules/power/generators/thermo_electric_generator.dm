@@ -191,7 +191,7 @@
 
 /obj/machinery/power/teg/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!default_unfasten_wrench(user, I, 0))
 		return
 	anchored = !anchored
 	if(!anchored)
