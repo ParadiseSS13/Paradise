@@ -12,6 +12,10 @@
 			SSqueue.queue_bypass_list |= ckey
 			return
 
+		if(client.donator_level >= 3)
+			SSqueue.queue_bypass_list |= ckey
+			return
+
 		if(length(GLOB.clients) < SSqueue.queue_threshold)
 			SSqueue.queue_bypass_list |= ckey
 			return
