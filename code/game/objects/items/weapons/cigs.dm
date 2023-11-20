@@ -47,12 +47,16 @@ LIGHTERS ARE IN LIGHTERS.DM
 	reagents.set_reacting(FALSE) // so it doesn't react until you light it
 	if(list_reagents)
 		reagents.add_reagent_list(list_reagents)
-	RegisterSignal(src, COMSIG_ITEM_PRE_ATTACK, PROC_REF(light))
+	RegisterSignal(src, COMSIG_ITEM_BEING_ATTACKED, PROC_REF(can_light))
 
 /obj/item/clothing/mask/cigarette/Destroy()
 	QDEL_NULL(reagents)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
+
+/obj/item/clothing/mask/cigarette/proc/can_light(obj/item/lighting_item)
+	if(lighting_item.get_heat())
+		light()
 
 /obj/item/clothing/mask/cigarette/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	C.stored_comms["wood"] += 1
