@@ -749,11 +749,10 @@
 
 /datum/status_effect/bearserker_rage/on_apply()
 	. = ..()
-	if(.)
-		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			H.physiology.stamina_mod *= 0.75
-			H.physiology.heat_mod *= 0.5
+	if(. && ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.physiology.stamina_mod *= 0.75
+		H.physiology.heat_mod *= 0.5
 		add_attack_logs(owner, owner, "gained bearserker stamina resistance", ATKLOG_ALL)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 10, TRUE, use_reverb = FALSE)
 
@@ -762,4 +761,4 @@
 		var/mob/living/carbon/human/H = owner
 		H.physiology.stamina_mod /= 0.75
 		H.physiology.heat_mod /= 0.5
-	add_attack_logs(owner, owner, "lost bearserker stamina resistance", ATKLOG_ALL)
+		add_attack_logs(owner, owner, "lost bearserker stamina resistance", ATKLOG_ALL)

@@ -429,6 +429,8 @@
 	name = "mirror shield"
 	desc = "An infamous shield used by eldritch sects to confuse and disorient their enemies."
 	icon = 'icons/obj/cult.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "mirror_shield"
 	item_state = "mirror_shield"
 	force = 5
