@@ -20,6 +20,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 7
+	sharp = TRUE
 	materials = list(MAT_METAL=10)
 	var/colour = "black"	//what colour the ink is!
 	pressure_resistance = 2
@@ -27,6 +28,15 @@
 /obj/item/pen/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='suicide'>[user] starts scribbling numbers over [user.p_themselves()] with [src]! It looks like [user.p_theyre()] trying to commit sudoku.</span>")
 	return BRUTELOSS
+
+/obj/item/pen/attack(mob/living/carbon/human/M, mob/user)
+	if(force)
+		return ..()
+
+	to_chat(user, "<span class='warning'>You poke [M] with the [src].</span>")
+	to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
+	add_attack_logs(user, M, "stabbed with [src]")
+	return TRUE
 
 /obj/item/pen/blue
 	name = "blue-ink pen"
@@ -222,7 +232,6 @@
 		playsound(user, 'sound/weapons/saberon.ogg', 2, 1)
 		to_chat(user, "<span class='warning'>[src] is now active.</span>")
 		set_light(brightness_on, 1)
-	set_sharpness(on)
 	update_icon()
 
 /obj/item/pen/edagger/update_icon_state()
