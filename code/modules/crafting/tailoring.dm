@@ -50,6 +50,96 @@
 	time = 20
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudgogsec
+	name = "Security HUD goggles"
+	result = list(/obj/item/clothing/glasses/hud/security/goggles)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
+				/obj/item/clothing/glasses/goggles = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudgogsecremoval
+	name = "Security HUD removal (goggles)"
+	result = list(/obj/item/clothing/glasses/goggles, /obj/item/clothing/glasses/hud/security)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/security/goggles = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudgoghealth
+	name = "Health HUD goggles"
+	result = list(/obj/item/clothing/glasses/hud/health/goggles)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
+				/obj/item/clothing/glasses/goggles = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudgoghealthremoval
+	name = "Health HUD removal (goggles)"
+	result = list(/obj/item/clothing/glasses/goggles, /obj/item/clothing/glasses/hud/health)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/health/goggles = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudgogdiagnostic
+	name = "Diagnostic HUD goggles"
+	result = list(/obj/item/clothing/glasses/hud/diagnostic/goggles)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic = 1,
+				/obj/item/clothing/glasses/goggles = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudgogdiagnosticremoval
+	name = "Diagnostic HUD removal (goggles)"
+	result = list(/obj/item/clothing/glasses/goggles, /obj/item/clothing/glasses/hud/diagnostic)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/goggles = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudgoghydroponic
+	name = "Hydroponic HUD goggles"
+	result = list(/obj/item/clothing/glasses/hud/hydroponic/goggles)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/hydroponic = 1,
+				/obj/item/clothing/glasses/goggles = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudgoghydroponicremoval
+	name = "Hydroponic HUD removal (goggles)"
+	result = list(/obj/item/clothing/glasses/goggles, /obj/item/clothing/glasses/hud/hydroponic)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/hydroponic/goggles = 1)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudgogskills
+	name = "Skills HUD goggles"
+	result = list(/obj/item/clothing/glasses/hud/skills/goggles)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills = 1,
+				/obj/item/clothing/glasses/goggles = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudgogskillsremoval
+	name = "Skills HUD removal (goggles)"
+	result = list(/obj/item/clothing/glasses/goggles, /obj/item/clothing/glasses/hud/skills)
+	time = 2 SECONDS
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/skills/goggles = 1)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/hudsunsec
 	name = "Security HUDsunglasses"
 	result = list(/obj/item/clothing/glasses/hud/security/sunglasses)

@@ -190,6 +190,22 @@
 	move_resist = MOVE_FORCE_OVERPOWERING
 	a_intent = INTENT_HARM
 
+/mob/living/simple_animal/hostile/blob/blobbernaut/Initialize(mapload)
+	. = ..()
+	var/datum/action/innate/communicate_overmind_blob/overmind_chat = new
+	overmind_chat.Grant(src)
+
+/datum/action/innate/communicate_overmind_blob
+	name = "Speak with the overmind"
+	icon_icon = 'icons/mob/guardian.dmi'
+	button_icon_state = "communicate"
+
+/datum/action/innate/communicate_overmind_blob/Activate()
+	var/mob/living/simple_animal/hostile/blob/blobbernaut/user = owner
+	if(user.stat)
+		return
+	user.blob_talk()
+
 /mob/living/simple_animal/hostile/blob/blobbernaut/Life(seconds, times_fired)
 	if(stat != DEAD && (getBruteLoss() || getFireLoss())) // Heal on blob structures
 		if(locate(/obj/structure/blob) in get_turf(src))
@@ -213,14 +229,6 @@
 	if(!.)
 		return FALSE
 	flick("blobbernaut_death", src)
-
-/mob/living/simple_animal/hostile/blob/blobbernaut/verb/communicate_overmind()
-	set category = "Blobbernaut"
-	set name = "Blob Telepathy"
-	set desc = "Send a message to the Overmind"
-
-	if(stat != DEAD)
-		blob_talk()
 
 /mob/living/simple_animal/hostile/blob/blobbernaut/proc/blob_talk()
 	var/message = input(src, "Announce to the overmind", "Blob Telepathy")

@@ -85,6 +85,10 @@
 			/datum/job/syndicateofficer
 		)
 
+/obj/machinery/newscaster/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to remove the photo currently inside it.</span>"
+
 /obj/machinery/newscaster/Destroy()
 	GLOB.allNewscasters -= src
 	viewing_channel = null
@@ -510,7 +514,7 @@
 						// Redirect
 						screen = NEWSCASTER_CHANNEL
 						viewing_channel = FC
-					else if (id == "manage_channel") // Channel management
+					else if(id == "manage_channel") // Channel management
 						FC = locateUID(arguments["uid"])
 						if(!FC || !FC.can_modify(usr, get_scanned_user(usr)["name"]))
 							return
@@ -723,15 +727,10 @@
 /**
   * Ejects the currently loaded photo if there is one.
   */
-/obj/machinery/newscaster/verb/eject_photo_verb()
-	set name = "Eject Photo"
-	set category = "Object"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/newscaster/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-
-	eject_photo(usr)
+	eject_photo(user)
 
 #undef CHANNEL_NAME_MAX_LENGTH
 #undef CHANNEL_DESC_MAX_LENGTH
