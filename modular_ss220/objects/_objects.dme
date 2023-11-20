@@ -16,3 +16,4 @@
 #include "code/posters.dm"
 #include "code/tribune.dm"
 #include "code/weapons.dm"
+#include "code/key.dm"

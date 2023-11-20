@@ -68204,6 +68204,9 @@
 /obj/item/folder/blue,
 /obj/item/pen/multi,
 /obj/item/lighter/zippo/hop,
+/obj/item/storage/box/keys{
+	pixel_x = -15
+	},
 /turf/simulated/floor/wood/oak,
 /area/station/command/office/hop)
 "lEt" = (
