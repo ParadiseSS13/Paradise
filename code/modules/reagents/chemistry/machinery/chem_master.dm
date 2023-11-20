@@ -98,15 +98,16 @@
 		return TRUE
 
 	if((istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass)) && user.a_intent != INTENT_HARM)
-		if(beaker)
-			to_chat(user, "<span class='warning'>A beaker is already loaded into the machine.</span>")
-			return
 		if(!user.drop_item())
 			to_chat(user, "<span class='warning'>[I] is stuck to you!</span>")
 			return
-		beaker = I
 		I.forceMove(src)
-		to_chat(user, "<span class='notice'>You add the beaker to the machine!</span>")
+		if(beaker)
+			user.put_in_hands(beaker)
+			to_chat(user, "<span class='notice'>You swap [I] with [beaker] inside.</span>")
+		else
+			to_chat(user, "<span class='notice'>You add [I] to the machine.</span>")
+		beaker = I
 		SStgui.update_uis(src)
 		update_icon()
 
@@ -147,9 +148,7 @@
 /obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
 	if(panel_open)
 		return
-	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
-		power_change()
-		return TRUE
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_master/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())

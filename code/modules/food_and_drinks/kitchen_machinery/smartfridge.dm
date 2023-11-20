@@ -158,8 +158,6 @@
 
 /obj/machinery/smartfridge/wrench_act(mob/living/user, obj/item/I)
 	. = default_unfasten_wrench(user, I, time = 4 SECONDS)
-	if(.)
-		power_change()
 
 /obj/machinery/smartfridge/crowbar_act(mob/living/user, obj/item/I)
 	. = default_deconstruction_crowbar(user, I)
@@ -581,6 +579,7 @@
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
 		/obj/item/reagent_containers/food/pill,
+		/obj/item/stack/medical
 	))
 
 /**
@@ -620,6 +619,7 @@
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
 		/obj/item/reagent_containers/food/pill,
+		/obj/item/stack/medical
 	))
 
 /**

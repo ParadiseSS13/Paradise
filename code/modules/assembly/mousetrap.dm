@@ -12,6 +12,7 @@
 	. = ..()
 	if(armed)
 		. += "It looks like it's armed."
+	. += "<span class='notice'><b>Alt-Click</b> to hide it.</span>"
 
 /obj/item/assembly/mousetrap/activate()
 	if(!..())
@@ -143,13 +144,9 @@
 	armed = TRUE
 
 
-/obj/item/assembly/mousetrap/verb/hide_under()
-	set src in oview(1)
-	set name = "Hide"
-	set category = "Object"
-
-	if(usr.stat)
+/obj/item/assembly/mousetrap/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	layer = TURF_LAYER + 0.2
-	to_chat(usr, "<span class='notice'>You hide [src].</span>")
+	to_chat(user, "<span class='notice'>You hide [src].</span>")

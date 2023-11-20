@@ -37,7 +37,7 @@
 /obj/item/nullrod/attack(mob/M, mob/living/carbon/user)
 	..()
 	var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
-	if(ishuman(M) && V && user.mind.isholy)
+	if(ishuman(M) && V && HAS_MIND_TRAIT(M, TRAIT_HOLY))
 		if(!V.get_ability(/datum/vampire_passive/full))
 			to_chat(M, "<span class='warning'>The nullrod's power interferes with your own!</span>")
 			V.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
@@ -45,7 +45,7 @@
 /obj/item/nullrod/pickup(mob/living/user)
 	. = ..()
 	if(sanctify_force)
-		if(!user.mind || !user.mind.isholy)
+		if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 			user.adjustBruteLoss(force)
 			user.adjustFireLoss(sanctify_force)
 			user.Weaken(10 SECONDS)
@@ -57,7 +57,7 @@
 
 
 /obj/item/nullrod/attack_self(mob/user)
-	if(user.mind?.isholy && !reskinned)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY) && !reskinned)
 		reskin_holy_weapon(user)
 
 /obj/item/nullrod/examine(mob/living/user)
@@ -429,6 +429,8 @@
 /obj/item/nullrod/armblade
 	name = "dark blessing"
 	desc = "Particularly twisted deities grant gifts of dubious value."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "arm_blade"
 	item_state = "arm_blade"
 	flags = ABSTRACT | NODROP
@@ -467,7 +469,7 @@
 /obj/item/nullrod/carp/attack_self(mob/living/user)
 	if(used_blessing)
 		return
-	if(user.mind && !user.mind.isholy)
+	if(user.mind && !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		return
 	to_chat(user, "You are blessed by Carp-Sie. Wild space carp will no longer attack you.")
 	user.faction |= "carp"
@@ -539,7 +541,7 @@
 	if(!iscarbon(M))
 		return ..()
 
-	if(!user.mind || !user.mind.isholy)
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
 		return
 
@@ -592,7 +594,7 @@
 
 /obj/item/nullrod/salt/attack_self(mob/user)
 
-	if(!user.mind || !user.mind.isholy)
+	if(!user.mind || !HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>You are not close enough with [SSticker.Bible_deity_name] to use [src].</span>")
 		return
 
@@ -611,19 +613,42 @@
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "baguette"
 	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
+	var/list/smited_clowns
+
+/obj/item/nullrod/rosary/bread/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(ishuman(user) && (slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND))
+		START_PROCESSING(SSobj, src)
+	else
+		STOP_PROCESSING(SSobj, src)
+
+/obj/item/nullrod/rosary/bread/dropped(mob/user, silent)
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/nullrod/rosary/bread/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	for(var/clown in smited_clowns)
+		unsmite_clown(clown)
+	return ..()
 
 /obj/item/nullrod/rosary/bread/process()
-	if(ishuman(loc))
-		var/mob/living/carbon/human/holder = loc
-		//would like to make the holder mime if they have it in on thier person in general
-		if(src == holder.l_hand || src == holder.r_hand)
-			for(var/mob/living/carbon/human/H in range(5, loc))
-				if(H.mind.assigned_role == "Clown")
-					H.Silence(20 SECONDS)
-					animate_fade_grayscale(H,20)
-					if(prob(10))
-						to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
+	var/mob/living/carbon/human/holder = loc
+	//would like to make the holder mime if they have it in on thier person in general
+	for(var/mob/living/carbon/human/H in range(5, loc))
+		if(H.mind.assigned_role == "Clown" && !LAZYACCESS(smited_clowns, H))
+			LAZYSET(smited_clowns, H, TRUE)
+			H.Silence(20 SECONDS)
+			animate_fade_grayscale(H, 2 SECONDS)
 
+			addtimer(CALLBACK(src, PROC_REF(unsmite_clown), H), 20 SECONDS)
+
+			if(prob(10))
+				to_chat(H, "<span class='userdanger'>Being in the presence of [holder]'s [src] is interfering with your honk!</span>")
+
+/obj/item/nullrod/rosary/bread/proc/unsmite_clown(mob/living/carbon/human/hell_spawn)
+	animate_fade_colored(hell_spawn, 2 SECONDS)
+	LAZYREMOVE(smited_clowns, hell_spawn)
 
 /obj/item/nullrod/missionary_staff
 	name = "holy staff"

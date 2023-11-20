@@ -59,7 +59,7 @@
 	else
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_hand")
-		if(affecting.receive_damage( 0, 5 ))		//INFERNO
+		if(affecting.receive_damage(0, 5))		//INFERNO
 			H.UpdateDamageIcon()
 		to_chat(user,"<span class='notice'>You light [src], but you burn your hand in the process.</span>")
 	if(world.time > next_on_message)
@@ -293,7 +293,7 @@
 		..()
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(burnt)
+	if(isdrone(user) && burnt)
 		C.stored_comms["wood"] += 1
 		qdel(src)
 		return TRUE

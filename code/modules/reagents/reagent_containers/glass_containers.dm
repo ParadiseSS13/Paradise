@@ -130,6 +130,11 @@
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = 1
 
+/obj/item/reagent_containers/glass/beaker/examine(mob/user)
+	. = ..()
+	if(assembly)
+		. += "<span class='notice'>There is an [assembly] attached to it, use a screwdriver to remove it.</span>"
+
 /obj/item/reagent_containers/glass/beaker/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
@@ -164,20 +169,6 @@
 			. += emissive_blocker(icon, "lid_[initial(icon_state)]")
 	if(assembly)
 		. += "assembly"
-
-/obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
-	set name = "Remove Assembly"
-	set category = "Object"
-	set src in usr
-	if(usr.incapacitated())
-		return
-	if(assembly)
-		to_chat(usr, "<span class='notice'>You detach [assembly] from [src]</span>")
-		usr.put_in_hands(assembly)
-		assembly = null
-		update_icon(UPDATE_OVERLAYS)
-	else
-		to_chat(usr, "<span class='notice'>There is no assembly to remove.</span>")
 
 /obj/item/reagent_containers/glass/beaker/proc/heat_beaker()
 	if(reagents)
@@ -214,6 +205,17 @@
 /obj/item/reagent_containers/glass/beaker/hear_message(mob/living/M, msg)
 	if(assembly)
 		assembly.hear_message(M, msg)
+
+/obj/item/reagent_containers/glass/beaker/screwdriver_act(mob/living/user, obj/item/I)
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+		return
+	if(assembly)
+		to_chat(user, "<span class='notice'>You detach [assembly] from [src]</span>")
+		user.put_in_hands(assembly)
+		assembly = null
+		update_icon(UPDATE_OVERLAYS)
+	else
+		to_chat(user, "<span class='notice'>There is no assembly to remove.</span>")
 
 /obj/item/reagent_containers/glass/beaker/large
 	name = "large beaker"

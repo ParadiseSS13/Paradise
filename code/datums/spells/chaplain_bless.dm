@@ -34,7 +34,7 @@
 		revert_cast()
 		return
 
-	if(!user.mind.isholy)
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "Somehow, you are not holy enough to use this ability. This should never happen. Report this bug.")
 		revert_cast()
 		return
