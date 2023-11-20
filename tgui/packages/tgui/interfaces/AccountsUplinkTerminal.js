@@ -54,20 +54,14 @@ export const AccountsUplinkTerminal = (properties, context) => {
 const AccountsUplinkTerminalNavigation = (properties, context) => {
   const { data } = useBackend(context);
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
-  const {
-    login_state,
-  } = data
+  const { login_state } = data;
   return (
     <Tabs>
-      <Tabs.Tab
-        selected={0 === tabIndex}
-        onClick={() => setTabIndex(0)}>
+      <Tabs.Tab selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
         <Icon name="list" />
         User Accounts
       </Tabs.Tab>
-      <Tabs.Tab
-        selected={1 === tabIndex}
-        onClick={() => setTabIndex(1)}>
+      <Tabs.Tab selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
         <Icon name="list" />
         Department Accounts
       </Tabs.Tab>
@@ -130,7 +124,9 @@ const AccountsRecordList = (properties, context) => {
                     'AccountsUplinkTerminal__listRow--' + account.suspended
                   }
                   onClick={() =>
-                    act('view_account_detail', { account_num: account.account_number })
+                    act('view_account_detail', {
+                      account_num: account.account_number,
+                    })
                   }
                 >
                   <Table.Cell>
@@ -163,24 +159,26 @@ const DepartmentAccountsList = (properties, context) => {
               <TableCell>Account Status</TableCell>
               <TableCell>Account Balance</TableCell>
             </Table.Row>
-            {department_accounts
-              .map((account) => (
-                <Table.Row
-                  key={account.account_number}
-                  className={
-                    'AccountsUplinkTerminal__listRow--' + account.suspended
-                  }
-                  onClick={() => act('view_account_detail', {
-                    account_num: account.account_number
-                  })}>
-                  <Table.Cell>
-                    <Icon name="wallet"/> {account.name}
-                  </Table.Cell>
-                  <Table.Cell>#{account.account_number}</Table.Cell>
-                  <Table.Cell>{account.suspended}</Table.Cell>
-                  <Table.Cell>{account.money}</Table.Cell>
-                </Table.Row>
-              ))}
+            {department_accounts.map((account) => (
+              <Table.Row
+                key={account.account_number}
+                className={
+                  'AccountsUplinkTerminal__listRow--' + account.suspended
+                }
+                onClick={() =>
+                  act('view_account_detail', {
+                    account_num: account.account_number,
+                  })
+                }
+              >
+                <Table.Cell>
+                  <Icon name="wallet" /> {account.name}
+                </Table.Cell>
+                <Table.Cell>#{account.account_number}</Table.Cell>
+                <Table.Cell>{account.suspended}</Table.Cell>
+                <Table.Cell>{account.money}</Table.Cell>
+              </Table.Row>
+            ))}
           </Table>
         </Section>
       </Flex.Item>
@@ -248,7 +246,7 @@ const DetailedAccountInfo = (properties, context) => {
     suspended,
     transactions,
     account_pin,
-    is_department_account
+    is_department_account,
   } = data;
   return (
     <Fragment>
@@ -267,19 +265,22 @@ const DetailedAccountInfo = (properties, context) => {
           <LabeledList.Item label="Account Number">
             #{account_number}
           </LabeledList.Item>
-          {!!is_department_account &&
+          {!!is_department_account && (
             <LabeledList.Item label="Account Pin">
               {account_pin}
             </LabeledList.Item>
-          }
+          )}
           <LabeledList.Item label="Account Pin Actions">
-            <Button ml={1}
+            <Button
+              ml={1}
               icon="user-cog"
               content="Set New Pin"
               disabled={Boolean(is_department_account)}
-              onClick={() => act('set_account_pin', {
-                account_number: account_number,
-              })}
+              onClick={() =>
+                act('set_account_pin', {
+                  account_number: account_number,
+                })
+              }
             />
           </LabeledList.Item>
           <LabeledList.Item label="Account Holder">
@@ -312,7 +313,9 @@ const DetailedAccountInfo = (properties, context) => {
             <Table.Row key={t}>
               <Table.Cell>{t.time}</Table.Cell>
               <Table.Cell>{t.purpose}</Table.Cell>
-              <Table.Cell color={t.is_deposit ? 'green' : 'red'}>${t.amount}</Table.Cell>
+              <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
+                ${t.amount}
+              </Table.Cell>
               <Table.Cell>{t.target_name}</Table.Cell>
             </Table.Row>
           ))}

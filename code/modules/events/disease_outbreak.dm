@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(current_pending_diseases)
 	if(isemptylist(transmissable_symptoms))
 		populate_symptoms()
 	var/datum/disease/virus
-	if(prob(25))
+	if(prob(50))
 		switch(severity)
 			if(EVENT_LEVEL_MUNDANE)
 				virus = pick(diseases_minor)

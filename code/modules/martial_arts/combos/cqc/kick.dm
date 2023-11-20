@@ -1,7 +1,7 @@
 /datum/martial_combo/cqc/kick
 	name = "CQC Kick"
 	steps = list(MARTIAL_COMBO_STEP_HARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Knocks opponent away and slows them. Will instead deal massive stamina damage, and mute opponents who are on the ground."
+	explaination_text = "Knocks opponent away and slows them. Will instead deal massive stamina damage, inflict minor brain damage, and mute opponents who are on the ground."
 
 /datum/martial_combo/cqc/kick/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	. = MARTIAL_COMBO_FAIL

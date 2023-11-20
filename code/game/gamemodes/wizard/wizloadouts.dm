@@ -61,10 +61,10 @@
 	is_ragin_restricted = TRUE
 
 /obj/effect/proc_holder/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), slot_gloves)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), SLOT_HUD_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), SLOT_HUD_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), SLOT_HUD_GLOVES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), SLOT_HUD_JUMPSUIT)
 
 /datum/spellbook_entry/loadout/greytide
 	name = "Tyde the Grey"
@@ -87,9 +87,9 @@
 		new /obj/item/clothing/head/helmet/space/plasmaman/assistant(get_turf(user))
 		new /obj/item/clothing/under/plasmaman/assistant(get_turf(user))
 	user.unEquip(user.wear_id)
-	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, slot_w_uniform) //Just in case they're naked
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, SLOT_HUD_JUMPSUIT) //Just in case they're naked
 	var/obj/item/card/id/wizid = new /obj/item/card/id(src)
-	user.equip_to_slot_or_del(wizid, slot_wear_id)
+	user.equip_to_slot_or_del(wizid, SLOT_HUD_WEAR_ID)
 	wizid.registered_name = user.real_name
 	wizid.access = list(ACCESS_MAINT_TUNNELS)
 	wizid.assignment = "Assistant"
@@ -120,3 +120,41 @@
 	if(!user)
 		return
 	ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, MAGIC_TRAIT)
+
+/datum/spellbook_entry/loadout/fireball
+	name = "Fireball. Fireball. Fireball."
+	desc = "Who cares about the rest of the spells. Become an expert in fire magic. Devote yourself to the craft. The only spell you need anyways is <b>Fireball.</b><br>\
+		</i>Provides fire immunity, homing fireballs, rapid-fire fireballs, and some fireball wands. Provides no mobility spells. Replaces your robes with infernal versions.<i>"
+	spells_path = list(/obj/effect/proc_holder/spell/sacred_flame, /obj/effect/proc_holder/spell/fireball/homing, /obj/effect/proc_holder/spell/infinite_guns/fireball)
+	category = "Unique"
+	destroy_spellbook = TRUE
+
+/datum/spellbook_entry/loadout/fireball/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(user.wear_suit)
+		var/jumpsuit = user.wear_suit
+		user.unEquip(user.wear_suit, TRUE)
+		qdel(jumpsuit)
+	if(user.head)
+		var/head = user.head
+		user.unEquip(user.head, TRUE)
+		qdel(head)
+
+	// Part of Sacred Flame
+	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+
+	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red/fireball(user), SLOT_HUD_OUTER_SUIT)
+	user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red/fireball(user), SLOT_HUD_HEAD)
+
+	user.equip_or_collect(new /obj/item/storage/belt/wands/fireballs(), SLOT_HUD_BELT)
+
+/obj/item/clothing/suit/wizrobe/red/fireball
+	name = "infernal robe"
+	desc = "A magnificent, red, glowing robe that seems to radiate heat."
+	flags = NODROP
+
+/obj/item/clothing/head/wizard/red/fireball
+	name = "infernal hat"
+	desc = "A pointy red wizard hat, indicating a magician of great power."
+	flags = NODROP

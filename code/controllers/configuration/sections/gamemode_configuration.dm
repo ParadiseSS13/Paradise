@@ -6,7 +6,7 @@
 	var/list/gamemode_names = list()
 	/// Assoc list of gamemode probabilities  (key: config-tag | value: probability)
 	var/list/probabilities = list()
-	/// List of all gamemodes that can be voted for (value: config-tag)
+	/// List of all gamemodes that can be voted for, (value: config-tag)
 	var/list/votable_modes = list()
 	/// Should antags be restricted based on account age?
 	var/antag_account_age_restriction = FALSE

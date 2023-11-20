@@ -10,6 +10,7 @@ export const Section = (props) => {
     content,
     stretchContents,
     noTopPadding,
+    showBottom = true,
     children,
     ...rest
   } = props;
@@ -26,7 +27,12 @@ export const Section = (props) => {
       {...rest}
     >
       {hasTitle && (
-        <div className="Section__title">
+        <div
+          className={classes([
+            'Section__title',
+            showBottom && 'Section__title--showBottom',
+          ])}
+        >
           <span className="Section__titleText">{title}</span>
           <div className="Section__buttons">{buttons}</div>
         </div>

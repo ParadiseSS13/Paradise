@@ -1,4 +1,4 @@
-#define LING_FAKEDEATH_TIME					40 SECONDS
+#define LING_FAKEDEATH_TIME					50 SECONDS
 #define LING_ABSORB_RECENT_SPEECH			8	//The amount of recent spoken lines to gain on absorbing a mob
 
 GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","Epsilon","Zeta","Eta","Theta","Iota","Kappa","Lambda","Mu","Nu","Xi","Omicron","Pi","Rho","Sigma","Tau","Upsilon","Phi","Chi","Psi","Omega"))
@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			text += "<br><b>Changeling ID:</b> [cling.changelingID]."
 			text += "<br><b>Genomes Extracted:</b> [cling.absorbed_count]"
 
-			var/list/all_objectives = changeling.get_all_objectives()
+			var/list/all_objectives = changeling.get_all_objectives(include_team = FALSE)
 
 			if(length(all_objectives))
 				var/count = 1

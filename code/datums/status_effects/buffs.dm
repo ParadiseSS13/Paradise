@@ -421,7 +421,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		if(is_mining_level(H.z))
+		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
 			for(var/obj/item/organ/external/E in H.bodyparts)
 				E.fix_internal_bleeding()
 				E.fix_burn_wound()
@@ -736,3 +736,7 @@
 /datum/status_effect/rev_protection/on_remove()
 	UnregisterSignal(owner, COMSIG_HUMAN_ATTACKED)
 	. = ..()
+
+/datum/status_effect/bookwyrm
+	duration = BRAIN_DAMAGE_MOB_TIME
+	alert_type = null

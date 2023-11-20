@@ -44,14 +44,14 @@
 	return new /datum/tgs_version("3.2.1.3")
 
 /datum/tgs_api/v3210/proc/trim_left(text)
-	for (var/i = 1 to length(text))
-		if (text2ascii(text, i) > 32)
+	for(var/i = 1 to length(text))
+		if(text2ascii(text, i) > 32)
 			return copytext(text, i)
 	return ""
 
 /datum/tgs_api/v3210/proc/trim_right(text)
-	for (var/i = length(text), i > 0, i--)
-		if (text2ascii(text, i) > 32)
+	for(var/i = length(text), i > 0, i--)
+		if(text2ascii(text, i) > 32)
 			return copytext(text, 1, i + 1)
 	return ""
 
@@ -66,7 +66,7 @@
 	var/list/logs = TGS_FILE2LIST(".git/logs/HEAD")
 	if(logs.len)
 		logs = splittext(logs[logs.len], " ")
-		if (logs.len >= 2)
+		if(logs.len >= 2)
 			commit = logs[2]
 		else
 			TGS_ERROR_LOG("Error parsing commit logs")
@@ -74,7 +74,7 @@
 	logs = TGS_FILE2LIST(".git/logs/refs/remotes/origin/master")
 	if(logs.len)
 		logs = splittext(logs[logs.len], " ")
-		if (logs.len >= 2)
+		if(logs.len >= 2)
 			originmastercommit = logs[2]
 		else
 			TGS_ERROR_LOG("Error parsing origin commmit logs")
@@ -99,11 +99,7 @@
 	if(skip_compat_check && !fexists(SERVICE_INTERFACE_DLL))
 		TGS_ERROR_LOG("Service parameter present but no interface DLL detected. This is symptomatic of running a service less than version 3.1! Please upgrade.")
 		return
-	#if DM_VERSION >= 515
-	call_ext(SERVICE_INTERFACE_DLL, SERVICE_INTERFACE_FUNCTION)(instance_name, command) //trust no retval
-	#else
-	call(SERVICE_INTERFACE_DLL, SERVICE_INTERFACE_FUNCTION)(instance_name, command) //trust no retval
-	#endif
+	CALL_EXT(SERVICE_INTERFACE_DLL, SERVICE_INTERFACE_FUNCTION)(instance_name, command) //trust no retval
 	return TRUE
 
 /datum/tgs_api/v3210/OnTopic(T)

@@ -45,6 +45,7 @@ Difficulty: Medium
 	score_type = LEGION_SCORE
 	loot = list(/obj/item/storm_staff)
 	crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
+	enraged_loot = /obj/item/disk/fauna_research/legion
 	vision_range = 13
 	elimination = TRUE
 	appearance_flags = 0
@@ -55,6 +56,37 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/Initialize(mapload)
 	. = ..()
 	transform *= 2
+
+/mob/living/simple_animal/hostile/megafauna/legion/enrage()
+	health = 1250
+	maxHealth = 1250
+	transform /= 1.5
+	loot = list(/datum/nothing)
+	crusher_loot = list(/datum/nothing)
+	var/mob/living/simple_animal/hostile/megafauna/legion/legiontwo = new /mob/living/simple_animal/hostile/megafauna/legion(get_turf(src))
+	legiontwo.transform /= 1.5
+	legiontwo.loot = list(/datum/nothing)
+	legiontwo.crusher_loot = list(/datum/nothing)
+	legiontwo.health = 1250
+	legiontwo.maxHealth = 1250
+	legiontwo.enraged = TRUE
+
+/mob/living/simple_animal/hostile/megafauna/legion/unrage()
+	. = ..()
+	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
+		if(other != src)
+			other.loot = list(/obj/item/storm_staff) //Initial does not work with lists.
+			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
+			other.maxHealth = 2500
+			other.health = 2500
+	qdel(src) //Suprise, it's the one on lavaland that regrows to full.
+
+/mob/living/simple_animal/hostile/megafauna/legion/death(gibbed)
+	for(var/mob/living/simple_animal/hostile/megafauna/legion/other in GLOB.mob_list)
+		if(other != src)
+			other.loot = list(/obj/item/storm_staff) //Initial does not work with lists.
+			other.crusher_loot = list(/obj/item/storm_staff, /obj/item/crusher_trophy/empowered_legion_skull)
+	. = ..()
 
 /mob/living/simple_animal/hostile/megafauna/legion/AttackingTarget()
 	. = ..()
@@ -98,7 +130,11 @@ Difficulty: Medium
 			"<span class='userdanger'>You summon a big [A]!</span>")
 			ranged_cooldown = world.time + 5 SECONDS
 		else
-			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril/A = new(loc)
+			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/A
+			if(enraged)
+				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril(loc)
+			else
+				A = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril(loc)
 			A.GiveTarget(target)
 			A.friends = friends
 			A.faction = faction
@@ -132,10 +168,13 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/proc/fire_disintegration_laser(location)
 	playsound(loc, 'sound/weapons/marauder.ogg', 200, TRUE)
 	Beam(location, icon_state = "death_laser", time = 2 SECONDS, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/disintegration)
-	for(var/turf/t in getline(src, location))
+	for(var/turf/t in get_line(src, location))
 		if(ismineralturf(t))
 			var/turf/simulated/mineral/M = t
 			M.gets_drilled(src)
+		if(iswallturf(t))
+			var/turf/simulated/wall/W = t
+			W.thermitemelt(speed = 1 SECONDS) //Melt that shit DOWN
 		for(var/mob/living/M in t)
 			if(faction_check(M.faction, faction, FALSE))
 				continue
@@ -159,12 +198,22 @@ Difficulty: Medium
 		return
 	if(.)
 		var/matrix/M = new
-		resize = 1 + (health / maxHealth)
+		resize = (enraged ? 0.33 : 1) + (health / maxHealth)
 		M.Scale(resize, resize)
 		transform = M
-		if(amount > 0 && prob(33))
-			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/A = new(loc)
-			A.GiveTarget(target)
+		if(amount > 0 && (enraged || prob(33)))
+			var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A
+			if(enraged)
+				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced(loc)
+			else
+				A = new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion(loc)
+			if(!enraged || prob(33))
+				A.GiveTarget(target)
+			else
+				for(var/mob/living/carbon/human/H in range(7, src))
+					if(H.stat == DEAD)
+						A.GiveTarget(H)
+						break
 			A.friends = friends
 			A.faction = faction
 

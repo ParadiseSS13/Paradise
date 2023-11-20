@@ -55,6 +55,14 @@
 		audible_message("[bicon(src)] *beep* *beep*")
 		toggle_scan()
 
+/obj/item/assembly/health/pickup(mob/user)
+	..()
+	ADD_TRAIT(user, TRAIT_CAN_VIEW_HEALTH, "HEALTH[UID()]")
+
+/obj/item/gps/dropped(mob/user, silent)
+	REMOVE_TRAIT(user, TRAIT_CAN_VIEW_HEALTH, "HEALTH[UID()]")
+	return ..()
+
 /obj/item/assembly/health/proc/toggle_scan()
 	if(!secured)
 		return FALSE

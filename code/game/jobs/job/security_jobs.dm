@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_security = 1
+	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_SECURITY
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffdddd"
@@ -58,7 +58,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_security = 1
+	job_department_flags = DEP_FLAG_SECURITY
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
@@ -103,7 +103,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_security = 1
+	job_department_flags = DEP_FLAG_SECURITY
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"
@@ -163,7 +163,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 7
 	spawn_positions = 7
-	is_security = 1
+	job_department_flags = DEP_FLAG_SECURITY
 	supervisors = "the head of security"
 	department_head = list("Head of Security")
 	selection_color = "#ffeeee"

@@ -299,7 +299,7 @@
 	var/current_type = parent_type
 	. = list(our_type, current_type)
 	//and since most components are root level + 1, this won't even have to run
-	while (current_type != /datum/component)
+	while(current_type != /datum/component)
 		current_type = type2parent(current_type)
 		. += current_type
 

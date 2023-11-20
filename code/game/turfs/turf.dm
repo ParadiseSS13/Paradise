@@ -338,7 +338,7 @@
 			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
-	ChangeTurf(baseturf)
+	ChangeTurf(baseturf, keep_icon = FALSE)
 	new /obj/structure/lattice(locate(x, y, z))
 
 /turf/proc/remove_plating(mob/user)

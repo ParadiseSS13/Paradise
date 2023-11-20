@@ -2,7 +2,7 @@
 #define MAX_RATE 10 * ONE_ATMOSPHERE
 
 /obj/machinery/atmospherics/portable/scrubber
-	name = "Portable Air Scrubber"
+	name = "portable air scrubber"
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "pscrubber:0"
 	density = TRUE
@@ -16,8 +16,9 @@
 /obj/machinery/atmospherics/portable/scrubber/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Filters the air, placing harmful gases into the internal gas container. The container can be emptied by \
-			connecting it to a connector port. The pump can pump the air in (sucking) or out (blowing), at a specific target pressure. The powercell inside can be \
-			replaced by using a screwdriver, and then adding a new cell. A tank of gas can also be attached to the scrubber.</span>"
+			connecting it to a connector port, you're unable to have [src] both connected, and on at the same time. \
+			Changing the target pressure will result in faster or slower filter speeds, higher pressure is faster. \
+			A tank of gas can also be attached, allowing you to remove harmful gases from the attached tank.</span>"
 
 /obj/machinery/atmospherics/portable/scrubber/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

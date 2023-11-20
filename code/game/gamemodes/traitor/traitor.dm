@@ -89,7 +89,7 @@
 			if(used_uplink)
 				text += " (used [TC_uses] TC) [purchases]"
 
-			var/all_objectives = traitor.get_all_objectives()
+			var/all_objectives = traitor.get_all_objectives(include_team = FALSE)
 
 			if(length(all_objectives))//If the traitor had no objectives, don't need to process this.
 				var/count = 1

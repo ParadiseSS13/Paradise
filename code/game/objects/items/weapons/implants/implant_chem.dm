@@ -25,11 +25,18 @@
 		return FALSE
 	var/mob/living/carbon/R = imp_in
 	var/injectamount
+
+	var/list/implant_chems = list()
+	for(var/datum/reagent/chems in reagents.reagent_list)
+		implant_chems += chems.name
+	var/contained_chemicals = english_list(implant_chems)
+
 	if(cause == "action_button")
 		injectamount = reagents.total_volume
 	else
 		injectamount = cause
 	reagents.trans_to(R, injectamount)
+	add_attack_logs(usr, R, "Chem bio-chip activated injecting [injectamount]u of [contained_chemicals]")
 	to_chat(R, "<span class='italics'>You hear a faint beep.</span>")
 	if(!reagents.total_volume)
 		to_chat(R, "<span class='italics'>You hear a faint click from your chest.</span>")

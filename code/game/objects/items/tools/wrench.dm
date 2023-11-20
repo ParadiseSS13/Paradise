@@ -6,7 +6,7 @@
 	icon_state = "wrench"
 	belt_icon = "wrench"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 5
 	throwforce = 7
 	usesound = 'sound/items/ratchet.ogg'
