@@ -33,9 +33,8 @@
 	if(force)
 		return ..()
 
-	to_chat(user, "<span class='warning'>You poke [M] with the [src].</span>")
+	to_chat(user, "<span class='warning'>You poke [M] with [src].</span>")
 	to_chat(M, "<span class='notice'>You feel a tiny prick!</span>")
-	add_attack_logs(user, M, "stabbed with [src]")
 	return TRUE
 
 /obj/item/pen/blue
