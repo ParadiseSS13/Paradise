@@ -21,7 +21,7 @@
 	desc += "<br><font size=3><b>Current Bloodthirst: [HG.bloodlust]</b></font>\
 	<br>Becomes undroppable at <b>[HIS_GRACE_FAMISHED]</b>\
 	<br>Will consume you at <b>[HIS_GRACE_CONSUME_OWNER]</b>\
-	<br>You have offered [HG.toolbox.victims ? HG.toolbox.victims : 0] out of [HG.toolbox.victims_needed] sacrifices needed before ascension."
+	<br>You have offered [HG.toolbox ? HG.toolbox.victims : 0] out of [HG.toolbox.victims_needed] sacrifices needed before ascension."
 	..()
 
 /datum/status_effect/his_grace/on_apply()
