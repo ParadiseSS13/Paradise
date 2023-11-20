@@ -157,26 +157,10 @@
 		module.on_deactivation(display_message = FALSE)
 	activating = TRUE
 	to_chat(wearer, "<span class='notice'>MODsuit [active ? "shutting down" : "starting up"].</span>")
-	if(is_sealed(boots) != !active && do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE))
-		if(has_wearer())
-			to_chat(wearer, "<span class='notice'>[boots] [active ? "relax their grip on your legs" : "seal around your feet"].</span>")
-			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			seal_part(boots, seal = !active)
-	if(is_sealed(gauntlets) != !active && do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE))
-		if(has_wearer())
-			to_chat(wearer, "<span class='notice'>[gauntlets] [active ? "become loose around your fingers" : "tighten around your fingers and wrists"].</span>")
-			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			seal_part(gauntlets, seal = !active)
-	if(is_sealed(chestplate) != !active && do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE))
-		if(has_wearer())
-			to_chat(wearer, "<span class='notice'>[chestplate] [active ? "releases your chest" : "cinches tightly against your chest"].</span>")
-			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			seal_part(chestplate, seal = !active)
-	if(is_sealed(helmet) != !active && do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE))
-		if(has_wearer())
-			to_chat(wearer, "<span class='notice'>[helmet] hisses [active ? "open" : "closed"].</span>")
-			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			seal_part(helmet, seal = !active)
+	seal_boots(seal = !active)
+	seal_gauntlets(seal = !active)
+	seal_chestplate(seal = !active)
+	seal_helmet(seal = !active)
 	if(do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE))
 		if(has_wearer())
 			to_chat(wearer, "<span class='notice'>Systems [active ? "shut down. Parts unsealed. Goodbye" : "started up. Parts sealed. Welcome"], [wearer].</span>")
@@ -191,8 +175,37 @@
 	SEND_SIGNAL(src, COMSIG_MOD_TOGGLED, user)
 	return TRUE
 
-/obj/item/mod/control/proc/is_sealed(obj/item/clothing/part)
-	return part.icon_state == "[skin]-[part.base_icon_state]-sealed"
+/obj/item/mod/control/proc/seal_helmet(seal)
+	if(helmet.sealed != seal && do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE))
+		if(has_wearer())
+			to_chat(wearer, "<span class='notice'>[helmet] hisses [active ? "open" : "closed"].</span>")
+			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			helmet.sealed = seal
+			seal_part(helmet, seal)
+
+/obj/item/mod/control/proc/seal_chestplate(seal)
+	if(chestplate.sealed != seal && do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE))
+		if(has_wearer())
+			to_chat(wearer, "<span class='notice'>[chestplate] [active ? "releases your chest" : "cinches tightly against your chest"].</span>")
+			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			chestplate.sealed = seal
+			seal_part(chestplate, seal)
+
+/obj/item/mod/control/proc/seal_gauntlets(seal)
+	if(gauntlets.sealed != seal && do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE))
+		if(has_wearer())
+			to_chat(wearer, "<span class='notice'>[gauntlets] [active ? "become loose around your fingers" : "tighten around your fingers and wrists"].</span>")
+			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			gauntlets.sealed = seal
+			seal_part(gauntlets, seal)
+
+/obj/item/mod/control/proc/seal_boots(seal)
+	if(boots.sealed != seal && do_after(wearer, activation_step_time, FALSE, target = src, allow_moving = TRUE))
+		if(has_wearer())
+			to_chat(wearer, "<span class='notice'>[boots] [active ? "relax their grip on your legs" : "seal around your feet"].</span>")
+			playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			boots.sealed = seal
+			seal_part(boots, seal)
 
 ///Seals or unseals the given part
 /obj/item/mod/control/proc/seal_part(obj/item/clothing/part, seal)
