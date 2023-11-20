@@ -418,7 +418,7 @@ SUBSYSTEM_DEF(timer)
 	if ((timeToRun < world.time || timeToRun < SStimer.head_offset) && !(flags & TIMER_CLIENT_TIME))
 		CRASH("Invalid timer state: Timer created that would require a backtrack to run (addtimer would never let this happen): [SStimer.get_timer_debug_string(src)]")
 
-	if(callBack.object != GLOBAL_PROC && flags & TIMER_DELETE_ME && !QDESTROYING(callBack.object))
+	if(callBack.object != GLOBAL_PROC && (flags & TIMER_DELETE_ME) && !QDESTROYING(callBack.object))
 		RegisterSignal(callBack.object, COMSIG_PARENT_QDELETING, GLOBAL_PROC_REF(qdel))
 
 	bucketJoin()
