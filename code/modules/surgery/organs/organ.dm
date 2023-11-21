@@ -50,21 +50,18 @@
 /obj/item/organ/proc/update_health()
 	return
 
-/obj/item/organ/New(mob/living/carbon/holder, datum/species/species_override = null)
+/obj/item/organ/New(mob/living/carbon/human/holder, datum/species/species_override = null)
 	..(holder)
 	if(!max_damage)
 		max_damage = min_broken_damage * 2
 	if(istype(holder))
 		if(holder.dna)
 			dna = holder.dna.Clone()
+			if(!blood_DNA)
+				blood_DNA = list()
+			blood_DNA[dna.unique_enzymes] = dna.blood_type
 		else
 			stack_trace("[holder] spawned without a proper DNA.")
-		var/mob/living/carbon/human/H = holder
-		if(istype(H))
-			if(dna)
-				if(!blood_DNA)
-					blood_DNA = list()
-				blood_DNA[dna.unique_enzymes] = dna.blood_type
 	else
 		dna = new /datum/dna(null)
 		if(species_override)
