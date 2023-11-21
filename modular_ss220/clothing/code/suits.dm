@@ -89,6 +89,14 @@
 	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
 	item_state = "jacket_syndie"
 
+/obj/item/clothing/suit/space/deathsquad/officer/field
+	name = "полевая форма офицера флота Нанотрейзен"
+	desc = "Парадный плащ, разработанный в качестве массового варианта формы Верховного Главнокомандующего. У этой униформы нет тех же защитных свойств, что и у оригинала, но она все ещё является довольно удобным и стильным предметом гардероба."
+	icon = 'modular_ss220/clothing/icons/object/suits.dmi'
+	icon_state = "ntsc_uniform"
+	icon_override = 'modular_ss220/clothing/icons/mob/suits.dmi'
+	item_state = "ntsc_uniform"
+
 /obj/item/clothing/suit/hooded/vi_arcane
 	name = "куртка Вай"
 	desc = "Слегка потрёпанный жакет боевой девчушки Вай."
