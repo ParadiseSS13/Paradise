@@ -88463,10 +88463,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/processing)
-"vpP" = (
-/obj/structure/lattice,
-/turf/simulated/wall,
-/area/space/nearstation)
 "vpS" = (
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/engine,
@@ -133027,8 +133023,8 @@ duk
 fIv
 dDh
 dEp
-vpP
-vpP
+bPS
+bPS
 abj
 abj
 abj
