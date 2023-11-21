@@ -82,36 +82,38 @@ const FutureStationTraitsPage = (props, context) => {
 
       {Array.isArray(future_station_traits) ? (
         future_station_traits.length > 0 ? (
-          <Flex vertical fill>
+          <Flex direction="column">
             {future_station_traits.map((trait) => (
-              <Flex.Item key={trait.path}>
-                <Flex fill>
-                  <Flex.Item grow>{trait.name}</Flex.Item>
+              <div key={trait.path}>
+                <Flex.Item>
+                  <Flex fill>
+                    <Flex.Item grow>{trait.name}</Flex.Item>
 
-                  <Flex.Item>
-                    <Button
-                      color="red"
-                      icon="times"
-                      onClick={() => {
-                        act('setup_future_traits', {
-                          station_traits: filterMap(
-                            future_station_traits,
-                            (otherTrait) => {
-                              if (otherTrait.path === trait.path) {
-                                return undefined;
-                              } else {
-                                return otherTrait.path;
+                    <Flex.Item>
+                      <Button
+                        color="red"
+                        icon="times"
+                        onClick={() => {
+                          act('setup_future_traits', {
+                            station_traits: filterMap(
+                              future_station_traits,
+                              (otherTrait) => {
+                                if (otherTrait.path === trait.path) {
+                                  return undefined;
+                                } else {
+                                  return otherTrait.path;
+                                }
                               }
-                            }
-                          ),
-                        });
-                      }}
-                    >
-                      Delete
-                    </Button>
-                  </Flex.Item>
-                </Flex>
-              </Flex.Item>
+                            ),
+                          });
+                        }}
+                      >
+                        Delete
+                      </Button>
+                    </Flex.Item>
+                  </Flex>
+                </Flex.Item>
+              </div>
             ))}
           </Flex>
         ) : (
@@ -157,33 +159,35 @@ const ViewStationTraitsPage = (props, context) => {
   const { act, data } = useBackend(context);
 
   return data.current_traits.length > 0 ? (
-    <Flex vertical fill>
+    <Flex direction="column">
       {data.current_traits.map((stationTrait) => (
-        <Flex.Item key={stationTrait.ref}>
-          <Flex fill>
-            <Flex.Item grow>{stationTrait.name}</Flex.Item>
+        <div key={stationTrait.ref}>
+          <Flex.Item>
+            <Flex fill>
+              <Flex.Item grow>{stationTrait.name}</Flex.Item>
 
-            <Flex.Item>
-              <Button.Confirm
-                content="Revert"
-                color="red"
-                disabled={data.too_late_to_revert || !stationTrait.can_revert}
-                tooltip={
-                  (!stationTrait.can_revert &&
-                    'This trait is not revertable.') ||
-                  (data.too_late_to_revert &&
-                    "It's too late to revert station traits, the round has already started.")
-                }
-                icon="times"
-                onClick={() =>
-                  act('revert', {
-                    ref: stationTrait.ref,
-                  })
-                }
-              />
-            </Flex.Item>
-          </Flex>
-        </Flex.Item>
+              <Flex.Item>
+                <Button.Confirm
+                  content="Revert"
+                  color="red"
+                  disabled={data.too_late_to_revert || !stationTrait.can_revert}
+                  tooltip={
+                    (!stationTrait.can_revert &&
+                      'This trait is not revertable.') ||
+                    (data.too_late_to_revert &&
+                      "It's too late to revert station traits, the round has already started.")
+                  }
+                  icon="times"
+                  onClick={() =>
+                    act('revert', {
+                      ref: stationTrait.ref,
+                    })
+                  }
+                />
+              </Flex.Item>
+            </Flex>
+          </Flex.Item>
+        </div>
       ))}
     </Flex>
   ) : (
