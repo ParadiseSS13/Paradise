@@ -2714,7 +2714,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "akI" = (
@@ -91852,7 +91852,7 @@
 /area/station/maintenance/asmaint)
 "weF" = (
 /obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

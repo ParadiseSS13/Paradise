@@ -1024,7 +1024,7 @@
 "ajF" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ajI" = (
@@ -12055,7 +12055,7 @@
 /area/station/security/permabrig)
 "aOY" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
 	},
@@ -12431,7 +12431,7 @@
 /area/station/service/theatre)
 "aQb" = (
 /obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -43185,7 +43185,7 @@
 /area/station/service/library)
 "crl" = (
 /obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -45777,7 +45777,7 @@
 /area/station/service/library)
 "cxX" = (
 /obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -70446,7 +70446,7 @@
 /area/station/hallway/secondary/exit)
 "dRH" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -76290,7 +76290,7 @@
 /obj/item/deck/cards{
 	pixel_y = 6
 	},
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken7"
 	},
@@ -77643,7 +77643,7 @@
 /area/station/science/break_room)
 "hDS" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
