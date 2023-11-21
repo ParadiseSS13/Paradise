@@ -137,13 +137,6 @@
 
 	return 1
 
-/proc/cannotPossess(A)
-	var/mob/dead/observer/G = A
-	if(G.has_enabled_antagHUD && GLOB.configuration.general.restrict_antag_hud_rejoin)
-		return 1
-	return 0
-
-
 /proc/iscuffed(A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
@@ -807,6 +800,12 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 /mob/proc/attempt_listen_to_deadsay()
 
+
+/mob/proc/is_roundstart_observer()
+	return (ckey in GLOB.roundstart_observer_keys)
+
+/mob/proc/has_ahudded()
+	return (ckey in GLOB.antag_hud_users)
 
 /// Proc to PROPERLY set mob invisibility, huds gotta get set too!
 /mob/proc/set_invisible(invis_value)
