@@ -202,11 +202,6 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/machinery/camera{
-	network = list("MC-16");
-	dir = 5;
-	c_tag = "Engineering Department"
-	},
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2635,17 +2630,6 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plating,
 /area/awaymission/jungle_planet/inside)
-"dqk" = (
-/obj/effect/decal/cleanable/cobweb2{
-	icon_state = "cobweb1"
-	},
-/obj/machinery/camera{
-	network = list("MC-16");
-	dir = 5;
-	c_tag = "Bar"
-	},
-/turf/simulated/floor/plating,
-/area/awaymission/jungle_planet/inside/complex)
 "drb" = (
 /obj/structure/computerframe{
 	icon_state = "comp_frame_2";
@@ -5136,11 +5120,11 @@
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "gMt" = (
-/obj/item/shard,
-/obj/machinery/computer/security{
-	network = list("MC-16");
+/obj/structure/computerframe{
+	icon_state = "comp_frame_2";
 	dir = 4
 	},
+/obj/item/shard,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -6031,16 +6015,6 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle,
 /turf/simulated/floor/engine/cult,
 /area/awaymission/jungle_planet/outside/cave)
-"hOJ" = (
-/obj/machinery/camera{
-	network = list("MC-16");
-	dir = 8;
-	c_tag = "Second Hangar"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "grimy"
-	},
-/area/awaymission/jungle_planet/inside)
 "hPx" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -7203,11 +7177,6 @@
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	icon_state = "computer";
 	dir = 8
-	},
-/obj/machinery/camera{
-	network = list("MC-16");
-	dir = 8;
-	c_tag = "Main Hangar Mecha"
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
@@ -9028,11 +8997,6 @@
 /obj/structure/chair/comfy{
 	dir = 1
 	},
-/obj/machinery/camera{
-	network = list("MC-16");
-	dir = 1;
-	c_tag = "Medbay"
-	},
 /obj/structure/computerframe{
 	anchored = 1;
 	dir = 1
@@ -9041,14 +9005,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/awaymission/jungle_planet/inside/complex)
-"lpi" = (
-/obj/machinery/camera{
-	network = list("MC-16");
-	dir = 1;
-	c_tag = "Security"
-	},
-/turf/simulated/floor/plasteel,
 /area/awaymission/jungle_planet/inside/complex)
 "lqx" = (
 /obj/structure/table,
@@ -9606,15 +9562,6 @@
 	name = "ground"
 	},
 /area/awaymission/jungle_planet/outside/cave)
-"mfn" = (
-/obj/machinery/camera{
-	network = list("MC-16");
-	dir = 1;
-	c_tag = "Dromitory"
-	},
-/obj/effect/spawner/random_spawners/dirt_maybe,
-/turf/simulated/floor/wood/oak,
-/area/awaymission/jungle_planet/inside/complex)
 "mfr" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -16607,11 +16554,6 @@
 	},
 /area/awaymission/jungle_planet/outside/river)
 "uIx" = (
-/obj/machinery/camera{
-	network = list("MC-16");
-	dir = 9;
-	c_tag = "Robotech"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
@@ -23750,7 +23692,7 @@ sXj
 sXj
 cku
 iRJ
-mfn
+bti
 sXj
 sXj
 sXj
@@ -25055,7 +24997,7 @@ dKU
 djO
 bOu
 kmg
-dqk
+byV
 fET
 jMH
 nMQ
@@ -28074,7 +28016,7 @@ wYy
 szb
 wJh
 isn
-hOJ
+akj
 baN
 qgJ
 oyb
@@ -29573,7 +29515,7 @@ uue
 wCJ
 iXN
 bjz
-lpi
+uJW
 gaK
 mDQ
 vmE
