@@ -12395,10 +12395,6 @@
 /obj/item/storage/fancy/crayons,
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/art)
-"aPT" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "aPU" = (
 /obj/structure/table/wood,
 /obj/item/instrument/guitar,
@@ -13017,15 +13013,6 @@
 	icon_state = "bar"
 	},
 /area/station/service/bar)
-"aRu" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/eight,
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	dir = 10;
-	icon_state = "darkblue"
-	},
-/area/space/nearstation)
 "aRv" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -23773,10 +23760,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/central)
-"btJ" = (
-/obj/structure/grille,
-/turf/simulated/floor/plating/airless,
-/area/space/nearstation)
 "btL" = (
 /turf/simulated/wall/r_wall,
 /area/station/command/vault)
@@ -84345,6 +84328,10 @@
 	},
 /turf/simulated/floor/engine/n2,
 /area/station/engineering/atmos)
+"mIl" = (
+/obj/structure/grille,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "mJw" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Medbay Maintenance"
@@ -94398,7 +94385,6 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/effect/landmark/start/barber,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -99491,6 +99477,10 @@
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall,
 /area/station/maintenance/aft)
+"xcn" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "xcs" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/engineering/glass{
@@ -100412,6 +100402,15 @@
 	icon_state = "neutral"
 	},
 /area/station/maintenance/fsmaint)
+"xGL" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/plasteel/airless{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/space/nearstation)
 "xGY" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -134311,7 +134310,7 @@ azd
 aAp
 awX
 abj
-aRu
+xGL
 ghZ
 aFq
 aVK
@@ -134567,7 +134566,7 @@ aCo
 azd
 aAq
 awX
-aPT
+xcn
 abj
 aVK
 aGp
@@ -153077,7 +153076,7 @@ abj
 aaa
 abj
 abj
-btJ
+mIl
 aaa
 ygH
 tFK
@@ -153334,7 +153333,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 abj
 ygH
 aJx
@@ -153591,7 +153590,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 ygH
 uUu
@@ -156469,7 +156468,7 @@ nlB
 aaa
 abj
 abj
-btJ
+mIl
 abj
 abj
 iuY
@@ -156983,7 +156982,7 @@ aaa
 aaa
 aaa
 abj
-btJ
+mIl
 abj
 abj
 iuY
@@ -157498,7 +157497,7 @@ aaa
 aaa
 abj
 abj
-btJ
+mIl
 abj
 iuY
 rEQ
@@ -159531,10 +159530,10 @@ aaa
 aaa
 abj
 abj
-btJ
-btJ
-btJ
-btJ
+mIl
+mIl
+mIl
+mIl
 abj
 abj
 fhF
@@ -159793,7 +159792,7 @@ aaa
 abj
 abj
 aaa
-btJ
+mIl
 fhF
 fhF
 fhF
@@ -159803,7 +159802,7 @@ fhF
 fhF
 abj
 abj
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -160047,10 +160046,10 @@ aaa
 abj
 abj
 abj
-btJ
-btJ
-btJ
-btJ
+mIl
+mIl
+mIl
+mIl
 fhF
 fhF
 fhF
@@ -160060,7 +160059,7 @@ fhF
 fhF
 abj
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -160317,7 +160316,7 @@ fhF
 fhF
 abj
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -160564,7 +160563,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 fhF
 fhF
 fhF
@@ -160572,9 +160571,9 @@ fhF
 fhF
 fhF
 fhF
-btJ
+mIl
 abj
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -160815,13 +160814,13 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 fhF
 fhF
 fhF
@@ -160829,7 +160828,7 @@ fhF
 fhF
 fhF
 fhF
-btJ
+mIl
 abj
 abj
 aaa
@@ -161072,20 +161071,20 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
 aaa
 aaa
 bPS
-btJ
-btJ
+mIl
+mIl
 abj
 bPS
 abj
-btJ
-btJ
+mIl
+mIl
 bPS
 aaa
 aaa
@@ -161329,7 +161328,7 @@ aaa
 aaa
 aaa
 aaa
-btJ
+mIl
 aaa
 aaa
 aaa
@@ -161594,11 +161593,11 @@ aaa
 aaa
 aaa
 aaa
-btJ
-btJ
-btJ
-btJ
-btJ
+mIl
+mIl
+mIl
+mIl
+mIl
 aaa
 aaa
 aaa
