@@ -301,7 +301,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 //When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
 /proc/freeborg()
-	var/select = null
+	var/select
 	var/list/borgs = list()
 	for(var/mob/living/silicon/robot/A in GLOB.player_list)
 		if(A.stat == 2 || A.connected_ai || A.scrambledcodes || isdrone(A))
@@ -660,7 +660,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/dir_alt2 = turn(base_dir, -90)
 		var/turf/turf_last1 = temp
 		var/turf/turf_last2 = temp
-		var/free_tile = null
+		var/free_tile
 		var/breakpoint = 0
 
 		while(!free_tile && breakpoint < 10)
@@ -742,11 +742,11 @@ Returns 1 if the chain up to the area contains the given typepath
 	return atoms
 
 /datum/coords //Simple datum for storing coordinates.
-	var/x_pos = null
-	var/y_pos = null
-	var/z_pos = null
+	var/x_pos
+	var/y_pos
+	var/z_pos
 
-/area/proc/move_contents_to(area/A, turftoleave=null, direction = null)
+/area/proc/move_contents_to(area/A, turf_to_leave, direction)
 	//Takes: Area. Optional: turf type to leave behind.
 	//Returns: Nothing.
 	//Notes: Attempts to move the contents of one area to another area.
@@ -810,12 +810,10 @@ Returns 1 if the chain up to the area contains the given typepath
 						var/turf/simulated/sim = X
 						sim.copy_air_with_tile(T)
 
-
 					/* Quick visual fix for some weird shuttle corner artefacts when on transit space tiles */
 					if(direction && findtext(X.icon_state, "swall_s"))
-
 						// Spawn a new shuttle corner object
-						var/obj/corner = new()
+						var/obj/corner = new
 						corner.loc = X
 						corner.density = TRUE
 						corner.anchored = TRUE
@@ -834,9 +832,7 @@ Returns 1 if the chain up to the area contains the given typepath
 						X.icon = nextturf.icon
 						X.icon_state = nextturf.icon_state
 
-
 					for(var/obj/O in T)
-
 						// Reset the shuttle corners
 						if(O.tag == "delete me")
 							X.icon = 'icons/turf/shuttle.dmi'
@@ -844,10 +840,14 @@ Returns 1 if the chain up to the area contains the given typepath
 							X.name = "wall"
 							qdel(O) // prevents multiple shuttle corners from stacking
 							continue
-						if(!isobj(O)) continue
+
+						if(!isobj(O))
+							continue
+
 						O.loc.Exited(O)
 						O.setLoc(X,teleported=1)
 						O.loc.Entered(O)
+
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
 							continue
@@ -861,8 +861,8 @@ Returns 1 if the chain up to the area contains the given typepath
 
 					to_update += X
 
-					if(turftoleave)
-						from_update += T.ChangeTurf(turftoleave)
+					if(turf_to_leave)
+						from_update += T.ChangeTurf(turf_to_leave)
 					else
 						T.ChangeTurf(T.baseturf)
 
@@ -883,29 +883,27 @@ Returns 1 if the chain up to the area contains the given typepath
 			SSair.add_to_active(T2,1)
 
 
-
-
-/proc/DuplicateObject(obj/original, perfectcopy = 0 , sameloc = 0, atom/newloc = null)
+/proc/DuplicateObject(obj/original, perfectcopy = 0, sameloc = 0, atom/newloc)
 	if(!original)
-		return null
+		return
 
-	var/obj/O = null
+	var/obj/O
 
 	if(sameloc)
-		O=new original.type(original.loc)
+		O = new original.type(original.loc)
 	else
-		O=new original.type(newloc)
+		O = new original.type(newloc)
 
 	if(perfectcopy)
-		if((O) && (original))
-			var/static/list/forbidden_vars = list("type","loc","locs","vars", "parent","parent_type", "verbs","ckey","key","power_supply","contents","reagents","stat","x","y","z","group", "comp_lookup", "datum_components")
+		if(O && original)
+			var/static/list/forbidden_vars = list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "power_supply", "contents", "reagents", "stat", "x", "y", "z", "group", "comp_lookup", "datum_components")
 
 			for(var/V in original.vars - forbidden_vars)
-				if(istype(original.vars[V],/list))
+				if(islist(original.vars[V]))
 					var/list/L = original.vars[V]
 					O.vars[V] = L.Copy()
-				else if(istype(original.vars[V],/datum))
-					continue	// this would reference the original's object, that will break when it is used or deleted.
+				else if(istype(original.vars[V], /datum))
+					continue // This would reference the original's object, that will break when it is used or deleted.
 				else
 					O.vars[V] = original.vars[V]
 	if(istype(O))
@@ -995,7 +993,7 @@ Returns 1 if the chain up to the area contains the given typepath
 					copied_objects += newmobs
 
 					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
+						if(!(V in list("type", "loc", "locs", "vars", "parent", "parent_type", "verbs", "ckey", "key", "x", "y", "z", "destination_z", "destination_x", "destination_y", "contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
 
 					to_update += X
@@ -1272,7 +1270,7 @@ Standard way to write links -Sayu
 */
 
 /proc/topic_link(datum/D, arglist, content)
-	if(istype(arglist,/list))
+	if(islist(arglist))
 		arglist = list2params(arglist)
 	return "<a href='?src=[D.UID()];[arglist]'>[content]</a>"
 
@@ -1357,7 +1355,7 @@ Standard way to write links -Sayu
 	var/list/processing_list = list(src)
 	var/list/processed = list()
 
-	var/atom/found = null
+	var/atom/found
 
 	while(length(processing_list) && found == null)
 		var/atom/A = processing_list[1]
@@ -2087,7 +2085,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
   * * url - URL to GET
   */
 /proc/HTTPGet(url)
-	var/datum/http_request/req = new()
+	var/datum/http_request/req = new
 	req.prepare(RUSTG_HTTP_METHOD_GET, url)
 	req.begin_async()
 
