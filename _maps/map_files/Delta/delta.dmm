@@ -12743,16 +12743,6 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
-"aQQ" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/visible,
-/turf/simulated/floor/plasteel{
-	icon_state = "caution"
-	},
-/area/station/maintenance/incinerator)
 "aQR" = (
 /obj/machinery/newscaster{
 	dir = 1;
@@ -33460,7 +33450,12 @@
 /obj/item/cartridge/engineering{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/patch/silver_sulf,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -95532,6 +95527,34 @@
 	icon_state = "redcorner"
 	},
 /area/station/security/checkpoint)
+"ufs" = (
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: <<<"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: ---"
+	},
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/folder/yellow,
+/obj/item/reagent_containers/patch/silver_sulf,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible,
+/obj/merge_conflict_marker{
+	name = "Merge Conflict Marker: >>>"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/station/maintenance/incinerator)
 "ugy" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
@@ -123784,7 +123807,7 @@ eAg
 eAg
 gLt
 jFG
-aQQ
+ufs
 rga
 baa
 aOg
