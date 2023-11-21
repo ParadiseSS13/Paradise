@@ -486,7 +486,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			continue //If not, keep searching!
 		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
-		if(avoid_bot && (locate(avoid_bot) in get_turf(A))) //Ignores targets that already have a bot of the same type on it, meant for cleanbot and floorbot seperation
+		if(turf_has_bot(avoid_bot, get_turf(A))) //Ignores targets that already have a bot of the same type on it, meant for cleanbot and floorbot seperation
 			continue
 		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
@@ -494,6 +494,14 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		else
 			continue //The current element failed assessment, move on to the next.
 		return final_result
+
+/mob/living/simple_animal/bot/proc/turf_has_bot(avoid_bot, turf/turf_to_search)
+	if(!avoid_bot)
+		return FALSE
+	for(var/bot in turf_to_search)
+		if(istype(bot, avoid_bot))
+			return TRUE
+	return FALSE
 
 //When the scan finds a target, run bot specific processing to select it for the next step. Empty by default.
 /mob/living/simple_animal/bot/proc/process_scan(atom/scan_target)
