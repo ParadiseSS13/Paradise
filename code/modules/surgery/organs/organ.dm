@@ -30,7 +30,8 @@
 	var/emp_proof = FALSE //is the organ immune to EMPs?
 	var/hidden_pain = FALSE //will it skip pain messages?
 	var/requires_robotic_bodypart = FALSE
-	var/requires_machine_person = FALSE //When we need to be more specific
+	/// When this variable is true, it can only be installed on the machine person species.
+	var/requires_machine_person = FALSE
 
 	///Should this organ be destroyed on removal?
 	var/destroy_on_removal = FALSE
