@@ -268,7 +268,6 @@
 /area/ruin/space/unpowered)
 "T" = (
 /obj/item/rack_parts,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

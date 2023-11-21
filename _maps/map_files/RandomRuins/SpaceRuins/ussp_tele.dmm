@@ -178,7 +178,6 @@
 	},
 /area/ruin/space/derelict/teleporter)
 "O" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/derelict/teleporter)
 "Y" = (

@@ -33,7 +33,6 @@
 /obj/item/stack/cable_coil,
 /obj/item/stack/sheet/wood,
 /obj/item/stack/packageWrap,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "ag" = (
@@ -141,7 +140,6 @@
 /obj/item/extinguisher,
 /obj/item/clothing/glasses/night,
 /obj/item/clothing/glasses/night,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "al" = (
@@ -154,7 +152,6 @@
 /obj/item/storage/box/bodybags,
 /obj/item/clothing/glasses/meson,
 /obj/item/clothing/glasses/meson,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "am" = (
@@ -854,7 +851,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "AP" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Xl" = (

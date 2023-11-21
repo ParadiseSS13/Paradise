@@ -433,7 +433,6 @@
 	locked = 0;
 	pixel_y = 23
 	},
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aZ" = (
@@ -4078,7 +4077,6 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered)
 "ih" = (
@@ -4147,7 +4145,6 @@
 /area/ruin/space/unpowered)
 "ir" = (
 /obj/machinery/light/small,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

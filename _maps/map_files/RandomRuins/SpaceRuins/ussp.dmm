@@ -5709,7 +5709,6 @@
 /obj/item/clothing/shoes/black,
 /obj/item/clothing/head/soft/black,
 /obj/structure/closet,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel/airless{
 	dir = 5;
 	icon_state = "green"
@@ -7717,12 +7716,12 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
 "yC" = (
-/obj/item/sellable/salvage/ruin,
+
 /turf/template_noop,
 /area/template_noop)
 "Ly" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin,
+
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
@@ -7731,7 +7730,7 @@
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
 /area/ruin/space/derelict/arrival)
 "SA" = (
-/obj/item/sellable/salvage/ruin,
+
 /turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "Xn" = (

@@ -25,7 +25,6 @@
 /obj/item/shard{
 	icon_state = "medium"
 	},
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "h" = (
@@ -64,7 +63,6 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "q" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "r" = (

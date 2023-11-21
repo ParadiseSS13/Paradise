@@ -13,14 +13,6 @@
 /area/ruin/space/methlab)
 "d" = (
 /obj/structure/closet/crate,
-/obj/item/sellable/salvage/ruin,
-/obj/item/sellable/salvage/ruin,
-/obj/item/sellable/salvage/ruin,
-/obj/item/sellable/salvage/ruin,
-/obj/item/sellable/salvage/ruin,
-/obj/item/sellable/salvage/ruin,
-/obj/item/sellable/salvage/ruin,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/space/methlab)
 "e" = (

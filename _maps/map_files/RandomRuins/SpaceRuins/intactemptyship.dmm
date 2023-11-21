@@ -133,12 +133,10 @@
 /area/ruin/space/powered)
 "Y" = (
 /obj/structure/closet,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "Z" = (
 /obj/structure/closet/cabinet/wizard,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 

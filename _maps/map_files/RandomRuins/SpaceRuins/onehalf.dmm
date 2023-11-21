@@ -1329,7 +1329,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/onehalf/abandonedbridge)
 "Xb" = (
-/obj/item/sellable/salvage/ruin,
 /turf/template_noop,
 /area/template_noop)
 

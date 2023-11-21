@@ -121,7 +121,6 @@
 /area/ruin/unpowered/BMPship/Delta)
 "aB" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aC" = (
@@ -140,7 +139,6 @@
 	req_access = ""
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "aD" = (
@@ -214,7 +212,6 @@
 /area/ruin/unpowered/BMPship/Fore)
 "aT" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Fore)
 "aU" = (
@@ -436,7 +433,6 @@
 /area/ruin/unpowered/BMPship/Delta)
 "bQ" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/BMPship/Delta)
 "bS" = (
@@ -2426,7 +2422,6 @@
 /turf/simulated/floor/carpet,
 /area/ruin/unpowered/BMPship/Fore)
 "JY" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},

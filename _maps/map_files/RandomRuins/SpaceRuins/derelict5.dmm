@@ -233,7 +233,6 @@
 "LZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/cobweb,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Nv" = (
@@ -252,7 +251,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Pp" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
 "Pq" = (

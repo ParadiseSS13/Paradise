@@ -57,7 +57,6 @@
 /turf/template_noop,
 /area/space/nearstation)
 "V" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "Z" = (

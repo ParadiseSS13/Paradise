@@ -5080,7 +5080,6 @@
 /turf/template_noop,
 /area/space/nearstation)
 "yh" = (
-/obj/item/sellable/salvage/ruin,
 /turf/template_noop,
 /area/template_noop)
 "AY" = (
@@ -5111,11 +5110,11 @@
 /area/ruin/ancientstation/thetacorridor)
 "XX" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin,
+
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/ancientstation/betanorth)
 "ZV" = (
-/obj/item/sellable/salvage/ruin,
+
 /turf/simulated/floor/plating/airless,
 /area/ruin/ancientstation/atmo)
 

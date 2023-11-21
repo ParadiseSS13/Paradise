@@ -144,7 +144,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "jk" = (
@@ -540,7 +539,6 @@
 /turf/template_noop,
 /area/template_noop)
 "KB" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "KD" = (
@@ -736,7 +734,6 @@
 /area/ruin/space/tcommsat)
 "Ub" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Up" = (
@@ -775,7 +772,6 @@
 /area/ruin/space/tcommsat)
 "Vh" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Vx" = (

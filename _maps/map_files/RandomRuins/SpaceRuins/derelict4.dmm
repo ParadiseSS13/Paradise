@@ -90,7 +90,6 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "E" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 "W" = (

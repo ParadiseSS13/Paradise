@@ -761,7 +761,6 @@
 "Fk" = (
 /obj/structure/closet/crate,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	icon_state = "yellowsiding";
 	dir = 1
@@ -892,7 +891,6 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_x = 32
 	},
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"

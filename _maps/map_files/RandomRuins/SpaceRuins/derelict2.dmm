@@ -104,7 +104,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 "T" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
 

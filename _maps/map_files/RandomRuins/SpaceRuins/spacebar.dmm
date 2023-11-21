@@ -886,12 +886,10 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/powered/bar)
 "Ro" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "RJ" = (
 /obj/item/stack/ore/glass,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/space/nearstation)
 "RL" = (

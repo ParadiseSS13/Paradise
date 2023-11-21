@@ -118,7 +118,6 @@
 /area/space)
 "H" = (
 /obj/item/stack/rods,
-/obj/item/sellable/salvage/ruin,
 /turf/space,
 /area/space)
 "I" = (
@@ -139,7 +138,6 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plating,
 /area/space)
 "Q" = (

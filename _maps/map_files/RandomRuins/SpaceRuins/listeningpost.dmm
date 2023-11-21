@@ -390,7 +390,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/syndicate_listening_station)
 "Ej" = (

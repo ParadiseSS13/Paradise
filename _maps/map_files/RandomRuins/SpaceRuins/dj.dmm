@@ -368,7 +368,6 @@
 	dir = 1;
 	on = 1
 	},
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"

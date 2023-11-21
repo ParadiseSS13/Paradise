@@ -336,7 +336,6 @@
 /turf/template_noop,
 /area/template_noop)
 "os" = (
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "oB" = (
@@ -803,7 +802,6 @@
 /area/ruin/space/unpowered)
 "Fc" = (
 /obj/machinery/light/small,
-/obj/item/sellable/salvage/ruin,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "Fj" = (
