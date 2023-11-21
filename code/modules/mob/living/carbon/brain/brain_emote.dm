@@ -2,7 +2,7 @@
  * Emotes usable by brains, but only while they're in MMIs.
  */
 /datum/emote/living/carbon/brain
-	mob_type_allowed_typecache = list(/mob/living/carbon/brain)
+	mob_type_allowed_typecache = list(/mob/living/brain)
 	mob_type_blacklist_typecache = null
 	/// The message that will be displayed to themselves, since brains can't really see their own emotes
 	var/self_message
@@ -20,7 +20,7 @@
 	if(!.)
 		return FALSE
 
-	var/mob/living/carbon/brain/B = user
+	var/mob/living/brain/B = user
 
 	if(!(B.container && istype(B.container, /obj/item/mmi)))  // No MMI, no emotes
 		return FALSE

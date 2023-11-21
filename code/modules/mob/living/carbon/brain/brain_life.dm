@@ -1,4 +1,4 @@
-/mob/living/carbon/brain/proc/handle_temperature_damage(body_part, exposed_temperature, exposed_intensity)
+/mob/living/brain/proc/handle_temperature_damage(body_part, exposed_temperature, exposed_intensity)
 	if(status_flags & GODMODE)
 		return
 
@@ -10,11 +10,11 @@
 		var/discomfort = min( abs(exposed_temperature - bodytemperature)*(exposed_intensity)/2000000, 1.0)
 		adjustFireLoss(5.0*discomfort)
 
-/mob/living/carbon/brain/Life()
+/mob/living/brain/Life()
 	. = ..()
 	if(.)
 		if(!container && (world.time - timeofhostdeath) > GLOB.configuration.general.revival_brain_life)
 			death()
 
-/mob/living/carbon/brain/breathe()
+/mob/living/brain/breathe()
 	return
