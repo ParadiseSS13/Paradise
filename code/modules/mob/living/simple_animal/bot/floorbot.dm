@@ -323,7 +323,7 @@
 		return
 
 	if(autotile || replace_tiles)
-		if(!process_type == HULL_BREACH)
+		if(process_type != HULL_BREACH)
 			F.break_tile_to_plating()
 		target_turf.ChangeTurf(/turf/simulated/floor/plasteel)
 	else
