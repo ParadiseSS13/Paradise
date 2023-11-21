@@ -115,11 +115,11 @@
 			remote_disabled = !remote_disabled
 		if("autotile")
 			autotile = !autotile
-		if("replace_tiles")
+		if("replacetiles")
 			replace_tiles = !replace_tiles
-		if("eat_tiles")
+		if("eattiles")
 			eat_tiles = !eat_tiles
-		if("make_tiles")
+		if("maketiles")
 			make_tiles = !make_tiles
 		if("nagonempty")
 			nag_on_empty = !nag_on_empty
