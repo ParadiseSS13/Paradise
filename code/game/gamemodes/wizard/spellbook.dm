@@ -303,6 +303,7 @@
 	spell_type = /obj/effect/proc_holder/spell/noclothes
 	category = "Assistance"
 	cost = 1
+
 //Rituals
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
