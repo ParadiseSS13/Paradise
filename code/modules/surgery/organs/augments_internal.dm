@@ -520,7 +520,7 @@
 /obj/item/organ/internal/cyberimp/chest/ipc_joints/sealed/emp_act(severity)
 	if(!owner || emp_proof)
 		return
-	var/weaken_time = (10 + (severity - 1 ? 0 : 10)) STATUS_EFFECT_CONSTANT
+	var/weaken_time = (10 + (severity - 1 ? 0 : 10)) SECONDS
 	owner.Weaken(weaken_time) //Pop it and lock it
 	to_chat(owner, "<span class='warning'>Your body seizes up!</span>")
 	return weaken_time

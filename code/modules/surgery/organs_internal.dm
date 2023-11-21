@@ -431,10 +431,10 @@
 	if(!istype(tool))
 		return SURGERY_STEP_INCOMPLETE
 	if(I.requires_robotic_bodypart)
-		to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
+		to_chat(user, "<span class='warning'>[I] requires a robotic interface.</span>")
 		return SURGERY_STEP_INCOMPLETE
 	if(I.requires_machine_person && !ismachineperson(target))
-		to_chat(user, "<span class='warning'>[I] is an organ that requires an IPC interface!</span>")
+		to_chat(user, "<span class='warning'>[I] requires an IPC interface!</span>")
 		return SURGERY_STEP_INCOMPLETE
 	if(!user.drop_item())
 		to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
