@@ -157,7 +157,7 @@
 	if(!..())
 		return
 
-	if(mode == (BOT_REPAIRING || BOT_MAKE_TILE || BOT_EAT_TILE))
+	if(mode == BOT_REPAIRING || mode == BOT_MAKE_TILE || mode == BOT_EAT_TILE)
 		return
 
 	if(prob(5))
@@ -385,7 +385,7 @@
 
 /mob/living/simple_animal/bot/floorbot/update_overlays()
 	. = ..()
-	if(mode == (BOT_REPAIRING || BOT_MAKE_TILE || BOT_EAT_TILE))
+	if(mode == BOT_REPAIRING || mode == BOT_MAKE_TILE || mode == BOT_EAT_TILE)
 		. += "floorbot_work"
 	else
 		. += "floorbot_[on ? "on" : "off"]"
