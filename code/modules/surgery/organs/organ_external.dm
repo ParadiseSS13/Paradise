@@ -166,7 +166,7 @@
 
 /obj/item/organ/external/attack(mob/M, mob/living/user)
 	if(!ishuman(M))
-		return
+		return ..()
 	var/mob/living/carbon/human/C = M
 	if(is_robotic() && HAS_TRAIT(C, TRAIT_IPC_JOINTS_MAG) && isnull(C.bodyparts_by_name[limb_name]))
 		user.unEquip(src)
@@ -184,7 +184,7 @@
 		user.visible_message(
 	"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
 	"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
-
+	return TRUE
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
 	loc = null

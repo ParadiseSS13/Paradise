@@ -498,7 +498,7 @@
 		return
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
-		to_chat(H, "<span class='warning'>Your magnetic joints lose power!</span>")
+		to_chat(H, "<span class='userdanger'>Your magnetic joints lose power!</span>")
 		for(var/obj/item/organ/external/E in H.bodyparts)
 			if(E.body_part != UPPER_TORSO && E.body_part != LOWER_TORSO)
 				E.droplimb(TRUE) //lego disasemble sound
