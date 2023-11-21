@@ -142,7 +142,6 @@
 	finished = TRUE
 	build_stack_type = /obj/item/stack/sheet/glass
 	build_stack_amount = 5
-
 	var/static/list/rotations = list("[NORTH]" = list("[SOUTH]" = WEST, "[EAST]" = NORTH),
 "[EAST]" = list("[SOUTH]" = EAST, "[WEST]" = NORTH),
 "[SOUTH]" = list("[NORTH]" = EAST, "[WEST]" = SOUTH),
