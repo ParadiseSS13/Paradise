@@ -773,7 +773,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			if(usr.incapacitated())
 				return
-			var/modified = 0
+			var/modified = FALSE
 			var/perpname = get_visible_name(TRUE)
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -785,7 +785,7 @@
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
-									modified = 1
+									modified = TRUE
 									if(GLOB.PDA_Manifest.len)
 										GLOB.PDA_Manifest.Cut()
 
@@ -799,7 +799,7 @@
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			if(usr.incapacitated())
 				return
-			var/modified = 0
+			var/modified = FALSE
 			var/perpname = get_visible_name(TRUE)
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -811,7 +811,7 @@
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 								if(setmental != "Cancel")
 									R.fields["m_stat"] = setmental
-									modified = 1
+									modified = TRUE
 									spawn()
 										sec_hud_set_security_status()
 
