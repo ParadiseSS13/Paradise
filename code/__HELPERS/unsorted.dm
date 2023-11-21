@@ -995,11 +995,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 
 					for(var/obj/O in objs)
-						newobjs += DuplicateObject(O , perfect_copy)
-
-
-					for(var/obj/O in newobjs)
-						O.loc = X
+						newobjs += DuplicateObject(O, perfect_copy, FALSE, X)
 
 					for(var/mob/M in T)
 
@@ -1008,10 +1004,7 @@ Returns 1 if the chain up to the area contains the given typepath
 						mobs += M
 
 					for(var/mob/M in mobs)
-						newmobs += DuplicateObject(M , 1)
-
-					for(var/mob/M in newmobs)
-						M.loc = X
+						newmobs += DuplicateObject(M, TRUE, FALSE, X)
 
 					copiedobjs += newobjs
 					copiedobjs += newmobs
