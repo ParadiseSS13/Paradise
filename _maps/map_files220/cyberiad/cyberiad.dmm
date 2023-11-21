@@ -27463,10 +27463,6 @@
 /obj/effect/spawner/lootdrop/maintenance/two,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint2)
-"cfR" = (
-/obj/machinery/alarm/directional/south,
-/turf/simulated/wall,
-/area/station/medical/reception)
 "cfW" = (
 /obj/structure/bed/dogbed/runtime,
 /mob/living/simple_animal/pet/cat/Runtime,
@@ -29724,6 +29720,7 @@
 /area/station/medical/surgery/primary)
 "cpd" = (
 /obj/machinery/photocopier,
+/obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -141643,7 +141640,7 @@ bEp
 aYr
 bDn
 bEp
-cfR
+bEp
 bEp
 cpd
 sep
