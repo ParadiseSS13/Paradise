@@ -1245,7 +1245,7 @@ so that different stomachs can handle things in different ways VB*/
 			instant = TRUE
 
 	if(user != src && !instant)
-		if(requires_mouth && !head)
+		if(requires_mouth && !get_organ("head"))
 			to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
 			return FALSE
 		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
