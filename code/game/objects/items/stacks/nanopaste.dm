@@ -31,12 +31,6 @@
 			robotic_limb_repair(user, external_limb, H)
 		else
 			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
-	if(isorgan(M))
-		var/obj/item/organ/external/other_external_limb = M
-		if(other_external_limb.is_robotic())
-			robotic_limb_repair(user, other_external_limb, null)
-		else
-			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
 
 /obj/item/stack/nanopaste/proc/robotic_limb_repair(mob/user, obj/item/organ/external/external_limb, mob/living/carbon/human/H)
 	if(!external_limb.get_damage())
