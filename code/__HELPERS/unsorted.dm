@@ -127,7 +127,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 				if(T.x>world.maxx || T.x<1)	continue//Don't want them to teleport off the map.
 				if(T.y>world.maxy || T.y<1)	continue
 				destination_list += T
-			if(destination_list.len)
+			if(length(destination_list))
 				destination = pick(destination_list)
 			else	return
 
@@ -309,7 +309,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
 		borgs[name] = A
 
-	if(borgs.len)
+	if(length(borgs))
 		select = input("Unshackled borg signals detected:", "Borg selection", null, null) as null|anything in borgs
 		return borgs[select]
 
@@ -337,7 +337,7 @@ Turf and target are seperate in case you want to teleport some distance from a t
 
 /proc/select_active_ai(mob/user)
 	var/list/ais = active_ais()
-	if(ais.len)
+	if(length(ais))
 		if(user)	. = input(usr,"AI signals detected:", "AI selection") in ais
 		else		. = pick(ais)
 	return .
@@ -599,7 +599,7 @@ Returns 1 if the chain up to the area contains the given typepath
 
 	for(var/atom/part in contents)
 		toReturn += part
-		if(part.contents.len && searchDepth)
+		if(length(part.contents) && searchDepth)
 			toReturn += part.GetAllContents(searchDepth - 1)
 
 	return toReturn
@@ -705,7 +705,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/areas = new/list()
+	var/list/areas = new
 	for(var/area/N in world)
 		if(istype(N, areatype)) areas += N
 	return areas
@@ -719,7 +719,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/turfs = new/list()
+	var/list/turfs = new
 	for(var/area/N in world)
 		if(istype(N, areatype))
 			for(var/turf/T in N) turfs += T
@@ -734,7 +734,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/atoms = new/list()
+	var/list/atoms = new
 	for(var/area/N in world)
 		if(istype(N, areatype))
 			for(var/atom/A in N)
@@ -770,7 +770,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
 		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
 
-	var/list/refined_src = new/list()
+	var/list/refined_src = new
 	for(var/turf/T in turfs_src)
 		refined_src += T
 		refined_src[T] = new/datum/coords
@@ -778,7 +778,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - src_min_x)
 		C.y_pos = (T.y - src_min_y)
 
-	var/list/refined_trg = new/list()
+	var/list/refined_trg = new
 	for(var/turf/T in turfs_trg)
 		refined_trg += T
 		refined_trg[T] = new/datum/coords
@@ -786,8 +786,8 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - trg_min_x)
 		C.y_pos = (T.y - trg_min_y)
 
-	var/list/fromupdate = new/list()
-	var/list/toupdate = new/list()
+	var/list/from_update = new
+	var/list/to_update = new
 
 	moving:
 		for(var/turf/T in refined_src)
@@ -859,10 +859,10 @@ Returns 1 if the chain up to the area contains the given typepath
 //						X.opacity = !X.opacity
 //						X.set_opacity(!X.opacity)
 
-					toupdate += X
+					to_update += X
 
 					if(turftoleave)
-						fromupdate += T.ChangeTurf(turftoleave)
+						from_update += T.ChangeTurf(turftoleave)
 					else
 						T.ChangeTurf(T.baseturf)
 
@@ -870,14 +870,14 @@ Returns 1 if the chain up to the area contains the given typepath
 					refined_trg -= B
 					continue moving
 
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
+	if(length(to_update))
+		for(var/turf/simulated/T1 in to_update)
 			SSair.remove_from_active(T1)
 			T1.CalculateAdjacentTurfs()
 			SSair.add_to_active(T1,1)
 
-	if(fromupdate.len)
-		for(var/turf/simulated/T2 in fromupdate)
+	if(length(from_update))
+		for(var/turf/simulated/T2 in from_update)
 			SSair.remove_from_active(T2)
 			T2.CalculateAdjacentTurfs()
 			SSair.add_to_active(T2,1)
@@ -912,9 +912,9 @@ Returns 1 if the chain up to the area contains the given typepath
 		O.update_icon()
 	return O
 
-/area/proc/copy_contents_to(area/A , platingRequired = 0, perfect_copy = TRUE)
+/area/proc/copy_contents_to(area/A, platingRequired = FALSE, perfect_copy = TRUE)
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
-	//Returns: Nothing.
+	//Returns: List containing copied objects or `FALSE` if source/target area are null.
 	//Notes: Attempts to move the contents of one area to another area.
 	//       Movement based on lower left corner. Tiles that do not fit
 	//		 into the new area will not be moved.
@@ -941,7 +941,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		if(T.y < trg_min_y || !trg_min_y)
 			trg_min_y	= T.y
 
-	var/list/refined_src = new/list()
+	var/list/refined_src = new
 	for(var/turf/T in turfs_src)
 		refined_src += T
 		refined_src[T] = new/datum/coords
@@ -949,7 +949,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - src_min_x)
 		C.y_pos = (T.y - src_min_y)
 
-	var/list/refined_trg = new/list()
+	var/list/refined_trg = new
 	for(var/turf/T in turfs_trg)
 		refined_trg += T
 		refined_trg[T] = new/datum/coords
@@ -957,80 +957,61 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - trg_min_x)
 		C.y_pos = (T.y - trg_min_y)
 
-	var/list/toupdate = new/list()
-
-	var/copiedobjs = list()
-
+	var/list/to_update = new
+	var/list/copied_objects = new
 
 	moving:
 		for(var/turf/T in refined_src)
 			var/datum/coords/C_src = refined_src[T]
+
 			for(var/turf/B in refined_trg)
 				var/datum/coords/C_trg = refined_trg[B]
+
 				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
+					if(platingRequired && isspaceturf(B))
+						continue moving
 
 					var/old_dir1 = T.dir
 					var/old_icon_state1 = T.icon_state
 					var/old_icon1 = T.icon
 
-					if(platingRequired)
-						if(isspaceturf(B))
-							continue moving
 					var/turf/X = new T.type(B)
 					X.dir = old_dir1
 					X.icon_state = old_icon_state1
-					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
+					X.icon = old_icon1 // Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
-					var/list/objs = new/list()
-					var/list/newobjs = new/list()
-					var/list/mobs = new/list()
-					var/list/newmobs = new/list()
+					var/list/objs = new
+					var/list/newobjs = new
+					var/list/mobs = new
+					var/list/newmobs = new
 
 					for(var/obj/O in T)
-
-						if(!isobj(O))
-							continue
-
-						objs += O
-
-
-					for(var/obj/O in objs)
 						newobjs += DuplicateObject(O, perfect_copy, FALSE, X)
 
 					for(var/mob/M in T)
-
 						if(!M.move_on_shuttle)
 							continue
-						mobs += M
-
-					for(var/mob/M in mobs)
 						newmobs += DuplicateObject(M, TRUE, FALSE, X)
 
-					copiedobjs += newobjs
-					copiedobjs += newmobs
-
-
+					copied_objects += newobjs
+					copied_objects += newmobs
 
 					for(var/V in T.vars)
 						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
 
-					toupdate += X
+					to_update += X
 
 					refined_src -= T
 					refined_trg -= B
 					continue moving
 
-
-
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
+	if(length(to_update))
+		for(var/turf/simulated/T1 in to_update)
 			T1.CalculateAdjacentTurfs()
 			SSair.add_to_active(T1,1)
 
-
-	return copiedobjs
-
+	return copied_objects
 
 
 /proc/get_cardinal_dir(atom/A, atom/B)
@@ -1380,7 +1361,7 @@ Standard way to write links -Sayu
 
 	var/atom/found = null
 
-	while(processing_list.len && found==null)
+	while(length(processing_list) && found == null)
 		var/atom/A = processing_list[1]
 		if(istype(A, typepath))
 			found = A
@@ -1686,11 +1667,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(!isnull(value) && value != "")
 		matches = filter_fancy_list(matches, value)
 
-	if(matches.len == 0)
+	if(length(matches) == 0)
 		return
 
 	var/chosen
-	if(matches.len == 1)
+	if(length(matches) == 1)
 		chosen = matches[1]
 	else
 		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
@@ -1924,7 +1905,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return living_players
 
 /proc/make_bit_triplet()
-	var/list/num_sample  = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
+	var/list/num_sample = list(1, 2, 3, 4, 5, 6, 7, 8, 9)
 	var/result = 0
 	for(var/i = 0, i < 3, i++)
 		var/num = pick(num_sample)
