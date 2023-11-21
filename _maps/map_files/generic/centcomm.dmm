@@ -180,7 +180,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "aK" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -239,7 +239,9 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/ghost_bar)
 "aU" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "aV" = (
@@ -1335,7 +1337,7 @@
 /turf/simulated/floor/plating,
 /area/ninja/holding)
 "fj" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1433,6 +1435,10 @@
 	icon_state = "cmo"
 	},
 /area/shuttle/escape)
+"fz" = (
+/mob/living/carbon/human/monkey/magic,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "fE" = (
 /obj/structure/table,
 /obj/item/storage/box/handcuffs,
@@ -1494,7 +1500,7 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "fL" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
@@ -1534,7 +1540,7 @@
 /area/ghost_bar)
 "fR" = (
 /obj/structure/barricade/sandbags,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
 "fS" = (
@@ -1919,7 +1925,7 @@
 /area/tdome/tdomeobserve)
 "hk" = (
 /obj/structure/barricade/sandbags,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "hl" = (
@@ -1996,7 +2002,9 @@
 	},
 /area/tdome/tdomeadmin)
 "hp" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -2322,7 +2330,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/syndicate_elite)
 "ij" = (
-/obj/effect/decal/warning_stripes/blue,
+/obj/effect/turf_decal/delivery/blue,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "ik" = (
@@ -2331,7 +2339,7 @@
 /area/syndicate_mothership)
 "il" = (
 /obj/machinery/bluespace_beacon/syndicate/infiltrator,
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "in" = (
@@ -2557,7 +2565,7 @@
 /area/syndicate_mothership)
 "iZ" = (
 /obj/mecha/combat/marauder/mauler/loaded,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "jb" = (
@@ -2742,7 +2750,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom)
 "jK" = (
-/obj/effect/decal/warning_stripes/white/partial{
+/obj/effect/turf_decal/delivery/white/partial{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2870,12 +2878,12 @@
 /area/abductor_ship)
 "kd" = (
 /obj/machinery/economy/vending/cola,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "ke" = (
 /obj/mecha/combat/gygax/dark/loaded,
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "kf" = (
@@ -4131,11 +4139,15 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/syndicate_mothership)
 "nN" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nO" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nP" = (
@@ -4169,7 +4181,9 @@
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
 "nS" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "nT" = (
@@ -4294,7 +4308,9 @@
 	},
 /area/centcom/control)
 "ot" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "ou" = (
@@ -4323,7 +4339,9 @@
 /turf/simulated/floor/plating,
 /area/shuttle/assault_pod)
 "oA" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "oB" = (
@@ -4564,7 +4582,9 @@
 	},
 /area/syndicate_mothership)
 "pA" = (
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "pD" = (
@@ -4790,7 +4810,9 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "qp" = (
-/obj/effect/decal/warning_stripes/southwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "qq" = (
@@ -4826,7 +4848,9 @@
 /turf/simulated/floor/carpet/red,
 /area/wizard_station)
 "qv" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "qw" = (
@@ -5523,7 +5547,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sM" = (
-/obj/effect/decal/warning_stripes/red/hollow,
+/obj/effect/turf_decal/delivery/red/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sO" = (
@@ -5539,7 +5563,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/syndicate_mothership)
 "sS" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "sT" = (
@@ -5580,7 +5606,9 @@
 /turf/simulated/floor/plasteel,
 /area/centcom/evac)
 "tb" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "tc" = (
@@ -5593,11 +5621,15 @@
 /turf/simulated/floor/plating,
 /area/shuttle/assault_pod)
 "td" = (
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "te" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "tf" = (
@@ -5637,7 +5669,9 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/specops)
 "tp" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/syndicate_mothership)
 "tq" = (
@@ -7008,6 +7042,14 @@
 	icon_state = "dark"
 	},
 /area/ghost_bar)
+"yl" = (
+/turf/simulated/wall/indestructible/boss,
+/area/space/centcomm)
+"ym" = (
+/obj/structure/table/wood,
+/obj/item/ashtray/bronze,
+/turf/simulated/floor/carpet/green,
+/area/ghost_bar)
 "yp" = (
 /obj/item/radio/intercom/syndicate{
 	pixel_x = 28
@@ -7022,7 +7064,7 @@
 /area/centcom/control)
 "yu" = (
 /obj/machinery/economy/vending/snack,
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/wood,
 /area/tdome/tdomeobserve)
 "yv" = (
@@ -7185,6 +7227,10 @@
 	},
 /turf/simulated/floor/plasteel/freezer,
 /area/ghost_bar)
+"zx" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "zy" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Computer Hub"
@@ -7522,10 +7568,9 @@
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/gamma)
 "AZ" = (
-/obj/structure/table/wood,
-/obj/item/ashtray/bronze,
-/turf/simulated/floor/carpet/green,
-/area/ghost_bar)
+/obj/effect/baseturf_helper/asteroid/basalt,
+/turf/simulated/floor/wood,
+/area/wizard_station)
 "Ba" = (
 /obj/structure/rack,
 /obj/item/clothing/suit/wizrobe/marisa,
@@ -7753,10 +7798,6 @@
 	},
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/supply)
-"BR" = (
-/obj/structure/kitchenspike,
-/turf/simulated/floor/wood,
-/area/wizard_station)
 "BT" = (
 /obj/effect/landmark/spawner/tdomeobserve,
 /turf/simulated/floor/plasteel/dark,
@@ -7771,7 +7812,7 @@
 	},
 /area/syndicate_mothership)
 "BX" = (
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
 "BY" = (
 /turf/simulated/floor/plasteel{
@@ -7859,7 +7900,9 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Cl" = (
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "Cm" = (
@@ -8602,13 +8645,15 @@
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "EQ" = (
-/obj/effect/decal/warning_stripes/white/partial,
+/obj/effect/turf_decal/delivery/white/partial,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/ghost_bar)
 "ET" = (
-/obj/effect/decal/warning_stripes/northeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "EU" = (
@@ -8902,7 +8947,9 @@
 	},
 /area/centcom/specops)
 "FZ" = (
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "Ga" = (
@@ -9085,7 +9132,7 @@
 /area/shuttle/administration)
 "GF" = (
 /obj/mecha/combat/marauder/loaded,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GG" = (
@@ -9149,7 +9196,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "GP" = (
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "GQ" = (
@@ -9384,7 +9433,9 @@
 /turf/simulated/floor/indestructible/necropolis,
 /area/ruin/space/bubblegum_arena)
 "HH" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "HI" = (
@@ -9466,7 +9517,7 @@
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -10153,7 +10204,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "Kn" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/mecha/combat/marauder/seraph/loaded,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -10920,7 +10971,7 @@
 /area/centcom/specops)
 "MO" = (
 /obj/mecha/combat/marauder/loaded,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -11123,7 +11174,7 @@
 /turf/simulated/floor/grass,
 /area/centcom/control)
 "No" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /obj/structure/barricade/sandbags,
 /turf/simulated/floor/plasteel,
 /area/tdome/arena)
@@ -11326,7 +11377,9 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Escape Shuttle Infirmary"
 	},
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "Of" = (
@@ -11650,13 +11703,13 @@
 "OZ" = (
 /obj/structure/table,
 /obj/item/storage/firstaid,
-/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
 	},
 /area/shuttle/escape)
 "Pa" = (
-/obj/effect/decal/warning_stripes/white/partial,
+/obj/effect/turf_decal/delivery/white/partial,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "Pb" = (
@@ -11850,7 +11903,9 @@
 	},
 /area/centcom/evac)
 "PJ" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/centcom/control)
 "PM" = (
@@ -12473,7 +12528,7 @@
 /turf/simulated/floor/carpet/black,
 /area/ghost_bar)
 "RZ" = (
-/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -12577,10 +12632,6 @@
 /obj/structure/filingcabinet/security,
 /turf/simulated/floor/wood,
 /area/centcom/control)
-"Sv" = (
-/mob/living/carbon/human/monkey/magic,
-/turf/simulated/floor/wood,
-/area/wizard_station)
 "Sw" = (
 /obj/structure/sign/poster/official/high_class_martini,
 /turf/simulated/wall/indestructible/riveted,
@@ -13114,7 +13165,7 @@
 	},
 /area/holodeck/source_knightarena)
 "UJ" = (
-/turf/simulated/floor/plating/lava/smooth/airless,
+/turf/simulated/floor/plating/lava/smooth/mapping_lava,
 /area/wizard_station)
 "UK" = (
 /turf/simulated/floor/holofloor/carpet,
@@ -13195,7 +13246,7 @@
 	desc = "She lies just out of reach, as always. She somehow has your only toolbox.";
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
 "Vg" = (
 /turf/simulated/floor/plasteel{
@@ -13566,7 +13617,7 @@
 /obj/machinery/teleport/hub/upgraded{
 	admin_usage = 1
 	},
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/admin)
 "WA" = (
@@ -14574,7 +14625,7 @@
 	},
 /area/centcom/specops)
 "ZF" = (
-/obj/effect/decal/warning_stripes/yellow,
+/obj/effect/turf_decal/delivery,
 /obj/machinery/door/poddoor/multi_tile/impassable/four_tile_ver{
 	id_tag = "ASSAULT";
 	name = "Assault Armor"
@@ -58149,27 +58200,27 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
 aN
 aN
 aN
@@ -58406,27 +58457,27 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yl
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+yl
 aN
 aN
 aN
@@ -58663,27 +58714,27 @@ aN
 aN
 aN
 aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yl
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+yl
 aN
 aN
 aN
@@ -58919,28 +58970,28 @@ aN
 aN
 aN
 aN
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
 aN
+yl
+UJ
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+BX
+BX
+UJ
+UJ
+UJ
+UJ
+yl
 aN
 aN
 aN
@@ -59176,28 +59227,28 @@ aN
 aN
 aN
 aN
-aa
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-aa
 aN
+yl
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+UJ
+UJ
+yl
 aN
 aN
 aN
@@ -59427,13 +59478,17 @@ aN
 aN
 "}
 (175,1,1) = {"
-aN
-aN
-aN
-aN
-aN
-aN
-aa
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+UJ
+UJ
+BX
 UJ
 UJ
 UJ
@@ -59450,11 +59505,7 @@ UJ
 UJ
 UJ
 UJ
-UJ
-UJ
-UJ
-aa
-aN
+yl
 aN
 aN
 aN
@@ -59684,13 +59735,14 @@ aN
 aN
 "}
 (176,1,1) = {"
-aN
-aN
-aN
-aN
-aN
-aN
-aa
+yl
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 UJ
 UJ
 UJ
@@ -59710,14 +59762,13 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yl
+yl
+yl
+yl
+yl
+yl
+yl
 aN
 aN
 aN
@@ -59941,13 +59992,14 @@ aN
 aN
 "}
 (177,1,1) = {"
-aN
-aN
-aN
-aN
-aN
-aN
-aa
+yl
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
 UJ
 UJ
 UJ
@@ -59967,16 +60019,15 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+yl
+yl
+yl
 aN
 aN
 aN
@@ -60198,13 +60249,14 @@ aN
 aN
 "}
 (178,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
+yl
+UJ
+UJ
+BX
+UJ
+UJ
+UJ
+UJ
 UJ
 UJ
 UJ
@@ -60224,17 +60276,16 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+yl
+yl
 aN
 aN
 aN
@@ -60455,9 +60506,10 @@ aN
 aN
 "}
 (179,1,1) = {"
-aa
+yl
 UJ
 UJ
+BX
 UJ
 UJ
 UJ
@@ -60481,17 +60533,16 @@ UJ
 UJ
 UJ
 UJ
-aa
-aa
-aa
-aa
-aa
-aa
-aN
-aN
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+yl
 aN
 aN
 aN
@@ -60712,7 +60763,8 @@ aN
 aN
 "}
 (180,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -60743,12 +60795,11 @@ UJ
 UJ
 UJ
 UJ
-aa
-aa
-aa
-aN
-aN
-aN
+UJ
+UJ
+UJ
+UJ
+yl
 aN
 aN
 aN
@@ -60969,7 +61020,8 @@ aN
 aN
 "}
 (181,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -60996,16 +61048,15 @@ xH
 UJ
 UJ
 UJ
+BX
 UJ
 UJ
 UJ
 UJ
+BX
 UJ
 UJ
-aa
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -61226,7 +61277,8 @@ aN
 aN
 "}
 (182,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -61253,16 +61305,15 @@ xH
 UJ
 UJ
 UJ
+BX
+BX
 UJ
 UJ
 UJ
+BX
+BX
 UJ
-UJ
-UJ
-UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -61483,23 +61534,24 @@ aN
 aN
 "}
 (183,1,1) = {"
-aa
-UJ
-UJ
-UJ
-UJ
-BX
+yl
 UJ
 UJ
 UJ
 UJ
 UJ
 BX
-BX
 UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+BX
 GN
-BR
-Sv
+zx
+fz
 ed
 fx
 GN
@@ -61516,10 +61568,9 @@ UJ
 UJ
 UJ
 UJ
+BX
 UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -61740,7 +61791,8 @@ aN
 aN
 "}
 (184,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -61753,7 +61805,7 @@ UJ
 UJ
 UJ
 UJ
-UJ
+BX
 xH
 hy
 ed
@@ -61764,6 +61816,7 @@ yx
 Ee
 Ue
 xH
+BX
 UJ
 UJ
 UJ
@@ -61774,9 +61827,7 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -61997,7 +62048,8 @@ aN
 aN
 "}
 (185,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -62010,7 +62062,7 @@ xH
 xH
 xH
 xH
-UJ
+BX
 xH
 iO
 ed
@@ -62021,6 +62073,7 @@ sl
 Lu
 Wk
 xH
+BX
 UJ
 UJ
 UJ
@@ -62031,9 +62084,7 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -62254,7 +62305,8 @@ aN
 aN
 "}
 (186,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -62279,6 +62331,7 @@ xH
 xH
 xH
 xH
+BX
 UJ
 UJ
 UJ
@@ -62288,9 +62341,7 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -62511,7 +62562,8 @@ aN
 aN
 "}
 (187,1,1) = {"
-aa
+yl
+BX
 UJ
 UJ
 UJ
@@ -62536,8 +62588,8 @@ ZH
 Oo
 ZU
 xH
+GN
 xH
-xH
 UJ
 UJ
 UJ
@@ -62545,9 +62597,8 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
+UJ
+yl
 aN
 aN
 aN
@@ -62768,7 +62819,8 @@ aN
 aN
 "}
 (188,1,1) = {"
-aa
+yl
+BX
 UJ
 UJ
 UJ
@@ -62800,11 +62852,10 @@ UJ
 UJ
 UJ
 UJ
+BX
 UJ
 UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -63025,7 +63076,8 @@ aN
 aN
 "}
 (189,1,1) = {"
-aa
+yl
+BX
 UJ
 UJ
 UJ
@@ -63057,11 +63109,10 @@ UJ
 UJ
 UJ
 UJ
+BX
 UJ
 UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -63282,7 +63333,8 @@ aN
 aN
 "}
 (190,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -63299,7 +63351,7 @@ xH
 xH
 xH
 Qj
-ed
+AZ
 ed
 ai
 Yo
@@ -63314,11 +63366,10 @@ UJ
 UJ
 UJ
 UJ
+BX
 UJ
 UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -63539,7 +63590,8 @@ aN
 aN
 "}
 (191,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -63573,9 +63625,8 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
+UJ
+yl
 aN
 aN
 aN
@@ -63796,7 +63847,8 @@ aN
 aN
 "}
 (192,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -63830,9 +63882,8 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
+UJ
+yl
 aN
 aN
 aN
@@ -64053,7 +64104,8 @@ aN
 aN
 "}
 (193,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -64077,19 +64129,18 @@ qu
 qu
 qu
 qu
-qu
 sX
+qu
 xH
 xH
 UJ
 UJ
+BX
 UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -64310,7 +64361,8 @@ aN
 aN
 "}
 (194,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -64335,18 +64387,17 @@ ZU
 Os
 ZU
 xH
+GN
 xH
-xH
 UJ
 UJ
 UJ
+BX
+BX
 UJ
 UJ
 UJ
-UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -64567,7 +64618,8 @@ aN
 aN
 "}
 (195,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -64592,6 +64644,8 @@ xH
 xH
 xH
 xH
+BX
+BX
 UJ
 UJ
 UJ
@@ -64600,10 +64654,7 @@ UJ
 UJ
 UJ
 UJ
-UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -64824,7 +64875,8 @@ aN
 aN
 "}
 (196,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -64849,6 +64901,7 @@ UJ
 UJ
 UJ
 BX
+BX
 UJ
 UJ
 UJ
@@ -64858,9 +64911,7 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -65081,7 +65132,8 @@ aN
 aN
 "}
 (197,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -65115,9 +65167,8 @@ UJ
 UJ
 UJ
 UJ
-aa
-aN
-aN
+UJ
+yl
 aN
 aN
 aN
@@ -65338,7 +65389,8 @@ aN
 aN
 "}
 (198,1,1) = {"
-aa
+yl
+UJ
 UJ
 UJ
 UJ
@@ -65368,13 +65420,12 @@ UJ
 UJ
 UJ
 UJ
+BX
+BX
 UJ
 UJ
 UJ
-UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -65595,12 +65646,13 @@ aN
 aN
 "}
 (199,1,1) = {"
-aa
+yl
 UJ
 UJ
 UJ
 UJ
 UJ
+BX
 UJ
 UJ
 UJ
@@ -65626,12 +65678,11 @@ UJ
 UJ
 UJ
 UJ
+BX
+BX
 UJ
 UJ
-UJ
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -65852,7 +65903,15 @@ aN
 aN
 "}
 (200,1,1) = {"
-aa
+yl
+UJ
+UJ
+BX
+UJ
+UJ
+BX
+BX
+BX
 UJ
 UJ
 UJ
@@ -65876,19 +65935,11 @@ UJ
 UJ
 UJ
 UJ
+BX
+BX
 UJ
 UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-UJ
-aa
-aa
-aN
-aN
+yl
 aN
 aN
 aN
@@ -66109,7 +66160,11 @@ aN
 aN
 "}
 (201,1,1) = {"
-aa
+yl
+UJ
+UJ
+BX
+BX
 UJ
 UJ
 UJ
@@ -66132,6 +66187,8 @@ UJ
 UJ
 UJ
 UJ
+BX
+BX
 UJ
 UJ
 UJ
@@ -66139,13 +66196,7 @@ UJ
 UJ
 UJ
 UJ
-UJ
-aa
-aa
-aa
-aN
-aN
-aN
+yl
 aN
 aN
 aN
@@ -66366,43 +66417,43 @@ aN
 aN
 "}
 (202,1,1) = {"
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aa
-aN
-aN
-aN
-aN
-aN
+yl
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+yl
 aN
 aN
 aN
@@ -66623,43 +66674,43 @@ aN
 aN
 "}
 (203,1,1) = {"
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yl
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+BX
+BX
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+yl
+yl
 aN
 aN
 aN
@@ -66880,42 +66931,42 @@ aN
 aN
 "}
 (204,1,1) = {"
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yl
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+UJ
+yl
+yl
+yl
 aN
 aN
 aN
@@ -67137,40 +67188,40 @@ aN
 aN
 "}
 (205,1,1) = {"
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
+yl
 aN
 aN
 aN
@@ -71668,7 +71719,7 @@ Me
 bJ
 Jy
 qN
-AZ
+ym
 Ah
 Nh
 Me
@@ -72696,7 +72747,7 @@ Nr
 Jy
 Jy
 UH
-AZ
+ym
 JX
 yO
 qf

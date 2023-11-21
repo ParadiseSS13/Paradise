@@ -1160,7 +1160,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(ispill(toEat))
 		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
 	else
-		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
+		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50)
 			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
 			return 0
 		if(fullness <= 50)
@@ -1342,3 +1342,8 @@ so that different stomachs can handle things in different ways VB*/
 		if(wear_suit.flags_inv & HIDEGLOVES)
 			clean_hands = FALSE
 	..(clean_hands, clean_mask, clean_feet)
+
+/mob/living/carbon/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate = TRUE, angle)
+	// keep most of what's passed in, but don't change the angle
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, should_rotate = FALSE, rightable = FALSE)
+	KnockDown(10 SECONDS)

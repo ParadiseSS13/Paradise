@@ -133,7 +133,7 @@
 	return data
 
 /mob/living/simple_animal/bot/secbot/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
@@ -330,7 +330,7 @@
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
-			if( !Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
+			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
 

@@ -580,10 +580,12 @@
 					/obj/item/clothing/suit/chef/classic = 2,
 					/obj/item/clothing/head/chefhat = 2,
 					/obj/item/clothing/head/soft/mime = 2,
+					/obj/item/clothing/head/beret/white = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/white = 2,
 					/obj/item/clothing/shoes/black = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
+					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/reagent_containers/glass/rag = 3,
 					/obj/item/storage/box/dish_drive = 1)
 
@@ -595,10 +597,12 @@
 				/obj/item/clothing/suit/chef/classic = 50,
 				/obj/item/clothing/head/chefhat = 50,
 				/obj/item/clothing/head/soft/mime = 30,
+				/obj/item/clothing/head/beret/white = 20,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/white = 20,
 				/obj/item/clothing/shoes/black = 20,
 				/obj/item/clothing/accessory/waistcoat = 20,
+				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/reagent_containers/glass/rag = 5,
 				/obj/item/storage/box/dish_drive = 100)
 
@@ -618,10 +622,12 @@
 					/obj/item/clothing/under/misc/sl_suit = 2,
 					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/soft/black = 2,
+					/obj/item/clothing/head/beret/black = 2,
 					/obj/item/clothing/suit/blacktrenchcoat = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/black = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
+					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/reagent_containers/glass/rag = 3,
 					/obj/item/storage/box/dish_drive = 1)
 
@@ -631,10 +637,12 @@
 				/obj/item/clothing/under/misc/sl_suit = 50,
 				/obj/item/clothing/head/that = 20,
 				/obj/item/clothing/head/soft/black = 20,
+				/obj/item/clothing/head/beret/black = 20,
 				/obj/item/clothing/suit/blacktrenchcoat = 75,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/black = 20,
 				/obj/item/clothing/accessory/waistcoat = 20,
+				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/reagent_containers/glass/rag = 5,
 				/obj/item/storage/box/dish_drive = 100)
 
@@ -659,6 +667,7 @@
 					/obj/item/clothing/suit/storage/labcoat/hydro = 3,
 					/obj/item/clothing/mask/bandana/botany = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3,
+					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/storage/backpack/botany = 2,
 					/obj/item/storage/backpack/satchel_hyd = 2,
 					/obj/item/storage/backpack/duffel/hydro = 2)
@@ -673,6 +682,7 @@
 				/obj/item/clothing/suit/storage/labcoat/hydro = 75,
 				/obj/item/clothing/mask/bandana/botany = 20,
 				/obj/item/clothing/accessory/armband/hydro = 20,
+				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/storage/backpack/botany = 50,
 				/obj/item/storage/backpack/satchel_hyd = 50,
 				/obj/item/storage/backpack/duffel/hydro = 50)
@@ -695,11 +705,14 @@
 					/obj/item/clothing/head/soft/purple = 3,
 					/obj/item/clothing/gloves/color/black = 3,
 					/obj/item/clothing/shoes/galoshes = 3,
+					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/storage/belt/janitor = 3)
 
 	contraband = list(/obj/item/toy/figure/crew/janitor = 1)
 
-	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50)
+	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50,
+					/obj/item/clothing/head/soft/purple = 20,
+					/obj/item/clothing/accessory/armband/service = 20)
 
 	refill_canister = /obj/item/vending_refill/janidrobe
 

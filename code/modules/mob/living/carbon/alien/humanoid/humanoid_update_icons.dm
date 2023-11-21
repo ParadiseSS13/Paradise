@@ -98,7 +98,7 @@
 
 		if(wear_suit.blood_DNA)
 			var/t_suit = "suit"
-			if( istype(wear_suit, /obj/item/clothing/suit/armor) )
+			if(istype(wear_suit, /obj/item/clothing/suit/armor))
 				t_suit = "armor"
 			standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[t_suit]blood")
 
