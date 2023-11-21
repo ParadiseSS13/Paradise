@@ -112,3 +112,17 @@
 	suit = /obj/item/clothing/suit/wizrobe
 	shoes = /obj/item/clothing/shoes/sandal
 	head = /obj/item/clothing/head/wizard
+
+/obj/effect/mob_spawn/human/corpse/seed_vault_diona
+	name = "Corpse of a Diona"
+	mob_species = /datum/species/diona
+	outfit = /datum/outfit/seed_vault_diona
+
+/datum/outfit/seed_vault_diona
+	name = "Unknown Diona"
+	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
+	belt = /obj/item/storage/bag/plants
+	mask = /obj/item/clothing/mask/breath
+	r_pocket = /obj/item/paper/crumpled/ruins/lavaland/seed_vault/discovery
+	l_pocket = /obj/item/tank/internals/emergency_oxygen/engi/empty
+

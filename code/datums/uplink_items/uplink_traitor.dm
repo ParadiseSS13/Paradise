@@ -171,7 +171,7 @@
 	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
-	cost = 15
+	cost = 10
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Assistant
@@ -194,18 +194,7 @@
 	cost = 10
 	job = list("Bartender")
 
-//Barber
-
-/datum/uplink_item/jobspecific/safety_scissors //Hue
-	name = "Safety Scissors"
-	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
-	reference = "CTS"
-	item = /obj/item/scissors/safety
-	cost = 15
-	job = list("Barber")
-
 //Botanist
-
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
 	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s), WARNING: exotic blood types such as slime jelly do not work. It also wirelessly taps into station intercomms to broadcast a message of TERROR."
@@ -437,7 +426,7 @@
 			While the mask is active, your voice will sound unrecognizable to others."
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
-	cost = 5
+	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/stealthy_tools/silicon_cham_suit

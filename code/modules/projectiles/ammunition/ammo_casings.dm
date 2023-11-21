@@ -209,7 +209,7 @@
 	projectile_type = /obj/item/projectile/bullet/meteorshot
 
 /obj/item/ammo_casing/shotgun/pulseslug
-	name = "pulse slug"
+	name = "proto pulse slug"
 	desc = "A delicate device which can be loaded into a shotgun. The primer acts as a button which triggers the gain medium and fires a powerful \
 	energy blast. While the heat and power drain limit it to one use, it can still allow an operator to engage targets that ballistic ammunition \
 	would have difficulty with."

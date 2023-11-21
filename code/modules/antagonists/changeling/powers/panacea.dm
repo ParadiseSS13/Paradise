@@ -7,6 +7,7 @@
 	dna_cost = 2
 	req_stat = UNCONSCIOUS
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_DEFENSE
 
 //Heals the things that the other regenerative abilities don't.
 /datum/action/changeling/panacea/sting_action(mob/living/user)

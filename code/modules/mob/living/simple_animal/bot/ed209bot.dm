@@ -66,7 +66,7 @@
 		if(created_name == initial(name) || !created_name)
 			if(lasercolor == "b")
 				name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
-			else if (lasercolor == "r")
+			else if(lasercolor == "r")
 				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
@@ -118,7 +118,7 @@
 	return data
 
 /mob/living/simple_animal/bot/ed209/ui_act(action, params)
-	if (..())
+	if(..())
 		return
 	if(topic_denied(usr))
 		to_chat(usr, "<span class='warning'>[src]'s interface is not responding!</span>")
@@ -435,7 +435,7 @@
 	lastfired = world.time
 	var/turf/T = loc
 	var/atom/U = (istype(target, /atom/movable) ? target.loc : target)
-	if((!( U ) || !( T )))
+	if((!U || !T))
 		return
 	while(!isturf(U))
 		U = U.loc

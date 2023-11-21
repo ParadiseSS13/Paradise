@@ -192,12 +192,8 @@
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			build = 1
 
-/obj/machinery/mass_driver_frame/verb/rotate()
-	set category = "Object"
-	set name = "Rotate Frame"
-	set src in view(1)
-
-	if(usr.stat || usr.restrained()  || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
+/obj/machinery/mass_driver_frame/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	dir = turn(dir, -90)

@@ -157,9 +157,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/proc/ShowChoices(mob/user)
 	if(!user || !user.client)
 		return
-	active_character.update_preview_icon()
-	user << browse_rsc(active_character.preview_icon_front, "previewicon.png")
-	user << browse_rsc(active_character.preview_icon_side, "previewicon2.png")
+	if(SSatoms.initialized) // DNA won't be set up on our dummy mob if it's not ready
+		active_character.update_preview_icon()
+		user << browse_rsc(active_character.preview_icon_front, "previewicon.png")
+		user << browse_rsc(active_character.preview_icon_side, "previewicon2.png")
 
 	var/list/dat = list()
 	dat += "<center>"
@@ -415,7 +416,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(GLOB.configuration.general.allow_character_metadata)
 				dat += "<b>OOC Notes:</b> <a href='?_src_=prefs;preference=metadata;task=input'><b>Edit</b></a><br>"
 			dat += "<b>Parallax (Fancy Space):</b> <a href='?_src_=prefs;preference=parallax'>"
-			switch (parallax)
+			switch(parallax)
 				if(PARALLAX_LOW)
 					dat += "Low"
 				if(PARALLAX_MED)

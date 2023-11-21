@@ -136,7 +136,8 @@
 	name = "\improper Arrivals Lounge"
 
 /area/station/hallway/secondary/bridge
-
+	name = "\improper Command Hallway"
+	icon_state = "hallC"
 // Other public areas
 
 

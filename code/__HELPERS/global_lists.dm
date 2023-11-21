@@ -111,7 +111,7 @@
 		var/datum/robolimb/R = new limb_type()
 		GLOB.all_robolimbs[R.company] = R
 		if(!R.unavailable_at_chargen)
-			if(R != "head" && R != "chest" && R != "groin" ) //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
+			if(R != "head" && R != "chest" && R != "groin") //Part of the method that ensures only IPCs can access head, chest and groin prosthetics.
 				if(R.has_subtypes) //Ensures solos get added to the list as well be incorporating has_subtypes == 1 and has_subtypes == 2.
 					GLOB.chargen_robolimbs[R.company] = R //List only main brands and solo parts.
 		if(R.selectable)
@@ -148,6 +148,13 @@
 		if(isnull(initial(O.name)))
 			continue // These are not valid objectives to add.
 		GLOB.admin_objective_list[initial(O.name)] = path
+
+	for(var/path in subtypesof(/datum/tilt_crit))
+		var/datum/tilt_crit/crit = path
+		if(isnull(initial(crit.name)))
+			continue
+		crit = new path()
+		GLOB.tilt_crits[path] = crit
 
 /* // Uncomment to debug chemical reaction list.
 /client/verb/debug_chemical_list()
