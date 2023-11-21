@@ -148,9 +148,7 @@
 /obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
 	if(panel_open)
 		return
-	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
-		power_change()
-		return TRUE
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_master/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())

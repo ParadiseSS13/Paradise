@@ -60370,7 +60370,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/effect/landmark/start/barber,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24

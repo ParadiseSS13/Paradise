@@ -155,7 +155,7 @@
 							/obj/item/toy/figure/crew/janitor,
 							/obj/item/toy/figure/crew/librarian,
 							/obj/item/storage/box/scratch_cards)
-	job_list = list("Bartender", "Chef", "Botanist", "Janitor", "Barber", "Librarian", "Barber")
+	job_list = list("Bartender", "Chef", "Botanist", "Janitor", "Librarian")
 
 /obj/item/envelope/circuses
 	icon_state = "mail_serv"
