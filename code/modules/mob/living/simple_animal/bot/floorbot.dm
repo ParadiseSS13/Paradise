@@ -189,7 +189,6 @@
 		if(!target && make_tiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
 			target = scan(/obj/item/stack/sheet/metal)
 			process_type = null
-			return
 		else
 			if(nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
 				nag()
