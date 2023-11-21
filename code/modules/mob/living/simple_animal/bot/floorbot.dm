@@ -123,7 +123,7 @@
 			make_tiles = !make_tiles
 		if("nagonempty")
 			nag_on_empty = !nag_on_empty
-		if("fixfloor")
+		if("fixfloors")
 			fix_floor = !fix_floor
 		if("anchored")
 			anchored = !anchored
