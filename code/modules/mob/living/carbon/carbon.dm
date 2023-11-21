@@ -1244,8 +1244,10 @@ so that different stomachs can handle things in different ways VB*/
 		if(patch.instant_application)
 			instant = TRUE
 
-	if(user != src && !instant)
-		if(requires_mouth && !head)
+	if(user != src && !instant && ishuman(src))
+		var/mob/living/carbon/human/H = src
+		var/obj/item/organ/external/head/fed_head = H.bodyparts_by_name["head"]
+		if(requires_mouth && !fed_head)
 			to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
 			return FALSE
 		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
