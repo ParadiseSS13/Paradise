@@ -789,9 +789,6 @@
 									if(GLOB.PDA_Manifest.len)
 										GLOB.PDA_Manifest.Cut()
 
-									spawn()
-										sec_hud_set_security_status()
-
 			if(!modified)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
@@ -812,8 +809,6 @@
 								if(setmental != "Cancel")
 									R.fields["m_stat"] = setmental
 									modified = TRUE
-									spawn()
-										sec_hud_set_security_status()
 
 			if(!modified)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
