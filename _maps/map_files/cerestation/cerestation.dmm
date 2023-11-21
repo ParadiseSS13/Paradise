@@ -93911,7 +93911,6 @@
 /turf/simulated/floor/carpet/cyan,
 /area/station/public/fitness)
 "xhr" = (
-/obj/effect/landmark/start/barber,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;

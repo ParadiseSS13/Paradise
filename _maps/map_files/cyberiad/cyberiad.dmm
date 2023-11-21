@@ -66142,7 +66142,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
 "juM" = (
-/obj/effect/landmark/start/barber,
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
