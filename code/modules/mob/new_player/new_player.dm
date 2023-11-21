@@ -188,7 +188,10 @@
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
 			if(ROUND_TIME <= (GLOB.configuration.general.roundstart_observer_period MINUTES))
 				GLOB.roundstart_observer_keys |= ckey
-				to_chat(src, "<span class='notice'>As you observed within [GLOB.configuration.general.roundstart_observer_period] minutes, you can freely toggle antag-hud without losing respawnability.</span>")
+				var/period_human_readable = "within [GLOB.configuration.general.roundstart_observer_period] minutes"
+				if(GLOB.configuration.general.roundstart_observer_period == 0)
+					period_human_readable = "before the round started"
+				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability.</span>")
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
