@@ -24908,6 +24908,7 @@
 	owner = "captain"
 	},
 /obj/item/lighter/zippo/cap,
+/obj/effect/spawner/random_spawners/id_skins,
 /turf/simulated/floor/carpet/black,
 /area/station/command/office/captain/bedroom)
 "cci" = (
@@ -25264,6 +25265,7 @@
 /obj/item/megaphone,
 /obj/item/storage/box/PDAs,
 /obj/item/storage/box/ids,
+/obj/effect/spawner/random_spawners/id_skins,
 /turf/simulated/floor/wood/oak,
 /area/station/command/office/hop)
 "cdI" = (
@@ -30570,6 +30572,7 @@
 /obj/structure/table/wood,
 /obj/item/newspaper,
 /obj/machinery/light/directional/south,
+/obj/effect/spawner/random_spawners/id_skins/no_chance,
 /turf/simulated/floor/wood/parquet/tile,
 /area/station/service/library)
 "cAZ" = (

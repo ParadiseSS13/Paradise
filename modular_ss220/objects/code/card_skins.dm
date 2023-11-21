@@ -136,6 +136,12 @@
 		if("Выбрать вручную")
 			color = input(usr,"Выберите цвет") as color
 
+/obj/item/id_skin/donut
+	name = "\improper пончиковая наклейка на карту"
+	icon_state = "donut"
+	pronoun_name = "пончиковую наклейку"
+	info = "На ней пончиковая наклейка. С глазурью!"
+
 /obj/item/id_skin/silver
 	name = "\improper серебрянная наклейка на карту"
 	icon_state = "silver"
@@ -198,6 +204,27 @@
 	pronoun_name = "неоновую наклейку"
 	info = "Кажется будто она светится."
 
+/obj/item/id_skin/missing
+	name = "\improper чёрно-розовая наклейка на карту"
+	desc = "Текстура пропала..."
+	icon_state = "missing"
+	pronoun_name = "чёрно-розовую наклейку"
+	info = "А где?"
+
+/obj/item/id_skin/ouija
+	name = "\improper Уиджи наклейка на карту"
+	desc = "Ходят легенты, что тот кто наклеит это на карту, может общаться с духами..."
+	icon_state = "ouija"
+	pronoun_name = "наклейку в виде доски Уиджи"
+	info = "Умеет ли он общаться с призраками?"
+
+/obj/item/id_skin/paradise
+	name = "\improper пляжная наклейка на карту"
+	desc = "Хола!"
+	icon_state = "paradise"
+	pronoun_name = "пляжную наклейку"
+	info = "На ней пляжная наклейка."
+
 /obj/item/id_skin/rainbow
 	name = "\improper радужная наклейка на карту"
 	desc = "Переливается всеми цветами радуги!"
@@ -224,12 +251,33 @@
 	desc = "Прекрасная наклейка, которая делает вашу карту похожей на котика. Эта может менять цвет."
 	icon_state = "colored_kitty"
 
+/obj/item/id_skin/cursedmiku
+	name = "\improper аниме наклейка на карту"
+	desc = "Kawaii!!!"
+	icon_state = "cursedmiku"
+	pronoun_name = "анимешную наклейку"
+	info = "На ней анимешная наклейка. AYAYA!"
+
 /obj/item/id_skin/colored/snake
 	name = "\improper бегущая наклейка на карту"
 	desc = "Она что-то загружает?"
 	icon_state = "snake"
 	pronoun_name = "бегущую наклейку"
 	info = "Бегает и бегает..."
+
+/obj/item/id_skin/magic
+	name = "\improper магическая наклейка на карту"
+	desc = "EI NATH!"
+	icon_state = "magic"
+	pronoun_name = "магическую наклейку"
+	info = "Кто-то до сих пор девственник..."
+
+/obj/item/id_skin/terminal
+	name = "\improper наклейка на карту в виде терминала"
+	desc = "HACKERMAN."
+	icon_state = "terminal"
+	pronoun_name = "наклейку в виде терминала"
+	info = "Эта карта похожа на терминал."
 
 // Supply Crate
 /datum/supply_packs/misc/randomised/id_skins
@@ -242,6 +290,11 @@
 		/obj/item/id_skin/colored,
 		/obj/item/id_skin/colored,
 		/obj/item/id_skin/colored,
+		/obj/item/id_skin/donut,
+		/obj/item/id_skin/donut,
+		/obj/item/id_skin/donut,
+		/obj/item/id_skin/donut,
+		/obj/item/id_skin/donut,
 		/obj/item/id_skin/colored/silver,
 		/obj/item/id_skin/colored/silver,
 		/obj/item/id_skin/colored/silver,
@@ -253,11 +306,17 @@
 		/obj/item/id_skin/clown,
 		/obj/item/id_skin/neon,
 		/obj/item/id_skin/colored/neon,
+		/obj/item/id_skin/missing,
+		/obj/item/id_skin/ouija,
+		/obj/item/id_skin/paradise,
 		/obj/item/id_skin/rainbow,
 		/obj/item/id_skin/space,
 		/obj/item/id_skin/kitty,
 		/obj/item/id_skin/colored/kitty,
-		/obj/item/id_skin/colored/snake)
+		/obj/item/id_skin/cursedmiku,
+		/obj/item/id_skin/colored/snake,
+		/obj/item/id_skin/magic,
+		/obj/item/id_skin/terminal)
 	cost = 2000
 	containername = "ящик с наклейками"
 
@@ -268,7 +327,8 @@
 	icon_state = "ID_Random"
 	result = list(
 	/obj/item/id_skin/colored = 10,
-	/obj/item/id_skin/colored/silver = 1,
+	/obj/item/id_skin/donut = 10,
+	/obj/item/id_skin/colored/silver = 5,
 	/obj/item/id_skin/silver = 1,
 	/obj/item/id_skin/gold = 1,
 	/obj/item/id_skin/business = 1,
@@ -277,17 +337,24 @@
 	/obj/item/id_skin/clown = 1,
 	/obj/item/id_skin/neon = 1,
 	/obj/item/id_skin/colored/neon = 1,
+	/obj/item/id_skin/missing = 1,
+	/obj/item/id_skin/ouija = 1,
+	/obj/item/id_skin/paradise = 1,
 	/obj/item/id_skin/rainbow = 1,
 	/obj/item/id_skin/space = 1,
 	/obj/item/id_skin/kitty = 1,
 	/obj/item/id_skin/colored/kitty = 1,
-	/obj/item/id_skin/colored/snake = 1)
+	/obj/item/id_skin/cursedmiku = 1,
+	/obj/item/id_skin/colored/snake = 1,
+	/obj/item/id_skin/magic = 1,
+	/obj/item/id_skin/terminal = 1)
 
 /obj/effect/spawner/random_spawners/id_skins/no_chance
 	result = list(
 	/datum/nothing = 80,
 	/obj/item/id_skin/colored = 10,
-	/obj/item/id_skin/colored/silver = 1,
+	/obj/item/id_skin/donut = 10,
+	/obj/item/id_skin/colored/silver = 5,
 	/obj/item/id_skin/silver = 1,
 	/obj/item/id_skin/gold = 1,
 	/obj/item/id_skin/business = 1,
@@ -296,8 +363,14 @@
 	/obj/item/id_skin/clown = 1,
 	/obj/item/id_skin/neon = 1,
 	/obj/item/id_skin/colored/neon = 1,
+	/obj/item/id_skin/missing = 1,
+	/obj/item/id_skin/ouija = 1,
+	/obj/item/id_skin/paradise = 1,
 	/obj/item/id_skin/rainbow = 1,
 	/obj/item/id_skin/space = 1,
 	/obj/item/id_skin/kitty = 1,
 	/obj/item/id_skin/colored/kitty = 1,
-	/obj/item/id_skin/colored/snake = 1)
+	/obj/item/id_skin/cursedmiku = 1,
+	/obj/item/id_skin/colored/snake = 1,
+	/obj/item/id_skin/magic = 1,
+	/obj/item/id_skin/terminal = 1)

@@ -109,6 +109,11 @@
 	path = /obj/item/id_skin/colored
 	cost = 2
 
+/datum/gear/donor/id_decal_donut
+	display_name = "Пончиковая наклейка на карту"
+	path = /obj/item/id_skin/donut
+	cost = 2
+
 /datum/gear/donor/id_decal_silver_colored
 	display_name = "Серебрянная наклейка на карту (Голографическая)"
 	path = /obj/item/id_skin/colored/silver
@@ -121,7 +126,7 @@
 	donator_tier = 3
 	cost = 2
 
-/datum/gear/donor/id_decal_gold
+/datum/gear/donor/id_decal_gold_skin
 	display_name = "Золотая наклейка на карту"
 	path = /obj/item/id_skin/gold
 	donator_tier = 3
@@ -163,6 +168,24 @@
 	donator_tier = 3
 	cost = 2
 
+/datum/gear/donor/id_decal_missing
+	display_name = "Чёрно-розовая наклейка на карту"
+	path = /obj/item/id_skin/missing
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_paradise
+	display_name = "Paradise наклейка на карту"
+	path = /obj/item/id_skin/paradise
+	donator_tier = 3
+	cost = 2
+
+/datum/gear/donor/id_decal_ouija
+	display_name = "Уиджи наклейка на карту"
+	path = /obj/item/id_skin/ouija
+	donator_tier = 3
+	cost = 2
+
 /datum/gear/donor/id_decal_rainbow
 	display_name = "Радужная наклейка на карту"
 	path = /obj/item/id_skin/rainbow
@@ -187,8 +210,26 @@
 	donator_tier = 4
 	cost = 3
 
+/datum/gear/donor/id_decal_anime
+	display_name = "Анимешная наклейка на карту"
+	path = /obj/item/id_skin/cursedmiku
+	donator_tier = 4
+	cost = 3
+
 /datum/gear/donor/id_decal_snake
 	display_name = "Бегущая наклейка на карту"
 	path = /obj/item/id_skin/colored/snake
+	donator_tier = 4
+	cost = 3
+
+/datum/gear/donor/id_decal_magic
+	display_name = "Магическая наклейка на карту"
+	path = /obj/item/id_skin/magic
+	donator_tier = 4
+	cost = 3
+
+/datum/gear/donor/id_decal_terminal
+	display_name = "Наклейка на карту в виде терминала"
+	path = /obj/item/id_skin/terminal
 	donator_tier = 4
 	cost = 3
