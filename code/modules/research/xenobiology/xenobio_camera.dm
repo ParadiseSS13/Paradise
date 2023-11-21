@@ -177,7 +177,7 @@
 	return ..()
 
 /obj/machinery/computer/camera_advanced/xenobio/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/reagent_containers/food/snacks/monkeycube))
+	if(istype(O, /obj/item/food/snacks/monkeycube))
 		if(user.drop_item())
 			monkeys++
 			to_chat(user, "<span class='notice'>You feed [O] to [src]. It now has [monkeys] monkey cubes stored.</span>")
@@ -192,7 +192,7 @@
 	else if(istype(O, /obj/item/storage/bag) || istype(O, /obj/item/storage/box))
 		var/obj/item/storage/P = O
 		var/loaded = 0
-		for(var/obj/item/reagent_containers/food/snacks/monkeycube/MC in P.contents)
+		for(var/obj/item/food/snacks/monkeycube/MC in P.contents)
 			loaded = 1
 			monkeys++
 			P.remove_from_storage(MC)

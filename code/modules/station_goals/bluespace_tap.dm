@@ -149,25 +149,25 @@
 	name = "fancy food"
 	lootcount = 3
 	loot = list(
-		/obj/item/reagent_containers/food/snacks/wingfangchu,
-		/obj/item/reagent_containers/food/snacks/hotdog,
-		/obj/item/reagent_containers/food/snacks/sliceable/turkey,
-		/obj/item/reagent_containers/food/snacks/plumphelmetbiscuit,
-		/obj/item/reagent_containers/food/snacks/appletart,
-		/obj/item/reagent_containers/food/snacks/sliceable/cheesecake,
-		/obj/item/reagent_containers/food/snacks/sliceable/bananacake,
-		/obj/item/reagent_containers/food/snacks/sliceable/chocolatecake,
-		/obj/item/reagent_containers/food/snacks/soup/meatballsoup,
-		/obj/item/reagent_containers/food/snacks/soup/mysterysoup,
-		/obj/item/reagent_containers/food/snacks/soup/stew,
-		/obj/item/reagent_containers/food/snacks/soup/hotchili,
-		/obj/item/reagent_containers/food/snacks/burrito,
-		/obj/item/reagent_containers/food/snacks/fishburger,
-		/obj/item/reagent_containers/food/snacks/cubancarp,
-		/obj/item/reagent_containers/food/snacks/fishandchips,
-		/obj/item/reagent_containers/food/snacks/meatpie,
+		/obj/item/food/snacks/wingfangchu,
+		/obj/item/food/snacks/hotdog,
+		/obj/item/food/snacks/sliceable/turkey,
+		/obj/item/food/snacks/plumphelmetbiscuit,
+		/obj/item/food/snacks/appletart,
+		/obj/item/food/snacks/sliceable/cheesecake,
+		/obj/item/food/snacks/sliceable/bananacake,
+		/obj/item/food/snacks/sliceable/chocolatecake,
+		/obj/item/food/snacks/soup/meatballsoup,
+		/obj/item/food/snacks/soup/mysterysoup,
+		/obj/item/food/snacks/soup/stew,
+		/obj/item/food/snacks/soup/hotchili,
+		/obj/item/food/snacks/burrito,
+		/obj/item/food/snacks/fishburger,
+		/obj/item/food/snacks/cubancarp,
+		/obj/item/food/snacks/fishandchips,
+		/obj/item/food/snacks/meatpie,
 		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
-		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
+		/obj/item/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
 	)
 
 #define kW *1000

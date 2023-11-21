@@ -1142,14 +1142,14 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	if(!isfood(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
 		return FALSE
 
-	var/obj/item/reagent_containers/food/food = to_eat // It's not a patch or a pill so it must be food
+	var/obj/item/food/food = to_eat // It's not a patch or a pill so it must be food
 	var/fullness = nutrition + 10
-	if(istype(food, /obj/item/reagent_containers/food/snacks))
+	if(istype(food, /obj/item/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
 
 	if(user == src)
-		if(istype(food, /obj/item/reagent_containers/food/drinks))
+		if(istype(food, /obj/item/reagent_containers/drinks))
 			if(!selfDrink(food))
 				return FALSE
 		else
@@ -1163,7 +1163,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	SSticker.score.score_food_eaten++
 	return TRUE
 
-/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/to_eat, fullness)
+/mob/living/carbon/proc/selfFeed(obj/item/food/to_eat, fullness)
 	if(ispill(to_eat))
 		to_chat(src, "<span class='notify'>You swallow [to_eat].</span>")
 	else if(ispatch(to_eat))
@@ -1185,7 +1185,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			return FALSE
 	return TRUE
 
-/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
+/mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/drinks/toDrink, mob/user)
 	return TRUE
 
 /mob/living/carbon/proc/forceFed(obj/item/reagent_containers/to_eat, mob/user, fullness)
@@ -1205,7 +1205,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(obj/item/reagent_containers/food/to_eat, bitesize_override)
+/mob/living/carbon/proc/consume(obj/item/food/to_eat, bitesize_override)
 	var/this_bite = bitesize_override ? bitesize_override : to_eat.bitesize
 	if(!to_eat.reagents)
 		return

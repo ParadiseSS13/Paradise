@@ -1435,11 +1435,11 @@
 /area/ruin/unpowered/althland_processing)
 "Jw" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer{
+/obj/item/reagent_containers/drinks/cans/beer{
 	pixel_x = 8;
 	pixel_y = 10
 	},
-/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/reagent_containers/drinks/cans/beer,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 300;

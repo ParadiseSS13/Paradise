@@ -206,7 +206,7 @@
 	max_combined_w_class = 100 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class
 	max_w_class = WEIGHT_CLASS_NORMAL
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/reagent_containers/food/snacks/grown/ash_flora,/obj/item/reagent_containers/food/snacks/honeycomb)
+	can_hold = list(/obj/item/food/snacks/grown,/obj/item/seeds,/obj/item/grown,/obj/item/food/snacks/grown/ash_flora,/obj/item/food/snacks/honeycomb)
 	resistance_flags = FLAMMABLE
 
 /obj/item/storage/bag/plants/portaseeder
@@ -497,7 +497,7 @@
 
 
 /obj/item/storage/bag/tray/cookies_tray
-	var/cookie = /obj/item/reagent_containers/food/snacks/cookie
+	var/cookie = /obj/item/food/snacks/cookie
 
 /obj/item/storage/bag/tray/cookies_tray/populate_contents() // By Azule Utama, thank you a lot!
 	for(var/i in 1 to 6)
@@ -506,7 +506,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/storage/bag/tray/cookies_tray/sugarcookie
-	cookie = /obj/item/reagent_containers/food/snacks/sugarcookie
+	cookie = /obj/item/food/snacks/sugarcookie
 
 /*
  *	Chemistry bag
@@ -537,7 +537,7 @@
 	storage_slots = 25
 	max_combined_w_class = 200
 	w_class = WEIGHT_CLASS_TINY
-	can_hold = list(/obj/item/slime_extract, /obj/item/reagent_containers/food/snacks/monkeycube,
+	can_hold = list(/obj/item/slime_extract, /obj/item/food/snacks/monkeycube,
 					/obj/item/reagent_containers/syringe, /obj/item/reagent_containers/glass/beaker,
 					/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/iv_bag,
 					/obj/item/reagent_containers/hypospray/autoinjector/epinephrine)

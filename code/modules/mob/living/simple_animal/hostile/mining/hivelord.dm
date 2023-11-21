@@ -386,7 +386,7 @@
 			belt = null
 			backpack_contents = list()
 			if(prob(70))
-				backpack_contents += pick(list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1))
+				backpack_contents += pick(list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/food/snacks/grown/banana = 1, /obj/item/megaphone = 1))
 			if(prob(30))
 				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list( 1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
@@ -430,6 +430,6 @@
 				suit_store = /obj/item/melee/cultblade
 			l_pocket = /obj/item/melee/cultblade/dagger
 			if(prob(60))
-				r_pocket = /obj/item/reagent_containers/food/drinks/bottle/unholywater
+				r_pocket = /obj/item/reagent_containers/drinks/bottle/unholywater
 			backpack_contents = list(/obj/item/tome = 1, /obj/item/restraints/legcuffs/bola/cult = 1, /obj/item/stack/sheet/runed_metal = 15)
 	. = ..()

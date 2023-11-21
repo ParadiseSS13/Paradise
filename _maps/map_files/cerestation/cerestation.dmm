@@ -3881,7 +3881,7 @@
 /area/station/turret_protected/aisat/interior)
 "axU" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/hos,
+/obj/item/reagent_containers/drinks/mug/hos,
 /obj/item/radio{
 	pixel_x = 5
 	},
@@ -5495,7 +5495,7 @@
 /area/station/supply/miningdock)
 "aJM" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -5
 	},
 /obj/item/reagent_containers/glass/beaker/waterbottle{
@@ -21901,7 +21901,7 @@
 /area/station/service/hydroponics)
 "cld" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /turf/simulated/floor/wood,
 /area/station/maintenance/starboard)
 "clh" = (
@@ -23293,7 +23293,7 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle{
 	pixel_x = 5
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass{
+/obj/item/reagent_containers/drinks/drinkingglass{
 	pixel_x = -5
 	},
 /turf/simulated/floor/wood,
@@ -26755,7 +26755,7 @@
 /area/station/maintenance/port)
 "cNg" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/baguette,
+/obj/item/food/snacks/baguette,
 /obj/structure/sign/poster/official/the_owl{
 	pixel_y = 32
 	},
@@ -38343,7 +38343,7 @@
 /area/station/hallway/primary/port/south)
 "eZY" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/holywater,
+/obj/item/reagent_containers/drinks/bottle/holywater,
 /obj/item/lighter/zippo/black,
 /turf/simulated/floor/carpet/black,
 /area/station/service/chapel)
@@ -40942,10 +40942,10 @@
 /area/station/hallway/primary/starboard/south)
 "fZO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/cans/cola{
+/obj/item/reagent_containers/drinks/cans/cola{
 	pixel_x = 10
 	},
-/obj/item/reagent_containers/food/snacks/chips{
+/obj/item/food/snacks/chips{
 	pixel_x = -5
 	},
 /obj/structure/railing,
@@ -42457,7 +42457,7 @@
 /area/station/hallway/primary/fore)
 "gDk" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/drinks/britcup,
 /obj/item/paper_bin,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
@@ -47618,7 +47618,7 @@
 /area/station/turret_protected/aisat/interior/secondary)
 "ipE" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/snacks/mint,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -50300,7 +50300,7 @@
 /area/space)
 "jgd" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -51050,7 +51050,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/kitchen/knife,
-/obj/item/reagent_containers/food/snacks/meat/human,
+/obj/item/food/snacks/meat/human,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "jtF" = (
@@ -52013,9 +52013,9 @@
 /area/station/command/office/blueshield)
 "jHz" = (
 /obj/structure/closet/cabinet,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
-/obj/item/reagent_containers/food/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/item/reagent_containers/drinks/drinkingglass,
+/obj/item/reagent_containers/drinks/drinkingglass,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 24;
@@ -53879,7 +53879,7 @@
 "knI" = (
 /obj/structure/table,
 /obj/item/book/manual/wiki/chef_recipes,
-/obj/item/reagent_containers/food/condiment/peppermill,
+/obj/item/reagent_containers/condiment/peppermill,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -54192,7 +54192,7 @@
 "ksD" = (
 /obj/structure/safe,
 /obj/item/clothing/head/bearpelt,
-/obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
+/obj/item/reagent_containers/drinks/bottle/vodka/badminka,
 /obj/item/dice/d20{
 	desc = "A die with twenty sides. You feel absolutely normal while looking at this.";
 	name = "Die of Mediocre Rolling Capability"
@@ -54875,7 +54875,7 @@
 "kCC" = (
 /obj/structure/table,
 /obj/item/kitchen/knife,
-/obj/item/reagent_containers/food/condiment/saltshaker,
+/obj/item/reagent_containers/condiment/saltshaker,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -55591,12 +55591,12 @@
 /area/station/engineering/control)
 "kNJ" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+/obj/item/reagent_containers/drinks/bottle/whiskey,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass{
 	pixel_x = 8;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass,
+/obj/item/reagent_containers/drinks/drinkingglass/shotglass,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "kOb" = (
@@ -56931,7 +56931,7 @@
 	},
 /area/station/service/barber)
 "liT" = (
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/maintenance/gambling_den)
@@ -57269,7 +57269,7 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
-/obj/item/reagent_containers/food/drinks/trophy/bronze_cup{
+/obj/item/reagent_containers/drinks/trophy/bronze_cup{
 	name = "Rage Cage Champion"
 	},
 /turf/simulated/floor/plating/asteroid/ancient,
@@ -58958,7 +58958,7 @@
 "lPU" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/food/condiment/enzyme,
+/obj/item/reagent_containers/condiment/enzyme,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -59502,7 +59502,7 @@
 /area/station/service/hydroponics)
 "lYT" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/fried_vox,
+/obj/item/food/snacks/fried_vox,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "lYX" = (
@@ -61377,7 +61377,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 4
 	},
@@ -62616,11 +62616,11 @@
 	dir = 1;
 	layer = 2.9
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -68757,7 +68757,7 @@
 "per" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/drinks/britcup,
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
 "peB" = (
@@ -71467,7 +71467,7 @@
 "pXp" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
-/obj/item/reagent_containers/food/snacks/donkpocket,
+/obj/item/food/snacks/donkpocket,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "pXq" = (
@@ -72014,7 +72014,7 @@
 	},
 /area/station/engineering/gravitygenerator)
 "qeX" = (
-/obj/item/reagent_containers/food/drinks/bottle/patron,
+/obj/item/reagent_containers/drinks/bottle/patron,
 /obj/structure/table/wood,
 /obj/item/lighter/random,
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims,
@@ -76452,7 +76452,7 @@
 "rHk" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
-/obj/item/reagent_containers/food/drinks/flask/detflask,
+/obj/item/reagent_containers/drinks/flask/detflask,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 4;
@@ -79080,7 +79080,7 @@
 	dir = 4
 	},
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 4
 	},
@@ -81518,7 +81518,7 @@
 "tnY" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp/bananalamp,
-/obj/item/reagent_containers/food/snacks/pie,
+/obj/item/food/snacks/pie,
 /obj/machinery/light_switch{
 	dir = 8;
 	pixel_x = 24;
@@ -83898,11 +83898,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
+/obj/item/reagent_containers/condiment/saltshaker{
 	pixel_x = -2;
 	pixel_y = 4
 	},
@@ -87686,7 +87686,7 @@
 /obj/structure/closet/wardrobe/white,
 /obj/item/clothing/shoes/jackboots,
 /obj/item/reagent_containers/iv_bag/blood/OMinus,
-/obj/item/reagent_containers/food/drinks/cans/badminbrew,
+/obj/item/reagent_containers/drinks/cans/badminbrew,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "vpt" = (
@@ -88650,7 +88650,7 @@
 /area/station/medical/medbay)
 "vDS" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/britcup,
+/obj/item/reagent_containers/drinks/britcup,
 /obj/machinery/door/window/classic/normal{
 	dir = 8;
 	name = "Medical Reception"
@@ -88789,8 +88789,8 @@
 /area/station/hallway/primary/fore/east)
 "vFa" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/chili,
+/obj/item/food/snacks/grown/potato,
+/obj/item/food/snacks/grown/chili,
 /obj/item/seeds/grape,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreenfull"
@@ -91873,7 +91873,7 @@
 /area/station/public/storage/tools)
 "wzA" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/condiment/peppermill{
+/obj/item/reagent_containers/condiment/peppermill{
 	pixel_x = 2;
 	pixel_y = 6
 	},
@@ -94199,12 +94199,12 @@
 	pixel_x = -24;
 	name = "west bump"
 	},
-/obj/item/reagent_containers/food/drinks/flask/barflask,
+/obj/item/reagent_containers/drinks/flask/barflask,
 /obj/item/clothing/head/that{
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/shaker,
+/obj/item/reagent_containers/drinks/shaker,
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
@@ -95874,7 +95874,7 @@
 	},
 /obj/machinery/light,
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/britcup{
+/obj/item/reagent_containers/drinks/britcup{
 	pixel_x = 9;
 	pixel_y = 9
 	},

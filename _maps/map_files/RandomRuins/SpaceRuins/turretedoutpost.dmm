@@ -231,11 +231,11 @@
 /area/ruin/space/unpowered)
 "P" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/drinks/bottle/vodka{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
+/obj/item/reagent_containers/drinks/bottle/vodka{
 	pixel_x = 3
 	},
 /turf/simulated/floor/plasteel,
@@ -259,7 +259,7 @@
 /area/ruin/space/unpowered)
 "S" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/rawcutlet,
+/obj/item/food/snacks/rawcutlet,
 /obj/machinery/light{
 	dir = 8
 	},
