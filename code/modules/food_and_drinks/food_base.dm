@@ -9,11 +9,6 @@
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
 	var/consume_sound = 'sound/items/eatfood.ogg'
-	var/apply_type = REAGENT_INGEST
-	var/apply_method = "swallow"
-	var/transfer_efficiency = 1.0
-	var/instant_application = 0 //if we want to bypass the forcedfeed delay
-	var/can_taste = TRUE//whether you can taste eating from this
 	var/antable = TRUE // Will ants come near it?
 	/// location checked every 5 minutes. If its the same place, the food has a chance to spawn ants
 	var/ant_location
