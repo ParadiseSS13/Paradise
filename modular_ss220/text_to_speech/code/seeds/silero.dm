@@ -1124,7 +1124,7 @@
 	name = "Rakan"
 	value = "rakan"
 	category = TTS_CATEGORY_LOL
-	gender = TTS_GENDER_FEMALE
+	gender = TTS_GENDER_MALE
 	required_donator_level = 1
 
 /datum/tts_seed/silero/renata_glasc
@@ -2139,7 +2139,7 @@
 	name = "Marei"
 	value = "marei"
 	category = TTS_CATEGORY_HEARTHSTONE
-	gender = TTS_GENDER_FEMALE
+	gender = TTS_GENDER_MALE
 	required_donator_level = 2
 
 /datum/tts_seed/silero/applebough
@@ -2776,7 +2776,7 @@
 	name = "Karliah"
 	value = "karliah"
 	category = TTS_CATEGORY_SKYRIM
-	gender = TTS_GENDER_MALE
+	gender = TTS_GENDER_FEMALE
 	required_donator_level = 2
 
 /datum/tts_seed/silero/felldir
@@ -2839,7 +2839,7 @@
 	name = "Gormlaith"
 	value = "gormlaith"
 	category = TTS_CATEGORY_SKYRIM
-	gender = TTS_GENDER_MALE
+	gender = TTS_GENDER_FEMALE
 	required_donator_level = 1
 
 /datum/tts_seed/silero/dragon
@@ -3350,7 +3350,7 @@
 	name = "Kasa"
 	value = "kasa"
 	category = TTS_CATEGORY_HEARTHSTONE
-	gender = TTS_GENDER_FEMALE
+	gender = TTS_GENDER_ANY
 	required_donator_level = 1
 
 /datum/tts_seed/silero/whirt
@@ -3779,7 +3779,7 @@
 	name = "Wywern"
 	value = "wywern"
 	category = TTS_CATEGORY_DOTA2
-	gender = TTS_GENDER_MALE
+	gender = TTS_GENDER_FEMALE
 	required_donator_level = 2
 
 /datum/tts_seed/silero/avallach
@@ -4185,7 +4185,7 @@
 	name = "Ellis"
 	value = "ellis"
 	category = TTS_CATEGORY_LEFT4DEAD
-	gender = TTS_GENDER_FEMALE
+	gender = TTS_GENDER_MALE
 	required_donator_level = 1
 
 /datum/tts_seed/silero/udalryk
@@ -4248,7 +4248,7 @@
 	name = "Nalo"
 	value = "nalo"
 	category = TTS_CATEGORY_EVILISLANDS
-	gender = TTS_GENDER_MALE
+	gender = TTS_GENDER_FEMALE
 	required_donator_level = 2
 
 /datum/tts_seed/silero/dandelion
