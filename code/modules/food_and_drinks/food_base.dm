@@ -54,24 +54,22 @@
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	last_ant_time = world.time
-	var/turf/T = get_turf(src)
 
 	// Are we unshielded from the fury of space ants?
 	if(!prob(15)) // Ants are often not the smartest
 		return
 	if(!isturf(loc)) // Being inside something protects the food
 		return
+
+	var/turf/T = get_turf(src)
+
 	if(T != ant_location) // Moving the food before a full ant swarm can arrive to the location also helps
 		ant_location = T
 		return
 
-	var/protected = FALSE // Check if some object on our turf protects the food from ants
-	for(var/obj/structure/S in T)
+	for(var/obj/structure/S in T) // Check if some object on our turf protects the food from ants
 		if(is_type_in_typecache(S, ant_suppressors))
-			protected = TRUE
-			break
-	if(protected)
-		return
+			return
 
 	// Dinner time!
 	if(!locate(/obj/effect/decal/cleanable/ants) in T)
