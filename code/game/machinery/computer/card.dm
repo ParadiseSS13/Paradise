@@ -72,6 +72,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	QDEL_NULL(Radio)
 	return ..()
 
+/obj/machinery/computer/card/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to remove the ID cards in it.</span>"
+
 /obj/machinery/computer/card/proc/is_centcom()
 	return FALSE
 
@@ -121,30 +125,29 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			"skin" = skin)))
 	return formatted
 
-/obj/machinery/computer/card/verb/eject_id()
-	set category = null
-	set name = "Eject ID Card"
-	set src in oview(1)
-
-	if(usr.incapacitated())
+/obj/machinery/computer/card/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(scan)
-		to_chat(usr, "You remove \the [scan] from \the [src].")
-		scan.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(scan)
+		to_chat(user, "<span class='notice'>You remove \the [scan] from \the [src].</span>")
+		if(!user.get_active_hand())
+			user.put_in_hands(scan)
+		else if(!user.put_in_inactive_hand(scan))
+			scan.forceMove(get_turf(src))
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
+		return
 	else if(modify)
-		to_chat(usr, "You remove \the [modify] from \the [src].")
-		modify.forceMove(get_turf(src))
-		if(!usr.get_active_hand() && Adjacent(usr))
-			usr.put_in_hands(modify)
+		to_chat(user, "<span class='notice'>You remove \the [modify] from \the [src].</span>")
+		if(!user.get_active_hand())
+			user.put_in_hands(modify)
+		else if(!user.put_in_inactive_hand(modify))
+			modify.forceMove(get_turf(src))
 		modify = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, 0)
 	else
-		to_chat(usr, "There is nothing to remove from the console.")
+		to_chat(user, "There is nothing to remove from the console.")
 
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
 	if(!istype(id_card))

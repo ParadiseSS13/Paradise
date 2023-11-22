@@ -198,7 +198,7 @@
 			return FALSE
 		D.init_welded = C.welded
 		C.welded = TRUE
-	else if (target.GetComponent(/datum/component/two_handed))
+	else if(target.GetComponent(/datum/component/two_handed))
 		to_chat(user, "<span class='notice'>[target] is too unwieldy to wrap effectively.</span>")
 		return FALSE
 	else

@@ -537,7 +537,7 @@
 	if(reaction_check(hitby) && use_power())
 		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out freezing bolts!</span>")
 
-		for(var/mob/M in oview(get_turf(src), 7))
+		for(var/mob/living/M in oview(get_turf(src), 7))
 			shootAt(M)
 
 		if(prob(10)) //rarely vent gasses

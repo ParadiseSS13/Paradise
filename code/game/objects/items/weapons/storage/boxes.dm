@@ -96,7 +96,7 @@
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
-	new /obj/item/reagent_containers/food/pill/initropidril(src)
+	new /obj/item/reagent_containers/pill/initropidril(src)
 	new /obj/item/flashlight/flare/glowstick/red(src)
 
 //////////////////
@@ -884,7 +884,7 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/epinephrine(src)
 
 /obj/item/storage/box/deathsquad
@@ -895,7 +895,7 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/small(src)
 	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/patch/synthflesh(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/survival(src)
 	new /obj/item/ammo_box/a357(src)
 	new /obj/item/ammo_box/a357(src)
@@ -912,8 +912,8 @@
 	new /obj/item/flashlight/flare(src)
 	new /obj/item/crowbar/red(src)
 	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	new /obj/item/reagent_containers/patch/synthflesh(src)
+	new /obj/item/reagent_containers/patch/synthflesh(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"
@@ -1038,6 +1038,15 @@
 		new /obj/item/grenade/megafauna_hardmode(src)
 	new /obj/item/storage/lockbox/medal/hardmode_box(src)
 	new /obj/item/paper/hardmode(src)
+
+/obj/item/storage/box/foam_grenades
+	name = "foam grenades box"
+	desc = "A box full of foam grenades."
+	icon_state = "flashbang"
+
+/obj/item/storage/box/foam_grenades/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/chem_grenade/metalfoam(src)
 
 #undef NODESIGN
 #undef NANOTRASEN

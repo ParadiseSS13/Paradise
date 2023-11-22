@@ -225,7 +225,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
 		return 0
 	if(clonemind.active)	//somebody is using that mind
-		if(ckey(clonemind.key) != R.ckey )
+		if(ckey(clonemind.key) != R.ckey)
 			return 0
 		if(clonemind.suicided) // and stay out!
 			malfunction(go_easy = 0)
