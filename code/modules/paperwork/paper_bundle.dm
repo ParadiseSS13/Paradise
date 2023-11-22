@@ -53,7 +53,7 @@
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
 		W.loc = src
-	else if(is_hot(W))
+	else if(W.get_heat())
 		burnpaper(W, user)
 	else if(istype(W, /obj/item/paper_bundle))
 		user.unEquip(W)
