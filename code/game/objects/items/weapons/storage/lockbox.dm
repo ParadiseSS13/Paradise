@@ -205,29 +205,21 @@
 	req_access = list(ACCESS_SEC_DOORS) //officers, heads
 
 /obj/item/storage/lockbox/experimental_weapon/populate_contents()
-	if(prob(90))
-		switch(rand(1, 4))
-			if(1)
-				new /obj/item/gun/energy/kinetic_accelerator/experimental(src)
-			if(2)
-				new /obj/item/surveillance_upgrade(src)
-			if(3)
-				new /obj/item/mod/module/stealth/ninja(src)
-			if(4)	//organ time. I want this to be more balanced in distribution, so organs are under a prob 25
-				switch(rand(5, 10))
-					if(5)
-						new /obj/item/organ/internal/cyberimp/arm/katana(src)
-					if(6)
-						new /obj/item/organ/internal/cyberimp/arm/toolset_abductor(src)
-					if(7)
-						new /obj/item/organ/internal/cyberimp/arm/esword(src)
-					if(8)
-						new /obj/item/organ/internal/heart/demon/pulse(src)
-					if(9)
-						new /obj/item/organ/internal/eyes/cybernetic/eyesofgod(src)
-					if(10) //Disected drone before the place got wiped. No hivenode.
-						new /obj/item/organ/internal/alien/plasmavessel/drone(src)
-						new /obj/item/organ/internal/alien/acidgland(src)
-						new /obj/item/organ/internal/alien/resinspinner(src)
+		if(prob(10))
+		new /obj/item/clothing/mask/facehugger(src) //Suprise! Storing facehuggers improperly is what lead to this mess.
 		return
-	new /obj/item/clothing/mask/facehugger(src) //Suprise! Storing facehuggers improperly is what lead to this mess.
+	var/spawn_type = pick(/obj/item/gun/energy/kinetic_accelerator/experimental, /obj/item/surveillance_upgrade, /obj/item/mod/module/stealth/ninja)
+	if(prob(25))
+		if(rand(1, 6) == 1) //organ time. I want this to be more balanced in distribution, so organs are under a prob 25
+			new /obj/item/organ/internal/alien/plasmavessel/drone(src)  //Disected drone before the place got wiped. No hivenode.
+			new /obj/item/organ/internal/alien/acidgland(src)
+			new /obj/item/organ/internal/alien/resinspinner(src)
+			return
+		spawn_type = pick(
+			/obj/item/organ/internal/cyberimp/arm/katana,
+			/obj/item/organ/internal/cyberimp/arm/toolset_abductor,
+			/obj/item/organ/internal/cyberimp/arm/esword,
+			/obj/item/organ/internal/heart/demon/pulse,
+			/obj/item/organ/internal/eyes/cybernetic/eyesofgod
+		)
+	new spawn_type(src)
