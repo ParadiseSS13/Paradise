@@ -399,7 +399,6 @@
 	var/obj/item/shield/changeling/S = ..(user)
 	if(!S)
 		return FALSE
-	S.remaining_uses = round(cling.absorbed_count * 3)
 	return TRUE
 
 /obj/item/shield/changeling
@@ -408,7 +407,7 @@
 	flags = NODROP | DROPDEL
 	icon_state = "ling_shield"
 
-	var/remaining_uses //Set by the changeling ability.
+	var/remaining_uses = 6
 
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
@@ -417,16 +416,19 @@
 		loc.visible_message("<span class='warning'>The end of [loc.name]\'s hand inflates rapidly, forming a huge shield-like mass!</span>", "<span class='warning'>We inflate our hand into a strong shield.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
 
 /obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	SEND_SIGNAL(owner, COMSIG_HUMAN_PARRY)
+	. = ..()
+	if(!.)
+		return
 	if(remaining_uses < 1)
 		if(ishuman(loc))
 			var/mob/living/carbon/human/H = loc
 			H.visible_message("<span class='warning'>With a sickening crunch, [H] reforms [H.p_their()] shield into an arm!</span>", "<span class='notice'>We assimilate our shield into our body</span>", "<span class='italics>You hear organic matter ripping and tearing!</span>")
 			H.unEquip(src, 1)
 		qdel(src)
-		return 0
+		return FALSE
 	else
 		remaining_uses--
-		return ..()
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
