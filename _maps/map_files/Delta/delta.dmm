@@ -832,12 +832,7 @@
 /area/station/hallway/secondary/entry)
 "ahm" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee,
-/obj/item/reagent_containers/glass/bottle/morphine{
-	pixel_y = 7;
-	pixel_x = -5
-	},
-/obj/item/cartridge/medical,
+/obj/machinery/computer/med_data/laptop,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/exam_room)
 "ahz" = (
@@ -25252,6 +25247,15 @@
 	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/starboard)
+"bvq" = (
+/obj/machinery/keycard_auth{
+	pixel_y = 26
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkblue"
+	},
+/area/station/medical/exam_room)
 "bvr" = (
 /obj/structure/table,
 /obj/item/storage/box/evidence,
@@ -67917,13 +67921,19 @@
 /area/station/science/explab)
 "eOt" = (
 /obj/structure/table/glass,
-/obj/machinery/computer/med_data/laptop{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/item/cartridge/medical{
+	pixel_y = 1;
+	pixel_x = 4
+	},
+/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/glass/bottle/morphine{
+	pixel_y = 7;
+	pixel_x = -5
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/exam_room)
@@ -68587,8 +68597,7 @@
 /area/station/command/office/ntrep)
 "fol" = (
 /obj/structure/table/glass,
-/obj/item/clothing/suit/straight_jacket,
-/obj/item/clothing/mask/muzzle,
+/obj/item/storage/box/patch_packs,
 /obj/item/phone{
 	pixel_x = -4;
 	pixel_y = 4
@@ -76728,7 +76737,9 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
 "mja" = (
-/obj/machinery/disposal,
+/obj/structure/table/glass,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -76908,9 +76919,6 @@
 	},
 /area/station/science/research)
 "moo" = (
-/obj/structure/table/glass,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -79873,6 +79881,14 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/xenobiology)
+"onL" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/station/medical/medbay)
 "oox" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -81155,7 +81171,6 @@
 /turf/simulated/floor/plating,
 /area/station/medical/reception)
 "pqM" = (
-/obj/effect/landmark/start/chief_medical_officer,
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "west bump";
@@ -81590,14 +81605,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/entry)
-"pIi" = (
-/obj/structure/chair/stool{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "whitebluefull"
-	},
-/area/station/medical/medbay)
 "pIn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -82464,7 +82471,10 @@
 	name = "south bump";
 	pixel_y = -30
 	},
-/obj/structure/closet/secure_closet/medical3,
+/obj/structure/table/glass,
+/obj/machinery/computer/med_data/laptop{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"
@@ -83872,13 +83882,10 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "rsY" = (
-/obj/structure/table/glass,
-/obj/machinery/computer/med_data/laptop{
-	dir = 4
-	},
 /obj/machinery/computer/guestpass{
 	pixel_x = -28
 	},
+/obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -137087,10 +137094,10 @@ cKY
 kWL
 cMq
 nxQ
-pIi
+faO
 cMq
 cMq
-dea
+onL
 oKb
 cMq
 cMq
@@ -139914,7 +139921,7 @@ cSO
 cSO
 cSO
 qvU
-sRh
+bvq
 ahm
 svp
 mKx
