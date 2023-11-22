@@ -593,6 +593,11 @@
 	name = "bone shard"
 	desc = "A serrated shard of bone laden with vicious barbs."
 	icon_state = "bone_star"
+	throwforce = 15
+	embedded_fall_chance = 5
+	embedded_impact_pain_multiplier = 3
+	embedded_unsafe_removal_pain_multiplier = 6
+	embedded_pain_chance = 10
 
 /obj/item/throwing_star/boneshard/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
