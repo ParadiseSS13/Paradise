@@ -340,7 +340,7 @@
 	id = "virus_analyzer"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 210, MAT_GLASS = 40)
-	build_path = /obj/item/virus_analyzer
+	build_path = /obj/item/healthanalyzer/virus_analyzer
 	category = list("initial","Medical")
 
 /datum/design/scalpel

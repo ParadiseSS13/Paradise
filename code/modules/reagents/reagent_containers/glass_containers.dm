@@ -114,7 +114,7 @@
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
 			label_text = t
-	else if(istype(I, /obj/item/virus_analyzer))
+	else if(istype(I, /obj/item/healthanalyzer/virus_analyzer))
 		var/datum/reagent/blood/BL = locate() in reagents.reagent_list
 		var/msg
 		if(BL)
