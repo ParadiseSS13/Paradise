@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, new/datum/virology_goal/virus, new/datum/virology_goal/virus/stealth))
+GLOBAL_LIST_EMPTY(virology_goals)
 
 /datum/virology_goal
 	var/name = "Generic Virology Goal"
@@ -94,23 +94,18 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 
 /datum/virology_goal/virus/New()
 	var/list/datum/symptom/symptoms = subtypesof(/datum/symptom)
-	if(!symptoms.len)
-		CRASH("NO LEN")
 	var/stealth = 0
-	var/debug
-	debug += "FIRED3_"
 	for(var/i=0, i<4, i++)
-		debug += "FIRED2_"
-		for(var/datum/symptom/S in symptoms)
-			debug += "FIRED_"
+		var/list/datum/symptom/candidates = list()
+		for(var/V in symptoms)
+			var/datum/symptom/S = V
 			if(stealth + S.stealth >= 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
-				debug += "SKIPPED_"
 				continue
-			debug += "REACHED_"
-			goal_symptoms += S
-			stealth += S.stealth
-			symptoms -= S
-	CRASH(debug)
+			candidates += S
+		var/datum/symptom/S2 = pick(candidates)
+		goal_symptoms += S2
+		stealth += S2.stealth
+		symptoms -= S2
 
 
 /datum/virology_goal/virus/get_report()
@@ -123,17 +118,12 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 	return {"A specific viral sample is required for confidential reasons. We need you to deliver [delivery_goal]u of viral samples with exactly only the following symptoms: [symptoms_list2text()] to us through the cargo shuttle."}
 
 /datum/virology_goal/virus/proc/symptoms_list2text()
-	var/msg = ""
-	var/index = 1
+	var/list/msg = list()
 	for(var/S in goal_symptoms)
 		var/datum/symptom/SY = new S()
-		if(index == goal_symptoms.len)
-			msg += "[SY]"
-		else
-			msg += "[SY], "
+		msg += "[SY]"
 		qdel(SY)
-		index += 1
-	return msg
+	return jointext(msg, ", ")
 
 /datum/virology_goal/virus/check_completion(list/datum/reagent/reagent_list)
 	. = FALSE
@@ -163,12 +153,16 @@ GLOBAL_LIST_INIT(virology_goals, list(new/datum/virology_goal/propertysymptom, n
 	var/list/datum/symptom/symptoms = subtypesof(/datum/symptom)
 	var/stealth = 0
 	for(var/i=0, i<4, i++)
-		for(var/datum/symptom/S in symptoms)
-			if(S.stealth >= 0 || stealth + S.stealth > 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
+		var/list/datum/symptom/candidates = list()
+		for(var/V in symptoms)
+			var/datum/symptom/S = V
+			if(stealth + S.stealth < 3) //The Pandemic cant detect a virus with stealth 3 or higher and we want that, this is a stealth virus
 				continue
-			goal_symptoms += S
-			stealth += S.stealth
-			symptoms -= S
+			candidates += S
+		var/datum/symptom/S2 = pick(candidates)
+		goal_symptoms += S2
+		stealth += S2.stealth
+		symptoms -= S2
 
 /datum/virology_goal/virus/stealth/get_report()
 	return {"<b>Specific Viral Sample Request (Stealth)</b><br>

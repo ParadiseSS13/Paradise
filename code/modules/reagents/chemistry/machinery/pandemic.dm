@@ -16,6 +16,8 @@
 /obj/machinery/computer/pandemic/Initialize(mapload)
 	. = ..()
 	update_icon()
+	if(GLOB.virology_goals.len == 0)
+		GLOB.virology_goals += list(new/datum/virology_goal/propertysymptom, new/datum/virology_goal/virus, new/datum/virology_goal/virus/stealth)
 	print_goal_orders()
 
 /obj/machinery/computer/pandemic/set_broken()
