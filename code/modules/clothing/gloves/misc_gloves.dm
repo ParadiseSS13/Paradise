@@ -86,7 +86,6 @@
 	icon_state = "clothwrap"
 	item_state = "clothwrap"
 	transfer_prints = TRUE
-	force = 0
 	clipped = TRUE
 
 /obj/item/clothing/gloves/batmangloves
