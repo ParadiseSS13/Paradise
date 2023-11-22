@@ -225,7 +225,7 @@
 	if(ismob(loc))
 		if(!silent)
 			loc.visible_message("<span class='warning'>[loc.name]\'s arm starts stretching inhumanly!</span>", "<span class='warning'>Our arm twists and mutates, transforming it into a tentacle.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
-			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, 1)
+			playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 		else
 			to_chat(loc, "<span class='notice'>You prepare to extend a tentacle.</span>")
 
