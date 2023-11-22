@@ -110,7 +110,7 @@
 		"Spelunker" = "supradio",
 		"Explorer" = "supradio",
 		"Spacer" = "supradio",
-		"Vanguard" = "supradio",
+		"Surveyor" = "supradio",
 		// Service
 		"Barber" = "srvradio",
 		"Bartender" = "srvradio",

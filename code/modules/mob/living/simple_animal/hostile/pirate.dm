@@ -26,7 +26,8 @@
 	speak_emote = list("yarrs")
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 			/obj/item/melee/energy/sword/pirate,
-			/obj/item/sellable/salvage/loot)
+			/obj/item/clothing/head/helmet/space/pirate,
+			/obj/item/sellable/salvage/loot/pirate)
 	del_on_death = TRUE
 	faction = list("pirate")
 	sentience_type = SENTIENCE_OTHER
@@ -50,5 +51,5 @@
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate,
 				/obj/item/gun/energy/laser,
 				/obj/item/clothing/head/helmet/space/pirate,
-				/obj/item/sellable/salvage/loot
+				/obj/item/sellable/salvage/loot/pirate
 				)
