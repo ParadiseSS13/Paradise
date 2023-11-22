@@ -273,8 +273,8 @@
 	origin_tech = "materials=5;programming=4;biotech=4"
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface/insert(mob/living/carbon/M, special = FALSE)
+	..()
 	ADD_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
-	return ..()
 
 /obj/item/organ/internal/cyberimp/brain/wire_interface/remove(mob/living/carbon/M, special = FALSE)
 	REMOVE_TRAIT(M, TRAIT_SHOW_WIRE_INFO, "show_wire_info[UID()]")
