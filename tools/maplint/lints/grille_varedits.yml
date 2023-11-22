@@ -1,0 +1,5 @@
+/obj/structure/grille:
+  banned_variables:
+  - icon_state
+  - density
+  - broken
