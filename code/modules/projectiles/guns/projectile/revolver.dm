@@ -369,7 +369,7 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/attack_self(mob/living/user)
 	var/num_unloaded = 0
-	var/obj/item/storage/belt/bandolier/B
+	var/obj/item/storage/belt/bandolier/Our_bandolier
 	for(var/obj/item/I in user.contents)
 		if(istype(I, /obj/item/storage/belt/bandolier))
 			B = I
