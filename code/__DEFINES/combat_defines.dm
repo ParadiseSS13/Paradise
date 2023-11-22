@@ -147,6 +147,7 @@
 
 #define EMP_HEAVY 1
 #define EMP_LIGHT 2
+#define EMP_WEAKENED 3
 
 /*
 * converts life cycle values into deciseconds. try and avoid usage of this.

@@ -82,10 +82,12 @@
 	if(!is_robotic() || emp_proof)
 		return
 	switch(severity)
-		if(1)
+		if(EMP_HEAVY)
 			receive_damage(20, 1)
-		if(2)
+		if(EMP_LIGHT)
 			receive_damage(7, 1)
+		if(EMP_WEAKENED)
+			receive_damage(3, 1)
 
 /obj/item/organ/internal/replaced(mob/living/carbon/human/target)
 	insert(target)

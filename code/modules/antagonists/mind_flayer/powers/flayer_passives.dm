@@ -8,36 +8,36 @@
 	///The level of the passive, used for upgrading passives. Basic level is 1
 	var/level = 0
 	var/max_level = 1
-	///The mob who the passive affects, is set in force_add_ability
+	///The mob who the passive affects, usually an IPC. Set in force_add_abillity
 	var/mob/living/owner
+	///The mindflayer datum we'll reference back to. Set in force_add_abillity
 	var/datum/antagonist/mindflayer/flayer
 	///The text shown to the player character when bought
-	var/gain_desc = "Someone forgot to add this text"
+	var/gain_text = "Someone forgot to add this text"
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
-	///How much it will cost to buy a passive, will increase as passive gets upgraded more.
+	///How much it will cost to buy a passive. Upgrading an ability increases the cost to the initial cost times the level.
 	var/cost = 30
-/datum/mindflayer_passive/New()
-	..()
-	flayer = ismindflayer(owner)
-	if(gain_desc)
-		flayer.send_swarm_message(gain_desc)
 
 ///For passives that need to use SSObj
 /datum/mindflayer_passive/processed
 
+/datum/mindflayer_passive/Destroy(force, ...)
+	. = ..()
+	on_remove()
+
 /datum/mindflayer_passive/processed/New()
-	..()
 	START_PROCESSING(SSobj, src)
 
 /datum/mindflayer_passive/processed/Destroy(force, ...)
-	. = ..()
+	..()
 	STOP_PROCESSING(SSobj, src)
 
-///You'll want to call ..() at the start of every passive's on_apply, Returns false if it couldn't get upgraded
+///Returns false if it couldn't get upgraded, Call ..() at the start of every passive's on_apply
 /datum/mindflayer_passive/proc/on_apply()
 	if(level >= max_level)
 		flayer.send_swarm_message("We cannot upgrade this aspect further.")
 		return FALSE
+	flayer.send_swarm_message("[level ? upgrade_text : gain_text]") //This will only be false when level = 0, when first bought
 	level++
 	cost = initial(cost) * level
 
@@ -51,7 +51,7 @@
 /datum/mindflayer_passive/armored_plating
 	purchase_text = "Increase your natural armor."
 	upgrade_text = "The swarm adds more layers of armored nanites, strengthening the plating even more."
-	gain_desc = "You feel your plating being reinforced by the swarm."
+	gain_text = "You feel your plating being reinforced by the swarm."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 10
 	var/armor_value = 0
@@ -70,7 +70,7 @@
 /datum/mindflayer_passive/fluid_feet
 	purchase_text = "Mute your footsteps, then upgrade to become mostly unslippable."
 	upgrade_text = "Your feet become even more malleable, seemingly melting into the floor; you feel oddly stable."
-	gain_desc = "Your limbs start slowly melting into the floor."
+	gain_text = "Your limbs start slowly melting into the floor."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 2
 
@@ -89,7 +89,7 @@
 /datum/mindflayer_passive/new_crit
 	purchase_text = "I give up, IPCs are based now"
 	upgrade_text = "Add this later"
-	gain_desc = "Ayyyy lmao"
+	gain_text = "Ayyyy lmao"
 	power_type = FLAYER_PURCHASABLE_POWER //Just for testing
 
 /datum/mindflayer_passive/new_crit/on_apply()
@@ -97,28 +97,43 @@
 
 /datum/mindflayer_passive/badass
 	purchase_text = "Make yourself more badass, allowing you to dual wield guns with no penalty, alongside other benefits."
-	gain_desc = "Engaging explosion apathy protocols."
+	gain_text = "Engaging explosion apathy protocols."
 	power_type = FLAYER_PURCHASABLE_POWER
 	cost = 100
 
 /datum/mindflayer_passive/badass/on_apply()
+	..()
 	ADD_TRAIT(owner, TRAIT_BADASS, src)
 
 /datum/mindflayer_passive/badass/on_remove()
 	REMOVE_TRAIT(owner, TRAIT_BADASS, src)
 
+/datum/mindflayer_passive/emp_resist
+	purchase_text = "Resist EMP effects, level 2 negates them entirely."
+	upgrade_text = "Faraday cage at max efficiency."
+	gain_text = "Faraday cage operational."
+	power_type = FLAYER_PURCHASABLE_POWER
+	max_level = 2
+
+/datum/mindflayer_passive/emp_resist/on_apply()
+	..()
+	switch(level)
+		if(1)
+			ADD_TRAIT(owner, TRAIT_EMP_RESIST, src)
+		if(2)
+			ADD_TRAIT(owner, TRAIT_EMP_IMMUNE, src)
+
+/datum/mindflayer_passive/emp_resist/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_EMP_IMMUNE, src)
+	REMOVE_TRAIT(owner, TRAIT_EMP_RESIST, src)
+
 /datum/mindflayer_passive/processed/regen
 	purchase_text = "Regain HP passively, level scales the amount healed."
 	upgrade_text = "Our regeneration accelerates."
-	gain_desc = "Diverting resources to repairing chassis."
+	gain_text = "Diverting resources to repairing chassis."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
 
 /datum/mindflayer_passive/processed/regen/process()
 	owner.heal_overall_damage(level, level) //Heals 1 brute/burn for each level of the passive
 
-//MINION PASSIVES
-/datum/mindflayer_passive/processed/regen/minion // Note: this isn't something that should be handled here, namely it should be done in the summon mobs spell file, which I'll implement later
-	purchase_text = "Your minions will passively regenerate health."
-	upgrade_text = "The swarms begin replicating and repairing themselves at an alarming rate."
-	gain_desc = "Commanding all autonomous units to begin self-repair protocol."

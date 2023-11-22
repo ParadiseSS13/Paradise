@@ -49,7 +49,7 @@
 /datum/antagonist/mindflayer/proc/adjust_swarms(amount, bound_lower = 0, bound_upper = INFINITY)
 	set_swarms(directional_bounded_sum(usable_swarms, amount, bound_lower, bound_upper), TRUE)
 
-//This is mostly for flavor, for framing messages as coming from the swarm itself.
+//This is mostly for flavor, for framing messages as coming from the swarm itself. The other reason is so I can type "span" less.
 /datum/antagonist/mindflayer/proc/send_swarm_message(message)
 	to_chat(owner.current, "<span class='sinister'>\"" + message + "\"</span>")
 
@@ -125,7 +125,7 @@
 	return powers
 
 /**
-* Adds an ability to a mindflayer if they don't already have it, upgrades it if they do.
+* Adds an ability to a mindflayer if they don't already have it, upgrades it if they do. It's needlessly complicated because it automatically sorts spells/passive, and unlocks/upgrades.
 * Arguments:
 * * path - Some path to a passive or spell, either datum/mindflayer_passive or obj/effect/proc_holder/spell
 * * set_owner - An optional datum/antagonist/mindflayer if the owner of the new ability needs to be set manually
@@ -144,10 +144,11 @@
 		if(set_owner)
 			power.flayer = src
 		owner.AddSpell(power)
-	if(ispassive(spell))
+	if(ispassive(spell)) //Passives always need to have their owners set here
 		var/datum/mindflayer_passive/passive = spell
+		passive.flayer = src
 		passive.owner = owner.current
-		passive.on_apply(src)
+		passive.on_apply()
 	powers += spell
 
 /datum/antagonist/mindflayer/proc/force_upgrade_ability(path, upgrade_type)
@@ -157,7 +158,7 @@
 		power.on_purchase_upgrade(upgrade_type)
 	if(ispassive(spell))
 		var/datum/mindflayer_passive/passive = spell
-		passive.on_apply(src)
+		passive.on_apply()
 
 /datum/antagonist/mindflayer/proc/remove_ability(path)
 	if(get_ability(path))

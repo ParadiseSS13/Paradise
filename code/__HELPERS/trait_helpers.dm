@@ -219,6 +219,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
+#define TRAIT_EMP_IMMUNE "emp_immune" //The mob will take no damage from EMPs
+#define TRAIT_EMP_RESIST "emp_resist" //The mob will take less damage from EMPs
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
