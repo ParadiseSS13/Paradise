@@ -6399,7 +6399,7 @@
 	pixel_x = 27
 	},
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -6981,7 +6981,7 @@
 /area/station/maintenance/fsmaint)
 "aIp" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "aIq" = (
@@ -11137,7 +11137,7 @@
 /area/station/maintenance/fsmaint)
 "aUy" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -15060,7 +15060,7 @@
 "beK" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/patch/silver_sulf,
 /obj/item/stamp/ce,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -23136,7 +23136,7 @@
 /area/station/service/hydroponics)
 "byM" = (
 /obj/structure/table/wood/poker,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "byP" = (
@@ -30628,7 +30628,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/dice/d20,
 /obj/item/dice,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "bWF" = (
@@ -31837,7 +31837,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/structure/table/wood,
 /obj/machinery/camera{
 	c_tag = "Library Quiet Room";
@@ -57578,8 +57578,7 @@
 	},
 /obj/machinery/computer/aiupload,
 /obj/machinery/door/window/classic/reversed{
-	name = "Upload Console Window";
-	dir = 2
+	name = "Upload Console Window"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -60371,7 +60370,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/effect/landmark/start/barber,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
@@ -62380,18 +62378,18 @@
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
+/obj/item/reagent_containers/patch/styptic{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
+/obj/item/reagent_containers/patch/styptic{
 	pixel_x = 2;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+/obj/item/reagent_containers/patch/silver_sulf{
 	pixel_x = -8;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+/obj/item/reagent_containers/patch/silver_sulf{
 	pixel_x = -8;
 	pixel_y = 8
 	},
@@ -66177,8 +66175,7 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	name = "Request Window";
-	dir = 2
+	name = "Request Window"
 	},
 /obj/item/pen,
 /obj/item/paper,
@@ -69135,7 +69132,6 @@
 	dir = 1
 	},
 /obj/machinery/door/window/classic/normal{
-	dir = 2;
 	name = "Reception Window"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -74690,7 +74686,7 @@
 /area/station/maintenance/fore)
 "pcD" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
@@ -76940,8 +76936,7 @@
 	},
 /obj/machinery/computer/borgupload,
 /obj/machinery/door/window/classic/normal{
-	name = "Cyborg Upload Console Window";
-	dir = 2
+	name = "Cyborg Upload Console Window"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
@@ -84321,7 +84316,6 @@
 /obj/item/camera{
 	desc = "A one use - polaroid camera. 30 photos left.";
 	name = "detective's camera";
-	pictures_left = 30;
 	pixel_x = -2;
 	pixel_y = 3
 	},
@@ -87415,8 +87409,7 @@
 /area/station/hallway/secondary/entry)
 "uWQ" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Court Cell";
-	dir = 2
+	name = "Court Cell"
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -93625,7 +93618,7 @@
 /area/station/science/toxins/mixing)
 "xUA" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;

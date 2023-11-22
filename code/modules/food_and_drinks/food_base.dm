@@ -11,13 +11,6 @@
 	var/junkiness = 0
 	var/bitesize = 2
 	var/consume_sound = 'sound/items/eatfood.ogg'
-	var/apply_type = REAGENT_INGEST
-	var/apply_method = "swallow"
-	var/transfer_efficiency = 1.0
-	/// If we want to bypass the forcedfeed delay
-	var/instant_application = 0
-	/// Whether you can taste eating from this
-	var/can_taste = TRUE
 	/// Will ants infest it?
 	var/antable = TRUE
 	/// Location checked every 5 minutes. If its the same place, the food has a chance to spawn ants
