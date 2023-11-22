@@ -81,7 +81,7 @@
 	chemical_cost = 25
 	dna_cost = 1
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_UTILITY
+	menu_location = CLING_MENU_STINGS
 
 /datum/action/changeling/sting/extract_dna/can_sting(mob/user, mob/target)
 	if(..())
