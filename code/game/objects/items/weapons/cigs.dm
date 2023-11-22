@@ -54,7 +54,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/clothing/mask/cigarette/proc/can_light(obj/item/lighting_item)
+/obj/item/clothing/mask/cigarette/proc/can_light(obj/item/cigarette, obj/item/lighting_item)
+	SIGNAL_HANDLER
 	if(lighting_item.get_heat())
 		light()
 		return COMPONENT_CANCEL_ATTACK_CHAIN
