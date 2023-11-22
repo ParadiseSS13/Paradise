@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(show_message)
 		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
-	UnregisterSignal(cult_mind.current, COMSIG_MOB_DEATH)
+	UnregisterSignal(cult_mind.current, COMSIG_MOB_STATCHANGE)
 
 /datum/game_mode/proc/add_cult_immunity(mob/living/target)
 	ADD_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)
@@ -262,6 +262,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	return cultists + constructs
 
 /datum/game_mode/proc/check_cult_size()
+	SIGNAL_HANDLER // COMSIG_MOB_STATCHANGE from cultists
 	var/cult_players = get_cultists()
 
 	if(cult_ascendant)
