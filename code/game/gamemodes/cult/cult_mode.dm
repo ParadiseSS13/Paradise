@@ -166,6 +166,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		check_cult_size()
 		cult_objs.study(cult_mind.current)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
+		RegisterSignal(cult_mind.current, COMSIG_MOB_STATCHANGE, PROC_REF(check_cult_size))
 		return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
@@ -205,6 +206,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(show_message)
 		cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
 		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
+	UnregisterSignal(cult_mind.current, COMSIG_MOB_DEATH)
 
 /datum/game_mode/proc/add_cult_immunity(mob/living/target)
 	ADD_TRAIT(target, TRAIT_CULT_IMMUNITY, CULT_TRAIT)
@@ -249,7 +251,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/cultists = 0
 	var/constructs = 0
 	for(var/datum/mind/M as anything in cult)
-		if(M.current.stat == DEAD)
+		if(QDELETED(M) || M.current?.stat == DEAD)
 			continue
 		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 			cultists++
@@ -264,7 +266,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 
 	if(cult_ascendant)
 		// The cult only falls if below 1/2 of the rising, usually pretty low. e.g. 5% on highpop, 10% on lowpop
-		if(cult_players < rise_number / 2)
+		if(cult_players < (rise_number / 2))
 			cult_fall()
 		return
 
