@@ -9,10 +9,7 @@
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
 "ad" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard{
 	icon_state = "small"
 	},
@@ -35,10 +32,7 @@
 	},
 /area/ruin/space/unpowered)
 "ah" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/item/shard,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"
@@ -307,10 +301,7 @@
 	},
 /area/ruin/space/unpowered)
 "be" = (
-/obj/structure/grille{
-	density = 0;
-	icon_state = "brokengrille"
-	},
+/obj/structure/grille/broken,
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/wood,
 /area/ruin/space/unpowered)
