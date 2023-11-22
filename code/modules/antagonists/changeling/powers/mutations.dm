@@ -75,7 +75,7 @@
 	var/mob/living/carbon/human/H = user
 	if(istype(H.wear_suit, suit_type) || istype(H.head, helmet_type))
 		H.visible_message("<span class='warning'>[H] casts off [H.p_their()] [suit_name_simple]!</span>", "<span class='warning'>We cast off our [suit_name_simple].</span>", "<span class='warning'>You hear the organic matter ripping and tearing!</span>")
-		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, 1)
+		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		qdel(H.wear_suit)
 		qdel(H.head)
 		H.update_inv_wear_suit()
