@@ -32,7 +32,7 @@
 	user.put_in_hands(W)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
-	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, 1)
+	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 	return W
 
 /datum/action/changeling/weapon/proc/retract(atom/target, any_hand = FALSE)
