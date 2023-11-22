@@ -248,16 +248,16 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/proc/get_cultists(separate = FALSE)
 	var/cultists = 0
 	var/constructs = 0
-	for(var/I in cult)
-		var/datum/mind/M = I
+	for(var/datum/mind/M as anything in cult)
+		if(M.current.stat == DEAD)
+			continue
 		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 			cultists++
 		else if(isconstruct(M.current))
 			constructs++
 	if(separate)
 		return list(cultists, constructs)
-	else
-		return cultists + constructs
+	return cultists + constructs
 
 /datum/game_mode/proc/check_cult_size()
 	var/cult_players = get_cultists()
