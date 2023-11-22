@@ -234,7 +234,7 @@
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WILLINGLY_DROP)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 		parent_action = null
-		playsound(loc, 'sound/effects/bone_break_2.ogg', 100, 1)
+		playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 	return ..()
 
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
