@@ -15,7 +15,6 @@
 	male_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 	female_sneeze_sound = 'sound/voice/drasksneeze.ogg'
 
-	burn_mod = 1.5
 	//exotic_blood = "cryoxadone"
 	body_temperature = 273
 
@@ -46,7 +45,7 @@
 	heat_level_1 = 310 //Default 370 - Higher is better
 	heat_level_2 = 340 //Default 400
 	heat_level_3 = 400 //Default 460
-	heatmod = 2 // 3 * more damage from body temp
+	heatmod = 3 // 3 * more damage from body temp
 
 	flesh_color = "#a3d4eb"
 	reagent_tag = PROCESS_ORG
