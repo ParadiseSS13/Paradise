@@ -233,3 +233,8 @@
 	path = /obj/item/id_skin/terminal
 	donator_tier = 4
 	cost = 3
+
+/datum/gear/donor/breathscarf
+	display_name = "Шарф с системой дыхания"
+	path = /obj/item/clothing/mask/breath/breathscarf
+	cost = 2
