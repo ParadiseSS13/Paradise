@@ -33,6 +33,8 @@
 	flags_cover = HEADCOVERSEYES
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
+	cold_protection = HEAD
+	heat_protection = HEAD
 	armor = list(MELEE = 20, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 50, RAD = 50, FIRE = 50, ACID = 50)
 	resistance_flags = FIRE_PROOF
 

@@ -147,7 +147,7 @@
 	canSmoothWith = list(SMOOTH_GROUP_FLOOR_LAVA)
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
-	temperature = 300
+	temperature = 500
 	oxygen = 14
 	nitrogen = 23
 	planetary_atmos = TRUE

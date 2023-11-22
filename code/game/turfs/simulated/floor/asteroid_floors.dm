@@ -147,7 +147,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	oxygen = 14
 	nitrogen = 23
-	temperature = 300
+	temperature = 500
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 
