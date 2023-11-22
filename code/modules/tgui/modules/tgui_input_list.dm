@@ -15,11 +15,10 @@
 	if(!length(buttons))
 		return
 	if(!istype(user))
-		if(istype(user, /client))
-			var/client/client = user
-			user = client.mob
-		else
+		if(!isclient(user))
 			return
+		var/client/client = user
+		user = client.mob
 	var/datum/tgui_list_input/input = new(user, message, title, buttons, timeout)
 	input.ui_interact(user)
 	input.wait()
@@ -45,12 +44,11 @@
 	if(!length(buttons))
 		return
 	if(!istype(user))
-		if(istype(user, /client))
-			var/client/client = user
-			user = client.mob
-		else
+		if(!isclient(user))
 			return
-	var/datum/tgui_list_input/async/input = new(user, message, title, buttons, callback, timeout)
+		var/client/client = user
+		user = client.mob
+	var/datum/tgui_list_input/async/input = new(user, message, title, buttons, timeout, callback)
 	input.ui_interact(user)
 
 /**
@@ -135,20 +133,20 @@
 		data["timeout"] = clamp((timeout - (world.time - start_time) - 1 SECONDS) / (timeout - 1 SECONDS), 0, 1)
 
 /datum/tgui_list_input/ui_act(action, list/params)
-	. = ..()
-	if(.)
+	if(..())
 		return
+
+	. = TRUE
+
 	switch(action)
 		if("choose")
 			if(!(params["choice"] in buttons))
 				return
 			choice = buttons_map[params["choice"]]
 			SStgui.close_uis(src)
-			return TRUE
 		if("cancel")
 			SStgui.close_uis(src)
 			closed = TRUE
-			return TRUE
 
 /**
  * # async tgui_list_input
@@ -159,8 +157,8 @@
 	/// The callback to be invoked by the tgui_list_input upon having a choice made.
 	var/datum/callback/callback
 
-/datum/tgui_list_input/async/New(mob/user, message, title, list/buttons, callback, timeout)
-	..(user, title, message, buttons, timeout)
+/datum/tgui_list_input/async/New(mob/user, message, title, list/buttons, timeout, callback)
+	..()
 	src.callback = callback
 
 /datum/tgui_list_input/async/Destroy(force, ...)

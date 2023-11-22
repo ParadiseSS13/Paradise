@@ -8,9 +8,7 @@ import { clamp01 } from 'common/math';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Section, Input } from '../components';
 import { Window } from '../layouts';
-
-const ARROW_KEY_UP = 38;
-const ARROW_KEY_DOWN = 40;
+import { ARROW_KEY_UP, ARROW_KEY_DOWN } from '../hotkeys';
 
 let lastScrollTime = 0;
 
@@ -68,7 +66,6 @@ export const ListInput = (props, context) => {
               flexGrow="1"
               scrollable
               fill
-              autoFocus
               title={message}
               tabIndex={1}
               onKeyDown={(e) => {
@@ -220,7 +217,7 @@ export const ListInput = (props, context) => {
   );
 };
 
-export const Loader = (props) => {
+const Loader = (props) => {
   const { value } = props;
   return (
     <div className="ListInput__Loader">
