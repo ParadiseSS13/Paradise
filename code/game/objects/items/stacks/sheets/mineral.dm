@@ -419,6 +419,7 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	new /datum/stack_recipe("plas-titanium tile", /obj/item/stack/tile/mineral/plastitanium, 1, 4, 20),
 	new /datum/stack_recipe("Kidan Warrior Statue", /obj/structure/statue/plastitanium/kidanstatue, 5, time = 2.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("reinforced wheelchair", /obj/structure/chair/wheelchair/plastitanium, 15, time = 7 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 	))
 
 /obj/item/stack/sheet/mineral/plastitanium/New(loc, amount=null)
@@ -440,6 +441,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	throw_speed = 1
 	origin_tech = "materials=6;abductor=1"
 	sheettype = "abductor"
+	merge_type = /obj/item/stack/sheet/mineral/abductor
 	table_type = /obj/structure/table/abductor
 
 /obj/item/stack/sheet/mineral/abductor/fifty

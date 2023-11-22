@@ -17,14 +17,15 @@
 	var/measured_health = 0 // Used for measuring health; we don't want this to stop applying once the person's health isn't changing.
 	var/static/list/safe_chem_applicator_list = list("silver_sulfadiazine", "styptic_powder", "synthflesh")
 
+/obj/item/reagent_containers/applicator/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> to empty it.</span>"
+
 /obj/item/reagent_containers/applicator/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		ignore_flags = TRUE
 		to_chat(user, "<span class='warning'>You short out the safeties on [src].</span>")
-
-/obj/item/reagent_containers/applicator/set_APTFT()
-	set hidden = TRUE
 
 /obj/item/reagent_containers/applicator/on_reagent_change()
 	if(!emagged)
@@ -120,18 +121,14 @@
 
 		playsound(get_turf(src), pick('sound/goonstation/items/mender.ogg', 'sound/goonstation/items/mender2.ogg'), 50, 1)
 
-/obj/item/reagent_containers/applicator/verb/empty()
-	set name = "Empty Applicator"
-	set category = "Object"
-	set src in usr
-
-	if(usr.incapacitated())
+/obj/item/reagent_containers/applicator/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(alert(usr, "Are you sure you want to empty [src]?", "Empty Applicator:", "Yes", "No") != "Yes")
+	if(alert(user, "Are you sure you want to empty [src]?", "Empty Applicator:", "Yes", "No") != "Yes")
 		return
-	if(!usr.incapacitated() && isturf(usr.loc) && loc == usr)
-		to_chat(usr, "<span class='notice'>You empty [src] onto the floor.</span>")
-		reagents.reaction(usr.loc)
+	if(!user.incapacitated() && isturf(user.loc) && loc == user)
+		to_chat(user, "<span class='notice'>You empty [src] onto the floor.</span>")
+		reagents.reaction(user.loc)
 		reagents.clear_reagents()
 
 /obj/item/reagent_containers/applicator/brute

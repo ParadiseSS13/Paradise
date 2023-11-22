@@ -164,7 +164,7 @@
 	return TRUE
 
 /obj/screen/storage/proc/is_item_accessible(obj/item/I, mob/user)
-	if (!user || !I)
+	if(!user || !I)
 		return FALSE
 
 	var/storage_depth = I.storage_depth(user)
@@ -279,6 +279,7 @@
 	if(!isobserver(usr) && hovering)
 		cut_overlay(hover_overlays_cache[hovering])
 	hovering = null
+	return ..()
 
 /obj/screen/zone_sel/proc/get_zone_at(icon_x, icon_y)
 	switch(icon_y)

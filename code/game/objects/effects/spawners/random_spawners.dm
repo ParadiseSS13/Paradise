@@ -193,7 +193,6 @@
 	result = list(/datum/nothing = 1,
 		/obj/machinery/porta_turret/syndicate/exterior = 1)
 
-
 // Mobs
 
 /obj/effect/spawner/random_spawners/syndicate/mob
@@ -321,7 +320,7 @@
 		/obj/item/borg/upgrade/selfrepair = 1,
 		/obj/item/stack/sheet/mineral/diamond{amount = 10} = 1,
 		/obj/item/stack/sheet/mineral/uranium{amount = 10} = 1,
-		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
+		/obj/item/clothing/shoes/magboots/elite = 1,
 		/obj/item/grenade/empgrenade = 1,
 		/obj/item/grenade/clown_grenade = 1,
 		/obj/item/grenade/spawnergrenade/feral_cats = 1,

@@ -281,7 +281,7 @@
 		return 0
 
 	if(affecting)
-		if(!isturf(assailant.loc) || ( !isturf(affecting.loc) || assailant.loc != affecting.loc && get_dist(assailant, affecting) > 1) )
+		if(!isturf(assailant.loc) || ( !isturf(affecting.loc) || assailant.loc != affecting.loc && get_dist(assailant, affecting) > 1))
 			qdel(src)
 			return 0
 	return 1
@@ -308,6 +308,8 @@
 					return
 
 				if(INTENT_HARM) //This checks that the user is on harm intent.
+					if(HAS_TRAIT(user, TRAIT_PACIFISM))
+						return
 					if(last_hit_zone == "head") //This checks the hitzone the user has selected. In this specific case, they have the head selected.
 						if(IS_HORIZONTAL(affecting))
 							return

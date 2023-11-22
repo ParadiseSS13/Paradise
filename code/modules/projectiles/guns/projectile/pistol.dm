@@ -13,6 +13,7 @@
 	can_suppress = TRUE
 	burst_size = 1
 	fire_delay = 0
+	execution_speed = 4 SECONDS
 	actions_types = list()
 
 /obj/item/gun/projectile/automatic/pistol/update_icon_state()
@@ -48,7 +49,6 @@
 	options["Green Handle"] = "enforcer_greengrip"
 	options["Tan Handle"] = "enforcer_tangrip"
 	options["Red Handle"] = "enforcer_redgrip"
-	options["Cancel"] = null
 
 /obj/item/gun/projectile/automatic/pistol/enforcer/update_icon_state()
 	if(current_skin)

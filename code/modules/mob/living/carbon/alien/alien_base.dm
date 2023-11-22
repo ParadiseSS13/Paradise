@@ -120,10 +120,10 @@
 
 /mob/living/carbon/alien/Stat()
 	..()
-	statpanel("Status")
-	stat(null, "Intent: [a_intent]")
-	stat(null, "Move Mode: [m_intent]")
-	show_stat_emergency_shuttle_eta()
+	if(statpanel("Status"))
+		stat(null, "Intent: [a_intent]")
+		stat(null, "Move Mode: [m_intent]")
+		show_stat_emergency_shuttle_eta()
 
 /mob/living/carbon/alien/SetStunned(amount, updating = TRUE, force = 0)
 	..()

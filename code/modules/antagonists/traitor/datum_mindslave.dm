@@ -58,13 +58,12 @@
 	add_antag_objective(/datum/objective/protect/mindslave, explanation_text, master)
 
 /datum/antagonist/mindslave/greet()
-	var/mob/living/carbon/human/mindslave = owner.current
 	// Show them the custom greeting text if it exists.
 	if(greet_text)
-		to_chat(mindslave, "<span class='biggerdanger'>[greet_text]</span>")
+		return "<span class='biggerdanger'>[greet_text]</span>"
 	else // Default greeting text if nothing is given.
-		to_chat(mindslave, "<span class='biggerdanger'><B>You are now completely loyal to [master.current.name]!</B> \
-							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>")
+		return "<span class='biggerdanger'><b>You are now completely loyal to [master.current.name]!</b> \
+							You must lay down your life to protect [master.current.p_them()] and assist in [master.current.p_their()] goals at any cost.</span>"
 
 /datum/antagonist/mindslave/farewell()
 	if(owner && owner.current)

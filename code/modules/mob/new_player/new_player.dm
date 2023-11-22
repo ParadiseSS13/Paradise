@@ -90,7 +90,7 @@
 	return
 
 /mob/new_player/Stat()
-	. = ..()
+	..()
 	if(statpanel("Status") && SSticker)
 		if(!SSticker.hide_mode)
 			stat("Game Mode: [GLOB.master_mode]")
@@ -186,8 +186,9 @@
 			src << browse(null, "window=playersetup")
 			spawning = TRUE
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
-
-
+			if(SSticker.current_state < GAME_STATE_PLAYING)
+				GLOB.roundstart_observer_keys |= ckey
+				to_chat(src, "<span class='notice'>As you observed before the round started, you can freely toggle antag-hud without losing respawnability.</span>")
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
@@ -203,7 +204,7 @@
 			observer.real_name = client.prefs.active_character.real_name
 			observer.name = observer.real_name
 			observer.key = key
-			observer.add_to_respawnable_list()
+			ADD_TRAIT(observer, TRAIT_RESPAWNABLE, GHOSTED)
 			qdel(src)
 			return TRUE
 		return FALSE
@@ -446,7 +447,7 @@
 
 	var/dat = "<html><body><center>"
 	dat += "Round Duration: [round(hours)]h [round(mins)]m<br>"
-	dat += "<b>The station alert level is: [get_security_level_colors()]</b><br>"
+	dat += "<b>The station alert level is: [SSsecurity_level.get_colored_current_security_level_name()]</b><br>"
 
 	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
 		dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"

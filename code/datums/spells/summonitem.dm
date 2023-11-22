@@ -55,9 +55,22 @@
 
 		else	//Getting previously marked item
 			var/obj/item_to_retrieve = marked_item
+			var/visible_item = TRUE //Items that silently disappear will have the message suppressed
 			var/infinite_recursion = 0 //I don't want to know how someone could put something inside itself but these are wizards so let's be safe
 
 			while(!isturf(item_to_retrieve.loc) && infinite_recursion < 10) //if it's in something you get the whole thing.
+				if(istype(item_to_retrieve.loc, /obj/item/organ/internal/headpocket))
+					var/obj/item/organ/internal/headpocket/pocket = item_to_retrieve.loc
+					if(pocket.owner)
+						to_chat(pocket.owner, "<span class='warning'>Your [pocket.name] suddenly feels lighter. How strange!</span>")
+					visible_item = FALSE
+					break
+				if(istype(item_to_retrieve.loc, /obj/item/storage/hidden/implant)) //The implant should be left alone
+					var/obj/item/storage/S = item_to_retrieve.loc
+					for(var/mob/M in S.mobs_viewing)
+						to_chat(M, "<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
+					visible_item = FALSE
+					break
 				if(ismob(item_to_retrieve.loc)) //If its on someone, properly drop it
 					var/mob/M = item_to_retrieve.loc
 
@@ -78,9 +91,14 @@
 								if(!C.has_embedded_objects())
 									C.clear_alert("embeddedobject")
 								break
+							if(item_to_retrieve == part.hidden)
+								visible_item = FALSE
+								part.hidden = null
+								to_chat(C, "<span class='warning'>Your [part.name] suddenly feels emptier. How weird!</span>")
+								break
 
 				else
-					if(istype(item_to_retrieve.loc,/obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
+					if(istype(item_to_retrieve.loc, /obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
 						var/obj/machinery/atmospherics/portable/P = item_to_retrieve.loc
 						P.disconnect()
 						P.update_icon()
@@ -100,8 +118,8 @@
 			if(!isturf(target.loc))
 				to_chat(target, "<span class='caution'>You attempt to cast the spell, but it fails! Perhaps you aren't available?</span>")
 				return
-
-			item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
+			if(visible_item)
+				item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
 
 
 			if(target.hand) //left active hand

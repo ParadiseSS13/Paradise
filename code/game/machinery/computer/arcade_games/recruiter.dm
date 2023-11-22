@@ -39,7 +39,7 @@
 	var/list/incorrect_planets = list("Eath", "Marks", "Lunao", "Jabon 4", "Old Canaan", "Mauna-P",
 									"Daohmai", "Gomhes", "Zrerrballak", "Xarqis", "Soorlm", "Urum", "Baron 1", "Kelunte", "Daltedt")
 
-	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Barber", "Botanist", "Explorer", "Quartermaster",
+	var/list/jobs = list("Assistant", "Clown", "Chef", "Janitor", "Bartender", "Botanist", "Explorer", "Quartermaster",
 						"Station Engineer", "Atmospheric Technician", "Medical Doctor", "Coroner", "Geneticist", "Chaplain", "Librarian",
 						"Security Officer", "Detective", "Scientist", "Roboticist", "Shaft Miner", "Cargo Technician", "Internal Affairs Agent")
 	/// Jobs that NT stations dont offer/mispelled
@@ -86,7 +86,7 @@
 										/datum/species/diona, /datum/species/machine, /datum/species/slime,
 										/datum/species/moth, /datum/species/vox)
 	/// Species that are NOT hirable in the eyes of NT
-	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey, /datum/species/nucleation,
+	var/list/incorrect_species = list(/datum/species/abductor, /datum/species/monkey,
 										/datum/species/shadow, /datum/species/skeleton, /datum/species/golem)
 
 	/// Is he a good candidate for hiring?

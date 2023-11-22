@@ -40,10 +40,10 @@
 /obj/item/latexballon/ex_act(severity)
 	burst()
 	switch(severity)
-		if (1)
+		if(1)
 			qdel(src)
-		if (2)
-			if (prob(50))
+		if(2)
+			if(prob(50))
 				qdel(src)
 
 /obj/item/latexballon/bullet_act(obj/item/projectile/P)

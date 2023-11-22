@@ -390,31 +390,31 @@
 			if("Yes")		delmob = 1
 
 		switch(href_list["simplemake"])
-			if("observer")			M.change_mob_type( /mob/dead/observer , null, null, delmob, 1 )
-			if("drone")				M.change_mob_type( /mob/living/carbon/alien/humanoid/drone , null, null, delmob, 1 )
-			if("hunter")			M.change_mob_type( /mob/living/carbon/alien/humanoid/hunter , null, null, delmob, 1 )
-			if("queen")				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen/large , null, null, delmob, 1 )
-			if("sentinel")			M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob, 1 )
-			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob, 1 )
+			if("observer")			M.change_mob_type( /mob/dead/observer , null, null, delmob, 1)
+			if("drone")				M.change_mob_type( /mob/living/carbon/alien/humanoid/drone , null, null, delmob, 1)
+			if("hunter")			M.change_mob_type( /mob/living/carbon/alien/humanoid/hunter , null, null, delmob, 1)
+			if("queen")				M.change_mob_type( /mob/living/carbon/alien/humanoid/queen/large , null, null, delmob, 1)
+			if("sentinel")			M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob, 1)
+			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob, 1)
 			if("human")
 				var/posttransformoutfit = usr.client.robust_dress_shop()
 				var/mob/living/carbon/human/newmob = M.change_mob_type(/mob/living/carbon/human, null, null, delmob, 1)
 				if(posttransformoutfit && istype(newmob))
 					newmob.equipOutfit(posttransformoutfit)
-			if("slime")				M.change_mob_type( /mob/living/simple_animal/slime , null, null, delmob, 1 )
-			if("monkey")			M.change_mob_type( /mob/living/carbon/human/monkey , null, null, delmob, 1 )
-			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1 )
-			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1 )
-			if("runtime")			M.change_mob_type( /mob/living/simple_animal/pet/cat/Runtime , null, null, delmob, 1 )
-			if("corgi")				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob, 1 )
-			if("crab")				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob, 1 )
-			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/Coffee , null, null, delmob, 1 )
-			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1 )
-			if("polyparrot")		M.change_mob_type( /mob/living/simple_animal/parrot/Poly , null, null, delmob, 1 )
-			if("constructarmoured")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/armoured , null, null, delmob, 1 )
-			if("constructbuilder")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/builder , null, null, delmob, 1 )
-			if("constructwraith")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/wraith , null, null, delmob, 1 )
-			if("shade")				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob, 1 )
+			if("slime")				M.change_mob_type( /mob/living/simple_animal/slime , null, null, delmob, 1)
+			if("monkey")			M.change_mob_type( /mob/living/carbon/human/monkey , null, null, delmob, 1)
+			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob, 1)
+			if("cat")				M.change_mob_type( /mob/living/simple_animal/pet/cat , null, null, delmob, 1)
+			if("runtime")			M.change_mob_type( /mob/living/simple_animal/pet/cat/Runtime , null, null, delmob, 1)
+			if("corgi")				M.change_mob_type( /mob/living/simple_animal/pet/dog/corgi , null, null, delmob, 1)
+			if("crab")				M.change_mob_type( /mob/living/simple_animal/crab , null, null, delmob, 1)
+			if("coffee")			M.change_mob_type( /mob/living/simple_animal/crab/Coffee , null, null, delmob, 1)
+			if("parrot")			M.change_mob_type( /mob/living/simple_animal/parrot , null, null, delmob, 1)
+			if("polyparrot")		M.change_mob_type( /mob/living/simple_animal/parrot/Poly , null, null, delmob, 1)
+			if("constructarmoured")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/armoured , null, null, delmob, 1)
+			if("constructbuilder")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/builder , null, null, delmob, 1)
+			if("constructwraith")	M.change_mob_type( /mob/living/simple_animal/hostile/construct/wraith , null, null, delmob, 1)
+			if("shade")				M.change_mob_type( /mob/living/simple_animal/shade , null, null, delmob, 1)
 
 		log_admin("[key_name(usr)] has used rudimentary transformation on [key_name(M)]. Transforming to [href_list["simplemake"]]; deletemob=[delmob]")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has used rudimentary transformation on [key_name_admin(M)]. Transforming to [href_list["simplemake"]]; deletemob=[delmob]</span>", 1)
@@ -2001,6 +2001,7 @@
 					var/mob/living/simple_animal/pet/P = new petchoice(H.loc)
 					theghost = pick(candidates)
 					P.key = theghost.key
+					dust_if_respawnable(theghost)
 					P.master_commander = H
 					P.universal_speak = TRUE
 					P.universal_understand = TRUE
@@ -2065,6 +2066,8 @@
 			ptypes += "Crew Traitor"
 			ptypes += "Floor Cluwne"
 			ptypes += "Shamebrero"
+			ptypes += "Nugget"
+			ptypes += "Bread"
 		var/punishment = input(owner, "How would you like to smite [M]?", "Its good to be baaaad...", "") as null|anything in ptypes
 		if(!(punishment in ptypes))
 			return
@@ -2180,6 +2183,23 @@
 				var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 				H.equip_to_slot_or_del(S, SLOT_HUD_HEAD)
 				logmsg = "shamebrero"
+			if("Nugget")
+				H.Weaken(12 SECONDS, TRUE)
+				H.AdjustJitter(40 SECONDS)
+				to_chat(H, "<span class='danger'>You feel as if your limbs are being ripped from your body!</span>")
+				addtimer(CALLBACK(H, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
+				logmsg = "nugget"
+
+			if("Bread")
+				var/mob/living/simple_animal/shade/sword/bread/breadshade = new(H.loc)
+				var/bready = pick(/obj/item/reagent_containers/food/snacks/customizable/cook/bread, /obj/item/reagent_containers/food/snacks/sliceable/meatbread, /obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread, /obj/item/reagent_containers/food/snacks/sliceable/spidermeatbread, /obj/item/reagent_containers/food/snacks/sliceable/bananabread, /obj/item/reagent_containers/food/snacks/sliceable/tofubread, /obj/item/reagent_containers/food/snacks/sliceable/bread, /obj/item/reagent_containers/food/snacks/sliceable/creamcheesebread, /obj/item/reagent_containers/food/snacks/sliceable/banarnarbread, /obj/item/reagent_containers/food/snacks/flatbread, /obj/item/reagent_containers/food/snacks/baguette)
+				var/obj/item/bread = new bready(get_turf(H))
+				breadshade.forceMove(bread)
+				breadshade.key = H.key
+				breadshade.RegisterSignal(bread, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/mob/living/simple_animal/shade/sword/bread, handle_bread_deletion))
+				qdel(H)
+				logmsg = "baked"
+				to_chat(breadshade, "<span class='warning'>Get bready for combat, you've been baked into a piece of bread! Before you break down and rye thinking that your life is over, people are after you waiting for a snack! If you'd rather not be toast, lunge away from any hungry crew else you bite the crust. At the yeast you may survive a little longer...</span>")
 		if(logmsg)
 			log_admin("[key_name(owner)] smited [key_name(M)] with: [logmsg]")
 			message_admins("[key_name_admin(owner)] smited [key_name_admin(M)] with: [logmsg]")
@@ -2676,7 +2696,7 @@
 
 		var/atom/target //Where the object will be spawned
 		var/where = href_list["object_where"]
-		if(!( where in list("onfloor","inhand","inmarked") ))
+		if(!( where in list("onfloor","inhand","inmarked")))
 			where = "onfloor"
 
 
@@ -2780,27 +2800,35 @@
 		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
-		if(!check_rights(R_SERVER|R_EVENT))	return
-
+		if(!check_rights(R_SERVER|R_EVENT))	
+			return
 		var/ok = 0
 		switch(href_list["secretsfun"])
 			if("sec_clothes")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove 'internal' clothing")
 				for(var/obj/item/clothing/under/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_all_clothes")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove ALL clothing")
 				for(var/obj/item/clothing/O in world)
 					qdel(O)
 				ok = 1
 			if("sec_classic1")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Remove firesuits, grilles, and pods")
 				for(var/obj/item/clothing/suit/fire/O in world)
 					qdel(O)
 				for(var/obj/structure/grille/O in world)
 					qdel(O)
 			if("monkey")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Monkeyize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
@@ -2808,6 +2836,8 @@
 						H.monkeyize()
 				ok = 1
 			if("corgi")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Corgize All Humans")
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
@@ -2877,6 +2907,8 @@
 				if(!SSticker)
 					alert("The game hasn't started yet!", null, null, null, null, null)
 					return
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Prison Warp")
 				message_admins("<span class='notice'>[key_name_admin(usr)] teleported all players to the prison station.</span>", 1)
 				for(var/thing in GLOB.human_list)
@@ -2915,6 +2947,8 @@
 			if("traitor_all")
 				if(!SSticker)
 					alert("The game hasn't started yet!")
+					return
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
 				var/objective = sanitize(copytext(input("Enter an objective"),1,MAX_MESSAGE_LEN))
 				if(!objective)
@@ -2995,33 +3029,34 @@
 					L.fix()
 					L.switchcount = 0
 			if("floorlava")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor")
 				SSweather.run_weather(/datum/weather/floor_is_lava)
 				message_admins("[key_name_admin(usr)] made the floor lava")
 			if("fakelava")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Lava Floor Fake")
 				SSweather.run_weather(/datum/weather/floor_is_lava/fake)
 				message_admins("[key_name_admin(usr)] made aesthetic lava on the floor")
 			if("weatherashstorm")
-				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
-				var/sure = alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No")
-				if(sure == "No")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
 					return
+				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1,  "Weather Ash Storm")
 				SSweather.run_weather(/datum/weather/ash_storm)
 				message_admins("[key_name_admin(usr)] spawned an ash storm on the mining level")
 			if("stupify")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Mass Braindamage")
 				for(var/mob/living/carbon/human/H in GLOB.player_list)
 					to_chat(H, "<span class='danger'>You suddenly feel stupid.</span>")
 					H.setBrainLoss(60)
 				message_admins("[key_name_admin(usr)] made everybody stupid")
 			if("fakeguns")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fake Guns")
 				for(var/obj/item/W in world)
 					if(isclothing(W) || istype(W, /obj/item/card/id) || istype(W, /obj/item/disk) || istype(W, /obj/item/tank))
@@ -3031,6 +3066,8 @@
 					W.item_state = "gun"
 				message_admins("[key_name_admin(usr)] made every item look like a gun")
 			if("schoolgirl") // nyaa~ How much are you paying attention in reviews?
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				for(var/obj/item/clothing/under/W in world)
 					W.icon_state = "schoolgirl"
@@ -3039,6 +3076,8 @@
 				message_admins("[key_name_admin(usr)] activated Japanese Animes mode")
 				SEND_SOUND(world, sound('sound/AI/animes.ogg'))
 			if("eagles")//SCRAW
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Egalitarian Station")
 				for(var/obj/machinery/door/airlock/W in GLOB.airlocks)
 					if(is_station_level(W.z) && !istype(get_area(W), /area/station/command/bridge) && !istype(get_area(W), /area/station/public) && !istype(get_area(W), /area/station/security/prison))
@@ -3046,13 +3085,19 @@
 				message_admins("[key_name_admin(usr)] activated Egalitarian Station mode")
 				GLOB.minor_announcement.Announce("Centcomm airlock control override activated. Please take this time to get acquainted with your coworkers.", new_sound = 'sound/AI/commandreport.ogg')
 			if("onlyone")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One")
 				usr.client.only_one()
 //				message_admins("[key_name_admin(usr)] has triggered HIGHLANDER")
 			if("onlyme")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only Me")
 				usr.client.only_me()
 			if("onlyoneteam")
+				if(alert(usr, "Are you sure you want to do this?", "Confirmation", "Yes", "No") != "Yes")
+					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Only One Team")
 				usr.client.only_one_team()
 //				message_admins("[key_name_admin(usr)] has triggered ")
@@ -3103,24 +3148,10 @@
 				if(confirmation == "No")
 					return
 				makeThunderdomeTeams()
-			if("securitylevel0")
-				set_security_level(0)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Green.</span>", 1)
-			if("securitylevel1")
-				set_security_level(1)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Blue.</span>", 1)
-			if("securitylevel2")
-				set_security_level(2)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Red.</span>", 1)
-			if("securitylevel3")
-				set_security_level(3)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Gamma.</span>", 1)
-			if("securitylevel4")
-				set_security_level(4)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Epsilon.</span>", 1)
-			if("securitylevel5")
-				set_security_level(5)
-				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to Delta.</span>", 1)
+			if("securitylevel")
+				var/level_number = text2num(href_list["number"])
+				SSsecurity_level.set_level(level_number)
+				message_admins("<span class='notice'>[key_name_admin(usr)] change security level to [SSsecurity_level.number_level_to_text(level_number)].</span>")
 			if("moveminingshuttle")
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Send Mining Shuttle")
 				if(!SSshuttle.toggleShuttle("mining","mining_home","mining_away"))
@@ -3148,11 +3179,11 @@
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
 			if(ok)
-				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
+				to_chat(world, "<b>A secret has been activated by [usr.key]!</b>")
 
 	else if(href_list["secretsadmin"])
-		if(!check_rights(R_ADMIN))	return
-
+		if(!check_rights(R_ADMIN))	
+			return
 		var/ok = 0
 		switch(href_list["secretsadmin"])
 			if("list_signalers")
@@ -3189,7 +3220,7 @@
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					if(H.ckey)
-						dat += text("<tr><td>[]</td><td>[]</td></tr>", H.name, H.get_assignment())
+						dat += "<tr><td>[H.name]</td><td>[H.get_assignment()]</td></tr>"
 				dat += "</table>"
 				usr << browse(dat, "window=manifest;size=440x410")
 			if("check_antagonist")
@@ -3241,7 +3272,7 @@
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsadmin"]]")
 			if(ok)
-				to_chat(world, text("<b>A secret has been activated by []!</b>", usr.key))
+				to_chat(world, "<b>A secret has been activated by [usr.key]!</b>")
 
 	else if(href_list["secretscoder"])
 		if(!check_rights(R_DEBUG))	return
@@ -3465,6 +3496,7 @@
 	hunter_mind.active = TRUE
 	var/mob/living/carbon/human/hunter_mob = new /mob/living/carbon/human(pick(GLOB.latejoin))
 	hunter_mind.transfer_to(hunter_mob)
+	dust_if_respawnable(C)
 	hunter_mob.equipOutfit(O, FALSE)
 	var/obj/item/pinpointer/advpinpointer/N = new /obj/item/pinpointer/advpinpointer(hunter_mob)
 	hunter_mob.equip_to_slot_or_del(N, SLOT_HUD_IN_BACKPACK)

@@ -241,11 +241,13 @@
 
 /datum/game_mode/proc/greet_syndicate(datum/mind/syndicate, you_are=1)
 	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))
+	var/list/messages = list()
 	if(you_are)
-		to_chat(syndicate.current, "<span class='notice'>You are a [syndicate_name()] agent!</span>")
+		messages.Add("<span class='notice'>You are a [syndicate_name()] agent!</span>")
 
-	syndicate.announce_objectives(title = FALSE)
-	to_chat(syndicate.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Nuclear_Agent)</span>")
+	messages.Add(syndicate.prepare_announce_objectives(FALSE))
+	messages.Add("<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Nuclear_Agent)</span>")
+	to_chat(syndicate.current, chat_box_red(messages.Join("<br>")))
 	syndicate.current.create_log(MISC_LOG, "[syndicate.current] was made into a nuclear operative")
 
 
