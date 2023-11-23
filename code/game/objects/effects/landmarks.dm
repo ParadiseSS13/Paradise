@@ -107,7 +107,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/spawner/rev
 	name = "revenantspawn"
 	icon_state = "Rev"
-	
+
 /obj/effect/landmark/spawner/bubblegum_arena
 	name = "bubblegum_arena_human"
 	icon_state = "Explorer"
@@ -278,10 +278,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart) //Without this away mission
 /obj/effect/landmark/start/blueshield
 	name = "Blueshield"
 	icon_state = "BS"
-
-/obj/effect/landmark/start/barber
-	name = "Barber"
-	icon_state = "Barber"
 
 /obj/effect/landmark/start/bartender
 	name = "Bartender"

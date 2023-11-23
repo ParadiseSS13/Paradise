@@ -355,7 +355,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		return 0
 	if(!player_old_enough_antag(O.client,ROLE_PAI))
 		return 0
-	if(cannotPossess(O))
+	if(!O.check_ahud_rejoin_eligibility())
 		return 0
 	if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE))
 		return 0
