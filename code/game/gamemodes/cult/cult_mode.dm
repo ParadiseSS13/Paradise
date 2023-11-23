@@ -166,7 +166,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		check_cult_size()
 		cult_objs.study(cult_mind.current)
 		to_chat(cult_mind.current, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Cultist)</span>")
-		RegisterSignal(cult_mind.current, COMSIG_MOB_STATCHANGE, PROC_REF(check_cult_size))
+		RegisterSignal(cult_mind.current, COMSIG_MOB_STATCHANGE, PROC_REF(cultist_stat_change))
 		return TRUE
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE, remove_gear = FALSE, mob/target_mob)
@@ -261,8 +261,16 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return list(cultists, constructs)
 	return cultists + constructs
 
-/datum/game_mode/proc/check_cult_size()
+/datum/game_mode/proc/cultist_stat_change(mob/target_cultist, new_stat, old_stat)
 	SIGNAL_HANDLER // COMSIG_MOB_STATCHANGE from cultists
+	if(new_stat == old_stat) // huh, how? whatever, we ignore it
+		return
+	if(new_stat != DEAD && old_stat != DEAD)
+		return // switching between alive and unconcious
+	// switching between dead and alive/unconcious
+	check_cult_size()
+
+/datum/game_mode/proc/check_cult_size()
 	var/cult_players = get_cultists()
 
 	if(cult_ascendant)
