@@ -947,7 +947,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			continue
 		if(iscultist(O) || jobban_isbanned(O, ROLE_CULTIST))
 			continue
-		if(O.has_enabled_antagHUD || QDELETED(src) || QDELETED(O))
+		if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE) || QDELETED(src) || QDELETED(O))
 			continue
 		if(O.mind.current && HAS_TRAIT(O.mind.current, SCRYING))
 			continue

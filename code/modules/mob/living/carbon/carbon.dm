@@ -515,7 +515,7 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 					var/failed = 0
 					if(istype(I, /obj/item/implant))
 						continue
-					if(istype(I, /obj/item/reagent_containers/food/pill/patch))
+					if(istype(I, /obj/item/reagent_containers/patch))
 						continue
 					if(I.flags & ABSTRACT)
 						continue
@@ -1133,87 +1133,133 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 	return shock_reduction
 
 /mob/living/carbon/proc/can_eat(flags = 255)
-	return 1
+	return TRUE
 
-/mob/living/carbon/proc/eat(obj/item/reagent_containers/food/toEat, mob/user, bitesize_override)
-	if(!istype(toEat))
-		return 0
+/mob/living/carbon/proc/eat(obj/item/reagent_containers/to_eat, mob/user, bitesize_override)
+	if(ispill(to_eat) || ispatch(to_eat))
+		return consume_patch_or_pill(to_eat, user)
+
+	if(!isfood(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
+		return FALSE
+
+	var/obj/item/reagent_containers/food/food = to_eat // It's not a patch or a pill so it must be food
 	var/fullness = nutrition + 10
-	if(istype(toEat, /obj/item/reagent_containers/food/snacks))
+	if(istype(food, /obj/item/reagent_containers/food/snacks))
 		for(var/datum/reagent/consumable/C in reagents.reagent_list) //we add the nutrition value of what we're currently digesting
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
-	if(user == src)
-		if(istype(toEat, /obj/item/reagent_containers/food/drinks))
-			if(!selfDrink(toEat))
-				return 0
-		else
-			if(!selfFeed(toEat, fullness))
-				return 0
-	else
-		if(!forceFed(toEat, user, fullness))
-			return 0
-	consume(toEat, bitesize_override, can_taste_container = toEat.can_taste)
-	SSticker.score.score_food_eaten++
-	return 1
 
-/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
-	if(ispill(toEat))
-		to_chat(src, "<span class='notify'>You [toEat.apply_method] [toEat].</span>")
+	if(user == src)
+		if(istype(food, /obj/item/reagent_containers/food/drinks))
+			if(!selfDrink(food))
+				return FALSE
+		else
+			if(!selfFeed(food, fullness))
+				return FALSE
 	else
-		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
+		if(!forceFed(food, user, fullness))
+			return FALSE
+
+	consume(food, bitesize_override)
+	SSticker.score.score_food_eaten++
+	return TRUE
+
+/mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/to_eat, fullness)
+	if(ispill(to_eat))
+		to_chat(src, "<span class='notify'>You swallow [to_eat].</span>")
+	else if(ispatch(to_eat))
+		to_chat(src, "<span class='notify'>You apply [to_eat].</span>")
+	else
+		if(to_eat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50)
 			to_chat(src, "<span class='notice'>You don't feel like eating any more junk food at the moment.</span>")
-			return 0
+			return FALSE
 		if(fullness <= 50)
-			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [toEat] and gobble it!</span>")
+			to_chat(src, "<span class='warning'>You hungrily chew out a piece of [to_eat] and gobble it!</span>")
 		else if(fullness > 50 && fullness < 150)
-			to_chat(src, "<span class='notice'>You hungrily begin to eat [toEat].</span>")
+			to_chat(src, "<span class='notice'>You hungrily begin to eat [to_eat].</span>")
 		else if(fullness > 150 && fullness < 500)
-			to_chat(src, "<span class='notice'>You take a bite of [toEat].</span>")
+			to_chat(src, "<span class='notice'>You take a bite of [to_eat].</span>")
 		else if(fullness > 500 && fullness < 600)
-			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [toEat].</span>")
+			to_chat(src, "<span class='notice'>You unwillingly chew a bit of [to_eat].</span>")
 		else if(fullness > (600 * (1 + overeatduration / 2000)))	// The more you eat - the more you can eat
-			to_chat(src, "<span class='warning'>You cannot force any more of [toEat] to go down your throat.</span>")
-			return 0
-	return 1
+			to_chat(src, "<span class='warning'>You cannot force any more of [to_eat] to go down your throat.</span>")
+			return FALSE
+	return TRUE
 
 /mob/living/carbon/proc/selfDrink(obj/item/reagent_containers/food/drinks/toDrink, mob/user)
-	return 1
+	return TRUE
 
-/mob/living/carbon/proc/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
-	if(ispill(toEat) || fullness <= (600 * (1 + overeatduration / 1000)))
-		if(!toEat.instant_application)
-			visible_message("<span class='warning'>[user] attempts to force [src] to [toEat.apply_method] [toEat].</span>")
-	else
-		visible_message("<span class='warning'>[user] cannot force anymore of [toEat] down [src]'s throat.</span>")
-		return 0
-	if(!toEat.instant_application)
-		if(!do_mob(user, src))
-			return 0
-	forceFedAttackLog(toEat, user)
-	visible_message("<span class='warning'>[user] forces [src] to [toEat.apply_method] [toEat].</span>")
-	return 1
+/mob/living/carbon/proc/forceFed(obj/item/reagent_containers/to_eat, mob/user, fullness)
+	if(fullness > (600 * (1 + overeatduration / 1000)))
+		visible_message("<span class='warning'>[user] cannot force anymore of [to_eat] down [src]'s throat.</span>")
+		return FALSE
 
-/mob/living/carbon/proc/forceFedAttackLog(obj/item/reagent_containers/food/toEat, mob/user)
-	add_attack_logs(user, src, "Fed [toEat]. Reagents: [toEat.reagents.log_list(toEat)]", toEat.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+	visible_message("<span class='warning'>[user] attempts to force [src] to swallow [to_eat].</span>")
+	if(!do_after(user, 3 SECONDS, TRUE, src))
+		return FALSE
+	forceFedAttackLog(to_eat, user)
+	visible_message("<span class='warning'>[user] forces [src] to swallow [to_eat].</span>")
+	return TRUE
 
+/mob/living/carbon/proc/forceFedAttackLog(obj/item/reagent_containers/to_eat, mob/user)
+	add_attack_logs(user, src, "Fed [to_eat]. Reagents: [to_eat.reagents.log_list(to_eat)]", to_eat.reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 
 /*TO DO - If/when stomach organs are introduced, override this at the human level sending the item to the stomach
 so that different stomachs can handle things in different ways VB*/
-/mob/living/carbon/proc/consume(obj/item/reagent_containers/food/toEat, bitesize_override, can_taste_container = TRUE)
-	var/this_bite = bitesize_override ? bitesize_override : toEat.bitesize
-	if(!toEat.reagents)
+/mob/living/carbon/proc/consume(obj/item/reagent_containers/food/to_eat, bitesize_override)
+	var/this_bite = bitesize_override ? bitesize_override : to_eat.bitesize
+	if(!to_eat.reagents)
 		return
 	if(satiety > -200)
-		satiety -= toEat.junkiness
-	if(toEat.consume_sound)
-		playsound(loc, toEat.consume_sound, rand(10,50), 1)
-	if(toEat.reagents.total_volume)
-		if(can_taste_container)
-			taste(toEat.reagents)
-		var/fraction = min(this_bite/toEat.reagents.total_volume, 1)
+		satiety -= to_eat.junkiness
+	if(to_eat.consume_sound)
+		playsound(loc, to_eat.consume_sound, rand(10, 50), TRUE)
+	if(to_eat.reagents.total_volume)
+		taste(to_eat.reagents)
+		var/fraction = min(this_bite / to_eat.reagents.total_volume, 1)
 		if(fraction)
-			toEat.reagents.reaction(src, toEat.apply_type, fraction)
-			toEat.reagents.trans_to(src, this_bite*toEat.transfer_efficiency)
+			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
+			to_eat.reagents.trans_to(src, this_bite)
+
+/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/medicine, user) // medicine = patch or pill
+	// The reason why this is bundled up is to avoid 2 procs that will be practically identical
+	if(!medicine.reagents.total_volume)
+		return TRUE // Doesn't have reagents, would be fine to use up
+
+	if(!dna.species.dietflags) // You will not feed the IPC
+		to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
+		return FALSE
+
+	var/apply_method = "swallow"
+	var/reagent_application = REAGENT_INGEST
+	var/requires_mouth = TRUE
+	var/instant = FALSE
+	var/efficiency = 1
+
+	if(ispatch(medicine))
+		apply_method = "apply"
+		reagent_application = REAGENT_TOUCH
+		requires_mouth = FALSE
+		efficiency = 0.5 // Patches aren't that good at transporting reagents into the bloodstream
+		var/obj/item/reagent_containers/patch/patch = medicine
+		if(patch.instant_application)
+			instant = TRUE
+
+	if(user != src && !instant)
+		if(requires_mouth && !get_organ("head"))
+			to_chat(user, "<span class='warning'>You cannot feed [src] [medicine]!</span>")
+			return FALSE
+		visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
+		if(!do_after(user, 3 SECONDS, TRUE, src, TRUE))
+			return FALSE
+		forceFedAttackLog(medicine, user)
+		visible_message("<span class='warning'>[user] forces [src] to [apply_method] [medicine].</span>")
+	else
+		to_chat(user, "You [apply_method] [medicine].")
+
+	var/fraction = min(1 / medicine.reagents.total_volume, 1)
+	medicine.reagents.reaction(src, reagent_application, fraction)
+	medicine.reagents.trans_to(src, medicine.reagents.total_volume * efficiency)
+	return TRUE
 
 /mob/living/carbon/get_access()
 	. = ..()

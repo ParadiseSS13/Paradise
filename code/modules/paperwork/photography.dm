@@ -76,6 +76,16 @@
 		show(user)
 	else
 		. += "<span class='notice'>It is too far away.</span>"
+	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
+
+/obj/item/photo/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
+
+	if(is_pen(user.get_active_hand()))
+		rename(user)
+	else
+		return ..()
 
 /obj/item/photo/proc/show(mob/user as mob)
 	var/icon/img_shown = new/icon(img)
@@ -94,20 +104,13 @@
 		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
 		+ "</body></html>", "window=Photo[UID()];size=[64*photo_size]x[scribble ? 400 : 64*photo_size]")
 	onclose(usr, "Photo[UID()]")
-	return
 
-/obj/item/photo/verb/rename()
-	set name = "Rename photo"
-	set category = "Object"
-	set src in usr
-
-	var/n_name = sanitize(copytext(input(usr, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+/obj/item/photo/proc/rename(mob/user)
+	var/n_name = sanitize(copytext(input(user, "What would you like to label the photo?", "Photo Labelling", name) as text, 1, MAX_MESSAGE_LEN))
 	//loc.loc check is for making possible renaming photos in clipboards
-	if(( (loc == usr || (loc.loc && loc.loc == usr)) && usr.stat == 0))
+	if(( (loc == user || (loc.loc && loc.loc == user)) && !user.stat))
 		name = "[(n_name ? "[n_name]" : "photo")]"
-	add_fingerprint(usr)
-	return
-
+	add_fingerprint(user)
 
 /**************
 * photo album *
@@ -129,10 +132,10 @@
 
 	if(ishuman(usr))
 		var/mob/M = usr
-		if(!( istype(over_object, /obj/screen) ))
+		if(!istype(over_object, /obj/screen))
 			return ..()
 		playsound(loc, "rustle", 50, 1, -5)
-		if((!( M.restrained() ) && !( M.stat ) && M.back == src))
+		if((!M.restrained() && !M.stat && M.back == src))
 			switch(over_object.name)
 				if("r_hand")
 					M.unEquip(src)
@@ -186,6 +189,7 @@
 	. = ..()
 	if(!digital)
 		. += "<span class='notice'>There is [pictures_left] photos left.</span>"
+	. += "<span class='info'><b>Alt-Click</b> [src] to change the photo size.</span>"
 
 /obj/item/camera/spooky/CheckParts(list/parts_list)
 	..()
@@ -205,18 +209,16 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	see_ghosts = TRUE
 
 /obj/item/camera/AltClick(mob/user)
-	if(in_range(user, src) && !user.incapacitated())
-		change_size()
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	. = ..()
 
-/obj/item/camera/verb/change_size()
-	set name = "Set Photo Focus"
-	set category = "Object"
+	change_size(user)
+
+/obj/item/camera/proc/change_size(mob/user)
 	var/nsize = input("Photo Size","Pick a size of resulting photo.") as null|anything in list(1,3,5,7)
 	if(nsize)
 		size = nsize
-		to_chat(usr, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
+		to_chat(user, "<span class='notice'>Camera will now take [size]x[size] photos.</span>")
 
 /obj/item/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return
@@ -518,36 +520,38 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 	var/datum/picture/P = createpicture(target, user, turfs, mobs, flag)
 	saved_pictures += P
 
-/obj/item/camera/digital/verb/print_picture()
-	set name = "Print picture"
-	set category = "Object"
-	set src in usr
+/obj/item/camera/digital/examine(mob/user)
+	. = ..()
+	. += "<span class='info'><b>Alt-Shift-Click</b> [src] to print a specific photo.</span>"
+	. += "<span class='info'><b>Ctrl-Shift-Click</b> [src] to delete a specific photo.</span>"
 
-	if(saved_pictures.len == 0)
-		to_chat(usr, "<span class='userdanger'>No images saved.</span>")
+/obj/item/camera/digital/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(pictures_left == 0)
-		to_chat(usr, "<span class='userdanger'>There is no film left to print.</span>")
+	if(!length(saved_pictures))
+		to_chat(user, "<span class='userdanger'>No images saved.</span>")
+		return
+	if(!pictures_left)
+		to_chat(user, "<span class='userdanger'>There is no film left to print.</span>")
 		return
 
-	var/datum/picture/P = null
-	P = input("Select image to print:",P) as null|anything in saved_pictures
-	if(P)
-		printpicture(usr,P)
+	var/datum/picture/picture
+	picture = input("Select image to print:", picture) as null|anything in saved_pictures
+	if(picture)
+		printpicture(user, picture)
 		pictures_left --
 
-/obj/item/camera/digital/verb/delete_picture()
-	set name = "Delete picture"
-	set category = "Object"
-	set src in usr
-
-	if(saved_pictures.len == 0)
-		to_chat(usr, "<span class='userdanger'>No images saved</span>")
+/obj/item/camera/digital/CtrlShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	var/datum/picture/P = null
-	P = input("Select image to delete:",P) as null|anything in saved_pictures
-	if(P)
-		saved_pictures -= P
+
+	if(!length(saved_pictures))
+		to_chat(user, "<span class='userdanger'>No images saved</span>")
+		return
+	var/datum/picture/picture
+	picture = input("Select image to delete:", picture) as null|anything in saved_pictures
+	if(picture)
+		saved_pictures -= picture
 
 /**************
 *video camera *

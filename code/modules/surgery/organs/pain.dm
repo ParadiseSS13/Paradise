@@ -39,20 +39,6 @@
 		to_chat(src, msg)
 	next_pain_time = world.time + (100 - amount)
 
-
-// message is the custom message to be displayed
-/mob/living/carbon/proc/custom_pain(message)
-	if(!can_feel_pain())
-		return
-
-	var/msg = "<span class='userdanger'>[message]</span>"
-
-	// Anti message spam checks
-	if(msg && ((msg != last_pain_message) && (world.time >= next_pain_time)))
-		last_pain_message = msg
-		to_chat(src, msg)
-		next_pain_time = world.time + 10 SECONDS
-
 /mob/living/carbon/human/proc/handle_pain()
 	// not when sleeping
 
@@ -89,4 +75,4 @@
 					intensity = "a sharp"
 				else
 					intensity = "a stabbing"
-			custom_pain("You feel [intensity] pain in your [parent.limb_name]!")
+			I.custom_pain("You feel [intensity] pain in your [parent.limb_name]!")

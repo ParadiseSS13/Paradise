@@ -112,7 +112,6 @@
 		"Shaft Miner" = "supradio",
 		"Spelunker" = "supradio",
 		// Service
-		"Barber" = "srvradio",
 		"Bartender" = "srvradio",
 		"Beautician" = "srvradio",
 		"Botanical Researcher" = "srvradio",
@@ -255,7 +254,7 @@
 		var/job = tcm.sender_job
 		var/rank = tcm.sender_rank
 		//if the job title is not custom, just use that to decide the rules of formatting
-		if (job in all_jobs)
+		if(job in all_jobs)
 			job_class = all_jobs[job]
 		else
 			job_class = all_jobs[rank]
