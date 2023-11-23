@@ -142,9 +142,8 @@
 		if(M.loc == user.loc || user.alpha == 60) //Alpha is for detecting ranged guardians in scout mode
 			return  //unmanifested guardians shouldn't be able to buckle mobs
 
-	if(M != user)
-		if(!in_range(M, src) || !do_after(user, 1 SECONDS, target = M))
-			return FALSE
+	if(M != user && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+		return FALSE
 
 	add_fingerprint(user)
 	. = buckle_mob(M, check_loc = check_loc)
