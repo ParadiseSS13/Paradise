@@ -131,13 +131,7 @@
 
 // Datum actions
 
-/obj/item/deck/verb/draw_card(mob/user)
-
-	set category = "Object"
-	set name = "Draw"
-	set desc = "Draw a card from a deck."
-	set src in view(1)
-
+/obj/item/deck/proc/draw_card(mob/user)
 	var/mob/living/carbon/human/M = user
 
 	if(user.incapacitated() || !Adjacent(user))
@@ -166,13 +160,7 @@
 	user.visible_message("<span class='notice'>[user] draws a card.</span>","<span class='notice'>You draw a card.</span>")
 	to_chat(user,"<span class='notice'>It's the [P].</span>")
 
-/obj/item/deck/verb/deal_card()
-
-	set category = "Object"
-	set name = "Deal"
-	set desc = "Deal a card from a deck."
-	set src in view(1)
-
+/obj/item/deck/proc/deal_card()
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
@@ -191,13 +179,7 @@
 
 	deal_at(usr, M, 1)
 
-/obj/item/deck/verb/deal_card_multi()
-
-	set category = "Object"
-	set name = "Deal Multiple Cards"
-	set desc = "Deal multiple cards from a deck."
-	set src in view(1)
-
+/obj/item/deck/proc/deal_card_multi()
 	if(usr.incapacitated() || !Adjacent(usr))
 		return
 
@@ -241,14 +223,6 @@
 
 /obj/item/deck/AltClick()
 	deckshuffle()
-
-/obj/item/deck/verb/verb_shuffle()
-	if(!isobserver(usr))
-		set category = "Object"
-		set name = "Shuffle"
-		set desc = "Shuffle the cards in the deck."
-		set src in view(1)
-		deckshuffle()
 
 /obj/item/deck/proc/deckshuffle()
 	var/mob/living/user = usr
@@ -440,13 +414,7 @@
 
 // No more datum action here
 
-/obj/item/cardhand/verb/Removecard()
-
-	set category = "Object"
-	set name = "Remove card"
-	set desc = "Remove a card from the hand."
-	set src in view(1)
-
+/obj/item/cardhand/proc/Removecard()
 	var/mob/living/carbon/user = usr
 
 	if(user.incapacitated() || !Adjacent(user))
@@ -482,12 +450,7 @@
 		return
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 
-/obj/item/cardhand/verb/discard()
-
-	set category = "Object"
-	set name = "Discard"
-	set desc = "Place (a) card(s) from your hand in front of you."
-
+/obj/item/cardhand/proc/discard()
 	var/mob/living/carbon/user = usr
 
 	var/maxcards = min(length(cards), 5)

@@ -175,7 +175,7 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/reagent_containers/glass/bottle,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
@@ -227,13 +227,13 @@
 	update_icon()
 
 /obj/item/storage/belt/medical/response_team/populate_contents()
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/charcoal(src)
+	new /obj/item/reagent_containers/pill/charcoal(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
 	update_icon()
 
 /obj/item/storage/belt/botany
@@ -622,6 +622,20 @@
 		W.charges = W.max_charges
 	update_icon()
 
+/obj/item/storage/belt/wands/fireballs
+	name = "infernal belt"
+	desc = "\"Use Fireball and only Fireball. Nothing but fireball. Just Fireball. <b>Just Fireball.</b>\""
+	icon_state = "militarybelt"
+	item_state = "military"
+	can_hold = list(/obj/item/gun/magic/wand/fireball)
+
+/obj/item/storage/belt/wands/fireballs/populate_contents()
+	for(var/count in 1 to storage_slots)
+		var/obj/item/gun/magic/wand/fireball/W = new /obj/item/gun/magic/wand/fireball(src)
+		W.max_charges = initial(W.max_charges)
+		W.charges = W.max_charges
+	update_icon()
+
 /obj/item/storage/belt/fannypack
 	name = "fannypack"
 	desc = "A dorky fannypack for keeping small items in."
@@ -912,7 +926,7 @@
 		/obj/item/storage/bag/ore,
 		/obj/item/survivalcapsule,
 		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/food/drinks,

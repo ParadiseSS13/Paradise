@@ -62,6 +62,7 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
 	if(user.is_literate())
 		if(in_range(user, src) || isobserver(user))
 			show_content(user)
@@ -91,16 +92,21 @@
 		popup.open()
 	return data
 
-/obj/item/paper/verb/rename()
-	set name = "Rename paper"
-	set category = "Object"
-	set src in usr
-
-	if(HAS_TRAIT(usr, TRAIT_CLUMSY) && prob(50))
-		to_chat(usr, "<span class='warning'>You cut yourself on the paper.</span>")
+/obj/item/paper/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
-	if(!usr.is_literate())
-		to_chat(usr, "<span class='notice'>You don't know how to read.</span>")
+
+	if(is_pen(user.get_active_hand()))
+		rename(user)
+	else
+		return ..()
+
+/obj/item/paper/proc/rename(mob/user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
+		return
+	if(!user.is_literate())
+		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
 		return
 	var/n_name = rename_interactive(usr)
 	if(isnull(n_name))
@@ -109,8 +115,7 @@
 		desc = "This is a paper titled '" + name + "'."
 	else
 		desc = initial(desc)
-	add_fingerprint(usr)
-	return
+	add_fingerprint(user)
 
 /obj/item/paper/attack_self(mob/living/user as mob)
 	user.examinate(src)
@@ -360,7 +365,7 @@
 			if(pin_text)
 				input_element = usr.mind.initial_account.account_pin
 		topic_href_write(id, input_element)
-	if(href_list["write"] )
+	if(href_list["write"])
 		var/id = href_list["write"]
 		var/input_element = input("Enter what you want to write:", "Write", null, null) as message
 		topic_href_write(id, input_element)
@@ -436,7 +441,7 @@
 			to_chat(user, "<span class='warning'>You don't know how to write!</span>")
 
 	else if(istype(P, /obj/item/stamp))
-		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
+		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/clipboard)) && loc.loc != user && user.get_active_hand() != P))
 			return
 
 		if(istype(P, /obj/item/stamp/clown))
@@ -553,9 +558,11 @@
 		icon_state = "scrap_words"
 
 /obj/item/paper/crumpled/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["wood"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"

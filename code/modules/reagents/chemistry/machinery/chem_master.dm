@@ -148,9 +148,7 @@
 /obj/machinery/chem_master/wrench_act(mob/user, obj/item/I)
 	if(panel_open)
 		return
-	if(default_unfasten_wrench(user, I, time = 4 SECONDS))
-		power_change()
-		return TRUE
+	default_unfasten_wrench(user, I, 4 SECONDS)
 
 /obj/machinery/chem_master/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -463,7 +461,7 @@
 							to_chat(usr, "<span class='notice'>Not enough reagents to create these pills!</span>")
 							return
 
-						var/obj/item/reagent_containers/food/pill/P = new(loc)
+						var/obj/item/reagent_containers/pill/P = new(loc)
 						P.name = "[answer] pill"
 						P.pixel_x = rand(-7, 7) // Random position
 						P.pixel_y = rand(-7, 7)
@@ -497,7 +495,7 @@
 							to_chat(usr, "<span class='notice'>Not enough reagents to create these patches!</span>")
 							return
 
-						var/obj/item/reagent_containers/food/pill/patch/P = new(loc)
+						var/obj/item/reagent_containers/patch/P = new(loc)
 						P.name = "[answer] patch"
 						P.pixel_x = rand(-7, 7) // random position
 						P.pixel_y = rand(-7, 7)
