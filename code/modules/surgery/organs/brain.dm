@@ -177,8 +177,8 @@
 		to_chat(owner, "<span class='warning'>You open your mouth to speak, but no sound comes out.</span>")
 	else if(prob(5))
 		owner.EyeBlind(30 SECONDS)
-		to_chat(owner, "<span class='warning'>Your vision gives out.</span>")4
-		
+		to_chat(owner, "<span class='warning'>Your vision gives out.</span>")
+
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
 
