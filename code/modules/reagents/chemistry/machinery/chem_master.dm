@@ -460,7 +460,6 @@
 	// Transfer modal information if there is one
 	data["modal"] = ui_modal_data(src)
 
-	data["maxnamelength"] = MAX_CUSTOM_NAME_LEN
 	data["production_mode"] = production_mode
 
 	data["pillname"] = pillname
@@ -478,6 +477,13 @@
 		data["patchplaceholdername"] = "[reagents.get_master_reagent_name()] ([amount_per_patch]u)"
 		data["bottleplaceholdername"] = reagents.get_master_reagent_name()
 
+	return data
+
+/obj/machinery/chem_master/ui_static_data(mob/user)
+	var/list/data = list()
+
+	data["maxnamelength"] = MAX_CUSTOM_NAME_LEN
+
 	var/pill_styles = list()
 	for(var/i in 1 to MAX_PILL_SPRITE)
 		pill_styles += list(list(
@@ -485,7 +491,6 @@
 			"sprite" = "pill[i].png",
 		))
 	data["pillstyles"] = pill_styles
-
 
 	var/bottle_styles_with_sprite = list()
 	var/bottle_style_indexer = 0
