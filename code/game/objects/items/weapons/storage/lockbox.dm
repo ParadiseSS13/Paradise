@@ -220,5 +220,6 @@
 			/obj/item/organ/internal/cyberimp/arm/toolset_abductor,
 			/obj/item/organ/internal/cyberimp/arm/esword,
 			/obj/item/organ/internal/heart/demon/pulse,
-			/obj/item/organ/internal/eyes/cybernetic/eyesofgod)
+			/obj/item/organ/internal/eyes/cybernetic/eyesofgod
+		)
 	new spawn_type(src)
