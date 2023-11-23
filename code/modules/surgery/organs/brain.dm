@@ -126,7 +126,8 @@
 		owner.setBrainLoss(120)
 
 /obj/item/organ/internal/brain/on_life()
-	if(decoy_brain || damage < 10) return
+	if(decoy_brain || damage < 10) 
+		return
 	switch(damage)
 		if(10 to 30)
 			handle_minor_brain_damage()
