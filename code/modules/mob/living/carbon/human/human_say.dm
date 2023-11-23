@@ -158,7 +158,7 @@ GLOBAL_LIST_INIT(soapy_words, list(
 			if(prob(braindam / 4))
 				S.message = stutter(S.message)
 				verb = "gibbers"
-			if(prob(braindam))
+			else if(prob(braindam / 2))
 				S.message = uppertext(S.message)
 				verb = "yells loudly"
 

@@ -2052,7 +2052,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		makeCluwne()
 
 /mob/living/carbon/human/is_literate()
-	return getBrainLoss() < 100
+	return getBrainLoss() < 90
 
 
 /mob/living/carbon/human/fakefire(fire_icon = "Generic_mob_burning")
