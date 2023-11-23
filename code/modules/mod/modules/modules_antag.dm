@@ -480,7 +480,7 @@
 	idle_power_cost = DEFAULT_CHARGE_DRAIN * 3
 	use_power_cost = DEFAULT_CHARGE_DRAIN * 75
 	accepted_anomalies = list(/obj/item/assembly/signaler/anomaly/flux)
-	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked/teslawall)
+	incompatible_modules = list(/obj/item/mod/module/energy_shield, /obj/item/mod/module/anomaly_locked)
 	///Copy paste of shielded code wheeeey
 	/// Max charges of the shield.
 	var/max_charges = 80 // Less charges because not gamma / this one is real shocking
@@ -541,7 +541,7 @@
 	return NONE
 
 /obj/item/mod/module/anomaly_locked/teslawall/proc/arc_flash(mob/owner, atom/movable/hitby, damage, attack_type)
-	if(attack_type == PROJECTILE_ATTACK || attack_type == THROWN_PROJECTILE_ATTACK)
+	if((attack_type == PROJECTILE_ATTACK || attack_type == THROWN_PROJECTILE_ATTACK) && prob(33))
 		tesla_zap(owner, zap_range, power, zap_flags)
 		return
 	if(isitem(hitby))
@@ -549,11 +549,10 @@
 			var/mob/living/M = hitby.loc
 			M.electrocute_act(shock_damage, owner, flags = SHOCK_NOGLOVES)
 			M.KnockDown(3 SECONDS)
-	else
-		if(isliving(hitby))
-			var/mob/living/M = hitby
-			M.electrocute_act(shock_damage, owner, flags = SHOCK_NOGLOVES)
-			M.KnockDown(3 SECONDS)
+	else if(isliving(hitby))
+		var/mob/living/M = hitby
+		M.electrocute_act(shock_damage, owner, flags = SHOCK_NOGLOVES)
+		M.KnockDown(3 SECONDS)
 
 /obj/item/mod/module/anomaly_locked/teslawall/prebuilt
 	prebuilt = TRUE
