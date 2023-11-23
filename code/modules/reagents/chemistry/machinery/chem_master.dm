@@ -37,7 +37,7 @@
 	var/patchname = ""
 	var/bottlename = ""
 	var/bottlesprite = 1
-	var/production_mode = 1
+	var/production_mode = CHEMMASTER_PRODUCTION_MODE_PILLS
 	var/pillsprite = 1
 	var/printing = FALSE
 	var/static/list/pill_bottle_wrappers = list(
