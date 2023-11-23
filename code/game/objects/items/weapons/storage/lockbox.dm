@@ -221,7 +221,7 @@
 			/obj/item/organ/internal/cyberimp/arm/esword,
 			/obj/item/organ/internal/heart/demon/pulse,
 			/obj/item/organ/internal/eyes/cybernetic/eyesofgod
-			)
+		)
 
 		spawn_type = pick(organ_loot)
 	new spawn_type(src)
