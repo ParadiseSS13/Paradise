@@ -205,7 +205,7 @@
 	req_access = list(ACCESS_SEC_DOORS) //officers, heads
 
 /obj/item/storage/lockbox/experimental_weapon/populate_contents()
-		if(prob(10))
+	if(prob(10))
 		new /obj/item/clothing/mask/facehugger(src) //Suprise! Storing facehuggers improperly is what lead to this mess.
 		return
 	var/spawn_type = pick(/obj/item/gun/energy/kinetic_accelerator/experimental, /obj/item/surveillance_upgrade, /obj/item/mod/module/stealth/ninja)
@@ -220,6 +220,5 @@
 			/obj/item/organ/internal/cyberimp/arm/toolset_abductor,
 			/obj/item/organ/internal/cyberimp/arm/esword,
 			/obj/item/organ/internal/heart/demon/pulse,
-			/obj/item/organ/internal/eyes/cybernetic/eyesofgod
-		)
+			/obj/item/organ/internal/eyes/cybernetic/eyesofgod)
 	new spawn_type(src)
