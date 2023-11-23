@@ -99,13 +99,13 @@
 	PRIVATE_PROC(TRUE)
 
 	var/list/abilities_by_category_name = get_abilities_grouped_by_category_name()
-	if (!length(abilities_by_category_name))
+	if(!length(abilities_by_category_name))
 		return list()
 
 	var/list/sorted_ability_categories = sortTim(subtypesof(/datum/changeling_power_category), GLOBAL_PROC_REF(cmp_changeling_power_category_asc))
 
 	var/list/sorted_ability_tabs = list()
-	for (var/datum/changeling_power_category/category as anything in sorted_ability_categories)
+	for(var/datum/changeling_power_category/category as anything in sorted_ability_categories)
 		var/list/abilities = abilities_by_category_name[initial(category.name)]
 		sorted_ability_tabs += list(list(
 			"category" = initial(category.name),
@@ -126,7 +126,7 @@
 
 		var/category_name = initial(changeling_ability.category.name)
 		var/list/abilities = abilities_by_category_name[category_name]
-		if (!islist(abilities))
+		if(!islist(abilities))
 			abilities_by_category_name[category_name] = abilities = list()
 
 		abilities += list(list(

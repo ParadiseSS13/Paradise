@@ -5,7 +5,7 @@
 /// Denotes that this power can only be obtained by purchasing it.
 #define CHANGELING_PURCHASABLE_POWER	2
 /// Denotes that this power can not be obtained normally. Primarily used for base types such as [/datum/action/changeling/weapon].
-#define  CHANGELING_UNOBTAINABLE_POWER	3
+#define CHANGELING_UNOBTAINABLE_POWER	3
 
 /datum/action/changeling
 	name = "Prototype Sting"
