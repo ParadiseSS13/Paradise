@@ -332,11 +332,11 @@
 			var/obj/item/reagent_containers/food/condiment/P = new(loc)
 			reagents.trans_to(P, 50)
 		if("create_pills")
-			var/name = pillname
+			var/medicine_name = pillname
 			var/count = pillamount
 			var/amount_per_pill = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PILL)
 			if(length(pillname) <= 0 || isnull(pillname))
-				name = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
+				medicine_name = "[reagents.get_master_reagent_name()] ([amount_per_pill]u)"
 
 			if(condi || !reagents.total_volume)
 				return
@@ -347,7 +347,7 @@
 					return
 
 				var/obj/item/reagent_containers/food/pill/P = new(loc)
-				P.name = "[name] pill"
+				P.name = "[medicine_name] pill"
 				P.pixel_x = rand(-7, 7) // Random position
 				P.pixel_y = rand(-7, 7)
 				P.icon_state = "pill[pillsprite]"
@@ -359,10 +359,10 @@
 			if(condi || !reagents.total_volume)
 				return
 
-			var/name = patchname
+			var/medicine_name = patchname
 			var/count = patchamount
-			if(length(name) <= 0 || isnull(name))
-				name = reagents.get_master_reagent_name()
+			if(length(medicine_name) <= 0 || isnull(medicine_name))
+				medicine_name = reagents.get_master_reagent_name()
 			var/amount_per_patch = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_PATCH)
 			var/is_medical_patch = chemical_safety_check(reagents)
 			for(var/i in 1 to count)
@@ -371,7 +371,7 @@
 					return
 
 				var/obj/item/reagent_containers/food/pill/patch/P = new(loc)
-				P.name = "[name] patch"
+				P.name = "[medicine_name] patch"
 				P.pixel_x = rand(-7, 7) // random position
 				P.pixel_y = rand(-7, 7)
 				reagents.trans_to(P, amount_per_patch)
@@ -385,10 +385,10 @@
 			if(condi || !reagents.total_volume)
 				return
 
-			var/name = bottlename
+			var/medicine_name = bottlename
 			var/count = bottleamount
-			if(length(name) <= 0 || isnull(name))
-				name = reagents.get_master_reagent_name()
+			if(length(medicine_name) <= 0 || isnull(medicine_name))
+				medicine_name = reagents.get_master_reagent_name()
 			var/amount_per_bottle = clamp(reagents.total_volume / count, 0, MAX_UNITS_PER_BOTTLE)
 			for(var/i in 1 to count)
 				if(reagents.total_volume <= 0)
@@ -396,7 +396,7 @@
 					return
 
 				var/obj/item/reagent_containers/glass/bottle/reagent/P = new(loc)
-				P.name = "[name] bottle"
+				P.name = "[medicine_name] bottle"
 				P.pixel_x = rand(-7, 7) // random position
 				P.pixel_y = rand(-7, 7)
 				P.icon_state = length(bottle_styles) && bottle_styles[bottlesprite] || "bottle"
