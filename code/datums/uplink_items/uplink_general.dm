@@ -365,7 +365,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/plushie/carpplushie/dehy_carp
-	cost = 5
+	cost = 4
 
 
 // GRENADES AND EXPLOSIVES
