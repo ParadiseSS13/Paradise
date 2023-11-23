@@ -292,7 +292,7 @@
 	if(!cancopy(scancopy))
 		return
 	copying = TRUE
-	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
+	playsound(loc, print_sound, 50) // SS220 EDIT
 	if(istype(C, /obj/item/paper))
 		for(var/i in copies to 1 step -1)
 			if(!papercopy(C))
