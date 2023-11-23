@@ -215,11 +215,13 @@
 			new /obj/item/organ/internal/alien/acidgland(src)
 			new /obj/item/organ/internal/alien/resinspinner(src)
 			return
-		spawn_type = pick(
+		var/list/organ_loot = list(
 			/obj/item/organ/internal/cyberimp/arm/katana,
 			/obj/item/organ/internal/cyberimp/arm/toolset_abductor,
 			/obj/item/organ/internal/cyberimp/arm/esword,
 			/obj/item/organ/internal/heart/demon/pulse,
 			/obj/item/organ/internal/eyes/cybernetic/eyesofgod
-		)
+			)
+
+		spawn_type = pick(organ_loot)
 	new spawn_type(src)
