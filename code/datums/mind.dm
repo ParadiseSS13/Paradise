@@ -632,7 +632,7 @@
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
 			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
-			"nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
+			"nuclear", "capture", "destroy", "maroon", "identity theft", "custom")
 		if(!new_obj_type)
 			return
 
@@ -722,7 +722,7 @@
 				if(!steal.select_target())
 					return
 
-			if("download","capture","absorb", "blood")
+			if("download","capture", "blood")
 				var/def_num
 				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
 					def_num = objective.target_amount
@@ -732,9 +732,6 @@
 					return
 
 				switch(new_obj_type)
-					if("absorb")
-						new_objective = new /datum/objective/absorb
-						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
 					if("blood")
 						new_objective = new /datum/objective/blood
 						new_objective.explanation_text = "Accumulate at least [target_number] total units of blood."
