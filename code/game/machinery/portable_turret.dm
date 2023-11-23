@@ -1150,7 +1150,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/inflatable_turret
 	name = "Syndicate Pop-Up Turret"
-	desc = "Looks cheaply made on the defensive side but a gun barrel still shoots."
+	desc = "Looks cheaply made on the defensive side but the gun barrel still shoots."
 	projectile = /obj/item/projectile/bullet/weakbullet3
 	eprojectile = /obj/item/projectile/bullet/weakbullet3
 	icon_state = "syndieturret0"
