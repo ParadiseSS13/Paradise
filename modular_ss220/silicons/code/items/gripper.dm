@@ -69,7 +69,11 @@
 					/obj/item/camera_film,
 					/obj/item/paper,
 					/obj/item/photo,
-					/obj/item/toy/plushie)
+					/obj/item/toy/plushie,
+					/obj/item/disk/data,
+					/obj/item/disk/design_disk,
+					/obj/item/disk/plantgene,
+					)
 
 /obj/item/gripper/nuclear
 	name = "Nuclear gripper"
@@ -265,3 +269,11 @@
 	// The gripper is special because it has a normal item inside that we can drop.
 	// All robot inventory items have NODROP, so they should return FALSE.
 	return module_gripper_drop()
+
+/obj/machinery/reagentgrinder/attack_ai(mob/user)
+	add_hiddenprint(user)
+	return attack_hand(user)
+
+/obj/structure/morgue/attack_ai(mob/user)
+	add_hiddenprint(user)
+	return attack_hand(user)
