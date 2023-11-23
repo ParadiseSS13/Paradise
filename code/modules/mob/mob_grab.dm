@@ -82,6 +82,7 @@
 	return ..()
 
 /obj/item/grab/proc/pull_grabbed(mob/user, turf/old_turf, direct, forced)
+	SIGNAL_HANDLER
 	if(assailant.moving_diagonally == FIRST_DIAG_STEP) //we dont want to do anything in the middle of diagonal step
 		return
 	if(!assailant.Adjacent(old_turf))
@@ -97,7 +98,7 @@
 		if(old_turf.Adjacent(affecting))
 			possible_dest |= old_turf
 		for(var/turf/dest in orange(1, assailant))
-			if(get_turf(assailant) == dest) // dont ask
+			if(assailant.loc == dest) // orange(1) is broken and returning central turf
 				continue
 			if(dest.Adjacent(affecting))
 				possible_dest |= dest
@@ -132,6 +133,7 @@
 	adjust_position()
 
 /obj/item/grab/proc/grab_moved()
+	SIGNAL_HANDLER
 	if(affecting.moving_diagonally == FIRST_DIAG_STEP) //we dont want to do anything in the middle of diagonal step
 		return
 	if(!assailant.Adjacent(affecting))
