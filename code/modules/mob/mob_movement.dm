@@ -15,6 +15,9 @@
 	if(buckled == mover)
 		return TRUE
 	if(ismob(mover))
+		var/mob/moving_mob = mover
+		if(src in moving_mob.grab_do_not_move)
+			return TRUE
 		if(mover in buckled_mobs)
 			return TRUE
 	return (!mover.density || !density || horizontal)

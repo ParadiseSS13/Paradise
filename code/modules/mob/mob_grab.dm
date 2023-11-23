@@ -91,20 +91,42 @@
 	var/assailant_glide_speed = TICKS2DS(world.icon_size / assailant.glide_size)
 	if(state in grab_states_not_moving)
 		affecting.glide_for(assailant_glide_speed)
-	else
-		var/possible_dest = list(old_turf)
-		for(var/turf/dest in orange(assailant, 1))
+	else if(get_turf(affecting) != old_turf)
+		var/possible_dest = list()
+		var/list/grabbed_mobs = list()
+		if(old_turf.Adjacent(affecting))
+			possible_dest |= old_turf
+		for(var/turf/dest in orange(1, assailant))
+			if(get_turf(assailant) == dest) // dont ask
+				continue
 			if(dest.Adjacent(affecting))
 				possible_dest |= dest
 		if(istype(assailant.l_hand, /obj/item/grab))
 			var/obj/item/grab/grab = assailant.l_hand
 			possible_dest -= get_turf(grab.affecting)
+			grabbed_mobs |= grab.affecting
 		if(istype(assailant.r_hand, /obj/item/grab))
 			var/obj/item/grab/grab = assailant.r_hand
 			possible_dest -= get_turf(grab.affecting)
+			grabbed_mobs |= grab.affecting
+		var/list/mobs_do_not_move = grabbed_mobs // those are mobs we shouldnt move while we're going to new position
+		mobs_do_not_move |= assailant
+		affecting.grab_do_not_move = mobs_do_not_move
+		var/success_move = FALSE
 		for(var/turf/dest as anything in possible_dest)
+			if(QDELETED(src))
+				return
+			if(get_turf(affecting) == dest)
+				success_move = TRUE
+				continue
 			if(affecting.Move(dest, get_dir(affecting, dest), assailant_glide_speed))
+				success_move = TRUE
 				break
+			continue
+		affecting.grab_do_not_move = initial(affecting.grab_do_not_move)
+		if(!success_move)
+			qdel(src)
+			return
 	if(state == GRAB_NECK)
 		assailant.setDir(turn(direct, 180))
 	adjust_position()
