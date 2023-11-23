@@ -1340,6 +1340,10 @@
 	pixel_x = -24
 	},
 /obj/structure/closet/crate/can,
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -3543,6 +3547,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "avr" = (
@@ -5469,6 +5474,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "aCw" = (
@@ -6589,9 +6595,6 @@
 	d1 = 2;
 	d2 = 4;
 	icon_state = "2-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -33337,15 +33340,6 @@
 	icon_state = "green"
 	},
 /area/station/service/hydroponics)
-"ceq" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	icon_state = "pipe-j2s";
-	name = "HoS Junction";
-	sort_type_txt = "7"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
 "cer" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -48299,6 +48293,15 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
+"djR" = (
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plasteel,
+/area/station/security/brig)
 "djU" = (
 /obj/structure/bed,
 /obj/item/clothing/suit/straight_jacket,
@@ -49276,6 +49279,18 @@
 /obj/machinery/atmospherics/binary/valve/open,
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
+"dNt" = (
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/brig)
 "dNU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -50069,6 +50084,7 @@
 	name = "east bump";
 	pixel_x = 27
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "eeL" = (
@@ -54572,9 +54588,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
@@ -54863,6 +54876,9 @@
 /turf/simulated/floor/plating,
 /area/station/security/storage)
 "glS" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -55342,9 +55358,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/structure/cable/yellow{
 	d1 = 2;
@@ -59930,6 +59943,10 @@
 /area/station/public/vacant_office)
 "iwm" = (
 /obj/machinery/light,
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "redcorner"
@@ -67303,6 +67320,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -68059,10 +68079,16 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "maV" = (
-/obj/structure/disposalpipe/segment,
+/obj/structure/disposalpipe/sortjunction{
+	dir = 4;
+	icon_state = "pipe-j2s";
+	name = "Security Junction";
+	sort_type_txt = "8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -70035,6 +70061,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -70987,10 +71014,6 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/junction{
-	dir = 1;
-	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -72127,11 +72150,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
-"nNq" = (
-/turf/simulated/floor/plasteel{
-	icon_state = "redcorner"
-	},
-/area/station/security/brig)
 "nOA" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -72997,12 +73015,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
-	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	icon_state = "pipe-j2s";
-	name = "Security Junction";
-	sort_type_txt = "8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
@@ -80555,6 +80567,7 @@
 	c_tag = "Brig - Hallway - Starboard";
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "rIj" = (
@@ -85743,11 +85756,9 @@
 /turf/simulated/floor/carpet,
 /area/station/service/library)
 "ugy" = (
-/obj/structure/disposalpipe/sortjunction{
-	dir = 4;
-	icon_state = "pipe-j2s";
-	name = "Security Junction";
-	sort_type_txt = "8"
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -85985,6 +85996,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
@@ -86368,6 +86380,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -86680,6 +86695,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "redcorner"
@@ -87561,6 +87577,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "uYo" = (
@@ -89177,6 +89194,10 @@
 	pixel_y = 32
 	},
 /obj/structure/chair/stool,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "black"
@@ -89542,6 +89563,7 @@
 	d2 = 8;
 	icon_state = "2-8"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "vWq" = (
@@ -90301,11 +90323,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 8
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 2;
+	icon_state = "pipe-j2s";
+	name = "HoS Junction";
+	sort_type_txt = "7"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -91014,15 +91039,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
-"wKS" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/security/brig)
 "wLt" = (
 /obj/structure/sign/biohazard,
 /turf/simulated/wall/r_wall,
@@ -92282,10 +92298,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
-	},
 /obj/machinery/power/apc{
 	dir = 4;
 	name = "east bump";
@@ -92295,6 +92307,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "xoP" = (
@@ -92760,10 +92773,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
 "xAI" = (
@@ -93632,6 +93642,9 @@
 /obj/item/radio/intercom{
 	name = "south bump";
 	pixel_y = -28
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -122556,13 +122569,13 @@ amx
 amx
 amx
 amx
-apP
-liR
+wRx
+djR
 aCu
 maC
-apP
+oSi
 uYf
-apP
+oSi
 xAz
 ugy
 apP
@@ -122807,21 +122820,21 @@ aSm
 aqd
 aSm
 alm
-wRx
 oSi
 oSi
 oSi
 oSi
 oSi
 oSi
-wKS
-oSi
-oSi
-oSi
-oSi
-oSi
+ugy
+liR
+apP
+apP
+apP
+apP
+apP
 nls
-ceq
+apP
 apP
 apP
 apP
@@ -123065,11 +123078,11 @@ uQU
 uOh
 glS
 aGV
-sQt
-sQt
-sQt
-sQt
-sQt
+dNt
+xkX
+xkX
+xkX
+xkX
 mVB
 ule
 uFZ
@@ -123579,7 +123592,7 @@ gRG
 oXw
 maV
 oiX
-nNq
+aFz
 iBR
 hlN
 eVZ
