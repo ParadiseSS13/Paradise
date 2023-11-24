@@ -154,7 +154,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		in_storage = TRUE
 
 // this proc is used to add text for items with ABSTRACT flag after default examine text
-/obj/item/proc/customised_abstract_text()
+/obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
 	return
 
 /obj/item/proc/determine_move_resist()

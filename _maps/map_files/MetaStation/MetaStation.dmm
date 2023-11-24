@@ -6399,7 +6399,7 @@
 	pixel_x = 27
 	},
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -6981,7 +6981,7 @@
 /area/station/maintenance/fsmaint)
 "aIp" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
 "aIq" = (
@@ -11137,7 +11137,7 @@
 /area/station/maintenance/fsmaint)
 "aUy" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -15060,7 +15060,7 @@
 "beK" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/patch/silver_sulf,
 /obj/item/stamp/ce,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -23136,7 +23136,7 @@
 /area/station/service/hydroponics)
 "byM" = (
 /obj/structure/table/wood/poker,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/wood,
 /area/station/service/bar)
 "byP" = (
@@ -30628,7 +30628,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/dice/d20,
 /obj/item/dice,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
 "bWF" = (
@@ -31837,7 +31837,7 @@
 	name = "south bump";
 	pixel_y = -24
 	},
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/structure/table/wood,
 /obj/machinery/camera{
 	c_tag = "Library Quiet Room";
@@ -60370,7 +60370,6 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/obj/effect/landmark/start/barber,
 /obj/machinery/power/apc{
 	name = "south bump";
 	pixel_y = -24
@@ -62379,18 +62378,18 @@
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
+/obj/item/reagent_containers/patch/styptic{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
+/obj/item/reagent_containers/patch/styptic{
 	pixel_x = 2;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+/obj/item/reagent_containers/patch/silver_sulf{
 	pixel_x = -8;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+/obj/item/reagent_containers/patch/silver_sulf{
 	pixel_x = -8;
 	pixel_y = 8
 	},
@@ -74687,7 +74686,7 @@
 /area/station/maintenance/fore)
 "pcD" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
@@ -93619,7 +93618,7 @@
 /area/station/science/toxins/mixing)
 "xUA" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 8;
