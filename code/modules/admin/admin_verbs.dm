@@ -537,7 +537,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	var/turf/epicenter = mob.loc
 	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce?") as null|anything in choices
+	var/choice = tgui_input_list(src, "What size explosion would you like to produce?", "Drop Bomb", choices)
 	switch(choice)
 		if(null)
 			return 0

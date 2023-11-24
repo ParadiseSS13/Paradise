@@ -6,6 +6,8 @@
 	tick_interval = 4
 	alert_type = /obj/screen/alert/status_effect/his_grace
 	var/bloodlust = 0
+	/// Attached His Grace toolbox
+	var/obj/item/his_grace/toolbox
 
 /obj/screen/alert/status_effect/his_grace
 	name = "His Grace"
@@ -18,7 +20,8 @@
 	var/datum/status_effect/his_grace/HG = attached_effect
 	desc += "<br><font size=3><b>Current Bloodthirst: [HG.bloodlust]</b></font>\
 	<br>Becomes undroppable at <b>[HIS_GRACE_FAMISHED]</b>\
-	<br>Will consume you at <b>[HIS_GRACE_CONSUME_OWNER]</b>"
+	<br>Will consume you at <b>[HIS_GRACE_CONSUME_OWNER]</b>\
+	<br>You have offered [HG.toolbox ? HG.toolbox.victims : 0] out of [HG.toolbox.victims_needed] sacrifices needed before ascension."
 	..()
 
 /datum/status_effect/his_grace/on_apply()
@@ -33,6 +36,7 @@
 	held_items += owner.l_hand
 	held_items += owner.r_hand
 	for(var/obj/item/his_grace/HG in held_items)
+		toolbox = HG
 		if(HG.bloodthirst > bloodlust)
 			bloodlust = HG.bloodthirst
 		if(HG.awakened)
@@ -52,6 +56,7 @@
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["hisgrace"])
 		owner.remove_stun_absorption("hisgrace")
+	toolbox = null
 
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"

@@ -209,6 +209,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	log_looc(msg, src)
 	mob.create_log(LOOC_LOG, msg)
+	if(isliving(mob))
+		for(var/mob/M in viewers(7, mob))
+			if(M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				M.create_chat_message(mob, msg, FALSE, symbol = RUNECHAT_SYMBOL_LOOC)
 	var/mob/source = mob.get_looc_source()
 	var/list/heard = get_mobs_in_view(7, source)
 
