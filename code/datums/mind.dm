@@ -680,13 +680,11 @@
 				if(new_target == "Free objective")
 					new_objective = new objective_path
 					new_objective:target = null
-					new_objective.explanation_text = "Free objective"
+					new_objective.update_text()
 				else
 					new_objective = new objective_path
 					new_objective:target = new_target:mind
-					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
-					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
-					new_objective.establish_signals()
+					new_objective.update_text()
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
@@ -694,7 +692,7 @@
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
-					new_objective.explanation_text = "Destroy [new_target.name], the experimental AI."
+					new_objective.update_text()
 				else
 					to_chat(usr, "No active AIs with minds")
 
@@ -734,10 +732,10 @@
 				switch(new_obj_type)
 					if("absorb")
 						new_objective = new /datum/objective/absorb
-						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
+						new_objective.update_text()
 					if("blood")
 						new_objective = new /datum/objective/blood
-						new_objective.explanation_text = "Accumulate at least [target_number] total units of blood."
+						new_objective.update_text()
 				new_objective.target_amount = target_number
 
 			if("identity theft")
