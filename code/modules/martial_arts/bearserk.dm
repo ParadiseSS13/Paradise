@@ -32,7 +32,6 @@
 	to_chat(H, "<span class='warning'>The occultic, ursine might and anger of Foh'Sie and Smoh'Kie flows through your body, making you far more dangerous in unarmed combat. \
 	You can learn more about this newfound strength in the Recall Teachings verb in the martial arts tab.</span>")
 
-
 /datum/martial_art/bearserk/remove(mob/living/carbon/human/H)
 	..()
 	to_chat(H, "<span class='sciradio'>The ancient fury of bears leaves your mind...</span>")
