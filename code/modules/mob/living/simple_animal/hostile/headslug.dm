@@ -1,5 +1,5 @@
-#define EGG_INCUBATION_DEAD_TIME 60
-#define EGG_INCUBATION_LIVING_TIME 120
+#define EGG_INCUBATION_DEAD_CYCLE 60
+#define EGG_INCUBATION_LIVING_CYCLE 120
 /mob/living/simple_animal/hostile/headslug
 	name = "headslug"
 	desc = "Absolutely not de-beaked or harmless. Keep away from corpses."
@@ -74,7 +74,7 @@
 	if(time >= 90 && prob(15))
 		to_chat(owner, pick("<span class='danger'>Something hurts.</span>", "<span class='danger'>Someone is thinking, but it's not you.</span>", "<span class='danger'>You feel at peace.</span>", "<span class='danger'>Close your eyes.</span>"))
 		owner.adjustStaminaLoss(50)
-	if(time >= EGG_INCUBATION_DEAD_TIME && owner.stat == DEAD || time >= EGG_INCUBATION_LIVING_TIME)
+	if(time >= EGG_INCUBATION_DEAD_CYCLE && owner.stat == DEAD || time >= EGG_INCUBATION_LIVING_CYCLE)
 		Pop()
 		STOP_PROCESSING(SSobj, src)
 		qdel(src)
@@ -116,5 +116,5 @@
 	chest.fracture()
 	chest.disembowel()
 
-#undef EGG_INCUBATION_DEAD_TIME
-#undef EGG_INCUBATION_LIVING_TIME
+#undef EGG_INCUBATION_DEAD_CYCLE
+#undef EGG_INCUBATION_LIVING_CYCLE
