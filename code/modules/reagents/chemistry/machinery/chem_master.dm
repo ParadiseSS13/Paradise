@@ -461,7 +461,7 @@
 							to_chat(usr, "<span class='notice'>Not enough reagents to create these pills!</span>")
 							return
 
-						var/obj/item/reagent_containers/food/pill/P = new(loc)
+						var/obj/item/reagent_containers/pill/P = new(loc)
 						P.name = "[answer] pill"
 						P.pixel_x = rand(-7, 7) // Random position
 						P.pixel_y = rand(-7, 7)
@@ -495,7 +495,7 @@
 							to_chat(usr, "<span class='notice'>Not enough reagents to create these patches!</span>")
 							return
 
-						var/obj/item/reagent_containers/food/pill/patch/P = new(loc)
+						var/obj/item/reagent_containers/patch/P = new(loc)
 						P.name = "[answer] patch"
 						P.pixel_x = rand(-7, 7) // random position
 						P.pixel_y = rand(-7, 7)

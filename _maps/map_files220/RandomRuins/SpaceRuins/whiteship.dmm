@@ -123,18 +123,18 @@
 	pixel_x = 6;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
+/obj/item/reagent_containers/patch/styptic{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
+/obj/item/reagent_containers/patch/styptic{
 	pixel_x = 2;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+/obj/item/reagent_containers/patch/silver_sulf{
 	pixel_x = -8;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+/obj/item/reagent_containers/patch/silver_sulf{
 	pixel_x = -8;
 	pixel_y = 8
 	},

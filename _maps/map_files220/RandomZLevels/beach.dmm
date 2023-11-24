@@ -2077,7 +2077,7 @@
 	pixel_x = -12;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf/small{
+/obj/item/reagent_containers/patch/silver_sulf/small{
 	pixel_x = 2
 	},
 /turf/simulated/floor/plasteel/white{
@@ -3105,7 +3105,7 @@
 /area/awaymission/beach)
 "Ol" = (
 /obj/structure/table/wood/poker,
-/obj/item/storage/pill_bottle/dice{
+/obj/item/storage/bag/dice{
 	pixel_x = 4;
 	pixel_y = 2
 	},

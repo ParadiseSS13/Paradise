@@ -193,13 +193,10 @@
 	. = TRUE
 	if(!default_unfasten_wrench(user, I, 0))
 		return
-	anchored = !anchored
 	if(!anchored)
 		disconnect()
-		power_change()
 	else
 		connect()
-	to_chat(user, "<span class='notice'>You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor.</span>")
 
 /obj/machinery/power/teg/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)

@@ -8,8 +8,8 @@
 
 /obj/item/storage/pill_bottle/happy/populate_contents()
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/food/pill/happy(src)
-		new /obj/item/reagent_containers/food/pill/happy/happiness(src)
+		new /obj/item/reagent_containers/pill/happy(src)
+		new /obj/item/reagent_containers/pill/happy/happiness(src)
 
 /obj/item/storage/pill_bottle/zoom
 	name = "Zoom pills"
@@ -18,13 +18,13 @@
 
 /obj/item/storage/pill_bottle/zoom/populate_contents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/food/pill/zoom(src)
+		new /obj/item/reagent_containers/pill/zoom(src)
 
-/obj/item/reagent_containers/food/pill/random_drugs
+/obj/item/reagent_containers/pill/random_drugs
 	name = "pill"
 	desc = "A cocktail of illicit designer drugs, who knows what might be in here."
 
-/obj/item/reagent_containers/food/pill/random_drugs/Initialize(mapload)
+/obj/item/reagent_containers/pill/random_drugs/Initialize(mapload)
 	. = ..()
 	icon_state = "pill" + pick("2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20")
 
@@ -48,4 +48,4 @@
 /obj/item/storage/pill_bottle/random_drug_bottle/Initialize(mapload)
 	. = ..()
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/food/pill/random_drugs(src)
+		new /obj/item/reagent_containers/pill/random_drugs(src)

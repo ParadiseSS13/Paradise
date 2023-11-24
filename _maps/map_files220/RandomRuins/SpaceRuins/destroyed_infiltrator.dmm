@@ -29,7 +29,7 @@
 /turf/template_noop,
 /area/ruin/space/unpowered/unpowered_structures)
 "bi" = (
-/obj/item/storage/box/syndie_kit/bonerepair,
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 /turf/template_noop,
 /area/template_noop)
 "bq" = (

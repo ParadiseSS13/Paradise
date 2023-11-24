@@ -1238,7 +1238,7 @@
 "ajF" = (
 /obj/structure/table/reinforced,
 /obj/item/folder,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/arrival/station)
 "ajK" = (
@@ -8825,7 +8825,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/folder/yellow,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/patch/silver_sulf,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -21952,7 +21952,7 @@
 /obj/item/cartridge/engineering{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/patch/silver_sulf,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -29719,7 +29719,7 @@
 /area/station/maintenance/starboard2)
 "cxV" = (
 /obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/structure/sign/poster/official/random/west,
 /turf/simulated/floor/carpet,
 /area/station/service/library)
@@ -53318,7 +53318,7 @@
 /obj/item/deck/cards{
 	pixel_y = 6
 	},
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/wood/oak,
 /area/station/maintenance/library)
@@ -56130,7 +56130,7 @@
 /area/station/legal/lawoffice)
 "hDS" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
@@ -57534,7 +57534,7 @@
 /area/station/engineering/controlroom)
 "iaw" = (
 /obj/structure/table,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /obj/item/deck/cards,
 /obj/machinery/atmospherics/unary/outlet_injector/on,
 /turf/simulated/floor/carpet,
@@ -71058,7 +71058,7 @@
 /area/station/bridge/checkpoint/south)
 "mJi" = (
 /obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice{
+/obj/item/storage/bag/dice{
 	pixel_y = 2
 	},
 /turf/simulated/floor/carpet/arcade,
@@ -87128,7 +87128,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "sgO" = (
-/obj/effect/landmark/start/barber,
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
 	},
@@ -87490,11 +87489,11 @@
 /area/station/security/permabrig)
 "soV" = (
 /obj/item/storage/bag/chemistry,
-/obj/item/reagent_containers/food/pill/random_drugs,
-/obj/item/reagent_containers/food/pill/random_drugs,
-/obj/item/reagent_containers/food/pill/random_drugs,
-/obj/item/reagent_containers/food/pill/random_drugs,
-/obj/item/reagent_containers/food/pill/random_drugs,
+/obj/item/reagent_containers/pill/random_drugs,
+/obj/item/reagent_containers/pill/random_drugs,
+/obj/item/reagent_containers/pill/random_drugs,
+/obj/item/reagent_containers/pill/random_drugs,
+/obj/item/reagent_containers/pill/random_drugs,
 /obj/effect/landmark/damageturf,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -99879,19 +99878,19 @@
 	pixel_y = -2;
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
+/obj/item/reagent_containers/patch/styptic{
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/pill/patch/styptic{
+/obj/item/reagent_containers/patch/styptic{
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+/obj/item/reagent_containers/patch/silver_sulf{
 	pixel_x = 8;
 	pixel_y = -2
 	},
-/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+/obj/item/reagent_containers/patch/silver_sulf{
 	pixel_x = 8;
 	pixel_y = -2
 	},

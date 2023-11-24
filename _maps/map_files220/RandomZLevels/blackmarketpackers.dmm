@@ -587,7 +587,7 @@
 	dir = 2
 	},
 /obj/item/reagent_containers/food/drinks/sillycup,
-/obj/item/reagent_containers/food/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "ca" = (
@@ -689,7 +689,7 @@
 /obj/item/bedsheet/centcom{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
 /obj/structure/sign/poster/contraband/d_day_promo{
 	pixel_x = -32
 	},
@@ -982,7 +982,7 @@
 /obj/structure/sign/poster/contraband/tools{
 	pixel_x = -32
 	},
-/obj/item/reagent_containers/food/pill/charcoal{
+/obj/item/reagent_containers/pill/charcoal{
 	layer = 2.9
 	},
 /turf/simulated/floor/carpet,
@@ -1486,7 +1486,7 @@
 /area/awaymission/BMPship/Bath)
 "eq" = (
 /obj/structure/weightmachine/stacklifter,
-/obj/item/reagent_containers/food/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/BMPship/CommonArea)
 "er" = (
@@ -4165,7 +4165,7 @@
 /obj/structure/sign/poster/contraband/syndicate_recruitment{
 	pixel_x = -32
 	},
-/obj/item/reagent_containers/food/pill/charcoal,
+/obj/item/reagent_containers/pill/charcoal,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "su" = (
@@ -4955,7 +4955,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Bath)
 "zC" = (
-/obj/item/reagent_containers/food/pill/charcoal,
+/obj/item/reagent_containers/pill/charcoal,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "zD" = (
@@ -5035,7 +5035,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/pill/charcoal,
+/obj/item/reagent_containers/pill/charcoal,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "Ay" = (
@@ -5069,14 +5069,14 @@
 	dir = 4
 	},
 /obj/item/clothing/head/bearpelt,
-/obj/item/reagent_containers/food/pill/methamphetamine{
+/obj/item/reagent_containers/pill/methamphetamine{
 	layer = 2.9
 	},
 /obj/structure/sign/poster/contraband/have_a_puff{
 	pixel_x = -32
 	},
 /mob/living/simple_animal/cockroach,
-/obj/item/reagent_containers/food/pill/charcoal{
+/obj/item/reagent_containers/pill/charcoal{
 	layer = 2.9
 	},
 /turf/simulated/floor/carpet,
@@ -5562,7 +5562,7 @@
 /area/space)
 "Fs" = (
 /obj/machinery/light/small/directional/north,
-/obj/item/reagent_containers/food/pill/charcoal,
+/obj/item/reagent_containers/pill/charcoal,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "Fz" = (
@@ -7312,7 +7312,7 @@
 /obj/item/bedsheet/hos{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/pill/methamphetamine{
+/obj/item/reagent_containers/pill/methamphetamine{
 	layer = 2.9
 	},
 /obj/structure/sign/poster/contraband/grey_tide{

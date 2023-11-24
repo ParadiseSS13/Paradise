@@ -98,8 +98,14 @@
 
 	if(is_pen(user.get_active_hand()))
 		rename(user)
-	else
-		return ..()
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/I = H.is_in_hands(/obj/item/paper)
+		if(I)
+			ProcFoldPlane(H, I)
+			return
+	return ..()
 
 /obj/item/paper/proc/rename(mob/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))

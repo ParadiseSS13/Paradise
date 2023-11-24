@@ -2728,6 +2728,7 @@
 #include "code\modules\tgui\modules\module_base.dm"
 #include "code\modules\tgui\modules\power_monitor.dm"
 #include "code\modules\tgui\modules\robot_self_diagnosis.dm"
+#include "code\modules\tgui\modules\tgui_input_list.dm"
 #include "code\modules\tgui\modules\volume_mixer.dm"
 #include "code\modules\tgui\plugins\modal.dm"
 #include "code\modules\tgui\plugins\tgui_login.dm"
