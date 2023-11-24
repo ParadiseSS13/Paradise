@@ -55,7 +55,7 @@
 		return
 	var/mob/living/carbon/human/H = user
 	if(slot == SLOT_HUD_HEAD)
-		style.teach(H, 1)
+		style.teach(H, TRUE)
 		H.faction |= "russian" // Russian Hardbass Begins
 		H.physiology.stun_mod *= 0.80
 
