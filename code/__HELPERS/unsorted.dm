@@ -705,7 +705,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/areas = new
+	var/list/areas = list()
 	for(var/area/N in world)
 		if(istype(N, areatype)) areas += N
 	return areas
@@ -719,7 +719,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/turfs = new
+	var/list/turfs = list()
 	for(var/area/N in world)
 		if(istype(N, areatype))
 			for(var/turf/T in N) turfs += T
@@ -734,7 +734,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/atoms = new
+	var/list/atoms = list()
 	for(var/area/N in world)
 		if(istype(N, areatype))
 			for(var/atom/A in N)
@@ -770,7 +770,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
 		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
 
-	var/list/refined_src = new
+	var/list/refined_src = list()
 	for(var/turf/T in turfs_src)
 		refined_src += T
 		refined_src[T] = new/datum/coords
@@ -778,7 +778,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - src_min_x)
 		C.y_pos = (T.y - src_min_y)
 
-	var/list/refined_trg = new
+	var/list/refined_trg = list()
 	for(var/turf/T in turfs_trg)
 		refined_trg += T
 		refined_trg[T] = new/datum/coords
@@ -786,8 +786,8 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - trg_min_x)
 		C.y_pos = (T.y - trg_min_y)
 
-	var/list/from_update = new
-	var/list/to_update = new
+	var/list/from_update = list()
+	var/list/to_update = list()
 
 	moving:
 		for(var/turf/T in refined_src)
@@ -939,7 +939,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		if(T.y < trg_min_y || !trg_min_y)
 			trg_min_y	= T.y
 
-	var/list/refined_src = new
+	var/list/refined_src = list()
 	for(var/turf/T in turfs_src)
 		refined_src += T
 		refined_src[T] = new/datum/coords
@@ -947,7 +947,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - src_min_x)
 		C.y_pos = (T.y - src_min_y)
 
-	var/list/refined_trg = new
+	var/list/refined_trg = list()
 	for(var/turf/T in turfs_trg)
 		refined_trg += T
 		refined_trg[T] = new/datum/coords
@@ -955,8 +955,8 @@ Returns 1 if the chain up to the area contains the given typepath
 		C.x_pos = (T.x - trg_min_x)
 		C.y_pos = (T.y - trg_min_y)
 
-	var/list/to_update = new
-	var/list/copied_objects = new
+	var/list/to_update = list()
+	var/list/copied_objects = list()
 
 	moving:
 		for(var/turf/T in refined_src)
@@ -978,8 +978,8 @@ Returns 1 if the chain up to the area contains the given typepath
 					X.icon_state = old_icon_state1
 					X.icon = old_icon1 // Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
-					var/list/newobjs = new
-					var/list/newmobs = new
+					var/list/newobjs = list()
+					var/list/newmobs = list()
 
 					for(var/obj/O in T)
 						newobjs += DuplicateObject(O, perfect_copy, FALSE, X)
@@ -1797,7 +1797,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 
 /proc/filter_fancy_list(list/L, filter as text)
-	var/list/matches = new
+	var/list/matches = list()
 	for(var/key in L)
 		var/value = L[key]
 		if(findtext("[key]", filter) || findtext("[value]", filter))
