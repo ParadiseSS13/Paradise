@@ -19,10 +19,10 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	if(prize_counter.tickets >= item.cost)
 		new item.typepath(prize_counter.loc)
 		prize_counter.tickets -= item.cost
-		prize_counter.visible_message("<span class='notice'>Enjoy your prize!</span>")
+		to_chat(usr, "<span class='notice'>Enjoy your prize!</span>")
 		return 1
 	else
-		prize_counter.visible_message("<span class='warning'>Not enough tickets!</span>")
+		to_chat(usr,"<span class='warning'>Not enough tickets!</span>")
 		return 0
 
 //////////////////////////////////////
