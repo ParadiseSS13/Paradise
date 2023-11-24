@@ -122,7 +122,7 @@
 	. = ..()
 	if(!.) // dead
 		return
-	if(isturf(loc))
+	if(target && isturf(loc))
 		if(!LAZYLEN(cached_tentacle_turfs) || loc != last_location || tentacle_recheck_cooldown <= world.time)
 			LAZYCLEARLIST(cached_tentacle_turfs)
 			last_location = loc

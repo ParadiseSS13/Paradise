@@ -182,6 +182,9 @@
 /area/station/public/toilet/female
 	name = "\improper Female Toilets"
 
+/area/station/public/toilet/unisex
+	name = "\improper Unisex Restroom"
+
 /area/station/public/toilet/lockerroom
 	name = "\improper Locker Toilets"
 
