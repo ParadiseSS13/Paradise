@@ -33,7 +33,8 @@ SUBSYSTEM_DEF(modpacks)
 		if(fail_msg)
 			stack_trace("Modpack [(istype(package) && package.name) || "Unknown"] failed to post-initialize: [fail_msg]")
 
-	load_admins() // To make admins always have modular added verbs
+	if(SSdbcore.IsConnected())
+		load_admins() // To make admins always have modular added verbs
 
 /mob/verb/modpacks_list()
 	set name = "Modpacks List"
