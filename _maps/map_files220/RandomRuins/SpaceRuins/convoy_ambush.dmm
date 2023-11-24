@@ -805,9 +805,9 @@
 /obj/structure/closet/cardboard,
 /obj/item/reagent_containers/food/snacks/chinese/rice,
 /obj/item/reagent_containers/food/snacks/chinese/chowmein,
-/obj/item/reagent_containers/food/pill/methamphetamine,
-/obj/item/reagent_containers/food/pill/methamphetamine,
-/obj/item/reagent_containers/food/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
+/obj/item/reagent_containers/pill/methamphetamine,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "blackfull"
 	},
