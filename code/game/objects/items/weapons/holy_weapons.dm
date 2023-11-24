@@ -208,6 +208,7 @@
 /obj/item/nullrod/claymore/saber
 	name = "light energy blade"
 	hitsound = 'sound/weapons/blade1.ogg'
+	icon = 'icons/obj/energy_melee.dmi'
 	icon_state = "swordblue"
 	item_state = "swordblue"
 	desc = "If you strike me down, I shall become more robust than you can possibly imagine."
