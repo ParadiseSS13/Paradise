@@ -267,7 +267,7 @@
 /datum/plant_gene/trait/cell_charge
 	// Cell recharging trait. Charges all mob's power cells to (potency*rate)% mark when eaten.
 	// Generates sparks on squash.
-	// Small (potency*rate*5) chance to shock squish or slip target for (potency*rate*5) damage.
+	// Small (potency*rate*5) chance to shock squish or slip target for damage (potency*rate*5).
 	// Multiplies max charge by (rate*100) when used in potato power cells.
 	name = "Electrical Activity"
 	rate = 0.2
@@ -403,7 +403,7 @@
 			to_chat(user, "<span class='notice'>You add some cable to [G] and slide it inside the battery encasing.</span>")
 			var/obj/item/stock_parts/cell/potato/pocell = new /obj/item/stock_parts/cell/potato(user.loc)
 			pocell.icon_state = G.icon_state
-			pocell.maxcharge = G.seed.potency * 20
+			pocell.maxcharge = max(G.seed.potency * 20, 1)
 
 			// The secret of potato supercells!
 			var/datum/plant_gene/trait/cell_charge/CG = G.seed.get_gene(/datum/plant_gene/trait/cell_charge)

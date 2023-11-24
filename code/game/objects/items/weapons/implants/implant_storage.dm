@@ -28,7 +28,11 @@
 	storage.emp_act(severity)
 
 /obj/item/implant/storage/activate()
-	storage.MouseDrop(imp_in)
+	if(!length(storage.mobs_viewing))
+		storage.MouseDrop(imp_in)
+	else
+		for(var/mob/to_close in storage.mobs_viewing)
+			storage.close(to_close)
 
 /obj/item/implant/storage/removed(source)
 	if(..())

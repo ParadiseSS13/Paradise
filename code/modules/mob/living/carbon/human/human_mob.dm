@@ -1197,7 +1197,7 @@
 		return 0
 
 	if(!L.is_bruised())
-		custom_pain("You feel a stabbing pain in your chest!")
+		L.custom_pain("You feel a stabbing pain in your chest!")
 		L.damage = L.min_bruised_damage
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
@@ -1226,7 +1226,7 @@
 	if(include_species_change)
 		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
-	if (include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
+	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
@@ -1618,7 +1618,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
+		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer"))
 			. = 100
 		if(mind.assigned_role == "Clown")
 			. = rand(-1000, 1000)
@@ -2129,7 +2129,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(stat)
 		return
 
-	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)]...", "Pose", null) as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"
