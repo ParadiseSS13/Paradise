@@ -631,8 +631,8 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
-			"nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
+			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal",
+			"nuclear", "absorb", "destroy", "maroon", "identity theft", "custom")
 		if(!new_obj_type)
 			return
 
@@ -640,11 +640,6 @@
 
 		switch(new_obj_type)
 			if("assassinate", "assassinateonce", "protect","debrain", "maroon")
-				//To determine what to name the objective in explanation text.
-				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
-				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
-				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
-
 				var/list/possible_targets = list()
 				var/list/possible_targets_random = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
@@ -720,7 +715,7 @@
 				if(!steal.select_target())
 					return
 
-			if("download","capture","absorb", "blood")
+			if("absorb", "blood")
 				var/def_num
 				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
 					def_num = objective.target_amount
@@ -732,11 +727,10 @@
 				switch(new_obj_type)
 					if("absorb")
 						new_objective = new /datum/objective/absorb
-						new_objective.update_text()
 					if("blood")
 						new_objective = new /datum/objective/blood
-						new_objective.update_text()
 				new_objective.target_amount = target_number
+				new_objective.update_text()
 
 			if("identity theft")
 				var/list/possible_targets = list()

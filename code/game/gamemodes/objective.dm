@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinate/update_text()
 	if(target?.current)
-		explanation_text = "Assassinate [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
 	else
 		explanation_text = "Free Objective"
 
@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinateonce/update_text()
 	if(target?.current)
-		explanation_text = "Teach [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)], a lesson they will not forget. The target only needs to die once for success."
+		explanation_text = "Teach [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)], a lesson they will not forget. The target only needs to die once for success."
 		establish_signals()
 	else
 		explanation_text = "Free Objective"
@@ -211,7 +211,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/mutiny/update_text()
 	if(target?.current)
-		explanation_text = "Assassinate or exile [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+		explanation_text = "Assassinate or exile [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
 	else
 		explanation_text = "Free Objective"
 
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/maroon/update_text()
 	if(target?.current)
-		explanation_text = "Prevent [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)] from escaping alive."
+		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)] from escaping alive."
 	else
 		explanation_text = "Free Objective"
 
@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/debrain/update_text()
 	if(target?.current)
-		explanation_text = "Steal the brain of [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+		explanation_text = "Steal the brain of [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
 	else
 		explanation_text = "Free Objective"
 
@@ -302,7 +302,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/protect/update_text()
 	if(target?.current)
-		explanation_text = "Protect [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
+		explanation_text = "Protect [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
 	else
 		explanation_text = "Free Objective"
 
@@ -653,7 +653,6 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/destroy
 	name = "Destroy AI"
 	martyr_compatible = TRUE
-	var/target_real_name
 
 /datum/objective/destroy/find_target(list/target_blacklist)
 	var/list/possible_targets = active_ais(1)
@@ -663,6 +662,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return target
 
 /datum/objective/destory/update_text()
+	var/target_real_name
 	if(target?.current)
 		target_real_name = target.current.real_name
 		explanation_text = "Destroy [target_real_name], the AI."
