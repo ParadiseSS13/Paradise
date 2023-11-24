@@ -117,7 +117,6 @@
 	var/obj/item/organ/external/chest = owner.get_organ(BODY_ZONE_CHEST)
 	chest.fracture()
 	chest.disembowel()
-		
 
 #undef EGG_INCUBATION_DEAD_TIME
 #undef EGG_INCUBATION_LIVING_TIME
