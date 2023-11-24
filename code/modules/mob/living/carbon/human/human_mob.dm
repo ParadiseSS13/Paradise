@@ -1678,7 +1678,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
 		return
-	if(H.receiving_cpr) // To prevent spam stacking
+	if(!isnull(H.receiving_cpr_from)) // To prevent spam stacking
 		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
 		return
 	if(!can_use_hands() || !has_both_hands())
@@ -1688,7 +1688,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='warning'>You can't perform effective CPR with your hands full!</span>")
 		return
 
-	H.receiving_cpr = TRUE
+	H.receiving_cpr_from = UID()
 	var/cpr_modifier = get_cpr_mod(H)
 	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		if(ismachineperson(H) && do_mob(src, H, 4 SECONDS))  // hehe
@@ -1698,12 +1698,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				)
 			playsound(H, 'sound/weapons/ringslam.ogg', 50, TRUE)
 			adjustBruteLossByPart(2, "head")
-			H.receiving_cpr = FALSE
+			H.receiving_cpr_from = null
 			return
 
 		if(!H.is_revivable())
 			to_chat(src, "<span class='warning'>[H] is already too far gone for CPR...</span>")
-			H.receiving_cpr = FALSE
+			H.receiving_cpr_from = null
 			return
 
 		visible_message("<span class='danger'>[src] is trying to perform CPR on [H]'s lifeless body!</span>", "<span class='danger'>You start trying to perform CPR on [H]'s lifeless body!</span>")
@@ -1740,7 +1740,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		else
 			visible_message("<span class='notice'>[src] stops giving [H] CPR.</span>", "<span class='notice'>You stop giving [H] CPR.</span>")
 
-		H.receiving_cpr = FALSE
+		H.receiving_cpr_from = null
 		return
 
 	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
@@ -1759,7 +1759,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 		add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 
-	H.receiving_cpr = FALSE
+	H.receiving_cpr_from = null
 	visible_message("<span class='notice'>[src] stops performing CPR on [H].</span>", "<span class='notice'>You stop performing CPR on [H].</span>")
 	to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
