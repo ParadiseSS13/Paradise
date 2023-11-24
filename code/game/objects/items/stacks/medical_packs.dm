@@ -58,7 +58,7 @@
 		if(!(critter.healable))
 			to_chat(user, "<span class='notice'>You cannot use [src] on [critter]!</span>")
 			return
-		else if (critter.health == critter.maxHealth)
+		else if(critter.health == critter.maxHealth)
 			to_chat(user, "<span class='notice'>[critter] is at full health.</span>")
 			return
 		else if(heal_brute < 1)

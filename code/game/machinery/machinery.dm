@@ -131,6 +131,14 @@
 		stat |= NOPOWER
 	return old_stat != stat //performance saving for machines that use power_change() to update icons!
 
+/obj/machinery/proc/reregister_machine()
+	if(machine_powernet?.powernet_area != get_area(src))
+		var/area/machine_area = get_area(src)
+		if(machine_area)
+			machine_powernet?.unregister_machine(src)
+			machine_powernet = machine_area.powernet
+			machine_powernet.register_machine(src)
+
 /// Helper proc to change the machines power usage mode, automatically adjusts static power usage to maintain perfect parity
 /obj/machinery/proc/change_power_mode(use_type = IDLE_POWER_USE)
 	if(isnull(use_type) || use_type == power_state || !machine_powernet || !power_channel) //if there is no powernet/channel, just end it here
@@ -320,6 +328,7 @@
 /obj/machinery/default_unfasten_wrench(mob/user, obj/item/I, time)
 	. = ..()
 	if(.)
+		reregister_machine()
 		power_change()
 
 /obj/machinery/attackby(obj/item/O, mob/user, params)
@@ -505,7 +514,7 @@
 
 /obj/machinery/proc/adjust_item_drop_location(atom/movable/AM)	// Adjust item drop location to a 3x3 grid inside the tile, returns slot id from 0 to 8
 	var/md5 = md5(AM.name)										// Oh, and it's deterministic too. A specific item will always drop from the same slot.
-	for (var/i in 1 to 32)
+	for(var/i in 1 to 32)
 		. += hex2num(md5[i])
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)

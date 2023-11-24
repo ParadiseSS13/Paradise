@@ -14,7 +14,7 @@
 		chunk_requests = list()
 		for(var/i in 1 to chunk_count)
 			var/start_index = 1 + ((i - 1) * max_chunk_size)
-			if (start_index > data_length)
+			if(start_index > data_length)
 				break
 
 			var/end_index = min(1 + (i * max_chunk_size), data_length + 1)

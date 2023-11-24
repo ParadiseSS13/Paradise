@@ -68,10 +68,7 @@
 		parent_spell = null
 	return ..()
 
-/obj/item/vamp_claws/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/vamp_claws/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
 
 /obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
@@ -92,12 +89,11 @@
 			attacker.adjustStaminaLoss(-20) // security is dead
 			attacker.heal_overall_damage(4, 4) // the station is full
 			attacker.AdjustKnockDown(-1 SECONDS) // blood is fuel
-
-	if(!V.get_ability(/datum/vampire_passive/blood_spill))
-		durability--
-		if(durability <= 0)
-			qdel(src)
-			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+		if(!V.get_ability(/datum/vampire_passive/blood_spill))
+			durability--
+			if(durability <= 0)
+				qdel(src)
+				to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
 /obj/item/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()

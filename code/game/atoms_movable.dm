@@ -248,7 +248,7 @@
 
 	var/datum/light_source/L
 	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
+	for(thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
 		L = thing
 		L.source_atom.update_light()
 	return TRUE
