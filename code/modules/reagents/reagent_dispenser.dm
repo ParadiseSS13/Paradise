@@ -79,7 +79,6 @@
 	name = "water tank"
 	desc = "A water tank."
 	icon_state = "water"
-	anchored = TRUE
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
