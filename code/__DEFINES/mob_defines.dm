@@ -321,8 +321,3 @@
 			return LEG_LEFT
 		if("l_foot")
 			return FOOT_LEFT
-
-#define ACTION_REMOVE_HANDCUFFS "cuff_remove"
-#define ACTION_RESIST_BUCKLE "resist_buckle"
-#define ACTION_BREAK_HANDCUFFS "cuff_break"
-#define ACTION_REMOVE_MUZZLE "resist_muzzle"

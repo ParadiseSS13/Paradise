@@ -270,3 +270,19 @@
 /datum/status_effect/delayed/on_timeout()
 	. = ..()
 	expire_proc.Invoke()
+
+/datum/status_effect/action_status_effect
+	alert_type = null
+	tick_interval = -1
+
+/datum/status_effect/action_status_effect/remove_handcuffs
+	id= "remove handcuffs"
+
+/datum/status_effect/action_status_effect/break_handcuffs
+	id= "break handcuffs"
+
+/datum/status_effect/action_status_effect/remove_muzzle
+	id= "remove muzzle"
+
+/datum/status_effect/action_status_effect/unbuckle
+	id= "unbuckle"
