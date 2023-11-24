@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /**
  * This is for objectives that have reason to update their text, such as target changes.
  */
-/datum/objective/proc/update_text()
+/datum/objective/proc/update_explanation_text()
 	return
 
 /**
@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		target = pick(possible_targets)
 
 	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
-	update_text()
+	update_explanation_text()
 	return target
 
 /**
@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Assassinate"
 	martyr_compatible = TRUE
 
-/datum/objective/assassinate/update_text()
+/datum/objective/assassinate/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
 	else
@@ -182,7 +182,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	martyr_compatible = TRUE
 	var/won = FALSE
 
-/datum/objective/assassinateonce/update_text()
+/datum/objective/assassinateonce/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Teach [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)], a lesson they will not forget. The target only needs to die once for success."
 		establish_signals()
@@ -209,7 +209,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Mutiny"
 	martyr_compatible = TRUE
 
-/datum/objective/mutiny/update_text()
+/datum/objective/mutiny/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Assassinate or exile [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
 	else
@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Maroon"
 	martyr_compatible = FALSE
 
-/datum/objective/maroon/update_text()
+/datum/objective/maroon/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)] from escaping alive."
 	else
@@ -277,7 +277,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	if(ischangeling(possible_target.current))
 		return TARGET_INVALID_CHANGELING
 
-/datum/objective/debrain/update_text()
+/datum/objective/debrain/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Steal the brain of [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
 	else
@@ -300,7 +300,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	name = "Protect"
 	martyr_compatible = TRUE
 
-/datum/objective/protect/update_text()
+/datum/objective/protect/update_explanation_text()
 	if(target?.current)
 		explanation_text = "Protect [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
 	else
@@ -452,7 +452,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	// If the target is geneless, then it's an invalid target.
 	return HAS_TRAIT(possible_target.current, TRAIT_GENELESS)
 
-/datum/objective/escape/escape_with_identity/update_text()
+/datum/objective/escape/escape_with_identity/update_explanation_text()
 	if(target?.current)
 		target_real_name = target.current.real_name
 		explanation_text = "Escape on the shuttle or an escape pod with the identity of [target_real_name], the [target.assigned_role] while wearing [target.p_their()] identification card."
@@ -637,10 +637,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 				if(P.client && !(P.mind in SSticker.mode.changelings) && !(P.mind in get_owners()))
 					n_p++
 		target_amount = min(target_amount, n_p)
-		update_text()
+		update_explanation_text()
 	return target_amount
 
-/datum/objective/absorb/update_text()
+/datum/objective/absorb/update_explanation_text()
 	explanation_text = "Acquire [target_amount] compatible genomes. The 'Extract DNA Sting' can be used to stealthily get genomes without killing somebody."
 
 /datum/objective/absorb/check_completion()
@@ -658,10 +658,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	var/list/possible_targets = active_ais(1)
 	var/mob/living/silicon/ai/target_ai = pick(possible_targets)
 	target = target_ai.mind
-	update_text()
+	update_explanation_text()
 	return target
 
-/datum/objective/destory/update_text()
+/datum/objective/destory/update_explanation_text()
 	var/target_real_name
 	if(target?.current)
 		target_real_name = target.current.real_name
@@ -748,10 +748,10 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/blood/proc/gen_amount_goal(low = 150, high = 400)
 	target_amount = rand(low,high)
 	target_amount = round(round(target_amount/5)*5)
-	update_text()
+	update_explanation_text()
 	return target_amount
 
-/datum/objective/blood/update_text()
+/datum/objective/blood/update_explanation_text()
 	explanation_text = "Accumulate at least [target_amount] total units of blood."
 
 /datum/objective/blood/check_completion()

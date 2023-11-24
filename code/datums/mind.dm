@@ -675,11 +675,11 @@
 				if(new_target == "Free objective")
 					new_objective = new objective_path
 					new_objective:target = null
-					new_objective.update_text()
+					new_objective.update_explanation_text()
 				else
 					new_objective = new objective_path
 					new_objective:target = new_target:mind
-					new_objective.update_text()
+					new_objective.update_explanation_text()
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
@@ -687,7 +687,7 @@
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
-					new_objective.update_text()
+					new_objective.update_explanation_text()
 				else
 					to_chat(usr, "No active AIs with minds")
 
@@ -730,7 +730,7 @@
 					if("blood")
 						new_objective = new /datum/objective/blood
 				new_objective.target_amount = target_number
-				new_objective.update_text()
+				new_objective.update_explanation_text()
 
 			if("identity theft")
 				var/list/possible_targets = list()
@@ -747,7 +747,7 @@
 					CRASH("Invalid target for identity theft objective, cancelling")
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.target = new_target
-				new_objective.update_text()
+				new_objective.update_explanation_text()
 				var/datum/objective/escape/escape_with_identity/O = new_objective
 				O.target_real_name = new_objective.target.current.real_name
 			if("custom")
