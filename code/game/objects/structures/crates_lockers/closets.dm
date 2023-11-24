@@ -388,6 +388,7 @@
 
 	return ..()
 
+
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
