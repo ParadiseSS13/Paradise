@@ -747,7 +747,7 @@
 					CRASH("Invalid target for identity theft objective, cancelling")
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.target = new_target
-				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
+				new_objective.update_text()
 				var/datum/objective/escape/escape_with_identity/O = new_objective
 				O.target_real_name = new_objective.target.current.real_name
 			if("custom")
