@@ -302,7 +302,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory
 	theme = /datum/mod_theme/responsory
-	applied_cell = /obj/item/stock_parts/cell/hyper
+	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_CENT_GENERAL)
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate, //Yes yes syndicate tech in ert but they need the storage
@@ -336,7 +336,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
-	additional_module = /obj/item/mod/module/anomaly_locked/kinesis/prebuilt //This can only end well.
+	additional_module = list(/obj/item/mod/module/anomaly_locked/kinesis/prebuilt, /obj/item/mod/module/firefighting_tank) //This can only end well.
 
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
