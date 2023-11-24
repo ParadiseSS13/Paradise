@@ -48,7 +48,6 @@
 	. = ..()
 	style = new()
 
-
 /obj/item/clothing/head/bearpelt/bearserk/equipped(mob/user, slot)
 	..()
 	if(!ishuman(user))
