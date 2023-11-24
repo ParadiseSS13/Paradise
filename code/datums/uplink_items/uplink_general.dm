@@ -579,10 +579,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 
 /datum/uplink_item/device_tools/bonerepair
-	name = "Prototype Nanite Autoinjector Kit"
-	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
+	name = "Prototype Nanite Autoinjector"
+	desc = "Stolen prototype full body repair nanites. On injection it will shut down body systems as it revitilizes limbs and organs."
 	reference = "NCAI"
-	item = /obj/item/storage/box/syndie_kit/bonerepair
+	item = /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	cost = 10
 
 /datum/uplink_item/device_tools/syndicate_teleporter

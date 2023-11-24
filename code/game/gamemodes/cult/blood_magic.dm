@@ -401,10 +401,7 @@
 			source.UpdateButtonIcon()
 	return ..()
 
-/obj/item/melee/blood_magic/customised_abstract_text()
-	if(!ishuman(loc))
-		return
-	var/mob/living/carbon/human/owner = loc
+/obj/item/melee/blood_magic/customised_abstract_text(mob/living/carbon/owner)
 	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left hand" : "right hand"] is burning in blood-red fire.</span>"
 
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
