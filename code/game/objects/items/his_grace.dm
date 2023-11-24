@@ -28,7 +28,7 @@
 	var/force_bonus = 0
 	var/ascended = FALSE
 	var/victims = 0
-	var/victims_needed = 20
+	var/victims_needed = 25
 
 /obj/item/his_grace/Initialize(mapload)
 	. = ..()
@@ -101,7 +101,7 @@
 		drowse()
 		return
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
-		adjust_bloodthirst(0.5 + FLOOR(length(contents) * 0.25, 1))
+		adjust_bloodthirst(0.5 + round(length(contents) * (1 / 6), 1))
 	else
 		adjust_bloodthirst(0.5) //don't cool off rapidly once we're at the point where His Grace consumes all.
 
@@ -205,7 +205,9 @@
 	force_bonus += (ascended ? ASCEND_BONUS : HIS_GRACE_FORCE_BONUS)
 
 	prev_bloodthirst = bloodthirst
-	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)
+	if(ascended) // Otherwise there might be fractions where His Grace is droppable while ascended
+		bloodthirst = prev_bloodthirst
+	else if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)
 		bloodthirst = length(contents) //Never fully sated, and His hunger will only grow.
 	else
 		bloodthirst = HIS_GRACE_CONSUME_OWNER
