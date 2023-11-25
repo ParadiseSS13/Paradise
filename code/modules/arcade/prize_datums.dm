@@ -20,10 +20,10 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 		new item.typepath(prize_counter.loc)
 		prize_counter.tickets -= item.cost
 		to_chat(usr, "<span class='notice'>Enjoy your prize!</span>")
-		return 1
+		return TRUE
 	else
 		to_chat(usr, "<span class='warning'>Not enough tickets!</span>")
-		return 0
+		return FALSE
 
 //////////////////////////////////////
 //			prize_item datum		//
