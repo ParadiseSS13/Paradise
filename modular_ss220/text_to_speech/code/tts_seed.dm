@@ -21,7 +21,7 @@
 	else
 		tts_seeds = SStts220.get_available_seeds(src)
 
-	var/new_tts_seed = input(user || src, "Choose your preferred voice:", "Character Preference", tts_seed) as null|anything in tts_seeds
+	var/new_tts_seed = tgui_input_list(user || src, "Выберите голос:", "Настройка персонажа", tts_seeds)
 	if(!new_tts_seed)
 		return null
 	if(!silent_target && ismob(src) && src != user)

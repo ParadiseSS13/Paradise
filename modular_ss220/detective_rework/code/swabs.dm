@@ -127,7 +127,7 @@
 		else if(choices.len == 1)
 			choice = choices[1]
 		else
-			choice = input("Какие доказательства вы ищете?","Сбор доказательств") as null|anything in choices
+			choice = tgui_input_list(user, "Какие доказательства вы ищете?", "Сбор доказательств", choices)
 
 		if(!choice)
 			inuse = FALSE

@@ -37,7 +37,7 @@
 		return
 
 	insisting = FALSE
-	var/wish = input("Вы хотите...","Желание") as null|anything in list("Сила", "Богатство", "Бессмертие", "Покой")
+	var/wish = tgui_input_list("Вы хотите...", "Желание", list("Силу", "Богатство", "Бессмертие", "Покой"))
 	if(!wish)
 		return
 	charges--
@@ -46,7 +46,7 @@
 	var/become_shadow = TRUE
 	var/list/output = list()
 	switch(wish)
-		if("Сила")
+		if("Силу")
 			for(var/mutation_type in power_mutations)
 				var/datum/mutation/mutation = GLOB.dna_mutations[mutation_type]
 				mutation.activate(human)

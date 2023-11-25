@@ -16,12 +16,12 @@
 	var/glow_active = FALSE
 	var/brightness_on = 2
 
-/obj/item/clothing/shoes/black/neon/attack_self(mob/living/user as mob)
-	var/choice = input(user,"Neon shoes options") in list("Turn glow","Change Color")
+/obj/item/clothing/shoes/black/neon/attack_self(mob/living/user)
+	var/choice = tgui_input_list(user, "Что вы хотите сделать?", "Неоновые кросовки", list("Переключить подсветку", "Сменить цвет"))
 	switch(choice)
-		if("Turn glow")
+		if("Переключить подсветку")
 			turn_glow()
-		if("Change color")
+		if("Сменить цвет")
 			change_color()
 
 /obj/item/clothing/shoes/black/neon/update_icon_state()

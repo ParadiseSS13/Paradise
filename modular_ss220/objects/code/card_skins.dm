@@ -121,12 +121,12 @@
 	color = color_list[pick(color_list)]
 
 /obj/item/id_skin/colored/attack_self(mob/living)
-	var/choice = input(usr, "Какой цвет предпочитаете?", "Выбор цвета") as null|anything in list("Выбрать предустановленный", "Выбрать вручную")
+	var/choice = tgui_input_list(usr, "Какой цвет предпочитаете?", "Выбор цвета", list("Выбрать предустановленный", "Выбрать вручную"))
 	if(!choice)
 		return
 	switch(choice)
 		if("Выбрать предустановленный")
-			choice = input(usr, "Выберите цвет", "Выбор цвета") as null|anything in color_list
+			choice = tgui_input_list(usr, "Выберите цвет", "Выбор цвета", color_list)
 			var/color_to_set = color_list[choice]
 			if(!color_to_set)
 				return
