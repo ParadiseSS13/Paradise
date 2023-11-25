@@ -58,31 +58,44 @@
 		user.set_nutrition(min((user.nutrition + target.nutrition), NUTRITION_LEVEL_WELL_FED))
 
 	if(user.blood_volume < initial(user.blood_volume))
-		user.blood_volume = user.blood_volume
+		user.blood_volume = initial(user.blood_volume)
 
 	if(target.mind)//if the victim has got a mind
 
-		target.mind.show_memory(user, FALSE, TRUE) //I can read your mind, kekeke. Output all their notes.
+		var/target_memory = target.mind.show_memory(user, FALSE) //I can read your mind, kekeke. Output all their notes.
 
 		//Some of target's recent speech, so the changeling can attempt to imitate them better.
 		//Recent as opposed to all because rounds tend to have a LOT of text.
 		var/list/recent_speech = list()
-
+		var/list/target_say_log = list(list(), list())
+		for(var/datum/log_record/log as anything in GLOB.logging.get_logs_by_type(target.last_known_ckey, SAY_LOG))
+			target_say_log[1] += list(list("Chat" = log.what, "Time" = gameTimestamp(wtime = log.raw_time - 9.99)))
+		for(var/datum/log_record/log as anything in GLOB.logging.get_logs_by_type(target.last_known_ckey, EMOTE_LOG))
+			target_say_log[2] += list(list("Chat" = log.what, "Time" = gameTimestamp(wtime = log.raw_time - 9.99)))
 		if(length(target.say_log) > LING_ABSORB_RECENT_SPEECH)
 			recent_speech = target.say_log.Copy(length(target.say_log) - LING_ABSORB_RECENT_SPEECH + 1, 0)
 		else
 			recent_speech = target.say_log.Copy()
 
+		var/account_pin
+		var/account_number
+		if(target.mind.initial_account)
+			var/datum/money_account/account = target.mind.initial_account
+			account_number = account.account_number
+			account_pin = account.account_pin
 		if(length(recent_speech))
-			user.mind.store_late_memory("<B>[target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</B>")
 			var/list/recent_chats = list()
 			recent_chats += "<span class='boldnotice'>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</span>"
 			for(var/spoken_memory in recent_speech)
-				recent_chats += "<span class='notice'>\"[spoken_memory]\"</span>"
-			for(var/chat_log in target.say_log)
-				user.mind.store_late_memory("\"[chat_log]\"")
-			user.mind.store_late_memory("<B>We have no more knowledge of [target]'s speech patterns.</B>")
-			recent_chats += "<span class='boldnotice'>The rest of [target]'s extracted information can be found in the IC tab in the \"notes\" verb.</span>"
+				recent_chats += "<span class='notice'>[spoken_memory]</span>"
+			var/datum/action/changeling/evolution_menu/evo_menu = locate() in user.actions
+			if(!islist(evo_menu.absorbed_chat_logs))
+				evo_menu.absorbed_chat_logs = list()
+			if(!islist(evo_menu.absorbed_people))
+				evo_menu.absorbed_people = list()
+			evo_menu.absorbed_people += list("[target.real_name]")
+			evo_menu.absorbed_chat_logs += list("[target.real_name]" = list("Speech" = target_say_log, "Account_Pin" = account_pin, "Account_Number" = account_number, "Memory" = target_memory))
+			recent_chats += "<span class='boldnotice'>The rest of [target]'s extracted information can be found in your evolution menu.</span>"
 			to_chat(user, chat_box_red(recent_chats.Join("<br>")))
 
 		var/datum/antagonist/changeling/target_cling = target.mind.has_antag_datum(/datum/antagonist/changeling)

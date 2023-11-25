@@ -19,6 +19,14 @@
 	var/list/purchased_abilities = list()
 	/// A list containing every purchasable changeling power. Includes its name, description, helptext and cost.
 	var/static/list/ability_list = list()
+	/// List the names of people you've absorbed, interacts with absorbed_chat_logs
+	var/list/absorbed_people
+	/// Associated list, lists the chat information of someone who has been absorbed. Keyed with their real name
+	var/list/absorbed_chat_logs
+	/// Current menu tab we're on
+	var/current_tab = 0
+	/// Current person's info we're viewing
+	var/person_were_viewing
 
 /datum/action/changeling/evolution_menu/Grant(mob/M)
 	..()
@@ -56,7 +64,11 @@
 		"can_respec" = cling.can_respec,
 		"evo_points" = cling.genetic_points,
 		"purchased_abilities" = purchased_abilities,
-		"view_mode" = view_mode
+		"view_mode" = view_mode,
+		"absorbed_people" = absorbed_people,
+		"absorbed_chat_logs" = absorbed_chat_logs,
+		"current_menu_tab" = current_tab,
+		"person_were_viewing" = person_were_viewing
 	)
 	return data
 
@@ -89,6 +101,24 @@
 			if(!(new_view_mode in list(COMPACT_MODE, EXPANDED_MODE)))
 				return FALSE
 			view_mode = new_view_mode
+			return TRUE
+
+		if("swap_tab")
+			current_tab = !current_tab
+			person_were_viewing = null
+			return TRUE
+
+		if("view_personal_info")
+			person_were_viewing = params["view_personal_info"]
+			return TRUE
+
+		if("view_memory")
+			var/list/info = absorbed_chat_logs[person_were_viewing]
+			usr << browse(info["Memory"], "window=ling_memory")
+			return TRUE
+
+		if("return_to_general_menu")
+			person_were_viewing = null
 			return TRUE
 
 /datum/action/changeling/evolution_menu/proc/try_purchase_power(power_type)

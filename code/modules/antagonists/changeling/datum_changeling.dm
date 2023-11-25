@@ -49,7 +49,6 @@
 	/// If the changeling is in the process of regenerating from their fake death.
 	var/regenerating = FALSE
 
-
 /datum/antagonist/changeling/New()
 	..()
 	if(!length(innate_powers))
