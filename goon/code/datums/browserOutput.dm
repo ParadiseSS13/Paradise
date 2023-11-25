@@ -48,7 +48,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		spawn()
 			winset(usr, null, "command=.options") // Open their options and messages window
 			alert(owner.mob, "Updated chat window does not exist. Please post the contents of your 'Options and Messages' window that just opened to the #coding_chat channel on the Paradise Station discord. Please also upload skin.dmf to the same channel from the following folder in your Documents: BYOND/Skins/exadv1/spacestation13, then reconnect.")
-			stack_trace("[owner] had no browseroutput window! [owner]'s byond version is [owner.byond_version][owner.byond_build]")
+			stack_trace("[owner] had no browseroutput window! [owner]'s byond version is [owner.byond_version].[owner.byond_build]")
 		broken = TRUE
 		return 0
 
