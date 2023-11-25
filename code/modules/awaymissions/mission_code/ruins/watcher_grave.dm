@@ -10,8 +10,9 @@
 	corpse_description = "Crushed by a rockslide, it seemed to have been scraping frantically at the rocks even as it perished."
 	naive_corpse_description = "All of those rocks probably don't make a comfortable blanket."
 
-
+/// if greater than lively mod, jiggles faster
 #define WATCHER_EGG_LIVELY_MOD 0.75
+/// If greater than active mod, egg is active and jiggles
 #define WATCHER_EGG_ACTIVE_MOD 0.5
 
 /// Egg which hatches into a helpful pet. Or you can eat it if you want.
