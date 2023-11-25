@@ -37,6 +37,44 @@
 	emote_type = EMOTE_VISIBLE
 	hands_use_check = TRUE
 
+/datum/emote/living/carbon/human/clap
+	key = "clap"
+	key = "clap"
+	key_third_person = "claps"
+	message = "claps."
+	message_mime = "claps silently."
+	message_param = "claps at %t."
+	emote_type = EMOTE_SOUND
+	vary = TRUE
+
+/datum/emote/living/carbon/human/clap/run_emote(mob/user, params, type_override, intentional)
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
+		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
+			// no arms...
+			to_chat(user, "<span class='warning'>You need arms to be able to clap.</span>")
+		else
+			// well, we've got at least one
+			user.visible_message("[user] makes the sound of one hand clapping.")
+		return TRUE
+
+	return ..()
+
+/datum/emote/living/carbon/human/clap/get_sound(mob/living/user)
+	if(!ishuman(user))
+		return
+
+	var/mob/living/carbon/human/H = user
+	if(!H.mind?.miming)
+		return pick(
+			'sound/misc/clap1.ogg',
+			'sound/misc/clap2.ogg',
+			'sound/misc/clap3.ogg',
+			'sound/misc/clap4.ogg')
+
 /datum/emote/living/carbon/human/crack
 	key = "crack"
 	key_third_person = "cracks"
@@ -163,7 +201,10 @@
 	volume = 100
 
 /datum/emote/living/carbon/human/gasp/get_sound(mob/user)
+	if(!ishuman(user))
+		return
 	var/mob/living/carbon/human/H = user
+
 	if(H.is_muzzled())
 		// If you're muzzled you're not making noise
 		return
@@ -217,6 +258,18 @@
 	message = "salutes."
 	message_param = "salutes to %t."
 	hands_use_check = TRUE
+	audio_cooldown = 3 SECONDS
+	var/list/serious_shoes = list(/obj/item/clothing/shoes/jackboots, /obj/item/clothing/shoes/combat,
+								/obj/item/clothing/shoes/centcom, /obj/item/clothing/shoes/laceup)
+	var/list/funny_shoes = list(/obj/item/clothing/shoes/magboots/clown, /obj/item/clothing/shoes/clown_shoes,
+								/obj/item/clothing/shoes/cursedclown, /obj/item/clothing/shoes/ducky)
+
+/datum/emote/living/carbon/human/salute/get_sound(mob/living/user)
+	var/mob/living/carbon/human/H = user
+	if(is_type_in_list(H.shoes, serious_shoes))
+		return 'sound/effects/salute.ogg'
+	if(is_type_in_list(H.shoes, funny_shoes))
+		return 'sound/items/toysqueak1.ogg'
 
 /datum/emote/living/carbon/human/shrug
 	key = "shrug"
@@ -625,17 +678,10 @@
 	species_type_whitelist_typecache = list(/datum/species/diona)
 	sound = "sound/voice/dionatalk1.ogg"
 
-/datum/emote/living/carbon/human/squish
-	key = "squish"
-	key_third_person = "squishes"
-	message = "squishes."
-	message_param = "squishes at %t."
-	emote_type = EMOTE_SOUND
-	age_based = TRUE
-	// Credit to DrMinky (freesound.org) for the sound.
-	sound = "sound/effects/slime_squish.ogg"
+/datum/emote/living/carbon/human/slime
 
-/datum/emote/living/carbon/human/squish/can_run_emote(mob/user, status_check, intentional)
+
+/datum/emote/living/carbon/human/slime/can_run_emote(mob/user, status_check, intentional)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -648,7 +694,17 @@
 				return TRUE
 	return FALSE
 
-/datum/emote/living/carbon/human/bubble
+/datum/emote/living/carbon/human/slime/squish
+	key = "squish"
+	key_third_person = "squishes"
+	message = "squishes."
+	message_param = "squishes at %t."
+	emote_type = EMOTE_SOUND
+	age_based = TRUE
+	// Credit to DrMinky (freesound.org) for the sound.
+	sound = "sound/effects/slime_squish.ogg"
+
+/datum/emote/living/carbon/human/slime/bubble
 	key = "bubble"
 	key_third_person = "bubbles"
 	message = "bubbles."
@@ -660,7 +716,7 @@
 	// https://freesound.org/people/audiolarx/sounds/263945/
 	sound = 'sound/effects/mob_effects/slime_bubble.ogg'
 
-/datum/emote/living/carbon/human/pop
+/datum/emote/living/carbon/human/slime/pop
 	key = "pop"
 	key_third_person = "pops"
 	message = "makes a popping sound."
@@ -708,21 +764,6 @@
 	// catHisses1.wav by Zabuhailo. Edited.
 	// https://freesound.org/people/Zabuhailo/sounds/146963/
 
-/datum/emote/living/carbon/human/meow
-	key = "meow"
-	key_third_person = "meows"
-	message = "meows."
-	message_mime = "meows silently."
-	message_param = "meows at %t."
-	species_type_whitelist_typecache = list(/datum/species/tajaran)
-	age_based = TRUE
-	sound = "sound/effects/tajaranmeow.ogg"
-	volume = 75
-	muzzled_noises = list("soft")
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
-	// Cat Meow Sound Effects by Loudest Paws. Cut.
-	// https://www.youtube.com/watch?v=GBiWYNP-uQI
-
 /datum/emote/living/carbon/human/rattle
 	key = "rattle"
 	key_third_person = "rattles"
@@ -761,4 +802,3 @@
 	var/obj/item/organ/external/bodypart = pick(H.bodyparts)
 	message = "cracks their [bodypart.name]!"
 	. = ..()
-

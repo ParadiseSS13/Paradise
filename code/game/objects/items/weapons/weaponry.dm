@@ -4,9 +4,9 @@
 /obj/item/banhammer
 	desc = "A banhammer"
 	name = "banhammer"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/toy.dmi'
 	icon_state = "toyhammer"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 7
@@ -28,9 +28,11 @@
 /obj/item/sord
 	name = "\improper SORD"
 	desc = "This thing is so unspeakably shitty you are having a hard time even holding it."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sord"
 	item_state = "sord"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 2
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
@@ -49,7 +51,7 @@
 	item_state = "claymore"
 	flags = CONDUCT
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 40
 	throwforce = 10
 	sharp = TRUE
@@ -74,11 +76,14 @@
 
 /obj/item/katana
 	name = "katana"
-	desc = "Woefully underpowered in D20"
+	desc = "Woefully underpowered in D20."
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "katana"
 	item_state = "katana"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_BACK
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	force = 40
 	throwforce = 10
 	sharp = TRUE
@@ -103,6 +108,8 @@
 	name = "harpoon"
 	sharp = TRUE
 	desc = "Tharr she blows!"
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "harpoon"
 	item_state = "harpoon"
 	force = 20
@@ -125,12 +132,9 @@
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
 	..()
 	if(istype(I, /obj/item/shard))
-		var/obj/item/twohanded/spear/S = new /obj/item/twohanded/spear
+		var/obj/item/spear/S = new /obj/item/spear
 		if(istype(I, /obj/item/shard/plasma))
-			S.force_wielded = 19
-			S.force_unwielded = 11
-			S.throwforce = 21
-			S.icon_prefix = "spearplasma"
+			S.add_plasmaglass()
 			S.update_icon()
 		if(!remove_item_from_storage(user))
 			user.unEquip(src)
@@ -170,7 +174,6 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/spear/kidan
-	icon_state = "kidanspear"
 	name = "\improper Kidan spear"
 	desc = "A one-handed spear brought over from the Kidan homeworld."
 	icon_state = "kidanspear"
@@ -283,7 +286,7 @@
 		return
 	if(!(target.status_flags & CANPUSH))
 		// No throwing mobs specifically flagged as immune to being pushed.
-		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, spaceworms, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
+		// Covers: revenant, hostile/blob/*, most borgs, juggernauts, hivebot/tele, shades, bots, alien queens, hostile/syndicate/melee, hostile/asteroid
 		return
 	if(target.move_resist > MOVE_RESIST_DEFAULT)
 		// No throwing mobs that have higher than normal move_resist.

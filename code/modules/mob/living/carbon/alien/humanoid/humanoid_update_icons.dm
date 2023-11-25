@@ -83,7 +83,7 @@
 
 /mob/living/carbon/alien/humanoid/update_inv_wear_suit()
 	if(client && hud_used)
-		var/obj/screen/inventory/inv = hud_used.inv_slots[slot_wear_suit]
+		var/obj/screen/inventory/inv = hud_used.inv_slots[SLOT_HUD_OUTER_SUIT]
 		inv.update_icon()
 
 	if(wear_suit)
@@ -98,7 +98,7 @@
 
 		if(wear_suit.blood_DNA)
 			var/t_suit = "suit"
-			if( istype(wear_suit, /obj/item/clothing/suit/armor) )
+			if(istype(wear_suit, /obj/item/clothing/suit/armor))
 				t_suit = "armor"
 			standing.overlays	+= image("icon" = 'icons/effects/blood.dmi', "icon_state" = "[t_suit]blood")
 

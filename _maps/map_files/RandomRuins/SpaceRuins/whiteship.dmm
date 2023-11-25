@@ -267,7 +267,7 @@
 /area/shuttle/abandoned)
 "bs" = (
 /obj/structure/rack,
-/obj/item/clothing/suit/space/hardsuit/medical,
+/obj/item/mod/control/pre_equipped/medical,
 /obj/item/clothing/mask/breath,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/abandoned)

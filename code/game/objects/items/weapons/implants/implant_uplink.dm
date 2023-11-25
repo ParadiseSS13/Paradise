@@ -10,7 +10,7 @@
 /obj/item/implant/uplink/Initialize(mapload)
 	. = ..()
 	hidden_uplink = new(src)
-	hidden_uplink.uses = 10
+	hidden_uplink.uses = 50
 
 /obj/item/implant/uplink/nuclear/Initialize(mapload)
 	. = ..()

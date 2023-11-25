@@ -119,7 +119,7 @@
 	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/crowbar_act(mob/user, obj/item/I)
-	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
+	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
@@ -140,7 +140,7 @@
 	update_appearance(UPDATE_NAME | UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/screwdriver_act(mob/user, obj/item/I)
-	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
+	if(state != AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
 		return
 	. = TRUE
 	if(!I.tool_use_check(user, 0))

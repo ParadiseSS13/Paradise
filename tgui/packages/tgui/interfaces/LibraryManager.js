@@ -1,20 +1,13 @@
-
-
 import { useBackend, useLocalState } from '../backend';
 import { Fragment } from 'inferno';
-import {
-  Box,
-  Button,
-  Icon,
-  Section,
-  Table,} from '../components';
+import { Box, Button, Icon, Section, Table } from '../components';
 import { Window } from '../layouts';
-import { ComplexModal, modalOpen} from './common/ComplexModal';
+import { ComplexModal, modalOpen } from './common/ComplexModal';
 
 export const LibraryManager = (props, context) => {
   return (
     <Window resizable>
-      <ComplexModal/>
+      <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <PageContent />
       </Window.Content>
@@ -25,9 +18,7 @@ export const LibraryManager = (props, context) => {
 const PageContent = (props, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    pagestate,
-  } = data;
+  const { pagestate } = data;
   switch (pagestate) {
     case 1:
       return <MainMenu />;
@@ -46,13 +37,8 @@ const MainMenu = (properties, context) => {
   return (
     <Section>
       <Box fontSize="1.4rem" bold>
-          <Icon
-            name="user-shield"
-            verticalAlign="middle"
-            size={3}
-            mr="1rem"
-          />
-          Library Manager
+        <Icon name="user-shield" verticalAlign="middle" size={3} mr="1rem" />
+        Library Manager
       </Box>
       <br />
       <Button
@@ -89,20 +75,14 @@ const MainMenu = (properties, context) => {
 const ReportsMenu = (properties, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    reports,
-  } = data;
+  const { reports } = data;
 
   return (
     <Section>
       <Table className="Library__Booklist">
         <Box fontSize="1.2rem" bold>
-          <Icon
-            name="user-secret"
-            verticalAlign="middle"
-            size={2}
-            mr="1rem"
-          /><br />
+          <Icon name="user-secret" verticalAlign="middle" size={2} mr="1rem" />
+          <br />
           All Reported Books
           <br />
         </Box>
@@ -120,40 +100,50 @@ const ReportsMenu = (properties, context) => {
           <Table.Cell>Reporter Ckey</Table.Cell>
           <Table.Cell textAlign="middle">Administrative Actions</Table.Cell>
         </Table.Row>
-        {reports
-          .map(report => (
-            <Table.Row key={report.id}>
-              <Table.Cell bold>{report.uploader_ckey}</Table.Cell>
-              <Table.Cell>{report.id}</Table.Cell>
-              <Table.Cell textAlign="left"><Icon name="book" />{report.title}</Table.Cell>
-              <Table.Cell textAlign="left">{report.author}</Table.Cell>
-              <Table.Cell textAlign="left">{report.report_description}</Table.Cell>
-              <Table.Cell bold>{report.reporter_ckey}</Table.Cell>
-              <Table.Cell>
-                <Button.Confirm
-                  content="Delete"
-                  icon="trash"
-                  onClick={() => act('delete_book',{
+        {reports.map((report) => (
+          <Table.Row key={report.id}>
+            <Table.Cell bold>{report.uploader_ckey}</Table.Cell>
+            <Table.Cell>{report.id}</Table.Cell>
+            <Table.Cell textAlign="left">
+              <Icon name="book" />
+              {report.title}
+            </Table.Cell>
+            <Table.Cell textAlign="left">{report.author}</Table.Cell>
+            <Table.Cell textAlign="left">
+              {report.report_description}
+            </Table.Cell>
+            <Table.Cell bold>{report.reporter_ckey}</Table.Cell>
+            <Table.Cell>
+              <Button.Confirm
+                content="Delete"
+                icon="trash"
+                onClick={() =>
+                  act('delete_book', {
                     bookid: report.id,
-                  })}
-                />
-                <Button
-                  content="Unflag"
-                  icon="flag"
-                  color="caution"
-                  onClick={() => act('unflag_book',{
+                  })
+                }
+              />
+              <Button
+                content="Unflag"
+                icon="flag"
+                color="caution"
+                onClick={() =>
+                  act('unflag_book', {
                     bookid: report.id,
-                  })}
-                />
-                <Button
-                  content="View"
-                  onClick={() => act('view_book',{
+                  })
+                }
+              />
+              <Button
+                content="View"
+                onClick={() =>
+                  act('view_book', {
                     bookid: report.id,
-                  })}
-                />
-              </Table.Cell>
-            </Table.Row>
-          ))}
+                  })
+                }
+              />
+            </Table.Cell>
+          </Table.Row>
+        ))}
       </Table>
     </Section>
   );
@@ -162,25 +152,19 @@ const ReportsMenu = (properties, context) => {
 const BooksByCkeyMenu = (properties, context) => {
   const { act, data } = useBackend(context);
 
-  const {
-    ckey,
-    booklist,
-  } = data;
+  const { ckey, booklist } = data;
 
   return (
     <Section>
       <Table className="Library__Booklist">
         <Box fontSize="1.2rem" bold>
-          <Icon
-            name="user"
-            verticalAlign="middle"
-            size={2}
-            mr="1rem"
-          /><br />
+          <Icon name="user" verticalAlign="middle" size={2} mr="1rem" />
+          <br />
           Books uploaded by {ckey}
           <br />
         </Box>
-        <Button mt={1}
+        <Button
+          mt={1}
           content="Return to Main"
           icon="arrow-alt-circle-left"
           onClick={() => act('return')}
@@ -191,30 +175,36 @@ const BooksByCkeyMenu = (properties, context) => {
           <Table.Cell>Author</Table.Cell>
           <Table.Cell textAlign="middle">Administrative Actions</Table.Cell>
         </Table.Row>
-        {booklist
-          .map(booklist => (
-            <Table.Row key={booklist.id}>
-              <Table.Cell>{booklist.id}</Table.Cell>
-              <Table.Cell textAlign="left"><Icon name="book" />{booklist.title}</Table.Cell>
-              <Table.Cell textAlign="left">{booklist.author}</Table.Cell>
-              <Table.Cell textAlign="right">
-                <Button.Confirm
-                  content="Delete"
-                  icon="trash"
-                  color="bad"
-                  onClick={() => act('delete_book',{
+        {booklist.map((booklist) => (
+          <Table.Row key={booklist.id}>
+            <Table.Cell>{booklist.id}</Table.Cell>
+            <Table.Cell textAlign="left">
+              <Icon name="book" />
+              {booklist.title}
+            </Table.Cell>
+            <Table.Cell textAlign="left">{booklist.author}</Table.Cell>
+            <Table.Cell textAlign="right">
+              <Button.Confirm
+                content="Delete"
+                icon="trash"
+                color="bad"
+                onClick={() =>
+                  act('delete_book', {
                     bookid: booklist.id,
-                  })}
-                />
-                <Button
-                  content="View"
-                  onClick={() => act('view_book',{
+                  })
+                }
+              />
+              <Button
+                content="View"
+                onClick={() =>
+                  act('view_book', {
                     bookid: booklist.id,
-                  })}
-                />
-              </Table.Cell>
-            </Table.Row>
-          ))}
+                  })
+                }
+              />
+            </Table.Cell>
+          </Table.Row>
+        ))}
       </Table>
     </Section>
   );

@@ -28,7 +28,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(slot == slot_gloves)
+	if(slot == SLOT_HUD_GLOVES)
 		if(H.middleClickOverride)
 			old_mclick_override = H.middleClickOverride
 		H.middleClickOverride = mclick_override
@@ -42,7 +42,7 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
-	if(H.get_item_by_slot(slot_gloves) == src && H.middleClickOverride == mclick_override)
+	if(H.get_item_by_slot(SLOT_HUD_GLOVES) == src && H.middleClickOverride == mclick_override)
 		if(old_mclick_override)
 			H.middleClickOverride = old_mclick_override
 			old_mclick_override = null

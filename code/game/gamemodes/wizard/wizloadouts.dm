@@ -61,21 +61,21 @@
 	is_ragin_restricted = TRUE
 
 /obj/effect/proc_holder/spell/lichdom/gunslinger/equip_lich(mob/living/carbon/human/H)
-	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), slot_wear_suit)
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), slot_shoes)
-	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), slot_gloves)
-	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), slot_w_uniform)
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/det_suit(H), SLOT_HUD_OUTER_SUIT)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), SLOT_HUD_SHOES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(H), SLOT_HUD_GLOVES)
+	H.equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(H), SLOT_HUD_JUMPSUIT)
 
 /datum/spellbook_entry/loadout/greytide
 	name = "Tyde the Grey"
 	desc = "A set of legendary artifacts used by a bald, grey wizard, now passed on to you. <br> \
 		Open His Grace's latch once you are ready to kill by using It in your hand. Keep It fed or you will be Its next meal.<br> \
-		You might want to raid the Armory or loot a Security Officer to get ranged weapons like a disabler, His Grace's Hunger has little patience.<br><br> \
-		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask and Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Knock and No Clothes.<i>"
+		If your Homing Toolbox spell is not enough, you might want to raid the Armory or loot a Security Officer to get more ranged weapons like a disabler, His Grace's Hunger has little patience.<br><br> \
+		</i>Provides His Grace, an Ancient Jumpsuit, an Assistant ID, a Gas Mask and Shoes, Insulated Gloves, a full Toolbelt, Ethereal Jaunt, Force Wall, Homing Toolbox, Knock and No Clothes.<i>"
 	items_path = list(/obj/item/his_grace, /obj/item/clothing/under/color/grey/glorf, /obj/item/clothing/mask/gas, /obj/item/clothing/shoes/black, \
 		/obj/item/clothing/gloves/color/yellow, /obj/item/storage/belt/utility/full/multitool)
 	spells_path = list(/obj/effect/proc_holder/spell/ethereal_jaunt, /obj/effect/proc_holder/spell/forcewall, \
-		/obj/effect/proc_holder/spell/aoe/knock, /obj/effect/proc_holder/spell/noclothes)
+		/obj/effect/proc_holder/spell/aoe/knock, /obj/effect/proc_holder/spell/noclothes, /obj/effect/proc_holder/spell/fireball/toolbox)
 	category = "Unique"
 	destroy_spellbook = TRUE
 
@@ -87,9 +87,9 @@
 		new /obj/item/clothing/head/helmet/space/plasmaman/assistant(get_turf(user))
 		new /obj/item/clothing/under/plasmaman/assistant(get_turf(user))
 	user.unEquip(user.wear_id)
-	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, slot_w_uniform) //Just in case they're naked
+	user.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/glorf, SLOT_HUD_JUMPSUIT) //Just in case they're naked
 	var/obj/item/card/id/wizid = new /obj/item/card/id(src)
-	user.equip_to_slot_or_del(wizid, slot_wear_id)
+	user.equip_to_slot_or_del(wizid, SLOT_HUD_WEAR_ID)
 	wizid.registered_name = user.real_name
 	wizid.access = list(ACCESS_MAINT_TUNNELS)
 	wizid.assignment = "Assistant"
@@ -99,3 +99,62 @@
 	wizid.SetOwnerInfo(user)
 	wizid.UpdateName()
 	wizid.RebuildHTML()
+
+/datum/spellbook_entry/loadout/oblivion
+	name = "Oblivion Enforcer"
+	desc = "The Oblivion Order is an isolated clique of monks that revere supermatter. \
+	Oblivion Enforcers are how the Order imposes their will on the universe as a whole. By taking this loadout, \
+	you give up your identity and become a faceless hand of the Order. <br>\
+	You will be completely protected from the effects of supermatter by the items granted here, so far as to \
+	allow you to pick up and throw supermatter slivers, which your halberd can cut from the engine. <br>\
+	</i>Provides a Supermatter Halberd, Oblivion Enforcer robes, and an air tank, as well as Instant Summons, Lightning Bolt, and Summon Supermatter Crystal.<i>"
+	items_path = list(/obj/item/supermatter_halberd, /obj/item/clothing/gloves/color/white/supermatter_immune, \
+		/obj/item/clothing/suit/hooded/oblivion, /obj/item/clothing/mask/gas/voice_modulator/oblivion, /obj/item/tank/internals/emergency_oxygen/double, \
+		/obj/item/clothing/under/color/white/enforcer, /obj/item/clothing/shoes/white/enforcer)
+	spells_path = list(/obj/effect/proc_holder/spell/summonitem, /obj/effect/proc_holder/spell/charge_up/bounce/lightning, \
+		/obj/effect/proc_holder/spell/aoe/conjure/summon_supermatter)
+	category = "Unique"
+	destroy_spellbook = TRUE
+
+/datum/spellbook_entry/loadout/oblivion/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(!user)
+		return
+	ADD_TRAIT(user, SM_HALLUCINATION_IMMUNE, MAGIC_TRAIT)
+
+/datum/spellbook_entry/loadout/fireball
+	name = "Fireball. Fireball. Fireball."
+	desc = "Who cares about the rest of the spells. Become an expert in fire magic. Devote yourself to the craft. The only spell you need anyways is <b>Fireball.</b><br>\
+		</i>Provides fire immunity, homing fireballs, rapid-fire fireballs, and some fireball wands. Provides no mobility spells. Replaces your robes with infernal versions.<i>"
+	spells_path = list(/obj/effect/proc_holder/spell/sacred_flame, /obj/effect/proc_holder/spell/fireball/homing, /obj/effect/proc_holder/spell/infinite_guns/fireball)
+	category = "Unique"
+	destroy_spellbook = TRUE
+
+/datum/spellbook_entry/loadout/fireball/OnBuy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(user.wear_suit)
+		var/jumpsuit = user.wear_suit
+		user.unEquip(user.wear_suit, TRUE)
+		qdel(jumpsuit)
+	if(user.head)
+		var/head = user.head
+		user.unEquip(user.head, TRUE)
+		qdel(head)
+
+	// Part of Sacred Flame
+	to_chat(user, "<span class='notice'>You feel fireproof.</span>")
+	ADD_TRAIT(user, TRAIT_RESISTHEAT, MAGIC_TRAIT)
+	ADD_TRAIT(user, TRAIT_RESISTHIGHPRESSURE, MAGIC_TRAIT)
+
+	user.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red/fireball(user), SLOT_HUD_OUTER_SUIT)
+	user.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red/fireball(user), SLOT_HUD_HEAD)
+
+	user.equip_or_collect(new /obj/item/storage/belt/wands/fireballs(), SLOT_HUD_BELT)
+
+/obj/item/clothing/suit/wizrobe/red/fireball
+	name = "infernal robe"
+	desc = "A magnificent, red, glowing robe that seems to radiate heat."
+	flags = NODROP
+
+/obj/item/clothing/head/wizard/red/fireball
+	name = "infernal hat"
+	desc = "A pointy red wizard hat, indicating a magician of great power."
+	flags = NODROP

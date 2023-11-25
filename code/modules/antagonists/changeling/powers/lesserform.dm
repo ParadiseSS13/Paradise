@@ -4,9 +4,10 @@
 	helptext = "The transformation greatly reduces our size, allowing us to slip out of cuffs and climb through vents."
 	button_icon_state = "lesser_form"
 	chemical_cost = 5
-	dna_cost = 1
+	dna_cost = 2
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
+	menu_location = CLING_MENU_UTILITY
 
 //Transform into a monkey.
 /datum/action/changeling/lesserform/sting_action(mob/living/carbon/human/user)
@@ -19,10 +20,15 @@
 		to_chat(H, "<span class='warning'>We cannot perform this ability in this form!</span>")
 		return FALSE
 
+	var/brute_damage = H.getBruteLoss() * 0.66 // To offset the 1.5 brute/burn mod that monkeys have
+	var/burn_damage = H.getFireLoss() * 0.66
+
 	H.visible_message("<span class='warning'>[H] transforms!</span>")
-	cling.genetic_damage = 30
 	to_chat(H, "<span class='warning'>Our genes cry out!</span>")
 	H.monkeyize()
+
+	H.adjustBruteLoss(brute_damage)
+	H.adjustFireLoss(burn_damage)
 
 	cling.give_power(new /datum/action/changeling/humanform)
 

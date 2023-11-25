@@ -52,7 +52,8 @@
 	name = "arcade machine"
 	desc = "Does not support Pinball."
 	icon = 'icons/obj/computer.dmi'
-	icon_state = "arcade"
+	icon_state = "battle_arcade"
+	icon_screen = "battle"
 	circuit = /obj/item/circuitboard/arcade/battle
 	var/enemy_name = "Space Villain"
 	var/temp = "Winners Don't Use Spacedrugs" //Temporary message, for attack messages, etc
@@ -189,8 +190,7 @@
 				emagged = FALSE
 			else
 				SSblackbox.record_feedback("tally", "arcade_status", 1, "win_normal")
-				var/score = player_hp + player_mp + 5
-				prizevend(score)
+				prizevend(35)
 
 	else if(emagged && (turtle >= 4))
 		var/boomamt = rand(5,10)
@@ -281,6 +281,7 @@
 	name = "The Orion Trail"
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
 	icon_state = "arcade"
+	icon_screen = "orion"
 	circuit = /obj/item/circuitboard/arcade/orion_trail
 	var/busy = FALSE //prevent clickspam that allowed people to ~speedrun~ the game.
 	var/engine = 0
@@ -954,7 +955,7 @@
 		message_admins("[key_name_admin(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 		log_game("[key_name(usr)] made it to Orion on an emagged machine and got an explosive toy ship.")
 	else
-		var/score = alive + round(food/2) + round(fuel/5) + engine + hull + electronics - lings_aboard
+		var/score = 10 * (alive - lings_aboard) + 5 * (engine + hull + electronics)
 		prizevend(score)
 	emagged = FALSE
 	name = "The Orion Trail"

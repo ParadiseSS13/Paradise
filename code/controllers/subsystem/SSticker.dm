@@ -7,6 +7,7 @@ SUBSYSTEM_DEF(ticker)
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME
 	offline_implications = "The game is no longer aware of when the round ends. Immediate server restart recommended."
 	cpu_display = SS_CPUDISPLAY_LOW
+	wait = 1 SECONDS
 
 	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
@@ -88,7 +89,7 @@ SUBSYSTEM_DEF(ticker)
 			current_state = GAME_STATE_PREGAME
 			fire() // TG says this is a good idea
 			for(var/mob/new_player/N in GLOB.player_list)
-				if (N.client)
+				if(N.client)
 					N.new_player_panel_proc() // to enable the observe option
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
@@ -98,7 +99,7 @@ SUBSYSTEM_DEF(ticker)
 			if(!delay_end)
 				pregame_timeleft = max(0, round_start_time - world.time) // Normal lobby countdown when roundstart was not delayed
 			else
-				pregame_timeleft = max(0, pregame_timeleft - 20) // If roundstart was delayed, we should resume the countdown where it left off
+				pregame_timeleft = max(0, pregame_timeleft - wait) // If roundstart was delayed, we should resume the countdown where it left off
 
 			if(pregame_timeleft <= 600 && !tipped) // 60 seconds
 				send_tip_of_the_round()
@@ -142,7 +143,7 @@ SUBSYSTEM_DEF(ticker)
 				var/list/pickable_types = list()
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
-					if(initial(M.voteable))
+					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
 						pickable_types += M
 
 				var/datum/map/target_map = pick(pickable_types)
@@ -226,7 +227,7 @@ SUBSYSTEM_DEF(ticker)
 	mode.pre_pre_setup()
 	var/can_continue = FALSE
 	can_continue = mode.pre_setup() //Setup special modes. This also does the antag fishing checks.
-	SSjobs.DivideOccupations() //Distribute jobs
+
 	if(!can_continue)
 		QDEL_NULL(mode)
 		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
@@ -235,6 +236,18 @@ SUBSYSTEM_DEF(ticker)
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 		return FALSE
+
+	// Enable highpop slots just before we distribute jobs.
+	var/playercount = length(GLOB.clients)
+	var/highpop_trigger = 80
+
+	if(playercount >= highpop_trigger)
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
+		SSjobs.LoadJobs(TRUE)
+	else
+		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
+
+	SSjobs.DivideOccupations() //Distribute jobs
 
 	if(hide_mode)
 		var/list/modes = new
@@ -317,16 +330,6 @@ SUBSYSTEM_DEF(ticker)
 		if(N.client)
 			N.new_player_panel_proc()
 
-	// Now that every other piece of the round has initialized, lets setup player job scaling
-	var/playercount = length(GLOB.clients)
-	var/highpop_trigger = 80
-
-	if(playercount >= highpop_trigger)
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - loading highpop job config")
-		SSjobs.LoadJobs(TRUE)
-	else
-		log_debug("Playercount: [playercount] versus trigger: [highpop_trigger] - keeping standard job config")
-
 	SSnightshift.check_nightshift(TRUE)
 
 	#ifdef UNIT_TESTS
@@ -340,7 +343,7 @@ SUBSYSTEM_DEF(ticker)
 	return TRUE
 
 
-/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(station_missed = 0, override = null)
+/datum/controller/subsystem/ticker/proc/station_explosion_cinematic(nuke_site = NUKE_SITE_ON_STATION, override = null)
 	if(cinematic)
 		return	//already a cinematic in progress!
 
@@ -353,11 +356,9 @@ SUBSYSTEM_DEF(ticker)
 	cinematic.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	cinematic.screen_loc = "1,1"
 
-	if(station_missed)
-		for(var/mob/M in GLOB.mob_list)
-			if(M.client)
-				M.client.screen += cinematic	//show every client the cinematic
-	else	//nuke kills everyone on z-level 1 to prevent "hurr-durr I survived"
+	if(nuke_site == NUKE_SITE_ON_STATION)
+		// Kill everyone on z-level 1 except for mobs in freezers and
+		// malfunctioning AIs.
 		for(var/mob/M in GLOB.mob_list)
 			if(M.stat != DEAD)
 				var/turf/T = get_turf(M)
@@ -370,34 +371,15 @@ SUBSYSTEM_DEF(ticker)
 					CHECK_TICK
 			if(M && M.client) //Play the survivors a cinematic.
 				M.client.screen += cinematic
+	else
+		for(var/mob/M in GLOB.mob_list)
+			if(M.client)
+				M.client.screen += cinematic	//show every client the cinematic
 
-	//Now animate the cinematic
-	switch(station_missed)
-		if(1)	//nuke was nearby but (mostly) missed
-			if(mode && !override)
-				override = mode.name
-			switch(override)
-				if("nuclear emergency") //Nuke wasn't on station when it blew up
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-					flick("station_intact_fade_red", cinematic)
-					cinematic.icon_state = "summary_nukefail"
-				if("fake") //The round isn't over, we're just freaking people out for fun
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/items/bikehorn.ogg'))
-					flick("summary_selfdes", cinematic)
-				else
-					flick("intro_nuke", cinematic)
-					sleep(35)
-					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-
-
-		if(2)	//nuke was nowhere nearby	//TODO: a really distant explosion animation
-			sleep(50)
-			SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
-		else	//station was destroyed
+	switch(nuke_site)
+		//Now animate the cinematic
+		if(NUKE_SITE_ON_STATION)
+			// station was destroyed
 			if(mode && !override)
 				override = mode.name
 			switch(override)
@@ -419,12 +401,36 @@ SUBSYSTEM_DEF(ticker)
 					flick("station_explode_fade_red", cinematic)
 					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 					cinematic.icon_state = "summary_selfdes"
-			stop_delta_alarm()
+
+		if(NUKE_SITE_ON_STATION_ZLEVEL)
+			// nuke was nearby but (mostly) missed
+			if(mode && !override)
+				override = mode.name
+			switch(override)
+				if("nuclear emergency") //Nuke wasn't on station when it blew up
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+					flick("station_intact_fade_red", cinematic)
+					cinematic.icon_state = "summary_nukefail"
+				if("fake") //The round isn't over, we're just freaking people out for fun
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					SEND_SOUND(world, sound('sound/items/bikehorn.ogg'))
+					flick("summary_selfdes", cinematic)
+				else
+					flick("intro_nuke", cinematic)
+					sleep(35)
+					SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
+		if(NUKE_SITE_OFF_STATION_ZLEVEL, NUKE_SITE_INVALID)
+			// nuke was nowhere nearby
+			// TODO: a really distant explosion animation
+			sleep(50)
+			SEND_SOUND(world, sound('sound/effects/explosion_distant.ogg'))
 
 	//If its actually the end of the round, wait for it to end.
 	//Otherwise if its a verb it will continue on afterwards.
 	spawn(300)
-		stop_delta_alarm() // If we've not stopped this alarm yet, do so now.
 		QDEL_NULL(cinematic)		//end the cinematic
 
 
@@ -524,26 +530,31 @@ SUBSYSTEM_DEF(ticker)
 	ending_station_state.count()
 	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(ending_station_state), 0.1), 100.0)
 
-	to_chat(world, "<BR>[TAB]Shift Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>")
-	to_chat(world, "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>")
-	to_chat(world, "<BR>")
+	var/list/end_of_round_info = list()
+	end_of_round_info += "<BR>[TAB]Shift Duration: <B>[round(ROUND_TIME / 36000)]:[add_zero("[ROUND_TIME / 600 % 60]", 2)]:[ROUND_TIME / 100 % 6][ROUND_TIME / 100 % 10]</B>"
+	end_of_round_info += "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>"
+	end_of_round_info += "<BR>"
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)
 		var/ai_ckey = safe_get_ckey(aiPlayer)
 
-		if(aiPlayer.stat != 2)
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>")
+		if(aiPlayer.stat != DEAD)
+			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws at the end of the game were:</b>"
 		else
-			to_chat(world, "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>")
-		aiPlayer.show_laws(TRUE)
+			end_of_round_info += "<b>[aiPlayer.name] (Played by: [ai_ckey])'s laws when it was deactivated were:</b>"
+		aiPlayer.laws_sanity_check()
+		for(var/datum/ai_law/law as anything in aiPlayer.laws.sorted_laws)
+			if(law == aiPlayer.laws.zeroth_law)
+				end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+			else
+				end_of_round_info += "[law.get_index()]. [law.law]"
 
-		if(aiPlayer.connected_robots.len)
-			var/robolist = "<b>The AI's loyal minions were:</b> "
+		if(length(aiPlayer.connected_robots))
+			end_of_round_info += "<b>The AI's loyal minions were:</b> "
 			for(var/mob/living/silicon/robot/robo in aiPlayer.connected_robots)
 				var/robo_ckey = safe_get_ckey(robo)
-				robolist += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
-			to_chat(world, "[robolist]")
+				end_of_round_info += "[robo.name][robo.stat ? " (Deactivated)" : ""] (Played by: [robo_ckey])"
 
 	var/dronecount = 0
 
@@ -556,33 +567,37 @@ SUBSYSTEM_DEF(ticker)
 		var/robo_ckey = safe_get_ckey(robo)
 
 		if(!robo.connected_ai)
-			if(robo.stat != 2)
-				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>")
+			if(robo.stat != DEAD)
+				end_of_round_info += "<b>[robo.name] (Played by: [robo_ckey]) survived as an AI-less borg! Its laws were:</b>"
 			else
-				to_chat(world, "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>")
+				end_of_round_info += "<b>[robo.name] (Played by: [robo_ckey]) was unable to survive the rigors of being a cyborg without an AI. Its laws were:</b>"
 
-			if(robo) //How the hell do we lose robo between here and the world messages directly above this?
-				robo.laws.show_laws(world)
+			robo.laws_sanity_check()
+			for(var/datum/ai_law/law as anything in robo.laws.sorted_laws)
+				if(law == robo.laws.zeroth_law)
+					end_of_round_info += "<span class='danger'>[law.get_index()]. [law.law]</span>"
+				else
+					end_of_round_info += "[law.get_index()]. [law.law]"
 
 	if(dronecount)
-		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
+		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round."
 
-	if(mode.eventmiscs.len)
-		var/emobtext = ""
+	if(length(mode.eventmiscs))
 		for(var/datum/mind/eventmind in mode.eventmiscs)
-			emobtext += printeventplayer(eventmind)
-			emobtext += "<br>"
-			emobtext += printobjectives(eventmind)
-			emobtext += "<br>"
-		emobtext += "<br>"
-		to_chat(world, emobtext)
+			end_of_round_info += printeventplayer(eventmind)
+			end_of_round_info += printobjectives(eventmind)
+		end_of_round_info += "<br>"
 
 	mode.declare_completion()//To declare normal completion.
 
-	//calls auto_declare_completion_* for all modes
-	for(var/handler in typesof(/datum/game_mode/proc))
-		if(findtext("[handler]","auto_declare_completion_"))
-			call(mode, handler)()
+	end_of_round_info += mode.get_end_of_round_antagonist_statistics()
+
+	for(var/datum/team/team in GLOB.antagonist_teams)
+		team.on_round_end()
+
+	// Save the data before end of the round griefing
+	SSpersistent_data.save()
+	to_chat(world, end_of_round_info.Join("<br>"))
 
 	// Display the scoreboard window
 	score.scoreboard()
@@ -592,9 +607,6 @@ SUBSYSTEM_DEF(ticker)
 
 	//Ask the event manager to print round end information
 	SSevents.RoundEnd()
-
-	// Save the data before end of the round griefing
-	SSpersistent_data.save()
 
 	//make big obvious note in game logs that round ended
 	log_game("///////////////////////////////////////////////////////")
@@ -606,6 +618,31 @@ SUBSYSTEM_DEF(ticker)
 		for(var/m in GLOB.player_list)
 			var/mob/M = m
 			H.add_hud_to(M)
+
+	var/static/list/base_encouragement_messages = list(
+		"Keep on keeping on!",
+		"Great job!",
+		"Keep up the good work!",
+		"Nice going!"
+	)
+
+	var/static/list/special_encouragement_messages = list(
+		"Outstanding!",
+		"This is going on the fridge!",
+		"Looks like you're popular!",
+		"That's what we like to see!",
+		"Hell yeah, brother!",
+		"Honestly, quite incredible!"
+	)
+
+	// Tell people how many kudos they got this round
+	// Besides, what's another loop over the /entire player list/
+	var/kudos_message
+	for(var/mob/M in GLOB.player_list)
+		var/kudos = M.mind?.kudos_received_from
+		if(length(kudos))
+			kudos_message = pick(length(kudos) > 5 ? special_encouragement_messages : base_encouragement_messages)
+			to_chat(M, "<span class='green big'>You received <b>[length(M.mind.kudos_received_from)]</b> kudos from other players this round! [kudos_message]</span>")
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()

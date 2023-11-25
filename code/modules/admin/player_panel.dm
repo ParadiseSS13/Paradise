@@ -33,7 +33,7 @@
 
 						var maintable_data = document.getElementById('maintable_data');
 						var ltr = maintable_data.getElementsByTagName("tr");
-						for( var i = 0; i < ltr.length; ++i )
+						for(var i = 0; i < ltr.length; ++i)
 						{
 							try{
 								var tr = ltr\[i\];
@@ -46,7 +46,7 @@
 								var search = lsearch\[0\];
 								//var inner_span = li.getElementsByTagName("span")\[1\] //Should only ever contain one element.
 								//document.write("<p>"+search.innerText+"<br>"+filter+"<br>"+search.innerText.indexOf(filter))
-								if( search.innerText.toLowerCase().indexOf(filter) == -1 )
+								if(search.innerText.toLowerCase().indexOf(filter) == -1)
 								{
 									//document.write("a");
 									//ltr.removeChild(tr);
@@ -342,7 +342,7 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
+	return {"<tr><td><a href='?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/station/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
 		<td><A href='?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
@@ -358,10 +358,10 @@
 		else
 			var/timeleft = SSshuttle.emergency.timeLeft()
 			if(SSshuttle.emergency.mode < SHUTTLE_DOCKED)
-				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
+				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[seconds_to_full_clock(timeleft)]</a><br>"
 				dat += "<a href='?_src_=holder;call_shuttle=2'>Send Back</a><br>"
 			else
-				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
+				dat += "ETA: <a href='?_src_=holder;edit_shuttle_time=1'>[seconds_to_full_clock(timeleft)]</a><br>"
 
 		dat += "<a href='?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		dat += "<br><b>Antagonist Teams</b><br>"
@@ -389,7 +389,7 @@
 				dat += "in [disk_loc.loc] at ([disk_loc.x], [disk_loc.y], [disk_loc.z])</td></tr>"
 			dat += "</table>"
 
-		if(SSticker.mode.head_revolutionaries.len || SSticker.mode.revolutionaries.len)
+		if(SSticker.mode.rev_team)
 			dat += "<br><table cellspacing=5><tr><td><B>Revolutionaries</B></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.head_revolutionaries)
 				var/mob/M = N.current

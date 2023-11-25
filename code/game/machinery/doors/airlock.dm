@@ -276,10 +276,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
 	var/message = ""
 	if(wires.is_cut(WIRE_ELECTRIFY) && arePowerSystemsOn())
-		message = text("The electrification wire is cut - Door permanently electrified.")
+		message = "The electrification wire is cut - Door permanently electrified."
 		electrified_until = -1
 	else if(duration && !arePowerSystemsOn())
-		message = text("The door is unpowered - Cannot electrify the door.")
+		message = "The door is unpowered - Cannot electrify the door."
 		electrified_until = 0
 	else if(!duration && electrified_until != 0)
 		message = "The door is now un-electrified."
@@ -287,10 +287,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		electrified_until = 0
 	else if(duration)	//electrify door for the given duration seconds
 		if(user)
-			shockedby += text("\[[all_timestamps()]\] - [user](ckey:[user.ckey])")
+			shockedby += "\[[all_timestamps()]\] - [user](ckey:[user.ckey])"
 			add_attack_logs(user, src, "Electrified [ADMIN_COORDJMP(src)]", ATKLOG_ALL)
 		else
-			shockedby += text("\[[all_timestamps()]\] - EMP)")
+			shockedby += "\[[all_timestamps()]\] - EMP)"
 		message = "The door is now electrified [duration == -1 ? "permanently" : "for [duration] second\s"]."
 		electrified_until = duration == -1 ? -1 : world.time + duration SECONDS
 		if(duration != -1)
@@ -766,6 +766,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if((istype(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))) // We really dont want people to get shocked on a door they're passing through
 			if(density && !do_mob(living_mover, living_mover, 2 SECONDS, requires_upright = FALSE))
 				return FALSE
+			if(!IS_HORIZONTAL(living_mover) || locked) // Checking if the user has gotten up or the airlock was bolted after we tried to crawl underneath
+				return FALSE
 			living_mover.forceMove(get_turf(src))
 			return TRUE
 	if(isElectrified() && density && isitem(mover) && !on_spark_cooldown)
@@ -825,6 +827,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/ai_control_check(mob/user)
 	if(!issilicon(user))
 		return TRUE
+	if(ispulsedemon(user))
+		return TRUE
 	if(emagged || HAS_TRAIT(src, TRAIT_CMAGGED))
 		to_chat(user, "<span class='warning'>Unable to interface: Internal error.</span>")
 		return FALSE
@@ -842,7 +846,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/ui_act(action, params)
 	if(..())
 		return
-	if(!issilicon(usr) && !usr.can_admin_interact())
+	if(!issilicon(usr) && !usr.can_admin_interact() && !usr.has_unlimited_silicon_privilege)
 		to_chat(usr, "<span class='warning'>Access denied. Only silicons may use this interface.</span>")
 		return
 	if(!ai_control_check(usr))
@@ -1149,6 +1153,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 					"<span class='notice'>You [welded ? "weld the airlock shut":"unweld the airlock"].</span>")
 				update_icon()
 		else if(obj_integrity < max_integrity)
+			// Only attempt repairs if the door is solid (albeit closed)
+			if(!density)
+				to_chat(user, "<span class='warning'>The airlock must be closed for repairs.</span>")
+				return
 			user.visible_message("<span class='notice'>[user] is welding the airlock.</span>", \
 				"<span class='notice'>You begin repairing the airlock...</span>", \
 				"<span class='italics'>You hear welding.</span>")
@@ -1223,16 +1231,14 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 				to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 
 /obj/machinery/door/airlock/proc/force_open_with_item(mob/living/user, obj/item/I)
-	/// Used with an istype check to find out if it's a wielded item or not
-	var/obj/item/twohanded/twohanded_item = I
 	/// Time it takes to open an airlock with an item with the TRAIT_FORCES_OPEN_DOORS_ITEM trait, 5 seconds for wielded items, 10 seconds for nonwielded items
 	var/time_to_open_airlock = 10 SECONDS
 	/// Can we open the airlock while unpowered? Wielded item's can't, but unwielded items can
 	var/can_force_open_while_unpowered = TRUE
-	if(istype(twohanded_item))
+	if(I.GetComponent(/datum/component/two_handed))
 		can_force_open_while_unpowered = FALSE
 		time_to_open_airlock = 5 SECONDS
-		if(!twohanded_item.wielded)
+		if(!HAS_TRAIT(I, TRAIT_WIELDED))
 			to_chat(user, "<span class='warning'>You need to be wielding [I] to do that!</span>")
 			return
 	if(!density || prying_so_hard)
@@ -1553,7 +1559,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return FALSE
 
 	if(!wirecutters_used)
-		if (ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
+		if(ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
 			user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 			playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 		else

@@ -264,7 +264,7 @@
 	icon_state = "herald_cloak"
 	item_state = "herald_cloak"
 	item_color = "herald_cloak"
-	slot_flags = SLOT_TIE
+	slot_flags = SLOT_FLAG_TIE
 	allow_duplicates = FALSE
 	actions_types = list(/datum/action/item_action/accessory/herald)
 
@@ -322,13 +322,14 @@
 		if(istype(chosen, /obj/structure/mirror))
 			var/obj/structure/mirror/M = chosen
 			M.obj_break("brute")
-		else if(istype(chosen, /obj/item/shield/mirror))
+		else if(istype(chosen, /obj/item/shield/mirror) || istype(chosen, /obj/item/handheld_mirror))
 			var/turf/T = get_turf(usr)
 			new /obj/effect/temp_visual/cult/sparks(T)
 			playsound(T, 'sound/effects/glassbr3.ogg', 100)
-			if(isliving(chosen.loc))
-				var/mob/living/shatterer = loc
-				shatterer.Weaken(6 SECONDS)
+			for(var/mob/living/L in T)
+				if(L == usr)
+					continue
+				L.Weaken(6 SECONDS)
 			qdel(chosen)
 
 #undef HERALD_TRISHOT

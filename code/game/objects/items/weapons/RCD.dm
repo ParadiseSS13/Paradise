@@ -172,7 +172,7 @@
 	if(matter == max_matter)
 		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
 		return FALSE
-	matter = clamp((matter + cart.ammoamt), 0, 100)
+	matter = clamp((matter + cart.ammoamt), 0, max_matter)
 	qdel(cart)
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
@@ -510,9 +510,7 @@
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
 		return FALSE
 
-	if(istype(A, /obj/structure/window)) // You mean the grille of course, do you?
-		A = locate(/obj/structure/grille) in A.loc
-	if(istype(A, /obj/structure/grille))
+	if(istype(A, /obj/structure/window))
 		if(!checkResource(2, user))
 			playsound(loc, 'sound/machines/click.ogg', 50, 1)
 			return FALSE
@@ -527,8 +525,8 @@
 		playsound(loc, usesound, 50, 1)
 		var/turf/T1 = get_turf(A)
 		QDEL_NULL(A)
-		for(var/obj/structure/window/W in T1.contents)
-			qdel(W)
+		for(var/obj/structure/grille/G in T1.contents)
+			qdel(G)
 		return TRUE
 	return FALSE
 

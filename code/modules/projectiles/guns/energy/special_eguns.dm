@@ -12,7 +12,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	can_holster = FALSE
 	flags =  CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	shaded_charge = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
@@ -27,7 +27,7 @@
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	ammo_x_offset = 2
 	flight_x_offset = 18
 	flight_y_offset = 11
@@ -204,7 +204,7 @@
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
-	item_state = null
+	item_state = "wormhole_projector1"
 	icon_state = "wormhole_projector1"
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
 	charge_delay = 5
@@ -272,6 +272,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
+	execution_speed = 2 SECONDS
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -319,6 +320,7 @@
 	var/charging = FALSE
 	var/charge_failure = FALSE
 	var/mob/living/carbon/holder = null
+	execution_speed = 4 SECONDS
 
 /obj/item/gun/energy/plasma_pistol/Initialize(mapload)
 	. = ..()
@@ -415,42 +417,11 @@
 	reset_overloaded()
 	do_sparks(2, 1, src)
 	update_icon()
-	if(prob(25))
-		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
-		var/turf/simulated/T = get_turf(src)
-		if(istype(T))
-			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
-		return
-	if(prob(50))
-		var/list/mob_targets = list()
-		for(var/mob/living/M in oview(get_turf(src), 7))
-			mob_targets += M
-		if(length(mob_targets))
-			var/mob/living/target = pick(mob_targets)
-			shootAt(target)
-			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
-			return
+	visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+	var/turf/simulated/T = get_turf(src)
+	if(istype(T))
+		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C, 20)
 
-	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
-	var/list/turf_targets = list()
-	for(var/turf/T in orange(get_turf(src), 7))
-		turf_targets += T
-	if(length(turf_targets))
-		var/turf/target = pick(turf_targets)
-		shootAt(target)
-
-
-/obj/item/gun/energy/plasma_pistol/proc/shootAt(atom/movable/target)
-	var/turf/T = get_turf(src)
-	var/turf/U = get_turf(target)
-	if(!T || !U)
-		return
-	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
-	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
-	O.current = T
-	O.yo = U.y - T.y
-	O.xo = U.x - T.x
-	O.fire()
 
 /obj/item/gun/energy/bsg
 	name = "\improper B.S.G"
@@ -462,7 +433,7 @@
 	weapon_weight = WEAPON_HEAVY
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	cell_type = /obj/item/stock_parts/cell/bsg
 	shaded_charge = TRUE
 	can_fit_in_turrets = FALSE //Crystal would shatter, or someone would try to put an empty gun in the frame.
@@ -567,14 +538,13 @@
 	icon = 'icons/obj/guns/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	fire_sound = 'sound/weapons/pulse3.ogg'
 	desc = "A gun that changes the body temperature of its targets."
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	selfcharge = TRUE
 
 	// Measured in Kelvin
 	var/temperature = T20C
@@ -582,8 +552,8 @@
 	var/min_temp = 0
 	var/max_temp = 500
 
-	/// How fast the gun recharges
-	var/recharge_multiplier = 1
+	/// How fast the gun changes temperature
+	var/temperature_multiplier = 10
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
@@ -623,20 +593,20 @@
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
-		to_chat(user, "<span class='caution'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+		to_chat(user, "<span class='warning'>You remove the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
 		desc += " Its temperature cap has been removed."
 		max_temp = 1000
-		recharge_multiplier = 5  //so emagged temp guns adjust their temperature much more quickly
+		temperature_multiplier *= 5  //so emagged temp guns adjust their temperature much more quickly
 
 /obj/item/gun/energy/temperature/process()
 	..()
 	if(target_temperature != temperature)
 		var/difference = abs(target_temperature - temperature)
-		if(difference >= (10 * recharge_multiplier))
+		if(difference >= temperature_multiplier)
 			if(target_temperature < temperature)
-				temperature -= (10 * recharge_multiplier)
+				temperature -= temperature_multiplier
 			else
-				temperature += (10 * recharge_multiplier)
+				temperature += temperature_multiplier
 		else
 			temperature = target_temperature
 		update_icon()
@@ -746,7 +716,6 @@
 	options["The Original"] = "handgun"
 	options["Golden Mamba"] = "handgun_golden-mamba"
 	options["NT's Finest"] = "handgun_nt-finest"
-	options["Cancel"] = null
 
 /obj/item/gun/energy/detective/Destroy()
 	QDEL_NULL(Announcer)
@@ -900,7 +869,7 @@
 		H.bleed(50)
 	..()
 
-/obj/item/gun/energy/examine(mob/user)
+/obj/item/gun/energy/spikethrower/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>This item's cell recharges on its own. Known to drive people mad by forcing them to wait for shots to recharge. Not compatible with rechargers.</span>"
 

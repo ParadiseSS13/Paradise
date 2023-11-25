@@ -254,7 +254,7 @@
 	item_state = "analyzer"
 	desc = "A hand-held scanner able to diagnose robotic injuries."
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 5

@@ -5,12 +5,12 @@
 				return FALSE
 			if(get_active_hand())
 				return FALSE
-			if(istype(AM, /obj/item/twohanded))
+			if(AM.GetComponent(/datum/component/two_handed))
 				if(get_inactive_hand())
 					return FALSE
+			throw_mode_off()
 			put_in_active_hand(AM)
 			visible_message("<span class='warning'>[src] catches [AM]!</span>")
-			throw_mode_off()
 			SEND_SIGNAL(src, COMSIG_CARBON_THROWN_ITEM_CAUGHT, AM)
 			return TRUE
 	return ..()

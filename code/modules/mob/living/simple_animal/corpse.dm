@@ -33,21 +33,20 @@
 /datum/outfit/syndicatecommandocorpse
 	name = "Corpse of a Syndicate Commando"
 	uniform = /obj/item/clothing/under/syndicate
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
 	l_ear = /obj/item/radio/headset
 	mask = /obj/item/clothing/mask/gas/syndicate
-	back = /obj/item/tank/jetpack/oxygen
+	back = /obj/item/mod/control/pre_equipped/traitor
 	r_pocket = /obj/item/tank/internals/emergency_oxygen
 	id = /obj/item/card/id
 
 
-/obj/effect/mob_spawn/human/clown/corpse
+/obj/effect/mob_spawn/human/corpse/clown/corpse
 	roundstart = TRUE
 	instant = TRUE
 
-/obj/effect/mob_spawn/human/mime/corpse
+/obj/effect/mob_spawn/human/corpse/mime/corpse
 	roundstart = TRUE
 	instant = TRUE
 
@@ -103,7 +102,7 @@
 	name = "Corpse of a Space Wizard"
 	outfit = /datum/outfit/wizardcorpse
 
-/obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
+/obj/effect/mob_spawn/human/corpse/clown/officer/Initialize(mapload)
 	mob_name = "[pick(GLOB.wizard_first)], [pick(GLOB.wizard_second)]"
 	. = ..()
 
@@ -113,3 +112,17 @@
 	suit = /obj/item/clothing/suit/wizrobe
 	shoes = /obj/item/clothing/shoes/sandal
 	head = /obj/item/clothing/head/wizard
+
+/obj/effect/mob_spawn/human/corpse/seed_vault_diona
+	name = "Corpse of a Diona"
+	mob_species = /datum/species/diona
+	outfit = /datum/outfit/seed_vault_diona
+
+/datum/outfit/seed_vault_diona
+	name = "Unknown Diona"
+	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
+	belt = /obj/item/storage/bag/plants
+	mask = /obj/item/clothing/mask/breath
+	r_pocket = /obj/item/paper/crumpled/ruins/lavaland/seed_vault/discovery
+	l_pocket = /obj/item/tank/internals/emergency_oxygen/engi/empty
+

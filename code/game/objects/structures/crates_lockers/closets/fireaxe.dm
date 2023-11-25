@@ -2,7 +2,7 @@
 /obj/structure/closet/fireaxecabinet
 	name = "fire axe cabinet"
 	desc = "There is small label that reads \"For Emergency use only\" along with details for safe use of the axe. As if."
-	var/obj/item/twohanded/fireaxe/fireaxe
+	var/obj/item/fireaxe/fireaxe
 	icon_state = "fireaxe_full_0hits"
 	icon_closed = "fireaxe_full_0hits"
 	icon_opened = "fireaxe_full_open"
@@ -18,7 +18,7 @@
 	var/has_axe = null // Use a string over a boolean value to make the sprite names more readable
 
 /obj/structure/closet/fireaxecabinet/populate_contents()
-	fireaxe = new/obj/item/twohanded/fireaxe(src)
+	fireaxe = new/obj/item/fireaxe(src)
 	has_axe = "full"
 	update_icon(UPDATE_ICON_STATE)	// So its initial icon doesn't show it without the fireaxe
 
@@ -60,10 +60,10 @@
 					localopened = TRUE
 			update_icon(UPDATE_ICON_STATE)
 		return
-	if(istype(O, /obj/item/twohanded/fireaxe) && localopened)
+	if(istype(O, /obj/item/fireaxe) && localopened)
 		if(!fireaxe)
-			var/obj/item/twohanded/fireaxe/F = O
-			if(F.wielded)
+			var/obj/item/fireaxe/F = O
+			if(HAS_TRAIT(F, TRAIT_WIELDED))
 				to_chat(user, "<span class='warning'>Unwield \the [F] first.</span>")
 				return
 			if(!user.unEquip(F, FALSE))
@@ -126,38 +126,6 @@
 /obj/structure/closet/fireaxecabinet/shove_impact(mob/living/target, mob/living/attacker)
 	// no, you can't shove people into a fireaxe cabinet either
 	return FALSE
-
-/obj/structure/closet/fireaxecabinet/verb/toggle_openness() //nice name, huh? HUH?! -Erro //YEAH -Agouri
-	set name = "Open/Close"
-	set category = "Object"
-
-	if(isrobot(usr) || locked || smashed)
-		if(locked)
-			to_chat(usr, "<span class='warning'>The cabinet won't budge!</span>")
-		else if(smashed)
-			to_chat(usr, "<span class='notice'>The protective glass is broken!</span>")
-		return
-
-	operate_panel()
-
-/obj/structure/closet/fireaxecabinet/verb/remove_fire_axe()
-	set name = "Remove Fire Axe"
-	set category = "Object"
-
-	if(isrobot(usr))
-		return
-
-	if(localopened)
-		if(fireaxe)
-			usr.put_in_hands(fireaxe)
-			to_chat(usr, "<span class='notice'>You take \the [fireaxe] from [src].</span>")
-			has_axe = "empty"
-			fireaxe = null
-		else
-			to_chat(usr, "<span class='notice'>[src] is empty.</span>")
-	else
-		to_chat(usr, "<span class='notice'>[src] is closed.</span>")
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/closet/fireaxecabinet/attack_ai(mob/user as mob)
 	if(smashed)

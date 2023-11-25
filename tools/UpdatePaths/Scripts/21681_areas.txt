@@ -1,0 +1,174 @@
+/area/hallway/secondary/construction : /area/station/public/construction
+/area/construction : /area/station/public/construction
+
+/area/atmos : /area/station/engineering/atmos
+/area/atmos/control : /area/station/engineering/atmos/control
+/area/atmos/distribution : /area/station/engineering/atmos/distribution
+
+/area/bridge : /area/station/command/bridge
+/area/bridge/meeting_room : /area/station/command/meeting_room
+/area/crew_quarters/captain : /area/station/command/office/captain
+/area/crew_quarters/captain/bedroom : /area/station/command/office/captain/bedroom
+/area/crew_quarters/heads/hop : /area/station/command/office/hop
+/area/crew_quarters/heads/hor : /area/station/command/office/rd
+/area/crew_quarters/heads/chief : /area/station/command/office/ce
+/area/crew_quarters/heads/hos : /area/station/command/office/hos
+/area/crew_quarters/heads/cmo : /area/station/command/office/cmo
+/area/crew_quarters/courtroom : /area/station/legal/courtroom
+/area/crew_quarters/heads : /area/station/command/office/hop
+/area/crew_quarters/hor : /area/station/command/office/rd
+/area/crew_quarters/hos : /area/station/command/office/hos
+/area/crew_quarters/chief : /area/station/command/office/ce
+/area/server : /area/station/command/server
+
+/area/ntrep : /area/station/command/office/ntrep
+/area/blueshield : /area/station/command/office/blueshield
+/area/centcomdocks : /area/centcom/docks
+/area/crew_quarters : /area/station/public
+/area/crew_quarters/toilet : /area/station/public/toilet
+/area/crew_quarters/sleep_male : /area/station/public/sleep_male
+/area/crew_quarters/sleep_male/toilet_male : /area/station/public/toilet/male
+/area/crew_quarters/sleep_female : /area/station/public/sleep_female
+/area/crew_quarters/sleep_female/toilet_female : /area/station/public/toilet/female
+/area/crew_quarters/locker : /area/station/public/locker
+/area/crew_quarters/locker/locker_toilet : /area/station/public/toilet/lockerroom
+/area/crew_quarters/fitness : /area/station/public/fitness
+/area/crew_quarters/dorms : /area/station/public/dorms
+/area/crew_quarters/arcade : /area/station/public/arcade
+/area/crew_quarters/cafeteria : /area/station/service/cafeteria
+/area/crew_quarters/kitchen : /area/station/service/kitchen
+/area/crew_quarters/bar : /area/station/service/bar
+/area/crew_quarters/bar/atrium : /area/station/service/bar/atrium
+/area/crew_quarters/theatre : /area/station/service/theatre
+/area/crew_quarters/mrchangs : /area/station/public/mrchangs
+/area/crew_quarters/cafe : /area/station/service/cafeteria
+/area/crew_quarters/recreation : /area/station/public/recreation
+
+/area/library : /area/station/service/library
+/area/chapel : /area/station/service/chapel
+/area/chapel/main : /area/station/service/chapel
+/area/chapel/office : /area/station/service/chapel/office
+/area/lawoffice : /area/station/legal/lawoffice
+/area/magistrateoffice : /area/station/legal/magistrate
+/area/clownoffice/@SUBTYPES : /area/station/service/clown/@SUBTYPES
+/area/mimeoffice : /area/station/service/mime
+/area/civilian/barber : /area/station/service/barber
+/area/civilian/clothing : /area/station/public/clothing
+/area/civilian/pet_store : /area/station/public/pet_store
+
+/area/engine : /area/station/engineering
+/area/engine/engine_smes : /area/station/engineering/smes
+/area/engine/engineering : /area/station/engineering/control
+/area/engine/break_room : /area/station/engineering/break_room
+/area/engine/equipmentstorage : /area/station/engineering/equipmentstorage
+/area/engine/hardsuitstorage : /area/station/engineering/hardsuitstorage
+/area/engine/controlroom : /area/station/engineering/controlroom
+/area/engine/gravitygenerator : /area/station/engineering/gravitygenerator
+/area/engine/chiefs_office : /area/station/command/office/ce
+/area/engine/supermatter : /area/station/engineering/engine/supermatter
+/area/solar/@SUBTYPES : /area/station/engineering/solar/@SUBTYPES
+
+/area/teleporter : /area/station/command/teleporter
+/area/teleporter/quantum/@SUBTYPES : /area/station/public/quantum/@SUBTYPES
+
+/area/medical : /area/station/medical
+/area/medical/medbay : /area/station/medical/medbay
+/area/medical/medbay2 : /area/station/medical/medbay2
+/area/medical/medbay3 : /area/station/medical/medbay3
+/area/medical/biostorage : /area/station/medical/storage
+/area/medical/reception : /area/station/medical/reception
+/area/medical/psych : /area/station/medical/psych
+/area/medical/medbreak : /area/station/medical/break_room
+/area/medical/patients_rooms : /area/station/medical/patients_rooms
+/area/medical/ward : /area/station/medical/ward
+/area/medical/patient_a : /area/station/medical/isolation/a
+/area/medical/patient_b : /area/station/medical/isolation/b
+/area/medical/patient_c : /area/station/medical/isolation/c
+/area/medical/iso_access : /area/station/medical/isolation
+/area/medical/coldroom : /area/station/medical/coldroom
+/area/medical/cmo : /area/station/command/office/cmo
+/area/medical/cmostore : /area/station/medical/storage/secondary
+/area/medical/robotics : /area/station/science/robotics
+/area/medical/research : /area/station/science/research
+/area/medical/scibreak : /area/station/science/break_room
+/area/medical/virology : /area/station/medical/virology
+/area/medical/virology/lab : /area/station/medical/virology/lab
+/area/medical/morgue : /area/station/medical/morgue
+/area/medical/chemistry : /area/station/medical/chemistry
+/area/medical/surgery : /area/station/medical/surgery
+/area/medical/surgery1 : /area/station/medical/surgery/primary
+/area/medical/surgery2 : /area/station/medical/surgery/secondary
+/area/medical/surgeryobs : /area/station/medical/surgery/observation
+/area/medical/cryo : /area/station/medical/cryo
+/area/medical/exam_room : /area/station/medical/exam_room
+/area/medical/genetics : /area/station/science/genetics
+/area/medical/genetics_cloning : /area/station/medical/cloning
+/area/medical/sleeper : /area/station/medical/sleeper
+/area/medical/paramedic : /area/station/medical/paramedic
+
+/area/security/interrogation : /area/station/security/interrogation
+/area/security/seceqstorage : /area/station/security/storage
+/area/security/checkpoint2 : /area/station/security/checkpoint/secondary
+/area/security/interrogationobs : /area/station/security/interrogation/observation
+/area/security/armoury : /area/station/security/armory
+/area/security/securearmoury : /area/station/security/armory/secure
+/area/security/hos : /area/station/command/office/hos
+/area/security/detectives_office : /area/station/security/detective
+/area/security/nuke_storage : /area/station/command/vault
+/area/security/vacantoffice : /area/station/public/vacant_office
+/area/security/vacantoffice2 : /area/station/public/vacant_office
+/area/security/customs : /area/station/command/customs
+/area/security/customs2 : /area/station/command/customs2
+/area/security/courtroomdandp : /area/station/legal/courtroom/dap
+
+/area/janitor : /area/station/service/janitor
+/area/hydroponics : /area/station/service/hydroponics
+/area/hydroponics/abandoned_garden : /area/station/maintenance/abandoned_garden
+
+/area/toxins/explab_chamber : /area/station/science/explab/chamber
+/area/toxins/lab : /area/station/science/rnd
+/area/toxins/test_area : /area/station/science/toxins/test
+/area/toxins/launch : /area/station/science/toxins/launch
+/area/toxins/mixing : /area/station/science/toxins/mixing
+/area/toxins/server_coldroom : /area/station/science/server/coldroom
+
+/area/assembly/chargebay : /area/station/science/robotics/chargebay
+/area/assembly/showroom : /area/station/science/robotics/showroom
+/area/assembly/robotics : /area/station/science/robotics
+/area/assembly/assembly_line : /area/station/maintenance/assembly_line
+
+/area/storage : /area/station/public/storage
+/area/storage/tools : /area/station/public/storage/tools/auxiliary
+/area/storage/primary : /area/station/public/storage/tools
+/area/storage/autolathe : /area/station/public/storage/autolathe
+/area/storage/art : /area/station/public/storage/art
+/area/storage/auxillary : /area/station/ai_monitored/storage/eva
+/area/storage/eva : /area/station/ai_monitored/storage/eva
+/area/storage/secure : /area/station/engineering/secure_storage
+/area/storage/emergency : /area/station/public/storage/emergency
+/area/storage/emergency2 : /area/station/public/storage/emergency/port
+/area/storage/tech : /area/station/engineering/tech_storage
+/area/storage/office : /area/station/public/storage/office
+
+/area/ai_monitored : /area/station/ai_monitored
+/area/ai_monitored/storage/eva : /area/station/ai_monitored/storage/eva
+/area/ai_monitored/storage/secure : /area/station/ai_monitored/storage/secure
+
+
+/area/turret_protected/ai_upload_foyer : /area/station/turret_protected/ai_upload/foyer
+/area/turret_protected/aisat_interior : /area/station/turret_protected/aisat/interior
+/area/turret_protected/aisat_interior/secondary : /area/station/turret_protected/aisat/interior/secondary
+/area/turret_protected/@SUBTYPES : /area/station/turret_protected/@SUBTYPES
+
+/area/bridge/hall : /area/station/hallway/secondary/bridge{@OLD}
+
+/area/expedition : /area/station/service/expedition
+
+/area/security/@SUBTYPES : /area/station/security/@SUBTYPES{@OLD}
+/area/quartermaster/@SUBTYPES : /area/station/supply/@SUBTYPES{@OLD}
+/area/maintenance/@SUBTYPES : /area/station/maintenance/@SUBTYPES{@OLD}
+/area/hallway/@SUBTYPES : /area/station/hallway/@SUBTYPES{@OLD}
+/area/crew_quarters/sleep/@SUBTYPES : /area/station/public/sleep/@SUBTYPES
+/area/tcommsat/@SUBTYPES : /area/station/telecomms/@SUBTYPES{@OLD}
+/area/toxins/@SUBTYPES : /area/station/science/@SUBTYPES{@OLD}
+/area/aisat/@SUBTYPES : /area/station/aisat/@SUBTYPES{@OLD}

@@ -20,6 +20,18 @@
 	access = ACCESS_ROBOTICS
 	announce_beacons = list("Research Division" = list("Robotics", "Research Director's Desk"))
 
+/datum/supply_packs/science/mod_core
+	name = "MOD core Crate"
+	contains = list(/obj/item/mod/core/standard,
+					/obj/item/mod/core/standard,
+					/obj/item/mod/core/standard)
+	cost = 450
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "\improper MOD core crate"
+	access = ACCESS_ROBOTICS
+	announce_beacons = list("Research Division" = list("Robotics"))
+	department_restrictions = list() //The crew can order modcores without RD requirement. As a treat.
+
 /datum/supply_packs/science/mechcore
 	name = "Mech Power Core Crate"
 	contains = list(/obj/item/mecha_parts/core)
@@ -27,6 +39,7 @@
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "mech power core crate"
 	access = ACCESS_RD
+
 /datum/supply_packs/science/robotics/mecha_ripley
 	name = "Circuit Crate (Ripley APLU)"
 	contains = list(/obj/item/book/manual/ripley_build_and_repair,

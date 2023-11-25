@@ -64,7 +64,7 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
-	else if(istype(W, /obj/item/twohanded/required/pyro_claws))
+	else if(istype(W, /obj/item/pyro_claws))
 		playsound(loc, W.usesound, 100, 1)
 		to_chat(user, "<span class='notice'>You melt the girder!</span>")
 		refundMetal(metalUsed)
@@ -77,8 +77,11 @@
 		if(!isfloorturf(loc))
 			to_chat(user, "<span class='warning'>A floor must be present to build a false wall!</span>")
 			return
-		if (locate(/obj/structure/falsewall) in loc.contents)
+		if(locate(/obj/structure/falsewall) in loc.contents)
 			to_chat(user, "<span class='warning'>There is already a false wall present!</span>")
+			return
+		if(islava(loc))
+			to_chat(user, "<span class='warning'>You can't do that while [src] is in lava!</span>")
 			return
 		if(istype(W, /obj/item/stack/sheet/runed_metal))
 			to_chat(user, "<span class='warning'>You can't seem to make the metal bend.</span>")
@@ -104,7 +107,7 @@
 					to_chat(user, "<span class='warning'>You need at least five rods to add plating!</span>")
 					return
 				to_chat(user, "<span class='notice'>You start adding plating...</span>")
-				if (do_after(user, 40, target = src))
+				if(do_after(user, 40, target = src))
 					if(!loc || !S || S.get_amount() < 5)
 						return
 					S.use(5)
@@ -396,8 +399,10 @@
 		qdel(src)
 
 /obj/structure/girder/CanPass(atom/movable/mover, turf/target, height=0)
-	if(height==0)
-		return 1
+	if(!height)
+		return TRUE
+	if(istype(mover) && mover.checkpass(PASSGIRDER))
+		return TRUE
 	if(istype(mover) && mover.checkpass(PASSGRILLE))
 		return prob(girderpasschance)
 	else

@@ -1,7 +1,3 @@
-#define SYRINGE_DRAW 0
-#define SYRINGE_INJECT 1
-#define SYRINGE_BROKEN 2
-
 /obj/item/reagent_containers/syringe
 	name = "syringe"
 	desc = "A syringe."
@@ -18,15 +14,14 @@
 	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
+	///If this variable is true, the syringe will work through hardsuits / modsuits / biosuits.
+	var/penetrates_thick = FALSE
 
 /obj/item/reagent_containers/syringe/Initialize(mapload)
 	. = ..()
 	if(list_reagents) //syringe starts in inject mode if its already got something inside
 		mode = SYRINGE_INJECT
 		update_icon()
-
-/obj/item/reagent_containers/syringe/set_APTFT()
-	set hidden = TRUE
 
 /obj/item/reagent_containers/syringe/on_reagent_change()
 	update_icon()
@@ -63,7 +58,7 @@
 	var/mob/living/L
 	if(isliving(target))
 		L = target
-		if(!L.can_inject(user, TRUE))
+		if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick))
 			return
 
 	switch(mode)
@@ -120,7 +115,7 @@
 				return
 
 			if(L) //living mob
-				if(!L.can_inject(user, TRUE))
+				if(!L.can_inject(user, TRUE, penetrate_thick = penetrates_thick))
 					return
 				if(L != user)
 					L.visible_message("<span class='danger'>[user] is trying to inject [L]!</span>", \
@@ -140,6 +135,15 @@
 				var/contained = english_list(rinject)
 
 				add_attack_logs(user, L, "Injected with [name] containing [contained], transfered [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
+
+			if(istype(target, /obj/item/reagent_containers/food))
+
+				var/list/chemicals = list()
+				for(var/datum/reagent/chem in reagents.reagent_list)
+					chemicals += chem.name
+				var/contained_chemicals = english_list(chemicals)
+
+				add_attack_logs(user, target, "Injected [amount_per_transfer_from_this]u [contained_chemicals] into food item")
 
 			var/fraction = min(amount_per_transfer_from_this / reagents.total_volume, 1)
 			reagents.reaction(L, REAGENT_INGEST, fraction)

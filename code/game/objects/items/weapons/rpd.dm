@@ -260,8 +260,11 @@
 	if(world.time < lastused + spawndelay)
 		return
 
-
 	var/turf/T = get_turf(target)
+
+	if(!T)
+		return
+
 	if(target != T)
 		// We only check the rpd_act of the target if it isn't the turf, because otherwise
 		// (A) blocked turfs can be acted on, and (B) unblocked turfs get acted on twice.

@@ -276,6 +276,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		choose_targets(usr)
 	return 1
 
+/obj/effect/proc_holder/spell/AltClick(mob/user)
+	return Click()
+
 /obj/effect/proc_holder/spell/InterceptClickOn(mob/user, params, atom/A)
 	. = ..()
 	if(.)
@@ -404,7 +407,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		else if(isturf(target))
 			location = target
 		if(isliving(target) && message)
-			to_chat(target, text("[message]"))
+			to_chat(target, "[message]")
 		if(sparks_spread)
 			do_sparks(sparks_amt, 0, location)
 		if(smoke_type)
@@ -537,6 +540,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		return FALSE
 
 	return TRUE
+
 /obj/effect/proc_holder/spell/summonmob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."

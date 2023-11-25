@@ -4,7 +4,7 @@
 
 // MAXIMUM SCIENCE
 /datum/job_objective/further_research
-	objective_name = "Perform Research for NanoTrasen"
+	objective_name = "Perform Research for Nanotrasen"
 	description = "Utilize the facilities on this research installation to increase half the station's research levels above level 2, have cargo ship the research to centcomm in crates."
 	gives_payout = TRUE
 	completion_payment = 150

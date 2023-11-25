@@ -471,11 +471,11 @@
 
 #define DOAFTERONCE_MAGIC "Magic~~"
 GLOBAL_LIST_INIT(do_after_once_tracker, list())
-/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.")
+/proc/do_after_once(mob/user, delay, needhand = 1, atom/target = null, progress = 1, allow_moving, must_be_held, attempt_cancel_message = "Attempt cancelled.", special_identifier)
 	if(!user || !target)
 		return
 
-	var/cache_key = "[user.UID()][target.UID()]"
+	var/cache_key = "[user.UID()][target.UID()][special_identifier]"
 	if(GLOB.do_after_once_tracker[cache_key])
 		GLOB.do_after_once_tracker[cache_key] = DOAFTERONCE_MAGIC
 		to_chat(user, "<span class='warning'>[attempt_cancel_message]</span>")
@@ -530,7 +530,7 @@ GLOBAL_LIST_INIT(do_after_once_tracker, list())
 
 	//Job + antagonist
 	if(M.mind)
-		special_role_description = "Role: <b>[M.mind.assigned_role]</b>; Antagonist: <font color='red'><b>[M.mind.special_role]</b></font>; Has been rev: [(M.mind.has_been_rev)?"Yes":"No"]"
+		special_role_description = "Role: <b>[M.mind.assigned_role]</b>; Antagonist: <font color='red'><b>[M.mind.special_role]</b></font>; Has been rev: [(M.mind.has_been_rev) ? "Yes" : "No"]"
 	else
 		special_role_description = "Role: <i>Mind datum missing</i> Antagonist: <i>Mind datum missing</i>; Has been rev: <i>Mind datum missing</i>;"
 

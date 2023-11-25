@@ -7,7 +7,7 @@
 #define DIRECTION_OUT 1
 
 /obj/machinery/atmospherics/portable/pump
-	name = "Portable Air Pump"
+	name = "portable air pump"
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "psiphon:0"
 	density = TRUE
@@ -16,12 +16,14 @@
 	var/direction = DIRECTION_IN
 	/// The desired pressure the pump should be outputting, either into the atmosphere, or into a holding tank.
 	target_pressure = 101.325
+	resistance_flags = NONE
 
 /obj/machinery/atmospherics/portable/pump/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>Invaluable for filling air in a room rapidly after a breach repair. The internal gas container can be filled by \
-			connecting it to a connector port. The pump can pump the air in (sucking) or out (blowing), at a specific target pressure. The powercell inside can be \
-			replaced by using a screwdriver, and then adding a new cell. A tank of gas can also be attached to the air pump.</span>"
+			connecting it to a connector port, you're unable to have it both connected, and on at the same time. \
+			[src] can pump the air in (sucking) or out (blowing), at a specific target pressure. \
+			A tank of gas can also be attached to the air pump, allowing you to fill or empty the tank, via the internal one.</span>"
 
 /obj/machinery/atmospherics/portable/pump/update_icon_state()
 	icon_state = "psiphon:[on]"
@@ -140,12 +142,15 @@
 
 	return data
 
-/obj/machinery/atmospherics/portable/pump/ui_act(action, list/params)
+/obj/machinery/atmospherics/portable/pump/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return
 
 	switch(action)
 		if("power")
+			if(connected_port)
+				to_chat(ui.user, "<span class='warning'>[src] fails to turn on, the port is covered!</span>")
+				return
 			on = !on
 			if(on && direction == DIRECTION_OUT)
 				investigate_log("[key_name(usr)] started a transfer into [holding_tank].<br>", "atmos")
@@ -162,10 +167,7 @@
 			return TRUE
 
 		if("remove_tank")
-			if(holding_tank)
-				on = FALSE
-				holding_tank.forceMove(get_turf(src))
-				holding_tank = null
+			replace_tank(ui.user, TRUE)
 			update_icon()
 			return TRUE
 

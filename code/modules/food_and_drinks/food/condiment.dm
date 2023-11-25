@@ -16,33 +16,43 @@
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
+	"bbqsauce" = list("bbqsauce", "BBQ sauce bottle", "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."),
 	"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
 	"capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
-	"enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
-	"soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
-	"frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
-	"sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
-	"blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
-	"cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	"wasabi" = list("wasabitube", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
-	"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
+	"enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes."),
+	"soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring."),
+	"frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage."),
+	"sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably."),
+	"blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze."),
+	"cornoil" = list("cornoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn."),
+	"oliveoil" = list("oliveoil","olive oil bottle", "A high quality oil used in a variety of cuisine. Made from olives."),
+	"wasabi" = list("wasabibottle", "wasabi bottle", "A pungent paste commonly served in tiny amounts with sushi. Spicy!"),
+	"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"),
+	"vinegar" = list("vinegar", "vinegar", "Perfect for chips, if you're feeling Space British."),
+	"mayonnaise" = list("mayonnaise", "mayonnaise bottle", "An oily condiment made from egg yolks."),
+	"cherryjelly" = list("cherryjelly", "cherry jelly jar", "A sweet jelly made out of red cherries."),
+	"peanutbutter" = list("peanutbutter", "peanut butter jar", "A smooth, nutty spread. Perfect for sandwiches."),
+	"honey" = list("honey", "honey jar", "A sweet substance produced by bees."),
+	"sugar" = list("sugar", "sugar sack", "Tasty spacey sugar!"),
+	"flour" = list("flour", "flour sack", "A big bag of flour. Good for baking!"),
+	"rice" = list("rice", "rice sack", "A big bag of rice. Good for cooking!"))
 	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
 
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
 	return
 
-/obj/item/reagent_containers/food/condiment/set_APTFT()
-	set hidden = FALSE
-	..()
-
 /obj/item/reagent_containers/food/condiment/attack(mob/M, mob/user, def_zone)
 
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, "<span class='warning'>None of [src] left, oh no!</span>")
-		return 0
+		return FALSE
+
+	if(!iscarbon(M)) // Non-carbons can't process reagents
+		to_chat(user, "<span class='warning'>You cannot find a way to feed [M].</span>")
+		return
 
 	if(M == user)
-		to_chat(M, "<span class='notice'>You swallow some of contents of \the [src].</span>")
+		to_chat(user, "<span class='notice'>You swallow some of the contents of [src].</span>")
 	else
 		user.visible_message("<span class='warning'>[user] attempts to feed [M] from [src].</span>")
 		if(!do_mob(user, M))
@@ -99,9 +109,8 @@
 		else
 			name = "[originalname] bottle"
 			main_reagent = reagents.get_master_reagent_name()
+			desc = "Looks like it is [lowertext(main_reagent)], but you are not sure."
 			if(reagents.reagent_list.len==1)
-				desc = "Looks like it is [lowertext(main_reagent)], but you are not sure."
-			else
 				desc = "A mixture of various condiments. [lowertext(main_reagent)] is one of them."
 			icon_state = "mixedcondiments"
 	else
@@ -119,9 +128,12 @@
 	reagents.check_and_add("enzyme", volume, 2 * coeff) // Only recharge if the current amount of enzyme is under `volume`.
 
 /obj/item/reagent_containers/food/condiment/sugar
-	name = "sugar bottle"
+	name = "sugar sack"
 	desc = "Tasty spacey sugar!"
+	icon_state = "sugar"
+	item_state = "sugar"
 	list_reagents = list("sugar" = 50)
+	possible_states = list()
 
 /obj/item/reagent_containers/food/condiment/saltshaker		//Seperate from above since it's a small shaker rather then
 	name = "salt shaker"											//	a large one.
@@ -168,6 +180,13 @@
 	list_reagents = list("flour" = 30)
 	possible_states = list()
 
+/obj/item/reagent_containers/food/condiment/bbqsauce
+	name = "BBQ sauce"
+	desc = "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."
+	icon_state = "bbqsauce"
+	list_reagents = list("bbqsauce" = 50)
+	possible_states = list()
+
 /obj/item/reagent_containers/food/condiment/soymilk
 	name = "soy milk"
 	desc = "It's soy milk. White and nutritious goodness!"
@@ -197,6 +216,76 @@
 	list_reagents = list("amanitin" = 50)
 	possible_states = list()
 
+/obj/item/reagent_containers/food/condiment/mayonnaise
+	name = "mayonnaise"
+	desc = "An oily condiment made from egg yolks."
+	icon_state = "mayonnaise"
+	list_reagents = list("mayonnaise" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/cherryjelly
+	name = "cherry jelly"
+	desc = "A sweet jelly made out of red cherries."
+	icon_state = "cherryjelly"
+	list_reagents = list("cherryjelly" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/peanutbutter
+	name = "peanut butter"
+	desc = "A smooth, nutty spread. Perfect for sandwiches."
+	icon_state = "peanutbutter"
+	list_reagents = list("peanutbutter" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/honey
+	name = "honey"
+	desc = "A sweet substance produced by bees."
+	icon_state = "honey"
+	list_reagents = list("honey" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/oliveoil
+	name = "olive oil"
+	desc = "A high quality oil derived from olives."
+	icon_state = "oliveoil"
+	list_reagents = list("oliveoil" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/frostoil
+	name = "cold sauce"
+	desc = "A special oil that noticably chills the body. Extraced from Icepeppers."
+	icon_state = "coldsauce"
+	list_reagents = list("frostoil" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/capsaicin
+	name = "hot sauce"
+	desc = "You can almost TASTE the stomach ulcers now!"
+	icon_state = "hotsauce"
+	list_reagents = list("capsaicin" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/wasabi
+	name = "wasabi"
+	desc= "A pungent paste commonly served in tiny amounts with sushi. Spicy!"
+	icon_state = "wasabibottle"
+	list_reagents = list("wasabi" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/vinegar
+	name = "vinegar"
+	desc = "Useful for pickling, or putting on chips."
+	icon_state = "vinegar"
+	list_reagents = list("vinegar" = 50)
+	possible_states = list()
+
+/obj/item/reagent_containers/food/condiment/ketchup
+	name = "ketchup"
+	desc = "You feel more American already."
+	icon_state = "ketchup"
+	list_reagents = list("ketchup" = 50)
+	possible_states = list()
+
 //Food packs. To easily apply deadly toxi... delicious sauces to your food!
 
 /obj/item/reagent_containers/food/condiment/pack
@@ -206,7 +295,16 @@
 	volume = 10
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
-	possible_states = list("ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."), "capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"), "soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"), "frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"), "sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"), "blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"), "cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"), "sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"))
+	possible_states = list(
+	"ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."),
+	"capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
+	"soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring."),
+	"frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage."),
+	"sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably."),
+	"blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze."),
+	"cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn."),
+	"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
+	"vinegar" =list("condi_mixed", "vinegar", "Perfect for chips, if you're feeling Space British."))
 
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.
 	return

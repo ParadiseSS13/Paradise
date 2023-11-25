@@ -102,6 +102,9 @@
 	if(!on)
 		return
 
+	if(hijacked)
+		return // is there a good reason this override doesn't call its parent?
+
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			icon_state = "griefsky1"
@@ -151,7 +154,7 @@
 
 /mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
 	anchored = FALSE
-	for (var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
+	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
 			continue
 
@@ -198,7 +201,7 @@
 		new weapon(Tsec)
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
-	qdel(src)
+	..()
 
 //this section is blocking attack
 

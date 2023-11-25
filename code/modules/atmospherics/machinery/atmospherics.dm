@@ -213,6 +213,9 @@ Pipelines + Other Objects -> Pipe network
 		for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
 			if(usermagboots.magpulse)
 				safefromgusts = TRUE
+		for(var/obj/item/clothing/shoes/mod/usermodboots in user.get_equipped_items())
+			if(usermodboots.magbooted)
+				safefromgusts = TRUE
 
 		if(internal_pressure > 2*ONE_ATMOSPHERE)
 			unsafe_wrenching = TRUE //Oh dear oh dear
@@ -222,11 +225,13 @@ Pipelines + Other Objects -> Pipe network
 				to_chat(user, "<span class='warning'>As you begin unwrenching \the [src] a gust of air blows in your face... maybe you should reconsider?</span>")
 
 		if(do_after(user, 40 * W.toolspeed, target = src) && !QDELETED(src))
+			safefromgusts = FALSE
 			for(var/obj/item/clothing/shoes/magboots/usermagboots in user.get_equipped_items())
 				if(usermagboots.magpulse) // Check again, incase they change magpulse mid-wrench
 					safefromgusts = TRUE
-				else
-					safefromgusts = FALSE
+			for(var/obj/item/clothing/shoes/mod/usermodboots in user.get_equipped_items())
+				if(usermodboots.magbooted)
+					safefromgusts = TRUE
 
 			user.visible_message( \
 				"<span class='notice'>[user] unfastens \the [src].</span>", \

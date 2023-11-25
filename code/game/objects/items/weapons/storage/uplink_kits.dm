@@ -25,7 +25,7 @@
 		/obj/item/suppressor, // 1TC
 		/obj/item/ammo_box/magazine/m10mm,  // 1TC
 		/obj/item/ammo_box/magazine/m10mm/hp, // 2TC
-		/obj/item/twohanded/garrote, // 6TC
+		/obj/item/garrote, // 6TC
 		/obj/item/door_remote/omni/access_tuner, // 6TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/implanter/freedom, // 5TC
@@ -48,7 +48,7 @@
 		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/storage/box/syndie_kit/emp, // 2TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
 		/obj/item/encryptionkey/syndicate, // 2TC
@@ -74,7 +74,7 @@
 		/obj/item/jammer, // 4TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/clothing/gloves/color/latex/nitrile, // 0 TC
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
@@ -124,7 +124,7 @@
 		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/clothing/gloves/combat, // 0 TC
 		/obj/item/clothing/under/suit/really_black, // 0 TC
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/grenadier = list( // 20TC + Tactical Grenadier Belt
@@ -132,14 +132,29 @@
 		/obj/item/gun/projectile/automatic/pistol, // 4TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
-		/obj/item/storage/box/syndie_kit/hardsuit, // 6TC
+		/obj/item/mod/control/pre_equipped/traitor, // 6TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
+	var/static/list/metroid = list( // 21 + modules + laser gun
+		/obj/item/mod/control/pre_equipped/traitor_elite, // 9TC
+		/obj/item/mod/module/visor/thermal, // 3 TC
+		/obj/item/mod/module/stealth, //0 TC but strong
+		/obj/item/mod/module/power_kick, //0 TC but funny
+		/obj/item/mod/module/sphere_transform, //0TC but should not be allowed to normally be installed
+		/obj/item/autosurgeon/organ/syndicate/laser_arm, //0 TC but otherwise not obtainable.
+		/obj/item/pinpointer/advpinpointer, //4 TC
+		/obj/item/storage/box/syndidonkpockets, //2TC, otherwise they will just die in the first combat to disabler.
+		/obj/item/storage/belt/utility/full/multitool, //0 TC
+		/obj/item/clothing/head/collectable/slime,  //Priceless (0 TC)
+		/obj/item/encryptionkey/syndicate) //2 TC
+
+
+
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
-	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier)
+	var/list/bundle = pick(spy, agent13, thief, bond, infiltrator, payday, implant, hacker, darklord, professional, grenadier, metroid)
 	for(var/item in bundle)
 		new item(src)
 
@@ -151,16 +166,6 @@
 /obj/item/storage/box/syndie_kit/space/populate_contents()
 	new /obj/item/clothing/suit/space/syndicate/black/red(src)
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
-	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
-
-/obj/item/storage/box/syndie_kit/hardsuit
-	name = "Boxed Blood Red Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/syndi, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
-	max_w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/storage/box/syndie_kit/hardsuit/populate_contents()
-	new /obj/item/clothing/suit/space/hardsuit/syndi(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
@@ -240,11 +245,17 @@
 		new /obj/item/ammo_casing/shotgun/assassination(src)
 	new /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane(src)
 
+/obj/item/storage/box/syndie_kit/fake_minibomb
+	name = "trick minibomb kit"
+
+/obj/item/storage/box/syndie_kit/fake_minibomb/populate_contents()
+	new /obj/item/grenade/syndieminibomb/fake(src)
+
 /obj/item/storage/box/syndie_kit/fake_revolver
 	name = "trick revolver kit"
 
 /obj/item/storage/box/syndie_kit/fake_revolver/populate_contents()
-	new /obj/item/toy/russian_revolver/trick_revolver(src)
+	new /obj/item/gun/projectile/revolver/fake(src)
 
 /obj/item/storage/box/syndie_kit/mimery
 	name = "advanced mimery kit"
@@ -253,6 +264,14 @@
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
+/obj/item/storage/box/syndie_kit/combat_baking
+	name = "combat bakery kit"
+
+/obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
+	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
+	for(var/i in 1 to 2)
+		new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
+	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
 	name = "atmos N2O grenades"
@@ -290,25 +309,6 @@
 	for(var/i in 1 to 3)
 		new/obj/item/cardboard_cutout/adaptive(src)
 	new/obj/item/toy/crayon/spraycan(src)
-
-/obj/item/storage/box/syndie_kit/bonerepair
-	name = "emergency nanite kit"
-	desc = "A box containing one prototype nanite repair system."
-
-/obj/item/storage/box/syndie_kit/bonerepair/populate_contents()
-	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
-	var/obj/item/paper/P = new /obj/item/paper(src)
-	P.name = "Prototype nanite repair guide"
-	P.desc = "For when you want to safely get off Mr Bones' Wild Ride."
-	P.info = {"
-<font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Prototype Emergency Repair Nanites</B><HR></center><BR><BR>
-
-<B>Usage:</B> <BR><BR><BR>
-
-<font size = "1">This is a highly experimental prototype chemical designed to repair damaged bones, organs, and treat interenal bleeding of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a classifed payload. The nanites will simultaneously shut down body systems whilst aiding in repair.<BR><BR><BR>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <B>Do not use with any kind of stimulant or drugs. Serious damage can occur!</B><BR><BR><BR>
-
-To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><BR><HR></font>
-	"}
 
 /obj/item/storage/box/syndie_kit/safecracking
 	name = "Safe-cracking Kit"

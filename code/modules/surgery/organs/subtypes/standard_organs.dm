@@ -180,9 +180,9 @@
 		update_hand_missing()
 		if(owner.gloves)
 			owner.unEquip(owner.gloves)
-		if(owner.l_hand)
+		if(owner.l_hand && (body_part == HAND_LEFT))
 			owner.unEquip(owner.l_hand, TRUE)
-		if(owner.r_hand)
+		if(owner.r_hand && (body_part == HAND_RIGHT))
 			owner.unEquip(owner.r_hand, TRUE)
 
 	. = ..()
@@ -205,6 +205,8 @@
 
 /obj/item/organ/external/hand/proc/update_hand_missing()
 	// we need to come back to this once the hand is actually removed/dead
+	if(!owner) // Rather not have this trigger on already remove limbs
+		return
 	addtimer(CALLBACK(owner, TYPE_PROC_REF(/mob/living/carbon/human, update_hands_hud), 0))
 
 /obj/item/organ/external/hand/right

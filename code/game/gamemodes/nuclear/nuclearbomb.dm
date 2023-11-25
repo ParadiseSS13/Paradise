@@ -22,7 +22,6 @@ GLOBAL_VAR(bomb_set)
 	anchored = TRUE
 	power_state = NO_POWER_USE
 	requires_power = FALSE
-	pull_speed = 0
 
 	/// Are our bolts *supposed* to be in the floor, may not actually cause anchoring if the bolts are cut
 	var/extended = TRUE
@@ -70,7 +69,7 @@ GLOBAL_VAR(bomb_set)
 	r_code = rand(10000, 99999) // Creates a random code upon object spawn.
 	wires = new/datum/wires/nuclearbomb(src)
 	ADD_TRAIT(src, TRAIT_OBSCURED_WIRES, ROUNDSTART_TRAIT)
-	previous_level = get_security_level()
+	previous_level = SSsecurity_level.get_current_level_as_text()
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core) //Let us not irradiate the vault by default.
@@ -335,7 +334,10 @@ GLOBAL_VAR(bomb_set)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/attack_ghost(mob/user as mob)
-	attack_hand(user)
+	if(!panel_open)
+		return ui_interact(user, state = GLOB.viewer_state)
+	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
+		return wires.Interact(user)
 
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if(!panel_open)
@@ -478,7 +480,7 @@ GLOBAL_VAR(bomb_set)
 			safety = !(safety)
 			if(safety)
 				if(!is_syndicate)
-					set_security_level(previous_level)
+					SSsecurity_level.set_level(previous_level)
 				timing = FALSE
 				GLOB.bomb_set = FALSE
 		if("toggle_armed")
@@ -496,13 +498,13 @@ GLOBAL_VAR(bomb_set)
 				if(!safety)
 					message_admins("[key_name_admin(usr)] engaged a nuclear bomb [ADMIN_JMP(src)]")
 					if(!is_syndicate)
-						set_security_level("delta")
+						SSsecurity_level.set_level(SEC_LEVEL_DELTA)
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
 				else
 					GLOB.bomb_set = TRUE
 			else
 				if(!is_syndicate)
-					set_security_level(previous_level)
+					SSsecurity_level.set_level(previous_level)
 				GLOB.bomb_set = FALSE
 				if(!lighthack)
 					icon_state = "nuclearbomb1"
@@ -531,7 +533,23 @@ GLOBAL_VAR(bomb_set)
 	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
-#define NUKERANGE 80
+/// Determine the location of the nuke with respect to the station. Used for,
+/// among other things, calculating win conditions for nukies and choosing which
+/// round-end cinematic to play.
+/obj/machinery/nuclearbomb/proc/get_nuke_site()
+	var/turf/bomb_turf = get_turf(src)
+	if(!bomb_turf)
+		return NUKE_SITE_INVALID
+
+	if(!is_station_level(bomb_turf.z))
+		return NUKE_SITE_OFF_STATION_ZLEVEL
+
+	if(get_area(src) in SSmapping.existing_station_areas)
+		return NUKE_SITE_ON_STATION
+
+	return NUKE_SITE_ON_STATION_ZLEVEL
+
+
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
 		timing = FALSE
@@ -549,35 +567,34 @@ GLOBAL_VAR(bomb_set)
 
 	GLOB.enter_allowed = 0
 
-	var/off_station = 0
-	var/turf/bomb_location = get_turf(src)
-	var/area/A = get_area(src)
-	if( bomb_location && is_station_level(bomb_location.z) )
-		if( (bomb_location.x < (128 - NUKERANGE)) || (bomb_location.x > (128 + NUKERANGE)) || (bomb_location.y < (128 - NUKERANGE)) || (bomb_location.y > (128 + NUKERANGE)) && (!(A in GLOB.the_station_areas)))
-			off_station = 1
-	else
-		off_station = 2
+	var/nuke_site = get_nuke_site()
 
 	if(SSticker)
 		if(SSticker.mode && SSticker.mode.name == "nuclear emergency")
 			var/obj/docking_port/mobile/syndie_shuttle = SSshuttle.getShuttle("syndicate")
 			if(syndie_shuttle)
 				SSticker.mode:syndies_didnt_escape = is_station_level(syndie_shuttle.z)
-			SSticker.mode:nuke_off_station = off_station
-		SSticker.station_explosion_cinematic(off_station,null)
+			SSticker.mode:nuke_off_station = nuke_site
+		SSticker.station_explosion_cinematic(nuke_site, null)
 		if(SSticker.mode)
 			SSticker.mode.explosion_in_progress = FALSE
 			if(SSticker.mode.name == "nuclear emergency")
 				SSticker.mode:nukes_left --
-			else if(off_station == 1)
+			else if(nuke_site == NUKE_SITE_ON_STATION_ZLEVEL)
 				to_chat(world, "<b>A nuclear device was set off, but the explosion was out of reach of the station!</b>")
-			else if(off_station == 2)
-				to_chat(world, "<b>A nuclear device was set off, but the device was not on the station!</b>")
+			else if(nuke_site == NUKE_SITE_OFF_STATION_ZLEVEL)
+				to_chat(world, "<b>A nuclear device was set off, but the device nowhere near the station!</b>")
+			else if(nuke_site == NUKE_SITE_INVALID)
+				to_chat(world, "<b>A nuclear device was set off in an unknown location!</b>")
+				log_admin("The nuclear device [src] detonated but was not located on a valid turf.")
 			else
 				to_chat(world, "<b>The station was destroyed by the nuclear blast!</b>")
 
-			SSticker.mode.station_was_nuked = (off_station < 2)	//offstation==1 is a draw. the station becomes irradiated and needs to be evacuated.
-															//kinda shit but I couldn't  get permission to do what I wanted to do.
+			// NUKE_SITE_ON_STATION_ZLEVEL still counts as nuked for the
+			// purposes of /datum/game_mode/nuclear/declare_completion() and its
+			// weird logic of specifying whether the nuke blew up "something
+			// that wasn't" the station.
+			SSticker.mode.station_was_nuked = nuke_site == NUKE_SITE_ON_STATION || nuke_site == NUKE_SITE_ON_STATION_ZLEVEL
 
 			if(!SSticker.mode.check_finished())//If the mode does not deal with the nuke going off so just reboot because everyone is stuck as is
 				SSticker.reboot_helper("Station destroyed by Nuclear Device.", "nuke - unhandled ending")
@@ -591,7 +608,7 @@ GLOBAL_VAR(bomb_set)
 	safety = !safety
 	if(safety == 1)
 		if(!is_syndicate)
-			set_security_level(previous_level)
+			SSsecurity_level.set_level(previous_level)
 		visible_message("<span class='notice'>[src] quiets down.</span>")
 		if(!lighthack)
 			if(icon_state == "nuclearbomb2")

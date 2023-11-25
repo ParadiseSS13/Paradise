@@ -51,7 +51,7 @@
 	icon_icon = 'icons/obj/vehicles.dmi'
 	button_icon_state = "upgrade"
 
-/datum/action/floor_buffer/Trigger()
+/datum/action/floor_buffer/Trigger(left_click)
 	. = ..()
 	var/obj/vehicle/janicart/J = target
 	if(!J.floorbuffer)

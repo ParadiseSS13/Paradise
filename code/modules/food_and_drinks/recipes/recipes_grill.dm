@@ -148,6 +148,17 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/tofukabob
 
+/datum/recipe/grill/picoss_kabob
+	reagents = list("vinegar" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/carpmeat,
+		/obj/item/reagent_containers/food/snacks/carpmeat,
+		/obj/item/reagent_containers/food/snacks/grown/onion,
+		/obj/item/reagent_containers/food/snacks/grown/chili,
+		/obj/item/stack/rods
+	)
+	result = /obj/item/reagent_containers/food/snacks/picoss_kabob
+
 /datum/recipe/grill/sushi_Tamago
 	reagents = list("sake" = 5)
 	items = list(
@@ -269,3 +280,12 @@
 		/obj/item/reagent_containers/food/snacks/choc_pile
 	)
 	result = /obj/item/reagent_containers/food/snacks/pancake/choc_chip_pancake
+
+/datum/recipe/grill/bbqribs
+	reagents = list("bbqsauce" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/reagent_containers/food/snacks/meat,
+		/obj/item/stack/rods
+	)
+	result = /obj/item/reagent_containers/food/snacks/bbqribs

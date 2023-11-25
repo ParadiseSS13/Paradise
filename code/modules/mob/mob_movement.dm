@@ -282,7 +282,7 @@
 				L.forceMove(locate(locx,locy,mobloc.z))
 				spawn(0)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T in getline(mobloc, L.loc))
+					for(var/turf/T in get_line(mobloc, L.loc))
 						new /obj/effect/temp_visual/dir_setting/ninja/shadow(T, L.dir)
 						limit--
 						if(limit<=0)
@@ -370,12 +370,11 @@
 		var/mob/M = pulling
 		var/atom/movable/t = M.pulling
 		M.stop_pulling()
-		step(pulling, get_dir(pulling.loc, A))
+		. = step(pulling, get_dir(pulling.loc, A)) // we set the return value to step here, if we don't having someone buckled in to a chair and being pulled won't let them be unbuckeled
 		if(M)
 			M.start_pulling(t)
 	else
-		step(pulling, get_dir(pulling.loc, A))
-	return
+		. = step(pulling, get_dir(pulling.loc, A))
 
 /mob/proc/update_gravity(has_gravity)
 	return

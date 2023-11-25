@@ -28,6 +28,10 @@
 
 	return item_to_test && item_to_test.is_equivalent(I)
 
+/// Check if an item is in one of our hands
+/mob/proc/is_holding(obj/item/I)
+	return istype(I) && (I == r_hand || I == l_hand)
+
 
 //Returns the thing in our inactive hand
 /mob/proc/get_inactive_hand()
@@ -57,7 +61,7 @@
 		l_hand = W
 		W.layer = ABOVE_HUD_LAYER	//TODO: move to equipped?
 		W.plane = ABOVE_HUD_PLANE	//TODO: move to equipped?
-		W.equipped(src,slot_l_hand)
+		W.equipped(src,SLOT_HUD_LEFT_HAND)
 		if(pulling == W)
 			stop_pulling()
 		update_inv_l_hand()
@@ -73,7 +77,7 @@
 		r_hand = W
 		W.layer = ABOVE_HUD_LAYER
 		W.plane = ABOVE_HUD_PLANE
-		W.equipped(src,slot_r_hand)
+		W.equipped(src,SLOT_HUD_RIGHT_HAND)
 		if(pulling == W)
 			stop_pulling()
 		update_inv_r_hand()
@@ -138,6 +142,10 @@
 		return TRUE
 	if((I.flags & NODROP) && !force)
 		return FALSE
+
+	if((SEND_SIGNAL(I, COMSIG_ITEM_PRE_UNEQUIP, force) & COMPONENT_ITEM_BLOCK_UNEQUIP) && !force)
+		return FALSE
+
 	return TRUE
 
 /mob/proc/unEquip(obj/item/I, force, silent = FALSE) //Force overrides NODROP for things like wizarditis and admin undress.
@@ -251,21 +259,29 @@
 		S.handle_item_insertion(src)
 		return 1
 
-	S = M.get_item_by_slot(slot_wear_id)
+	S = M.get_item_by_slot(SLOT_HUD_WEAR_ID)
 	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in a wallet
 		S.handle_item_insertion(src)
 		return 1
 
-	S = M.get_item_by_slot(slot_belt)
+	S = M.get_item_by_slot(SLOT_HUD_BELT)
 	if(istype(S) && S.can_be_inserted(src, 1))		//else we put in belt
 		S.handle_item_insertion(src)
 		return 1
 
-	S = M.get_item_by_slot(slot_back)	//else we put in backpack
-	if(istype(S) && S.can_be_inserted(src, 1))
-		S.handle_item_insertion(src)
-		playsound(loc, "rustle", 50, 1, -5)
-		return 1
+	var/obj/item/O = M.get_item_by_slot(SLOT_HUD_BACK)	//else we put in backpack
+	if(istype(O, /obj/item/storage))
+		S = O
+		if(S.can_be_inserted(src, 1))
+			S.handle_item_insertion(src)
+			playsound(loc, "rustle", 50, TRUE, -5)
+			return 1
+	if(ismodcontrol(O))
+		var/obj/item/mod/control/C = O
+		if(C.can_be_inserted(src, 1))
+			C.handle_item_insertion(src)
+			playsound(loc, "rustle", 50, TRUE, -5)
+			return 1
 
 	to_chat(M, "<span class='warning'>You are unable to equip that!</span>")
 	return 0
@@ -281,13 +297,13 @@
 
 /mob/proc/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_wear_mask)
+		if(SLOT_HUD_WEAR_MASK)
 			return wear_mask
-		if(slot_back)
+		if(SLOT_HUD_BACK)
 			return back
-		if(slot_l_hand)
+		if(SLOT_HUD_LEFT_HAND)
 			return l_hand
-		if(slot_r_hand)
+		if(SLOT_HUD_RIGHT_HAND)
 			return r_hand
 	return null
 

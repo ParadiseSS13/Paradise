@@ -13,6 +13,7 @@ GLOBAL_DATUM_INIT(command_announcer, /obj/item/radio/intercom/command, create_co
 /proc/create_global_announcer()
 	spawn(0)
 		GLOB.global_announcer = new(null)
+		GLOB.global_announcer.config(list("Common", "Engineering", "Medical", "Supply", "Command", "Science", "Service", "Security", "Procedure"))
 	return
 
 /proc/create_command_announcer()
@@ -51,5 +52,12 @@ GLOBAL_DATUM_INIT(data_core, /datum/datacore, new) // Station datacore, manifest
 GLOBAL_LIST_EMPTY(ability_verbs) // Create-level abilities
 GLOBAL_LIST_INIT(pipe_colors, list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "purple" = PIPE_COLOR_PURPLE))
 
+/// Global list of all /datum/mod_theme
+GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
+
 GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
 
+///Global list for descriptors
+GLOBAL_LIST_INIT(character_physiques, list("rail thin", "thin", "average", "well-built", "muscular", "overweight"))
+
+GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height", "tall", "very tall"))

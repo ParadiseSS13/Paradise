@@ -73,9 +73,9 @@
 /area/shuttle/escape)
 "aD" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	name = "Escape Shuttle Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "aF" = (
@@ -259,9 +259,9 @@
 /area/shuttle/escape)
 "bc" = (
 /obj/machinery/door/airlock/security/glass{
-	name = "Escape Shuttle Cell";
-	req_access_txt = "63"
+	name = "Escape Shuttle Cell"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bd" = (
@@ -270,17 +270,17 @@
 /area/shuttle/escape)
 "bf" = (
 /obj/machinery/door/airlock/command/glass{
-	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	name = "Escape Shuttle Cockpit"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bg" = (
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "ShuttleMedbay";
-	name = "Shuttle Medbay";
-	req_access_txt = "5"
+	name = "Shuttle Medbay"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/medical/general,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "bh" = (

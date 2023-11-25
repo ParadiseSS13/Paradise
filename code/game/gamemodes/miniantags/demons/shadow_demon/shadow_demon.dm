@@ -7,8 +7,22 @@
 	move_resist = MOVE_FORCE_STRONG
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE // so they can tell where the darkness is
 	loot = list(/obj/item/organ/internal/heart/demon/shadow)
+	death_sound = 'sound/shadowdemon/shadowdeath.ogg'
 	var/thrown_alert = FALSE
 	var/wrapping = FALSE
+
+/mob/living/simple_animal/demon/shadow/Login()
+	..()
+	var/list/L = list(
+		"<span class='deadsay'><font size=3><b>You are a shadow demon!</b></font></span>",
+		"<b>You are a lethal ambush predator who thrives in the darkness, calling upon the shadows to heal your injured form and increase your speed.</b>",
+		"<b>Light is however your worst enemy and being exposed for too long will be fatal.</b>",
+		"<b>Striking your victims with your shadow grapple extinguishes any light sources around them. Striking items silences any light within them.</b>",
+		"<b>You can wrap your dead victims into a shadow cocoon which provides a shroud of darkness which tears away any light near it.</b>",
+		"<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>",
+		"<br><span class='motd'>For more information, check the wiki page: [wiki_link("Shadow_Demon")]</span>"
+	)
+	to_chat(src, chat_box_red(L.Join("<br>")))
 
 /mob/living/simple_animal/demon/shadow/Life(seconds, times_fired)
 	. = ..()
@@ -22,6 +36,8 @@
 		adjustBruteLoss(-20)
 
 /mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/A)
+	// Pick a random attack sound for each attack
+	attack_sound = pick('sound/shadowdemon/shadowattack2.ogg', 'sound/shadowdemon/shadowattack3.ogg', 'sound/shadowdemon/shadowattack4.ogg')
 	if(!ishuman(A))
 		if(isitem(A))
 			A.extinguish_light()
@@ -66,7 +82,15 @@
 
 /obj/structure/shadowcocoon/Initialize(mapload)
 	. = ..()
+	playsound(loc, 'sound/shadowdemon/shadownode.ogg', 5, TRUE, -1)
 	START_PROCESSING(SSobj, src)
+
+
+/obj/structure/shadowcocoon/examine(mob/user)
+	. = ..()
+	if(istype(user, /mob/living/simple_animal/demon/shadow))
+		. += silent ? "<span class='notice'>The tendrils are idle and will not produce noise.</span>" : "<span class='notice'>The tendrils are agitated <b>and will occasionally produce noise to lure in more prey.</b></span>"
+		. += "<span class='notice'>Alt+Click to toggle whether [src] should produce noise to lure in victims.</span>"
 
 /obj/structure/shadowcocoon/process()
 	time_since_last_hallucination++
@@ -87,9 +111,11 @@
 			flare_to_darken.visible_message("<span class='notice'>[flare_to_darken] suddenly dims.</span>")
 		to_darken.extinguish_light()
 	if(!silent && time_since_last_hallucination >= rand(8, 12))
-		playsound(src, pick('sound/items/deconstruct.ogg', 'sound/weapons/handcuffs.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/effects/eleczap.ogg', get_sfx("bodyfall"), get_sfx("gunshot"), 'sound/weapons/egloves.ogg'), 50)
+		playsound(src, pick('sound/shadowdemon/shadowhalluc1.ogg', 'sound/shadowdemon/shadowhalluc2.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/shadowdemon/shadowhalluc3.ogg', get_sfx("bodyfall"), 'sound/weapons/egloves.ogg'), 50)
 		time_since_last_hallucination = 0
 
+
+// Allows you to turn on cocoons making hallucination sounds or not
 /obj/structure/shadowcocoon/AltClick(mob/user)
 	if(!isdemon(user))
 		return ..()
@@ -152,7 +178,7 @@
 
 /obj/effect/proc_holder/spell/fireball/shadow_grapple
 	name = "Shadow Grapple"
-	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure."
+	desc = "Fire one of your hands, if it hits a person it pulls them in. If you hit a structure you get pulled to the structure. Any light source hit with this will be disabled in a two tile radius."
 	base_cooldown = 10 SECONDS
 	fireball_type = /obj/item/projectile/magic/shadow_hand
 
@@ -174,6 +200,7 @@
 	name = "shadow hand"
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
+	hitsound = 'sound/shadowdemon/shadowattack1.ogg' // Plays when hitting something living or a light
 	var/hit = FALSE
 
 /obj/item/projectile/magic/shadow_hand/fire(setAngle)
@@ -215,6 +242,6 @@
 		M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
 
 /obj/item/organ/internal/heart/demon/shadow/remove(mob/living/carbon/M, special = 0)
-	..()
+	. = ..()
 	if(M.mind)
 		M.mind.RemoveSpell(/obj/effect/proc_holder/spell/fireball/shadow_grapple)

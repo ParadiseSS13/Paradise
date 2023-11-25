@@ -12,6 +12,10 @@ SUBSYSTEM_DEF(mapping)
 	var/list/ghostteleportlocs
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
+	///What do we have as the lavaland theme today?
+	var/turf/simulated/floor/lavaland_theme
+	///What primary cave theme we have picked for cave generation today.
+	var/cave_theme
 
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
@@ -36,6 +40,10 @@ SUBSYSTEM_DEF(mapping)
 		F << next_map.type
 
 /datum/controller/subsystem/mapping/Initialize()
+	lavaland_theme = pick(/turf/simulated/floor/plating/lava/smooth/lava_land_surface, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma, /turf/simulated/floor/chasm/straight_down/lava_land_surface)
+	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
+	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
+	log_startup_progress("We feel like [cave_theme] today...")
 	// Load all Z level templates
 	preloadTemplates()
 
@@ -52,7 +60,7 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Skipping space ruins...")
 
 	// Makes a blank space level for the sake of randomness
-	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE))
+	GLOB.space_manager.add_new_zlevel("Empty Area", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY))
 
 
 	// Setup the Z-level linkage
@@ -63,8 +71,16 @@ SUBSYSTEM_DEF(mapping)
 		log_startup_progress("Populating lavaland...")
 		var/lavaland_setup_timer = start_watch()
 		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
-		spawn_rivers(level_name_to_num(MINING))
-		log_startup_progress("Successfully populated lavaland in [stop_watch(lavaland_setup_timer)]s.")
+		switch(lavaland_theme)
+			if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface)
+				spawn_rivers(level_name_to_num(MINING)) //Default spawn, no tweaks needed
+			if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma) //More rivers, smaller
+				spawn_rivers(level_name_to_num(MINING), nodes = 2)
+				spawn_rivers(level_name_to_num(MINING), nodes = 2)
+			if(/turf/simulated/floor/chasm/straight_down/lava_land_surface) //Thiner chasms, bridges, reaches to edge of map.
+				spawn_rivers(level_name_to_num(MINING), nodes = 6, turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava, whitelist_area = /area/lavaland/surface/outdoors, min_x = 50, min_y = 7, max_x = 250, max_y = 225, prob = 10, prob_loss = 5)
+		var/time_spent = stop_watch(lavaland_setup_timer)
+		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 	else
 		log_startup_progress("Skipping lavaland ruins...")
 
@@ -112,7 +128,7 @@ SUBSYSTEM_DEF(mapping)
 	log_startup_progress("Creating random space levels...")
 	var/num_extra_space = rand(GLOB.configuration.ruins.extra_levels_min, GLOB.configuration.ruins.extra_levels_max)
 	for(var/i in 1 to num_extra_space)
-		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE, SPAWN_RUINS))
+		GLOB.space_manager.add_new_zlevel("Ruin Area #[i]", linkage = CROSSLINKED, traits = list(REACHABLE_BY_CREW, SPAWN_RUINS, REACHABLE_SPACE_ONLY))
 	log_startup_progress("Loaded random space levels in [stop_watch(load_zlevels_timer)]s.")
 
 	// Now spawn ruins, random budget between 20 and 30 for all zlevels combined.
@@ -142,7 +158,7 @@ SUBSYSTEM_DEF(mapping)
 	var/watch = start_watch()
 	log_startup_progress("Loading [map_datum.fluff_name]...")
 	// This should always be Z2, but you never know
-	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE, AI_OK))
+	var/map_z_level = GLOB.space_manager.add_new_zlevel(MAIN_STATION, linkage = CROSSLINKED, traits = list(STATION_LEVEL, STATION_CONTACT, REACHABLE_BY_CREW, REACHABLE_SPACE_ONLY, AI_OK))
 	GLOB.maploader.load_map(wrap_file(map_datum.map_path), z_offset = map_z_level)
 	log_startup_progress("Loaded [map_datum.fluff_name] in [stop_watch(watch)]s")
 
@@ -163,7 +179,7 @@ SUBSYSTEM_DEF(mapping)
 		return
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
-	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK))
+	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = SELFLOOPING, traits = list(ORE_LEVEL, REACHABLE_BY_CREW, STATION_CONTACT, HAS_WEATHER, AI_OK))
 	GLOB.maploader.load_map(file("_maps/map_files/generic/Lavaland.dmm"), z_offset = lavaland_z_level)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")
 

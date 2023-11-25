@@ -160,6 +160,18 @@
 		/datum/nothing = 1,
 		/obj/effect/decal/cleanable/fungus = 7)
 
+/obj/effect/spawner/random_spawners/mod
+	name = "MOD module spawner"
+	desc = "Modularize this, please."
+	icon_state = "circuit"
+
+/obj/effect/spawner/random_spawners/mod/maint
+	name = "maint MOD module spawner"
+	result = list(
+		/obj/item/mod/module/springlock = 2,
+		/obj/item/mod/module/balloon = 1,
+		/obj/item/mod/module/stamp = 1
+	)
 
 
 // z6 DEPOT SPAWNERS
@@ -180,7 +192,6 @@
 	name = "50pc ext turret"
 	result = list(/datum/nothing = 1,
 		/obj/machinery/porta_turret/syndicate/exterior = 1)
-
 
 // Mobs
 
@@ -264,7 +275,7 @@
 	// Loot schema: space gear, basic armor, basic ammo (10mm, rcd), drugs, more dangerous/useful gimmick items, lower-value minerals
 	result = list(/datum/nothing = 27,
 		/obj/item/storage/box/syndie_kit/space = 1,
-		/obj/item/storage/box/syndie_kit/hardsuit = 1,
+		/obj/item/mod/control/pre_equipped/traitor = 1,
 		/obj/item/clothing/shoes/magboots/syndie = 1,
 		/obj/item/clothing/suit/armor/vest/combat = 1,
 		/obj/item/ammo_box/magazine/m10mm = 1,
@@ -288,7 +299,9 @@
 		/obj/item/pen/edagger = 1,
 		/obj/item/stack/sheet/mineral/plasma{amount = 20} = 1,
 		/obj/item/stack/sheet/mineral/silver{amount = 20} = 1,
-		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1)
+		/obj/item/stack/sheet/mineral/gold{amount = 20} = 1,
+		/obj/item/mod/module/noslip = 1,
+		/obj/item/mod/module/visor/night = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
 	name = "officer loot"
@@ -296,7 +309,7 @@
 	result = list(/datum/nothing = 25,
 		/obj/item/jammer = 1,
 		/obj/item/storage/firstaid/regular = 1,
-		/obj/item/storage/box/syndie_kit/bonerepair = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 1,
 		/obj/item/gun/projectile/automatic/pistol = 1,
 		/obj/item/stock_parts/cell/bluespace = 1,
 		/obj/item/card/emag = 1,
@@ -307,7 +320,7 @@
 		/obj/item/borg/upgrade/selfrepair = 1,
 		/obj/item/stack/sheet/mineral/diamond{amount = 10} = 1,
 		/obj/item/stack/sheet/mineral/uranium{amount = 10} = 1,
-		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
+		/obj/item/clothing/shoes/magboots/elite = 1,
 		/obj/item/grenade/empgrenade = 1,
 		/obj/item/grenade/clown_grenade = 1,
 		/obj/item/grenade/spawnergrenade/feral_cats = 1,
@@ -316,7 +329,11 @@
 		/obj/item/ammo_box/magazine/m10mm/hp = 1,
 		/obj/item/storage/box/syndie_kit/emp = 1,
 		/obj/item/toy/plushie/carpplushie/dehy_carp = 1,
-		/obj/item/clothing/glasses/hud/security/chameleon = 1)
+		/obj/item/clothing/glasses/hud/security/chameleon = 1,
+		/obj/item/mod/module/visor/thermal = 1,
+		/obj/item/mod/module/stealth = 1,
+		/obj/item/mod/module/power_kick = 1)
+
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level4
 	name = "armory loot"
@@ -329,13 +346,14 @@
 		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
 		/obj/item/gun/projectile/revolver = 1,
 		/obj/item/clothing/gloves/color/yellow/power = 1,
-		/obj/item/twohanded/chainsaw = 1,
+		/obj/item/butcher_chainsaw = 1,
 		/obj/item/bee_briefcase = 1,
-		/obj/item/twohanded/fireaxe/energized = 1,
+		/obj/item/fireaxe/energized = 1,
 		/obj/item/clothing/glasses/thermal = 1,
 		/obj/item/chameleon = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/stimulants = 1,
-		/obj/item/grenade/plastic/c4/x4 = 1)
+		/obj/item/grenade/plastic/c4/x4 = 1,
+		/obj/item/mod/control/pre_equipped/traitor_elite = 1)// Adding this as it is something an explorer can use to explore space better, that isn't a high powered murder weapon.
 
 
 // Layout-affecting spawns

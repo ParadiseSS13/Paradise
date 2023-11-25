@@ -164,7 +164,7 @@
 		if(REGION_ENGINEERING) //engineering and maintenance
 			return list(ACCESS_CONSTRUCTION, ACCESS_MAINT_TUNNELS, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_TECH_STORAGE, ACCESS_ATMOSPHERICS, ACCESS_MINISAT, ACCESS_CE)
 		if(REGION_SUPPLY) //supply
-			return list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_QM)
+			return list(ACCESS_MAILSORTING, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_CARGO, ACCESS_QM, ACCESS_HEADS_VAULT)
 		if(REGION_COMMAND) //command
 			return list(ACCESS_HEADS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_TELEPORTER, ACCESS_EVA, ACCESS_TCOMSAT, ACCESS_EXPEDITION, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS_VAULT, ACCESS_BLUESHIELD, ACCESS_NTREP, ACCESS_HOP, ACCESS_CAPTAIN)
 		if(REGION_CENTCOMM) //because why the heck not
@@ -291,7 +291,7 @@
 		if(ACCESS_RESEARCH)
 			return "Science"
 		if(ACCESS_MINING)
-			return "Mining"
+			return "Mining Dock"
 		if(ACCESS_MINING_OFFICE)
 			return "Mining Office"
 		if(ACCESS_MAILSORTING)
@@ -303,7 +303,7 @@
 		if(ACCESS_HEADS_VAULT)
 			return "Main Vault"
 		if(ACCESS_MINING_STATION)
-			return "Mining EVA"
+			return "Mining Outpost"
 		if(ACCESS_XENOBIOLOGY)
 			return "Xenobiology Lab"
 		if(ACCESS_XENOARCH)
@@ -417,7 +417,7 @@
 			available_accesses = get_region_accesses(i)
 		for(var/access in available_accesses)
 			var/access_desc = (i == REGION_CENTCOMM) ? get_centcom_access_desc(access) : get_access_desc(access)
-			if (access_desc)
+			if(access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
 					"ref" = access,

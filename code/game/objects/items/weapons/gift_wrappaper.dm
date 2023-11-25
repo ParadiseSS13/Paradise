@@ -91,6 +91,7 @@
 		/obj/random/figure,
 		/obj/item/deck/cards,
 		/obj/item/deck/cards/tiny,
+		/obj/item/deck/unum,
 		/obj/item/toy/minimeteor,
 		/obj/item/toy/redbutton,
 		/obj/item/toy/figure/owl,

@@ -16,7 +16,7 @@ IGNORE_515_PROC_MARKER_FILENAME = "__byond_version_compat.dm"
 CHECK_515_PROC_MARKER_RE = re.compile(r"\.proc/")
 def check_515_proc_syntax(lines):
     for idx, line in enumerate(lines):
-        if CHECK_515_PROC_MARKER_RE.match(line):
+        if CHECK_515_PROC_MARKER_RE.search(line):
             return Failure(idx + 1, "Outdated proc reference use detected in code. Please use proc reference helpers.")
 
 
@@ -71,11 +71,8 @@ def check_mixed_indentation(lines):
 
 
 def check_trailing_newlines(lines):
-    if not lines:
-        return
-
-    last_line = [x for x in lines][-1]
-    if not last_line.endswith("\n"):
+    lines = [x for x in lines]
+    if lines and not lines[-1].endswith("\n"):
         return Failure(len(lines), "Missing a trailing newline")
 
 
@@ -92,6 +89,34 @@ def check_proc_args_with_var_prefix(lines):
         if PROC_ARGS_WITH_VAR_PREFIX_RE.match(line):
             return Failure(idx + 1, "Changed files contains a proc argument starting with 'var'.")
 
+NANOTRASEN_CAMEL_CASE = re.compile(r"NanoTrasen")
+def check_for_nanotrasen_camel_case(lines):
+    for idx, line in enumerate(lines):
+        if NANOTRASEN_CAMEL_CASE.search(line):
+            return Failure(idx + 1, "Nanotrasen should not be spelled in the camel case form.")
+
+TO_CHAT_WITH_NO_USER_ARG_RE = re.compile(r"to_chat\(\"")
+def check_to_chats_have_a_user_arguement(lines):
+    for idx, line in enumerate(lines):
+        if TO_CHAT_WITH_NO_USER_ARG_RE.search(line):
+            return Failure(idx + 1, "Changed files contains a to_chat() procedure without a user argument.")
+
+CONDITIONAL_LEADING_SPACE = re.compile(r"(if|for|while|switch)\s+(\(.*?\))") # checks for "if (thing)", replace with $1$2
+CONDITIONAL_BEGINNING_SPACE = re.compile(r"(if|for|while|switch)(\(.+) \)") # checks for "if( thing)", replace with $1$2)
+CONDITIONAL_ENDING_SPACE = re.compile(r"(if|for|while|switch)\( (.+\))") # checks for "if(thing )", replace with $1($2
+CONDITIONAL_INFIX_NOT_SPACE = re.compile(r"(if)\(! (.+\))") # checks for "if(! thing)", replace with $1(!$2
+# To fix any of these, run them as regex in VSCode, with the appropriate replacement
+# It may be a good idea to turn the replacement into a script someday
+def check_conditional_spacing(lines):
+    for idx, line in enumerate(lines):
+        if CONDITIONAL_LEADING_SPACE.search(line):
+            return Failure(idx + 1, "Found a conditional statement matching the format \"if (thing)\", please use \"if(thing)\" instead.")
+        if CONDITIONAL_BEGINNING_SPACE.search(line):
+            return Failure(idx + 1, "Found a conditional statement matching the format \"if( thing)\", please use \"if(thing)\" instead.")
+        if CONDITIONAL_ENDING_SPACE.search(line):
+            return Failure(idx + 1, "Found a conditional statement matching the format \"if(thing )\", please use \"if(thing)\" instead.")
+        if CONDITIONAL_INFIX_NOT_SPACE.search(line):
+            return Failure(idx + 1, "Found a conditional statement matching the format \"if(! thing)\", please use \"if(!thing)\" instead.")
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -99,6 +124,9 @@ CODE_CHECKS = [
     check_trailing_newlines,
     check_global_vars,
     check_proc_args_with_var_prefix,
+    check_for_nanotrasen_camel_case,
+    check_to_chats_have_a_user_arguement,
+    check_conditional_spacing,
 ]
 
 

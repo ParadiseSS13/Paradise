@@ -201,3 +201,92 @@
 		var/mob/living/L = user
 		L.apply_status_effect(STATUS_EFFECT_CHARGING)
 		L.throw_at(target, targeting.range, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
+
+#define ARENA_SIZE 3
+
+/obj/effect/proc_holder/spell/vampire/arena
+	name = "Desecrated Duel (150)"
+	desc = "You leap towards someone. Upon landing, you conjure an arena, and within it you will heal brute and burn damage, recover from fatigue faster, and be strengthened against lasting damages. Can be recasted to end the spell early."
+	gain_desc = "You can now leap to a target and trap them in a conjured arena."
+	required_blood = 150
+	base_cooldown = 30 SECONDS
+	action_icon_state = "duel"
+	should_recharge_after_cast = FALSE
+	var/spell_active = FALSE
+	/// Holds a reference to the timer until either the spell runs out or we recast it
+	var/timer
+	/// Holds a reference to all arena walls so we can qdel them easily with dispel()
+	var/list/all_temp_walls = list()
+
+/obj/effect/proc_holder/spell/vampire/arena/create_new_targeting()
+	var/datum/spell_targeting/click/T = new
+	T.click_radius = 0
+	T.allowed_type = /mob/living/carbon/human
+	return T
+
+/obj/effect/proc_holder/spell/vampire/arena/cast(list/targets, mob/living/user)
+	var/target = targets[1] // We only want to dash towards the first mob in our targeting list, if somehow multiple ended up in there
+	if(!targets)
+		return
+
+	if(timer) // Recast to dispel the wall and buff early
+		dispel(user)
+		return
+
+	// First we leap towards the enemy target
+	user.add_stun_absorption("gargantua", INFINITY, 2) // We temporarily make the gargantua immune to stuns to stop any matrix fuckery from happening
+	animate(user, 1 SECONDS, pixel_z = 64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_OUT)
+	addtimer(CALLBACK(user, user.spin(12, 1), 3, 2), 0.3 SECONDS)
+	var/angle = get_angle(user, target) + 180
+	user.transform = user.transform.Turn(angle)
+	for(var/i in 1 to 10)
+		var/move_dir = get_dir(user, target)
+		user.forceMove(get_step(user, move_dir))
+		if(get_turf(user) == get_turf(target))
+			user.remove_stun_absorption("gargantua")
+			user.set_body_position(STANDING_UP)
+			user.transform = matrix()
+			break
+		sleep(1)
+	animate(user, 0.2 SECONDS, pixel_z = -64, flags = ANIMATION_RELATIVE, easing = SINE_EASING|EASE_IN)
+	// They get a cool soundeffect and a visual, as a treat
+
+	playsound(get_turf(user), 'sound/effects/meteorimpact.ogg', 100, TRUE)
+	new /obj/effect/temp_visual/stomp(get_turf(user))
+
+	// Now we build the arena and give the caster the buff
+
+	user.apply_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
+	spell_active = TRUE
+	timer = addtimer(CALLBACK(src, PROC_REF(dispel), user, TRUE), 30 SECONDS, TIMER_STOPPABLE)
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(dispel))
+	arena_checks(get_turf(target), user)
+
+/obj/effect/proc_holder/spell/vampire/arena/proc/arena_checks(turf/target_turf, mob/living/user)
+	if(!spell_active || QDELETED(src))
+		return
+	INVOKE_ASYNC(src, PROC_REF(fighters_check), user)  //Checks to see if our fighters died.
+	INVOKE_ASYNC(src, PROC_REF(arena_trap), target_turf)  //Gets another arena trap queued up for when this one runs out.
+	addtimer(CALLBACK(src, PROC_REF(arena_checks), target_turf, user), 5 SECONDS)
+
+/obj/effect/proc_holder/spell/vampire/arena/proc/arena_trap(turf/target_turf)
+	for(var/tumor_range_turfs in circle_edge_turfs(target_turf, ARENA_SIZE))
+		tumor_range_turfs = new /obj/effect/temp_visual/elite_tumor_wall/gargantua(tumor_range_turfs, src)
+		all_temp_walls += tumor_range_turfs
+
+/obj/effect/proc_holder/spell/vampire/arena/proc/fighters_check(mob/living/user)
+	if(QDELETED(user) || user.stat == DEAD)
+		dispel(user)
+		return
+
+/obj/effect/proc_holder/spell/vampire/arena/proc/dispel(mob/living/user)
+	spell_active = FALSE
+	if(timer)
+		deltimer(timer)
+		timer = null
+	QDEL_LIST_CONTENTS(all_temp_walls)
+	cooldown_handler.start_recharge()
+	user.remove_status_effect(STATUS_EFFECT_VAMPIRE_GLADIATOR)
+	user.visible_message("<span class='warning'>The arena begins to dissipate.</span>")
+
+#undef ARENA_SIZE

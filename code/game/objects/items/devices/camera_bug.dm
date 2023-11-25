@@ -17,6 +17,7 @@
 	name = "invasive camera utility"
 	desc = "How did this get here?! Please report this as a bug to github"
 	power_state = NO_POWER_USE
+	requires_power = FALSE
 	silent_console = TRUE
 
 /obj/item/camera_bug/Initialize(mapload)
@@ -24,6 +25,7 @@
 	integrated_console = new(src)
 	integrated_console.parent = src
 	integrated_console.network = list("SS13", "camera_bug[UID()]")
+	GLOB.restricted_camera_networks += "camera_bug[UID()]"
 
 /obj/item/camera_bug/Destroy()
 	QDEL_NULL(integrated_console)

@@ -56,7 +56,7 @@
 /datum/looping_sound/proc/start(atom/add_thing)
 	GLOB.looping_sounds += src
 	if(add_thing)
-		LAZYADDOR(output_atoms, add_thing)
+		LAZYDISTINCTADD(output_atoms, add_thing)
 	if(!muted)
 		return
 	muted = FALSE
@@ -130,12 +130,3 @@
 	. = ..()
 	if(decrease_by_amount && decrease_to_amount && decrease_to_amount < volume)
 		volume = max(volume - decrease_by_amount, decrease_to_amount)
-
-/datum/looping_sound/decreasing/delta_alarm
-	mid_sounds = 'sound/effects/delta_alarm.ogg'
-	volume = 50
-	mid_length = 80
-	decrease_to_amount = 10
-	decrease_by_amount = 5
-	direct = TRUE
-	channel = CHANNEL_DELTA_ALARM

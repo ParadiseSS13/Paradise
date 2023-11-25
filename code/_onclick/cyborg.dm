@@ -7,7 +7,7 @@
 */
 
 /mob/living/silicon/robot/ClickOn(atom/A, params)
-	if(client.click_intercept)
+	if(client?.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
 
@@ -79,7 +79,7 @@
 		return
 
 	// buckled cannot prevent machine interlinking but stops arm movement
-	if( buckled )
+	if(buckled)
 		return
 
 	if(W == A)

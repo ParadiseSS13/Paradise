@@ -34,8 +34,9 @@
 		/obj/effect/hierophant,
 		/obj/item/warp_cube,
 		/obj/machinery/quantumpad,
-		/obj/structure/extraction_point
-	)
+		/obj/structure/extraction_point,
+		/obj/item/envelope,
+		/obj/item/paicard)
 	if(A)
 		if(is_type_in_list(A, blacklist))
 			return TRUE
@@ -126,10 +127,12 @@
 			continue
 		if(istype(MA, /mob/dead))
 			continue
+		if(istype(MA, /obj/structure/closet/crate/mail))
+			continue
 		SSeconomy.sold_atoms += " [MA.name]"
 
 		// Must be in a crate (or a critter crate)!
-		if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
+		if(istype(MA, /obj/structure/closet/crate) || istype(MA, /obj/structure/closet/critter))
 			SSeconomy.sold_atoms += ":"
 			if(!length(MA.contents))
 				SSeconomy.sold_atoms += " (empty)"
@@ -201,7 +204,7 @@
 					else // This is a new discovery!
 						SSeconomy.discovered_plants[S.type] = S.potency
 						msg += "<span class='good'>[S.rarity]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
-						credits_to_deposit += S.rarity / 2 // That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
+						service_credits += S.rarity / 2 // That's right, no bonus for potency. Send a crappy sample first to "show improvement" later
 						credits_to_deposit += S.rarity / 2
 		qdel(MA)
 		SSeconomy.sold_atoms += "."

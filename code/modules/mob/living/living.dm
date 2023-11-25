@@ -59,6 +59,7 @@
 	if(.)
 		if(ranged_ability && prev_client)
 			ranged_ability.remove_mousepointer(prev_client)
+	SEND_SIGNAL(src, COMSIG_LIVING_GHOSTIZED)
 
 /mob/living/proc/OpenCraftingMenu()
 	return
@@ -85,6 +86,8 @@
 		return TRUE
 	//Even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(M)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, M)
 
 	// No pushing if we're already pushing past something, or if the mob we're pushing into is anchored.
 	if(now_pushing || M.anchored)
@@ -220,19 +223,25 @@
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_AI_UNTRACKABLE))
 		return FALSE
-
+	if(user && user.is_jammed())
+		return FALSE
 	// Now, are they viewable by a camera? (This is last because it's the most intensive check)
 	if(!near_camera(src))
 		return FALSE
 
 	return TRUE
 
+/mob/living/proc/is_jammed()
+	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
+		if(atoms_share_level(get_turf(src), get_turf(jammer)) && get_dist(get_turf(src), get_turf(jammer)) < jammer.range)
+			return TRUE
+	return FALSE
+
 //mob verbs are a lot faster than object verbs
 //for more info on why this is not atom/pull, see examinate() in mob.dm
 /mob/living/verb/pulled(atom/movable/AM as mob|obj in oview(1))
 	set name = "Pull"
-	set category = "Object"
-
+	set category = null
 	if(istype(AM) && Adjacent(AM))
 		start_pulling(AM, show_message = TRUE)
 	else
@@ -573,7 +582,7 @@
 	if(pulledby && moving_diagonally != FIRST_DIAG_STEP && get_dist(src, pulledby) > 1) //seperated from our puller and not in the middle of a diagonal move
 		pulledby.stop_pulling()
 
-	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents ) first so we hopefully don't have to call get_turf() so much.
+	if(s_active && !(s_active in contents) && get_turf(s_active) != get_turf(src))	//check !( s_active in contents) first so we hopefully don't have to call get_turf() so much.
 		s_active.close(src)
 
 /mob/living/proc/pull_pulled(turf/dest, atom/movable/pullee, movetime)
@@ -705,7 +714,7 @@
 
 	if(has_limbs)
 		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
-		if (T)
+		if(T)
 			turfs_to_check += T
 
 		T = get_step(src, angle2dir(dir2angle(direction) - 90))
@@ -872,7 +881,7 @@
  */
 /mob/living/proc/get_strip_slot_name_override(slot)
 	switch(slot)
-		if(slot_wear_pda)
+		if(SLOT_HUD_WEAR_PDA)
 			return "PDA"
 
 // The src mob is trying to strip an item from someone
@@ -1085,9 +1094,9 @@
 		if(client)
 			if(new_z)
 				SSmobs.clients_by_zlevel[new_z] += src
-				for (var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+				for(var/I in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
 					var/mob/living/simple_animal/SA = SSidlenpcpool.idle_mobs_by_zlevel[new_z][I]
-					if (SA)
+					if(SA)
 						SA.toggle_ai(AI_ON) // Guarantees responsiveness for when appearing right next to mobs
 					else
 						SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= SA

@@ -31,6 +31,8 @@
 	var/active = FALSE
 	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
 	var/bypass_fake_death = FALSE
+	/// Where this ability should be stored in the changeling menu
+	var/menu_location
 
 /*
  * Changeling code relies on on_purchase to grant powers.
@@ -50,7 +52,7 @@
 	cling = null
 	return ..()
 
-/datum/action/changeling/Trigger()
+/datum/action/changeling/Trigger(left_click)
 	try_to_sting(owner)
 
 /datum/action/changeling/proc/try_to_sting(mob/user, mob/target)

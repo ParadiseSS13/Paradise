@@ -15,6 +15,7 @@
 	base_icon_state = "wall"
 	flags_2 = RAD_PROTECT_CONTENTS_2 | RAD_NO_CONTAMINATE_2
 	rad_insulation = RAD_MEDIUM_INSULATION
+	layer = TURF_LAYER
 
 	var/mineral = /obj/item/stack/sheet/metal
 	var/mineral_amount = 2
@@ -116,7 +117,7 @@
 		to_chat(user, "<span class='warning'>You must wait until the door has stopped moving.</span>")
 		return
 
-	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/twohanded/required/pyro_claws))
+	if(istype(W, /obj/item/gun/energy/plasmacutter) || istype(W, /obj/item/pickaxe/drill/diamonddrill) || istype(W, /obj/item/pickaxe/drill/jackhammer) || istype(W, /obj/item/melee/energy/blade) || istype(W, /obj/item/pyro_claws))
 		dismantle(user, TRUE)
 
 /obj/structure/falsewall/attack_animal(mob/living/simple_animal/M)

@@ -51,12 +51,6 @@
 	notes = "An minituarized nuclear squib fit snuggly into a bio-chip."
 	function = "Upon detonization the bio-chip will release an EMP affecting the immediate area around the user."
 
-/datum/implant_fluff/exile
-	name = "Nanotrasen Employee Exile Bio-chip"
-	life = "Known to last up to 3 to 4 years."
-	notes = "The onboard station gateway system has been modified to reject entry by individuals containing this bio-chip."
-	function = "Prevents the user from reentering the station through the gateway.... alive."
-
 /datum/implant_fluff/explosive
 	name = "Cybersun Industries RX-78 Employee Management Bio-chip"
 	life = "Destroyed upon activation."
@@ -122,6 +116,12 @@
 /datum/implant_fluff/sad_trombone
 	name = "BioTech Solutions Comedy Bio-chip"
 	function = "Plays a sad trombone noise upon death of the implantee, allows clowns to entertain the crew even post-mortem."
+
+/datum/implant_fluff/pathfinder
+	name = "Paizo Productions 5-E Pathfinder Implant"
+	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radation may be a factor."
+	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
+	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
 
 /datum/implant_fluff/gorilla_rampage
 	name = "Magillitis Serum Bio-chip"

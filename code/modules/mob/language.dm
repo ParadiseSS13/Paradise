@@ -302,11 +302,15 @@
 	syllables = list("click","clack")
 
 /datum/language/kidan/get_random_name()
-	var/new_name = "[pick(list("Vrax", "Krek", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx"))]"
-	new_name += ", "
-	new_name += "[pick(list("Noble", "Worker", "Scout", "Builder", "Farmer", "Gatherer", "Soldier", "Guard", "Prospector"))]"
-	new_name += " of Clan "
-	new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax"))]"	//I ran out of ideas after the first two tbh -_-
+	var/new_name = "[pick(list("Vrax", "Krek", "Krekk", "Vriz", "Zrik", "Zarak", "Click", "Zerk", "Drax", "Zven", "Drexx", "Vrik", "Vrek", "Krax", "Varak", "Zavak", "Vrexx", "Drevk", "Krik", "Karak", "Krexx", "Zrax", "Zrexx", "Zrek", "Verk", "Drek", "Drikk", "Zvik", "Vzik", "Kviz", "Vrizk", "Vrizzk", "Krix", "Krixx", "Zark", "Xark", "Xarkk", "Xerx", "Xarak", "Karax", "Varak", "Vazak", "Vazzak", "Zirk", "Krak", "Xakk", "Zakk", "Vekk"))]"
+	if(prob(67))
+		if(prob(50))
+			new_name += ", "
+			new_name += "[pick(list("Noble", "Worker", "Scout", "Carpenter", "Farmer", "Gatherer", "Soldier", "Guard", "Miner", "Priest", "Merchant", "Crafter", "Alchemist", "Historian", "Hunter", "Scholar", "Caretaker", "Artist", "Bard", "Blacksmith", "Brewer", "Mason", "Baker", "Prospector", "Laborer", "Hauler", "Servant"))]"
+			new_name += " of Clan "
+		else
+			new_name += " "
+		new_name += "[pick(list("Tristan", "Zarlan", "Clack", "Kkraz", "Zramn", "Orlan", "Zrax", "Orax", "Oriz", "Tariz", "Kvestan"))]"
 	return new_name
 
 
@@ -338,7 +342,7 @@
 	exclaim_verbs = list("imparts")
 	colour = "abductor"
 	key = "^"
-	flags = RESTRICTED | HIVEMIND
+	flags = RESTRICTED | HIVEMIND | NOLIBRARIAN
 	follow = TRUE
 
 /datum/language/grey/broadcast(mob/living/speaker, message, speaker_mask)
@@ -495,7 +499,7 @@
 	ask_verb = "hisses"
 	exclaim_verbs = list("hisses")
 	key = "6"
-	flags = RESTRICTED
+	flags = RESTRICTED | NOLIBRARIAN
 	syllables = list("sss","sSs","SSS")
 
 /datum/language/xenos
@@ -649,7 +653,7 @@
 	ask_verb = "queries"
 	exclaim_verbs = list("declares")
 	key = "]"
-	flags = RESTRICTED
+	flags = RESTRICTED | NOLIBRARIAN
 	follow = TRUE
 	syllables = list ("beep", "boop")
 

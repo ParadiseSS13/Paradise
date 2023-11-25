@@ -28,6 +28,9 @@
 		return FALSE
 	var/silenced = FALSE
 	for(var/datum/emote/P in key_emotes)
+		// can this mob run the emote at all?
+		if(!P.can_run_emote(src, intentional = intentional))
+			continue
 		if(!P.check_cooldown(src, intentional))
 			// if an emote's on cooldown, don't spam them with messages of not being able to use it
 			silenced = TRUE
@@ -49,7 +52,7 @@
 	var/input = ""
 	if(!message && !client)
 		CRASH("An empty custom emote was called from a client-less mob.")
-	else if (!message)
+	else if(!message)
 		input = sanitize(copytext(input(src,"Choose an emote to display.") as text|null, 1, MAX_MESSAGE_LEN))
 	else
 		input = message

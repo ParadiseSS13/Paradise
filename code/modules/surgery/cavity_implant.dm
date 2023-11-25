@@ -158,7 +158,7 @@
 		"[user] starts making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool].",
 		"You start making some space inside [target]'s [get_cavity(affected)] cavity with \the [tool]."
 	)
-	target.custom_pain("The pain in your chest is living hell!")
+	affected.custom_pain("The pain in your chest is living hell!")
 	return ..()
 
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -188,7 +188,7 @@
 		"[user] starts mending [target]'s [get_cavity(affected)] cavity wall with \the [tool].",
 		"You start mending [target]'s [get_cavity(affected)] cavity wall with \the [tool]."
 	)
-	target.custom_pain("The pain in your chest is living hell!")
+	affected.custom_pain("The pain in your chest is living hell!")
 	return ..()
 
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -300,7 +300,7 @@
 		"[user] starts putting \the [tool] inside [target]'s [get_cavity(affected)] cavity.",
 		"You start putting \the [tool] inside [target]'s [get_cavity(affected)] cavity."
 	)
-	target.custom_pain("The pain in your [target_zone] is living hell!")
+	affected.custom_pain("The pain in your [target_zone] is living hell!")
 	return ..()
 
 /datum/surgery_step/cavity/place_item/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)

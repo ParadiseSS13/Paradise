@@ -64,7 +64,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 	actions_types = list(/datum/action/item_action/organ_action/use/adamantine_vocal_cords)
 	icon_state = "adamantine_cords"
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger()
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(left_click)
 	if(!IsAvailable())
 		return
 	var/message = input(owner, "Resonate a message to all nearby golems.", "Resonate")
@@ -117,7 +117,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 		return FALSE
 	return TRUE
 
-/datum/action/item_action/organ_action/colossus/Trigger()
+/datum/action/item_action/organ_action/colossus/Trigger(left_click)
 	. = ..()
 	if(!IsAvailable())
 		if(world.time < cords.next_command)
@@ -175,7 +175,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby"))
 
 	if(owner.mind)
 		//Holy characters are very good at speaking with the voice of god
-		if(owner.mind.isholy)
+		if(HAS_MIND_TRAIT(owner, TRAIT_HOLY))
 			power_multiplier *= 2
 		//Command staff has authority
 		if(owner.mind.assigned_role in GLOB.command_positions)

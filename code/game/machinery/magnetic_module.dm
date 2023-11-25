@@ -1,3 +1,11 @@
+#define MIN_CONTROLLER_SPEED 1
+#define MAX_CONTROLLER_SPEED 10
+#define MIN_ELECTRICITY_LEVEL 1
+#define MAX_ELECTRICITY_LEVEL 12
+#define MIN_MAGNETIC_FIELD 1
+#define MAX_MAGNETIC_FIELD 4
+#define MAX_PATH_LENGTH 50
+
 // Magnetic attractor, creates variable magnetic fields and attraction.
 // Can also be used to emit electron/proton beams to create a center of magnetism on another tile
 
@@ -16,8 +24,8 @@
 	idle_power_consumption = 50
 
 	var/freq = AIRLOCK_FREQ		// radio frequency
-	var/electricity_level = 1 // intensity of the magnetic pull
-	var/magnetic_field = 1 // the range of magnetic attraction
+	var/electricity_level = MIN_ELECTRICITY_LEVEL // intensity of the magnetic pull
+	var/magnetic_field = MIN_MAGNETIC_FIELD // the range of magnetic attraction
 	var/code = 0 // frequency code, they should be different unless you have a group of magnets working together or something
 	var/turf/center // the center of magnetic attraction
 	var/on = FALSE
@@ -71,20 +79,20 @@
 
 			if("add-elec")
 				electricity_level++
-				if(electricity_level > 12)
-					electricity_level = 12
+				if(electricity_level > MAX_ELECTRICITY_LEVEL)
+					electricity_level = MAX_ELECTRICITY_LEVEL
 			if("sub-elec")
 				electricity_level--
-				if(electricity_level <= 0)
-					electricity_level = 1
+				if(electricity_level < MIN_ELECTRICITY_LEVEL)
+					electricity_level = MIN_ELECTRICITY_LEVEL
 			if("add-mag")
 				magnetic_field++
-				if(magnetic_field > 4)
-					magnetic_field = 4
+				if(magnetic_field > MAX_MAGNETIC_FIELD)
+					magnetic_field = MAX_MAGNETIC_FIELD
 			if("sub-mag")
 				magnetic_field--
-				if(magnetic_field <= 0)
-					magnetic_field = 1
+				if(magnetic_field < MIN_MAGNETIC_FIELD)
+					magnetic_field = MIN_MAGNETIC_FIELD
 
 			if("set-x")
 				if(modifier)	center_x = modifier
@@ -120,10 +128,10 @@
 		on = FALSE
 
 	// Sanity checks:
-	if(electricity_level <= 0)
-		electricity_level = 1
-	if(magnetic_field <= 0)
-		magnetic_field = 1
+	if(electricity_level < MIN_ELECTRICITY_LEVEL)
+		electricity_level = MIN_ELECTRICITY_LEVEL
+	if(magnetic_field < MIN_MAGNETIC_FIELD)
+		magnetic_field = MIN_MAGNETIC_FIELD
 
 
 	// Limitations:
@@ -131,10 +139,10 @@
 		center_x = max_dist
 	if(abs(center_y) > max_dist)
 		center_y = max_dist
-	if(magnetic_field > 4)
-		magnetic_field = 4
-	if(electricity_level > 12)
-		electricity_level = 12
+	if(magnetic_field > MAX_MAGNETIC_FIELD)
+		magnetic_field = MAX_MAGNETIC_FIELD
+	if(electricity_level > MAX_ELECTRICITY_LEVEL)
+		electricity_level = MAX_ELECTRICITY_LEVEL
 
 	// Update power usage:
 	if(on)
@@ -179,15 +187,17 @@
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"
-	var/autolink = 0 // if set to 1, can't probe for other magnets!
+	var/autolink = FALSE // if set to TRUE, can't probe for other magnets!
+	var/probing = FALSE
 
 	var/pathpos = 1 // position in the path
 	var/path = "NULL" // text path of the magnet
-	var/speed = 1 // lowest = 1, highest = 10
+	var/speed = MIN_CONTROLLER_SPEED
 	var/list/rpath = list() // real path of the magnet, used in iterator
+	var/static/list/valid_paths = list("n", "s", "e", "w", "c", "r")
 
-	var/moving = 0 // 1 if scheduled to loop
-	var/looping = 0 // 1 if looping
+	var/moving = FALSE // TRUE if scheduled to loop
+	var/looping = FALSE // TRUE if looping
 
 
 /obj/machinery/magnetic_controller/Initialize(mapload)
@@ -217,109 +227,188 @@
 	magnets -= magnet
 
 /obj/machinery/magnetic_controller/proc/link_magnets()
+	magnets = list()
 	for(var/obj/machinery/magnetic_module/M in GLOB.machines)
 		if(M.freq == frequency && M.code == code)
 			magnets.Add(M)
-			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_magnet_del))
+			RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(on_magnet_del), TRUE)
 
 /obj/machinery/magnetic_controller/process()
 	if(magnets.len == 0 && autolink)
 		link_magnets()
 
+/obj/machinery/magnetic_controller/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "MagnetController", name, 400, 600)
+		ui.open()
+
 /obj/machinery/magnetic_controller/attack_ai(mob/user as mob)
-	return src.attack_hand(user)
+	if(..())
+		return TRUE
+	ui_interact(user)
+
+/obj/machinery/magnetic_controller/attack_ghost(mob/user)
+	if(..())
+		return TRUE
+	ui_interact(user)
 
 /obj/machinery/magnetic_controller/attack_hand(mob/user as mob)
-	if(stat & (BROKEN|NOPOWER))
+	if(..())
+		return TRUE
+	ui_interact(user)
+
+/obj/machinery/magnetic_controller/proc/find_magnet(uid)
+	var/potential_magnet = locateUID(uid)
+	if(istype(potential_magnet, /obj/machinery/magnetic_module))
+		return potential_magnet
+
+/obj/machinery/magnetic_controller/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
 		return
-	user.set_machine(src)
-	var/dat = "<B>Magnetic Control Console</B><BR><BR>"
-	if(!autolink)
-		dat += {"
-		Frequency: <a href='?src=[UID()];operation=setfreq'>[frequency]</a><br>
-		Code: <a href='?src=[UID()];operation=setfreq'>[code]</a><br>
-		<a href='?src=[UID()];operation=probe'>Probe Generators</a><br>
-		"}
 
-	if(magnets.len >= 1)
+	add_fingerprint(ui.user)
 
-		dat += "Magnets confirmed: <br>"
-		var/i = 0
-		for(var/obj/machinery/magnetic_module/M in magnets)
-			i++
-			dat += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;< \[[i]\] (<a href='?src=[UID()];radio-op=togglepower'>[M.on ? "On":"Off"]</a>) | Electricity level: <a href='?src=[UID()];radio-op=minuselec'>-</a> [M.electricity_level] <a href='?src=[UID()];radio-op=pluselec'>+</a>; Magnetic field: <a href='?src=[UID()];radio-op=minusmag'>-</a> [M.magnetic_field] <a href='?src=[UID()];radio-op=plusmag'>+</a><br>"
+	if(ui_act_modal(action, params, ui, state))
+		return TRUE
 
-	dat += "<br>Speed: <a href='?src=[UID()];operation=minusspeed'>-</a> [speed] <a href='?src=[UID()];operation=plusspeed'>+</a><br>"
-	dat += "Path: {<a href='?src=[UID()];operation=setpath'>[path]</a>}<br>"
-	dat += "Moving: <a href='?src=[UID()];operation=togglemoving'>[moving ? "Enabled":"Disabled"]</a>"
+	. = TRUE
+	switch(action)
+		if("probe_magnets")
+			if(probing || autolink)
+				return
+			probing = TRUE
+			link_magnets()
+			addtimer(VARSET_CALLBACK(src, probing, FALSE), 5 SECONDS)
 
+		if("toggle_power")
+			moving = !moving
+			if(moving)
+				INVOKE_ASYNC(src, PROC_REF(MagnetMove))
+		if("set_speed")
+			var/new_speed = text2num(params["speed"])
+			if(isnull(new_speed))
+				return
+			speed = clamp(new_speed, MIN_CONTROLLER_SPEED, MAX_CONTROLLER_SPEED)
 
-	user << browse(dat, "window=magnet;size=400x500")
-	onclose(user, "magnet")
+		if("path_add")
+			if(length(rpath) >= MAX_PATH_LENGTH / 2)
+				return
+			var/code = params["code"]
+			if(!(code in valid_paths))
+				return
+			moving = FALSE
+			pathpos = 1
+			rpath += code
+			path = rpath.Join(";")
+		if("path_remove")
+			var/index = text2num(params["index"])
+			if(isnull(index) || index < 0 || index > length(rpath))
+				return
+			var/code = params["code"]
+			if(!(code in valid_paths))
+				return
+			moving = FALSE
+			pathpos = 1
+			if(rpath[index] == code)
+				rpath.Cut(index, index + 1)
+			path = rpath.Join(";")
+		if("path_clear")
+			moving = FALSE
+			pathpos = 1
+			rpath = list()
+			path = ""
 
-/obj/machinery/magnetic_controller/Topic(href, href_list)
-	if(stat & (BROKEN|NOPOWER))
-		return
-	usr.set_machine(src)
-	src.add_fingerprint(usr)
+		if("toggle_magnet_power")
+			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
+			if(!magnet)
+				return
+			magnet.Cmd("toggle-power")
+		if("set_electricity_level")
+			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
+			if(!magnet)
+				return
+			var/new_electricity_level = text2num(params["electricityLevel"])
+			if(isnull(new_electricity_level))
+				return
+			magnet.Cmd("set-electriclevel", clamp(new_electricity_level, MIN_ELECTRICITY_LEVEL, MAX_ELECTRICITY_LEVEL))
+		if("set_magnetic_field")
+			var/obj/machinery/magnetic_module/magnet = find_magnet(params["id"])
+			if(!magnet)
+				return
+			var/new_magnetic_field = text2num(params["magneticField"])
+			if(isnull(new_magnetic_field))
+				return
+			magnet.Cmd("set-magneticfield", clamp(new_magnetic_field, MIN_MAGNETIC_FIELD, MAX_MAGNETIC_FIELD))
 
-	if(href_list["radio-op"])
+/obj/machinery/magnetic_controller/ui_data(mob/user)
+	var/data = list()
 
-		// Prepare signal beforehand, because this is a radio operation
-		var/datum/signal/signal = new
-		signal.transmission_method = 1 // radio transmission
-		signal.source = src
-		signal.frequency = frequency
-		signal.data["code"] = code
+	data["autolink"] = autolink
+	data["code"] = code
+	data["frequency"] = frequency
 
-		// Apply any necessary commands
-		switch(href_list["radio-op"])
-			if("togglepower")
-				signal.data["command"] = "toggle-power"
+	var/list/linked_magnets = list()
+	for(var/obj/machinery/magnetic_module/M in magnets)
+		linked_magnets += list(list(
+			"uid" = M.UID(),
+			"powerState" = M.on,
+			"electricityLevel" = M.electricity_level,
+			"magneticField" = M.magnetic_field,
+		))
+	data["linkedMagnets"] = linked_magnets
 
-			if("minuselec")
-				signal.data["command"] = "sub-elec"
-			if("pluselec")
-				signal.data["command"] = "add-elec"
+	data["magnetConfiguration"] = list(
+		"electricityLevel" = list(
+			"min" = MIN_ELECTRICITY_LEVEL,
+			"max" = MAX_ELECTRICITY_LEVEL,
+		),
+		"magneticField" = list(
+			"min" = MIN_MAGNETIC_FIELD,
+			"max" = MAX_MAGNETIC_FIELD,
+		),
+	)
 
-			if("minusmag")
-				signal.data["command"] = "sub-mag"
-			if("plusmag")
-				signal.data["command"] = "add-mag"
+	data["path"] = rpath
+	data["pathPosition"] = pathpos
+	data["probing"] = probing
+	data["powerState"] = moving
+	data["speed"] = list(
+		"value" = speed,
+		"min" = MIN_CONTROLLER_SPEED,
+		"max" = MAX_CONTROLLER_SPEED,
+	)
 
+	data["modal"] = ui_modal_data(src)
 
-		// Broadcast the signal
+	return data
 
-		radio_connection.post_signal(src, signal, filter = RADIO_MAGNETS)
-
-		spawn(1)
-			updateUsrDialog() // pretty sure this increases responsiveness
-
-	if(href_list["operation"])
-		switch(href_list["operation"])
-			if("plusspeed")
-				speed++
-				if(speed > 10)
-					speed = 10
-			if("minusspeed")
-				speed --
-				if(speed <= 0)
-					speed = 1
-			if("setpath")
-				var/newpath = sanitize(copytext(input(usr, "Please define a new path!",,path) as text|null,1,MAX_MESSAGE_LEN))
-				if(newpath && newpath != "")
-					moving = 0 // stop moving
-					path = newpath
-					pathpos = 1 // reset position
-					filter_path() // renders rpath
-
-			if("togglemoving")
-				moving = !moving
-				if(moving)
-					spawn() MagnetMove()
-
-
-	updateUsrDialog()
+/obj/machinery/magnetic_controller/proc/ui_act_modal(action, params, datum/tgui/ui, datum/ui_state/state)
+	. = TRUE
+	var/id = params["id"] // The modal's ID
+	var/list/arguments = istext(params["arguments"]) ? json_decode(params["arguments"]) : params["arguments"]
+	switch(ui_modal_act(src, action, params))
+		if(UI_MODAL_OPEN)
+			switch(id)
+				if("path_custom_input")
+					ui_modal_input(src, id, "Please enter the new path:", null, arguments, rpath.Join(";"), MAX_PATH_LENGTH)
+				else
+					return FALSE
+		if(UI_MODAL_ANSWER)
+			var/answer = params["answer"]
+			switch(id)
+				if("path_custom_input")
+					var/new_path = answer
+					if(!new_path || length(new_path) > MAX_PATH_LENGTH)
+						return
+					moving = FALSE
+					pathpos = 1
+					path = new_path
+					filter_path()
+				else
+					return FALSE
+		else
+			return FALSE
 
 /obj/machinery/magnetic_controller/proc/MagnetMove()
 	if(looping) return
@@ -329,11 +418,11 @@
 		if(stat & (BROKEN|NOPOWER))
 			break
 
-		looping = 1
+		looping = TRUE
 
 		// Prepare the radio signal
 		var/datum/signal/signal = new
-		signal.transmission_method = 1 // radio transmission
+		signal.transmission_method = TRANSMISSION_RADIO // radio transmission
 		signal.source = src
 		signal.frequency = frequency
 		signal.data["code"] = code
@@ -359,19 +448,19 @@
 		spawn()
 			radio_connection.post_signal(src, signal, filter = RADIO_MAGNETS)
 
-		if(speed == 10)
+		if(speed >= MAX_CONTROLLER_SPEED)
 			sleep(1)
 		else
-			sleep(12-speed)
+			sleep(MAX_ELECTRICITY_LEVEL - speed)
 
-	looping = 0
+	looping = FALSE
 
 
 /obj/machinery/magnetic_controller/proc/filter_path()
 	// Generates the rpath variable using the path string, think of this as "string2list"
 	// Doesn't use params2list() because of the akward way it stacks entities
 	rpath = list() //  clear rpath
-	var/maximum_character = min( 50, length(path) ) // chooses the maximum length of the iterator. 50 max length
+	var/maximum_character = min( MAX_PATH_LENGTH, length(path) ) // chooses the maximum length of the iterator. 50 max length
 
 	for(var/i=1, i<=maximum_character, i++) // iterates through all characters in path
 
@@ -381,3 +470,13 @@
 			rpath += copytext(path, i, i+1) // else, add to list
 
 		// there doesn't HAVE to be separators but it makes paths syntatically visible
+
+
+
+#undef MIN_CONTROLLER_SPEED
+#undef MAX_CONTROLLER_SPEED
+#undef MIN_ELECTRICITY_LEVEL
+#undef MAX_ELECTRICITY_LEVEL
+#undef MIN_MAGNETIC_FIELD
+#undef MAX_MAGNETIC_FIELD
+#undef MAX_PATH_LENGTH

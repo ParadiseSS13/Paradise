@@ -7,7 +7,7 @@ LINEN BINS
 /obj/item/bedsheet
 	name = "bedsheet"
 	desc = "A surprisingly soft linen bedsheet."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/bedsheet.dmi'
 	icon_state = "sheet"
 	item_state = "bedsheet"
 	lefthand_file = 'icons/mob/inhands/bedsheet_lefthand.dmi'
@@ -19,12 +19,17 @@ LINEN BINS
 	w_class = WEIGHT_CLASS_TINY
 	item_color = "white"
 	resistance_flags = FLAMMABLE
-	slot_flags = SLOT_BACK
+	slot_flags = SLOT_FLAG_BACK
 
 	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")
 	var/list/nightmare_messages = list("black")
 	var/comfort = 0.5
+
+/obj/item/bedsheet/attack_hand(mob/user)
+	if(isturf(loc) && user.Move_Pulled(src)) // make sure its on the ground first, prevents a speed exploit
+		return
+	return ..()
 
 /obj/item/bedsheet/attack_self(mob/user as mob)
 	user.drop_item()

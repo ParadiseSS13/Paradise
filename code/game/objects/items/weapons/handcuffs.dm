@@ -1,17 +1,17 @@
 /obj/item/restraints
 	name = "bugged restraints" //This item existed before this pr, but had no name or such. Better warn people if it exists
 	desc = "Should not exist. Report me to a(n) coder/admin!"
+	icon = 'icons/obj/restraints.dmi'
 	var/cuffed_state = "handcuff"
 
 /obj/item/restraints/handcuffs
 	name = "handcuffs"
 	desc = "Use this to keep prisoners in line."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
 	icon_state = "handcuff"
 	belt_icon = "handcuffs"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -27,6 +27,7 @@
 
 /obj/item/restraints/handcuffs/attack(mob/living/carbon/C, mob/user)
 	if(!user.IsAdvancedToolUser())
+		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
 	if(!istype(C))
@@ -51,7 +52,7 @@
 		var/mob/living/carbon/human/H = C
 		if(!(H.has_left_hand() || H.has_right_hand()))
 			to_chat(user, "<span class='warning'>How do you suggest handcuffing someone with no hands?</span>")
-			return
+			return FALSE
 
 	if(!C.handcuffed)
 		C.visible_message("<span class='danger'>[user] is trying to put [src.name] on [C]!</span>", \
@@ -62,10 +63,13 @@
 			apply_cuffs(C, user, remove_src)
 			to_chat(user, "<span class='notice'>You handcuff [C].</span>")
 			SSblackbox.record_feedback("tally", "handcuffs", 1, type)
-
-			add_attack_logs(user, C, "Handcuffed ([src])")
+			if(breakouttime != 0)
+				add_attack_logs(user, C, "Handcuffed ([src])")
+			else
+				add_attack_logs(user, C, "Handcuffed (Fake/Breakable!) ([src])")
 		else
 			to_chat(user, "<span class='warning'>You fail to handcuff [C].</span>")
+			return FALSE
 
 /obj/item/restraints/handcuffs/proc/apply_cuffs(mob/living/carbon/target, mob/user, remove_src = TRUE)
 	if(!target.handcuffed)
@@ -205,9 +209,23 @@
 	icon_state = "cablecuff_used"
 
 /obj/item/restraints/handcuffs/cable/zipties/used/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["glass"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["glass"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/restraints/handcuffs/cable/zipties/used/attack()
 	return
+
+/obj/item/restraints/handcuffs/twimsts
+	name = "twimsts cuffs"
+	desc = "Liquorice twist candy made into cable cuffs, tasty but it can't actually hold anyone."
+	icon_state = "cablecuff"
+	item_state = "cablecuff"
+	cuffed_state = "cablecuff"
+	belt_icon = "cablecuff"
+	color = "#E31818"
+	throwforce = 0
+	breakouttime = 0
+	cuffsound = 'sound/weapons/cablecuff.ogg'

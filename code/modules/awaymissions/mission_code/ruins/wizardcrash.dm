@@ -15,11 +15,11 @@
 
 /obj/effect/spawner/lootdrop/wizardcrash
 	loot = list(
-				/obj/item/guardiancreator = 1,   //jackpot.
-				/obj/item/spellbook/oneuse/knock = 1,    //tresspassing charges incoming
-				/obj/item/gun/magic/wand/resurrection = 1,   //medbay's best friend
-				/obj/item/spellbook/oneuse/charge = 20,  //and now for less useful stuff to dilute the good loot chances
+				/obj/item/guardiancreator = 1,   // jackpot.
+				/obj/item/spellbook/oneuse/knock = 1,    // tresspassing charges incoming
+				/obj/item/gun/magic/wand/resurrection = 1,   // medbay's best friend
+				/obj/item/spellbook/oneuse/charge = 20,  // and now for less useful stuff to dilute the good loot chances
 				/obj/item/spellbook/oneuse/summonitem = 20,
 				/obj/item/spellbook/oneuse/forcewall = 10,
-				/obj/item/soulstone = 15      //spooky wizard stuff
+				/obj/item/book/granter/spell/summon_cheese = 20      // hungry wizard stuff
 				)

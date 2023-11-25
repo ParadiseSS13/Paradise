@@ -125,6 +125,7 @@
 			to_chat(user, "<span class='notice'>[I] is full!</span>")
 			return
 		to_chat(user, "<span class='notice'>You scoop [src] into [I]!</span>")
+		on_scoop()
 		reagents.trans_to(I, reagents.total_volume)
 		if(!reagents.total_volume && !no_clear) //scooped up all of it
 			qdel(src)
@@ -144,3 +145,6 @@
 /obj/effect/decal/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
 		qdel(src)
+
+/obj/effect/decal/proc/on_scoop()
+	return

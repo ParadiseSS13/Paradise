@@ -305,7 +305,7 @@
 		if(STAGE_ATTACK)
 
 			if(!eating)
-				for(var/I in getline(src, get_turf(H)))
+				for(var/I in get_line(src, get_turf(H)))
 					var/turf/T = I
 					for(var/obj/structure/O in T)
 						if(istype(O, /obj/structure/closet))

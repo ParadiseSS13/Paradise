@@ -24,7 +24,7 @@
 	/// If TRUE, the box can't be deployed
 	var/on_cooldown = FALSE
 
-/datum/action/item_action/agent_box/Trigger(trigger_flags)
+/datum/action/item_action/agent_box/Trigger(trigger_flags, left_click)
 	. = ..()
 	if(!.)
 		return FALSE

@@ -10,7 +10,7 @@
 	toolspeed = 1
 	var/atom/target = null
 	var/image_overlay = null
-	var/obj/item/assembly_holder/nadeassembly = null
+	var/obj/item/assembly/nadeassembly = null
 	var/assemblyattacher
 
 /obj/item/grenade/plastic/Initialize(mapload)
@@ -23,8 +23,8 @@
 	return ..()
 
 /obj/item/grenade/plastic/attackby(obj/item/I, mob/user, params)
-	if(!nadeassembly && istype(I, /obj/item/assembly_holder))
-		var/obj/item/assembly_holder/A = I
+	if(!nadeassembly && istype(I, /obj/item/assembly))
+		var/obj/item/assembly/A = I
 		if(!user.unEquip(I))
 			return ..()
 		nadeassembly = A
@@ -71,7 +71,7 @@
 	if(isobserver(AM))
 		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
 		return
-	to_chat(user, "<span class='notice'>You start planting [src]. The timer is set to [det_time]...</span>")
+	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time]..." : ""]</span>")
 
 	if(do_after(user, 50 * toolspeed, target = AM))
 		if(!user.unEquip(src))

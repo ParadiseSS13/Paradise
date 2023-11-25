@@ -299,6 +299,7 @@
 	var/turf/trg = get_turf(target)
 	var/obj/item/reagent_containers/syringe/mechsyringe = syringes[1]
 	mechsyringe.forceMove(get_turf(chassis))
+	mechsyringe.mode = SYRINGE_INJECT
 	reagents.trans_to(mechsyringe, min(mechsyringe.volume, reagents.total_volume))
 	syringes -= mechsyringe
 	mechsyringe.icon = 'icons/obj/chemical.dmi'
@@ -331,6 +332,8 @@
 					add_attack_logs(originaloccupant, M, "Shot with [src] containing [R], transferred [mechsyringe.reagents.total_volume] units")
 					mechsyringe.reagents.reaction(M, REAGENT_INGEST)
 					mechsyringe.reagents.trans_to(M, mechsyringe.reagents.total_volume)
+					if(!mechsyringe.reagents.total_volume)
+						mechsyringe.mode = SYRINGE_DRAW
 					M.take_organ_damage(2)
 				break
 			else if(mechsyringe.loc == trg)
@@ -469,8 +472,11 @@
 		occupant_message("<span class=\"alert\">No reagent info gained from [A].</span>")
 		return FALSE
 	occupant_message("Analyzing reagents...")
-	for(var/datum/reagent/R in A.reagents.reagent_list)
-		if(R.can_synth && add_known_reagent(R.id, R.name))
+	for(var/datum/reagent/R as anything in A.reagents.reagent_list)
+		if(initial(R.id) in GLOB.blocked_chems)
+			occupant_message("Reagent unable to be analyzed, purging from analyzer.")
+			return FALSE
+		if(add_known_reagent(R.id, R.name))
 			occupant_message("Reagent analyzed, identified as [R.name] and added to database.")
 			send_byjax(chassis.occupant,"msyringegun.browser","reagents_form",get_reagents_form())
 	occupant_message("Analysis complete.")

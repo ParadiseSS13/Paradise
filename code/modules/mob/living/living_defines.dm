@@ -90,4 +90,4 @@
 
 	var/datum/language/default_language
 
-
+	var/datum/middleClickOverride/middleClickOverride = null

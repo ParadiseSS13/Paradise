@@ -143,8 +143,63 @@
 
 	return pick(missed_messages)
 
+/// A status effect that can have a certain amount of "bonus" duration added, which extends the duration every tick,
+/// although there is a maximum amount of bonus time that can be active at any given time.
+/datum/status_effect/limited_bonus
+	/// How much extra time has been added
+	var/bonus_time = 0
+	/// How much extra time to apply per tick
+	var/bonus_time_per_tick = 1 SECONDS
+	/// How much maximum bonus time can be active at once
+	var/max_bonus_time = 1 MINUTES
+
+/datum/status_effect/limited_bonus/tick()
+	. = ..()
+	// Sure, we could do some fancy stuff with clamping, and it'd probably be a little cleaner.
+	// This keeps the math simple and easier to use later
+	if(bonus_time > bonus_time_per_tick)
+		duration += bonus_time_per_tick
+		bonus_time -= bonus_time_per_tick
+
+/datum/status_effect/limited_bonus/proc/extend(extra_time)
+	bonus_time = clamp(bonus_time + extra_time, 0, max_bonus_time)
+
+/datum/status_effect/limited_bonus/revivable
+	id = "revivable"
+	alert_type = null
+	status_type = STATUS_EFFECT_UNIQUE
+	duration = BASE_DEFIB_TIME_LIMIT
+
+/datum/status_effect/limited_bonus/revivable/on_apply()
+	. = ..()
+	if(!iscarbon(owner))
+		return FALSE
+
+	RegisterSignal(owner, COMSIG_HUMAN_RECEIVE_CPR, PROC_REF(on_cpr))
+	RegisterSignal(owner, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+	owner.med_hud_set_status()  // update revivability after adding the status effect
+
+
+/datum/status_effect/limited_bonus/revivable/proc/on_cpr(mob/living/carbon/human/H, new_seconds)
+	SIGNAL_HANDLER  // COMSIG_HUMAN_RECEIVE_CPR
+	extend(new_seconds)
+
+/datum/status_effect/limited_bonus/revivable/proc/on_revive()
+	SIGNAL_HANDLER  // COMSIG_LIVING_REVIVE
+	qdel(src)
+
+/datum/status_effect/limited_bonus/revivable/on_remove()
+	// Update HUDs once the status effect is deleted to show non-revivability
+	INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob/living, med_hud_set_status))
+	. = ..()
+
+
 /datum/status_effect/charging
 	id = "charging"
+	alert_type = null
+
+/datum/status_effect/impact_immune
+	id = "impact_immune"
 	alert_type = null
 
 #define LWAP_LOCK_CAP 10
@@ -180,47 +235,10 @@
 				return
 			if(L == owner || L.stat == DEAD || isslime(L) || ismonkeybasic(L)) //xenobio moment
 				continue
-			new /obj/effect/temp_visual/lwap_ping(owner.loc, owner, L)
+			new /obj/effect/temp_visual/single_user/lwap_ping(owner.loc, owner, L)
 			locks++
 
 #undef LWAP_LOCK_CAP
-
-/obj/effect/temp_visual/lwap_ping
-	duration = 0.5 SECONDS
-	randomdir = FALSE
-	icon = 'icons/obj/projectiles.dmi'
-	/// The image shown to lwap users
-	var/image/lwap_image
-	/// The person with the lwap at the moment, really just used to remove this from their screen
-	var/source_UID
-	/// The icon state applied to the image created for this ping.
-	var/real_icon_state = "red_laser"
-
-/obj/effect/temp_visual/lwap_ping/Initialize(mapload, mob/living/looker, mob/living/creature)
-	. = ..()
-	if(!looker || !creature)
-		return INITIALIZE_HINT_QDEL
-	lwap_image = image(icon = icon, loc = src, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * 32), pixel_y = ((creature.y - looker.y) * 32))
-	lwap_image.plane = ABOVE_LIGHTING_PLANE
-	lwap_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	source_UID = looker.UID()
-	add_mind(looker)
-
-/obj/effect/temp_visual/lwap_ping/Destroy()
-	var/mob/living/previous_user = locateUID(source_UID)
-	if(previous_user)
-		remove_mind(previous_user)
-	// Null so we don't shit the bed when we delete
-	lwap_image = null
-	return ..()
-
-/// Add the image to the lwap user's screen
-/obj/effect/temp_visual/lwap_ping/proc/add_mind(mob/living/looker)
-	looker.client?.images |= lwap_image
-
-/// Remove the image from the lwap user's screen
-/obj/effect/temp_visual/lwap_ping/proc/remove_mind(mob/living/looker)
-	looker.client?.images -= lwap_image
 
 /datum/status_effect/delayed
 	id = "delayed_status_effect"

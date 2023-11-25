@@ -118,6 +118,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "<b>Related accounts by IP:</b> [jointext(M.client.related_accounts_ip, " - ")]<br><br>"
 
 	if(M.ckey)
+		body += "<b>Enabled AntagHUD</b>: [M.has_ahudded() ? "<b><font color='red'>TRUE</font>" : "false"]<br>"
+		body += "<b>Roundstart observer</b>: [M.is_roundstart_observer() ? "<b>true</b>" : "false"]<br>"
 		body += "<A href='?_src_=holder;boot2=[M.UID()]'>Kick</A> | "
 		body += "<A href='?_src_=holder;newban=[M.UID()];dbbanaddckey=[M.ckey]'>Ban</A> | "
 		body += "<A href='?_src_=holder;jobban2=[M.UID()];dbbanaddckey=[M.ckey]'>Jobban</A> | "
@@ -421,7 +423,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, "<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><p style='text-indent: 50px'>[message]</p></span>")
+		to_chat(world, chat_box_notice("<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p></span>"))
 		log_admin("Announce: [key_name(usr)] : [message]")
 		for(var/client/clients_to_alert in GLOB.clients)
 			window_flash(clients_to_alert)
@@ -537,8 +539,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER))
 		return
 
-	GLOB.enter_allowed = !( GLOB.enter_allowed )
-	if(!( GLOB.enter_allowed ))
+	GLOB.enter_allowed = !GLOB.enter_allowed
+	if(!GLOB.enter_allowed)
 		to_chat(world, "<B>New players may no longer enter the game.</B>")
 	else
 		to_chat(world, "<B>New players may now enter the game.</B>")
@@ -643,9 +645,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!SSticker.mode || !istype(M) || !M.mind)
 		return FALSE
 
-	if(M.mind in SSticker.mode.head_revolutionaries)
+	if(M.mind.has_antag_datum(/datum/antagonist/rev/head))
 		antag_list += "Head Rev"
-	if(M.mind in SSticker.mode.revolutionaries)
+	if(M.mind.has_antag_datum(/datum/antagonist/rev, FALSE))
 		antag_list += "Revolutionary"
 	if(M.mind in SSticker.mode.cult)
 		antag_list += "Cultist"
@@ -697,6 +699,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set name = "Spawn"
 
 	if(!check_rights(R_SPAWN))
+		return
+
+	if(!object)
 		return
 
 	var/list/types = typesof(/atom)
@@ -886,27 +891,27 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 //returns 1 to let the dragdrop code know we are trapping this event
 //returns 0 if we don't plan to trap the event
-/datum/admins/proc/cmd_ghost_drag(mob/dead/observer/frommob, tothing)
+/datum/admins/proc/cmd_ghost_drag(mob/dead/observer/frommob, atom/tothing)
 	if(!istype(frommob))
 		return //extra sanity check to make sure only observers are shoved into things
 
 	//same as assume-direct-control perm requirements.
 	if(!check_rights(R_VAREDIT,0)) //no varedit, check if they have r_admin and r_debug
 		if(!check_rights(R_ADMIN|R_DEBUG,0)) //if they don't have r_admin and r_debug, return
-			return 0 //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
+			return FALSE //otherwise, if they have no varedit, but do have r_admin and r_debug, execute the rest of the code
 
 	if(!frommob.ckey)
-		return 0
+		return FALSE
 
 	if(isitem(tothing))
 		var/mob/living/toitem = tothing
 
 		var/ask = alert("Are you sure you want to allow [frommob.name]([frommob.key]) to possess [toitem.name]?", "Place ghost in control of item?", "Yes", "No")
 		if(ask != "Yes")
-			return 1
+			return TRUE
 
 		if(!frommob || !toitem) //make sure the mobs don't go away while we waited for a response
-			return 1
+			return TRUE
 
 		var/mob/living/simple_animal/possessed_object/tomob = new(toitem)
 
@@ -928,10 +933,10 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 
 		var/ask = alert(question, "Place ghost in control of mob?", "Yes", "No")
 		if(ask != "Yes")
-			return 1
+			return TRUE
 
 		if(!frommob || !tomob) //make sure the mobs don't go away while we waited for a response
-			return 1
+			return TRUE
 
 		if(tomob.client) //no need to ghostize if there is no client
 			tomob.ghostize(0)
@@ -943,7 +948,34 @@ GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
 		tomob.ckey = frommob.ckey
 		qdel(frommob)
 
-		return 1
+		return TRUE
+
+	if(istype(tothing, /obj/structure/AIcore/deactivated))
+
+		var/question = "Are you sure you want to place [frommob.name]([frommob.key]) in control of an empty AI core?"
+
+		var/ask = alert(question, "Place ghost in control of an empty AI core?", "Yes", "No")
+		if(ask != "Yes")
+			return TRUE
+
+		if(QDELETED(frommob) || QDELETED(tothing)) //make sure the mobs don't go away while we waited for a response
+			return TRUE
+
+		message_admins("<span class='adminnotice'>[key_name_admin(usr)] has put [frommob.ckey] in control of an empty AI core.</span>")
+		log_admin("[key_name(usr)] stuffed [frommob.ckey] into an empty AI core.")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "Ghost Drag")
+
+		var/transfer_key = frommob.key // frommob is qdel'd in frommob.AIize()
+		var/mob/living/silicon/ai/ai_character = frommob.AIize()
+		ai_character.key = transfer_key // this wont occur in mind transferring if the mind is not active, which causes some weird stuff. This fixes it.
+		GLOB.empty_playable_ai_cores -= tothing
+
+		ai_character.forceMove(get_turf(tothing))
+		ai_character.view_core()
+
+		qdel(tothing)
+
+		return TRUE
 
 // Returns a list of the number of admins in various categories
 // result[1] is the number of staff that match the rank mask and are active

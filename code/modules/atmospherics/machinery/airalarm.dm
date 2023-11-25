@@ -789,7 +789,7 @@
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || isrobot(user) || emagged)
+	else if(isAI(user) || isrobot(user) || emagged || user.has_unlimited_silicon_privilege)
 		return TRUE
 	else
 		return !locked

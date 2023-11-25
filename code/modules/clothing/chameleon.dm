@@ -24,7 +24,7 @@
 		sortTim(standard_outfit_options, GLOBAL_PROC_REF(cmp_text_asc))
 	outfit_options = standard_outfit_options
 
-/datum/action/chameleon_outfit/Trigger()
+/datum/action/chameleon_outfit/Trigger(left_click)
 	return select_outfit(owner)
 
 /datum/action/chameleon_outfit/proc/select_outfit(mob/user)
@@ -169,7 +169,7 @@
 
 	target.icon = initial(picked_item.icon)
 
-/datum/action/item_action/chameleon/change/Trigger()
+/datum/action/item_action/chameleon/change/Trigger(left_click)
 	if(!IsAvailable())
 		return
 
@@ -322,13 +322,14 @@
 	chameleon_action.emp_randomise(INFINITY)
 
 /obj/item/clothing/glasses/chameleon/thermal
-	origin_tech = "magnets=3;syndicate=4"
+	origin_tech = "magnets=3;syndicate=2"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	prescription_upgradable = TRUE
 
 /obj/item/clothing/glasses/hud/security/chameleon
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
 	flash_protect = FLASH_PROTECTION_FLASH
 
 	var/datum/action/item_action/chameleon/change/chameleon_action

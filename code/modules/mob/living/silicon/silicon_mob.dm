@@ -78,6 +78,11 @@
 	QDEL_NULL(aiCamera)
 	return ..()
 
+/mob/living/silicon/proc/can_instant_lockdown()
+	if(isAntag(src))
+		return TRUE
+	return FALSE
+
 /mob/living/silicon/proc/get_radio()
 	return
 
@@ -329,7 +334,7 @@
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
-	pose =  sanitize(copytext(input(usr, "This is [src]. It is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose =  sanitize(copytext(input(usr, "This is [src]. It...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Set Flavour Text"

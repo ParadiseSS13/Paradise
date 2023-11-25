@@ -30,6 +30,11 @@
 	. = ..()
 	. += "<span class='notice'>Click dragging someone to a bed will buckle them in. Functions just like a chair except you can walk over them.</span>"
 
+/obj/structure/bed/attack_hand(mob/user)
+	if(user.Move_Pulled(src))
+		return
+	return ..()
+
 /obj/structure/bed/psych
 	name = "psych bed"
 	desc = "For prime comfort during psychiatric evaluations."
@@ -136,7 +141,6 @@
 	resistance_flags = NONE
 	anchored = FALSE
 	comfort = 1
-	pull_speed = 0
 	var/icon_up = "up"
 	var/icon_down = "down"
 	var/folded = /obj/item/roller
@@ -275,4 +279,9 @@
 /obj/structure/bed/dogbed/runtime
 	desc = "A comfy-looking cat bed. You can even strap your pet in, in case the gravity turns off."
 	name = "Runtime's bed"
+	anchored = TRUE
+
+/obj/structure/bed/dogbed/brad
+	name = "Brad's bed"
+	desc = "Brad's bed! Why does a cockroach get this amount of love?"
 	anchored = TRUE

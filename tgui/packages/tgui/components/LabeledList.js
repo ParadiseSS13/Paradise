@@ -21,6 +21,7 @@ export const LabeledListItem = (props) => {
     content,
     children,
     noColon = false,
+    ...rest
   } = props;
   const colon = noColon ? '' : ':';
   return (
@@ -40,6 +41,7 @@ export const LabeledListItem = (props) => {
         verticalAlign={verticalAlign}
         className={classes(['LabeledList__cell', 'LabeledList__content'])}
         colSpan={buttons ? undefined : 2}
+        {...rest}
       >
         {content}
         {children}
