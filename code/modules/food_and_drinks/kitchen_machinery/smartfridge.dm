@@ -578,7 +578,8 @@
 		/obj/item/reagent_containers/iv_bag,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/patch,
 		/obj/item/stack/medical
 	))
 
@@ -618,7 +619,8 @@
 		/obj/item/reagent_containers/iv_bag,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/patch,
 		/obj/item/stack/medical
 	))
 
@@ -652,8 +654,8 @@
 
 /obj/machinery/smartfridge/secure/chemistry/preloaded/Initialize(mapload)
 	starting_items = list(
-		/obj/item/reagent_containers/food/pill/epinephrine = 12,
-		/obj/item/reagent_containers/food/pill/charcoal = 5,
+		/obj/item/reagent_containers/pill/epinephrine = 12,
+		/obj/item/reagent_containers/pill/charcoal = 5,
 		/obj/item/reagent_containers/glass/bottle/epinephrine = 1,
 		/obj/item/reagent_containers/glass/bottle/charcoal = 1,
 	)

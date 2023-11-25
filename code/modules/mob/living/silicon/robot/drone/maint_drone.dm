@@ -291,7 +291,7 @@
 
 /mob/living/silicon/robot/drone/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(cannotPossess(O))
+		if(!O.check_ahud_rejoin_eligibility())
 			continue
 		if(jobban_isbanned(O, "nonhumandept") || jobban_isbanned(O, "Drone"))
 			continue
