@@ -67,14 +67,14 @@ export const CameraConsole220 = (props, context) => {
           <Tabs>
             <Tabs.Tab
               key="Map"
-              selected={0 === tabIndex}
+              selected={tabIndex === 0}
               onClick={() => setTabIndex(0)}
             >
               <Icon name="map-marked-alt" /> Карта
             </Tabs.Tab>
             <Tabs.Tab
               key="List"
-              selected={1 === tabIndex}
+              selected={tabIndex === 1}
               onClick={() => setTabIndex(1)}
             >
               <Icon name="table" /> Список
@@ -119,9 +119,9 @@ export const CameraConsoleMapContent = (props, context) => {
             ))}
         </NanoMap>
       </Box>
-      <Box height="100%" resizable className="CameraConsole__new__right">
+      <Box height="96%" resizable className="CameraConsole__right_map">
         <div className="CameraConsole__header">
-          <div className="CameraConsole__title">
+          <div className="CameraConsole__toolbar">
             <b>Камера: </b>
             {(activeCamera && activeCamera.name) || '—'}
           </div>
