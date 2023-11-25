@@ -33,7 +33,6 @@
 
 
 /datum/pathfinding_mover/New(_owner, _target)
-	. = ..()
 	target = _target
 
 	owner = _owner
