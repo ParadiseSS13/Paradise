@@ -90,8 +90,8 @@
 	cell = locate(/obj/item/stock_parts/cell) in contents
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/defibrillator/ui_action_click()
-	toggle_paddles()
+/obj/item/defibrillator/ui_action_click(mob/user)
+	toggle_paddles(user)
 
 /obj/item/defibrillator/CtrlClick(mob/user)
 	if(ishuman(user) && Adjacent(user))
@@ -251,7 +251,7 @@
 
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
-		toggle_paddles()
+		toggle_paddles(user)
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)
