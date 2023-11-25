@@ -7,16 +7,17 @@
 
 /datum/element/bombable_turf/Attach(turf/target)
 	. = ..()
-	if(!isturf(target))
+	if(!iswallturf(target))
 		return ELEMENT_INCOMPATIBLE
-	target.explosion_block = 1
-	target.explodable = TRUE
+	var/turf/simulated/wall/W = target
+	W.explosion_block = 1
+	W.explodable = TRUE
 
-	RegisterSignal(target, COMSIG_ATOM_EX_ACT, PROC_REF(detonate))
-	RegisterSignal(target, COMSIG_TURF_CHANGE, PROC_REF(turf_changed))
-	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
+	RegisterSignal(W, COMSIG_ATOM_EX_ACT, PROC_REF(detonate))
+	RegisterSignal(W, COMSIG_TURF_CHANGE, PROC_REF(turf_changed))
+	RegisterSignal(W, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
 
-	target.update_appearance(UPDATE_OVERLAYS)
+	W.update_appearance(UPDATE_OVERLAYS)
 
 /datum/element/bombable_turf/Detach(turf/source)
 	UnregisterSignal(source, list(COMSIG_ATOM_EX_ACT, COMSIG_TURF_CHANGE, COMSIG_PARENT_EXAMINE))

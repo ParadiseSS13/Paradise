@@ -45,6 +45,10 @@
 	var/rusted = FALSE
 	/// Have we got a rusty overlay?
 	var/rusted_overlay
+	/// Are we a explodable turf?
+	var/explodable = FALSE
+	/// Do we have a explodable overlay?
+	var/explodable_overlay
 
 /turf/simulated/wall/Initialize(mapload)
 	. = ..()
