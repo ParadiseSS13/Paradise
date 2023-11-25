@@ -20,6 +20,7 @@
 	name = "watcher egg"
 	desc = "A lonely egg still pulsing with life, somehow untouched by the corruption of the Necropolis."
 	icon_state = "egg_watcher"
+	icon = 'icons/obj/ruin_objects.dmi'
 	tastes = list("ocular fluid" = 6, "loneliness" = 1)
 	antable = FALSE
 	/// How far have we moved?
