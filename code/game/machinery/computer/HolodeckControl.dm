@@ -357,6 +357,7 @@
 /obj/item/holo/esword
 	name = "holographic energy sword"
 	desc = "This looks like a real energy sword!"
+	icon = 'icons/obj/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sword0"
