@@ -18,7 +18,6 @@
 #define ROLE_PAI				"pAI"
 #define ROLE_CULTIST			"cultist"
 #define ROLE_BLOB				"blob"
-#define ROLE_NINJA				"space ninja"
 #define ROLE_MONKEY				"monkey"
 #define ROLE_GANG				"gangster"
 #define ROLE_ABDUCTOR			"abductor"
@@ -66,7 +65,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_SENTIENT, 										// Sentient animal
 	ROLE_DEMON, 										// Slaguther demon
 	ROLE_ELITE,											// Lavaland Elite
-	ROLE_NINJA, 										// Space ninja
 	ROLE_TRADER, 										// Trader
 	ROLE_TRAITOR = /datum/game_mode/traitor, 			// Traitor
 	ROLE_VAMPIRE = /datum/game_mode/vampire, 			// Vampire

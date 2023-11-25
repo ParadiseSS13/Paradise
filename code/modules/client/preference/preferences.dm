@@ -16,7 +16,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_SENTIENT = 21,
 	ROLE_ELITE = 21,
 // 	ROLE_GANG = 21,
-	ROLE_NINJA = 21,
 	ROLE_GSPIDER = 21,
 	ROLE_ABDUCTOR = 30
 ))
