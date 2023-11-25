@@ -520,7 +520,7 @@
 		"Clown")
 	random_department = pick(departments)	//Random department, to be used in laws.
 
-	var/static/list/laws = list("You are a mouse.",
+	var/list/laws = list("You are a mouse.",
 		"You are a ninja.",
 		"You are a pirate.",
 		"You are a wizard.",
