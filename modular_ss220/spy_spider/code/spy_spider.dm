@@ -1,6 +1,3 @@
-/datum/controller/subsystem/radio
-	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ)
-
 /datum/controller/subsystem/radio/frequency_span_class(frequency)
 	if(frequency == SPY_SPIDER_FREQ)
 		return "spyradio"
@@ -28,11 +25,6 @@
 	else
 		to_chat(user, span_info("Ты выключил жучок."))
 	return TRUE
-
-/obj/item/radio/receive_range(freq, level)
-	if(syndiekey && !(freq in SSradio.syndicate_blacklist))
-		return -1
-	. = ..()
 
 /obj/item/encryptionkey/spy_spider
 	name = "Spy Encryption Key"
