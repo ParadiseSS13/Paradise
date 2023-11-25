@@ -22,7 +22,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 		to_chat(usr, "<span class='notice'>Enjoy your prize!</span>")
 		return 1
 	else
-		to_chat(usr,"<span class='warning'>Not enough tickets!</span>")
+		to_chat(usr, "<span class='warning'>Not enough tickets!</span>")
 		return 0
 
 //////////////////////////////////////
