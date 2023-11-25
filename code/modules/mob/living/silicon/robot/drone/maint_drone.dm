@@ -398,18 +398,8 @@
 	return ..()
 
 /mob/living/silicon/robot/drone/do_suicide()
-	if(!emagged) // emagged drones do not go home
-
-		// let non-emagged drones go home
-		ghostize(TRUE)
-		// doesnt stop you from going back into your body before you die, really.
-		if(pathfind_to_dronefab())
-			return
+	ghostize(TRUE)
 	shut_down()
-
-/mob/living/silicon/robot/drone/attack_ghost(mob/user) // TODO,  REMOVE THIS, THIS IS FOR TESTING
-	. = ..()
-	to_chat(user, "[src] result: [pathfind_to_dronefab()]")
 
 /mob/living/silicon/robot/drone/proc/pathfind_to_dronefab()
 	if(pathfinding)
@@ -452,7 +442,6 @@
 
 /mob/living/silicon/robot/drone/proc/at_dronefab(pathfind)
 	set_pathfinding(FALSE)
-	update_icons()
 	qdel(pathfind)
 	cryo_with_dronefab()
 

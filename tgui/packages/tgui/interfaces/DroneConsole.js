@@ -177,7 +177,7 @@ const DroneList = (props, context) => {
                 tooltipPosition="left"
                 color="bad"
                 onClick={() =>
-                  act('shutdown', {
+                  act('recall', {
                     uid: drone.uid,
                   })
                 }
