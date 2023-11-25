@@ -46,7 +46,7 @@
 	)
 
 	holder_type = /obj/item/holder/drone
-//	var/sprite[0]
+	var/pathfinding = FALSE
 
 
 /mob/living/silicon/robot/drone/New()
@@ -124,6 +124,8 @@
 	overlays.Cut()
 	if(stat == CONSCIOUS)
 		overlays += "eyes-[icon_state]"
+		if(pathfinding)
+			overlays += "eyes-repairbot-pathfinding"
 	else
 		overlays -= "eyes"
 
@@ -278,6 +280,10 @@
 		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
 		return
 
+	if(!emagged && pathfind_to_dronefab())
+		to_chat(src, "<span class='warning'>You feel a system recall order percolate through your tiny brain, and you return to your drone fabricator.</span>")
+		return
+
 	to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
 	death()
 
@@ -390,3 +396,79 @@
 		qdel(src)
 		return TRUE
 	return ..()
+
+/mob/living/silicon/robot/drone/do_suicide()
+	if(!emagged) // emagged drones do not go home
+
+		// let non-emagged drones go home
+		ghostize(TRUE)
+		// doesnt stop you from going back into your body before you die, really.
+		if(pathfind_to_dronefab())
+			return
+	shut_down()
+
+/mob/living/silicon/robot/drone/attack_ghost(mob/user) // TODO,  REMOVE THIS, THIS IS FOR TESTING
+	. = ..()
+	to_chat(user, "[src] result: [pathfind_to_dronefab()]")
+
+/mob/living/silicon/robot/drone/proc/pathfind_to_dronefab()
+	if(pathfinding)
+		return TRUE
+
+	if(istype(get_turf(src), /turf/space))
+		return FALSE // Pretty damn hard to path through space
+
+	var/turf/target
+	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
+		if(DF.z != z)
+			continue
+		target = get_turf(DF)
+		target = get_step(target, EAST)
+		break
+
+	if(!target)
+		return FALSE
+
+	// Mimic having the hide-ability activated
+	layer = TURF_LAYER + 0.2
+	pass_flags |= PASSDOOR
+
+	var/datum/pathfinding_mover/pathfind = new(src, target)
+
+	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
+	var/obj/item/card/id/temp_id = new(src)
+	temp_id.access = get_all_accesses()
+	var/found_path = pathfind.generate_path(150, null, temp_id) // one last try
+	qdel(temp_id)
+	if(!found_path)
+		qdel(pathfind)
+		return FALSE
+
+	pathfind.on_set_path_null = CALLBACK(src, PROC_REF(death))
+	pathfind.on_success = CALLBACK(src, PROC_REF(at_dronefab))
+	set_pathfinding(TRUE)
+	pathfind.start()
+	return TRUE
+
+/mob/living/silicon/robot/drone/proc/at_dronefab(pathfind)
+	set_pathfinding(FALSE)
+	update_icons()
+	qdel(pathfind)
+	cryo_with_dronefab()
+
+/mob/living/silicon/robot/drone/proc/cryo_with_dronefab(obj/machinery/drone_fabricator/drone_fab)
+	if(!drone_fab)
+		drone_fab = locate() in range(1, src)
+	if(!drone_fab)
+		return FALSE
+	drone_fab.drone_progress = 100 // recycling!
+
+	visible_message("<span class='notice'>[src] shuts down and enters [drone_fab].</span>")
+	playsound(loc, 'sound/machines/twobeep.ogg', 50)
+	qdel(src)
+	return TRUE
+
+/mob/living/silicon/robot/drone/proc/set_pathfinding(value)
+	pathfinding = value
+	notransform = value // prevent them from moving themselves while pathfinding
+	update_icons()

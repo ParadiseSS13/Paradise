@@ -167,8 +167,14 @@ const DroneList = (props, context) => {
               />
               <Button.Confirm
                 icon="power-off"
-                content="Shutdown"
-                disabled={drone.stat === 2}
+                content="Recall"
+                disabled={drone.stat === 2 || drone.pathfinding}
+                tooltip={
+                  drone.pathfinding
+                    ? 'This drone is currently pathfinding, please wait.'
+                    : null
+                }
+                tooltipPosition="left"
                 color="bad"
                 onClick={() =>
                   act('shutdown', {

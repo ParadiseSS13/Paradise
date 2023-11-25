@@ -61,9 +61,6 @@
 	//put em at -175
 	adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
 
-/mob/living/silicon/robot/drone/do_suicide()
-	shut_down()
-
 /mob/living/silicon/pai/do_suicide()
 	if(mobility_flags & MOBILITY_MOVE)
 		close_up()
