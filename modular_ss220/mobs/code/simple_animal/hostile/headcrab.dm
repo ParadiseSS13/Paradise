@@ -1,5 +1,5 @@
 // port old headcrabs
-/mob/living/simple_animal/hostile/headcrab
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab
 	name = "headcrab"
 	desc = "A small parasitic creature that would like to connect with your brain stem."
 	icon = 'modular_ss220/mobs/icons/mob/headcrab.dmi'
@@ -25,7 +25,7 @@
 	var/host_species = ""
 	var/list/human_overlays = list()
 
-/mob/living/simple_animal/hostile/headcrab/Life(seconds, times_fired)
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/Life(seconds, times_fired)
 	if(..() && !stat)
 		if(!is_zombie && isturf(src.loc))
 			for(var/mob/living/carbon/human/H in oview(src, 1)) //Only for corpse right next to/on same tile
@@ -41,7 +41,7 @@
 					qdel(K)
 					break
 
-/mob/living/simple_animal/hostile/headcrab/OpenFire(atom/A)
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/OpenFire(atom/A)
 	if(check_friendly_fire)
 		for(var/turf/T in get_line(src,A)) // Not 100% reliable but this is faster than simulating actual trajectory
 			for(var/mob/living/L in T)
@@ -53,7 +53,7 @@
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
-/mob/living/simple_animal/hostile/headcrab/proc/Zombify(mob/living/carbon/human/H)
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/proc/Zombify(mob/living/carbon/human/H)
 	if(!H.check_death_method())
 		H.death()
 	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
@@ -86,24 +86,24 @@
 	H.forceMove(src)
 	visible_message("<span class='warning'>The corpse of [H.name] suddenly rises!</span>")
 
-/mob/living/simple_animal/hostile/headcrab/death()
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/death()
 	..()
 	if(is_zombie)
 		qdel(src)
 
-/mob/living/simple_animal/hostile/headcrab/handle_automated_speech() // This way they have different screams when attacking, sometimes. Might be seen as sphagetthi code though.
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/handle_automated_speech() // This way they have different screams when attacking, sometimes. Might be seen as sphagetthi code though.
 	if(speak_chance)
 		if(rand(0,200) < speak_chance)
 			if(speak && speak.len)
 				playsound(get_turf(src), pick(speak), 200, 1)
 
-/mob/living/simple_animal/hostile/headcrab/Destroy()
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/Destroy()
 	if(contents)
 		for(var/mob/M in contents)
 			M.loc = get_turf(src)
 	return ..()
 
-/mob/living/simple_animal/hostile/headcrab/update_icons()
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/update_icons()
 	. = ..()
 	if(is_zombie)
 		overlays.Cut()
@@ -115,7 +115,7 @@
 			I = image('modular_ss220/mobs/icons/mob/headcrab.dmi', icon_state = "headcrabpod_gray")
 		overlays += I
 
-/mob/living/simple_animal/hostile/headcrab/CanAttack(atom/the_target)
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/CanAttack(atom/the_target)
 	if(stat_attack == DEAD && isliving(the_target) && !ishuman(the_target))
 		var/mob/living/L = the_target
 		if(L.stat == DEAD)
@@ -123,7 +123,7 @@
 			return FALSE
 	return ..()
 
-/mob/living/simple_animal/hostile/headcrab/fast
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/fast
 	name = "fast headcrab"
 	desc = "A fast parasitic creature that would like to connect with your brain stem."
 	icon = 'modular_ss220/mobs/icons/mob/headcrab.dmi'
@@ -137,7 +137,7 @@
 	jumpspeed = 2
 	speak_emote = list("screech")
 
-/mob/living/simple_animal/hostile/headcrab/fast/update_icons()
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/fast/update_icons()
 	. = ..()
 	if(is_zombie)
 		overlays.Cut()
@@ -149,11 +149,11 @@
 			I = image('modular_ss220/mobs/icons/mob/headcrab.dmi', icon_state = "fast_headcrabpod_gray")
 		overlays += I
 
-/mob/living/simple_animal/hostile/headcrab/fast/Zombify(mob/living/carbon/human/H)
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/fast/Zombify(mob/living/carbon/human/H)
 	. = ..()
 	speak = list('modular_ss220/mobs/sound/creatures/fast_zombie_idle1.ogg','modular_ss220/mobs/sound/creatures/fast_zombie_idle2.ogg','modular_ss220/mobs/sound/creatures/fast_zombie_idle3.ogg')
 
-/mob/living/simple_animal/hostile/headcrab/poison
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/poison
 	name = "poison headcrab"
 	desc = "A poison parasitic creature that would like to connect with your brain stem."
 	icon = 'modular_ss220/mobs/icons/mob/headcrab.dmi'
@@ -170,7 +170,7 @@
 	attack_sound = 'modular_ss220/mobs/sound/creatures/ph_scream1.ogg'
 	speak_emote = list("screech")
 
-/mob/living/simple_animal/hostile/headcrab/poison/update_icons()
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/poison/update_icons()
 	. = ..()
 	if(is_zombie)
 		overlays.Cut()
@@ -183,7 +183,7 @@
 		overlays += I
 
 
-/mob/living/simple_animal/hostile/headcrab/poison/AttackingTarget()
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/poison/AttackingTarget()
 	. = ..()
 	if(iscarbon(target) && target.reagents)
 		var/inject_target = pick("chest", "head")

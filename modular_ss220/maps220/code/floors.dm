@@ -140,3 +140,100 @@
 /turf/simulated/floor/indestructible/transparent_floor/copyTurf(turf/T)
 	. = ..()
 	T.transform = transform
+
+/*Black Mesa*/
+/turf/simulated/floor/beach/away/blackmesa
+	mouse_opacity = MOUSE_OPACITY_ICON
+
+/turf/simulated/floor/beach/away/blackmesa/xen_acid
+	name = "acid water"
+	icon = 'icons/misc/beach.dmi'
+	icon_state = "seashallow"
+	color = "#00b300"
+	light_range = 2
+	light_color = "#00b300"
+	/// How much damage we deal if a mob enters us.
+	var/acid_damage = 30
+
+/turf/simulated/floor/beach/away/blackmesa/xen_acid/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(isliving(arrived) && !istype(arrived, /mob/living/simple_animal/hostile/blackmesa/xen/bullsquid))
+		var/mob/living/unlucky_mob = arrived
+		unlucky_mob.adjustFireLoss(acid_damage)
+		playsound(unlucky_mob, 'sound/weapons/sear.ogg', 100, TRUE)
+
+/turf/simulated/floor/beach/away/blackmesa/electric
+	name = "electric water"
+	icon = 'icons/misc/beach.dmi'
+	icon_state = "seashallow"
+	water_overlay_image = null
+	color = COLOR_TEAL
+	light_range = 2
+	light_color = COLOR_TEAL
+
+/turf/simulated/floor/beach/away/blackmesa/electric/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(isliving(arrived))
+		var/mob/living/unlucky_mob = arrived
+		unlucky_mob.Stun(1.5 SECONDS)
+		unlucky_mob.KnockDown(10 SECONDS)
+		unlucky_mob.adjustFireLoss(15)
+		var/datum/effect_system/spark_spread/s = new
+		s.set_up(5, 1, unlucky_mob.loc)
+		s.start()
+		unlucky_mob.visible_message(span_danger("[unlucky_mob.name] is shocked by [src]!"), \
+		span_userdanger("You feel a powerful shock course through your body!"))
+		playsound(unlucky_mob, 'sound/effects/sparks4.ogg', 100, TRUE)
+
+/turf/simulated/floor/beach/away/blackmesa/remove_plating(mob/user)
+	return
+
+/turf/simulated/floor/beach/away/blackmesa/crowbar_act(mob/user, obj/item/I)
+	return
+
+/turf/simulated/floor/beach/away/blackmesa/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	return
+
+/turf/simulated/floor/beach/away/coastline/xen
+	icon = 'modular_ss220/maps220/icons/floors.dmi'
+	icon_state = "sandwater_t"
+	base_icon_state = "sandwater_t"
+	water_overlay_image = null
+
+/turf/simulated/floor/beach/away/coastline/xen/edge_drop
+	icon_state = "sandwater_b"
+	base_icon_state = "sandwater_b"
+
+/turf/simulated/floor/beach/away/coastline/beachcorner/xen
+	icon = 'modular_ss220/maps220/icons/floors.dmi'
+	icon_state = "sandwater_inner"
+	base_icon_state = "sandwater_inner"
+	water_overlay_image = null
+
+/turf/simulated/floor/beach/away/water/deep/xen
+	icon = 'modular_ss220/maps220/icons/floors.dmi'
+	icon_state = "water"
+	base_icon_state = "water"
+	water_overlay_image = null
+
+/turf/simulated/floor/plating/xen
+	name = "strange weeds"
+	icon = 'modular_ss220/maps220/icons/floors.dmi'
+	icon_state = "xen_turf"
+	footstep = FOOTSTEP_GRASS
+	barefootstep = FOOTSTEP_GRASS
+	clawfootstep = FOOTSTEP_GRASS
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/simulated/floor/plating/dirt
+	name = "dirt"
+	icon = 'modular_ss220/maps220/icons/floors.dmi'
+	icon_state = "dirt"
+	footstep = FOOTSTEP_SAND
+	barefootstep = FOOTSTEP_SAND
+	clawfootstep = FOOTSTEP_SAND
+	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
+
+/turf/simulated/floor/plating/dirt/xen_dirt
+	name = "strange path"
+	color = "#ee5f1c"

@@ -6,13 +6,13 @@
 	max_integrity = 200
 	max_mobs = 15
 	spawn_time = 600
-	mob_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
+	mob_types = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab, /mob/living/simple_animal/hostile/blackmesa/xen/headcrab/fast, /mob/living/simple_animal/hostile/blackmesa/xen/headcrab/poison)
 	spawn_text = "crawls out of"
 	faction = list("hostile")
 
 // Headcrab corpse
 /obj/effect/mob_spawn/headcrab
-	mob_type = /mob/living/simple_animal/hostile/headcrab
+	mob_type = /mob/living/simple_animal/hostile/blackmesa/xen/headcrab
 	death = TRUE
 	name = "Dead headcrab"
 	desc = "A small dead parasitic creature that would like to connect with your brain stem."

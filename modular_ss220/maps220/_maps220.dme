@@ -21,3 +21,4 @@
 #include "code/objects.dm"
 #include "code/papers.dm"
 #include "code/admin.dm"
+#include "code/flora.dm"

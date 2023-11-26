@@ -353,3 +353,369 @@
 			raised.equip_to_slot_or_del(new /obj/item/claymore/ceremonial(raised), SLOT_HUD_RIGHT_HAND)
 			raised.equip_to_slot_or_del(new /obj/item/shield/riot/roman(raised), SLOT_HUD_LEFT_HAND)
 			raised.equip_to_slot_or_del(new /obj/item/spear(raised), SLOT_HUD_BACK)
+
+/*Black Mesa awaymission*/
+//Xenodoor
+/obj/structure/mineral_door/xen
+	name = "strange door"
+	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
+	icon_state = "resin"
+	base_icon_state = "resin"
+	open_sound = 'sound/machines/alien_airlock.ogg'
+	close_sound = 'sound/machines/alien_airlock.ogg'
+	color = "#ee5f1c"
+	sheetType = null
+
+//Xenoweeds
+/obj/structure/alien/xenoweeds
+	gender = PLURAL
+	name = "xen weeds"
+	desc = "A thick vine-like surface covers the floor."
+	anchored = TRUE
+	density = FALSE
+	plane = FLOOR_PLANE
+	icon = 'icons/obj/smooth_structures/alien/weeds.dmi'
+	icon_state = "weeds"
+	base_icon_state = "weeds"
+	max_integrity = 15
+	layer = ABOVE_ICYOVERLAY_LAYER
+	smoothing_flags = SMOOTH_BITMASK
+	smoothing_groups = list(SMOOTH_GROUP_ALIEN_RESIN, SMOOTH_GROUP_ALIEN_WEEDS)
+	canSmoothWith = list(SMOOTH_GROUP_ALIEN_WEEDS)
+	creates_cover = TRUE
+	color = "#ee5f1c"
+
+//Fomka
+/obj/item/crowbar/freeman
+	name = "blood soaked crowbar"
+	desc = "A heavy handed crowbar, it drips with blood."
+	icon = 'modular_ss220/maps220/icons/freeman.dmi'
+	icon_state = "crowbar"
+	force = 30
+	throwforce = 20
+	toolspeed = 0.1
+
+/obj/item/crowbar/freeman/ultimate
+	name = "\improper Freeman's crowbar"
+	desc = "A weapon wielded by an ancient physicist, the blood of hundreds seeps through this rod of iron and malice."
+	force = 45
+
+/obj/item/crowbar/freeman/ultimate/Initialize(mapload)
+	. = ..()
+	add_filter("rad_glow", 2, list("type" = "outline", "color" = "#fbff1479", "size" = 2))
+
+//Brown vine
+/obj/structure/spacevine/xen
+	color = "#ac3b06"
+	density = TRUE
+	opacity = TRUE
+
+/obj/structure/spacevine/xen/Initialize(mapload)
+	. = ..()
+	add_atom_colour("#ac3b06", FIXED_COLOUR_PRIORITY)
+
+//Shock Plant
+/obj/structure/shockplant
+	name = "electrical plant"
+	desc = "It glows with a warm buzz."
+	icon = 'modular_ss220/maps220/icons/plants.dmi'
+	icon_state = "electric_plant"
+	density = TRUE
+	anchored = TRUE
+	max_integrity = 200
+	light_range = 10
+	light_power = 0.5
+	light_color = "#53fafa"
+	/// Our faction
+	var/faction = "xen"
+	/// Our range to shock folks in.
+	var/shock_range = 6
+	/// Our cooldown on the shocking.
+	var/shock_cooldown = 3 SECONDS
+	/// The zap power
+	var/shock_power = 10000
+
+	COOLDOWN_DECLARE(shock_cooldown_timer)
+
+/obj/structure/shockplant/Initialize(mapload)
+	. = ..()
+	for(var/turf/iterating_turf as anything in circleviewturfs(src, shock_range))
+		RegisterSignal(iterating_turf, COMSIG_ATOM_ENTERED, PROC_REF(trigger))
+
+/obj/structure/shockplant/proc/trigger(datum/source, atom/movable/entered_atom)
+	SIGNAL_HANDLER
+
+	if(!COOLDOWN_FINISHED(src, shock_cooldown_timer))
+		return
+
+	if(isliving(entered_atom))
+		var/mob/living/entering_mob = entered_atom
+		if(faction in entering_mob.faction)
+			return
+		tesla_zap(src, shock_range, shock_power, shocked_targets = list(entering_mob))
+		playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+		COOLDOWN_START(src, shock_cooldown_timer, shock_cooldown)
+
+
+//Xen Crystall
+/obj/structure/xen_crystal
+	name = "resonating crystal"
+	desc = "A strange resinating crystal."
+	icon = 'modular_ss220/maps220/icons/plants.dmi'
+	icon_state = "crystal"
+	light_power = 2
+	light_range = 4
+	density = TRUE
+	anchored = TRUE
+	/// Have we been harvested?
+	var/harvested = FALSE
+
+/obj/structure/xen_crystal/Initialize(mapload)
+	. = ..()
+	var/color_to_set = pick(COLOR_LIGHT_GREEN , COLOR_ASSEMBLY_YELLOW, COLOR_LIGHT_CYAN, LIGHT_COLOR_LAVENDER )
+	color = color_to_set
+	light_color = color_to_set
+
+/obj/structure/xen_crystal/attack_hand(mob/living/user, list/modifiers)
+	. = ..()
+	if(harvested)
+		to_chat(user, span_warning("[src] has already been harvested!"))
+		return
+	to_chat(user, span_notice("You start harvesting [src]!"))
+	if(do_after(user, 5 SECONDS, src))
+		harvest(user)
+
+/obj/structure/xen_crystal/proc/harvest(mob/living/user)
+	if(harvested)
+		return
+	to_chat(user, span_notice("You harvest [src]!"))
+	var/obj/item/grenade/xen_crystal/nade = new (get_turf(src))
+	nade.color = color
+	harvested = TRUE
+	update_appearance()
+
+/obj/structure/xen_crystal/update_icon_state()
+	. = ..()
+	if(harvested)
+		icon_state = "crystal_harvested"
+	else
+		icon_state = "crystal"
+
+/obj/item/grenade/xen_crystal
+	name = "xen crystal"
+	desc = "A crystal with anomalous properties."
+	icon = 'modular_ss220/maps220/icons/plants.dmi'
+	icon_state = "crystal_grenade"
+	origin_tech = "material=8;biotech=8;magnets=8;bluespace=8;abductor=5"
+	/// What range do we effect mobs?
+	var/effect_range = 6
+	/// The faction we convert the mobs to
+	var/factions = null
+	// Mobs in this list will not be affected by this grenade.
+	var/list/blacklisted_mobs = list(
+		/mob/living/simple_animal/hostile/megafauna,
+		/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/gordon_freeman,
+		/mob/living/simple_animal/hostile/blackmesa/xen/nihilanth,
+	)
+
+/obj/item/grenade/xen_crystal/prime(mob/living/lanced_by)
+	for(var/mob/living/mob_to_neutralize in view(src, effect_range))
+		if(is_type_in_list(mob_to_neutralize, blacklisted_mobs))
+			return
+		mob_to_neutralize.faction |= factions
+		mob_to_neutralize.visible_message(span_green("[mob_to_neutralize] is overcome by a wave of peace and tranquility!"))
+		new /obj/effect/particle_effect/sparks(get_turf(mob_to_neutralize))
+		playsound(src, 'sound/magic/charge.ogg', 100, TRUE)
+	qdel(src)
+
+//Flags
+/obj/structure/sign/flag
+	name = "blank flag"
+	desc = "The flag of nothing. It has nothing on it. Magnificient."
+	icon = 'modular_ss220/maps220/icons/flags.dmi'
+	icon_state = "flag_coder"
+
+/obj/structure/sign/flag/wrench_act(mob/living/user, obj/item/wrench/I)
+	return
+
+/obj/structure/sign/flag/welder_act(mob/living/user, obj/item/I)
+	return
+
+/obj/structure/sign/flag/nanotrasen
+	name = "flag of Nanotrasen"
+	desc = "The official corporate flag of Nanotrasen. Mostly flown as a ceremonial piece, or to mark land on a new frontier."
+	icon_state = "flag_nt"
+
+/obj/structure/sign/flag/mars
+	name = "flag of the Teshari League for Self-Determination"
+	desc = "The flag of the Teshari League for Self-Determination. Originally a revolutionary flag during the time of the Republic of the Golden Feather, it has since been adopted as the official flag of the planet, as a reminder of how Teshari fought for representation and independence."
+	icon_state = "flag_mars"
+
+/obj/structure/sign/flag/terragov
+	name = "flag of Sol Federation"
+	desc = "The flag of Sol Federation. It's a symbol of humanity no matter where they go, or how much they wish it wasn't."
+	icon_state = "flag_solfed"
+
+/obj/structure/sign/flag/nri
+	name = "flag of the Novaya Rossiyskaya Imperiya"
+	desc = "The flag of the Novaya Rossiyskaya Imperiya. The yellow, black and white colours represent its sovereignity, spirituality and pureness."
+	icon_state = "flag_nri"
+
+/obj/structure/sign/flag/syndicate
+	name = "flag of the Syndicate"
+	desc = "The flag of the Sothran Syndicate. Previously used by the Sothran people as a way of declaring opposition against the Nanotrasen, now it became an intergalactic symbol of the same, yet way more skewed purpose, as more groups of interest have joined the rebellion's side for their own gain."
+	icon_state = "flag_syndi"
+
+/obj/structure/sign/flag/usa
+	name = "flag of the United States of America"
+	desc = "'Stars and Stripes', the flag of the United States of America. Its red color represents endurance and valor; blue one shows diligence, vigilance and justice, and the white one signs at pureness. Its thirteen red-and-white stripes show the initial thirteen founding colonies, and fifty stars designate the current fifty states."
+	icon_state = "flag_usa"
+
+//Shiel pylon
+/mob/living/simple_animal/hostile/blackmesa/xen
+	/// Can we be shielded by pylons?
+	var/can_be_shielded = TRUE
+	/// If we have support pylons, this is true.
+	var/shielded = FALSE
+	/// How many shields we have protecting us
+	var/shield_count = 0
+	faction = list("xen")
+	tts_seed = "Vortiger"
+
+/mob/living/simple_animal/hostile/blackmesa/xen/update_overlays()
+	. = ..()
+	if(shielded)
+		. += mutable_appearance('modular_ss220/maps220/icons/effects.dmi', "shield-yellow", ABOVE_MOB_LAYER)
+
+/mob/living/simple_animal/hostile/blackmesa/xen/proc/lose_shield()
+	shield_count--
+	if(shield_count <= 0)
+		shielded = FALSE
+		update_appearance()
+
+/mob/living/simple_animal/hostile/blackmesa/xen/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharp = NONE, attack_direction = null, attacking_item)
+	if(shielded)
+		visible_message("ineffective!")
+		return FALSE
+	return ..()
+
+/obj/structure/xen_pylon
+	name = "shield plant"
+	desc = "It seems to be some kind of force field generator."
+	icon = 'modular_ss220/maps220/icons/plants.dmi'
+	icon_state = "crystal_pylon"
+	max_integrity = 70
+	density = TRUE
+	anchored = TRUE
+	/// The range at which we provide shield support to a mob.
+	var/shield_range = 6
+	/// A list of mobs we are currently shielding with attached beams.
+	var/list/shielded_mobs = list()
+
+/obj/structure/xen_pylon/Initialize(mapload)
+	. = ..()
+	for(var/mob/living/simple_animal/hostile/blackmesa/xen/iterating_mob in range(shield_range, src))
+		if(!iterating_mob.can_be_shielded)
+			continue
+		register_mob(iterating_mob)
+	for(var/turf/iterating_turf in RANGE_TURFS(shield_range, src))
+		RegisterSignal(iterating_turf, COMSIG_ATOM_ENTERED, PROC_REF(mob_entered_range))
+
+/obj/structure/xen_pylon/proc/mob_entered_range(datum/source, atom/movable/entered_atom)
+	SIGNAL_HANDLER
+	if(!ismob(entered_atom))
+		return
+	var/mob/living/simple_animal/hostile/blackmesa/xen/entered_xen_mob = entered_atom
+	if(!entered_xen_mob.can_be_shielded)
+		return
+	register_mob(entered_xen_mob)
+
+/obj/structure/xen_pylon/proc/register_mob(mob/living/simple_animal/hostile/blackmesa/xen/mob_to_register)
+	if(mob_to_register in shielded_mobs)
+		return
+	if(!istype(mob_to_register))
+		return
+	shielded_mobs += mob_to_register
+	mob_to_register.shielded = TRUE
+	mob_to_register.shield_count++
+	mob_to_register.update_appearance()
+	var/datum/beam/created_beam = Beam(mob_to_register, icon_state = "sm_arc_dbz_referance", time = 10 MINUTES, maxdistance = (shield_range - 1))
+	shielded_mobs[mob_to_register] = created_beam
+	RegisterSignal(created_beam, COMSIG_PARENT_QDELETING, PROC_REF(beam_died), override = TRUE)
+	RegisterSignal(mob_to_register, COMSIG_PARENT_QDELETING, PROC_REF(mob_died), override = TRUE)
+
+/obj/structure/xen_pylon/proc/mob_died(atom/movable/source, force)
+	SIGNAL_HANDLER
+	var/datum/beam/beam = shielded_mobs[source]
+	QDEL_NULL(beam)
+	shielded_mobs[source] = null
+	shielded_mobs -= source
+
+/obj/structure/xen_pylon/proc/beam_died(datum/beam/beam_to_kill)
+	SIGNAL_HANDLER
+	for(var/mob/living/simple_animal/hostile/blackmesa/xen/iterating_mob as anything in shielded_mobs)
+		if(shielded_mobs[iterating_mob] == beam_to_kill)
+			iterating_mob.lose_shield()
+			shielded_mobs[iterating_mob] = null
+			shielded_mobs -= iterating_mob
+
+/obj/structure/xen_pylon/Destroy()
+	for(var/mob/living/simple_animal/hostile/blackmesa/xen/iterating_mob as anything in shielded_mobs)
+		iterating_mob.lose_shield()
+		var/datum/beam/beam = shielded_mobs[iterating_mob]
+		QDEL_NULL(beam)
+		shielded_mobs[iterating_mob] = null
+		shielded_mobs -= iterating_mob
+	shielded_mobs = null
+	playsound(src, 'sound/magic/lightningbolt.ogg', 100, TRUE)
+	new /obj/item/grenade/xen_crystal(get_turf(src))
+	return ..()
+
+//Porta turrets
+/obj/machinery/porta_turret/syndicate/black_mesa
+	faction = "xen"
+	lethal = TRUE
+	max_integrity = 70
+	projectile = /obj/item/projectile/beam/emitter
+	eprojectile = /obj/item/projectile/beam/emitter
+	shot_sound = 'sound/weapons/laser.ogg'
+	eshot_sound = 'sound/weapons/laser.ogg'
+
+/obj/machinery/porta_turret/syndicate/black_mesa/hecu
+	faction = "hecu"
+
+/obj/machinery/porta_turret/syndicate/black_mesa/blackops
+	faction = "blackops"
+
+/obj/machinery/porta_turret/syndicate/black_mesa/heavy
+	name = "Heavy Defence Turret"
+	max_integrity = 120
+	projectile = /obj/item/projectile/beam/laser/heavylaser
+	eprojectile = /obj/item/projectile/beam/laser/heavylaser
+	shot_sound = 'sound/weapons/lasercannonfire.ogg'
+	eshot_sound = 'sound/weapons/lasercannonfire.ogg'
+
+//healing puddle
+/obj/structure/sink/puddle/healing
+	name = "healing puddle"
+	desc = "By some otherworldy power, this puddle of water seems to slowly regenerate things!"
+	color = "#71ffff"
+	light_range = 3
+	light_color = "#71ffff"
+	/// How much do we heal the current person?
+	var/heal_amount = 2
+
+/obj/structure/sink/puddle/healing/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/sink/puddle/healing/process(seconds_per_tick)
+	for(var/mob/living/iterating_mob in loc)
+		iterating_mob.heal_overall_damage(heal_amount, heal_amount)
+		playsound(src, 'sound/effects/slosh.ogg', 100)
+
+// hev suit storage
+/obj/machinery/suit_storage_unit/hev_suit
+	name = "HEV suit storage unit"
+	helmet_type = /obj/item/clothing/head/helmet/hev_helmet
+	suit_type = /obj/item/clothing/suit/space/hev

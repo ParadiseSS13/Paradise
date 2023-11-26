@@ -153,6 +153,62 @@
 /obj/effect/turf_decal/siding/wideplating/dark/end
 	icon_state = "siding_wideplating_end"
 
+/obj/effect/turf_decal/siding/trimline
+	icon_state = "trimline_fill"
+	color = "#aaaaaa"
+	alpha = 120
+
+/obj/effect/turf_decal/siding/trimline/corner
+	icon_state = "trimline_corner_fill"
+
+/obj/effect/turf_decal/siding/trimline/end
+	icon_state = "trimline_end_fill"
+
+/obj/effect/turf_decal/siding/trimline/light
+	color = "#FFFFFF"
+
+/obj/effect/turf_decal/siding/trimline/light/corner
+	icon_state = "trimline_corner_fill"
+
+/obj/effect/turf_decal/siding/trimline/light/end
+	icon_state = "trimline_end_fill"
+
+/obj/effect/turf_decal/siding/trimline/dark
+	color = "#474747"
+
+/obj/effect/turf_decal/siding/trimline/dark/corner
+	icon_state = "trimline_corner_fill"
+
+/obj/effect/turf_decal/siding/trimline/dark/end
+	icon_state = "trimline_end_fill"
+
+/obj/effect/turf_decal/siding/trimline/green
+	color = "#9FED58"
+
+/obj/effect/turf_decal/siding/trimline/green/corner
+	icon_state = "trimline_corner_fill"
+
+/obj/effect/turf_decal/siding/trimline/green/end
+	icon_state = "trimline_end_fill"
+
+/obj/effect/turf_decal/siding/trimline/blue
+	color = "#486091"
+
+/obj/effect/turf_decal/siding/trimline/blue/corner
+	icon_state = "trimline_corner_fill"
+
+/obj/effect/turf_decal/siding/trimline/blue/end
+	icon_state = "trimline_end_fill"
+
+/obj/effect/turf_decal/siding/trimline/brown
+	color = "#A46106"
+
+/obj/effect/turf_decal/siding/trimline/brown/corner
+	icon_state = "trimline_corner_fill"
+
+/obj/effect/turf_decal/siding/trimline/brown/end
+	icon_state = "trimline_end_fill"
+
 /* TILE */
 /obj/effect/turf_decal/tile
 	icon = 'modular_ss220/aesthetics/decals/icons/tile.dmi'

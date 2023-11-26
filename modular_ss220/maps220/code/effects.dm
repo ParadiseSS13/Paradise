@@ -85,3 +85,98 @@
 	icon_state = "shell[rand(1,3)]"
 	color = pickweight(possible_colors)
 	setDir(pick(GLOB.cardinal))
+
+/*Black Mesa*/
+//Lamda
+/datum/looping_sound/lambda
+	mid_sounds = list('modular_ss220/aesthetics_sounds/sound/lc_mainbeam.ogg' = 1)
+	mid_length = 8.1 SECONDS
+	volume = 100
+
+/obj/effect/bump_teleporter/lambda
+	name = "\improper Lambda телепорт"
+	desc = "Сверхмощный портал, способный пронести вас сквозь миры."
+	icon = 'icons/obj/tesla_engine/energy_ball.dmi'
+	icon_state = "energy_ball"
+	pixel_x = -32
+	pixel_y = -32
+	invisibility = 0
+	light_range = 6
+	color = COLOR_CYAN
+	var/datum/looping_sound/lambda/looping_sound
+	var/atom/movable/effect
+
+/obj/effect/bump_teleporter/lambda/Initialize(mapload)
+	. = ..()
+	looping_sound = new(src, TRUE)
+	effect = new(src)
+	vis_contents += effect
+
+/obj/effect/bump_teleporter/lambda/Destroy()
+	QDEL_NULL(looping_sound)
+	vis_contents -= effect
+	QDEL_NULL(effect)
+	return ..()
+
+/obj/effect/bump_teleporter/lambda/Bumped(atom/user)
+	// Play sound before moving.
+	playsound(src, 'modular_ss220/aesthetics_sounds/sound/lc_teleport.ogg', 100)
+
+	. = ..()
+
+	if(isliving(user))
+		var/mob/living/teleporting_mob = user
+		teleporting_mob.flash_eyes(10, 1, 1, /atom/movable/screen/fullscreen/flash/lambda, 3 SECONDS)
+		teleporting_mob.Confused(15 SECONDS)
+
+/atom/movable/screen/fullscreen/flash/lambda
+	color = COLOR_GREEN
+
+//Paper fluff
+/obj/structure/fluff/paper
+	name = "dense lining of papers"
+	desc = "A lining of paper scattered across the bottom of a wall."
+	icon = 'modular_ss220/maps220/icons/misc_objects.dmi'
+	icon_state = "paper"
+	deconstructible = FALSE
+
+/obj/structure/fluff/paper/corner
+	icon_state = "papercorner"
+
+/obj/structure/fluff/paper/stack
+	name = "dense stack of papers"
+	desc = "A stack of various papers, childish scribbles scattered across each page."
+	icon_state = "paperstack"
+
+//Train
+/obj/structure/fluff/tram_rail
+	name = "tram rail"
+	desc = "Great for trams, not so great for skating."
+	icon = 'modular_ss220/maps220/icons/misc_objects.dmi'
+	icon_state = "rail"
+	layer = GAS_PIPE_VISIBLE_LAYER
+	plane = FLOOR_PLANE
+	deconstructible = FALSE
+
+/obj/structure/fluff/tram_rail/floor
+	icon_state = "rail_floor"
+
+/obj/structure/fluff/tram_rail/end
+	icon_state = "railend"
+
+/obj/structure/fluff/tram_rail/anchor
+	name = "tram rail anchor"
+	icon_state = "anchor"
+
+//Light emitter
+/obj/effect/light_emitter/colored
+	set_cap = 1
+	icon = 'modular_ss220/maps220/icons/mapping_helpers.dmi'
+	icon_state = "sunlight_helper"
+	layer = 10
+
+/obj/effect/light_emitter/colored/dark_purple
+	light_color = "#53254d"
+
+/obj/effect/light_emitter/colored/lime
+	light_color = "#6AFF00"

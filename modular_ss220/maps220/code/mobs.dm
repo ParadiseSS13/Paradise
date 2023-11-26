@@ -654,3 +654,612 @@
 		rapid = 4
 		rapid_fire_delay = 1
 		ranged_cooldown_time = 15
+
+/*Black Mesa*/
+//Alert sound
+/mob/living/simple_animal/hostile/blackmesa
+	var/list/alert_sounds
+	var/alert_cooldown = 3 SECONDS
+	var/alert_cooldown_time
+
+/mob/living/simple_animal/hostile/blackmesa/Aggro()
+	if(alert_sounds)
+		if(!(world.time > alert_cooldown_time))
+			playsound(src, pick(alert_sounds), 70)
+			alert_cooldown_time = world.time + alert_cooldown
+//Humans
+/mob/living/simple_animal/hostile/blackmesa/hecu
+	name = "HECU Grunt"
+	desc = "I didn't sign on for this shit. Monsters, sure, but civilians? Who ordered this operation anyway?"
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "hecu_melee"
+	icon_living = "hecu_melee"
+	icon_dead = "hecu_dead"
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
+	sentience_type = SENTIENCE_OTHER
+	turns_per_move = 5
+	speed = 0
+	stat_attack = UNCONSCIOUS
+	robust_searching = 1
+	maxHealth = 110
+	health = 110
+	harm_intent_damage = 5
+	melee_damage_lower = 10
+	melee_damage_upper = 15
+	attacktext = "punches"
+	attack_sound = 'sound/weapons/bladeslice.ogg'
+	a_intent = INTENT_HARM
+	loot = list(/obj/effect/gibspawner/human)
+	unsuitable_atmos_damage = 7.5
+	faction = list("hecu")
+	check_friendly_fire = 1
+	status_flags = CANPUSH
+	del_on_death = TRUE
+	dodging = TRUE
+	rapid_melee = 2
+	footstep_type = FOOTSTEP_MOB_SHOE
+	alert_cooldown = 8 SECONDS
+	alert_sounds = list(
+		'modular_ss220/aesthetics_sounds/sound/mobs/hecu/hg_alert01.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/hecu/hg_alert03.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/hecu/hg_alert04.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/hecu/hg_alert05.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/hecu/hg_alert06.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/hecu/hg_alert08.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/hecu/hg_alert10.ogg'
+	)
+
+/mob/living/simple_animal/hostile/blackmesa/hecu/ranged
+	ranged = TRUE
+	retreat_distance = 5
+	minimum_distance = 5
+	icon_state = "hecu_ranged"
+	icon_living = "hecu_ranged"
+	casingtype = /obj/item/ammo_casing/c45
+	projectilesound = 'sound/weapons/gunshots/gunshot_strong.ogg'
+	loot = list(/obj/effect/gibspawner/human)
+	dodging = TRUE
+	rapid_melee = 1
+
+/mob/living/simple_animal/hostile/blackmesa/hecu/ranged/smg
+	rapid = 3
+	icon_state = "hecu_ranged_smg"
+	icon_living = "hecu_ranged_smg"
+	casingtype = /obj/item/ammo_casing/c46x30mm
+	projectilesound = 'sound/weapons/gunshots/gunshot_rifle.ogg'
+	loot = list(/obj/effect/gibspawner/human)
+
+/mob/living/simple_animal/hostile/blackmesa/sec
+	name = "Security Guard"
+	desc = "About that beer I owe'd ya!"
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "security_guard_melee"
+	icon_living = "security_guard_melee"
+	icon_dead = "security_guard_dead"
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
+	sentience_type = SENTIENCE_OTHER
+	turns_per_move = 5
+	speed = 0
+	robust_searching = 1
+	maxHealth = 80
+	health = 80
+	harm_intent_damage = 5
+	melee_damage_lower = 10
+	melee_damage_upper = 10
+	attacktext = "punches"
+	attack_sound = 'sound/weapons/genhit2.ogg'
+	loot = list(/obj/effect/gibspawner/human)
+	a_intent = INTENT_HARM
+	unsuitable_atmos_damage = 7.5
+	faction = list("hecu")
+	status_flags = CANPUSH
+	del_on_death = TRUE
+	dodging = TRUE
+	footstep_type = FOOTSTEP_MOB_SHOE
+	alert_cooldown = 8 SECONDS
+	alert_sounds = list(
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance01.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance02.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance03.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance04.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance05.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance06.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance07.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance08.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance09.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/security_guard/annoyance10.ogg'
+	)
+
+/mob/living/simple_animal/hostile/blackmesa/sec/ranged
+	ranged = TRUE
+	retreat_distance = 5
+	minimum_distance = 5
+	icon_state = "security_guard_ranged"
+	icon_living = "security_guard_ranged"
+	casingtype = /obj/item/ammo_casing/c9mm
+	projectilesound = 'sound/weapons/gunshots/gunshot_pistol.ogg'
+	loot = list(/obj/effect/gibspawner/human, /obj/item/clothing/suit/armor/vest)
+	rapid_melee = 1
+
+/mob/living/simple_animal/hostile/blackmesa/blackops
+	name = "black operative"
+	desc = "Why do we always have to clean up a mess the grunts can't handle?"
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "blackops"
+	icon_living = "blackops"
+	icon_dead = "blackops"
+	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
+	sentience_type = SENTIENCE_OTHER
+	turns_per_move = 3
+	speed = -0.5
+	stat_attack = UNCONSCIOUS
+	robust_searching = 1
+	maxHealth = 150
+	health = 150
+	harm_intent_damage = 15
+	melee_damage_lower = 20
+	melee_damage_upper = 25
+	attacktext = "strikes"
+	attack_sound = 'sound/weapons/rapierhit.ogg'
+	a_intent = INTENT_HARM
+	loot = list(/obj/effect/gibspawner/human)
+	unsuitable_atmos_damage = 7.5
+	faction = list("blackops")
+	check_friendly_fire = 1
+	status_flags = CANPUSH
+	del_on_death = TRUE
+	dodging = TRUE
+	rapid_melee = 2
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	footstep_type = FOOTSTEP_MOB_SHOE
+	alert_cooldown = 8 SECONDS
+	alert_sounds = list(
+		'modular_ss220/aesthetics_sounds/sound/mobs/blackops/bo_alert01.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/blackops/bo_alert02.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/blackops/bo_alert03.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/blackops/bo_alert04.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/blackops/bo_alert05.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/blackops/bo_alert06.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/blackops/bo_alert07.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/blackops/bo_alert08.ogg'
+	)
+
+/mob/living/simple_animal/hostile/blackmesa/blackops/ranged
+	ranged = TRUE
+	rapid = 2
+	retreat_distance = 6
+	minimum_distance = 6
+	icon_state = "blackops_ranged"
+	icon_living = "blackops_ranged"
+	casingtype = /obj/item/ammo_casing/a556
+	projectilesound = 'sound/weapons/gunshots/gunshot_smg.ogg'
+	loot = list(/obj/effect/gibspawner/human)
+	rapid_melee = 1
+	aggro_vision_range = 7
+	vision_range = 7
+	ranged_cooldown_time = 15
+
+//Zombie
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie
+	name = "headcrab zombie"
+	desc = "This unlucky person has had a headcrab latch onto their head. Ouch."
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "zombie"
+	icon_living = "zombie"
+	maxHealth = 100
+	health = 100
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	icon_dead = "zombie_dead"
+	speak_chance = 1
+	speak_emote = list("growls")
+	speed = 1.8
+	emote_taunt = list("growls", "snarls", "grumbles")
+	taunt_chance = 100
+	melee_damage_lower = 15
+	melee_damage_upper = 21
+	attack_sound = 'modular_ss220/mobs/sound/creatures/zombie_attack.ogg'
+	gold_core_spawnable = HOSTILE_SPAWN
+	alert_cooldown_time = 8 SECONDS
+	alert_sounds = list(
+		'modular_ss220/mobs/sound/creatures/zombie_idle1.ogg',,
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/alert3.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/alert4.ogg',
+		'modular_ss220/mobs/sound/creatures/zombie_idle2.ogg',
+		'modular_ss220/mobs/sound/creatures/zombie_idle3.ogg',
+	)
+	loot = list(/obj/effect/gibspawner/human)
+
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/scientist
+	name = "zombified scientist"
+	desc = "Even after death, I still have to wear this horrible tie!"
+	icon_state = "scientist_zombie"
+	icon_living = "scientist_zombie"
+	loot = list(/obj/effect/gibspawner/human)
+	del_on_death = TRUE
+
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/guard
+	name = "zombified guard"
+	desc = "About that brain I owed ya!"
+	icon_state = "security_zombie"
+	icon_living = "security_zombie"
+	maxHealth = 120 // Armor!
+	health = 120
+	loot = list(/obj/effect/gibspawner/human)
+	del_on_death = TRUE
+
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/hecu
+	name = "zombified marine"
+	desc = "MY. ASS. IS. DEAD."
+	icon_state = "hecu_zombie"
+	icon_living = "hecu_zombie"
+	maxHealth = 150 // More armor!
+	health = 150
+	loot = list(/obj/effect/gibspawner/human)
+	del_on_death = TRUE
+
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/hev
+	name = "zombified hazardous environment specialist"
+	desc = "User death... surpassed."
+	icon_state = "hev_zombie"
+	icon_living = "hev_zombie"
+	maxHealth = 200
+	health = 200
+	alert_sounds = list(
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv1.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv2.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv3.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv4.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv5.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv6.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv7.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv8.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv9.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv10.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv11.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv12.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv13.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv14.ogg',
+	)
+	del_on_death = TRUE
+
+//Bullsquid
+/mob/living/simple_animal/hostile/blackmesa/xen/bullsquid
+	name = "bullsquid"
+	desc = "Some highly aggressive alien creature. Thrives in toxic environments."
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "bullsquid"
+	icon_living = "bullsquid"
+	icon_dead = "bullsquid_dead"
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	speak_chance = 1
+	speak_emote = list("growls")
+	emote_taunt = list("growls", "snarls", "grumbles")
+	taunt_chance = 100
+	turns_per_move = 7
+	maxHealth = 110
+	health = 110
+	obj_damage = 50
+	harm_intent_damage = 15
+	melee_damage_lower = 15
+	melee_damage_upper = 15
+	ranged = TRUE
+	retreat_distance = 5
+	minimum_distance = 5
+	dodging = TRUE
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 2)
+	projectiletype = /obj/item/projectile/bullet/bullsquid
+	projectilesound = 'modular_ss220/aesthetics_sounds/sound/mobs/bullsquid/goo_attack3.ogg'
+	melee_damage_upper = 18
+	attack_sound = 'modular_ss220/aesthetics_sounds/sound/mobs/bullsquid/attack1.ogg'
+	gold_core_spawnable = HOSTILE_SPAWN
+	alert_sounds = list(
+		'modular_ss220/aesthetics_sounds/sound/mobs/bullsquid/detect1.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/bullsquid/detect2.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/bullsquid/detect3.ogg'
+	)
+
+/obj/item/projectile/bullet/bullsquid
+	name = "nasty ball of ooze"
+	icon_state = "neurotoxin"
+	damage = 13
+	damage_type = BURN
+	flag = ACID
+	knockdown = 2 SECONDS
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	hitsound = 'modular_ss220/aesthetics_sounds/sound/mobs/bullsquid/splat1.ogg'
+	hitsound_wall = 'modular_ss220/aesthetics_sounds/sound/mobs/bullsquid/splat1.ogg'
+
+/obj/item/projectile/bullet/bullsquid/on_hit(atom/target, blocked, pierce_hit)
+	new /obj/effect/decal/cleanable/greenglow(target.loc)
+	return ..()
+
+//Houndeye
+/mob/living/simple_animal/hostile/blackmesa/xen/houndeye
+	name = "houndeye"
+	desc = "Some highly aggressive alien creature. Thrives in toxic environments."
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "houndeye"
+	icon_living = "houndeye"
+	icon_dead = "houndeye_dead"
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	speak_chance = 1
+	speak_emote = list("growls")
+	speed = 0
+	move_to_delay = 2.6
+	emote_taunt = list("growls", "snarls", "grumbles")
+	taunt_chance = 100
+	turns_per_move = 2
+	maxHealth = 100
+	health = 100
+	obj_damage = 50
+	harm_intent_damage = 10
+	melee_damage_lower = 20
+	melee_damage_upper = 20
+	rapid_melee = 2
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 3)
+	attack_sound = 'sound/weapons/bite.ogg'
+	gold_core_spawnable = HOSTILE_SPAWN
+	minbodytemp = 0
+	maxbodytemp = 1500
+	loot = list(/obj/item/stack/ore/bluespace_crystal)
+	alert_sounds = list(
+		'modular_ss220/aesthetics_sounds/sound/mobs/houndeye/he_alert1.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/houndeye/he_alert2.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/houndeye/he_alert3.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/houndeye/he_alert4.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/houndeye/he_alert5.ogg'
+	)
+
+//Vortiger
+/mob/living/simple_animal/hostile/blackmesa/xen/vortigaunt/slave
+	name = "slave vortigaunt"
+	desc = "Bound by the shackles of a sinister force. He does not want to hurt you."
+	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
+	icon_state = "vortigaunt_slave"
+	icon_dead = "vortigaunt_dead"
+	gender = MALE
+	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
+	speak_chance = 1
+	speak_emote = list("galungs")
+	speed = 1
+	emote_taunt = list("galalungas", "galungas", "gungs")
+	projectiletype = /obj/item/projectile/beam/emitter/hitscan
+	projectilesound = 'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/attack_shoot4.ogg'
+	ranged_cooldown_time = 3 SECONDS
+	ranged_message = "fires"
+	taunt_chance = 100
+	turns_per_move = 3
+	maxHealth = 100
+	health = 100
+	speed = 2
+	ranged = TRUE
+	dodging = TRUE
+	harm_intent_damage = 15
+	melee_damage_lower = 10
+	melee_damage_upper = 10
+	retreat_distance = 8
+	minimum_distance = 8
+	aggro_vision_range = 9
+	vision_range = 8
+	attack_sound = 'sound/weapons/bite.ogg'
+	loot = list(/obj/item/stack/sheet/bone)
+	alert_sounds = list(
+		'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/alert01.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/alert01b.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/alert02.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/alert03.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/alert04.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/alert05.ogg',
+		'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/alert06.ogg',
+	)
+
+//Nihilanth
+/mob/living/simple_animal/hostile/blackmesa/xen/nihilanth
+	name = "nihilanth"
+	desc = "Holy shit."
+	icon = 'modular_ss220/maps220/icons/nihilanth.dmi'
+	icon_state = "nihilanth"
+	icon_living = "nihilanth"
+	pixel_x = -32
+	speed = 3
+	move_to_delay = 3.5
+	bound_height = 32
+	bound_width = 32
+	icon_dead = "bullsquid_dead"
+	maxHealth = 2500
+	health = 2500
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	universal_speak = TRUE
+	projectilesound = 'sound/weapons/lasercannonfire.ogg'
+	projectiletype = /obj/item/projectile/nihilanth
+	ranged = TRUE
+	ranged_cooldown_time = 20
+	rapid = 3
+	alert_cooldown = 30 SECONDS
+	harm_intent_damage = 50
+	melee_damage_lower = 20
+	melee_damage_upper = 30
+	attacktext = "lathes"
+	attack_sound = 'sound/weapons/punch1.ogg'
+	status_flags = NONE
+	del_on_death = TRUE
+	wander = TRUE
+	loot = list(/obj/effect/gibspawner/xeno, /obj/item/stack/ore/bluespace_crystal/refined = 30, /obj/item/card/id/xen_key, /obj/item/gun/energy/wormhole_projector)
+	flying = TRUE
+
+/obj/item/card/id/xen_key
+	name = "xen key"
+	desc = ""
+	icon_state = "emag"
+	item_state = "card-id"
+	access = list (271)
+
+/obj/item/projectile/nihilanth
+	name = "portal energy"
+	icon_state = "parry"
+	damage = 20
+	damage_type = BURN
+	light_range = 2
+	flag = ENERGY
+	light_color = LIGHT_COLOR_FADEDPURPLE
+	hitsound = 'sound/weapons/sear.ogg'
+	hitsound_wall = 'sound/weapons/effects/searwall.ogg'
+
+/mob/living/simple_animal/hostile/blackmesa/xen/nihilanth/Aggro()
+	. = ..()
+	if(!(world.time > alert_cooldown_time))
+		alert_cooldown_time = world.time + alert_cooldown
+		switch(health)
+			if(0 to 999)
+				playsound(src, pick(list('modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_pain01.ogg', 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_freeeemmaan01.ogg')), 100)
+			if(1000 to 1499)
+				playsound(src, pick(list('modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_youalldie01.ogg', 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_foryouhewaits01.ogg')), 100)
+			if(1500 to 1999)
+				playsound(src, pick(list('modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_whathavedone01.ogg', 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_deceiveyou01.ogg')), 100)
+			else
+				playsound(src, pick(list('modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_thetruth01.ogg', 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_iamthelast01.ogg')), 100)
+
+/mob/living/simple_animal/hostile/blackmesa/xen/nihilanth/death(gibbed)
+	..()
+
+//Freeman
+/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/gordon_freeman
+	name = "\improper Gordon Freeman"
+	desc = "Gordon Freeman in the flesh. Or in the zombified form, it seems."
+	icon_state = "gordon_freeman"
+	speed = -2
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	health = 1000
+	maxHealth = 1000
+	rapid_melee = 2
+	melee_damage_lower = 30
+	melee_damage_upper = 30
+	wander = FALSE
+	attack_sound = 'sound/weapons/genhit3.ogg'
+	loot = list(/obj/item/crowbar/freeman/ultimate)
+	gold_core_spawnable = NO_SPAWN
+
+/obj/structure/xen_pylon/freeman
+	shield_range = 30
+	max_integrity = 300
+
+/obj/structure/xen_pylon/freeman/register_mob(mob/living/simple_animal/hostile/blackmesa/xen/mob_to_register)
+	if(!istype(mob_to_register, /mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/gordon_freeman))
+		return
+	if(mob_to_register in shielded_mobs)
+		return
+	shielded_mobs += mob_to_register
+	mob_to_register.shielded = TRUE
+	mob_to_register.shield_count++
+	mob_to_register.update_appearance()
+	var/datum/beam/created_beam = Beam(mob_to_register, icon_state = "sm_arc_dbz_referance", time = 10 MINUTES, maxdistance = shield_range)
+	shielded_mobs[mob_to_register] = created_beam
+	RegisterSignal(created_beam, COMSIG_PARENT_QDELETING, PROC_REF(beam_died))
+	RegisterSignal(mob_to_register, COMSIG_PARENT_QDELETING, PROC_REF(mob_died))
+
+/obj/effect/freeman_blocker
+	name = "freeman blocker"
+
+/obj/effect/freeman_blocker/CanPass(atom/blocker, movement_dir, blocker_opinion)
+	. = ..()
+	if(istype(blocker, /mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/gordon_freeman))
+		return FALSE
+	return TRUE
+
+//Spawners
+#define MOB_PLACER_RANGE 16
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer
+	name = "mob placer"
+	icon = 'modular_ss220/maps220/icons/mapping_helpers.dmi'
+	icon_state = "mobspawner"
+	var/list/possible_mobs = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab,
+	/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/fast,
+	/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/poison)
+	//SS220 edit START
+	var/list/faction = list()
+	var/health
+	var/maxHealth
+	var/melee_damage_lower
+	var/melee_damage_upper
+	//SS220 edit END
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/Initialize(mapload)
+	. = ..()
+	for(var/turf/iterating_turf in range(MOB_PLACER_RANGE, src))
+		RegisterSignal(iterating_turf, COMSIG_ATOM_ENTERED, PROC_REF(trigger))
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/proc/trigger(datum/source, atom/movable/entered_atom)
+	SIGNAL_HANDLER
+	if(!isliving(entered_atom))
+		return
+	var/mob/living/entered_mob = entered_atom
+
+	if(!entered_mob.client)
+		return
+
+	var/mob/picked_mob = pick(possible_mobs)
+	//SS220 edit START
+	var/mob/living/simple_animal/hostile/new_mob = new picked_mob(loc)
+	if(name != initial(src.name)) new_mob.name = name
+	if(desc != initial(src.desc)) new_mob.desc = desc
+	if(length(faction)) 	new_mob.faction = faction
+	if(health)				new_mob.health = health
+	if(maxHealth)			new_mob.maxHealth = maxHealth
+	if(melee_damage_lower) 	new_mob.melee_damage_lower = melee_damage_lower
+	if(melee_damage_upper) 	new_mob.melee_damage_upper = melee_damage_upper
+	//SS220 edit END
+	qdel(src)
+
+#undef MOB_PLACER_RANGE
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/xen
+	icon_state = "spawn_xen"
+	possible_mobs = list(
+		/mob/living/simple_animal/hostile/blackmesa/xen/headcrab,
+		/mob/living/simple_animal/hostile/blackmesa/xen/houndeye,
+		/mob/living/simple_animal/hostile/blackmesa/xen/bullsquid,
+	)
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/xen/zombie
+	icon_state = "spawn_zombie"
+	possible_mobs = list(
+		/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/scientist,
+		/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/guard,
+		/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/hecu,
+	)
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/blackops
+	icon_state = "spawn_blackops"
+	possible_mobs = list(
+		/mob/living/simple_animal/hostile/blackmesa/blackops,
+		/mob/living/simple_animal/hostile/blackmesa/blackops/ranged,
+	)
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/hev_zombie
+	icon_state = "spawn_hev"
+	possible_mobs = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/hev)
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/scientist_zombie
+	icon_state = "spawn_zombiescientist"
+	possible_mobs = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/scientist)
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/scientist_zombie
+	icon_state = "spawn_zombiesec"
+	possible_mobs = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/guard)
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/security_guard
+	icon_state = "spawn_guard"
+	possible_mobs = list(/mob/living/simple_animal/hostile/blackmesa/sec, /mob/living/simple_animal/hostile/blackmesa/sec/ranged)
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/vortigaunt_hostile
+	icon_state = "spawn_vortigaunt_slave"
+	possible_mobs = list(/mob/living/simple_animal/hostile/blackmesa/xen/vortigaunt/slave)
+
+/obj/effect/landmark/awaymissions/black_mesa/random_mob_placer/hecu
+	icon_state = "spawn_vortigaunt"
+	possible_mobs = list(/mob/living/simple_animal/hostile/blackmesa/hecu, /mob/living/simple_animal/hostile/blackmesa/hecu/ranged,/mob/living/simple_animal/hostile/blackmesa/hecu/ranged/smg)

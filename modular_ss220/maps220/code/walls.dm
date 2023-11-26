@@ -126,3 +126,7 @@
 	smoothing_flags = null
 	smoothing_groups = null
 	canSmoothWith = null
+
+/*Black Mesa*/
+/turf/simulated/wall/indestructible/rock/mineral/xen
+	color = "#4e1a02"

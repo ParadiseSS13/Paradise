@@ -25,19 +25,19 @@
 	headcrab_type = rand(0, 5)
 	switch(headcrab_type)
 		if(HEADCRAB_NORMAL)
-			spawn_types = list(/mob/living/simple_animal/hostile/headcrab)
+			spawn_types = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab)
 			max_number = 6
 		if(HEADCRAB_FASTMIX)
-			spawn_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast)
+			spawn_types = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab, /mob/living/simple_animal/hostile/blackmesa/xen/headcrab/fast)
 			max_number = 8
 		if(HEADCRAB_FAST)
-			spawn_types = list(/mob/living/simple_animal/hostile/headcrab/fast)
+			spawn_types = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/fast)
 			max_number = 6
 		if(HEADCRAB_POISONMIX)
-			spawn_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/poison)
+			spawn_types = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab, /mob/living/simple_animal/hostile/blackmesa/xen/headcrab/poison)
 			max_number = 4
 		if(HEADCRAB_POISON)
-			spawn_types = list(/mob/living/simple_animal/hostile/headcrab/poison)
+			spawn_types = list(/mob/living/simple_animal/hostile/blackmesa/xen/headcrab/poison)
 			max_number = 3
 		if(HEADCRAB_SPAWNER)
 			spawn_types = list(/obj/structure/spawner/headcrab)

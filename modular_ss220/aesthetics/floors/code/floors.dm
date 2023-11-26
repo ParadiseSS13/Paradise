@@ -47,6 +47,9 @@
 	floor_tile = /obj/item/stack/tile/wood/parquet/tile
 	broken_states = list("wood_tile-broken", "wood_tile-broken2", "wood_tile-broken3")
 
+/turf/simulated/floor/plasteel/smooth
+	icon_state = "smooth"
+
 // LIGHT FLOORS
 /turf/simulated/floor/light
 	icon = 'icons/turf/floors.dmi'
