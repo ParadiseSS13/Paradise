@@ -365,7 +365,7 @@
 	var/obj/item/storage/belt/bandolier/Our_bandolier
 	for(var/obj/item/I in user.contents)
 		if(istype(I, /obj/item/storage/belt/bandolier))
-			B = I
+			Our_bandolier = I
 			break
 
 	var/shells_to_load = 0 // Start with 0 and increment based on spent shells
@@ -375,23 +375,27 @@
 		CB = magazine.get_round(0)
 		chambered = null
 		CB.loc = get_turf(loc)
-		CB.maptext = ""  // Reset the maptext property
 		CB.SpinAnimation(10, 1)
 		CB.update_icon()
 		playsound(get_turf(CB), 'sound/weapons/gun_interactions/shotgun_fall.ogg', 70, 1)
 		num_unloaded++
 		shells_to_load++
 
-	if(B && HAS_TRAIT(user, TRAIT_SLIGHT_OF_HAND))
+	var/loaded_shells = 0
+	if(Our_bandolier && HAS_TRAIT(user, TRAIT_SLIGHT_OF_HAND))
 		for(var/i in 1 to shells_to_load)
-			var/obj/item/ammo_casing/shotgun/shell = B.retrieve_item_of_type(/obj/item/ammo_casing/shotgun)
+			var/obj/item/ammo_casing/shotgun/shell = Our_bandolier.retrieve_item_of_type(/obj/item/ammo_casing/shotgun)
 			if(!shell)
 				break
 			magazine.stored_ammo += shell
 			shell.forceMove(magazine)
-			to_chat(user, "<span class='notice'>You quickly load a shell from your bandolier into [src].</span>")
-		B.update_icon()  // Update the bandolier's icon
-		B.orient2hud(user)  // Update the displayed items and their counts
+			loaded_shells++
+
+		Our_bandolier.update_icon()
+		Our_bandolier.orient2hud(user)
+
+		if(loaded_shells > 0)
+			to_chat(user, "<span class='notice'>You quickly load [loaded_shells] shell from your bandolier into [src].</span>")
 
 	if(num_unloaded)
 		to_chat(user, "<span class = 'notice'>You break open \the [src] and unload [num_unloaded] shell\s.</span>")

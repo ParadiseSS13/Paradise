@@ -592,7 +592,10 @@
 		if(istype(I, item_type))
 			contents -= I
 			update_icon() // Update the bandolier's icon to reflect the change in contents.
-			return I
+			var/obj/item/ammo_casing/shotgun/shell = I
+			if(shell)
+				shell.maptext = ""
+				return shell
 	return null
 
 /obj/item/storage/belt/holster
