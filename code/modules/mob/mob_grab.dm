@@ -94,24 +94,35 @@
 		affecting.glide_for(assailant_glide_speed)
 	else if(get_turf(affecting) != old_turf)
 		var/possible_dest = list()
-		var/list/grabbed_mobs = list()
+		var/list/mobs_do_not_move = list() // those are mobs we shouldnt move while we're going to new position
+		var/list/dest_1_sort = list() // just better dest to be picked first
+		var/list/dest_2_sort = list()
 		if(old_turf.Adjacent(affecting))
 			possible_dest |= old_turf
 		for(var/turf/dest in orange(1, assailant))
 			if(assailant.loc == dest) // orange(1) is broken and returning central turf
 				continue
-			if(dest.Adjacent(affecting))
-				possible_dest |= dest
+			if(!dest.Adjacent(affecting))
+				continue
+			if(dest.Adjacent(old_turf))
+				dest_1_sort |= dest
+				continue
+			dest_2_sort |= dest
+		possible_dest |= dest_1_sort
+		possible_dest |= dest_2_sort
 		if(istype(assailant.l_hand, /obj/item/grab))
 			var/obj/item/grab/grab = assailant.l_hand
-			possible_dest -= get_turf(grab.affecting)
-			grabbed_mobs |= grab.affecting
+			mobs_do_not_move |= grab.affecting
 		if(istype(assailant.r_hand, /obj/item/grab))
 			var/obj/item/grab/grab = assailant.r_hand
-			possible_dest -= get_turf(grab.affecting)
-			grabbed_mobs |= grab.affecting
-		var/list/mobs_do_not_move = grabbed_mobs // those are mobs we shouldnt move while we're going to new position
+			mobs_do_not_move |= grab.affecting
 		mobs_do_not_move |= assailant
+		mobs_do_not_move -= affecting
+		if(assailant.pulling)
+			possible_dest -= old_turf // pull code just WANTS THAT old_loc and wont allow anyone else in it
+			mobs_do_not_move |= assailant.pulling
+		for(var/mob/mob as anything in mobs_do_not_move)
+			possible_dest -= get_turf(mob)
 		affecting.grab_do_not_move = mobs_do_not_move
 		var/success_move = FALSE
 		for(var/turf/dest as anything in possible_dest)
