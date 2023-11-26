@@ -4211,9 +4211,7 @@
 /turf/simulated/wall,
 /area/station/command/office/hos)
 "azX" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/item/radio/intercom{
 	pixel_y = -28;
 	name = "custom placement"
@@ -5372,9 +5370,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
@@ -5640,9 +5636,7 @@
 	},
 /area/station/security/main)
 "aKx" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "redcorner"
@@ -6457,9 +6451,7 @@
 	},
 /area/station/engineering/atmos)
 "aPA" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6538,9 +6530,7 @@
 /area/station/security/lobby)
 "aPW" = (
 /obj/machinery/light,
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
 	},
@@ -6850,9 +6840,7 @@
 /area/station/public/locker)
 "aSf" = (
 /obj/machinery/light,
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -8733,9 +8721,7 @@
 	c_tag = "Rehabilitation Dome Lobby East";
 	dir = 8
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "bbS" = (
@@ -8863,9 +8849,7 @@
 /turf/simulated/floor/grass/jungle,
 /area/station/hallway/secondary/garden)
 "bcy" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -9610,9 +9594,7 @@
 	c_tag = "Rehabilitation Dome Lobby South";
 	dir = 1
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
 "bfW" = (
@@ -9895,9 +9877,7 @@
 	c_tag = "Dorm Commons North";
 	dir = 4
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /obj/machinery/economy/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 28
@@ -10970,9 +10950,7 @@
 	pixel_x = 24;
 	name = "east bump"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "neutral"
@@ -12067,9 +12045,7 @@
 	},
 /area/station/supply/office)
 "brs" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -13484,9 +13460,7 @@
 	},
 /area/station/engineering/break_room)
 "bxv" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellowcorners"
@@ -13564,9 +13538,7 @@
 /area/station/command/office/hop)
 "bxG" = (
 /obj/structure/disposalpipe/segment,
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellowcorners"
@@ -16271,9 +16243,7 @@
 	name = "Atmospherics Desk Shutters";
 	pixel_x = 24
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-13"
-	},
+/obj/item/kirbyplants/plant13,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -17899,9 +17869,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/office/ce)
 "bPE" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-25"
-	},
+/obj/item/kirbyplants/plant25,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -18998,9 +18966,7 @@
 	},
 /area/station/service/chapel)
 "bTX" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/machinery/recharger/wallcharger{
 	pixel_y = -25
 	},
@@ -20043,9 +20009,7 @@
 	},
 /area/station/maintenance/fore2)
 "bYn" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -20059,9 +20023,7 @@
 /turf/simulated/wall,
 /area/station/maintenance/disposal/south)
 "bYG" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/structure/cable/orange{
 	d1 = 2;
 	d2 = 4;
@@ -20926,9 +20888,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "ceR" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	icon_state = "bcircuit"
 	},
@@ -22366,9 +22326,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/shuttle/pod_2)
 "cnT" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -22980,9 +22938,7 @@
 	},
 /area/station/science/hallway)
 "cry" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-25"
-	},
+/obj/item/kirbyplants/plant25,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -31091,9 +31047,7 @@
 	},
 /area/station/public/quantum/cargo)
 "dkK" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -34836,9 +34790,7 @@
 	},
 /area/station/hallway/primary/fore/west)
 "dKY" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -37880,9 +37832,7 @@
 	},
 /area/station/public/vacant_office)
 "eQt" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -38189,9 +38139,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -40618,9 +40566,7 @@
 	},
 /area/station/medical/cloning)
 "fUT" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -41873,9 +41819,7 @@
 	c_tag = "Telecomms Control Room";
 	dir = 6
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43235,9 +43179,7 @@
 	},
 /area/station/hallway/primary/fore)
 "gQP" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/machinery/light_switch{
 	dir = 1;
 	pixel_y = -24;
@@ -44512,9 +44454,7 @@
 	},
 /area/station/medical/medbay)
 "hoM" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "hoU" = (
@@ -44790,9 +44730,7 @@
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry/north)
 "htq" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
@@ -45258,9 +45196,7 @@
 	},
 /area/station/supply/office)
 "hDf" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-25"
-	},
+/obj/item/kirbyplants/plant25,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -53472,9 +53408,7 @@
 /turf/simulated/floor/engine,
 /area/station/engineering/control)
 "kgd" = (
-/obj/item/kirbyplants{
-	icon_state = "applebush"
-	},
+/obj/item/kirbyplants/applebush,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -55680,9 +55614,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
 "kPx" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "kQc" = (
@@ -55712,9 +55644,7 @@
 /turf/simulated/floor/wood,
 /area/station/command/office/ntrep)
 "kQz" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkgreen"
@@ -58245,9 +58175,7 @@
 "lBJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel,
 /area/station/public/locker)
 "lBX" = (
@@ -61334,9 +61262,7 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "mHk" = (
@@ -70949,9 +70875,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/port)
 "pOY" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -76403,9 +76327,7 @@
 /turf/simulated/floor/wood,
 /area/station/service/theatre)
 "rGm" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /obj/machinery/light_switch{
 	dir = 4;
 	pixel_x = -24;
@@ -80598,9 +80520,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -82342,9 +82262,7 @@
 	},
 /area/station/engineering/gravitygenerator)
 "tCV" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood,
@@ -85261,9 +85179,7 @@
 /turf/simulated/floor/plating,
 /area/station/security/warden)
 "uBY" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-25"
-	},
+/obj/item/kirbyplants/plant25,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -87485,9 +87401,7 @@
 	pixel_x = 24;
 	name = "east bump"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-25"
-	},
+/obj/item/kirbyplants/plant25,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -88256,9 +88170,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore2)
 "vwo" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -89021,9 +88933,7 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /turf/simulated/floor/wood,
 /area/station/legal/magistrate)
 "vIG" = (
@@ -92053,9 +91963,7 @@
 	pixel_x = 24;
 	name = "east bump"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-22"
-	},
+/obj/item/kirbyplants/plant22,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "neutral"
@@ -95630,9 +95538,7 @@
 	pixel_y = 24;
 	name = "north bump"
 	},
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
+/obj/item/kirbyplants/plant21,
 /obj/item/radio/intercom{
 	pixel_x = 28;
 	name = "custom placement"

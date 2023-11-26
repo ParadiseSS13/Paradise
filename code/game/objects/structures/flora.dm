@@ -417,6 +417,9 @@
 /obj/item/kirbyplants/plant34
 	icon_state = "plant-34"
 
+/obj/item/kirbyplants/applebush
+	icon_state = "applebush"
+
 /obj/item/kirbyplants/dead
 	icon_state = "plant-dead"
 
