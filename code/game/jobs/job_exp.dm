@@ -3,7 +3,6 @@
 GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	// NT ROLES
 	ROLE_PAI = 0,
-	ROLE_POSIBRAIN = 5, // Same as cyborg job.
 	ROLE_SENTIENT = 5,
 	ROLE_ERT = 40, // High, because they're team-based, and we want ERT to be robust
 	ROLE_DEATHSQUAD = 50, // Higher, see ERT and also they're OP as heck
@@ -23,7 +22,6 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 20,
-	ROLE_GSPIDER = 5,
 
 	// TEAM ANTAGS
 	// Higher numbers here, because they require more experience to be played correctly
