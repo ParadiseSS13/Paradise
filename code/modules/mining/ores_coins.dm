@@ -380,21 +380,59 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/plasma
 	cmineral = "plasma"
+	desc = "You really shouldn't keep this in the same pocket as a lighter."
 	icon_state = "coin_plasma_heads"
 	materials = list(MAT_PLASMA = 400)
 	credits = 80
+
+/obj/item/coin/plasma/bullet_act(obj/item/projectile/P)
+    if(!QDELETED(src) && !P.nodamage && (P.damage_type == BURN))
+        log_and_set_aflame(P.firer, P)
+
+/obj/item/coin/plasma/attackby(obj/item/I, mob/living/user, params)
+    if(is_hot(I))
+        log_and_set_aflame(user, I)
+    return
+
+/obj/item/coin/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
+    var/turf/T = get_turf(src)
+    message_admins("Plasma coin ignited by [key_name_admin(user)]([ADMIN_QUE(user, "?")]) ([ADMIN_FLW(user, "FLW")]) in ([COORD(T)] - [ADMIN_JMP(T)]")
+    log_game("Plasma coin ignited by [key_name(user)] in [COORD(T)]")
+    investigate_log("was <font color='red'><b>ignited</b></font> by [key_name(user)]", "atmos")
+    user.create_log(MISC_LOG, "Plasma coin ignited using [I]", src)
+    fire_act()
+
+/obj/item/coin/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+    ..()
+    atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 5) // 2 is the "correct" ammount, but its super lame. Im sure this wont have ramifications on the plasma market.
+    qdel(src)
 
 /obj/item/coin/uranium
 	cmineral = "uranium"
 	icon_state = "coin_uranium_heads"
 	materials = list(MAT_URANIUM = 400)
+	desc = "You probably shouldn't keep this in your front pocket."
 	credits = 160
+	var/last_event = 0
+
+/obj/item/coin/uranium/proc/radiate()
+	if(world.time > last_event + 1.5 SECONDS)
+		radiation_pulse(src, 50)
+		last_event = world.time
+
+/obj/item/coin/uranium/attack_self(mob/user)
+	radiate()
+	..()
 
 /obj/item/coin/clown
 	cmineral = "bananium"
 	icon_state = "coin_bananium_heads"
 	materials = list(MAT_BANANIUM = 400)
 	credits = 600 //makes the clown cri
+
+/obj/item/coin/clown/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/slippery, src, 4 SECONDS, 100, 0, FALSE)
 
 /obj/item/coin/mime
 	cmineral = "tranquillite"
@@ -482,11 +520,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		cooldown = world.time
 		flick("coin_[cmineral]_flip", src)
 		icon_state = "coin_[cmineral]_[coinflip]"
-		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
+		var/blind_sound
+		if(cmineral != "tranquillite")
+			playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
+			blind_sound = "<span class='notice'>You hear the clattering of loose change.</span>"
 		if(do_after(user, 15, target = src))
 			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
 								"<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
-								"<span class='notice'>You hear the clattering of loose change.</span>")
+								blind_sound)
 
 #undef GIBTONITE_QUALITY_LOW
 #undef GIBTONITE_QUALITY_MEDIUM
