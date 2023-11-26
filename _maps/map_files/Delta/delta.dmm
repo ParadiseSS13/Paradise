@@ -23723,6 +23723,18 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/central)
+"bqy" = (
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/medbay)
 "bqA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -76355,7 +76367,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -89431,6 +89444,29 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/secondary/exit)
+"sbz" = (
+/obj/structure/window/reinforced{
+	dir = 8;
+	pixel_x = -4
+	},
+/obj/structure/chair/office{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/sortjunction{
+	dir = 1;
+	name = "Chemistry";
+	sort_type_txt = "11";
+	icon_state = "pipe-j2s"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/medbay)
 "sbU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock{
@@ -90378,6 +90414,16 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"sAl" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4;
+	icon_state = "pipe-c"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteyellowcorner"
+	},
+/area/station/medical/medbay)
 "sAy" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
@@ -92336,6 +92382,20 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft)
+"tLO" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/medbay)
 "tMJ" = (
 /obj/machinery/shower{
 	dir = 4
@@ -93607,12 +93667,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/sortjunction{
-	dir = 1;
-	name = "Chemistry";
-	sort_type_txt = "2";
-	icon_state = "pipe-j2s"
-	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "uts" = (
@@ -141407,7 +141462,7 @@ vzF
 oUw
 eNw
 tgq
-tgq
+sAl
 jRZ
 rPa
 cXe
@@ -141664,8 +141719,8 @@ hZK
 cXj
 ddV
 cMq
-cMq
-hbt
+pwS
+tLO
 pwS
 cXe
 cXe
@@ -141921,8 +141976,8 @@ pxD
 ddV
 cMq
 dEr
-cMq
-hbt
+pwS
+tLO
 pwS
 fPq
 wkL
@@ -142178,8 +142233,8 @@ cMq
 cMq
 gJC
 sMp
-gJC
-hbt
+bqy
+tLO
 oMI
 diC
 vBu
@@ -142435,7 +142490,7 @@ uYu
 uYu
 dvV
 erg
-dvV
+sbz
 utn
 mZL
 kho
