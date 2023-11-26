@@ -1,4 +1,3 @@
-
 /obj/item/kirbyplants{icon_state="applebush"} : /obj/item/kirbyplants/applebush{@OLD;icon_state=@SKIP}
 /obj/item/kirbyplants{icon_state="plant-dead"} : /obj/item/kirbyplants/dead{@OLD;icon_state=@SKIP}
 /obj/item/kirbyplants{icon_state="plant-01"} : /obj/item/kirbyplants/plant1{@OLD;icon_state=@SKIP}
