@@ -107,7 +107,7 @@
 	var/targetted_direction = get_dir(owner, path[1])
 
 	var/delay = owner_move_delay
-	if(targetted_direction & (targetted_direction - 1)) // diagonal direction
+	if(IS_DIR_DIAGONAL(targetted_direction))
 		delay *= SQRT_2
 
 	if(!owner.Move(path[1], targetted_direction, delay))

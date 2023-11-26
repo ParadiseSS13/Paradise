@@ -428,15 +428,16 @@
 	// I originally only wanted to make it use an ID if it couldnt pathfind otherwise, but that means it could take multiple minutes if both searches failed
 	var/obj/item/card/id/temp_id = new(src)
 	temp_id.access = get_all_accesses()
+	set_pathfinding(TRUE)
 	var/found_path = pathfind.generate_path(150, null, temp_id) // one last try
 	qdel(temp_id)
 	if(!found_path)
 		qdel(pathfind)
+		set_pathfinding(FALSE)
 		return FALSE
 
 	pathfind.on_set_path_null = CALLBACK(src, PROC_REF(death))
 	pathfind.on_success = CALLBACK(src, PROC_REF(at_dronefab))
-	set_pathfinding(TRUE)
 	pathfind.start()
 	return TRUE
 
