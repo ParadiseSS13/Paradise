@@ -378,8 +378,8 @@
 /obj/item/kirbyplants/plant21
 	icon_state = "plant-21"
 
-/obj/item/kirbyplants/plant23
-	icon_state = "plant-23"
+/obj/item/kirbyplants/plant22
+	icon_state = "plant-22"
 
 /obj/item/kirbyplants/plant23
 	icon_state = "plant-23"
