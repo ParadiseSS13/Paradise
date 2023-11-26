@@ -197,6 +197,8 @@ mentor_role_id = ""
 forward_all_ahelps = true
 
 
+new_round_waiting_role_id = ""
+
 ################################################################
 
 
