@@ -27,7 +27,7 @@
 	trash = /obj/item/trash/plate
 	filling_color = "#FFD675"
 	list_reagents = list("nutriment" = 4, "sugar" = 1, "vitamin" = 1, "banana" = 3)
-	tastes = list("cake" = 5, "sweetness" = 2, "sad clowns" = 1, "ice-cream")
+	tastes = list("cake" = 5, "sweetness" = 2, "sad clowns" = 1, "ice-cream" = 1)
 
 /obj/item/reagent_containers/food/snacks/frozen/sundae
 	name = "sundae"
