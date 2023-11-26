@@ -2,6 +2,12 @@
 "aaa" = (
 /turf/space,
 /area/space)
+"aaK" = (
+/obj/effect/spawner/random_spawners/wall_rusted_always,
+/turf/simulated/wall,
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "aaZ" = (
 /obj/effect/landmark/spawner/carp,
 /turf/space,
@@ -55153,7 +55159,9 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "cZc" = (
 /obj/structure/rack,
 /obj/item/clothing/accessory/stethoscope,
@@ -55186,12 +55194,16 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "cZf" = (
 /obj/machinery/iv_drip,
 /obj/structure/bed/roller,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "cZg" = (
 /obj/structure/table/glass,
 /obj/structure/sign/nosmoking_2{
@@ -55206,7 +55218,9 @@
 	dir = 1;
 	icon_state = "whiteblue"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "cZh" = (
 /obj/machinery/iv_drip,
 /obj/structure/bed/roller,
@@ -55215,7 +55229,9 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "cZi" = (
 /obj/structure/mirror{
 	icon_state = "mirror_broke";
@@ -55226,7 +55242,9 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "cZj" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/effect/decal/cleanable/cobweb2,
@@ -55238,7 +55256,9 @@
 	dir = 4;
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "cZk" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Gambling Den"
@@ -55416,19 +55436,25 @@
 	dir = 1;
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dab" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dac" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dad" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
@@ -55732,11 +55758,15 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "daS" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "daT" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -55847,7 +55877,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dbB" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -56186,7 +56218,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dcG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -56201,7 +56235,9 @@
 	dir = 8;
 	icon_state = "whiteblue"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dcH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -56214,7 +56250,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dcI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -56227,7 +56265,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dcJ" = (
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/cobweb,
@@ -56660,7 +56700,9 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "ddV" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -56726,7 +56768,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "deo" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -56736,7 +56780,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dep" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -56748,7 +56794,9 @@
 	dir = 4;
 	icon_state = "whiteblue"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "deq" = (
 /obj/machinery/door/airlock/maintenance{
 	locked = 1;
@@ -56756,7 +56804,9 @@
 	},
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "der" = (
 /obj/machinery/shower{
 	dir = 4
@@ -56766,7 +56816,9 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "det" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -60617,7 +60669,9 @@
 "duy" = (
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "duK" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -61221,7 +61275,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dyb" = (
 /turf/simulated/floor/plating,
 /area/station/maintenance/theatre)
@@ -61631,7 +61687,9 @@
 /obj/structure/computerframe,
 /obj/item/circuitboard/operating,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dAY" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
@@ -62944,7 +63002,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dHk" = (
 /obj/structure/grille,
 /turf/simulated/floor/plasteel{
@@ -63167,7 +63227,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dIb" = (
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/light/small{
@@ -63394,7 +63456,9 @@
 	dir = 8;
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dKd" = (
 /obj/structure/table,
 /obj/machinery/newscaster{
@@ -63526,7 +63590,9 @@
 	icon_state = "0-2"
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dKH" = (
 /obj/structure/closet/crate,
 /obj/item/flashlight,
@@ -64074,13 +64140,17 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dOb" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dOc" = (
 /obj/structure/window/reinforced/polarized{
 	id = "RoboSurgery"
@@ -66629,7 +66699,9 @@
 "dXS" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dXT" = (
 /obj/machinery/light/small,
 /obj/structure/closet/crate/freezer,
@@ -66641,7 +66713,9 @@
 /obj/item/reagent_containers/iv_bag/blood/random,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dXU" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/regular,
@@ -66651,7 +66725,9 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dXV" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel/grimy,
@@ -66668,13 +66744,17 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dXZ" = (
 /obj/structure/table/reinforced,
 /obj/structure/bedsheetbin,
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "dYb" = (
 /obj/structure/table/glass,
 /obj/item/paper_bin{
@@ -72162,6 +72242,12 @@
 	icon_state = "darkredcorners"
 	},
 /area/station/security/permabrig)
+"hif" = (
+/obj/effect/spawner/random_spawners/fungus_maybe,
+/turf/simulated/wall,
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "hig" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
@@ -72934,6 +73020,11 @@
 	icon_state = "whitegreen"
 	},
 /area/station/medical/virology)
+"hHh" = (
+/turf/simulated/wall,
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "hHk" = (
 /obj/structure/closet/firecloset/full,
 /obj/effect/decal/cleanable/dirt,
@@ -87101,6 +87192,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/engineering/atmos)
+"qQj" = (
+/turf/simulated/floor/plating,
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "qQx" = (
 /obj/machinery/economy/vending/plasmaresearch,
 /turf/simulated/floor/plasteel,
@@ -93207,7 +93303,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "ukv" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -93398,6 +93496,12 @@
 	icon_state = "darkred"
 	},
 /area/station/security/warden)
+"uqh" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating,
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "uqG" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -93572,7 +93676,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
-/area/station/maintenance/starboard)
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "uxq" = (
 /mob/living/carbon/human/monkey,
 /obj/structure/window/reinforced{
@@ -93874,6 +93980,12 @@
 /obj/machinery/economy/vending/suitdispenser,
 /turf/simulated/floor/plasteel/dark,
 /area/station/public/locker)
+"uIm" = (
+/obj/effect/decal/cleanable/fungus,
+/turf/simulated/wall,
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "uJk" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -94713,6 +94825,12 @@
 	icon_state = "neutralfull"
 	},
 /area/station/hallway/primary/port)
+"vlx" = (
+/obj/effect/spawner/random_spawners/wall_rusted_maybe,
+/turf/simulated/wall,
+/area/station/medical/surgery/observation{
+	name = "Surgery 3"
+	})
 "vly" = (
 /obj/structure/cable{
 	d1 = 4;
@@ -150280,13 +150398,13 @@ aFt
 aFt
 cSX
 dDE
-bqC
-bng
-bng
+aaK
+hHh
+hHh
 dcF
-bng
-bng
-ryp
+hHh
+hHh
+hif
 dfI
 dhi
 dfI
@@ -150537,7 +150655,7 @@ imS
 aFt
 iPa
 vly
-bqC
+aaK
 cZb
 cZY
 dcG
@@ -150794,11 +150912,11 @@ cQe
 aFt
 cSZ
 cUw
-bng
+hHh
 cZe
 dab
 dcH
-boG
+qQj
 dJO
 dXT
 dfI
@@ -151051,12 +151169,12 @@ cQf
 fIE
 boG
 dDy
-bng
+hHh
 cZf
 dac
 dcI
 duy
-cMH
+uqh
 dXU
 dfI
 dhl
@@ -151308,7 +151426,7 @@ aFv
 aFv
 cSY
 dDC
-bng
+hHh
 cZg
 dab
 ddR
@@ -151565,7 +151683,7 @@ cQg
 aFv
 cTa
 dDE
-bng
+hHh
 cZh
 dac
 uwX
@@ -151822,12 +151940,12 @@ cQi
 aFv
 aLH
 dDE
-bng
+hHh
 cZi
 daR
 deo
 dem
-cMH
+uqh
 dXZ
 dfJ
 dho
@@ -152079,7 +152197,7 @@ cQh
 fIE
 cSY
 dDD
-bng
+hHh
 cZj
 dKB
 dep
@@ -152336,13 +152454,13 @@ aFv
 aFv
 cjn
 dDE
-bng
-bng
-bqB
+hHh
+hHh
+uIm
 deq
-bng
-bng
-dfK
+hHh
+hHh
+vlx
 dfI
 dfI
 dfI
