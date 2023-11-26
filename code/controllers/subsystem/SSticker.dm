@@ -143,7 +143,7 @@ SUBSYSTEM_DEF(ticker)
 				var/list/pickable_types = list()
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
-					if(initial(M.voteable))
+					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
 						pickable_types += M
 
 				var/datum/map/target_map = pick(pickable_types)
