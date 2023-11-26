@@ -270,10 +270,10 @@
 
 /obj/item/kirbyplants/Initialize(mapload)
 	. = ..()
-	if(icon_state == "random_plant")
-		icon_state = "plant-[rand(1,34)]"
 	if(prob(1) && icon_state == "random_plant")
 		icon_state = "plant-eye"
+	if(icon_state == "random_plant")
+		icon_state = "plant-[rand(1,34)]"
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
 
 /obj/item/kirbyplants/Destroy()
