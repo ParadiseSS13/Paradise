@@ -17073,7 +17073,6 @@
 	pixel_x = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/item/virus_analyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

@@ -114,21 +114,6 @@
 		var/t = rename_interactive(user, I)
 		if(!isnull(t))
 			label_text = t
-	else if(istype(I, /obj/item/healthanalyzer/virus_analyzer))
-		var/datum/reagent/blood/BL = locate() in reagents.reagent_list
-		var/msg
-		if(BL)
-			if(BL.data && BL.data["viruses"])
-				for(var/datum/disease/advance/D in BL.data["viruses"])
-					if(D.visibility_flags & HIDDEN_SCANNER)
-						continue
-					msg += "<span class='info'>You analyze [src]'s viruses</span>\n"
-					var/list/properties = D.GenerateProperties()
-					msg += "<span class='info'><b>- [D.form]:</b>\nName: [D.name].\nType: [D.spread_text].\n\nResistance: [properties["resistance"]].\nStealth: [properties["stealth"]].\nStage Rate: [properties["stage_rate"]].\nTransmittable: [properties["transmittable"]].\nPossible Cure: [D.cure_text].\n</span>"
-					msg += "<br><span class='info'>*---------*</span>"
-		if(!msg)
-			msg = "<span class='warning'>No viruses detected in [src]</span>\n"
-		to_chat(user, msg)
 	else
 		return ..()
 

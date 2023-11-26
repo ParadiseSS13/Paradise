@@ -195,7 +195,6 @@
 									continue
 								if(G.check_completion(C.reagents.reagent_list))
 									medical_credits += SSeconomy.credits_per_virology_goal
-									credits_to_deposit += SSeconomy.credits_per_virology_goal
 									msg += "<span class='good'>+[SSeconomy.credits_per_virology_goal]</span>: [G.name] completion.<br>"
 
 				// Sell exotic plants

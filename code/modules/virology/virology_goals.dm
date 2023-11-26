@@ -3,7 +3,7 @@ GLOBAL_LIST_EMPTY(virology_goals)
 /datum/virology_goal
 	var/name = "Generic Virology Goal"
 	var/delivered_amount = 0
-	var/delivery_goal = 100
+	var/delivery_goal = 15
 	var/completed = FALSE
 
 /datum/virology_goal/proc/get_report()
@@ -97,7 +97,7 @@ GLOBAL_LIST_EMPTY(virology_goals)
 	var/stealth = 0
 	for(var/i=0, i<4, i++)
 		var/list/datum/symptom/candidates = list()
-		for(var/V in symptoms)
+		for(var/V in symptoms) //I have no idea why a normal for loop doesnt work but iam not gonna try and fix it, because i was stuck at this bug for weeks already
 			var/datum/symptom/S = V
 			if(stealth + S.stealth >= 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
 				continue
@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(virology_goals)
 	var/stealth = 0
 	for(var/i=0, i<4, i++)
 		var/list/datum/symptom/candidates = list()
-		for(var/V in symptoms)
+		for(var/V in symptoms) //I have no idea why a normal for loop doesnt work but iam not gonna try and fix it, because i was stuck at this bug for weeks already
 			var/datum/symptom/S = V
 			if(stealth + S.stealth < 3) //The Pandemic cant detect a virus with stealth 3 or higher and we want that, this is a stealth virus
 				continue

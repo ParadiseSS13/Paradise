@@ -57,7 +57,7 @@ SUBSYSTEM_DEF(economy)
 	/// points gained per research design returned
 	var/credits_per_design = 20
 	/// points gained per virology goal
-	var/credits_per_virology_goal = 150
+	var/credits_per_virology_goal = 75
 
 	/// Remarks from Centcom on how well you checked the last order.
 	var/centcom_message
@@ -134,6 +134,10 @@ SUBSYSTEM_DEF(economy)
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 
 	next_paycheck_delay = 30 MINUTES + world.time
+
+	GLOB.virology_goals += list(new/datum/virology_goal/propertysymptom, new/datum/virology_goal/virus, new/datum/virology_goal/virus/stealth)
+	for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
+		P.print_goal_orders()
 
 /datum/controller/subsystem/economy/fire()
 	if(next_paycheck_delay <= world.time)

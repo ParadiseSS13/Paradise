@@ -79745,7 +79745,6 @@
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/science,
-/obj/item/virus_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreen"

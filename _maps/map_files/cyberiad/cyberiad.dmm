@@ -90933,7 +90933,6 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/obj/item/virus_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitegreen"

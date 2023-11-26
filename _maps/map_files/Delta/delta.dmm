@@ -76454,7 +76454,6 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/warning_stripes/southeastcorner,
-/obj/item/virus_analyzer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreencorner"
