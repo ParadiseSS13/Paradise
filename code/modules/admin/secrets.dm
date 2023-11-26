@@ -63,6 +63,11 @@
 
 		if(1)
 			if(check_rights((R_EVENT|R_SERVER),0))
+				var/security_levels_data = ""
+				for(var/level_name in SSsecurity_level.available_levels)
+					var/datum/security_level/this_level = SSsecurity_level.available_levels[level_name]
+					security_levels_data += "<a href='?src=[UID()];secretsfun=securitylevel;number=[this_level.number_level]'>[this_level.name]</a>"
+
 				dat += {"
 					<center>
 					<h2><B>IC Events</B></h2>
@@ -72,12 +77,7 @@
 					<BR><A href='?src=[UID()];secretsfun=deathsquad'>Send in the Deathsquad</A>&nbsp;&nbsp;
 					<A href='?src=[UID()];secretsfun=gimmickteam'>Send in a Gimmick Team</A><BR>
 					<b>Change Security Level</b><BR>
-					<A href='?src=[UID()];secretsfun=securitylevel0'>Security Level - Green</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=securitylevel1'>Security Level - Blue</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=securitylevel2'>Security Level - Red</A><br>
-					<A href='?src=[UID()];secretsfun=securitylevel3'>Security Level - Gamma</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=securitylevel4'>Security Level - Epsilon</A>&nbsp;&nbsp;
-					<A href='?src=[UID()];secretsfun=securitylevel5'>Security Level - Delta</A><BR>
+					[security_levels_data]<BR>
 					<b>Create Weather</b><BR>
 					<A href='?src=[UID()];secretsfun=weatherashstorm'>Weather - Ash Storm</A>&nbsp;&nbsp;
 					<BR>

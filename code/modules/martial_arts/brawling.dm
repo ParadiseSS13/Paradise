@@ -45,6 +45,7 @@
 /datum/martial_art/drunk_brawling
 	name = "Drunken Brawling"
 	weight = 2
+	can_horizontally_grab = FALSE
 
 /datum/martial_art/drunk_brawling/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	if(prob(70))

@@ -137,13 +137,6 @@
 
 	return 1
 
-/proc/cannotPossess(A)
-	var/mob/dead/observer/G = A
-	if(G.has_enabled_antagHUD && GLOB.configuration.general.restrict_antag_hud_rejoin)
-		return 1
-	return 0
-
-
 /proc/iscuffed(A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
@@ -184,6 +177,7 @@
 		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)])")
 		M.ghostize()
 		M.key = theghost.key
+		dust_if_respawnable(theghost)
 	else
 		to_chat(M, "There were no ghosts willing to take control.")
 		message_admins("No ghosts were willing to take control of [key_name_admin(M)])")
@@ -246,9 +240,9 @@
 	p = 1
 	while(p <= n)
 		if((copytext(te, p, p + 1) == " " || prob(pr)))
-			t = text("[][]", t, copytext(te, p, p + 1))
+			t = "[t][copytext(te, p, p + 1)]"
 		else
-			t = text("[]*", t)
+			t = "[t]*"
 		p++
 	return t
 
@@ -473,14 +467,17 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 	resting = !resting // this happens before the do_mob so that you can stay resting if you are stunned.
 
+	if(resting)
+		to_chat(src, "<span class='notice'>You are now trying to rest.</span>")
+	else
+		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
+
 	if(!do_mob(src, src, 1 SECONDS, extra_checks = list(CALLBACK(src, TYPE_PROC_REF(/mob/living, cannot_stand))), only_use_extra_checks = TRUE))
 		return
 
 	if(resting)
-		to_chat(src, "<span class='notice'>You are now resting.</span>")
 		lay_down()
 	else
-		to_chat(src, "<span class='notice'>You are now trying to get up.</span>")
 		stand_up()
 
 /proc/get_multitool(mob/user as mob)
@@ -521,6 +518,9 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			else
 				name = realname
 
+	for(var/obj/item/radio/deadsay_radio_system as anything in GLOB.deadsay_radio_systems)
+		deadsay_radio_system.attempt_send_deadsay_message(subject, message)
+
 	for(var/mob/M in GLOB.player_list)
 		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
@@ -547,8 +547,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP, role = null) //Easy notification of ghosts.
-	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(O.client && (!role || (role in O.client.prefs.be_special)))
+	for(var/mob/O in GLOB.player_list)
+		if(O.client && HAS_TRAIT(O, TRAIT_RESPAWNABLE) && (!role || (role in O.client.prefs.be_special)))
 			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound))
@@ -625,7 +625,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		var/search_pda = 1
 
 		for(var/A in searching)
-			if( search_id && istype(A,/obj/item/card/id) )
+			if(search_id && istype(A,/obj/item/card/id))
 				var/obj/item/card/id/ID = A
 				if(ID.registered_name == oldname)
 					ID.registered_name = newname
@@ -634,7 +634,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 					if(!search_pda)	break
 					search_id = 0
 
-			else if( search_pda && istype(A,/obj/item/pda) )
+			else if(search_pda && istype(A,/obj/item/pda))
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.owner = newname
@@ -797,3 +797,25 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			return "unconscious"
 		if(DEAD)
 			return "dead"
+
+/mob/proc/attempt_listen_to_deadsay()
+
+
+/mob/proc/is_roundstart_observer()
+	return (ckey in GLOB.roundstart_observer_keys)
+
+/mob/proc/has_ahudded()
+	return (ckey in GLOB.antag_hud_users)
+
+/// Proc to PROPERLY set mob invisibility, huds gotta get set too!
+/mob/proc/set_invisible(invis_value)
+	if(invis_value)
+		invisibility = invis_value
+	else
+		invisibility = initial(invisibility)
+	for(var/hud in hud_possible)
+		var/image/actual_hud = hud_list[hud]
+		if(invis_value)
+			actual_hud.invisibility = invis_value
+		else
+			actual_hud.invisibility = initial(actual_hud.invisibility)

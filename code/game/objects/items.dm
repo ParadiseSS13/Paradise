@@ -153,6 +153,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(isstorage(loc)) //marks all items in storage as being such
 		in_storage = TRUE
 
+// this proc is used to add text for items with ABSTRACT flag after default examine text
+/obj/item/proc/customised_abstract_text(mob/living/carbon/owner)
+	return
+
 /obj/item/proc/determine_move_resist()
 	switch(w_class)
 		if(WEIGHT_CLASS_TINY)
@@ -192,20 +196,6 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 /obj/item/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc)
 		qdel(src)
-
-/obj/item/verb/move_to_top()
-	set name = "Move To Top"
-	set category = null
-	set src in oview(1)
-
-	if(!isturf(src.loc) || usr.stat || usr.restrained() )
-		return
-
-	var/turf/T = src.loc
-
-	src.loc = null
-
-	src.loc = T
 
 /obj/item/examine(mob/user)
 	var/size
@@ -303,13 +293,16 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
 				to_chat(user, "<span class='warning'>The acid on [src] burns your hand!</span>")
 				var/obj/item/organ/external/affecting = H.get_organ("[user.hand ? "l" : "r" ]_arm")
-				if(affecting && affecting.receive_damage( 0, 5 ))		// 5 burn damage
+				if(affecting && affecting.receive_damage(0, 5))		// 5 burn damage
 					H.UpdateDamageIcon()
 
 	if(isstorage(src.loc))
 		//If the item is in a storage item, take it out
 		var/obj/item/storage/S = src.loc
 		S.remove_from_storage(src)
+
+	if(..())
+		return
 
 	if(throwing)
 		throwing.finalize(FALSE)
@@ -491,7 +484,7 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	if(!initial)
 		if(equip_sound && slot == slot_bitfield_to_slot(slot_flags))
 			playsound(src, equip_sound, EQUIP_SOUND_VOLUME, TRUE, ignore_walls = FALSE)
-		else if(slot == slot_l_hand || slot == slot_r_hand)
+		else if(slot == SLOT_HUD_LEFT_HAND || slot == SLOT_HUD_RIGHT_HAND)
 			playsound(src, pickup_sound, PICKUP_SOUND_VOLUME, ignore_walls = FALSE)
 
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -754,9 +747,10 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
 	closeToolTip(usr)
 	remove_outline()
+	return ..()
 
 /obj/item/MouseDrop_T(obj/item/I, mob/user)
-	if(!user || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == I)
+	if(!user || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || src == I || !isliving(user))
 		return
 
 	if(loc && I.loc == loc && isstorage(loc) && loc.Adjacent(user)) // Are we trying to swap two items in the storage?
@@ -809,29 +803,29 @@ GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons
 		return
 	var/mob/owner = loc
 	var/flags = slot_flags
-	if(flags & SLOT_OCLOTHING)
+	if(flags & SLOT_FLAG_OCLOTHING)
 		owner.update_inv_wear_suit()
-	if(flags & SLOT_ICLOTHING)
+	if(flags & SLOT_FLAG_ICLOTHING)
 		owner.update_inv_w_uniform()
-	if(flags & SLOT_GLOVES)
+	if(flags & SLOT_FLAG_GLOVES)
 		owner.update_inv_gloves()
-	if(flags & SLOT_EYES)
+	if(flags & SLOT_FLAG_EYES)
 		owner.update_inv_glasses()
-	if(flags & SLOT_EARS)
+	if(flags & SLOT_FLAG_EARS)
 		owner.update_inv_ears()
-	if(flags & SLOT_MASK)
+	if(flags & SLOT_FLAG_MASK)
 		owner.update_inv_wear_mask()
-	if(flags & SLOT_HEAD)
+	if(flags & SLOT_FLAG_HEAD)
 		owner.update_inv_head()
-	if(flags & SLOT_FEET)
+	if(flags & SLOT_FLAG_FEET)
 		owner.update_inv_shoes()
-	if(flags & SLOT_ID)
+	if(flags & SLOT_FLAG_ID)
 		owner.update_inv_wear_id()
-	if(flags & SLOT_BELT)
+	if(flags & SLOT_FLAG_BELT)
 		owner.update_inv_belt()
-	if(flags & SLOT_BACK)
+	if(flags & SLOT_FLAG_BACK)
 		owner.update_inv_back()
-	if(flags & SLOT_PDA)
+	if(flags & SLOT_FLAG_PDA)
 		owner.update_inv_wear_pda()
 
 /// Called on cyborg items that need special charging behavior. Override as needed for specific items.

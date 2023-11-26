@@ -12,7 +12,7 @@
 
 /datum/surgery_step/insert_pill
 	name = "insert pill"
-	allowed_tools = list(/obj/item/reagent_containers/food/pill = 100)
+	allowed_tools = list(/obj/item/reagent_containers/pill = 100)
 	time = 1.6 SECONDS
 
 /datum/surgery_step/insert_pill/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -22,12 +22,12 @@
 	)
 	return ..()
 
-/datum/surgery_step/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/reagent_containers/food/pill/tool, datum/surgery/surgery)
+/datum/surgery_step/insert_pill/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/reagent_containers/pill/tool, datum/surgery/surgery)
 	if(!istype(tool))
 		return SURGERY_STEP_INCOMPLETE
 
 	var/dental_implants = 0
-	for(var/obj/item/reagent_containers/food/pill in target.contents) // Can't give them more than 4 dental implants.
+	for(var/obj/item/reagent_containers/pill in target.contents) // Can't give them more than 4 dental implants.
 		dental_implants++
 	if(dental_implants >= 4)
 		user.visible_message("[user] pulls \the [tool] back out of [target]'s [parse_zone(target_zone)]!", "<span class='notice'>You pull \the [tool] back out of [target]'s [parse_zone(target_zone)], there wans't enough room...</span>")

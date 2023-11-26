@@ -1,11 +1,12 @@
 /obj/item/melee/baton
 	name = "stunbaton"
 	desc = "A stun baton for incapacitating people with."
+	icon = 'icons/obj/baton.dmi'
 	icon_state = "stunbaton"
 	var/base_icon = "stunbaton"
 	item_state = null
 	belt_icon = "stunbaton"
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
@@ -83,7 +84,7 @@
 	return cell
 
 /obj/item/melee/baton/mob_can_equip(mob/user, slot, disable_warning = TRUE)
-	if(turned_on && (slot == slot_belt || slot == slot_s_store))
+	if(turned_on && (slot == SLOT_HUD_BELT || slot == SLOT_HUD_SUIT_STORE))
 		to_chat(user, "<span class='warning'>You can't equip [src] while it's active!</span>")
 		return FALSE
 	return ..(user, slot, disable_warning = TRUE) // call parent but disable warning
@@ -251,15 +252,13 @@
 	L.SetStuttering(4 SECONDS)
 
 	ADD_TRAIT(L, TRAIT_WAS_BATONNED, user_UID) // so one person cannot hit the same person with two separate batons
-	L.apply_status_effect(STATUS_EFFECT_DELAYED, 2 SECONDS, CALLBACK(L, TYPE_PROC_REF(/mob/living, KnockDown), knockdown_duration), COMSIG_LIVING_CLEAR_STUNS)
 	addtimer(CALLBACK(src, PROC_REF(baton_delay), L, user_UID), 2 SECONDS)
 
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK, 33)
 
 	L.lastattacker = user.real_name
 	L.lastattackerckey = user.ckey
-	L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>",
-		"<span class='userdanger'>[L == user ? "You stun yourself" : "[user] has stunned you"] with [src]!</span>")
+	L.visible_message("<span class='danger'>[src] stuns [L]!</span>")
 	add_attack_logs(user, L, "stunned")
 	playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 	deductcharge(hitcost)
@@ -293,7 +292,8 @@
 	knockdown_duration = 6 SECONDS
 	w_class = WEIGHT_CLASS_BULKY
 	hitcost = 2000
-	slot_flags = SLOT_BACK | SLOT_BELT
+	slot_flags = SLOT_FLAG_BACK | SLOT_FLAG_BELT
+	flags_2 = ALLOW_BELT_NO_JUMPSUIT_2 //Look, you can strap it to your back. You can strap it to your waist too.
 	var/obj/item/assembly/igniter/sparkler = null
 
 /obj/item/melee/baton/cattleprod/Initialize(mapload)

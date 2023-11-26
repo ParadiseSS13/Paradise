@@ -234,7 +234,7 @@
 
 /obj/item/clothing/suit/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(slot == slot_wear_suit)
+	if(slot == SLOT_HUD_OUTER_SUIT)
 		disguise(user)
 
 /obj/item/clothing/suit/cardborg/dropped(mob/living/user)
@@ -644,7 +644,7 @@
 
 /obj/item/clothing/suit/straight_jacket/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
-	if(slot == slot_wear_suit)
+	if(slot == SLOT_HUD_OUTER_SUIT)
 		ADD_TRAIT(user, TRAIT_RESTRAINED, "straight_jacket")
 
 /obj/item/clothing/suit/straight_jacket/dropped(mob/user, silent)
@@ -820,6 +820,50 @@
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi'
 		)
+
+/obj/item/clothing/suit/jacket/varsity
+	name = "varsity jacket"
+	desc = "Stylish jacket for young and invincible."
+	icon_state = "varsity_classic"
+	item_state = "varsity_classic"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+	)
+
+/obj/item/clothing/suit/jacket/varsity_sport
+	name = "sport varsity jacket"
+	desc = "Stylish jacket for fast and furious."
+	icon_state = "varsity_sport"
+	item_state = "varsity_sport"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+	)
+
+/obj/item/clothing/suit/jacket/varsity_blood
+	name = "blood varsity jacket"
+	desc = "Stylish jacket for dangerous and violent."
+	icon_state = "varsity_blood"
+	item_state = "varsity_blood"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+	)
+
+/obj/item/clothing/suit/jacket/driver
+	name = "driver jacket"
+	desc = "Whoever wears such jacket is literally me."
+	icon_state = "driver_jacket"
+	item_state = "driver_jacket"
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/suit.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/suit.dmi'
+	)
 
 /obj/item/clothing/suit/jacket/syndicatebomber
 	name = "suspicious bomber jacket"
@@ -1107,7 +1151,7 @@
 	return ..()
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/missionary_robe/equipped(mob/living/carbon/human/H, slot)
-	if(!istype(H) || slot != slot_wear_suit)
+	if(!istype(H) || slot != SLOT_HUD_OUTER_SUIT)
 		STOP_PROCESSING(SSobj, src)
 		return
 	else

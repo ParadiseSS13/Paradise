@@ -53,6 +53,9 @@
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 1)
 
+/obj/item/reagent_containers/food/snacks/cheesewedge/presliced
+	list_reagents = list("nutriment" = 3, "vitamin" = 1, "cheese" = 4)
+	
 /obj/item/reagent_containers/food/snacks/weirdcheesewedge
 	name = "weird cheese"
 	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the broad sense of the word."
@@ -74,21 +77,20 @@
 	list_reagents = list("plantmatter" = 3, "vitamin" = 1)
 	tastes = list("mushroom" = 1)
 
-/obj/item/reagent_containers/food/snacks/tomatomeat
-	name = "tomato slice"
-	desc = "A slice from a huge tomato."
-	icon_state = "tomatomeat"
-	filling_color = "#DB0000"
-	bitesize = 6
-	list_reagents = list("protein" = 2)
-	tastes = list("tomato" = 1)
-
 /obj/item/reagent_containers/food/snacks/watermelonslice
 	name = "watermelon slice"
 	desc = "A slice of watery goodness."
 	icon_state = "watermelonslice" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FF3867"
 	tastes = list("watermelon" = 1)
+
+/obj/item/reagent_containers/food/snacks/tomatoslice
+	name = "tomato slice"
+	desc = "A fresh slice of tomato."
+	icon_state = "tomatoslice"
+	filling_color = "#DB0000"
+	list_reagents = list("plantmatter" = 2)
+	tastes = list("tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/pineappleslice
 	name = "pineapple slices"

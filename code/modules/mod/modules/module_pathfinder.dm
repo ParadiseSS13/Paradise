@@ -51,9 +51,9 @@
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/human_user = user
-	if(human_user.get_item_by_slot(slot_back) && !human_user.unEquip(human_user.get_item_by_slot(slot_back)))
+	if(human_user.get_item_by_slot(SLOT_HUD_BACK) && !human_user.unEquip(human_user.get_item_by_slot(SLOT_HUD_BACK)))
 		return
-	if(!human_user.equip_to_slot_if_possible(mod, slot_back, disable_warning = TRUE))
+	if(!human_user.equip_to_slot_if_possible(mod, SLOT_HUD_BACK, disable_warning = TRUE))
 		return
 	mod.quick_deploy(user)
 	human_user.update_action_buttons(TRUE)
