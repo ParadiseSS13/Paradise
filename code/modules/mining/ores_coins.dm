@@ -390,9 +390,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		log_and_set_aflame(P.firer, P)
 
 /obj/item/coin/plasma/attackby(obj/item/I, mob/living/user, params)
-	if(is_hot(I))
-		log_and_set_aflame(user, I)
-	return
+	if(!is_hot(I))
+		return
+	log_and_set_aflame(user, I)
 
 /obj/item/coin/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
 	var/turf/T = get_turf(src)
@@ -415,14 +415,14 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	credits = 160
 	var/last_event = 0
 
+/obj/item/coin/uranium/attack_self(mob/user)
+	radiate()
+	..()
+
 /obj/item/coin/uranium/proc/radiate()
 	if(world.time > last_event + 1.5 SECONDS)
 		radiation_pulse(src, 50)
 		last_event = world.time
-
-/obj/item/coin/uranium/attack_self(mob/user)
-	radiate()
-	..()
 
 /obj/item/coin/clown
 	cmineral = "bananium"
