@@ -1269,8 +1269,8 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/mine/outpost/mechbay)
 "da" = (
@@ -1473,8 +1473,8 @@
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/mine/outpost/mechbay)
 "du" = (
@@ -2662,8 +2662,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/mine/outpost/mechbay)
 "fF" = (
@@ -3660,8 +3660,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/mine/outpost/mechbay)
 "jL" = (
@@ -3848,7 +3848,10 @@
 /obj/machinery/door/airlock/research{
 	name = "Mech Bay"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
 /area/mine/outpost/mechbay)
 "le" = (
 /obj/structure/stone_tile,
@@ -4709,8 +4712,8 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/mine/outpost/mechbay)
 "pg" = (
@@ -5854,8 +5857,8 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/mine/outpost/mechbay)
 "zj" = (
@@ -6240,7 +6243,10 @@
 	id_tag = "mining_mechbay";
 	name = "Mech Bay Shutters"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
 /area/mine/outpost/mechbay)
 "Cu" = (
 /obj/structure/lattice/catwalk/mining,
@@ -8099,8 +8105,8 @@
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/mine/outpost/mechbay)
 "SQ" = (
@@ -8124,7 +8130,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkfull"
+	},
 /area/mine/outpost/mechbay)
 "SX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8256,8 +8265,8 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/mine/outpost/mechbay)
 "TU" = (
@@ -8800,8 +8809,8 @@
 	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner";
-	dir = 8
+	dir = 8;
+	icon_state = "redcorner"
 	},
 /area/mine/outpost/mechbay)
 "XZ" = (

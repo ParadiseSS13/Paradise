@@ -17169,7 +17169,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /turf/simulated/floor/plasteel{
-	icon_state = "purplefull"
+	icon_state = "redfull"
 	},
 /area/station/science/robotics/chargebay)
 "bjM" = (
@@ -37255,7 +37255,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "purplecorner"
+	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/aft)
 "crN" = (
@@ -38635,7 +38635,7 @@
 /area/station/medical/cloning)
 "cwE" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "purplefull"
+	icon_state = "redfull"
 	},
 /area/station/hallway/primary/aft)
 "cwF" = (
@@ -39306,7 +39306,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "purplecorner"
+	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/aft)
 "cyN" = (
@@ -39578,6 +39578,12 @@
 	icon_state = "white"
 	},
 /area/station/medical/virology)
+"czE" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/station/hallway/primary/aft)
 "czF" = (
 /obj/machinery/door/firedoor,
 /obj/structure/sign/directions/evac{
@@ -40737,7 +40743,8 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurplefull"
+	dir = 6;
+	icon_state = "whiteredfull"
 	},
 /area/station/science/robotics)
 "cDN" = (
@@ -47666,7 +47673,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner"
+	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/aft)
 "deH" = (
@@ -61541,7 +61548,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner"
+	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/aft)
 "jms" = (
@@ -64466,7 +64473,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "kEg" = (
@@ -65877,7 +65884,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplefull"
+	icon_state = "redfull"
 	},
 /area/station/hallway/primary/aft)
 "lfU" = (
@@ -66221,7 +66228,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/science/robotics,
 /turf/simulated/floor/plasteel{
-	icon_state = "purplefull"
+	icon_state = "redfull"
 	},
 /area/station/science/robotics)
 "lkK" = (
@@ -68401,7 +68408,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "mgZ" = (
@@ -72565,7 +72572,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "purple"
+	icon_state = "red"
 	},
 /area/station/hallway/primary/aft)
 "nYH" = (
@@ -81797,7 +81804,7 @@
 	},
 /obj/item/circular_saw,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "soF" = (
@@ -83092,7 +83099,7 @@
 	},
 /obj/item/cautery,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "sRs" = (
@@ -85179,7 +85186,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "tRN" = (
@@ -122118,9 +122125,9 @@ nYF
 crI
 csT
 deF
-cuc
-cuc
-cuc
+czE
+czE
+czE
 cyM
 czH
 cAA

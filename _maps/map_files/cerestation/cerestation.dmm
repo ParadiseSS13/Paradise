@@ -8362,7 +8362,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purple"
+	icon_state = "red"
 	},
 /area/station/hallway/primary/aft/east)
 "aZT" = (
@@ -21867,6 +21867,23 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/bridge)
+"ckK" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/station/hallway/primary/aft/east)
 "ckQ" = (
 /obj/machinery/navbeacon{
 	codes_txt = "patrol;next_patrol=ArrivalsMiddle";
@@ -32184,7 +32201,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurplecorners"
+	icon_state = "darkredcorners"
 	},
 /area/station/science/robotics)
 "drE" = (
@@ -34635,7 +34652,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purple"
+	icon_state = "red"
 	},
 /area/station/hallway/primary/aft/west)
 "dIi" = (
@@ -37203,7 +37220,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "eDi" = (
@@ -39513,7 +39530,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "fyS" = (
@@ -39585,7 +39602,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "fAD" = (
@@ -40772,7 +40789,7 @@
 "fXR" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "darkpurplecorners"
+	icon_state = "darkredcorners"
 	},
 /area/station/science/robotics)
 "fXS" = (
@@ -40932,7 +40949,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "purplefull"
+	icon_state = "redfull"
 	},
 /area/station/hallway/primary/aft/west)
 "fZC" = (
@@ -43742,7 +43759,7 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "gZI" = (
@@ -43945,6 +43962,12 @@
 	},
 /turf/simulated/wall,
 /area/station/hallway/secondary/entry/north)
+"hdh" = (
+/obj/effect/turf_decal/box,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/station/hallway/primary/aft/west)
 "hdq" = (
 /obj/structure/table,
 /obj/item/clipboard,
@@ -44051,7 +44074,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "hfi" = (
@@ -47691,7 +47714,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purple"
+	icon_state = "red"
 	},
 /area/station/hallway/primary/aft/west)
 "iqJ" = (
@@ -49300,6 +49323,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/port/south)
+"iQA" = (
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
+	},
+/area/station/hallway/primary/aft/west)
 "iQJ" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -50505,7 +50534,7 @@
 /obj/item/storage/backpack/duffel/medical,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "jkk" = (
@@ -55437,7 +55466,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "kMh" = (
@@ -57345,7 +57374,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purplecorner"
+	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/aft/east)
 "loa" = (
@@ -65107,7 +65136,7 @@
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "nUg" = (
@@ -66707,7 +66736,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purplecorner"
+	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/aft/west)
 "ovW" = (
@@ -67920,7 +67949,7 @@
 	},
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "purplefull"
+	icon_state = "redfull"
 	},
 /area/station/hallway/primary/aft/west)
 "oQK" = (
@@ -68915,7 +68944,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "phM" = (
@@ -69708,7 +69737,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "pus" = (
@@ -74652,7 +74681,7 @@
 "qWS" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "qWY" = (
@@ -75287,7 +75316,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purplecorner"
+	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/aft/east)
 "rlz" = (
@@ -76113,7 +76142,7 @@
 /obj/item/retractor,
 /obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "rAT" = (
@@ -78040,7 +78069,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "shl" = (
@@ -79791,7 +79820,7 @@
 /area/station/hallway/spacebridge/sercom)
 "sLj" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "sLD" = (
@@ -80634,7 +80663,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "sYg" = (
@@ -83320,7 +83349,7 @@
 /obj/item/assembly/prox_sensor,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "tXA" = (
@@ -84736,7 +84765,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "uts" = (
@@ -86155,7 +86184,7 @@
 /obj/machinery/computer/rdconsole/robotics,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "uRu" = (
@@ -87238,7 +87267,7 @@
 /obj/machinery/r_n_d/circuit_imprinter,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "vid" = (
@@ -88007,7 +88036,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "vtB" = (
@@ -88264,7 +88293,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "vwy" = (
@@ -88328,7 +88357,7 @@
 /obj/structure/closet/secure_closet/roboticist,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "vxY" = (
@@ -91064,7 +91093,7 @@
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "wpW" = (
@@ -93163,7 +93192,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "wUp" = (
@@ -95857,7 +95886,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "xQl" = (
@@ -96289,7 +96318,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "purplecorner"
+	icon_state = "redcorner"
 	},
 /area/station/hallway/primary/aft/west)
 "xWF" = (
@@ -118444,7 +118473,7 @@ nNO
 qWS
 heU
 wOH
-alw
+hdh
 vBs
 xEd
 jEr
@@ -118701,7 +118730,7 @@ vHF
 qWS
 wUo
 ifg
-jRs
+iQA
 xWu
 xEd
 jEr
@@ -119473,7 +119502,7 @@ xNF
 jhA
 shk
 npb
-cia
+ckK
 ciG
 gPL
 dXV
@@ -119987,7 +120016,7 @@ jkk
 ouB
 sLj
 hVS
-cia
+ckK
 ciG
 gPL
 dXV
@@ -120244,7 +120273,7 @@ phx
 jkh
 kMa
 hVS
-cia
+ckK
 sWc
 gPL
 pQN
@@ -120501,7 +120530,7 @@ qeq
 qeq
 qeq
 npb
-cia
+ckK
 ciG
 vlI
 pQN

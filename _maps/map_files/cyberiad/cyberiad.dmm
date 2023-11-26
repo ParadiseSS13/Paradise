@@ -27113,7 +27113,7 @@
 /obj/item/mmi/robotic_brain,
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bEO" = (
@@ -27673,7 +27673,7 @@
 /obj/item/healthanalyzer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bGD" = (
@@ -27701,7 +27701,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bGF" = (
@@ -27726,7 +27726,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bGG" = (
@@ -27752,7 +27752,7 @@
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/hallway)
 "bGL" = (
@@ -28159,13 +28159,13 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bIl" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bIo" = (
@@ -28744,7 +28744,7 @@
 "bKn" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bKo" = (
@@ -28752,7 +28752,7 @@
 /obj/item/reagent_containers/food/drinks/mug,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/hallway)
 "bKp" = (
@@ -28897,7 +28897,7 @@
 /obj/item/clothing/glasses/welding,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bKU" = (
@@ -29445,7 +29445,7 @@
 /obj/machinery/mecha_part_fabricator,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "bNk" = (
@@ -29470,7 +29470,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "bNl" = (
@@ -29493,7 +29493,7 @@
 /obj/item/clothing/glasses/hud/diagnostic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "bNm" = (
@@ -29503,7 +29503,7 @@
 /obj/effect/landmark/start/roboticist,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bNo" = (
@@ -29516,7 +29516,7 @@
 "bNp" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/hallway)
 "bNt" = (
@@ -29714,7 +29714,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bNR" = (
@@ -29878,7 +29878,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "bOw" = (
@@ -29998,7 +29998,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "bPe" = (
@@ -30066,7 +30066,7 @@
 "bPi" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bPk" = (
@@ -30158,7 +30158,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "purplecorner"
+	icon_state = "whiteredcorner"
 	},
 /area/station/science/robotics)
 "bPA" = (
@@ -30628,7 +30628,7 @@
 "bRm" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "bRo" = (
@@ -30644,7 +30644,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "purple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bRq" = (
@@ -30727,7 +30727,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "bRQ" = (
@@ -30747,7 +30747,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bRR" = (
@@ -30766,7 +30766,7 @@
 /mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bRU" = (
@@ -30952,7 +30952,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bSA" = (
@@ -31155,7 +31155,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bSZ" = (
@@ -31178,7 +31178,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bTa" = (
@@ -31201,7 +31201,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bTb" = (
@@ -31218,7 +31218,7 @@
 	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "purplecorner"
+	icon_state = "whiteredcorner"
 	},
 /area/station/science/robotics)
 "bTk" = (
@@ -31455,7 +31455,7 @@
 "bUh" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whitepurplecorner"
+	icon_state = "whiteredcorner"
 	},
 /area/station/science/robotics)
 "bUi" = (
@@ -31563,7 +31563,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bUI" = (
@@ -31773,7 +31773,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurplecorner"
+	icon_state = "whiteredcorner"
 	},
 /area/station/science/robotics)
 "bVG" = (
@@ -31912,7 +31912,7 @@
 "bWk" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bWl" = (
@@ -31923,7 +31923,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "bWm" = (
@@ -53911,7 +53911,7 @@
 	},
 /obj/effect/landmark/start/roboticist,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "dDw" = (
@@ -53925,8 +53925,7 @@
 	},
 /obj/effect/landmark/start/roboticist,
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purple"
+	icon_state = "white"
 	},
 /area/station/science/robotics)
 "dDR" = (
@@ -66466,7 +66465,7 @@
 "jAH" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whitepurplecorner"
+	icon_state = "whiteredcorner"
 	},
 /area/station/science/robotics)
 "jAN" = (
@@ -67856,7 +67855,7 @@
 "kmE" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "purplecorner"
+	icon_state = "whiteredcorner"
 	},
 /area/station/science/robotics)
 "kmI" = (
@@ -69770,8 +69769,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "purplecorner"
+	icon_state = "white"
 	},
 /area/station/science/robotics)
 "ljA" = (
@@ -75514,7 +75512,7 @@
 /obj/item/mecha_parts/core,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "ofP" = (
@@ -81766,7 +81764,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "qZK" = (
@@ -86340,7 +86338,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "tvG" = (
@@ -86940,7 +86938,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "tJS" = (
@@ -88521,7 +88519,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "uwt" = (
@@ -88599,7 +88597,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "uxZ" = (
@@ -94174,7 +94172,7 @@
 /obj/structure/cable,
 /obj/machinery/economy/vending/robodrobe,
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "xoE" = (
@@ -94547,7 +94545,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "darkpurple"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "xyI" = (
