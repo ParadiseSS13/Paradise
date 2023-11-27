@@ -54,7 +54,7 @@
 	else
 		if(ending == "!")
 			speech_verb = "roars"
-		else if(ending== "?" )
+		else if(ending== "?")
 			speech_verb = "hisses curiously"
 	return speech_verb
 
