@@ -184,7 +184,8 @@
 		user.visible_message(
 	"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
 	"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
-	return TRUE
+		return TRUE
+
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
 	loc = null
