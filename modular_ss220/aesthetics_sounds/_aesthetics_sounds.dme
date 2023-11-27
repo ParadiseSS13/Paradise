@@ -4,4 +4,5 @@
 #include "code/closet.dm"
 #include "code/items.dm"
 #include "code/wilhelm.dm"
+#include "code/shuttle.dm"
 #include "code/mindslave.dm"
