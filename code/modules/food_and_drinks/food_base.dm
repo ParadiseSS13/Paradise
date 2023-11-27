@@ -73,7 +73,7 @@
 
 	if(T != ant_location) // Moving the food before a full ant swarm can arrive to the location also helps
 		ant_location = T
-    return
+		return
 
 	for(var/obj/structure/S in T) // Check if some object on our turf protects the food from ants
 		if(is_type_in_typecache(S, ant_suppressors))
