@@ -33,7 +33,7 @@
 		to_chat(user, "<span class='notice'>The washing machine cannot run in this state.</span>")
 		return
 
-	if(locate(/mob, contents))
+	if(locate(/mob) in src)
 		state = RUNNING_BLOODY
 	else
 		state = RUNNING
@@ -186,7 +186,7 @@
 		QDEL_NULL(crayon)
 
 
-	if(locate(/mob, contents))
+	if(locate(/mob) in src)
 		state = CLOSED_BLOODY
 		gibs_ready = TRUE
 	else
@@ -312,8 +312,8 @@
 		if(CLOSED_BLOODY)
 			if(gibs_ready)
 				gibs_ready = FALSE
-				if(locate(/mob, contents))
-					var/mob/M = locate(/mob, contents)
+				if(locate(/mob) in src)
+					var/mob/M = locate() in src
 					M.gib()
 			for(var/atom/movable/O in contents)
 				O.loc = src.loc
