@@ -492,7 +492,7 @@
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 
-	var/A = input(user, "Person to track", "Pinpoint") in names
+	var/A = tgui_input_list(user, "Person to track", "Pinpoint", names)
 	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
 		return
 

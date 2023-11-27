@@ -223,7 +223,10 @@
 						if(can_use_species(user, _species))
 							new_species += _species
 
-					active_character.species = input("Please select a species", "Character Generation", null) in sortTim(new_species, GLOBAL_PROC_REF(cmp_text_asc))
+					active_character.species = tgui_input_list(user, "Please select a species", "Character Generation", new_species)
+					if(!active_character.species)
+						active_character.species = prev_species
+						return
 					var/datum/species/NS = GLOB.all_species[active_character.species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						active_character.species = prev_species
@@ -309,12 +312,14 @@
 						if(!(lang.flags & RESTRICTED))
 							new_languages += lang.name
 
-					active_character.language = input("Please select a secondary language", "Character Generation", null) in sortTim(new_languages, GLOBAL_PROC_REF(cmp_text_asc))
+					active_character.language = tgui_input_list(user, "Please select a secondary language", "Character Generation", new_languages)
+					if(!active_character.language)
+						return
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
 						var/list/autohiss_choice = list("Off" = AUTOHISS_OFF, "Basic" = AUTOHISS_BASIC, "Full" = AUTOHISS_FULL)
-						var/new_autohiss_pref = input(user, "Choose your character's auto-accent level:", "Character Preference") as null|anything in autohiss_choice
+						var/new_autohiss_pref = tgui_input_list(user, "Choose your character's auto-accent level", "Character Preference", autohiss_choice)
 						if(new_autohiss_pref)
 							active_character.autohiss_mode = autohiss_choice[new_autohiss_pref]
 
@@ -324,7 +329,7 @@
 						active_character.metadata = sanitize(copytext(new_metadata,1,MAX_MESSAGE_LEN))
 
 				if("b_type")
-					var/new_b_type = input(user, "Choose your character's blood-type:", "Character Preference") as null|anything in list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" )
+					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type", "Character Preference", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
 					if(new_b_type)
 						active_character.b_type = new_b_type
 
@@ -369,12 +374,12 @@
 								valid_hairstyles += hairstyle
 
 					sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) //this alphabetizes the list
-					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
+					var/new_h_style = tgui_input_list(user, "Choose your character's hair style:", "Character Preference", valid_hairstyles)
 					if(new_h_style)
 						active_character.h_style = new_h_style
 
 				if("h_grad_style")
-					var/result = input(user, "Choose your character's hair gradient style:", "Character Preference") as null|anything in GLOB.hair_gradients_list
+					var/result = tgui_input_list(user, "Choose your character's hair gradient style", "Character Preference", GLOB.hair_gradients_list)
 					if(result)
 						active_character.h_grad_style = result
 
@@ -414,7 +419,7 @@
 							valid_head_accessory_styles += head_accessory_style
 
 						sortTim(valid_head_accessory_styles, GLOBAL_PROC_REF(cmp_text_asc))
-						var/new_head_accessory_style = input(user, "Choose the style of your character's head accessory:", "Character Preference") as null|anything in valid_head_accessory_styles
+						var/new_head_accessory_style = tgui_input_list(user, "Choose the style of your character's head accessory", "Character Preference", valid_head_accessory_styles)
 						if(new_head_accessory_style)
 							active_character.ha_style = new_head_accessory_style
 
@@ -423,7 +428,6 @@
 						return
 					if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 						var/list/valid_alt_heads = list()
-						valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option
 						for(var/alternate_head in GLOB.alt_heads_list)
 							var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
 							if(!(active_character.species in head.species_allowed))
@@ -431,7 +435,7 @@
 
 							valid_alt_heads += alternate_head
 
-						var/new_alt_head = input(user, "Choose your character's alternate head style:", "Character Preference") as null|anything in valid_alt_heads
+						var/new_alt_head = tgui_input_list(user, "Choose your character's alternate head style", "Character Preference", valid_alt_heads)
 						if(new_alt_head)
 							active_character.alt_head = new_alt_head
 						if(active_character.m_styles["head"])
@@ -443,7 +447,6 @@
 				if("m_style_head")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
 						var/list/valid_markings = list()
-						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[markingstyle]
 							if(!(active_character.species in M.species_allowed))
@@ -472,7 +475,7 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
-						var/new_marking_style = input(user, "Choose the style of your character's head markings:", "Character Preference", active_character.m_styles["head"]) as null|anything in valid_markings
+						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's head markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["head"] = new_marking_style
 
@@ -486,7 +489,6 @@
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
 						var/list/valid_markings = list()
-						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
 							if(!(active_character.species in M.species_allowed))
@@ -496,7 +498,7 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
-						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference", active_character.m_styles["body"]) as null|anything in valid_markings
+						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's body markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["body"] = new_marking_style
 
@@ -510,7 +512,6 @@
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						var/list/valid_markings = list()
-						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/tail/M = GLOB.marking_styles_list[markingstyle]
 							if(M.marking_location != "tail")
@@ -526,7 +527,7 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
-						var/new_marking_style = input(user, "Choose the style of your character's tail markings:", "Character Preference", active_character.m_styles["tail"]) as null|anything in valid_markings
+						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's tail markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["tail"] = new_marking_style
 
@@ -601,7 +602,7 @@
 							if(active_character.species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 								valid_facial_hairstyles += facialhairstyle
 					sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_f_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in valid_facial_hairstyles
+					var/new_f_style = tgui_input_list(user, "Choose your character's facial-hair style", "Character Preference", valid_facial_hairstyles)
 					if(new_f_style)
 						active_character.f_style = new_f_style
 
@@ -617,7 +618,7 @@
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
 					sortTim(valid_underwear, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference") as null|anything in valid_underwear
+					var/new_underwear = tgui_input_list(user, "Choose your character's underwear", "Character Preference", valid_underwear)
 					ShowChoices(user)
 					if(new_underwear)
 						active_character.underwear = new_underwear
@@ -633,7 +634,7 @@
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in valid_undershirts
+					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt", "Character Preference", valid_undershirts)
 					ShowChoices(user)
 					if(new_undershirt)
 						active_character.undershirt = new_undershirt
@@ -650,7 +651,7 @@
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_socks = input(user, "Choose your character's socks:", "Character Preference")  as null|anything in valid_sockstyles
+					var/new_socks = tgui_input_list(user, "Choose your character's socks", "Character Preference", valid_sockstyles)
 					ShowChoices(user)
 					if(new_socks)
 						active_character.socks = new_socks
@@ -691,22 +692,22 @@
 						ooccolor = new_ooccolor
 
 				if("bag")
-					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference") as null|anything in GLOB.backbaglist
+					var/new_backbag = tgui_input_list(user, "Choose your character's style of bag", "Character Preference", GLOB.backbaglist)
 					if(new_backbag)
 						active_character.backbag = new_backbag
 
 				if("nt_relation")
-					var/new_relation = input(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference")  as null|anything in list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed")
+					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed"))
 					if(new_relation)
 						active_character.nanotrasen_relation = new_relation
 
 				if("physique")
-					var/new_physique = input(user, "Choose your descriptor for how built your character is on glance.", "Character Preference") as null|anything in GLOB.character_physiques
+					var/new_physique = tgui_input_list(user, "Choose your descriptor for how built your character is on glance.", "Character Preference", GLOB.character_physiques)
 					if(new_physique)
 						active_character.physique = new_physique
 
 				if("height")
-					var/new_height = input(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference") as null|anything in GLOB.character_heights
+					var/new_height = tgui_input_list(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference", GLOB.character_heights)
 					if(new_height)
 						active_character.height = new_height
 
@@ -723,7 +724,7 @@
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
 					if(S.bodyflags & ALL_RPARTS)
 						valid_limbs = list("Torso", "Lower Body", "Head", "Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
-					var/limb_name = input(user, "Which limb do you want to change?") as null|anything in valid_limbs
+					var/limb_name = tgui_input_list(user, "Which limb do you want to change?", "Limbs and Parts", valid_limbs)
 					if(!limb_name) return
 
 					var/limb = null

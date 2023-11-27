@@ -311,7 +311,7 @@
 		return
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
-	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
+	var/switchMode = tgui_input_list(user, "Select a sensor mode.", "Suit Sensor Mode", modes)
 
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
