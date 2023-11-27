@@ -62,7 +62,7 @@
 			to_chat(O, "<span class='boldnotice'>\A [src] has been activated. (<a href='?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
 
 /obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
-	if(cannotPossess(O))
+	if(!O.check_ahud_rejoin_eligibility())
 		return FALSE
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))
 		return FALSE
@@ -121,6 +121,10 @@
 	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed  or placed into a mech in the future.</b>")
 	brainmob.mind.assigned_role = "Positronic Brain"
 
+	if(brainmob.has_ahudded())
+		log_admin("[key_name(brainmob)] has joined as a robot brain, after having toggled antag hud.")
+		message_admins("[key_name(brainmob)] has joined as a robot brain, after having toggled antag hud.")
+
 	visible_message("<span class='notice'>[src] chimes quietly.</span>")
 	become_occupied(occupied_icon)
 
@@ -155,7 +159,7 @@
 	if(!check_observer(O))
 		to_chat(O, "<span class='warning'>You cannot be \a [src].</span>")
 		return
-	if(cannotPossess(O))
+	if(!O.check_ahud_rejoin_eligibility())
 		to_chat(O, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return
 	if(jobban_isbanned(O, "Cyborg") || jobban_isbanned(O, "nonhumandept"))

@@ -75,3 +75,31 @@
 /datum/gear/shoes/whiteshoes
 	display_name = "White shoes"
 	path = /obj/item/clothing/shoes/white
+
+/datum/gear/shoes/leathershoes
+	display_name = "Leather shoes"
+	path = /obj/item/clothing/shoes/leather
+
+/datum/gear/shoes/redshoes
+	display_name = "Red shoes"
+	path = /obj/item/clothing/shoes/red
+
+/datum/gear/shoes/orangeshoes
+	display_name = "Orange shoes"
+	path = /obj/item/clothing/shoes/orange
+
+/datum/gear/shoes/yellowshoes
+	display_name = "Yellow shoes"
+	path = /obj/item/clothing/shoes/yellow
+
+/datum/gear/shoes/greenshoes
+	display_name = "Green shoes"
+	path = /obj/item/clothing/shoes/green
+
+/datum/gear/shoes/blueshoes
+	display_name = "Blue shoes"
+	path = /obj/item/clothing/shoes/blue
+
+/datum/gear/shoes/purpleshoes
+	display_name = "Purple shoes"
+	path = /obj/item/clothing/shoes/purple

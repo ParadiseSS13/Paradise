@@ -14429,7 +14429,7 @@
 /area/station/medical/reception)
 "bBs" = (
 /obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/carpet,
 /area/station/public/locker)
 "bBt" = (
@@ -77253,7 +77253,7 @@
 /area/station/maintenance/fore)
 "rUL" = (
 /obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/wood,
 /area/station/service/library)
 "rUQ" = (
@@ -93911,7 +93911,6 @@
 /turf/simulated/floor/carpet/cyan,
 /area/station/public/fitness)
 "xhr" = (
-/obj/effect/landmark/start/barber,
 /obj/structure/cable/orange{
 	d1 = 1;
 	d2 = 2;
