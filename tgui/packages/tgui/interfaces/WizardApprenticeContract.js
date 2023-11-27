@@ -65,7 +65,7 @@ export const WizardApprenticeContract = (props, context) => {
             <LabeledList.Item label="Stealth">
               Your apprentice is learning the art of infiltrating mundane
               facilities. <br />
-              They know Mindswap, Knock, Homing Toolbox, Forcewall, and Instant
+              They know Mindswap, Knock, Homing Toolbox, and Instant
               Summons, all of which can be cast without robes. They also join
               you in a Maintenance Dweller disguise, complete with Gloves of
               Shock Immunity and a Belt of Tools.

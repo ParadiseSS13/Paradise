@@ -123,7 +123,6 @@
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/mind_transfer(null))
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/toolbox(null))
-			M.mind.AddSpell(new /obj/effect/proc_holder/spell/forcewall(null))
 			M.mind.AddSpell(new /obj/effect/proc_holder/spell/summonitem(null))
 			M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), SLOT_HUD_SHOES)
 			M.equip_to_slot_or_del(new /obj/item/clothing/mask/gas(M), SLOT_HUD_WEAR_MASK)
