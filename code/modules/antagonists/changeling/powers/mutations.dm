@@ -16,10 +16,12 @@
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
+	var/recharge_slowdown
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
 	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
 		retract(user, TRUE)
+		cling.chem_recharge_slowdown -= recharge_slowdown
 		return
 	..(user, target)
 
@@ -30,6 +32,7 @@
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent, src)
 	user.put_in_hands(W)
+	cling.chem_recharge_slowdown += recharge_slowdown
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
 	return W
