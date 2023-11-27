@@ -46,6 +46,7 @@
 	desc = "Статуя древнегреческой богини правосудия."
 	icon = 'modular_ss220/unique_objects/icons/statuelarge.dmi'
 	icon_state = "themis"
+	layer = ABOVE_MOB_LAYER
 	pixel_y = 7
 	anchored = TRUE
 	oreAmount = 0
