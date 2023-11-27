@@ -34,8 +34,8 @@
 		return
 	if(!reagents.total_volume)
 		if(M == user)
-			to_chat(user, "<span class='notice'>You finish eating \the [src].</span>")
-		user.visible_message("<span class='notice'>[M] finishes eating \the [src].</span>")
+			to_chat(user, "<span class='notice'>You finish eating [src].</span>")
+		user.visible_message("<span class='notice'>[M] finishes eating [src].</span>")
 		user.unEquip(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(usr)

@@ -28,7 +28,7 @@
 
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(C.eat(src, user))
+		if(C.drink(src, user))
 			return TRUE
 	return FALSE
 

@@ -1135,11 +1135,11 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 /mob/living/carbon/proc/can_eat(flags = 255)
 	return TRUE
 
-/mob/living/carbon/proc/eat(obj/item/reagent_containers/to_eat, mob/user, bitesize_override)
-	if(ispill(to_eat) || ispatch(to_eat))
+/mob/living/carbon/proc/eat(obj/item/food/to_eat, mob/user, bitesize_override)
+	if(ispill(to_eat) || ispatch(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
 		return consume_patch_or_pill(to_eat, user)
 
-	if(!isfood(to_eat)) // We first have to know if it's either a pill or a patch, only then can we check if it's a food item
+	if(!isfood(to_eat))
 		return FALSE
 
 	var/obj/item/food/food = to_eat // It's not a patch or a pill so it must be food
@@ -1149,17 +1149,33 @@ GLOBAL_LIST_INIT(ventcrawl_machinery, list(/obj/machinery/atmospherics/unary/ven
 			fullness += C.nutriment_factor * C.volume / (C.metabolization_rate * metabolism_efficiency)
 
 	if(user == src)
-		if(istype(food, /obj/item/reagent_containers/drinks))
-			if(!selfDrink(food))
-				return FALSE
-		else
-			if(!selfFeed(food, fullness))
-				return FALSE
+		if(!selfFeed(food, fullness))
+			return FALSE
 	else
 		if(!forceFed(food, user, fullness))
 			return FALSE
 
 	consume(food, bitesize_override)
+	SSticker.score.score_food_eaten++
+	return TRUE
+
+/mob/living/carbon/proc/drink(obj/item/reagent_containers/drinks/to_eat, mob/user)
+	if(user == src)
+		if(!selfDrink(to_eat))
+			return FALSE
+	else if(!forceFed(to_eat, user, nutrition))
+		return FALSE
+
+	if(to_eat.consume_sound)
+		playsound(loc, to_eat.consume_sound, rand(10, 50), TRUE)
+	if(to_eat.reagents.total_volume)
+		taste(to_eat.reagents)
+		var/fraction = min(1 / to_eat.reagents.total_volume, 1)
+		var/drink_size = to_eat.amount_per_transfer_from_this < 5 ? 5 : to_eat.amount_per_transfer_from_this
+		if(fraction)
+			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
+			to_eat.reagents.trans_to(src, drink_size)
+
 	SSticker.score.score_food_eaten++
 	return TRUE
 
