@@ -16,9 +16,6 @@
 	anchored = TRUE
 	var/state = OPEN_EMPTY
 	var/panel = FALSE
-	//FALSE = closed
-	//TRUE = open
-	var/hacked = TRUE //Bleh, screw hacking, let's have it hacked by default.
 	var/gibs_ready = 0
 	var/obj/crayon
 
@@ -214,7 +211,7 @@
 		else
 			return ..()
 	else if(istype(W,/obj/item/grab))
-		if(state == OPEN_EMPTY && hacked)
+		if(state == OPEN_EMPTY)
 			var/obj/item/grab/G = W
 			if(ishuman(G.assailant) && iscorgi(G.affecting))
 				G.affecting.loc = src
