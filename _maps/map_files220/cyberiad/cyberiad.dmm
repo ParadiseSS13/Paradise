@@ -3647,8 +3647,8 @@
 /area/station/security/main)
 "apJ" = (
 /obj/structure/table/reinforced,
-/obj/machinery/recharger/wallcharger{
-	pixel_x = 4
+/obj/machinery/recharger{
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredfull"
@@ -4572,7 +4572,7 @@
 	},
 /area/station/security/brig)
 "atA" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/silver{
 	name = "Prison Showers"
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -54736,10 +54736,9 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/access_button{
+/obj/machinery/access_button/north{
 	autolink_id = "perma_btn_ext";
 	name = "Prison Wing Access Button";
-	pixel_y = 21;
 	req_one_access_txt = "2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -55436,8 +55435,7 @@
 	},
 /obj/machinery/flasher_button{
 	id = "prison";
-	pixel_x = -10;
-	pixel_y = 20
+	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -64166,7 +64164,7 @@
 	},
 /area/station/command/office/hos)
 "kBe" = (
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/bathroom{
 	name = "Prison Toilets"
 	},
 /obj/machinery/door/firedoor,
@@ -72747,9 +72745,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"nEQ" = (
-/turf/simulated/wall,
-/area/station/security/prison/cell_block/A)
 "nET" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced{
@@ -78073,10 +78068,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes,
-/obj/machinery/access_button{
+/obj/machinery/access_button/south{
 	autolink_id = "perma_btn_int";
 	name = "Prison Wing Access Button";
-	pixel_y = -21;
 	req_one_access_txt = "2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/brig,
@@ -80933,20 +80927,20 @@
 	int_button_link_id = "perma_btn_int";
 	int_door_link_id = "perma_door_int";
 	name = "Prison Access Console";
-	pixel_x = -22;
-	pixel_y = 22
+	pixel_x = -27;
+	pixel_y = 25
 	},
 /obj/machinery/door_control/shutter/north{
 	desc = "A remote control-switch to lock down the prison wing's blast doors";
 	id = "Prison Gate";
 	name = "Prison Wing Lockdown";
-	pixel_x = -32;
+	pixel_x = -38;
 	req_one_access_txt = "2"
 	},
 /obj/machinery/flasher_button{
 	id = "prison";
-	pixel_x = -20;
-	pixel_y = 31
+	pixel_x = -38;
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -81656,10 +81650,9 @@
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes,
-/obj/machinery/access_button{
+/obj/machinery/access_button/north{
 	autolink_id = "perma_btn_int";
 	name = "Prison Wing Access Button";
-	pixel_y = 21;
 	req_one_access_txt = "2"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/security/brig,
@@ -85054,7 +85047,7 @@
 /area/station/command/meeting_room)
 "siM" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock{
+/obj/machinery/door/airlock/bathroom{
 	name = "Prison Toilets"
 	},
 /obj/machinery/door/firedoor,
@@ -91994,10 +91987,9 @@
 	name = "Prison Wing"
 	},
 /obj/machinery/door/firedoor,
-/obj/machinery/access_button{
+/obj/machinery/access_button/south{
 	autolink_id = "perma_btn_ext";
 	name = "Prison Wing Access Button";
-	pixel_y = -21;
 	req_one_access_txt = "2"
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -131562,7 +131554,7 @@ aAx
 aoU
 aqU
 atb
-nEQ
+aAx
 hIC
 avY
 aAx
@@ -132590,7 +132582,7 @@ aAx
 aoX
 ajN
 ate
-nEQ
+aAx
 aum
 axJ
 aAx
