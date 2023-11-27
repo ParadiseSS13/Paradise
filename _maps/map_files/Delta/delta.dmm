@@ -63821,7 +63821,9 @@
 	pixel_x = -3;
 	pixel_y = 6
 	},
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteredcorner"
+	},
 /area/station/science/robotics)
 "dsK" = (
 /obj/structure/table/reinforced,
@@ -63835,12 +63837,16 @@
 /obj/item/healthanalyzer,
 /obj/item/healthanalyzer,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dsL" = (
 /obj/machinery/mecha_part_fabricator,
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dsM" = (
 /obj/structure/rack,
@@ -63853,7 +63859,9 @@
 /obj/item/circuitboard/mecha/ripley/main,
 /obj/item/circuitboard/mecha/ripley/peripherals,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dsN" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -64420,7 +64428,10 @@
 /obj/item/flash,
 /obj/item/flash,
 /obj/item/flash,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dug" = (
 /obj/item/robot_parts/robot_suit,
@@ -64455,7 +64466,10 @@
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "duk" = (
 /turf/simulated/wall,
@@ -64846,7 +64860,10 @@
 	dir = 8;
 	id = "RoboSurgery"
 	},
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dvq" = (
 /obj/structure/mirror{
@@ -64856,7 +64873,10 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dvr" = (
 /obj/structure/chair/office/light{
@@ -65098,7 +65118,10 @@
 /obj/item/mmi/robotic_brain,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/item/mecha_parts/core,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dwr" = (
 /obj/structure/cable{
@@ -65746,7 +65769,10 @@
 /obj/item/paicard,
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dyN" = (
 /obj/structure/cable{
@@ -65982,7 +66008,10 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dzW" = (
 /obj/structure/cable{
@@ -66010,7 +66039,9 @@
 	dir = 1;
 	name = "Robotics Operating Computer"
 	},
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dzZ" = (
 /obj/machinery/optable{
@@ -66021,7 +66052,9 @@
 	},
 /obj/item/storage/firstaid/machine,
 /obj/item/storage/firstaid/machine,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dAa" = (
 /obj/effect/turf_decal/stripes/line{
@@ -66513,7 +66546,10 @@
 	pixel_x = 24;
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dBP" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -66983,7 +67019,10 @@
 	pixel_x = -28
 	},
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteredcorner"
+	},
 /area/station/science/robotics)
 "dDa" = (
 /obj/machinery/light,
@@ -67449,7 +67488,10 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dEZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -67570,7 +67612,10 @@
 /obj/item/mmi,
 /obj/item/mmi,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dFx" = (
 /obj/structure/chair/comfy/brown{
@@ -67596,7 +67641,10 @@
 	},
 /obj/item/reagent_containers/spray/cleaner,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dFB" = (
 /obj/structure/chair,
@@ -68208,7 +68256,10 @@
 	},
 /obj/item/storage/box/masks,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dHT" = (
 /turf/simulated/floor/plasteel,
@@ -71002,7 +71053,10 @@
 /obj/item/circular_saw,
 /obj/item/cautery,
 /obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "dQr" = (
 /obj/machinery/power/apc{
@@ -78743,7 +78797,10 @@
 /obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "hRZ" = (
 /obj/machinery/door/firedoor,
@@ -80596,6 +80653,13 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
+"jqZ" = (
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitered"
+	},
+/area/station/science/robotics)
 "jrB" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "perma_door_ext";
@@ -84224,6 +84288,19 @@
 	},
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/library)
+"msx" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitered"
+	},
+/area/station/science/robotics)
 "msA" = (
 /obj/effect/turf_decal/delivery/hollow,
 /obj/structure/punching_bag,
@@ -84943,6 +85020,14 @@
 	},
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
+"mST" = (
+/obj/machinery/mecha_part_fabricator,
+/obj/effect/turf_decal/delivery,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whitered"
+	},
+/area/station/science/robotics)
 "mSV" = (
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -86302,7 +86387,10 @@
 	sort_type_txt = "14"
 	},
 /obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitered"
+	},
 /area/station/science/robotics)
 "nIH" = (
 /obj/structure/window/reinforced,
@@ -91484,6 +91572,12 @@
 	icon_state = "whitepurple"
 	},
 /area/station/science/break_room)
+"rAW" = (
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whiteredcorner"
+	},
+/area/station/science/robotics)
 "rBP" = (
 /obj/machinery/hologram/holopad,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -94058,6 +94152,12 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/hallway/primary/port)
+"ttD" = (
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whitered"
+	},
+/area/station/science/robotics)
 "tvq" = (
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
@@ -99797,7 +99897,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "whiteredfull"
+	},
 /area/station/science/robotics)
 "xQz" = (
 /obj/structure/chair{
@@ -137691,7 +137794,7 @@ dwr
 dxD
 dyN
 dzW
-dEn
+msx
 dEn
 hPC
 cMk
@@ -138205,7 +138308,7 @@ dws
 dvo
 dyO
 dAa
-dtN
+jqZ
 dtN
 mxK
 dBC
@@ -138456,7 +138559,7 @@ dmg
 dip
 dqo
 dqm
-dsL
+mST
 dvl
 dui
 dOc
@@ -138717,7 +138820,7 @@ due
 dvm
 dws
 dOD
-dav
+ttD
 dav
 dyR
 dzY
@@ -138975,7 +139078,7 @@ dvr
 dxz
 dXr
 dvq
-dav
+rAW
 dyS
 dzZ
 dql

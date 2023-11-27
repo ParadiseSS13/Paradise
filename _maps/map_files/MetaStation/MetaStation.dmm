@@ -23607,7 +23607,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "bAl" = (
@@ -27707,7 +27707,10 @@
 /obj/machinery/computer/cryopod/robot{
 	pixel_x = -28
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/science/robotics/chargebay)
 "bNI" = (
 /obj/structure/cable{
@@ -32920,7 +32923,10 @@
 	name = "east bump";
 	pixel_x = 28
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
 /area/station/science/robotics)
 "cdk" = (
 /obj/effect/turf_decal/delivery,
@@ -36128,7 +36134,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/recharge_station,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
 /area/station/science/robotics/chargebay)
 "cnA" = (
 /obj/effect/turf_decal/delivery,
@@ -36538,7 +36547,10 @@
 	pixel_y = 24;
 	req_access_txt = "29"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/science/robotics/chargebay)
 "coI" = (
 /obj/machinery/light/small{
@@ -46841,7 +46853,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "dan" = (
@@ -48295,7 +48307,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "djP" = (
@@ -49377,7 +49390,7 @@
 /area/station/maintenance/auxsolarstarboard)
 "dQb" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "dQq" = (
@@ -51923,7 +51936,7 @@
 	},
 /obj/structure/closet/secure_closet/roboticist,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "eVZ" = (
@@ -52217,7 +52230,10 @@
 	name = "west bump";
 	pixel_x = -24
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/science/robotics/chargebay)
 "fdd" = (
 /obj/structure/closet/firecloset,
@@ -52355,7 +52371,7 @@
 "fho" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "fhs" = (
@@ -54066,7 +54082,8 @@
 /obj/item/mmi,
 /obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	dir = 4;
+	icon_state = "whitered"
 	},
 /area/station/science/robotics)
 "fTt" = (
@@ -54817,6 +54834,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
+"gkg" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/science/robotics)
 "gkn" = (
 /obj/machinery/camera{
 	c_tag = "Prison Solitary Confinemessssnt 1";
@@ -56309,7 +56332,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "gVX" = (
@@ -57844,7 +57867,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/science/robotics)
 "hDx" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -59278,7 +59304,7 @@
 /obj/structure/morgue{
 	dir = 2
 	},
-/obj/effect/turf_decal/stripes/white,
+/obj/effect/turf_decal/stripes/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -59538,7 +59564,10 @@
 	pixel_y = 5
 	},
 /obj/item/stock_parts/cell/high/plus,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
 /area/station/science/robotics)
 "inw" = (
 /obj/machinery/access_button{
@@ -60222,7 +60251,7 @@
 "iBi" = (
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "iBq" = (
@@ -62030,7 +62059,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/science/robotics)
 "jAZ" = (
 /obj/machinery/door/firedoor,
@@ -63782,7 +63814,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/fore)
 "kqd" = (
-/obj/effect/turf_decal/loading_area/white,
+/obj/effect/turf_decal/loading_area/red,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -65409,7 +65441,10 @@
 	name = "east bump";
 	pixel_x = 24
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
 /area/station/science/robotics)
 "kWt" = (
 /obj/structure/cable/yellow{
@@ -66554,7 +66589,10 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/science/robotics/chargebay)
 "lsM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -70146,7 +70184,10 @@
 	},
 /obj/structure/disposalpipe/trunk,
 /obj/effect/turf_decal/stripes/line,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
 /area/station/science/robotics)
 "mXs" = (
 /obj/structure/window/reinforced,
@@ -71029,7 +71070,10 @@
 /area/station/maintenance/fpmaint)
 "nlQ" = (
 /obj/structure/reagent_dispensers/fueltank,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
 /area/station/science/robotics/chargebay)
 "nmc" = (
 /obj/structure/reagent_dispensers/beerkeg/nuke,
@@ -71218,7 +71262,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "nsB" = (
@@ -72361,7 +72405,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "nUU" = (
@@ -72754,7 +72798,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/science/robotics)
 "ocp" = (
 /obj/structure/cable/yellow{
@@ -73363,7 +73410,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "ovM" = (
@@ -74378,7 +74425,7 @@
 	pixel_y = 24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "oVx" = (
@@ -75621,7 +75668,7 @@
 /obj/item/storage/belt/utility,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "pzQ" = (
@@ -75740,7 +75787,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "pCg" = (
@@ -76813,7 +76860,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "pXX" = (
@@ -78134,7 +78181,10 @@
 /area/station/hallway/primary/central)
 "qCm" = (
 /obj/machinery/recharge_station,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
 /area/station/science/robotics/chargebay)
 "qCv" = (
 /obj/machinery/light,
@@ -78229,7 +78279,7 @@
 "qFl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "qFz" = (
@@ -79562,7 +79612,10 @@
 	pixel_y = -28
 	},
 /obj/item/clothing/glasses/welding,
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/science/robotics/chargebay)
 "rmz" = (
 /obj/machinery/door/firedoor,
@@ -82190,7 +82243,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "syP" = (
@@ -82469,7 +82522,10 @@
 	pixel_y = 26;
 	req_access_txt = "29"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "red"
+	},
 /area/station/science/robotics)
 "sFP" = (
 /obj/structure/cable{
@@ -84464,7 +84520,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "twN" = (
@@ -85299,7 +85355,7 @@
 	pixel_y = -28
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkred"
 	},
 /area/station/science/robotics)
 "tVw" = (
@@ -87223,7 +87279,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "uSc" = (
@@ -87490,7 +87546,7 @@
 	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "dark"
 	},
 /area/station/science/robotics)
 "uXE" = (
@@ -87577,7 +87633,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
 /area/station/science/robotics/chargebay)
 "uYy" = (
 /obj/machinery/hydroponics/soil,
@@ -123673,7 +123732,7 @@ kWj
 mWN
 uXA
 iBi
-qFl
+gkg
 iBi
 fho
 lfJ
@@ -123931,7 +123990,7 @@ cJp
 oUU
 pzC
 dQb
-qFl
+gkg
 eVO
 cJp
 pcx
