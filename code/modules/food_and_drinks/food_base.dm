@@ -42,7 +42,7 @@
 	START_PROCESSING(SSobj, src)
 	ant_location = get_turf(src)
 	last_ant_time = world.time
-  add_initial_reagents()
+	add_initial_reagents()
 
 /obj/item/food/Destroy()
 	ant_location = null
