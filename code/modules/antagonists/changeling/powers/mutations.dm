@@ -16,12 +16,12 @@
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
+	/// Does having this weapon out reduce the chemical recharge rate of the changeling?
 	var/recharge_slowdown
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
 	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
 		retract(user, TRUE)
-		cling.chem_recharge_slowdown -= recharge_slowdown
 		return
 	..(user, target)
 
@@ -54,6 +54,7 @@
 		done = TRUE
 	if(done && !silent)
 		owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+	cling.chem_recharge_slowdown -= recharge_slowdown // We handle this here because more things can retract without going through try_to_sting
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
