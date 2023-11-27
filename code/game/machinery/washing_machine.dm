@@ -3,9 +3,8 @@
 #define OPEN_FULL		3
 #define CLOSED_FULL		4
 #define RUNNING			5
-#define OPEN_BLOODY		6
-#define CLOSED_BLOODY	7
-#define RUNNING_BLOODY	8
+#define CLOSED_BLOODY	6
+#define RUNNING_BLOODY	7
 
 /obj/machinery/washing_machine
 	name = "washing machine"
@@ -200,7 +199,7 @@
 	if(default_unfasten_wrench(user, W))
 		return
 	if(istype(W, /obj/item/toy/crayon) || istype(W, /obj/item/stamp))
-		if(state in list(OPEN_EMPTY, OPEN_FULL, OPEN_BLOODY))
+		if(state in list(OPEN_EMPTY, OPEN_FULL))
 			if(!crayon)
 				user.drop_item()
 				crayon = W
@@ -301,8 +300,6 @@
 			state = OPEN_EMPTY
 		if(RUNNING)
 			to_chat(user, "<span class='warning'>[src] is busy.</span>")
-		if(OPEN_BLOODY)
-			state = CLOSED_BLOODY
 		if(CLOSED_BLOODY)
 			if(gibs_ready)
 				gibs_ready = FALSE
@@ -325,6 +322,5 @@
 #undef OPEN_FULL
 #undef CLOSED_FULL
 #undef RUNNING
-#undef OPEN_BLOODY
 #undef CLOSED_BLOODY
 #undef RUNNING_BLOODY
