@@ -16,7 +16,7 @@
 	anchored = TRUE
 	var/state = OPEN_EMPTY
 	var/panel = FALSE
-	var/gibs_ready = 0
+	var/gibs_ready = FALSE
 	var/obj/crayon
 
 /obj/machinery/washing_machine/examine(mob/user)
@@ -151,8 +151,8 @@
 				for(var/obj/item/clothing/shoes/S in contents)
 					if(!S.dyeable)
 						continue
-					if(S.chained == 1)
-						S.chained = 0
+					if(S.chained)
+						S.chained = FALSE
 						S.slowdown = SHOES_SLOWDOWN
 						new /obj/item/restraints/handcuffs( src )
 					S.icon_state = new_shoe_icon_state
@@ -188,7 +188,7 @@
 
 	if(locate(/mob,contents))
 		state = CLOSED_BLOODY
-		gibs_ready = 1
+		gibs_ready = TRUE
 	else
 		state = CLOSED_FULL
 	update_icon(UPDATE_ICON_STATE)
@@ -311,7 +311,7 @@
 			state = CLOSED_BLOODY
 		if(CLOSED_BLOODY)
 			if(gibs_ready)
-				gibs_ready = 0
+				gibs_ready = FALSE
 				if(locate(/mob,contents))
 					var/mob/M = locate(/mob,contents)
 					M.gib()
