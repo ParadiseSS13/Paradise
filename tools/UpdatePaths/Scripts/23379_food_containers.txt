@@ -1,0 +1,2 @@
+/obj/item/reagent_containers/food/drinks : /obj/item/reagent_containers/drinks/@SUBTYPES{OLD}
+/obj/item/reagent_containers/food : /obj/item/food/@SUBTYPES{OLD}
