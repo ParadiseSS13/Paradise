@@ -123,7 +123,7 @@
 	flags_inv = HIDEEARS
 
 /obj/item/clothing/suit/hooded/vi_arcane
-	name = "жакет Вай."
+	name = "жакет Вай"
 	icon_state = "vi_arcane"
 	item_state = "vi_arcane"
 	hoodtype = /obj/item/clothing/head/hooded/vi_arcane
