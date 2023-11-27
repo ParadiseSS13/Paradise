@@ -33,7 +33,7 @@
 		to_chat(user, "<span class='notice'>The washing machine cannot run in this state.</span>")
 		return
 
-	if(locate(/mob,contents))
+	if(locate(/mob, contents))
 		state = RUNNING_BLOODY
 	else
 		state = RUNNING
@@ -51,10 +51,10 @@
 
 	if(crayon)
 		var/wash_color
-		if(istype(crayon,/obj/item/toy/crayon))
+		if(istype(crayon, /obj/item/toy/crayon))
 			var/obj/item/toy/crayon/CR = crayon
 			wash_color = CR.colourName
-		else if(istype(crayon,/obj/item/stamp))
+		else if(istype(crayon, /obj/item/stamp))
 			var/obj/item/stamp/ST = crayon
 			wash_color = ST.item_color
 
@@ -186,7 +186,7 @@
 		QDEL_NULL(crayon)
 
 
-	if(locate(/mob,contents))
+	if(locate(/mob, contents))
 		state = CLOSED_BLOODY
 		gibs_ready = TRUE
 	else
@@ -199,7 +199,7 @@
 /obj/machinery/washing_machine/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(default_unfasten_wrench(user, W))
 		return
-	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/stamp))
+	if(istype(W, /obj/item/toy/crayon) ||istype(W, /obj/item/stamp))
 		if(state in list(OPEN_EMPTY, OPEN_FULL, OPEN_BLOODY))
 			if(!crayon)
 				user.drop_item()
@@ -210,7 +210,7 @@
 				return ..()
 		else
 			return ..()
-	else if(istype(W,/obj/item/grab))
+	else if(istype(W, /obj/item/grab))
 		if(state == OPEN_EMPTY)
 			var/obj/item/grab/G = W
 			if(ishuman(G.assailant) && iscorgi(G.affecting))
@@ -220,53 +220,53 @@
 			update_icon(UPDATE_ICON_STATE)
 		else
 			return ..()
-	else if(istype(W,/obj/item/stack/sheet/hairlesshide) || \
-		istype(W,/obj/item/clothing/under) || \
-		istype(W,/obj/item/clothing/mask) || \
-		istype(W,/obj/item/clothing/head) || \
-		istype(W,/obj/item/clothing/gloves) || \
-		istype(W,/obj/item/clothing/shoes) || \
-		istype(W,/obj/item/clothing/suit) || \
-		istype(W,/obj/item/bedsheet))
+	else if(istype(W, /obj/item/stack/sheet/hairlesshide) || \
+		istype(W, /obj/item/clothing/under) || \
+		istype(W, /obj/item/clothing/mask) || \
+		istype(W, /obj/item/clothing/head) || \
+		istype(W, /obj/item/clothing/gloves) || \
+		istype(W, /obj/item/clothing/shoes) || \
+		istype(W, /obj/item/clothing/suit) || \
+		istype(W, /obj/item/bedsheet))
 
 		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
-		if(istype(W,/obj/item/clothing/under/plasmaman))
+		if(istype(W, /obj/item/clothing/under/plasmaman))
 			to_chat(user, "This item does not fit.")
 			return
-		if(istype(W,/obj/item/clothing/suit/space))
+		if(istype(W, /obj/item/clothing/suit/space))
 			to_chat(user, "This item does not fit.")
 			return
-		if(istype(W,/obj/item/clothing/suit/syndicatefake))
+		if(istype(W, /obj/item/clothing/suit/syndicatefake))
 			to_chat(user, "This item does not fit.")
 			return
-//		if(istype(W,/obj/item/clothing/suit/powered))
+//		if(istype(W, /obj/item/clothing/suit/powered))
 //			to_chat(user, "This item does not fit.")
 //			return
-		if(istype(W,/obj/item/clothing/suit/cyborg_suit))
+		if(istype(W, /obj/item/clothing/suit/cyborg_suit))
 			to_chat(user, "This item does not fit.")
 			return
-		if(istype(W,/obj/item/clothing/suit/bomb_suit))
+		if(istype(W, /obj/item/clothing/suit/bomb_suit))
 			to_chat(user, "This item does not fit.")
 			return
-		if(istype(W,/obj/item/clothing/suit/armor))
+		if(istype(W, /obj/item/clothing/suit/armor))
 			to_chat(user, "This item does not fit.")
 			return
-		if(istype(W,/obj/item/clothing/mask/gas))
+		if(istype(W, /obj/item/clothing/mask/gas))
 			to_chat(user, "This item does not fit.")
 			return
-		if(istype(W,/obj/item/clothing/mask/cigarette))
+		if(istype(W, /obj/item/clothing/mask/cigarette))
 			to_chat(user, "This item does not fit.")
 			return
-		if(istype(W,/obj/item/clothing/head/syndicatefake))
+		if(istype(W, /obj/item/clothing/head/syndicatefake))
 			to_chat(user, "This item does not fit.")
 			return
-//		if(istype(W,/obj/item/clothing/head/powered))
+//		if(istype(W, /obj/item/clothing/head/powered))
 //			to_chat(user, "This item does not fit.")
 //			return
-		if(istype(W,/obj/item/clothing/head/helmet))
+		if(istype(W, /obj/item/clothing/head/helmet))
 			to_chat(user, "This item does not fit.")
 			return
-		if(istype(W,/obj/item/clothing/gloves/furgloves))
+		if(istype(W, /obj/item/clothing/gloves/furgloves))
 			to_chat(user, "This item does not fit.")
 			return
 		if(istype(W, /obj/item/clothing/gloves/color/black/krav_maga/sec))
@@ -312,8 +312,8 @@
 		if(CLOSED_BLOODY)
 			if(gibs_ready)
 				gibs_ready = FALSE
-				if(locate(/mob,contents))
-					var/mob/M = locate(/mob,contents)
+				if(locate(/mob, contents))
+					var/mob/M = locate(/mob, contents)
 					M.gib()
 			for(var/atom/movable/O in contents)
 				O.loc = src.loc
