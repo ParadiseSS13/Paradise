@@ -12,7 +12,6 @@
 	proj_icon_state = "magicm"
 	proj_name = "a magic missile"
 	proj_lingering = 1
-	pass_flags = PASSDOOR
 	proj_type = "/obj/effect/proc_holder/spell/inflict_handler/magic_missile"
 
 	proj_lifespan = 20
