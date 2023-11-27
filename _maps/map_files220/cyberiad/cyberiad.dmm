@@ -497,6 +497,7 @@
 	},
 /obj/item/storage/fancy/cigarettes/cigpack_robust,
 /obj/machinery/alarm/directional/west,
+/obj/item/eftpos,
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "adB" = (
@@ -3445,6 +3446,7 @@
 	pixel_x = -3;
 	pixel_y = 5
 	},
+/obj/item/eftpos,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -5640,7 +5642,13 @@
 /area/station/security/permabrig)
 "axt" = (
 /obj/structure/table,
-/obj/item/storage/box/evidence,
+/obj/item/storage/box/evidence{
+	pixel_x = -6
+	},
+/obj/item/storage/box/evidence{
+	pixel_x = -6;
+	pixel_y = 7
+	},
 /turf/simulated/floor/plasteel,
 /area/station/security/processing)
 "axu" = (
@@ -80617,6 +80625,14 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/storage)
+"qxW" = (
+/obj/structure/table,
+/obj/item/eftpos{
+	pixel_x = 6;
+	pixel_y = 3
+	},
+/turf/simulated/floor/plasteel,
+/area/station/security/processing)
 "qxZ" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
@@ -135149,7 +135165,7 @@ aqX
 npc
 atg
 auE
-axt
+qxW
 arF
 dEz
 aAF

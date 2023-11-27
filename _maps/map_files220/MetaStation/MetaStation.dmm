@@ -46606,6 +46606,7 @@
 	},
 /obj/item/megaphone,
 /obj/machinery/power/apc/important/north,
+/obj/item/eftpos,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -74087,6 +74088,7 @@
 /area/station/engineering/break_room)
 "qJA" = (
 /obj/structure/table,
+/obj/item/eftpos,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -89392,6 +89394,7 @@
 /obj/structure/table,
 /obj/item/restraints/handcuffs,
 /obj/machinery/firealarm/directional/south,
+/obj/item/eftpos,
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
