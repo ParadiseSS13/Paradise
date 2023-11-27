@@ -2,9 +2,10 @@
 /area/station/security/checkpoint/south
 	name = "\improper Escape Security Checkpoint"
 
-/area/station/security/visitingroom
-	name = "\improper Brig Visiting Room"
-	icon_state = "brig"
+/area/station/security/podpilot
+	name = "\improper Pod Pilot Bay"
+	icon_state = "security"
+
 /area/station/bridge/checkpoint
 	name = "\improper Command Checkpoint"
 
@@ -38,9 +39,26 @@
 	name = "\improper Engineering Utility Room"
 	icon_state = "engimaint"
 
+/area/station/engineering/mechanic
+	name = "\improper Pod Mechanic Bay"
+	icon_state = "engi"
+
 /area/station/engineering/atmos/storage
 	name = "\improper Atmospherics Storage"
 	icon_state = "atmos"
+
+/area/station/supply/abandoned_boxroom
+	name = "\improper Abandoned Boxroom"
+	icon_state = "cargobay"
+
+/area/station/public/pool
+	name = "\improper Pool"
+	icon_state = "dorms"
+
+/area/station/public/vacant_store
+	name = "\improper Vacant Store"
+	icon = 'modular_ss220/maps220/icons/areas.dmi'
+	icon_state = "vacantstore"
 
 /area/station/maintenance/dormitory_maintenance
 	name = "\improper Dormitory Maintenance"
