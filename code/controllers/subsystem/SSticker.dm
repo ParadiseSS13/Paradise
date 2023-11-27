@@ -571,7 +571,7 @@ SUBSYSTEM_DEF(ticker)
 				robo.laws.show_laws(world)
 
 	if(dronecount)
-		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.")
+		to_chat(world, "<b>There [dronecount>1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount>1 ? "drones" : "drone"] this round.</b>")
 
 	if(mode.eventmiscs.len)
 		var/emobtext = ""
