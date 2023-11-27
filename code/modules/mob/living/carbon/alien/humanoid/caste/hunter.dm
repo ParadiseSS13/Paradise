@@ -1,8 +1,8 @@
 /mob/living/carbon/alien/humanoid/hunter
 	name = "alien hunter"
 	caste = "h"
-	maxHealth = 125
-	health = 125
+	maxHealth = 150
+	health = 150
 	icon_state = "alienh_s"
 	alien_movement_delay = -0.5 //hunters are faster than normal xenomorphs, and people
 	var/leap_on_click = FALSE
@@ -16,7 +16,6 @@
 	. = ..()
 	. += /obj/item/organ/internal/alien/plasmavessel/hunter
 
-
 /mob/living/carbon/alien/humanoid/hunter/handle_environment()
 	if(m_intent == MOVE_INTENT_RUN || IS_HORIZONTAL(src))
 		..()
@@ -28,7 +27,7 @@
 	leap_icon.icon_state = "leap_[leap_on_click ? "on":"off"]"
 	update_icons()
 	if(message)
-		to_chat(src, "<span class='noticealien'>You will now [leap_on_click ? "leap at":"slash at"] enemies!</span>")
+		to_chat(src, "<span class='noticealien'>You will now [leap_on_click ? "leap at" : "slash at"] enemies!</span>")
 
 /mob/living/carbon/alien/humanoid/hunter/ClickOn(atom/A, params)
 	face_atom(A)

@@ -5,11 +5,15 @@
 	var/list/human_powers = list()
 	tough = TRUE
 	sterile = TRUE
+	/// Amount of credits that will be recived by selling this in the cargo shuttle
+	var/cargo_profit = 100
+	/// Has this organ been hijacked? Stores a ref of the hijacking item
+	var/obj/hijacked
 
 /// This adds and removes alien spells upon addition, if a noncarbon tries to do this well... I blame adminbus
 /obj/item/organ/internal/alien/insert(mob/living/carbon/M, special = 0)
 	..()
-	if(isalien(M))
+	if(!hijacked)
 		for(var/powers_to_add in alien_powers)
 			M.AddSpell(new powers_to_add)
 	else
@@ -17,7 +21,7 @@
 			M.AddSpell(new powers_to_add)
 
 /obj/item/organ/internal/alien/remove(mob/living/carbon/M, special = 0)
-	if(isalien(M))
+	if(!hijacked)
 		for(var/powers_to_remove in alien_powers)
 			M.RemoveSpell(new powers_to_remove)
 	else
@@ -25,10 +29,38 @@
 			M.AddSpell(new powers_to_add)
 	. = ..()
 
+/obj/item/organ/internal/alien/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>Can be sold on the cargo shuttle for [cargo_profit] credits.</span>"
+	if(hijacked)
+		. += "<span class='notice'>This organ is hijacked, use a wirecutter on it to remove the hijacking device.</span>"
+	else
+		. += "<span class='notice'>You can hijack the latent functions of this organ by using an Organ Hijacking Device on it.</span>"
+
+/obj/item/organ/internal/alien/attackby(obj/item/organ_hijacker/hijacker, mob/user, params)
+	if(istype(hijacker))
+		to_chat(user, "<span class='notice'>You insert [hijacker] into [src]. This will override it's primary function and unlock latent abilities used to control the hivemind.</span>")
+		hijacked = hijacker
+		user.unEquip(hijacker, TRUE)
+		hijacker.forceMove(src)
+		return
+	return ..()
+
+/obj/item/organ/internal/alien/wirecutter_act(mob/living/user, obj/item/I)
+	if(hijacked)
+		hijacked.forceMove(get_turf(src))
+		to_chat(user, "<span class='notice'>With an grisly squish, you remove [hijacked] from [src] reverting it to it's previous function.</span>")
+		hijacked = null
+		return TRUE
+
 /obj/item/organ/internal/alien/prepare_eat()
 	var/obj/S = ..()
 	S.reagents.add_reagent("sacid", 10)
 	return S
+
+/obj/item/organ/internal/alien/Destroy()
+	QDEL_NULL(hijacked)
+	return ..()
 
 //XENOMORPH ORGANS
 
@@ -37,7 +69,6 @@
 	icon_state = "plasma"
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "biotech=5;plasmatech=4"
-	parent_organ = "chest"
 	slot = "plasmavessel"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds, /obj/effect/proc_holder/spell/alien_spell/transfer_plasma)
 	human_powers = list(/obj/effect/proc_holder/spell/alien_spell/syphon_plasma)
@@ -79,6 +110,7 @@
 	icon_state = "plasma_tiny"
 	stored_plasma = 25
 	max_plasma = 50
+	cargo_profit = 25
 
 /obj/item/organ/internal/alien/plasmavessel/on_life()
 	//If there are alien weeds on the ground then heal if needed or give some plasma
@@ -106,7 +138,6 @@
 /obj/item/organ/internal/alien/acidgland
 	name = "xeno acid gland"
 	icon_state = "acid"
-	parent_organ = "head"
 	slot = "acid"
 	origin_tech = "biotech=5;materials=2;combat=2"
 	alien_powers = list(/obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid)
@@ -115,11 +146,11 @@
 /obj/item/organ/internal/alien/hivenode
 	name = "xeno hive node"
 	icon_state = "hivenode"
-	parent_organ = "head"
 	slot = "hivenode"
 	origin_tech = "biotech=5;magnets=4;bluespace=3"
 	w_class = WEIGHT_CLASS_TINY
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/whisper)
+	cargo_profit = 50
 
 /obj/item/organ/internal/alien/hivenode/insert(mob/living/carbon/M, special = 0)
 	..()
@@ -138,7 +169,6 @@
 /obj/item/organ/internal/alien/neurotoxin
 	name = "xeno neurotoxin gland"
 	icon_state = "neurotox"
-	parent_organ = "head"
 	slot = "neurotox"
 	origin_tech = "biotech=5;combat=5"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/neurotoxin)
@@ -146,7 +176,6 @@
 
 /obj/item/organ/internal/alien/resinspinner
 	name = "xeno resin organ"
-	parent_organ = "mouth"
 	icon_state = "liver-x"
 	slot = "spinner"
 	origin_tech = "biotech=5;materials=4"
@@ -156,9 +185,16 @@
 /obj/item/organ/internal/alien/eggsac
 	name = "xeno egg sac"
 	icon_state = "eggsac"
-	parent_organ = "groin"
 	slot = "eggsac"
 	w_class = WEIGHT_CLASS_BULKY
 	origin_tech = "biotech=6"
 	alien_powers = list(/obj/effect/proc_holder/spell/alien_spell/plant_weeds/eggs)
 	human_powers = list(/obj/effect/proc_holder/spell/alien_spell/combust_facehuggers)
+	cargo_profit = 600
+
+/obj/item/organ_hijacker
+	name = "Organ Hijacking Device"
+	desc = "A device used for hijacking alien organs."
+	origin_tech = "biotech=3"
+	w_class = WEIGHT_CLASS_TINY
+	icon_state = "e_snare0"

@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/alien_spell/evolve_queen
 	name = "Evolve into an alien queen"
 	desc = "Evolve into an alien queen."
-	plasma_cost = 500
+	plasma_cost = 300
 	action_icon_state = "alien_evolve_drone"
 
 /obj/effect/proc_holder/spell/alien_spell/evolve_queen/create_new_targeting()
