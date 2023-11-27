@@ -122,6 +122,7 @@
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	menu_location = CLING_MENU_ATTACK
+	recharge_slowdown = 0.25
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
