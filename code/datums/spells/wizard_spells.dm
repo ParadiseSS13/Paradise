@@ -199,7 +199,7 @@
 	clothes_req = TRUE
 	invocation = "SCYAR TESO"
 	invocation_type = "shout"
-	cooldown_min = 10 SECONDS //5 Second reduction per rank
+	cooldown_min = 10 SECONDS
 
 	action_icon_state = "spell_teleport"
 	var/datum/mind/teacher = null
