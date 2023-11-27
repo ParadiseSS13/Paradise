@@ -1,3 +1,12 @@
+#define OPEN_EMPTY		1
+#define CLOSED_EMPTY	2
+#define OPEN_FULL		3
+#define CLOSED_FULL		4
+#define RUNNING			5
+#define OPEN_BLOODY		6
+#define CLOSED_BLOODY	7
+#define RUNNING_BLOODY	8
+
 /obj/machinery/washing_machine
 	name = "washing machine"
 	desc = "Gets rid of those pesky bloodstains, or your money back!"
@@ -5,15 +14,7 @@
 	icon_state = "wm_10"
 	density = TRUE
 	anchored = TRUE
-	var/state = 1
-	//1 = empty, open door
-	//2 = empty, closed door
-	//3 = full, open door
-	//4 = full, closed door
-	//5 = running
-	//6 = blood, open door
-	//7 = blood, closed door
-	//8 = blood, running
+	var/state = OPEN_EMPTY
 	var/panel = FALSE
 	//FALSE = closed
 	//TRUE = open
@@ -31,14 +32,14 @@
 	start(user)
 
 /obj/machinery/washing_machine/proc/start(mob/user)
-	if(state != 4)
+	if(state != CLOSED_FULL)
 		to_chat(user, "<span class='notice'>The washing machine cannot run in this state.</span>")
 		return
 
 	if(locate(/mob,contents))
-		state = 8
+		state = RUNNING_BLOODY
 	else
-		state = 5
+		state = RUNNING
 	update_icon(UPDATE_ICON_STATE)
 	sleep(200)
 	for(var/atom/A in contents)
@@ -189,10 +190,10 @@
 
 
 	if(locate(/mob,contents))
-		state = 7
+		state = CLOSED_BLOODY
 		gibs_ready = 1
 	else
-		state = 4
+		state = CLOSED_FULL
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/washing_machine/update_icon_state()
@@ -202,7 +203,7 @@
 	if(default_unfasten_wrench(user, W))
 		return
 	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/stamp))
-		if(state in list(	1, 3, 6))
+		if(state in list(OPEN_EMPTY, OPEN_FULL, OPEN_BLOODY))
 			if(!crayon)
 				user.drop_item()
 				crayon = W
@@ -213,12 +214,12 @@
 		else
 			return ..()
 	else if(istype(W,/obj/item/grab))
-		if((state == 1) && hacked)
+		if(state == OPEN_EMPTY && hacked)
 			var/obj/item/grab/G = W
 			if(ishuman(G.assailant) && iscorgi(G.affecting))
 				G.affecting.loc = src
 				qdel(G)
-				state = 3
+				state = OPEN_FULL
 			update_icon(UPDATE_ICON_STATE)
 		else
 			return ..()
@@ -279,10 +280,10 @@
 			return
 
 		if(contents.len < 5)
-			if(state in list(1, 3))
+			if(state in list(OPEN_EMPTY, OPEN_FULL))
 				user.drop_item()
 				W.loc = src
-				state = 3
+				state = OPEN_FULL
 			else
 				to_chat(user, "<span class='notice'>You can't put the item in right now.</span>")
 		else
@@ -293,25 +294,25 @@
 
 /obj/machinery/washing_machine/attack_hand(mob/user as mob)
 	switch(state)
-		if(1)
-			state = 2
-		if(2)
+		if(OPEN_EMPTY)
+			state = CLOSED_EMPTY
+		if(CLOSED_EMPTY)
 			for(var/atom/movable/O in contents)
 				O.loc = src.loc
 			crayon = null
-			state = 1
-		if(3)
-			state = 4
-		if(4)
+			state = OPEN_EMPTY
+		if(OPEN_FULL)
+			state = CLOSED_FULL
+		if(CLOSED_FULL)
 			for(var/atom/movable/O in contents)
 				O.loc = src.loc
 			crayon = null
-			state = 1
-		if(5)
+			state = OPEN_EMPTY
+		if(RUNNING)
 			to_chat(user, "<span class='warning'>[src] is busy.</span>")
-		if(6)
-			state = 7
-		if(7)
+		if(OPEN_BLOODY)
+			state = CLOSED_BLOODY
+		if(CLOSED_BLOODY)
 			if(gibs_ready)
 				gibs_ready = 0
 				if(locate(/mob,contents))
@@ -320,7 +321,7 @@
 			for(var/atom/movable/O in contents)
 				O.loc = src.loc
 			crayon = null
-			state = 1
+			state = OPEN_EMPTY
 
 
 	update_icon(UPDATE_ICON_STATE)
@@ -328,3 +329,12 @@
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/metal(drop_location(), 2)
 	qdel(src)
+
+#undef OPEN_EMPTY
+#undef CLOSED_EMPTY
+#undef OPEN_FULL
+#undef CLOSED_FULL
+#undef RUNNING
+#undef OPEN_BLOODY
+#undef CLOSED_BLOODY
+#undef RUNNING_BLOODY
