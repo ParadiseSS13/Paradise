@@ -3,8 +3,9 @@
 #define OPEN_FULL		3
 #define CLOSED_FULL		4
 #define RUNNING			5
-#define CLOSED_BLOODY	6
-#define RUNNING_BLOODY	7
+//#define OPEN_BLOODY	6 is tied to an unused icon state
+#define CLOSED_BLOODY	7
+#define RUNNING_BLOODY	8
 
 /obj/machinery/washing_machine
 	name = "washing machine"
