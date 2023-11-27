@@ -581,6 +581,7 @@
 	var/shield_count = 0
 	faction = list("xen")
 	tts_seed = "Vortiger"
+	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/blackmesa/xen/update_overlays()
 	. = ..()

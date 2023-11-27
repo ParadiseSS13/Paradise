@@ -860,7 +860,6 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 21
 	attack_sound = 'modular_ss220/mobs/sound/creatures/zombie_attack.ogg'
-	gold_core_spawnable = HOSTILE_SPAWN
 	alert_cooldown_time = 8 SECONDS
 	alert_sounds = list(
 		'modular_ss220/mobs/sound/creatures/zombie_idle1.ogg',,
@@ -1047,6 +1046,7 @@
 	vision_range = 8
 	attack_sound = 'sound/weapons/bite.ogg'
 	loot = list(/obj/item/stack/sheet/bone)
+	gold_core_spawnable = HOSTILE_SPAWN
 	alert_sounds = list(
 		'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/alert01.ogg',
 		'modular_ss220/aesthetics_sounds/sound/mobs/vortigaunt/alert01b.ogg',
@@ -1141,7 +1141,6 @@
 	wander = FALSE
 	attack_sound = 'sound/weapons/genhit3.ogg'
 	loot = list(/obj/item/crowbar/freeman/ultimate)
-	gold_core_spawnable = NO_SPAWN
 
 /obj/structure/xen_pylon/freeman
 	shield_range = 30
