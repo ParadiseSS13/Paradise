@@ -1532,11 +1532,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard)
 "amh" = (
-/obj/structure/disposalpipe/sortjunction/reversed{
-	dir = 4;
-	name = "Disposals Maint";
-	sort_type_txt = "1"
-	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/cable{
@@ -1558,6 +1553,10 @@
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 8;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/disposal/west)
@@ -3447,9 +3446,6 @@
 	},
 /area/station/maintenance/disposal/west)
 "asN" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -3460,6 +3456,10 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 1;
+	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7197,6 +7197,9 @@
 	},
 /area/station/hallway/primary/fore)
 "aFD" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -11069,10 +11072,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
 "aWG" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
 /obj/machinery/light/small/directional/north,
+/obj/structure/disposalpipe/segment{
+	dir = 2;
+	icon_state = "pipe-c"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -22652,15 +22656,14 @@
 	},
 /area/station/maintenance/fsmaint)
 "bPq" = (
-/obj/machinery/disposal/deliveryChute{
-	dir = 4;
-	name = "CORPSE disposal unit"
-	},
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 4
+	},
+/obj/machinery/disposal/deliveryChute{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/west)
@@ -61437,16 +61440,18 @@
 	},
 /area/station/medical/paramedic)
 "ipY" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
+/obj/structure/disposalpipe/sortjunction{
+	dir = 1;
+	name = "Disposals Maint";
+	sort_type_txt = "1"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -72394,9 +72399,11 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
