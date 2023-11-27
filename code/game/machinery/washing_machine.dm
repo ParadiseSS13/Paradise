@@ -296,13 +296,13 @@
 		if(1)
 			state = 2
 		if(2)
-			state = 1
 			for(var/atom/movable/O in contents)
 				O.loc = src.loc
+			crayon = null
+			state = 1
 		if(3)
 			state = 4
 		if(4)
-			state = 3
 			for(var/atom/movable/O in contents)
 				O.loc = src.loc
 			crayon = null
