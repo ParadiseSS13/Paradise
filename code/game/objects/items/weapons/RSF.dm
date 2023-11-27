@@ -25,7 +25,7 @@
 	var/static/list/rsf_items = list("Drinking Glass" = /obj/item/reagent_containers/drinks/drinkingglass,
 							"Paper" = /obj/item/paper,
 							"Pen" = /obj/item/pen,
-							"Dice Pack" = /obj/item/storage/pill_bottle/dice,
+							"Dice Pack" = /obj/item/storage/bag/dice,
 							"Cigarette" = /obj/item/clothing/mask/cigarette,
 							"Newdles" = /obj/item/food/snacks/chinese/newdles,
 							"Donut" = /obj/item/food/snacks/donut,

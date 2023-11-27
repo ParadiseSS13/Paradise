@@ -579,6 +579,7 @@
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
 		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/patch,
 		/obj/item/stack/medical
 	))
 
@@ -619,6 +620,7 @@
 		/obj/item/reagent_containers/applicator,
 		/obj/item/storage/pill_bottle,
 		/obj/item/reagent_containers/pill,
+		/obj/item/reagent_containers/patch,
 		/obj/item/stack/medical
 	))
 

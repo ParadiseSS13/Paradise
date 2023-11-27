@@ -477,10 +477,10 @@
 	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and a eva mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
-			Comes packaged with internals. \
+			Comes containing internals. \
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
-	item = /obj/item/storage/box/syndie_kit/modsuit
+	item = /obj/item/mod/control/pre_equipped/traitor
 	cost = 30
 	surplus = 60 //I have upped the chance of modsuits from 40, as I do feel they are much more worthwhile with the base modsuit no longer being 8 tc, and the high armor values of the elite.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -490,7 +490,7 @@
 	desc = "An advanced MODsuit with superior armor to the standard Syndicate MODsuit. \
 	Nanotrasen crew who spot these suits are known to *really* panic."
 	reference = "MSE"
-	item = /obj/item/storage/box/syndie_kit/modsuit/elite
+	item = /obj/item/mod/control/pre_equipped/traitor_elite
 	cost = 45 //45 to start, no holopara / ebow.
 	surplus = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
