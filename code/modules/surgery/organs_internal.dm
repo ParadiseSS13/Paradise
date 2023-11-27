@@ -820,8 +820,7 @@
 		"[user] is beginning to cauterize the incision on [target]'s [zone] with \the [tool].",
 		"You are beginning to cauterize the incision on [target]'s [zone] with \the [tool]."
 	)
-	var/obj/item/organ/affected = target.get_organ(target_zone)
-	affected.custom_pain("Your [zone] is being burned!")
+	to_chat(user, "<span class='userdanger'>Your [zone] is being burned!</span>") // No custom pain because xenos are special
 	return ..()
 
 /datum/surgery_step/generic/seal_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
