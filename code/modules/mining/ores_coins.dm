@@ -391,7 +391,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/plasma/attackby(obj/item/I, mob/living/user, params)
 	if(!is_hot(I))
-		return
+		return ..()
 	log_and_set_aflame(user, I)
 
 /obj/item/coin/plasma/proc/log_and_set_aflame(mob/user, obj/item/I)
