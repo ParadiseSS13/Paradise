@@ -142,7 +142,7 @@
 	. = ..()
 	if(!tool_enabled)
 		return
-	if((get_dist(target, user) > 1) || isturf(target)) // We don't want to take away fuel when we hit something far away
+	if(!proximity || isturf(target)) // We don't want to take away fuel when we hit something far away
 		return
 	remove_fuel(0.5)
 
