@@ -93,7 +93,7 @@
 	stage_prob = 5
 	severity = DANGEROUS
 	disease_flags = CURABLE
-	required_organs = list(/obj/item/organ/internal/heart)
+	required_organs = list(ORGAN_DATUM_HEART)
 	bypasses_immunity = TRUE
 	virus_heal_resistant = TRUE
 

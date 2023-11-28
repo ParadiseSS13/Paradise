@@ -212,15 +212,13 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "demon_heart"
 	origin_tech = "combat=5;biotech=7"
+	organ_datums = list(/datum/organ/heart/always_beating)
 
 /obj/item/organ/internal/heart/demon/update_icon_state()
 	return //always beating visually
 
 /obj/item/organ/internal/heart/demon/prepare_eat()
 	return // Just so people don't accidentally waste it
-
-/obj/item/organ/internal/heart/demon/Stop()
-	return 0 // Always beating.
 
 /obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
 	user.visible_message("<span class='warning'>[user] raises [src] to [user.p_their()] mouth and tears into it with [user.p_their()] teeth!</span>", \

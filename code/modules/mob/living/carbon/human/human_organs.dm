@@ -162,17 +162,6 @@ old_ue: Set this to a UE string, and this proc will overwrite the dna of organs 
 		if(assimilate || O.dna.unique_enzymes == ue_to_compare)
 			O.set_dna(dna)
 
-/*
-Given the name of an organ, returns the external organ it's contained in
-I use this to standardize shadowling dethrall code
--- Crazylemon
-*/
-/mob/living/carbon/human/proc/named_organ_parent(organ_name)
-	if(!get_int_organ_tag(organ_name))
-		return null
-	var/obj/item/organ/internal/O = get_int_organ_tag(organ_name)
-	return O.parent_organ
-
 /mob/living/carbon/human/has_organic_damage()
 	var/robo_damage = 0
 	var/perma_injury_damage = 0

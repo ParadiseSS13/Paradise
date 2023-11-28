@@ -30,4 +30,4 @@
 	icon = 'icons/obj/species_organs/unathi.dmi'
 
 /obj/item/organ/internal/lungs/unathi/ash_walker
-	safe_oxygen_min = 4 // 4x as efficient as regular Unathi, can comfortably breathe on lavaland
+	organ_datums = list(/datum/organ/lungs/ashwalker)

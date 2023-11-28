@@ -205,12 +205,12 @@
 		return
 
 	if(target.undergoing_cardiac_arrest()) // Can have a heart attack and heart is either missing, necrotic, or not beating
-		var/obj/item/organ/internal/heart/heart = target.get_int_organ(/obj/item/organ/internal/heart)
+		var/datum/organ/heart/heart = target.get_int_organ_datum(ORGAN_DATUM_HEART)
 		if(!heart)
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity.</span>")
-		else if(heart.status & ORGAN_DEAD)
+		else if(heart.linked_organ.status & ORGAN_DEAD)
 			user.visible_message("<span class='boldnotice'>[defib_ref] buzzes: Resuscitation failed - Heart necrosis detected.</span>")
-		if(!heart || (heart.status & ORGAN_DEAD))
+		if(!heart || (heart.linked_organ.status & ORGAN_DEAD))
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 			busy = FALSE
 			return
@@ -384,8 +384,8 @@
 		return
 
 	if(electrocute_mob(affecting, power_source, origin)) // shock anyone touching them >:)
-		var/obj/item/organ/internal/heart/HE = affecting.get_organ_slot("heart")
-		if(HE.parent_organ == "chest" && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
+		var/datum/organ/heart/heart = affecting.get_int_organ_datum(ORGAN_DATUM_HEART)
+		if(heart.linked_organ.parent_organ == "chest" && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
 			affecting.visible_message("<span class='danger'>[affecting]'s entire body shakes as a shock travels up [affecting.p_their()] arm!</span>", \
 							"<span class='userdanger'>You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ("l_arm") : affecting.get_organ("r_arm")] and back down your [affecting.hand ? affecting.get_organ("r_arm") : affecting.get_organ("l_arm")]!</span>")
 			affecting.set_heartattack(TRUE)

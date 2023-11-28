@@ -16,6 +16,10 @@
 /mob/living/carbon/get_int_organ(typepath)
 	return (locate(typepath) in internal_organs)
 
+/mob/living/carbon/proc/get_int_organ_datum(tag_to_check)
+	RETURN_TYPE(/datum/organ)
+	return internal_organ_datums[tag_to_check]
+
 
 /mob/living/carbon/get_organs_zone(zone, subzones = 0)
 	var/list/returnorg = list()
