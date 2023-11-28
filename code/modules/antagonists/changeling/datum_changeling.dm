@@ -347,7 +347,7 @@
 			continue
 		names[DNA.real_name] = DNA
 
-	var/chosen_name = input(message, title, null) as null|anything in names
+	var/chosen_name = tgui_input_list(usr, message, title, names)
 	if(!chosen_name)
 		return
 

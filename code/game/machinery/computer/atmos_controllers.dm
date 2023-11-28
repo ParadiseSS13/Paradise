@@ -191,7 +191,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			to_chat(user, "<span class='notice'>Successfully added a new sensor/meter with name <code>[new_name]</code></span>")
 
 		if("Remove")
-			var/to_remove = input(user, "Select a sensor/meter to remove", "Sensor/Meter Removal") as null|anything in sensor_name_uid_map
+			var/to_remove = tgui_input_list(user, "Select a sensor/meter to remove", "Sensor/Meter Removal", sensor_name_uid_map)
 			if(!to_remove)
 				return
 

@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		to_chat(user, "<span class='notice'>There's no new DNA to absorb from the air.</span>")
 		return
 
-	var/S = input("Select a DNA absorb from the air: ", "Absorb DNA", null) as null|anything in names
+	var/S = tgui_input_list(user, "Select a DNA absorb from the air", "Absorb DNA", names)
 	if(!S)
 		return
 
