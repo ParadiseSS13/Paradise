@@ -10535,8 +10535,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/table,
 /obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -76990,8 +76990,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/table,
 /obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},

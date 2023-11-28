@@ -67105,8 +67105,6 @@
 /obj/machinery/status_display{
 	pixel_y = -32
 	},
-/obj/item/storage/firstaid/machine,
-/obj/item/storage/firstaid/machine,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dAa" = (
@@ -67586,14 +67584,16 @@
 /area/station/maintenance/aft)
 "dBO" = (
 /obj/structure/table/reinforced,
-/obj/item/robotanalyzer,
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/button/windowtint{
 	id = "RoboSurgery";
 	pixel_x = 24;
 	dir = 8
 	},
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
 /obj/item/reagent_containers/spray/cleaner,
+/obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "dBP" = (
@@ -68420,8 +68420,8 @@
 	},
 /area/station/medical/medbay)
 "dEu" = (
-/obj/structure/table/glass,
 /obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -72112,7 +72112,7 @@
 /area/station/maintenance/aft)
 "dQu" = (
 /obj/item/storage/surgical_tray,
-/obj/structure/table/glass,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},

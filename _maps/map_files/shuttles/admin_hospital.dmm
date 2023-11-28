@@ -305,7 +305,7 @@
 /area/shuttle/administration)
 "bw" = (
 /obj/item/storage/surgical_tray,
-/obj/structure/table/glass,
+/obj/structure/table/tray,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "bx" = (
@@ -723,11 +723,6 @@
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
-"XS" = (
-/obj/structure/table/glass,
-/obj/item/storage/surgical_tray,
-/turf/simulated/floor/mineral/titanium,
-/area/shuttle/administration)
 
 (1,1,1) = {"
 ab
@@ -978,7 +973,7 @@ aw
 aw
 be
 ab
-XS
+bw
 bG
 aw
 TT

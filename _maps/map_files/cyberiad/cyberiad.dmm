@@ -35897,6 +35897,8 @@
 /area/station/science/robotics)
 "cav" = (
 /obj/structure/table,
+/obj/item/storage/firstaid/machine,
+/obj/item/storage/firstaid/machine,
 /obj/item/robotanalyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -36168,8 +36170,6 @@
 /obj/machinery/optable{
 	name = "Robotics Operating Table"
 	},
-/obj/item/storage/firstaid/machine,
-/obj/item/storage/firstaid/machine,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -57485,7 +57485,7 @@
 	layer = 4;
 	pixel_x = -32
 	},
-/obj/structure/table/glass,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluecorner"
 	},
@@ -76673,8 +76673,8 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/main)
 "oiA" = (
-/obj/structure/table/glass,
 /obj/item/storage/surgical_tray,
+/obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -78809,8 +78809,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint2)
 "pop" = (
-/obj/structure/table/glass,
 /obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},

@@ -34060,8 +34060,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/table/glass,
 /obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
@@ -43291,8 +43291,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/table/glass,
 /obj/item/storage/surgical_tray,
+/obj/structure/table/tray,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkblue"
