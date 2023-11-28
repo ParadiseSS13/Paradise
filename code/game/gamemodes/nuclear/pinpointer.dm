@@ -220,7 +220,7 @@
 						var/name = initial(T.name)
 						item_names += name
 						item_paths[name] = initial(T.typepath)
-					var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in item_names
+					var/targetitem = tgui_input_list(user, "Select item to search for", "Select Item", item_names)
 					if(!targetitem)
 						return
 

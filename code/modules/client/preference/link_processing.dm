@@ -223,7 +223,7 @@
 						if(can_use_species(user, _species))
 							new_species += _species
 
-					active_character.species = tgui_input_list(user, "Please select a species", "Character Generation", new_species)
+					active_character.species = tgui_input_list(user, "Please select a species", "Character Generation", sortList(new_species))
 					if(!active_character.species)
 						return
 					var/datum/species/NS = GLOB.all_species[active_character.species]
@@ -311,7 +311,7 @@
 						if(!(lang.flags & RESTRICTED))
 							new_languages += lang.name
 
-					active_character.language = tgui_input_list(user, "Please select a secondary language", "Character Generation", new_languages)
+					active_character.language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortList(new_languages))
 					if(!active_character.language)
 						return
 

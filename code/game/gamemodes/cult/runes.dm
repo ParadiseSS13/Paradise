@@ -490,7 +490,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 
-	var/input_rune_key = input(user, "Choose a rune to teleport to.", "Rune to Teleport to") as null|anything in potential_runes //we know what key they picked
+	var/input_rune_key = tgui_input_list(user, "Choose a rune to teleport to.", "Rune to Teleport to", potential_runes) //we know what key they picked
 	var/obj/effect/rune/teleport/actual_selected_rune = potential_runes[input_rune_key] //what rune does that key correspond to?
 	if(QDELETED(src) || QDELETED(actual_selected_rune) ||!Adjacent(user) || user.incapacitated())
 		fail_invoke()
@@ -632,7 +632,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 	if(length(potential_revive_mobs) > 1)
-		mob_to_revive = input(user, "Choose a cultist to revive.", "Cultist to Revive") as null|anything in potential_revive_mobs
+		mob_to_revive = tgui_input_list(user, "Choose a cultist to revive.", "Cultist to Revive", potential_revive_mobs)
 	else // If there's only one, no need for a menu
 		mob_to_revive = potential_revive_mobs[1]
 	if(!validness_checks(mob_to_revive, user))
@@ -756,7 +756,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/datum/mind/M in SSticker.mode.cult)
 		if(!(M.current in invokers) && M.current && M.current.stat != DEAD)
 			cultists[M.current.real_name] = M.current
-	var/input = input(user, "Who do you wish to call to [src]?", "Acolytes") as null|anything in cultists
+	var/input = tgui_input_list(user, "Who do you wish to call to [src]?", "Acolytes", cultists)
 	var/mob/living/cultist_to_summon = cultists[input]
 	if(QDELETED(src) || !Adjacent(user) || user.incapacitated())
 		return

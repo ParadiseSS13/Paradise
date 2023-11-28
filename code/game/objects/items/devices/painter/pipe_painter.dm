@@ -12,7 +12,9 @@
 	paint_setting = pick(modes)
 
 /datum/painter/pipe/pick_color(mob/user)
-	paint_setting = tgui_input_list(user, "Which color do you want to use?", "Pick color", paint_setting)
+	paint_setting = tgui_input_list(user, "Which color do you want to use?", "Pick color", modes)
+	if(!paint_setting)
+		return
 
 /datum/painter/pipe/paint_atom(atom/target, mob/user)
 	if(!istype(target, /obj/machinery/atmospherics/pipe))

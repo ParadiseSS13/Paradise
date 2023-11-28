@@ -536,7 +536,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		return
 
 	var/datum/picture/picture
-	picture = input("Select image to print:", picture) as null|anything in saved_pictures
+	picture = tgui_input_list(user, "Select image to print", "Print image", saved_pictures)
 	if(picture)
 		printpicture(user, picture)
 		pictures_left --
@@ -549,7 +549,7 @@ GLOBAL_LIST_INIT(SpookyGhosts, list("ghost","shade","shade2","ghost-narsie","hor
 		to_chat(user, "<span class='userdanger'>No images saved</span>")
 		return
 	var/datum/picture/picture
-	picture = input("Select image to delete:", picture) as null|anything in saved_pictures
+	picture = tgui_input_list(user, "Select image to delete", "Delete image", saved_pictures)
 	if(picture)
 		saved_pictures -= picture
 

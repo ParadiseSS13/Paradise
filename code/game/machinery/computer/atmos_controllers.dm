@@ -70,7 +70,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 			"-SAVE TO BUFFER-" = "multitool"
 		)
 
-		var/temp_answer = input(user, "Select an option to adjust", "Options!", null) as null|anything in options
+		var/temp_answer = tgui_input_list(user, "Select an option to adjust", "Options!", options)
 
 		if(!Adjacent(user))
 			break
