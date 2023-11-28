@@ -8,7 +8,7 @@ import { clamp01 } from 'common/math';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Section, Input } from '../components';
 import { Window } from '../layouts';
-import { ARROW_KEY_UP, ARROW_KEY_DOWN, KEY_ENTER, KEY_SPACE } from '../hotkeys';
+import { ARROW_KEY_UP, ARROW_KEY_DOWN } from '../hotkeys';
 
 let lastScrollTime = 0;
 
@@ -99,11 +99,6 @@ export const ListInput = (props, context) => {
                   setSelectedButton(buttons[index]);
                   setLastCharCode(null);
                   document.getElementById(buttons[index]).focus();
-                  return;
-                }
-
-                if (e.keyCode === KEY_SPACE || e.keyCode === KEY_ENTER) {
-                  act("choose", { choice: selectedButton });
                   return;
                 }
 
