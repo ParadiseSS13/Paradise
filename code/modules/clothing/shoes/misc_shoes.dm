@@ -135,7 +135,7 @@
 	user.dir = prev_dir
 	step(user, user.dir)
 	for(var/mob/living/carbon/crossed in user.loc)
-		crossed.slip(src, 16 SECONDS, 0, 0, 1, "trip")
+		crossed.slip(src, 16 SECONDS, 0, FALSE, TRUE, "trip")
 	if(progress == slide_distance)
 		user.stand_up()
 		user.pass_flags = prev_flags
