@@ -20,7 +20,7 @@ export const ListInput = (props, context) => {
   const [showSearchBar, setShowSearchBar] = useLocalState(
     context,
     'search_bar',
-    false
+    true
   );
   const [displayedArray, setDisplayedArray] = useLocalState(
     context,
