@@ -921,19 +921,22 @@
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					switch(UI_style)
+					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White"))
+					if(!new_UI_style)
+						return
+					switch(new_UI_style)
 						if("Midnight")
-							UI_style = "Plasmafire"
-						if("Plasmafire")
-							UI_style = "Retro"
-						if("Retro")
-							UI_style = "Slimecore"
-						if("Slimecore")
-							UI_style = "Operative"
-						if("Operative")
-							UI_style = "White"
-						else
 							UI_style = "Midnight"
+						if("Plasmafire")
+							UI_style = "Plasmafire"
+						if("Retro")
+							UI_style = "Retro"
+						if("Slimecore")
+							UI_style = "Slimecore"
+						if("Operative")
+							UI_style = "Operative"
+						if("White")
+							UI_style = "White"
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr

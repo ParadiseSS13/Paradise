@@ -207,7 +207,7 @@
 			return 'icons/mob/screen_operative.dmi'
 		if("White")
 			return 'icons/mob/screen_white.dmi'
-		else
+		if("Midnight")
 			return 'icons/mob/screen_midnight.dmi'
 
 //colour formats
