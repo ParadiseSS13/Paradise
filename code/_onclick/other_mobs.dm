@@ -112,6 +112,9 @@
 /mob/new_player/ClickOn()
 	return
 
+/mob/new_player/can_use_clickbinds()
+	return FALSE
+
 // pAIs are not intended to interact with anything in the world
 /mob/living/silicon/pai/UnarmedAttack(atom/A)
 	return

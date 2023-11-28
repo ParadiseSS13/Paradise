@@ -33,3 +33,15 @@
 	var/turf/T = get_turf(A)
 	if(T)
 		remove_blob(T)
+
+/mob/camera/blob/AltShiftClickOn(atom/A)
+	return AltClickOn(A)
+
+/mob/camera/blob/CtrlShiftClickOn(atom/A)
+	return CtrlClickOn(A)
+
+/mob/camera/blob/MiddleShiftClickOn(atom/A)
+	return MiddleClickOn(A)
+
+/mob/camera/blob/MiddleShiftControlClickOn(atom/A)
+	return MiddleClickOn(A)

@@ -124,6 +124,8 @@
 	var/list/active_keybindings = list()
 	/// The client's movement keybindings to directions, which work regardless of modifiers.
 	var/list/movement_kb_dirs = list()
+	/// The client's currently moused over datum, limited to movable and stored as UID
+	var/atom/movable/moused_over
 
 /client/vv_edit_var(var_name, var_value)
 	switch(var_name)

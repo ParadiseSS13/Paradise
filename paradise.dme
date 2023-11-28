@@ -466,6 +466,7 @@
 #include "code\datums\keybindings\admin_keybinds.dm"
 #include "code\datums\keybindings\ai_keybinds.dm"
 #include "code\datums\keybindings\carbon_keybinds.dm"
+#include "code\datums\keybindings\click_keybindings.dm"
 #include "code\datums\keybindings\client.dm"
 #include "code\datums\keybindings\emote_keybinds.dm"
 #include "code\datums\keybindings\human_keybinds.dm"

@@ -104,6 +104,9 @@
 			return
 	return
 
+/mob/living/silicon/robot/MiddleShiftControlClickOn(atom/A)
+	return
+
 //Ctrl+Middle click cycles through modules
 /mob/living/silicon/robot/proc/CtrlMiddleClickOn(atom/A)
 	cycle_modules()
