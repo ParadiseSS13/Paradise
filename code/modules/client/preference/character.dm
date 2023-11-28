@@ -79,9 +79,9 @@
 
 	var/nanotrasen_relation = "Neutral"
 
-	var/physique = "average"
+	var/physique = "Average"
 
-	var/height = "average height"
+	var/height = "Average height"
 
 	// OOC Metadata:
 	var/metadata = ""
