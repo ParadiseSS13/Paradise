@@ -209,6 +209,8 @@
 			return 'icons/mob/screen_white.dmi'
 		if("Midnight")
 			return 'icons/mob/screen_midnight.dmi'
+		else
+			return 'icons/mob/screen_midnight.dmi'
 
 //colour formats
 /proc/rgb2hsl(red, green, blue)
