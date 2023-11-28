@@ -446,7 +446,6 @@
 							"assistant",
 							"clown",
 							"mime",
-							"barber",
 							"botanist",
 							"librarian",
 							"chaplain",
@@ -938,12 +937,6 @@
 	desc = "..."
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 
-/obj/item/card/id/barber
-	name = "Barber ID"
-	registered_name = "Barber"
-	icon_state = "barber"
-	access = list(ACCESS_MAINT_TUNNELS)
-
 /obj/item/card/id/botanist
 	name = "Botanist ID"
 	registered_name = "Botanist"
@@ -1109,7 +1102,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","barber","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
+	return list("data","id","gold","silver","security","detective","warden","internalaffairsagent","medical","coroner","chemist","virologist","paramedic","psychiatrist","geneticist","research","roboticist","quartermaster","cargo","shaftminer","engineering","atmostech","captain","HoP","HoS","CMO","RD","CE","assistant","clown","mime","botanist","librarian","chaplain","bartender","chef","janitor","rainbow","prisoner","explorer")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","blueshield","magistrate","ntrep","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","ERT_paranormal","deathsquad","commander","syndie","TDred","TDgreen")

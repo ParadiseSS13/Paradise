@@ -614,8 +614,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		standing.alpha = w_uniform.alpha
 		standing.color = w_uniform.color
 		overlays_standing[UNIFORM_LAYER] = standing
-	//If anyone asks, /mob/living/carbon/human/unEquip in human_inventory.dm already handles unequip code
-	/* else if(!dna.species.nojumpsuit)
+
+	else if(!dna.species.nojumpsuit)
 		var/list/uniform_slots = list()
 		var/obj/item/organ/external/L = get_organ(BODY_ZONE_L_LEG)
 		if(!(L?.status & ORGAN_ROBOT))
@@ -628,6 +628,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			uniform_slots += wear_id
 			uniform_slots += wear_pda
 			uniform_slots += belt
+		if(belt && (belt.flags_2 & ALLOW_BELT_NO_JUMPSUIT_2))
+			uniform_slots -= belt
 
 		// Automatically drop anything in store / id / belt if you're not wearing a uniform.	//CHECK IF NECESARRY
 		for(var/obj/item/thing in uniform_slots)												// whoever made this
@@ -640,7 +642,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 					thing.forceMove(drop_location())											//
 					thing.dropped(src)															//
 					thing.layer = initial(thing.layer)
-					thing.plane = initial(thing.plane) */
+					thing.plane = initial(thing.plane)
 	apply_overlay(UNIFORM_LAYER)
 	update_hands_layer()
 
