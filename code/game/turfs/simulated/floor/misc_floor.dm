@@ -143,7 +143,7 @@
 /turf/simulated/floor/noslip/lavaland
 	oxygen = 14
 	nitrogen = 23
-	temperature = 300
+	temperature = 500
 	planetary_atmos = TRUE
 
 /turf/simulated/floor/lubed
@@ -220,7 +220,7 @@
 /turf/simulated/floor/clockwork/lavaland_air
 	nitrogen = 23
 	oxygen = 14
-	temperature = 300
+	temperature = 500
 
 /turf/simulated/floor/catwalk
 	name = "catwalk"

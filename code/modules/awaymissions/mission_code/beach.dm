@@ -115,7 +115,7 @@
 /turf/simulated/floor/beach/away/water/lavaland_air
 	nitrogen = 23
 	oxygen = 14
-	temperature = 300
+	temperature = 500
 	planetary_atmos = TRUE
 
 /turf/simulated/floor/beach/away/water/dense			//for boundary "walls"

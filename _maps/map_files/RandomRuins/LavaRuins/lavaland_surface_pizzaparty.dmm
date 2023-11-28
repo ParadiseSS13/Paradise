@@ -17,7 +17,7 @@
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "f" = (
@@ -26,7 +26,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "g" = (
@@ -35,7 +35,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "h" = (
@@ -43,7 +43,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "i" = (
@@ -52,7 +52,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "j" = (
@@ -61,7 +61,7 @@
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "k" = (
@@ -71,7 +71,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "l" = (
@@ -85,7 +85,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "m" = (
@@ -94,7 +94,7 @@
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "n" = (
@@ -103,7 +103,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "o" = (
@@ -112,7 +112,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "p" = (
@@ -121,7 +121,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "q" = (
@@ -130,7 +130,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "r" = (
@@ -143,14 +143,14 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "s" = (
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "t" = (
@@ -159,7 +159,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "u" = (
@@ -167,7 +167,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "v" = (
@@ -181,7 +181,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "x" = (
@@ -190,7 +190,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "y" = (
@@ -199,7 +199,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "z" = (
@@ -209,7 +209,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "A" = (
@@ -219,7 +219,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "B" = (
@@ -227,7 +227,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "C" = (
@@ -238,7 +238,7 @@
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "D" = (
@@ -248,7 +248,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "E" = (
@@ -257,7 +257,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "F" = (
@@ -266,7 +266,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "G" = (
@@ -274,7 +274,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "H" = (
@@ -282,7 +282,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "I" = (
@@ -291,7 +291,7 @@
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "J" = (
@@ -300,7 +300,7 @@
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "K" = (
@@ -312,7 +312,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "L" = (
@@ -321,7 +321,7 @@
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "M" = (
@@ -330,7 +330,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "N" = (
@@ -344,7 +344,7 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "P" = (
@@ -355,14 +355,14 @@
 /turf/simulated/floor/wood{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "Q" = (
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/unpowered/misc_lavaruin)
 

@@ -430,7 +430,7 @@
 /turf/simulated/floor/pod/light{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/powered/beach)
 "lM" = (
@@ -548,7 +548,7 @@
 /turf/simulated/floor/pod/light{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/powered/beach)
 "TW" = (

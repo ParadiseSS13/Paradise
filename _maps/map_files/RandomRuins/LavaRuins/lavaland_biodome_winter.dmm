@@ -289,7 +289,7 @@
 /turf/simulated/floor/pod/dark{
 	oxygen = 14;
 	nitrogen = 23;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/powered/snow_biodome)
 "jE" = (

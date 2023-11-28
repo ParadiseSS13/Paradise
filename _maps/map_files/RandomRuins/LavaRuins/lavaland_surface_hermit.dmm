@@ -169,7 +169,7 @@
 /turf/simulated/floor/plating{
 	nitrogen = 23;
 	oxygen = 14;
-	temperature = 300
+	temperature = 500
 	},
 /area/ruin/powered)
 "K" = (

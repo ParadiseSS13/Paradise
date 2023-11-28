@@ -51,7 +51,7 @@
 /turf/simulated/floor/wood/lavaland_air
 	nitrogen = 23
 	oxygen = 14
-	temperature = 300
+	temperature = 500
 
 /turf/simulated/floor/grass
 	name = "grass patch"

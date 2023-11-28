@@ -169,7 +169,7 @@
 	name = "plating"
 
 /turf/simulated/floor/plating/lavaland_air
-	temperature = 300
+	temperature = 500
 	oxygen = 14
 	nitrogen = 23
 
@@ -244,7 +244,7 @@
 /turf/simulated/floor/engine/cult/lavaland_air
 	nitrogen = 23
 	oxygen = 14
-	temperature = 300
+	temperature = 500
 
 //air filled floors; used in atmos pressure chambers
 

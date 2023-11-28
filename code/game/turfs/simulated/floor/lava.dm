@@ -248,7 +248,7 @@
 	icon_state = "mappinglava"
 	base_icon_state = "mappinglava"
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
-	temperature = 300
+	temperature = 500
 	oxygen = 14
 	nitrogen = 23
 	planetary_atmos = TRUE
