@@ -105,4 +105,13 @@
 /obj/item/autosurgeon/organ/syndicate/reviver
 	starting_organ = /obj/item/organ/internal/cyberimp/chest/reviver/hardened
 
+/obj/item/autosurgeon/organ/translator
+	starting_organ = /obj/item/organ/internal/cyberimp/brain/speech_translator
+	uses = 1
+
+/obj/item/autosurgeon/organ/comic_translator
+	name = "comical translator autosurgeon"
+	starting_organ = /obj/item/organ/internal/cyberimp/brain/speech_translator/clown
+	uses = 1
+
 #undef INFINITE

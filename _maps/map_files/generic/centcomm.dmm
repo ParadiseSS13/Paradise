@@ -1068,9 +1068,8 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/administration)
 "ej" = (
-/obj/structure/chair/comfy/purp{
-	dir = 8
-	},
+/obj/structure/rack,
+/obj/item/autosurgeon/organ/translator,
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "ek" = (
@@ -13455,6 +13454,12 @@
 	icon_state = "brown"
 	},
 /area/shuttle/escape)
+"VW" = (
+/obj/structure/chair/comfy/purp{
+	name = "wizard council throne"
+	},
+/turf/simulated/floor/carpet/black,
+/area/wizard_station)
 "VX" = (
 /obj/item/bikehorn/rubberducky,
 /obj/structure/window/basic{
@@ -62575,7 +62580,7 @@ so
 Ln
 Ln
 Ln
-pH
+ej
 OL
 xH
 CY
@@ -62831,8 +62836,8 @@ xH
 cH
 Ln
 Ln
-Ln
-ej
+VW
+pH
 VX
 xH
 xH
