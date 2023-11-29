@@ -625,6 +625,7 @@
 			M.emote("faint")
 		else if(effect <= 8)
 			M.Druggy(30 SECONDS)
+
 	else if(severity == 2)
 		if(effect <= 15)
 			M.AdjustHallucinate(30 SECONDS)
