@@ -593,6 +593,8 @@
 	color = "#5BCBE1"
 	addiction_chance = 1
 	addiction_threshold = 10
+	allowed_overdose_process = TRUE
+	overdose_threshold = 35
 	harmless = FALSE
 	taste_description = "antihistamine"
 
@@ -607,6 +609,44 @@
 		M.AdjustDrowsy(2 SECONDS)
 		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
 	return ..()
+
+/datum/reagent/medicine/diphenhydramine/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			to_chat(M, "<span class='warning'>You feel parched.</span>")
+		else if(effect <= 3)
+			to_chat(M, "<span class='warning'>You feel a little off.</span>")
+			M.Dizzy(10 SECONDS)
+		else if(effect <= 5)
+			to_chat(M, "<span class='warning'>You feel a sudden head rush.</span>")
+			M.emote("faint")
+		else if(effect <= 8)
+			M.Druggy(30 SECONDS)
+
+	else if(severity == 2)
+		if(effect <= 15)
+			M.AdjustHallucinate(30 SECONDS)
+		if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.vomit(20)
+		else if(effect <= 10)
+			M.visible_message(
+				"<span class'warning'>[M] seems to be itching themselves incessantly!</span>",
+				"<span class='danger'>You feel bugs crawling under your skin!</span>"
+			)
+			M.emote("scream")
+		else if(effect <= 15)
+			to_chat(M, "<span class='warning'>You feel a wave of drowsiness wash over you.</span>")
+			M.SetSleeping(5 SECONDS)
+		else if(effect <= 20)
+			to_chat(M, "<span class='warning'>Something doesn't feel quite right!</span>")
+			M.Druggy(30 SECONDS)
+	return list(effect, update_flags)
 
 /datum/reagent/medicine/morphine
 	name = "Morphine"
