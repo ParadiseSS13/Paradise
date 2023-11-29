@@ -193,8 +193,8 @@
 		return FALSE
 
 	if(recipe_to_make.time)
-		to_chat(usr, "<span class='notice'>Building [recipe_to_make.title]...</span>")
-		if(!do_after(usr, recipe_to_make.time, target = user))
+		to_chat(user, "<span class='notice'>Building [recipe_to_make.title]...</span>")
+		if(!do_after(user, recipe_to_make.time, target = user))
 			return FALSE
 
 		if(!validate_build(user, recipe_to_make, multiplier))
