@@ -2,7 +2,7 @@
 /obj/item/lighter
 	name = "cheap lighter"
 	desc = "A cheap-as-free lighter."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/lighter.dmi'
 	lefthand_file = 'icons/mob/inhands/lighter_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lighter_righthand.dmi'
 	icon_state = "lighter-g"
@@ -293,7 +293,7 @@
 		..()
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	if(burnt)
+	if(isdrone(user) && burnt)
 		C.stored_comms["wood"] += 1
 		qdel(src)
 		return TRUE
