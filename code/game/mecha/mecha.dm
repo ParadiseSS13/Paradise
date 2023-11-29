@@ -1560,7 +1560,7 @@
 	for(var/obj/item/mecha_parts/mecha_equipment/MT in equipment)
 		if(!MT.selectable || selected == MT)
 			continue
-		var/mutable_appearance/clean/MA = new(MT)
+		var/mutable_appearance/clean/MA = mutable_appearance(MT.icon, MT.icon_state, MT.layer, filters = MT.filters)
 		choices[MT.name] = MA
 		choices_to_refs[MT.name] = MT
 
