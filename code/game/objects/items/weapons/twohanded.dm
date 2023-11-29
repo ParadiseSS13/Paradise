@@ -108,6 +108,7 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 
 	armour_penetration_flat = 10
+	armour_penetration_percentage = 50
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	max_integrity = 200
