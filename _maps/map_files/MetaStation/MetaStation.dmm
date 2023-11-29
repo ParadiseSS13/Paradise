@@ -79743,6 +79743,10 @@
 "rzl" = (
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/science,
 /turf/simulated/floor/plasteel{

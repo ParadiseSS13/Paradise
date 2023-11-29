@@ -17060,6 +17060,7 @@
 "bJe" = (
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer,
 /obj/item/clothing/glasses/hud/health,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/camera{

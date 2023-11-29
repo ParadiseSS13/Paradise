@@ -76447,6 +76447,7 @@
 "dMG" = (
 /obj/structure/table/glass,
 /obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer,
 /obj/item/clothing/glasses/hud/health,
 /obj/structure/cable{
 	d1 = 1;

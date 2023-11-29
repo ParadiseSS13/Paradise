@@ -90927,6 +90927,10 @@
 /obj/structure/table/glass,
 /obj/item/storage/belt/medical,
 /obj/item/clothing/gloves/color/latex,
+/obj/item/healthanalyzer{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /obj/item/clothing/glasses/hud/health,
 /obj/machinery/light_switch{
 	dir = 8;
