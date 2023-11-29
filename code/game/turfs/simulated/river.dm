@@ -20,7 +20,7 @@
 	//make some randomly pathing rivers
 	for(var/A in river_nodes)
 		var/obj/effect/landmark/river_waypoint/W = A
-		if (W.z != target_z || W.connected)
+		if(W.z != target_z || W.connected)
 			continue
 		W.connected = TRUE
 		var/turf/cur_turf = get_turf(W)
@@ -80,7 +80,7 @@
 	for(var/F in RANGE_TURFS(1, src) - src)
 		var/turf/T = F
 		var/area/new_area = get_area(T)
-		if(!T || (T.density && !ismineralturf(T)) || istype(T, /turf/simulated/floor/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.flags & NO_LAVA_GEN) )
+		if(!T || (T.density && !ismineralturf(T)) || istype(T, /turf/simulated/floor/indestructible) || (whitelisted_area && !istype(new_area, whitelisted_area)) || (T.flags & NO_LAVA_GEN))
 			continue
 
 		if(!logged_turf_type && ismineralturf(T))

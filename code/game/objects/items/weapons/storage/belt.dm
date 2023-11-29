@@ -175,7 +175,7 @@
 		/obj/item/reagent_containers/dropper,
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/reagent_containers/glass/bottle,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
@@ -227,13 +227,13 @@
 	update_icon()
 
 /obj/item/storage/belt/medical/response_team/populate_contents()
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/salbutamol(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/charcoal(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
-	new /obj/item/reagent_containers/food/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/salbutamol(src)
+	new /obj/item/reagent_containers/pill/charcoal(src)
+	new /obj/item/reagent_containers/pill/charcoal(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
+	new /obj/item/reagent_containers/pill/salicylic(src)
 	update_icon()
 
 /obj/item/storage/belt/botany
@@ -926,7 +926,7 @@
 		/obj/item/storage/bag/ore,
 		/obj/item/survivalcapsule,
 		/obj/item/t_scanner/adv_mining_scanner,
-		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/pill,
 		/obj/item/storage/pill_bottle,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/food/drinks,

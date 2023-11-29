@@ -16,8 +16,6 @@
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
-	brute_mod = 1 / 0.66 // 1 * 0.66 (robolimbs) * 1/0.66 = 1
-	burn_mod = 1 / 0.66 // so no damage mod overall.
 	tox_mod = 0
 	clone_mod = 0
 	death_message = "gives a short series of shrill beeps, their chassis shuddering before falling limp, nonfunctional."
@@ -128,6 +126,7 @@
 			H.update_fhair()
 
 /datum/species/machine/handle_life(mob/living/carbon/human/H) // Handles IPC starvation
+	..()
 	if(isLivingSSD(H)) // We don't want AFK people dying from this
 		return
 	if(H.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA)

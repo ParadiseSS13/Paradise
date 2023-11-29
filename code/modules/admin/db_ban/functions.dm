@@ -53,9 +53,9 @@
 			blockselfban = 1
 			kickbannedckey = 1
 
-	if( !bantype_pass ) return
-	if( !istext(reason) ) return
-	if( !isnum(duration) ) return
+	if(!bantype_pass) return
+	if(!istext(reason)) return
+	if(!isnum(duration)) return
 
 	var/ckey
 	var/computerid
@@ -229,7 +229,7 @@
 			if(BANTYPE_ANY_FULLBAN)
 				bantype_str = "ANY"
 				bantype_pass = 1
-		if( !bantype_pass ) return
+		if(!bantype_pass) return
 
 	var/bantype_sql
 	if(bantype_str == "ANY")
