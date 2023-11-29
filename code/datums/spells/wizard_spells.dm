@@ -202,7 +202,7 @@
 	cooldown_min = 10 SECONDS
 
 	action_icon_state = "spell_teleport"
-	var/datum/mind/teacher = null
+	var/datum/mind/teacher
 
 /obj/effect/proc_holder/spell/return_to_teacher/create_new_targeting()
 	return new /datum/spell_targeting/self
