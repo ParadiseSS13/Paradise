@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"SyndicateCaves"
 	)) //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 
-GLOBAL_LIST_INIT(ruin_landmarks, list())
+GLOBAL_LIST_EMPTY(ruin_landmarks)
 
 GLOBAL_LIST_INIT(round_end_sounds, list(
 		'sound/AI/newroundsexy.ogg' = 2.3 SECONDS,
