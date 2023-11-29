@@ -1,4 +1,4 @@
-/mob/living/carbon/brain/death(gibbed)
+/mob/living/brain/death(gibbed)
 	// Only execute the below if we successfully died
 	. = ..()
 	if(!.)
@@ -8,7 +8,7 @@
 		visible_message("<span class='danger'>[src]'s MMI flatlines!</span>", "<span class='warning'>You hear something flatline.</span>")
 		mmi.icon_state = mmi.dead_icon
 
-/mob/living/carbon/brain/gib()
+/mob/living/brain/gib()
 	// can we muster a parent call here?
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
