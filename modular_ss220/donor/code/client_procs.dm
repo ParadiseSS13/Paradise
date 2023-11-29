@@ -2,8 +2,10 @@
 
 
 /datum/client_login_processor/donator_check/proc/CheckAutoDonatorLevel(client/C)
+	var/list/big_worker = list("Админ", "Старший Администратор", "Разработчик", "Бригадир мапперов", "Маппер")
+
 	if(C.holder)
-		C.donator_level = 2
+		C.donator_level = (C.holder.rank in big_worker) ? BIG_WORKER_TIER : LITTLE_WORKER_TIER
 		return
 
 	var/is_wl = GLOB.configuration.overflow.reroute_cap == 0.5 ? TRUE : FALSE
@@ -17,7 +19,7 @@
 		return
 
 	while(rank_ckey_read.NextRow())
-		C.donator_level = 2
+		C.donator_level = (rank_ckey_read.item[1] in big_worker) ? BIG_WORKER_TIER : LITTLE_WORKER_TIER
 
 	qdel(rank_ckey_read)
 
@@ -42,7 +44,13 @@
 			if(10000 to INFINITY)
 				donator_level = DONATOR_LEVEL_MAX
 
-		C.donator_level = max(donator_level, C.donator_level)
+		switch(C.donator_level)
+			if(LITTLE_WORKER_TIER)
+				C.donator_level = LITTLE_WORKER_TTS_LEVEL > donator_level ? C.donator_level : donator_level
+			if(BIG_WORKER_TIER)
+				C.donator_level = BIG_WORKER_TTS_LEVEL > donator_level ? C.donator_level : donator_level
+			else
+				C.donator_level = donator_level
 
 
 	C.donor_loadout_points()
@@ -77,12 +85,22 @@
 			prefs.max_gear_slots += 12
 		if(5)
 			prefs.max_gear_slots += 16
+		if(LITTLE_WORKER_TIER)
+			prefs.max_gear_slots += 1
+		if(BIG_WORKER_TIER)
+			prefs.max_gear_slots += 5
 
 /client/proc/donor_character_slots()
 	if(!prefs)
 		return
 
 	prefs.max_save_slots = MAX_SAVE_SLOTS_SS220 + 5 * donator_level
+
+	switch(donator_level)
+		if(LITTLE_WORKER_TIER)
+			prefs.max_save_slots = 7
+		if(BIG_WORKER_TIER)
+			prefs.max_save_slots = 10
 
 	prefs.character_saves.len = prefs.max_save_slots
 

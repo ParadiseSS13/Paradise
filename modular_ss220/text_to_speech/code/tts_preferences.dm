@@ -101,7 +101,16 @@
 			client.prefs.ShowChoices(src)
 			return FALSE
 		var/datum/tts_seed/seed = SStts220.tts_seeds[client.prefs.active_character.tts_seed]
-		if(client.donator_level < seed.required_donator_level)
+
+		switch(client.donator_level)
+			if(LITTLE_WORKER_TIER)
+				if(LITTLE_WORKER_TTS_LEVEL >= seed.required_donator_level)
+					return TRUE
+			if(BIG_WORKER_TIER)
+				if(BIG_WORKER_TTS_LEVEL >= seed.required_donator_level)
+					return TRUE
+
+		if(client.donator_level < seed.required_donator_level || client.donator_level > DONATOR_LEVEL_MAX)
 			to_chat(usr, span_danger("Выбранный голос персонажа более недоступен на текущем уровне подписки!"))
 			client.prefs.ShowChoices(src)
 			return FALSE
