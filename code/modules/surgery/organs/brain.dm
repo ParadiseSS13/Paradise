@@ -181,7 +181,7 @@
 		to_chat(owner, "<span class='warning'>Your vision gives out.</span>")
 	else if(prob(5))
 		owner.Weaken(10 SECONDS)
-		owner.Jitter(10 SECONDS)
+		owner.Jitter(150 SECONDS)
 		to_chat(owner, "<span class='warning'>You start to have a seizure.</span>")
 
 /obj/item/organ/internal/brain/prepare_eat()
