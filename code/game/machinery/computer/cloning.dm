@@ -79,6 +79,7 @@
 	return attack_hand(user)
 
 /obj/machinery/computer/cloning/attack_hand(mob/user)
+	. = ..()
 	add_fingerprint(user)
 
 	if(stat & (BROKEN|NOPOWER))
@@ -158,6 +159,7 @@
 			allOrgans += organ
 		data["organList"] = allOrgans
 
+	if(desired_data)
 		data["desiredLimbData"] = desired_data.limbs
 		data["desiredOrganData"] = desired_data.organs
 
@@ -227,7 +229,8 @@
 				selected_pod.start_cloning(scanner.last_scan, desired_data)
 			return TRUE
 		if("scan")
-			switch(scanner.try_scan(scanner.occupant))
+			var/scanner_result = scanner.try_scan(scanner.occupant)
+			switch(scanner_result)
 				if(SCANNER_MISC)
 					feedback = list("text" = "Unable to analyze patient's genetic sequence.", "color" = "bad")
 				if(SCANNER_UNCLONEABLE_SPECIES)
@@ -236,9 +239,13 @@
 					feedback = list("text" = "The patient is husked.", "color" = "bad")
 				if(SCANNER_NO_SOUL)
 					feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average")
-				if(SCANNER_SUCCESSFUL)
+				else
+					var/datum/cloning_data/scan = scanner_result
+					if((scan.mindUID == patient_data?.mindUID) || (scan.mindUID == selected_pod?.patient_data?.mindUID))
+						feedback = list("text" = "Patient has already been scanned.", "color" = "average")
+						return TRUE
 					feedback = list("text" = "Successfully scanned the patient.", "color" = "good")
-					desired_data = generate_healthy_data(scanner.last_scan)
+					desired_data = generate_healthy_data(scan)
 			return TRUE
 		if("fix_all")
 			desired_data = generate_healthy_data(scanner.last_scan)

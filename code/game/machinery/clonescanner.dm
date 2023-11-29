@@ -7,8 +7,8 @@
 /datum/cloning_data
 	/// The patient's name.
 	var/name
-	/// The patient's mind.
-	var/datum/mind/mind
+	/// A reference to the patient's mind.
+	var/mindUID
 
 	/// The patient's external organs (limbs) and their data, stored as an associated list of lists.
 	/// List format: limb = list(brute, burn, status, missing, name, max damage)
@@ -133,6 +133,8 @@
 	if(!scanned)
 		return
 
+	occupant.notify_ghost_cloning()
+
 	has_scanned = TRUE
 
 	if(!scanned.dna || HAS_TRAIT(scanned, TRAIT_GENELESS))
@@ -141,19 +143,17 @@
 		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
 		return SCANNER_UNCLONEABLE_SPECIES
-	//if(!scanned.ckey || !scanned.client)
-	//	return SCANNER_NO_SOUL
-	// This is commented out for testing
+	if(!scanned.ckey || !scanned.client)
+		return SCANNER_NO_SOUL
 
-	scan(scanned)
-
-	return SCANNER_SUCCESSFUL
+	return scan(scanned)
 
 /obj/machinery/clonescanner/proc/scan(mob/living/carbon/human/scanned)
 	var/datum/cloning_data/scan_result = new /datum/cloning_data
 
 	scan_result.name = scanned.dna.real_name
-	scan_result.mind = scanned.mind
+	scan_result.mindUID = scanned.mind.UID()
+	log_debug(scan_result.mindUID)
 	scan_result.genetic_info = scanned.dna.Clone()
 
 	for(var/limb in scanned.dna.species.has_limbs)
@@ -181,6 +181,7 @@
 			scan_result.organs[organ] = list(0, 0, TRUE, organ, 0, organ)
 
 	last_scan = scan_result
+	log_debug(last_scan.mindUID)
 	return scan_result
 
 /obj/machinery/clonescanner/proc/insert(mob/living/carbon/human/inserted)
@@ -190,7 +191,7 @@
 	occupant = inserted
 	if(last_scan?.name != inserted.dna?.real_name)
 		last_scan = null
-	occupant.notify_ghost_cloning()
+	update_icon_state()
 
 /obj/machinery/clonescanner/proc/remove(mob/living/carbon/human/removed)
 	if(!istype(removed))
@@ -198,6 +199,22 @@
 	removed.forceMove(loc)
 	occupant = null
 	has_scanned = FALSE
+	update_icon_state()
+
+/obj/machinery/clonescanner/update_icon_state()
+	if(occupant)
+		if(panel_open)
+			icon_state = "scanner_maintenance"
+		else if(stat & NOPOWER)
+			icon_state = "scanner"
+		else
+			icon_state = "scanner_1"
+	else
+		if(panel_open)
+			icon_state = "scanner_open_maintenance"
+		else
+			icon_state = "scanner_open"
+
 
 /obj/machinery/clonescanner/multitool_act(mob/user, obj/item/I)
 	. = TRUE

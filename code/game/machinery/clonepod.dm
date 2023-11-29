@@ -200,8 +200,8 @@
 				limbs_to_grow += limb //It's not supposed to be missing and it's not vital - so we'll be growing it.
 
 	if(clone)
-		clone.SetSleeping(4 SECONDS) //make sure they stay asleep
-		clone.reagents.add_reagent("perfluorodecalin", REAGENTS_METABOLISM)
+		clone.Weaken(4 SECONDS) //make sure they stay in the pod
+		clone.setOxyLoss(0) //..and alive
 
 	//Actually grow clones (this is the fun part of the proc!)
 	if(currently_cloning)
@@ -275,7 +275,7 @@
 
 //Creates the clone! Used once the cloning pod reaches ~20% completion.
 /obj/machinery/clonepod/proc/create_clone()
-	clone = new /mob/living/carbon/human(src)
+	clone = new /mob/living/carbon/human(src, patient_data.genetic_info.species.type)
 
 	clone.change_dna(patient_data.genetic_info, FALSE, TRUE)
 
@@ -316,9 +316,8 @@
 
 	clone.set_heartattack(FALSE) //you are not allowed to die
 	clone.adjustCloneLoss(25) //to punish early ejects
-	clone.reagents.add_reagent("perfluorodecalin", 2)
 
-	clone.SetSleeping(4 SECONDS)
+	clone.Weaken(4 SECONDS)
 
 //Ejects a clone. The force var ejects even if there's still clone damage.
 /obj/machinery/clonepod/proc/eject_clone(force = FALSE)
@@ -340,35 +339,38 @@
 			clone.forceMove(src.loc)
 			new /obj/effect/gibspawner/generic(get_turf(src), clone)
 			playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+
+			var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
+			patient_mind.transfer_to(clone)
+			clone.grab_ghost()
+			clone.update_revive()
+			to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+			to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
+
 			currently_cloning = FALSE
 			clone = null
 			patient_data = null
 			desired_data = null
 			clone_progress = 0
 			desc_flavor = initial(desc_flavor)
-
-			patient_data.mind.transfer_to(clone)
-			clone.grab_ghost()
-			clone.update_revive()
-			to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
-			to_chat(clone, "<span class='danger'>You're ripped out of blissful oblivion! You feel like shit.</span>")
 			return TRUE
 		else
 			return FALSE
 	else
 		clone.forceMove(src.loc)
+		var/datum/mind/patient_mind = locateUID(patient_data.mindUID)
+		patient_mind.transfer_to(clone)
+		clone.grab_ghost()
+		clone.update_revive()
+		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
+		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
+
 		currently_cloning = FALSE
 		clone = null
 		patient_data = null
 		desired_data = null
 		clone_progress = 0
 		desc_flavor = initial(desc_flavor)
-
-		patient_data.mind.transfer_to(clone)
-		clone.grab_ghost()
-		clone.update_revive()
-		to_chat(clone, "<span class='userdanger'>You remember nothing from the time that you were dead!")
-		to_chat(clone, "<span class='notice'>There's a bright flash of light, and you take your first breath once more.</span>")
 		return TRUE
 
 //This gets the cost of cloning, in a list with the form (biomass, sanguine reagent, osseous reagent).
