@@ -30,7 +30,7 @@
 	key_third_person = "coughs"
 	message = "coughs!"
 	message_mime = "appears to cough!"
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	vary = TRUE
 	age_based = TRUE
 	volume = 120
