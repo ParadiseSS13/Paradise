@@ -628,7 +628,6 @@
 	else if(severity == 2)
 		if(effect <= 15)
 			M.AdjustHallucinate(30 SECONDS)
-
 		if(effect <= 4)
 			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
 			if(ishuman(M))
