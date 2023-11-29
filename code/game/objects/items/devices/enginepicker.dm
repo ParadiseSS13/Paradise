@@ -28,7 +28,7 @@
 		return
 
 	locatebeacons()
-	var/E = tgui_input_list("Select the station's Engine", "[src]", list_enginebeacons)
+	var/E = tgui_input_list(user, "Select the station's Engine", "[src]", list_enginebeacons)
 	if(E)
 		processchoice(E, user)
 	else
