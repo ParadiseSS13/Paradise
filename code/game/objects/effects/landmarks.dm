@@ -268,10 +268,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/newplayer_start) //Without this you sp
 	name = "Blueshield"
 	icon_state = "BS"
 
-/obj/effect/landmark/start/barber
-	name = "Barber"
-	icon_state = "Barber"
-
 /obj/effect/landmark/start/bartender
 	name = "Bartender"
 	icon_state = "Bartender"

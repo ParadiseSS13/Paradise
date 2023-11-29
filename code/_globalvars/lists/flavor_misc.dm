@@ -1,31 +1,31 @@
 //Preferences stuff
 	//Head accessory styles
-GLOBAL_LIST_INIT(head_accessory_styles_list, list()) //stores /datum/sprite_accessory/head_accessory indexed by name
+GLOBAL_LIST_EMPTY(head_accessory_styles_list) //stores /datum/sprite_accessory/head_accessory indexed by name
 	//Marking styles
-GLOBAL_LIST_INIT(marking_styles_list, list()) //stores /datum/sprite_accessory/body_markings indexed by name
+GLOBAL_LIST_EMPTY(marking_styles_list) //stores /datum/sprite_accessory/body_markings indexed by name
 	//Hairstyles
-GLOBAL_LIST_INIT(hair_styles_public_list, list())			//stores /datum/sprite_accessory/hair indexed by name
-GLOBAL_LIST_INIT(hair_styles_male_list, list())
-GLOBAL_LIST_INIT(hair_styles_female_list, list())
-GLOBAL_LIST_INIT(hair_styles_full_list, list()) //fluff hair styles
-GLOBAL_LIST_INIT(facial_hair_styles_list, list())	//stores /datum/sprite_accessory/facial_hair indexed by name
-GLOBAL_LIST_INIT(facial_hair_styles_male_list, list())
-GLOBAL_LIST_INIT(facial_hair_styles_female_list, list())
+GLOBAL_LIST_EMPTY(hair_styles_public_list)			//stores /datum/sprite_accessory/hair indexed by name
+GLOBAL_LIST_EMPTY(hair_styles_male_list)
+GLOBAL_LIST_EMPTY(hair_styles_female_list)
+GLOBAL_LIST_EMPTY(hair_styles_full_list) //fluff hair styles
+GLOBAL_LIST_EMPTY(facial_hair_styles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
+GLOBAL_LIST_EMPTY(facial_hair_styles_male_list)
+GLOBAL_LIST_EMPTY(facial_hair_styles_female_list)
 GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
 	//Underwear
-GLOBAL_LIST_INIT(underwear_list, list())		//stores /datum/sprite_accessory/underwear indexed by name
-GLOBAL_LIST_INIT(underwear_m, list())	//stores only underwear name
-GLOBAL_LIST_INIT(underwear_f, list())	//stores only underwear name
+GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/underwear indexed by name
+GLOBAL_LIST_EMPTY(underwear_m)	//stores only underwear name
+GLOBAL_LIST_EMPTY(underwear_f)	//stores only underwear name
 	//Undershirts
-GLOBAL_LIST_INIT(undershirt_list, list()) 	//stores /datum/sprite_accessory/undershirt indexed by name
-GLOBAL_LIST_INIT(undershirt_m, list())	 //stores only undershirt name
-GLOBAL_LIST_INIT(undershirt_f, list())	 //stores only undershirt name
+GLOBAL_LIST_EMPTY(undershirt_list) 	//stores /datum/sprite_accessory/undershirt indexed by name
+GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
+GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
 	//Socks
-GLOBAL_LIST_INIT(socks_list, list())		//stores /datum/sprite_accessory/socks indexed by name
-GLOBAL_LIST_INIT(socks_m, list())	 //stores only socks name
-GLOBAL_LIST_INIT(socks_f, list())	 //stores only socks name
+GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
+GLOBAL_LIST_EMPTY(socks_m)	 //stores only socks name
+GLOBAL_LIST_EMPTY(socks_f)	 //stores only socks name
 	//Alt Heads
-GLOBAL_LIST_INIT(alt_heads_list, list())	//stores /datum/sprite_accessory/alt_heads indexed by name
+GLOBAL_LIST_EMPTY(alt_heads_list)	//stores /datum/sprite_accessory/alt_heads indexed by name
 
 // Reference list for disposal sort junctions. Set the sort_type_txt variable on disposal sort junctions to
 // the index of the sort department that you want. For example, adding "2" to sort_type_txt will reroute all packages
