@@ -401,6 +401,7 @@
 // For special snowflake species effects
 // (Slime People changing color based on the reagents they consume)
 /datum/species/proc/handle_life(mob/living/carbon/human/H)
+	SHOULD_CALL_PARENT(TRUE)
 	if(HAS_TRAIT(H, TRAIT_NOBREATH))
 		var/takes_crit_damage = (!HAS_TRAIT(H, TRAIT_NOCRITDAMAGE))
 		if((H.health <= HEALTH_THRESHOLD_CRIT) && takes_crit_damage)
