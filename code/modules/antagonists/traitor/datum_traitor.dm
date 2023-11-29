@@ -92,7 +92,7 @@
  */
 /datum/antagonist/traitor/proc/forge_human_objectives()
 	// Hijack objective.
-	if(prob(10) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
+	if(prob(2) && !(locate(/datum/objective/hijack) in owner.get_all_objectives()))
 		add_antag_objective(/datum/objective/hijack)
 		return // Hijack should be their only objective (normally), so return.
 
