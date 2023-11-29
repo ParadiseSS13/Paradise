@@ -418,17 +418,21 @@ job_slot_amounts = [
 	# Engineering
 	{name = "Life Support Specialist", lowpop = 3, highpop = 4},
 	{name = "Station Engineer", lowpop = 5, highpop = 6},
+	{name = "Trainee Engineer", lowpop = 0, highpop = 0},
 	# Medical
 	{name = "Chemist", lowpop = 2, highpop = 2},
 	{name = "Geneticist", lowpop = 2, highpop = 2},
 	{name = "Medical Doctor", lowpop = 5, highpop = 6},
+	{name = "Intern", lowpop = 0, highpop = 0},
 	{name = "Virologist", lowpop = 1, highpop = 1},
 	# Science
 	{name = "Roboticist", lowpop = 2, highpop = 2},
 	{name = "Scientist", lowpop = 6, highpop = 7},
+	{name = "Student Scientist", lowpop = 0, highpop = 0},
 	# Security
 	{name = "Detective", lowpop = 1, highpop = 1},
 	{name = "Security Officer", lowpop = 8, highpop = 9},
+	{name = "Security Cadet", lowpop = 0, highpop = 0},
 	{name = "Warden", lowpop = 1, highpop = 1},
 	{name = "Internal Affairs Agent", lowpop = 2, highpop = 2},
 	# Service

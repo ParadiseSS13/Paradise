@@ -473,7 +473,7 @@ SUBSYSTEM_DEF(jobs)
 		var/turf/T = null
 		var/obj/S = null
 		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-			if(sloc.name != rank)
+			if(sloc.name != rank && sloc.name != job.relate_job)	// SS220 EDIT - Novice Jobs - Jobs relate module
 				continue
 			if(locate(/mob/living) in sloc.loc)
 				continue

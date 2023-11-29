@@ -1,4 +1,4 @@
-/obj/item/clothing/under/rank/engineer/trainee
+/obj/item/clothing/under/rank/engineering/engineer/trainee
 	name = "engineer trainee jumpsuit"
 	icon = 'modular_ss220/jobs/icons/clothing/uniforms.dmi'
 	icon_override = 'modular_ss220/jobs/icons/clothing/mob/uniform.dmi'
@@ -8,18 +8,18 @@
 	item_color = "trainee"
 	sprite_sheets = null
 
-/obj/item/clothing/under/rank/engineer/trainee/skirt
+/obj/item/clothing/under/rank/engineering/engineer/trainee/skirt
 	name = "engineer trainee jumpskirt"
 	icon_state = "traineef_s"
 	item_color = "traineef"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/under/rank/engineer/trainee/assistant
+/obj/item/clothing/under/rank/engineering/engineer/trainee/assistant
 	name = "engineer assistant jumpsuit"
 	icon_state = "eng_ass_s"
 	item_color = "eng_ass"
 
-/obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
+/obj/item/clothing/under/rank/engineering/engineer/trainee/assistant/skirt
 	name = "engineer assistant jumpskirt"
 	icon_state = "eng_ass_f_s"
 	item_color = "eng_ass_f"

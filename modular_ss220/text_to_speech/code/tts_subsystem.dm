@@ -114,6 +114,8 @@ SUBSYSTEM_DEF(tts220)
 		"detective" = "Детектив",
 		"forensic technician" = "Криминалист",
 		"security officer" = "Офицер службы безопасности",
+		"security trainer" = "Тренер службы безопасности",
+		"junior security officer" = "Младший офицер службы безопасности",
 		"security cadet" = "Кадет службы безопасности",
 		"Security Assistant" = "Ассистент службы безопасности",
 		"Security Graduate" = "Выпускник кадетской академии",

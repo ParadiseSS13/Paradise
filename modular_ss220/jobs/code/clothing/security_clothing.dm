@@ -1,4 +1,4 @@
-/obj/item/clothing/under/rank/security/cadet
+/obj/item/clothing/under/rank/security/officer/cadet
 	name = "security cadet jumpsuit"
 	icon = 'modular_ss220/jobs/icons/clothing/uniforms.dmi'
 	icon_override = 'modular_ss220/jobs/icons/clothing/mob/uniform.dmi'
@@ -7,19 +7,21 @@
 	icon_state = "cadet_s"
 	item_color = "cadet"
 	sprite_sheets = null
+	sensor_mode = SENSOR_COORDS
+	random_sensor = FALSE
 
-/obj/item/clothing/under/rank/security/cadet/skirt
+/obj/item/clothing/under/rank/security/officer/cadet/skirt
 	name = "security cadet jumpskirt"
 	icon_state = "cadetf_s"
 	item_color = "cadetf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/under/rank/security/cadet/assistant
+/obj/item/clothing/under/rank/security/officer/cadet/assistant
 	name = "security assistant jumpsuit"
 	icon_state = "sec_ass_s"
 	item_color = "sec_ass"
 
-/obj/item/clothing/under/rank/security/cadet/assistant/skirt
+/obj/item/clothing/under/rank/security/officer/cadet/assistant/skirt
 	name = "security assistant jumpskirt"
 	icon_state = "sec_ass_f_s"
 	item_color = "sec_ass_f"

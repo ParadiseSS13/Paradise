@@ -1,4 +1,4 @@
-/obj/item/clothing/under/rank/medical/intern
+/obj/item/clothing/under/rank/medical/doctor/intern
 	icon = 'modular_ss220/jobs/icons/clothing/uniforms.dmi'
 	icon_override = 'modular_ss220/jobs/icons/clothing/mob/uniform.dmi'
 	//lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
@@ -9,18 +9,18 @@
 	icon_state = "intern_s"
 	item_color = "intern"
 
-/obj/item/clothing/under/rank/medical/intern/skirt
+/obj/item/clothing/under/rank/medical/doctor/intern/skirt
 	name = "intern jumpskirt"
 	icon_state = "internf_s"
 	item_color = "internf"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
-/obj/item/clothing/under/rank/medical/intern/assistant
+/obj/item/clothing/under/rank/medical/doctor/intern/assistant
 	name = "medical assistant jumpsuit"
 	icon_state = "med_ass_s"
 	item_color = "med_ass"
 
-/obj/item/clothing/under/rank/medical/intern/assistant/skirt
+/obj/item/clothing/under/rank/medical/doctor/intern/assistant/skirt
 	name = "medical assistant jumpskirt"
 	icon_state = "med_ass_f_s"
 	item_color = "med_ass_f"
