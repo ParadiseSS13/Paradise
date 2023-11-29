@@ -141,31 +141,6 @@
 		user.visible_message("<span class='warning'>[user] is thrown down by the force of the cannon!</span>", "<span class='userdanger'>[src] slams into your shoulder, knocking you down!")
 		user.KnockDown(3 SECONDS)
 
-/obj/item/pneumatic_cannon/admin
-	name = "admin pnuematic cannon"
-	desc = "Infinite gas and infinite capacity, go crazy."
-	requires_tank = FALSE
-	max_weight_class = INFINITY
-
-/obj/item/pneumatic_cannon/ghetto //Obtainable by improvised methods; more gas per use, less capacity, but smaller
-	name = "improvised pneumatic cannon"
-	desc = "A gas-powered, object-firing cannon made out of common parts."
-	force = 5
-	w_class = WEIGHT_CLASS_NORMAL
-	max_weight_class = 7
-	gas_per_throw = 5
-
-/datum/crafting_recipe/improvised_pneumatic_cannon //Pretty easy to obtain but
-	name = "Pneumatic Cannon"
-	result = list(/obj/item/pneumatic_cannon/ghetto)
-	tools = list(TOOL_WELDER, TOOL_WRENCH)
-	reqs = list(/obj/item/stack/sheet/metal = 4,
-				/obj/item/stack/packageWrap = 8,
-				/obj/item/pipe = 2)
-	time = 300
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
 /obj/item/pneumatic_cannon/proc/add_tank(obj/item/tank/new_tank, mob/living/carbon/human/user)
 	if(tank)
 		to_chat(user, "<span class='warning'>[src] already has a tank.</span>")
@@ -191,3 +166,17 @@
 		return
 	src.overlays += image('icons/obj/pneumaticCannon.dmi', "[tank.icon_state]")
 	src.update_icon()
+
+/obj/item/pneumatic_cannon/admin
+	name = "admin pnuematic cannon"
+	desc = "Infinite gas and infinite capacity, go crazy."
+	requires_tank = FALSE
+	max_weight_class = INFINITY
+
+/obj/item/pneumatic_cannon/ghetto //Obtainable by improvised methods; more gas per use, less capacity, but smaller
+	name = "improvised pneumatic cannon"
+	desc = "A gas-powered, object-firing cannon made out of common parts."
+	force = 5
+	w_class = WEIGHT_CLASS_NORMAL
+	max_weight_class = 7
+	gas_per_throw = 5
