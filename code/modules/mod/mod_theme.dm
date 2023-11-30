@@ -33,6 +33,10 @@
 	var/max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	/// Max cold protection shared across the MOD parts.
 	var/min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	// for leaking gas from turf to mask and vice-versa
+	var/gas_transfer_coefficient = 0.1
+	// for chemicals/diseases
+	var/permeability_coefficient = 0.1
 	/// Siemens shared across the MOD parts.
 	var/siemens_coefficient = 0.5
 	/// How much modules can the MOD carry without malfunctioning.
@@ -122,7 +126,7 @@
 		However, the capacity for modification remains the same as civilian-grade suits."
 	default_skin = "engineering"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_engineering
-	resistance_flags = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1.5
@@ -172,7 +176,7 @@
 		However, the capacity for modification remains the same as civilian-grade suits."
 	default_skin = "atmospheric"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_atmospheric
-	resistance_flags = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
@@ -228,7 +232,7 @@
 		These come pre-installed with magnetic boots, using an advanced system to toggle them on or off as the user walks."
 	default_skin = "advanced"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_advanced
-	resistance_flags = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	charge_drain = DEFAULT_CHARGE_DRAIN * 1.5
@@ -385,6 +389,7 @@
 		A lot of people would say loading cargo is a dull job. You could not disagree more."
 	default_skin = "loader"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_loader
+	resistance_flags = ACID_PROOF
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	siemens_coefficient = 0.25
@@ -430,6 +435,7 @@
 		and weak against fingers tapping the glass."
 	default_skin = "medical"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_medical
+	resistance_flags = ACID_PROOF
 	charge_drain = DEFAULT_CHARGE_DRAIN * 2
 	slowdown_inactive = 1
 	slowdown_active = 0.45
@@ -632,6 +638,7 @@
 		a few years out of date, leading to an overall lower capacity for modules."
 	default_skin = "security"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_security
+	resistance_flags = ACID_PROOF
 	complexity_max = DEFAULT_MAX_COMPLEXITY - 3
 	slowdown_inactive = 1
 	slowdown_active = 0.45
@@ -688,7 +695,7 @@
 		both corrosive environments and sudden impacts to the user's joints."
 	default_skin = "safeguard"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_safeguard
-	resistance_flags = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	slowdown_inactive = 0.75
 	slowdown_active = 0.25
@@ -853,7 +860,7 @@
 		All rights reserved, tampering with suit will void warranty."
 	default_skin = "syndicate"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_syndicate
-
+	resistance_flags = ACID_PROOF
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 1
@@ -1059,7 +1066,7 @@
 	default_skin = "responsory"
 	armor_type_1 = /obj/item/mod/armor/mod_theme_responsory
 
-	resistance_flags = FIRE_PROOF
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	siemens_coefficient = 0
 	slowdown_inactive = 0.5
