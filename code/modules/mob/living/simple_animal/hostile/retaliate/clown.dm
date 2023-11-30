@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/retaliate/clown
 	name = "Clown"
-	desc = "A strange creature that vaguely resembles a normal station clown. Upon closer inspection, it is nothing of the sort."
+	desc = "A strange creature that vaguely resembles a normal clown. Upon closer inspection, it is nothing of the sort."
 	icon = 'icons/mob/simple_human.dmi'
 	icon_state = "clown"
 	icon_living = "clown"
