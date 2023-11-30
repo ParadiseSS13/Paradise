@@ -616,7 +616,6 @@ const MedicalRecordsNavigation = (_properties, context) => {
         selected={screen === 6}
         onClick={() => act('screen', { screen: 6 })}
       >
-<<<<<<< HEAD
         <Icon name="vial"/>
         Virology Goals
       </Tabs.Tab>
@@ -625,9 +624,6 @@ const MedicalRecordsNavigation = (_properties, context) => {
         onClick={() => act('screen', { screen: 7 })}
       >
         <Icon name="plus-square"/>
-=======
-        <Icon name="plus-square" />
->>>>>>> master
         Medibot Tracking
       </Tabs.Tab>
       {screen === 3 && (

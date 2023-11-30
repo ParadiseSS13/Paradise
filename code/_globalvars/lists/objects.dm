@@ -2,23 +2,6 @@ GLOBAL_LIST_EMPTY(portals)					//for use by portals
 GLOBAL_LIST(cable_list)								//Index for all cables, so that powernets don't have to look through the entire world all the time
 GLOBAL_LIST(chemical_reactions_list)			//list of all /datum/chemical_reaction datums. Used during chemical reactions
 GLOBAL_LIST(chemical_reagents_list)				//list of all /datum/reagent datums indexed by reagent id. Used by chemistry stuff
-<<<<<<< HEAD
-GLOBAL_LIST_INIT(landmarks_list, list())				//list of all landmarks created
-GLOBAL_LIST_INIT(surgery_steps, list())				//list of all surgery steps  |BS12
-GLOBAL_LIST_INIT(side_effects, list())				//list of all medical sideeffects types by thier names |BS12
-GLOBAL_LIST_INIT(mechas_list, list())				//list of all mechs. Used by hostile mobs target tracking.
-GLOBAL_LIST_INIT(joblist, list())					//list of all jobstypes, minus borg and AI
-GLOBAL_LIST_INIT(airlocks, list())					//list of all airlocks
-GLOBAL_LIST_INIT(singularities, list())				//list of all singularities
-GLOBAL_LIST_INIT(janitorial_equipment, list())		//list of janitorial equipment
-GLOBAL_LIST_INIT(crafting_recipes, list()) //list of all crafting recipes
-GLOBAL_LIST_INIT(prisoncomputer_list, list())
-GLOBAL_LIST_INIT(celltimers_list, list()) // list of all cell timers
-GLOBAL_LIST_INIT(cell_logs, list())
-GLOBAL_LIST_INIT(navigation_computers, list())
-GLOBAL_LIST_INIT(hierophant_walls, list())
-GLOBAL_LIST_INIT(pandemics, list())
-=======
 GLOBAL_LIST_EMPTY(landmarks_list)				//list of all landmarks created
 GLOBAL_LIST_EMPTY(surgery_steps)				//list of all surgery steps  |BS12
 GLOBAL_LIST_EMPTY(side_effects)				//list of all medical sideeffects types by thier names |BS12
@@ -33,7 +16,7 @@ GLOBAL_LIST_EMPTY(celltimers_list) // list of all cell timers
 GLOBAL_LIST_EMPTY(cell_logs)
 GLOBAL_LIST_EMPTY(navigation_computers)
 GLOBAL_LIST_EMPTY(hierophant_walls)
->>>>>>> master
+GLOBAL_LIST_INIT(pandemics, list())
 
 GLOBAL_LIST_EMPTY(all_areas)
 GLOBAL_LIST_EMPTY(all_unique_areas) // List of all unique areas. AKA areas with there_can_be_many = FALSE
