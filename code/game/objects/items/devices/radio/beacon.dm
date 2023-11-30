@@ -90,7 +90,7 @@
 	bomb = /obj/machinery/syndicatebomb/emp
 
 /obj/item/radio/beacon/syndicate/bomb/grey_autocloner
-	desc = "A label on it reads: <i>Warning: Activating this device will send an expencive cloner to your location</i>."
+	desc = "A label on it reads: <i>Warning: Activating this device will send an expensive cloner to your location</i>."
 	origin_tech = "bluespace=2;syndicate=2"
 	bomb = /obj/machinery/grey_autocloner
 

@@ -16,7 +16,7 @@
 /obj/item/implant/grey_autocloner/implant(mob/source, mob/user, force)
 	if(!linked)
 		atom_say("Please link the implanter with a Technocracy cloning pod!")
-		return 0
+		return FALSE
 	. = ..()
 	if(.)
 		if(ishuman(imp_in))
@@ -24,19 +24,18 @@
 			our_record.ckey = imp_in.ckey
 			var/obj/item/organ/B = imp_in.get_int_organ(/obj/item/organ/internal/brain)
 			B.dna.check_integrity()
-			our_record.dna=B.dna.Clone()
-			our_record.id= copytext(md5(B.dna.real_name), 2, 6)
-			our_record.name=B.dna.real_name
-			our_record.types=DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
-			our_record.languages=imp_in.languages
-			if(!isnull(imp_in.mind)) //Save that mind so traitors can continue traitoring after cloning.
-				our_record.mind = "\ref[imp_in.mind]"
+			our_record.dna = B.dna.Clone()
+			our_record.id = copytext(md5(B.dna.real_name), 2, 6)
+			our_record.name = B.dna.real_name
+			our_record.types = DNA2_BUF_UI|DNA2_BUF_UE|DNA2_BUF_SE
+			our_record.languages = imp_in.languages
+			if(imp_in.mind) //Save that mind so traitors can continue traitoring after cloning.
+				our_record.mind = "imp_in.mind.UID()"
 
 /obj/item/implant/grey_autocloner/Destroy()
 	linked = null
 	our_record = null
 	return ..()
-
 
 /obj/item/implanter/grey_autocloner
 	name = "bio-chip implanter (Technocracy cloning)"

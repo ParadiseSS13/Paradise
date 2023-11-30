@@ -11,14 +11,12 @@
 	var/datum/mind/clonemind
 	var/attempting = FALSE
 
-/obj/machinery/grey_autocloner/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/implanter))
-		var/obj/item/implanter/I = O
-		if(istype(I.imp, /obj/item/implant/grey_autocloner))
-			var/obj/item/implant/grey_autocloner/G = I.imp
-			G.linked = src
-			atom_say("Link confirmed!")
-	return ..()
+/obj/machinery/grey_autocloner/attackby(obj/item/implanter/implant, mob/user, params)
+	if(!istype(implant) || !if(istype(implant.imp, /obj/item/implant/grey_autocloner)))
+		return ..()
+	var/obj/item/implant/grey_autocloner/autoclone= implant.imp
+	autoclone.linked = src
+	atom_say("Link confirmed!")
 
 /obj/machinery/grey_autocloner/Initialize(mapload)
 	. = ..()
@@ -34,22 +32,22 @@
 
 /obj/machinery/grey_autocloner/proc/growclone(datum/dna2/record/R)
 	if(attempting || stat & (NOPOWER|BROKEN))
-		return 0
-	clonemind = locate(R.mind)
+		return FALSE
+	clonemind = locateUID(R.mind)
 	if(!istype(clonemind))	//not a mind
-		return 0
+		return FALSE
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
-		return 0
+		return FALSE
 	if(clonemind.active)	//somebody is using that mind
 		if(ckey(clonemind.key) != R.ckey)
-			return 0
+			return FALSE
 		if(clonemind.suicided) // Nah, if you are being dragged to the borg factory, that's on you
-			return 0
+			return FALSE
 	else
 		// get_ghost() will fail if they're unable to reenter their body
 		var/mob/dead/observer/G = clonemind.get_ghost()
 		if(!G)
-			return 0
+			return FALSE
 
 	attempting = TRUE //One at a time!!
 
@@ -83,17 +81,14 @@
 	clonemind.transfer_to(H) //INSTANTLY INTO THE CLONE
 	H.ckey = R.ckey
 	update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
-	var/message
-	message += "<b>Consciousness slowly creeps over you as your body regenerates.</b><br>"
-	message += "<i>So this is what cloning feels like?</i>"
-	to_chat(H, "<span class='notice'>[message]</span>")
+	to_chat(H, "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>")
 
 	update_icon()
 
 	H.suiciding = FALSE
 	attempting = FALSE
 	addtimer(CALLBACK(src, PROC_REF(finish_clone)), 1 MINUTES)
-	return 1
+	return TRUE
 
 /obj/machinery/grey_autocloner/process()
 	if(stat & NOPOWER) //explode if power is lost and cloning
@@ -121,7 +116,7 @@
 				SSticker.mode.ascend(H)
 
 /obj/machinery/grey_autocloner/proc/finish_clone()
-	playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
+	playsound(get_turf(src), 'sound/machines/ding.ogg', 50, TRUE)
 	var/obj/item/organ/internal/storedorgan = new /obj/item/organ/internal/cyberimp/brain/speech_translator
 	storedorgan.insert(occupant) //insert stored organ into the user
 	occupant.forceMove(get_turf(src))
@@ -137,7 +132,7 @@
 /obj/machinery/grey_autocloner/proc/messy_explode()
 	if(occupant)
 		occupant.forceMove(get_turf(src))
-	explosion(loc, 1, 2, 4, flame_range = 2)
+	explosion(get_turf(src), 1, 2, 4, flame_range = 2)
 	qdel(src)
 
 /obj/machinery/grey_autocloner/deconstruct(disassembled)
