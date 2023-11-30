@@ -117,7 +117,7 @@
 	return data
 
 /obj/machinery/space_heater/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
-	if(..())
+	if(..() || !open)
 		return
 
 	. = TRUE
