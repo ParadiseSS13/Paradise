@@ -364,6 +364,16 @@
 	cost = 10
 	species = list("Human")
 
+//Gr(e)(a)y
+/datum/uplink_item/species_restricted/prescan
+	name = "Technocracy Advanced Cloning System"
+	desc = "This kit will give you the parts to build an advanced automatic cloning system, to clone whoever has the linked implant installed on death. \
+	Power intensive, implant must be recovered for reuse, and implanter must be linked to cloner."
+	reference = "TACS"
+	item = /obj/item/storage/box/syndie_kit/prescan
+	cost = 25 /// A fresh start, but a start with nothing. Hard to use well
+	species = list("Grey")
+
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
 // -------------------------------------
