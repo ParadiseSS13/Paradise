@@ -34,9 +34,9 @@
 	/// Max cold protection shared across the MOD parts.
 	var/min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	// for leaking gas from turf to mask and vice-versa
-	var/gas_transfer_coefficient = 0.1
+	var/gas_transfer_coefficient = 0.01
 	// for chemicals/diseases
-	var/permeability_coefficient = 0.1
+	var/permeability_coefficient = 0.01
 	/// Siemens shared across the MOD parts.
 	var/siemens_coefficient = 0.5
 	/// How much modules can the MOD carry without malfunctioning.
