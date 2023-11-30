@@ -61,12 +61,13 @@
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	if(istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
-		var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
-		C.spin()
-		chamber_round(0)
-		playsound(get_turf(user), 'sound/weapons/revolver_spin.ogg', 50, 1)
-		user.visible_message("<span class='warning'>[usr] spins [src]'s chamber.</span>", "<span class='notice'>You spin [src]'s chamber.</span>")
+	if(!istype(magazine, /obj/item/ammo_box/magazine/internal/cylinder))
+		return ..()
+	var/obj/item/ammo_box/magazine/internal/cylinder/C = magazine
+	C.spin()
+	chamber_round(0)
+	playsound(get_turf(user), 'sound/weapons/revolver_spin.ogg', 50, TRUE)
+	user.visible_message("<span class='warning'>[user] spins [src]'s chamber.</span>", "<span class='notice'>You spin [src]'s chamber.</span>")
 
 /obj/item/gun/projectile/revolver/can_shoot()
 	return get_ammo(0,0)
