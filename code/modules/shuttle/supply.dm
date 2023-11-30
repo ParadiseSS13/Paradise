@@ -199,6 +199,19 @@
 								medical_credits += SSeconomy.credits_per_virology_goal
 								msg += "<span class='good'>+[SSeconomy.credits_per_virology_goal]</span>: [G.name] completion.<br>"
 
+				// Sell viral sample virology goals that are in vial lockboxes too
+				if(istype(thing, /obj/item/storage/lockbox/vials))
+					for(var/thing2 in thing)
+						if(istype(thing2, /obj/item/reagent_containers))
+							var/obj/item/reagent_containers/C = thing2
+							if(C.reagents && C.reagents.reagent_list)
+								for(var/datum/virology_goal/G in GLOB.virology_goals)
+									if(G.completed)
+										continue
+									if(G.check_completion(C.reagents.reagent_list))
+										medical_credits += SSeconomy.credits_per_virology_goal
+										msg += "<span class='good'>+[SSeconomy.credits_per_virology_goal]</span>: [G.name] completion.<br>"
+
 				// Sell exotic plants
 				if(istype(thing, /obj/item/seeds))
 					var/obj/item/seeds/S = thing
