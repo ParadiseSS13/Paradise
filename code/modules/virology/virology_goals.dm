@@ -71,24 +71,24 @@ GLOBAL_LIST_EMPTY(virology_goals)
 	. = FALSE
 	var/datum/reagent/blood/BL = locate() in reagent_list
 	if(BL && BL.data && BL.data["viruses"])
-			for(var/datum/disease/advance/D in BL.data["viruses"])
-				if(length(D.symptoms) < 4) //We want 3 other symptoms alongside the requested one
+		for(var/datum/disease/advance/D in BL.data["viruses"])
+			if(length(D.symptoms) < 4) //We want 3 other symptoms alongside the requested one
+				continue
+			var/properties = D.GenerateProperties()
+			var/property = properties[goal_property]
+			if(!(property == goal_property_value))
+				continue
+			for(var/datum/symptom/S in D.symptoms)
+				if(!goal_symptom)
+					return
+				if(S.type == goal_symptom)
+					delivered_amount += BL.volume
+					if(delivered_amount >= delivery_goal)
+						delivered_amount = delivery_goal
+						completed = TRUE
+						return TRUE
+				else
 					continue
-				var/properties = D.GenerateProperties()
-				var/property = properties[goal_property]
-				if(!(property == goal_property_value))
-					continue
-				for(var/datum/symptom/S in D.symptoms)
-					if(!goal_symptom)
-						return
-					if(S.type == goal_symptom)
-						delivered_amount += BL.volume
-						if(delivered_amount >= delivery_goal)
-							delivered_amount = delivery_goal
-							completed = TRUE
-							return TRUE
-					else
-						continue
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
@@ -155,7 +155,7 @@ GLOBAL_LIST_EMPTY(virology_goals)
 	var/stealth = 0
 	for(var/i in 1 to 5)
 		var/list/datum/symptom/candidates = list()
-		for(var/V in symptoms) //I have no idea why a normal for loop doesnt work but iam not gonna try and fix it, because i was stuck at this bug for weeks already
+		for(var/V in symptoms) //I have no idea why a normal for loop of "for(var/datum/symptom/V in symptoms)" doesnt work here but iam not gonna try and fix it, because i was stuck at this bug for weeks already
 			var/datum/symptom/S = V
 			if(stealth + S.stealth < 3) //The Pandemic cant detect a virus with stealth 3 or higher and we want that, this is a stealth virus
 				continue
