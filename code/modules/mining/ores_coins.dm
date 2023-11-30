@@ -409,20 +409,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 
 /obj/item/coin/uranium
 	cmineral = "uranium"
+	desc = "You probably shouldn't keep this in your front pocket."
 	icon_state = "coin_uranium_heads"
 	materials = list(MAT_URANIUM = 400)
-	desc = "You probably shouldn't keep this in your front pocket."
 	credits = 160
-	var/last_event = 0
+	COOLDOWN_DECLARE(radiation_cooldown)
 
 /obj/item/coin/uranium/attack_self(mob/user)
-	radiate()
 	..()
-
-/obj/item/coin/uranium/proc/radiate()
-	if(world.time > last_event + 1.5 SECONDS)
-		radiation_pulse(src, 50)
-		last_event = world.time
+	if(!COOLDOWN_FINISHED(src, radiation_cooldown))
+		return
+	radiation_pulse(src, 50)
+	COOLDOWN_START(src, radiation_cooldown, 1.5 SECONDS)
 
 /obj/item/coin/clown
 	cmineral = "bananium"
