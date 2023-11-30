@@ -9,10 +9,10 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_ICON_SKIN_TONE | HAS_BODY_MARKINGS
 	dietflags = DIET_OMNI
-	blurb = "Humanity, originating from the Sol system, has expanded over five centuries, establishing diverse colonies across vast space. \
-	These range from the militaristic Trans Solar Federation to the Union of Soviet Socialist Planets.<br/><br/> \
-	While the TSF predominantly governs human territories and is a founder of the Solar-Central Compact, corporate powers, widespread cyber and bio-augmentation, \
-	and clandestine groups render life beyond the TSF's core territories often tumultuous."
+	blurb = "Humanity, originating from the Sol system, has expanded over five centuries, branching out to forge a variety of governments and powerful corporations. \
+	These range from the militaristic Trans Solar Federation, the Union of Soviet Socialist Planets, and megacorps like Nanotrasen.<br/><br/> \
+	With a constant desire to colonize and spread their influence onto other species, they have began to develop alliances and enemies, \
+	making them one of the most recongnizeable and socially diverse species in the sector."
 
 	icon_skin_tones = list(
 		1 = "Default White",
