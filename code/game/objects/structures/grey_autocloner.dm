@@ -124,7 +124,6 @@
 	playsound(src.loc, 'sound/machines/ding.ogg', 50, 1)
 	var/obj/item/organ/internal/storedorgan = new /obj/item/organ/internal/cyberimp/brain/speech_translator
 	storedorgan.insert(occupant) //insert stored organ into the user
-	message_admins("fries are done")
 	occupant.forceMove(get_turf(src))
 	occupant.update_body()
 	domutcheck(occupant) //Waiting until they're out before possible notransform.
