@@ -20,7 +20,6 @@
 	. = ..()
 	cell = new /obj/item/stock_parts/cell(src)
 	update_icon()
-	return
 
 /obj/machinery/space_heater/Destroy()
 	QDEL_NULL(cell)
@@ -48,6 +47,7 @@
 		return
 	if(cell)
 		cell.emp_act(severity)
+		SStgui.update_uis(src)
 	..(severity)
 
 /obj/machinery/space_heater/attackby(obj/item/I, mob/user, params)
@@ -82,85 +82,76 @@
 		SCREWDRIVER_OPEN_PANEL_MESSAGE
 	else
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
+	SStgui.update_uis(src)
 	update_icon()
-	if(!open && user.machine == src)
-		user << browse(null, "window=spaceheater")
-		user.unset_machine()
 
-/obj/machinery/space_heater/attack_hand(mob/user as mob)
-	src.add_fingerprint(user)
-	interact(user)
+/obj/machinery/space_heater/proc/toggle_power(mob/user)
+	if(!cell)
+		return
+	on = !on
+	user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] [src].</span>")
+	update_icon()
+	SStgui.update_uis(src)
 
-/obj/machinery/space_heater/interact(mob/user as mob)
+/obj/machinery/space_heater/attack_hand(mob/user)
+	add_fingerprint(user)
 	if(open)
-		var/dat
-		dat = "Power cell: "
-		if(cell)
-			dat += "<A href='byond://?src=[UID()];op=cellremove'>Installed</A><BR>"
-		else
-			dat += "<A href='byond://?src=[UID()];op=cellinstall'>Removed</A><BR>"
-
-		dat += "Power Level: [cell ? round(cell.percent(),1) : 0]%<BR><BR>"
-
-		dat += "Set Temperature: "
-
-		dat += "<A href='?src=[UID()];op=temp;val=-5'>-</A>"
-
-		dat += " [set_temperature]&deg;C "
-		dat += "<A href='?src=[UID()];op=temp;val=5'>+</A><BR>"
-
-		user.set_machine(src)
-		user << browse("<HEAD><TITLE>Space Heater Control Panel</TITLE></HEAD><TT>[dat]</TT>", "window=spaceheater")
-		onclose(user, "spaceheater")
-
+		ui_interact(user)
 	else
-		on = !on
-		user.visible_message("<span class='notice'>[user] switches [on ? "on" : "off"] [src].</span>","<span class='notice'>You switch [on ? "on" : "off"] [src].</span>")
-		update_icon()
-	return
+		toggle_power(user)
 
+/obj/machinery/space_heater/ui_interact(mob/user, ui_key, datum/tgui/ui, force_open, datum/tgui/master_ui, datum/ui_state/state)
+	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "SpaceHeater", "Space Heater Internals", 360, 250)
+		ui.open()
+		ui.set_autoupdate(FALSE)
 
-/obj/machinery/space_heater/Topic(href, href_list)
+/obj/machinery/space_heater/ui_data(mob/user)
+	var/list/data = list()
+	data["Powercell"] = cell ? cell : FALSE
+	data["CellPercent"] = cell ? round(cell.percent(),1) : 0
+	data["Temp"] = set_temperature
+	data["on"] = on
+	data["open"] = open
+	return data
+
+/obj/machinery/space_heater/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
-		return 1
-	if((in_range(src, usr) && isturf(src.loc)) || (issilicon(usr)))
-		usr.set_machine(src)
+		return
 
-		switch(href_list["op"])
+	. = TRUE
 
-			if("temp")
-				var/value = text2num(href_list["val"])
+	switch(action)
+		if("change_temp")
+			set_temperature = dd_range(0, 90, text2num(params["change_temp"]))
+		if("add_cell")
+			if(!open || cell)
+				return
+			var/obj/item/stock_parts/cell/C = usr.get_active_hand()
+			if(!istype(C))
+				return
+			usr.drop_item()
+			cell = C
+			C.forceMove(src)
+			C.add_fingerprint(usr)
 
-				// limit to 20-90 degC
-				set_temperature = dd_range(0, 90, set_temperature + value)
+			usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
+		if("remove_cell")
+			if(!open || !cell || usr.get_active_hand())
+				return
+			on = FALSE
+			cell.update_icon()
+			usr.put_in_hands(cell)
+			cell.add_fingerprint(usr)
+			cell = null
+			usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
 
-			if("cellremove")
-				if(open && cell && !usr.get_active_hand())
-					cell.update_icon()
-					usr.put_in_hands(cell)
-					cell.add_fingerprint(usr)
-					cell = null
-					usr.visible_message("<span class='notice'>[usr] removes the power cell from [src].</span>", "<span class='notice'>You remove the power cell from [src].</span>")
+		if("toggle_power")
+			toggle_power(usr)
 
-
-			if("cellinstall")
-				if(open && !cell)
-					var/obj/item/stock_parts/cell/C = usr.get_active_hand()
-					if(istype(C))
-						usr.drop_item()
-						cell = C
-						C.loc = src
-						C.add_fingerprint(usr)
-
-						usr.visible_message("<span class='notice'>[usr] inserts a power cell into [src].</span>", "<span class='notice'>You insert the power cell into [src].</span>")
-
-		updateDialog()
-	else
-		usr << browse(null, "window=spaceheater")
-		usr.unset_machine()
-	return
-
-
+	if(.)
+		add_fingerprint(usr)
 
 /obj/machinery/space_heater/process()
 	if(on)
