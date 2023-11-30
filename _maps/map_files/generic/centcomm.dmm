@@ -1565,6 +1565,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/tdome/arena_source)
+"fV" = (
+/obj/machinery/light/small,
+/obj/machinery/economy/vending/dinnerware,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "fX" = (
 /obj/structure/table/wood,
 /obj/item/candle/eternal/wizard{
@@ -4491,7 +4498,9 @@
 	},
 /area/centcom/gamma)
 "oX" = (
-/obj/machinery/kitchen_machine/grill/upgraded,
+/obj/machinery/kitchen_machine/grill/upgraded{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -5679,10 +5688,8 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "tr" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
+/obj/machinery/economy/vending/cigarette,
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "ts" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -6703,6 +6710,7 @@
 	desc = "Used to grind things up into raw materials and liquids.";
 	pixel_y = 5
 	},
+/obj/item/kitchen/rollingpin,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6987,7 +6995,6 @@
 "xU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave/upgraded,
-/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6997,10 +7004,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "xY" = (
-/obj/machinery/economy/vending/cigarette,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "xZ" = (
@@ -7135,6 +7139,12 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/centcom/suppy)
+"zd" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "zg" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -8171,6 +8181,7 @@
 	dir = 1
 	},
 /obj/machinery/light/small,
+/obj/item/reagent_containers/glass/beaker,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Dn" = (
@@ -8689,9 +8700,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cafeteria"
-	},
+/turf,
 /area/ghost_bar)
 "Fc" = (
 /obj/machinery/light/spot,
@@ -12176,6 +12185,12 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/control)
+"QK" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/wood,
+/area/ghost_bar)
 "QL" = (
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -13851,6 +13866,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Xb" = (
@@ -72235,7 +72251,7 @@ Jy
 vd
 vd
 vd
-Jy
+rf
 Me
 EX
 Jy
@@ -72492,7 +72508,7 @@ Jy
 vd
 cX
 vd
-rf
+xY
 Me
 wh
 rd
@@ -73785,8 +73801,8 @@ Me
 Me
 Me
 Me
-xY
-Jy
+Me
+QK
 Jy
 qH
 Nm
@@ -74041,8 +74057,8 @@ es
 Oj
 zj
 fF
+zd
 Me
-Jy
 Jy
 ip
 Jy
@@ -74298,8 +74314,8 @@ es
 es
 es
 es
+es
 Uk
-Jy
 Jy
 ol
 ol
@@ -74555,8 +74571,8 @@ wN
 Dk
 zY
 xU
+fV
 Me
-tr
 Jy
 rG
 hU
@@ -74812,8 +74828,8 @@ Me
 Me
 Me
 Me
+Me
 aT
-Jy
 Jy
 RX
 RX
@@ -75070,9 +75086,9 @@ ps
 ps
 ps
 Me
-Jy
+tr
 gS
-Jy
+xY
 Me
 Me
 Me
