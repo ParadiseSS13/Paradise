@@ -15,7 +15,7 @@
 	blurb = "The Diona are plant-like creatures made up of a gestalt of smaller Nymphs. \
 	Dionae lack any form of centralized government or homeworld, with most avoiding the affairs of the wider galaxy, preferring instead to focus on the spread of their species.<br/><br/> \
 	As a gestalt entity, each nymph possesses an individual personality, yet they communicate collectively. \
-	Consequently, Diona often speak in a unique blend of first and third person, using 'We and I' to reflect their unified yet multifaceted nature."
+	Consequently, Diona often speak in a unique blend of first and third person, using 'We' and 'I' to reflect their unified yet multifaceted nature."
 
 	species_traits = list(NO_HAIR)
 	inherent_traits = list(TRAIT_NOGERMS, TRAIT_NODECAY)

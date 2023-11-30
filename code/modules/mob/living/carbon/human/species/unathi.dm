@@ -10,7 +10,7 @@
 	primitive_form = /datum/species/monkey/unathi
 
 	blurb = "Unathi are a scaled species of reptilian beings from the desert world of Moghes, within the Uuosa-Eso system. \
-	Organizing themselves in highly competitive feudal kingdoms, Unathi lack any sort of wide-scale unification, and its culture and history is centuries of internal conflict and struggle.<br/><br/> \
+	Organizing themselves in highly competitive feudal kingdoms, Unathi lack any sort of wide-scale unification, and their culture and history consist of centuries of internal conflict and struggle.<br/><br/> \
 	Despite clans having a sizeable military force, inter-clan rivalries and constant civil war prevents the Unathi from achieving much more in the wider galactic scene."
 
 	species_traits = list(LIPS)
