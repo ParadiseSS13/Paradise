@@ -46,15 +46,16 @@ GLOBAL_LIST_EMPTY(virology_goals)
 		goal_property_text = "stage rate"
 	else
 		goal_property_text = goal_property
-	goal_property_value = rand(-18,11)
-	if(goal_property == "resistance")
-		goal_property_value += S.resistance
-	else if(goal_property == "stealth")
-		goal_property_value += S.stealth
-	else if(goal_property == "stage_rate")
-		goal_property_value += S.stage_speed
-	else
-		goal_property_value += S.transmittable
+	goal_property_value = rand(-18 , 11)
+	switch(goal_property)
+		if("resistance")
+			goal_property_value += S.resistance
+		if("stealth")
+			goal_property_value += S.stealth
+		if("stage_rate")
+			goal_property_value += S.stage_speed
+		if("transmittable")
+			goal_property_value += S.transmittable
 	qdel(S)
 
 /datum/virology_goal/propertysymptom/get_report()
@@ -69,16 +70,17 @@ GLOBAL_LIST_EMPTY(virology_goals)
 /datum/virology_goal/propertysymptom/check_completion(list/datum/reagent/reagent_list)
 	. = FALSE
 	var/datum/reagent/blood/BL = locate() in reagent_list
-	if(BL)
-		if(BL.data && BL.data["viruses"])
+	if(BL && BL.data && BL.data["viruses"])
 			for(var/datum/disease/advance/D in BL.data["viruses"])
-				if(D.symptoms.len < 4) //We want 3 other symptoms alongside the requested one
+				if(length(D.symptoms) < 4) //We want 3 other symptoms alongside the requested one
 					continue
 				var/properties = D.GenerateProperties()
 				var/property = properties[goal_property]
 				if(!(property == goal_property_value))
 					continue
 				for(var/datum/symptom/S in D.symptoms)
+					if(!goal_symptom)
+						return
 					if(S.type == goal_symptom)
 						delivered_amount += BL.volume
 						if(delivered_amount >= delivery_goal)
@@ -95,9 +97,9 @@ GLOBAL_LIST_EMPTY(virology_goals)
 /datum/virology_goal/virus/New()
 	var/list/datum/symptom/symptoms = subtypesof(/datum/symptom)
 	var/stealth = 0
-	for(var/i=0, i<4, i++)
+	for(var/i in 1 to 5)
 		var/list/datum/symptom/candidates = list()
-		for(var/V in symptoms) //I have no idea why a normal for loop doesnt work but iam not gonna try and fix it, because i was stuck at this bug for weeks already
+		for(var/V in symptoms) //I have no idea why a normal for loop of "for(var/datum/symptom/V in symptoms)" doesnt work here but iam not gonna try and fix it, because i was stuck at this bug for weeks already
 			var/datum/symptom/S = V
 			if(stealth + S.stealth >= 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
 				continue
@@ -128,23 +130,22 @@ GLOBAL_LIST_EMPTY(virology_goals)
 /datum/virology_goal/virus/check_completion(list/datum/reagent/reagent_list)
 	. = FALSE
 	var/datum/reagent/blood/BL = locate() in reagent_list
-	if(BL)
-		if(BL.data && BL.data["viruses"])
-			for(var/datum/disease/advance/D in BL.data["viruses"])
-				if(D.symptoms.len < goal_symptoms.len || D.symptoms.len > goal_symptoms.len) //This is here so viruses with extra symptoms dont get approved
-					return
-				var/skip = FALSE
-				for(var/S in goal_symptoms)
-					var/datum/symptom/SY = locate(S) in D.symptoms
-					if(!SY)
-						skip = TRUE
-						break
-				if(!skip)
-					delivered_amount += BL.volume
-					if(delivered_amount >= delivery_goal)
-						delivered_amount = delivery_goal
-						completed = TRUE
-						return TRUE
+	if(BL && BL.data && BL.data["viruses"])
+		for(var/datum/disease/advance/D in BL.data["viruses"])
+			if(length(D.symptoms) != length(goal_symptoms)) //This is here so viruses with extra symptoms dont get approved
+				return
+			var/skip = FALSE
+			for(var/S in goal_symptoms)
+				var/datum/symptom/SY = locate(S) in D.symptoms
+				if(!SY)
+					skip = TRUE
+					break
+			if(!skip)
+				delivered_amount += BL.volume
+				if(delivered_amount >= delivery_goal)
+					delivered_amount = delivery_goal
+					completed = TRUE
+					return TRUE
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"
@@ -152,7 +153,7 @@ GLOBAL_LIST_EMPTY(virology_goals)
 /datum/virology_goal/virus/stealth/New()
 	var/list/datum/symptom/symptoms = subtypesof(/datum/symptom)
 	var/stealth = 0
-	for(var/i=0, i<4, i++)
+	for(var/i in 1 to 5)
 		var/list/datum/symptom/candidates = list()
 		for(var/V in symptoms) //I have no idea why a normal for loop doesnt work but iam not gonna try and fix it, because i was stuck at this bug for weeks already
 			var/datum/symptom/S = V
