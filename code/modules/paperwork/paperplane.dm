@@ -108,20 +108,6 @@
 			E.take_damage(8, 1)
 		H.emote("scream")
 
-/obj/item/paper/AltClick(mob/user, obj/item/I)
-	if(in_range(user, src) && !user.incapacitated())
-		if(is_pen(user.get_active_hand()))
-			rename()
-			return
-
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		I = H.is_in_hands(/obj/item/paper)
-		if(I)
-			ProcFoldPlane(H, I)
-	else
-		..()
-
 /obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/I)
 	if(istype(user))
 		if((!in_range(src, user)) || user.stat || user.restrained())

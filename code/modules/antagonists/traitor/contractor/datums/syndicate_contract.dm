@@ -5,6 +5,8 @@
 #define COMPLETION_NOTIFY_DELAY 5 SECONDS
 #define RETURN_INJURY_CHANCE 85
 #define RETURN_SOUVENIR_CHANCE 10
+/// How long an antagonist target remains in the Syndicate jail.
+#define ANTAG_CONTRACT_TIME 10 MINUTES
 
 /**
   * # Syndicate Contract
@@ -19,7 +21,6 @@
 	var/portal_duration = 5 MINUTES
 	/// How long a target remains in the Syndicate jail.
 	var/prison_time = 4 MINUTES
-	/// List of items a target can get randomly after their return.
 	var/list/obj/item/souvenirs = list(
 		/obj/item/bedsheet/syndie,
 		/obj/item/clothing/under/syndicate/tacticool,
@@ -41,9 +42,6 @@
 	var/credits_lower_mult = 25
 	// The upper bound of the credits reward multiplier.
 	var/credits_upper_mult = 40
-	// Implants (non cybernetic ones) that shouldn't be removed when a victim gets kidnapped.
-	// Typecache; initialized in New()
-	var/static/implants_to_keep = null
 	// Variables
 	/// The owning contractor hub.
 	var/datum/contractor_hub/owning_hub = null
@@ -88,21 +86,6 @@
 	var/static/nt_am_board_resigned = FALSE
 
 /datum/syndicate_contract/New(datum/contractor_hub/hub, datum/mind/owner, list/datum/mind/target_blacklist, target_override)
-	// Init settings
-	if(!implants_to_keep)
-		implants_to_keep = typecacheof(list(
-			// These two are specifically handled in code to prevent usage, but are included here for clarity.
-			/obj/item/implant/storage,
-			/obj/item/implant/uplink,
-			// The rest
-			/obj/item/implant/adrenalin,
-			/obj/item/implant/emp,
-			/obj/item/implant/explosive,
-			/obj/item/implant/freedom,
-			/obj/item/implant/traitor,
-			/obj/item/implant/gorilla_rampage,
-			/obj/item/implant/stealth
-		))
 	// Initialize
 	owning_hub = hub
 	contract = new /datum/objective/contract(src)
@@ -352,7 +335,11 @@
 	var/mob/living/carbon/human/H = M
 
 	// Prepare their return
+	if(M.mind.special_role && !(M.mind.special_role in list(SPECIAL_ROLE_ERT, SPECIAL_ROLE_DEATHSQUAD)))
+		prison_time = ANTAG_CONTRACT_TIME
+
 	prisoner_timer_handle = addtimer(CALLBACK(src, PROC_REF(handle_target_return), M, T), prison_time, TIMER_STOPPABLE)
+
 	LAZYSET(GLOB.prisoner_belongings.prisoners, M, src)
 
 	// Shove all of the victim's items in the secure locker.
@@ -394,20 +381,13 @@
 			if(isplasmaman(H) && I == H.head)
 				continue
 
-		// Any kind of non-syndie implant gets potentially removed (mindshield, etc)
+		// Any kind of implant gets potentially removed (mindshield, freedoms, etc)
 		if(istype(I, /obj/item/implant))
-			if(istype(I, /obj/item/implant/storage)) // Storage stays, but items within get confiscated
+			if(istype(I, /obj/item/implant/storage)) // Storage items are removed and placed in the confiscation locker before the implant is taken.
 				var/obj/item/implant/storage/storage_implant = I
 				for(var/it in storage_implant.storage)
 					storage_implant.storage.remove_from_storage(it)
 					stuff_to_transfer += it
-				continue
-			else if(istype(I, /obj/item/implant/uplink)) // Uplink stays, but is jammed while in jail
-				var/obj/item/implant/uplink/uplink_implant = I
-				uplink_implant.hidden_uplink.is_jammed = TRUE
-				continue
-			else if(is_type_in_typecache(I, implants_to_keep))
-				continue
 			qdel(I)
 			continue
 
@@ -461,7 +441,9 @@
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(get_turf(M))
 	drink.reagents.add_reagent("tea", 25) // British coders beware, tea in glasses
 
-	temp_objs = list(food, drink)
+	var/obj/item/coin/antagtoken/passingtime = new(get_turf(M))
+
+	temp_objs = list(food, drink, passingtime)
 
 	// Narrate their kidnapping and torturing experience.
 	if(M.stat != DEAD)
@@ -658,3 +640,4 @@
 #undef COMPLETION_NOTIFY_DELAY
 #undef RETURN_INJURY_CHANCE
 #undef RETURN_SOUVENIR_CHANCE
+#undef ANTAG_CONTRACT_TIME
