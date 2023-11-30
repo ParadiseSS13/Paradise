@@ -36,13 +36,13 @@
  *	Radio QoL improvement
  *	So players can Alt+click to enable dynamic and Ctrl+Shift+click to enable speaker
 */
-/obj/item/radio/examine(mob/user)
+/obj/item/radio/headset/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		. += span_info("Alt-click on \the [name] to toggle broadcasting.")
 		. += span_info("Ctrl-Shift-click on \the [src] to toggle speaker.")
 
-/obj/item/radio/AltClick(mob/user)
+/obj/item/radio/headset/AltClick(mob/user)
 	if(!Adjacent(user))
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
@@ -53,7 +53,7 @@
 	broadcasting = !broadcasting
 	to_chat(user, span_notice("You toggle broadcasting [broadcasting ? "on" : "off"]."))
 
-/obj/item/radio/CtrlShiftClick(mob/user)
+/obj/item/radio/headset/CtrlShiftClick(mob/user)
 	if(!Adjacent(user))
 		return
 	if(!iscarbon(usr) && !isrobot(usr))
