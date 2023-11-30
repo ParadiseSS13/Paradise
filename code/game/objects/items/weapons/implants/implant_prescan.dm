@@ -2,7 +2,7 @@
 	name = "technocracy cloning bio-chip"
 	desc = "Allows for advanced instantanious cloning!"
 	icon_state = "generic"
-	origin_tech = "materials=3;combat=5;syndicate=4"
+	origin_tech = "materials=3;combat=5;syndicate=2"
 	activated = FALSE
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
 	var/obj/machinery/grey_autocloner/linked
