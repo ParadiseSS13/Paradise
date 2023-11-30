@@ -1830,6 +1830,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "gT" = (
@@ -5687,10 +5688,6 @@
 /obj/machinery/floodlight,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
-"tr" = (
-/obj/machinery/economy/vending/cigarette,
-/turf/simulated/floor/wood,
-/area/ghost_bar)
 "ts" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -8181,7 +8178,6 @@
 	dir = 1
 	},
 /obj/machinery/light/small,
-/obj/item/reagent_containers/glass/beaker,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Dn" = (
@@ -72253,7 +72249,7 @@ Jy
 vd
 vd
 vd
-rf
+Jy
 Me
 EX
 Jy
@@ -72510,7 +72506,7 @@ Jy
 vd
 cX
 vd
-xY
+rf
 Me
 wh
 rd
@@ -72762,7 +72758,7 @@ yK
 OK
 OK
 Nr
-Jy
+xY
 Jy
 UH
 ym
@@ -75087,8 +75083,8 @@ ps
 ps
 ps
 ps
+ps
 Me
-tr
 gS
 xY
 Me
@@ -75344,7 +75340,7 @@ ps
 ps
 ps
 ps
-Me
+ps
 Me
 Me
 Me
