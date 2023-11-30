@@ -64,6 +64,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/solar/auxport)
+"abN" = (
+/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+	dir = 4
+	},
+/turf/space,
+/area/space)
 "abU" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -33569,6 +33575,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
+"cfk" = (
+/obj/machinery/door/window/classic/reversed{
+	name = "Deliveries";
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "red"
+	},
+/area/station/hallway/primary/fore)
 "cfm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical,
@@ -57875,7 +57891,11 @@
 "hDY" = (
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
-/obj/effect/mapping_helpers/airlock/windoor/access/all/security/brig{
+/obj/machinery/door/window/reinforced/normal{
+	name = "Security Desk";
+	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/security/brig{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -70470,7 +70490,7 @@
 	},
 /obj/machinery/door/window/reinforced/normal{
 	name = "Security Desk";
-	dir = 4
+	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general{
 	dir = 4
@@ -73590,10 +73610,6 @@
 "oDf" = (
 /obj/item/paper,
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/reinforced/normal{
-	name = "Arrivals Security Checkpoint";
-	pixel_y = -8
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -108706,7 +108722,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+abN
 aaa
 aaa
 aaa
@@ -122058,7 +122074,7 @@ acf
 fRT
 jIs
 epM
-aHM
+cfk
 aJk
 aNt
 aNt
