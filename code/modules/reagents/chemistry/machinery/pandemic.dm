@@ -221,6 +221,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 	var/obj/item/paper/P = new /obj/item/paper(loc)
 	P.name = "paper- 'Viral Samples Request'"
 
