@@ -97,13 +97,7 @@ const FutureStationTraitsPage = (props, context) => {
                           act('setup_future_traits', {
                             station_traits: filterMap(
                               future_station_traits,
-                              (otherTrait) => {
-                                if (otherTrait.path === trait.path) {
-                                  return undefined;
-                                } else {
-                                  return otherTrait.path;
-                                }
-                              }
+                              (otherTrait) => otherTrait.path === trait.path ? undefined : otherTrait.path
                             ),
                           });
                         }}
