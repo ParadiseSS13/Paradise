@@ -11,6 +11,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Chief Engineer",
 	"Research Director",
 	"Chief Medical Officer",
+	"Quartermaster",
 	"Nanotrasen Representative",
 	"Magistrate",
 	"Blueshield"
@@ -24,6 +25,7 @@ GLOBAL_LIST_INIT(command_head_positions, list(
 	"Chief Engineer",
 	"Research Director",
 	"Chief Medical Officer",
+	"Quartermaster"
 ))
 
 
@@ -61,19 +63,14 @@ GLOBAL_LIST_INIT(support_positions, list(
 	"Chef",
 	"Janitor",
 	"Librarian",
-	"Quartermaster",
-	"Cargo Technician",
-	"Shaft Miner",
 	"Internal Affairs Agent",
 	"Chaplain",
 	"Clown",
 	"Mime",
-	"Barber",
 	"Explorer"
 ))
 
 GLOBAL_LIST_INIT(supply_positions, list(
-	"Head of Personnel",
 	"Quartermaster",
 	"Cargo Technician",
 	"Shaft Miner"

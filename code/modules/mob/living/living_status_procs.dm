@@ -102,6 +102,9 @@ STATUS EFFECTS
 		return FALSE
 	if(buckled) // if they are buckled they aint movin nowhere
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_FORCED_STANDING) && new_value == LYING_DOWN)
+		return FALSE
+
 	. = TRUE
 	body_position = new_value
 	if(new_value == LYING_DOWN) // From standing to lying down.
@@ -844,6 +847,12 @@ STATUS EFFECTS
 		dna.SetSEState(block, 0, 1) //Fix the gene
 		singlemutcheck(src, block, MUTCHK_FORCED)
 		dna.UpdateSE()
+
+// Revivability
+
+
+/mob/living/proc/is_revivable()
+	return has_status_effect(/datum/status_effect/limited_bonus/revivable)
 
 ///////////////////////////////// FROZEN /////////////////////////////////////
 

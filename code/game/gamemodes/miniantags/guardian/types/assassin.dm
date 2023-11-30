@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/guardian/assassin
-	melee_damage_lower = 20
-	melee_damage_upper = 20
+	melee_damage_lower = 25
+	melee_damage_upper = 25
 	damage_transfer = 0.6
 	playstyle_string = "As an <b>Assassin</b> type you do medium damage and have moderate damage resistance, but can enter stealth, massively increasing the damage of your next attack and causing it to ignore armor. Stealth is broken when you attack or take damage."
 	magic_fluff_string = "..And draw the Space Ninja, a lethal, invisible assassin."

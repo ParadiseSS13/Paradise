@@ -99,12 +99,16 @@
 	scanner.Grant(src)
 	update_icons()
 
+	// Drones have laws to not attack people
+	ADD_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
+
 /mob/living/silicon/robot/drone/init(alien = FALSE, mob/living/silicon/ai/ai_to_sync_to = null)
 	laws = new /datum/ai_laws/drone()
 	connected_ai = null
 
 	aiCamera = new /obj/item/camera/siliconcam/drone_camera(src)
 	additional_law_channels["Drone"] = ";"
+	ADD_TRAIT(src, TRAIT_RESPAWNABLE, UNIQUE_TRAIT_SOURCE(src))
 
 	playsound(loc, 'sound/machines/twobeep.ogg', 50)
 
@@ -217,7 +221,7 @@
 		SSticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
 
 	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have <b>five minutes</b> before the drone server detects this and automatically shuts you down.</span>")
-
+	REMOVE_TRAIT(src, TRAIT_RESPAWNABLE, UNIQUE_TRAIT_SOURCE(src))
 	message_admins("[key_name_admin(user)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	log_game("[key_name(user)] emagged drone [key_name(src)].  Laws overridden.")
 	var/time = time2text(world.realtime,"hh:mm:ss")
@@ -234,6 +238,7 @@
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
+	REMOVE_TRAIT(src, TRAIT_PACIFISM, INNATE_TRAIT)
 	set_zeroth_law("Only [H.real_name] and people [H.real_name] designates as being such are Syndicate Agents.")
 
 	to_chat(src, "<b>Obey these laws:</b>")
@@ -254,7 +259,6 @@
 /mob/living/silicon/robot/drone/death(gibbed)
 	. = ..(gibbed)
 	adjustBruteLoss(health)
-
 
 //CONSOLE PROCS
 /mob/living/silicon/robot/drone/proc/law_resync()
@@ -287,7 +291,7 @@
 
 /mob/living/silicon/robot/drone/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
-		if(cannotPossess(O))
+		if(!O.check_ahud_rejoin_eligibility())
 			continue
 		if(jobban_isbanned(O, "nonhumandept") || jobban_isbanned(O, "Drone"))
 			continue

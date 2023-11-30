@@ -1,7 +1,9 @@
-/obj/item/gun/magic/wand/
+/obj/item/gun/magic/wand
 	name = "wand of nothing"
 	desc = "It's not just a stick, it's a MAGIC stick!"
 	ammo_type = /obj/item/ammo_casing/magic
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "nothingwand"
 	item_state = "wand"
 	belt_icon = "wand_nothing"
@@ -9,14 +11,17 @@
 	can_charge = FALSE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
 	var/variable_charges = 1
+	execution_speed = 3 SECONDS
 
 /obj/item/gun/magic/wand/Initialize(mapload)
 	. = ..()
 	if(prob(75) && variable_charges) //25% chance of listed max charges, 50% chance of 1/2 max charges, 25% chance of 1/3 max charges
 		if(prob(33))
 			max_charges = CEILING(max_charges / 3, 1)
+			charges = max_charges
 		else
 			max_charges = CEILING(max_charges / 2, 1)
+			charges = max_charges
 
 /obj/item/gun/magic/wand/examine(mob/user)
 	. = ..()

@@ -23,10 +23,10 @@
 		//Moving around with fractured ribs won't do you any good
 			if(E.is_broken() && E.internal_organs && E.internal_organs.len && prob(15))
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
-				custom_pain("You feel broken bones moving in your [E.name]!")
-				I.receive_damage(rand(3,5))
+				E.custom_pain("You feel broken bones moving in your [E.name]!")
+				I.receive_damage(rand(3, 5))
 			if((E.status & ORGAN_BURNT) && !(E.status & ORGAN_SALVED))
-				custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
+				E.custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
 				E.germ_level++
 
 
@@ -59,13 +59,13 @@
 		else if(E.is_broken() || !E.is_usable())
 			stance_damage += 1
 
-	// Canes and crutches help you stand (if the latter is ever added)
+	// Canes and crutches help you stand
 	// One cane mitigates a broken leg+foot, or a missing foot.
-	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you.
-	if(l_hand && l_hand.is_crutch())
-		stance_damage -= 2
-	if(r_hand && r_hand.is_crutch())
-		stance_damage -= 2
+	// Two canes are needed for a lost leg. If you are missing both legs, canes aren't gonna help you. Get some crutches instead.
+	if(l_hand)
+		stance_damage -= l_hand.get_crutch_efficiency()
+	if(r_hand)
+		stance_damage -= r_hand.get_crutch_efficiency()
 
 	if(stance_damage < 0)
 		stance_damage = 0

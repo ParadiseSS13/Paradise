@@ -2,7 +2,7 @@
 	name = "nanopaste"
 	singular_name = "nanite swarm"
 	desc = "A tube of paste containing swarms of repair nanites. Very effective in repairing robotic machinery."
-	icon = 'icons/obj/nanopaste.dmi'
+	icon = 'icons/obj/surgery.dmi'
 	icon_state = "tube"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=2;engineering=3"
@@ -15,7 +15,7 @@
 		return 0
 	if(isrobot(M))	//Repairing cyborgs
 		var/mob/living/silicon/robot/R = M
-		if(R.getBruteLoss() || R.getFireLoss() )
+		if(R.getBruteLoss() || R.getFireLoss())
 			R.heal_overall_damage(15, 15)
 			use(1)
 			user.visible_message("<span class='notice'>\The [user] applied some [src] at [R]'s damaged areas.</span>",\
@@ -25,44 +25,46 @@
 
 	if(ishuman(M)) //Repairing robotic limbs and IPCs
 		var/mob/living/carbon/human/H = M
-		var/obj/item/organ/external/S = H.get_organ(user.zone_selected)
+		var/obj/item/organ/external/external_limb = H.get_organ(user.zone_selected)
 
-		if(S && S.is_robotic())
-			if(S.get_damage())
-				use(1)
-				var/remheal = 15
-				var/nremheal = 0
-				S.heal_damage(robo_repair = 1) //should in, theory, heal the robotic organs in just the targeted area with it being S instead of E
-				var/childlist
-				if(!isnull(S.children))
-					childlist = S.children.Copy()
-				var/parenthealed = FALSE
-				while(remheal > 0)
-					var/obj/item/organ/external/E
-					if(S.get_damage())
-						E = S
-					else if(LAZYLEN(childlist))
-						E = pick_n_take(childlist)
-						if(!E.get_damage() || !E.is_robotic())
-							continue
-					else if(S.parent && !parenthealed)
-						E = S.parent
-						parenthealed = TRUE
-						if(!E.get_damage() || !E.is_robotic())
-							break
-					else
-						break
-					nremheal = max(remheal - E.get_damage(), 0)
-					E.heal_damage(remheal, 0, 0, 1) //Healing Brute
-					E.heal_damage(0, remheal, 0, 1) //Healing Burn
-					remheal = nremheal
-					user.visible_message("<span class='notice'>\The [user] applies some nanite paste at \the [M]'s [E.name] with \the [src].</span>")
-				if(H.bleed_rate && ismachineperson(H))
-					H.bleed_rate = 0
-			else
-				to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
+		if(external_limb && external_limb.is_robotic())
+			robotic_limb_repair(user, external_limb, H)
 		else
 			to_chat(user, "<span class='notice'>[src] won't work on that.</span>")
+
+/obj/item/stack/nanopaste/proc/robotic_limb_repair(mob/user, obj/item/organ/external/external_limb, mob/living/carbon/human/H)
+	if(!external_limb.get_damage())
+		to_chat(user, "<span class='notice'>Nothing to fix here.</span>")
+		return
+	use(1)
+	var/remaining_heal = 15
+	var/new_remaining_heal = 0
+	external_limb.heal_damage(robo_repair = TRUE) //should in, theory, heal the robotic organs in just the targeted area with it being external_limb instead of other_external_limb
+	var/list/childlist
+	if(!isnull(external_limb.children))
+		childlist = external_limb.children.Copy()
+	var/parenthealed = FALSE
+	while(remaining_heal > 0)
+		var/obj/item/organ/external/other_external_limb
+		if(external_limb.get_damage())
+			other_external_limb = external_limb
+		else if(LAZYLEN(childlist))
+			other_external_limb = pick_n_take(childlist)
+			if(!other_external_limb.get_damage() || !other_external_limb.is_robotic())
+				continue
+		else if(external_limb.parent && !parenthealed)
+			other_external_limb = external_limb.parent
+			parenthealed = TRUE
+			if(!other_external_limb.get_damage() || !other_external_limb.is_robotic())
+				break
+		else
+			break
+		new_remaining_heal = max(remaining_heal - other_external_limb.get_damage(), 0)
+		other_external_limb.heal_damage(remaining_heal, remaining_heal, FALSE, TRUE)
+		remaining_heal = new_remaining_heal
+		user.visible_message("<span class='notice'>[user] applies some nanite paste at [H]'s [other_external_limb.name] with [src].</span>")
+	if(H.bleed_rate && ismachineperson(H))
+		H.bleed_rate = 0
 
 /obj/item/stack/nanopaste/cyborg
 	energy_type = /datum/robot_energy_storage/medical/nanopaste

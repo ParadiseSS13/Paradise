@@ -200,8 +200,6 @@ a.popt {text-decoration: none;}
 /* ADMIN FILTER MESSAGES MENU */
 .filterMessages {padding: 5px;}
 .filterMessages div {padding: 2px 0;}
-.filterMessages input {}
-.filterMessages label {}
 
 .icon-stack {height: 1em; line-height: 1em; width: 1em; vertical-align: middle; margin-top: -2px;}
 
@@ -238,6 +236,13 @@ a.popt {text-decoration: none;}
 	border-radius: 10px;
 }
 
+.repeatBadge.boxed_repeat {
+	position: relative;
+	float: right;
+	top: -40px;
+	right: 0;
+}
+
 /* OUTPUT COLORS */
 .highlight {background: yellow;}
 h1, h2, h3, h4, h5, h6	{color: #0000ff;font-family: Georgia, Verdana, sans-serif;}
@@ -262,7 +267,6 @@ em						{font-style: normal;	font-weight: bold;}
 .pmsend					{color: #0000ff;}
 .debug					{color: #6d2f83;}
 .name					{					font-weight: bold;}
-.say					{}
 .yell					{					font-weight: bold;}
 .siliconsay				{font-family: 'Courier New', Courier, monospace;}
 .deadsay				{color: #5c00e6;}
@@ -375,6 +379,7 @@ h1.alert, h2.alert			{color: #000000;}
 .orangei				{color: #ffa500; font-style: italic;}
 .orangeb				{color: #ffa500; font-weight: bold;}
 .resonate				{color: #298F85;}
+.healthscan_oxy			{color: #0074BD;}
 
 .revennotice				{color: #1d2953;}
 .revenboldnotice			{color: #1d2953;	font-weight: bold;}
@@ -437,3 +442,33 @@ span.body .coderesponses {color: #FF0000;}
 .announcement.sec h1 { color: #f00; font-size: 180%; font-family: Verdana, sans-serif; }
 
 .bolditalics {font-style: italic; font-weight: bold;}
+
+.boxed_message {
+	text-align: center;
+	border-style: solid;
+	border-width: medium;
+	border-color: black;
+	border-radius: 5px;
+	margin: 25px;
+	padding: 15px;
+}
+
+.boxed_message.left_align_text {
+	text-align: left
+}
+
+.boxed_message.red_border {
+	border-color: #aa0000;
+}
+
+.boxed_message.green_border {
+	border-color: #00FF00;
+}
+
+.boxed_message.notice_border {
+	border-color: #000099;
+}
+
+.boxed_message.thick_border {
+	border-width: thick;
+}

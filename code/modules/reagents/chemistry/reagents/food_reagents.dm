@@ -111,7 +111,7 @@
 
 /datum/reagent/consumable/sugar/overdose_start(mob/living/M)
 	to_chat(M, "<span class='danger'>You pass out from hyperglycemic shock!</span>")
-	M.emote("collapse")
+	M.emote("faint")
 	..()
 
 /datum/reagent/consumable/sugar/overdose_process(mob/living/M, severity)
@@ -139,6 +139,33 @@
 	nutriment_factor = 5 * REAGENTS_METABOLISM
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
+
+/datum/reagent/consumable/mayonnaise
+	name = "Mayonnaise"
+	id = "mayonnaise"
+	description = "A white and oily mixture of mixed egg yolks."
+	reagent_state = LIQUID
+	color = "#DFDFDF" // rgb: 223, 223, 223
+	taste_description = "mayonnaise"
+
+/datum/reagent/consumable/peanutbutter
+	name = "Peanut Butter"
+	id = "peanutbutter"
+	description = "A rich, creamy spread made by grinding peanuts."
+	reagent_state = LIQUID
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	color = "#D9A066" // rgb: 217, 160, 102
+	taste_description = "peanuts"
+
+/datum/reagent/consumable/bbqsauce
+	name = "BBQ Sauce"
+	id = "bbqsauce"
+	description = "Sweet, smoky, savory, and gets everywhere. Perfect for grilling."
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	reagent_state = LIQUID
+	color = "#78280A" // rbg: 120, 40, 10
+	taste_mult = 2.5
+	taste_description = "smokey sweetness"
 
 /datum/reagent/consumable/capsaicin
 	name = "Capsaicin Oil"
@@ -195,14 +222,14 @@
 			var/mouth_covered = 0
 			var/eyes_covered = 0
 			var/obj/item/safe_thing = null
-			if( victim.wear_mask )
+			if(victim.wear_mask)
 				if(victim.wear_mask.flags_cover & MASKCOVERSEYES)
 					eyes_covered = 1
 					safe_thing = victim.wear_mask
 				if(victim.wear_mask.flags_cover & MASKCOVERSMOUTH)
 					mouth_covered = 1
 					safe_thing = victim.wear_mask
-			if( victim.head )
+			if(victim.head)
 				if(victim.head.flags_cover & MASKCOVERSEYES)
 					eyes_covered = 1
 					safe_thing = victim.head
@@ -211,12 +238,12 @@
 					safe_thing = victim.head
 			if(victim.glasses)
 				eyes_covered = 1
-				if( !safe_thing )
+				if(!safe_thing)
 					safe_thing = victim.glasses
-			if( eyes_covered && mouth_covered )
+			if(eyes_covered && mouth_covered)
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects you from the pepperspray!</span>")
 				return
-			else if( mouth_covered )	// Reduced effects if partially protected
+			else if(mouth_covered)	// Reduced effects if partially protected
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protect you from most of the pepperspray!</span>")
 				if(prob(5))
 					victim.emote("scream")
@@ -227,7 +254,7 @@
 				victim.Weaken(6 SECONDS)
 				victim.drop_item()
 				return
-			else if( eyes_covered ) // Eye cover is better than mouth cover
+			else if(eyes_covered) // Eye cover is better than mouth cover
 				to_chat(victim, "<span class='danger'>Your [safe_thing] protects your eyes from the pepperspray!</span>")
 				victim.EyeBlurry(6 SECONDS)
 				victim.damageoverlaytemp = 30
@@ -370,6 +397,23 @@
 	nutriment_factor = 20 * REAGENTS_METABOLISM
 	color = "#302000" // rgb: 48, 32, 0
 	taste_description = "oil"
+
+/datum/reagent/consumbale/olivepaste
+	name = "Olive Paste"
+	id = "olivepaste"
+	description = "A mushy pile of freshly ground olives."
+	reagent_state = LIQUID
+	color = "#adcf77" //rgb: 173, 207, 119
+	taste_description = "mushy olives"
+
+/datum/reagent/consumable/oliveoil
+	name = "Olive Oil"
+	id = "oliveoil"
+	description = "A high quality oil derived from olives. Suitable for dishes or mixtures requiring oil."
+	reagent_state = LIQUID
+	nutriment_factor = 10 * REAGENTS_METABOLISM
+	color = "#DBCF5C" //rgb: 219, 207, 92
+	taste_description = "olive oil"
 
 /datum/reagent/consumable/cornoil/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -574,6 +618,7 @@
 	description = "A rather bitter herb once thought to hold magical protective properties."
 	reagent_state = LIQUID
 	color = "#21170E"
+	process_flags = ORGANIC | SYNTHETIC	
 	taste_description = "tea"
 	harmless = TRUE
 
@@ -1005,3 +1050,10 @@
 	reagent_state = LIQUID
 	color = "#A7EE9F"
 	taste_description = "mint"
+
+/datum/reagent/consumable/vinegar
+	name = "Vinegar"
+	id = "vinegar"
+	description = "Useful for pickling, or putting on chips."
+	taste_description = "vinegar"
+	color = "#ffffff"

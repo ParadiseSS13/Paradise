@@ -359,6 +359,9 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/omnizine/overdose_process(mob/living/M, severity)
+	if(HAS_TRAIT(M, TRAIT_BADASS))
+		return list(0, STATUS_UPDATE_NONE)
+
 	var/list/overdose_info = ..()
 	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
 	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
@@ -537,9 +540,6 @@
 	color = "#C8A5DC"
 	metabolization_rate = 0.3
 	overdose_threshold = 35
-	addiction_chance = 1
-	addiction_chance = 10
-	addiction_threshold = 10
 	harmless = FALSE
 	taste_description = "stimulation"
 
@@ -593,6 +593,8 @@
 	color = "#5BCBE1"
 	addiction_chance = 1
 	addiction_threshold = 10
+	allowed_overdose_process = TRUE
+	overdose_threshold = 35
 	harmless = FALSE
 	taste_description = "antihistamine"
 
@@ -607,6 +609,44 @@
 		M.AdjustDrowsy(2 SECONDS)
 		M.visible_message("<span class='notice'>[M] looks a bit dazed.</span>")
 	return ..()
+
+/datum/reagent/medicine/diphenhydramine/overdose_process(mob/living/M, severity)
+	var/list/overdose_info = ..()
+	var/effect = overdose_info[REAGENT_OVERDOSE_EFFECT]
+	var/update_flags = overdose_info[REAGENT_OVERDOSE_FLAGS]
+	if(severity == 1)
+		if(effect <= 2)
+			to_chat(M, "<span class='warning'>You feel parched.</span>")
+		else if(effect <= 3)
+			to_chat(M, "<span class='warning'>You feel a little off.</span>")
+			M.Dizzy(10 SECONDS)
+		else if(effect <= 5)
+			to_chat(M, "<span class='warning'>You feel a sudden head rush.</span>")
+			M.emote("faint")
+		else if(effect <= 8)
+			M.Druggy(30 SECONDS)
+
+	else if(severity == 2)
+		if(effect <= 15)
+			M.AdjustHallucinate(30 SECONDS)
+		if(effect <= 4)
+			M.visible_message("<span class='warning'>[M] suddenly and violently vomits!</span>")
+			if(ishuman(M))
+				var/mob/living/carbon/human/H = M
+				H.vomit(20)
+		else if(effect <= 10)
+			M.visible_message(
+				"<span class'warning'>[M] seems to be itching themselves incessantly!</span>",
+				"<span class='danger'>You feel bugs crawling under your skin!</span>"
+			)
+			M.emote("scream")
+		else if(effect <= 15)
+			to_chat(M, "<span class='warning'>You feel a wave of drowsiness wash over you.</span>")
+			M.SetSleeping(5 SECONDS)
+		else if(effect <= 20)
+			to_chat(M, "<span class='warning'>Something doesn't feel quite right!</span>")
+			M.Druggy(30 SECONDS)
+	return list(effect, update_flags)
 
 /datum/reagent/medicine/morphine
 	name = "Morphine"
@@ -784,7 +824,7 @@
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					if(ischangeling(M))
 						return
-					M.delayed_gib()
+					M.delayed_gib(TRUE)
 					return
 				if(!M.ghost_can_reenter())
 					M.visible_message("<span class='warning'>[M] twitches slightly, but is otherwise unresponsive!</span>")
@@ -806,7 +846,7 @@
 							// Per non-vital body part:
 							// 0% chance of necrosis within 1 minute of death
 							// 40% chance of necrosis after 20 minutes of death
-							if(!O.vital && prob(necrosis_prob))
+							if(prob(necrosis_prob) && !O.is_robotic() && !O.vital)
 								// side effects may include: Organ failure
 								O.necrotize(FALSE)
 								if(O.status & ORGAN_DEAD)
@@ -962,7 +1002,6 @@
 	description = "An illegal compound that dramatically enhances the body's performance and healing capabilities."
 	color = "#C8A5DC"
 	harmless = FALSE
-	can_synth = FALSE
 	taste_description = "<span class='userdanger'>an unstoppable force</span>"
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)
@@ -1004,7 +1043,6 @@
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	harmless = FALSE
-	can_synth = FALSE
 
 /datum/reagent/medicine/stimulative_agent/on_mob_add(mob/living/L)
 	ADD_TRAIT(L, TRAIT_GOTTAGOFAST, id)
@@ -1166,7 +1204,6 @@
 	description = "Miniature medical robots that swiftly restore bodily damage. May begin to attack their host's cells in high amounts."
 	reagent_state = SOLID
 	color = "#555555"
-	can_synth = FALSE
 	taste_description = "bodily perfection"
 
 /datum/reagent/medicine/syndicate_nanites/on_mob_life(mob/living/M)
@@ -1366,7 +1403,6 @@
 	description = "Highly advanced nanites equipped with an unknown payload designed to repair a body. Nanomachines son."
 	color = "#9b3401"
 	metabolization_rate = 0.5
-	can_synth = FALSE
 	harmless = FALSE
 	taste_description = "2 minutes of suffering"
 	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants")
@@ -1436,7 +1472,6 @@
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 	harmless = FALSE
-	can_synth = FALSE
 
 /datum/reagent/medicine/lavaland_extract/on_mob_life(mob/living/carbon/M)
 	var/update_flags = STATUS_UPDATE_NONE

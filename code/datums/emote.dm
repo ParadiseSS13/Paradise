@@ -182,7 +182,7 @@
 	var/suppressed = FALSE
 
 	// Keep em quiet if they can't speak
-	if(!can_vocalize_emotes(user) && (emote_type & (EMOTE_MOUTH | EMOTE_AUDIBLE) || emote_type & (EMOTE_MOUTH | EMOTE_SOUND)))
+	if(!can_vocalize_emotes(user) && (emote_type & (EMOTE_MOUTH | EMOTE_AUDIBLE)))
 		var/noise_emitted = pick(muzzled_noises)
 		suppressed = TRUE
 		msg = "makes \a [noise_emitted] noise."
@@ -215,12 +215,12 @@
 			for(var/mob/dead/observer/ghost in viewers(user))
 				ghost.show_message("<span class=deadsay>[displayed_msg]</span>", EMOTE_VISIBLE)
 
-		else if(emote_type & (EMOTE_AUDIBLE | EMOTE_SOUND) && !user.mind?.miming)
+		else if((emote_type & EMOTE_AUDIBLE) && !user.mind?.miming)
 			user.audible_message(displayed_msg, deaf_message = "<span class='emote'>You see how <b>[user]</b> [msg]</span>")
 		else
 			user.visible_message(displayed_msg, blind_message = "<span class='emote'>You hear how someone [msg]</span>")
 
-		if(!(emote_type & (EMOTE_FORCE_NO_RUNECHAT | EMOTE_SOUND) || suppressed) && !isobserver(user))
+		if(!((emote_type & EMOTE_FORCE_NO_RUNECHAT) || suppressed) && !isobserver(user))
 			runechat_emote(user, msg)
 
 	SEND_SIGNAL(user, COMSIG_MOB_EMOTED(key), src, key, emote_type, message, intentional)
@@ -237,9 +237,6 @@
  * Returns TRUE if the emote was able to be run (or failed successfully), or FALSE if the emote is unusable.
  */
 /datum/emote/proc/try_run_emote(mob/user, params, type_override, intentional = FALSE)
-	if(!can_run_emote(user, intentional = intentional))
-		return FALSE
-
 	// You can use this signal to block execution of emotes from components/other sources.
 	var/sig_res = SEND_SIGNAL(user, COMSIG_MOB_PREEMOTE, key, intentional)
 	switch(sig_res)

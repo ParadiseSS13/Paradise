@@ -19,11 +19,11 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	if(prize_counter.tickets >= item.cost)
 		new item.typepath(prize_counter.loc)
 		prize_counter.tickets -= item.cost
-		prize_counter.visible_message("<span class='notice'>Enjoy your prize!</span>")
-		return 1
+		to_chat(usr, "<span class='notice'>Enjoy your prize!</span>")
+		return TRUE
 	else
-		prize_counter.visible_message("<span class='warning'>Not enough tickets!</span>")
-		return 0
+		to_chat(usr, "<span class='warning'>Not enough tickets!</span>")
+		return FALSE
 
 //////////////////////////////////////
 //			prize_item datum		//
@@ -140,6 +140,12 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 	desc = "Only darklords can wear this ring."
 	typepath = /obj/item/clothing/gloves/ring/shadow
 	cost = 40
+
+/datum/prize_item/unum
+	name = "Deck of UNUM! Cards"
+	desc = "Everyone's favorite card game!"
+	typepath = /obj/item/deck/unum
+	cost = 45
 
 /datum/prize_item/double_tiny_cards
 	name = "Double Deck of Tiny Cards"
@@ -386,11 +392,11 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 /datum/prize_item/chainsaw
 	name = "Toy Chainsaw"
 	desc = "A full-scale model chainsaw, based on that massacre in Space Texas."
-	typepath = /obj/item/twohanded/toy/chainsaw
+	typepath = /obj/item/toy/chainsaw
 	cost = 200
 
 /datum/prize_item/bike
 	name = "Awesome Bike!"
 	desc = "WOAH."
-	typepath = /obj/structure/chair/wheelchair/bike
+	typepath = /obj/vehicle/bike
 	cost = 10000	//max stack + 1 tickets.

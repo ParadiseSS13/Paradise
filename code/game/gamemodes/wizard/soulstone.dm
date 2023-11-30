@@ -8,7 +8,7 @@
 	var/icon_state_full = "soulstone2"
 	desc = "A fragment of the legendary treasure known simply as the 'Soul Stone'. The shard still flickers with a fraction of the full artifact's power."
 	w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	origin_tech = "bluespace=4;materials=5"
 
 	/// The body/brain of the player inside this construct, transferred over from the soulstone.
@@ -38,7 +38,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		return FALSE
 
-	if(iscultist(user) || iswizard(user) || (user.mind?.isholy && purified || usability == TRUE))
+	if(iscultist(user) || iswizard(user) || (HAS_MIND_TRAIT(user, TRAIT_HOLY) && purified) || usability)
 		return TRUE
 
 	return FALSE
@@ -69,7 +69,7 @@
 	if(iscultist(user) && purified && !iswizard(user))
 		to_chat(user, "<span class='danger'>[src] reeks of holy magic. You will need to cleanse it with a ritual dagger before anything can be done with it.</span>")
 		return
-	if(user.mind?.isholy)
+	if(HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='danger'>An overwhelming feeling of dread comes over you as you pick up [src]. It looks fragile enough to break with your hands.</span>")
 		return
 	if(!can_use(user))
@@ -175,11 +175,10 @@
 
 	add_attack_logs(user, M, "Stolestone'd with [name]")
 	transfer_soul("VICTIM", M, user)
-	START_PROCESSING(SSobj, src)
 	return
 
 /obj/item/soulstone/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/storage/bible) && !iscultist(user) && user.mind.isholy)
+	if(istype(O, /obj/item/storage/bible) && !iscultist(user) && HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		if(purified)
 			return
 		to_chat(user, "<span class='notice'>You begin to exorcise [src].</span>")
@@ -239,7 +238,7 @@
 		release_shades(user)
 		return
 
-	if(!user.mind.isholy)
+	if(!HAS_MIND_TRAIT(user, TRAIT_HOLY))
 		to_chat(user, "<span class='notice'>The shard feels too tough to shatter, you are not holy enough to free its captive!</span>")
 		return
 
@@ -323,6 +322,7 @@
 				if(!get_cult_ghost(T, user, TRUE))
 					add_held_body(T)
 					T.forceMove(src) //If we can't get a ghost, shard the body anyways.
+					START_PROCESSING(SSobj, src)
 
 		if("VICTIM")
 			var/mob/living/carbon/human/T = target
@@ -439,6 +439,7 @@
 	C.cancel_camera()
 
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)
+	START_PROCESSING(SSobj, src)
 	var/type = get_shade_type()
 	var/mob/living/simple_animal/shade/S = new type(src)
 	S.name = "Shade of [M.real_name]"
@@ -504,5 +505,6 @@
 	if(length(contents)) //If they used the soulstone on someone else in the meantime
 		return FALSE
 	M.ckey = chosen_ghost.ckey
+	dust_if_respawnable(chosen_ghost)
 	init_shade(M, user)
 	return TRUE

@@ -28,6 +28,7 @@
 
 	chambered.BB = new S.projectile_type(src)
 	S.reagents.trans_to(chambered.BB, S.reagents.total_volume)
+	S.mode = SYRINGE_INJECT
 	chambered.BB.name = S.name
 
 	syringes.Remove(S)
@@ -55,6 +56,7 @@
 		// Remove the chambered syringe only if there's no syringe left
 		S = new()
 		chambered.BB.reagents.trans_to(S, chambered.BB.reagents.total_volume)
+		S.mode = SYRINGE_INJECT
 		qdel(chambered.BB)
 		chambered.BB = null
 		process_chamber()
@@ -104,7 +106,7 @@
 // at a breakneck pace.
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
-	desc = "A syndicate rapid syringe gun based on an archived NanoTrasen prototype. Capable of storing and filling syringes from an internal reservoir. It has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
+	desc = "A syndicate rapid syringe gun based on an archived Nanotrasen prototype. Capable of storing and filling syringes from an internal reservoir. It has a large flap on the side that you can dump a box or bag of syringes into, and a port for filling it with liquid."
 	icon_state = "rapidsyringegun"
 	max_syringes = 14  // full two boxes worth
 	/// Maximum size of the internal reservoir

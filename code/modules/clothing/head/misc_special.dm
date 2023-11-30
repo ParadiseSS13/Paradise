@@ -202,7 +202,7 @@
 
 /obj/item/clothing/head/kitty/equipped(mob/M, slot)
 	. = ..()
-	if(ishuman(M) && slot == slot_head)
+	if(ishuman(M) && slot == SLOT_HUD_HEAD)
 		update_icon(NONE, M)
 
 /obj/item/clothing/head/kitty/mouse
@@ -226,7 +226,7 @@
 
 /obj/item/clothing/head/cardborg/equipped(mob/living/user, slot)
 	..()
-	if(ishuman(user) && slot == slot_head)
+	if(ishuman(user) && slot == SLOT_HUD_HEAD)
 		var/mob/living/carbon/human/H = user
 		if(istype(H.wear_suit, /obj/item/clothing/suit/cardborg))
 			var/obj/item/clothing/suit/cardborg/CB = H.wear_suit

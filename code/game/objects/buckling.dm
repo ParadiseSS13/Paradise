@@ -49,7 +49,10 @@
 	if(!istype(M))
 		return FALSE
 
-	if(check_loc && M.loc != loc)
+	if(check_loc && !M.Adjacent(src))
+		return FALSE
+
+	if(check_loc && M.loc != loc && !M.Move(loc))
 		return FALSE
 
 	if((!can_buckle && !force) || M.buckled || (length(buckled_mobs) >= max_buckled_mobs) || (buckle_requires_restraints && !M.restrained()) || M == src)
@@ -72,7 +75,7 @@
 		qdel(G)
 
 	if(!check_loc && M.loc != loc)
-		M.forceMove(loc)
+		M.Move(loc) || M.forceMove(loc)
 
 	if(!buckle_lying)
 		M.set_body_position(STANDING_UP)
@@ -135,9 +138,11 @@
 	if(!in_range(user, src) || !isturf(user.loc) || user.incapacitated() || M.anchored)
 		return FALSE
 
-	if (isguardian(user))
-		if (M.loc == user.loc || user.alpha == 60) //Alpha is for detecting ranged guardians in scout mode
-			return  //unmanifested guardians shouldn't be able to buckle mobs
+	if(isguardian(user) && (M.loc == user.loc || user.alpha == 60)) //Alpha is for detecting ranged guardians in scout mode
+		return  //unmanifested guardians shouldn't be able to buckle mobs
+
+	if(M != user && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+		return FALSE
 
 	add_fingerprint(user)
 	. = buckle_mob(M, check_loc = check_loc)
@@ -150,6 +155,7 @@
 			M.visible_message("<span class='warning'>[user] buckles [M] to [src]!</span>",\
 				"<span class='warning'>[user] buckles you to [src]!</span>",\
 				"<span class='italics'>You hear metal clanking.</span>")
+		M.pulledby?.stop_pulling()
 
 /atom/movable/proc/user_unbuckle_mob(mob/living/buckled_mob, mob/user)
 	var/mob/living/M = unbuckle_mob(buckled_mob)

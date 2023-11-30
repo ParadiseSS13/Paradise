@@ -65,6 +65,10 @@
 		return FALSE
 	return TRUE
 
+/datum/action/proc/AltTrigger()
+	Trigger()
+	return FALSE
+
 /datum/action/proc/Process()
 	return
 
@@ -345,6 +349,9 @@
 /datum/action/item_action/laugh_track
 	name = "Laugh Track"
 
+/datum/action/item_action/whistle
+	name = "Whistle"
+
 /datum/action/item_action/floor_buffer
 	name = "Toggle Floor Buffer"
 	desc = "Movement speed is decreased while active."
@@ -575,6 +582,12 @@
 	if(target)
 		var/obj/effect/proc_holder/spell = target
 		spell.Click()
+		return TRUE
+
+/datum/action/spell_action/AltTrigger()
+	if(target)
+		var/obj/effect/proc_holder/spell/spell = target
+		spell.AltClick(usr)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable()

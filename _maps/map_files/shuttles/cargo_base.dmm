@@ -22,9 +22,9 @@
 "h" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	name = "Shuttle Hatch"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /turf/simulated/floor/plating,
 /area/shuttle/supply)
 "i" = (
@@ -56,9 +56,9 @@
 "k" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
-	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	name = "Shuttle Hatch"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/general,
 /obj/docking_port/mobile/supply{
 	timid = 1
 	},

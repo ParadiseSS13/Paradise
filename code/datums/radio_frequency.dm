@@ -43,7 +43,9 @@
 	if(!devices_line)
 		devices_line = new
 		devices[filter] = devices_line
-	devices_line+=device
+	if(device in devices[filter])
+		return
+	devices_line += device
 //			var/list/obj/devices_line___ = devices[filter_str]
 //			var/l = devices_line___.len
 	//log_admin("DEBUG: devices_line.len=[devices_line.len]")
@@ -96,7 +98,7 @@
 		var/mob/living/carbon/human/H = M
 		. = H.dna.species.name
 	else if(isbrain(M))
-		var/mob/living/carbon/brain/B = M
+		var/mob/living/brain/B = M
 		. = B.get_race()
 	else if(issilicon(M))
 		. = "Artificial Life"

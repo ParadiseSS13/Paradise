@@ -82,6 +82,26 @@
 	build_path = /obj/item/circuitboard/power_turbine
 	category = list ("Engineering Machinery")
 
+/datum/design/suit_storage_unit
+	name = "Machine Design (Suit Storage Unit)"
+	desc = "The circuit board for a Suit Storage Unit."
+	id = "ssu"
+	req_tech = list("engineering" = 3, "materials" = 3)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/suit_storage_unit
+	category = list("Engineering Machinery")
+
+/datum/design/suit_storage_unit/industrial
+	name = "Machine Design (Industrial Suit Storage Unit)"
+	desc = "The circuit board for an Industrial Suit Storage Unit."
+	id = "issu"
+	req_tech = list("engineering" = 5, "materials" = 4)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/suit_storage_unit/industrial
+	category = list("Engineering Machinery")
+
 /datum/design/quantumpad
 	name = "Machine Board (Quantum Pad Board)"
 	desc = "The circuit board for a quantum telepad."
@@ -470,6 +490,16 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/arcade/orion_trail
+	category = list("Misc. Machinery")
+
+/datum/design/nt_recruiter
+	name = "Machine Board (NT Recruiter Simulator Arcade Machine)"
+	desc = "Allows for the construction of circuit boards used to build a new NT Recruiter Simulator machine."
+	id = "arcademachinerecruiter"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/arcade/recruiter
 	category = list("Misc. Machinery")
 
 /datum/design/ore_redemption

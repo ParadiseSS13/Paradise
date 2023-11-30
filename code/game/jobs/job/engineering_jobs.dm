@@ -4,7 +4,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 1
 	spawn_positions = 1
-	is_engineering = TRUE
+	job_department_flags = DEP_FLAG_COMMAND | DEP_FLAG_ENGINEERING
 	supervisors = "the captain"
 	department_head = list("Captain")
 	selection_color = "#ffeeaa"
@@ -20,7 +20,7 @@
 						ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
 	minimal_player_age = 21
 	exp_map = list(EXP_TYPE_ENGINEERING = 1200)
-	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY)
+	blacklisted_disabilities = list(DISABILITY_FLAG_BLIND, DISABILITY_FLAG_DEAF, DISABILITY_FLAG_MUTE, DISABILITY_FLAG_DIZZY, DISABILITY_FLAG_NERVOUS, DISABILITY_FLAG_LISP)
 	missing_limbs_allowed = FALSE
 	outfit = /datum/outfit/job/chief_engineer
 	important_information = "This role requires you to coordinate a department. You are required to be familiar with Standard Operating Procedure (Engineering), basic job duties, and act professionally (roleplay)."
@@ -54,7 +54,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 5
 	spawn_positions = 5
-	is_engineering = 1
+	job_department_flags = DEP_FLAG_ENGINEERING
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"
@@ -91,7 +91,7 @@
 	department_flag = JOBCAT_ENGSEC
 	total_positions = 3
 	spawn_positions = 2
-	is_engineering = 1
+	job_department_flags = DEP_FLAG_ENGINEERING
 	supervisors = "the chief engineer"
 	department_head = list("Chief Engineer")
 	selection_color = "#fff5cc"

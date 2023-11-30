@@ -338,7 +338,7 @@
 			SSair.add_to_active(src)
 
 /turf/proc/ReplaceWithLattice()
-	ChangeTurf(baseturf)
+	ChangeTurf(baseturf, keep_icon = FALSE)
 	new /obj/structure/lattice(locate(x, y, z))
 
 /turf/proc/remove_plating(mob/user)
@@ -445,8 +445,8 @@
 					return
 			C.place_turf(src, user)
 			return TRUE
-		else if(istype(I, /obj/item/twohanded/rcl))
-			var/obj/item/twohanded/rcl/R = I
+		else if(istype(I, /obj/item/rcl))
+			var/obj/item/rcl/R = I
 			if(R.loaded)
 				for(var/obj/structure/cable/LC in src)
 					if(LC.d1 == 0 || LC.d2 == 0)

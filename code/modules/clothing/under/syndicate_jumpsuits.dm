@@ -35,3 +35,22 @@
 	icon_state = "tactical_suit"
 	item_state = "bl_suit"
 	item_color = "tactical_suit"
+
+/obj/item/clothing/under/syndicate/silicon_cham
+	name = "tactical turtleneck"
+	desc = "A non-descript and slightly suspicious looking turtleneck with digital camouflage cargo pants. <b>This one has extra cybernetic modifications.</b>"
+	blockTracking = TRUE
+
+/obj/item/clothing/under/syndicate/silicon_cham/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == SLOT_HUD_JUMPSUIT)
+		ADD_TRAIT(user, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
+		user.set_invisible(SEE_INVISIBLE_LIVING)
+		to_chat(user, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators activate.</span>")
+
+/obj/item/clothing/under/syndicate/silicon_cham/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_AI_UNTRACKABLE, "silicon_cham[UID()]")
+		user.set_invisible(INVISIBILITY_MINIMUM)
+		to_chat(user, "<span class='notice'>You feel a slight shiver as the cybernetic obfuscators deactivate.</span>")

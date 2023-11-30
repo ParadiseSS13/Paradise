@@ -21,6 +21,8 @@ GLOBAL_LIST_INIT(html_colors, list("Alice Blue","Antique White","Aqua","Aquamari
 
 GLOBAL_LIST_INIT(day_names, list("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
 GLOBAL_LIST_INIT(month_names, list("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"))
+// keep si_suffixes balanced and with a pivot in the middle!
+GLOBAL_LIST_INIT(si_suffixes, list("y", "z", "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"))
 
 GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"CentComm",
@@ -31,10 +33,12 @@ GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"UO45R",
 	"UO71",
 	"Xeno",
-	"SyndicateTestLab"
+	"SyndicateTestLab",
+	"SyndicateToxinsTest",
+	"SyndicateCaves"
 	)) //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 
-GLOBAL_LIST_INIT(ruin_landmarks, list())
+GLOBAL_LIST_EMPTY(ruin_landmarks)
 
 GLOBAL_LIST_INIT(round_end_sounds, list(
 		'sound/AI/newroundsexy.ogg' = 2.3 SECONDS,
@@ -64,3 +68,6 @@ GLOBAL_LIST_EMPTY(blurb_witnesses)
 
 /// List of looping sounds
 GLOBAL_LIST_EMPTY(looping_sounds)
+
+/// List of possible crits from things tipping over
+GLOBAL_LIST_EMPTY(tilt_crits)

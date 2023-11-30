@@ -66,6 +66,16 @@
 	item = /obj/item/storage/box/syndie_kit/mimery
 	cost = 50
 	job = list("Mime")
+	surplus = 0 // I feel this just isn't healthy to be in these crates.
+
+/datum/uplink_item/jobspecific/combat_baking
+	name = "Combat Bakery Kit"
+	desc = "A kit of clandestine baked weapons. Contains a baguette which a skilled mime could use as a sword, \
+		a pair of throwing croissants, and the recipe to make more on demand. Once the job is done, eat the evidence."
+	reference = "CBK"
+	item = /obj/item/storage/box/syndie_kit/combat_baking
+	cost = 25 //A chef can get a knife that sharp easily, though it won't block. While you can get endless boomerang, they are less deadly than a stech, and slower / more predictable.
+	job = list("Mime", "Chef")
 
 /datum/uplink_item/jobspecific/pressure_mod
 	name = "Kinetic Accelerator Pressure Mod"
@@ -74,6 +84,7 @@
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 25 //you need two for full damage, so total of 50 for maximum damage
 	job = list("Shaft Miner")
+	surplus = 0 // Requires a KA to even be used.
 
 //Chef
 /datum/uplink_item/jobspecific/specialsauce
@@ -83,6 +94,7 @@
 	item = /obj/item/reagent_containers/food/condiment/syndisauce
 	cost = 10
 	job = list("Chef")
+	surplus = 0 // Far too specific in its use.
 
 /datum/uplink_item/jobspecific/meatcleaver
 	name = "Meat Cleaver"
@@ -109,6 +121,7 @@
 	item = /obj/item/storage/box/syndie_kit/missionary_set
 	cost = 75
 	job = list("Chaplain")
+	surplus = 0 // Controversial maybe, but with the ease of mindslaving with this item I'd prefer it stay chaplain specific.
 
 /datum/uplink_item/jobspecific/artistic_toolbox
 	name = "His Grace"
@@ -138,7 +151,7 @@
 	desc = "A push broom with a reinforced handle and a metal wire brush, perfect for giving yourself more work by beating up assistants. \
 	When wielded, you will reflect projectiles, and hitting people will have different effects based on your intent."
 	reference = "TPBR"
-	item = /obj/item/twohanded/push_broom/traitor
+	item = /obj/item/push_broom/traitor
 	cost = 60
 	job = list("Janitor")
 	surplus = 0 //no reflect memes
@@ -158,7 +171,7 @@
 	desc = "The feral cat delivery grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
 	item = /obj/item/grenade/spawnergrenade/feral_cats
 	reference = "CCLG"
-	cost = 15
+	cost = 10
 	job = list("Psychiatrist")//why? Becuase its funny that a person in charge of your mental wellbeing has a cat granade..
 
 //Assistant
@@ -181,18 +194,7 @@
 	cost = 10
 	job = list("Bartender")
 
-//Barber
-
-/datum/uplink_item/jobspecific/safety_scissors //Hue
-	name = "Safety Scissors"
-	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
-	reference = "CTS"
-	item = /obj/item/scissors/safety
-	cost = 15
-	job = list("Barber")
-
 //Botanist
-
 /datum/uplink_item/jobspecific/bee_briefcase
 	name = "Briefcase Full of Bees"
 	desc = "A seemingly innocent briefcase full of not-so-innocent Syndicate-bred bees. Inject the case with blood to train the bees to ignore the donor(s), WARNING: exotic blood types such as slime jelly do not work. It also wirelessly taps into station intercomms to broadcast a message of TERROR."
@@ -251,6 +253,7 @@
 	item = /obj/item/seeds/ambrosia/cruciatus
 	cost = 5
 	job = list("Botanist")
+	surplus = 0 // Even botanists would struggle to use this effectively, nevermind a coroner.
 
 //Atmos Tech
 /datum/uplink_item/jobspecific/contortionist
@@ -265,7 +268,7 @@
 	name = "Energized Fire Axe"
 	desc = "A fire axe with a massive energy charge built into it. Upon striking someone while charged it will throw them backwards while stunning them briefly, but will take some time to charge up again. It is also much sharper than a regular axe and can pierce light armor."
 	reference = "EFA"
-	item = /obj/item/twohanded/fireaxe/energized
+	item = /obj/item/fireaxe/energized
 	cost = 40
 	job = list("Life Support Specialist")
 
@@ -313,13 +316,12 @@
 
 //skrell
 /datum/uplink_item/species_restricted/lovepen
-	name = "Aggression Supression Pen"
+	name = "Aggression Suppression Pen"
 	desc = "A syringe disguised as a functional pen which is filled with a potent aggression supressing chemical. The pen holds four doses of the mixture and it cannot be refilled."
 	reference = "LP"
 	item = /obj/item/pen/sleepy/love
 	cost = 20
 	species = list("Skrell")
-
 
 //Vox
 /datum/uplink_item/species_restricted/spikethrower
@@ -329,6 +331,7 @@
 	item = /obj/item/gun/energy/spikethrower
 	cost = 60
 	species = list("Vox")
+	surplus = 0
 
 //IPC:
 //Positonic supercharge implant: stims, 3 uses, IPC adrenals
@@ -339,6 +342,7 @@
 	item = /obj/item/implanter/supercharge
 	cost = 40
 	species = list("Machine")
+	surplus = 0
 
 
 //plasmeme
@@ -349,7 +353,16 @@
 	item = /obj/item/fireproofing_injector
 	cost = 25
 	species = list("Plasmaman")
+	surplus = 0
 
+//Human
+/datum/uplink_item/species_restricted/holo_cigar
+	name = "Holo-Cigar"
+	desc = "A holo-cigar imported from the Sol system. The full effects of looking so badass aren't understood yet, but users show an increase in precision while dual-wielding firearms."
+	reference = "SHC"
+	item = /obj/item/clothing/mask/holo_cigar
+	cost = 10
+	species = list("Human")
 
 // -------------------------------------
 // ITEMS BLACKLISTED FROM NUCLEAR AGENTS
@@ -374,6 +387,7 @@
 	cost = 60
 	refund_path = /obj/item/guardiancreator/tech/choose
 	refundable = TRUE
+	surplus = 0 // This being refundable makes this a big no no in my mind.
 	cant_discount = TRUE
 
 /datum/uplink_item/stealthy_weapons/martialarts
@@ -409,11 +423,20 @@
 /datum/uplink_item/stealthy_tools/voice_modulator
 	name = "Chameleon Voice Modulator Mask"
 	desc = "A syndicate tactical mask equipped with chameleon technology and a sound modulator for disguising your voice. \
-			While the mask is active, your voice will sound unrecognizable to others"
+			While the mask is active, your voice will sound unrecognizable to others."
 	reference = "CVMM"
 	item = /obj/item/clothing/mask/gas/voice_modulator/chameleon
-	cost = 5
+	cost = 8
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
+/datum/uplink_item/stealthy_tools/silicon_cham_suit
+	name = "\"Big Brother\" Obfuscation Suit"
+	desc = "A syndicate tactical suit equipped with the latest in anti-silicon technology and, allegedly, biological technology learned from the Changeling Hivemind. \
+			While this suit is worn, you will be unable to be tracked or seen by on-Station AI."
+	reference = "BBOS"
+	item = /obj/item/clothing/under/syndicate/silicon_cham
+	cost = 20
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
 	name = "Sleepy Pen"
@@ -446,6 +469,7 @@
 	reference = "DRL"
 	item = /obj/item/thermal_drill/syndicate
 	cost = 5
+	surplus = 0 // I feel like its amazing for one objective and one objective only. Far too specific.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/suits/modsuit
@@ -453,10 +477,10 @@
 	desc = "The feared MODsuit of a syndicate nuclear agent. Features armor and a eva mode \
 			for faster movement on station. Toggling the suit in and out of \
 			combat mode will allow you all the mobility of a loose fitting uniform without sacrificing armoring. \
-			Comes packaged with internals. \
+			Comes containing internals. \
 			Nanotrasen crew who spot these suits are known to panic."
 	reference = "BRHS"
-	item = /obj/item/storage/box/syndie_kit/modsuit
+	item = /obj/item/mod/control/pre_equipped/traitor
 	cost = 30
 	surplus = 60 //I have upped the chance of modsuits from 40, as I do feel they are much more worthwhile with the base modsuit no longer being 8 tc, and the high armor values of the elite.
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -466,14 +490,14 @@
 	desc = "An advanced MODsuit with superior armor to the standard Syndicate MODsuit. \
 	Nanotrasen crew who spot these suits are known to *really* panic."
 	reference = "MSE"
-	item = /obj/item/storage/box/syndie_kit/modsuit/elite
+	item = /obj/item/mod/control/pre_equipped/traitor_elite
 	cost = 45 //45 to start, no holopara / ebow.
 	surplus = 60
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/implants/uplink // Nukies get Nuclear Uplink Bio-chip instead
 	name = "Uplink Bio-chip"
-	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 10 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
+	desc = "A bio-chip injected into the body, and later activated manually to open an uplink with 50 telecrystals. The ability for an agent to open an uplink after their possessions have been stripped from them makes this implant excellent for escaping confinement."
 	reference = "UI"
 	item = /obj/item/implanter/uplink
 	cost = 70
@@ -547,6 +571,7 @@
 	item = /obj/item/storage/box/syndie_kit/bundle
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 250
+	uses_special_spawn = TRUE
 
 /datum/uplink_item/bundles_TC/surplus_crate/super
 	name = "Syndicate Super Surplus Crate"
@@ -556,36 +581,10 @@
 	crate_value = 625
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
-	var/obj/structure/closet/crate/C = new(loc)
-	var/list/temp_uplink_list = get_uplink_items(U)
-	var/list/buyable_items = list()
-	for(var/category in temp_uplink_list)
-		buyable_items += temp_uplink_list[category]
-	var/remaining_TC = crate_value
-	var/list/bought_items = list()
-	var/list/itemlog = list()
-	U.uses -= cost
-	U.used_TC = cost
+	if(..() != UPLINK_SPECIAL_SPAWNING)
+		return FALSE
 
-	var/datum/uplink_item/I
-	while(remaining_TC)
-		I = pick(buyable_items)
-		if(!I.surplus || prob(100 - I.surplus))
-			continue
-		if(I.cost > remaining_TC)
-			continue
-		if((I.item in bought_items) && prob(33)) //To prevent people from being flooded with the same thing over and over again.
-			continue
-		bought_items += I.item
-		remaining_TC -= I.cost
-		itemlog += I.name // To make the name more readable for the log compared to just i.item
-
-	U.purchase_log += "<BIG>[bicon(C)]</BIG>"
-	for(var/item in bought_items)
-		var/obj/purchased = new item(C)
-		U.purchase_log += "<BIG>[bicon(purchased)]</BIG>"
-	log_game("[key_name(usr)] purchased a surplus crate with [jointext(itemlog, ", ")]")
-
+	new /obj/structure/closet/crate/surplus(loc, U, crate_value, cost)
 
 // -----------------------------------
 // PRICES OVERRIDEN FOR NUCLEAR AGENTS

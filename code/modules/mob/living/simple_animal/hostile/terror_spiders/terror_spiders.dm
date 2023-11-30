@@ -474,3 +474,7 @@ GLOBAL_LIST_EMPTY(ts_infected_list)
 	. = ..()
 	if(pulling && !ismob(pulling) && pulling.density)
 		. += 6 // Drastic move speed penalty for dragging anything that is not a mob or a non dense object
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Login()
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)

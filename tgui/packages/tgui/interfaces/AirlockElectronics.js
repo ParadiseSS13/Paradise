@@ -5,10 +5,10 @@ import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
 import { Fragment } from 'inferno';
 
-const NORTH = 1
-const SOUTH = 2
-const EAST  = 4
-const WEST  = 8
+const NORTH = 1;
+const SOUTH = 2;
+const EAST = 4;
+const WEST = 8;
 
 export const AirlockElectronics = (props, context) => {
   return (

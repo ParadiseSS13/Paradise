@@ -6,6 +6,7 @@
 		"dbaeumer.vscode-eslint",
 		"eamodio.gitlens",
 		"usernamehw.errorlens",
-		"anturk.dmi-editor"
+		"anturk.dmi-editor",
+		"esbenp.prettier-vscode"
     ]
 }

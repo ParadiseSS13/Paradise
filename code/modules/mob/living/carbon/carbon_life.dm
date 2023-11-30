@@ -364,7 +364,7 @@
 	var/applied_amount = 0.35 * multiple_patch_multiplier
 
 	for(var/patch in processing_patches)
-		var/obj/item/reagent_containers/food/pill/patch/P = patch
+		var/obj/item/reagent_containers/patch/P = patch
 
 		if(P.reagents && P.reagents.total_volume)
 			var/fractional_applied_amount = applied_amount  / P.reagents.total_volume

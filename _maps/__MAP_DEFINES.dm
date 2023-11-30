@@ -13,8 +13,8 @@
 	#define STATION_CONTACT "Station Contact"
 	// A level dedicated to admin use
 	#define ADMIN_LEVEL "Admin Level"
-	// A level that can be navigated to through space
-	#define REACHABLE "Reachable"
+	// A level that can be navigated to by the crew without admin intervention or the emergency shuttle.
+	#define REACHABLE_BY_CREW "Reachable"
 	// For away missions - used by some consoles
 	#define AWAY_LEVEL "Away"
 	// Allows weather
@@ -27,6 +27,8 @@
 	#define AI_OK "AI Allowed"
 	/// Ruins will spawn on this z-level
 	#define SPAWN_RUINS "Spawn Ruins"
+	/// A level that can be navigated to through space, but for real this time.
+	#define REACHABLE_SPACE_ONLY "Reachable Space Only"
 
 // Level names
 	#define MAIN_STATION "Main Station"

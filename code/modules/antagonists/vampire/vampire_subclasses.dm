@@ -30,8 +30,9 @@
 							/obj/effect/proc_holder/spell/vampire/vamp_extinguish = 600,
 							/obj/effect/proc_holder/spell/vampire/shadow_boxing = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
+								/datum/vampire_passive/vision/full,
 								/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
-								/datum/vampire_passive/xray)
+								/datum/vampire_passive/vision/xray)
 
 /datum/vampire_subclass/hemomancer
 	name = "hemomancer"
@@ -42,6 +43,7 @@
 							/obj/effect/proc_holder/spell/vampire/predator_senses = 600,
 							/obj/effect/proc_holder/spell/vampire/blood_eruption = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
+								/datum/vampire_passive/vision/full,
 								/obj/effect/proc_holder/spell/vampire/self/blood_spill)
 
 /datum/vampire_subclass/gargantua
@@ -51,9 +53,11 @@
 							/obj/effect/proc_holder/spell/vampire/self/stomp = 250,
 							/datum/vampire_passive/blood_swell_upgrade = 400,
 							/obj/effect/proc_holder/spell/vampire/self/overwhelming_force = 600,
+							/obj/effect/proc_holder/spell/vampire/charge = 800,
 							/obj/effect/proc_holder/spell/fireball/demonic_grasp = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
-								/obj/effect/proc_holder/spell/vampire/charge)
+								/datum/vampire_passive/vision/full,
+								/obj/effect/proc_holder/spell/vampire/arena)
 	improved_rejuv_healing = TRUE
 
 /datum/vampire_subclass/dantalion
@@ -69,6 +73,7 @@
 							/obj/effect/proc_holder/spell/vampire/self/share_damage = 800)
 	fully_powered_abilities = list(/datum/vampire_passive/full,
 								/obj/effect/proc_holder/spell/vampire/hysteria,
+								/datum/vampire_passive/vision/full,
 								/datum/vampire_passive/increment_thrall_cap/three)
 
 
@@ -83,6 +88,7 @@
 							/obj/effect/proc_holder/spell/vampire/blood_barrier,
 							/obj/effect/proc_holder/spell/vampire/self/blood_rush,
 							/obj/effect/proc_holder/spell/vampire/self/stomp,
+							/obj/effect/proc_holder/spell/vampire/charge,
 							/obj/effect/proc_holder/spell/vampire/shadow_snare,
 							/obj/effect/proc_holder/spell/vampire/soul_anchor,
 							/obj/effect/proc_holder/spell/vampire/pacify,
@@ -100,11 +106,12 @@
 							/obj/effect/proc_holder/spell/fireball/demonic_grasp,
 							/obj/effect/proc_holder/spell/vampire/shadow_boxing,
 							/datum/vampire_passive/full,
+							/datum/vampire_passive/vision/full,
 							/obj/effect/proc_holder/spell/vampire/self/blood_spill,
-							/obj/effect/proc_holder/spell/vampire/charge,
+							/obj/effect/proc_holder/spell/vampire/arena,
 							/obj/effect/proc_holder/spell/vampire/self/eternal_darkness,
 							/obj/effect/proc_holder/spell/vampire/hysteria,
 							/obj/effect/proc_holder/spell/vampire/raise_vampires,
-							/datum/vampire_passive/xray)
+							/datum/vampire_passive/vision/xray)
 	improved_rejuv_healing = TRUE
 	thrall_cap = 150 // can thrall high pop

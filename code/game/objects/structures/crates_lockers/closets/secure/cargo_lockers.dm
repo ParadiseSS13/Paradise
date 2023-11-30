@@ -11,8 +11,7 @@
 	new /obj/item/radio/headset/headset_cargo(src)
 	new /obj/item/clothing/gloves/fingerless(src)
 	new /obj/item/clothing/head/soft(src)
-//		new /obj/item/cartridge/quartermaster(src)
-
+	new /obj/item/storage/bag/mail(src)
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
@@ -21,8 +20,28 @@
 	open_door_sprite = "mining_door"
 
 /obj/structure/closet/secure_closet/quartermaster/populate_contents()
-	new /obj/item/radio/headset/headset_cargo(src)
+	new /obj/item/radio/headset/heads/qm(src)
 	new /obj/item/door_remote/quartermaster(src)
 	new /obj/item/organ/internal/eyes/cybernetic/meson(src)
 	new /obj/item/storage/bag/garment/quartermaster(src)
 	new /obj/item/clothing/accessory/medal/supply(src)
+	new /obj/item/rcs(src)
+	new /obj/item/destTagger(src)
+	new /obj/item/reagent_containers/food/drinks/mug/qm(src)
+	new /obj/item/flash(src)
+	new /obj/item/cartridge/qm(src)
+	new /obj/item/storage/bag/mail(src)
+
+/obj/structure/closet/secure_closet/quartermaster/lavaland //used in mining outpost
+	name = "quartermaster's secondary locker"
+
+/obj/structure/closet/secure_closet/quartermaster/lavaland/populate_contents()
+	new /obj/item/fulton_core(src)
+	new /obj/item/extraction_pack(src)
+	new /obj/item/gps/mining(src)
+	new /obj/item/clothing/mask/gas/explorer(src)
+	new /obj/item/clothing/suit/hooded/explorer(src)
+	new /obj/item/clothing/glasses/meson(src)
+	new /obj/item/book/manual/wiki/sop_supply(src)
+	new /obj/item/folder/yellow(src)
+	new /obj/item/fan(src)

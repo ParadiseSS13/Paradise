@@ -202,7 +202,7 @@
 			dismantle_wall()
 		return TRUE
 
-	if(istype(I, /obj/item/twohanded/required/pyro_claws))
+	if(istype(I, /obj/item/pyro_claws))
 		to_chat(user, "<span class='notice'>You begin to melt the wall...</span>")
 		if(do_after(user, 50 * I.toolspeed, target = src)) // claws has 0.5 toolspeed, so 2.5 seconds
 			to_chat(user, "<span class='notice'>Your [I] melt the reinforced plating.</span>")

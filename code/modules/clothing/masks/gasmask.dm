@@ -244,7 +244,7 @@
 
 /obj/item/clothing/mask/gas/navy_officer
 	name = "nanotrasen navy officer gas mask"
-	desc = "A durable gas mask designed for NanoTrasen Navy Officers."
+	desc = "A durable gas mask designed for Nanotrasen Navy Officers."
 	icon_state = "navy_officer_gasmask"
 	armor = list(MELEE = 35, BULLET = 20, LASER = 20, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 10, ACID = 50)
 	strip_delay = 6 SECONDS
@@ -336,7 +336,7 @@
 		var/key = phrase_list[phrase]
 		var/message = phrase_list[key]
 
-		if (!safety)
+		if(!safety)
 			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
 			return
 

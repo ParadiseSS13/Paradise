@@ -3,8 +3,9 @@
 	pressure_resistance = 8
 	max_integrity = 300
 	face_while_pulling = TRUE
-	pull_speed = 0.5
 	var/climbable
+	/// Determines if a structure adds the TRAIT_TURF_COVERED to its turf.
+	var/creates_cover = FALSE
 	var/mob/living/climber
 	var/broken = FALSE
 
@@ -16,14 +17,14 @@
 			QUEUE_SMOOTH_NEIGHBORS(src)
 		if(smoothing_flags & SMOOTH_CORNERS)
 			icon_state = ""
-	if(climbable)
-		verbs += /obj/structure/proc/climb_on
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 
 /obj/structure/Initialize(mapload)
 	if(!armor)
 		armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
+	if(creates_cover && isturf(loc))
+		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/structure/Destroy()
@@ -33,16 +34,21 @@
 		var/turf/T = get_turf(src)
 		QUEUE_SMOOTH_NEIGHBORS(T)
 	REMOVE_FROM_SMOOTH_QUEUE(src)
+	if(creates_cover && isturf(loc))
+		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
-/obj/structure/proc/climb_on()
+/obj/structure/Move()
+	var/atom/old = loc
+	if(!..())
+		return FALSE
 
-	set name = "Climb structure"
-	set desc = "Climbs onto a structure."
-	set category = null
-	set src in oview(1)
-
-	do_climb(usr)
+	if(creates_cover)
+		if(isturf(old))
+			REMOVE_TRAIT(old, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+		if(isturf(loc))
+			ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+	return TRUE
 
 /obj/structure/MouseDrop_T(atom/movable/C, mob/user as mob)
 	if(..())
@@ -169,6 +175,8 @@
 		var/examine_status = examine_status(user)
 		if(examine_status)
 			. += examine_status
+	if(climbable)
+		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on the table after a short delay.</span>"
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -189,3 +197,6 @@
 		take_damage(power / 8000, BURN, ENERGY)
 	power -= power / 2000 //walls take a lot out of ya
 	. = ..()
+
+/obj/structure/fall_and_crush(turf/target_turf, crush_damage, should_crit, crit_damage_factor, datum/tilt_crit/forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable, block_interactions)
+	. = ..(target_turf, crush_damage, should_crit, crit_damage_factor, forced_crit, weaken_time, knockdown_time, ignore_gravity, should_rotate, angle, rightable = TRUE, block_interactions_until_righted = FALSE)

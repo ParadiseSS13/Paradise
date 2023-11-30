@@ -22,7 +22,7 @@
 		} \
 \
 		SEND_SIGNAL(target, SIGNAL_ADDTRAIT(trait), trait); \
-	} while (0)
+	} while(0)
 
 /**
  * Removes a status trait from a target datum.
@@ -50,7 +50,7 @@
 				} \
 			} \
 		} \
-	} while (0)
+	} while(0)
 
 /**
  * Removes all status traits from a target datum which were NOT added by `sources`.
@@ -82,7 +82,7 @@
 				target.status_traits = null; \
 			} \
 		} \
-	} while (0)
+	} while(0)
 
 /**
  * Removes all status traits from a target datum which were added by `sources`.
@@ -114,7 +114,7 @@
 				target.status_traits = null; \
 			} \
 		} \
-	} while (0)
+	} while(0)
 
 
 #define HAS_TRAIT(target, trait) (target.status_traits ? (target.status_traits[trait] ? TRUE : FALSE) : FALSE)
@@ -126,12 +126,17 @@
 			: FALSE)\
 		: FALSE)
 #define HAS_TRAIT_NOT_FROM(target, trait, source) (target.status_traits ? (target.status_traits[trait] ? (length(target.status_traits[trait] - source) > 0) : FALSE) : FALSE)
+/// A simple helper for checking traits in a mob's mind
+#define HAS_MIND_TRAIT(target, trait) (istype(target, /datum/mind) ? HAS_TRAIT(target, trait) : (target.mind ? HAS_TRAIT(target.mind, trait) : FALSE))
+/// Gives a unique trait source for any given datum
+#define UNIQUE_TRAIT_SOURCE(target) "unique_source_[UID(target)]"
 
 /*
 Remember to update _globalvars/traits.dm if you're adding/removing/renaming traits.
 */
 
 //***** MOB TRAITS *****//
+#define TRAIT_RESPAWNABLE		"can_respawn_as_ghost_roles"
 #define TRAIT_BLIND 			"blind"
 #define TRAIT_MUTE				"mute"
 #define TRAIT_DEAF				"deaf"
@@ -181,6 +186,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_BONES 			"no_bones"
 #define TRAIT_STURDY_LIMBS		"sturdy_limbs"
 #define TRAIT_BURN_WOUND_IMMUNE "burn_immune"
+#define TRAIT_IB_IMMUNE			"ib_immune"
 
 #define TRAIT_COMIC_SANS		"comic_sans"
 #define TRAIT_CHAV				"chav"
@@ -207,14 +213,29 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
 #define TRAIT_CONTORTED_BODY	"contorted_body"
 #define TRAIT_DEFLECTS_PROJECTILES "trait_deflects_projectiles"
+#define TRAIT_XENO_INTERACTABLE	"can_be_interacted_with_by_xenos"
+#define TRAIT_DODGE_ALL_OBJECTS "dodges_all_objects" /// Allows a mob to dodge all thrown objects
+#define TRAIT_BADASS "trait_badass"
+#define TRAIT_FORCED_STANDING "forced_standing" // The mob cannot be floored, or lie down
+#define TRAIT_IPC_JOINTS_MAG "ipc_joints_mag" // IPC has weaker limbs but can re-attach them with ease
+#define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
+#define TRAIT_HAS_GPS "has_gps" // used for /Stat
+#define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
+
+//***** MIND TRAITS *****/
+#define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
 
 //***** ITEM AND MOB TRAITS *****//
 /// Show what machine/door wires do when held.
 #define TRAIT_SHOW_WIRE_INFO "show_wire_info"
+///Immune to the SM / makes you immune to it when worn
+#define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
 
 //***** ITEM TRAITS *****//
 #define TRAIT_BUTCHERS_HUMANS "butchers_humans"
 #define TRAIT_CMAGGED "cmagged"
+/// An item that is being wielded.
+#define TRAIT_WIELDED "wielded"
 /// Wires on this will have their titles randomized for those with SHOW_WIRES
 #define TRAIT_OBSCURED_WIRES "obscured_wires"
 /// Forces open doors after a delay specific to the item
@@ -225,6 +246,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 /// An advanced surgical tool. If a surgical tool has this flag, it will be able to automatically repeat steps until they succeed.
 #define TRAIT_ADVANCED_SURGICAL	"advanced_surgical"
+
+/// Prevent mobs on the turf from being affected by anything below that turf, such as a pulse demon going under it. Added by a /obj/structure with creates_cover set to TRUE
+#define TRAIT_TURF_COVERED "turf_covered"
 
 ///An item that is oiled. If sprayed with water, it's slowdown reverts to normal.
 #define TRAIT_OIL_SLICKED "oil_slicked"
@@ -248,6 +272,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define SLIME_TRAIT "slime"
 #define BERSERK_TRAIT "berserk"
 #define EYES_OF_GOD "eyes_of_god"
+#define GHOSTED		"isghost"
+#define GHOST_ROLE	"ghost_role"
 
 // unique trait sources
 #define STATUE_MUTE "statue"
@@ -266,6 +292,11 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_WAS_BATONNED "batonged"
 #define CLOWN_EMAG "clown_emag"
 #define MODSUIT_TRAIT "modsuit_trait"
+#define ENFORCER_GLOVES "enforcer_gloves"
+#define HOLO_CIGAR "holo_cigar"
+#define GLADIATOR "gladiator"
+#define PULSEDEMON_TRAIT "pulse_demon"
+
 
 //quirk traits
 #define TRAIT_ALCOHOL_TOLERANCE	"alcohol_tolerance"
@@ -289,3 +320,10 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CANNOT_PULL "pullblocked"
 /// Abstract condition that prevents movement if being pulled and might be resisted against. Handcuffs and straight jackets, basically.
 #define TRAIT_RESTRAINED "restrained"
+
+//***** TURF TRAITS *****//
+/// Removes slowdown while walking on these tiles.
+#define TRAIT_BLUESPACE_SPEED "bluespace_speed_trait"
+
+// turf trait sources
+#define FLOOR_EFFECT_TRAIT "floor_effect_trait"

@@ -126,7 +126,7 @@
 
 		for(var/i = 0, i<numRevs, i++)
 			H = pick(candidates)
-			H.mind.make_Rev()
+			H?.mind?.add_antag_datum(/datum/antagonist/rev/head)
 			candidates.Remove(H)
 		return 1
 	return 0
@@ -148,6 +148,7 @@
 
 		var/mob/living/carbon/human/new_character = makeBody(selected)
 		new_character.mind.make_Wizard()
+		dust_if_respawnable(selected)
 		return 1
 	return 0
 
@@ -330,3 +331,4 @@
 				to_chat(new_thunderdome_member, "You are a member of the <font color='red'><b>RED</b></font> Thunderdome team! Gear up and help your team destroy the green team!")
 				new_thunderdome_member.mind.offstation_role = TRUE
 				team_to_assign_to = "Green"
+		dust_if_respawnable(candidate_to_spawn)

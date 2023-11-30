@@ -71,7 +71,8 @@
 		"Chief Engineer",
 		"Research Director",
 		"Chief Medical Officer",
-		"Nanotrasen Representative"
+		"Nanotrasen Representative",
+		"Quartermaster"
 	)
 	head_of_staff = "Captain"
 
@@ -122,14 +123,10 @@
 		"Chef",
 		"Janitor",
 		"Librarian",
-		"Quartermaster",
-		"Cargo Technician",
-		"Shaft Miner",
 		"Internal Affairs Agent",
 		"Chaplain",
 		"Clown",
 		"Mime",
-		"Barber",
 		"Magistrate",
 		"Nanotrasen Representative",
 		"Blueshield",
@@ -142,15 +139,14 @@
 
 	account_starting_balance = DEPARTMENT_BALANCE_LOW
 	account_base_pay = DEPARTMENT_BASE_PAY_LOW
-	account_access = list(ACCESS_HOP, ACCESS_QM, ACCESS_CARGO) //Supply account is a lot less "secure", CT's need to access it aswell on the supply comp
+	account_access = list(ACCESS_QM, ACCESS_CARGO) //Supply account is a lot less "secure", CT's need to access it aswell on the supply comp
 	department_roles = list(
-		"Head of Personnel",
 		"Quartermaster",
 		"Cargo Technician",
 		"Shaft Miner",
 		"Spelunker"
 	)
-	head_of_staff = "Head of Personnel"
+	head_of_staff = "Quartermaster"
 
 /datum/station_department/engineering
 	department_name = DEPARTMENT_ENGINEERING
