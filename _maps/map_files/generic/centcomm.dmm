@@ -8700,7 +8700,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/turf,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
 /area/ghost_bar)
 "Fc" = (
 /obj/machinery/light/spot,
