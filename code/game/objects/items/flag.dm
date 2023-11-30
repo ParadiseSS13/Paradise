@@ -55,7 +55,7 @@
 
 /obj/item/flag/clown
 	name = "\improper Clown Unity flag"
-	desc = "The universal banner of clowns everywhere. It smells faintly of banana."
+	desc = "The universal banner of clowns everywhere. It smells faintly of bananas."
 	icon_state = "clownflag"
 
 /obj/item/flag/mime
