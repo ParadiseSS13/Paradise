@@ -3,8 +3,8 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal
 	var/name = "Generic Virology Goal"
-	var/delivered_amount = 0
-	var/delivery_goal = 15
+	var/delivered_amount = 0 //The amount of units currently already delivered
+	var/delivery_goal = 15 //The amount of units of the required virus that must be delivered for the completion of this goal
 	var/completed = FALSE
 
 /datum/virology_goal/proc/get_report()
@@ -14,10 +14,23 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 	return "Complete this goal."
 
 /datum/virology_goal/proc/check_completion(list/datum/reagent/reagent_list)
+	check_total_virology_goals_completion()
 	return TRUE
 
 /datum/virology_goal/proc/check_for_duplicate()
 	return TRUE
+
+/proc/check_total_virology_goals_completion()
+	var/all_completed = TRUE
+	for(var/datum/virology_goal/V in GLOB.virology_goals)
+		if(!V.completed)
+			all_completed = FALSE
+			break
+	if(all_completed)
+		GLOB.archived_virology_goals += GLOB.virology_goals
+		GLOB.virology_goals = list(new/datum/virology_goal/propertysymptom, new/datum/virology_goal/virus, new/datum/virology_goal/virus/stealth)
+		for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
+			P.print_goal_orders()
 
 /datum/virology_goal/Destroy()
 	LAZYREMOVE(GLOB.virology_goals, src)
@@ -105,6 +118,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 						return TRUE
 				else
 					continue
+	check_total_virology_goals_completion()
 
 /datum/virology_goal/virus
 	name = "Specific Viral Sample Request (Non-Stealth)"
@@ -174,6 +188,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 					delivered_amount = delivery_goal
 					completed = TRUE
 					return TRUE
+	check_total_virology_goals_completion()
 
 /datum/virology_goal/virus/stealth
 	name = "Specific Viral Sample Request (Stealth)"

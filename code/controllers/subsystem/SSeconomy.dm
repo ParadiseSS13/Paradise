@@ -154,16 +154,6 @@ SUBSYSTEM_DEF(economy)
 		if(!is_admin_level(SSshuttle.supply.z) || SSshuttle.supply.areaInstance.moving)
 			next_mail_delay = 15 MINUTES + world.time
 			SSshuttle.mail_delivery()
-	var/all_completed = TRUE
-	for(var/datum/virology_goal/V in GLOB.virology_goals)
-		if(!V.completed)
-			all_completed = FALSE
-			break
-	if(all_completed)
-		GLOB.archived_virology_goals += GLOB.virology_goals
-		GLOB.virology_goals = list(new/datum/virology_goal/propertysymptom, new/datum/virology_goal/virus, new/datum/virology_goal/virus/stealth)
-		for(var/obj/machinery/computer/pandemic/P in GLOB.pandemics)
-			P.print_goal_orders()
 
 /datum/controller/subsystem/economy/proc/record_economy_data()
 	economy_data["totalcash"] += total_space_cash

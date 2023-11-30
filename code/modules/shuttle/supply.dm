@@ -201,9 +201,9 @@
 
 				// Sell viral sample virology goals that are in vial lockboxes too
 				if(istype(thing, /obj/item/storage/lockbox/vials))
-					for(var/thing2 in thing)
-						if(istype(thing2, /obj/item/reagent_containers))
-							var/obj/item/reagent_containers/C = thing2
+					for(var/thing_content in thing)
+						if(istype(thing_content, /obj/item/reagent_containers))
+							var/obj/item/reagent_containers/C = thing_content
 							if(C.reagents && C.reagents.reagent_list)
 								for(var/datum/virology_goal/G in GLOB.virology_goals)
 									if(G.completed)
