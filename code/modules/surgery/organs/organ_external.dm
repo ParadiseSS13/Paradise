@@ -182,9 +182,10 @@
 				H.f_style = "Shaved"
 				C.m_styles["head"] = "None"
 		user.visible_message(
-	"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
-	"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
-	return TRUE
+			"<span class='notice'>[user] has attached [C]'s [src] to the [amputation_point].</span>",
+			"<span class='notice'>You have attached [C]'s [src] to the [amputation_point].</span>")
+		return TRUE
+
 /obj/item/organ/external/replaced(mob/living/carbon/human/target)
 	owner = target
 	loc = null
@@ -306,8 +307,7 @@
 				//And pass the pain around
 				var/obj/item/organ/external/target = pick(possible_points)
 				target.receive_damage(brute, burn, sharp, used_weapon, forbidden_limbs + src, ignore_resists = TRUE) //If the damage was reduced before, don't reduce it again
-
-			if(dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO && !HAS_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED)) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
+			if(owner && dismember_at_max_damage && body_part != UPPER_TORSO && body_part != LOWER_TORSO && !HAS_TRAIT(owner, TRAIT_IPC_JOINTS_SEALED)) // We've ensured all damage to the mob is retained, now let's drop it, if necessary.
 				droplimb(1) //Clean loss, just drop the limb and be done
 
 	var/mob/living/carbon/owner_old = owner //Need to update health, but need a reference in case the below check cuts off a limb.
