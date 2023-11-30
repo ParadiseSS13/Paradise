@@ -12,7 +12,7 @@
 	var/attempting = FALSE
 
 /obj/machinery/grey_autocloner/attackby(obj/item/implanter/implant, mob/user, params)
-	if(!istype(implant) || !if(istype(implant.imp, /obj/item/implant/grey_autocloner)))
+	if(!istype(implant) || !(istype(implant.imp, /obj/item/implant/grey_autocloner)))
 		return ..()
 	var/obj/item/implant/grey_autocloner/autoclone= implant.imp
 	autoclone.linked = src
