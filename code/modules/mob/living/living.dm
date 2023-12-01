@@ -1171,7 +1171,7 @@
 /mob/living/hit_by_thrown_silicon(mob/living/silicon/S, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(S == src || flying || !density)
 		return
-	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
+	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 	if(mob_hurt)
 		return
 	if(!self_hurt)
