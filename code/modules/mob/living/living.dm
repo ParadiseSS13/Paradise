@@ -289,7 +289,7 @@
 	return TRUE
 
 /mob/living/proc/can_succumb()
-	return health < HEALTH_THRESHOLD_CRIT
+	return health < HEALTH_THRESHOLD_CRIT && stat == UNCONSCIOUS
 
 
 /mob/living/verb/succumb()
