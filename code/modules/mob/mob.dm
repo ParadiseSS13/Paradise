@@ -1338,7 +1338,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	return TRUE
 
 /mob/proc/is_oxyloss()
-	return TRUE
+	return FALSE
 
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS

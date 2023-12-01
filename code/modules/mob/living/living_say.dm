@@ -122,11 +122,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return say_dead(message)
 		return FALSE
 
-	if(is_oxyloss())
-		verb = "whispers"
-		ignore_speech_problems = TRUE
-		return whisper(message)
-
 	var/message_mode = parse_message_mode(message, "headset")
 
 	if(copytext(message, 1, 2) == "*")
@@ -186,6 +181,10 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(!ignore_speech_problems)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
+
+	if(is_oxyloss())
+		verb = "whispers"
+		return(whisper(message))
 
 	// Do this so it gets logged for all types of communication
 	var/log_message = "[message_mode ? "([message_mode])" : ""] '[message]'"

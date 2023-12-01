@@ -75,7 +75,6 @@
 
 /mob/living/carbon/human/is_oxyloss()
 	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
-		emote("flip")
 		return TRUE
 
 /mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
