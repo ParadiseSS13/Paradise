@@ -290,3 +290,22 @@ and carry the owner just to make sure*/
 /mob/living/carbon/alien/on_lying_down(new_lying_angle)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, LYING_DOWN_TRAIT) //Xenos can't crawl
+
+/mob/living/carbon/alien/consume_patch_or_pill(obj/item/reagent_containers/medicine, mob/user)
+	var/apply_method = "swallow"
+	var/efficiency = 1
+	var/reagent_application = REAGENT_INGEST
+	if(ispatch(medicine))
+		apply_method = "apply"
+		efficiency = 0.5
+		reagent_application = REAGENT_TOUCH
+
+	visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
+	if(!do_after(user, 5 SECONDS, TRUE, src)) // You try feeding a xenomorph a pill
+		return
+
+	visible_message("<span class='warning'>[user] forces [src] to [apply_method] [medicine].</span>")
+	var/fraction = min(1 / medicine.reagents.total_volume, 1)
+	medicine.reagents.reaction(src, reagent_application, fraction)
+	medicine.reagents.trans_to(src, medicine.reagents.total_volume * efficiency)
+	return TRUE

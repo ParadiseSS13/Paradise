@@ -1220,7 +1220,7 @@ so that different stomachs can handle things in different ways VB*/
 			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
 			to_eat.reagents.trans_to(src, this_bite)
 
-/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/medicine, user) // medicine = patch or pill
+/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/medicine, mob/user) // medicine = patch or pill
 	// The reason why this is bundled up is to avoid 2 procs that will be practically identical
 	if(!medicine.reagents.total_volume)
 		return TRUE // Doesn't have reagents, would be fine to use up
