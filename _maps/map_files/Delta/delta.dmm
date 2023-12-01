@@ -19430,7 +19430,7 @@
 	},
 /area/station/service/kitchen)
 "bgA" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/storage/bag/tray,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
@@ -19438,7 +19438,7 @@
 	},
 /area/station/service/kitchen)
 "bgB" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -19818,7 +19818,7 @@
 	},
 /area/station/service/kitchen)
 "bhN" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
@@ -19851,7 +19851,7 @@
 	},
 /area/station/hallway/primary/fore)
 "bhQ" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/reagent_containers/food/snacks/dough,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/effect/turf_decal/delivery/hollow,
@@ -19860,7 +19860,7 @@
 	},
 /area/station/service/kitchen)
 "bhR" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -21282,7 +21282,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bli" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
 /obj/item/storage/box/papersack,
@@ -21302,7 +21302,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blk" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/reagent_containers/food/snacks/mint,
 /obj/item/reagent_containers/food/condiment/enzyme,
 /obj/machinery/reagentgrinder,
@@ -21327,7 +21327,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "blo" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/clipboard,
 /obj/item/toy/figure/crew/chef,
 /obj/effect/turf_decal/delivery/hollow,
@@ -22141,7 +22141,7 @@
 /turf/simulated/wall,
 /area/station/service/kitchen)
 "bnc" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/clothing/suit/chef,
 /obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/delivery/hollow,
@@ -22161,7 +22161,7 @@
 /turf/simulated/wall,
 /area/station/hallway/primary/fore)
 "bne" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/item/reagent_containers/food/condiment/saltshaker,
 /obj/item/reagent_containers/food/condiment/peppermill,
 /obj/item/kitchen/knife,
@@ -33950,7 +33950,7 @@
 	},
 /area/station/hallway/primary/port)
 "bQy" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel,
