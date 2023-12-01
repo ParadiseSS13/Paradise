@@ -310,7 +310,7 @@
 
 /obj/hit_by_thrown_silicon(mob/living/silicon/S, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	damage *= 0.75 //Define this probably somewhere, we want objects to hurt less than walls, unless special impact effects.
-	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
+	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
 	S.visible_message("<span class='danger'>[S] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
