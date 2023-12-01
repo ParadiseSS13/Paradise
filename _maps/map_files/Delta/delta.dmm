@@ -29928,6 +29928,10 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/drinks/cans/starkist,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/recharger{
+	pixel_x = 6;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -56467,6 +56471,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
+	},
+/obj/machinery/recharger{
+	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
