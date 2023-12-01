@@ -23,14 +23,14 @@
 		SLOT_HUD_HEAD,
 		SLOT_HUD_OUTER_SUIT,
 		SLOT_HUD_SHOES
-		)
+	)
 	var/list/magic_fashion_items = list(
 		/obj/item/staff,
 		/obj/item/staff,
 		/obj/item/clothing/head/wizard,
 		/obj/item/clothing/suit/wizrobe,
 		/obj/item/clothing/shoes/sandal
-		)
+	)
 	for(var/i in 1 to length(magic_fashion_slot_IDs))
 		var/slot = num2text(magic_fashion_slot_IDs[i])
 		var/item = magic_fashion_items[i]
@@ -64,7 +64,7 @@
 	for(var/slot in magic_fashion)
 		var/slot_ID = text2num(slot) // Convert back to numeric defines
 
-		if(locate(magic_fashion[slot]) in H || !H.has_organ_for_slot(slot_ID) || !H.canUnEquip(H.get_item_by_slot(slot_ID)))
+		if((locate(magic_fashion[slot]) in H) || !H.has_organ_for_slot(slot_ID) || !H.canUnEquip(H.get_item_by_slot(slot_ID)))
 			continue
 
 		switch(slot_ID) // Extra filtering for specific slots
