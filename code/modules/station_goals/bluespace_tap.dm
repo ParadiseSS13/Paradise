@@ -199,10 +199,11 @@
 	luminosity = 1
 
 	/// Correspond to power required for a mining level, first entry for level 1, etc.
-	var/list/power_needs = list(1 kW, 5 kW, 50 kW, 100 kW, 500 kW,
-								1 MW, 2 MW, 5 MW, 10 MW, 25 MW,
-								50 MW, 75 MW, 125 MW, 200 MW, 500 MW,
-								1 GW, 5 GW, 15 GW, 45 GW, 500 GW)
+	var/list/power_needs = list(1 kW, 2 kW, 5 kW, 10 kW, 15 kW,
+								25 kW, 50 kW, 100 kW, 250 kW, 500 kW,
+								1 MW, 2 MW, 5 MW, 10 MW, 15 MW,
+								20 MW, 25 MW, 30 MW, 40 MW, 50 MW,
+								60 MW, 70 MW, 80 MW, 90 MW, 100 MW)
 
 	/// list of possible products
 	var/static/product_list = list(
@@ -227,11 +228,11 @@
 	// Tweak these and active_power_consumption to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached
-	var/max_level = 20
+	var/max_level = 25
 	/// Amount of points to give per mining level
 	var/base_points = 4
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
-	var/safe_levels = 10
+	var/safe_levels = 15
 	/// When event triggers this will hold references to all portals so we can fix the sprite after they're broken
 	var/list/active_nether_portals = list()
 
@@ -293,15 +294,15 @@
 	switch(input_level)
 		if(0)
 			return 0
-		if(1 to 2)
+		if(1 to 3)
 			return 1
-		if(3 to 5)
+		if(4 to 8)
 			return 2
-		if(6 to 7)
+		if(9 to 11)
 			return 3
-		if(8 to 10)
+		if(12 to 15)
 			return 4
-		if(11 to INFINITY)
+		if(16 to INFINITY)
 			return 5
 
 /obj/machinery/power/bluespace_tap/power_change()
@@ -402,7 +403,7 @@
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0
-		start_nether_portaling(rand(1,3))
+		start_nether_portaling(rand(1, 3))
 
 /obj/machinery/power/bluespace_tap/proc/start_nether_portaling(amount)
 	var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
@@ -412,7 +413,7 @@
 	P.linked_source_object = src
 	update_icon()
 	if(amount)
-		addtimer(CALLBACK(src, PROC_REF(start_nether_portaling), amount), rand(3,5) SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(start_nether_portaling), amount), rand(3, 5) SECONDS)
 
 /obj/machinery/power/bluespace_tap/ui_data(mob/user)
 	var/list/data = list()

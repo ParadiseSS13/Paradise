@@ -2,10 +2,6 @@
 "a" = (
 /turf/template_noop,
 /area/template_noop)
-"b" = (
-/obj/item/stack/rods,
-/turf/simulated/floor/plating/damaged,
-/area/template_noop)
 "c" = (
 /obj/item/trash/popcorn,
 /turf/space,
@@ -61,6 +57,10 @@
 /obj/item/stack/sheet/metal,
 /turf/space,
 /area/template_noop)
+"r" = (
+/obj/item/stack/rods,
+/turf/simulated/floor/plating/damaged/airless,
+/area/template_noop)
 "t" = (
 /obj/machinery/computer/arcade/battle,
 /turf/simulated/floor/plasteel/airless,
@@ -77,13 +77,6 @@
 /obj/item/stack/tickets,
 /turf/space,
 /area/template_noop)
-"x" = (
-/obj/structure/bookcase/random,
-/turf/simulated/floor/plating/damaged,
-/area/template_noop)
-"z" = (
-/turf/simulated/floor/plating/damaged,
-/area/template_noop)
 "A" = (
 /turf/space,
 /area/template_noop)
@@ -96,9 +89,9 @@
 /obj/item/paper,
 /turf/space,
 /area/template_noop)
-"F" = (
-/obj/random/tool,
-/turf/simulated/floor/plating/damaged,
+"E" = (
+/obj/structure/bookcase/random,
+/turf/simulated/floor/plating/damaged/airless,
 /area/template_noop)
 "G" = (
 /obj/item/poster/random_official,
@@ -130,12 +123,16 @@
 /obj/item/stack/sheet/metal,
 /turf/space,
 /area/template_noop)
-"N" = (
-/turf/space,
-/area/template_noop)
 "O" = (
 /obj/structure/girder/displaced,
 /turf/space,
+/area/template_noop)
+"P" = (
+/obj/random/tool,
+/turf/simulated/floor/plating/damaged/airless,
+/area/template_noop)
+"R" = (
+/turf/simulated/floor/plating/damaged/airless,
 /area/template_noop)
 "S" = (
 /obj/structure/lattice,
@@ -349,7 +346,7 @@ A
 M
 S
 A
-N
+A
 d
 B
 M
@@ -389,7 +386,7 @@ w
 A
 S
 A
-F
+P
 A
 A
 S
@@ -415,7 +412,7 @@ L
 S
 m
 m
-b
+r
 A
 A
 Z
@@ -439,7 +436,7 @@ M
 A
 D
 K
-z
+R
 S
 H
 B
@@ -457,7 +454,7 @@ A
 f
 B
 A
-z
+R
 B
 A
 m
@@ -474,7 +471,7 @@ a
 a
 A
 A
-z
+R
 H
 A
 A
@@ -482,8 +479,8 @@ A
 S
 A
 q
-z
-z
+R
+R
 A
 A
 O
@@ -502,7 +499,7 @@ S
 U
 B
 B
-N
+A
 A
 S
 A
@@ -522,7 +519,7 @@ H
 w
 Z
 B
-x
+E
 S
 B
 S
@@ -547,7 +544,7 @@ A
 A
 w
 B
-z
+R
 A
 O
 A
@@ -560,10 +557,10 @@ a
 (19,1,1) = {"
 i
 a
-N
+A
 A
 M
-z
+R
 S
 w
 S

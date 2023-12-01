@@ -57,6 +57,15 @@
 	armor = list(MELEE = 15, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 15, RAD = 0, FIRE = 50, ACID = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
 
+/obj/item/clothing/head/hopcap/beret
+	name = "head of personnel's beret"
+	desc = "For doing paperwork with style."
+	icon_state = "hop_beret"
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/head.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/head.dmi',
+		)
+
 //Nanotrasen Representative
 /obj/item/clothing/head/ntrep
 	name = "Nanotrasen Representative's hat"
@@ -215,8 +224,18 @@
 
 /obj/item/clothing/head/beret/sci
 	name = "science beret"
-	desc = "A purple beret with the science insignia emblazoned on it. It has that authentic burning plasma smell."
-	icon_state = "beret_sci"
+	desc = "A white beret with a purple science insignia emblazoned on it. It has that authentic smell of burning plasma."
+	icon_state = "beret_science"
+
+/obj/item/clothing/head/beret/robowhite
+	name = "robotics beret"
+	desc = "A white beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
+	icon_state = "beret_roboticswhite"
+
+/obj/item/clothing/head/beret/roboblack
+	name = "bioengineer beret"
+	desc = "A black beret with a brown robotics insignia emblazoned on it. It smells distinctly like oil."
+	icon_state = "beret_roboticsblack"
 
 //Medical
 /obj/item/clothing/head/beret/med

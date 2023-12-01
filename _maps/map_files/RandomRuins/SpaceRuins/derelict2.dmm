@@ -30,10 +30,6 @@
 "f" = (
 /turf/simulated/wall,
 /area/ruin/space/powered)
-"g" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/ruin/space/powered)
 "h" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -103,8 +99,9 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/powered)
-"T" = (
-/turf/simulated/floor/plasteel,
+"s" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered)
 
 (1,1,1) = {"
@@ -798,9 +795,9 @@ a
 a
 a
 f
-g
+s
 c
-g
+s
 f
 a
 a
@@ -886,7 +883,7 @@ i
 i
 i
 i
-T
+i
 f
 a
 a
@@ -921,7 +918,7 @@ b
 b
 b
 b
-g
+s
 i
 i
 i
@@ -929,7 +926,7 @@ m
 i
 i
 i
-g
+s
 b
 b
 b
@@ -1005,15 +1002,15 @@ d
 d
 d
 d
-g
-T
+s
+i
 i
 i
 o
 i
 i
 i
-g
+s
 d
 d
 d
@@ -1048,7 +1045,7 @@ a
 a
 a
 f
-T
+i
 i
 i
 i
@@ -1134,9 +1131,9 @@ a
 a
 a
 f
-g
+s
 c
-g
+s
 f
 a
 a

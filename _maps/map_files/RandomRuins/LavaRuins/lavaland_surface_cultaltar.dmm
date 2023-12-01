@@ -3,11 +3,7 @@
 /turf/template_noop,
 /area/template_noop)
 "b" = (
-/turf/simulated/floor/engine/cult{
-	nitrogen = 23;
-	oxygen = 24;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "c" = (
 /turf/simulated/floor/plating/lava/smooth/mapping_lava,
@@ -25,11 +21,7 @@
 /area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	nitrogen = 23;
-	oxygen = 24;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "h" = (
 /obj/effect/baseturf_helper/lava_land/surface,
@@ -38,38 +30,22 @@
 "i" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	nitrogen = 23;
-	oxygen = 24;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "k" = (
 /obj/effect/decal/remains/human,
 /obj/item/melee/cultblade,
-/turf/simulated/floor/engine/cult{
-	nitrogen = 23;
-	oxygen = 24;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "l" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/shoes/cult,
 /obj/item/clothing/suit/hooded/cultrobes,
-/turf/simulated/floor/engine/cult{
-	nitrogen = 23;
-	oxygen = 24;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "m" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/engine/cult{
-	nitrogen = 23;
-	oxygen = 24;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "o" = (
 /obj/effect/rune/narsie{
@@ -89,22 +65,14 @@
 	message = "<span class='cult italic'><b><span class='big'>You've made a grave mistake, haven't you?</span></b></span>";
 	name = "ohfuck"
 	},
-/turf/simulated/floor/engine/cult{
-	nitrogen = 23;
-	oxygen = 24;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "q" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/shoes/cult,
 /obj/item/clothing/suit/hooded/cultrobes,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	nitrogen = 23;
-	oxygen = 24;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "s" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,

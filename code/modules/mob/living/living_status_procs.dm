@@ -102,6 +102,9 @@ STATUS EFFECTS
 		return FALSE
 	if(buckled) // if they are buckled they aint movin nowhere
 		return FALSE
+	if(HAS_TRAIT(src, TRAIT_FORCED_STANDING) && new_value == LYING_DOWN)
+		return FALSE
+
 	. = TRUE
 	body_position = new_value
 	if(new_value == LYING_DOWN) // From standing to lying down.

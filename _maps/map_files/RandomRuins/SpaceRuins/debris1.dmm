@@ -21,6 +21,9 @@
 /obj/structure/grille/broken,
 /turf/space,
 /area/space)
+"f" = (
+/turf/simulated/floor/plating/burnt/airless,
+/area/space)
 "g" = (
 /obj/structure/disposalpipe/broken{
 	dir = 4
@@ -34,16 +37,19 @@
 /obj/item/stack/cable_coil/cut,
 /turf/space,
 /area/space)
+"i" = (
+/turf/simulated/floor/plating/airless,
+/area/space)
+"j" = (
+/obj/random/toolbox,
+/turf/simulated/floor/plating/burnt/airless,
+/area/space)
+"k" = (
+/obj/item/shard,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "l" = (
 /obj/item/stack/cable_coil/cut,
-/turf/space,
-/area/space)
-"m" = (
-/obj/effect/spawner/random_spawners/grille_often,
-/turf/space,
-/area/space)
-"n" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
 /turf/space,
 /area/space)
 "o" = (
@@ -57,6 +63,13 @@
 "r" = (
 /turf/space,
 /area/template_noop)
+"s" = (
+/obj/machinery/power/apc/worn_out{
+	pixel_y = -24
+	},
+/obj/structure/cable,
+/turf/simulated/floor/plating/airless,
+/area/space)
 "t" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -78,13 +91,6 @@
 /obj/structure/disposalpipe/junction,
 /turf/space,
 /area/space)
-"y" = (
-/turf/simulated/floor/plating/burnt,
-/area/space)
-"z" = (
-/obj/item/stack/sheet/metal,
-/turf/simulated/floor/plating,
-/area/space)
 "B" = (
 /obj/structure/lattice,
 /obj/item/stack/sheet/metal,
@@ -96,27 +102,7 @@
 	},
 /turf/space,
 /area/space)
-"D" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8";
-	tag = ""
-	},
-/turf/simulated/floor/plating/burnt,
-/area/space)
 "E" = (
-/obj/item/stack/rods,
-/turf/space,
-/area/space)
-"F" = (
-/turf/simulated/floor/plating,
-/area/space)
-"G" = (
-/obj/random/toolbox,
-/turf/simulated/floor/plating/burnt,
-/area/space)
-"H" = (
 /obj/item/stack/rods,
 /turf/space,
 /area/space)
@@ -133,23 +119,25 @@
 /obj/item/shard,
 /turf/space,
 /area/space)
-"O" = (
-/obj/machinery/power/apc/worn_out{
-	pixel_y = -24
-	},
-/obj/structure/cable,
-/turf/simulated/floor/plating,
-/area/space)
-"Q" = (
+"M" = (
 /obj/effect/decal/cleanable/shreds{
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/space)
-"T" = (
-/obj/structure/girder,
-/turf/simulated/floor/plating/burnt,
+"P" = (
+/obj/item/stack/sheet/metal,
+/turf/simulated/floor/plating/airless,
+/area/space)
+"R" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8";
+	tag = ""
+	},
+/turf/simulated/floor/plating/burnt/airless,
 /area/space)
 "U" = (
 /obj/effect/spawner/random_barrier/wall_probably,
@@ -158,12 +146,12 @@
 "V" = (
 /turf/simulated/wall,
 /area/space)
+"W" = (
+/obj/structure/girder,
+/turf/simulated/floor/plating/burnt/airless,
+/area/space)
 "X" = (
 /turf/space,
-/area/space)
-"Y" = (
-/obj/item/shard,
-/turf/simulated/floor/plating,
 /area/space)
 "Z" = (
 /obj/item/stack/sheet/metal,
@@ -240,7 +228,7 @@ a
 a
 d
 X
-m
+X
 X
 X
 X
@@ -263,7 +251,7 @@ a
 r
 X
 g
-F
+f
 X
 E
 I
@@ -271,7 +259,7 @@ X
 X
 v
 X
-F
+i
 v
 v
 X
@@ -288,7 +276,7 @@ x
 C
 E
 v
-F
+i
 X
 E
 X
@@ -297,7 +285,7 @@ g
 Z
 X
 X
-F
+i
 X
 r
 a
@@ -307,17 +295,17 @@ a
 r
 X
 X
-y
+f
 E
 X
 E
-Y
+k
 X
-n
+X
 X
 h
 E
-F
+i
 X
 v
 X
@@ -335,7 +323,7 @@ l
 p
 X
 X
-y
+f
 p
 X
 X
@@ -373,20 +361,20 @@ a
 r
 X
 Z
-Q
+M
 v
 X
-y
+f
 v
-D
-y
+R
+f
 U
 X
 X
 E
 X
 X
-n
+X
 r
 a
 "}
@@ -401,12 +389,12 @@ v
 X
 v
 t
-O
+s
 V
 X
 X
-F
-H
+i
+E
 Z
 X
 d
@@ -423,7 +411,7 @@ J
 b
 c
 v
-G
+j
 V
 X
 E
@@ -507,15 +495,15 @@ X
 X
 E
 X
-T
+W
 X
 Z
 X
-n
+X
 v
 X
-z
-n
+P
+X
 X
 Z
 X
@@ -533,7 +521,7 @@ X
 X
 X
 X
-F
+i
 X
 X
 X

@@ -24,6 +24,7 @@
 	var/mob/SG = pick(candidates)
 
 	SA.key = SG.key
+	dust_if_respawnable(SG)
 	SA.universal_speak = TRUE
 	SA.sentience_act()
 	SA.can_collar = TRUE
@@ -43,8 +44,7 @@
 	print_command_report(sentience_report, "NAS Trurl Update", FALSE)
 
 /datum/event/sentience/proc/greet_sentient(mob/living/carbon/human/M)
-	to_chat(M, "<span class='userdanger'>Hello world!</span>")
-	to_chat(M, "<span class='warning'>Due to freak radiation, you have gained \
+	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
 							human level intelligence and the ability to speak and understand \
-							human language!</span>")
+							human language!</span>"))
 	M.create_log(MISC_LOG, "[M] was made into a sentient animal")

@@ -1,10 +1,21 @@
 import { sortBy } from 'common/collections';
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Icon, Input, NanoMap, Table, Tabs } from '../components';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Flex,
+  Icon,
+  Input,
+  NanoMap,
+  Table,
+  Tabs,
+} from '../components';
 import { TableCell } from '../components/Table';
 import { COLORS } from '../constants.js';
 import { Window } from '../layouts';
+import { FlexItem } from '../components/Flex';
 
 const getStatText = (cm, critThreshold) => {
   if (cm.dead) {
@@ -38,6 +49,7 @@ const getStatColor = (cm, critThreshold) => {
 
 export const CrewMonitor = (props, context) => {
   const { act, data } = useBackend(context);
+  const { possible_levels, viewing_current_z_level, is_advanced } = data;
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const decideTab = (index) => {
     switch (index) {
@@ -55,20 +67,35 @@ export const CrewMonitor = (props, context) => {
       <Window.Content>
         <Box fillPositionedParent>
           <Tabs>
-            <Tabs.Tab
-              key="DataView"
-              selected={0 === tabIndex}
-              onClick={() => setTabIndex(0)}
-            >
-              <Icon name="table" /> Data View
-            </Tabs.Tab>
-            <Tabs.Tab
-              key="MapView"
-              selected={1 === tabIndex}
-              onClick={() => setTabIndex(1)}
-            >
-              <Icon name="map-marked-alt" /> Map View
-            </Tabs.Tab>
+            <Flex>
+              <FlexItem grow basis={100}>
+                <Tabs.Tab
+                  key="DataView"
+                  selected={0 === tabIndex}
+                  onClick={() => setTabIndex(0)}
+                >
+                  <Icon name="table" /> Data View
+                </Tabs.Tab>
+                <Tabs.Tab
+                  key="MapView"
+                  selected={1 === tabIndex}
+                  onClick={() => setTabIndex(1)}
+                >
+                  <Icon name="map-marked-alt" /> Map View
+                </Tabs.Tab>
+              </FlexItem>
+              {is_advanced ? (
+                <FlexItem>
+                  <Dropdown
+                    options={possible_levels}
+                    selected={viewing_current_z_level}
+                    onSelected={(val) =>
+                      act('switch_level', { new_level: val })
+                    }
+                  />
+                </FlexItem>
+              ) : null}
+            </Flex>
           </Tabs>
           {decideTab(tabIndex)}
         </Box>
@@ -145,7 +172,7 @@ const CrewMonitorDataView = (_properties, context) => {
                   cm.area + ' (' + cm.x + ', ' + cm.y + ')'
                 )
               ) : (
-                <Box inline color='grey'>
+                <Box inline color="grey">
                   Not Available
                 </Box>
               )}

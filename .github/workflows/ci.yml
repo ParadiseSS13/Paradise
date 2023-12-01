@@ -36,6 +36,7 @@ jobs:
           python tools/ci/check_file_names.py
           python tools/ci/unticked_files.py ${GITHUB_WORKSPACE}
           python tools/ci/illegal_dme_files.py ${GITHUB_WORKSPACE}
+          python -m tools.ci.check_icon_conflicts
           python -m tools.maplint.source --github
           ~/dreamchecker > ${GITHUB_WORKSPACE}/output-annotations.txt 2>&1
       - name: Annotate Lints
@@ -80,7 +81,7 @@ jobs:
       fail-fast: false # Let all map tests run to completion
       matrix:
         maptype: ['/datum/map/cyberiad', '/datum/map/delta', '/datum/map/metastation', '/datum/map/cerestation']
-        byondtype: ['STABLE', 'BETA']
+        byondtype: ['STABLE']
     services:
       mariadb:
         image: mariadb:latest

@@ -85,6 +85,7 @@
 /obj/machinery/computer/security/ui_close(mob/user)
 	..()
 	watchers -= user.UID()
+	user.client.clear_map(map_name)
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
@@ -144,7 +145,7 @@
 // Returns the list of cameras accessible from this computer
 /obj/machinery/computer/security/proc/get_available_cameras()
 	var/list/L = list()
-	for (var/obj/machinery/camera/C in GLOB.cameranet.cameras)
+	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 		if((is_away_level(z) || is_away_level(C.z)) && (C.z != z))//if on away mission, can only receive feed from same z_level cameras
 			continue
 		L.Add(C)

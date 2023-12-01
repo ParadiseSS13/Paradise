@@ -464,14 +464,6 @@
 	icon_state = "chapel"
 	},
 /area/ruin/space/unpowered)
-"bF" = (
-/obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/turf/simulated/floor/mineral/plasma,
-/area/ruin/space/unpowered)
 "bG" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
@@ -519,8 +511,16 @@
 /obj/structure/table,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
-"iz" = (
+"kw" = (
 /turf/simulated/mineral/random/high_chance,
+/area/ruin/space/unpowered)
+"MR" = (
+/obj/structure/shuttle/engine/heater,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"
@@ -607,7 +607,7 @@ aa
 ab
 ab
 ac
-iz
+kw
 aa
 aa
 aa
@@ -645,7 +645,7 @@ ac
 ac
 ac
 ac
-iz
+kw
 aa
 aa
 aa
@@ -699,7 +699,7 @@ ae
 bx
 bJ
 bx
-bF
+MR
 bG
 aa
 aa
@@ -712,11 +712,11 @@ aa
 aa
 aa
 aa
-iz
-iz
+kw
+kw
 ac
-iz
-iz
+kw
+kw
 ac
 ac
 ae
@@ -736,7 +736,7 @@ ae
 bB
 bK
 bM
-bF
+MR
 bG
 aa
 aa
@@ -773,7 +773,7 @@ ae
 bx
 bL
 bx
-bF
+MR
 bG
 aa
 aa
@@ -847,7 +847,7 @@ ae
 by
 bJ
 bx
-bF
+MR
 bG
 aa
 aa
@@ -860,11 +860,11 @@ aa
 aa
 aa
 ac
-iz
-iz
+kw
+kw
 ac
-iz
-iz
+kw
+kw
 ad
 af
 aj
@@ -884,7 +884,7 @@ bv
 bI
 bK
 bM
-bF
+MR
 bG
 aa
 aa
@@ -921,7 +921,7 @@ ae
 by
 bL
 bx
-bF
+MR
 bG
 aa
 aa
@@ -934,11 +934,11 @@ aa
 aa
 aa
 ac
-iz
-iz
+kw
+kw
 ac
 ac
-iz
+kw
 ac
 ae
 ae
@@ -975,7 +975,7 @@ ac
 ac
 ac
 ac
-iz
+kw
 ac
 ac
 al
@@ -995,7 +995,7 @@ ae
 bx
 bJ
 bx
-bF
+MR
 bG
 aa
 aa
@@ -1032,7 +1032,7 @@ ae
 bB
 bK
 bM
-bF
+MR
 bG
 aa
 aa
@@ -1069,7 +1069,7 @@ ae
 bx
 bL
 bx
-bF
+MR
 bG
 aa
 aa
@@ -1123,7 +1123,7 @@ aa
 aa
 ac
 ac
-iz
+kw
 aa
 aa
 aa

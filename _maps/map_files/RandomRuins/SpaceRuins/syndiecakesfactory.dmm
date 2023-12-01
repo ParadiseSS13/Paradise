@@ -14,6 +14,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
+"aK" = (
+/obj/effect/landmark/damageturf,
+/turf/simulated/floor/engine/airless,
+/area/ruin/space/unpowered)
 "bk" = (
 /obj/structure/table/glass/reinforced/plastitanium,
 /obj/item/reagent_containers/food/snacks/syndicake{
@@ -83,6 +87,10 @@
 	dir = 1
 	},
 /turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"cT" = (
+/obj/machinery/suit_storage_unit,
+/turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "cW" = (
 /turf/simulated/floor/mineral/plastitanium/red,
@@ -221,10 +229,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
-"hF" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/engine,
-/area/ruin/space/unpowered)
 "hH" = (
 /obj/structure/railing/corner,
 /turf/simulated/floor/plasteel{
@@ -296,10 +300,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
-"ls" = (
-/obj/structure/dispenser/oxygen,
-/turf/simulated/floor/engine,
-/area/ruin/space/unpowered)
 "lZ" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
@@ -335,9 +335,6 @@
 /obj/item/stack/rods/ten,
 /turf/template_noop,
 /area/template_noop)
-"os" = (
-/turf/simulated/floor/engine,
-/area/ruin/space/unpowered)
 "oB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -631,10 +628,6 @@
 /obj/machinery/suit_storage_unit/syndicate,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"xy" = (
-/obj/machinery/suit_storage_unit,
-/turf/simulated/floor/engine,
-/area/ruin/space/unpowered)
 "xO" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -677,8 +670,8 @@
 /obj/item/clothing/head/corgi,
 /turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
-"zt" = (
-/turf/simulated/floor/plating/damaged,
+"AJ" = (
+/turf/simulated/floor/plating/damaged/airless,
 /area/ruin/space/unpowered)
 "AP" = (
 /obj/structure/table/reinforced,
@@ -799,10 +792,6 @@
 /area/ruin/space/unpowered)
 "EJ" = (
 /turf/simulated/wall,
-/area/ruin/space/unpowered)
-"Fc" = (
-/obj/machinery/light/small,
-/turf/simulated/floor/engine,
 /area/ruin/space/unpowered)
 "Fj" = (
 /obj/item/trash/syndi_cakes,
@@ -963,6 +952,10 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
+"LC" = (
+/obj/structure/dispenser/oxygen,
+/turf/simulated/floor/engine/airless,
+/area/ruin/space/unpowered)
 "LV" = (
 /obj/structure/chair/comfy/black{
 	dir = 8
@@ -1071,12 +1064,6 @@
 "OK" = (
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
-"OP" = (
-/obj/item/flag/syndi{
-	anchored = 1
-	},
-/turf/simulated/floor/engine,
-/area/ruin/space/unpowered)
 "OU" = (
 /mob/living/simple_animal/hostile/alien/sentinel{
 	animal_species = /mob/living/simple_animal/pet/dog;
@@ -1116,6 +1103,9 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
+/area/ruin/space/unpowered)
+"QD" = (
+/turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "QF" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -1238,6 +1228,12 @@
 "WX" = (
 /obj/item/trash/waffles,
 /turf/simulated/floor/engine,
+/area/ruin/space/unpowered)
+"Xm" = (
+/obj/item/flag/syndi{
+	anchored = 1
+	},
+/turf/simulated/floor/engine/airless,
 /area/ruin/space/unpowered)
 "XZ" = (
 /obj/structure/table/glass/reinforced/plastitanium,
@@ -1922,8 +1918,8 @@ TG
 UR
 sh
 sh
-os
-Fc
+sh
+wv
 TG
 EJ
 gk
@@ -2026,7 +2022,7 @@ oV
 oH
 OK
 oH
-OP
+Xm
 vo
 oo
 pd
@@ -2068,8 +2064,8 @@ hC
 EJ
 EJ
 EJ
-hF
-zt
+aK
+AJ
 NQ
 pd
 vo
@@ -2109,9 +2105,9 @@ xO
 yU
 wV
 EJ
-sh
-sh
-sh
+QD
+QD
+QD
 lZ
 lZ
 NQ
@@ -2151,11 +2147,11 @@ xO
 xO
 xO
 vR
-sh
-hF
-sh
-hF
-zt
+QD
+aK
+QD
+aK
+AJ
 Hy
 lZ
 Hy
@@ -2193,11 +2189,11 @@ xO
 xO
 Jt
 EJ
-sh
-sh
-sh
-sh
-sh
+QD
+QD
+QD
+QD
+QD
 EJ
 EJ
 EJ
@@ -2236,10 +2232,10 @@ ub
 EJ
 EJ
 EJ
-sh
-sh
-sh
-sh
+QD
+QD
+QD
+QD
 oH
 OK
 OK
@@ -2278,10 +2274,10 @@ gc
 EJ
 OK
 oH
-OP
-sh
-sh
-ls
+Xm
+QD
+QD
+LC
 EJ
 OK
 OK
@@ -2321,8 +2317,8 @@ EJ
 OK
 EJ
 EJ
-xy
-xy
+cT
+cT
 EJ
 EJ
 OK

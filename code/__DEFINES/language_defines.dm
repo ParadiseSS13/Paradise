@@ -17,6 +17,7 @@
 #define NO_TALK_MSG 128		// Do not show the "\The [speaker] talks into \the [radio]" message
 #define NO_STUTTER 256		// No stuttering, slurring, or other speech problems
 #define NOBABEL 512			// Not granted by book of babel. Typically antag languages.
+#define NOLIBRARIAN 1024	// Flag for banning the Librarian from certain languages. (actual 1984)
 
 //Auto-accent level defines.
 #define AUTOHISS_OFF 0

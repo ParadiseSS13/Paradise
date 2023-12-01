@@ -1,14 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"ab" = (
-/obj/structure/computerframe,
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
-"ad" = (
-/obj/effect/decal/warning_stripes/southwest,
-/obj/structure/closet/emcloset,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
 "al" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -28,16 +18,23 @@
 /obj/structure/bed,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"bg" = (
-/obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
 "bx" = (
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
+"bR" = (
+/mob/living/simple_animal/hostile/carp,
+/turf/template_noop,
+/area/template_noop)
+"cB" = (
+/obj/machinery/teleport/hub,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "cM" = (
 /obj/effect/decal/cleanable/blood/writing{
@@ -51,14 +48,17 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"dT" = (
-/mob/living/simple_animal/hostile/carp,
-/turf/template_noop,
-/area/template_noop)
-"eu" = (
-/obj/effect/decal/warning_stripes/north,
+"dY" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
+"eA" = (
+/mob/living/simple_animal/hostile/retaliate/carp/koi/honk,
+/turf/template_noop,
+/area/template_noop)
 "eM" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -87,22 +87,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"fS" = (
-/obj/structure/rack,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/tcommsat)
 "gg" = (
 /obj/structure/chair{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/tcommsat)
-"hg" = (
-/obj/item/camera_assembly,
-/obj/item/flag/syndi,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "hk" = (
@@ -129,14 +118,27 @@
 /obj/item/stack/tape_roll,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"ib" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/tcommsat)
 "ii" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"in" = (
-/obj/item/flag/syndi,
+"iB" = (
+/obj/machinery/teleport/station,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/tcommsat)
+"iO" = (
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "jd" = (
@@ -174,17 +176,6 @@
 /obj/structure/grille,
 /turf/template_noop,
 /area/space/nearstation)
-"kP" = (
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
-"le" = (
-/obj/structure/rack,
-/obj/item/storage/toolbox/syndicate,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/tcommsat)
 "lk" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -217,10 +208,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/tcommsat)
-"nv" = (
-/obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
 "nG" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -248,12 +235,12 @@
 /obj/effect/spawner/random_spawners/wall_rusted_always,
 /turf/simulated/wall/r_wall,
 /area/ruin/space/tcommsat)
-"oZ" = (
-/obj/structure/rack,
-/obj/item/circuitboard/teleporter,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
+"oS" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
+/obj/structure/closet/firecloset,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "pg" = (
 /obj/machinery/economy/vending/snack,
@@ -334,9 +321,10 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
-"tr" = (
-/obj/effect/decal/warning_stripes/southeastcorner,
-/obj/effect/decal/cleanable/dirt,
+"tC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "tE" = (
@@ -346,15 +334,23 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"tU" = (
+"tO" = (
+/obj/item/camera_assembly,
+/obj/item/flag/syndi,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
+"uf" = (
 /mob/living/simple_animal/hostile/retaliate/carp/koi,
 /turf/template_noop,
 /area/template_noop)
-"vl" = (
-/obj/effect/decal/warning_stripes/southeast,
+"uu" = (
+/obj/structure/computerframe,
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
-"wk" = (
+"wu" = (
 /mob/living/simple_animal/hostile/syndicate/ranged/space,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
@@ -373,10 +369,6 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"yV" = (
-/mob/living/simple_animal/hostile/retaliate/carp,
-/turf/template_noop,
-/area/template_noop)
 "zE" = (
 /turf/simulated/wall/r_wall,
 /area/space/nearstation)
@@ -404,6 +396,12 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"Am" = (
+/obj/structure/rack,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/tcommsat)
 "Av" = (
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating/airless,
@@ -413,6 +411,10 @@
 /obj/item/hemostat,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"Ba" = (
+/mob/living/simple_animal/hostile/retaliate/carp,
+/turf/template_noop,
+/area/template_noop)
 "Bq" = (
 /obj/item/paper/crumpled,
 /turf/simulated/floor/plating/airless,
@@ -435,6 +437,13 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
+"CI" = (
+/obj/structure/rack,
+/obj/item/storage/toolbox/syndicate,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/tcommsat)
 "CZ" = (
 /obj/structure/table,
 /obj/item/storage/fancy/cigarettes,
@@ -475,10 +484,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"FN" = (
-/mob/living/simple_animal/hostile/retaliate/carp/koi/honk,
-/turf/template_noop,
-/area/template_noop)
 "Go" = (
 /obj/structure/table,
 /turf/simulated/floor/plating/airless,
@@ -523,6 +528,12 @@
 /obj/structure/grille,
 /turf/template_noop,
 /area/space/nearstation)
+"Jt" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/tcommsat)
 "JH" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -538,13 +549,14 @@
 	},
 /turf/template_noop,
 /area/template_noop)
-"KB" = (
+"Kt" = (
+/obj/structure/chair,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/decal/remains/human,
+/obj/item/clothing/under/rank/centcom,
+/obj/item/restraints/handcuffs,
+/obj/effect/mob_spawn/human/corpse/scientist,
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/tcommsat)
-"KD" = (
-/obj/machinery/teleport/station,
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "KH" = (
 /obj/structure/window/reinforced{
@@ -568,6 +580,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
+"LP" = (
+/obj/item/flag/syndi,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
 "Mt" = (
@@ -635,11 +651,6 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/space/nearstation)
-"PP" = (
-/obj/effect/decal/warning_stripes/west,
-/obj/structure/closet/firecloset,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
 "PZ" = (
 /obj/structure/closet,
 /obj/item/stock_parts/cell/high,
@@ -653,15 +664,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"Qe" = (
-/obj/structure/chair,
-/obj/effect/decal/cleanable/blood,
-/obj/effect/decal/remains/human,
-/obj/item/clothing/under/rank/centcom,
-/obj/item/restraints/handcuffs,
-/obj/effect/mob_spawn/human/corpse/scientist,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/tcommsat)
 "Qm" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -669,6 +671,12 @@
 	},
 /turf/template_noop,
 /area/space/nearstation)
+"QM" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/tcommsat)
 "QN" = (
 /obj/effect/spawner/window/reinforced{
 	useFull = 0
@@ -691,10 +699,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/tcommsat)
-"Rc" = (
-/obj/effect/decal/warning_stripes/northwestcorner,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Sp" = (
 /obj/effect/landmark/damageturf,
@@ -732,10 +736,6 @@
 /obj/effect/decal/cleanable/blood/writing,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"Ub" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/tcommsat)
 "Up" = (
 /obj/structure/table,
 /obj/item/folder/yellow,
@@ -744,6 +744,13 @@
 "Ur" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
+"UB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/closet/emcloset,
+/turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "UC" = (
 /obj/structure/window/reinforced{
@@ -770,10 +777,6 @@
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"Vh" = (
-/obj/effect/decal/warning_stripes/northwest,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
 "Vx" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -791,6 +794,12 @@
 "Wc" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"Wl" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/tcommsat)
 "Wr" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/tcommsat)
@@ -807,17 +816,25 @@
 /obj/item/shard,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"XJ" = (
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
+/area/ruin/space/tcommsat)
 "Ye" = (
 /obj/structure/lattice/catwalk,
 /turf/template_noop,
 /area/space/nearstation)
-"Yt" = (
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
 "Yu" = (
 /obj/item/electropack,
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
+"YH" = (
+/obj/structure/rack,
+/obj/item/circuitboard/teleporter,
+/turf/simulated/floor/plasteel/airless{
+	icon_state = "dark"
+	},
 /area/ruin/space/tcommsat)
 "YM" = (
 /obj/structure/table,
@@ -850,16 +867,17 @@
 /obj/structure/door_assembly/door_assembly_hatch,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
-"Za" = (
-/obj/machinery/teleport/hub,
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/tcommsat)
 "Zd" = (
 /obj/structure/closet/malf/suits,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/ruin/space/tcommsat)
+"Ze" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 "Zi" = (
 /obj/structure/window/reinforced{
@@ -868,6 +886,12 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/tcommsat)
+"Zl" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/tcommsat)
 "Zs" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -875,6 +899,12 @@
 /obj/structure/window/reinforced,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/airless,
+/area/ruin/space/tcommsat)
+"ZT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/tcommsat)
 
 (1,1,1) = {"
@@ -933,7 +963,7 @@ nX
 "}
 (2,1,1) = {"
 nX
-dT
+bR
 nX
 nX
 nX
@@ -941,7 +971,7 @@ nX
 nX
 nX
 nX
-dT
+bR
 nX
 nX
 nX
@@ -980,7 +1010,7 @@ nX
 nX
 nX
 nX
-dT
+bR
 nX
 nX
 nX
@@ -1027,7 +1057,7 @@ PO
 nX
 nX
 nX
-dT
+bR
 nX
 nX
 nX
@@ -1121,8 +1151,8 @@ Wr
 Is
 Wc
 Wr
-sb
-le
+XJ
+CI
 Wr
 zE
 zE
@@ -1139,7 +1169,7 @@ nX
 nX
 nX
 nX
-dT
+bR
 nX
 nX
 nX
@@ -1175,8 +1205,8 @@ Wr
 Wc
 Is
 ot
-sb
-fS
+XJ
+Am
 Wr
 Jr
 nX
@@ -1198,7 +1228,7 @@ nX
 nX
 nX
 nX
-dT
+bR
 nX
 "}
 (7,1,1) = {"
@@ -1229,8 +1259,8 @@ Cq
 Sp
 Wc
 jk
-sb
-oZ
+XJ
+YH
 ot
 Jr
 nX
@@ -1270,7 +1300,7 @@ nX
 PO
 nX
 nX
-yV
+Ba
 nX
 PO
 nX
@@ -1283,8 +1313,8 @@ Wr
 Is
 Sp
 Wr
-sb
-fS
+XJ
+Am
 Wr
 Jr
 nX
@@ -1710,13 +1740,13 @@ nX
 Jr
 Jr
 Wr
-Ub
-KB
+Is
 Wc
 Wc
 Wc
 Wc
-KB
+Wc
+Wc
 ot
 Jr
 Jr
@@ -1763,7 +1793,7 @@ nX
 nX
 Jr
 ot
-KB
+Wc
 Wc
 Wc
 Is
@@ -1782,10 +1812,10 @@ PO
 PO
 Wr
 Wr
-Vh
-kP
-PP
-ad
+ZT
+ib
+oS
+UB
 ot
 Wr
 nX
@@ -1808,7 +1838,7 @@ Is
 Wc
 Wc
 Is
-QN
+iO
 PO
 PO
 PO
@@ -1863,7 +1893,7 @@ Is
 Wc
 Wc
 rM
-QN
+iO
 nX
 nX
 Zi
@@ -1871,7 +1901,7 @@ Vx
 PO
 Jr
 YW
-in
+LP
 IG
 Wc
 Wc
@@ -1889,12 +1919,12 @@ FK
 hO
 nX
 Wr
-bg
+Wl
 mL
 mL
 mL
 mL
-tr
+dY
 Wr
 ok
 ot
@@ -1917,7 +1947,7 @@ Em
 Bq
 ko
 KR
-QN
+iO
 nX
 nX
 SS
@@ -1929,7 +1959,7 @@ Wc
 Wc
 YT
 Wc
-Qe
+Kt
 WC
 Wc
 Ua
@@ -1943,12 +1973,12 @@ fI
 rc
 rc
 Or
-eu
+tC
 BD
 mL
 mL
 mL
-Yt
+Jt
 Av
 Ua
 Vf
@@ -1971,7 +2001,7 @@ Wc
 Wc
 WC
 Up
-QN
+iO
 nX
 nX
 Zi
@@ -1979,10 +2009,10 @@ KH
 PO
 Jr
 YW
-hg
+tO
 Wc
 jv
-wk
+wu
 Wc
 Wc
 Wc
@@ -1997,12 +2027,12 @@ rs
 lk
 nX
 Wr
-Rc
+QM
 mL
 mL
 mL
 mL
-nv
+Ze
 ot
 Wr
 Wr
@@ -2024,7 +2054,7 @@ Wc
 Wc
 Is
 Wc
-QN
+iO
 PO
 PO
 PO
@@ -2106,10 +2136,10 @@ PO
 PO
 Wr
 Wr
-ab
-KD
-Za
-vl
+uu
+iB
+cB
+Zl
 ot
 Wr
 nX
@@ -2607,7 +2637,7 @@ nX
 "}
 (33,1,1) = {"
 nX
-yV
+Ba
 nX
 nX
 nX
@@ -2617,7 +2647,7 @@ nX
 nX
 nX
 nX
-yV
+Ba
 nX
 nX
 nX
@@ -2815,9 +2845,9 @@ nX
 nX
 nX
 nX
-tU
+uf
 nX
-FN
+eA
 nX
 nX
 "}
@@ -2864,7 +2894,7 @@ nX
 nX
 nX
 nX
-tU
+uf
 nX
 nX
 nX
@@ -2915,12 +2945,12 @@ PO
 nX
 nX
 nX
-tU
+uf
 nX
 nX
 nX
 nX
-tU
+uf
 nX
 nX
 nX
@@ -2964,10 +2994,10 @@ Jr
 PO
 nX
 nX
-tU
+uf
 nX
 nX
-tU
+uf
 nX
 nX
 nX

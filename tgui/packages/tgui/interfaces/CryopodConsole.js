@@ -1,5 +1,11 @@
 import { useBackend } from '../backend';
-import { Button, Section, NoticeBox, LabeledList, Collapsible } from '../components';
+import {
+  Button,
+  Section,
+  NoticeBox,
+  LabeledList,
+  Collapsible,
+} from '../components';
 import { Window } from '../layouts';
 import { toTitleCase } from 'common/string';
 

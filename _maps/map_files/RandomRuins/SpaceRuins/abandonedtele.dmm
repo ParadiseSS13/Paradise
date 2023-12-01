@@ -35,12 +35,6 @@
 /obj/item/clothing/gloves/color/yellow,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
-"j" = (
-/obj/effect/spawner/window/reinforced{
-	useFull = 0
-	},
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/abandtele)
 "k" = (
 /obj/item/stock_parts/cell,
 /turf/simulated/floor/plating/airless,
@@ -60,9 +54,6 @@
 "p" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flashlight,
-/turf/simulated/floor/plating/airless,
-/area/ruin/space/abandtele)
-"q" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
 "r" = (
@@ -120,6 +111,14 @@
 /obj/machinery/door/airlock/external,
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/abandtele)
+"K" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandtele)
+"V" = (
+/obj/machinery/atmospherics/binary/volume_pump,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/abandtele)
 
 (1,1,1) = {"
 a
@@ -153,9 +152,9 @@ a
 a
 a
 c
-j
+K
 F
-j
+K
 c
 a
 a
@@ -167,9 +166,9 @@ a
 a
 c
 c
-j
+K
 h
-j
+K
 c
 c
 a
@@ -195,7 +194,7 @@ a
 a
 b
 b
-q
+h
 h
 s
 b
@@ -212,7 +211,7 @@ g
 k
 p
 t
-q
+w
 b
 b
 c
@@ -280,8 +279,8 @@ c
 b
 b
 n
+V
 r
-w
 b
 b
 c

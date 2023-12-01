@@ -34,3 +34,6 @@
 	whisper_action = new()
 	whisper_action.Grant(src)
 
+/mob/living/simple_animal/demon/Destroy()
+	QDEL_NULL(whisper_action)
+	return ..()

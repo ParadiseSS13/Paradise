@@ -492,6 +492,16 @@
 	build_path = /obj/item/circuitboard/arcade/orion_trail
 	category = list("Misc. Machinery")
 
+/datum/design/nt_recruiter
+	name = "Machine Board (NT Recruiter Simulator Arcade Machine)"
+	desc = "Allows for the construction of circuit boards used to build a new NT Recruiter Simulator machine."
+	id = "arcademachinerecruiter"
+	req_tech = list("programming" = 1)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/arcade/recruiter
+	category = list("Misc. Machinery")
+
 /datum/design/ore_redemption
 	name = "Machine Design (Ore Redemption Board)"
 	desc = "The circuit board for an Ore Redemption machine."

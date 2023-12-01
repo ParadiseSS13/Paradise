@@ -239,7 +239,7 @@
 		return
 	if(user.restrained() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
-	if((!( istype(O, /atom/movable) ) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
+	if((!istype(O, /atom/movable) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src)))
 		return
 	if(!ishuman(user) && !isrobot(user)) //No ghosts, you cannot shove people into fucking lockers
 		return
@@ -270,7 +270,7 @@
 		if(!lastbang)
 			lastbang = 1
 			for(var/mob/M in hearers(src, null))
-				to_chat(M, text("<FONT size=[]>BANG, bang!</FONT>", max(0, 5 - get_dist(src, M))))
+				to_chat(M, "<FONT size=[max(0, 5 - get_dist(src, M))]>BANG, bang!</FONT>")
 			spawn(30)
 				lastbang = 0
 
@@ -286,20 +286,6 @@
 /obj/structure/closet/attack_self_tk(mob/user)
 	add_fingerprint(user)
 	toggle(user)
-
-/obj/structure/closet/verb/verb_toggleopen()
-	set src in oview(1)
-	set category = null
-	set name = "Toggle Open"
-
-	if(usr.incapacitated())
-		return
-
-	if(ishuman(usr) || isrobot(usr))
-		add_fingerprint(usr)
-		toggle(usr)
-		return
-	to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
 
 /obj/structure/closet/update_icon_state()
 	if(!opened)
@@ -402,6 +388,7 @@
 
 	return ..()
 
+
 /obj/structure/closet/bluespace
 	name = "bluespace closet"
 	desc = "A storage unit that moves and stores through the fourth dimension."
@@ -409,7 +396,6 @@
 	icon_state = "bluespace"
 	open_door_sprite = "bluespace_door"
 	storage_capacity = 60
-	pull_speed = 0
 	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
 
 /obj/structure/closet/bluespace/CheckExit(atom/movable/AM)

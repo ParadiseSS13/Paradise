@@ -21,7 +21,7 @@
 	/// What subcategory it's shown under in the crafting UI. (e.g 'Ammo' under 'Weapons')
 	var/subcategory = CAT_NONE
 	/// Is this recipe always available, or does it need to be learned first.
-	var/always_availible = TRUE
+	var/always_available = TRUE
 	/// Will this recipe send an admin message when it's completed.
 	var/alert_admins_on_craft = FALSE
 
@@ -58,6 +58,16 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
+/datum/crafting_recipe/shiv
+	name = "Shiv"
+	result = list(/obj/item/kitchen/knife/shiv)
+	reqs = list(/obj/item/stack/cable_coil = 5,
+				/obj/item/shard = 1,
+				/obj/item/stack/sheet/cloth = 1)
+	time = 2 SECONDS
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
 /datum/crafting_recipe/bola
 	name = "Bola"
 	result = list(/obj/item/restraints/legcuffs/bola)
@@ -66,6 +76,17 @@
 	time = 20//15 faster than crafting them by hand!
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/throwing_croissant
+	name = "Throwing croissant"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/croissant = 1,
+		/obj/item/stack/rods = 1
+	)
+	result = list(/obj/item/reagent_containers/food/snacks/croissant/throwing)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
 
 /datum/crafting_recipe/advancedegun
 	name = "Advanced Energy Gun"
@@ -347,7 +368,7 @@
 	alert_admins_on_craft = TRUE
 
 /datum/crafting_recipe/pulseslug
-	name = "Pulse Slug Shell"
+	name = "Proto Pulse Slug Shell"
 	result = list(/obj/item/ammo_casing/shotgun/pulseslug)
 	reqs = list(/obj/item/ammo_casing/shotgun/techshell = 1,
 				/obj/item/stock_parts/capacitor/adv = 2,
@@ -883,7 +904,7 @@
 				/obj/item/grown/log = 2)
 	time = 50
 	category = CAT_MISC
-	always_availible = FALSE
+	always_available = FALSE
 
 /datum/crafting_recipe/paper_craft
 	name = "Paper Heart"
@@ -1331,3 +1352,22 @@
 				/obj/item/toy/crayon/red)
 	category = CAT_DECORATIONS
 	subcategory = CAT_LARGE_DECORATIONS
+
+/datum/crafting_recipe/gauze
+	name = "Treated gauze"
+	time = 3 SECONDS
+	result = list(/obj/item/stack/medical/bruise_pack)
+	reqs = list(/obj/item/stack/medical/bruise_pack/improvised = 6,
+				/datum/reagent/medicine/styptic_powder = 30,
+				/datum/reagent/medicine/sterilizine = 10)
+	category = CAT_MISC
+
+/datum/crafting_recipe/ointment
+	name = "Ointment"
+	time = 3 SECONDS
+	result = list(/obj/item/stack/medical/ointment)
+	reqs = list(/obj/item/stack/sheet/plastic = 2,
+				/datum/reagent/water = 10,
+				/datum/reagent/medicine/silver_sulfadiazine = 30,
+				/datum/reagent/medicine/sterilizine = 10)
+	category = CAT_MISC

@@ -2,74 +2,6 @@
 "aa" = (
 /turf/space,
 /area/space)
-"ab" = (
-/obj/machinery/shieldwallgen{
-	activated = 1;
-	anchored = 1
-	},
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"ac" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"ad" = (
-/obj/machinery/shieldwallgen{
-	activated = 1;
-	anchored = 1
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"ae" = (
-/obj/machinery/shieldwallgen{
-	activated = 1;
-	anchored = 1
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"af" = (
-/obj/machinery/shieldwallgen{
-	activated = 1;
-	anchored = 1
-	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"ag" = (
-/obj/effect/spawner/window/reinforced,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
 "ah" = (
 /turf/simulated/mineral,
 /area/ruin/space/unpowered)
@@ -79,15 +11,6 @@
 "aj" = (
 /obj/structure/flora/rock,
 /turf/simulated/floor/plating/asteroid/airless,
-/area/ruin/space/unpowered)
-"ak" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "al" = (
 /obj/structure/flora/ausbushes/genericbush,
@@ -186,47 +109,6 @@
 "aC" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
-/area/ruin/space/unpowered)
-"aD" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/door/airlock/highsecurity{
-	name = "Bio Containment";
-	req_one_access_txt = "47"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/ruin/space/unpowered)
-"aE" = (
-/obj/machinery/shieldwallgen{
-	activated = 1;
-	anchored = 1
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4";
-	tag = ""
-	},
-/turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
 "aF" = (
 /obj/structure/cable{
@@ -621,14 +503,6 @@
 /obj/machinery/shieldwallgen,
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
-"bt" = (
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
-/obj/machinery/shieldwallgen,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
 "bu" = (
 /obj/structure/flora/ausbushes/sunnybush,
 /turf/simulated/floor/plating,
@@ -674,24 +548,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/unpowered)
-"bB" = (
-/obj/structure/alien/weeds,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"bC" = (
-/obj/structure/alien/weeds/node,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"bD" = (
-/obj/item/clothing/mask/facehugger{
-	icon_state = "facehugger_dead";
-	stat = 2
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
 "bE" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/plating,
@@ -718,10 +574,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/unpowered)
-"bK" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
 "bL" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -734,22 +586,147 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/unpowered)
-"bN" = (
-/obj/structure/grille/broken,
-/obj/item/shard{
-	icon_state = "small"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"bO" = (
-/obj/item/shard,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
 "bP" = (
 /obj/structure/lattice,
 /turf/space,
 /area/space/nearstation)
-"bQ" = (
+"bV" = (
+/obj/machinery/shieldwallgen,
+/turf/space,
+/area/space/nearstation)
+"bW" = (
+/obj/item/shard,
+/turf/space,
+/area/space/nearstation)
+"cx" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"eu" = (
+/obj/structure/grille/broken,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"gW" = (
+/obj/structure/grille,
+/obj/item/shard{
+	icon_state = "medium"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"iM" = (
+/obj/machinery/shieldwallgen{
+	activated = 1;
+	anchored = 1
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"nK" = (
+/obj/machinery/shieldwallgen{
+	activated = 1;
+	anchored = 1
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"pq" = (
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"pI" = (
+/obj/item/clothing/mask/facehugger{
+	icon_state = "facehugger_dead";
+	stat = 2
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"sk" = (
+/obj/item/clothing/mask/facehugger{
+	icon_state = "facehugger_dead";
+	stat = 2
+	},
+/mob/living/simple_animal/hostile/alien/drone,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"te" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"wn" = (
+/obj/structure/alien/weeds,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"xY" = (
+/obj/structure/alien/weeds/node,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"yM" = (
+/obj/machinery/shieldwallgen{
+	activated = 1;
+	anchored = 1
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"zV" = (
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/shieldwallgen,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"Hv" = (
+/obj/item/gps/ruin,
+/turf/simulated/wall/r_wall,
+/area/ruin/space/unpowered)
+"Hx" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/ruin/space/unpowered)
+"JZ" = (
 /obj/machinery/shieldwallgen{
 	activated = 1;
 	anchored = 1
@@ -761,16 +738,9 @@
 	tag = ""
 	},
 /obj/structure/cable,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
-"bR" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 1
-	},
-/obj/structure/disposaloutlet,
-/turf/simulated/floor/plating,
-/area/space/nearstation)
-"bS" = (
+"KW" = (
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 4;
@@ -778,158 +748,191 @@
 	},
 /obj/structure/cable,
 /obj/machinery/shieldwallgen,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
-"bT" = (
-/obj/structure/grille,
-/obj/item/shard{
-	icon_state = "medium"
-	},
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"bU" = (
+"No" = (
 /obj/structure/grille/broken,
-/turf/simulated/floor/plating,
-/area/ruin/space/unpowered)
-"bV" = (
-/obj/machinery/shieldwallgen,
-/turf/space,
-/area/space/nearstation)
-"bW" = (
-/obj/item/shard,
-/turf/space,
-/area/space/nearstation)
-"cP" = (
-/obj/item/clothing/mask/facehugger{
-	icon_state = "facehugger_dead";
-	stat = 2
+/obj/item/shard{
+	icon_state = "small"
 	},
-/mob/living/simple_animal/hostile/alien/drone,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
-"Hv" = (
-/obj/item/gps/ruin,
-/turf/simulated/wall/r_wall,
+"QQ" = (
+/obj/machinery/shieldwallgen{
+	activated = 1;
+	anchored = 1
+	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"RC" = (
+/obj/item/shard,
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/unpowered)
+"Si" = (
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"Uz" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/highsecurity{
+	name = "Bio Containment"
+	},
+/obj/effect/mapping_helpers/airlock/access/any/science/research,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/ruin/space/unpowered)
+"UG" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/structure/disposaloutlet,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
+"YP" = (
+/obj/machinery/shieldwallgen{
+	activated = 1;
+	anchored = 1
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4";
+	tag = ""
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/unpowered)
 
 (1,1,1) = {"
 aa
-ab
-ag
-ag
-ag
-ag
-ab
+yM
+cx
+cx
+cx
+cx
+yM
 aa
 aa
 aa
 aa
 aa
 aa
-ab
-ag
-ag
-ag
-ag
-ab
+yM
+cx
+cx
+cx
+cx
+yM
 aa
 "}
 (2,1,1) = {"
 aa
-ac
+Hx
 ah
 ai
 ar
 ah
-ac
+Hx
 aK
 aK
 aK
 aK
 aK
 aK
-ac
+Hx
 bu
 bv
 bI
 bv
-ac
+Hx
 aa
 "}
 (3,1,1) = {"
 aa
-ac
+Hx
 ah
 ap
 ai
 ai
-aD
+Uz
 aL
 aR
 aL
 aL
 aR
 aL
-aD
+Uz
 bv
 bv
 bJ
 bv
-ac
+Hx
 aa
 "}
 (4,1,1) = {"
 aa
-ac
+Hx
 ai
 ah
 ai
 aw
-ac
+Hx
 at
 at
 bb
 bb
 at
 at
-ac
+Hx
 bw
 bv
 bv
 bv
-ac
+Hx
 aa
 "}
 (5,1,1) = {"
 aa
-ac
+Hx
 aj
 ai
 as
 ar
-ac
+Hx
 at
 aS
 ay
 ay
 be
 at
-ac
+Hx
 bx
 bE
 bv
 bv
-ac
+Hx
 aa
 "}
 (6,1,1) = {"
 aa
-ad
-ak
-ak
-ak
-ak
-aE
+iM
+te
+te
+te
+te
+nK
 aM
 aT
 bc
@@ -937,11 +940,11 @@ bd
 bf
 aM
 bo
-ak
-ak
-ak
-ak
-bQ
+te
+te
+te
+te
+JZ
 aa
 "}
 (7,1,1) = {"
@@ -961,9 +964,9 @@ at
 aF
 by
 bF
-bK
-bK
-bR
+Si
+Si
+UG
 aa
 "}
 (8,1,1) = {"
@@ -971,7 +974,7 @@ aa
 aa
 aa
 aa
-ag
+cx
 ax
 aG
 aN
@@ -993,7 +996,7 @@ aa
 aa
 aa
 aa
-ag
+cx
 ay
 aH
 aO
@@ -1015,7 +1018,7 @@ aa
 aa
 aa
 aa
-ag
+cx
 ay
 aH
 ay
@@ -1037,7 +1040,7 @@ aa
 aa
 aa
 aa
-ag
+cx
 az
 aI
 aP
@@ -1078,11 +1081,11 @@ aa
 "}
 (13,1,1) = {"
 aa
-ae
-ak
-ak
-ak
-ak
+YP
+te
+te
+te
+te
 aJ
 at
 aY
@@ -1091,119 +1094,119 @@ ay
 bk
 at
 bs
-ak
-ak
-ak
-ak
-bS
+te
+te
+te
+te
+KW
 aa
 "}
 (14,1,1) = {"
 aa
-ac
+Hx
 al
 an
 an
 aA
-ac
+Hx
 at
 aZ
 ay
 ay
 bl
 at
-ac
-bB
-bB
-cP
+Hx
+wn
+wn
+sk
 bH
-ac
+Hx
 aa
 "}
 (15,1,1) = {"
 aa
-ac
+Hx
 am
 am
 ao
 aB
-ac
+Hx
 at
 at
 bb
 bb
 at
 at
-ac
-bC
+Hx
+xY
 bH
 bH
-bv
-bT
+pq
+gW
 aa
 "}
 (16,1,1) = {"
 aa
-ac
+Hx
 an
 aq
 au
 am
-aD
+Uz
 aL
 ba
 aL
 aL
 ba
 aL
-aD
-bD
-bB
-bv
-bO
-bU
+Uz
+pI
+wn
+pq
+RC
+eu
 bW
 "}
 (17,1,1) = {"
 aa
-ac
+Hx
 ao
 an
 av
 aC
-ac
+Hx
 aQ
 aQ
 aQ
 aQ
 aQ
 aQ
-ac
-bB
-bB
-bv
-bv
+Hx
+wn
+wn
+pq
+pq
 bP
 aa
 "}
 (18,1,1) = {"
 aa
-af
-ak
-ak
-ak
-ak
-af
+QQ
+te
+te
+te
+te
+QQ
 aa
 aa
 aa
 aa
 aa
 aa
-bt
-ag
-ag
-bN
+zV
+cx
+cx
+No
 bP
 aa
 aa

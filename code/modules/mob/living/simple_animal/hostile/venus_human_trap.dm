@@ -94,7 +94,7 @@
 				for(var/mob/living/L in view(grasp_range, src))
 					if(L == src || faction_check_mob(L) || (L in grasping) || L == target)
 						continue
-					for(var/t in getline(src,L))
+					for(var/t in get_line(src,L))
 						for(var/a in t)
 							var/atom/A = a
 							if(A.density && A != L)
@@ -107,8 +107,8 @@
 
 
 /mob/living/simple_animal/hostile/venus_human_trap/OpenFire(atom/the_target)
-	for(var/turf/T in getline(src,target))
-		if (T.density)
+	for(var/turf/T in get_line(src, target))
+		if(T.density)
 			return
 		for(var/obj/O in T)
 			if(O.density)

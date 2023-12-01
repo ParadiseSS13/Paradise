@@ -16,9 +16,10 @@ import { formatPower } from '../format';
 export const Pacman = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    broken,
-    anchored,
     active,
+    anchored,
+    broken,
+    emagged,
     fuel_type,
     fuel_usage,
     fuel_stored, // current fuel level
@@ -76,7 +77,7 @@ export const Pacman = (props, context) => {
                       <NumberInput
                         value={output_set}
                         minValue={1}
-                        maxValue={output_max * 2.5}
+                        maxValue={output_max * (emagged ? 2.5 : 1)}
                         step={1}
                         className="mt-1"
                         onDrag={(e, value) =>

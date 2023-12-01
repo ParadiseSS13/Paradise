@@ -3742,15 +3742,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/derelict/crew_quarters)
-"jg" = (
-/obj/machinery/light/spot{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/wood,
-/area/ruin/space/derelict/crew_quarters)
 "jh" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
 /area/ruin/space/derelict/hallway/primary)
@@ -3851,19 +3842,6 @@
 	icon_state = "redblue"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"jw" = (
-/obj/structure/sign/radiation/rad_area{
-	pixel_x = 32
-	},
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "redblue"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "jx" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -3883,20 +3861,6 @@
 /area/ruin/space/derelict/hallway/primary)
 "jA" = (
 /turf/simulated/floor/plating/airless,
-/area/ruin/space/derelict/hallway/primary)
-"jC" = (
-/obj/structure/closet/radiation,
-/obj/structure/sign/radiation/rad_area{
-	pixel_x = -32
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "caution"
-	},
 /area/ruin/space/derelict/hallway/primary)
 "jD" = (
 /turf/simulated/floor/plasteel{
@@ -3939,18 +3903,6 @@
 /obj/structure/table/wood/fancy,
 /obj/item/candle,
 /turf/simulated/floor/carpet,
-/area/ruin/space/derelict/crew_quarters)
-"jJ" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "jK" = (
 /obj/machinery/door/airlock/external{
@@ -4223,14 +4175,6 @@
 	icon_state = "redblue"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"kk" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "redblue"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "kl" = (
 /obj/machinery/door/airlock/external{
 	name = "External Airlock"
@@ -4306,19 +4250,6 @@
 	name = "Central Annex Lockdown"
 	},
 /turf/simulated/floor/plasteel,
-/area/ruin/space/derelict/hallway/primary)
-"ku" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "caution"
-	},
 /area/ruin/space/derelict/hallway/primary)
 "kv" = (
 /obj/structure/cable{
@@ -4440,21 +4371,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/wood,
-/area/ruin/space/derelict/crew_quarters)
-"kF" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "kG" = (
@@ -4591,18 +4507,6 @@
 	icon_state = "redblue"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"kZ" = (
-/obj/structure/closet/radiation,
-/obj/structure/sign/radiation/rad_area{
-	pixel_x = 32
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "redblue"
-	},
-/area/ruin/space/derelict/hallway/primary)
 "la" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -4631,18 +4535,6 @@
 "ld" = (
 /obj/structure/flora/rock,
 /turf/simulated/floor/engine/vacuum,
-/area/ruin/space/derelict/hallway/primary)
-"le" = (
-/obj/structure/sign/radiation/rad_area{
-	pixel_x = -32
-	},
-/obj/structure/rack,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/west,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "caution"
-	},
 /area/ruin/space/derelict/hallway/primary)
 "lf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4698,18 +4590,6 @@
 /obj/item/candle,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet,
-/area/ruin/space/derelict/crew_quarters)
-"ln" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
-/obj/effect/decal/warning_stripes/east,
-/turf/simulated/floor/wood,
 /area/ruin/space/derelict/crew_quarters)
 "lo" = (
 /obj/structure/cable{
@@ -4894,18 +4774,6 @@
 	icon_state = "bar"
 	},
 /area/ruin/space/derelict/hallway/primary)
-"lG" = (
-/obj/machinery/light/spot{
-	dir = 4
-	},
-/obj/machinery/access_button{
-	autolink_id = "rus2_btn_int";
-	name = "interior access button";
-	pixel_x = 25
-	},
-/obj/effect/decal/warning_stripes/northeastcorner,
-/turf/simulated/floor/wood,
-/area/ruin/space/derelict/crew_quarters)
 "lH" = (
 /obj/machinery/power/solar,
 /obj/structure/cable,
@@ -5108,10 +4976,6 @@
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "floorgrime"
 	},
-/area/ruin/space/derelict/hallway/primary)
-"mi" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel,
 /area/ruin/space/derelict/hallway/primary)
 "mj" = (
 /obj/structure/flora/rock/pile,
@@ -7160,56 +7024,6 @@
 	icon_state = "red"
 	},
 /area/ruin/space/derelict/arrival)
-"ry" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/flora/ausbushes/fullgrass{
-	pixel_x = 5;
-	pixel_y = 5
-	},
-/obj/structure/flora/ausbushes/brflowers{
-	pixel_y = 5
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/grass,
-/area/ruin/space/derelict/arrival)
-"rz" = (
-/obj/structure/statue/diamond/captain{
-	anchored = 1;
-	desc = "A statue in honour of those who rose against the tyranny of the Trans-Solar Federation in 2443.";
-	icon_state = "russian";
-	layer = 4;
-	name = "Cygni Commemorative Statue";
-	pixel_y = 16
-	},
-/obj/effect/decal/warning_stripes/south,
-/obj/structure/flora/ausbushes/fullgrass{
-	pixel_y = 5
-	},
-/obj/structure/flora/ausbushes/ppflowers,
-/obj/structure/flora/ausbushes/brflowers,
-/turf/simulated/floor/grass,
-/area/ruin/space/derelict/arrival)
-"rA" = (
-/obj/structure/flora/ausbushes/fullgrass{
-	pixel_x = -5;
-	pixel_y = 5
-	},
-/obj/structure/flora/ausbushes/ppflowers{
-	pixel_y = 5
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/grass,
-/area/ruin/space/derelict/arrival)
 "rB" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel,
@@ -7323,80 +7137,6 @@
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
-	},
-/area/ruin/space/derelict/arrival)
-"rO" = (
-/obj/machinery/light/spot,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/effect/decal/warning_stripes/southeastcorner,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "red"
-	},
-/area/ruin/space/derelict/arrival)
-"rP" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden{
-	dir = 1
-	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/ruin/space/derelict/arrival)
-"rQ" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/access_button{
-	autolink_id = "rus1_btn_int";
-	name = "interior access button";
-	pixel_y = -25
-	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/ruin/space/derelict/arrival)
-"rR" = (
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 10;
-	initialize_directions = 10
-	},
-/obj/effect/decal/warning_stripes/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "red"
-	},
-/area/ruin/space/derelict/arrival)
-"rS" = (
-/obj/machinery/light/spot,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/southwestcorner,
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "red"
 	},
 /area/ruin/space/derelict/arrival)
 "rT" = (
@@ -7715,23 +7455,266 @@
 	},
 /turf/simulated/wall/mineral/titanium/nodecon/nodiagonal,
 /area/ruin/space/derelict/arrival)
-"yC" = (
-
-/turf/template_noop,
-/area/template_noop)
-"Ly" = (
+"yv" = (
+/obj/structure/closet/radiation,
+/obj/structure/sign/radiation/rad_area{
+	pixel_x = 32
+	},
 /obj/effect/decal/cleanable/dirt,
-
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "white"
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "redblue"
+	},
+/area/ruin/space/derelict/hallway/primary)
+"yA" = (
+/obj/structure/statue/diamond/captain{
+	anchored = 1;
+	desc = "A statue in honour of those who rose against the tyranny of the Trans-Solar Federation in 2443.";
+	icon_state = "russian";
+	layer = 4;
+	name = "Cygni Commemorative Statue";
+	pixel_y = 16
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_y = 5
+	},
+/obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass,
+/area/ruin/space/derelict/arrival)
+"DG" = (
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = -5;
+	pixel_y = 5
+	},
+/obj/structure/flora/ausbushes/ppflowers{
+	pixel_y = 5
+	},
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/derelict/arrival)
+"GR" = (
+/obj/structure/sign/radiation/rad_area{
+	pixel_x = -32
+	},
+/obj/structure/rack,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "caution"
+	},
+/area/ruin/space/derelict/hallway/primary)
+"HA" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/machinery/access_button{
+	autolink_id = "rus1_btn_int";
+	name = "interior access button";
+	pixel_y = -25
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
 	},
 /area/ruin/space/derelict/arrival)
+"HZ" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/derelict/crew_quarters)
+"Ib" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 1
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/ruin/space/derelict/arrival)
+"Ik" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/derelict/crew_quarters)
+"IH" = (
+/obj/machinery/light/spot,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "red"
+	},
+/area/ruin/space/derelict/arrival)
+"Jt" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/flora/ausbushes/fullgrass{
+	pixel_x = 5;
+	pixel_y = 5
+	},
+/obj/structure/flora/ausbushes/brflowers{
+	pixel_y = 5
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/grass,
+/area/ruin/space/derelict/arrival)
+"Ke" = (
+/obj/machinery/light/spot{
+	dir = 4
+	},
+/obj/machinery/access_button{
+	autolink_id = "rus2_btn_int";
+	name = "interior access button";
+	pixel_x = 25
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/derelict/crew_quarters)
+"Ot" = (
+/obj/structure/closet/radiation,
+/obj/structure/sign/radiation/rad_area{
+	pixel_x = -32
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "caution"
+	},
+/area/ruin/space/derelict/hallway/primary)
+"OH" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/derelict/crew_quarters)
+"Qm" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/wood,
+/area/ruin/space/derelict/crew_quarters)
 "QN" = (
 /turf/simulated/wall/mineral/titanium/nodecon/nosmooth,
 /area/ruin/space/derelict/arrival)
-"SA" = (
-
-/turf/simulated/floor/plasteel,
+"VX" = (
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 10;
+	initialize_directions = 10
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/ruin/space/derelict/arrival)
+"Wg" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "caution"
+	},
 /area/ruin/space/derelict/hallway/primary)
 "Xn" = (
 /obj/structure/cable{
@@ -7744,6 +7727,42 @@
 	icon_state = "wood-broken"
 	},
 /area/ruin/space/derelict/crew_quarters)
+"Xu" = (
+/obj/structure/sign/radiation/rad_area{
+	pixel_x = 32
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "redblue"
+	},
+/area/ruin/space/derelict/hallway/primary)
+"Zw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "redblue"
+	},
+/area/ruin/space/derelict/hallway/primary)
+"ZY" = (
+/obj/machinery/light/spot,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "red"
+	},
+/area/ruin/space/derelict/arrival)
 
 (1,1,1) = {"
 ac
@@ -8993,7 +9012,7 @@ iV
 iz
 mx
 mK
-Ly
+mU
 nl
 nx
 nI
@@ -10019,7 +10038,7 @@ ac
 ag
 bn
 pT
-Ly
+mU
 mU
 mS
 qC
@@ -10186,7 +10205,7 @@ fJ
 kX
 lB
 lO
-mi
+mz
 my
 jA
 nd
@@ -10365,9 +10384,9 @@ eP
 id
 iC
 eg
-jw
-kk
-kZ
+Xu
+Zw
+yv
 eg
 lQ
 jA
@@ -11132,7 +11151,7 @@ ka
 rq
 rq
 hY
-rO
+IH
 rZ
 bn
 aW
@@ -11222,9 +11241,9 @@ qy
 qR
 ri
 rr
-ry
+Jt
 rE
-rP
+Ib
 sa
 sc
 se
@@ -11314,9 +11333,9 @@ qH
 iy
 rj
 rs
-rz
+yA
 qu
-rQ
+HA
 bn
 bn
 bn
@@ -11393,7 +11412,7 @@ og
 ov
 of
 oX
-SA
+eP
 eg
 if
 if
@@ -11406,9 +11425,9 @@ qw
 qS
 rk
 rt
-rA
+DG
 qu
-rR
+VX
 sb
 sd
 sf
@@ -11500,7 +11519,7 @@ hY
 ru
 ru
 hY
-rS
+ZY
 rZ
 bn
 aW
@@ -11648,7 +11667,7 @@ eP
 gz
 eL
 hq
-yC
+ac
 ac
 ak
 ac
@@ -12205,9 +12224,9 @@ fQ
 eP
 iH
 eg
-jC
-ku
-le
+Ot
+Wg
+GR
 eg
 lR
 mo
@@ -14044,11 +14063,11 @@ bm
 hW
 ip
 iN
-jg
-jJ
-kF
-ln
-lG
+Ik
+Qm
+OH
+HZ
+Ke
 lZ
 ms
 mF

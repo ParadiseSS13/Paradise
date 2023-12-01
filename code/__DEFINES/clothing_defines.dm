@@ -9,31 +9,32 @@
 #define HIDEEYES	4	//APPLIES ONLY TO HELMETS/MASKS!! (eyes means glasses)
 #define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
-// slots
-#define slot_back 1
-#define slot_wear_mask 2
-#define slot_handcuffed 3
-#define slot_l_hand 4
-#define slot_r_hand 5
-#define slot_belt 6
-#define slot_wear_id 7
-#define slot_l_ear 8
-#define slot_glasses 9
-#define slot_gloves 10
-#define slot_head 11
-#define slot_shoes 12
-#define slot_wear_suit 13
-#define slot_w_uniform 14
-#define slot_l_store 15
-#define slot_r_store 16
-#define slot_s_store 17
-#define slot_in_backpack 18
-#define slot_legcuffed 19
-#define slot_r_ear 20
-#define slot_wear_pda 21
-#define slot_tie 22
-#define slot_collar 23
-#define slots_amt 23
+// Slot defines for var/list/inv_slots, some of these dont really show up on the HUD,
+// but still function like it in other ways. I know thats weird, and I hate it too.
+#define SLOT_HUD_BACK 1
+#define SLOT_HUD_WEAR_MASK 2
+#define SLOT_HUD_HANDCUFFED 3
+#define SLOT_HUD_LEFT_HAND 4 // l_hand
+#define SLOT_HUD_RIGHT_HAND 5 // r_hand
+#define SLOT_HUD_BELT 6
+#define SLOT_HUD_WEAR_ID 7
+#define SLOT_HUD_LEFT_EAR 8 // l_ear
+#define SLOT_HUD_GLASSES 9
+#define SLOT_HUD_GLOVES 10
+#define SLOT_HUD_HEAD 11
+#define SLOT_HUD_SHOES 12
+#define SLOT_HUD_OUTER_SUIT 13 // wear_suit
+#define SLOT_HUD_JUMPSUIT 14 // w_uniform
+#define SLOT_HUD_LEFT_STORE 15 // l_store
+#define SLOT_HUD_RIGHT_STORE 16 // r_store
+#define SLOT_HUD_SUIT_STORE 17
+#define SLOT_HUD_IN_BACKPACK 18 // this just puts stuff a backpack if you have one
+#define SLOT_HUD_LEGCUFFED 19
+#define SLOT_HUD_RIGHT_EAR 20 // r_ear
+#define SLOT_HUD_WEAR_PDA 21
+#define SLOT_HUD_TIE 22
+#define SLOT_HUD_COLLAR 23
+#define SLOT_HUD_AMOUNT 23
 
 // accessory slots
 #define ACCESSORY_SLOT_DECOR 1

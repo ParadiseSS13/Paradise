@@ -1,31 +1,36 @@
 /datum/objective/abductee
-	completed = 1
+	completed = TRUE
+	needs_target = FALSE
 
 /datum/objective/abductee/steal
 	explanation_text = "Steal all"
 
 /datum/objective/abductee/steal/New()
+	..()
 	var/target = pick(list("pets","lights","monkeys","fruits","shoes","bars of soap", "weapons", "computers", "organs"))
-	explanation_text+=" [target]."
+	explanation_text +=" [target]."
 
 /datum/objective/abductee/paint
 	explanation_text = "The station is hideous. You must color it all"
 
 /datum/objective/abductee/paint/New()
+	..()
 	var/color = pick(list("red", "blue", "green", "yellow", "orange", "purple", "black", "in rainbows", "in blood"))
-	explanation_text+= " [color]!"
+	explanation_text += " [color]!"
 
 /datum/objective/abductee/speech
 	explanation_text = "Your brain is broken... you can only communicate in"
 
 /datum/objective/abductee/speech/New()
+	..()
 	var/style = pick(list("pantomime", "rhyme", "haiku", "extended metaphors", "riddles", "extremely literal terms", "sound effects", "military jargon"))
-	explanation_text+= " [style]."
+	explanation_text += " [style]."
 
 /datum/objective/abductee/capture
 	explanation_text = "Capture"
 
 /datum/objective/abductee/capture/New()
+	..()
 	var/list/jobs = SSjobs.occupations.Copy()
 	for(var/datum/job/J in jobs)
 		if(J.current_positions < 1)
@@ -88,6 +93,7 @@
 	explanation_text = "Call forth a spirit from the other side."
 
 /datum/objective/abductee/calling/New()
+	..()
 	var/mob/dead/D = pick(GLOB.dead_mob_list)
 	if(D)
 		explanation_text = "You know that [D] has perished. Hold a seance to call them from the spirit realm."

@@ -311,7 +311,7 @@
 
 		for(var/dir in GLOB.cardinal)
 			var/turf/link = get_step(T, dir)
-			if (!link)
+			if(!link)
 				continue
 			// Check if it wasn't already visited and if you can get to that turf
 			if(!closed[link] && T.CanAtmosPass(link))
@@ -337,7 +337,6 @@
 			if(capped)
 				chance = min(chance, 30)
 			if(prob(chance) || bypass_rng)
-				explosion(T, 0, 0, 3, 7, smoke = TRUE, adminlog = FALSE) // when its used in chem nade, 150 explosions admin logs is not good
 				T.visible_message("<span class='warning'>[T] melts!</span>")
 				T.burn_down()
 	return affected

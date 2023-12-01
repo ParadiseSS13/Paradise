@@ -1,6 +1,12 @@
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
-import { LabeledList, NumberInput, Section, AnimatedNumber, Box } from '../components';
+import {
+  LabeledList,
+  NumberInput,
+  Section,
+  AnimatedNumber,
+  Box,
+} from '../components';
 import { Window } from '../layouts';
 import { round } from 'common/math';
 
@@ -28,17 +34,21 @@ export const TempGun = (props, context) => {
                     target_temperature: value,
                   })
                 }
-              />&deg;C
+              />
+              &deg;C
             </LabeledList.Item>
             <LabeledList.Item label="Current Temperature">
-              <Box color={Temp2Color(temperature)}
-                  bold={temperature > 500-273.15}>
-                  <AnimatedNumber value={(round(temperature, 2))}/>&deg;C
+              <Box
+                color={Temp2Color(temperature)}
+                bold={temperature > 500 - 273.15}
+              >
+                <AnimatedNumber value={round(temperature, 2)} />
+                &deg;C
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Power Cost">
               <Box color={Temp2CostColor(temperature)}>
-                  {Temp2Cost(temperature)}
+                {Temp2Cost(temperature)}
               </Box>
             </LabeledList.Item>
           </LabeledList>
@@ -46,7 +56,7 @@ export const TempGun = (props, context) => {
       </Window.Content>
     </Window>
   );
-}
+};
 
 const Temp2Color = (temp) => {
   if (temp <= -100) {
@@ -66,32 +76,32 @@ const Temp2Color = (temp) => {
 
 // These temps are the same as the ones in switch(temperature) for the gun, just - 273.15 for conversion between kelvin and celcius
 const Temp2Cost = (temp) => {
-  if (temp <= 100 - 273.15){
+  if (temp <= 100 - 273.15) {
     return 'High';
   }
-  if (temp <= 250 - 273.15){
+  if (temp <= 250 - 273.15) {
     return 'Medium';
   }
-  if (temp <= 300 - 273.15){
+  if (temp <= 300 - 273.15) {
     return 'Low';
   }
-  if (temp <= 400 - 273.15){
+  if (temp <= 400 - 273.15) {
     return 'Medium';
   }
   return 'High';
-}
+};
 
 const Temp2CostColor = (temp) => {
-  if (temp <= 100 - 273.15){
+  if (temp <= 100 - 273.15) {
     return 'red';
   }
-  if (temp <= 250 - 273.15){
+  if (temp <= 250 - 273.15) {
     return 'orange';
   }
-  if (temp <= 300 - 273.15){
+  if (temp <= 300 - 273.15) {
     return 'green';
   }
-  if (temp <= 400 - 273.15){
+  if (temp <= 400 - 273.15) {
     return 'orange';
   }
   return 'red';

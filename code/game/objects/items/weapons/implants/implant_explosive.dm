@@ -103,7 +103,7 @@
 	weak = 16
 	medium = 8
 	heavy = 4
-	delay = 70
+	delay = 3 SECONDS
 	implant_data = new /datum/implant_fluff/explosive_macro
 
 /obj/item/implant/explosive/macro/activate(cause)

@@ -449,7 +449,7 @@ const NewscasterJobs = (properties, context) => {
 const Story = (properties, context) => {
   const { act, data } = useBackend(context);
   const { story, wanted = false } = properties;
-  const {is_admin} = data;
+  const { is_admin } = data;
   const [fullStories, setFullStories] = useLocalState(
     context,
     'fullStories',
@@ -492,10 +492,7 @@ const Story = (properties, context) => {
             <Box display="inline">
               <Icon name="user" /> {story.author} |&nbsp;
               {!!is_admin && (
-                <Fragment>
-                  ckey: {story.author_ckey}{' '}
-                  |&nbsp;
-                </Fragment>
+                <Fragment>ckey: {story.author_ckey} |&nbsp;</Fragment>
               )}
               {!wanted && (
                 <Fragment>

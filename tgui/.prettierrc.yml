@@ -1,7 +1,6 @@
 arrowParens: always
 bracketSpacing: true
 endOfLine: lf
-jsxBracketSameLine: true
 jsxSingleQuote: false
 printWidth: 80
 proseWrap: preserve
