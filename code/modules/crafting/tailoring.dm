@@ -194,7 +194,7 @@
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses = 1)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/hudfilth
+/datum/crafting_recipe/hudsunjani
 	name = "Janitor HUD sunglasses"
 	result = list(/obj/item/clothing/glasses/hud/janitor/sunglasses)
 	time = 20
@@ -204,7 +204,7 @@
 				/obj/item/stack/cable_coil = 5)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/hudfilthremoval
+/datum/crafting_recipe/hudsunjaniremoval
 	name = "Janitor HUD sunglasses removal"
 	result = list(/obj/item/clothing/glasses/sunglasses, /obj/item/clothing/glasses/hud/janitor)
 	time = 20
