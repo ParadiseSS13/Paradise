@@ -295,7 +295,7 @@
 /mob/living/verb/succumb()
 	set hidden = TRUE
 	if(!can_succumb())
-		to_chat("<span class='warning'>You are unable to succumb to death! This life continues!</span>")
+		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
 	var/last_words = input(src, "Do you have any last words?", "Goodnight, Sweet Prince") as text|null
