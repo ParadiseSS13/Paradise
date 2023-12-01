@@ -33569,16 +33569,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hop)
-"cfk" = (
-/obj/machinery/door/window/classic/reversed{
-	name = "Deliveries";
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/station/hallway/primary/fore)
 "cfm" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical,
@@ -122068,7 +122058,7 @@ acf
 fRT
 jIs
 epM
-cfk
+aHM
 aJk
 aNt
 aNt
