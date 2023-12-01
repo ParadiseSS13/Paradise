@@ -44,8 +44,7 @@
 
 	//Tanning!
 	for(var/obj/item/stack/sheet/hairlesshide/HH in src)
-		var/obj/item/stack/sheet/wetleather/WL = new(src)
-		WL.amount = HH.amount
+		new /obj/item/stack/sheet/wetleather(src, HH.amount)
 		qdel(HH)
 
 
