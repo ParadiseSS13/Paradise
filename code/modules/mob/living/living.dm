@@ -1156,7 +1156,7 @@
 	stop_pulling()
 	return ..()
 
-/mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/mob/living/hit_by_thrown_mob(mob/living/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(C == src || flying || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, 1)
@@ -1164,18 +1164,10 @@
 		return
 	if(!self_hurt)
 		take_organ_damage(damage)
-	C.take_organ_damage(damage)
-	C.KnockDown(3 SECONDS)
+	if(issilicon(C))
+		C.adjustBruteLoss(damage)
+		C.Weaken(3 SECONDS)
+	else
+		C.take_organ_damage(damage)
+		C.KnockDown(3 SECONDS)
 	C.visible_message("<span class='danger'>[C] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
-
-/mob/living/hit_by_thrown_silicon(mob/living/silicon/S, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	if(S == src || flying || !density)
-		return
-	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
-	if(mob_hurt)
-		return
-	if(!self_hurt)
-		take_organ_damage(damage)
-	S.take_organ_damage(damage)
-	S.Weaken(3 SECONDS)
-	S.visible_message("<span class='danger'>[S] crashes into [src], knocking them both over!</span>", "<span class='userdanger'>You violently crash into [src]!</span>")
