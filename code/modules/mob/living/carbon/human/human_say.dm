@@ -73,7 +73,7 @@
 		return !mind.miming
 	return TRUE
 
-/mob/living/carbon/human/can_speak_loudly()
+/mob/living/carbon/human/cannot_speak_loudly()
 	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
 		return TRUE
 
