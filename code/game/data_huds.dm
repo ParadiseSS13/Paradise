@@ -499,7 +499,9 @@
 	JANI HUD
 ~~~~~~~~~~~~~~~*/
 /obj/effect/decal/cleanable/proc/jani_hud_set_sign()
-	var/image/holder = "janihud"
+	var/image/holder = hud_list[JANI_HUD]
+	holder.icon_state = "hudjani"
+	holder.alpha = 130
 	holder.plane = ABOVE_LIGHTING_PLANE
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
