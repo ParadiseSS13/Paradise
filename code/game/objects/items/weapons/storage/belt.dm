@@ -386,7 +386,7 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/multitool
-		)
+	)
 
 /obj/item/storage/belt/military/sst
 	icon_state = "assaultbelt"
