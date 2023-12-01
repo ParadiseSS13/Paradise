@@ -52,7 +52,7 @@ export const ListInput = (props, context) => {
     buttons[0]
   );
   return (
-    <Window title={title}>
+    <Window title={title} resizable>
       {timeout !== undefined && <Loader value={timeout} />}
       <Window.Content>
         <Flex direction="column" height="100%">
@@ -151,7 +151,7 @@ export const ListInput = (props, context) => {
                 />
               }
             >
-              <Flex wrap="wrap">
+              <Flex wrap="wrap" overflowX="hidden">
                 {displayedArray.map((button) => (
                   <Flex.Item key={button} basis="100%">
                     <Button
