@@ -3049,6 +3049,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44924,6 +44929,21 @@
 	},
 /turf/simulated/wall,
 /area/space/nearstation)
+"cSE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/grille,
+/obj/structure/cable/yellow{
+	d2 = 8;
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "SecJusticeChamber";
+	name = "Justice Vent"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/execution)
 "cSF" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -51582,6 +51602,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -51994,6 +52019,28 @@
 	icon_state = "white"
 	},
 /area/station/science/rnd)
+"eYD" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "executionfireblast"
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/execution)
 "eYE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -56848,6 +56895,11 @@
 	d2 = 4;
 	icon_state = "1-4"
 	},
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -58866,6 +58918,31 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/public/dorms)
+"hZh" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/grille,
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor{
+	id_tag = "SecJusticeChamber";
+	name = "Justice Vent"
+	},
+/turf/simulated/floor/plating,
+/area/station/security/execution)
 "hZi" = (
 /obj/machinery/seed_extractor,
 /obj/effect/turf_decal/stripes/corner,
@@ -60191,6 +60268,11 @@
 /obj/item/storage/fancy/cigarettes,
 /obj/item/flash,
 /obj/item/reagent_containers/spray/pepper,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkred"
@@ -61061,6 +61143,11 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -81037,6 +81124,11 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
@@ -81563,6 +81655,11 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -86568,6 +86665,11 @@
 "uEa" = (
 /obj/structure/chair/e_chair,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -88653,10 +88755,14 @@
 /area/station/supply/storage)
 "vxc" = (
 /obj/machinery/door/firedoor,
-/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "executionfireblast"
 	},
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
+	},
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/security/execution)
 "vxi" = (
@@ -89959,6 +90065,11 @@
 "wjq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -92958,6 +93069,11 @@
 "xFu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/structure/grille,
+/obj/structure/cable/yellow{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /obj/machinery/door/poddoor{
 	id_tag = "SecJusticeChamber";
@@ -117652,11 +117768,11 @@ aaa
 aaa
 aaa
 aaa
-xFu
+hZh
 ePT
 uEa
 ato
-vxc
+eYD
 iAY
 sjz
 wjq
@@ -117909,7 +118025,7 @@ aaa
 aaa
 aaa
 aaa
-xFu
+cSE
 wQE
 xIe
 kis
