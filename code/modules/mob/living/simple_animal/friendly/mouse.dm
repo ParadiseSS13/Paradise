@@ -212,8 +212,8 @@
 		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
 		"<span class='warning'>It's a bit of a struggle, but you manage to suck [src] into your decompiler. It makes a series of visceral crunching noises.</span>")
 		new/obj/effect/decal/cleanable/blood/splatter(get_turf(src))
-		C.stored_comms["wood"] += 2
-		C.stored_comms["glass"] += 2
+		C.stored_comms["metal"] += 2
+		C.stored_comms["glass"] += 1
 		qdel(src)
 		return TRUE
 	return ..()

@@ -1,4 +1,5 @@
 /obj/item/melee/energy
+	icon = 'icons/obj/energy_melee.dmi'
 	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20

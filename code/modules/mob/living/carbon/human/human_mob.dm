@@ -770,10 +770,10 @@
 		add_comment(usr, "security", sanitized)
 
 	if(href_list["medical"])
-		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			if(usr.incapacitated())
 				return
-			var/modified = 0
+			var/modified = FALSE
 			var/perpname = get_visible_name(TRUE)
 
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -782,21 +782,39 @@
 						if(R.fields["id"] == E.fields["id"])
 							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
-							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 								if(setmedical != "Cancel")
 									R.fields["p_stat"] = setmedical
-									modified = 1
+									modified = TRUE
 									if(GLOB.PDA_Manifest.len)
 										GLOB.PDA_Manifest.Cut()
 
-									spawn()
-										sec_hud_set_security_status()
+			if(!modified)
+				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
+
+	if(href_list["mental"])
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
+			if(usr.incapacitated())
+				return
+			var/modified = FALSE
+			var/perpname = get_visible_name(TRUE)
+
+			for(var/datum/data/record/E in GLOB.data_core.general)
+				if(E.fields["name"] == perpname)
+					for(var/datum/data/record/R in GLOB.data_core.general)
+						if(R.fields["id"] == E.fields["id"])
+							var/setmental = input(usr, "Specify a new mental status for this person.", "Medical HUD", R.fields["m_stat"]) in list("*Insane*", "*Unstable*", "*Watch*", "Stable", "Cancel")
+
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
+								if(setmental != "Cancel")
+									R.fields["m_stat"] = setmental
+									modified = TRUE
 
 			if(!modified)
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecord"])
-		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
 			if(usr.incapacitated())
 				return
 			var/read = 0
@@ -806,7 +824,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
 								to_chat(usr, "<b>Name:</b> [R.fields["name"]]	<b>Blood Type:</b> [R.fields["b_type"]]")
 								to_chat(usr, "<b>DNA:</b> [R.fields["b_dna"]]")
 								to_chat(usr, "<b>Minor Disabilities:</b> [R.fields["mi_dis"]]")
@@ -821,7 +839,7 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordComment"])
-		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
 			if(usr.incapacitated())
 				return
 			var/perpname = get_visible_name(TRUE)
@@ -831,7 +849,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.medical)
 						if(R.fields["id"] == E.fields["id"])
-							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
+							if(hasHUD(usr, EXAMINE_HUD_MEDICAL_READ))
 								read = TRUE
 								if(LAZYLEN(R.fields["comments"]))
 									for(var/c in R.fields["comments"])
@@ -844,11 +862,11 @@
 				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
 
 	if(href_list["medrecordadd"])
-		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_MEDICAL))
+		if(usr.incapacitated() || !hasHUD(usr, EXAMINE_HUD_MEDICAL_WRITE))
 			return
 		var/raw_input = input("Add Comment:", "Medical records", null, null) as message
 		var/sanitized = copytext(trim(sanitize(raw_input)), 1, MAX_MESSAGE_LEN)
-		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_MEDICAL))
+		if(!sanitized || usr.stat || usr.restrained() || !hasHUD(usr,  EXAMINE_HUD_MEDICAL_WRITE))
 			return
 		add_comment(usr, "medical", sanitized)
 
@@ -1197,7 +1215,7 @@
 		return 0
 
 	if(!L.is_bruised())
-		custom_pain("You feel a stabbing pain in your chest!")
+		L.custom_pain("You feel a stabbing pain in your chest!")
 		L.damage = L.min_bruised_damage
 
 /mob/living/carbon/human/cuff_resist(obj/item/I)
@@ -1226,7 +1244,7 @@
 	if(include_species_change)
 		set_species(new_dna.species.type, retain_damage = TRUE, transformation = TRUE, keep_missing_bodyparts = TRUE)
 	dna = new_dna.Clone()
-	if (include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
+	if(include_species_change) //We have to call this after new_dna.Clone() so that species actions don't get overwritten
 		dna.species.on_species_gain(src)
 	real_name = new_dna.real_name
 	domutcheck(src, MUTCHK_FORCED) //Ensures species that get powers by the species proc handle_dna keep them
@@ -1618,7 +1636,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/singularity_act()
 	. = 20
 	if(mind)
-		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
+		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer"))
 			. = 100
 		if(mind.assigned_role == "Clown")
 			. = rand(-1000, 1000)
@@ -1660,7 +1678,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H == src)
 		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
 		return
-	if(H.receiving_cpr) // To prevent spam stacking
+	if(!isnull(H.receiving_cpr_from)) // To prevent spam stacking
 		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
 		return
 	if(!can_use_hands() || !has_both_hands())
@@ -1670,7 +1688,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		to_chat(src, "<span class='warning'>You can't perform effective CPR with your hands full!</span>")
 		return
 
-	H.receiving_cpr = TRUE
+	H.receiving_cpr_from = UID()
 	var/cpr_modifier = get_cpr_mod(H)
 	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		if(ismachineperson(H) && do_mob(src, H, 4 SECONDS))  // hehe
@@ -1680,12 +1698,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				)
 			playsound(H, 'sound/weapons/ringslam.ogg', 50, TRUE)
 			adjustBruteLossByPart(2, "head")
-			H.receiving_cpr = FALSE
+			H.receiving_cpr_from = null
 			return
 
 		if(!H.is_revivable())
 			to_chat(src, "<span class='warning'>[H] is already too far gone for CPR...</span>")
-			H.receiving_cpr = FALSE
+			H.receiving_cpr_from = null
 			return
 
 		visible_message("<span class='danger'>[src] is trying to perform CPR on [H]'s lifeless body!</span>", "<span class='danger'>You start trying to perform CPR on [H]'s lifeless body!</span>")
@@ -1722,7 +1740,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		else
 			visible_message("<span class='notice'>[src] stops giving [H] CPR.</span>", "<span class='notice'>You stop giving [H] CPR.</span>")
 
-		H.receiving_cpr = FALSE
+		H.receiving_cpr_from = null
 		return
 
 	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
@@ -1741,7 +1759,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
 		add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 
-	H.receiving_cpr = FALSE
+	H.receiving_cpr_from = null
 	visible_message("<span class='notice'>[src] stops performing CPR on [H].</span>", "<span class='notice'>You stop performing CPR on [H].</span>")
 	to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
 
@@ -2129,7 +2147,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(stat)
 		return
 
-	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)] [p_are()]...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
+	pose = sanitize(copytext(input(usr, "This is [src]. [p_they(TRUE)]...", "Pose", null) as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Set Flavour Text"

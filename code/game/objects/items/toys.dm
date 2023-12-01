@@ -176,6 +176,7 @@
 /obj/item/toy/sword
 	name = "toy sword"
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
+	icon = 'icons/obj/energy_melee.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "sword0"
@@ -1207,23 +1208,18 @@
 	. += "Has [fake_bullets] round\s remaining."
 	. += "<span class='info'>Use in hand to empty the gun's ammo reserves.</span>"
 	. += "[fake_bullets] of those are live rounds."
+	. += "<span class='notice'>You can <b>Alt-Click</b> [src] to spin it's barrel.</span>"
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
 	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
 
-/obj/item/toy/russian_revolver/trick_revolver/verb/trick_spin()
-	set name = "Spin Chamber"
-	set category = "Object"
-	set desc = "Click to spin your revolver's chamber."
-
-	var/mob/M = usr
-
-	if(M.stat || !in_range(M, src))
+/obj/item/toy/russian_revolver/trick_revolver/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	to_chat(M, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
-	shoot_gun(M)
+	to_chat(user, "<span class='warning'>You go to spin the chamber... and it goes off in your face!</span>")
+	shoot_gun(user)
 
 /obj/item/toy/russian_revolver/trick_revolver/attack_self(mob/user)
 	if(!bullets_left) //You can re-arm the trap...

@@ -90,12 +90,12 @@
 	cell = locate(/obj/item/stock_parts/cell) in contents
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/defibrillator/ui_action_click()
-	toggle_paddles()
+/obj/item/defibrillator/ui_action_click(mob/user)
+	toggle_paddles(user)
 
-/obj/item/defibrillator/CtrlClick()
-	if(ishuman(usr) && Adjacent(usr))
-		toggle_paddles()
+/obj/item/defibrillator/CtrlClick(mob/user)
+	if(ishuman(user) && Adjacent(user))
+		toggle_paddles(user)
 
 /obj/item/defibrillator/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell))
@@ -138,21 +138,17 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/defibrillator/verb/toggle_paddles()
-	set name = "Toggle Paddles"
-	set category = "Object"
-
-	var/mob/living/carbon/human/user = usr
+/obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
 	if(paddles_on_defib)
 		//Detach the paddles into the user's hands
-		if(usr.incapacitated()) return
-
-		if(!usr.put_in_hands(paddles))
+		if(!user.put_in_hands(paddles))
 			to_chat(user, "<span class='warning'>You need a free hand to hold the paddles!</span>")
 			update_icon(UPDATE_OVERLAYS)
 			return
-		paddles.loc = user
+		paddles.forceMove(user)
 		paddles_on_defib = FALSE
 	else if(user.is_in_active_hand(paddles))
 		//Remove from their hands and back onto the defib unit
@@ -255,7 +251,7 @@
 
 /obj/item/defibrillator/compact/advanced/attackby(obj/item/W, mob/user, params)
 	if(W == paddles)
-		toggle_paddles()
+		toggle_paddles(user)
 		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/compact/advanced/loaded/Initialize(mapload)

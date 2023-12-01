@@ -154,8 +154,18 @@
 			L.adjustBruteLoss(30)
 	falling_atoms -= AM
 
+/turf/simulated/floor/chasm/straight_down
+	var/obj/effect/abstract/chasm_storage/storage
+
 /turf/simulated/floor/chasm/straight_down/Initialize()
 	. = ..()
+	var/found_storage = FALSE
+	for(var/obj/effect/abstract/chasm_storage/C in contents)
+		storage = C
+		found_storage = TRUE
+		break
+	if(!found_storage)
+		storage = new /obj/effect/abstract/chasm_storage(src)
 	drop_x = x
 	drop_y = y
 	drop_z = z - 1
@@ -168,7 +178,7 @@
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
 	light_range = 2
 	light_power = 0.75
-	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
+	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right. Ignore the fact the people you pull out are not burning.
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize()
 	. = ..()
@@ -184,7 +194,7 @@
 	if(isliving(AM))
 		var/mob/living/L = AM
 		L.notransform = TRUE
-		L.Weaken(400 SECONDS)
+		L.Weaken(20 SECONDS)
 	var/oldtransform = AM.transform
 	var/oldcolor = AM.color
 	var/oldalpha = AM.alpha
@@ -200,20 +210,67 @@
 	if(!AM || QDELETED(AM))
 		return
 
-	if(isrobot(AM))
-		var/mob/living/silicon/robot/S = AM
-		qdel(S.mmi)
-
 	falling_atoms -= AM
-
-	qdel(AM)
-
-	if(AM && !QDELETED(AM))	//It's indestructible
-		visible_message("<span class='boldwarning'>[src] spits out [AM]!</span>")
+	if(isliving(AM))
 		AM.alpha = oldalpha
 		AM.color = oldcolor
 		AM.transform = oldtransform
-		AM.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1, 10),rand(1, 10))
+		var/mob/living/fallen_mob = AM
+		fallen_mob.notransform = FALSE
+		if(fallen_mob.stat != DEAD)
+			fallen_mob.death()
+			fallen_mob.adjustBruteLoss(1000) //crunch from long fall, want it to be like legion in damage
+		fallen_mob.forceMove(storage)
+		return
+
+	if(istype(AM, /obj/item/grenade/jaunter_grenade))
+		AM.forceMove(storage)
+		return
+	for(var/mob/M in AM.contents)
+		M.forceMove(src)
+
+	qdel(AM)
+
+/**
+ * An abstract object which is basically just a bag that the chasm puts people inside
+ */
+
+/obj/effect/abstract/chasm_storage
+	name = "chasm depths"
+	desc = "The bottom of a hole. You shouldn't be able to interact with this."
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+/obj/effect/abstract/chasm_storage/Entered(atom/movable/arrived)
+	. = ..()
+	if(isliving(arrived))
+		RegisterSignal(arrived, COMSIG_LIVING_REVIVE, PROC_REF(on_revive))
+
+/obj/effect/abstract/chasm_storage/Exited(atom/movable/gone)
+	. = ..()
+	if(isliving(gone))
+		UnregisterSignal(gone, COMSIG_LIVING_REVIVE)
+
+/**
+ * Called if something comes back to life inside the pit. Expected sources are badmins and changelings.
+ * Ethereals should take enough damage to be smashed and not revive.
+ * Arguments
+ * escapee - Lucky guy who just came back to life at the bottom of a hole.
+ */
+/obj/effect/abstract/chasm_storage/proc/on_revive(mob/living/escapee)
+	SIGNAL_HANDLER
+	var/turf/ourturf = get_turf(src)
+	if(istype(ourturf, /turf/simulated/floor/chasm/straight_down/lava_land_surface))
+		ourturf.visible_message("<span class='boldwarning'>After a long climb, [escapee] leaps out of [ourturf]!</span>")
+	else
+		playsound(ourturf, 'sound/effects/bang.ogg', 50, TRUE)
+		ourturf.visible_message("<span class='boldwarning'>[escapee] busts through [ourturf], leaping out of the chasm below!</span>")
+		ourturf.ChangeTurf(ourturf.baseturf)
+	escapee.flying = TRUE
+	escapee.forceMove(ourturf)
+	escapee.throw_at(get_edge_target_turf(ourturf, pick(GLOB.alldirs)), rand(2, 10), rand(2, 10))
+	escapee.flying = FALSE
+	escapee.Sleeping(20 SECONDS)
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD

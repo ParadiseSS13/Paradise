@@ -48,6 +48,7 @@
 		EQUIPMENT("Brute First-Aid Kit", /obj/item/storage/firstaid/brute, 600),
 		EQUIPMENT("Fulton Pack", /obj/item/extraction_pack, 1000),
 		EQUIPMENT("Jaunter", /obj/item/wormhole_jaunter, 750),
+		EQUIPMENT("Chasm Jaunter Recovery Grenade", /obj/item/grenade/jaunter_grenade, 1500),
 		EQUIPMENT("Lazarus Injector", /obj/item/lazarus_injector, 1000),
 		EQUIPMENT("Point Transfer Card", /obj/item/card/mining_point_card, 500),
 		EQUIPMENT("Shelter Capsule", /obj/item/survivalcapsule, 400),
@@ -239,7 +240,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter Kit", "Jaunter Kit", "Mining Conscription Kit")
+	var/items = list("Survival Capsule and Explorer's Webbing", "Resonator Kit", "Minebot Kit", "Extraction and Rescue Kit", "Crusher Kit", "Plasma Cutter", "Jaunter Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in items
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -263,9 +264,8 @@
 		if("Crusher Kit")
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/kinetic_crusher(drop_location)
-		if("Plasma Cutter Kit")
+		if("Plasma Cutter")
 			new /obj/item/gun/energy/plasmacutter(drop_location)
-			new /obj/item/survivalcapsule(drop_location)
 		if("Jaunter Kit")
 			new /obj/item/wormhole_jaunter(drop_location)
 			new /obj/item/stack/medical/bruise_pack/advanced(drop_location)
@@ -374,7 +374,7 @@
 /obj/item/mining_voucher
 	name = "mining voucher"
 	desc = "A token to redeem a piece of equipment. Use it on a mining equipment vendor."
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/mining_tool.dmi'
 	icon_state = "mining_voucher"
 	w_class = WEIGHT_CLASS_TINY
 

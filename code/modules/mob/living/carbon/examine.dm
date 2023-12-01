@@ -176,7 +176,7 @@
 			msg += "<span class='warning'>[p_they(TRUE)] [p_are()] [bicon(legcuffed)] legcuffed!</span>\n"
 
 	for(var/obj/item/abstract_item in abstract_items)
-		var/text = abstract_item.customised_abstract_text()
+		var/text = abstract_item.customised_abstract_text(src)
 		if(!text)
 			continue
 		msg += "[text]\n"
@@ -291,9 +291,9 @@
 
 	msg += "</span>"
 	if(pose)
-		if( findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0 )
+		if(findtext(pose,".",length(pose)) == 0 && findtext(pose,"!",length(pose)) == 0 && findtext(pose,"?",length(pose)) == 0)
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
-		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
+		msg += "\n[p_they(TRUE)] [pose]"
 
 	. = list(msg)
 
@@ -314,15 +314,23 @@
 		if(CIH?.examine_extensions)
 			have_hudtypes += CIH.examine_extensions
 
+		var/user_accesses = M.get_access()
+		var/secwrite = has_access(null, list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS), user_accesses) // same as obj/machinery/computer/secure_data/req_one_access
+		var/medwrite = has_access(null, list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS), user_accesses) // same access as obj/machinery/computer/med_data/req_one_access
+		if(secwrite)
+			have_hudtypes += EXAMINE_HUD_SECURITY_WRITE
+		if(medwrite)
+			have_hudtypes += EXAMINE_HUD_MEDICAL_WRITE
+
 		return (hudtype in have_hudtypes)
 
 	else if(isrobot(M) || isAI(M)) //Stand-in/Stopgap to prevent pAIs from freely altering records, pending a more advanced Records system
-		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL))
+		return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_MEDICAL_WRITE))
 
 	else if(isobserver(M))
 		var/mob/dead/observer/O = M
 		if(DATA_HUD_SECURITY_ADVANCED in O.data_hud_seen)
-			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SKILLS))
+			return (hudtype in list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_MEDICAL_READ, EXAMINE_HUD_SKILLS))
 
 	return FALSE
 

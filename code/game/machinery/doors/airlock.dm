@@ -766,6 +766,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if((istype(living_mover) && HAS_TRAIT(living_mover, TRAIT_CONTORTED_BODY) && IS_HORIZONTAL(living_mover))) // We really dont want people to get shocked on a door they're passing through
 			if(density && !do_mob(living_mover, living_mover, 2 SECONDS, requires_upright = FALSE))
 				return FALSE
+			if(!IS_HORIZONTAL(living_mover) || locked) // Checking if the user has gotten up or the airlock was bolted after we tried to crawl underneath
+				return FALSE
 			living_mover.forceMove(get_turf(src))
 			return TRUE
 	if(isElectrified() && density && isitem(mover) && !on_spark_cooldown)
@@ -1557,7 +1559,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return FALSE
 
 	if(!wirecutters_used)
-		if (ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
+		if(ishuman(user) && (user.a_intent == INTENT_GRAB)) //grab that note
 			user.visible_message("<span class='notice'>[user] removes [note] from [src].</span>", "<span class='notice'>You remove [note] from [src].</span>")
 			playsound(src, 'sound/items/poster_ripped.ogg', 50, 1)
 		else
