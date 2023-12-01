@@ -1153,7 +1153,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Supply Break Room"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plating,
 /area/station/supply/office)
 "akY" = (
@@ -77631,7 +77631,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
 /area/station/supply/sorting)
 "gXp" = (
@@ -81134,7 +81134,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /turf/simulated/floor/plasteel,
 /area/station/supply/storage)
 "jKW" = (
@@ -86955,7 +86955,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -87432,7 +87432,7 @@
 /obj/machinery/door/airlock/mining/glass{
 	name = "Cargo Bay"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/general,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
@@ -94144,7 +94144,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining,
 /obj/effect/mapping_helpers/airlock/autoname,
-/obj/effect/mapping_helpers/airlock/access/all/supply/mining,
+/obj/effect/mapping_helpers/airlock/access/all/supply/mail_sorting,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
