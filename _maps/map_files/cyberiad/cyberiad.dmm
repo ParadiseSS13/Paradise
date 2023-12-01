@@ -75667,6 +75667,10 @@
 	pixel_y = 5
 	},
 /obj/item/surgicaldrill,
+/obj/machinery/camera{
+	c_tag = "Chapel Crematorium";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
