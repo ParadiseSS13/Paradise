@@ -152,8 +152,9 @@ SUBSYSTEM_DEF(economy)
 	process_job_tasks()
 	if(next_mail_delay <= world.time)
 		if(!is_admin_level(SSshuttle.supply.z) || SSshuttle.supply.areaInstance.moving)
-			next_mail_delay = 15 MINUTES + world.time
-			SSshuttle.mail_delivery()
+			return
+		next_mail_delay = 15 MINUTES + world.time
+		SSshuttle.mail_delivery()
 
 /datum/controller/subsystem/economy/proc/record_economy_data()
 	economy_data["totalcash"] += total_space_cash

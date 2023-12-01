@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		var/stealth = 0
 		for(var/i in 1 to 5)
 			var/list/datum/symptom/candidates = list()
-			for(var/V in symptoms) //I have no idea why a normal for loop of "for(var/datum/symptom/V in symptoms)" doesnt work here but iam not gonna try and fix it, because i was stuck at this bug for weeks already
+			for(var/datum/symptom/V as anything in symptoms) //There is a "as anything" added because for some mystery reason it doesnt work without it
 				var/datum/symptom/S = V
 				if(stealth + S.stealth >= 3) //The Pandemic cant detect a virus with stealth 3 or higher and we dont want that, this isnt a stealth virus
 					continue
@@ -145,7 +145,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal/virus/check_for_duplicate()
 	. = FALSE
-	if(!goal_symptoms.len)
+	if(!length(goal_symptoms))
 		return
 	var/goals = GLOB.archived_virology_goals + GLOB.virology_goals
 	for(var/datum/virology_goal/virus/V in goals)
@@ -202,7 +202,7 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 		var/stealth = 0
 		for(var/i in 1 to 5)
 			var/list/datum/symptom/candidates = list()
-			for(var/V in symptoms) //I have no idea why a normal for loop of "for(var/datum/symptom/V in symptoms)" doesnt work here but iam not gonna try and fix it, because i was stuck at this bug for weeks already
+			for(var/datum/symptom/V as anything in symptoms) //There is a "as anything" added because for some mystery reason it doesnt work without it
 				var/datum/symptom/S = V
 				if(stealth + S.stealth < 3) //The Pandemic cant detect a virus with stealth 3 or higher and we want that, this is a stealth virus
 					continue

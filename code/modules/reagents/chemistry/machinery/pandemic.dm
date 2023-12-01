@@ -18,6 +18,10 @@
 	GLOB.pandemics += src
 	update_icon()
 
+/obj/machinery/computer/pandemic/Destroy()
+	. = ..()
+	GLOB.pandemics -= src
+
 /obj/machinery/computer/pandemic/set_broken()
 	stat |= BROKEN
 	update_icon()
