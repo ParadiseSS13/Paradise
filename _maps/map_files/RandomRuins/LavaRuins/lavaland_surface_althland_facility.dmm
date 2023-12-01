@@ -303,7 +303,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white/partial,
+/obj/effect/turf_decal/delivery/white/partial,
 /obj/machinery/light_construct/small{
 	dir = 8
 	},
@@ -448,7 +448,7 @@
 "jY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/item/stack/sheet/mineral/gold{
 	pixel_x = -8;
 	pixel_y = 8
@@ -569,7 +569,7 @@
 /area/lavaland/surface/outdoors)
 "nQ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
@@ -776,7 +776,7 @@
 	},
 /area/ruin/unpowered/althland_processing)
 "tD" = (
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/light_construct/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -1396,7 +1396,7 @@
 "Ic" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/closet/crate/miningcar,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
@@ -1425,7 +1425,7 @@
 "IT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
 	temperature = 300;
@@ -1519,7 +1519,7 @@
 /area/ruin/unpowered/althland_processing)
 "Ln" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/structure/closet/crate/miningcar,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -2077,7 +2077,7 @@
 "ZN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white,
+/obj/effect/turf_decal/delivery/white,
 /obj/structure/sign/poster/ripped{
 	pixel_x = -1;
 	pixel_y = 32

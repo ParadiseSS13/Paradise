@@ -42,14 +42,14 @@
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 
 /obj/item/ammo_casing/energy/laser/pulse
-	projectile_type = /obj/item/projectile/beam/pulse
+	projectile_type = /obj/item/projectile/beam/pulse/hitscan
 	muzzle_flash_color = LIGHT_COLOR_DARKBLUE
 	e_cost = 200
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/pulse.ogg'
 
 /obj/item/ammo_casing/energy/laser/scatter/pulse
-	projectile_type = /obj/item/projectile/beam/pulse
+	projectile_type = /obj/item/projectile/beam/pulse/hitscan
 	e_cost = 200
 	select_name = "ANNIHILATE"
 	fire_sound = 'sound/weapons/pulse.ogg'
@@ -178,7 +178,7 @@
 	select_name = "plasma burst"
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	delay = 15
-	e_cost = 25
+	e_cost = 75
 
 /obj/item/ammo_casing/energy/plasma/adv
 	projectile_type = /obj/item/projectile/plasma/adv
@@ -286,7 +286,7 @@
 	select_name = "clown"
 
 /obj/item/ammo_casing/energy/emitter
-	projectile_type = /obj/item/projectile/beam/emitter
+	projectile_type = /obj/item/projectile/beam/emitter/hitscan
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	fire_sound = 'sound/weapons/emitter.ogg'
 	e_cost = 100

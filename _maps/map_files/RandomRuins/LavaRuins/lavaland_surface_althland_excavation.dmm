@@ -20,7 +20,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing/corner,
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -33,7 +35,7 @@
 	},
 /obj/structure/railing,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ag" = (
 /obj/structure/railing{
@@ -49,7 +51,7 @@
 /obj/structure/largecrate,
 /obj/item/clothing/head/bomb_hood,
 /obj/item/clothing/suit/bomb_suit,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
 	nitrogen = 0
@@ -60,7 +62,9 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/southeast,
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -69,7 +73,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -164,7 +170,7 @@
 	name = "degraded payload";
 	desc = "A weathered payload core, its once vital center now shattered, rendering it indistinguishable from a mere stone."
 	},
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "ay" = (
@@ -193,13 +199,15 @@
 /area/lavaland/surface/outdoors)
 "aB" = (
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aC" = (
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -228,7 +236,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aK" = (
 /obj/structure/sign/explosives,
@@ -240,14 +248,18 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "aN" = (
 /obj/structure/railing,
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -260,7 +272,9 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -302,7 +316,7 @@
 /obj/structure/closet/crate/miningcar,
 /obj/item/stack/ore/plasma,
 /obj/item/stack/ore/plasma,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "bk" = (
@@ -354,7 +368,7 @@
 "br" = (
 /obj/structure/lattice,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "bx" = (
 /obj/structure/railing{
@@ -362,7 +376,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -382,7 +398,7 @@
 /area/ruin/unpowered/althland_excavation)
 "bB" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white,
+/obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
 	nitrogen = 0
@@ -411,7 +427,9 @@
 	dir = 1
 	},
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -480,7 +498,7 @@
 /area/ruin/unpowered/althland_excavation)
 "bP" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/item/stack/sheet/wood,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
@@ -500,7 +518,9 @@
 /obj/structure/railing/corner,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/southeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -511,7 +531,9 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -531,7 +553,9 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
 	nitrogen = 0
@@ -543,7 +567,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -584,7 +610,9 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
@@ -630,11 +658,13 @@
 "hn" = (
 /obj/structure/railing,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "hL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/northwestcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -684,7 +714,7 @@
 	},
 /obj/structure/lattice/lava,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "jL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -721,7 +751,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/sheet/wood,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "lF" = (
@@ -729,7 +759,9 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/obj/effect/decal/warning_stripes/east,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/door_assembly/door_assembly_ext,
 /turf/simulated/floor/plating/airless,
@@ -770,7 +802,7 @@
 "nU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/obj/effect/decal/warning_stripes/white,
+/obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered/althland_excavation)
 "or" = (
@@ -806,7 +838,7 @@
 "qa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/miningcar,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/item/gibtonite,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -832,7 +864,7 @@
 /area/ruin/unpowered/althland_excavation)
 "qT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/floodlight{
 	anchored = 1;
 	desc = "A melted floodlight, despite being completely welded into the floor, it still somehow works.";
@@ -875,7 +907,9 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -938,7 +972,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -978,7 +1014,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/railing,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -994,13 +1032,17 @@
 "yz" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
 "zh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1033,7 +1075,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1045,7 +1089,7 @@
 "BW" = (
 /obj/structure/lattice/lava,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/chasm,
+/turf/simulated/floor/chasm/straight_down/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "BZ" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -1153,7 +1197,7 @@
 /area/lavaland/surface/outdoors)
 "Gp" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/white/hollow,
+/obj/effect/turf_decal/delivery/white/hollow,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;
@@ -1166,7 +1210,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1273,7 +1319,9 @@
 	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/northwest,
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1295,7 +1343,9 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/west,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1400,7 +1450,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/damageturf,
-/obj/effect/decal/warning_stripes/northeastcorner,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1408,7 +1460,9 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1432,7 +1486,9 @@
 /obj/structure/railing/corner{
 	dir = 1
 	},
-/obj/effect/decal/warning_stripes/north,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/airless,
 /area/lavaland/surface/outdoors)
@@ -1477,7 +1533,9 @@
 "Ya" = (
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/south,
+/obj/effect/turf_decal/stripes/line{
+	dir = 2
+	},
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/pod/light{
 	oxygen = 0;

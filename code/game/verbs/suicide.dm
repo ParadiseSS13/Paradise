@@ -1,5 +1,3 @@
-/mob/var/suiciding = 0
-
 /mob/living/verb/suicide() // imagine this shit with BORERS lmao
 	set hidden = 1
 
@@ -33,7 +31,7 @@
 		return
 
 	if(forced || (confirm == "Yes"))
-		if(!forced && isAntag(src))
+		if(!forced && isAntag(src) && !HAS_TRAIT(src, TRAIT_RESPAWNABLE))
 			confirm = alert("Are you absolutely sure? If you do this after you got converted/joined as an antagonist, you could face a jobban!", "Confirm Suicide", "Yes", "No")
 			if(confirm == "Yes")
 				suiciding = TRUE
@@ -62,6 +60,9 @@
 	to_chat(viewers(src), "<span class='danger'>[src] is powering down. It looks like [p_theyre()] trying to commit suicide.</span>")
 	//put em at -175
 	adjustOxyLoss(max(maxHealth * 2 - getToxLoss() - getFireLoss() - getBruteLoss() - getOxyLoss(), 0))
+
+/mob/living/silicon/robot/drone/do_suicide()
+	shut_down()
 
 /mob/living/silicon/pai/do_suicide()
 	if(mobility_flags & MOBILITY_MOVE)

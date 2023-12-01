@@ -290,7 +290,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	// Offering a head/brain
 	for(var/obj/item/organ/O in T)
-		var/mob/living/carbon/brain/b_mob
+		var/mob/living/brain/b_mob
 		if(istype(O, /obj/item/organ/external/head)) // Offering a head
 			var/obj/item/organ/external/head/H = O
 			for(var/obj/item/organ/internal/brain/brain in H.contents)
@@ -947,7 +947,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			continue
 		if(iscultist(O) || jobban_isbanned(O, ROLE_CULTIST))
 			continue
-		if(O.has_enabled_antagHUD || QDELETED(src) || QDELETED(O))
+		if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE) || QDELETED(src) || QDELETED(O))
 			continue
 		if(O.mind.current && HAS_TRAIT(O.mind.current, SCRYING))
 			continue

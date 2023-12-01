@@ -513,7 +513,7 @@
 		/obj/item/flash/cyborg,
 		/obj/item/handheld_chem_dispenser/booze,
 		/obj/item/handheld_chem_dispenser/soda,
-		/obj/item/pen,
+		/obj/item/pen/multi,
 		/obj/item/razor,
 		/obj/item/instrument/piano_synth,
 		/obj/item/healthanalyzer/advanced,

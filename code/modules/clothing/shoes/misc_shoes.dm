@@ -57,6 +57,11 @@
 	desc = "A pair of purple rubber boots, designed to prevent slipping on wet surfaces while also drying them."
 	icon_state = "galoshes_dry"
 
+/obj/item/clothing/shoes/galoshes/dry/lightweight /// for red janitor ert.
+	name = "lightweight absorbent galoshes"
+	desc = "A pair of expensive looking lightweight rubber boots, designed to prevent slipping on wet surfaces while also drying them."
+	slowdown = NONE
+
 /obj/item/clothing/shoes/galoshes/dry/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_SHOES_STEP_ACTION, PROC_REF(on_step))
@@ -129,6 +134,8 @@
 /obj/item/clothing/shoes/clown_shoes/slippers/proc/slide_one(mob/living/user, progress, prev_dir , prev_flags)
 	user.dir = prev_dir
 	step(user, user.dir)
+	for(var/mob/living/carbon/crossed in user.loc)
+		crossed.slip(src, 16 SECONDS, 0, FALSE, TRUE, "trip")
 	if(progress == slide_distance)
 		user.stand_up()
 		user.pass_flags = prev_flags

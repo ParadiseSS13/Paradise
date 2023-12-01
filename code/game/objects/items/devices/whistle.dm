@@ -31,3 +31,28 @@
 		emagged = TRUE
 
 #undef USE_COOLDOWN
+
+/obj/item/clothing/mask/whistle
+	name = "whistle"
+	desc = "A metal pea-whistle. Can be blown while held, or worn in the mouth."
+	icon_state = "whistle"
+	item_state = "whistle"
+	w_class = WEIGHT_CLASS_TINY
+	flags = CONDUCT
+	body_parts_covered = null
+	actions_types = list(/datum/action/item_action/whistle)
+	COOLDOWN_DECLARE(whistle_cooldown)
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/mask.dmi',
+		"Unathi" = 'icons/mob/clothing/species/unathi/mask.dmi',
+		"Tajaran" = 'icons/mob/clothing/species/tajaran/mask.dmi',
+		"Vulpkanin" = 'icons/mob/clothing/species/vulpkanin/mask.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/mask.dmi'
+		)
+
+/obj/item/clothing/mask/whistle/attack_self(mob/user)
+	if(!COOLDOWN_FINISHED(src, whistle_cooldown))
+		return
+
+	playsound(src, pick('sound/items/whistle1.ogg', 'sound/items/whistle2.ogg', 'sound/items/whistle3.ogg'), 25)
+	COOLDOWN_START(src, whistle_cooldown, 4 SECONDS)

@@ -164,7 +164,6 @@ GLOBAL_LIST_INIT(admin_verbs_debug, list(
 	/client/proc/map_template_upload,
 	/client/proc/view_runtimes,
 	/client/proc/admin_serialize,
-	/client/proc/jump_to_ruin,
 	/client/proc/uid_log,
 	/client/proc/visualise_active_turfs,
 	/client/proc/reestablish_db_connection,
@@ -368,6 +367,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(isobserver(mob))
 		//re-enter
 		var/mob/dead/observer/ghost = mob
+		var/old_turf = get_turf(ghost)
 		ghost.can_reenter_corpse = 1			//just in-case.
 		ghost.reenter_corpse()
 		log_admin("[key_name(usr)] re-entered their body")
@@ -375,6 +375,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if(ishuman(mob))
 			var/mob/living/carbon/human/H = mob
 			H.regenerate_icons() // workaround for #13269
+		if(isAI(mob)) // client.mob, built in byond client var
+			var/mob/living/silicon/ai/ai = mob
+			ai.eyeobj.setLoc(old_turf)
 	else if(isnewplayer(mob))
 		to_chat(src, "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first.</font>")
 	else
@@ -534,7 +537,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	var/turf/epicenter = mob.loc
 	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce?") as null|anything in choices
+	var/choice = tgui_input_list(src, "What size explosion would you like to produce?", "Drop Bomb", choices)
 	switch(choice)
 		if(null)
 			return 0
@@ -811,7 +814,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
@@ -837,7 +840,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
