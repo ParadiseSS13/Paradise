@@ -195,7 +195,7 @@
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudfilth
-	name = "Filth scanner sunglasses"
+	name = "Janitor HUD sunglasses"
 	result = list(/obj/item/clothing/glasses/hud/janitor/sunglasses)
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
@@ -205,7 +205,7 @@
 	category = CAT_CLOTHING
 
 /datum/crafting_recipe/hudfilthremoval
-	name = "Filth scanner removal"
+	name = "Janitor HUD sunglasses removal"
 	result = list(/obj/item/clothing/glasses/sunglasses, /obj/item/clothing/glasses/hud/janitor)
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)

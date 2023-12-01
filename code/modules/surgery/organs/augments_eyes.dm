@@ -62,7 +62,7 @@
 	HUD_type = DATA_HUD_SECURITY_ADVANCED
 	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
-/obj/item/organ/internal/cyberimp/eyes/hud/filth
+/obj/item/organ/internal/cyberimp/eyes/hud/jani
 	name = "Janitor HUD implant"
 	desc = "These cybernetic eye implants will display a filth HUD over everything you see."
 	implant_color = "#AF00AF"

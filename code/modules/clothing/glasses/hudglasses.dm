@@ -237,7 +237,7 @@
 	)
 
 /obj/item/clothing/glasses/hud/janitor
-	name = "filth scanner"
+	name = "janitor HUD"
 	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
 	icon_state = "janihud"
 	hud_types = DATA_HUD_JANITOR
@@ -250,7 +250,7 @@
 	)
 
 /obj/item/clothing/glasses/hud/janitor/sunglasses
-	name = "filth scanner sunglasses"
+	name = "janitor HUD sunglasses"
 	desc = "Sunglasses with a build-in filth scanner, scans for messes and alerts the user."
 	icon_state = "sunhudjani"
 	see_in_dark = 1
@@ -258,7 +258,7 @@
 	tint = FLASH_PROTECTION_FLASH
 
 /obj/item/clothing/glasses/hud/janitor/night
-	name = "night vision filth scanner"
+	name = "night vision janitor HUD"
 	desc = "A janitorial filth scanner fitted with a light amplifier."
 	icon_state = "nvjanihud"
 	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"

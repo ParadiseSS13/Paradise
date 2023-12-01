@@ -61,10 +61,10 @@
 	build_path = /obj/item/lightreplacer/bluespace
 	category = list("Janitorial")
 
-/datum/design/filth_scanner
-	name = "Filth Scanner"
+/datum/design/janitor_hud
+	name = "Janitor HUD"
 	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
-	id = "filth_hud"
+	id = "jani_hud"
 	req_tech = list("biotech" = 1, "magnets" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
