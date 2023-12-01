@@ -183,7 +183,6 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		verb = hsp["verb"]
 
 	if(can_speak_loudly())
-		verb = "whispers"
 		return whisper(message)
 
 	// Do this so it gets logged for all types of communication
