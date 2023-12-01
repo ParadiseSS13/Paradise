@@ -298,13 +298,13 @@
 		to_chat("<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
-	var/last_words = input(src, "Do you have any last words?", "Goodnight, Sweet Prince")
+	var/last_words = input(src, "Do you have any last words?", "Goodnight, Sweet Prince") as text|null
 
 	if(!isnull(last_words))
 		create_log(MISC_LOG, "gave their final words, [last_words]")
 		whisper(last_words)
 
-	create_attack_log("[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
+	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
 
 	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
 	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
