@@ -467,7 +467,7 @@
 	if(!istype(M)) // Rather not have non-humans get hit with a THUNK
 		return
 
-	if(M.mob_negates_gravity()) // Only humans can wear magboots, so we give them a chance to.
+	if(HAS_TRAIT(M, TRAIT_MAGPUSE)) // Only humans can wear magboots, so we give them a chance to.
 		return
 
 	if(M.dna.species.spec_thunk(M)) //Species level thunk overrides
