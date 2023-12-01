@@ -194,7 +194,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 			ghost_invokers++
 		if(invocation)
-			if(!L.IsVocal() || L.is_oxyloss())
+			if(!L.IsVocal() || L.has_oxygen_damage())
 				L.custom_emote(EMOTE_VISIBLE, message = pick("draws arcane sigils in the air.","gestures ominously.","silently mouths out an invocation.","places their hands on the rune, activating it."))
 			else
 				L.say(invocation)

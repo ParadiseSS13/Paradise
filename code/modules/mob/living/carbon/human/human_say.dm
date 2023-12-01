@@ -73,7 +73,7 @@
 		return !mind.miming
 	return TRUE
 
-/mob/living/carbon/human/is_oxyloss()
+/mob/living/carbon/human/has_oxygen_damage()
 	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
 		return TRUE
 
