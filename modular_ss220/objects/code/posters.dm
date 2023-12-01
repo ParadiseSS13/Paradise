@@ -26,6 +26,24 @@
 	icon = 'modular_ss220/objects/icons/posters.dmi'
 	icon_state = "contraband4"
 
+/obj/structure/sign/poster/contraband/soulless_figures
+	name = "Бездушные фигуры"
+	desc = "Плакат изображает множество безвольно слоняющихся тёмных фигур. Кажется они смотрят прямо на тебя, жуть..."
+	icon = 'modular_ss220/objects/icons/posters.dmi'
+	icon_state = "contraband5"
+
+/obj/structure/sign/poster/contraband/your_fate
+	name = "Твоя судьба"
+	desc = "На плакате изображается дом и ряд одинаковых домов уходящих вдаль, расположенных на кровавом полотне. Ниже можно разглядеть тень искореженной руки.\nНад домами возвышаются существа чертоватого вида, а надпись снизу гласит: \"Твоя судьба?\""
+	icon = 'modular_ss220/objects/icons/posters.dmi'
+	icon_state = "contraband6"
+
+/obj/structure/sign/poster/contraband/watching_eye
+	name = "Всевидящее Око"
+	desc = "На плакате изображен глаз, излучающий свет. Текст на плакате гласит: \"Оно следит за\", \"Тобой\"."
+	icon = 'modular_ss220/objects/icons/posters.dmi'
+	icon_state = "contraband7"
+
 // Legit
 /obj/structure/sign/poster/official/mars
 	name = "Плакат Марса"
