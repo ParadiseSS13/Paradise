@@ -386,10 +386,10 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset_abductor
 	category = list("Medical")
 
-/datum/design/cyberimp_janitor_hud
-	name = "Janitor HUD Implant"
+/datum/design/cyberimp_filth_hud
+	name = "Filth HUD Implant"
 	desc = "These cybernetic eye implants will display a filth HUD over everything you see. Wiggle eyes to control."
-	id = "ci-janihud"
+	id = "ci-filthhud"
 	req_tech = list("materials" = 5, "engineering" = 4, "programming" = 4, "biotech" = 4)
 	build_type = PROTOLATHE | MECHFAB
 	construction_time = 50

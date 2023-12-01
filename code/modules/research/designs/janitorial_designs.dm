@@ -61,7 +61,7 @@
 	build_path = /obj/item/lightreplacer/bluespace
 	category = list("Janitorial")
 
-/datum/design/light_replacer_bluespace
+/datum/design/filth_scanner
 	name = "Filth Scanner"
 	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
 	id = "janitor_hud"
