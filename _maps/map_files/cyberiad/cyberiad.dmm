@@ -69352,6 +69352,10 @@
 	name = "south bump";
 	pixel_y = -24
 	},
+/obj/machinery/camera{
+	c_tag = "Chapel Crematorium";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/janitor)
 "kXD" = (
