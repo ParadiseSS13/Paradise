@@ -119,14 +119,14 @@
 	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
-	chemical_cost = 25
+	chemical_cost = 15
 	dna_cost = 4
 	req_human = TRUE
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	menu_location = CLING_MENU_ATTACK
-	recharge_slowdown = 0.25
+	recharge_slowdown = 0.75
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
