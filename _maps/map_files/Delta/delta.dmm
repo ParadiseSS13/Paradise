@@ -18409,6 +18409,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenblue"
@@ -33953,6 +33957,13 @@
 /obj/structure/table,
 /obj/machinery/kitchen_machine/microwave,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/machinery/door_control{
+	id = "kitchenbar";
+	name = "Kitchen Bar Shutters Control";
+	pixel_x = -6;
+	pixel_y = -5;
+	req_access_txt = "28"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "bQz" = (
@@ -75117,6 +75128,23 @@
 	icon_state = "neutralfull"
 	},
 /area/station/supply/storage)
+"eWt" = (
+/obj/machinery/door_control{
+	id = "kitchenbar";
+	name = "Kitchen Bar Shutters Control";
+	pixel_x = -6;
+	pixel_y = -5;
+	req_access_txt = "28"
+	},
+/obj/machinery/door_control{
+	id = "kitchenhall";
+	name = "Kitchen Hallway Shutters Control";
+	pixel_x = 6;
+	pixel_y = -5;
+	req_access_txt = "28"
+	},
+/turf/simulated/wall,
+/area/station/service/kitchen)
 "eWX" = (
 /obj/structure/table/reinforced,
 /obj/machinery/alarm{
@@ -80126,6 +80154,11 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -85634,6 +85667,11 @@
 /obj/item/reagent_containers/food/condiment/saltshaker,
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -87600,6 +87638,11 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -88697,6 +88740,10 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "pAy" = (
@@ -91902,6 +91949,10 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenhall";
+	name = "Kitchen Shutters"
+	},
 /turf/simulated/floor/plasteel,
 /area/station/service/kitchen)
 "rVL" = (
@@ -93012,6 +93063,11 @@
 /obj/effect/mapping_helpers/airlock/windoor/autoname,
 /obj/effect/mapping_helpers/airlock/windoor/access/any/service/kitchen,
 /obj/effect/turf_decal/delivery,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "kitchenbar";
+	name = "Kitchen Shutters";
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -96107,6 +96163,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/security/detective)
+"uYK" = (
+/obj/structure/table,
+/obj/machinery/kitchen_machine/microwave,
+/obj/effect/turf_decal/delivery/hollow,
+/turf/simulated/floor/plasteel,
+/area/station/service/kitchen)
 "uYN" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/blue,
@@ -136799,7 +136861,7 @@ bct
 bcr
 bdM
 bfh
-aYZ
+eWt
 bdQ
 bjt
 blj
@@ -139115,7 +139177,7 @@ bdS
 bdQ
 bdP
 bdQ
-bQy
+uYK
 aYZ
 fJp
 tmq
