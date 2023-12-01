@@ -58,6 +58,6 @@ GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
 GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
 
 ///Global list for descriptors
-GLOBAL_LIST_INIT(character_physiques, list("Rail thin", "Thin", "Average", "Well-built", "Muscular", "Overweight"))
+GLOBAL_LIST_INIT(character_physiques, list("rail thin", "thin", "average", "well-built", "muscular", "overweight"))
 
-GLOBAL_LIST_INIT(character_heights, list("Very short", "Short", "Average height", "Tall", "Very tall"))
+GLOBAL_LIST_INIT(character_heights, list("very short", "short", "average height", "tall", "very tall"))
