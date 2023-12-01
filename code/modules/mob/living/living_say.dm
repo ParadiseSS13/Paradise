@@ -122,6 +122,11 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return say_dead(message)
 		return FALSE
 
+	if(is_oxyloss())
+		verb = "whispers"
+		ignore_speech_problems = TRUE
+		return whisper(message)
+
 	var/message_mode = parse_message_mode(message, "headset")
 
 	if(copytext(message, 1, 2) == "*")

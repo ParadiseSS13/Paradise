@@ -1337,6 +1337,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/IsVocal()
 	return TRUE
 
+/mob/proc/is_oxyloss()
+	return TRUE
+
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
 

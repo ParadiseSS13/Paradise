@@ -69,12 +69,14 @@
 		return FALSE
 	if((breathes && !L) || breathes && L && (L.status & ORGAN_DEAD))
 		return FALSE
-	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
-		emote("gasp")
-		return FALSE
 	if(mind)
 		return !mind.miming
 	return TRUE
+
+/mob/living/carbon/human/is_oxyloss()
+	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
+		emote("flip")
+		return TRUE
 
 /mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
 	if(new_voice)
