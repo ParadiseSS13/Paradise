@@ -55195,8 +55195,7 @@
 	heat_proof = 1;
 	name = "Supermatter Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "gvN" = (
@@ -74834,8 +74833,7 @@
 	heat_proof = 1;
 	name = "Supermatter Chamber"
 	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
+/obj/effect/mapping_helpers/airlock/access/all/engineering/atmos,
 /turf/simulated/floor/engine,
 /area/station/engineering/engine/supermatter)
 "pfh" = (
