@@ -134,6 +134,8 @@
 /obj/item/clothing/shoes/clown_shoes/slippers/proc/slide_one(mob/living/user, progress, prev_dir , prev_flags)
 	user.dir = prev_dir
 	step(user, user.dir)
+	for(var/mob/living/carbon/crossed in user.loc)
+		crossed.slip(src, 16 SECONDS, 0, FALSE, TRUE, "trip")
 	if(progress == slide_distance)
 		user.stand_up()
 		user.pass_flags = prev_flags
