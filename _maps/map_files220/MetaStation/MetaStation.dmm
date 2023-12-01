@@ -85945,8 +85945,7 @@
 /area/station/maintenance/fore)
 "wzW" = (
 /obj/structure/holohoop{
-	dir = 8;
-	pixel_x = -13
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4

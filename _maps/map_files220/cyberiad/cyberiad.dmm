@@ -77085,7 +77085,8 @@
 	dir = 8
 	},
 /obj/structure/holohoop{
-	dir = 4
+	dir = 4;
+	pixel_x = -6
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{

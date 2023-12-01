@@ -8,6 +8,7 @@
 #include "applicator\code\applicator.dm"
 #include "atm\code\atm.dm"
 #include "atmospherics\code\atmospherics.dm"
+#include "basketball\code\basketball.dm"
 #include "better_ids\code\better_ids.dm"
 #include "blastdoor\code\blastdoor.dm"
 #include "boxes\code\boxes.dm"
