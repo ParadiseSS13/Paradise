@@ -8906,6 +8906,11 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
+/obj/machinery/camera{
+	c_tag = "Research Genetics";
+	dir = 1;
+	network = list("SS13","Research")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -32761,6 +32766,10 @@
 	name = "east bump";
 	pixel_x = 24
 	},
+/obj/machinery/camera{
+	c_tag = "Cargo Bay South";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -36177,6 +36186,9 @@
 "ckX" = (
 /obj/machinery/computer/crew{
 	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Tech Storage"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -47549,10 +47561,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/hardsuitstorage)
 "cXG" = (
-/obj/machinery/camera{
-	c_tag = "Engineering Chief Engineer's Office";
-	dir = 4
-	},
 /obj/item/radio/intercom{
 	name = "west bump";
 	pixel_x = -28
@@ -61767,6 +61775,10 @@
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/camera{
+	c_tag = "Central Hallway South East";
+	dir = 4
+	},
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "hgU" = (
@@ -65250,6 +65262,9 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/machinery/camera/autoname{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurple"
@@ -65360,6 +65375,9 @@
 /area/station/maintenance/asmaint)
 "jam" = (
 /obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/camera{
+	c_tag = "Medbay Cloning"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
@@ -80000,6 +80018,7 @@
 /area/station/maintenance/fpmaint2)
 "qkz" = (
 /obj/structure/chair/comfy/corp,
+/obj/machinery/camera/autoname,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"
@@ -85259,6 +85278,10 @@
 	pixel_y = -32
 	},
 /obj/item/trash/gum,
+/obj/machinery/camera{
+	c_tag = "Engineering Construction Area";
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whitegreen"
@@ -89745,6 +89768,16 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
+"veA" = (
+/obj/machinery/camera{
+	c_tag = "Research Hallway North";
+	dir = 1;
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/station/engineering/control)
 "vfn" = (
 /obj/structure/table,
 /obj/item/radio/beacon,
@@ -125357,7 +125390,7 @@ qpq
 ePY
 qpq
 dcf
-ePY
+veA
 cSU
 aaa
 afX
