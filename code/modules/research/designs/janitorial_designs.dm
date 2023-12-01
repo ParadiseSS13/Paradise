@@ -64,7 +64,7 @@
 /datum/design/filth_scanner
 	name = "Filth Scanner"
 	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
-	id = "janitor_hud"
+	id = "filth_hud"
 	req_tech = list("biotech" = 1, "magnets" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
