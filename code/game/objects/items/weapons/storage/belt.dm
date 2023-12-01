@@ -378,7 +378,7 @@
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 18
 	resistance_flags = FIRE_PROOF
-	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
+	use_item_overlays = TRUE // Will show the tools on the sprite
 	w_class_override = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
