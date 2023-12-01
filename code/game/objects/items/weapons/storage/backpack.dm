@@ -877,7 +877,7 @@
 	item_state = "duffel-blueshield"
 
 /obj/item/storage/backpack/duffel/robotics
-	name = "bioengineer duffelbag"
+	name = "roboticist duffelbag"
 	desc = "A duffelbag designed to hold tools."
 	icon_state = "duffel-robo"
 	item_state = "duffel-robo"
