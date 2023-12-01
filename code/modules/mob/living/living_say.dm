@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
 
-	if(has_oxygen_damage())
+	if(can_speak_loudly())
 		verb = "whispers"
 		return whisper(message)
 
