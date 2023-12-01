@@ -6,5 +6,4 @@
 #include "code/mob.dm"
 #include "code/new_player.dm"
 #include "code/title_screen_controls.dm"
-#include "code/title_screen_html.dm"
 #include "code/title_screen_subsystem.dm"

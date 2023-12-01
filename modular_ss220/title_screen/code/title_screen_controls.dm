@@ -39,7 +39,7 @@
 	SStitle.set_notice(new_notice)
 	if(!new_notice)
 		return
-	for(var/mob/new_player/new_player in GLOB.new_player_list)
+	for(var/mob/new_player/new_player in GLOB.player_list)
 		to_chat(new_player, span_boldannounce("TITLE NOTICE UPDATED: [new_notice]"))
 		SEND_SOUND(new_player,  sound('sound/items/bikehorn.ogg'))
 
