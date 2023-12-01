@@ -82,14 +82,14 @@
 
 	if(user)
 		user.visible_message(
-			"[user] begins to right [parent].",
-			"You begin to right [parent]."
+			"[user] begins to right [atom_parent].",
+			"You begin to right [atom_parent]."
 		)
-		if(!do_after(user, duration, TRUE, parent))
+		if(!do_after(user, duration, TRUE, parent) || QDELETED(src))
 			return
 		user.visible_message(
-			"<span class='notice'>[user] rights [parent].</span>",
-			"<span class='notice'>You right [parent].</span>",
+			"<span class='notice'>[user] rights [atom_parent].</span>",
+			"<span class='notice'>You right [atom_parent].</span>",
 			"<span class='notice'>You hear a loud clang.</span>"
 		)
 
@@ -98,7 +98,7 @@
 
 	atom_parent.unbuckle_all_mobs(TRUE)
 
-	SEND_SIGNAL(parent, COMSIG_MOVABLE_UNTILTED, user)
+	SEND_SIGNAL(atom_parent, COMSIG_MOVABLE_UNTILTED, user)
 
 	atom_parent.layer = initial(atom_parent.layer)
 

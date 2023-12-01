@@ -290,7 +290,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	// Offering a head/brain
 	for(var/obj/item/organ/O in T)
-		var/mob/living/carbon/brain/b_mob
+		var/mob/living/brain/b_mob
 		if(istype(O, /obj/item/organ/external/head)) // Offering a head
 			var/obj/item/organ/external/head/H = O
 			for(var/obj/item/organ/internal/brain/brain in H.contents)

@@ -126,6 +126,7 @@
 			H.update_fhair()
 
 /datum/species/machine/handle_life(mob/living/carbon/human/H) // Handles IPC starvation
+	..()
 	if(isLivingSSD(H)) // We don't want AFK people dying from this
 		return
 	if(H.nutrition >= NUTRITION_LEVEL_HYPOGLYCEMIA)
