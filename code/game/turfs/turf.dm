@@ -580,7 +580,7 @@
 /turf/hit_by_thrown_silicon(mob/living/silicon/S, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
 		return
-	playsound(src, 'sound/weapons/punch1.ogg', 35, 1)
+	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	S.visible_message("<span class='danger'>[S] slams into [src]!</span>", "<span class='userdanger'>You slam into [src]!</span>")
 	S.adjustBruteLoss(damage)
 	S.Weaken(3 SECONDS)
