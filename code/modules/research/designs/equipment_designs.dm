@@ -85,7 +85,7 @@
 	name = "Janitor HUD"
 	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
 	id = "jani_hud"
-	req_tech = list("magnets" = 3, "combat" = 2)
+	req_tech = list("biotech" = 2, "magnets" = 3)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/clothing/glasses/hud/janitor
@@ -95,7 +95,7 @@
 	name = "Night Vision Janitor HUD"
 	desc = "A janitorial filth scanner fitted with a light amplifier."
 	id = "night_vision_jani"
-	req_tech = list("materials" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 5)
+	req_tech = list("biotech" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 6)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_PLASMA = 350, MAT_URANIUM = 1000)
 	build_path = /obj/item/clothing/glasses/hud/janitor/night
