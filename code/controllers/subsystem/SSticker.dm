@@ -580,7 +580,7 @@ SUBSYSTEM_DEF(ticker)
 					end_of_round_info += "[law.get_index()]. [law.law]"
 
 	if(dronecount)
-		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round."
+		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round.</b>"
 
 	if(length(mode.eventmiscs))
 		for(var/datum/mind/eventmind in mode.eventmiscs)

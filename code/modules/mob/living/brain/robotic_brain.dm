@@ -11,7 +11,7 @@
 
 	var/searching = FALSE
 	var/askDelay = 10 * 60 * 1
-	//var/mob/living/carbon/brain/brainmob = null
+	//var/mob/living/brain/brainmob = null
 	var/list/ghost_volunteers[0]
 	req_access = list(ACCESS_ROBOTICS)
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
