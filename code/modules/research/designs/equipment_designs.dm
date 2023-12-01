@@ -95,7 +95,7 @@
 	name = "Night Vision Janitor HUD"
 	desc = "A janitorial filth scanner fitted with a light amplifier."
 	id = "night_vision_jani"
-	req_tech = list("biotech" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 6)
+	req_tech = list("biotech" = 4, "magnets" = 5, "plasmatech" = 4, "engineering" = 5)
 	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_PLASMA = 350, MAT_URANIUM = 1000)
 	build_path = /obj/item/clothing/glasses/hud/janitor/night
