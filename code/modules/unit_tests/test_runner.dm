@@ -94,7 +94,7 @@
 	result += "RUN  [time2text(time, "YYYY-MM-DD")]T[time2text(time, "hh:mm:ss")]"
 
 	for(var/reason in fail_reasons)
-		result += "FAIL [reason]" //
+		result += "FAIL [reason]"
 
 	for(var/test in test_logs)
 		if(length(test_logs[test]) == 0)
