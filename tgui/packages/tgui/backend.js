@@ -151,6 +151,7 @@ export const backendMiddleware = (store) => {
       Byond.winset(window.__windowId__, {
         'is-visible': false,
       });
+      Byond.winset('map', { focus: true }); // Good luck dynamically assinging this to `input` for legacy users
     }
 
     if (type === 'backend/update') {
