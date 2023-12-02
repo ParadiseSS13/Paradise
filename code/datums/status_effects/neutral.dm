@@ -276,13 +276,13 @@
 	tick_interval = -1
 
 /datum/status_effect/action_status_effect/remove_handcuffs
-	id= "remove handcuffs"
+	id = "remove_handcuffs"
 
 /datum/status_effect/action_status_effect/break_handcuffs
-	id= "break handcuffs"
+	id = "break_handcuffs"
 
 /datum/status_effect/action_status_effect/remove_muzzle
-	id= "remove muzzle"
+	id = "remove_muzzle"
 
 /datum/status_effect/action_status_effect/unbuckle
-	id= "unbuckle"
+	id = "unbuckle"
