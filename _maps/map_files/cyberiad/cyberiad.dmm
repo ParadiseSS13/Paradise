@@ -47557,6 +47557,10 @@
 	pixel_x = -28
 	},
 /obj/machinery/suit_storage_unit/ce,
+/obj/machinery/camera{
+	c_tag = "Engineering Equipment West";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "yellow"
@@ -65359,10 +65363,6 @@
 /area/station/maintenance/asmaint)
 "jam" = (
 /obj/structure/filingcabinet/chestdrawer,
-/obj/machinery/camera{
-	c_tag = "Medbay Corridor East";
-	dir = 6
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "yellow"
