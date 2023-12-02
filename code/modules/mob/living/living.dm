@@ -288,13 +288,9 @@
 	visible_message("<b>[src]</b> points to [pointed_object]")
 	return TRUE
 
-/mob/living/proc/can_succumb()
-	return health < HEALTH_THRESHOLD_CRIT && stat == UNCONSCIOUS
-
-
 /mob/living/verb/succumb()
 	set hidden = TRUE
-	if(!can_succumb())
+	if(health >= HEALTH_THRESHOLD_CRIT || stat != UNCONSCIOUS)
 		to_chat(src, "<span class='warning'>You are unable to succumb to death! This life continues!</span>")
 		return
 
@@ -307,14 +303,17 @@
 	add_attack_logs(src, src, "[src] has [!isnull(last_words) ? "whispered [p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
 
 	create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
-	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
+	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
 	// super check for weird mobs, including ones that adjust hp
 	// we don't want to go overboard and gib them, though
 	for(var/i = 1 to 5)
 		if(health < HEALTH_THRESHOLD_DEAD)
 			break
 		take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
-	death()
+	if(!isnull(last_words))
+		addtimer(CALLBACK(src, PROC_REF(death)), 1 SECONDS)
+	else
+		death()
 	to_chat(src, "<span class='notice'>You have given up life and succumbed to death.</span>")
 
 
