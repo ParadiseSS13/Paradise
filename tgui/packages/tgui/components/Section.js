@@ -1,5 +1,11 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { classes, isFalsy, pureComponentHooks } from 'common/react';
-import { Box } from './Box';
+import { computeBoxClassName, computeBoxProps } from './Box';
 
 export const Section = (props) => {
   const {
@@ -7,49 +13,31 @@ export const Section = (props) => {
     title,
     level = 1,
     buttons,
-    content,
-    stretchContents,
-    noTopPadding,
-    showBottom = true,
+    fill,
     children,
     ...rest
   } = props;
   const hasTitle = !isFalsy(title) || !isFalsy(buttons);
-  const hasContent = !isFalsy(content) || !isFalsy(children);
+  const hasContent = !isFalsy(children);
   return (
-    <Box
+    <div
       className={classes([
         'Section',
         'Section--level--' + level,
-        props.flexGrow && 'Section--flex',
+        fill && 'Section--fill',
         className,
+        ...computeBoxClassName(rest),
       ])}
-      {...rest}
+      {...computeBoxProps(rest)}
     >
       {hasTitle && (
-        <div
-          className={classes([
-            'Section__title',
-            showBottom && 'Section__title--showBottom',
-          ])}
-        >
+        <div className="Section__title">
           <span className="Section__titleText">{title}</span>
           <div className="Section__buttons">{buttons}</div>
         </div>
       )}
-      {hasContent && (
-        <Box
-          className={classes([
-            'Section__content',
-            !!stretchContents && 'Section__content--stretchContents',
-            !!noTopPadding && 'Section__content--noTopPadding',
-          ])}
-        >
-          {content}
-          {children}
-        </Box>
-      )}
-    </Box>
+      {hasContent && <div className="Section__content">{children}</div>}
+    </div>
   );
 };
 

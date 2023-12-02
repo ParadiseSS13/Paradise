@@ -98,10 +98,13 @@
 	else if(!disabled)
 		ui_interact(user)
 
-/obj/machinery/autolathe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/autolathe/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
+	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Autolathe", name, 750, 700, master_ui, state)
+		ui = new(user, src, "Autolathe", name, 750, 700)
 		ui.open()
 
 
@@ -220,7 +223,7 @@
 				busy = FALSE
 
 /obj/machinery/autolathe/ui_status(mob/user, datum/ui_state/state)
-	. = disabled ? STATUS_DISABLED : STATUS_INTERACTIVE
+	. = disabled ? UI_DISABLED : UI_INTERACTIVE
 
 	return min(..(), .)
 

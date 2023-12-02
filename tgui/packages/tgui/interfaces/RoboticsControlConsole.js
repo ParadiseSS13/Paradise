@@ -106,8 +106,8 @@ const Cyborgs = (props, context) => {
               {cyborg.status
                 ? 'Not Responding'
                 : cyborg.locked_down
-                ? 'Locked Down'
-                : 'Nominal'}
+                  ? 'Locked Down'
+                  : 'Nominal'}
             </Box>
           </LabeledList.Item>
           <LabeledList.Item label="Location">

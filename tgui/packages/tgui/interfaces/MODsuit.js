@@ -503,8 +503,8 @@ const ParametersSection = (props, context) => {
   const status = malfunctioning
     ? 'Malfunctioning'
     : active
-    ? 'Active'
-    : 'Inactive';
+      ? 'Active'
+      : 'Inactive';
   return (
     <Section title="Parameters">
       <LabeledList>

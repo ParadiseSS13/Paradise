@@ -1,5 +1,12 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 const webpack = require('webpack');
 const path = require('path');
+const BuildNotifierPlugin = require('webpack-build-notifier');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 
 const createStats = (verbose) => ({
@@ -29,7 +36,6 @@ module.exports = (env = {}, argv) => {
           : path.resolve(__dirname, './public/.tmp'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].chunk.js',
-      hashFunction: 'SHA256',
     },
     resolve: {
       extensions: ['.mjs', '.js', '.jsx'],
@@ -61,7 +67,12 @@ module.exports = (env = {}, argv) => {
                 plugins: [
                   '@babel/plugin-transform-jscript',
                   'babel-plugin-inferno',
-                  'babel-plugin-transform-remove-console',
+                  ['@babel/plugin-transform-private-methods', { loose: false }],
+                  ['@babel/plugin-proposal-class-properties', { loose: false }],
+                  [
+                    '@babel/plugin-transform-private-property-in-object',
+                    { loose: false },
+                  ],
                   'common/string.babel-plugin.cjs',
                 ],
               },
@@ -137,6 +148,7 @@ module.exports = (env = {}, argv) => {
           ie8: true,
           output: {
             ascii_only: true,
+            comments: false,
           },
         },
       }),
@@ -163,6 +175,12 @@ module.exports = (env = {}, argv) => {
 
   // Development specific options
   if (argv.mode !== 'production') {
+    config.plugins = [
+      ...config.plugins,
+      new BuildNotifierPlugin({
+        suppressSuccess: true,
+      }),
+    ];
     if (argv.hot) {
       config.plugins.push(new webpack.HotModuleReplacementPlugin());
     }

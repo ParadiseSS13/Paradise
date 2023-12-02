@@ -190,7 +190,7 @@
 				"cost" = D.materials[MAT_BIOMASS] / efficiency
 			)
 
-	SStgui.update_uis(src, update_static_data = TRUE)
+	SStgui.update_uis(src)
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
 	if(..())
@@ -200,10 +200,13 @@
 /obj/machinery/biogenerator/attack_ghost(mob/user)
 	ui_interact(user)
 
-/obj/machinery/biogenerator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/biogenerator/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Biogenerator", "Biogenerator", 390, 600, master_ui, state)
+		ui = new(user, src, "Biogenerator", "Biogenerator", 390, 600)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

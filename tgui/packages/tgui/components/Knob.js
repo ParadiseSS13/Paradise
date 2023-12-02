@@ -1,6 +1,11 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
-import { IS_IE8 } from '../byond';
 import { computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
 import { NumberInput } from './NumberInput';
@@ -8,7 +13,7 @@ import { NumberInput } from './NumberInput';
 export const Knob = (props) => {
   // IE8: I don't want to support a yet another component on IE8.
   // IE8: It also can't handle SVG.
-  if (IS_IE8) {
+  if (Byond.IS_LTE_IE8) {
     return <NumberInput {...props} />;
   }
   const {
@@ -33,7 +38,6 @@ export const Knob = (props) => {
     size,
     bipolar,
     children,
-    popUpPosition,
     ...rest
   } = props;
   return (
@@ -101,14 +105,7 @@ export const Knob = (props) => {
               </div>
             </div>
             {dragging && (
-              <div
-                className={classes([
-                  'Knob__popupValue',
-                  popUpPosition && 'Knob__popupValue--' + popUpPosition,
-                ])}
-              >
-                {displayElement}
-              </div>
+              <div className="Knob__popupValue">{displayElement}</div>
             )}
             <svg
               className="Knob__ring Knob__ringTrackPivot"

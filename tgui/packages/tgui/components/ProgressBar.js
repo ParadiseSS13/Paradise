@@ -1,6 +1,11 @@
-import { clamp01, keyOfMatchingRange, scale, toFixed } from 'common/math';
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
+import { clamp01, scale, keyOfMatchingRange, toFixed } from 'common/math';
 import { classes, pureComponentHooks } from 'common/react';
-import { Component } from 'inferno';
 import { computeBoxClassName, computeBoxProps } from './Box';
 
 export const ProgressBar = (props) => {
@@ -12,7 +17,6 @@ export const ProgressBar = (props) => {
     color,
     ranges = {},
     children,
-    fractionDigits = 0,
     ...rest
   } = props;
   const scaledValue = scale(value, minValue, maxValue);
@@ -36,54 +40,10 @@ export const ProgressBar = (props) => {
         }}
       />
       <div className="ProgressBar__content">
-        {hasContent
-          ? children
-          : toFixed(scaledValue * 100, fractionDigits) + '%'}
+        {hasContent ? children : toFixed(scaledValue * 100) + '%'}
       </div>
     </div>
   );
 };
 
 ProgressBar.defaultHooks = pureComponentHooks;
-
-export class ProgressBarCountdown extends Component {
-  constructor(props) {
-    super(props);
-    this.timer = null;
-    this.state = {
-      value: Math.max(props.current * 100, 0), // ds -> ms
-    };
-  }
-
-  tick() {
-    const newValue = Math.max(this.state.value + this.props.rate, 0);
-    if (newValue <= 0) {
-      clearInterval(this.timer);
-    }
-    this.setState((prevState) => {
-      return {
-        value: newValue,
-      };
-    });
-  }
-
-  componentDidMount() {
-    this.timer = setInterval(() => this.tick(), this.props.rate);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
-  render() {
-    const { start, current, end, ...rest } = this.props;
-    const frac = (this.state.value / 100 - start) / (end - start);
-    return <ProgressBar value={frac} {...rest} />;
-  }
-}
-
-ProgressBarCountdown.defaultProps = {
-  rate: 1000,
-};
-
-ProgressBar.Countdown = ProgressBarCountdown;

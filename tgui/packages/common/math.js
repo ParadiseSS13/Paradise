@@ -1,4 +1,10 @@
 /**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
+/**
  * Limits a number to the range between 'min' and 'max'.
  */
 export const clamp = (value, min, max) => {
@@ -79,11 +85,4 @@ export const keyOfMatchingRange = (value, ranges) => {
       return rangeName;
     }
   }
-};
-
-/**
- * Converts a value in radians to degrees.
- */
-export const rad2deg = (rad) => {
-  return rad * (180 / Math.PI);
 };

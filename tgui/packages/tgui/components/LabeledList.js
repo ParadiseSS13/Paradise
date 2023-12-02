@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { classes, pureComponentHooks } from 'common/react';
 import { Box, unit } from './Box';
 import { Divider } from './Divider';
@@ -16,32 +22,25 @@ export const LabeledListItem = (props) => {
     labelColor = 'label',
     color,
     textAlign,
-    verticalAlign,
     buttons,
     content,
     children,
-    noColon = false,
-    ...rest
   } = props;
-  const colon = noColon ? '' : ':';
   return (
     <tr className={classes(['LabeledList__row', className])}>
       <Box
         as="td"
         color={labelColor}
-        verticalAlign={verticalAlign}
         className={classes(['LabeledList__cell', 'LabeledList__label'])}
       >
-        {label ? label + colon : null}
+        {label ? label + ':' : null}
       </Box>
       <Box
         as="td"
         color={color}
         textAlign={textAlign}
-        verticalAlign={verticalAlign}
         className={classes(['LabeledList__cell', 'LabeledList__content'])}
         colSpan={buttons ? undefined : 2}
-        {...rest}
       >
         {content}
         {children}

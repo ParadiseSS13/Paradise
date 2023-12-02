@@ -223,8 +223,8 @@ const SendERT = (props, context) => {
               data.secborg
                 ? 'Enabled'
                 : data.ert_type !== 'Red'
-                ? 'Unavailable'
-                : 'Disabled'
+                  ? 'Unavailable'
+                  : 'Disabled'
             }
             onClick={() => act('toggle_secborg')}
           />

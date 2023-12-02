@@ -1,6 +1,11 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { classes, pureComponentHooks } from 'common/react';
 import { Component, createRef } from 'inferno';
-import { IS_IE8 } from '../byond';
 import { KEY_ENTER, KEY_ESCAPE, KEY_SPACE } from '../hotkeys';
 import { refocusLayout } from '../layouts';
 import { createLogger } from '../logging';
@@ -16,7 +21,6 @@ export const Button = (props) => {
     fluid,
     icon,
     color,
-    textColor,
     disabled,
     selected,
     tooltip,
@@ -24,13 +28,10 @@ export const Button = (props) => {
     ellipsis,
     content,
     iconRotation,
-    iconColor,
     iconSpin,
-    iconRight,
     children,
     onclick,
     onClick,
-    multiLine,
     ...rest
   } = props;
   const hasContent = !!(content || children);
@@ -54,16 +55,13 @@ export const Button = (props) => {
         selected && 'Button--selected',
         hasContent && 'Button--hasContent',
         ellipsis && 'Button--ellipsis',
-        iconRight && 'Button--iconRight',
-        multiLine && 'Button--multiLine',
         color && typeof color === 'string'
           ? 'Button--color--' + color
           : 'Button--color--default',
         className,
       ])}
       tabIndex={!disabled && '0'}
-      unselectable={IS_IE8}
-      color={textColor}
+      unselectable={Byond.IS_LTE_IE8}
       onclick={(e) => {
         refocusLayout();
         if (!disabled && onClick) {
@@ -89,24 +87,9 @@ export const Button = (props) => {
       }}
       {...rest}
     >
-      {icon && !iconRight && (
-        <Icon
-          name={icon}
-          color={iconColor}
-          rotation={iconRotation}
-          spin={iconSpin}
-        />
-      )}
+      {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
       {content}
       {children}
-      {icon && iconRight && (
-        <Icon
-          name={icon}
-          color={iconColor}
-          rotation={iconRotation}
-          spin={iconSpin}
-        />
-      )}
       {tooltip && <Tooltip content={tooltip} position={tooltipPosition} />}
     </Box>
   );
@@ -189,10 +172,6 @@ export class ButtonInput extends Component {
   }
 
   setInInput(inInput) {
-    const { disabled } = this.props;
-    if (disabled) {
-      return;
-    }
     this.setState({
       inInput,
     });
@@ -234,10 +213,8 @@ export class ButtonInput extends Component {
       tooltip,
       tooltipPosition,
       color = 'default',
-      disabled,
       placeholder,
       maxLength,
-      multiLine,
       ...rest
     } = this.props;
 
@@ -246,9 +223,7 @@ export class ButtonInput extends Component {
         className={classes([
           'Button',
           fluid && 'Button--fluid',
-          disabled && 'Button--disabled',
           'Button--color--' + color,
-          multiLine + 'Button--multiLine',
         ])}
         {...rest}
         onClick={() => this.setInInput(true)}
