@@ -110,4 +110,5 @@
 		var/filename = "data/test_run-[time2text(time, "YYYY-MM-DD")]T[time2text(time, "hh_mm_ss")].log"
 		text2file(result.Join("\n"), filename)
 
+	sleep(1)	//yes, 0, this'll let Reboot finish and prevent byond memes
 	del(world)	//shut it down
