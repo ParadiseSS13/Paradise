@@ -291,6 +291,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	fdel(F)
 	F << GLOB.log_directory
 
+#ifndef UNIT_TESTS
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	disable_auxtools_debugger() // Disables the debugger if running. See above comment
@@ -299,3 +300,4 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	CALL_EXT("prof.dll", "destroy")() // Setup Tracy integration
 	#endif
 	..()
+#endif
