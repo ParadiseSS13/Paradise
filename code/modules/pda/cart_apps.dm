@@ -445,8 +445,19 @@
 			var/direction = get_dir(pda,B)
 			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
+	var/list/JaniCartData = list()
+	for(var/obj/vehicle/janicart/J in GLOB.janitorial_equipment)
+		var/turf/jl = get_turf(J)
+		if(jl)
+			if(jl.z != cl.z)
+				continue
+			var/direction = get_dir(pda,J)
+			JaniCartData[++JaniCartData.len] = list("x" = jl.x, "y" = jl.y, "dir" = uppertext(dir2text(direction)))
+
 	JaniData["mops"] = MopData.len ? MopData : null
 	JaniData["buckets"] = BucketData.len ? BucketData : null
 	JaniData["cleanbots"] = CbotData.len ? CbotData : null
 	JaniData["carts"] = CartData.len ? CartData : null
+	JaniData["janicarts"] = JaniCartData.len ? JaniCartData : null
 	data["janitor"] = JaniData
+
