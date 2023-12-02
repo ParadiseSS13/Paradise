@@ -30231,7 +30231,8 @@
 	department = "Cargo Bay";
 	departmentType = 2;
 	name = "Cargo Requests Console";
-	pixel_x = -30
+	pixel_x = -30;
+	announcementConsole = 1
 	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
