@@ -30227,13 +30227,6 @@
 	name = "north bump";
 	pixel_y = 24
 	},
-/obj/machinery/requests_console{
-	department = "Quartermasters Desk";
-	departmentType = 2;
-	name = "Quartermasters Requests Console";
-	pixel_x = -30;
-	announcementConsole = 1
-	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
 "bPS" = (
@@ -85040,6 +85033,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
+"sKY" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_x = 3
+	},
+/turf/simulated/wall,
+/area/station/supply/qm)
 "sLh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
@@ -116810,7 +116813,7 @@ rBg
 bOh
 ceE
 bYM
-bYM
+sKY
 pIt
 pIt
 pIt
