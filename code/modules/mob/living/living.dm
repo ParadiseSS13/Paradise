@@ -1203,4 +1203,4 @@
 			if(istype(A))
 				dir = get_cardinal_dir(src, A)
 		return
-	. = ..()
+	return ..()
