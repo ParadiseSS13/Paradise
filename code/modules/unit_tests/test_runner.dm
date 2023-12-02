@@ -72,7 +72,6 @@
 
 	SSticker.reboot_helper("Unit Test Reboot", "tests ended", 0)
 
-
 /datum/test_runner/proc/Finalize(emit_failures = FALSE)
 	var/time = world.timeofday
 	var/list/fail_reasons
@@ -109,5 +108,5 @@
 		var/filename = "data/test_run-[time2text(time, "YYYY-MM-DD")]T[time2text(time, "hh_mm_ss")].log"
 		text2file(result.Join("\n"), filename)
 
-	sleep(0)	// Cleans up the running procs and prevents an illegal memory access
-	del(world)	//shut it down
+	spawn(-1)	// Cleans up the running procs and prevents an illegal memory access
+		del(world)	//shut it down
