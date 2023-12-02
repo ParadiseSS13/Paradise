@@ -22727,9 +22727,6 @@
 /area/station/command/bridge)
 "bpr" = (
 /obj/structure/table/reinforced,
-/obj/item/aicard{
-	pixel_x = null
-	},
 /obj/item/flash,
 /obj/item/flash,
 /turf/simulated/floor/plasteel,
@@ -22743,11 +22740,14 @@
 "bpu" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sop_command,
-/obj/item/multitool/command,
 /obj/machinery/keycard_auth{
 	pixel_x = -6;
 	pixel_y = 8
 	},
+/obj/item/aicard{
+	pixel_x = null
+	},
+/obj/item/multitool/command,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "blue"
