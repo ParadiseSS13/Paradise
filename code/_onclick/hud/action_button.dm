@@ -74,10 +74,9 @@
 		linked_keybind = triggerer
 		triggerer.binded_to = keybind_to_set_to
 		to_chat(user, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
-	else
-		if(linked_keybind)
-			clean_up_keybinds(user)
-			to_chat(user, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")
+	else if(linked_keybind)
+		clean_up_keybinds(user)
+		to_chat(user, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")
 
 /obj/screen/movable/action_button/AltClick(mob/user)
 	return linked_action.AltTrigger()
