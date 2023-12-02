@@ -324,6 +324,7 @@
 			if(!can_buy(5))
 				return
 			to_chat(src, "You attack [M]!")
+			last_attack = world.time
 			blob_core.chemical_attack(T)
 			return
 		to_chat(src, "There is a blob here!")
