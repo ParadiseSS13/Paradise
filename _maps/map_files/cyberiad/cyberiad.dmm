@@ -30230,7 +30230,7 @@
 /obj/machinery/requests_console{
 	department = "Quartermaster";
 	departmentType = 2;
-	name = "Quartermaster Requests Console";
+	name = "Quartermasters Requests Console";
 	pixel_x = -30;
 	announcementConsole = 1
 	},
