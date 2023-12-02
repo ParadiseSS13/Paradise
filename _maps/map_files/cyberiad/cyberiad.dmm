@@ -22741,11 +22741,9 @@
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sop_command,
 /obj/item/aicard{
-	pixel_x = 2
+	pixel_x = null
 	},
-/obj/item/multitool/command{
-	pixel_x = 2
-	},
+/obj/item/multitool/command,
 /obj/machinery/keycard_auth{
 	pixel_x = -6;
 	pixel_y = 8
