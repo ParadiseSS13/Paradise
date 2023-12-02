@@ -371,6 +371,32 @@
 	poison_amount = 10
 	origin_tech = "materials=4;powerstorage=3;biotech=3"
 
+
+/obj/item/organ/internal/cyberimp/brain/multilang_ipc
+	name = "Multilanguage Translator Implant"
+	desc = "An advanced implant that allows IPCs to understand and speak multiple languages."
+	implant_color = "#808080" // You can change this to any color you prefer
+	slot = "brain_multilang"
+	origin_tech = "materials=6;biotech=6"
+
+	var/list/languages = list(/datum/language/human, /datum/language/diona, /datum/language/chittin, /datum/language/skrell, /datum/language/slime, /datum/language/tajaran, /datum/language/unathi, /datum/language/vox, /datum/language/vulpkanin, /datum/language/drask, /datum/language/nian)
+
+/obj/item/organ/internal/cyberimp/brain/multilang_ipc/insert(mob/living/carbon/M, special = FALSE)
+	. = ..()
+	if(istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+		if(H.species.name == "IPC")
+			for(var/lang in languages)
+				H.add_language(lang)
+
+/obj/item/organ/internal/cyberimp/brain/multilang_ipc/remove(mob/living/carbon/M, special = FALSE)
+	if(istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+		if(H.species.name == "IPC")
+			for(var/lang in languages)
+				H.remove_language(lang)
+	. = ..()
+
 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	name = "hardened nutriment pump implant"
 	emp_proof = TRUE

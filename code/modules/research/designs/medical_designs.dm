@@ -540,6 +540,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/brain/wire_interface
 	category = list("Medical")
 
+/datum/design/cyberimp_multilang_ipc
+	name = "Multilanguage Translator Implant"
+	desc = "An advanced implant that allows IPCs to understand and speak multiple languages."
+	id = "cyberimp_multilang_ipc"
+	req_tech = list("materials" = 6, "biotech" = 6)
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000, MAT_SILVER = 500, MAT_GOLD = 500) // Adjust materials as needed
+	build_path = /obj/item/organ/internal/cyberimp/brain/multilang_ipc
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/raiden_implant
 	name = "Reactive Repair Implant"
 	desc = "This implant reworks the IPC frame, in order to incorporate materials that return to their original shape after being damaged. Requires power to function."
