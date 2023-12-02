@@ -22740,8 +22740,12 @@
 "bpu" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/sop_command,
-/obj/item/aicard,
-/obj/item/multitool/command,
+/obj/item/aicard{
+	pixel_x = 2
+	},
+/obj/item/multitool/command{
+	pixel_x = 2
+	},
 /obj/machinery/keycard_auth{
 	pixel_x = -6;
 	pixel_y = 8
@@ -30226,6 +30230,13 @@
 /obj/machinery/firealarm{
 	name = "north bump";
 	pixel_y = 24
+	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_x = -30
 	},
 /turf/simulated/floor/carpet,
 /area/station/supply/qm)
@@ -85033,16 +85044,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/asmaint)
-"sKY" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Quartermaster's Desk";
-	departmentType = 5;
-	name = "Quartermaster Requests Console";
-	pixel_x = 3
-	},
-/turf/simulated/wall,
-/area/station/supply/qm)
 "sLh" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/glass{
@@ -116813,7 +116814,7 @@ rBg
 bOh
 ceE
 bYM
-sKY
+bYM
 pIt
 pIt
 pIt
