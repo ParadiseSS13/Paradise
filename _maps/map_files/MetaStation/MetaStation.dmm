@@ -8304,6 +8304,9 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
+/obj/machinery/keycard_auth{
+	pixel_x = 24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -8798,7 +8801,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/keycard_auth,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"

@@ -14844,6 +14844,9 @@
 /obj/machinery/computer/supplycomp{
 	dir = 8
 	},
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"
@@ -15621,11 +15624,11 @@
 	},
 /area/station/supply/qm)
 "aWJ" = (
-/obj/structure/sign/poster/official/random{
-	pixel_x = 32
-	},
 /obj/machinery/computer/card/minor/qm{
 	dir = 8
+	},
+/obj/machinery/keycard_auth{
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -16193,7 +16196,6 @@
 	},
 /obj/item/gps/mining,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/keycard_auth,
 /obj/item/toy/figure/crew/qm,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -16202,6 +16204,9 @@
 "aYj" = (
 /obj/machinery/computer/security/mining{
 	dir = 8
+	},
+/obj/machinery/keycard_auth{
+	pixel_y = -38
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
