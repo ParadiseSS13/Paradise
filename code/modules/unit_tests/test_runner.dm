@@ -75,7 +75,6 @@
 
 /datum/test_runner/proc/Finalize(emit_failures = FALSE)
 	var/time = world.timeofday
-	set waitfor = FALSE
 	var/list/fail_reasons
 	if(GLOB)
 		if(GLOB.total_runtimes != 0)
@@ -110,5 +109,5 @@
 		var/filename = "data/test_run-[time2text(time, "YYYY-MM-DD")]T[time2text(time, "hh_mm_ss")].log"
 		text2file(result.Join("\n"), filename)
 
-	sleep(1)	// Cleans up the running procs and prevents an illegal memory access.
+	sleep(0)	// Cleans up the running procs and prevents an illegal memory access.
 	del(world)	//shut it down
