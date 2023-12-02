@@ -30228,9 +30228,9 @@
 	pixel_y = 24
 	},
 /obj/machinery/requests_console{
-	department = "Cargo Bay";
+	department = "Quartermaster";
 	departmentType = 2;
-	name = "Cargo Requests Console";
+	name = "Quartermaster Requests Console";
 	pixel_x = -30;
 	announcementConsole = 1
 	},
