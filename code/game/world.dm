@@ -292,9 +292,14 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	F << GLOB.log_directory
 
 /world/Del()
+	// Calling these cleanups causes issues in CI
+	// However in CI, we dont care because the process is being shot anyway
+	#ifdef UNIT_TESTS
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
 	disable_auxtools_debugger() // Disables the debugger if running. See above comment
 	rustg_redis_disconnect() // Disconnects the redis connection. See above.
+	#endif
+
 	#ifdef ENABLE_BYOND_TRACY
 	CALL_EXT("prof.dll", "destroy")() // Setup Tracy integration
 	#endif
