@@ -108,5 +108,5 @@
 		var/filename = "data/test_run-[time2text(time, "YYYY-MM-DD")]T[time2text(time, "hh_mm_ss")].log"
 		text2file(result.Join("\n"), filename)
 
-	spawn(-1)	// Cleans up the running procs and prevents an illegal memory access
+	spawn(-1)	// Cleans up the running procs and prevents an illegal memory access.
 		del(world)	//shut it down
