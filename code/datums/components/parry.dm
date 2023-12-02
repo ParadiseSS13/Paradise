@@ -113,7 +113,7 @@
 	if(time_since_parry <= parry_time_out_time * 0.5) // a perfect parry
 		was_perfect = TRUE
 
-	owner.apply_damage(stamina_damage, STAMINA)
+	owner.adjustStaminaLoss(stamina_damage)
 	if(owner.getStaminaLoss() < 100)
 		if(!was_perfect)
 			return COMPONENT_BLOCK_SUCCESSFUL
