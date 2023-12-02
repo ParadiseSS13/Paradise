@@ -247,7 +247,7 @@
 	owner.cut_overlay(overlay)
 
 /datum/status_effect/cult_stun_mark/proc/trigger()
-	owner.adjustStaminaLoss(60)
+	owner.apply_damage(60, STAMINA)
 	owner.Silence(6 SECONDS) // refresh the silence
 	qdel(src)
 

@@ -369,7 +369,7 @@
 					M.EyeBlind(15 SECONDS)
 					to_chat(M, "<span class='warning'>and you can't see a goddamn thing!</span>")
 			if(5)
-				M.adjustStaminaLoss(40)
+				M.apply_damage(40, STAMINA)
 				to_chat(M, "<span class='warning'>and a wave of tiredness washes over you!</span>")
 			else
 				to_chat(M, "<span class='danger'>but as soon as it arrives, it fades.</span>")

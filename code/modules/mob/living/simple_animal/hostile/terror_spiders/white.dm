@@ -41,7 +41,7 @@
 	var/inject_target = pick("chest","head")
 	L.attack_animal(src)
 	L.KnockDown(10 SECONDS)
-	L.adjustStaminaLoss(30)
+	L.apply_damage(30, STAMINA)
 	if(L.can_inject(null, FALSE, inject_target, FALSE) || (HAS_TRAIT(L, TRAIT_HANDS_BLOCKED) && HAS_TRAIT(L, TRAIT_IMMOBILIZED)))
 		if(!IsTSInfected(L) && ishuman(L))
 			visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [L]!</span>")

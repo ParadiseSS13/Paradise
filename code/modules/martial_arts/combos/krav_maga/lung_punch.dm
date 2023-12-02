@@ -8,7 +8,7 @@
 					"<span class='userdanger'>[user] slams your chest! You can't breathe!</span>")
 	playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
 	target.AdjustLoseBreath(10 SECONDS)
-	target.adjustStaminaLoss(30)
+	target.apply_damage(30, STAMINA)
 	add_attack_logs(user, target, "Melee attacked with martial-art [src] :  Lung Punch", ATKLOG_ALL)
 	user.mind.martial_art.in_stance = FALSE
 	return MARTIAL_COMBO_DONE_CLEAR_COMBOS

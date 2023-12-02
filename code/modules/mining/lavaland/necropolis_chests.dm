@@ -670,7 +670,7 @@
 	to_chat(target, "<span class='userdanger'>[user] shatters [src] over you!</span>")
 	target.apply_damage((ishostile(target) ? 75 : 35), BRUTE, BODY_ZONE_CHEST, TRUE)
 	target.KnockDown(5 SECONDS)
-	target.adjustStaminaLoss(60) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
+	target.apply_damage(60, STAMINA) //Takes 4 hits to do, breaks your weapon. Perfectly fine.
 	user.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 	playsound(src, 'sound/effects/glassbr3.ogg', 100, TRUE)
 	if(ishuman(user))

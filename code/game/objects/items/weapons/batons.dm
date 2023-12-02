@@ -130,7 +130,7 @@
 		percentage_reduction = (100 - ARMOUR_VALUE_TO_PERCENTAGE(armour)) / 100
 	else
 		percentage_reduction = (100 - armour) / 100 // converts the % into a decimal
-	target.adjustStaminaLoss(stamina_damage * percentage_reduction)
+	target.apply_damage(stamina_damage * percentage_reduction, STAMINA)
 
 /obj/item/melee/classic_baton/proc/baton_delay(mob/living/target, user_UID)
 	REMOVE_TRAIT(target, TRAIT_WAS_BATONNED, user_UID)

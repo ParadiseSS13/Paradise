@@ -112,7 +112,7 @@
 /obj/effect/hallucination/chaser/attacker/proc/attack(was_weakened)
 	dir = get_dir(src, target)
 	attack_effects()
-	target.adjustStaminaLoss(damage)
+	target.apply_damage(damage, STAMINA)
 	if(!was_weakened && target.IsWeakened())
 		on_knockdown()
 

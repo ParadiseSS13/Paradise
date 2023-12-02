@@ -76,7 +76,7 @@
 			var/surplus_power = C.get_surplus()
 			if(user.a_intent == INTENT_DISARM)
 				add_attack_logs(user, L, "shocked with power gloves.")
-				L.adjustStaminaLoss(60)
+				L.apply_damage(60, STAMINA)
 				L.Jitter(10 SECONDS)
 				var/atom/throw_target = get_edge_target_turf(user, get_dir(user, get_step_away(L, user)))
 				L.throw_at(throw_target, surplus_power / 100000, surplus_power / 100000) //100 kW surplus throws 1 tile, 200 throws 2, etc.

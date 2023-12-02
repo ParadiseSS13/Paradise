@@ -178,7 +178,7 @@
 		var/mob/living/carbon/human/M = target
 		if(istype(M.wear_suit))
 			if(M.wear_suit.type in suit_types)
-				M.adjustStaminaLoss(34)
+				M.apply_damage(34, STAMINA)
 	return 1
 
 /obj/item/projectile/beam/lasertag/omni
