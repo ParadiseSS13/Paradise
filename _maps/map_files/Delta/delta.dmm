@@ -57321,18 +57321,6 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/station/science/research)
-"dgw" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/firealarm{
-	dir = 4;
-	name = "east bump";
-	pixel_x = 24
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralcorner"
-	},
-/area/station/hallway/primary/aft)
 "dgC" = (
 /obj/machinery/light{
 	dir = 8
@@ -78866,6 +78854,7 @@
 	name = "Genetics";
 	sort_type_txt = "23"
 	},
+/obj/effect/landmark/lightsout,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "lDO" = (
@@ -84174,6 +84163,16 @@
 	icon_state = "whitepurple"
 	},
 /area/station/maintenance/apmaint)
+"oRy" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	name = "east bump";
+	pixel_x = 24
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralcorner"
+	},
+/area/station/hallway/primary/aft)
 "oRD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -98365,6 +98364,18 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
+"xzV" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/effect/landmark/lightsout,
+/turf/simulated/floor/plasteel/white,
+/area/station/medical/medbay)
 "xzZ" = (
 /obj/structure/sign/chemistry,
 /turf/simulated/wall/r_wall,
@@ -139542,8 +139553,8 @@ uhM
 lZW
 lZW
 lZW
-lZW
-dgw
+oRy
+dsI
 dle
 lZW
 lZW
@@ -146488,7 +146499,7 @@ khO
 pFx
 fBa
 khO
-khO
+xzV
 khO
 kna
 khO
