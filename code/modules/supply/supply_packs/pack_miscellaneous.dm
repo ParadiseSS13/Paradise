@@ -192,6 +192,15 @@
 	cost = 100
 	containername = "replacement lights crate"
 
+/datum/supply_packs/misc/janicart
+	name = "Janicart Crate"
+	contains = list(/obj/vehicle/janicart,
+					/obj/item/key/janitor)
+	cost = 500
+	containertype = /obj/structure/largecrate
+	containername = "Janicart. Caution while driving is advised."
+	department_restrictions = list(DEPARTMENT_SERVICE)
+
 /datum/supply_packs/misc/noslipfloor
 	name = "High-traction Floor Tiles"
 	contains = list(/obj/item/stack/tile/noslip/loaded)
