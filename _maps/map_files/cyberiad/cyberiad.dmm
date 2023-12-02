@@ -30228,7 +30228,7 @@
 	pixel_y = 24
 	},
 /obj/machinery/requests_console{
-	department = "Quartermaster";
+	department = "Quartermasters Desk";
 	departmentType = 2;
 	name = "Quartermasters Requests Console";
 	pixel_x = -30;
