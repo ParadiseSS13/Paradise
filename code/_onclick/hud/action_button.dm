@@ -35,22 +35,8 @@
 /obj/screen/movable/action_button/Click(location,control,params)
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
-		var/keybind_to_set_to = uppertext(input(usr, "What keybind do you want to set this action button to?") as text)
-		if(keybind_to_set_to)
-			if(linked_keybind)
-				clean_up_keybinds(usr)
-			var/datum/keybinding/mob/trigger_action_button/triggerer = new
-			triggerer.linked_action = linked_action
-			usr.client.active_keybindings[keybind_to_set_to] += list(triggerer)
-			linked_keybind = triggerer
-			triggerer.binded_to = keybind_to_set_to
-			to_chat(usr, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
-			return TRUE
-		else
-			if(linked_keybind)
-				clean_up_keybinds(usr)
-				to_chat(usr, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")
-				return TRUE
+		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
+		return TRUE
 	if(usr.next_click > world.time)
 		return FALSE
 	usr.changeNext_click(1)
@@ -76,6 +62,22 @@
 	alpha = 200
 	animate(src, transform = matrix(), time = 0.4 SECONDS, alpha = 255)
 	return TRUE
+
+/obj/screen/movable/action_button/proc/set_to_keybind(mob/user)
+	var/keybind_to_set_to = uppertext(input(user, "What keybind do you want to set this action button to?") as text)
+	if(keybind_to_set_to)
+		if(linked_keybind)
+			clean_up_keybinds(user)
+		var/datum/keybinding/mob/trigger_action_button/triggerer = new
+		triggerer.linked_action = linked_action
+		user.client.active_keybindings[keybind_to_set_to] += list(triggerer)
+		linked_keybind = triggerer
+		triggerer.binded_to = keybind_to_set_to
+		to_chat(user, "<span class='info'>[src] has been binded to [keybind_to_set_to]!</span>")
+	else
+		if(linked_keybind)
+			clean_up_keybinds(user)
+			to_chat(user, "<span class='info'>Your active keybinding on [src] has been cleared.</span>")
 
 /obj/screen/movable/action_button/AltClick(mob/user)
 	return linked_action.AltTrigger()

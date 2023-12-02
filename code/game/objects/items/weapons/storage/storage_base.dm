@@ -549,7 +549,6 @@
 
 	handle_item_insertion(I)
 
-
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user

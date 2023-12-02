@@ -159,6 +159,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
+	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
@@ -538,8 +539,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(custom_handler && !custom_handler.can_cast(user, charge_check, show_message, src))
 		return FALSE
 
-	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	return TRUE
+
 /obj/effect/proc_holder/spell/summonmob
 	name = "Summon Servant"
 	desc = "This spell can be used to call your servant, whenever you need it."
