@@ -244,6 +244,7 @@
 	item = /obj/item/dice/d20/e20
 	cost = 15
 	job = list("Librarian")
+	surplus = 0
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
