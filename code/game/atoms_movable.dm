@@ -282,6 +282,8 @@
 		A.Bumped(src)
 
 /atom/movable/proc/forceMove(atom/destination)
+	if(!destination)
+		CRASH("Forcemove attempted to move [src] to a null location")
 	var/turf/old_loc = loc
 	loc = destination
 	moving_diagonally = 0
@@ -329,7 +331,6 @@
 		if(hud_used && length(client.parallax_layers))
 			hud_used.update_parallax()
 	update_runechat_msg_location()
-
 
 //Called whenever an object moves and by mobs when they attempt to move themselves through space
 //And when an object or action applies a force on src, see newtonian_move() below
