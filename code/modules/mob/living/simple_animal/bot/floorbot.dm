@@ -169,14 +169,17 @@
 		if(!target)
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
 			target = scan(/turf/space, avoid_bot = /mob/living/simple_animal/bot/floorbot)
+			move_speed = 1
 
 		if(!target && replace_tiles) //Finds a floor without a tile and gives it one.
 			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
 			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
+			move_speed = 1
 
 		if(!target && fix_floor) //Repairs damaged floors and tiles.
 			process_type = FIX_TILE
 			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
+			move_speed = 1
 
 	if(!target && emagged == 2) //We are emagged! Time to rip up the floors!
 		process_type = TILE_EMAG
@@ -186,10 +189,12 @@
 		if(eat_tiles) //Configured to find and consume floortiles!
 			target = scan(/obj/item/stack/tile/plasteel)
 			process_type = null
+			move_speed = 0
 
 		if(!target && make_tiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
 			target = scan(/obj/item/stack/sheet/metal)
 			process_type = null
+			move_speed = 0
 
 		if(!target && nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
 			nag()
@@ -206,13 +211,17 @@
 
 	if(target)
 		if(loc == target || loc == target.loc)
+
 			if(istype(target, /obj/item/stack/tile/plasteel))
 				start_eattile(target)
-			else if(istype(target, /obj/item/stack/sheet/metal))
+
+			if(istype(target, /obj/item/stack/sheet/metal))
 				start_maketile(target)
-			else if(isturf(target) && emagged < 2)
+
+			if(isturf(target) && emagged < 2)
 				repair(target)
-			else if(emagged == 2 && isfloorturf(target))
+
+			if(emagged == 2 && isfloorturf(target))
 				var/turf/simulated/floor/F = target
 				anchored = TRUE
 				mode = BOT_REPAIRING
@@ -337,6 +346,7 @@
 		return
 	visible_message("<span class='notice'>[src] begins to collect tiles.</span>")
 	mode = BOT_EAT_TILE
+	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_eattile), T), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_eattile(obj/item/stack/tile/plasteel/T)
@@ -360,6 +370,7 @@
 		return
 	visible_message("<span class='notice'>[src] begins to create tiles.</span>")
 	mode = BOT_MAKE_TILE
+	update_icon(UPDATE_OVERLAYS)
 	addtimer(CALLBACK(src, PROC_REF(do_maketile), M), 2 SECONDS)
 
 /mob/living/simple_animal/bot/floorbot/proc/do_maketile(obj/item/stack/sheet/metal/M)
