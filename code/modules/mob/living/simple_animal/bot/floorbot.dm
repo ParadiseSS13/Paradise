@@ -115,16 +115,16 @@
 			remote_disabled = !remote_disabled
 		if("autotile")
 			autotile = !autotile
-		if("replacetiles")
+		if("replace_tiles")
 			replace_tiles = !replace_tiles
-		if("eattiles")
+		if("eat_tiles")
 			eat_tiles = !eat_tiles
-		if("maketiles")
+		if("make_tiles")
 			make_tiles = !make_tiles
-		if("nagonempty")
-			nag_on_empty = !nag_on_empty
-		if("fixfloors")
+		if("fix_floor")
 			fix_floor = !fix_floor
+		if("nag_on_empty")
+			nag_on_empty = !nag_on_empty
 		if("anchored")
 			anchored = !anchored
 		if("ejectpai")
