@@ -814,7 +814,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc
@@ -840,7 +840,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(!istype(H))
 		if(isbrain(H))
-			var/mob/living/carbon/brain/B = H
+			var/mob/living/brain/B = H
 			if(istype(B.container, /obj/item/mmi/robotic_brain/positronic))
 				var/obj/item/mmi/robotic_brain/positronic/C = B.container
 				var/obj/item/organ/internal/brain/mmi_holder/posibrain/P = C.loc

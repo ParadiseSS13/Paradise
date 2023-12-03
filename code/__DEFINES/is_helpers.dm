@@ -10,7 +10,7 @@
 
 #define isliving(A) (istype(A, /mob/living))
 
-#define isbrain(A) (istype(A, /mob/living/carbon/brain))
+#define isbrain(A) (istype(A, /mob/living/brain))
 
 // Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
