@@ -132,14 +132,14 @@
 		/obj/item/gun/projectile/automatic/pistol, // 4TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
-		/obj/item/storage/box/syndie_kit/modsuit, // 6TC
+		/obj/item/mod/control/pre_equipped/traitor, // 6TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/metroid = list( // 21 + modules + laser gun
-		/obj/item/storage/box/syndie_kit/modsuit/elite, // 9TC
+		/obj/item/mod/control/pre_equipped/traitor_elite, // 9TC
 		/obj/item/mod/module/visor/thermal, // 3 TC
 		/obj/item/mod/module/stealth, //0 TC but strong
 		/obj/item/mod/module/power_kick, //0 TC but funny
@@ -166,24 +166,6 @@
 /obj/item/storage/box/syndie_kit/space/populate_contents()
 	new /obj/item/clothing/suit/space/syndicate/black/red(src)
 	new /obj/item/clothing/head/helmet/space/syndicate/black/red(src)
-	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
-
-/obj/item/storage/box/syndie_kit/modsuit
-	name = "Boxed Blood Red MODsuit"
-	can_hold = list(/obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
-	max_w_class = WEIGHT_CLASS_NORMAL
-
-/obj/item/storage/box/syndie_kit/modsuit/populate_contents()
-	new /obj/item/mod/control/pre_equipped/traitor(src)
-	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
-
-/obj/item/storage/box/syndie_kit/modsuit/elite //I have been informed this is a good idea.
-	name = "Boxed Elite MODsuit"
-
-/obj/item/storage/box/syndie_kit/modsuit/elite/populate_contents()
-	new /obj/item/mod/control/pre_equipped/traitor_elite(src)
 	new /obj/item/clothing/mask/gas/syndicate(src)
 	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
 
@@ -282,6 +264,9 @@
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
+/obj/item/storage/box/syndie_kit/combat_baking
+	name = "combat bakery kit"
+
 /obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
 	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
 	for(var/i in 1 to 2)
@@ -324,25 +309,6 @@
 	for(var/i in 1 to 3)
 		new/obj/item/cardboard_cutout/adaptive(src)
 	new/obj/item/toy/crayon/spraycan(src)
-
-/obj/item/storage/box/syndie_kit/bonerepair
-	name = "emergency nanite kit"
-	desc = "A box containing one prototype nanite repair system."
-
-/obj/item/storage/box/syndie_kit/bonerepair/populate_contents()
-	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
-	var/obj/item/paper/P = new /obj/item/paper(src)
-	P.name = "Prototype nanite repair guide"
-	P.desc = "For when you want to safely get off Mr Bones' Wild Ride."
-	P.info = {"
-<font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Prototype Emergency Repair Nanites</B><HR></center><BR><BR>
-
-<B>Usage:</B> <BR><BR><BR>
-
-<font size = "1">This is a highly experimental prototype chemical designed to repair damaged bones, organs, and treat interenal bleeding of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a classifed payload. The nanites will simultaneously shut down body systems whilst aiding in repair.<BR><BR><BR>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <B>Do not use with any kind of stimulant or drugs. Serious damage can occur!</B><BR><BR><BR>
-
-To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><BR><HR></font>
-	"}
 
 /obj/item/storage/box/syndie_kit/safecracking
 	name = "Safe-cracking Kit"
