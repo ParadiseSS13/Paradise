@@ -118,6 +118,15 @@ def check_conditional_spacing(lines):
         if CONDITIONAL_INFIX_NOT_SPACE.search(line):
             return Failure(idx + 1, "Found a conditional statement matching the format \"if(! thing)\", please use \"if(!thing)\" instead.")
 
+# makes sure that no global list inits have an empty list in them without using the helper
+GLOBAL_LIST_EMPTY = re.compile(r"(?<!#define GLOBAL_LIST_EMPTY\(X\) )GLOBAL_LIST_INIT([^,]+),.{0,5}list\(\)")
+# This uses a negative look behind to make sure its not the global list definition
+# An easy regex replacement for this is GLOBAL_LIST_EMPTY$1
+def check_global_list_empty(lines):
+    for idx, line in enumerate(lines):
+        if GLOBAL_LIST_EMPTY.search(line):
+            return Failure(idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead.")
+
 CODE_CHECKS = [
     check_space_indentation,
     check_mixed_indentation,
