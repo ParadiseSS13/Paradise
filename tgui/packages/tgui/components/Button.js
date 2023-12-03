@@ -21,6 +21,7 @@ export const Button = (props) => {
     fluid,
     icon,
     color,
+    textColor,
     disabled,
     selected,
     tooltip,
@@ -28,10 +29,13 @@ export const Button = (props) => {
     ellipsis,
     content,
     iconRotation,
+    iconColor,
     iconSpin,
+    iconRight,
     children,
     onclick,
     onClick,
+    multiLine,
     ...rest
   } = props;
   const hasContent = !!(content || children);
@@ -55,6 +59,8 @@ export const Button = (props) => {
         selected && 'Button--selected',
         hasContent && 'Button--hasContent',
         ellipsis && 'Button--ellipsis',
+        iconRight && 'Button--iconRight',
+        multiLine && 'Button--multiLine',
         color && typeof color === 'string'
           ? 'Button--color--' + color
           : 'Button--color--default',
@@ -62,6 +68,7 @@ export const Button = (props) => {
       ])}
       tabIndex={!disabled && '0'}
       unselectable={Byond.IS_LTE_IE8}
+      color={textColor}
       onclick={(e) => {
         refocusLayout();
         if (!disabled && onClick) {
@@ -87,9 +94,24 @@ export const Button = (props) => {
       }}
       {...rest}
     >
-      {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
+      {icon && (
+        <Icon
+          name={icon}
+          color={iconColor}
+          rotation={iconRotation}
+          spin={iconSpin}
+        />
+      )}
       {content}
       {children}
+      {icon && iconRight && (
+        <Icon
+          name={icon}
+          color={iconColor}
+          rotation={iconRotation}
+          spin={iconSpin}
+        />
+      )}
       {tooltip && <Tooltip content={tooltip} position={tooltipPosition} />}
     </Box>
   );
@@ -215,6 +237,7 @@ export class ButtonInput extends Component {
       color = 'default',
       placeholder,
       maxLength,
+      multiLine,
       ...rest
     } = this.props;
 
@@ -224,6 +247,7 @@ export class ButtonInput extends Component {
           'Button',
           fluid && 'Button--fluid',
           'Button--color--' + color,
+          multiLine + 'Button--multiLine',
         ])}
         {...rest}
         onClick={() => this.setInInput(true)}
