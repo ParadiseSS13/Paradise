@@ -136,7 +136,6 @@
 		else
 			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 
-
 /turf/simulated/floor/plating/lava/screwdriver_act()
 	return
 
