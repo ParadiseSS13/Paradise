@@ -1,3 +1,5 @@
+#define TITLE_SCREENS_LOCATION "config/title_screens/images/"
+
 /datum/controller/subsystem/title
 	flags = SS_NO_FIRE
 	init_order = INIT_ORDER_TITLE
@@ -18,18 +20,15 @@
 		title_html = file2text("config/title_html.txt")
 
 	var/list/local_title_screens = list()
-	for(var/screen in flist("config/title_screens/images/"))
+	for(var/screen in flist(TITLE_SCREENS_LOCATION))
 		var/list/screen_name_parts = splittext(screen, "+")
 		if((LAZYLEN(screen_name_parts) == 1 && (screen_name_parts[1] != "exclude" && screen_name_parts[1] != "blank.png")))
-			message_admins("Screen: [screen]")
 			local_title_screens += screen
 
 	for(var/title_screen in local_title_screens)
-		var/file_path = "config/title_screens/images/[title_screen]"
+		var/file_path = "[TITLE_SCREENS_LOCATION][title_screen]"
 		ASSERT(fexists(file_path))
-
-		var/icon/title2use = new(fcopy_rsc(file_path))
-		title_screens += title2use
+		title_screens += fcopy_rsc(file_path)
 
 	change_title_screen()
 
@@ -66,3 +65,5 @@
 			current_title_screen = DEFAULT_TITLE_SCREEN_IMAGE
 
 	show_title_screen()
+
+#undef TITLE_SCREENS_LOCATION
