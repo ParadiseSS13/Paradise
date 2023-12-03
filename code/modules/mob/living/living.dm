@@ -290,7 +290,7 @@
 
 /mob/living/verb/succumb()
 	set hidden = 1
-	if(InCritical())
+	if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
 		create_attack_log("[src] has ["succumbed to death"] with [round(health, 0.1)] points of health!")
 		create_log(MISC_LOG, "has succumbed to death with [round(health, 0.1)] points of health")
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
