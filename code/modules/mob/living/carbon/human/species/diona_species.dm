@@ -135,5 +135,7 @@
 	return TRUE
 
 /datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
+	name = "Diomorph" //Seperate name needed else can't select diona period
+	species_traits = list(NO_HAIR, NOT_SELECTABLE)
 	pod = TRUE
 	inherent_factions = list("plants", "vines")
