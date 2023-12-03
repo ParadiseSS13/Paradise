@@ -115,15 +115,15 @@
 			remote_disabled = !remote_disabled
 		if("autotile")
 			autotile = !autotile
-		if("replace_tiles")
+		if("replacetiles")
 			replace_tiles = !replace_tiles
-		if("eat_tiles")
+		if("eattiles")
 			eat_tiles = !eat_tiles
-		if("make_tiles")
+		if("maketiles")
 			make_tiles = !make_tiles
-		if("fix_floor")
+		if("fixfloors")
 			fix_floor = !fix_floor
-		if("nag_on_empty")
+		if("nagonempty")
 			nag_on_empty = !nag_on_empty
 		if("anchored")
 			anchored = !anchored
@@ -154,7 +154,8 @@
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
 /mob/living/simple_animal/bot/floorbot/handle_automated_action()
-	if(!..())
+	. = ..()
+	if(!.)
 		return
 
 	if(mode == BOT_REPAIRING || mode == BOT_MAKE_TILE || mode == BOT_EAT_TILE)
@@ -227,9 +228,9 @@
 		if(!length(path))
 			if(!isturf(target))
 				var/turf/TL = get_turf(target)
-				path = get_path_to(src, TL, 30, id=access_card,simulated_only = 0)
+				path = get_path_to(src, TL, 30, id = access_card, simulated_only = 0)
 			else
-				path = get_path_to(src, target, 30, id=access_card,simulated_only = 0)
+				path = get_path_to(src, target, 30, id = access_card, simulated_only = 0)
 
 			if(!bot_move(target))
 				add_to_ignore(target)
