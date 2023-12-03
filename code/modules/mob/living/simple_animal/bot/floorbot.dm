@@ -169,17 +169,14 @@
 		if(!target)
 			process_type = HULL_BREACH //Ensures the floorbot does not try to "fix" space areas or shuttle docking zones.
 			target = scan(/turf/space, avoid_bot = /mob/living/simple_animal/bot/floorbot)
-			move_speed = 1
 
 		if(!target && replace_tiles) //Finds a floor without a tile and gives it one.
 			process_type = REPLACE_TILE //The target must be the floor and not a tile. The floor must not already have a floortile.
 			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
-			move_speed = 1
 
 		if(!target && fix_floor) //Repairs damaged floors and tiles.
 			process_type = FIX_TILE
 			target = scan(/turf/simulated/floor, avoid_bot = /mob/living/simple_animal/bot/floorbot)
-			move_speed = 1
 
 	if(!target && emagged == 2) //We are emagged! Time to rip up the floors!
 		process_type = TILE_EMAG
@@ -189,12 +186,10 @@
 		if(eat_tiles) //Configured to find and consume floortiles!
 			target = scan(/obj/item/stack/tile/plasteel)
 			process_type = null
-			move_speed = 0
 
 		if(!target && make_tiles) //We did not manage to find any floor tiles! Scan for metal stacks and make our own!
 			target = scan(/obj/item/stack/sheet/metal)
 			process_type = null
-			move_speed = 0
 
 		if(!target && nag_on_empty) //Floorbot is empty and cannot acquire more tiles, nag the engineers for more!
 			nag()
