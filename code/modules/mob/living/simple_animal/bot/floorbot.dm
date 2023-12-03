@@ -344,7 +344,7 @@
 		target = null
 		mode = BOT_IDLE
 		return
-	if(amount + T.amount > MAX_AMOUNT)
+	if((amount + T.amount) > MAX_AMOUNT)
 		var/i = MAX_AMOUNT - amount
 		amount += i
 		T.amount -= i
@@ -420,3 +420,6 @@
 		start_maketile(A)
 	else
 		..()
+
+
+#undef MAX_AMOUNT
