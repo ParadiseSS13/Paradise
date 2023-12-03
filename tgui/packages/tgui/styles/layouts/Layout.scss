@@ -38,11 +38,14 @@
   bottom: 0;
   left: 0;
   right: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
+  overflow: hidden;
+    margin: 6px;
 }
 
 .Layout__content--scrollable {
-  overflow-y: scroll;
-  margin-bottom: 0;
+  overflow-y: auto;
+  }
+  
+  .Layout__content--noMargin {
+    margin: 0;
 }
