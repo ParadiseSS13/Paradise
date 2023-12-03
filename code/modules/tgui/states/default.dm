@@ -76,7 +76,7 @@ GLOBAL_DATUM_INIT(default_state, /datum/ui_state/default, new)
 	else
 		return ..()
 
-/mob/dead/observer/default_can_use_topic()
+/mob/dead/observer/default_can_use_topic(src_object)
 	if(can_admin_interact())
 		return UI_INTERACTIVE				// Admins are more equal
 	return UI_UPDATE						// Ghosts can view updates
