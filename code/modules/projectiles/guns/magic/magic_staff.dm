@@ -44,6 +44,10 @@
 	no_den_usage = 1
 	fire_sound = 'sound/magic/staff_chaos.ogg'
 
+/obj/item/gun/magic/staff/chaos/debug //TODO : REMOVE
+	max_charges = 1000
+	recharge_rate = 1
+
 /obj/item/gun/magic/staff/door
 	name = "staff of door creation"
 	desc = "An artefact that spits bolts of transformative magic that can create doors in walls."

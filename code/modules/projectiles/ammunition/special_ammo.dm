@@ -30,14 +30,10 @@
 	projectile_type = /obj/item/projectile/magic/fireball
 
 /obj/item/ammo_casing/magic/chaos
-	projectile_type = /obj/item/projectile/magic
+	projectile_type = /obj/item/projectile/magic/chaos
 
 /obj/item/ammo_casing/magic/slipping
 	projectile_type = /obj/item/projectile/magic/slipping
-
-/obj/item/ammo_casing/magic/chaos/newshot()
-	projectile_type = pick(typesof(/obj/item/projectile/magic))
-	..()
 
 /obj/item/ammo_casing/magic/arcane_barrage
 	projectile_type = /obj/item/projectile/magic/arcane_barrage
