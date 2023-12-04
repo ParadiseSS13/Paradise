@@ -5,8 +5,7 @@
  */
 
 import { classes, isFalsy, pureComponentHooks } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from './Box';
-import { Box } from './Box';
+import { computeBoxClassName, computeBoxProps, Box } from './Box';
 
 export const Section = (props) => {
   const {

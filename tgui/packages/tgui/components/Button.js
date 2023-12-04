@@ -194,6 +194,10 @@ export class ButtonInput extends Component {
   }
 
   setInInput(inInput) {
+    const { disabled } = this.props;
+    if (disabled) {
+      return;
+    }
     this.setState({
       inInput,
     });
@@ -235,6 +239,7 @@ export class ButtonInput extends Component {
       tooltip,
       tooltipPosition,
       color = 'default',
+      disabled,
       placeholder,
       maxLength,
       multiLine,
@@ -246,6 +251,7 @@ export class ButtonInput extends Component {
         className={classes([
           'Button',
           fluid && 'Button--fluid',
+          disabled && 'Button--disabled',
           'Button--color--' + color,
           multiLine + 'Button--multiLine',
         ])}
