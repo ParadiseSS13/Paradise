@@ -504,7 +504,9 @@
 	. = ..()
 
 /obj/machinery/door/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id)
-	if(caller?.checkpass(PASSDOOR) && !locked)
+	if(QDELETED(caller))
+		return ..()
+	if(caller.checkpass(PASSDOOR) && !locked)
 		return TRUE
 	if(caller.checkpass(PASSGLASS))
 		return !opacity
