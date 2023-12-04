@@ -431,9 +431,9 @@
 	max_combined_w_class = 0
 	var/list/static/bundles = list(
 		"Spy" = /obj/item/storage/box/syndie_kit/bundle/spy,
-		"Agent13" = /obj/item/storage/box/syndie_kit/bundle/agent13,
+		"Agent 13" = /obj/item/storage/box/syndie_kit/bundle/agent13,
 		"Thief" = /obj/item/storage/box/syndie_kit/bundle/thief,
-		"Agent007" = /obj/item/storage/box/syndie_kit/bundle/bond,
+		"Agent 007" = /obj/item/storage/box/syndie_kit/bundle/bond,
 		"Infiltrator" = /obj/item/storage/box/syndie_kit/bundle/infiltrator,
 		"Heist" = /obj/item/storage/box/syndie_kit/bundle/payday,
 		"Implant" = /obj/item/storage/box/syndie_kit/bundle/implant,
