@@ -176,19 +176,9 @@
 	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
 
-/obj/item/door_remote/omni/access_tuner/access_windoor(obj/machinery/door/window/D, mob/user)
-	if(busy)
-		to_chat(user, "<span class='warning'>[src] is alreading interfacing with a door!</span>")
+/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)
+	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
 		return
-	icon_state = "hacktool-g"
-	busy = TRUE
-	to_chat(user, "<span class='notice'>[src] is attempting to interface with [D]...</span>")
-	if(do_after(user, hack_speed, target = D))
-		. = ..()
-	busy = FALSE
-	icon_state = "hacktool"
-
-/obj/item/door_remote/omni/access_tuner/access_airlock(obj/machinery/door/airlock/D, mob/user)
 	if(busy)
 		to_chat(user, "<span class='warning'>[src] is alreading interfacing with a door!</span>")
 		return
@@ -230,13 +220,13 @@
 /obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/airlock/D, mob/user, proximity)
 	if(!proximity)
 		return
-	if(!istype(D))
+	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>You are already using [src] on the [D] airlock's access panel!</span>")
+		to_chat(user, "<span class='warning'>You are already using [src] on the [D]'s access panel!</span>")
 		return
 	busy = TRUE
-	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D] airlock...</span>")
+	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D]...</span>")
 	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
 
 	var/mob/living/carbon/human/H = user
@@ -245,14 +235,11 @@
 	else
 		hack_speed = rand(5, 20) SECONDS
 
-	if(!do_after(user, hack_speed, target = D, progress = 0))
-		busy = FALSE
-		return
+	if(do_after(user, hack_speed, target = D, progress = 0))
+		. = ..()
 	busy = FALSE
 
-	if(!istype(D))
-		return
-
+/obj/item/door_remote/janikeyring/access_airlock(obj/machinery/door/airlock/D, mob/user)
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
 		to_chat(user, "<span class='danger'>[src] won't fit in the [D] airlock's access panel, there's slime everywhere!</span>")
 		return
@@ -265,15 +252,30 @@
 		to_chat(user, "<span class='danger'>The [D] airlock has no power!</span>")
 		return
 
-	if(D.check_access(ID))
-		D.add_hiddenprint(user)
-		if(D.density)
-			D.open()
-		else
-			to_chat(user, "<span class='danger'>The [D] airlock is already open!</span>")
-
-	else
+	if(!D.check_access(ID))
 		to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D] airlock's access panel!</span>")
+		return
+
+	D.add_hiddenprint(user)
+	if(D.density)
+		D.open()
+	else
+		to_chat(user, "<span class='danger'>The [D] airlock is already open!</span>")
+
+/obj/item/door_remote/janikeyring/access_windoor(obj/machinery/door/window/D, mob/user)
+	if(!(D.has_power()))
+		to_chat(user, "<span class='danger'>[D] has no power!</span>")
+		return
+
+	if(!D.check_access(src.ID))
+		to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D]'s access panel!</span>")
+		return
+
+	D.add_hiddenprint(user)
+	if(D.density)
+		D.open()
+	else
+		to_chat(user, "<span class='danger'>The [D] is already open!</span>")
 
 #undef WAND_OPEN
 #undef WAND_BOLT
