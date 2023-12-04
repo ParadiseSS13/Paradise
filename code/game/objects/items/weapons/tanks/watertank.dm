@@ -75,9 +75,9 @@
 		QDEL_NULL(noz)
 	return ..()
 
-/obj/item/watertank/attack_hand(mob/user as mob)
-	if(src.loc == user)
-		ui_action_click()
+/obj/item/watertank/attack_hand(mob/user)
+	if(loc == user)
+		toggle_mister(user)
 		return
 	..()
 

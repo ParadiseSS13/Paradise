@@ -223,7 +223,7 @@
 	name = "RT Engineer (Amber)"
 	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
-	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/gun/energy/gun/mini
@@ -246,7 +246,7 @@
 	name = "RT Engineer (Red)"
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer/gamma
-	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	glasses = /obj/item/clothing/glasses/meson/engine
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/t_scanner
@@ -256,7 +256,7 @@
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
 		/obj/item/gun/energy/gun = 1,
-		/obj/item/rpd = 1
+		/obj/item/rpd/bluespace = 1
 	)
 
 	cybernetic_implants = list(
@@ -274,6 +274,7 @@
 	name = "RT Engineer (Gamma)"
 	shoes = /obj/item/clothing/shoes/magboots/elite
 	back = /obj/item/mod/control/pre_equipped/responsory/engineer
+	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner
@@ -283,7 +284,7 @@
 		/obj/item/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 3,
 		/obj/item/gun/energy/gun/blueshield/pdw9 = 1,
-		/obj/item/rpd = 1
+		/obj/item/rpd/bluespace = 1
 	)
 
 	cybernetic_implants = list(

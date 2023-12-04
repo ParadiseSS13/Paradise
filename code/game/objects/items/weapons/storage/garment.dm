@@ -183,7 +183,7 @@
 	new /obj/item/clothing/shoes/jackboots/jacksandals(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/clothing/glasses/sunglasses(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses/read_only(src)
+	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses(src)
 	new /obj/item/clothing/glasses/hud/skills/sunglasses(src)
 	new /obj/item/clothing/accessory/blue(src)

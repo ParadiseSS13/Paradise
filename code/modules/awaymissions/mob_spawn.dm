@@ -82,9 +82,14 @@
 	if(jobban_isbanned(user, banType) || jobban_isbanned(user, ROLE_SYNDICATE))
 		to_chat(user, "<span class='warning'>You are jobanned!</span>")
 		return FALSE
-	if(cannotPossess(user))
-		to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+	if(!HAS_TRAIT(user, TRAIT_RESPAWNABLE))
+		to_chat(user, "<span class='warning'>You currently do not have respawnability!</span>")
 		return FALSE
+	if(isobserver(user))
+		var/mob/dead/observer/O = user
+		if(!O.check_ahud_rejoin_eligibility())
+			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			return FALSE
 	if(time_check(user))
 		return FALSE
 	return TRUE
@@ -570,7 +575,7 @@
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
 	id = /obj/item/card/id/shaftminer
-	l_pocket = /obj/item/reagent_containers/food/pill/patch/styptic
+	l_pocket = /obj/item/reagent_containers/patch/styptic
 	r_pocket = /obj/item/flashlight/seclite
 
 //Scientist corpse.

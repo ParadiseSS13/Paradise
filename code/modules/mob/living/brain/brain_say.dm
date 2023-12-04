@@ -1,5 +1,5 @@
 //TODO: Convert this over for languages.
-/mob/living/carbon/brain/say(message, datum/language/speaking = null)
+/mob/living/brain/say(message, datum/language/speaking = null)
 	if(stat == DEAD)
 		return ..()
 	if(!can_speak(warning = TRUE))
@@ -13,13 +13,13 @@
 
 	..(message)
 
-/mob/living/carbon/brain/whisper(message as text)
+/mob/living/brain/whisper(message as text)
 	if(!can_speak(warning = TRUE))
 		return
 
 	..()
 
-/mob/living/carbon/brain/can_speak(warning = FALSE)
+/mob/living/brain/can_speak(warning = FALSE)
 	. = ..()
 
 	if(!istype(container, /obj/item/mmi))
@@ -31,7 +31,7 @@
 				to_chat(usr, "<span class='warning'>You cannot speak, as your internal speaker is turned off.</span>")
 			. = FALSE
 
-/mob/living/carbon/brain/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
+/mob/living/brain/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
 		if("headset")
 			var/radio_worked = 0 // If any of the radios our brainmob could use functioned, this is set true so that we don't use any others

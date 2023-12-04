@@ -221,7 +221,7 @@
 	if(ready_to_deploy)
 		if(!istype(user)) // No revs allowed
 			return
-		if(cannotPossess(user))
+		if(!user.check_ahud_rejoin_eligibility())
 			to_chat(user, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
 		var/be_helper = alert("Become a Lightgeist? (Warning, You can no longer be cloned!)",,"Yes","No")

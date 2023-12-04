@@ -48,11 +48,13 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		to_chat(src, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
 		return FALSE
 
-	if(cannotPossess(src))
+	return TRUE
+
+/mob/dead/observer/JoinResponseTeam()
+	. = ..()
+	if(!check_ahud_rejoin_eligibility())
 		to_chat(src, "<span class='boldnotice'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 		return FALSE
-
-	return TRUE
 
 /proc/trigger_armed_response_team(datum/response_team/response_team_type, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots, cyborg_security)
 	GLOB.response_team_members = list()

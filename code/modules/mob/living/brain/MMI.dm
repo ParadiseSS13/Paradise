@@ -11,7 +11,7 @@
 	var/alien = 0
 	var/syndiemmi = FALSE //Whether or not this is a Syndicate MMI
 	var/mmi_item_name = "Man-Machine Interface" //Used to name the item when installing a brain
-	var/mob/living/carbon/brain/brainmob = null//The current occupant.
+	var/mob/living/brain/brainmob = null//The current occupant.
 	var/obj/item/organ/internal/brain/held_brain = null // This is so MMI's aren't brainscrubber 9000's
 	var/mob/living/silicon/robot/robot = null//Appears unused.
 	var/obj/mecha/mecha = null//This does not appear to be used outside of reference in mecha.dm.
