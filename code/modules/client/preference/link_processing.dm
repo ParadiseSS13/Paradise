@@ -894,20 +894,12 @@
 						toggles ^= PREFTOGGLE_DONATOR_PUBLIC
 
 				if("gender")
-					if(!S.has_gender)
-						var/newgender = input(user, "Choose Gender:") as null|anything in list("Male", "Female", "Genderless")
-						switch(newgender)
-							if("Male")
-								active_character.gender = MALE
-							if("Female")
-								active_character.gender = FEMALE
-							if("Genderless")
-								active_character.gender = PLURAL
-					else
-						if(active_character.gender == MALE)
-							active_character.gender = FEMALE
-						else
-							active_character.gender = MALE
+					if(active_character.gender == MALE)
+						active_character.gender = FEMALE
+					else if(active_character.gender == FEMALE)
+						active_character.gender = PLURAL
+					else if(active_character.gender == PLURAL)
+						active_character.gender = MALE
 					active_character.underwear = random_underwear(active_character.gender)
 
 				if("hear_adminhelps")
