@@ -72,7 +72,7 @@
 		//damage target
 		return
 	chaos_effect = pick("fireballed", "ice spiked", "rathend", "stabbed", "slashed", "burned", "poisoned", \
-		"plasma fire", "clowned", "mimed", "teleport", "scatter inventory", "forced to dance")
+		"plasma fire", "clowned", "mimed", "teleport", "teleport roulette", "scatter inventory", "forced to dance")
 	switch(chaos_effect)
 		if("fireballed")
 			return
@@ -107,7 +107,7 @@
 	if(!iscarbon(target))
 		//random effect like fireworks/confetti/etc
 		return
-	chaos_effect = pick("bark", "meow", "fireworks", "smoke", "blink", "spin", "flip", "confetti", "slip", \
+	chaos_effect = pick("bark", "fireworks", "smoke", "blink", "blink spam", "spin", "flip", "confetti", "slip", \
 		"wand of nothing", "help maint", "fake callout", "switcharoo", "spacetime distortion", "bike horn", "slippables", "wizard robes")
 	switch(chaos_effect)
 		if("bark")
