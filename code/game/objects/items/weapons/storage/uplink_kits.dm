@@ -435,13 +435,13 @@
 		"Thief" = /obj/item/storage/box/syndie_kit/bundle/thief,
 		"Agent 007" = /obj/item/storage/box/syndie_kit/bundle/bond,
 		"Infiltrator" = /obj/item/storage/box/syndie_kit/bundle/infiltrator,
-		"Heist" = /obj/item/storage/box/syndie_kit/bundle/payday,
-		"Implant" = /obj/item/storage/box/syndie_kit/bundle/implant,
+		"Bank Robber" = /obj/item/storage/box/syndie_kit/bundle/payday,
+		"Implanter" = /obj/item/storage/box/syndie_kit/bundle/implant,
 		"Hacker" = /obj/item/storage/box/syndie_kit/bundle/hacker,
 		"Dark Lord" = /obj/item/storage/box/syndie_kit/bundle/darklord,
 		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
-		"Modsuit" = /obj/item/storage/box/syndie_kit/bundle/metroid)
+		"Modsuiter" = /obj/item/storage/box/syndie_kit/bundle/metroid)
 	var/list/selected = list()
 	var/list/unselected = list()
 
@@ -460,7 +460,7 @@
 		bundle_name = pick(unselected)
 	var/bundle = bundles[bundle_name]
 	bundle = new bundle( user.loc )
-	to_chat(user, "<span class='notice'>You have selected [bundle_name].</span>")
+	to_chat(user, "<span class='notice'>Welcome to the team, [bundle_name]</span>")
 	playsound(src, 'sound/items/handling/cardboardbox_pickup.ogg', 100, TRUE, TRUE)
 	user.drop_item()
 	qdel(src)
