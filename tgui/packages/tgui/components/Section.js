@@ -6,6 +6,7 @@
 
 import { classes, isFalsy, pureComponentHooks } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from './Box';
+import { Box } from './Box';
 
 export const Section = (props) => {
   const {
@@ -15,6 +16,10 @@ export const Section = (props) => {
     buttons,
     fill,
     children,
+    content,
+    stretchContents,
+    noTopPadding,
+    showBottom = true,
     ...rest
   } = props;
   const hasTitle = !isFalsy(title) || !isFalsy(buttons);
@@ -31,12 +36,28 @@ export const Section = (props) => {
       {...computeBoxProps(rest)}
     >
       {hasTitle && (
-        <div className="Section__title">
+        <div
+          className={classes([
+            'Section__title',
+            showBottom && 'Section__title--showBottom',
+          ])}
+        >
           <span className="Section__titleText">{title}</span>
           <div className="Section__buttons">{buttons}</div>
         </div>
       )}
-      {hasContent && <div className="Section__content">{children}</div>}
+      {hasContent && (
+        <Box
+          className={classes([
+            'Section__content',
+            !!stretchContents && 'Section__content--stretchContents',
+            !!noTopPadding && 'Section__content--noTopPadding',
+          ])}
+        >
+          {content}
+          {children}
+        </Box>
+      )}
     </div>
   );
 };
