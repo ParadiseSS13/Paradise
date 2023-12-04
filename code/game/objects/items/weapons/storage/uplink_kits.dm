@@ -460,7 +460,7 @@
 		bundle_name = pick(unselected)
 	var/bundle = bundles[bundle_name]
 	bundle = new bundle( user.loc )
-	to_chat(user, "<span class='notice'>Welcome to the team, [bundle_name]</span>")
+	to_chat(user, "<span class='notice'>Welcome to [station_name()], [bundle_name]</span>")
 	playsound(src, 'sound/items/handling/cardboardbox_pickup.ogg', 100, TRUE, TRUE)
 	user.drop_item()
 	qdel(src)
