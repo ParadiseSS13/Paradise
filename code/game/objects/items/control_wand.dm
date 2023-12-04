@@ -49,7 +49,7 @@
 	. = ..()
 	. += "<span class='notice'>It's current mode is: [mode]</span>"
 
-/obj/item/door_remote/afterattack(obj/target, mob/user) //machinery/door/airlock/D
+/obj/item/door_remote/afterattack(obj/target, mob/user)
 	if(istype(target, /obj/machinery/door/airlock))
 		access_airlock(target, user)
 	if(istype(target, /obj/machinery/door/window))
