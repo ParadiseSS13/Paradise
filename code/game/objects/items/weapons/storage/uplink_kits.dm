@@ -443,7 +443,7 @@
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
 		"Modsuit" = /obj/item/storage/box/syndie_kit/bundle/metroid)
 	var/list/selected = list()
-	var/list/unselected
+	var/list/unselected = list()
 
 /obj/item/storage/box/syndie_kit/bundle/badass/attack_self(mob/user)
 	if(!user)
