@@ -563,8 +563,6 @@
 	cost = 100
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
-/datum/
-
 /datum/uplink_item/bundles_TC/surplus_crate
 	name = "Syndicate Surplus Crate"
 	desc = "A crate containing 250 telecrystals worth of random syndicate leftovers."
