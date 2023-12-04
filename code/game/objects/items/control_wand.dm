@@ -59,18 +59,23 @@
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
 		to_chat(user, "<span class='danger'>The door doesn't respond to [src]!</span>")
 		return
+
 	if(D.is_special)
 		to_chat(user, "<span class='danger'>[src] cannot access this kind of door!</span>")
 		return
+
 	if(!(D.arePowerSystemsOn()))
 		to_chat(user, "<span class='danger'>[D] has no power!</span>")
 		return
+
 	if(!D.requiresID())
 		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
 		return
+
 	if(!D.check_access(src.ID))
 		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
 		return
+
 	D.add_hiddenprint(user)
 	switch(mode)
 		if(WAND_OPEN)
@@ -97,16 +102,20 @@
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
 		to_chat(user, "<span class='danger'>The door doesn't respond to [src]!</span>")
 		return
+
 	if(!(D.has_power()))
 		to_chat(user, "<span class='danger'>[D] has no power!</span>")
 		return
+
 	if(!D.requiresID())
 		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
 		return
+
 	if(!D.check_access(src.ID))
 		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
 		return
-		D.add_hiddenprint(user)
+
+	D.add_hiddenprint(user)
 	switch(mode)
 		if(WAND_OPEN)
 			if(D.density)
