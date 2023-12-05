@@ -246,11 +246,14 @@ const Advert = (_properties, context) => {
       }
     >
       <Box display="flex" flexWrap="wrap" mb="5px">
-        {lucky_numbers.map((number, index) => (
-          <Flex.Item flexShrink={0} key={index} p="0.5%" width="49%">
-            <UplinkItem grow i={cats[number.cat].items[number.item]} />
-          </Flex.Item>
-        ))}
+        {lucky_numbers
+          .map((number) => cats[number.cat].items[number.item])
+          .filter((item) => item !== undefined && item !== null)
+          .map((item, index) => (
+            <Flex.Item flexShrink={0} key={index} p="0.5%" width="49%">
+              <UplinkItem grow i={item} />
+            </Flex.Item>
+          ))}
       </Box>
     </Section>
   );
