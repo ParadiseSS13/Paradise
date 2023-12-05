@@ -680,25 +680,21 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 	turret.lethal = TRUE
 	turret.raised = TRUE //While raised, it is vulnerable to damage
 	turret.targetting_is_configurable = FALSE
-	turret.lethal_is_configurable = TRUE
-	turret.ailock = FALSE
 	turret.check_synth = TRUE
 	turret.invisibility = 100
 
 	//If turrets are already upgraded, beef it up
 	if(GLOB.turrets_upgraded)
 		turret.health += 30
-		turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
+		turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Big gun
 		turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 
-	if(do_after_once(owner, 5 SECONDS, target = T, allow_moving = TRUE))
-		turret.raised = FALSE
-		turret.invisibility = 0
+	if(do_after_once(owner, 5 SECONDS, target = T, allow_moving = TRUE)) //Once this is done, turret is armed and dangerous
+		turret.raised = initial(turret.raised)
+		turret.invisibility = initial(turret.invisibility)
 		qdel(spawning_effect)
-		turret.disabled = FALSE
+		turret.disabled = initial(turret.disabled)
 		new /obj/effect/temp_visual/rcd_effect/end(T)
-
-
 		playsound(T, 'sound/items/deconstruct.ogg', 100, 1)
 		to_chat(owner, "<span class='notice'>Turret deployed.</span>")
 		adjust_uses(-1)
