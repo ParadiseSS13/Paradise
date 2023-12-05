@@ -698,7 +698,7 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 	active = FALSE
 
 /mob/living/silicon/ai/proc/can_place_turret(datum/action/innate/ai/place_turret/action)
-	if(!eyeobj || !isturf(loc) || incapacitated() || !action)
+	if(!eyeobj || !isturf(eyeobj.loc) || incapacitated() || !action)
 		return
 
 	var/success = TRUE
