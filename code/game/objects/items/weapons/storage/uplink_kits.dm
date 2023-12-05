@@ -441,7 +441,7 @@
 		"Dark Lord" = /obj/item/storage/box/syndie_kit/bundle/darklord,
 		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
 		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
-		"Modsuiter" = /obj/item/storage/box/syndie_kit/bundle/metroid)
+		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid)
 	var/list/selected = list()
 	var/list/unselected = list()
 
