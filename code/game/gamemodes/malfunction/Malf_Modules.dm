@@ -4,6 +4,8 @@
 // crit percent
 #define MALF_AI_ROLL_CRIT_CHANCE 5
 
+var/turrets_upgraded = FALSE //If the turrets are upgraded
+
 //The malf AI action subtype. All malf actions are subtypes of this.
 /datum/action/innate/ai
 	name = "AI Action"
@@ -341,6 +343,7 @@
 			turret.health += 30
 			turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
+	turrets_upgraded = TRUE
 
 //Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
 /datum/AI_Module/lockdown
@@ -622,6 +625,100 @@
 		client.images += I
 		I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
 		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, T), 30)
+	if(!success)
+		to_chat(src, "<span class='warning'>[alert_msg]</span>")
+	return success
+
+//Turret Assembly: Assemble an AI turret at the chosen location. One use per purchase
+/datum/AI_Module/place_turret
+	module_name = "Deploy Turret"
+	mod_pick_name = "turretdeployer"
+	description = "Build a turret anywhere that lethally targets organic life in sight."
+	cost = 30
+	power_type = /datum/action/innate/ai/place_turret
+	unlock_text = "<span class='notice'>You prepare an energy turret for deployment.</span>"
+	unlock_sound = 'sound/items/rped.ogg'
+
+/datum/action/innate/ai/place_turret
+	name = "Deploy Turret"
+	desc = "Build a turret anywhere that lethally targets organic life in sight."
+	button_icon_state = "deploy_turret"
+	uses = 1
+	auto_use_uses = FALSE
+	var/image/turfOverlay
+
+/datum/action/innate/ai/place_turret/New()
+	..()
+	turfOverlay = image("icon"='icons/turf/overlays.dmi')
+
+/datum/action/innate/ai/place_turret/Activate()
+	if(active)
+		to_chat(owner, "<span class='notice'>Your assemblers can only construct one turret at a time.</span>")
+		return
+	if(!owner_AI.can_place_turret(src))
+		return
+	active = TRUE
+	if(alert(owner, "Are you sure you want to place a turret here? Deployment will take a few seconds to complete, in which the turret will be vulnerable.", "Are you sure?", "Yes", "No") == "No")
+		active = FALSE
+		return
+	if(!owner_AI.can_place_turret(src))
+		active = FALSE
+		return
+
+	var/turf/T = get_turf(owner_AI.eyeobj)
+
+	//Handles the turret construction and configuration
+	playsound(T, 'sound/items/rped.ogg', 100, 1) //Plays a sound both at the location of the construction to alert players and to the user as feedback
+	owner.playsound_local(owner, 'sound/items/rped.ogg', 50, FALSE, use_reverb = FALSE)
+	to_chat(owner, "<span class='notice'>You order your electronics to assemble a turret. This will take a few seconds.</span>")
+	var/obj/effect/temp_visual/rcd_effect/E = new(T)
+	//Deploys as lethal. Nonlethals can be enabled.
+	var/obj/machinery/porta_turret/turret = new /obj/machinery/porta_turret/ai_turret(T)
+	turret.disabled = TRUE
+	turret.lethal = TRUE
+	turret.targetting_is_configurable = FALSE
+	turret.check_synth = TRUE
+
+	//If turrets are already upgraded, beef it up
+	if(turrets_upgraded)
+		turret.health += 30
+		turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
+		turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
+
+	do_after(owner, 5 SECONDS, target = T, allow_moving = TRUE)
+	qdel(E)
+	turret.disabled = FALSE
+	new/obj/effect/temp_visual/rcd_effect/end(T)
+
+	playsound(T, 'sound/items/deconstruct.ogg', 100, 1)
+	to_chat(owner, "<span class='notice'>Turret deployed.</span>")
+	adjust_uses(-1)
+	active = FALSE
+
+/mob/living/silicon/ai/proc/can_place_turret(datum/action/innate/ai/place_turret/action)
+	if(!eyeobj || !isturf(loc) || incapacitated() || !action)
+		return
+
+	var/success = TRUE
+	var/turf/deploylocation = get_turf(eyeobj)
+	var/alert_msg = "There isn't enough room! Make sure you are placing the machine in a clear area and on a floor."
+
+	if(!isfloorturf(deploylocation))
+		success = FALSE
+	var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(deploylocation.x, deploylocation.y, deploylocation.z)
+	if(!C.visibleTurfs[deploylocation])
+		alert_msg = "You don't have camera vision of this location!"
+		success = FALSE
+	for(var/atom/movable/AM in deploylocation.contents)
+		if(AM.density)
+			alert_msg = "That area must be clear of objects!"
+			success = FALSE
+	var/image/I = action.turfOverlay
+	I.loc = deploylocation
+	client.images += I
+	I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
+	addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 30)
+
 	if(!success)
 		to_chat(src, "<span class='warning'>[alert_msg]</span>")
 	return success
