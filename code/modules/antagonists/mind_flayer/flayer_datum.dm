@@ -12,7 +12,7 @@
 	var/mob/living/carbon/human/harvesting
 	///The list of all purchased powers
 	var/list/powers = list()
-	/// A list of all powers mindflayers should start with
+	/// A list of all powers mindflayers can buy
 	var/list/ability_list = list()
 	///List for keeping track of who has already been drained
 	var/list/drained_humans = list()
