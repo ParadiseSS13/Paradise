@@ -252,8 +252,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 	mineralSpawnChanceList = list(
@@ -272,8 +272,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -294,8 +294,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 	mineralSpawnChanceList = list(
@@ -314,8 +314,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -329,8 +329,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -344,8 +344,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -359,8 +359,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -374,8 +374,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -389,8 +389,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -404,8 +404,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -420,8 +420,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -435,8 +435,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -451,8 +451,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 
@@ -460,8 +460,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 
 /turf/simulated/mineral/volcanic/lava_land_surface
@@ -575,8 +575,8 @@
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
 	baseturf = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	defer_change = 1
 

@@ -49,8 +49,8 @@
 	temperature = 180
 
 /turf/simulated/floor/wood/lavaland_air
-	nitrogen = 23
-	oxygen = 14
+	nitrogen = 14
+	oxygen = 8
 	temperature = 500
 
 /turf/simulated/floor/grass

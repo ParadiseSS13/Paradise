@@ -145,8 +145,8 @@
 ///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
@@ -189,8 +189,8 @@ GLOBAL_LIST_INIT(megafauna_spawn_list, list(/mob/living/simple_animal/hostile/me
 
 	data_having_type = /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 
 /turf/simulated/floor/plating/asteroid/airless/cave/volcanic/has_data //subtype for producing a tunnel with given data

@@ -428,8 +428,8 @@
 	dir = 4
 	},
 /turf/simulated/floor/pod/light{
-	nitrogen = 23;
-	oxygen = 14;
+	nitrogen = 14;
+	oxygen = 8;
 	temperature = 500
 	},
 /area/ruin/powered/beach)
@@ -546,8 +546,8 @@
 	dir = 8
 	},
 /turf/simulated/floor/pod/light{
-	nitrogen = 23;
-	oxygen = 14;
+	nitrogen = 14;
+	oxygen = 8;
 	temperature = 500
 	},
 /area/ruin/powered/beach)

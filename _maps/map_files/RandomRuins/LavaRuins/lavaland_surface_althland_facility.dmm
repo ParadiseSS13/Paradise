@@ -3,8 +3,8 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "ab" = (
@@ -20,8 +20,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "af" = (
@@ -43,8 +43,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "aM" = (
@@ -57,8 +57,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "bc" = (
@@ -68,8 +68,8 @@
 /obj/effect/turf_decal/caution/stand_clear/white,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "be" = (
@@ -86,8 +86,8 @@
 /obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "bP" = (
@@ -97,8 +97,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "bT" = (
@@ -122,8 +122,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "cw" = (
@@ -132,8 +132,8 @@
 /obj/machinery/power/smes,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "cJ" = (
@@ -142,8 +142,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "dh" = (
@@ -174,8 +174,8 @@
 /obj/item/stack/ore/plasma,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "eV" = (
@@ -188,8 +188,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "fc" = (
@@ -198,8 +198,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "fd" = (
@@ -211,8 +211,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "fm" = (
@@ -228,8 +228,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "fs" = (
@@ -239,8 +239,8 @@
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "fv" = (
@@ -248,8 +248,8 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "fB" = (
@@ -267,8 +267,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "fP" = (
@@ -283,8 +283,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "gb" = (
@@ -295,8 +295,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "gC" = (
@@ -318,8 +318,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "gE" = (
@@ -330,8 +330,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "gF" = (
@@ -348,8 +348,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "ho" = (
@@ -358,8 +358,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "hx" = (
@@ -368,8 +368,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "hE" = (
@@ -381,8 +381,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "hP" = (
@@ -392,8 +392,8 @@
 /obj/machinery/conveyor/west,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "hY" = (
@@ -404,8 +404,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "ia" = (
@@ -422,8 +422,8 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "iq" = (
@@ -434,8 +434,8 @@
 /obj/machinery/mineral/unloading_machine,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "jb" = (
@@ -459,8 +459,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "kn" = (
@@ -474,8 +474,8 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "kR" = (
@@ -488,8 +488,8 @@
 /obj/item/storage/box/donkpockets/empty,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "lr" = (
@@ -498,8 +498,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "lZ" = (
@@ -513,8 +513,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "ms" = (
@@ -524,8 +524,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "nm" = (
@@ -539,8 +539,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "nK" = (
@@ -551,8 +551,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "nN" = (
@@ -563,8 +563,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "nQ" = (
@@ -573,8 +573,8 @@
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "nX" = (
@@ -586,16 +586,16 @@
 "oj" = (
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "oG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "pn" = (
@@ -609,8 +609,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "pP" = (
@@ -621,8 +621,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "qh" = (
@@ -643,8 +643,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "qQ" = (
@@ -662,8 +662,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "rf" = (
@@ -672,8 +672,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "rw" = (
@@ -685,8 +685,8 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "rY" = (
@@ -695,8 +695,8 @@
 /obj/item/paper/fluff/ruins/althland/journal,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "sa" = (
@@ -707,16 +707,16 @@
 /obj/item/stack/sheet/mineral/silver,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "sg" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "su" = (
@@ -729,8 +729,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "sv" = (
@@ -749,8 +749,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "to" = (
@@ -759,8 +759,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "tv" = (
@@ -771,8 +771,8 @@
 /obj/item/stack/cable_coil,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "tD" = (
@@ -782,8 +782,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "tS" = (
@@ -802,8 +802,8 @@
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "ub" = (
@@ -811,8 +811,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "uf" = (
@@ -821,8 +821,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "ui" = (
@@ -839,8 +839,8 @@
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "uM" = (
@@ -851,8 +851,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "vf" = (
@@ -866,8 +866,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "vl" = (
@@ -877,8 +877,8 @@
 /obj/item/storage/belt/mining/alt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "vo" = (
@@ -891,8 +891,8 @@
 /obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "vM" = (
@@ -902,8 +902,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "wZ" = (
@@ -912,8 +912,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "xK" = (
@@ -924,8 +924,8 @@
 /obj/machinery/economy/vending/chinese,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "zd" = (
@@ -938,8 +938,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "zp" = (
@@ -956,8 +956,8 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "zq" = (
@@ -973,8 +973,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "zE" = (
@@ -987,8 +987,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "zG" = (
@@ -1002,8 +1002,8 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "zO" = (
@@ -1012,8 +1012,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "zR" = (
@@ -1021,8 +1021,8 @@
 /obj/structure/door_assembly/door_assembly_mhatch,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "zZ" = (
@@ -1032,8 +1032,8 @@
 /obj/machinery/conveyor/west,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Au" = (
@@ -1045,8 +1045,8 @@
 /obj/structure/door_assembly/door_assembly_mhatch,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "AE" = (
@@ -1059,16 +1059,16 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "AH" = (
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "AL" = (
@@ -1078,8 +1078,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "AT" = (
@@ -1092,8 +1092,8 @@
 /obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "BG" = (
@@ -1106,8 +1106,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "BM" = (
@@ -1116,8 +1116,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "BO" = (
@@ -1130,8 +1130,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "BX" = (
@@ -1145,8 +1145,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "CF" = (
@@ -1162,8 +1162,8 @@
 /obj/machinery/economy/vending/assist/free,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Dd" = (
@@ -1171,8 +1171,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "Dg" = (
@@ -1185,8 +1185,8 @@
 /obj/machinery/disposal,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Dt" = (
@@ -1198,8 +1198,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Dv" = (
@@ -1207,15 +1207,15 @@
 /obj/structure/door_assembly/door_assembly_mhatch,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Dz" = (
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "DM" = (
@@ -1226,8 +1226,8 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Ec" = (
@@ -1238,8 +1238,8 @@
 /obj/machinery/mineral/processing_unit,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Ek" = (
@@ -1256,8 +1256,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Fd" = (
@@ -1270,8 +1270,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "FX" = (
@@ -1283,8 +1283,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Ge" = (
@@ -1296,8 +1296,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Gk" = (
@@ -1307,8 +1307,8 @@
 /obj/item/clothing/under/rank/cargo/miner,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Gt" = (
@@ -1318,8 +1318,8 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Gz" = (
@@ -1329,8 +1329,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "GF" = (
@@ -1343,8 +1343,8 @@
 /obj/structure/girder,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Hj" = (
@@ -1366,8 +1366,8 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Hx" = (
@@ -1378,8 +1378,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "HO" = (
@@ -1389,8 +1389,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Ic" = (
@@ -1401,8 +1401,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "In" = (
@@ -1410,16 +1410,16 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Io" = (
 /obj/item/chair,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "IT" = (
@@ -1429,8 +1429,8 @@
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Jw" = (
@@ -1443,8 +1443,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "JE" = (
@@ -1454,8 +1454,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "JT" = (
@@ -1464,8 +1464,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "KJ" = (
@@ -1476,8 +1476,8 @@
 /obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "KN" = (
@@ -1495,8 +1495,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "KZ" = (
@@ -1513,8 +1513,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Ln" = (
@@ -1525,8 +1525,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Lq" = (
@@ -1536,8 +1536,8 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "LA" = (
@@ -1545,8 +1545,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Ms" = (
@@ -1555,8 +1555,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "Mw" = (
@@ -1566,8 +1566,8 @@
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "MO" = (
@@ -1581,8 +1581,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "MY" = (
@@ -1590,8 +1590,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "Nu" = (
@@ -1602,8 +1602,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Og" = (
@@ -1620,8 +1620,8 @@
 /obj/item/paper/fluff/ruins/althland/journal,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "OJ" = (
@@ -1631,8 +1631,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "OW" = (
@@ -1641,8 +1641,8 @@
 /obj/item/t_scanner/adv_mining_scanner,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Pn" = (
@@ -1650,8 +1650,8 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Po" = (
@@ -1661,8 +1661,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Px" = (
@@ -1677,8 +1677,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "PF" = (
@@ -1686,8 +1686,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "PJ" = (
@@ -1695,8 +1695,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "PY" = (
@@ -1704,8 +1704,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "Qj" = (
@@ -1714,8 +1714,8 @@
 /obj/item/clothing/mask/gas/explorer,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Qu" = (
@@ -1738,8 +1738,8 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "RX" = (
@@ -1760,8 +1760,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "TN" = (
@@ -1769,8 +1769,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "TX" = (
@@ -1779,8 +1779,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "UP" = (
@@ -1793,8 +1793,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "UU" = (
@@ -1806,8 +1806,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Vj" = (
@@ -1819,8 +1819,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "VJ" = (
@@ -1838,8 +1838,8 @@
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Wb" = (
@@ -1856,16 +1856,16 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Wl" = (
 /obj/structure/grille,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Wp" = (
@@ -1877,8 +1877,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "WQ" = (
@@ -1891,8 +1891,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Xn" = (
@@ -1910,8 +1910,8 @@
 /obj/item/paper/fluff/ruins/althland/geology,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "XD" = (
@@ -1921,8 +1921,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "XO" = (
@@ -1933,8 +1933,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "XT" = (
@@ -1947,8 +1947,8 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Yd" = (
@@ -1956,16 +1956,16 @@
 /obj/item/shard,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "Yl" = (
 /obj/structure/girder,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Yt" = (
@@ -1977,8 +1977,8 @@
 	},
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Yx" = (
@@ -1987,8 +1987,8 @@
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "YF" = (
@@ -1998,8 +1998,8 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "YK" = (
@@ -2007,8 +2007,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "YN" = (
@@ -2017,8 +2017,8 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/lavaland/surface/outdoors)
 "Zi" = (
@@ -2031,8 +2031,8 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "Zr" = (
@@ -2050,8 +2050,8 @@
 /obj/item/shard,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "ZB" = (
@@ -2070,8 +2070,8 @@
 /obj/effect/landmark/burnturf,
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 "ZN" = (
@@ -2084,8 +2084,8 @@
 	},
 /turf/simulated/floor{
 	temperature = 500;
-	oxygen = 14;
-	nitrogen = 23
+	oxygen = 8;
+	nitrogen = 14
 	},
 /area/ruin/unpowered/althland_processing)
 

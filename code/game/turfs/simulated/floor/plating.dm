@@ -170,8 +170,8 @@
 
 /turf/simulated/floor/plating/lavaland_air
 	temperature = 500
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 
 /turf/simulated/floor/engine
 	name = "reinforced floor"
@@ -242,8 +242,8 @@
 	return
 
 /turf/simulated/floor/engine/cult/lavaland_air
-	nitrogen = 23
-	oxygen = 14
+	nitrogen = 14
+	oxygen = 8
 	temperature = 500
 
 //air filled floors; used in atmos pressure chambers

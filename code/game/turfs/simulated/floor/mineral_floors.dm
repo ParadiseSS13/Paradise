@@ -285,5 +285,5 @@
 
 /turf/simulated/floor/plating/abductor/lavaland_air
 	temperature = 500
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14

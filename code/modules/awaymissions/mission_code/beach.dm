@@ -113,8 +113,8 @@
 		linkedcontroller.decalinpool += A
 
 /turf/simulated/floor/beach/away/water/lavaland_air
-	nitrogen = 23
-	oxygen = 14
+	nitrogen = 14
+	oxygen = 8
 	temperature = 500
 	planetary_atmos = TRUE
 

@@ -148,8 +148,8 @@
 
 /turf/simulated/floor/plating/lava/smooth/lava_land_surface
 	temperature = 500
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 
@@ -249,8 +249,8 @@
 	base_icon_state = "mappinglava"
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 	temperature = 500
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	planetary_atmos = TRUE
 
 

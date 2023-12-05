@@ -167,8 +167,8 @@
 "J" = (
 /obj/effect/spawner/window/shuttle,
 /turf/simulated/floor/plating{
-	nitrogen = 23;
-	oxygen = 14;
+	nitrogen = 14;
+	oxygen = 8;
 	temperature = 500
 	},
 /area/ruin/powered)

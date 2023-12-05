@@ -44,8 +44,8 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	planetary_atmos = TRUE
 	footstep = FOOTSTEP_LAVA
@@ -68,8 +68,8 @@
 	icon = 'icons/turf/floors/boss_floors.dmi'
 	icon_state = "boss"
 	baseturf = /turf/simulated/floor/indestructible/boss
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	planetary_atmos = TRUE
 
@@ -82,8 +82,8 @@
 	name = "floor"
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
-	oxygen = 14
-	nitrogen = 23
+	oxygen = 8
+	nitrogen = 14
 	temperature = 500
 	planetary_atmos = TRUE
 	smoothing_flags = SMOOTH_CORNERS
