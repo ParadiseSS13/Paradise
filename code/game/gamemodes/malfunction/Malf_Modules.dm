@@ -687,15 +687,17 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 		turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
 		turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 
-	do_after_once(owner, 5 SECONDS, target = T, allow_moving = TRUE)
-	qdel(spawning_effect)
-	turret.disabled = FALSE
-	new /obj/effect/temp_visual/rcd_effect/end(T)
+	if(do_after_once(owner, 5 SECONDS, target = T, allow_moving = TRUE))
+		qdel(spawning_effect)
+		turret.disabled = FALSE
+		new /obj/effect/temp_visual/rcd_effect/end(T)
 
-	playsound(T, 'sound/items/deconstruct.ogg', 100, 1)
-	to_chat(owner, "<span class='notice'>Turret deployed.</span>")
-	adjust_uses(-1)
-	active = FALSE
+
+		playsound(T, 'sound/items/deconstruct.ogg', 100, 1)
+		to_chat(owner, "<span class='notice'>Turret deployed.</span>")
+		adjust_uses(-1)
+		active = FALSE
+	return
 
 /mob/living/silicon/ai/proc/can_place_turret(datum/action/innate/ai/place_turret/action)
 	if(!eyeobj || !isturf(eyeobj.loc) || incapacitated() || !action)
