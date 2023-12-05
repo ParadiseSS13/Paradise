@@ -168,7 +168,7 @@
 			if(!QDELETED(S.current_body) && S.current_body.stat != DEAD)
 				return
 
-  GLOB.configuration.gamemode.disable_certain_round_early_end = is_revive_possible()
+	GLOB.configuration.gamemode.disable_certain_round_early_end = is_revive_possible()
 
 /obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), SLOT_HUD_OUTER_SUIT)
