@@ -559,7 +559,7 @@
 	name = "Syndicate Bundle"
 	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specialisations after purchase."
 	reference = "SYB"
-	item = /obj/item/storage/box/syndie_kit/bundle/badass
+	item = /obj/item/radio/beacon/syndicate/bundle/
 	cost = 100
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
