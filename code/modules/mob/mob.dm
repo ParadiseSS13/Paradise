@@ -639,29 +639,8 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 		return 1
 
 	face_atom(A)
-	var/list/result
-	if(client)
-		LAZYINITLIST(client.recent_examines)
-		var/ref_to_atom = ref(A)
-		var/examine_time = client.recent_examines[ref_to_atom]
-		if(examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW))
-			result = A.examine_more(src)
-			if(!length(result))
-				result += "<span class='notice'><i>You examine [A] closer, but find nothing of interest...</i></span>"
-		else
-			result = A.examine(src)
-			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
-			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
-	else
-		result = A.examine(src) // if a tree is examined but no client is there to see it, did the tree ever really exist?
-
+	var/list/result = A.examine(src)
 	to_chat(src, chat_box_examine(result.Join("\n")))
-
-/mob/proc/clear_from_recent_examines(ref_to_clear)
-	SIGNAL_HANDLER
-	if(!client)
-		return
-	LAZYREMOVE(client.recent_examines, ref_to_clear)
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
 	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
