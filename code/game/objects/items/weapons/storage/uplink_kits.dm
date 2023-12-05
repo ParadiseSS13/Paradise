@@ -51,7 +51,7 @@
 		/obj/item/storage/backpack/satchel_flat, // 10TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-/obj/item/storage/box/syndie_kit/bundle/bond // 134TC
+/obj/item/storage/box/syndie_kit/bundle/bond // 137TC
 	name = "Agent 007 Bundle"
 	desc = "Shake your Martini and stir up trouble with this bundle of lethal equipment mixed with a spritz of gadgetry to keep things interesting."
 	items = list(
@@ -61,7 +61,7 @@
 		/obj/item/ammo_box/magazine/m10mm/ap, // 6TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
 		/obj/item/card/id/syndicate, // 10TC
-		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 0TC
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored, // 3TC
 		/obj/item/storage/box/syndie_kit/emp, // 10TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
 		/obj/item/encryptionkey/syndicate, // 10TC
