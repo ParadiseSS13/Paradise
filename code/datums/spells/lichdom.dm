@@ -33,7 +33,7 @@
 	for(var/mob/M in targets)
 		if(stat_allowed)
 			attempt_revive(M)
-		else
+		else if(!marked_item_uid)
 			attempt_mark_item(M)
 
 /obj/effect/proc_holder/spell/lichdom/proc/attempt_revive(mob/user)
@@ -43,15 +43,15 @@
 		cooldown_handler.revert_cast()
 		return
 
+	// Body was destroyed
+	if(QDELETED(current_body))
+		to_chat(user, "<span class='warning'>Your body is gone!</span>")
+		return
+
 	// Phylactery was destroyed
 	var/obj/item/marked_item = locateUID(marked_item_uid)
 	if(QDELETED(marked_item))
 		to_chat(user, "<span class='warning'>Your phylactery is gone!</span>")
-		return
-
-	// Body was destroyed
-	if(QDELETED(current_body))
-		to_chat(user, "<span class='warning'>Your body is gone!</span>")
 		return
 
 	// Wrong z-level
@@ -168,8 +168,7 @@
 			if(!QDELETED(S.current_body) && S.current_body.stat != DEAD)
 				return
 
-	if(existence_stops_round_end)
-		GLOB.configuration.gamemode.disable_certain_round_early_end = is_revive_possible()
+  GLOB.configuration.gamemode.disable_certain_round_early_end = is_revive_possible()
 
 /obj/effect/proc_holder/spell/lichdom/proc/equip_lich(mob/living/carbon/human/H)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/black(H), SLOT_HUD_OUTER_SUIT)
