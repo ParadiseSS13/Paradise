@@ -57,6 +57,6 @@
 /world/IsBanned(key, address, computer_id, type, check_ipintel, check_2fa, check_guest, log_info, check_tos)
 	var/ckey = ckey(key)
 	if(GLOB.configuration.overflow.reroute_cap == 0.5 && ckey && !(ckey in GLOB.configuration.overflow.overflow_whitelist))
-		return list("reason"="no-whitelist", "desc"="\nПричина: Вас ([key]) нет в вайтлисте этого сервера. Приобрести доступ возможно у одного из стримеров Банды за баллы канала.")
+		return list("reason"="no-whitelist", "desc"="\nПричина: Вас ([key]) нет в вайтлисте этого сервера. Приобрести доступ возможно у одного из стримеров Банды за баллы канала или записаться самостоятельно с помощью команды в дискорде, доступной сабам бусти, начиная со второго тира.")
 
 	. = ..()
