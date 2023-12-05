@@ -43,6 +43,11 @@
 	. = ..()
 	SSjobs.late_arrivals_spawning = TRUE
 
+/datum/station_trait/late_arrivals/revert()
+	. = ..()
+	SSjobs.late_arrivals_spawning = FALSE
+
+
 /datum/station_trait/hangover
 	name = "Hangover"
 	trait_type = STATION_TRAIT_NEUTRAL
@@ -55,3 +60,7 @@
 /datum/station_trait/hangover/New()
 	. = ..()
 	SSjobs.drunken_spawning = TRUE
+
+/datum/station_trait/hangover/revert()
+	. = ..()
+	SSjobs.drunken_spawning = FALSE
