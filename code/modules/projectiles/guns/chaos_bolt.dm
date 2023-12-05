@@ -38,7 +38,7 @@
 		target.death(FALSE)
 		return
 	chaos_effect = pick("ded", "heart deleted", "gibbed", "cluwned", "spaced", "decapitated", "banned", \
-		"exploded", "cheese morphed", "time erased", "supermattered", "borged", "animal morphed")
+		"exploded", "cheese morphed", "time erased", "supermattered", "borged", "animal morphed", "trick weapon")
 	switch(chaos_effect)
 		if("ded")
 			return
@@ -66,6 +66,8 @@
 			return
 		if("animal morphed")
 			return
+		if("trick weapon")
+			item_to_summon = pick(/obj/item/toy/russian_revolver/trick_revolver, /obj/item/grenade/syndieminibomb/fake)
 
 /obj/item/projectile/magic/chaos/proc/apply_damaging_effect(mob/living/target)
 	if(!iscarbon(target))
