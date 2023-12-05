@@ -16,7 +16,7 @@
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
-	/// Does having this weapon out reduce the chemical recharge rate of the changeling?
+	/// How much does the chemical recharge rate get reduced by having this weapon out?
 	var/recharge_slowdown
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
