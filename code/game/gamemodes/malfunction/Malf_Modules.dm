@@ -4,7 +4,7 @@
 // crit percent
 #define MALF_AI_ROLL_CRIT_CHANCE 5
 
-var/turrets_upgraded = FALSE //If the turrets are upgraded
+GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 
 //The malf AI action subtype. All malf actions are subtypes of this.
 /datum/action/innate/ai
@@ -343,7 +343,7 @@ var/turrets_upgraded = FALSE //If the turrets are upgraded
 			turret.health += 30
 			turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
-	turrets_upgraded = TRUE
+	GLOB.turrets_upgraded = TRUE
 
 //Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
 /datum/AI_Module/lockdown
@@ -645,11 +645,11 @@ var/turrets_upgraded = FALSE //If the turrets are upgraded
 	button_icon_state = "deploy_turret"
 	uses = 1
 	auto_use_uses = FALSE
-	var/image/turfOverlay
+	var/image/turf_overlay
 
 /datum/action/innate/ai/place_turret/New()
 	..()
-	turfOverlay = image("icon"='icons/turf/overlays.dmi')
+	turf_overlay = image('icons/turf/overlays.dmi')
 
 /datum/action/innate/ai/place_turret/Activate()
 	if(active)
@@ -671,7 +671,9 @@ var/turrets_upgraded = FALSE //If the turrets are upgraded
 	playsound(T, 'sound/items/rped.ogg', 100, 1) //Plays a sound both at the location of the construction to alert players and to the user as feedback
 	owner.playsound_local(owner, 'sound/items/rped.ogg', 50, FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='notice'>You order your electronics to assemble a turret. This will take a few seconds.</span>")
-	var/obj/effect/temp_visual/rcd_effect/E = new(T)
+	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
+	QDEL_IN(spawning_effect, 5 SECONDS)
+
 	//Deploys as lethal. Nonlethals can be enabled.
 	var/obj/machinery/porta_turret/turret = new /obj/machinery/porta_turret/ai_turret(T)
 	turret.disabled = TRUE
@@ -680,15 +682,15 @@ var/turrets_upgraded = FALSE //If the turrets are upgraded
 	turret.check_synth = TRUE
 
 	//If turrets are already upgraded, beef it up
-	if(turrets_upgraded)
+	if(GLOB.turrets_upgraded)
 		turret.health += 30
 		turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
 		turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 
-	do_after(owner, 5 SECONDS, target = T, allow_moving = TRUE)
-	qdel(E)
+	do_after_once(owner, 5 SECONDS, target = T, allow_moving = TRUE)
+	qdel(spawning_effect)
 	turret.disabled = FALSE
-	new/obj/effect/temp_visual/rcd_effect/end(T)
+	new /obj/effect/temp_visual/rcd_effect/end(T)
 
 	playsound(T, 'sound/items/deconstruct.ogg', 100, 1)
 	to_chat(owner, "<span class='notice'>Turret deployed.</span>")
@@ -700,10 +702,10 @@ var/turrets_upgraded = FALSE //If the turrets are upgraded
 		return
 
 	var/success = TRUE
-	var/turf/deploylocation = get_turf(eyeobj)
+	var/turf/simulated/floor/deploylocation = get_turf(eyeobj)
 	var/alert_msg = "There isn't enough room! Make sure you are placing the machine in a clear area and on a floor."
 
-	if(!isfloorturf(deploylocation))
+	if(!istype(deploylocation))
 		success = FALSE
 	var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(deploylocation.x, deploylocation.y, deploylocation.z)
 	if(!C.visibleTurfs[deploylocation])
@@ -713,7 +715,7 @@ var/turrets_upgraded = FALSE //If the turrets are upgraded
 		if(AM.density)
 			alert_msg = "That area must be clear of objects!"
 			success = FALSE
-	var/image/I = action.turfOverlay
+	var/image/I = action.turf_overlay
 	I.loc = deploylocation
 	client.images += I
 	I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
