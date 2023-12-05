@@ -25,6 +25,8 @@
 	var/req_stat = CONSCIOUS
 	/// If it's only unlocked after buying a different ability, or abilities. Should be a list of ability paths required for purchase.
 	var/list/prerequisite = list()
+	/// The class that this spell is for or CATEGORY_GENERAL to make it unrelated to a specific tree
+	var/category = CATEGORY_GENERAL
 
 /obj/effect/proc_holder/spell/flayer/self/create_new_targeting()
 	return new /datum/spell_targeting/self

@@ -17,6 +17,8 @@
 	var/power_type = FLAYER_UNOBTAINABLE_POWER
 	///How much it will cost to buy a passive. Upgrading an ability increases the cost to the initial cost times the level.
 	var/cost = 30
+	///If the passive is for a specific class, or CATEGORY_GENERAL if not
+	var/category = CATEGORY_GENERAL
 
 ///For passives that need to use SSObj
 /datum/mindflayer_passive/processed
@@ -34,6 +36,7 @@
 
 ///Returns false if it couldn't get upgraded, Call ..() at the start of every passive's on_apply
 /datum/mindflayer_passive/proc/on_apply()
+	SHOULD_CALL_PARENT(TRUE)
 	if(level >= max_level)
 		flayer.send_swarm_message("We cannot upgrade this aspect further.")
 		return FALSE
@@ -91,14 +94,17 @@
 	upgrade_text = "Add this later"
 	gain_text = "Ayyyy lmao"
 	power_type = FLAYER_PURCHASABLE_POWER //Just for testing
+	category = CATEGORY_DESTROYER
 
 /datum/mindflayer_passive/new_crit/on_apply()
+	..()
 	owner.dna.species.dies_at_threshold = FALSE
 
 /datum/mindflayer_passive/badass
 	purchase_text = "Make yourself more badass, allowing you to dual wield guns with no penalty, alongside other benefits."
 	gain_text = "Engaging explosion apathy protocols."
 	power_type = FLAYER_PURCHASABLE_POWER
+	category = CATEGORY_DESTROYER
 	cost = 100
 
 /datum/mindflayer_passive/badass/on_apply()

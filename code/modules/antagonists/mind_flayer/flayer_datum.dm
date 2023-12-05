@@ -62,7 +62,7 @@
 	if(!brain)
 		send_swarm_message("This entity has no brain to harvest from.")
 		return FALSE
-/** Uncomment this when it won't make testing horrible
+/** TODO Uncomment this when it won't make testing horrible
 	if(!H.ckey || !H.player_ghosted)
 		send_swarm_message("This brain does not contain the spark that feeds us. Find more suitable prey.")
 **/
@@ -129,7 +129,7 @@
 * Arguments:
 * * path - Some path to a passive or spell, either datum/mindflayer_passive or obj/effect/proc_holder/spell
 * * set_owner - An optional datum/antagonist/mindflayer if the owner of the new ability needs to be set manually
-* * type - optional argument if you need to communicate a define to the spell in question, mostly useful for branching upgrades
+* * upgrade_type - optional argument if you need to communicate a define to the spell in question, mostly useful for branching upgrades
 */
 /datum/antagonist/mindflayer/proc/add_ability(path, set_owner = null, upgrade_type)
 	if(!get_ability(path))

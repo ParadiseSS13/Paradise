@@ -18,7 +18,7 @@
 	melee_damage_type = STAMINA
 	damage_coeff = list(BRUTE = 1.5, BURN = 1.5, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0) // We're too cool for that biological damage
 	attacktext = "rends"
-	unique_pet = TRUE // No you are not naming your killer robot "Fluffy"
+	unique_pet = TRUE // No you are not naming your killer robot "Fluffy" // 1984
 	del_on_death = TRUE
 	AIStatus = AI_OFF
 	/// This is the reference to our master flayer

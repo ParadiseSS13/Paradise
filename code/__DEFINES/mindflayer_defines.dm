@@ -11,3 +11,9 @@
 
 #define isspell(A)			(istype(A, /obj/effect/proc_holder/spell))
 #define ispassive(A)		(istype(A, /datum/mindflayer_passive))
+
+//For organizing what spells are available for what trees
+#define CATEGORY_GENERAL "general"
+#define CATEGORY_DESTROYER "destroyer"
+#define CATEGORY_INTRUDER "intruder"
+#define CATEGORY_SWARMER "swarmer"

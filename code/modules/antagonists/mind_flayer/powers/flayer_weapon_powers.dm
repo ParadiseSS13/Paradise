@@ -49,9 +49,11 @@
 	desc = "Our hand melts away, replaced with a laser mounted at the end."
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/gun/energy/laser/mounted
+	category = CATEGORY_DESTROYER
 
 /obj/effect/proc_holder/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
 	name = "Pneumatic Flak Gun"
 	desc = "By ejecting sharpened nanites at high speeds, we can make "
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/pneumatic_cannon/flayer
+	category = CATEGORY_DESTROYER

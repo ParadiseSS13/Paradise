@@ -11,6 +11,7 @@
 	action_icon_state = "artificer"
 	power_type = FLAYER_UNOBTAINABLE_POWER
 	base_cooldown = 10 SECONDS
+	category = CATEGORY_SWARMER
 	/// What kind of mob we have to spawn
 	var/mob/living/mob_to_spawn
 	/// How many of the mobs do we currently have?
