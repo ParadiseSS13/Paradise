@@ -678,8 +678,12 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 	var/obj/machinery/porta_turret/turret = new /obj/machinery/porta_turret/ai_turret(T)
 	turret.disabled = TRUE
 	turret.lethal = TRUE
+	turret.raised = TRUE //While raised, it is vulnerable to damage
 	turret.targetting_is_configurable = FALSE
+	turret.lethal_is_configurable = TRUE
+	turret.ailock = FALSE
 	turret.check_synth = TRUE
+	turret.invisibility = 100
 
 	//If turrets are already upgraded, beef it up
 	if(GLOB.turrets_upgraded)
@@ -688,6 +692,8 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 		turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 
 	if(do_after_once(owner, 5 SECONDS, target = T, allow_moving = TRUE))
+		turret.raised = FALSE
+		turret.invisibility = 0
 		qdel(spawning_effect)
 		turret.disabled = FALSE
 		new /obj/effect/temp_visual/rcd_effect/end(T)
