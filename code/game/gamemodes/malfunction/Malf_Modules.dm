@@ -668,7 +668,7 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 	var/turf/T = get_turf(owner_AI.eyeobj)
 
 	//Handles the turret construction and configuration
-	playsound(T, 'sound/items/rped.ogg', 100, 1) //Plays a sound both at the location of the construction to alert players and to the user as feedback
+	playsound(T, 'sound/items/rped.ogg', 100, TRUE) //Plays a sound both at the location of the construction to alert players and to the user as feedback
 	owner.playsound_local(owner, 'sound/items/rped.ogg', 50, FALSE, use_reverb = FALSE)
 	to_chat(owner, "<span class='notice'>You order your electronics to assemble a turret. This will take a few seconds.</span>")
 	var/obj/effect/temp_visual/rcd_effect/spawning_effect = new(T)
@@ -695,7 +695,7 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 		qdel(spawning_effect)
 		turret.disabled = initial(turret.disabled)
 		new /obj/effect/temp_visual/rcd_effect/end(T)
-		playsound(T, 'sound/items/deconstruct.ogg', 100, 1)
+		playsound(T, 'sound/items/deconstruct.ogg', 100, TRUE)
 		to_chat(owner, "<span class='notice'>Turret deployed.</span>")
 		adjust_uses(-1)
 		active = FALSE
