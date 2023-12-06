@@ -10,7 +10,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	can_charge = FALSE
 	max_charges = 100 //100, 50, 50, 34 (max charge distribution by 25%ths)
-	var/variable_charges = 1
+	var/variable_charges = TRUE
 	execution_speed = 3 SECONDS
 
 /obj/item/gun/magic/wand/Initialize(mapload)
@@ -199,5 +199,23 @@
 
 /obj/item/gun/magic/wand/slipping/zap_self(mob/living/user)
 	to_chat(user, "<span class='notice'>You feel rather silly!.</span>")
+	charges--
+	..()
+
+/////////////////////////////////////
+//WAND OF CHAOS - Only spawned by the Staff of Chaos as a rare random effect
+/////////////////////////////////////
+/obj/item/gun/magic/wand/chaos
+	name = "wand of chaos"
+	desc = "Payback time!"
+	fire_sound = 'sound/magic/staff_chaos.ogg'
+	ammo_type = /obj/item/ammo_casing/magic/chaos
+	icon_state = "staffofchaos"
+	max_charges = 20
+	variable_charges = FALSE
+
+/obj/item/gun/magic/wand/chaos/zap_self(mob/living/user)
+	to_chat(user, "<span class='notice'>[pick("Cannot possibly backfire.", "It's time for the wheel of prizes! YEA YEA YEA YEA YEA YEA!", "Time to dual wield chaos wands!", "Half the time, it works every time.", "Cheese!", "You hear a deep voice cackling.")]</span>")
+
 	charges--
 	..()

@@ -41,7 +41,6 @@
 	item_state = "staffofchaos"
 	max_charges = 10
 	recharge_rate = 2
-	no_den_usage = 1
 	fire_sound = 'sound/magic/staff_chaos.ogg'
 
 /obj/item/gun/magic/staff/chaos/debug //TODO : REMOVE

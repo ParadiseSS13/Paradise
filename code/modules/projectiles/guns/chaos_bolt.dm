@@ -77,7 +77,7 @@
 		//damage target
 		return
 	chaos_effect = pick("fireballed", "ice spiked", "rathend", "stabbed", "slashed", "burned", "poisoned", \
-		"plasma fire", "clowned", "mimed", "teleport", "teleport roulette", "scatter inventory", "forced to dance" \
+		"plasma fire", "clowned", "mimed", "teleport", "teleport roulette", "scatter inventory", "forced to dance", \
 		"electrocuted", "firecrackerd", "beartrapped")
 	switch(chaos_effect)
 		if("fireballed")
@@ -164,8 +164,6 @@
 		return
 	chaos_effect = pick("toy sword", "toy revolver", "dosh", "cheese", "banana bread", "medkit", "heal", \
 		"dwarf", "insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
-	target.visible_message("<span class='notice'>[target] hits by [chaos_effect]</span>")
-
 	switch(chaos_effect)
 		if("toy sword")
 			item_to_summon = /obj/item/toy/sword
@@ -203,14 +201,13 @@
 		return
 	chaos_effect = pick("esword", "emag", "chaos wand", "revolver", "aeg", "aheal", "meth mix", \
 		"bluespace banana", "banana grenade", "hulk", "jump", "disco ball", "syndicate minibomb", "crystal ball")
-	target.visible_message("<span class='notice'>[target] hits by [chaos_effect]</span>")
 	switch(chaos_effect)
 		if("esword")
 			item_to_summon = /obj/item/melee/energy/sword/saber/blue
 		if("emag")
 			item_to_summon = /obj/item/card/emag
 		if("chaos wand")
-			return // TODO : Add chaos wand
+			item_to_summon = /obj/item/gun/magic/wand/chaos
 		if("revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver
 		if("aeg")
