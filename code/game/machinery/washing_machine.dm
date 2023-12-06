@@ -89,22 +89,22 @@
 			wash_color = ST.item_color
 
 		if(wash_color)
-			var/new_jumpsuit_icon_state = ""
-			var/new_jumpsuit_item_state = ""
-			var/new_jumpsuit_name = ""
-			var/new_glove_icon_state = ""
-			var/new_glove_item_state = ""
-			var/new_glove_name = ""
-			var/new_bandana_icon_state = ""
-			var/new_bandana_item_state = ""
-			var/new_bandana_name = ""
-			var/new_shoe_icon_state = ""
-			var/new_shoe_name = ""
-			var/new_sheet_icon_state = ""
-			var/new_sheet_name = ""
-			var/new_sheet_item_state = ""
-			var/new_softcap_icon_state = ""
-			var/new_softcap_name = ""
+			var/new_jumpsuit_icon_state
+			var/new_jumpsuit_item_state
+			var/new_jumpsuit_name
+			var/new_glove_icon_state
+			var/new_glove_item_state
+			var/new_glove_name
+			var/new_bandana_icon_state
+			var/new_bandana_item_state
+			var/new_bandana_name
+			var/new_shoe_icon_state
+			var/new_shoe_name
+			var/new_sheet_icon_state
+			var/new_sheet_name
+			var/new_sheet_item_state
+			var/new_softcap_icon_state
+			var/new_softcap_name
 			var/new_desc = "The colors are a bit dodgy."
 			for(var/T in typesof(/obj/item/clothing/under))
 				var/obj/item/clothing/under/J = new T
