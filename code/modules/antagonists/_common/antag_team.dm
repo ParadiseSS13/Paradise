@@ -19,14 +19,21 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	/// The name to save objective successes under in the blackboxes. Saves nothing if blank.
 	var/blackbox_save_name
 
-/datum/team/New(list/starting_members)
+/**
+  * /datum/team constructor.
+  *
+  * Arguments:
+  * * starting_members - list of the the minds, that will be added to newly created team
+  * * add_antag_datum - boolean flag which defines, whether to add `antag_datum_type` to member on addition to team
+  */
+/datum/team/New(list/datum/mind/starting_members, add_antag_datum = TRUE)
 	..()
 	members = list()
 	objective_holder = new(src)
 	if(starting_members && !islist(starting_members))
 		starting_members = list(starting_members)
-	for(var/datum/mind/M as anything in starting_members)
-		add_member(M)
+	for(var/datum/mind/new_member as anything in starting_members)
+		add_member(new_member, add_antag_datum)
 	GLOB.antagonist_teams += src
 
 /datum/team/Destroy(force = FALSE, ...)
@@ -40,15 +47,19 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /**
  * Adds `new_member` to this team.
  *
- * If team has `antag_datum_type` specified and `new_member` has not antag datum - than it will be added to it.
+ * If team has `antag_datum_type` specified it will be added to new member,
+ * but only if `add_antag_datum` is `TRUE` and `new_member` has not antag datum bound to this team.
+ * Arguments:
+ * * new_member - member that will be added to team
+ * * add_antag_datum - boolean flag which defines, whether to add `antag_datum_type` to member on addition to team
  */
-/datum/team/proc/add_member(datum/mind/new_member)
+/datum/team/proc/add_member(datum/mind/new_member, add_antag_datum = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
 	var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
 	members |= new_member
 
 	// If no matching antag datum was found, give them one.
-	if(!antag && antag_datum_type)
+	if(add_antag_datum && !antag && antag_datum_type)
 		new_member.add_antag_datum(antag_datum_type, src)
 
 /**
@@ -97,7 +108,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		qdel(O)
 
 /**
- * Return an antag datum from a member which is linked with this team.
+ * Return first antag datum from a member which is linked with this team.
  */
 /datum/team/proc/get_antag_datum_from_member(datum/mind/member)
 	for(var/datum/antagonist/A as anything in member.antag_datums)

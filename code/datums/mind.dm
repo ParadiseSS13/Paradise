@@ -235,14 +235,13 @@
 
 	all_objectives += objective_holder.get_objectives() // Get their personal objectives
 
-	for(var/datum/antagonist/A as anything in antag_datums)
-		all_objectives += A.objective_holder.get_objectives() // Add all antag datum objectives.
-		if(!include_team)
-			continue
+	for(var/datum/antagonist/antag_datum as anything in antag_datums)
+		all_objectives += antag_datum.objective_holder.get_objectives() // Add all antag datum objectives.
 
-		var/datum/team/team = A.get_team()
-		if(team) // have to make asure a team exists here, team?. does not work below because it will add the null to the list
-			all_objectives += team.objective_holder.get_objectives() // Get all of their teams' objectives
+		if(include_team)
+			var/datum/team/team = antag_datum.get_team()
+			if(team) // have to make asure a team exists here, team?. does not work below because it will add the null to the list
+				all_objectives += team.objective_holder.get_objectives() // Get all of their teams' objectives
 
 	return all_objectives
 
