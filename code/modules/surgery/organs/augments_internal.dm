@@ -375,26 +375,29 @@
 /obj/item/organ/internal/cyberimp/brain/multilang_ipc
 	name = "Multilanguage Translator Implant"
 	desc = "An advanced implant that allows IPCs to understand and speak multiple languages."
-	implant_color = "#808080" // You can change this to any color you prefer
 	slot = "brain_multilang"
 	origin_tech = "materials=6;biotech=6"
-
-	var/list/languages = list(/datum/language/human, /datum/language/diona, /datum/language/chittin, /datum/language/skrell, /datum/language/slime, /datum/language/tajaran, /datum/language/unathi, /datum/language/vox, /datum/language/vulpkanin, /datum/language/drask, /datum/language/nian)
+	requires_machine_person = TRUE
+	var/ipc_default_languages = list()
 
 /obj/item/organ/internal/cyberimp/brain/multilang_ipc/insert(mob/living/carbon/M, special = FALSE)
 	. = ..()
+	var/mob/living/carbon/human/H = M
 	if(istype(M, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		if(H.species.name == "IPC")
-			for(var/lang in languages)
-				H.add_language(lang)
+		ipc_default_languages[H] = H.languages.Copy() // Store the default languages
+		for(var/la in GLOB.all_languages)
+			var/datum/language/new_language = GLOB.all_languages[la]
+			if(new_language.flags & (HIVEMIND|NOLIBRARIAN))
+				continue
+			H.add_language(la)
 
 /obj/item/organ/internal/cyberimp/brain/multilang_ipc/remove(mob/living/carbon/M, special = FALSE)
-	if(istype(M, /mob/living/carbon/human))
-		var/mob/living/carbon/human/H = M
-		if(H.species.name == "IPC")
-			for(var/lang in languages)
-				H.remove_language(lang)
+	var/mob/living/carbon/human/H = M
+	if(!istype(H))
+		return
+	H.languages = list() // Remove all languages
+	H.languages = ipc_default_languages[H] // Restore the default languages
+	ipc_default_languages -= H // Clear the stored default languages
 	. = ..()
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/hardened

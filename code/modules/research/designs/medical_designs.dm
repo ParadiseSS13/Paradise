@@ -546,10 +546,10 @@
 	id = "cyberimp_multilang_ipc"
 	req_tech = list("materials" = 6, "biotech" = 6)
 	build_type = PROTOLATHE | MECHFAB
-	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000, MAT_SILVER = 500, MAT_GOLD = 500) // Adjust materials as needed
+	construction_time = 60
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 1000, MAT_SILVER = 500, MAT_GOLD = 500)
 	build_path = /obj/item/organ/internal/cyberimp/brain/multilang_ipc
-	category = list("Medical Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+	category = list("Medical")
 
 /datum/design/raiden_implant
 	name = "Reactive Repair Implant"
