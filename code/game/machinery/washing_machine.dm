@@ -252,13 +252,13 @@
 			return ..()
 	else if(is_type_in_typecache(W, can_be_washed))
 		if(is_type_in_typecache(W, does_not_fit))
-			to_chat(user, "This item does not fit.")
+			to_chat(user, "<span class='warning'>This item does not fit.</span>")
 			return
 		if(istype(W, /obj/item/clothing/gloves/color/black/krav_maga/sec))
 			to_chat(user, "<span class='warning'>Washing these gloves would fry the electronics!</span>")
 			return
 		if(W.flags & NODROP)
-			to_chat(user, "<span class='notice'>\The [W] is stuck to your hand, you cannot put it in the washing machine!</span>")
+			to_chat(user, "<span class='warning'>[W] is stuck to your hand!</span>")
 			return
 
 		if(length(contents) < 5)
@@ -267,9 +267,9 @@
 				W.forceMove(src)
 				state = OPEN_FULL
 			else
-				to_chat(user, "<span class='notice'>You can't put the item in right now.</span>")
+				to_chat(user, "<span class='warning'>The door is closed!</span>")
 		else
-			to_chat(user, "<span class='notice'>The washing machine is full.</span>")
+			to_chat(user, "<span class='warning'>[src] is full!</span>")
 		update_icon(UPDATE_ICON_STATE)
 	else
 		return ..()
