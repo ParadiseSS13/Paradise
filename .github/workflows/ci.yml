@@ -105,8 +105,8 @@ jobs:
       - name: Install RUST_G Deps
         run: |
           sudo dpkg --add-architecture i386
-          sudo apt update || true
-          sudo apt install libssl3:i386
+          sudo apt-get update || true
+          sudo apt-get install zlib1g-dev:i386
           ldd librust_g.so
       - name: Compile & Run Unit Tests
         run: |
