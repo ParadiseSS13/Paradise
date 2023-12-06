@@ -155,8 +155,7 @@
 		/obj/item/mod/module/sphere_transform, //0TC but should not be allowed to normally be installed
 		/obj/item/autosurgeon/organ/syndicate/laser_arm, //0 TC but otherwise not obtainable.
 		/obj/item/pinpointer/advpinpointer, //4 TC
-		/obj/item/implanter/adrenalin, // 40 TC
-		/obj/item/storage/box/syndidonkpockets, //2TC, otherwise they will just die in the first combat to disabler.
+		/obj/item/implanter/adrenalin, // 40 TC otherwise they will just die in the first combat to disabler.
 		/obj/item/storage/belt/utility/full/multitool, //0 TC
 		/obj/item/clothing/head/collectable/slime,  //Priceless (0 TC)
 		/obj/item/encryptionkey/syndicate) //2 TC
