@@ -253,6 +253,16 @@
 	donator_tier = 4
 	cost = 4
 
+/datum/gear/donor/breathscarf
+	display_name = "Шарф с системой дыхания"
+	path = /obj/item/clothing/mask/breath/breathscarf
+	cost = 2
+
+/datum/gear/donor/red_gas
+	display_name = "ПРС-1"
+	path = /obj/item/clothing/mask/breath/red_gas
+	donator_tier = 2
+
 /datum/gear/donor/id_decal_boykisser
 	display_name = "BoyKisser наклейка на карту"
 	path = /obj/item/id_skin/boykisser
