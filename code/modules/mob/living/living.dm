@@ -778,6 +778,8 @@
 */////////////////////
 /mob/living/proc/resist_grab()
 	var/resisting = 0
+	if(HAS_TRAIT(src, TRAIT_IMMOBILIZED))
+		return TRUE //You can't move, so you can't resist
 	for(var/X in grabbed_by)
 		var/obj/item/grab/G = X
 		resisting++

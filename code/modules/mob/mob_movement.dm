@@ -206,6 +206,8 @@
 	if(mob.grabbed_by.len)
 		if(mob.incapacitated(FALSE, TRUE)) // Can't break out of grabs if you're incapacitated
 			return TRUE
+		if(HAS_TRAIT(mob, TRAIT_IMMOBILIZED))
+			return TRUE //You can't move, so you can't break it by trying to move.
 		var/list/grabbing = list()
 
 		if(istype(mob.l_hand, /obj/item/grab))
