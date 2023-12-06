@@ -135,7 +135,7 @@
 	var/turf/next = get_step(src, direction)
 	var/turf/current = get_turf(src)
 
-	if(istype(next, /turf/simulated/floor/plating/lava/smooth) || istype(current, /turf/simulated/floor/plating/lava/smooth)) //We can move from land to lava, or lava to land, but not from land to land
+	if(istype(next, /turf/simulated/floor/lava) || istype(current, /turf/simulated/floor/lava)) //We can move from land to lava, or lava to land, but not from land to land
 		..()
 	else
 		if(last_message_time + 1 SECONDS < world.time)
