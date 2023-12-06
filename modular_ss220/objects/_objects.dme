@@ -17,3 +17,4 @@
 #include "code/tribune.dm"
 #include "code/weapons.dm"
 #include "code/key.dm"
+#include "code/musician.dm"
