@@ -57,9 +57,10 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	SHOULD_CALL_PARENT(TRUE)
 	members |= new_member
 
-	// If no matching antag datum was found, give them one.
 	if(add_antag_datum && antag_datum_type)
 		var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
+
+		// If no matching antag datum was found, give them one.
 		if(!antag)
 			new_member.add_antag_datum(antag_datum_type, src)
 
