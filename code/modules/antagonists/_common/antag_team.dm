@@ -40,7 +40,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /**
  * Adds `new_member` to this team.
  *
- * Generally this should ONLY be called by `add_antag_datum()` to ensure proper order of operations.
+ * If team has `antag_datum_type` specified and `new_member` has not antag datum - than it will be added to it.
  */
 /datum/team/proc/add_member(datum/mind/new_member)
 	SHOULD_CALL_PARENT(TRUE)
