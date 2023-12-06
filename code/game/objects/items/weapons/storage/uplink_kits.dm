@@ -30,7 +30,6 @@
 		/obj/item/door_remote/omni/access_tuner, // 6TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 15TC
 		/obj/item/storage/briefcase/false_bottomed, // 10 TC
-		/obj/item/storage/box/syndidonkpockets, // 10 TC
 		/obj/item/implanter/freedom, // 5TC
 		/obj/item/coin/gold, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
@@ -107,7 +106,7 @@
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/aiModule/syndicate, // 15 TC
 		/obj/item/storage/box/syndie_kit/camera_bug, // 5 TC
-		/obj/item/storage/box/syndidonkpockets, // 10 TC
+		/obj/item/implanter/freedom/prototype, // 10 TC
 		/obj/item/flashlight/emp) // 4TC
 
 	var/static/list/darklord = list( // 33TC + TK
