@@ -16,6 +16,8 @@
 	var/silent = FALSE
 	var/weapon_type
 	var/weapon_name_simple
+	/// How much does the chemical recharge rate get reduced by having this weapon out?
+	var/recharge_slowdown
 
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
 	if(istype(user.l_hand, weapon_type) || istype(user.r_hand, weapon_type))
@@ -30,6 +32,7 @@
 		return FALSE
 	var/obj/item/W = new weapon_type(user, silent, src)
 	user.put_in_hands(W)
+	cling.chem_recharge_slowdown += recharge_slowdown
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), override = TRUE)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), override = TRUE)
 	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
@@ -53,6 +56,7 @@
 	if(done && !silent)
 		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 		owner.visible_message("<span class='warning'>With a sickening crunch, [owner] reforms [owner.p_their()] [weapon_name_simple] into an arm!</span>", "<span class='notice'>We assimilate the [weapon_name_simple] back into our body.</span>", "<span class='warning'>You hear organic matter ripping and tearing!</span>")
+	cling.chem_recharge_slowdown -= recharge_slowdown // We handle this here because more things can retract without going through try_to_sting
 
 //Parent to space suits and armor.
 /datum/action/changeling/suit
@@ -115,16 +119,17 @@
 \***************************************/
 /datum/action/changeling/weapon/arm_blade
 	name = "Arm Blade"
-	desc = "We reform one of our arms into a deadly blade. Costs 25 chemicals."
+	desc = "We reform one of our arms into a deadly blade. Costs 15 chemicals."
 	helptext = "We may retract our armblade in the same manner as we form it. Cannot be used while in lesser form."
 	button_icon_state = "armblade"
-	chemical_cost = 25
+	chemical_cost = 15
 	dna_cost = 4
 	req_human = TRUE
 	weapon_type = /obj/item/melee/arm_blade
 	weapon_name_simple = "blade"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	menu_location = CLING_MENU_ATTACK
+	recharge_slowdown = 0.75
 
 /obj/item/melee/arm_blade
 	name = "arm blade"
