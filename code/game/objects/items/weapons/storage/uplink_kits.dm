@@ -135,8 +135,8 @@
 	var/static/list/grenadier = list( // 20TC + Tactical Grenadier Belt
 		/obj/item/storage/belt/grenade/tactical, // Contains 2 Frag and EMP grenades, 5 C4 Explosives, 5 Smoke and Gluon grenades and 1 Minibomb grenade ~20TC Estimate
 		/obj/item/storage/box/syndie_kit/stechkin, // 4TC
-		/obj/item/ammo_box/magazine/m10mm, // 2TC
-		/obj/item/ammo_box/magazine/m10mm, // 2TC
+		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
+		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
 		/obj/item/mod/control/pre_equipped/traitor, // 6TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
