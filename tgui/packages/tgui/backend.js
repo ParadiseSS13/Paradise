@@ -142,6 +142,7 @@ export const backendMiddleware = (store) => {
         });
       suspendFn();
       suspendInterval = setInterval(suspendFn, 2000);
+      Byond.winset('map', { 'focus': 'true' }); // Good luck dynamically assinging this to 'input' for legacy users, winget is scuffed
     }
 
     if (type === 'backend/suspendSuccess') {
@@ -151,7 +152,6 @@ export const backendMiddleware = (store) => {
       Byond.winset(window.__windowId__, {
         'is-visible': false,
       });
-      Byond.winset('map', { focus: true }); // Good luck dynamically assinging this to `input` for legacy users
     }
 
     if (type === 'backend/update') {
