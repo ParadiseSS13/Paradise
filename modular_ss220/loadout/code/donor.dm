@@ -103,6 +103,11 @@
 	path = /obj/item/healthanalyzer
 	cost = 2
 
+/datum/gear/donor/breathscarf
+	display_name = "Шарф с системой дыхания"
+	path = /obj/item/clothing/mask/breath/breathscarf
+	cost = 2
+
 // ID Skins
 /datum/gear/donor/id_decal_colored
 	display_name = "Наклейка на карту (Голографическая)"
@@ -112,6 +117,16 @@
 /datum/gear/donor/id_decal_donut
 	display_name = "Пончиковая наклейка на карту"
 	path = /obj/item/id_skin/donut
+	cost = 2
+
+/datum/gear/donor/id_decal_business
+	display_name = "Бизнесменская наклейка на карту"
+	path = /obj/item/id_skin/business
+	cost = 2
+
+/datum/gear/donor/id_decal_ussp
+	display_name = "Коммунистическая наклейка на карту"
+	path = /obj/item/id_skin/ussp
 	cost = 2
 
 /datum/gear/donor/id_decal_silver_colored
@@ -132,21 +147,9 @@
 	donator_tier = 3
 	cost = 2
 
-/datum/gear/donor/id_decal_business
-	display_name = "Бизнесменская наклейка на карту"
-	path = /obj/item/id_skin/business
-	donator_tier = 3
-	cost = 2
-
 /datum/gear/donor/id_decal_lifetime
 	display_name = "Стильная наклейка на карту"
 	path = /obj/item/id_skin/lifetime
-	donator_tier = 3
-	cost = 2
-
-/datum/gear/donor/id_decal_ussp
-	display_name = "Коммунистическая наклейка на карту"
-	path = /obj/item/id_skin/ussp
 	donator_tier = 3
 	cost = 2
 
@@ -186,55 +189,62 @@
 	donator_tier = 3
 	cost = 2
 
+/datum/gear/donor/id_decal_kitty
+	display_name = "Кото-клейка на карту"
+	path = /obj/item/id_skin/kitty
+	donator_tier = 3
+	cost = 4
+
+/datum/gear/donor/id_decal_kitty_colored
+	display_name = "Кото-клейка на карту (Голографическая)"
+	path = /obj/item/id_skin/colored/kitty
+	donator_tier = 3
+	cost = 4
+
+/datum/gear/donor/id_decal_anime
+	display_name = "Анимешная наклейка на карту"
+	path = /obj/item/id_skin/cursedmiku
+	donator_tier = 3
+	cost = 4
+
+/datum/gear/donor/id_decal_jokerge
+	display_name = "Джокерге наклейка на карту"
+	path = /obj/item/id_skin/jokerge
+	donator_tier = 3
+	cost = 4
+
 /datum/gear/donor/id_decal_rainbow
 	display_name = "Радужная наклейка на карту"
 	path = /obj/item/id_skin/rainbow
 	donator_tier = 4
-	cost = 3
+	cost = 4
 
 /datum/gear/donor/id_decal_space
 	display_name = "КОСМИЧЕСКАЯ наклейка на карту"
 	path = /obj/item/id_skin/space
 	donator_tier = 4
-	cost = 3
-
-/datum/gear/donor/id_decal_kitty
-	display_name = "Кото-клейка на карту"
-	path = /obj/item/id_skin/kitty
-	donator_tier = 4
-	cost = 3
-
-/datum/gear/donor/id_decal_kitty_colored
-	display_name = "Кото-клейка на карту (Голографическая)"
-	path = /obj/item/id_skin/colored/kitty
-	donator_tier = 4
-	cost = 3
-
-/datum/gear/donor/id_decal_anime
-	display_name = "Анимешная наклейка на карту"
-	path = /obj/item/id_skin/cursedmiku
-	donator_tier = 4
-	cost = 3
+	cost = 4
 
 /datum/gear/donor/id_decal_snake
 	display_name = "Бегущая наклейка на карту"
 	path = /obj/item/id_skin/colored/snake
 	donator_tier = 4
-	cost = 3
+	cost = 4
 
 /datum/gear/donor/id_decal_magic
 	display_name = "Магическая наклейка на карту"
 	path = /obj/item/id_skin/magic
 	donator_tier = 4
-	cost = 3
+	cost = 4
 
 /datum/gear/donor/id_decal_terminal
 	display_name = "Наклейка на карту в виде терминала"
 	path = /obj/item/id_skin/terminal
 	donator_tier = 4
-	cost = 3
+	cost = 4
 
-/datum/gear/donor/breathscarf
-	display_name = "Шарф с системой дыхания"
-	path = /obj/item/clothing/mask/breath/breathscarf
-	cost = 2
+/datum/gear/donor/id_decal_boykisser
+	display_name = "BoyKisser наклейка на карту"
+	path = /obj/item/id_skin/boykisser
+	donator_tier = 4
+	cost = 5

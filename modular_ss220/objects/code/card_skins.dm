@@ -279,6 +279,20 @@
 	pronoun_name = "наклейку в виде терминала"
 	info = "Эта карта похожа на терминал."
 
+/obj/item/id_skin/jokerge
+	name = "\improper джокерге наклейка на карту"
+	desc = "Jokerge."
+	icon_state = "jokerge"
+	pronoun_name = "наклейку в виде Джокерге"
+	info = "Jokerge."
+
+/obj/item/id_skin/boykisser
+	name = "\improper бойкиссерская наклейка на карту"
+	desc = "Наклеив её на карту, у вас с почти 100% вероятностью, появится желание целовать мальчиков."
+	icon_state = "boykisser"
+	pronoun_name = "наклейку в виде бойкиссера"
+	info = "Он любит целовать мальчиков."
+
 // Supply Crate
 /datum/supply_packs/misc/randomised/id_skins
 	name = "Наклейки на карточку"
@@ -289,20 +303,20 @@
 		/obj/item/id_skin/colored,
 		/obj/item/id_skin/colored,
 		/obj/item/id_skin/colored,
-		/obj/item/id_skin/colored,
 		/obj/item/id_skin/donut,
 		/obj/item/id_skin/donut,
 		/obj/item/id_skin/donut,
 		/obj/item/id_skin/donut,
-		/obj/item/id_skin/donut,
-		/obj/item/id_skin/colored/silver,
+		/obj/item/id_skin/ussp,
+		/obj/item/id_skin/ussp,
+		/obj/item/id_skin/business,
+		/obj/item/id_skin/business,
 		/obj/item/id_skin/colored/silver,
 		/obj/item/id_skin/colored/silver,
 		/obj/item/id_skin/silver,
+		/obj/item/id_skin/silver,
 		/obj/item/id_skin/gold,
-		/obj/item/id_skin/business,
 		/obj/item/id_skin/lifetime,
-		/obj/item/id_skin/ussp,
 		/obj/item/id_skin/clown,
 		/obj/item/id_skin/neon,
 		/obj/item/id_skin/colored/neon,
@@ -316,7 +330,9 @@
 		/obj/item/id_skin/cursedmiku,
 		/obj/item/id_skin/colored/snake,
 		/obj/item/id_skin/magic,
-		/obj/item/id_skin/terminal)
+		/obj/item/id_skin/terminal,
+		/obj/item/id_skin/jokerge,
+		/obj/item/id_skin/boykisser)
 	cost = 2000
 	containername = "ящик с наклейками"
 
@@ -327,13 +343,13 @@
 	icon_state = "ID_Random"
 	result = list(
 	/obj/item/id_skin/colored = 10,
-	/obj/item/id_skin/donut = 10,
+	/obj/item/id_skin/donut = 5,
+	/obj/item/id_skin/business = 5,
+	/obj/item/id_skin/ussp = 5,
 	/obj/item/id_skin/colored/silver = 5,
-	/obj/item/id_skin/silver = 1,
+	/obj/item/id_skin/silver = 5,
 	/obj/item/id_skin/gold = 1,
-	/obj/item/id_skin/business = 1,
 	/obj/item/id_skin/lifetime = 1,
-	/obj/item/id_skin/ussp = 1,
 	/obj/item/id_skin/clown = 1,
 	/obj/item/id_skin/neon = 1,
 	/obj/item/id_skin/colored/neon = 1,
@@ -347,19 +363,21 @@
 	/obj/item/id_skin/cursedmiku = 1,
 	/obj/item/id_skin/colored/snake = 1,
 	/obj/item/id_skin/magic = 1,
-	/obj/item/id_skin/terminal = 1)
+	/obj/item/id_skin/terminal = 1,
+	/obj/item/id_skin/jokerge = 1,
+	/obj/item/id_skin/boykisser = 1)
 
 /obj/effect/spawner/random_spawners/id_skins/no_chance
 	result = list(
 	/datum/nothing = 80,
 	/obj/item/id_skin/colored = 10,
-	/obj/item/id_skin/donut = 10,
+	/obj/item/id_skin/donut = 5,
+	/obj/item/id_skin/business = 5,
+	/obj/item/id_skin/ussp = 5,
 	/obj/item/id_skin/colored/silver = 5,
-	/obj/item/id_skin/silver = 1,
+	/obj/item/id_skin/silver = 5,
 	/obj/item/id_skin/gold = 1,
-	/obj/item/id_skin/business = 1,
 	/obj/item/id_skin/lifetime = 1,
-	/obj/item/id_skin/ussp = 1,
 	/obj/item/id_skin/clown = 1,
 	/obj/item/id_skin/neon = 1,
 	/obj/item/id_skin/colored/neon = 1,
@@ -373,4 +391,6 @@
 	/obj/item/id_skin/cursedmiku = 1,
 	/obj/item/id_skin/colored/snake = 1,
 	/obj/item/id_skin/magic = 1,
-	/obj/item/id_skin/terminal = 1)
+	/obj/item/id_skin/terminal = 1,
+	/obj/item/id_skin/jokerge = 1,
+	/obj/item/id_skin/boykisser = 1)
