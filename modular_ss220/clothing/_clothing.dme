@@ -9,3 +9,4 @@
 #include "code/cloaks.dm"
 #include "code/garment_bag.dm"
 #include "code/hev_suit.dm"
+#include "code/wallets.dm"

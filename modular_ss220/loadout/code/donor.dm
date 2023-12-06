@@ -63,6 +63,16 @@
 	path = /obj/item/storage/wallet
 	cost = 12
 
+/datum/gear/donor/Wallet_NT
+	display_name = "Бумажник NT"
+	path = /obj/item/storage/wallet/wallet_NT
+	cost = 12
+
+/datum/gear/donor/Wallet_USSP
+	display_name = "Бумажник СССП"
+	path = /obj/item/storage/wallet/wallet_USSP_2
+	cost = 12
+
 /datum/gear/donor/firefirstaid
 	display_name = "Набор первой медицинской помощи от премиальной страховки"
 	path = /obj/item/storage/firstaid/regular/donor
