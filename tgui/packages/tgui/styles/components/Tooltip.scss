@@ -6,6 +6,7 @@
 @use '../base.scss';
 @use '../functions.scss' as *;
 
+$color-text: #ffffff !default;
 $color-background: #000000 !default;
 $border-radius: base.$border-radius !default;
 
@@ -17,6 +18,7 @@ $border-radius: base.$border-radius !default;
   bottom: 0;
   font-style: normal;
   font-weight: normal;
+  line-height: normal;
 
   &::after {
     position: absolute;
@@ -31,6 +33,7 @@ $border-radius: base.$border-radius !default;
     text-align: left;
     content: attr(data-tooltip);
     transition: all 150ms;
+    color: $color-text;
     background-color: $color-background;
     box-shadow: 1px 1px 15px -1px rgba(0, 0, 0, 0.5);
     border-radius: $border-radius;
@@ -61,6 +64,25 @@ $border-radius: base.$border-radius !default;
   transform: translateX(-50%) translateY(-8px);
 }
 
+.Tooltip--top-left::after {
+  bottom: 100%;
+  right: 50%;
+  transform: translateX(12px) translateY(-8px);
+}
+
+.Tooltip--top-left:hover::after {
+  transform: translateX(12px) translateY(8px);
+}
+
+.Tooltip--top-right::after {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-12px) translateY(-8px);
+}
+
+.Tooltip--top-right:hover::after {
+  transform: translateX(-12px) translateY(8px);
+}
 .Tooltip--bottom::after {
   top: 100%;
   left: 50%;

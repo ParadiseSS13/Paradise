@@ -64,7 +64,8 @@ $inner-padding: 0.1em;
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-.Knob__popupValue {
+.Knob__popupValue,
+.Knob__popupValue--right {
   position: absolute;
   top: -2rem;
   right: 50%;
@@ -76,6 +77,10 @@ $inner-padding: 0.1em;
   white-space: nowrap;
 }
 
+.Knob__popupValue--right {
+  top: 0.25rem;
+  right: -50%;
+}
 .Knob__ring {
   position: absolute;
   top: 0;
