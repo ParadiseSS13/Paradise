@@ -49,7 +49,16 @@
 	tts_seed = "Thrall"
 
 /mob/living/simple_animal/pet/dog/security/detective/show_inv(mob/user)
-	return
+	if(user.incapacitated() || !Adjacent(user))
+		return
+	user.set_machine(src)
+
+	var/dat = 	{"<meta charset="UTF-8"><div align='center'><b>Inventory of [name]</b></div><p>"}
+	dat += "<br><B>Collar:</B> <A href='?src=[UID()];[pcollar ? "remove_inv=collar'>[pcollar]" : "add_inv=collar'>Nothing"]</A>"
+
+	var/datum/browser/popup = new(user, "mob[UID()]", "[src]", 440, 250)
+	popup.set_content(dat)
+	popup.open()
 
 /mob/living/simple_animal/pet/dog/security/show_inv(mob/user)
 	if(user.incapacitated() || !Adjacent(user))
