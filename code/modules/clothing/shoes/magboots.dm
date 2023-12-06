@@ -68,8 +68,8 @@
 	. += "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"]."
 
 /obj/item/clothing/shoes/magboots/atmos
-	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
 	name = "atmospheric magboots"
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
 	icon_state = "atmosmagboots0"
 	magboot_state = "atmosmagboots"
 
