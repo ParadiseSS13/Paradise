@@ -55,12 +55,13 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/team/proc/add_member(datum/mind/new_member, add_antag_datum = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
-	var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
 	members |= new_member
 
 	// If no matching antag datum was found, give them one.
-	if(add_antag_datum && !antag && antag_datum_type)
-		new_member.add_antag_datum(antag_datum_type, src)
+	if(add_antag_datum && antag_datum_type)
+		var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
+		if(!antag)
+			new_member.add_antag_datum(antag_datum_type, src)
 
 /**
  * Removes `member` from this team.
