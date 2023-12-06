@@ -57,7 +57,7 @@
 	if(magpulse)
 		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 		return
-	if(!magpulse && HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
 		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 
 /obj/item/clothing/shoes/magboots/negates_gravity()
