@@ -10,6 +10,7 @@
  * default checks.
  */
 
+
 GLOBAL_DATUM_INIT(notcontained_state, /datum/ui_state/notcontained_state, new)
 
 /datum/ui_state/notcontained_state/can_use_topic(atom/src_object, mob/user)
