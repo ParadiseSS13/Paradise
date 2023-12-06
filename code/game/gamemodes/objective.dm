@@ -162,7 +162,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinate/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
+		explanation_text = "Assassinate [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
 
@@ -184,7 +184,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/assassinateonce/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Teach [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)], a lesson they will not forget. The target only needs to die once for success."
+		explanation_text = "Teach [target.current.real_name], the [target.assigned_role], a lesson they will not forget. The target only needs to die once for success."
 		establish_signals()
 	else
 		explanation_text = "Free Objective"
@@ -211,7 +211,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/mutiny/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Assassinate or exile [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
+		explanation_text = "Assassinate or exile [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
 
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/maroon/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)] from escaping alive."
+		explanation_text = "Prevent [target.current.real_name], the [target.assigned_role] from escaping alive."
 	else
 		explanation_text = "Free Objective"
 
@@ -279,7 +279,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/debrain/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Steal the brain of [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
+		explanation_text = "Steal the brain of [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
 
@@ -302,7 +302,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 
 /datum/objective/protect/update_explanation_text()
 	if(target?.current)
-		explanation_text = "Protect [target.current.real_name], the [target.assigned_role == target.special_role ? (target.special_role) : (target.assigned_role)]."
+		explanation_text = "Protect [target.current.real_name], the [target.assigned_role]."
 	else
 		explanation_text = "Free Objective"
 
