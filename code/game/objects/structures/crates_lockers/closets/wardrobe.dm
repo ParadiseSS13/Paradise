@@ -447,3 +447,4 @@
 	new /obj/item/clothing/head/surgery/black(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde(src)
 	new /obj/item/reagent_containers/dropper(src)
+	new /obj/item/healthanalyzer(src)

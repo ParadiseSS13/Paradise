@@ -59784,7 +59784,6 @@
 /obj/structure/table/reinforced,
 /obj/item/scalpel,
 /obj/item/autopsy_scanner,
-/obj/item/healthanalyzer,
 /obj/item/camera/autopsy{
 	pixel_x = -2;
 	pixel_y = -2
