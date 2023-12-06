@@ -1357,7 +1357,7 @@ Standard way to write links -Sayu
 
 	var/atom/found
 
-	while(length(processing_list) && found == null)
+	while(length(processing_list) && isnull(found))
 		var/atom/A = processing_list[1]
 		if(istype(A, typepath))
 			found = A
@@ -1663,7 +1663,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(!isnull(value) && value != "")
 		matches = filter_fancy_list(matches, value)
 
-	if(length(matches) == 0)
+	if(!length(matches))
 		return
 
 	var/chosen
