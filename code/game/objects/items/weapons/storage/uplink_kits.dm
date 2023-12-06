@@ -103,9 +103,8 @@
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/storage/box/syndie_kit/emp, // 2TC
 		/obj/item/aiModule/toyAI, // 0TC
-		/obj/item/storage/belt/military/traitor/hacker, // 3TC
+		/obj/item/storage/belt/military/traitor/hacker, // 3TC + AI detector for 10 TC
 		/obj/item/clothing/gloves/combat, // 0TC
-		/obj/item/multitool/ai_detect, // 1TC
 		/obj/item/aiModule/syndicate, // 15 TC
 		/obj/item/storage/box/syndie_kit/camera_bug, // 5 TC
 		/obj/item/storage/box/syndidonkpockets, // 10 TC

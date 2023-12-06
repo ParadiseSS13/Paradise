@@ -406,6 +406,7 @@
 	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
+	new /obj/item/multitool/ai_detect(src)
 	update_icon()
 
 /obj/item/storage/belt/grenade
