@@ -804,14 +804,14 @@ Returns 1 if the chain up to the area contains the given typepath
 					var/turf/X = B.ChangeTurf(T.type)
 					X.dir = old_dir1
 					X.icon_state = old_icon_state1
-					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
+					X.icon = old_icon1 // Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
 
 					// Give the new turf our air, if simulated
 					if(issimulatedturf(X) && issimulatedturf(T))
 						var/turf/simulated/sim = X
 						sim.copy_air_with_tile(T)
 
-					/* Quick visual fix for some weird shuttle corner artefacts when on transit space tiles */
+					// Quick visual fix for some weird shuttle corner artefacts when on transit space tiles
 					if(direction && findtext(X.icon_state, "swall_s"))
 						// Spawn a new shuttle corner object
 						var/obj/corner = new
@@ -837,28 +837,22 @@ Returns 1 if the chain up to the area contains the given typepath
 						// Reset the shuttle corners
 						if(O.tag == "delete me")
 							X.icon = 'icons/turf/shuttle.dmi'
-							X.icon_state = replacetext(O.icon_state, "_f", "_s") // revert the turf to the old icon_state
+							X.icon_state = replacetext(O.icon_state, "_f", "_s") // Revert the turf to the old icon_state
 							X.name = "wall"
-							qdel(O) // prevents multiple shuttle corners from stacking
+							qdel(O) // Prevents multiple shuttle corners from stacking
 							continue
 
-						if(!isobj(O))
+						if(QDELETED(O))
 							continue
 
 						O.loc.Exited(O)
-						O.setLoc(X,teleported=1)
+						O.setLoc(X)
 						O.loc.Entered(O)
 
 					for(var/mob/M in T)
 						if(!M.move_on_shuttle)
 							continue
 						M.loc = X
-
-//					var/area/AR = X.loc
-
-//					if(AR.lighting_use_dynamic)							//TODO: rewrite this code so it's not messed by lighting ~Carn
-//						X.opacity = !X.opacity
-//						X.set_opacity(!X.opacity)
 
 					to_update += X
 
@@ -875,13 +869,13 @@ Returns 1 if the chain up to the area contains the given typepath
 		for(var/turf/simulated/T1 in to_update)
 			SSair.remove_from_active(T1)
 			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
+			SSair.add_to_active(T1, TRUE)
 
 	if(length(from_update))
 		for(var/turf/simulated/T2 in from_update)
 			SSair.remove_from_active(T2)
 			T2.CalculateAdjacentTurfs()
-			SSair.add_to_active(T2,1)
+			SSair.add_to_active(T2, TRUE)
 
 
 /proc/DuplicateObject(obj/original, perfectcopy = 0, sameloc = 0, atom/newloc)
