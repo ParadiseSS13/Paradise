@@ -18,6 +18,37 @@
 	var/panel = FALSE
 	var/gibs_ready = FALSE
 	var/obj/crayon
+	/// Typecache of washable items
+	var/list/can_be_washed = list(
+		/obj/item/stack/sheet/hairlesshide,
+		/obj/item/clothing/under,
+		/obj/item/clothing/mask,
+		/obj/item/clothing/head,
+		/obj/item/clothing/gloves,
+		/obj/item/clothing/shoes,
+		/obj/item/clothing/suit,
+		/obj/item/bedsheet
+	)
+	/// Typecache of items that do not fit, overrides the whitelist
+	var/list/does_not_fit = list(
+		/obj/item/clothing/under/plasmaman,
+		/obj/item/clothing/suit/space,
+		/obj/item/clothing/suit/syndicatefake,
+		/obj/item/clothing/suit/cyborg_suit,
+		/obj/item/clothing/suit/bomb_suit,
+		/obj/item/clothing/suit/armor,
+		/obj/item/clothing/mask/gas,
+		/obj/item/clothing/mask/cigarette,
+		/obj/item/clothing/head/syndicatefake,
+		/obj/item/clothing/head/helmet,
+		/obj/item/clothing/gloves/furgloves
+	)
+
+/obj/machinery/washing_machine/Initialize(mapload)
+	. = ..()
+
+	can_be_washed = typecacheof(can_be_washed)
+	does_not_fit = typecacheof(does_not_fit)
 
 /obj/machinery/washing_machine/examine(mob/user)
 	. = ..()
@@ -219,47 +250,8 @@
 			update_icon(UPDATE_ICON_STATE)
 		else
 			return ..()
-	else if(istype(W, /obj/item/stack/sheet/hairlesshide) || \
-		istype(W, /obj/item/clothing/under) || \
-		istype(W, /obj/item/clothing/mask) || \
-		istype(W, /obj/item/clothing/head) || \
-		istype(W, /obj/item/clothing/gloves) || \
-		istype(W, /obj/item/clothing/shoes) || \
-		istype(W, /obj/item/clothing/suit) || \
-		istype(W, /obj/item/bedsheet))
-
-		//YES, it's hardcoded... saves a var/can_be_washed for every single clothing item.
-		if(istype(W, /obj/item/clothing/under/plasmaman))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/suit/space))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/suit/syndicatefake))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/suit/cyborg_suit))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/suit/bomb_suit))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/suit/armor))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/mask/gas))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/mask/cigarette))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/head/syndicatefake))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/head/helmet))
-			to_chat(user, "This item does not fit.")
-			return
-		if(istype(W, /obj/item/clothing/gloves/furgloves))
+	else if(is_type_in_typecache(W, can_be_washed))
+		if(is_type_in_typecache(W, does_not_fit))
 			to_chat(user, "This item does not fit.")
 			return
 		if(istype(W, /obj/item/clothing/gloves/color/black/krav_maga/sec))
