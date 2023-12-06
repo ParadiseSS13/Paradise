@@ -297,6 +297,7 @@ CREATE TABLE `player` (
   `server_region` VARCHAR(32) NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   `muted_adminsounds_ckeys` MEDIUMTEXT NULL DEFAULT NULL COLLATE 'utf8mb4_general_ci',
   `viewrange` VARCHAR(5) NOT NULL DEFAULT '19x15' COLLATE 'utf8mb4_general_ci',
+  `species_whitelist` LONGTEXT COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`),
   KEY `lastseen` (`lastseen`),

@@ -14,9 +14,20 @@
 	if(NOT_SELECTABLE in S.species_traits)
 		return FALSE
 
+	// SS220 EDIT START
+
 	// Yes if admin
-	if(check_rights(R_ADMIN, FALSE))
-		return TRUE
+	//if(check_rights(R_ADMIN, FALSE))
+	//	return TRUE
+
+	if(GLOB.configuration.species_whitelist.species_whitelist_enabled)
+		if(!M.client?.prefs?.species_whitelist)
+			return FALSE
+
+		if(!(species in M.client.prefs.species_whitelist))
+			return FALSE
+
+	// SS220 EDIT END
 
 	// No if species is blacklisted
 	if(S.blacklisted)

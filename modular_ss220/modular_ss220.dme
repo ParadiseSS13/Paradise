@@ -75,6 +75,7 @@
 #include "mecha_skins/mecha_skins.dme"
 #include "queue/_queue.dme"
 #include "phrases/_phrases.dme"
+#include "species_whitelist/_species_whitelist.dme"
 
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY
