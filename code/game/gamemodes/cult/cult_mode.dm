@@ -1,5 +1,3 @@
-GLOBAL_LIST_EMPTY(all_cults)
-
 /datum/game_mode
 	/// A list of all minds currently in the cult
 	var/list/datum/mind/cult = list()
