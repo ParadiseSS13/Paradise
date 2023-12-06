@@ -43,7 +43,7 @@
 		return
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
-		var/dat
+		var/dat = {"<meta charset="UTF-8">"} // SS220 ADDITION
 		pages = 0
 		switch(screen)
 			if(SCREEN_COVER) //Cover
@@ -164,7 +164,7 @@
 			to_chat(user, "<span class='notice'>There's already a scribble in this page... You wouldn't want to make things too cluttered, would you?</span>")
 		else
 			var/s = strip_html(input(user, "Write something", "Newspaper", ""))
-			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
+			s = sanitize(copytext(s, 1, MAX_MESSAGE_LEN))
 			if(!s || !Adjacent(user))
 				return
 			scribble_page = curr_page
