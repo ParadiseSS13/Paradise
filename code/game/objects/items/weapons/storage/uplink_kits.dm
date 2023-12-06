@@ -23,6 +23,7 @@
 		/obj/item/clothing/under/chameleon, // 1TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/storage/box/syndie_kit/stechkin, // 4TC
+		/obj/item/suppressor, // 5TC
 		/obj/item/ammo_box/magazine/m10mm,  // 1TC
 		/obj/item/ammo_box/magazine/m10mm/hp, // 2TC
 		/obj/item/garrote, // 6TC
