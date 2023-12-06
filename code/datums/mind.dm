@@ -56,8 +56,6 @@
 	var/miming = 0 // Mime's vow of silence
 	/// A list of all the antagonist datums that the player is (does not include undatumized antags)
 	var/list/antag_datums
-	/// A lazy list of all teams the player is part of but doesnt have an antag role for, (i.e. a custom admin team)
-	var/list/teams
 
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
@@ -226,11 +224,7 @@
 	for(var/datum/antagonist/A as anything in antag_datums)
 		if(A.has_antag_objectives(include_team)) // this checks teams also
 			return TRUE
-	// For custom non-antag role teams
-	if(include_team && LAZYLEN(teams))
-		for(var/datum/team/team as anything in teams)
-			if(team.objective_holder.has_objectives())
-				return TRUE
+
 	return FALSE
 
 /**
@@ -243,15 +237,12 @@
 
 	for(var/datum/antagonist/A as anything in antag_datums)
 		all_objectives += A.objective_holder.get_objectives() // Add all antag datum objectives.
-		if(include_team)
-			var/datum/team/team = A.get_team()
-			if(team) // have to make asure a team exists here, team?. does not work below because it will add the null to the list
-				all_objectives += team.objective_holder.get_objectives() // Get all of their teams' objectives
+		if(!include_team)
+			continue
 
-	// For custom non-antag role teams
-	if(include_team && LAZYLEN(teams))
-		for(var/datum/team/team as anything in teams)
-			all_objectives += team.objective_holder.get_objectives()
+		var/datum/team/team = A.get_team()
+		if(team) // have to make asure a team exists here, team?. does not work below because it will add the null to the list
+			all_objectives += team.objective_holder.get_objectives() // Get all of their teams' objectives
 
 	return all_objectives
 
