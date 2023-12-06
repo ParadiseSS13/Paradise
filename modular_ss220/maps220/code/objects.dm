@@ -582,6 +582,7 @@
 	faction = list("xen")
 	tts_seed = "Vortiger"
 	gold_core_spawnable = NO_SPAWN
+	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/blackmesa/xen/update_overlays()
 	. = ..()
@@ -627,7 +628,7 @@
 	if(!ismob(entered_atom))
 		return
 	var/mob/living/simple_animal/hostile/blackmesa/xen/entered_xen_mob = entered_atom
-	if(!entered_xen_mob.can_be_shielded)
+	if(!entered_xen_mob)
 		return
 	register_mob(entered_xen_mob)
 
@@ -645,20 +646,20 @@
 	RegisterSignal(created_beam, COMSIG_PARENT_QDELETING, PROC_REF(beam_died), override = TRUE)
 	RegisterSignal(mob_to_register, COMSIG_PARENT_QDELETING, PROC_REF(mob_died), override = TRUE)
 
+/obj/structure/xen_pylon/proc/beam_died(datum/beam/beam_to_kill)
+	SIGNAL_HANDLER
+	for(var/mob/living/simple_animal/hostile/blackmesa/xen/iterating_mob as anything in shielded_mobs)
+		// if(shielded_mobs[iterating_mob] == beam_to_kill)
+		iterating_mob.lose_shield()
+		shielded_mobs[iterating_mob] = null
+		shielded_mobs -= iterating_mob
+
 /obj/structure/xen_pylon/proc/mob_died(atom/movable/source, force)
 	SIGNAL_HANDLER
 	var/datum/beam/beam = shielded_mobs[source]
 	QDEL_NULL(beam)
 	shielded_mobs[source] = null
 	shielded_mobs -= source
-
-/obj/structure/xen_pylon/proc/beam_died(datum/beam/beam_to_kill)
-	SIGNAL_HANDLER
-	for(var/mob/living/simple_animal/hostile/blackmesa/xen/iterating_mob as anything in shielded_mobs)
-		if(shielded_mobs[iterating_mob] == beam_to_kill)
-			iterating_mob.lose_shield()
-			shielded_mobs[iterating_mob] = null
-			shielded_mobs -= iterating_mob
 
 /obj/structure/xen_pylon/Destroy()
 	for(var/mob/living/simple_animal/hostile/blackmesa/xen/iterating_mob as anything in shielded_mobs)

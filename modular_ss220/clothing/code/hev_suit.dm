@@ -35,8 +35,6 @@
 
 	var/list/sound_queue = list()
 
-	var/emag_doses_left = 5
-
 	var/mob/living/carbon/owner
 
 	var/obj/item/geiger_counter/GC
@@ -61,7 +59,7 @@
 	var/sound_file = sound_data[1]
 	var/sound_delay = sound_data[2]
 
-	playsound(src, sound_file, 50)
+	playsound(owner, sound_file, 20)
 
 	sound_queue.Cut(1,2)
 
@@ -69,16 +67,6 @@
 		return
 
 	addtimer(CALLBACK(src, PROC_REF(process_sound_queue)), sound_delay)
-
-/obj/item/clothing/suit/space/hev/emag_act(mob/user, obj/item/card/emag/emag_card)
-	if(flags & emagged)
-		return FALSE
-	if(owner)
-		to_chat(owner, span_warning("You need to take off \the [name] before emagging it."))
-		return FALSE
-	flags |= emagged
-	do_sparks(8, FALSE, get_turf(src))
-	return TRUE
 
 /obj/item/clothing/suit/space/hev/proc/add_queue(desired_file, desired_delay, purge_queue=FALSE)
 
@@ -100,12 +88,10 @@
 	if(slot == SLOT_HUD_OUTER_SUIT && iscarbon(M))
 		for(var/voice in funny_signals)
 			RegisterSignal(M, voice, funny_signals[voice])
-			add_queue('modular_ss220/aesthetics_sounds/sound/hev/blip.ogg', 2 SECONDS, purge_queue=TRUE)
 			owner = M
+			add_queue('modular_ss220/aesthetics_sounds/sound/hev/blip.ogg', 2 SECONDS, purge_queue=TRUE)
 			add_queue('modular_ss220/aesthetics_sounds/sound/hev/01_hev_logon.ogg', 11 SECONDS)
-			add_queue('modular_ss220/aesthetics_sounds/sound/hev/03_atmospherics_on.ogg', 6 SECONDS)
-			add_queue('modular_ss220/aesthetics_sounds/sound/hev/08_communications_on.ogg', 5 SECONDS)
-			add_queue('modular_ss220/aesthetics_sounds/sound/hev/04_vitalsigns_on.ogg', 5 SECONDS)
+			add_queue('modular_ss220/aesthetics_sounds/sound/hev/04_vitalsigns_on.ogg', 4 SECONDS)
 			add_queue('modular_ss220/aesthetics_sounds/sound/hev/09_safe_day.ogg', 8 SECONDS)
 	else
 		for(var/voice in funny_signals)
@@ -124,15 +110,14 @@
 //Mute
 /obj/item/clothing/suit/space/hev/proc/handle_speech(datum/source, mob/speech_args)
 	SIGNAL_HANDLER
-	if(!(flags & emagged))
-		var/static/list/cancel_messages = list(
-			"Вам трудно говорить, когда костюм туго сдавливает ваше горло...",
-			"Ваши связки ощущаются сдавленными, что пресекает любую попытку выдавить хоть какой-то звук...",
-			"Вы пытаетесь что-то сказать, но костюм сдавливает вам гортань..."
-		)
+	var/static/list/cancel_messages = list(
+		"Вам трудно говорить, когда костюм туго сдавливает ваше горло...",
+		"Ваши связки ощущаются сдавленными, что пресекает любую попытку выдавить хоть какой-то звук...",
+		"Вы пытаетесь что-то сказать, но костюм сдавливает вам гортань..."
+	)
 
-		speech_args[SPEECH_MESSAGE] = "..."
-		to_chat(source, span_warning(pick(cancel_messages)))
+	speech_args[SPEECH_MESSAGE] = "..."
+	to_chat(source, span_warning(pick(cancel_messages)))
 
 //Fire
 /obj/item/clothing/suit/space/hev/proc/handle_ignite(mob/living)

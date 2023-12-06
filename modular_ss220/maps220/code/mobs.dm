@@ -662,11 +662,18 @@
 	var/alert_cooldown = 3 SECONDS
 	var/alert_cooldown_time
 
+
+/mob/living/simple_animal/hostile/blackmesa/Initialize(mapload)
+	. = ..()
+	add_language("Sol Common")
+	default_language = GLOB.all_languages["Sol Common"]
+
 /mob/living/simple_animal/hostile/blackmesa/Aggro()
-	if(alert_sounds)
-		if(!(world.time > alert_cooldown_time))
-			playsound(src, pick(alert_sounds), 70)
-			alert_cooldown_time = world.time + alert_cooldown
+	if(!alert_sounds)
+		return
+	if(world.time > alert_cooldown_time)
+		playsound(src, pick(alert_sounds), 70)
+		alert_cooldown_time = world.time + alert_cooldown
 //Humans
 /mob/living/simple_animal/hostile/blackmesa/hecu
 	name = "HECU Grunt"
@@ -681,8 +688,8 @@
 	speed = 0
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
-	maxHealth = 110
-	health = 110
+	maxHealth = 90
+	health = 90
 	harm_intent_damage = 5
 	melee_damage_lower = 10
 	melee_damage_upper = 15
@@ -741,8 +748,8 @@
 	turns_per_move = 5
 	speed = 0
 	robust_searching = 1
-	maxHealth = 80
-	health = 80
+	maxHealth = 70
+	health = 70
 	harm_intent_damage = 5
 	melee_damage_lower = 10
 	melee_damage_upper = 10
@@ -847,14 +854,15 @@
 	icon = 'modular_ss220/maps220/icons/simple_human.dmi'
 	icon_state = "zombie"
 	icon_living = "zombie"
-	maxHealth = 100
-	health = 100
+	maxHealth = 70
+	health = 70
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
 	icon_dead = "zombie_dead"
 	speak_chance = 1
 	speak_emote = list("growls")
-	speed = 1.8
+	speed = 1
+	move_to_delay = 3.8
 	emote_taunt = list("growls", "snarls", "grumbles")
 	taunt_chance = 100
 	melee_damage_lower = 15
@@ -876,35 +884,32 @@
 	icon_state = "scientist_zombie"
 	icon_living = "scientist_zombie"
 	loot = list(/obj/effect/gibspawner/human)
-	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/guard
 	name = "zombified guard"
 	desc = "About that brain I owed ya!"
 	icon_state = "security_zombie"
 	icon_living = "security_zombie"
-	maxHealth = 120 // Armor!
-	health = 120
+	maxHealth = 100 // Armor!
+	health = 100
 	loot = list(/obj/effect/gibspawner/human)
-	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/hecu
 	name = "zombified marine"
 	desc = "MY. ASS. IS. DEAD."
 	icon_state = "hecu_zombie"
 	icon_living = "hecu_zombie"
-	maxHealth = 150 // More armor!
-	health = 150
+	maxHealth = 130 // More armor!
+	health = 130
 	loot = list(/obj/effect/gibspawner/human)
-	del_on_death = TRUE
 
 /mob/living/simple_animal/hostile/blackmesa/xen/headcrab_zombie/hev
 	name = "zombified hazardous environment specialist"
 	desc = "User death... surpassed."
 	icon_state = "hev_zombie"
 	icon_living = "hev_zombie"
-	maxHealth = 200
-	health = 200
+	maxHealth = 160
+	health = 160
 	alert_sounds = list(
 		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv1.ogg',
 		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv2.ogg',
@@ -921,7 +926,7 @@
 		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv13.ogg',
 		'modular_ss220/aesthetics_sounds/sound/mobs/zombies/hzv14.ogg',
 	)
-	del_on_death = TRUE
+
 
 //Bullsquid
 /mob/living/simple_animal/hostile/blackmesa/xen/bullsquid
@@ -945,6 +950,7 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	ranged = TRUE
+	del_on_death = FALSE
 	retreat_distance = 5
 	minimum_distance = 5
 	dodging = TRUE
@@ -999,6 +1005,7 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	rapid_melee = 2
+	del_on_death = FALSE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 3)
 	attack_sound = 'sound/weapons/bite.ogg'
 	gold_core_spawnable = HOSTILE_SPAWN
@@ -1032,11 +1039,12 @@
 	ranged_message = "fires"
 	taunt_chance = 100
 	turns_per_move = 3
-	maxHealth = 100
-	health = 100
+	maxHealth = 80
+	health = 80
 	speed = 2
 	ranged = TRUE
 	dodging = TRUE
+	del_on_death = FALSE
 	harm_intent_damage = 15
 	melee_damage_lower = 10
 	melee_damage_upper = 10
@@ -1070,8 +1078,8 @@
 	bound_height = 32
 	bound_width = 32
 	icon_dead = "bullsquid_dead"
-	maxHealth = 2500
-	health = 2500
+	maxHealth = 2000
+	health = 2000
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	universal_speak = TRUE
 	projectilesound = 'sound/weapons/lasercannonfire.ogg'
@@ -1086,7 +1094,6 @@
 	attacktext = "lathes"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	status_flags = NONE
-	del_on_death = TRUE
 	wander = TRUE
 	loot = list(/obj/effect/gibspawner/xeno, /obj/item/stack/ore/bluespace_crystal/refined = 30, /obj/item/card/id/xen_key, /obj/item/gun/energy/wormhole_projector)
 	flying = TRUE
@@ -1114,11 +1121,11 @@
 	if(!(world.time > alert_cooldown_time))
 		alert_cooldown_time = world.time + alert_cooldown
 		switch(health)
-			if(0 to 999)
+			if(0 to 499)
 				playsound(src, pick(list('modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_pain01.ogg', 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_freeeemmaan01.ogg')), 100)
-			if(1000 to 1499)
+			if(500 to 999)
 				playsound(src, pick(list('modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_youalldie01.ogg', 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_foryouhewaits01.ogg')), 100)
-			if(1500 to 1999)
+			if(1000 to 1999)
 				playsound(src, pick(list('modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_whathavedone01.ogg', 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_deceiveyou01.ogg')), 100)
 			else
 				playsound(src, pick(list('modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_thetruth01.ogg', 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_iamthelast01.ogg')), 100)
