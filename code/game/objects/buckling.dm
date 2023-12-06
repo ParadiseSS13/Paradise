@@ -141,7 +141,7 @@
 	if(isguardian(user) && (M.loc == user.loc || user.alpha == 60)) //Alpha is for detecting ranged guardians in scout mode
 		return  //unmanifested guardians shouldn't be able to buckle mobs
 
-	if(M != user && !M.incapacitated() && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+	if(M != user && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
 		return FALSE
 
 	add_fingerprint(user)
