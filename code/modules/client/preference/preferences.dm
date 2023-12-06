@@ -383,6 +383,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<b>Socks:</b> <a href ='?_src_=prefs;preference=socks;task=input'>[active_character.socks]</a><BR>"
 			dat += "<b>Backpack Type:</b> <a href ='?_src_=prefs;preference=bag;task=input'>[active_character.backbag]</a><br>"
 
+			var/datum/species/myspecies = GLOB.all_species[active_character.species]
+			if(!isnull(myspecies))
+				dat += "<h2>Species Information</h2>"
+				dat += "<br><b>Species Description:</b> [myspecies.blurb]<br>"
+
 			dat += "</td></tr></table>"
 
 		if(TAB_GAME) // General Preferences
