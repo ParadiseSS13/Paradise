@@ -27,6 +27,7 @@
 		/obj/item/ammo_box/magazine/m10mm/hp, // 2TC
 		/obj/item/garrote, // 6TC
 		/obj/item/door_remote/omni/access_tuner, // 6TC
+		/obj/item/clothing/glasses/chameleon/thermal, // 15TC
 		/obj/item/storage/briefcase/false_bottomed, // 10 TC
 		/obj/item/storage/box/syndidonkpockets, // 10 TC
 		/obj/item/implanter/freedom, // 5TC
