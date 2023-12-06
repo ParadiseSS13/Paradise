@@ -22,7 +22,7 @@ export class Collapsible extends Component {
     const { open } = this.state;
     const { children, color = 'default', title, buttons, ...rest } = props;
     return (
-      <Box mb={1}>
+      <Box className="Collapsible">
         <div className="Table">
           <div className="Table__cell">
             <Button

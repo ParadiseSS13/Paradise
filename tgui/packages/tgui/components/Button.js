@@ -94,7 +94,7 @@ export const Button = (props) => {
       }}
       {...rest}
     >
-      {icon && (
+      {icon && !iconRight && (
         <Icon
           name={icon}
           color={iconColor}

@@ -84,8 +84,14 @@ export class Input extends Component {
       input.value = toInputValue(nextValue);
     }
 
-    if (this.props.autoFocus) {
-      setTimeout(() => input.focus(), 1);
+    if (this.props.autoFocus || this.props.autoSelect) {
+      setTimeout(() => {
+        input.focus();
+
+        if (this.props.autoSelect) {
+          input.select();
+        }
+      }, 1);
     }
   }
 
@@ -114,26 +120,53 @@ export class Input extends Component {
       value,
       maxLength,
       placeholder,
+      autofocus,
+      disabled,
+      // Multiline props
+      multiline,
+      cols = 32,
+      rows = 4,
       ...boxProps
     } = props;
     // Box props
     const { className, fluid, ...rest } = boxProps;
     return (
       <Box
-        className={classes(['Input', fluid && 'Input--fluid', className])}
+        className={classes([
+          'Input',
+          fluid && 'Input--fluid',
+          disabled && 'Input--disabled',
+          className,
+        ])}
         {...rest}
       >
         <div className="Input__baseline">.</div>
-        <input
-          ref={this.inputRef}
-          className="Input__input"
-          placeholder={placeholder}
-          onInput={this.handleInput}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeyDown}
-          maxLength={maxLength}
-        />
+        {multiline ? (
+          <textarea
+            ref={this.inputRef}
+            className="Input__textarea"
+            placeholder={placeholder}
+            onInput={this.handleInput}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            maxLength={maxLength}
+            cols={cols}
+            rows={rows}
+            disabled={disabled}
+          />
+        ) : (
+          <input
+            ref={this.inputRef}
+            className="Input__input"
+            placeholder={placeholder}
+            onInput={this.handleInput}
+            onFocus={this.handleFocus}
+            onBlur={this.handleBlur}
+            onKeyDown={this.handleKeyDown}
+            maxLength={maxLength}
+            disabled={disabled}
+          />
+        )}
       </Box>
     );
   }

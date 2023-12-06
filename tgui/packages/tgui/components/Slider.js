@@ -34,6 +34,7 @@ export const Slider = (props) => {
     color,
     ranges = {},
     children,
+    disabled,
     ...rest
   } = props;
   const hasContent = children !== undefined;
@@ -52,6 +53,7 @@ export const Slider = (props) => {
         suppressFlicker,
         unit,
         value,
+        disabled,
       }}
     >
       {(control) => {
@@ -78,11 +80,17 @@ export const Slider = (props) => {
           <div
             className={classes([
               'Slider',
+              disabled && 'Slider__disabled',
               'ProgressBar',
-              'ProgressBar--color--' + effectiveColor,
+              disabled
+                ? 'ProgressBar--color--disabled'
+                : 'ProgressBar--color--' + effectiveColor,
               className,
               computeBoxClassName(rest),
             ])}
+            // Added for the sake of backward compatibility.
+            // Inferno ignores clicks inside elements marked with disabled
+            disabled={disabled}
             {...computeBoxProps(rest)}
             onMouseDown={handleDragStart}
           >
