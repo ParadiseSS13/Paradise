@@ -5,8 +5,7 @@
 /obj/item/storage/box/syndie_kit/bundle // Traitor bundles
 
 	var/static/list/spy = list( // 37TC
-		/obj/item/clothing/under/chameleon, // 1TC
-		/obj/item/clothing/mask/chameleon, // 1TC
+		/obj/item/storage/box/syndie_kit/chameleon, // 20 TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
@@ -16,18 +15,20 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 2TC
 		/obj/item/flashlight/emp, // 4TC
 		/obj/item/chameleon, // 7TC
+		/obj/item/garrote, // 30 TC
+		/obj/item/door_remote/omni/access_tuner, // 30 TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/agent13 = list( // 36TC
 		/obj/item/clothing/under/chameleon, // 1TC
 		/obj/item/card/id/syndicate, // 2TC
-		/obj/item/gun/projectile/automatic/pistol, // 4TC
-		/obj/item/suppressor, // 1TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 4TC
 		/obj/item/ammo_box/magazine/m10mm,  // 1TC
 		/obj/item/ammo_box/magazine/m10mm/hp, // 2TC
 		/obj/item/garrote, // 6TC
 		/obj/item/door_remote/omni/access_tuner, // 6TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
+		/obj/item/storage/briefcase/false_bottomed, // 10 TC
+		/obj/item/storage/box/syndidonkpockets, // 10 TC
 		/obj/item/implanter/freedom, // 5TC
 		/obj/item/coin/gold, // 0TC
 		/obj/item/encryptionkey/syndicate) // 2TC
@@ -42,7 +43,7 @@
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/bond = list( // 32TC
-		/obj/item/gun/projectile/automatic/pistol, // 4TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 4TC
 		/obj/item/suppressor, // 1TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 2TC
@@ -53,7 +54,7 @@
 		/obj/item/clothing/glasses/hud/security/chameleon, // 2TC
 		/obj/item/encryptionkey/syndicate, // 2TC
 		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
-		/obj/item/dnascrambler, // 2TC
+		/obj/item/grenade/syndieminibomb/pen, // 30 TC
 		/obj/item/CQC_manual) // 13TC
 
 	var/static/list/infiltrator = list( // 34TC + RCD & Mesons Autoimplanter
@@ -79,11 +80,12 @@
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
 		/obj/item/thermal_drill/diamond_drill/syndicate, // 1TC
+		/obj/item/storage/box/syndidonkpockets, // 10 TC
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/implant = list( // 40TC
 		/obj/item/implanter/freedom, // 5TC
-		/obj/item/implanter/uplink, // 14TC (ten free TC)
+		/obj/item/implanter/stealth, // 45 TC
 		/obj/item/implanter/emp, // 1TC
 		/obj/item/implanter/adrenalin, // 8TC
 		/obj/item/implanter/explosive, // 2TC
@@ -93,15 +95,18 @@
 	var/static/list/hacker = list( // 39TC + Toy AI Uploader
 		/obj/item/melee/energy/sword/saber/blue, // 8TC
 		/obj/item/card/emag, // 6TC
+		/obj/item/door_remote/omni/access_tuner, // 30 TC, HACK EVERYTHING
 		/obj/item/encryptionkey/syndicate, // 2TC
 		/obj/item/encryptionkey/binary, // 5TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/storage/box/syndie_kit/emp, // 2TC
 		/obj/item/aiModule/toyAI, // 0TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 6TC
 		/obj/item/storage/belt/military/traitor/hacker, // 3TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/multitool/ai_detect, // 1TC
+		/obj/item/aiModule/syndicate, // 15 TC
+		/obj/item/storage/box/syndie_kit/camera_bug, // 5 TC
+		/obj/item/storage/box/syndidonkpockets, // 10 TC
 		/obj/item/flashlight/emp) // 4TC
 
 	var/static/list/darklord = list( // 33TC + TK
@@ -129,13 +134,15 @@
 
 	var/static/list/grenadier = list( // 20TC + Tactical Grenadier Belt
 		/obj/item/storage/belt/grenade/tactical, // Contains 2 Frag and EMP grenades, 5 C4 Explosives, 5 Smoke and Gluon grenades and 1 Minibomb grenade ~20TC Estimate
-		/obj/item/gun/projectile/automatic/pistol, // 4TC
-		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
-		/obj/item/ammo_box/magazine/m10mm/fire, // 2TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 4TC
+		/obj/item/ammo_box/magazine/m10mm, // 2TC
+		/obj/item/ammo_box/magazine/m10mm, // 2TC
 		/obj/item/mod/control/pre_equipped/traitor, // 6TC
 		/obj/item/clothing/gloves/combat, // 0TC
 		/obj/item/card/id/syndicate, // 2TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 2TC
+		/obj/item/storage/box/syndidonkpockets, // 10 TC
+		/obj/item/storage/box/syndie_kit/frag_grenades, // One box, as a treat
 		/obj/item/encryptionkey/syndicate) // 2TC
 
 	var/static/list/metroid = list( // 21 + modules + laser gun
@@ -146,6 +153,7 @@
 		/obj/item/mod/module/sphere_transform, //0TC but should not be allowed to normally be installed
 		/obj/item/autosurgeon/organ/syndicate/laser_arm, //0 TC but otherwise not obtainable.
 		/obj/item/pinpointer/advpinpointer, //4 TC
+		/obj/item/implanter/adrenalin, // 40 TC
 		/obj/item/storage/box/syndidonkpockets, //2TC, otherwise they will just die in the first combat to disabler.
 		/obj/item/storage/belt/utility/full/multitool, //0 TC
 		/obj/item/clothing/head/collectable/slime,  //Priceless (0 TC)
