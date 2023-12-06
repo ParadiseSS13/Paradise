@@ -104,6 +104,7 @@ jobs:
           tools/ci/validate_sql.sh
       - name: Install RUST_G Deps
         run: |
+          sudo apt-get install gcc-multilib
           sudo dpkg --add-architecture i386
           sudo apt-get update || true
           sudo apt-get install zlib1g-dev:i386
