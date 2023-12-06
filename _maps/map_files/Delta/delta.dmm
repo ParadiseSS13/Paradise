@@ -64914,6 +64914,7 @@
 /obj/structure/table,
 /obj/item/autopsy_scanner,
 /obj/item/scalpel,
+/obj/item/healthanalyzer,
 /turf/simulated/floor/plasteel/dark,
 /area/station/medical/morgue)
 "dvC" = (

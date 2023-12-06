@@ -61041,6 +61041,7 @@
 	},
 /obj/item/scalpel,
 /obj/item/autopsy_scanner,
+/obj/item/healthanalyzer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
