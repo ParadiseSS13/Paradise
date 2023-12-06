@@ -642,7 +642,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	var/list/result
 	if(client)
 		LAZYINITLIST(client.recent_examines)
-		var/ref_to_atom = ref(A)
+		var/ref_to_atom = A.UID()
 		var/examine_time = client.recent_examines[ref_to_atom]
 		if(examine_time && (world.time - examine_time < EXAMINE_MORE_WINDOW))
 			result = A.examine_more(src)
