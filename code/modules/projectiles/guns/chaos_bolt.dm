@@ -9,12 +9,12 @@
 	. = ..()
 	if(target && isliving(target))
 		var/mob/living/L = target
-		var/category = pick(prob(5);"lethal", prob(45);"damaging", prob(30);"misc", prob(15);"gift", prob(5);"great gift")
+		var/category = pick(prob(5);"lethal", prob(45);"negative", prob(30);"misc", prob(15);"gift", prob(5);"great gift")
 		switch(category)
 			if("lethal") //Target is either dead on the spot or might as well be
 				apply_lethal_effect(L)
-			if("damaging") //Target is damaged or crippled. Effect can be lethal in some circumstances.
-				apply_damaging_effect(L)
+			if("negative") //Target is damaged, crippled or otherwise negatively affected. Effect can be lethal in some circumstances.
+				apply_negative_effect(L)
 			if("misc") //Miscellaneous effect, can be positive, negative, or just humorous
 				apply_misc_effect(L)
 			if("gift") //Grants a gift or positive effect to the target. Usually a gag or mildly useful item... if you weren't being killed by a wizard
@@ -38,7 +38,8 @@
 		target.death(FALSE)
 		return
 	chaos_effect = pick("ded", "heart deleted", "gibbed", "cluwned", "spaced", "decapitated", "banned", \
-		"exploded", "cheese morphed", "time erased", "supermattered", "borged", "animal morphed", "trick weapon")
+		"exploded", "cheese morphed", "time erased", "supermattered", "borged", "animal morphed", \
+		"trick weapon", "thunder struck")
 	switch(chaos_effect)
 		if("ded")
 			return
@@ -68,13 +69,16 @@
 			return
 		if("trick weapon")
 			item_to_summon = pick(/obj/item/toy/russian_revolver/trick_revolver, /obj/item/grenade/syndieminibomb/fake)
+		if("thunder struck")
+			return
 
-/obj/item/projectile/magic/chaos/proc/apply_damaging_effect(mob/living/target)
+/obj/item/projectile/magic/chaos/proc/apply_negative_effect(mob/living/target)
 	if(!iscarbon(target))
 		//damage target
 		return
 	chaos_effect = pick("fireballed", "ice spiked", "rathend", "stabbed", "slashed", "burned", "poisoned", \
-		"plasma fire", "clowned", "mimed", "teleport", "teleport roulette", "scatter inventory", "forced to dance")
+		"plasma fire", "clowned", "mimed", "teleport", "teleport roulette", "scatter inventory", "forced to dance" \
+		"electrocuted", "firecrackerd", "beartrapped")
 	switch(chaos_effect)
 		if("fireballed")
 			return
@@ -103,6 +107,12 @@
 		if("scatter inventory")
 			return
 		if("forced to dance")
+			return
+		if("electrocuted")
+			return
+		if("firecrackerd")
+			return
+		if("beartrapped")
 			return
 
 /obj/item/projectile/magic/chaos/proc/apply_misc_effect(mob/living/target)
@@ -171,7 +181,7 @@
 			item_to_summon = /obj/item/reagent_containers/food/snacks/sliceable/bananabread
 			explosion_amount = rand(5, 10)
 		if("medkit")
-			item_to_summon = /obj/item/storage/firstaid/doctor
+			item_to_summon = pick(/obj/item/storage/firstaid/brute, /obj/item/storage/firstaid/fire, /obj/item/storage/firstaid/adv)
 		if("heal")
 			return
 		if("dwarf")
