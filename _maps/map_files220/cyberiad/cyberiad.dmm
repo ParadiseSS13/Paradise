@@ -4425,6 +4425,25 @@
 /area/station/security/lobby)
 "asY" = (
 /obj/structure/chair/office/dark,
+/obj/machinery/door_control/normal/east{
+	id = "BrigRight";
+	name = "Brig Foyer Right Doors";
+	req_one_access_txt = "63"
+	},
+/obj/machinery/door_control/normal/east{
+	pixel_y = 8;
+	name = "Brig Foyer Left Doors";
+	req_one_access_txt = "63";
+	desc = "A remote control switch for the brig foyer.";
+	id = "BrigLeft"
+	},
+/obj/machinery/door_control/normal/east{
+	pixel_y = -8;
+	desc = "A remote control switch for the brig foyer.";
+	id = "BrigEast";
+	name = "Brig Foyer East Doors";
+	req_one_access_txt = "63"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred"
@@ -4877,29 +4896,13 @@
 	icon_state = "4-8"
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/security/general,
-/obj/machinery/door_control/normal{
-	desc = "A remote control switch for the brig foyer.";
-	id = "BrigLeft";
-	name = "Brig Foyer Left Doors";
-	pixel_x = -5;
-	pixel_y = 6;
-	req_one_access_txt = "63"
+/obj/item/paper_bin{
+	pixel_y = 3;
+	pixel_x = -4
 	},
-/obj/machinery/door_control/normal{
-	desc = "A remote control switch for the brig foyer.";
-	id = "BrigRight";
-	name = "Brig Foyer Right Doors";
-	pixel_x = 5;
-	pixel_y = 6;
-	req_one_access_txt = "63"
-	},
-/obj/machinery/door_control/normal{
-	desc = "A remote control switch for the brig foyer.";
-	id = "BrigEast";
-	name = "Brig Foyer East Doors";
-	pixel_x = 5;
-	pixel_y = -2;
-	req_one_access_txt = "63"
+/obj/item/pen{
+	pixel_x = -2;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
@@ -54276,7 +54279,7 @@
 /obj/effect/turf_decal/arrows/black{
 	dir = 8
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/window/preopen{
 	dir = 8;
 	id_tag = "hopqueue";
 	name = "Privacy Shutters"
@@ -60578,6 +60581,8 @@
 /obj/item/radio/intercom/custom{
 	pixel_y = 36
 	},
+/obj/structure/filingcabinet/security,
+/obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -64752,10 +64757,9 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Isolator"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/window/preopen{
 	dir = 1;
-	id_tag = "durka2";
-	layer = 4
+	id_tag = "durka2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -69724,10 +69728,9 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle/large{
 	pixel_x = 7
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/window/preopen{
 	dir = 1;
-	id_tag = "durka2";
-	layer = 4
+	id_tag = "durka2"
 	},
 /obj/machinery/door/window/reinforced/normal{
 	dir = 1;
@@ -76973,7 +76976,7 @@
 /obj/effect/turf_decal/arrows/black{
 	dir = 4
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
+/obj/machinery/door/poddoor/shutters/window/preopen{
 	dir = 8;
 	id_tag = "hopqueue";
 	name = "Privacy Shutters"
@@ -78677,14 +78680,13 @@
 /obj/machinery/door/airlock/medical/glass{
 	name = "Isolator"
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	id_tag = "durka1";
-	layer = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/any/medical/psychology,
+/obj/machinery/door/poddoor/shutters/window/preopen{
+	dir = 1;
+	id_tag = "durka1"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -78987,11 +78989,6 @@
 	},
 /area/station/engineering/atmos)
 "pTa" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 1;
-	id_tag = "durka1";
-	layer = 4
-	},
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/reinforced/normal{
 	name = "Secure Desk"
@@ -79002,6 +78999,10 @@
 	},
 /obj/effect/mapping_helpers/airlock/windoor/access/any/medical/psychology{
 	dir = 1
+	},
+/obj/machinery/door/poddoor/shutters/window/preopen{
+	dir = 1;
+	id_tag = "durka1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
