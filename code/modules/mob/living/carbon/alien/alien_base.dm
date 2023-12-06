@@ -293,11 +293,11 @@ and carry the owner just to make sure*/
 
 /mob/living/carbon/alien/consume_patch_or_pill(obj/item/reagent_containers/medicine, mob/user)
 	var/apply_method = "swallow"
-	var/efficiency = 1
+	var/how_many_reagents = medicine.reagents.total_volume
 	var/reagent_application = REAGENT_INGEST
 	if(ispatch(medicine))
 		apply_method = "apply"
-		efficiency = 0.5
+		how_many_reagents = clamp(medicine.reagents.total_volume, 0.1, 2)
 		reagent_application = REAGENT_TOUCH
 
 	visible_message("<span class='warning'>[user] attempts to force [src] to [apply_method] [medicine].</span>")
@@ -307,5 +307,5 @@ and carry the owner just to make sure*/
 	visible_message("<span class='warning'>[user] forces [src] to [apply_method] [medicine].</span>")
 	var/fraction = min(1 / medicine.reagents.total_volume, 1)
 	medicine.reagents.reaction(src, reagent_application, fraction)
-	medicine.reagents.trans_to(src, medicine.reagents.total_volume * efficiency)
+	medicine.reagents.trans_to(src, how_many_reagents)
 	return TRUE
