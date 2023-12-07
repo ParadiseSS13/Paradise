@@ -71443,14 +71443,14 @@
 /area/station/maintenance/old_kitchen)
 "lkZ" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
-/obj/item/reagent_containers/food/snacks/icecream/icecreamcone,
-/obj/item/reagent_containers/food/snacks/icecream/icecreamcone,
-/obj/item/reagent_containers/food/snacks/icecream/icecreamcone,
-/obj/item/reagent_containers/food/snacks/icecream/icecreamcone,
-/obj/item/reagent_containers/food/snacks/icecream,
-/obj/item/reagent_containers/food/snacks/icecream,
-/obj/item/reagent_containers/food/snacks/icecreamsandwich,
-/obj/item/reagent_containers/food/snacks/icecreamsandwich,
+/obj/item/reagent_containers/food/snacks/frozen/icecream/icecreamcone,
+/obj/item/reagent_containers/food/snacks/frozen/icecream/icecreamcone,
+/obj/item/reagent_containers/food/snacks/frozen/icecream/icecreamcone,
+/obj/item/reagent_containers/food/snacks/frozen/icecream/icecreamcone,
+/obj/item/reagent_containers/food/snacks/frozen/icecream,
+/obj/item/reagent_containers/food/snacks/frozen/icecream,
+/obj/item/reagent_containers/food/snacks/frozen/icecreamsandwich,
+/obj/item/reagent_containers/food/snacks/frozen/icecreamsandwich,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
