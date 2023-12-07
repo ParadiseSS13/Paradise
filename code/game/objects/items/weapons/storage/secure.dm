@@ -131,7 +131,7 @@
 /obj/item/storage/secure/ui_interact(mob/user, datum/tgui/ui, force_open, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "SecureStorage", name, 275, 500)
+		ui = new(user, src, "SecureStorage", name)
 		ui.open()
 
 /obj/item/storage/secure/ui_data(mob/user)
