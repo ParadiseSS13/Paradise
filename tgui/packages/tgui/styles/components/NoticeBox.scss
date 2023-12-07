@@ -49,7 +49,7 @@ $bg-map: colors.$bg-map !default;
 
 @each $color-name, $color-value in $bg-map {
   .NoticeBox--color--#{$color-name} {
-    @include box-color($color-value)
+    @include box-color($color-value);
   }
 }
 

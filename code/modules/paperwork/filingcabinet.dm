@@ -83,7 +83,10 @@
 			return
 	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
 
-/obj/structure/filingcabinet/ui_interact(mob/user, datum/tgui/ui, force_open, datum/ui_state/state)
+/obj/structure/filingcabinet/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/structure/filingcabinet/ui_interact(mob/user, datum/tgui/ui, force_open)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
 		ui = new(user, src, "FilingCabinet",  name, 400, 300)

@@ -95,12 +95,13 @@ export class Window extends Component {
 }
 
 const WindowContent = (props) => {
-  const { className, fitted, children, ...rest } = props;
+  const { scrollable, className, fitted, children, ...rest } = props;
   // A bit lazy to actually write styles for it,
   // so we simply include a Box with margins.
   return (
     <Layout.Content
       className={classes(['Window__content', className])}
+      scrollable={scrollable}
       {...rest}
     >
       {(fitted && children) || (

@@ -28,6 +28,10 @@
  * return list Data to be sent to the UI.
  */
 /datum/proc/ui_data(mob/user)
+	// 1) this is polled several times a second, so sleeping means more running threads, needlessly tanking performance
+	// 2) if you try to sleep, you get fun bugs ranging from BSOD to uninteractable white windows, to windows straight up vanishing.
+	// Just don't.
+	SHOULD_NOT_SLEEP(TRUE)
 	return list() // Not implemented.
 
 /**
@@ -45,6 +49,7 @@
  * return list Statuic Data to be sent to the UI.
  */
 /datum/proc/ui_static_data(mob/user)
+	SHOULD_NOT_SLEEP(TRUE)
 	return list()
 
 /**

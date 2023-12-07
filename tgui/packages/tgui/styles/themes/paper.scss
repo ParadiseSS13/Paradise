@@ -43,6 +43,8 @@ $font-size: 24px;
     'color-danger': #9a9d00,
     'color-transparent-text': rgba(0, 0, 0, 0.5),
   ));
+  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-disabled': #4a6a4a,
+      ));
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
