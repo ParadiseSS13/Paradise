@@ -1075,6 +1075,7 @@
 /area/ruin/space/derelict/crew_quarters)
 "cK" = (
 /obj/structure/table,
+/obj/item/soap/deluxe/laundry,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "blue"
@@ -1191,6 +1192,7 @@
 "cZ" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/soap/deluxe/laundry,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "blue"
