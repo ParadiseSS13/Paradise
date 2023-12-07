@@ -86,13 +86,7 @@
 
 /obj/machinery/bottler/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
-		return
-	anchored = !anchored
-	if(anchored)
-		WRENCH_ANCHOR_MESSAGE
-	else
-		WRENCH_UNANCHOR_MESSAGE
+	default_unfasten_wrench(user, I, 0)
 
 /obj/machinery/bottler/proc/insert_item(obj/item/O, mob/user)
 	if(!O || !user)
