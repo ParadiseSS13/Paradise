@@ -22,7 +22,7 @@ export const Section = (props) => {
     ...rest
   } = props;
   const hasTitle = !isFalsy(title) || !isFalsy(buttons);
-  const hasContent = !isFalsy(children);
+  const hasContent = !isFalsy(content) || !isFalsy(children);
   return (
     <div
       className={classes([
