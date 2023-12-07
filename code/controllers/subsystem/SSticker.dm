@@ -143,7 +143,7 @@ SUBSYSTEM_DEF(ticker)
 				var/list/pickable_types = list()
 				for(var/x in subtypesof(/datum/map))
 					var/datum/map/M = x
-					if(initial(M.voteable))
+					if(initial(M.voteable) && length(GLOB.clients) >= initial(M.min_players_random))
 						pickable_types += M
 
 				var/datum/map/target_map = pick(pickable_types)
@@ -263,10 +263,6 @@ SUBSYSTEM_DEF(ticker)
 	var/watch = start_watch()
 	create_characters() // Create player characters and transfer clients
 	log_debug("Creating characters took [stop_watch(watch)]s")
-
-	watch = start_watch()
-	populate_spawn_points() // Put mobs in their spawn locations
-	log_debug("Populating spawn points took [stop_watch(watch)]s")
 
 	// Gather everyones minds
 	for(var/mob/living/player in GLOB.player_list)
@@ -580,7 +576,7 @@ SUBSYSTEM_DEF(ticker)
 					end_of_round_info += "[law.get_index()]. [law.law]"
 
 	if(dronecount)
-		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round."
+		end_of_round_info += "<b>There [dronecount > 1 ? "were" : "was"] [dronecount] industrious maintenance [dronecount > 1 ? "drones" : "drone"] this round.</b>"
 
 	if(length(mode.eventmiscs))
 		for(var/datum/mind/eventmind in mode.eventmiscs)
