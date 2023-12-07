@@ -428,4 +428,9 @@
 		..()
 
 
+#undef HULL_BREACH
+#undef FIX_TILE
+#undef AUTO_TILE
+#undef REPLACE_TILE
+#undef TILE_EMAG
 #undef MAX_AMOUNT
