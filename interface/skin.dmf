@@ -83,13 +83,13 @@ menu "menu"
 		command = ".winset \"paramapwindow.map.zoom-mode=distort\""
 		category = "&Масштабирование"
 		can-check = true
+		is-checked = true
 		group = "scale"
 	elem "PS"
 		name = "&Точечный отбор"
 		command = ".winset \"paramapwindow.map.zoom-mode=normal\""
 		category = "&Масштабирование"
 		can-check = true
-		is-checked = true
 		group = "scale"
 	elem "BL"
 		name = "&Билинейное"
