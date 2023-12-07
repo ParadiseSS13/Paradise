@@ -6,6 +6,8 @@
 	chemical_cost = 20
 	dna_cost = 2
 	req_human = TRUE
+	req_stat = DEAD
+	bypass_fake_death = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
 	menu_location = CLING_MENU_DEFENSE
 
