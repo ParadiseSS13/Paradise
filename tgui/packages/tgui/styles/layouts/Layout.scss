@@ -40,22 +40,6 @@
   right: 0;
   overflow: hidden;
   margin: 6px;
-  // Fancy scrollbar
-    scrollbar-base-color: color.scale(base.$color-bg, $lightness: -25%);
-    scrollbar-face-color: color.scale(base.$color-bg, $lightness: 10%);
-    scrollbar-3dlight-color: color.scale(base.$color-bg, $lightness: 0%);
-    scrollbar-highlight-color: color.scale(base.$color-bg, $lightness: 0%);
-    scrollbar-track-color: color.scale(base.$color-bg, $lightness: -25%);
-    scrollbar-arrow-color: color.scale(base.$color-bg, $lightness: 50%);
-    scrollbar-shadow-color: color.scale(base.$color-bg, $lightness: 10%);
-}
-
-.Layout__content--scrollable {
-  overflow-y: auto;
-  }
-
-  .Layout__content--noMargin {
-    margin: 0;
 }
 
 .Layout__content--flexRow {
@@ -67,3 +51,11 @@
   display: flex;
   flex-flow: column;
 }
+.Layout__content--scrollable {
+  overflow-y: auto;
+}
+
+.Layout__content--noMargin {
+  margin: 0;
+}
+

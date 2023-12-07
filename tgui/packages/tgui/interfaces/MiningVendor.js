@@ -15,14 +15,14 @@ import { Window } from '../layouts';
 
 const sortTypes = {
   'Alphabetical': (a, b) => a - b,
-  'By availability': (a, b) => -(a.affordable - b.affordable),
-  'By price': (a, b) => a.price - b.price,
+  'Availability': (a, b) => -(a.affordable - b.affordable),
+  'Price': (a, b) => a.price - b.price,
 };
 
 export const MiningVendor = (_properties, _context) => {
   return (
     <Window>
-      <Window.Content className="Layout__content--flexColumn">
+      <Window.Content scrollable className="Layout__content--flexColumn">
         <MiningVendorUser />
         <MiningVendorSearch />
         <MiningVendorItems />
