@@ -53,6 +53,7 @@ jobs:
 
       - name: 'Push Translation'
         run: |
+          git fetch origin translate
           git checkout origin/translate
           git config --local user.email "action@github.com"
           git config --local user.name "ss220bot"
