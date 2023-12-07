@@ -3,8 +3,10 @@ GLOBAL_LIST_EMPTY(archived_virology_goals)
 
 /datum/virology_goal
 	var/name = "Generic Virology Goal"
-	var/delivered_amount = 0 //The amount of units currently already delivered
-	var/delivery_goal = 15 //The amount of units of the required virus that must be delivered for the completion of this goal
+	/// The amount of units currently already delivered  
+	var/delivered_amount = 0  
+	/// The amount of units of the required virus that must be delivered for the completion of this goal  
+	var/delivery_goal = 15
 	var/completed = FALSE
 
 /datum/virology_goal/proc/get_report()
