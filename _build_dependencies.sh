@@ -14,4 +14,4 @@ export BETA_BYOND_MINOR=1619
 # Python version for mapmerge and other tools
 export PYTHON_VERSION=3.11.6
 # RUSTG version
-export RUSTG_VERSION=v1.2.0-P2
+export RUSTG_VERSION=v3.0.0-P
