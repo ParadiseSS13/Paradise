@@ -119,14 +119,21 @@ export class ByondUi extends Component {
   }
 
   render() {
-    const { params, ...rest } = this.props;
+    const { parent, params, ...rest } = this.props;
     const type = params?.type;
     const boxProps = computeBoxProps(rest);
     return (
       <div ref={this.containerRef} {...boxProps}>
         {/* Filler */}
-        <div style={{ 'min-height': '22px' }} />
+        {type === 'button' && <ButtonMock />}
       </div>
     );
   }
 }
+const ButtonMock = () => (
+  <div
+    style={{
+      'min-height': '22px',
+    }}
+  />
+);
