@@ -118,6 +118,12 @@
 	path = /obj/item/clothing/mask/breath/breathscarf
 	cost = 2
 
+/datum/gear/donor/kitty_ears
+	display_name = "Кошачьи ушки"
+	path = /obj/item/clothing/head/kitty
+	donator_tier = 2
+	cost = 1
+ 
 // ID Skins
 /datum/gear/donor/id_decal_colored
 	display_name = "Наклейка на карту (Голографическая)"
