@@ -47,15 +47,8 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!default_unfasten_wrench(user, I, 0))
 		return
-	if(!anchored && !isinspace())
-		anchored = TRUE
-		WRENCH_ANCHOR_MESSAGE
-	else if(anchored)
-		anchored = FALSE
-		WRENCH_UNANCHOR_MESSAGE
-	power_change()
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/doppler_array/attack_hand(mob/user)

@@ -44,7 +44,7 @@
 	message = "claps."
 	message_mime = "claps silently."
 	message_param = "claps at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	vary = TRUE
 
 /datum/emote/living/carbon/human/clap/run_emote(mob/user, params, type_override, intentional)
@@ -79,7 +79,7 @@
 	key = "crack"
 	key_third_person = "cracks"
 	message = "cracks their knuckles."
-	emote_type = EMOTE_AUDIBLE | EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	// knuckles.ogg by CGEffex. Shortened and cut.
 	// https://freesound.org/people/CGEffex/sounds/93981/
 	sound = "sound/effects/mob_effects/knuckles.ogg"
@@ -116,7 +116,7 @@
 	message = "facepalms."
 	hands_use_check = TRUE
 	sound = 'sound/weapons/slap.ogg'
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	volume = 50
 
 /datum/emote/living/carbon/human/palm
@@ -161,7 +161,7 @@
 	message_mime = "acts out a scream!"
 	message_postfix = "at %t!"
 	muzzled_noises = list("very loud")
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	only_forced_audio = FALSE
 	vary = TRUE
 	age_based = TRUE
@@ -195,7 +195,7 @@
 	key_third_person = "gasps"
 	message = "gasps!"
 	message_mime = "appears to be gasping!"
-	emote_type = EMOTE_SOUND  // Don't make this one a mouth emote since we don't want it to be caught by nobreath
+	emote_type = EMOTE_AUDIBLE  // Don't make this one a mouth emote since we don't want it to be caught by nobreath
 	age_based = TRUE
 	unintentional_stat_allowed = UNCONSCIOUS
 	volume = 100
@@ -333,7 +333,7 @@
 	key_third_person = "sneezes"
 	message = "sneezes."
 	muzzled_noises = list("strange", "sharp")
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	volume = 70
 
 /datum/emote/living/carbon/human/sneeze/get_sound(mob/user)
@@ -407,7 +407,7 @@
 	message = "snaps their fingers."
 	message_param = "snaps their fingers at %t."
 	sound = "sound/effects/fingersnap.ogg"
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/carbon/human/snap/run_emote(mob/user, params, type_override, intentional)
 
@@ -589,7 +589,7 @@
 	key_third_person = "quills"
 	message = "rustles their quills."
 	message_param = "rustles their quills at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	// Credit to sound-ideas (freesfx.co.uk) for the sound.
 	sound = "sound/effects/voxrustle.ogg"
@@ -600,7 +600,7 @@
 	key_third_person = "warbles"
 	message = "warbles."
 	message_param = "warbles at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	// Copyright CC BY 3.0 alienistcog (freesound.org) for the sound.
 	sound = "sound/effects/warble.ogg"
@@ -612,7 +612,7 @@
 	message = "clacks their mandibles."
 	message_param = "clacks their mandibles at %t."
 	species_type_whitelist_typecache = list(/datum/species/kidan)
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	audio_cooldown = 3 SECONDS
 	age_based = TRUE
 	// Credit to DrMinky (freesound.org) for the sound.
@@ -634,7 +634,7 @@
 
 /datum/emote/living/carbon/human/drask_talk
 	species_type_whitelist_typecache = list(/datum/species/drask)
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	sound = "sound/voice/drasktalk.ogg"
 
@@ -662,7 +662,7 @@
 	message = "hisses."
 	message_param = "hisses at %t."
 	species_type_whitelist_typecache = list(/datum/species/unathi)
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	age_based = TRUE
 	// Credit to Jamius (freesound.org) for the sound.
 	sound = "sound/effects/unathihiss.ogg"
@@ -673,7 +673,7 @@
 	key_third_person = "creaks"
 	message = "creaks."
 	message_param = "creaks at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	species_type_whitelist_typecache = list(/datum/species/diona)
 	sound = "sound/voice/dionatalk1.ogg"
@@ -699,7 +699,7 @@
 	key_third_person = "squishes"
 	message = "squishes."
 	message_param = "squishes at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	// Credit to DrMinky (freesound.org) for the sound.
 	sound = "sound/effects/slime_squish.ogg"
@@ -709,7 +709,7 @@
 	key_third_person = "bubbles"
 	message = "bubbles."
 	message_param = "bubbles at %t."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	// Sound is CC-4.0 by Audiolarx
 	// Effect is cut out of original clip
@@ -722,7 +722,7 @@
 	message = "makes a popping sound."
 	message_param = "makes a popping sound at %t."
 	message_mime = "makes a silent pop."
-	emote_type = EMOTE_SOUND
+	emote_type = EMOTE_AUDIBLE
 	age_based = TRUE
 	// CC0
 	// https://freesound.org/people/greenvwbeetle/sounds/244653/
@@ -736,7 +736,7 @@
 	message_mime = "acts out a howl."
 	message_param = "howls at %t."
 	species_type_whitelist_typecache = list(/datum/species/vulpkanin)
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 	age_based = TRUE
 	sound = "sound/goonstation/voice/howl.ogg"
 	muzzled_noises = list("very loud")
@@ -753,7 +753,7 @@
 	sound = "growls"  // what the fuck why is this just top level
 	volume = 80
 	muzzled_noises = list("annoyed")
-	emote_type = EMOTE_SOUND | EMOTE_MOUTH
+	emote_type = EMOTE_AUDIBLE | EMOTE_MOUTH
 
 /datum/emote/living/carbon/human/hiss/tajaran
 	message_mime = "hisses silently."

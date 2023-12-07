@@ -14,6 +14,7 @@
 	Newton Cradle
 	PAI cable
 	Red Phone
+	Popsicle Sticks
 */
 
 /obj/item/balltoy
@@ -216,3 +217,9 @@
 	if(cooldown < world.time - 20)
 		playsound(user.loc, 'sound/weapons/ring.ogg', 50, 1)
 		cooldown = world.time
+
+/obj/item/popsicle_stick
+	name = "popsicle stick"
+	desc = "A small wooden stick, usually topped by popsicles or other frozen treats."
+	icon = 'icons/obj/food/frozen_treats.dmi'
+	icon_state = "popsicle_stick"
