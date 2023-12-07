@@ -4867,7 +4867,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/security/permabrig)
 "axv" = (
@@ -11310,7 +11310,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/security/permabrig)
 "aXu" = (
@@ -23168,7 +23168,7 @@
 	network = list("Prison","SS13")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/security/permabrig)
 "bQi" = (
@@ -24004,7 +24004,7 @@
 "bSX" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/security/permabrig)
 "bTb" = (
@@ -26522,7 +26522,7 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/service/library,
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/service/library)
 "cbQ" = (
@@ -53066,7 +53066,7 @@
 	},
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/security/permabrig)
 "fxe" = (
@@ -90730,7 +90730,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/security/permabrig)
 "rma" = (
@@ -96769,7 +96769,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/security/permabrig)
 "tic" = (
@@ -105608,7 +105608,7 @@
 "vXr" = (
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/security/permabrig)
 "vXG" = (
@@ -107739,7 +107739,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/security/permabrig)
 "wJU" = (

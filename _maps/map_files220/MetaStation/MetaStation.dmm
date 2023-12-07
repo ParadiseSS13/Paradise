@@ -731,7 +731,7 @@
 "aih" = (
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "aii" = (
@@ -754,7 +754,7 @@
 	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "aij" = (
@@ -764,24 +764,24 @@
 "ail" = (
 /obj/structure/closet/athletic_mixed,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "aim" = (
 /obj/structure/closet/boxinggloves,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "ain" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "aio" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "air" = (
@@ -876,7 +876,7 @@
 	icon_state = "plant-20"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "ajc" = (
@@ -2984,21 +2984,21 @@
 /obj/structure/closet/lasertag/red,
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "atO" = (
 /obj/machinery/newscaster/directional/south,
 /obj/structure/closet/lasertag/blue,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "atP" = (
 /obj/structure/sign/poster/official/random/south,
 /obj/structure/closet/masks,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "atQ" = (
@@ -3074,7 +3074,7 @@
 /obj/machinery/light/directional/south,
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "atX" = (
@@ -3222,7 +3222,7 @@
 /obj/effect/landmark/spawner/rev,
 /obj/structure/morgue,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "auz" = (
@@ -3261,7 +3261,7 @@
 /obj/machinery/economy/vending/coffee,
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "auO" = (
@@ -3283,7 +3283,7 @@
 	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "auV" = (
@@ -3480,7 +3480,7 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/fitness)
 "avK" = (
@@ -3518,7 +3518,7 @@
 	pixel_x = -29
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
 "avQ" = (
@@ -3910,7 +3910,7 @@
 /obj/item/clothing/under/misc/assistantformal,
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "axb" = (
@@ -4072,7 +4072,7 @@
 	},
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/execution)
 "axB" = (
@@ -5179,7 +5179,7 @@
 /obj/item/clothing/head/bearpelt,
 /obj/effect/turf_decal/delivery/white/hollow/right,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "aCy" = (
@@ -5209,7 +5209,7 @@
 	},
 /obj/effect/turf_decal/delivery/white/hollow/left,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "aCD" = (
@@ -5458,7 +5458,7 @@
 	},
 /obj/effect/turf_decal/delivery/white/hollow/right,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "aDF" = (
@@ -5484,7 +5484,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "aDH" = (
@@ -5502,7 +5502,7 @@
 	},
 /obj/effect/turf_decal/delivery/white/hollow/left,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "aDK" = (
@@ -5745,7 +5745,7 @@
 /obj/machinery/economy/vending/shoedispenser,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aEE" = (
@@ -5839,7 +5839,7 @@
 /obj/effect/turf_decal/delivery/white/hollow/right,
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "aEZ" = (
@@ -5874,7 +5874,7 @@
 	},
 /obj/effect/turf_decal/delivery/white/hollow/left,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "aFd" = (
@@ -6076,7 +6076,7 @@
 	network = list("SS13","vault")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "aGo" = (
@@ -6255,7 +6255,7 @@
 	},
 /obj/machinery/suit_storage_unit/ce,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "aGY" = (
@@ -6390,7 +6390,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/supply/vault,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "aHD" = (
@@ -6562,7 +6562,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aIn" = (
@@ -6762,7 +6762,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/telecomms/computer)
 "aIS" = (
@@ -6818,7 +6818,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/supply/lobby)
 "aJa" = (
@@ -7248,7 +7248,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/supply/lobby)
 "aKi" = (
@@ -9160,7 +9160,7 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/under/misc/assistantformal,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aQA" = (
@@ -9173,7 +9173,7 @@
 	},
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aQB" = (
@@ -9185,7 +9185,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aQC" = (
@@ -9215,7 +9215,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aQJ" = (
@@ -9414,7 +9414,7 @@
 "aRn" = (
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aRo" = (
@@ -10519,7 +10519,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/smes)
 "aUP" = (
@@ -10678,7 +10678,7 @@
 /obj/machinery/economy/vending/autodrobe,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aVo" = (
@@ -10693,7 +10693,7 @@
 "aVp" = (
 /obj/machinery/economy/vending/clothing,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aVq" = (
@@ -10715,7 +10715,7 @@
 	},
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "aVs" = (
@@ -11204,7 +11204,7 @@
 /obj/machinery/power/apc/super/west,
 /obj/machinery/computer/security/engineering,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/smes)
 "aWO" = (
@@ -11265,7 +11265,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/smes)
 "aWY" = (
@@ -11503,7 +11503,7 @@
 	pixel_x = 29
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
 "aXL" = (
@@ -11874,7 +11874,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/smes)
 "aYV" = (
@@ -11887,7 +11887,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/smes)
 "aYW" = (
@@ -12109,7 +12109,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai_upload/foyer)
 "aZP" = (
@@ -12257,13 +12257,13 @@
 /area/station/hallway/secondary/bridge)
 "bad" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "baf" = (
 /obj/structure/closet/wardrobe/grey,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "bag" = (
@@ -12581,7 +12581,7 @@
 "bbg" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/central)
 "bbh" = (
@@ -12592,7 +12592,7 @@
 	},
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/central)
 "bbj" = (
@@ -12625,7 +12625,7 @@
 /obj/machinery/door/firedoor,
 /obj/effect/mapping_helpers/airlock/access/all/command/ai_upload,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai_upload/foyer)
 "bbm" = (
@@ -12722,7 +12722,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tech_storage,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bby" = (
@@ -12753,7 +12753,7 @@
 "bbB" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/central)
 "bbC" = (
@@ -12778,7 +12778,7 @@
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/central)
 "bbE" = (
@@ -12800,7 +12800,7 @@
 /obj/machinery/ai_status_display/north,
 /obj/machinery/computer/station_alert,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bbM" = (
@@ -12956,7 +12956,7 @@
 	pixel_y = 26
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai_upload/foyer)
 "bcm" = (
@@ -12994,7 +12994,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai_upload/foyer)
 "bcq" = (
@@ -13442,7 +13442,7 @@
 /area/station/engineering/tech_storage)
 "bdy" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bdA" = (
@@ -13454,7 +13454,7 @@
 	c_tag = "Chief Engineer's Office"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bdB" = (
@@ -13500,7 +13500,7 @@
 /obj/machinery/status_display/directional/north,
 /obj/machinery/computer/card/minor/ce,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bdF" = (
@@ -13977,7 +13977,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "beF" = (
@@ -14007,7 +14007,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "beH" = (
@@ -14037,7 +14037,7 @@
 	},
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "beJ" = (
@@ -14073,7 +14073,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/structure/extinguisher_cabinet/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "beP" = (
@@ -14167,7 +14167,7 @@
 	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bff" = (
@@ -14571,13 +14571,13 @@
 /obj/item/radio/intercom/directional/east,
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bgo" = (
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bgp" = (
@@ -14653,7 +14653,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bgt" = (
@@ -14678,7 +14678,7 @@
 	req_access_txt = "11"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bgv" = (
@@ -14938,7 +14938,7 @@
 	pixel_y = 12
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bhh" = (
@@ -15120,7 +15120,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bhK" = (
@@ -15144,7 +15144,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bhM" = (
@@ -15158,7 +15158,7 @@
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bhQ" = (
@@ -15234,7 +15234,7 @@
 	},
 /obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bib" = (
@@ -15802,7 +15802,7 @@
 "bjw" = (
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bjx" = (
@@ -15858,7 +15858,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "bjC" = (
@@ -15901,7 +15901,7 @@
 	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bjH" = (
@@ -15909,7 +15909,7 @@
 /mob/living/simple_animal/parrot/Poly,
 /obj/machinery/keycard_auth/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bjI" = (
@@ -15917,7 +15917,7 @@
 /obj/item/megaphone,
 /obj/machinery/alarm/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bjK" = (
@@ -16437,7 +16437,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/starboard)
 "blm" = (
@@ -16448,7 +16448,7 @@
 	},
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/starboard)
 "bln" = (
@@ -16473,7 +16473,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/engineering/tech_storage,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "blr" = (
@@ -16561,13 +16561,13 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat)
 "blF" = (
 /obj/machinery/ai_slipper,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai)
 "blI" = (
@@ -16856,7 +16856,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bmn" = (
@@ -16977,7 +16977,7 @@
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bmF" = (
@@ -17048,7 +17048,7 @@
 "bmT" = (
 /obj/machinery/porta_turret/ai_turret,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai)
 "bmU" = (
@@ -17078,7 +17078,7 @@
 "bmX" = (
 /obj/machinery/economy/vending/artvend,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "bmZ" = (
@@ -17233,7 +17233,7 @@
 /obj/item/stack/spacecash/c1000,
 /obj/effect/turf_decal/delivery/white/hollow/left,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/vault)
 "bnw" = (
@@ -17313,7 +17313,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat)
 "bnM" = (
@@ -17323,7 +17323,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bnN" = (
@@ -17441,7 +17441,7 @@
 	req_access_txt = "56"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "boc" = (
@@ -17541,7 +17541,7 @@
 	pixel_y = -30
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "bop" = (
@@ -17653,7 +17653,7 @@
 	pixel_y = 21
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai)
 "boI" = (
@@ -19190,7 +19190,7 @@
 "bsX" = (
 /obj/machinery/teleport/hub,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
 "bsY" = (
@@ -19278,7 +19278,7 @@
 "btr" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/port)
 "bts" = (
@@ -19996,7 +19996,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat/service)
 "bvp" = (
@@ -20156,7 +20156,7 @@
 /obj/machinery/economy/vending/cola,
 /obj/machinery/newscaster/directional/west,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/port)
 "bvF" = (
@@ -20582,7 +20582,7 @@
 /obj/machinery/status_display/directional/north,
 /obj/machinery/teleport/station,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
 "bws" = (
@@ -20860,7 +20860,7 @@
 	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bxr" = (
@@ -21082,7 +21082,7 @@
 "bxP" = (
 /obj/machinery/economy/vending/snack,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/port)
 "bxQ" = (
@@ -21478,7 +21478,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "byZ" = (
@@ -21683,7 +21683,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/port)
 "bzE" = (
@@ -21714,13 +21714,13 @@
 "bzG" = (
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/port)
 "bzH" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/port)
 "bzJ" = (
@@ -21894,7 +21894,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/bridge)
 "bAi" = (
@@ -21916,7 +21916,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "bAl" = (
@@ -22030,7 +22030,7 @@
 	},
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/smes)
 "bAQ" = (
@@ -22782,7 +22782,7 @@
 	icon_state = "0-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat/service)
 "bDe" = (
@@ -25021,7 +25021,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bKX" = (
@@ -25538,7 +25538,7 @@
 "bNl" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/secondary/bridge)
 "bNm" = (
@@ -26023,7 +26023,7 @@
 	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bOT" = (
@@ -26066,7 +26066,7 @@
 /obj/machinery/newscaster/directional/south,
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/secondary/bridge)
 "bOZ" = (
@@ -26162,7 +26162,7 @@
 /obj/item/storage/belt/utility,
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bPj" = (
@@ -26367,7 +26367,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bQe" = (
@@ -26892,7 +26892,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bRS" = (
@@ -27171,7 +27171,7 @@
 	pixel_x = -4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/teleporter)
 "bSQ" = (
@@ -27398,7 +27398,7 @@
 "bTB" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/library)
 "bTC" = (
@@ -27425,7 +27425,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bTG" = (
@@ -27713,7 +27713,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bUO" = (
@@ -27825,7 +27825,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bVc" = (
@@ -28267,7 +28267,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bWB" = (
@@ -28813,7 +28813,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/teleporter)
 "bYa" = (
@@ -28982,7 +28982,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bYy" = (
@@ -29102,7 +29102,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "bYT" = (
@@ -29994,7 +29994,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "cbK" = (
@@ -30286,7 +30286,7 @@
 	icon_state = "pipe-j2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/central)
 "ccE" = (
@@ -30783,7 +30783,7 @@
 	},
 /obj/machinery/disposal,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/central)
 "cek" = (
@@ -31368,7 +31368,7 @@
 /obj/item/radio/intercom/directional/east,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "cgn" = (
@@ -33569,7 +33569,7 @@
 	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/maintenance/aft2)
 "cnO" = (
@@ -34180,7 +34180,7 @@
 "cqj" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "cqk" = (
@@ -34459,7 +34459,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "crq" = (
@@ -36641,7 +36641,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "czo" = (
@@ -36711,7 +36711,7 @@
 /obj/machinery/light/directional/south,
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "czy" = (
@@ -36820,7 +36820,7 @@
 	autolink_id = "aisat_vent"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat)
 "czV" = (
@@ -37110,7 +37110,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/medical/morgue,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "cAX" = (
@@ -37335,7 +37335,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/research)
 "cBQ" = (
@@ -37927,7 +37927,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "cDU" = (
@@ -38060,7 +38060,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "cEl" = (
@@ -38169,7 +38169,7 @@
 "cEF" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/maintenance/aft2)
 "cEG" = (
@@ -38331,7 +38331,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "cFf" = (
@@ -38782,7 +38782,7 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/grown/harebell,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "cGF" = (
@@ -38815,7 +38815,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/research)
 "cGR" = (
@@ -39174,7 +39174,7 @@
 "cHX" = (
 /obj/structure/chair,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "cHY" = (
@@ -39622,7 +39622,7 @@
 "cJB" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "cJD" = (
@@ -40553,7 +40553,7 @@
 	},
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/ai_monitored/storage/eva)
 "cNk" = (
@@ -41012,7 +41012,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "cOZ" = (
@@ -41200,7 +41200,7 @@
 "cPH" = (
 /obj/machinery/light/small/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "cPI" = (
@@ -41223,7 +41223,7 @@
 	},
 /obj/structure/closet/firecloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/secondary/exit)
 "cPM" = (
@@ -41234,7 +41234,7 @@
 	},
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/secondary/exit)
 "cPN" = (
@@ -41970,7 +41970,7 @@
 /obj/item/reagent_containers/food/snacks/grown/poppy,
 /obj/item/reagent_containers/food/snacks/grown/poppy,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "cSS" = (
@@ -41980,7 +41980,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "cST" = (
@@ -41994,7 +41994,7 @@
 	pixel_y = 29
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "cSU" = (
@@ -42002,7 +42002,7 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "cSV" = (
@@ -42551,7 +42551,7 @@
 	},
 /obj/machinery/light/small/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "cVc" = (
@@ -42971,7 +42971,7 @@
 	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "cWS" = (
@@ -43693,7 +43693,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "dan" = (
@@ -43903,7 +43903,7 @@
 "dbb" = (
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/central)
 "dbc" = (
@@ -44374,7 +44374,7 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "dep" = (
@@ -44405,7 +44405,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/research)
 "deu" = (
@@ -44551,7 +44551,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/maintenance/aft2)
 "deX" = (
@@ -45095,7 +45095,7 @@
 	autolink_id = "aisat_vent"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat)
 "dkG" = (
@@ -45453,7 +45453,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai)
 "dvc" = (
@@ -46126,7 +46126,7 @@
 /area/station/maintenance/auxsolarstarboard)
 "dQb" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "dQq" = (
@@ -46155,7 +46155,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "dRU" = (
@@ -46554,7 +46554,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/evidence)
 "dZy" = (
@@ -46585,7 +46585,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/research)
 "dZI" = (
@@ -46875,7 +46875,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat)
 "efX" = (
@@ -47179,7 +47179,7 @@
 /obj/structure/closet/wardrobe/black,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "epG" = (
@@ -47981,7 +47981,7 @@
 "eFV" = (
 /obj/machinery/economy/vending/hatdispenser,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "eGw" = (
@@ -48053,7 +48053,7 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/atmospherics/portable/scrubber/huge,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "eJh" = (
@@ -48070,7 +48070,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "eJG" = (
@@ -48617,7 +48617,7 @@
 	},
 /obj/structure/closet/secure_closet/roboticist,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "eVZ" = (
@@ -48793,7 +48793,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/evidence)
 "fau" = (
@@ -49026,7 +49026,7 @@
 "fho" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "fhs" = (
@@ -49086,7 +49086,7 @@
 	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "fiV" = (
@@ -49348,7 +49348,7 @@
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "fpi" = (
@@ -49774,7 +49774,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/evidence)
 "fyt" = (
@@ -49980,7 +49980,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "fCQ" = (
@@ -51333,7 +51333,7 @@
 /obj/machinery/atmospherics/portable/canister,
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "ghF" = (
@@ -51602,7 +51602,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "gqj" = (
@@ -52371,7 +52371,7 @@
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/armory/secure)
 "gLu" = (
@@ -52861,7 +52861,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "gVX" = (
@@ -52959,7 +52959,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat)
 "gXN" = (
@@ -54071,7 +54071,7 @@
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/item/wrench,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/execution)
 "hxd" = (
@@ -54731,7 +54731,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/office/ce)
 "hKu" = (
@@ -54791,7 +54791,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "hLt" = (
@@ -54844,7 +54844,7 @@
 /obj/item/reagent_containers/food/snacks/grown/harebell,
 /obj/item/reagent_containers/food/snacks/grown/harebell,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "hLX" = (
@@ -54863,7 +54863,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "hMJ" = (
@@ -55214,7 +55214,7 @@
 /area/station/science/toxins/mixing)
 "hVK" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "hVX" = (
@@ -55291,7 +55291,7 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/secondary/exit)
 "hYz" = (
@@ -56536,7 +56536,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "iyv" = (
@@ -56662,7 +56662,7 @@
 "iBi" = (
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "iBq" = (
@@ -56957,7 +56957,7 @@
 	},
 /obj/machinery/light_switch/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/evidence)
 "iJz" = (
@@ -57332,7 +57332,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "iQK" = (
@@ -57569,7 +57569,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai)
 "iYh" = (
@@ -59331,7 +59331,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "jSg" = (
@@ -60454,7 +60454,7 @@
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/evidence)
 "kzm" = (
@@ -60977,7 +60977,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "kHZ" = (
@@ -61205,7 +61205,7 @@
 /obj/effect/turf_decal/delivery/white/hollow,
 /obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "kNk" = (
@@ -61543,7 +61543,7 @@
 /obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "kUy" = (
@@ -62876,7 +62876,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "lwx" = (
@@ -63801,7 +63801,7 @@
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "lPe" = (
@@ -65403,7 +65403,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "mCT" = (
@@ -66862,7 +66862,7 @@
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/research)
 "nia" = (
@@ -67233,7 +67233,7 @@
 /obj/item/crowbar,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "nqt" = (
@@ -67316,7 +67316,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "nsB" = (
@@ -68111,7 +68111,7 @@
 	},
 /obj/machinery/power/port_gen/pacman,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat/service)
 "nKy" = (
@@ -68293,7 +68293,7 @@
 /obj/machinery/economy/vending/suitdispenser,
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "nPV" = (
@@ -68327,7 +68327,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "nSs" = (
@@ -68427,7 +68427,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "nUU" = (
@@ -68920,7 +68920,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai)
 "oeP" = (
@@ -69021,7 +69021,7 @@
 /area/station/science/research)
 "oiv" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/service/chapel)
 "oiC" = (
@@ -69188,7 +69188,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "ooN" = (
@@ -69353,7 +69353,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "ouq" = (
@@ -69382,7 +69382,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "ovM" = (
@@ -69790,7 +69790,7 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "oIb" = (
@@ -70312,7 +70312,7 @@
 	},
 /obj/machinery/light_switch/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "oVx" = (
@@ -71462,13 +71462,13 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "pxG" = (
 /obj/structure/morgue,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "pxM" = (
@@ -71494,7 +71494,7 @@
 /obj/item/storage/belt/utility,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "pzQ" = (
@@ -71613,7 +71613,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "pCg" = (
@@ -72654,7 +72654,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "pXX" = (
@@ -73071,7 +73071,7 @@
 	dir = 10
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/engineering/tech_storage)
 "qfR" = (
@@ -74021,7 +74021,7 @@
 "qFl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "qFz" = (
@@ -74526,7 +74526,7 @@
 	pixel_x = -2
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "qTF" = (
@@ -75134,7 +75134,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "rif" = (
@@ -75576,7 +75576,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/effect/mapping_helpers/airlock/access/all/science/minisat,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat)
 "rsQ" = (
@@ -75659,7 +75659,7 @@
 /obj/machinery/atmospherics/portable/pump,
 /obj/machinery/light/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "ruH" = (
@@ -77041,7 +77041,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/armory,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/armory/secure)
 "scF" = (
@@ -77085,7 +77085,7 @@
 /obj/item/radio/intercom/directional/east,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "sdO" = (
@@ -77484,7 +77484,7 @@
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "soO" = (
@@ -77638,7 +77638,7 @@
 	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/ai)
 "stc" = (
@@ -77842,7 +77842,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "syP" = (
@@ -78088,7 +78088,7 @@
 /obj/machinery/alarm/directional/north,
 /obj/machinery/atmospherics/unary/tank/air,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/aisat/service)
 "sFN" = (
@@ -78248,7 +78248,7 @@
 /area/station/medical/reception)
 "sIm" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "sID" = (
@@ -78780,7 +78780,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "sSq" = (
@@ -79132,7 +79132,7 @@
 	},
 /obj/machinery/space_heater,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/execution)
 "tbE" = (
@@ -80036,7 +80036,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "twN" = (
@@ -80817,7 +80817,7 @@
 "tVd" = (
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "tVw" = (
@@ -81038,7 +81038,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "ubB" = (
@@ -81175,7 +81175,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/public/locker)
 "ueF" = (
@@ -82090,7 +82090,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/command/teleporter)
 "uEX" = (
@@ -82665,7 +82665,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "uSc" = (
@@ -82692,7 +82692,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "uSA" = (
@@ -82921,7 +82921,7 @@
 	sort_type_txt = "14"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/robotics)
 "uXE" = (
@@ -82935,7 +82935,7 @@
 /obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "uXK" = (
@@ -84277,7 +84277,7 @@
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "vDG" = (
@@ -84497,7 +84497,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "vLQ" = (
@@ -84641,7 +84641,7 @@
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/research)
 "vRv" = (
@@ -84888,7 +84888,7 @@
 	},
 /obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "vXb" = (
@@ -85380,7 +85380,7 @@
 "wkM" = (
 /obj/machinery/economy/vending/cola,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/secondary/bridge)
 "wlo" = (
@@ -85729,7 +85729,7 @@
 	network = list("Research","SS13")
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "wul" = (
@@ -85836,7 +85836,7 @@
 /obj/machinery/firealarm/directional/west,
 /obj/machinery/computer/teleporter,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/turret_protected/aisat/interior)
 "wxL" = (
@@ -86142,7 +86142,7 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "wET" = (
@@ -86238,7 +86238,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "wJt" = (
@@ -86330,7 +86330,7 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "wNA" = (
@@ -87376,7 +87376,7 @@
 	icon_state = "pipe-c"
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "xmN" = (
@@ -87456,7 +87456,7 @@
 /obj/machinery/disposal,
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/hallway/primary/central)
 "xoB" = (
@@ -87743,7 +87743,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/medical/morgue)
 "xvX" = (
@@ -88720,7 +88720,7 @@
 /obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/storage)
 "xSg" = (
@@ -89248,7 +89248,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "yej" = (
@@ -89300,7 +89300,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/science/toxins/launch)
 "yeW" = (
@@ -89369,7 +89369,7 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/mapping_helpers/airlock/access/all/security/doors,
 /turf/simulated/floor/plasteel{
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/station/security/evidence)
 "ygK" = (

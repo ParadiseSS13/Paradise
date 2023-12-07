@@ -78,7 +78,7 @@
 "cG" = (
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "cJ" = (
@@ -102,7 +102,7 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "dx" = (
@@ -135,7 +135,7 @@
 	amount = 2
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "eh" = (
@@ -358,7 +358,7 @@
 /obj/effect/turf_decal/delivery/white,
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "qa" = (
@@ -387,7 +387,7 @@
 "rI" = (
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "sn" = (
@@ -733,7 +733,7 @@
 /obj/machinery/status_display/directional/east,
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/powered)
 "FF" = (
@@ -746,7 +746,7 @@
 /obj/item/stack/spacecash/c20,
 /obj/item/stack/spacecash/c10,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "FZ" = (
@@ -809,7 +809,7 @@
 /obj/item/reagent_containers/pill/methamphetamine,
 /obj/item/reagent_containers/pill/methamphetamine,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "HI" = (
@@ -899,7 +899,7 @@
 /obj/item/clothing/gloves/color/black,
 /obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "KZ" = (
@@ -954,7 +954,7 @@
 /obj/item/stack/cable_coil,
 /obj/item/t_scanner,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "NK" = (
@@ -1136,7 +1136,7 @@
 /obj/machinery/suit_storage_unit/standard_unit,
 /obj/machinery/status_display/directional/east,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/powered)
 "TU" = (
@@ -1239,7 +1239,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/effect/turf_decal/delivery/white,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "Zv" = (

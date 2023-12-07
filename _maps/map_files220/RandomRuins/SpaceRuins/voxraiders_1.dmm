@@ -36,7 +36,7 @@
 /obj/effect/turf_decal/box,
 /obj/item/multitool,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/unpowered/unpowered_structures)
 "dQ" = (

@@ -270,7 +270,7 @@
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "aP" = (
@@ -380,7 +380,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/laborcamp/security)
 "bb" = (
@@ -448,7 +448,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "bk" = (
@@ -649,7 +649,7 @@
 /obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "bD" = (
@@ -720,7 +720,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "bL" = (
@@ -834,7 +834,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "bV" = (
@@ -851,7 +851,7 @@
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "bX" = (
@@ -871,7 +871,7 @@
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "bZ" = (
@@ -971,7 +971,7 @@
 /obj/machinery/power/apc/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "cl" = (
@@ -1031,7 +1031,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "cr" = (
@@ -1051,7 +1051,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "ct" = (
@@ -1061,7 +1061,7 @@
 /obj/machinery/power/apc/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "cu" = (
@@ -1131,7 +1131,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "cE" = (
@@ -1178,7 +1178,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "cL" = (
@@ -1188,7 +1188,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "cM" = (
@@ -1309,7 +1309,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "da" = (
@@ -1320,7 +1320,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "db" = (
@@ -1370,7 +1370,7 @@
 /obj/machinery/light_switch/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "dg" = (
@@ -1409,7 +1409,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "dk" = (
@@ -1444,7 +1444,7 @@
 /obj/item/clothing/head/hardhat/orange,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "dn" = (
@@ -1471,7 +1471,7 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "dq" = (
@@ -1483,7 +1483,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "dr" = (
@@ -1509,7 +1509,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "dt" = (
@@ -1571,7 +1571,7 @@
 /obj/machinery/firealarm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "dx" = (
@@ -1606,7 +1606,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "dA" = (
@@ -1642,7 +1642,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "dE" = (
@@ -1653,7 +1653,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "dF" = (
@@ -1671,7 +1671,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "dH" = (
@@ -1689,7 +1689,7 @@
 /obj/machinery/ai_status_display/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "dJ" = (
@@ -1787,7 +1787,7 @@
 /obj/machinery/light/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "dQ" = (
@@ -1807,7 +1807,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "dS" = (
@@ -1851,7 +1851,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "dY" = (
@@ -1864,7 +1864,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "ea" = (
@@ -1876,7 +1876,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "eb" = (
@@ -1927,7 +1927,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "eg" = (
@@ -1935,7 +1935,7 @@
 /obj/effect/turf_decal/stripes/box,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "eh" = (
@@ -1991,7 +1991,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "el" = (
@@ -2071,7 +2071,7 @@
 /obj/machinery/firealarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "et" = (
@@ -2114,7 +2114,7 @@
 /obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "ey" = (
@@ -2221,7 +2221,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "eG" = (
@@ -2355,7 +2355,7 @@
 /obj/machinery/light/small/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "eT" = (
@@ -2380,7 +2380,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/quartermaster)
 "eU" = (
@@ -2433,7 +2433,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "fa" = (
@@ -2481,7 +2481,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "ff" = (
@@ -2504,7 +2504,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "fh" = (
@@ -2518,7 +2518,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "fj" = (
@@ -2584,7 +2584,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "fo" = (
@@ -2597,7 +2597,7 @@
 "fp" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "fr" = (
@@ -2620,7 +2620,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/medbay)
 "fs" = (
@@ -2634,7 +2634,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "ft" = (
@@ -2655,7 +2655,7 @@
 /obj/effect/baseturf_helper/asteroid/basalt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "fw" = (
@@ -2670,7 +2670,7 @@
 /obj/machinery/light/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "fy" = (
@@ -2728,7 +2728,7 @@
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "fD" = (
@@ -2780,7 +2780,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "fH" = (
@@ -2823,7 +2823,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "fL" = (
@@ -2933,7 +2933,7 @@
 "ga" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "gb" = (
@@ -2975,14 +2975,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "gg" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "gh" = (
@@ -3059,7 +3059,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "gn" = (
@@ -3166,7 +3166,7 @@
 /obj/machinery/alarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "gw" = (
@@ -3291,7 +3291,7 @@
 /obj/structure/sign/poster/official/random/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "gJ" = (
@@ -3322,7 +3322,7 @@
 /obj/machinery/firealarm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "gL" = (
@@ -3490,14 +3490,14 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "hy" = (
 /obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "hz" = (
@@ -3615,7 +3615,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "ig" = (
@@ -3631,7 +3631,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "ih" = (
@@ -3658,7 +3658,7 @@
 /obj/machinery/alarm/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "ij" = (
@@ -3685,7 +3685,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "ir" = (
@@ -3744,7 +3744,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/lockers)
 "iB" = (
@@ -4018,7 +4018,7 @@
 "jP" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "jQ" = (
@@ -4284,7 +4284,7 @@
 /obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "le" = (
@@ -4356,7 +4356,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "lp" = (
@@ -5060,7 +5060,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "nw" = (
@@ -5074,7 +5074,7 @@
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "nx" = (
@@ -5151,7 +5151,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "op" = (
@@ -5208,7 +5208,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "oM" = (
@@ -5335,7 +5335,7 @@
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "pT" = (
@@ -5620,7 +5620,7 @@
 /obj/effect/mapping_helpers/airlock/access/any/supply/mining_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "sF" = (
@@ -5886,7 +5886,7 @@
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "uf" = (
@@ -5951,7 +5951,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "uq" = (
@@ -6127,7 +6127,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "vh" = (
@@ -6171,7 +6171,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "vw" = (
@@ -6268,7 +6268,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "vU" = (
@@ -6498,7 +6498,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "xC" = (
@@ -6530,7 +6530,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/lockers)
 "xM" = (
@@ -6752,7 +6752,7 @@
 /obj/machinery/power/apc/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/custodial)
 "zB" = (
@@ -6876,7 +6876,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "Ao" = (
@@ -7240,7 +7240,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "Co" = (
@@ -7325,7 +7325,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "CI" = (
@@ -7336,7 +7336,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/laborcamp/security)
 "CK" = (
@@ -7460,7 +7460,7 @@
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "DA" = (
@@ -7556,7 +7556,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "El" = (
@@ -7607,7 +7607,7 @@
 /obj/item/cigbutt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/laborcamp/security)
 "EG" = (
@@ -7627,7 +7627,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "EH" = (
@@ -7729,7 +7729,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/lockers)
 "FD" = (
@@ -8080,7 +8080,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/storage)
 "HU" = (
@@ -8106,7 +8106,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "HX" = (
@@ -8206,7 +8206,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/lockers)
 "IM" = (
@@ -8456,7 +8456,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "Kq" = (
@@ -8500,7 +8500,7 @@
 /obj/structure/extinguisher_cabinet/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/engineering)
 "Kz" = (
@@ -8752,7 +8752,7 @@
 /obj/structure/disposalpipe/junction,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "Mi" = (
@@ -8945,7 +8945,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "ND" = (
@@ -9198,7 +9198,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/lockers)
 "PB" = (
@@ -9252,7 +9252,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/lockers)
 "PS" = (
@@ -9304,7 +9304,7 @@
 /obj/structure/extinguisher_cabinet/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "Qz" = (
@@ -9376,7 +9376,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "QU" = (
@@ -9666,7 +9666,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "Td" = (
@@ -9900,7 +9900,7 @@
 /obj/effect/turf_decal/loading_area,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/airlock)
 "UT" = (
@@ -9947,7 +9947,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "Vg" = (
@@ -10183,7 +10183,7 @@
 /obj/structure/sign/poster/official/random/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "Wb" = (
@@ -10230,7 +10230,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "Wx" = (
@@ -10299,7 +10299,7 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "WP" = (
@@ -10491,7 +10491,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/east)
 "Yb" = (
@@ -10641,7 +10641,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "darkfull"
+	icon_state = "dark"
 	},
 /area/mine/outpost/hallway/west)
 "Zg" = (

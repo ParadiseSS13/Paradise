@@ -9752,7 +9752,7 @@
 	},
 /obj/structure/window/reinforced,
 /turf/simulated/floor/plasteel{
-	icon_state = "Dark_Golden_1";
+	icon_state = "dark";
 	dir = 6
 	},
 /area/station/legal/courtroom)
@@ -51982,7 +51982,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/assembly/mousetrap/armed,
 /turf/simulated/floor/plasteel{
-	icon_state = "Dark"
+	icon_state = "dark"
 	},
 /area/station/maintenance/abandonedbar)
 "fZX" = (
@@ -55172,7 +55172,7 @@
 /obj/item/reagent_containers/glass/bucket,
 /obj/structure/sink/directional/north,
 /turf/simulated/floor/plasteel{
-	icon_state = "Dark"
+	icon_state = "dark"
 	},
 /area/station/maintenance/abandonedbar)
 "heL" = (
@@ -78192,8 +78192,8 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "Dark_Golden_1";
-	dir = 5
+	icon_state = "dark";
+	dir = 6
 	},
 /area/station/legal/courtroom)
 "pBP" = (
@@ -79807,7 +79807,7 @@
 /area/station/maintenance/assembly_line)
 "qjA" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "Dark"
+	icon_state = "dark"
 	},
 /area/station/maintenance/abandonedbar)
 "qjC" = (
@@ -95656,7 +95656,7 @@
 /obj/item/clothing/accessory/scarf/white,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/station/maintenance/abandonedbar)
 "vXb" = (

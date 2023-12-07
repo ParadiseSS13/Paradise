@@ -9,7 +9,7 @@
 	},
 /obj/item/book/manual/barman_recipes,
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/powered)
 "c" = (
@@ -26,7 +26,7 @@
 	dir = 5
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/powered)
 "d" = (
@@ -101,7 +101,7 @@
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/powered)
 "u" = (
@@ -183,7 +183,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/powered)
 "J" = (
@@ -225,7 +225,7 @@
 /area/ruin/space/powered)
 "Q" = (
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/powered)
 "R" = (
@@ -267,7 +267,7 @@
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "blackfull"
+	icon_state = "dark"
 	},
 /area/ruin/space/powered)
 "Y" = (

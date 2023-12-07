@@ -161,7 +161,7 @@
 /obj/machinery/economy/vending/cigarette/free,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "ajJ" = (
@@ -318,7 +318,7 @@
 /obj/structure/largecrate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "atT" = (
@@ -358,7 +358,7 @@
 /obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "axq" = (
@@ -456,7 +456,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "aHl" = (
@@ -504,7 +504,7 @@
 /obj/effect/turf_decal/caution,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "aKg" = (
@@ -566,7 +566,7 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "aPs" = (
@@ -639,7 +639,7 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "aWy" = (
@@ -671,7 +671,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "baN" = (
@@ -865,7 +865,7 @@
 /obj/item/shard,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "blr" = (
@@ -893,7 +893,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "bon" = (
@@ -920,7 +920,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "boK" = (
@@ -1000,7 +1000,7 @@
 /obj/structure/railing,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "bru" = (
@@ -1030,7 +1030,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "bsO" = (
@@ -1069,7 +1069,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "btI" = (
@@ -1102,7 +1102,7 @@
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "bvC" = (
@@ -1344,7 +1344,7 @@
 /obj/structure/closet/crate,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "bKN" = (
@@ -1463,7 +1463,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "bSO" = (
@@ -1560,7 +1560,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "caM" = (
@@ -1585,7 +1585,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "cbH" = (
@@ -1691,7 +1691,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "cjT" = (
@@ -1775,7 +1775,7 @@
 /obj/structure/closet/crate/radiation,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "cod" = (
@@ -1797,7 +1797,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "cpc" = (
@@ -1884,7 +1884,7 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "cxP" = (
@@ -1957,7 +1957,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "cAM" = (
@@ -2080,7 +2080,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "cFQ" = (
@@ -2184,7 +2184,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "cLm" = (
@@ -2206,7 +2206,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "cNf" = (
@@ -2423,7 +2423,7 @@
 /obj/structure/closet/crate/radiation,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "deq" = (
@@ -2521,7 +2521,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "dla" = (
@@ -2776,7 +2776,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "dGT" = (
@@ -2965,7 +2965,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "dSA" = (
@@ -2975,7 +2975,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "dTm" = (
@@ -3063,7 +3063,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "dZu" = (
@@ -3137,7 +3137,7 @@
 /obj/machinery/light_construct/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "ecP" = (
@@ -3330,7 +3330,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "erB" = (
@@ -3719,7 +3719,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "eOR" = (
@@ -3729,7 +3729,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "ePb" = (
@@ -3816,7 +3816,7 @@
 /obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "eUq" = (
@@ -3944,7 +3944,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "fgN" = (
@@ -4006,7 +4006,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "fjM" = (
@@ -4051,7 +4051,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "fnP" = (
@@ -4411,7 +4411,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "fJU" = (
@@ -4594,7 +4594,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "fYG" = (
@@ -4653,7 +4653,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "gck" = (
@@ -4691,7 +4691,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "geP" = (
@@ -4728,7 +4728,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "giz" = (
@@ -4801,7 +4801,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "gon" = (
@@ -4977,7 +4977,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "gBW" = (
@@ -5177,7 +5177,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "gQV" = (
@@ -5309,7 +5309,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "gZv" = (
@@ -5668,7 +5668,7 @@
 /obj/item/storage/box,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "htc" = (
@@ -5697,7 +5697,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "htO" = (
@@ -5772,7 +5772,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "hyb" = (
@@ -6175,7 +6175,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "iaW" = (
@@ -6210,7 +6210,7 @@
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "ibX" = (
@@ -6333,7 +6333,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "iim" = (
@@ -6530,7 +6530,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "ivg" = (
@@ -6573,7 +6573,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "iyF" = (
@@ -6607,7 +6607,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "iBS" = (
@@ -6724,7 +6724,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "iJu" = (
@@ -6811,7 +6811,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "iMW" = (
@@ -6820,7 +6820,7 @@
 /obj/item/clothing/gloves/color/black,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "iNw" = (
@@ -6977,7 +6977,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "iXz" = (
@@ -7050,7 +7050,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "jcp" = (
@@ -7124,7 +7124,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "jhj" = (
@@ -7351,7 +7351,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "jvN" = (
@@ -7386,7 +7386,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "jxF" = (
@@ -7548,7 +7548,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "jFM" = (
@@ -7559,7 +7559,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "jHd" = (
@@ -7885,7 +7885,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "kcJ" = (
@@ -7916,7 +7916,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "kdW" = (
@@ -8077,7 +8077,7 @@
 /obj/item/shield/riot,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "knx" = (
@@ -8174,7 +8174,7 @@
 /obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "kuK" = (
@@ -8279,7 +8279,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "kzW" = (
@@ -8333,7 +8333,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "kDy" = (
@@ -8414,7 +8414,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "kIr" = (
@@ -8661,7 +8661,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "kWD" = (
@@ -8703,7 +8703,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "kZj" = (
@@ -8990,7 +8990,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "lpa" = (
@@ -9051,7 +9051,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "lsA" = (
@@ -9108,7 +9108,7 @@
 /obj/item/storage/bag/ore,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "lxn" = (
@@ -9201,7 +9201,7 @@
 "lFP" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "lGm" = (
@@ -9211,7 +9211,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "lGL" = (
@@ -9333,7 +9333,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "lPf" = (
@@ -9520,7 +9520,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "mdg" = (
@@ -9553,7 +9553,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "mfj" = (
@@ -9636,7 +9636,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "mjM" = (
@@ -9652,7 +9652,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "mky" = (
@@ -9668,7 +9668,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "mkC" = (
@@ -9807,7 +9807,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "mqZ" = (
@@ -10053,14 +10053,14 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "mFZ" = (
 /obj/structure/sign/poster/official/random/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "mHv" = (
@@ -10168,7 +10168,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "mKY" = (
@@ -10268,7 +10268,7 @@
 /obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "mRQ" = (
@@ -10365,7 +10365,7 @@
 /obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "mVl" = (
@@ -10510,7 +10510,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "ndV" = (
@@ -10558,7 +10558,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "nhk" = (
@@ -10702,7 +10702,7 @@
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "nwg" = (
@@ -10945,7 +10945,7 @@
 /obj/item/stack/rods,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "nOA" = (
@@ -11011,7 +11011,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "nRW" = (
@@ -11025,7 +11025,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "nSR" = (
@@ -11251,7 +11251,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "ojJ" = (
@@ -11335,7 +11335,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "opf" = (
@@ -11483,7 +11483,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "oyy" = (
@@ -11621,7 +11621,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "oFV" = (
@@ -11652,7 +11652,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "oHG" = (
@@ -11682,7 +11682,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "oKl" = (
@@ -11753,7 +11753,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "oNm" = (
@@ -11848,7 +11848,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "oSZ" = (
@@ -12067,7 +12067,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "piW" = (
@@ -12214,7 +12214,7 @@
 /obj/item/radio,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "psW" = (
@@ -12296,7 +12296,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "pzw" = (
@@ -12797,7 +12797,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "qlE" = (
@@ -12961,7 +12961,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "quj" = (
@@ -12971,7 +12971,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "qur" = (
@@ -13019,7 +13019,7 @@
 /obj/effect/turf_decal/grass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "qwS" = (
@@ -13051,7 +13051,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "qxx" = (
@@ -13071,7 +13071,7 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "qzb" = (
@@ -13124,7 +13124,7 @@
 "qCV" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "qDq" = (
@@ -13190,7 +13190,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "qGN" = (
@@ -13209,7 +13209,7 @@
 /obj/item/ammo_casing/caseless/arrow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "qIV" = (
@@ -13364,7 +13364,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "qTm" = (
@@ -13424,7 +13424,7 @@
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "qVG" = (
@@ -13464,7 +13464,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "qZP" = (
@@ -13656,7 +13656,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "rma" = (
@@ -13727,7 +13727,7 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "rpz" = (
@@ -13862,7 +13862,7 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "ryw" = (
@@ -13909,7 +13909,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "rAs" = (
@@ -13928,7 +13928,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "rAR" = (
@@ -14053,7 +14053,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "rKf" = (
@@ -14238,7 +14238,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "rSb" = (
@@ -14257,7 +14257,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "rSv" = (
@@ -14391,7 +14391,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "rZa" = (
@@ -14523,7 +14523,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "skb" = (
@@ -14573,7 +14573,7 @@
 /obj/machinery/light_construct/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "soo" = (
@@ -14638,7 +14638,7 @@
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "srO" = (
@@ -14652,7 +14652,7 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "srT" = (
@@ -14720,7 +14720,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "syQ" = (
@@ -14765,7 +14765,7 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "szw" = (
@@ -14933,7 +14933,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "sKN" = (
@@ -14943,7 +14943,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "sMs" = (
@@ -15023,7 +15023,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "sQQ" = (
@@ -15084,7 +15084,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "sUj" = (
@@ -15330,7 +15330,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "tjS" = (
@@ -15426,7 +15426,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "tpH" = (
@@ -15573,7 +15573,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "tAH" = (
@@ -15593,7 +15593,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "tAY" = (
@@ -15632,7 +15632,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "tDn" = (
@@ -15739,7 +15739,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "tLH" = (
@@ -15874,7 +15874,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "tUb" = (
@@ -15910,7 +15910,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "tUU" = (
@@ -16005,7 +16005,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "ubw" = (
@@ -16079,7 +16079,7 @@
 /obj/structure/railing/corner,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside/river)
 "ueW" = (
@@ -16248,7 +16248,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "upc" = (
@@ -16664,7 +16664,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "uNI" = (
@@ -16719,7 +16719,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "uRJ" = (
@@ -16846,7 +16846,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "vbZ" = (
@@ -16970,7 +16970,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "vjv" = (
@@ -16996,7 +16996,7 @@
 /obj/effect/spawner/random_spawners/dirt_maybe,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "vlw" = (
@@ -17056,7 +17056,7 @@
 /obj/effect/landmark/damageturf,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "vot" = (
@@ -17105,7 +17105,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "vqT" = (
@@ -17194,7 +17194,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "vws" = (
@@ -17463,7 +17463,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "vKb" = (
@@ -17528,7 +17528,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "vMV" = (
@@ -17746,7 +17746,7 @@
 /obj/item/stack/sheet/mineral/plasma/fifty,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "wbT" = (
@@ -17786,7 +17786,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "weC" = (
@@ -17812,7 +17812,7 @@
 "wft" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "wgn" = (
@@ -17823,7 +17823,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "who" = (
@@ -17935,7 +17935,7 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "wtJ" = (
@@ -18010,7 +18010,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "wzc" = (
@@ -18244,7 +18244,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "wMk" = (
@@ -18368,7 +18368,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "wRw" = (
@@ -18411,7 +18411,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "wUi" = (
@@ -18467,7 +18467,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "wZE" = (
@@ -18526,7 +18526,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside/complex)
 "xaS" = (
@@ -18742,7 +18742,7 @@
 /obj/effect/spawner/random_spawners/dirt_frequent,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "xsG" = (
@@ -18760,7 +18760,7 @@
 /obj/effect/decal/cleanable/blood/old,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "xtu" = (
@@ -18771,7 +18771,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "xtv" = (
@@ -18935,7 +18935,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "xDi" = (
@@ -19004,7 +19004,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "xJT" = (
@@ -19015,7 +19015,7 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/outside)
 "xKX" = (
@@ -19087,7 +19087,7 @@
 /obj/effect/spawner/random_spawners/dirt_often,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "xPg" = (
@@ -19153,7 +19153,7 @@
 /obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "darkgrey"
+	icon_state = "darkneutralfull"
 	},
 /area/awaymission/jungle_planet/inside)
 "xQt" = (
