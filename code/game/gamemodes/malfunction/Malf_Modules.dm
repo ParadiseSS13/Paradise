@@ -658,7 +658,7 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 	if(!owner_AI.can_place_turret(src))
 		return
 	active = TRUE
-	if(alert(owner, "Are you sure you want to place a turret here? Deployment will take a few seconds to complete, in which the turret will be vulnerable.", "Are you sure?", "Yes", "No") == "No")
+	if(alert(owner, "Are you sure you want to place a turret here? Deployment will take a few seconds to complete, in which the turret will be vulnerable.", "Are you sure?", "No", "Yes") == "No")
 		active = FALSE
 		return
 	if(!owner_AI.can_place_turret(src))
