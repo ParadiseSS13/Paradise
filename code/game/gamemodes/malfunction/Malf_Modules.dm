@@ -715,10 +715,9 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 	if(!C.visibleTurfs[deploylocation])
 		alert_msg = "You don't have camera vision of this location!"
 		success = FALSE
-	for(var/atom/movable/AM in deploylocation.contents)
-		if(AM.density)
-			alert_msg = "That area must be clear of objects!"
-			success = FALSE
+	if(is_blocked_turf(deploylocation))
+		alert_msg = "That area must be clear of objects!"
+		success = FALSE
 	var/image/I = action.turf_overlay
 	I.loc = deploylocation
 	client.images += I
