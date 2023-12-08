@@ -244,6 +244,7 @@
 	item = /obj/item/dice/d20/e20
 	cost = 15
 	job = list("Librarian")
+	surplus = 0
 
 //Botanist
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -572,13 +573,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 250
 	uses_special_spawn = TRUE
-
-/datum/uplink_item/bundles_TC/surplus_crate/super
-	name = "Syndicate Super Surplus Crate"
-	desc = "A crate containing 625 telecrystals worth of random syndicate leftovers."
-	reference = "SYSS"
-	cost = 200
-	crate_value = 625
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	if(..() != UPLINK_SPECIAL_SPAWNING)
