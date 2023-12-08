@@ -26159,6 +26159,9 @@
 /area/station/medical/sleeper)
 "caS" = (
 /obj/structure/table,
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurplecorner"
@@ -26946,6 +26949,11 @@
 /area/station/hallway/primary/central/south)
 "cdP" = (
 /obj/effect/turf_decal/stripes/corner,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -43632,6 +43640,9 @@
 /area/station/turret_protected/aisat/interior)
 "dnY" = (
 /obj/effect/turf_decal/stripes/corner,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "purple"
@@ -52229,6 +52240,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
+"ggx" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/hallway)
 "ggB" = (
 /obj/machinery/light/directional/south,
 /turf/simulated/floor/plasteel{
@@ -55329,6 +55348,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
 "hhz" = (
@@ -56635,6 +56655,9 @@
 /obj/structure/table,
 /obj/item/reagent_containers/food/drinks/mug/sci,
 /obj/machinery/light/directional/west,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -62464,7 +62487,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
@@ -68986,7 +69011,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -71329,6 +71356,15 @@
 	icon_state = "darkyellow"
 	},
 /area/station/command/office/ce)
+"ngB" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurple"
+	},
+/area/station/science/hallway)
 "ngO" = (
 /obj/structure/cable{
 	d1 = 1;
@@ -72340,16 +72376,16 @@
 	d2 = 8;
 	icon_state = "1-8"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -74488,6 +74524,22 @@
 	icon_state = "dark"
 	},
 /area/station/science/robotics)
+"onv" = (
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/hallway)
 "onE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -75623,6 +75675,15 @@
 	icon_state = "dark"
 	},
 /area/station/science/server)
+"oIJ" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/hallway)
 "oJc" = (
 /obj/structure/chair/stool,
 /turf/simulated/floor/plasteel{
@@ -77865,7 +77926,10 @@
 "pwk" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/power/apc/directional/east,
-/obj/structure/cable,
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -84532,6 +84596,21 @@
 	icon_state = "browncorner"
 	},
 /area/station/hallway/primary/central/sw)
+"rXa" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/station/science/hallway)
 "rXb" = (
 /obj/structure/closet/wardrobe/white,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -85567,6 +85646,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -96037,13 +96117,20 @@
 	},
 /area/station/security/brig)
 "wet" = (
+/obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	icon_state = "whitepurplecorner"
+	icon_state = "white"
 	},
 /area/station/science/hallway)
 "wew" = (
@@ -96738,6 +96825,15 @@
 	icon_state = "white"
 	},
 /area/station/maintenance/aft)
+"wsm" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whitepurplecorner"
+	},
+/area/station/science/hallway)
 "wsA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -99226,7 +99322,9 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 4
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/science/hallway)
@@ -100767,7 +100865,6 @@
 	},
 /area/station/science/xenobiology)
 "xRV" = (
-/obj/machinery/hologram/holopad,
 /obj/structure/disposalpipe/sortjunction{
 	dir = 2;
 	name = "Sci RD Office 1";
@@ -101838,6 +101935,9 @@
 	},
 /area/station/command/office/ce)
 "yku" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -149379,7 +149479,7 @@ ctI
 eGm
 bNp
 bNp
-bNp
+ngB
 bNp
 bNp
 hLu
@@ -149388,7 +149488,7 @@ cKT
 nXo
 cbq
 cEs
-cbq
+wsm
 cyI
 ctI
 nvq
@@ -149399,7 +149499,7 @@ cbq
 cEs
 cbq
 lvJ
-cbq
+wsm
 cLa
 gVu
 cNx
@@ -149636,7 +149736,7 @@ sqn
 xRV
 dAD
 aeJ
-sbp
+wet
 sbp
 sbp
 gqu
@@ -149645,7 +149745,7 @@ sbp
 giy
 vXN
 sbp
-sbp
+wet
 aeJ
 aeJ
 ndQ
@@ -149656,7 +149756,7 @@ aeJ
 aeJ
 fKW
 xKi
-pmv
+onv
 kyf
 pmv
 nkt
@@ -149892,8 +149992,8 @@ uMa
 awK
 ctI
 wci
-spl
 cgq
+ggx
 spl
 keJ
 ufq
@@ -149902,7 +150002,7 @@ spl
 uMa
 lvJ
 spl
-uMa
+oIJ
 uMa
 ctI
 spl
@@ -149913,7 +150013,7 @@ spl
 spl
 lvJ
 spl
-spl
+ggx
 hug
 spl
 spl
@@ -150659,7 +150759,7 @@ cZT
 xcO
 oOz
 vzI
-sbp
+rXa
 nwR
 cdP
 cbj
@@ -150917,7 +151017,7 @@ lmS
 bWv
 bTe
 caS
-wet
+spl
 pwk
 cqc
 kHG
