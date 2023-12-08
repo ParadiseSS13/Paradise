@@ -215,7 +215,16 @@
 	variable_charges = FALSE
 
 /obj/item/gun/magic/wand/chaos/zap_self(mob/living/user)
-	to_chat(user, "<span class='notice'>[pick("Cannot possibly backfire.", "It's time for the wheel of prizes! YEA YEA YEA YEA YEA YEA!", "Time to dual wield chaos wands!", "Half the time, it works every time.", "Cheese!", "You hear a deep voice cackling.")]</span>")
-
+	to_chat(user, "<span class='chaosneutral'>[pick("Cannot possibly backfire.", "It's time for the wheel of prizes! YEA YEA YEA YEA YEA YEA!", "Time to dual wield chaos wands!", "Half the time, it works every time.", "Cheese!", "You hear a deep voice cackling.")]</span>")
+	var/obj/item/projectile/magic/chaos/C = new /obj/item/projectile/magic/chaos(src)
+	C.chaos_chaos(user)
 	charges--
 	..()
+
+/obj/item/gun/magic/wand/chaos/debug
+	name = "wand of infinite chaos"
+	desc = "Are you sure you're supposed to be using this?"
+	max_charges = 500
+	variable_charges = FALSE
+	can_charge = TRUE
+	recharge_rate = 1

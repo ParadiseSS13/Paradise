@@ -19,6 +19,7 @@
 		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770, 	5),
 		)
 	var/datum/track/selection = null
+	var/restdancing = TRUE
 
 /datum/track
 	var/song_name = "generic"
@@ -131,12 +132,7 @@
 					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
 					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
 					return
-				active = TRUE
-				update_icon()
-				set_light(1, LIGHTING_MINIMUM_POWER) //for emmisive appearance
-				dance_setup()
-				START_PROCESSING(SSobj, src)
-				lights_spin()
+				breakitdown()
 				updateUsrDialog()
 			else if(active)
 				stop = 0
@@ -170,6 +166,14 @@
 			deejay('sound/weapons/saberon.ogg')
 		if("harm")
 			deejay('sound/AI/harmalarm.ogg')
+
+/obj/machinery/disco/proc/breakitdown()
+	active = TRUE
+	update_icon()
+	set_light(1, LIGHTING_MINIMUM_POWER)
+	dance_setup()
+	START_PROCESSING(SSobj, src)
+	lights_spin()
 
 /obj/machinery/disco/proc/deejay(S)
 	if(QDELETED(src) || !active || charge < 5)
@@ -340,7 +344,10 @@
 		if(2 to 3)
 			dance3(M)
 		if(4 to 6)
-			dance4(M)
+			if(restdancing)
+				dance4(M)
+			else
+				dance2(M)
 		if(7 to 9)
 			dance5(M)
 
@@ -504,3 +511,20 @@
 
 /obj/machinery/disco/immobile/wrench_act()
 	return FALSE
+
+/obj/machinery/disco/chaos_staff
+	restdancing = FALSE
+	anchored = TRUE
+	var/disco_inferno = FALSE
+
+/obj/machinery/disco/chaos_staff/plasmafire
+	disco_inferno = TRUE
+
+/obj/machinery/disco/chaos_staff/Initialize(mapload)
+	. = ..()
+	selection = pick(songs)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disco/chaos_staff, breakitdown))
+	if(disco_inferno)
+		//in 30-50 seconds
+		visible_message("<span class='chaosverybad'>DISCO INFERNO!</span>")
+		//plasma fire
