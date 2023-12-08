@@ -64,6 +64,7 @@
 	path = newpath ? newpath : list()
 	if(!length(path)) // because newpath could be an empty list
 		STOP_PROCESSING(SSfastprocess, src)
+	tries = 0
 
 /**
  * Start moving towards our target, returns false if the path does not lead to the target
