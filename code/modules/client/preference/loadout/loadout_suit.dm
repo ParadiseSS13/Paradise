@@ -251,7 +251,7 @@
 
 /datum/gear/suit/mantle/job/hop
 	display_name = "Mantle, head of personnel"
-	path = /obj/item/clothing/suit/mantle/armor/head_of_personnel
+	path = /obj/item/clothing/suit/mantle/armor/hop
 	allowed_roles = list("Head of Personnel")
 
 /datum/gear/suit/mantle/job/rd
