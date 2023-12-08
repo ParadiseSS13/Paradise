@@ -53960,6 +53960,7 @@
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/random_spawners/cobweb_left_frequent,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "gFf" = (
@@ -58737,6 +58738,7 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/clothing/under/plasmaman/science,
 /obj/item/clothing/head/helmet/space/plasmaman/science,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitehall"
@@ -63106,6 +63108,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/break_room)
+"kEw" = (
+/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "kEy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
 /turf/simulated/floor/plasteel{
@@ -65156,6 +65162,7 @@
 "lst" = (
 /obj/structure/rack,
 /obj/item/extinguisher,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "lsC" = (
@@ -67603,6 +67610,7 @@
 "mtr" = (
 /obj/structure/closet/firecloset,
 /obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "mtV" = (
@@ -70370,6 +70378,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fore)
+"nBf" = (
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random_spawners/cobweb_right_rare,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "nBj" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
@@ -77244,6 +77258,7 @@
 "qBO" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/table,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
 /turf/simulated/floor/plating,
 /area/station/maintenance/aft2)
 "qBP" = (
@@ -77517,6 +77532,10 @@
 	icon_state = "dark"
 	},
 /area/station/security/armory)
+"qKY" = (
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "qLe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 1;
@@ -82784,6 +82803,12 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass/no_creep,
 /area/station/science/research)
+"tba" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/effect/spawner/random_spawners/cobweb_left_rare,
+/turf/simulated/floor/plating,
+/area/station/maintenance/aft2)
 "tbd" = (
 /obj/machinery/alarm{
 	dir = 1;
@@ -122386,8 +122411,8 @@ coG
 iBb
 qyW
 mlV
-coG
-kkZ
+tmz
+qKY
 lYB
 avs
 vHP
@@ -122396,7 +122421,7 @@ coG
 qBO
 wKQ
 coG
-kkZ
+kEw
 cOi
 coG
 gEX
@@ -122649,7 +122674,7 @@ vNL
 nDC
 cLl
 laR
-coG
+tmz
 kkZ
 iCJ
 avs
@@ -122902,7 +122927,7 @@ qyW
 sMn
 coG
 coG
-coG
+crN
 cFt
 kkZ
 drp
@@ -123414,19 +123439,19 @@ mDn
 rtk
 cJl
 ddR
-coG
+tmz
 waF
 coG
 cPb
 cPb
 coG
 coG
-coG
+tmz
 mlV
 dgD
 coG
 coG
-coG
+tmz
 msw
 tmz
 cOp
@@ -123682,7 +123707,7 @@ kkZ
 lYB
 kQj
 coG
-vHP
+tba
 kkZ
 kkZ
 coG
@@ -124964,7 +124989,7 @@ cQd
 gty
 coG
 coG
-coG
+tmz
 xLO
 kkZ
 coG
@@ -126506,7 +126531,7 @@ nqG
 cOp
 crN
 coG
-coG
+tmz
 iRX
 lYB
 coG
@@ -126766,7 +126791,7 @@ jAR
 dag
 cUL
 kkZ
-coG
+tmz
 mxp
 vHP
 coG
@@ -127277,7 +127302,7 @@ coU
 cvw
 gei
 coG
-lCO
+nBf
 lYB
 kkZ
 avs
