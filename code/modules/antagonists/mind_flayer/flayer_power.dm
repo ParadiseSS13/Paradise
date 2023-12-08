@@ -49,7 +49,7 @@
 /obj/effect/proc_holder/spell/flayer/self/augment_menu/cast(mob/user) //For now I'm just gonna make it a menu list, for testing
 	//ui_interact(user)
 	var/list/categories = list(CATEGORY_GENERAL, CATEGORY_DESTROYER, CATEGORY_INTRUDER, CATEGORY_SWARMER)
-	var/power_category = input(user, "What category do you want to buy from") in categories
+	var/power_category = tgui_input_list(user, "What category do you want to buy from", "Choose category", categories)
 	offer_power_choices(user, power_category)
 
 /obj/effect/proc_holder/spell/flayer/self/augment_menu/proc/offer_power_choices(mob/user, power_category)
@@ -63,7 +63,7 @@
 	get_ability(user, possible_powers)
 
 /obj/effect/proc_holder/spell/flayer/self/augment_menu/proc/get_ability(mob/user, all_powers)
-	var/path = input(user, "whaddya wanna buy") in all_powers
+	var/path = tgui_input_list(user, "whaddya wanna buy", "Buy power", all_powers)
 	flayer.add_ability(path)
 	flayer.send_swarm_message("nice one dude")
 
