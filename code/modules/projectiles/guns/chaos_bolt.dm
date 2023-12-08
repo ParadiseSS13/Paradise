@@ -30,7 +30,7 @@
 		//	target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
 		//	return
 		if(explosion_amount)
-			target.visible_message("<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around [target]!</span>", "<span class='chaosneutral'>A bunch of [item_to_summon] scatter around you!</span>")
+			target.visible_message("<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around [target]!</span>", "<span class='chaosneutral'>A bunch of [item_to_summon.name] scatter around you!</span>")
 			for(var/i in 1 to explosion_amount)
 				var/obj/item/I = new item_to_summon(get_turf(target))
 				throwforce = 0
@@ -39,23 +39,23 @@
 		else
 			if(!ishuman(target))
 				var/obj/item/I = new item_to_summon(get_turf(target))
-				target.visible_message("<span class='chaosgood'>[I] drops next to [target]!</span>", "<span class='chaosgood'>[I] drops on the floor!</span>")
+				target.visible_message("<span class='chaosgood'>\A [I] drops next to [target]!</span>", "<span class='chaosgood'>\A [I] drops on the floor!</span>")
 				return
 			var/mob/living/carbon/human/H = target
 			var/obj/item/I = new item_to_summon(src)
 			if(H.back && isstorage(H.back))
 				var/obj/item/storage/S = H.back
 				S.handle_item_insertion(I, TRUE) //We don't check if it can be inserted because it's magic, GET IN THERE!
-				H.visible_message("<span class='chaosgood'>[H]'s [S] glows brightly!</span>", "<span class='chaosverygood'>[I] suddenly appears in your glowing [S]!</span>")
+				H.visible_message("<span class='chaosgood'>[H]'s [S.name] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [S.name]!</span>")
 				return
 			if(H.back && ismodcontrol(H.back))
 				var/obj/item/mod/control/C = H.back
 				if(C.bag)
 					C.handle_item_insertion(I, TRUE)
-					H.visible_message("<span class='chaosgood'>[H]'s [C] glows brightly!</span>", "<span class='chaosverygood'>[I] suddenly appears in your glowing [C]!</span>")
+					H.visible_message("<span class='chaosgood'>[H]'s [C] glows bright!</span>", "<span class='chaosverygood'>\A [I] suddenly appears in your glowing [C.name]!</span>")
 					return
 			I.forceMove(get_turf(H))
-			H.visible_message("<span class='chaosgood'>[I] drops next to [H]!</span>", "<span class='chaosverygood'>[I] drops on the floor!</span>")
+			H.visible_message("<span class='chaosgood'>\A [I] drops next to [H]!</span>", "<span class='chaosverygood'>\A [I] drops on the floor!</span>")
 
 /obj/item/projectile/magic/chaos/proc/apply_lethal_effect(mob/living/target)
 	if(!iscarbon(target))
@@ -187,9 +187,9 @@
 		"dwarf", "insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
 	switch(chaos_effect)
 		if("toy sword")
-			item_to_summon = /obj/item/toy/sword
+			item_to_summon = /obj/item/toy/sword/prank
 		if("toy revolver")
-			item_to_summon = /obj/item/gun/projectile/revolver/capgun
+			item_to_summon = /obj/item/gun/projectile/revolver/capgun/prank
 		if("dosh") //ISSUE : the cash stacks together instead of splitting sometimes, add effect where target throws overtime?
 			item_to_summon = /obj/item/stack/spacecash/c20
 			explosion_amount = rand(10, 20)

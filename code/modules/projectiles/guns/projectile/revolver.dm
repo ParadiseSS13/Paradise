@@ -310,6 +310,9 @@
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
+/obj/item/gun/projectile/revolver/capgun/prank
+	name = "\improper .357 revolver"
+
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
 /////////////////////////////

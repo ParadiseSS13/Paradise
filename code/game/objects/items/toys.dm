@@ -225,6 +225,9 @@
 			qdel(W)
 			qdel(src)
 
+/obj/item/toy/sword/prank
+	name = "energy sword"
+
 /*
  * Subtype of Double-Bladed Energy Swords
  */
