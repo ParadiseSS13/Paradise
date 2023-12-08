@@ -175,7 +175,7 @@
 			return
 		if("bike horn")
 			item_to_summon = /obj/item/bikehorn
-			explosion_amount = rand(1, 3)
+			explosion_amount = rand(2, 3)
 		if("wizard robes")
 			return
 
@@ -194,7 +194,7 @@
 			item_to_summon = /obj/item/stack/spacecash/c20
 			explosion_amount = rand(10, 20)
 		if("cheese")
-			item_to_summon = /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel
+			item_to_summon = /obj/item/reagent_containers/food/snacks/sliceable/cheesewedge
 			explosion_amount = rand(10, 20)
 		if("food")
 			target.visible_message("<span class='chaosneutral'>Food scatter around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatter around you!</span>")
@@ -217,7 +217,7 @@
 			item_to_summon = /obj/item/gun/magic/wand/door
 		if("golden bike horn")
 			item_to_summon = /obj/item/bikehorn/golden
-			explosion_amount = rand(1, 3)
+			explosion_amount = rand(2, 3)
 		if("ban hammer")
 			item_to_summon = /obj/item/banhammer
 			explosion_amount = rand(2, 5)

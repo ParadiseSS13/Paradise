@@ -178,9 +178,9 @@
 
 /obj/item/projectile/magic/change/on_hit(atom/change)
 	. = ..()
-	polymorph(change)
+	wabbajack(change)
 
-/proc/polymorph(mob/living/M)
+/proc/wabbajack(mob/living/M)
 	if(istype(M) && M.stat != DEAD && !M.notransform)
 		M.notransform = TRUE
 		M.icon = null

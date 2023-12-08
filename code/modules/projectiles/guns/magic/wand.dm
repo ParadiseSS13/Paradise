@@ -123,8 +123,8 @@
 	max_charges = 10 //10, 5, 5, 4
 
 /obj/item/gun/magic/wand/polymorph/zap_self(mob/living/user)
-	..() //because the user mob ceases to exists by the time polymorph fully resolves
-	polymorph(user)
+	..() //because the user mob ceases to exists by the time wabbajack fully resolves
+	wabbajack(user)
 	charges--
 
 /////////////////////////////////////
@@ -215,7 +215,7 @@
 	variable_charges = FALSE
 
 /obj/item/gun/magic/wand/chaos/zap_self(mob/living/user)
-	to_chat(user, "<span class='chaosneutral'>[pick("Cannot possibly backfire.", "It's time for the wheel of prizes! YEA YEA YEA YEA YEA YEA!", "Time to dual wield chaos wands!", "Half the time, it works every time.", "Cheese!", "You hear a deep voice cackling.")]</span>")
+	to_chat(user, "<span class='chaosneutral'>[pick("Cannot possibly backfire.", "I'd like that glass of water, please!", "What fun is there in making sense?", "Maybe you ought to go back home and crawl under your bed.", "Time to dual wield chaos wands!", "Half the time, it works every time.", "Cheese!", "You hear a deep voice cackling.")]</span>")
 	var/obj/item/projectile/magic/chaos/C = new /obj/item/projectile/magic/chaos(src)
 	C.chaos_chaos(user)
 	charges--
