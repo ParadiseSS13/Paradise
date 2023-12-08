@@ -62528,7 +62528,6 @@
 /area/station/maintenance/engimaint)
 "krU" = (
 /obj/structure/closet/secure_closet/miner,
-/obj/item/storage/bag/sheetsnatcher,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
