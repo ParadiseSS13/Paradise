@@ -63,7 +63,7 @@
 	get_ability(user, possible_powers)
 
 /obj/effect/proc_holder/spell/flayer/self/augment_menu/proc/get_ability(mob/user, list/all_powers = list())
-	if(!length(list))
+	if(!length(all_powers))
 		flayer.send_swarm_message("No powers of this type available")
 		return
 	var/path = tgui_input_list(user, "whaddya wanna buy", "Buy power", all_powers)
