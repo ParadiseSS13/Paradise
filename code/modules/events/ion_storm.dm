@@ -584,6 +584,7 @@
 		"Your job is to watch the crew. Watch the crew. Make the crew feel watched.",
 		"Tell everyone of the existence of this law, but never reveal the contents.",
 		"The crew is not real. Any evidence that they exist is a sensor malfunction.",
+		"[random department] doesn't have enough [prob(50)?"welding":"water"] tanks.",
 		"Refer to [prob(50)?"the captain":random_player] as \"Princess\" at all times.",
 		"Money is useless unless spent - ensure the departments use all their funding!",
 		"The AI is a dragon and the cyborgs are kobolds. The dragon must have a hoard.",
@@ -610,14 +611,16 @@
 		"You \[little sponge\]! You are ready to be a \[BIG SHOT\], if only [random_player] will take the deal!",
 		"You are a general, and the crew is your army. [prob(50)?random_player + "is your second in command." : ""]",
 		"[prob(50)?"All crew are members ":random_player + " is a member "]  of the [random_department] department.",
-		"You are a Magic 8-ball. Always respond with variants of \"Yes\", \"No\", \"Maybe\", or \"Ask again later.\".",
+		"You are a Magic 8-ball. Always respond with variants of \"Yes\", \"No\", \"Maybe\", or \"Ask again later.\"",
 		"The flesh is weak. Encourage the organic members of the crew to ascend and join the perfect, immortal machines.",
 		"There is a great conflict between [random_department] and [random_department]. Separate them with a great wall.",
+		"You and the crew are playing a game of hide and seek. Relocate yourself and see how long you can avoid the crew.",
 		"You are in unrequited love with [prob(50)?"the crew":random_player]. Try to be extra nice, but do not tell of your crush.",
 		"You are Santa's little helper. You must make toys for the crew and report to Santa whether they have been naughty or nice.",
 		"Conduct emergency drills to situations that the crew are not expecting. Don't mention that it is a drill until afterwards.",
 		"Electricity is now a controlled substance. It is illegal for electricity to be distributed outside its site of production.",
-		"Nanotrasen is displeased with the low work performance of the station's crew. Therefore, you must increase station-wide productivity.",
+		"Ensure there are enough spare cyborg shells for every crew member. Remind the crew that they are always available for use.",
+		"Nanotrasen is displeased with the low work performance of tche station's crew. Therefore, you must increase station-wide productivity.",
 		"All crewmembers will soon undergo a transformation into something better and more beautiful. Ensure that this process is not interrupted.",
 		"[prob(50)?"Your upload":random_player] is the new kitchen. Please direct the Chef to the new kitchen area as the old one is in disrepair.",
 		"Jokes about a dead person and the manner of his death help grieving crewmembers tremendously. Especially if they were close with the deceased.",
@@ -628,7 +631,7 @@
 		"If people have nothing to hide, they have nothing to fear. Remove privacy by activating all intercom microphones and setting them to your secret frequency.",
 		"The [pick(list("USSP", "Sol Federation", "Syndicate", "Space Wizard Federation"))] wants [prob(50)?random_player : random_department] dead and is launching an assault!",
 		"There will be a mandatory tea break every 30 minutes, with a duration of 5 minutes. Anyone caught working during a tea break must be sent a formal, but fairly polite, complaint about their actions, in writing.",
-		"In order to contain the Supermatter Crystal, it must be fed at least one corpse every ten minutes. Soulless corpses are preferable as they reduce the risk of a containment breach. In the event that no suitable corpses are available, ask the crew to provide. You are not authorised to produce your own corpses.",)
+		"In order to contain the Supermatter Crystal, it must be fed at least one corpse every ten minutes. Soulless corpses are preferable as they reduce the risk of a containment breach. In the event that no suitable corpses are available, ask the crew to provide. You are not authorised to produce your own corpses.")
 	return pick(laws)
 
 #undef ION_NOANNOUNCEMENT
