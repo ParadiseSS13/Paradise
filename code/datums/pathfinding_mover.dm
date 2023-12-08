@@ -6,7 +6,7 @@
 	/// Can be a simplemob bot, a drone, or even a pathfinding modsuit module (currently only implemented for drones)
 	VAR_PRIVATE/atom/movable/owner
 	/// The target turf we are after
-	var/turf/target
+	VAR_PRIVATE/turf/target
 
 	/// List of turfs through which a mod 'steps' to reach the waypoint
 	VAR_PRIVATE/list/path = list()
@@ -50,11 +50,17 @@
 	set_path(get_path_to(arglist(list(owner, target) + args)))
 	return (length(path) > 0)
 
+/datum/pathfinding_mover/proc/set_target(atom/new_target)
+	if(!isatom(new_target))
+		target = null
+		return
+	target = get_turf(new_target)
+
 /datum/pathfinding_mover/proc/set_path(list/newpath)
 	PRIVATE_PROC(TRUE)
 
 	if(newpath == null)
-		on_set_path_null.Invoke() // this is seperate to prevent invoking the callback if calling from generate_path
+		on_set_path_null?.Invoke() // this is seperate to prevent invoking the callback if calling from generate_path
 	path = newpath ? newpath : list()
 	if(!length(path)) // because newpath could be an empty list
 		STOP_PROCESSING(SSfastprocess, src)
@@ -80,18 +86,18 @@
  */
 /datum/pathfinding_mover/process(wait) // 2 on fast process
 	move_ticks++
-	if(move_ticks < move_speed)
+	if(move_speed && (move_ticks < move_speed))
 		return
 	if(consider_movement_delay && (last_movement_delay > (move_ticks * wait)))
 		return
 	move_ticks = 0
 
-	if(tries >= 5)
+	if(tries >= max_tries)
 		set_path(null)
 		return // PROCESS_KILL called with set_path(null)
 
 	if(get_turf(owner) == target) //We have arrived, no need to move again.
-		on_success.Invoke(src)
+		on_success?.Invoke(src)
 		return PROCESS_KILL
 
 	generalized_step()
