@@ -7,5 +7,8 @@
 #include "_hairs.dm"
 #include "code/vulpkanin_hair.dm"
 #include "code/human_hair.dm"
+#include "code/unathi_hair.dm"
+#include "code/unathi_head_accessories.dm"
+#include "code/unathi_facial_hair.dm"
 // END_INCLUDE
 
