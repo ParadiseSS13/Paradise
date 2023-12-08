@@ -953,16 +953,9 @@
 	},
 /area/mine/laborcamp)
 "cj" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/marker_beacon/dock_marker,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/lavaland/surface/outdoors/outpost/catwalk)
+/obj/effect/spawner/window/reinforced/grilled,
+/turf/simulated/floor/plating,
+/area/mine/outpost/maintenance/south)
 "ck" = (
 /obj/machinery/firealarm/directional/south,
 /obj/structure/cable{
@@ -1301,10 +1294,9 @@
 /area/mine/outpost/mechbay)
 "cZ" = (
 /obj/structure/fans/tiny,
-/obj/machinery/door/airlock/multi_tile/glass{
-	name = "Main Airlock"
-	},
+/obj/machinery/door/airlock/multi_tile/supply/glass,
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining_station,
+/obj/effect/mapping_helpers/airlock/autoname,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -2225,7 +2217,7 @@
 	},
 /area/mine/outpost/hallway/east)
 "eG" = (
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/storage)
 "eH" = (
@@ -2359,7 +2351,7 @@
 	},
 /area/mine/outpost/storage)
 "eT" = (
-/obj/machinery/door/airlock/command/glass{
+/obj/machinery/door/airlock/command/qm{
 	name = "Quartermaster's Office"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2374,10 +2366,10 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "mining qm"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5705,16 +5697,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/mine/outpost/cafeteria)
-"tf" = (
-/obj/structure/lattice/catwalk/mining,
-/obj/structure/railing{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
-/area/lavaland/surface/outdoors/outpost/catwalk)
 "ti" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/fluff/drake_statue/falling{
@@ -7363,10 +7345,6 @@
 	icon_state = "darkredfull"
 	},
 /area/mine/outpost/hallway/west)
-"CP" = (
-/obj/effect/spawner/window,
-/turf/simulated/floor/plating,
-/area/mine/outpost/maintenance/south)
 "CV" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
@@ -7693,7 +7671,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Fp" = (
 /obj/structure/bed,
@@ -7890,7 +7868,7 @@
 /obj/structure/railing/corner,
 /obj/effect/turf_decal/stripes/corner,
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "GS" = (
 /obj/structure/stone_tile,
@@ -10593,14 +10571,14 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
-/obj/machinery/door/airlock/command/glass{
+/obj/machinery/door/airlock/command/qm{
 	name = "Quartermaster's Office"
 	},
+/obj/effect/mapping_helpers/airlock/access/all/supply/qm,
+/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /obj/effect/mapping_helpers/airlock/polarized{
 	id = "mining qm"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/command/general,
 /turf/simulated/floor/catwalk,
 /area/mine/outpost/quartermaster)
 "YV" = (
@@ -18995,10 +18973,10 @@ aj
 ri
 LM
 sx
-cj
-tf
-tf
-tf
+pB
+HX
+HX
+HX
 HX
 pB
 Fl
@@ -26717,7 +26695,7 @@ bi
 st
 Vm
 er
-oc
+cj
 Hf
 dT
 aj
@@ -26971,10 +26949,10 @@ gK
 ct
 Wa
 ue
-CP
+oc
 Yc
 jJ
-oc
+cj
 Hf
 aj
 aj
@@ -27230,8 +27208,8 @@ BH
 Dq
 eM
 eM
-oc
-oc
+cj
+cj
 Hf
 aj
 aj
