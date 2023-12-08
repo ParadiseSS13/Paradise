@@ -124,8 +124,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/proc/update_screen_objects()
 	var/list/page_choices = page_data[current_page]
 	var/angle_per_element = round(zone / page_choices.len)
-	pixel_x_difference = ((world.icon_size * anchor.x) + anchor.step_x + anchor.pixel_x) - ((world.icon_size * current_user.mob.x) + current_user.mob.step_x + current_user.mob.pixel_x)
-	pixel_y_difference = ((world.icon_size * anchor.y) + anchor.step_y + anchor.pixel_y) - ((world.icon_size * current_user.mob.y) + current_user.mob.step_y + current_user.mob.pixel_y)
+	if(current_user.mob.z && anchor.z)
+		pixel_x_difference = ((world.icon_size * anchor.x) + anchor.step_x + anchor.pixel_x) - ((world.icon_size * current_user.mob.x) + current_user.mob.step_x + current_user.mob.pixel_x)
+		pixel_y_difference = ((world.icon_size * anchor.y) + anchor.step_y + anchor.pixel_y) - ((world.icon_size * current_user.mob.y) + current_user.mob.step_y + current_user.mob.pixel_y)
 	for(var/i in 1 to elements.len)
 		var/obj/screen/radial/E = elements[i]
 		var/angle = WRAP(starting_angle + (i - 1) * angle_per_element, 0, 360)
@@ -225,7 +226,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/last_location = user.loc
 	while(current_user && !finished && !selected_choice)
 		if(require_near)
-			if(!user.Adjacent(get_turf(anchor)))
+			var/turf/our_turf = get_turf(user)
+			if(!our_turf.Adjacent(get_turf(anchor)))
 				return
 			if(last_location != user.loc)
 				update_screen_objects()
