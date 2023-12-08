@@ -258,7 +258,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
 	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
-	cost = 6
+	cost = 9
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolhp
@@ -266,7 +266,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
-	cost = 6
+	cost = 7
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/revolver
@@ -365,7 +365,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/plushie/carpplushie/dehy_carp
-	cost = 5
+	cost = 4
 
 
 // GRENADES AND EXPLOSIVES
@@ -579,10 +579,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 10
 
 /datum/uplink_item/device_tools/bonerepair
-	name = "Prototype Nanite Autoinjector Kit"
-	desc = "Stolen prototype full body repair nanites. Contains one prototype nanite autoinjector and guide."
+	name = "Prototype Nanite Autoinjector"
+	desc = "Stolen prototype full body repair nanites. On injection it will shut down body systems as it revitilizes limbs and organs."
 	reference = "NCAI"
-	item = /obj/item/storage/box/syndie_kit/bonerepair
+	item = /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium
 	cost = 10
 
 /datum/uplink_item/device_tools/syndicate_teleporter

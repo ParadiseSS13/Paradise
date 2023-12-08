@@ -178,8 +178,10 @@ SUBSYSTEM_DEF(ghost_spawns)
 	if(GLOB.configuration.jobs.enable_exp_restrictions && min_hours)
 		if(M.client.get_exp_type_num(EXP_TYPE_LIVING) < min_hours * 60)
 			return
-	if(check_antaghud && cannotPossess(M))
-		return
+	if(check_antaghud && isobserver(M))
+		var/mob/dead/observer/O = M
+		if(!O.check_ahud_rejoin_eligibility())
+			return
 
 	return TRUE
 

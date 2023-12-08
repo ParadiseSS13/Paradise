@@ -90,8 +90,8 @@
 	cell = locate(/obj/item/stock_parts/cell) in contents
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/item/defibrillator/ui_action_click()
-	toggle_paddles()
+/obj/item/defibrillator/ui_action_click(mob/user)
+	toggle_paddles(user)
 
 /obj/item/defibrillator/AltClick(mob/user)
 	if(ishuman(user) && Adjacent(user))

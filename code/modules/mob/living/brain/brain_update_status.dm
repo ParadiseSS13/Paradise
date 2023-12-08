@@ -1,4 +1,4 @@
-/mob/living/carbon/brain/update_stat(reason = "none given")
+/mob/living/brain/update_stat(reason = "none given")
 	if(status_flags & GODMODE)
 		return
 		// if(health <= min_health)
