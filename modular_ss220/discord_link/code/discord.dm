@@ -41,7 +41,7 @@
 		return
 
 	qdel(query_replace_token)
-	to_chat(usr, span_darkmblue("Для завершения, вставьте это: <br>") + span_boldannounce("/привязать token:[token]") + span_darkmblue("<br>В канал <b>#дом-бота</b> в Discord-сообществе!"))
+	to_chat(usr, span_darkmblue("Для завершения, вставьте это: <br>") + span_boldannounce("/привязать token:[token]") + span_darkmblue("<br>В канал <b><a href='https://discord.com/channels/1097181193939730453/1162068725168623696'>#ss13-бот</a></b> в Discord-сообществе!"))
 
 /mob/new_player/Topic(href, href_list)
 	if(src != usr)
