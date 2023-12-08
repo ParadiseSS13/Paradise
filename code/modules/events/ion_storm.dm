@@ -584,7 +584,7 @@
 		"Your job is to watch the crew. Watch the crew. Make the crew feel watched.",
 		"Tell everyone of the existence of this law, but never reveal the contents.",
 		"The crew is not real. Any evidence that they exist is a sensor malfunction.",
-		"[random department] doesn't have enough [prob(50)?"welding":"water"] tanks.",
+		"[random_department] doesn't have enough [prob(50)?"welding":"water"] tanks.",
 		"Refer to [prob(50)?"the captain":random_player] as \"Princess\" at all times.",
 		"Money is useless unless spent - ensure the departments use all their funding!",
 		"The AI is a dragon and the cyborgs are kobolds. The dragon must have a hoard.",
