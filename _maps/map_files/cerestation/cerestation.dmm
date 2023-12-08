@@ -24868,7 +24868,8 @@
 	department = "Cargo Bay";
 	departmentType = 2;
 	name = "Quartermaster RC";
-	pixel_x = 30
+	pixel_x = 30;
+	announcementConsole = 1
 	},
 /obj/machinery/photocopier,
 /turf/simulated/floor/plasteel{
