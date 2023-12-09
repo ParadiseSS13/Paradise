@@ -89,10 +89,7 @@
 			else
 				D.lock()
 		if(WAND_EMERGENCY)
-			if(D.emergency)
-				D.emergency = FALSE
-			else
-				D.emergency = TRUE
+			D.emergency = !D.emergency
 			D.update_icon()
 		if(WAND_SPEED)
 			D.normalspeed = !D.normalspeed
