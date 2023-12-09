@@ -205,8 +205,8 @@
 			. += "You could use a <b>MOD core</b> on it to install one."
 
 /obj/item/mod/control/examine_more(mob/user)
-  . = ..()
-  . += "<i>[extended_desc]</i>"
+	. = ..()
+	. += "<i>[extended_desc]</i>"
 
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
