@@ -51,7 +51,8 @@
 		3 = "Brown",
 		4 = "Grey",
 		5 = "Emerald",
-		6 = "Azure"
+		6 = "Azure",
+		7 = "Crimson"
 		)
 
 	has_organ = list(
@@ -105,6 +106,9 @@
 	if(H.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
 		var/new_icobase = 'icons/mob/human_races/vox/r_vox.dmi' //Default Green Vox.
 		switch(H.s_tone)
+			if(7) //Crimson Vox.
+				new_icobase = 'icons/mob/human_races/vox/r_voxcrim.dmi'
+				H.tail = "voxtail_crim"
 			if(6) //Azure Vox.
 				new_icobase = 'icons/mob/human_races/vox/r_voxazu.dmi'
 				H.tail = "voxtail_azu"
