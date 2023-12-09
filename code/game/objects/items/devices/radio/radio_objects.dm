@@ -169,12 +169,12 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 			if(freqlock)
 				return
 			var/tune = params["tune"]
-			var/adjust = text2num(params["adjust"])
+			var/adjust = params["adjust"]
 			if(tune == "reset")
 				tune = initial(frequency)
 			else if(adjust)
 				tune = frequency + adjust * 10
-			else if(text2num(tune) != null)
+			else if(tune != null)
 				tune = tune * 10
 			else
 				. = FALSE
@@ -183,17 +183,17 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 					usr << browse(null, "window=radio")
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
-		if("ichannel") // change primary frequency to an internal channel authorized by access
+		if("ichannel") // Change primary frequency to an internal channel authorized by access
 			if(freqlock)
 				return
 			var/freq = params["ichannel"]
-			if(has_channel_access(usr, freq))
-				set_frequency(text2num(freq))
+			if(has_channel_access(usr, num2text(freq)))
+				set_frequency(freq)
 		if("listen")
 			listening = !listening
 		if("broadcast")
 			broadcasting = !broadcasting
-		if("channel")
+		if("channel") // For headset keyed channels
 			var/channel = params["channel"]
 			if(!(channel in channels))
 				return

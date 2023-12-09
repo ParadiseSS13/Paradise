@@ -704,7 +704,7 @@
 			vent_info["id_tag"] = P.UID()
 			vent_info["name"] = sanitize(P.name)
 			vent_info["power"] = P.on
-			vent_info["direction"] = P.releasing ? "release" : "siphon"
+			vent_info["direction"] = P.releasing
 			vent_info["checks"] = P.pressure_checks
 			vent_info["external"] = P.external_pressure_bound
 			vents += list(vent_info)
@@ -852,10 +852,8 @@
 					"widenet",
 					"scrubbing",
 					"direction")
-					var/val
-					if(params["val"])
-						val = text2num(params["val"])
-					else
+					var/val = params["val"]
+					if(isnull(val))
 						var/newval = input("Enter new value") as num|null
 						if(isnull(newval))
 							return

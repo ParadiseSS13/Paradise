@@ -257,18 +257,18 @@ const AirAlarmVentsView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'power',
-                val: v.power === 1 ? 0 : 1,
+                val: !v.power,
                 id_tag: v.id_tag,
               })
             }
           />
           <Button
-            content={v.direction === 'release' ? 'Blowing' : 'Siphoning'}
-            icon={v.direction === 'release' ? 'sign-out-alt' : 'sign-in-alt'}
+            content={v.direction ? 'Blowing' : 'Siphoning'}
+            icon={v.direction ? 'sign-out-alt' : 'sign-in-alt'}
             onClick={() =>
               act('command', {
                 cmd: 'direction',
-                val: v.direction === 'release' ? 0 : 1,
+                val: !v.direction,
                 id_tag: v.id_tag,
               })
             }
@@ -330,18 +330,18 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'power',
-                val: s.power === 1 ? 0 : 1,
+                val: !s.power,
                 id_tag: s.id_tag,
               })
             }
           />
           <Button
-            content={s.scrubbing === 0 ? 'Siphoning' : 'Scrubbing'}
-            icon={s.scrubbing === 0 ? 'sign-in-alt' : 'filter'}
+            content={s.scrubbing ? 'Scrubbing' : 'Siphoning'}
+            icon={s.scrubbing ? 'filter' : 'sign-in-alt'}
             onClick={() =>
               act('command', {
                 cmd: 'scrubbing',
-                val: s.scrubbing === 0 ? 1 : 0,
+                val: !s.scrubbing,
                 id_tag: s.id_tag,
               })
             }
@@ -355,7 +355,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'widenet',
-                val: s.widenet === 0 ? 1 : 0,
+                val: !s.widenet,
                 id_tag: s.id_tag,
               })
             }
@@ -368,7 +368,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'co2_scrub',
-                val: s.filter_co2 === 0 ? 1 : 0,
+                val: !s.filter_co2,
                 id_tag: s.id_tag,
               })
             }
@@ -379,7 +379,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'tox_scrub',
-                val: s.filter_toxins === 0 ? 1 : 0,
+                val: !s.filter_toxins,
                 id_tag: s.id_tag,
               })
             }
@@ -390,7 +390,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'n2o_scrub',
-                val: s.filter_n2o === 0 ? 1 : 0,
+                val: !s.filter_n2o,
                 id_tag: s.id_tag,
               })
             }
@@ -401,7 +401,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'o2_scrub',
-                val: s.filter_o2 === 0 ? 1 : 0,
+                val: !s.filter_o2,
                 id_tag: s.id_tag,
               })
             }
@@ -412,7 +412,7 @@ const AirAlarmScrubbersView = (props, context) => {
             onClick={() =>
               act('command', {
                 cmd: 'n2_scrub',
-                val: s.filter_n2 === 0 ? 1 : 0,
+                val: !s.filter_n2,
                 id_tag: s.id_tag,
               })
             }
