@@ -699,34 +699,34 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 		to_chat(owner, "<span class='notice'>Turret deployed.</span>")
 		adjust_uses(-1)
 		active = FALSE
-	return
 
 /mob/living/silicon/ai/proc/can_place_turret(datum/action/innate/ai/place_turret/action)
 	if(!eyeobj || !isturf(eyeobj.loc) || incapacitated() || !action)
 		return
 
-	var/success = TRUE
 	var/turf/simulated/floor/deploylocation = get_turf(eyeobj)
-	var/alert_msg = "There isn't enough room! Make sure you are placing the machine in a clear area and on a floor."
 
-	if(!istype(deploylocation))
-		success = FALSE
-	var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(deploylocation.x, deploylocation.y, deploylocation.z)
-	if(!C.visibleTurfs[deploylocation])
-		alert_msg = "You don't have camera vision of this location!"
-		success = FALSE
-	if(is_blocked_turf(deploylocation))
-		alert_msg = "That area must be clear of objects!"
-		success = FALSE
 	var/image/I = action.turf_overlay
 	I.loc = deploylocation
 	client.images += I
-	I.icon_state = "[success ? "green" : "red"]Overlay" //greenOverlay and redOverlay for success and failure respectively
-	addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 30)
+	I.icon_state = "redOverlay"
+	var/datum/camerachunk/C = GLOB.cameranet.getCameraChunk(deploylocation.x, deploylocation.y, deploylocation.z)
 
-	if(!success)
-		to_chat(src, "<span class='warning'>[alert_msg]</span>")
-	return success
+	if(!istype(deploylocation))
+		to_chat(src, "<span class='warning'>There isn't enough room! Make sure you are placing the machine in a clear area and on a floor.</span>")
+		return FALSE
+	if(!C.visibleTurfs[deploylocation])
+		to_chat(src, "<span class='warning'>You don't have camera vision of this location!</span>")
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 30)
+		return FALSE
+	if(is_blocked_turf(deploylocation))
+		to_chat(src, "<span class='warning'>That area must be clear of objects!</span>")
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 30)
+		return FALSE
+
+	I.icon_state = "greenOverlay" //greenOverlay and redOverlay for success and failure respectively
+	addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 30)
+	return TRUE
 
 //Blackout: Overloads a random number of lights across the station. Three uses.
 /datum/AI_Module/blackout
