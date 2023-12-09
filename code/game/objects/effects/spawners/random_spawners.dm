@@ -290,7 +290,7 @@
 		/obj/item/mod/module/noslip = 1,
 		/obj/item/mod/module/visor/night = 1,
 		/obj/item/clothing/gloves/color/black/thief = 1,
-		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 1,
+		/obj/item/clothing/suit/storage/iaa/blackjacket/armored = 1,
 		/obj/item/clothing/suit/jacket/syndicatebomber = 1,
 		/obj/item/mod/module/holster/hidden = 1,
 		/obj/item/storage/firstaid/tactical = 1,
@@ -298,7 +298,7 @@
 		/obj/item/storage/box/syndie_kit/camera_bug = 1,
 		/obj/item/gun/projectile/automatic/toy/pistol/riot = 1,
 		/obj/item/flash/cameraflash = 1,
-		/obj/item/storage/box/syndie_kit/bonerepair = 1)
+		/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium = 1)
 
 /obj/effect/spawner/random_spawners/syndicate/loot/level3
 	name = "officer loot"
@@ -310,7 +310,7 @@
 		/obj/item/pinpointer/advpinpointer = 1,
 		/obj/item/borg/upgrade/syndicate = 1,
 		/obj/item/stack/sheet/mineral/diamond{amount = 10} = 1,
-		/obj/item/clothing/shoes/magboots/syndie/advance = 1,
+		/obj/item/clothing/shoes/magboots/elite = 1,
 		/obj/item/clothing/glasses/hud/security/chameleon = 1,
 		/obj/item/mod/module/visor/thermal = 1,
 		/obj/item/mod/module/stealth = 1,
