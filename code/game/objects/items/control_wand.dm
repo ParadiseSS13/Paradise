@@ -182,7 +182,7 @@
 	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
 
-/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)
+/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/D, mob/user)
 	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
 		return
 	if(busy)
