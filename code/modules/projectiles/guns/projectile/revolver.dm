@@ -310,8 +310,12 @@
 	origin_tech = null
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/cap
 
-/obj/item/gun/projectile/revolver/capgun/prank
+/obj/item/gun/projectile/revolver/capgun/chaosprank
 	name = "\improper .357 revolver"
+
+/obj/item/gun/projectile/revolver/capgun/chaosprank/shoot_with_empty_chamber(mob/living/user as mob|obj)
+	playsound(src, 'sound/items/bikehorn.ogg')
+	qdel(src)
 
 /////////////////////////////
 // DOUBLE BARRELED SHOTGUN //
