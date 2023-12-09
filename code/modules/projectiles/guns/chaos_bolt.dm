@@ -92,7 +92,7 @@
 		if("animal morphed")
 			return
 		if("trick revolver")
-			item_to_summon = /obj/item/toy/russian_revolver/trick_revolver
+			item_to_summon = /obj/item/gun/projectile/revolver/fake
 		if("thunder struck")
 			return
 
@@ -194,7 +194,7 @@
 			item_to_summon = /obj/item/stack/spacecash/c20
 			explosion_amount = rand(10, 20)
 		if("cheese")
-			item_to_summon = /obj/item/reagent_containers/food/snacks/sliceable/cheesewedge
+			item_to_summon = /obj/item/reagent_containers/food/snacks/cheesewedge
 			explosion_amount = rand(10, 20)
 		if("food")
 			target.visible_message("<span class='chaosneutral'>Food scatter around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatter around you!</span>")
