@@ -189,7 +189,7 @@
 		if("toy sword")
 			item_to_summon = /obj/item/toy/sword/prank
 		if("toy revolver")
-			item_to_summon = /obj/item/gun/projectile/revolver/capgun/prank
+			item_to_summon = /obj/item/gun/projectile/revolver/capgun/chaosprank
 		if("dosh") //ISSUE : the cash stacks together instead of splitting sometimes, add effect where target throws overtime?
 			item_to_summon = /obj/item/stack/spacecash/c20
 			explosion_amount = rand(10, 20)
