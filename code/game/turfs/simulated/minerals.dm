@@ -73,8 +73,10 @@
 	else
 		return attack_hand(user)
 
-/turf/simulated/mineral/proc/gets_drilled()
+/turf/simulated/mineral/proc/gets_drilled(mob/user, triggered_by_explosion = FALSE)
 	if(mineralType && (mineralAmt > 0))
+		if(triggered_by_explosion)
+			mineralAmt += 3 //bonus if it was exploded
 		new mineralType(src, mineralAmt)
 		SSticker.score?.score_ore_mined++
 		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)

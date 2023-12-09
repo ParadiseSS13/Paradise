@@ -110,3 +110,13 @@
 	materials = list(MAT_METAL = 8000, MAT_GLASS = 1500, MAT_SILVER = 2000, MAT_GOLD = 2000, MAT_DIAMOND = 2000)
 	build_path = /obj/item/borg/upgrade/modkit/aoe/turfs
 	category = list("Mining", "Cyborg Upgrade Modules")
+
+/datum/design/mining_charges
+	name = "Experimental Mining Charge"
+	desc = "An experimental mining charge used to make big holes in rocks."
+	id = "megacharge"
+	req_tech = list("materials" = 5, "engineering" = 5, "plasmatech" = 6)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 6000, MAT_URANIUM = 1000)
+	build_path = /obj/item/grenade/plastic/miningcharge/mega
+	category = list("Mining")
