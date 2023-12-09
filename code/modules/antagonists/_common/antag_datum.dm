@@ -42,18 +42,18 @@ GLOBAL_LIST_EMPTY(antagonists)
 
 /datum/antagonist/Destroy(force, ...)
 	qdel(objective_holder)
-	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
-	if(!silent)
-		farewell()
-	remove_innate_effects()
-	antag_memory = null
-	var/datum/team/team = get_team()
-	team?.remove_member(owner)
 	if(owner)
+		remove_owner_from_gamemode()
+		if(!silent)
+			farewell()
+		remove_innate_effects()
+		antag_memory = null
+		var/datum/team/team = get_team()
+		team?.remove_member(owner)
 		LAZYREMOVE(owner.antag_datums, src)
-	restore_last_hud_and_role()
-	owner = null
+		restore_last_hud_and_role()
+		owner = null
 	return ..()
 
 /**
