@@ -108,7 +108,7 @@
 		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
 		return
 
-	if(!D.check_access(src.ID))
+	if(!D.check_access(ID))
 		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
 		return
 
