@@ -52,10 +52,10 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-+	if(H.get_active_hand() || H.get_inactive_hand())
-+		to_chat(user, "<span class='warning'>You need both hands free to clap.</span>")
-+		return TRUE
-	if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
+	if(H.get_active_hand() || H.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need both hands free to clap.</span>")
+		return TRUE
+	else if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 			// no arms...
 			to_chat(user, "<span class='warning'>You need arms to be able to clap.</span>")
