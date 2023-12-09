@@ -223,7 +223,7 @@
 	playsound(src, 'sound/items/keyring_shake.ogg', 50)
 	cooldown = world.time + JANGLE_COOLDOWN
 
-/obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/airlock/D, mob/user, proximity)
+/obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/D, mob/user, proximity)
 	if(!proximity)
 		return
 	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
