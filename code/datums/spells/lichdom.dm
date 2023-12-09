@@ -101,7 +101,7 @@
 		to_chat(user, "<span class='warning'>You must hold an item you wish to make your phylactery!</span>")
 		return
 
-	if((ABSTRACT|NODROP) in target.flags)
+	if(target.flags & (ABSTRACT|NODROP))
 		to_chat(user, "<span class='warning'>[target] cannot be used as your phylactery!</span>")
 		return
 
