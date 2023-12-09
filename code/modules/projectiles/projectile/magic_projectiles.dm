@@ -180,7 +180,7 @@
 	. = ..()
 	wabbajack(change)
 
-/proc/wabbajack(mob/living/M)
+/proc/wabbajack(mob/living/M, force_borg = FALSE, force_animal = FALSE)
 	if(istype(M) && M.stat != DEAD && !M.notransform)
 		M.notransform = TRUE
 		M.icon = null
@@ -206,6 +206,10 @@
 		var/mob/living/new_mob
 
 		var/randomize = pick("robot", "slime", "xeno", "human", "animal")
+		if(force_borg)
+			randomize = "robot"
+		if(force_animal)
+			randomize = "animal"
 		switch(randomize)
 			if("robot")
 				var/path

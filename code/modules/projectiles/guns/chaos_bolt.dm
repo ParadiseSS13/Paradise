@@ -12,7 +12,7 @@
 		chaos_chaos(target)
 
 /obj/item/projectile/magic/chaos/proc/chaos_chaos(mob/living/target, blocked = 0)
-	var/category = pick(prob(5);"lethal", prob(45);"negative", prob(30);"misc", prob(15);"gift", prob(5);"great gift")
+	var/category = pick(prob(80);"lethal", prob(5);"negative", prob(5);"misc", prob(5);"gift", prob(5);"great gift")
 	switch(category)
 		if("lethal") //Target is either dead on the spot or might as well be
 			apply_lethal_effect(target)
@@ -24,7 +24,6 @@
 			apply_gift_effect(target)
 		if("great gift") //Grants a gift or positive effect to the target. Usually a weapon or useful item.
 			apply_great_gift_effect(target)
-	target.visible_message("[target] is hit by [chaos_effect]") //DEBUG, REMOVE
 	if(item_to_summon) //TODO check if mob's alive, no effect on dead mobs
 		//if(!target.mind) //no abusing mindless mobs for free stuff
 		//	target.visible_message("<span class='warning'>[target] glows faintly, but nothing else happens.</span>")
@@ -58,43 +57,77 @@
 			H.visible_message("<span class='chaosgood'>\A [I] drops next to [H]!</span>", "<span class='chaosverygood'>\A [I] drops on the floor!</span>")
 
 /obj/item/projectile/magic/chaos/proc/apply_lethal_effect(mob/living/target)
-	if(!iscarbon(target))
+	if(!ishuman(target))
 		target.death(FALSE)
+		target.visible_message("<span class='chaosverybad'>[target] suddenly dies!</span>", "<span class='chaosverybad'>Game over!</span>")
 		return
 	chaos_effect = pick("ded", "heart deleted", "gibbed", "cluwned", "spaced", "decapitated", "banned", \
-		"exploded", "cheese morphed", "time erased", "supermattered", "borged", "animal morphed", \
-		"trick revolver", "thunder struck")
+		"exploded", "cheese morphed", "supermattered", "borged", "animal morphed", "trick revolver")
+	chaos_effect = pick("banned", "supermattered", "spaced", "borged", "animal morphed")
+	var/mob/living/carbon/human/H = target
 	switch(chaos_effect)
 		if("ded")
-			return
+			H.visible_message("<span class='chaosverybad'>[H] drops dead!</span>", "<span class='chaosverybad'>Game over!</span>")
+			H.death()
 		if("heart deleted")
-			return
+			H.visible_message("<span class='chaosverybad'>[H] looks like they're about to die!</span>", "<span class='chaosverybad'>HEARTUS DELETUS!</span>")
+			var/obj/item/organ/internal/heart/target_heart = H.get_int_organ(/obj/item/organ/internal/heart)
+			if(target_heart)
+				target_heart.remove(H)
+				qdel(target_heart)
 		if("gibbed")
-			return
+			H.visible_message("<span class='chaosverybad'>[H] falls into gibs!</span>", "<span class='chaosverybad'>Oof!</span>")
+			H.gib()
 		if("cluwned")
-			return
+			H.visible_message("<span class='chaosverybad'>[H] turns into a cluwne!</span>", "<span class='chaosverybad'>Oh no.</span>")
+			H.makeCluwne()
 		if("spaced")
-			return
+			for(var/obj/item/I in H)
+				H.unEquip(I, TRUE)
+			var/turf/T = safepick(get_area_turfs(/area/space/nearstation))
+			if(!T) //Shouldn't happen but just in case
+				T = safepick(get_area_turfs(/area/space))
+			if(!T) //What do you mean there's no space? Okay well just die then
+				H.visible_message("<span class='chaosverybad'>[H] drops dead!</span>", "<span class='chaosverybad'>Game over!</span>")
+				H.death(FALSE)
+			else
+				H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>COLD! CAN'T BREATH!</span>")
+				do_teleport(H, T)
 		if("decapitated")
-			return
+			H.visible_message("<span class='chaosverybad'>[H]'s head goes flying!'</span>", "<span class='chaosverybad'>You watch the floor fly to your face as you rapidly lose consciousness...</span>")
+			var/obj/item/organ/external/affected = target.get_organ("head")
+			var/atom/movable/A = affected.droplimb(1, DROPLIMB_SHARP)
+			INVOKE_ASYNC(A, TYPE_PROC_REF(/atom/movable, throw_at), pick(oview(7, get_turf(src))), 10, 1)
 		if("banned")
-			return
+			H.visible_message("<span class='chaosverybad'>[H] gets <span class='adminhelp'>BWOINKED</span> out of existence!'</span>", "<span class='chaosverybad'>You get <span class='adminhelp'>BWOINKED</span> out of existence!</span>")
+			playsound(H, 'sound/effects/adminhelp.ogg', 100, FALSE)
+			qdel(H)
 		if("exploded")
-			return
+			H.visible_message("<span class='chaosverybad'>[H] explodes!</span>", "<span class='chaosverybad'>Boom!</span>")
+			explosion(get_turf(H), 1, 1, 1, cause = "staff of chaos random effect")
 		if("cheese morphed")
-			return
-		if("time erased")
-			return
+			H.visible_message("<span class='chaosverybad'>[H] transforms into cheese!</span>", "<span class='chaosverybad'>You've been transformed into cheese!</span>")
+			new /obj/item/reagent_containers/food/snacks/cheesewedge(get_turf(H))
+			qdel(H)
 		if("supermattered")
-			return
+			var/obj/machinery/atmospherics/supermatter_crystal/supercrystal = locate(/obj/machinery/atmospherics/supermatter_crystal)
+			if(!supercrystal)
+				H.visible_message("<span class='chaosverybad'>[H] drops dead!</span>", "<span class='chaosverybad'>Game over!</span>")
+				H.death()
+			else
+				H.visible_message("<span class='chaosverybad'>[H] disappears!</span>", "<span class='chaosverybad'>All you see is yellow before you fall to dust...</span>")
+				do_teleport(H, supercrystal, 1)
+				H.throw_at(supercrystal, 10, 2)
+				if(H && H.stat == CONSCIOUS)
+					to_chat("<span class='chaosverybad'>... not? You're alive? Huh. Neat.</span>")
 		if("borged")
-			return
+			H.visible_message("<span class='chaosverybad'>[H] turns into a cyborg!</span>", "<span class='chaosverybad'>Beep boop!</span>")
+			wabbajack(H, force_borg = TRUE)
 		if("animal morphed")
-			return
+			H.visible_message("<span class='chaosverybad'>[H] turns into an animal!</span>", "<span class='chaosverybad'>Welcome to the jungle!</span>")
+			wabbajack(H, force_animal = TRUE)
 		if("trick revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver/fake
-		if("thunder struck")
-			return
 
 /obj/item/projectile/magic/chaos/proc/apply_negative_effect(mob/living/target)
 	if(!iscarbon(target))
@@ -183,22 +216,22 @@
 	if(!iscarbon(target))
 		//slightly heal target
 		return
-	chaos_effect = pick("toy sword", "toy revolver", "dosh", "cheese", "food", "medkit", "heal", \
+	chaos_effect = pick("toy sword", "toy revolver", /*"dosh",*/ "cheese", "food", "medkit", "heal", \
 		"dwarf", "insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
 	switch(chaos_effect)
 		if("toy sword")
 			item_to_summon = /obj/item/toy/sword/chaosprank
 		if("toy revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver/capgun/chaosprank
-		if("dosh") //ISSUE : the cash stacks together instead of splitting sometimes, add effect where target throws overtime?
-			item_to_summon = /obj/item/stack/spacecash/c20
-			explosion_amount = rand(10, 20)
+		//if("dosh") //ISSUE : the cash stacks together instead of splitting sometimes, add effect where target throws overtime?
+		//	item_to_summon = /obj/item/stack/spacecash/c20
+	//		explosion_amount = rand(10, 20)
 		if("cheese")
 			item_to_summon = /obj/item/reagent_containers/food/snacks/cheesewedge
-			explosion_amount = rand(10, 20)
+			explosion_amount = rand(5, 10)
 		if("food")
 			target.visible_message("<span class='chaosneutral'>Food scatter around [target]!</span>", "<span class='chaosneutral'>A bunch of food scatter around you!</span>")
-			var/limit = rand(10, 20)
+			var/limit = rand(5, 10)
 			for(var/i in 1 to limit)
 				var/type = pick(typesof(/obj/item/reagent_containers/food/snacks))
 				var/obj/item/I = new type(get_turf(target))
@@ -212,7 +245,7 @@
 			return
 		if("insulated gloves")
 			item_to_summon = /obj/item/clothing/gloves/color/yellow
-			explosion_amount = rand(5, 10)
+			explosion_amount = rand(2, 5)
 		if("wand of doors")
 			item_to_summon = /obj/item/gun/magic/wand/door
 		if("golden bike horn")

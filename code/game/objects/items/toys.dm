@@ -227,6 +227,7 @@
 
 /obj/item/toy/sword/chaosprank
 	name = "energy sword"
+	hitsound = 'sound/items/bikehorn.ogg'
 
 /*
  * Subtype of Double-Bladed Energy Swords
