@@ -100,7 +100,7 @@
 		to_chat(user, "<span class='danger'>The door doesn't respond to [src]!</span>")
 		return
 
-	if(!(D.has_power()))
+	if(!D.has_power())
 		to_chat(user, "<span class='danger'>[D] has no power!</span>")
 		return
 
