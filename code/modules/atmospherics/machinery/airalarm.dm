@@ -777,6 +777,17 @@
 	return thresholds
 
 /obj/machinery/alarm/ui_state(mob/user)
+	if(isAI(user))
+		var/mob/living/silicon/ai/AI = user
+		if(!AI.lacks_power() || AI.apc_override)
+			return GLOB.always_state
+
+	if(ishuman(user))
+		for(var/obj/machinery/computer/atmoscontrol/AC in range(1, user))
+			var/datum/tgui/active_ui = SStgui.get_open_ui(user, AC)
+			if(!AC.stat && is_authenticated(usr, active_ui))
+				return GLOB.always_state
+
 	return GLOB.default_state
 
 /obj/machinery/alarm/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
