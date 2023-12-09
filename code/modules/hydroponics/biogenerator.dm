@@ -166,7 +166,7 @@
 			files.AddDesign2Known(D.blueprint)
 
 		processing = FALSE
-		update_ui_product_list()
+		update_ui_product_list(user)
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You cannot put this in [name]!</span>")
@@ -174,7 +174,7 @@
 /**
  * Builds/Updates the `product_list` used by the UI.
  */
-/obj/machinery/biogenerator/proc/update_ui_product_list()
+/obj/machinery/biogenerator/proc/update_ui_product_list(mob/user)
 	product_list = list()
 	for(var/category in categories)
 		product_list[category] = list()
@@ -190,6 +190,7 @@
 				"cost" = D.materials[MAT_BIOMASS] / efficiency
 			)
 
+	update_static_data(user)
 	SStgui.update_uis(src)
 
 /obj/machinery/biogenerator/attack_hand(mob/user)
