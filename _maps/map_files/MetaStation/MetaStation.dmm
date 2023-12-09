@@ -80107,13 +80107,6 @@
 	icon_state = "darkblue"
 	},
 /area/station/command/office/cmo)
-"rLU" = (
-/obj/machinery/power/apc{
-	name = "south bump";
-	pixel_y = -24
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/aft2)
 "rMb" = (
 /obj/machinery/chem_dispenser,
 /obj/item/reagent_containers/glass/beaker/large,
@@ -124117,7 +124110,7 @@ jKP
 jDv
 xHR
 cSY
-rLU
+kkZ
 coG
 aaa
 abq
