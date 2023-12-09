@@ -187,7 +187,7 @@
 		"dwarf", "insulated gloves", "wand of doors", "golden bike horn", "ban hammer", "banana")
 	switch(chaos_effect)
 		if("toy sword")
-			item_to_summon = /obj/item/toy/sword/prank
+			item_to_summon = /obj/item/toy/sword/chaosprank
 		if("toy revolver")
 			item_to_summon = /obj/item/gun/projectile/revolver/capgun/chaosprank
 		if("dosh") //ISSUE : the cash stacks together instead of splitting sometimes, add effect where target throws overtime?

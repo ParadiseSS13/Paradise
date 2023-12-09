@@ -225,7 +225,7 @@
 			qdel(W)
 			qdel(src)
 
-/obj/item/toy/sword/prank
+/obj/item/toy/sword/chaosprank
 	name = "energy sword"
 
 /*
