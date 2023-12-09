@@ -39,12 +39,12 @@
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/equipped(mob/living/carbon/human/user, slot)
 	if(!user.ventcrawler)
-		user.ventcrawler = 2
+		user.ventcrawler = VENTCRAWLER_ALWAYS
 	..()
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/dropped(mob/living/carbon/human/user)
 	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
-		user.ventcrawler = 0
+		user.ventcrawler = VENTCRAWLER_NONE
 	..()
 
 /obj/item/clothing/under/rank/engineering/atmospheric_technician/contortionist/proc/check_clothing(mob/user as mob)

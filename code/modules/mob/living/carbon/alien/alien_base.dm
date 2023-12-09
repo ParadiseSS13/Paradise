@@ -20,7 +20,7 @@
 	var/loudspeaker = FALSE
 	var/heat_protection = 0.5
 	var/leaping = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	var/death_message = "lets out a waning guttural screech, green blood bubbling from its maw..."
 	var/death_sound = 'sound/voice/hiss6.ogg'
 
