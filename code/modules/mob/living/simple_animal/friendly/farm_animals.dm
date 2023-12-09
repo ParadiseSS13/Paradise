@@ -264,7 +264,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	attacktext = "kicks"
 	health = 15
 	maxHealth = 15
-	ventcrawler = VENTCRAWLER_ALWAYSENTCRAWLER_ALWAYS
+	ventcrawler = VENTCRAWLER_ALWAYS
 	var/eggsleft = 0
 	var/eggsFertile = TRUE
 	var/body_color
