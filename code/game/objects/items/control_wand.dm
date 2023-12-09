@@ -273,7 +273,7 @@
 		to_chat(user, "<span class='danger'>[D] has no power!</span>")
 		return
 
-	if(!D.check_access(src.ID))
+	if(!D.check_access(ID))
 		to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D]'s access panel!</span>")
 		return
 
