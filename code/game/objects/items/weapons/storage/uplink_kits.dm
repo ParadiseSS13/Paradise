@@ -189,7 +189,7 @@
 		/obj/item/encryptionkey/syndicate) // 10TC
 
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
-	for(var/item in items)
+	for(var/obj/item/item as anything in items)
 		new item(src)
 
 /obj/item/storage/box/syndie_kit/space
