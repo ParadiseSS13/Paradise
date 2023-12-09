@@ -52,8 +52,8 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	if(H.get_active_hand() || H.get_inactive_hand())
-		to_chat(user, "<span class='warning'>You need both hands free to clap.</span>")
+	if(H.get_active_hand() && H.get_inactive_hand())
+		to_chat(user, "<span class='warning'>You need at least one hand free to clap.</span>")
 		return TRUE
 	else if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] || !H.bodyparts_by_name[BODY_ZONE_R_ARM])
 		if(!H.bodyparts_by_name[BODY_ZONE_L_ARM] && !H.bodyparts_by_name[BODY_ZONE_R_ARM])
@@ -62,8 +62,10 @@
 		else
 			// well, we've got at least one
 			user.visible_message("[user] makes the sound of one hand clapping.")
+			return TRUE
+	else
+		user.visible_message("[user] makes the sound of two hands clapping.")
 		return TRUE
-
 	return ..()
 
 
