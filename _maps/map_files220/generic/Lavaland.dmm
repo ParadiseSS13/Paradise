@@ -2351,7 +2351,7 @@
 	},
 /area/mine/outpost/storage)
 "eT" = (
-/obj/machinery/door/airlock/command/qm{
+/obj/machinery/door/airlock/command/qm/glass{
 	name = "Quartermaster's Office"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -10571,7 +10571,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/door/airlock/command/qm{
+/obj/machinery/door/airlock/command/qm/glass{
 	name = "Quartermaster's Office"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/supply/qm,
