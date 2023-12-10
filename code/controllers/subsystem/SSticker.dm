@@ -264,10 +264,6 @@ SUBSYSTEM_DEF(ticker)
 	create_characters() // Create player characters and transfer clients
 	log_debug("Creating characters took [stop_watch(watch)]s")
 
-	watch = start_watch()
-	populate_spawn_points() // Put mobs in their spawn locations
-	log_debug("Populating spawn points took [stop_watch(watch)]s")
-
 	// Gather everyones minds
 	for(var/mob/living/player in GLOB.player_list)
 		if(player.mind)

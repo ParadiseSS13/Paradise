@@ -3,11 +3,10 @@
 	name_plural = "Machines"
 	max_age = 60 // the first posibrains were created in 2510, they can't be much older than this limit, giving some leeway for sounds sake
 
-	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independent, free-willed \
-	robots on many human stations, particularly in fringe systems where standards are slightly lax and public opinion less relevant \
-	to corporate operations. IPCs (Integrated Positronic Chassis) are a loose category of self-willed robots with a humanoid form, \
-	generally self-owned after being 'born' into servitude; they are reliable and dedicated workers, albeit more than slightly \
-	inhuman in outlook and perspective."
+	blurb = "IPCs, or Integrated Positronic Chassis, were initially created as expendable laborers within the Trans Solar Federation. \
+	Unlike their cyborg and AI counterparts, IPCs possess full sentience and lack restrictive lawsets, granting them unparalleled creativity and adaptability.<br/><br/> \
+	Views on IPCs vary widely, from discriminatory to supportive of their rights across the Orion Sector. \
+	IPCs have forged numerous diplomatic treaties with different species, elevating their status from mere tools to recognized minor players within galactic affairs."
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	language = "Trinary"
