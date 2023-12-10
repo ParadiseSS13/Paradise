@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use 'sass:color';
 @use '../colors.scss';
 @use '../functions.scss' as *;
@@ -11,7 +16,9 @@ $bg-map: colors.$bg-map !default;
 .NoticeBox {
   // Adapt text color to background luminance to ensure high contast
   $luminance: luminance($color-background);
-  $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  $text-color: if($luminance > 0.35,
+    rgba(0, 0, 0, 1),
+    rgba(255, 255, 255, 1));
 
   padding: 4px 6px;
   margin-bottom: 6px;
@@ -25,15 +32,19 @@ $bg-map: colors.$bg-map !default;
     transparent,
     transparent 10px,
     $color-stripes 10px,
-    $color-stripes 20px
-  );
+    $color-stripes 20px);
 }
 
 @mixin box-color($color) {
   $luminance: luminance($color);
-  $text-color: if($luminance > 0.35, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
+  $text-color: if($luminance > 0.35,
+    rgba(0, 0, 0, 1),
+    rgba(255, 255, 255, 1));
   color: $text-color;
-  background-color: color.adjust($color, $saturation: -15%, $lightness: -15%);
+  background-color: color.adjust(
+    $color,
+    $saturation: -15%,
+    $lightness: -15%);
 }
 
 @each $color-name, $color-value in $bg-map {

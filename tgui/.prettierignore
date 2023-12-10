@@ -1,3 +1,14 @@
 # Ignore built packages and styles:
 packages/tgui/public
 packages/tgui/styles
+
+#random things it tries to change
+packages/common/string.babel-plugin.cjs
+
+# Yoink from ESlint
+/**/node_modules
+/**/*.bundle.*
+/**/*.chunk.*
+/**/*.hot-update.*
+/packages/inferno/**
+/packages/tgui/public/shim-*.js

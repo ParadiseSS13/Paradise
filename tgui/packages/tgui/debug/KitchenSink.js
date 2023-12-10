@@ -1,27 +1,38 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../../backend';
+import { useBackend, useLocalState } from '../backend';
 import {
   BlockQuote,
   Box,
   Button,
   ByondUi,
   Collapsible,
+  DraggableControl,
   Flex,
   Icon,
   Input,
   Knob,
   LabeledList,
+  NoticeBox,
   NumberInput,
   ProgressBar,
   Section,
   Slider,
   Tabs,
   Tooltip,
-} from '../../components';
-import { DraggableControl } from '../../components/DraggableControl';
-import { Window } from '../../layouts';
+} from '../components';
+import { formatSiUnit } from '../format';
+import { Window } from '../layouts';
+import { createLogger } from '../logging';
 
-const COLORS_ARBITRARY = [
+const logger = createLogger('KitchenSink');
+
+const COLORS_SPECTRUM = [
   'red',
   'orange',
   'yellow',
@@ -46,6 +57,10 @@ const PAGES = [
   {
     title: 'Box',
     component: () => KitchenSinkBox,
+  },
+  {
+    title: 'Flex & Sections',
+    component: () => KitchenSinkFlexAndSections,
   },
   {
     title: 'ProgressBar',
@@ -79,6 +94,10 @@ const PAGES = [
     title: 'Themes',
     component: () => KitchenSinkThemes,
   },
+  {
+    title: 'Storage',
+    component: () => KitchenSinkStorage,
+  },
 ];
 
 export const KitchenSink = (props, context) => {
@@ -86,36 +105,42 @@ export const KitchenSink = (props, context) => {
   const [pageIndex, setPageIndex] = useLocalState(context, 'pageIndex', 0);
   const PageComponent = PAGES[pageIndex].component();
   return (
-    <Window theme={theme} resizable>
-      <Window.Content scrollable>
-        <Section>
-          <Flex>
-            <Flex.Item>
-              <Tabs vertical>
-                {PAGES.map((page, i) => (
-                  <Tabs.Tab
-                    key={i}
-                    selected={i === pageIndex}
-                    onClick={() => setPageIndex(i)}
-                  >
-                    {page.title}
-                  </Tabs.Tab>
-                ))}
-              </Tabs>
-            </Flex.Item>
-            <Flex.Item grow={1} basis={0}>
-              <PageComponent />
-            </Flex.Item>
-          </Flex>
-        </Section>
-      </Window.Content>
+    <Window
+      title="Kitchen Sink"
+      width={600}
+      height={500}
+      theme={theme}
+      resizable
+    >
+      <Flex height="100%">
+        <Flex.Item m={1} mr={0}>
+          <Section fill>
+            {PAGES.map((page, i) => (
+              <Button
+                key={i}
+                fluid
+                color="transparent"
+                selected={i === pageIndex}
+                onClick={() => setPageIndex(i)}
+              >
+                {page.title}
+              </Button>
+            ))}
+          </Section>
+        </Flex.Item>
+        <Flex.Item position="relative" grow={1}>
+          <Window.Content scrollable>
+            <PageComponent />
+          </Window.Content>
+        </Flex.Item>
+      </Flex>
     </Window>
   );
 };
 
 const KitchenSinkButton = (props) => {
   return (
-    <Box>
+    <Section>
       <Box mb={1}>
         <Button content="Simple" />
         <Button selected content="Selected" />
@@ -138,23 +163,23 @@ const KitchenSinkButton = (props) => {
           <Button key={color} color={color} content={color} />
         ))}
         <br />
-        {COLORS_ARBITRARY.map((color) => (
+        {COLORS_SPECTRUM.map((color) => (
           <Button key={color} color={color} content={color} />
         ))}
         <br />
-        {COLORS_ARBITRARY.map((color) => (
+        {COLORS_SPECTRUM.map((color) => (
           <Box inline mx="7px" key={color} color={color}>
             {color}
           </Box>
         ))}
       </Box>
-    </Box>
+    </Section>
   );
 };
 
 const KitchenSinkBox = (props) => {
   return (
-    <Box>
+    <Section>
       <Box bold>bold</Box>
       <Box italic>italic</Box>
       <Box opacity={0.5}>opacity 0.5</Box>
@@ -163,15 +188,72 @@ const KitchenSinkBox = (props) => {
       <Box textAlign="left">left</Box>
       <Box textAlign="center">center</Box>
       <Box textAlign="right">right</Box>
-    </Box>
+    </Section>
+  );
+};
+
+const KitchenSinkFlexAndSections = (props, context) => {
+  const [grow, setGrow] = useLocalState(context, 'fs_grow', 1);
+  const [direction, setDirection] = useLocalState(
+    context,
+    'fs_direction',
+    'column'
+  );
+  const [fill, setFill] = useLocalState(context, 'fs_fill', true);
+  const [hasTitle, setHasTitle] = useLocalState(context, 'fs_title', true);
+  return (
+    <Flex height="100%" direction="column">
+      <Flex.Item mb={1}>
+        <Section>
+          <Button
+            fluid
+            onClick={() =>
+              setDirection(direction === 'column' ? 'row' : 'column')
+            }
+          >
+            {`Flex direction="${direction}"`}
+          </Button>
+          <Button fluid onClick={() => setGrow(Number(!grow))}>
+            {`Flex.Item grow={${grow}}`}
+          </Button>
+          <Button fluid onClick={() => setFill(!fill)}>
+            {`Section fill={${String(fill)}}`}
+          </Button>
+          <Button
+            fluid
+            selected={hasTitle}
+            onClick={() => setHasTitle(!hasTitle)}
+          >
+            {`Section title`}
+          </Button>
+        </Section>
+      </Flex.Item>
+      <Flex.Item grow={1}>
+        <Flex height="100%" direction={direction}>
+          <Flex.Item
+            mr={direction === 'row' && 1}
+            mb={direction === 'column' && 1}
+            grow={grow}
+          >
+            <Section title={hasTitle && 'Section 1'} fill={fill}>
+              Content
+            </Section>
+          </Flex.Item>
+          <Flex.Item grow={grow}>
+            <Section title={hasTitle && 'Section 2'} fill={fill}>
+              Content
+            </Section>
+          </Flex.Item>
+        </Flex>
+      </Flex.Item>
+    </Flex>
   );
 };
 
 const KitchenSinkProgressBar = (props, context) => {
   const [progress, setProgress] = useLocalState(context, 'progress', 0.5);
-
   return (
-    <Box>
+    <Section>
       <ProgressBar
         ranges={{
           good: [0.5, Infinity],
@@ -188,7 +270,7 @@ const KitchenSinkProgressBar = (props, context) => {
         <Button content="-0.1" onClick={() => setProgress(progress - 0.1)} />
         <Button content="+0.1" onClick={() => setProgress(progress + 0.1)} />
       </Box>
-    </Box>
+    </Section>
   );
 };
 
@@ -198,7 +280,7 @@ const KitchenSinkTabs = (props, context) => {
   const [altSelection, setAltSelection] = useLocalState(context, 'tabAlt');
   const TAB_RANGE = [1, 2, 3, 4, 5];
   return (
-    <Box>
+    <Section>
       <Box mb={2}>
         <Button.Checkbox
           inline
@@ -225,7 +307,7 @@ const KitchenSinkTabs = (props, context) => {
           </Tabs.Tab>
         ))}
       </Tabs>
-    </Box>
+    </Section>
   );
 };
 
@@ -239,7 +321,7 @@ const KitchenSinkTooltip = (props) => {
     'bottom-right',
   ];
   return (
-    <Fragment>
+    <Section>
       <Box>
         <Box inline position="relative" mr={1}>
           Box (hover me).
@@ -258,17 +340,15 @@ const KitchenSinkTooltip = (props) => {
           />
         ))}
       </Box>
-    </Fragment>
+    </Section>
   );
 };
 
 const KitchenSinkInput = (props, context) => {
   const [number, setNumber] = useLocalState(context, 'number', 0);
-
   const [text, setText] = useLocalState(context, 'text', 'Sample text');
-
   return (
-    <Box>
+    <Section>
       <LabeledList>
         <LabeledList.Item label="Input (onChange)">
           <Input value={text} onChange={(e, value) => setText(value)} />
@@ -360,17 +440,17 @@ const KitchenSinkInput = (props, context) => {
           </Box>
         </LabeledList.Item>
       </LabeledList>
-    </Box>
+    </Section>
   );
 };
 
 const KitchenSinkCollapsible = (props) => {
   return (
-    <Collapsible title="Collapsible Demo" buttons={<Button icon="cog" />}>
-      <Section>
+    <Section>
+      <Collapsible title="Collapsible Demo" buttons={<Button icon="cog" />}>
         <BoxWithSampleText />
-      </Section>
-    </Collapsible>
+      </Collapsible>
+    </Section>
   );
 };
 
@@ -388,33 +468,73 @@ const BoxWithSampleText = (props) => {
 
 const KitchenSinkBlockQuote = (props) => {
   return (
-    <BlockQuote>
-      <BoxWithSampleText />
-    </BlockQuote>
+    <Section>
+      <BlockQuote>
+        <BoxWithSampleText />
+      </BlockQuote>
+    </Section>
   );
 };
 
 const KitchenSinkByondUi = (props, context) => {
   const { config } = useBackend(context);
+  const [code, setCode] = useLocalState(
+    context,
+    'byondUiEvalCode',
+    `Byond.winset('${window.__windowId__}', {\n  'is-visible': true,\n})`
+  );
   return (
-    <Box>
-      <Section title="Button" level={2}>
+    <Fragment>
+      <Section title="Button">
         <ByondUi
           params={{
             type: 'button',
-            parent: config.window,
             text: 'Button',
           }}
         />
       </Section>
-    </Box>
+      <Section
+        title="Make BYOND calls"
+        buttons={
+          <Button
+            icon="chevron-right"
+            onClick={() =>
+              setImmediate(() => {
+                try {
+                  const result = new Function('return (' + code + ')')();
+                  if (result && result.then) {
+                    logger.log('Promise');
+                    result.then(logger.log);
+                  } else {
+                    logger.log(result);
+                  }
+                } catch (err) {
+                  logger.log(err);
+                }
+              })
+            }
+          >
+            Evaluate
+          </Button>
+        }
+      >
+        <Box
+          as="textarea"
+          width="100%"
+          height="10em"
+          onChange={(e) => setCode(e.target.value)}
+        >
+          {code}
+        </Box>
+      </Section>
+    </Fragment>
   );
 };
 
 const KitchenSinkThemes = (props, context) => {
   const [theme, setTheme] = useLocalState(context, 'kitchenSinkTheme');
   return (
-    <Box>
+    <Section>
       <LabeledList>
         <LabeledList.Item label="Use theme">
           <Input
@@ -424,6 +544,36 @@ const KitchenSinkThemes = (props, context) => {
           />
         </LabeledList.Item>
       </LabeledList>
-    </Box>
+    </Section>
+  );
+};
+
+const KitchenSinkStorage = (props, context) => {
+  if (!window.localStorage) {
+    return <NoticeBox>Local storage is not available.</NoticeBox>;
+  }
+  return (
+    <Section
+      title="Local Storage"
+      buttons={
+        <Button
+          icon="recycle"
+          onClick={() => {
+            localStorage.clear();
+          }}
+        >
+          Clear
+        </Button>
+      }
+    >
+      <LabeledList>
+        <LabeledList.Item label="Keys in use">
+          {localStorage.length}
+        </LabeledList.Item>
+        <LabeledList.Item label="Remaining space">
+          {formatSiUnit(localStorage.remainingSpace, 0, 'B')}
+        </LabeledList.Item>
+      </LabeledList>
+    </Section>
   );
 };

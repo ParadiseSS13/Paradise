@@ -204,10 +204,13 @@ SUBSYSTEM_DEF(changelog)
 
 	return data
 
-/datum/controller/subsystem/changelog/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/controller/subsystem/changelog/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/controller/subsystem/changelog/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ChangelogView", name, 750, 800, master_ui, state)
+		ui = new(user, src, "ChangelogView", name, 750, 800)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

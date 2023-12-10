@@ -221,13 +221,16 @@ GLOBAL_LIST_EMPTY(safes)
 			to_chat(user, "<span class='warning'>You can't put [I] into the safe while it is closed!</span>")
 			return
 
-/obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
+/obj/structure/safe/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/structure/safe/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	var/datum/asset/safe_assets = get_asset_datum(/datum/asset/simple/safe)
 	safe_assets.send(user)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Safe", name, 600, 750)
+		ui = new(user, src, "Safe", name, 600, 750)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

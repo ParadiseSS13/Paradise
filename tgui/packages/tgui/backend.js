@@ -5,10 +5,18 @@
  * Sometimes backend can response without a "data" field, but our final
  * state will still contain previous "data" because we are merging
  * the response with already existing state.
+ *
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
  */
 
-import { callByond } from './byond';
+import { perf } from 'common/perf';
 import { UI_DISABLED, UI_INTERACTIVE } from './constants';
+import { releaseHeldKeys } from './hotkeys';
+import { createLogger } from './logging';
+
+const logger = createLogger('backend');
 
 export const backendUpdate = (state) => ({
   type: 'backend/update',
@@ -20,12 +28,23 @@ export const backendSetSharedState = (key, nextState) => ({
   payload: { key, nextState },
 });
 
-export const backendDeleteSharedState = (keys) => ({
-  type: 'backend/deleteSharedState',
-  payload: keys,
+export const backendSuspendStart = () => ({
+  type: 'backend/suspendStart',
 });
 
-export const backendReducer = (state, action) => {
+export const backendSuspendSuccess = () => ({
+  type: 'backend/suspendSuccess',
+  payload: {
+    timestamp: Date.now(),
+  },
+});
+
+const initialState = {
+  config: {},
+  data: {},
+};
+
+export const backendReducer = (state = initialState, action) => {
   const { type, payload } = action;
 
   if (type === 'backend/update') {
@@ -59,10 +78,12 @@ export const backendReducer = (state, action) => {
     return {
       ...state,
       config,
+      assets: payload.assets || {},
       data,
       shared,
       visible,
       interactive,
+      suspended: false,
     };
   }
 
@@ -77,16 +98,141 @@ export const backendReducer = (state, action) => {
     };
   }
 
-  if (type === 'backend/deleteSharedState') {
-    let shared = { ...state.shared };
-    payload.forEach((key) => delete shared[key]);
+  if (type === 'backend/suspendStart') {
     return {
       ...state,
-      shared: shared,
+      suspending: true,
+    };
+  }
+
+  if (type === 'backend/suspendSuccess') {
+    const { timestamp } = payload;
+    return {
+      ...state,
+      data: {},
+      shared: {},
+      config: {
+        ...state.config,
+        title: '',
+        status: 1,
+      },
+      suspending: false,
+      suspended: timestamp,
     };
   }
 
   return state;
+};
+
+export const backendMiddleware = (store) => {
+  let fancyState;
+  let suspendInterval;
+
+  return (next) => (action) => {
+    const { config, suspended } = selectBackend(store.getState());
+    const { type, payload } = action;
+
+    if (type === 'backend/suspendStart' && !suspendInterval) {
+      logger.log(`suspending (${window.__windowId__})`);
+      // Keep sending suspend messages until it succeeds.
+      // It may fail multiple times due to topic rate limiting.
+      const suspendFn = () =>
+        sendMessage({
+          type: 'suspend',
+        });
+      suspendFn();
+      suspendInterval = setInterval(suspendFn, 2000);
+      Byond.winset('map', { 'focus': 'true' }); // Good luck dynamically assinging this to 'input' for legacy users, winget is scuffed
+    }
+
+    if (type === 'backend/suspendSuccess') {
+      clearInterval(suspendInterval);
+      suspendInterval = undefined;
+      releaseHeldKeys();
+      Byond.winset(window.__windowId__, {
+        'is-visible': false,
+      });
+    }
+
+    if (type === 'backend/update') {
+      const fancy = payload.config?.window?.fancy;
+      // Initialize fancy state
+      if (fancyState === undefined) {
+        fancyState = fancy;
+      }
+      // React to changes in fancy
+      else if (fancyState !== fancy) {
+        logger.log('changing fancy mode to', fancy);
+        fancyState = fancy;
+        Byond.winset(window.__windowId__, {
+          titlebar: !fancy,
+          'can-resize': !fancy,
+        });
+      }
+    }
+
+    if (type === 'backend/update' && suspended) {
+      // We schedule this for the next tick here because resizing and unhiding
+      // during the same tick will flash with a white background.
+      setImmediate(() => {
+        perf.mark('resume/start');
+        // Doublecheck if we are not re-suspended.
+        const { suspended } = selectBackend(store.getState());
+        if (suspended) {
+          return;
+        }
+        Byond.winset(window.__windowId__, {
+          'is-visible': true,
+        });
+        perf.mark('resume/finish');
+        if (process.env.NODE_ENV !== 'production') {
+          logger.log(
+            'visible in',
+            perf.measure('render/finish', 'resume/finish')
+          );
+        }
+      });
+    }
+
+    return next(action);
+  };
+};
+
+/**
+ * Sends a message to /datum/tgui_window.
+ */
+export const sendMessage = (message = {}) => {
+  const { payload, ...rest } = message;
+  const data = {
+    // Message identifying header
+    tgui: 1,
+    window_id: window.__windowId__,
+    // Message body
+    ...rest,
+  };
+  // JSON-encode the payload
+  if (payload !== null && payload !== undefined) {
+    data.payload = JSON.stringify(payload);
+  }
+  Byond.topic(data);
+};
+
+/**
+ * Sends an action to `ui_act` on `src_object` that this tgui window
+ * is associated with.
+ */
+export const sendAct = (action, payload = {}) => {
+  // Validate that payload is an object
+  const isObject =
+    typeof payload === 'object' && payload !== null && !Array.isArray(payload);
+  if (!isObject) {
+    logger.error(`Payload for act() must be an object, got this:`, payload);
+    return;
+  }
+  sendMessage({
+    type: 'act/' + action,
+    payload,
+  });
 };
 
 /**
@@ -95,19 +241,35 @@ export const backendReducer = (state, action) => {
  *   config: {
  *     title: string,
  *     status: number,
- *     screen: string,
- *     style: string,
  *     interface: string,
- *     fancy: number,
- *     observer: number,
- *     window: string,
- *     ref: string,
+ *     user: {
+ *       name: string,
+ *       ckey: string,
+ *       observer: number,
+ *     },
+ *     window: {
+ *       key: string,
+ *       size: [number, number],
+ *       fancy: boolean,
+ *       locked: boolean,
+ *     },
  *   },
  *   data: any,
+ *   assets: any,
+ *   shared: any,
  *   visible: boolean,
  *   interactive: boolean,
+ *   suspending: boolean,
+ *   suspended: boolean,
  * }}
  */
+
+/**
+ * Selects a backend-related slice of Redux state
+ *
+ * @return {BackendState}
+ */
+export const selectBackend = (state) => state.backend || {};
 
 /**
  * A React hook (sort of) for getting tgui state and related functions.
@@ -116,21 +278,16 @@ export const backendReducer = (state, action) => {
  * be used in functional components.
  *
  * @return {BackendState & {
- *   act: (action: string, params?: object) => void,
+ *   act: sendAct,
  * }}
  */
 export const useBackend = (context) => {
   const { store } = context;
-  const state = store.getState();
-  const ref = state.config.ref;
-  const act = (action, params = {}) => {
-    callByond('', {
-      src: ref,
-      action,
-      ...params,
-    });
+  const state = selectBackend(store.getState());
+  return {
+    ...state,
+    act: sendAct,
   };
-  return { ...state, act };
 };
 
 /**
@@ -148,26 +305,20 @@ export const useBackend = (context) => {
  */
 export const useLocalState = (context, key, initialState) => {
   const { store } = context;
-  const state = store.getState();
+  const state = selectBackend(store.getState());
   const sharedStates = state.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
     (nextState) => {
-      store.dispatch(backendSetSharedState(key, nextState));
+      store.dispatch(
+        backendSetSharedState(
+          key,
+          typeof nextState === 'function' ? nextState(sharedState) : nextState
+        )
+      );
     },
   ];
-};
-
-/**
- * Deletes local states from the Redux store.
- *
- * @param {any} context React context.
- * @param {string} ...keys Keys of states to delete from the store.
- */
-export const deleteLocalState = (context, ...keys) => {
-  const { store } = context;
-  store.dispatch(backendDeleteSharedState(keys));
 };
 
 /**
@@ -186,18 +337,19 @@ export const deleteLocalState = (context, ...keys) => {
  */
 export const useSharedState = (context, key, initialState) => {
   const { store } = context;
-  const state = store.getState();
-  const ref = state.config.ref;
+  const state = selectBackend(store.getState());
   const sharedStates = state.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
     (nextState) => {
-      callByond('', {
-        src: ref,
-        action: 'tgui:setSharedState',
+      sendMessage({
+        type: 'setSharedState',
         key,
-        value: JSON.stringify(nextState) || '',
+        value:
+          JSON.stringify(
+            typeof nextState === 'function' ? nextState(sharedState) : nextState
+          ) || '',
       });
     },
   ];

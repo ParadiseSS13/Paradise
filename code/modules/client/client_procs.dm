@@ -168,6 +168,9 @@
 			Key_Up(keycode)
 		return
 
+	// Tgui Topic middleware
+	if(!tgui_Topic(href_list))
+		return
 
 	switch(href_list["action"])
 		if("openLink")

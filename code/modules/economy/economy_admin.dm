@@ -12,10 +12,13 @@
 /datum/ui_module/economy_manager
 	name = "Economy Manager"
 
-/datum/ui_module/economy_manager/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/economy_manager/ui_state(mob/user)
+	return GLOB.admin_state
+
+/datum/ui_module/economy_manager/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "EconomyManager", name, 600, 350, master_ui, state)
+		ui = new(user, src, "EconomyManager", name, 600, 350)
 		ui.autoupdate = TRUE
 		ui.open()
 

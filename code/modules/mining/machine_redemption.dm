@@ -367,13 +367,16 @@
 			return FALSE
 	add_fingerprint(usr)
 
-/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
+/obj/machinery/mineral/ore_redemption/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	var/datum/asset/materials_assets = get_asset_datum(/datum/asset/simple/materials)
 	materials_assets.send(user)
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "OreRedemption", name, 500, 600)
+		ui = new(user, src, "OreRedemption", name, 500, 600)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

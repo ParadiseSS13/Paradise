@@ -92,10 +92,13 @@
 /datum/wires/ui_host()
 	return holder
 
-/datum/wires/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/wires/ui_state(mob/user)
+	return GLOB.physical_state
+
+/datum/wires/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "Wires", "[proper_name] wires", window_x, window_y + wire_count * 30, master_ui, state)
+		ui = new(user, src, "Wires", "[proper_name] wires", window_x, window_y + wire_count * 30)
 		ui.open()
 
 /datum/wires/ui_data(mob/user)

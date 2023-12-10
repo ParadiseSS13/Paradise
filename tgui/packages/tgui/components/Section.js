@@ -1,5 +1,11 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { classes, isFalsy, pureComponentHooks } from 'common/react';
-import { Box } from './Box';
+import { computeBoxClassName, computeBoxProps, Box } from './Box';
 
 export const Section = (props) => {
   const {
@@ -7,24 +13,27 @@ export const Section = (props) => {
     title,
     level = 1,
     buttons,
+    fill,
+    children,
     content,
     stretchContents,
     noTopPadding,
     showBottom = true,
-    children,
     ...rest
   } = props;
   const hasTitle = !isFalsy(title) || !isFalsy(buttons);
   const hasContent = !isFalsy(content) || !isFalsy(children);
   return (
-    <Box
+    <div
       className={classes([
         'Section',
         'Section--level--' + level,
+        fill && 'Section--fill',
         props.flexGrow && 'Section--flex',
         className,
+        ...computeBoxClassName(rest),
       ])}
-      {...rest}
+      {...computeBoxProps(rest)}
     >
       {hasTitle && (
         <div
@@ -49,7 +58,7 @@ export const Section = (props) => {
           {children}
         </Box>
       )}
-    </Box>
+    </div>
   );
 };
 

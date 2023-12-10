@@ -72,8 +72,8 @@ export const ExternalAirlockController = (props, context) => {
                 interior_status === 'open'
                   ? 'red'
                   : processing
-                  ? 'yellow'
-                  : null
+                    ? 'yellow'
+                    : null
               }
               onClick={() => act('force_ext')}
             />
@@ -84,8 +84,8 @@ export const ExternalAirlockController = (props, context) => {
                 interior_status === 'open'
                   ? 'red'
                   : processing
-                  ? 'yellow'
-                  : null
+                    ? 'yellow'
+                    : null
               }
               onClick={() => act('force_int')}
             />

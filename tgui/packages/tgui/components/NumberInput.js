@@ -1,7 +1,12 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { clamp } from 'common/math';
 import { classes, pureComponentHooks } from 'common/react';
 import { Component, createRef } from 'inferno';
-import { IS_IE8 } from '../byond';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box } from './Box';
 
@@ -159,7 +164,7 @@ export class NumberInput extends Component {
     }
     // IE8: Use an "unselectable" prop because "user-select" doesn't work.
     const renderContentElement = (value) => (
-      <div className="NumberInput__content" unselectable={IS_IE8}>
+      <div className="NumberInput__content" unselectable={Byond.IS_LTE_IE8}>
         {value + (unit ? ' ' + unit : '')}
       </div>
     );

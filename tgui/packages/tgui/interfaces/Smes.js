@@ -151,8 +151,8 @@ export const Smes = (props, context) => {
                 {outputting
                   ? 'Sending'
                   : charge > 0
-                  ? 'Not Sending'
-                  : 'No Charge'}
+                    ? 'Not Sending'
+                    : 'No Charge'}
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Output">

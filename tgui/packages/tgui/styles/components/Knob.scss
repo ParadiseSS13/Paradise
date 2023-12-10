@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use '../base.scss';
 @use '../colors.scss';
 @use '../functions.scss' as *;
@@ -35,11 +40,9 @@ $inner-padding: 0.1em;
   right: $inner-padding;
   margin: 0.3em;
   background-color: $knob-color;
-  background-image: linear-gradient(
-    to bottom,
+  background-image: linear-gradient(to bottom,
     rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0) 100%
-  );
+    rgba(255, 255, 255, 0) 100%);
   border-radius: 50%;
   box-shadow: 0 0.05em 0.5em 0 rgba(0, 0, 0, 0.5);
 }
@@ -78,7 +81,6 @@ $inner-padding: 0.1em;
   top: 0.25rem;
   right: -50%;
 }
-
 .Knob__ring {
   position: absolute;
   top: 0;

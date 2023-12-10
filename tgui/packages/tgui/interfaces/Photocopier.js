@@ -49,8 +49,8 @@ export const Photocopier = (props, context) => {
                   data.copyitem
                     ? data.copyitem
                     : data.mob
-                    ? data.mob + "'s ass!"
-                    : 'document'
+                      ? data.mob + "'s ass!"
+                      : 'document'
                 }
                 onClick={() => act('removedocument')}
               />

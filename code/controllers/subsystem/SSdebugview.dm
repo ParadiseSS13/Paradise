@@ -31,7 +31,7 @@ SUBSYSTEM_DEF(debugview)
 	entries += "\[Processing] Cost: [round(SSprocessing.cost, 1)]ms | P: [length(SSprocessing.processing)]"
 	entries += "\[Projectiles] Cost: [round(SSprojectiles.cost, 1)]ms | P: [length(SSprojectiles.processing)]"
 	entries += "\[Runechat] Cost: [round(SSrunechat.cost, 1)]ms | AM: [SSrunechat.bucket_count] | SQ: [length(SSrunechat.second_queue)]"
-	entries += "\[TGUI] Cost: [round(SStgui.cost, 1)]ms | P: [length(SStgui.processing_uis)]"
+	entries += "\[TGUI] Cost: [round(SStgui.cost, 1)]ms | P: [length(SStgui.open_uis)]]"
 	entries += "\[Timer] Cost: [round(SStimer.cost, 1)]ms | B: [SStimer.bucket_count] | P: [length(SStimer.second_queue)] | RST: [SStimer.bucket_reset_count]"
 
 	// Do some parsing to format it properly

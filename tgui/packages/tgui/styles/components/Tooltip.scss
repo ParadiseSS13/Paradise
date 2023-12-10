@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use '../base.scss';
 @use '../functions.scss' as *;
 
@@ -78,7 +83,6 @@ $border-radius: base.$border-radius !default;
 .Tooltip--top-right:hover::after {
   transform: translateX(-12px) translateY(8px);
 }
-
 .Tooltip--bottom::after {
   top: 100%;
   left: 50%;

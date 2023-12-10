@@ -1,4 +1,9 @@
-import { callByond, IS_IE8 } from './byond';
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { createLogger } from './logging';
 
 const logger = createLogger('hotkeys');
@@ -60,6 +65,18 @@ export const KEY_NUMPAD_6 = 102;
 export const KEY_NUMPAD_7 = 103;
 export const KEY_NUMPAD_8 = 104;
 export const KEY_NUMPAD_9 = 105;
+export const KEY_F1 = 112;
+export const KEY_F2 = 113;
+export const KEY_F3 = 114;
+export const KEY_F4 = 115;
+export const KEY_F5 = 116;
+export const KEY_F6 = 117;
+export const KEY_F7 = 118;
+export const KEY_F8 = 119;
+export const KEY_F9 = 120;
+export const KEY_F10 = 121;
+export const KEY_F11 = 122;
+export const KEY_F12 = 123;
 export const KEY_EQUAL = 187;
 export const KEY_MINUS = 189;
 
@@ -73,6 +90,18 @@ const NO_PASSTHROUGH_KEYS = [
   KEY_CTRL,
   KEY_SHIFT,
   KEY_ALT, // to prevent alt tabbing breaking shit
+  KEY_F1,
+  KEY_F2,
+  KEY_F3,
+  KEY_F4,
+  KEY_F5,
+  KEY_F6,
+  KEY_F7,
+  KEY_F8,
+  KEY_F9,
+  KEY_F10,
+  KEY_F11,
+  KEY_F12,
 ];
 
 // Tracks the "pressed" state of keys
@@ -91,6 +120,8 @@ const createHotkeyString = (ctrlKey, altKey, shiftKey, keyCode) => {
   }
   if (keyCode >= 48 && keyCode <= 90) {
     str += String.fromCharCode(keyCode);
+  } else if (keyCode >= KEY_F1 && keyCode <= KEY_F12) {
+    str += 'F' + (keyCode - 111);
   } else {
     str += '[' + keyCode + ']';
   }
@@ -172,18 +203,17 @@ const handlePassthrough = (e, eventType) => {
   if (NO_PASSTHROUGH_KEYS.includes(keyCode)) {
     return;
   }
-  if (eventType === 'keyup' && keyState[keyCode]) {
-    // this needs to happen regardless of ctrl or shift, else you can get stuck walking one way
-    logger.debug('passthrough', eventType, keyData);
-    return callByond('', { __keyup: byondKey });
-  }
-  if (ctrlKey || shiftKey) {
+  if (ctrlKey || shiftKey || NO_PASSTHROUGH_KEYS.includes(keyCode)) {
     return;
   }
   // Send this keypress to BYOND
   if (eventType === 'keydown' && !keyState[keyCode]) {
     logger.debug('passthrough', eventType, keyData);
-    return callByond('', { __keydown: byondKey });
+    return Byond.topic({ __keydown: keyCode });
+  }
+  if (eventType === 'keyup' && keyState[keyCode]) {
+    logger.debug('passthrough', eventType, keyData);
+    return Byond.topic({ __keyup: keyCode });
   }
 };
 
@@ -197,36 +227,43 @@ export const releaseHeldKeys = () => {
       const byondKey = keyCodeToByond(keyCode);
       logger.log(`releasing [${keyCode}] key`);
       keyState[keyCode] = false;
-      callByond('', { __keyup: byondKey });
+      Byond.topic({ __keyup: byondKey });
     }
   }
 };
 
-const handleHotKey = (e, eventType, dispatch) => {
+const hotKeySubscribers = [];
+
+/**
+ * Subscribes to a certain hotkey, and dispatches a redux action returned
+ * by the callback function.
+ */
+export const subscribeToHotKey = (keyString, fn) => {
+  hotKeySubscribers.push((store, keyData) => {
+    if (keyData.keyString === keyString) {
+      const action = fn(store);
+      if (action) {
+        store.dispatch(action);
+      }
+    }
+  });
+};
+
+const handleHotKey = (e, eventType, store) => {
   if (eventType !== 'keyup') {
     return;
   }
   const keyData = getKeyData(e);
-  const { ctrlKey, altKey, keyCode, hasModifierKeys, keyString } = keyData;
+  const { keyCode, hasModifierKeys, keyString } = keyData;
   // Dispatch a detected hotkey as a store action
-  if (hasModifierKeys && !MODIFIER_KEYS.includes(keyCode)) {
+  if (
+    (hasModifierKeys && !MODIFIER_KEYS.includes(keyCode)) ||
+    (keyCode >= KEY_F1 && keyCode <= KEY_F12)
+  ) {
     logger.log(keyString);
-    // Fun stuff
-    if (ctrlKey && altKey && keyCode === KEY_BACKSPACE) {
-      // NOTE: We need to call this in a timeout, because we need a clean
-      // stack in order for this to be a fatal error.
-      setTimeout(() => {
-        throw new Error(
-          'OOPSIE WOOPSIE!! UwU We made a fucky wucky!! A wittle' +
-            ' fucko boingo! The code monkeys at our headquarters are' +
-            ' working VEWY HAWD to fix this!'
-        );
-      });
+    for (let subscriberFn of hotKeySubscribers) {
+      subscriberFn(store, keyData);
     }
-    dispatch({
-      type: 'hotKey',
-      payload: keyData,
-    });
   }
 };
 
@@ -264,18 +301,17 @@ const subscribeToKeyPresses = (listenerFn) => {
 
 // Middleware
 export const hotKeyMiddleware = (store) => {
-  const { dispatch } = store;
   // Subscribe to key events
   subscribeToKeyPresses((e, eventType) => {
     // IE8: Can't determine the focused element, so by extension it passes
     // keypresses when inputs are focused.
-    if (!IS_IE8) {
+    if (!Byond.IS_LTE_IE8) {
       handlePassthrough(e, eventType);
     }
-    handleHotKey(e, eventType, dispatch);
+    handleHotKey(e, eventType, store);
   });
   // IE8: focusin/focusout only available on IE9+
-  if (!IS_IE8) {
+  if (!Byond.IS_LTE_IE8) {
     // Clean up when browser window completely loses focus
     subscribeToLossOfFocus(() => {
       releaseHeldKeys();
@@ -283,28 +319,4 @@ export const hotKeyMiddleware = (store) => {
   }
   // Pass through store actions (do nothing)
   return (next) => (action) => next(action);
-};
-
-// Reducer
-export const hotKeyReducer = (state, action) => {
-  const { type, payload } = action;
-  if (type === 'hotKey') {
-    const { ctrlKey, altKey, keyCode } = payload;
-    // Toggle kitchen sink mode
-    if (ctrlKey && altKey && keyCode === KEY_EQUAL) {
-      return {
-        ...state,
-        showKitchenSink: !state.showKitchenSink,
-      };
-    }
-    // Toggle layout debugger
-    if (ctrlKey && altKey && keyCode === KEY_MINUS) {
-      return {
-        ...state,
-        debugLayout: !state.debugLayout,
-      };
-    }
-    return state;
-  }
-  return state;
 };

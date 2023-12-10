@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use 'sass:color';
 @use '../base.scss';
 @use '../functions.scss' as *;
@@ -10,11 +15,9 @@
   right: 0;
   color: base.$color-fg;
   background-color: base.$color-bg;
-  background-image: linear-gradient(
-    to bottom,
+  background-image: linear-gradient(to bottom,
     base.$color-bg-start 0%,
-    base.$color-bg-end 100%
-  );
+    base.$color-bg-end 100%);
 }
 
 .Window__titleBar {
@@ -33,6 +36,21 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.Window__contentPadding {
+  margin: 6px;
+  height: calc(100% - 12px);
+}
+
+.Window__contentPadding:after {
+  height: 0;
+}
+
+.Layout__content--scrollable .Window__contentPadding:after {
+  display: block;
+  content: '';
+  height: 6px;
 }
 
 .Window__dimmer {
