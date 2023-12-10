@@ -147,8 +147,8 @@
 	else
 		return FALSE
 
-/mob/living/simple_animal/diona/proc/split()
-	if((stat != CONSCIOUS) || !isdiona(loc))
+/mob/living/simple_animal/diona/proc/split(forced = FALSE)
+	if((stat != CONSCIOUS && !forced) || !isdiona(loc))
 		return FALSE
 	var/mob/living/carbon/human/D = loc
 	var/turf/T = get_turf(src)
