@@ -7,7 +7,7 @@
 	dna_cost = 2
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_ATTACK
+	category = /datum/changeling_power_category/offence
 
 //A flashy ability, good for crowd control and sowing chaos.
 /datum/action/changeling/resonant_shriek/sting_action(mob/user)
@@ -44,7 +44,7 @@
 	chemical_cost = 30
 	dna_cost = 2
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_UTILITY
+	category = /datum/changeling_power_category/utility
 
 //A flashy ability, good for crowd control and sewing chaos.
 /datum/action/changeling/dissonant_shriek/sting_action(mob/user)

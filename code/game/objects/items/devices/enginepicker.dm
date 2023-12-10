@@ -28,8 +28,7 @@
 		return
 
 	locatebeacons()
-	var/default = null
-	var/E = input("Select the station's Engine:", "[src]", default) as null|anything in list_enginebeacons
+	var/E = tgui_input_list(user, "Select the station's Engine", "[src]", list_enginebeacons)
 	if(E)
 		processchoice(E, user)
 	else
@@ -51,8 +50,7 @@
 	var/turf/T = get_turf(choice)
 
 	if(choice.enginetype.len > 1)	//If the beacon has multiple engine types
-		var/default = null
-		var/E = input("You have selected a combined beacon, which option would you prefer?", "[src]", default) as null|anything in choice.enginetype
+		var/E = tgui_input_list(user, "You have selected a combined beacon, which option would you prefer?", "[src]", choice.enginetype)
 		if(E)
 			engtype = E
 			issuccessful = TRUE
