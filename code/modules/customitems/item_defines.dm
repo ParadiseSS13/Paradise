@@ -1257,7 +1257,7 @@
 	prompting_change = FALSE
 	if(!plushie_color)
 		return
-	if(!Adjacent(usr))
+	if(!Adjacent(user))
 		return
 	name = plushie_color
 	icon_state = plush_colors[plushie_color]
@@ -1266,8 +1266,8 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/toy/plushie/fluff/fox/ui_action_click()
-	change_color()
+/obj/item/toy/plushie/fluff/fox/ui_action_click(mob/user)
+	change_color(user)
 
 
 // TheFlagbearer: Willow Walker
