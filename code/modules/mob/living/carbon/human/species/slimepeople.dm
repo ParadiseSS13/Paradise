@@ -11,6 +11,13 @@
 	name_plural = "Slime People"
 	max_age = 130
 	language = "Bubblish"
+
+	blurb = "Slime People are gelatinous and translucent beings from the vast oceans of Xarxis 5. \
+	They are recent entrants to the galactic scene, having been discovered by a TSF exploratory company during space expedetions.<br/><br/> \
+	Slime People traditionally operate in roaming bands and tribes that migrate according to orbital patterns and tides. \
+	A great deal of Slime People prefer the comforts and traditions of their homeworld, though many more have decided to take their chances among the stars, trying \
+	to find a better life for themselves and their species."
+
 	icobase = 'icons/mob/human_races/r_slime.dmi'
 	remains_type = /obj/effect/decal/remains/slime
 	inherent_factions = list("slime")
