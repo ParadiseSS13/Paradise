@@ -324,7 +324,7 @@
 	if(slot == SLOT_FLAG_OCLOTHING)
 		user.faction += "carp"
 		to_chat(user, "<span class='cult'>You feel a something gnash in the back of your mind- the carp are your friends, not your foe.</span>")
-		playsound(loc, 'sound/weapons/bite.ogg', 35, 1)
+		playsound(loc, 'sound/weapons/bite.ogg', 35, TRUE)
 
 /obj/item/clothing/suit/hooded/carp_costume/dragon/on_mob_move(direction, mob/user)
 	var/turf/T = get_step(src, GetOppositeDir(direction))
