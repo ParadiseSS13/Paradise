@@ -153,7 +153,7 @@
 		to_chat(H, "<span class='warning'>You're not missing any limbs!</span>")
 		return
 
-	var/limb_select = input(H, "Choose a limb to regrow", "Limb Regrowth") as null|anything in missing_limbs
+	var/limb_select = tgui_input_list(H, "Choose a limb to regrow", "Limb Regrowth", missing_limbs)
 	if(!limb_select) // If the user hit cancel on the popup, return
 		return
 	var/chosen_limb = missing_limbs[limb_select]
