@@ -104,7 +104,7 @@ const WindowContent = (props) => {
       scrollable={scrollable}
       {...rest}
     >
-      {(fitted && children) || (
+      {(!fitted && children) || (
         <div className="Window__contentPadding">{children}</div>
       )}
     </Layout.Content>
