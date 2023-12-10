@@ -402,7 +402,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
 		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
 
-
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
 	set name = "Teleport"
@@ -438,7 +437,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 		names[name] = ruin_landmark
 
-	var/ruinname = input("Select ruin", "Jump to Ruin") as null|anything in names
+	var/ruinname = tgui_input_list(usr, "Select ruin", "Jump to Ruin", names)
 
 	var/obj/effect/landmark/ruin/landmark = names[ruinname]
 

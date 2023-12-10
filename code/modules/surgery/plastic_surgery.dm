@@ -68,7 +68,7 @@
 			for(var/i in 1 to list_size)
 				names += "Subject [target.gender == MALE ? "I" : "O"]-[pick("A", "B", "C", "D", "E")]-[rand(10000, 99999)]"
 			names += random_name(target.gender, species_names) //give one normal name in case they want to do regular plastic surgery
-		var/chosen_name = input(user, "Choose a new name to assign.", "Plastic Surgery") as null|anything in names
+		var/chosen_name = tgui_input_list(user, "Choose a new name to assign", "Plastic Surgery", names)
 		if(!chosen_name)
 			return
 		var/oldname = target.real_name

@@ -19,7 +19,7 @@
 			our_characters_names += saves.real_name
 			our_character_saves += list(saves.real_name = saves)
 
-		var/character_name = input("Select a character", "Character selection") as null|anything in our_characters_names
+		var/character_name = tgui_input_list(user, "Select a character", "Character selection", our_characters_names)
 		if(!character_name)
 			return
 		if(QDELETED(user))

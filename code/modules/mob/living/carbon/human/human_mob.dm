@@ -933,7 +933,7 @@
 		SEC_RECORD_STATUS_RELEASED,
 	)
 
-	var/new_status = input(user, "Set the new criminal status for [perpname].", "Security HUD", found_record.fields["criminal"]) as null|anything in possible_status
+	var/new_status = tgui_input_list(user, "Set the new criminal status for [perpname]", "Security HUD", possible_status)
 	if(!new_status)
 		return
 

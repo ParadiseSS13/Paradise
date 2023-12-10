@@ -95,7 +95,7 @@
 
 		if("hair_gradient")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_style = input("Please select gradient style.", "Hair Gradient", head_organ.h_grad_style) as null|anything in GLOB.hair_gradients_list
+				var/new_style = tgui_input_list(usr, "Please select gradient style", "Hair Gradient", GLOB.hair_gradients_list)
 				if(new_style)
 					owner.change_hair_gradient(style = new_style)
 
