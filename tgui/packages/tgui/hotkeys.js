@@ -224,9 +224,10 @@ const handlePassthrough = (e, eventType) => {
 export const releaseHeldKeys = () => {
   for (let keyCode of Object.keys(keyState)) {
     if (keyState[keyCode]) {
+      const byondKey = keyCodeToByond(keyCode);
       logger.log(`releasing [${keyCode}] key`);
       keyState[keyCode] = false;
-      Byond.topic({ __keyup: keyCode });
+      Byond.topic({ __keyup: byondKey });
     }
   }
 };

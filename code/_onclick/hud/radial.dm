@@ -300,7 +300,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		if(!istype(possible_atom))
 			stack_trace("radial_menu_helper was passed a non-atom (\"[possible_atom]\", [possible_atom.type]) as a choice")
 			continue
-		var/mutable_appearance/atom_appearance = mutable_appearance(possible_atom.icon, possible_atom.icon_state, possible_atom.layer, filters = possible_atom.filters)
+		var/mutable_appearance/atom_appearance = mutable_appearance(possible_atom.icon, possible_atom.icon_state, possible_atom.layer)
 
 		var/hover_outline_index = possible_atom.get_filter("hover_outline")
 		if(!isnull(hover_outline_index))
