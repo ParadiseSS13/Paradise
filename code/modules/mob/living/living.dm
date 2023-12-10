@@ -296,6 +296,10 @@
 
 	var/last_words = input(src, "Do you have any last words?", "Goodnight, Sweet Prince") as text|null
 
+	if(stat == DEAD)
+		// cancel em out if they died while they had the message box up
+		last_words = null
+
 	if(!isnull(last_words))
 		create_log(MISC_LOG, "gave their final words, [last_words]")
 		whisper(last_words)
