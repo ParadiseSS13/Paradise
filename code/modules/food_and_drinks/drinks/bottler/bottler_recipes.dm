@@ -56,7 +56,7 @@ There is no excuse to do this wrong now that there is an example for you. --Fals
 	description = "Creamy, smooth flavor, just like the bald heads of the masses. Supposedly aged for 30 years."
 	ingredients = list(/obj/item/reagent_containers/food/drinks/cans/cola,
 					/obj/item/reagent_containers/food/snacks/grown/sugarcane,
-					/obj/item/reagent_containers/food/snacks/icecream)
+					/obj/item/reagent_containers/food/snacks/frozen/icecream)
 	result = "blackeye_brew"
 
 /datum/bottler_recipe/Grape_Granade
