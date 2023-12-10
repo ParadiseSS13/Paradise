@@ -39,7 +39,6 @@
   left: 0;
   right: 0;
   overflow: hidden;
-  margin: 6px;
 }
 
 .Layout__content--flexRow {
@@ -51,6 +50,7 @@
   display: flex;
   flex-flow: column;
 }
+
 .Layout__content--scrollable {
   overflow-y: auto;
 }
@@ -58,4 +58,3 @@
 .Layout__content--noMargin {
   margin: 0;
 }
-

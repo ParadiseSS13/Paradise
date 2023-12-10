@@ -29,6 +29,7 @@ export const Section = (props) => {
         'Section',
         'Section--level--' + level,
         fill && 'Section--fill',
+        props.flexGrow && 'Section--flex',
         className,
         ...computeBoxClassName(rest),
       ])}
