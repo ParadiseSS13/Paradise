@@ -46,6 +46,7 @@
 		. += "<span class='notice'>\A [cell] is mounted onto [src]. Battery cell charge: [cell.charge]/[cell.maxcharge]"
 	else
 		. += "<span class='notice'>It has an empty mount for a battery cell.</span>"
+	. += "<span class='info'><b>Alt-Click</b> [src] to adjust it's tension.</span>"
 
 /obj/item/gun/throw/crossbow/modify_projectile(obj/item/I, on_chamber = 0)
 	if(cell && on_chamber && istype(I, /obj/item/arrow/rod))
@@ -129,13 +130,8 @@
 	. = ..()
 	QDEL_NULL(cell)
 
-/obj/item/gun/throw/crossbow/verb/set_tension()
-	set name = "Adjust Tension"
-	set category = "Object"
-	set src in range(0)
-
-	var/mob/user = usr
-	if(user.incapacitated())
+/obj/item/gun/throw/crossbow/AltClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	var/choice = input("Select tension to draw to:", "[src]", XBOW_TENSION_FULL) as null|anything in possible_tensions
 	if(!choice)

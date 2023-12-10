@@ -52,7 +52,7 @@
 			var/needed_amount = R.reqs[A]
 			for(var/B in contents)
 				if(ispath(B, A))
-					if (R.blacklist.Find(B))
+					if(R.blacklist.Find(B))
 						continue
 					if(contents[B] >= R.reqs[A])
 						continue main_loop
@@ -322,7 +322,7 @@
 	for(var/rec in GLOB.crafting_recipes)
 		var/datum/crafting_recipe/R = rec
 
-		if(!R.always_availible && !(R.type in user?.mind?.learned_recipes)) //User doesn't actually know how to make this.
+		if(!R.always_available && !(R.type in user?.mind?.learned_recipes)) //User doesn't actually know how to make this.
 			continue
 
 		if((R.category != cur_category) || (R.subcategory != cur_subcategory))
@@ -379,7 +379,7 @@
 
 //Next works nicely with modular arithmetic
 /datum/personal_crafting/proc/next_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
 	. = viewing_category % categories.len + 1
 
@@ -391,7 +391,7 @@
 
 //Previous can go fuck itself
 /datum/personal_crafting/proc/prev_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
 	if(viewing_category == categories.len)
 		. = viewing_category-1

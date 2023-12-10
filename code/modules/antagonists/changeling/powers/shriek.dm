@@ -24,7 +24,7 @@
 				M.AdjustConfused(40 SECONDS)
 				M.Jitter(100 SECONDS)
 			else
-				SEND_SOUND(M, sound('sound/effects/screech.ogg'))
+				SEND_SOUND(M, sound('sound/effects/clingscream.ogg'))
 
 		if(issilicon(M))
 			SEND_SOUND(M, sound('sound/weapons/flash.ogg'))

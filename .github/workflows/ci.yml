@@ -10,7 +10,7 @@ on:
 jobs:
   run_linters:
     name: Run Linters
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache
@@ -47,7 +47,7 @@ jobs:
 
   odlint:
     name: Lint with OpenDream
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Setup OD
@@ -59,7 +59,7 @@ jobs:
 
   compile_all_maps:
     name: Compile All Maps
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - name: Setup Cache
@@ -76,7 +76,7 @@ jobs:
 
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false # Let all map tests run to completion
       matrix:
@@ -106,12 +106,9 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update || true
-          sudo apt install libssl1.1:i386
-          ldd librust_g.so
-      - name: Start Redis
-        uses: supercharge/redis-github-action@1.7.0
-        with:
-          redis-version: 6
+          sudo apt install lib32z1 git pkg-config libssl-dev:i386 libssl-dev zlib1g-dev:i386 curl gcc libdbus-1-dev
+          sudo apt install gcc:i386
+          tools/ci/install_rustg.sh
       - name: Compile & Run Unit Tests
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'

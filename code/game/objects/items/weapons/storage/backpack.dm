@@ -132,8 +132,8 @@
 	new /obj/item/gun/projectile/revolver/capgun(src)
 
 /obj/item/storage/backpack/mime
-	name = "Parcel Parceaux"
-	desc = "A silent backpack made for those silent workers. Silence Co."
+	name = "Pierre the Panda"
+	desc = "A backpack modelled after Pierre the Panda - the official mascot for the Université du Mime."
 	icon_state = "mimepack"
 	item_state = "mimepack"
 
@@ -225,20 +225,19 @@
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
-/obj/item/storage/backpack/satchel/verb/switch_strap()
-	set name = "Switch Strap Side"
-	set category = "Object"
-	set src in usr
+/obj/item/storage/backpack/satchel/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to flip it's strap side.</span>"
 
-	if(usr.incapacitated())
+/obj/item/storage/backpack/satchel/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
+
 	strap_side_straight = !strap_side_straight
 	item_state = strap_side_straight ? "satchel-flipped" : "satchel"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_back()
-
-
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
