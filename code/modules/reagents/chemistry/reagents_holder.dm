@@ -716,7 +716,8 @@
 		cached_reagents += R
 		R.holder = src
 		R.volume = amount
-		R.on_new(data)
+		if(can_metabolize(my_atom, R))
+			R.on_new(data)
 		if(data)
 			R.data = data
 
