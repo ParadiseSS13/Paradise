@@ -529,7 +529,7 @@ SUBSYSTEM_DEF(jobs)
 				if(istype(G) && !G.prescription)
 					G.upgrade_prescription()
 					H.update_nearsighted_effects()
-	if(late_arrivals_spawning)
+	if(late_arrivals_spawning && !joined_late)
 		H.forceMove(pick(GLOB.latejoin))
 	if(!joined_late && drunken_spawning)
 		var/obj/item/organ/internal/liver/L
