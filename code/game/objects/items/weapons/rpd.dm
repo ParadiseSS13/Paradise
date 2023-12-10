@@ -203,15 +203,15 @@
 
 	switch(action)
 		if("iconrotation")
-			iconrotation = params["iconrotation"]
+			iconrotation = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("whatpipe")
-			whatpipe = params["whatpipe"]
+			whatpipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("whatdpipe")
-			whatdpipe = params["whatdpipe"]
+			whatdpipe = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("pipe_category")
-			pipe_category = params["pipe_category"]
+			pipe_category = isnum(params[action]) ? params[action] : text2num(params[action])
 		if("mode")
-			mode = params["mode"]
+			mode = isnum(params[action]) ? params[action] : text2num(params[action])
 
 //RPD radial menu
 /obj/item/rpd/proc/check_menu(mob/living/user)

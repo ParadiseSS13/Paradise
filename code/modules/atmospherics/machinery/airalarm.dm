@@ -863,7 +863,7 @@
 					"widenet",
 					"scrubbing",
 					"direction")
-					var/val = params["val"]
+					var/val = isnum(params["val"]) ? params["val"] : text2num(params["val"])
 					if(isnull(val))
 						var/newval = input("Enter new value") as num|null
 						if(isnull(newval))

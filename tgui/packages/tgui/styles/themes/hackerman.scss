@@ -24,13 +24,13 @@
   // Components
   @include meta.load-css('../components/Button.scss', $with: (
     'color-default': colors.$primary,
-    'color-disabled': #4A6A4A,
+    'color-disabled': #363636,
     'color-selected': #00FF00,
   ));
   @include meta.load-css('../components/Input.scss', $with: (
     'border-color': colors.$primary,
   ));
-  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-disabled': #4a6a4a,
+  @include meta.load-css('../components/ProgressBar.scss', $with: ('color-disabled': #363636,
       ));
   @include meta.load-css('../components/Modal.scss');
   @include meta.load-css('../components/Section.scss');

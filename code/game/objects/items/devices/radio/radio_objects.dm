@@ -165,16 +165,16 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 		return
 	. = TRUE
 	switch(action)
-		if("frequency")
+		if("frequency") // Available to both headsets and non-headset radios
 			if(freqlock)
 				return
-			var/tune = params["tune"]
-			var/adjust = params["adjust"]
+			var/tune = isnum(params["tune"]) ? params["tune"] : text2num(params["tune"])
+			var/adjust = isnum(params["adjust"]) ? params["adjust"] : text2num(params["adjust"])
 			if(tune == "reset")
 				tune = initial(frequency)
 			else if(adjust)
 				tune = frequency + adjust * 10
-			else if(tune != null)
+			else if(!isnull(tune))
 				tune = tune * 10
 			else
 				. = FALSE
@@ -183,17 +183,17 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 					usr << browse(null, "window=radio")
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
-		if("ichannel") // Change primary frequency to an internal channel authorized by access
+		if("ichannel") // Change primary frequency to an internal channel authorized by access, for non-headset radios only
 			if(freqlock)
 				return
-			var/freq = params["ichannel"]
+			var/freq = isnum(params["ichannel"]) ? params["ichannel"] : text2num(params["ichannel"])
 			if(has_channel_access(usr, num2text(freq)))
 				set_frequency(freq)
 		if("listen")
 			listening = !listening
 		if("broadcast")
 			broadcasting = !broadcasting
-		if("channel") // For headset keyed channels
+		if("channel") // For keyed channels on headset radios only
 			var/channel = params["channel"]
 			if(!(channel in channels))
 				return
@@ -201,8 +201,7 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 				channels[channel] &= ~FREQ_LISTENING
 			else
 				channels[channel] |= FREQ_LISTENING
-		if("loudspeaker")
-			// Toggle loudspeaker mode, AKA everyone around you hearing your radio.
+		if("loudspeaker") // Toggle loudspeaker mode, AKA everyone around you hearing your radio.
 			if(has_loudspeaker)
 				loudspeaker = !loudspeaker
 				if(loudspeaker)
