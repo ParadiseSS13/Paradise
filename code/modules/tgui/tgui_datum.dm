@@ -143,7 +143,7 @@
  *
  * required asset datum/asset
  */
-/datum/tgui/proc/send_asset(var/datum/asset/asset)
+/datum/tgui/proc/send_asset(datum/asset/asset)
 	if(!user.client)
 		return
 	asset.send(user)
