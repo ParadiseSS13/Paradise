@@ -1357,6 +1357,7 @@
 #include "code\modules\antagonists\_common\antag_spawner.dm"
 #include "code\modules\antagonists\_common\antag_team.dm"
 #include "code\modules\antagonists\changeling\changeling_power.dm"
+#include "code\modules\antagonists\changeling\changeling_power_category.dm"
 #include "code\modules\antagonists\changeling\datum_changeling.dm"
 #include "code\modules\antagonists\changeling\evolution_menu.dm"
 #include "code\modules\antagonists\changeling\powers\absorb.dm"
