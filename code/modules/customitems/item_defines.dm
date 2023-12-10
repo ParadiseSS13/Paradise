@@ -1249,11 +1249,11 @@
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
 								"coffee fox plushie" = "coffeefox", "pink fox plushie" = "pinkfox", "purple fox plushie" = "purplefox", "crimson fox plushie" = "crimsonfox")
 
-/obj/item/toy/plushie/fluff/fox/proc/change_color()
+/obj/item/toy/plushie/fluff/fox/proc/change_color(mob/user)
 	if(prompting_change)
 		return
 	prompting_change = TRUE
-	var/plushie_color = tgui_input_list(usr, "Select a color", "[src]", plush_colors)
+	var/plushie_color = tgui_input_list(user, "Select a color", "[src]", plush_colors)
 	prompting_change = FALSE
 	if(!plushie_color)
 		return
