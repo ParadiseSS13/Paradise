@@ -205,6 +205,9 @@
 			"ckey" = "[user.ckey]",
 			"observer" = isobserver(user),
 		),
+		"map" = SSmapping.map_datum.technical_name,
+		"fancy" = user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI,
+		"ref" = "[src.UID()]"
 	)
 	var/data = custom_data || with_data && src_object.ui_data(user)
 	if(data)
