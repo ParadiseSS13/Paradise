@@ -143,6 +143,12 @@
 	protected_jobs = list("Head Of Security", "Warden")
 	location_override = "the Warden's Office"
 
+/datum/theft_objective/dl88
+	name = "the DL-88 energy revolver"
+	typepath = /obj/item/gun/energy/detective
+	protected_jobs = list("Detective")
+	location_override = "the Detective's Office"
+
 /datum/theft_objective/supermatter_sliver
 	name = "a supermatter sliver"
 	typepath = /obj/item/nuke_core/supermatter_sliver
