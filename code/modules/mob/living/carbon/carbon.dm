@@ -1239,11 +1239,10 @@ so that different stomachs can handle things in different ways VB*/
 	if(to_eat.reagents.total_volume)
 		taste(to_eat.reagents)
 		var/fraction = min(this_bite / to_eat.reagents.total_volume, 1)
-		if(fraction)
-			to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
-			to_eat.reagents.trans_to(src, this_bite)
+		to_eat.reagents.reaction(src, REAGENT_INGEST, fraction)
+		to_eat.reagents.trans_to(src, this_bite)
 
-/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/medicine, user) // medicine = patch or pill
+/mob/living/carbon/proc/consume_patch_or_pill(obj/item/reagent_containers/medicine, mob/user) // medicine = patch or pill
 	// The reason why this is bundled up is to avoid 2 procs that will be practically identical
 	if(!medicine.reagents.total_volume)
 		return TRUE // Doesn't have reagents, would be fine to use up
@@ -1256,13 +1255,13 @@ so that different stomachs can handle things in different ways VB*/
 	var/reagent_application = REAGENT_INGEST
 	var/requires_mouth = TRUE
 	var/instant = FALSE
-	var/efficiency = 1
+	var/how_many_reagents = medicine.reagents.total_volume
 
 	if(ispatch(medicine))
 		apply_method = "apply"
 		reagent_application = REAGENT_TOUCH
 		requires_mouth = FALSE
-		efficiency = 0.5 // Patches aren't that good at transporting reagents into the bloodstream
+		how_many_reagents = clamp(medicine.reagents.total_volume, 0.1, 2) // Patches aren't that good at transporting reagents into the bloodstream
 		var/obj/item/reagent_containers/patch/patch = medicine
 		if(patch.instant_application)
 			instant = TRUE
@@ -1281,7 +1280,7 @@ so that different stomachs can handle things in different ways VB*/
 
 	var/fraction = min(1 / medicine.reagents.total_volume, 1)
 	medicine.reagents.reaction(src, reagent_application, fraction)
-	medicine.reagents.trans_to(src, medicine.reagents.total_volume * efficiency)
+	medicine.reagents.trans_to(src, how_many_reagents)
 	return TRUE
 
 /mob/living/carbon/get_access()
