@@ -18,7 +18,7 @@
 	/// How long an extraction portal remains before going away. Should be less than [/datum/syndicate_contract/var/extraction_cooldown].
 	var/portal_duration = 5 MINUTES
 	/// How long a target remains in the Syndicate jail.
-	var/prison_time = 30 SECONDS //DEBUG VAR DEBUG VAR DEBUG VAR
+	var/prison_time = 4 MINUTES
 	var/list/obj/item/souvenirs = list(
 		/obj/item/bedsheet/syndie,
 		/obj/item/clothing/under/syndicate/tacticool,
