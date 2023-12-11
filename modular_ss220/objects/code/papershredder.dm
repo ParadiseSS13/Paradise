@@ -114,7 +114,7 @@
 	if(resistance_flags & ON_FIRE)
 		add_fingerprint(user)
 		return
-	if(is_hot(shredp, user))
+	if(shredp.get_heat())
 		add_fingerprint(user)
 		user.visible_message(span_danger("\The [user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap."), span_danger("You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap."))
 		fire_act()
