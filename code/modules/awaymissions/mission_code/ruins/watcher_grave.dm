@@ -194,7 +194,7 @@
 	if(!T || !U)
 		return
 	var/obj/item/projectile/O = new projectile_type(T)
-	playsound(get_turf(src), projectile_sound, 75, 1)
+	playsound(get_turf(src), projectile_sound, 75, TRUE)
 	O.firer = parent // no hitting owner.
 	O.current = T
 	O.yo = U.y - T.y
