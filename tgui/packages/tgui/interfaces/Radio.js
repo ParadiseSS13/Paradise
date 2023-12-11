@@ -47,7 +47,7 @@ export const Radio = (props, context) => {
   return (
     <Window
       width={350}
-      height={130 + schannels.length * 20 + ichannels.length * 10}
+      height={130 + schannels.length * 21.2 + ichannels.length * 10}
       resizable
     >
       <Window.Content scrollable>

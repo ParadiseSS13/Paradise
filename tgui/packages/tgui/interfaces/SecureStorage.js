@@ -15,7 +15,7 @@ import {
 
 export const SecureStorage = (props, context) => {
   return (
-    <Window theme="securestorage" height={510} width={288}>
+    <Window theme="securestorage" height={500} width={280}>
       <Window.Content>
         <MainPage />
       </Window.Content>
