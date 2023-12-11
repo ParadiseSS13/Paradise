@@ -354,7 +354,7 @@ REAGENT SCANNER
 		to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 		return
 
-	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components.</span>","<span class='notice'>You have analyzed [M]'s components.</span>")
+	user.visible_message("<span class='notice'>[user] has analyzed [M]'s components.</span>", "<span class='notice'>You have analyzed [M]'s components.</span>")
 	robot_healthscan(user, M)
 	add_fingerprint(user)
 
