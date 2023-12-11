@@ -565,26 +565,25 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	explanation_text = "Free Objective."
 
 /datum/objective/steal/proc/select_target()
-	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
+	var/list/possible_items_all = GLOB.potential_theft_objectives + "custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
 	if(!new_target)
 		return
 
 	if(new_target == "custom")
-		var/datum/theft_objective/O=new
-		O.typepath = input("Select type:","Type") as null|anything in typesof(/obj/item)
-		if(!O.typepath)
+		var/obj/item/steal_target_path = input("Select type:","Type") as null|anything in typesof(/obj/item)
+		if(!steal_target_path)
 			return
 
-		var/tmp_obj = new O.typepath
-		var/custom_name = tmp_obj:name
-		qdel(tmp_obj)
-		O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
-		if(!O.name)
+		var/theft_objective_name = sanitize(copytext(input("Enter target name:", "Objective target", initial(steal_target_path.name)) as text|null, 1, MAX_NAME_LEN))
+		if(!theft_objective_name)
 			return
 
-		steal_target = O
-		explanation_text = "Steal [O.name]."
+		var/datum/theft_objective/target_theft_objective = new
+		target_theft_objective.typepath = steal_target_path
+		target_theft_objective.name = theft_objective_name
+		steal_target = target_theft_objective
+		explanation_text = "Steal [theft_objective_name]."
 	else
 		steal_target = new new_target
 		explanation_text = "Steal [steal_target.name]."
