@@ -67,7 +67,7 @@ export const MerchVendor = (props, context) => {
 
   return (
     <Window title="Merch Computer" width={450} height={590} resizable>
-      <Window.Content scrollable className="Layout__content--flexColumn">
+      <Window.Content scrollable>
         <Section title="User">
           <Box m={2}>
             Doing your job and not getting any recognition at work? Well,
@@ -96,7 +96,7 @@ export const MerchVendor = (props, context) => {
             </FlexItem>
           </Flex>
         </Section>
-        <Section title="Products" flexGrow="1">
+        <Section title="Products">
           <MerchVendorNavigation />
           <MerchProducts />
         </Section>
@@ -111,7 +111,7 @@ const MerchVendorNavigation = (properties, context) => {
   const { login_state } = data;
 
   return (
-    <Tabs flexGrow="1">
+    <Tabs>
       <Tabs.Tab selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
         Toys
       </Tabs.Tab>

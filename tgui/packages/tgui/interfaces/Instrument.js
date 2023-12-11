@@ -524,7 +524,6 @@ const InstrumentStatusAdvanced = (properties, context) => {
                   <Dropdown
                     options={['Linear', 'Exponential']}
                     selected={smt}
-                    stepPixelSize="6"
                     onSelected={(v) =>
                       act('setsustainmode', {
                         new: v,
