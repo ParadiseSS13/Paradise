@@ -190,6 +190,9 @@
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
+
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"

@@ -105,9 +105,6 @@
 	qdel(dummy)
 	return TRUE
 
-/obj/item/gun/medbeam/proc/on_beam_hit(mob/living/target)
-	return
-
 /obj/item/gun/medbeam/proc/on_beam_tick(mob/living/target)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target

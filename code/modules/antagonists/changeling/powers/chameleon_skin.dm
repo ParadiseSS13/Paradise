@@ -7,7 +7,7 @@
 	chemical_cost = 25
 	req_human = TRUE
 	power_type = CHANGELING_PURCHASABLE_POWER
-	menu_location = CLING_MENU_UTILITY
+	category = /datum/changeling_power_category/utility
 
 /datum/action/changeling/chameleon_skin/sting_action(mob/user)
 	var/mob/living/carbon/human/H = user //SHOULD always be human, because req_human = TRUE
