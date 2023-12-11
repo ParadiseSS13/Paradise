@@ -108,6 +108,7 @@
 	var/w_class_on = WEIGHT_CLASS_BULKY
 
 	armour_penetration_flat = 10
+	armour_penetration_percentage = 50
 	origin_tech = "magnets=4;syndicate=5"
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	max_integrity = 200
@@ -574,7 +575,7 @@
 	icon_state = "singulohammer0"
 
 /obj/item/singularityhammer/proc/vortex(turf/pull, mob/wielder)
-	for(var/atom/movable/X in orange(5, pull))
+	for(var/atom/movable/X in range(5, pull))
 		if(X.move_resist == INFINITY)
 			continue
 		if(X == wielder)

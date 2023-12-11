@@ -2,7 +2,7 @@
 	name = "soap"
 	desc = "A cheap bar of soap. Doesn't smell."
 	gender = PLURAL
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/janitor.dmi'
 	icon_state = "soap"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/custodial_righthand.dmi'
@@ -105,6 +105,11 @@
 	desc = "A deluxe Waffle Co. brand bar of soap. Smells of comdoms."
 	icon_state = "soapdeluxe"
 	cleanspeed = 40 //slightly better because deluxe -- captain gets one of these
+
+/obj/item/soap/deluxe/laundry
+	name = "laundry soap"
+	desc = "Very cheap but effective soap. Dries out the skin."
+	icon_state = "soapsoviet"
 
 /obj/item/soap/syndie
 	desc = "An untrustworthy bar of soap made of strong chemical agents that dissolve blood faster."
