@@ -40,7 +40,7 @@
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
+	var/list/grab_do_not_move = list()  /// other mobs we wont move when we're grab pulled. Not empty only when being grab pulled
 	var/memory = ""
 	var/notransform = FALSE	//Carbon
 	/// True for left hand active, otherwise for right hand active

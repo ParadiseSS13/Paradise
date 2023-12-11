@@ -16,8 +16,8 @@
 		return TRUE
 	if(ismob(mover))
 		var/mob/moving_mob = mover
-		if((currently_grab_pulled && moving_mob.currently_grab_pulled))
-			return FALSE
+		if(src in moving_mob.grab_do_not_move)
+			return TRUE
 		if(mover in buckled_mobs)
 			return TRUE
 	return (!mover.density || !density || horizontal)
@@ -180,8 +180,6 @@
 
 	if(prev_pulling_loc && mob.pulling?.face_while_pulling && (mob.pulling.loc != prev_pulling_loc))
 		mob.setDir(get_dir(mob, mob.pulling)) // Face welding tanks and stuff when pulling
-	else
-		mob.setDir(direct)
 
 	moving = 0
 	if(mob && .)
