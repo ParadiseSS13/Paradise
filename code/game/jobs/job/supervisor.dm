@@ -89,9 +89,9 @@
 /datum/outfit/job/hop
 	name = "Head of Personnel"
 	jobtype = /datum/job/hop
-	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
+	uniform = /obj/item/clothing/under/rank/civilian/hop
 	shoes = /obj/item/clothing/shoes/brown
-	head = /obj/item/clothing/head/hopcap
+	head = /obj/item/clothing/head/hop
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
 	l_ear = /obj/item/radio/headset/heads/hop
 	id = /obj/item/card/id/hop
@@ -275,7 +275,7 @@
 	suit = /obj/item/clothing/suit/storage/iaa/blackjacket
 	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset/headset_iaa/alt
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
+	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/internalaffairsagent
 	l_pocket = /obj/item/laser_pointer
 	r_pocket = /obj/item/clothing/accessory/lawyers_badge

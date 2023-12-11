@@ -319,7 +319,7 @@
 		var/count = length(fish_types[key])
 		var/fish_description = "[initial(fish_type.fish_name)][count > 1 ? " (x[count])" : ""]"
 		fish_types_input[fish_description] = fish_type
-	var/caught_fish = input("Select a fish to catch.", "Fishing") as null|anything in fish_types_input		//Select a fish from the tank
+	var/caught_fish = tgui_input_list(user, "Select a fish to catch.", "Fishing", fish_types_input)		//Select a fish from the tank
 	if(!caught_fish)
 		return
 	if(!Adjacent(user))

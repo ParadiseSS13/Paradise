@@ -342,6 +342,8 @@ GLOBAL_VAR(bomb_set)
 /obj/machinery/nuclearbomb/attack_hand(mob/user as mob)
 	if(!panel_open)
 		return ui_interact(user)
+	if(!Adjacent(user))
+		return
 	if(removal_stage != NUKE_CORE_FULLY_EXPOSED || !core)
 		return wires.Interact(user)
 	if(timing) //removing the core is less risk then cutting wires, and doesnt take long, so we should not let crew do it while the nuke is armed. You can however get to it, without the special screwdriver, if you put the NAD in.

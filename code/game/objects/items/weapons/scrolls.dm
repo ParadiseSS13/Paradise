@@ -28,7 +28,7 @@
 		return
 
 	var/picked_area
-	picked_area = input(user, "Area to jump to", "Teleport where?", picked_area) as null|anything in SSmapping.teleportlocs
+	picked_area = tgui_input_list(user, "Area to jump to", "Teleport where?", SSmapping.teleportlocs)
 	if(!picked_area)
 		return
 
