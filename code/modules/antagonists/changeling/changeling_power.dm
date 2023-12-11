@@ -13,6 +13,8 @@
 	background_icon_state = "bg_changeling"
 	/// A reference to the changeling's changeling antag datum.
 	var/datum/antagonist/changeling/cling
+	/// Datum path used to determine the location and name of the power in changeling evolution menu UI
+	var/datum/changeling_power_category/category
 	/// Determines whether the power is always given to the changeling or if it must be purchased.
 	var/power_type = CHANGELING_UNOBTAINABLE_POWER
 	/// A description of what the power does.
@@ -31,8 +33,6 @@
 	var/active = FALSE
 	/// If this power can be used while the changeling has the `TRAIT_FAKE_DEATH` trait.
 	var/bypass_fake_death = FALSE
-	/// Where this ability should be stored in the changeling menu
-	var/menu_location
 
 /*
  * Changeling code relies on on_purchase to grant powers.

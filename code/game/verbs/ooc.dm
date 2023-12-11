@@ -269,7 +269,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	// Client closed the window? Some other error? This is unexpected behaviour, let's CRASH with some info.
 	if(!sizes["paramapwindow.size"])
-		CRASH("sizes does not contain paramapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
+		CRASH("sizes does not contain paramapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- list contents:[list2params(sizes)] --- sizes length: [length(sizes)]")
 
 	var/list/map_size = splittext(sizes["paramapwindow.size"], "x")
 
