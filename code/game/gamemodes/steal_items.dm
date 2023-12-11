@@ -144,7 +144,7 @@
 	location_override = "the Warden's Office"
 
 /datum/theft_objective/dl88
-	name = "the DL-88 energy revolver"
+	name = "the detective's DL-88 energy revolver"
 	typepath = /obj/item/gun/energy/detective
 	protected_jobs = list("Detective")
 	location_override = "the Detective's Office"

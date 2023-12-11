@@ -716,6 +716,7 @@
 	options["The Original"] = "handgun"
 	options["Golden Mamba"] = "handgun_golden-mamba"
 	options["NT's Finest"] = "handgun_nt-finest"
+	RegisterSignal(src, COMSIG_PARENT_QDELETING, PROC_REF(alert_admins_on_destroy))
 
 /obj/item/gun/energy/detective/Destroy()
 	QDEL_NULL(Announcer)
