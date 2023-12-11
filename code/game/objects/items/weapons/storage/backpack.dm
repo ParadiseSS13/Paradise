@@ -213,6 +213,13 @@
 	icon_state = "blueshieldpack"
 	item_state = "blueshieldpack"
 
+/obj/item/storage/backpack/robotics
+	name = "robotics backpack"
+	desc = "A specially designed backpack. It's fire resistant and smells vaguely of welding fuel."
+	icon_state = "robopack"
+	item_state = "robopack"
+	resistance_flags = FIRE_PROOF
+
 /*
  * Satchel Types
  */
@@ -335,6 +342,13 @@
 	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
 	item_state = "satchel-blueshield"
+
+/obj/item/storage/backpack/satchel_robo
+	name = "bioengineer satchel"
+	desc = "A black satchel designed for holding repair equipment."
+	icon_state = "satchel-robo"
+	item_state = "satchel-robo"
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -861,6 +875,12 @@
 	desc = "A robust duffelbag issued to Nanotrasen's finest."
 	icon_state = "duffel-blueshield"
 	item_state = "duffel-blueshield"
+
+/obj/item/storage/backpack/duffel/robotics
+	name = "roboticist duffelbag"
+	desc = "A duffelbag designed to hold tools."
+	icon_state = "duffel-robo"
+	item_state = "duffel-robo"
 
 //ERT backpacks.
 /obj/item/storage/backpack/ert
