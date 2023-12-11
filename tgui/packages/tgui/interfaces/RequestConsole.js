@@ -36,7 +36,7 @@ export const RequestConsole = (props, context) => {
   };
 
   return (
-    <Window width={520} height={295}>
+    <Window width={520} height={330}>
       <Window.Content scrollable>{pickPage(screen)}</Window.Content>
     </Window>
   );

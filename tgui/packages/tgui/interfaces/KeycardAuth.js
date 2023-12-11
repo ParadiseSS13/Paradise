@@ -109,7 +109,7 @@ export const KeycardAuth = (props, context) => {
       );
     }
     return (
-      <Window>
+      <Window width={540} height={265}>
         <Window.Content>
           {infoBox}
           {data.event === 'Emergency Response Team' && (
