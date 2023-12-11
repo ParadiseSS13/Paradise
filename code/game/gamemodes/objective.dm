@@ -567,16 +567,22 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 /datum/objective/steal/proc/select_target()
 	var/list/possible_items_all = GLOB.potential_theft_objectives+"custom"
 	var/new_target = input("Select target:", "Objective target", null) as null|anything in possible_items_all
-	if(!new_target) return
+	if(!new_target)
+		return
+
 	if(new_target == "custom")
 		var/datum/theft_objective/O=new
 		O.typepath = input("Select type:","Type") as null|anything in typesof(/obj/item)
-		if(!O.typepath) return
+		if(!O.typepath)
+			return
+
 		var/tmp_obj = new O.typepath
 		var/custom_name = tmp_obj:name
 		qdel(tmp_obj)
 		O.name = sanitize(copytext(input("Enter target name:", "Objective target", custom_name) as text|null,1,MAX_NAME_LEN))
-		if(!O.name) return
+		if(!O.name)
+			return
+
 		steal_target = O
 		explanation_text = "Steal [O.name]."
 	else
@@ -599,23 +605,33 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	return FALSE
 
 /datum/objective/steal/proc/give_kit(obj/item/item_path)
-	var/I = new item_path
-	var/list/slots = list(
+	var/list/datum/mind/objective_owners = get_owners()
+	if(!length(objective_owners))
+		return
+
+	var/obj/item/item_to_give = new item_path
+	var/static/list/slots = list(
 		"backpack" = SLOT_HUD_IN_BACKPACK,
 		"left pocket" = SLOT_HUD_LEFT_STORE,
 		"right pocket" = SLOT_HUD_RIGHT_STORE,
 		"left hand" = SLOT_HUD_LEFT_HAND,
 		"right hand" = SLOT_HUD_RIGHT_HAND,
 	)
-	for(var/datum/mind/M in get_owners())
-		var/mob/living/carbon/human/H = M.current
-		var/where = H.equip_in_one_of_slots(I, slots)
+
+	for(var/datum/mind/kit_receiver_mind as anything in shuffle(objective_owners))
+		var/mob/living/carbon/human/kit_receiver = kit_receiver_mind.current
+		if(!kit_receiver)
+			continue
+
+		var/where = kit_receiver.equip_in_one_of_slots(item_to_give, slots)
 		if(where)
-			to_chat(H, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
-		else
-			to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
-			message_admins("[ADMIN_LOOKUPFLW(H)] Failed to spawn with their [item_path] theft kit.")
-			qdel(I)
+			to_chat(kit_receiver, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+			return
+
+		to_chat(kit_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+		message_admins("[ADMIN_LOOKUPFLW(kit_receiver)] Failed to spawn with their [item_path] theft kit.")
+
+	qdel(item_to_give)
 
 
 /datum/objective/absorb
