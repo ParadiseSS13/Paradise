@@ -441,7 +441,8 @@ REAGENT SCANNER
 			if(!organ_found)
 				msgs += "<span class='warning'>No implants located.</span>"
 			msgs += "<hr>"
-			msgs.Add(get_chemscan_results(user, H))
+			if(ismachineperson(H))
+				msgs.Add(get_chemscan_results(user, H))
 			msgs += "<span class='notice'>Subject temperature: [round(H.bodytemperature-T0C, 0.01)]&deg;C ([round(H.bodytemperature*1.8-459.67, 0.01)]&deg;F)</span>"
 		if("ai")
 			var/mob/living/silicon/ai/A = M
