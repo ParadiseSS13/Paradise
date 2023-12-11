@@ -7,10 +7,11 @@ export const NuclearBomb = (props, context) => {
 
   if (!data.extended) {
     return (
-      <Window>
+      <Window width={350} height={115}>
         <Window.Content>
           <Section title="Deployment">
             <Button
+              fluid
               icon="exclamation-triangle"
               content="Deploy Nuclear Device (will bolt device to floor)"
               onClick={() => act('deploy')}
