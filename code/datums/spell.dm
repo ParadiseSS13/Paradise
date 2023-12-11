@@ -114,7 +114,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/smoke_type = SMOKE_NONE
 	var/smoke_amt = 0
 
-	var/critfailchance = 0
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on the admin zlevel
 	/// Whether or not the spell functions in a holy place
 	var/holy_area_cancast = TRUE
@@ -360,10 +359,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(sound)
 		playMagSound()
 
-	if(prob(critfailchance))
-		critfail(targets)
-	else
-		cast(targets, user = user)
+	cast(targets, user = user)
 	after_cast(targets, user)
 	if(action)
 		action.UpdateButtonIcon()
@@ -432,9 +428,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
  * * user - The caster of the spell
  */
 /obj/effect/proc_holder/spell/proc/cast(list/targets, mob/user = usr)
-	return
-
-/obj/effect/proc_holder/spell/proc/critfail(list/targets)
 	return
 
 /obj/effect/proc_holder/spell/proc/revert_cast(mob/user = usr) //resets recharge or readds a charge
