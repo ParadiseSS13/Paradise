@@ -31,3 +31,8 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "pen"
 	item_state = "pen"
+
+/obj/item/grenade/syndieminibomb/pen/attack_self(mob/user)
+	if(!active)
+		visible_message("<span class='notice'>[user] fumbles with [src]!</span>")
+	. = ..()

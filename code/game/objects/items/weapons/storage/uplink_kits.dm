@@ -59,6 +59,7 @@
 	items = list(
 		/obj/item/storage/briefcase/false_bottomed, // 20TC
 		/obj/item/suppressor, // 5TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 20TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 6TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 6TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
@@ -68,7 +69,7 @@
 		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
-		/obj/item/grenade/syndieminibomb/pen, // 30 TC
+		/obj/item/storage/box/syndie_kit/pen_bomb, // 30 TC
 		/obj/item/CQC_manual) // 13TC
 
 /obj/item/storage/box/syndie_kit/bundle/infiltrator // 155TC + RCD & Mesons Autoimplanter
@@ -130,7 +131,7 @@
 		/obj/item/aiModule/syndicate, // 15 TC
 		/obj/item/storage/box/syndie_kit/camera_bug, // 5 TC
 		/obj/item/implanter/freedom/prototype, // 10 TC
-		/obj/item/storage/belt/military/traitor/hacker, // 3TC + AI detector for 10 TC
+		/obj/item/storage/belt/military/traitor/hacker, // 15TC + AI detector for 5 TC
 		/obj/item/clothing/gloves/combat, // accounted in belt + toolbox
 		/obj/item/flashlight/emp) // 4TC
 
@@ -179,20 +180,21 @@
 		/obj/item/storage/box/syndie_kit/frag_grenades, // One box, as a treat
 		/obj/item/encryptionkey/syndicate) // 10TC
 
-	var/static/list/metroid = list( // 21 + modules + laser gun
-		/obj/item/mod/control/pre_equipped/traitor_elite, // 9TC
-		/obj/item/mod/module/visor/thermal, // 3 TC
-		/obj/item/mod/module/stealth, //0 TC but strong
-		/obj/item/mod/module/power_kick, //0 TC but funny
-		/obj/item/mod/module/sphere_transform, //0TC but should not be allowed to normally be installed
-		/obj/item/autosurgeon/organ/syndicate/laser_arm, //0 TC but otherwise not obtainable.
-		/obj/item/pinpointer/advpinpointer, //4 TC
-		/obj/item/storage/box/syndidonkpockets, //2TC, otherwise they will just die in the first combat to disabler.
-		/obj/item/storage/belt/utility/full/multitool, //0 TC
-		/obj/item/clothing/head/collectable/slime,  //Priceless (0 TC)
-		/obj/item/encryptionkey/syndicate) //2 TC
-
-
+/obj/item/storage/box/syndie_kit/bundle/metroid // 115TC + modules + laser gun
+	name = "Modsuit Bundle"
+	desc = "Don the equipment of an intergalactic bounty hunter and blast your way through the station!"
+	items = list(
+		/obj/item/mod/control/pre_equipped/traitor_elite, // 45TC
+		/obj/item/mod/module/visor/thermal, // 15TC
+		/obj/item/mod/module/stealth, // ?TC
+		/obj/item/mod/module/power_kick, // ?TC
+		/obj/item/mod/module/sphere_transform, // ?TC
+		/obj/item/autosurgeon/organ/syndicate/laser_arm, // ?TC
+		/obj/item/pinpointer/advpinpointer, // 20TC
+		/obj/item/implanter/adrenalin, // 40TC
+		/obj/item/storage/belt/utility/full/multitool, // 15TC
+		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
+		/obj/item/encryptionkey/syndicate) // 10TC
 
 /obj/item/storage/box/syndie_kit/bundle/populate_contents()
 	for(var/obj/item/item as anything in items)
@@ -413,6 +415,15 @@
 	new /obj/item/gun/projectile/revolver(src)
 	new /obj/item/ammo_box/a357(src)
 
+/obj/item/storage/box/syndie_kit/stechkin
+	name = "\improper FK-69 Stechkin kit"
+	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines."
+
+/obj/item/storage/box/syndie_kit/stechkin/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+
 /obj/item/storage/box/syndie_kit/camera_bug
 	name = "\improper Camera Bug kit"
 
@@ -422,3 +433,8 @@
 	for(var/i in 1 to 5)
 		new /obj/item/wall_bug(src, camera)
 
+/obj/item/storage/box/syndie_kit/pen_bomb
+	name = "\improper Pen bomb"
+
+/obj/item/storage/box/syndie_kit/pen_bomb/populate_contents()
+	new /obj/item/grenade/syndieminibomb/pen(src)
