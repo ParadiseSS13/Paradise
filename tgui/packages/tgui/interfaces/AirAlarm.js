@@ -19,10 +19,10 @@ export const AirAlarm = (props, context) => {
   const { locked } = data;
   // Bail straight away if there is no air
   return (
-    <Window width={570} height={410} resizable>
+    <Window width={570} height={locked ? 317 : 785} resizable>
       <Window.Content scrollable>
-        <AirStatus />
         <InterfaceLockNoticeBox />
+        <AirStatus />
         {!locked && (
           <Fragment>
             <AirAlarmTabs />

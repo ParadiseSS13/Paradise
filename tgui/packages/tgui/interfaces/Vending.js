@@ -99,10 +99,10 @@ export const Vending = (props, context) => {
     <Window
       title="Vending Machine"
       width={450}
-      height={Math.min(205 + inventory.length * 30, 600)}
+      height={Math.min(200 + inventory.length * 30, 600)}
       resizable
     >
-      <Window.Content scrollable>
+      <Window.Content scrollable className="Layout__content--flexColumn">
         {!!chargesMoney && (
           <Section title="User">
             {user && (
@@ -152,7 +152,7 @@ export const Vending = (props, context) => {
             />
           </Section>
         )}
-        <Section title="Products">
+        <Section title="Products" flexGrow="1">
           <Table>
             {inventory.map((product) => (
               <VendingRow
