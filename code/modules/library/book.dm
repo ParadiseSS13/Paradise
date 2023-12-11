@@ -210,7 +210,7 @@
 	if(protected) //we don't want people touching "special" books, especially ones that use iframes
 		to_chat(user, "<span class='notice'>These pages don't seem to take the ink well. Looks like you can't modify it.</span>")
 		return
-	var/choice = input(user, "What would you like to edit?") as null|anything in list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page")
+	var/choice = tgui_input_list(user, "What would you like to edit?", "Book Edit", list("Title", "Edit Current Page", "Author", "Summary", "Add Page", "Remove Page"))
 	switch(choice)
 		if("Title")
 			var/newtitle = reject_bad_text(stripped_input(user, "Write a new title:"))
