@@ -152,6 +152,10 @@
 	update_state()
 	return
 
+/obj/structure/morgue/attack_ai(mob/user)
+	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
+		attack_hand(user)
+
 /obj/structure/morgue/attackby(P as obj, mob/user as mob, params)
 	if(is_pen(P))
 		var/t = rename_interactive(user, P)
@@ -249,6 +253,10 @@
 		add_fingerprint(user)
 		qdel(src)
 		return
+
+/obj/structure/m_tray/attack_ai(mob/user)
+	if(isrobot(user) && Adjacent(user)) //Robots can open/close it, but not the AI
+		attack_hand(user)
 
 /obj/structure/m_tray/MouseDrop_T(atom/movable/O, mob/living/user)
 	if((!(istype(O, /atom/movable)) || O.anchored || get_dist(user, src) > 1 || get_dist(user, O) > 1 || user.contents.Find(src) || user.contents.Find(O)))
