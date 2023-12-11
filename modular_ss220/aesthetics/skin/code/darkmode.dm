@@ -1,6 +1,6 @@
 /client/activate_darkmode()
 	. = ..()
-	winset(src, "rpane.fullscreenb", "background-color=#494949;text-color=#a4bad6")
+	winset(src, "rpane.fullscreenb", "background-color=#40628a;text-color=#ffffff")
 
 /client/deactivate_darkmode()
 	. = ..()
