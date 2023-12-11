@@ -17,7 +17,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 		to_chat(user, "<span class='warning'><b>[user.ranged_ability.name]</b> has been disabled.")
 		user.ranged_ability.remove_ranged_ability(user)
 		return TRUE //TRUE for failed, FALSE for passed.
-	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	user.face_atom(A)
 	return FALSE
 
@@ -159,6 +158,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
+	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
