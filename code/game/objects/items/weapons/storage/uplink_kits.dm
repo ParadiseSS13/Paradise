@@ -9,8 +9,7 @@
 	name = "Spy Bundle"
 	desc = "Complete your objectives quietly with this compilation of stealthy items."
 	items = list(
-		/obj/item/clothing/under/chameleon, // 5TC
-		/obj/item/clothing/mask/chameleon, // 5TC
+		/obj/item/storage/box/syndie_kit/chameleon, // 20 TC
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
 		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
@@ -20,6 +19,8 @@
 		/obj/item/storage/fancy/cigarettes/cigpack_syndicate, // 7TC
 		/obj/item/flashlight/emp, // 20TC
 		/obj/item/chameleon, // 25TC
+		/obj/item/garrote, // 30 TC
+		/obj/item/door_remote/omni/access_tuner, // 30 TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
 /obj/item/storage/box/syndie_kit/bundle/agent13 // 159
@@ -28,13 +29,14 @@
 	items = list(
 		/obj/item/clothing/under/chameleon, // 5TC
 		/obj/item/card/id/syndicate, // 10TC
-		/obj/item/gun/projectile/automatic/pistol, // 20TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 20TC
 		/obj/item/suppressor, // 5TC
 		/obj/item/ammo_box/magazine/m10mm,  // 3TC
 		/obj/item/ammo_box/magazine/m10mm/hp, // 6TC
 		/obj/item/garrote, // 30TC
 		/obj/item/door_remote/omni/access_tuner, // 30TC
 		/obj/item/clothing/glasses/chameleon/thermal, // 15TC
+		/obj/item/storage/briefcase/false_bottomed, // 10 TC
 		/obj/item/implanter/freedom, // 25TC
 		/obj/item/coin/gold, // 0TC
 		/obj/item/encryptionkey/syndicate) // 10TC
@@ -55,8 +57,9 @@
 	name = "Agent 007 Bundle"
 	desc = "Shake your Martini and stir up trouble with this bundle of lethal equipment mixed with a spritz of gadgetry to keep things interesting."
 	items = list(
-		/obj/item/gun/projectile/automatic/pistol, // 20TC
+		/obj/item/storage/briefcase/false_bottomed, // 20TC
 		/obj/item/suppressor, // 5TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 20TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 6TC
 		/obj/item/ammo_box/magazine/m10mm/ap, // 6TC
 		/obj/item/clothing/under/suit/really_black, // 0TC
@@ -66,8 +69,8 @@
 		/obj/item/clothing/glasses/hud/security/chameleon, // 10TC
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail,	// 0TC
-		/obj/item/dnascrambler, // 7TC
-		/obj/item/CQC_manual) // 50TC
+		/obj/item/storage/box/syndie_kit/pen_bomb, // 30 TC
+		/obj/item/CQC_manual) // 13TC
 
 /obj/item/storage/box/syndie_kit/bundle/infiltrator // 155TC + RCD & Mesons Autoimplanter
 	name = "Infiltration Bundle"
@@ -98,6 +101,7 @@
 		/obj/item/clothing/mask/gas/clown_hat, // 0TC
 		/obj/item/grenade/plastic/c4, // 1TC
 		/obj/item/thermal_drill/diamond_drill/syndicate, // 1TC
+		/obj/item/implanter/freedom/prototype, // 10 TC
 		/obj/item/encryptionkey/syndicate) // 10TC
 
 /obj/item/storage/box/syndie_kit/bundle/implant // 200TC
@@ -105,7 +109,7 @@
 	desc = "A few useful bio-chips to give you some options for when you inevitably get captured by the Security."
 	items = list(
 		/obj/item/implanter/freedom, // 25TC
-		/obj/item/implanter/uplink, // 20TC (+50 Free TC)
+		/obj/item/implanter/stealth, // 45 TC
 		/obj/item/implanter/emp, // 5TC (half of EMP kit)
 		/obj/item/implanter/adrenalin, // 40TC
 		/obj/item/implanter/explosive, // 10TC
@@ -118,16 +122,18 @@
 	items = list(
 		/obj/item/melee/energy/sword/saber/blue, // 40TC
 		/obj/item/card/emag, // 30TC
+		/obj/item/door_remote/omni/access_tuner, // 30 TC, HACK EVERYTHING
 		/obj/item/encryptionkey/syndicate, // 10TC
 		/obj/item/encryptionkey/binary, // 25TC
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/storage/box/syndie_kit/emp, // 10TC
 		/obj/item/aiModule/toyAI, // 0TC
-		/obj/item/clothing/glasses/chameleon/thermal, // 15TC
-		/obj/item/storage/belt/military/traitor/hacker, // 15TC
+		/obj/item/aiModule/syndicate, // 15 TC
+		/obj/item/storage/box/syndie_kit/camera_bug, // 5 TC
+		/obj/item/implanter/freedom/prototype, // 10 TC
+		/obj/item/storage/belt/military/traitor/hacker, // 15TC + AI detector for 5 TC
 		/obj/item/clothing/gloves/combat, // accounted in belt + toolbox
-		/obj/item/multitool/ai_detect, // 5TC
-		/obj/item/flashlight/emp) // 20TC
+		/obj/item/flashlight/emp) // 4TC
 
 /obj/item/storage/box/syndie_kit/bundle/darklord // 168TC + Telekinesis
 	name = "Dark Lord Bundle"
@@ -163,13 +169,15 @@
 	desc = "A variety of grenades and pyrotechnics to ensure you can blast your way through any situation. "
 	items = list(
 		/obj/item/storage/belt/grenade/tactical, // Contains 2 Frag and EMP grenades, 5 C4 Explosives, 5 Smoke and Gluon grenades and 1 Minibomb grenade ~20TC Estimate
-		/obj/item/gun/projectile/automatic/pistol, // 20TC
+		/obj/item/storage/box/syndie_kit/stechkin, // 20TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 6TC
 		/obj/item/ammo_box/magazine/m10mm/fire, // 6TC
 		/obj/item/mod/control/pre_equipped/traitor, // 30TC
 		/obj/item/clothing/gloves/combat, // ~1TC
 		/obj/item/card/id/syndicate, // 10TC
 		/obj/item/clothing/shoes/chameleon/noslip, // 10TC
+		/obj/item/storage/box/syndidonkpockets, // 10 TC
+		/obj/item/storage/box/syndie_kit/frag_grenades, // One box, as a treat
 		/obj/item/encryptionkey/syndicate) // 10TC
 
 /obj/item/storage/box/syndie_kit/bundle/metroid // 115TC + modules + laser gun
@@ -183,7 +191,7 @@
 		/obj/item/mod/module/sphere_transform, // ?TC
 		/obj/item/autosurgeon/organ/syndicate/laser_arm, // ?TC
 		/obj/item/pinpointer/advpinpointer, // 20TC
-		/obj/item/storage/box/syndidonkpockets, // 10TC
+		/obj/item/implanter/adrenalin, // 40TC
 		/obj/item/storage/belt/utility/full/multitool, // 15TC
 		/obj/item/clothing/head/collectable/slime,  // 0TC priceless
 		/obj/item/encryptionkey/syndicate) // 10TC
@@ -407,6 +415,15 @@
 	new /obj/item/gun/projectile/revolver(src)
 	new /obj/item/ammo_box/a357(src)
 
+/obj/item/storage/box/syndie_kit/stechkin
+	name = "\improper FK-69 Stechkin kit"
+	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines."
+
+/obj/item/storage/box/syndie_kit/stechkin/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+	new /obj/item/ammo_box/magazine/m10mm(src)
+
 /obj/item/storage/box/syndie_kit/camera_bug
 	name = "\improper Camera Bug kit"
 
@@ -416,3 +433,8 @@
 	for(var/i in 1 to 5)
 		new /obj/item/wall_bug(src, camera)
 
+/obj/item/storage/box/syndie_kit/pen_bomb
+	name = "\improper Pen bomb"
+
+/obj/item/storage/box/syndie_kit/pen_bomb/populate_contents()
+	new /obj/item/grenade/syndieminibomb/pen(src)
