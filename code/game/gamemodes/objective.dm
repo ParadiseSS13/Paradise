@@ -550,9 +550,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 
 		steal_target = O
-		explanation_text = "Steal [steal_target]. One was last seen in [get_location()]. "
-		if(length(O.protected_jobs) && O.job_possession)
-			explanation_text += "It may also be in the possession of the [english_list(O.protected_jobs, and_text = " or ")]."
+		update_explanation_text()
 		if(steal_target.special_equipment)
 			give_kit(steal_target.special_equipment)
 		return
@@ -575,10 +573,15 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 		explanation_text = "Steal [O.name]."
 	else
 		steal_target = new new_target
-		explanation_text = "Steal [steal_target.name]."
+		update_explanation_text()
 		if(steal_target.special_equipment)
 			give_kit(steal_target.special_equipment)
 	return steal_target
+
+/datum/objective/steal/update_explanation_text()
+	explanation_text = "Steal [steal_target.name]. One was last seen in [get_location()]. "
+	if(length(steal_target.protected_jobs) && steal_target.job_possession)
+		explanation_text += "It may also be in the possession of the [english_list(steal_target.protected_jobs, and_text = " or ")]."
 
 /datum/objective/steal/check_completion()
 	if(!steal_target)
