@@ -33930,7 +33930,7 @@
 /obj/machinery/camera{
 	c_tag = "Xenobiology Lab - Special Containment";
 	dir = 8;
-	network = list("Research","SS13")
+	network = list("Research","SS13","Containmentssss")
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -37658,11 +37658,11 @@
 /turf/simulated/floor/plasteel/dark/telecomms,
 /area/station/science/server/coldroom)
 "cyT" = (
-/obj/structure/closet/crate/trashcart/bloody,
 /obj/item/toy/plushie/shark,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /obj/effect/landmark/spawner/rev,
 /obj/effect/decal/cleanable/blood/old,
+/obj/structure/closet/crate,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "czb" = (
@@ -50076,7 +50076,7 @@
 /area/station/maintenance/starboard2)
 "eVa" = (
 /obj/structure/table,
-/obj/item/paper/crumpled/bloody/station/meta/hacker,
+/obj/item/paper/crumpled/bloody/hacker,
 /turf/simulated/floor/bluespace,
 /area/station/maintenance/starboard)
 "eVb" = (
@@ -51789,6 +51789,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan{
 	dir = 6
 	},
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/bluegrid,
 /area/station/maintenance/starboard)
 "fFL" = (
@@ -89980,6 +89981,7 @@
 	name = "trash spawner"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/cyan,
+/obj/item/pen,
 /turf/simulated/floor/bluegrid,
 /area/station/maintenance/starboard)
 "woN" = (
@@ -91449,6 +91451,14 @@
 	pixel_x = 4;
 	pixel_y = -3;
 	req_access_txt = "55"
+	},
+/obj/machinery/computer/security/telescreen{
+	desc = "Used for watching the special containment chamber.";
+	layer = 4;
+	name = "Special Containment Chamber Telescreen";
+	network = list("Containment");
+	pixel_x = -2;
+	pixel_y = 30
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/xenobiology)

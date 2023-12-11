@@ -304,15 +304,6 @@
 	icon_opened = "trashcart_open"
 	icon_closed = "trashcart"
 
-/obj/structure/closet/crate/trashcart/bloody
-	desc = "This trash cart don't look right..."
-	name = "old trash cart"
-	icon = 'icons/obj/janitor.dmi'
-	icon_state = "trashcartgib"
-	icon_opened = "trashcartopengib"
-	icon_closed = "trashcartgib"
-	storage_capacity = 5
-
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
