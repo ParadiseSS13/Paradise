@@ -623,14 +623,27 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 			continue
 
 		var/where = kit_receiver.equip_in_one_of_slots(item_to_give, slots)
-		if(where)
-			to_chat(kit_receiver, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
-			return
+		if(!where)
+			continue
 
-		to_chat(kit_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
-		message_admins("[ADMIN_LOOKUPFLW(kit_receiver)] Failed to spawn with their [item_path] theft kit.")
+		to_chat(kit_receiver, "<br><br><span class='info'>In your [where] is a box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+		for(var/datum/mind/objective_owner as anything in objective_owners)
+			if(kit_receiver_mind == objective_owner || !objective_owner.current)
+				continue
+
+			to_chat(objective_owner.current, "<br><br>[kit_receiver] has received box containing <b>items and instructions</b> to help you with your steal objective.</span><br>")
+
+		return
 
 	qdel(item_to_give)
+
+	for(var/datum/mind/objective_owner as anything in objective_owners)
+		var/mob/living/carbon/human/failed_receiver = objective_owner.current
+		if(!failed_receiver)
+			continue
+
+		to_chat(failed_receiver, "<span class='userdanger'>Unfortunately, you weren't able to get a stealing kit. This is very bad and you should adminhelp immediately (press F1).</span>")
+		message_admins("[ADMIN_LOOKUPFLW(failed_receiver)] Failed to spawn with their [item_path] theft kit.")
 
 
 /datum/objective/absorb
