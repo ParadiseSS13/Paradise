@@ -310,7 +310,7 @@
 	adjustOxyLoss(max(health - HEALTH_THRESHOLD_DEAD, 0))
 	// super check for weird mobs, including ones that adjust hp
 	// we don't want to go overboard and gib them, though
-	for(var/i = 1 to 5)
+	for(var/i in 1 to 5)
 		if(health < HEALTH_THRESHOLD_DEAD)
 			break
 		take_overall_damage(max(5, health - HEALTH_THRESHOLD_DEAD), 0)
