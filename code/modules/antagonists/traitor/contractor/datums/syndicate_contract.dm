@@ -518,6 +518,7 @@
 		return
 	if(prob(25)) //You either get broken ribs, or a broken limb and IB if you made it this far
 		injury_target = M.get_organ(BODY_ZONE_CHEST)
+		default_damage(M)
 		injury_target.fracture()
 	else
 		injury_target = M.get_organ(pick(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_R_LEG))
