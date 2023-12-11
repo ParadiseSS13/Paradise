@@ -379,9 +379,10 @@
 /obj/item/clothing/gloves/chameleon
 	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
+	siemens_coefficient = 0
+	permeability_coefficient = 0.05
 	icon_state = "yellow"
 	item_state = "ygloves"
-
 	resistance_flags = NONE
 	armor = list(MELEE = 5, BULLET = 5, LASER = 5, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 50, ACID = 50)
 
