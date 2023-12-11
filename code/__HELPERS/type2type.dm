@@ -207,6 +207,8 @@
 			return 'icons/mob/screen_operative.dmi'
 		if("White")
 			return 'icons/mob/screen_white.dmi'
+		if("Midnight")
+			return 'icons/mob/screen_midnight.dmi'
 		// SS220 ADDITION START
 		if("Vaporwave")
 			return 'modular_ss220/aesthetics/skin/icons/screen_vaporwave.dmi'

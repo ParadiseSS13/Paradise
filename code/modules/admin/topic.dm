@@ -2678,8 +2678,8 @@
 		if(!paths)
 			alert("The path list you sent is empty")
 			return
-		if(length(paths) > 5)
-			alert("Select fewer object types, (max 5)")
+		if(length(paths) > 20)
+			alert("Select fewer object types, (max 20)")
 			return
 
 		var/list/offset = splittext(href_list["offset"],",")

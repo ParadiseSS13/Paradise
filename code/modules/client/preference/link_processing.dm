@@ -29,7 +29,7 @@
 				var/datum/job/job = locate(href_list["job"])
 				if(job)
 					var/choices = list(job.title) + job.alt_titles
-					var/choice = input("Pick a title for [job.title].", "Character Generation", active_character.GetPlayerAltTitle(job)) as anything in choices | null
+					var/choice = tgui_input_list(user, "Pick a title for [job.title]", "Character Generation", choices)
 					if(choice)
 						active_character.SetPlayerAltTitle(job, choice)
 						active_character.SetChoices(user)
@@ -223,7 +223,9 @@
 						if(can_use_species(user, _species))
 							new_species += _species
 
-					active_character.species = input("Please select a species", "Character Generation", null) in sortTim(new_species, GLOBAL_PROC_REF(cmp_text_asc))
+					active_character.species = tgui_input_list(user, "Please select a species", "Character Generation", sortList(new_species))
+					if(!active_character.species)
+						return
 					var/datum/species/NS = GLOB.all_species[active_character.species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						active_character.species = prev_species
@@ -309,14 +311,17 @@
 						if(!(lang.flags & RESTRICTED))
 							new_languages += lang.name
 
-					active_character.language = input("Please select a secondary language", "Character Generation", null) in sortTim(new_languages, GLOBAL_PROC_REF(cmp_text_asc))
+					active_character.language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortList(new_languages))
+					if(!active_character.language)
+						return
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
 						var/list/autohiss_choice = list("Off" = AUTOHISS_OFF, "Basic" = AUTOHISS_BASIC, "Full" = AUTOHISS_FULL)
-						var/new_autohiss_pref = input(user, "Choose your character's auto-accent level:", "Character Preference") as null|anything in autohiss_choice
-						if(new_autohiss_pref)
-							active_character.autohiss_mode = autohiss_choice[new_autohiss_pref]
+						var/new_autohiss_pref = tgui_input_list(user, "Choose your character's auto-accent level", "Character Preference", autohiss_choice)
+						if(!new_autohiss_pref)
+							return
+						active_character.autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
 					var/new_metadata = input(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference" , active_character.metadata)  as message|null
@@ -324,9 +329,10 @@
 						active_character.metadata = sanitize(copytext_char(new_metadata,1,MAX_MESSAGE_LEN))	// SS220 EDIT - ORIGINAL: copytext
 
 				if("b_type")
-					var/new_b_type = input(user, "Choose your character's blood-type:", "Character Preference") as null|anything in list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" )
-					if(new_b_type)
-						active_character.b_type = new_b_type
+					var/new_b_type = tgui_input_list(user, "Choose your character's blood-type", "Character Preference", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
+					if(!new_b_type)
+						return
+					active_character.b_type = new_b_type
 
 				if("hair")
 					if(!(S.bodyflags & BALD))
@@ -369,12 +375,12 @@
 								valid_hairstyles += hairstyle
 
 					sortTim(valid_hairstyles, GLOBAL_PROC_REF(cmp_text_asc)) //this alphabetizes the list
-					var/new_h_style = input(user, "Choose your character's hair style:", "Character Preference") as null|anything in valid_hairstyles
+					var/new_h_style = tgui_input_list(user, "Choose your character's hair style:", "Character Preference", valid_hairstyles)
 					if(new_h_style)
 						active_character.h_style = new_h_style
 
 				if("h_grad_style")
-					var/result = input(user, "Choose your character's hair gradient style:", "Character Preference") as null|anything in GLOB.hair_gradients_list
+					var/result = tgui_input_list(user, "Choose your character's hair gradient style", "Character Preference", GLOB.hair_gradients_list)
 					if(result)
 						active_character.h_grad_style = result
 
@@ -414,7 +420,7 @@
 							valid_head_accessory_styles += head_accessory_style
 
 						sortTim(valid_head_accessory_styles, GLOBAL_PROC_REF(cmp_text_asc))
-						var/new_head_accessory_style = input(user, "Choose the style of your character's head accessory:", "Character Preference") as null|anything in valid_head_accessory_styles
+						var/new_head_accessory_style = tgui_input_list(user, "Choose the style of your character's head accessory", "Character Preference", valid_head_accessory_styles)
 						if(new_head_accessory_style)
 							active_character.ha_style = new_head_accessory_style
 
@@ -423,7 +429,6 @@
 						return
 					if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 						var/list/valid_alt_heads = list()
-						valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option
 						for(var/alternate_head in GLOB.alt_heads_list)
 							var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
 							if(!(active_character.species in head.species_allowed))
@@ -431,7 +436,7 @@
 
 							valid_alt_heads += alternate_head
 
-						var/new_alt_head = input(user, "Choose your character's alternate head style:", "Character Preference") as null|anything in valid_alt_heads
+						var/new_alt_head = tgui_input_list(user, "Choose your character's alternate head style", "Character Preference", valid_alt_heads)
 						if(new_alt_head)
 							active_character.alt_head = new_alt_head
 						if(active_character.m_styles["head"])
@@ -443,7 +448,6 @@
 				if("m_style_head")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
 						var/list/valid_markings = list()
-						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[markingstyle]
 							if(!(active_character.species in M.species_allowed))
@@ -472,7 +476,7 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
-						var/new_marking_style = input(user, "Choose the style of your character's head markings:", "Character Preference", active_character.m_styles["head"]) as null|anything in valid_markings
+						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's head markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["head"] = new_marking_style
 
@@ -486,7 +490,6 @@
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
 						var/list/valid_markings = list()
-						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
 							if(!(active_character.species in M.species_allowed))
@@ -496,7 +499,7 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
-						var/new_marking_style = input(user, "Choose the style of your character's body markings:", "Character Preference", active_character.m_styles["body"]) as null|anything in valid_markings
+						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's body markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["body"] = new_marking_style
 
@@ -510,7 +513,6 @@
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						var/list/valid_markings = list()
-						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/tail/M = GLOB.marking_styles_list[markingstyle]
 							if(M.marking_location != "tail")
@@ -526,7 +528,7 @@
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, GLOBAL_PROC_REF(cmp_text_asc))
-						var/new_marking_style = input(user, "Choose the style of your character's tail markings:", "Character Preference", active_character.m_styles["tail"]) as null|anything in valid_markings
+						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's tail markings:", "Character Preference", valid_markings)
 						if(new_marking_style)
 							active_character.m_styles["tail"] = new_marking_style
 
@@ -553,7 +555,7 @@
 					else
 						possible_body_accessories -= "None" // in case an admin is viewing it
 					sortTim(possible_body_accessories, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_body_accessory = input(user, "Choose your body accessory:", "Character Preference") as null|anything in possible_body_accessories
+					var/new_body_accessory = tgui_input_list(user, "Choose your body accessory", "Character Preference", possible_body_accessories)
 					if(new_body_accessory)
 						active_character.m_styles["tail"] = "None"
 						active_character.body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
@@ -601,7 +603,7 @@
 							if(active_character.species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 								valid_facial_hairstyles += facialhairstyle
 					sortTim(valid_facial_hairstyles, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_f_style = input(user, "Choose your character's facial-hair style:", "Character Preference")  as null|anything in valid_facial_hairstyles
+					var/new_f_style = tgui_input_list(user, "Choose your character's facial-hair style", "Character Preference", valid_facial_hairstyles)
 					if(new_f_style)
 						active_character.f_style = new_f_style
 
@@ -617,7 +619,7 @@
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
 					sortTim(valid_underwear, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_underwear = input(user, "Choose your character's underwear:", "Character Preference") as null|anything in valid_underwear
+					var/new_underwear = tgui_input_list(user, "Choose your character's underwear", "Character Preference", valid_underwear)
 					ShowChoices(user)
 					if(new_underwear)
 						active_character.underwear = new_underwear
@@ -633,7 +635,7 @@
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 					sortTim(valid_undershirts, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_undershirt = input(user, "Choose your character's undershirt:", "Character Preference") as null|anything in valid_undershirts
+					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt", "Character Preference", valid_undershirts)
 					ShowChoices(user)
 					if(new_undershirt)
 						active_character.undershirt = new_undershirt
@@ -650,7 +652,7 @@
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, GLOBAL_PROC_REF(cmp_text_asc))
-					var/new_socks = input(user, "Choose your character's socks:", "Character Preference")  as null|anything in valid_sockstyles
+					var/new_socks = tgui_input_list(user, "Choose your character's socks", "Character Preference", valid_sockstyles)
 					ShowChoices(user)
 					if(new_socks)
 						active_character.socks = new_socks
@@ -684,22 +686,22 @@
 						ooccolor = new_ooccolor
 
 				if("bag")
-					var/new_backbag = input(user, "Choose your character's style of bag:", "Character Preference") as null|anything in GLOB.backbaglist
+					var/new_backbag = tgui_input_list(user, "Choose your character's style of bag", "Character Preference", GLOB.backbaglist)
 					if(new_backbag)
 						active_character.backbag = new_backbag
 
 				if("nt_relation")
-					var/new_relation = input(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference")  as null|anything in list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed")
+					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Neutral", "Skeptical", "Opposed"))
 					if(new_relation)
 						active_character.nanotrasen_relation = new_relation
 
 				if("physique")
-					var/new_physique = input(user, "Choose your descriptor for how built your character is on glance.", "Character Preference") as null|anything in GLOB.character_physiques
+					var/new_physique = tgui_input_list(user, "Choose your descriptor for how built your character is on glance.", "Character Preference", GLOB.character_physiques)
 					if(new_physique)
 						active_character.physique = new_physique
 
 				if("height")
-					var/new_height = input(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference") as null|anything in GLOB.character_heights
+					var/new_height = tgui_input_list(user, "Choose your descriptor for how tall your character is on glance.", "Character Preference", GLOB.character_heights)
 					if(new_height)
 						active_character.height = new_height
 
@@ -726,7 +728,7 @@
 					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
 					if(S.bodyflags & ALL_RPARTS)
 						valid_limbs = list("Torso", "Lower Body", "Head", "Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
-					var/limb_name = input(user, "Which limb do you want to change?") as null|anything in valid_limbs
+					var/limb_name = tgui_input_list(user, "Which limb do you want to change?", "Limbs and Parts", valid_limbs)
 					if(!limb_name) return
 
 					var/limb = null
@@ -775,7 +777,7 @@
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = "r_arm"
 
-					var/new_state = input(user, "What state do you wish the limb to be in?") as null|anything in valid_limb_states
+					var/new_state = tgui_input_list(user, "What state do you wish the limb to be in?", "[limb_name]", valid_limb_states)
 					if(!new_state) return
 
 					switch(new_state)
@@ -808,7 +810,7 @@
 									robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
-							choice = input(user, "Which manufacturer do you wish to use for this limb?") as null|anything in robolimb_companies //Choose from a list of companies that offer the part the user wants.
+							choice = tgui_input_list(user, "Which manufacturer do you wish to use for this limb?", "[limb_name] - Prosthesis", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
 							if(!choice)
 								return
 							R.company = choice
@@ -824,7 +826,7 @@
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
 								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
-									subchoice = input(user, "Which model of [choice] [limb_name] do you wish to use?") as null|anything in robolimb_models
+									subchoice = tgui_input_list(user, "Which model of [choice] [limb_name] do you wish to use?", "[limb_name] - Prosthesis - Model", robolimb_models)
 								if(subchoice)
 									choice = subchoice
 							if(limb in list("head", "chest", "groin"))
@@ -847,7 +849,7 @@
 									active_character.rlimb_data[second_limb] = choice
 									active_character.organ_data[second_limb] = "cyborg"
 				if("organs")
-					var/organ_name = input(user, "Which internal function do you want to change?") as null|anything in list("Eyes", "Ears", "Heart", "Lungs", "Liver", "Kidneys")
+					var/organ_name = tgui_input_list(user, "Which internal function do you want to change?", "Internal Organs", list("Eyes", "Ears", "Heart", "Lungs", "Liver", "Kidneys"))
 					if(!organ_name)
 						return
 
@@ -866,7 +868,7 @@
 						if("Kidneys")
 							organ = "kidneys"
 
-					var/new_state = input(user, "What state do you wish the organ to be in?") as null|anything in list("Normal", "Cybernetic")
+					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", list("Normal", "Cybernetic"))
 					if(!new_state) return
 
 					switch(new_state)
@@ -890,7 +892,7 @@
 		else
 			switch(href_list["preference"])
 				if("cbmode")
-					var/cb_mode = input(user, "Select a colourblind mode\nNote this will disable special screen effects such as the cursed heart warnings!") as null|anything in list(COLOURBLIND_MODE_NONE, COLOURBLIND_MODE_DEUTER, COLOURBLIND_MODE_PROT, COLOURBLIND_MODE_TRIT)
+					var/cb_mode = tgui_input_list(user, "Select a colourblind mode\nNote this will disable special screen effects such as the cursed heart warnings!", "Colorblind mode", list(COLOURBLIND_MODE_NONE, COLOURBLIND_MODE_DEUTER, COLOURBLIND_MODE_PROT, COLOURBLIND_MODE_TRIT))
 					if(cb_mode)
 						colourblind_mode = cb_mode
 						user.update_client_colour(0)
@@ -905,7 +907,9 @@
 
 				if("gender")
 					if(!S.has_gender)
-						var/newgender = input(user, "Choose Gender:") as null|anything in list("Male", "Female", "Genderless")
+						var/newgender = tgui_input_list(user, "Who are you?", "Choose Gender", list("Male", "Female", "Genderless"))
+						if(!newgender)
+							return
 						switch(newgender)
 							if("Male")
 								active_character.gender = MALE
@@ -923,29 +927,32 @@
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					switch(UI_style)
+					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White"))
+					if(!new_UI_style)
+						return
+					switch(new_UI_style)
 						if("Midnight")
-							UI_style = "Plasmafire"
-						if("Plasmafire")
-							UI_style = "Retro"
-						if("Retro")
-							UI_style = "Slimecore"
-						if("Slimecore")
-							UI_style = "Operative"
-						if("Operative")
-						// SS220 ADDITION START
-							UI_style = "Vaporwave"
-						if("Vaporwave")
-							UI_style = "Detective"
-						if("Detective")
-							UI_style = "Trasen"
-						if("Trasen")
-							UI_style = "Clockwork"
-						if("Clockwork")
-						// SS220 ADDITION END
-							UI_style = "White"
-						else
 							UI_style = "Midnight"
+						if("Plasmafire")
+							UI_style = "Plasmafire"
+						if("Retro")
+							UI_style = "Retro"
+						if("Slimecore")
+							UI_style = "Slimecore"
+						if("Operative")
+							UI_style = "Operative"
+						if("White")
+							UI_style = "White"
+						// SS220 ADDITION START
+						if("Vaporwave")
+							UI_style = "Vaporwave"
+						if("Detective")
+							UI_style = "Detective"
+						if("Trasen")
+							UI_style = "Trasen"
+						if("Clockwork")
+							UI_style = "Clockwork"
+						// SS220 ADDITION END
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
@@ -971,7 +978,9 @@
 						"19x15 (Ultrawide)" = "19x15"
 					)
 
-					var/new_range = input(user, "Select a view range") as anything in viewrange_options
+					var/new_range = tgui_input_list(user, "Select a view range", "View range", viewrange_options)
+					if(!new_range)
+						return
 					var/actual_new_range = viewrange_options[new_range]
 
 					viewrange = actual_new_range
@@ -1105,7 +1114,10 @@
 						"High" = PARALLAX_HIGH,
 						"Insane" = PARALLAX_INSANE
 					)
-					parallax = parallax_styles[input(user, "Pick a parallax style", "Parallax Style") as null|anything in parallax_styles]
+					var/new_parallax = tgui_input_list(user, "Pick a parallax style", "Parallax Style", parallax_styles)
+					if(!new_parallax)
+						return
+					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
 						parent.mob.hud_used.update_parallax_pref()
 

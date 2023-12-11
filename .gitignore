@@ -58,5 +58,12 @@ __pycache__/
 dmm-tools.exe
 OpenDream
 paradise.json
+
+# Misc windows shenanigans
 $RECYCLE.BIN
+
+# Linux libs
+/*.so
+
+# SS220 EDIT
 sound/tts_cache/*
