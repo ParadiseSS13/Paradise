@@ -1,8 +1,6 @@
 /datum/wires/explosive
 	wire_count = 1
 	proper_name = "Explosive"
-	window_x = 320
-	window_y = 50
 
 /datum/wires/explosive/New(atom/_holder)
 	wires = list(WIRE_EXPLODE)

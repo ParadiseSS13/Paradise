@@ -33,7 +33,7 @@ export const RPD = (props, context) => {
   };
 
   return (
-    <Window width={450} height={650}>
+    <Window width={450} height={410}>
       <Window.Content>
         <Tabs>
           {mainmenu.map((m) => (

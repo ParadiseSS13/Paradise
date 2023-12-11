@@ -1,8 +1,6 @@
 /datum/wires/vending
 	holder_type = /obj/machinery/economy/vending
 	wire_count = 4
-	window_y = 112
-	window_x = 350
 	proper_name = "Vending machine"
 
 /datum/wires/vending/New(atom/_holder)

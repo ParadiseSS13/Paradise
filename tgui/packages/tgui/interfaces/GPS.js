@@ -37,7 +37,7 @@ export const GPS = (properties, context) => {
   const { data } = useBackend(context);
   const { emped, active, area, position, saved } = data;
   return (
-    <Window width={450} height={700}>
+    <Window resizable width={400} height={600}>
       <Window.Content>
         <Flex direction="column" height="100%">
           {emped ? (
