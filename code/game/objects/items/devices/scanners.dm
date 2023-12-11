@@ -407,14 +407,14 @@ REAGENT SCANNER
 
 		if("prosthetics")
 			var/mob/living/carbon/human/H = M
-			msgs += "<span class='notice'>Analyzing Results for \the [H]:</span>"
-			msgs += "Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
-
-			to_chat(user, "<span class='notice'>External prosthetics:</span>")
+			var/is_ipc = ismachineperson(H)
+			msgs += "<span class='notice'>Analyzing Results for [M]: [is_ipc ? "\n\t Overall Status: [H.stat > 1 ? "fully disabled" : "[H.health]% functional"]</span><hr>" : "<hr>"]" //for the record im sorry
+			msgs += "\t Key: <font color='#FFA500'>Electronics</font>/<font color='red'>Brute</font>"
+			msgs += "<span class='notice'>External prosthetics:</span>"
 			var/organ_found
 			if(LAZYLEN(H.internal_organs))
 				for(var/obj/item/organ/external/E in H.bodyparts)
-					if(!E.is_robotic())
+					if(!E.is_robotic() || (is_ipc && (E.get_damage() == 0))) //Non-IPCs have their cybernetics show up in the scan, even if undamaged
 						continue
 					organ_found = TRUE
 					msgs += "[E.name]: <font color='red'>[E.brute_dam]</font> <font color='#FFA500'>[E.burn_dam]</font>"
@@ -441,7 +441,7 @@ REAGENT SCANNER
 			if(!organ_found)
 				msgs += "<span class='warning'>No implants located.</span>"
 			msgs += "<hr>"
-			if(ismachineperson(H))
+			if(is_ipc)
 				msgs.Add(get_chemscan_results(user, H))
 			msgs += "<span class='notice'>Subject temperature: [round(H.bodytemperature-T0C, 0.01)]&deg;C ([round(H.bodytemperature*1.8-459.67, 0.01)]&deg;F)</span>"
 		if("ai")
