@@ -69,9 +69,6 @@
 	Trigger()
 	return FALSE
 
-/datum/action/proc/Process()
-	return
-
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
 

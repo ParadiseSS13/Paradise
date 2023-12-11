@@ -222,7 +222,7 @@
 			if(bees)
 				visible_message("<span class='danger'>[user] disturbs the bees!</span>")
 		else
-			var/option = input(user, "What Action do you wish to perform?", "Apiary") as null|anything in list("Remove a Honey Frame","Remove the Queen Bee")
+			var/option = tgui_input_list(user, "What Action do you wish to perform?", "Apiary", list("Remove a Honey Frame", "Remove the Queen Bee"))
 			if(!Adjacent(user) || !option)
 				return
 			switch(option)

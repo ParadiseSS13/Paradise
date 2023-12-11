@@ -69,7 +69,7 @@
 	update_icon()
 
 /obj/item/pen/multi/proc/select_colour(mob/user as mob)
-	var/newcolour = input(user, "Which colour would you like to use?", name, colour) as null|anything in colour_choices
+	var/newcolour = tgui_input_list(user, "Which colour would you like to use?", name, colour_choices)
 	if(newcolour)
 		colour = newcolour
 		playsound(loc, 'sound/effects/pop.ogg', 50, 1)
