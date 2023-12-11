@@ -7,7 +7,11 @@ export const VolumeMixer = (properties, context) => {
   const { act, data } = useBackend(context);
   const { channels } = data;
   return (
-    <Window>
+    <Window
+      width={400}
+      height={Math.min(95 + channels.length * 50, 590)}
+      resizable
+    >
       <Window.Content>
         <Section height="100%" overflow="auto">
           {channels.map((channel, key) => (
