@@ -407,15 +407,6 @@
 	new /obj/item/gun/projectile/revolver(src)
 	new /obj/item/ammo_box/a357(src)
 
-/obj/item/storage/box/syndie_kit/stechkin
-	name = "\improper FK-69 Stechkin kit"
-	desc = "A box marked with Neo-Russkiyan characters. It appears to contain a 10mm pistol and two magazines."
-
-/obj/item/storage/box/syndie_kit/stechkin/populate_contents()
-	new /obj/item/gun/projectile/automatic/pistol(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
-	new /obj/item/ammo_box/magazine/m10mm(src)
-
 /obj/item/storage/box/syndie_kit/camera_bug
 	name = "\improper Camera Bug kit"
 
