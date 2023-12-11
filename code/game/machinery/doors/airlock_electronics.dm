@@ -46,7 +46,7 @@
 /obj/item/airlock_electronics/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AirlockElectronics", name, 450, 575)
+		ui = new(user, src, "AirlockElectronics", name)
 		ui.open()
 
 /obj/item/airlock_electronics/ui_data(mob/user)

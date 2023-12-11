@@ -29,7 +29,7 @@ export const BluespaceTap = (props, context) => {
   } = data;
   const barColor = (desiredLevel > inputLevel && 'bad') || 'good';
   return (
-    <Window resizable>
+    <Window width={650} height={400} resizable>
       <Window.Content scrollable>
         {!!emagged && (
           <NoticeBox danger={1}>Safety Protocols disabled</NoticeBox>

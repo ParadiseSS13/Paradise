@@ -75,7 +75,7 @@ export const MedicalRecords = (_properties, context) => {
   const { loginState, screen } = data;
   if (!loginState.logged_in) {
     return (
-      <Window resizable>
+      <Window width={800} height={800} resizable>
         <Window.Content>
           <LoginScreen />
         </Window.Content>

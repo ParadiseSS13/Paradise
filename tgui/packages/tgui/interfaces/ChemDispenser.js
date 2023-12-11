@@ -16,7 +16,7 @@ const removeAmounts = [1, 5, 10];
 
 export const ChemDispenser = (props, context) => {
   return (
-    <Window resizable>
+    <Window width={390} height={655} resizable>
       <Window.Content className="Layout__content--flexColumn">
         <ChemDispenserSettings />
         <ChemDispenserChemicals />

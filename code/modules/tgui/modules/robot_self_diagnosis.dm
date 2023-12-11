@@ -13,7 +13,7 @@
 /datum/ui_module/robot_self_diagnosis/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "RobotSelfDiagnosis", "Component Self Diagnosis", 280, 480)
+		ui = new(user, src, "RobotSelfDiagnosis", "Component Self Diagnosis")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

@@ -199,7 +199,7 @@
 		scanned_user = get_scanned_user(user)["name"]
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "Newscaster", name, 800, 600)
+		ui = new(user, src, "Newscaster", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

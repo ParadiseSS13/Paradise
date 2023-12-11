@@ -375,7 +375,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 /obj/machinery/conveyor_switch/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "ConveyorSwitch", name, 350, 150)
+		ui = new(user, src, "ConveyorSwitch", name)
 		ui.open()
 
 /obj/machinery/conveyor_switch/ui_data(mob/user)

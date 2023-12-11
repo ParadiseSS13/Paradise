@@ -12,7 +12,7 @@
 /datum/spawners_menu/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "SpawnersMenu", "Spawners Menu", 700, 600)
+		ui = new(user, src, "SpawnersMenu", "Spawners Menu")
 		ui.open()
 
 /datum/spawners_menu/ui_data(mob/user)

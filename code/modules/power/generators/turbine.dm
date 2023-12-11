@@ -364,7 +364,7 @@
 /obj/machinery/power/turbine/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "TurbineComputer", name, 400, 150)
+		ui = new(user, src, "TurbineComputer", name)
 		ui.open()
 
 /obj/machinery/power/turbine/ui_data(mob/user)
@@ -430,7 +430,7 @@
 /obj/machinery/computer/turbine_computer/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "TurbineComputer", name, 400, 200)
+		ui = new(user, src, "TurbineComputer", name)
 		ui.open()
 
 /obj/machinery/computer/turbine_computer/ui_data(mob/user)

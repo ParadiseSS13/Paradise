@@ -123,7 +123,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "FaxMachine",  name, 540, 300)
+		ui = new(user, src, "FaxMachine",  name)
 		ui.open()
 
 /obj/machinery/photocopier/faxmachine/ui_data(mob/user)

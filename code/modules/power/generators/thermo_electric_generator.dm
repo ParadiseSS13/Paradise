@@ -204,7 +204,7 @@
 /obj/machinery/power/teg/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "TEG",  name, 500, 400)
+		ui = new(user, src, "TEG",  name)
 		ui.open()
 
 /obj/machinery/power/teg/ui_data(mob/user)

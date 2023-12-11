@@ -376,7 +376,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "OreRedemption", name, 500, 600)
+		ui = new(user, src, "OreRedemption", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

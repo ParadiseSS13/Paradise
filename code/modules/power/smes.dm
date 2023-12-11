@@ -347,7 +347,7 @@
 		return
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "Smes",  name, 340, 350)
+		ui = new(user, src, "Smes",  name)
 		ui.open()
 
 /obj/machinery/power/smes/ui_data(mob/user)

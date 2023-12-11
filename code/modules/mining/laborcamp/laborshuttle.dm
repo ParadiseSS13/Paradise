@@ -76,7 +76,7 @@
 /obj/machinery/mineral/labor_prisoner_shuttle_console/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "PrisonerShuttleConsole", name, 315, 150)
+		ui = new(user, src, "PrisonerShuttleConsole", name)
 		ui.open()
 
 /obj/machinery/mineral/labor_prisoner_shuttle_console/ui_data(mob/user)

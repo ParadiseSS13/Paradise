@@ -185,7 +185,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "TcommsCore", name, 900, 600)
+		ui = new(user, src, "TcommsCore", name)
 		ui.open()
 
 /obj/machinery/tcomms/core/ui_data(mob/user)

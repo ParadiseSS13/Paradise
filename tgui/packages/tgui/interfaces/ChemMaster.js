@@ -78,7 +78,7 @@ export const ChemMaster = (props, context) => {
     mode,
   } = data;
   return (
-    <Window resizable>
+    <Window width={575} height={500} resizable>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <ChemMasterBeaker

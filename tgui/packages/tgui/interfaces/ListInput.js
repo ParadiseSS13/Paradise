@@ -52,7 +52,7 @@ export const ListInput = (props, context) => {
     buttons[0]
   );
   return (
-    <Window title={title} resizable>
+    <Window title={title} width={325} height={355} resizable>
       {timeout !== undefined && <Loader value={timeout} />}
       <Window.Content>
         <Flex direction="column" height="100%">

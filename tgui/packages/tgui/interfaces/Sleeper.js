@@ -45,7 +45,7 @@ export const Sleeper = (props, context) => {
   const { hasOccupant } = data;
   const body = hasOccupant ? <SleeperMain /> : <SleeperEmpty />;
   return (
-    <Window resizable>
+    <Window width={550} height={775} resizable>
       <Window.Content className="Layout__content--flexColumn">
         {body}
         <SleeperDialysis />

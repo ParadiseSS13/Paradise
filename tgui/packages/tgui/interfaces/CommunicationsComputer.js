@@ -33,7 +33,7 @@ export const CommunicationsComputer = (props, context) => {
   const { menu_state } = data;
 
   return (
-    <Window resizable>
+    <Window width={500} height={600} resizable>
       <Window.Content scrollable>
         <AuthBlock />
         {PickWindow(menu_state)}

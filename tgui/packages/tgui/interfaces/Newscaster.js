@@ -91,7 +91,7 @@ export const Newscaster = (properties, context) => {
   }
   const totalUnread = channels.reduce((a, c) => a + c.unread, 0);
   return (
-    <Window theme={is_security && 'security'}>
+    <Window theme={is_security && 'security'} width={800} height={600}>
       {viewingPhoto ? (
         <PhotoZoom />
       ) : (

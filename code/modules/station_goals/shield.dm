@@ -58,7 +58,7 @@
 /obj/machinery/computer/sat_control/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "SatelliteControl", name, 475, 400)
+		ui = new(user, src, "SatelliteControl", name)
 		ui.open()
 
 /obj/machinery/computer/sat_control/ui_data(mob/user)

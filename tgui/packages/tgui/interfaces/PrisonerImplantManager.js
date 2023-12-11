@@ -24,7 +24,7 @@ export const PrisonerImplantManager = (props, context) => {
   let injectionAmount = [1, 5, 10]; // used for auto generating chemical implant inject buttons
 
   return (
-    <Window theme="security" resizable>
+    <Window theme="security" width={500} height={500} resizable>
       <ComplexModal />
       <Window.Content>
         <LoginInfo />

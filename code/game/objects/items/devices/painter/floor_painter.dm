@@ -47,7 +47,7 @@
 /datum/painter/floor/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "FloorPainter", module_name, 405, 470)
+		ui = new(user, src, "FloorPainter", module_name)
 		// Disable automatic updates, because:
 		// 1) we are the only user of the item, and don't expect to observe external changes
 		// 2) generating and sending the icon each tick is a bit expensive, and creates small but noticeable lag

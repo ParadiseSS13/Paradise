@@ -19,7 +19,7 @@ export const BotClean = (props, context) => {
     cleanblood,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={500}>
       <Window.Content scrollable>
         <BotStatus />
         <Section title="Cleaning Settings">

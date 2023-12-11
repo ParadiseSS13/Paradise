@@ -11,7 +11,7 @@ export const Holodeck = (props, context) => {
   const { decks, current_deck, ai_override, emagged } = data;
 
   return (
-    <Window resizable>
+    <Window width={400} height={500} resizable>
       <Window.Content>
         <Section title="Holodeck Control System">
           <Box>

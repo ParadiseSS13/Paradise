@@ -16,7 +16,7 @@ export const BotSecurity = (props, context) => {
     arrest_declare,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={500}>
       <Window.Content scrollable>
         <BotStatus />
         <Section title="Who To Arrest">

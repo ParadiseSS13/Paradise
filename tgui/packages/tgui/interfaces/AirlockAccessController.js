@@ -51,7 +51,7 @@ export const AirlockAccessController = (props, context) => {
     );
   }
   return (
-    <Window>
+    <Window width={470} height={290}>
       <Window.Content>
         <Section title="Information">
           <LabeledList>

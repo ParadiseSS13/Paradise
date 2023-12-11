@@ -313,7 +313,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "CardComputer",  name, 800, 800)
+		ui = new(user, src, "CardComputer",  name)
 		ui.open()
 
 /obj/machinery/computer/card/ui_data(mob/user)

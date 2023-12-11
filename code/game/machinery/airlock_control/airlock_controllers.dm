@@ -351,7 +351,7 @@ send an additional command to open the door again.
 /obj/machinery/airlock_controller/access_controller/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AirlockAccessController", name, 470, 290)
+		ui = new(user, src, "AirlockAccessController", name)
 		ui.open()
 
 /obj/machinery/airlock_controller/access_controller/ui_data(mob/user)
@@ -387,7 +387,7 @@ send an additional command to open the door again.
 /obj/machinery/airlock_controller/air_cycler/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "ExternalAirlockController", name, 470, 290)
+		ui = new(user, src, "ExternalAirlockController", name)
 		ui.open()
 
 /obj/machinery/airlock_controller/air_cycler/ui_data(mob/user)

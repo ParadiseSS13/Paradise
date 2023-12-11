@@ -25,7 +25,7 @@ export const BrigTimer = (props, context) => {
     nameOptions.push(data.spns[i]);
   }
   return (
-    <Window resizable>
+    <Window width={500} height={450} resizable>
       <Window.Content>
         <Section title="Cell Information">
           <LabeledList>

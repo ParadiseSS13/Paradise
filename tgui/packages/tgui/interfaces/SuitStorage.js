@@ -16,7 +16,7 @@ export const SuitStorage = (props, context) => {
   const { data } = useBackend(context);
   const { uv } = data;
   return (
-    <Window resizable>
+    <Window width={402} height={268} resizable>
       <Window.Content display="flex" className="Layout__content--flexColumn">
         {!!uv && (
           <Dimmer backgroundColor="black" opacity={0.85}>

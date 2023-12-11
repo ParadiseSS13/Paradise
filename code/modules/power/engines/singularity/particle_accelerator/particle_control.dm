@@ -219,7 +219,7 @@
 /obj/machinery/particle_accelerator/control_box/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "ParticleAccelerator", name, 350, 160)
+		ui = new(user, src, "ParticleAccelerator", name)
 		ui.open()
 
 /obj/machinery/particle_accelerator/control_box/ui_data(mob/user)

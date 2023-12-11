@@ -112,7 +112,7 @@
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "SpecMenu", "Specialisation Menu", 1200, 760)
+		ui = new(user, src, "SpecMenu", "Specialisation Menu")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

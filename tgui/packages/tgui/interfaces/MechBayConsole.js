@@ -16,7 +16,7 @@ export const MechBayConsole = (props, context) => {
   const cell = mech && mech.cell;
   const name = mech && mech.name;
   return (
-    <Window resizable>
+    <Window width={400} height={150} resizable>
       <Window.Content>
         <Section
           title={!name ? 'Mech status' : 'Mech status: ' + name}

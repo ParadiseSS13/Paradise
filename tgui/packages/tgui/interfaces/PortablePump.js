@@ -15,7 +15,7 @@ export const PortablePump = (props, context) => {
   const { has_holding_tank } = data;
 
   return (
-    <Window>
+    <Window width={434} height={377}>
       <Window.Content>
         <PumpSettings />
         <PressureSettings />

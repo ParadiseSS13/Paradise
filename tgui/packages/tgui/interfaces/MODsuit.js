@@ -789,7 +789,7 @@ export const MODsuit = (props, context) => {
   const { act, data } = useBackend(context);
   const { ui_theme, interface_break } = data;
   return (
-    <Window theme={ui_theme} resizable>
+    <Window theme={ui_theme} width={400} height={525} resizable>
       <Window.Content scrollable={!interface_break}>
         <MODsuitContent />
       </Window.Content>

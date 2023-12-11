@@ -78,7 +78,7 @@
 /obj/machinery/computer/syndicate_depot/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "SyndicateComputerSimple",  name, window_width, window_height)
+		ui = new(user, src, "SyndicateComputerSimple",  name)
 		ui.open()
 
 /obj/machinery/computer/syndicate_depot/ui_data(mob/user)

@@ -36,7 +36,7 @@
 /datum/ui_module/library_manager/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "LibraryManager", name, 600, 600)
+		ui = new(user, src, "LibraryManager", name)
 		ui.autoupdate = TRUE
 		ui.open()
 

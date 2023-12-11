@@ -95,7 +95,7 @@
 /obj/item/electropack/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "Electropack", name, 360, 150)
+		ui = new(user, src, "Electropack", name)
 		ui.open()
 
 /obj/item/electropack/ui_data(mob/user)

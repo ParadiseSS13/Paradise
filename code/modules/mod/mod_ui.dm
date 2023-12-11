@@ -4,7 +4,7 @@
 /obj/item/mod/control/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "MODsuit", name, 400, 525)
+		ui = new(user, src, "MODsuit", name)
 		ui.open()
 
 /obj/item/mod/control/ui_data(mob/user)

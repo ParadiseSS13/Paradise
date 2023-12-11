@@ -12,7 +12,7 @@ export const SlotMachine = (props, context) => {
   const { act, data } = useBackend(context);
   if (data.money === null) {
     return (
-      <Window>
+      <Window width={350} height={200}>
         <Window.Content>
           <Section>
             <Box>Could not scan your card or could not find account!</Box>

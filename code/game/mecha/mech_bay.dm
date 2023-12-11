@@ -187,7 +187,7 @@
 /obj/machinery/computer/mech_bay_power_console/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "MechBayConsole", name, 400, 150)
+		ui = new(user, src, "MechBayConsole", name)
 		ui.open()
 
 /obj/machinery/computer/mech_bay_power_console/ui_act(action, params)

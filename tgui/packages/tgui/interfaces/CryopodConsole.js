@@ -14,7 +14,7 @@ export const CryopodConsole = (props, context) => {
   const { account_name, allow_items } = data;
 
   return (
-    <Window title="Cryopod Console">
+    <Window title="Cryopod Console" width={400} height={480}>
       <Window.Content>
         <Section title={`Hello, ${account_name || '[REDACTED]'}!`}>
           This automated cryogenic freezing unit will safely store your

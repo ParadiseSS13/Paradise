@@ -7,7 +7,7 @@ export const NuclearBomb = (props, context) => {
 
   if (!data.extended) {
     return (
-      <Window>
+      <Window width={450} height={300}>
         <Window.Content>
           <Section title="Deployment">
             <Button

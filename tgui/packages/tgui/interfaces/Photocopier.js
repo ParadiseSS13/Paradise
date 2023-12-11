@@ -6,7 +6,7 @@ import { Window } from '../layouts';
 export const Photocopier = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window resizable>
+    <Window width={402} height={368} resizable>
       <Window.Content
         scrollable
         display="flex"

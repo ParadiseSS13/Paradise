@@ -122,7 +122,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "CloningConsole", "Cloning Console", 640, 520)
+		ui = new(user, src, "CloningConsole", "Cloning Console")
 		ui.open()
 
 /obj/machinery/computer/cloning/ui_data(mob/user)

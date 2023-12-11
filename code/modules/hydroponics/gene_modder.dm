@@ -148,7 +148,7 @@
 /obj/machinery/plantgenes/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "GeneModder", name, 500, 700)
+		ui = new(user, src, "GeneModder", name)
 		ui.open()
 
 /obj/machinery/plantgenes/ui_data(mob/user)

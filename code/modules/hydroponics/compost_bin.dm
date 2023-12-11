@@ -124,7 +124,7 @@
 /obj/machinery/compost_bin/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "CompostBin", "Compost Bin", 390, 200)
+		ui = new(user, src, "CompostBin", "Compost Bin")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

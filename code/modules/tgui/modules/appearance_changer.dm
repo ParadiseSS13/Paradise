@@ -205,7 +205,7 @@
 /datum/ui_module/appearance_changer/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AppearanceChanger", name, 800, 450)
+		ui = new(user, src, "AppearanceChanger", name)
 		ui.open()
 
 /datum/ui_module/appearance_changer/ui_data(mob/user)

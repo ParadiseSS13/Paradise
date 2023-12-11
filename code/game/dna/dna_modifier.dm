@@ -407,7 +407,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "DNAModifier", name, 660, 700)
+		ui = new(user, src, "DNAModifier", name)
 		ui.open()
 
 /obj/machinery/computer/scan_consolenew/ui_data(mob/user)

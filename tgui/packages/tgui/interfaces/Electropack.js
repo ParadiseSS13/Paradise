@@ -7,7 +7,7 @@ export const Electropack = (props, context) => {
   const { act, data } = useBackend(context);
   const { power, code, frequency, minFrequency, maxFrequency } = data;
   return (
-    <Window>
+    <Window width={360} height={150}>
       <Window.Content>
         <Section>
           <LabeledList>

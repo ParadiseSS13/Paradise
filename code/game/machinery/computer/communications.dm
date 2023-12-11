@@ -424,7 +424,7 @@
 /obj/machinery/computer/communications/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "CommunicationsComputer",  name, 500, 600)
+		ui = new(user, src, "CommunicationsComputer",  name)
 		ui.open()
 
 /obj/machinery/computer/communications/ui_data(mob/user)

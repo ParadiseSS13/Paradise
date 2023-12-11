@@ -16,7 +16,7 @@ import { Fragment } from 'inferno';
 
 export const RCD = (props, context) => {
   return (
-    <Window resizable>
+    <Window width={471} height={673} resizable>
       <ComplexModal />
       <Window.Content display="flex" className="Layout__content--flexColumn">
         <MatterReadout />

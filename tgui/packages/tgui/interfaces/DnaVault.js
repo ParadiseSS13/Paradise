@@ -13,7 +13,7 @@ export const DnaVault = (props, context) => {
   const { act, data } = useBackend(context);
   const { completed } = data;
   return (
-    <Window>
+    <Window width={350} height={400}>
       <Window.Content>
         <DnaVaultDataBase />
         {!!completed && <GeneTherapySelection />}

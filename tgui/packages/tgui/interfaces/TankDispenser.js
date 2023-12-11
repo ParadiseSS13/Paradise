@@ -12,7 +12,7 @@ export const TankDispenser = (props, context) => {
   const { act, data } = useBackend(context);
   const { o_tanks, p_tanks } = data;
   return (
-    <Window>
+    <Window width={275} height={100}>
       <Window.Content>
         <Box>
           <Button

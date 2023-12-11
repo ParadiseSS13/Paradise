@@ -101,7 +101,7 @@
 /obj/machinery/pdapainter/ui_interact(mob/user, datum/tgui/ui, force_open, datum/ui_state/state)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "PdaPainter", "PDA Painter", 510, 510)
+		ui = new(user, src, "PdaPainter", "PDA Painter")
 		ui.open()
 
 /obj/machinery/pdapainter/ui_data(mob/user)

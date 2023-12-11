@@ -636,7 +636,7 @@
 /obj/machinery/suit_storage_unit/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "SuitStorage", name, 402, 268)
+		ui = new(user, src, "SuitStorage", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
