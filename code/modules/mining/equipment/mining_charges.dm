@@ -79,9 +79,9 @@
 		var/distance = get_dist_euclidian(location,rock)
 		if(distance <= boom_sizes[1]) //all this will be needed later on
 			rock.gets_drilled(null,TRUE,3)
-		else if (distance <= boom_sizes[2])
+		else if(distance <= boom_sizes[2])
 			rock.gets_drilled(null,TRUE,2)
-		else if (distance <= boom_sizes[3])
+		else if(distance <= boom_sizes[3])
 			rock.gets_drilled(null,TRUE,1)
 	for(var/mob/living/carbon/C in circlerange(location,boom_sizes[3]))
 		if(ishuman(C)) //working on everyone
