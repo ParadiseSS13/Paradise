@@ -123,7 +123,6 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 		var/list/alttitles = get_alternate_titles(J.title)
 		if(J.title == real_title)
 			is_custom_job = FALSE
-		if(!J)	continue
 		if(assignment in alttitles)
 			real_title = J.title
 			is_custom_job = FALSE
