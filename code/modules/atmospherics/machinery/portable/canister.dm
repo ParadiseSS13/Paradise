@@ -310,7 +310,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/atmospherics/portable/canister/ui_state(mob/user)
 	return GLOB.physical_state
 
-/obj/machinery/atmospherics/portable/canister/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
+/obj/machinery/atmospherics/portable/canister/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
 		ui = new(user, src, "Canister", name, 600, 350)
