@@ -10,8 +10,8 @@
 /datum/ui_module/robot_self_diagnosis/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/ui_module/robot_self_diagnosis/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/datum/ui_module/robot_self_diagnosis/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "RobotSelfDiagnosis", "Component Self Diagnosis")
 		ui.set_autoupdate(FALSE)

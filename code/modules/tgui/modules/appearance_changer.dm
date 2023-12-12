@@ -202,8 +202,8 @@
 /datum/ui_module/appearance_changer/ui_state(mob/user)
 	return GLOB.default_state
 
-/datum/ui_module/appearance_changer/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/datum/ui_module/appearance_changer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AppearanceChanger", name)
 		ui.open()

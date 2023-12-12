@@ -17,8 +17,8 @@
 
 	return GLOB.default_state
 
-/datum/ui_module/power_monitor/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/datum/ui_module/power_monitor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PowerMonitor", name)
 		ui.open()

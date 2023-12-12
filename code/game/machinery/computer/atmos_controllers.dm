@@ -148,12 +148,12 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 /obj/machinery/computer/general_air_control/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/general_air_control/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+/obj/machinery/computer/general_air_control/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!isprocessing)
 		START_PROCESSING(SSmachines, src)
 		refresh_all()
 
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		// We can use the same template here for sensors and for tanks with inlets/outlets with TGUI memes
 		ui = new(user, src, "AtmosTankControl", name)
@@ -523,5 +523,5 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 /obj/machinery/computer/atmoscontrol/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/atmoscontrol/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	atmos_control.ui_interact(user, ui, force_open)
+/obj/machinery/computer/atmoscontrol/ui_interact(mob/user, datum/tgui/ui = null)
+	atmos_control.ui_interact(user, ui)

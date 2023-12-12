@@ -317,14 +317,14 @@
 /obj/machinery/mecha_part_fabricator/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/mecha_part_fabricator/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
+/obj/machinery/mecha_part_fabricator/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!selected_category)
 		selected_category = categories[1]
 
 	var/datum/asset/materials_assets = get_asset_datum(/datum/asset/simple/materials)
 	materials_assets.send(user)
 
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ExosuitFabricator", name)
 		ui.open()

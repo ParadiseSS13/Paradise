@@ -132,11 +132,11 @@
 /obj/machinery/chem_heater/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/chem_heater/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+/obj/machinery/chem_heater/ui_interact(mob/user, datum/tgui/ui = null)
 	if(user.stat || user.restrained())
 		return
 
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ChemHeater", "Chemical Heater")
 		ui.open()

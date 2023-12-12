@@ -342,10 +342,10 @@
 /obj/machinery/power/smes/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/power/smes/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
+/obj/machinery/power/smes/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & BROKEN)
 		return
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Smes",  name)
 		ui.open()

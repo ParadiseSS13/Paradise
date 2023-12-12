@@ -131,8 +131,8 @@
 /obj/item/storage/secure/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/item/storage/secure/ui_interact(mob/user, datum/tgui/ui, force_open)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/item/storage/secure/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SecureStorage", name)
 		ui.open()

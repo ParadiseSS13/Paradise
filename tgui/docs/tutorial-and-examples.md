@@ -5,7 +5,7 @@
 Basic tgui backend code consists of the following vars and procs:
 
 ```
-ui_interact(mob/user, datum/tgui/ui, force_open)
+ui_interact(mob/user, datum/tgui/ui)
 ui_data(mob/user)
 ui_act(action, params)
 ui_state()

@@ -160,8 +160,8 @@
 /obj/item/tank/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/tank/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/item/tank/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Tank", name)
 		ui.open()

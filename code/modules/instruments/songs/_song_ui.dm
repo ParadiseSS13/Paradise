@@ -47,8 +47,8 @@
 /datum/song/ui_state(mob/user)
 	return GLOB.default_state
 
-/datum/song/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, parent, ui, force_open)
+/datum/song/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, parent, ui)
 	if(!ui)
 		ui = new(user, parent, "Instrument", parent?.name || "Instrument")
 		ui.open()

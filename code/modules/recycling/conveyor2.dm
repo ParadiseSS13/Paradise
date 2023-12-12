@@ -372,8 +372,8 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 /obj/machinery/conveyor_switch/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/conveyor_switch/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/conveyor_switch/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ConveyorSwitch", name)
 		ui.open()

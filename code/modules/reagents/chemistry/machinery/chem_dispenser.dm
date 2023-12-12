@@ -145,9 +145,9 @@
 /obj/machinery/chem_dispenser/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+/obj/machinery/chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null)
 	// update the ui if it exists, returns null if no ui is passed/found
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ChemDispenser", ui_title)
 		ui.open()
@@ -469,8 +469,8 @@
 /obj/item/handheld_chem_dispenser/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/handheld_chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/item/handheld_chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "HandheldChemDispenser", name)
 		ui.open()

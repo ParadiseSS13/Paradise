@@ -370,11 +370,11 @@
 /obj/machinery/mineral/ore_redemption/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+/obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui = null)
 	var/datum/asset/materials_assets = get_asset_datum(/datum/asset/simple/materials)
 	materials_assets.send(user)
 
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "OreRedemption", name)
 		ui.open()

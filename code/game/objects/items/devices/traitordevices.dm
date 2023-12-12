@@ -413,8 +413,8 @@
 /obj/item/handheld_mirror/ui_state(mob/user)
 	return GLOB.hands_state
 
-/obj/item/handheld_mirror/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	appearance_changer_holder.ui_interact(user, ui, force_open)
+/obj/item/handheld_mirror/ui_interact(mob/user, datum/tgui/ui = null)
+	appearance_changer_holder.ui_interact(user, ui)
 
 /obj/item/handheld_mirror/attack_self(mob/user)
 	if(ishuman(user))

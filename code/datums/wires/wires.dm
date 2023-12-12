@@ -92,8 +92,8 @@
 /datum/wires/ui_state(mob/user)
 	return GLOB.physical_state
 
-/datum/wires/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/datum/wires/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Wires", "[proper_name] wires")
 		ui.open()

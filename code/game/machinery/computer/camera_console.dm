@@ -58,9 +58,9 @@
 /obj/machinery/computer/security/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+/obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui = null)
 	// Update UI
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	// Show static if can't use the camera
 	if(!active_camera?.can_use())
 		show_camera_static()

@@ -13,8 +13,8 @@
 /obj/item/contract/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/contract/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/item/contract/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "WizardApprenticeContract", name)
 		ui.open()

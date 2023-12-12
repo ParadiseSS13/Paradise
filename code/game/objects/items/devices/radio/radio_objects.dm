@@ -134,8 +134,8 @@ GLOBAL_LIST_EMPTY(deadsay_radio_systems)
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Radio", name)
 		ui.open()

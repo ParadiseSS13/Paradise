@@ -161,7 +161,7 @@
 /obj/machinery/mineral/equipment_vendor/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+/obj/machinery/mineral/equipment_vendor/ui_interact(mob/user, datum/tgui/ui = null)
 	// Update static data if need be
 	if(dirty_items)
 		if(!ui)
@@ -169,7 +169,7 @@
 		dirty_items = FALSE
 
 	// Open the window
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MiningVendor", name)
 		ui.open()

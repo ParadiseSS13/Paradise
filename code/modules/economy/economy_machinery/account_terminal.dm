@@ -35,8 +35,8 @@
 /obj/machinery/computer/account_database/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/account_database/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/computer/account_database/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "AccountsUplinkTerminal", name)
 		ui.open()

@@ -198,8 +198,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Uplink", name)
 		ui.open()

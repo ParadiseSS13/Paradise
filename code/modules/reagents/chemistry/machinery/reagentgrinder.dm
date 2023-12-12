@@ -242,8 +242,8 @@
 /obj/machinery/reagentgrinder/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/reagentgrinder/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/reagentgrinder/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ReagentGrinder", name)
 		ui.open()

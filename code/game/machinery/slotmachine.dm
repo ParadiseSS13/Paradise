@@ -41,8 +41,8 @@
 /obj/machinery/economy/slot_machine/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/economy/slot_machine/ui_interact(mob/user, datum/tgui/ui = null, force_open = 0)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/economy/slot_machine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SlotMachine", name)
 		ui.open()
