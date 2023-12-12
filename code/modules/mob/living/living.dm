@@ -272,7 +272,7 @@
 	var/pointed_object = "\the [A]"
 	if(A.loc in src)
 		pointed_object += " inside [A.loc]"
-	if(istype(hand_item, /obj/item/gun) && A != hand_item)
+	if(HAS_TRAIT(hand_item, TRAIT_CAN_POINT_WITH) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
 			return TRUE
