@@ -223,8 +223,8 @@ const DNAModifierMainUI = (props, context) => {
       <LabeledList>
         <LabeledList.Item label="Target">
           <Knob
-            minValue="1"
-            maxValue="15"
+            minValue={1}
+            maxValue={15}
             stepPixelSize="20"
             value={selectedUITarget}
             format={(value) => value.toString(16).toUpperCase()}
@@ -272,9 +272,9 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
       <LabeledList>
         <LabeledList.Item label="Intensity">
           <Knob
-            minValue="1"
-            maxValue="10"
-            stepPixelSize="20"
+            minValue={1}
+            maxValue={10}
+            stepPixelSize={20}
             value={radiationIntensity}
             popUpPosition="right"
             ml="0"
@@ -283,9 +283,9 @@ const DNAModifierMainRadiationEmitter = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Duration">
           <Knob
-            minValue="1"
-            maxValue="20"
-            stepPixelSize="10"
+            minValue={1}
+            maxValue={20}
+            stepPixelSize={10}
             unit="s"
             value={radiationDuration}
             popUpPosition="right"
