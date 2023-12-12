@@ -231,6 +231,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/batterer
 	cost = 25
 
+/datum/uplink_item/dangerous/porta_turret
+	name = "Portable Turret"
+	desc = "A pop-up syndicate turret, shoots anyone who didn't prime the grenade. The turret cannot be moved after it's deployed."
+	reference = "MIS"
+	item = /obj/item/grenade/turret
+	cost = 20
+
 // Ammunition
 
 /datum/uplink_item/ammo

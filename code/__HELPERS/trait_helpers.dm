@@ -253,6 +253,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 ///An item that is oiled. If sprayed with water, it's slowdown reverts to normal.
 #define TRAIT_OIL_SLICKED "oil_slicked"
 
+///An item that can be pointed at mobs, while on non-help intent.
+#define TRAIT_CAN_POINT_WITH "can_point_with"
+
 //
 // common trait sources
 #define TRAIT_GENERIC "generic"
