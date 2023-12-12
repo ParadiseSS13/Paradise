@@ -5,6 +5,7 @@
 	icon_state = "bandaid"
 	item_state = "bandaid"
 	possible_transfer_amounts = null
+	visible_transfer_rate = FALSE
 	volume = 30
 	var/instant_application = FALSE
 	var/needs_to_apply_reagents = TRUE

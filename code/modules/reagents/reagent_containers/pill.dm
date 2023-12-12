@@ -10,6 +10,7 @@
 	icon_state = null
 	item_state = "pill"
 	possible_transfer_amounts = null
+	visible_transfer_rate = FALSE
 	volume = 100
 
 /obj/item/reagent_containers/pill/Initialize(mapload)
