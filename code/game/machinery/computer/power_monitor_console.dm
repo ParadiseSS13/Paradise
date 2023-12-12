@@ -73,8 +73,8 @@
 /obj/machinery/computer/monitor/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/monitor/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	power_monitor.ui_interact(user, ui, force_open)
+/obj/machinery/computer/monitor/ui_interact(mob/user, datum/tgui/ui = null)
+	power_monitor.ui_interact(user, ui)
 
 /obj/machinery/computer/monitor/interact(mob/user)
 	power_monitor.ui_interact(user)

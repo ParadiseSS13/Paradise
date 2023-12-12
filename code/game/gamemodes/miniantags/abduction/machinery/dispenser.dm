@@ -43,8 +43,8 @@
 /obj/machinery/abductor/gland_dispenser/ui_state(mob/user)
 	return GLOB.physical_state
 
-/obj/machinery/abductor/gland_dispenser/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/abductor/gland_dispenser/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "GlandDispenser", name, 300, 338)
 		ui.open()

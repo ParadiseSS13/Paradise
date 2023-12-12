@@ -592,8 +592,8 @@
 /obj/machinery/economy/vending/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/economy/vending/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/economy/vending/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		var/estimated_height = 100 + min(length(product_records) * 34, 500)
 		if(length(prices) > 0)

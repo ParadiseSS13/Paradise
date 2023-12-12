@@ -89,8 +89,8 @@
 /obj/machinery/keycard_auth/ui_state(mob/user)
 	return GLOB.physical_state
 
-/obj/machinery/keycard_auth/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/keycard_auth/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "KeycardAuth", name, 540, 300)
 		ui.open()

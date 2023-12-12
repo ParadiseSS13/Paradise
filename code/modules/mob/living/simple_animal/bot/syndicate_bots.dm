@@ -50,7 +50,7 @@
 /mob/living/simple_animal/bot/ed209/syndicate/ui_state(mob/user)
 	return GLOB.default_state
 
-/mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
+/mob/living/simple_animal/bot/ed209/syndicate/ui_interact(mob/user, datum/tgui/ui = null)
 	to_chat(user, "<span class='warning'>[src] has no accessible control panel!</span>")
 	return
 

@@ -11,7 +11,7 @@ GLOBAL_DATUM_INIT(generic_crew_manifest, /datum/ui_module/generic_crew_manifest,
 	if(issilicon(user))
 		return GLOB.not_incapacitated_state
 
-/datum/ui_module/generic_crew_manifest/ui_interact(user, datum/tgui/ui = null, force_open = FALSE)
+/datum/ui_module/generic_crew_manifest/ui_interact(user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "GenericCrewManifest", name)
