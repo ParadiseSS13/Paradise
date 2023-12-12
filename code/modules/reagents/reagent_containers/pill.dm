@@ -9,10 +9,8 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = null
 	item_state = "pill"
-	container_type = NONE
 	possible_transfer_amounts = null
 	volume = 100
-	has_lid = FALSE
 
 /obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
