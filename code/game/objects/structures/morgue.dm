@@ -155,7 +155,7 @@
 /obj/structure/morgue/attack_animal(mob/living/user)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(user.mob_size < MOB_SIZE_LARGE)
+	if(user.mob_size < MOB_SIZE_HUMAN)
 		return ..()
 	if(!user.mind) //Stops mindless mobs from doing weird stuff with them
 		return ..()
@@ -269,7 +269,7 @@
 /obj/structure/m_tray/attack_animal(mob/living/user)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
-	if(user.mob_size < MOB_SIZE_LARGE)
+	if(user.mob_size < MOB_SIZE_HUMAN)
 		return ..()
 	if(!user.mind) //Stops mindless mobs from doing weird stuff with them
 		return ..()
