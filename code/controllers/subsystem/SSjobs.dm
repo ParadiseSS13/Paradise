@@ -542,7 +542,7 @@ SUBSYSTEM_DEF(jobs)
 			liver_multiplier = L.alcohol_intensity
 		H.Sleeping(5 SECONDS)
 		H.Drunk((2 / liver_multiplier) MINUTES)
-	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].")
 	return H
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
