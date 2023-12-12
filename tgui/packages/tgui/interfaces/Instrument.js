@@ -360,10 +360,10 @@ const InstrumentStatus = (properties, context) => {
         <LabeledList.Item label="Repeat">
           <Slider
             animated
-            minValue="0"
+            minValue={0}
             maxValue={maxRepeats}
             value={repeat}
-            stepPixelSize="59"
+            stepPixelSize={59}
             onChange={(_e, v) =>
               act('repeat', {
                 new: v,
@@ -404,7 +404,7 @@ const InstrumentStatus = (properties, context) => {
             minValue={minVolume}
             maxValue={maxVolume}
             value={volume}
-            stepPixelSize="6"
+            stepPixelSize={6}
             onDrag={(_e, v) =>
               act('setvolume', {
                 new: v,
@@ -447,11 +447,11 @@ const InstrumentStatusAdvanced = (properties, context) => {
     smt = 'Linear';
     modebody = (
       <Slider
-        minValue="0.1"
-        maxValue="5"
+        minValue={0.1}
+        maxValue={5}
         value={sustainLinearDuration}
-        step="0.5"
-        stepPixelSize="85"
+        step={0.5}
+        stepPixelSize={85}
         format={(v) => round(v * 100) / 100 + ' seconds'}
         onChange={(_e, v) =>
           act('setlinearfalloff', {
@@ -464,10 +464,10 @@ const InstrumentStatusAdvanced = (properties, context) => {
     smt = 'Exponential';
     modebody = (
       <Slider
-        minValue="1.025"
-        maxValue="10"
+        minValue={1.025}
+        maxValue={10}
         value={sustainExponentialDropoff}
-        step="0.01"
+        step={0.01}
         format={(v) => round(v * 1000) / 1000 + '% per decisecond'}
         onChange={(_e, v) =>
           act('setexpfalloff', {
@@ -509,7 +509,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
                     minValue={noteShiftMin}
                     maxValue={noteShiftMax}
                     value={noteShift}
-                    stepPixelSize="2"
+                    stepPixelSize={2}
                     format={(v) =>
                       v + ' keys / ' + round((v / 12) * 100) / 100 + ' octaves'
                     }
@@ -535,10 +535,10 @@ const InstrumentStatusAdvanced = (properties, context) => {
                 <LabeledList.Item label="Volume Dropoff Threshold">
                   <Slider
                     animated
-                    minValue="0.01"
-                    maxValue="100"
+                    minValue={0.01}
+                    maxValue={100}
                     value={sustainDropoffVolume}
-                    stepPixelSize="6"
+                    stepPixelSize={6}
                     onChange={(_e, v) =>
                       act('setdropoffvolume', {
                         new: v,

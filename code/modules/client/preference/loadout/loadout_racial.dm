@@ -59,6 +59,11 @@
 	path = /obj/item/clothing/shoes/footwraps
 	slot = SLOT_HUD_SHOES
 
+/datum/gear/racial/handwraps
+	display_name = "Cloth handwraps"
+	path = /obj/item/clothing/gloves/handwraps
+	slot = SLOT_HUD_GLOVES
+
 /datum/gear/racial/vox_casual
 	display_name = "Vox jumpsuit"
 	description = "These loose clothes are optimized for the labors of the lower castes onboard the arkships. Large openings in the top allow for breathability while the pants are durable yet flexible enough to not restrict movement."
