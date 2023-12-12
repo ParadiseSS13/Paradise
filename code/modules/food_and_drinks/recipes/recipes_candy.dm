@@ -85,7 +85,7 @@
 
 /datum/recipe/candy/wafflecone
 	reagents = list("milk" = 1, "sugar" = 1)
-	result = /obj/item/reagent_containers/food/snacks/wafflecone
+	result = /obj/item/food/snacks/wafflecone
 
 // ***********************************************************
 // Base Candy Recipes (unflavored / plain)
