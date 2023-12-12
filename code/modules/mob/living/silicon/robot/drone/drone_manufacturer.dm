@@ -93,6 +93,8 @@
 		if(alert(user, "Would you like to shut down?", null, "Yes", "No") != "Yes")
 			return
 		var/mob/living/silicon/robot/drone/D = user
+		if(!istype(D) || QDELETED(D))
+			return
 		D.cryo_with_dronefab(src)
 
 /mob/dead/verb/join_as_drone()
