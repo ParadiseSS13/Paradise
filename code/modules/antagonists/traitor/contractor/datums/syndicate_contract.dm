@@ -498,7 +498,7 @@
 			return
 		default_damage(M)
 		injury_target.droplimb()
-		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god something's missing!</span>")
+		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! Oh god, something's missing!</span>")
 		return
 		//Species specific punishments first
 	if(ismachineperson(M))
