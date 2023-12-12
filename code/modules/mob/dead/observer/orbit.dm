@@ -12,7 +12,7 @@
 /datum/orbit_menu/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "Orbit", "Orbit", 700, 500)
+		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)

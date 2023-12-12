@@ -29,7 +29,7 @@ export const Uplink = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
-    <Window theme="syndicate">
+    <Window width={900} height={600} theme="syndicate">
       <ComplexModal />
       <Window.Content scrollable>
         <Tabs>

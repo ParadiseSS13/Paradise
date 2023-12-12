@@ -595,10 +595,7 @@
 /obj/machinery/economy/vending/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		var/estimated_height = 100 + min(length(product_records) * 34, 500)
-		if(length(prices) > 0)
-			estimated_height += 100 // to account for the "current user" interface
-		ui = new(user, src, "Vending",  name, 470, estimated_height)
+		ui = new(user, src, "Vending",  name)
 		ui.open()
 
 /obj/machinery/economy/vending/ui_data(mob/user)

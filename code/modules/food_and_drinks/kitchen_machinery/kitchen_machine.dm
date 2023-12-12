@@ -452,7 +452,7 @@
 /obj/machinery/kitchen_machine/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "KitchenMachine",  name, 400, 300)
+		ui = new(user, src, "KitchenMachine",  name)
 		ui.open()
 
 /obj/machinery/kitchen_machine/ui_data(mob/user)

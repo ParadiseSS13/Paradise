@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(safes)
 
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "Safe", name, 600, 750)
+		ui = new(user, src, "Safe", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

@@ -125,7 +125,7 @@
 /obj/machinery/atmospherics/portable/pump/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "PortablePump", "Portable Pump", 434, 377)
+		ui = new(user, src, "PortablePump", "Portable Pump")
 		ui.open()
 
 /obj/machinery/atmospherics/portable/pump/ui_data(mob/user)

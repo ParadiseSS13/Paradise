@@ -27,7 +27,7 @@ export const Teleporter = (props, context) => {
     locked,
   } = data;
   return (
-    <Window>
+    <Window width={380} height={260}>
       <Window.Content>
         {(!powerstation || !teleporterhub) && (
           <Section title="Error">

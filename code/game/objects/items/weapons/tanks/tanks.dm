@@ -163,7 +163,7 @@
 /obj/item/tank/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "Tank",  name, 300, 150)
+		ui = new(user, src, "Tank", name)
 		ui.open()
 
 /obj/item/tank/ui_data(mob/user)

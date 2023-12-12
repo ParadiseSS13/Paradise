@@ -793,7 +793,7 @@
 /obj/machinery/alarm/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AirAlarm", name, 570, 410)
+		ui = new(user, src, "AirAlarm", name)
 		ui.open()
 
 /obj/machinery/alarm/proc/is_authenticated(mob/user, datum/tgui/ui = null, bypass = FALSE)

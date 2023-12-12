@@ -17,7 +17,7 @@ export const PersonalCrafting = (props, context) => {
     next_subcat,
   } = data;
   return (
-    <Window>
+    <Window width={700} height={800}>
       <Window.Content scrollable>
         {!!busy && (
           <Dimmer fontSize="32px">

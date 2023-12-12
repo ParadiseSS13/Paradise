@@ -25,7 +25,7 @@ export const PortableTurret = (props, context) => {
     neutralize_cyborgs,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={400}>
       <Window.Content scrollable>
         <NoticeBox>
           Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.

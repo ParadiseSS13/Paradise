@@ -151,7 +151,7 @@
 /obj/machinery/atmospherics/trinary/mixer/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AtmosMixer", name, 330, 165)
+		ui = new(user, src, "AtmosMixer", name)
 		ui.open()
 
 /obj/machinery/atmospherics/trinary/mixer/ui_data(mob/user)

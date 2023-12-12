@@ -28,7 +28,7 @@ export const ExosuitFabricator = (properties, context) => {
   const { act, data } = useBackend(context);
   const { building } = data;
   return (
-    <Window>
+    <Window width={800} height={600}>
       <Window.Content className="Exofab">
         <Flex width="100%" height="100%">
           <Flex.Item grow="1" mr="0.5rem" width="70%">

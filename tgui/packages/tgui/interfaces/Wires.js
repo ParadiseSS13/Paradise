@@ -10,7 +10,7 @@ export const Wires = (props, context) => {
   const statuses = data.status || [];
 
   return (
-    <Window>
+    <Window resizable width={385} height={105 + wires.length * 30}>
       <Window.Content>
         <Section>
           <LabeledList>

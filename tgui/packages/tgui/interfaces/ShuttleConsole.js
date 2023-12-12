@@ -13,7 +13,7 @@ import { LabeledListItem } from '../components/LabeledList';
 export const ShuttleConsole = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window resizable>
+    <Window width={350} height={150} resizable>
       <Window.Content>
         <Section>
           <LabeledList>

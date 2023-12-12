@@ -333,7 +333,7 @@
 /obj/machinery/computer/bsa_control/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "BlueSpaceArtilleryControl", name, 400, 155)
+		ui = new(user, src, "BlueSpaceArtilleryControl", name)
 		ui.open()
 
 /obj/machinery/computer/bsa_control/ui_data(mob/user)

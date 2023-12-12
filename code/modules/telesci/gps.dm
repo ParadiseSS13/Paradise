@@ -126,7 +126,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "GPS", "GPS", 450, 700)
+		ui = new(user, src, "GPS", "GPS")
 		ui.open()
 
 /obj/item/gps/ui_act(action, list/params)

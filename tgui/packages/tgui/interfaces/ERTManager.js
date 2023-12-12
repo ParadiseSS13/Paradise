@@ -23,7 +23,7 @@ export const ERTManager = (props, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
 
   return (
-    <Window>
+    <Window width={350} height={540}>
       <Window.Content>
         <ERTOverview />
         <Tabs>

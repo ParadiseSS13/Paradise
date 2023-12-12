@@ -78,7 +78,7 @@
 /mob/living/simple_animal/bot/honkbot/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "BotHonk", name, 500, 220)
+		ui = new(user, src, "BotHonk", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/honkbot/ui_act(action, params, datum/tgui/ui)

@@ -17,7 +17,7 @@ export const Biogenerator = (props, context) => {
   const { container, processing } = data;
   const { title } = config;
   return (
-    <Window>
+    <Window width={390} height={600}>
       <Window.Content display="flex" className="Layout__content--flexColumn">
         <Operating operating={processing} name={title} />
         <Storage />

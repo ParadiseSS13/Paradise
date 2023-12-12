@@ -74,7 +74,7 @@
 /obj/machinery/shuttle_manipulator/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "ShuttleManipulator", name, 650, 700)
+		ui = new(user, src, "ShuttleManipulator", name)
 		ui.open()
 
 /obj/machinery/shuttle_manipulator/ui_data(mob/user)

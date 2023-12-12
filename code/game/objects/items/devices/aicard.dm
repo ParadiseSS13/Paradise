@@ -54,7 +54,7 @@
 /obj/item/aicard/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AICard", "[name]", 600, 394)
+		ui = new(user, src, "AICard", "[name]")
 		ui.open()
 
 /obj/item/aicard/ui_data(mob/user)

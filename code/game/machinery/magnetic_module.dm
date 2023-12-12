@@ -243,7 +243,7 @@
 /obj/machinery/magnetic_controller/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "MagnetController", name, 400, 600)
+		ui = new(user, src, "MagnetController", name)
 		ui.open()
 
 /obj/machinery/magnetic_controller/attack_ai(mob/user as mob)

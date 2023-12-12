@@ -2,8 +2,6 @@
 	name = "atmospheric alert computer"
 	desc = "Used to access the station's atmospheric sensors."
 	circuit = /obj/item/circuitboard/atmos_alert
-	var/ui_x = 350
-	var/ui_y = 300
 	icon_keyboard = "atmos_key"
 	icon_screen = "alert:0"
 	light_color = LIGHT_COLOR_CYAN
@@ -48,7 +46,7 @@
 /obj/machinery/computer/atmos_alert/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AtmosAlertConsole", name, ui_x, ui_y)
+		ui = new(user, src, "AtmosAlertConsole", name)
 		ui.open()
 
 /obj/machinery/computer/atmos_alert/ui_data(mob/user)

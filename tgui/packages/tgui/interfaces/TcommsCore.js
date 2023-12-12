@@ -31,7 +31,7 @@ export const TcommsCore = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={900} height={530} resizable>
       <Window.Content scrollable>
         {ion === 1 && <IonBanner />}
         <Tabs>

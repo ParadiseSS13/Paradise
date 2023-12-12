@@ -82,7 +82,7 @@
 /obj/machinery/atmospherics/binary/passive_gate/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AtmosPump", name, 310, 110)
+		ui = new(user, src, "AtmosPump", name)
 		ui.open()
 
 /obj/machinery/atmospherics/binary/passive_gate/ui_data(mob/user)

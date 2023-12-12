@@ -149,7 +149,7 @@
 	// update the ui if it exists, returns null if no ui is passed/found
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "ChemDispenser", ui_title, 390, 655)
+		ui = new(user, src, "ChemDispenser", ui_title)
 		ui.open()
 
 /obj/machinery/chem_dispenser/ui_data(mob/user)
@@ -472,7 +472,7 @@
 /obj/item/handheld_chem_dispenser/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "HandheldChemDispenser", name, 390, 500)
+		ui = new(user, src, "HandheldChemDispenser", name)
 		ui.open()
 
 /obj/item/handheld_chem_dispenser/ui_data(mob/user)

@@ -38,7 +38,7 @@
 /obj/machinery/computer/account_database/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AccountsUplinkTerminal", name, 800, 600)
+		ui = new(user, src, "AccountsUplinkTerminal", name)
 		ui.open()
 
 /obj/machinery/computer/account_database/ui_data(mob/user)

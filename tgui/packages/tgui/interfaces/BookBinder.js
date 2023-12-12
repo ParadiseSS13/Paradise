@@ -24,7 +24,7 @@ export const BookBinder = (props, context) => {
   }
 
   return (
-    <Window resizable>
+    <Window width={700} height={400} resizable>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <Section title="Book Binder">

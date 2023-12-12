@@ -46,7 +46,7 @@
 /obj/machinery/abductor/gland_dispenser/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "GlandDispenser", name, 300, 338)
+		ui = new(user, src, "GlandDispenser", name)
 		ui.open()
 
 /obj/machinery/abductor/gland_dispenser/ui_data(mob/user)

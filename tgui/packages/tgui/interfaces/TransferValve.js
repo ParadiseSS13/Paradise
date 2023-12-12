@@ -6,7 +6,7 @@ export const TransferValve = (props, context) => {
   const { act, data } = useBackend(context);
   const { tank_one, tank_two, attached_device, valve } = data;
   return (
-    <Window>
+    <Window width={460} height={320}>
       <Window.Content>
         <Section>
           <LabeledList>

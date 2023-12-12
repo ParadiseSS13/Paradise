@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
 		// We can use the same template here for sensors and for tanks with inlets/outlets with TGUI memes
-		ui = new(user, src, "AtmosTankControl", name, 400, 400)
+		ui = new(user, src, "AtmosTankControl", name)
 		ui.open()
 
 /obj/machinery/computer/general_air_control/ui_data(mob/user)

@@ -16,7 +16,7 @@ const formatPoints = (amt) => amt.toLocaleString('en-US') + ' pts';
 
 export const OreRedemption = (properties, context) => {
   return (
-    <Window>
+    <Window width={500} height={600}>
       <Window.Content>
         <Flex direction="column" width="100%" height="100%">
           <Flex.Item basis="content" mb="0.5rem">

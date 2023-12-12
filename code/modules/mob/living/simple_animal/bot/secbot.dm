@@ -123,7 +123,7 @@
 /mob/living/simple_animal/bot/secbot/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "BotSecurity", name, 500, 500)
+		ui = new(user, src, "BotSecurity", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/secbot/ui_data(mob/user)

@@ -2,8 +2,6 @@
 	wire_count = 5
 	holder_type = /obj/machinery/particle_accelerator/control_box
 	proper_name = "Particle accelerator control"
-	window_x = 361
-	window_y = 22
 
 /datum/wires/particle_acc/control_box/New(atom/_holder)
 	wires = list(WIRE_PARTICLE_POWER, WIRE_PARTICLE_STRENGTH, WIRE_PARTICLE_INTERFACE, WIRE_PARTICLE_POWER_LIMIT)

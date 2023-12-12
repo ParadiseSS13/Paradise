@@ -13,7 +13,7 @@ import { LabeledListItem } from '../components/LabeledList';
 
 export const EconomyManager = (props, context) => {
   return (
-    <Window resizable>
+    <Window width={600} height={350} resizable>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <EconomyButtons />

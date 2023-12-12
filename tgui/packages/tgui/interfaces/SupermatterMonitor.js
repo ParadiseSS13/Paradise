@@ -31,7 +31,7 @@ const SupermatterMonitorListView = (props, context) => {
   const { act, data } = useBackend(context);
   const { supermatters = [] } = data;
   return (
-    <Window>
+    <Window width={600} height={350}>
       <Window.Content scrollable>
         <Section
           title="Detected Supermatters"

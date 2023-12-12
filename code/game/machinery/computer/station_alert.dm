@@ -6,8 +6,6 @@
 	icon_screen = "alert:0"
 	light_color = LIGHT_COLOR_CYAN
 	circuit = /obj/item/circuitboard/stationalert_engineering
-	var/ui_x = 325
-	var/ui_y = 500
 	var/list/alarms_listend_for = list("Fire", "Atmosphere", "Power")
 
 /obj/machinery/computer/station_alert/Initialize(mapload)
@@ -34,7 +32,7 @@
 /obj/machinery/computer/station_alert/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "StationAlertConsole", name, ui_x, ui_y)
+		ui = new(user, src, "StationAlertConsole", name)
 		ui.open()
 
 /obj/machinery/computer/station_alert/ui_data(mob/user)

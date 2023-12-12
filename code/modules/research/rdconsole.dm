@@ -712,7 +712,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "RndConsole", name, 800, 550)
+		ui = new(user, src, "RndConsole", name)
 		ui.open()
 
 /obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)

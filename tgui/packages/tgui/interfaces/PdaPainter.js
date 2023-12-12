@@ -6,7 +6,7 @@ export const PdaPainter = (props, context) => {
   const { data } = useBackend(context);
   const { has_pda } = data;
   return (
-    <Window>
+    <Window width={510} height={508}>
       <Window.Content>{!has_pda ? <PdaInsert /> : <PdaMenu />}</Window.Content>
     </Window>
   );

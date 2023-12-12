@@ -78,7 +78,7 @@ export const BrigCells = (properties, context) => {
   const { cells } = data;
 
   return (
-    <Window theme="security" resizable>
+    <Window theme="security" width={1000} height={400} resizable>
       <Window.Content scrollable className="Layout__content--flexColumn">
         <Flex direction="column" height="100%">
           <Section height="100%" flexGrow="1">

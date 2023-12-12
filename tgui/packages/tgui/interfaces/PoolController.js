@@ -55,7 +55,7 @@ export const PoolController = (properties, context) => {
   }
 
   return (
-    <Window>
+    <Window width={520} height={260}>
       <Window.Content>
         <Section title="Status">
           <LabeledList>

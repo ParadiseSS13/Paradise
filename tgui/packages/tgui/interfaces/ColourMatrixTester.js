@@ -35,7 +35,7 @@ export const ColourMatrixTester = (props, context) => {
   ];
 
   return (
-    <Window>
+    <Window width={350} height={170}>
       <Window.Content>
         <Section title="Modify Matrix">
           {matrix_entries.map((k) => (

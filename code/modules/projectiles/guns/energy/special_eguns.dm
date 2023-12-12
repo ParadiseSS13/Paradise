@@ -575,7 +575,7 @@
 /obj/item/gun/energy/temperature/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "TempGun", name, 250, 130)
+		ui = new(user, src, "TempGun", name)
 		ui.open()
 
 /obj/item/gun/energy/temperature/ui_data(mob/user)

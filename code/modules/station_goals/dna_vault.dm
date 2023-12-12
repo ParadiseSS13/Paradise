@@ -222,7 +222,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/m
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
 		roll_powers(user)
-		ui = new(user, src, "DnaVault", name, 350, 400)
+		ui = new(user, src, "DnaVault", name)
 		ui.open()
 
 /obj/machinery/dna_vault/proc/roll_powers(mob/user)

@@ -72,7 +72,7 @@
 /obj/item/implantpad/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "ImplantPad", name, 410, 400)
+		ui = new(user, src, "ImplantPad", name)
 		ui.open()
 
 /obj/item/implantpad/ui_data(mob/user)

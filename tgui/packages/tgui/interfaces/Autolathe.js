@@ -110,7 +110,7 @@ export const Autolathe = (props, context) => {
     width: '30%',
   };
   return (
-    <Window resizable>
+    <Window width={750} height={700} resizable>
       <Window.Content scrollable>
         <div style={styleLeftDiv}>
           <Section

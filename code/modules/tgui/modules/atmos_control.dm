@@ -21,7 +21,7 @@
 /datum/ui_module/atmos_control/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "AtmosControl", name, 800, 600)
+		ui = new(user, src, "AtmosControl", name)
 
 		// Send nanomaps
 		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)

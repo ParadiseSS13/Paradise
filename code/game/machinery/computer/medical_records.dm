@@ -81,7 +81,7 @@
 /obj/machinery/computer/med_data/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "MedicalRecords", "Medical Records", 800, 800)
+		ui = new(user, src, "MedicalRecords", "Medical Records")
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

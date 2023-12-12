@@ -251,7 +251,7 @@
 /obj/machinery/power/port_gen/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "Pacman", name, 500, 260)
+		ui = new(user, src, "Pacman", name)
 		ui.open()
 
 /obj/machinery/power/port_gen/pacman/ui_data(mob/user)

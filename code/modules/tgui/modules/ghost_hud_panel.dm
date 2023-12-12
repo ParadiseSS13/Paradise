@@ -22,7 +22,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 /datum/ui_module/ghost_hud_panel/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "GhostHudPanel", name, 250, 207)
+		ui = new(user, src, "GhostHudPanel", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

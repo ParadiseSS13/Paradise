@@ -301,7 +301,7 @@
 /obj/machinery/door_timer/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "BrigTimer",  name, 500, 450)
+		ui = new(user, src, "BrigTimer",  name)
 		ui.open()
 
 /obj/machinery/door_timer/ui_static_data(mob/user)

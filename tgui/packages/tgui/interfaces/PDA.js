@@ -29,7 +29,7 @@ export const PDA = (props, context) => {
   const { app, owner } = data;
   if (!owner) {
     return (
-      <Window>
+      <Window width={600} height={650}>
         <Window.Content scrollable>
           <Section title="Error">
             No user data found. Please swipe an ID card.

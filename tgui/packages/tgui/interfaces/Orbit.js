@@ -137,7 +137,7 @@ export const Orbit = (props, context) => {
   };
 
   return (
-    <Window resizable>
+    <Window width={700} height={500} resizable>
       <Window.Content scrollable>
         <Section>
           <Flex>

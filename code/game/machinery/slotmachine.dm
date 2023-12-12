@@ -44,7 +44,7 @@
 /obj/machinery/economy/slot_machine/ui_interact(mob/user, datum/tgui/ui = null, force_open = 0)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "SlotMachine", name, 350, 200)
+		ui = new(user, src, "SlotMachine", name)
 		ui.open()
 
 /obj/machinery/economy/slot_machine/ui_data(mob/user)

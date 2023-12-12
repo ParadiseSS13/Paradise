@@ -171,7 +171,7 @@
 	// Open the window
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "MiningVendor", name, 400, 450)
+		ui = new(user, src, "MiningVendor", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

@@ -15,7 +15,7 @@ export const KeycardAuth = (props, context) => {
   );
   if (!data.swiping && !data.busy) {
     return (
-      <Window>
+      <Window width={540} height={280}>
         <Window.Content>
           {infoBox}
           <Section title="Choose Action">
@@ -109,7 +109,7 @@ export const KeycardAuth = (props, context) => {
       );
     }
     return (
-      <Window>
+      <Window width={540} height={265}>
         <Window.Content>
           {infoBox}
           {data.event === 'Emergency Response Team' && (

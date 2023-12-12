@@ -190,7 +190,7 @@
 		reconnect_database()
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "CargoConsole", name, 900, 800)
+		ui = new(user, src, "CargoConsole", name)
 		ui.open()
 
 /obj/machinery/computer/supplycomp/ui_data(mob/user)

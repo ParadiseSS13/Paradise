@@ -94,7 +94,7 @@ export const Contractor = (properties, context) => {
     ''
   );
   return (
-    <Window theme="syndicate">
+    <Window theme="syndicate" width={500} height={600}>
       {viewingPhoto && <PhotoZoom />}
       <Window.Content className="Contractor">
         <Flex direction="column" height="100%">

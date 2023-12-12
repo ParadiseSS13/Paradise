@@ -167,7 +167,7 @@
 /obj/machinery/poolcontroller/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "PoolController", "Pool Controller Interface", 520, 410)
+		ui = new(user, src, "PoolController", "Pool Controller Interface")
 		ui.open()
 
 /obj/machinery/poolcontroller/proc/temp_to_str(temp)

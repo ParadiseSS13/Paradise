@@ -259,7 +259,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "ChemMaster", name, 575, 500)
+		ui = new(user, src, "ChemMaster", name)
 		ui.open()
 
 /obj/machinery/chem_master/ui_data(mob/user)

@@ -20,7 +20,7 @@ export const NTRecruiter = (props, context) => {
   } = data;
   if (gamestatus === 0) {
     return (
-      <Window resizable>
+      <Window width={400} height={480} resizable>
         <Window.Content>
           <Section py="140px">
             <Flex direction="column">

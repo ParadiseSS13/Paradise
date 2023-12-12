@@ -18,7 +18,7 @@
 /datum/ui_module/economy_manager/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
 	ui = SStgui.try_update_ui(user, src, ui, force_open)
 	if(!ui)
-		ui = new(user, src, "EconomyManager", name, 600, 350)
+		ui = new(user, src, "EconomyManager", name)
 		ui.autoupdate = TRUE
 		ui.open()
 
