@@ -25,7 +25,7 @@ export const BlueSpaceArtilleryControl = (props, context) => {
     );
   }
   return (
-    <Window>
+    <Window width={400} height={155}>
       <Window.Content>
         <Section>
           <LabeledList>

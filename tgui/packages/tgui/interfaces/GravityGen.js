@@ -41,7 +41,7 @@ export const GravityGen = (props, context) => {
   };
 
   return (
-    <Window>
+    <Window width={350} height={250}>
       <Window.Content>
         {radWarning(charging_state)}
         <Section

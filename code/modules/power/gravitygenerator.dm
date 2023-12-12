@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(gravity_generators)
 /obj/machinery/gravity_generator/main/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui && !(stat & BROKEN))
-		ui = new(user, src, "GravityGen", name, 350, 250)
+		ui = new(user, src, "GravityGen", name)
 		ui.open()
 
 /obj/machinery/gravity_generator/main/ui_data(mob/user)

@@ -224,7 +224,7 @@
 /obj/machinery/bodyscanner/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BodyScanner", "Body Scanner", 690, 600)
+		ui = new(user, src, "BodyScanner", "Body Scanner")
 		ui.open()
 
 /obj/machinery/bodyscanner/ui_data(mob/user)

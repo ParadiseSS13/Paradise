@@ -7,8 +7,8 @@ import { AccessList } from './common/AccessList';
 export const GuestPass = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window resizable>
-      <Window.Content scrollable>
+    <Window width={500} height={705} resizable>
+      <Window.Content>
         <Tabs>
           <Tabs.Tab
             icon="id-card"

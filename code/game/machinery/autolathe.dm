@@ -104,7 +104,7 @@
 /obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Autolathe", name, 750, 700)
+		ui = new(user, src, "Autolathe", name)
 		ui.open()
 
 

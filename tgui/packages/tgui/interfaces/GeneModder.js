@@ -15,7 +15,7 @@ export const GeneModder = (props, context) => {
   const { has_seed } = data;
 
   return (
-    <Window resizable>
+    <Window width={500} height={700} resizable>
       <Window.Content className="Layout__content--flexColumn">
         <Storage />
         <ComplexModal maxWidth="75%" maxHeight="75%" />

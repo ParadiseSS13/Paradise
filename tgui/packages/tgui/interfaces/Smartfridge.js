@@ -18,7 +18,7 @@ export const Smartfridge = (props, context) => {
     contents,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={500}>
       <Window.Content>
         {!!secure && (
           <Section title="Secure">

@@ -163,7 +163,7 @@
 /mob/living/simple_animal/bot/medbot/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BotMed", name, 500, 520)
+		ui = new(user, src, "BotMed", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/medbot/ui_data(mob/user)

@@ -21,7 +21,7 @@ export const MechaControlConsole = (props, context) => {
 
   if (stored_data.length) {
     return (
-      <Window resizable>
+      <Window width={420} height={500} resizable>
         <Window.Content scrollable>
           <Section
             title="Log"

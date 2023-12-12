@@ -61,7 +61,7 @@
 /obj/item/eftpos/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "EFTPOS", name, 500, 250)
+		ui = new(user, src, "EFTPOS", name)
 		ui.open()
 
 /obj/item/eftpos/ui_data(mob/user)

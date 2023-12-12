@@ -16,7 +16,7 @@
 /obj/item/contract/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "WizardApprenticeContract", name, 400, 600)
+		ui = new(user, src, "WizardApprenticeContract", name)
 		ui.open()
 
 /obj/item/contract/ui_data(mob/user)

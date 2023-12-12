@@ -37,7 +37,7 @@
 /obj/machinery/computer/drone_control/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "DroneConsole", "Drone Control Console", 420, 500)
+		ui = new(user, src, "DroneConsole", "Drone Control Console")
 		ui.open()
 
 /obj/machinery/computer/drone_control/ui_data(mob/user)

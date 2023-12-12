@@ -103,7 +103,7 @@ export const BodyScanner = (props, context) => {
     <BodyScannerEmpty />
   );
   return (
-    <Window resizable>
+    <Window width={690} height={600} resizable>
       <Window.Content scrollable className="Layout__content--flexColumn">
         {body}
       </Window.Content>

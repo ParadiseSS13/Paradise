@@ -143,7 +143,7 @@ export const Canister = (props, context) => {
   }
 
   return (
-    <Window>
+    <Window width={600} height={320}>
       <Window.Content>
         <Section
           title={name}

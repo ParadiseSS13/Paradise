@@ -7,7 +7,7 @@ export const SeedExtractor = (props, context) => {
   const { stored_seeds, vend_amount } = data;
 
   return (
-    <Window resizable>
+    <Window width={800} height={400} resizable>
       <Window.Content scrollable className="Layout__content--flexColumn">
         <Section title="Stored Seeds">
           <div className="CameraConsole__toolbarRight">

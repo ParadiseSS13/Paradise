@@ -244,7 +244,7 @@
 /obj/item/rcd/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RCD", "Rapid Construction Device", 471, 673)
+		ui = new(user, src, "RCD", "Rapid Construction Device")
 		ui.open()
 
 /obj/item/rcd/ui_data(mob/user)

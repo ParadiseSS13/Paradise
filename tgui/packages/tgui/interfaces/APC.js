@@ -13,7 +13,7 @@ import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
 export const APC = (props, context) => {
   return (
-    <Window>
+    <Window width={510} height={445}>
       <Window.Content>
         <ApcContent />
       </Window.Content>

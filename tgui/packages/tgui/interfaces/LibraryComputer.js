@@ -22,7 +22,7 @@ import { FlexItem } from '../components/Flex';
 
 export const LibraryComputer = (props, context) => {
   return (
-    <Window resizable>
+    <Window width={1050} height={600} resizable>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <LibraryComputerNavigation />

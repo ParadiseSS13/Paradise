@@ -108,7 +108,7 @@
 /mob/living/simple_animal/bot/ed209/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BotSecurity", name, 500, 500)
+		ui = new(user, src, "BotSecurity", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/ed209/ui_data(mob/user)

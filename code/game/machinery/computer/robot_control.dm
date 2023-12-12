@@ -137,7 +137,7 @@
 /obj/machinery/computer/robotics/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RoboticsControlConsole",  name, 500, 460)
+		ui = new(user, src, "RoboticsControlConsole", name)
 		ui.open()
 
 /obj/machinery/computer/robotics/ui_data(mob/user)

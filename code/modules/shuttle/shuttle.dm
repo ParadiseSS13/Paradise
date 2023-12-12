@@ -812,7 +812,7 @@
 /obj/machinery/computer/shuttle/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ShuttleConsole", name, 350, 150)
+		ui = new(user, src, "ShuttleConsole", name)
 		ui.open()
 
 /obj/machinery/computer/shuttle/ui_data(mob/user)

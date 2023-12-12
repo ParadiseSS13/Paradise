@@ -2,8 +2,6 @@
 	wire_count = 1
 	holder_type = /obj/machinery/power/tesla_coil
 	proper_name = "Tesla coil"
-	window_x = 320
-	window_y = 50
 
 /datum/wires/tesla_coil/New(atom/_holder)
 	wires = list(WIRE_TESLACOIL_ZAP)

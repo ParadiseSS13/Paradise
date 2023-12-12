@@ -82,7 +82,7 @@
 /obj/item/assembly/health/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "HealthSensor", name, 300, 140)
+		ui = new(user, src, "HealthSensor", name)
 		ui.open()
 
 /obj/item/assembly/health/ui_data(mob/user)

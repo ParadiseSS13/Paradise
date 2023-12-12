@@ -94,7 +94,7 @@
 /obj/item/transfer_valve/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TransferValve",  name, 460, 320)
+		ui = new(user, src, "TransferValve",  name)
 		ui.open()
 
 /obj/item/transfer_valve/ui_data(mob/user)

@@ -38,7 +38,7 @@ export const FloorPainter = (props, context) => {
     allStylesPreview,
   } = data;
   return (
-    <Window resizable>
+    <Window width={405} height={475} resizable>
       <Window.Content scrollable>
         <Section title="Decal setup">
           <Flex>

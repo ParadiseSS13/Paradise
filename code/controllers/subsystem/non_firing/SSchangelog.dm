@@ -210,7 +210,7 @@ SUBSYSTEM_DEF(changelog)
 /datum/controller/subsystem/changelog/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ChangelogView", name, 750, 800)
+		ui = new(user, src, "ChangelogView", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

@@ -15,7 +15,7 @@ export const PortableScrubber = (props, context) => {
   const { has_holding_tank } = data;
 
   return (
-    <Window>
+    <Window width={433} height={346}>
       <Window.Content>
         <PumpSettings />
         <PressureSettings />

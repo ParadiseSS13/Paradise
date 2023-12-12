@@ -670,7 +670,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AiAirlock", name, 600, 400)
+		ui = new(user, src, "AiAirlock", name)
 		ui.open()
 
 

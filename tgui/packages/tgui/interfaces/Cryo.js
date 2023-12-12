@@ -39,7 +39,7 @@ const statNames = [
 
 export const Cryo = (props, context) => {
   return (
-    <Window>
+    <Window width={520} height={500}>
       <Window.Content className="Layout__content--flexColumn">
         <CryoContent />
       </Window.Content>

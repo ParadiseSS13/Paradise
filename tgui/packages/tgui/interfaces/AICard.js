@@ -6,7 +6,7 @@ export const AICard = (props, context) => {
   const { act, data } = useBackend(context);
   if (data.has_ai === 0) {
     return (
-      <Window>
+      <Window width={250} height={120}>
         <Window.Content>
           <Section title="Stored AI">
             <Box>
@@ -27,8 +27,8 @@ export const AICard = (props, context) => {
     }
 
     return (
-      <Window scrollable>
-        <Window.Content>
+      <Window width={600} height={394}>
+        <Window.Content scrollable>
           <Section title="Stored AI">
             <Box bold display="inline-block">
               <h3>{data.name}</h3>

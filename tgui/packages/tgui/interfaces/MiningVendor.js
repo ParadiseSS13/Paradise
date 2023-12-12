@@ -21,7 +21,7 @@ const sortTypes = {
 
 export const MiningVendor = (_properties, _context) => {
   return (
-    <Window>
+    <Window width={400} height={455}>
       <Window.Content className="Layout__content--flexColumn">
         <MiningVendorUser />
         <MiningVendorSearch />

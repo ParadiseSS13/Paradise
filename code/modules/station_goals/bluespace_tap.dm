@@ -498,7 +498,7 @@
 /obj/machinery/power/bluespace_tap/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BluespaceTap", name, 650, 400)
+		ui = new(user, src, "BluespaceTap", name)
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk

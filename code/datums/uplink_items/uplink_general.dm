@@ -174,7 +174,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "FK-69 Pistol Kit"
 	reference = "SPI"
 	desc = "A box containing a small, easily concealable handgun and two eight-round magazines chambered in 10mm auto rounds. Compatible with suppressors."
-	item = /obj/item/storage/box/syndie_kit/stechkin
+	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
 
 /datum/uplink_item/dangerous/revolver

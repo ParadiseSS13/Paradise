@@ -245,7 +245,7 @@
 /obj/machinery/reagentgrinder/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ReagentGrinder", name, 400, 500)
+		ui = new(user, src, "ReagentGrinder", name)
 		ui.open()
 
 /obj/machinery/reagentgrinder/ui_data(mob/user)

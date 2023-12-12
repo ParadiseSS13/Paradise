@@ -251,7 +251,7 @@
 /obj/machinery/smartfridge/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Smartfridge", name, 500, 500)
+		ui = new(user, src, "Smartfridge", name)
 		ui.open()
 
 /obj/machinery/smartfridge/ui_data(mob/user)

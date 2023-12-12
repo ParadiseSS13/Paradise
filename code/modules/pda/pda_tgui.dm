@@ -6,7 +6,7 @@
 /obj/item/pda/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "PDA", name, 600, 650)
+		ui = new(user, src, "PDA", name)
 		ui.open()
 
 

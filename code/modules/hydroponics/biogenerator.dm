@@ -207,7 +207,7 @@
 /obj/machinery/biogenerator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Biogenerator", "Biogenerator", 390, 600)
+		ui = new(user, src, "Biogenerator", "Biogenerator")
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

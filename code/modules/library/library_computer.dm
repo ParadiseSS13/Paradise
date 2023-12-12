@@ -109,7 +109,7 @@
 /obj/machinery/computer/library/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "LibraryComputer", name, 1050, 600)
+		ui = new(user, src, "LibraryComputer", name)
 		ui.open()
 
 /*

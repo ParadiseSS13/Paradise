@@ -27,7 +27,7 @@ export const SolarControl = (props, context) => {
     rotating_direction,
   } = data;
   return (
-    <Window>
+    <Window width={490} height={277}>
       <Window.Content>
         <Section
           title="Status"

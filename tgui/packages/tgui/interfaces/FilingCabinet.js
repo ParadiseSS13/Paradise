@@ -7,7 +7,7 @@ export const FilingCabinet = (props, context) => {
   const { contents } = data;
   const { title } = config;
   return (
-    <Window>
+    <Window width={400} height={300}>
       <Window.Content scrollable>
         <Section title="Contents">
           {!contents && <Box color="average"> The {title} is empty. </Box>}

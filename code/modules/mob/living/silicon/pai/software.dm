@@ -34,7 +34,7 @@ GLOBAL_LIST_EMPTY(pai_software_by_key)
 /mob/living/silicon/pai/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "PAI", name, 600, 650)
+		ui = new(user, src, "PAI", name)
 		ui.open()
 
 /mob/living/silicon/pai/ui_data(mob/user)

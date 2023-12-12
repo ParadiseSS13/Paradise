@@ -120,7 +120,7 @@
 /obj/machinery/atmospherics/portable/scrubber/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "PortableScrubber", "Portable Scrubber", 433, 346)
+		ui = new(user, src, "PortableScrubber", "Portable Scrubber")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 

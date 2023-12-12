@@ -155,7 +155,7 @@
 /datum/vote/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "VotePanel", "VotePanel", 400, 500)
+		ui = new(user, src, "VotePanel", "VotePanel")
 		ui.open()
 
 /datum/vote/ui_data(mob/user)

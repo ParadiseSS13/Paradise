@@ -6,7 +6,7 @@ export const AIFixer = (props, context) => {
   const { act, data } = useBackend(context);
   if (data.occupant === null) {
     return (
-      <Window>
+      <Window width={550} height={500}>
         <Window.Content>
           <Section title="Stored AI">
             <Box>

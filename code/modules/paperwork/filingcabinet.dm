@@ -89,7 +89,7 @@
 /obj/structure/filingcabinet/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "FilingCabinet",  name, 400, 300)
+		ui = new(user, src, "FilingCabinet",  name)
 		ui.open()
 
 /obj/structure/filingcabinet/ui_data(mob/user)

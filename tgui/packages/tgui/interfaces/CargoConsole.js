@@ -22,7 +22,7 @@ import { FlexItem } from '../components/Flex';
 
 export const CargoConsole = (props, context) => {
   return (
-    <Window>
+    <Window width={900} height={800}>
       <Window.Content>
         <ContentsModal />
         <StatusPane />

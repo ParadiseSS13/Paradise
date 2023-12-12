@@ -31,7 +31,7 @@
 /obj/machinery/computer/sm_monitor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "SupermatterMonitor", name, 600, 350)
+		ui = new(user, src, "SupermatterMonitor", name)
 		ui.open()
 
 /obj/machinery/computer/sm_monitor/ui_data(mob/user)

@@ -50,7 +50,7 @@
 /datum/song/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, parent, ui)
 	if(!ui)
-		ui = new(user, parent, "Instrument", parent?.name || "Instrument", 700, 500)
+		ui = new(user, parent, "Instrument", parent?.name || "Instrument")
 		ui.open()
 		ui.set_autoupdate(FALSE) // NO!!! Don't auto-update this!!
 

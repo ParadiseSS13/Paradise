@@ -15,7 +15,7 @@ import { Window } from '../layouts';
 export const Instrument = (properties, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window>
+    <Window width={600} height={505} resizable>
       <InstrumentHelp />
       <Window.Content scrollable>
         <InstrumentStatus />
@@ -491,7 +491,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
                 <Dropdown
                   options={allowedInstrumentNames}
                   selected={instrument}
-                  width="40%"
+                  width="50%"
                   onSelected={(v) =>
                     act('switchinstrument', {
                       name: v,

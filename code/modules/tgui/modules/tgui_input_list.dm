@@ -115,7 +115,7 @@
 /datum/tgui_list_input/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ListInput", title, 325, 355)
+		ui = new(user, src, "ListInput", title)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

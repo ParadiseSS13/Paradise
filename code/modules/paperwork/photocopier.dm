@@ -371,7 +371,7 @@
 /obj/machinery/photocopier/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Photocopier", name, 402, 368)
+		ui = new(user, src, "Photocopier", name)
 		ui.open()
 
 /obj/machinery/photocopier/ui_data(mob/user)

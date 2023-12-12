@@ -18,7 +18,7 @@ export const ShuttleManipulator = (props, context) => {
   };
 
   return (
-    <Window>
+    <Window width={650} height={700}>
       <Window.Content scrollable>
         <Box fillPositionedParent>
           <Tabs>

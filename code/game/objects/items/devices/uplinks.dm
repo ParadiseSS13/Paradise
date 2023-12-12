@@ -201,7 +201,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Uplink", name, 900, 600)
+		ui = new(user, src, "Uplink", name)
 		ui.open()
 
 /obj/item/uplink/hidden/ui_data(mob/user)

@@ -8,7 +8,7 @@ import { filter, sortBy } from 'common/collections';
 
 export const EvolutionMenu = (props, context) => {
   return (
-    <Window resizable theme="changeling">
+    <Window width={480} height={574} resizable theme="changeling">
       <Window.Content className="Layout__content--flexColumn">
         <EvolutionPoints />
         <Abilities />

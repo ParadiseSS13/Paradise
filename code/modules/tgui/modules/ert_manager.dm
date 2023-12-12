@@ -17,7 +17,7 @@
 /datum/ui_module/ert_manager/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ERTManager", name, 350, 540)
+		ui = new(user, src, "ERTManager", name)
 		ui.autoupdate = TRUE
 		ui.open()
 

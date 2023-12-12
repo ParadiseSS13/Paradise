@@ -290,7 +290,7 @@
 /datum/personal_crafting/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "PersonalCrafting", "Crafting Menu", 700, 800)
+		ui = new(user, src, "PersonalCrafting", "Crafting Menu")
 		ui.open()
 
 /datum/personal_crafting/proc/close(mob/user)

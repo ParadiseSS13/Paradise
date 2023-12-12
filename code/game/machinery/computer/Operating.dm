@@ -65,7 +65,7 @@
 /obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "OperatingComputer", "Patient Monitor", 650, 455)
+		ui = new(user, src, "OperatingComputer", "Patient Monitor")
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)

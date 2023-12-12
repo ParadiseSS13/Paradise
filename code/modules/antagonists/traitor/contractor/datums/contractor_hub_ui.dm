@@ -44,7 +44,7 @@
 /datum/contractor_hub/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Contractor", "Syndicate Contractor Uplink", 500, 600)
+		ui = new(user, src, "Contractor", "Syndicate Contractor Uplink")
 		ui.open()
 
 /datum/contractor_hub/ui_data(mob/user)

@@ -20,7 +20,7 @@
 /datum/ui_module/power_monitor/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "PowerMonitor", name, 600, 650)
+		ui = new(user, src, "PowerMonitor", name)
 		ui.open()
 
 /datum/ui_module/power_monitor/ui_data(mob/user)

@@ -180,7 +180,7 @@
 /obj/machinery/atmospherics/trinary/filter/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AtmosFilter", name, 380, 140)
+		ui = new(user, src, "AtmosFilter", name)
 		ui.open()
 
 /obj/machinery/atmospherics/trinary/filter/ui_data(mob/user)

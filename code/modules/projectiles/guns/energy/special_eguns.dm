@@ -190,6 +190,9 @@
 /obj/item/gun/energy/plasmacutter/update_overlays()
 	return list()
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
+
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
@@ -575,7 +578,7 @@
 /obj/item/gun/energy/temperature/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TempGun", name, 250, 130)
+		ui = new(user, src, "TempGun", name)
 		ui.open()
 
 /obj/item/gun/energy/temperature/ui_data(mob/user)

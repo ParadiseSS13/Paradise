@@ -34,7 +34,7 @@
 /obj/machinery/computer/aifixer/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AIFixer", name, 550, 500)
+		ui = new(user, src, "AIFixer", name)
 		ui.open()
 
 /obj/machinery/computer/aifixer/ui_data(mob/user)

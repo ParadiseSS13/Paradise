@@ -32,7 +32,7 @@ export const BotMed = (props, context) => {
     reagent_glass,
   } = data;
   return (
-    <Window>
+    <Window width={500} height={520}>
       <Window.Content>
         <BotStatus />
         <Section title="Communication Settings">

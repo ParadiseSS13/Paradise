@@ -198,7 +198,7 @@
 /mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BotClean", name, 500, 500)
+		ui = new(user, src, "BotClean", name)
 		ui.open()
 
 /mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)

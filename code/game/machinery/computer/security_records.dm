@@ -77,7 +77,7 @@
 /obj/machinery/computer/secure_data/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "SecurityRecords", name, 800, 800)
+		ui = new(user, src, "SecurityRecords", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

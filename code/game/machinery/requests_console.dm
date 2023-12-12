@@ -143,7 +143,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RequestConsole", "[department] Request Console", 520, 410)
+		ui = new(user, src, "RequestConsole", "[department] Request Console")
 		ui.open()
 
 /obj/machinery/requests_console/ui_data(mob/user)

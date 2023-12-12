@@ -166,7 +166,7 @@
 /obj/machinery/sleeper/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Sleeper", "Sleeper", 550, 775)
+		ui = new(user, src, "Sleeper", "Sleeper")
 		ui.open()
 
 /obj/machinery/sleeper/ui_data(mob/user)

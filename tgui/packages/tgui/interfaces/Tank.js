@@ -31,7 +31,7 @@ export const Tank = (props, context) => {
     );
   }
   return (
-    <Window>
+    <Window width={300} height={135}>
       <Window.Content>
         <Section>
           <LabeledList>

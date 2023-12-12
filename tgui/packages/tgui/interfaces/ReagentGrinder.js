@@ -9,7 +9,7 @@ export const ReagentGrinder = (props, context) => {
   const { operating } = data;
   const { title } = config;
   return (
-    <Window resizable>
+    <Window width={400} height={500} resizable>
       <Window.Content
         scrollable
         display="flex"

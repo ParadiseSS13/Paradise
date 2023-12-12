@@ -96,7 +96,12 @@ export const Vending = (props, context) => {
   // Just in case we still have undefined values in the list
   inventory = inventory.filter((item) => !!item);
   return (
-    <Window title="Vending Machine" resizable>
+    <Window
+      title="Vending Machine"
+      width={450}
+      height={Math.min((chargesMoney ? 205 : 111) + inventory.length * 30, 600)}
+      resizable
+    >
       <Window.Content scrollable>
         {!!chargesMoney && (
           <Section title="User">

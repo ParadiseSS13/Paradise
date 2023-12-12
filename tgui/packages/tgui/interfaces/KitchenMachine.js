@@ -9,7 +9,7 @@ export const KitchenMachine = (props, context) => {
   const { title } = config;
 
   return (
-    <Window resizable>
+    <Window width={400} height={300} resizable>
       <Window.Content
         scrollable
         display="flex"

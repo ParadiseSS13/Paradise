@@ -25,7 +25,7 @@
 /datum/ui_module/colour_matrix_tester/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ColourMatrixTester", name, 350, 170)
+		ui = new(user, src, "ColourMatrixTester", name)
 		ui.autoupdate = TRUE
 		ui.open()
 

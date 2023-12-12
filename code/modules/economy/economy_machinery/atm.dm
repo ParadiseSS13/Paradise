@@ -135,7 +135,7 @@
 /obj/machinery/economy/atm/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ATM", name, 550, 650)
+		ui = new(user, src, "ATM", name)
 		ui.open()
 
 /obj/machinery/economy/atm/ui_data(mob/user)
