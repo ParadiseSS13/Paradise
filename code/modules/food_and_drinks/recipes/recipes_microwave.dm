@@ -1171,111 +1171,111 @@
 /datum/recipe/microwave/snowcone/apple
 	reagents = list("ice" = 15, "applejuice" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/apple
 
 /datum/recipe/microwave/snowcone/berry
 	reagents = list("ice" = 15, "berryjuice" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/berry
 
 /datum/recipe/microwave/snowcone/bluecherry
 	reagents = list("ice" = 15, "bluecherryjelly" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/bluecherry
 /datum/recipe/microwave/snowcone/cherry
 	reagents = list("ice" = 15, "cherryjelly" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/cherry
 
 /datum/recipe/microwave/snowcone/flavorless
 	reagents = list("ice" = 15)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone
 
 /datum/recipe/microwave/snowcone/fruitsalad
 	reagents = list("ice" = 15, "orangejuice" = 5, "limejuice" = 5, "lemonjuice" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/fruitsalad
 
 /datum/recipe/microwave/snowcone/grape
 	reagents = list("ice" = 15, "grapejuice" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/grape
 
 /datum/recipe/microwave/snowcone/honey
 	reagents = list("ice" = 15, "honey" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/honey
 
 /datum/recipe/microwave/snowcone/lemon
 	reagents = list("ice" = 15, "lemonjuice" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/lemon
 
 /datum/recipe/microwave/snowcone/lime
 	reagents = list("ice" = 15, "limejuice" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/lime
 
 /datum/recipe/microwave/snowcone/mime
 	reagents = list("ice" = 15, "nothing" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/mime
 
 /datum/recipe/microwave/snowcone/orange
 	reagents = list("ice" = 15, "orangejuice" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/orange
 
 /datum/recipe/microwave/snowcone/pineapple
 	reagents = list("ice" = 15, "pineapplejuice" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/pineapple
 
 /datum/recipe/microwave/snowcone/rainbow
 	reagents = list("ice" = 15, "colorful_reagent" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/rainbow
 
 /datum/recipe/microwave/snowcone/cola
 	reagents = list("ice" = 15, "cola" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/cola
 
 /datum/recipe/microwave/snowcone/spacemountainwind
 	reagents = list("ice" = 15, "spacemountainwind" = 5)
 	items = list(
-		/obj/item/food/drinks/sillycup
+		/obj/item/reagent_containers/drinks/sillycup
 	)
 	result = /obj/item/food/snacks/frozen/snowcone/spacemountain
 

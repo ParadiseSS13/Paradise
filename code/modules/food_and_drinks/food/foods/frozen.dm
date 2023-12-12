@@ -149,7 +149,7 @@
 	name = "flavorless snowcone"
 	desc = "It's just shaved ice. Still fun to chew on."
 	icon_state = "flavorless_sc"
-	trash = /obj/item/food/drinks/sillycup
+	trash = /obj/item/reagent_containers/drinks/sillycup
 	list_reagents = list("water" = 10, "ice" = 5)
 	tastes = list("cold water" = 1)
 
