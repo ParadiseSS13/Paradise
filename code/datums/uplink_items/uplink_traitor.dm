@@ -371,7 +371,7 @@
 	Power intensive, implant must be recovered for reuse, and implanter must be linked to cloner."
 	reference = "TACS"
 	item = /obj/item/storage/box/syndie_kit/prescan
-	cost = 25 /// A fresh start, but a start with nothing. Hard to use well
+	cost = 25 /// A fresh start, but a start with nothing. Hard to use as well
 	species = list("Grey")
 
 // -------------------------------------
