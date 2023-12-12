@@ -350,6 +350,7 @@
 				P.pixel_y = rand(-7, 7)
 				P.icon_state = "pill[pillsprite]"
 				reagents.trans_to(P, amount_per_pill)
+				P.amount_per_transfer_from_this = P.reagents.total_volume
 				// Load the pills in the bottle if there's one loaded
 				if(istype(loaded_pill_bottle) && loaded_pill_bottle.can_be_inserted(P, TRUE))
 					P.forceMove(loaded_pill_bottle)
@@ -373,6 +374,7 @@
 				P.pixel_x = rand(-7, 7) // random position
 				P.pixel_y = rand(-7, 7)
 				reagents.trans_to(P, amount_per_patch)
+				P.amount_per_transfer_from_this = P.reagents.total_volume
 				if(is_medical_patch)
 					P.instant_application = TRUE
 					P.icon_state = "bandaid_med"
