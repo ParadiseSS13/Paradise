@@ -13,7 +13,6 @@
 	possible_transfer_amounts = null
 	volume = 100
 	has_lid = FALSE
-	visible_transfer_rate = FALSE
 
 /obj/item/reagent_containers/pill/Initialize(mapload)
 	. = ..()
