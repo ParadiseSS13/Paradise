@@ -375,7 +375,7 @@
 
 	if(href_list["process"])
 		var/list/choices = list("Glass Bottle" = 1, "Plastic Bottle" = 2, "Metal Can" = 3)
-		var/selection = input("Select a container for your beverage.", "Container") as null|anything in choices
+		var/selection = tgui_input_list(usr, "Select a container for your beverage.", "Container", choices)
 		if(!selection)
 			return
 		else

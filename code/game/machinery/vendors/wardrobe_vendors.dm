@@ -391,7 +391,10 @@
 					/obj/item/clothing/gloves/fingerless = 3,
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/shoes/white = 3,
-					/obj/item/clothing/shoes/black = 3)
+					/obj/item/clothing/shoes/black = 3,
+					/obj/item/storage/backpack/robotics = 2,
+					/obj/item/storage/backpack/satchel_robo = 2,
+					/obj/item/storage/backpack/duffel/robotics = 2)
 
 	contraband = list(/obj/item/toy/figure/crew/roboticist = 1,
 					/obj/item/toy/figure/crew/borg = 1)
@@ -406,7 +409,10 @@
 				/obj/item/clothing/gloves/fingerless = 20,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/white = 20,
-				/obj/item/clothing/shoes/black = 20)
+				/obj/item/clothing/shoes/black = 20,
+				/obj/item/storage/backpack/robotics = 50,
+				/obj/item/storage/backpack/satchel_robo = 50,
+				/obj/item/storage/backpack/duffel/robotics = 50)
 
 	refill_canister = /obj/item/vending_refill/robodrobe
 

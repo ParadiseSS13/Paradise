@@ -142,7 +142,9 @@
 	slot_flags = SLOT_FLAG_EARS
 	resistance_flags = NONE
 	sprite_sheets = list(
-		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi') //We read you loud and skree-er.
+		"Vox" = 'icons/mob/clothing/species/vox/ears.dmi', //We read you loud and skree-er.
+		"Kidan" = 'icons/mob/clothing/species/kidan/ears.dmi'
+		)
 
 /obj/item/clothing/ears/attack_hand(mob/user)
 	if(!user)
@@ -312,7 +314,6 @@
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return

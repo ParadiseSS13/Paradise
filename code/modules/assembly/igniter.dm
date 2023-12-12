@@ -59,3 +59,6 @@
 	if(!istype(loc, /obj/item/assembly_holder))
 		activate()
 	add_fingerprint(user)
+
+/obj/item/assembly/igniter/get_heat()
+	return 2000

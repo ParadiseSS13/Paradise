@@ -151,6 +151,14 @@
 	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
 
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	planetary_atmos = TRUE
+	color = COLOR_FLOOR_HARD_ROCK
+	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB
 	oxygen = 0

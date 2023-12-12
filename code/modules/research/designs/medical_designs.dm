@@ -386,6 +386,17 @@
 	build_path = /obj/item/organ/internal/cyberimp/arm/toolset_abductor
 	category = list("Medical")
 
+/datum/design/cyberimp_jani_hud
+	name = "Janitor HUD Implant"
+	desc = "These cybernetic eye implants will display a filth HUD over everything you see. Wiggle eyes to control."
+	id = "ci-janihud"
+	req_tech = list("materials" = 5, "engineering" = 4, "programming" = 4, "biotech" = 4)
+	build_type = PROTOLATHE | MECHFAB
+	construction_time = 5 SECONDS
+	materials = list(MAT_METAL = 600, MAT_GLASS = 600, MAT_SILVER = 500, MAT_GOLD = 500)
+	build_path = /obj/item/organ/internal/cyberimp/eyes/hud/jani
+	category = list("Medical")
+
 /datum/design/cyberimp_diagnostic_hud
 	name = "Diagnostic HUD Implant"
 	desc = "These cybernetic eye implants will display a diagnostic HUD over everything you see. Wiggle eyes to control."

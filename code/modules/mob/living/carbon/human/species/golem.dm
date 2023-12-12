@@ -268,6 +268,7 @@
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
+	SHOULD_CALL_PARENT(FALSE)
 	if(H.stat == DEAD)
 		return
 	H.adjustBruteLoss(-2)
@@ -760,6 +761,6 @@
 	if(resistance_flags & ON_FIRE)
 		return
 
-	if(is_hot(P))
+	if(P.get_heat())
 		visible_message("<span class='danger'>[src] bursts into flames!</span>")
 		fire_act()
