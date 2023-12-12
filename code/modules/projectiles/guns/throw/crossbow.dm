@@ -13,6 +13,7 @@
 	item_state = "crossbow-solid"
 	fire_sound_text = "a solid thunk"
 	fire_delay = 25
+	force = 10
 
 	valid_projectile_type = /obj/item/arrow
 
