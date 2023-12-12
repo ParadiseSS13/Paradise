@@ -6,8 +6,7 @@
 	report_message = "Your station has been selected for a special grant. Some extra funds has been made available to your cargo department."
 
 /datum/station_trait/galactic_grant/on_round_start()
-	GLOB.station_money_database.credit_account(GLOB.station_money_database.get_account_by_department(DEPARTMENT_SUPPLY), rand(2000, 4000), "Galactic Grant", "Great Galactic Grant Group", supress_log = FALSE)
-
+	GLOB.station_money_database.credit_account(SSeconomy.cargo_account, rand(2000, 4000), "Galactic Grant", "Great Galactic Grant Group")
 /datum/station_trait/premium_internals_box
 	name = "Premium internals boxes"
 	trait_type = STATION_TRAIT_POSITIVE
