@@ -86,49 +86,49 @@
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 1
 	department_to_apply_to = DEP_FLAG_SERVICE
-	department_name = "Service"
+	department_name = DEPARTMENT_SERVICE
 
 /datum/station_trait/deathrattle_department/cargo
 	name = "Deathrattled Cargo"
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 1
 	department_to_apply_to = DEP_FLAG_SUPPLY
-	department_name = "Cargo"
+	department_name = DEPARTMENT_SUPPLY
 
 /datum/station_trait/deathrattle_department/engineering
 	name = "Deathrattled Engineering"
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 1
 	department_to_apply_to = DEP_FLAG_ENGINEERING
-	department_name = "Engineering"
+	department_name = DEPARTMENT_ENGINEERING
 
 /datum/station_trait/deathrattle_department/command
 	name = "Deathrattled Command"
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 1
 	department_to_apply_to = DEP_FLAG_COMMAND
-	department_name = "Command"
+	department_name = DEPARTMENT_COMMAND
 
 /datum/station_trait/deathrattle_department/science
 	name = "Deathrattled Science"
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 1
 	department_to_apply_to = DEP_FLAG_SCIENCE
-	department_name = "Science"
+	department_name = DEPARTMENT_SCIENCE
 
 /datum/station_trait/deathrattle_department/security
 	name = "Deathrattled Security"
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 1
 	department_to_apply_to = DEP_FLAG_SECURITY
-	department_name = "Security"
+	department_name = DEPARTMENT_SECURITY
 
 /datum/station_trait/deathrattle_department/medical
 	name = "Deathrattled Medical"
 	trait_flags = STATION_TRAIT_MAP_UNRESTRICTED
 	weight = 1
 	department_to_apply_to = DEP_FLAG_MEDICAL
-	department_name = "Medical"
+	department_name = DEPARTMENT_MEDICAL
 
 /datum/station_trait/deathrattle_all
 	name = "Deathrattled Station"

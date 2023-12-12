@@ -529,9 +529,12 @@ SUBSYSTEM_DEF(jobs)
 				if(istype(G) && !G.prescription)
 					G.upgrade_prescription()
 					H.update_nearsighted_effects()
-	if(late_arrivals_spawning && !joined_late)
+	if(joined_late || job.admin_only)
+		H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+		return H
+	if(late_arrivals_spawning)
 		H.forceMove(pick(GLOB.latejoin))
-	if(!joined_late && drunken_spawning)
+	if(drunken_spawning)
 		var/obj/item/organ/internal/liver/L
 		var/liver_multiplier = 1
 		L = H.get_int_organ(/obj/item/organ/internal/liver)

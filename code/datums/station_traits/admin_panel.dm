@@ -59,14 +59,14 @@
 				return TRUE
 
 			if(too_late_to_revert())
-				to_chat(usr, "<span class='warning'>It's too late to revert station traits, the round has already started!</span>")
+				to_chat(ui.user, "<span class='warning'>It's too late to revert station traits, the round has already started!</span>")
 				return TRUE
 
 			if(!station_trait.can_revert)
 				stack_trace("[station_trait.type] can't be reverted, but was requested anyway.")
 				return TRUE
 
-			var/message = "[key_name(usr)] reverted the station trait [station_trait.name] ([station_trait.type])"
+			var/message = "[key_name(ui.user)] reverted the station trait [station_trait.name] ([station_trait.type])"
 			log_admin(message)
 			message_admins(message)
 
@@ -75,7 +75,7 @@
 
 		if("setup_future_traits")
 			if(too_late_for_future_traits())
-				to_chat(usr, "<span class='warning'>It's too late to add future station traits, the round is already over!</span>")
+				to_chat(ui.user, "<span class='warning'>It's too late to add future station traits, the round is already over!</span>")
 				return TRUE
 
 			var/list/new_future_traits = list()
@@ -85,8 +85,8 @@
 			for(var/thing in temp_list) //TODO QWERTY / HI REVIEWERS NAME THIS BETTER BUT ITS ALMOST MIDNIGHT AND i HATE MYSELF
 				var/datum/station_trait/station_trait_path = text2path(thing)
 				if(!ispath(station_trait_path, /datum/station_trait) || station_trait_path == /datum/station_trait)
-					log_admin("[key_name(usr)] tried to set an invalid future station trait: [station_trait_text]")
-					to_chat(usr, "<span class='warning'>Invalid future station trait: [station_trait_text]</span>")
+					log_admin("[key_name(ui.user)] tried to set an invalid future station trait: [station_trait_text]")
+					to_chat(ui.user, "<span class='warning'>Invalid future station trait: [station_trait_text]</span>")
 					return TRUE
 
 				station_trait_names += initial(station_trait_path.name)
@@ -96,7 +96,7 @@
 					"path" = station_trait_path
 				))
 
-			var/message = "[key_name(usr)] has prepared the following station traits for next round: [station_trait_names.Join(", ") || "None"]"
+			var/message = "[key_name(ui.user)] has prepared the following station traits for next round: [station_trait_names.Join(", ") || "None"]"
 			log_admin(message)
 			message_admins(message)
 
@@ -108,10 +108,10 @@
 
 		if("clear_future_traits")
 			if(!future_traits)
-				to_chat(usr, "<span class='warning'>There are no future station traits.</span>")
+				to_chat(ui.user, "<span class='warning'>There are no future station traits.</span>")
 				return TRUE
 
-			var/message = "[key_name(usr)] has cleared the station traits for next round."
+			var/message = "[key_name(ui.user)] has cleared the station traits for next round."
 			log_admin(message)
 			message_admins(message)
 

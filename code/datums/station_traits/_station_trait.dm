@@ -50,6 +50,7 @@
 
 /// Will attempt to revert the station trait, used by admins.
 /datum/station_trait/proc/revert()
+	SHOULD_CALL_PARENT(TRUE)
 	if(!can_revert)
 		CRASH("revert() was called on [type], which can't be reverted!")
 
