@@ -61,4 +61,4 @@
 			. += pick(contains)
 
 /datum/supply_packs/proc/get_cost()
-	. = cost * SSeconomy.pack_price_modifier
+	return cost * SSeconomy.pack_price_modifier
