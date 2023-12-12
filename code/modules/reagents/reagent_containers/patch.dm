@@ -8,6 +8,7 @@
 	volume = 30
 	temperature_min = 270
 	temperature_max = 350
+	visible_transfer_rate = FALSE
 	var/instant_application = FALSE
 	var/needs_to_apply_reagents = TRUE
 
