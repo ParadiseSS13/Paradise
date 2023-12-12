@@ -1,4 +1,5 @@
 #define LING_ABSORB_RECENT_SPEECH			8	// The amount of recent spoken lines sent to the clings chat on absorbing a mob
+
 /datum/action/changeling/absorbDNA
 	name = "Absorb DNA"
 	desc = "Absorb the DNA of our victim. Requires us to strangle them."
