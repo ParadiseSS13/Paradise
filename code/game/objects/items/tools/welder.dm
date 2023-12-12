@@ -207,6 +207,9 @@
 	if(reagents.check_and_add("fuel", maximum_fuel, 2 * coeff))
 		update_icon()
 
+/obj/item/weldingtool/get_heat()
+	return tool_enabled * 2500
+
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
 	desc = "A slightly larger welder with a larger tank."

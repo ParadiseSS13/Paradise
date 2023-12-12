@@ -337,6 +337,16 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		var/mob/living/L = usr
 		return L.resist()
 
+/obj/screen/alert/direction_lock
+	name = "Direction Lock"
+	desc = "You are facing only one direction, slowing your movement down. Click here to stop the direction lock."
+	icon_state = "direction_lock"
+
+/obj/screen/alert/direction_lock/Click()
+	if(isliving(usr))
+		var/mob/living/L = usr
+		return L.clear_forced_look()
+
 //Constructs
 /obj/screen/alert/holy_fire
 	name = "Holy Fire"

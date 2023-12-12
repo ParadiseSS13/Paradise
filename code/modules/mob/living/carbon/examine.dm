@@ -119,7 +119,7 @@
 	msg += "<em>[name]</em>"
 
 	// Show what you are
-	msg += examine_what_am_i()
+	msg += examine_what_am_i(skipgloves, skipsuitstorage, skipjumpsuit, skipshoes, skipmask, skipears, skipeyes, skipface)
 	msg += "\n"
 
 	// All the things wielded/worn that can be reasonably described with a common template:
