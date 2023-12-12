@@ -14,6 +14,7 @@
 	icon_state = "wm_10"
 	density = TRUE
 	anchored = TRUE
+	/// Integer ID corresponding to whether the machine can accept more items, is running, will produce gibs, etc.
 	var/state = OPEN_EMPTY
 	var/panel = FALSE
 	var/gibs_ready = FALSE
