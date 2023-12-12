@@ -1,3 +1,8 @@
+/**
+ * Lava turf, burns things that are on it.
+ * Currently a subtype of floor so that footsteps work on it.
+ * Perhaps we could move it down to /turf/simulated/lava someday, as I dont think footsteps over lava are very important.
+ */
 /turf/simulated/floor/lava
 	name = "lava"
 	icon = 'icons/turf/floors/lava.dmi'
