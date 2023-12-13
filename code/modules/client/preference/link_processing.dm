@@ -941,6 +941,9 @@
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
+				if("input_lists")
+					toggles2 ^= PREFTOGGLE_2_INPUT_LIST_CHOICE
+
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
 
