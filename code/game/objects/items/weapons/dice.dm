@@ -260,7 +260,7 @@
 				/obj/item/clothing/glasses/chameleon/thermal,
 				/obj/item/borg/upgrade/modkit/indoors,
 				/obj/item/storage/box/syndie_kit/chameleon,
-				/obj/item/storage/box/syndie_kit/modsuit,
+				/obj/item/mod/control/pre_equipped/traitor,
 				/obj/item/bio_chip_implanter/storage,
 				/obj/item/mod/control/pre_equipped/traitor,
 				/obj/item/bio_chip_implanter/storage,
