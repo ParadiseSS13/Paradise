@@ -26,12 +26,12 @@
 
 /obj/structure/closet/secure_closet/roboticist/populate_contents()
 	new /obj/item/mod/core/standard(src)
-	new /obj/item/storage/backpack(src)
-	new /obj/item/storage/backpack(src)
-	new /obj/item/storage/backpack/satchel_norm(src)
-	new /obj/item/storage/backpack/satchel_norm(src)
-	new /obj/item/storage/backpack/duffel(src)
-	new /obj/item/storage/backpack/duffel(src)
+	new /obj/item/storage/backpack/robotics(src)
+	new /obj/item/storage/backpack/robotics(src)
+	new /obj/item/storage/backpack/satchel_robo(src)
+	new /obj/item/storage/backpack/satchel_robo(src)
+	new /obj/item/storage/backpack/duffel/robotics(src)
+	new /obj/item/storage/backpack/duffel/robotics(src)
 	new /obj/item/clothing/suit/storage/labcoat/roboblack(src)
 	new /obj/item/clothing/suit/storage/labcoat/robowhite(src)
 	new /obj/item/radio/headset/headset_sci(src)
@@ -60,7 +60,6 @@
 	new /obj/item/reagent_containers/food/drinks/mug/rd(src)
 	new /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic(src)
 	new /obj/item/clothing/accessory/medal/science(src)
-	new /obj/item/clothing/glasses/welding/superior(src)
 
 
 /obj/structure/closet/secure_closet/research_reagents

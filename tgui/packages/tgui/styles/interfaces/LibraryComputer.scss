@@ -12,15 +12,15 @@
     line-height: 24px;
 
     transition: background-color 50ms;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       background-color: rgba(base.$color-bg, 1);
     }
   }
 }
 
 .Library__SearchContainer {
-
-  background-color: rgba(base.$color-bg, .5);
+  background-color: rgba(base.$color-bg, 0.5);
   tr {
     td:first-child {
       width: 60%;

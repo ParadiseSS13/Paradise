@@ -174,7 +174,7 @@
 		nest = null
 
 	var/turf/T = get_turf(src)
-	if (T && AIStatus == AI_Z_OFF)
+	if(T && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
 	return ..()
@@ -364,7 +364,7 @@
 /mob/living/simple_animal/movement_delay()
 	. = speed
 	if(forced_look)
-		. += 3
+		. += DIRECTION_LOCK_SLOWDOWN
 	. += GLOB.configuration.movement.animal_delay
 
 /mob/living/simple_animal/Stat()
@@ -509,7 +509,7 @@
 		return
 
 	user.set_machine(src)
-	var/dat = "<table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[slot_collar]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr></table>"
+	var/dat = "<table><tr><td><B>Collar:</B></td><td><A href='?src=[UID()];item=[SLOT_HUD_COLLAR]'>[(pcollar && !(pcollar.flags & ABSTRACT)) ? html_encode(pcollar) : "<font color=grey>Empty</font>"]</A></td></tr></table>"
 	dat += "<A href='?src=[user.UID()];mach_close=mob\ref[src]'>Close</A>"
 
 	var/datum/browser/popup = new(user, "mob\ref[src]", "[src]", 440, 250)
@@ -518,14 +518,14 @@
 
 /mob/living/simple_animal/get_item_by_slot(slot_id)
 	switch(slot_id)
-		if(slot_collar)
+		if(SLOT_HUD_COLLAR)
 			return pcollar
 	. = ..()
 
 /mob/living/simple_animal/can_equip(obj/item/I, slot, disable_warning = 0)
 	// . = ..() // Do not call parent. We do not want animals using their hand slots.
 	switch(slot)
-		if(slot_collar)
+		if(SLOT_HUD_COLLAR)
 			if(pcollar)
 				return FALSE
 			if(!can_collar)
@@ -545,7 +545,7 @@
 	W.plane = ABOVE_HUD_PLANE
 
 	switch(slot)
-		if(slot_collar)
+		if(SLOT_HUD_COLLAR)
 			add_collar(W)
 
 /mob/living/simple_animal/unEquip(obj/item/I, force, silent = FALSE)

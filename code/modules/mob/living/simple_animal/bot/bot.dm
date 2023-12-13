@@ -133,7 +133,7 @@
 	on = TRUE
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(initial(light_range))
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_controls()
 	diag_hud_set_botstat()
 	return 1
@@ -143,7 +143,7 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, "depowered")
 	set_light(0)
 	bot_reset() //Resets an AI's call, should it exist.
-	update_icon(UPDATE_ICON_STATE)
+	update_icon(UPDATE_ICON_STATE | UPDATE_OVERLAYS)
 	update_controls()
 
 /mob/living/simple_animal/bot/Initialize(mapload)
@@ -480,7 +480,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 		var/atom/A = scan
 		if(!istype(A, scan_type)) //Check that the thing we found is the type we want!
 			continue //If not, keep searching!
-		if((A.UID() in ignore_list) || (A == old_target) ) //Filter for blacklisted elements, usually unreachable or previously processed oness
+		if((A.UID() in ignore_list) || (A == old_target)) //Filter for blacklisted elements, usually unreachable or previously processed oness
 			continue
 		var/scan_result = process_scan(A) //Some bots may require additional processing when a result is selected.
 		if(scan_result)
@@ -1056,3 +1056,18 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/drop_part(obj/item/drop_item, dropzone)
 	new drop_item(dropzone)
+
+
+// Common data shared among all the bots, used by BotStatus.js
+/mob/living/simple_animal/bot/ui_data(mob/user)
+	var/list/data = list()
+	data["locked"] = locked // controls, locked or not
+	data["noaccess"] = topic_denied(user) // does the current user have access? admins, silicons etc can still access bots with locked controls
+	data["maintpanel"] = open
+	data["on"] = on
+	data["autopatrol"] = auto_patrol
+	data["painame"] = paicard ? paicard.pai.name : null
+	data["canhack"] = canhack(user)
+	data["emagged"] = emagged // this is an int, NOT a boolean
+	data["remote_disabled"] = remote_disabled
+	return data

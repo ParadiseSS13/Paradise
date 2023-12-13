@@ -102,6 +102,11 @@
 
 #define STATUS_EFFECT_CRYO_BEAM /datum/status_effect/cryo_beam //Chills target, freezes reagents in their blood, breaks if sight is lost.
 
+#define STATUS_EFFECT_BUBBLEGUM_CURSE /datum/status_effect/bubblegum_curse //Bleeding. Damage over time. Fog. And, of course, a suprise for people that try to run away.
+
+#define STATUS_BOOKWYRM /datum/status_effect/bookwyrm
+
+
 //#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
 //#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
 //#define CURSE_SPAWNING	2 //spawns creatures that attack the target only
@@ -177,6 +182,12 @@
 #define STATUS_EFFECT_LWAPSCOPE /datum/status_effect/lwap_scope
 /// This status effect allows a mob to be revived with a defibrillator.
 #define STATUS_EFFECT_REVIVABLE /datum/status_effect/limited_bonus/revivable
+
+/// Status effects for different actions
+#define STATUS_EFFECT_REMOVE_CUFFS /datum/status_effect/action_status_effect/remove_handcuffs
+#define STATUS_EFFECT_BREAK_CUFFS /datum/status_effect/action_status_effect/break_handcuffs
+#define STATUS_EFFECT_REMOVE_MUZZLE /datum/status_effect/action_status_effect/remove_muzzle
+#define STATUS_EFFECT_UNBUCKLE /datum/status_effect/action_status_effect/unbuckle
 
 //////////////////////////
 // Mind batter variants //

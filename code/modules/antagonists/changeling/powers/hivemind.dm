@@ -7,8 +7,9 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 	helptext = "Tunes our chemical receptors for hivemind communication, which passively grants us access to the Changeling Hivemind."
 	button_icon_state = "hive_absorb"
 	chemical_cost = 10
-	dna_cost = 2
+	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
+	category = /datum/changeling_power_category/utility
 
 /datum/action/changeling/hivemind_pick/on_purchase(mob/user, datum/antagonist/changeling/C)
 	if(!..())
@@ -49,7 +50,7 @@ GLOBAL_LIST_EMPTY(hivemind_bank)
 		to_chat(user, "<span class='notice'>There's no new DNA to absorb from the air.</span>")
 		return
 
-	var/S = input("Select a DNA absorb from the air: ", "Absorb DNA", null) as null|anything in names
+	var/S = tgui_input_list(user, "Select a DNA absorb from the air", "Absorb DNA", names)
 	if(!S)
 		return
 

@@ -45,7 +45,8 @@
 	contraband = list(/obj/item/clothing/head/helmet/street_judge = 1,
 					/obj/item/clothing/suit/armor/vest/street_judge = 1,
 					/obj/item/toy/figure/crew/hos = 1,
-					/obj/item/toy/figure/crew/secofficer = 1)
+					/obj/item/toy/figure/crew/secofficer = 1,
+					/obj/item/clothing/shoes/jackboots/noisy = 3)
 
 	prices = list(/obj/item/clothing/under/rank/security/officer/corporate = 50,
 				/obj/item/clothing/under/rank/security/officer/skirt/corporate = 50,
@@ -76,7 +77,8 @@
 				/obj/item/storage/backpack/security = 50,
 				/obj/item/storage/backpack/satchel_sec = 50,
 				/obj/item/clothing/gloves/color/black = 20,
-				/obj/item/clothing/accessory/armband/sec = 20)
+				/obj/item/clothing/accessory/armband/sec = 20,
+				/obj/item/clothing/shoes/jackboots/noisy = 200)
 
 	refill_canister = /obj/item/vending_refill/secdrobe
 
@@ -376,7 +378,7 @@
 	icon_addon = "robodrobe"
 	category = VENDOR_TYPE_CLOTHING
 	ads_list = list("You turn me TRUE, use defines!",
-					"0110001101101100011011110111010001101000011001010111001101101000011001010111001001100101")
+					"01000011011011000110111101110100011010000110010101110011001000000110100001100101011100100110010100100001") //This translates to "Clothes here!"
 
 	vend_reply = "Thank you for using the RoboDrobe!"
 	products = list(/obj/item/clothing/under/rank/rnd/roboticist = 3,
@@ -389,9 +391,13 @@
 					/obj/item/clothing/gloves/fingerless = 3,
 					/obj/item/clothing/shoes/laceup = 3,
 					/obj/item/clothing/shoes/white = 3,
-					/obj/item/clothing/shoes/black = 3)
+					/obj/item/clothing/shoes/black = 3,
+					/obj/item/storage/backpack/robotics = 2,
+					/obj/item/storage/backpack/satchel_robo = 2,
+					/obj/item/storage/backpack/duffel/robotics = 2)
 
-	contraband = list(/obj/item/toy/figure/crew/roboticist = 1)
+	contraband = list(/obj/item/toy/figure/crew/roboticist = 1,
+					/obj/item/toy/figure/crew/borg = 1)
 
 	prices = list(/obj/item/clothing/under/rank/rnd/roboticist = 50,
 				/obj/item/clothing/under/rank/rnd/roboticist/skirt = 50,
@@ -403,7 +409,10 @@
 				/obj/item/clothing/gloves/fingerless = 20,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/white = 20,
-				/obj/item/clothing/shoes/black = 20)
+				/obj/item/clothing/shoes/black = 20,
+				/obj/item/storage/backpack/robotics = 50,
+				/obj/item/storage/backpack/satchel_robo = 50,
+				/obj/item/storage/backpack/duffel/robotics = 50)
 
 	refill_canister = /obj/item/vending_refill/robodrobe
 
@@ -577,10 +586,12 @@
 					/obj/item/clothing/suit/chef/classic = 2,
 					/obj/item/clothing/head/chefhat = 2,
 					/obj/item/clothing/head/soft/mime = 2,
+					/obj/item/clothing/head/beret/white = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/white = 2,
 					/obj/item/clothing/shoes/black = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
+					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/reagent_containers/glass/rag = 3,
 					/obj/item/storage/box/dish_drive = 1)
 
@@ -592,10 +603,12 @@
 				/obj/item/clothing/suit/chef/classic = 50,
 				/obj/item/clothing/head/chefhat = 50,
 				/obj/item/clothing/head/soft/mime = 30,
+				/obj/item/clothing/head/beret/white = 20,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/white = 20,
 				/obj/item/clothing/shoes/black = 20,
 				/obj/item/clothing/accessory/waistcoat = 20,
+				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/reagent_containers/glass/rag = 5,
 				/obj/item/storage/box/dish_drive = 100)
 
@@ -615,10 +628,12 @@
 					/obj/item/clothing/under/misc/sl_suit = 2,
 					/obj/item/clothing/head/that = 2,
 					/obj/item/clothing/head/soft/black = 2,
+					/obj/item/clothing/head/beret/black = 2,
 					/obj/item/clothing/suit/blacktrenchcoat = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/black = 2,
 					/obj/item/clothing/accessory/waistcoat = 2,
+					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/reagent_containers/glass/rag = 3,
 					/obj/item/storage/box/dish_drive = 1)
 
@@ -628,10 +643,12 @@
 				/obj/item/clothing/under/misc/sl_suit = 50,
 				/obj/item/clothing/head/that = 20,
 				/obj/item/clothing/head/soft/black = 20,
+				/obj/item/clothing/head/beret/black = 20,
 				/obj/item/clothing/suit/blacktrenchcoat = 75,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/black = 20,
 				/obj/item/clothing/accessory/waistcoat = 20,
+				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/reagent_containers/glass/rag = 5,
 				/obj/item/storage/box/dish_drive = 100)
 
@@ -656,6 +673,7 @@
 					/obj/item/clothing/suit/storage/labcoat/hydro = 3,
 					/obj/item/clothing/mask/bandana/botany = 3,
 					/obj/item/clothing/accessory/armband/hydro = 3,
+					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/storage/backpack/botany = 2,
 					/obj/item/storage/backpack/satchel_hyd = 2,
 					/obj/item/storage/backpack/duffel/hydro = 2)
@@ -670,6 +688,7 @@
 				/obj/item/clothing/suit/storage/labcoat/hydro = 75,
 				/obj/item/clothing/mask/bandana/botany = 20,
 				/obj/item/clothing/accessory/armband/hydro = 20,
+				/obj/item/clothing/accessory/armband/service = 20,
 				/obj/item/storage/backpack/botany = 50,
 				/obj/item/storage/backpack/satchel_hyd = 50,
 				/obj/item/storage/backpack/duffel/hydro = 50)
@@ -692,11 +711,14 @@
 					/obj/item/clothing/head/soft/purple = 3,
 					/obj/item/clothing/gloves/color/black = 3,
 					/obj/item/clothing/shoes/galoshes = 3,
+					/obj/item/clothing/accessory/armband/service = 3,
 					/obj/item/storage/belt/janitor = 3)
 
 	contraband = list(/obj/item/toy/figure/crew/janitor = 1)
 
-	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50)
+	prices = list(/obj/item/clothing/under/rank/civilian/janitor = 50,
+					/obj/item/clothing/head/soft/purple = 20,
+					/obj/item/clothing/accessory/armband/service = 20)
 
 	refill_canister = /obj/item/vending_refill/janidrobe
 
@@ -712,38 +734,50 @@
 	ads_list = list("OBJECTION! Get the rule of law for yourself!")
 
 	vend_reply = "Thank you for using the LawDrobe!"
-	products = list(/obj/item/clothing/under/rank/civilian/internalaffairs = 2,
-					/obj/item/clothing/under/rank/civilian/lawyer/bluesuit = 2,
-					/obj/item/clothing/under/rank/civilian/lawyer/purple = 2,
-					/obj/item/clothing/under/rank/civilian/lawyer/black = 2,
-					/obj/item/clothing/under/rank/civilian/lawyer/red = 2,
-					/obj/item/clothing/under/rank/civilian/lawyer/blue = 2,
+	products = list(/obj/item/clothing/under/rank/procedure/iaa = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/blue = 2,
+					/obj/item/clothing/under/rank/procedure/iaa/purple = 2,
+					/obj/item/clothing/under/rank/procedure/lawyer/black = 2,
+					/obj/item/clothing/under/rank/procedure/lawyer/black/skirt = 2,
+					/obj/item/clothing/under/rank/procedure/lawyer/red = 2,
+					/obj/item/clothing/under/rank/procedure/lawyer/red/skirt = 2,
+					/obj/item/clothing/under/rank/procedure/lawyer/blue = 2,
+					/obj/item/clothing/under/rank/procedure/lawyer/blue/skirt = 2,
+					/obj/item/clothing/under/rank/procedure/lawyer/goodman = 2,
+					/obj/item/clothing/under/rank/procedure/lawyer/goodman/skirt = 2,
 					/obj/item/clothing/under/suit/female = 2,
-					/obj/item/clothing/suit/storage/internalaffairs = 2,
-					/obj/item/clothing/suit/storage/lawyer/bluejacket = 2,
-					/obj/item/clothing/suit/storage/lawyer/purpjacket = 2,
+					/obj/item/clothing/suit/storage/iaa/blackjacket = 2,
+					/obj/item/clothing/suit/storage/iaa/bluejacket = 2,
+					/obj/item/clothing/suit/storage/iaa/purplejacket = 2,
 					/obj/item/clothing/shoes/laceup = 2,
 					/obj/item/clothing/shoes/black = 2,
 					/obj/item/clothing/shoes/brown = 2,
 					/obj/item/clothing/glasses/sunglasses/big = 2,
-					/obj/item/clothing/accessory/lawyers_badge = 2)
+					/obj/item/clothing/accessory/lawyers_badge = 2,
+					/obj/item/clothing/accessory/armband/procedure = 2)
 
 	contraband = list(/obj/item/toy/figure/crew/lawyer = 1)
 
-	prices = list(/obj/item/clothing/under/rank/civilian/internalaffairs = 50,
-				/obj/item/clothing/under/rank/civilian/lawyer/bluesuit = 50,
-				/obj/item/clothing/under/rank/civilian/lawyer/purple = 50,
-				/obj/item/clothing/under/rank/civilian/lawyer/black = 50,
-				/obj/item/clothing/under/rank/civilian/lawyer/red = 50,
-				/obj/item/clothing/under/rank/civilian/lawyer/blue = 50,
+	prices = list(/obj/item/clothing/under/rank/procedure/iaa = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/blue = 50,
+				/obj/item/clothing/under/rank/procedure/iaa/purple = 50,
+				/obj/item/clothing/under/rank/procedure/lawyer/black = 50,
+				/obj/item/clothing/under/rank/procedure/lawyer/black/skirt = 50,
+				/obj/item/clothing/under/rank/procedure/lawyer/red = 50,
+				/obj/item/clothing/under/rank/procedure/lawyer/red/skirt = 50,
+				/obj/item/clothing/under/rank/procedure/lawyer/blue = 50,
+				/obj/item/clothing/under/rank/procedure/lawyer/blue/skirt = 50,
+				/obj/item/clothing/under/rank/procedure/lawyer/goodman = 50,
+				/obj/item/clothing/under/rank/procedure/lawyer/goodman/skirt = 50,
 				/obj/item/clothing/under/suit/female = 50,
-				/obj/item/clothing/suit/storage/internalaffairs = 75,
-				/obj/item/clothing/suit/storage/lawyer/bluejacket = 75,
-				/obj/item/clothing/suit/storage/lawyer/purpjacket = 75,
+				/obj/item/clothing/suit/storage/iaa/blackjacket = 75,
+				/obj/item/clothing/suit/storage/iaa/bluejacket = 75,
+				/obj/item/clothing/suit/storage/iaa/purplejacket = 75,
 				/obj/item/clothing/shoes/laceup = 30,
 				/obj/item/clothing/shoes/black = 20,
 				/obj/item/clothing/shoes/brown = 20,
 				/obj/item/clothing/glasses/sunglasses/big = 30,
-				/obj/item/clothing/accessory/lawyers_badge = 50)
+				/obj/item/clothing/accessory/lawyers_badge = 50,
+				/obj/item/clothing/accessory/armband/procedure = 20)
 
 	refill_canister = /obj/item/vending_refill/lawdrobe

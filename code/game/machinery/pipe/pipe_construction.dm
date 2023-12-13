@@ -135,9 +135,6 @@
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/outlet_injector))
 			pipe_type = PIPE_INJECTOR
 
-		else if(istype(make_from, /obj/machinery/atmospherics/binary/dp_vent_pump))
-			pipe_type = PIPE_DP_VENT
-
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/passive_vent))
 			pipe_type = PIPE_PASV_VENT
 
@@ -217,14 +214,7 @@
 
 // rotate the pipe item clockwise
 
-/obj/item/pipe/verb/rotate()
-	set category = "Object"
-	set name = "Rotate Pipe"
-	set src in view(1)
-
-	if(usr.stat || usr.restrained())
-		return
-
+/obj/item/pipe/proc/rotate()
 	if(pipe_type == PIPE_CIRCULATOR)
 		flip()
 		return
@@ -233,16 +223,7 @@
 
 	fixdir()
 
-	return
-
-/obj/item/pipe/verb/flip()
-	set category = "Object"
-	set name = "Flip Pipe"
-	set src in view(1)
-
-	if(usr.stat || usr.restrained())
-		return
-
+/obj/item/pipe/proc/flip()
 	if(pipe_type in list(PIPE_GAS_FILTER, PIPE_GAS_MIXER, PIPE_TVALVE, PIPE_DTVALVE, PIPE_CIRCULATOR))
 		if(flipped)
 			icon_state = copytext(icon_state,3)
@@ -254,8 +235,6 @@
 	dir = turn(dir, -180)
 
 	fixdir()
-
-	return
 
 /obj/item/pipe/Move()
 	. = ..()
@@ -547,13 +526,6 @@
 
 			P.on_construction(dir, pipe_dir, color)
 
-		if(PIPE_DP_VENT)
-			var/obj/machinery/atmospherics/binary/dp_vent_pump/P = new(loc)
-			if(pipename)
-				P.name = pipename
-
-			P.on_construction(dir, pipe_dir, color)
-
 		if(PIPE_PASV_VENT)
 			var/obj/machinery/atmospherics/unary/passive_vent/P  = new(loc)
 			if(pipename)
@@ -621,13 +593,13 @@
 	..()
 
 /obj/item/pipe/AltClick(mob/user)
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	rotate()
 
 /obj/item/pipe/AltShiftClick(mob/user)
-	if(user.incapacitated() || !user.Adjacent(src))
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	flip()

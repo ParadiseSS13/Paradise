@@ -11,7 +11,7 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	slot_flags = SLOT_BACK	//ERROOOOO
+	slot_flags = SLOT_FLAG_BACK	//ERROOOOO
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
 	storage_slots = 21
@@ -132,8 +132,8 @@
 	new /obj/item/gun/projectile/revolver/capgun(src)
 
 /obj/item/storage/backpack/mime
-	name = "Parcel Parceaux"
-	desc = "A silent backpack made for those silent workers. Silence Co."
+	name = "Pierre the Panda"
+	desc = "A backpack modelled after Pierre the Panda - the official mascot for the Université du Mime."
 	icon_state = "mimepack"
 	item_state = "mimepack"
 
@@ -213,6 +213,13 @@
 	icon_state = "blueshieldpack"
 	item_state = "blueshieldpack"
 
+/obj/item/storage/backpack/robotics
+	name = "robotics backpack"
+	desc = "A specially designed backpack. It's fire resistant and smells vaguely of welding fuel."
+	icon_state = "robopack"
+	item_state = "robopack"
+	resistance_flags = FIRE_PROOF
+
 /*
  * Satchel Types
  */
@@ -225,20 +232,19 @@
 	resistance_flags = FIRE_PROOF
 	var/strap_side_straight = FALSE
 
-/obj/item/storage/backpack/satchel/verb/switch_strap()
-	set name = "Switch Strap Side"
-	set category = "Object"
-	set src in usr
+/obj/item/storage/backpack/satchel/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>You can <b>Alt-Shift-Click</b> [src] to flip it's strap side.</span>"
 
-	if(usr.incapacitated())
+/obj/item/storage/backpack/satchel/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
+
 	strap_side_straight = !strap_side_straight
 	item_state = strap_side_straight ? "satchel-flipped" : "satchel"
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_back()
-
-
 
 /obj/item/storage/backpack/satcheldeluxe
 	name = "leather satchel"
@@ -336,6 +342,13 @@
 	desc = "A robust satchel issued to Nanotrasen's finest."
 	icon_state = "satchel-blueshield"
 	item_state = "satchel-blueshield"
+
+/obj/item/storage/backpack/satchel_robo
+	name = "bioengineer satchel"
+	desc = "A black satchel designed for holding repair equipment."
+	icon_state = "satchel-robo"
+	item_state = "satchel-robo"
+	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_flat
 	name = "smuggler's satchel"
@@ -655,6 +668,7 @@
 			if(prob(50))
 				new /obj/item/sord(src)
 				value -= 1 //Useless joke, might as well give them a value point back.
+			else
 				new /obj/item/bostaff(src) //Funky item, not really worth a point, but good to balance sord's free point out
 	//Wands
 	var/wands = 0
@@ -780,6 +794,7 @@
 /obj/item/reagent_containers/food/snacks/plum_pie
 	name = "perfect plum pie"
 	desc = "The Jack Horner brand of pie. 2 big thumbs up."
+	icon = 'icons/obj/food/bakedgoods.dmi'
 	icon_state = "plump_pie"
 	filling_color = "#B8279B"
 	bitesize = 10
@@ -860,6 +875,12 @@
 	desc = "A robust duffelbag issued to Nanotrasen's finest."
 	icon_state = "duffel-blueshield"
 	item_state = "duffel-blueshield"
+
+/obj/item/storage/backpack/duffel/robotics
+	name = "roboticist duffelbag"
+	desc = "A duffelbag designed to hold tools."
+	icon_state = "duffel-robo"
+	item_state = "duffel-robo"
 
 //ERT backpacks.
 /obj/item/storage/backpack/ert

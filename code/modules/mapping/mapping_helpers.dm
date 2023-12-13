@@ -115,6 +115,7 @@
 		log_world("[src] at [AREACOORD(src)] tried to bolt [airlock] but it's already locked!")
 	else
 		airlock.locked = TRUE
+		airlock.update_icon()
 
 /obj/effect/mapping_helpers/airlock/unres
 	name = "airlock unresctricted side helper"
@@ -134,3 +135,19 @@
 //part responsible for windoors (thanks S34N)
 /obj/effect/mapping_helpers/airlock/windoor
 	blacklist = list(/obj/machinery/door/firedoor, /obj/machinery/door/poddoor, /obj/machinery/door/unpowered, /obj/machinery/door/airlock)
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname
+	name = "windoor autoname helper"
+	icon_state = "windoor_autoname"
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname/payload(obj/machinery/door/window/windoor)
+	if(windoor.dir == dir)
+		windoor.name = get_area_name(windoor, TRUE)
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk
+	name = "windesk autoname helper"
+	icon_state = "windesk_autoname"
+
+/obj/effect/mapping_helpers/airlock/windoor/autoname/desk/payload(obj/machinery/door/window/windoor)
+	if(windoor.dir == dir)
+		windoor.name = "[get_area_name(windoor, TRUE)] Desk"

@@ -39,6 +39,7 @@
 @include meta.load-css('./components/Tooltip.scss');
 
 // Interfaces
+@include meta.load-css('./interfaces/common/RecordsTable.scss');
 @include meta.load-css('./interfaces/AccountsUplinkTerminal.scss');
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
@@ -46,6 +47,7 @@
 @include meta.load-css('./interfaces/ExosuitFabricator.scss');
 @include meta.load-css('./interfaces/KitchenMachine.scss');
 @include meta.load-css('./interfaces/LibraryComputer.scss');
+@include meta.load-css('./interfaces/ListInput.scss');
 @include meta.load-css('./interfaces/Newscaster.scss');
 @include meta.load-css('./interfaces/NuclearBomb.scss');
 @include meta.load-css('./interfaces/OreRedemption.scss');
@@ -55,6 +57,7 @@
 @include meta.load-css('./interfaces/RndConsole.scss');
 @include meta.load-css('./interfaces/Roulette.scss');
 @include meta.load-css('./interfaces/Safe.scss');
+@include meta.load-css('./interfaces/SecureStorage.scss');
 @include meta.load-css('./interfaces/SecurityRecords.scss');
 @include meta.load-css('./interfaces/MedicalRecords.scss');
 

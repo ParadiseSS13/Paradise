@@ -6,6 +6,8 @@
 	tick_interval = 4
 	alert_type = /obj/screen/alert/status_effect/his_grace
 	var/bloodlust = 0
+	/// Attached His Grace toolbox
+	var/obj/item/his_grace/toolbox
 
 /obj/screen/alert/status_effect/his_grace
 	name = "His Grace"
@@ -18,7 +20,8 @@
 	var/datum/status_effect/his_grace/HG = attached_effect
 	desc += "<br><font size=3><b>Current Bloodthirst: [HG.bloodlust]</b></font>\
 	<br>Becomes undroppable at <b>[HIS_GRACE_FAMISHED]</b>\
-	<br>Will consume you at <b>[HIS_GRACE_CONSUME_OWNER]</b>"
+	<br>Will consume you at <b>[HIS_GRACE_CONSUME_OWNER]</b>\
+	<br>You have offered [HG.toolbox ? HG.toolbox.victims : 0] out of [HG.toolbox.victims_needed] sacrifices needed before ascension."
 	..()
 
 /datum/status_effect/his_grace/on_apply()
@@ -33,6 +36,7 @@
 	held_items += owner.l_hand
 	held_items += owner.r_hand
 	for(var/obj/item/his_grace/HG in held_items)
+		toolbox = HG
 		if(HG.bloodthirst > bloodlust)
 			bloodlust = HG.bloodthirst
 		if(HG.awakened)
@@ -52,6 +56,7 @@
 	add_attack_logs(owner, owner, "lost His Grace's stun immunity", ATKLOG_ALL)
 	if(islist(owner.stun_absorption) && owner.stun_absorption["hisgrace"])
 		owner.remove_stun_absorption("hisgrace")
+	toolbox = null
 
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
@@ -252,7 +257,9 @@
 
 /datum/status_effect/force_shield
 	id = "forceshield"
-	duration = 4 SECONDS
+	alert_type = null
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 5 SECONDS
 	tick_interval = 0
 	var/mutable_appearance/shield
 
@@ -421,7 +428,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		H.bodytemperature = H.dna.species.body_temperature
-		if(is_mining_level(H.z))
+		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
 			for(var/obj/item/organ/external/E in H.bodyparts)
 				E.fix_internal_bleeding()
 				E.fix_burn_wound()
@@ -736,3 +743,7 @@
 /datum/status_effect/rev_protection/on_remove()
 	UnregisterSignal(owner, COMSIG_HUMAN_ATTACKED)
 	. = ..()
+
+/datum/status_effect/bookwyrm
+	duration = BRAIN_DAMAGE_MOB_TIME
+	alert_type = null

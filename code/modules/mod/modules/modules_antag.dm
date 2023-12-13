@@ -225,6 +225,7 @@
 	if(isliving(target))
 		var/mob/living/living_target = target
 		living_target.apply_damage(damage, BRUTE, mod.wearer.zone_selected)
+		add_attack_logs(mod.wearer, target, "[target] was charged by [mod.wearer]'s [src]", ATKLOG_ALMOSTALL)
 		living_target.KnockDown(knockdown_time)
 		mod.wearer.visible_message("<span class='danger'>[mod.wearer] crashes into [target], knocking them over!</span>", "<span class='userdanger'>You violently crash into [target]!</span>")
 	else

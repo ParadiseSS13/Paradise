@@ -838,7 +838,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/Bump(atom/A, yes)
 	..()
-	Bumped(A)
+	if(!istype(A, /obj/machinery/atmospherics/supermatter_crystal))
+		Bumped(A)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/Consume(atom/movable/AM)
 	if(isliving(AM))
@@ -1192,6 +1193,9 @@
 	has_been_powered = TRUE
 	power += amount
 	message_admins("[src] has been activated and given an increase EER of [amount] at [ADMIN_JMP(src)]")
+
+/obj/machinery/atmospherics/supermatter_crystal/on_crush_thing(atom/thing)
+	Bumped(thing)
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/make_next_event_time()
 	// Some completely random bullshit to make a "bell curve"

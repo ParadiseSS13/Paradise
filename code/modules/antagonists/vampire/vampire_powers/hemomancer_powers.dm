@@ -38,8 +38,10 @@
 
 /obj/item/vamp_claws
 	name = "vampiric claws"
-	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid"
+	desc = "A pair of eldritch claws made of living blood, they seem to flow yet they are solid."
 	icon = 'icons/effects/vampire_effects.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons_righthand.dmi'
 	icon_state = "vamp_claws"
 	w_class = WEIGHT_CLASS_BULKY
 	flags = ABSTRACT | NODROP | DROPDEL
@@ -66,6 +68,9 @@
 		parent_spell = null
 	return ..()
 
+/obj/item/vamp_claws/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_they(TRUE)] [owner.p_have(FALSE)] bloodied claws extending from [owner.p_their(FALSE)] wrists.</span>"
+
 /obj/item/vamp_claws/afterattack(atom/target, mob/user, proximity)
 	if(!proximity)
 		return
@@ -84,12 +89,11 @@
 			attacker.adjustStaminaLoss(-20) // security is dead
 			attacker.heal_overall_damage(4, 4) // the station is full
 			attacker.AdjustKnockDown(-1 SECONDS) // blood is fuel
-
-	if(!V.get_ability(/datum/vampire_passive/blood_spill))
-		durability--
-		if(durability <= 0)
-			qdel(src)
-			to_chat(user, "<span class='warning'>Your claws shatter!</span>")
+		if(!V.get_ability(/datum/vampire_passive/blood_spill))
+			durability--
+			if(durability <= 0)
+				qdel(src)
+				to_chat(user, "<span class='warning'>Your claws shatter!</span>")
 
 /obj/item/vamp_claws/melee_attack_chain(mob/user, atom/target, params)
 	..()
@@ -187,7 +191,7 @@
 		should_recharge_after_cast = TRUE
 		return
 	var/wall_count
-	for(var/turf/T in getline(target_turf, start_turf))
+	for(var/turf/T in get_line(target_turf, start_turf))
 		if(max_walls <= wall_count)
 			break
 		new /obj/structure/blood_barrier(T)

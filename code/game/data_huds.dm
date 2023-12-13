@@ -27,7 +27,7 @@
 	return TRUE
 
 /datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H) || isobserver(M) )
+	if(check_sensors(H) || isobserver(M))
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
@@ -56,6 +56,9 @@
 
 /datum/atom_hud/data/hydroponic
 	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
+
+/datum/atom_hud/data/janitor
+	hud_icons = list(JANI_HUD)
 
 /* MED/SEC/DIAG HUD HOOKS */
 
@@ -186,18 +189,23 @@
 
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
-		var/revivable
+		var/revivable_state = "dead"
 		if(!ghost_can_reenter()) // DNR or AntagHUD
-			revivable = FALSE
-		else if(ismachineperson(src))
-			revivable = TRUE
-		else if(timeofdeath && is_revivable())
-			revivable = TRUE
-
-		if(revivable)
-			holder.icon_state = "hudflatline"
+			revivable_state = "dead"
+		else if(ismachineperson(src) || (timeofdeath && is_revivable()))
+			revivable_state = "flatline"
+		else if(!mind)
+			revivable_state = "dead"
 		else
-			holder.icon_state = "huddead"
+			var/foundghost = FALSE
+			for(var/mob/dead/observer/G in GLOB.player_list)
+				if(G.mind.current == src)
+					foundghost = (G.can_reenter_corpse && G.client)
+					break
+			if(foundghost || key)
+				revivable_state = "hassoul"
+
+		holder.icon_state = "hud[revivable_state]"
 
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
@@ -486,6 +494,15 @@
 		holder.icon_state = "electrified"
 	else
 		holder.icon_state = ""
+
+/*~~~~~~~~~~~~~~
+	JANI HUD
+~~~~~~~~~~~~~~~*/
+/obj/effect/decal/cleanable/proc/jani_hud_set_sign()
+	var/image/holder = hud_list[JANI_HUD]
+	holder.icon_state = "hudjani"
+	holder.alpha = 130
+	holder.plane = ABOVE_LIGHTING_PLANE
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

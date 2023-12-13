@@ -113,7 +113,7 @@
 		var/obj/item/flash/F = holder
 		F.set_light(7)
 
-	var/arm_slot = (parent_organ == "r_arm" ? slot_r_hand : slot_l_hand)
+	var/arm_slot = (parent_organ == "r_arm" ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
 	var/obj/item/arm_item = owner.get_item_by_slot(arm_slot)
 
 	if(arm_item)
@@ -146,7 +146,7 @@
 		return
 
 	// You can emag the arm-mounted implant by activating it while holding emag in it's hand.
-	var/arm_slot = (parent_organ == "r_arm" ? slot_r_hand : slot_l_hand)
+	var/arm_slot = (parent_organ == "r_arm" ? SLOT_HUD_RIGHT_HAND : SLOT_HUD_LEFT_HAND)
 	if(istype(owner.get_item_by_slot(arm_slot), /obj/item/card/emag) && emag_act(owner))
 		return
 
@@ -166,7 +166,7 @@
 	var/list/choices = list()
 	for(var/obj/I in items_list)
 		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	var/choice = show_radial_menu(user, user, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	var/obj/item/selected
@@ -320,6 +320,19 @@
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
 
 /obj/item/organ/internal/cyberimp/arm/janitorial/l
+	parent_organ = "l_arm"
+	slot = "l_arm_device"
+
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced /// ERT implant, i dont overly expect this to get into the hands of crew
+	name = "advanced janitorial toolset implant"
+	desc = "A set of advanced janitorial tools hidden behind a concealed panel on the user's arm."
+	contents = newlist(/obj/item/mop/advanced, /obj/item/soap/deluxe, /obj/item/lightreplacer/bluespace, /obj/item/holosign_creator/janitor, /obj/item/melee/flyswatter, /obj/item/reagent_containers/spray/cleaner/advanced)
+	origin_tech = "materials=5;engineering=6;biotech=5"
+	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "janibelt")
+	emp_proof = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/l /// its for ERT, but still probably a good idea.
 	parent_organ = "l_arm"
 	slot = "l_arm_device"
 
@@ -484,6 +497,8 @@
 	var/disabled = FALSE
 	var/force_when_disabled = 5 //still basically a metal pipe, just hard to move
 
+/obj/item/shield/v1_arm/customised_abstract_text(mob/living/carbon/owner)
+	return "<span class='warning'>[owner.p_their(TRUE)] [owner.l_hand == src ? "left arm" : "right arm"] is covered in metal.</span>"
 
 /obj/item/shield/v1_arm/emp_act(severity)
 	if(disabled)
@@ -572,10 +587,13 @@
 	actions_types = list()
 	var/datum/martial_art/muscle_implant/muscle_implant
 
-/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+/obj/item/organ/internal/cyberimp/arm/muscle/Initialize()
 	. = ..()
 	muscle_implant = new()
-	muscle_implant.teach(M)
+
+/obj/item/organ/internal/cyberimp/arm/muscle/insert(mob/living/carbon/M, special, dont_remove_slot)
+	. = ..()
+	muscle_implant.teach(M, TRUE)
 
 /obj/item/organ/internal/cyberimp/arm/muscle/remove(mob/living/carbon/M, special)
 	. = ..()

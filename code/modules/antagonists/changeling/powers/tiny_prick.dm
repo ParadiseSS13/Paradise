@@ -2,6 +2,7 @@
 	name = "Tiny Prick"
 	desc = "Stabby stabby"
 	power_type = CHANGELING_UNOBTAINABLE_POWER
+	category = /datum/changeling_power_category/stings
 	var/sting_icon = null
 	/// A middle click override used to intercept changeling stings performed on a target.
 	var/datum/middleClickOverride/callback_invoker/click_override
@@ -98,7 +99,7 @@
 	button_icon_state = "sting_mute"
 	sting_icon = "sting_mute"
 	chemical_cost = 20
-	dna_cost = 2
+	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/sting/mute/sting_action(mob/user, mob/living/carbon/target)
@@ -114,7 +115,7 @@
 	button_icon_state = "sting_blind"
 	sting_icon = "sting_blind"
 	chemical_cost = 25
-	dna_cost = 1
+	dna_cost = 2
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/sting/blind/sting_action(mob/living/user, mob/living/target)
@@ -133,7 +134,7 @@
 	button_icon_state = "sting_cryo"
 	sting_icon = "sting_cryo"
 	chemical_cost = 15
-	dna_cost = 2
+	dna_cost = 4
 	power_type = CHANGELING_PURCHASABLE_POWER
 
 /datum/action/changeling/sting/cryo/sting_action(mob/user, mob/target)
@@ -141,5 +142,22 @@
 	if(target.reagents)
 		target.reagents.add_reagent("frostoil", 30)
 		target.reagents.add_reagent("ice", 30)
+	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
+	return TRUE
+
+/datum/action/changeling/sting/lethargic
+	name = "Lethargic Sting"
+	desc = "We silently sting our victim with a chemical that will gradually drain their stamina. Costs 50 chemicals."
+	helptext = "Does not provide a warning to the victim, though they will quickly realize they have been poisoned."
+	button_icon_state = "sting_lethargic"
+	sting_icon = "sting_lethargic"
+	chemical_cost = 50
+	dna_cost = 4
+	power_type = CHANGELING_PURCHASABLE_POWER
+
+/datum/action/changeling/sting/lethargic/sting_action(mob/user, mob/target)
+	add_attack_logs(user, target, "Lethargic sting (changeling)")
+	if(target.reagents)
+		target.reagents.add_reagent("tirizene", 10)
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("[name]"))
 	return TRUE

@@ -12,6 +12,8 @@ export const KEY_CTRL = 17;
 export const KEY_ALT = 18;
 export const KEY_ESCAPE = 27;
 export const KEY_SPACE = 32;
+export const ARROW_KEY_UP = 38;
+export const ARROW_KEY_DOWN = 40;
 export const KEY_0 = 48;
 export const KEY_1 = 49;
 export const KEY_2 = 50;
@@ -48,6 +50,16 @@ export const KEY_W = 87;
 export const KEY_X = 88;
 export const KEY_Y = 89;
 export const KEY_Z = 90;
+export const KEY_NUMPAD_0 = 96;
+export const KEY_NUMPAD_1 = 97;
+export const KEY_NUMPAD_2 = 98;
+export const KEY_NUMPAD_3 = 99;
+export const KEY_NUMPAD_4 = 100;
+export const KEY_NUMPAD_5 = 101;
+export const KEY_NUMPAD_6 = 102;
+export const KEY_NUMPAD_7 = 103;
+export const KEY_NUMPAD_8 = 104;
+export const KEY_NUMPAD_9 = 105;
 export const KEY_EQUAL = 187;
 export const KEY_MINUS = 189;
 
@@ -101,27 +113,27 @@ const getKeyData = (e) => {
   };
 };
 
-const keyCodeToByond = keyCode => {
+const keyCodeToByond = (keyCode) => {
   const dict = {
-    16 : 'Shift',
-    17 : 'Ctrl',
-    18 : 'Alt',
-    33 : 'Northeast',
-    34 : 'Southeast',
-    35 : 'Southwest',
-    36 : 'Northwest',
-    37 : 'West',
-    38 : 'North',
-    39 : 'East',
-    40 : 'South',
-    45 : 'Insert',
-    46 : 'Delete'
-  }
+    16: 'Shift',
+    17: 'Ctrl',
+    18: 'Alt',
+    33: 'Northeast',
+    34: 'Southeast',
+    35: 'Southwest',
+    36: 'Northwest',
+    37: 'West',
+    38: 'North',
+    39: 'East',
+    40: 'South',
+    45: 'Insert',
+    46: 'Delete',
+  };
 
   if (dict[keyCode]) {
     return dict[keyCode];
   }
-  if (keyCode >= 48 && keyCode <= 57 || keyCode >= 65 && keyCode <= 90) {
+  if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90)) {
     return String.fromCharCode(keyCode);
   }
   if (keyCode >= 96 && keyCode <= 105) {
@@ -130,9 +142,15 @@ const keyCodeToByond = keyCode => {
   if (keyCode >= 112 && keyCode <= 123) {
     return 'F' + (keyCode - 111);
   }
-  if (keyCode === 188) {return ',';}
-  if (keyCode === 189) {return '-';}
-  if (keyCode === 190) {return '.';}
+  if (keyCode === 188) {
+    return ',';
+  }
+  if (keyCode === 189) {
+    return '-';
+  }
+  if (keyCode === 190) {
+    return '.';
+  }
 };
 
 /**
@@ -154,7 +172,8 @@ const handlePassthrough = (e, eventType) => {
   if (NO_PASSTHROUGH_KEYS.includes(keyCode)) {
     return;
   }
-  if (eventType === 'keyup' && keyState[keyCode]) { // this needs to happen regardless of ctrl or shift, else you can get stuck walking one way
+  if (eventType === 'keyup' && keyState[keyCode]) {
+    // this needs to happen regardless of ctrl or shift, else you can get stuck walking one way
     logger.debug('passthrough', eventType, keyData);
     return callByond('', { __keyup: byondKey });
   }
@@ -175,9 +194,10 @@ const handlePassthrough = (e, eventType) => {
 export const releaseHeldKeys = () => {
   for (let keyCode of Object.keys(keyState)) {
     if (keyState[keyCode]) {
+      const byondKey = keyCodeToByond(keyCode);
       logger.log(`releasing [${keyCode}] key`);
       keyState[keyCode] = false;
-      callByond('', { __keyup: keyCode });
+      callByond('', { __keyup: byondKey });
     }
   }
 };

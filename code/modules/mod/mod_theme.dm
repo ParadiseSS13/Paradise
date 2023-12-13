@@ -20,7 +20,7 @@
 	/// Default skin of the MOD.
 	var/default_skin = "standard"
 	/// The slot this mod theme fits on
-	var/slot_flags = SLOT_BACK
+	var/slot_flags = SLOT_FLAG_BACK
 	/// Armor shared across the MOD parts.
 	var/obj/item/mod/armor/armor_type_1 = /obj/item/mod/armor/mod_theme
 	/// the actual armor object placed in a datum as I am tired and I just want this to work
@@ -1064,6 +1064,7 @@
 	siemens_coefficient = 0
 	slowdown_inactive = 0.5
 	slowdown_active = 0
+	complexity_max = DEFAULT_MAX_COMPLEXITY + 5
 	allowed_suit_storage = list(
 		/obj/item/ammo_box,
 		/obj/item/ammo_casing,

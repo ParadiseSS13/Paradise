@@ -1,27 +1,25 @@
-import { createSearch } from 'common/string';
 import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
   Icon,
-  Input,
   LabeledList,
   Section,
   Tabs,
   Flex,
-  Table
+  Table,
 } from '../components';
 import {
   ComplexModal,
   modalOpen,
   modalRegisterBodyOverride,
 } from '../interfaces/common/ComplexModal';
-import { FlexItem } from '../components/Flex';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 import { TemporaryNotice } from './common/TemporaryNotice';
+import { RecordsTable } from './common/RecordsTable';
 
 const severities = {
   'Minor': 'lightgray',
@@ -116,80 +114,43 @@ export const MedicalRecords = (_properties, context) => {
   );
 };
 
-const MedicalRecordsList = (_properties, context) => {
+const MedicalRecordsList = (props, context) => {
   const { act, data } = useBackend(context);
   const { records } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <Flex direction="column" height="100%">
-      <Flex>
-        <FlexItem>
-          <Button
-            content="Manage Records"
-            icon="wrench"
-            ml="0.25rem"
-            onClick={() => act('screen', { screen: 3 })}
-          />
-        </FlexItem>
-        <FlexItem grow="1" ml="0.5rem">
-          <Input
-            placeholder="Search by Name, ID, Physical Status, or Mental Status"
-            width="100%"
-            onInput={(e, value) => setSearchText(value)}
-          />
-        </FlexItem>
-      </Flex>
-      <Section flexGrow="1" mt="0.5rem">
-        <Table className="MedicalRecords__list">
-          <Table.Row bold>
-            <SortButton id="name">Name</SortButton>
-            <SortButton id="id">ID</SortButton>
-            <SortButton id="rank">Assignment</SortButton>
-            <SortButton id="p_stat">Patient Status</SortButton>
-            <SortButton id="m_stat">Mental Status</SortButton>
-          </Table.Row>
-          {records
-            .filter(
-              createSearch(searchText, (record) => {
-                return (
-                  record.name +
-                  '|' +
-                  record.id +
-                  '|' +
-                  record.rank +
-                  '|' +
-                  record.p_stat +
-                  '|' +
-                  record.m_stat
-                );
-              })
-            )
-            .sort((a, b) => {
-              const i = sortOrder ? 1 : -1;
-              return a[sortId].localeCompare(b[sortId]) * i;
-            })
-            .map((record) => (
-              <Table.Row
-                key={record.id}
-                className={
-                  'MedicalRecords__listRow--' + medStatusStyles[record.p_stat]
-                }
-                onClick={() => act('view_record', { view_record: record.ref })}
-              >
-                <Table.Cell>
-                  <Icon name="user" /> {record.name}
-                </Table.Cell>
-                <Table.Cell>{record.id}</Table.Cell>
-                <Table.Cell>{record.rank}</Table.Cell>
-                <Table.Cell>{record.p_stat}</Table.Cell>
-                <Table.Cell>{record.m_stat}</Table.Cell>
-              </Table.Row>
-            ))}
-        </Table>
-      </Section>
-    </Flex>
+    <RecordsTable
+      columns={[
+        {
+          id: 'name',
+          name: 'Name',
+          datum: {
+            children: (value) => (
+              <>
+                <Icon name="user" /> {value}
+              </>
+            ),
+          },
+        },
+        { id: 'id', name: 'ID' },
+        { id: 'rank', name: 'Assignment' },
+        { id: 'p_stat', name: 'Patient Status' },
+        { id: 'm_stat', name: 'Mental Status' },
+      ]}
+      data={records}
+      datumID={(datum) => datum.ref}
+      leftButtons={
+        <Button
+          content="Manage Records"
+          icon="wrench"
+          onClick={() => act('screen', { screen: 3 })}
+        />
+      }
+      searchPlaceholder="Search by Name, ID, Physical Status, or Mental Status"
+      datumRowProps={(datum) => ({
+        className: `MedicalRecords__listRow--${medStatusStyles[datum.p_stat]}`,
+        onClick: () => act('view_record', { view_record: datum.ref }),
+      })}
+    />
   );
 };
 
@@ -233,7 +194,8 @@ const MedicalRecordsView = (_properties, context) => {
             ml="0.5rem"
             onClick={() => act('print_record')}
           />
-        }>
+        }
+      >
         <MedicalRecordsViewGeneral />
       </Section>
       <Section
@@ -246,7 +208,8 @@ const MedicalRecordsView = (_properties, context) => {
             content="Delete Medical Record"
             onClick={() => act('del_med_record')}
           />
-        }>
+        }
+      >
         <MedicalRecordsViewMedical />
       </Section>
     </Fragment>
@@ -345,7 +308,8 @@ const MedicalRecordsViewMedical = (_properties, context) => {
             content="Add Entry"
             onClick={() => modalOpen(context, 'add_comment')}
           />
-        }>
+        }
+      >
         {medical.comments.length === 0 ? (
           <Box color="label">No comments found.</Box>
         ) : (
@@ -370,67 +334,43 @@ const MedicalRecordsViewMedical = (_properties, context) => {
   );
 };
 
-const MedicalRecordsViruses = (_properties, context) => {
+const MedicalRecordsViruses = (props, context) => {
   const { act, data } = useBackend(context);
   const { virus } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId2, _setSortId2] = useLocalState(context, 'sortId2', 'name');
-  const [sortOrder2, _setSortOrder2] = useLocalState(context, 'sortOrder2', true);
-  return(
-  <Flex direction="column" height="100%">
-    <Flex>
-      <FlexItem grow="1" ml="0.5rem">
-        <Input
-          placeholder="Search by Name, Max Stages, or Severity"
-          width="100%"
-          onInput={(e, value) => setSearchText(value)}
-        />
-      </FlexItem>
-    </Flex>
-    <Section flexGrow="1" mt="0.5rem">
-      <Table className="MedicalRecords__list">
-        <Table.Row bold>
-          <SortButton2 id="name">Name</SortButton2>
-          <SortButton2 id="max_stages">Max Stages</SortButton2>
-          <SortButton2 id="severity">Severity</SortButton2>
-        </Table.Row>
-        {virus
-          .filter(
-            createSearch(searchText, (vir) => {
-              return (
-                vir.name +
-                '|' +
-                vir.max_stages +
-                '|' +
-                vir.severity
-              );
-            })
-          )
-          .sort((a, b) => {
-            const i = sortOrder2 ? 1 : -1;
-            return a[sortId2].localeCompare(b[sortId2]) * i;
-          })
-          .map((vir) => (
-            <Table.Row
-              key={vir.id}
-              className={
-                'MedicalRecords__listVirus--' + vir.severity
-              }
-              onClick={() => act('vir', { vir: vir.D })}
-            >
-              <Table.Cell>
-                <Icon name="virus" /> {vir.name}
-              </Table.Cell>
-              <Table.Cell>{vir.max_stages}</Table.Cell>
-              <Table.Cell color = {severities[vir.severity]}>
-                {vir.severity}
-              </Table.Cell>
-            </Table.Row>
-          ))}
-      </Table>
-    </Section>
-  </Flex>
-  )
+  return (
+    <RecordsTable
+      columns={[
+        {
+          id: 'name',
+          name: 'Name',
+          datum: {
+            children: (value) => (
+              <>
+                <Icon name="virus" /> {value}
+              </>
+            ),
+          },
+        },
+        { id: 'max_stages', name: 'Max Stages' },
+        {
+          id: 'severity',
+          name: 'Severity',
+          datum: {
+            props: (value) => ({
+              color: severities[value],
+            }),
+          },
+        },
+      ]}
+      data={virus}
+      datumID={(datum) => datum.id}
+      searchPlaceholder="Search by Name, Max Stages, or Severity"
+      datumRowProps={(datum) => ({
+        className: `MedicalRecords__listVirus--${datum.severity}`,
+        onClick: () => act('vir', { vir: datum.D }),
+      })}
+    />
+  );
 };
 
 const MedicalRecordsMedbots = (_properties, context) => {
@@ -439,7 +379,7 @@ const MedicalRecordsMedbots = (_properties, context) => {
   if (medbots.length === 0) {
     return <Box color="label">There are no Medibots.</Box>;
   }
-  return(
+  return (
     <Flex direction="column" height="100%">
       <Section flexGrow="1" mt="0.5rem">
         <Table className="MedicalRecords__list">
@@ -449,89 +389,37 @@ const MedicalRecordsMedbots = (_properties, context) => {
             <Table.Cell>Status</Table.Cell>
             <Table.Cell>Chemicals</Table.Cell>
           </Table.Row>
-          {medbots
-            .map((medbot) => (
-              <Table.Row
-                key={medbot.id}
-                className={
-                  'MedicalRecords__listMedbot--' + medbot.on
-                }
-              >
-                <Table.Cell>
-                  <Icon name="medical" /> {medbot.name}
-                </Table.Cell>
-                <Table.Cell>{medbot.area || 'Unknown'} ({medbot.x}, {medbot.y})</Table.Cell>
-                <Table.Cell>{medbot.on
-                    ? (<Box color="good">Online</Box>)
-                    : (<Box color="average">Offline</Box>)}
-                </Table.Cell>
-                <Table.Cell>
-                  {medbot.use_beaker
-                    ? 'Reservoir: ' +
-                      medbot.total_volume +
-                      '/' +
-                      medbot.maximum_volume
-                    : 'Using internal synthesizer'}
-                </Table.Cell>
-              </Table.Row>
+          {medbots.map((medbot) => (
+            <Table.Row
+              key={medbot.id}
+              className={'MedicalRecords__listMedbot--' + medbot.on}
+            >
+              <Table.Cell>
+                <Icon name="medical" /> {medbot.name}
+              </Table.Cell>
+              <Table.Cell>
+                {medbot.area || 'Unknown'} ({medbot.x}, {medbot.y})
+              </Table.Cell>
+              <Table.Cell>
+                {medbot.on ? (
+                  <Box color="good">Online</Box>
+                ) : (
+                  <Box color="average">Offline</Box>
+                )}
+              </Table.Cell>
+              <Table.Cell>
+                {medbot.use_beaker
+                  ? 'Reservoir: ' +
+                    medbot.total_volume +
+                    '/' +
+                    medbot.maximum_volume
+                  : 'Using internal synthesizer'}
+              </Table.Cell>
+            </Table.Row>
           ))}
         </Table>
       </Section>
     </Flex>
-  );
-};
-
-const SortButton = (properties, context) => {
-  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
-  const { id, children } = properties;
-  return (
-    <Table.Cell>
-      <Button
-        color={sortId !== id && 'transparent'}
-        width="100%"
-        onClick={() => {
-          if (sortId === id) {
-            setSortOrder(!sortOrder);
-          } else {
-            setSortId(id);
-            setSortOrder(true);
-          }
-        }}
-      >
-        {children}
-        {sortId === id && (
-          <Icon name={sortOrder ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
-        )}
-      </Button>
-    </Table.Cell>
-  );
-};
-
-const SortButton2 = (properties, context) => {
-  const [sortId2, setSortId2] = useLocalState(context, 'sortId2', 'name');
-  const [sortOrder2, setSortOrder2] = useLocalState(context, 'sortOrder2', true);
-  const { id, children } = properties;
-  return (
-    <Table.Cell>
-      <Button
-        color={sortId2 !== id && 'transparent'}
-        width="100%"
-        onClick={() => {
-          if (sortId2 === id) {
-            setSortOrder2(!sortOrder2);
-          } else {
-            setSortId2(id);
-            setSortOrder2(true);
-          }
-        }}
-      >
-        {children}
-        {sortId2 === id && (
-          <Icon name={sortOrder2 ? 'sort-up' : 'sort-down'} ml="0.25rem;" />
-        )}
-      </Button>
-    </Table.Cell>
   );
 };
 
@@ -542,34 +430,38 @@ const MedicalRecordsNavigation = (_properties, context) => {
     <Tabs>
       <Tabs.Tab
         selected={screen === 2}
-        onClick={() => {act('screen', { screen: 2 })}}
+        onClick={() => {
+          act('screen', { screen: 2 });
+        }}
       >
-        <Icon name="list"/>
+        <Icon name="list" />
         List Records
       </Tabs.Tab>
       <Tabs.Tab
         selected={screen === 5}
-        onClick={() => {act('screen', { screen: 5 })}}
+        onClick={() => {
+          act('screen', { screen: 5 });
+        }}
       >
-        <Icon name="database"/>
+        <Icon name="database" />
         Virus Database
       </Tabs.Tab>
       <Tabs.Tab
         selected={screen === 6}
         onClick={() => act('screen', { screen: 6 })}
       >
-        <Icon name="plus-square"/>
+        <Icon name="plus-square" />
         Medibot Tracking
       </Tabs.Tab>
       {screen === 3 && (
         <Tabs.Tab selected={screen === 3}>
-          <Icon name="wrench"/>
+          <Icon name="wrench" />
           Record Maintenance
         </Tabs.Tab>
       )}
       {screen === 4 && general && !general.empty && (
         <Tabs.Tab selected={screen === 4}>
-          <Icon name="file"/>
+          <Icon name="file" />
           Record: {general.fields[0].value}
         </Tabs.Tab>
       )}

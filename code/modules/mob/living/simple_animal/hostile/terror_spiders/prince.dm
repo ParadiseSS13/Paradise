@@ -23,6 +23,8 @@
 	maxHealth = 600 // 30 laser shots
 	health = 600
 	regen_points_per_hp = 6 // double the normal - IE halved regen speed
+	move_to_delay = 3
+	speed = 0.5
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	ventcrawler = 0
@@ -40,3 +42,67 @@
 	L.KnockDown(10 SECONDS)
 	L.adjustStaminaLoss(40)
 	return ..()
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince/Initialize(mapload)
+	. = ..()
+	if(mind)
+		var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge()
+		mind.AddSpell(spell)
+	else
+		RegisterSignal(src, COMSIG_MOB_LOGIN, TYPE_PROC_REF(/mob/living/simple_animal/hostile/poison/terror_spider/prince, give_spell))
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince/proc/give_spell()
+	SIGNAL_HANDLER
+	var/obj/effect/proc_holder/spell/spell = new /obj/effect/proc_holder/spell/princely_charge()
+	mind.AddSpell(spell)
+	UnregisterSignal(src, COMSIG_MOB_LOGIN)
+
+/obj/effect/proc_holder/spell/princely_charge
+	name = "Princely Charge"
+	desc = "You charge at wherever you click on screen, dealing large amounts of damage, stunning and destroying walls and other objects."
+	gain_desc = "You can now charge at a target on screen, dealing massive damage and destroying structures."
+	base_cooldown = 30 SECONDS
+	clothes_req = FALSE
+	action_icon_state = "terror_prince"
+
+/obj/effect/proc_holder/spell/princely_charge/create_new_targeting()
+	return new /datum/spell_targeting/clicked_atom
+
+/obj/effect/proc_holder/spell/princely_charge/cast(list/targets, mob/user)
+	var/target = targets[1]
+	if(isliving(user))
+		var/mob/living/L = user
+		L.apply_status_effect(STATUS_EFFECT_CHARGING)
+		L.throw_at(target, 9, 1, L, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_CHARGING))
+
+/mob/living/simple_animal/hostile/poison/terror_spider/prince/throw_impact(atom/hit_atom, throwingdatum)
+	. = ..()
+	if(!has_status_effect(STATUS_EFFECT_CHARGING) || has_status_effect(STATUS_EFFECT_IMPACT_IMMUNE))
+		return
+
+	var/hit_something = FALSE
+	if(ismovable(hit_atom))
+		var/atom/movable/AM = hit_atom
+		var/atom/throw_target = get_edge_target_turf(AM, dir)
+		if(!AM.anchored || ismecha(AM))
+			AM.throw_at(throw_target, 5, 12, src)
+			hit_something = TRUE
+	if(isobj(hit_atom))
+		var/obj/O = hit_atom
+		O.take_damage(150, BRUTE)
+		hit_something = TRUE
+	if(isliving(hit_atom))
+		var/mob/living/L = hit_atom
+		L.adjustBruteLoss(60)
+		L.KnockDown(12 SECONDS)
+		L.Confused(10 SECONDS)
+		shake_camera(L, 4, 3)
+		hit_something = TRUE
+	if(isturf(hit_atom))
+		var/turf/T = hit_atom
+		if(iswallturf(T))
+			T.dismantle_wall(TRUE)
+			hit_something = TRUE
+	if(hit_something)
+		visible_message("<span class='danger'>[src] slams into [hit_atom]!</span>", "<span class='userdanger'>You slam into [hit_atom]!</span>")
+		playsound(get_turf(src), 'sound/effects/meteorimpact.ogg', 100, TRUE)

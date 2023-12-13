@@ -68,6 +68,7 @@
 		/obj/item/mod/module/flashlight,
 		/obj/item/mod/module/t_ray,
 		/obj/item/mod/module/magboot,
+		/obj/item/mod/module/firefighting_tank,
 	)
 	default_pins = list(
 		/obj/item/mod/module/magboot,
@@ -225,6 +226,11 @@
 		/obj/item/mod/module/jetpack,
 	)
 
+/obj/item/mod/control/pre_equipped/traitor/Initialize(mapload)
+	. = ..()
+	new /obj/item/clothing/mask/gas/syndicate(bag)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
+
 /obj/item/mod/control/pre_equipped/traitor_elite
 	theme = /datum/mod_theme/elite
 	applied_cell = /obj/item/stock_parts/cell/bluespace
@@ -240,6 +246,11 @@
 		/obj/item/mod/module/armor_booster,
 		/obj/item/mod/module/jetpack/advanced,
 	)
+
+/obj/item/mod/control/pre_equipped/traitor_elite/Initialize(mapload)
+	. = ..()
+	new /obj/item/clothing/mask/gas/syndicate(bag)
+	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(bag)
 
 /obj/item/mod/control/pre_equipped/nuclear
 	theme = /datum/mod_theme/syndicate
@@ -291,7 +302,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory
 	theme = /datum/mod_theme/responsory
-	applied_cell = /obj/item/stock_parts/cell/hyper
+	applied_cell = /obj/item/stock_parts/cell/bluespace
 	req_access = list(ACCESS_CENT_GENERAL)
 	applied_modules = list(
 		/obj/item/mod/module/storage/syndicate, //Yes yes syndicate tech in ert but they need the storage
@@ -325,7 +336,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/engineer
 	insignia_type = /obj/item/mod/module/insignia/engineer
-	additional_module = /obj/item/mod/module/anomaly_locked/kinesis/prebuilt //This can only end well.
+	additional_module = list(/obj/item/mod/module/anomaly_locked/kinesis/prebuilt, /obj/item/mod/module/firefighting_tank) //This can only end well.
 
 /obj/item/mod/control/pre_equipped/responsory/medic
 	insignia_type = /obj/item/mod/module/insignia/medic
@@ -333,7 +344,7 @@
 
 /obj/item/mod/control/pre_equipped/responsory/janitor
 	insignia_type = /obj/item/mod/module/insignia/janitor
-	additional_module = /obj/item/mod/module/clamp
+	additional_module = list(/obj/item/mod/module/clamp, /obj/item/mod/module/boot_heating)
 
 /obj/item/mod/control/pre_equipped/responsory/clown
 	insignia_type = /obj/item/mod/module/insignia/clown

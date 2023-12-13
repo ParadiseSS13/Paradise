@@ -118,7 +118,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/area/signal_origin = get_area(user)
 	var/emergency_reason = "\nNature of emergency:\n\n[call_reason]"
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
 		var/extra_minutes = 0
 		var/priority_time = emergencyCallTime * 0.5
 		if(world.time - emergency_sec_level_time < priority_time)
@@ -152,7 +152,7 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	if(!emergency.canRecall)
 		return
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
 		if(emergency.timeLeft(1) < emergencyCallTime * 0.25)
 			return
 	else
@@ -294,13 +294,11 @@ SUBSYSTEM_DEF(shuttle)
 
 	if(!length(supply_shuttle_turfs))
 		for(var/turf/simulated/T in supply.areaInstance)
-			if(T.density)
+			if(is_blocked_turf(T))
 				continue
-			for(var/obj/structure/structure in T.contents)
-				if(structure.density)
-					continue
 			supply_shuttle_turfs += T
 	if(!length(supply_shuttle_turfs)) // In case some nutjob walled the supply shuttle 10 minutes into the round
+		stack_trace("There were no available turfs on the Supply Shuttle to spawn a mail crate in!")
 		return
 	var/turf/spawn_location = pick(supply_shuttle_turfs)
 	new /obj/structure/closet/crate/mail(spawn_location)

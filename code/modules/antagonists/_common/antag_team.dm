@@ -1,5 +1,7 @@
 GLOBAL_LIST_EMPTY(antagonist_teams)
 
+#define DEFAULT_TEAM_NAME "Generic Team Name"
+
 /**
  * # Antagonist Team
  *
@@ -7,18 +9,20 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/team
 	/// The name of the team.
-	var/name = "Generic Team Name"
+	var/name = DEFAULT_TEAM_NAME
 	/// A list of [minds][/datum/mind] who belong to this team.
-	var/list/members
+	var/list/datum/mind/members
 	/// A list of objectives which all team members share.
-	var/list/objectives
+	var/datum/objective_holder/objective_holder
 	/// Type of antag datum members of this team have. Also given to new members added by admins.
 	var/antag_datum_type
+	/// The name to save objective successes under in the blackboxes. Saves nothing if blank.
+	var/blackbox_save_name
 
 /datum/team/New(list/starting_members)
 	..()
 	members = list()
-	objectives = list()
+	objective_holder = new(src)
 	if(starting_members && !islist(starting_members))
 		starting_members = list(starting_members)
 	for(var/datum/mind/M as anything in starting_members)
@@ -28,7 +32,7 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/Destroy(force = FALSE, ...)
 	for(var/datum/mind/member as anything in members)
 		remove_member(member)
-	QDEL_LIST_CONTENTS(objectives)
+	qdel(objective_holder)
 	members.Cut()
 	GLOB.antagonist_teams -= src
 	return ..()
@@ -40,18 +44,21 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  */
 /datum/team/proc/add_member(datum/mind/new_member)
 	SHOULD_CALL_PARENT(TRUE)
-	var/datum/antagonist/team_antag = get_antag_datum_from_member(new_member)
+	var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
 	members |= new_member
-	team_antag.objectives |= objectives
+	if(!antag) // this team has no antag role, we'll add it directly to their mind team
+		LAZYDISTINCTADD(new_member.teams, src)
 
 /**
  * Removes `member` from this team.
  */
 /datum/team/proc/remove_member(datum/mind/member)
 	SHOULD_CALL_PARENT(TRUE)
-	var/datum/antagonist/A = get_antag_datum_from_member(member)
 	members -= member
-	A.objectives -= objectives
+	LAZYREMOVE(member.teams, src)
+	var/datum/antagonist/antag = get_antag_datum_from_member(member)
+	if(!QDELETED(antag))
+		qdel(antag)
 
 /**
  * Adds a new member to this team from a list of players in the round.
@@ -74,22 +81,17 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /**
  * Adds a team objective to each member's matching antag datum.
  */
-/datum/team/proc/add_objective_to_team(datum/objective/O)
+/datum/team/proc/add_team_objective(datum/objective/O, _explanation_text, mob/target_override)
+	if(ispath(O))
+		O = new O()
 	O.team = src
-	for(var/datum/mind/M as anything in members)
-		var/datum/antagonist/A = get_antag_datum_from_member(M)
-		A.objectives |= O
-	objectives |= O
-	RegisterSignal(O, COMSIG_PARENT_QDELETING, PROC_REF(remove_objective_from_team))
+	return objective_holder.add_objective(O, _explanation_text, target_override)
 
 /**
  * Remove a team objective from each member's matching antag datum.
  */
-/datum/team/proc/remove_objective_from_team(datum/objective/O)
-	for(var/datum/mind/M as anything in members)
-		var/datum/antagonist/A = get_antag_datum_from_member(M)
-		A.objectives -= O
-	objectives -= O
+/datum/team/proc/remove_team_objective(datum/objective/O)
+	. = objective_holder.remove_objective(O)
 	if(!QDELETED(O))
 		qdel(O)
 
@@ -106,6 +108,58 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		return member.add_antag_datum(antag_datum_type, src)
 
 /**
+ * Special overrides for teams for target exclusion from objectives.
+ */
+/datum/team/proc/get_target_excludes()
+	return members
+
+/**
+ * Displays the roundend stats for teams
+ */
+/datum/team/proc/on_round_end()
+	if(!length(members))
+		return
+	var/temp_name = name
+	if(temp_name == DEFAULT_TEAM_NAME || !temp_name)
+		temp_name = "This team"
+	else
+		temp_name = "The [name]"
+
+	var/list/to_send = list("<br><b>[temp_name]'s objectives were:</b>")
+	var/obj_count = 1
+	var/team_win = TRUE
+	for(var/datum/objective/objective in objective_holder.get_objectives())
+
+		var/text_to_add = "<b>Objective #[obj_count++]</b>: [objective.explanation_text] "
+		var/failed = "FAIL"
+		if(objective.check_completion())
+			text_to_add += "<font color='green'><b>Success!</b></font>"
+			failed = "SUCCESS"
+		else
+			text_to_add += "<font color='red'>Fail.</font>"
+			team_win = FALSE
+		to_send += text_to_add
+
+		// handle blackbox stuff
+		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
+			if(istype(objective, /datum/objective/steal))
+				var/datum/objective/steal/S = objective
+				SSblackbox.record_feedback("nested tally", "[initial(blackbox_save_name)]_team_steal_objective", 1, list("Steal [S.steal_target]", failed))
+			else
+				SSblackbox.record_feedback("nested tally", "[initial(blackbox_save_name)]_team_objective", 1, list("[objective.type]", failed))
+
+	if(team_win)
+		to_send += "<font color='green'><B>[temp_name] were successful!</B></font><br/>"
+		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
+			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_team_success", 1, "SUCCESS")
+	else
+		to_send += "<font color='red'><B>[temp_name] failed!</B></font><br/>"
+		if(initial(blackbox_save_name)) // no im not letting admins var edit shit to the blackbox
+			SSblackbox.record_feedback("tally", "[initial(blackbox_save_name)]_team_success", 1, "FAIL")
+
+	to_chat(world, to_send.Join("<br>"))
+
+/**
  * Allows admins to send a message to all members of this team.
  */
 /datum/team/proc/admin_communicate(mob/user)
@@ -113,8 +167,13 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	if(!message)
 		return
 
+	var/team_message = chat_box_red("<font color='#d6000b'><span class='bold'>Admin '[name]' Team Message ([user.key]): </span></font><span class='notice'>[message]</span>")
+	var/team_alert_sound = sound('sound/effects/adminticketopen.ogg')
 	for(var/datum/mind/M as anything in members)
-		to_chat(M.current, "<font color='#d6000b'><span class='bold'>Admin Team Message ([user.key]): </span><span class='notice'>[message]</span>")
+		if(QDELETED(M.current))
+			continue
+		SEND_SOUND(M.current, team_alert_sound)
+		to_chat(M.current, team_message)
 
 	message_admins("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
 	log_admin("Team Message: [key_name(user)] -> '[name]' team. Message: [message]")
@@ -130,22 +189,35 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	var/objective_type = GLOB.admin_objective_list[selected]
 	var/datum/objective/O = new objective_type(team_to_join = src)
 	O.find_target(get_target_excludes()) // Blacklist any team members from being the target.
-	add_objective_to_team(O)
+	add_team_objective(O)
 
 	message_admins("[key_name_admin(user)] added objective [O.type] to the team '[name]'.")
 	log_admin("[key_name(user)] added objective [O.type] to the team '[name]'.")
 
 /**
- * Special overrides for teams for target exclusion from objectives.
+ * Allows admins to announce objectives to all team members.
  */
-/datum/team/proc/get_target_excludes()
-	return members
+/datum/team/proc/admin_announce_objectives(mob/user)
+	// This button is right next to the
+	if(alert(user, "Are you sure you want to announce objectives to all members?", "Are you sure?", "Yes", "No") == "No")
+		return
+
+
+	log_admin("[key_name(usr)] has announced team [src]'s objectives")
+	message_admins("[key_name_admin(usr)] has announced team [src]'s objectives")
+
+	for(var/datum/mind/member in members)
+		if(!member.current || !isliving(member.current))
+			return
+		var/list/messages = member.prepare_announce_objectives()
+		to_chat(member.current, chat_box_red(messages.Join("<br>")))
+		SEND_SOUND(member.current, sound('sound/ambience/alarm4.ogg'))
 
 /**
  * Allows admins to remove a team objective.
  */
 /datum/team/proc/admin_remove_objective(mob/user, datum/objective/O)
-	remove_objective_from_team(O)
+	remove_team_objective(O)
 	message_admins("[key_name_admin(user)] removed objective [O.type] from the team '[name]'.")
 	log_admin("[key_name(user)] removed objective [O.type] from the team '[name]'.")
 
@@ -205,8 +277,9 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/admins/proc/list_teams()
 	var/list/content = list()
 	if(!length(GLOB.antagonist_teams))
-		content += "There are currently no antag teams."
-	for(var/datum/team/T as anything in GLOB.antagonist_teams)
+		content += "There are currently no antag teams.<br/>"
+	content += "<a href='?_src_=holder;team_command=new_custom_team;'>Create new Team</a>"
+	for(var/datum/team/T as anything in GLOB.antagonist_teams) // with multiple teams, this is going to get messy. It should probably be turned into a tabs-like system
 		content += "<h3>[T.name] - [T.type]</h3>"
 		content += "<a href='?_src_=holder;team_command=rename_team;team=[T.UID()]'>Rename Team</a>"
 		content += "<a href='?_src_=holder;team_command=delete_team;team=[T.UID()]'>Delete Team</a>"
@@ -216,9 +289,11 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 			// _src_ is T.UID() so it points to `/datum/team/Topic` instead of `/datum/admins/Topic`.
 			content += "<a href='?_src_=[T.UID()];command=[command]'>[command]</a>"
 		content += "<br><br>Objectives:<br><ol>"
-		for(var/datum/objective/O as anything in T.objectives)
+		for(var/datum/objective/O as anything in T.objective_holder.get_objectives())
 			content += "<li>[O.explanation_text] - <a href='?_src_=holder;team_command=remove_objective;team=[T.UID()];objective=[O.UID()]'>Remove</a></li>"
-		content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[T.UID()]'>Add Objective</a><br><br>"
+		content += "</ol><a href='?_src_=holder;team_command=add_objective;team=[T.UID()]'>Add Objective</a><br>"
+		if(T.objective_holder.has_objectives())
+			content += "</ol><a href='?_src_=holder;team_command=announce_objectives;team=[T.UID()]'>Announce Objectives to All Members</a><br><br>"
 		content += "Members: <br><ol>"
 		for(var/datum/mind/M as anything in T.members)
 			content += "<li>[M.name] - <a href='?_src_=holder;team_command=view_member;team=[T.UID()];member=[M.UID()]'>Show Player Panel</a>"

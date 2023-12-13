@@ -28,4 +28,4 @@ export const RemoteSignaler = (props, context) => {
       </Window.Content>
     </Window>
   );
-}
+};

@@ -100,7 +100,7 @@
 		if(ishuman(src) && !internal && environment.temperature < 273 && environment.return_pressure() > 20) //foggy breath :^)
 			new /obj/effect/frosty_breath(loc, src)
 
-//Third link in a breath chain, calls handle_breath_temperature()
+//Third and last link in a breath chain
 /mob/living/carbon/proc/check_breath(datum/gas_mixture/breath)
 	if(status_flags & GODMODE)
 		return FALSE
@@ -181,14 +181,7 @@
 			if(prob(20))
 				emote(pick("giggle","laugh"))
 
-	//BREATH TEMPERATURE
-	handle_breath_temperature(breath)
-
 	return TRUE
-
-//Fourth and final link in a breath chain
-/mob/living/carbon/proc/handle_breath_temperature(datum/gas_mixture/breath)
-	return
 
 /mob/living/carbon/proc/get_breath_from_internal(volume_needed)
 	if(internal)
@@ -364,7 +357,7 @@
 	var/applied_amount = 0.35 * multiple_patch_multiplier
 
 	for(var/patch in processing_patches)
-		var/obj/item/reagent_containers/food/pill/patch/P = patch
+		var/obj/item/reagent_containers/patch/P = patch
 
 		if(P.reagents && P.reagents.total_volume)
 			var/fractional_applied_amount = applied_amount  / P.reagents.total_volume

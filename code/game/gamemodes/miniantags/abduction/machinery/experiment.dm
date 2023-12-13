@@ -144,15 +144,13 @@
 		sleep(5)
 		to_chat(H, "<span class='warning'><b>Your mind snaps!</b></span>")
 		to_chat(H, "<big><span class='warning'><b>You can't remember how you got here...</b></span></big>")
+		SSticker.mode.abductees += H.mind
+
 		var/objtype = pick(subtypesof(/datum/objective/abductee/))
 		var/datum/objective/abductee/O = new objtype()
-		SSticker.mode.abductees += H.mind
-		H.mind.objectives += O
-		var/obj_count = 1
-		to_chat(H, "<span class='notice'>Your current objectives:</span>")
-		for(var/datum/objective/objective in H.mind.objectives)
-			to_chat(H, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-			obj_count++
+		H.mind.add_mind_objective(O)
+		var/list/messages = H.mind.prepare_announce_objectives()
+		to_chat(H, chat_box_red(messages.Join("<br>"))) // let the player know they have a new objective
 		SSticker.mode.update_abductor_icons_added(H.mind)
 
 		for(var/obj/item/organ/internal/heart/gland/G in H.internal_organs)

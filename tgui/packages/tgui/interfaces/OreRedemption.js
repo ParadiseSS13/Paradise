@@ -201,8 +201,8 @@ const OreHeader = (properties, context) => {
 };
 
 /*
-********* SHEETS BOX PROPERTIES *********
-*/
+ ********* SHEETS BOX PROPERTIES *********
+ */
 
 const SheetLine = (properties, context) => {
   const { act } = useBackend(context);
@@ -224,52 +224,48 @@ const SheetLine = (properties, context) => {
             src={'sheet-' + cleanId + '.png'}
             verticalAlign="middle"
             ml="0rem"
-            />
-            {ore.name}
-          </Flex.Item>
-          <Flex.Item
-            basis="20%"
-            textAlign="center"
-            color={ore.amount >= 1 ? 'good' : 'gray'}
-            bold={ore.amount >= 1}
-            align="center"
-          >
-            {ore.amount.toLocaleString('en-US')}
-          </Flex.Item>
-          <Flex.Item
-            basis="20%"
-            textAlign="center"
-            align="center"
-            >
-            {ore.value}
-          </Flex.Item>
-          <Flex.Item
-            basis="20%"
-            textAlign="center"
-            align="center"
-            lineHeight="32px"
-          >
-            <NumberInput
-              value={0}
-              minValue={0}
-              maxValue={Math.min(ore.amount, 50)}
-              stepPixelSize={6}
-              onChange={(_e, value) =>
-                act(ore.value ? 'sheet' : 'alloy', {
-                  'id': ore.id,
-                  'amount': value,
-                })
-              }
-            />
-          </Flex.Item>
+          />
+          {ore.name}
+        </Flex.Item>
+        <Flex.Item
+          basis="20%"
+          textAlign="center"
+          color={ore.amount >= 1 ? 'good' : 'gray'}
+          bold={ore.amount >= 1}
+          align="center"
+        >
+          {ore.amount.toLocaleString('en-US')}
+        </Flex.Item>
+        <Flex.Item basis="20%" textAlign="center" align="center">
+          {ore.value}
+        </Flex.Item>
+        <Flex.Item
+          basis="20%"
+          textAlign="center"
+          align="center"
+          lineHeight="32px"
+        >
+          <NumberInput
+            value={0}
+            minValue={0}
+            maxValue={Math.min(ore.amount, 50)}
+            stepPixelSize={6}
+            onChange={(_e, value) =>
+              act(ore.value ? 'sheet' : 'alloy', {
+                'id': ore.id,
+                'amount': value,
+              })
+            }
+          />
+        </Flex.Item>
       </Flex>
     </Box>
   );
 };
 
 /*
-********* ALLOYS BOX PROPERTIES *********
-*/
+ ********* ALLOYS BOX PROPERTIES *********
+ */
 
 const AlloyLine = (properties, context) => {
   const { act } = useBackend(context);
@@ -281,55 +277,51 @@ const AlloyLine = (properties, context) => {
         <Flex.Item basis="7%" align="middle">
           <Box
             as="img"
-            src={'sheet-' + (cleanId) + '.png'}
+            src={'sheet-' + cleanId + '.png'}
             verticalAlign="middle"
             ml="`0rem"
-            />
-            </Flex.Item>
-                <FlexItem
-                  basis="30%"
-                  textAlign="middle"
-                  align="center"
-                >
-                  {ore.name}
-            </FlexItem>
-                <Flex.Item
-                  basis="35%"
-                  textAlign="middle"
-                  color={ore.amount >= 1 ? 'good' : 'gray'}
-                  align="center"
-                >
-                  {ore.description}
-            </Flex.Item>
-              <Flex.Item
-                basis="10%"
-                textAlign="center"
-                color={ore.amount >= 1 ? 'good' : 'gray'}
-                bold={ore.amount >= 1}
-                align="center"
-               >
-                {ore.amount.toLocaleString('en-US')}
-              </Flex.Item>
-            <Flex.Item
-              basis="20%"
-              textAlign="center"
-              align="center"
-              lineHeight="32px"
-            >
-              <NumberInput
-                value={0}
-                minValue={0}
-                maxValue={Math.min(ore.amount, 50)}
-                stepPixelSize={6}
-                onChange={(_e, value) =>
-                  act(ore.value ? 'sheet' : 'alloy', {
-                    'id': ore.id,
-                    'amount': value,
-                  })
-                }
-              />
-            </Flex.Item>
-       </Flex>
+          />
+        </Flex.Item>
+        <FlexItem basis="30%" textAlign="middle" align="center">
+          {ore.name}
+        </FlexItem>
+        <Flex.Item
+          basis="35%"
+          textAlign="middle"
+          color={ore.amount >= 1 ? 'good' : 'gray'}
+          align="center"
+        >
+          {ore.description}
+        </Flex.Item>
+        <Flex.Item
+          basis="10%"
+          textAlign="center"
+          color={ore.amount >= 1 ? 'good' : 'gray'}
+          bold={ore.amount >= 1}
+          align="center"
+        >
+          {ore.amount.toLocaleString('en-US')}
+        </Flex.Item>
+        <Flex.Item
+          basis="20%"
+          textAlign="center"
+          align="center"
+          lineHeight="32px"
+        >
+          <NumberInput
+            value={0}
+            minValue={0}
+            maxValue={Math.min(ore.amount, 50)}
+            stepPixelSize={6}
+            onChange={(_e, value) =>
+              act(ore.value ? 'sheet' : 'alloy', {
+                'id': ore.id,
+                'amount': value,
+              })
+            }
+          />
+        </Flex.Item>
+      </Flex>
     </Box>
   );
 };

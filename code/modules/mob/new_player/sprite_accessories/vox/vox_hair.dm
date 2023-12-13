@@ -58,3 +58,37 @@
 /datum/sprite_accessory/hair/vox/vox_razor_clipped
 	name = "Clipped Vox Razorback"
 	icon_state = "razor_clipped"
+
+/datum/sprite_accessory/hair/vox/hawk
+	name = "Vox Hawk Quills"
+	icon_state = "hawk"
+
+/datum/sprite_accessory/hair/vox/long_braid
+	name = "Vox Long Braided Quills"
+	icon_state = "long_braid"
+
+/datum/sprite_accessory/hair/vox/short_braid
+	name = "Vox Short Braided Quills"
+	icon_state = "short_braid"
+
+/datum/sprite_accessory/hair/vox/mange
+	name = "Vox Mange Quills"
+	icon_state = "mange"
+
+/datum/sprite_accessory/hair/vox/ponytail
+	name = "Vox Ponytail Quills"
+	icon_state = "ponytail"
+
+/datum/sprite_accessory/hair/vox/braid
+	name = "Vox Braid Quills"
+	icon_state = "braid"
+
+/datum/sprite_accessory/hair/vox/surf
+	name = "Vox Surf Quills"
+	icon_state = "surf"
+
+/datum/sprite_accessory/hair/vox/flowing
+	name = "Vox Flowing Quills"
+	icon_state = "flowing"
+
+

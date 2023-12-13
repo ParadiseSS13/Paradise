@@ -26,8 +26,10 @@
 	button.linked_action = src
 	button.name = name
 	button.actiontooltipstyle = buttontooltipstyle
-	if(desc)
-		button.desc = desc
+	var/list/our_description = list()
+	our_description += desc
+	our_description += button.desc
+	button.desc = our_description.Join(" ")
 
 /datum/action/Destroy()
 	if(owner)
@@ -55,6 +57,7 @@
 		return
 	if(M.client)
 		M.client.screen -= button
+		button.clean_up_keybinds(M)
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
 	M.actions -= src
@@ -68,9 +71,6 @@
 /datum/action/proc/AltTrigger()
 	Trigger()
 	return FALSE
-
-/datum/action/proc/Process()
-	return
 
 /datum/action/proc/override_location() // Override to set coordinates manually
 	return
@@ -113,7 +113,6 @@
 		else
 			button.icon = button_icon
 			button.icon_state = background_icon_state
-		button.desc = desc
 
 		ApplyIcon(button)
 		var/obj/effect/proc_holder/spell/S = target
@@ -349,6 +348,9 @@
 /datum/action/item_action/laugh_track
 	name = "Laugh Track"
 
+/datum/action/item_action/whistle
+	name = "Whistle"
+
 /datum/action/item_action/floor_buffer
 	name = "Toggle Floor Buffer"
 	desc = "Movement speed is decreased while active."
@@ -562,7 +564,10 @@
 	var/obj/effect/proc_holder/spell/S = target
 	S.action = src
 	name = S.name
-	desc = S.desc
+	var/list/our_description = list()
+	our_description += S.desc
+	our_description += button.desc
+	button.desc = our_description.Join(" ")
 	button_icon = S.action_icon
 	button_icon_state = S.action_icon_state
 	background_icon_state = S.action_background_icon_state

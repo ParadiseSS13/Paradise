@@ -27,6 +27,7 @@ export const Button = (props) => {
     iconColor,
     iconSpin,
     iconRight,
+    iconStyle,
     children,
     onclick,
     onClick,
@@ -95,6 +96,7 @@ export const Button = (props) => {
           color={iconColor}
           rotation={iconRotation}
           spin={iconSpin}
+          style={iconStyle}
         />
       )}
       {content}
@@ -105,6 +107,7 @@ export const Button = (props) => {
           color={iconColor}
           rotation={iconRotation}
           spin={iconSpin}
+          style={iconStyle}
         />
       )}
       {tooltip && <Tooltip content={tooltip} position={tooltipPosition} />}
@@ -189,6 +192,10 @@ export class ButtonInput extends Component {
   }
 
   setInInput(inInput) {
+    const { disabled } = this.props;
+    if (disabled) {
+      return;
+    }
     this.setState({
       inInput,
     });
@@ -230,6 +237,7 @@ export class ButtonInput extends Component {
       tooltip,
       tooltipPosition,
       color = 'default',
+      disabled,
       placeholder,
       maxLength,
       multiLine,
@@ -241,8 +249,9 @@ export class ButtonInput extends Component {
         className={classes([
           'Button',
           fluid && 'Button--fluid',
+          disabled && 'Button--disabled',
           'Button--color--' + color,
-          multiLine + 'Button--multiLine'
+          multiLine + 'Button--multiLine',
         ])}
         {...rest}
         onClick={() => this.setInInput(true)}

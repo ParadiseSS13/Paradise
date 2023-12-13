@@ -25,6 +25,7 @@ stddef.dm
 .atom-build.json
 *.vscode/*
 !/.vscode/extensions.json
+!/.vscode/tasks.json
 
 # ignore DMI tool build cache
 /tools/dmitool/bin/
@@ -57,3 +58,9 @@ __pycache__/
 dmm-tools.exe
 OpenDream
 paradise.json
+
+# Misc windows shenanigans
+$RECYCLE.BIN
+
+# Linux libs
+/*.so

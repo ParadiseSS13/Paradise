@@ -16,7 +16,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinoff"
 	flags = CONDUCT
-	slot_flags = SLOT_PDA | SLOT_BELT
+	slot_flags = SLOT_FLAG_PDA | SLOT_FLAG_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	item_state = "electronic"
 	throw_speed = 4
@@ -173,18 +173,14 @@
 /obj/item/pinpointer/advpinpointer/AltClick(mob/user)
 	if(!isliving(user) || !Adjacent(user))
 		return ..()
-	toggle_mode()
+	toggle_mode(user)
 
-/obj/item/pinpointer/advpinpointer/verb/toggle_mode()
-	set category = "Object"
-	set name = "Toggle Pinpointer Mode"
-	set src in usr
-
-	if(usr.stat || usr.restrained())
+/obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
 	if(modelocked)
-		to_chat(usr, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
+		to_chat(user, "<span class='warning'>[src] is locked. It can only track one specific target.</span>")
 		return
 
 	target = null
@@ -194,18 +190,18 @@
 		if("Location")
 			setting = SETTING_LOCATION
 
-			var/locationx = input(usr, "Please input the x coordinate to search for.", "Location?" , "") as num
-			if(!locationx || !(usr in view(1,src)))
+			var/locationx = input(user, "Please input the x coordinate to search for.", "Location?" , "") as num
+			if(!locationx || !(user in view(1,src)))
 				return
-			var/locationy = input(usr, "Please input the y coordinate to search for.", "Location?" , "") as num
-			if(!locationy || !(usr in view(1,src)))
+			var/locationy = input(user, "Please input the y coordinate to search for.", "Location?" , "") as num
+			if(!locationy || !(user in view(1,src)))
 				return
 
 			var/turf/Z = get_turf(src)
 
 			location = locate(locationx,locationy,Z.z)
 
-			to_chat(usr, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
+			to_chat(user, "<span class='notice'>You set the pinpointer to locate [locationx],[locationy]</span>")
 
 			toggle_on()
 
@@ -224,7 +220,7 @@
 						var/name = initial(T.name)
 						item_names += name
 						item_paths[name] = initial(T.typepath)
-					var/targetitem = input("Select item to search for.", "Item Mode Select","") as null|anything in item_names
+					var/targetitem = tgui_input_list(user, "Select item to search for", "Select Item", item_names)
 					if(!targetitem)
 						return
 
@@ -235,12 +231,12 @@
 						var/cand_z = (get_turf(candidate)).z
 						if(is_admin_level(cand_z))
 							continue
-						if(usr.z != cand_z)
+						if(user.z != cand_z)
 							if(!backup)
 								backup = candidate
 							continue
 						// no candidate set yet, or check if there is a closer one
-						if(!priority || (get_dist(usr, candidate) < get_dist(usr, priority)))
+						if(!priority || (get_dist(user, candidate) < get_dist(user, priority)))
 							priority = candidate
 
 					if(priority)
@@ -248,13 +244,13 @@
 					else
 						target = backup
 						if(target)
-							to_chat(usr, "<span class='notice'>Unable to find [targetitem] in this sector, falling back to off-sector tracking.</span>")
+							to_chat(user, "<span class='notice'>Unable to find [targetitem] in this sector, falling back to off-sector tracking.</span>")
 
 					if(!target)
-						to_chat(usr, "<span class='warning'>Failed to locate [targetitem]!</span>")
+						to_chat(user, "<span class='warning'>Failed to locate [targetitem]!</span>")
 						return
 
-					to_chat(usr, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
+					to_chat(user, "<span class='notice'>You set the pinpointer to locate [targetitem].</span>")
 
 				if("DNA")
 					var/DNAstring = input("Input DNA string to search for." , "Please Enter String." , "")
@@ -279,7 +275,7 @@
 ///////////////////////
 /obj/item/pinpointer/nukeop
 	var/obj/docking_port/mobile/home = null
-	slot_flags = SLOT_BELT | SLOT_PDA
+	slot_flags = SLOT_FLAG_BELT | SLOT_FLAG_PDA
 	syndicate = TRUE
 	modes = list(MODE_DISK, MODE_NUKE)
 
@@ -370,6 +366,18 @@
 			. += "Nearest operative detected is <i>[nearest_op.real_name].</i>"
 		else
 			. += "No operatives detected within scanning range."
+
+/obj/item/pinpointer/operative/nad
+	desc = "A pinpointer that leads to the first Syndicate operative detected. Also has a mode to point towards the NAD."
+	modes = list(MODE_OPERATIVE, MODE_DISK)
+
+/obj/item/pinpointer/operative/nad/process()
+	switch(mode)
+		if(MODE_DISK)
+			workdisk()
+		if(MODE_OPERATIVE)
+			scan_for_ops()
+			point_at_target(nearest_op, FALSE)
 
 /obj/item/pinpointer/crew
 	name = "crew pinpointer"
@@ -476,7 +484,7 @@
 
 		while(name in name_counts)
 			name_counts[name]++
-			name = text("[] ([])", name, name_counts[name])
+			name = "[name] ([name_counts[name]])"
 		names[name] = H
 		name_counts[name] = 1
 
@@ -484,7 +492,7 @@
 		user.visible_message("<span class='notice'>[user]'s pinpointer fails to detect a signal.</span>", "<span class='notice'>Your pinpointer fails to detect a signal.</span>")
 		return
 
-	var/A = input(user, "Person to track", "Pinpoint") in names
+	var/A = tgui_input_list(user, "Person to track", "Pinpoint", names)
 	if(!src || !user || (user.get_active_hand() != src) || user.incapacitated() || !A)
 		return
 

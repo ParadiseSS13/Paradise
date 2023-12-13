@@ -198,7 +198,7 @@
 			return FALSE
 		D.init_welded = C.welded
 		C.welded = TRUE
-	else if (target.GetComponent(/datum/component/two_handed))
+	else if(target.GetComponent(/datum/component/two_handed))
 		to_chat(user, "<span class='notice'>[target] is too unwieldy to wrap effectively.</span>")
 		return FALSE
 	else
@@ -237,7 +237,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "electronic"
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = SLOT_FLAG_BELT
 	///Value of the tag
 	var/currTag = 1
 	//The whole system for the sort_type var is determined based on the order of this list,

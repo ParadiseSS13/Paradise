@@ -53,7 +53,7 @@
 		to_chat(user, "<span class='notice'>You add [(W.name == "photo") ? "the photo" : W.name] to [(src.name == "paper bundle") ? "the paper bundle" : src.name].</span>")
 		user.unEquip(W)
 		W.loc = src
-	else if(istype(W, /obj/item/lighter))
+	else if(W.get_heat())
 		burnpaper(W, user)
 	else if(istype(W, /obj/item/paper_bundle))
 		user.unEquip(W)
@@ -77,32 +77,28 @@
 	add_fingerprint(usr)
 	return
 
-/obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
-	var/class = "<span class='warning'>"
+/obj/item/paper_bundle/proc/burnpaper(obj/item/heating_object, mob/user)
+	var/class = "warning"
 
-	if(P.lit && !user.restrained())
-		if(istype(P, /obj/item/lighter/zippo))
-			class = "<span class='rose'>"
+	if(istype(heating_object, /obj/item/lighter/zippo))
+		class = "rose"
 
-		user.visible_message("[class][user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", \
-		"[class]You hold [P] up to [src], burning it slowly.</span>")
+	user.visible_message("<span class='[class]'>[user] holds [heating_object] up to [src], it looks like [user.p_theyre()] trying to burn it!</span>", "<span class='[class]'>You hold [heating_object] up to [src], burning it slowly.</span>")
 
-		spawn(20)
-			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
+	if(!do_after(user, 2 SECONDS, target = src) || !heating_object.get_heat())
+		return
+	user.visible_message("<span class='[class]'>[user] burns right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>", \
+	"<span class='[class]'>You burn right through [src], turning it to ash. It flutters through the air before settling on the floor in a heap.</span>")
 
-				if(user.is_in_inactive_hand(src))
-					user.unEquip(src)
+	user.unEquip(src)
 
-				new /obj/effect/decal/cleanable/ash(get_turf(src))
-				qdel(src)
-
-			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+	new /obj/effect/decal/cleanable/ash(get_turf(src))
+	qdel(src)
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
+	. += "<span class='info'><b>Alt-Click</b> [src] with a pen in hand to rename it.</span>"
+	. += "<span class='info'><b>Alt-Shift-Click</b> [src] to undo the paper bundle.</span>"
 	if(in_range(user, src))
 		show_content(user)
 	else
@@ -199,38 +195,31 @@
 /obj/item/paper_bundle/AltClick(mob/user)
 	if(in_range(user, src) && !user.incapacitated())
 		if(is_pen(user.get_active_hand()))
-			rename()
+			rename(user)
 		return
 
 	. = ..()
 
-/obj/item/paper_bundle/verb/rename()
-	set name = "Rename bundle"
-	set category = "Object"
-	set src in usr
+/obj/item/paper_bundle/proc/rename(mob/user)
+	var/n_name = sanitize(copytext(input(user, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
+	if((loc == user && !user.stat))
+		name = "[(n_name ? "[n_name]" : "paper bundle")]"
 
-	var/n_name = sanitize(copytext(input(usr, "What would you like to label the bundle?", "Bundle Labelling", name) as text, 1, MAX_MESSAGE_LEN))
-	if((loc == usr && usr.stat == 0))
-		name = "[(n_name ? text("[n_name]") : "paper bundle")]"
+	add_fingerprint(user)
 
-	add_fingerprint(usr)
+/obj/item/paper_bundle/AltShiftClick(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+		return
 
-
-
-/obj/item/paper_bundle/verb/remove_all()
-	set name = "Loose bundle"
-	set category = "Object"
-	set src in usr
-
-	to_chat(usr, "<span class='notice'>You loosen the bundle.</span>")
+	to_chat(user, "<span class='notice'>You loosen the bundle.</span>")
 
 	for(var/obj/O in src)
-		O.loc = usr.loc
+		O.forceMove(get_turf(user))
 		O.layer = initial(O.layer)
 		O.plane = initial(O.plane)
-		O.add_fingerprint(usr)
+		O.add_fingerprint(user)
 
-	usr.unEquip(src)
+	user.unEquip(src)
 	qdel(src)
 
 /obj/item/paper_bundle/update_desc()

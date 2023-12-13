@@ -16,7 +16,7 @@
 
 /obj/item/clothing/glasses/hud/equipped(mob/living/carbon/human/user, slot)
 	..()
-	if(slot != slot_glasses)
+	if(slot != SLOT_HUD_GLASSES)
 		return
 	for(var/new_hud in hud_types)
 		var/datum/atom_hud/H = GLOB.huds[new_hud]
@@ -24,7 +24,7 @@
 
 /obj/item/clothing/glasses/hud/dropped(mob/living/carbon/human/user)
 	..()
-	if(user.glasses != src)
+	if(istype(user) && user.glasses != src)
 		return
 	for(var/new_hud in hud_types)
 		var/datum/atom_hud/H = GLOB.huds[new_hud]
@@ -41,7 +41,7 @@
 	icon_state = "healthhud"
 	origin_tech = "magnets=3;biotech=2"
 	hud_types = DATA_HUD_MEDICAL_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_MEDICAL)
+	examine_extensions = list(EXAMINE_HUD_MEDICAL_READ)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -105,7 +105,7 @@
 	origin_tech = "magnets=3;combat=2"
 	var/global/list/jobs[0]
 	hud_types = DATA_HUD_SECURITY_ADVANCED
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ, EXAMINE_HUD_SECURITY_WRITE)
+	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 	sprite_sheets = list(
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
@@ -130,9 +130,6 @@
 	origin_tech = "magnets=4;combat=4;plasmatech=4;engineering=5"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
-
-/obj/item/clothing/glasses/hud/security/sunglasses/read_only
-	examine_extensions = list(EXAMINE_HUD_SECURITY_READ)
 
 /obj/item/clothing/glasses/hud/security/sunglasses
 	name = "HUDSunglasses"
@@ -238,3 +235,32 @@
 		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
 		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
 	)
+
+/obj/item/clothing/glasses/hud/janitor
+	name = "janitor HUD"
+	desc = "A heads-up display that scans for messes and alerts the user. Good for finding puddles hiding under catwalks."
+	icon_state = "janihud"
+	hud_types = DATA_HUD_JANITOR
+
+	sprite_sheets = list(
+		"Vox" = 'icons/mob/clothing/species/vox/eyes.dmi',
+		"Drask" = 'icons/mob/clothing/species/drask/eyes.dmi',
+		"Grey" = 'icons/mob/clothing/species/grey/eyes.dmi',
+		"Kidan" = 'icons/mob/clothing/species/kidan/eyes.dmi'
+	)
+
+/obj/item/clothing/glasses/hud/janitor/sunglasses
+	name = "janitor HUD sunglasses"
+	desc = "Sunglasses with a build-in filth scanner, scans for messes and alerts the user."
+	icon_state = "sunhudjani"
+	see_in_dark = 1
+	flash_protect = FLASH_PROTECTION_FLASH
+	tint = FLASH_PROTECTION_FLASH
+
+/obj/item/clothing/glasses/hud/janitor/night
+	name = "night vision janitor HUD"
+	desc = "A janitorial filth scanner fitted with a light amplifier."
+	icon_state = "nvjanihud"
+	origin_tech = "magnets=4;biotech=4;plasmatech=4;engineering=5"
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE

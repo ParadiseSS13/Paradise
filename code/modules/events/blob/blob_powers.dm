@@ -80,7 +80,7 @@
 			to_chat(src, "<span class='warning'>This shield blob is too damaged to be modified properly!</span>")
 			return
 
-		else if (!can_buy(15))
+		else if(!can_buy(15))
 			return
 
 		to_chat(src, "<span class='warning'>You secrete a reflective ooze over the shield blob, allowing it to reflect energy projectiles at the cost of reduced intregrity.</span>")
@@ -240,6 +240,7 @@
 			var/mob/C = pick(candidates)
 			if(C)
 				blobber.key = C.key
+				dust_if_respawnable(C)
 				to_chat(blobber, "<span class='biggerdanger'>You are a blobbernaut! You must assist all blob lifeforms in their mission to consume everything!</span>")
 				to_chat(blobber, "<span class='danger'>You heal while standing on blob structures, however you will decay slowly if you are damaged outside of the blob.</span>")
 		if(!blobber.ckey)

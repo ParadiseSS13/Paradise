@@ -543,7 +543,9 @@
 	species_allowed = list("Human", "Unathi", "Diona", "Vulpkanin", "Tajaran", "Kidan", "Grey", "Plasmaman", "Machine", "Skrell", "Slime People", "Skeleton", "Drask", "Vox", "Nian")
 	sprite_sheets = list(
 	"Vox" = 'icons/mob/clothing/species/vox/underwear.dmi',
-	"Kidan" = 'icons/mob/clothing/species/kidan/underwear.dmi'
+	"Kidan" = 'icons/mob/clothing/species/kidan/underwear.dmi',
+	"Nian" = 'icons/mob/clothing/species/nian/underwear.dmi'
+
 	)
 	gender = NEUTER
 

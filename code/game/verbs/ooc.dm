@@ -209,6 +209,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 	log_looc(msg, src)
 	mob.create_log(LOOC_LOG, msg)
+	if(isliving(mob))
+		for(var/mob/M in viewers(7, mob))
+			if(M.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				M.create_chat_message(mob, msg, FALSE, symbol = RUNECHAT_SYMBOL_LOOC)
 	var/mob/source = mob.get_looc_source()
 	var/list/heard = get_mobs_in_view(7, source)
 
@@ -261,15 +265,15 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	var/aspect_ratio = view_size[1] / view_size[2]
 
 	// Calculate desired pixel width using window size and aspect ratio
-	var/list/sizes = params2list(winget(src, "mainwindow.mainvsplit;mapwindow", "size"))
+	var/list/sizes = params2list(winget(src, "mainwindow.mainvsplit;paramapwindow", "size"))
 
 	// Client closed the window? Some other error? This is unexpected behaviour, let's CRASH with some info.
-	if(!sizes["mapwindow.size"])
-		CRASH("sizes does not contain mapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- sizes length: [length(sizes)]")
+	if(!sizes["paramapwindow.size"])
+		CRASH("sizes does not contain paramapwindow.size key. This means a winget() failed to return what we wanted. --- sizes var: [sizes] --- list contents:[list2params(sizes)] --- sizes length: [length(sizes)]")
 
-	var/list/map_size = splittext(sizes["mapwindow.size"], "x")
+	var/list/map_size = splittext(sizes["paramapwindow.size"], "x")
 
-	// Looks like we didn't expect mapwindow.size to be "ixj" where i and j are numbers.
+	// Looks like we didn't expect paramapwindow.size to be "ixj" where i and j are numbers.
 	// If we don't get our expected 2 outputs, let's give some useful error info.
 	if(length(map_size) != 2)
 		CRASH("map_size of incorrect length --- map_size var: [map_size] --- map_size length: [length(map_size)]")
@@ -295,7 +299,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	// Apply an ever-lowering offset until we finish or fail
 	var/delta
 	for(var/safety in 1 to 10)
-		var/after_size = winget(src, "mapwindow", "size")
+		var/after_size = winget(src, "paramapwindow", "size")
 		map_size = splittext(after_size, "x")
 		var/produced_width = text2num(map_size[1])
 
