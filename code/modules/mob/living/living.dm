@@ -268,11 +268,12 @@
 /mob/living/run_pointed(atom/A)
 	if(!..())
 		return FALSE
-	var/obj/item/hand_item = get_active_hand()
 	var/pointed_object = "\the [A]"
 	if(A.loc in src)
 		pointed_object += " inside [A.loc]"
-	if(HAS_TRAIT(hand_item, TRAIT_CAN_POINT_WITH) && A != hand_item)
+
+	var/obj/item/hand_item = get_active_hand()
+	if(!QDELETED(hand_item) && istype(hand_item) && HAS_TRAIT(hand_item, TRAIT_CAN_POINT_WITH) && A != hand_item)
 		if(a_intent == INTENT_HELP || !ismob(A))
 			visible_message("<b>[src]</b> points to [pointed_object] with [hand_item]")
 			return TRUE
