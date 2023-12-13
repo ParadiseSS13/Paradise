@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		log_and_set_aflame(P.firer, P)
 
 /obj/item/coin/plasma/attackby(obj/item/I, mob/living/user, params)
-	if(!is_hot(I))
+	if(!I.get_heat() > 300)
 		return ..()
 	log_and_set_aflame(user, I)
 
