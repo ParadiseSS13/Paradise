@@ -157,7 +157,7 @@
 	temperature = 300
 	planetary_atmos = TRUE
 	color = COLOR_FLOOR_HARD_ROCK
-	baseturf = /turf/simulated/floor/plating/lava/smooth/lava_land_surface
+	baseturf = /turf/simulated/floor/lava/lava_land_surface
 
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB
