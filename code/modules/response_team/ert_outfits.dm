@@ -498,7 +498,7 @@
 
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/antiweed = 2,
-		/obj/item/push_broom,
+		/obj/item/push_broom = 1,
 		/obj/item/storage/box/lights/mixed = 1,
 		/obj/item/melee/flyswatter = 1
 	)
@@ -507,7 +507,7 @@
 	name = "RT Janitor (Amber)"
 	suit = /obj/item/clothing/suit/armor/vest/ert/janitor
 	head = /obj/item/clothing/head/helmet/ert/janitor
-	glasses = /obj/item/clothing/glasses/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/janitor/sunglasses
 	r_pocket = /obj/item/flashlight/seclite
 	suit_store = /obj/item/gun/energy/disabler
 
@@ -518,12 +518,13 @@
 /datum/outfit/job/centcom/response_team/janitorial/red
 	name = "RT Janitor (Red)"
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
-	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
+	glasses = /obj/item/clothing/glasses/hud/janitor/sunglasses
 	shoes = /obj/item/clothing/shoes/galoshes/dry/lightweight
 	r_pocket = /obj/item/scythe/tele
 	suit_store = /obj/item/gun/energy/gun
 
 	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
 		/obj/item/organ/internal/cyberimp/chest/nutriment/hardened
 	)
@@ -535,7 +536,7 @@
 
 /datum/outfit/job/centcom/response_team/janitorial/gamma
 	name = "RT Janitor (Gamma)"
-	glasses = /obj/item/clothing/glasses/night
+	glasses = /obj/item/clothing/glasses/hud/janitor/night
 	back = /obj/item/mod/control/pre_equipped/responsory/janitor
 	r_pocket = /obj/item/scythe/tele
 	shoes = /obj/item/clothing/shoes/magboots/elite
