@@ -16,7 +16,7 @@
 
 /obj/screen/ai/camera_list/Click()
 	var/mob/living/silicon/ai/AI = usr
-	var/camera = input(AI, "Choose which camera you want to view", "Cameras") as null|anything in AI.get_camera_list()
+	var/camera = tgui_input_list(AI, "Choose which camera you want to view", "Cameras", AI.get_camera_list())
 	AI.ai_camera_list(camera)
 
 /obj/screen/ai/camera_track
@@ -26,7 +26,7 @@
 /obj/screen/ai/camera_track/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		var/target_name = input(AI) as null|anything in AI.trackable_mobs()
+		var/target_name = tgui_input_list(AI, "Choose a target you want to track", "Tracking", AI.trackable_mobs())
 		if(target_name)
 			AI.ai_camera_track(target_name)
 
