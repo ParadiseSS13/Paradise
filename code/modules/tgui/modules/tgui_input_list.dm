@@ -21,7 +21,7 @@
 		user = client.mob
 
 	/// Client does NOT have tgui_input on: Returns regular input
-	if(user.client.prefs.toggles2 & PREFTOGGLE_2_INPUT_LIST_CHOICE)
+	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_INPUT_LIST_CHOICE)
 		return input(user, message, title) as null|anything in buttons
 
 	var/datum/tgui_list_input/input = new(user, message, title, buttons, timeout)
