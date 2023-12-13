@@ -44,9 +44,13 @@
 	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
 	var/shoot_sound = 'sound/weapons/taser.ogg'
 	var/baton_delayed = FALSE
-
+	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
+	var/currently_cuffing = FALSE // TRUE if we're cuffing someone right now
+	var/lost_target = FALSE // TRUE if we were hunting someone and we cant see them anymores
+	var/turf/last_target_location // if we were chasing target and we lost it, there will be their last location
 
 /mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)
+	baton = new(src)
 	. = ..()
 	if(created_name)
 		name = created_name
@@ -69,6 +73,10 @@
 			else if(lasercolor == "r")
 				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
 
+/mob/living/simple_animal/bot/ed209/Destroy()
+	QDEL_NULL(baton)
+	. = ..()
+
 /mob/living/simple_animal/bot/ed209/proc/setup_access()
 	if(access_card)
 		var/datum/job/detective/J = new/datum/job/detective
@@ -89,6 +97,9 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
+	last_target_location = null
+	lost_target = FALSE
+	currently_cuffing = FALSE
 	walk_to(src,0)
 	set_path(null)
 	last_found = world.time
@@ -237,40 +248,55 @@
 			walk_to(src,0)
 			set_path(null)
 			if(!lasercolor) //lasertag bots don't want to arrest anyone
-				look_for_perp()	// see if any criminals are in range
+				if(find_new_target())
+					return	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				walk_to(src,0)
+				walk_to(src, 0)
 				set_path(null)
 				back_to_idle()
+				return
 
-			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc) && !baton_delayed) // if right next to perp
-					stun_attack(target)
-					if(!lasercolor)
-						mode = BOT_PREP_ARREST
-						anchored = TRUE
-						target_lastloc = target.loc
-						return
-					else
-						mode = BOT_HUNT
-						target = null
-						target_lastloc = null
-						return
-
-				else if(!disabled) // not next to perp
-					var/turf/olddist = get_dist(src, target)
-					walk_to(src, target,1,4)
-					if((get_dist(src, target)) >= (olddist))
-						frustration++
-					else
-						frustration = 0
-			else
+			if(!target)		// make sure target exists
 				back_to_idle()
+				return
+
+			if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
+				stun_attack(target)
+				if(!lasercolor)
+					mode = BOT_PREP_ARREST
+					anchored = TRUE
+					target_lastloc = target.loc
+					return
+				mode = BOT_HUNT
+				target = null
+				target_lastloc = null
+				return
+
+			if(target in view(12, src))
+				if(lost_target)
+					frustration = 0
+					lost_target = FALSE
+				last_target_location = get_turf(target)
+				var/dist = get_dist(src, target)
+				walk_to(src, target, 1, 4)
+				if(get_dist(src, target) >= dist)
+					frustration++
+				return
+
+			if(!lost_target)
+				lost_target = TRUE
+
+			if(Adjacent(last_target_location))
+				frustration += 2
+				return
+
+			walk_to(src, last_target_location, 1, 4)
+			frustration++
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
@@ -279,42 +305,43 @@
 				back_to_hunt()
 				return
 
-			if(iscarbon(target) && target.canBeHandcuffed())
-				if(!arrest_type)
-					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
-						start_cuffing(target)
-					else
-						back_to_idle()
-						return
-			else
+			if(arrest_type) // should we not cuff?
 				back_to_idle()
 				return
 
-		if(BOT_ARREST)
-			if(!target)
-				anchored = FALSE
-				mode = BOT_IDLE
-				last_found = world.time
-				frustration = 0
+			if(!(iscarbon(target) && target.canBeHandcuffed()))
+				back_to_idle()
 				return
 
-			if(target.handcuffed) //no target or target cuffed? back to idle.
+			if(currently_cuffing)
+				return
+
+			if(!target.handcuffed)
+				cuff(target)
+				return
+
+			back_to_idle()
+
+		if(BOT_ARREST)
+			if(!target || target.handcuffed)
 				back_to_idle()
 				return
 
 			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
-			else
-				mode = BOT_PREP_ARREST
-				anchored = FALSE
+
+			mode = BOT_PREP_ARREST
+			anchored = FALSE
 
 		if(BOT_START_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			start_patrol()
 
 		if(BOT_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			bot_patrol()
 
 
@@ -336,7 +363,7 @@
 
 // look for a criminal in view of the bot
 
-/mob/living/simple_animal/bot/ed209/proc/look_for_perp()
+/mob/living/simple_animal/bot/ed209/proc/find_new_target()
 	if(disabled)
 		return
 	anchored = FALSE
@@ -350,20 +377,18 @@
 
 		threatlevel = C.assess_threat(src, lasercolor)
 
-		if(!threatlevel)
+		if(!threatlevel || threatlevel < 4)
 			continue
 
-		else if(threatlevel >= 4)
-			target = C
-			oldtarget_name = C.name
-			speak("Level [threatlevel] infraction alert!")
-			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, 0)
-			visible_message("<b>[src]</b> points at [C.name]!")
-			mode = BOT_HUNT
-			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
-			break
-		else
-			continue
+		target = C
+		oldtarget_name = C.name
+		speak("Level [threatlevel] infraction alert!")
+		playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, 0)
+		visible_message("<b>[src]</b> points at [C.name]!")
+		mode = BOT_HUNT
+		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/bot/ed209/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && slot_item.needs_permit)
@@ -541,7 +566,7 @@
 		if(!C.IsStunned() || arrest_type && !baton_delayed)
 			stun_attack(A)
 		else if(C.canBeHandcuffed() && !C.handcuffed)
-			start_cuffing(A)
+			cuff(A)
 	else
 		..()
 
@@ -559,37 +584,33 @@
 	shootAt(A)
 
 /mob/living/simple_animal/bot/ed209/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+	var/threat = C.assess_threat(src)
+	var/prev_intent = a_intent
+	a_intent = INTENT_HELP
+	baton.attack(C, src)
+	a_intent = prev_intent
+	baton_delayed = TRUE
+	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	icon_state = "[lasercolor]ed209-c"
 	addtimer(VARSET_CALLBACK(src, icon_state, "[lasercolor]ed209[on]"), 2)
-	var/threat = C.assess_threat(src)
-	C.SetStuttering(10 SECONDS)
-	C.adjustStaminaLoss(60)
-	baton_delayed = TRUE
-	C.apply_status_effect(STATUS_EFFECT_DELAYED, 2.5 SECONDS, CALLBACK(C, TYPE_PROC_REF(/mob/living/, KnockDown), 10 SECONDS), COMSIG_LIVING_CLEAR_STUNS)
-	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
-	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
-	C.visible_message("<span class='danger'>[src] has stunned [C]!</span>",\
-							"<span class='userdanger'>[src] has stunned you!</span>")
 
-/mob/living/simple_animal/bot/ed209/proc/start_cuffing(mob/living/carbon/C)
+/mob/living/simple_animal/bot/ed209/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
 	C.visible_message("<span class='danger'>[src] is trying to put zipties on [C]!</span>",\
 						"<span class='userdanger'>[src] is trying to put zipties on you!</span>")
 
-	addtimer(CALLBACK(src, PROC_REF(cuff_target), C), 6 SECONDS)
+	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
-/mob/living/simple_animal/bot/ed209/proc/cuff_target(mob/living/carbon/C)
-	if(!Adjacent(C)|| !isturf(C.loc)) //if he's in a closet or not adjacent, we cancel cuffing.
+/mob/living/simple_animal/bot/ed209/proc/cuff_callback(mob/living/carbon/C)
+	if(!do_after(src, 6 SECONDS, target = C))
 		return
-
-	if(!C.handcuffed)
+	if(!C.handcuffed && on)
 		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
 		C.update_handcuffed()
-		back_to_idle()
+	back_to_idle()
 
 #undef BATON_COOLDOWN

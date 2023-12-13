@@ -110,7 +110,8 @@
 			icon_state = "griefsky1"
 			walk_to(src,0)
 			set_path(null)
-			look_for_perp()	// see if any criminals are in range
+			if(find_new_target())
+				return	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
 		if(BOT_HUNT)		// hunting for perp
@@ -143,16 +144,18 @@
 				back_to_idle()
 
 		if(BOT_START_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			start_patrol()
 
 		if(BOT_PATROL)
 			icon_state = "griefsky1"
-			look_for_perp()
+			if(find_new_target())
+				return
 			bot_patrol()
 	return
 
-/mob/living/simple_animal/bot/secbot/griefsky/look_for_perp()
+/mob/living/simple_animal/bot/secbot/griefsky/find_new_target()
 	anchored = FALSE
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
@@ -163,22 +166,20 @@
 
 		threatlevel = C.assess_threat(src)
 
-		if(!threatlevel)
+		if(!threatlevel || threatlevel < 4)
 			continue
 
-		else if(threatlevel >= 4)
-			target = C
-			oldtarget_name = C.name
-			speak("You are a bold one")
-			playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
-			visible_message("[src] ignites his energy swords!")
-			icon_state = "griefsky-c"
-			visible_message("<b>[src]</b> points at [C.name]!")
-			mode = BOT_HUNT
-			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
-			break
-		else
-			continue
+		target = C
+		oldtarget_name = C.name
+		speak("You are a bold one")
+		playsound(src,'sound/weapons/saberon.ogg',50,TRUE,-1)
+		visible_message("[src] ignites his energy swords!")
+		icon_state = "griefsky-c"
+		visible_message("<b>[src]</b> points at [C.name]!")
+		mode = BOT_HUNT
+		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/bot/secbot/griefsky/explode()
 	walk_to(src,0)

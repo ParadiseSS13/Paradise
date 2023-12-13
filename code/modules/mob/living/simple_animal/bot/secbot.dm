@@ -38,6 +38,19 @@
 	var/baton_delayed = FALSE
 	var/prev_flashing_lights = FALSE
 	allow_pai = FALSE
+	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
+	var/currently_cuffing = FALSE // TRUE if we're cuffing someone right now
+	var/lost_target = FALSE // TRUE if we were hunting someone and we cant see them anymore
+	var/turf/last_target_location // if we were chasing target and we lost it, there will be their last location
+	var/played_sound_this_hunt = FALSE // used to make beepsky beep when it lost its target
+
+/mob/living/simple_animal/bot/secbot/Initialize(mapload)
+	baton = new(src)
+	. = ..()
+
+/mob/living/simple_animal/bot/secbot/Destroy()
+	QDEL_NULL(baton)
+	return ..()
 
 /mob/living/simple_animal/bot/secbot/beepsky
 	name = "Officer Beepsky"
@@ -102,6 +115,10 @@
 
 /mob/living/simple_animal/bot/secbot/bot_reset()
 	..()
+	last_target_location = null
+	lost_target = FALSE
+	currently_cuffing = FALSE
+	played_sound_this_hunt = FALSE
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
@@ -236,34 +253,33 @@
 	INVOKE_ASYNC(src, PROC_REF(cuff_callback), C)
 
 /mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
-	if(do_after(src, 60, target = C))
-		if(!C.handcuffed && on)
-			C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
-			C.update_handcuffed()
-			playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
-			back_to_idle()
+	currently_cuffing = TRUE
+	if(!do_after(src, 6 SECONDS, target = C))
+		currently_cuffing = FALSE
+		return
+	currently_cuffing = FALSE
+	if(!C.handcuffed && on)
+		C.handcuffed = new /obj/item/restraints/handcuffs/cable/zipties/used(C)
+		C.update_handcuffed()
+		playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, 0)
+	back_to_idle()
 
 /mob/living/simple_animal/bot/secbot/proc/stun_attack(mob/living/carbon/C)
-	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
+	var/threat = C.assess_threat(src)
+	var/prev_intent = a_intent
 	if(harmbaton)
-		playsound(loc, 'sound/weapons/genhit1.ogg', 50, 1, -1)
-	do_attack_animation(C)
+		a_intent = INTENT_HARM
+	else
+		a_intent = INTENT_HELP
+	baton.attack(C, src)
+	a_intent = prev_intent
+	baton_delayed = TRUE
+	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
 	icon_state = "[base_icon]-c"
 	addtimer(VARSET_CALLBACK(src, icon_state, "[base_icon][on]"), 2)
-	var/threat = C.assess_threat(src)
-	if(ishuman(C) && harmbaton) // Bots with harmbaton enabled become shitcurity. - Dave
-		C.apply_damage(10, BRUTE)
-	C.SetStuttering(10 SECONDS)
-	C.adjustStaminaLoss(60)
-	baton_delayed = TRUE
-	C.apply_status_effect(STATUS_EFFECT_DELAYED, 2.5 SECONDS, CALLBACK(C, TYPE_PROC_REF(/mob/living/, KnockDown), 10 SECONDS), COMSIG_LIVING_CLEAR_STUNS)
-	addtimer(VARSET_CALLBACK(src, baton_delayed, FALSE), BATON_COOLDOWN)
-	add_attack_logs(src, C, "batoned")
 	if(declare_arrests)
 		var/area/location = get_area(src)
 		speak("[arrest_type ? "Detaining" : "Arresting"] level [threat] scumbag <b>[C]</b> in [location].", radio_channel)
-	C.visible_message("<span class='danger'>[src] has [harmbaton ? "beaten" : "stunned"] [C]!</span>",\
-							"<span class='userdanger'>[src] has [harmbaton ? "beaten" : "stunned"] you!</span>")
 
 /mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
 	. = ..()
@@ -295,83 +311,107 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src,0)
+			lost_target = FALSE
+			played_sound_this_hunt = FALSE
+			walk_to(src, 0)
 			set_path(null)
-			look_for_perp()	// see if any criminals are in range
+			if(find_new_target())	// see if any criminals are in range
+				return
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
 
 		if(BOT_HUNT)		// hunting for perp
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 8)
-				walk_to(src,0)
+				playsound(loc, 'sound/machines/buzz-two.ogg', 50, 0)
+				walk_to(src, 0)
 				set_path(null)
 				back_to_idle()
 				return
 
-			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
-					stun_attack(target)
-
-					mode = BOT_PREP_ARREST
-					anchored = TRUE
-					target_lastloc = target.loc
-					return
-
-				else								// not next to perp
-					var/turf/olddist = get_dist(src, target)
-					walk_to(src, target,1,4)
-					if((get_dist(src, target)) >= (olddist))
-						frustration++
-					else
-						frustration = 0
-			else
+			if(!target)		// make sure target exists
 				back_to_idle()
+				return
+
+			if(Adjacent(target) && isturf(target.loc) && !baton_delayed)	// if right next to perp
+				stun_attack(target)
+				mode = BOT_PREP_ARREST
+				anchored = TRUE
+				target_lastloc = target.loc
+				return
+
+			if(target in view(12, src))
+				if(lost_target)
+					frustration = 0
+					lost_target = FALSE
+					if(played_sound_this_hunt)
+						playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
+						played_sound_this_hunt = FALSE
+				last_target_location = get_turf(target)
+				var/dist = get_dist(src, target)
+				walk_to(src, target, 1, 4)
+				if(get_dist(src, target) >= dist)
+					frustration++
+				return
+
+			if(!lost_target)
+				lost_target = TRUE
+
+			if(!played_sound_this_hunt && frustration >= 2)
+				played_sound_this_hunt = TRUE
+				playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
+
+			if(Adjacent(last_target_location))
+				frustration += 2
+				return
+
+			walk_to(src, last_target_location, 1, 4)
+			frustration++
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.
 			if(!Adjacent(target) || !isturf(target.loc) || world.time - target.stam_regen_start_time < 4 SECONDS && target.getStaminaLoss() <= 100)
 				back_to_hunt()
 				return
-
-			if(iscarbon(target) && target.canBeHandcuffed())
-				if(!arrest_type)
-					if(!target.handcuffed)  //he's not cuffed? Try to cuff him!
-						cuff(target)
-					else
-						back_to_idle()
-						return
-			else
+			// target is stunned and nearby
+			if(arrest_type) // should we not cuff?
 				back_to_idle()
 				return
 
-		if(BOT_ARREST)
-			if(!target)
-				anchored = FALSE
-				mode = BOT_IDLE
-				last_found = world.time
-				frustration = 0
+			if(!(iscarbon(target) && target.canBeHandcuffed()))
+				back_to_idle()
 				return
 
-			if(target.handcuffed) //no target or target cuffed? back to idle.
+			if(currently_cuffing)
+				return
+
+			if(!target.handcuffed)
+				cuff(target)
+				return
+
+			back_to_idle()
+
+		if(BOT_ARREST)
+			if(!target || target.handcuffed)
 				back_to_idle()
 				return
 
 			if(!Adjacent(target) || !isturf(target.loc) || (target.loc != target_lastloc && target.AmountWeakened() < 4 SECONDS)) //if he's changed loc and about to get up or not adjacent or got into a closet, we prep arrest again.
 				back_to_hunt()
 				return
-			else //Try arresting again if the target escapes.
-				mode = BOT_PREP_ARREST
-				anchored = FALSE
+			//Try arresting again if the target escapes.
+			mode = BOT_PREP_ARREST
+			anchored = FALSE
 
 		if(BOT_START_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			start_patrol()
 
 		if(BOT_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			bot_patrol()
-
 
 	return
 
@@ -390,7 +430,7 @@
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 // look for a criminal in view of the bot
 
-/mob/living/simple_animal/bot/secbot/proc/look_for_perp()
+/mob/living/simple_animal/bot/secbot/proc/find_new_target()
 	anchored = FALSE
 	for(var/mob/living/carbon/C in view(7,src)) //Let's find us a criminal
 		if((C.stat) || (C.handcuffed))
@@ -401,20 +441,19 @@
 
 		threatlevel = C.assess_threat(src)
 
-		if(!threatlevel)
+		if(!threatlevel || threatlevel < 4)
 			continue
 
-		else if(threatlevel >= 4)
-			target = C
-			oldtarget_name = C.name
-			speak("Level [threatlevel] infraction alert!")
-			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, 0)
-			visible_message("<b>[src]</b> points at [C.name]!")
-			mode = BOT_HUNT
-			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
-			break
-		else
-			continue
+		target = C
+		oldtarget_name = C.name
+		speak("Level [threatlevel] infraction alert!")
+		playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, 0)
+		visible_message("<b>[src]</b> points at [C.name]!")
+		mode = BOT_HUNT
+		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+		return TRUE
+	return FALSE
+
 /mob/living/simple_animal/bot/secbot/proc/check_for_weapons(obj/item/slot_item)
 	if(slot_item && slot_item.needs_permit)
 		return 1

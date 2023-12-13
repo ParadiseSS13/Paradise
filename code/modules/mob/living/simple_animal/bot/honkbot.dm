@@ -20,8 +20,8 @@
 
 	var/honksound = 'sound/items/bikehorn.ogg' //customizable sound
 	var/spam_flag = FALSE
-	var/cooldowntime = 30
-	var/cooldowntimehorn = 10
+	var/cooldowntime = 3 SECONDS
+	var/cooldowntimehorn = 1 SECONDS
 	var/mob/living/carbon/target
 	var/oldtarget_name
 	var/target_lastloc = FALSE	//Loc of target when arrested.
@@ -37,9 +37,6 @@
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/honkbot/proc/spam_flag_false() //used for addtimer
-	spam_flag = FALSE
-
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 5, TIMER_OVERRIDE|TIMER_UNIQUE)
@@ -49,7 +46,7 @@
 	playsound(src, 'sound/machines/ping.ogg', 50, TRUE, -1) //the first sound upon creation!
 	spam_flag = TRUE
 	sensor_blink()
-	addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), 18) // calibrates before starting the honk
+	addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 1.8 SECONDS)
 
 /mob/living/simple_animal/bot/honkbot/proc/react_buzz()
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
@@ -164,21 +161,21 @@
 			playsound(src, honksound, 50, TRUE, -1)
 			spam_flag = TRUE //prevent spam
 			sensor_blink()
-			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
+			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
 		if(!spam_flag)
 			playsound(src, "honkbot_e", 50, 0)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 30, TIMER_OVERRIDE|TIMER_UNIQUE)
-		addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
+		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/honk_attack(mob/living/carbon/C) // horn attack
 	if(!spam_flag)
 		playsound(loc, honksound, 50, TRUE, -1)
 		spam_flag = TRUE // prevent spam
 		sensor_blink()
-		addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntimehorn)
+		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
 	if(!spam_flag)
@@ -200,14 +197,14 @@
 				target = oldtarget_name
 			else // you really don't want to hit an emagged honkbot
 				threatlevel = 6 // will never let you go
-			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
+			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 			add_attack_logs(src, C, "honked by [src]")
 			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
 					"<span class='userdanger'>[src] has honked you!</span>")
 		else
 			C.Stuttering(40 SECONDS)
 			C.Stun(20 SECONDS)
-			addtimer(CALLBACK(src, PROC_REF(spam_flag_false)), cooldowntime)
+			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 
 /mob/living/simple_animal/bot/honkbot/handle_automated_action()
@@ -216,7 +213,8 @@
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			walk_to(src, 0)
-			look_for_perp()
+			if(find_new_target())
+				return
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
@@ -248,11 +246,13 @@
 				back_to_idle()
 
 		if(BOT_START_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			start_patrol()
 
 		if(BOT_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			bot_patrol()
 	return
 
@@ -270,7 +270,7 @@
 	mode = BOT_HUNT
 	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // responds quickly
 
-/mob/living/simple_animal/bot/honkbot/proc/look_for_perp()
+/mob/living/simple_animal/bot/honkbot/proc/find_new_target()
 	anchored = FALSE
 	for(var/mob/living/carbon/C in view(7, src))
 		if((C.stat) || (C.handcuffed))
@@ -279,24 +279,26 @@
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		if(threatlevel <= 3 && emagged <= 1)
-			if(C in view(4, src)) //keep the range short for patrolling
-				if(!spam_flag)
-					bike_horn()
-		else if(threatlevel >= 4)
-			if(!spam_flag || emagged > 1)
-				target = C
-				oldtarget_name = C.name
+		if(threatlevel < 4)
+			if(emagged  == 2) // actually emagged
 				bike_horn()
-				speak("Honk!")
-				visible_message("<b>[src]</b> starts chasing [C.name]!")
-				mode = BOT_HUNT
-				INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
-				break
 			else
-				continue
-		else if(emagged > 1)
-			bike_horn() //just spam the shit outta this
+				if(C in view(4, src) && !spam_flag) //keep the range short for patrolling
+					bike_horn()
+			continue
+
+		if(spam_flag && emagged <= 1)
+			continue
+
+		target = C
+		oldtarget_name = C.name
+		bike_horn()
+		speak("Honk!")
+		visible_message("<b>[src]</b> starts chasing [C.name]!")
+		mode = BOT_HUNT
+		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+		return TRUE
+	return FALSE
 
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
 	walk_to(src, 0)

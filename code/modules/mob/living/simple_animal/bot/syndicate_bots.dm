@@ -83,7 +83,8 @@
 		if(BOT_IDLE)
 			walk_to(src,0)
 			set_path(null)
-			look_for_perp()
+			if(find_new_target())
+				return
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
@@ -106,16 +107,18 @@
 			else
 				back_to_idle()
 		if(BOT_START_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			start_patrol()
 		if(BOT_PATROL)
-			look_for_perp()
+			if(find_new_target())
+				return
 			bot_patrol()
 		else
 			back_to_idle()
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/look_for_perp()
+/mob/living/simple_animal/bot/ed209/syndicate/find_new_target()
 	if(disabled)
 		return
 	for(var/mob/M in view(7, src))
@@ -130,9 +133,9 @@
 		target = M
 		oldtarget_name = M.name
 		mode = BOT_HUNT
-		spawn(0)
-			handle_automated_action()
-		break
+		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
+		return TRUE
+	return FALSE
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/shootAt(atom/target)
@@ -175,7 +178,7 @@
 		return
 	shootAt(A)
 
-/mob/living/simple_animal/bot/ed209/syndicate/start_cuffing(mob/living/carbon/C)
+/mob/living/simple_animal/bot/ed209/syndicate/cuff(mob/living/carbon/C)
 	shootAt(C)
 
 /mob/living/simple_animal/bot/ed209/syndicate/stun_attack(mob/living/carbon/C)
