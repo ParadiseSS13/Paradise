@@ -235,6 +235,32 @@
 		return
 	return ..()
 
+/turf/simulated/mineral/ancient/lava_land_surface_hard
+	name = "hardened volcanic rock"
+	desc = "A dense volcanic rock that appears to be resistant to everything except diamond and sonic tools!"
+	mine_time = 15 SECONDS
+	color = COLOR_HARD_ROCK
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
+	var/static/list/allowed_picks_typecache
+
+/turf/simulated/mineral/ancient/lava_land_surface_hard/Initialize(mapload)
+	. = ..()
+	allowed_picks_typecache = typecacheof(list(
+			/obj/item/pickaxe/drill/jackhammer,
+			/obj/item/pickaxe/diamond,
+			/obj/item/pickaxe/drill/cyborg/diamond,
+			/obj/item/pickaxe/drill/diamonddrill,
+			))
+
+/turf/simulated/mineral/ancient/lava_land_surface_hard/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/pickaxe) && !(is_type_in_typecache(I, allowed_picks_typecache)))
+		to_chat(user, "<span class='notice'>Only a diamond tools or a sonic jackhammer can break this rock.</span>")
+		return
+	return ..()
+
 /turf/simulated/mineral/random/high_chance
 	color = COLOR_YELLOW
 	mineralChance = 25

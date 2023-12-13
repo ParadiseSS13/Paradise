@@ -15,7 +15,6 @@
 	has_camera = FALSE
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ROBOTICS)
 	ventcrawler = VENTCRAWLER_ALWAYS
-	magpulse = TRUE
 	mob_size = MOB_SIZE_SMALL
 	pull_force = MOVE_FORCE_VERY_WEAK // Can only drag small items
 	modules_break = FALSE
@@ -79,7 +78,9 @@
 	module = new /obj/item/robot_module/drone(src)
 	// Give us our action button
 	var/datum/action/innate/hide/drone_hide/hide = new()
+	var/datum/action/innate/robot_magpulse/pulse = new()
 	hide.Grant(src)
+	pulse.Grant(src)
 
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list("Engineering" = 1)

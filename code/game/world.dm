@@ -12,7 +12,7 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 	SSmetrics.world_init_time = REALTIMEOFDAY
 
 	// Do sanity checks to ensure RUST actually exists
-	if(!fexists(RUST_G))
+	if((!fexists(RUST_G)) && world.system_type == MS_WINDOWS)
 		DIRECT_OUTPUT(world.log, "ERROR: RUSTG was not found and is required for the game to function. Server will now exit.")
 		del(world)
 
