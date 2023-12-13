@@ -280,7 +280,7 @@
 
 /obj/structure/closet/attack_animal(mob/living/user)
 	if(user.a_intent == INTENT_HARM || welded || locked)
-	return ..()
+		return ..()
 	if(!user.mind) // Stops mindless mobs from opening lockers + endlessly opening/closing crates instead of attacking
 		return ..()
 	if(user.mob_size < MOB_SIZE_HUMAN)
