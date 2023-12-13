@@ -158,7 +158,7 @@
 	if(!.)
 		return
 
-	if(mode == BOT_REPAIRING || mode == BOT_MAKE_TILE || mode == BOT_EAT_TILE)
+	if(mode == BOT_REPAIRING || mode == BOT_EAT_TILE || mode == BOT_MAKE_TILE)
 		return
 
 	if(prob(5))
@@ -256,7 +256,7 @@
 
 /mob/living/simple_animal/bot/floorbot/proc/nag() //Annoy everyone on the channel to refill us!
 	if(!nagged)
-		speak("Requesting refill at <b>[get_area(src)]</b>!", radio_channel)
+		speak("Requesting refill [MAX_AMOUNT - amount] at <b>[get_area(src)]</b>!", radio_channel)
 		nagged = TRUE
 
 /mob/living/simple_animal/bot/floorbot/proc/is_hull_breach(turf/t) //Ignore space tiles not considered part of a structure, also ignores shuttle docking areas.
@@ -382,13 +382,14 @@
 		qdel(M)
 	target = null
 	mode = BOT_IDLE
+	update_icon(UPDATE_OVERLAYS)
 
 /mob/living/simple_animal/bot/floorbot/update_icon_state()
 	return
 
 /mob/living/simple_animal/bot/floorbot/update_overlays()
 	. = ..()
-	if(mode == BOT_REPAIRING || mode == BOT_MAKE_TILE || mode == BOT_EAT_TILE)
+	if(mode == BOT_REPAIRING || mode == BOT_EAT_TILE || mode == BOT_MAKE_TILE)
 		. += "floorbot_work"
 	else
 		. += "floorbot_[on ? "on" : "off"]"
