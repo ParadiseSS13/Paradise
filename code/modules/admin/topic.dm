@@ -2678,8 +2678,8 @@
 		if(!paths)
 			alert("The path list you sent is empty")
 			return
-		if(length(paths) > 5)
-			alert("Select fewer object types, (max 5)")
+		if(length(paths) > 20)
+			alert("Select fewer object types, (max 20)")
 			return
 
 		var/list/offset = splittext(href_list["offset"],",")
@@ -2800,7 +2800,7 @@
 		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
-		if(!check_rights(R_SERVER|R_EVENT))	
+		if(!check_rights(R_SERVER|R_EVENT))
 			return
 		var/ok = 0
 		switch(href_list["secretsfun"])
@@ -3182,7 +3182,7 @@
 				to_chat(world, "<b>A secret has been activated by [usr.key]!</b>")
 
 	else if(href_list["secretsadmin"])
-		if(!check_rights(R_ADMIN))	
+		if(!check_rights(R_ADMIN))
 			return
 		var/ok = 0
 		switch(href_list["secretsadmin"])

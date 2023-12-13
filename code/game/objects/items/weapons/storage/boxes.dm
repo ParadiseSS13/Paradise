@@ -780,7 +780,7 @@
 			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
 			return
 		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
-		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) as null|anything in designs
+		var/switchDesign = tgui_input_list(user, "Select a Design", "Paper Sack Design", designs)
 		if(!switchDesign)
 			return
 		if(get_dist(usr, src) > 1 && !usr.incapacitated())
