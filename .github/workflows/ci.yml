@@ -22,7 +22,7 @@ jobs:
         run: |
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           cache: 'pip'
@@ -121,7 +121,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.8.2' # Script was made for 3.8.2
         architecture: 'x86' # This MUST be x86

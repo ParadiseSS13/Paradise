@@ -1364,6 +1364,7 @@
 #include "code\modules\antagonists\changeling\datum_changeling.dm"
 #include "code\modules\antagonists\changeling\evolution_menu.dm"
 #include "code\modules\antagonists\changeling\powers\absorb.dm"
+#include "code\modules\antagonists\changeling\powers\apex_predator.dm"
 #include "code\modules\antagonists\changeling\powers\augmented_eyesight.dm"
 #include "code\modules\antagonists\changeling\powers\become_headslug.dm"
 #include "code\modules\antagonists\changeling\powers\biodegrade.dm"
