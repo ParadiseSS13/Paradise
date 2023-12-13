@@ -558,9 +558,9 @@
 
 /datum/uplink_item/bundles_TC/badass
 	name = "Syndicate Bundle"
-	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals, but you do not know which specialisation you will receive."
+	desc = "Syndicate Bundles are specialised groups of items that arrive in a plain box. These items are collectively worth more than 100 telecrystals. You can select one out of three specialisations after purchase."
 	reference = "SYB"
-	item = /obj/item/storage/box/syndie_kit/bundle
+	item = /obj/item/radio/beacon/syndicate/bundle
 	cost = 100
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
@@ -573,13 +573,6 @@
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	var/crate_value = 250
 	uses_special_spawn = TRUE
-
-/datum/uplink_item/bundles_TC/surplus_crate/super
-	name = "Syndicate Super Surplus Crate"
-	desc = "A crate containing 625 telecrystals worth of random syndicate leftovers."
-	reference = "SYSS"
-	cost = 200
-	crate_value = 625
 
 /datum/uplink_item/bundles_TC/surplus_crate/spawn_item(turf/loc, obj/item/uplink/U)
 	if(..() != UPLINK_SPECIAL_SPAWNING)

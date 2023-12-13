@@ -142,6 +142,8 @@
 	. = ..()
 	if(!tool_enabled)
 		return
+	if(!proximity || isturf(target)) // We don't want to take away fuel when we hit something far away
+		return
 	remove_fuel(0.5)
 
 /obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
@@ -204,6 +206,9 @@
 /obj/item/weldingtool/cyborg_recharge(coeff, emagged)
 	if(reagents.check_and_add("fuel", maximum_fuel, 2 * coeff))
 		update_icon()
+
+/obj/item/weldingtool/get_heat()
+	return tool_enabled * 2500
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"

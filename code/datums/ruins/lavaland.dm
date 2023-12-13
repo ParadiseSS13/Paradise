@@ -125,8 +125,8 @@
 	cost = 0
 	allow_duplicates = FALSE //will only spawn one variant of the ruin
 
-/datum/map_template/ruin/lavaland/blood_drunk_miner/guidance
-	name = "Blood-Drunk Miner (Guidance)"
+/datum/map_template/ruin/lavaland/blood_drunk_miner/guardian
+	name = "Blood-Drunk Miner (Guardian)"
 	suffix = "lavaland_surface_blooddrunk2.dmm"
 
 /datum/map_template/ruin/lavaland/blood_drunk_miner/hunter
