@@ -42,6 +42,7 @@
 		slowdown = slowdown_passive
 	else
 		STOP_PROCESSING(SSobj, src)
+		ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_active
 	magpulse = !magpulse
 	no_slip = !no_slip
