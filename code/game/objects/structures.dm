@@ -165,7 +165,7 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on [src] after a short delay.</span>"
+		. += "<span class='info'>You can <b>Click-Drag</b> someone to [src] to put them on [src.p_them()] after a short delay.</span>"
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100
