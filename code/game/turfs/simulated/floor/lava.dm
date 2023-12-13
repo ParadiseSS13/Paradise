@@ -121,8 +121,20 @@
 			new /obj/structure/lattice/lava(locate(x, y, z))
 		else
 			to_chat(user, "<span class='warning'>You need one rod to build a heatproof lattice.</span>")
+		return
+	if(istype(C, /obj/item/stack/tile/plasteel))
+		var/obj/structure/lattice/L = locate(/obj/structure/lattice/lava, src)
+		if(!L)
+			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
 			return
-
+		var/obj/item/stack/tile/plasteel/S = C
+		if(S.use(1))
+			qdel(L)
+			playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
+			to_chat(user, "<span class='notice'>You build a floor.</span>")
+			ChangeTurf(/turf/simulated/floor/plating, keep_icon = FALSE)
+		else
+			to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
 
 /turf/simulated/floor/plating/lava/screwdriver_act()
 	return
