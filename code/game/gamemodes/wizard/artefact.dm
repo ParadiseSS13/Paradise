@@ -867,7 +867,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 												"Welder Fuel" = "a dark, pungent, oily substance",
 												"Vomit" = "warm chunky vomit")
 
-	var/choice = show_radial_menu(user, src, options)
+	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
 	if(!choice || user.stat || !in_range(user, src) || QDELETED(src))
 		return
 	to_chat(user, "<span class='notice'>The [name] fills to brimming with [options_to_descriptions[choice]].</span>")

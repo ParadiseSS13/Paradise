@@ -204,6 +204,8 @@
 /// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
 #define EXAMINE_MORE_WINDOW 1 SECONDS
 
+#define DIRECTION_LOCK_SLOWDOWN 3
+
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))

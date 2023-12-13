@@ -344,7 +344,7 @@
 		var/const/station_text = "\[Station name\]"
 		var/list/menu_list = list() //text items in the menu
 		menu_list.Add(usr.real_name) //the real name of the character, even if it is hidden
-		if(usr.real_name != usr.name || usr.name != "unknown") //if the player is masked or the name is different a new answer option is added
+		if(usr.real_name != usr.name) //if the player is masked or the name is different a new answer option is added
 			menu_list.Add("[usr.name]")
 		menu_list.Add(usr.job, //current job
 			num_text, //account number
@@ -356,7 +356,7 @@
 			usr.gender, //current gender
 			usr.dna.species //current species
 		)
-		var/input_element = input("Select the text you want to add:", "Select item") as null|anything in menu_list
+		var/input_element = tgui_input_list(usr, "Select the text you want to add", "Select item", menu_list)
 		switch(input_element) //format selected menu items in pencode and internal data
 			if(sign_text)
 				input_element = "\[sign\]"
@@ -460,7 +460,7 @@
 		to_chat(user, "<span class='notice'>You stamp the paper with your rubber stamp.</span>")
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 
-	if(is_hot(P))
+	if(P.get_heat())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_themselves()]!</span>", \
 								"<span class='userdanger'>You miss the paper and accidentally light yourself on fire!</span>")
