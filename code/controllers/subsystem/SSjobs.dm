@@ -523,6 +523,7 @@ SUBSYSTEM_DEF(jobs)
 					H.update_nearsighted_effects()
 
 	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. [joined_late ? "Joined during the round" : "Roundstart joined"] as job: [rank].")
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum/controller/subsystem/jobs, show_location_blurb), H.client, H.mind), 1 SECONDS) //Moment for minds to boot up / people to load in
 	return H
 
 /datum/controller/subsystem/jobs/proc/LoadJobs(highpop = FALSE) //ran during round setup, reads info from jobs list
