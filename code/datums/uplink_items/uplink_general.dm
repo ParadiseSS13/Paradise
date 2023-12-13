@@ -173,7 +173,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/dangerous/pistol
 	name = "FK-69 Stechkin Pistol"
 	reference = "SPI"
-	desc = "A box containing a small, easily concealable handgun. Fires 10mm cartridges and is compatible with suppressors."
+	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
 	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
 
