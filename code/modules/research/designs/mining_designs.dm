@@ -120,3 +120,13 @@
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 6000, MAT_URANIUM = 1000)
 	build_path = /obj/item/grenade/plastic/miningcharge/mega
 	category = list("Mining")
+
+/datum/design/lavarods
+	name = "Lava-Resistant Iron Rods"
+	desc = "Treated, specialized iron rods. When exposed to the vacuum of space their coating breaks off, but they can hold up against the extreme heat of molten liquids."
+	id = "lavarod"
+	req_tech = list("materials" = 7, "engineering" = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_PLASMA = 1000, MAT_TITANIUM = 1000)
+	build_path = /obj/item/stack/rods/lava
+	category = list("Mining")

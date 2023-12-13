@@ -88,6 +88,9 @@
 	/// the type of holder that will be created when a mob gets scooped up
 	var/holder_type
 
+	/// This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
+	var/forced_look = null
+
 	var/datum/language/default_language
 
 	var/datum/middleClickOverride/middleClickOverride = null

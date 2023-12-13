@@ -185,7 +185,9 @@
 			for(var/style in GLOB.configuration.custom_sprites.ipc_screen_map[H.ckey])
 				hair += style
 
-		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
+		var/new_style = tgui_input_list(H, "Select a monitor display", "Monitor Display", hair)
+		if(!new_style)
+			return
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(TRUE, TRUE))
