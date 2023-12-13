@@ -169,6 +169,7 @@
 			glide_for(movetime)
 		if(!(direct & (direct - 1))) //Cardinal move
 			. = ..(newloc, direct) // don't pass up movetime
+			setDir(direct)
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
 			var/first_step_dir
@@ -217,6 +218,7 @@
 			if(moving_diagonally == SECOND_DIAG_STEP)
 				if(!.)
 					setDir(first_step_dir)
+					Moved(oldloc, first_step_dir)
 				else if(!inertia_moving)
 					inertia_next_move = world.time + inertia_move_delay
 					newtonian_move(direct)
