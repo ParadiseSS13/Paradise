@@ -203,10 +203,10 @@ const OperatingComputerOptions = (props, context) => {
       <LabeledList.Item label="Health Announcer Threshold">
         <Knob
           bipolar
-          minValue="-100"
-          maxValue="100"
+          minValue={-100}
+          maxValue={100}
           value={healthAlarm}
-          stepPixelSize="5"
+          stepPixelSize={5}
           ml="0"
           onChange={(e, val) =>
             act('health_adj', {
@@ -226,10 +226,10 @@ const OperatingComputerOptions = (props, context) => {
       <LabeledList.Item label="Oxygen Alarm Threshold">
         <Knob
           bipolar
-          minValue="-100"
-          maxValue="100"
+          minValue={-100}
+          maxValue={100}
           value={oxyAlarm}
-          stepPixelSize="5"
+          stepPixelSize={5}
           ml="0"
           onChange={(e, val) =>
             act('oxy_adj', {

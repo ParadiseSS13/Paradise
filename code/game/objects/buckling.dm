@@ -141,7 +141,8 @@
 	if(isguardian(user) && (M.loc == user.loc || user.alpha == 60)) //Alpha is for detecting ranged guardians in scout mode
 		return  //unmanifested guardians shouldn't be able to buckle mobs
 
-	if(M != user && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
+	// TRAIT_HANDS_BLOCKED check is necessary to prevent delay when incapacitated, but still keep a delay in combat
+	if(M != user && !HAS_TRAIT(M, TRAIT_HANDS_BLOCKED) && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
 		return FALSE
 
 	if(M != user && (!in_range(M, src) || !do_after(user, 1 SECONDS, target = M)))
