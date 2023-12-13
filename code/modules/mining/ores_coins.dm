@@ -496,7 +496,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		to_chat(user, "<span class='notice'>You detach the string from the coin.</span>")
 	else ..()
 
-/obj/item/coin/welder_act(mob/user, obj/item/I)
+/obj/item/coin/wirecutter_act(mob/user, obj/item/I)
+	if(string_attached)
+		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -507,7 +509,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 						"uranium" = /obj/item/clothing/gloves/ring/uranium)
 	var/typekey = typelist[cmineral]
 	if(ispath(typekey))
-		to_chat(user, "<span class='notice'>You make [src] into a ring.</span>")
+		to_chat(user, "<span class='notice'>You carefully cut a hole into [src] turning it into a ring.</span>")
 		new typekey(get_turf(loc))
 		qdel(src)
 
