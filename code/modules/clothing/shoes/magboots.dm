@@ -37,11 +37,9 @@
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
 	if(magpulse) //magpulse and no_slip will always be the same value unless VV happens
-		START_PROCESSING(SSobj, src) //Gravboots
 		REMOVE_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_passive
 	else
-		STOP_PROCESSING(SSobj, src)
 		ADD_TRAIT(user, TRAIT_NOSLIP, UID())
 		slowdown = slowdown_active
 	magpulse = !magpulse
