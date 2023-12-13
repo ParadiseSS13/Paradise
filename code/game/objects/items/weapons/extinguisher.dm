@@ -50,6 +50,7 @@
 	if(!reagents)
 		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
+	ADD_TRAIT(src, TRAIT_CAN_POINT_WITH, ROUNDSTART_TRAIT)
 
 /obj/item/extinguisher/attack_self(mob/user as mob)
 	safety = !safety

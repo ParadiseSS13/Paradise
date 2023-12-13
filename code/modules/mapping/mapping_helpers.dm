@@ -115,6 +115,7 @@
 		log_world("[src] at [AREACOORD(src)] tried to bolt [airlock] but it's already locked!")
 	else
 		airlock.locked = TRUE
+		airlock.update_icon()
 
 /obj/effect/mapping_helpers/airlock/unres
 	name = "airlock unresctricted side helper"
