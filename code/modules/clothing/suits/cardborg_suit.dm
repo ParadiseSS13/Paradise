@@ -143,8 +143,8 @@
 /obj/item/clothing/suit/cardborg/mining
 	name = "brown cardborg suit"
 	desc = "An ordinary cardboard box with holes cut in the sides. This one has been scrawled over with multiple crayons, the end result looks brown."
-	icon_state = "cardborg_engineering"
-	item_state = "cardborg_engineering"
+	icon_state = "cardborg_mining"
+	item_state = "cardborg_mining"
 	species_disguise = "High-tech mining robot"
 	dog_fashion = /datum/dog_fashion/back
 
@@ -172,7 +172,7 @@
 	species_disguise = "High-tech custodial robot"
 	dog_fashion = /datum/dog_fashion/back
 
-	/obj/item/clothing/suit/cardborg/xeno
+/obj/item/clothing/suit/cardborg/xeno
 	name = "black cardborg suit"
 	desc = "An ordinary cardboard box with holes cut in the sides. This one has been coloured in with a black crayon."
 	icon_state = "cardborg_xeno"
