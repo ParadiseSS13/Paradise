@@ -29,10 +29,33 @@
 	var/failed_steps
 	var/next_dest
 	var/next_dest_loc
+	var/static/list/clean_dirt = list(
+		/obj/effect/decal/cleanable/blood/oil,
+		/obj/effect/decal/cleanable/vomit,
+		/obj/effect/decal/cleanable/blood/gibs/robot,
+		/obj/effect/decal/cleanable/crayon,
+		/obj/effect/decal/cleanable/liquid_fuel,
+		/obj/effect/decal/cleanable/molten_object,
+		/obj/effect/decal/cleanable/tomato_smudge,
+		/obj/effect/decal/cleanable/egg_smudge,
+		/obj/effect/decal/cleanable/pie_smudge,
+		/obj/effect/decal/cleanable/flour,
+		/obj/effect/decal/cleanable/ash,
+		/obj/effect/decal/cleanable/greenglow,
+		/obj/effect/decal/cleanable/dirt
+	)
+	var/static/list/clean_blood = list(
+		/obj/effect/decal/cleanable/blood/xeno/,
+		/obj/effect/decal/cleanable/blood/gibs/xeno,
+		/obj/effect/decal/cleanable/blood/,
+		/obj/effect/decal/cleanable/blood/gibs/,
+		/obj/effect/decal/cleanable/blood/tracks,
+		/obj/effect/decal/cleanable/dirt,
+		/obj/effect/decal/cleanable/trail_holder
+	)
 
 /mob/living/simple_animal/bot/cleanbot/Initialize(mapload)
 	. = ..()
-	get_targets()
 	icon_state = "cleanbot[on]"
 
 	var/datum/job/janitor/J = new/datum/job/janitor
@@ -80,9 +103,8 @@
 			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
-	for(var/T in target_types)
-		if(istype(D, T))
-			return D
+	if(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood))
+		return D
 
 /mob/living/simple_animal/bot/cleanbot/handle_automated_action()
 	if(!..())
@@ -135,32 +157,6 @@
 			return
 
 	oldloc = loc
-
-/mob/living/simple_animal/bot/cleanbot/proc/get_targets()
-	target_types = new/list()
-
-	target_types += /obj/effect/decal/cleanable/blood/oil
-	target_types += /obj/effect/decal/cleanable/vomit
-	target_types += /obj/effect/decal/cleanable/blood/gibs/robot
-	target_types += /obj/effect/decal/cleanable/crayon
-	target_types += /obj/effect/decal/cleanable/liquid_fuel
-	target_types += /obj/effect/decal/cleanable/molten_object
-	target_types += /obj/effect/decal/cleanable/tomato_smudge
-	target_types += /obj/effect/decal/cleanable/egg_smudge
-	target_types += /obj/effect/decal/cleanable/pie_smudge
-	target_types += /obj/effect/decal/cleanable/flour
-	target_types += /obj/effect/decal/cleanable/ash
-	target_types += /obj/effect/decal/cleanable/greenglow
-	target_types += /obj/effect/decal/cleanable/dirt
-
-	if(blood)
-		target_types += /obj/effect/decal/cleanable/blood/xeno/
-		target_types += /obj/effect/decal/cleanable/blood/gibs/xeno
-		target_types += /obj/effect/decal/cleanable/blood/
-		target_types += /obj/effect/decal/cleanable/blood/gibs/
-		target_types += /obj/effect/decal/cleanable/blood/tracks
-		target_types += /obj/effect/decal/cleanable/dirt
-		target_types += /obj/effect/decal/cleanable/trail_holder
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	anchored = TRUE
@@ -226,7 +222,6 @@
 			remote_disabled = !remote_disabled
 		if("blood")
 			blood =!blood
-			get_targets()
 		if("ejectpai")
 			ejectpai()
 
