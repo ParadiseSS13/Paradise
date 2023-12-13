@@ -67,8 +67,7 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	var/datum/station_trait/trait_instance = new trait_type()
 	station_traits += trait_instance
 	log_game("Station Trait: [trait_instance.name] chosen for this round.")
-	if(!trait_instance.blacklist)
-		return
+	trait_instance.blacklist += trait_instance.type
 	for(var/i in trait_instance.blacklist)
 		var/datum/station_trait/trait_to_remove = i
 		selectable_traits_by_types[initial(trait_to_remove.trait_type)] -= trait_to_remove
