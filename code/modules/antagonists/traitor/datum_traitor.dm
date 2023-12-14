@@ -320,7 +320,7 @@
 		// Maybe someday, make a new traitor and make it target them
 		return
 
-	var/how_much_should_we_abuse_this_poor_traitor = rand(0, max(3, length(possible_objectives)))
+	var/how_much_should_we_abuse_this_poor_traitor = rand(0, min(3, length(possible_objectives)))
 	if(how_much_should_we_abuse_this_poor_traitor <= 0)
 		// No ones after them, but it should still increase paranoia
 		return
