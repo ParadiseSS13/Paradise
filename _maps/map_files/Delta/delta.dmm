@@ -76363,7 +76363,10 @@
 	dir = 8;
 	name = "Glass Door"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/all/supply/general{
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mail_sorting{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/airlock/windoor/access/any/supply/mule_bot{
 	dir = 8
 	},
 /obj/structure/plasticflaps{
