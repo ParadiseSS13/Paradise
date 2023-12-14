@@ -4418,3 +4418,489 @@
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
 	required_donator_level = 1
+
+/datum/tts_seed/silero/cave_johnson
+	name = "Cave johnson"
+	value = "portal_cave_johnson"
+	category = TTS_CATEGORY_PORTAL
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/shredder
+	name = "Shredder"
+	value = "Ninja_Turtles_shredder"
+	category = TTS_CATEGORY_TMNT
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/han_solo
+	name = "Han Solo"
+	value = "Star_Wars_Han_Solo"
+	category = TTS_CATEGORY_STAR_WARS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/darth_sidious
+	name = "Darth Sidious"
+	value = "Star_Wars_Darth_Sidious"
+	category = TTS_CATEGORY_STAR_WARS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/luke_skywalker
+	name = "Luke Skywalker"
+	value = "Star_Wars_Luke_Skywalker"
+	category = TTS_CATEGORY_STAR_WARS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/yoda
+	name = "Yoda"
+	value = "Star_Wars_Yoda"
+	category = TTS_CATEGORY_STAR_WARS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/darth_vader
+	name = "Darth Vader"
+	value = "Star_Wars_Darth_Vader"
+	category = TTS_CATEGORY_STAR_WARS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/obiwan_kenobi
+	name = "Obi-wan Kenobi"
+	value = "Star_Wars_Obi-Wan_Kenobi"
+	category = TTS_CATEGORY_STAR_WARS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/anakin_skywalker
+	name = "Anakin Skywalker"
+	value = "Star_Wars_Anakin_Skywalker"
+	category = TTS_CATEGORY_STAR_WARS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/optimus_prime
+	name = "Optimus Prime"
+	value = "Transformers_War_of_Cybertron_optimusprime"
+	category = TTS_CATEGORY_TRANSFORMERS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/megatron
+	name = "Megatron"
+	value = "Transformers_War_of_Cybertron_megatron"
+	category = TTS_CATEGORY_TRANSFORMERS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/soundwave
+	name = "Soundwave"
+	value = "Transformers_War_of_Cybertron_soundwave"
+	category = TTS_CATEGORY_TRANSFORMERS
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/aragorn
+	name = "Aragorn"
+	value = "The_Lord_of_the_Rings_Aragorn"
+	category = TTS_CATEGORY_LOTR
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/elrond
+	name = "Elrond"
+	value = "The_Lord_of_the_Rings_Elrond"
+	category = TTS_CATEGORY_LOTR
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/gandalf
+	name = "Gandalf"
+	value = "The_Lord_of_the_Rings_Gandalf"
+	category = TTS_CATEGORY_LOTR
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/gimli
+	name = "Gimli"
+	value = "The_Lord_of_the_Rings_Gimli"
+	category = TTS_CATEGORY_LOTR
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/gollum
+	name = "Gollum"
+	value = "The_Lord_of_the_Rings_Gollum"
+	category = TTS_CATEGORY_LOTR
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/legolas
+	name = "Legolas"
+	value = "The_Lord_of_the_Rings_Legolas"
+	category = TTS_CATEGORY_LOTR
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+
+/datum/tts_seed/silero/gingerbread_man
+	name = "Gingerbread Man"
+	value = "Srek_Gingerbread_Man"
+	category = TTS_CATEGORY_SHREK
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/fiona
+	name = "Fiona"
+	value = "Srek_Fiona"
+	category = TTS_CATEGORY_SHREK
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/donkey
+	name = "Donkey"
+	value = "Srek_Donkey"
+	category = TTS_CATEGORY_SHREK
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/fairy_godmother
+	name = "Fairy Godmother"
+	value = "Srek_Fairy_Godmother"
+	category = TTS_CATEGORY_SHREK
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/srek_king
+	name = "King"
+	value = "Srek_King"
+	category = TTS_CATEGORY_SHREK
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/srek_narrator
+	name = "Narrator"
+	value = "Srek_Narrator"
+	category = TTS_CATEGORY_SHREK
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/puss_in_boots
+	name = "Puss in Boots"
+	value = "Srek_Puss_in_Boots"
+	category = TTS_CATEGORY_SHREK
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/shrek
+	name = "Shrek"
+	value = "Srek_Shrek"
+	category = TTS_CATEGORY_SHREK
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/jack_sparrow
+	name = "Jack Sparrow"
+	value = "Pirats_of_the_caribbean_Jack_Sparrow"
+	category = TTS_CATEGORY_POTC
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/barbossa
+	name = "Barbossa"
+	value = "Pirats_of_the_caribbean_Barbossa"
+	category = TTS_CATEGORY_POTC
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/tiadalma
+	name = "Tiadalma"
+	value = "Pirats_of_the_caribbean_Tiadalma"
+	category = TTS_CATEGORY_POTC
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/davy_jones
+	name = "Davy Jones"
+	value = "Pirats_of_the_caribbean_Davy_Jones"
+	category = TTS_CATEGORY_POTC
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/sirius_black
+	name = "Sirius Black"
+	value = "Harry_Potter_Sirius_Black"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/dobby
+	name = "Dobby"
+	value = "Harry_Potter_Dobby"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/severus_snape_film
+	name = "Злодеус Злей(фильм)"
+	value = "Harry_Potter_Severus_Snape_film"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/harry_potter
+	name = "Harry Potter"
+	value = "Harry_Potter_Harry_Potter"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/dumbledore
+	name = "Albus Dumbledore"
+	value = "Harry_Potter_Albus_Dumbledore"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/voldemort
+	name = "Voldemort"
+	value = "Harry_Potter_Lord_Voldemort"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/severus_snape
+	name = "Злодеус Злей"
+	value = "Harry_Potter_Severus_Snape"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/flitwick
+	name = "Filius Flitwick"
+	value = "Harry_Potter_Filius_Flitwick"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/minerva_mcgonagall
+	name = "Minnerva McGonagall"
+	value = "Harry_Potter_Minerva_McGonagall"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/horace_slughorn
+	name = "Horace Slughorn"
+	value = "Harry_Potter_Horace_Slughorn"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/cedric
+	name = "Cedric"
+	value = "Harry_Potter_Cedric"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/alastor
+	name = "Alastor Mad-eye Moody"
+	value = "Harry_Potter_Alastor_Mad-Eye_Moody"
+	category = TTS_CATEGORY_HARRY_POTTER
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/x3_betty
+	name = "Betty"
+	value = "X3_reunion_Betty"
+	category = TTS_CATEGORY_X3
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/overlord_gnarl
+	name = "Gnarl"
+	value = "Overlord_2_Gnarl"
+	category = TTS_CATEGORY_OVERLORD2
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/tony_stark
+	name = "Tony Stark"
+	value = "Marvel_Tony_Stark"
+	category = TTS_CATEGORY_MARVEL
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/sabellian
+	name = "Sabellian"
+	value = "Dragons_Sabellian"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/ysera
+	name = "Ysera"
+	value = "Dragons_Ysera"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/malygos_wotlk
+	name = "Malygos(WOTLK)"
+	value = "Dragons_MalygosWrath_of_the_Lich_King"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/ebyssian
+	name = "Ebyssian"
+	value = "Dragons_Ebyssian"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/deathwing
+	name = "Deathwing"
+	value = "Dragons_Deathwing"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/nozdormu
+	name = "Nozdormu"
+	value = "Dragons_Nozdormu"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/malygos
+	name = "Malygos"
+	value = "Dragons_Malygos"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/calderax
+	name = "Calderax"
+	value = "Draconids_Calderax"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/bazentus
+	name = "Bazentus"
+	value = "Draconids_Bazentus"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/kazra
+	name = "Kazra"
+	value = "Draconids_Kazra"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/seltherex
+	name = "Seltherex"
+	value = "Draconids_Seltherex"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/sendrax
+	name = "Sendrax"
+	value = "Draconids_Sendrax"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/evantkis
+	name = "Evantkis"
+	value = "Draconids_Evantkis"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/drine
+	name = "Drine"
+	value = "Draconids_Drine"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/lethanak
+	name = "Lethanak"
+	value = "Draconids_Lethanak"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/wrathion_echo
+	name = "Wrathion(echo)"
+	value = "Dragons2_Wrathion_echo"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/alexstraza
+	name = "Alexstraza"
+	value = "Dragons2_Alexstraza"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/kalecgos
+	name = "Kalecgos"
+	value = "Dragons2_Kalecgos"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/wrathion
+	name = "Wrathion"
+	value = "Dragons2_Wrathion"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/kalechos_echo
+	name = "Kalecgos(echo)"
+	value = "Dragons2_Kalecgos_echo"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/alextraza
+	name = "Alextraza(echo)"
+	value = "Dragons2_Alextraza_echo"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_FEMALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/neltharion_echo
+	name = "Neltharion(echo)"
+	value = "Dragons2_Neltharion_echo"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/wrathion_deathwing
+	name = "Wration Deathwing"
+	value = "Dragons2_Wrathion_Deathwing"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+/datum/tts_seed/silero/neltharion
+	name = "Neltharion"
+	value = "Dragons2_Neltharion"
+	category = TTS_CATEGORY_WOW
+	gender = TTS_GENDER_MALE
+	required_donator_level = 1
+
+
