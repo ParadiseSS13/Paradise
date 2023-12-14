@@ -391,7 +391,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
-	. = list()
+	return list()
 
 /**
  * Updates the appearence of the icon
