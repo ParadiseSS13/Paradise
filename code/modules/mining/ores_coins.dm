@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		log_and_set_aflame(P.firer, P)
 
 /obj/item/coin/plasma/attackby(obj/item/I, mob/living/user, params)
-	if(!I.get_heat() > 300)
+	if(!I.get_heat())
 		return ..()
 	log_and_set_aflame(user, I)
 
@@ -510,8 +510,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	var/typekey = typelist[cmineral]
 	if(ispath(typekey))
 		to_chat(user, "<span class='notice'>You carefully cut a hole into [src] turning it into a ring.</span>")
-		new typekey(get_turf(loc))
+		var/obj/item/clothing/gloves/ring/ring = new typekey()
 		qdel(src)
+		user.put_in_hands(ring)
 
 
 /obj/item/coin/attack_self(mob/user as mob)
