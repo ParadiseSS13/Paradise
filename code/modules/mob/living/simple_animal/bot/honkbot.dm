@@ -28,6 +28,8 @@
 	var/last_found = FALSE	//There's a delay
 	var/threatlevel = FALSE
 	var/arrest_type = FALSE
+	var/lost_target = FALSE
+	var/turf/last_target_location
 
 /mob/living/simple_animal/bot/honkbot/Initialize(mapload)
 	. = ..()
@@ -57,6 +59,8 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
+	lost_target = FALSE
+	last_target_location = null
 	walk_to(src, 0)
 	last_found = world.time
 	spam_flag = FALSE
@@ -224,26 +228,50 @@
 				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, 1, -1)
 				back_to_idle()
 				return
-			if(target)		// make sure target exists
-				if(Adjacent(target) && isturf(target.loc))
-					if(threatlevel <= 4)
-						honk_attack(target)
-					else
-						if(threatlevel >= 6)
-							set waitfor = 0
-							stun_attack(target)
-							anchored = FALSE
-							target_lastloc = target.loc
-					return
-				else	// not next to perp
-					var/turf/olddist = get_dist(src, target)
-					walk_to(src, target, 1, 4)
-					if((get_dist(src, target)) >= (olddist))
-						frustration++
-					else
-						frustration = 0
-			else
+
+			if(!target)		// make sure target exists
 				back_to_idle()
+				return
+
+			if(Adjacent(target) && isturf(target.loc))
+				if(threatlevel <= 4)
+					honk_attack(target)
+				else
+					if(threatlevel >= 6)
+						set waitfor = 0
+						stun_attack(target)
+						anchored = FALSE
+						target_lastloc = target.loc
+				return
+
+			if(target in view(12, src))
+				if(lost_target)
+					frustration = 0
+					lost_target = FALSE
+				last_target_location = get_turf(target)
+				var/dist = get_dist(src, target)
+				walk_to(src, target, 1, 4)
+				if(get_dist(src, target) >= dist)
+					frustration++
+				return
+
+			if(!lost_target)
+				walk_to(src, 0)
+				lost_target = TRUE
+				frustration = 0
+
+			if(get_turf(src) == last_target_location)
+				frustration += 2
+				return
+
+			if(!bot_move(last_target_location, move_speed = 6))
+				var/last_target_pos_path = get_path_to(src, last_target_location, id = access_card, skip_first = TRUE)
+				if(length(last_target_pos_path) == 0)
+					frustration = 10
+					return
+				set_path(last_target_pos_path)
+				bot_move(last_target_location, move_speed = 6)
+			frustration++
 
 		if(BOT_START_PATROL)
 			if(find_new_target())

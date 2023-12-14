@@ -289,13 +289,21 @@
 				return
 
 			if(!lost_target)
+				walk_to(src, 0)
 				lost_target = TRUE
+				frustration = 0
 
-			if(Adjacent(last_target_location))
+			if(get_turf(src) == last_target_location)
 				frustration += 2
 				return
 
-			walk_to(src, last_target_location, 1, 4)
+			if(!bot_move(last_target_location, move_speed = 6))
+				var/last_target_pos_path = get_path_to(src, last_target_location, id = access_card, skip_first = TRUE)
+				if(length(last_target_pos_path) == 0)
+					frustration = 10
+					return
+				set_path(last_target_pos_path)
+				bot_move(last_target_location, move_speed = 6)
 			frustration++
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
