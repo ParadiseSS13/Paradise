@@ -221,6 +221,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_IPC_JOINTS_SEALED "ipc_joints_sealed" // The IPC's limbs will not pop off bar sharp damage (aka like a human), but will take slightly more stamina damage
 #define TRAIT_HAS_GPS "has_gps" // used for /Stat
 #define TRAIT_CAN_VIEW_HEALTH "can_view_health" // Also used for /Stat
+#define TRAIT_MAGPULSE "magnetificent" // Used for anything that is magboot related
 
 //***** MIND TRAITS *****/
 #define TRAIT_HOLY "is_holy" // The mob is holy in regards to religion
@@ -252,6 +253,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 
 ///An item that is oiled. If sprayed with water, it's slowdown reverts to normal.
 #define TRAIT_OIL_SLICKED "oil_slicked"
+
+///An item that can be pointed at mobs, while on non-help intent.
+#define TRAIT_CAN_POINT_WITH "can_point_with"
 
 //
 // common trait sources
