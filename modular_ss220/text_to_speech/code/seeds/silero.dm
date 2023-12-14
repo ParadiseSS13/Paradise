@@ -4546,7 +4546,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/srek_narrator
-	name = "Narrator"
+	name = "Shrek Narrator"
 	value = "Srek_Narrator"
 	category = TTS_CATEGORY_SHREK
 	gender = TTS_GENDER_MALE
