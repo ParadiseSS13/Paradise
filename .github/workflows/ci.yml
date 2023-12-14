@@ -22,7 +22,7 @@ jobs:
         run: |
           bash tools/ci/install_build_deps.sh
           bash tools/ci/install_dreamchecker.sh
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
           cache: 'pip'
@@ -106,8 +106,7 @@ jobs:
         run: |
           sudo dpkg --add-architecture i386
           sudo apt update || true
-          sudo apt install lib32z1 git pkg-config libssl-dev:i386 libssl-dev zlib1g-dev:i386 curl gcc libdbus-1-dev
-          sudo apt install gcc:i386
+          sudo apt install zlib1g-dev:i386
           tools/ci/install_rustg.sh
       - name: Compile & Run Unit Tests
         run: |
@@ -122,7 +121,7 @@ jobs:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.8.2' # Script was made for 3.8.2
         architecture: 'x86' # This MUST be x86
