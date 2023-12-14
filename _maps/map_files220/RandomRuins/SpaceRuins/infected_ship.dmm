@@ -24,7 +24,7 @@
 	dir = 5;
 	pixel_x = -8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "aF" = (
 /obj/effect/spawner/random_spawners/blood_often,
@@ -63,10 +63,14 @@
 /obj/machinery/door/airlock/freezer{
 	locked = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "bo" = (
 /obj/machinery/atmospherics/unary/vent_pump,
+/turf/simulated/floor/mineral/plastitanium,
+/area/ruin/space/powered/requires_power_space)
+"bJ" = (
+/obj/machinery/door/airlock/survival_pod,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "bK" = (
@@ -89,7 +93,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "cB" = (
 /obj/item/trash/spentcasing{
@@ -114,7 +118,7 @@
 /obj/item/stack/cable_coil{
 	amount = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "cM" = (
 /obj/machinery/suit_storage_unit/syndicate{
@@ -202,7 +206,7 @@
 /obj/machinery/atmospherics/portable/canister,
 /obj/machinery/light_construct/directional/east,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "eG" = (
 /obj/effect/decal/cleanable/glass,
@@ -223,7 +227,7 @@
 /obj/item/stack/cable_coil{
 	amount = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "eL" = (
 /obj/structure{
@@ -233,7 +237,7 @@
 	name = "tesla coil"
 	},
 /obj/machinery/light_construct/directional/north,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "eR" = (
 /obj/item/trash/spentcasing{
@@ -283,7 +287,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "gK" = (
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -322,7 +326,7 @@
 /obj/item/trash/syndi_cakes,
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "hG" = (
 /obj/machinery/light/small/directional/south,
@@ -353,11 +357,11 @@
 /obj/effect/decal/cleanable/blood/drip{
 	icon_state = "5"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "iv" = (
 /obj/effect/spawner/window/plastitanium,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "iB" = (
 /turf/template_noop,
@@ -388,7 +392,7 @@
 	dir = 8
 	},
 /obj/item/toy/sword,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "iP" = (
 /obj/effect/turf_decal/stripes/white/line,
@@ -403,7 +407,7 @@
 /area/ruin/space/powered/requires_power_space)
 "iS" = (
 /mob/living/simple_animal/hostile/alien,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "jb" = (
 /turf/simulated/wall/mineral/plastitanium,
@@ -442,7 +446,7 @@
 /obj/effect/decal/cleanable/blood/gibs/body,
 /obj/effect/decal/cleanable/blood/splatter,
 /obj/item/organ/internal/body_egg/alien_embryo,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "jr" = (
 /obj/item/chair,
@@ -455,7 +459,7 @@
 "jw" = (
 /obj/effect/spawner/window/plastitanium,
 /obj/machinery/door/poddoor,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "jW" = (
 /mob/living/simple_animal/hostile/alien,
@@ -466,7 +470,7 @@
 /obj/machinery/door/airlock/hatch{
 	welded = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "km" = (
 /obj/machinery/door/airlock/highsecurity{
@@ -568,7 +572,7 @@
 	},
 /obj/item/organ/internal/body_egg/alien_embryo,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "lu" = (
 /obj/structure/bed/nest,
@@ -642,7 +646,7 @@
 /obj/machinery/optable,
 /obj/effect/decal/cleanable/blood/gibs/body,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "nz" = (
 /mob/living/simple_animal/hostile/alien,
@@ -670,7 +674,7 @@
 "nU" = (
 /obj/structure/grille/broken,
 /obj/machinery/door/poddoor,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "ol" = (
 /obj/machinery/light_construct/directional/north,
@@ -693,7 +697,7 @@
 	pixel_x = 10;
 	pixel_y = 9
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "oL" = (
 /obj/item/trash/spentcasing{
@@ -706,7 +710,7 @@
 /obj/structure/alien/egg/burst,
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "pj" = (
 /obj/machinery/light_construct/directional/west,
@@ -718,7 +722,7 @@
 /obj/item/stack/cable_coil{
 	amount = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "pv" = (
 /obj/structure/sign/greencross{
@@ -756,7 +760,7 @@
 	pixel_y = -4
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "pO" = (
 /obj/machinery/light_construct/directional/south,
@@ -824,7 +828,7 @@
 	welded = 1;
 	locked = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "sj" = (
 /obj/structure/closet/crate/freezer,
@@ -835,11 +839,11 @@
 /area/ruin/space/powered/requires_power_space)
 "st" = (
 /obj/machinery/door/airlock/survival_pod,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "sy" = (
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered/requires_power_space)
 "sA" = (
 /obj/machinery/constructable_frame{
@@ -848,7 +852,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "sQ" = (
 /obj/item/airlock_electronics/destroyed,
@@ -858,7 +862,7 @@
 /mob/living/simple_animal/hostile/alien/queen/large,
 /obj/structure/bed/nest,
 /obj/effect/mob_spawn/human/corpse/damaged,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "tE" = (
 /obj/machinery/light_construct/directional/north,
@@ -904,7 +908,7 @@
 /obj/structure/table_frame,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/item/stack/sheet/metal,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "um" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -937,13 +941,13 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "vB" = (
 /obj/structure/table/glass,
 /obj/item/scalpel,
 /obj/item/retractor,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "vL" = (
 /obj/effect/turf_decal/stripes/white/line,
@@ -1004,6 +1008,10 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered/requires_power_space)
+"xD" = (
+/obj/structure/alien/resin/wall,
+/turf/simulated/floor/plating,
+/area/ruin/space/powered/requires_power_space)
 "xG" = (
 /obj/machinery/light_construct/directional/west,
 /obj/item/paper/crumpled,
@@ -1013,7 +1021,7 @@
 	icon_state = "r-casing";
 	dir = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "yd" = (
 /obj/structure/closet/syndicate,
@@ -1024,24 +1032,24 @@
 /obj/item/clothing/head/surgery,
 /obj/item/tank/internals/anesthetic,
 /obj/item/clothing/mask/breath,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "yp" = (
 /obj/structure/fans/tiny,
 /obj/structure/alien/resin/wall,
-/turf/simulated/floor,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered/requires_power_space)
 "yu" = (
 /obj/machinery/door/poddoor,
 /obj/structure/fans/tiny,
-/turf/simulated/floor,
+/turf/simulated/floor/plating/airless,
 /area/ruin/space/powered/requires_power_space)
 "yV" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/two,
 /obj/structure/extinguisher_cabinet/directional/north,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "zq" = (
 /obj/machinery/light_construct/directional/east,
@@ -1055,7 +1063,7 @@
 /obj/machinery/light/small/directional/west,
 /obj/item/reagent_containers/syringe,
 /obj/item/organ/external/leg,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "zI" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -1097,7 +1105,7 @@
 /obj/item/organ/external/leg/right,
 /obj/item/organ/external/chest,
 /obj/effect/decal/cleanable/blood/splatter,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "AD" = (
 /obj/effect/decal/cleanable/blood/drip{
@@ -1133,7 +1141,7 @@
 "BA" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/fans/tiny,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "BK" = (
 /obj/machinery/light/small/directional/south,
@@ -1171,7 +1179,7 @@
 "ET" = (
 /obj/machinery/atmospherics/portable/canister,
 /obj/machinery/light_construct/directional/east,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "Fv" = (
 /obj/structure/table,
@@ -1197,10 +1205,10 @@
 "FM" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/zipties,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "FQ" = (
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "FS" = (
 /obj/effect/decal/cleanable/blood/gibs/xeno/body,
@@ -1241,12 +1249,13 @@
 /area/ruin/space/powered/requires_power_space)
 "He" = (
 /obj/effect/spawner/random_spawners/dirt_often,
+/obj/item/paintkit/gygax_syndie,
 /turf/simulated/floor/pod,
 /area/ruin/space/powered/requires_power_space)
 "Hg" = (
 /obj/structure/bed/nest,
 /obj/effect/mob_spawn/human/corpse/damaged,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "Hn" = (
 /obj/structure/table,
@@ -1258,7 +1267,7 @@
 "HH" = (
 /obj/machinery/door/poddoor,
 /obj/effect/spawner/window/plastitanium,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "HV" = (
 /obj/structure/extinguisher_cabinet/empty{
@@ -1281,7 +1290,7 @@
 /obj/item/storage/toolbox/syndicate,
 /obj/structure/closet,
 /obj/item/multitool,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "Ie" = (
 /obj/effect/spawner/random_spawners/blood_often,
@@ -1309,12 +1318,12 @@
 	pixel_x = -35
 	},
 /obj/structure/alien/egg/burst,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "Ja" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/spacecash/c200,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Je" = (
 /obj/machinery/light_construct/directional/south,
@@ -1342,7 +1351,7 @@
 /area/ruin/space/powered/requires_power_space)
 "JK" = (
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "JO" = (
 /obj/item/stack/sheet/plasteel,
@@ -1352,7 +1361,7 @@
 /mob/living/simple_animal/hostile/alien/sentinel,
 /obj/effect/decal/cleanable/blood/gibs/xeno/body,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "Kv" = (
 /obj/effect/turf_decal/stripes/white/line,
@@ -1381,7 +1390,7 @@
 	icon_state = "smes";
 	name = "power storage unit"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "LA" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
@@ -1424,7 +1433,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 4
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "MM" = (
 /obj/item/chair{
@@ -1455,12 +1464,12 @@
 	state_open = 1;
 	req_access = null
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "NP" = (
 /obj/item/reagent_containers/food/drinks/oilcan,
 /obj/item/wrench,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "NY" = (
 /obj/effect/turf_decal/stripes/white/line{
@@ -1473,12 +1482,11 @@
 /obj/effect/spawner/random_spawners/blood_often,
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/item/organ/external/hand,
-/obj/machinery/power/apc/off_station/empty_charge/west,
 /turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Ok" = (
 /obj/structure/alien/weeds/node,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "OA" = (
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -1508,7 +1516,7 @@
 /obj/structure/closet/crate/engineering,
 /obj/effect/spawner/lootdrop/maintenance/eight,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "Pq" = (
 /obj/item/organ/internal/body_egg/alien_embryo{
@@ -1518,7 +1526,7 @@
 /area/ruin/space/powered/requires_power_space)
 "Pr" = (
 /obj/structure/bed/nest,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "Px" = (
 /obj/structure/table,
@@ -1543,7 +1551,7 @@
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 8
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "QU" = (
 /obj/machinery/suit_storage_unit/syndicate{
@@ -1579,7 +1587,7 @@
 /obj/structure/door_assembly/door_assembly_pod{
 	anchored = 1
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "SA" = (
 /obj/effect/decal/cleanable/glass,
@@ -1609,7 +1617,7 @@
 /obj/item/shard{
 	icon_state = "small"
 	},
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "Tx" = (
 /obj/structure{
@@ -1619,7 +1627,7 @@
 	name = "power storage unit"
 	},
 /obj/item/wrench,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "TV" = (
 /obj/effect/spawner/random_spawners/dirt_often,
@@ -1636,7 +1644,11 @@
 	icon_state = "medium";
 	pixel_y = 9
 	},
-/turf/simulated/floor,
+/obj/item/gps/ruin{
+	pixel_y = -32;
+	gpstag = "####"
+	},
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "UK" = (
 /obj/machinery/door/airlock/external{
@@ -1644,7 +1656,7 @@
 	locked = 1
 	},
 /obj/structure/fans/tiny,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "UL" = (
 /obj/structure/alien/egg/burst,
@@ -1694,7 +1706,7 @@
 	dir = 1
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "We" = (
 /obj/structure/lattice/catwalk,
@@ -1715,7 +1727,7 @@
 	},
 /obj/structure/bed/nest,
 /obj/effect/mob_spawn/human/corpse/syndicatecommando,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "WR" = (
 /obj/effect/spawner/random_spawners/blood_often,
@@ -1726,7 +1738,7 @@
 /area/ruin/space/powered/requires_power_space)
 "WW" = (
 /obj/machinery/door/poddoor,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "Xe" = (
 /obj/effect/spawner/random_spawners/blood_often,
@@ -1739,7 +1751,7 @@
 /area/ruin/space/powered/requires_power_space)
 "Xx" = (
 /obj/structure/alien/egg/burst,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "XJ" = (
 /obj/structure/alien/resin/wall,
@@ -1748,7 +1760,7 @@
 "XL" = (
 /obj/structure/bed/nest,
 /obj/effect/spawner/random_spawners/dirt_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "XW" = (
 /obj/structure/kitchenspike_frame,
@@ -1815,19 +1827,19 @@
 	},
 /obj/effect/spawner/random_spawners/dirt_often,
 /obj/effect/spawner/random_spawners/blood_often,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "ZA" = (
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
 /obj/structure/alien/egg/burst,
-/turf/simulated/floor,
+/turf/simulated/floor/plating,
 /area/ruin/space/powered/requires_power_space)
 "ZE" = (
 /obj/structure/table/reinforced,
 /obj/item/ammo_box/c9mm,
-/turf/simulated/floor,
+/turf/simulated/floor/mineral/plastitanium,
 /area/ruin/space/powered/requires_power_space)
 "ZQ" = (
 /obj/item/storage/firstaid/fire/empty,
@@ -2161,7 +2173,7 @@ iB
 iB
 In
 jb
-sy
+xD
 eR
 hc
 jb
@@ -2182,14 +2194,14 @@ iB
 iB
 DC
 sy
-sy
+xD
 Cg
 jb
 vk
 ZQ
 zH
 jb
-st
+bJ
 jb
 jb
 jb
@@ -2203,9 +2215,9 @@ iB
 iB
 iB
 sy
-sy
+xD
 Ie
-sy
+xD
 yd
 dG
 As
@@ -2224,7 +2236,7 @@ iB
 iB
 In
 sy
-sy
+xD
 tE
 jb
 vB
@@ -2245,7 +2257,7 @@ iB
 sQ
 sy
 sy
-sy
+xD
 Cg
 jb
 jp
@@ -2266,7 +2278,7 @@ fK
 iB
 LW
 In
-sy
+xD
 Cg
 jb
 eK
@@ -2287,14 +2299,14 @@ iB
 iB
 iB
 sy
-sy
+xD
 PV
 hc
 jb
 gD
 jb
 hc
-st
+bJ
 jb
 jb
 iB
@@ -2378,7 +2390,7 @@ QS
 jk
 iL
 jb
-st
+bJ
 jb
 jb
 iB

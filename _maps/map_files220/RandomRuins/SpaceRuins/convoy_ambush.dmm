@@ -1,10 +1,4 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
-"aX" = (
-/obj/effect/landmark/damageturf,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
-/area/ruin/space/unpowered/unpowered_structures)
 "aZ" = (
 /obj/structure/chair{
 	dir = 8
@@ -384,12 +378,6 @@
 	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
-"rI" = (
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel/airless{
-	icon_state = "dark"
-	},
-/area/ruin/space/unpowered/unpowered_structures)
 "sn" = (
 /obj/structure/disposalpipe/segment{
 	pixel_x = -1;
@@ -2833,7 +2821,7 @@ zv
 mU
 dx
 wB
-aX
+cG
 Dq
 Dq
 PZ
@@ -2889,7 +2877,7 @@ wr
 zv
 YP
 wB
-rI
+wB
 tU
 NK
 NK
@@ -2946,7 +2934,7 @@ wr
 zv
 Sw
 cj
-aX
+cG
 Wv
 Wv
 cG
@@ -4819,8 +4807,8 @@ tZ
 bf
 TA
 wB
-rI
-rI
+wB
+wB
 SA
 RP
 wr

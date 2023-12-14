@@ -4190,8 +4190,8 @@
 /turf/template_noop,
 /area/space/nearstation)
 "DJ" = (
-/obj/effect/turf_decal/stripes,
 /obj/effect/turf_decal/arrows,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -5225,10 +5225,10 @@
 	},
 /area/ruin/space/spacehotelv1/guestroom3)
 "Le" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/arrows,
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/arrows,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "dark"
 	},

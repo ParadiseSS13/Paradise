@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "ae" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -14,7 +14,7 @@
 /obj/structure/mecha_wreckage/phazon{
 	obj_integrity = 40
 	},
-/obj/effect/turf_decal/stripes,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "aH" = (
@@ -175,7 +175,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "dk" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -210,7 +210,7 @@
 	dir = 2;
 	id_tag = "sright_mech"
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/purple,
@@ -247,6 +247,12 @@
 	icon_state = "small"
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
+/area/ruin/space/powered)
+"fO" = (
+/obj/structure/table,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/camera_bug,
+/turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "gB" = (
 /obj/structure/closet/secure_closet/freezer/fridge,
@@ -306,10 +312,10 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "hW" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "ib" = (
@@ -340,12 +346,12 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "iK" = (
-/obj/effect/turf_decal/stripes,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "iP" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -618,7 +624,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "ol" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -665,10 +671,10 @@
 /turf/template_noop,
 /area/template_noop)
 "pQ" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "qa" = (
@@ -852,8 +858,8 @@
 /obj/structure/mecha_wreckage/ripley{
 	obj_integrity = 20
 	},
-/obj/effect/turf_decal/stripes,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "tM" = (
@@ -965,10 +971,10 @@
 	dir = 2;
 	id_tag = "sright_mech"
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "wn" = (
@@ -1007,6 +1013,10 @@
 /area/ruin/space/powered)
 "xa" = (
 /obj/structure/chair/stool,
+/obj/item/gps/ruin{
+	pixel_x = 32;
+	gpstag = "####"
+	},
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "xb" = (
@@ -1061,10 +1071,10 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "yk" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "ym" = (
@@ -1095,7 +1105,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "yS" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -1322,7 +1332,7 @@
 	dir = 2;
 	id_tag = "sright_mech"
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /turf/simulated/floor/mineral/titanium/purple,
@@ -1411,11 +1421,11 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Fn" = (
-/obj/effect/turf_decal/stripes{
-	dir = 8
-	},
 /obj/structure/mecha_wreckage/phazon{
 	obj_integrity = 40
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
@@ -1659,7 +1669,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/ruin/space/powered)
 "IG" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -1688,7 +1698,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "IL" = (
-/obj/effect/turf_decal/stripes,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Ja" = (
@@ -1704,10 +1714,10 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Jr" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Js" = (
@@ -1783,7 +1793,7 @@
 /obj/structure/mecha_wreckage/ripley{
 	obj_integrity = 20
 	},
-/obj/effect/turf_decal/stripes,
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Lj" = (
@@ -1820,10 +1830,10 @@
 	dir = 2;
 	id_tag = "sright_mech"
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "LC" = (
@@ -1887,7 +1897,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/ruin/space/powered)
 "MN" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -1897,10 +1907,10 @@
 	dir = 2;
 	id_tag = "sleft_mech"
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "Nb" = (
@@ -1957,10 +1967,10 @@
 /turf/template_noop,
 /area/template_noop)
 "Pf" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Pi" = (
@@ -1992,10 +2002,10 @@
 /obj/structure/mecha_wreckage/durand{
 	obj_integrity = 100
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "PS" = (
@@ -2174,19 +2184,19 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "SN" = (
-/obj/effect/turf_decal/stripes{
-	dir = 5
-	},
 /obj/structure/mecha_wreckage/ripley{
 	obj_integrity = 40
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "SV" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Te" = (
@@ -2196,7 +2206,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Tf" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/purple,
@@ -2237,10 +2247,10 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Ud" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "Uj" = (
@@ -2259,10 +2269,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/powered)
 "Ul" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "Uo" = (
@@ -2271,6 +2281,10 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
+/area/ruin/space/powered)
+"Uq" = (
+/obj/item/paintkit/durand_soviet,
+/turf/simulated/floor/mineral/titanium,
 /area/ruin/space/powered)
 "Uu" = (
 /obj/structure/extinguisher_cabinet{
@@ -2296,10 +2310,10 @@
 	dir = 2;
 	id_tag = "sleft_mech"
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "UY" = (
@@ -2464,7 +2478,7 @@
 /obj/structure/mecha_wreckage/durand{
 	obj_integrity = 100
 	},
-/obj/effect/turf_decal/stripes{
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -2495,10 +2509,10 @@
 /turf/simulated/floor/mineral/titanium/purple,
 /area/ruin/space/powered)
 "YU" = (
-/obj/effect/turf_decal/stripes{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/ruin/space/powered)
 "ZF" = (
@@ -3243,7 +3257,7 @@ qU
 qU
 qU
 PT
-Gt
+fO
 VL
 oE
 QY
@@ -3876,7 +3890,7 @@ hw
 hw
 YU
 Pf
-AC
+Uq
 qA
 Kb
 Kb

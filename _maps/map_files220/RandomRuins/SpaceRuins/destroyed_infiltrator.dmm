@@ -43,6 +43,14 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"dj" = (
+/obj/structure/table,
+/obj/item/gps/ruin{
+	pixel_x = 32;
+	gpstag = "####"
+	},
+/turf/simulated/floor/mineral/plastitanium/red/airless,
+/area/ruin/space/unpowered/unpowered_structures)
 "dE" = (
 /obj/structure/grille/broken,
 /obj/effect/landmark/damageturf,
@@ -1538,7 +1546,7 @@ Ly
 Ly
 VC
 VC
-OI
+dj
 Ui
 hp
 VC
