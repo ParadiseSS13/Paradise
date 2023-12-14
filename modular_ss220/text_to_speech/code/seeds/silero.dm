@@ -4333,91 +4333,78 @@
 	value = "en_Gale"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/jaheira
 	name = "Jaheira"
 	value = "en_Jaheira"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_FEMALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/laezel
 	name = "Laezel"
 	value = "en_Laezel"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_FEMALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/karlach
 	name = "Karlach"
 	value = "en_Karlach"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_FEMALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/shadowheart
 	name = "Shadowheart"
 	value = "en_Shadowheart"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_FEMALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/wyll
 	name = "Wyll"
 	value = "en_Wyll"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/minthara
 	name = "Minthara"
 	value = "en_Minthara"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_FEMALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/minsc
 	name = "Minsc"
 	value = "en_Minsc"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/astarion
 	name = "Astarion"
 	value = "en_Astarion"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/halsin
 	name = "Halsin"
 	value = "en_Halsin"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/emperor_bg3
 	name = "Emperor"
 	value = "en_Emperor"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/ketheric
 	name = "Ketheric"
 	value = "en_Ketheric"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/gortash
 	name = "Gortash"
 	value = "en_Gortash"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
-	required_donator_level = 1
 
 /datum/tts_seed/silero/cave_johnson
 	name = "Cave johnson"
