@@ -287,8 +287,8 @@
 /datum/personal_crafting/ui_state(mob/user)
 	return GLOB.not_incapacitated_turf_state
 
-/datum/personal_crafting/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/datum/personal_crafting/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PersonalCrafting", "Crafting Menu")
 		ui.open()

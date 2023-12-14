@@ -214,14 +214,14 @@ GLOBAL_LIST_EMPTY(turret_icons)
 /obj/machinery/porta_turret/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/porta_turret/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
+/obj/machinery/porta_turret/ui_interact(mob/user, datum/tgui/ui = null)
 	if(HasController())
 		to_chat(user, "<span class='notice'>[src] can only be controlled using the assigned turret controller.</span>")
 		return
 	if(!anchored)
 		to_chat(user, "<span class='notice'>[src] has to be secured first!</span>")
 		return
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PortableTurret", name)
 		ui.open()

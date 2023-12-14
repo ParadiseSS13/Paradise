@@ -44,8 +44,8 @@
 /datum/painter/floor/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/datum/painter/floor/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/datum/painter/floor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FloorPainter", module_name)
 		// Disable automatic updates, because:

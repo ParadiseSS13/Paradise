@@ -224,11 +224,11 @@ GLOBAL_LIST_EMPTY(safes)
 /obj/structure/safe/ui_state(mob/user)
 	return GLOB.physical_state
 
-/obj/structure/safe/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
+/obj/structure/safe/ui_interact(mob/user, datum/tgui/ui = null)
 	var/datum/asset/safe_assets = get_asset_datum(/datum/asset/simple/safe)
 	safe_assets.send(user)
 
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Safe", name)
 		ui.open()

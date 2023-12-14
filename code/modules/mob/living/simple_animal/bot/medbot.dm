@@ -160,8 +160,8 @@
 /mob/living/simple_animal/bot/medbot/ui_state(mob/user)
 	return GLOB.default_state
 
-/mob/living/simple_animal/bot/medbot/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/mob/living/simple_animal/bot/medbot/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BotMed", name)
 		ui.open()
@@ -251,7 +251,7 @@
 		W.forceMove(src)
 		reagent_glass = W
 		to_chat(user, "<span class='notice'>You insert [W].</span>")
-		ui_interact(user, force_open=FALSE)
+		ui_interact(user)
 
 	else
 		var/current_health = health

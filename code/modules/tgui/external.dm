@@ -14,7 +14,7 @@
  * required user mob The mob who opened/is using the UI.
  * optional ui datum/tgui The UI to be updated, if it exists.
  */
-/datum/proc/ui_interact(mob/user, datum/tgui/ui, force_open = FALSE)
+/datum/proc/ui_interact(mob/user, datum/tgui/ui)
 	return FALSE // Not implemented.
 
 /**

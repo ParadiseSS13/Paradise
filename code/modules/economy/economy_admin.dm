@@ -15,8 +15,8 @@
 /datum/ui_module/economy_manager/ui_state(mob/user)
 	return GLOB.admin_state
 
-/datum/ui_module/economy_manager/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/datum/ui_module/economy_manager/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "EconomyManager", name)
 		ui.autoupdate = TRUE

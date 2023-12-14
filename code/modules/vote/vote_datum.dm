@@ -152,8 +152,8 @@
 /datum/vote/ui_state(mob/user)
 	return GLOB.always_state
 
-/datum/vote/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/datum/vote/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "VotePanel", "VotePanel")
 		ui.open()

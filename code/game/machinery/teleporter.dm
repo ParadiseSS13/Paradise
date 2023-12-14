@@ -74,10 +74,10 @@
 /obj/machinery/computer/teleporter/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/teleporter/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
+/obj/machinery/computer/teleporter/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Teleporter", "Teleporter Console")
 		ui.open()

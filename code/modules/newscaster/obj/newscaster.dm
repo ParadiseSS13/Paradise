@@ -194,10 +194,10 @@
 /obj/machinery/newscaster/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/newscaster/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
+/obj/machinery/newscaster/ui_interact(mob/user, datum/tgui/ui = null)
 	if(can_scan(user))
 		scanned_user = get_scanned_user(user)["name"]
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Newscaster", name)
 		ui.open()

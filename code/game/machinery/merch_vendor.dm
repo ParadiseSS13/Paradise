@@ -77,8 +77,8 @@
 /obj/machinery/economy/merch/ui_state(mob/user)
 	return GLOB.physical_state
 
-/obj/machinery/economy/merch/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/economy/merch/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "MerchVendor", name)
 		ui.open()

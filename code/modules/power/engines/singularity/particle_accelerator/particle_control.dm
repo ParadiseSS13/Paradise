@@ -216,8 +216,8 @@
 /obj/machinery/particle_accelerator/control_box/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/particle_accelerator/control_box/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/particle_accelerator/control_box/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ParticleAccelerator", name)
 		ui.open()

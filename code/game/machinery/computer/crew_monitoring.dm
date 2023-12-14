@@ -29,8 +29,8 @@
 /obj/machinery/computer/crew/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/crew/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	crew_monitor.ui_interact(user, ui, force_open)
+/obj/machinery/computer/crew/ui_interact(mob/user, datum/tgui/ui = null)
+	crew_monitor.ui_interact(user, ui)
 
 /obj/machinery/computer/crew/interact(mob/user)
 	crew_monitor.ui_interact(user)

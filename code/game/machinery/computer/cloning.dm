@@ -113,14 +113,14 @@
 /obj/machinery/computer/cloning/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+/obj/machinery/computer/cloning/ui_interact(mob/user, datum/tgui/ui = null)
 	if(stat & (NOPOWER|BROKEN))
 		return
 
 	var/datum/asset/cloning/assets = get_asset_datum(/datum/asset/cloning)
 	assets.send(user)
 
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CloningConsole", "Cloning Console")
 		ui.open()

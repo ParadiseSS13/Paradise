@@ -22,5 +22,5 @@
 /obj/item/sensor_device/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/item/sensor_device/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	crew_monitor.ui_interact(user, ui, force_open)
+/obj/item/sensor_device/ui_interact(mob/user, datum/tgui/ui = null)
+	crew_monitor.ui_interact(user, ui)

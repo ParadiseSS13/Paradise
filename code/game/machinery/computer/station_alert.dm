@@ -29,8 +29,8 @@
 /obj/machinery/computer/station_alert/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/station_alert/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/computer/station_alert/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "StationAlertConsole", name)
 		ui.open()

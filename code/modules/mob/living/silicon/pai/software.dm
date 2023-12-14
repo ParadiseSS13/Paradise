@@ -31,8 +31,8 @@ GLOBAL_LIST_EMPTY(pai_software_by_key)
 /mob/living/silicon/pai/ui_state(mob/user)
 	return GLOB.self_state
 
-/mob/living/silicon/pai/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/mob/living/silicon/pai/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PAI", name)
 		ui.open()

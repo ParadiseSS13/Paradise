@@ -310,8 +310,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/card/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/computer/card/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CardComputer",  name)
 		ui.open()

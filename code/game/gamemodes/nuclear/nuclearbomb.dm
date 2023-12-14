@@ -357,10 +357,10 @@ GLOBAL_VAR(bomb_set)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/nuclearbomb/ui_state(mob/user)
-	return isliving(user) ? GLOB.physical_state : GLOB.viewer_state
+	return GLOB.physical_state
 
-/obj/machinery/nuclearbomb/ui_interact(mob/user, datum/tgui/ui = null, force_open = TRUE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/nuclearbomb/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "NuclearBomb", name)
 		ui.open()

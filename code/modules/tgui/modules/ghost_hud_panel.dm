@@ -19,7 +19,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 /datum/ui_module/ghost_hud_panel/ui_state(mob/user)
 	return GLOB.observer_state
 
-/datum/ui_module/ghost_hud_panel/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+/datum/ui_module/ghost_hud_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "GhostHudPanel", name)

@@ -361,8 +361,8 @@
 /obj/machinery/power/turbine/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/power/turbine/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/power/turbine/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "TurbineComputer", name)
 		ui.open()
@@ -427,8 +427,8 @@
 /obj/machinery/computer/turbine_computer/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/turbine_computer/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/computer/turbine_computer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "TurbineComputer", name)
 		ui.open()

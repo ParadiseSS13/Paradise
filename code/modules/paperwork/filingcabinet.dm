@@ -86,8 +86,8 @@
 /obj/structure/filingcabinet/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/structure/filingcabinet/ui_interact(mob/user, datum/tgui/ui, force_open)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/structure/filingcabinet/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "FilingCabinet",  name)
 		ui.open()

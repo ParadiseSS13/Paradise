@@ -368,8 +368,8 @@
 /obj/machinery/photocopier/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/photocopier/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+/obj/machinery/photocopier/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Photocopier", name)
 		ui.open()

@@ -401,11 +401,11 @@
 /obj/machinery/computer/scan_consolenew/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
+/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/ui = null)
 	if(user == connected.occupant)
 		return
 
-	ui = SStgui.try_update_ui(user, src, ui, force_open)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "DNAModifier", name)
 		ui.open()

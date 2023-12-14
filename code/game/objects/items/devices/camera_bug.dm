@@ -37,8 +37,8 @@
 /obj/item/camera_bug/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/camera_bug/ui_interact(mob/user, datum/tgui/ui = null, force_open = FALSE)
-	integrated_console.ui_interact(user, ui, force_open)
+/obj/item/camera_bug/ui_interact(mob/user, datum/tgui/ui = null)
+	integrated_console.ui_interact(user, ui)
 
 
 /obj/item/camera_bug/ert
