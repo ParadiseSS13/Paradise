@@ -4389,7 +4389,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/emperor_bg3
-	name = "Emperor"
+	name = "Mind Flayer Emperor"
 	value = "en_Emperor"
 	category = TTS_CATEGORY_BALDURS_GATE_3
 	gender = TTS_GENDER_MALE
