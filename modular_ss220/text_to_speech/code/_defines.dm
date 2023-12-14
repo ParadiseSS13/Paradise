@@ -47,6 +47,7 @@
 #define TTS_CATEGORY_OVERLORD2 "The Overlord 2"
 #define TTS_CATEGORY_MARVEL "Marvel"
 #define TTS_CATEGORY_WOW "World of Warcraft"
+#define TTS_CATEGORY_TREASURE_ISLAND "Treasure Island"
 
 #define TTS_GENDER_ANY "Любой"
 #define TTS_GENDER_MALE "Мужской"
