@@ -1,3 +1,8 @@
+#define AGENT_HIRED 0
+#define AGENT_WARNED 1
+// Step 2 is a timer, which drains their uplink, before they become fired.
+#define AGENT_FIRED 3
+
 
 // Syndicate Traitors.
 /datum/antagonist/traitor
@@ -15,6 +20,8 @@
 	var/give_codewords = TRUE
 	/// Should we give the traitor their uplink?
 	var/give_uplink = TRUE
+	/// Have we been fired for being an idiot? (also stores a timer if draining an uplink)
+	var/company_status = AGENT_HIRED
 
 /datum/antagonist/traitor/on_gain()
 	// Create this in case the traitor wants to mindslaves someone.
@@ -253,3 +260,96 @@
 					<b>The code responses were:</b> <span class='redtext'>[responses]</span><br>"
 
 	return message
+
+/datum/antagonist/traitor/proc/warn_or_get_fired()
+	if(company_status == AGENT_HIRED)
+		to_chat(owner.current, speak_via_uplink(owner, "Syndicate facility attack reported, continuation will result in contract termination."))
+		company_status = AGENT_WARNED
+		return
+
+	get_fired_idiot()
+
+/datum/antagonist/traitor/proc/get_fired_idiot()
+	PRIVATE_PROC(TRUE)
+	var/obj/item/uplink/hidden/H = owner.find_syndicate_uplink()
+
+	if(!QDELETED(H) && H.uses > 5 && company_status <= AGENT_WARNED) // 5 because any less, and you're trying to cheese the system
+		to_chat(owner.current, speak_via_uplink(owner, "Breach of contract detected, agent contract terminated."))
+		company_status = addtimer(CALLBACK(src, PROC_REF(siphon_telecrystals), H), (5 MINUTES / SSticker.mode.uplink_uses), TIMER_STOPPABLE | TIMER_LOOP)
+		return
+
+	if(company_status != AGENT_FIRED && company_status != AGENT_WARNED)
+		QDEL_NULL(company_status) // its a timer then
+
+	// Forfeit all you have
+	H?.uses = 0
+
+	company_status = AGENT_FIRED
+
+	// Time to send a hit squad.
+	to_chat(owner.current, speak_via_uplink(owner, "Continued breach of contract detected, dispatching agent termination."))
+
+	var/list/allowed_objective_typecache = typecacheof(list(/datum/objective/assassinate, /datum/objective/maroon, /datum/objective/debrain))
+	var/list/copied_objectives = typecache_filter_list(GLOB.all_objectives, allowed_objective_typecache)
+	var/list/possible_objectives = list()
+
+	for(var/datum/objective/O in copied_objectives)
+		if(O.check_completion())
+			continue // this objective is done, dont bother them
+		if(owner in O.get_owners())
+			continue // Can't change our own objectives
+		if(owner in O.holder.assigned_targets)
+			continue // We're already assigned to this person/group, lets not.
+		if(O.target == owner)
+			continue // this really shouldnt have gotten by the check above, but lets be safe!
+
+		// Lets make sure we have a tot in our owners
+		for(var/datum/mind/mind in O.get_owners())
+			if(QDELETED(mind.current) || !ishuman(mind.current) || mind.current.stat != CONSCIOUS)
+				continue // Lets make sure they're alive and with us
+			if(istype(get_area(mind.current), /area/station/security/permabrig))
+				continue // we dont want jailed people getting this
+
+			if(mind.has_antag_datum(/datum/antagonist/traitor))
+				// lets maybe replace this one!
+				possible_objectives += O
+				break
+
+	if(!length(possible_objectives))
+		// Maybe someday, make a new traitor and make it target them
+		return
+
+	var/how_much_should_we_abuse_this_poor_traitor = rand(0, max(3, length(possible_objectives)))
+	if(how_much_should_we_abuse_this_poor_traitor <= 0)
+		// No ones after them, but it should still increase paranoia
+		return
+	for(var/i in 1 to how_much_should_we_abuse_this_poor_traitor)
+		var/datum/objective/O = pick_n_take(possible_objectives)
+		if(QDELETED(O))
+			return
+		O.target = owner
+		// TODO, remake the explanation text
+		for(var/datum/mind/agent in O.get_owners())
+			var/list/messages = list(speak_via_uplink(agent, "Agent, change of plans. Objectives updated.", big_danger = TRUE))
+			messages.Add(agent.prepare_announce_objectives(FALSE))
+			to_chat(agent.current, chat_box_red(messages.Join("<br>")))
+
+	// Slowly drains your uplink, should only be called by a timer loop
+/datum/antagonist/traitor/proc/siphon_telecrystals(obj/item/uplink/hidden/H)
+	PRIVATE_PROC(TRUE)
+	if(H.uses <= 0 || QDELETED(H))
+		// We're sure this is a timer, because our timer would have gotten deleted otherwise
+		QDEL_NULL(company_status)
+		company_status = AGENT_FIRED
+		return
+
+	H.uses -= 1
+
+/datum/antagonist/traitor/proc/speak_via_uplink(datum/mind/M, message, big_danger = FALSE)
+	var/obj/item/uplink/hidden/uplink_ya_know = M.find_syndicate_uplink()
+	var/agentwarning = "<i>You hear a voice whisper in your head, </i>"
+	if(isitem(uplink_ya_know.loc))
+		agentwarning = "[bicon(uplink_ya_know.loc)] [uplink_ya_know.loc] quietly beeps, "
+	if(big_danger)
+		return "<span class='userdanger'[agentwarning]\"[message]\"</span>"
+	return "<span class='userdanger'[agentwarning]\"[message]\"</span>"

@@ -161,6 +161,9 @@
 	detected_double_agent = TRUE
 	increase_alert("Hostile double-agent detected: [M]")
 
+	var/datum/antagonist/traitor/tot = M.mind.has_antag_datum(/datum/antagonist/traitor)
+	tot.warn_or_get_fired()
+
 /area/syndicate_depot/core/proc/peaceful_mode(newvalue, bycomputer)
 	if(newvalue)
 		log_game("Depot visit: started")
