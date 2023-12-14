@@ -261,13 +261,14 @@
 
 	return message
 
-/datum/antagonist/traitor/proc/warn_or_get_fired()
+/datum/antagonist/traitor/proc/try_to_warn()
 	if(company_status == AGENT_HIRED)
 		to_chat(owner.current, speak_via_uplink(owner, "Syndicate facility attack reported, continuation will result in contract termination."))
 		company_status = AGENT_WARNED
-		return
+		return TRUE
 
 	get_fired_idiot()
+	return FALSE
 
 /datum/antagonist/traitor/proc/get_fired_idiot()
 	PRIVATE_PROC(TRUE)

@@ -159,10 +159,11 @@
 	if(detected_double_agent)
 		return
 	detected_double_agent = TRUE
-	increase_alert("Hostile double-agent detected: [M]")
 
 	var/datum/antagonist/traitor/tot = M.mind.has_antag_datum(/datum/antagonist/traitor)
-	tot.warn_or_get_fired()
+	if(!tot.try_to_warn())
+		increase_alert("Hostile double-agent detected: [M]")
+
 
 /area/syndicate_depot/core/proc/peaceful_mode(newvalue, bycomputer)
 	if(newvalue)
