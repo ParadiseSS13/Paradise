@@ -942,7 +942,7 @@
 					toggles2 ^= PREFTOGGLE_2_FANCYUI
 
 				if("input_lists")
-					toggles2 ^= PREFTOGGLE_2_INPUT_LIST_CHOICE
+					toggles2 ^= PREFTOGGLE_2_TGUI_INPUT_LIST
 
 				if("ghost_att_anim")
 					toggles2 ^= PREFTOGGLE_2_ITEMATTACK
