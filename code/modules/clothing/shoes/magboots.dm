@@ -65,7 +65,7 @@
 		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 
 /obj/item/clothing/shoes/magboots/negates_gravity()
-	return magpulse
+	return no_slip
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
