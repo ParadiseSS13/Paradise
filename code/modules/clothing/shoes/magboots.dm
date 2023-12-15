@@ -60,9 +60,6 @@
 	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
 		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 
-/obj/item/clothing/shoes/magboots/negates_gravity()
-	return flags & NOSLIP
-
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
 	. += "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"]."
