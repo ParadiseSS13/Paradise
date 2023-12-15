@@ -117,13 +117,19 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 				break
 
 	var/list/all_jobs = get_job_datums()
+	var/is_custom_job = TRUE
 
 	for(var/datum/job/J in all_jobs)
 		var/list/alttitles = get_alternate_titles(J.title)
-		if(!J)	continue
+		if(J.title == real_title)
+			is_custom_job = FALSE
 		if(assignment in alttitles)
 			real_title = J.title
+			is_custom_job = FALSE
 			break
+
+	if(is_custom_job)
+		real_title = foundrecord.fields["real_rank"]
 
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
