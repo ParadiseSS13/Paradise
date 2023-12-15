@@ -305,6 +305,8 @@
 	if(volume < 25) // Need at least 10 units to do a little bit of damage
 		if(volume > 10)
 			H.take_organ_damage(5, 10)
+		else
+			H.adjustFireLoss(clamp(volume, 1, 5))
 		return
 
 	H.take_organ_damage(10, 15)
