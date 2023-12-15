@@ -298,6 +298,12 @@
 	category = "Assistance"
 	cost = 1
 
+/datum/spellbook_entry/disguiseself
+	name = "Disguise Self"
+	spell_type = /obj/effect/proc_holder/spell/disguise_self
+	category = "Assistance"
+	cost = 1
+
 /datum/spellbook_entry/noclothes
 	name = "Remove Clothes Requirement"
 	spell_type = /obj/effect/proc_holder/spell/noclothes

@@ -114,6 +114,10 @@
 /obj/item/clothing/shoes/clown_shoes/nodrop
 	flags = NODROP
 
+/obj/item/clothing/shoes/clown_shoes/magic_disguise
+	flags = NODROP | ABSTRACT | DROPDEL
+	magical = TRUE
+
 /obj/item/clothing/shoes/clown_shoes/magical
 	name = "magical clown shoes"
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
