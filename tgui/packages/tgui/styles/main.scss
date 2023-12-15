@@ -39,7 +39,6 @@
 @include meta.load-css('./components/Tooltip.scss');
 
 // Interfaces
-@include meta.load-css('./interfaces/common/RecordsTable.scss');
 @include meta.load-css('./interfaces/AccountsUplinkTerminal.scss');
 @include meta.load-css('./interfaces/BrigCells.scss');
 @include meta.load-css('./interfaces/CameraConsole.scss');
