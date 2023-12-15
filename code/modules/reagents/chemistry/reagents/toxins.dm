@@ -295,18 +295,18 @@
 			H.emote("scream")
 		return
 
-	if(H.wear_mask)
-		to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
-		return
-	if(H.head)
-		to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
-		return
-
 	if(volume < 25) // Need at least 10 units to do a little bit of damage
 		if(volume > 10)
 			H.take_organ_damage(5, 10)
 		else
 			H.adjustFireLoss(clamp(volume, 1, 5))
+		return
+
+	if(H.wear_mask)
+		to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+		return
+	if(H.head)
+		to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
 		return
 
 	H.take_organ_damage(10, 15)
