@@ -88,7 +88,7 @@
 	else
 		return 0
 
-/obj/item/extinguisher/afterattack(atom/target, mob/user , flag)
+/obj/item/extinguisher/afterattack(atom/target, mob/user, flag)
 	. = ..()
 	//TODO; Add support for reagents in water.
 	if(target.loc == user)//No more spraying yourself when putting your extinguisher away
@@ -98,90 +98,98 @@
 		refilling = FALSE
 		return
 
-	if(!safety)
-		if(src.reagents.total_volume < 1)
-			to_chat(usr, "<span class='danger'>\The [src] is empty.</span>")
-			return
-
-		if(world.time < src.last_use + 20)
-			return
-
-		src.last_use = world.time
-
-		if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
-			add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
-		playsound(src.loc, 'sound/effects/extinguish.ogg', 75, 1, -3)
-
-		var/direction = get_dir(src,target)
-
-		if(usr.buckled && isobj(usr.buckled) && !usr.buckled.anchored && !istype(usr.buckled, /obj/vehicle))
-			spawn(0)
-				var/obj/structure/chair/C = null
-				if(istype(usr.buckled, /obj/structure/chair))
-					C = usr.buckled
-				var/obj/B = usr.buckled
-				var/movementdirection = turn(direction,180)
-				if(C)	C.propelled = 4
-				step(B, movementdirection)
-				sleep(1)
-				step(B, movementdirection)
-				if(C)	C.propelled = 3
-				sleep(1)
-				step(B, movementdirection)
-				sleep(1)
-				step(B, movementdirection)
-				if(C)	C.propelled = 2
-				sleep(2)
-				step(B, movementdirection)
-				if(C)	C.propelled = 1
-				sleep(2)
-				step(B, movementdirection)
-				if(C)	C.propelled = 0
-				sleep(3)
-				step(B, movementdirection)
-				sleep(3)
-				step(B, movementdirection)
-				sleep(3)
-				step(B, movementdirection)
-
-		else user.newtonian_move(turn(direction, 180))
-
-		var/turf/T = get_turf(target)
-		var/turf/T1 = get_step(T,turn(direction, 90))
-		var/turf/T2 = get_step(T,turn(direction, -90))
-		var/list/the_targets = list(T,T1,T2)
-		if(precision)
-			var/turf/T3 = get_step(T1, turn(direction, 90))
-			var/turf/T4 = get_step(T2,turn(direction, -90))
-			the_targets = list(T,T1,T2,T3,T4)
-
-		for(var/a=0, a<5, a++)
-			spawn(0)
-				var/obj/effect/particle_effect/water/W = new /obj/effect/particle_effect/water( get_turf(src) )
-				var/turf/my_target = pick(the_targets)
-				if(precision)
-					the_targets -= my_target
-				var/datum/reagents/R = new/datum/reagents(5)
-				if(!W) return
-				W.reagents = R
-				R.my_atom = W
-				if(!W || !src) return
-				src.reagents.trans_to(W,1)
-				for(var/b=0, b<5, b++)
-					step_towards(W,my_target)
-					if(!W || !W.reagents) return
-					W.reagents.reaction(get_turf(W))
-					for(var/atom/atm in get_turf(W))
-						if(!W) return
-						W.reagents.reaction(atm)
-						if(isliving(atm)) //For extinguishing mobs on fire
-							var/mob/living/M = atm
-							M.ExtinguishMob()
-
-					if(W.loc == my_target) break
-					sleep(2)
-	else
+	if(safety)
 		return ..()
+	if(src.reagents.total_volume < 1)
+		to_chat(user, "<span class='danger'>\The [src] is empty.</span>")
+		return
+
+	if(world.time < src.last_use + 2 SECONDS)
+		return
+
+	src.last_use = world.time
+
+	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
+		add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")
+	playsound(src.loc, 'sound/effects/extinguish.ogg', 75, 1, -3)
+
+	var/direction = get_dir(src,target)
+
+	if(user.buckled && isobj(user.buckled) && !user.buckled.anchored && !istype(user.buckled, /obj/vehicle))
+		spawn(0)
+			var/obj/structure/chair/C = user.buckled
+			var/obj/B = user.buckled
+			var/movementdirection = turn(direction, 180)
+			if(istype(C))
+				C.propelled = 4
+			step(B, movementdirection)
+			sleep(1)
+			step(B, movementdirection)
+			if(istype(C))
+				C.propelled = 3
+			sleep(1)
+			step(B, movementdirection)
+			sleep(1)
+			step(B, movementdirection)
+			if(istype(C))
+				C.propelled = 2
+			sleep(2)
+			step(B, movementdirection)
+			if(istype(C))
+				C.propelled = 1
+			sleep(2)
+			step(B, movementdirection)
+			if(istype(C))
+				C.propelled = 0
+			sleep(3)
+			step(B, movementdirection)
+			sleep(3)
+			step(B, movementdirection)
+			sleep(3)
+			step(B, movementdirection)
+	else
+		user.newtonian_move(turn(direction, 180))
+
+	var/turf/T = get_turf(target)
+	var/turf/T1 = get_step(T, turn(direction, 90))
+	var/turf/T2 = get_step(T, turn(direction, -90))
+	var/list/the_targets = list(T, T1, T2)
+	if(precision)
+		var/turf/T3 = get_step(T1, turn(direction, 90))
+		var/turf/T4 = get_step(T2, turn(direction, -90))
+		the_targets = list(T, T1, T2, T3, T4)
+
+	for(var/a in 1 to 5)
+		spawn(0)
+			var/obj/effect/particle_effect/water/W = new /obj/effect/particle_effect/water(get_turf(src))
+			var/turf/my_target = pick(the_targets)
+			if(precision)
+				the_targets -= my_target
+			var/datum/reagents/R = new/datum/reagents(5)
+			W.reagents = R
+			R.my_atom = W
+			if(!W)
+				break
+			if(QDELETED(src))
+				return
+			src.reagents.trans_to(W, 1)
+			for(var/b in 1 to 5)
+				if(!step_towards(W, my_target))
+					break
+				if(!W || !W.reagents)
+					break
+				W.reagents.reaction(get_turf(W))
+				for(var/atom/atm in get_turf(W))
+					if(!W)
+						return
+					W.reagents.reaction(atm)
+					if(isliving(atm)) //For extinguishing mobs on fire
+						var/mob/living/M = atm
+						M.ExtinguishMob()
+
+				if(W.loc == my_target)
+					break
+				sleep(2)
 
 /obj/item/extinguisher/cyborg_recharge(coeff, emagged)
 	reagents.check_and_add("water", max_water, 5 * coeff)
