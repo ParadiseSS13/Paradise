@@ -350,10 +350,11 @@
 			H.adjustFireLoss(clamp((volume - 5) * 3, 8, 75))
 			return
 
+		var/has_melted_something = FALSE
 		if(H.wear_mask && !(H.wear_mask.resistance_flags & ACID_PROOF))
 			to_chat(H, "<span class='danger'>Your [H.wear_mask.name] melts away!</span>")
 			qdel(H.wear_mask)
-			return
+			has_melted_something = TRUE
 
 		if(H.head && !(H.head.resistance_flags & ACID_PROOF))
 			if(istype(H.head, /obj/item/clothing/head/mod) && ismodcontrol(H.back))
@@ -365,7 +366,10 @@
 			else
 				to_chat(H, "<span class='danger'>Your [H.head.name] melts away!</span>")
 				qdel(H.head)
-		return // We have either one molten piece of clothing that protected us, or at least one piece of acidproof clothing protecting us. No damage taken.
+			has_melted_something = TRUE
+
+		if(has_melted_something)
+			return
 
 	if(volume >= 5)
 		H.emote("scream")
