@@ -159,7 +159,7 @@
 /datum/tgui/proc/send_full_update(custom_data, force)
 	if(!user.client || !initialized || closing)
 		return
-	var/should_update_data = force || status > UI_UPDATE
+	var/should_update_data = force || status >= UI_UPDATE
 	window.send_message("update", get_payload(
 		custom_data,
 		with_data = should_update_data,
@@ -176,7 +176,7 @@
 /datum/tgui/proc/send_update(custom_data, force)
 	if(!user.client || !initialized || closing)
 		return
-	var/should_update_data = force || status > UI_UPDATE
+	var/should_update_data = force || status >= UI_UPDATE
 	window.send_message("update", get_payload(
 		custom_data,
 		with_data = should_update_data))
@@ -240,6 +240,7 @@
 		log_tgui(user, \
 			"Error: Zombie window detected, killing it with fire.\n" \
 			+ "window_id: [window.id]\n" \
+			+ "opened_at: [opened_at]\n" \
 			+ "world.time: [world.time]")
 		close(can_be_suspended = FALSE)
 		return
@@ -290,6 +291,8 @@
 			if(href_list["fatal"])
 				close(can_be_suspended = FALSE)
 		if("setSharedState")
+			if(status != UI_INTERACTIVE)
+				return
 			LAZYINITLIST(src_object.tgui_shared_states)
 			src_object.tgui_shared_states[href_list["key"]] = href_list["value"]
 			SStgui.update_uis(src_object)

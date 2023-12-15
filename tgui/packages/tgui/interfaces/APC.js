@@ -197,9 +197,19 @@ const ApcContent = (props, context) => {
               <Button
                 icon={data.coverLocked ? 'lock' : 'unlock'}
                 content={data.coverLocked ? 'Engaged' : 'Disengaged'}
-                selected={data.coverLocked}
                 disabled={locked}
                 onClick={() => act('cover')}
+              />
+            }
+          />
+          <LabeledList.Item
+            label="Emergency Lighting"
+            buttons={
+              <Button
+                icon="lightbulb-o"
+                content={data.emergencyLights ? 'Enabled' : 'Disabled'}
+                disabled={locked}
+                onClick={() => act('emergency_lighting')}
               />
             }
           />
@@ -209,20 +219,7 @@ const ApcContent = (props, context) => {
               <Button
                 icon="lightbulb-o"
                 content={data.nightshiftLights ? 'Enabled' : 'Disabled'}
-                selected={data.nightshiftLights}
                 onClick={() => act('toggle_nightshift')}
-              />
-            }
-          />
-          <LabeledList.Item
-            label="Emergency Light Fallback"
-            buttons={
-              <Button
-                icon={data.coverLocked ? 'lock' : 'unlock'}
-                content={data.emergencyLights ? 'Engaged' : 'Disengaged'}
-                selected={data.emergencyLights}
-                disabled={locked}
-                onClick={() => act('emergency_lighting')}
               />
             }
           />
