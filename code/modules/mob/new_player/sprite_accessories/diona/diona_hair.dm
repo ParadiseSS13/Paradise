@@ -103,6 +103,7 @@
 	icon_state = "bigleaf"
 	glasses_over = FALSE
 
+//Sprites from Aurora Below
 /datum/sprite_accessory/hair/diona/diona_treebeard
 	name = "Treebeard"
 	icon_state = "treebeard"
@@ -176,20 +177,24 @@
 	icon_state = "glorp"
 
 /datum/sprite_accessory/hair/diona/mellowcap
-	name = "Mellowcap"
+	name = "Mellow Cap"
 	icon_state = "mellowcap"
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/diona/redcap
 	name = "Red Cap"
 	icon_state = "redcap"
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/diona/purplecap
 	name = "Purple Cap"
 	icon_state = "purplecap"
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/diona/spanishmoss
 	name = "Spanish Moss"
 	icon_state = "spanishmoss"
+	glasses_over = FALSE
 
 /datum/sprite_accessory/hair/diona/thorns
 	name = "Thorns"
@@ -198,3 +203,4 @@
 /datum/sprite_accessory/hair/diona/stump
 	name = "Stump"
 	icon_state = "stump"
+//Sprites from Aurora Above
