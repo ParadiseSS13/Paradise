@@ -1020,7 +1020,7 @@
 		/obj/item/stack/tile/plasteel = 7
 	)
 
-/datum/outfit/admin/tournament_janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/tournament/tournament_janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
