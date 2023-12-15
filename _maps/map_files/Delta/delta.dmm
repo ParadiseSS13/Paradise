@@ -67951,8 +67951,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "viroshutters";
-	name = "Privacy Shutters";
-	dir = 2
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -83936,8 +83935,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "viroshutters";
-	name = "Privacy Shutters";
-	dir = 2
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable{
 	d2 = 2;
@@ -98210,8 +98208,7 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "viroshutters";
-	name = "Privacy Shutters";
-	dir = 2
+	name = "Privacy Shutters"
 	},
 /obj/structure/cable{
 	d2 = 8;
@@ -98707,6 +98704,9 @@
 /area/station/science/xenobiology)
 "xES" = (
 /obj/machinery/smartfridge/secure/chemistry/virology/preloaded,
+/obj/structure/reagent_dispensers/virusfood{
+	pixel_x = -30
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whitegreen"
