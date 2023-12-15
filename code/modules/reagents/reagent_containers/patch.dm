@@ -7,6 +7,8 @@
 	possible_transfer_amounts = null
 	visible_transfer_rate = FALSE
 	volume = 30
+	temperature_min = 270
+	temperature_max = 350
 	var/instant_application = FALSE
 	var/needs_to_apply_reagents = TRUE
 
