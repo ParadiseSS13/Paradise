@@ -604,3 +604,75 @@
 	if(emp_proof)
 		return
 	muscle_implant.emp_act(severity, owner)
+
+/obj/item/organ/internal/cyberimp/arm/power_cord_cell
+	name = "Cell-compatible power adapter implant"
+	desc = "This is a recently developed implant for installation inside IPCs in order to allow them to easily collect energy from cells"
+	origin_tech = "materials=3;engineering=4;biotech=3"
+	contents = newlist(/obj/item/power_cord_cell)
+	requires_robotic_bodypart = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/power_cord_cell/emp_act(severity)
+// Allowing to repair implant
+	if(emp_proof)
+		return
+	damage = 1
+	crit_fail = TRUE
+
+/obj/item/organ/internal/cyberimp/arm/power_cord_cell/surgeryize()
+	if(crit_fail && owner)
+		to_chat(owner, "<span class='notice'>Your [src] feels functional again.</span>")
+	crit_fail = FALSE
+
+/obj/item/power_cord_cell
+	name = "power cable"
+	desc = "Insert into a cell to draw power from it."
+	icon = 'icons/obj/power.dmi'
+	icon_state = "wire1"
+	flags = NOBLUDGEON
+	var/drawing_power = FALSE
+
+/obj/item/power_cord_cell/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!istype(target, /obj/item/stock_parts/cell/) || !ishuman(user) || !proximity_flag)
+		return ..()
+	if(drawing_power)
+		to_chat(user, "<span class='warning'>You're already charging.</span>")
+		return
+	user.changeNext_move(CLICK_CD_MELEE)
+	var/obj/item/stock_parts/cell/C = target
+	var/mob/living/carbon/human/H = user
+	if(H.get_int_organ(/obj/item/organ/internal/cell))
+		if(C && C.charge > 0)
+			if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
+				to_chat(user, "<span class='warning'>You are already fully charged!</span>")
+			else
+				INVOKE_ASYNC(src, PROC_REF(cell_powerdraw_loop), C, H)
+		else
+			to_chat(user, "<span class='warning'>There is no charge to draw from that cell.</span>")
+	else
+		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
+
+/obj/item/power_cord_cell/proc/cell_powerdraw_loop(obj/item/stock_parts/cell/C, mob/living/carbon/human/H)
+	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [C].</span>", "<span class='notice'>You begin to draw power from \the [C].</span>")
+	drawing_power = TRUE
+	while(do_after(H, 10, target = C))
+		if(loc != H)
+			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
+			break
+		if(C.charge == 0)
+			to_chat(H, "<span class='warning'>\The [C] has no more charge.</span>")
+			break
+		if(C.charge >= 500)
+			H.adjust_nutrition(10)
+			C.charge -= 500
+			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
+		else
+			H.adjust_nutrition(C.charge * 20)
+			C.charge = 0
+			to_chat(H, "<span class='notice'>You siphon off the last of \the [C]'s charge.</span>")
+			break
+		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
+			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
+			break
+	H.visible_message("<span class='notice'>[H] unplugs from \the [C].</span>", "<span class='notice'>You unplug from \the [C].</span>")
+	drawing_power = FALSE

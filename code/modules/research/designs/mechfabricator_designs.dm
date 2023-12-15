@@ -1138,7 +1138,7 @@
 	materials = list(MAT_GOLD = 1250, MAT_PLASMA = 2500, MAT_SILVER = 1250)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
-	
+
 /datum/design/borg_upgrade_rcd
 	name = "Cyborg Upgrade (Rapid Construction Device)"
 	id = "borg_upgrade_RCD"
@@ -1197,10 +1197,19 @@
 	category = list("Misc")
 
 /datum/design/ipc_charger
-	name = "IPC Charger"
+	name = "IPC Charger for APCs"
 	id = "ipc_cahrger"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord
+	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
+	construction_time = 200
+	category = list("Misc")
+
+/datum/design/ipc_charger_cell
+	name = "IPC Charger for Cells"
+	id = "ipc_cahrger"
+	build_type = MECHFAB
+	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord_cell
 	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
 	construction_time = 200
 	category = list("Misc")
