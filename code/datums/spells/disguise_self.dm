@@ -7,7 +7,7 @@
 	school = "illusion"
 	base_cooldown = 100
 	clothes_req = FALSE
-	invocation = "YUTAKE YUTENDES"
+	invocation = "Yuta'ke Yuten'des"
 	invocation_type = "whisper"
 	cooldown_min = 20 //20 deciseconds reduction per rank
 	action_icon_state = "chameleon_skin"
@@ -36,7 +36,6 @@
 	status_type = STATUS_EFFECT_REPLACE
 	var/datum/icon_snapshot/disguise
 	var/disguise_clown_shoes = FALSE
-	var/obj/item/saved_shoes
 
 /obj/screen/alert/status_effect/magic_disguise
 	name = "Disguised"
@@ -73,7 +72,7 @@
 
 	caster_area = get_area(H)
 	for(var/obj/machinery/door/airlock/tmp in view(H))
-		if(get_area(tmp) == caster_area)
+		if(get_area(tmp) == caster_area && !(tmp.req_access_txt == "0" && tmp.req_one_access_txt == "0")) //Ignore airlocks that arent in area or are public airlocks
 			AL = tmp
 			break
 	for(var/mob/living/carbon/human/disguise_source in shuffle(GLOB.human_list)) //If this mob is crew and has access to this place, use it as disguise
@@ -82,8 +81,10 @@
 				continue //We don't want the cap as a disguise unless we're in the cap office/bedroom
 			create_disguise(disguise_source)
 			break
-	if(!disguise) //Pick a random crewmember if there's no one with access to the current room or it's public
+	if(!disguise) //Pick a random non-command crewmember if there's no one with access to the current room or it's public
 		for(var/mob/living/carbon/human/backup_source in shuffle(GLOB.human_list))
+			if(ACCESS_HEADS in backup_source.get_access()) //Command members are too remarkable in public areas/maintenance, skip to next
+				continue
 			if(/*!backup_source.mind.offstation_role &&*/backup_source != H)
 				create_disguise(backup_source)
 				break
@@ -111,16 +112,11 @@
 	H.update_inv_r_hand()
 	H.update_inv_l_hand()
 	if(disguise_clown_shoes)
-		if(H.shoes)
-			saved_shoes = H.shoes
-			H.unEquip(H.shoes, TRUE, TRUE)
-			H.shoes.forceMove(src)
-		var/obj/item/clothing/shoes/clown_shoes/magic_disguise/C = new
-		H.equip_to_slot_if_possible(C, SLOT_HUD_SHOES, TRUE, TRUE)
+		H.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20)
+		H.AddElement(/datum/element/waddling)
 	to_chat(H, "<span class='notice'>You disguise yourself as [disguise.name].</span>")
 
 /datum/status_effect/magic_disguise/proc/remove_disguise()
-	to_chat(owner, "remove_disguise called")
 	SIGNAL_HANDLER  // COMSIG_MOB_APPLY_DAMAGE
 	if(!ishuman(owner))
 		return
@@ -128,15 +124,12 @@
 	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(H), H.dir)
 	H.name_override = null
 	H.overlays.Cut()
-
-	INVOKE_ASYNC(src, PROC_REF(finish_removal))
-
-/datum/status_effect/magic_disguise/proc/finish_removal()
-	to_chat(owner, "finish_removal called")
-	var/mob/living/carbon/human/H = owner
-	if(saved_shoes)
-		if(H.shoes)
-			H.unEquip(H.shoes, TRUE, TRUE)
-		H.equip_to_slot_if_possible(saved_shoes, SLOT_HUD_SHOES, TRUE, TRUE)
-	H.regenerate_icons()
+	var/datum/component/C = H.LoadComponent(/datum/component/squeak)
+	if(C)
+		C.RemoveComponent()
+	H.RemoveElement(/datum/element/waddling)
+	INVOKE_ASYNC(src, PROC_REF(regen_icons))
 	qdel(src)
+
+/datum/status_effect/magic_disguise/proc/regen_icons()
+	owner.regenerate_icons()
