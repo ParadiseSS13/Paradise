@@ -1,6 +1,6 @@
 /datum/job_objective/virus_samples
 	objective_name = "Create and Deliver Virus Samples"
-	description = "Complete atleast 2 of the virology goals requesting various virus samples, have cargo ship the virus samples to centcomm in crates."
+	description = "Complete at least 2 of the virology goals requesting various virus samples, have cargo ship the virus samples to centcomm in crates."
 	gives_payout = TRUE
 	completion_payment = 200
 
