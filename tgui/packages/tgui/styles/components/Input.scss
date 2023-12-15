@@ -78,9 +78,9 @@ $border-radius: base.$border-radius !default;
 .Input__textarea {
   border: 0;
   width: calc(100% + 4px);
-  font-size: 12px;
-  line-height: 17px;
-  margin-left: -4px;
+  font-size: base.em(12px);
+  line-height: base.em(17px);
+  margin-left: base.em(-4px);
   font-family: Verdana, sans-serif;
   background-color: transparent;
   color: #fff;
