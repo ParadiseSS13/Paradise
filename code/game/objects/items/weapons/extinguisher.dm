@@ -115,38 +115,37 @@
 
 	var/direction = get_dir(src,target)
 
-	if(user.buckled && isobj(user.buckled) && !user.buckled.anchored && !istype(user.buckled, /obj/vehicle))
+	if(isobj(user.buckled) && !user.buckled.anchored && !istype(user.buckled, /obj/vehicle))
 		spawn(0)
 			var/obj/structure/chair/C = user.buckled
-			var/obj/B = user.buckled
 			var/movementdirection = turn(direction, 180)
 			if(istype(C))
 				C.propelled = 4
-			step(B, movementdirection)
+			step(C, movementdirection)
 			sleep(1)
-			step(B, movementdirection)
+			step(C, movementdirection)
 			if(istype(C))
 				C.propelled = 3
 			sleep(1)
-			step(B, movementdirection)
+			step(C, movementdirection)
 			sleep(1)
-			step(B, movementdirection)
+			step(C, movementdirection)
 			if(istype(C))
 				C.propelled = 2
 			sleep(2)
-			step(B, movementdirection)
+			step(C, movementdirection)
 			if(istype(C))
 				C.propelled = 1
 			sleep(2)
-			step(B, movementdirection)
+			step(C, movementdirection)
 			if(istype(C))
 				C.propelled = 0
 			sleep(3)
-			step(B, movementdirection)
+			step(C, movementdirection)
 			sleep(3)
-			step(B, movementdirection)
+			step(C, movementdirection)
 			sleep(3)
-			step(B, movementdirection)
+			step(C, movementdirection)
 	else
 		user.newtonian_move(turn(direction, 180))
 
@@ -160,36 +159,13 @@
 		the_targets = list(T, T1, T2, T3, T4)
 
 	for(var/a in 1 to 5)
-		spawn(0)
-			var/obj/effect/particle_effect/water/W = new /obj/effect/particle_effect/water(get_turf(src))
-			var/turf/my_target = pick(the_targets)
-			if(precision)
-				the_targets -= my_target
-			var/datum/reagents/R = new/datum/reagents(5)
-			W.reagents = R
-			R.my_atom = W
-			if(!W)
-				break
-			if(QDELETED(src))
-				return
-			src.reagents.trans_to(W, 1)
-			for(var/b in 1 to 5)
-				if(!step_towards(W, my_target))
-					break
-				if(!W || !W.reagents)
-					break
-				W.reagents.reaction(get_turf(W))
-				for(var/atom/atm in get_turf(W))
-					if(!W)
-						return
-					W.reagents.reaction(atm)
-					if(isliving(atm)) //For extinguishing mobs on fire
-						var/mob/living/M = atm
-						M.ExtinguishMob()
-
-				if(W.loc == my_target)
-					break
-				sleep(2)
+		var/obj/effect/particle_effect/water/Water = new /obj/effect/particle_effect/water(get_turf(src))
+		Water.create_reagents(5)
+		reagents.trans_to(Water, 1)
+		var/turf/new_target = pick(the_targets)
+		if(precision)
+			the_targets -= new_target
+		INVOKE_ASYNC(Water, TYPE_PROC_REF(/obj/effect/particle_effect/water, extinguish_move), new_target)
 
 /obj/item/extinguisher/cyborg_recharge(coeff, emagged)
 	reagents.check_and_add("water", max_water, 5 * coeff)
