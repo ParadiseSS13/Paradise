@@ -4,6 +4,7 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "fire_extinguisher0"
 	item_state = "fire_extinguisher"
+	base_icon_state = "fire_extinguisher"
 	hitsound = 'sound/weapons/smash.ogg'
 	flags = CONDUCT
 	throwforce = 10
@@ -19,7 +20,6 @@
 	var/max_water = 50
 	var/safety = TRUE
 	var/refilling = FALSE
-	var/sprite_name = "fire_extinguisher"
 	var/precision = FALSE //By default, turfs picked from a spray are random, set to 1 to make it always have at least one water effect per row
 	var/cooling_power = 2 //Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled
 	COOLDOWN_DECLARE(last_use)
@@ -29,6 +29,7 @@
 	desc = "A light and compact fibreglass-framed model fire extinguisher."
 	icon_state = "miniFE0"
 	item_state = "miniFE"
+	base_icon_state = "miniFE"
 	hitsound = null	//it is much lighter, after all.
 	flags = null //doesn't CONDUCT
 	throwforce = 2
@@ -36,7 +37,6 @@
 	force = 3
 	materials = list()
 	max_water = 30
-	sprite_name = "miniFE"
 	dog_fashion = null
 
 /obj/item/extinguisher/examine(mob/user)
@@ -53,7 +53,7 @@
 
 /obj/item/extinguisher/attack_self(mob/user as mob)
 	safety = !safety
-	icon_state = "[sprite_name][!safety]"
+	icon_state = "[base_icon_state][!safety]"
 	to_chat(user, "<span class='notice'>You [safety ? "enable" : "disable"] [src]'s safety.</span>")
 
 /obj/item/extinguisher/attack_obj(obj/O, mob/living/user, params)
