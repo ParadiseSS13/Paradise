@@ -595,7 +595,7 @@
 		shielded = FALSE
 		update_appearance()
 
-/mob/living/simple_animal/hostile/blackmesa/xen/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharp = NONE, attack_direction = null, attacking_item)
+/mob/living/simple_animal/hostile/blackmesa/xen/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharp = NONE, used_weapon, attack_direction = null, attacking_item)
 	if(shielded)
 		visible_message("ineffective!")
 		return FALSE
