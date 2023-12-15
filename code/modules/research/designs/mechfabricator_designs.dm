@@ -1198,7 +1198,7 @@
 
 /datum/design/ipc_charger
 	name = "IPC Charger for APCs"
-	id = "ipc_cahrger"
+	id = "ipc_charger"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord
 	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
@@ -1207,7 +1207,7 @@
 
 /datum/design/ipc_charger_cell
 	name = "IPC Charger for Cells"
-	id = "ipc_cahrger_cell"
+	id = "ipc_charger_cell"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord_cell
 	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
