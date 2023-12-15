@@ -1,0 +1,1 @@
+#define ANTAG_HUD_BLOOD_BROTHER 21

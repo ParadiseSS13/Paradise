@@ -35,6 +35,7 @@
 # SS220 CONFIGS
 # - gateway_configuration
 # - tts_configuration
+# - antag_mix_gamemode_configuration
 
 ################################################################
 
@@ -247,6 +248,7 @@ gamemode_probabilities = [
 	{gamemode = "vampire", probability = 3},
 	{gamemode = "wizard", probability = 2},
 	{gamemode = "trifecta", probability = 3},
+	{gamemode = "antag_mix", probability = 3},
 ]
 # Do we want the amount of traitors to scale with population?
 traitor_scaling = true
@@ -899,5 +901,144 @@ force_discord_verification = false
 [species_whitelist_configuration]
 
 species_whitelist_enabled = false
+
+################################################################
+
+
+[antag_mix_gamemode_configuration]
+# This section contains all settings related to antag_mix gamemode
+
+# Budged multiplier of antag_mix gamemode.
+# Which controlls how basic budget is multiplied, values less than 1 result in less antag budget
+budget_multiplier = 1
+# Max fraction of antags relative to ready players. Value between 0 and 1
+max_antag_fraction = 1
+# Configuration of antag scenarios
+# Must be list of objects with next params:
+# - [tag] required param which identifies the antag scenarios
+# - [params] antag scenario specific params
+#
+# Valid scenario params are:
+# - [cost] optional param, which defines how much of `antag_mix` budget will be spent on it
+# - [weight] optional param, which defines how often this scenario will be picked, related to others
+# - [antag_cap] optional param, which defines how many players can be picked for this scenario at most
+# - [candidates_required] optional param, which defines how many players must be picked for this scenario at least
+# - [restricted_roles] optional param, which defines which roles are restricted from becoming candidate for this scenario.
+# Must be list of strings
+# - [protected_roles] optional param, which defines which roles are protected from becoming candidate for this scenario.
+# Must be list of strings
+# - [restricted_species] optional param, which defines which species are restricted from becoming candidate for this scenario.
+# Must be list of strings
+# Team antag specific:
+# - [team_size] optional param, which defines how much of players must be present in one team. Must equal or lower than antag_cap,
+# or otherwise scenario won't be rolled
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "traitor"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 1
+"cost" = 1
+"weight" = 1
+"antag_cap" = 1
+"candidates_required" = 1
+"restricted_roles" = ["Cyborg"]
+"protected_roles" = [
+	"Security Cadet",
+	"Security Officer",
+	"Warden",
+	"Detective",
+	"Head of Security",
+	"Captain",
+	"Blueshield",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Navy Officer",
+	"Special Operations Officer",
+	"Syndicate Officer",
+	"Solar Federation General",
+]
+
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "changeling"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 1
+"cost" = 1
+"weight" = 1
+"antag_cap" = 1
+"candidates_required" = 1
+"restricted_roles" = ["Cyborg", "AI"]
+"protected_roles" = [
+	"Security Cadet",
+	"Security Officer",
+	"Warden",
+	"Detective",
+	"Head of Security",
+	"Captain",
+	"Blueshield",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Navy Officer",
+	"Special Operations Officer",
+	"Solar Federation General",
+]
+"restricted_species" = ["Machine"]
+
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "vampire"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 1
+"cost" = 1
+"weight" = 1
+"antag_cap" = 1
+"candidates_required" = 1
+"restricted_roles" = ["Cyborg", "AI", "Chaplain"]
+"protected_roles" = [
+	"Security Cadet",
+	"Security Officer",
+	"Warden",
+	"Detective",
+	"Head of Security",
+	"Captain",
+	"Blueshield",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Navy Officer",
+	"Special Operations Officer",
+	"Solar Federation General",
+]
+"restricted_species" = ["Machine"]
+
+[[antag_mix_gamemode_configuration.antag_scenarios_configuration]]
+tag = "blood_brothers"
+
+[antag_mix_gamemode_configuration.antag_scenarios_configuration.params]
+"required_players" = 1
+"cost" = 1
+"weight" = 1
+"antag_cap" = 1
+"team_size" = 1
+"candidates_required" = 1
+"restricted_roles" = ["Cyborg", "AI"]
+"protected_roles" = [
+	"Security Cadet",
+	"Security Officer",
+	"Warden",
+	"Detective",
+	"Head of Security",
+	"Captain",
+	"Blueshield",
+	"Nanotrasen Representative",
+	"Magistrate",
+	"Internal Affairs Agent",
+	"Nanotrasen Navy Officer",
+	"Special Operations Officer",
+	"Solar Federation General",
+]
+
 
 ################################################################

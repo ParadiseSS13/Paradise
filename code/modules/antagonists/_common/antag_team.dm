@@ -19,14 +19,15 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 	/// The name to save objective successes under in the blackboxes. Saves nothing if blank.
 	var/blackbox_save_name
 
-/datum/team/New(list/starting_members)
+/datum/team/New(list/starting_members, add_antag_datum = TRUE)
 	..()
 	members = list()
 	objective_holder = new(src)
+
 	if(starting_members && !islist(starting_members))
 		starting_members = list(starting_members)
 	for(var/datum/mind/M as anything in starting_members)
-		add_member(M)
+		add_member(M, add_antag_datum)
 	GLOB.antagonist_teams += src
 
 /datum/team/Destroy(force = FALSE, ...)
@@ -42,12 +43,15 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
  *
  * Generally this should ONLY be called by `add_antag_datum()` to ensure proper order of operations.
  */
-/datum/team/proc/add_member(datum/mind/new_member)
+/datum/team/proc/add_member(datum/mind/new_member, add_antag_datum = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
-	var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
 	members |= new_member
-	if(!antag) // this team has no antag role, we'll add it directly to their mind team
-		LAZYDISTINCTADD(new_member.teams, src)
+
+	if(add_antag_datum && antag_datum_type)
+		var/datum/antagonist/antag = get_antag_datum_from_member(new_member) // make sure they have the antag datum
+		// If no matching antag datum was found, give them one.
+		if(!antag)
+			return new_member.add_antag_datum(antag_datum_type, src)
 
 /**
  * Removes `member` from this team.
@@ -55,7 +59,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 /datum/team/proc/remove_member(datum/mind/member)
 	SHOULD_CALL_PARENT(TRUE)
 	members -= member
-	LAZYREMOVE(member.teams, src)
 	var/datum/antagonist/antag = get_antag_datum_from_member(member)
 	if(!QDELETED(antag))
 		qdel(antag)
@@ -103,9 +106,6 @@ GLOBAL_LIST_EMPTY(antagonist_teams)
 		if(A.get_team() != src)
 			continue
 		return A
-	// If no matching antag datum was found, give them one.
-	if(antag_datum_type)
-		return member.add_antag_datum(antag_datum_type, src)
 
 /**
  * Special overrides for teams for target exclusion from objectives.

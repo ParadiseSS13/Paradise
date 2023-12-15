@@ -76,6 +76,7 @@
 #include "queue/_queue.dme"
 #include "phrases/_phrases.dme"
 #include "species_whitelist/_species_whitelist.dme"
+#include "antagonists/_antagonists.dme"
 
 // --- PRIME --- //
 // #define MODPACK_MAIN_ONLY
