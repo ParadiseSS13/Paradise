@@ -150,18 +150,18 @@ GLOBAL_PROTECT(log_end)
 	rustg_log_write(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
 
 /proc/log_tgui(user_or_client, text)
-    var/entry = ""
-    if(!user_or_client)
-        entry += "no user"
-    else if(istype(user_or_client, /mob))
-        var/mob/user = user_or_client
-        entry += "[user.ckey] (as [user])"
-    else if(istype(user_or_client, /client))
-        var/client/client = user_or_client
-        entry += "[client.ckey]"
-    entry += ":\n[text]"
-    entry += "[GLOB.log_end]"
-    rustg_log_write(GLOB.tgui_log, entry)
+	var/entry = ""
+	if(!user_or_client)
+		entry += "no user"
+	else if(istype(user_or_client, /mob))
+		var/mob/user = user_or_client
+		entry += "[user.ckey] (as [user])"
+	else if(istype(user_or_client, /client))
+		var/client/client = user_or_client
+		entry += "[client.ckey]"
+	entry += ":\n[text]"
+	entry += "[GLOB.log_end]"
+	rustg_log_write(GLOB.tgui_log, entry)
 
 #ifdef REFERENCE_TRACKING
 /proc/log_gc(text)
