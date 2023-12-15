@@ -194,6 +194,24 @@
 	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/sunglasses = 1)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/hudsunjani
+	name = "Janitor HUD sunglasses"
+	result = list(/obj/item/clothing/glasses/hud/janitor/sunglasses)
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/janitor = 1,
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_CLOTHING
+
+/datum/crafting_recipe/hudsunjaniremoval
+	name = "Janitor HUD sunglasses removal"
+	result = list(/obj/item/clothing/glasses/sunglasses, /obj/item/clothing/glasses/hud/janitor)
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/hud/janitor/sunglasses = 1)
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/beergoggles
 	name = "Sunscanners"
 	result = list(/obj/item/clothing/glasses/sunglasses/reagent)

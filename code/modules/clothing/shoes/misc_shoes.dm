@@ -119,6 +119,10 @@
 	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And powerful! Somehow."
 	magical = TRUE
 
+/obj/item/clothing/shoes/clown_shoes/magical/nodrop
+	desc = "Standard-issue shoes of the wizarding class clown. Damn they're huge! And stuck to your feet!"
+	flags = NODROP
+
 /obj/item/clothing/shoes/clown_shoes/slippers
 	actions_types = list(/datum/action/item_action/slipping)
 	enabled_waddle = FALSE
