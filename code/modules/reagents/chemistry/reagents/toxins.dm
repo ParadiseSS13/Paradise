@@ -295,8 +295,9 @@
 			H.emote("scream")
 		return
 
-	if(10 < volume < 25) // Need at least 10 units to do a little bit of damage
-		H.take_organ_damage(5, 10)
+	if(volume < 25) // Need at least 10 units to do a little bit of damage
+		if(volume > 10)
+			H.take_organ_damage(5, 10)
 		return
 	if(H.wear_mask)
 		to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
