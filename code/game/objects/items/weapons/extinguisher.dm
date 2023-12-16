@@ -76,7 +76,7 @@
 	var/transferred = W.reagents.trans_to(src, max_water)
 	if(transferred > 0)
 		to_chat(user, "<span class='notice'>\The [src] has been refilled by [transferred] units</span>")
-		playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
+		playsound(src.loc, 'sound/effects/refill.ogg', 50, TRUE, -6)
 		for(var/datum/reagent/water/R in reagents.reagent_list)
 			R.cooling_temperature = cooling_power
 	else
