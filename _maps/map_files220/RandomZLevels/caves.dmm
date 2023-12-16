@@ -5432,7 +5432,7 @@
 	},
 /area/awaymission/caves/build/reqpower_build)
 "BH" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/awaymission/caves)
 "BK" = (
 /obj/item/stack/rods,

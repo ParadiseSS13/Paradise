@@ -826,7 +826,7 @@
 	},
 /area/ruin/unpowered/misc_lavaruin)
 "HJ" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "HN" = (
 /obj/effect/turf_decal/stripes/line{

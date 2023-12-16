@@ -10862,7 +10862,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/specops)
 "hnP" = (
-/turf/simulated/floor/plating/lava/smooth/airless,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/wizard_station)
 "hnT" = (
 /obj/machinery/economy/vending/wallmed/syndicate{
@@ -11203,7 +11203,7 @@
 /area/trader_station/sol)
 "hym" = (
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "hyA" = (
 /obj/structure/curtain/open/shower{
@@ -17444,7 +17444,7 @@
 /turf/simulated/floor/wood/oak,
 /area/syndicate_mothership/control)
 "lOn" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "lOq" = (
 /obj/structure/curtain/black{
@@ -19261,7 +19261,7 @@
 /area/syndicate_mothership)
 "njf" = (
 /obj/structure/stone_tile/slab/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "njR" = (
 /obj/structure/fans/tiny/invisible,
@@ -20687,7 +20687,7 @@
 	desc = "She lies just out of reach, as always. She somehow has your only toolbox.";
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
 "olQ" = (
 /turf/simulated/floor/plasteel{
@@ -23717,7 +23717,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "qvn" = (
-/turf/simulated/floor/plating/asteroid/basalt/airless,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/wizard_station)
 "qvo" = (
 /turf/simulated/floor/plating/asteroid{
@@ -26583,7 +26583,7 @@
 /obj/structure/stone_tile/surrounding/burnt,
 /obj/structure/stone_tile/center/burnt,
 /obj/effect/landmark/spawner/bubblegum,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "spM" = (
 /obj/structure/rack,

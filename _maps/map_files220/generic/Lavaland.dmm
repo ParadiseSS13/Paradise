@@ -64,7 +64,7 @@
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
 "aj" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "ak" = (
 /turf/simulated/mineral/random/volcanic,
@@ -1935,7 +1935,7 @@
 /obj/structure/sign/nanotrasen{
 	pixel_x = 32
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "ei" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1963,7 +1963,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "ek" = (
 /obj/machinery/door/airlock/mining/glass{
@@ -2581,7 +2581,7 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "fp" = (
 /turf/simulated/floor/plasteel{
@@ -3082,7 +3082,7 @@
 "go" = (
 /obj/structure/stone_tile/block,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "gp" = (
 /obj/machinery/door/airlock/maintenance{
@@ -3342,14 +3342,14 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "gO" = (
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "gP" = (
 /obj/structure/stone_tile/slab,
@@ -3417,7 +3417,7 @@
 "hc" = (
 /obj/structure/stone_tile/slab,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "hd" = (
 /obj/machinery/iv_drip,
@@ -3492,7 +3492,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "hv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3554,7 +3554,7 @@
 /area/lavaland/surface/outdoors/legion)
 "hI" = (
 /obj/structure/stone_tile/block/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "hJ" = (
 /obj/structure/stone_tile/block{
@@ -4022,7 +4022,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "jH" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -4034,7 +4034,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "jJ" = (
 /obj/structure/firelock_frame,
@@ -4061,7 +4061,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "jN" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -4073,7 +4073,7 @@
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center/cracked,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "jP" = (
 /turf/simulated/floor/plasteel{
@@ -4105,7 +4105,7 @@
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "jW" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
@@ -4116,7 +4116,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "ka" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -4142,7 +4142,7 @@
 	network = list("Mining Outpost")
 	},
 /obj/structure/extinguisher_cabinet/directional/east,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "kf" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -4257,7 +4257,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "kD" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -4271,7 +4271,7 @@
 	},
 /obj/structure/stone_tile/center,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "kE" = (
 /obj/structure/lattice/catwalk/mining,
@@ -4300,7 +4300,7 @@
 	},
 /obj/structure/stone_tile/center/cracked,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "kI" = (
 /turf/simulated/wall/mineral/titanium,
@@ -4317,7 +4317,7 @@
 	},
 /obj/structure/stone_tile/center,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "kM" = (
 /turf/simulated/wall/indestructible/boss,
@@ -4468,7 +4468,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lt" = (
 /obj/structure/stone_tile/block/burnt,
@@ -4496,11 +4496,11 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lw" = (
 /obj/structure/stone_tile/cracked,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lx" = (
 /obj/structure/fans/tiny,
@@ -4516,7 +4516,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lz" = (
 /obj/structure/stone_tile/cracked{
@@ -4526,7 +4526,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "lD" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4536,7 +4536,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "lE" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4546,7 +4546,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "lF" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4559,7 +4559,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "lG" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4593,7 +4593,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -4618,7 +4618,7 @@
 	dir = 6
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lR" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4642,7 +4642,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lU" = (
 /obj/structure/stone_tile/block{
@@ -4664,7 +4664,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "lZ" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4674,7 +4674,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "ma" = (
 /obj/structure/stone_tile/block/cracked{
@@ -4695,7 +4695,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "md" = (
 /obj/structure/stone_tile/block{
@@ -4714,7 +4714,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "mf" = (
 /obj/structure/stone_tile/center/cracked,
@@ -4758,7 +4758,7 @@
 	},
 /obj/structure/stone_tile/cracked,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "mn" = (
 /obj/structure/stone_tile/block/cracked,
@@ -4833,7 +4833,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "mw" = (
 /obj/structure/stone_tile{
@@ -4842,11 +4842,11 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "mx" = (
 /obj/structure/stone_tile,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "my" = (
 /obj/structure/stone_tile/cracked{
@@ -4879,7 +4879,7 @@
 /obj/structure/stone_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "mD" = (
 /obj/structure/stone_tile,
@@ -5188,7 +5188,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "nC" = (
 /obj/structure/stone_tile/block{
@@ -5257,7 +5257,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "oj" = (
 /obj/structure/lattice/catwalk/mining,
@@ -5286,7 +5286,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "oA" = (
 /obj/effect/decal/cleanable/cobweb2,
@@ -5350,7 +5350,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "oP" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -5407,7 +5407,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "pd" = (
 /obj/structure/extinguisher_cabinet/directional/east,
@@ -5557,7 +5557,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "qR" = (
 /obj/structure/stone_tile{
@@ -5586,7 +5586,7 @@
 	dir = 9
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "rj" = (
 /obj/structure/chair{
@@ -5669,7 +5669,7 @@
 	dir = 4
 	},
 /obj/structure/railing,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "rQ" = (
 /obj/structure/stone_tile/block/cracked{
@@ -5716,7 +5716,7 @@
 "rW" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "rY" = (
 /obj/structure/stone_tile/block{
@@ -5825,7 +5825,7 @@
 /obj/structure/stone_tile/block/burnt{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "sO" = (
 /obj/effect/decal/cleanable/dirt,
@@ -5902,7 +5902,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "to" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6100,7 +6100,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "uk" = (
 /obj/structure/stone_tile{
@@ -6226,7 +6226,7 @@
 	dir = 8
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "uR" = (
 /obj/machinery/suit_storage_unit/lavaland,
@@ -6242,13 +6242,13 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "va" = (
 /obj/structure/stone_tile/block/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "vb" = (
 /obj/machinery/computer/shuttle/mining{
@@ -6601,7 +6601,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "wY" = (
 /obj/item/clothing/mask/gas/clown_hat,
@@ -6616,7 +6616,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "xc" = (
 /obj/structure/stone_tile/surrounding_tile,
@@ -6710,7 +6710,7 @@
 /area/mine/outpost/hallway/west)
 "xG" = (
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "xL" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -6757,7 +6757,7 @@
 "xT" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing/corner,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "xW" = (
 /obj/structure/stone_tile/block{
@@ -6862,11 +6862,11 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "yD" = (
 /obj/structure/stone_tile/block,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "yG" = (
 /obj/structure/stone_tile/block/cracked{
@@ -6897,7 +6897,7 @@
 /turf/simulated/floor/plating,
 /area/mine/outpost/maintenance/south)
 "yS" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "yW" = (
 /obj/structure/stone_tile{
@@ -6939,7 +6939,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "zh" = (
 /obj/structure/stone_tile/block{
@@ -7055,7 +7055,7 @@
 /obj/structure/stone_tile/block{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "zR" = (
 /obj/structure/disposalpipe/segment{
@@ -7123,7 +7123,7 @@
 "Af" = (
 /obj/structure/stone_tile/block,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Aj" = (
 /obj/structure/stone_tile/block{
@@ -7168,7 +7168,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "As" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -7540,7 +7540,7 @@
 /obj/structure/railing{
 	dir = 6
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Cy" = (
 /obj/machinery/door/airlock{
@@ -7923,12 +7923,12 @@
 	},
 /area/mine/outpost/medbay)
 "EA" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "EB" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "ED" = (
 /obj/structure/stone_tile/slab,
@@ -7973,7 +7973,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "EO" = (
 /obj/item/kirbyplants,
@@ -8045,7 +8045,7 @@
 /obj/structure/stone_tile/block/burnt{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Fv" = (
 /obj/machinery/power/terminal{
@@ -8164,7 +8164,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Gh" = (
 /obj/structure/cable{
@@ -8253,7 +8253,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "GS" = (
 /obj/structure/stone_tile,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "GT" = (
 /obj/structure/stone_tile/cracked{
@@ -8297,12 +8297,12 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Hf" = (
 /obj/structure/lattice/catwalk/mining,
 /obj/structure/railing,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Hi" = (
 /obj/structure/bedsheetbin,
@@ -8318,7 +8318,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "Hu" = (
 /obj/structure/stone_tile/block,
@@ -8373,7 +8373,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "HG" = (
 /obj/structure/stone_tile{
@@ -8417,7 +8417,7 @@
 /obj/structure/railing{
 	dir = 10
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "HN" = (
 /obj/machinery/door/airlock/security/glass{
@@ -8502,7 +8502,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Ik" = (
 /obj/structure/stone_tile/block{
@@ -8510,7 +8510,7 @@
 	},
 /obj/structure/stone_tile,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Il" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -8527,7 +8527,7 @@
 /area/mine/outpost/production)
 "Iw" = (
 /obj/structure/stone_tile/cracked,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "Ix" = (
 /obj/structure/lattice/catwalk/mining,
@@ -8671,7 +8671,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Jl" = (
 /obj/structure/table,
@@ -8702,7 +8702,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Jx" = (
 /obj/structure/shuttle/engine/heater,
@@ -8729,7 +8729,7 @@
 	pixel_y = 11;
 	pixel_x = -9
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "JI" = (
 /obj/structure/stone_tile/surrounding,
@@ -8781,7 +8781,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/surrounding_tile,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "JZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -8816,7 +8816,7 @@
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Kl" = (
 /obj/structure/table,
@@ -8941,7 +8941,7 @@
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "KL" = (
 /obj/structure/fans/tiny,
@@ -8957,7 +8957,7 @@
 /obj/structure/stone_tile/slab/burnt,
 /obj/structure/stone_tile/slab,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "KR" = (
 /obj/machinery/flasher{
@@ -9062,7 +9062,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "LJ" = (
 /obj/structure/stone_tile/block,
@@ -9095,7 +9095,7 @@
 	dir = 1
 	},
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "LO" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -9147,7 +9147,7 @@
 /obj/structure/stone_tile/surrounding_tile/burnt{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "LW" = (
 /obj/structure/stone_tile/surrounding/burnt,
@@ -9157,7 +9157,7 @@
 "Ma" = (
 /obj/structure/stone_tile/slab/burnt,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Mf" = (
 /obj/structure/stone_tile/center,
@@ -9197,7 +9197,7 @@
 	dir = 4
 	},
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Mn" = (
 /obj/machinery/suit_storage_unit/lavaland,
@@ -9230,7 +9230,7 @@
 	},
 /obj/structure/stone_tile,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Mz" = (
 /obj/structure/stone_tile{
@@ -9304,7 +9304,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "MX" = (
 /obj/machinery/mineral/equipment_vendor,
@@ -9379,7 +9379,7 @@
 	dir = 1
 	},
 /obj/structure/railing,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "Nn" = (
 /obj/structure/stone_tile/block/cracked,
@@ -9592,7 +9592,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "OU" = (
 /obj/machinery/door_control/shutter/south{
@@ -9628,7 +9628,7 @@
 "Pg" = (
 /obj/structure/stone_tile/surrounding/cracked,
 /obj/structure/stone_tile/center/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Pk" = (
 /obj/structure/stone_tile{
@@ -9731,7 +9731,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "PX" = (
 /turf/simulated/wall,
@@ -9794,7 +9794,7 @@
 	dir = 8
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "QE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9848,7 +9848,7 @@
 /area/lavaland/surface/outdoors)
 "QQ" = (
 /obj/structure/stone_tile/block/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "QR" = (
 /obj/structure/cable{
@@ -10023,7 +10023,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile/cracked,
 /obj/structure/stone_tile/center,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "RU" = (
 /obj/structure/stone_tile{
@@ -10072,7 +10072,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Sk" = (
 /obj/structure/stone_tile{
@@ -10134,14 +10134,14 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "SH" = (
 /obj/structure/stone_tile,
 /obj/structure/stone_tile/block{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "SO" = (
 /obj/effect/turf_decal/box,
@@ -10158,7 +10158,7 @@
 	},
 /obj/structure/stone_tile/surrounding_tile/cracked,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "ST" = (
 /obj/structure/stone_tile{
@@ -10241,7 +10241,7 @@
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "TF" = (
 /obj/structure/sign/nanotrasen{
@@ -10304,7 +10304,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Uh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -10414,7 +10414,7 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "UG" = (
 /obj/structure/stone_tile/block{
@@ -10431,7 +10431,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "UO" = (
 /obj/structure/stone_tile,
@@ -10654,14 +10654,14 @@
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "VM" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "VN" = (
 /obj/structure/bed,
@@ -10727,7 +10727,7 @@
 /obj/structure/stone_tile/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/legion)
 "VV" = (
 /obj/machinery/firealarm/directional/west,
@@ -10992,7 +10992,7 @@
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "XL" = (
 /obj/structure/lattice/catwalk/mining,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "XM" = (
 /obj/item/firealarm_electronics,
@@ -11036,7 +11036,7 @@
 /obj/structure/railing{
 	dir = 9
 	},
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors/outpost/catwalk)
 "XU" = (
 /obj/structure/stone_tile/slab/burnt,
@@ -11269,14 +11269,14 @@
 	},
 /obj/structure/stone_tile,
 /obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "Zo" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "Zu" = (
 /obj/structure/stone_tile/surrounding,
@@ -11364,7 +11364,7 @@
 /area/mine/outpost/maintenance/south)
 "ZL" = (
 /obj/structure/stone_tile/surrounding_tile/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/legion)
 "ZM" = (
 /obj/effect/turf_decal/stripes/corner{
