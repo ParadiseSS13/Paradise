@@ -380,17 +380,18 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/proc/set_ringtone(mob/user)
 	var/new_tone = input("Please enter new ringtone", name, ttone) as text
+	new_tone = trim(new_tone)
 	if(!in_range(src, user) || loc != user)
 		close(user)
 		return FALSE
 	if(!new_tone)
 		return FALSE
 
-	if(hidden_uplink && hidden_uplink.check_trigger(user, lowertext(t), lowertext(lock_code)))
+	if(hidden_uplink && hidden_uplink.check_trigger(user, lowertext(new_tone), lowertext(lock_code)))
 		to_chat(user, "The PDA softly beeps.")
 		close(user)
 		return TRUE
-	ttone = trim(sanitize(copytext(new_tone, 1, 20)))
+	ttone = sanitize(copytext(new_tone, 1, 20))
 	return TRUE
 
 /obj/item/pda/process()
