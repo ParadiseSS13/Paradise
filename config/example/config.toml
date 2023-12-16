@@ -306,6 +306,8 @@ disable_cid_warning_popup = false
 base_loadout_points = 5
 # Respawnability loss penalty if you cryo below this threshold (Minutes)
 cryo_penalty_period = 30
+# Observers count as roundstart if they join from the main menu before this time (in minutes). Set to 0 to allow only-pregame start observers.
+roundstart_observer_period = 5
 # Enable twitter emojis in OOC?
 enable_ooc_emoji = true
 # Auto start the game if running a local test server
