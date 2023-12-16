@@ -15,7 +15,7 @@
 
 /obj/structure/roulette/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Interact to customize it and spin with <b>Alt-Click</b>.</span>"
+	. += "<span class='info'>Interact to customise it and spin with <b>Alt-Click</b>.</span>"
 	. += "The options are: \n[options.Join(".\n")]"
 
 /obj/structure/roulette/AltClick()
@@ -54,17 +54,17 @@
 	var/choice = show_radial_menu(user, src, radials, radius = 38,  custom_check = CALLBACK(src, PROC_REF(check_menu), user), require_near = TRUE)
 	switch(choice)
 		if("Blue")
-			options[1] = input("Customize the blue option:", name, options[1]) as text
+			options[1] = input("Customise the blue option:", name, options[1]) as text
 		if("Orange")
-			options[2] = input("Customize the orange option:", name, options[2]) as text
+			options[2] = input("Customise the orange option:", name, options[2]) as text
 		if("Green")
-			options[3] = input("Customize the green option:", name, options[3]) as text
+			options[3] = input("Customise the green option:", name, options[3]) as text
 		if("Yellow")
-			options[4] = input("Customize the yellow option:", name, options[4]) as text
+			options[4] = input("Customise the yellow option:", name, options[4]) as text
 		if("Red")
-			options[5] = input("Customize the red option:", name, options[5]) as text
+			options[5] = input("Customise the red option:", name, options[5]) as text
 		if("Purple")
-			options[6] = input("Customize the purple option:", name, options[6]) as text
+			options[6] = input("Customise the purple option:", name, options[6]) as text
 
 /obj/structure/roulette/proc/check_menu(mob/living/user)
 	return (istype(user) && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
