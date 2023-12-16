@@ -628,7 +628,7 @@
 
 		for(var/am in thrown_atoms)
 			var/atom/movable/AM = am
-			if(AM == owner || AM.anchored)
+			if(AM == owner || AM.anchored || isobserver(AM))
 				continue
 
 			var/throw_target = get_edge_target_turf(owner, get_dir(owner, get_step_away(AM, owner)))
