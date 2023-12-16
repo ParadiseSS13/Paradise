@@ -608,7 +608,7 @@
 /obj/item/organ/internal/cyberimp/arm/power_cord_cell
 	name = "Cell-compatible power adapter implant"
 	desc = "This is a recently developed implant for installation inside IPCs in order to allow them to easily collect energy from cells"
-	origin_tech = "materials=3;engineering=4;biotech=3"
+	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/power_cord_cell)
 	requires_robotic_bodypart = TRUE
 
