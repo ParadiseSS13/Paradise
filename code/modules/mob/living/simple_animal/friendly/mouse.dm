@@ -21,7 +21,7 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "stamps on"
 	density = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_biotypes = MOB_ORGANIC | MOB_BEAST
 	mob_size = MOB_SIZE_TINY

@@ -23,8 +23,8 @@
 /atom/movable/MouseDrop_T(mob/living/M, mob/living/user)
 	. = ..()
 	if(can_buckle && istype(M) && istype(user))
-		if(user_buckle_mob(M, user))
-			return TRUE
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, user_buckle_mob), M, user)
+		return TRUE
 
 /atom/movable/proc/has_buckled_mobs()
 	return length(buckled_mobs)
