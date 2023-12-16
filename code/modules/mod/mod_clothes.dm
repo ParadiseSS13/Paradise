@@ -83,3 +83,6 @@
 		"Unathi" = 'icons/mob/clothing/modsuit/species/modsuits_younahthee.dmi',
 		"Vox" = 'icons/mob/clothing/modsuit/species/vox_modsuits.dmi'
 		)
+
+/obj/item/clothing/shoes/mod/negates_gravity()
+	return flags & NOSLIP
