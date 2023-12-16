@@ -15,6 +15,7 @@ import { backendMiddleware, backendReducer } from './backend';
 import { debugReducer } from './debug';
 import { hotKeyMiddleware } from './hotkeys';
 import { createLogger } from './logging';
+import { assetMiddleware } from './assets';
 
 const logger = createLogger('store');
 
@@ -27,10 +28,12 @@ export const createStore = () => {
       backend: backendReducer,
     }),
   ]);
-  const middleware = [hotKeyMiddleware, backendMiddleware];
-  if (process.env.NODE_ENV !== 'production') {
-    middleware.push(loggingMiddleware);
-  }
+  const middleware = [
+    process.env.NODE_ENV !== 'production' && loggingMiddleware,
+    assetMiddleware,
+    hotKeyMiddleware,
+    backendMiddleware,
+  ];
   return createReduxStore(reducer, applyMiddleware(...middleware));
 };
 

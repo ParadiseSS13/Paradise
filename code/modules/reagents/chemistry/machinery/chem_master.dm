@@ -417,13 +417,15 @@
 	return GLOB.default_state
 
 /obj/machinery/chem_master/ui_interact(mob/user, datum/tgui/ui = null)
-	var/datum/asset/chem_master/assets = get_asset_datum(/datum/asset/chem_master)
-	assets.send(user)
-
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "ChemMaster", name)
 		ui.open()
+
+/obj/machinery/chem_master/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/chem_master)
+	)
 
 /obj/machinery/chem_master/ui_data(mob/user)
 	var/data[0]
