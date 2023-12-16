@@ -379,6 +379,14 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	shopping_cart = null
 	generate_tgui_cart(TRUE)
 
+/obj/item/uplink/hidden/proc/remove_uplink_item_types(typepath)
+	for(var/datum/uplink_item/thing as anything in typesof(typepath))
+		uplink_items[thing.category] -= thing
+	for(var/key in uplink_items) // because for some fucking reason references and category is stored in the same list
+		if(!islist(uplink_items[key])) // so we remove them temporarily
+			uplink_items -= key
+	generate_item_lists() // references are rebuilt here
+
 // I placed this here because of how relevant it is.
 // You place this in your uplinkable item to check if an uplink is active or not.
 // If it is, it will display the uplink menu and return 1, else it'll return false.

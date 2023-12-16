@@ -161,7 +161,7 @@
 	detected_double_agent = TRUE
 
 	var/datum/antagonist/traitor/tot = M.mind.has_antag_datum(/datum/antagonist/traitor)
-	if(!tot.try_to_warn())
+	if(!tot.warn_about_friendly_fire())
 		increase_alert("Hostile double-agent detected: [M]")
 
 
