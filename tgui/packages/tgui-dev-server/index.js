@@ -15,14 +15,16 @@ const setupServer = async () => {
     mode: 'development',
     hot: !noHot,
   });
+  const bundleDir = config.output.path;
   // Reload cache once
   if (reloadOnce) {
-    const bundleDir = config.output.path;
     await reloadByondCache(bundleDir);
     return;
   }
   // Run a development server
   await setupWebpack(config);
+  // Refresh the cache manually to kick the dev server into action
+  await reloadByondCache(bundleDir);
 };
 
 setupServer();
