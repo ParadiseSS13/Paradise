@@ -246,7 +246,7 @@
 	taste_description = "a carpet...what?"
 
 /datum/reagent/carpet/reaction_turf(turf/simulated/T, volume)
-	if((istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel)) && !islava(T))
+	if((istype(T, /turf/simulated/floor/plating) || istype(T, /turf/simulated/floor/plasteel)))
 		var/turf/simulated/floor/F = T
 		F.ChangeTurf(/turf/simulated/floor/carpet)
 	..()

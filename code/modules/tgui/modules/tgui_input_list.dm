@@ -19,6 +19,11 @@
 			return
 		var/client/client = user
 		user = client.mob
+
+	/// Client does NOT have tgui_input on: Returns regular input
+	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS)
+		return input(user, message, title) as null|anything in buttons
+
 	var/datum/tgui_list_input/input = new(user, message, title, buttons, timeout)
 	input.ui_interact(user)
 	input.wait()
