@@ -22,6 +22,10 @@
 	if(!ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/H = user
+	var/datum/status_effect/magic_disguise/S = H.has_status_effect(STATUS_EFFECT_MAGIC_DISGUISE)
+	if(S)
+		S.remove_disguise()
+		H.regenerate_icons()
 	if(H.apply_status_effect(STATUS_EFFECT_MAGIC_DISGUISE))
 		return TRUE
 	else
@@ -33,7 +37,6 @@
 	duration = -1
 	tick_interval = -1
 	alert_type = /obj/screen/alert/status_effect/magic_disguise
-	status_type = STATUS_EFFECT_REPLACE
 	var/datum/icon_snapshot/disguise
 	var/disguise_clown_shoes = FALSE
 
@@ -79,6 +82,8 @@
 		if((!AL || AL.allowed(disguise_source))/*&& !disguise_source.mind.offstation_role*/ && disguise_source != H)
 			if((AL && !(ACCESS_CAPTAIN in AL.req_one_access) && !(ACCESS_CAPTAIN in AL.req_access)) && (ACCESS_CAPTAIN in disguise_source.get_access()))
 				continue //We don't want the cap as a disguise unless we're in the cap office/bedroom
+			if((AL && !(ACCESS_HOP in AL.req_one_access) && !(ACCESS_HOP in AL.req_access)) && (ACCESS_HOP in disguise_source.get_access()))
+				continue //Ditto for HOP
 			create_disguise(disguise_source)
 			break
 	if(!disguise) //Pick a random non-command crewmember if there's no one with access to the current room or it's public
@@ -104,7 +109,6 @@
 	disguise = temp
 
 /datum/status_effect/magic_disguise/proc/apply_disguise(mob/living/carbon/human/H)
-	new /obj/effect/temp_visual/dir_setting/ninja/cloak(get_turf(H), H.dir)
 	H.name_override = disguise.name
 	H.icon = disguise.icon
 	H.icon_state = disguise.icon_state
@@ -112,7 +116,7 @@
 	H.update_inv_r_hand()
 	H.update_inv_l_hand()
 	if(disguise_clown_shoes)
-		H.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, falloff_exponent = 20)
+		H.AddComponent(/datum/component/squeak, list('sound/effects/clownstep1.ogg' = 1, 'sound/effects/clownstep2.ogg' = 1), 50, squeak_on_move = TRUE, falloff_exponent = 20, )
 		H.AddElement(/datum/element/waddling)
 	to_chat(H, "<span class='notice'>You disguise yourself as [disguise.name].</span>")
 
@@ -121,7 +125,6 @@
 	if(!ishuman(owner))
 		return
 	var/mob/living/carbon/human/H = owner
-	new /obj/effect/temp_visual/dir_setting/ninja(get_turf(H), H.dir)
 	H.name_override = null
 	H.overlays.Cut()
 	var/datum/component/C = H.LoadComponent(/datum/component/squeak)
