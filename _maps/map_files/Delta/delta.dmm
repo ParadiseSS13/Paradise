@@ -74749,12 +74749,15 @@
 /area/station/legal/magistrate)
 "eGT" = (
 /obj/structure/table/wood,
-/obj/machinery/fishtank/bowl,
 /obj/machinery/alarm{
 	dir = 4;
 	name = "west bump";
 	pixel_x = -24
 	},
+/obj/machinery/recharger{
+	pixel_y = 1
+	},
+/obj/machinery/fishtank/bowl,
 /turf/simulated/floor/wood,
 /area/station/public/pet_store)
 "eHx" = (
@@ -79318,7 +79321,6 @@
 /area/station/service/clown)
 "inx" = (
 /obj/structure/table/wood,
-/obj/machinery/fishtank/bowl,
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
@@ -79326,6 +79328,7 @@
 	name = "west bump";
 	pixel_x = -28
 	},
+/obj/machinery/fishtank/bowl,
 /turf/simulated/floor/wood,
 /area/station/public/pet_store)
 "inH" = (
