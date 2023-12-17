@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(mapping)
 		F << next_map.type
 
 /datum/controller/subsystem/mapping/Initialize()
-	lavaland_theme = pick(/turf/simulated/floor/plating/lava/smooth/lava_land_surface, /turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma, /turf/simulated/floor/chasm/straight_down/lava_land_surface)
+	lavaland_theme = pick(/turf/simulated/floor/lava/lava_land_surface, /turf/simulated/floor/lava/lava_land_surface/plasma, /turf/simulated/floor/chasm/straight_down/lava_land_surface)
 	log_startup_progress("We're in the mood for [initial(lavaland_theme.name)] today...") //We load this first. In the event some nerd ever makes a surface map, and we don't have it in lavaland in the event lavaland is disabled.
 	cave_theme = pick(BLOCKED_BURROWS, CLASSIC_CAVES, DEADLY_DEEPROCK)
 	log_startup_progress("We feel like [cave_theme] today...")
@@ -72,13 +72,13 @@ SUBSYSTEM_DEF(mapping)
 		var/lavaland_setup_timer = start_watch()
 		seedRuins(list(level_name_to_num(MINING)), GLOB.configuration.ruins.lavaland_ruin_budget, /area/lavaland/surface/outdoors/unexplored, GLOB.lava_ruins_templates)
 		switch(lavaland_theme)
-			if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface)
+			if(/turf/simulated/floor/lava/lava_land_surface)
 				spawn_rivers(level_name_to_num(MINING)) //Default spawn, no tweaks needed
-			if(/turf/simulated/floor/plating/lava/smooth/lava_land_surface/plasma) //More rivers, smaller
+			if(/turf/simulated/floor/lava/lava_land_surface/plasma) //More rivers, smaller
 				spawn_rivers(level_name_to_num(MINING), nodes = 2)
 				spawn_rivers(level_name_to_num(MINING), nodes = 2)
 			if(/turf/simulated/floor/chasm/straight_down/lava_land_surface) //Thiner chasms, bridges, reaches to edge of map.
-				spawn_rivers(level_name_to_num(MINING), nodes = 6, turf_type = /turf/simulated/floor/plating/lava/smooth/mapping_lava, whitelist_area = /area/lavaland/surface/outdoors, min_x = 50, min_y = 7, max_x = 250, max_y = 225, prob = 10, prob_loss = 5)
+				spawn_rivers(level_name_to_num(MINING), nodes = 6, turf_type = /turf/simulated/floor/lava/mapping_lava, whitelist_area = /area/lavaland/surface/outdoors, min_x = 50, min_y = 7, max_x = 250, max_y = 225, prob = 10, prob_loss = 5)
 		var/time_spent = stop_watch(lavaland_setup_timer)
 		log_startup_progress("Successfully populated lavaland in [time_spent]s.")
 	else
