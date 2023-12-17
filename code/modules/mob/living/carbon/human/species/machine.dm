@@ -240,6 +240,6 @@
 	if(charger_pref)
 		charger_pref = new /obj/item/organ/internal/cyberimp/arm/power_cord(H)
 		implant.insert(H)
-	else
+	else(charger_pref)
 		charger_pref = new /obj/item/organ/internal/cyberimp/arm/power_cord_cell(H)
 		implant1.insert(H)
