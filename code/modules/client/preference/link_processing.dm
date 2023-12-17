@@ -311,9 +311,10 @@
 						if(!(lang.flags & RESTRICTED))
 							new_languages += lang.name
 
-					active_character.language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortList(new_languages))
-					if(!active_character.language)
+					var/new_active_character_language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortList(new_languages))
+					if(!new_active_character_language)
 						return
+					active_character.language = new_active_character_language
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
