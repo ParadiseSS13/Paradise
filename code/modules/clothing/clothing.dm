@@ -314,7 +314,6 @@
 
 	var/list/modes = list("Off", "Binary sensors", "Vitals tracker", "Tracking beacon")
 	var/switchMode = input("Select a sensor mode:", "Suit Sensor Mode", modes[sensor_mode + 1]) in modes
-
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You have moved too far away!</span>")
 		return
@@ -358,7 +357,7 @@
 			if(H.w_uniform == src)
 				H.update_suit_sensors()
 
-/obj/item/clothing/under/AltShiftClick(mob/user)
+/obj/item/clothing/under/AltClick(mob/user)
 	set_sensors(user)
 
 //Head
@@ -524,9 +523,6 @@
 		return
 	icon_state = "[icon_state]_opentoe"
 	item_state = "[item_state]_opentoe"
-
-/obj/item/proc/negates_gravity()
-	return
 
 //Suit
 /obj/item/clothing/suit
@@ -816,14 +812,14 @@
 			if(SUIT_SENSOR_TRACKING)
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 		if(has_sensor == 1)
-			. += "<span class='info'>Alt-shift-click to toggle the sensors mode.</span>"
+			. += "<span class='info'>Alt-click to toggle the sensors mode.</span>"
 	else
 		. += "This suit does not have any sensors."
 
 	if(length(accessories))
 		for(var/obj/item/clothing/accessory/A in accessories)
 			. += "\A [A] is attached to it."
-	. += "<span class='info'>Alt-click to remove an accessory.</span>"
+	. += "<span class='info'>Alt-Shift-Click to remove an accessory.</span>"
 	. += "<span class='info'>Ctrl-Shift-Click to roll down this jumpsuit.</span>"
 
 
@@ -857,7 +853,7 @@
 		body_parts_covered &= ~LOWER_TORSO
 		body_parts_covered &= ~ARMS
 
-/obj/item/clothing/under/AltClick(mob/user)
+/obj/item/clothing/under/AltShiftClick(mob/user)
 	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(!length(accessories))
