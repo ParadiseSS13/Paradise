@@ -18409,10 +18409,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "kitchenhall";
-	name = "Kitchen Shutters"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "greenblue"
@@ -85336,6 +85332,13 @@
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plasteel/dark,
 /area/station/legal/courtroom)
+"nfI" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/break_room)
 "ngg" = (
 /turf/simulated/wall/r_wall,
 /area/station/security/armory/secure)
@@ -96541,13 +96544,6 @@
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
-"vrp" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/recharge_station,
-/turf/simulated/floor/plasteel,
-/area/station/engineering/break_room)
 "vrH" = (
 /obj/structure/flora/junglebush,
 /obj/machinery/light/small{
@@ -125062,7 +125058,7 @@ bys
 bzR
 bBA
 bDs
-vrp
+nfI
 byl
 bIx
 bKC
