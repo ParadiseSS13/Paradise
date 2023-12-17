@@ -87,9 +87,7 @@
 		))
 	else
 		window.send_message("ping")
-
 	send_assets()
-
 	window.send_message("update", get_payload(
 		with_data = TRUE,
 		with_static_data = TRUE))
