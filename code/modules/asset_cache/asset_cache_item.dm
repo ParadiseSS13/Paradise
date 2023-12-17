@@ -22,6 +22,8 @@
 	var/namespace = null
 	/// True if this is the parent css or html file for an asset's namespace
 	var/namespace_parent = FALSE
+	/// TRUE for keeping local asset names when browse_rsc backend is used
+	var/keep_local_name = FALSE
 
 /datum/asset_cache_item/New(name, file)
 	if(!isfile(file))

@@ -32,6 +32,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/assets = list()
 	/// Set to true to have this asset also be sent via browse_rsc when cdn asset transports are enabled
 	var/legacy = FALSE
+	/// TRUE for keeping local asset names when browse_rsc backend is used
+	var/keep_local_name = FALSE
 
 /datum/asset/simple/register()
 	for(var/asset_name in assets)
@@ -41,6 +43,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 			continue
 		if(legacy)
 			ACI.legacy = TRUE
+		if(keep_local_name)
+			ACI.keep_local_name = keep_local_name
 		assets[asset_name] = ACI
 
 /datum/asset/simple/send(client)

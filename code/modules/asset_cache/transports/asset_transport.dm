@@ -58,8 +58,13 @@
 /datum/asset_transport/proc/get_asset_url(asset_name, datum/asset_cache_item/asset_cache_item)
 	if(!istype(asset_cache_item))
 		asset_cache_item = SSassets.cache[asset_name]
-	// to ensure code that breaks on cdns breaks in local testing, we only use the normal filename on legacy assets and name space assets.
-	if(dont_mutate_filenames || asset_cache_item.legacy || (asset_cache_item.namespace && !asset_cache_item.namespace_parent))
+	// To ensure code that breaks on cdns breaks in local testing, we only
+	// use the normal filename on legacy assets and name space assets.
+	var/keep_local_name = dont_mutate_filenames \
+		|| asset_cache_item.legacy \
+		|| asset_cache_item.keep_local_name \
+		|| (asset_cache_item.namespace && !asset_cache_item.namespace_parent)
+	if (keep_local_name)
 		return url_encode(asset_cache_item.name)
 	return url_encode("asset.[asset_cache_item.hash][asset_cache_item.ext]")
 
@@ -94,7 +99,11 @@
 
 		var/asset_hash = ACI.hash
 		var/new_asset_name = asset_name
-		if(!dont_mutate_filenames && !ACI.legacy && (!ACI.namespace || ACI.namespace_parent))
+		var/keep_local_name = dont_mutate_filenames \
+			|| ACI.legacy \
+			|| ACI.keep_local_name \
+			|| (ACI.namespace && !ACI.namespace_parent)
+		if (!keep_local_name)
 			new_asset_name = "asset.[ACI.hash][ACI.ext]"
 		if(client.sent_assets[new_asset_name] == asset_hash)
 			log_debug("Skipping send of `[asset_name]` (as `[new_asset_name]`) for `[client]` because it already exists in the client's sent_assets list")
@@ -108,7 +117,11 @@
 		for(var/asset_name in unreceived)
 			var/new_asset_name = asset_name
 			var/datum/asset_cache_item/ACI = unreceived[asset_name]
-			if(!dont_mutate_filenames && !ACI.legacy && (!ACI.namespace || ACI.namespace_parent))
+			var/keep_local_name = dont_mutate_filenames \
+				|| ACI.legacy \
+				|| ACI.keep_local_name \
+				|| (ACI.namespace && !ACI.namespace_parent)
+			if (!keep_local_name)
 				new_asset_name = "asset.[ACI.hash][ACI.ext]"
 			log_debug("Sending asset `[asset_name]` to client `[client]` as `[new_asset_name]`")
 			client << browse_rsc(ACI.resource, new_asset_name)
