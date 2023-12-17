@@ -225,14 +225,16 @@ GLOBAL_LIST_EMPTY(safes)
 	return GLOB.physical_state
 
 /obj/structure/safe/ui_interact(mob/user, datum/tgui/ui = null)
-	var/datum/asset/safe_assets = get_asset_datum(/datum/asset/simple/safe)
-	safe_assets.send(user)
-
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Safe", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
+
+/obj/structure/safe/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/safe)
+	)
 
 /obj/structure/safe/ui_data(mob/user)
 	var/list/data = list()
