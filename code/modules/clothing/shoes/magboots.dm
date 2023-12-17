@@ -13,31 +13,31 @@
 	put_on_delay = 70
 	resistance_flags = FIRE_PROOF
 
-/obj/item/clothing/shoes/magboots/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
 /obj/item/clothing/shoes/magboots/water_act(volume, temperature, source, method)
 	. = ..()
 	if(magpulse && slowdown_active > SHOES_SLOWDOWN)
 		slowdown = slowdown_active
 
-/obj/item/clothing/shoes/magboots/atmos
-	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
-	name = "atmospheric magboots"
-	icon_state = "atmosmagboots0"
-	magboot_state = "atmosmagboots"
+/obj/item/clothing/shoes/magboots/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot != SLOT_HUD_SHOES || !ishuman(user))
+		return
+	check_mag_pulse()
+
+/obj/item/clothing/shoes/magboots/dropped(mob/user, silent)
+	. = ..()
+	if(!ishuman(user))
+		return
+	check_mag_pulse()
 
 /obj/item/clothing/shoes/magboots/attack_self(mob/user, forced = FALSE)
 	toggle_magpulse(user, forced)
 
 /obj/item/clothing/shoes/magboots/proc/toggle_magpulse(mob/user, forced)
 	if(magpulse)
-		START_PROCESSING(SSobj, src) //Gravboots
 		flags &= ~NOSLIP
 		slowdown = slowdown_passive
 	else
-		STOP_PROCESSING(SSobj, src)
 		flags |= NOSLIP
 		slowdown = slowdown_active
 	magpulse = !magpulse
@@ -49,14 +49,26 @@
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
+	check_mag_pulse(user)
 
-/obj/item/clothing/shoes/magboots/negates_gravity()
-	return flags & NOSLIP
+/obj/item/clothing/shoes/magboots/proc/check_mag_pulse(mob/user)
+	if(!user)
+		return
+	if(magpulse)
+		ADD_TRAIT(user, TRAIT_MAGPULSE, "magboots")
+		return
+	if(HAS_TRAIT(user, TRAIT_MAGPULSE)) // User has trait and the magboots were turned off, remove trait
+		REMOVE_TRAIT(user, TRAIT_MAGPULSE, "magboots")
 
 /obj/item/clothing/shoes/magboots/examine(mob/user)
 	. = ..()
 	. += "Its [magpulse_name] appears to be [magpulse ? "enabled" : "disabled"]."
 
+/obj/item/clothing/shoes/magboots/atmos
+	name = "atmospheric magboots"
+	desc = "Magnetic boots, made to withstand gusts of space wind over 500kmph."
+	icon_state = "atmosmagboots0"
+	magboot_state = "atmosmagboots"
 
 /obj/item/clothing/shoes/magboots/advance
 	name = "advanced magboots"

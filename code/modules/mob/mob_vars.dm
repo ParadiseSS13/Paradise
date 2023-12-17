@@ -40,7 +40,7 @@
 
 	var/last_log = 0
 	var/obj/machinery/machine = null
-	var/currently_grab_pulled = null  /// only set while the move is ongoing, to prevent shuffling between pullees
+	var/list/grab_do_not_move = list()  /// other mobs we wont move when we're grab pulled. Not empty only when being grab pulled
 	var/memory = ""
 	var/notransform = FALSE	//Carbon
 	/// True for left hand active, otherwise for right hand active
@@ -54,7 +54,6 @@
 	var/lastpuke = 0
 	var/can_strip = TRUE
 	var/list/languages = list()         // For speaking/listening.
-	var/list/abilities = list()         // For species-derived or admin-given powers.
 	var/list/speak_emote = list("says") // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
 	var/emote_type = EMOTE_VISIBLE		// Define emote default type, 1 for seen emotes, 2 for heard emotes
 	var/name_archive //For admin things like possession
@@ -202,7 +201,6 @@
 
 	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 
-	var/forced_look = null // This can either be a numerical direction or a soft object reference (UID). It makes the mob always face towards the selected thing.
 	var/registered_z
 
 	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override

@@ -143,6 +143,7 @@
 	invocation_type = "none"
 	holy_area_cancast = FALSE //Stops cult magic from working on holy ground eg: chapel
 	proj_lifespan = 10
+	proj_step_delay = 5
 	proj_type = "/obj/effect/proc_holder/spell/inflict_handler/magic_missile/lesser"
 
 /obj/effect/proc_holder/spell/projectile/magic_missile/lesser/create_new_targeting()
