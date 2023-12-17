@@ -96541,6 +96541,13 @@
 /obj/effect/landmark/spawner/rev,
 /turf/simulated/floor/engine,
 /area/station/science/explab/chamber)
+"vrp" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/recharge_station,
+/turf/simulated/floor/plasteel,
+/area/station/engineering/break_room)
 "vrH" = (
 /obj/structure/flora/junglebush,
 /obj/machinery/light/small{
@@ -125055,7 +125062,7 @@ bys
 bzR
 bBA
 bDs
-bIx
+vrp
 byl
 bIx
 bKC
