@@ -34,7 +34,10 @@ export const createStore = () => {
     hotKeyMiddleware,
     backendMiddleware,
   ];
-  return createReduxStore(reducer, applyMiddleware(...middleware));
+  return createReduxStore(
+    reducer,
+    applyMiddleware(...middleware.filter(Boolean))
+  );
 };
 
 const loggingMiddleware = (store) => (next) => (action) => {
