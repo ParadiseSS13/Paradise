@@ -97,7 +97,7 @@
 
 /datum/tgui/proc/send_assets()
 	PRIVATE_PROC(TRUE)
-	var/flushqueue = window.send_asset(get_asset_datum(/datum/asset/simple/fontawesome))
+	var/flushqueue = window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
 	for(var/datum/asset/asset in src_object.ui_assets(user))
 		flushqueue |= window.send_asset(asset)
 	if(flushqueue)

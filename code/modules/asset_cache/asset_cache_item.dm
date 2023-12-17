@@ -26,13 +26,13 @@
 	var/keep_local_name = FALSE
 
 /datum/asset_cache_item/New(name, file)
-	if(!isfile(file))
+		if(!isfile(file))
 		file = fcopy_rsc(file)
 	hash = md5(file)
 	if(!hash)
 		hash = md5(fcopy_rsc(file))
 		if(!hash)
-			stack_trace("invalid asset sent to asset cache")
+			CRASH("invalid asset sent to asset cache")
 		log_debug("asset cache unexpected success of second fcopy_rsc")
 	src.name = name
 	var/extstart = findlasttext(name, ".")

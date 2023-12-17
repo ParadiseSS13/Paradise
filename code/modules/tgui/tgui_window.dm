@@ -141,8 +141,8 @@
 		status = TGUI_WINDOW_READY
 		send_message("suspend")
 		return
-	locked = FALSE
-	locked_by = null
+	log_tgui(client, "[id]/close")
+	release_lock()
 	status = TGUI_WINDOW_CLOSED
 	message_queue = null
 	// Do not close the window to give user some time
@@ -192,9 +192,14 @@
 /datum/tgui_window/proc/send_asset(datum/asset/asset)
 	if(!client || !asset)
 		return
+
+	log_debug("Trying to send asset: [asset.type]")
 	if(istype(asset, /datum/asset/spritesheet))
 		var/datum/asset/spritesheet/spritesheet = asset
+		log_debug("Sending `asset/stylesheet` with filename: [spritesheet.css_filename()]")
 		send_message("asset/stylesheet", spritesheet.css_filename())
+
+	log_debug("Sending `asset/mappings`: [json_encode(asset.get_url_mappings())]")
 	send_message("asset/mappings", asset.get_url_mappings())
 	sent_assets += list(asset)
 	return asset.send(client)

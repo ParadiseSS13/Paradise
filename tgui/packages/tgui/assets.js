@@ -26,7 +26,7 @@ export const loadCSS = (url) => {
 export const resolveAsset = (name) => loadedMappings[name] || name;
 
 export const assetMiddleware = (store) => (next) => (action) => {
-  const { type, payload } = action;
+    const { type, payload } = action;
   if (type === 'asset/stylesheet') {
     loadCSS(payload);
     return;

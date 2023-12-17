@@ -325,7 +325,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	if(legacy)
 		assets |= parents
 	var/list/hashlist = list()
-	var/list/sorted_assets = sortList(assets)
+	var/list/sorted_assets = sortTim(assets, GLOBAL_PROC_REF(cmp_text_asc), TRUE)
 
 	for(var/asset_name in sorted_assets)
 		var/datum/asset_cache_item/ACI = new(asset_name, sorted_assets[asset_name])
