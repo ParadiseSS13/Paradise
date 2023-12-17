@@ -232,3 +232,14 @@
 								)
 		var/error_message = pick(error_messages)
 		to_chat(H, "<span class='boldwarning'>[error_message]</span>")
+
+/datum/species/machine/after_equip_job(datum/job/J, mob/living/carbon/human/H)
+	var/charger_pref = H.client.prefs.active_character.speciesprefs
+	var/obj/item/organ/internal/cyberimp/arm/power_cord/implant = new
+	var/obj/item/organ/internal/cyberimp/arm/power_cord_cell/implant1 = new
+	if(charger_pref)
+		charger_pref = new /obj/item/organ/internal/cyberimp/arm/power_cord(H)
+		implant.insert(H)
+	else
+		charger_pref = new /obj/item/organ/internal/cyberimp/arm/power_cord_cell(H)
+		implant1.insert(H)
