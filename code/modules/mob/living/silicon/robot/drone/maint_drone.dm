@@ -147,34 +147,11 @@
 		return
 
 	else if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
-		if(stat == DEAD)
-		// Currently not functional, so commenting out until it's fixed to avoid confusion
-			/*if(!config.allow_drone_spawn || emagged || health < -35) //It's dead, Dave.
-				to_chat(user, "<span class='warning'>The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one.</span>")
-				return
+		var/choice = stat == DEAD ? "Fix" : alert("Do you want to fix them or shut them down?", "Choose an action", "Fix", "Shut Down")
+		if(choice == "Fix")
+			..()
 
-			if(!allowed(I))
-				to_chat(user, "<span class='warning'>Access denied.</span>")
-				return
-
-			var/delta = (world.time / 10) - last_reboot
-			if(reboot_cooldown > delta)
-				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(usr, "<span class='warning'>The reboot system is currently offline. Please wait another [cooldown_time] seconds.</span>")
-				return
-
-			user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to reboot it.</span>",
-				"<span class='warning'>You swipe your ID card through [src], attempting to reboot it.</span>")
-			last_reboot = world.time / 10
-			var/drones = 0
-			for(var/mob/living/silicon/robot/drone/D in GLOB.silicon_mob_list)
-				if(D.key && D.client)
-					drones++
-			if(drones < config.max_maint_drones)
-				request_player()*/
-			return
-
-		else
+		else if(choice == "Shut Down")
 			var/confirm = alert("Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", "Yes", "No")
 			if(confirm == ("Yes") && (user in range(3, src)))
 				user.visible_message("<span class='warning'>[user] swipes [user.p_their()] ID card through [src], attempting to shut it down.</span>",
