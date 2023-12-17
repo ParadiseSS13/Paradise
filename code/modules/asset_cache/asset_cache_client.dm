@@ -39,7 +39,6 @@
 /// This proc will return an untrue value if it had to return before confirming the send, such as timeout or the client going away.
 /client/proc/browse_queue_flush(timeout = 5 SECONDS)
 	var/job = ++last_asset_job
-	log_debug("Flushing job: [job]")
 	var/t = 0
 	var/timeout_time = timeout
 	src << browse({"<script>window.location.href="?asset_cache_confirm_arrival=[job]"</script>"}, "window=asset_cache_browser&file=asset_cache_send_verify.htm")
