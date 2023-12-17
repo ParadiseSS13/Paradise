@@ -9,8 +9,6 @@
 
 <!-- Early setup -->
 <script type="text/javascript">
-// Mark the beginning of initialization
-window.__inception__ = new Date().getTime();
 // Read window id into a global
 window.__windowId__ = document
   .getElementById('tgui:windowId')
@@ -19,9 +17,7 @@ if (window.__windowId__ === '[' + 'tgui:windowId' + ']') {
   window.__windowId__ = null;
 }
 
-// BYOND API object
-window.Byond = (function () {
-  var Byond = {};
+(function () {
   // Utility functions
   var hasOwn = Object.prototype.hasOwnProperty;
   var assign = function (target) {
@@ -35,6 +31,11 @@ window.Byond = (function () {
     }
     return target;
   };
+
+  // BYOND API object
+  // ------------------------------------------------------
+
+  var Byond = window.Byond = {};
   // Trident engine version
   var tridentVersion = (function () {
     var groups = navigator.userAgent.match(/Trident\/(\d+).+?;/i);
@@ -46,6 +47,7 @@ window.Byond = (function () {
   // Basic checks to detect whether this page runs in BYOND
   var isByond = tridentVersion !== null
     && location.hostname === '127.0.0.1'
+    && location.search !== '?external';
 
   // Version constants
   Byond.IS_BYOND = isByond;
@@ -56,6 +58,19 @@ window.Byond = (function () {
 
   // Callbacks for asynchronous calls
   Byond.__callbacks__ = [];
+
+  // Reviver for BYOND JSON
+  // IE8: No reviver for you!
+  // See: https://stackoverflow.com/questions/1288962
+  var byondJsonReviver;
+  if (!Byond.IS_LTE_IE8) {
+    byondJsonReviver = function (key, value) {
+      if (typeof value === 'object' && value !== null && value.__number__) {
+        return parseFloat(value.__number__);
+      }
+      return value;
+    };
+  }
 
   // Makes a BYOND call.
   // See: https://secure.byond.com/docs/ref/skinparams.html
@@ -134,8 +149,11 @@ window.Byond = (function () {
   };
 
   Byond.winset = function (id, propName, propValue) {
+    if (typeof id === 'object' && id !== null) {
+      return Byond.call('winset', id);
+    }
     var props = {};
-    if (propName === 'string') {
+    if (typeof propName === 'string') {
       props[propName] = propValue;
     }
     else {
@@ -145,7 +163,143 @@ window.Byond = (function () {
     return Byond.call('winset', props);
   };
 
-  return Byond;
+  Byond.parseJson = function (json) {
+    try {
+      return JSON.parse(json, byondJsonReviver);
+    }
+    catch (err) {
+      throw new Error('JSON parsing error: ' + (err && err.message));
+    }
+  };
+
+  // Asset loaders
+  // ------------------------------------------------------
+
+  var RETRY_ATTEMPTS = 5;
+  var RETRY_INTERVAL = 2000;
+
+  var loadedCssByUrl = {};
+  var loadedJsByUrl = {};
+
+  var isStyleSheetLoaded = function (node, url) {
+    // Method #1 (works on IE10+)
+    var styleSheet = node.sheet;
+    if (styleSheet) {
+      return styleSheet.rules.length > 0;
+    }
+    // Method #2
+    var styleSheets = document.styleSheets;
+    var len = styleSheets.length;
+    for (var i = 0; i < len; i++) {
+      var styleSheet = styleSheets[i];
+      if (styleSheet.href.indexOf(url) !== -1) {
+        return styleSheet.rules.length > 0;
+      }
+    }
+    // All methods failed
+    return false;
+  };
+
+  var onDocumentBodyReady = function (done) {
+    if (document.body) {
+      return done();
+    }
+    setTimeout(function () {
+      onDocumentBodyReady(done);
+    });
+  };
+
+  var getRefNode = function () {
+    var refs = (document.body || document.getElementsByTagName('head')[0])
+      .childNodes;
+    return refs[refs.length - 1];
+  };
+
+  // Based on fg-loadcss package
+  // See: https://github.com/filamentgroup/loadCSS
+  Byond.loadCss = function (url, sync, attempt) {
+    if (loadedCssByUrl[url]) {
+      return;
+    }
+    if (!attempt) {
+      attempt = 1;
+    }
+    loadedCssByUrl[url] = true;
+    // Inject the stylesheet
+    var ref = getRefNode();
+    /** @type {HTMLLinkElement} */
+    var node = document.createElement('link');
+    node.type = 'text/css';
+    node.rel = 'stylesheet';
+    node.href = url;
+    // Temporarily set media to something inapplicable
+    // to ensure it'll fetch without blocking render
+    if (!sync) {
+      node.media = 'only x';
+    }
+    onDocumentBodyReady(function () {
+      ref.parentNode.insertBefore(node, ref.nextSibling);
+    });
+    // Listen for the load event
+    node.onload = function () {
+      node.onload = null;
+      if (isStyleSheetLoaded(node, url)) {
+        // Render the stylesheet
+        node.media = 'all';
+        return;
+      }
+      // Try again
+      node.parentNode.removeChild(node);
+      node = null;
+      loadedCssByUrl[url] = null;
+      if (attempt >= RETRY_ATTEMPTS) {
+        throw new Error("Error: Failed to load the stylesheet "
+          + "'" + url + "' after " + RETRY_ATTEMPTS + " attempts.\n"
+          + "It was either not found, or you're trying to load "
+          + "an empty stylesheet that has no CSS rules in it.");
+      }
+      setTimeout(function () {
+        Byond.loadCss(url, sync, attempt + 1);
+      }, RETRY_INTERVAL);
+    };
+  };
+
+  Byond.loadJs = function (url, sync, attempt) {
+    if (loadedJsByUrl[url]) {
+      return;
+    }
+    if (!attempt) {
+      attempt = 1;
+    }
+    loadedJsByUrl[url] = true;
+    // Inject the stylesheet
+    var ref = getRefNode();
+    var node = document.createElement('script');
+    node.type = 'text/javascript';
+    if (sync) {
+      node.defer = true;
+    }
+    else {
+      node.async = true;
+    }
+    node.src = url;
+    onDocumentBodyReady(function () {
+      ref.parentNode.insertBefore(node, ref.nextSibling);
+    });
+    node.onerror = function () {
+      node.onerror = null;
+      node.parentNode.removeChild(node);
+      node = null;
+      loadedJsByUrl[url] = null;
+      if (attempt >= RETRY_ATTEMPTS) {
+        throw new Error("Error: Failed to load the script "
+          + "'" + url + "' after " + RETRY_ATTEMPTS + " attempts.");
+      }
+      setTimeout(function () {
+        Byond.loadJs(url, sync, attempt + 1);
+      }, RETRY_INTERVAL);
+    };
+  };
 })();
 
 // Global error handling
@@ -159,13 +313,13 @@ window.onerror = function (msg, url, line, col, error) {
       stack += ':' + col;
     }
   }
-  // Append user agent info
-  stack += '\nUser Agent: ' + navigator.userAgent;
+  // Augment the stack
+  stack = window.__augmentStack__(stack, error);
   // Print error to the page
   var errorRoot = document.getElementById('FatalError');
   var errorStack = document.getElementById('FatalError__stack');
   if (errorRoot) {
-    errorRoot.className = 'FatalError';
+    errorRoot.className = 'FatalError FatalError--visible';
     if (errorStack.textContent) {
       errorStack.textContent += '\n\n' + stack;
     }
@@ -184,11 +338,6 @@ window.onerror = function (msg, url, line, col, error) {
   };
   setFatalErrorGeometry();
   setInterval(setFatalErrorGeometry, 1000);
-  // Use a hook that comes with the bundle to augment the stack
-  // and send errors to a dev server (if using a development build).
-  if (window.__logger__) {
-    stack = window.__logger__.fatal(error, stack);
-  }
   // Send logs to the game server
   Byond.topic({
     tgui: 1,
@@ -204,6 +353,14 @@ window.onerror = function (msg, url, line, col, error) {
   return true;
 };
 
+// Catch unhandled rejections
+window.onunhandledrejection = window.onerror;
+
+// Helper for augmenting stack traces on fatal errors
+window.__augmentStack__ = function (stack, error) {
+  return stack + '\nUser Agent: ' + navigator.userAgent;
+};
+
 // Early initialization
 window.__updateQueue__ = [];
 window.update = function (message) {
@@ -214,22 +371,126 @@ Byond.topic({
   window_id: window.__windowId__,
   type: 'ready',
 });
+
+// Necessary polyfill to make Webpack code splitting work on IE8
+if (!Function.prototype.bind) (function () {
+  var slice = Array.prototype.slice;
+  Function.prototype.bind = function () {
+    var thatFunc = this, thatArg = arguments[0];
+    var args = slice.call(arguments, 1);
+    if (typeof thatFunc !== 'function') {
+      // closest thing possible to the ECMAScript 5
+      // internal IsCallable function
+      throw new TypeError('Function.prototype.bind - ' +
+        'what is trying to be bound is not callable');
+    }
+    return function () {
+      var funcArgs = args.concat(slice.call(arguments))
+      return thatFunc.apply(thatArg, funcArgs);
+    };
+  };
+})();
 </script>
 
-<!-- Styles -->
-<!-- tgui:styles -->
+<style>
+  .FatalError {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 12px;
+    font-size: 12px;
+    font-family: Consolas, monospace;
+    color: #ffffff;
+    background-color: #0000dd;
+    z-index: 1000;
+    overflow: hidden;
+    text-align: center;
+  }
+  
+  .FatalError--visible {
+    display: block !important;
+  }
+  
+  .FatalError__logo {
+    display: inline-block;
+    text-align: left;
+    font-size: 10px;
+    line-height: 12px;
+    position: relative;
+    margin: 16px;
+    top: 0;
+    left: 0;
+    animation:
+      FatalError__rainbow 2s linear infinite alternate,
+      FatalError__shadow 4s linear infinite alternate,
+      FatalError__tfmX 3s infinite alternate,
+      FatalError__tfmY 4s infinite alternate;
+    white-space: pre;
+  }
+  
+  .FatalError__header {
+    margin-top: 12px;
+  }
+  
+  .FatalError__stack {
+    text-align: left;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+  
+  .FatalError__footer {
+    margin-bottom: 24px;
+  }
+  
+  @keyframes FatalError__rainbow {
+    0% { color: #ff0; }
+    50% { color: #0ff; }
+    100% { color: #f0f; }
+  }
+  
+  @keyframes FatalError__shadow {
+    0% {
+      left: -2px;
+      text-shadow: 4px 0 #f0f;
+    }
+    50% {
+      left: 0px;
+      text-shadow: 0px 0 #0ff;
+    }
+    100% {
+      left: 2px;
+      text-shadow: -4px 0 #ff0;
+    }
+  }
+  
+  @keyframes FatalError__tfmX {
+    0% { left: 15px; }
+    100% { left: -15px; }
+  }
+  
+  @keyframes FatalError__tfmY {
+    100% { top: -15px; }
+  }
+  </style>
+  </head>
+  <body>
 
-<!-- Scripts -->
-<!-- tgui:scripts -->
+<!-- Inline assets -->
+<!-- tgui:assets -->
 
-</head>
-<body>
+<!-- Inline HTML -->
+<!-- tgui:html -->
 
 <!-- tgui container -->
 <div id="react-root"></div>
 
 <!-- Fatal error container -->
-<div id="FatalError" style="display: none">
+<div id="FatalError" class="FatalError">
 <div class="FatalError__logo">
         ███╗   ██╗████████╗ ██████╗ ███████╗
         ████╗  ██║╚══██╔══╝██╔═══██╗██╔════╝

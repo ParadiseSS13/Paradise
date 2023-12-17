@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	return
 
 
-//If you don't need anything complicated.
+/// If you don't need anything complicated.
 /datum/asset/simple
 	_abstract = /datum/asset/simple
 	/// List of assets for this datum in the form of asset_filename = asset_file. At runtime the asset_file will be converted into a asset_cache datum

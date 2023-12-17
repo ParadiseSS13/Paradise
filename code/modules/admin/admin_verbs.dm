@@ -254,10 +254,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	/client/proc/timer_log
 ))
 
-/client/proc/on_holder_add()
-	if(chatOutput && chatOutput.loaded)
-		chatOutput.loadAdmin()
-
 /client/proc/add_admin_verbs()
 	if(holder)
 		// If they have ANYTHING OTHER THAN ONLY VIEW RUNTIMES (65536), then give them the default admin verbs

@@ -131,8 +131,6 @@
 		qdel(query)
 		src << browse(null, "window=privacy_consent")
 		client.tos_consent = TRUE
-		// Now they have accepted TOS, we can log data
-		client.chatOutput.sendClientData()
 		new_player_panel_proc()
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE

@@ -11,7 +11,7 @@ import {
   KEY_9,
   KEY_NUMPAD_0,
   KEY_NUMPAD_9,
-} from '../hotkeys';
+} from 'common/keycodes';
 
 export const SecureStorage = (props, context) => {
   return (

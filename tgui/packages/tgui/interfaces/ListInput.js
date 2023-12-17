@@ -8,7 +8,7 @@ import { clamp01 } from 'common/math';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Section, Input } from '../components';
 import { Window } from '../layouts';
-import { ARROW_KEY_UP, ARROW_KEY_DOWN } from '../hotkeys';
+import { KEY_UP, KEY_DOWN } from 'common/keycodes';
 
 let lastScrollTime = 0;
 
@@ -75,12 +75,9 @@ export const ListInput = (props, context) => {
                 }
                 lastScrollTime = performance.now() + 125;
 
-                if (
-                  e.keyCode === ARROW_KEY_UP ||
-                  e.keyCode === ARROW_KEY_DOWN
-                ) {
+                if (e.keyCode === KEY_UP || e.keyCode === KEY_DOWN) {
                   let direction = 1;
-                  if (e.keyCode === ARROW_KEY_UP) {
+                  if (e.keyCode === KEY_UP) {
                     direction = -1;
                   }
 

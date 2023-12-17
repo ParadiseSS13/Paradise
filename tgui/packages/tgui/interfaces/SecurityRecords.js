@@ -79,15 +79,14 @@ const SecurityRecordsNavigation = (properties, context) => {
   return (
     <Tabs>
       <Tabs.Tab
+        icon="list"
         selected={currentPage === 1}
         onClick={() => act('page', { page: 1 })}
       >
-        <Icon name="list" />
         List Records
       </Tabs.Tab>
       {currentPage === 2 && general && !general.empty && (
-        <Tabs.Tab selected={currentPage === 2}>
-          <Icon name="file" />
+        <Tabs.Tab icon="file" selected={currentPage === 2}>
           Record: {general.fields[0].value}
         </Tabs.Tab>
       )}

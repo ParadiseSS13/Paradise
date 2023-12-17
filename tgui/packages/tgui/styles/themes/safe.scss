@@ -18,14 +18,14 @@
   // Components
   @include meta.load-css(
     '../components/Section.scss',
-    $with: ('color-background': #b2ae74)
+    $with: ('background-color': #b2ae74)
   );
 
   // Layouts
   @include meta.load-css('../layouts/Window.scss');
   @include meta.load-css(
     '../layouts/TitleBar.scss',
-    $with: ('color-background': #35435a)
+    $with: ('background-color': #35435a)
   );
 
   // Interfaces
