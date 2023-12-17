@@ -16,8 +16,8 @@
 
 
 /datum/browser/New(nuser, nwindow_id, ntitle = 0, nwidth = 0, nheight = 0, atom/nref = null)
-
 	user = nuser
+	RegisterSignal(user, COMSIG_PARENT_QDELETING, PROC_REF(user_deleted))
 	window_id = nwindow_id
 	if(ntitle)
 		title = format_text(ntitle)
@@ -27,6 +27,10 @@
 		height = nheight
 	if(nref)
 		ref = nref
+
+/datum/browser/proc/user_deleted(datum/source)
+	SIGNAL_HANDLER
+	user = null
 
 /datum/browser/proc/set_title(ntitle)
 	title = format_text(ntitle)
@@ -52,6 +56,13 @@
 		if(!SSassets.cache[asset_name])
 			SSassets.transport.register_asset(asset_name, file)
 
+/datum/browser/proc/add_scss_stylesheet(name, file)
+	var/asset_name = "[name].scss"
+	stylesheets[asset_name] = file
+
+	if(!SSassets.cache[asset_name])
+		SSassets.transport.register_asset(asset_name, file)
+
 /datum/browser/proc/add_script(name, file)
 	scripts["[ckey(name)].js"] = file
 	SSassets.transport.register_asset("[ckey(name)].js", file)
@@ -63,8 +74,7 @@
 	content += ncontent
 
 /datum/browser/proc/get_header()
-	var/datum/asset/simple/common/common_asset = get_asset_datum(/datum/asset/simple/common)
-	head_content += "<link rel='stylesheet' type='text/css' href='[common_asset.get_url_mappings()["common.css"]]'>"
+	head_content += "<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url("common.css")]'>"
 	for(var/file in stylesheets)
 		head_content += "<link rel='stylesheet' type='text/css' href='[SSassets.transport.get_asset_url(file)]'>"
 

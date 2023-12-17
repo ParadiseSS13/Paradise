@@ -50,18 +50,17 @@
 	if(.)
 		return
 
-	var/dat
-	dat = replacetext(file2text('html/chess.html'), "\[hsrc]", UID())
-	var/datum/asset/simple/chess/assets = get_asset_datum(/datum/asset/simple/chess)
-	assets.send(user)
+	var/datum/asset/chess_asset = get_asset_datum(/datum/asset/group/chess)
+	chess_asset.send(user)
 
+	var/dat = replacetext(file2text('html/chess.html'), "\[hsrc]", UID())
 	var/datum/browser/popup = new(user, "SpessChess", name, 500, 800, src)
 	popup.set_content(dat)
-	popup.add_stylesheet("chess.css", 'html/browser/chess.css')
-	popup.add_script("garbochess.js", 'html/browser/garbochess.js')
-	//popup.add_script("boardui.js", 'html/browser/boardui.js')
-	popup.add_script("jquery-1.8.2.min.js", 'html/browser/jquery-1.8.2.min.js')
-	popup.add_script("jquery-ui-1.8.24.custom.min.js", 'html/browser/jquery-ui-1.8.24.custom.min.js')
+	popup.add_stylesheet("chess", 'html/browser/chess.css')
+	popup.add_script("boardui", 'html/browser/boardui.js')
+	popup.add_script("garbochess", 'html/browser/garbochess.js')
+	popup.add_script("jquery-1.8.2.min", 'html/browser/jquery-1.8.2.min.js')
+	popup.add_script("jquery-ui-1.8.24.custom.min", 'html/browser/jquery-ui-1.8.24.custom.min.js')
 	popup.set_window_options("titlebar=0")
 	popup.open()
 	user.set_machine(src)
@@ -72,7 +71,6 @@
 		if(user.client && user.machine == src)				// I will look for you,
 			user.unset_machine()							// I will find you,
 			user << browse(null, "window=SpessChess")	// And I will kill you.
-	return
 
 /obj/machinery/gameboard/Topic(href, list/href_list)
 	. = ..()
