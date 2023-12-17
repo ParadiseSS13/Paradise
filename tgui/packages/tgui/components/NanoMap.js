@@ -3,6 +3,7 @@ import { Box, Icon, Tooltip } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
+import { resolveAsset } from '../assets';
 
 const pauseEvent = (e) => {
   if (e.stopPropagation) {
@@ -123,7 +124,7 @@ export class NanoMap extends Component {
     return (
       <Box className="NanoMap__container">
         <Box style={newStyle} onMouseDown={this.handleDragStart}>
-          <img src={mapUrl} style={mapStyle} />
+          <img src={resolveAsset(mapUrl)} style={mapStyle} />
           <Box>{children}</Box>
         </Box>
         <NanoMapZoomer zoom={zoom} onZoom={this.handleZoom} />
