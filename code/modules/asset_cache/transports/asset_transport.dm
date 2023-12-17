@@ -64,7 +64,7 @@
 		|| asset_cache_item.legacy \
 		|| asset_cache_item.keep_local_name \
 		|| (asset_cache_item.namespace && !asset_cache_item.namespace_parent)
-	if (keep_local_name)
+	if(keep_local_name)
 		return url_encode(asset_cache_item.name)
 	return url_encode("asset.[asset_cache_item.hash][asset_cache_item.ext]")
 
@@ -103,7 +103,7 @@
 			|| ACI.legacy \
 			|| ACI.keep_local_name \
 			|| (ACI.namespace && !ACI.namespace_parent)
-		if (!keep_local_name)
+		if(!keep_local_name)
 			new_asset_name = "asset.[ACI.hash][ACI.ext]"
 		if(client.sent_assets[new_asset_name] == asset_hash)
 			log_debug("Skipping send of `[asset_name]` (as `[new_asset_name]`) for `[client]` because it already exists in the client's sent_assets list")
@@ -121,7 +121,7 @@
 				|| ACI.legacy \
 				|| ACI.keep_local_name \
 				|| (ACI.namespace && !ACI.namespace_parent)
-			if (!keep_local_name)
+			if(!keep_local_name)
 				new_asset_name = "asset.[ACI.hash][ACI.ext]"
 			log_debug("Sending asset `[asset_name]` to client `[client]` as `[new_asset_name]`")
 			client << browse_rsc(ACI.resource, new_asset_name)
