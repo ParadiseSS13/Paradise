@@ -26,7 +26,7 @@
 	var/keep_local_name = FALSE
 
 /datum/asset_cache_item/New(name, file)
-		if(!isfile(file))
+	if(!isfile(file))
 		file = fcopy_rsc(file)
 	hash = md5(file)
 	if(!hash)
