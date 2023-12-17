@@ -20,7 +20,8 @@
 	var/max_water = 50
 	var/safety = TRUE
 	var/refilling = FALSE
-	var/precision = FALSE //By default, turfs picked from a spray are random, set to 1 to make it always have at least one water effect per row
+	/// FALSE by default, turfs picked from a spray are random, set to TRUE to make it always have at least one water effect per row
+	var/precision = FALSE
 	var/cooling_power = 2 //Sets the cooling_temperature of the water reagent datum inside of the extinguisher when it is refilled
 	COOLDOWN_DECLARE(last_use)
 
