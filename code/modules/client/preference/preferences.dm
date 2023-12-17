@@ -201,7 +201,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(active_character.species == "Vox") // Purge these bastards
 				dat += "<b>N2 Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large N2 Tank" : "Specialized N2 Tank"]</a><br>"
 			if(active_character.species == "Machine")
-				dat += "<b>Charger type:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "APC-compatible power adapter implant" : "Cell-compatible power adapter implant"]</a><br>"
+				dat += "<b>Charger type:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Cell-compatible power adapter implant" : "APC-compatible power adapter implant"]</a><br>"
 			if(active_character.species == "Plasmaman")
 				dat += "<b>Plasma Tank:</b> <a href='?_src_=prefs;preference=speciesprefs;task=input'>[active_character.speciesprefs ? "Large Plasma Tank" : "Specialized Plasma Tank"]</a><br>"
 			if(active_character.species == "Grey")
