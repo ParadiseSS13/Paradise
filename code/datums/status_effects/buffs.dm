@@ -771,6 +771,6 @@
 	return ..()
 
 /datum/status_effect/flayer_rejuv/tick()
-	owner.adjustBruteLoss(-heal_amount)
-	owner.adjustFireLoss(-heal_amount)
+	owner.adjustBruteLoss(-heal_amount, robotic = TRUE)
+	owner.adjustFireLoss(-heal_amount, robotic = TRUE)
 	owner.updatehealth()
