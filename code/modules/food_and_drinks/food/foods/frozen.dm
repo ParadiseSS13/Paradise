@@ -17,6 +17,8 @@
 	icon = 'icons/obj/food/frozen_treats.dmi'
 	icon_state = "clowncake"
 	slice_path = /obj/item/reagent_containers/food/snacks/frozen/clowncakeslice
+	slices_num = 5
+	bitesize = 3
 	list_reagents = list("nutriment" = 20, "sugar" = 5, "vitamin" = 5, "banana" = 15)
 	tastes = list("cake" = 5, "sweetness" = 2, "carrot" = 1)
 
