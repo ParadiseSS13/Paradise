@@ -18,8 +18,8 @@
 	var/list/datum/mind/pre_mindflayers = list()
 
 /datum/game_mode/mindflayer/announce()
-	to_chat(world, "<B>The current game mode is - mindflayers!</B>")
-	to_chat(world, "<B>There are Bluespace mindflayers infesting your fellow crewmates, keep your blood close and neck safe!</B>")
+	to_chat(world, "<b>The current game mode is - mindflayers!</b>")
+	to_chat(world, "<b>There are Bluespace mindflayers infesting your fellow crewmates, keep your blood close and neck safe!</b>")
 
 /datum/game_mode/mindflayer/pre_setup()
 
