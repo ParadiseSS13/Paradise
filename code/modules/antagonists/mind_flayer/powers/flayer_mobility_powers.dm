@@ -58,7 +58,7 @@
 		jaunt_steam(mobloc)
 	ADD_TRAIT(target, TRAIT_IMMOBILIZED, "jaunt")
 	holder.reappearing = 1
-	playsound(get_turf(target), 'sound/magic/ethereal_exit.ogg', 50, 1, -1)
+	playsound(get_turf(target), 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
 	sleep(jaunt_in_time * 4)
 	if(jaunt_in_type)
 		new jaunt_in_type(mobloc, holder.dir)
