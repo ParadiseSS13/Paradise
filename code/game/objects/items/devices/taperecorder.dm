@@ -216,7 +216,6 @@
 			playsleepseconds = (mytape.timestamp[i + 1] - mytape.timestamp[i]) SECONDS
 		if(playsleepseconds > 1.4 SECONDS)
 			sleep(10)
-			atom_say("Skipping [playsleepseconds / 10] seconds of silence.")
 			playsleepseconds = 1 SECONDS
 		i++
 
