@@ -328,3 +328,32 @@
 		'modular_ss220/emotes/audio/kidan/wiggles_kidan_2.ogg',
 		'modular_ss220/emotes/audio/kidan/wiggles_kidan_3.ogg')
 
+/datum/emote/living/carbon/human/whip
+	key = "whip"
+	key_third_person = "whip"
+	message = "ударяет хвостом."
+	message_mime = "взмахивает хвостом и бесшумно опускает его на пол."
+	message_postfix = ", грозно смотря на %t."
+	message_param = EMOTE_PARAM_USE_POSTFIX
+	species_type_whitelist_typecache = list(/datum/species/unathi)
+	emote_type = EMOTE_VISIBLE | EMOTE_AUDIBLE
+	volume = 75
+	audio_cooldown = 3 SECONDS
+	sound = 'modular_ss220/emotes/audio/unathi/whip_short_unathi.ogg'
+
+/datum/emote/living/carbon/human/whip/whip_l
+	key = "whips"
+	key_third_person = "whips"
+	message = "хлестает хвостом."
+	species_type_whitelist_typecache = list(/datum/species/unathi)
+	audio_cooldown = 6 SECONDS
+	sound = 'modular_ss220/emotes/audio/unathi/whip_unathi.ogg'
+
+/datum/emote/living/carbon/human/whip/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+
+	if(!can_wag(user))
+		return FALSE
+
+	return TRUE

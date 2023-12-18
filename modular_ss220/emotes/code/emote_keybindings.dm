@@ -41,3 +41,11 @@
 /datum/keybinding/emote/carbon/human/wiggles
 	linked_emote = /datum/emote/living/carbon/human/wiggles
 	name = "Шевелить усиками"
+
+/datum/keybinding/emote/carbon/human/whip_l
+	linked_emote = /datum/emote/living/carbon/human/whip/whip_l
+	name = "Хлестать хвостом"
+
+/datum/keybinding/emote/carbon/human/whip
+	linked_emote = /datum/emote/living/carbon/human/whip
+	name = "Ударять хвостом"

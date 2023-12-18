@@ -423,3 +423,9 @@
 
 /datum/emote/living/carbon/human/wiggles
 	name = "Шевелить усики"
+
+/datum/emote/living/carbon/human/whip
+	name = "Ударять хвостом"
+
+/datum/emote/living/carbon/human/whip/whip_l
+	name = "Хлестать хвостом"
