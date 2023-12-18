@@ -14,9 +14,9 @@
 /mob/living/carbon/human/proc/makeCluwne()
 	if(istype(back, /obj/item/mod/control)) // Check if the target is wearing a modsuit
 		var/obj/item/mod/control/modsuit_control = back
-		if(modsuit_control.active) // Check if the modsuit control unit is active
-			modsuit_control.active = FALSE // Instantly deactivate the modsuit
-			modsuit_control.quick_deploy(src) // Redeploy the modsuit
+		if(istype(wear_suit, /obj/item/clothing/suit/mod)) // Check if the modsuit is deployed
+			modsuit_control.active = FALSE // Instantly deactivate the modsuit - if it was activated
+			modsuit_control.quick_deploy(src) // The modsuit is no longer deployed
 	to_chat(src, "<span class='danger'>You feel funny.</span>")
 	if(!get_int_organ(/obj/item/organ/internal/brain/cluwne))
 		var/obj/item/organ/internal/brain/cluwne/idiot_brain = new
