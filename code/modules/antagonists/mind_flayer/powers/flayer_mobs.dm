@@ -13,6 +13,7 @@
 	icon_living = "techOrchid"
 	icon_dead = "techOrchid"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0) // Remind me to later test if I can just null this list and it still works
+	health = 100
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	melee_damage_type = STAMINA

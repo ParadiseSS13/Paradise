@@ -9,7 +9,7 @@
 	desc = "This really shouldn't be here"
 	action_icon_state = "artificer"
 	power_type = FLAYER_UNOBTAINABLE_POWER
-	base_cooldown = 10 SECONDS
+	base_cooldown = 10 SECONDS // This is testing purposes ONLY. If this comment makes it into the TM, something went wrong
 	category = CATEGORY_SWARMER
 	/// What kind of mob we have to spawn
 	var/mob/living/mob_to_spawn
@@ -23,12 +23,14 @@
 	var/melee_damage
 	/// If we want the mobs to do different kinds of damage
 	var/damage_type
-
-	var/failure_message = "Failed to create a robot!" // TODO: make this message not shit
+	/// This var is used to edit the minion's max HP. Defaults to 100
+	var/max_mob_hp = 100
 
 /obj/effect/proc_holder/spell/flayer/self/summon/cast(list/targets, mob/user)
 	if(length(current_mobs) < max_summons)
 		check_for_ghosts(user)
+	else
+		flayer.send_swarm_message("You have as many robots as you can handle now!")
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/check_for_ghosts(mob/user)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the ([mob_to_spawn]) of [user.real_name]?", poll_time = 10 SECONDS, source = src, role_cleanname = "[mob_to_spawn]")
@@ -38,7 +40,7 @@
 		theghost = pick(candidates)
 		spawn_the_mob(user, theghost.key, mob_to_spawn)
 	else
-		to_chat(user, "[failure_message]")
+		flayer.send_swarm_message("Failed to create a robot! Try again later.")
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/spawn_the_mob(mob/living/user, key, guardian_type)
 	var/turf/user_turf = get_turf(user)
@@ -71,18 +73,35 @@
 			check_which_projectile()
 		if(MELEE_ATTACK_BASE)
 			check_melee_upgrade()
+		else
+			check_army_upgrades()
+	upgrade_all_mobs()
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/check_melee_upgrade()
 	switch(level)
 		if(POWER_LEVEL_ONE)
-			melee_damage = 30 // 20 is at base
+			melee_damage += 10 // 20 is at base
 		if(POWER_LEVEL_TWO)
-			melee_damage = 40
+			melee_damage += 10
+		if(POWER_LEVEL_FOUR)
+			damage_type = BRUTE
+			max_summons += 1
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/check_which_projectile()
 	switch(level)
 		if(POWER_LEVEL_ONE)
+			projectile_type = /obj/item/projectile/beam/disabler
+		if(POWER_LEVEL_THREE)
 			projectile_type = /obj/item/projectile/beam/laser
+		if(POWER_LEVEL_FOUR)
+			projectile_type = /obj/item/projectile/energy/charged_plasma // ZZZAP
+
+/obj/effect/proc_holder/spell/flayer/self/summon/proc/check_army_upgrades()
+	switch(level)
+		if(POWER_LEVEL_TWO)
+			max_summons += 1
+		if(POWER_LEVEL_THREE)
+			max_mob_hp = 200
 
 /obj/effect/proc_holder/spell/flayer/self/summon/proc/upgrade_all_mobs()
 	for(var/mob/living/simple_animal/hostile/flayer/flayer_bot in current_mobs)
