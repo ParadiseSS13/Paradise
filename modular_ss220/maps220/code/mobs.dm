@@ -1074,7 +1074,7 @@
 	icon_living = "nihilanth"
 	pixel_x = -32
 	speed = 3
-	move_to_delay = 3.5
+	move_to_delay = 3.7
 	bound_height = 32
 	bound_width = 32
 	icon_dead = "bullsquid_dead"
@@ -1085,18 +1085,19 @@
 	projectilesound = 'sound/weapons/lasercannonfire.ogg'
 	projectiletype = /obj/item/projectile/nihilanth
 	ranged = TRUE
-	ranged_cooldown_time = 20
+	ranged_cooldown_time = 25
 	rapid = 3
 	alert_cooldown = 30 SECONDS
 	harm_intent_damage = 50
 	melee_damage_lower = 20
 	melee_damage_upper = 30
 	attacktext = "lathes"
-	attack_sound = 'sound/weapons/punch1.ogg'
+	attack_sound = 'sound/misc/demon_consume.ogg'
 	status_flags = NONE
 	wander = TRUE
 	loot = list(/obj/effect/gibspawner/xeno, /obj/item/stack/ore/bluespace_crystal/refined = 30, /obj/item/card/id/xen_key, /obj/item/gun/energy/wormhole_projector)
 	flying = TRUE
+	death_sound = 'modular_ss220/aesthetics_sounds/sound/mobs/nihilanth/nihilanth_pain01.ogg'
 
 /obj/item/card/id/xen_key
 	name = "xen key"
@@ -1118,7 +1119,7 @@
 
 /mob/living/simple_animal/hostile/blackmesa/xen/nihilanth/Aggro()
 	. = ..()
-	if(!(world.time > alert_cooldown_time))
+	if(world.time > alert_cooldown_time)
 		alert_cooldown_time = world.time + alert_cooldown
 		switch(health)
 			if(0 to 499)
