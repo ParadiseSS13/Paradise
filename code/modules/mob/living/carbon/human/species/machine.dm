@@ -239,7 +239,7 @@
 	var/obj/item/organ/internal/cyberimp/arm/power_cord_cell/implant1 = new
 	if(charger_pref)
 		charger_pref = new /obj/item/organ/internal/cyberimp/arm/power_cord(H)
-		implant.insert(H)
-	else(charger_pref)
-		charger_pref = new /obj/item/organ/internal/cyberimp/arm/power_cord_cell(H)
 		implant1.insert(H)
+	else
+		charger_pref = new /obj/item/organ/internal/cyberimp/arm/power_cord_cell(H)
+		implant.insert(H)
