@@ -205,11 +205,11 @@
 	return
 
 /obj/item/pneumatic_cannon/flayer/attack_self(mob/user)
-	switch(pressureSetting)
+	switch(pressure_setting)
 		if(1)
-			pressureSetting = 2
+			pressure_setting = 2
 		if(2)
-			pressureSetting = 3
+			pressure_setting = 3
 		if(3)
-			pressureSetting = 1
+			pressure_setting = 1
 
