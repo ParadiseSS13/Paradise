@@ -765,9 +765,7 @@
 	dir = 4;
 	id = "garbage"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -5621,9 +5619,7 @@
 	dir = 4
 	},
 /obj/machinery/alarm/directional/south,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
 "azO" = (
@@ -8591,9 +8587,7 @@
 /obj/structure/disposalpipe/junction{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 2;
@@ -8620,9 +8614,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/delivery/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -9213,9 +9205,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/supply/office)
 "aNw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
@@ -16086,6 +16076,13 @@
 	icon_state = "red"
 	},
 /area/station/security/processing)
+"bqZ" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
+	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/turf/simulated/wall/r_wall,
+/area/space/nearstation)
 "brp" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -16474,9 +16471,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
 "bsG" = (
@@ -26199,9 +26194,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/firealarm/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -29546,15 +29539,11 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "cnB" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "cnC" = (
@@ -31881,9 +31870,7 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/item/stack/cable_coil,
 /turf/simulated/floor/plating,
@@ -33377,9 +33364,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -33645,9 +33630,7 @@
 	name = "Expedition Access"
 	},
 /obj/effect/mapping_helpers/airlock/access/all/command/expedition,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -48495,9 +48478,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/east)
 "dZV" = (
@@ -55721,9 +55702,7 @@
 	},
 /area/station/maintenance/starboard)
 "gpP" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "gqa" = (
@@ -57649,9 +57628,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/engineering/aitransit)
 "gVw" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/engine,
 /area/station/medical/chemistry)
@@ -58975,9 +58952,7 @@
 /area/station/security/brig)
 "hsA" = (
 /obj/machinery/light/directional/north,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/supply/storage)
 "hsC" = (
@@ -59539,9 +59514,7 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/structure/sign/poster/contraband/random/south,
 /turf/simulated/floor/plating,
 /area/station/engineering/mechanic)
@@ -63521,9 +63494,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel/dark,
 /area/station/security/armory/secure)
 "iMn" = (
@@ -64954,9 +64925,7 @@
 /obj/machinery/alarm/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/engineering/mechanic)
 "jim" = (
@@ -75693,9 +75662,7 @@
 	dir = 4;
 	id = "garbage"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -82723,9 +82690,7 @@
 /area/station/supply/qm)
 "oOe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/engineering/mechanic)
 "oOi" = (
@@ -83452,9 +83417,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -84259,9 +84222,7 @@
 	},
 /area/station/medical/virology/lab)
 "plN" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door_control/shutter/south{
 	id = "Secure Armory";
 	name = "Secure Armory Shutter Control";
@@ -86343,13 +86304,8 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "pTD" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry)
+/turf/space,
+/area/shuttle/gamma/station)
 "pTE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -92422,9 +92378,7 @@
 /turf/simulated/floor/grass,
 /area/station/security/permabrig)
 "rPY" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -95000,6 +94954,11 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
+"sCQ" = (
+/obj/structure/marker_beacon/dock_marker/collision,
+/obj/effect/turf_decal/delivery/red,
+/turf/simulated/floor/plating/airless,
+/area/space/nearstation)
 "sCZ" = (
 /obj/machinery/alarm/directional/north,
 /obj/machinery/kitchen_machine/grill,
@@ -98239,9 +98198,7 @@
 	},
 /area/station/engineering/atmos/control)
 "tFt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -103302,9 +103259,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -108710,9 +108665,7 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plating,
 /area/station/engineering/mechanic)
 "wYP" = (
@@ -110930,9 +110883,7 @@
 	id = "garbage"
 	},
 /obj/machinery/recycler,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -112091,9 +112042,7 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "innerdisposal"
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -151837,7 +151786,7 @@ xOV
 sBw
 sBw
 nIm
-pTD
+amA
 gQF
 rUl
 anX
@@ -168610,14 +168559,14 @@ wPa
 uJu
 biJ
 oVL
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-abj
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+sCQ
 aaa
 aaa
 abj
@@ -168867,14 +168816,14 @@ qvV
 fqo
 rwX
 oVL
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-cbA
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+abj
 aaa
 aaa
 aaa
@@ -169124,14 +169073,14 @@ aLV
 bjO
 oVL
 oVL
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-abj
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+cbA
 aaa
 aaa
 abj
@@ -169381,14 +169330,14 @@ caT
 aTw
 aTD
 oVL
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-abj
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+oEG
 aaa
 abj
 abj
@@ -169638,13 +169587,13 @@ wKy
 qfb
 hov
 oVL
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
 oEG
 abj
 abj
@@ -169895,13 +169844,13 @@ cXS
 cXS
 cYh
 oVL
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
+pTD
 oEG
 abj
 aaa
@@ -170152,14 +170101,14 @@ caT
 caT
 xVq
 oVL
+sCQ
 abj
-oEG
-oEG
 abj
 cbA
 oEG
 oEG
-cbA
+oEG
+bqZ
 aaa
 aaa
 aaa
