@@ -41,7 +41,6 @@
 		"lungs" =    /obj/item/organ/internal/lungs/unathi,
 		"liver" =    /obj/item/organ/internal/liver/unathi,
 		"kidneys" =  /obj/item/organ/internal/kidneys/unathi,
-		"brain" =    /obj/item/organ/internal/brain/unathi,
 		"appendix" = /obj/item/organ/internal/appendix,
 		"eyes" =     /obj/item/organ/internal/eyes/unathi //3 darksight.
 		)
