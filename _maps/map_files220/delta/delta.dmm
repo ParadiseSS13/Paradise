@@ -17529,14 +17529,9 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
+	d1 = 4;
 	d2 = 8;
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
+	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel,
 /area/station/security/brig)
@@ -27294,22 +27289,6 @@
 	icon_state = "neutral"
 	},
 /area/station/public/fitness)
-"cep" = (
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/station/security/warden)
 "ceq" = (
 /obj/machinery/papershredder,
 /obj/effect/turf_decal/siding/wood{
@@ -42488,6 +42467,11 @@
 /obj/item/pen,
 /obj/machinery/newscaster/security_unit/south,
 /obj/machinery/light/directional/south,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -50127,6 +50111,11 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/warden,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -56079,6 +56068,10 @@
 	id_tag = "ArmoryLock";
 	name = "Armory Lockdown"
 	},
+/obj/structure/cable{
+	d2 = 8;
+	icon_state = "0-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/security/warden)
 "gwd" = (
@@ -58464,9 +58457,12 @@
 	id_tag = "Warden";
 	name = "Warden Privacy Shutters"
 	},
-/obj/structure/cable,
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "WardenD"
+	},
+/obj/structure/cable{
+	d2 = 4;
+	icon_state = "0-4"
 	},
 /turf/simulated/floor/plating,
 /area/station/security/warden)
@@ -64731,11 +64727,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
 	},
@@ -72936,6 +72927,11 @@
 	pixel_x = -3;
 	pixel_y = -3
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -80305,6 +80301,11 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/stamp/warden,
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkred"
@@ -89245,6 +89246,16 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -91172,11 +91183,6 @@
 	name = "Security Blast Door"
 	},
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -95757,6 +95763,16 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/warden,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -103382,6 +103398,19 @@
 /mob/living/simple_animal/mouse/rat,
 /turf/simulated/floor/engine,
 /area/station/maintenance/incinerator)
+"vmP" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "red"
+	},
+/area/station/security/brig)
 "vmT" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
@@ -108885,10 +108914,15 @@
 	},
 /area/station/security/warden)
 "xcz" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	id_tag = "Warden";
-	name = "Warden Privacy Shutters"
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
 	},
 /obj/structure/cable{
 	d1 = 2;
@@ -108896,13 +108930,14 @@
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
+	d1 = 1;
 	d2 = 4;
-	icon_state = "0-4"
+	icon_state = "1-4"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled{
-	id = "WardenD"
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkred"
 	},
-/turf/simulated/floor/plating,
 /area/station/security/warden)
 "xcD" = (
 /obj/item/chair/wood,
@@ -163154,7 +163189,7 @@ vBg
 xqb
 duP
 vBg
-xcz
+nWC
 vQN
 hjl
 vBg
@@ -163668,8 +163703,8 @@ eYD
 nRd
 rLn
 eYD
-cep
 eYD
+xcz
 bep
 lMA
 oaR
@@ -167272,7 +167307,7 @@ mSs
 xhC
 dTU
 qQC
-dUT
+vmP
 dMP
 wzU
 gsx
