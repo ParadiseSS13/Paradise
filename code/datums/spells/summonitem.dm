@@ -28,6 +28,9 @@
 			for(var/obj/item in hand_items)
 				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
 					break
+				if(istype(item, /obj/item/disk/nuclear)) //Let's not make nukies suffer with this bullshit.
+					to_chat(user, "<span class='notice'>[item] has some built in protections against such summoning magic.</span>")
+					break
 				if(ABSTRACT in item.flags)
 					continue
 				if(NODROP in item.flags)
