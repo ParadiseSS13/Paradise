@@ -771,6 +771,8 @@
 	return ..()
 
 /datum/status_effect/flayer_rejuv/tick()
-	owner.adjustBruteLoss(-heal_amount, robotic = TRUE)
-	owner.adjustFireLoss(-heal_amount, robotic = TRUE)
-	owner.updatehealth()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/flayer = owner
+		flayer.adjustBruteLoss(-heal_amount, robotic = TRUE)
+		flayer.adjustFireLoss(-heal_amount, robotic = TRUE)
+		flayer.updatehealth()

@@ -141,5 +141,7 @@
 	max_level = 3
 
 /datum/mindflayer_passive/processed/regen/process()
-	owner.adjustBruteLoss(-level, robotic = TRUE)
-	owner.adjustFireLoss(-level, robotic = TRUE)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/flayer = owner
+		flayer.adjustBruteLoss(-level, robotic = TRUE)
+		flayer.adjustFireLoss(-level, robotic = TRUE)

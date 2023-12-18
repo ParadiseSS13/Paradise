@@ -18,7 +18,8 @@
 	var/list/drained_humans = list()
 	///How fast the flayer's touch drains
 	var/drain_multiplier = 1
-
+	///A list of the categories and their associated stages of the power
+	var/list/category_stage = list(CATEGORY_GENERAL = 1, CATEGORY_DESTROYER = 1, CATEGORY_INTRUDER = 1, CATEGORY_SWARMER = 1)
 
 /proc/ismindflayer(mob/M)
 	return M.mind?.has_antag_datum(/datum/antagonist/mindflayer)

@@ -27,6 +27,8 @@
 	var/list/prerequisite = list()
 	/// The class that this spell is for or CATEGORY_GENERAL to make it unrelated to a specific tree
 	var/category = CATEGORY_GENERAL
+	/// The current `stage` that we are on for our powers. Currently only hides powers of a higher stage. TODO: IMPLEMENT CORRECTLY WHEN TGUI IS ROLLING
+	var/stage = 1
 
 /obj/effect/proc_holder/spell/flayer/self/create_new_targeting()
 	return new /datum/spell_targeting/self
@@ -59,12 +61,14 @@
 		var/obj/effect/proc_holder/spell/flayer/spell = all_powers[i]
 		if(spell.category != power_category)
 			continue
+		if(spell.stage > flayer.category_stage[power_category])
+			continue
 		possible_powers += spell
-	get_ability(user, possible_powers)
+	get_ability(user, possible_powers, power_category)
 
-/obj/effect/proc_holder/spell/flayer/self/augment_menu/proc/get_ability(mob/user, list/all_powers = list())
+/obj/effect/proc_holder/spell/flayer/self/augment_menu/proc/get_ability(mob/user, list/all_powers = list(), power_category)
 	if(!length(all_powers))
-		flayer.send_swarm_message("No powers of this type available")
+		flayer.send_swarm_message("Either you bought all the powers, or something went terribly wrong. Contact a coder or admin if you should have powers to buy.")
 		return
 	var/path = tgui_input_list(user, "whaddya wanna buy", "Buy power", all_powers)
 	flayer.add_ability(path)

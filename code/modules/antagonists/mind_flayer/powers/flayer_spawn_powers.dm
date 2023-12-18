@@ -2,7 +2,6 @@
  * This is a file with all the flayer powers that spawn mobs.
  * Default mobs will be offered to dchat. If you don't want your mob to be
  * offered to dchat, override the `spawn_the_mob` proc
- *
  */
 
 /obj/effect/proc_holder/spell/flayer/self/summon
@@ -47,10 +46,12 @@
 	current_mobs += flayerbot
 	flayerbot.key = key
 	RegisterSignal(flayerbot, COMSIG_MOB_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/flayer/self/summon, deduct_mob_from_list))
-	to_chat(flayerbot, "You are a [name] bound to serve [user.real_name].") //TODO: make these into one to_chat
-	to_chat(flayerbot, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
-	to_chat(flayerbot, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
-	to_chat(flayerbot, "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Guardian)</span>")
+	var/list/msg = list()
+	msg += "You are a [name] bound to serve [user.real_name]."
+	msg += "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there."
+	msg += "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself."
+	msg += "<span class='motd'>For more information, check the wiki page: ([GLOB.configuration.url.wiki_url]/index.php/Guardian)</span>" // TODO: Wikipage???
+	to_chat(flayerbot, msg.Join())
 
 //	SSblackbox.record_feedback("tally", "guardian_pick", 1, "[pickedtype]") // TODO: make a tally
 
@@ -59,9 +60,9 @@
 	current_mobs -= mob_to_remove
 
 /*
-	*
-	*
-	*
+	* My god this looks like a feverdream, anyways:
+	* All mob upgrades are split into 2 upgrade types: ranged or melee. If your power doesn't apply to either the melee or ranged weapon, override it for your power.
+	* If you want to do both your special thing and an upgrade to melee/ranged damage, call parent on your own proc.
 */
 
 /obj/effect/proc_holder/spell/flayer/self/summon/on_purchase_upgrade(upgrade_type)
