@@ -53,7 +53,7 @@
 	if(!length(mindflayers))
 		return
 
-	var/text = "<FONT size = 2><B>The mindflayers were:</B></FONT>"
+	var/text = "<font size='2'><b>The mindflayers were:</b></font>"
 	for(var/datum/mind/mindflayer in mindflayers)
 		var/traitorwin = TRUE
 //		var/datum/antagonist/mindflayer/flayer = mindflayer.has_antag_datum(/datum/antagonist/mindflayer) // Why was this commented out again?
@@ -73,14 +73,14 @@
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
 					if(istype(objective, /datum/objective/steal))
 						var/datum/objective/steal/S = objective
 						SSblackbox.record_feedback("nested tally", "mindflayer_steal_objective", 1, list("Steal [S.steal_target]", "SUCCESS"))
 					else
 						SSblackbox.record_feedback("nested tally", "mindflayer_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
 					if(istype(objective, /datum/objective/steal))
 						var/datum/objective/steal/S = objective
 						SSblackbox.record_feedback("nested tally", "mindflayer_steal_objective", 1, list("Steal [S.steal_target]", "FAIL"))
@@ -96,10 +96,10 @@
 			special_role_text = "antagonist"
 
 		if(traitorwin)
-			text += "<br><font color='green'><B>The [special_role_text] was successful!</B></font>"
+			text += "<br><font color='green'><b>The [special_role_text] was successful!</b></font>"
 			SSblackbox.record_feedback("tally", "mindflayer_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>The [special_role_text] has failed!</B></font>"
+			text += "<br><font color='red'><b>The [special_role_text] has failed!</b></font>"
 			SSblackbox.record_feedback("tally", "mindflayer_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
