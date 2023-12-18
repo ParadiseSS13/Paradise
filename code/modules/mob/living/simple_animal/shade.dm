@@ -32,6 +32,7 @@
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "lets out a contented sigh as their form unwinds."
+	weather_immunities = list("ash")
 	var/holy = FALSE
 
 /mob/living/simple_animal/shade/cult/Initialize(mapload)
