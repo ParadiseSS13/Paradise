@@ -535,6 +535,9 @@
 	sections["eventmisc"] = memory_edit_eventmisc(H)
 	/** TRAITOR ***/
 	sections["traitor"] = memory_edit_traitor()
+	// SS220 EDIT - START
+	sections["blood_brother"] = memory_edit_blood_brother()
+	// SS220 EDIT - END
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)

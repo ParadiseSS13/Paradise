@@ -101,8 +101,7 @@
 		alert(admin, "No candidates for second blood brother found.")
 		return FALSE
 
-	sortTim(choices, GLOBAL_PROC_REF(cmp_text_asc))
-	var/choice = tgui_input_list(admin, "Choose the blood brother.", "Brother", choices)
+	var/choice = tgui_input_list(admin, "Choose the blood brother.", "Brother", sortTim(choices, GLOBAL_PROC_REF(cmp_text_asc)))
 	if(!choice)
 		return FALSE
 

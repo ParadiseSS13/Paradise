@@ -56,6 +56,9 @@
 #define DATA_HUD_ABDUCTOR	19
 #define ANTAG_HUD_EVENTMISC 20
 #define ANTAG_HUD_BLOB 21
+// SS220 EDIT - START
+#define ANTAG_HUD_BLOOD_BROTHER 22
+// SS220 EDIT - END
 
 // Notification action types
 #define NOTIFY_JUMP "jump"
