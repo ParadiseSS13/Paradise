@@ -123,8 +123,10 @@
 				return
 			if(visible_item)
 				item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
-
-
+			var/list/heres_disky = item_to_retrieve.search_contents_for(/obj/item/disk/nuclear)
+			for(var/obj/item/disk/nuclear/N in heres_disky)
+				N.forceMove(get_turf(item_to_retrieve))
+				N.visible_message("<span class='warning'>as [item_to_retrieve] vanishes, [N] remains behind!</span>")
 			if(target.hand) //left active hand
 				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
 					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
