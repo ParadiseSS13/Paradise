@@ -7717,7 +7717,7 @@
 /area/centcom/suppy)
 "Bv" = (
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Bw" = (
 /obj/structure/ninjatele{
@@ -8729,7 +8729,7 @@
 /area/centcom/control)
 "Fk" = (
 /obj/structure/stone_tile/slab/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Fm" = (
 /obj/structure/chair/sofa/corp{
@@ -10693,7 +10693,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "LV" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "LX" = (
 /obj/structure/chair/sofa/corp/left{
@@ -13165,7 +13165,7 @@
 	},
 /area/holodeck/source_knightarena)
 "UJ" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/wizard_station)
 "UK" = (
 /turf/simulated/floor/holofloor/carpet,
@@ -13502,7 +13502,7 @@
 /obj/structure/stone_tile/surrounding/burnt,
 /obj/structure/stone_tile/center/burnt,
 /obj/effect/landmark/spawner/bubblegum,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Wh" = (
 /turf/simulated/floor/plasteel{

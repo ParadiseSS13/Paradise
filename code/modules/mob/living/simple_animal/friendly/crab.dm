@@ -16,7 +16,7 @@
 	response_harm   = "stomps"
 	stop_automated_movement = TRUE
 	friendly = "pinches"
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	can_hide = TRUE
 	can_collar = TRUE
 	gold_core_spawnable = FRIENDLY_SPAWN

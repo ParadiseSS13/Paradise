@@ -631,8 +631,8 @@
 				def_value = "custom"
 
 		var/new_obj_type = input("Select objective type:", "Objective type", def_value) as null|anything in	list(
-			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal", "download",
-			"nuclear", "capture", "absorb", "destroy", "maroon", "identity theft", "custom")
+			"assassinate", "assassinateonce", "blood", "debrain", "protect", "prevent", "hijack", "escape", "survive", "steal",
+			"nuclear", "absorb", "destroy", "maroon", "identity theft", "custom")
 		if(!new_obj_type)
 			return
 
@@ -640,11 +640,6 @@
 
 		switch(new_obj_type)
 			if("assassinate", "assassinateonce", "protect","debrain", "maroon")
-				//To determine what to name the objective in explanation text.
-				var/objective_type_capital = uppertext(copytext(new_obj_type, 1,2))//Capitalize first letter.
-				var/objective_type_text = copytext(new_obj_type, 2)//Leave the rest of the text.
-				var/objective_type = "[objective_type_capital][objective_type_text]"//Add them together into a text string.
-
 				var/list/possible_targets = list()
 				var/list/possible_targets_random = list()
 				for(var/datum/mind/possible_target in SSticker.minds)
@@ -680,13 +675,11 @@
 				if(new_target == "Free objective")
 					new_objective = new objective_path
 					new_objective:target = null
-					new_objective.explanation_text = "Free objective"
+					new_objective.update_explanation_text()
 				else
 					new_objective = new objective_path
 					new_objective:target = new_target:mind
-					//Will display as special role if assigned mode is equal to special role.. Ninjas/commandos/nuke ops.
-					new_objective.explanation_text = "[objective_type] [new_target:real_name], the [new_target:mind:assigned_role == new_target:mind:special_role ? (new_target:mind:special_role) : (new_target:mind:assigned_role)]."
-					new_objective.establish_signals()
+					new_objective.update_explanation_text()
 
 			if("destroy")
 				var/list/possible_targets = active_ais(1)
@@ -694,7 +687,7 @@
 					var/mob/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
 					new_objective = new /datum/objective/destroy
 					new_objective.target = new_target.mind
-					new_objective.explanation_text = "Destroy [new_target.name], the experimental AI."
+					new_objective.update_explanation_text()
 				else
 					to_chat(usr, "No active AIs with minds")
 
@@ -722,7 +715,7 @@
 				if(!steal.select_target())
 					return
 
-			if("download","capture","absorb", "blood")
+			if("absorb", "blood")
 				var/def_num
 				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
 					def_num = objective.target_amount
@@ -734,11 +727,10 @@
 				switch(new_obj_type)
 					if("absorb")
 						new_objective = new /datum/objective/absorb
-						new_objective.explanation_text = "Absorb [target_number] compatible genomes."
 					if("blood")
 						new_objective = new /datum/objective/blood
-						new_objective.explanation_text = "Accumulate at least [target_number] total units of blood."
 				new_objective.target_amount = target_number
+				new_objective.update_explanation_text()
 
 			if("identity theft")
 				var/list/possible_targets = list()
@@ -755,7 +747,7 @@
 					CRASH("Invalid target for identity theft objective, cancelling")
 				new_objective = new /datum/objective/escape/escape_with_identity
 				new_objective.target = new_target
-				new_objective.explanation_text = "Escape on the shuttle or an escape pod with the identity of [targ.current.real_name], the [targ.assigned_role] while wearing [targ.current.p_their()] identification card."
+				new_objective.update_explanation_text()
 				var/datum/objective/escape/escape_with_identity/O = new_objective
 				O.target_real_name = new_objective.target.current.real_name
 			if("custom")
