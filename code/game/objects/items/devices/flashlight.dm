@@ -230,6 +230,9 @@
 		return TRUE
 	return ..()
 
+/obj/item/flashlight/flare/get_heat()
+	return produce_heat * on * 1000
+
 // GLOWSTICKS
 
 /obj/item/flashlight/flare/glowstick

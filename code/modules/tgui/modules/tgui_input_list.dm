@@ -19,6 +19,11 @@
 			return
 		var/client/client = user
 		user = client.mob
+
+	/// Client does NOT have tgui_input on: Returns regular input
+	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_LISTS)
+		return input(user, message, title) as null|anything in buttons
+
 	var/datum/tgui_list_input/input = new(user, message, title, buttons, timeout)
 	input.ui_interact(user)
 	input.wait()
@@ -112,7 +117,7 @@
 /datum/tgui_list_input/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
 	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
 	if(!ui)
-		ui = new(user, src, ui_key, "ListInput", title, 325, 330, master_ui, state)
+		ui = new(user, src, ui_key, "ListInput", title, 325, 355, master_ui, state)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
