@@ -40,8 +40,6 @@
 	allow_pai = FALSE
 	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
 	var/currently_cuffing = FALSE // TRUE if we're cuffing someone right now
-	var/lost_target = FALSE // TRUE if we were hunting someone and we cant see them anymore
-	var/turf/last_target_location // if we were chasing target and we lost it, there will be their last location
 	var/played_sound_this_hunt = FALSE // used to make beepsky beep when it lost its target
 
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
@@ -115,8 +113,6 @@
 
 /mob/living/simple_animal/bot/secbot/bot_reset()
 	..()
-	last_target_location = null
-	lost_target = FALSE
 	currently_cuffing = FALSE
 	played_sound_this_hunt = FALSE
 	target = null
@@ -303,6 +299,15 @@
 
 	flashing_lights = !flashing_lights
 
+/mob/living/simple_animal/bot/secbot/try_chasing_target()
+	. = ..()
+	if(lost_target && !played_sound_this_hunt && frustration > 2)
+		playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
+		played_sound_this_hunt = TRUE
+	if(!lost_target && played_sound_this_hunt)
+		playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
+		played_sound_this_hunt = FALSE
+
 /mob/living/simple_animal/bot/secbot/handle_automated_action()
 	if(!..())
 		return
@@ -311,8 +316,6 @@
 
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			lost_target = FALSE
-			played_sound_this_hunt = FALSE
 			walk_to(src, 0)
 			set_path(null)
 			if(find_new_target())	// see if any criminals are in range
@@ -340,41 +343,7 @@
 				target_lastloc = target.loc
 				return
 
-			if(target in view(12, src))
-				if(lost_target)
-					frustration = 0
-					lost_target = FALSE
-					if(played_sound_this_hunt)
-						playsound(loc, 'sound/machines/synth_yes.ogg', 50, 0)
-						played_sound_this_hunt = FALSE
-				last_target_location = get_turf(target)
-				var/dist = get_dist(src, target)
-				walk_to(src, target, 1, 4)
-				if(get_dist(src, target) >= dist)
-					frustration++
-				return
-
-			if(!lost_target)
-				walk_to(src, 0)
-				lost_target = TRUE
-				frustration = 0
-
-			if(!played_sound_this_hunt && frustration > 2)
-				played_sound_this_hunt = TRUE
-				playsound(loc, 'sound/machines/synth_no.ogg', 50, 0)
-
-			if(get_turf(src) == last_target_location)
-				frustration += 2
-				return
-
-			if(!bot_move(last_target_location, move_speed = 6))
-				var/last_target_pos_path = get_path_to(src, last_target_location, id = access_card, skip_first = TRUE)
-				if(length(last_target_pos_path) == 0)
-					frustration = 10
-					return
-				set_path(last_target_pos_path)
-				bot_move(last_target_location, move_speed = 6)
-			frustration++
+			try_chasing_target(target)
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 			// see if he got away. If he's no no longer adjacent or inside a closet or about to get up, we hunt again.

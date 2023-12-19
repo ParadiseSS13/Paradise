@@ -139,34 +139,7 @@
 				frustration++
 				return							// not next to perp
 
-			if(target in view(12, src))
-				if(lost_target)
-					frustration = 0
-					lost_target = FALSE
-				last_target_location = get_turf(target)
-				var/dist = get_dist(src, target)
-				walk_to(src, target, 1, 4)
-				if(get_dist(src, target) >= dist)
-					frustration++
-				return
-
-			if(!lost_target)
-				walk_to(src, 0)
-				lost_target = TRUE
-				frustration = 0
-
-			if(get_turf(src) == last_target_location)
-				frustration += 2
-				return
-
-			if(!bot_move(last_target_location, move_speed = 6))
-				var/last_target_pos_path = get_path_to(src, last_target_location, id = access_card, skip_first = TRUE)
-				if(length(last_target_pos_path) == 0)
-					frustration = 10
-					return
-				set_path(last_target_pos_path)
-				bot_move(last_target_location, move_speed = 6)
-			frustration++
+			try_chasing_target(target)
 
 		if(BOT_START_PATROL)
 			if(find_new_target())

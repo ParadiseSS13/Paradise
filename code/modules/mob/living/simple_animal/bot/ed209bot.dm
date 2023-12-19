@@ -46,8 +46,6 @@
 	var/baton_delayed = FALSE
 	var/obj/item/melee/baton/infinite_cell/baton = null // stunbaton bot uses to melee attack
 	var/currently_cuffing = FALSE // TRUE if we're cuffing someone right now
-	var/lost_target = FALSE // TRUE if we were hunting someone and we cant see them anymores
-	var/turf/last_target_location // if we were chasing target and we lost it, there will be their last location
 
 /mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)
 	baton = new(src)
@@ -97,8 +95,6 @@
 	target = null
 	oldtarget_name = null
 	anchored = FALSE
-	last_target_location = null
-	lost_target = FALSE
 	currently_cuffing = FALSE
 	walk_to(src,0)
 	set_path(null)
@@ -277,34 +273,7 @@
 				target_lastloc = null
 				return
 
-			if(target in view(12, src))
-				if(lost_target)
-					frustration = 0
-					lost_target = FALSE
-				last_target_location = get_turf(target)
-				var/dist = get_dist(src, target)
-				walk_to(src, target, 1, 4)
-				if(get_dist(src, target) >= dist)
-					frustration++
-				return
-
-			if(!lost_target)
-				walk_to(src, 0)
-				lost_target = TRUE
-				frustration = 0
-
-			if(get_turf(src) == last_target_location)
-				frustration += 2
-				return
-
-			if(!bot_move(last_target_location, move_speed = 6))
-				var/last_target_pos_path = get_path_to(src, last_target_location, id = access_card, skip_first = TRUE)
-				if(length(last_target_pos_path) == 0)
-					frustration = 10
-					return
-				set_path(last_target_pos_path)
-				bot_move(last_target_location, move_speed = 6)
-			frustration++
+			try_chasing_target(target)
 
 		if(BOT_PREP_ARREST)		// preparing to arrest target
 
