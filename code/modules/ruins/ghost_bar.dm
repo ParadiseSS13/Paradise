@@ -17,8 +17,8 @@
 		var/list/our_character_saves = list()
 		for(var/index in 1 to length(user.client.prefs.character_saves))
 			var/datum/character_save/saves = user.client.prefs.character_saves[index]
-			our_characters_names += saves.real_name
-			our_character_saves += list(index = saves)
+			our_characters_names += "[saves.real_name] (Slot #[index])"
+			our_character_saves += list("[saves.real_name] (Slot #[index])" = saves)
 
 		var/character_index = tgui_input_list(user, "Select a character", "Character selection", our_characters_names)
 		if(!character_index)
