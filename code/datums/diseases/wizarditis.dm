@@ -60,23 +60,20 @@ STI KALY - blind
 		if(prob(chance) && !isplasmaman(H))
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.unEquip(H.head))
-					qdel(H.head)
-				handle_modsuit(H, H.wear_suit)
+					handle_modsuit(H)
 				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), SLOT_HUD_HEAD)
 			return
 		if(prob(chance))
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 				if(!H.unEquip(H.wear_suit))
-					qdel(H.wear_suit)
-				handle_modsuit(H, H.wear_suit)
+					handle_modsuit(H)
 				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), SLOT_HUD_OUTER_SUIT)
 			return
 		if(prob(chance))
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				if(!H.unEquip(H.shoes))
-					qdel(H.shoes)
-			handle_modsuit(H, H.wear_suit)
-			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
+					handle_modsuit(H)
+				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
 			return
 	else
 		var/mob/living/carbon/H = affected_mob
@@ -122,9 +119,9 @@ STI KALY - blind
 	affected_mob.forceMove(pick(teleport_turfs))
 
 // Helper function to handle modsuit deactivation
-/proc/handle_modsuit(mob/living/carbon/human/H, item_slot)
-	if(istype(item_slot, /obj/item/mod/control))
-		var/obj/item/mod/control/modsuit = item_slot
-		if(istype(modsuit, /obj/item/clothing/suit/mod)) // Check if the modsuit is deployed
-			modsuit.active = FALSE // Instantly deactivate the modsuit - if it was activated
-			modsuit.quick_deploy(src) // The modsuit is no longer deployed
+/proc/handle_modsuit(var/mob/living/carbon/human/H)
+	if(istype(H.back, /obj/item/mod/control))
+		var/obj/item/mod/control/modsuit_control = H.back
+		if(istype(H.wear_suit, /obj/item/clothing/suit/mod)) // Check if the modsuit is deployed
+			modsuit_control.active = FALSE // Instantly deactivate the modsuit - if it was activated
+			modsuit_control.quick_deploy(src) // The modsuit is no longer deployed
