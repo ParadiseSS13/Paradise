@@ -124,9 +124,11 @@
 			if(visible_item)
 				item_to_retrieve.loc.visible_message("<span class='warning'>[item_to_retrieve] suddenly disappears!</span>")
 			var/list/heres_disky = item_to_retrieve.search_contents_for(/obj/item/disk/nuclear)
+			heres_disky += item_to_retrieve.loc.search_contents_for(/obj/item/disk/nuclear) //So if you mark another item in a bag, we don't pull
 			for(var/obj/item/disk/nuclear/N in heres_disky)
 				N.forceMove(get_turf(item_to_retrieve))
-				N.visible_message("<span class='warning'>as [item_to_retrieve] vanishes, [N] remains behind!</span>")
+				N.visible_message("<span class='warning'>As [item_to_retrieve] vanishes, [N] remains behind!</span>")
+				break //If you have 2 nads, well, congrats? Keeps message from doubling up
 			if(target.hand) //left active hand
 				if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_LEFT_HAND, FALSE, TRUE))
 					if(!target.equip_to_slot_if_possible(item_to_retrieve, SLOT_HUD_RIGHT_HAND, FALSE, TRUE))
