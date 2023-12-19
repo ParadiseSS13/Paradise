@@ -211,9 +211,9 @@
 	name = "Suspicious Soap Crate"
 	contains = list(/obj/item/soap/syndie,
 					/obj/item/soap/syndie)
-	cost = 750
+	cost = 250
 	containername = "suspicious soap crate"
-	contraband = TRUE
+	hidden = TRUE
 
 ///////////// Costumes
 
