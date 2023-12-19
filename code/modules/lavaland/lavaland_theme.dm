@@ -9,8 +9,8 @@
 /datum/lavaland_theme/New()
 	if(!primary_turf_type)
 		stack_trace("Turf type is `null` in `[type]` lavaland theme")
-	else if(!istype(primary_turf_type))
-		stack_trace("Wrong turf type [initial(primary_turf_type.type)] in `[type]` lavaland theme")
+	else if(!ispath(primary_turf_type))
+		stack_trace("Wrong turf type `[initial(primary_turf_type.type)]` in `[type]` lavaland theme")
 
 /**
  * This proc should do all theme specific thing.
