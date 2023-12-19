@@ -262,7 +262,6 @@
 				/obj/item/storage/box/syndie_kit/chameleon,
 				/obj/item/mod/control/pre_equipped/traitor,
 				/obj/item/bio_chip_implanter/storage,
-				/obj/item/mod/control/pre_equipped/traitor,
 				/obj/item/toy/syndicateballoon)
 			var/selected_item = pick(traitor_items)
 			T.visible_message("<span class='userdanger'>A suspicious item appears!</span>")
