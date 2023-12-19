@@ -46,7 +46,9 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	if(!winexists(owner, "browseroutput"))
 		spawn()
-			alert(owner.mob, "Updated chat window does not exist. If you are using a custom skin file please allow the game to update.")
+			winset(usr, null, "command=.options") // Open their options and messages window
+			alert(owner.mob, "Updated chat window does not exist. Please post the contents of your 'Options and Messages' window that just opened to the #coding_chat channel on the Paradise Station discord. Please also upload skin.dmf to the same channel from the following folder in your Documents: BYOND/Skins/exadv1/spacestation13, then reconnect.")
+			stack_trace("[owner] had no browseroutput window! [owner]'s byond version is [owner.byond_version].[owner.byond_build]")
 		broken = TRUE
 		return 0
 
@@ -195,7 +197,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 				CHECK_TICK
 			//Add autoban using the DB_ban_record function
 			//Uh oh this fucker has a history of playing on a banned account!!
-			if (found.len > 0)
+			if(found.len > 0)
 				message_admins("[key_name(src.owner)] <span class='boldannounce'>has a cookie from a banned account!</span> (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				log_admin("[key_name(src.owner)] has a cookie from a banned account! (Matched: [found["ckey"]], [found["ip"]], [found["compid"]])")
 				new /datum/cookie_record(owner.ckey, found["ckey"], found["ip"], found["compid"])
@@ -237,7 +239,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 // exporting it as text, and then parsing the base64 from that.
 // (This relies on byond automatically storing icons in savefiles as base64)
 /proc/icon2base64(icon/icon, iconKey = "misc")
-	if (!isicon(icon)) return 0
+	if(!isicon(icon)) return 0
 
 	GLOB.iconCache[iconKey] << icon
 	var/iconData = GLOB.iconCache.ExportText(iconKey)
@@ -246,11 +248,11 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 /proc/bicon(obj, use_class = 1)
 	var/class = use_class ? "class='icon misc'" : null
-	if (!obj)
+	if(!obj)
 		return
 
-	if (isicon(obj))
-		if (!GLOB.bicon_cache["\ref[obj]"]) // Doesn't exist yet, make it.
+	if(isicon(obj))
+		if(!GLOB.bicon_cache["\ref[obj]"]) // Doesn't exist yet, make it.
 			GLOB.bicon_cache["\ref[obj]"] = icon2base64(obj)
 
 		return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache["\ref[obj]"]]'>"
@@ -258,9 +260,9 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	// Either an atom or somebody fucked up and is gonna get a runtime, which I'm fine with.
 	var/atom/A = obj
 	var/key = "[istype(A.icon, /icon) ? "\ref[A.icon]" : A.icon]:[A.icon_state]"
-	if (!GLOB.bicon_cache[key]) // Doesn't exist, make it.
+	if(!GLOB.bicon_cache[key]) // Doesn't exist, make it.
 		var/icon/I = icon(A.icon, A.icon_state, SOUTH, 1)
-		if (ishuman(obj)) // Shitty workaround for a BYOND issue.
+		if(ishuman(obj)) // Shitty workaround for a BYOND issue.
 			var/icon/temp = I
 			I = icon()
 			I.Insert(temp, dir = SOUTH)

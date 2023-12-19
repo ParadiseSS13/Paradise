@@ -69,7 +69,7 @@
 				return TopicResponse("Invalid or missing [DMAPI5_EVENT_NOTIFICATION_PARAMETERS]!")
 
 			var/list/event_call = list(event_type)
-			if (event_type == TGS_EVENT_WATCHDOG_DETACH)
+			if(event_type == TGS_EVENT_WATCHDOG_DETACH)
 				detached = TRUE
 				chat_channels.Cut() // https://github.com/tgstation/tgstation-server/issues/1490
 
@@ -86,7 +86,7 @@
 
 		if(DMAPI5_TOPIC_COMMAND_CHANGE_PORT)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
-			if (!isnum(new_port) || !(new_port > 0))
+			if(!isnum(new_port) || !(new_port > 0))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]")
 
 			if(event_handler != null)
@@ -131,7 +131,7 @@
 
 		if(DMAPI5_TOPIC_COMMAND_SERVER_PORT_UPDATE)
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
-			if (!isnum(new_port) || !(new_port > 0))
+			if(!isnum(new_port) || !(new_port > 0))
 				return TopicResponse("Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]")
 
 			server_port = new_port
@@ -146,20 +146,20 @@
 			detached = FALSE
 			var/new_port = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_PORT]
 			var/error_message = null
-			if (new_port != null)
-				if (!isnum(new_port) || !(new_port > 0))
+			if(new_port != null)
+				if(!isnum(new_port) || !(new_port > 0))
 					error_message = "Invalid [DMAPI5_TOPIC_PARAMETER_NEW_PORT]]"
 				else
 					server_port = new_port
 
 			var/new_version_string = topic_parameters[DMAPI5_TOPIC_PARAMETER_NEW_SERVER_VERSION]
-			if (!istext(new_version_string))
+			if(!istext(new_version_string))
 				if(error_message != null)
 					error_message += ", "
 				error_message += "Invalid or missing [DMAPI5_TOPIC_PARAMETER_NEW_SERVER_VERSION]]"
 			else
 				var/datum/tgs_version/new_version = new(new_version_string)
-				if (event_handler)
+				if(event_handler)
 					event_handler.HandleEvent(TGS_EVENT_WATCHDOG_REATTACH, new_version)
 
 				version = new_version

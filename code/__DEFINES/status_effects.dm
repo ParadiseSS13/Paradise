@@ -183,6 +183,12 @@
 /// This status effect allows a mob to be revived with a defibrillator.
 #define STATUS_EFFECT_REVIVABLE /datum/status_effect/limited_bonus/revivable
 
+/// Status effects for different actions
+#define STATUS_EFFECT_REMOVE_CUFFS /datum/status_effect/action_status_effect/remove_handcuffs
+#define STATUS_EFFECT_BREAK_CUFFS /datum/status_effect/action_status_effect/break_handcuffs
+#define STATUS_EFFECT_REMOVE_MUZZLE /datum/status_effect/action_status_effect/remove_muzzle
+#define STATUS_EFFECT_UNBUCKLE /datum/status_effect/action_status_effect/unbuckle
+
 //////////////////////////
 // Mind batter variants //
 //////////////////////////

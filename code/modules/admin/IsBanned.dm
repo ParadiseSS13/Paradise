@@ -21,7 +21,7 @@
 	var/ckey = ckey(key)
 
 	var/client/C = GLOB.directory[ckey]
-	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
+	if(C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
 		return //don't recheck connected clients.
 
 	if((ckey in GLOB.admin_datums) || (ckey in GLOB.de_admins))
