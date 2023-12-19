@@ -60,19 +60,28 @@ STI KALY - blind
 		if(prob(chance) && !isplasmaman(H))
 			if(!istype(H.head, /obj/item/clothing/head/wizard))
 				if(!H.unEquip(H.head))
-					handle_modsuit(H)
+					if(istype(H.head, /obj/item/clothing/head/mod))
+						handle_modsuit(H)
+					else
+						qdel(H.head)
 				H.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(H), SLOT_HUD_HEAD)
 			return
 		if(prob(chance))
 			if(!istype(H.wear_suit, /obj/item/clothing/suit/wizrobe))
 				if(!H.unEquip(H.wear_suit))
-					handle_modsuit(H)
+					if(istype(H.wear_suit, /obj/item/clothing/suit/mod))
+						handle_modsuit(H)
+					else
+						qdel(H.wear_suit)
 				H.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(H), SLOT_HUD_OUTER_SUIT)
 			return
 		if(prob(chance))
 			if(!istype(H.shoes, /obj/item/clothing/shoes/sandal))
 				if(!H.unEquip(H.shoes))
-					handle_modsuit(H)
+					if(istype(H.shoes, /obj/item/clothing/shoes/mod))
+						handle_modsuit(H)
+					else
+						qdel(H.shoes)
 				H.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(H), SLOT_HUD_SHOES)
 			return
 	else
