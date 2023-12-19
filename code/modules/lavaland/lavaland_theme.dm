@@ -4,7 +4,7 @@
 	/// Typepath of turf the `/turf/simulated/floor/lava/mapping_lava` will be changed to on Late Initialization
 	var/turf/simulated/floor/primary_turf_type
 	/// Icon state of planet present on background of station Z-level
-	var/planet_icon_state = "planet_lava"
+	var/planet_icon_state
 
 /datum/lavaland_theme/New()
 	if(!primary_turf_type)
