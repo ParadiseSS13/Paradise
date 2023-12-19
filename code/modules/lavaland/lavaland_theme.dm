@@ -44,7 +44,7 @@
 /datum/lavaland_theme/chasm/setup()
 	spawn_rivers(
 		level_name_to_num(MINING),
-	 	nodes = 6,
+		nodes = 6,
 		turf_type = /turf/simulated/floor/lava/mapping_lava,
 		whitelist_area = /area/lavaland/surface/outdoors,
 		min_x = 50,
