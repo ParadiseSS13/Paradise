@@ -360,7 +360,7 @@
 		target = C
 		oldtarget_name = C.name
 		speak("Level [threatlevel] infraction alert!")
-		playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, 0)
+		playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
 		visible_message("<b>[src]</b> points at [C.name]!")
 		mode = BOT_HUNT
 		INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
