@@ -1691,6 +1691,25 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(exposed_temperature > (T0C + heat_resistance))
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
+/obj/machinery/door/airlock/wrench_act(mob/living/user, obj/item/tool)
+	if(!locked)
+		return
+	if(!panel_open)
+		to_chat(user, "<span class='notice'>You do not have acesss to [src] bolts, open the panel first!</span>")
+		return
+	if(security_level != AIRLOCK_SECURITY_NONE)
+		to_chat(user, "<span class='notice'>You do not have acesss to [src] bolts, remove the reinforcements first!</span>")
+		return
+
+	if(istype(tool, /obj/item/wrench/bolter))
+		user.visible_message("<span class='alert'>[user] has stuck a wrench into [src] and is struggling to raise the bolts!.</span>", "<span class='alert'>You struggle to raise the bolts of [src].</span>")
+		if(!do_after(user, 5 SECONDS, target = src))
+			return
+		locked = FALSE
+		playsound(src,boltUp, 30, 0, 3)
+		update_icon()
+	return
+
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING
 #undef AIRLOCK_OPEN
