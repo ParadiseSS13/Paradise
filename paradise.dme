@@ -1131,6 +1131,7 @@
 #include "code\game\objects\items\weapons\implants\implant_krav_maga.dm"
 #include "code\game\objects\items\weapons\implants\implant_mindshield.dm"
 #include "code\game\objects\items\weapons\implants\implant_sad_trombone.dm"
+#include "code\game\objects\items\weapons\implants\implant_shock.dm"
 #include "code\game\objects\items\weapons\implants\implant_stealth.dm"
 #include "code\game\objects\items\weapons\implants\implant_storage.dm"
 #include "code\game\objects\items\weapons\implants\implant_supercharge.dm"
