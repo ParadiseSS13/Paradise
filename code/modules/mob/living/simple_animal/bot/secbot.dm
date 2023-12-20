@@ -43,8 +43,8 @@
 	var/played_sound_this_hunt = FALSE // used to make beepsky beep when it lost its target
 
 /mob/living/simple_animal/bot/secbot/Initialize(mapload)
-	baton = new(src)
 	. = ..()
+	baton = new(src)
 
 /mob/living/simple_animal/bot/secbot/Destroy()
 	QDEL_NULL(baton)
