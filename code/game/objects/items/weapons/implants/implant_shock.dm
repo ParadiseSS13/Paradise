@@ -5,7 +5,7 @@
 	item_color = "r"
 	origin_tech = "combat=5;magnets=3;biotech=4;syndicate=2"
 	implant_data = /datum/implant_fluff/shock
-	implant_state = "implant-syndicate" //
+	implant_state = "implant-syndicate"
 	var/enabled = TRUE
 	var/old_mclick_override
 	var/datum/middleClickOverride/shock_implant/mclick_override = new /datum/middleClickOverride/shock_implant
