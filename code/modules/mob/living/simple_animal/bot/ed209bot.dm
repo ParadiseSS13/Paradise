@@ -48,8 +48,8 @@
 	var/currently_cuffing = FALSE // TRUE if we're cuffing someone right now
 
 /mob/living/simple_animal/bot/ed209/Initialize(mapload, created_name, created_lasercolor)
-	baton = new(src)
 	. = ..()
+	baton = new(src)
 	if(created_name)
 		name = created_name
 	if(created_lasercolor)
