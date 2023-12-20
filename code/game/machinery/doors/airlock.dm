@@ -1702,11 +1702,11 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		return
 
 	if(istype(tool, /obj/item/wrench/bolter))
-		user.visible_message("<span class='alert'>[user] has stuck a wrench into [src] and is struggling to raise the bolts!.</span>", "<span class='alert'>You struggle to raise the bolts of [src].</span>")
+		user.visible_message("<span class='alert'>[user] has stuck a wrench into [src] and is struggling to raise the bolts!</span>", "<span class='alert'>You struggle to raise the bolts of [src].</span>")
 		if(!do_after(user, 5 SECONDS, target = src))
 			return
 		locked = FALSE
-		playsound(src,boltUp, 30, 0, 3)
+		playsound(src, boltUp, 30, 0, 3)
 		update_icon()
 	return
 
