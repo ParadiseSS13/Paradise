@@ -964,84 +964,47 @@
 	desc = "A stylish choice for the workers of the hydroponics lab."
 	icon_state = "bomberhydro"
 	item_state = "bomberhydro"
-	ignore_suitadjust = FALSE
 	allowed = list(/obj/item/reagent_containers/spray, /obj/item/plant_analyzer, /obj/item/seeds, /obj/item/reagent_containers/glass/bottle, /obj/item/hatchet, /obj/item/storage/bag/plants)
-	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
-	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	actions_types = list(/datum/action/item_action/zipper)
-	adjust_flavour = "unzip"
 
 /obj/item/clothing/suit/jacket/medbomber
 	name = "medical bomber jacket"
 	desc = "A stain-resistant and stylish option for any member of the medical department."
 	icon_state = "bombermed"
 	item_state = "bombermed"
-	ignore_suitadjust = FALSE
 	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 40)
-	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
-	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	actions_types = list(/datum/action/item_action/zipper)
-	adjust_flavour = "unzip"
 
 /obj/item/clothing/suit/jacket/chembomber
 	name = "chemistry bomber jacket"
 	desc = "An exclusive and stylish variant of the medical bomber, for chemists only."
 	icon_state = "bomberchem"
 	item_state = "bomberchem"
-	ignore_suitadjust = FALSE
 	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 40)
-	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
-	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	actions_types = list(/datum/action/item_action/zipper)
-	adjust_flavour = "unzip"
 
 /obj/item/clothing/suit/jacket/coronerbomber
 	name = "coroner's bomber jacket"
 	desc = "An extremely exclusive and stylish jacket. Coroner's use only!"
 	icon_state = "bombercoroner"
 	item_state = "bombercoroner"
-	ignore_suitadjust = FALSE
-	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
+	allowed = list(/obj/item/analyzer, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, RAD = 0, FIRE = 0, ACID = 40)
-	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
-	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	actions_types = list(/datum/action/item_action/zipper)
-	adjust_flavour = "unzip"
-
 
 /obj/item/clothing/suit/jacket/scibomber
 	name = "science bomber jacket"
 	desc = "A stylish and slightly bomb-resistant jacket for warmth within the sterile labs."
 	icon_state = "bombersci"
 	item_state = "bombersci"
-	ignore_suitadjust = FALSE
-	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
+	allowed = list(/obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 0)
-	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
-	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	actions_types = list(/datum/action/item_action/zipper)
-	adjust_flavour = "unzip"
 
 /obj/item/clothing/suit/jacket/robobomber
 	name = "robotics bomber jacket"
 	desc = "A stylish jacket to warm you up after handling cold robotic limbs."
 	icon_state = "bomberrobo"
 	item_state = "bomberrobo"
-	ignore_suitadjust = FALSE
-	allowed = list(/obj/item/robotanalyzer, /obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
+	allowed = list(/obj/item/robotanalyzer, /obj/item/analyzer, /obj/item/stack/medical, /obj/item/dnainjector, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/syringe, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/healthanalyzer,/obj/item/flashlight/pen, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/storage/pill_bottle, /obj/item/paper, /obj/item/melee/classic_baton/telescopic)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, RAD = 0, FIRE = 0, ACID = 0)
-	body_parts_covered = UPPER_TORSO | LOWER_TORSO | ARMS
-	cold_protection = UPPER_TORSO | LOWER_TORSO | ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
-	actions_types = list(/datum/action/item_action/zipper)
-	adjust_flavour = "unzip"
 
 /obj/item/clothing/suit/jacket/leather
 	name = "leather jacket"
