@@ -4,8 +4,6 @@
 // crit percent
 #define MALF_AI_ROLL_CRIT_CHANCE 5
 
-GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
-
 //The malf AI action subtype. All malf actions are subtypes of this.
 /datum/action/innate/ai
 	name = "AI Action"
@@ -343,7 +341,7 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 			turret.health += 30
 			turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
-	GLOB.turrets_upgraded = TRUE
+	AI.turrets_upgraded = TRUE
 
 //Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.
 /datum/AI_Module/lockdown
@@ -658,13 +656,18 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 	if(!owner_AI.can_place_turret(src))
 		return
 	active = TRUE
-	if(alert(owner, "Are you sure you want to place a turret here? Deployment will take a few seconds to complete, in which the turret will be vulnerable.", "Are you sure?", "No", "Yes") == "No")
+	var/response = alert(owner, "Are you sure you want to place a turret here? Deployment will take a few seconds to complete, in which the turret will be vulnerable.", "Are you sure?", "No", "Yes")
+	if(!response || response == "No")
 		active = FALSE
 		return
 	if(!owner_AI.can_place_turret(src))
 		active = FALSE
 		return
+	deploy_turret()
+	active = FALSE
 
+
+/datum/action/innate/ai/place_turret/proc/deploy_turret()
 	var/turf/T = get_turf(owner_AI.eyeobj)
 
 	//Handles the turret construction and configuration
@@ -684,7 +687,7 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 	turret.invisibility = 100
 
 	//If turrets are already upgraded, beef it up
-	if(GLOB.turrets_upgraded)
+	if(owner_AI.turrets_upgraded)
 		turret.health += 30
 		turret.eprojectile = /obj/item/projectile/beam/laser/ai_turret/heavylaser //Big gun
 		turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
@@ -698,7 +701,6 @@ GLOBAL_VAR(turrets_upgraded) //If the turrets are upgraded
 		playsound(T, 'sound/items/deconstruct.ogg', 100, TRUE)
 		to_chat(owner, "<span class='notice'>Turret deployed.</span>")
 		adjust_uses(-1)
-		active = FALSE
 
 /mob/living/silicon/ai/proc/can_place_turret(datum/action/innate/ai/place_turret/action)
 	if(!eyeobj || !isturf(eyeobj.loc) || incapacitated() || !action)
