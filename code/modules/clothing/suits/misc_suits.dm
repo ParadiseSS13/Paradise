@@ -878,7 +878,7 @@
 
 /obj/item/clothing/suit/jacket/secbomber
 	name = "security bomber jacket"
-	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with the NT Security crest on the left breast. Looks rugged."
+	desc = "A stylish and worn-in armoured black bomber jacket emblazoned with a red stripe across the left. Looks rugged."
 	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "bombersec"
 	item_state = "bombersec"
