@@ -56,7 +56,6 @@
 	. = TRUE
 	if(!default_unfasten_wrench(user, I, 0))
 		return
-	to_chat(user, "<span class='notice'>You [anchored ? "tighten" : "loosen"] [src]'s wheels.</span>")
 	if (!anchored)
 		turn_on_or_off(FALSE)
 
