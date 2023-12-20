@@ -56,7 +56,7 @@
 	. = TRUE
 	if(!default_unfasten_wrench(user, I, 0))
 		return
-	if (!anchored)
+	if(!anchored)
 		turn_on_or_off(FALSE)
 
 /obj/machinery/snow_machine/process()
