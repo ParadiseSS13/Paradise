@@ -42,14 +42,16 @@
 	usr.loc.visible_message("<span class='notice'>[user] waves [user.p_their()] hand and summons \a [newObject.name]</span>")
 	..()
 
-/datum/middleClickOverride/power_gloves
+/datum/middleClickOverride/shock_implant
 
-/datum/middleClickOverride/power_gloves/onClick(atom/A, mob/living/carbon/human/user)
+/datum/middleClickOverride/shock_implant/onClick(atom/A, mob/living/carbon/human/user)
 	if(A == user || user.a_intent == INTENT_HELP || user.a_intent == INTENT_GRAB)
 		return FALSE
 	if(user.incapacitated())
 		return FALSE
-	var/obj/item/clothing/gloves/color/yellow/power/P = user.gloves
+	var/obj/item/implant/shock/P = locate() in user
+	if(!P)
+		return
 	if(world.time < P.last_shocked + P.shock_delay)
 		to_chat(user, "<span class='warning'>The gloves are still recharging.</span>")
 		return FALSE
@@ -75,13 +77,13 @@
 			var/mob/living/L = target_atom
 			var/powergrid = C.powernet.available_power //We want avalible power, so the station being conservative doesn't mess with glove / dark bundle users
 			if(user.a_intent == INTENT_DISARM)
-				add_attack_logs(user, L, "shocked with power gloves.")
+				add_attack_logs(user, L, "shocked with power bio-chip.")
 				L.adjustStaminaLoss(60)
 				L.Jitter(10 SECONDS)
 				var/atom/throw_target = get_edge_target_turf(user, get_dir(user, get_step_away(L, user)))
 				L.throw_at(throw_target, powergrid / 100000, powergrid / 100000) //100 kW in grid throws 1 tile, 200 throws 2, etc.
 			else
-				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power gloves")
+				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power bio-chip")
 				if(P.unlimited_power)
 					L.electrocute_act(1000, P, flags = SHOCK_NOGLOVES) //Just kill them
 				else
