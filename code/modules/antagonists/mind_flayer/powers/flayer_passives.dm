@@ -1,6 +1,7 @@
 // This file contains all of the mindflayer passives
 
 /datum/mindflayer_passive
+	var/name = "default dan"
 	///The text we want to show the player in the shop
 	var/purchase_text = "Oopsie daisies! No purchase text on this ability!"
 	///The text shown to the player character on upgrade
@@ -52,6 +53,7 @@
 
 //SELF-BUFF PASSIVES
 /datum/mindflayer_passive/armored_plating
+	name = "Armored Plating"
 	purchase_text = "Increase your natural armor."
 	upgrade_text = "The swarm adds more layers of armored nanites, strengthening the plating even more."
 	gain_text = "You feel your plating being reinforced by the swarm."
@@ -71,6 +73,7 @@
 	owner.dna.species.armor -= armor_value
 
 /datum/mindflayer_passive/fluid_feet
+	name = "Fluid Feet"
 	purchase_text = "Mute your footsteps, then upgrade to become mostly unslippable."
 	upgrade_text = "Your feet become even more malleable, seemingly melting into the floor; you feel oddly stable."
 	gain_text = "Your limbs start slowly melting into the floor."
@@ -90,6 +93,7 @@
 	owner.flags &= ~NOSLIP
 
 /datum/mindflayer_passive/new_crit
+	name = "NEW CRIT WHOOPEE!"
 	purchase_text = "I give up, IPCs are based now"
 	upgrade_text = "Add this later"
 	gain_text = "Ayyyy lmao"
@@ -101,6 +105,7 @@
 	owner.dna.species.dies_at_threshold = FALSE
 
 /datum/mindflayer_passive/badass
+	name = "Badassery"
 	purchase_text = "Make yourself more badass, allowing you to dual wield guns with no penalty, alongside other benefits."
 	gain_text = "Engaging explosion apathy protocols."
 	power_type = FLAYER_PURCHASABLE_POWER
@@ -115,6 +120,7 @@
 	REMOVE_TRAIT(owner, TRAIT_BADASS, src)
 
 /datum/mindflayer_passive/emp_resist
+	name = "Internal Faraday Cage"
 	purchase_text = "Resist EMP effects, level 2 negates them entirely."
 	upgrade_text = "Faraday cage at max efficiency."
 	gain_text = "Faraday cage operational."
@@ -134,6 +140,7 @@
 	REMOVE_TRAIT(owner, TRAIT_EMP_RESIST, src)
 
 /datum/mindflayer_passive/processed/regen
+	name = "Regeneration"
 	purchase_text = "Regain HP passively, level scales the amount healed."
 	upgrade_text = "Our regeneration accelerates."
 	gain_text = "Diverting resources to repairing chassis."
