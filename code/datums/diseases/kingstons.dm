@@ -105,5 +105,5 @@
 				"<span class='danger'>[twisted] scratches at their skin!</span>",
 				"<span class='userdanger'>You scratch your skin to try not to itch!</span>"
 			)
-			twisted.adjustBruteLoss(-5)
+			twisted.adjustBruteLoss(5)
 			twisted.adjustStaminaLoss(5)
