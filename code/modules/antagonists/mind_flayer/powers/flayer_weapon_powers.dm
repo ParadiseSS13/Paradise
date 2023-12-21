@@ -53,7 +53,7 @@
 
 /obj/effect/proc_holder/spell/flayer/self/weapon/flak_gun //Addressing the lack of FTL references in this game
 	name = "Pneumatic Flak Gun"
-	desc = "By ejecting sharpened nanites at high speeds, we can make "
+	desc = "WIP"
 	power_type = FLAYER_PURCHASABLE_POWER
 	weapon_type = /obj/item/pneumatic_cannon/flayer
 	category = CATEGORY_DESTROYER
