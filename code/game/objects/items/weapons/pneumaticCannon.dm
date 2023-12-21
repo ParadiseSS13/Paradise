@@ -216,7 +216,8 @@
 	var/target_range = get_dist_euclidian(user, target)
 	var/left_target = get_ranged_target_turf_direct(user.loc, target, target_range, -45) //-45 degrees
 	var/right_target = get_ranged_target_turf_direct(user.loc, target, target_range, 45) //45 degrees
-	var/list/line = get_line(left_target, right_target)
+	var/list/line = get_line(left_target, right_target) //the COOOOOOOOONE!
+	playsound(loc, 'sound/weapons/resonator_fire.ogg', 50, TRUE)
 	for(var/obj/item/loaded_item in loaded_items)
 		var/turf_to_throw_at = pick(line)
 		loaded_items.Remove(loaded_item)
