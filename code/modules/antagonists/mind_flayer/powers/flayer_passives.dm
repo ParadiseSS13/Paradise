@@ -141,5 +141,7 @@
 	max_level = 3
 
 /datum/mindflayer_passive/processed/regen/process()
-	owner.heal_overall_damage(level, level) //Heals 1 brute/burn for each level of the passive
-
+	if(ishuman(owner))
+		var/mob/living/carbon/human/flayer = owner
+		flayer.adjustBruteLoss(-level, robotic = TRUE)
+		flayer.adjustFireLoss(-level, robotic = TRUE)

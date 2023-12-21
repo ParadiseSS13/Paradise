@@ -19,7 +19,7 @@
 	if(!weapon_ref)
 		weapon_ref = new weapon_type(user, src)
 	user.put_in_hands(weapon_ref)
-	playsound(get_turf(user), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(user), 'sound/mecha/mechmove03.ogg', 50, TRUE)
 	RegisterSignal(user, COMSIG_MOB_WILLINGLY_DROP, PROC_REF(retract), user)
 	RegisterSignal(user, COMSIG_MOB_WEAPON_APPEARS, PROC_REF(retract), user)
 	return weapon_ref
@@ -32,7 +32,7 @@
 	weapon_ref.forceMove(src)
 	owner.update_inv_l_hand()
 	owner.update_inv_r_hand()
-	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
+	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, TRUE)
 
 /**
 	START OF INDIVIDUAL WEAPONS
