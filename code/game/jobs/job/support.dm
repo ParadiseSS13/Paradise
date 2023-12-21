@@ -128,8 +128,8 @@
 		S.ToggleHood()
 
 /datum/outfit/job/miner/equipped/hardsuit
-	name = "Shaft Miner (Equipment + Hardsuit)"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	name = "Shaft Miner (Equipment + MODsuit)"
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	mask = /obj/item/clothing/mask/breath
 
 

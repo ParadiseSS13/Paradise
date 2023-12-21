@@ -912,8 +912,9 @@
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
 /datum/outfit/admin/hardsuit
-	name = "Hardsuit - Generic"
-	back = /obj/item/tank/jetpack/oxygen
+	name = "MODsuit - Generic"
+	back = /obj/item/mod/control/pre_equipped/standard
+	suit_store = /obj/item/tank/internals/oxygen
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
 	id = /obj/item/card/id
@@ -923,31 +924,30 @@
 	if(visualsOnly)
 		return
 
-	if(istype(H.back, /obj/item/tank/jetpack))
-		var/obj/item/tank/jetpack/J = H.back
-		J.turn_on()
+	if(istype(H.back, /obj/item/tank/internals/oxygen))
+		var/obj/item/tank/internals/oxygen/J = H.back
 		J.toggle_internals(H)
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))
-		apply_to_card(I, H, get_all_accesses(), "Hardsuit Tester")
+		apply_to_card(I, H, get_all_accesses(), "MODsuit Tester")
 
 /datum/outfit/admin/hardsuit/engineer
-	name = "Hardsuit - Engineer"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+	name = "MODsuit - Engineer"
+	back = /obj/item/mod/control/pre_equipped/engineering
 
 /datum/outfit/admin/hardsuit/ce
-	name = "Hardsuit - CE"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/elite
+	name = "MODsuit - CE"
+	back = /obj/item/mod/control/pre_equipped/advanced
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
 /datum/outfit/admin/hardsuit/mining
-	name = "Hardsuit - Mining"
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	name = "MODsuit - Mining"
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 
 /datum/outfit/admin/hardsuit/syndi
-	name = "Hardsuit - Syndi"
-	suit = /obj/item/clothing/suit/space/hardsuit/syndi
+	name = "MODsuit - Syndi"
+	back = /obj/item/mod/control/pre_equipped/traitor
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
 /datum/outfit/admin/hardsuit/wizard
@@ -956,13 +956,12 @@
 	shoes = /obj/item/clothing/shoes/magboots/wizard
 
 /datum/outfit/admin/hardsuit/medical
-	name = "Hardsuit - Medical"
-	suit = /obj/item/clothing/suit/space/hardsuit/medical
+	name = "MODsuit - Medical"
+	back = /obj/item/mod/control/pre_equipped/medical
 
 /datum/outfit/admin/hardsuit/atmos
-	name = "Hardsuit - Atmos"
-	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
-
+	name = "MODsuit - Atmos"
+	back = /obj/item/mod/control/pre_equipped/atmospheric
 
 /datum/outfit/admin/tournament
 	name = "Tournament Generic"
