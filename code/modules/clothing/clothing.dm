@@ -524,9 +524,6 @@
 	icon_state = "[icon_state]_opentoe"
 	item_state = "[item_state]_opentoe"
 
-/obj/item/proc/negates_gravity()
-	return
-
 //Suit
 /obj/item/clothing/suit
 	name = "suit"

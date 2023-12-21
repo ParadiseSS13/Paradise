@@ -295,7 +295,7 @@
 // HONK Rifle //
 /obj/item/gun/energy/clown
 	name = "\improper HONK rifle"
-	desc = "Clown Planet's finest."
+	desc = "Clown University's finest."
 	icon_state = "honkrifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
