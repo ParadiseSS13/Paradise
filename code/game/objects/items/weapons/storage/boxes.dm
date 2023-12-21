@@ -138,7 +138,7 @@
 
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
-	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
+	desc = "<b><font color='red'>WARNING:</font></b> <i>Keep out of reach of children</i>."
 	icon_state = "mousetraps_box"
 
 /obj/item/storage/box/mousetraps/populate_contents()
