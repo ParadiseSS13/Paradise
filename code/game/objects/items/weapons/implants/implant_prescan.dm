@@ -5,6 +5,7 @@
 	origin_tech = "materials=3;combat=5;syndicate=2"
 	activated = FALSE
 	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY
+	implant_state = "implant-alien"
 	var/obj/machinery/grey_autocloner/linked
 	var/datum/dna2/record/our_record
 

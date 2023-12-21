@@ -14,7 +14,7 @@
 /obj/machinery/grey_autocloner/attackby(obj/item/implanter/implant, mob/user, params)
 	if(!istype(implant) || !(istype(implant.imp, /obj/item/implant/grey_autocloner)))
 		return ..()
-	var/obj/item/implant/grey_autocloner/autoclone= implant.imp
+	var/obj/item/implant/grey_autocloner/autoclone = implant.imp
 	autoclone.linked = src
 	atom_say("Link confirmed!")
 
@@ -73,7 +73,7 @@
 	H.dna.UpdateSE()
 	H.dna.UpdateUI()
 
-	H.sync_organ_dna(1) // It's literally a fresh body as you can get, so all organs properly belong to it
+	H.sync_organ_dna(TRUE) // It's literally a fresh body as you can get, so all organs properly belong to it
 	H.UpdateAppearance()
 
 	H.Paralyse(8 SECONDS)
@@ -96,7 +96,7 @@
 			messy_explode()
 			return
 
-	else if((occupant) && (occupant.loc == src))
+	else if(occupant?.loc == src)
 		occupant.Paralyse(8 SECONDS)
 		use_power(15000) //Hope the room has power!
 		for(var/bt in brine_types)
@@ -139,7 +139,4 @@
 	messy_explode()
 
 /obj/machinery/grey_autocloner/update_icon_state()
-	if(occupant)
-		icon_state = "experiment"
-	else
-		icon_state = "experiment-open"
+	icon_state = occupant ? "experiment" : "experiment-open"
