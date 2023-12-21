@@ -199,6 +199,8 @@
 #define INVISIBILITY_ABSTRACT 101
 #define UNHEALING_EAR_DAMAGE 100
 
+#define DIRECTION_LOCK_SLOWDOWN 3
+
 //Human sub-species
 #define isabductor(A) (is_species(A, /datum/species/abductor))
 #define isgolem(A) (is_species(A, /datum/species/golem))
@@ -247,7 +249,7 @@
 
 // For the tcomms monitor
 #define ispathhuman(A)		(ispath(A, /mob/living/carbon/human))
-#define ispathbrain(A)		(ispath(A, /mob/living/carbon/brain))
+#define ispathbrain(A)		(ispath(A, /mob/living/brain))
 #define ispathslime(A)		(ispath(A, /mob/living/simple_animal/slime))
 #define ispathbot(A)			(ispath(A, /mob/living/simple_animal/bot))
 #define ispathsilicon(A)	(ispath(A, /mob/living/silicon))

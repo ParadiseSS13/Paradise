@@ -171,10 +171,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	category = "Highly Visible and Dangerous Weapons"
 
 /datum/uplink_item/dangerous/pistol
-	name = "FK-69 Pistol Kit"
+	name = "FK-69 Stechkin Pistol"
 	reference = "SPI"
-	desc = "A box containing a small, easily concealable handgun and two eight-round magazines chambered in 10mm auto rounds. Compatible with suppressors."
-	item = /obj/item/storage/box/syndie_kit/stechkin
+	desc = "A small, easily concealable handgun that uses 10mm auto rounds in 8-round magazines and is compatible with suppressors."
+	item = /obj/item/gun/projectile/automatic/pistol
 	cost = 20
 
 /datum/uplink_item/dangerous/revolver
@@ -231,6 +231,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/batterer
 	cost = 25
 
+/datum/uplink_item/dangerous/porta_turret
+	name = "Portable Turret"
+	desc = "A pop-up syndicate turret, shoots anyone who didn't prime the grenade. The turret cannot be moved after it's deployed."
+	reference = "MIS"
+	item = /obj/item/grenade/turret
+	cost = 20
+
 // Ammunition
 
 /datum/uplink_item/ammo
@@ -258,7 +265,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with incendiary rounds which ignite the target."
 	reference = "10MMFIRE"
 	item = /obj/item/ammo_box/magazine/m10mm/fire
-	cost = 6
+	cost = 9
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/pistolhp
@@ -266,7 +273,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "An additional 8-round 10mm magazine for use in the syndicate pistol, loaded with rounds which are more damaging but ineffective against armour."
 	reference = "10MMHP"
 	item = /obj/item/ammo_box/magazine/m10mm/hp
-	cost = 6
+	cost = 7
 	surplus = 0 // Miserable
 
 /datum/uplink_item/ammo/revolver
@@ -365,7 +372,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "Just add water to make your very own hostile to everything space carp. It looks just like a plushie. The first person to squeeze it will be registered as its owner, who it will not attack. If no owner is registered, it'll just attack everyone."
 	reference = "DSC"
 	item = /obj/item/toy/plushie/carpplushie/dehy_carp
-	cost = 5
+	cost = 4
 
 
 // GRENADES AND EXPLOSIVES

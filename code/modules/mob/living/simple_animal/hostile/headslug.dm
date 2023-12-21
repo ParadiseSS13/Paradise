@@ -1,5 +1,5 @@
-#define EGG_INCUBATION_DEAD_TIME 120
-#define EGG_INCUBATION_LIVING_TIME 200
+#define EGG_INCUBATION_DEAD_CYCLE 60
+#define EGG_INCUBATION_LIVING_CYCLE 120
 /mob/living/simple_animal/hostile/headslug
 	name = "headslug"
 	desc = "Absolutely not de-beaked or harmless. Keep away from corpses."
@@ -7,11 +7,12 @@
 	icon_living = "headslug"
 	icon_dead = "headslug_dead"
 	icon = 'icons/mob/mob.dmi'
-	health = 50
-	maxHealth = 50
-	melee_damage_lower = 5
-	melee_damage_upper = 5
-	attacktext = "chomps"
+	health = 60
+	maxHealth = 60
+	melee_damage_lower = 30
+	melee_damage_upper = 35
+	melee_damage_type = STAMINA
+	attacktext = "gnaws"
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
 	robust_searching = TRUE
@@ -21,7 +22,7 @@
 	speak_emote = list("squeaks")
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
-	ventcrawler = 2
+	ventcrawler = VENTCRAWLER_ALWAYS
 	a_intent = INTENT_HARM
 	speed = 0.3
 	can_hide = TRUE
@@ -65,14 +66,15 @@
 /obj/item/organ/internal/body_egg/changeling_egg/egg_process()
 	// Changeling eggs grow in everyone
 	time++
-	if(time >= 30 && prob(30))
+	if(time >= 30 && prob(40))
 		owner.bleed(5)
-	if(time >= 60 && prob(5))
+	if(time >= 60 && prob(10))
 		to_chat(owner, pick("<span class='danger'>We feel great!</span>", "<span class='danger'>Something hurts for a moment but it's gone now.</span>", "<span class='danger'>You feel like you should go to a dark place.</span>", "<span class='danger'>You feel really tired.</span>"))
-	if(time >= 90 && prob(5))
+		owner.adjustToxLoss(30)
+	if(time >= 90 && prob(15))
 		to_chat(owner, pick("<span class='danger'>Something hurts.</span>", "<span class='danger'>Someone is thinking, but it's not you.</span>", "<span class='danger'>You feel at peace.</span>", "<span class='danger'>Close your eyes.</span>"))
-		owner.adjustToxLoss(5)
-	if(time >= EGG_INCUBATION_DEAD_TIME && owner.stat == DEAD || time >= EGG_INCUBATION_LIVING_TIME)
+		owner.adjustStaminaLoss(50)
+	if(time >= EGG_INCUBATION_DEAD_CYCLE && owner.stat == DEAD || time >= EGG_INCUBATION_LIVING_CYCLE)
 		Pop()
 		STOP_PROCESSING(SSobj, src)
 		qdel(src)
@@ -111,12 +113,12 @@
 	if(!ishuman(owner))
 		owner.gib()
 		return
-		
+
 	owner.apply_damage(300, BRUTE, BODY_ZONE_CHEST)
 	owner.bleed(BLOOD_VOLUME_NORMAL)
 	var/obj/item/organ/external/chest = owner.get_organ(BODY_ZONE_CHEST)
 	chest.fracture()
 	chest.disembowel()
 
-#undef EGG_INCUBATION_DEAD_TIME
-#undef EGG_INCUBATION_LIVING_TIME
+#undef EGG_INCUBATION_DEAD_CYCLE
+#undef EGG_INCUBATION_LIVING_CYCLE

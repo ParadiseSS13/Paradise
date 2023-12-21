@@ -1147,3 +1147,61 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/syndicate/pod/nuke_ship_interior
 	health = 100
+
+/obj/machinery/porta_turret/inflatable_turret
+	name = "Syndicate Pop-Up Turret"
+	desc = "Looks cheaply made on the defensive side but the gun barrel still shoots."
+	projectile = /obj/item/projectile/bullet/weakbullet3
+	eprojectile = /obj/item/projectile/bullet/weakbullet3
+	icon_state = "syndieturret0"
+	shot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	eshot_sound = 'sound/weapons/gunshots/gunshot_mg.ogg'
+	health = 50
+	syndicate = TRUE
+	installation = null
+	always_up = TRUE
+	requires_power = FALSE
+	power_state = NO_POWER_USE
+	has_cover = FALSE
+	raised = TRUE
+	scan_range = 9
+
+	faction = "syndicate"
+	emp_vulnerable = FALSE
+
+	lethal = TRUE
+	lethal_is_configurable = FALSE
+	targetting_is_configurable = FALSE
+	check_arrest = FALSE
+	check_records = FALSE
+	check_weapons = FALSE
+	check_access = FALSE
+	check_anomalies = TRUE
+	check_synth	= TRUE
+	ailock = TRUE
+	var/owner_uid
+	var/icon_state_initial = "syndieturret0"
+	var/icon_state_active = "syndieturret1"
+	var/icon_state_destroyed = "syndieturret2"
+
+/obj/machinery/porta_turret/inflatable_turret/assess_and_assign(atom/movable/AM, list/targets, list/secondarytargets)
+	if(AM.UID() == owner_uid)
+		return
+	. = ..()
+
+/obj/machinery/porta_turret/inflatable_turret/setup()
+	return
+
+/obj/machinery/porta_turret/inflatable_turret/update_icon_state()
+	if(stat & BROKEN)
+		icon_state = icon_state_destroyed
+	else if(enabled)
+		icon_state = icon_state_active
+	else
+		icon_state = icon_state_initial
+
+/obj/machinery/porta_turret/inflatable_turret/CanPass(atom/A)
+	return ((stat & BROKEN) || !isliving(A))
+
+/obj/machinery/porta_turret/inflatable_turret/CanPathfindPass(obj/item/card/id/ID, to_dir, atom/movable/caller, no_id = FALSE)
+	return ((stat & BROKEN) || !isliving(caller))

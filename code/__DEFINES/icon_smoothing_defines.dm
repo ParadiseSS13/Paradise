@@ -40,7 +40,7 @@ DEFINE_BITFIELD(smoothing_flags, list(
 
 #define SMOOTH_GROUP_TURF S_TURF(0)						///turf/simulated
 #define SMOOTH_GROUP_TURF_CHASM S_TURF(1)				///turf/simulated/chasm, /turf/simulated/floor/fakepit
-#define SMOOTH_GROUP_FLOOR_LAVA S_TURF(2)				///turf/simulated/lava/smooth
+#define SMOOTH_GROUP_FLOOR_LAVA S_TURF(2)				///turf/simulated/floor/lava
 #define SMOOTH_GROUP_FLOOR_TRANSPARENT_GLASS S_TURF(3)	///turf/simulated/transparent/glass
 
 #define SMOOTH_GROUP_FLOOR S_TURF(4)					///turf/simulated/floor
