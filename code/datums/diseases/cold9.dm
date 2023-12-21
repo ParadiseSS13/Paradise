@@ -27,4 +27,4 @@
 		to_chat(affected_mob, "<span class='danger'>Your throat feels sore.</span>")
 	if(prob(5 * stage_factor))
 		to_chat(affected_mob, "<span class='danger'>You feel stiff.</span>")
-		affected_mob.take_organ_damage(0, 1)
+		affected_mob.adjustFireLoss(1)
