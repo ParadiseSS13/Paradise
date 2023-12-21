@@ -6,21 +6,15 @@
 	anchored = TRUE
 	density = TRUE
 	var/mob/living/carbon/human/occupant
-	var/datum/gas_mixture/air_contents = new()
+	var/datum/gas_mixture/air_contents
 	var/list/brine_types = list("corazone", "perfluorodecalin", "epinephrine", "salglu_solution") //Taken from cloner, a bit of extra healing though they should be fully good.
 	var/datum/mind/clonemind
+	/// If the clone pod is cloning someone, attempting becomes true, so only one person can clone at a time. False otherwise.
 	var/attempting = FALSE
-
-/obj/machinery/grey_autocloner/attackby(obj/item/implanter/implant, mob/user, params)
-	if(!istype(implant) || !(istype(implant.imp, /obj/item/implant/grey_autocloner)))
-		return ..()
-	var/obj/item/implant/grey_autocloner/autoclone = implant.imp
-	autoclone.linked = src
-	atom_say("Link confirmed!")
 
 /obj/machinery/grey_autocloner/Initialize(mapload)
 	. = ..()
-
+	air_contents = new()
 	air_contents.oxygen = MOLES_O2STANDARD * 2
 	air_contents.nitrogen = MOLES_N2STANDARD
 	air_contents.temperature = T20C
@@ -29,6 +23,13 @@
 	occupant = null
 	clonemind = null
 	return ..()
+
+/obj/machinery/grey_autocloner/attackby(obj/item/implanter/implant, mob/user, params)
+	if(!istype(implant) || !(istype(implant.imp, /obj/item/implant/grey_autocloner)))
+		return ..()
+	var/obj/item/implant/grey_autocloner/autoclone = implant.imp
+	autoclone.linked = src
+	atom_say("Link confirmed!")
 
 /obj/machinery/grey_autocloner/proc/growclone(datum/dna2/record/R)
 	if(attempting || stat & (NOPOWER|BROKEN))
@@ -80,7 +81,6 @@
 
 	clonemind.transfer_to(H) //INSTANTLY INTO THE CLONE
 	H.ckey = R.ckey
-	update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 	to_chat(H, "<span class='notice'><b>Consciousness slowly creeps over you as your body regenerates.</b><br><i>So this is what cloning feels like?</i></span>")
 
 	update_icon()
@@ -102,18 +102,6 @@
 		for(var/bt in brine_types)
 			if(occupant.reagents.get_reagent_amount(bt) < 1)
 				occupant.reagents.add_reagent(bt, 1)
-
-/obj/machinery/grey_autocloner/proc/update_clone_antag(mob/living/carbon/human/H)
-	// Check to see if the clone's mind is an antagonist of any kind and handle them accordingly to make sure they get their spells, HUD/whatever else back.
-	if(H.mind in SSticker.mode.syndicates)
-		SSticker.mode.update_synd_icons_added()
-	if(H.mind in SSticker.mode.cult)
-		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
-		SSticker.mode.add_cult_actions(H.mind) // And all the actions
-		if(SSticker.mode.cult_risen)
-			SSticker.mode.rise(H)
-			if(SSticker.mode.cult_ascendant)
-				SSticker.mode.ascend(H)
 
 /obj/machinery/grey_autocloner/proc/finish_clone()
 	playsound(get_turf(src), 'sound/machines/ding.ogg', 50, TRUE)
