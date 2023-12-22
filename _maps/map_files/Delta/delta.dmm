@@ -36042,10 +36042,6 @@
 	pixel_x = -32
 	},
 /obj/machinery/light/small,
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 1;
-	autolink_id = "stationai_vent"
-	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -57982,27 +57978,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
-"dcp" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "stationai_door_ext";
-	locked = 1;
-	name = "Minisat Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/ai_transit_tube)
 "dcr" = (
 /obj/structure/cable{
 	d1 = 2;
@@ -72720,13 +72695,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/engineering/control)
 "dVS" = (
-/obj/machinery/access_button{
-	autolink_id = "stationai_btn_ext";
-	name = "exterior access button";
-	pixel_x = 20;
-	pixel_y = 20;
-	req_access_txt = "10;13"
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	d1 = 4;
@@ -74033,13 +74001,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/brig)
 "ejT" = (
-/obj/machinery/access_button{
-	autolink_id = "perma_btn_int";
-	name = "interior access button";
-	pixel_x = -20;
-	pixel_y = 20;
-	req_access_txt = "67"
-	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
@@ -75285,13 +75246,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "ffC" = (
-/obj/machinery/access_button{
-	autolink_id = "assolar_btn_int";
-	name = "interior access button";
-	pixel_x = 25;
-	pixel_y = -25;
-	req_access_txt = "10;13"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -75648,19 +75602,10 @@
 	},
 /area/station/maintenance/apmaint)
 "frh" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "assolar_door_int";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -75893,13 +75838,6 @@
 	},
 /area/station/security/brig)
 "fDS" = (
-/obj/machinery/access_button{
-	autolink_id = "stationai_btn_int";
-	name = "interior access button";
-	pixel_x = -20;
-	pixel_y = -20;
-	req_access_txt = "10;13"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -77299,19 +77237,6 @@
 /obj/effect/spawner/random_spawners/oil_maybe,
 /turf/simulated/floor/plating,
 /area/station/maintenance/apmaint)
-"gHC" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "apmaint2_door_int";
-	locked = 1;
-	name = "West Maintenance External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/port)
 "gHE" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/research,
@@ -79173,15 +79098,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/aft)
 "ihi" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "perma_door_int";
-	locked = 1;
-	name = "Perma Brig Exterior Access"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "ihK" = (
@@ -79834,21 +79751,6 @@
 	icon_state = "whiteblue"
 	},
 /area/station/medical/surgery/secondary)
-"iKT" = (
-/obj/machinery/access_button{
-	autolink_id = "fpsolar_btn_ext";
-	name = "exterior access button";
-	pixel_x = 25;
-	pixel_y = -25;
-	req_access_txt = "32"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
-/turf/space,
-/area/station/maintenance/auxsolarport)
 "iLv" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -80230,16 +80132,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
-"iYu" = (
-/obj/machinery/access_button{
-	autolink_id = "apmaint2_btn_ext";
-	name = "exterior access button";
-	pixel_x = 24;
-	pixel_y = 24
-	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/space/nearstation)
 "jaE" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Custodial Maintenance"
@@ -80581,14 +80473,6 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "jrB" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "perma_door_ext";
-	locked = 1;
-	name = "Perma Brig External Access"
-	},
-/obj/structure/sign/securearea{
-	pixel_x = 32
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -80597,8 +80481,6 @@
 	name = "Prison Lockdown Blast Doors";
 	opacity = 0
 	},
-/obj/effect/mapping_helpers/airlock/access/any/security/brig,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
 "jrC" = (
@@ -80906,15 +80788,6 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/hos)
 "jCQ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "fpsolar_door_int";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -80972,16 +80845,9 @@
 /turf/simulated/floor/wood,
 /area/station/medical/psych)
 "jEE" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "fpsolar_door_ext";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/construction,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w/engineer{
+	req_access_txt = 13
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarport)
@@ -81563,24 +81429,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/port)
-"kan" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "assolar_door_ext";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar)
 "kaO" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/security/glass,
@@ -81767,16 +81615,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
 "khZ" = (
-/obj/machinery/access_button{
-	autolink_id = "fssolar_btn_ext";
-	name = "exterior access button";
-	pixel_x = -25;
-	pixel_y = -25;
-	req_access_txt = "10;13"
+/obj/effect/spawner/airlock/e_to_w/engineer{
+	req_access_txt = 13
 	},
-/obj/structure/lattice/catwalk,
-/turf/space,
-/area/station/maintenance/auxsolarstarboard)
+/turf/simulated/wall,
+/area/station/engineering/ai_transit_tube)
 "kii" = (
 /obj/structure/rack,
 /obj/item/storage/box/rubbershot{
@@ -84063,17 +83906,8 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_x = 25;
-	req_access_txt = "63";
-	vent_link_id = "perma_vent";
-	ext_door_link_id = "perma_door_ext";
-	int_door_link_id = "perma_door_int";
-	ext_button_link_id = "perma_btn_ext";
-	int_button_link_id = "perma_btn_int"
-	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "perma_vent"
+/obj/structure/sign/securearea{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboard2)
@@ -85063,22 +84897,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
-"mVF" = (
-/obj/machinery/access_button{
-	autolink_id = "apsolar_btn_ext";
-	name = "exterior access button";
-	pixel_x = 25;
-	pixel_y = 25;
-	req_access_txt = "13"
-	},
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/turf/space,
-/area/station/maintenance/portsolar)
 "mWz" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -85658,15 +85476,12 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
 "noB" = (
-/obj/machinery/access_button{
-	autolink_id = "perma_btn_ext";
-	name = "exterior access button";
-	pixel_x = 20;
-	pixel_y = -20;
-	req_access_txt = "67"
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w/engineer{
+	req_access_txt = 13
 	},
-/turf/space,
-/area/space)
+/turf/simulated/floor/plating,
+/area/station/maintenance/portsolar)
 "noW" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/white,
@@ -86553,17 +86368,12 @@
 	},
 /area/station/science/test_chamber)
 "nXF" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "arrivalsn_door_ext"
-	},
-/obj/machinery/access_button{
-	autolink_id = "arrivalsn_btn_ext";
-	name = "exterior access button";
-	pixel_x = 24;
-	pixel_y = 4
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/w_to_e/engineer{
+	req_access_txt = 13
 	},
 /turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
+/area/station/maintenance/starboardsolar)
 "nYm" = (
 /obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
@@ -87382,19 +87192,6 @@
 /turf/simulated/floor/plating/airless,
 /area/station/maintenance/incinerator)
 "ozn" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "apsolar_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = -25;
-	req_access_txt = "13";
-	vent_link_id = "apsolar_vent";
-	ext_door_link_id = "apsolar_door_ext";
-	int_door_link_id = "apsolar_door_int";
-	int_button_link_id = "apsolar_btn_int";
-	ext_button_link_id = "apsolar_btn_ext"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -88904,13 +88701,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "pIC" = (
-/obj/machinery/access_button{
-	autolink_id = "fssolar_btn_int";
-	name = "interior access button";
-	pixel_x = 25;
-	pixel_y = 25;
-	req_access_txt = "13"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -89328,17 +89118,6 @@
 	},
 /area/station/science/toxins/mixing)
 "pUC" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	autolink_id = "arrivalsn_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_x = 25;
-	vent_link_id = "arrivalsn_vent";
-	ext_door_link_id = "arrivalsn_door_ext";
-	int_door_link_id = "arrivalsn_door_int";
-	ext_button_link_id = "arrivalsn_btn_ext";
-	int_button_link_id = "arrivalsn_btn_int"
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -89513,19 +89292,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/aisat)
 "qbz" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "apsolar_door_int";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/portsolar)
@@ -90116,19 +89886,6 @@
 	},
 /area/station/hallway/primary/central)
 "qFR" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	autolink_id = "assolar_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = 25;
-	req_access_txt = "13";
-	vent_link_id = "assolar_vent";
-	ext_door_link_id = "assolar_door_ext";
-	int_door_link_id = "assolar_door_int";
-	ext_button_link_id = "assolar_btn_ext";
-	int_button_link_id = "assolar_btn_int"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -91289,13 +91046,6 @@
 	icon_state = "darkred"
 	},
 /area/station/security/storage)
-"rtH" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "arrivalsn_door_int"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "rtU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/atmos/glass{
@@ -91623,6 +91373,9 @@
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'KEEP CLEAR OF DOCKING AREA'.";
 	name = "KEEP CLEAR: DOCKING AREA"
+	},
+/obj/effect/spawner/airlock/e_to_w/engineer{
+	req_access_txt = 13
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
@@ -91954,13 +91707,6 @@
 /turf/simulated/floor/plating,
 /area/station/command/office/rd)
 "rXy" = (
-/obj/machinery/access_button{
-	autolink_id = "apsolar_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = -25;
-	req_access_txt = "13"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -93470,19 +93216,6 @@
 	},
 /area/station/hallway/primary/central)
 "sVl" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "fpsolar_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = 25;
-	req_access_txt = "32";
-	vent_link_id = "fpsolar_vent";
-	ext_door_link_id = "fpsolar_door_ext";
-	int_door_link_id = "fpsolar_door_int";
-	ext_button_link_id = "fpsolar_btn_ext";
-	int_button_link_id = "fpsolar_btn_int"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -93516,13 +93249,6 @@
 	},
 /area/station/medical/storage)
 "sWd" = (
-/obj/machinery/access_button{
-	autolink_id = "assolar_btn_ext";
-	name = "exterior access button";
-	pixel_x = -25;
-	pixel_y = 25;
-	req_access_txt = "13"
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	d1 = 4;
@@ -93531,30 +93257,6 @@
 	},
 /turf/space,
 /area/station/maintenance/starboardsolar)
-"sWx" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "stationai_door_int";
-	locked = 1;
-	name = "Minisat Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/any/engineering/general,
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/ai_transit_tube)
 "sXr" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "HoS"
@@ -94680,19 +94382,10 @@
 /turf/simulated/floor/plating,
 /area/station/science/server)
 "tSB" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "fssolar_door_int";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/auxsolarstarboard)
@@ -94932,14 +94625,6 @@
 	icon_state = "caution"
 	},
 /area/station/public/fitness)
-"uci" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "apmaint2_door_ext";
-	locked = 1;
-	name = "West Maintenance External Access"
-	},
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
 "ucl" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plating,
@@ -94965,20 +94650,6 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/research)
-"udZ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "sol_door_ext";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/obj/machinery/access_button{
-	autolink_id = "sol_btn_ext";
-	name = "exterior access button";
-	pixel_x = -13;
-	pixel_y = -23
-	},
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "ueI" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plasteel,
@@ -95048,12 +94719,6 @@
 /turf/simulated/floor/wood,
 /area/station/maintenance/library)
 "uht" = (
-/obj/machinery/access_button{
-	autolink_id = "apmaint2_btn_int";
-	name = "interior access button";
-	pixel_x = -24;
-	pixel_y = 24
-	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -95349,13 +95014,6 @@
 	},
 /area/station/hallway/secondary/entry)
 "upI" = (
-/obj/machinery/access_button{
-	autolink_id = "fpsolar_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = 25;
-	req_access_txt = "32"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -95594,13 +95252,6 @@
 /turf/simulated/floor/plating,
 /area/station/security/permabrig)
 "uDO" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "fssolar_door_ext";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable{
 	d2 = 8;
 	icon_state = "0-8"
@@ -96233,18 +95884,8 @@
 	},
 /area/station/security/main)
 "vcx" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "sol_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = -25;
-	vent_link_id = "sol_vent";
-	ext_door_link_id = "sol_door_ext";
-	int_door_link_id = "sol_door_int";
-	ext_button_link_id = "sol_btn_ext";
-	int_button_link_id = "sol_btn_int"
-	},
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/s_to_n,
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
 "veH" = (
@@ -96572,19 +96213,6 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/explab)
 "vzo" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	autolink_id = "fssolar_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = 25;
-	req_access_txt = "13";
-	vent_link_id = "fssolar_vent";
-	ext_door_link_id = "fssolar_door_ext";
-	int_door_link_id = "fssolar_door_int";
-	ext_button_link_id = "fssolar_btn_ext";
-	int_button_link_id = "fssolar_btn_int"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -96929,15 +96557,11 @@
 /turf/simulated/floor/beach/sand,
 /area/station/maintenance/fsmaint)
 "vIN" = (
-/obj/machinery/access_button{
-	autolink_id = "arrivalsn_btn_int";
-	name = "exterior access button";
-	pixel_x = 4;
-	pixel_y = 24
+/obj/effect/spawner/airlock/e_to_w/engineer{
+	req_access_txt = 13
 	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/entry)
+/turf/simulated/wall,
+/area/station/maintenance/port)
 "vIR" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 8;
@@ -97701,21 +97325,11 @@
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
 "wrr" = (
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = 25;
-	vent_link_id = "apmaint2_vent";
-	ext_door_link_id = "apmaint2_door_ext";
-	int_door_link_id = "apmaint2_door_int";
-	ext_button_link_id = "apmaint2_btn_ext";
-	int_button_link_id = "apmaint2_btn_int"
+/obj/effect/spawner/airlock/s_to_n/engineer{
+	req_access_txt = 2
 	},
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "apmaint2_vent"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/simulated/floor/plasteel,
-/area/station/maintenance/port)
+/turf/simulated/wall/r_wall,
+/area/station/security/permasolitary)
 "wrE" = (
 /obj/structure/table/reinforced,
 /obj/machinery/alarm{
@@ -98603,22 +98217,10 @@
 	},
 /area/station/maintenance/fsmaint)
 "wZD" = (
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_y = -57;
-	req_access_txt = "10;13";
-	vent_link_id = "stationai_vent";
-	ext_door_link_id = "stationai_door_ext";
-	int_door_link_id = "stationai_door_int";
-	ext_button_link_id = "stationai_btn_ext";
-	int_button_link_id = "stationai_btn_int"
-	},
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -98732,12 +98334,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/access_button{
-	autolink_id = "sol_btn_int";
-	name = "interior access button";
-	pixel_x = -25;
-	pixel_y = -25
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 10;
 	initialize_directions = 10
@@ -98933,13 +98529,6 @@
 /turf/simulated/floor/plating,
 /area/station/command/teleporter)
 "xnw" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "apsolar_door_ext";
-	locked = 1;
-	name = "Engineering External Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/all/engineering/external,
-/obj/effect/mapping_helpers/airlock/access/all/engineering/general,
 /obj/structure/cable{
 	d1 = 4;
 	d2 = 8;
@@ -99715,16 +99304,12 @@
 /turf/simulated/floor/plasteel/white,
 /area/station/science/explab)
 "xPJ" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "sol_door_int";
-	locked = 1;
-	name = "Arrivals External Access"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/w_to_e/engineer{
+	req_access_txt = 13
 	},
 /turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
+/area/station/maintenance/auxsolarstarboard)
 "xPQ" = (
 /obj/machinery/economy/vending/coffee,
 /obj/structure/disposalpipe/segment{
@@ -119634,7 +119219,7 @@ cCy
 hkk
 aaa
 abj
-iYu
+acF
 cHA
 aaa
 aaa
@@ -119891,8 +119476,8 @@ maf
 hkk
 aaa
 cHA
-uci
-cHA
+ddh
+vIN
 aaa
 aaa
 aaa
@@ -120148,7 +119733,7 @@ cTi
 hkk
 aaa
 cHA
-wrr
+cCq
 cHA
 aaa
 aaa
@@ -120329,7 +119914,7 @@ abj
 abj
 abj
 abj
-iKT
+atK
 abj
 aLT
 aNT
@@ -120405,7 +119990,7 @@ sZp
 cHA
 aaa
 cHA
-gHC
+drn
 cHA
 aaa
 aaa
@@ -120586,8 +120171,8 @@ aaa
 abj
 abj
 gmT
+jCQ
 jEE
-gmT
 acF
 aGZ
 wok
@@ -121392,8 +120977,8 @@ bEI
 bGv
 bwN
 qGf
-dcp
-qGf
+wZD
+khZ
 qGf
 abj
 giK
@@ -121906,7 +121491,7 @@ bEM
 bGx
 bwN
 qGf
-sWx
+wZD
 qGf
 qGf
 bRT
@@ -127902,7 +127487,7 @@ abj
 abj
 abj
 aaa
-mVF
+dYJ
 abj
 aaa
 dij
@@ -128160,7 +127745,7 @@ aaa
 abj
 nKk
 xnw
-nKk
+noB
 abj
 dij
 aaa
@@ -131096,7 +130681,7 @@ abj
 abj
 abj
 grB
-udZ
+aeN
 rJk
 abj
 abj
@@ -131353,7 +130938,7 @@ aaa
 aaa
 abj
 grB
-vcx
+aeN
 grB
 aaa
 aaa
@@ -131610,7 +131195,7 @@ grB
 grB
 adb
 grB
-xPJ
+aeN
 grB
 adb
 adb
@@ -131840,8 +131425,8 @@ aaa
 aaa
 grB
 grB
-grB
-vIN
+vcx
+afb
 tXb
 adZ
 san
@@ -132095,9 +131680,9 @@ aaa
 aaa
 aaa
 aaa
-nXF
+aeN
 pUC
-rtH
+aeN
 adt
 afh
 aea
@@ -144712,7 +144297,7 @@ aaa
 ofi
 ofi
 tSB
-ofi
+xPJ
 ofi
 abj
 akB
@@ -145482,7 +145067,7 @@ aaa
 aaa
 aaa
 abj
-khZ
+adg
 abj
 abj
 aaa
@@ -155373,7 +154958,7 @@ aaa
 jtb
 jtb
 frh
-jtb
+nXF
 jtb
 abj
 abj
@@ -155886,7 +155471,7 @@ aaa
 aaa
 abj
 jtb
-kan
+frh
 jtb
 abj
 abj
@@ -157862,7 +157447,7 @@ mhu
 mhu
 mhu
 mhu
-mhu
+wrr
 bda
 aTM
 bdf
@@ -158116,7 +157701,7 @@ aaa
 aaa
 aaa
 aaa
-noB
+aaa
 jrB
 mmV
 ihi
