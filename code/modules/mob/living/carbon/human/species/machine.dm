@@ -123,12 +123,6 @@
 		if(H && head_organ)
 			H.update_hair()
 			H.update_fhair()
-"Bald"
-	head_organ.f_style = "Shaved"
-	spawn(100)
-		if(H && head_organ)
-			H.update_hair()
-			H.update_fhair()
 
 /datum/species/machine/handle_life(mob/living/carbon/human/H) // Handles IPC starvation
 	..()
