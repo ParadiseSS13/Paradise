@@ -675,5 +675,5 @@
 		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
 			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
 			break
-	H.visible_message("<span class='notice'>[H] unplugs from \the [C].</span>", "<span class='notice'>You unplug from \the [C].</span>")
+	H.visible_message("<span class='notice'>[H] unplugs from [C].</span>", "<span class='notice'>You unplug from [C].</span>")
 	drawing_power = FALSE
