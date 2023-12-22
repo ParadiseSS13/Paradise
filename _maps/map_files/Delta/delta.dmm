@@ -71768,10 +71768,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "dSs" = (
-/obj/machinery/camera{
-	c_tag = "Departure Lounge North";
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
@@ -71779,7 +71775,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 10
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
@@ -71805,17 +71801,9 @@
 /turf/simulated/floor/plasteel/dark,
 /area/station/maintenance/apmaint)
 "dSB" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/hallway/secondary/exit)
+/obj/effect/spawner/airlock,
+/turf/simulated/wall,
+/area/station/service/chapel/office)
 "dSD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -71997,8 +71985,10 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "dTh" = (
-/obj/machinery/door/airlock/maintenance,
-/obj/effect/turf_decal/stripes/line,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dTi" = (
@@ -72589,14 +72579,12 @@
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/apmaint)
 "dUT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
 /obj/machinery/light_switch{
-	dir = 4;
-	name = "west bump";
-	pixel_x = -24
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dUY" = (
@@ -73294,20 +73282,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
-/area/station/hallway/secondary/exit)
-"dXK" = (
-/obj/machinery/newscaster{
-	dir = 1;
-	name = "south bump";
-	pixel_y = -28
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/structure/sign/vacuum{
-	pixel_x = -32
-	},
-/turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "dXQ" = (
 /obj/machinery/light,
@@ -81079,20 +81053,10 @@
 /turf/simulated/floor/plating,
 /area/station/security/checkpoint/secondary)
 "jJq" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	autolink_id = "escape_vent"
-	},
-/obj/machinery/airlock_controller/air_cycler{
-	pixel_x = -26;
-	pixel_y = 6;
-	vent_link_id = "escape_vent";
-	ext_door_link_id = "escape_door_ext";
-	int_door_link_id = "escape_door_int";
-	ext_button_link_id = "escape_btn_ext";
-	int_button_link_id = "escape_btn_int"
-	},
 /obj/effect/turf_decal/delivery,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "jJI" = (
@@ -81625,19 +81589,6 @@
 	},
 /area/station/hallway/primary/fore)
 "kdg" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "escape_door_ext";
-	locked = 1;
-	name = "Escape External Access"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/access_button{
-	autolink_id = "escape_btn_ext";
-	name = "exterior access button";
-	pixel_x = 26;
-	pixel_y = -6;
-	req_access_txt = "12;13"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "kdm" = (
@@ -93659,9 +93610,15 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/control)
 "sYX" = (
-/obj/machinery/light/small{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
 	},
+/obj/machinery/camera{
+	c_tag = "Virology south";
+	dir = 4;
+	network = list("Medical","SS13")
+	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "sZp" = (
@@ -94651,12 +94608,11 @@
 /turf/simulated/floor/plating,
 /area/station/security/prison/cell_block)
 "tSp" = (
+/obj/structure/sign/vacuum{
+	pixel_x = -32
+	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
-	},
-/obj/item/radio/intercom{
-	name = "west bump";
-	pixel_x = -28
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
@@ -95097,12 +95053,17 @@
 	},
 /area/station/security/processing)
 "uil" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
+/obj/item/radio/intercom{
+	name = "west bump";
+	pixel_x = -28
 	},
-/obj/machinery/atmospherics/portable/canister/air,
-/obj/machinery/light/small{
-	dir = 4
+/obj/machinery/newscaster{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -28
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
@@ -96980,18 +96941,12 @@
 	},
 /area/station/public/fitness)
 "vJP" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "escape_door_int";
-	locked = 1;
-	name = "Escape External Access"
+/obj/machinery/atmospherics/unary/portables_connector{
+	dir = 8
 	},
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/access_button{
-	autolink_id = "escape_btn_int";
-	name = "interior access button";
-	pixel_x = -26;
-	pixel_y = 26;
-	req_access_txt = "12;13"
+/obj/machinery/atmospherics/portable/canister/air,
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
@@ -137157,7 +137112,7 @@ dIx
 dIx
 dIx
 dIx
-dIx
+dSB
 abj
 aaa
 aaa
@@ -137412,9 +137367,9 @@ dSo
 dKP
 dTh
 sYX
-vJP
+dVb
 jJq
-kdg
+dVb
 acF
 acF
 aaa
@@ -137667,10 +137622,10 @@ dPM
 dPM
 dkq
 dSs
+dSP
+vJP
 dIH
 dIH
-dIH
-uil
 dIH
 abj
 aaa
@@ -137923,11 +137878,11 @@ dKo
 dKo
 dKo
 dKo
-dSB
+dXJ
+dKo
+dUj
 tSp
-dXK
-dIH
-dIH
+uil
 dIH
 abj
 aaa
@@ -138182,8 +138137,8 @@ dNa
 dKo
 dXJ
 uaj
-dUj
-dSP
+kdg
+kdg
 dUT
 dIH
 abj
