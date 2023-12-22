@@ -445,8 +445,8 @@
 	if(ismecha(loc) || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(ismodcontrol(equipped_item)) // Check if the item is a MODsuit
-		if(thing && equipped_item.can_be_inserted(thing, 1)) // Check if the item can be inserted into the MODsuit
-			equipped_item.handle_item_insertion(thing, TRUE) // Insert the item into the MODsuit
+		if(thing && equipped_item.can_be_inserted(thing)) // Check if the item can be inserted into the MODsuit
+			equipped_item.handle_item_insertion(thing) // Insert the item into the MODsuit
 			playsound(loc, "rustle", 50, 1, -5)
 			return
 	if(!istype(equipped_item)) // We also let you equip things like this
