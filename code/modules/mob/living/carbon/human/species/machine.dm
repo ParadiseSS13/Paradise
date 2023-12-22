@@ -51,7 +51,7 @@
 		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
 		"cell" = /obj/item/organ/internal/cell,
 		"eyes" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
-		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
+		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord_apc
 		)
 	mutantears = /obj/item/organ/internal/ears/microphone
 	has_limbs = list(
@@ -118,6 +118,12 @@
 	if(!istype(head_organ))
 		return
 	head_organ.h_style = "Bald"
+	head_organ.f_style = "Shaved"
+	spawn(100)
+		if(H && head_organ)
+			H.update_hair()
+			H.update_fhair()
+"Bald"
 	head_organ.f_style = "Shaved"
 	spawn(100)
 		if(H && head_organ)
@@ -232,14 +238,3 @@
 								)
 		var/error_message = pick(error_messages)
 		to_chat(H, "<span class='boldwarning'>[error_message]</span>")
-
-/datum/species/machine/after_equip_job(datum/job/J, mob/living/carbon/human/H)
-	var/charger_pref = H.client.prefs.active_character.speciesprefs
-	var/obj/item/organ/internal/cyberimp/arm/power_cord/apc_pw = new
-	var/obj/item/organ/internal/cyberimp/arm/power_cord_cell/cell_pw = new
-	if(charger_pref)
-		charger_pref = new /obj/item/organ/internal/cyberimp/arm/power_cord(H)
-		cell_pw.insert(H)
-	else
-		charger_pref = new /obj/item/organ/internal/cyberimp/arm/power_cord_cell(H)
-		apc_pw.insert(H)

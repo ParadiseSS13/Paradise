@@ -633,7 +633,7 @@
 	/// Are we currently drawing power from a cell?
 	var/drawing_power = FALSE
 
-/obj/item/power_cord_cell/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/cell_power_cord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!istype(target, /obj/item/stock_parts/cell/) || !ishuman(user) || !proximity_flag)
 		return ..()
 	if(drawing_power)
@@ -653,7 +653,7 @@
 	else
 		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
 
-/obj/item/cellpower_cord/proc/cell_powerdraw_loop(obj/item/stock_parts/cell/C, mob/living/carbon/human/H)
+/obj/item/cell_power_cord/proc/cell_powerdraw_loop(obj/item/stock_parts/cell/C, mob/living/carbon/human/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into [C].</span>", "<span class='notice'>You begin to draw power from [C].</span>")
 	drawing_power = TRUE
 	while(do_after(H, 10, target = C))
