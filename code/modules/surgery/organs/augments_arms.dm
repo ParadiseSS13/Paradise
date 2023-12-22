@@ -630,6 +630,7 @@
 	icon = 'icons/obj/power.dmi'
 	icon_state = "wire1"
 	flags = NOBLUDGEON
+	/// Are we currently drawing power from a cell?
 	var/drawing_power = FALSE
 
 /obj/item/power_cord_cell/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
