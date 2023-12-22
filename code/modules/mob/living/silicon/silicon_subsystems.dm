@@ -11,6 +11,7 @@
 	)
 
 /mob/living/silicon/ai
+	var/cracked_camera = FALSE // will be true if malf AI break its camera
 	silicon_subsystems = list(
 		/mob/living/silicon/proc/subsystem_atmos_control,
 		/mob/living/silicon/proc/subsystem_crew_monitor,
