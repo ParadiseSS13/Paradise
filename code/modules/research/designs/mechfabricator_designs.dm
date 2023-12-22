@@ -1206,7 +1206,7 @@
 	category = list("Misc")
 
 /datum/design/ipc_charger_cell
-	name = "Power-cell compatible IPC charger"
+	name = "Power-Cell Compatible IPC Charger"
 	id = "ipc_charger_cell"
 	build_type = MECHFAB
 	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord_cell
