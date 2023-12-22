@@ -80132,6 +80132,13 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/station/science/toxins/mixing)
+"iYu" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w/engineer{
+	req_access_txt = 13
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/auxsolarport)
 "jaE" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Custodial Maintenance"
@@ -80846,11 +80853,11 @@
 /area/station/medical/psych)
 "jEE" = (
 /obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/engineer{
+/obj/effect/spawner/airlock/w_to_e/engineer{
 	req_access_txt = 13
 	},
 /turf/simulated/floor/plating,
-/area/station/maintenance/auxsolarport)
+/area/station/maintenance/auxsolarstarboard)
 "jEI" = (
 /obj/machinery/atmospherics/unary/vent_pump/high_volume{
 	dir = 4;
@@ -81614,12 +81621,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
-"khZ" = (
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
-/turf/simulated/wall,
-/area/station/engineering/ai_transit_tube)
 "kii" = (
 /obj/structure/rack,
 /obj/item/storage/box/rubbershot{
@@ -84897,6 +84898,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
+"mVF" = (
+/obj/effect/spawner/airlock/s_to_n/engineer{
+	req_access_txt = 2
+	},
+/turf/simulated/wall/r_wall,
+/area/station/security/permasolitary)
 "mWz" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -85475,13 +85482,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/station/maintenance/fsmaint)
-"noB" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/portsolar)
 "noW" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel/white,
@@ -86367,13 +86367,6 @@
 	name = "reinforced stairs"
 	},
 /area/station/science/test_chamber)
-"nXF" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/w_to_e/engineer{
-	req_access_txt = 13
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/starboardsolar)
 "nYm" = (
 /obj/structure/sign/radiation/rad_area{
 	pixel_x = -32
@@ -91046,6 +91039,13 @@
 	icon_state = "darkred"
 	},
 /area/station/security/storage)
+"rtH" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w/engineer{
+	req_access_txt = 13
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/portsolar)
 "rtU" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/atmos/glass{
@@ -91375,7 +91375,7 @@
 	name = "KEEP CLEAR: DOCKING AREA"
 	},
 /obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
+	req_access_txt = null
 	},
 /turf/simulated/floor/plating,
 /area/station/hallway/secondary/entry)
@@ -93257,6 +93257,20 @@
 	},
 /turf/space,
 /area/station/maintenance/starboardsolar)
+"sWx" = (
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/station/engineering/ai_transit_tube)
 "sXr" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
 	id = "HoS"
@@ -94625,6 +94639,13 @@
 	icon_state = "caution"
 	},
 /area/station/public/fitness)
+"uci" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/s_to_n{
+	req_access_txt = null
+	},
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry)
 "ucl" = (
 /obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/plating,
@@ -94650,6 +94671,13 @@
 /obj/effect/spawner/window/reinforced/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/research)
+"udZ" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/w_to_e/engineer{
+	req_access_txt = 13
+	},
+/turf/simulated/floor/plating,
+/area/station/maintenance/starboardsolar)
 "ueI" = (
 /obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plasteel,
@@ -95884,10 +95912,11 @@
 	},
 /area/station/security/main)
 "vcx" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/s_to_n,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
+/obj/effect/spawner/airlock/e_to_w/engineer{
+	req_access_txt = 13
+	},
+/turf/simulated/wall,
+/area/station/engineering/ai_transit_tube)
 "veH" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
@@ -96556,12 +96585,6 @@
 /obj/item/reagent_containers/glass/bucket,
 /turf/simulated/floor/beach/sand,
 /area/station/maintenance/fsmaint)
-"vIN" = (
-/obj/effect/spawner/airlock/e_to_w/engineer{
-	req_access_txt = 13
-	},
-/turf/simulated/wall,
-/area/station/maintenance/port)
 "vIR" = (
 /obj/machinery/atmospherics/unary/outlet_injector{
 	dir = 8;
@@ -97324,12 +97347,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/station/command/teleporter)
-"wrr" = (
-/obj/effect/spawner/airlock/s_to_n/engineer{
-	req_access_txt = 2
-	},
-/turf/simulated/wall/r_wall,
-/area/station/security/permasolitary)
 "wrE" = (
 /obj/structure/table/reinforced,
 /obj/machinery/alarm{
@@ -98217,19 +98234,11 @@
 	},
 /area/station/maintenance/fsmaint)
 "wZD" = (
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
+/obj/effect/spawner/airlock/e_to_w/engineer{
+	req_access_txt = 13
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/station/engineering/ai_transit_tube)
+/turf/simulated/wall,
+/area/station/maintenance/port)
 "xab" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -99303,13 +99312,6 @@
 /obj/item/kirbyplants,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/explab)
-"xPJ" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/w_to_e/engineer{
-	req_access_txt = 13
-	},
-/turf/simulated/floor/plating,
-/area/station/maintenance/auxsolarstarboard)
 "xPQ" = (
 /obj/machinery/economy/vending/coffee,
 /obj/structure/disposalpipe/segment{
@@ -119477,7 +119479,7 @@ hkk
 aaa
 cHA
 ddh
-vIN
+wZD
 aaa
 aaa
 aaa
@@ -120172,7 +120174,7 @@ abj
 abj
 gmT
 jCQ
-jEE
+iYu
 acF
 aGZ
 wok
@@ -120977,8 +120979,8 @@ bEI
 bGv
 bwN
 qGf
-wZD
-khZ
+sWx
+vcx
 qGf
 abj
 giK
@@ -121234,7 +121236,7 @@ bEK
 bGw
 bwN
 bJZ
-wZD
+sWx
 bVt
 qGf
 bZf
@@ -121491,7 +121493,7 @@ bEM
 bGx
 bwN
 qGf
-wZD
+sWx
 qGf
 qGf
 bRT
@@ -127745,7 +127747,7 @@ aaa
 abj
 nKk
 xnw
-noB
+rtH
 abj
 dij
 aaa
@@ -131425,7 +131427,7 @@ aaa
 aaa
 grB
 grB
-vcx
+uci
 afb
 tXb
 adZ
@@ -144297,7 +144299,7 @@ aaa
 ofi
 ofi
 tSB
-xPJ
+jEE
 ofi
 abj
 akB
@@ -154958,7 +154960,7 @@ aaa
 jtb
 jtb
 frh
-nXF
+udZ
 jtb
 abj
 abj
@@ -157447,7 +157449,7 @@ mhu
 mhu
 mhu
 mhu
-wrr
+mVF
 bda
 aTM
 bdf
