@@ -1200,7 +1200,7 @@
 	name = "APC compatible IPC charger"
 	id = "ipc_charger"
 	build_type = MECHFAB
-	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord
+	build_path = /obj/item/organ/internal/cyberimp/arm/power_cord_apc
 	materials = list(MAT_METAL=2000, MAT_GLASS=1000)
 	construction_time = 200
 	category = list("Misc")
