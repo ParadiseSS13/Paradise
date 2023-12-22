@@ -473,6 +473,13 @@
 	cost = 1
 	category = "Artefacts"
 
+/datum/spellbook_entry/item/supermatter_glove
+	name = "Hypernobilium Weave Gloves"
+	desc = "A masterfully made glove from the Oblivion order which grants it's user immunity from Supermatter dusting."
+	item_path = /obj/item/clothing/gloves/color/white/supermatter_immune
+	cost = 1
+	category = "Artefacts"
+
 //Weapons and Armors
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armor"
@@ -511,6 +518,12 @@
 	desc = "An enchanted hook, that can be used to hook people, hurt them, and bring them right to you. Quite bulky, works well as a belt though."
 	item_path = /obj/item/gun/magic/hook
 	cost = 1
+	category = "Weapons and Armors"
+
+/datum/spellbook_entry/item/supermatter_halberd
+	name = "Supermatter Halberd"
+	desc = "A powerful Halberd capable of knocking down opponents and parrying while destroying any wall and door upon a wizard's path, it possesses the unique ability of cutting slivers out of Super Matter Crystals."
+	item_path = /obj/item/supermatter_halberd
 	category = "Weapons and Armors"
 
 //Staves
