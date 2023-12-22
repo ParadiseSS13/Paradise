@@ -669,7 +669,7 @@
 		else
 			H.adjust_nutrition(C.charge * 20)
 			C.charge = 0
-			to_chat(H, "<span class='notice'>You siphon off the last of \the [C]'s charge.</span>")
+			to_chat(H, "<span class='notice'>You siphon off the last of [C]'s charge.</span>")
 			break
 		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
 			to_chat(H, "<span class='notice'>You are now fully charged.</span>")
