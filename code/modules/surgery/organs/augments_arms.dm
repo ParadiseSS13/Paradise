@@ -660,7 +660,7 @@
 			to_chat(H, "<span class='warning'>You must keep your connector out while charging!</span>")
 			break
 		if(C.charge == 0)
-			to_chat(H, "<span class='warning'>\The [C] has no more charge.</span>")
+			to_chat(H, "<span class='warning'>[C] has no more charge.</span>")
 			break
 		if(C.charge >= 500)
 			H.adjust_nutrition(10)
