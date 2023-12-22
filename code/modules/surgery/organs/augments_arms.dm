@@ -349,14 +349,14 @@
 	slot = "l_arm_device"
 
 // lets make IPCs even *more* vulnerable to EMPs!
-/obj/item/organ/internal/cyberimp/arm/power_cord
+/obj/item/organ/internal/cyberimp/arm/power_cord_apc
 	name = "APC-compatible power adapter implant"
 	desc = "An implant commonly installed inside IPCs in order to allow them to easily collect energy from their environment"
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
 	contents = newlist(/obj/item/apc_powercord)
 	requires_robotic_bodypart = TRUE
 
-/obj/item/organ/internal/cyberimp/arm/power_cord/emp_act(severity)
+/obj/item/organ/internal/cyberimp/arm/power_cord_apc/emp_act(severity)
 	// To allow repair via nanopaste/screwdriver
 	// also so IPCs don't also catch on fire and fall even more apart upon EMP
 	if(emp_proof)
@@ -364,7 +364,7 @@
 	damage = 1
 	crit_fail = TRUE
 
-/obj/item/organ/internal/cyberimp/arm/power_cord/surgeryize()
+/obj/item/organ/internal/cyberimp/arm/power_cord_apc/surgeryize()
 	if(crit_fail && owner)
 		to_chat(owner, "<span class='notice'>Your [src] feels functional again.</span>")
 	crit_fail = FALSE
@@ -609,7 +609,7 @@
 	name = "cell-compatible power adapter implant"
 	desc = "This is a recently developed implant for IPCs in order to allow them to easily collect energy from cells."
 	origin_tech = "materials=3;biotech=2;powerstorage=3"
-	contents = newlist(/obj/item/power_cord_cell)
+	contents = newlist(/obj/item/cell_power_cord)
 	requires_robotic_bodypart = TRUE
 
 /obj/item/organ/internal/cyberimp/arm/power_cord_cell/emp_act(severity)
@@ -624,7 +624,7 @@
 		to_chat(owner, "<span class='notice'>Your [src] feels functional again.</span>")
 	crit_fail = FALSE
 
-/obj/item/power_cord_cell
+/obj/item/cell_power_cord
 	name = "power cable"
 	desc = "Insert into a cell to draw power from it."
 	icon = 'icons/obj/power.dmi'
@@ -653,7 +653,7 @@
 	else
 		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
 
-/obj/item/power_cord_cell/proc/cell_powerdraw_loop(obj/item/stock_parts/cell/C, mob/living/carbon/human/H)
+/obj/item/cellpower_cord/proc/cell_powerdraw_loop(obj/item/stock_parts/cell/C, mob/living/carbon/human/H)
 	H.visible_message("<span class='notice'>[H] inserts a power connector into [C].</span>", "<span class='notice'>You begin to draw power from [C].</span>")
 	drawing_power = TRUE
 	while(do_after(H, 10, target = C))
