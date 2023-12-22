@@ -963,12 +963,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	circuit = /obj/item/circuitboard/rdconsole/public
 
 /obj/machinery/computer/rdconsole/cmag_act(mob/user)
-    if(emagged)
-        to_chat(user, "<span class='warning'>The console has already been tampered with!</span>")
-        return
-    emagged = TRUE
-    req_access = list() // Remove access restrictions
-    to_chat(user, "<span class='notice'>You short out the console's access restrictions.</span>")
+	if(emagged)
+		to_chat(user, "<span class='warning'>The console has already been tampered with!</span>")
+		return
+	emagged = TRUE
+	req_access = list() // Remove access restrictions
+	to_chat(user, "<span class='notice'>You short out the console's access restrictions.</span>")
 
 #undef TECH_UPDATE_DELAY
 #undef DESIGN_UPDATE_DELAY
