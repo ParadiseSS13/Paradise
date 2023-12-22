@@ -654,7 +654,7 @@
 		to_chat(user, "<span class='warning'>You lack a cell in which to store charge!</span>")
 
 /obj/item/power_cord_cell/proc/cell_powerdraw_loop(obj/item/stock_parts/cell/C, mob/living/carbon/human/H)
-	H.visible_message("<span class='notice'>[H] inserts a power connector into \the [C].</span>", "<span class='notice'>You begin to draw power from \the [C].</span>")
+	H.visible_message("<span class='notice'>[H] inserts a power connector into [C].</span>", "<span class='notice'>You begin to draw power from [C].</span>")
 	drawing_power = TRUE
 	while(do_after(H, 10, target = C))
 		if(loc != H)
