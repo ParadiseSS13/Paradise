@@ -135,3 +135,11 @@
 
 	if(user)
 		to_chat(user, "<span class='warning'>Unable to locate drone fabricator.</span>")
+
+/obj/machinery/computer/drone_control/cmag_act(mob/user)
+    if(emagged)
+        to_chat(user, "<span class='warning'>The console has already been tampered with!</span>")
+        return
+    emagged = TRUE
+    req_access = list() // Remove access restrictions
+    to_chat(user, "<span class='notice'>You short out the console's access restrictions.</span>")

@@ -72,6 +72,14 @@
 			stored_data = list()
 			return TRUE
 
+/obj/machinery/computer/mecha/cmag_act(mob/user)
+    if(emagged)
+        to_chat(user, "<span class='warning'>The console has already been tampered with!</span>")
+        return
+    emagged = TRUE
+    req_access = list() // Remove access restrictions
+    to_chat(user, "<span class='notice'>You short out the console's access restrictions.</span>")
+
 /obj/item/mecha_parts/mecha_tracking
 	name = "exosuit tracking beacon"
 	desc = "Device used to transmit exosuit data."
