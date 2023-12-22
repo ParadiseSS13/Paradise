@@ -49579,6 +49579,11 @@
 /obj/effect/mapping_helpers/airlock/autoname,
 /turf/simulated/floor/plating,
 /area/station/maintenance/starboardsolar)
+"dUF" = (
+/obj/effect/spawner/window/reinforced/grilled,
+/obj/effect/spawner/airlock/e_to_w/arrivals,
+/turf/simulated/floor/plating,
+/area/station/hallway/secondary/entry)
 "dUJ" = (
 /obj/structure/window/reinforced,
 /obj/effect/turf_decal/delivery,
@@ -54444,11 +54449,6 @@
 /obj/item/deck/cards,
 /turf/simulated/floor/plasteel,
 /area/station/security/permabrig)
-"gcW" = (
-/obj/effect/spawner/window/reinforced/grilled,
-/obj/effect/spawner/airlock/e_to_w/arrivals,
-/turf/simulated/floor/plating,
-/area/station/hallway/secondary/entry)
 "gdb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -103015,7 +103015,7 @@ ajo
 abq
 aug
 bOx
-gcW
+dUF
 abq
 ajo
 aaa
