@@ -60,7 +60,7 @@
 	/// The flare indicating the extraction point.
 	var/obj/effect/contractor_flare/extraction_flare = null
 	/// The extraction portal.
-	var/obj/effect/portal/redspace/contractor/extraction_portal = null
+	var/obj/effect/portal/advanced/contractor/extraction_portal = null
 	/// The world.time at which the current extraction fulton will vanish and another extraction can be requested.
 	var/extraction_deadline = -1
 	/// Name of the target to display on the UI.
@@ -288,7 +288,7 @@
 	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.fluff_name]'s bluespace transport jamming systems have been sabotaged. "\
 				+ "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
-	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
+	var/obj/effect/portal/advanced/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
 	P.contractor_mind = M.mind
 	P.target_mind = contract.target
@@ -302,7 +302,7 @@
   * * M - The target mob.
   * * P - The extraction portal.
   */
-/datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/redspace/contractor/P)
+/datum/syndicate_contract/proc/target_received(mob/living/M, obj/effect/portal/advanced/contractor/P)
 	INVOKE_ASYNC(src, PROC_REF(clean_up))
 	add_attack_logs(owning_hub.owner.current, M, "extracted to Syndicate Jail")
 	complete(M.stat == DEAD)
@@ -330,7 +330,7 @@
   * * M - The target mob.
   * * P - The extraction portal.
   */
-/datum/syndicate_contract/proc/handle_target_experience(mob/living/M, obj/effect/portal/redspace/contractor/P)
+/datum/syndicate_contract/proc/handle_target_experience(mob/living/M, obj/effect/portal/advanced/contractor/P)
 	var/turf/T = get_turf(P)
 	var/mob/living/carbon/human/H = M
 
