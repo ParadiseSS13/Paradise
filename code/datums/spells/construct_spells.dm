@@ -52,7 +52,7 @@
 
 /obj/effect/proc_holder/spell/aoe/conjure/build/soulstone
 	name = "Summon Soulstone"
-	desc = "This spell uses vile sorcery to create a spirit-trapping soulstone"
+	desc = "This spell uses vile sorcery to create a spirit-trapping soulstone."
 	action_icon_state = "summonsoulstone"
 	action_background_icon_state = "bg_cult"
 	school = "conjuration"
