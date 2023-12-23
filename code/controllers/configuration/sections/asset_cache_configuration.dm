@@ -3,7 +3,7 @@
 	var/asset_transport = "simple"
 	/// Whether to make server passively send all browser assets to each client in the background.
 	/// (instead of waiting for them to be needed)
-	var/asset_simple_preload = FALSE
+	var/asset_simple_preload = TRUE
 	/// Local folder to save assets to.
 	/// Assets will be saved in the format of asset.MD5HASH.EXT or in namespaces/hash/
 	/// as ASSET_FILE_NAME or asset.MD5HASH.EXT

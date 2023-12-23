@@ -194,10 +194,10 @@
 				return
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/coeff = get_coeff(design_last_ordered)
-			if(design_last_ordered.materials["$metal"] / coeff > materials.amount(MAT_METAL))
+			if(design_last_ordered.materials[MAT_METAL] / coeff > materials.amount(MAT_METAL))
 				to_chat(usr, "<span class='warning'>Invalid design (not enough metal)</span>")
 				return
-			if(design_last_ordered.materials["$glass"] / coeff > materials.amount(MAT_GLASS))
+			if(design_last_ordered.materials[MAT_GLASS] / coeff > materials.amount(MAT_GLASS))
 				to_chat(usr, "<span class='warning'>Invalid design (not enough glass)</span>")
 				return
 			if(!hacked && ("hacked" in design_last_ordered.category))

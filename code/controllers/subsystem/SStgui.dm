@@ -196,7 +196,7 @@ SUBSYSTEM_DEF(tgui)
 	for(var/datum/tgui/ui in open_uis_by_src[key])
 		// Check if UI is valid.
 		if(ui && ui.src_object && ui.user && ui.src_object.ui_host(ui.user))
-			ui.process(force = 1)
+			ui.process(force = TRUE)
 			count++
 	return count
 
@@ -255,7 +255,7 @@ SUBSYSTEM_DEF(tgui)
 		return count
 	for(var/datum/tgui/ui in user.tgui_open_uis)
 		if(isnull(src_object) || ui.src_object == src_object)
-			ui.process(force = 1)
+			ui.process(force = TRUE)
 			count++
 	return count
 
