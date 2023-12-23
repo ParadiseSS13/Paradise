@@ -95,10 +95,13 @@ const setupApp = () => {
     window.update(msg);
   }
 
-  // Unhide the panel
+  // Hide output
   Byond.winset('output', {
     'is-visible': false,
+    'is-disabled': true,
   });
+
+  // Unhide the panel
   Byond.winset('browseroutput', {
     'is-visible': true,
     'is-disabled': false,

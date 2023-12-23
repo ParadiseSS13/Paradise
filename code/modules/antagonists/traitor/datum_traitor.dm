@@ -44,6 +44,8 @@
 		slaved.leave_serv_hud(owner)
 		owner.som = null
 
+	// Need to bring this functionality back to TGchat
+	// owner.current.client?.chatOutput?.clear_syndicate_codes()
 	// Try removing their uplink, check PDA
 	var/mob/M = owner.current
 	var/obj/item/uplink_holder = locate(/obj/item/pda) in M.contents

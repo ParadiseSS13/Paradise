@@ -254,6 +254,7 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
+	tgui_panel = new(src)
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -272,9 +273,6 @@
 
 	else if(byond_version == SUGGESTED_CLIENT_VERSION && byond_build < SUGGESTED_CLIENT_BUILD)
 		show_update_prompt = TRUE
-
-	// Instantiate tgui panel
-	tgui_panel = new(src)
 
 	// Actually sent to client much later, so it appears after MOTD.
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
@@ -394,7 +392,6 @@
 
 	check_ip_intel()
 	send_resources()
-	// activate_darkmode() calls the CL update button proc, so we dont want it double called
 	SSchangelog.UpdatePlayerChangelogButton(src)
 
 	if(show_update_prompt)

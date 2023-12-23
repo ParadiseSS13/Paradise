@@ -8,8 +8,10 @@ export const THEMES = ['light', 'dark'];
 
 const COLOR_DARK_BG = '#202020';
 const COLOR_DARK_BG_DARKER = '#171717';
+const COLOR_DARK_BG_BUTTON = '#494949';
 const COLOR_DARK_TEXT = '#A4BAD6';
 const COLOR_LIGHT_BG = '#FFFFFF';
+const COLOR_LIGHT_BUTTON = '#FFFFFF';
 const COLOR_LIGHT_TEXT = '#000000';
 
 /**
@@ -26,20 +28,22 @@ export const setClientTheme = (name) => {
   if (name === 'light') {
     return Byond.winset({
       /* Buttons */
-      'rpane.textb.background-color': COLOR_LIGHT_BG,
+      'rpane.textb.background-color': COLOR_LIGHT_BUTTON,
       'rpane.textb.text-color': COLOR_LIGHT_TEXT,
-      'rpane.infob.background-color': COLOR_LIGHT_BG,
+      'rpane.infob.background-color': COLOR_LIGHT_BUTTON,
       'rpane.infob.text-color': COLOR_LIGHT_TEXT,
-      'rpane.wikib.background-color': COLOR_LIGHT_BG,
+      'rpane.wikib.background-color': COLOR_LIGHT_BUTTON,
       'rpane.wikib.text-color': COLOR_LIGHT_TEXT,
-      'rpane.forumb.background-color': COLOR_LIGHT_BG,
+      'rpane.forumb.background-color': COLOR_LIGHT_BUTTON,
       'rpane.forumb.text-color': COLOR_LIGHT_TEXT,
-      'rpane.rulesb.background-color': COLOR_LIGHT_BG,
+      'rpane.rulesb.background-color': COLOR_LIGHT_BUTTON,
       'rpane.rulesb.text-color': COLOR_LIGHT_TEXT,
-      'rpane.githubb.background-color': COLOR_LIGHT_BG,
+      'rpane.githubb.background-color': COLOR_LIGHT_BUTTON,
       'rpane.githubb.text-color': COLOR_LIGHT_TEXT,
-      'rpane.webmap.background-color': COLOR_LIGHT_BG,
+      'rpane.webmap.background-color': COLOR_LIGHT_BUTTON,
       'rpane.webmap.text-color': COLOR_LIGHT_TEXT,
+      'rpane.changelog.background-color': COLOR_LIGHT_BUTTON,
+      'rpane.changelog.text-color': COLOR_LIGHT_TEXT,
       /* Mainwindow */
       'mainwindow.background-color': COLOR_LIGHT_BG,
       'mainwindow.mainvsplit.background-color': COLOR_LIGHT_BG,
@@ -75,20 +79,22 @@ export const setClientTheme = (name) => {
   if (name === 'dark') {
     Byond.winset({
       /* Buttons */
-      'rpane.textb.background-color': COLOR_DARK_BG,
+      'rpane.textb.background-color': COLOR_DARK_BG_BUTTON,
       'rpane.textb.text-color': COLOR_DARK_TEXT,
-      'rpane.infob.background-color': COLOR_DARK_BG,
+      'rpane.infob.background-color': COLOR_DARK_BG_BUTTON,
       'rpane.infob.text-color': COLOR_DARK_TEXT,
-      'rpane.wikib.background-color': COLOR_DARK_BG,
+      'rpane.wikib.background-color': COLOR_DARK_BG_BUTTON,
       'rpane.wikib.text-color': COLOR_DARK_TEXT,
-      'rpane.forumb.background-color': COLOR_DARK_BG,
+      'rpane.forumb.background-color': COLOR_DARK_BG_BUTTON,
       'rpane.forumb.text-color': COLOR_DARK_TEXT,
-      'rpane.rulesb.background-color': COLOR_DARK_BG,
+      'rpane.rulesb.background-color': COLOR_DARK_BG_BUTTON,
       'rpane.rulesb.text-color': COLOR_DARK_TEXT,
-      'rpane.githubb.background-color': COLOR_DARK_BG,
+      'rpane.githubb.background-color': COLOR_DARK_BG_BUTTON,
       'rpane.githubb.text-color': COLOR_DARK_TEXT,
-      'rpane.webmap.background-color': COLOR_DARK_BG,
+      'rpane.webmap.background-color': COLOR_DARK_BG_BUTTON,
       'rpane.webmap.text-color': COLOR_DARK_TEXT,
+      'rpane.changelog.background-color': '#40628A',
+      'rpane.changelog.text-color': '#FFFFFF',
       /* Mainwindow */
       'mainwindow.background-color': COLOR_DARK_BG_DARKER,
       'mainwindow.mainvsplit.background-color': COLOR_DARK_BG_DARKER,

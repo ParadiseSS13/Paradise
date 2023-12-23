@@ -86,7 +86,8 @@
 	// Detect whether the control is a browser
 	is_browser = winexists(client, id) == "BROWSER"
 	// Instruct the client to signal UI when the window is closed.
-	winset(client, id, "on-close=\"uiclose [id]\"")
+	if(!is_browser)
+		winset(client, id, "on-close=\"uiclose [id]\"")
 
 /**
  * public

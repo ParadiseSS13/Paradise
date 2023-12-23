@@ -83,7 +83,7 @@
 	window.acquire_lock(src)
 	if(!window.is_ready())
 		window.initialize(
-			fancy = user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI,
+			fancy = (user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI),
 			inline_assets = list(
 				get_asset_datum(/datum/asset/simple/tgui_common),
 				get_asset_datum(/datum/asset/simple/tgui),
@@ -97,8 +97,8 @@
 	SStgui.on_open(src)
 
 /datum/tgui/proc/send_assets()
-	PRIVATE_PROC(TRUE)
-	var/flushqueue = window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
+	var/flushqueue = window.send_asset(get_asset_datum(
+		/datum/asset/simple/namespaced/fontawesome))
 	for(var/datum/asset/asset in src_object.ui_assets(user))
 		flushqueue |= window.send_asset(asset)
 	if(flushqueue)
@@ -158,7 +158,7 @@
 /datum/tgui/proc/send_asset(datum/asset/asset)
 	if(!window)
 		CRASH("send_asset() can only be called after open().")
-	window.send_asset(asset)
+	return window.send_asset(asset)
 
 /**
  * public
@@ -222,7 +222,6 @@
 			"observer" = isobserver(user),
 		),
 		"map" = SSmapping.map_datum.technical_name,
-		"fancy" = user.client.prefs.toggles2 & PREFTOGGLE_2_FANCYUI,
 		"ref" = "[src.UID()]"
 	)
 	var/data = custom_data || with_data && src_object.ui_data(user)

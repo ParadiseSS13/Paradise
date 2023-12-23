@@ -31,10 +31,14 @@
 
 	// Build a message
 	var/message = list()
-	if(type) message["type"] = type
-	if(text) message["text"] = text
-	if(html) message["html"] = html
-	if(avoid_highlighting) message["avoidHighlighting"] = avoid_highlighting
+	if(type)
+		message["type"] = type
+	if(text)
+		message["text"] = text
+	if(html)
+		message["html"] = html
+	if(avoid_highlighting)
+		message["avoidHighlighting"] = avoid_highlighting
 	var/message_blob = TGUI_CREATE_MESSAGE("chat/message", message)
 	var/message_html = message_to_html(message)
 	if(islist(target))
@@ -91,8 +95,12 @@
 
 	// Build a message
 	var/message = list()
-	if(type) message["type"] = type
-	if(text) message["text"] = text
-	if(html) message["html"] = html
-	if(avoid_highlighting) message["avoidHighlighting"] = avoid_highlighting
+	if(type)
+		message["type"] = type
+	if(text)
+		message["text"] = text
+	if(html)
+		message["html"] = html
+	if(avoid_highlighting)
+		message["avoidHighlighting"] = avoid_highlighting
 	SSchat.queue(target, message)
