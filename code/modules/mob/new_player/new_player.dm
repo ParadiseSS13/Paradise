@@ -186,9 +186,12 @@
 			src << browse(null, "window=playersetup")
 			spawning = TRUE
 			stop_sound_channel(CHANNEL_LOBBYMUSIC)
-			if(SSticker.current_state < GAME_STATE_PLAYING)
+			if(ROUND_TIME <= (GLOB.configuration.general.roundstart_observer_period MINUTES))
 				GLOB.roundstart_observer_keys |= ckey
-				to_chat(src, "<span class='notice'>As you observed before the round started, you can freely toggle antag-hud without losing respawnability.</span>")
+				var/period_human_readable = "within [GLOB.configuration.general.roundstart_observer_period] minute\s"
+				if(GLOB.configuration.general.roundstart_observer_period == 0)
+					period_human_readable = "before the round started"
+				to_chat(src, "<span class='notice'>As you observed [period_human_readable], you can freely toggle antag-hud without losing respawnability.</span>")
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
