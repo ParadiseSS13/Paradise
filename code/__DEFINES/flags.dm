@@ -203,3 +203,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOBILITY_PULL (1<<4)
 
 #define MOBILITY_FLAGS_DEFAULT (MOBILITY_MOVE | MOBILITY_STAND | MOBILITY_PICKUP | MOBILITY_USE | MOBILITY_PULL)
+
+// A define that checks that all flags in multiple_flags are in called_on, not just a single one
+#define CHECK_MULTIPLE_FLAGS(called_on, multiple_flags) (called_on && ((called_on & multiple_flags) == multiple_flags))
