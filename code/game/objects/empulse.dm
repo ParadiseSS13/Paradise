@@ -31,7 +31,7 @@
 	for(var/mob/M in range(heavy_range, epicenter))
 		SEND_SOUND(M, emp_sound)
 	for(var/atom/T in range(light_range, epicenter))
-		if(cause == "cult" && iscultist(T))
+		if(cause == "cult" && T.mind.has_antag_datum(/datum/antagonist/cultist))
 			continue
 		var/distance = get_dist(epicenter, T)
 		var/will_affect = FALSE

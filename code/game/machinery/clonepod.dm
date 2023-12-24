@@ -443,9 +443,9 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(H.mind in SSticker.mode.cult)
 		SSticker.mode.update_cult_icons_added(H.mind) // Adds the cult antag hud
 		SSticker.mode.add_cult_actions(H.mind) // And all the actions
-		if(SSticker.mode.cult_risen)
+		if(SSticker.mode.cult_team.cult_risen)
 			SSticker.mode.rise(H)
-			if(SSticker.mode.cult_ascendant)
+			if(SSticker.mode.cult_team.cult_ascendant)
 				SSticker.mode.ascend(H)
 
 //Put messages in the connected computer's temp var for display.

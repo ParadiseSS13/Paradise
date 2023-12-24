@@ -10,7 +10,7 @@
 #define RUNE_COLOR_EMP "#4D94FF"
 #define RUNE_COLOR_SUMMON "#00FF00"
 
-#define is_sacrifice_target(A) SSticker.mode?.cult_objs.is_sac_target(A)
+#define IS_SACRIFICE_TARGET(A) SSticker.mode?.cult_team.is_sac_target(A)
 
 // Blood magic
 /// Maximum number of spells with an empowering rune
@@ -42,9 +42,6 @@
 #define DEFAULT_TOOLTIP "6:-29,5:-2"
 
 // Text
-#define CULT_GREETING "<span class='cultlarge'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. \
-						You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>"
-
 #define CULT_CURSES list("A fuel technician just slit his own throat and begged for death.",                                           \
 			"The shuttle's navigation programming was replaced by a file containing two words, IT COMES.",                             \
 			"The shuttle's custodian tore out his guts and began painting strange shapes on the floor.",                               \

@@ -555,7 +555,7 @@
 			var/mob/living/carbon/human/target = M
 
 			if(target.mind)
-				if(iscultist(target))
+				if(target.mind.has_antag_datum(/datum/antagonist/cultist))
 					SSticker.mode.remove_cultist(target.mind, TRUE, TRUE) // This proc will handle message generation.
 					praying = FALSE
 					return

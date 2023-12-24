@@ -23,7 +23,7 @@
 		cross = image('icons/obj/storage.dmi',"kingyellow")
 		font_color = "blue"
 		prayer_type = "CHAPLAIN PRAYER"
-	else if(iscultist(usr))
+	else if(usr.mind.has_antag_datum(/datum/antagonist/cultist))
 		cross = image('icons/obj/storage.dmi',"tome")
 		font_color = "red"
 		prayer_type = "CULTIST PRAYER"

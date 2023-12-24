@@ -1,0 +1,120 @@
+/datum/antagonist/cultist // ctodo, subtype for constructs maybe? shades? summoned ghosts?
+	name = "Cultist"
+	job_rank = ROLE_CULTIST
+	special_role = SPECIAL_ROLE_CULTIST
+	give_objectives = FALSE
+	antag_hud_name = "hudcultist"
+	antag_hud_type = ANTAG_HUD_CULT
+	clown_gain_text = "A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself."
+	clown_removal_text = "You are free of the dark power suppressing your clownish nature. You are clumsy again! Honk!"
+	clown_text_span_class = "cultitalic" // ctodo, prob convert this into a proc
+	wiki_page_name = "Cultist"
+	var/remove_gear_on_removal = TRUE
+
+/datum/antagonist/cultist/on_gain()
+	create_team() // make sure theres a global cult team
+	..()
+	owner.current.faction |= "cult"
+	cult_mind.current.create_log(CONVERSION_LOG, "Converted to the cult")
+	add_cult_actions()
+	SEND_SOUND(cult_mind.current, sound('sound/ambience/antag/bloodcult.ogg'))
+	cult_mind.current.create_attack_log("<span class='danger'>Has been converted to the cult!</span>")
+
+	var/datum/team/cult/cult = get_team()
+	ASSERT(cult)
+	if(cult.cult_risen)
+		rise()
+	if(cult.cult_ascendant)
+		ascend()
+	cult.study_objectives(owner.current)
+
+
+/datum/antagonist/cultist/detach_from_owner()
+	if(!owner.current)
+		return ..()
+	owner.current.faction -= "cult"
+	owner.current.create_log(CONVERSION_LOG, "Deconverted from the cult") // yes, this is its own log, instead of the default MISC_LOG
+	for(var/datum/action/innate/cult/C in owner.current.actions)
+		qdel(C)
+
+	if(!ishuman(owner.current))
+		return ..()
+	var/mob/living/carbon/human/H = owner.current
+	REMOVE_TRAIT(H, CULT_EYES, null)
+	H.change_eye_color(H.original_eye_color, FALSE)
+	H.update_eyes()
+	H.remove_overlay(HALO_LAYER)
+	H.update_body()
+
+	if(remove_gear_on_removal)
+		for(var/I in H.contents)
+			if(is_type_in_list(I, CULT_CLOTHING)) // ctodo, remove
+				H.unEquip(I)
+
+
+
+/datum/antagonist/cultist/greet()
+	return "<span class='cultlarge'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. \
+						You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>"
+
+/datum/antagonist/cultist/farewell()
+	if(owner && owner.current)
+		to_chat(owner.current,"<span class='userdanger'>You have been brainwashed! You are no longer a [special_role]! </span>")
+
+
+/datum/antagonist/cultist/add_owner_to_gamemode()
+	SSticker.mode.cult |= owner
+
+/datum/antagonist/cultist/remove_owner_from_gamemode()
+	SSticker.mode.cult -= owner
+
+/datum/antagonist/cultist/create_team(team)
+	return SSticker.mode.get_cult_team()
+
+/datum/antagonist/cultist/get_team()
+	return SSticker.mode.get_cult_team()
+
+/datum/antagonist/cultist/on_body_transfer(old_body, new_body)
+	var/datum/team/cult/cult = get_team()
+	cult.cult_body_transfer(old_body, new_body)
+
+/datum/antagonist/cultist/proc/rise()
+	if(!ishuman(owner.current))
+		return
+	var/mob/living/carbon/human/H = cultist
+	if(!H.original_eye_color)
+		H.original_eye_color = H.get_eye_color()
+	H.change_eye_color(BLOODCULT_EYE, FALSE)
+	H.update_eyes()
+	ADD_TRAIT(H, CULT_EYES, CULT_TRAIT)
+	H.update_body()
+
+/datum/antagonist/cultist/proc/ascend()
+	if(!ishuman(owner.current))
+		return
+	var/mob/living/carbon/human/H = owner.current
+	new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
+	H.update_halo_layer()
+
+/datum/antagonist/cultist/proc/descend()
+	if(!ishuman(owner.current))
+		return
+	var/mob/living/carbon/human/H = owner.current
+	new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
+	H.update_halo_layer()
+	to_chat(cultist, "<span class='userdanger'>The halo above your head shatters!</span>")
+	playsound(cultist, "shatter", 50, TRUE)
+
+/datum/antagonist/cultist/proc/add_cult_actions()
+	if(!owner.current)
+		return
+	var/datum/action/innate/cult/comm/C = new
+	var/datum/action/innate/cult/check_progress/D = new
+	C.Grant(owner.current)
+	D.Grant(owner.current)
+	if(ishuman(owner.current))
+		var/datum/action/innate/cult/blood_magic/magic = new
+		magic.Grant(owner.current)
+		var/datum/action/innate/cult/use_dagger/dagger = new
+		dagger.Grant(owner.current)
+	owner.current.update_action_buttons(TRUE)

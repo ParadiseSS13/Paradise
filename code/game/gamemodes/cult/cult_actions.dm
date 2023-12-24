@@ -5,7 +5,7 @@
 	buttontooltipstyle = "cult"
 
 /datum/action/innate/cult/IsAvailable()
-	if(!iscultist(owner))
+	if(!owner.mind.has_antag_datum(/datum/antagonist/cultist))
 		return FALSE
 	return ..()
 
@@ -55,7 +55,7 @@
 
 	living_message = "<span class='cult[(large ? "large" : "speech")]'>[title]: [message]</span>"
 	for(var/mob/M in GLOB.player_list)
-		if(iscultist(M))
+		if(M.mind.has_antag_datum(/datum/antagonist/cultist))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cult[(large ? "large" : "speech")]'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
@@ -78,7 +78,7 @@
 	living_message = "<span class='cultlarge'>[title]: [message]</span>"
 
 	for(var/mob/M in GLOB.player_list)
-		if(iscultist(M))
+		if(M.mind.has_antag_datum(/datum/antagonist/cultist))
 			to_chat(M, living_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
 			to_chat(M, "<span class='cultlarge'>[title] ([ghost_follow_link(user, ghost=M)]): [message]</span>")
@@ -97,15 +97,13 @@
 	..()
 
 /datum/action/innate/cult/check_progress/IsAvailable()
-	if(iscultist(owner) || isobserver(owner))
-		return TRUE
-	return FALSE
+	return owner.mind.has_antag_datum(/datum/antagonist/cultist) || isobserver(owner)
 
 /datum/action/innate/cult/check_progress/Activate()
 	if(!IsAvailable())
 		return
-	if(SSticker && SSticker.mode)
-		SSticker.mode.cult_objs.study(usr, TRUE)
+	if(SSticker?.mode?.cult_team)
+		SSticker.mode.cult_team.study_objectives(usr, TRUE)
 	else
 		to_chat(usr, "<span class='cultitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
 

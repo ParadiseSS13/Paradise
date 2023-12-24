@@ -97,7 +97,7 @@
 	parent_rune.attack_hand(user)
 
 /obj/machinery/shield/cult/barrier/attack_animal(mob/living/simple_animal/user)
-	if(iscultist(user))
+	if(user.mind.has_antag_datum(/datum/antagonist/cultist))
 		parent_rune.attack_animal(user)
 	else
 		..()

@@ -28,13 +28,13 @@
 
 /obj/item/melee/cultblade/dagger/examine(mob/user)
 	. = ..()
-	if(iscultist(user) || user.stat == DEAD)
+	if(user.mind.has_antag_datum(/datum/antagonist/cultist) || user.stat == DEAD)
 		. += "<span class='cult'>A dagger gifted by [SSticker.cultdat.entity_title3]. Allows the scribing of runes and access to the knowledge archives of the cult of [SSticker.cultdat.entity_name].</span>"
 		. += "<span class='cultitalic'>Striking another cultist with it will purge holy water from them.</span>"
 		. += "<span class='cultitalic'>Striking a noncultist will tear their flesh, additionally, if you recently downed them with cult magic it will stun them completely.</span>"
 
 /obj/item/melee/cultblade/dagger/attack(mob/living/M, mob/living/user)
-	if(iscultist(M))
+	if(M.mind.has_antag_datum(/datum/antagonist/cultist))
 		if(M.reagents && M.reagents.has_reagent("holywater")) //allows cultists to be rescued from the clutches of ordained religion
 			if(M == user) // Targeting yourself
 				to_chat(user, "<span class='warning'>You can't remove holy water from yourself!</span>")
@@ -51,7 +51,7 @@
 	. = ..()
 
 /obj/item/melee/cultblade/dagger/attack_self(mob/user)
-	if(!iscultist(user))
+	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
 		to_chat(user, "<span class='warning'>[src] is covered in unintelligible shapes and markings.</span>")
 		return
 	scribe_rune(user)
@@ -59,14 +59,14 @@
 /obj/item/melee/cultblade/dagger/proc/narsie_rune_check(mob/living/user, area/A)
 	var/datum/game_mode/gamemode = SSticker.mode
 
-	if(gamemode.cult_objs.cult_status < NARSIE_NEEDS_SUMMONING)
+	if(gamemode.cult_team.sacrifices_required < NARSIE_NEEDS_SUMMONING)
 		to_chat(user, "<span class='cultitalic'><b>[SSticker.cultdat.entity_name]</b> is not ready to be summoned yet!</span>")
 		return FALSE
-	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+	if(gamemode.cult_team.sacrifices_required == NARSIE_HAS_RISEN)
 		to_chat(user, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 		return FALSE
 
-	var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
+	var/list/summon_areas = gamemode.cult_team.obj_summon.summon_spots
 	if(!(A in summon_areas))
 		to_chat(user, "<span class='cultlarge'>[SSticker.cultdat.entity_name] can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
 		return FALSE
@@ -150,7 +150,7 @@
 	if(narsie_rune)
 		if(!narsie_rune_check(user, A))
 			return // don't do shit
-		var/list/summon_areas = gamemode.cult_objs.obj_summon.summon_spots
+		var/list/summon_areas = gamemode.cult_team.obj_summon.summon_spots
 		if(!(A in summon_areas)) // Check again to make sure they didn't move
 			to_chat(user, "<span class='cultlarge'>The ritual can only begin where the veil is weak - in [english_list(summon_areas)]!</span>")
 			return

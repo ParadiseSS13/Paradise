@@ -41,7 +41,7 @@
 
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
-		gamemode.cult_objs.succesful_summon()
+		gamemode.cult_team.succesful_summon()
 
 	var/area/A = get_area(src)
 	if(A)
@@ -60,7 +60,7 @@
 	SEND_SOUND(world, sound('sound/hallucinations/wail.ogg'))
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
-		gamemode.cult_objs.narsie_death()
+		gamemode.cult_team.narsie_death()
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
 			if(cult_mind && cult_mind.current)
 				to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
@@ -101,7 +101,7 @@
 /obj/singularity/narsie/mezzer()
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
-			if(!iscultist(M))
+			if(!M.mind.has_antag_datum(/datum/antagonist/cultist))
 				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
 				M.Stun(6 SECONDS)
 
@@ -128,7 +128,7 @@
 		if(pos.z != src.z)
 			continue
 
-		if(iscultist(food))
+		if(food.mind.has_antag_datum(/datum/antagonist/cultist))
 			cultists += food
 		else
 			noncultists += food

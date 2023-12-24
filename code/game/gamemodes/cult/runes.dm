@@ -68,7 +68,7 @@ To draw a rune, use a ritual dagger.
 
 /obj/effect/rune/examine(mob/user)
 	. = ..()
-	if(iscultist(user) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
+	if(user.mind.has_antag_datum(/datum/antagonist/cultist) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
 		. += "<b>Name:</b> [cultist_name]"
 		. += "<b>Effects:</b> [capitalize(cultist_desc)]"
 		. += "<b>Required Acolytes:</b> [req_cultists]"
@@ -76,7 +76,7 @@ To draw a rune, use a ritual dagger.
 			. += "<b>Keyword:</b> <span class='cultitalic'>[keyword]</span>"
 
 /obj/effect/rune/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
+	if(istype(I, /obj/item/melee/cultblade/dagger) && user.mind.has_antag_datum(/datum/antagonist/cultist))
 		// Telerunes with portals open
 		if(istype(src, /obj/effect/rune/teleport))
 			var/obj/effect/rune/teleport/T = src // Can't erase telerunes if they have a portal open
@@ -92,7 +92,7 @@ To draw a rune, use a ritual dagger.
 			qdel(src)
 		return
 	if(istype(I, /obj/item/nullrod))
-		if(iscultist(user))//cultist..what are doing..cultist..staph...
+		if(user.mind.has_antag_datum(/datum/antagonist/cultist))//cultist..what are doing..cultist..staph...
 			user.drop_item()
 			user.visible_message("<span class='warning'>[I] suddenly glows with a white light, forcing [user] to drop it in pain!</span>", \
 			"<span class='danger'>[I] suddenly glows with a white light that sears your hand, forcing you to drop it!</span>") // TODO: Make this actually burn your hand
@@ -104,7 +104,7 @@ To draw a rune, use a ritual dagger.
 
 /obj/effect/rune/attack_hand(mob/living/user)
 	user.Move_Pulled(src) // So that you can still drag things onto runes
-	if(!iscultist(user))
+	if(!user.mind.has_antag_datum(/datum/antagonist/cultist))
 		to_chat(user, "<span class='warning'>You aren't able to understand the words of [src].</span>")
 		return
 	var/list/invokers = can_invoke(user)
@@ -115,7 +115,7 @@ To draw a rune, use a ritual dagger.
 
 /obj/effect/rune/attack_animal(mob/living/simple_animal/M)
 	if(isshade(M) || isconstruct(M))
-		if(construct_invoke || !iscultist(M)) //if you're not a cult construct we want the normal fail message
+		if(construct_invoke || !M.mind.has_antag_datum(/datum/antagonist/cultist)) //if you're not a cult construct we want the normal fail message
 			attack_hand(M)
 		else
 			to_chat(M, "<span class='warning'>You are unable to invoke the rune!</span>")
@@ -164,7 +164,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	// Get anyone nearby
 	if(req_cultists > 1 || allow_excess_invokers)
 		for(var/mob/living/L in range(1, src))
-			if(iscultist(L))
+			if(L.mind.has_antag_datum(/datum/antagonist/cultist))
 				if(L == user)
 					continue
 				if(L.stat)
@@ -282,7 +282,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/list/offer_targets = list()
 	var/turf/T = get_turf(src)
 	for(var/mob/living/M in T)
-		if(!iscultist(M) || (M.mind && is_sacrifice_target(M.mind)))
+		if(!M.mind.has_antag_datum(/datum/antagonist/cultist) || (M.mind && IS_SACRIFICE_TARGET(M.mind)))
 			if(isconstruct(M)) // No offering constructs please
 				continue
 			offer_targets += M
@@ -300,7 +300,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			var/obj/item/organ/internal/brain/brain = O
 			b_mob = brain.brainmob
 
-		if(b_mob && b_mob.mind && (!iscultist(b_mob) || is_sacrifice_target(b_mob.mind)))
+		if(b_mob && b_mob.mind && (!b_mob.mind.has_antag_datum(/datum/antagonist/cultist) || IS_SACRIFICE_TARGET(b_mob.mind)))
 			offer_targets += b_mob
 
 	if(!length(offer_targets))
@@ -376,7 +376,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/offering, list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user
 
-	if(offering.stat != DEAD || (offering.mind && is_sacrifice_target(offering.mind))) //Requires three people to sacrifice living targets/sacrifice objective
+	if(offering.stat != DEAD || (offering.mind && IS_SACRIFICE_TARGET(offering.mind))) //Requires three people to sacrifice living targets/sacrifice objective
 		if(length(invokers) < 3)
 			for(var/M in invokers)
 				to_chat(M, "<span class='cultitalic'>[offering] is too greatly linked to the world! You need three acolytes!</span>")
@@ -398,7 +398,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	if(offering.mind)
 		GLOB.sacrificed += offering.mind
-		if(is_sacrifice_target(offering.mind))
+		if(IS_SACRIFICE_TARGET(offering.mind))
 			sacrifice_fulfilled = TRUE
 	else
 		GLOB.sacrificed += offering
@@ -432,7 +432,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			offering.gib()
 		playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE, SOUND_RANGE_SET(10))
 	if(sacrifice_fulfilled)
-		gamemode.cult_objs.succesful_sacrifice()
+		gamemode.cult_team.succesful_sacrifice()
 	return TRUE
 
 /obj/effect/rune/teleport
@@ -589,7 +589,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/raise_dead/examine(mob/user)
 	. = ..()
-	if(iscultist(user) || user.stat == DEAD)
+	if(user.mind.has_antag_datum(/datum/antagonist/cultist) || user.stat == DEAD)
 		. += "<b>Sacrifices unrewarded:</b><span class='cultitalic'> [length(GLOB.sacrificed) - sacrifices_used]</span>"
 		. += "<b>Sacrifice cost per ressurection:</b><span class='cultitalic> [SOULS_TO_REVIVE]</span>"
 
@@ -622,7 +622,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		return
 	for(var/mob/living/M in T.contents)
-		if(!iscultist(M))
+		if(!M.mind.has_antag_datum(/datum/antagonist/cultist))
 			continue
 		potential_revive_mobs |= M
 	if(!length(potential_revive_mobs))
@@ -701,7 +701,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	..()
 	rune_in_use = FALSE
 	for(var/mob/living/M in range(0, src))
-		if(iscultist(M) && M.stat == DEAD)
+		if(M.mind.has_antag_datum(/datum/antagonist/cultist) && M.stat == DEAD)
 			M.visible_message("<span class='warning'>[M] twitches.</span>")
 
 //Rite of the Corporeal Shield: When invoked, becomes solid and cannot be passed. Invoke again to undo.
@@ -771,7 +771,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target restrained")
 		return
-	if(!iscultist(cultist_to_summon))
+	if(!cultist_to_summon.mind.has_antag_datum(/datum/antagonist/cultist))
 		to_chat(user, "<span class='cultitalic'>[cultist_to_summon] is not a follower of the [SSticker.cultdat.entity_title3]!</span>")
 		fail_invoke()
 		log_game("Summon Cultist rune failed - target was deconverted")
@@ -819,7 +819,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/turf/T = get_turf(src)
 	var/list/targets = list()
 	for(var/mob/living/L in viewers(T))
-		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
+		if(!L.mind.has_antag_datum(/datum/antagonist/cultist) && L.blood_volume && !ismachineperson(L))
 			var/atom/I = L.null_rod_check()
 			if(I)
 				if(isitem(I))
@@ -857,7 +857,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	var/multiplier = iteration / 2 // Iteration 1 = 0.5, Iteration 2 = 1, etc.
 	set_light(6, 1 * iteration, color)
 	for(var/mob/living/L in viewers(T))
-		if(!iscultist(L) && L.blood_volume && !ismachineperson(L))
+		if(!L.mind.has_antag_datum(/datum/antagonist/cultist) && L.blood_volume && !ismachineperson(L))
 			if(L.null_rod_check())
 				continue
 			L.take_overall_damage(0, tick_damage * multiplier)
@@ -873,7 +873,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		return FALSE
 	var/list/cultists = list()
 	for(var/mob/living/M in range(1, src)) // Get all cultists currently in range
-		if(iscultist(M) && !M.incapacitated())
+		if(M.mind.has_antag_datum(/datum/antagonist/cultist) && !M.incapacitated())
 			cultists += M
 
 	if(length(cultists) < req_cultists) // Stop the rune there's not enough invokers
@@ -893,9 +893,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 /obj/effect/rune/manifest/examine(mob/user)
 	. = ..()
-	if(iscultist(user) || user.stat == DEAD)
+	if(user.mind.has_antag_datum(/datum/antagonist/cultist) || user.stat == DEAD)
 		. += "<b>Amount of ghosts summoned:</b><span class='cultitalic'> [ghosts]</span>"
-		. += "<b>Maximum amount of ghosts:</b><span class='cultitalic'> [clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]</span>"
+		. += "<b>Maximum amount of ghosts:</b><span class='cultitalic'> [clamp(default_ghost_limit - SSticker.mode.cult_team.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]</span>"
 		. += "Lowers to a minimum of [minimum_ghost_limit] for each objective accomplished."
 
 /obj/effect/rune/manifest/invoke(list/invokers)
@@ -925,7 +925,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 			fail_invoke()
 			log_game("Manifest rune failed - not enough health")
 			return list()
-		if(ghosts >= clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit))
+		if(ghosts >= clamp(default_ghost_limit - SSticker.mode.cult_team.sacrifices_done, minimum_ghost_limit, default_ghost_limit))
 			to_chat(user, "<span class='cultitalic'>You are sustaining too many ghosts to summon more!</span>")
 			fail_invoke()
 			log_game("Manifest rune failed - too many summoned ghosts")
@@ -942,7 +942,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	for(var/mob/dead/observer/O in T)
 		if(!O.client)
 			continue
-		if(iscultist(O) || jobban_isbanned(O, ROLE_CULTIST))
+		if(O.mind.has_antag_datum(/datum/antagonist/cultist) || jobban_isbanned(O, ROLE_CULTIST))
 			continue
 		if(!HAS_TRAIT(O, TRAIT_RESPAWNABLE) || QDELETED(src) || QDELETED(O))
 			continue
@@ -1070,19 +1070,18 @@ structure_check() searches for nearby cultist structures required for the invoca
 	if(used)
 		return
 	var/mob/living/user = invokers[1]
-	var/datum/game_mode/gamemode = SSticker.mode
 	if(!is_station_level(user.z))
 		message_admins("[key_name_admin(user)] tried to summon an eldritch horror off station")
 		log_game("Summon Nar'Sie rune failed - off station Z level")
 		return
-	if(gamemode.cult_objs.cult_status == NARSIE_HAS_RISEN)
+	if(SSticker.mode.cult_team.cult_status == NARSIE_HAS_RISEN)
 		for(var/M in invokers)
 			to_chat(M, "<span class='cultlarge'>\"I am already here. There is no need to try to summon me now.\"</span>")
 		log_game("Summon god rune failed - already summoned")
 		return
 
 	//BEGIN THE SUMMONING
-	gamemode.cult_objs.succesful_summon()
+	SSticker.mode.cult_team.successful_summon()
 	used = TRUE
 	color = COLOR_RED
 	..()
@@ -1098,7 +1097,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	new /obj/singularity/narsie/large(T) //Causes Nar'Sie to spawn even if the rune has been removed
 
 /obj/effect/rune/narsie/attackby(obj/I, mob/user, params)	//Since the narsie rune takes a long time to make, add logging to removal.
-	if((istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user)))
+	if((istype(I, /obj/item/melee/cultblade/dagger) && user.mind.has_antag_datum(/datum/antagonist/cultist)))
 		log_game("Summon Narsie rune erased by [key_name(user)] with a cult dagger")
 		message_admins("[key_name_admin(user)] erased a Narsie rune with a cult dagger")
 	if(istype(I, /obj/item/nullrod))	//Begone foul magiks. You cannot hinder me.
