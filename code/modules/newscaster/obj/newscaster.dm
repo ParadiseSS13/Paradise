@@ -178,7 +178,7 @@
 	qdel(src)
 
 /obj/machinery/newscaster/obj_break()
-	if(!(stat & BROKEN|NODECONSTRUCT))
+	if(!(stat & BROKEN) && !(flags & NODECONSTRUCT))
 		stat |= BROKEN
 		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 		update_icon(UPDATE_OVERLAYS)
