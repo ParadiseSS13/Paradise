@@ -676,81 +676,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		else
 			qdel(D)
 
-/client/proc/cmd_admin_list_open_jobs()
-	set category = "Admin"
-	set name = "List free slots"
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	if(SSjobs)
-		var/currentpositiontally
-		var/totalpositiontally
-		to_chat(src, "<span class='notice'>Job Name: Filled job slot / Total job slots <b>(Free job slots)</b></span>")
-		for(var/datum/job/job in SSjobs.occupations)
-			to_chat(src, "<span class='notice'>[job.title]: [job.current_positions] / \
-			[job.total_positions == -1 ? "<b>UNLIMITED</b>" : job.total_positions] \
-			<b>([job.total_positions == -1 ? "UNLIMITED" : job.total_positions - job.current_positions])</b></span>")
-			if(job.total_positions != -1) // Only count position that isn't unlimited
-				currentpositiontally += job.current_positions
-				totalpositiontally += job.total_positions
-		to_chat(src, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "List Free Slots") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/cmd_admin_explosion(atom/O as obj|mob|turf in view())
-	set category = "Event"
-	set name = "Explosion"
-
-	if(!check_rights(R_DEBUG|R_EVENT))
-		return
-
-	var/devastation = input("Range of total devastation. -1 to none", "Input")  as num|null
-	if(devastation == null) return
-	var/heavy = input("Range of heavy impact. -1 to none", "Input")  as num|null
-	if(heavy == null) return
-	var/light = input("Range of light impact. -1 to none", "Input")  as num|null
-	if(light == null) return
-	var/flash = input("Range of flash. -1 to none", "Input")  as num|null
-	if(flash == null) return
-	var/flames = input("Range of flames. -1 to none", "Input")  as num|null
-	if(flames == null) return
-
-	if((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
-		if((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
-			if(alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
-				return
-
-		explosion(O, devastation, heavy, light, flash, null, null,flames)
-		log_admin("[key_name(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
-		message_admins("[key_name_admin(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([O.x],[O.y],[O.z])")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "EXPL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		return
-	else
-		return
-
-/client/proc/cmd_admin_emp(atom/O as obj|mob|turf in view())
-	set category = "Event"
-	set name = "EM Pulse"
-
-	if(!check_rights(R_DEBUG|R_EVENT))
-		return
-
-	var/heavy = input("Range of heavy pulse.", "Input")  as num|null
-	if(heavy == null) return
-	var/light = input("Range of light pulse.", "Input")  as num|null
-	if(light == null) return
-
-	if(heavy || light)
-
-		empulse(O, heavy, light)
-		log_admin("[key_name(usr)] created an EM pulse ([heavy], [light]) at ([O.x],[O.y],[O.z])")
-		message_admins("[key_name_admin(usr)] created an EM pulse ([heavy], [light]) at ([O.x],[O.y],[O.z])", 1)
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-		return
-	else
-		return
-
 /client/proc/toggle_view_range()
 	set category = "Admin"
 	set name = "Change View Range"
@@ -1015,24 +940,24 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	msg += "</TABLE></BODY></HTML>"
 	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
 
-/client/proc/toggle_ert_calling()
-	set category = "Event"
-	set name = "Toggle ERT"
-
-	set desc = "Toggle the station's ability to call a response team."
+/client/proc/toggle_ert_calling(mob/user)
 	if(!check_rights(R_EVENT))
+		return
+
+	if(!SSticker.mode)
+		to_chat(user, "<span class='warning'>The round isn't set up yet!</span>")
 		return
 
 	if(SSticker.mode.ert_disabled)
 		SSticker.mode.ert_disabled = FALSE
-		to_chat(usr, "<span class='notice'>ERT has been <b>Enabled</b>.</span>")
+		to_chat(user, "<span class='notice'>ERT has been <b>Enabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has enabled ERT calling.")
-		message_admins("Admin [key_name_admin(usr)] has enabled ERT calling.", 1)
+		message_admins("Admin [key_name_admin(user)] has enabled ERT calling.", 1)
 	else
 		SSticker.mode.ert_disabled = TRUE
-		to_chat(usr, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
+		to_chat(user, "<span class='warning'>ERT has been <b>Disabled</b>.</span>")
 		log_admin("Admin [key_name(src)] has disabled ERT calling.")
-		message_admins("Admin [key_name_admin(usr)] has disabled ERT calling.", 1)
+		message_admins("Admin [key_name_admin(user)] has disabled ERT calling.", 1)
 
 /client/proc/show_tip()
 	set category = "Event"

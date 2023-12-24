@@ -2628,12 +2628,7 @@
 	else if(href_list["game_manager"])
 		if(!check_rights(R_ADMIN))
 			return
-		return open_game_manager(usr)
-
-	else if(href_list["game_manager_open"])
-		if(!check_rights(R_ADMIN))
-			return
-		our_game_manager.manage_input(usr, href_list)
+		return our_game_manager.open_game_manager(usr)
 
 	else if(href_list["create_object"])
 		if(!check_rights(R_SPAWN))	return

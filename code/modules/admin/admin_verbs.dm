@@ -38,7 +38,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/free_slot,			/*frees slot for chosen job*/
 	/client/proc/update_mob_sprite,
 	/client/proc/man_up,
-	/client/proc/library_manager,
 	/client/proc/view_asays,
 	/client/proc/aooc,
 	/client/proc/freeze,
@@ -73,7 +72,6 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/economy_manager,
 	/client/proc/make_sound,
 	/client/proc/toggle_random_events,
-	/client/proc/toggle_ert_calling,
 	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
@@ -106,14 +104,12 @@ GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/datum/admins/proc/delay,
 	/client/proc/everyone_random,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
-	/client/proc/library_manager,
 	/client/proc/view_asays,
 	/client/proc/set_next_map,
 	/client/proc/manage_queue,
 	/client/proc/add_queue_server_bypass
 	))
 GLOBAL_LIST_INIT(admin_verbs_debug, list(
-	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/cmd_admin_delete,
 	/client/proc/restart_controller,
 	/obj/machinery/proc/machine_upgrade,

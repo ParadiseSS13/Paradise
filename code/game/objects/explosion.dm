@@ -209,39 +209,10 @@
 	for(var/turf/tile in spiral_range_turfs(range, epicenter))
 		tile.ex_act(2)
 
-/client/proc/check_bomb_impacts()
-	set name = "Check Bomb Impact"
-	set category = null
-
-	var/newmode = alert("Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
+/client/proc/check_bomb_impacts(dev = 0, heavy = 0, light = 0)
 	var/turf/epicenter = get_turf(mob)
 	if(!epicenter)
 		return
-
-	var/dev = 0
-	var/heavy = 0
-	var/light = 0
-	var/list/choices = list("Small Bomb","Medium Bomb","Big Bomb","Custom Bomb")
-	var/choice = input("Bomb Size?") in choices
-	switch(choice)
-		if(null)
-			return 0
-		if("Small Bomb")
-			dev = 1
-			heavy = 2
-			light = 3
-		if("Medium Bomb")
-			dev = 2
-			heavy = 3
-			light = 4
-		if("Big Bomb")
-			dev = 3
-			heavy = 5
-			light = 7
-		if("Custom Bomb")
-			dev = input("Devastation range (Tiles):") as num
-			heavy = input("Heavy impact range (Tiles):") as num
-			light = input("Light impact range (Tiles):") as num
 
 	var/max_range = max(dev, heavy, light)
 	var/x0 = epicenter.x
@@ -249,16 +220,15 @@
 	for(var/turf/T in spiral_range_turfs(max_range, epicenter))
 		var/dist = HYPOTENUSE(T.x, T.y, x0, y0)
 
-		if(newmode == "Yes")
-			var/turf/TT = T
-			while(TT != epicenter)
-				TT = get_step_towards(TT,epicenter)
-				if(TT.density)
-					dist += TT.explosion_block
+		var/turf/TT = T
+		while(TT != epicenter)
+			TT = get_step_towards(TT,epicenter)
+			if(TT.density)
+				dist += TT.explosion_block
 
-				for(var/obj/O in T)
-					var/the_block = O.explosion_block
-					dist += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
+			for(var/obj/O in T)
+				var/the_block = O.explosion_block
+				dist += the_block == EXPLOSION_BLOCK_PROC ? O.GetExplosionBlock() : the_block
 
 		if(dist < dev)
 			var/image/dev_image = image('icons/effects/alphacolors.dmi', T, "red")

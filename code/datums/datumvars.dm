@@ -956,25 +956,48 @@
 					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to \the [A]</span>")
 
 	else if(href_list["explode"])
-		if(!check_rights(R_DEBUG|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		var/atom/A = locateUID(href_list["explode"])
 		if(!isobj(A) && !ismob(A) && !isturf(A))
 			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf")
 			return
 
-		src.cmd_admin_explosion(A)
+		var/devastation = input("Range of total devastation. -1 to none", "Input")  as num|null
+		var/heavy = input("Range of heavy impact. -1 to none", "Input")  as num|null
+		var/light = input("Range of light impact. -1 to none", "Input")  as num|null
+		var/flash = input("Range of flash. -1 to none", "Input")  as num|null
+		var/flames = input("Range of flames. -1 to none", "Input")  as num|null
+		var/are_we_sure = alert("Are you sure you want to create this explosive?",, "Yes", "No")
+		if(are_we_sure != "Yes")
+			return
+		explosion(A, devastation, heavy, light, flash, null, null, flames)
+		log_admin("[key_name(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([A.x],[A.y],[A.z])")
+		message_admins("[key_name_admin(usr)] created an explosion ([devastation],[heavy],[light],[flames]) at ([A.x],[A.y],[A.z])")
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "EXPL") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		href_list["datumrefresh"] = href_list["explode"]
 
 	else if(href_list["emp"])
-		if(!check_rights(R_DEBUG|R_EVENT))	return
+		if(!check_rights(R_EVENT))
+			return
 
 		var/atom/A = locateUID(href_list["emp"])
 		if(!isobj(A) && !ismob(A) && !isturf(A))
 			to_chat(usr, "This can only be done to instances of type /obj, /mob and /turf")
 			return
 
-		src.cmd_admin_emp(A)
+		var/heavy = input("Range of heavy pulse.", "Input")  as num|null
+		if(isnull(heavy))
+			return
+		var/light = input("Range of light pulse.", "Input")  as num|null
+		if(isnull(light))
+			return
+
+		empulse(A, heavy, light)
+		log_admin("[key_name(usr)] created an EM pulse ([heavy], [light]) at ([A.x],[A.y],[A.z])")
+		message_admins("[key_name_admin(usr)] created an EM pulse ([heavy], [light]) at ([A.x],[A.y],[A.z])", 1)
+		SSblackbox.record_feedback("tally", "admin_verb", 1, "EMP") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		href_list["datumrefresh"] = href_list["emp"]
 
 	else if(href_list["mark_object"])

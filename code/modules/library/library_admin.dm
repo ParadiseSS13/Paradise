@@ -2,16 +2,12 @@
 #define LIBRARY_MENU_CKEY     2
 #define LIBRARY_MENU_REPORTS  3
 
-/client/proc/library_manager()
-	set name = "Manage Library"
-	set category = "Admin"
-	set desc = "Manage Flagged Books and Perform Maintenance on the Library System"
-
+/client/proc/library_manager(mob/user)
 	if(!check_rights(R_ADMIN))
 		return
 
 	var/datum/ui_module/library_manager/L = new()
-	L.ui_interact(usr)
+	L.ui_interact(user)
 
 /datum/ui_module/library_manager
 	name = "Library Manager"

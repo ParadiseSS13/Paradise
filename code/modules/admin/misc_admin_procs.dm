@@ -277,12 +277,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	usr << browse(body, "window=adminplayeropts;size=550x615")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Player Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-
-/datum/player_info/var/author // admin who authored the information
-/datum/player_info/var/rank //rank of admin who made the notes
-/datum/player_info/var/content // text content of the information
-/datum/player_info/var/timestamp // Because this is bloody annoying
-
 #define PLAYER_NOTES_ENTRIES_PER_PAGE 50
 /datum/admins/proc/PlayerNotes()
 	set category = "Admin"
@@ -328,16 +322,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	dat += "<p><a href='?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
 	dat += "<p><a href='?src=[cached_UID];create_mob=1'>Create Mob</a></p>"
 
-	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 210, 280)
+	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 210, 300)
 	popup.set_content(dat.Join(""))
 	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
 	popup.open()
 	onclose(usr, "game_panel")
-	return
 
 /////////////////////////////////////////////////////////////////////////////////////////////////admins2.dm merge
 //i.e. buttons/verbs
-
 
 /datum/admins/proc/restart()
 	set category = "Server"
