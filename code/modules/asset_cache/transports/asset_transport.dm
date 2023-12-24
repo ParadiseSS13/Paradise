@@ -106,7 +106,8 @@
 		if(!keep_local_name)
 			new_asset_name = "asset.[ACI.hash][ACI.ext]"
 		if(client.sent_assets[new_asset_name] == asset_hash)
-			log_debug("Skipping send of `[asset_name]` (as `[new_asset_name]`) for `[client]` because it already exists in the client's sent_assets list")
+			// Un-comment below to debug asset sending (This will spam logs so do not enable normally)
+			// log_debug("Skipping send of `[asset_name]` (as `[new_asset_name]`) for `[client]` because it already exists in the client's sent_assets list")
 			continue
 		unreceived[asset_name] = ACI
 
