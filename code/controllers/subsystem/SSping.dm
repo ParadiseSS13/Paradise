@@ -17,17 +17,17 @@ SUBSYSTEM_DEF(ping)
 
 /datum/controller/subsystem/ping/fire(resumed = FALSE)
 	// Prepare the new batch of clients
-	if (!resumed)
+	if(!resumed)
 		src.currentrun = GLOB.clients.Copy()
 
 	// De-reference the list for sanic speeds
 	var/list/currentrun = src.currentrun
 
-	while (currentrun.len)
+	while(currentrun.len)
 		var/client/client = currentrun[currentrun.len]
 		currentrun.len--
 
-		if (client?.tgui_panel?.is_ready())
+		if(client?.tgui_panel?.is_ready())
 			// Send a soft ping
 			client.tgui_panel.window.send_message("ping/soft", list(
 				// Slightly less than the subsystem timer (somewhat arbitrary)
@@ -35,5 +35,5 @@ SUBSYSTEM_DEF(ping)
 				"afk" = client.is_afk(3.5 SECONDS),
 			))
 
-		if (MC_TICK_CHECK)
+		if(MC_TICK_CHECK)
 			return

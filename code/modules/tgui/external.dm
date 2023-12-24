@@ -191,7 +191,7 @@
 		var/list/windows = usr.client.tgui_windows
 		for(var/window_id in windows)
 			var/datum/tgui_window/window = windows[window_id]
-			if (window.status == TGUI_WINDOW_READY)
+			if(window.status == TGUI_WINDOW_READY)
 				window.on_message(type, null, href_list)
 		return TRUE
 	// Locate window
