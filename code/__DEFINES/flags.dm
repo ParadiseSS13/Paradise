@@ -206,3 +206,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 
 // A define that checks that all flags in multiple_flags are in called_on, not just a single one
 #define CHECK_MULTIPLE_FLAGS(called_on, multiple_flags) (called_on && ((called_on & multiple_flags) == multiple_flags))
+
+// A define that checks that all flags in multiple_flags are in called_on, not just a single one. Also includes flags that should not be included
+#define CHECK_MULTIPLE_FLAGS_EXCLUDE(called_on, multiple_flags, excluded_flags) (called_on && ((called_on & multiple_flags) == multiple_flags) && ((called_on & excluded_flags) == 0))

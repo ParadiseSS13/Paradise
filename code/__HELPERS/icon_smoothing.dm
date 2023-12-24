@@ -194,7 +194,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 /atom/proc/corners_cardinal_smooth(atom/A, adjacencies)
 	//NW CORNER
 	var/nw = "1-i"
-	if((adjacencies & NORTH_JUNCTION) && (adjacencies & WEST_JUNCTION))
+	if(CHECK_MULTIPLE_FLAGS(adjacencies, NORTH_JUNCTION|WEST_JUNCTION))
 		if(adjacencies & NORTHWEST_JUNCTION)
 			nw = "1-f"
 		else
@@ -207,7 +207,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 	//NE CORNER
 	var/ne = "2-i"
-	if((adjacencies & NORTH_JUNCTION) && (adjacencies & EAST_JUNCTION))
+	if(CHECK_MULTIPLE_FLAGS(adjacencies, NORTH_JUNCTION|EAST_JUNCTION))
 		if(adjacencies & NORTHEAST_JUNCTION)
 			ne = "2-f"
 		else
@@ -220,7 +220,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 	//SW CORNER
 	var/sw = "3-i"
-	if((adjacencies & SOUTH_JUNCTION) && (adjacencies & WEST_JUNCTION))
+	if(CHECK_MULTIPLE_FLAGS(adjacencies, SOUTH_JUNCTION|WEST_JUNCTION))
 		if(adjacencies & SOUTHWEST_JUNCTION)
 			sw = "3-f"
 		else
@@ -233,7 +233,7 @@ DEFINE_BITFIELD(smoothing_junction, list(
 
 	//SE CORNER
 	var/se = "4-i"
-	if((adjacencies & SOUTH_JUNCTION) && (adjacencies & EAST_JUNCTION))
+	if(CHECK_MULTIPLE_FLAGS(adjacencies, SOUTH_JUNCTION|EAST_JUNCTION))
 		if(adjacencies & SOUTHEAST_JUNCTION)
 			se = "4-f"
 		else

@@ -313,7 +313,7 @@
 	return owner && (flags & flag)
 
 /datum/ui_module/appearance_changer/proc/can_change_skin_tone()
-	return owner && (flags & APPEARANCE_SKIN) && ((owner.dna.species.bodyflags & HAS_SKIN_TONE) || (owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE))
+	return owner && (flags & APPEARANCE_SKIN) && ((owner.dna.species.bodyflags & HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 
 /datum/ui_module/appearance_changer/proc/can_change_skin_color()
 	return owner && (flags & APPEARANCE_SKIN) && (owner.dna.species.bodyflags & HAS_SKIN_COLOR)

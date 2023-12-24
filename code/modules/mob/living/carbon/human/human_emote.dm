@@ -414,12 +414,8 @@
 	var/mob/living/carbon/human/H = user
 	var/obj/item/organ/external/LH = H.get_organ("l_hand")
 	var/obj/item/organ/external/RH = H.get_organ("r_hand")
-	var/left_hand_good = FALSE
-	var/right_hand_good = FALSE
-	if(LH && !(LH.status & ORGAN_SPLINTED) && !(LH.status & ORGAN_BROKEN))
-		left_hand_good = TRUE
-	if(RH && !(RH.status & ORGAN_SPLINTED) && !(RH.status & ORGAN_BROKEN))
-		right_hand_good = TRUE
+	var/left_hand_good = LH && !(LH.status & ORGAN_SPLINTED|ORGAN_BROKEN)
+	var/right_hand_good = RH && !(RH.status & ORGAN_SPLINTED|ORGAN_BROKEN)
 
 	if(!left_hand_good && !right_hand_good)
 		to_chat(user, "You need at least one hand in good working order to snap your fingers.")

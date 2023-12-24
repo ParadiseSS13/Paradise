@@ -298,7 +298,7 @@
 	if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
 		return TRUE
 	//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
+	if(CHECK_MULTIPLE_FLAGS(R.process_flags, ORGANIC|SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
 		return TRUE
 
 /**
@@ -600,7 +600,7 @@
 			if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
 				can_process = TRUE
 			//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-			if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
+			if(CHECK_MULTIPLE_FLAGS(R.process_flags, ORGANIC|SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
 				can_process = TRUE
 	//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 	else

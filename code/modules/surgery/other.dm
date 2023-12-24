@@ -67,9 +67,8 @@
 	if(!.)
 		return FALSE
 	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
-	if(!(affected.status & ORGAN_DEAD) && !(affected.status & ORGAN_BURNT))
-		return FALSE
-	return TRUE
+	return (affected.status & ORGAN_DEAD|ORGAN_BURNT)
+
 
 /datum/surgery_step/fix_vein
 	name = "mend internal bleeding"
@@ -246,7 +245,7 @@
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if(!(affected.status & ORGAN_DEAD) && !(affected.status & ORGAN_BURNT))
+	if(!(affected.status & ORGAN_DEAD|ORGAN_BURNT))
 		to_chat(user, "<span class='warning'>The [affected] seems to already be in fine condition!")
 		return SURGERY_BEGINSTEP_SKIP
 

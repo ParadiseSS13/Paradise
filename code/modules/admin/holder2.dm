@@ -162,7 +162,7 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 
 	if(!user.client.holder)
 		return FALSE
-	if(CHECK_MULTIPLE_FLAGS(user.client.holder.rights & rights_required))
+	if(CHECK_MULTIPLE_FLAGS(user.client.holder.rights, rights_required))
 		return TRUE
 	if(show_msg)
 		to_chat(user, "<font color='red'>Error: You do not have sufficient rights to do that. You require all of the following flags:[rights2text(rights_required, " ")].</font>")

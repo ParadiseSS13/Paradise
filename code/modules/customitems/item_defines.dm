@@ -553,7 +553,7 @@
 
 		if(P == H.head)
 			H.update_inv_head()
-		if(used & USED_MOD_HELM && used & USED_MOD_SUIT)
+		if(CHECK_MULTIPLE_FLAGS(used, USED_MOD_HELM|USED_MOD_SUIT))
 			qdel(src)
 		return
 
@@ -575,7 +575,7 @@
 
 		if(P == H.wear_suit)
 			H.update_inv_wear_suit()
-		if(used & USED_MOD_HELM && used & USED_MOD_SUIT)
+		if(CHECK_MULTIPLE_FLAGS(used, USED_MOD_HELM|USED_MOD_SUIT))
 			qdel(src)
 		return
 

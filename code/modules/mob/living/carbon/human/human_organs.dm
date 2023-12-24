@@ -25,7 +25,7 @@
 				var/obj/item/organ/internal/I = pick(E.internal_organs)
 				E.custom_pain("You feel broken bones moving in your [E.name]!")
 				I.receive_damage(rand(3, 5))
-			if((E.status & ORGAN_BURNT) && !(E.status & ORGAN_SALVED))
+			if(CHECK_MULTIPLE_FLAGS_EXCLUDE(E.status, ORGAN_BURNT, ORGAN_SALVED)) // Burnt, but not salved
 				E.custom_pain("You feel the skin sloughing off the burn on your [E.name]!")
 				E.germ_level++
 

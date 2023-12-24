@@ -107,7 +107,7 @@
 		germ_level = 0
 		return
 
-	if(!owner || ((status & ORGAN_BURNT) && !(status & ORGAN_SALVED)))
+	if(!owner || CHECK_MULTIPLE_FLAGS_EXCLUDE(status, ORGAN_BURNT, ORGAN_SALVED))
 		if(is_preserved())
 			return
 		// Maybe scale it down a bit, have it REALLY kick in once past the basic infection threshold
@@ -198,7 +198,7 @@
 	return damage >= min_bruised_damage
 
 /obj/item/organ/proc/is_broken()
-	return (damage >= min_broken_damage || ((status & ORGAN_BROKEN) && !(status & ORGAN_SPLINTED)))
+	return (damage >= min_broken_damage || CHECK_MULTIPLE_FLAGS_EXCLUDE(status & ORGAN_BROKEN, ORGAN_SPLINTED)) // broken but not splinted
 
 //Adds autopsy data for used_weapon.
 /obj/item/organ/proc/add_autopsy_data(used_weapon = "Unknown", damage)

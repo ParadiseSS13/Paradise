@@ -204,7 +204,7 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 		return
 	if(exposed_temperature && !(resistance_flags & FIRE_PROOF))
 		take_damage(clamp(0.02 * exposed_temperature, 0, 20), BURN, FIRE, 0)
-	if(!(resistance_flags & ON_FIRE) && (resistance_flags & FLAMMABLE) && !(resistance_flags & FIRE_PROOF))
+	if(CHECK_MULTIPLE_FLAGS_EXCLUDE(resistance_flags, FLAMMABLE, ON_FIRE|FIRE_PROOF)) // check that its flammable and not on fire or fireproof
 		resistance_flags |= ON_FIRE
 		SSfires.processing[src] = src
 		add_overlay(custom_fire_overlay ? custom_fire_overlay : GLOB.fire_overlay)

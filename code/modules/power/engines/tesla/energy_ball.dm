@@ -369,7 +369,7 @@
 		closest_mob.electrocute_act(shock_damage, source, 1, SHOCK_TESLA | ((zap_flags & ZAP_MOB_STUN) ? NONE : SHOCK_NOSTUN))
 		if(issilicon(closest_mob))
 			var/mob/living/silicon/S = closest_mob
-			if((zap_flags & ZAP_MOB_STUN) && (zap_flags & ZAP_MOB_DAMAGE))
+			if(CHECK_MULTIPLE_FLAGS(zap_flags, ZAP_MOB_STUN|ZAP_MOB_DAMAGE))
 				S.emp_act(EMP_LIGHT)
 			next_range = 7 // metallic folks bounce it further
 		else
