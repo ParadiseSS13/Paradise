@@ -198,7 +198,7 @@
 	return damage >= min_bruised_damage
 
 /obj/item/organ/proc/is_broken()
-	return (damage >= min_broken_damage || CHECK_MULTIPLE_FLAGS_EXCLUDE(status & ORGAN_BROKEN, ORGAN_SPLINTED)) // broken but not splinted
+	return (damage >= min_broken_damage || CHECK_MULTIPLE_FLAGS_EXCLUDE(status, ORGAN_BROKEN, ORGAN_SPLINTED)) // broken but not splinted
 
 //Adds autopsy data for used_weapon.
 /obj/item/organ/proc/add_autopsy_data(used_weapon = "Unknown", damage)
