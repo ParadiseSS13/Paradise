@@ -97,7 +97,6 @@
 	dat += "<a href='?src=[UID()];refresh=1'>Scan</a>"
 	dat += "<a href='?src=[UID()];[occupant ? "eject=1'>Eject Occupant</a>" : "unoccupied=1'>Unoccupied</a>"]"
 	var/datum/browser/popup = new(user, "experiment", "Probing Console", 300, 300)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
 	popup.set_content(dat)
 	popup.open()
 

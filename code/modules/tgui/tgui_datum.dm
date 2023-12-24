@@ -82,15 +82,24 @@
 	opened_at = world.time
 	window.acquire_lock(src)
 	if(!window.is_ready())
-		window.initialize()
+		window.initialize(inline_assets = list(
+			get_asset_datum(/datum/asset/simple/tgui),
+		))
 	else
 		window.send_message("ping")
-	for(var/datum/asset/asset in src_object.ui_assets(user))
-		send_asset(asset)
+	send_assets()
 	window.send_message("update", get_payload(
 		with_data = TRUE,
 		with_static_data = TRUE))
 	SStgui.on_open(src)
+
+/datum/tgui/proc/send_assets()
+	PRIVATE_PROC(TRUE)
+	var/flushqueue = window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))
+	for(var/datum/asset/asset in src_object.ui_assets(user))
+		flushqueue |= window.send_asset(asset)
+	if(flushqueue)
+		user.client.browse_queue_flush()
 
 /**
  * public
@@ -144,9 +153,9 @@
  * required asset datum/asset
  */
 /datum/tgui/proc/send_asset(datum/asset/asset)
-	if(!user.client)
-		return
-	asset.send(user)
+	if(!window)
+		CRASH("send_asset() can only be called after open().")
+	window.send_asset(asset)
 
 /**
  * public
@@ -215,8 +224,6 @@
 	var/static_data = with_static_data && src_object.ui_static_data(user)
 	if(static_data)
 		json_data["static_data"] = static_data
-	if(asset_data)
-		json_data["assets"] = asset_data
 	if(src_object.tgui_shared_states)
 		json_data["shared"] = src_object.tgui_shared_states
 	return json_data

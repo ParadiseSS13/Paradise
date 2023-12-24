@@ -74,23 +74,23 @@ const Materials = (properties, context) => {
       }
     >
       {[
-        '$metal',
-        '$glass',
-        '$silver',
-        '$gold',
-        '$uranium',
-        '$titanium',
-        '$plasma',
-        '$diamond',
-        '$bluespace',
-        '$bananium',
-        '$tranquillite',
-        '$plastic',
+        'metal',
+        'glass',
+        'silver',
+        'gold',
+        'uranium',
+        'titanium',
+        'plasma',
+        'diamond',
+        'bluespace',
+        'bananium',
+        'tranquillite',
+        'plastic',
       ].map((name) => (
         <MaterialCount
           key={name}
           id={name}
-          bold={name === '$metal' || name === '$glass'}
+          bold={name === 'metal' || name === 'glass'}
           onClick={() =>
             act('withdraw', {
               id: name,
@@ -304,48 +304,48 @@ const Queue = (properties, context) => {
 const MaterialCount = (properties, context) => {
   const { act, data } = useBackend(context);
   const { id, amount, lineDisplay, onClick, ...rest } = properties;
-  const cleanId = id.replace('$', '');
   const storedAmount = data.materials[id] || 0;
   const curAmount = amount || storedAmount;
-  if (curAmount <= 0 && !(cleanId === 'metal' || cleanId === 'glass')) {
+  if (curAmount <= 0 && !(id === 'metal' || id === 'glass')) {
     return;
   }
   const insufficient = amount && amount > storedAmount;
   return (
     <Flex
+      align="center"
       className={classes([
         'Exofab__material',
         lineDisplay && 'Exofab__material--line',
       ])}
       {...rest}
     >
-      <Flex.Item basis="content">
-        <Button onClick={onClick}>
-          <Box
-            as="img"
-            src={'sheet-' + (iconNameOverrides[cleanId] || cleanId) + '.png'}
-          />
-        </Button>
-      </Flex.Item>
-      <Flex.Item grow="1">
-        {!lineDisplay ? (
-          <Fragment>
-            <Box className="Exofab__material--name">{cleanId}</Box>
+      {!lineDisplay ? (
+        <Fragment>
+          <Flex.Item basis="content">
+            <Button onClick={onClick}>
+              <Box className={classes(['materials32x32', id])} />
+            </Button>
+          </Flex.Item>
+          <Flex.Item grow="1">
+            <Box className="Exofab__material--name">{id}</Box>
             <Box className="Exofab__material--amount">
               {curAmount.toLocaleString('en-US')} cm³ (
               {Math.round((curAmount / MINERAL_MATERIAL_AMOUNT) * 10) / 10}{' '}
               sheets)
             </Box>
-          </Fragment>
-        ) : (
-          <Box
+          </Flex.Item>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <Flex.Item className={classes(['materials32x32', id])} />
+          <Flex.Item
             className="Exofab__material--amount"
             color={insufficient && 'bad'}
           >
             {curAmount.toLocaleString('en-US')}
-          </Box>
-        )}
-      </Flex.Item>
+          </Flex.Item>
+        </Fragment>
+      )}
     </Flex>
   );
 };

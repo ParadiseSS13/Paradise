@@ -117,13 +117,15 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	var/datum/asset/cloning/assets = get_asset_datum(/datum/asset/cloning)
-	assets.send(user)
-
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "CloningConsole", "Cloning Console")
 		ui.open()
+
+/obj/machinery/computer/cloning/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/cloning)
+	)
 
 /obj/machinery/computer/cloning/ui_data(mob/user)
 	var/data[0]

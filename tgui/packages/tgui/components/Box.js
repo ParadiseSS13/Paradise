@@ -12,7 +12,7 @@ import { CSS_COLORS } from '../constants';
 /**
  * Coverts our rem-like spacing unit into a CSS unit.
  */
-export const unit = value => {
+export const unit = (value) => {
   if (typeof value === 'string') {
     // Transparently convert pixels into rem units
     if (value.endsWith('px') && !Byond.IS_LTE_IE8) {
@@ -100,9 +100,7 @@ const styleMapperByPropName = {
   fontFamily: mapRawPropTo('font-family'),
   lineHeight: (style, value) => {
     if (!isFalsy(value)) {
-      style['line-height'] = typeof value === 'number'
-        ? value
-        : unit(value);
+      style['line-height'] = typeof value === 'number' ? value : unit(value);
     }
   },
   opacity: mapRawPropTo('opacity'),

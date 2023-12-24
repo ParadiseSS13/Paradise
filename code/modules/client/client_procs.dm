@@ -50,10 +50,12 @@
 				stack_trace("Got \\ref-based src in topic from [src] for [hsrc_info], should be UID: [href]")
 
 
+	// asset_cache
+	var/asset_cache_job
 	if(href_list["asset_cache_confirm_arrival"])
-		var/job = text2num(href_list["asset_cache_confirm_arrival"])
-		completed_asset_jobs += job
-		return
+		asset_cache_job = asset_cache_confirm_arrival(href_list["asset_cache_confirm_arrival"])
+		if(!asset_cache_job)
+			return
 
 	if(href_list["_src_"] == "chat")
 		return chatOutput.Topic(href, href_list)
@@ -170,6 +172,16 @@
 
 	// Tgui Topic middleware
 	if(!tgui_Topic(href_list))
+		return
+
+	//byond bug ID:2256651
+	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
+		to_chat(src, "<span class='danger'> An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>")
+		src << browse("...", "window=asset_cache_browser")
+		return
+
+	if(href_list["asset_cache_preload_data"])
+		asset_cache_preload_data(href_list["asset_cache_preload_data"])
 		return
 
 	switch(href_list["action"])
@@ -346,6 +358,7 @@
 	// DO NOT STUFF RANDOM SQL QUERIES BELOW THIS POINT WITHOUT USING `INVOKE_ASYNC()` OR SIMILAR
 	// YOU WILL BREAK STUFF. SERIOUSLY. -aa07
 	GLOB.clients += src
+	connection_time = world.time
 
 
 	spawn() // Goonchat does some non-instant checks in start()
@@ -905,19 +918,17 @@
 	// Change the way they should download resources.
 	if(length(GLOB.configuration.url.rsc_urls))
 		preload_rsc = pick(GLOB.configuration.url.rsc_urls)
-
 	else
 		preload_rsc = 1 // If config.resource_urls is not set, preload like normal.
 
-	// Most assets are now handled through global_cache.dm
-	getFiles(
-		'html/search.js', // Used in various non-TGUI HTML windows for search functionality
-		'html/panels.css' // Used for styling certain panels, such as in the new player panel
-	)
-
 	spawn (10) //removing this spawn causes all clients to not get verbs.
+
+		//load info on what assets the client has
+		src << browse('code/modules/asset_cache/validate_assets.html', "window=asset_cache_browser")
+
 		//Precache the client with all other assets slowly, so as to not block other browse() calls
-		getFilesSlow(src, SSassets.preload, register_asset = FALSE)
+		if(GLOB.configuration.asset_cache.asset_simple_preload)
+			addtimer(CALLBACK(SSassets.transport, TYPE_PROC_REF(/datum/asset_transport, send_assets_slow), src, SSassets.transport.preload), 5 SECONDS)
 
 //For debugging purposes
 /client/proc/list_all_languages()
@@ -1027,6 +1038,8 @@
 
 #undef SSD_WARNING_TIMER
 
+
+//
 /client/verb/resend_ui_resources()
 	set name = "Reload UI Resources"
 	set desc = "Reload your UI assets if they are not working"
@@ -1036,7 +1049,7 @@
 		to_chat(usr, "<span class='warning'>You requested your UI resource files too quickly. Please try again in [(last_ui_resource_send - world.time)/10] seconds.</span>")
 		return
 
-	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs this may break them. Are you sure?", "Resource Reloading", "Yes", "No")
+	var/choice = alert(usr, "This will reload your TGUI resources. If you have any open UIs, they will be closed. Are you sure?", "Resource Reloading", "Yes", "No")
 	if(choice == "Yes")
 		// 600 deciseconds = 1 minute
 		last_ui_resource_send = world.time + 60 SECONDS
@@ -1044,18 +1057,9 @@
 		// Close their open UIs
 		SStgui.close_user_uis(usr)
 
-		// Resend the resources
-
-		var/datum/asset/tgui_assets = get_asset_datum(/datum/asset/simple/tgui)
-		tgui_assets.register()
-
-		var/datum/asset/nanomaps = get_asset_datum(/datum/asset/simple/nanomaps)
-		nanomaps.register()
-
 		// Clear the user's cache so they get resent.
 		// This is not fully clearing their BYOND cache, just their assets sent from the server this round
-		cache = list()
-
+		sent_assets = list()
 		to_chat(usr, "<span class='notice'>UI resource files resent successfully. If you are still having issues, please try manually clearing your BYOND cache. <b>This can be achieved by opening your BYOND launcher, pressing the cog in the top right, selecting preferences, going to the Games tab, and pressing 'Clear Cache'.</b></span>")
 
 

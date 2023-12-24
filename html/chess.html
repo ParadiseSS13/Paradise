@@ -1,11 +1,10 @@
 	<script type="text/javascript">var hSrc = "[hsrc]"</script>
-	<script src="boardui.js"></script>
 	<script type="text/javascript">
 	    $(document).ready(function () {
 	        g_timeout = 1000;
 	        UINewGame();
 	    });
-    </script>  
+    </script>
     <div align="center">
         <div>
             <a href="javascript:UINewGame()">New game</a>
@@ -17,8 +16,8 @@
             <a href="javascript:UIUndoMove()">Undo</a>
         </div>
         <div style="margin-top:5px;">
-        <div id='board'></div> 
-        <span id='output' style="display: none;"></span><br/> 
+        <div id='board'></div>
+        <span id='output' style="display: none;"></span><br/>
 	    <textarea cols='50' rows='6' id='PgnTextBox' style="display: none;"></textarea><br/>
         <div style="display: none;">
             <a id='AnalysisToggleLink' href="javascript:UIAnalyzeToggle()">Analysis: Off</a>
@@ -28,4 +27,4 @@
 		<div>
 			<a href="javascript:UIClose()">Close</a>
 		</div>
-     </div> 
+     </div>
