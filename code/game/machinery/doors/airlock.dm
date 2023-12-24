@@ -1706,7 +1706,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		if(!do_after(user, 5 SECONDS, target = src))
 			return
 		locked = FALSE
-		playsound(src, boltUp, 30, 0, 3)
+		playsound(src, boltUp, 30, FALSE, 3)
 		update_icon()
 	return
 
