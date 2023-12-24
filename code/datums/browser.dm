@@ -5,7 +5,7 @@
 	var/width = 0
 	var/height = 0
 	var/atom_uid = null
-	var/window_options = "focus=0;can_close=1;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;" // window option is set using window_id
+	var/list/window_options = list("focus=0;can_close=1;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;") // window option is set using window_id
 	var/stylesheets[0]
 	var/scripts[0]
 	var/include_default_stylesheet = TRUE
@@ -121,7 +121,7 @@
 		SSassets.transport.send_assets(user, stylesheets)
 	if(length(scripts))
 		SSassets.transport.send_assets(user, scripts)
-	user << browse(get_content(), "window=[window_id];[window_size][window_options]")
+	user << browse(get_content(), "window=[window_id];[window_size][window_options.Join("")]")
 	if(use_onclose)
 		onclose(user, window_id, atom_uid)
 
