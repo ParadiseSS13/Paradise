@@ -195,7 +195,6 @@
 
 	if(istype(asset, /datum/asset/spritesheet))
 		var/datum/asset/spritesheet/spritesheet = asset
-		log_debug("Sending `asset/stylesheet` with filename: [spritesheet.css_filename()]")
 		send_message("asset/stylesheet", spritesheet.css_filename())
 
 	send_message("asset/mappings", asset.get_url_mappings())

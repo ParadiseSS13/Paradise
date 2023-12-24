@@ -179,6 +179,10 @@
 		ui = new(user, src, "RPD", name)
 		ui.open()
 
+/obj/item/rpd/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/rpd)
+	)
 
 /obj/item/rpd/AltClick(mob/user)
 	radial_menu(user)

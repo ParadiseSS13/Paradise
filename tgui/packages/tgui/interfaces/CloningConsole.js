@@ -18,6 +18,7 @@ import {
   modalRegisterBodyOverride,
 } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
+import { resolveAsset } from '../assets';
 
 const viewRecordModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
@@ -262,7 +263,7 @@ const CloningConsoleMain = (props, context) => {
                 mr="0.5rem"
               >
                 <img
-                  src={'pod_' + pod.status + '.gif'}
+                  src={resolveAsset('pod_' + pod.status + '.gif')}
                   style={{
                     width: '100%',
                     '-ms-interpolation-mode': 'nearest-neighbor',

@@ -1,3 +1,4 @@
+import { classes } from 'common/react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -9,8 +10,10 @@ import {
   NumberInput,
   Section,
 } from '../components';
-import { FlexItem } from '../components/Flex';
 import { Window } from '../layouts';
+import { createLogger } from 'common/logging';
+
+const logger = createLogger('OreRedemption');
 
 const formatPoints = (amt) => amt.toLocaleString('en-US') + ' pts';
 
@@ -210,22 +213,18 @@ const SheetLine = (properties, context) => {
   if (
     ore.value &&
     ore.amount <= 0 &&
-    !(['$metal', '$glass'].indexOf(ore.id) > -1)
+    !(['metal', 'glass'].indexOf(ore.id) > -1)
   ) {
     return;
   }
-  const cleanId = ore.id.replace('$', '');
   return (
     <Box className="SheetLine">
       <Flex width="100%">
         <Flex.Item basis="45%" align="middle">
-          <Box
-            as="img"
-            src={'sheet-' + cleanId + '.png'}
-            verticalAlign="middle"
-            ml="0rem"
-          />
-          {ore.name}
+          <Flex align="center">
+            <Flex.Item className={classes(['materials32x32', ore.id])} />
+            <Flex.Item>{ore.name}</Flex.Item>
+          </Flex>
         </Flex.Item>
         <Flex.Item
           basis="20%"
@@ -270,21 +269,16 @@ const SheetLine = (properties, context) => {
 const AlloyLine = (properties, context) => {
   const { act } = useBackend(context);
   const { ore } = properties;
-  const cleanId = ore.id.replace('$', '');
+  logger.info('Ore Id: ' + ore.id);
   return (
     <Box className="SheetLine">
       <Flex width="100%">
         <Flex.Item basis="7%" align="middle">
-          <Box
-            as="img"
-            src={'sheet-' + cleanId + '.png'}
-            verticalAlign="middle"
-            ml="`0rem"
-          />
+          <Box className={classes(['alloys32x32', ore.id])} />
         </Flex.Item>
-        <FlexItem basis="30%" textAlign="middle" align="center">
+        <Flex.Item basis="30%" textAlign="middle" align="center">
           {ore.name}
-        </FlexItem>
+        </Flex.Item>
         <Flex.Item
           basis="35%"
           textAlign="middle"

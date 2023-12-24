@@ -18,6 +18,10 @@ import {
   modalOpen,
   modalRegisterBodyOverride,
 } from './common/ComplexModal';
+import { classes } from 'common/react';
+import { createLogger } from '../logging';
+
+const logger = createLogger('ChemMaster');
 
 const transferAmounts = [1, 5, 10];
 
@@ -425,30 +429,11 @@ const ChemMasterProductionCommon = (props, context) => {
 };
 
 const SpriteStyleButton = (props, context) => {
-  const { icon, imageTransform, ...restProps } = props;
+  const { icon, ...restProps } = props;
+  logger.info('Icon Name:' + icon);
   return (
     <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
-      <span
-        style={{
-          overflow: 'hidden',
-          display: 'inline-block',
-          width: '26px',
-          height: '26px',
-          position: 'relative',
-        }}
-      >
-        <img
-          style={{
-            '-ms-interpolation-mode': 'nearest-neighbor',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: `translate(-50%, -50%) ${imageTransform || ''}`,
-            'margin-left': '1px',
-          }}
-          src={icon}
-        />
-      </span>
+      <Box className={classes(['chem_master32x32', icon])} />
     </Button>
   );
 };
@@ -467,7 +452,6 @@ const ChemMasterProductionPills = (props, context) => {
     <SpriteStyleButton
       key={id}
       icon={sprite}
-      imageTransform="scale(2)"
       onClick={() => act('set_pills_style', { style: id })}
       selected={pillsprite === id}
     />

@@ -1,5 +1,7 @@
-/datum/asset/spritesheet/mob_hunt
-	name = "mob_hunt"
+/datum/asset/simple/mob_hunt/register()
+	for(var/state in icon_states('icons/effects/mob_hunt.dmi'))
+		if(state == "Placeholder")
+			continue
+		assets["[state].png"] = icon('icons/effects/mob_hunt.dmi', state)
 
-/datum/asset/spritesheet/mob_hunt/create_spritesheets()
-	InsertAll("", 'icons/effects/mob_hunt.dmi')
+	return ..()

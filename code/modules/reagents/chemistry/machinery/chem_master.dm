@@ -491,7 +491,7 @@
 	for(var/i in 1 to MAX_PILL_SPRITE)
 		pill_styles += list(list(
 			"id" = i,
-			"sprite" = "pill[i].png",
+			"sprite" = "pill[i]",
 		))
 	data["pillstyles"] = pill_styles
 
@@ -501,7 +501,7 @@
 		bottle_style_indexer++
 		bottle_styles_with_sprite += list(list(
 			"id" = bottle_style_indexer,
-			"sprite" = "[style].png",
+			"sprite" = "[style]",
 		))
 	data["bottlestyles"] = bottle_styles_with_sprite
 

@@ -379,7 +379,8 @@
 
 /obj/machinery/mineral/ore_redemption/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/materials)
+		get_asset_datum(/datum/asset/spritesheet/materials),
+		get_asset_datum(/datum/asset/spritesheet/alloys)
 	)
 
 /**
