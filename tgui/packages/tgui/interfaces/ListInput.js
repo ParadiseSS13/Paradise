@@ -189,7 +189,7 @@ export const ListInput = (props, context) => {
           )}
           <Flex.Item>
             <Flex textAlign="center">
-              <Flex.Item grow={1} basis={0} ml={1} mx="5px">
+              <Flex.Item grow={1} basis={0} mr={0.5}>
                 <Button
                   fluid
                   color="good"
@@ -198,7 +198,7 @@ export const ListInput = (props, context) => {
                   onClick={() => act('choose', { choice: selectedButton })}
                 />
               </Flex.Item>
-              <Flex.Item grow={1} basis={0} mr={1} mx="5px">
+              <Flex.Item grow={1} basis={0} ml={0.5}>
                 <Button
                   fluid
                   color="bad"
