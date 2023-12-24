@@ -2,6 +2,7 @@
 
 /datum/credits
 	var/list/credits = list()
+	var/list/screen_credits = list()
 
 	var/playing_time
 	var/delay_time = 5 SECONDS
@@ -36,21 +37,17 @@
 	playing_time -= credit_spawn_speed
 	playing_time += credit_roll_speed
 
-/datum/credits/proc/roll_credits_for_clients(list/clients)
+/datum/credits/proc/roll_credits_for_clients(list/client/clients)
 	for(var/client/client in clients)
-		setup_credits_for_client(client)
+		LAZYINITLIST(client.credits)
+
+	var/obj/screen/credit/logo = new /obj/screen/credit/logo(null, "", clients)
+	screen_credits += logo
 
 	addtimer(CALLBACK(src, PROC_REF(start_rolling_credits_for_clients), clients), delay_time)
 
-/datum/credits/proc/setup_credits_for_client(client/client)
-	LAZYINITLIST(client.credits)
-
-	var/obj/screen/credit/logo = new /obj/screen/credit/logo(null, "", client)
-
-	client.credits += logo
-
-/datum/credits/proc/start_rolling_credits_for_clients(list/clients)
-	addtimer(CALLBACK(src, PROC_REF(start_rolling_logo_for_clients), clients,), SScredits.credit_roll_speed / 2.5)
+/datum/credits/proc/start_rolling_credits_for_clients(list/client/clients)
+	addtimer(CALLBACK(src, PROC_REF(start_rolling_logo)), SScredits.credit_roll_speed / 2.5)
 
 	for(var/datum/credit/credit in credits)
 		for(var/item in credit.content)
@@ -59,30 +56,26 @@
 
 	addtimer(CALLBACK(src, PROC_REF(clear_credits_for_clients), clients), SScredits.credit_roll_speed)
 
-/datum/credits/proc/start_rolling_logo_for_clients(list/clients)
-	for(var/client/client in clients)
-		if(!client?.credits)
-			continue
+/datum/credits/proc/start_rolling_logo()
+	var/obj/screen/credit/logo/logo = screen_credits[1]
+	logo.rollem()
 
-		var/obj/screen/credit/logo/logo = client.credits[1]
-		logo.rollem()
+/datum/credits/proc/start_rolling_credit_item(list/client/clients, credit_item)
+	var/obj/screen/credit/title = new(null, credit_item, clients)
+	screen_credits += title
 
-/datum/credits/proc/start_rolling_credit_item(list/clients, credit_item)
-	for(var/client/client in clients)
-		if(!client?.credits)
-			continue
+	title.rollem()
 
-		var/obj/screen/credit/title = new(null, credit_item, client)
-		client.credits += title
-		title.rollem()
+/datum/credits/proc/clear_credits_for_clients(list/client/clients)
+	screen_credits.Cut()
 
-/datum/credits/proc/clear_credits_for_clients(list/clients)
 	for(var/client/client in clients)
 		if(!client?.credits)
 			continue
 
 		SScredits.clear_credits(client)
 
+	SScredits.current_cinematic = null
 
 /datum/credits/default
 
@@ -171,8 +164,13 @@
 		return
 
 	var/datum/db_query/ranks_ckey_read = SSdbcore.NewQuery(
-		"SELECT ckey FROM admin WHERE admin_rank=:rank",
-			list("rank" = "Банда"))
+		"SELECT ckey FROM admin WHERE admin_rank=:rank OR admin_rank=:rank1 OR admin_rank=:rank2 OR admin_rank=:rank3",
+			list(
+				"rank" = "Банда",
+				"rank1" = "Братюня",
+				"rank2" = "Максон",
+				"rank3" = "Сестрюня"
+			))
 
 	if(!ranks_ckey_read.warn_execute())
 		qdel(ranks_ckey_read)
@@ -216,7 +214,7 @@
 	for(var/client/client in GLOB.clients)
 		if(!client.donator_level)
 			continue
-		if(client.holder)
+		if(client.donator_level > DONATOR_LEVEL_MAX)
 			continue
 		if(!length(donators))
 			donators += "<hr>"
@@ -379,12 +377,21 @@
 	screen_loc = "CENTER-7,CENTER-7"
 	plane = CREDITS_PLANE
 
-	var/client/parent
+	var/list/client/watchers = list()
 
-/obj/screen/credit/Initialize(mapload, credited, client/client)
+/obj/screen/credit/Initialize(mapload, credited, list/client/clients)
 	. = ..()
 
-	parent = client
+	for(var/client/watcher in clients)
+		if(!watcher)
+			continue
+		if(!watcher.credits)
+			continue
+		watcher.credits += src
+		watcher.screen += src
+		watchers += watcher
+
+
 	maptext = {"<div style="font:'Small Fonts'">[credited]</div>"}
 	maptext_height = world.icon_size * 2
 	maptext_width = world.icon_size * 14
@@ -396,17 +403,20 @@
 	matrix.Translate(0, SScredits.credit_animate_height)
 	animate(src, transform = matrix, time = SScredits.credit_roll_speed)
 	addtimer(CALLBACK(src, PROC_REF(delete_credit)), SScredits.credit_roll_speed, TIMER_CLIENT_TIME)
-	parent.screen += src
 
 /obj/screen/credit/proc/delete_credit()
 	if(!QDELETED(src))
 		qdel(src)
 
 /obj/screen/credit/Destroy()
-	if(parent)
-		parent.screen -= src
-		LAZYREMOVE(parent.credits, src)
-		parent = null
+	for(var/client/watcher in watchers)
+		if(!watcher)
+			continue
+		watcher.screen -= src
+		LAZYREMOVE(watcher.credits, src)
+
+	watchers.Cut()
+
 	return ..()
 
 /obj/screen/credit/logo
@@ -416,15 +426,13 @@
 	alpha = 100
 
 
-/obj/screen/credit/logo/Initialize(mapload, credited, client/client)
+/obj/screen/credit/logo/Initialize(mapload, credited, list/client/clients)
 	. = ..()
 	animate(src, alpha = 220, time = 3 SECONDS)
 	maptext = "<center><h1>Playing music - [SScredits.title_music]</h1></center>"
 	maptext_height = 10 * world.icon_size
 	maptext_x -= 5 * world.icon_size
 	maptext_y += 6 * world.icon_size
-	parent.screen += src
-
 
 /obj/screen/credit/logo/rollem()
 	var/matrix/matrix = matrix(transform)

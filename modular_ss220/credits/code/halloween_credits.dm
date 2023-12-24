@@ -13,19 +13,24 @@
 	credits += new /datum/credit/staff/halloween()
 	credits += new /datum/credit/disclaimer()
 
-/datum/credits/halloween/setup_credits_for_client(client/client)
-	LAZYINITLIST(client.credits)
-
-	var/obj/screen/credit/logo = new /obj/screen/credit/halloween(null, "", client)
-	client.credits += logo
-
-/datum/credits/halloween/start_rolling_logo_for_clients(list/clients)
+/datum/credits/halloween/roll_credits_for_clients(list/client/clients)
 	for(var/client/client in clients)
-		if(!client?.credits)
-			continue
+		LAZYINITLIST(client.credits)
 
-		var/obj/screen/credit/logo/logo = client.credits[1]
-		logo.rollem()
+	var/obj/screen/credit/logo = new /obj/screen/credit/halloween(null, "", clients)
+	screen_credits += logo
+
+	addtimer(CALLBACK(src, PROC_REF(start_rolling_credits_for_clients), clients), delay_time)
+
+/datum/credits/halloween/start_rolling_credits_for_clients(list/client/clients)
+	addtimer(CALLBACK(src, PROC_REF(start_rolling_logo)), SScredits.credit_roll_speed / 2.5)
+
+	for(var/datum/credit/credit in credits)
+		for(var/item in credit.content)
+			start_rolling_credit_item(clients, item)
+			sleep(SScredits.credit_spawn_speed)
+
+	addtimer(CALLBACK(src, PROC_REF(clear_credits_for_clients), clients), SScredits.credit_roll_speed)
 
 /datum/credit/episode_title/halloween
 
@@ -176,9 +181,9 @@
 	appearance_flags = NO_CLIENT_COLOR | TILE_BOUND | PIXEL_SCALE
 	alpha = 255
 
-/obj/screen/credit/halloween/Initialize(mapload, credited, client/client)
+/obj/screen/credit/halloween/Initialize(mapload, credited, list/client/clients)
 	. = ..()
-	parent.screen += src
+
 	plane++
 
 	transform = transform.Scale(1.5)
