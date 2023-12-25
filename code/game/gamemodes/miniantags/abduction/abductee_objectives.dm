@@ -191,7 +191,7 @@
 	explanation_text = "You are a military instructor. You must make sure the crew is in top shape for the war against the syndicate!"
 
 /datum/objective/abductee/actor
-	explanation_text = "You are in a action movie. You must say as many cheesy one liners as possible."
+	explanation_text = "You are in an action movie. You must say as many cheesy one-liners as possible."
 
 /datum/objective/abductee/writer
 	explanation_text = "You are a writer. Convince the crew of your superb writing skills!"
