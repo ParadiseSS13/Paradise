@@ -15,7 +15,7 @@ Set-Location $basedir
 ## --------------------------------------------------------
 
 function yarn {
-  node.exe ".yarn\releases\yarn-berry.js" @Args
+  node.exe ".yarn\releases\yarn-3.6.4.cjs" @Args
 }
 
 function Remove-Quiet {
@@ -24,11 +24,6 @@ function Remove-Quiet {
 
 function task-install {
   yarn install
-}
-
-## Runs prettier
-function task-prettier {
-  yarn run prettier --write
 }
 
 ## Runs webpack
@@ -111,7 +106,6 @@ if ($Args[0] -eq "--analyze") {
 ## Make a production webpack build
 if ($Args.Length -eq 0) {
   task-install
-  task-prettier
   task-eslint
   task-webpack --mode=production
   exit 0

@@ -12,8 +12,6 @@ globals:
   Byond: readonly
 plugins:
   - react
-extends:
-  - prettier
 settings:
   react:
     version: '16.10'

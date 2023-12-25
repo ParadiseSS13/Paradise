@@ -4,12 +4,12 @@
   "version": "4.2.0",
   "dependencies": {
     "axios": "^0.21.1",
+    "common": "workspace:*",
+    "esm": "^3.2.25",
     "glob": "^7.2.0",
     "source-map": "^0.7.3",
     "stacktrace-parser": "^0.1.7",
-    "ws": "^7.4.6",
-    "common": "workspace:*",
-    "esm": "^3.2.25",
-    "webpack": "^4.40.2"
+    "webpack": "^4.40.2",
+    "ws": "^7.4.6"
   }
 }
