@@ -196,7 +196,7 @@
 
 	message2 = UpgradeDeprecatedChatMessage(message2)
 
-	if (!length(channels))
+	if(!length(channels))
 		return
 
 	var/list/data = message2._interop_serialize()
@@ -210,12 +210,12 @@
 	var/list/channels = list()
 	for(var/I in ChatChannelInfo())
 		var/datum/tgs_chat_channel/channel = I
-		if (!channel.is_private_channel && ((channel.is_admin_channel && admin_only) || (!channel.is_admin_channel && !admin_only)))
+		if(!channel.is_private_channel && ((channel.is_admin_channel && admin_only) || (!channel.is_admin_channel && !admin_only)))
 			channels += channel.id
 
 	message2 = UpgradeDeprecatedChatMessage(message2)
 
-	if (!length(channels))
+	if(!length(channels))
 		return
 
 	var/list/data = message2._interop_serialize()
