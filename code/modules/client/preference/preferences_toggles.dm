@@ -434,6 +434,16 @@
 	disable_message = "You will now display a typing indicator for emotes."
 	blackbox_message = "Toggle Typing Indicator (Emote)"
 
+/datum/preference_toggle/toggle_emote_indicator
+	name = "Toggle TGUI Input Lists"
+	description = "Swaps between TGUI input list and normal input lists"
+	preftoggle_bitflag = PREFTOGGLE_2_DISABLE_TGUI_LISTS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_GENERAL
+	enable_message = "You will  now use TGUI Input Lists."
+	disable_message = "You will no longer use TGUI Input Lists."
+	blackbox_message = "Toggle TGUI Input Lists"
+
 /datum/preference_toggle/toggle_admin_logs
 	name = "Toggle Admin Log Messages"
 	description = "Disables admin log messages"
