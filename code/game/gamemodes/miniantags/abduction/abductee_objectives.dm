@@ -173,7 +173,7 @@
 	explanation_text = "There is only one other person in existence, they are just really good at pretending to be multiple people."
 
 /datum/objective/abductee/outlaw
-	explanation_text = "You have infiltrated this station as a space renowned space law, commit as many minor crimes as possible while remaining unnoticed by security."
+	explanation_text = "You have infiltrated this station as a space-renowned space law, commit as many minor crimes as possible while remaining unnoticed by security."
 
 /datum/objective/abductee/rot
 	explanation_text = "Your flesh is rotting from your body. Fight the inevitable, and replace your tainted limbs with entirely new ones."
