@@ -1,8 +1,7 @@
 // HydroSeed
 /obj/machinery/economy/vending/hydroseeds/Initialize(mapload)
 	products += list(
-		/obj/item/seeds/cucumber = 3,
-		/obj/item/seeds/soya/olive = 3,)
+		/obj/item/seeds/cucumber = 3,)
 	. = ..()
 
 // Buckwheat
@@ -52,7 +51,7 @@
 	growing_icon = 'modular_ss220/hydroponics/icons/growing.dmi'
 	icon_grow = "cucumber-grow"
 	icon_dead = "cucumber-dead"
-	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("water" = 0.15, "kelotane" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/cucumber
@@ -69,32 +68,12 @@
 	bitesize_mod = 2
 	distill_reagent = "enzyme"
 
-// Olives
-/obj/item/seeds/soya/olive
-	name = "семена оливок"
-	desc = "Из этих семян вырастут оливки."
-	icon = 'modular_ss220/hydroponics/icons/seeds.dmi'
-	icon_state = "seed-olives"
-	species = "olives"
-	plantname = "Оливковое Деревце"
-	product = /obj/item/reagent_containers/food/snacks/grown/olive
-	growing_icon = 'modular_ss220/hydroponics/icons/growing.dmi'
-	icon_grow = "olives-grow"
-	icon_dead = "olives-dead"
-	icon_harvest = "olives-harvest"
-	mutatelist = list(/obj/item/seeds/soya/olive/charcoal)
-
-/obj/item/reagent_containers/food/snacks/grown/olive
-	seed = /obj/item/seeds/soya/olive
-	name = "оливки"
-	desc = "Любишь их или ненавидишь..."
-	icon = 'modular_ss220/hydroponics/icons/plants.dmi'
-	icon_state = "olives"
-	filling_color = "#161220"
-	tastes = list("оливок" = 1)
-
 // Olives Charcoal
-/obj/item/seeds/soya/olive/charcoal
+/obj/item/seeds/olive/Initialize(mapload)
+	. = ..()
+	mutatelist += list(/obj/item/seeds/olive/charcoal,)
+
+/obj/item/seeds/olive/charcoal
 	name = "семена угливок"
 	desc = "Из этих семян вырастут угливки."
 	icon = 'modular_ss220/hydroponics/icons/seeds.dmi'
@@ -106,13 +85,19 @@
 	icon_grow = "charcolives-grow"
 	icon_dead = "charcolives-dead"
 	icon_harvest = "charcolives-harvest"
-	reagents_add = list("charcoal" = 0.4, "plantmatter" = 0.05)
+	lifespan = 75
+	yield = 2
+	potency = 25
+	growthstages = 4
+	rarity = 30
+	reagents_add = list("charcoal" = 0.15, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/olive/charcoal
-	seed = /obj/item/seeds/soya/olive/charcoal
+	seed = /obj/item/seeds/olive/charcoal
 	name = "угливки"
 	desc = "Это... маслины?"
 	icon = 'modular_ss220/hydroponics/icons/plants.dmi'
 	icon_state = "charcolives"
 	filling_color = "#000000"
-	tastes = list("уголя" = 1)
+	tastes = list("уголь" = 1)
+	wine_power = 0
