@@ -178,7 +178,6 @@
 /datum/objective/abductee/rot
 	explanation_text = "Your flesh is rotting from your body. Fight the inevitable, and replace your tainted limbs with entirely new ones."
 
-
 /datum/objective/abductee/blind
 	explanation_text = "You are blind. Perhaps a new pair of eyes can help."
 
