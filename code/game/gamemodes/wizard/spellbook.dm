@@ -522,7 +522,7 @@
 
 /datum/spellbook_entry/item/supermatter_halberd
 	name = "Supermatter Halberd"
-	desc = "A powerful Halberd capable of knocking down opponents and parrying while destroying any wall and door upon a wizard's path, it possesses the unique ability of cutting slivers out of Super Matter Crystals."
+	desc = "A powerful Halberd capable of knocking down opponents and parrying while destroying any wall and door upon a wizard's path, it possesses the unique ability of cutting slivers out of Supermatter Crystals."
 	item_path = /obj/item/supermatter_halberd
 	category = "Weapons and Armors"
 
