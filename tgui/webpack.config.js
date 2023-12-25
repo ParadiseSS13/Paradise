@@ -8,8 +8,9 @@ const webpack = require('webpack');
 const path = require('path');
 const BuildNotifierPlugin = require('webpack-build-notifier');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const PnpPlugin = require(`pnp-webpack-plugin`);
 
-const createStats = (verbose) => ({
+const createStats = verbose => ({
   assets: verbose,
   builtAt: verbose,
   cached: false,
@@ -25,10 +26,16 @@ const createStats = (verbose) => ({
 module.exports = (env = {}, argv) => {
   const config = {
     mode: argv.mode === 'production' ? 'production' : 'development',
-    context: path.resolve(__dirname, '../..'),
+    context: path.resolve(__dirname),
     entry: {
-      'tgui': ['tgui'],
-      'tgui-panel': ['tgui-panel'],
+      'tgui': [
+        './packages/tgui-polyfill',
+        './packages/tgui',
+      ],
+      'tgui-panel': [
+        './packages/tgui-polyfill',
+        './packages/tgui-panel',
+      ],
     },
     output: {
       path: argv.useTmpFolder
@@ -36,11 +43,18 @@ module.exports = (env = {}, argv) => {
         : path.resolve(__dirname, './public'),
       filename: '[name].bundle.js',
       chunkFilename: '[name].chunk.js',
-      hashFunction: 'SHA256',
     },
     resolve: {
       extensions: ['.js', '.jsx'],
       alias: {},
+      plugins: [
+        PnpPlugin,
+      ],
+    },
+    resolveLoader: {
+      plugins: [
+        PnpPlugin.moduleLoader(module),
+      ],
     },
     module: {
       rules: [
@@ -51,32 +65,21 @@ module.exports = (env = {}, argv) => {
               loader: 'babel-loader',
               options: {
                 presets: [
-                  [
-                    '@babel/preset-env',
-                    {
-                      modules: 'commonjs',
-                      useBuiltIns: 'entry',
-                      corejs: '3.6',
-                      spec: false,
-                      loose: true,
-                      targets: {
-                        ie: '8',
-                      },
+                  ['@babel/preset-env', {
+                    modules: 'commonjs',
+                    useBuiltIns: 'entry',
+                    corejs: '3.6',
+                    spec: false,
+                    loose: true,
+                    targets: {
+                      ie: '8',
                     },
-                  ],
+                  }],
                 ],
                 plugins: [
                   '@babel/plugin-transform-jscript',
                   'babel-plugin-inferno',
-                  ['@babel/plugin-transform-private-methods', { loose: false }],
-                  [
-                    '@babel/plugin-transform-class-properties',
-                    { loose: false },
-                  ],
-                  [
-                    '@babel/plugin-transform-private-property-in-object',
-                    { loose: false },
-                  ],
+                  'babel-plugin-transform-remove-console',
                   'common/string.babel-plugin.cjs',
                 ],
               },
@@ -142,7 +145,10 @@ module.exports = (env = {}, argv) => {
   // Add a bundle analyzer to the plugins array
   if (argv.analyze) {
     const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-    config.plugins = [...config.plugins, new BundleAnalyzerPlugin()];
+    config.plugins = [
+      ...config.plugins,
+      new BundleAnalyzerPlugin(),
+    ];
   }
 
   // Production build specific options
@@ -167,14 +173,11 @@ module.exports = (env = {}, argv) => {
         assetNameRegExp: /\.css$/g,
         cssProcessor: require('cssnano'),
         cssProcessorPluginOptions: {
-          preset: [
-            'default',
-            {
-              discardComments: {
-                removeAll: true,
-              },
+          preset: ['default', {
+            discardComments: {
+              removeAll: true,
             },
-          ],
+          }],
         },
         canPrint: true,
       }),
