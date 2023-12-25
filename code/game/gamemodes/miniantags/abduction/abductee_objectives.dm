@@ -211,7 +211,7 @@
 	for(var/datum/job/J in jobs)
 		if(J.current_positions < 1)
 			jobs -= J
-	if(jobs.len > 0)
+	if(length(jobs))
 		var/datum/job/target = pick(jobs)
 		explanation_text += " a [target.title] is also experimented on by an Abductor so they believe you!"
 	else
