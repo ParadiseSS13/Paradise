@@ -170,7 +170,7 @@
 	explanation_text = "There are alien parasites masquerading as people's hair.  Save people from this invasion."
 
 /datum/objective/abductee/one
-	explanation_text = "There is only one other person in existence, he is just really good at pretending to be multiple people."
+	explanation_text = "There is only one other person in existence, they are just really good at pretending to be multiple people."
 
 /datum/objective/abductee/outlaw
 	explanation_text = "You have infiltrated this station as a space renowned space law, commit as many minor crimes as possible while remaining unnoticed by security."
