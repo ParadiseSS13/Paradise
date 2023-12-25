@@ -694,94 +694,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Change View Range") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/admin_call_shuttle()
-
-	set category = "Admin"
-	set name = "Call Shuttle"
-
-	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
-		return
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/confirm = alert(src, "You sure?", "Confirm", "Yes", "No")
-	if(confirm != "Yes") return
-
-	if(alert("Set Shuttle Recallable (Select Yes unless you know what this does)", "Recallable?", "Yes", "No") == "Yes")
-		SSshuttle.emergency.canRecall = TRUE
-	else
-		SSshuttle.emergency.canRecall = FALSE
-
-	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
-		SSshuttle.emergency.request(coefficient = 0.5, redAlert = TRUE)
-	else
-		SSshuttle.emergency.request()
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Call Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] admin-called the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-called the emergency shuttle.</span>")
-	return
-
-/client/proc/admin_cancel_shuttle()
-	set category = "Admin"
-	set name = "Cancel Shuttle"
-
-	if(!check_rights(R_ADMIN))
-		return
-	if(alert(src, "You sure?", "Confirm", "Yes", "No") != "Yes") return
-
-	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
-		return
-
-	if(SSshuttle.emergency.canRecall == FALSE)
-		if(alert("Shuttle is currently set to be nonrecallable. Recalling may break things. Respect Recall Status?", "Override Recall Status?", "Yes", "No") == "Yes")
-			return
-		else
-			var/keepStatus = alert("Maintain recall status on future shuttle calls?", "Maintain Status?", "Yes", "No") == "Yes" //Keeps or drops recallability
-			SSshuttle.emergency.canRecall = TRUE // must be true for cancel proc to work
-			SSshuttle.emergency.cancel()
-			if(keepStatus)
-				SSshuttle.emergency.canRecall = FALSE // restores original status
-	else
-		SSshuttle.emergency.cancel()
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Cancel Shuttle") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	log_admin("[key_name(usr)] admin-recalled the emergency shuttle.")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] admin-recalled the emergency shuttle.</span>")
-	return
-
-/client/proc/admin_deny_shuttle()
-	set category = "Admin"
-	set name = "Toggle Deny Shuttle"
-
-	if(!SSticker)
-		return
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/alert = alert(usr, "Do you want to ALLOW or DENY shuttle calls?", "Toggle Deny Shuttle", "Allow", "Deny", "Cancel")
-	if(alert == "Cancel")
-		return
-
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Deny Shuttle")
-
-	if(alert == "Allow")
-		if(!length(SSshuttle.hostile_environments))
-			to_chat(usr, "<span class='notice'>No hostile environments found, cleared for takeoff!</span>")
-			return
-		if(alert(usr, "[english_list(SSshuttle.hostile_environments)] is currently blocking the shuttle call, do you want to clear them?", "Toggle Deny Shuttle", "Yes", "No") == "Yes")
-			SSshuttle.hostile_environments.Cut()
-			var/log = "[key_name(src)] has cleared all hostile environments, allowing the shuttle to be called."
-			log_admin(log)
-			message_admins(log)
-		return
-
-	SSshuttle.registerHostileEnvironment(src) // wow, a client blocking the shuttle
-
-	log_and_message_admins("has denied the shuttle to be called.")
-
 /client/proc/cmd_admin_attack_log(mob/M as mob in GLOB.mob_list)
 	set category = "Admin"
 	set name = "Attack Log"
@@ -828,24 +740,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	SSticker.random_players = 1
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Make Everyone Random") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/toggle_random_events()
-	set category = "Event"
-	set name = "Toggle random events on/off"
-
-	set desc = "Toggles random events such as meteors, black holes, blob (but not space dust) on/off"
-	if(!check_rights(R_SERVER|R_EVENT))
-		return
-
-	if(!GLOB.configuration.event.enable_random_events)
-		GLOB.configuration.event.enable_random_events = TRUE
-		to_chat(usr, "Random events enabled")
-		message_admins("Admin [key_name_admin(usr)] has enabled random events.")
-	else
-		GLOB.configuration.event.enable_random_events = FALSE
-		to_chat(usr, "Random events disabled")
-		message_admins("Admin [key_name_admin(usr)] has disabled random events.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Random Events") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/list_ssds_afks()
 	set category = "Admin"

@@ -312,11 +312,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/list/dat = list()
 	var/cached_UID = UID()
 	dat += "<center>"
-	dat += "<p><a href='?src=[cached_UID];c_mode=1'>Change Game Mode</a><br></p>"
+	dat += "<p><a href='?src=[cached_UID];game_manager=1'>Game Manager</a><br></p>"
 	if(GLOB.master_mode == "secret")
 		dat += "<p><a href='?src=[cached_UID];f_secret=1'>(Force Secret Mode)</a><br></p>"
 	dat += "<hr><br>"
-	dat += "<p><a href='?src=[cached_UID];game_manager=1'>Game Manager</a><br></p>"
 	dat += "<p><a href='?src=[cached_UID];create_object=1'>Create Object</a><br></p>"
 	dat += "<p><a href='?src=[cached_UID];quick_create_object=1'>Quick Create Object</a><br></p>"
 	dat += "<p><a href='?src=[cached_UID];create_turf=1'>Create Turf</a><br></p>"
@@ -330,75 +329,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /////////////////////////////////////////////////////////////////////////////////////////////////admins2.dm merge
 //i.e. buttons/verbs
-
-/datum/admins/proc/restart()
-	set category = "Server"
-	set name = "Restart"
-	set desc = "Restarts the world."
-
-	if(!check_rights(R_SERVER))
-		return
-
-	// Give an extra popup if they are rebooting a live server
-	var/is_live_server = TRUE
-	if(usr.client.is_connecting_from_localhost())
-		is_live_server = FALSE
-
-	var/list/options = list("Regular Restart", "Hard Restart")
-	if(world.TgsAvailable()) // TGS lets you kill the process entirely
-		options += "Terminate Process (Kill and restart DD)"
-
-	var/result = input(usr, "Select reboot method", "World Reboot", options[1]) as null|anything in options
-
-	if(is_live_server)
-		if(alert(usr, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART","This server is live","Restart","Cancel") != "Restart")
-			return FALSE
-
-	if(result)
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Reboot World") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		var/init_by = "Initiated by [usr.client.holder.fakekey ? "Admin" : usr.key]."
-		switch(result)
-
-			if("Regular Restart")
-				var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
-				if(!delay)
-					return FALSE
-
-
-				// These are pasted each time so that they dont false send if reboot is cancelled
-				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
-				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
-				SSticker.delay_end = FALSE // We arent delayed anymore
-				SSticker.reboot_helper(init_by, "admin reboot - by [usr.key] [usr.client.holder.fakekey ? "(stealth)" : ""]", delay * 10)
-
-			if("Hard Restart")
-				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
-				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
-				world.Reboot(fast_track = TRUE)
-
-			if("Terminate Process (Kill and restart DD)")
-				message_admins("[key_name_admin(usr)] has initiated a server restart of type [result]")
-				log_admin("[key_name(usr)] has initiated a server restart of type [result]")
-				world.TgsEndProcess() // Just nuke the entire process if we are royally fucked
-
-/datum/admins/proc/end_round()
-	set category = "Server"
-	set name = "End Round"
-	set desc = "Instantly ends the round and brings up the scoreboard, in the same way that wizards dying do."
-	if(!check_rights(R_SERVER))
-		return
-	var/input = sanitize(copytext(input(usr, "What text should players see announcing the round end? Input nothing to cancel.", "Specify Announcement Text", "Shift Has Ended!"), 1, MAX_MESSAGE_LEN))
-
-	if(!input)
-		return
-	if(SSticker.force_ending)
-		return
-	message_admins("[key_name_admin(usr)] has admin ended the round with message: '[input]'")
-	log_admin("[key_name(usr)] has admin ended the round with message: '[input]'")
-	SSticker.force_ending = TRUE
-	to_chat(world, "<span class='warning'><big><b>[input]</b></big></span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	SSticker.mode_result = "admin ended"
 
 /datum/admins/proc/announce()
 	set category = "Admin"
@@ -472,35 +402,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	message_admins("[key_name_admin(usr)] toggled OOC Emoji.", 1)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
 
-/datum/admins/proc/startnow()
-	set category = "Server"
-	set desc="Start the round RIGHT NOW"
-	set name="Start Now"
-
-	if(!check_rights(R_SERVER))
-		return
-
-	if(!SSticker)
-		alert("Unable to start the game as it is not set up.")
-		return
-
-	if(GLOB.configuration.general.start_now_confirmation)
-		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
-			return
-
-	if(SSticker.current_state == GAME_STATE_PREGAME || SSticker.current_state == GAME_STATE_STARTUP)
-		SSticker.force_start = TRUE
-		log_admin("[usr.key] has started the game.")
-		var/msg = ""
-		if(SSticker.current_state == GAME_STATE_STARTUP)
-			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<span class='darkmblue'>[usr.key] has started the game.[msg]</span>")
-		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		return 1
-	else
-		to_chat(usr, "<font color='red'>Error: Start Now: Game has already started.</font>")
-		return
-
 /proc/toggleenter(mob/user)
 	if(!check_rights(R_SERVER, user = user))
 		return
@@ -528,32 +429,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	log_admin("[key_name(usr)] toggled AI allowed.")
 	world.update_status()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle AI") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/datum/admins/proc/delay()
-	set category = "Server"
-	set desc="Delay the game start/end"
-	set name="Delay"
-
-	if(!check_rights(R_SERVER))
-		return
-
-	if(!SSticker || SSticker.current_state != GAME_STATE_PREGAME)
-		SSticker.delay_end = !SSticker.delay_end
-		log_admin("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
-		message_admins("[key_name(usr)] [SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
-		if(SSticker.delay_end)
-			SSticker.real_reboot_time = 0 // Immediately show the "Admin delayed round end" message
-		return //alert("Round end delayed", null, null, null, null, null)
-	if(SSticker.ticker_going)
-		SSticker.ticker_going = FALSE
-		SSticker.delay_end = TRUE
-		to_chat(world, "<b>The game start has been delayed.</b>")
-		log_admin("[key_name(usr)] delayed the game.")
-	else
-		SSticker.ticker_going = TRUE
-		to_chat(world, "<b>The game will start soon.</b>")
-		log_admin("[key_name(usr)] removed the delay.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 

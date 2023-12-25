@@ -976,59 +976,6 @@
 
 		cmd_admin_mute(M, mute_type)
 
-	else if(href_list["c_mode"])
-		if(!check_rights(R_ADMIN))	return
-
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
-		for(var/mode in GLOB.configuration.gamemode.gamemodes)
-			dat += {"<A href='?src=[UID()];c_mode2=[mode]'>[GLOB.configuration.gamemode.gamemode_names[mode]]</A><br>"}
-		dat += {"<A href='?src=[UID()];c_mode2=secret'>Secret</A><br>"}
-		dat += {"<A href='?src=[UID()];c_mode2=random'>Random</A><br>"}
-		dat += {"Now: [GLOB.master_mode]"}
-		usr << browse(dat, "window=c_mode")
-
-	else if(href_list["f_secret"])
-		if(!check_rights(R_ADMIN))	return
-
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "secret")
-			return alert(usr, "The game mode has to be secret!", null, null, null, null)
-		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
-		for(var/mode in GLOB.configuration.gamemode.gamemodes)
-			dat += {"<A href='?src=[UID()];f_secret2=[mode]'>[GLOB.configuration.gamemode.gamemode_names[mode]]</A><br>"}
-		dat += {"<A href='?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
-		dat += {"Now: [GLOB.secret_force_mode]"}
-		usr << browse(dat, "window=f_secret")
-
-	else if(href_list["c_mode2"])
-		if(!check_rights(R_ADMIN|R_SERVER))	return
-
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		GLOB.master_mode = href_list["c_mode2"]
-		log_admin("[key_name(usr)] set the mode as [GLOB.master_mode].")
-		message_admins("<span class='notice'>[key_name_admin(usr)] set the mode as [GLOB.master_mode].</span>", 1)
-		to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
-		Game() // updates the main game menu
-		world.save_mode(GLOB.master_mode)
-		.(href, list("c_mode"=1))
-
-	else if(href_list["f_secret2"])
-		if(!check_rights(R_ADMIN|R_SERVER))	return
-
-		if(SSticker && SSticker.mode)
-			return alert(usr, "The game has already started.", null, null, null, null)
-		if(GLOB.master_mode != "secret")
-			return alert(usr, "The game mode has to be secret!", null, null, null, null)
-		GLOB.secret_force_mode = href_list["f_secret2"]
-		log_admin("[key_name(usr)] set the forced secret mode as [GLOB.secret_force_mode].")
-		message_admins("<span class='notice'>[key_name_admin(usr)] set the forced secret mode as [GLOB.secret_force_mode].</span>", 1)
-		Game() // updates the main game menu
-		.(href, list("f_secret"=1))
-
 	else if(href_list["monkeyone"])
 		if(!check_rights(R_SPAWN))	return
 

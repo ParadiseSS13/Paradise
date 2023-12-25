@@ -137,7 +137,8 @@ SUBSYSTEM_DEF(events)
 		html += "<A align='right' href='?src=[UID()];add=\ref[selected_event_container]'>Add</A><br>"
 		html += "</div>"
 	else
-		html += "<A align='right' href='?src=[UID()];toggle_report=1'>Round End Report: [report_at_round_end ? "On": "Off"]</A><br>"
+		html += "<A align='right' href='?src=[UID()];toggle_report=1'>Round End Report: [report_at_round_end ? "On": "Off"]</A>"
+		html += "<A align='right' href='?src=[UID()];toggle_random_events=1'>Toggle Random Events: [GLOB.configuration.event.enable_random_events ? "<span class='good'>On</span>": "<span class='bad'>Off</span>"]</A><br>"
 		html += "<div class='block'>"
 		html += "<h2>Event Start</h2>"
 
@@ -214,6 +215,9 @@ SUBSYSTEM_DEF(events)
 	if(href_list["toggle_report"])
 		report_at_round_end = !report_at_round_end
 		log_and_message_admins("has [report_at_round_end ? "enabled" : "disabled"] the round end event report.")
+	else if(href_list["toggle_random_events"])
+		GLOB.configuration.event.enable_random_events = !GLOB.configuration.event.enable_random_events
+		log_and_message_admins("has [GLOB.configuration.event.enable_random_events ? "enabled" : "disabled"] random events.")
 	else if(href_list["dec_timer"])
 		var/datum/event_container/EC = locate(href_list["event"])
 		var/decrease = (60 * RaiseToPower(10, text2num(href_list["dec_timer"])))

@@ -22,9 +22,6 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/Getkey,				/*teleports a mob with a certain ckey to our location*/
 	/client/proc/jump_to,				/*Opens a menu for jumping to an Area, Mob, Key or Coordinate*/
 	/client/proc/jumptoturf,			/*allows us to jump to a specific turf*/
-	/client/proc/admin_call_shuttle,	/*allows us to call the emergency shuttle*/
-	/client/proc/admin_cancel_shuttle,	/*allows us to cancel the emergency shuttle, sending it back to centcomm*/
-	/client/proc/admin_deny_shuttle,	/*toggles availability of shuttle calling*/
 	/client/proc/check_ai_laws,			/*shows AI and borg laws*/
 	/client/proc/manage_silicon_laws,	/* Allows viewing and editing silicon laws. */
 	/client/proc/admin_memo,			/*admin memo system. show/delete/write. +SERVER needed to delete admin memos of others*/
@@ -46,7 +43,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/toggle_advanced_interaction, /*toggle admin ability to interact with not only machines, but also atoms such as buttons and doors*/
 	/client/proc/list_ssds_afks,
 	/client/proc/ccbdb_lookup_ckey,
-	/client/proc/view_instances,
+//	/client/proc/view_instances,
 	/client/proc/start_vote,
 	/client/proc/ping_all_admins,
 	/client/proc/show_watchlist
@@ -65,13 +62,11 @@ GLOBAL_LIST_INIT(admin_verbs_sounds, list(
 GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/object_talk,
 	/client/proc/cmd_admin_dress,
-	/client/proc/drop_bomb,
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,
 	/client/proc/cmd_admin_add_random_ai_law,
 	/client/proc/economy_manager,
 	/client/proc/make_sound,
-	/client/proc/toggle_random_events,
 	/client/proc/show_tip,
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_subtle_message,	/*send an message to somebody as a 'voice in their head'*/
@@ -98,10 +93,6 @@ GLOBAL_LIST_INIT(admin_verbs_spawn, list(
 GLOBAL_LIST_INIT(admin_verbs_server, list(
 	/client/proc/reload_admins,
 	/client/proc/Set_Holiday,
-	/datum/admins/proc/startnow,
-	/datum/admins/proc/restart,
-	/datum/admins/proc/end_round,
-	/datum/admins/proc/delay,
 	/client/proc/everyone_random,
 	/client/proc/cmd_admin_delete,		/*delete an instance/object/mob/etc*/
 	/client/proc/view_asays,
@@ -464,44 +455,6 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			createStealthKey()
 		log_admin("[key_name(usr)] has turned BB mode [holder.fakekey ? "ON" : "OFF"]")
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Big Brother Mode")
-
-/client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
-	set category = "Event"
-	set name = "Drop Bomb"
-	set desc = "Cause an explosion of varying strength at your location."
-
-	if(!check_rights(R_EVENT))
-		return
-
-	var/turf/epicenter = mob.loc
-	var/list/choices = list("Small Bomb", "Medium Bomb", "Big Bomb", "Custom Bomb")
-	var/choice = input("What size explosion would you like to produce?") as null|anything in choices
-	switch(choice)
-		if(null)
-			return 0
-		if("Small Bomb")
-			explosion(epicenter, 1, 2, 3, 3)
-		if("Medium Bomb")
-			explosion(epicenter, 2, 3, 4, 4)
-		if("Big Bomb")
-			explosion(epicenter, 3, 5, 7, 5)
-		if("Custom Bomb")
-			var/devastation_range = input("Devastation range (in tiles):") as null|num
-			if(devastation_range == null)
-				return
-			var/heavy_impact_range = input("Heavy impact range (in tiles):") as null|num
-			if(heavy_impact_range == null)
-				return
-			var/light_impact_range = input("Light impact range (in tiles):") as null|num
-			if(light_impact_range == null)
-				return
-			var/flash_range = input("Flash range (in tiles):") as null|num
-			if(flash_range == null)
-				return
-			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1)
-	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/give_spell(mob/T as mob in GLOB.mob_list) // -- Urist
 	set category = "Event"

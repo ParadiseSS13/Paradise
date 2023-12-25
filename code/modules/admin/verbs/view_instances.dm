@@ -1,3 +1,8 @@
+// This code is not used, server instances just never happened
+// I'm also kinda shocked people thought this would happen, although I'm honestly more sad
+// Why were people so obsessed with just jumping ship instead of trying to make things work here?
+// Either way, if you want to enable this again for some reason, be wary of how it may affect the playerbase - GDN
+/*
 /client/proc/view_instances()
 	set name = "View Server Instances"
 	set desc = "View the running server instances"
@@ -30,4 +35,4 @@
 		var/players = text2num(server_data["playercount"])
 
 		to_chat(usr, "<code>[server]</code> - [players] player[players == 1 ? "" : "s"] online.")
-	to_chat(usr, "<i>Offline instances are not reported</i>")
+	to_chat(usr, "<i>Offline instances are not reported</i>")*/
