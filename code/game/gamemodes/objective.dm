@@ -67,7 +67,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
  * This is for objectives that have reason to update their text, such as target changes.
  */
 /datum/objective/proc/update_explanation_text()
-	stack_trace("[type]'s update_explanation_text was not overridden.")
+	stack_trace("Objective [type]'s update_explanation_text was not overridden.")
 
 /**
  * Get all owners of the objective, including ones from the objective's team, if it has one.
