@@ -167,7 +167,7 @@
 	explanation_text = "No matter how they say it, other people keep mispronouncing your name. Be sure to correct them whenever possible."
 
 /datum/objective/abductee/bald
-	explanation_text = "There are alien parasites masquerading as people's hair.  Save people from this invasion."
+	explanation_text = "There are alien parasites masquerading as people's hair. Save people from this invasion."
 
 /datum/objective/abductee/one
 	explanation_text = "There is only one other person in existence, they are just really good at pretending to be multiple people."
