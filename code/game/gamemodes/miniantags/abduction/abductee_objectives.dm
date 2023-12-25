@@ -180,7 +180,7 @@
 
 
 /datum/objective/abductee/blind
-	explanation_text = "You can't see. Perhaps a new pair of eyes can help."
+	explanation_text = "You are blind. Perhaps a new pair of eyes can help."
 
 /datum/objective/abductee/ill
 	explanation_text = "The station is ill. Medicate them until they're cured."
