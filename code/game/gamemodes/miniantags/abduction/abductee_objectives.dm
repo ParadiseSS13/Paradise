@@ -172,8 +172,8 @@
 /datum/objective/abductee/one
 	explanation_text = "There is only one other person in existence, he is just really good at pretending to be multiple people."
 
-/datum/objective/abductee/execution
-	explanation_text = "Try to get formally executed for a crime you didn't commit, without a false confession."
+/datum/objective/abductee/outlaw
+	explanation_text = "You have infiltrated this station as a space renowned space law, commit as many minor crimes as possible while remaining unnoticed by security."
 
 /datum/objective/abductee/rot
 	explanation_text = "Your flesh is rotting from your body. Fight the inevitable, and replace your tainted limbs with entirely new ones."
