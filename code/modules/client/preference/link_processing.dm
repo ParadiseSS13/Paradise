@@ -223,9 +223,10 @@
 						if(can_use_species(user, _species))
 							new_species += _species
 
-					active_character.species = tgui_input_list(user, "Please select a species", "Character Generation", sortList(new_species))
-					if(!active_character.species)
+					var/new_active_character_species = tgui_input_list(user, "Please select a species", "Character Generation", sortList(new_species))
+					if(!new_active_character_species)
 						return
+					active_character.species = new_active_character_species
 					var/datum/species/NS = GLOB.all_species[active_character.species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						active_character.species = prev_species
@@ -311,9 +312,10 @@
 						if(!(lang.flags & RESTRICTED))
 							new_languages += lang.name
 
-					active_character.language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortList(new_languages))
-					if(!active_character.language)
+					var/new_active_character_language = tgui_input_list(user, "Please select a secondary language", "Character Generation", sortList(new_languages))
+					if(!new_active_character_language)
 						return
+					active_character.language = new_active_character_language
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
