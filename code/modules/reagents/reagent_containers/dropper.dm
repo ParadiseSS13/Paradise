@@ -39,7 +39,7 @@
 
 			if(H.glasses)
 				safe_thing = H.glasses
-			if(H.wear_mask )
+			if(H.wear_mask)
 				if(H.wear_mask.flags_cover & MASKCOVERSEYES)
 					safe_thing = H.wear_mask
 			if(H.head)

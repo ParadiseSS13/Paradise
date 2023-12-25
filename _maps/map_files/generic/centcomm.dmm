@@ -5978,7 +5978,7 @@
 /obj/item/gun/syringe/syndicate,
 /obj/item/storage/firstaid/regular,
 /obj/item/storage/firstaid/adv,
-/obj/item/storage/box/syndie_kit/bonerepair,
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate)
 "up" = (
@@ -7717,7 +7717,7 @@
 /area/centcom/suppy)
 "Bv" = (
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Bw" = (
 /obj/structure/ninjatele{
@@ -8729,7 +8729,7 @@
 /area/centcom/control)
 "Fk" = (
 /obj/structure/stone_tile/slab/burnt,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Fm" = (
 /obj/structure/chair/sofa/corp{
@@ -10693,7 +10693,7 @@
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
 "LV" = (
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "LX" = (
 /obj/structure/chair/sofa/corp/left{
@@ -12575,7 +12575,7 @@
 /area/syndicate_mothership/jail)
 "Sh" = (
 /obj/structure/table/wood,
-/obj/item/storage/pill_bottle/dice,
+/obj/item/storage/bag/dice,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Si" = (
@@ -13165,7 +13165,7 @@
 	},
 /area/holodeck/source_knightarena)
 "UJ" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/wizard_station)
 "UK" = (
 /turf/simulated/floor/holofloor/carpet,
@@ -13502,7 +13502,7 @@
 /obj/structure/stone_tile/surrounding/burnt,
 /obj/structure/stone_tile/center/burnt,
 /obj/effect/landmark/spawner/bubblegum,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/space/bubblegum_arena)
 "Wh" = (
 /turf/simulated/floor/plasteel{

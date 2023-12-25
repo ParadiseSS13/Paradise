@@ -91,13 +91,13 @@
 
 	if(type)
 		if(type & EMOTE_VISIBLE && !has_vision(information_only=TRUE))//Vision related
-			if(!(alt))
+			if(!alt)
 				return
 			else
 				msg = alt
 				type = alt_type
 		if(type & EMOTE_AUDIBLE && !can_hear())//Hearing related
-			if(!( alt ))
+			if(!alt)
 				return
 			else
 				msg = alt
@@ -334,13 +334,13 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					return 0
 				return 1
 			if(SLOT_HUD_WEAR_MASK)
-				if( !(slot_flags & SLOT_FLAG_MASK) )
+				if(!(slot_flags & SLOT_FLAG_MASK))
 					return 0
 				if(H.wear_mask)
 					return 0
 				return 1
 			if(SLOT_HUD_BACK)
-				if( !(slot_flags & SLOT_FLAG_BACK) )
+				if(!(slot_flags & SLOT_FLAG_BACK))
 					return 0
 				if(H.back)
 					if(!(H.back.flags & NODROP))
@@ -349,7 +349,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_OUTER_SUIT)
-				if( !(slot_flags & SLOT_FLAG_OCLOTHING) )
+				if(!(slot_flags & SLOT_FLAG_OCLOTHING))
 					return 0
 				if(H.wear_suit)
 					if(!(H.wear_suit.flags & NODROP))
@@ -358,7 +358,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_GLOVES)
-				if( !(slot_flags & SLOT_FLAG_GLOVES) )
+				if(!(slot_flags & SLOT_FLAG_GLOVES))
 					return 0
 				if(H.gloves)
 					if(!(H.gloves.flags & NODROP))
@@ -367,7 +367,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_SHOES)
-				if( !(slot_flags & SLOT_FLAG_FEET) )
+				if(!(slot_flags & SLOT_FLAG_FEET))
 					return 0
 				if(H.shoes)
 					if(!(H.shoes.flags & NODROP))
@@ -380,7 +380,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( !(slot_flags & SLOT_FLAG_BELT) )
+				if(!(slot_flags & SLOT_FLAG_BELT))
 					return 0
 				if(H.belt)
 					if(!(H.belt.flags & NODROP))
@@ -389,7 +389,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_GLASSES)
-				if( !(slot_flags & SLOT_FLAG_EYES) )
+				if(!(slot_flags & SLOT_FLAG_EYES))
 					return 0
 				if(H.glasses)
 					if(!(H.glasses.flags & NODROP))
@@ -398,7 +398,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_HEAD)
-				if( !(slot_flags & SLOT_FLAG_HEAD) )
+				if(!(slot_flags & SLOT_FLAG_HEAD))
 					return 0
 				if(H.head)
 					if(!(H.head.flags & NODROP))
@@ -407,7 +407,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_LEFT_EAR)
-				if( !(slot_flags & SLOT_HUD_LEFT_EAR) )
+				if(!(slot_flags & SLOT_HUD_LEFT_EAR))
 					return 0
 				if(H.l_ear)
 					if(!(H.l_ear.flags & NODROP))
@@ -416,7 +416,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_RIGHT_EAR)
-				if( !(slot_flags & SLOT_HUD_RIGHT_EAR) )
+				if(!(slot_flags & SLOT_HUD_RIGHT_EAR))
 					return 0
 				if(H.r_ear)
 					if(!(H.r_ear.flags & NODROP))
@@ -425,7 +425,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 						return 0
 				return 1
 			if(SLOT_HUD_JUMPSUIT)
-				if( !(slot_flags & SLOT_FLAG_ICLOTHING) )
+				if(!(slot_flags & SLOT_FLAG_ICLOTHING))
 					return 0
 				if(H.w_uniform)
 					if(!(H.w_uniform.flags & NODROP))
@@ -438,7 +438,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( !(slot_flags & SLOT_FLAG_ID) )
+				if(!(slot_flags & SLOT_FLAG_ID))
 					return 0
 				if(H.wear_id)
 					if(!(H.wear_id.flags & NODROP))
@@ -453,7 +453,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET) )
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
 					return 1
 			if(SLOT_HUD_RIGHT_STORE)
 				if(H.r_store)
@@ -462,7 +462,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(H, "<span class='warning'>You need a jumpsuit before you can attach this [name].</span>")
 					return 0
-				if( w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET) )
+				if(w_class <= WEIGHT_CLASS_SMALL || (slot_flags & SLOT_FLAG_POCKET))
 					return 1
 				return 0
 			if(SLOT_HUD_SUIT_STORE)
@@ -478,7 +478,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 					if(!disable_warning)
 						to_chat(usr, "The [name] is too big to attach.")
 					return 0
-				if( istype(src, /obj/item/pda) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed) )
+				if(istype(src, /obj/item/pda) || is_pen(src) || is_type_in_list(src, H.wear_suit.allowed))
 					if(H.s_store)
 						if(!(H.s_store.flags & NODROP))
 							return 2
@@ -582,17 +582,6 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
-/mob/setDir(new_dir)
-	if(forced_look)
-		if(isnum(forced_look))
-			dir = forced_look
-		else
-			var/atom/A = locateUID(forced_look)
-			if(istype(A))
-				dir = get_cardinal_dir(src, A)
-		return
-	. = ..()
-
 /mob/proc/show_inv(mob/user)
 	user.set_machine(src)
 	var/dat = {"<table>
@@ -624,29 +613,29 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 	to_chat(src, chat_box_examine(result.Join("\n")))
 
 /mob/proc/ret_grab(obj/effect/list_container/mobl/L as obj, flag)
-	if((!( istype(l_hand, /obj/item/grab) ) && !( istype(r_hand, /obj/item/grab) )))
-		if(!( L ))
+	if((!istype(l_hand, /obj/item/grab) && !istype(r_hand, /obj/item/grab)))
+		if(!L)
 			return null
 		else
 			return L.container
 	else
-		if(!( L ))
+		if(!L)
 			L = new /obj/effect/list_container/mobl( null )
 			L.container += src
 			L.master = src
 		if(istype(l_hand, /obj/item/grab))
 			var/obj/item/grab/G = l_hand
-			if(!( L.container.Find(G.affecting) ))
+			if(!L.container.Find(G.affecting))
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
 		if(istype(r_hand, /obj/item/grab))
 			var/obj/item/grab/G = r_hand
-			if(!( L.container.Find(G.affecting) ))
+			if(!L.container.Find(G.affecting))
 				L.container += G.affecting
 				if(G.affecting)
 					G.affecting.ret_grab(L, 1)
-		if(!( flag ))
+		if(!flag)
 			if(L.master == src)
 				var/list/temp = list(  )
 				temp += L.container
@@ -747,6 +736,113 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 
 /mob/proc/is_dead()
 	return stat == DEAD
+
+// Nobody in their right mind will have this enabled on the production server, uncomment if you want this for some reason
+/*
+/mob/verb/abandon_mob()
+	set name = "Respawn"
+	set category = "OOC"
+
+	if(!GLOB.configuration.general.respawn_enabled)
+		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
+		return
+
+	if(stat != DEAD || !SSticker)
+		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
+		return
+
+	log_game("[key_name(usr)] has respawned.")
+
+	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
+
+	if(!client)
+		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		return
+	client.screen.Cut()
+	client.screen += client.void
+
+	if(!client)
+		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		return
+
+	var/mob/new_player/M = new /mob/new_player()
+	if(!client)
+		log_game("[key_name(usr)] respawn failed due to disconnect.")
+		qdel(M)
+		return
+
+	M.key = key
+	return
+
+*/
+/mob/verb/observe()
+	set name = "Observe"
+	set category = "OOC"
+	var/is_admin = 0
+
+	if(client.holder && (client.holder.rights & R_ADMIN))
+		is_admin = 1
+	else if(stat != DEAD || isnewplayer(src))
+		to_chat(usr, "<span class='notice'>You must be observing to use this!</span>")
+		return
+
+	if(is_admin && stat == DEAD)
+		is_admin = 0
+
+	var/list/names = list()
+	var/list/namecounts = list()
+	var/list/creatures = list()
+
+	for(var/obj/O in GLOB.poi_list)
+		if(!O.loc)
+			continue
+		if(istype(O, /obj/item/disk/nuclear))
+			var/name = "Nuclear Disk"
+			if(names.Find(name))
+				namecounts[name]++
+				name = "[name] ([namecounts[name]])"
+			else
+				names.Add(name)
+				namecounts[name] = 1
+			creatures[name] = O
+
+		if(istype(O, /obj/singularity))
+			var/name = "Singularity"
+			if(names.Find(name))
+				namecounts[name]++
+				name = "[name] ([namecounts[name]])"
+			else
+				names.Add(name)
+				namecounts[name] = 1
+			creatures[name] = O
+
+
+	for(var/mob/M in sortAtom(GLOB.mob_list))
+		var/name = M.name
+		if(names.Find(name))
+			namecounts[name]++
+			name = "[name] ([namecounts[name]])"
+		else
+			names.Add(name)
+			namecounts[name] = 1
+
+		creatures[name] = M
+
+
+	client.perspective = EYE_PERSPECTIVE
+
+	var/eye_name = null
+
+	var/ok = "[is_admin ? "Admin Observe" : "Observe"]"
+	eye_name = input("Please, select a player!", ok, null, null) as null|anything in creatures
+
+	if(!eye_name)
+		return
+
+	var/mob/mob_eye = creatures[eye_name]
+
+	if(client && mob_eye)
+		client.eye = mob_eye
 
 /mob/verb/cancel_camera()
 	set name = "Cancel Camera View"
@@ -1038,7 +1134,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 				continue
 			if(L.npc_safe(src) && L.stat != DEAD && !L.key)
 				creatures += L
-		var/picked = input("Please select an NPC to respawn as", "Respawn as NPC")  as null|anything in creatures
+		var/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", creatures)
 		switch(picked)
 			if("Mouse")
 				become_mouse()
@@ -1398,7 +1494,7 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/show_rads(range)
 	for(var/turf/place in range(range, src))
 		var/rads = SSradiation.get_turf_radiation(place)
-		if (rads < RAD_BACKGROUND_RADIATION)
+		if(rads < RAD_BACKGROUND_RADIATION)
 			continue
 
 		var/strength = round(rads / 1000, 0.1)
@@ -1456,7 +1552,7 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 /world/proc/invoke_callback_with_usr(mob/user_mob, datum/callback/invoked_callback, ...)
 	var/temp = usr
 	usr = user_mob
-	if (length(args) > 2)
+	if(length(args) > 2)
 		. = invoked_callback.Invoke(arglist(args.Copy(3)))
 	else
 		. = invoked_callback.Invoke()

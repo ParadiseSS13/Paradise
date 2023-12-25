@@ -1016,7 +1016,7 @@
 		/obj/item/stack/tile/plasteel = 7
 	)
 
-/datum/outfit/admin/tournament_janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/tournament/tournament_janitor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -1315,7 +1315,7 @@
 	suit = /obj/item/clothing/suit/storage/det_suit
 	pda = /obj/item/pda/clown
 	l_ear = /obj/item/radio/headset
-	r_pocket = /obj/item/reagent_containers/food/pill/patch/jestosterone
+	r_pocket = /obj/item/reagent_containers/patch/jestosterone
 
 /datum/outfit/admin/honksquad/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

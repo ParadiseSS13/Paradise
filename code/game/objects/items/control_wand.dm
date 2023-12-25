@@ -49,45 +49,82 @@
 	. = ..()
 	. += "<span class='notice'>It's current mode is: [mode]</span>"
 
-/obj/item/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
-	if(!istype(D))
-		return
+/obj/item/door_remote/afterattack(obj/target, mob/user)
+	if(istype(target, /obj/machinery/door/airlock))
+		access_airlock(target, user)
+	if(istype(target, /obj/machinery/door/window))
+		access_windoor(target, user)
+
+/obj/item/door_remote/proc/access_airlock(obj/machinery/door/airlock/D, mob/user)
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
 		to_chat(user, "<span class='danger'>The door doesn't respond to [src]!</span>")
 		return
+
 	if(D.is_special)
 		to_chat(user, "<span class='danger'>[src] cannot access this kind of door!</span>")
 		return
+
 	if(!(D.arePowerSystemsOn()))
 		to_chat(user, "<span class='danger'>[D] has no power!</span>")
 		return
+
 	if(!D.requiresID())
 		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
 		return
-	if(D.check_access(src.ID))
-		D.add_hiddenprint(user)
-		switch(mode)
-			if(WAND_OPEN)
-				if(D.density)
-					D.open()
-				else
-					D.close()
-			if(WAND_BOLT)
-				if(D.locked)
-					D.unlock()
-				else
-					D.lock()
-			if(WAND_EMERGENCY)
-				if(D.emergency)
-					D.emergency = FALSE
-				else
-					D.emergency = TRUE
-				D.update_icon()
-			if(WAND_SPEED)
-				D.normalspeed = !D.normalspeed
-				to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
-	else
+
+	if(!D.check_access(src.ID))
 		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
+		return
+
+	D.add_hiddenprint(user)
+	switch(mode)
+		if(WAND_OPEN)
+			if(D.density)
+				D.open()
+			else
+				D.close()
+		if(WAND_BOLT)
+			if(D.locked)
+				D.unlock()
+			else
+				D.lock()
+		if(WAND_EMERGENCY)
+			D.emergency = !D.emergency
+			D.update_icon()
+		if(WAND_SPEED)
+			D.normalspeed = !D.normalspeed
+			to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
+
+/obj/item/door_remote/proc/access_windoor(obj/machinery/door/window/D, mob/user)
+	if(HAS_TRAIT(D, TRAIT_CMAGGED))
+		to_chat(user, "<span class='danger'>The door doesn't respond to [src]!</span>")
+		return
+
+	if(!D.has_power())
+		to_chat(user, "<span class='danger'>[D] has no power!</span>")
+		return
+
+	if(!D.requiresID())
+		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
+		return
+
+	if(!D.check_access(ID))
+		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
+		return
+
+	D.add_hiddenprint(user)
+	switch(mode)
+		if(WAND_OPEN)
+			if(D.density)
+				D.open()
+			else
+				D.close()
+		if(WAND_BOLT)
+			to_chat(user, "<span class='danger'>[D] has no bolting functionality.</span>")
+		if(WAND_EMERGENCY)
+			to_chat(user, "<span class='danger'>[D] has no emergency access functionality.</span>")
+		if(WAND_SPEED)
+			to_chat(user, "<span class='danger'>[D] has no speed change functionality.</span>")
 
 /obj/item/door_remote/omni
 	name = "omni door remote"
@@ -145,8 +182,8 @@
 	var/hack_speed = 1.5 SECONDS
 	var/busy = FALSE
 
-/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)
-	if(!istype(D))
+/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/D, mob/user)
+	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
 		return
 	if(busy)
 		to_chat(user, "<span class='warning'>[src] is alreading interfacing with a door!</span>")
@@ -186,16 +223,16 @@
 	playsound(src, 'sound/items/keyring_shake.ogg', 50)
 	cooldown = world.time + JANGLE_COOLDOWN
 
-/obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/airlock/D, mob/user, proximity)
+/obj/item/door_remote/janikeyring/afterattack(obj/machinery/door/D, mob/user, proximity)
 	if(!proximity)
 		return
-	if(!istype(D))
+	if(!istype(D, /obj/machinery/door/airlock) && !istype(D, /obj/machinery/door/window))
 		return
 	if(busy)
-		to_chat(user, "<span class='warning'>You are already using [src] on the [D] airlock's access panel!</span>")
+		to_chat(user, "<span class='warning'>You are already using [src] on the [D]'s access panel!</span>")
 		return
 	busy = TRUE
-	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D] airlock...</span>")
+	to_chat(user, "<span class='notice'>You fiddle with [src], trying different keys to open the [D]...</span>")
 	playsound(src, 'sound/items/keyring_unlock.ogg', 50)
 
 	var/mob/living/carbon/human/H = user
@@ -204,14 +241,11 @@
 	else
 		hack_speed = rand(5, 20) SECONDS
 
-	if(!do_after(user, hack_speed, target = D, progress = 0))
-		busy = FALSE
-		return
+	if(do_after(user, hack_speed, target = D, progress = 0))
+		. = ..()
 	busy = FALSE
 
-	if(!istype(D))
-		return
-
+/obj/item/door_remote/janikeyring/access_airlock(obj/machinery/door/airlock/D, mob/user)
 	if(HAS_TRAIT(D, TRAIT_CMAGGED))
 		to_chat(user, "<span class='danger'>[src] won't fit in the [D] airlock's access panel, there's slime everywhere!</span>")
 		return
@@ -224,15 +258,30 @@
 		to_chat(user, "<span class='danger'>The [D] airlock has no power!</span>")
 		return
 
-	if(D.check_access(ID))
-		D.add_hiddenprint(user)
-		if(D.density)
-			D.open()
-		else
-			to_chat(user, "<span class='danger'>The [D] airlock is already open!</span>")
-
-	else
+	if(!D.check_access(ID))
 		to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D] airlock's access panel!</span>")
+		return
+
+	D.add_hiddenprint(user)
+	if(D.density)
+		D.open()
+	else
+		to_chat(user, "<span class='danger'>The [D] airlock is already open!</span>")
+
+/obj/item/door_remote/janikeyring/access_windoor(obj/machinery/door/window/D, mob/user)
+	if(!(D.has_power()))
+		to_chat(user, "<span class='danger'>[D] has no power!</span>")
+		return
+
+	if(!D.check_access(ID))
+		to_chat(user, "<span class='danger'>[src] does not seem to have a key for the [D]'s access panel!</span>")
+		return
+
+	D.add_hiddenprint(user)
+	if(D.density)
+		D.open()
+	else
+		to_chat(user, "<span class='danger'>The [D] is already open!</span>")
 
 #undef WAND_OPEN
 #undef WAND_BOLT
