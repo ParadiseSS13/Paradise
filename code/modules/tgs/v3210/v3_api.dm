@@ -44,13 +44,13 @@
 	return new /datum/tgs_version("3.2.1.3")
 
 /datum/tgs_api/v3210/proc/trim_left(text)
-	for (var/i = 1 to length(text))
+	for(var/i = 1 to length(text))
 		if(text2ascii(text, i) > 32)
 			return copytext(text, i)
 	return ""
 
 /datum/tgs_api/v3210/proc/trim_right(text)
-	for (var/i = length(text), i > 0, i--)
+	for(var/i = length(text), i > 0, i--)
 		if(text2ascii(text, i) > 32)
 			return copytext(text, 1, i + 1)
 	return ""
