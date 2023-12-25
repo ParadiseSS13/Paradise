@@ -158,7 +158,7 @@
 	explanation_text +=" [number], they don't exist."
 
 /datum/objective/abductee/buddy
-	explanation_text = "Being alone and in large groups are both frightening.  Try to be alone with only one other person whenever possible."
+	explanation_text = "Being alone and in large groups are both frightening. Try to be alone with only one other person whenever possible."
 
 /datum/objective/abductee/finality
 	explanation_text = "Death should be final and modern medicine disrupts the natural order. Don't allow anyone to be revived."
