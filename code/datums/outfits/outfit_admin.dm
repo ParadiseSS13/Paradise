@@ -911,7 +911,7 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
-/datum/outfit/admin/hardsuit
+/datum/outfit/admin/modsuit
 	name = "MODsuit - Generic"
 	back = /obj/item/mod/control/pre_equipped/standard
 	suit_store = /obj/item/tank/internals/oxygen
@@ -919,7 +919,7 @@
 	shoes = /obj/item/clothing/shoes/magboots
 	id = /obj/item/card/id
 
-/datum/outfit/admin/hardsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/modsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -932,34 +932,34 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "MODsuit Tester")
 
-/datum/outfit/admin/hardsuit/engineer
+/datum/outfit/admin/modsuit/engineer
 	name = "MODsuit - Engineer"
 	back = /obj/item/mod/control/pre_equipped/engineering
 
-/datum/outfit/admin/hardsuit/ce
+/datum/outfit/admin/modsuit/ce
 	name = "MODsuit - CE"
 	back = /obj/item/mod/control/pre_equipped/advanced
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
-/datum/outfit/admin/hardsuit/mining
+/datum/outfit/admin/modsuit/mining
 	name = "MODsuit - Mining"
 	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 
-/datum/outfit/admin/hardsuit/syndi
+/datum/outfit/admin/modsuit/syndi
 	name = "MODsuit - Syndi"
 	back = /obj/item/mod/control/pre_equipped/traitor
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
-/datum/outfit/admin/hardsuit/wizard
+/datum/outfit/admin/modsuit/wizard // Technically not a MODsuit, we'll bundle it up in here for the future when it does become one
 	name = "Hardsuit - Wizard"
 	suit = /obj/item/clothing/suit/space/hardsuit/shielded/wizard
 	shoes = /obj/item/clothing/shoes/magboots/wizard
 
-/datum/outfit/admin/hardsuit/medical
+/datum/outfit/admin/modsuit/medical
 	name = "MODsuit - Medical"
 	back = /obj/item/mod/control/pre_equipped/medical
 
-/datum/outfit/admin/hardsuit/atmos
+/datum/outfit/admin/modsuit/atmos
 	name = "MODsuit - Atmos"
 	back = /obj/item/mod/control/pre_equipped/atmospheric
 
