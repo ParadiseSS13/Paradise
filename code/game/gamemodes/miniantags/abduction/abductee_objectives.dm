@@ -212,4 +212,4 @@
 		var/datum/job/target = pick(jobs)
 		explanation_text += " a [target.title] is also experimented on by an Abductor so they believe you!"
 	else
-		explanation_text += " someone is also experimened on by an Abductor so they believe you!"
+		explanation_text += " someone is also experimented on by an Abductor so they believe you!"
