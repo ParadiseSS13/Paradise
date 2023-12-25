@@ -164,7 +164,7 @@
 	explanation_text = "Death should be final and modern medicine disrupts the natural order. Don't allow anyone to be revived."
 
 /datum/objective/abductee/mispronounced
-	explanation_text = "No matter how they say it, other people keep mispronouncing your name.  Be sure to correct them whenever possible."
+	explanation_text = "No matter how they say it, other people keep mispronouncing your name. Be sure to correct them whenever possible."
 
 /datum/objective/abductee/bald
 	explanation_text = "There are alien parasites masquerading as people's hair.  Save people from this invasion."
