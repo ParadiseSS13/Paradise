@@ -82,6 +82,9 @@
 	if(get_area(A) == controlling_area)
 		A.AICtrlClick(src)
 
+/mob/living/simple_animal/demon/pulse_demon/proc/can_instant_lockdown()
+	return TRUE
+
 // for alt-click status tab
 /mob/living/simple_animal/demon/pulse_demon/TurfAdjacent(turf/T)
 	return get_area(T) == controlling_area || ..()
