@@ -79,7 +79,7 @@ export const Panel = (props, context) => {
         )}
         <Flex.Item mt={1} grow={1}>
           <Section fill fitted position="relative">
-            <Pane.Content scrollable>
+            <Pane.Content className="scrollable" scrollable>
               <ChatPanel lineHeight={settings.lineHeight} />
             </Pane.Content>
             <Notifications>
