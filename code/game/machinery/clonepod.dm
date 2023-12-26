@@ -58,40 +58,40 @@
 
 	//So that chemicals can be loaded into the pod.
 	container_type = OPENCONTAINER
-	//The linked cloning console.
+	/// The linked cloning console.
 	var/obj/machinery/computer/cloning/console
 
-	//Whether or not we're cloning someone.
+	/// Whether or not we're cloning someone.
 	var/currently_cloning = FALSE
-	//The progress on the current clone.
-	//Measured from 0-100, where 0-20 has no body, and 21-100 gradually builds on limbs every 10. (r_arm, r_hand, l_arm, l_hand, r_leg, r_foot, l_leg, l_foot)
+	/// The progress on the current clone.
+	/// Measured from 0-100, where 0-20 has no body, and 21-100 gradually builds on limbs every 10. (r_arm, r_hand, l_arm, l_hand, r_leg, r_foot, l_leg, l_foot)
 	var/clone_progress = 0
-	//A list of limbs which have not yet been grown by the cloner.
+	/// A list of limbs which have not yet been grown by the cloner.
 	var/list/limbs_to_grow = list()
-	//The limb we're currently growing.
+	/// The limb we're currently growing.
 	var/current_limb
-	//Flavor text to show on examine.
+	/// Flavor text to show on examine.
 	var/desc_flavor = "It doesn't seem to be doing anything right now."
 
-	//The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
+	/// The speed at which we clone. Each processing cycle will advance clone_progress by this amount.
 	var/speed_modifier = 1
-	//Our price modifier, multiplied with the base cost to get the true cost.
+	/// Our price modifier, multiplied with the base cost to get the true cost.
 	var/price_modifier = 1.1
-	//Our storage modifier, which is used in calculating organ and biomass storage.
+	/// Our storage modifier, which is used in calculating organ and biomass storage.
 	var/storage_modifier = 1
 
-	//The cloner's biomass count.
+	/// The cloner's biomass count.
 	var/biomass = 0
-	//How many organs we can store. This is calculated with the storage modifier in RefreshParts().
+	/// How many organs we can store. This is calculated with the storage modifier in RefreshParts().
 	var/organ_storage_capacity
-	//How much biomass we can store. This is calculated at the same time as organ_storage_capacity.
+	/// How much biomass we can store. This is calculated at the same time as organ_storage_capacity.
 	var/biomass_storage_capacity
 
-	//The cloning_data datum which shows the patient's current status.
+	/// The cloning_data datum which shows the patient's current status.
 	var/datum/cloning_data/patient_data
-	//The cloning_data datum which shows the status we want the patient to be in.
+	/// The cloning_data datum which shows the status we want the patient to be in.
 	var/datum/cloning_data/desired_data
-	//Our patient.
+	/// Our patient.
 	var/mob/living/carbon/human/clone
 
 /obj/machinery/clonepod/Initialize(mapload)
@@ -128,9 +128,14 @@
 	component_parts += new /obj/item/stack/sheet/glass(null)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
-	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace/(null)
+	component_parts += new /obj/item/reagent_containers/glass/beaker/bluespace(null)
+
 	update_icon()
 	RefreshParts()
+
+	biomass = biomass_storage_capacity
+	reagents.add_reagent("sanguine_reagent", 150)
+	reagents.add_reagent("osseous_reagent", 150)
 
 /obj/machinery/clonepod/examine(mob/user)
 	. = ..()
@@ -573,17 +578,9 @@
 	. = ..()
 	eject_clone(TRUE)
 
-/obj/machinery/clonepod/cmag_act(mob/user)
-	if(HAS_TRAIT(src, TRAIT_CMAGGED))
-		return
-	playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	to_chat(user, "<span class='warning'>A droplet of bananium ooze seeps into the synthmeat storage chamber...</span>")
-	ADD_TRAIT(src, TRAIT_CMAGGED, CLOWN_EMAG)
-
 /obj/machinery/clonepod/emp_act(severity)
-	..()
-
-/obj/machinery/clonepod/ex_act(severity)
+	if(prob(50))
+		eject_clone(TRUE)
 	..()
 
 //TGUI

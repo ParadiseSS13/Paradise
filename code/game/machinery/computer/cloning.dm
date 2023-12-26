@@ -7,6 +7,7 @@
 	icon_keyboard = "med_key"
 	icon_screen = "dna"
 	circuit = /obj/item/circuitboard/cloning
+	req_access = list(ACCESS_MEDICAL)
 
 	/// The currently-selected cloning pod.
 	var/obj/machinery/clonepod/selected_pod
@@ -33,10 +34,10 @@
 		return //cloning setups built by players need to be linked manually
 
 	pods += locate(/obj/machinery/clonepod, orange(5, src))
-
 	scanner = locate(/obj/machinery/clonescanner, orange(5, src))
-
 	selected_pod = pick(pods)
+
+	new /obj/item/book/manual/medical_cloning(get_turf(src)) //hopefully this stems the tide of mhelps during the TM...
 
 /obj/machinery/computer/cloning/Destroy()
 	return ..()
@@ -89,6 +90,14 @@
 
 	ui_interact(user)
 
+/obj/machinery/computer/cloning/emag_act(mob/user)
+	. = ..()
+	if(req_access)
+		req_access = null
+		to_chat(user, "<span class='notice'>You short out the ID scanner on [src].</span>")
+	else
+		to_chat(user, "<span class='warning'>[src]'s ID scanner is already broken!</span>")
+
 /obj/machinery/computer/cloning/proc/generate_healthy_data(datum/cloning_data/patient_data)
 	var/datum/cloning_data/desired_data = new /datum/cloning_data()
 
@@ -111,6 +120,10 @@
 
 /obj/machinery/computer/cloning/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
 	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(!allowed(user))
+		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
 	var/datum/asset/cloning/assets = get_asset_datum(/datum/asset/cloning)
