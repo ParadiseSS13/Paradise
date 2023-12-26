@@ -393,7 +393,7 @@
 		return
 
 	var/mob/living/carbon/human/H = M
-	if(!(method == REAGENT_TOUCH))
+	if(method != REAGENT_TOUCH)
 		to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 		if(volume >= 25)
 			H.adjustBruteLoss(2)
