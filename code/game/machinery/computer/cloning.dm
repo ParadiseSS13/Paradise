@@ -21,7 +21,7 @@
 	/// The desired outcome of the cloning process.
 	var/datum/cloning_data/desired_data
 
-	COOLDOWN_DECLARE("scancooldown")
+	COOLDOWN_DECLARE(scancooldown)
 
 /obj/machinery/computer/cloning/Initialize(mapload)
 	. = ..()
@@ -216,11 +216,11 @@
 				selected_pod.start_cloning(scanner.last_scan, desired_data)
 			return TRUE
 		if("scan")
-			if(!COOLDOWN_FINISHED(src, "scancooldown"))
+			if(!COOLDOWN_FINISHED(src, scancooldown))
 				feedback = list("text" = "The scanning array is still calibrating! Please wait...", "color" = "average")
 				return TRUE
 
-			COOLDOWN_START(src, "scancooldown", 5 SECONDS)
+			COOLDOWN_START(src, scancooldown, 5 SECONDS)
 			var/scanner_result = scanner.try_scan(scanner.occupant)
 			switch(scanner_result)
 				if(SCANNER_MISC)
