@@ -85,21 +85,6 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 
-	/*
-	switch(alert(user, "What machine to interact with?", "TGUI Stand-In", "Cloning Pod", "Cloning Scanner"))
-		if("Cloning Pod")
-			switch(alert(user, "What proc to test?", "TGUI Stand-In", "get_cloning_cost()", "start_cloning()", "get_stored_organ()"))
-				if("get_cloning_cost()")
-					var/obj/machinery/clonepod/pod = pick(pods)
-					var/list/cost = pod.get_cloning_cost(scanner.scan(scanner.occupant), healthy_data)
-					to_chat(user, "Biomass: [cost[1]], Sanguine Reagent: [cost[2]], Osseous Reagent: [cost[3]]")
-				if("start_cloning()")
-					var/obj/machinery/clonepod/pod = pick(pods)
-					pod.start_cloning(scanner.scan(scanner.occupant), healthy_data)
-				if("get_stored_organ()")
-					var/obj/machinery/clonepod/pod = pick(pods)
-					to_chat(user, "[pod.get_stored_organ("heart")]")
-	*/
 	ui_interact(user)
 
 /obj/machinery/computer/cloning/proc/generate_healthy_data(datum/cloning_data/patient_data)
