@@ -4827,3 +4827,39 @@
 	category = TTS_CATEGORY_TREASURE_ISLAND
 	gender = TTS_GENDER_MALE
 
+/datum/tts_seed/silero/sp_brother
+	name = "Брат(СП)"
+	value = "slovo_patsana_brother"
+	category = TTS_CATEGORY_BOYS_WORD
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/sp_koschei
+	name = "Кощей(СП)"
+	value = "slovo_patsana_koschei"
+	category = TTS_CATEGORY_BOYS_WORD
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/sp_marat
+	name = "Марат(СП)"
+	value = "slovo_patsana_marat"
+	category = TTS_CATEGORY_BOYS_WORD
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/sp_angry_cop
+	name = "Злой полицейский(СП)"
+	value = "slovo_patsana_angry_cop"
+	category = TTS_CATEGORY_BOYS_WORD
+	gender = TTS_GENDER_MALE
+
+/datum/tts_seed/silero/sp_cop
+	name = "Полицейский(СП)"
+	value = "slovo_patsana_cop"
+	category = TTS_CATEGORY_BOYS_WORD
+	gender = TTS_GENDER_FEMALE
+
+/datum/tts_seed/silero/sp_main
+	name = "Главный герой(СП)"
+	value = "slovo_patsana_main"
+	category = TTS_CATEGORY_BOYS_WORD
+	gender = TTS_GENDER_MALE
+

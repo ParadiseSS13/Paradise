@@ -48,6 +48,7 @@
 #define TTS_CATEGORY_MARVEL "Marvel"
 #define TTS_CATEGORY_WOW "World of Warcraft"
 #define TTS_CATEGORY_TREASURE_ISLAND "Treasure Island"
+#define TTS_CATEGORY_BOYS_WORD "Слово пацана"
 
 #define TTS_GENDER_ANY "Любой"
 #define TTS_GENDER_MALE "Мужской"
