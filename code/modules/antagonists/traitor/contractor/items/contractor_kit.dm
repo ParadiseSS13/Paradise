@@ -12,23 +12,21 @@
 		// Offensive
 		/obj/item/gun/projectile/automatic/c20r/toy,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
-		/obj/item/pen/edagger,
 		/obj/item/gun/projectile/automatic/toy/pistol/riot,
-		/obj/item/soap/syndie,
 		/obj/item/storage/box/syndie_kit/dart_gun,
 		/obj/item/gun/syringe/rapidsyringe,
-		/obj/item/storage/backpack/duffel/syndie/x4,
 		// Mixed
 		/obj/item/storage/box/syndie_kit/emp,
 		/obj/item/flashlight/emp,
 		// Support
 		/obj/item/storage/box/syndidonkpockets,
+		/obj/item/door_remote/omni/access_tuner,
 		/obj/item/storage/belt/military/traitor,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/toolbox/syndicate,
 		/obj/item/storage/backpack/duffel/syndie/med/surgery,
 		/obj/item/multitool/ai_detect,
-		/obj/item/encryptionkey/binary,
+		/obj/item/encryptionkey/syndicate,
 		/obj/item/jammer,
 		/obj/item/clothing/under/syndicate/silicon_cham,
 		/obj/item/implanter/freedom,
@@ -53,6 +51,8 @@
 	new /obj/item/clothing/suit/space/syndicate/contractor(src)
 	new /obj/item/melee/classic_baton/telescopic/contractor(src)
 	new /obj/item/clothing/under/chameleon(src)
+	new /obj/item/clothing/suit/chameleon(src)
+	new /obj/item/clothing/head/chameleon(src)
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/card/id/syndicate(src)
 	new /obj/item/storage/fancy/cigarettes/cigpack_syndicate(src)
