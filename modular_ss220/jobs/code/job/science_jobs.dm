@@ -40,3 +40,13 @@
 	. = ..()
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/rank/rnd/scientist/skirt
+
+/datum/job/rd
+	exp_map = list(EXP_TYPE_SCIENCE = (1200 + NOVICE_JOB_MINUTES))
+
+/datum/job/scientist
+	exp_map = list(EXP_TYPE_SCIENCE = (300 + NOVICE_JOB_MINUTES))
+
+/datum/job/roboticist
+	exp_map = list(EXP_TYPE_SCIENCE = (300 + NOVICE_JOB_MINUTES))
+

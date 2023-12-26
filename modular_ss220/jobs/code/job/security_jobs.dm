@@ -49,3 +49,15 @@
 	. = ..()
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/rank/security/officer/skirt
+
+/datum/job/officer
+	exp_map = list(EXP_TYPE_SECURITY = (600 + NOVICE_CADET_JOB_MINUTES))
+
+/datum/job/detective
+	exp_map = list(EXP_TYPE_SECURITY = (900 + NOVICE_CADET_JOB_MINUTES))
+
+/datum/job/warden
+	exp_map = list(EXP_TYPE_SECURITY = (900 + NOVICE_CADET_JOB_MINUTES))
+
+/datum/job/hos
+	exp_map = list(EXP_TYPE_SECURITY = (1200 + NOVICE_CADET_JOB_MINUTES))
