@@ -155,6 +155,14 @@
 			R.floorbuffer = FALSE
 			R.speed -= U.buffer_speed
 
+	for(var/datum/action/innate/robot_magpulse/magpulse in R.module_actions)
+		if(magpulse.active)
+			REMOVE_TRAIT(R, TRAIT_MAGPULSE, "innate boots")
+			to_chat(R, "You turn your magboots off.")
+			R.speed -= magpulse.slowdown_active
+			magpulse.button_icon_state = initial(magpulse.button_icon_state)
+			magpulse.active = FALSE
+
 	R.speed = -1 // Gotta go fast.
 
 	return TRUE
@@ -372,7 +380,7 @@
 			cyborg.cell.use(5)
 		repair_tick = 0
 
-		if((world.time - 2000) > msg_cooldown )
+		if((world.time - 2000) > msg_cooldown)
 			var/msgmode = "standby"
 			if(cyborg.health < 0)
 				msgmode = "critical"
@@ -428,7 +436,7 @@
 	items_to_replace = list(
 		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
 	)
-	
+
 /obj/item/borg/upgrade/bluespace_trash_bag
 	name = "janitor cyborg trash bag of holding upgrade"
 	desc = "An advanced trash bag upgrade board with bluespace properties that can be attached to janitorial cyborgs."

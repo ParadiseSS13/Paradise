@@ -27,7 +27,7 @@
 	return TRUE
 
 /datum/atom_hud/data/human/medical/basic/add_to_single_hud(mob/M, mob/living/carbon/H)
-	if(check_sensors(H) || isobserver(M) )
+	if(check_sensors(H) || isobserver(M))
 		..()
 
 /datum/atom_hud/data/human/medical/basic/proc/update_suit_sensors(mob/living/carbon/H)
@@ -56,6 +56,9 @@
 
 /datum/atom_hud/data/hydroponic
 	hud_icons = list (PLANT_NUTRIENT_HUD, PLANT_WATER_HUD, PLANT_STATUS_HUD, PLANT_HEALTH_HUD, PLANT_TOXIN_HUD, PLANT_PEST_HUD, PLANT_WEED_HUD)
+
+/datum/atom_hud/data/janitor
+	hud_icons = list(JANI_HUD)
 
 /* MED/SEC/DIAG HUD HOOKS */
 
@@ -491,6 +494,15 @@
 		holder.icon_state = "electrified"
 	else
 		holder.icon_state = ""
+
+/*~~~~~~~~~~~~~~
+	JANI HUD
+~~~~~~~~~~~~~~~*/
+/obj/effect/decal/cleanable/proc/jani_hud_set_sign()
+	var/image/holder = hud_list[JANI_HUD]
+	holder.icon_state = "hudjani"
+	holder.alpha = 130
+	holder.plane = ABOVE_LIGHTING_PLANE
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	I'll just put this somewhere near the end...

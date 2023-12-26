@@ -72,7 +72,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in monitor_names_paths
+	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", monitor_names_paths)
 	if(!choice)
 		return
 	board_name = choice
@@ -527,7 +527,7 @@
 	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
 		if(allowed(user))
 			user.visible_message("<span class='notice'>[user] waves [user.p_their()] ID past [src]'s access protocol scanner.</span>", "<span class='notice'>You swipe your ID past [src]'s access protocol scanner.</span>")
-			var/console_choice = input(user, "What do you want to configure the access to?", "Access Modification", "R&D Core") as null|anything in access_types
+			var/console_choice = tgui_input_list(user, "What do you want to configure the access to?", "Access Modification", access_types)
 			if(!console_choice)
 				return
 			switch(console_choice)
@@ -632,15 +632,7 @@
 
 /obj/structure/computerframe/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
-	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
-		return
-
-	if(anchored)
-		to_chat(user, "<span class='notice'>You unfasten the frame.</span>")
-		anchored = FALSE
-	else
-		to_chat(user, "<span class='notice'>You wrench the frame into place.</span>")
-		anchored = TRUE
+	default_unfasten_wrench(user, I, 2 SECONDS)
 
 /obj/structure/computerframe/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE

@@ -748,7 +748,7 @@ emp_act
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(shoes && isclothing(shoes))
 		var/obj/item/clothing/S = shoes
-		if (S.flags & NOSLIP)
+		if(S.flags & NOSLIP)
 			return FALSE
 	return ..()
 
@@ -759,11 +759,11 @@ emp_act
 		return
 
 	for(var/obj/O in list(head, wear_suit, back, l_hand, r_hand))
-		O.water_act(src, volume, temperature, source, method)
+		O.water_act(volume, temperature, source, method)
 	if((head?.flags & THICKMATERIAL) && (wear_suit?.flags & THICKMATERIAL)) // fully pierce proof clothing is also water proof!
 		return
 	for(var/obj/O in list(w_uniform, shoes, belt, gloves, glasses, l_ear, r_ear, wear_id, wear_pda, r_store, l_store, s_store))
-		O.water_act(src, volume, temperature, source, method)
+		O.water_act(volume, temperature, source, method)
 
 
 

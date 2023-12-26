@@ -289,7 +289,7 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Choose a new brand", "Select an Item") as null|anything in station_vendors
+	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors)
 	if(!choice)
 		return
 	set_type(choice)
@@ -569,7 +569,7 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/choice = input(user, "Circuit Setting", "What would you change the board setting to?") as null|anything in fridge_names_paths
+	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", fridge_names_paths)
 	if(!choice)
 		return
 	set_type(user, choice)

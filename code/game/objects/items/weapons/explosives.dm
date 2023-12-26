@@ -101,8 +101,6 @@
 				message_say = "FOR THE HIVE!"
 			else if(role == ROLE_CULTIST)
 				message_say = "FOR NARSIE!"
-			else if(role == ROLE_NINJA)
-				message_say = "FOR THE CLAN!"
 			else if(role == ROLE_WIZARD)
 				message_say = "FOR THE FEDERATION!"
 			else if(role == ROLE_REV || role == "head revolutionary")

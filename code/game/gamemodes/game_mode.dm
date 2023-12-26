@@ -106,9 +106,6 @@
 		return 1
 	return 0
 
-/datum/game_mode/proc/cleanup()	//This is called when the round has ended but not the game, if any cleanup would be necessary in that case.
-	return
-
 /datum/game_mode/proc/declare_completion()
 	var/clients = 0
 	var/surviving_humans = 0
@@ -505,3 +502,16 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
+
+/// Gets the value of all end of round stats through auto_declare and returns them
+/datum/game_mode/proc/get_end_of_round_antagonist_statistics()
+	. = list()
+	. += auto_declare_completion_traitor()
+	. += auto_declare_completion_vampire()
+	. += auto_declare_completion_enthralled()
+	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_nuclear()
+	. += auto_declare_completion_wizard()
+	. += auto_declare_completion_revolution()
+	. += auto_declare_completion_abduction()
+	listclearnulls(.)

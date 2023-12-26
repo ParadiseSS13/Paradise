@@ -3,7 +3,6 @@
 	desc = "A beacon used by a teleporter."
 	icon_state = "beacon"
 	item_state = "signaler"
-	var/code = "Beacon"
 	origin_tech = "bluespace=1"
 	var/syndicate = FALSE
 	var/area_bypass = FALSE
@@ -11,7 +10,6 @@
 
 /obj/item/radio/beacon/New()
 	..()
-	code = "[code] ([GLOB.beacons.len + 1])"
 	GLOB.beacons += src
 
 /obj/item/radio/beacon/Destroy()
@@ -30,20 +28,6 @@
 
 /obj/item/radio/beacon/send_hear()
 	return null
-
-/obj/item/radio/beacon/verb/alter_signal(t as text)
-	set name = "Alter Beacon's Signal"
-	set category = "Object"
-	set src in usr
-
-	if(usr.stat || usr.restrained())
-		return
-
-	code = t
-	if(isnull(code))
-		code = initial(code)
-	src.add_fingerprint(usr)
-	return
 
 /obj/item/radio/beacon/bacon //Probably a better way of doing this, I'm lazy.
 
@@ -74,6 +58,45 @@
 		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
 		user.drop_item()
 		qdel(src)
+
+/obj/item/radio/beacon/syndicate/bundle/
+	name = "suspicious beacon"
+	desc = "A label on it reads: <i>Activate to select a bundle</i>."
+	var/list/static/bundles = list(
+		"Spy" = /obj/item/storage/box/syndie_kit/bundle/spy,
+		"Agent 13" = /obj/item/storage/box/syndie_kit/bundle/agent13,
+		"Thief" = /obj/item/storage/box/syndie_kit/bundle/thief,
+		"Agent 007" = /obj/item/storage/box/syndie_kit/bundle/bond,
+		"Infiltrator" = /obj/item/storage/box/syndie_kit/bundle/infiltrator,
+		"Bank Robber" = /obj/item/storage/box/syndie_kit/bundle/payday,
+		"Implanter" = /obj/item/storage/box/syndie_kit/bundle/implant,
+		"Hacker" = /obj/item/storage/box/syndie_kit/bundle/hacker,
+		"Dark Lord" = /obj/item/storage/box/syndie_kit/bundle/darklord,
+		"Sniper" = /obj/item/storage/box/syndie_kit/bundle/professional,
+		"Grenadier" = /obj/item/storage/box/syndie_kit/bundle/grenadier,
+		"Augmented" = /obj/item/storage/box/syndie_kit/bundle/metroid)
+	var/list/selected = list()
+	var/list/unselected = list()
+
+/obj/item/radio/beacon/syndicate/bundle/attack_self(mob/user)
+	if(!user)
+		return
+	if(!length(selected))
+		unselected = bundles.Copy()
+		for(var/i in 1 to 3)
+			selected += pick_n_take(unselected)
+		selected += "Random"
+	var/bundle_name  = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
+	if(!bundle_name)
+		return
+	if(bundle_name == "Random")
+		bundle_name = pick(unselected)
+	var/bundle = bundles[bundle_name]
+	bundle = new bundle(user.loc)
+	to_chat(user, "<span class='notice'>Welcome to [station_name()], [bundle_name]</span>")
+	user.drop_item()
+	qdel(src)
+	user.put_in_hands(bundle)
 
 /obj/item/radio/beacon/syndicate/power_sink
 	name = "suspicious beacon"
