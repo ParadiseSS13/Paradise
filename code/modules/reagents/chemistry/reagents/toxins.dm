@@ -306,7 +306,7 @@
 		to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
 		return
 	if(H.head)
-		to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
+		to_chat(H, "<span class='danger'>Your [H.head] protects you from the acid!</span>")
 		return
 
 	H.take_organ_damage(10, 15)
@@ -388,11 +388,7 @@
 	reagent_state = LIQUID
 	taste_description = "vinegar"
 
-/datum/reagent/acetic_acid/reaction_mob(mob/M, method = REAGENT_TOUCH, volume)
-	if(!ishuman(M))
-		return
-
-	var/mob/living/carbon/human/H = M
+/datum/reagent/acetic_acid/reaction_mob(mob/living/carbon/human/H, method = REAGENT_TOUCH, volume)
 	if(method != REAGENT_TOUCH)
 		to_chat(H, "<span class='warning'>The transparent acidic substance stings[volume < 25 ? " you, but isn't concentrated enough to harm you" : null]!</span>")
 		if(volume >= 25)
