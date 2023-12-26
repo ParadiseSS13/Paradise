@@ -172,6 +172,7 @@ if (window.__windowId__ === '[' + 'tgui:windowId' + ']') {
     }
   };
 
+
   // Asset loaders
   // ------------------------------------------------------
 
@@ -192,6 +193,8 @@ if (window.__windowId__ === '[' + 'tgui:windowId' + ']') {
     var len = styleSheets.length;
     for (var i = 0; i < len; i++) {
       var styleSheet = styleSheets[i];
+      if(styleSheet.href === undefined)
+        continue;
       if (styleSheet.href.indexOf(url) !== -1) {
         return styleSheet.rules.length > 0;
       }
@@ -355,8 +358,17 @@ window.onerror = function (msg, url, line, col, error) {
   return true;
 };
 
-// Catch unhandled rejections
-window.onunhandledrejection = window.onerror;
+// Catch unhandled promise rejections
+window.onunhandledrejection = function (e) {
+  var msg = 'UnhandledRejection';
+  if (e.reason) {
+    msg += ': ' + (e.reason.message || e.reason.description || e.reason);
+    if (e.reason.stack) {
+      e.reason.stack = 'UnhandledRejection: ' + e.reason.stack;
+    }
+  }
+  window.onerror(msg, null, null, null, e.reason);
+};
 
 // Helper for augmenting stack traces on fatal errors
 window.__augmentStack__ = function (stack, error) {
@@ -392,95 +404,121 @@ if (!Function.prototype.bind) (function () {
     };
   };
 })();
+
+if (!Array.prototype['forEach']) {
+  Array.prototype.forEach = function (callback, thisArg) {
+    if (this == null) {
+      throw new TypeError('Array.prototype.forEach called on null or undefined');
+    }
+    var T, k;
+    var O = Object(this);
+    var len = O.length >>> 0;
+    if (typeof callback !== "function") {
+      throw new TypeError(callback + ' is not a function');
+    }
+    if (arguments.length > 1) {
+      T = thisArg;
+    }
+    k = 0;
+    while (k < len) {
+      var kValue;
+      if (k in O) {
+        kValue = O[k];
+        callback.call(T, kValue, k, O);
+      }
+      k++;
+    }
+  };
+}
 </script>
 
 <style>
-  .FatalError {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 12px;
-    font-size: 12px;
-    font-family: Consolas, monospace;
-    color: #ffffff;
-    background-color: #0000dd;
-    z-index: 1000;
-    overflow: hidden;
-    text-align: center;
+.FatalError {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px;
+  font-size: 12px;
+  font-family: Consolas, monospace;
+  color: #ffffff;
+  background-color: #0000dd;
+  z-index: 1000;
+  overflow: hidden;
+  text-align: center;
+}
+
+.FatalError--visible {
+  display: block !important;
+}
+
+.FatalError__logo {
+  display: inline-block;
+  text-align: left;
+  font-size: 10px;
+  line-height: 12px;
+  position: relative;
+  margin: 16px;
+  top: 0;
+  left: 0;
+  animation:
+    FatalError__rainbow 2s linear infinite alternate,
+    FatalError__shadow 4s linear infinite alternate,
+    FatalError__tfmX 3s infinite alternate,
+    FatalError__tfmY 4s infinite alternate;
+  white-space: pre;
+}
+
+.FatalError__header {
+  margin-top: 12px;
+}
+
+.FatalError__stack {
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.FatalError__footer {
+  margin-bottom: 24px;
+}
+
+@keyframes FatalError__rainbow {
+  0% { color: #ff0; }
+  50% { color: #0ff; }
+  100% { color: #f0f; }
+}
+
+@keyframes FatalError__shadow {
+  0% {
+    left: -2px;
+    text-shadow: 4px 0 #f0f;
   }
-  
-  .FatalError--visible {
-    display: block !important;
+  50% {
+    left: 0px;
+    text-shadow: 0px 0 #0ff;
   }
-  
-  .FatalError__logo {
-    display: inline-block;
-    text-align: left;
-    font-size: 10px;
-    line-height: 12px;
-    position: relative;
-    margin: 16px;
-    top: 0;
-    left: 0;
-    animation:
-      FatalError__rainbow 2s linear infinite alternate,
-      FatalError__shadow 4s linear infinite alternate,
-      FatalError__tfmX 3s infinite alternate,
-      FatalError__tfmY 4s infinite alternate;
-    white-space: pre;
+  100% {
+    left: 2px;
+    text-shadow: -4px 0 #ff0;
   }
-  
-  .FatalError__header {
-    margin-top: 12px;
-  }
-  
-  .FatalError__stack {
-    text-align: left;
-    white-space: pre-wrap;
-    word-break: break-all;
-    margin-top: 24px;
-    margin-bottom: 24px;
-  }
-  
-  .FatalError__footer {
-    margin-bottom: 24px;
-  }
-  
-  @keyframes FatalError__rainbow {
-    0% { color: #ff0; }
-    50% { color: #0ff; }
-    100% { color: #f0f; }
-  }
-  
-  @keyframes FatalError__shadow {
-    0% {
-      left: -2px;
-      text-shadow: 4px 0 #f0f;
-    }
-    50% {
-      left: 0px;
-      text-shadow: 0px 0 #0ff;
-    }
-    100% {
-      left: 2px;
-      text-shadow: -4px 0 #ff0;
-    }
-  }
-  
-  @keyframes FatalError__tfmX {
-    0% { left: 15px; }
-    100% { left: -15px; }
-  }
-  
-  @keyframes FatalError__tfmY {
-    100% { top: -15px; }
-  }
-  </style>
-  </head>
-  <body>
+}
+
+@keyframes FatalError__tfmX {
+  0% { left: 15px; }
+  100% { left: -15px; }
+}
+
+@keyframes FatalError__tfmY {
+  100% { top: -15px; }
+}
+</style>
+</head>
+<body>
 
 <!-- Inline assets -->
 <!-- tgui:assets -->
