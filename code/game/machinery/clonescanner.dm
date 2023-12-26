@@ -50,7 +50,9 @@
 
 #define SCANNER_UNCLONEABLE_SPECIES "uncloneable"
 #define SCANNER_HUSKED "husked"
+#define SCANNER_ABSORBED "absorbed"
 #define SCANNER_NO_SOUL "soulless"
+#define SCANNER_BRAIN_ISSUE "suicide or missing brain"
 #define SCANNER_MISC "miscellanious"
 #define SCANNER_SUCCESSFUL "successful"
 
@@ -140,11 +142,15 @@
 	if(!scanned.dna || HAS_TRAIT(scanned, TRAIT_GENELESS))
 		return SCANNER_MISC
 	if(HAS_TRAIT(scanned, TRAIT_BADDNA) && scanning_tier < 4)
+		return SCANNER_ABSORBED
+	if(HAS_TRAIT(scanned, TRAIT_HUSK) && scanning_tier < 4)
 		return SCANNER_HUSKED
 	if(NO_CLONESCAN in scanned.dna.species.species_traits)
 		return SCANNER_UNCLONEABLE_SPECIES
-	if(!scanned.ckey || !scanned.client)
+	if(!scanned.ckey || !scanned.client || ischangeling(scanned))
 		return SCANNER_NO_SOUL
+	if(scanned.suiciding || !subject.get_int_organ(/obj/item/organ/internal/brain))
+		return SCANNER_BRAIN_ISSUE
 
 	return scan(scanned)
 

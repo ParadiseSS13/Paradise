@@ -222,8 +222,12 @@
 					feedback = list("text" = "[scanner.occupant.dna.species.name_plural] cannot be scanned.", "color" = "bad")
 				if(SCANNER_HUSKED)
 					feedback = list("text" = "The patient is husked.", "color" = "bad")
+				if(SCANNER_ABSORBED)
+					feedback = list("text" = "The patient cannot be scanned due to a lack of biofluids.", "color" = "bad")
 				if(SCANNER_NO_SOUL)
 					feedback = list("text" = "Failed to sequence the patient's brain. Further attempts may succeed.", "color" = "average")
+				if(SCANNER_BRAIN_ISSUE)
+					feedback = list("text" = "The patient's brain is inactive or missing.", "color" = "bad")
 				else
 					var/datum/cloning_data/scan = scanner_result
 					if((scan.mindUID == patient_data?.mindUID) || (scan.mindUID == selected_pod?.patient_data?.mindUID))
