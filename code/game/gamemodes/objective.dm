@@ -49,6 +49,7 @@ GLOBAL_LIST_INIT(potential_theft_objectives, (subtypesof(/datum/theft_objective)
 	owner = null
 	target = null
 	team = null
+	holder = null
 	return ..()
 
 /datum/objective/proc/check_completion()
