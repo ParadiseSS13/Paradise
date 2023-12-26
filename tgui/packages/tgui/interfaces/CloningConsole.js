@@ -70,11 +70,11 @@ const CloningConsoleBody = (props, context) => {
 
 const CloningConsoleMain = (props, context) => {
   const { act, data } = useBackend(context);
-  const { pods, selectedPodUID } = data;
+  const { pods, podAmount, selectedPodUID } = data;
   return (
     <Box>
-      {!pods && <Box color="average">Notice: No pods connected.</Box>}
-      {!!pods &&
+      {!podAmount && <Box color="average">Notice: No pods connected.</Box>}
+      {!!podAmount &&
         pods.map((pod, i) => (
           <Section key={pod} layer={2} title={'Pod ' + (i + 1)}>
             <Flex textAlign="center">
@@ -157,136 +157,142 @@ const CloningConsoleDamage = (props, context) => {
     feedback,
     scanSuccessful,
     cloningCost,
+    hasScanner,
   } = data;
   return (
     <Box>
-      <Section
-        layer={2}
-        title="Scanner Info"
-        buttons={
-          <Button icon="hourglass-half" onClick={() => act('scan')}>
-            Scan
-          </Button>
-        }
-      >
-        {!hasScanned && (
-          <Box color="average">
-            {scannerHasPatient
-              ? 'No scan detected for current patient.'
-              : 'No patient is in the scanner.'}
-          </Box>
-        )}
-        {!!hasScanned && (
-          <Box color={feedback['color']}>{feedback['text']}</Box>
-        )}
-      </Section>
-      <Section layer={2} title="Damages Breakdown">
+      {!hasScanner && <Box color='average'>Notice: No scanner connected.</Box>}
+      {!!hasScanner &&
         <Box>
-          {(!scanSuccessful || !hasScanned) && (
-            <Box color="average">No valid scan detected.</Box>
-          )}
-          {!!scanSuccessful && !!hasScanned && (
+          <Section
+            layer={2}
+            title="Scanner Info"
+            buttons={
+              <Button icon="hourglass-half" onClick={() => act('scan')}>
+                Scan
+              </Button>
+            }
+          >
+            {!hasScanned && (
+              <Box color="average">
+                {scannerHasPatient
+                  ? 'No scan detected for current patient.'
+                  : 'No patient is in the scanner.'}
+              </Box>
+            )}
+            {!!hasScanned && (
+              <Box color={feedback['color']}>{feedback['text']}</Box>
+            )}
+          </Section>
+          <Section layer={2} title="Damages Breakdown">
             <Box>
-              <Flex>
-                <Flex.Item>
-                  <Button onClick={() => act('fix_all')}>
-                    Repair All Damages
-                  </Button>
-                  <Button onClick={() => act('fix_none')}>
-                    Repair No Damages
-                  </Button>
-                </Flex.Item>
-                <Flex.Item grow={1} />
-                <Flex.Item>
-                  <Button onClick={() => act('clone')}>Clone</Button>
-                </Flex.Item>
-              </Flex>
-              <Flex height="25px">
-                <Flex.Item width="50%">
-                  <ProgressBar
-                    value={cloningCost[0]}
-                    maxValue={selectedPodData['biomass_storage_capacity']}
-                    ranges={{
-                      bad: [
-                        (2 * selectedPodData['biomass_storage_capacity']) / 3,
-                        selectedPodData['biomass_storage_capacity'],
-                      ],
-                      average: [
-                        selectedPodData['biomass_storage_capacity'] / 3,
-                        (2 * selectedPodData['biomass_storage_capacity']) / 3,
-                      ],
-                      good: [
-                        0,
-                        selectedPodData['biomass_storage_capacity'] / 3,
-                      ],
-                    }}
-                    color={
-                      cloningCost[0] > selectedPodData['biomass'] ? 'bad' : null
-                    }
-                  >
-                    Biomass: {cloningCost[0]}/{selectedPodData['biomass']}/
-                    {selectedPodData['biomass_storage_capacity']}
-                  </ProgressBar>
-                </Flex.Item>
-                <Flex.Item width="25%" mx="2px">
-                  <ProgressBar
-                    value={cloningCost[1]}
-                    maxValue={selectedPodData['max_reagent_capacity']}
-                    ranges={{
-                      bad: [
-                        (2 * selectedPodData['max_reagent_capacity']) / 3,
-                        selectedPodData['max_reagent_capacity'],
-                      ],
-                      average: [
-                        selectedPodData['max_reagent_capacity'] / 3,
-                        (2 * selectedPodData['max_reagent_capacity']) / 3,
-                      ],
-                      good: [0, selectedPodData['max_reagent_capacity'] / 3],
-                    }}
-                    color={
-                      cloningCost[1] > selectedPodData['sanguine_reagent']
-                        ? 'bad'
-                        : 'good'
-                    }
-                  >
-                    Sanguine: {cloningCost[1]}/
-                    {selectedPodData['sanguine_reagent']}/
-                    {selectedPodData['max_reagent_capacity']}
-                  </ProgressBar>
-                </Flex.Item>
-                <Flex.Item width="25%">
-                  <ProgressBar
-                    value={cloningCost[2]}
-                    maxValue={selectedPodData['max_reagent_capacity']}
-                    ranges={{
-                      bad: [
-                        (2 * selectedPodData['max_reagent_capacity']) / 3,
-                        selectedPodData['max_reagent_capacity'],
-                      ],
-                      average: [
-                        selectedPodData['max_reagent_capacity'] / 3,
-                        (2 * selectedPodData['max_reagent_capacity']) / 3,
-                      ],
-                      good: [0, selectedPodData['max_reagent_capacity'] / 3],
-                    }}
-                    color={
-                      cloningCost[1] > selectedPodData['osseous_reagent']
-                        ? 'bad'
-                        : 'good'
-                    }
-                  >
-                    Osseous: {cloningCost[2]}/
-                    {selectedPodData['osseous_reagent']}/
-                    {selectedPodData['max_reagent_capacity']}
-                  </ProgressBar>
-                </Flex.Item>
-              </Flex>
-              <LimbsMenu />
-              <OrgansMenu />
+              {(!scanSuccessful || !hasScanned) && (
+                <Box color="average">No valid scan detected.</Box>
+              )}
+              {!!scanSuccessful && !!hasScanned && (
+                <Box>
+                  <Flex>
+                    <Flex.Item>
+                      <Button onClick={() => act('fix_all')}>
+                        Repair All Damages
+                      </Button>
+                      <Button onClick={() => act('fix_none')}>
+                        Repair No Damages
+                      </Button>
+                    </Flex.Item>
+                    <Flex.Item grow={1} />
+                    <Flex.Item>
+                      <Button onClick={() => act('clone')}>Clone</Button>
+                    </Flex.Item>
+                  </Flex>
+                  <Flex height="25px">
+                    <Flex.Item width="50%">
+                      <ProgressBar
+                        value={cloningCost[0]}
+                        maxValue={selectedPodData['biomass_storage_capacity']}
+                        ranges={{
+                          bad: [
+                            (2 * selectedPodData['biomass_storage_capacity']) / 3,
+                            selectedPodData['biomass_storage_capacity'],
+                          ],
+                          average: [
+                            selectedPodData['biomass_storage_capacity'] / 3,
+                            (2 * selectedPodData['biomass_storage_capacity']) / 3,
+                          ],
+                          good: [
+                            0,
+                            selectedPodData['biomass_storage_capacity'] / 3,
+                          ],
+                        }}
+                        color={
+                          cloningCost[0] > selectedPodData['biomass'] ? 'bad' : null
+                        }
+                      >
+                        Biomass: {cloningCost[0]}/{selectedPodData['biomass']}/
+                        {selectedPodData['biomass_storage_capacity']}
+                      </ProgressBar>
+                    </Flex.Item>
+                    <Flex.Item width="25%" mx="2px">
+                      <ProgressBar
+                        value={cloningCost[1]}
+                        maxValue={selectedPodData['max_reagent_capacity']}
+                        ranges={{
+                          bad: [
+                            (2 * selectedPodData['max_reagent_capacity']) / 3,
+                            selectedPodData['max_reagent_capacity'],
+                          ],
+                          average: [
+                            selectedPodData['max_reagent_capacity'] / 3,
+                            (2 * selectedPodData['max_reagent_capacity']) / 3,
+                          ],
+                          good: [0, selectedPodData['max_reagent_capacity'] / 3],
+                        }}
+                        color={
+                          cloningCost[1] > selectedPodData['sanguine_reagent']
+                            ? 'bad'
+                            : 'good'
+                        }
+                      >
+                        Sanguine: {cloningCost[1]}/
+                        {selectedPodData['sanguine_reagent']}/
+                        {selectedPodData['max_reagent_capacity']}
+                      </ProgressBar>
+                    </Flex.Item>
+                    <Flex.Item width="25%">
+                      <ProgressBar
+                        value={cloningCost[2]}
+                        maxValue={selectedPodData['max_reagent_capacity']}
+                        ranges={{
+                          bad: [
+                            (2 * selectedPodData['max_reagent_capacity']) / 3,
+                            selectedPodData['max_reagent_capacity'],
+                          ],
+                          average: [
+                            selectedPodData['max_reagent_capacity'] / 3,
+                            (2 * selectedPodData['max_reagent_capacity']) / 3,
+                          ],
+                          good: [0, selectedPodData['max_reagent_capacity'] / 3],
+                        }}
+                        color={
+                          cloningCost[1] > selectedPodData['osseous_reagent']
+                            ? 'bad'
+                            : 'good'
+                        }
+                      >
+                        Osseous: {cloningCost[2]}/
+                        {selectedPodData['osseous_reagent']}/
+                        {selectedPodData['max_reagent_capacity']}
+                      </ProgressBar>
+                    </Flex.Item>
+                  </Flex>
+                  <LimbsMenu />
+                  <OrgansMenu />
+                </Box>
+              )}
             </Box>
-          )}
+          </Section>
         </Box>
-      </Section>
+      }
     </Box>
   );
 };

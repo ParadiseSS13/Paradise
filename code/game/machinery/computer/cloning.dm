@@ -21,6 +21,8 @@
 	var/feedback
 	/// The desired outcome of the cloning process.
 	var/datum/cloning_data/desired_data
+	/// Whether the ID lock is on or off
+	var/locked = TRUE
 
 	COOLDOWN_DECLARE(scancooldown)
 
@@ -45,10 +47,19 @@
 /obj/machinery/computer/cloning/process()
 	. = ..()
 
-/obj/machinery/computer/cloning/attackby(obj/item/W, mob/user, params)
-	if(!ismultitool(W))
+/obj/machinery/computer/cloning/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/card/id) || istype(I, /obj/item/pda))
+		if(allowed(user))
+			locked = !locked
+			to_chat(user, "<span class='notice'>Access restriction is now [locked ? "enabled." : "disabled."]</span>")
+		else
+			to_chat(user, "<span class='warning'>Access denied.</span>")
+		return
+
+	if(!ismultitool(I))
 		return ..()
-	var/obj/item/multitool/M = W
+
+	var/obj/item/multitool/M = I
 	if(!M.buffer)
 		to_chat(user, "<span class='warning'>[M]'[M.p_s()] buffer is empty!</span>")
 		return
@@ -92,8 +103,8 @@
 
 /obj/machinery/computer/cloning/emag_act(mob/user)
 	. = ..()
-	if(req_access)
-		req_access = null
+	if(!emagged)
+		emagged = TRUE
 		to_chat(user, "<span class='notice'>You short out the ID scanner on [src].</span>")
 	else
 		to_chat(user, "<span class='warning'>[src]'s ID scanner is already broken!</span>")
@@ -122,7 +133,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	if(!allowed(user))
+	if(!allowed(user) && locked)
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 
@@ -144,7 +155,10 @@
 	else
 		data["hasScanner"] = FALSE
 
-	data["hasScanned"] = scanner.has_scanned
+	if(scanner)
+		data["hasScanned"] = scanner.has_scanned
+	else
+		data["hasScanned"] = FALSE
 
 	if(scanner?.last_scan)
 		data["patientLimbData"] = scanner.last_scan.limbs
@@ -207,7 +221,7 @@
 	if(stat & (NOPOWER|BROKEN))
 		return
 
-	var/datum/cloning_data/patient_data = scanner.last_scan //For readability, mostly
+	var/datum/cloning_data/patient_data = scanner?.last_scan //For readability, mostly
 
 	switch(action)
 		if("menu")
@@ -232,6 +246,9 @@
 			if(!COOLDOWN_FINISHED(src, scancooldown))
 				feedback = list("text" = "The scanning array is still calibrating! Please wait...", "color" = "average")
 				return TRUE
+
+			if(!scanner.occupant)
+				return
 
 			COOLDOWN_START(src, scancooldown, 5 SECONDS)
 			var/scanner_result = scanner.try_scan(scanner.occupant)
