@@ -277,7 +277,7 @@
 /turf/simulated/mineral/random/high_chance/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
@@ -297,7 +297,7 @@
 /turf/simulated/mineral/random/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
@@ -319,7 +319,7 @@
 /turf/simulated/mineral/random/labormineral/volcanic
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 	oxygen = 14
 	nitrogen = 23
 	temperature = 300
@@ -493,7 +493,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface
 	environment_type = "basalt"
 	turf_type = /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	baseturf = /turf/simulated/floor/plating/lava/smooth/mapping_lava
+	baseturf = /turf/simulated/floor/lava/mapping_lava
 	defer_change = 1
 
 //gibtonite state defines
