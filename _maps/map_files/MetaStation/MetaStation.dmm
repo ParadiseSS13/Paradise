@@ -211,7 +211,7 @@
 "acR" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /obj/machinery/button/windowtint{
 	dir = 8;
@@ -16592,7 +16592,7 @@
 	pixel_y = 28
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -33531,7 +33531,7 @@
 /area/station/security/checkpoint/secondary)
 "cfh" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -42339,13 +42339,13 @@
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "cIR" = (
-/obj/machinery/dna_scannernew,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding{
 	dir = 1
 	},
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -62225,7 +62225,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 1;
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix")
+	autolink_sensors = list("burn_sensor"="Burn  Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -62355,7 +62355,7 @@
 "jIs" = (
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -79829,7 +79829,7 @@
 "rsR" = (
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -91923,7 +91923,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -93435,7 +93435,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;

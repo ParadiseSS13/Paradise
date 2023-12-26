@@ -1719,9 +1719,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "akD" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1730,9 +1728,7 @@
 	},
 /area/station/security/execution)
 "akE" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2109,9 +2105,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/gambling_den)
 "amW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -3475,9 +3469,7 @@
 	},
 /area/station/turret_protected/aisat/interior/secondary)
 "avu" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -4228,7 +4220,7 @@
 "aAe" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/wood,
 /area/station/command/office/hos)
@@ -12474,7 +12466,7 @@
 /area/station/science/toxins/mixing)
 "bsV" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15895,9 +15887,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /obj/machinery/door/firedoor,
 /obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -16723,7 +16713,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -20829,9 +20819,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -21594,7 +21582,7 @@
 /area/station/hallway/primary/aft/east)
 "ciN" = (
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms");
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms");
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -22057,7 +22045,7 @@
 "clW" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -33185,7 +33173,7 @@
 "dxq" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /obj/item/radio/intercom{
 	pixel_y = -28;
@@ -33436,7 +33424,7 @@
 /area/station/hallway/primary/fore)
 "dyJ" = (
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/carpet,
 /area/station/security/detective)
@@ -39468,7 +39456,7 @@
 "fxL" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -41356,7 +41344,7 @@
 /obj/machinery/computer/security{
 	dir = 4;
 	name = "Labor Camp Monitoring";
-	network = list("Labor Camp")
+	network = list("Labor  Camp")
 	},
 /obj/item/radio/intercom{
 	pixel_x = -28;
@@ -41425,7 +41413,7 @@
 	network = list("SS13","CMO")
 	},
 /obj/machinery/light,
-/obj/machinery/dna_scannernew,
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "whiteblue"
 	},
@@ -46859,7 +46847,7 @@
 "icR" = (
 /obj/machinery/computer/security{
 	dir = 1;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -57071,9 +57059,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "llt" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -59691,9 +59677,7 @@
 	dir = 1
 	},
 /obj/machinery/disposal,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -68064,9 +68048,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
@@ -69360,7 +69342,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 8;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
 	},
 /obj/item/radio/intercom{
 	pixel_x = 28;
@@ -70077,9 +70059,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -78009,9 +77989,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "shh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/item/radio/intercom{
 	pixel_x = 28;
 	name = "custom placement"
@@ -85125,7 +85103,7 @@
 	},
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("Research","Research Outpost","RD","MiniSat")
+	network = list("Research","Research  Outpost","RD","MiniSat")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"

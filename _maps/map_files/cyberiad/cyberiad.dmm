@@ -922,7 +922,7 @@
 	},
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4329,7 +4329,7 @@
 "apk" = (
 /obj/machinery/computer/security{
 	dir = 8;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -4858,7 +4858,7 @@
 "arl" = (
 /obj/machinery/computer/security{
 	dir = 4;
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -9486,7 +9486,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/computer/security/wooden_tv{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /obj/machinery/button/windowtint{
 	id = "Detective";
@@ -15391,7 +15391,7 @@
 	pixel_y = 30
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost")
+	network = list("SS13","Research  Outpost","Mining  Outpost")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -32273,7 +32273,6 @@
 /turf/simulated/floor/plating,
 /area/station/science/genetics)
 "bXO" = (
-/obj/machinery/dna_scannernew,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -32281,6 +32280,7 @@
 	layer = 4;
 	pixel_x = 32
 	},
+/obj/machinery/clonescanner,
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -58151,7 +58151,7 @@
 /obj/machinery/computer/general_air_control{
 	dir = 4;
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -71575,7 +71575,7 @@
 	dir = 1;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
@@ -77458,7 +77458,7 @@
 	dir = 8;
 	level = 3;
 	name = "Distribution and Waste Monitor";
-	autolink_sensors = list("mair_in_meter"="Mixed Air In","air_sensor"="Mixed Air Supply Tank","mair_out_meter"="Mixed Air Out","dloop_atm_meter"="Distribution Loop","wloop_atm_meter"="Waste Loop")
+	autolink_sensors = list("mair_in_meter"="Mixed  Air  In","air_sensor"="Mixed  Air  Supply  Tank","mair_out_meter"="Mixed  Air  Out","dloop_atm_meter"="Distribution  Loop","wloop_atm_meter"="Waste  Loop")
 	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos/control)
@@ -80146,7 +80146,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Bomb Mix Monitor";
-	autolink_sensors = list("burn_sensor"="Burn Mix")
+	autolink_sensors = list("burn_sensor"="Burn  Mix")
 	},
 /obj/machinery/door_control{
 	id = "ToxinsVenting";
@@ -81842,7 +81842,7 @@
 	},
 /obj/machinery/computer/general_air_control{
 	name = "Tank Monitor";
-	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous Oxide","waste_sensor"="Gas Mix Tank")
+	autolink_sensors = list("n2_sensor"="Nitrogen","o2_sensor"="Oxygen","co2_sensor"="Carbon  Dioxide","tox_sensor"="Toxins","n2o_sensor"="Nitrous  Oxide","waste_sensor"="Gas  Mix  Tank")
 	},
 /obj/machinery/light{
 	dir = 4
@@ -85946,7 +85946,7 @@
 	c_tag = "Bridge West"
 	},
 /obj/machinery/computer/security{
-	network = list("SS13","Research Outpost","Mining Outpost","Telecomms")
+	network = list("SS13","Research  Outpost","Mining  Outpost","Telecomms")
 	},
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32

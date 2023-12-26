@@ -97,7 +97,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aB" = (
-/obj/machinery/dna_scannernew,
+/obj/machinery/clonescanner,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "aC" = (
@@ -174,7 +174,7 @@
 /obj/machinery/camera{
 	dir = 4;
 	name = "NHV Asclepius Chemistry";
-	network = list("NHV Asclepius")
+	network = list("NHV  Asclepius")
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -363,7 +363,7 @@
 /obj/machinery/camera{
 	dir = 4;
 	name = "NHV Asclepius OR 1";
-	network = list("NHV Asclepius")
+	network = list("NHV  Asclepius")
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -452,7 +452,7 @@
 /obj/machinery/camera{
 	dir = 5;
 	name = "NHV Asclepius Central";
-	network = list("NHV Asclepius")
+	network = list("NHV  Asclepius")
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -485,7 +485,7 @@
 /obj/machinery/camera{
 	dir = 4;
 	name = "NHV Asclepius Cryo";
-	network = list("NHV Asclepius")
+	network = list("NHV  Asclepius")
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/mineral/titanium,
@@ -514,7 +514,7 @@
 /obj/machinery/camera{
 	dir = 4;
 	name = "NHV Asclepius OR 2";
-	network = list("NHV Asclepius")
+	network = list("NHV  Asclepius")
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
@@ -590,17 +590,15 @@
 /obj/machinery/camera{
 	dir = 8;
 	name = "NHV Asclepius Cloning";
-	network = list("NHV Asclepius")
+	network = list("NHV  Asclepius")
 	},
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "ip" = (
-/obj/machinery/clonepod{
-	biomass = 300
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/machinery/clonepod/upgraded,
 /turf/simulated/floor/mineral/titanium,
 /area/shuttle/administration)
 "kY" = (
@@ -623,7 +621,7 @@
 /obj/machinery/camera{
 	dir = 8;
 	name = "NHV Asclepius Lobby";
-	network = list("NHV Asclepius")
+	network = list("NHV  Asclepius")
 	},
 /obj/machinery/recharge_station,
 /turf/simulated/floor/mineral/titanium,
@@ -638,7 +636,7 @@
 /obj/machinery/camera{
 	c_tag = "Tech Storage";
 	name = "NHV Asclepius Command Center";
-	network = list("NHV Asclepius")
+	network = list("NHV  Asclepius")
 	},
 /obj/machinery/door_control{
 	dir = 4;
