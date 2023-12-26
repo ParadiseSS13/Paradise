@@ -18,7 +18,10 @@ SUBSYSTEM_DEF(credits)
 /datum/controller/subsystem/credits/proc/play_credits_cinematic()
 	var/cinematic_type
 
-	if(HALLOWEEN in SSholiday.holidays)
+	if(NEW_YEAR in SSholiday.holidays)
+		end_titles = new /datum/credits/new_year()
+		cinematic_type = /datum/cinematic/credits/new_year
+	else if(HALLOWEEN in SSholiday.holidays)
 		end_titles = new /datum/credits/halloween()
 		cinematic_type = /datum/cinematic/credits/halloween
 	else
@@ -33,10 +36,7 @@ SUBSYSTEM_DEF(credits)
 	end_titles.roll_credits_for_clients(clients)
 
 /datum/controller/subsystem/credits/proc/clear_credits(client/client)
-	if(!client)
+	if(!client?.credits)
 		return
-
-	for(var/credit in client.credits)
-		client.screen -= credit
 
 	client.credits.Cut()

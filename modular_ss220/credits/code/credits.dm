@@ -17,8 +17,10 @@
 	. = ..()
 
 	credit_animate_height = 16 * world.icon_size
+	var/list/title_musics = file2list("config/credits/sounds/title_music.txt")
+	title_musics.Remove("")
 
-	soundtrack = pick(file2list("config/credits/sounds/title_music.txt"))
+	soundtrack = pick(title_musics)
 
 	fill_credits()
 

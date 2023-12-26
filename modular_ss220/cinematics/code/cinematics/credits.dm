@@ -51,6 +51,13 @@
 
 	screen = new /obj/screen/cinematic/credits/halloween()
 
+/datum/cinematic/credits/new_year
+
+/datum/cinematic/credits/new_year/New(watcher, datum/callback/special_callback)
+	. = ..()
+
+	screen = new /obj/screen/cinematic/credits/new_year()
+
 /obj/screen/cinematic/credits
 	icon_state = "blank"
 	alpha = 0
@@ -63,6 +70,10 @@
 /obj/screen/cinematic/credits/halloween
 	icon = 'modular_ss220/cinematics/icons/backdrops.dmi'
 	icon_state = "halloween"
+
+/obj/screen/cinematic/credits/new_year
+	icon = 'modular_ss220/cinematics/icons/backdrops.dmi'
+	icon_state = "new_year"
 
 /obj/screen/fullscreen/cinematic_backdrop/credits
 	alpha = 0
