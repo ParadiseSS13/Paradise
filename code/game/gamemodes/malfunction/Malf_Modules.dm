@@ -719,15 +719,15 @@
 		return FALSE
 	if(!C.visibleTurfs[deploylocation])
 		to_chat(src, "<span class='warning'>You don't have camera vision of this location!</span>")
-		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 30)
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
 	if(is_blocked_turf(deploylocation))
 		to_chat(src, "<span class='warning'>That area must be clear of objects!</span>")
-		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 30)
+		addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 		return FALSE
 
 	I.icon_state = "greenOverlay" //greenOverlay and redOverlay for success and failure respectively
-	addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 30)
+	addtimer(CALLBACK(src, PROC_REF(remove_transformer_image), client, I, deploylocation), 3 SECONDS)
 	return TRUE
 
 //Blackout: Overloads a random number of lights across the station. Three uses.
