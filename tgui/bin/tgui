@@ -28,7 +28,7 @@ base_dir="$(tgui-realpath "${base_dir}")"
 
 ## Fall back to running Yarn from the repo
 if ! hash yarn 2>/dev/null; then
-  alias yarn="node '${base_dir}/.yarn/releases/yarn-3.6.4.cjs'"
+  alias yarn="node '${base_dir}/.yarn/releases/yarn-2.4.3.cjs'"
 fi
 
 

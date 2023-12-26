@@ -15,7 +15,7 @@ Set-Location $basedir
 ## --------------------------------------------------------
 
 function yarn {
-  node.exe ".yarn\releases\yarn-3.6.4.cjs" @Args
+  node.exe ".yarn\releases\yarn-2.4.3.cjs" @Args
 }
 
 function Remove-Quiet {
@@ -33,6 +33,7 @@ function task-webpack {
 
 ## Runs a development server
 function task-dev-server {
+  $env:NODE_OPTIONS = "--openssl-legacy-provider --no-experimental-fetch"
   yarn node "packages/tgui-dev-server/index.esm.js" @Args
 }
 
