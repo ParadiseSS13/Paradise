@@ -17,7 +17,7 @@
 
 /obj/item/implant/shock/activate()
 	enabled = !enabled
-	to_chat(imp_in, "You toggle the implant [enabled? "on" : "off"]")
+	to_chat(imp_in, "<span class='notice'>You toggle the implant [enabled? "on" : "off"].</span>")
 	if(enabled)
 		if(imp_in.middleClickOverride)
 			old_mclick_override = imp_in.middleClickOverride
