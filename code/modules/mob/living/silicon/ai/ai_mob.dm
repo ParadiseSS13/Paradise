@@ -121,6 +121,10 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	//Used with the hotkeys on 2-5 to store locations.
 	var/list/stored_locations = list()
 
+	hat_offset_y = 3
+	is_centered = TRUE
+	can_be_hatted = TRUE
+
 /mob/living/silicon/ai/proc/add_ai_verbs()
 	verbs |= GLOB.ai_verbs_default
 	verbs |= silicon_subsystems

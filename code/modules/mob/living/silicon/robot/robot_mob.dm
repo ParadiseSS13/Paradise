@@ -181,6 +181,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scanner.Grant(src)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(create_trail))
 
+	robot_module_hat_offset(icon_state)
+
 /mob/living/silicon/robot/get_radio()
 	return radio
 
@@ -446,6 +448,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_sprite && check_sprite("[ckey]-[selected_module]"))
 		module_sprites["Custom"] = image('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-[selected_module]")
 
+	robot_module_hat_offset(icon_state)
+
 	return module_sprites
 
 /**
@@ -555,6 +559,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		//This is needed so that upgrades can be installed again after the borg's module is reset.
 
 	status_flags |= CANPUSH
+
+	robot_module_hat_offset(icon_state)
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
@@ -1110,6 +1116,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			overlays += "[panelprefix]-openpanel -c"
 	borg_icons()
 	update_fire()
+	hat_icons()
 
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
 	return
@@ -1239,6 +1246,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(cell) //Sanity check.
 		cell.forceMove(T)
 		cell = null
+	drop_hat()
 	qdel(src)
 
 #define CAMERA_UPDATE_COOLDOWN 2.5 SECONDS
@@ -1594,8 +1602,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	set category = "Robot Commands"
 	set name = "Power Warning"
 
-
-
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))
 			to_chat(src, "<span class='warning'>The low-power capacitor for your speaker system is still recharging, please try again later.</span>")
@@ -1610,3 +1616,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(emagged || ("syndicate" in faction))
 		return TRUE
 	return FALSE
+
+/datum/emote/flip/run_emote(mob/user, params, type_override, intentional)
+	. = ..()
+	if(isrobot(user))
+		var/mob/living/silicon/robot/borg = user
+		if(borg.drop_hat())
+			borg.visible_message("<span class='warning'><span class='name'>[src]</span> drops their hat!</span>",
+							"<span class='warning'>Your hat falls off!</span></span>")

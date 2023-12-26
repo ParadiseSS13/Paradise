@@ -22,6 +22,11 @@
 	/// Cooldown for law syncs
 	var/sync_cooldown = 0
 
+	hat_offset_y = -15
+	is_centered = TRUE
+	can_be_hatted = TRUE
+	can_wear_blacklisted_hats = TRUE
+
 	// We need to keep track of a few module items so we don't need to do list operations
 	// every time we need them. These get set in New() after the module is chosen.
 	var/obj/item/stack/sheet/metal/cyborg/stack_metal = null
@@ -126,6 +131,7 @@
 		overlays += "eyes-[icon_state]"
 	else
 		overlays -= "eyes"
+	hat_icons()
 
 /mob/living/silicon/robot/drone/pick_module()
 	return
