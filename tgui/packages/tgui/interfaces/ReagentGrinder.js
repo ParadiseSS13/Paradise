@@ -9,12 +9,8 @@ export const ReagentGrinder = (props, context) => {
   const { operating } = data;
   const { title } = config;
   return (
-    <Window width={400} height={500} resizable>
-      <Window.Content
-        scrollable
-        display="flex"
-        className="Layout__content--flexColumn"
-      >
+    <Window width={400} height={565} resizable>
+      <Window.Content>
         <Operating operating={operating} name={title} />
         <GrinderControls />
         <GrinderContents />
@@ -67,7 +63,9 @@ const GrinderContents = (props, context) => {
   return (
     <Section
       title="Contents"
-      flexGrow={1}
+      fill
+      scrollable
+      height="50%"
       buttons={
         <Box>
           <Box inline color="label" mr={2}>
@@ -113,7 +111,9 @@ const GrinderReagents = (props, context) => {
   return (
     <Section
       title="Beaker"
-      flexGrow="1"
+      fill
+      scrollable
+      height="35%"
       buttons={
         !!beaker_loaded && (
           <Box>

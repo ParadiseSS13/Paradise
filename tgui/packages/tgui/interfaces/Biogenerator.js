@@ -186,7 +186,9 @@ const Products = (props, context) => {
   return (
     <Section
       title="Products"
-      flexGrow="1"
+      fill
+      scrollable
+      height={32}
       buttons={
         <>
           <Box inline mr="5px" color="silver">

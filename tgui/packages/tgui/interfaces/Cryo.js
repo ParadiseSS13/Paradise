@@ -40,7 +40,7 @@ const statNames = [
 export const Cryo = (props, context) => {
   return (
     <Window width={520} height={500}>
-      <Window.Content className="Layout__content--flexColumn">
+      <Window.Content>
         <CryoContent />
       </Window.Content>
     </Window>
@@ -64,7 +64,9 @@ const CryoContent = (props, context) => {
     <Fragment>
       <Section
         title="Occupant"
-        flexGrow="1"
+        fill
+        scrollable
+        height="55%"
         buttons={
           <Button
             icon="user-slash"

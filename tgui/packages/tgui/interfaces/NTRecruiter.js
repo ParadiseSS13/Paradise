@@ -22,7 +22,7 @@ export const NTRecruiter = (props, context) => {
     return (
       <Window width={400} height={480} resizable>
         <Window.Content>
-          <Section py="140px">
+          <Section fill>
             <Flex direction="column">
               <Flex.Item
                 fontSize="31px"
@@ -39,7 +39,7 @@ export const NTRecruiter = (props, context) => {
               </Flex.Item>
             </Flex>
             <Button
-              mt="50px"
+              mt="240px"
               textAlign="center"
               lineHeight={2}
               fluid

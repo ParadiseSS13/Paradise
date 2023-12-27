@@ -100,7 +100,7 @@ export class ByondUi extends Component {
     }
     const { params = {} } = this.props;
     const box = getBoundingBox(this.containerRef.current);
-    logger.log('bounding box', box);
+    logger.debug('bounding box', box);
     this.byondUiElement.render({
       parent: window.__windowId__,
       ...params,
@@ -120,12 +120,11 @@ export class ByondUi extends Component {
 
   render() {
     const { parent, params, ...rest } = this.props;
-    const type = params?.type;
     const boxProps = computeBoxProps(rest);
     return (
       <div ref={this.containerRef} {...boxProps}>
         {/* Filler */}
-        {type === 'button' && <ButtonMock />}
+        <div style={{ 'min-height': '22px' }} />
       </div>
     );
   }

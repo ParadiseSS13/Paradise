@@ -26,17 +26,17 @@ export const RPD = (props, context) => {
   };
 
   return (
-    <Window width={450} height={410}>
+    <Window width={450} height={415}>
       <Window.Content>
-        <Tabs>
+        <Tabs fluid>
           {mainmenu.map((m) => (
             <Tabs.Tab
               key={m.category}
-              content={m.category}
               icon={m.icon}
               selected={m.mode === mode}
-              onClick={() => act('mode', { mode: m.mode })}
-            />
+              onClick={() => act('mode', { mode: m.mode })}>
+              {m.category}
+            </Tabs.Tab>
           ))}
         </Tabs>
         {decideTab(mode)}
@@ -51,14 +51,15 @@ const AtmosPipeContent = (props, context) => {
 
   return (
     <Box>
-      <Tabs>
+      <Tabs fluid>
         {pipemenu.map((p) => (
           <Tabs.Tab
             key={p.category}
-            content={p.category}
+            textAlign="center"
             selected={p.pipemode === pipe_category}
-            onClick={() => act('pipe_category', { pipe_category: p.pipemode })}
-          />
+            onClick={() => act('pipe_category', { pipe_category: p.pipemode })}>
+            {p.category}
+          </Tabs.Tab>  
         ))}
       </Tabs>
       <Section>
@@ -75,6 +76,7 @@ const AtmosPipeContent = (props, context) => {
                     icon="cog"
                     selected={p.pipe_id === whatpipe}
                     onClick={() => act('whatpipe', { whatpipe: p.pipe_id })}
+                    style={{'margin-bottom': '2px'}}
                   />
                 </Box>
               ))}

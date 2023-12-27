@@ -85,7 +85,7 @@ export const ChemMaster = (props, context) => {
     mode,
   } = data;
   return (
-    <Window width={575} height={500} resizable>
+    <Window width={575} height={555} resizable>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <ChemMasterBeaker
@@ -335,11 +335,11 @@ const ChemMasterProductionChemical = (props, context) => {
           return (
             <Tabs.Tab
               key={i}
-              content={t.name}
               icon={t.icon}
               selected={data.production_mode === i}
-              onClick={() => act('set_production_mode', { mode: i })}
-            />
+              onClick={() => act('set_production_mode', { mode: i })}>
+              {t.name}
+            </Tabs.Tab>
           );
         })}
       </Tabs>

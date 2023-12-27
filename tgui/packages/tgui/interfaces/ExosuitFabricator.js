@@ -322,8 +322,8 @@ const MaterialCount = (properties, context) => {
       {!lineDisplay ? (
         <Fragment>
           <Flex.Item basis="content">
-            <Button onClick={onClick}>
-              <Box className={classes(['materials32x32', id])} />
+            <Button width="85%" color="transparent" onClick={onClick}>
+              <Box mt={1} className={classes(['materials32x32', id])} />
             </Button>
           </Flex.Item>
           <Flex.Item grow="1">

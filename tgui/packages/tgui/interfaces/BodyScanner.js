@@ -104,9 +104,7 @@ export const BodyScanner = (props, context) => {
   );
   return (
     <Window width={690} height={600} resizable>
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        {body}
-      </Window.Content>
+      <Window.Content scrollable>{body}</Window.Content>
     </Window>
   );
 };
@@ -423,7 +421,7 @@ const BodyScannerMainOrgansInternal = (props) => {
 
 const BodyScannerEmpty = () => {
   return (
-    <Section textAlign="center" flexGrow="1">
+    <Section textAlign="center" fill>
       <Flex height="100%">
         <Flex.Item grow="1" align="center" color="label">
           <Icon name="user-slash" mb="0.5rem" size="5" />

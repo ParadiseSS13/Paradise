@@ -8,7 +8,7 @@ import { clamp01 } from 'common/math';
 import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Section, Input } from '../components';
 import { Window } from '../layouts';
-import { ARROW_KEY_UP, ARROW_KEY_DOWN } from '../hotkeys';
+import { KEY_UP, KEY_DOWN } from 'common/keycodes';
 
 let lastScrollTime = 0;
 
@@ -52,7 +52,7 @@ export const ListInput = (props, context) => {
     buttons[0]
   );
   return (
-    <Window title={title} width={325} height={355} resizable>
+    <Window title={title} width={325} height={335} resizable>
       {timeout !== undefined && <Loader value={timeout} />}
       <Window.Content>
         <Flex direction="column" height="100%">
@@ -75,12 +75,9 @@ export const ListInput = (props, context) => {
                 }
                 lastScrollTime = performance.now() + 125;
 
-                if (
-                  e.keyCode === ARROW_KEY_UP ||
-                  e.keyCode === ARROW_KEY_DOWN
-                ) {
+                if (e.keyCode === KEY_UP || e.keyCode === KEY_DOWN) {
                   let direction = 1;
-                  if (e.keyCode === ARROW_KEY_UP) {
+                  if (e.keyCode === KEY_UP) {
                     direction = -1;
                   }
 
@@ -138,6 +135,7 @@ export const ListInput = (props, context) => {
               }}
               buttons={
                 <Button
+                  compact
                   icon="search"
                   color="transparent"
                   selected={showSearchBar}
@@ -147,7 +145,6 @@ export const ListInput = (props, context) => {
                     setShowSearchBar(!showSearchBar);
                     setDisplayedArray(buttons);
                   }}
-                  compact
                 />
               }
             >
@@ -192,7 +189,7 @@ export const ListInput = (props, context) => {
           )}
           <Flex.Item>
             <Flex textAlign="center">
-              <Flex.Item grow={1} basis={0} ml={1} mx="5px">
+              <Flex.Item grow={1} basis={0} mr={0.5}>
                 <Button
                   fluid
                   color="good"
@@ -201,7 +198,7 @@ export const ListInput = (props, context) => {
                   onClick={() => act('choose', { choice: selectedButton })}
                 />
               </Flex.Item>
-              <Flex.Item grow={1} basis={0} mr={1} mx="5px">
+              <Flex.Item grow={1} basis={0} ml={0.5}>
                 <Button
                   fluid
                   color="bad"

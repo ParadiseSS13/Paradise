@@ -32,7 +32,8 @@ const Genes = (props, context) => {
   return (
     <Section
       title="Genes"
-      flexGrow="1"
+      fill
+      height="85%"
       buttons={
         <Button
           content="Insert Gene from Disk"
@@ -51,7 +52,7 @@ const Genes = (props, context) => {
 
 const MissingSeed = (props, context) => {
   return (
-    <Section flexGrow="1">
+    <Section fill height="85%">
       <Flex height="100%">
         <Flex.Item
           bold
@@ -84,7 +85,7 @@ const Storage = (props, context) => {
           style={{
             'vertical-align': 'middle',
             width: '32px',
-            margin: '0px',
+            margin: '-1px',
             'margin-left': '0px',
           }}
         />

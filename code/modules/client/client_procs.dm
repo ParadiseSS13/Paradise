@@ -57,9 +57,6 @@
 		if(!asset_cache_job)
 			return
 
-	if(href_list["_src_"] == "chat")
-		return chatOutput.Topic(href, href_list)
-
 	// Rate limiting
 	var/mtl = 100 // 100 topics per minute
 	if(!holder) // Admins are allowed to spam click, deal with it.
@@ -158,21 +155,11 @@
 			qdel(src)
 			return
 
-	if(href_list["__keydown"])
-		var/keycode = href_list["__keydown"]
-		if(keycode)
-			Key_Down(keycode)
-		return
-
-	if(href_list["__keyup"])
-		var/keycode = href_list["__keyup"]
-		if(keycode)
-			Key_Up(keycode)
-		return
-
 	// Tgui Topic middleware
-	if(!tgui_Topic(href_list))
+	if(tgui_Topic(href_list))
 		return
+	if(href_list["reload_tguipanel"])
+		nuke_chat()
 
 	//byond bug ID:2256651
 	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
@@ -267,7 +254,7 @@
 	///////////
 /client/New(TopicData)
 	var/tdata = TopicData //save this for later use
-	chatOutput = new /datum/chatOutput(src) // Right off the bat.
+	tgui_panel = new(src)
 	TopicData = null							//Prevent calls to client.Topic from connect
 
 	if(connection != "seeker")					//Invalid connection type.
@@ -291,7 +278,7 @@
 	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>")
 
 	GLOB.directory[ckey] = src
-	//Admin Authorisation
+	// Admin Authorisation
 	// Automatically makes localhost connection an admin
 	try_localhost_autoadmin()
 
@@ -360,10 +347,6 @@
 	GLOB.clients += src
 	connection_time = world.time
 
-
-	spawn() // Goonchat does some non-instant checks in start()
-		chatOutput.start()
-
 	var/_2fa_alert = FALSE // This is so we can display the message where it will be seen
 	if(holder)
 		if(GLOB.configuration.system.is_production && (holder.rights & R_ADMIN) && prefs._2fa_status == _2FA_DISABLED) // If they are an admin and their 2FA is disabled
@@ -375,7 +358,6 @@
 			GLOB.de_admins += ckey
 
 		else
-			on_holder_add()
 			add_admin_verbs()
 			// Must be async because any sleeps (happen in sql queries) will break connectings clients
 			INVOKE_ASYNC(src, PROC_REF(admin_memo_output), "Show", FALSE, TRUE)
@@ -405,15 +387,12 @@
 	if(SSinput.initialized)
 		set_macros()
 
+	// Initialize tgui panel
+	tgui_panel.initialize()
+
 	check_ip_intel()
 	send_resources()
-
-	if(prefs.toggles & PREFTOGGLE_UI_DARKMODE) // activates dark mode if its flagged. -AA07
-		activate_darkmode()
-
-	else
-		// activate_darkmode() calls the CL update button proc, so we dont want it double called
-		SSchangelog.UpdatePlayerChangelogButton(src)
+	SSchangelog.UpdatePlayerChangelogButton(src)
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -479,7 +458,6 @@
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 	SSinstancing.update_playercache() // Clear us out
-	QDEL_NULL(chatOutput)
 	QDEL_NULL(pai_save)
 
 	if(movingmob)
@@ -488,6 +466,7 @@
 
 	SSambience.ambience_listening_clients -= src
 	SSinput.processing -= src
+	SSping.currentrun -= src
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
@@ -946,72 +925,6 @@
 
 /client/proc/on_varedit()
 	var_edited = TRUE
-
-/////////////////
-// DARKMODE UI //
-/////////////////
-// IF YOU CHANGE ANYTHING IN ACTIVATE, MAKE SURE IT HAS A DEACTIVATE METHOD, -AA07
-/client/proc/activate_darkmode()
-	///// BUTTONS /////
-	SSchangelog.UpdatePlayerChangelogButton(src)
-	/* Rpane */
-	winset(src, "rpane.textb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.infob", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.wikib", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.forumb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.rulesb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.githubb", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "rpane.webmap", "background-color=#494949;text-color=#a4bad6")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=#494949;text-color=#a4bad6")
-	winset(src, "outputwindow.mebutton", "background-color=#494949;text-color=#a4bad6")
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=#171717")
-	winset(src, "mainwindow.mainvsplit", "background-color=#202020")
-	winset(src, "mainwindow.tooltip", "background-color=#171717")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=#202020")
-	winset(src, "outputwindow.browseroutput", "background-color=#202020")
-	/* Rpane */
-	winset(src, "rpane", "background-color=#202020")
-	winset(src, "rpane.rpanewindow", "background-color=#202020")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=#202020;text-color=#a4bad6")
-	winset(src, "infowindow.info", "background-color=#171717;text-color=#a4bad6;highlight-color=#009900;tab-text-color=#a4bad6;tab-background-color=#202020")
-	// NOTIFY USER
-	to_chat(src, "<span class='notice'>Darkmode Enabled</span>")
-
-/client/proc/deactivate_darkmode()
-	///// BUTTONS /////
-	SSchangelog.UpdatePlayerChangelogButton(src)
-	/* Rpane */
-	winset(src, "rpane.textb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.infob", "background-color=none;text-color=#000000")
-	winset(src, "rpane.wikib", "background-color=none;text-color=#000000")
-	winset(src, "rpane.forumb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.rulesb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.githubb", "background-color=none;text-color=#000000")
-	winset(src, "rpane.webmap", "background-color=none;text-color=#000000")
-	/* Outputwindow */
-	winset(src, "outputwindow.saybutton", "background-color=none;text-color=#000000")
-	winset(src, "outputwindow.mebutton", "background-color=none;text-color=#000000")
-	///// UI ELEMENTS /////
-	/* Mainwindow */
-	winset(src, "mainwindow", "background-color=none")
-	winset(src, "mainwindow.mainvsplit", "background-color=none")
-	winset(src, "mainwindow.tooltip", "background-color=none")
-	/* Outputwindow */
-	winset(src, "outputwindow", "background-color=none")
-	winset(src, "outputwindow.browseroutput", "background-color=none")
-	/* Rpane */
-	winset(src, "rpane", "background-color=none")
-	winset(src, "rpane.rpanewindow", "background-color=none")
-	/* Infowindow */
-	winset(src, "infowindow", "background-color=none;text-color=#000000")
-	winset(src, "infowindow.info", "background-color=none;text-color=#000000;highlight-color=#007700;tab-text-color=#000000;tab-background-color=none")
-	///// NOTIFY USER /////
-	to_chat(src, "<span class='notice'>Darkmode Disabled</span>") // what a sick fuck
 
 /client/proc/generate_clickcatcher()
 	if(!void)

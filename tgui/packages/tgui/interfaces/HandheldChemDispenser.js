@@ -119,24 +119,18 @@ const HandheldChemDispenserChemicals = (properties, context) => {
   return (
     <Section
       title={data.glass ? 'Drink Selector' : 'Chemical Selector'}
-      flexGrow="1"
     >
       <Flex
         direction="row"
         wrap="wrap"
         height="100%"
-        spacingPrecise="2"
-        align="flex-start"
-        alignContent="flex-start"
       >
         {chemicals.map((c, i) => (
           <Flex.Item
             key={i}
-            grow="1"
             basis="25%"
             height="20px"
-            width="30%"
-            display="inline-block"
+            style={{'margin-bottom': '2px'}}
           >
             <Button
               icon="arrow-circle-down"

@@ -370,7 +370,7 @@ const NewscasterJobs = (properties, context) => {
     0
   );
   return (
-    <Flex direction="column" height="100%" flex="1">
+    <Flex direction="column" flex="1">
       {!!wanted && <Story story={wanted} wanted />}
       <Section
         flexGrow="1"

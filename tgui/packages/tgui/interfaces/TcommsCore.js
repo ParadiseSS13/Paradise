@@ -37,26 +37,26 @@ export const TcommsCore = (props, context) => {
         <Tabs>
           <Tabs.Tab
             key="ConfigPage"
+            icon="wrench"
             selected={tabIndex === 0}
             onClick={() => setTabIndex(0)}
           >
-            <Icon name="wrench" />
             Configuration
           </Tabs.Tab>
           <Tabs.Tab
             key="LinkagePage"
+            icon="link"
             selected={tabIndex === 1}
             onClick={() => setTabIndex(1)}
           >
-            <Icon name="link" />
             Device Linkage
           </Tabs.Tab>
           <Tabs.Tab
             key="FilterPage"
+            icon="user-times"
             selected={tabIndex === 2}
             onClick={() => setTabIndex(2)}
           >
-            <Icon name="user-times" />
             User Filtering
           </Tabs.Tab>
         </Tabs>
