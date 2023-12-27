@@ -536,15 +536,10 @@
 		if (!can_wear_blacklisted_hats && is_type_in_list(inventory_head, blacklisted_hats))
 			remove_from_head(usr)
 			return
+	
+	update_icons()
 
 /mob/living/silicon/proc/hat_icons()
-	if(inventory_head)
-		overlays += get_hat_overlay()
-
-/mob/living/silicon/regenerate_icons()
-	overlays.Cut()
-	..()
-
 	if(inventory_head)
 		var/image/head_icon
 
@@ -607,7 +602,7 @@
 	)
 	item_to_add.forceMove(src)
 	inventory_head = item_to_add
-	regenerate_icons()
+	update_icons()
 
 	return TRUE
 
@@ -622,7 +617,7 @@
 
 		null_hat()
 
-		regenerate_icons()
+		update_icons()
 	else
 		to_chat(user, "<span class='warning'>[src] isn't wearing anything on their head!</span>")
 		return FALSE
@@ -633,7 +628,7 @@
 	if(inventory_head)
 		unEquip(inventory_head)
 		null_hat()
-		regenerate_icons()
+		update_icons()
 		return TRUE
 
 /mob/living/silicon/proc/null_hat()

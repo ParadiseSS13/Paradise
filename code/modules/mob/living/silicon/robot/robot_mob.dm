@@ -516,6 +516,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	custom_panel = trim(names[1])
 
 	update_module_icon()
+	robot_module_hat_offset(icon_state)
 	update_icons()
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(selected_module)]")
 	notify_ai(2)
@@ -1114,9 +1115,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			overlays += "[panelprefix]-openpanel +c"
 		else
 			overlays += "[panelprefix]-openpanel -c"
+	hat_icons()
 	borg_icons()
 	update_fire()
-	hat_icons()
 
 /mob/living/silicon/robot/proc/borg_icons() // Exists so that robot/destroyer can override it
 	return
