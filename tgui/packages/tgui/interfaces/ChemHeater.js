@@ -14,8 +14,8 @@ import { Window } from '../layouts';
 
 export const ChemHeater = (_props, _context) => {
   return (
-    <Window width={350} height={270} resizable>
-      <Window.Content className="Layout__content--flexColumn">
+    <Window width={350} height={275} resizable>
+      <Window.Content>
         <ChemHeaterSettings />
         <ChemHeaterBeaker />
       </Window.Content>
@@ -100,7 +100,9 @@ const ChemHeaterBeaker = (_properties, context) => {
   return (
     <Section
       title="Beaker"
-      flexGrow="1"
+      fill
+      scrollable
+      height="60%"
       buttons={
         !!isBeakerLoaded && (
           <Box>

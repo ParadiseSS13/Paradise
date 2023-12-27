@@ -57,12 +57,10 @@ const AccountsUplinkTerminalNavigation = (properties, context) => {
   const { login_state } = data;
   return (
     <Tabs>
-      <Tabs.Tab selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
-        <Icon name="list" />
+      <Tabs.Tab icon="list" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
         User Accounts
       </Tabs.Tab>
-      <Tabs.Tab selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
-        <Icon name="list" />
+      <Tabs.Tab icon="list" selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
         Department Accounts
       </Tabs.Tab>
     </Tabs>

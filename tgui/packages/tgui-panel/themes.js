@@ -8,7 +8,7 @@ export const THEMES = ['light', 'dark'];
 
 const COLOR_DARK_BG = '#202020';
 const COLOR_DARK_BG_DARKER = '#171717';
-const COLOR_DARK_BG_BUTTON = '#494949';
+const COLOR_DARK_BG_BUTTON = '#4C4C4D';
 const COLOR_DARK_TEXT = '#A4BAD6';
 const COLOR_LIGHT_BG = '#FFFFFF';
 const COLOR_LIGHT_BUTTON = '#FFFFFF';

@@ -69,8 +69,7 @@ const MainPage = (props, context) => {
 
   return (
     <Section
-      height="100%"
-      stretchContents
+      fill
       onKeyDown={(e) => handleKeyCodeEvent(e, context)}
     >
       <Flex.Item height="20%" mb="5px">

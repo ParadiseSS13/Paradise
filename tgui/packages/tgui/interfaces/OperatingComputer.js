@@ -57,7 +57,7 @@ export const OperatingComputer = (props, context) => {
   }
   return (
     <Window width={650} height={455} resizable>
-      <Window.Content className="Layout__content--flexColumn">
+      <Window.Content>
         <Tabs>
           <Tabs.Tab
             selected={!choice}
@@ -74,7 +74,7 @@ export const OperatingComputer = (props, context) => {
             Options
           </Tabs.Tab>
         </Tabs>
-        <Section flexGrow="1">{body}</Section>
+        <Section>{body}</Section>
       </Window.Content>
     </Window>
   );

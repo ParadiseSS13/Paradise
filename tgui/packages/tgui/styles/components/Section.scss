@@ -4,8 +4,8 @@
  */
 
  @use 'sass:color';
- @use '../colors.scss';
  @use '../base.scss';
+ @use '../colors.scss';
  @use '../functions.scss';
 
  $title-text-color: base.$color-fg !default;
@@ -23,24 +23,14 @@
    background-color: $background-color;
    box-sizing: border-box;
 
-   // Fancy scrollbar
-     scrollbar-base-color: color.scale(base.$color-bg, $lightness: -25%);
-     scrollbar-face-color: color.scale(base.$color-bg, $lightness: 10%);
-     scrollbar-3dlight-color: color.scale(base.$color-bg, $lightness: 0%);
-     scrollbar-highlight-color: color.scale(base.$color-bg, $lightness: 0%);
-     scrollbar-track-color: color.scale(base.$color-bg, $lightness: -25%);
-     scrollbar-arrow-color: color.scale(base.$color-bg, $lightness: 50%);
-     scrollbar-shadow-color: color.scale(base.$color-bg, $lightness: 10%);
    &:last-child {
      margin-bottom: 0;
    }
  }
 
  .Section__title {
+   position: relative;
    padding: 0.5em;
- }
-
- .Section__title--showBottom {
    border-bottom: base.em(2px) solid $separator-color;
  }
 
@@ -67,6 +57,11 @@
    height: 100%;
  }
 
+ .Section--scrollable .Section__content {
+   overflow-y: auto;
+   overflow-x: hidden;
+ }
+ 
  .Section--fill .Section__content {
    flex-grow: 1;
  }
@@ -78,16 +73,16 @@
    border-collapse: collapse;
    border-spacing: 0;
 
-  & .Section__content {
-    display: table-row !important;
-    height: 100% !important;
-  }
-}
-
+   & .Section__content {
+     display: table-row !important;
+     height: 100% !important;
+   }
+ }
+ 
  .Section--scrollable {
-  overflow-x: hidden;
-  overflow-y: auto;
-}
+   overflow-x: hidden;
+   overflow-y: hidden;
+ }
 
  .Section--level--1 .Section__titleText {
    font-size: base.em(14px);
@@ -110,19 +105,11 @@
  }
 
  .Section--flex {
-   display: flex;
-   flex-flow: column;
- }
+  display: flex;
+  flex-flow: column;
+}
 
- .Section--flex .Section__content {
-   overflow: auto;
-   flex: 1;
- }
-
- .Section__content--noTopPadding {
-   padding-top: 0;
- }
-
- .Section__content--stretchContents {
-   height: 100%;
- }
+.Section--flex .Section__content {
+  overflow: auto;
+  flex: 1;
+}

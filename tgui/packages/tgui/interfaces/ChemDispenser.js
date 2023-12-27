@@ -16,7 +16,7 @@ const removeAmounts = [1, 5, 10];
 
 export const ChemDispenser = (props, context) => {
   return (
-    <Window width={390} height={655} resizable>
+    <Window width={390} height={650} resizable>
       <Window.Content className="Layout__content--flexColumn">
         <ChemDispenserSettings />
         <ChemDispenserChemicals />
@@ -79,26 +79,18 @@ const ChemDispenserChemicals = (properties, context) => {
     flexFillers.push(true);
   }
   return (
-    <Section
-      title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}
-      flexShrink={0}
-    >
+    <Section title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}>
       <Flex
         direction="row"
         wrap="wrap"
         height="100%"
-        spacingPrecise="2"
-        align="flex-start"
-        alignContent="flex-start"
       >
         {chemicals.map((c, i) => (
           <Flex.Item
             key={i}
-            grow="1"
             basis="25%"
             height="20px"
-            width="30%"
-            display="inline-block"
+            style={{'margin-bottom': '2px'}}
           >
             <Button
               icon="arrow-circle-down"
@@ -135,8 +127,9 @@ const ChemDispenserBeaker = (properties, context) => {
   return (
     <Section
       title={data.glass ? 'Glass' : 'Beaker'}
-      flexGrow={1}
-      minHeight="25%"
+      fill
+      scrollable
+      height={25}
       buttons={
         <Box>
           {!!isBeakerLoaded && (

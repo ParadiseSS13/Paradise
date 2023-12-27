@@ -194,10 +194,10 @@ const DNAModifierMain = (props, context) => {
         {operations.map((op, i) => (
           <Tabs.Tab
             key={i}
+            icon={op[2]}
             selected={selectedMenuKey === op[0]}
             onClick={() => act('selectMenuKey', { key: op[0] })}
           >
-            <Icon name={op[2]} />
             {op[1]}
           </Tabs.Tab>
         ))}

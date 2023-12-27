@@ -52,7 +52,7 @@ export const ListInput = (props, context) => {
     buttons[0]
   );
   return (
-    <Window title={title} width={325} height={355} resizable>
+    <Window title={title} width={325} height={335} resizable>
       {timeout !== undefined && <Loader value={timeout} />}
       <Window.Content>
         <Flex direction="column" height="100%">
@@ -135,6 +135,7 @@ export const ListInput = (props, context) => {
               }}
               buttons={
                 <Button
+                  compact
                   icon="search"
                   color="transparent"
                   selected={showSearchBar}
@@ -144,7 +145,6 @@ export const ListInput = (props, context) => {
                     setShowSearchBar(!showSearchBar);
                     setDisplayedArray(buttons);
                   }}
-                  compact
                 />
               }
             >

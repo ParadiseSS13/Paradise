@@ -137,6 +137,6 @@
    }
  
    .Tabs--vertical .Tab--selected.Tab--color--#{$color-name} {
-     border-right-color: $color-value;
+     border-left-color: $color-value;
    }
  }

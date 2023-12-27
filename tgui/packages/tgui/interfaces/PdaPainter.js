@@ -15,7 +15,7 @@ export const PdaPainter = (props, context) => {
 const PdaInsert = (props, context) => {
   const { act } = useBackend(context);
   return (
-    <Section height="100%" stretchContents>
+    <Section height="100%" fill>
       <Flex height="100%" align="center" justify="center">
         <Flex.Item
           bold

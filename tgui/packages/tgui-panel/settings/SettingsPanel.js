@@ -141,7 +141,7 @@ export const SettingsGeneral = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Font size">
           <NumberInput
-            width="4em"
+            width="4.2em"
             step={1}
             stepPixelSize={10}
             minValue={8}
@@ -160,7 +160,7 @@ export const SettingsGeneral = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Line height">
           <NumberInput
-            width="4em"
+            width="4.2em"
             step={0.01}
             stepPixelSize={2}
             minValue={0.8}

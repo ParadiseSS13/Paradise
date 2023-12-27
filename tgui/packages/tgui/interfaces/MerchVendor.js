@@ -112,10 +112,10 @@ const MerchVendorNavigation = (properties, context) => {
 
   return (
     <Tabs>
-      <Tabs.Tab selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
+      <Tabs.Tab icon="dice" selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
         Toys
       </Tabs.Tab>
-      <Tabs.Tab selected={2 === tabIndex} onClick={() => setTabIndex(2)}>
+      <Tabs.Tab icon="flag" selected={2 === tabIndex} onClick={() => setTabIndex(2)}>
         Decorations
       </Tabs.Tab>
     </Tabs>
