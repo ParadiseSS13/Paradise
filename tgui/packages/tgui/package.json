@@ -5,7 +5,6 @@
   "dependencies": {
     "common": "workspace:*",
     "dompurify": "^3.0.6",
-    "fg-loadcss": "^3.1.0",
     "inferno": "^8.2.2",
     "inferno-vnode-flags": "^8.2.2",
     "marked": "^11.0.0",

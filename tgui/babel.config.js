@@ -19,7 +19,6 @@ const createBabelConfig = (options) => {
           targets: [],
         },
       ],
-      require.resolve('@babel/preset-react'),
       ...presets,
     ].filter(Boolean),
     plugins: [
