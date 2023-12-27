@@ -79,6 +79,7 @@
 		"Reticence",
 		"Phazon",
 		"Exosuit Equipment",
+		"Exosuit Paintkits",
 		"Cyborg Upgrade Modules",
 		"Medical",
 		"Misc"
