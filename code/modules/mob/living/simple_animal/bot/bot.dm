@@ -35,7 +35,7 @@
 	var/disabling_timer_id = null
 	var/list/player_access = list()
 	/// 1 = emag unlocked, 2 = open panel and emagged
-	var/emagged = 0
+	var/emagged = FALSE
 	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
 	var/list/prev_access = list()
 	var/on = TRUE
@@ -216,13 +216,16 @@
 	qdel(src)
 
 /mob/living/simple_animal/bot/emag_act(mob/user)
+	if(emagged)
+		if(user)
+			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
+			return
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
 		locked = FALSE
-		emagged = 1
 		to_chat(user, "<span class='notice'>You bypass [src]'s controls.</span>")
 		return
 	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
-		emagged = 2
+		emagged = TRUE
 		remote_disabled = TRUE //Manually emagging the bot locks out the AI built in panel.
 		locked = TRUE //Access denied forever!
 		bot_reset()
@@ -751,7 +754,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return FALSE
 
 	// check to see if we are the commanded bot
-	if(emagged == 2 || remote_disabled || hijacked) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
+	if(emagged || remote_disabled || hijacked) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
 		return FALSE
 
 	if(client)
@@ -894,8 +897,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/handle_hacking(mob/M) // refactored out of Topic/ to allow re-use by TGUIs
 	if(!canhack(M))
 		return
-	if(emagged != 2)
-		emagged = 2
+	if(!emagged)
+		emagged = TRUE
 		hacked = TRUE
 		locked = TRUE
 		to_chat(M, "<span class='warning'>[text_hack]</span>")
@@ -905,7 +908,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	else if(!hacked)
 		to_chat(M, "<span class='userdanger'>[text_dehack_fail]</span>")
 	else
-		emagged = 0
+		emagged = FALSE
 		hacked = FALSE
 		to_chat(M, "<span class='notice'>[text_dehack]</span>")
 		show_laws()
@@ -920,7 +923,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		return FALSE
 	if(user.incapacitated() || !(issilicon(user) || in_range(src, user)))
 		return TRUE
-	if(emagged == 2) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.
+	if(emagged) //An emagged bot cannot be controlled by humans, silicons can if one hacked it.
 		if(!hacked) //Manually emagged by a human - access denied to all.
 			return TRUE
 		else if(!(issilicon(user) || ispulsedemon(user))) //Bot is hacked, so only silicons are allowed access.
@@ -934,7 +937,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/hack(mob/user)
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
-		hack += "[emagged == 2 ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
+		hack += "[emagged ? "Software compromised! Unit may exhibit dangerous or erratic behavior." : "Unit operating normally. Release safety lock?"]<BR>"
 		hack += "Harm Prevention Safety System: <A href='?src=[UID()];operation=hack'>[emagged ? "<span class='bad'>DANGER</span>" : "Engaged"]</A><BR>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
 		hack += "Remote network control radio: <A href='?src=[UID()];operation=remote'>[remote_disabled ? "Disconnected" : "Connected"]</A><BR>"
@@ -1021,7 +1024,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	if(paicard && paicard.pai && paicard.pai.master && paicard.pai.pai_law0)
 		to_chat(src, "<span class='warning'>Your master, [paicard.pai.master], may overrule any and all laws.</span>")
 		to_chat(src, "0. [paicard.pai.pai_law0]")
-	if(emagged >= 2)
+	if(emagged)
 		to_chat(src, "<span class='danger'>1. #$!@#$32K#$</span>")
 	else
 		to_chat(src, "1. You are a machine built to serve the station's crew and AI(s).")

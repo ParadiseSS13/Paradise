@@ -185,7 +185,7 @@
 
 /mob/living/simple_animal/bot/ed209/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name
@@ -416,7 +416,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
 	shoot_sound = 'sound/weapons/laser.ogg'
-	if(emagged == 2)
+	if(emagged)
 		if(lasercolor)
 			projectile = /obj/item/projectile/beam/disabler
 		else
@@ -482,11 +482,11 @@
 				var/mob/toshoot = pick(targets)
 				if(toshoot)
 					targets-=toshoot
-					if(prob(50) && emagged < 2)
-						emagged = 2
+					if(prob(50) && !emagged)
+						emagged = TRUE
 						set_weapon()
 						shootAt(toshoot)
-						emagged = 0
+						emagged = FALSE
 						set_weapon()
 					else
 						shootAt(toshoot)

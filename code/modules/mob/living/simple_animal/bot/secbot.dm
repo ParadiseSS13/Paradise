@@ -74,7 +74,7 @@
 	declare_arrests = FALSE
 	arrest_type = TRUE
 	harmbaton = TRUE
-	emagged = 2
+	emagged = TRUE
 
 /mob/living/simple_animal/bot/secbot/armsky
 	name = "Sergeant-at-Armsky"
@@ -187,7 +187,7 @@
 
 /mob/living/simple_animal/bot/secbot/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='danger'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name

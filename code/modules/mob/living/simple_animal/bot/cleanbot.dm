@@ -96,11 +96,6 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
-	..()
-	if(emagged == 2)
-		if(user)
-			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	if(is_type_in_typecache(D, clean_dirt) || blood && is_type_in_typecache(D, clean_blood))
@@ -113,7 +108,7 @@
 	if(mode == BOT_CLEANING)
 		return
 
-	if(emagged == 2) //Emag functions
+	if(emagged) //Emag functions
 		if(issimulatedturf(loc))
 			if(prob(10)) //Wets floors randomly
 				var/turf/simulated/T = loc
