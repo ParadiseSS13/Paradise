@@ -11,7 +11,7 @@ export const IMPL_LOCAL_STORAGE = 1;
 export const IMPL_INDEXED_DB = 2;
 
 const INDEXED_DB_VERSION = 1;
-const INDEXED_DB_NAME = 'tgui-paradise';
+const INDEXED_DB_NAME = 'para-tgui';
 const INDEXED_DB_STORE_NAME = 'storage-v1';
 
 const READ_ONLY = 'readonly';
