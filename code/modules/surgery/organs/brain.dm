@@ -152,7 +152,7 @@
 		to_chat(owner, "<span class='warning'>It's suddenly difficult to walk straight.</span>")
 	else if(prob(5))
 		owner.EyeBlurry(15 SECONDS)
-		to_chat(owner, "<span class='warning'>Your vision unfocuses.")
+		to_chat(owner, "<span class='warning'>Your vision unfocuses.</span>")
 	else if(prob(3))
 		owner.Drowsy(20 SECONDS)
 		to_chat(owner, "<span class='warning'>You're getting tired.</span>")
