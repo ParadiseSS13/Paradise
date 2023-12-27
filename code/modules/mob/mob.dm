@@ -1332,6 +1332,9 @@ GLOBAL_LIST_INIT(slot_equipment_priority, list( \
 /mob/proc/IsVocal()
 	return TRUE
 
+/mob/proc/cannot_speak_loudly()
+	return FALSE
+
 /mob/proc/get_access()
 	return list() //must return list or IGNORE_ACCESS
 

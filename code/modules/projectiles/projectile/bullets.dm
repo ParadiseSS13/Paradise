@@ -264,12 +264,12 @@
 		if(blocked != INFINITY)
 			if(M.can_inject(null, FALSE, hit_zone, piercing)) // Pass the hit zone to see if it can inject by whether it hit the head or the body.
 				..()
+
 				for(var/datum/reagent/R as anything in reagents.reagent_list)
 					if(initial(R.id) == "????") // Yes this is a specific case that we don't really want
-						reagents.trans_to(M, reagents.total_volume)
-						return TRUE
+						continue
+					reagents.reaction(M, REAGENT_INGEST, 0.1)
 				reagents.trans_to(M, reagents.total_volume)
-				reagents.reaction(M, REAGENT_INGEST, 0.1)
 				return TRUE
 			else
 				blocked = INFINITY
