@@ -30,7 +30,6 @@
 	var/next_dest
 	var/next_dest_loc
 	var/static/list/clean_dirt = list(
-		/obj/effect/decal/cleanable/blood/oil,
 		/obj/effect/decal/cleanable/vomit,
 		/obj/effect/decal/cleanable/blood/gibs/robot,
 		/obj/effect/decal/cleanable/crayon,
@@ -45,12 +44,7 @@
 		/obj/effect/decal/cleanable/dirt
 	)
 	var/static/list/clean_blood = list(
-		/obj/effect/decal/cleanable/blood/xeno,
-		/obj/effect/decal/cleanable/blood/gibs/xeno,
 		/obj/effect/decal/cleanable/blood,
-		/obj/effect/decal/cleanable/blood/gibs,
-		/obj/effect/decal/cleanable/blood/tracks,
-		/obj/effect/decal/cleanable/dirt,
 		/obj/effect/decal/cleanable/trail_holder
 	)
 
