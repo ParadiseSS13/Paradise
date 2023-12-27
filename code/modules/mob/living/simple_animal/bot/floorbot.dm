@@ -208,7 +208,7 @@
 			if(istype(target, /obj/item/stack/sheet/metal))
 				start_maketile(target)
 
-			if(isturf(target) && emagged < 2)
+			if(isturf(target) && !emagged)
 				repair(target)
 
 			if(emagged && isfloorturf(target))

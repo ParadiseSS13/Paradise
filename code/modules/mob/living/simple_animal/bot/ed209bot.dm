@@ -482,7 +482,7 @@
 				var/mob/toshoot = pick(targets)
 				if(toshoot)
 					targets-=toshoot
-					if(prob(50) && !emagged)
+					if(prob(50) && !emagged && !locked)
 						emagged = TRUE
 						set_weapon()
 						shootAt(toshoot)
