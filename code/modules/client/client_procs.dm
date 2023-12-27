@@ -335,8 +335,10 @@
 	if(length(related_accounts_cid))
 		log_admin("[key_name(src)] Alts by CID: [jointext(related_accounts_cid, " ")]")
 
+	#ifdef MULTIINSTANCE
 	// This sleeps so it has to go here. Dont fucking move it.
 	SSinstancing.update_playercache(ckey)
+	#endif
 
 	// This has to go here to avoid issues
 	// If you sleep past this point, you will get SSinput errors as well as goonchat errors
@@ -462,7 +464,9 @@
 
 	GLOB.directory -= ckey
 	GLOB.clients -= src
+	#ifdef MULTIINSTANCE
 	SSinstancing.update_playercache() // Clear us out
+	#endif
 	QDEL_NULL(chatOutput)
 	QDEL_NULL(pai_save)
 

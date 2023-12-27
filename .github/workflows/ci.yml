@@ -72,7 +72,7 @@ jobs:
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          tools/ci/dm.sh -DCIMAP paradise.dme
+          DreamMaker -DMULTIINSTANCE -DCIMAP paradise.dme
 
   unit_tests_and_sql:
     name: Unit Tests + SQL Validation
@@ -112,7 +112,7 @@ jobs:
         run: |
           tools/ci/install_byond.sh '${{ matrix.byondtype }}'
           source $HOME/BYOND/byond/bin/byondsetup
-          tools/ci/dm.sh -DCIBUILDING paradise.dme
+          DreamMaker -DMULTIINSTANCE -DCIBUILDING paradise.dme
           echo '${{ matrix.maptype }}' > data/next_map.txt
           tools/ci/run_server.sh
 

@@ -9,6 +9,8 @@
 // Your data directory will grow by about a gigabyte every time you launch the server, as well as introducing potential instabilities over multiple BYOND versions.
 // #define ENABLE_BYOND_TRACY
 
+// Uncomment this to enable support for multiple instances
+// #define MULTIINSTANCE
 
 #ifdef CIBUILDING
 #define UNIT_TESTS

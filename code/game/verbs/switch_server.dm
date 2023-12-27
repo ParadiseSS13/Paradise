@@ -1,3 +1,4 @@
+#ifdef MULTIINSTANCE
 /client/verb/switch_server()
 	set name = "Switch Server"
 	set desc = "Switch to a different Paradise server"
@@ -48,3 +49,4 @@
 	// Formulate a connection URL
 	var/target = "byond://[world.internet_address]:[formatted_servers[selected_server]]"
 	src << link(target)
+#endif
