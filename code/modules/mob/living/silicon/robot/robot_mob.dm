@@ -448,8 +448,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_sprite && check_sprite("[ckey]-[selected_module]"))
 		module_sprites["Custom"] = image('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-[selected_module]")
 
-	robot_module_hat_offset(icon_state)
-
 	return module_sprites
 
 /**
@@ -543,6 +541,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	custom_panel = null
 
+	robot_module_hat_offset(icon_state)
 	update_icons()
 	update_headlamp()
 
@@ -561,7 +560,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	status_flags |= CANPUSH
 
-	robot_module_hat_offset(icon_state)
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
