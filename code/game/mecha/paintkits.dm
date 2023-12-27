@@ -39,7 +39,7 @@
 	new_icon = "ripley_flames_red"
 	allowed_types = list("ripley", "firefighter")
 
-/obj/item/paintkit/firefighter_Hauler
+/obj/item/paintkit/ripley_hauler
 	name = "APLU \"Hauler\" customisation kit"
 	icon_state = "paintkit_hauler"
 	desc = "A kit containing all the needed tools and parts to turn an Ripley into an old engineering exosuit"
@@ -48,7 +48,7 @@
 	new_icon = "hauler"
 	allowed_types = list("ripley", "firefighter")
 
-/obj/item/paintkit/firefighter_zairjah
+/obj/item/paintkit/ripley_zairjah
 	name = "APLU \"Zairjah\" customisation kit"
 	icon_state = "paintkit_zairjah"
 	desc = "A kit containing all the needed tools and parts to turn a Firefighter into weird-looking mining exosuit"
@@ -57,7 +57,7 @@
 	new_icon = "ripley_zairjah"
 	allowed_types = list("ripley", "firefighter")
 
-/obj/item/paintkit/firefighter_combat
+/obj/item/paintkit/ripley_combat
 	name = "APLU \"Combat Ripley\" customisation kit"
 	icon_state = "paintkit_combat"
 	desc = "A kit containing all the needed tools and parts to turn a Firefighter into a real combat exosuit. Weapons are not included!"
@@ -66,7 +66,7 @@
 	new_icon = "combatripley"
 	allowed_types = list("ripley", "firefighter")
 
-/obj/item/paintkit/firefighter_aluminizer
+/obj/item/paintkit/ripley_aluminizer
 	name = "APLU \"Aluminizer\" customisation kit"
 	icon_state = "paintkit"
 	desc = "A kit containing all the needed tools and parts to paint a Firefighter white"
@@ -75,7 +75,7 @@
 	new_icon = "aluminizer"
 	allowed_types = list("ripley", "firefighter")
 
-/obj/item/paintkit/firefighter_Reaper
+/obj/item/paintkit/ripley_reaper
 	name = "APLU \"Reaper\" customisation kit"
 	icon_state = "paintkit_death"
 	desc = "A kit containing all the needed tools and parts to turn a Firefighter into a famous DeathSquad ripley!"

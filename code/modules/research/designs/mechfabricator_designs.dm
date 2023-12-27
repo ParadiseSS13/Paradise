@@ -1316,52 +1316,52 @@
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")
 
-/datum/design/paint_firefighter_hauler
+/datum/design/paint_ripley_hauler
 	name = "Ripley, Firefighter \"Hauler\""
 	id = "p_hauler"
 	build_type = MECHFAB
 	req_tech = list("biotech" = 4, "materials" = 2)
-	build_path = /obj/item/paintkit/firefighter_Hauler
+	build_path = /obj/item/paintkit/ripley_hauler
 	materials = list(MAT_METAL=10000, MAT_PLASMA=2000, MAT_GLASS=2000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")
 
-/datum/design/paint_firefighter_zairjah
+/datum/design/paint_ripley_zairjah
 	name = "Ripley, Firefighter \"Zairjah\""
 	id = "p_zairjah"
 	build_type = MECHFAB
 	req_tech = list("engineering" = 4, "materials" = 2)
-	build_path = /obj/item/paintkit/firefighter_zairjah
+	build_path = /obj/item/paintkit/ripley_zairjah
 	materials = list(MAT_METAL=10000, MAT_PLASMA=2000, MAT_GLASS=2000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")
 
-/datum/design/paint_firefighter_combat
+/datum/design/paint_ripley_combat
 	name = "Ripley, Firefighter \"Combat Ripley\""
 	id = "p_combat"
 	build_type = MECHFAB
 	req_tech = list("combat" = 4, "materials" = 2)
-	build_path = /obj/item/paintkit/firefighter_combat
+	build_path = /obj/item/paintkit/ripley_combat
 	materials = list(MAT_METAL=10000, MAT_PLASMA=2000, MAT_GLASS=2000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")
 
-/datum/design/paint_firefighter_aluminizer
+/datum/design/paint_ripley_aluminizer
 	name = "Ripley, Firefighter \"Aluminizer\""
 	id = "p_aluminizer"
 	build_type = MECHFAB
 	req_tech = list("engineering" = 4, "materials" = 2)
-	build_path = /obj/item/paintkit/firefighter_aluminizer
+	build_path = /obj/item/paintkit/ripley_aluminizer
 	materials = list(MAT_METAL=10000, MAT_PLASMA=2000, MAT_GLASS=2000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")
 
-/datum/design/paint_firefighter_reaper
+/datum/design/paint_ripley_reaper
 	name = "Ripley, Firefighter \"Reaper\""
 	id = "p_reaper"
 	build_type = MECHFAB
 	req_tech = list("combat" = 4, "materials" = 2, "syndicate" = 2)
-	build_path = /obj/item/paintkit/firefighter_Reaper
+	build_path = /obj/item/paintkit/ripley_reaper
 	materials = list(MAT_METAL=10000, MAT_PLASMA=2000, MAT_GLASS=2000)
 	construction_time = 10 SECONDS
 	category = list("Exosuit Paintkits")

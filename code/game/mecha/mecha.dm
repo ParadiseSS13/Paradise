@@ -1531,6 +1531,7 @@
 			AI = occupant
 			occupant = null
 		var/obj/structure/mecha_wreckage/WR = new wreckage(loc, AI)
+		WR.icon_state = "[src.reset_icon(loc, AI)]-broken"
 		for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
 			if(E.salvageable && prob(30))
 				WR.crowbar_salvage += E
