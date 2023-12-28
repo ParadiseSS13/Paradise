@@ -34,7 +34,6 @@
 
 	var/disabling_timer_id = null
 	var/list/player_access = list()
-	/// 1 = emag unlocked, 2 = open panel and emagged
 	var/emagged = FALSE
 	var/obj/item/card/id/access_card			// the ID card that the bot "holds"
 	var/list/prev_access = list()
