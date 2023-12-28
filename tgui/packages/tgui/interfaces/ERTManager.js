@@ -1,6 +1,5 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Button, LabeledList, Box, Section, Tabs, Input } from '../components';
+import { Button, LabeledList, Box, Section, Stack, Tabs, Input, Icon } from '../components';
 import { Window } from '../layouts';
 import { decodeHtmlEntities } from 'common/string';
 
@@ -23,10 +22,12 @@ export const ERTManager = (props, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
 
   return (
-    <Window width={350} height={540}>
+    <Window width={360} height={505}>
       <Window.Content>
+        <Stack fill vertical>
         <ERTOverview />
-        <Tabs>
+        <Stack.Item>
+        <Tabs fluid>
           <Tabs.Tab
             key="SendERT"
             selected={tabIndex === 0}
@@ -58,7 +59,9 @@ export const ERTManager = (props, context) => {
             Deny ERT
           </Tabs.Tab>
         </Tabs>
+        </Stack.Item>
         {PickTab(tabIndex)}
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -70,6 +73,7 @@ export const ERTOverview = (props, context) => {
     data;
 
   return (
+  <Stack.Item>
     <Section title="Overview">
       <LabeledList>
         <LabeledList.Item label="Current Alert" color={security_level_color}>
@@ -89,6 +93,7 @@ export const ERTOverview = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -99,26 +104,35 @@ const SendERT = (props, context) => {
   const [silentERT, setSilentERT] = useLocalState(context, 'silentERT', false);
 
   return (
+  <Stack.Item grow>
     <Section
+      fill
+      scrollable
       title="Send ERT"
       buttons={
-        <Fragment>
+        <>
           <Button
+            width={5}
             content="Amber"
+            textAlign="center"
             color={data.ert_type === 'Amber' ? 'orange' : ''}
             onClick={() => act('ert_type', { ert_type: 'Amber' })}
           />
           <Button
+            width={5}
             content="Red"
+            textAlign="center"
             color={data.ert_type === 'Red' ? 'red' : ''}
             onClick={() => act('ert_type', { ert_type: 'Red' })}
           />
           <Button
+            width={5}
             content="Gamma"
+            textAlign="center"
             color={data.ert_type === 'Gamma' ? 'purple' : ''}
             onClick={() => act('ert_type', { ert_type: 'Gamma' })}
           />
-        </Fragment>
+        </>
       }
     >
       <LabeledList>
@@ -216,6 +230,7 @@ const SendERT = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Security Module">
           <Button
+            width={10.5}
             disabled={data.ert_type !== 'Red' || !data.cyb}
             icon={data.secborg ? 'toggle-on' : 'toggle-off'}
             color={data.secborg ? 'red' : ''}
@@ -226,13 +241,16 @@ const SendERT = (props, context) => {
                   ? 'Unavailable'
                   : 'Disabled'
             }
+            textAlign="center"
             onClick={() => act('toggle_secborg')}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Silent ERT">
           <Button
+            width={10.5}
             icon={silentERT ? 'microphone-slash' : 'microphone'}
             content={silentERT ? 'Silenced' : 'Public'}
+            textAlign="center"
             selected={silentERT}
             onClick={() => setSilentERT(!silentERT)}
             tooltip={
@@ -240,6 +258,7 @@ const SendERT = (props, context) => {
                 ? 'This ERT will not be announced to the station'
                 : 'This ERT will be announced to the station on dispatch'
             }
+            tooltipPosition="top"
           />
         </LabeledList.Item>
         <LabeledList.Item label="Total Slots">
@@ -249,6 +268,8 @@ const SendERT = (props, context) => {
         </LabeledList.Item>
         <LabeledList.Item label="Dispatch">
           <Button
+            width={10.5}
+            textAlign="center"
             icon="ambulance"
             content="Send ERT"
             onClick={() => act('dispatch_ert', { silent: silentERT })}
@@ -256,6 +277,7 @@ const SendERT = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -265,7 +287,8 @@ const ReadERTRequests = (props, context) => {
   const { ert_request_messages } = data;
 
   return (
-    <Section>
+  <Stack.Item grow>
+    <Section fill>
       {ert_request_messages && ert_request_messages.length ? (
         ert_request_messages.map((request) => (
           <Section
@@ -285,11 +308,25 @@ const ReadERTRequests = (props, context) => {
           </Section>
         ))
       ) : (
-        <Box fluid italic textAlign="center">
-          No ERT requests
-        </Box>
+          <Stack fill>
+          <Stack.Item
+            bold
+            grow
+            textAlign="center"
+            align="center"
+            color="average"
+          >
+            <Icon.Stack>
+            <Icon name="broadcast-tower" size={5} color="gray"/>
+            <Icon name="slash" size={5} color="red"/>
+            </Icon.Stack>
+            <br />
+            No ERT requests.
+          </Stack.Item>
+          </Stack>
       )}
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -299,10 +336,11 @@ const DenyERT = (props, context) => {
   const [text, setText] = useLocalState(context, 'text', '');
 
   return (
-    <Section>
+  <Stack.Item grow>
+    <Section fill>
       <Input
         placeholder="Enter ERT denial reason here,\nMultiline input is accepted."
-        rows={10}
+        rows={19}
         fluid
         multiline={1}
         value={text}
@@ -313,10 +351,11 @@ const DenyERT = (props, context) => {
         fluid
         icon="times"
         center
-        mt="5px"
+        mt={2}
         textAlign="center"
         onClick={() => act('deny_ert', { reason: text })}
       />
     </Section>
+  </Stack.Item>
   );
 };

@@ -7,7 +7,7 @@
 import { classes, pureComponentHooks } from 'common/react';
 import { Box, unit } from './Box';
 
-export const computeFlexProps = (props) => {
+export const computeFlexProps = props => {
   const {
     className,
     direction,
@@ -15,22 +15,23 @@ export const computeFlexProps = (props) => {
     align,
     justify,
     inline,
-    spacing = 0,
     ...rest
   } = props;
   return {
     className: classes([
       'Flex',
-      Byond.IS_LTE_IE10 &&
-        (direction === 'column' ? 'Flex--iefix--column' : 'Flex--iefix'),
+      Byond.IS_LTE_IE10 && (
+        direction === 'column'
+          ? 'Flex--iefix--column'
+          : 'Flex--iefix'
+      ),
       inline && 'Flex--inline',
-      spacing > 0 && 'Flex--spacing--' + spacing,
       className,
     ]),
     style: {
       ...rest.style,
       'flex-direction': direction,
-      'flex-wrap': wrap,
+      'flex-wrap': wrap === true ? 'wrap' : wrap,
       'align-items': align,
       'justify-content': justify,
     },
@@ -38,11 +39,13 @@ export const computeFlexProps = (props) => {
   };
 };
 
-export const Flex = (props) => <Box {...computeFlexProps(props)} />;
+export const Flex = props => (
+  <Box {...computeFlexProps(props)} />
+);
 
 Flex.defaultHooks = pureComponentHooks;
 
-export const computeFlexItemProps = (props) => {
+export const computeFlexItemProps = props => {
   const {
     className,
     style,
@@ -64,8 +67,8 @@ export const computeFlexItemProps = (props) => {
     ]),
     style: {
       ...style,
-      'flex-grow': grow,
-      'flex-shrink': shrink,
+      'flex-grow': grow !== undefined && Number(grow),
+      'flex-shrink': shrink !== undefined && Number(shrink),
       'flex-basis': unit(basis),
       'order': order,
       'align-self': align,
@@ -74,7 +77,9 @@ export const computeFlexItemProps = (props) => {
   };
 };
 
-export const FlexItem = (props) => <Box {...computeFlexItemProps(props)} />;
+export const FlexItem = props => (
+  <Box {...computeFlexItemProps(props)} />
+);
 
 FlexItem.defaultHooks = pureComponentHooks;
 

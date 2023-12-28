@@ -1,5 +1,4 @@
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -37,7 +36,7 @@ const MiningVendorUser = (_properties, context) => {
   return (
     <NoticeBox success={has_id}>
       {has_id ? (
-        <Fragment>
+        <>
           <Box
             display="inline-block"
             verticalAlign="middle"
@@ -61,7 +60,7 @@ const MiningVendorUser = (_properties, context) => {
               clear: 'both',
             }}
           />
-        </Fragment>
+        </>
       ) : (
         'Please insert an ID in order to make purchases.'
       )}

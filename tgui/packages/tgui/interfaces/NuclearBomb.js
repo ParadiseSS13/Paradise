@@ -23,7 +23,7 @@ export const NuclearBomb = (props, context) => {
   }
 
   return (
-    <Window width={350} height={300}>
+    <Window width={350} height={290}>
       <Window.Content>
         <Section title="Authorization">
           <LabeledList>

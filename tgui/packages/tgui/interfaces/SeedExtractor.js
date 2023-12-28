@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Table, Box, NumberInput } from '../components';
+import { Button, Section, Table, Stack, NumberInput } from '../components';
 import { Window } from '../layouts';
 
 export const SeedExtractor = (props, context) => {
@@ -8,10 +8,15 @@ export const SeedExtractor = (props, context) => {
 
   return (
     <Window width={800} height={400} resizable>
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        <Section title="Stored Seeds">
-          <div className="CameraConsole__toolbarRight">
-            Set Amount to be Vended:&nbsp;
+      <Window.Content>
+        <Stack fill vertical>
+          <Section 
+            fill 
+            scrollable 
+            title="Stored Seeds"
+            buttons={
+            <>
+              Set Amount to be Vended:&nbsp;
             <NumberInput
               animated
               value={vend_amount}
@@ -25,9 +30,11 @@ export const SeedExtractor = (props, context) => {
                 })
               }
             />
-          </div>
+            </>
+            }>
           {stored_seeds?.length ? <SeedsContent /> : 'No Seeds'}
         </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -47,7 +54,7 @@ const SeedsContent = (props, context) => {
         <Table.Cell>Production</Table.Cell>
         <Table.Cell>Yield</Table.Cell>
         <Table.Cell>Potency</Table.Cell>
-        <Table.Cell textAlign="middle">Stock</Table.Cell>
+        <Table.Cell>Stock</Table.Cell>
       </Table.Row>
       {stored_seeds.map((seed, index) => (
         <Table.Row key={index}>
@@ -71,7 +78,9 @@ const SeedsContent = (props, context) => {
           <Table.Cell>{seed.yield}</Table.Cell>
           <Table.Cell>{seed.potency}</Table.Cell>
           <Table.Cell>
+            ({seed.amount} Left)&nbsp;
             <Button
+              ml={1}
               content="Vend"
               icon="arrow-circle-down"
               onClick={() =>
@@ -81,7 +90,6 @@ const SeedsContent = (props, context) => {
                 })
               }
             />
-            &nbsp;({seed.amount} Left)
           </Table.Cell>
         </Table.Row>
       ))}

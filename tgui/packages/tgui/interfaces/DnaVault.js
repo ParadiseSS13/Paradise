@@ -6,6 +6,7 @@ import {
   LabeledList,
   ProgressBar,
   Section,
+  Stack
 } from '../components';
 import { Window } from '../layouts';
 
@@ -13,10 +14,12 @@ export const DnaVault = (props, context) => {
   const { act, data } = useBackend(context);
   const { completed } = data;
   return (
-    <Window width={350} height={400}>
+    <Window width={350} height={270}>
       <Window.Content>
+        <Stack fill vertical>
         <DnaVaultDataBase />
         {!!completed && <GeneTherapySelection />}
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -28,7 +31,8 @@ const DnaVaultDataBase = (props, context) => {
   const average_progress = 0.66;
   const bad_progress = 0.33;
   return (
-    <Section title="DNA Vault Database">
+  <Stack.Item grow>
+    <Section fill title="DNA Vault Database">
       <LabeledList>
         <LabeledList.Item label="Human DNA">
           <ProgressBar
@@ -68,6 +72,7 @@ const DnaVaultDataBase = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -75,7 +80,8 @@ const GeneTherapySelection = (props, context) => {
   const { act, data } = useBackend(context);
   const { choiceA, choiceB, used } = data;
   return (
-    <Section title="Personal Gene Therapy">
+  <Stack.Item >
+    <Section fill title="Personal Gene Therapy">
       <Box bold textAlign="center" mb={1}>
         Applicable Gene Therapy Treatments
       </Box>
@@ -114,5 +120,6 @@ const GeneTherapySelection = (props, context) => {
         </Box>
       )}
     </Section>
+  </Stack.Item>
   );
 };

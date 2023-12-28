@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, Button, NoticeBox } from '../../components';
+import { Box, Button, NoticeBox, Stack } from '../../components';
 
 /**
  * Displays a notice box displaying the current login state.

@@ -71,7 +71,7 @@ export const Contractor = (properties, context) => {
     );
   } else {
     body = (
-      <Fragment>
+      <>
         <Flex.Item basis="content">
           <Summary />
         </Flex.Item>
@@ -85,7 +85,7 @@ export const Contractor = (properties, context) => {
             <Hub height="100%" />
           )}
         </Flex.Item>
-      </Fragment>
+      </>
     );
   }
   const [viewingPhoto, _setViewingPhoto] = useLocalState(

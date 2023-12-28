@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Box, Section, Flex, Icon } from '../components';
+import { Button, Box, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 
 /* This is all basically stolen from routes.js. */
@@ -45,7 +45,6 @@ export const PDA = (props, context) => {
     <Window>
       <Window.Content scrollable>
         <PDAHeader />
-
         <Section
           title={
             <Box>
@@ -57,7 +56,6 @@ export const PDA = (props, context) => {
         >
           <App />
         </Section>
-
         <Box mb={8} />
         <PDAFooter />
       </Window.Content>
@@ -71,41 +69,41 @@ const PDAHeader = (props, context) => {
 
   return (
     <Box mb={1}>
-      <Flex align="center" justify="space-between">
+      <Stack align="center" justify="space-between">
         {idInserted ? (
-          <Flex.Item>
+          <Stack.Item>
             <Button
               icon="id-card"
               color="transparent"
               onClick={() => act('Authenticate')}
               content={idLink}
             />
-          </Flex.Item>
+          </Stack.Item>
         ) : (
-          <Flex.Item m={1} color="grey">
+          <Stack.Item m={1} color="grey">
             No ID Inserted
-          </Flex.Item>
+          </Stack.Item>
         )}
 
         {cartridge_name ? (
-          <Flex.Item>
+          <Stack.Item>
             <Button
               icon="sd-card"
               color="transparent"
               onClick={() => act('Eject')}
               content={'Eject ' + cartridge_name}
             />
-          </Flex.Item>
+          </Stack.Item>
         ) : (
-          <Flex.Item m={1} color="grey">
+          <Stack.Item m={1} color="grey">
             No Cartridge Inserted
-          </Flex.Item>
+          </Stack.Item>
         )}
 
-        <Flex.Item grow={1} textAlign="right" bold m={1}>
+        <Stack.Item grow textAlign="right" bold m={1}>
           {stationTime}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };
@@ -116,9 +114,9 @@ const PDAFooter = (props, context) => {
   const { app } = data;
 
   return (
-    <Box className="PDA__footer" backgroundColor="#1b1b1b">
-      <Flex>
-        <Flex.Item basis="33%">
+    <Box height="45px" className="PDA__footer" backgroundColor="#1b1b1b">
+      <Stack>
+        <Stack.Item basis="33%">
           <Button
             fluid
             className="PDA__footer__button"
@@ -127,8 +125,8 @@ const PDAFooter = (props, context) => {
             icon="arrow-alt-circle-left-o"
             onClick={() => act('Back')}
           />
-        </Flex.Item>
-        <Flex.Item basis="33%">
+        </Stack.Item>
+        <Stack.Item basis="33%">
           <Button
             fluid
             className="PDA__footer__button"
@@ -139,8 +137,8 @@ const PDAFooter = (props, context) => {
               act('Home');
             }}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };

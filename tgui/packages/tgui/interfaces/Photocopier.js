@@ -1,21 +1,18 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, LabeledList, Section } from '../components';
+import { Box, Button, Stack, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
 export const Photocopier = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window width={402} height={368} resizable>
-      <Window.Content
-        scrollable
-        display="flex"
-        className="Layout__content--flexColumn"
-      >
+    <Window width={400} height={440} resizable>
+      <Window.Content scrollable>
+        <Stack fill vertical>
         <Section title="Photocopier" color="silver">
           <LabeledList>
             <LabeledList.Item label="Copies">
-              <Flex>
+              <Stack>
                 <Box width="2em" bold>
                   {data.copynumber}
                 </Box>
@@ -35,7 +32,7 @@ export const Photocopier = (props, context) => {
                     onClick={() => act('add')}
                   />
                 </Fragment>
-              </Flex>
+              </Stack>
             </LabeledList.Item>
             <LabeledList.Item label="Toner">
               <Box bold>{data.toner}</Box>
@@ -70,6 +67,7 @@ export const Photocopier = (props, context) => {
           <Actions />
         </Section>
         <Files />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -79,7 +77,7 @@ const Actions = (props, context) => {
   const { act, data } = useBackend(context);
   const { issilicon } = data;
   return (
-    <Fragment>
+    <>
       <Button
         fluid
         icon="copy"
@@ -118,20 +116,20 @@ const Actions = (props, context) => {
           />
         </>
       )}
-    </Fragment>
+    </>
   );
 };
 
 const Files = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Section title="Scanned Files">
+    <Section fill scrollable title="Scanned Files">
       {data.files.map((file) => (
         <Section
           key={file.name}
           title={file.name}
           buttons={
-            <Flex>
+            <Stack>
               <Button
                 icon="print"
                 content="Print"
@@ -152,7 +150,7 @@ const Files = (props, context) => {
                   })
                 }
               />
-            </Flex>
+            </Stack>
           }
         />
       ))}

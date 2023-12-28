@@ -1,17 +1,15 @@
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
-  Flex,
   Icon,
   Input,
   LabeledList,
   Section,
+  Stack,
   Table,
   Tabs,
 } from '../components';
-import { FlexItem } from '../components/Flex';
 import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
@@ -26,7 +24,9 @@ export const AccountsUplinkTerminal = (properties, context) => {
     return (
       <Window width={800} height={600} resizable>
         <Window.Content>
-          <LoginScreen />
+          <Stack fill vertical>
+            <LoginScreen />
+          </Stack>
         </Window.Content>
       </Window>
     );
@@ -41,11 +41,15 @@ export const AccountsUplinkTerminal = (properties, context) => {
   }
 
   return (
-    <Window resizable>
+    <Window width={800} height={600} resizable>
       <Window.Content scrollable>
-        <LoginInfo />
-        <AccountsUplinkTerminalNavigation />
-        {body}
+        <Stack fill vertical>
+          <LoginInfo />
+          <AccountsUplinkTerminalNavigation />
+          <Section fill scrollable>
+          {body}
+          </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -56,6 +60,8 @@ const AccountsUplinkTerminalNavigation = (properties, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const { login_state } = data;
   return (
+  <Stack vertical mb={1}>
+    <Stack.Item>
     <Tabs>
       <Tabs.Tab icon="list" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
         User Accounts
@@ -64,6 +70,8 @@ const AccountsUplinkTerminalNavigation = (properties, context) => {
         Department Accounts
       </Tabs.Tab>
     </Tabs>
+    </Stack.Item>
+  </Stack>
   );
 };
 
@@ -86,10 +94,10 @@ const AccountsRecordList = (properties, context) => {
   const [sortId, _setSortId] = useLocalState(context, 'sortId', 'owner_name');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <Flex direction="column" height="100%">
+    <Stack fill vertical>
       <AccountsActions />
-      <Flex.Item flexGrow="1" mt="0.5rem">
-        <Section height="100%">
+      <Stack.Item grow>
+        <Section fill scrollable>
           <Table className="AccountsUplinkTerminal__list">
             <Table.Row bold>
               <SortButton id="owner_name">Account Holder</SortButton>
@@ -137,8 +145,8 @@ const AccountsRecordList = (properties, context) => {
               ))}
           </Table>
         </Section>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -146,10 +154,9 @@ const DepartmentAccountsList = (properties, context) => {
   const { act, data } = useBackend(context);
   const { department_accounts } = data;
   return (
-    <Flex direction="column" height="100%">
-      <AccountsActions />
-      <Flex.Item flexGrow="1" mt="0.5rem">
-        <Section height="100%">
+    <Stack fill vertical>
+      <Stack.Item grow>
+        <Section>
           <Table className="AccountsUplinkTerminal__list">
             <Table.Row bold>
               <TableCell>Department Name</TableCell>
@@ -179,8 +186,8 @@ const DepartmentAccountsList = (properties, context) => {
             ))}
           </Table>
         </Section>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -216,22 +223,22 @@ const AccountsActions = (properties, context) => {
   const { is_printing } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   return (
-    <Flex>
-      <FlexItem>
+    <Stack>
+      <Stack.Item>
         <Button
           content="New Account"
           icon="plus"
           onClick={() => act('create_new_account')}
         />
-      </FlexItem>
-      <FlexItem grow="1" ml="0.5rem">
+      </Stack.Item>
+      <Stack.Item grow>
         <Input
           placeholder="Search by account holder, number, status"
           width="100%"
           onInput={(e, value) => setSearchText(value)}
         />
-      </FlexItem>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -247,10 +254,10 @@ const DetailedAccountInfo = (properties, context) => {
     is_department_account,
   } = data;
   return (
-    <Fragment>
+    <Stack fill vertical>
+    <Stack.Item>
       <Section
         title={'#' + account_number + ' / ' + owner_name}
-        mt={1}
         buttons={
           <Button
             icon="arrow-left"
@@ -299,7 +306,9 @@ const DetailedAccountInfo = (properties, context) => {
           </LabeledList.Item>
         </LabeledList>
       </Section>
-      <Section title="Transactions">
+      </Stack.Item>
+      <Stack.Item>
+      <Section fill title="Transactions">
         <Table>
           <Table.Row header>
             <Table.Cell>Timestamp</Table.Cell>
@@ -319,7 +328,8 @@ const DetailedAccountInfo = (properties, context) => {
           ))}
         </Table>
       </Section>
-    </Fragment>
+      </Stack.Item>
+      </Stack>
   );
 };
 

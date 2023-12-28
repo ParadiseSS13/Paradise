@@ -9,7 +9,7 @@ export const RemoteSignaler = (props, context) => {
   const { on } = data;
 
   return (
-    <Window width={300} height={170}>
+    <Window width={300} height={165}>
       <Window.Content>
         <Section>
           <LabeledList>

@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
@@ -7,7 +6,7 @@ import {
   Section,
   Collapsible,
   Input,
-  Flex,
+  Stack,
   Dropdown,
 } from '../components';
 import { Window } from '../layouts';
@@ -19,7 +18,11 @@ const PickWindow = (index) => {
     case 2:
       return <StatusScreens />;
     case 3:
-      return <MessageView />;
+      return <Stack.Item grow>
+                <Section fill>
+                  <MessageView />
+                </Section>
+              </Stack.Item>;
     case 4:
       return <AdminAnnouncePage />;
     default:
@@ -35,8 +38,10 @@ export const CommunicationsComputer = (props, context) => {
   return (
     <Window width={500} height={600} resizable>
       <Window.Content scrollable>
-        <AuthBlock />
-        {PickWindow(menu_state)}
+        <Stack fill vertical>
+          <AuthBlock />
+          {PickWindow(menu_state)}
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -75,7 +80,8 @@ const AuthBlock = (props, context) => {
   }
 
   return (
-    <Fragment>
+    <>
+    <Stack.Item>
       <Section title="Authentication">
         <LabeledList>
           {(hideLogButton && (
@@ -95,8 +101,10 @@ const AuthBlock = (props, context) => {
           )}
         </LabeledList>
       </Section>
+      </Stack.Item>
+      <Stack.Item>
       {!!esc_section && (
-        <Section title="Escape Shuttle">
+        <Section fill title="Escape Shuttle">
           <LabeledList>
             {!!esc_status && (
               <LabeledList.Item label="Status">{esc_status}</LabeledList.Item>
@@ -129,7 +137,8 @@ const AuthBlock = (props, context) => {
           </LabeledList>
         </Section>
       )}
-    </Fragment>
+      </Stack.Item>
+    </>
   );
 };
 
@@ -155,7 +164,7 @@ const AdminPage = (props, context) => {
   } = data;
 
   return (
-    <Fragment>
+    <Stack.Item>
       <Section title="CentComm Actions">
         <LabeledList>
           <LabeledList.Item label="Change Alert">
@@ -242,7 +251,7 @@ const AdminPage = (props, context) => {
       <Collapsible title="View Command accessible controls">
         <PlayerPage />
       </Collapsible>
-    </Fragment>
+      </Stack.Item>
   );
 };
 
@@ -274,8 +283,9 @@ const PlayerPage = (props, context) => {
   }
 
   return (
-    <Fragment>
-      <Section title="Captain-Only Actions">
+    <>
+    <Stack.Item grow>
+      <Section fill title="Captain-Only Actions">
         <LabeledList>
           <LabeledList.Item label="Current Alert" color={security_level_color}>
             {str_security_level}
@@ -330,7 +340,9 @@ const PlayerPage = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       </Section>
-      <Section title="Command Staff Actions">
+    </Stack.Item>
+    <Stack.Item>
+      <Section fill title="Command Staff Actions">
         <LabeledList>
           <LabeledList.Item label="Displays">
             <Button
@@ -358,7 +370,8 @@ const PlayerPage = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       </Section>
-    </Fragment>
+      </Stack.Item>
+    </>
   );
 };
 
@@ -391,7 +404,9 @@ const StatusScreens = (props, context) => {
   });
 
   return (
+  <Stack.Item grow>
     <Section
+      fill
       title="Modify Status Screens"
       buttons={
         <Button
@@ -422,6 +437,7 @@ const StatusScreens = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -439,6 +455,7 @@ const MessageView = (props, context) => {
   let messageView;
   if (current_message_title) {
     messageView = (
+    <Stack.Item>
       <Section
         title={current_message_title}
         buttons={
@@ -452,6 +469,7 @@ const MessageView = (props, context) => {
       >
         <Box>{current_message}</Box>
       </Section>
+    </Stack.Item>
     );
   } else {
     let messageRows = messages.map((m) => {
@@ -540,6 +558,7 @@ const AdminAnnouncePage = (props, context) => {
   const [beepsound, setBeepsound] = useLocalState(context, 'beepsound', 'Beep');
 
   return (
+  <Stack.Item>
     <Section
       title="Central Command Report"
       buttons={
@@ -581,8 +600,8 @@ const AdminAnnouncePage = (props, context) => {
           })
         }
       />
-      <Flex mt="5px">
-        <Flex.Item>
+      <Stack>
+        <Stack.Item>
           <Dropdown
             width="260px"
             height="20px"
@@ -591,8 +610,8 @@ const AdminAnnouncePage = (props, context) => {
             onSelected={(val) => setBeepsound(val)}
             disabled={classified}
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             icon="volume-up"
             mx="5px"
@@ -600,8 +619,8 @@ const AdminAnnouncePage = (props, context) => {
             tooltip="Test sound"
             onClick={() => act('test_sound', { sound: beepsound })}
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button.Checkbox
             checked={classified}
             content="Classified"
@@ -613,8 +632,9 @@ const AdminAnnouncePage = (props, context) => {
             }
             onClick={() => setClassified(!classified)}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
+  </Stack.Item>
   );
 };

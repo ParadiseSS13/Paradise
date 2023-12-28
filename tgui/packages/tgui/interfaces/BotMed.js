@@ -1,7 +1,7 @@
 import { useBackend } from '../backend';
 import {
   Button,
-  Flex,
+  Stack,
   LabeledList,
   ProgressBar,
   Section,
@@ -32,8 +32,9 @@ export const BotMed = (props, context) => {
     reagent_glass,
   } = data;
   return (
-    <Window width={500} height={520}>
+    <Window width={500} height={500}>
       <Window.Content>
+        <Stack fill vertical>
         <BotStatus />
         <Section title="Communication Settings">
           <Button.Checkbox
@@ -51,7 +52,7 @@ export const BotMed = (props, context) => {
             onClick={() => act('toggle_critical_alerts')}
           />
         </Section>
-        <Section title="Treatment Settings">
+        <Section fill title="Treatment Settings">
           <LabeledList>
             <LabeledList.Item label="Healing Threshold">
               <Slider
@@ -92,8 +93,8 @@ export const BotMed = (props, context) => {
             </LabeledList.Item>
             {reagent_glass && (
               <LabeledList.Item label="Beaker">
-                <Flex inline width="100%">
-                  <Flex.Item grow={1}>
+                <Stack inline width="100%">
+                  <Stack.Item grow={1}>
                     <ProgressBar
                       value={reagent_glass.amount}
                       minValue={0}
@@ -101,19 +102,20 @@ export const BotMed = (props, context) => {
                     >
                       {reagent_glass.amount} / {reagent_glass.max_amount}
                     </ProgressBar>
-                  </Flex.Item>
-                  <Flex.Item ml={1}>
+                  </Stack.Item>
+                  <Stack.Item ml={1}>
                     <Button
                       content="Eject"
                       disabled={noaccess}
                       onClick={() => act('eject_reagent_glass')}
                     />
-                  </Flex.Item>
-                </Flex>
+                  </Stack.Item>
+                </Stack>
               </LabeledList.Item>
             )}
           </LabeledList>
           <Button.Checkbox
+            mt={1}
             fluid
             content={'Treat Viral Infections'}
             checked={treat_virus}
@@ -139,6 +141,7 @@ export const BotMed = (props, context) => {
             />
           </Section>
         )}
+        </Stack>
       </Window.Content>
     </Window>
   );

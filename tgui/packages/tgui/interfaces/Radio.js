@@ -51,7 +51,7 @@ export const Radio = (props, context) => {
       resizable
     >
       <Window.Content scrollable>
-        <Section>
+        <Section fill>
           <LabeledList>
             <LabeledList.Item label="Frequency">
               {(freqlock && (
@@ -59,7 +59,7 @@ export const Radio = (props, context) => {
                   {toFixed(frequency / 10, 1) + ' kHz'}
                 </Box>
               )) || (
-                <Fragment>
+                <>
                   <NumberInput
                     animate
                     unit="kHz"
@@ -86,7 +86,7 @@ export const Radio = (props, context) => {
                       })
                     }
                   />
-                </Fragment>
+                </>
               )}
               {matchedChannel && (
                 <Box inline color={tunedChannel.color} ml={2}>

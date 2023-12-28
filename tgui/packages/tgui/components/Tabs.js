@@ -9,12 +9,13 @@ import { computeBoxClassName, computeBoxProps } from './Box';
 import { Icon } from './Icon';
 
 export const Tabs = (props) => {
-  const { className, vertical, fluid, children, ...rest } = props;
+  const { className, vertical, fill, fluid, children, ...rest } = props;
   return (
     <div
       className={classes([
         'Tabs',
         vertical ? 'Tabs--vertical' : 'Tabs--horizontal',
+        fill && 'Tabs--fill',
         fluid && 'Tabs--fluid',
         className,
         computeBoxClassName(rest),

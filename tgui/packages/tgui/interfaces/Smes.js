@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   LabeledList,
   ProgressBar,
   Section,
@@ -36,8 +36,9 @@ export const Smes = (props, context) => {
   const outputState =
     (outputting && 'good') || (charge > 0 && 'average') || 'bad';
   return (
-    <Window width={340} height={350}>
+    <Window width={340} height={345}>
       <Window.Content>
+        <Stack fill vertical>
         <Section title="Stored Energy">
           <ProgressBar
             value={capacityPercent * 0.01}
@@ -69,8 +70,8 @@ export const Smes = (props, context) => {
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Input">
-              <Flex inline width="100%">
-                <Flex.Item>
+              <Stack inline width="100%">
+                <Stack.Item>
                   <Button
                     icon="fast-backward"
                     disabled={inputLevel === 0}
@@ -89,8 +90,8 @@ export const Smes = (props, context) => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item grow={1} mx={1}>
+                </Stack.Item>
+                <Stack.Item grow>
                   <Slider
                     value={inputLevel / POWER_MUL}
                     fillValue={inputAvailable / POWER_MUL}
@@ -105,8 +106,8 @@ export const Smes = (props, context) => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <Button
                     icon="forward"
                     disabled={inputLevel === inputLevelMax}
@@ -125,15 +126,15 @@ export const Smes = (props, context) => {
                       })
                     }
                   />
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             </LabeledList.Item>
             <LabeledList.Item label="Available">
               {formatPower(inputAvailable)}
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title="Output">
+        <Section fill title="Output">
           <LabeledList>
             <LabeledList.Item
               label="Output Mode"
@@ -156,8 +157,8 @@ export const Smes = (props, context) => {
               </Box>
             </LabeledList.Item>
             <LabeledList.Item label="Target Output">
-              <Flex inline width="100%">
-                <Flex.Item>
+              <Stack inline width="100%">
+                <Stack.Item>
                   <Button
                     icon="fast-backward"
                     disabled={outputLevel === 0}
@@ -176,8 +177,8 @@ export const Smes = (props, context) => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item grow={1} mx={1}>
+                </Stack.Item>
+                <Stack.Item grow>
                   <Slider
                     value={outputLevel / POWER_MUL}
                     minValue={0}
@@ -191,8 +192,8 @@ export const Smes = (props, context) => {
                       })
                     }
                   />
-                </Flex.Item>
-                <Flex.Item>
+                </Stack.Item>
+                <Stack.Item>
                   <Button
                     icon="forward"
                     disabled={outputLevel === outputLevelMax}
@@ -211,14 +212,15 @@ export const Smes = (props, context) => {
                       })
                     }
                   />
-                </Flex.Item>
-              </Flex>
+                </Stack.Item>
+              </Stack>
             </LabeledList.Item>
             <LabeledList.Item label="Outputting">
               {formatPower(outputUsed)}
             </LabeledList.Item>
           </LabeledList>
         </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );

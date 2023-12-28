@@ -1,5 +1,4 @@
 import { useBackend, useLocalState } from '../backend';
-import { Fragment } from 'inferno';
 import { Box, Button, Icon, Section, Table } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';

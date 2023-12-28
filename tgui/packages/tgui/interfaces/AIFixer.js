@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, ProgressBar, Box, LabeledList, Section } from '../components';
+import { Button, ProgressBar, Box, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const AIFixer = (props, context) => {
@@ -39,13 +39,9 @@ export const AIFixer = (props, context) => {
     return (
       <Window scrollable>
         <Window.Content>
-          <Section title="Stored AI">
-            <Box bold>
-              <h3>{data.occupant}</h3>
-            </Box>
-          </Section>
-
-          <Section title="Information">
+          <Stack fill vertical>
+            <Stack.Item>
+          <Section title={data.occupant}>
             <LabeledList>
               <LabeledList.Item label="Integrity">
                 <ProgressBar
@@ -61,8 +57,9 @@ export const AIFixer = (props, context) => {
               </LabeledList.Item>
             </LabeledList>
           </Section>
-
-          <Section title="Laws">
+          </Stack.Item>
+          <Stack.Item grow>
+          <Section fill scrollable title="Laws">
             {(!!data.has_laws && (
               <Box>
                 {data.laws.map((value, key) => (
@@ -77,7 +74,8 @@ export const AIFixer = (props, context) => {
               </Box>
             )}
           </Section>
-
+          </Stack.Item>
+          <Stack.Item>
           <Section title="Actions">
             <LabeledList>
               <LabeledList.Item label="Wireless Activity">
@@ -111,6 +109,8 @@ export const AIFixer = (props, context) => {
               {data.active ? 'Reconstruction in progress.' : ''}
             </Box>
           </Section>
+          </Stack.Item>
+          </Stack>
         </Window.Content>
       </Window>
     );

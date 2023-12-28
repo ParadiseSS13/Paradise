@@ -3,11 +3,12 @@ import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
-  Flex,
   Button,
   Dropdown,
   Input,
   NanoMap,
+  Section,
+  Stack,
   Table,
   Tabs,
 } from '../components';
@@ -62,7 +63,8 @@ export const CrewMonitor = (props, context) => {
   return (
     <Window width={800} height={600} resizable>
       <Window.Content>
-        <Box fillPositionedParent>
+        <Stack fill vertical fillPositionedParent>
+          <Stack.Item>
           <Tabs>
             <Tabs.Tab
               key="DataView"
@@ -81,8 +83,9 @@ export const CrewMonitor = (props, context) => {
               Map View
             </Tabs.Tab>
           </Tabs>
+          </Stack.Item>
           {decideTab(tabIndex)}
-        </Box>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -97,16 +100,16 @@ const CrewMonitorDataView = (_properties, context) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
   });
   return (
-    <Box>
-      <Flex>
-        <Flex.Item width="100%" mx="5px">
+    <Section fill scrollable backgroundColor="transparent">
+      <Stack>
+        <Stack.Item width="100%" ml="5px">
           <Input
             placeholder="Search by name, assignment or location.."
             width="100%"
             onInput={(_e, value) => setSearch(value)}
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           {is_advanced ? (
             <Dropdown
               mr="5px"
@@ -116,8 +119,8 @@ const CrewMonitorDataView = (_properties, context) => {
               onSelected={(val) => act('switch_level', { new_level: val })}
             />
           ) : null}
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <Table m="0.5rem">
         <Table.Row header>
           <Table.Cell>Name</Table.Cell>
@@ -180,7 +183,7 @@ const CrewMonitorDataView = (_properties, context) => {
           </Table.Row>
         ))}
       </Table>
-    </Box>
+    </Section>
   );
 };
 

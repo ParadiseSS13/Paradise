@@ -4,7 +4,6 @@
  * @license MIT
  */
 
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   BlockQuote,
@@ -282,7 +281,7 @@ const KitchenSinkTabs = (props, context) => {
   const [tabProps, setTabProps] = useLocalState(context, 'tabProps', {});
   const TAB_RANGE = ['Tab #1', 'Tab #2', 'Tab #3', 'Tab #4'];
   return (
-    <Fragment>
+    <>
       <Section>
         <Button.Checkbox
           inline
@@ -379,7 +378,7 @@ const KitchenSinkTabs = (props, context) => {
           ))}
         </Tabs>
       </Section>
-    </Fragment>
+    </>
   );
 };
 
@@ -556,7 +555,7 @@ const KitchenSinkByondUi = (props, context) => {
     `Byond.winset('${window.__windowId__}', {\n  'is-visible': true,\n})`
   );
   return (
-    <Fragment>
+    <>
       <Section title="Button">
         <ByondUi
           params={{
@@ -599,7 +598,7 @@ const KitchenSinkByondUi = (props, context) => {
           {code}
         </Box>
       </Section>
-    </Fragment>
+    </>
   );
 };
 

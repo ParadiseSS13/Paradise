@@ -7,6 +7,7 @@ import {
   NoticeBox,
   ProgressBar,
   Section,
+  Stack
 } from '../components';
 import { Window } from '../layouts';
 
@@ -41,10 +42,12 @@ export const GravityGen = (props, context) => {
   };
 
   return (
-    <Window width={350} height={250}>
+    <Window width={350} height={170}>
       <Window.Content>
+        <Stack fill vertical>
         {radWarning(charging_state)}
         <Section
+          fill
           title="Generator Status"
           buttons={
             <Button
@@ -75,6 +78,7 @@ export const GravityGen = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );

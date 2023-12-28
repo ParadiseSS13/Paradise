@@ -3,7 +3,7 @@ import {
   Box,
   Button,
   Dropdown,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   Section,
@@ -24,11 +24,22 @@ export const BookBinder = (props, context) => {
   }
 
   return (
-    <Window width={700} height={400} resizable>
+    <Window width={600} height={400} resizable>
       <ComplexModal />
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        <Section title="Book Binder">
-          <Box fontSize="1.2rem" bold>
+      <Window.Content scrollable>
+        <Stack fill vertical>
+        <Section 
+          fill 
+          title="Book Binder"
+          buttons={
+            <Button
+            icon="print"
+            width="auto"
+            content="Print Book"
+            onClick={() => act('print_book')}
+          />
+          }>
+          <Box ml={10} fontSize="1.2rem" bold>
             <Icon
               name="search-plus"
               verticalAlign="middle"
@@ -37,8 +48,8 @@ export const BookBinder = (props, context) => {
             />
             Book Binder
           </Box>
-          <Flex>
-            <FlexItem>
+          <Stack>
+            <Stack.Item>
               <LabeledList>
                 <LabeledList.Item label="Title">
                   <Button
@@ -59,9 +70,8 @@ export const BookBinder = (props, context) => {
                   />
                 </LabeledList.Item>
                 <LabeledList.Item label="Select Categories">
-                  <Box mt={2}>
+                  <Box>
                     <Dropdown
-                      mt={0.6}
                       width="190px"
                       options={book_categories.map((c) => c.description)}
                       onSelected={(val) =>
@@ -72,6 +82,15 @@ export const BookBinder = (props, context) => {
                     />
                   </Box>
                 </LabeledList.Item>
+                <LabeledList.Item label="Summary">
+                  <Button
+                    icon="pen"
+                    width="auto"
+                    content="Edit Summary"
+                    onClick={() => modalOpen(context, 'edit_selected_summary')}
+                  />
+                </LabeledList.Item>
+                <LabeledList.Item>{selectedbook.summary}</LabeledList.Item>
               </LabeledList>
               <br />
               {book_categories
@@ -91,29 +110,10 @@ export const BookBinder = (props, context) => {
                     }
                   />
                 ))}
-            </FlexItem>
-            <FlexItem>
-              <LabeledList>
-                <LabeledList.Item label="Summary">
-                  <Button
-                    icon="pen"
-                    width="auto"
-                    content="Edit Summary"
-                    onClick={() => modalOpen(context, 'edit_selected_summary')}
-                  />
-                </LabeledList.Item>
-                <LabeledList.Item>{selectedbook.summary}</LabeledList.Item>
-              </LabeledList>
-            </FlexItem>
-          </Flex>
-          <br />
-          <Button
-            icon="print"
-            width="auto"
-            content="Print Book"
-            onClick={() => act('print_book')}
-          />
+            </Stack.Item>
+          </Stack>
         </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );

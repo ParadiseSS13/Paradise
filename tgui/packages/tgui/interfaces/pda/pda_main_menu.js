@@ -1,13 +1,10 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../../backend';
 import {
   Box,
   Button,
-  Flex,
-  Icon,
+  Stack,
   LabeledList,
-  ProgressBar,
   Section,
 } from '../../components';
 
@@ -17,7 +14,8 @@ export const pda_main_menu = (props, context) => {
   const { owner, ownjob, idInserted, categories, pai, notifying } = data;
 
   return (
-    <Fragment>
+    <Stack fill vertical>
+      <Stack.Item>
       <Box>
         <LabeledList>
           <LabeledList.Item label="Owner" color="average">
@@ -33,7 +31,9 @@ export const pda_main_menu = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       </Box>
-      <Section level={2} title="Functions">
+      </Stack.Item>
+      <Stack.Item>
+      <Section title="Functions">
         <LabeledList>
           {categories.map((name) => {
             let apps = data.apps[name];
@@ -59,8 +59,10 @@ export const pda_main_menu = (props, context) => {
           })}
         </LabeledList>
       </Section>
+      </Stack.Item>
+      <Stack.Item>
       {!!pai && (
-        <Section level={2} title="pAI">
+        <Section title="pAI">
           <Button
             fluid
             icon="cog"
@@ -75,6 +77,7 @@ export const pda_main_menu = (props, context) => {
           />
         </Section>
       )}
-    </Fragment>
+      </Stack.Item>
+    </Stack>
   );
 };

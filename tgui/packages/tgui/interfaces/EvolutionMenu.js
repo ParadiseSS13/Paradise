@@ -1,17 +1,18 @@
-import { Fragment } from 'inferno';
 import { createSearch } from 'common/string';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Section, Tabs, Input } from '../components';
+import { Box, Button, Section, Stack, Tabs, Input } from '../components';
 import { Window } from '../layouts';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 
 export const EvolutionMenu = (props, context) => {
   return (
-    <Window width={480} height={574} resizable theme="changeling">
-      <Window.Content className="Layout__content--flexColumn">
-        <EvolutionPoints />
-        <Abilities />
+    <Window width={480} height={580} resizable theme="changeling">
+      <Window.Content>
+        <Stack fill vertical>
+          <EvolutionPoints />
+          <Abilities />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -21,15 +22,16 @@ const EvolutionPoints = (props, context) => {
   const { act, data } = useBackend(context);
   const { evo_points, can_respec } = data;
   return (
+  <Stack.Item>
     <Section title="Evolution Points" height={5.5}>
-      <Flex>
-        <Flex.Item mt={0.5} color="label">
+      <Stack>
+        <Stack.Item mt={0.5} color="label">
           Points remaining:
-        </Flex.Item>
-        <Flex.Item mt={0.5} ml={2} bold color="#1b945c">
+        </Stack.Item>
+        <Stack.Item mt={0.5} ml={2} bold color="#1b945c">
           {evo_points}
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             ml={2.5}
             disabled={!can_respec}
@@ -43,9 +45,10 @@ const EvolutionPoints = (props, context) => {
             tooltipPosition="bottom"
             icon="question-circle"
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -101,11 +104,13 @@ const Abilities = (props, context) => {
   };
 
   return (
+  <Stack.Item grow>
     <Section
+      fill
+      scrollable
       title="Abilities"
-      flexGrow="1"
       buttons={
-        <Fragment>
+        <>
           <Input
             width="200px"
             placeholder="Search Abilities"
@@ -134,7 +139,7 @@ const Abilities = (props, context) => {
               })
             }
           />
-        </Fragment>
+        </>
       }
     >
       <Tabs>
@@ -150,27 +155,26 @@ const Abilities = (props, context) => {
           </Tabs.Tab>
         ))}
       </Tabs>
-
       {abilities.map((ability, i) => (
         <Box key={i} p={0.5} mx={-1} className="candystripe">
-          <Flex align="center">
-            <Flex.Item ml={0.5} color="#dedede">
+          <Stack align="center">
+            <Stack.Item ml={0.5} color="#dedede">
               {ability.name}
-            </Flex.Item>
+            </Stack.Item>
             {purchased_abilities.includes(ability.power_path) && (
-              <Flex.Item ml={2} bold color="#1b945c">
+              <Stack.Item ml={2} bold color="#1b945c">
                 (Purchased)
-              </Flex.Item>
+              </Stack.Item>
             )}
-            <Flex.Item mr={3} textAlign="right" grow={1}>
+            <Stack.Item mr={3} textAlign="right" grow={1}>
               <Box as="span" color="label">
                 Cost:{' '}
               </Box>
               <Box as="span" bold color="#1b945c">
                 {ability.cost}
               </Box>
-            </Flex.Item>
-            <Flex.Item textAlign="right">
+            </Stack.Item>
+            <Stack.Item textAlign="right">
               <Button
                 mr={0.5}
                 disabled={
@@ -184,15 +188,16 @@ const Abilities = (props, context) => {
                   })
                 }
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
           {!!view_mode && (
-            <Flex color="#8a8a8a" my={1} ml={1.5} width="95%">
+            <Stack color="#8a8a8a" my={1} ml={1.5} width="95%">
               {ability.description + ' ' + ability.helptext}
-            </Flex>
+            </Stack>
           )}
         </Box>
       ))}
     </Section>
+  </Stack.Item>
   );
 };

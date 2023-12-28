@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useSharedState } from '../backend';
 import {
   Box,
@@ -58,7 +57,7 @@ const Cyborgs = (props, context) => {
         key={cyborg.uid}
         title={cyborg.name}
         buttons={
-          <Fragment>
+          <>
             {!!cyborg.hackable && !cyborg.emagged && (
               <Button
                 icon="terminal"
@@ -93,7 +92,7 @@ const Cyborgs = (props, context) => {
                 })
               }
             />
-          </Fragment>
+          </>
         }
       >
         <LabeledList>
@@ -120,7 +119,7 @@ const Cyborgs = (props, context) => {
             />
           </LabeledList.Item>
           {(typeof cyborg.charge === 'number' && (
-            <Fragment>
+            <>
               <LabeledList.Item label="Cell Charge">
                 <ProgressBar
                   color={cyborg.charge > 30 ? 'good' : 'bad'}
@@ -132,7 +131,7 @@ const Cyborgs = (props, context) => {
                   {cyborg.cell_capacity}
                 </Box>
               </LabeledList.Item>
-            </Fragment>
+            </>
           )) || (
             <LabeledList.Item label="Cell">
               <Box color="bad">No Power Cell</Box>

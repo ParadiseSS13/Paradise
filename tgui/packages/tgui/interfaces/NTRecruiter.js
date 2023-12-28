@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, Section, Flex } from '../components';
+import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
 
@@ -20,26 +20,28 @@ export const NTRecruiter = (props, context) => {
   } = data;
   if (gamestatus === 0) {
     return (
-      <Window width={400} height={480} resizable>
+      <Window width={400} height={550} resizable>
         <Window.Content>
-          <Section fill>
-            <Flex direction="column">
-              <Flex.Item
+          <Stack fill vertical>
+            <Stack.Item grow>
+            <Section fill>
+              <Stack.Item
+                pt="45%"
                 fontSize="31px"
                 color="white"
-                pb="10px"
                 textAlign="center"
                 bold
               >
                 Nanotrasen Recruiter Simulator
-              </Flex.Item>
-              <Flex.Item fontSize="16px" textAlign="center" color="label">
+              </Stack.Item>
+              <Stack.Item pt="1%" fontSize="16px" textAlign="center" color="label">
                 Work as the Nanotrasen recruiter and avoid hiring incompetent
                 employees!
-              </Flex.Item>
-            </Flex>
+              </Stack.Item>
+              </Section>
+              </Stack.Item>
+              <Section>
             <Button
-              mt="240px"
               textAlign="center"
               lineHeight={2}
               fluid
@@ -49,7 +51,6 @@ export const NTRecruiter = (props, context) => {
               onClick={() => act('start_game')}
             />
             <Button
-              mt="10px"
               textAlign="center"
               lineHeight={2}
               fluid
@@ -58,16 +59,19 @@ export const NTRecruiter = (props, context) => {
               content="Guide"
               onClick={() => act('instructions')}
             />
-          </Section>
+            </Section>
+          </Stack>
         </Window.Content>
       </Window>
     );
   }
   if (gamestatus === 1) {
     return (
-      <Window resizable>
+      <Window width={400} height={550} resizable>
         <Window.Content>
+          <Stack fill vertical>
           <Section
+            fill
             color="grey"
             title="Guide"
             buttons={
@@ -119,15 +123,19 @@ export const NTRecruiter = (props, context) => {
               </LabeledListItem>
             </LabeledList>
           </Section>
+          </Stack>
         </Window.Content>
       </Window>
     );
   }
   if (gamestatus === 2) {
     return (
-      <Window resizable>
+      <Window width={400} height={550} resizable>
         <Window.Content>
+          <Stack fill vertical>
+            <Stack.Item grow>
           <Section
+            fill
             color="label"
             fontSize="14px"
             title="Employment Applications"
@@ -160,7 +168,11 @@ export const NTRecruiter = (props, context) => {
               </LabeledListItem>
             </LabeledList>
           </Section>
+          </Stack.Item>
+          <Stack.Item>
           <Section
+            fill
+            mb="2px"
             title="Stamp the application!"
             color="grey"
             textAlign="center"
@@ -186,30 +198,36 @@ export const NTRecruiter = (props, context) => {
               onClick={() => act('dismiss')}
             />
           </Section>
+          </Stack.Item>
+          </Stack>
         </Window.Content>
       </Window>
     );
   }
   if (gamestatus === 3) {
     return (
-      <Window resizable>
+      <Window width={400} height={550} resizable>
         <Window.Content>
-          <Section py="140px">
-            <Flex.Item color="red" fontSize="50px" textAlign="center">
+          <Stack fill vertical>
+          <Stack.Item grow>
+          <Section pt="40%" fill>
+            <Stack.Item bold color="red" fontSize="50px" textAlign="center">
               {'Game Over'}
-            </Flex.Item>
-            <Flex.Item fontSize="15px" color="label" textAlign="center">
+            </Stack.Item>
+            <Stack.Item fontSize="15px" color="label" textAlign="center">
               {reason}
-            </Flex.Item>
-            <Flex.Item
+            </Stack.Item>
+            <Stack.Item
               color="blue"
               fontSize="20px"
               textAlign="center"
               pt="10px"
             >
               FINAL SCORE: {cand_curriculum - 1}/{total_curriculums}
-            </Flex.Item>
-            <Flex.Item pt="20px">
+            </Stack.Item>
+            </Section>
+            </Stack.Item>
+            <Section>
               <Button
                 lineHeight={2}
                 fluid
@@ -217,8 +235,9 @@ export const NTRecruiter = (props, context) => {
                 content="Main Menu"
                 onClick={() => act('back_to_menu')}
               />
-            </Flex.Item>
-          </Section>
+            </Section>
+          
+          </Stack>
         </Window.Content>
       </Window>
     );

@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import {
   Button,
   Collapsible,
-  Flex,
+  Stack,
   LabeledList,
   NoticeBox,
   Section,
@@ -29,8 +29,9 @@ export const BluespaceTap = (props, context) => {
   } = data;
   const barColor = (desiredLevel > inputLevel && 'bad') || 'good';
   return (
-    <Window width={650} height={400} resizable>
+    <Window width={650} height={450} resizable>
       <Window.Content scrollable>
+        <Stack fill vertical>
         {!!emagged && (
           <NoticeBox danger={1}>Safety Protocols disabled</NoticeBox>
         )}
@@ -38,14 +39,14 @@ export const BluespaceTap = (props, context) => {
           <NoticeBox danger={1}>High Power, Instability likely</NoticeBox>
         )}
         <Collapsible title="Input Management">
-          <Section title="Input">
+          <Section fill title="Input">
             <LabeledList>
               <LabeledList.Item label="Input Level">
                 {inputLevel}
               </LabeledList.Item>
               <LabeledList.Item label="Desired Level">
-                <Flex inline width="100%">
-                  <Flex.Item>
+                <Stack inline width="100%">
+                  <Stack.Item>
                     <Button
                       icon="fast-backward"
                       disabled={desiredLevel === 0}
@@ -64,8 +65,8 @@ export const BluespaceTap = (props, context) => {
                       tooltip="Decrease one step"
                       onClick={() => act('decrease')}
                     />
-                  </Flex.Item>
-                  <Flex.Item grow={1} mx={1}>
+                  </Stack.Item>
+                  <Stack.Item grow={1} mx={1}>
                     <Slider
                       value={desiredLevel}
                       fillValue={inputLevel}
@@ -80,8 +81,8 @@ export const BluespaceTap = (props, context) => {
                         })
                       }
                     />
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button
                       icon="forward"
                       disabled={desiredLevel === maxLevel}
@@ -96,8 +97,8 @@ export const BluespaceTap = (props, context) => {
                       tooltipPosition="left"
                       onClick={() => act('set', { set_level: maxLevel })}
                     />
-                  </Flex.Item>
-                </Flex>
+                  </Stack.Item>
+                </Stack>
               </LabeledList.Item>
               <LabeledList.Item label="Current Power Use">
                 {formatPower(powerUse)}
@@ -111,9 +112,9 @@ export const BluespaceTap = (props, context) => {
             </LabeledList>
           </Section>
         </Collapsible>
-        <Section title="Output">
-          <Flex>
-            <Flex.Item>
+        <Section fill title="Output">
+          <Stack>
+            <Stack.Item>
               <Box>
                 <LabeledList>
                   <LabeledList.Item label="Available Points">
@@ -124,8 +125,8 @@ export const BluespaceTap = (props, context) => {
                   </LabeledList.Item>
                 </LabeledList>
               </Box>
-            </Flex.Item>
-            <Flex.Item align="end">
+            </Stack.Item>
+            <Stack.Item align="end">
               <Box>
                 <LabeledList>
                   {product.map((singleProduct) => (
@@ -144,9 +145,10 @@ export const BluespaceTap = (props, context) => {
                   ))}
                 </LabeledList>
               </Box>
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );

@@ -1,5 +1,4 @@
 import { createSearch } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -8,8 +7,8 @@ import {
   Input,
   LabeledList,
   Section,
+  Stack,
   Tabs,
-  Flex,
   Table,
 } from '../components';
 import {
@@ -17,7 +16,6 @@ import {
   modalOpen,
   modalRegisterBodyOverride,
 } from '../interfaces/common/ComplexModal';
-import { FlexItem } from '../components/Flex';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
@@ -48,7 +46,7 @@ const doEdit = (context, field) => {
 const virusModalBodyOverride = (modal, context) => {
   const virus = modal.args;
   return (
-    <Section level={2} m="-1rem" pb="1rem" title={virus.name || 'Virus'}>
+    <Section m="-1rem" pb="1rem" title={virus.name || 'Virus'}>
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Number of stages">
@@ -104,13 +102,15 @@ export const MedicalRecords = (_properties, context) => {
   return (
     <Window resizable>
       <ComplexModal />
-      <Window.Content className="Layout__content--flexColumn">
+      <Window.Content>
+        <Stack fill vertical>
         <LoginInfo />
         <TemporaryNotice />
         <MedicalRecordsNavigation />
-        <Section height="100%" flexGrow="1">
+        <Section fill scrollable>
           {body}
         </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -123,25 +123,27 @@ const MedicalRecordsList = (_properties, context) => {
   const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <Flex direction="column" height="100%">
-      <Flex>
-        <FlexItem>
+  <Box>
+    <Stack>
+        <Stack.Item>
           <Button
             content="Manage Records"
             icon="wrench"
             ml="0.25rem"
             onClick={() => act('screen', { screen: 3 })}
           />
-        </FlexItem>
-        <FlexItem grow="1" ml="0.5rem">
+        </Stack.Item>
+        <Stack.Item grow>
           <Input
             placeholder="Search by Name, ID, Physical Status, or Mental Status"
             width="100%"
             onInput={(e, value) => setSearchText(value)}
           />
-        </FlexItem>
-      </Flex>
-      <Section flexGrow="1" mt="0.5rem">
+        </Stack.Item>
+        </Stack>
+    <Stack fill vertical>
+      <Stack.Item grow>
+      <Section mt="0.5rem">
         <Table className="MedicalRecords__list">
           <Table.Row bold>
             <SortButton id="name">Name</SortButton>
@@ -189,14 +191,17 @@ const MedicalRecordsList = (_properties, context) => {
             ))}
         </Table>
       </Section>
-    </Flex>
+      </Stack.Item>
+      </Stack>
+    
+      </Box>
   );
 };
 
 const MedicalRecordsMaintenance = (_properties, context) => {
   const { act } = useBackend(context);
   return (
-    <Fragment>
+    <>
       <Button icon="download" content="Backup to Disk" disabled />
       <br />
       <Button
@@ -211,7 +216,7 @@ const MedicalRecordsMaintenance = (_properties, context) => {
         content="Delete All Medical Records"
         onClick={() => act('del_all_med_records')}
       />
-    </Fragment>
+    </>
   );
 };
 
@@ -219,10 +224,10 @@ const MedicalRecordsView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { medical, printing } = data;
   return (
-    <Fragment>
+    <Stack vertical>
+    <Stack.Item>
       <Section
         title="General Data"
-        level={2}
         mt="-6px"
         buttons={
           <Button
@@ -237,9 +242,10 @@ const MedicalRecordsView = (_properties, context) => {
       >
         <MedicalRecordsViewGeneral />
       </Section>
+      </Stack.Item>
+      <Stack.Item>
       <Section
         title="Medical Data"
-        level={2}
         buttons={
           <Button.Confirm
             icon="trash"
@@ -251,7 +257,8 @@ const MedicalRecordsView = (_properties, context) => {
       >
         <MedicalRecordsViewMedical />
       </Section>
-    </Fragment>
+    </Stack.Item>
+    </Stack>
   );
 };
 
@@ -262,7 +269,7 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Fragment>
+    <>
       <Box width="50%" float="left">
         <LabeledList>
           {general.fields.map((field, i) => (
@@ -303,7 +310,7 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
             </Box>
           ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -324,7 +331,7 @@ const MedicalRecordsViewMedical = (_properties, context) => {
     );
   }
   return (
-    <Fragment>
+    <>
       <LabeledList>
         {medical.fields.map((field, i) => (
           <LabeledList.Item key={i} label={field.field} prewrap>
@@ -338,9 +345,9 @@ const MedicalRecordsViewMedical = (_properties, context) => {
           </LabeledList.Item>
         ))}
       </LabeledList>
+      <Stack.Item mt={1.5}>
       <Section
         title="Comments/Log"
-        level={2}
         buttons={
           <Button
             icon="comment"
@@ -369,7 +376,8 @@ const MedicalRecordsViewMedical = (_properties, context) => {
           ))
         )}
       </Section>
-    </Fragment>
+      </Stack.Item>
+    </>
   );
 };
 
@@ -384,17 +392,15 @@ const MedicalRecordsViruses = (_properties, context) => {
     true
   );
   return (
-    <Flex direction="column" height="100%">
-      <Flex>
-        <FlexItem grow="1" ml="0.5rem">
+    <Stack fill vertical>
+        <Stack.Item grow ml="0.5rem">
           <Input
             placeholder="Search by Name, Max Stages, or Severity"
             width="100%"
             onInput={(e, value) => setSearchText(value)}
           />
-        </FlexItem>
-      </Flex>
-      <Section flexGrow="1" mt="0.5rem">
+        </Stack.Item>
+      <Section fill scrollable mt="0.5rem">
         <Table className="MedicalRecords__list">
           <Table.Row bold>
             <SortButton2 id="name">Name</SortButton2>
@@ -428,7 +434,7 @@ const MedicalRecordsViruses = (_properties, context) => {
             ))}
         </Table>
       </Section>
-    </Flex>
+    </Stack>
   );
 };
 
@@ -439,8 +445,8 @@ const MedicalRecordsMedbots = (_properties, context) => {
     return <Box color="label">There are no Medibots.</Box>;
   }
   return (
-    <Flex direction="column" height="100%">
-      <Section flexGrow="1" mt="0.5rem">
+    <Stack fill vertical>
+      <Section fill scrollable mt="0.5rem">
         <Table className="MedicalRecords__list">
           <Table.Row bold>
             <Table.Cell>Name</Table.Cell>
@@ -478,7 +484,7 @@ const MedicalRecordsMedbots = (_properties, context) => {
           ))}
         </Table>
       </Section>
-    </Flex>
+    </Stack>
   );
 };
 
@@ -544,6 +550,7 @@ const MedicalRecordsNavigation = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { screen, general } = data;
   return (
+    <Stack.Item>
     <Tabs>
       <Tabs.Tab
         icon="list"
@@ -581,6 +588,7 @@ const MedicalRecordsNavigation = (_properties, context) => {
         </Tabs.Tab>
       )}
     </Tabs>
+    </Stack.Item>
   );
 };
 

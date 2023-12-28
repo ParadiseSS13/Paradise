@@ -1,15 +1,14 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
   Button,
-  Flex,
   Icon,
   LabeledList,
   ProgressBar,
   Section,
+  Stack,
   Table,
   Tooltip,
 } from '../components';
@@ -56,10 +55,10 @@ const reduceOrganStatus = (A) => {
   return A.length > 0
     ? A.filter((s) => !!s).reduce(
         (a, s) => (
-          <Fragment>
+          <>
             {a}
             <Box key={s}>{s}</Box>
-          </Fragment>
+          </>
         ),
         null
       )
@@ -129,14 +128,14 @@ const BodyScannerMainOccupant = (props, context) => {
     <Section
       title="Occupant"
       buttons={
-        <Fragment>
+        <>
           <Button icon="print" onClick={() => act('print_p')}>
             Print Report
           </Button>
           <Button icon="user-slash" onClick={() => act('ejectify')}>
             Eject
           </Button>
-        </Fragment>
+        </>
       }
     >
       <LabeledList>
@@ -213,7 +212,7 @@ const BodyScannerMainDamage = (props) => {
     <Section title="Damage">
       <Table>
         {mapTwoByTwo(damages, (d1, d2, i) => (
-          <Fragment>
+          <>
             <Table.Row color="label">
               <Table.Cell>{d1[0]}:</Table.Cell>
               <Table.Cell>{!!d2 && d2[0] + ':'}</Table.Cell>
@@ -229,7 +228,7 @@ const BodyScannerMainDamage = (props) => {
                 {!!d2 && <BodyScannerMainDamageBar value={occupant[d2[1]]} />}
               </Table.Cell>
             </Table.Row>
-          </Fragment>
+          </>
         ))}
       </Table>
     </Section>
@@ -421,14 +420,14 @@ const BodyScannerMainOrgansInternal = (props) => {
 
 const BodyScannerEmpty = () => {
   return (
-    <Section textAlign="center" fill>
-      <Flex height="100%">
-        <Flex.Item grow="1" align="center" color="label">
+    <Section fill>
+      <Stack fill textAlign="center" >
+        <Stack.Item grow align="center" color="label">
           <Icon name="user-slash" mb="0.5rem" size="5" />
           <br />
           No occupant detected.
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

@@ -1,6 +1,6 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Box, Button, Flex, Icon, Section, Slider } from '../components';
+import { Box, Button, Icon, Section, Stack, Slider } from '../components';
 import { Window } from '../layouts';
 
 export const VolumeMixer = (properties, context) => {
@@ -8,20 +8,20 @@ export const VolumeMixer = (properties, context) => {
   const { channels } = data;
   return (
     <Window
-      width={400}
-      height={Math.min(95 + channels.length * 50, 590)}
+      width={350}
+      height={Math.min(95 + channels.length * 50, 565)}
       resizable
     >
       <Window.Content>
-        <Section height="100%" overflow="auto">
+        <Section fill scrollable>
           {channels.map((channel, key) => (
             <Fragment key={channel.num}>
               <Box fontSize="1.25rem" color="label" mt={key > 0 && '0.5rem'}>
                 {channel.name}
               </Box>
               <Box mt="0.5rem">
-                <Flex>
-                  <Flex.Item>
+                <Stack>
+                  <Stack.Item mr={0.5}>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-off"
@@ -32,8 +32,8 @@ export const VolumeMixer = (properties, context) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                  <Flex.Item grow="1" mx="1rem">
+                  </Stack.Item>
+                  <Stack.Item grow mx="0.5rem">
                     <Slider
                       minValue={0}
                       maxValue={100}
@@ -43,8 +43,8 @@ export const VolumeMixer = (properties, context) => {
                         act('volume', { channel: channel.num, volume: value })
                       }
                     />
-                  </Flex.Item>
-                  <Flex.Item>
+                  </Stack.Item>
+                  <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
                         name="volume-up"
@@ -55,8 +55,8 @@ export const VolumeMixer = (properties, context) => {
                         }
                       />
                     </Button>
-                  </Flex.Item>
-                </Flex>
+                  </Stack.Item>
+                </Stack>
               </Box>
             </Fragment>
           ))}

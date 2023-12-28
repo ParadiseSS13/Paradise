@@ -1,18 +1,16 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   Icon,
   Input,
   LabeledList,
   Section,
+  Stack,
   Table,
   Tabs,
 } from '../components';
-import { FlexItem } from '../components/Flex';
 import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
@@ -59,15 +57,17 @@ export const SecurityRecords = (properties, context) => {
   }
 
   return (
-    <Window theme="security" resizable>
+    <Window theme="security" width={800} height={800} resizable>
       <ComplexModal />
-      <Window.Content scrollable className="Layout__content--flexColumn">
+      <Window.Content>
+        <Stack fill vertical>
         <LoginInfo />
         <TemporaryNotice />
         <SecurityRecordsNavigation />
-        <Section height="100%" flexGrow="1">
+        <Section fill scrollable>
           {body}
         </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -77,6 +77,8 @@ const SecurityRecordsNavigation = (properties, context) => {
   const { act, data } = useBackend(context);
   const { currentPage, general } = data;
   return (
+  <Stack vertical mb={1}>
+   <Stack.Item>
     <Tabs>
       <Tabs.Tab
         icon="list"
@@ -91,6 +93,8 @@ const SecurityRecordsNavigation = (properties, context) => {
         </Tabs.Tab>
       )}
     </Tabs>
+   </Stack.Item>
+  </Stack>
   );
 };
 
@@ -101,9 +105,10 @@ const SecurityRecordsPageList = (properties, context) => {
   const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-    <Flex direction="column" height="100%">
+    <Stack fill vertical>
       <SecurityRecordsActions />
-      <Section flexGrow="1" mt="0.5rem">
+      <Stack.Item grow>
+      <Section>
         <Table className="SecurityRecords__list">
           <Table.Row bold>
             <SortButton id="name">Name</SortButton>
@@ -156,7 +161,8 @@ const SecurityRecordsPageList = (properties, context) => {
             ))}
         </Table>
       </Section>
-    </Flex>
+      </Stack.Item>
+      </Stack>
   );
 };
 
@@ -192,8 +198,8 @@ const SecurityRecordsActions = (properties, context) => {
   const { isPrinting } = data;
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
   return (
-    <Flex>
-      <FlexItem>
+    <Stack>
+      <Stack.Item>
         <Button
           content="New Record"
           icon="plus"
@@ -207,15 +213,15 @@ const SecurityRecordsActions = (properties, context) => {
           ml="0.25rem"
           onClick={() => modalOpen(context, 'print_cell_log')}
         />
-      </FlexItem>
-      <FlexItem grow="1" ml="0.5rem">
+      </Stack.Item>
+      <Stack.Item grow>
         <Input
           placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
           width="100%"
           onInput={(e, value) => setSearchText(value)}
         />
-      </FlexItem>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -226,13 +232,12 @@ const SecurityRecordsPageView = (properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Fragment>
+    <Stack fill vertical>
+      <Stack.Item>
       <Section
         title="General Data"
-        level={2}
-        mt="-6px"
         buttons={
-          <Fragment>
+          <>
             <Button
               disabled={isPrinting}
               icon={isPrinting ? 'spinner' : 'print'}
@@ -250,15 +255,15 @@ const SecurityRecordsPageView = (properties, context) => {
               content="Delete Record"
               onClick={() => act('delete_general')}
             />
-          </Fragment>
+          </>
         }
       >
         <SecurityRecordsViewGeneral />
       </Section>
+      </Stack.Item>
+      <Stack.Item>
       <Section
         title="Security Data"
-        level={2}
-        mt="-12px"
         buttons={
           <Button.Confirm
             icon="trash"
@@ -270,7 +275,8 @@ const SecurityRecordsPageView = (properties, context) => {
       >
         <SecurityRecordsViewSecurity />
       </Section>
-    </Fragment>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -281,7 +287,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
     return <Box color="bad">General records lost!</Box>;
   }
   return (
-    <Fragment>
+    <>
       <Box float="left">
         <LabeledList>
           {general.fields.map((field, i) => (
@@ -321,7 +327,7 @@ const SecurityRecordsViewGeneral = (_properties, context) => {
             </Box>
           ))}
       </Box>
-    </Fragment>
+    </>
   );
 };
 
@@ -343,7 +349,7 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
     );
   }
   return (
-    <Fragment>
+    <Stack vertical>
       <LabeledList>
         {security.fields.map((field, i) => (
           <LabeledList.Item key={i} label={field.field} prewrap>
@@ -361,7 +367,6 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
       </LabeledList>
       <Section
         title="Comments/Log"
-        level={2}
         buttons={
           <Button
             icon="comment"
@@ -390,6 +395,6 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
           ))
         )}
       </Section>
-    </Fragment>
+    </Stack>
   );
 };

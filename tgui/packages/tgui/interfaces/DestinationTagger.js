@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex } from '../components';
+import { Button, Section, Box, Stack } from '../components';
 import { LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
 
@@ -10,17 +10,21 @@ export const DestinationTagger = (props, context) => {
   let selected_destination = destinations[selected_destination_id - 1];
 
   return (
-    <Window width={400} height={350} resizable>
-      <Window.Content scrollable>
-        <Section title="TagMaster 3.0">
-          <LabeledListItem>
+    <Window width={355} height={330} resizable>
+      <Window.Content>
+        <Stack fill vertical>
+        <Section 
+          fill 
+          scrollable 
+          textAlign="center"
+          title="TagMaster 3.1">
+          <Box ml="30%">
             <LabeledListItem label="Selected">
               {selected_destination.name ?? 'None'}
             </LabeledListItem>
-          </LabeledListItem>
-          <br />
-          <Box>
-            <Flex
+          </Box>
+          <Box mt={1.5}>
+            <Stack
               overflowY="auto"
               wrap="wrap"
               align="center"
@@ -28,9 +32,10 @@ export const DestinationTagger = (props, context) => {
               direction="row"
             >
               {destinations.map((destination, index) => (
-                <Flex.Item key={index} m="2px">
+                <Stack.Item key={index} m="2px">
                   <Button
-                    width="115px"
+                    color="transparent"
+                    width="105px"
                     textAlign="center"
                     content={destination.name}
                     selected={destination.id === selected_destination_id}
@@ -40,11 +45,12 @@ export const DestinationTagger = (props, context) => {
                       })
                     }
                   />
-                </Flex.Item>
+                </Stack.Item>
               ))}
-            </Flex>
+            </Stack>
           </Box>
         </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );

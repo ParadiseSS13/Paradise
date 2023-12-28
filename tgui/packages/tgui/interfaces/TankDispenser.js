@@ -12,8 +12,9 @@ export const TankDispenser = (props, context) => {
   const { act, data } = useBackend(context);
   const { o_tanks, p_tanks } = data;
   return (
-    <Window width={250} height={90}>
+    <Window width={250} height={105}>
       <Window.Content>
+        <Section>
         <Box>
           <Button
             fluid
@@ -25,6 +26,7 @@ export const TankDispenser = (props, context) => {
         </Box>
         <Box>
           <Button
+            mt={1}
             fluid
             content={'Dispense Plasma Tank (' + p_tanks + ')'}
             disabled={p_tanks === 0}
@@ -32,6 +34,7 @@ export const TankDispenser = (props, context) => {
             onClick={() => act('plasma')}
           />
         </Box>
+        </Section>
       </Window.Content>
     </Window>
   );

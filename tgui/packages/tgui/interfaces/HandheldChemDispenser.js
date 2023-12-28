@@ -1,12 +1,10 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
-  Box,
   Button,
-  Flex,
   LabeledList,
   ProgressBar,
   Section,
+  Stack
 } from '../components';
 import { Window } from '../layouts';
 
@@ -15,10 +13,12 @@ const removeAmounts = [1, 5, 10];
 
 export const HandheldChemDispenser = (props, context) => {
   return (
-    <Window width={390} height={500} resizable>
-      <Window.Content className="Layout__content--flexColumn">
-        <HandheldChemDispenserSettings />
-        <HandheldChemDispenserChemicals />
+    <Window width={390} height={430} resizable>
+      <Window.Content>
+        <Stack fill vertical>
+         <HandheldChemDispenserSettings />
+          <HandheldChemDispenserChemicals />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -28,7 +28,8 @@ const HandheldChemDispenserSettings = (properties, context) => {
   const { act, data } = useBackend(context);
   const { amount, energy, maxEnergy, mode } = data;
   return (
-    <Section title="Settings" flex="content">
+  <Stack.Item>
+    <Section title="Settings">
       <LabeledList>
         <LabeledList.Item label="Energy">
           <ProgressBar
@@ -45,27 +46,26 @@ const HandheldChemDispenserSettings = (properties, context) => {
           </ProgressBar>
         </LabeledList.Item>
         <LabeledList.Item label="Amount" verticalAlign="middle">
-          <Flex direction="row" spacing="1">
+          <Stack>
             {dispenseAmounts.map((a, i) => (
-              <Flex.Item key={i} grow="1" width="14%" display="inline-block">
+              <Stack.Item key={i} grow width="15%">
                 <Button
+                  fluid
                   icon="cog"
                   selected={amount === a}
                   content={a}
-                  m="0"
-                  width="100%"
                   onClick={() =>
                     act('amount', {
                       amount: a,
                     })
                   }
                 />
-              </Flex.Item>
+              </Stack.Item>
             ))}
-          </Flex>
+          </Stack>
         </LabeledList.Item>
         <LabeledList.Item label="Mode" verticalAlign="middle">
-          <Flex direction="row" justify="space-between">
+          <Stack justify="space-between">
             <Button
               icon="cog"
               selected={mode === 'dispense'}
@@ -102,10 +102,11 @@ const HandheldChemDispenserSettings = (properties, context) => {
                 })
               }
             />
-          </Flex>
+          </Stack>
         </LabeledList.Item>
       </LabeledList>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -117,42 +118,30 @@ const HandheldChemDispenserChemicals = (properties, context) => {
     flexFillers.push(true);
   }
   return (
-    <Section
-      title={data.glass ? 'Drink Selector' : 'Chemical Selector'}
-    >
-      <Flex
-        direction="row"
-        wrap="wrap"
-        height="100%"
-      >
+  <Stack.Item grow height="18%">
+    <Section fill title={data.glass ? 'Drink Selector' : 'Chemical Selector'}>
         {chemicals.map((c, i) => (
-          <Flex.Item
-            key={i}
-            basis="25%"
-            height="20px"
-            style={{'margin-bottom': '2px'}}
-          >
             <Button
+              key={i}
+              width="32%"
               icon="arrow-circle-down"
               overflow="hidden"
               textOverflow="ellipsis"
               selected={current_reagent === c.id}
-              width="100%"
-              height="100%"
-              align="flex-start"
               content={c.title}
+              style={{'margin-left': '2px'}}
               onClick={() =>
                 act('dispense', {
                   reagent: c.id,
                 })
               }
             />
-          </Flex.Item>
+          
         ))}
         {flexFillers.map((_, i) => (
-          <Flex.Item key={i} grow="1" basis="25%" height="20px" />
+          <Stack.Item key={i} grow="1" basis="25%"/>
         ))}
-      </Flex>
     </Section>
+  </Stack.Item>
   );
 };

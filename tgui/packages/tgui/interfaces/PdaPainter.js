@@ -1,12 +1,12 @@
 import { useBackend } from '../backend';
-import { Button, Flex, Icon, Section, Table } from '../components';
+import { Button, Icon, Section, Table, Stack } from '../components';
 import { Window } from '../layouts';
 
 export const PdaPainter = (props, context) => {
   const { data } = useBackend(context);
   const { has_pda } = data;
   return (
-    <Window width={510} height={508}>
+    <Window width={510} height={505}>
       <Window.Content>{!has_pda ? <PdaInsert /> : <PdaMenu />}</Window.Content>
     </Window>
   );
@@ -15,11 +15,11 @@ export const PdaPainter = (props, context) => {
 const PdaInsert = (props, context) => {
   const { act } = useBackend(context);
   return (
-    <Section height="100%" fill>
-      <Flex height="100%" align="center" justify="center">
-        <Flex.Item
+    <Section fill>
+      <Stack fill>
+        <Stack.Item
           bold
-          grow="1"
+          grow
           textAlign="center"
           align="center"
           color="silver"
@@ -32,8 +32,8 @@ const PdaInsert = (props, context) => {
             content="Insert PDA"
             onClick={() => act('insert_pda')}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -42,13 +42,12 @@ const PdaMenu = (props, context) => {
   const { act, data } = useBackend(context);
   const { pda_colors } = data;
   return (
-    <Flex height="100%">
-      <Flex.Item width="180px" mr="3px">
+    <Stack fill horizontal>
+      <Stack.Item>
         <PdaImage />
-      </Flex.Item>
-      <Flex.Item width="65%" mr="3px">
-        <Flex direction="column" height="100%" flex="1">
-          <Section height="100%" flexGrow="1">
+      </Stack.Item>
+      <Stack.Item grow>
+          <Section fill scrollable>
             <Table className="PdaPainter__list">
               {Object.keys(pda_colors).map((sprite_name) => (
                 <Table.Row
@@ -74,9 +73,8 @@ const PdaMenu = (props, context) => {
               ))}
             </Table>
           </Section>
-        </Flex>
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -84,7 +82,7 @@ const PdaImage = (props, context) => {
   const { act, data } = useBackend(context);
   const { current_appearance, preview_appearance } = data;
   return (
-    <Flex.Item>
+    <Stack.Item>
       <Section title="Current PDA">
         <img
           src={`data:image/jpeg;base64,${current_appearance}`}
@@ -124,6 +122,6 @@ const PdaImage = (props, context) => {
           }}
         />
       </Section>
-    </Flex.Item>
+    </Stack.Item>
   );
 };

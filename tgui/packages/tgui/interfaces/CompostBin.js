@@ -3,12 +3,9 @@ import {
   Button,
   Section,
   Box,
-  Flex,
-  Icon,
-  Collapsible,
+  Stack,
   NumberInput,
   ProgressBar,
-  Dimmer,
   LabeledList,
 } from '../components';
 import { Window } from '../layouts';
@@ -20,13 +17,16 @@ export const CompostBin = (props, context) => {
   let [vendAmount, setVendAmount] = useSharedState(context, 'vendAmount', 1);
 
   return (
-    <Window width={390} height={200}>
+    <Window width={300} height={175}>
       <Window.Content>
+        <Stack fill vertical>
         <Section label="Resources">
-          <Flex>
+          <Stack>
             <LabeledList>
               <LabeledList.Item label="Biomass">
                 <ProgressBar
+                  ml={1}
+                  width={17}
                   value={biomass}
                   minValue={0}
                   maxValue={biomass_capacity}
@@ -40,11 +40,14 @@ export const CompostBin = (props, context) => {
                 </ProgressBar>
               </LabeledList.Item>
             </LabeledList>
-          </Flex>
-          <Flex>
+          </Stack>
+          <Stack>
             <LabeledList>
               <LabeledList.Item label="Compost">
                 <ProgressBar
+                  ml={0.5}
+                  mt={1}
+                  width={17}
                   value={compost}
                   minValue={0}
                   maxValue={compost_capacity}
@@ -58,10 +61,12 @@ export const CompostBin = (props, context) => {
                 </ProgressBar>
               </LabeledList.Item>
             </LabeledList>
-          </Flex>
+          </Stack>
         </Section>
-        <Section title="Controls">
-          <Flex>
+        <Section 
+          title="Controls"
+          buttons={
+          <>
             <Box inline mr="5px" color="silver">
               Soil clumps to make:
             </Box>
@@ -74,10 +79,12 @@ export const CompostBin = (props, context) => {
               stepPixelSize={7}
               onChange={(e, value) => setVendAmount(value)}
             />
-          </Flex>
-          <Flex.Item mr="5px" textAlign="right" width="0%">
+            </>
+          }>
+          <Stack.Item>
             <Button
-              align="right"
+              fluid
+              align="center"
               content="Make Soil"
               disabled={compost < 25 * vendAmount}
               icon="arrow-circle-down"
@@ -87,8 +94,9 @@ export const CompostBin = (props, context) => {
                 })
               }
             />
-          </Flex.Item>
+          </Stack.Item>
         </Section>
+        </Stack>
       </Window.Content>
     </Window>
   );

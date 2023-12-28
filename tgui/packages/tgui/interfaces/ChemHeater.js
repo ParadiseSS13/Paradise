@@ -1,5 +1,4 @@
 import { round, toFixed } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
@@ -8,6 +7,7 @@ import {
   LabeledList,
   NumberInput,
   Section,
+  Stack
 } from '../components';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';
@@ -16,8 +16,10 @@ export const ChemHeater = (_props, _context) => {
   return (
     <Window width={350} height={275} resizable>
       <Window.Content>
-        <ChemHeaterSettings />
-        <ChemHeaterBeaker />
+        <Stack fill vertical>
+          <ChemHeaterSettings />
+          <ChemHeaterBeaker />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -34,11 +36,12 @@ const ChemHeaterSettings = (_properties, context) => {
     isBeakerLoaded,
   } = data;
   return (
+  <Stack.Item>
     <Section
+      fill
       title="Settings"
-      flexBasis="content"
       buttons={
-        <Fragment>
+        <>
           <Button
             content="Auto-eject"
             icon={autoEject ? 'toggle-on' : 'toggle-off'}
@@ -52,7 +55,7 @@ const ChemHeaterSettings = (_properties, context) => {
             disabled={!isBeakerLoaded}
             onClick={() => act('toggle_on')}
           />
-        </Fragment>
+        </>
       }
     >
       <LabeledList>
@@ -86,6 +89,7 @@ const ChemHeaterSettings = (_properties, context) => {
         </LabeledList.Item>
       </LabeledList>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -98,11 +102,11 @@ const ChemHeaterBeaker = (_properties, context) => {
     beakerContents,
   } = data;
   return (
+  <Stack.Item grow>
     <Section
       title="Beaker"
       fill
       scrollable
-      height="60%"
       buttons={
         !!isBeakerLoaded && (
           <Box>
@@ -123,5 +127,6 @@ const ChemHeaterBeaker = (_properties, context) => {
         beakerContents={beakerContents}
       />
     </Section>
+  </Stack.Item>
   );
 };

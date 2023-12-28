@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, Section, Box, Flex } from '../components';
+import { Button, Section, Box, Stack } from '../components';
 import { LabeledList, LabeledListItem } from '../components/LabeledList';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
@@ -13,7 +13,7 @@ export const PrisonerImplantManager = (props, context) => {
   let body;
   if (!loginState.logged_in) {
     return (
-      <Window theme="security" resizable>
+      <Window theme="security" width={500} height={850} resizable>
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -24,11 +24,13 @@ export const PrisonerImplantManager = (props, context) => {
   let injectionAmount = [1, 5, 10]; // used for auto generating chemical implant inject buttons
 
   return (
-    <Window theme="security" width={500} height={500} resizable>
+    <Window theme="security" width={500} height={850} resizable>
       <ComplexModal />
       <Window.Content>
+        <Stack fill vertical>
         <LoginInfo />
-        <Section title="Prisoner Points Manager System">
+        <Stack.Item grow>
+        <Section fill scrollable title="Prisoner Points Manager System">
           <LabeledList>
             <LabeledListItem label="Prisoner">
               <Button
@@ -77,11 +79,14 @@ export const PrisonerImplantManager = (props, context) => {
             </LabeledListItem>
           </LabeledList>
         </Section>
-        <Section title="Tracking Implants">
+        </Stack.Item>
+        <Stack.Item grow>
+        <Section fill scrollable title="Tracking Implants">
           {trackingInfo.map((implant) => (
             <>
+            <Box p={1} backgroundColor={'rgba(255, 255, 255, 0.05)'}>
               <Box bold>Subject: {implant.subject}</Box>
-              <Box key={implant.subject}>
+              <Box key={implant.subject}> <br/>
                 <LabeledList>
                   <LabeledListItem label="Location">
                     {implant.location}
@@ -102,16 +107,20 @@ export const PrisonerImplantManager = (props, context) => {
                     />
                   </LabeledListItem>
                 </LabeledList>
+                </Box>
               </Box>
               <br />
             </>
           ))}
         </Section>
-        <Section title="Chemical Implants">
+        </Stack.Item>
+        <Stack.Item grow>
+        <Section fill scrollable title="Chemical Implants">
           {chemicalInfo.map((implant) => (
             <>
+            <Box p={1} backgroundColor={'rgba(255, 255, 255, 0.05)'}>
               <Box bold>Subject: {implant.name}</Box>
-              <Box key={implant.name}>
+              <Box key={implant.name}> <br/>
                 <LabeledList>
                   <LabeledListItem label="Remaining Reagents">
                     {implant.volume}
@@ -133,10 +142,13 @@ export const PrisonerImplantManager = (props, context) => {
                   />
                 ))}
               </Box>
+              </Box>
               <br />
             </>
           ))}
         </Section>
+        </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

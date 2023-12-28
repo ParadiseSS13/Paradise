@@ -16,7 +16,7 @@ export const HealthSensor = (props, context) => {
   const { on, user_health, minHealth, maxHealth, alarm_health } = data;
 
   return (
-    <Window width={300} height={130}>
+    <Window width={300} height={125}>
       <Window.Content>
         <Section>
           <LabeledList>

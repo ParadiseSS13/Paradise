@@ -1,5 +1,4 @@
 import { toFixed } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
@@ -143,7 +142,7 @@ export const Canister = (props, context) => {
   }
 
   return (
-    <Window width={600} height={320}>
+    <Window width={600} height={canLabel ? 300 : 230}>
       <Window.Content>
         <Section
           title={name}

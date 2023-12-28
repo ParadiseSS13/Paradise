@@ -1,6 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, Table, Tabs } from '../components';
-import { Flex, FlexItem } from '../components/Flex';
+import { Box, Button, Section, Table, Tabs, Stack } from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props, context) => {
@@ -66,40 +65,46 @@ export const MerchVendor = (props, context) => {
   const { user_cash, inserted_cash } = data;
 
   return (
-    <Window title="Merch Computer" width={450} height={590} resizable>
+    <Window title="Merch Computer" width={450} height={600} resizable>
       <Window.Content scrollable>
-        <Section title="User">
-          <Box m={2}>
+        <Stack fill vertical>
+          <Stack.Item>
+        <Section 
+          title="User"
+          buttons={
+            <>
+        <Box color="light-grey" display="inline" mr="0.5rem">
+        There is <b>{inserted_cash}</b> credits inserted.
+      </Box>
+      <Button
+      disabled={!inserted_cash}
+      icon="money-bill-wave-alt"
+      content="Dispense Change"
+      textAlign="left"
+      onClick={() => act('change')}
+    /></>
+          }>
+          <Stack.Item>
             Doing your job and not getting any recognition at work? Well,
             welcome to the merch shop! Here, you can buy cool things in exchange
             for money you earn when you have completed your Job Objectives.
-          </Box>
+          
           {user_cash !== null && (
-            <Box>
+            <Box mt="0.5rem">
               Your balance is <b>{user_cash ? user_cash : 0} credits</b>.
             </Box>
-          )}
-          <Flex>
-            <FlexItem width="50%">
-              <Box color="light-grey">
-                There is <b>{inserted_cash}</b> credits inserted.
-              </Box>
-            </FlexItem>
-            <FlexItem width="50%">
-              <Button
-                disabled={!inserted_cash}
-                icon="money-bill-wave-alt"
-                content="Dispense Change"
-                textAlign="left"
-                onClick={() => act('change')}
-              />
-            </FlexItem>
-          </Flex>
+            
+          )} 
+          </Stack.Item>
         </Section>
-        <Section title="Products">
+        </Stack.Item>
+        <Stack.Item grow>
+        <Section fill scrollable title="Products">
           <MerchVendorNavigation />
           <MerchProducts />
         </Section>
+        </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

@@ -1,34 +1,31 @@
 import { flow } from 'common/fp';
-import { Fragment } from 'inferno';
 import { filter, sortBy } from 'common/collections';
 import { useBackend, useSharedState, useLocalState } from '../backend';
 import {
   Button,
   LabeledList,
   Box,
-  AnimatedNumber,
   Section,
   Dropdown,
   Input,
   Table,
   Modal,
-  Icon,
-  Flex,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
-import { LabeledListItem } from '../components/LabeledList';
-import { createSearch, toTitleCase } from 'common/string';
-import { FlexItem } from '../components/Flex';
+import { createSearch } from 'common/string';
 
 export const CargoConsole = (props, context) => {
   return (
     <Window width={900} height={800}>
       <Window.Content>
-        <ContentsModal />
-        <StatusPane />
-        <PaymentPane />
-        <CataloguePane />
-        <DetailsPane />
+        <Stack fill vertical>
+          <ContentsModal />
+          <StatusPane />
+          <PaymentPane />
+          <CataloguePane />
+          <DetailsPane />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -103,6 +100,7 @@ const StatusPane = (_properties, context) => {
   }
 
   return (
+  <Stack.Item>
     <Section title="Status">
       <LabeledList>
         <LabeledList.Item label="Shuttle Status">{statusText}</LabeledList.Item>
@@ -121,6 +119,7 @@ const StatusPane = (_properties, context) => {
         )}
       </LabeledList>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -136,9 +135,9 @@ const PaymentPane = (properties, context) => {
   accounts.map((account) => (accountMap[account.name] = account.account_UID));
 
   return (
+  <Stack.Item>
     <Section title="Payment">
       <Dropdown
-        mt={0.6}
         width="190px"
         options={accounts.map((account) => account.name)}
         selected={
@@ -153,14 +152,19 @@ const PaymentPane = (properties, context) => {
         .map((account) => (
           <LabeledList key={account.account_UID}>
             <LabeledList.Item label="Account Name">
+              <Stack.Item mt={1}>
               {account.name}
+              </Stack.Item>
             </LabeledList.Item>
             <LabeledList.Item label="Balance">
+              <Stack.Item>
               {account.balance}
+              </Stack.Item>
             </LabeledList.Item>
           </LabeledList>
         ))}
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -215,6 +219,7 @@ const CataloguePane = (_properties, context) => {
     titleText = 'Browsing ' + category;
   }
   return (
+  <Stack.Item>
     <Section
       title={titleText}
       buttons={
@@ -278,6 +283,7 @@ const CataloguePane = (_properties, context) => {
         </Table>
       </Box>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -323,20 +329,20 @@ const GetRequestNotice = (_properties, context) => {
   }
 
   return (
-    <Flex>
-      <FlexItem mr={1}>Approval Required:</FlexItem>
+    <Stack fill>
+      <Stack.Item mt={0.5}>Approval Required:</Stack.Item>
       {Boolean(request.req_cargo_approval) && (
-        <FlexItem mr={1}>
+        <Stack.Item>
           <Button
             color="brown"
             content="QM"
             icon="user-tie"
             tooltip="This Order requires approval from the QM still"
           />
-        </FlexItem>
+        </Stack.Item>
       )}
       {Boolean(request.req_head_approval) && (
-        <FlexItem>
+        <Stack.Item>
           <Button
             color={head_color}
             content={head_name}
@@ -348,9 +354,9 @@ const GetRequestNotice = (_properties, context) => {
                 : `This Order requires approval from the ${head_name} still`
             }
           />
-        </FlexItem>
+        </Stack.Item>
       )}
-    </Flex>
+    </Stack>
   );
 };
 
@@ -358,10 +364,9 @@ const DetailsPane = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { requests, orders, shipments } = data;
   return (
-    <Section title="Orders">
-      <Box maxHeight={15} overflowY="auto" overflowX="hidden">
+    <Section fill scrollable title="Orders">
         <Box bold>Requests</Box>
-        <Table m="0.5rem">
+        <Table>
           {requests.map((r) => (
             <Table.Row key={r.ordernum} className="Cargo_RequestList">
               <Table.Cell mb={1}>
@@ -376,7 +381,7 @@ const DetailsPane = (_properties, context) => {
                 <Box italic>Reason: {r.comment}</Box>
                 <GetRequestNotice request={r} />
               </Table.Cell>
-              <Table.Cell textAlign="right" pr={1}>
+              <Stack.Item textAlign="right">
                 <Button
                   content="Approve"
                   color="green"
@@ -397,7 +402,7 @@ const DetailsPane = (_properties, context) => {
                     })
                   }
                 />
-              </Table.Cell>
+              </Stack.Item>
             </Table.Row>
           ))}
         </Table>
@@ -427,7 +432,6 @@ const DetailsPane = (_properties, context) => {
             </Table.Row>
           ))}
         </Table>
-      </Box>
     </Section>
   );
 };

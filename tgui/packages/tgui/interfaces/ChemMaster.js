@@ -1,13 +1,13 @@
-import { Component, Fragment } from 'inferno';
+import { Component } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
   Icon,
   Input,
   LabeledList,
   Section,
+  Stack,
   Slider,
   Tabs,
 } from '../components';
@@ -29,12 +29,8 @@ const analyzeModalBodyOverride = (modal, context) => {
   const { act, data } = useBackend(context);
   const result = modal.args.analysis;
   return (
-    <Section
-      level={2}
-      m="-1rem"
-      pb="1rem"
-      title={data.condi ? 'Condiment Analysis' : 'Reagent Analysis'}
-    >
+  <Stack.Item>
+    <Section title={data.condi ? 'Condiment Analysis' : 'Reagent Analysis'}>
       <Box mx="0.5rem">
         <LabeledList>
           <LabeledList.Item label="Name">{result.name}</LabeledList.Item>
@@ -42,7 +38,7 @@ const analyzeModalBodyOverride = (modal, context) => {
             {(result.desc || '').length > 0 ? result.desc : 'N/A'}
           </LabeledList.Item>
           {result.blood_type && (
-            <Fragment>
+            <>
               <LabeledList.Item label="Blood type">
                 {result.blood_type}
               </LabeledList.Item>
@@ -52,7 +48,7 @@ const analyzeModalBodyOverride = (modal, context) => {
               >
                 {result.blood_dna}
               </LabeledList.Item>
-            </Fragment>
+            </>
           )}
           {!data.condi && (
             <Button
@@ -72,6 +68,7 @@ const analyzeModalBodyOverride = (modal, context) => {
         </LabeledList>
       </Box>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -85,20 +82,22 @@ export const ChemMaster = (props, context) => {
     mode,
   } = data;
   return (
-    <Window width={575} height={555} resizable>
+    <Window width={575} height={650} resizable>
       <ComplexModal />
-      <Window.Content scrollable className="Layout__content--flexColumn">
-        <ChemMasterBeaker
-          beaker={beaker}
-          beakerReagents={beaker_reagents}
-          bufferNonEmpty={buffer_reagents.length > 0}
-        />
-        <ChemMasterBuffer mode={mode} bufferReagents={buffer_reagents} />
-        <ChemMasterProduction
-          isCondiment={condi}
-          bufferNonEmpty={buffer_reagents.length > 0}
-        />
-        <ChemMasterCustomization />
+      <Window.Content>
+        <Stack fill vertical>
+         <ChemMasterBeaker
+            beaker={beaker}
+            beakerReagents={beaker_reagents}
+            bufferNonEmpty={buffer_reagents.length > 0}
+         />
+          <ChemMasterBuffer mode={mode} bufferReagents={buffer_reagents} />
+          <ChemMasterProduction
+            isCondiment={condi}
+            bufferNonEmpty={buffer_reagents.length > 0}
+         />
+          <ChemMasterCustomization />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -108,10 +107,11 @@ const ChemMasterBeaker = (props, context) => {
   const { act } = useBackend(context);
   const { beaker, beakerReagents, bufferNonEmpty } = props;
   return (
+  <Stack.Item grow>
     <Section
       title="Beaker"
-      flexGrow="1"
-      minHeight="100px"
+      fill
+      scrollable
       buttons={
         bufferNonEmpty ? (
           <Button.Confirm
@@ -185,6 +185,7 @@ const ChemMasterBeaker = (props, context) => {
         <Box color="label">No beaker loaded.</Box>
       )}
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -192,10 +193,11 @@ const ChemMasterBuffer = (props, context) => {
   const { act } = useBackend(context);
   const { mode, bufferReagents = [] } = props;
   return (
+  <Stack.Item grow>
     <Section
       title="Buffer"
-      flexGrow="1"
-      minHeight="100px"
+      fill
+      scrollable
       buttons={
         <Box color="label">
           Transferring to&nbsp;
@@ -263,6 +265,7 @@ const ChemMasterBuffer = (props, context) => {
         <Box color="label">Buffer is empty.</Box>
       )}
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -270,32 +273,30 @@ const ChemMasterProduction = (props, context) => {
   const { act } = useBackend(context);
   if (!props.bufferNonEmpty && props.isCondiment) {
     return (
+    <Stack.Item>
       <Section title="Production">
-        <Flex
-          height="100%"
-          style={{
-            'padding-top': '20px',
-            'padding-bottom': '20px',
-          }}
-        >
-          <Flex.Item grow="1" align="center" textAlign="center" color="label">
+        <Stack fill>
+          <Stack.Item grow align="center" textAlign="center" color="label">
             <Icon name="tint-slash" mb="0.5rem" size="5" />
             <br />
             Buffer is empty.
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </Section>
+    </Stack.Item>
     );
   }
 
   return (
-    <Section title="Production">
+  <Stack.Item grow height="16%">
+    <Section fill scrollable title="Production">
       {!props.isCondiment ? (
         <ChemMasterProductionChemical />
       ) : (
         <ChemMasterProductionCondiment />
       )}
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -452,6 +453,7 @@ const ChemMasterProductionPills = (props, context) => {
     <SpriteStyleButton
       key={id}
       icon={sprite}
+      color="transparent"
       onClick={() => act('set_pills_style', { style: id })}
       selected={pillsprite === id}
     />
@@ -497,6 +499,7 @@ const ChemMasterProductionBottles = (props, context) => {
     <SpriteStyleButton
       key={id}
       icon={sprite}
+      color="transparent"
       onClick={() => act('set_bottles_style', { style: id })}
       selected={bottlesprite === id}
     />
@@ -517,7 +520,7 @@ const ChemMasterProductionBottles = (props, context) => {
 const ChemMasterProductionCondiment = (props, context) => {
   const { act } = useBackend(context);
   return (
-    <Fragment>
+    <>
       <Button
         icon="box"
         content="Create condiment pack (10u max)"
@@ -531,7 +534,7 @@ const ChemMasterProductionCondiment = (props, context) => {
         mb="0"
         onClick={() => act('create_condi_bottle')}
       />
-    </Fragment>
+    </>
   );
 };
 
@@ -582,7 +585,9 @@ const ChemMasterCustomization = (props, context) => {
     );
   });
   return (
+  <Stack.Item>
     <Section
+      fill
       title="Container Customization"
       buttons={
         <Button
@@ -614,6 +619,7 @@ const ChemMasterCustomization = (props, context) => {
         </LabeledList>
       )}
     </Section>
+  </Stack.Item>
   );
 };
 

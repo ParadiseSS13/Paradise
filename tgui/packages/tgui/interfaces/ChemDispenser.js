@@ -1,9 +1,8 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   LabeledList,
   ProgressBar,
   Section,
@@ -16,11 +15,13 @@ const removeAmounts = [1, 5, 10];
 
 export const ChemDispenser = (props, context) => {
   return (
-    <Window width={390} height={650} resizable>
-      <Window.Content className="Layout__content--flexColumn">
-        <ChemDispenserSettings />
-        <ChemDispenserChemicals />
-        <ChemDispenserBeaker />
+    <Window width={400} height={600} resizable>
+      <Window.Content>
+        <Stack fill vertical>
+          <ChemDispenserSettings />
+          <ChemDispenserChemicals />
+          <ChemDispenserBeaker />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -30,7 +31,8 @@ const ChemDispenserSettings = (properties, context) => {
   const { act, data } = useBackend(context);
   const { amount, energy, maxEnergy } = data;
   return (
-    <Section title="Settings" flex="content">
+  <Stack.Item>
+    <Section title="Settings">
       <LabeledList>
         <LabeledList.Item label="Energy">
           <ProgressBar
@@ -47,27 +49,27 @@ const ChemDispenserSettings = (properties, context) => {
           </ProgressBar>
         </LabeledList.Item>
         <LabeledList.Item label="Dispense" verticalAlign="middle">
-          <Flex direction="row" spacing="1">
+          <Stack>
             {dispenseAmounts.map((a, i) => (
-              <Flex.Item key={i} grow="1" width="14%" display="inline-block">
+              <Stack.Item key={i} grow width="15%">
                 <Button
+                  fluid
                   icon="cog"
                   selected={amount === a}
                   content={a}
-                  m="0"
-                  width="100%"
                   onClick={() =>
                     act('amount', {
                       amount: a,
                     })
                   }
                 />
-              </Flex.Item>
+              </Stack.Item>
             ))}
-          </Flex>
+          </Stack>
         </LabeledList.Item>
       </LabeledList>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -79,40 +81,29 @@ const ChemDispenserChemicals = (properties, context) => {
     flexFillers.push(true);
   }
   return (
-    <Section title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}>
-      <Flex
-        direction="row"
-        wrap="wrap"
-        height="100%"
-      >
+  <Stack.Item grow height="18%">
+    <Section fill scrollable title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}>
         {chemicals.map((c, i) => (
-          <Flex.Item
-            key={i}
-            basis="25%"
-            height="20px"
-            style={{'margin-bottom': '2px'}}
-          >
             <Button
+              key={i}
+              width="32%"
               icon="arrow-circle-down"
               overflow="hidden"
               textOverflow="ellipsis"
-              width="100%"
-              height="100%"
-              align="flex-start"
               content={c.title}
+              style={{'margin-left': '2px'}}
               onClick={() =>
                 act('dispense', {
                   reagent: c.id,
                 })
               }
             />
-          </Flex.Item>
         ))}
         {flexFillers.map((_, i) => (
-          <Flex.Item key={i} grow="1" basis="25%" height="20px" />
+          <Stack.Item key={i} grow basis="25%"/>
         ))}
-      </Flex>
     </Section>
+  </Stack.Item>
   );
 };
 
@@ -125,11 +116,11 @@ const ChemDispenserBeaker = (properties, context) => {
     beakerContents = [],
   } = data;
   return (
+  <Stack.Item grow>
     <Section
       title={data.glass ? 'Glass' : 'Beaker'}
       fill
       scrollable
-      height={25}
       buttons={
         <Box>
           {!!isBeakerLoaded && (
@@ -150,7 +141,7 @@ const ChemDispenserBeaker = (properties, context) => {
         beakerLoaded={isBeakerLoaded}
         beakerContents={beakerContents}
         buttons={(chemical) => (
-          <Fragment>
+          <>
             <Button
               content="Isolate"
               icon="compress-arrows-alt"
@@ -182,9 +173,10 @@ const ChemDispenserBeaker = (properties, context) => {
                 })
               }
             />
-          </Fragment>
+          </>
         )}
       />
     </Section>
+  </Stack.Item>
   );
 };

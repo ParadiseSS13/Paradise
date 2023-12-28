@@ -1,11 +1,10 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import {
   Box,
   Button,
-  Flex,
+  Stack,
   Icon,
   Knob,
   LabeledList,
@@ -58,6 +57,8 @@ export const OperatingComputer = (props, context) => {
   return (
     <Window width={650} height={455} resizable>
       <Window.Content>
+        <Stack fill vertical>
+        <Stack.Item>
         <Tabs>
           <Tabs.Tab
             selected={!choice}
@@ -74,7 +75,11 @@ export const OperatingComputer = (props, context) => {
             Options
           </Tabs.Tab>
         </Tabs>
-        <Section>{body}</Section>
+        </Stack.Item>
+        <Stack.Item grow>
+        <Section fill scrollable>{body}</Section>
+        </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -84,8 +89,9 @@ const OperatingComputerPatient = (props, context) => {
   const { data } = useBackend(context);
   const { occupant } = data;
   return (
-    <Fragment>
-      <Section title="Patient" level="2">
+    <Stack fill vertical>
+    <Stack.Item grow>
+      <Section fill title="Patient">
         <LabeledList>
           <LabeledList.Item label="Name">{occupant.name}</LabeledList.Item>
           <LabeledList.Item label="Status" color={stats[occupant.stat][0]}>
@@ -127,7 +133,7 @@ const OperatingComputerPatient = (props, context) => {
             </ProgressBar>
           </LabeledList.Item>
           {!!occupant.hasBlood && (
-            <Fragment>
+            <>
               <LabeledList.Item label="Blood Level">
                 <ProgressBar
                   min="0"
@@ -145,10 +151,12 @@ const OperatingComputerPatient = (props, context) => {
               <LabeledList.Item label="Pulse">
                 {occupant.pulse} BPM
               </LabeledList.Item>
-            </Fragment>
+            </>
           )}
         </LabeledList>
       </Section>
+      </Stack.Item>
+      <Stack.Item>
       <Section title="Current Procedure" level="2">
         {occupant.inSurgery ? (
           <LabeledList>
@@ -163,19 +171,20 @@ const OperatingComputerPatient = (props, context) => {
           <Box color="label">No procedure ongoing.</Box>
         )}
       </Section>
-    </Fragment>
+      </Stack.Item>
+    </Stack>
   );
 };
 
 const OperatingComputerUnoccupied = () => {
   return (
-    <Flex textAlign="center" height="100%">
-      <Flex.Item grow="1" align="center" color="label">
+    <Stack fill>
+      <Stack.Item grow align="center" textAlign="center" color="label">
         <Icon name="user-slash" mb="0.5rem" size="5" />
         <br />
         No patient detected.
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
