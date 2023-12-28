@@ -1695,10 +1695,10 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(!locked)
 		return
 	if(!panel_open)
-		to_chat(user, "<span class='notice'>You do not have acesss to [src] bolts, open the panel first!</span>")
+		to_chat(user, "<span class='notice'>You do not have access to [src]'s bolts, open the panel first!</span>")
 		return
 	if(security_level != AIRLOCK_SECURITY_NONE)
-		to_chat(user, "<span class='notice'>You do not have acesss to [src] bolts, remove the reinforcements first!</span>")
+		to_chat(user, "<span class='notice'>You do not have access to [src]'s bolts, remove the reinforcements first!</span>")
 		return
 
 	if(istype(tool, /obj/item/wrench/bolter))

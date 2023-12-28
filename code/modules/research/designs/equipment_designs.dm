@@ -353,7 +353,7 @@
 
 /datum/design/bolterwrench
 	name = "Door Bolt Wrench"
-	desc = "A large wrench designed to interlock with a airlocks bolting mechanisms, allowing it to lift the bolts regardless of power."
+	desc = "A large wrench designed to interlock with an airlock's bolting mechanisms, allowing it to lift the bolts regardless of power."
 	id = "bolter_wrench"
 	req_tech = list("materials" = 6, "engineering"= 5)
 	build_type = PROTOLATHE

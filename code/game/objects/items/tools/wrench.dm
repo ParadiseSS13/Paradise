@@ -129,7 +129,7 @@
 
 /obj/item/wrench/bolter
 	name = "airlock bolt wrench"
-	desc = "A large wrench designed to interlock with a airlocks bolting mechanisms, allowing it to lift the bolts regardless of power."
+	desc = "A large wrench designed to interlock with an airlock's bolting mechanisms, allowing it to lift the bolts regardless of power."
 	icon_state = "bolter_wrench"
 	origin_tech = "materials=5;engineering=4"
 	w_class = WEIGHT_CLASS_NORMAL
