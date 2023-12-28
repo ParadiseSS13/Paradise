@@ -430,7 +430,7 @@
 	actual_strength /= alcohol_resistance
 
 	var/obj/item/organ/internal/liver/L
-	if(!is_ipc && ishuman(owner))
+	if(!is_ipc)
 		L = owner.get_int_organ(/obj/item/organ/internal/liver)
 		var/liver_multiplier = 5 // no liver? get shitfaced
 		if(L)

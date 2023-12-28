@@ -541,7 +541,7 @@ SUBSYSTEM_DEF(jobs)
 		if(L)
 			liver_multiplier = L.alcohol_intensity
 		if(isslimeperson(H) || isrobot(H))
-			liver_multiplier = 0.2
+			liver_multiplier = 5
 		H.Sleeping(5 SECONDS)
 		H.Drunk((2 / liver_multiplier) MINUTES)
 	H.create_log(MISC_LOG, "Spawned as \an [H.dna?.species ? H.dna.species : "Undefined species"] named [H]. Roundstart joined as job: [rank].")
