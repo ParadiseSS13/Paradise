@@ -4600,7 +4600,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/severus_snape_film
-	name = "Злодеус Злей(фильм)"
+	name = "Severus_snape_film"
 	value = "Harry_Potter_Severus_Snape_film"
 	category = TTS_CATEGORY_HARRY_POTTER
 	gender = TTS_GENDER_MALE
@@ -4690,7 +4690,7 @@
 	gender = TTS_GENDER_FEMALE
 
 /datum/tts_seed/silero/malygos_wotlk
-	name = "Malygos(WOTLK)"
+	name = "Malygos_wotlk"
 	value = "Dragons_MalygosWrath_of_the_Lich_King"
 	category = TTS_CATEGORY_WOW
 	gender = TTS_GENDER_MALE
@@ -4768,7 +4768,7 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/wrathion_echo
-	name = "Wrathion(echo)"
+	name = "Wrathion_echo"
 	value = "Dragons2_Wrathion_echo"
 	category = TTS_CATEGORY_WOW
 	gender = TTS_GENDER_MALE
@@ -4792,19 +4792,19 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/kalechos_echo
-	name = "Kalecgos(echo)"
+	name = "Kalecgos_echo"
 	value = "Dragons2_Kalecgos_echo"
 	category = TTS_CATEGORY_WOW
 	gender = TTS_GENDER_MALE
 
-/datum/tts_seed/silero/alextraza
-	name = "Alextraza(echo)"
+/datum/tts_seed/silero/alextraza_echo
+	name = "Alextraza_echo"
 	value = "Dragons2_Alextraza_echo"
 	category = TTS_CATEGORY_WOW
 	gender = TTS_GENDER_FEMALE
 
 /datum/tts_seed/silero/neltharion_echo
-	name = "Neltharion(echo)"
+	name = "Neltharion_echo"
 	value = "Dragons2_Neltharion_echo"
 	category = TTS_CATEGORY_WOW
 	gender = TTS_GENDER_MALE
@@ -4828,37 +4828,37 @@
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/sp_brother
-	name = "Брат(СП)"
+	name = "sp_brother"
 	value = "slovo_patsana_brother"
 	category = TTS_CATEGORY_BOYS_WORD
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/sp_koschei
-	name = "Кощей(СП)"
+	name = "sp_koschei"
 	value = "slovo_patsana_koschei"
 	category = TTS_CATEGORY_BOYS_WORD
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/sp_marat
-	name = "Марат(СП)"
+	name = "sp_marat"
 	value = "slovo_patsana_marat"
 	category = TTS_CATEGORY_BOYS_WORD
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/sp_angry_cop
-	name = "Злой полицейский(СП)"
+	name = "sp_angry_cop"
 	value = "slovo_patsana_angry_cop"
 	category = TTS_CATEGORY_BOYS_WORD
 	gender = TTS_GENDER_MALE
 
 /datum/tts_seed/silero/sp_cop
-	name = "Полицейский(СП)"
+	name = "sp_cop"
 	value = "slovo_patsana_cop"
 	category = TTS_CATEGORY_BOYS_WORD
 	gender = TTS_GENDER_FEMALE
 
 /datum/tts_seed/silero/sp_main
-	name = "Главный герой(СП)"
+	name = "sp_main"
 	value = "slovo_patsana_main"
 	category = TTS_CATEGORY_BOYS_WORD
 	gender = TTS_GENDER_MALE
