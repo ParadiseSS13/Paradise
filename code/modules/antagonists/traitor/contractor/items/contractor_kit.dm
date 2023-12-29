@@ -13,6 +13,7 @@
 		/obj/item/gun/projectile/automatic/c20r/toy,
 		/obj/item/storage/box/syndie_kit/throwing_weapons,
 		/obj/item/gun/projectile/automatic/toy/pistol/riot,
+		/obj/item/soap/syndie,
 		/obj/item/storage/box/syndie_kit/dart_gun,
 		/obj/item/gun/syringe/rapidsyringe,
 		// Mixed
@@ -20,7 +21,6 @@
 		/obj/item/flashlight/emp,
 		// Support
 		/obj/item/storage/box/syndidonkpockets,
-		/obj/item/door_remote/omni/access_tuner,
 		/obj/item/storage/belt/military/traitor,
 		/obj/item/clothing/shoes/chameleon/noslip,
 		/obj/item/storage/toolbox/syndicate,
