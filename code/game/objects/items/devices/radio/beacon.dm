@@ -96,7 +96,7 @@
 		bundle_name = pick(unselected)
 	var/bundle = bundles[bundle_name]
 	bundle = new bundle(user.loc)
-	to_chat(user, "<span class='notice'>Welcome to [station_name()], [bundle_name]</span>")
+	to_chat(user, "<span class='notice'>Welcome to [station_name()], [bundle_name]!</span>")
 	user.drop_item()
 	qdel(src)
 	user.put_in_hands(bundle)
