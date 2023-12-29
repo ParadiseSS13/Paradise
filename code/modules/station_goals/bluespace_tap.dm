@@ -197,7 +197,6 @@
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
-	anchored = TRUE
 
 	/// Correspond to power required for a mining level, first entry for level 1, etc.
 	var/list/power_needs = list(1 kW, 2 kW, 5 kW, 10 kW, 15 kW,
@@ -317,9 +316,9 @@
 
 
 /obj/machinery/power/bluespace_tap/connect_to_network()
-	var/to_return = ..()
-	update_icon()
-	return to_return
+	. = ..()
+	if(.)
+		update_icon()
 
 /obj/machinery/power/bluespace_tap/disconnect_from_network()
 	..()
