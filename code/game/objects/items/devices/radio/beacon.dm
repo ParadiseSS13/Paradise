@@ -87,7 +87,7 @@
 			selected += pick_n_take(unselected)
 		selected += "Random"
 	var/bundle_name  = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
-	if(!bundle_name)
+	if(!bundle_name || QDELETED(src))
 		return
 	if(bundle_name == "Random")
 		bundle_name = pick(unselected)
