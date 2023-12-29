@@ -1915,7 +1915,6 @@
 #include "code\modules\mapping\mapping_helpers.dm"
 #include "code\modules\mapping\merge_conflicts.dm"
 #include "code\modules\mapping\metastation.dm"
-#include "code\modules\mapping\test_TGUI.dm"
 #include "code\modules\mapping\test_tiny.dm"
 #include "code\modules\mapping\windoor_access_helpers.dm"
 #include "code\modules\maptext_alerts\text_blurbs.dm"
