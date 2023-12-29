@@ -81,14 +81,17 @@
 /obj/item/radio/beacon/syndicate/bundle/attack_self(mob/user)
 	if(!user)
 		return
+
 	if(!length(selected))
 		unselected = bundles.Copy()
 		for(var/i in 1 to 3)
 			selected += pick_n_take(unselected)
 		selected += "Random"
-	var/bundle_name  = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
+
+	var/bundle_name = tgui_input_list(user, "Available Bundles", "Bundle Selection", selected)
 	if(!bundle_name || QDELETED(src))
 		return
+
 	if(bundle_name == "Random")
 		bundle_name = pick(unselected)
 	var/bundle = bundles[bundle_name]
