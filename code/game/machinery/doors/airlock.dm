@@ -1692,6 +1692,8 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
 /obj/machinery/door/airlock/wrench_act(mob/living/user, obj/item/tool)
+	if(!istype(tool, /obj/item/wrench/bolter))
+		return
 	if(!locked)
 		return
 	if(!panel_open)
