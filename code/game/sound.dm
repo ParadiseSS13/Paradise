@@ -159,6 +159,10 @@ falloff_distance - Distance at which falloff begins. Sound is at peak volume (in
 				S.echo[3] = 0 //Room setting, 0 means normal reverb
 				S.echo[4] = 0 //RoomHF setting, 0 means normal reverb.
 
+	S.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
+	if(channel)
+		S.volume *= USER_VOLUME(src, channel)
+
 	SEND_SOUND(src, S)
 
 /proc/sound_to_playing_players_on_station_level(soundin, volume = 100, vary = FALSE, frequency = 0, channel = 0, pressure_affected = FALSE, sound/S)
