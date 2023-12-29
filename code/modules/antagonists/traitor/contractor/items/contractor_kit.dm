@@ -17,6 +17,7 @@
 		/obj/item/storage/box/syndie_kit/dart_gun,
 		/obj/item/gun/syringe/rapidsyringe,
 		// Mixed
+		/obj/item/storage/box/syndie_kit/c4,
 		/obj/item/storage/box/syndie_kit/emp,
 		/obj/item/flashlight/emp,
 		// Support
