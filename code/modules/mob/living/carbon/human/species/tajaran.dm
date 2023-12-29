@@ -8,7 +8,7 @@
 	unarmed_type = /datum/unarmed_attack/claws
 
 	blurb = "Tajaran hail from the mineral-rich arctic moon of Ahdomai. \
-	They were introduced into the galactic scene after Skrellian discovery and uplifted to be an associate to the Solar-Central Compact.<br/><br/> \
+	They were introduced into the galactic scene after the Skrellian discovery and were elevated to be associates to the Solar-Central Compact.<br/><br/> \
 	The teachings of S'randarr and solar iconography dominate their religious practices, \
 	and Tajaran often speak in the third person due to the lack of first-person references in their native tongue."
 
