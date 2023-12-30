@@ -38819,11 +38819,6 @@
 /turf/simulated/floor/plasteel,
 /area/station/engineering/controlroom)
 "cul" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/syringe/antiviral,
-/obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/dropper/precision,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
@@ -85207,12 +85202,6 @@
 /turf/simulated/floor/carpet,
 /area/station/maintenance/asmaint)
 "sPx" = (
-/obj/structure/table/glass,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/storage/box/syringes,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitegreen"
 	},
@@ -91428,14 +91417,6 @@
 	},
 /area/station/maintenance/asmaint2)
 "vUZ" = (
-/obj/structure/table/glass,
-/obj/item/storage/belt/medical,
-/obj/item/clothing/gloves/color/latex,
-/obj/item/healthanalyzer{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/clothing/glasses/hud/health,
 /obj/machinery/light_switch{
 	dir = 8;
 	name = "east bump";
