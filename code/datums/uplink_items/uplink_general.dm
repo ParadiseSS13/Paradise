@@ -374,6 +374,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/toy/plushie/carpplushie/dehy_carp
 	cost = 4
 
+/datum/uplink_item/stealthy_weapons/knuckleduster
+	name = "Syndicate Knuckleduster"
+	desc = "A straightforward and robust melee weapon for bludgeoning someone to death. Hard to notice that it's in someone's hands unless really observant."
+	reference = "SKD"
+	item = /obj/item/melee/knuckleduster/syndie
+	cost = 5
+	cant_discount = TRUE
+
 
 // GRENADES AND EXPLOSIVES
 
