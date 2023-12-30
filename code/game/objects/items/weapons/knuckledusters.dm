@@ -21,11 +21,11 @@
 	origin_tech = "combat=2;syndicate=1"
 
 /obj/item/melee/knuckleduster/nanotrasen
-	name = "nanotrasen knuckleduster"
+	name = "engraved knuckleduster"
 	desc = "Perfect for giving that Greytider a golden, painful lesson."
 	icon_state = "knuckleduster_nt"
-	force = 12
-	throwforce = 6
+	force = 10
+	throwforce = 5
 	origin_tech = "combat=3"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	materials = list(MAT_GOLD = 500)
