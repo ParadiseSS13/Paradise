@@ -25,9 +25,7 @@ const UnrestrictedAccess = (props, context) => {
   return (
     <Section title="Access Control">
       <Stack fill vertical>
-        <Stack.Item bold>
-          Unrestricted Access From:
-        </Stack.Item>
+        <Stack.Item bold>Unrestricted Access From:</Stack.Item>
         <Grid mt={1}>
           <Grid.Column>
             <Button

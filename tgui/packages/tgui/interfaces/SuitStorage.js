@@ -17,19 +17,19 @@ export const SuitStorage = (props, context) => {
     <Window width={400} height={260} resizable>
       <Window.Content>
         <Stack fill vertical>
-        {!!uv && (
-          <Dimmer backgroundColor="black" opacity={0.85}>
-            <Stack>
-              <Stack.Item bold textAlign="center" mb={1}>
-                <Icon name="spinner" spin={1} size={4} mb={4} />
-                <br />
-                Disinfection of contents in progress...
-              </Stack.Item>
-            </Stack>
-          </Dimmer>
-        )}
-        <StoredItems />
-        <OpenToggle />
+          {!!uv && (
+            <Dimmer backgroundColor="black" opacity={0.85}>
+              <Stack>
+                <Stack.Item bold textAlign="center" mb={1}>
+                  <Icon name="spinner" spin={1} size={4} mb={4} />
+                  <br />
+                  Disinfection of contents in progress...
+                </Stack.Item>
+              </Stack>
+            </Dimmer>
+          )}
+          <StoredItems />
+          <OpenToggle />
         </Stack>
       </Window.Content>
     </Window>

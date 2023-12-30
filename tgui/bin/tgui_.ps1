@@ -26,6 +26,10 @@ function task-install {
   yarn install
 }
 
+function task-prettier {
+  npx prettier --check packages --write
+}
+
 ## Runs webpack
 function task-webpack {
   yarn run webpack-cli @Args
@@ -107,6 +111,7 @@ if ($Args[0] -eq "--analyze") {
 ## Make a production webpack build
 if ($Args.Length -eq 0) {
   task-install
+  task-prettier
   task-eslint
   task-webpack --mode=production
   exit 0

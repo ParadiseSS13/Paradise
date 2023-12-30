@@ -104,12 +104,12 @@ export const MedicalRecords = (_properties, context) => {
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
-        <LoginInfo />
-        <TemporaryNotice />
-        <MedicalRecordsNavigation />
-        <Section fill scrollable>
-          {body}
-        </Section>
+          <LoginInfo />
+          <TemporaryNotice />
+          <MedicalRecordsNavigation />
+          <Section fill scrollable>
+            {body}
+          </Section>
         </Stack>
       </Window.Content>
     </Window>
@@ -123,8 +123,8 @@ const MedicalRecordsList = (_properties, context) => {
   const [sortId, _setSortId] = useLocalState(context, 'sortId', 'name');
   const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
   return (
-  <Box>
-    <Stack>
+    <Box>
+      <Stack>
         <Stack.Item>
           <Button
             content="Manage Records"
@@ -140,61 +140,63 @@ const MedicalRecordsList = (_properties, context) => {
             onInput={(e, value) => setSearchText(value)}
           />
         </Stack.Item>
-        </Stack>
-    <Stack fill vertical>
-      <Stack.Item grow>
-      <Section mt="0.5rem">
-        <Table className="MedicalRecords__list">
-          <Table.Row bold>
-            <SortButton id="name">Name</SortButton>
-            <SortButton id="id">ID</SortButton>
-            <SortButton id="rank">Assignment</SortButton>
-            <SortButton id="p_stat">Patient Status</SortButton>
-            <SortButton id="m_stat">Mental Status</SortButton>
-          </Table.Row>
-          {records
-            .filter(
-              createSearch(searchText, (record) => {
-                return (
-                  record.name +
-                  '|' +
-                  record.id +
-                  '|' +
-                  record.rank +
-                  '|' +
-                  record.p_stat +
-                  '|' +
-                  record.m_stat
-                );
-              })
-            )
-            .sort((a, b) => {
-              const i = sortOrder ? 1 : -1;
-              return a[sortId].localeCompare(b[sortId]) * i;
-            })
-            .map((record) => (
-              <Table.Row
-                key={record.id}
-                className={
-                  'MedicalRecords__listRow--' + medStatusStyles[record.p_stat]
-                }
-                onClick={() => act('view_record', { view_record: record.ref })}
-              >
-                <Table.Cell>
-                  <Icon name="user" /> {record.name}
-                </Table.Cell>
-                <Table.Cell>{record.id}</Table.Cell>
-                <Table.Cell>{record.rank}</Table.Cell>
-                <Table.Cell>{record.p_stat}</Table.Cell>
-                <Table.Cell>{record.m_stat}</Table.Cell>
-              </Table.Row>
-            ))}
-        </Table>
-      </Section>
-      </Stack.Item>
       </Stack>
-    
-      </Box>
+      <Stack fill vertical>
+        <Stack.Item grow>
+          <Section mt="0.5rem">
+            <Table className="MedicalRecords__list">
+              <Table.Row bold>
+                <SortButton id="name">Name</SortButton>
+                <SortButton id="id">ID</SortButton>
+                <SortButton id="rank">Assignment</SortButton>
+                <SortButton id="p_stat">Patient Status</SortButton>
+                <SortButton id="m_stat">Mental Status</SortButton>
+              </Table.Row>
+              {records
+                .filter(
+                  createSearch(searchText, (record) => {
+                    return (
+                      record.name +
+                      '|' +
+                      record.id +
+                      '|' +
+                      record.rank +
+                      '|' +
+                      record.p_stat +
+                      '|' +
+                      record.m_stat
+                    );
+                  })
+                )
+                .sort((a, b) => {
+                  const i = sortOrder ? 1 : -1;
+                  return a[sortId].localeCompare(b[sortId]) * i;
+                })
+                .map((record) => (
+                  <Table.Row
+                    key={record.id}
+                    className={
+                      'MedicalRecords__listRow--' +
+                      medStatusStyles[record.p_stat]
+                    }
+                    onClick={() =>
+                      act('view_record', { view_record: record.ref })
+                    }
+                  >
+                    <Table.Cell>
+                      <Icon name="user" /> {record.name}
+                    </Table.Cell>
+                    <Table.Cell>{record.id}</Table.Cell>
+                    <Table.Cell>{record.rank}</Table.Cell>
+                    <Table.Cell>{record.p_stat}</Table.Cell>
+                    <Table.Cell>{record.m_stat}</Table.Cell>
+                  </Table.Row>
+                ))}
+            </Table>
+          </Section>
+        </Stack.Item>
+      </Stack>
+    </Box>
   );
 };
 
@@ -225,39 +227,39 @@ const MedicalRecordsView = (_properties, context) => {
   const { medical, printing } = data;
   return (
     <Stack vertical>
-    <Stack.Item>
-      <Section
-        title="General Data"
-        mt="-6px"
-        buttons={
-          <Button
-            icon={printing ? 'spinner' : 'print'}
-            disabled={printing}
-            iconSpin={!!printing}
-            content="Print Record"
-            ml="0.5rem"
-            onClick={() => act('print_record')}
-          />
-        }
-      >
-        <MedicalRecordsViewGeneral />
-      </Section>
+      <Stack.Item>
+        <Section
+          title="General Data"
+          mt="-6px"
+          buttons={
+            <Button
+              icon={printing ? 'spinner' : 'print'}
+              disabled={printing}
+              iconSpin={!!printing}
+              content="Print Record"
+              ml="0.5rem"
+              onClick={() => act('print_record')}
+            />
+          }
+        >
+          <MedicalRecordsViewGeneral />
+        </Section>
       </Stack.Item>
       <Stack.Item>
-      <Section
-        title="Medical Data"
-        buttons={
-          <Button.Confirm
-            icon="trash"
-            disabled={!!medical.empty}
-            content="Delete Medical Record"
-            onClick={() => act('del_med_record')}
-          />
-        }
-      >
-        <MedicalRecordsViewMedical />
-      </Section>
-    </Stack.Item>
+        <Section
+          title="Medical Data"
+          buttons={
+            <Button.Confirm
+              icon="trash"
+              disabled={!!medical.empty}
+              content="Delete Medical Record"
+              onClick={() => act('del_med_record')}
+            />
+          }
+        >
+          <MedicalRecordsViewMedical />
+        </Section>
+      </Stack.Item>
     </Stack>
   );
 };
@@ -346,36 +348,36 @@ const MedicalRecordsViewMedical = (_properties, context) => {
         ))}
       </LabeledList>
       <Stack.Item mt={1.5}>
-      <Section
-        title="Comments/Log"
-        buttons={
-          <Button
-            icon="comment"
-            content="Add Entry"
-            onClick={() => modalOpen(context, 'add_comment')}
-          />
-        }
-      >
-        {medical.comments.length === 0 ? (
-          <Box color="label">No comments found.</Box>
-        ) : (
-          medical.comments.map((comment, i) => (
-            <Box key={i} prewrap>
-              <Box color="label" display="inline">
-                {comment.header}
+        <Section
+          title="Comments/Log"
+          buttons={
+            <Button
+              icon="comment"
+              content="Add Entry"
+              onClick={() => modalOpen(context, 'add_comment')}
+            />
+          }
+        >
+          {medical.comments.length === 0 ? (
+            <Box color="label">No comments found.</Box>
+          ) : (
+            medical.comments.map((comment, i) => (
+              <Box key={i} prewrap>
+                <Box color="label" display="inline">
+                  {comment.header}
+                </Box>
+                <br />
+                {comment.text}
+                <Button
+                  icon="comment-slash"
+                  color="bad"
+                  ml="0.5rem"
+                  onClick={() => act('del_comment', { del_comment: i + 1 })}
+                />
               </Box>
-              <br />
-              {comment.text}
-              <Button
-                icon="comment-slash"
-                color="bad"
-                ml="0.5rem"
-                onClick={() => act('del_comment', { del_comment: i + 1 })}
-              />
-            </Box>
-          ))
-        )}
-      </Section>
+            ))
+          )}
+        </Section>
       </Stack.Item>
     </>
   );
@@ -393,13 +395,13 @@ const MedicalRecordsViruses = (_properties, context) => {
   );
   return (
     <Stack fill vertical>
-        <Stack.Item grow ml="0.5rem">
-          <Input
-            placeholder="Search by Name, Max Stages, or Severity"
-            width="100%"
-            onInput={(e, value) => setSearchText(value)}
-          />
-        </Stack.Item>
+      <Stack.Item grow ml="0.5rem">
+        <Input
+          placeholder="Search by Name, Max Stages, or Severity"
+          width="100%"
+          onInput={(e, value) => setSearchText(value)}
+        />
+      </Stack.Item>
       <Section fill scrollable mt="0.5rem">
         <Table className="MedicalRecords__list">
           <Table.Row bold>
@@ -551,43 +553,43 @@ const MedicalRecordsNavigation = (_properties, context) => {
   const { screen, general } = data;
   return (
     <Stack.Item>
-    <Tabs>
-      <Tabs.Tab
-        icon="list"
-        selected={screen === 2}
-        onClick={() => {
-          act('screen', { screen: 2 });
-        }}
-      >
-        List Records
-      </Tabs.Tab>
-      <Tabs.Tab
-        icon="database"
-        selected={screen === 5}
-        onClick={() => {
-          act('screen', { screen: 5 });
-        }}
-      >
-        Virus Database
-      </Tabs.Tab>
-      <Tabs.Tab
-        icon="plus-square"
-        selected={screen === 6}
-        onClick={() => act('screen', { screen: 6 })}
-      >
-        Medibot Tracking
-      </Tabs.Tab>
-      {screen === 3 && (
-        <Tabs.Tab icon="wrench" selected={screen === 3}>
-          Record Maintenance
+      <Tabs>
+        <Tabs.Tab
+          icon="list"
+          selected={screen === 2}
+          onClick={() => {
+            act('screen', { screen: 2 });
+          }}
+        >
+          List Records
         </Tabs.Tab>
-      )}
-      {screen === 4 && general && !general.empty && (
-        <Tabs.Tab icon="file" selected={screen === 4}>
-          Record: {general.fields[0].value}
+        <Tabs.Tab
+          icon="database"
+          selected={screen === 5}
+          onClick={() => {
+            act('screen', { screen: 5 });
+          }}
+        >
+          Virus Database
         </Tabs.Tab>
-      )}
-    </Tabs>
+        <Tabs.Tab
+          icon="plus-square"
+          selected={screen === 6}
+          onClick={() => act('screen', { screen: 6 })}
+        >
+          Medibot Tracking
+        </Tabs.Tab>
+        {screen === 3 && (
+          <Tabs.Tab icon="wrench" selected={screen === 3}>
+            Record Maintenance
+          </Tabs.Tab>
+        )}
+        {screen === 4 && general && !general.empty && (
+          <Tabs.Tab icon="file" selected={screen === 4}>
+            Record: {general.fields[0].value}
+          </Tabs.Tab>
+        )}
+      </Tabs>
     </Stack.Item>
   );
 };

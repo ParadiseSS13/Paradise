@@ -19,10 +19,10 @@ export const RCD = (props, context) => {
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
-         <MatterReadout />
-         <ConstructionType />
-         <AirlockSettings />
-         <TypesAndAccess />
+          <MatterReadout />
+          <ConstructionType />
+          <AirlockSettings />
+          <TypesAndAccess />
         </Stack>
       </Window.Content>
     </Window>
@@ -35,34 +35,34 @@ const MatterReadout = (props, context) => {
   const good_matter = max_matter * 0.7;
   const average_matter = max_matter * 0.25;
   return (
-  <Stack.Item>
-    <Section title="Matter Storage">
-      <ProgressBar
-        ranges={{
-          good: [good_matter, Infinity],
-          average: [average_matter, good_matter],
-          bad: [-Infinity, average_matter],
-        }}
-        value={matter}
-        maxValue={max_matter}
-      >
-        <Box textAlign="center">{matter + ' / ' + max_matter + ' units'}</Box>
-      </ProgressBar>
-    </Section>
-  </Stack.Item>
+    <Stack.Item>
+      <Section title="Matter Storage">
+        <ProgressBar
+          ranges={{
+            good: [good_matter, Infinity],
+            average: [average_matter, good_matter],
+            bad: [-Infinity, average_matter],
+          }}
+          value={matter}
+          maxValue={max_matter}
+        >
+          <Box textAlign="center">{matter + ' / ' + max_matter + ' units'}</Box>
+        </ProgressBar>
+      </Section>
+    </Stack.Item>
   );
 };
 
 const ConstructionType = () => {
   return (
-  <Stack.Item>
-    <Section fill title="Construction Type">
-          <ConstructionTypeCheckbox mode_type="Floors and Walls" />
-          <ConstructionTypeCheckbox mode_type="Airlocks" />
-          <ConstructionTypeCheckbox mode_type="Windows" />
-          <ConstructionTypeCheckbox mode_type="Deconstruction" />
-    </Section>
-  </Stack.Item>
+    <Stack.Item>
+      <Section fill title="Construction Type">
+        <ConstructionTypeCheckbox mode_type="Floors and Walls" />
+        <ConstructionTypeCheckbox mode_type="Airlocks" />
+        <ConstructionTypeCheckbox mode_type="Windows" />
+        <ConstructionTypeCheckbox mode_type="Deconstruction" />
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -87,31 +87,32 @@ const AirlockSettings = (props, context) => {
   const { act, data } = useBackend(context);
   const { door_name, electrochromic, airlock_glass } = data;
   return (
-  <Stack.Item>
-    <Section title="Airlock Settings">
-      <Stack textAlign="center">
-        <Stack.Item grow>
-          <Button
-            fluid
-            color="transparent"
-            icon="pen-alt"
-            content={door_name}
-            onClick={() => modalOpen(context, 'renameAirlock')}
-          />
-          </Stack.Item>
-          <Stack.Item>
-          {airlock_glass === 1 && (
+    <Stack.Item>
+      <Section title="Airlock Settings">
+        <Stack textAlign="center">
+          <Stack.Item grow>
             <Button
               fluid
-              icon={electrochromic ? 'toggle-on' : 'toggle-off'}
-              content={'Electrochromic'}
-              selected={electrochromic}
-              onClick={() => act('electrochromic')}
-            />)}
-       </Stack.Item>
-      </Stack>
-    </Section>
-  </Stack.Item>
+              color="transparent"
+              icon="pen-alt"
+              content={door_name}
+              onClick={() => modalOpen(context, 'renameAirlock')}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            {airlock_glass === 1 && (
+              <Button
+                fluid
+                icon={electrochromic ? 'toggle-on' : 'toggle-off'}
+                content={'Electrochromic'}
+                selected={electrochromic}
+                onClick={() => act('electrochromic')}
+              />
+            )}
+          </Stack.Item>
+        </Stack>
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -121,20 +122,22 @@ const TypesAndAccess = (props, context) => {
   return (
     <Stack fill vertical mt={1}>
       <Stack.Item>
-      <Tabs>
-        <Tabs.Tab
-          icon="cog"
-          selected={tab === 1}
-          onClick={() => act('set_tab', {tab: 1,})}>
-          Airlock Types
-        </Tabs.Tab>
-        <Tabs.Tab
-          selected={tab === 2}
-          icon="list"
-          onClick={() => act('set_tab', {tab: 2,})}>
-          Airlock Access
-        </Tabs.Tab>
-      </Tabs>
+        <Tabs>
+          <Tabs.Tab
+            icon="cog"
+            selected={tab === 1}
+            onClick={() => act('set_tab', { tab: 1 })}
+          >
+            Airlock Types
+          </Tabs.Tab>
+          <Tabs.Tab
+            selected={tab === 2}
+            icon="list"
+            onClick={() => act('set_tab', { tab: 2 })}
+          >
+            Airlock Access
+          </Tabs.Tab>
+        </Tabs>
       </Stack.Item>
       {tab === 1 ? (
         <Section fill scrollable title="Types">
@@ -172,65 +175,65 @@ const TypesAndAccess = (props, context) => {
           </Stack>
         </Section>
       ) : (
-      <Section fill scrollable>
-        <AccessList
-          sectionButtons={
-            <Button
-              icon="lock"
-              content="Lock"
-              onClick={() =>
-                act('set_lock', {
-                  new_lock: 'lock',
-                })
-              }
-            />
-          }
-          usedByRcd={1}
-          rcdButtons={
-            <>
-              <Button.Checkbox
-                checked={one_access}
-                content="One"
+        <Section fill scrollable>
+          <AccessList
+            sectionButtons={
+              <Button
+                icon="lock"
+                content="Lock"
                 onClick={() =>
-                  act('set_one_access', {
-                    access: 'one',
+                  act('set_lock', {
+                    new_lock: 'lock',
                   })
                 }
               />
-              <Button.Checkbox
-                checked={!one_access}
-                width={4}
-                content="All"
-                onClick={() =>
-                  act('set_one_access', {
-                    access: 'all',
-                  })
-                }
-              />
-            </>
-          }
-          accesses={regions}
-          selectedList={selected_accesses}
-          accessMod={(ref) =>
-            act('set', {
-              access: ref,
-            })
-          }
-          grantAll={() => act('grant_all')}
-          denyAll={() => act('clear_all')}
-          grantDep={(ref) =>
-            act('grant_region', {
-              region: ref,
-            })
-          }
-          denyDep={(ref) =>
-            act('deny_region', {
-              region: ref,
-            })
-          }
-        />
-      </Section>
-    )}
+            }
+            usedByRcd={1}
+            rcdButtons={
+              <>
+                <Button.Checkbox
+                  checked={one_access}
+                  content="One"
+                  onClick={() =>
+                    act('set_one_access', {
+                      access: 'one',
+                    })
+                  }
+                />
+                <Button.Checkbox
+                  checked={!one_access}
+                  width={4}
+                  content="All"
+                  onClick={() =>
+                    act('set_one_access', {
+                      access: 'all',
+                    })
+                  }
+                />
+              </>
+            }
+            accesses={regions}
+            selectedList={selected_accesses}
+            accessMod={(ref) =>
+              act('set', {
+                access: ref,
+              })
+            }
+            grantAll={() => act('grant_all')}
+            denyAll={() => act('clear_all')}
+            grantDep={(ref) =>
+              act('grant_region', {
+                region: ref,
+              })
+            }
+            denyDep={(ref) =>
+              act('deny_region', {
+                region: ref,
+              })
+            }
+          />
+        </Section>
+      )}
     </Stack>
   );
 };

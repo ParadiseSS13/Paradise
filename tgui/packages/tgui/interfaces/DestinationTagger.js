@@ -13,43 +13,39 @@ export const DestinationTagger = (props, context) => {
     <Window width={355} height={330} resizable>
       <Window.Content>
         <Stack fill vertical>
-        <Section 
-          fill 
-          scrollable 
-          textAlign="center"
-          title="TagMaster 3.1">
-          <Box ml="30%">
-            <LabeledListItem label="Selected">
-              {selected_destination.name ?? 'None'}
-            </LabeledListItem>
-          </Box>
-          <Box mt={1.5}>
-            <Stack
-              overflowY="auto"
-              wrap="wrap"
-              align="center"
-              justify="space-evenly"
-              direction="row"
-            >
-              {destinations.map((destination, index) => (
-                <Stack.Item key={index} m="2px">
-                  <Button
-                    color="transparent"
-                    width="105px"
-                    textAlign="center"
-                    content={destination.name}
-                    selected={destination.id === selected_destination_id}
-                    onClick={() =>
-                      act('select_destination', {
-                        destination: destination.id,
-                      })
-                    }
-                  />
-                </Stack.Item>
-              ))}
-            </Stack>
-          </Box>
-        </Section>
+          <Section fill scrollable textAlign="center" title="TagMaster 3.1">
+            <Box ml="30%">
+              <LabeledListItem label="Selected">
+                {selected_destination.name ?? 'None'}
+              </LabeledListItem>
+            </Box>
+            <Box mt={1.5}>
+              <Stack
+                overflowY="auto"
+                wrap="wrap"
+                align="center"
+                justify="space-evenly"
+                direction="row"
+              >
+                {destinations.map((destination, index) => (
+                  <Stack.Item key={index} m="2px">
+                    <Button
+                      color="transparent"
+                      width="105px"
+                      textAlign="center"
+                      content={destination.name}
+                      selected={destination.id === selected_destination_id}
+                      onClick={() =>
+                        act('select_destination', {
+                          destination: destination.id,
+                        })
+                      }
+                    />
+                  </Stack.Item>
+                ))}
+              </Stack>
+            </Box>
+          </Section>
         </Stack>
       </Window.Content>
     </Window>

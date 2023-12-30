@@ -1,11 +1,5 @@
 import { Window } from '../layouts';
-import {
-  TimeDisplay,
-  Button,
-  Section,
-  Stack,
-  Table,
-} from '../components';
+import { TimeDisplay, Button, Section, Stack, Table } from '../components';
 import { useBackend } from '../backend';
 
 const BrigCellsTableRow = (properties, context) => {

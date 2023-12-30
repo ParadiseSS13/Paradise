@@ -18,9 +18,9 @@ export const GeneModder = (props, context) => {
     <Window width={500} height={650} resizable>
       <Window.Content>
         <Stack fill vertical>
-        <Storage />
-        <ComplexModal maxWidth="75%" maxHeight="75%" />
-        {has_seed === 0 ? <MissingSeed /> : <Genes />}
+          <Storage />
+          <ComplexModal maxWidth="75%" maxHeight="75%" />
+          {has_seed === 0 ? <MissingSeed /> : <Genes />}
         </Stack>
       </Window.Content>
     </Window>
@@ -120,7 +120,11 @@ const Storage = (props, context) => {
         <LabeledList.Item label="Plant Sample">{show_seed}</LabeledList.Item>
         <LabeledList.Item label="Data Disk">
           <Stack.Item>
-            <Button ml={3.3} content={show_disk} onClick={() => act('eject_disk')} />
+            <Button
+              ml={3.3}
+              content={show_disk}
+              onClick={() => act('eject_disk')}
+            />
           </Stack.Item>
         </LabeledList.Item>
       </LabeledList>

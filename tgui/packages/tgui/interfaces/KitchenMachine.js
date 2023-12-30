@@ -13,27 +13,27 @@ export const KitchenMachine = (props, context) => {
       <Window.Content>
         <Stack fill vertical>
           <Operating operating={operating} name={title} />
-        <Stack.Item>
-          <KitchenTop />
-        </Stack.Item>
-        <Stack.Item grow>
-        <Section fill scrollable title="Ingredients">
-          <Table className="Ingredient__Table">
-            {ingredients.map((product) => (
-              <Table.Row tr={5} key={product.name}>
-                <td>
-                  <Table.Cell bold>{product.name}</Table.Cell>
-                </td>
-                <td>
-                  <Table.Cell collapsing textAlign="center">
-                    {product.amount} {product.units}
-                  </Table.Cell>
-                </td>
-              </Table.Row>
-            ))}
-          </Table>
-        </Section>
-        </Stack.Item>
+          <Stack.Item>
+            <KitchenTop />
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section fill scrollable title="Ingredients">
+              <Table className="Ingredient__Table">
+                {ingredients.map((product) => (
+                  <Table.Row tr={5} key={product.name}>
+                    <td>
+                      <Table.Cell bold>{product.name}</Table.Cell>
+                    </td>
+                    <td>
+                      <Table.Cell collapsing textAlign="center">
+                        {product.amount} {product.units}
+                      </Table.Cell>
+                    </td>
+                  </Table.Row>
+                ))}
+              </Table>
+            </Section>
+          </Stack.Item>
         </Stack>
       </Window.Content>
     </Window>

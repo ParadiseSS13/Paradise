@@ -65,24 +65,24 @@ export const CrewMonitor = (props, context) => {
       <Window.Content>
         <Stack fill vertical fillPositionedParent>
           <Stack.Item>
-          <Tabs>
-            <Tabs.Tab
-              key="DataView"
-              icon="table"
-              selected={0 === tabIndex}
-              onClick={() => setTabIndex(0)}
-            >
-              Data View
-            </Tabs.Tab>
-            <Tabs.Tab
-              key="MapView"
-              icon="map-marked-alt"
-              selected={1 === tabIndex}
-              onClick={() => setTabIndex(1)}
-            >
-              Map View
-            </Tabs.Tab>
-          </Tabs>
+            <Tabs>
+              <Tabs.Tab
+                key="DataView"
+                icon="table"
+                selected={0 === tabIndex}
+                onClick={() => setTabIndex(0)}
+              >
+                Data View
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="MapView"
+                icon="map-marked-alt"
+                selected={1 === tabIndex}
+                onClick={() => setTabIndex(1)}
+              >
+                Map View
+              </Tabs.Tab>
+            </Tabs>
           </Stack.Item>
           {decideTab(tabIndex)}
         </Stack>

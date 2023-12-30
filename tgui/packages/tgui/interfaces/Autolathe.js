@@ -108,26 +108,26 @@ export const Autolathe = (props, context) => {
       <Window.Content scrollable>
         <Stack fill horizontal>
           <Stack.Item width="70%">
-          <Section
-            fill
-            scrollable
-            title={rText}
-            buttons={
-              <Dropdown
-                width="190px"
-                options={categories}
-                selected={category}
-                onSelected={(val) => setCategory(val)}
+            <Section
+              fill
+              scrollable
+              title={rText}
+              buttons={
+                <Dropdown
+                  width="190px"
+                  options={categories}
+                  selected={category}
+                  onSelected={(val) => setCategory(val)}
+                />
+              }
+            >
+              <Input
+                fluid
+                placeholder="Search for..."
+                onInput={(e, v) => setSearchText(v)}
+                mb={1}
               />
-            }
-          >
-            <Input
-              fluid
-              placeholder="Search for..."
-              onInput={(e, v) => setSearchText(v)}
-              mb={1}
-            />
-            {recipesToShow.map((recipe) => (
+              {recipesToShow.map((recipe) => (
                 <Stack.Item grow align="center" key={recipe.ref}>
                   <img
                     src={`data:image/jpeg;base64,${recipe.image}`}
@@ -241,27 +241,33 @@ export const Autolathe = (props, context) => {
                       )
                       .join(', ')) || <Box>No resources required.</Box>}
                 </Stack.Item>
-            ))}
-          </Section>
-        </Stack.Item>
-        <Stack.Item width="30%">
-          <Section title="Materials">
-            <LabeledList>
-              <LabeledList.Item label="Metal">{metalReadable}</LabeledList.Item>
-              <LabeledList.Item label="Glass">{glassReadable}</LabeledList.Item>
-              <LabeledList.Item label="Total">{totalReadable}</LabeledList.Item>
-              <LabeledList.Item label="Storage">
-                {data.fill_percent}% Full
-              </LabeledList.Item>
-            </LabeledList>
-          </Section>
-          <Section title="Building">
-            <Box color={busyname ? 'green' : ''}>
-              {busyname ? busyname : 'Nothing'}
-            </Box>
-          </Section>
-          <Section title="Build Queue" height={23.7}>
-            {buildQueueItems}
+              ))}
+            </Section>
+          </Stack.Item>
+          <Stack.Item width="30%">
+            <Section title="Materials">
+              <LabeledList>
+                <LabeledList.Item label="Metal">
+                  {metalReadable}
+                </LabeledList.Item>
+                <LabeledList.Item label="Glass">
+                  {glassReadable}
+                </LabeledList.Item>
+                <LabeledList.Item label="Total">
+                  {totalReadable}
+                </LabeledList.Item>
+                <LabeledList.Item label="Storage">
+                  {data.fill_percent}% Full
+                </LabeledList.Item>
+              </LabeledList>
+            </Section>
+            <Section title="Building">
+              <Box color={busyname ? 'green' : ''}>
+                {busyname ? busyname : 'Nothing'}
+              </Box>
+            </Section>
+            <Section title="Build Queue" height={23.7}>
+              {buildQueueItems}
               <Button
                 mt={0.5}
                 fluid
@@ -271,7 +277,7 @@ export const Autolathe = (props, context) => {
                 disabled={!data.buildQueueLen}
                 onClick={() => act('clear_queue')}
               />
-          </Section>
+            </Section>
           </Stack.Item>
         </Stack>
       </Window.Content>

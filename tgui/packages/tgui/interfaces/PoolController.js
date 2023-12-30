@@ -34,7 +34,12 @@ const TempButton = (properties, context) => {
     act('setTemp', { temp: tempKey });
   };
   return (
-    <Button color="transparent" selected={selected} onClick={setTemp} {...buttonProps}>
+    <Button
+      color="transparent"
+      selected={selected}
+      onClick={setTemp}
+      {...buttonProps}
+    >
       <Icon name={icon} />
       {label}
     </Button>
@@ -66,19 +71,19 @@ export const PoolController = (properties, context) => {
               <LabeledList.Item label="Safety Status">
                 {emagged ? (
                   <Box color="red">WARNING: OVERRIDDEN</Box>
-               ) : (
+                ) : (
                   <Box color="good">Nominal</Box>
                 )}
               </LabeledList.Item>
-              </LabeledList>
-            </Section>
+            </LabeledList>
+          </Section>
           <Section fill title="Temperature Selection">
             <Stack.Item>
-            {visibleTempKeys.map((tempKey) => (
-              <TempButton fluid key={tempKey} tempKey={tempKey} />
-            ))}
+              {visibleTempKeys.map((tempKey) => (
+                <TempButton fluid key={tempKey} tempKey={tempKey} />
+              ))}
             </Stack.Item>
-        </Section>
+          </Section>
         </Stack>
       </Window.Content>
     </Window>

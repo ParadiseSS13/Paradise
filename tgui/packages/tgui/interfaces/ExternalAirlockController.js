@@ -49,7 +49,7 @@ export const ExternalAirlockController = (props, context) => {
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section 
+        <Section
           title="Actions"
           buttons={
             <Button
@@ -59,7 +59,8 @@ export const ExternalAirlockController = (props, context) => {
               disabled={!processing}
               onClick={() => act('abort')}
             />
-          }>
+          }
+        >
           <Box>
             <Button
               width="50%"

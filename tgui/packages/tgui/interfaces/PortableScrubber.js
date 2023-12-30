@@ -18,17 +18,17 @@ export const PortableScrubber = (props, context) => {
     <Window width={435} height={300}>
       <Window.Content>
         <Stack fill vertical>
-        <PumpSettings />
-        <PressureSettings />
-        {has_holding_tank ? (
-          <HoldingTank />
-        ) : (
-          <Section fill title="Holding Tank">
-            <Box color="average" bold={1} textAlign="center" mt={2.5}>
-              No Holding Tank Inserted.
-            </Box>
-          </Section>
-        )}
+          <PumpSettings />
+          <PressureSettings />
+          {has_holding_tank ? (
+            <HoldingTank />
+          ) : (
+            <Section fill title="Holding Tank">
+              <Box color="average" bold={1} textAlign="center" mt={2.5}>
+                No Holding Tank Inserted.
+              </Box>
+            </Section>
+          )}
         </Stack>
       </Window.Content>
     </Window>
@@ -40,23 +40,26 @@ const PumpSettings = (props, context) => {
   const { on, port_connected } = data;
 
   return (
-    <Section 
+    <Section
       title="Pump Settings"
       buttons={
         <Button
-            width={4}
-            icon={on ? 'power-off' : 'power-off'}
-            content={on ? 'On' : 'Off'}
-            color={on ? null : 'red'}
-            selected={on}
-            onClick={() => act('power')}
-          />
-      }>
+          width={4}
+          icon={on ? 'power-off' : 'power-off'}
+          content={on ? 'On' : 'Off'}
+          color={on ? null : 'red'}
+          selected={on}
+          onClick={() => act('power')}
+        />
+      }
+    >
       <Stack>
-        <Stack.Item color="label">
-          Port Status:
-        </Stack.Item>
-        <Stack.Item color={port_connected ? 'green' : 'average'} bold={1} ml={6}>
+        <Stack.Item color="label">Port Status:</Stack.Item>
+        <Stack.Item
+          color={port_connected ? 'green' : 'average'}
+          bold={1}
+          ml={6}
+        >
           {port_connected ? 'Connected' : 'Disconnected'}
         </Stack.Item>
       </Stack>
@@ -169,9 +172,7 @@ const HoldingTank = (props, context) => {
       }
     >
       <Stack>
-        <Stack.Item color="label">
-          Tank Label:
-        </Stack.Item>
+        <Stack.Item color="label">Tank Label:</Stack.Item>
         <Stack.Item color="silver" ml={4.5}>
           {holding_tank.name}
         </Stack.Item>

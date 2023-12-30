@@ -10,7 +10,7 @@ import {
   LabeledList,
   Modal,
   Section,
-  Stack
+  Stack,
 } from '../components';
 import { timeAgo } from '../constants';
 import { Window } from '../layouts';
@@ -265,7 +265,7 @@ const NewscasterFeed = (properties, context) => {
   const channel =
     screen === 2 && channel_idx > -1 ? channels[channel_idx - 1] : null;
   return (
-    <Stack  fill vertical>
+    <Stack fill vertical>
       {!!wanted && <Story story={wanted} wanted />}
       <Section
         fill
@@ -494,9 +494,7 @@ const Story = (properties, context) => {
             )}
             <Box display="inline">
               <Icon name="user" /> {story.author} |&nbsp;
-              {!!is_admin && (
-                <>ckey: {story.author_ckey} |&nbsp;</>
-              )}
+              {!!is_admin && <>ckey: {story.author_ckey} |&nbsp;</>}
               {!wanted && (
                 <>
                   <Icon name="eye" /> {story.view_count.toLocaleString()}{' '}

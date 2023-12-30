@@ -17,13 +17,7 @@ const PdaInsert = (props, context) => {
   return (
     <Section fill>
       <Stack fill>
-        <Stack.Item
-          bold
-          grow
-          textAlign="center"
-          align="center"
-          color="silver"
-        >
+        <Stack.Item bold grow textAlign="center" align="center" color="silver">
           <Icon name="download" size={5} mb="10px" />
           <br />
           <Button
@@ -47,32 +41,30 @@ const PdaMenu = (props, context) => {
         <PdaImage />
       </Stack.Item>
       <Stack.Item grow>
-          <Section fill scrollable>
-            <Table className="PdaPainter__list">
-              {Object.keys(pda_colors).map((sprite_name) => (
-                <Table.Row
-                  key={sprite_name}
-                  onClick={() =>
-                    act('choose_pda', { selectedPda: sprite_name })
-                  }
-                >
-                  <Table.Cell collapsing>
-                    <img
-                      src={`data:image/png;base64,${pda_colors[sprite_name][0]}`}
-                      style={{
-                        'vertical-align': 'middle',
-                        width: '32px',
-                        margin: '0px',
-                        'margin-left': '0px',
-                        '-ms-interpolation-mode': 'nearest-neighbor',
-                      }}
-                    />
-                  </Table.Cell>
-                  <Table.Cell>{sprite_name}</Table.Cell>
-                </Table.Row>
-              ))}
-            </Table>
-          </Section>
+        <Section fill scrollable>
+          <Table className="PdaPainter__list">
+            {Object.keys(pda_colors).map((sprite_name) => (
+              <Table.Row
+                key={sprite_name}
+                onClick={() => act('choose_pda', { selectedPda: sprite_name })}
+              >
+                <Table.Cell collapsing>
+                  <img
+                    src={`data:image/png;base64,${pda_colors[sprite_name][0]}`}
+                    style={{
+                      'vertical-align': 'middle',
+                      width: '32px',
+                      margin: '0px',
+                      'margin-left': '0px',
+                      '-ms-interpolation-mode': 'nearest-neighbor',
+                    }}
+                  />
+                </Table.Cell>
+                <Table.Cell>{sprite_name}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
+        </Section>
       </Stack.Item>
     </Stack>
   );

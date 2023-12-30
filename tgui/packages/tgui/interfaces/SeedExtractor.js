@@ -10,30 +10,31 @@ export const SeedExtractor = (props, context) => {
     <Window width={800} height={400} resizable>
       <Window.Content>
         <Stack fill vertical>
-          <Section 
-            fill 
-            scrollable 
+          <Section
+            fill
+            scrollable
             title="Stored Seeds"
             buttons={
-            <>
-              Set Amount to be Vended:&nbsp;
-            <NumberInput
-              animated
-              value={vend_amount}
-              width="40px"
-              minValue={1}
-              maxValue={25}
-              stepPixelSize={3}
-              onDrag={(e, value) =>
-                act('set_vend_amount', {
-                  vend_amount: value,
-                })
-              }
-            />
-            </>
-            }>
-          {stored_seeds?.length ? <SeedsContent /> : 'No Seeds'}
-        </Section>
+              <>
+                Set Amount to be Vended:&nbsp;
+                <NumberInput
+                  animated
+                  value={vend_amount}
+                  width="40px"
+                  minValue={1}
+                  maxValue={25}
+                  stepPixelSize={3}
+                  onDrag={(e, value) =>
+                    act('set_vend_amount', {
+                      vend_amount: value,
+                    })
+                  }
+                />
+              </>
+            }
+          >
+            {stored_seeds?.length ? <SeedsContent /> : 'No Seeds'}
+          </Section>
         </Stack>
       </Window.Content>
     </Window>

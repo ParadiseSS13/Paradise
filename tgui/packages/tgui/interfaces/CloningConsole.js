@@ -88,14 +88,14 @@ export const CloningConsole = (props, context) => {
       <ComplexModal maxWidth="75%" maxHeight="75%" />
       <Window.Content>
         <Stack fill vertical>
-        <CloningConsoleTemp />
-        <CloningConsoleStatus />
-        <CloningConsoleNavigation />
-        <Stack.Item grow>
-          <Section fill scrollable>
-            <CloningConsoleBody />
-          </Section>
-        </Stack.Item>
+          <CloningConsoleTemp />
+          <CloningConsoleStatus />
+          <CloningConsoleNavigation />
+          <Stack.Item grow>
+            <Section fill scrollable>
+              <CloningConsoleBody />
+            </Section>
+          </Stack.Item>
         </Stack>
       </Window.Content>
     </Window>
@@ -107,30 +107,30 @@ const CloningConsoleNavigation = (props, context) => {
   const { menu } = data;
   return (
     <Stack.Item>
-    <Tabs>
-      <Tabs.Tab
-        selected={menu === 1}
-        icon="home"
-        onClick={() =>
-          act('menu', {
-            num: 1,
-          })
-        }
-      >
-        Main
-      </Tabs.Tab>
-      <Tabs.Tab
-        selected={menu === 2}
-        icon="folder"
-        onClick={() =>
-          act('menu', {
-            num: 2,
-          })
-        }
-      >
-        Records
-      </Tabs.Tab>
-    </Tabs>
+      <Tabs>
+        <Tabs.Tab
+          selected={menu === 1}
+          icon="home"
+          onClick={() =>
+            act('menu', {
+              num: 1,
+            })
+          }
+        >
+          Main
+        </Tabs.Tab>
+        <Tabs.Tab
+          selected={menu === 2}
+          icon="folder"
+          onClick={() =>
+            act('menu', {
+              num: 2,
+            })
+          }
+        >
+          Records
+        </Tabs.Tab>
+      </Tabs>
     </Stack.Item>
   );
 };
@@ -356,48 +356,48 @@ const CloningConsoleStatus = (props, context) => {
   const { scanner, numberofpods, autoallowed, autoprocess, disk } = data;
   return (
     <Stack.Item>
-    <Section
-      title="Status"
-      buttons={
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        <>
-          {!!autoallowed && (
-            <>
-              <Box display="inline" color="label">
-                Auto-processing:&nbsp;
-              </Box>
-              <Button
-                selected={autoprocess}
-                icon={autoprocess ? 'toggle-on' : 'toggle-off'}
-                content={autoprocess ? 'Enabled' : 'Disabled'}
-                onClick={() =>
-                  act('autoprocess', {
-                    on: autoprocess ? 0 : 1,
-                  })
-                }
-              />
-            </>
-          )}
-        </>
-      }
-    >
-      <LabeledList>
-        <LabeledList.Item label="Scanner">
-          {scanner ? (
-            <Box color="good">Connected</Box>
-          ) : (
-            <Box color="bad">Not connected!</Box>
-          )}
-        </LabeledList.Item>
-        <LabeledList.Item label="Pods">
-          {numberofpods ? (
-            <Box color="good">{numberofpods} connected</Box>
-          ) : (
-            <Box color="bad">None connected!</Box>
-          )}
-        </LabeledList.Item>
-      </LabeledList>
-    </Section>
+      <Section
+        title="Status"
+        buttons={
+          // eslint-disable-next-line react/jsx-no-useless-fragment
+          <>
+            {!!autoallowed && (
+              <>
+                <Box display="inline" color="label">
+                  Auto-processing:&nbsp;
+                </Box>
+                <Button
+                  selected={autoprocess}
+                  icon={autoprocess ? 'toggle-on' : 'toggle-off'}
+                  content={autoprocess ? 'Enabled' : 'Disabled'}
+                  onClick={() =>
+                    act('autoprocess', {
+                      on: autoprocess ? 0 : 1,
+                    })
+                  }
+                />
+              </>
+            )}
+          </>
+        }
+      >
+        <LabeledList>
+          <LabeledList.Item label="Scanner">
+            {scanner ? (
+              <Box color="good">Connected</Box>
+            ) : (
+              <Box color="bad">Not connected!</Box>
+            )}
+          </LabeledList.Item>
+          <LabeledList.Item label="Pods">
+            {numberofpods ? (
+              <Box color="good">{numberofpods} connected</Box>
+            ) : (
+              <Box color="bad">None connected!</Box>
+            )}
+          </LabeledList.Item>
+        </LabeledList>
+      </Section>
     </Stack.Item>
   );
 };

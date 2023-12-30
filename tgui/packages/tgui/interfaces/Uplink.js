@@ -30,56 +30,54 @@ export const Uplink = (props, context) => {
     <Window width={900} height={610} theme="syndicate">
       <ComplexModal />
       <Window.Content scrollable>
-      <Stack vertical>
-        <Stack.Item>
-        <Tabs>
-          <Tabs.Tab
-            key="PurchasePage"
-            selected={tabIndex === 0}
-            onClick={() => {
-              setTabIndex(0);
-              setSearchText('');
-            }}
-            icon="store"
-          >
-            View Market
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="Cart"
-            selected={tabIndex === 1}
-            onClick={() => {
-              setTabIndex(1);
-              setSearchText('');
-            }}
-            icon="shopping-cart"
-          >
-            View Shopping Cart{' '}
-            {cart && cart.length ? '(' + cart.length + ')' : ''}
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="ExploitableInfo"
-            selected={tabIndex === 2}
-            onClick={() => {
-              setTabIndex(2);
-              setSearchText('');
-            }}
-            icon="user"
-          >
-            Exploitable Information
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="LockUplink"
-            // This cant ever be selected. Its just a close button.
-            onClick={() => act('lock')}
-            icon="lock"
-          >
-            Lock Uplink
-          </Tabs.Tab>
-        </Tabs>
-        </Stack.Item>
-        <Stack.Item grow>
-          {PickTab(tabIndex)}
-        </Stack.Item>
+        <Stack vertical>
+          <Stack.Item>
+            <Tabs>
+              <Tabs.Tab
+                key="PurchasePage"
+                selected={tabIndex === 0}
+                onClick={() => {
+                  setTabIndex(0);
+                  setSearchText('');
+                }}
+                icon="store"
+              >
+                View Market
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="Cart"
+                selected={tabIndex === 1}
+                onClick={() => {
+                  setTabIndex(1);
+                  setSearchText('');
+                }}
+                icon="shopping-cart"
+              >
+                View Shopping Cart{' '}
+                {cart && cart.length ? '(' + cart.length + ')' : ''}
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="ExploitableInfo"
+                selected={tabIndex === 2}
+                onClick={() => {
+                  setTabIndex(2);
+                  setSearchText('');
+                }}
+                icon="user"
+              >
+                Exploitable Information
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="LockUplink"
+                // This cant ever be selected. Its just a close button.
+                onClick={() => act('lock')}
+                icon="lock"
+              >
+                Lock Uplink
+              </Tabs.Tab>
+            </Tabs>
+          </Stack.Item>
+          <Stack.Item grow>{PickTab(tabIndex)}</Stack.Item>
         </Stack>
       </Window.Content>
     </Window>
@@ -121,72 +119,74 @@ const ItemsPage = (_properties, context) => {
   const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 1);
 
   return (
-<Stack fill vertical>
-  <Stack.Item>
-    <Section
-      title={'Current Balance: ' + crystals + 'TC'}
-      buttons={
-        <>
-          <Button.Checkbox
-            content="Show Descriptions"
-            checked={showDesc}
-            onClick={() => setShowDesc(!showDesc)}
-          />
-          <Button
-            content="Random Item"
-            icon="question"
-            onClick={() => act('buyRandom')}
-          />
-          <Button
-            content="Refund Currently Held Item"
-            icon="undo"
-            onClick={() => act('refund')}
-          />
-        </>
-      }
-    >
-      <Input
-        fluid
-        placeholder="Search Equipment"
-        onInput={(e, value) => {
-          handleSearch(value);
-        }}
-        value={searchText}
-      />
-      </Section>
-    <Stack fill>
+    <Stack fill vertical>
       <Stack.Item>
-        <Section fill>
-          <Tabs vertical>
-            {cats.map((c) => (
-              <Tabs.Tab
-                key={c}
-                selected={searchText !== '' ? false : c.items === uplinkItems}
-                onClick={() => {
-                  setUplinkItems(c.items);
-                  setSearchText('');
-                }}
-              >
-                {c.cat}
-              </Tabs.Tab>
-            ))}
-          </Tabs>
-          </Section>
-        </Stack.Item>
-        <Stack.Item grow>
-          <Section fill scrollable>
-          {uplinkItems.map((i) => (
-            <UplinkItem
-              i={i}
-              showDecription={showDesc}
-              key={decodeHtmlEntities(i.name)}
-            />
-          ))}
-          </Section>
-        </Stack.Item>
-      </Stack>
-  </Stack.Item>
-</Stack>
+        <Section
+          title={'Current Balance: ' + crystals + 'TC'}
+          buttons={
+            <>
+              <Button.Checkbox
+                content="Show Descriptions"
+                checked={showDesc}
+                onClick={() => setShowDesc(!showDesc)}
+              />
+              <Button
+                content="Random Item"
+                icon="question"
+                onClick={() => act('buyRandom')}
+              />
+              <Button
+                content="Refund Currently Held Item"
+                icon="undo"
+                onClick={() => act('refund')}
+              />
+            </>
+          }
+        >
+          <Input
+            fluid
+            placeholder="Search Equipment"
+            onInput={(e, value) => {
+              handleSearch(value);
+            }}
+            value={searchText}
+          />
+        </Section>
+        <Stack fill>
+          <Stack.Item>
+            <Section fill>
+              <Tabs vertical>
+                {cats.map((c) => (
+                  <Tabs.Tab
+                    key={c}
+                    selected={
+                      searchText !== '' ? false : c.items === uplinkItems
+                    }
+                    onClick={() => {
+                      setUplinkItems(c.items);
+                      setSearchText('');
+                    }}
+                  >
+                    {c.cat}
+                  </Tabs.Tab>
+                ))}
+              </Tabs>
+            </Section>
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section fill scrollable>
+              {uplinkItems.map((i) => (
+                <UplinkItem
+                  i={i}
+                  showDecription={showDesc}
+                  key={decodeHtmlEntities(i.name)}
+                />
+              ))}
+            </Section>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+    </Stack>
   );
 };
 

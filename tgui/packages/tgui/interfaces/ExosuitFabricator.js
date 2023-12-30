@@ -225,11 +225,7 @@ const Queue = (properties, context) => {
           <Box color="label">The queue is empty.</Box>
         ) : (
           <>
-            <Stack.Item
-              className="Exofab__queue--queue"
-              grow
-              overflow="auto"
-            >
+            <Stack.Item className="Exofab__queue--queue" grow overflow="auto">
               {queue.map((line, index) => (
                 <Box key={index} color={line.notEnough && 'bad'}>
                   {index + 1}. {line.name}
@@ -268,9 +264,7 @@ const Queue = (properties, context) => {
               ))}
             </Stack.Item>
             {queueTime > 0 && (
-              <Stack.Item
-                className="Exofab__queue--time"
-              >
+              <Stack.Item className="Exofab__queue--time">
                 <Divider />
                 Processing time:
                 <Icon name="clock" mx="0.5rem" />
@@ -282,10 +276,7 @@ const Queue = (properties, context) => {
               </Stack.Item>
             )}
             {Object.keys(queueDeficit).length > 0 && (
-              <Stack.Item
-                className="Exofab__queue--deficit"
-                shrink="0"
-              >
+              <Stack.Item className="Exofab__queue--deficit" shrink="0">
                 <Divider />
                 Lacking materials to complete:
                 {queueDeficit.map((kv) => (
@@ -383,11 +374,7 @@ const Design = (properties, context) => {
       </Box>
       <Box className="Exofab__design--time">
         <Icon name="clock" />
-        {design.time > 0 ? (
-          <>{design.time / 10} seconds</>
-        ) : (
-          'Instant'
-        )}
+        {design.time > 0 ? <>{design.time / 10} seconds</> : 'Instant'}
       </Box>
     </Box>
   );

@@ -25,8 +25,8 @@ export const OreRedemption = (properties, context) => {
           <Stack.Item>
             <IdDisk height="100%" />
           </Stack.Item>
-            <Sheet />
-            <Alloy />
+          <Sheet />
+          <Alloy />
         </Stack>
       </Window.Content>
     </Window>
@@ -136,21 +136,21 @@ const Sheet = (properties, context) => {
   const { sheets } = data;
   const { ...rest } = properties;
   return (
-  <Stack.Item grow height="20%">
-    <Section fill scrollable className="OreRedemption__Ores" p="0" {...rest}>
-      <OreHeader
-        title="Sheets"
-        columns={[
-          ['Available', '25%'],
-          ['Ore Value', '15%'],
-          ['Smelt', '20%'],
-        ]}
-      />
-      {sheets.map((sheet) => (
-        <SheetLine key={sheet.id} ore={sheet} />
-      ))}
-    </Section>
-  </Stack.Item>
+    <Stack.Item grow height="20%">
+      <Section fill scrollable className="OreRedemption__Ores" p="0" {...rest}>
+        <OreHeader
+          title="Sheets"
+          columns={[
+            ['Available', '25%'],
+            ['Ore Value', '15%'],
+            ['Smelt', '20%'],
+          ]}
+        />
+        {sheets.map((sheet) => (
+          <SheetLine key={sheet.id} ore={sheet} />
+        ))}
+      </Section>
+    </Stack.Item>
   );
 };
 
@@ -163,21 +163,21 @@ const Alloy = (properties, context) => {
   const { alloys } = data;
   const { ...rest } = properties;
   return (
-  <Stack.Item grow>
-    <Section fill scrollable className="OreRedemption__Ores" p="0" {...rest}>
-      <OreHeader
-        title="Alloys"
-        columns={[
-          ['Recipe', '50%'],
-          ['Available', '11%'],
-          ['Smelt', '20%'],
-        ]}
-      />
-      {alloys.map((alloy) => (
-        <AlloyLine key={alloy.id} ore={alloy} />
-      ))}
-    </Section>
-  </Stack.Item>
+    <Stack.Item grow>
+      <Section fill scrollable className="OreRedemption__Ores" p="0" {...rest}>
+        <OreHeader
+          title="Alloys"
+          columns={[
+            ['Recipe', '50%'],
+            ['Available', '11%'],
+            ['Smelt', '20%'],
+          ]}
+        />
+        {alloys.map((alloy) => (
+          <AlloyLine key={alloy.id} ore={alloy} />
+        ))}
+      </Section>
+    </Stack.Item>
   );
 };
 

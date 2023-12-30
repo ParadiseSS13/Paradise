@@ -7833,6 +7833,15 @@ fsevents@~2.3.2:
   languageName: node
   linkType: hard
 
+"prettier@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "prettier@npm:3.1.1"
+  bin:
+    prettier: bin/prettier.cjs
+  checksum: 15650945fb91299cea0f7d2990d2d5b90bdbc8425af0f4a991fca3f6d8acec85a8e05f0e9222f2bd98886e823ba29aadee21e9cddfdccf0af6f8543879e8804b
+  languageName: node
+  linkType: hard
+
 "process-nextick-args@npm:~2.0.0":
   version: 2.0.1
   resolution: "process-nextick-args@npm:2.0.1"
@@ -9490,6 +9499,7 @@ resolve@^2.0.0-next.4:
     inferno: ^7.4.2
     optimize-css-assets-webpack-plugin: ^5.0.3
     pnp-webpack-plugin: ^1.6.4
+    prettier: ^3.1.1
     sass: ^1.22.12
     sass-loader: ^9.0.2
     style-loader: ^1.0.0

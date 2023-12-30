@@ -12,10 +12,10 @@ export const ReagentGrinder = (props, context) => {
     <Window width={400} height={565} resizable>
       <Window.Content>
         <Stack fill vertical>
-        <Operating operating={operating} name={title} />
-        <GrinderControls />
-        <GrinderContents />
-        <GrinderReagents />
+          <Operating operating={operating} name={title} />
+          <GrinderControls />
+          <GrinderContents />
+          <GrinderReagents />
         </Stack>
       </Window.Content>
     </Window>

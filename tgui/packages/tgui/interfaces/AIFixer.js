@@ -1,5 +1,12 @@
 import { useBackend } from '../backend';
-import { Button, ProgressBar, Box, LabeledList, Section, Stack } from '../components';
+import {
+  Button,
+  ProgressBar,
+  Box,
+  LabeledList,
+  Section,
+  Stack,
+} from '../components';
 import { Window } from '../layouts';
 
 export const AIFixer = (props, context) => {
@@ -41,75 +48,77 @@ export const AIFixer = (props, context) => {
         <Window.Content>
           <Stack fill vertical>
             <Stack.Item>
-          <Section title={data.occupant}>
-            <LabeledList>
-              <LabeledList.Item label="Integrity">
-                <ProgressBar
-                  color={integrityColor}
-                  value={data.integrity / 100}
-                />
-              </LabeledList.Item>
-              <LabeledList.Item
-                label="Status"
-                color={workingAI ? 'green' : 'red'}
-              >
-                {workingAI ? 'Functional' : 'Non-Functional'}
-              </LabeledList.Item>
-            </LabeledList>
-          </Section>
-          </Stack.Item>
-          <Stack.Item grow>
-          <Section fill scrollable title="Laws">
-            {(!!data.has_laws && (
-              <Box>
-                {data.laws.map((value, key) => (
-                  <Box key={key} display="inline-block">
-                    {value}
+              <Section title={data.occupant}>
+                <LabeledList>
+                  <LabeledList.Item label="Integrity">
+                    <ProgressBar
+                      color={integrityColor}
+                      value={data.integrity / 100}
+                    />
+                  </LabeledList.Item>
+                  <LabeledList.Item
+                    label="Status"
+                    color={workingAI ? 'green' : 'red'}
+                  >
+                    {workingAI ? 'Functional' : 'Non-Functional'}
+                  </LabeledList.Item>
+                </LabeledList>
+              </Section>
+            </Stack.Item>
+            <Stack.Item grow>
+              <Section fill scrollable title="Laws">
+                {(!!data.has_laws && (
+                  <Box>
+                    {data.laws.map((value, key) => (
+                      <Box key={key} display="inline-block">
+                        {value}
+                      </Box>
+                    ))}
                   </Box>
-                ))}
-              </Box>
-            )) || ( // Else, no laws.
-              <Box color="red">
-                <h3>No laws detected.</h3>
-              </Box>
-            )}
-          </Section>
-          </Stack.Item>
-          <Stack.Item>
-          <Section title="Actions">
-            <LabeledList>
-              <LabeledList.Item label="Wireless Activity">
-                <Button
-                  icon={data.wireless ? 'times' : 'check'}
-                  content={data.wireless ? 'Disabled' : 'Enabled'}
-                  color={data.wireless ? 'red' : 'green'}
-                  onClick={() => act('wireless')}
-                />
-              </LabeledList.Item>
-              <LabeledList.Item label="Subspace Transceiver">
-                <Button
-                  icon={data.radio ? 'times' : 'check'}
-                  content={data.radio ? 'Disabled' : 'Enabled'}
-                  color={data.radio ? 'red' : 'green'}
-                  onClick={() => act('radio')}
-                />
-              </LabeledList.Item>
-              <LabeledList.Item label="Start Repairs">
-                <Button
-                  icon="wrench"
-                  disabled={!repairable || data.active}
-                  content={
-                    !repairable || data.active ? 'Already Repaired' : 'Repair'
-                  }
-                  onClick={() => act('fix')}
-                />
-              </LabeledList.Item>
-            </LabeledList>
-            <Box color="green" lineHeight={2}>
-              {data.active ? 'Reconstruction in progress.' : ''}
-            </Box>
-          </Section>
-          </Stack.Item>
+                )) || ( // Else, no laws.
+                  <Box color="red">
+                    <h3>No laws detected.</h3>
+                  </Box>
+                )}
+              </Section>
+            </Stack.Item>
+            <Stack.Item>
+              <Section title="Actions">
+                <LabeledList>
+                  <LabeledList.Item label="Wireless Activity">
+                    <Button
+                      icon={data.wireless ? 'times' : 'check'}
+                      content={data.wireless ? 'Disabled' : 'Enabled'}
+                      color={data.wireless ? 'red' : 'green'}
+                      onClick={() => act('wireless')}
+                    />
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Subspace Transceiver">
+                    <Button
+                      icon={data.radio ? 'times' : 'check'}
+                      content={data.radio ? 'Disabled' : 'Enabled'}
+                      color={data.radio ? 'red' : 'green'}
+                      onClick={() => act('radio')}
+                    />
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Start Repairs">
+                    <Button
+                      icon="wrench"
+                      disabled={!repairable || data.active}
+                      content={
+                        !repairable || data.active
+                          ? 'Already Repaired'
+                          : 'Repair'
+                      }
+                      onClick={() => act('fix')}
+                    />
+                  </LabeledList.Item>
+                </LabeledList>
+                <Box color="green" lineHeight={2}>
+                  {data.active ? 'Reconstruction in progress.' : ''}
+                </Box>
+              </Section>
+            </Stack.Item>
           </Stack>
         </Window.Content>
       </Window>

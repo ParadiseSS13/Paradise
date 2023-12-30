@@ -18,17 +18,17 @@ export const PortablePump = (props, context) => {
     <Window width={435} height={330}>
       <Window.Content>
         <Stack fill vertical>
-        <PumpSettings />
-        <PressureSettings />
-        {has_holding_tank ? (
-          <HoldingTank />
-        ) : (
-          <Section fill title="Holding Tank">
-            <Box color="average" bold={1} textAlign="center" mt={2.5}>
-              No Holding Tank Inserted.
-            </Box>
-          </Section>
-        )}
+          <PumpSettings />
+          <PressureSettings />
+          {has_holding_tank ? (
+            <HoldingTank />
+          ) : (
+            <Section fill title="Holding Tank">
+              <Box color="average" bold={1} textAlign="center" mt={2.5}>
+                No Holding Tank Inserted.
+              </Box>
+            </Section>
+          )}
         </Stack>
       </Window.Content>
     </Window>
@@ -40,18 +40,19 @@ const PumpSettings = (props, context) => {
   const { on, direction, port_connected } = data;
 
   return (
-    <Section 
+    <Section
       title="Pump Settings"
       buttons={
         <Button
-            width={4}
-            icon={on ? 'power-off' : 'power-off'}
-            content={on ? 'On' : 'Off'}
-            color={on ? null : 'red'}
-            selected={on}
-            onClick={() => act('power')}
-          />
-      }>
+          width={4}
+          icon={on ? 'power-off' : 'power-off'}
+          content={on ? 'On' : 'Off'}
+          color={on ? null : 'red'}
+          selected={on}
+          onClick={() => act('power')}
+        />
+      }
+    >
       <LabeledList>
         <LabeledList.Item label="Pump Direction">
           <Box>
@@ -194,9 +195,7 @@ const HoldingTank = (props, context) => {
       }
     >
       <Stack>
-        <Stack.Item color="label">
-          Tank Label:
-        </Stack.Item>
+        <Stack.Item color="label">Tank Label:</Stack.Item>
         <Stack.Item color="silver" ml={4.5}>
           {holding_tank.name}
         </Stack.Item>

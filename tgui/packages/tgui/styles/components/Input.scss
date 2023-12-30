@@ -10,9 +10,11 @@
 $text-color: base.$color-fg !default;
 $background-color: #0a0a0a !default;
 $border-color: #88bfff !default;
-$border-color-disabled: color.adjust($border-color,
-    $saturation: -100%,
-    $lightness: -25%) !default;
+$border-color-disabled: color.adjust(
+  $border-color,
+  $saturation: -100%,
+  $lightness: -25%
+) !default;
 $border-radius: base.$border-radius !default;
 
 .Input {
@@ -33,13 +35,13 @@ $border-radius: base.$border-radius !default;
   overflow: visible;
   white-space: nowrap;
 
-    &--disabled {
-      color: #777;
-      border-color: $border-color-disabled;
-      border-color: rgba($border-color-disabled, 0.75);
-      background-color: #333;
-      background-color: rgba(0, 0, 0, 0.25);
-    }
+  &--disabled {
+    color: #777;
+    border-color: $border-color-disabled;
+    border-color: rgba($border-color-disabled, 0.75);
+    background-color: #333;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
 }
 
 .Input--fluid {

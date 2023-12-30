@@ -7,7 +7,7 @@ import {
   Icon,
   Input,
   Section,
-  Stack
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -142,7 +142,7 @@ export const Orbit = (props, context) => {
         <Section>
           <Stack>
             <Stack.Item>
-              <Icon name="search"/>
+              <Icon name="search" />
             </Stack.Item>
             <Stack.Item grow>
               <Input

@@ -143,24 +143,24 @@ export const ListInput = (props, context) => {
                 />
               }
             >
-                {displayedArray.map((button) => (
-                    <Button
-                      color="transparent"
-                      content={button}
-                      id={button}
-                      key={button}
-                      fluid
-                      selected={selectedButton === button}
-                      onClick={() => {
-                        if (selectedButton === button) {
-                          act('choose', { choice: button });
-                        } else {
-                          setSelectedButton(button);
-                        }
-                        setLastCharCode(null);
-                      }}
-                    />
-                ))}
+              {displayedArray.map((button) => (
+                <Button
+                  color="transparent"
+                  content={button}
+                  id={button}
+                  key={button}
+                  fluid
+                  selected={selectedButton === button}
+                  onClick={() => {
+                    if (selectedButton === button) {
+                      act('choose', { choice: button });
+                    } else {
+                      setSelectedButton(button);
+                    }
+                    setLastCharCode(null);
+                  }}
+                />
+              ))}
             </Section>
           </Stack.Item>
           {showSearchBar && (

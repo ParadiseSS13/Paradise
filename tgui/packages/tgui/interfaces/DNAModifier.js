@@ -153,11 +153,11 @@ const DNAModifierMain = (props, context) => {
     return (
       <Section fill>
         <Stack fill>
-         <Stack.Item grow align="center" textAlign="center" color="label">
+          <Stack.Item grow align="center" textAlign="center" color="label">
             <Icon name="user-slash" mb="0.5rem" size="5" />
             <br />
             No occupant in DNA modifier.
-         </Stack.Item>
+          </Stack.Item>
         </Stack>
       </Section>
     );
@@ -324,16 +324,16 @@ const DNAModifierMainBuffers = (props, context) => {
     />
   ));
   return (
-      <Stack fill vertical>
-        <Stack.Item height="75%" mt={1}>
-      <Section fill scrollable title="Buffers">
-        {bufferElements}
-      </Section>
+    <Stack fill vertical>
+      <Stack.Item height="75%" mt={1}>
+        <Section fill scrollable title="Buffers">
+          {bufferElements}
+        </Section>
       </Stack.Item>
-        <Stack.Item height="25%">
-      <DNAModifierMainBuffersDisk />
+      <Stack.Item height="25%">
+        <DNAModifierMainBuffersDisk />
       </Stack.Item>
-      </Stack>
+    </Stack>
   );
 };
 

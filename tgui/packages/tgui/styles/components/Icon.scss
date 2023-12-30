@@ -5,23 +5,22 @@
  * @license ISC
  */
 
- .IconStack > .Icon {
-    position: absolute;
-    width: 100%;
-    text-align: center;
+.IconStack > .Icon {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+
+.IconStack {
+  position: relative;
+  display: inline-block;
+  height: 7em;
+  width: 10em;
+  line-height: 2em;
+  vertical-align: middle;
+
+  &:after {
+    color: transparent;
+    content: '.';
   }
-  
-  
-  .IconStack {
-    position: relative;
-    display: inline-block;
-    height: 7em;
-    width: 10em;
-    line-height: 2em;
-    vertical-align: middle;
-  
-    &:after {
-      color: transparent;
-      content: '.';
-    }
-  }
+}

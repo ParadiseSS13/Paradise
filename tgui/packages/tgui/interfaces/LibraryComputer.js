@@ -222,27 +222,27 @@ const LibraryComputerNavigation = (properties, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const { login_state } = data;
   return (
-  <Stack.Item mb={1}>
-    <Tabs fluid textAlign="center">
-      <Tabs.Tab selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
-        Book Archives
-      </Tabs.Tab>
-      <Tabs.Tab  selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
-        Corporate Literature
-      </Tabs.Tab>
-      <Tabs.Tab selected={2 === tabIndex} onClick={() => setTabIndex(2)}>
-        Upload Book
-      </Tabs.Tab>
-      {login_state === 1 && (
-        <Tabs.Tab selected={3 === tabIndex} onClick={() => setTabIndex(3)}>
-          Patron Manager
+    <Stack.Item mb={1}>
+      <Tabs fluid textAlign="center">
+        <Tabs.Tab selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
+          Book Archives
         </Tabs.Tab>
-      )}
-      <Tabs.Tab selected={4 === tabIndex} onClick={() => setTabIndex(4)}>
-        Inventory
-      </Tabs.Tab>
-    </Tabs>
-  </Stack.Item>
+        <Tabs.Tab selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
+          Corporate Literature
+        </Tabs.Tab>
+        <Tabs.Tab selected={2 === tabIndex} onClick={() => setTabIndex(2)}>
+          Upload Book
+        </Tabs.Tab>
+        {login_state === 1 && (
+          <Tabs.Tab selected={3 === tabIndex} onClick={() => setTabIndex(3)}>
+            Patron Manager
+          </Tabs.Tab>
+        )}
+        <Tabs.Tab selected={4 === tabIndex} onClick={() => setTabIndex(4)}>
+          Inventory
+        </Tabs.Tab>
+      </Tabs>
+    </Stack.Item>
   );
 };
 
@@ -416,39 +416,40 @@ const LibraryBooksList = (properties, context) => {
     data;
 
   return (
-    <Section 
+    <Section
       fill
       scrollable
       title="Book System Access"
       buttons={
         <div>
-        <Button
-          icon="angle-double-left"
-          disabled={archive_pagenumber === 1}
-          onClick={() => act('deincrementpagemax')}
-        />
-        <Button
-          icon="chevron-left"
-          disabled={archive_pagenumber === 1}
-          onClick={() => act('deincrementpage')}
-        />
-        <Button
-          bold
-          content={archive_pagenumber}
-          onClick={() => modalOpen(context, 'setpagenumber')}
-        />
-        <Button
-          icon="chevron-right"
-          disabled={archive_pagenumber === num_pages}
-          onClick={() => act('incrementpage')}
-        />
-        <Button
-          icon="angle-double-right"
-          disabled={archive_pagenumber === num_pages}
-          onClick={() => act('incrementpagemax')}
-        />
-      </div>
-      }>
+          <Button
+            icon="angle-double-left"
+            disabled={archive_pagenumber === 1}
+            onClick={() => act('deincrementpagemax')}
+          />
+          <Button
+            icon="chevron-left"
+            disabled={archive_pagenumber === 1}
+            onClick={() => act('deincrementpage')}
+          />
+          <Button
+            bold
+            content={archive_pagenumber}
+            onClick={() => modalOpen(context, 'setpagenumber')}
+          />
+          <Button
+            icon="chevron-right"
+            disabled={archive_pagenumber === num_pages}
+            onClick={() => act('incrementpage')}
+          />
+          <Button
+            icon="angle-double-right"
+            disabled={archive_pagenumber === num_pages}
+            onClick={() => act('incrementpagemax')}
+          />
+        </div>
+      }
+    >
       <SearchTools />
       <hr />
       <Table className="Library__Booklist">
@@ -578,24 +579,25 @@ const UploadBooks = (properties, context) => {
   }
 
   return (
-    <Section 
-      fill 
-      scrollable 
+    <Section
+      fill
+      scrollable
       title="Book System Upload"
       buttons={
         <Button.Confirm
-        bold
-        width={9.5}
-        icon="upload"
-        disabled={selectedbook.copyright}
-        content="Upload Book"
-        onClick={() =>
-          act('uploadbook', {
-            user_ckey: user_ckey,
-          })
-        }
-      />
-      }>
+          bold
+          width={9.5}
+          icon="upload"
+          disabled={selectedbook.copyright}
+          content="Upload Book"
+          onClick={() =>
+            act('uploadbook', {
+              user_ckey: user_ckey,
+            })
+          }
+        />
+      }
+    >
       {selectedbook.copyright ? (
         <NoticeBox color="red">
           WARNING: You cannot upload or modify the attributes of a copyrighted

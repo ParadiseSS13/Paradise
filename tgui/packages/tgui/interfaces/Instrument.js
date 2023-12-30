@@ -9,7 +9,7 @@ import {
   Modal,
   Section,
   Slider,
-  Stack
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 export const Instrument = (properties, context) => {
@@ -19,8 +19,8 @@ export const Instrument = (properties, context) => {
       <InstrumentHelp />
       <Window.Content>
         <Stack fill vertical>
-        <InstrumentStatus />
-        <InstrumentEditor />
+          <InstrumentStatus />
+          <InstrumentEditor />
         </Stack>
       </Window.Content>
     </Window>

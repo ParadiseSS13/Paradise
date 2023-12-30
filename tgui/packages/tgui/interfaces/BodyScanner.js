@@ -421,7 +421,7 @@ const BodyScannerMainOrgansInternal = (props) => {
 const BodyScannerEmpty = () => {
   return (
     <Section fill>
-      <Stack fill textAlign="center" >
+      <Stack fill textAlign="center">
         <Stack.Item grow align="center" color="label">
           <Icon name="user-slash" mb="0.5rem" size="5" />
           <br />

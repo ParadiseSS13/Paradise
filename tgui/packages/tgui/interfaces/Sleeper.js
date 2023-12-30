@@ -47,12 +47,10 @@ export const Sleeper = (props, context) => {
     <Window width={550} height={760} resizable>
       <Window.Content scrollable>
         <Stack fill vertical>
-          <Stack.Item grow>
-        {body}
-        </Stack.Item>
-        <Stack.Item>
-        <SleeperDialysis />
-        </Stack.Item>
+          <Stack.Item grow>{body}</Stack.Item>
+          <Stack.Item>
+            <SleeperDialysis />
+          </Stack.Item>
         </Stack>
       </Window.Content>
     </Window>

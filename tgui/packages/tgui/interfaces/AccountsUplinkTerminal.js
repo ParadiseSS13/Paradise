@@ -47,7 +47,7 @@ export const AccountsUplinkTerminal = (properties, context) => {
           <LoginInfo />
           <AccountsUplinkTerminalNavigation />
           <Section fill scrollable>
-          {body}
+            {body}
           </Section>
         </Stack>
       </Window.Content>
@@ -60,18 +60,26 @@ const AccountsUplinkTerminalNavigation = (properties, context) => {
   const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
   const { login_state } = data;
   return (
-  <Stack vertical mb={1}>
-    <Stack.Item>
-    <Tabs>
-      <Tabs.Tab icon="list" selected={0 === tabIndex} onClick={() => setTabIndex(0)}>
-        User Accounts
-      </Tabs.Tab>
-      <Tabs.Tab icon="list" selected={1 === tabIndex} onClick={() => setTabIndex(1)}>
-        Department Accounts
-      </Tabs.Tab>
-    </Tabs>
-    </Stack.Item>
-  </Stack>
+    <Stack vertical mb={1}>
+      <Stack.Item>
+        <Tabs>
+          <Tabs.Tab
+            icon="list"
+            selected={0 === tabIndex}
+            onClick={() => setTabIndex(0)}
+          >
+            User Accounts
+          </Tabs.Tab>
+          <Tabs.Tab
+            icon="list"
+            selected={1 === tabIndex}
+            onClick={() => setTabIndex(1)}
+          >
+            Department Accounts
+          </Tabs.Tab>
+        </Tabs>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -255,81 +263,81 @@ const DetailedAccountInfo = (properties, context) => {
   } = data;
   return (
     <Stack fill vertical>
-    <Stack.Item>
-      <Section
-        title={'#' + account_number + ' / ' + owner_name}
-        buttons={
-          <Button
-            icon="arrow-left"
-            content="Back"
-            onClick={() => act('back')}
-          />
-        }
-      >
-        <LabeledList>
-          <LabeledList.Item label="Account Number">
-            #{account_number}
-          </LabeledList.Item>
-          {!!is_department_account && (
-            <LabeledList.Item label="Account Pin">
-              {account_pin}
+      <Stack.Item>
+        <Section
+          title={'#' + account_number + ' / ' + owner_name}
+          buttons={
+            <Button
+              icon="arrow-left"
+              content="Back"
+              onClick={() => act('back')}
+            />
+          }
+        >
+          <LabeledList>
+            <LabeledList.Item label="Account Number">
+              #{account_number}
             </LabeledList.Item>
-          )}
-          <LabeledList.Item label="Account Pin Actions">
-            <Button
-              ml={1}
-              icon="user-cog"
-              content="Set New Pin"
-              disabled={Boolean(is_department_account)}
-              onClick={() =>
-                act('set_account_pin', {
-                  account_number: account_number,
-                })
-              }
-            />
-          </LabeledList.Item>
-          <LabeledList.Item label="Account Holder">
-            {owner_name}
-          </LabeledList.Item>
-          <LabeledList.Item label="Account Balance">{money}</LabeledList.Item>
-          <LabeledList.Item
-            label="Account Status"
-            color={suspended ? 'red' : 'green'}
-          >
-            {suspended ? 'Suspended' : 'Active'}
-            <Button
-              ml={1}
-              content={suspended ? 'Unsuspend' : 'Suspend'}
-              icon={suspended ? 'unlock' : 'lock'}
-              onClick={() => act('toggle_suspension')}
-            />
-          </LabeledList.Item>
-        </LabeledList>
-      </Section>
+            {!!is_department_account && (
+              <LabeledList.Item label="Account Pin">
+                {account_pin}
+              </LabeledList.Item>
+            )}
+            <LabeledList.Item label="Account Pin Actions">
+              <Button
+                ml={1}
+                icon="user-cog"
+                content="Set New Pin"
+                disabled={Boolean(is_department_account)}
+                onClick={() =>
+                  act('set_account_pin', {
+                    account_number: account_number,
+                  })
+                }
+              />
+            </LabeledList.Item>
+            <LabeledList.Item label="Account Holder">
+              {owner_name}
+            </LabeledList.Item>
+            <LabeledList.Item label="Account Balance">{money}</LabeledList.Item>
+            <LabeledList.Item
+              label="Account Status"
+              color={suspended ? 'red' : 'green'}
+            >
+              {suspended ? 'Suspended' : 'Active'}
+              <Button
+                ml={1}
+                content={suspended ? 'Unsuspend' : 'Suspend'}
+                icon={suspended ? 'unlock' : 'lock'}
+                onClick={() => act('toggle_suspension')}
+              />
+            </LabeledList.Item>
+          </LabeledList>
+        </Section>
       </Stack.Item>
       <Stack.Item>
-      <Section fill title="Transactions">
-        <Table>
-          <Table.Row header>
-            <Table.Cell>Timestamp</Table.Cell>
-            <Table.Cell>Reason</Table.Cell>
-            <Table.Cell>Value</Table.Cell>
-            <Table.Cell>Terminal</Table.Cell>
-          </Table.Row>
-          {transactions.map((t) => (
-            <Table.Row key={t}>
-              <Table.Cell>{t.time}</Table.Cell>
-              <Table.Cell>{t.purpose}</Table.Cell>
-              <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
-                ${t.amount}
-              </Table.Cell>
-              <Table.Cell>{t.target_name}</Table.Cell>
+        <Section fill title="Transactions">
+          <Table>
+            <Table.Row header>
+              <Table.Cell>Timestamp</Table.Cell>
+              <Table.Cell>Reason</Table.Cell>
+              <Table.Cell>Value</Table.Cell>
+              <Table.Cell>Terminal</Table.Cell>
             </Table.Row>
-          ))}
-        </Table>
-      </Section>
+            {transactions.map((t) => (
+              <Table.Row key={t}>
+                <Table.Cell>{t.time}</Table.Cell>
+                <Table.Cell>{t.purpose}</Table.Cell>
+                <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
+                  ${t.amount}
+                </Table.Cell>
+                <Table.Cell>{t.target_name}</Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
+        </Section>
       </Stack.Item>
-      </Stack>
+    </Stack>
   );
 };
 

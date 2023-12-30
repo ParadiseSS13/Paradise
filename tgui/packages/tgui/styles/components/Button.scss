@@ -19,20 +19,24 @@ $bg-map: colors.$bg-map !default;
 @mixin button-color($color) {
   // Adapt text color to background luminance to ensure high contast
   $luminance: luminance($color);
-  $text-color: if($luminance > 0.4,
-    rgba(0, 0, 0, 1),
-    rgba(255, 255, 255, 1));
+  $text-color: if($luminance > 0.4, rgba(0, 0, 0, 1), rgba(255, 255, 255, 1));
 
-  transition: color 50ms, background-color 50ms;
+  transition:
+    color 50ms,
+    background-color 50ms;
   background-color: $color;
   color: $text-color;
 
   &:hover {
-    transition: color 0ms, background-color 0ms;
+    transition:
+      color 0ms,
+      background-color 0ms;
   }
 
   &:focus {
-    transition: color 100ms, background-color 100ms;
+    transition:
+      color 100ms,
+      background-color 100ms;
   }
 
   &:hover,
@@ -61,7 +65,9 @@ $bg-map: colors.$bg-map !default;
     margin-bottom: 0;
   }
 
-  .fa, .fas, .far {
+  .fa,
+  .fas,
+  .far {
     margin-left: -0.25em;
     margin-right: -0.25em;
     min-width: 1.333em;
@@ -71,13 +77,14 @@ $bg-map: colors.$bg-map !default;
 
 .Button--hasContent {
   // Add a margin to the icon to keep it separate from the text
-  .fa, .fas, .far {
+  .fa,
+  .fas,
+  .far {
     margin-right: 0.25em;
   }
 }
 
 .Button--hasContent.Button--iconRight {
-
   .fa,
   .fas,
   .far {

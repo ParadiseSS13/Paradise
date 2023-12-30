@@ -11,7 +11,7 @@ import {
   Divider,
   Input,
   Section,
-  Stack
+  Stack,
 } from 'tgui/components';
 import { removeChatPage, toggleAcceptedType, updateChatPage } from './actions';
 import { MESSAGE_TYPES } from './constants';

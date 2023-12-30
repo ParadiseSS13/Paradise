@@ -19,7 +19,7 @@ export const SecureStorage = (props, context) => {
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item grow>
-          <MainPage />
+            <MainPage />
           </Stack.Item>
         </Stack>
       </Window.Content>
@@ -72,10 +72,7 @@ const MainPage = (props, context) => {
   const status = no_passcode ? '' : locked ? 'bad' : 'good';
 
   return (
-    <Section
-      fill
-      onKeyDown={(e) => handleKeyCodeEvent(e, context)}
-    >
+    <Section fill onKeyDown={(e) => handleKeyCodeEvent(e, context)}>
       <Stack.Item height={7.3}>
         <Box
           className={classes([

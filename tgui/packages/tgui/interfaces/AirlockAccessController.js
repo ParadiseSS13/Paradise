@@ -71,8 +71,8 @@ export const AirlockAccessController = (props, context) => {
         </Section>
         <Section title="Actions">
           <Box>
-           {exteriorbutton}
-           {interiorbutton}
+            {exteriorbutton}
+            {interiorbutton}
           </Box>
         </Section>
       </Window.Content>

@@ -24,8 +24,8 @@
   @include meta.load-css('../components/Section.scss');
   @include meta.load-css(
     '../components/Tabs.scss',
-    $with: ('tab-color-selected': colors.$primary))
-  ;
+    $with: ('tab-color-selected': colors.$primary)
+  );
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');

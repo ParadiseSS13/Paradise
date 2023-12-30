@@ -46,22 +46,15 @@ export const Icon = (props) => {
 
 Icon.defaultHooks = pureComponentHooks;
 
-export const IconStack = props => {
-  const {
-    className,
-    style = {},
-    children,
-    ...rest
-  } = props;
+export const IconStack = (props) => {
+  const { className, style = {}, children, ...rest } = props;
   return (
     <Box
       as="span"
-      class={classes([
-        'IconStack',
-        className,
-      ])}
+      class={classes(['IconStack', className])}
       style={style}
-      {...rest}>
+      {...rest}
+    >
       {children}
     </Box>
   );

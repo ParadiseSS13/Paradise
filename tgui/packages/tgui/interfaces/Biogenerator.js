@@ -34,13 +34,7 @@ const MissingContainer = (props, context) => {
   return (
     <Section fill scrollable>
       <Stack fill>
-        <Stack.Item
-          bold
-          grow
-          textAlign="center"
-          align="center"
-          color="silver"
-        >
+        <Stack.Item bold grow textAlign="center" align="center" color="silver">
           <Icon name="flask" size={5} mb="10px" />
           <br />
           The biogenerator is missing a container.

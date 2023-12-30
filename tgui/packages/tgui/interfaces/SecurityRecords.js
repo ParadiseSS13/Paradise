@@ -61,12 +61,12 @@ export const SecurityRecords = (properties, context) => {
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
-        <LoginInfo />
-        <TemporaryNotice />
-        <SecurityRecordsNavigation />
-        <Section fill scrollable>
-          {body}
-        </Section>
+          <LoginInfo />
+          <TemporaryNotice />
+          <SecurityRecordsNavigation />
+          <Section fill scrollable>
+            {body}
+          </Section>
         </Stack>
       </Window.Content>
     </Window>
@@ -77,24 +77,24 @@ const SecurityRecordsNavigation = (properties, context) => {
   const { act, data } = useBackend(context);
   const { currentPage, general } = data;
   return (
-  <Stack vertical mb={1}>
-   <Stack.Item>
-    <Tabs>
-      <Tabs.Tab
-        icon="list"
-        selected={currentPage === 1}
-        onClick={() => act('page', { page: 1 })}
-      >
-        List Records
-      </Tabs.Tab>
-      {currentPage === 2 && general && !general.empty && (
-        <Tabs.Tab icon="file" selected={currentPage === 2}>
-          Record: {general.fields[0].value}
-        </Tabs.Tab>
-      )}
-    </Tabs>
-   </Stack.Item>
-  </Stack>
+    <Stack vertical mb={1}>
+      <Stack.Item>
+        <Tabs>
+          <Tabs.Tab
+            icon="list"
+            selected={currentPage === 1}
+            onClick={() => act('page', { page: 1 })}
+          >
+            List Records
+          </Tabs.Tab>
+          {currentPage === 2 && general && !general.empty && (
+            <Tabs.Tab icon="file" selected={currentPage === 2}>
+              Record: {general.fields[0].value}
+            </Tabs.Tab>
+          )}
+        </Tabs>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -108,61 +108,61 @@ const SecurityRecordsPageList = (properties, context) => {
     <Stack fill vertical>
       <SecurityRecordsActions />
       <Stack.Item grow>
-      <Section>
-        <Table className="SecurityRecords__list">
-          <Table.Row bold>
-            <SortButton id="name">Name</SortButton>
-            <SortButton id="id">ID</SortButton>
-            <SortButton id="rank">Assignment</SortButton>
-            <SortButton id="fingerprint">Fingerprint</SortButton>
-            <SortButton id="status">Criminal Status</SortButton>
-          </Table.Row>
-          {records
-            .filter(
-              createSearch(searchText, (record) => {
-                return (
-                  record.name +
-                  '|' +
-                  record.id +
-                  '|' +
-                  record.rank +
-                  '|' +
-                  record.fingerprint +
-                  '|' +
-                  record.status
-                );
+        <Section>
+          <Table className="SecurityRecords__list">
+            <Table.Row bold>
+              <SortButton id="name">Name</SortButton>
+              <SortButton id="id">ID</SortButton>
+              <SortButton id="rank">Assignment</SortButton>
+              <SortButton id="fingerprint">Fingerprint</SortButton>
+              <SortButton id="status">Criminal Status</SortButton>
+            </Table.Row>
+            {records
+              .filter(
+                createSearch(searchText, (record) => {
+                  return (
+                    record.name +
+                    '|' +
+                    record.id +
+                    '|' +
+                    record.rank +
+                    '|' +
+                    record.fingerprint +
+                    '|' +
+                    record.status
+                  );
+                })
+              )
+              .sort((a, b) => {
+                const i = sortOrder ? 1 : -1;
+                return a[sortId].localeCompare(b[sortId]) * i;
               })
-            )
-            .sort((a, b) => {
-              const i = sortOrder ? 1 : -1;
-              return a[sortId].localeCompare(b[sortId]) * i;
-            })
-            .map((record) => (
-              <Table.Row
-                key={record.id}
-                className={
-                  'SecurityRecords__listRow--' + statusStyles[record.status]
-                }
-                onClick={() =>
-                  act('view', {
-                    uid_gen: record.uid_gen,
-                    uid_sec: record.uid_sec,
-                  })
-                }
-              >
-                <Table.Cell>
-                  <Icon name="user" /> {record.name}
-                </Table.Cell>
-                <Table.Cell>{record.id}</Table.Cell>
-                <Table.Cell>{record.rank}</Table.Cell>
-                <Table.Cell>{record.fingerprint}</Table.Cell>
-                <Table.Cell>{record.status}</Table.Cell>
-              </Table.Row>
-            ))}
-        </Table>
-      </Section>
+              .map((record) => (
+                <Table.Row
+                  key={record.id}
+                  className={
+                    'SecurityRecords__listRow--' + statusStyles[record.status]
+                  }
+                  onClick={() =>
+                    act('view', {
+                      uid_gen: record.uid_gen,
+                      uid_sec: record.uid_sec,
+                    })
+                  }
+                >
+                  <Table.Cell>
+                    <Icon name="user" /> {record.name}
+                  </Table.Cell>
+                  <Table.Cell>{record.id}</Table.Cell>
+                  <Table.Cell>{record.rank}</Table.Cell>
+                  <Table.Cell>{record.fingerprint}</Table.Cell>
+                  <Table.Cell>{record.status}</Table.Cell>
+                </Table.Row>
+              ))}
+          </Table>
+        </Section>
       </Stack.Item>
-      </Stack>
+    </Stack>
   );
 };
 
@@ -234,47 +234,47 @@ const SecurityRecordsPageView = (properties, context) => {
   return (
     <Stack fill vertical>
       <Stack.Item>
-      <Section
-        title="General Data"
-        buttons={
-          <>
-            <Button
-              disabled={isPrinting}
-              icon={isPrinting ? 'spinner' : 'print'}
-              iconSpin={!!isPrinting}
-              content="Print Record"
-              onClick={() => act('print_record')}
-            />
-            <Button.Confirm
-              icon="trash"
-              tooltip={
-                'WARNING: This will also delete the Security ' +
-                'and Medical records associated to this crew member!'
-              }
-              tooltipPosition="bottom-left"
-              content="Delete Record"
-              onClick={() => act('delete_general')}
-            />
-          </>
-        }
-      >
-        <SecurityRecordsViewGeneral />
-      </Section>
+        <Section
+          title="General Data"
+          buttons={
+            <>
+              <Button
+                disabled={isPrinting}
+                icon={isPrinting ? 'spinner' : 'print'}
+                iconSpin={!!isPrinting}
+                content="Print Record"
+                onClick={() => act('print_record')}
+              />
+              <Button.Confirm
+                icon="trash"
+                tooltip={
+                  'WARNING: This will also delete the Security ' +
+                  'and Medical records associated to this crew member!'
+                }
+                tooltipPosition="bottom-left"
+                content="Delete Record"
+                onClick={() => act('delete_general')}
+              />
+            </>
+          }
+        >
+          <SecurityRecordsViewGeneral />
+        </Section>
       </Stack.Item>
       <Stack.Item>
-      <Section
-        title="Security Data"
-        buttons={
-          <Button.Confirm
-            icon="trash"
-            disabled={security.empty}
-            content="Delete Record"
-            onClick={() => act('delete_security')}
-          />
-        }
-      >
-        <SecurityRecordsViewSecurity />
-      </Section>
+        <Section
+          title="Security Data"
+          buttons={
+            <Button.Confirm
+              icon="trash"
+              disabled={security.empty}
+              content="Delete Record"
+              onClick={() => act('delete_security')}
+            />
+          }
+        >
+          <SecurityRecordsViewSecurity />
+        </Section>
       </Stack.Item>
     </Stack>
   );

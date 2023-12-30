@@ -121,9 +121,9 @@ const HoboPanel = (props, context) => {
         >
           Settings
         </Button>
-        {(settings.visible && (
-            <SettingsPanel />
-        )) || <ChatPanel lineHeight={settings.lineHeight} />}
+        {(settings.visible && <SettingsPanel />) || (
+          <ChatPanel lineHeight={settings.lineHeight} />
+        )}
       </Pane.Content>
     </Pane>
   );

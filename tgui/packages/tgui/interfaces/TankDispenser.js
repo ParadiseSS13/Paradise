@@ -15,25 +15,25 @@ export const TankDispenser = (props, context) => {
     <Window width={250} height={105}>
       <Window.Content>
         <Section>
-        <Box>
-          <Button
-            fluid
-            content={'Dispense Oxygen Tank (' + o_tanks + ')'}
-            disabled={o_tanks === 0}
-            icon="arrow-circle-down"
-            onClick={() => act('oxygen')}
-          />
-        </Box>
-        <Box>
-          <Button
-            mt={1}
-            fluid
-            content={'Dispense Plasma Tank (' + p_tanks + ')'}
-            disabled={p_tanks === 0}
-            icon="arrow-circle-down"
-            onClick={() => act('plasma')}
-          />
-        </Box>
+          <Box>
+            <Button
+              fluid
+              content={'Dispense Oxygen Tank (' + o_tanks + ')'}
+              disabled={o_tanks === 0}
+              icon="arrow-circle-down"
+              onClick={() => act('oxygen')}
+            />
+          </Box>
+          <Box>
+            <Button
+              mt={1}
+              fluid
+              content={'Dispense Plasma Tank (' + p_tanks + ')'}
+              disabled={p_tanks === 0}
+              icon="arrow-circle-down"
+              onClick={() => act('plasma')}
+            />
+          </Box>
         </Section>
       </Window.Content>
     </Window>

@@ -71,14 +71,20 @@ $bg-map-keys: map.keys($_gen_map) !default;
 
 $fg-map: ();
 @each $color-name in $fg-map-keys {
-  $fg-map: map-merge($fg-map, (
-    $color-name: fg(map.get($_gen_map, $color-name)),
-  ));
+  $fg-map: map-merge(
+    $fg-map,
+    (
+      $color-name: fg(map.get($_gen_map, $color-name)),
+    )
+  );
 }
 
 $bg-map: ();
 @each $color-name in $bg-map-keys {
-  $bg-map: map-merge($bg-map, (
-    $color-name: bg(map.get($_gen_map, $color-name)),
-  ));
+  $bg-map: map-merge(
+    $bg-map,
+    (
+      $color-name: bg(map.get($_gen_map, $color-name)),
+    )
+  );
 }
