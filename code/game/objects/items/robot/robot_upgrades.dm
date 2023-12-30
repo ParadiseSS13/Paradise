@@ -313,6 +313,7 @@
 /*******************/
 /****	MINING	****/
 /*******************/
+
 /obj/item/borg/upgrade/ddrill
 	name = "mining cyborg diamond drill"
 	desc = "A diamond drill replacement for the mining cyborg's standard drill."
@@ -411,8 +412,6 @@
 		cyborg = null
 	return ..()
 
-
-
 /obj/item/borg/upgrade/bluespace_trash_bag
 	name = "janitor cyborg trash bag of holding upgrade"
 	desc = "An advanced trash bag upgrade board with bluespace properties that can be attached to janitorial cyborgs."
@@ -458,6 +457,7 @@
 /***********************/
 /****	ABDUCTOR	****/
 /***********************/
+
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
 	desc = "An experimental upgrade that replaces an engineering cyborg's tools with the abductor versions."
