@@ -92,7 +92,13 @@ export const chatMiddleware = (store) => {
       loadChatFromStorage(store);
     }
     if (type === 'chat/message') {
-      const payload_obj = JSON.parse(payload);
+      let payload_obj;
+      try {
+        payload_obj = JSON.parse(payload);
+      } catch (err) {
+        return;
+      }
+
       const sequence = payload_obj.sequence;
       if (sequences.includes(sequence)) {
         return;
@@ -115,7 +121,7 @@ export const chatMiddleware = (store) => {
             requesting++
           ) {
             // requested_sequences.push(requesting); in origin, but that calls error
-            sequences_requested.push(requesting); 
+            sequences_requested.push(requesting);
             Byond.sendMessage('chat/resend', requesting);
           }
         }
