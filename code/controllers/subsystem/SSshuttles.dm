@@ -303,4 +303,99 @@ SUBSYSTEM_DEF(shuttle)
 	var/turf/spawn_location = pick(supply_shuttle_turfs)
 	new /obj/structure/closet/crate/mail(spawn_location)
 
+// load an alternative shuttle in at the appropriate landmark.
+/datum/controller/subsystem/shuttle/proc/load_template(datum/map_template/shuttle/S)
+	// load shuttle template, centred at shuttle import landmark,
+	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
+	S.load(landmark_turf, centered = TRUE)
+
+	var/affected = S.get_affected_turfs(landmark_turf, centered=TRUE)
+
+	var/mobile_docking_ports = 0
+	var/obj/docking_port/mobile/port
+	// Search the turfs for docking ports
+	// - We need to find the mobile docking port because that is the heart of
+	//   the shuttle.
+	// - We need to check that no additional ports have slipped in from the
+	//   template, because that causes unintended behaviour.
+	for(var/T in affected)
+		for(var/obj/docking_port/P in T)
+			if(istype(P, /obj/docking_port/mobile))
+				port = P
+				mobile_docking_ports++
+				if(mobile_docking_ports > 1)
+					qdel(P, force=TRUE)
+					log_world("Map warning: Shuttle Template [S.mappath] has multiple mobile docking ports.")
+				else if(!port.timid)
+					// The shuttle template we loaded isn't "timid" which means
+					// it's already registered with the shuttles subsystem.
+					// This is a bad thing.
+					WARNING("Template [S] is non-timid! Unloading.")
+					port.jumpToNullSpace()
+					return
+
+			if(istype(P, /obj/docking_port/stationary))
+				log_world("Map warning: Shuttle Template [S.mappath] has a stationary docking port.")
+
+	if(port)
+		return port
+
+	var/msg = "load_template(): Shuttle Template [S.mappath] has no mobile docking port. Aborting import."
+
+	for(var/T in affected)
+		var/turf/T0 = T
+		T0.contents = null
+
+	message_admins(msg)
+	WARNING(msg)
+
+/// Create a new shuttle and replace the emergency shuttle with it.
+/// if loaded shuttle is passed in, a new one will not be loaded.
+/datum/controller/subsystem/shuttle/proc/replace_shuttle(obj/docking_port/mobile/loaded_shuttle)
+
+	// get the existing shuttle information, if any
+	var/timer = 0
+	var/mode = SHUTTLE_IDLE
+	var/obj/docking_port/stationary/dock
+
+	if(emergency)
+		timer = emergency.timer
+		mode = emergency.mode
+		dock = emergency.get_docked()
+	else
+		dock = loaded_shuttle.findRoundstartDock()
+
+	if(!dock)
+		var/m = "No dock found for preview shuttle, aborting."
+		WARNING(m)
+		throw EXCEPTION(m)
+
+	var/result = loaded_shuttle.canDock(dock)
+	// truthy value means that it cannot dock for some reason
+	// but we can ignore the someone else docked error because we'll
+	// be moving into their place shortly
+	if((result != SHUTTLE_CAN_DOCK) && (result != SHUTTLE_SOMEONE_ELSE_DOCKED))
+
+		var/m = "Unsuccessful dock of [loaded_shuttle] ([result])."
+		message_admins("[m]")
+		WARNING(m)
+		return
+
+	emergency.jumpToNullSpace()
+
+	loaded_shuttle.dock(dock)
+
+	// Shuttle state involves a mode and a timer based on world.time, so
+	// plugging the existing shuttles old values in works fine.
+	loaded_shuttle.timer = timer
+	loaded_shuttle.mode = mode
+
+	loaded_shuttle.register()
+
+	// TODO indicate to the user that success happened, rather than just
+	// blanking the modification tab
+
+	return loaded_shuttle
+
+
 #undef CALL_SHUTTLE_REASON_LENGTH
