@@ -1823,6 +1823,7 @@
 	dir = 4;
 	pixel_y = 8
 	},
+/obj/machinery/economy/vending/cigarette,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "gT" = (
@@ -3685,9 +3686,6 @@
 /turf/simulated/floor/plasteel,
 /area/admin)
 "mz" = (
-/obj/machinery/computer/security/telescreen/entertainment{
-	pixel_y = 32
-	},
 /obj/machinery/economy/vending/boozeomat,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
@@ -5140,6 +5138,12 @@
 /obj/item/stack/sheet/metal/fifty,
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
+"rq" = (
+/obj/structure/closet/crate/can,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "rr" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers,
@@ -5682,10 +5686,10 @@
 /turf/simulated/floor/plasteel/dark,
 /area/centcom/specops)
 "tr" = (
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
+/obj/machinery/light/small{
+	dir = 1
 	},
+/turf/simulated/floor/wood,
 /area/ghost_bar)
 "ts" = (
 /obj/machinery/atmospherics/portable/canister/oxygen,
@@ -6706,6 +6710,7 @@
 	desc = "Used to grind things up into raw materials and liquids.";
 	pixel_y = 5
 	},
+/obj/item/reagent_containers/glass/beaker/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -6990,7 +6995,6 @@
 "xU" = (
 /obj/structure/table/reinforced,
 /obj/machinery/kitchen_machine/microwave/upgraded,
-/obj/machinery/light/small,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -7000,10 +7004,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ghost_bar)
 "xY" = (
-/obj/machinery/economy/vending/cigarette,
-/obj/machinery/light/small{
-	dir = 1
-	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "xZ" = (
@@ -7291,6 +7292,13 @@
 /obj/machinery/computer/cryopod/robot,
 /turf/simulated/wall/indestructible/riveted,
 /area/centcom/specops)
+"zP" = (
+/obj/machinery/light/small,
+/obj/machinery/economy/vending/dinnerware,
+/turf/simulated/floor/plasteel{
+	icon_state = "cafeteria"
+	},
+/area/ghost_bar)
 "zQ" = (
 /obj/machinery/light/small,
 /turf/simulated/floor/plasteel/freezer,
@@ -13854,6 +13862,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/closet/crate/can,
 /turf/simulated/floor/wood,
 /area/ghost_bar)
 "Xb" = (
@@ -72238,7 +72247,7 @@ Jy
 vd
 vd
 vd
-Jy
+rf
 Me
 EX
 Jy
@@ -72495,7 +72504,7 @@ Jy
 vd
 cX
 vd
-rf
+xY
 Me
 wh
 rd
@@ -73788,8 +73797,8 @@ Me
 Me
 Me
 Me
-xY
-Jy
+Me
+tr
 Jy
 qH
 Nm
@@ -74044,8 +74053,8 @@ es
 Oj
 zj
 fF
-Me
-Jy
+rq
+aT
 Jy
 ip
 Jy
@@ -74301,8 +74310,8 @@ es
 es
 es
 es
+es
 Uk
-Jy
 Jy
 ol
 ol
@@ -74558,8 +74567,8 @@ wN
 Dk
 zY
 xU
+zP
 Me
-tr
 Jy
 rG
 hU
@@ -74815,8 +74824,8 @@ Me
 Me
 Me
 Me
-aT
-Jy
+Me
+Me
 Jy
 RX
 RX
@@ -75073,9 +75082,9 @@ ps
 ps
 ps
 Me
-Jy
+Me
 gS
-Jy
+xY
 Me
 Me
 Me
