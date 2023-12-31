@@ -85,7 +85,7 @@
 	return 0
 
 /mob/proc/put_in_hand_check(obj/item/W, skip_blocked_hands_check)
-	if(!istype(W))
+	if(!istype(W) || QDELETED(W))
 		return FALSE
 	return TRUE
 
