@@ -60,6 +60,7 @@
 #define SUPPLY_MATERIALS 	7
 #define SUPPLY_MISC 		8
 #define SUPPLY_VEND 		9
+#define SUPPLY_SHUTTLE		10
 
 #define DEFAULT_CRATE_VALUE 15
 

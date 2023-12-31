@@ -124,9 +124,13 @@ SUBSYSTEM_DEF(economy)
 	current_10_minute_spending = 0
 	ordernum = rand(1, 9000)
 
+	var/static/list/ignored_types = list(
+		/datum/supply_packs/abstract
+	)
+
 	for(var/typepath in subtypesof(/datum/supply_packs))
 		var/datum/supply_packs/P = typepath
-		if(initial(P.name) == "HEADER")
+		if(initial(P.name) == "HEADER" || (typepath in ignored_types))
 			continue // To filter out group headers
 		P = new typepath()
 		supply_packs["[P.type]"] = P
@@ -197,13 +201,7 @@ SUBSYSTEM_DEF(economy)
 	if(!pack)
 		return FALSE
 
-	var/datum/supply_order/order = new()
-	order.ordernum = ordernum++
-	order.object = pack
-	order.orderedby = orderedby
-	order.orderedbyRank = occupation
-	order.comment = comment
-
+	var/datum/supply_order/order = pack.create_order(orderedby, occupation, comment, ordernum++)
 	return order
 
 /datum/controller/subsystem/economy/proc/process_supply_order(datum/supply_order/order, paid_for)
@@ -230,6 +228,12 @@ SUBSYSTEM_DEF(economy)
 		CRASH("finalize_supply_order() called with a null datum/supply_order")
 	if(order in request_list)
 		request_list -= order
+
+	order.object.on_order_confirm(order)
+
+	// Abstract orders won't get added to the shuttle delivery list -- if they're finalized, they're getting processed here and now.
+	if(istype(order, /datum/supply_order/abstract))
+		return
 
 	if(SSshuttle.supply.getDockedId() == "supply_away" && SSshuttle.supply.mode == SHUTTLE_IDLE)
 		delivery_list += order
