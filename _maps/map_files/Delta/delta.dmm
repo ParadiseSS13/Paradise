@@ -78721,12 +78721,10 @@
 /area/station/public/fitness)
 "hQz" = (
 /obj/machinery/door/window/classic/normal{
-	name = "Robotics Desk";
-	dir = 8
+	dir = 8;
+	name = "Robotics Surgery"
 	},
-/obj/effect/mapping_helpers/airlock/windoor/access/any/science/robotics{
-	dir = 8
-	},
+/obj/effect/mapping_helpers/airlock/polarized,
 /turf/simulated/floor/plasteel/white,
 /area/station/science/robotics)
 "hRZ" = (

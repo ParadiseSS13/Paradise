@@ -95725,12 +95725,13 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/station/command/office/captain)
 "xNF" = (
-/obj/machinery/door/window{
-	dir = 8;
-	name = "Robotics Surgery"
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
+	},
+/obj/effect/mapping_helpers/airlock/polarized,
+/obj/machinery/door/window/classic/normal{
+	dir = 8;
+	name = "Robotics Surgery"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
