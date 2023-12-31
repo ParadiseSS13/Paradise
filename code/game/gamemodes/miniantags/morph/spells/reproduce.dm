@@ -20,7 +20,7 @@
 
 /obj/effect/proc_holder/spell/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	to_chat(user, "<span class='sinister'>You prepare to split in two, making you unable to vent crawl!</span>")
-	user.ventcrawler = FALSE // Temporarily disable it
+	user.ventcrawler = VENTCRAWLER_NONE // Temporarily disable it
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
 	if(!length(candidates))
 		to_chat(user, "<span class='warning'>Your body refuses to split at the moment. Try again later.</span>")

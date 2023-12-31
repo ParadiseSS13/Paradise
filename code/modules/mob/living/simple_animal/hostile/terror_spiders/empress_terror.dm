@@ -20,7 +20,7 @@
 	health = 1000
 	melee_damage_lower = 30
 	melee_damage_upper = 60
-	ventcrawler = 1
+	ventcrawler = VENTCRAWLER_NUDE
 	idle_ventcrawl_chance = 0
 	ai_playercontrol_allowtype = 0
 	canlay = 1000
