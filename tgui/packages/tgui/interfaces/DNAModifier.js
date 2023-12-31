@@ -556,6 +556,7 @@ const DNAModifierMainRejuvenators = (props, context) => {
   const { isBeakerLoaded, beakerVolume, beakerLabel } = data;
   return (
     <Section
+      fill
       title="Rejuvenators and Beaker"
       buttons={
         <Button
@@ -605,11 +606,16 @@ const DNAModifierMainRejuvenators = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       ) : (
-        <Box color="label" textAlign="center" my="25%">
-          <Icon name="exclamation-triangle" size="4" />
-          <br />
-          No beaker loaded.
-        </Box>
+        <Stack fill>
+          <Stack.Item bold grow textAlign="center" align="center" color="label">
+            <Icon.Stack>
+              <Icon name="flask" size={5} color="silver" />
+              <Icon name="slash" size={5} color="red" />
+            </Icon.Stack>
+            <br />
+            <h3>No beaker loaded.</h3>
+          </Stack.Item>
+        </Stack>
       )}
     </Section>
   );

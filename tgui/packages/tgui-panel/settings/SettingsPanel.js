@@ -22,7 +22,7 @@ import {
   TextArea,
 } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
-import { rebuildChat, saveChatToDisk } from '../chat/actions';
+import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import {
   changeSettingsTab,
@@ -176,9 +176,17 @@ export const SettingsGeneral = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
       <Divider />
-      <Button icon="save" onClick={() => dispatch(saveChatToDisk())}>
-        Save chat log
-      </Button>
+      <Button
+        content="Save chat log"
+        icon="save"
+        onClick={() => dispatch(saveChatToDisk())}
+      />
+      <Button.Confirm
+        icon="trash"
+        confirmContent="Are you sure?"
+        content="Clear chat"
+        onClick={() => dispatch(clearChat())}
+      />
     </Section>
   );
 };

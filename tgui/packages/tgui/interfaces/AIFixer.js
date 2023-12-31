@@ -6,6 +6,7 @@ import {
   LabeledList,
   Section,
   Stack,
+  Icon,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -15,10 +16,23 @@ export const AIFixer = (props, context) => {
     return (
       <Window width={550} height={500}>
         <Window.Content>
-          <Section title="Stored AI">
-            <Box>
-              <h3>No artificial intelligence detected.</h3>
-            </Box>
+          <Section fill title="Stored AI">
+            <Stack fill>
+              <Stack.Item
+                bold
+                grow
+                textAlign="center"
+                align="center"
+                color="average"
+              >
+                <Icon.Stack>
+                  <Icon name="robot" size={5} color="silver" />
+                  <Icon name="slash" size={5} color="red" />
+                </Icon.Stack>
+                <br />
+                <h3>No Artificial Intelligence detected.</h3>
+              </Stack.Item>
+            </Stack>
           </Section>
         </Window.Content>
       </Window>
