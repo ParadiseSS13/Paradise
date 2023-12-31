@@ -84,7 +84,8 @@ SUBSYSTEM_DEF(economy)
 		SUPPLY_ORGANIC,
 		SUPPLY_MATERIALS,
 		SUPPLY_MISC,
-		SUPPLY_VEND
+		SUPPLY_VEND,
+		SUPPLY_SHUTTLE
 	)
 
 	//////Paycheck Variables/////
@@ -124,13 +125,10 @@ SUBSYSTEM_DEF(economy)
 	current_10_minute_spending = 0
 	ordernum = rand(1, 9000)
 
-	var/static/list/ignored_types = list(
-		/datum/supply_packs/abstract
-	)
 
 	for(var/typepath in subtypesof(/datum/supply_packs))
 		var/datum/supply_packs/P = typepath
-		if(initial(P.name) == "HEADER" || (typepath in ignored_types))
+		if(initial(P.name) == "HEADER" || isnull(initial(P.name)))
 			continue // To filter out group headers
 		P = new typepath()
 		supply_packs["[P.type]"] = P
@@ -232,7 +230,7 @@ SUBSYSTEM_DEF(economy)
 	order.object.on_order_confirm(order)
 
 	// Abstract orders won't get added to the shuttle delivery list -- if they're finalized, they're getting processed here and now.
-	if(istype(order, /datum/supply_order/abstract))
+	if(istype(order.object, /datum/supply_packs/abstract))
 		return
 
 	if(SSshuttle.supply.getDockedId() == "supply_away" && SSshuttle.supply.mode == SHUTTLE_IDLE)

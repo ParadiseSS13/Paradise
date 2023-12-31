@@ -31,6 +31,8 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 	/// Default refuel delay
 	var/refuel_delay = 20 MINUTES
+	/// Whether or not a custom shuttle has been ordered.
+	var/custom_shuttle_ordered = FALSE
 
 /datum/controller/subsystem/shuttle/Initialize()
 	if(!emergency)

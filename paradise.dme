@@ -2635,6 +2635,7 @@
 #include "code\modules\supply\supply_console.dm"
 #include "code\modules\supply\supply_order.dm"
 #include "code\modules\supply\supply_pack.dm"
+#include "code\modules\supply\supply_packs\pack_abstract.dm"
 #include "code\modules\supply\supply_packs\pack_emergency.dm"
 #include "code\modules\supply\supply_packs\pack_engineering.dm"
 #include "code\modules\supply\supply_packs\pack_materials.dm"

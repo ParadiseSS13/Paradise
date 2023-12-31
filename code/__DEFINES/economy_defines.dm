@@ -66,3 +66,19 @@
 
 /// mail deliveries
 #define MAIL_DELIVERY_BONUS	100
+
+/// Shuttle types that can be ordered, along with prices
+// TODO add prices
+GLOBAL_LIST_INIT(orderable_shuttle_types, list(
+	/datum/map_template/shuttle/emergency/bar,
+	/datum/map_template/shuttle/emergency/dept,
+	/datum/map_template/shuttle/emergency/military,
+	/datum/map_template/shuttle/emergency/clown,
+	/datum/map_template/shuttle/emergency/cramped,
+	/datum/map_template/shuttle/emergency/narnar,
+	/datum/map_template/shuttle/emergency/old,
+	/datum/map_template/shuttle/emergency/jungle,
+	/datum/map_template/shuttle/admin/skipjack  // hehe
+
+
+))

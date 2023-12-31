@@ -104,7 +104,7 @@
 /datum/map_template/shuttle/emergency/old
 	suffix = "old"
 	name = "Retired Station shuttle."
-	description = "an older model of the station shuttle."
+	description = "An older model of the station shuttle."
 
 /datum/map_template/shuttle/emergency/jungle
 	suffix = "jungle"

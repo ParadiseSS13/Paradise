@@ -37,15 +37,18 @@
 
 /datum/supply_packs/New()
 	. = ..()
-	manifest += "<ul>"
-	for(var/path in contains)
-		if(!path)
-			continue
-		var/atom/movable/AM = path
-		manifest += "<li>[initial(AM.name)]</li>"
-		//Add the name to the UI manifest
-		ui_manifest += "[initial(AM.name)]"
-	manifest += "</ul>"
+	if(contains)
+		manifest += "<ul>"
+		for(var/path in contains)
+			if(!path)
+				continue
+			var/atom/movable/AM = path
+			manifest += "<li>[initial(AM.name)]</li>"
+			//Add the name to the UI manifest
+			ui_manifest += "[initial(AM.name)]"
+		manifest += "</ul>"
+	else
+		ui_manifest = list(manifest)
 
 /**
  * Create a supply order for this pack.
@@ -95,7 +98,10 @@
 /datum/supply_packs/abstract/admin_notify
 
 /datum/supply_packs/abstract/admin_notify/on_order_confirm(datum/supply_order/order)
-	message_admins("Admin-notify pack [src] costing [cost] has been ordered and paid for by [ADMIN_JMP(order.orderedby)]")
+	var/mob/orderer = order.orderedby
+	var/order_rank = order.orderedbyRank
+	message_admins("Admin-notify pack [src] costing [cost] has been ordered and paid for by [ADMIN_JMP(orderer)] ([order_rank])")
+
 
 
 /datum/supply_packs/abstract/create_package(turf/spawn_location)

@@ -68,6 +68,8 @@
 			return "Miscellaneous"
 		if(SUPPLY_VEND)
 			return "Vending"
+		if(SUPPLY_SHUTTLE)
+			return "Shuttles"
 
 /obj/machinery/computer/supplycomp/proc/build_request_data(mob/user)
 	var/list/requests = list()
@@ -357,6 +359,7 @@
 			if(account.account_type == ACCOUNT_TYPE_PERSONAL || isnull(order.ordered_by_department))
 				if(pay_with_account(account, order.object.cost, "[pack.name] Crate Purchase", "Cargo Requests Console", user, account_database.vendor_account))
 					SSeconomy.process_supply_order(order, TRUE) //send 'er back through
+					SStgui.update_uis(src, update_static_data = TRUE)
 					return TRUE
 				atom_say("ERROR: Account tied to order cannot pay, auto-denying order")
 				SSeconomy.request_list -= order //just remove order at this poin
@@ -376,6 +379,7 @@
 				if(pay_with_account(account, pack.cost, "[pack.name] Crate Purchase", "[src]", user, account_database.vendor_account))
 					order.requires_head_approval = FALSE
 					SSeconomy.process_supply_order(order, TRUE)
+					SStgui.update_uis(src, update_static_data = TRUE)  // TODO FIND A CLEANER WAY TO DO THIS
 					investigate_log("| [key_name(user)] has authorized an order for [pack.name]. Remaining Cargo Balance: [cargo_account.credit_balance].", "cargo")
 					SSblackbox.record_feedback("tally", "cargo_shuttle_order", 1, pack.name)
 				else
