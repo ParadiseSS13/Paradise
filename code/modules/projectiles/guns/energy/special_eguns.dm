@@ -883,7 +883,7 @@
 /obj/item/gun/energy/vortex_shotgun
 	name = "reality vortex wrist mounted shotgun"
 	desc = "some energy blast that shatters reality"
-	icon_state = "kineticgun_b" //Sorta wrist mounted? Sorta? Not really but we work with what we got.
+	icon_state = "flayer" //Sorta wrist mounted? Sorta? Not really but we work with what we got.
 	ammo_type = list(/obj/item/ammo_casing/energy/vortex_blast)
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 	cell_type = /obj/item/stock_parts/cell/infinite
