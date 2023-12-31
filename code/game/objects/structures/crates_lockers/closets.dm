@@ -288,7 +288,6 @@
 	add_fingerprint(user)
 	toggle(user)
 
-
 /obj/structure/closet/attack_alien(mob/user)
 	if(user.a_intent == INTENT_HARM || welded || locked)
 		return ..()
