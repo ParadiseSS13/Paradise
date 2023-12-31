@@ -1045,9 +1045,246 @@
 /datum/recipe/microwave/icecreamsandwich
 	reagents = list("ice" = 5, "cream" = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/icecream,
+		/obj/item/reagent_containers/food/snacks/frozen/icecream,
 	)
-	result = /obj/item/reagent_containers/food/snacks/icecreamsandwich
+	result = /obj/item/reagent_containers/food/snacks/frozen/icecreamsandwich
+
+/datum/recipe/microwave/berryicecreamsandwich
+	reagents = list("ice" = 5, "cream" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/grown/cherries,
+		/obj/item/reagent_containers/food/snacks/grown/cherries,
+		/obj/item/reagent_containers/food/snacks/wafflecone
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/berryicecreamsandwich
+
+/datum/recipe/microwave/sundae
+	reagents = list("cream" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/wafflecone,
+		/obj/item/reagent_containers/food/snacks/grown/cherries,
+		/obj/item/reagent_containers/food/snacks/grown/banana
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/sundae
+
+/datum/recipe/microwave/bananatopsicle
+	reagents = list("sugar" = 5, "banana" = 5)
+	items = list(
+		/obj/item/popsicle_stick,
+		/obj/item/reagent_containers/food/snacks/tofu
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/bananatop
+
+/datum/recipe/microwave/berrytopsicle
+	reagents = list("sugar" = 5, "berryjuice" = 5)
+	items = list(
+		/obj/item/popsicle_stick,
+		/obj/item/reagent_containers/food/snacks/tofu
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/berrytop
+
+/datum/recipe/microwave/pineappletopsicle
+	reagents = list("sugar" = 5, "pineapplejuice" = 5)
+	items = list(
+		/obj/item/popsicle_stick,
+		/obj/item/reagent_containers/food/snacks/tofu
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/pineappletop
+
+/datum/recipe/microwave/licoricecreamsicle
+	reagents = list("sugar" = 2, "blumpkinjuice" = 4, "ice" = 2, "vanilla" = 2, "cream" = 2)
+	items = list(
+		/obj/item/popsicle_stick
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/licoricecream
+
+/datum/recipe/microwave/orangecreamsicle
+	reagents = list("sugar" = 2, "orangejuice" = 4, "ice" = 2, "vanilla" = 2, "cream" = 2)
+	items = list(
+		/obj/item/popsicle_stick
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/orangecream
+
+/datum/recipe/microwave/berrycreamsicle
+	reagents = list("sugar" = 2, "berryjuice" = 4, "ice" = 2, "vanilla" = 2, "cream" = 2)
+	items = list(
+		/obj/item/popsicle_stick
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/berrycream
+
+/datum/recipe/microwave/frozenpineapplepop
+	items = list(
+		/obj/item/popsicle_stick,
+		/obj/item/reagent_containers/food/snacks/pineappleslice,
+		/obj/item/reagent_containers/food/snacks/chocolatebar
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/frozenpineapple
+
+/datum/recipe/microwave/jumboicecream
+	reagents = list("sugar" = 2, "ice" = 2, "vanilla" = 3, "cream" = 2)
+	items = list(
+		/obj/item/popsicle_stick,
+		/obj/item/reagent_containers/food/snacks/chocolatebar
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle
+
+/datum/recipe/microwave/seasalticecream
+	reagents = list("sugar" = 5, "sodiumchloride" = 3, "cream" = 5)
+	items = list(
+		/obj/item/popsicle_stick
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/sea_salt
+
+/datum/recipe/microwave/cornuto
+	reagents = list("ice" = 2, "sugar" = 4, "cream" = 4)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/sliceable/flatdough,
+		/obj/item/reagent_containers/food/snacks/chocolatebar
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/cornuto
+
+/datum/recipe/microwave/honkdae
+	reagents = list("cream" = 5, "ice" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/wafflecone,
+		/obj/item/reagent_containers/food/snacks/grown/cherries,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/reagent_containers/food/snacks/grown/banana,
+		/obj/item/clothing/mask/gas/clown_hat
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/honkdae
+
+/datum/recipe/microwave/peanutbuttermochi
+	reagents = list("cream" = 5, "rice" = 5, "sugar" = 5, "peanutbutter" = 2)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/wafflecone
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/peanutbuttermochi
+
+/datum/recipe/microwave/spacefreezy
+	reagents = list("bluecherryjelly" = 5,"spacemountainwind" = 15)
+	items = list(
+		/obj/item/reagent_containers/food/snacks/frozen/icecream
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/spacefreezy
+
+/datum/recipe/microwave/snowcone/apple
+	reagents = list("ice" = 15, "applejuice" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/apple
+
+/datum/recipe/microwave/snowcone/berry
+	reagents = list("ice" = 15, "berryjuice" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/berry
+
+/datum/recipe/microwave/snowcone/bluecherry
+	reagents = list("ice" = 15, "bluecherryjelly" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/bluecherry
+/datum/recipe/microwave/snowcone/cherry
+	reagents = list("ice" = 15, "cherryjelly" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/cherry
+
+/datum/recipe/microwave/snowcone/flavorless
+	reagents = list("ice" = 15)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone
+
+/datum/recipe/microwave/snowcone/fruitsalad
+	reagents = list("ice" = 15, "orangejuice" = 5, "limejuice" = 5, "lemonjuice" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/fruitsalad
+
+/datum/recipe/microwave/snowcone/grape
+	reagents = list("ice" = 15, "grapejuice" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/grape
+
+/datum/recipe/microwave/snowcone/honey
+	reagents = list("ice" = 15, "honey" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/honey
+
+/datum/recipe/microwave/snowcone/lemon
+	reagents = list("ice" = 15, "lemonjuice" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/lemon
+
+/datum/recipe/microwave/snowcone/lime
+	reagents = list("ice" = 15, "limejuice" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/lime
+
+/datum/recipe/microwave/snowcone/mime
+	reagents = list("ice" = 15, "nothing" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/mime
+
+/datum/recipe/microwave/snowcone/orange
+	reagents = list("ice" = 15, "orangejuice" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/orange
+
+/datum/recipe/microwave/snowcone/pineapple
+	reagents = list("ice" = 15, "pineapplejuice" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/pineapple
+
+/datum/recipe/microwave/snowcone/rainbow
+	reagents = list("ice" = 15, "colorful_reagent" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/rainbow
+
+/datum/recipe/microwave/snowcone/cola
+	reagents = list("ice" = 15, "cola" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/cola
+
+/datum/recipe/microwave/snowcone/spacemountainwind
+	reagents = list("ice" = 15, "spacemountainwind" = 5)
+	items = list(
+		/obj/item/reagent_containers/food/drinks/sillycup
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/snowcone/spacemountain
+
+/datum/recipe/microwave/antpopsicle
+	reagents = list("sugar" = 5, "water" = 5, "ants" = 10)
+	items = list(
+		/obj/item/popsicle_stick
+	)
+	result = /obj/item/reagent_containers/food/snacks/frozen/popsicle/ant
 
 /datum/recipe/microwave/notasandwich
 	items = list(

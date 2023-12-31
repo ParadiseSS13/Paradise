@@ -98,7 +98,7 @@
 		var/mob/living/carbon/human/H = M
 		. = H.dna.species.name
 	else if(isbrain(M))
-		var/mob/living/carbon/brain/B = M
+		var/mob/living/brain/B = M
 		. = B.get_race()
 	else if(issilicon(M))
 		. = "Artificial Life"
