@@ -473,21 +473,21 @@
 			can_be_hatted = TRUE
 			can_wear_blacklisted_hats = TRUE
 			hat_offset_y = 4
-		if("droid-medical") // Высотой: 32 пикселя
+		if("droid-medical") //Height: 32 pixels
 			can_be_hatted = TRUE
 			can_wear_blacklisted_hats = TRUE
 			hat_offset_y = 4
-		if("droid-miner", "mk2", "mk3") // Высотой: 32 большая голова, шарообразные
+		if("droid-miner", "mk2", "mk3") //Height: 32 pixels
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			hat_offset_y = 3
-		if("bloodhound", "nano_bloodhound", "syndie_bloodhound", "ertgamma")//Высотой: 31
+		if("bloodhound", "nano_bloodhound", "syndie_bloodhound", "ertgamma") //Height: 31 pixels
 			can_be_hatted = TRUE
 			hat_offset_y = 1
-		if("Cricket-SEC", "Cricket-MEDI", "Cricket-JANI", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV") //Высотой: 31
+		if("Cricket-SEC", "Cricket-MEDI", "Cricket-JANI", "Cricket-ENGI", "Cricket-MINE", "Cricket-SERV") //Height: 31 pixels
 			can_be_hatted = TRUE
 			hat_offset_y = 2
-		if("droidcombat-shield", "droidcombat") // Высотой: 31
+		if("droidcombat-shield", "droidcombat") 
 			can_be_hatted = TRUE
 			hat_alpha = 255
 			hat_offset_y = 2
@@ -495,37 +495,37 @@
 			can_be_hatted = TRUE
 			hat_alpha = 0
 			hat_offset_y = 2
-		if("syndi-medi", "surgeon", "toiletbot") // Высотой: 30
+		if("syndi-medi", "surgeon", "toiletbot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			hat_offset_y = 1
-		if("Security", "janitorrobot", "medicalrobot") // Высотой: 29
+		if("Security", "janitorrobot", "medicalrobot")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_blacklisted_hats = TRUE
 			hat_offset_y = -1
-		if("Brobot", "Service", "robot+o+c", "robot_old", "securityrobot",	//Высотой: 28
-			"rowtree-engineering", "rowtree-lucy", "rowtree-medical", "rowtree-security") //Бабоботы
+		if("Brobot", "Service", "robot+o+c", "robot_old", "securityrobot",
+			"rowtree-engineering", "rowtree-lucy", "rowtree-medical", "rowtree-security")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_blacklisted_hats = TRUE
 			hat_offset_y = -1
-		if("Miner", "lavaland")	// Высотой: 27
+		if("Miner", "lavaland")
 			can_be_hatted = TRUE
 			hat_offset_y = -1
 		if("robot", "Standard", "Standard-Secy", "Standard-Medi", "Standard-Engi",
-			"Standard-Jani", "Standard-Serv", "Standard-Mine", "xenoborg-state-a") //Высотой: 26
+			"Standard-Jani", "Standard-Serv", "Standard-Mine", "xenoborg-state-a")
 			can_be_hatted = TRUE
 			hat_offset_y = -3
-		if("droid")	// Высотой: 25
+		if("droid")
 			can_be_hatted = TRUE
 			is_centered = TRUE
 			can_wear_blacklisted_hats = TRUE
 			hat_offset_y = -3
-		if("landmate", "syndi-engi") // Высотой: 24 пикселя макушка
+		if("landmate", "syndi-engi")
 			can_be_hatted = TRUE
 			hat_offset_y = -3
-		if("mopgearrex") // Высотой: 22
+		if("mopgearrex")
 			can_be_hatted = TRUE
 			hat_offset_y = -6
 
@@ -543,7 +543,7 @@
 	if(inventory_head)
 		var/image/head_icon
 
-		if(inventory_head.icon_override)	// Для модульных шапок
+		if(inventory_head.icon_override)
 			hat_icon_file = inventory_head.icon_override
 		if(!hat_icon_state)
 			hat_icon_state = inventory_head.icon_state
