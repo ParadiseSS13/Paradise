@@ -215,10 +215,6 @@
 	qdel(src)
 
 /mob/living/simple_animal/bot/emag_act(mob/user)
-	if(emagged)
-		if(user)
-			to_chat(user, "<span class='danger'>[src] buzzes and beeps.</span>")
-			return
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
 		locked = FALSE
 		to_chat(user, "<span class='notice'>You bypass [src]'s controls.</span>")
