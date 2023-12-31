@@ -40539,6 +40539,7 @@
 	},
 /area/station/hallway/secondary/entry/south)
 "fTG" = (
+/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
 	id_tag = "RoboticsShutters"
@@ -40548,7 +40549,6 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
 /turf/simulated/floor/plating,
 /area/station/science/robotics)
 "fTL" = (
@@ -47019,7 +47019,7 @@
 	dir = 2;
 	id_tag = "RoboticsShutters"
 	},
-/obj/effect/spawner/window/reinforced/polarized/grilled,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/station/science/robotics)
 "ifn" = (
