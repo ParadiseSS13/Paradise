@@ -981,9 +981,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
 "dS" = (
-/obj/machinery/shieldgen{
-	anchored = 1
-	},
+/obj/machinery/shieldgen/raven,
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -993,9 +991,7 @@
 /area/shuttle/escape)
 "dV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/shieldgen{
-	anchored = 1
-	},
+/obj/machinery/shieldgen/raven,
 /obj/effect/turf_decal/delivery/white/hollow,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
@@ -1175,6 +1171,12 @@
 	icon_state = "whitebluecorner"
 	},
 /area/shuttle/escape)
+"wr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/shieldgen/raven,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
 "xH" = (
 /obj/machinery/light/spot{
 	dir = 1
@@ -1353,6 +1355,11 @@
 /obj/structure/window/plasmareinforced,
 /turf/simulated/floor/plating,
 /area/shuttle/escape)
+"Px" = (
+/obj/machinery/shieldgen/raven,
+/obj/effect/turf_decal/delivery/white/hollow,
+/turf/simulated/floor/plasteel/dark,
+/area/shuttle/escape)
 "Rw" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -1485,7 +1492,7 @@ aa
 aO
 cP
 cP
-bs
+wr
 cP
 cP
 bV
@@ -1494,7 +1501,7 @@ cv
 en
 cP
 cP
-aj
+Px
 cP
 cP
 ep
@@ -2029,7 +2036,7 @@ aa
 aO
 cP
 cP
-aj
+Px
 cP
 cP
 cb
@@ -2038,7 +2045,7 @@ cu
 JO
 cP
 cP
-bs
+wr
 cP
 cP
 ky
