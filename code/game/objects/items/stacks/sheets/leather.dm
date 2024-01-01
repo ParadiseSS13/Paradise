@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
-	dynamic_icon_state = TRUE
+
 
 /obj/item/stack/sheet/animalhide/armour_plate/afterattack(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
 		if(D.plates < 3 && !D.hides)
-			D.hides++
+			D.plates++
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 4, 50))

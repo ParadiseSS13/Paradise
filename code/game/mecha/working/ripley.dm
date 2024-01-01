@@ -55,7 +55,7 @@
 
 /obj/mecha/working/ripley/update_desc()
 	. = ..()
-	if(!hides) // Just in case if hides are somehow removed
+	if(!hides && !plates) // Just in case if armour are somehow removed
 		desc = initial(desc)
 		return
 	if(hides == 3)
@@ -70,18 +70,16 @@
 
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
-	if(!hides)
-		return
-	if(!plates)
-		return
-	if(hides == 3)
-		. += occupant ? "ripley-g-full" : "ripley-g-full-open"
-	else
-		. += occupant ? "ripley-g" : "ripley-g-open"
-	if(plates == 3)
-		. += occupant ? "ripley-a-full" : "ripley-a-full-open"
-	else
-		. += occupant ? "ripley-a" : "ripley-a-open"
+	if(hides)
+		if(hides == 3)
+			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+		else
+			. += occupant ? "ripley-g" : "ripley-g-open"
+	if(plates)
+		if(plates == 3)
+			. += occupant ? "ripley-a-full" : "ripley-a-full-open"
+		else
+			. += occupant ? "ripley-a" : "ripley-a-open"
 
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
