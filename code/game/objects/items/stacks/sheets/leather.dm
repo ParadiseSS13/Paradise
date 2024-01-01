@@ -199,20 +199,20 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache))
 		var/obj/item/clothing/C = target
 		var/datum/armor/current_armor = C.armor
-		if(current_armor.getRating(MELEE) < 60)
-			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
+		if(current_armor.getRating(MELEE) < 75)
+			C.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
 			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 			use(1)
 		else
 			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
-		if(D.hides < 3)
+		if(D.hides < 3 && !D.plates)
 			D.hides++
-			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
-			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
-			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 25, 115))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 7, 60))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 7, 60))
+			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
@@ -221,14 +221,42 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 		var/mob/living/silicon/robot/R = target
 		if(istype(R.module, /obj/item/robot_module/miner))
 			var/datum/armor/current_armor = R.armor
-			if(current_armor.getRating(MELEE) < 60)
-				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 10, 60))
+			if(current_armor.getRating(MELEE) < 75)
+				R.armor = current_armor.setRating(melee_value = min(current_armor.getRating(MELEE) + 15, 75))
 				to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
 				use(1)
 			else
 				to_chat(user, "<span class='warning'>You can't improve [R] any further!</span>")
 		else
 			to_chat(user, "<span class='warning'>[R]'s armor can not be improved!</span>")
+
+/obj/item/stack/sheet/animalhide/armour_plate
+	name = "Armour plate"
+	desc = "This piece of metal can be attached to the mech itself, enhancing its protective characteristics. Unfortunately, only working class mechs have notches for such armor."
+	icon = 'icons/mecha/mecha_equipment.dmi'
+	icon_state = "armour_plate"
+	item_state = "armour_plate"
+	singular_name = "armour plate"
+	flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+	layer = MOB_LAYER
+	dynamic_icon_state = TRUE
+
+/obj/item/stack/sheet/animalhide/armour_plate/afterattack(atom/target, mob/user, proximity_flag)
+	if(!proximity_flag)
+		return
+	if(istype(target, /obj/mecha/working/ripley))
+		var/obj/mecha/working/ripley/D = target
+		if(D.plates < 3 && !D.hides)
+			D.hides++
+			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
+			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 4, 50))
+			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 4, 50))
+			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against attacks.</span>")
+			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
+			use(1)
+		else
+			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 
 
 /obj/item/stack/sheet/animalhide/ashdrake

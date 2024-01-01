@@ -793,24 +793,35 @@
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_ccw_armor
-	name = "Exosuit Module (Reactive Armor Booster Module)"
+	name = "Exosuit Module (Melee Armor Booster Module)"
 	desc = "Exosuit-mounted armor booster."
 	id = "mech_ccw_armor"
 	build_type = MECHFAB
-	req_tech = list("materials" = 5, "combat" = 4)
+	req_tech = list("materials" = 5, "combat" = 5, "engineering"=3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster
 	materials = list(MAT_METAL=20000,MAT_SILVER=5000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
 /datum/design/mech_proj_armor
-	name = "Exosuit Module (Reflective Armor Booster Module)"
+	name = "Exosuit Module (Ranged Armor Booster Module)"
 	desc = "Exosuit-mounted armor booster."
 	id = "mech_proj_armor"
 	build_type = MECHFAB
 	req_tech = list("materials" = 5, "combat" = 5, "engineering"=3)
 	build_path = /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	materials = list(MAT_METAL=20000,MAT_GOLD=5000)
+	construction_time = 100
+	category = list("Exosuit Equipment")
+
+/datum/design/armour_plate
+	name = "Exosuit Mining Armour Plate"
+	desc = "Exosuit-mounted armor booster."
+	id = "mech_plate_armor"
+	build_type = MECHFAB
+	req_tech = list("materials" = 5, "combat" = 5, "engineering"=3)
+	build_path = /obj/item/stack/sheet/animalhide/armour_plate
+	materials = list(MAT_METAL=20000,MAT_TITANIUM=5000)
 	construction_time = 100
 	category = list("Exosuit Equipment")
 
@@ -1138,7 +1149,7 @@
 	materials = list(MAT_GOLD = 1250, MAT_PLASMA = 2500, MAT_SILVER = 1250)
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
-	
+
 /datum/design/borg_upgrade_rcd
 	name = "Cyborg Upgrade (Rapid Construction Device)"
 	id = "borg_upgrade_RCD"

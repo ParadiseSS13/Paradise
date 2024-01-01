@@ -16,6 +16,7 @@
 	var/list/cargo = new
 	var/cargo_capacity = 15
 	var/hides = 0
+	var/plates = 0
 
 /obj/mecha/working/ripley/Move()
 	. = ..()
@@ -33,7 +34,7 @@
 
 /obj/mecha/working/ripley/Destroy()
 	for(var/i=1, i <= hides, i++)
-		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop
+		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop //not count for metal armour
 	for(var/atom/movable/A in cargo)
 		A.forceMove(loc)
 		step_rand(A)
@@ -60,16 +61,27 @@
 	if(hides == 3)
 		desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
 	else
-		desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
+		desc = "Autonomous Power Loader Unit. It's armour is enhanced with some goliath hide plates."
+	if(plates == 3)
+		desc = "Autonomous Power Loader Unit. It's armour is completely lined with metal inserts and pieces of debris - the owner of this mecha clearly not skimped on safety."
+	else
+		desc = "Autonomous Power Loader Unit. It's armor is reinforced with metal inserts"
+
 
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
 	if(!hides)
 		return
+	if(!plates)
+		return
 	if(hides == 3)
 		. += occupant ? "ripley-g-full" : "ripley-g-full-open"
 	else
 		. += occupant ? "ripley-g" : "ripley-g-open"
+	if(plates == 3)
+		. += occupant ? "ripley-a-full" : "ripley-a-full-open"
+	else
+		. += occupant ? "ripley-a" : "ripley-a-open"
 
 /obj/mecha/working/ripley/firefighter
 	desc = "A standard APLU chassis that was refitted with additional thermal protection and a cistern."
