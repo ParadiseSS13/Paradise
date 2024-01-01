@@ -801,10 +801,6 @@
 "air" = (
 /turf/simulated/floor/engine,
 /area/holodeck/alphadeck)
-"aiz" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/turf/simulated/wall/r_wall,
-/area/station/maintenance/aft2)
 "aiE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -9070,6 +9066,12 @@
 	icon_state = "brown"
 	},
 /area/station/supply/lobby)
+"aOz" = (
+/obj/structure/computerframe,
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/turf/simulated/floor/bluespace,
+/area/station/maintenance/starboard)
 "aOA" = (
 /turf/simulated/wall,
 /area/station/public/storage/tools)
@@ -25586,7 +25588,10 @@
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction{
 	dir = 1
 	},
-/obj/effect/spawner/window/reinforced/grilled,
+/obj/structure/grille/broken,
+/obj/item/stack/rods,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard,
 /turf/simulated/floor/light,
 /area/station/maintenance/starboard)
 "bHX" = (
@@ -25595,7 +25600,7 @@
 	loot = list(/obj/item/cigbutt,/obj/item/trash/cheesie,/obj/item/trash/candy,/obj/item/trash/chips,/obj/item/trash/pistachios,/obj/item/trash/plate,/obj/item/trash/popcorn,/obj/item/trash/raisins,/obj/item/trash/sosjerky,/obj/item/trash/syndi_cakes);
 	name = "trash spawner"
 	},
-/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/item/shard,
 /turf/simulated/floor/bluegrid,
 /area/station/maintenance/starboard)
 "bHY" = (
@@ -35995,9 +36000,6 @@
 /obj/item/grenade/chem_grenade/antiweed,
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
-	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/starboard2)
@@ -54109,8 +54111,10 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/fpmaint)
 "gHV" = (
-/obj/machinery/message_server,
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging,
+/obj/effect/spawner/random_spawners/cobweb_left_frequent,
+/obj/machinery/constructable_frame/machine_frame,
+/obj/item/stack/cable_coil/five,
 /turf/simulated/floor/bluegrid,
 /area/station/maintenance/starboard)
 "gHX" = (
@@ -55571,9 +55575,6 @@
 /obj/structure/disposalpipe/junction/reversed{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
@@ -55583,6 +55584,9 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/random_spawners/oil_maybe,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -61694,11 +61698,13 @@
 /obj/machinery/shieldwallgen{
 	req_access = list(55)
 	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
 /obj/effect/turf_decal/stripes/box,
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
 "jWJ" = (
@@ -62548,6 +62554,11 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 8;
+	icon_state = "1-8"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
 "ktd" = (
@@ -62755,6 +62766,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/public/storage/tools)
+"kyQ" = (
+/obj/item/stack/rods,
+/turf/simulated/wall/r_wall,
+/area/station/maintenance/starboard)
 "kzg" = (
 /obj/effect/landmark/spawner/nukedisc_respawn,
 /obj/machinery/light/small{
@@ -66736,16 +66751,14 @@
 /area/station/command/bridge)
 "mbj" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Xenolab";
 	name = "special containment blast door"
 	},
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "mbt" = (
@@ -67715,6 +67728,7 @@
 /area/station/hallway/primary/central)
 "mxb" = (
 /obj/machinery/door/airlock/freezer,
+/obj/effect/mapping_helpers/airlock/access/any/service/kitchen,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -68192,6 +68206,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/hallway/primary/central)
+"mIC" = (
+/obj/effect/spawner/window/reinforced/plasma/grilled,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Xenolab";
+	name = "special containment blast door"
+	},
+/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
+/turf/simulated/floor/engine,
+/area/station/science/xenobiology)
 "mJe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -72334,6 +72362,11 @@
 	d1 = 4;
 	d2 = 8;
 	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	d1 = 2;
+	d2 = 8;
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_north)
@@ -82996,11 +83029,11 @@
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics Pasture"
 	},
-/obj/effect/mapping_helpers/airlock/access/all/service/kitchen,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+/obj/effect/mapping_helpers/airlock/access/any/service/hydroponics,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
@@ -86884,8 +86917,16 @@
 /obj/machinery/shieldwallgen{
 	req_access = list(55)
 	},
-/obj/structure/cable/yellow,
 /obj/effect/turf_decal/stripes/box,
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/structure/cable/yellow{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plating,
 /area/station/maintenance/xenobio_south)
 "uXW" = (
@@ -87827,15 +87868,18 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Xenolab";
+	name = "special containment blast door"
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Xenolab";
-	name = "special containment blast door"
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -88412,16 +88456,6 @@
 "vCK" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
 	},
 /obj/machinery/door/airlock/research/glass,
 /obj/effect/mapping_helpers/airlock/autoname,
@@ -89478,15 +89512,18 @@
 /area/station/maintenance/starboard2)
 "wgz" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/structure/cable/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Xenolab";
+	name = "special containment blast door"
+	},
+/obj/structure/cable/yellow{
+	d2 = 2;
+	icon_state = "0-2"
+	},
 /obj/structure/cable/yellow{
 	d1 = 1;
 	d2 = 2;
 	icon_state = "1-2"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Xenolab";
-	name = "special containment blast door"
 	},
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
@@ -92281,19 +92318,11 @@
 /area/station/maintenance/fpmaint)
 "xsj" = (
 /obj/effect/spawner/window/reinforced/plasma/grilled,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Xenolab";
 	name = "special containment blast door"
 	},
-/obj/structure/cable/yellow{
-	d2 = 2;
-	icon_state = "0-2"
-	},
+/obj/structure/cable/yellow,
 /turf/simulated/floor/engine,
 /area/station/science/xenobiology)
 "xsF" = (
@@ -125267,7 +125296,7 @@ hQB
 nbM
 nbM
 xdo
-aiz
+cOp
 xmM
 xkQ
 coG
@@ -132413,7 +132442,7 @@ eqI
 aQT
 azp
 aoG
-bHY
+aOz
 fFl
 woK
 jmV
@@ -133696,7 +133725,7 @@ aoG
 aoG
 aoG
 eVJ
-axh
+kyQ
 axh
 axh
 axh
@@ -142475,8 +142504,8 @@ qiA
 aEl
 oBT
 jWt
-xsj
-xsj
+mIC
+mIC
 xsj
 vCK
 mbj
