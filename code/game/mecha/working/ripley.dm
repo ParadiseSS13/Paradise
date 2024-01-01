@@ -61,12 +61,11 @@
 	if(hides == 3)
 		desc = "Autonomous Power Loader Unit. It's wearing a fearsome carapace entirely composed of goliath hide plates - its pilot must be an experienced monster hunter."
 	else
-		desc = "Autonomous Power Loader Unit. It's armour is enhanced with some goliath hide plates."
+		desc = "Autonomous Power Loader Unit. Its armour is enhanced with some goliath hide plates."
 	if(plates == 3)
-		desc = "Autonomous Power Loader Unit. It's armour is completely lined with metal inserts and pieces of debris - the owner of this mecha clearly not skimped on safety."
+		desc = "Autonomous Power Loader Unit. Its armour is completely lined with metal plating."
 	else
-		desc = "Autonomous Power Loader Unit. It's armor is reinforced with metal inserts"
-
+		desc = "Autonomous Power Loader Unit. It's armor is reinforced with some metal plating."
 
 /obj/mecha/working/ripley/update_overlays()
 	. = ..()
