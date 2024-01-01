@@ -281,7 +281,6 @@
 	return TRUE
 
 
-
 /***********************/
 /****	SECURITY	****/
 /***********************/
@@ -307,7 +306,6 @@
 	T.charge_delay = max(2 , T.charge_delay - 4)
 
 	return TRUE
-
 
 
 /*******************/
@@ -350,7 +348,6 @@
 	return TRUE
 
 
-
 /***********************/
 /****	ENGINEER	****/
 /***********************/
@@ -369,7 +366,6 @@
 		return
 	R.module.remove_item_from_lists(/obj/item/rcd) // So emagging them in the future won't grant another RCD.
 	..()
-
 
 
 /***********************/
@@ -423,7 +419,6 @@
 	)
 
 
-
 /***********************/
 /****	SYNDIE		****/
 /***********************/
@@ -451,7 +446,6 @@
 	items_to_replace = list(
 		/obj/item/soap/nanotrasen = /obj/item/soap/syndie
 	)
-
 
 
 /***********************/
