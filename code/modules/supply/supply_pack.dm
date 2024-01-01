@@ -64,6 +64,10 @@
 
 	return order
 
+/// Define a special condition as to whether or not this crate can currently be ordered.
+/datum/supply_packs/proc/can_order()
+	return TRUE
+
 
 /datum/supply_packs/proc/create_package(turf/spawn_location)
 	var/obj/structure/closet/crate/crate = new containertype(spawn_location)

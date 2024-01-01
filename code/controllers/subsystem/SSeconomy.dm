@@ -125,8 +125,14 @@ SUBSYSTEM_DEF(economy)
 	current_10_minute_spending = 0
 	ordernum = rand(1, 9000)
 
+	var/list/ignored_supply_pack_types = list(
+		/datum/supply_packs/abstract,
+		/datum/supply_packs/abstract/shuttle,
+		/datum/supply_packs/abstract/shuttle/emergency
+	)
 
-	for(var/typepath in subtypesof(/datum/supply_packs))
+
+	for(var/typepath in subtypesof(/datum/supply_packs) - ignored_supply_pack_types)
 		var/datum/supply_packs/P = typepath
 		if(initial(P.name) == "HEADER" || isnull(initial(P.name)))
 			continue // To filter out group headers
