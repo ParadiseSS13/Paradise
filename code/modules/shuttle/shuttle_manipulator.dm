@@ -286,6 +286,7 @@
 					// This is a bad thing.
 					var/m = "Template [S] is non-timid! Unloading."
 					WARNING(m)
+					message_admins(m)
 					M.jumpToNullSpace()
 					return
 				else
@@ -304,6 +305,7 @@
 		WARNING(msg)
 
 /obj/machinery/shuttle_manipulator/proc/unload_preview()
+	message_admins("WARNING. SHUTTLE UNLOADED.")
 	if(preview_shuttle)
 		preview_shuttle.jumpToNullSpace()
 	preview_shuttle = null
