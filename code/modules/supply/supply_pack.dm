@@ -106,7 +106,7 @@
 /datum/supply_packs/abstract/admin_notify/on_order_confirm(datum/supply_order/order)
 	var/mob/orderer = order.orderedby
 	var/order_rank = order.orderedbyRank
-	message_admins("Admin-notify pack [src] costing [cost] has been ordered and paid for by [ADMIN_JMP(orderer)] ([order_rank])")
+	message_admins("Admin-notify pack [src] costing [cost] has been ordered and paid for by [orderer] ([order_rank])")
 
 
 

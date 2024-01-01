@@ -213,7 +213,18 @@
 
 	for(var/set_name in SSeconomy.supply_packs)
 		var/datum/supply_packs/pack = SSeconomy.supply_packs[set_name]
-		if((pack.hidden && hacked) || (pack.contraband && can_order_contraband) || (pack.special && pack.special_enabled) || (!pack.contraband && !pack.hidden && !pack.special))
+		var/shown_if_hacked = pack.hidden && hacked
+		var/shown_if_contraband = pack.contraband && can_order_contraband
+
+		var/shown = FALSE
+
+		if(pack.special)
+			shown = pack.special_enabled && (!pack.hidden || shown_if_hacked) && (!pack.contraband || shown_if_contraband)
+		else
+			shown = shown_if_hacked || shown_if_contraband || (!pack.contraband && !pack.hidden)
+
+
+		if(shown)
 			packs_list.Add(list(list(
 				"name" = pack.name,
 				"cost" = pack.cost,
@@ -494,6 +505,7 @@
 	if(!hacked)
 		to_chat(user, "<span class='notice'>Special supplies unlocked.</span>")
 		hacked = TRUE
+		SStgui.update_uis(src, update_static_data = TRUE)
 
 /obj/machinery/computer/supplycomp/public
 	name = "Supply Ordering Console"

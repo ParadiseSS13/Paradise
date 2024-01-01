@@ -202,8 +202,6 @@
 	travelDir = 0
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
-	/// The speed factor for this shuttle. Higher means faster.
-	var/shuttle_speed_factor = 1
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 	///State of the emergency shuttles hijack status.
@@ -240,7 +238,7 @@
 			dtime = max(SSshuttle.emergencyDockTime - dtime, 0)
 		else
 
-			dtime = max(SSshuttle.emergencyCallTime / shuttle - dtime, 0)
+			dtime = max(SSshuttle.emergencyCallTime / shuttle_speed_factor - dtime, 0)
 	return round(dtime/divisor, 1)
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, coefficient=1, area/signalOrigin, reason, redAlert)
@@ -375,14 +373,6 @@
 						new_title = "Priority Announcement",
 						new_sound = sound('sound/AI/cshuttle_dock.ogg')
 					)
-/*
-				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
-				for(var/datum/gang/G in ticker.mode.gangs)
-					if(isnum(G.dom_timer))
-						G.dom_attempts = 0
-					else
-						G.dom_attempts = min(1,G.dom_attempts)
-*/
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && length(SSshuttle.hostile_environments))

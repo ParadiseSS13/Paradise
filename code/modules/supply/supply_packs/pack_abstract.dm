@@ -51,7 +51,7 @@
 	// var/datum/map_template
 	// TODO prevent this from happening while someone else is modifying it, or while it's not at centcomm
 	// probably should do this in a way that prevents people from buying it
-	var/obj/docking_port/mobile/emergency/shuttle = SSshuttle.load_template(template)
+	var/obj/docking_port/mobile/shuttle = SSshuttle.load_template(template)
 	shuttle.shuttle_speed_factor = speed_factor
 	SSshuttle.replace_shuttle(shuttle)
 
@@ -77,12 +77,14 @@
 
 /datum/supply_packs/abstract/shuttle/emergency/clown
 	speed_factor = 5
+	contraband = TRUE
 	template = /datum/map_template/shuttle/emergency/clown
 
 /datum/supply_packs/abstract/shuttle/emergency/cramped
 	template = /datum/map_template/shuttle/emergency/cramped
 
 /datum/supply_packs/abstract/shuttle/emergency/narnar
+	contraband = TRUE
 	template = /datum/map_template/shuttle/emergency/narnar
 
 /datum/supply_packs/abstract/shuttle/emergency/old
@@ -92,4 +94,5 @@
 	template = /datum/map_template/shuttle/emergency/jungle
 
 /datum/supply_packs/abstract/shuttle/emergency/yaya
+	// contraband = TRUE
 	template = /datum/map_template/shuttle/admin/skipjack
