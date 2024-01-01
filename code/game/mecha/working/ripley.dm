@@ -55,7 +55,7 @@
 
 /obj/mecha/working/ripley/update_desc()
 	. = ..()
-	if(!hides && !plates) // Just in case if armour are somehow removed
+	if(!hides && !plates) // Just in case if armour is somehow removed
 		desc = initial(desc)
 		return
 	if(hides == 3)
