@@ -326,7 +326,7 @@ SUBSYSTEM_DEF(shuttle)
 				port = P
 				mobile_docking_ports++
 				if(mobile_docking_ports > 1)
-					qdel(P, force=TRUE)
+					qdel(P, force = TRUE)
 					log_world("Map warning: Shuttle Template [S.mappath] has multiple mobile docking ports.")
 				else if(!port.timid)
 					// The shuttle template we loaded isn't "timid" which means
