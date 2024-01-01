@@ -241,7 +241,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list (
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
 
-
 /obj/item/stack/sheet/animalhide/armour_plate/afterattack(atom/target, mob/user, proximity_flag)
 	if(!proximity_flag)
 		return
