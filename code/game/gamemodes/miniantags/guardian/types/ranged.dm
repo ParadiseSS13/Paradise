@@ -82,7 +82,7 @@
 	name = "snare"
 	desc = "You shouldn't be seeing this!"
 	var/mob/living/spawner
-	invisibility = 1
+	invisibility = 101
 
 /obj/effect/snare/singularity_act()
 	return
