@@ -45,7 +45,7 @@
 	GLOB.major_announcement.Announce("[order.orderedby] has purchased [name] for [cost] credit\s as the emergency shuttle for the shift.", "Shuttle Purchase Receipt")
 	var/orderer = order.orderedby
 	log_and_message_admins("Shuttle pack [src] costing [cost] has been ordered and paid for by [orderer] ([order.orderedbyRank])")
-	for(var/datum/supply_packs/abstract/shuttle/emergency/shuttle_pack in SSeconomy.supply_packs)
+	for(var/datum/supply_packs/abstract/shuttle/shuttle_pack in SSeconomy.supply_packs)
 		shuttle_pack.special_enabled = FALSE
 	SSshuttle.custom_shuttle_ordered = TRUE
 	// var/datum/map_template
@@ -60,39 +60,34 @@
 	manifest = "1% of every donation goes towards supporting corgis in need."
 	cost = 500
 
-/datum/supply_packs/abstract/shuttle/emergency
-	// This one is here so the remaining ones don't get filtered out on init due to having no name.
-	// This would also be a good place to slot any custom admin shuttles.
-	name = "Custom Emergency Shuttle"
-	special_enabled = TRUE
 
-/datum/supply_packs/abstract/shuttle/emergency/bar
+/datum/supply_packs/abstract/shuttle/bar
 	template = /datum/map_template/shuttle/emergency/bar
 
-/datum/supply_packs/abstract/shuttle/emergency/dept
+/datum/supply_packs/abstract/shuttle/dept
 	template = /datum/map_template/shuttle/emergency/dept
 
-/datum/supply_packs/abstract/shuttle/emergency/dept
+/datum/supply_packs/abstract/shuttle/military
 	template = /datum/map_template/shuttle/emergency/military
 
-/datum/supply_packs/abstract/shuttle/emergency/clown
+/datum/supply_packs/abstract/shuttle/clown
 	speed_factor = 5
 	contraband = TRUE
 	template = /datum/map_template/shuttle/emergency/clown
 
-/datum/supply_packs/abstract/shuttle/emergency/cramped
+/datum/supply_packs/abstract/shuttle/cramped
 	template = /datum/map_template/shuttle/emergency/cramped
 
-/datum/supply_packs/abstract/shuttle/emergency/narnar
+/datum/supply_packs/abstract/shuttle/narnar
 	contraband = TRUE
 	template = /datum/map_template/shuttle/emergency/narnar
 
-/datum/supply_packs/abstract/shuttle/emergency/old
+/datum/supply_packs/abstract/shuttle/old
 	template = /datum/map_template/shuttle/emergency/old
 
-/datum/supply_packs/abstract/shuttle/emergency/jungle
+/datum/supply_packs/abstract/shuttle/jungle
 	template = /datum/map_template/shuttle/emergency/jungle
 
-/datum/supply_packs/abstract/shuttle/emergency/yaya
-	// contraband = TRUE
-	template = /datum/map_template/shuttle/admin/skipjack
+// /datum/supply_packs/abstract/shuttle/emergency/yaya
+// 	// contraband = TRUE
+// 	template = /datum/map_template/shuttle/admin/skipjack
