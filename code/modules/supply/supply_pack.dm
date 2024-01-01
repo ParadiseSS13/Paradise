@@ -26,6 +26,8 @@
 	var/special = FALSE
 	/// If this pack is special, whether it should be visible or not.
 	var/special_enabled = FALSE
+	/// If true, this pack can only be ordered in units of 1.
+	var/singleton = FALSE
 	/// The pack group this should appear in.
 	var/group = SUPPLY_MISC
 	///Determines which departments do not need QM approval to order this supply pack

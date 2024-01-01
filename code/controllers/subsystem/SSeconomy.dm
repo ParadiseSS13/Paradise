@@ -204,6 +204,9 @@ SUBSYSTEM_DEF(economy)
 	var/datum/supply_packs/pack = locateUID(packID)
 	if(!pack)
 		return FALSE
+	if(!pack.can_order())
+		// if this cannot be ordered at this point, just refuse it
+		return FALSE
 
 	var/datum/supply_order/order = pack.create_order(orderedby, occupation, comment, ordernum++)
 	return order

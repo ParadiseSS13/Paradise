@@ -254,14 +254,20 @@
 				visible_message("<b>[src]</b>'s monitor flashes, \"[world.time - reqtime] seconds remaining until another requisition form may be printed.\"")
 				return
 			var/amount = 1
-			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
+			var/datum/supply_packs/P = locateUID(params["crate"])
+			if(!istype(P))
+				return
+
+			if(!P.can_order())
+				to_chat(user, "<span class='warning'>That cannot be ordered right now. Please try again later.</span>")
+				return
+
+			if(!P.singleton && params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
 				var/num_input = input(user, "Amount", "How many crates? ([MULTIPLE_CRATE_MAX] Max)") as null|num
 				if(!num_input || (!is_public && !is_authorized(user)) || ..()) // Make sure they dont walk away
 					return
 				amount = clamp(round(num_input), 1, MULTIPLE_CRATE_MAX)
-			var/datum/supply_packs/P = locateUID(params["crate"])
-			if(!istype(P))
-				return
+
 			var/timeout = world.time + (60 SECONDS) // If you dont type the reason within a minute, theres bigger problems here
 			var/reason = input(user, "Reason", "Why do you require this item?","") as null|text
 			if(world.time > timeout || !reason || (!is_public && !is_authorized(user)) || ..())
@@ -281,13 +287,19 @@
 
 			//===orderee account information===
 			var/datum/money_account/selected_account = locateUID(params["account"])
+			var/successes = 0
 			for(var/i in 1 to amount)
 				var/datum/supply_order/order = SSeconomy.generate_supply_order(params["crate"], idname, idrank, reason)
-				order_crate(user, order, selected_account)
-				if(i == 1)
-					playsound(loc, 'sound/machines/ping.ogg', 15, 0)
-					to_chat(user, "<span class='notice'>Order Sent.</span>")
-					generate_requisition_paper(order, amount)
+				if(istype(order))
+					successes++
+					order_crate(user, order, selected_account)
+					if(successes == 1)
+						playsound(loc, 'sound/machines/ping.ogg', 15, FALSE)
+						to_chat(user, "<span class='notice'>Order Sent.</span>")
+						generate_requisition_paper(order, amount)
+			if(successes != amount)
+				playsound(loc, 'sound/machines/buzz-sigh.ogg', 15, FALSE)
+				to_chat(user, "<span class='warning'>Some items were unable to be ordered. Please check requisition paper and try again at a different time.</span>")
 
 		if("approve")
 			var/ordernum = text2num(params["ordernum"])

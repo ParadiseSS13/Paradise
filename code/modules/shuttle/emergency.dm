@@ -202,6 +202,9 @@
 	travelDir = 0
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
+	/// The speed factor for this shuttle. Higher means faster.
+	var/shuttle_speed_factor = 1
+
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 	///State of the emergency shuttles hijack status.
 	var/hijack_status = NOT_BEGUN
@@ -227,17 +230,17 @@
 	if(divisor <= 0)
 		divisor = 10
 	if(!timer)
-		return round(SSshuttle.emergencyCallTime/divisor, 1)
+		return round(SSshuttle.emergencyCallTime / shuttle_speed_factor / divisor, 1)
 
 	var/dtime = world.time - timer
 	switch(mode)
 		if(SHUTTLE_ESCAPE)
-			dtime = max(SSshuttle.emergencyEscapeTime - dtime, 0)
+			dtime = max(SSshuttle.emergencyEscapeTime / shuttle_speed_factor - dtime, 0)
 		if(SHUTTLE_DOCKED)
 			dtime = max(SSshuttle.emergencyDockTime - dtime, 0)
 		else
 
-			dtime = max(SSshuttle.emergencyCallTime - dtime, 0)
+			dtime = max(SSshuttle.emergencyCallTime / shuttle - dtime, 0)
 	return round(dtime/divisor, 1)
 
 /obj/docking_port/mobile/emergency/request(obj/docking_port/stationary/S, coefficient=1, area/signalOrigin, reason, redAlert)

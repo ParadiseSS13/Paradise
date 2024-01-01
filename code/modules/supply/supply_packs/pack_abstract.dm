@@ -14,6 +14,8 @@
 	/// The shuttle that this pack corresponds to ordering.
 	/// If given on init, will fill out the pack automagically.
 	var/datum/map_template/shuttle/template
+	/// The base speed multiplier to apply to the shuttle. 2 means it arrives twice as fast.
+	var/speed_factor = 1
 
 
 /datum/supply_packs/abstract/shuttle/New(datum/map_template/shuttle/_template)
@@ -33,6 +35,7 @@
 
 
 /datum/supply_packs/abstract/shuttle/can_order()
+	// check here so people don't spend their money on it
 	return (SSshuttle.emergency?.mode == SHUTTLE_IDLE)
 
 /datum/supply_packs/abstract/shuttle/on_order_confirm(datum/supply_order/order)
@@ -40,15 +43,16 @@
 	if(isnull(template))
 		CRASH("Shuttle pack [src] has no map template to load!")
 	GLOB.major_announcement.Announce("[order.orderedby] has purchased [name] for [cost] credit\s as the emergency shuttle for the shift.", "Shuttle Purchase Receipt")
-	var/mob/orderer = order.orderedby
+	var/orderer = order.orderedby
 	log_and_message_admins("Shuttle pack [src] costing [cost] has been ordered and paid for by [orderer] ([order.orderedbyRank])")
 	for(var/datum/supply_packs/abstract/shuttle/emergency/shuttle_pack in SSeconomy.supply_packs)
 		shuttle_pack.special_enabled = FALSE
 	SSshuttle.custom_shuttle_ordered = TRUE
-	var/datum/map_template
+	// var/datum/map_template
 	// TODO prevent this from happening while someone else is modifying it, or while it's not at centcomm
 	// probably should do this in a way that prevents people from buying it
-	var/shuttle = SSshuttle.load_template(template)
+	var/obj/docking_port/mobile/emergency/shuttle = SSshuttle.load_template(template)
+	shuttle.shuttle_speed_factor = speed_factor
 	SSshuttle.replace_shuttle(shuttle)
 
 /datum/supply_packs/abstract/admin_notify/donations
@@ -72,6 +76,7 @@
 	template = /datum/map_template/shuttle/emergency/military
 
 /datum/supply_packs/abstract/shuttle/emergency/clown
+	speed_factor = 5
 	template = /datum/map_template/shuttle/emergency/clown
 
 /datum/supply_packs/abstract/shuttle/emergency/cramped
