@@ -777,7 +777,6 @@
 			desc = P.new_desc
 			initial_icon = P.new_icon
 			reset_icon()
-
 			user.drop_item()
 			qdel(P)
 
