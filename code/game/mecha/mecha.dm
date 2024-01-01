@@ -772,7 +772,7 @@
 			return
 
 		user.visible_message("[user] opens [P] and spends some quality time customising [src].")
-			if(do_after_once(user, 3 SECONDS, target = src))
+		if(do_after_once(user, 3 SECONDS, target = src))
 			name = P.new_name
 			desc = P.new_desc
 			initial_icon = P.new_icon
