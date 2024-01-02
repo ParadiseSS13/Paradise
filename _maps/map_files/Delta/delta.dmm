@@ -83495,9 +83495,6 @@
 	icon_state = "dark"
 	},
 /area/station/security/main)
-"maG" = (
-/turf/space,
-/area/station/engineering/controlroom)
 "mbO" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel/dark,
@@ -125940,7 +125937,7 @@ aAd
 aAd
 aEk
 npF
-maG
+aCj
 aEf
 aFf
 aHl
