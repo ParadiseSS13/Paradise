@@ -24667,6 +24667,11 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "buz" = (
@@ -25107,6 +25112,11 @@
 	dir = 4;
 	name = "Air to Waste";
 	target_pressure = 101
+	},
+/obj/machinery/firealarm{
+	dir = 1;
+	name = "south bump";
+	pixel_y = -24
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
