@@ -98,7 +98,8 @@
 
 	else if(occupant?.loc == src)
 		occupant.Paralyse(8 SECONDS)
-		use_power(15000) //Hope the room has power!
+		if(!use_power(15000)) //Hope the room has power!
+			return
 		for(var/bt in brine_types)
 			if(occupant.reagents.get_reagent_amount(bt) < 1)
 				occupant.reagents.add_reagent(bt, 1)
