@@ -8860,10 +8860,6 @@
 	network = list("SS13","Engineering")
 	},
 /obj/machinery/atmospherics/pipe/manifold/visible,
-/obj/structure/cable{
-	d2 = 4;
-	icon_state = "0-4"
-	},
 /obj/structure/cable/yellow{
 	d1 = 4;
 	d2 = 8;
@@ -20477,6 +20473,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 2;
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -73345,11 +73346,6 @@
 "eue" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -74480,11 +74476,6 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
-	icon_state = "2-4"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
@@ -84603,18 +84594,13 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /obj/structure/cable{
 	d1 = 2;
 	d2 = 8;
 	icon_state = "2-8"
-	},
-/obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
 	},
 /turf/simulated/floor/plasteel,
 /area/station/maintenance/incinerator)
@@ -84626,18 +84612,6 @@
 	icon_state = "red"
 	},
 /area/station/security/permabrig)
-"nbJ" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	dir = 10
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/obj/machinery/atmospherics/pipe/simple/visible/purple{
-	dir = 10
-	},
-/obj/effect/turf_decal/delivery/hollow,
-/turf/simulated/floor/plating,
-/area/station/engineering/atmos)
 "ncs" = (
 /obj/structure/flora/ausbushes/lavendergrass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -85197,6 +85171,11 @@
 	},
 /obj/effect/turf_decal/delivery/hollow,
 /obj/effect/turf_decal/delivery/hollow,
+/obj/structure/cable{
+	d1 = 2;
+	d2 = 4;
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -90440,11 +90419,6 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
-	icon_state = "1-8"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -91960,11 +91934,6 @@
 	name = "Power Monitoring"
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/structure/cable/yellow{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "siG" = (
@@ -97000,10 +96969,6 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/structure/cable{
-	d2 = 8;
-	icon_state = "0-8"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -98285,11 +98250,6 @@
 	dir = 10
 	},
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
-	icon_state = "1-2"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -126315,7 +126275,7 @@ bmE
 ehN
 iTH
 iTH
-nbJ
+iTH
 aOb
 aOg
 byl
