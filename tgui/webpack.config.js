@@ -29,7 +29,7 @@ module.exports = (env = {}, argv) => {
   const config = {
     mode,
     context: path.resolve(__dirname),
-    target: ['web', 'es3', 'browserslist:ie 8'],
+    target: ['web', 'es5', 'browserslist:IE 9'],
     entry: {
       'tgui': [
         './packages/tgui-polyfill',
@@ -47,7 +47,7 @@ module.exports = (env = {}, argv) => {
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
-      hashFunction: 'SHA256',
+      hashFunction: 'xxhash64',
     },
     resolve: {
       extensions: ['.js', '.jsx'],
