@@ -8109,7 +8109,7 @@
 "aEd" = (
 /obj/machinery/atmospherics/trinary/filter/flipped{
 	dir = 1;
-	filter_type = n2s;
+	filter_type = n2;
 	name = "N2 Filter"
 	},
 /turf/simulated/floor/plasteel{
