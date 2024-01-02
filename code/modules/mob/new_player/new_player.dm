@@ -548,11 +548,11 @@
 	if(SSticker.random_players)
 		var/mob/living/carbon/human/H = new_character
 		scramble(1, H, 100)
-		H.real_name = random_name(H.gender, H.dna.species.name) //Give them a name that makes sense for their species.
+		H.real_name = random_name(H.gender, H.dna.species.name)
 		H.sync_organ_dna(assimilate = 1)
 		H.update_body()
-		H.reset_hair() //No more winding up with hairstyles you're not supposed to have, and blowing your cover.
-		H.reset_markings() //...Or markings.
+		H.reset_hair()
+		H.reset_markings()
 		H.dna.ResetUIFrom(H)
 		H.flavor_text = ""
 	stop_sound_channel(CHANNEL_LOBBYMUSIC)
