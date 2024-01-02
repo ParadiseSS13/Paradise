@@ -79,11 +79,7 @@ export const Panel = (props, context) => {
         )}
         <Stack.Item grow>
           <Section fill fitted position="relative">
-            <Pane.Content
-              className="scrollable"
-              style={{ 'overflow-y': 'scroll' }}
-              scrollable
-            >
+            <Pane.Content style={{ 'overflow-y': 'scroll' }} scrollable>
               <ChatPanel lineHeight={settings.lineHeight} />
             </Pane.Content>
             <Notifications>

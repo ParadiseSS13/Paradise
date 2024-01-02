@@ -36,7 +36,7 @@ const findNearestScrollableParent = (startingNode) => {
     // This definitely has a vertical scrollbar, because it reduces
     // scrollWidth of the element. Might not work if element uses
     // overflow: hidden.
-    if (node.matches('.scrollable')) {
+    if (node.scrollWidth < node.offsetWidth) {
       return node;
     }
     node = node.parentNode;
