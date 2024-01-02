@@ -20767,15 +20767,6 @@
 	},
 /turf/simulated/floor/engine/n20,
 /area/station/engineering/atmos)
-"bkz" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/turf/simulated/floor/plasteel,
-/area/station/engineering/atmos)
 "bkA" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /obj/machinery/atmospherics/meter,
@@ -21557,12 +21548,6 @@
 	},
 /area/station/engineering/atmos)
 "bmv" = (
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/yellow{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 5
 	},
@@ -123955,7 +123940,7 @@ aYy
 aYy
 aYy
 bdo
-bkz
+aYy
 bmv
 aUi
 bpA
