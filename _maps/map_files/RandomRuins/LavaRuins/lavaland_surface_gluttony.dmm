@@ -6,14 +6,14 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "c" = (
-/turf/simulated/floor/plating/lava/smooth/mapping_lava,
+/turf/simulated/floor/lava/mapping_lava,
 /area/lavaland/surface/outdoors)
 "d" = (
 /obj/effect/baseturf_helper/lava_land/surface,
 /turf/simulated/floor/plasteel/freezer,
 /area/ruin/powered/gluttony)
 "e" = (
-/turf/simulated/floor/plating/lava/smooth,
+/turf/simulated/floor/lava,
 /area/ruin/powered/gluttony)
 "f" = (
 /obj/item/dnainjector/eatmut,
