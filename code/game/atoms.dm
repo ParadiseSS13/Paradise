@@ -387,7 +387,7 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
-/atom/proc/examine_more(mob/user)
+/atom/proc/examine_more(mob/user) ///Extended description of an object. Allows you to double examine objects and have them give you a second description of an item. Useful for writing flavourful stuff.
 	SHOULD_CALL_PARENT(TRUE)
 	RETURN_TYPE(/list)
 
