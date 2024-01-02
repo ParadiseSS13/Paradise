@@ -53985,12 +53985,6 @@
 "cTX" = (
 /turf/simulated/wall/r_wall,
 /area/station/medical/medbay)
-"cUn" = (
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
-/area/station/medical/cryo)
 "cUr" = (
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
@@ -67798,6 +67792,25 @@
 	icon_state = "darkred"
 	},
 /area/station/security/prisonershuttle)
+"esf" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable{
+	d1 = 4;
+	d2 = 8;
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "whitebluecorner"
+	},
+/area/station/medical/medbay)
 "esj" = (
 /obj/machinery/flasher/portable,
 /turf/simulated/floor/plasteel,
@@ -70144,7 +70157,10 @@
 /area/station/command/office/cmo)
 "fNP" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
 /area/station/medical/cryo)
 "fOa" = (
 /obj/structure/bed/dogbed,
@@ -80298,10 +80314,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "whiteblue"
-	},
+/turf/simulated/floor/plasteel/white,
 /area/station/medical/cryo)
 "mzW" = (
 /obj/machinery/space_heater,
@@ -84107,7 +84120,10 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/plasteel/white,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "whiteblue"
+	},
 /area/station/medical/cryo)
 "oMr" = (
 /obj/machinery/turretid/lethal{
@@ -86864,7 +86880,7 @@
 "qAe" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /turf/simulated/floor/plasteel{
-	dir = 9;
+	dir = 8;
 	icon_state = "whiteblue"
 	},
 /area/station/medical/cryo)
@@ -94531,12 +94547,6 @@
 /area/station/maintenance/theatre)
 "uXN" = (
 /obj/machinery/hologram/holopad,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 9
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 9
-	},
 /obj/structure/cable{
 	d1 = 1;
 	d2 = 8;
@@ -94545,6 +94555,13 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
+/obj/structure/cable{
+	d1 = 1;
+	d2 = 4;
+	icon_state = "1-4"
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel/white,
 /area/station/medical/medbay)
 "uXP" = (
@@ -96200,7 +96217,7 @@
 "wcu" = (
 /obj/machinery/atmospherics/unary/cryo_cell,
 /turf/simulated/floor/plasteel{
-	dir = 5;
+	dir = 4;
 	icon_state = "whiteblue"
 	},
 /area/station/medical/cryo)
@@ -144124,7 +144141,7 @@ pUE
 hbt
 fPq
 fNP
-cUn
+rod
 dGm
 rod
 wFp
@@ -148233,7 +148250,7 @@ xFI
 rFX
 emk
 emk
-urL
+esf
 emk
 lqL
 xhf
