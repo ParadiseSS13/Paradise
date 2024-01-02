@@ -8109,7 +8109,7 @@
 "aEd" = (
 /obj/machinery/atmospherics/trinary/filter/flipped{
 	dir = 1;
-	filter_type = n2;
+	filter_type = 2;
 	name = "N2 Filter"
 	},
 /turf/simulated/floor/plasteel{
@@ -83495,6 +83495,9 @@
 	icon_state = "dark"
 	},
 /area/station/security/main)
+"maG" = (
+/turf/space,
+/area/station/engineering/controlroom)
 "mbO" = (
 /obj/machinery/economy/vending/coffee,
 /turf/simulated/floor/plasteel/dark,
@@ -125937,7 +125940,7 @@ aAd
 aAd
 aEk
 npF
-aCj
+maG
 aEf
 aFf
 aHl
