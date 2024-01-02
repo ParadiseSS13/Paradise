@@ -25,7 +25,7 @@
 /datum/mindflayer_passive/processed
 
 /datum/mindflayer_passive/Destroy(force, ...)
-	. = ..()
+	..()
 	on_remove()
 
 /datum/mindflayer_passive/processed/New()
@@ -58,7 +58,7 @@
 	upgrade_text = "The swarm adds more layers of armored nanites, strengthening the plating even more."
 	gain_text = "You feel your plating being reinforced by the swarm."
 	power_type = FLAYER_PURCHASABLE_POWER
-	max_level = 10
+	max_level = 3
 	var/armor_value = 0
 
 /datum/mindflayer_passive/armored_plating/on_apply()
@@ -69,7 +69,6 @@
 	owner.dna.species.armor = armor_value
 
 /datum/mindflayer_passive/armored_plating/on_remove()
-	armor_value = 5 * level
 	owner.dna.species.armor -= armor_value
 
 /datum/mindflayer_passive/fluid_feet
@@ -139,10 +138,25 @@
 	REMOVE_TRAIT(owner, TRAIT_EMP_IMMUNE, src)
 	REMOVE_TRAIT(owner, TRAIT_EMP_RESIST, src)
 
+/datum/mindflayer_passive/insulated
+	name = "Insulated Chassis"
+	purchase_text = "Become immune to basic shocks. At level two, not even Lady Tesla can harm you."
+	upgrade_text = "The insulated material spreads throughout our chassis."
+	gain_text = "The outer layer of our chassis gets slightly thicker."
+	power_type = FLAYER_PURCHASABLE_POWER
+	max_level = 1
+
+/datum/mindflayer_passive/shock_resist/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_SHOCKIMMUNE, src)
+
+/datum/mindflayer_passive/shock_resist/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_SHOCKIMMUNE, src)
+
 /datum/mindflayer_passive/processed/regen
 	name = "Regeneration"
 	purchase_text = "Regain HP passively, level scales the amount healed."
-	upgrade_text = "Our regeneration accelerates."
+	upgrade_text = "Our repair accelerates."
 	gain_text = "Diverting resources to repairing chassis."
 	power_type = FLAYER_PURCHASABLE_POWER
 	max_level = 3
