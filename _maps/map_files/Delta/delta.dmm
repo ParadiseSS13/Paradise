@@ -75389,18 +75389,6 @@
 	},
 /obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
 /obj/machinery/atmospherics/pipe/simple/visible,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/atmos/glass{
-	name = "Atmospherics Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/atmos/glass{
-	name = "Atmospherics Access"
-	},
-/obj/effect/mapping_helpers/airlock/access/any/engineering/atmos,
-/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel,
 /area/station/engineering/atmos)
 "fuH" = (
