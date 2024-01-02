@@ -149,8 +149,8 @@
 	update_icon()
 
 /mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
-	if(emagged < 1)
-		emagged = 1
+	if(!emagged)
+		emagged = TRUE
 	if(!open)
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] [src]'s controls!</span>")
