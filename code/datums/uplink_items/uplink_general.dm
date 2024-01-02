@@ -376,7 +376,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/stealthy_weapons/knuckleduster
 	name = "Syndicate Knuckleduster"
-	desc = "A straightforward and robust melee weapon for bludgeoning someone to death. Hard to notice if someone is carrying it unless very observant."
+	desc = "A straightforward and fairly concealable melee weapon for bludgeoning someone to death in brutal fashion. This one is designed specifically to cause severe organ damage to the victim."
 	reference = "SKD"
 	item = /obj/item/melee/knuckleduster/syndie
 	cost = 5
