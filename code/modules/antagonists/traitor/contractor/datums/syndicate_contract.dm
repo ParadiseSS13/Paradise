@@ -491,7 +491,7 @@
   */
 /datum/syndicate_contract/proc/injure_target(mob/living/M)
 	var/obj/item/organ/external/injury_target
-	if(prob(20)) //See if they're !!!lucky!!! enough to just chop a hand or foot off first
+	if(prob(20)) //See if they're !!!lucky!!! enough to just chop a hand or foot off first, or even !!LUCKIER!! that it chose an already amputated limb
 		injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 		if(!injury_target)
 			return
@@ -505,11 +505,11 @@
 		M.adjustBrainLoss(30)
 		to_chat(M, "<span class='warning'>You were interrogated by your captors before being sent back! You feel like some of your components are loose!</span>")
 		return
+	default_damage(M) //Now that we won't accidentally kill an IPC we can make everyone take damage
 	if(isslimeperson(M))
 		injury_target = M.get_organ(pick(BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT))
 		if(!injury_target)
 			return
-		default_damage(M)
 		injury_target.cause_internal_bleeding()
 		injury_target = M.get_organ(BODY_ZONE_CHEST)
 		injury_target.cause_internal_bleeding()
@@ -517,13 +517,11 @@
 		return
 	if(prob(25)) //You either get broken ribs, or a broken limb and IB if you made it this far
 		injury_target = M.get_organ(BODY_ZONE_CHEST)
-		default_damage(M)
 		injury_target.fracture()
 	else
 		injury_target = M.get_organ(pick(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_R_LEG))
 		if(!injury_target)
 			return
-		default_damage(M)
 		injury_target.fracture()
 		injury_target.cause_internal_bleeding()
 
