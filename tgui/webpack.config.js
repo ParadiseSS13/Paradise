@@ -29,7 +29,7 @@ module.exports = (env = {}, argv) => {
   const config = {
     mode,
     context: path.resolve(__dirname),
-    target: ['web', 'es5', 'browserslist:IE 9'],
+    target: ['web', 'es5', 'browserslist:IE 8'],
     entry: {
       'tgui': [
         './packages/tgui-polyfill',
@@ -59,7 +59,7 @@ module.exports = (env = {}, argv) => {
           test: /\.m?jsx?$/,
           use: [
             {
-              loader: 'babel-loader',
+              loader: require.resolve('babel-loader'),
               options: createBabelConfig({ mode }),
             },
           ],
@@ -74,20 +74,20 @@ module.exports = (env = {}, argv) => {
               },
             },
             {
-              loader: 'css-loader',
+              loader: require.resolve('css-loader'),
               options: {
                 esModule: false,
               },
             },
             {
-              loader: 'sass-loader',
+              loader: require.resolve('sass-loader'),
             },
           ],
         },
         {
           test: /\.(png|jpg|svg)$/,
           use: [
-            'url-loader',
+            require.resolve('url-loader'),
           ],
         },
       ],
