@@ -1,4 +1,12 @@
 /datum/disease/critical
+	form = "Medical Emergency"
+	max_stages = 3
+	spread_flags = SPECIAL
+	viable_mobtypes = list(/mob/living/carbon/human)
+	severity = MINOR
+	disease_flags = CURABLE
+	bypasses_immunity = TRUE
+	virus_heal_resistant = TRUE
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior
 	stage = min(stage, max_stages)
@@ -20,19 +28,11 @@
 
 /datum/disease/critical/shock
 	name = "Shock"
-	form = "Medical Emergency"
-	spread_text = "The patient is in shock"
-	max_stages = 3
-	spread_flags = SPECIAL
+	spread_text = "The patient is in shock."
 	cure_text = "Saline-Glucose Solution"
 	cures = list("salglu_solution", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
-	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 6
-	severity = DANGEROUS
-	disease_flags = CURABLE
-	bypasses_immunity = TRUE
-	virus_heal_resistant = TRUE
 
 /datum/disease/critical/shock/stage_act()
 	if(..())
@@ -60,7 +60,7 @@
 				if(prob(5))
 					to_chat(affected_mob, "<span class='danger'>You feel absolutely terrible!</span>")
 				if(prob(5))
-					affected_mob.emote("faint", "faint", "groan") // this is bugged, but out of scope, someone fix it :)
+					affected_mob.emote(pick(2; "faint", 1; "groan"))
 			if(3)
 				if(prob(1) && prob(10))
 					to_chat(affected_mob, "<span class='notice'>You feel better.</span>")
@@ -71,7 +71,7 @@
 				if(prob(5))
 					to_chat(affected_mob, "<span class='danger'>You feel horrible!</span>")
 				if(prob(5))
-					affected_mob.emote(pick("faint", "faint", "groan"))
+					affected_mob.emote(pick(2; "faint", 1; "groan"))
 				if(prob(7))
 					to_chat(affected_mob, "<span class='danger'>You can't breathe!</span>")
 					affected_mob.AdjustLoseBreath(2 SECONDS)
@@ -81,21 +81,13 @@
 
 /datum/disease/critical/heart_failure
 	name = "Cardiac Failure"
-	form = "Medical Emergency"
-	spread_text = "The patient is having a cardiac emergency"
-	max_stages = 3
-	spread_flags = SPECIAL
+	spread_text = "The patient is having a cardiac emergency."
 	cure_text = "Atropine, Epinephrine, or Heparin"
 	cures = list("atropine", "epinephrine", "heparin", "syndicate_nanites", "stimulative_agent")
 	cure_chance = 10
-	needs_all_cures = FALSE
-	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 5
-	severity = DANGEROUS
-	disease_flags = CURABLE
+	severity = HARMFUL
 	required_organs = list(/obj/item/organ/internal/heart)
-	bypasses_immunity = TRUE
-	virus_heal_resistant = TRUE
 
 /datum/disease/critical/heart_failure/stage_act()
 	if(..())
@@ -125,7 +117,7 @@
 					to_chat(affected_mob, "<span class='danger'>Your heart stops beating!</span>")
 					affected_mob.AdjustLoseBreath(6 SECONDS)
 				if(prob(5))
-					affected_mob.emote(pick("faint", "faint", "groan"))
+					affected_mob.emote(pick(2; "faint", 1; "groan"))
 			if(3)
 				affected_mob.adjustOxyLoss(1)
 				if(prob(8))
@@ -136,17 +128,9 @@
 
 /datum/disease/critical/hypoglycemia
 	name = "Hypoglycemia"
-	form = "Medical Emergency"
-	max_stages = 3
-	spread_flags = SPECIAL
 	spread_text = "The patient has low blood sugar."
 	cure_text = "Eating or administration of vitamins or nutrients"
-	viable_mobtypes = list(/mob/living/carbon/human)
 	stage_prob = 1
-	severity = DANGEROUS
-	disease_flags = CURABLE
-	bypasses_immunity = TRUE
-	virus_heal_resistant = TRUE
 
 /datum/disease/critical/hypoglycemia/has_cure()
 	if(ishuman(affected_mob))
