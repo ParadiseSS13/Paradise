@@ -125,6 +125,9 @@
 	item_state = "[initial(item_state)][lit ? "-on" : ""]"
 	return ..()
 
+/obj/item/lighter/get_heat()
+	return lit * 1500
+
 // Zippo lighters
 /obj/item/lighter/zippo
 	name = "zippo lighter"
@@ -303,6 +306,9 @@
 	var/mask_item = M.get_item_by_slot(SLOT_HUD_WEAR_MASK)
 	if(istype(mask_item, /obj/item/clothing/mask/cigarette))
 		return mask_item
+
+/obj/item/match/get_heat()
+	return lit * 1000
 
 /obj/item/match/firebrand
 	name = "firebrand"

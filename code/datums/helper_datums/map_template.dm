@@ -143,7 +143,6 @@
 			continue
 
 		GLOB.map_templates[R.name] = R
-		GLOB.ruins_templates[R.name] = R
 
 		if(istype(R, /datum/map_template/ruin/lavaland))
 			GLOB.lava_ruins_templates[R.name] = R
@@ -195,5 +194,4 @@
 
 		var/datum/map_template/event/E = new event_type()
 
-		GLOB.event_templates[E.event_id] = E
 		GLOB.map_templates[E.event_id] = E

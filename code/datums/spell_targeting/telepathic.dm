@@ -28,7 +28,7 @@
 	if(!length(valid_targets))
 		return
 
-	var/target_name = input("Choose the target to listen to.", "Targeting") as null|anything in valid_targets
+	var/target_name = tgui_input_list(user, "Choose the target to listen to", "Targeting", valid_targets)
 
 	var/mob/living/target = valid_targets[target_name]
 	if(QDELETED(target))

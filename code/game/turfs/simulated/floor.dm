@@ -19,7 +19,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	var/icon_plating = "plating"
 	thermal_conductivity = 0.020
 	heat_capacity = 100000
-	var/lava = 0
 	var/broken = FALSE
 	var/burnt = FALSE
 	var/current_overlay = null
