@@ -196,6 +196,14 @@ if [[ ${1} == '--analyze' ]]; then
   exit 0
 fi
 
+## Jest test
+if [[ ${1} == '--test' ]]; then
+  shift 1
+  task-install
+  task-test "${@}"
+  exit 0
+fi
+
 ## Make a production webpack build
 if [[ -z ${1} ]]; then
   task-install

@@ -123,6 +123,13 @@ if ($Args.Length -gt 0) {
     exit 0
   }
 
+  ## Jest test
+  if ($Args[0] -eq "--test") {
+    $Rest = $Args | Select-Object -Skip 1
+    task-install
+    task-test @Rest
+    exit 0
+  }
 
   ## Analyze the bundle
   if ($Args[0] -eq "--analyze") {
@@ -132,9 +139,11 @@ if ($Args.Length -gt 0) {
   }
 }
 
+
 ## Make a production webpack build
 if ($Args.Length -eq 0) {
   task-install
+  task-prettier
   task-lint
   task-webpack --mode=production
   exit 0
