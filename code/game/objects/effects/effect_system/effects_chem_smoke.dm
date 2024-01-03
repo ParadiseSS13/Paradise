@@ -119,7 +119,7 @@
 		if(A in smoked_atoms)
 			continue
 		smoked_atoms += A
-		chemholder.reagents.reaction(A)
+		chemholder.reagents.reaction(A, REAGENT_SPLASH)
 		SEND_SIGNAL(A, COMSIG_ATOM_EXPOSE_REAGENTS, chemholder.reagents, chemholder, chemholder.reagents.total_volume)
 		if(iscarbon(A))
 			var/mob/living/carbon/C = A
