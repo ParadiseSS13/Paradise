@@ -105,6 +105,12 @@
 		return ..()
 
 /obj/screen/movable/action_button/hide_toggle/Click(location,control,params)
+	var/list/modifiers = params2list(params)
+
+	if(modifiers["alt"])
+		AltClick(usr)
+		return TRUE
+
 	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
 
 	hidden = usr.hud_used.action_buttons_hidden
