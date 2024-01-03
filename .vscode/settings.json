@@ -10,8 +10,8 @@
     "**/.yarn": true,
     "**/.pnp.*": true
 	},
-	"eslint.nodePath": ".yarn/sdks",
-	"typescript.tsdk": ".yarn/sdks/typescript/lib",
+	"eslint.nodePath": "tgui/.yarn/sdks",
+	"typescript.tsdk": "tgui/.yarn/sdks/typescript/lib",
 	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"eslint.rules.customizations": [
 		// We really want to fail the CI builds on styling errors,
