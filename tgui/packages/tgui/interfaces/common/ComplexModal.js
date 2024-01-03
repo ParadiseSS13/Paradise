@@ -186,7 +186,7 @@ export const ComplexModal = (props, context) => {
       mx="auto"
       overflowY={overflowY}
     >
-      <Box display="inline">{text}</Box>
+      <Box inline>{text}</Box>
       {modalBody}
       {modalFooter}
     </Modal>

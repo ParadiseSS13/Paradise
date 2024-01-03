@@ -380,7 +380,7 @@ const SecurityRecordsViewSecurity = (_properties, context) => {
         ) : (
           security.comments.map((comment, i) => (
             <Box key={i} prewrap>
-              <Box color="label" display="inline">
+              <Box color="label" inline>
                 {comment.header || 'Auto-generated'}
               </Box>
               <br />

@@ -206,10 +206,10 @@ const CryoBeaker = (props, context) => {
   if (isBeakerLoaded) {
     return (
       <>
-        <Box display="inline" color={!beakerLabel && 'average'}>
+        <Box inline color={!beakerLabel && 'average'}>
           {beakerLabel || 'No label'}
         </Box>
-        <Box display="inline" float="right" color={!beakerVolume && 'bad'}>
+        <Box inline float="right" color={!beakerVolume && 'bad'}>
           {beakerVolume ? (
             <AnimatedNumber
               value={beakerVolume}
@@ -223,7 +223,7 @@ const CryoBeaker = (props, context) => {
     );
   } else {
     return (
-      <Box display="inline" color="bad">
+      <Box inline color="bad">
         No beaker loaded
       </Box>
     );

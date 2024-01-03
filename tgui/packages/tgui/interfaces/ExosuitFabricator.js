@@ -268,7 +268,7 @@ const Queue = (properties, context) => {
                 <Divider />
                 Processing time:
                 <Icon name="clock" mx="0.5rem" />
-                <Box display="inline" bold>
+                <Box inline bold>
                   {new Date((queueTime / 10) * 1000)
                     .toISOString()
                     .substr(14, 5)}

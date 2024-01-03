@@ -17,11 +17,11 @@ export const BeakerContents = (props) => {
         ))}
       {beakerContents.map((chemical, i) => (
         <Box key={chemical.name} width="100%">
-          <Box color="label" display="inline" verticalAlign="middle">
+          <Box color="label" inline verticalAlign="middle">
             {formatUnits(chemical.volume)} of {chemical.name}
           </Box>
           {!!buttons && (
-            <Box float="right" display="inline">
+            <Box float="right" inline>
               {buttons(chemical, i)}
             </Box>
           )}

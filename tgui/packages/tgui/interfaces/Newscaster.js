@@ -481,7 +481,7 @@ const Story = (properties, context) => {
         <Box mt="0.25rem">
           <Box color="label">
             {!wanted && censorMode && (
-              <Box display="inline">
+              <Box inline>
                 <Button
                   enabled={story.censor_flags & 2}
                   icon={story.censor_flags & 2 ? 'comment-slash' : 'comment'}
@@ -492,7 +492,7 @@ const Story = (properties, context) => {
                 />
               </Box>
             )}
-            <Box display="inline">
+            <Box inline>
               <Icon name="user" /> {story.author} |&nbsp;
               {!!is_admin && <>ckey: {story.author_ckey} |&nbsp;</>}
               {!wanted && (

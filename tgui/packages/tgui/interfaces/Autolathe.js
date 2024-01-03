@@ -128,7 +128,12 @@ export const Autolathe = (props, context) => {
                 mb={1}
               />
               {recipesToShow.map((recipe) => (
-                <Stack.Item grow align="center" key={recipe.ref}>
+                <Stack.Item
+                  grow
+                  align="left"
+                  textAlign="center"
+                  key={recipe.ref}
+                >
                   <img
                     src={`data:image/jpeg;base64,${recipe.image}`}
                     style={{

@@ -68,7 +68,7 @@ const DNAModifierOccupant = (props, context) => {
       title="Occupant"
       buttons={
         <>
-          <Box color="label" display="inline" mr="0.5rem">
+          <Box color="label" inline mr="0.5rem">
             Door Lock:
           </Box>
           <Button
@@ -672,14 +672,8 @@ const DNAModifierBlocks = (props, context) => {
       );
     }
     dnaBlocks.push(
-      <Stack.Item flex="0 0 16%" mb="1rem">
-        <Box
-          display="inline-block"
-          width="20px"
-          mr="0.5rem"
-          fontFamily="monospace"
-          textAlign="center"
-        >
+      <Stack.Item mb="1rem" mr="1rem" width={7.8} textAlign="right">
+        <Box inline mr="0.5rem" fontFamily="monospace">
           {realBlock}
         </Box>
         {subBlocks}

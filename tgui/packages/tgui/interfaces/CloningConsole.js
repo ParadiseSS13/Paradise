@@ -31,19 +31,19 @@ const viewRecordModalBodyOverride = (modal, context) => {
         <LabeledList.Item label="Damage">
           {damages.length > 1 ? (
             <>
-              <Box color={COLORS.damageType.oxy} display="inline">
+              <Box color={COLORS.damageType.oxy} inline>
                 {damages[0]}
               </Box>
               &nbsp;|&nbsp;
-              <Box color={COLORS.damageType.toxin} display="inline">
+              <Box color={COLORS.damageType.toxin} inline>
                 {damages[2]}
               </Box>
               &nbsp;|&nbsp;
-              <Box color={COLORS.damageType.brute} display="inline">
+              <Box color={COLORS.damageType.brute} inline>
                 {damages[3]}
               </Box>
               &nbsp;|&nbsp;
-              <Box color={COLORS.damageType.burn} display="inline">
+              <Box color={COLORS.damageType.burn} inline>
                 {damages[1]}
               </Box>
             </>
@@ -167,7 +167,7 @@ const CloningConsoleMain = (props, context) => {
         title="Scanner"
         buttons={
           <>
-            <Box display="inline" color="label">
+            <Box inline color="label">
               Scanner Lock:&nbsp;
             </Box>
             <Button
@@ -274,11 +274,7 @@ const CloningConsoleMain = (props, context) => {
                   }}
                 />
                 <Box color="label">Pod #{i + 1}</Box>
-                <Box
-                  bold
-                  color={pod.biomass >= 150 ? 'good' : 'bad'}
-                  display="inline"
-                >
+                <Box bold color={pod.biomass >= 150 ? 'good' : 'bad'} inline>
                   <Icon name={pod.biomass >= 150 ? 'circle' : 'circle-o'} />
                   &nbsp;
                   {pod.biomass}
@@ -363,7 +359,7 @@ const CloningConsoleStatus = (props, context) => {
           <>
             {!!autoallowed && (
               <>
-                <Box display="inline" color="label">
+                <Box inline color="label">
                   Auto-processing:&nbsp;
                 </Box>
                 <Button

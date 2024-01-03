@@ -73,7 +73,7 @@ export const MerchVendor = (props, context) => {
               title="User"
               buttons={
                 <>
-                  <Box color="light-grey" display="inline" mr="0.5rem">
+                  <Box color="light-grey" inline mr="0.5rem">
                     There is <b>{inserted_cash}</b> credits inserted.
                   </Box>
                   <Button

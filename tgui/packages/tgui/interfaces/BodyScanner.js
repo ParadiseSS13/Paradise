@@ -293,23 +293,23 @@ const BodyScannerMainOrgansExternal = (props) => {
                 value={o.totalLoss / o.maxHealth}
                 ranges={damageRange}
               >
-                <Box float="left" display="inline">
+                <Box float="left" inline>
                   {!!o.bruteLoss && (
-                    <Box display="inline" position="relative">
+                    <Box inline position="relative">
                       <Icon name="bone" />
                       {round(o.bruteLoss, 0)}&nbsp;
                       <Tooltip position="top" content="Brute damage" />
                     </Box>
                   )}
                   {!!o.fireLoss && (
-                    <Box display="inline" position="relative">
+                    <Box inline position="relative">
                       <Icon name="fire" />
                       {round(o.fireLoss, 0)}
                       <Tooltip position="top" content="Burn damage" />
                     </Box>
                   )}
                 </Box>
-                <Box display="inline">{round(o.totalLoss, 0)}</Box>
+                <Box inline>{round(o.totalLoss, 0)}</Box>
               </ProgressBar>
             </Table.Cell>
             <Table.Cell
@@ -318,7 +318,7 @@ const BodyScannerMainOrgansExternal = (props) => {
               width="33%"
               pt={i > 0 && 'calc(0.5rem + 2px)'}
             >
-              <Box color="average" display="inline">
+              <Box color="average" inline>
                 {reduceOrganStatus([
                   !!o.internalBleeding && 'Internal bleeding',
                   !!o.burnWound && 'Critical tissue burns',
@@ -328,7 +328,7 @@ const BodyScannerMainOrgansExternal = (props) => {
                   !!o.open && 'Open incision',
                 ])}
               </Box>
-              <Box display="inline">
+              <Box inline>
                 {reduceOrganStatus([
                   !!o.status.splinted && <Box color="good">Splinted</Box>,
                   !!o.status.robotic && <Box color="label">Robotic</Box>,
@@ -396,10 +396,10 @@ const BodyScannerMainOrgansInternal = (props) => {
               width="33%"
               pt={i > 0 && 'calc(0.5rem + 2px)'}
             >
-              <Box color="average" display="inline">
+              <Box color="average" inline>
                 {reduceOrganStatus([germStatus(o.germ_level)])}
               </Box>
-              <Box display="inline">
+              <Box inline>
                 {reduceOrganStatus([
                   o.robotic === 1 && <Box color="label">Robotic</Box>,
                   o.robotic === 2 && <Box color="label">Assisted</Box>,

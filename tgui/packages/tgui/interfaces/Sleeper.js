@@ -77,7 +77,7 @@ const SleeperOccupant = (props, context) => {
       title="Occupant"
       buttons={
         <>
-          <Box color="label" display="inline">
+          <Box color="label" inline>
             Auto-eject if dead:&nbsp;
           </Box>
           <Button

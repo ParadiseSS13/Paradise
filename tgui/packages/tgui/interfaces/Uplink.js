@@ -256,7 +256,7 @@ const Advert = (_properties, context) => {
         />
       }
     >
-      <Box display="flex" flexWrap="wrap" mb="5px">
+      <Box display="flex" flexWrap="wrap">
         {lucky_numbers
           .map((number) => cats[number.cat].items[number.item])
           .filter((item) => item !== undefined && item !== null)
