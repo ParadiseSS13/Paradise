@@ -747,12 +747,12 @@
 				to_chat(user, "<span class='warning'>This exosuit already has a [current_tracker].</span>")
 				user.put_in_hands(new_tracker)
 				return
-			else
-				trackers -= current_tracker
-				to_chat(user, "<span class='notice'>You remove [current_tracker].</span>")
-				var/obj/item/mecha_parts/mecha_tracking/duplicate_tracker = new current_tracker.type
-				user.put_in_hands(duplicate_tracker)
-				qdel(current_tracker)
+
+			trackers -= current_tracker
+			to_chat(user, "<span class='notice'>You remove [current_tracker].</span>")
+			var/obj/item/mecha_parts/mecha_tracking/duplicate_tracker = new current_tracker.type
+			user.put_in_hands(duplicate_tracker)
+			qdel(current_tracker)
 		new_tracker.forceMove(src)
 		trackers += W
 		user.visible_message("[user] attaches [new_tracker] to [src].", "<span class='notice'>You attach [new_tracker] to [src].</span>")
