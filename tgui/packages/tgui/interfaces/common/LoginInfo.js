@@ -18,23 +18,23 @@ export const LoginInfo = (_properties, context) => {
     <NoticeBox info>
       <Stack>
         <Stack.Item grow mt={0.5}>
-        Logged in as: {loginState.name} ({loginState.rank})
+          Logged in as: {loginState.name} ({loginState.rank})
         </Stack.Item>
-      <Stack.Item>
-      <Button
-        icon="eject"
-        disabled={!loginState.id}
-        content="Eject ID"
-        color="good"
-        onClick={() => act('login_eject')}
-      />
-      <Button
-        icon="sign-out-alt"
-        content="Logout"
-        color="good"
-        onClick={() => act('login_logout')}
-      />
-      </Stack.Item>
+        <Stack.Item>
+          <Button
+            icon="eject"
+            disabled={!loginState.id}
+            content="Eject ID"
+            color="good"
+            onClick={() => act('login_eject')}
+          />
+          <Button
+            icon="sign-out-alt"
+            content="Logout"
+            color="good"
+            onClick={() => act('login_logout')}
+          />
+        </Stack.Item>
       </Stack>
     </NoticeBox>
   );
