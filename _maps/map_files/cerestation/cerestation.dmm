@@ -1741,9 +1741,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/security/prisonershuttle)
 "akD" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -1752,9 +1750,7 @@
 	},
 /area/station/security/execution)
 "akE" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -2131,9 +2127,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/gambling_den)
 "amW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -3502,9 +3496,7 @@
 	},
 /area/station/turret_protected/aisat/interior/secondary)
 "avu" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -15928,9 +15920,7 @@
 /obj/effect/mapping_helpers/airlock/access/all/supply/mining,
 /obj/machinery/door/firedoor,
 /obj/structure/fans/tiny,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -20862,9 +20852,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -57242,9 +57230,7 @@
 /turf/simulated/floor/plating,
 /area/station/maintenance/disposal/north)
 "llt" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -59890,9 +59876,7 @@
 	dir = 1
 	},
 /obj/machinery/disposal,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -68278,9 +68262,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 2
-	},
+/obj/machinery/atmospherics/unary/portables_connector,
 /obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/station/hallway/primary/aft/west)
@@ -70305,9 +70287,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/loading_area{
 	dir = 4
 	},
@@ -78263,9 +78243,7 @@
 /turf/simulated/floor/plasteel,
 /area/station/hallway/secondary/exit)
 "shh" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/item/radio/intercom{
 	pixel_x = 28;
 	name = "custom placement"
@@ -87799,7 +87777,6 @@
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
 	},
-/obj/effect/spawner/window/reinforced/grilled,
 /turf/space,
 /area/station/turret_protected/aisat/interior/secondary)
 "vml" = (
