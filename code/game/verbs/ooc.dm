@@ -212,7 +212,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	if(isliving(mob))
 		for(var/mob/M in viewers(7, mob))
 			if(M.client?.prefs.toggles & PREFTOGGLE_CHAT_LOOC) // Check if LOOC is enabled in game preferences
-				if((M.client?.prefs.toggles2 & (PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_CHAT_LOOC) == (PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_CHAT_LOOC)) // Check if Runechat and LOOC is enabled
+				if((M.client?.prefs.toggles2 & (PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_CHAT_LOOC)) == (PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_CHAT_LOOC)) // Check if Runechat and LOOC is enabled // Check if Runechat and LOOC is enabled
 					M.create_chat_message(mob, msg, FALSE, symbol = RUNECHAT_SYMBOL_LOOC)
 	var/mob/source = mob.get_looc_source()
 	var/list/heard = get_mobs_in_view(7, source)
