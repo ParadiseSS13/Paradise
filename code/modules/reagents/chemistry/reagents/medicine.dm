@@ -22,7 +22,6 @@
 
 	var/volume_per_bodypart = volume / H.bodyparts.len
 
-	var/healed_total = 0
 	for(var/obj/item/organ/external/organ in H.bodyparts)
 		if(!get_location_accessible(H, organ.limb_name))
 			turf_volume += volume_per_bodypart
@@ -30,9 +29,7 @@
 
 		var/last_damage = organ.get_damage()
 		heal_external_limb(organ, volume_per_bodypart)
-		healed_total += (last_damage - organ.get_damage())
 
-	to_chat(H, "healed [healed_total]")
 	H.updatehealth(reason = "[id] splashed")
 	H.UpdateDamageIcon()
 
