@@ -27,7 +27,6 @@
 			turf_volume += volume_per_bodypart
 			continue
 
-		var/last_damage = organ.get_damage()
 		heal_external_limb(organ, volume_per_bodypart)
 
 	H.updatehealth(reason = "[id] splashed")
