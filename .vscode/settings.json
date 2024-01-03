@@ -7,9 +7,12 @@
 		"./tgui"
 	],
 	"search.exclude": {
-		"tgui/.yarn": true,
-		"tgui/.pnp.*": true
+    "**/.yarn": true,
+    "**/.pnp.*": true
 	},
+	"eslint.nodePath": ".yarn/sdks",
+	"typescript.tsdk": ".yarn/sdks/typescript/lib",
+	"typescript.enablePromptUseWorkspaceTsdk": true,
 	"eslint.rules.customizations": [
 		// We really want to fail the CI builds on styling errors,
 		// but it's better to show them as yellow squigglies in IDE
