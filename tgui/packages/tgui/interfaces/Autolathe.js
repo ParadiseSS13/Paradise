@@ -130,8 +130,6 @@ export const Autolathe = (props, context) => {
               {recipesToShow.map((recipe) => (
                 <Stack.Item
                   grow
-                  align="left"
-                  textAlign="center"
                   key={recipe.ref}
                 >
                   <img

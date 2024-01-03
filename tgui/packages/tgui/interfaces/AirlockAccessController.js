@@ -33,7 +33,6 @@ export const AirlockAccessController = (props, context) => {
   if (interior_status === 'open') {
     interiorbutton = (
       <Button
-        ml={0.4}
         width="49%"
         content={'Lock Interior Door'}
         icon={'exclamation-triangle'}
@@ -47,7 +46,6 @@ export const AirlockAccessController = (props, context) => {
   } else {
     interiorbutton = (
       <Button
-        ml={0.4}
         width="49%"
         content={'Cycle to Interior'}
         icon={'arrow-circle-right'}
@@ -57,7 +55,7 @@ export const AirlockAccessController = (props, context) => {
     );
   }
   return (
-    <Window width={470} height={200}>
+    <Window width={330} height={200}>
       <Window.Content>
         <Section title="Information">
           <LabeledList>

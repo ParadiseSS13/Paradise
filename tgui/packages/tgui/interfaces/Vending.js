@@ -1,6 +1,5 @@
-import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table } from '../components';
+import { Box, Button, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props, context) => {
@@ -103,7 +102,9 @@ export const Vending = (props, context) => {
       resizable
     >
       <Window.Content scrollable>
+        <Stack fill vertical>
         {!!chargesMoney && (
+          <Stack.Item>
           <Section title="User">
             {user && (
               <Box>
@@ -125,6 +126,7 @@ export const Vending = (props, context) => {
               />
             </Box>
           </Section>
+          </Stack.Item>
         )}
         {!!inserted_item_name && (
           <Section
@@ -152,7 +154,8 @@ export const Vending = (props, context) => {
             />
           </Section>
         )}
-        <Section title="Products">
+        <Stack.Item grow>
+        <Section fill scrollable title="Products">
           <Table>
             {inventory.map((product) => (
               <VendingRow
@@ -164,6 +167,8 @@ export const Vending = (props, context) => {
             ))}
           </Table>
         </Section>
+        </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

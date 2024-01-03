@@ -33,7 +33,7 @@ export const ExternalAirlockController = (props, context) => {
   const { chamber_pressure, exterior_status, interior_status, processing } =
     data;
   return (
-    <Window width={470} height={205}>
+    <Window width={330} height={205}>
       <Window.Content>
         <Section title="Information">
           <LabeledList>
@@ -63,15 +63,14 @@ export const ExternalAirlockController = (props, context) => {
         >
           <Box>
             <Button
-              width="50%"
+              width="49%"
               content={'Cycle to Exterior'}
               icon={'arrow-circle-left'}
               disabled={processing}
               onClick={() => act('cycle_ext')}
             />
             <Button
-              ml={0.4}
-              width="49%"
+              width="50%"
               content={'Cycle to Interior'}
               icon={'arrow-circle-right'}
               disabled={processing}
@@ -80,7 +79,7 @@ export const ExternalAirlockController = (props, context) => {
           </Box>
           <Box>
             <Button
-              width="50%"
+              width="49%"
               content={'Force Exterior Door'}
               icon={'exclamation-triangle'}
               color={
@@ -93,8 +92,7 @@ export const ExternalAirlockController = (props, context) => {
               onClick={() => act('force_ext')}
             />
             <Button
-              ml={0.4}
-              width="49%"
+              width="50%"
               content={'Force Interior Door'}
               icon={'exclamation-triangle'}
               color={
