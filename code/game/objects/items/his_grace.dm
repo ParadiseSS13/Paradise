@@ -1,9 +1,9 @@
-//His Grace is a very special weapon granted only to traitor chaplains.
-//When awakened, He thirsts for blood and begins ticking a "bloodthirst" counter.
-//The wielder of His Grace is immune to stuns and gradually heals.
-//If the wielder fails to feed His Grace in time, He will devour them and become incredibly aggressive.
-//Leaving His Grace alone for some time will reset His thirst and put Him to sleep.
-//Using His Grace effectively requires extreme speed and care.
+// His Grace is a very special weapon granted only to traitor chaplains.
+// When awakened, He thirsts for blood and begins ticking a "bloodthirst" counter.
+// The wielder of His Grace is immune to stuns and gradually heals.
+// If the wielder fails to feed His Grace in time, He will devour them and become incredibly aggressive.
+// Leaving His Grace alone for some time will reset His thirst and put Him to sleep.
+// Using His Grace effectively requires extreme speed and care.
 
 /obj/item/his_grace
 	name = "artistic toolbox"
@@ -19,13 +19,16 @@
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/toolbox_pickup.ogg'
+
+	/// Is our little toolbox awake?
 	var/awakened = FALSE
+	/// How hungry is His Grace?
 	var/bloodthirst = HIS_GRACE_SATIATED
 	var/prev_bloodthirst = HIS_GRACE_SATIATED
 	var/force_bonus = 0
 	var/ascended = FALSE
+	var/victims = 0
 	var/victims_needed = 25
-	var/ascend_bonus = 15
 
 /obj/item/his_grace/Initialize(mapload)
 	. = ..()
@@ -69,22 +72,24 @@
 
 /obj/item/his_grace/examine(mob/user)
 	. = ..()
-	if(awakened)
-		switch(bloodthirst)
-			if(HIS_GRACE_SATIATED to HIS_GRACE_PECKISH)
-				. += "<span class='his_grace'>[src] isn't very hungry. Not yet.</span>"
-			if(HIS_GRACE_PECKISH to HIS_GRACE_HUNGRY)
-				. += "<span class='his_grace'>[src] would like a snack.</span>"
-			if(HIS_GRACE_HUNGRY to HIS_GRACE_FAMISHED)
-				. += "<span class='his_grace'>[src] is quite hungry now.</span>"
-			if(HIS_GRACE_FAMISHED to HIS_GRACE_STARVING)
-				. += "<span class='his_grace'>[src] is openly salivating at the sight of you. Be careful.</span>"
-			if(HIS_GRACE_STARVING to HIS_GRACE_CONSUME_OWNER)
-				. += "<span class='his_grace bold'>You walk a fine line. [src] is very close to devouring you.</span>"
-			if(HIS_GRACE_CONSUME_OWNER to HIS_GRACE_FALL_ASLEEP)
-				. += "<span class='his_grace bold'>[src] is shaking violently and staring directly at you.</span>"
-	else
+
+	if(!awakened)
 		. += "<span class='his_grace'>[src] is latched closed.</span>"
+		return
+
+	switch(bloodthirst)
+		if(HIS_GRACE_SATIATED to HIS_GRACE_PECKISH)
+			. += "<span class='his_grace'>[src] isn't very hungry. Not yet.</span>"
+		if(HIS_GRACE_PECKISH to HIS_GRACE_HUNGRY)
+			. += "<span class='his_grace'>[src] would like a snack.</span>"
+		if(HIS_GRACE_HUNGRY to HIS_GRACE_FAMISHED)
+			. += "<span class='his_grace'>[src] is quite hungry now.</span>"
+		if(HIS_GRACE_FAMISHED to HIS_GRACE_STARVING)
+			. += "<span class='his_grace'>[src] is openly salivating at the sight of you. Be careful.</span>"
+		if(HIS_GRACE_STARVING to HIS_GRACE_CONSUME_OWNER)
+			. += "<span class='his_grace bold'>You walk a fine line. [src] is very close to devouring you.</span>"
+		if(HIS_GRACE_CONSUME_OWNER to HIS_GRACE_FALL_ASLEEP)
+			. += "<span class='his_grace bold'>[src] is shaking violently and staring directly at you.</span>"
 
 /obj/item/his_grace/relaymove(mob/living/user, direction) //Allows changelings, etc. to climb out of Him after they revive, provided He isn't active
 	if(!awakened)
@@ -95,29 +100,37 @@
 	if(!bloodthirst)
 		drowse()
 		return
-	if(bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
-		adjust_bloodthirst(0.5 + FLOOR(length(contents) * 0.25, 1))
+	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
+		adjust_bloodthirst(0.5 + round(length(contents) * (1 / 6), 1))
 	else
 		adjust_bloodthirst(0.5) //don't cool off rapidly once we're at the point where His Grace consumes all.
-	var/mob/living/master = get_atom_on_turf(src, /mob/living)
-	var/list/held_items = list()
-	if(istype(master))
-		held_items += master.l_hand
-		held_items += master.r_hand
-	if(istype(master) && (src in held_items))
-		switch(bloodthirst)
-			if(HIS_GRACE_CONSUME_OWNER to HIS_GRACE_FALL_ASLEEP)
-				master.visible_message("<span class='boldwarning'>[src] turns on [master]!</span>", "<span class='his_grace big bold'>[src] turns on you!</span>")
-				do_attack_animation(master, null, src)
-				master.emote("scream")
-				master.remove_status_effect(STATUS_EFFECT_HISGRACE)
-				flags &= ~NODROP
-				master.Weaken(6 SECONDS)
-				master.adjustBruteLoss(1000)
-				playsound(master, 'sound/effects/splat.ogg', 100, FALSE)
-			else
-				master.apply_status_effect(STATUS_EFFECT_HISGRACE)
+
+	var/mob/living/carbon/human/master = get_atom_on_turf(src, /mob/living/carbon/human) // Only humans may wield Him
+	if(!master || !istype(master))
+		go_rabid()
 		return
+
+	if(!(src in list(master.l_hand, master.r_hand)))
+		go_rabid()
+		return
+
+	if(bloodthirst <= HIS_GRACE_CONSUME_OWNER || ascended)
+		master.apply_status_effect(STATUS_EFFECT_HISGRACE)
+		return
+
+	// They didn't sacrifice enough people, so this is where we go ham
+	master.visible_message("<span class='boldwarning'>[src] turns on [master]!</span>",
+							"<span class='his_grace big bold'>[src] turns on you!</span>")
+	do_attack_animation(master, used_item = src)
+	master.emote("scream")
+	master.remove_status_effect(STATUS_EFFECT_HISGRACE)
+	flags &= ~NODROP
+	master.Weaken(6 SECONDS)
+	master.adjustBruteLoss(1000)
+	playsound(master, 'sound/effects/splat.ogg', 100, FALSE)
+	go_rabid()
+
+/obj/item/his_grace/proc/go_rabid() // She Caerbannog on my rabid till I-
 	forceMove(get_turf(src)) //no you can't put His Grace in a locker you just have to deal with Him
 	if(bloodthirst < HIS_GRACE_CONSUME_OWNER)
 		return
@@ -182,30 +195,38 @@
 /obj/item/his_grace/proc/consume(mob/living/meal) //Here's your dinner, Mr. Grace.
 	if(!meal)
 		return
-	var/victims = 0
+
 	meal.visible_message("<span class='warning'>[src] swings open and devours [meal]!</span>", "<span class='his_grace big bold'>[src] consumes you!</span>")
 	meal.adjustBruteLoss(300)
 	playsound(meal, 'sound/misc/desceration-02.ogg', 75, TRUE)
 	playsound(src, 'sound/items/eatfood.ogg', 100, TRUE)
 	meal.forceMove(src)
-	force_bonus += HIS_GRACE_FORCE_BONUS
+
+	force_bonus += (ascended ? ASCEND_BONUS : HIS_GRACE_FORCE_BONUS)
+
 	prev_bloodthirst = bloodthirst
-	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)
-		bloodthirst = max(length(contents), 1) //Never fully sated, and His hunger will only grow.
+	if(ascended) // Otherwise there might be fractions where His Grace is droppable while ascended
+		bloodthirst = prev_bloodthirst
+	else if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)
+		bloodthirst = length(contents) //Never fully sated, and His hunger will only grow.
 	else
 		bloodthirst = HIS_GRACE_CONSUME_OWNER
-	for(var/mob/living/C in contents)
-		if(C.mind)
-			victims++
+
+	if(meal.mind)
+		victims++
 	if(victims >= victims_needed)
 		ascend()
 	update_stats()
 
 /obj/item/his_grace/proc/adjust_bloodthirst(amt)
 	prev_bloodthirst = bloodthirst
-	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER && !ascended)
+	if(ascended)
+		bloodthirst = HIS_GRACE_CONSUME_OWNER // As to maximize their healing buff
+		update_stats()
+		return
+	if(prev_bloodthirst < HIS_GRACE_CONSUME_OWNER)
 		bloodthirst = clamp(bloodthirst + amt, HIS_GRACE_SATIATED, HIS_GRACE_CONSUME_OWNER)
-	else if(!ascended)
+	else
 		bloodthirst = clamp(bloodthirst + amt, HIS_GRACE_CONSUME_OWNER, HIS_GRACE_FALL_ASLEEP)
 	update_stats()
 
@@ -250,7 +271,6 @@
 /obj/item/his_grace/proc/ascend()
 	if(ascended)
 		return
-	force_bonus += ascend_bonus
 	desc = "A legendary toolbox and a distant artifact from The Age of Three Powers. On its three latches engraved are the words \"The Sun\", \"The Moon\", and \"The Stars\". The entire toolbox has the words \"The World\" engraved into its sides."
 	icon_state = "his_grace_ascended"
 	item_state = "toolbox_gold"

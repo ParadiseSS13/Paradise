@@ -456,7 +456,7 @@ Difficulty: Medium
 
 	// changes turf to lava temporarily
 	if(!T.density && !islava(T))
-		var/lava_turf = /turf/simulated/floor/plating/lava/smooth
+		var/lava_turf = /turf/simulated/floor/lava
 		var/reset_turf = T.type
 		T.ChangeTurf(lava_turf)
 		sleep(reset_time)

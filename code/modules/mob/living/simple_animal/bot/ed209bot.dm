@@ -38,7 +38,7 @@
 	var/last_found //There's a delay
 	var/declare_arrests = TRUE //When making an arrest, should it notify everyone wearing sechuds?
 	var/idcheck = FALSE //If true, arrest people with no IDs
-	var/weaponscheck = TRUE //If true, arrest people for weapons if they don't have access
+	var/weapons_check = TRUE //If true, arrest people for weapons if they don't have access
 	var/check_records = TRUE //Does it check security records?
 	var/arrest_type = FALSE //If true, don't handcuff
 	var/projectile = /obj/item/projectile/beam/disabler //Holder for projectile type
@@ -111,7 +111,7 @@
 /mob/living/simple_animal/bot/ed209/ui_data(mob/user)
 	var/list/data = ..()
 	data["check_id"] = idcheck
-	data["check_weapons"] = weaponscheck
+	data["check_weapons"] = weapons_check
 	data["check_warrant"] = check_records
 	data["arrest_mode"] = arrest_type // detain or arrest
 	data["arrest_declare"] = declare_arrests // announce arrests on radio
@@ -139,7 +139,7 @@
 		if("disableremote")
 			remote_disabled = !remote_disabled
 		if("authweapon")
-			weaponscheck = !weaponscheck
+			weapons_check = !weapons_check
 		if("authid")
 			idcheck = !idcheck
 		if("authwarrant")
@@ -185,7 +185,7 @@
 
 /mob/living/simple_animal/bot/ed209/emag_act(mob/user)
 	..()
-	if(emagged == 2)
+	if(emagged)
 		if(user)
 			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits.</span>")
 			oldtarget_name = user.name
@@ -416,7 +416,7 @@
 
 /mob/living/simple_animal/bot/ed209/proc/set_weapon()  //used to update the projectile type and firing sound
 	shoot_sound = 'sound/weapons/laser.ogg'
-	if(emagged == 2)
+	if(emagged)
 		if(lasercolor)
 			projectile = /obj/item/projectile/beam/disabler
 		else
@@ -482,11 +482,11 @@
 				var/mob/toshoot = pick(targets)
 				if(toshoot)
 					targets-=toshoot
-					if(prob(50) && emagged < 2)
-						emagged = 2
+					if(prob(50) && !emagged && !locked)
+						emagged = TRUE
 						set_weapon()
 						shootAt(toshoot)
-						emagged = 0
+						emagged = FALSE
 						set_weapon()
 					else
 						shootAt(toshoot)

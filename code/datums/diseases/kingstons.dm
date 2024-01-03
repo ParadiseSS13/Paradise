@@ -9,7 +9,7 @@
 	viable_mobtypes = list(/mob/living/carbon/human)
 	permeability_mod = 0.75
 	desc = "If left untreated the subject will turn into a feline. In felines it has... OTHER... effects."
-	severity = DANGEROUS
+	severity = BIOHAZARD
 
 /datum/disease/kingstons/stage_act()
 	if(!..())
@@ -46,8 +46,8 @@
 					var/mob/living/carbon/human/catface = affected_mob
 					catface.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
-
-/datum/disease/kingstons_advanced //this used to be directly a subtype of kingstons, which sounds nice, but it ment that it would *turn you into a tarjaran always and have normal kingstons stage act* Don't make virusus subtypes unless the base virus does nothing.
+// Not a subtype of regular Kingstons as it would inherit its `stage_act()`
+/datum/disease/kingstons_advanced
 	name = "Advanced Kingstons Syndrome"
 	medical_name = "Advanced Kingstons Syndrome"
 	max_stages = 4
@@ -75,27 +75,35 @@
 /datum/disease/kingstons_advanced/stage_act()
 	if(!..())
 		return FALSE
-	if(ishuman(affected_mob))
-		var/mob/living/carbon/human/twisted = affected_mob
-		switch(stage)
-			if(1)
-				if(prob(10))
-					to_chat(twisted, "<span class='notice'>You feel awkward.</span>")
-			if(2)
-				if(prob(10))
-					to_chat(twisted, "<span class='danger'>You itch.</span>")
-			if(3)
-				if(prob(10))
-					to_chat(twisted, "<span class='danger'>Your skin starts to flake!</span>")
+	if(!ishuman(affected_mob))
+		return
 
-			if(4)
-				if(prob(5))
-					if(!istype(twisted.dna.species, chosentype))
-						twisted.visible_message("<span class='danger'>[twisted]'s skin splits and form contorts!</span>", \
-														"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>")
-						twisted.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
-					else
-						twisted.visible_message("<span class='danger'>[twisted] scratches at their skin!</span>", \
-														"<span class='userdanger'>You scratch your skin to try not to itch!</span>")
-						twisted.adjustBruteLoss(-5)
-						twisted.adjustStaminaLoss(5)
+	var/mob/living/carbon/human/twisted = affected_mob
+	switch(stage)
+		if(1)
+			if(prob(10))
+				to_chat(twisted, "<span class='notice'>You feel awkward.</span>")
+		if(2)
+			if(prob(10))
+				to_chat(twisted, "<span class='danger'>You itch.</span>")
+		if(3)
+			if(prob(10))
+				to_chat(twisted, "<span class='danger'>Your skin starts to flake!</span>")
+		if(4)
+			if(!prob(5))
+				return
+
+			if(!istype(twisted.dna.species, chosentype))
+				twisted.visible_message(
+					"<span class='danger'>[twisted]'s skin splits and form contorts!</span>",
+					"<span class='userdanger'>Your body mutates into a [initial(chosentype.name)]!</span>"
+				)
+				twisted.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
+				return
+
+			twisted.visible_message(
+				"<span class='danger'>[twisted] scratches at their skin!</span>",
+				"<span class='userdanger'>You scratch your skin to try not to itch!</span>"
+			)
+			twisted.adjustBruteLoss(5)
+			twisted.adjustStaminaLoss(5)

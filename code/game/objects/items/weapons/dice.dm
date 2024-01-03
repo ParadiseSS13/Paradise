@@ -250,7 +250,7 @@
 				/obj/item/chameleon_counterfeiter,
 				/obj/item/clothing/shoes/chameleon/noslip,
 				/obj/item/pinpointer/advpinpointer,
-				/obj/item/storage/box/syndie_kit/bonerepair,
+				/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 				/obj/item/storage/backpack/duffel/syndie/med/surgery,
 				/obj/item/storage/toolbox/syndicate,
 				/obj/item/storage/backpack/clown/syndie,
@@ -260,7 +260,7 @@
 				/obj/item/clothing/glasses/chameleon/thermal,
 				/obj/item/borg/upgrade/modkit/indoors,
 				/obj/item/storage/box/syndie_kit/chameleon,
-				/obj/item/storage/box/syndie_kit/modsuit,
+				/obj/item/mod/control/pre_equipped/traitor,
 				/obj/item/implanter/storage,
 				/obj/item/toy/syndicateballoon)
 			var/selected_item = pick(traitor_items)

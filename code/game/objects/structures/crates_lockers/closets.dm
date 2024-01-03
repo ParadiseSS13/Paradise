@@ -278,6 +278,24 @@
 	add_fingerprint(user)
 	toggle(user)
 
+/obj/structure/closet/attack_animal(mob/living/user)
+	if(user.a_intent == INTENT_HARM || welded || locked)
+		return ..()
+	if(!user.mind) // Stops mindless mobs from opening lockers + endlessly opening/closing crates instead of attacking
+		return ..()
+	if(user.mob_size < MOB_SIZE_HUMAN)
+		return ..()
+	add_fingerprint(user)
+	toggle(user)
+
+/obj/structure/closet/attack_alien(mob/user)
+	if(user.a_intent == INTENT_HARM || welded || locked)
+		return ..()
+	if(!user.mind)
+		return ..()
+	add_fingerprint(user)
+	toggle(user)
+
 /obj/structure/closet/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		toggle(user)
@@ -387,6 +405,7 @@
 		return TRUE
 
 	return ..()
+
 
 /obj/structure/closet/bluespace
 	name = "bluespace closet"

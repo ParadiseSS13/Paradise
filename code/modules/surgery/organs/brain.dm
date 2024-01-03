@@ -9,7 +9,7 @@
 	throw_range = 5
 	origin_tech = "biotech=5"
 	attack_verb = list("attacked", "slapped", "whacked")
-	var/mob/living/carbon/brain/brainmob = null
+	var/mob/living/brain/brainmob = null
 	organ_tag = "brain"
 	parent_organ = "head"
 	slot = "brain"

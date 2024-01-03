@@ -95,7 +95,7 @@
 
 		if("hair_gradient")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_style = input("Please select gradient style.", "Hair Gradient", head_organ.h_grad_style) as null|anything in GLOB.hair_gradients_list
+				var/new_style = tgui_input_list(usr, "Please select gradient style", "Hair Gradient", GLOB.hair_gradients_list)
 				if(new_style)
 					owner.change_hair_gradient(style = new_style)
 
@@ -231,7 +231,7 @@
 		data["head_accessory_styles"] = head_accessory_styles
 		data["head_accessory_style"] = head_organ ? head_organ.ha_style : "None"
 
-	if(!(user.dna.species.bodyflags & BALD))
+	if(!(owner.dna.species.bodyflags & BALD))
 		data["change_hair"] = can_change(APPEARANCE_HAIR)
 		if(data["change_hair"])
 			var/list/hair_styles = list()
@@ -242,7 +242,7 @@
 		data["change_hair_color"] = can_change(APPEARANCE_HAIR_COLOR)
 		data["change_secondary_hair_color"] = can_change(APPEARANCE_SECONDARY_HAIR_COLOR)
 
-	if(!(user.dna.species.bodyflags & SHAVED))
+	if(!(owner.dna.species.bodyflags & SHAVED))
 		data["change_facial_hair"] = can_change(APPEARANCE_FACIAL_HAIR)
 		if(data["change_facial_hair"])
 			var/list/facial_hair_styles = list()
@@ -254,7 +254,7 @@
 		data["change_secondary_facial_hair_color"] = can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR)
 		data["change_hair_gradient"] = can_change(APPEARANCE_HAIR) && length(valid_hairstyles)
 
-	if(!ismachineperson(user))
+	if(!ismachineperson(owner))
 		data["change_head_markings"] = can_change_markings("head")
 		if(data["change_head_markings"])
 			var/m_style = owner.m_styles["head"]
