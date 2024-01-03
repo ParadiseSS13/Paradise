@@ -20,7 +20,7 @@
 	var/turf_volume = max(0, (volume - 100) / 3)
 	volume = volume - turf_volume
 
-	var/volume_per_bodypart = volume / H.bodyparts.len
+	var/volume_per_bodypart = volume / length(H.bodyparts)
 
 	for(var/obj/item/organ/external/organ in H.bodyparts)
 		if(!get_location_accessible(H, organ.limb_name))
