@@ -447,7 +447,7 @@
 	if(ismodcontrol(equipped_item)) // Check if the item is a MODsuit
 		if(thing && equipped_item.can_be_inserted(thing)) // Check if the item can be inserted into the MODsuit
 			equipped_item.handle_item_insertion(thing) // Insert the item into the MODsuit
-			playsound(loc, "rustle", 50, 1, -5)
+			playsound(loc, "rustle", 50, TRUE, -5)
 			return
 	if(!istype(equipped_item)) // We also let you equip things like this
 		equip_to_slot_if_possible(thing, slot_item)
