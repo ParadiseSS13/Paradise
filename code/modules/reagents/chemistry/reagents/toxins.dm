@@ -286,7 +286,7 @@
 /datum/reagent/acid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(ishuman(M) && !isgrey(M))
 		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
+		if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 			if(volume > 25)
 				if(H.wear_mask)
 					to_chat(H, "<span class='danger'>Your [H.wear_mask] protects you from the acid!</span>")
@@ -339,7 +339,7 @@
 /datum/reagent/acid/facid/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	if(ishuman(M) && !isgrey(M))
 		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
+		if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 			if(volume > 9)
 				if(!H.wear_mask && !H.head)
 					var/obj/item/organ/external/affecting = H.get_organ("head")
@@ -385,7 +385,7 @@
 /datum/reagent/acetic_acid/reaction_mob(mob/M, method = REAGENT_TOUCH, volume)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
+		if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 			if(H.wear_mask || H.head)
 				return
 			if(volume >= 50 && prob(75))
@@ -506,7 +506,7 @@
 
 /datum/reagent/histamine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //dumping histamine on someone is VERY mean.
 	if(iscarbon(M))
-		if(method == REAGENT_TOUCH)
+		if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 			M.reagents.add_reagent("histamine",10)
 		else
 			to_chat(M, "<span class='danger'>You feel a burning sensation in your throat...</span>")
@@ -1228,7 +1228,7 @@
 
 /datum/reagent/ants/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //NOT THE ANTS
 	if(iscarbon(M))
-		if(method == REAGENT_TOUCH || method==REAGENT_INGEST)
+		if(method == REAGENT_TOUCH || method == REAGENT_INGEST || method == REAGENT_SPLASH)
 			to_chat(M, "<span class='warning'>OH SHIT ANTS!!!!</span>")
 			M.emote("scream")
 			M.adjustBruteLoss(4)

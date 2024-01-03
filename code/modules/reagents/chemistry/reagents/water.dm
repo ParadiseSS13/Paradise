@@ -111,7 +111,7 @@
 			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
 				continue
 
-			if(method == REAGENT_TOUCH)
+			if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 				M.ContractDisease(D)
 			else //ingest, patch or inject
 				M.ForceContractDisease(D)
@@ -343,7 +343,7 @@
 	var/datum/antagonist/vampire/V = M.mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(ishuman(M) && V && !V.get_ability(/datum/vampire_passive/full))
 		var/mob/living/carbon/human/H = M
-		if(method == REAGENT_TOUCH)
+		if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 			if(H.wear_mask)
 				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
 				return

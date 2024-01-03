@@ -13,6 +13,32 @@
 	holder.remove_reagent(id, total_depletion_rate) //medicine reagents stay longer if you have a better metabolism
 	return STATUS_UPDATE_NONE
 
+/datum/reagent/medicine/proc/heal_external_limb(obj/item/organ/external/organ, volume)
+	return
+
+/datum/reagent/medicine/proc/splash_human(mob/living/carbon/human/H, volume)
+	var/turf_volume = max(0, (volume - 100) / 3)
+	volume = volume - turf_volume
+
+	var/volume_per_bodypart = volume / H.bodyparts.len
+
+	var/healed_total = 0
+	for(var/obj/item/organ/external/organ in H.bodyparts)
+		if(!get_location_accessible(H, organ.limb_name))
+			turf_volume += volume_per_bodypart
+			continue
+
+		var/last_damage = organ.get_damage()
+		heal_external_limb(organ, volume_per_bodypart)
+		healed_total += (last_damage - organ.get_damage())
+
+	to_chat(H, "healed [healed_total]")
+	H.updatehealth(reason = "[id] splashed")
+	H.UpdateDamageIcon()
+
+	if(turf_volume > 0)
+		reaction_turf(get_turf(H), turf_volume)
+
 /datum/reagent/medicine/hydrocodone
 	name = "Hydrocodone"
 	id = "hydrocodone"
@@ -37,7 +63,7 @@
 
 	//makes you squeaky clean
 /datum/reagent/medicine/sterilizine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		M.germ_level -= min(volume*20, M.germ_level)
 
 /datum/reagent/medicine/sterilizine/reaction_obj(obj/O, volume)
@@ -226,16 +252,28 @@
 	update_flags |= M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/medicine/silver_sulfadiazine/heal_external_limb(obj/item/organ/external/organ, volume)
+	organ.heal_damage(0, volume, updating_health=FALSE)
+
 /datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
+		if(!ishuman(M) && method == REAGENT_SPLASH) // we dont use specified logic for humans if target is not human
+			method = REAGENT_TOUCH
+
 		if(method == REAGENT_TOUCH)
 			M.adjustFireLoss(-volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
+
 		if(method == REAGENT_INGEST)
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You feel sick...</span>")
+
+		if(ishuman(M) && method == REAGENT_SPLASH)
+			splash_human(M, volume)
+			if(show_message)
+				to_chat(M, "<span class='notice'>The silver sulfadiazine soothes your burns.</span>")
 	..()
 
 /datum/reagent/medicine/styptic_powder
@@ -253,8 +291,14 @@
 	update_flags |= M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER, FALSE)
 	return ..() | update_flags
 
+/datum/reagent/medicine/styptic_powder/heal_external_limb(obj/item/organ/external/organ, volume)
+	organ.heal_damage(volume, 0, updating_health=FALSE)
+
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
+		if(!ishuman(M) && method == REAGENT_SPLASH) // we dont use specified logic for humans if target is not human
+			method = REAGENT_TOUCH
+
 		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-volume)
 			if(show_message)
@@ -264,6 +308,12 @@
 			M.adjustToxLoss(0.5*volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You feel gross!</span>")
+
+		if(ishuman(M) && method == REAGENT_SPLASH)
+			splash_human(M, volume)
+			if(show_message)
+				to_chat(M, "<span class='notice'>The styptic powder stings like hell as it closes some of your wounds!</span>")
+				M.emote("scream")
 	..()
 
 /datum/reagent/medicine/salglu_solution
@@ -297,15 +347,28 @@
 	penetrates_skin = TRUE
 	taste_description = "blood"
 
+/datum/reagent/medicine/synthflesh/heal_external_limb(obj/item/organ/external/organ, volume)
+	organ.heal_damage(1.5*volume, 1.5*volume, updating_health=FALSE)
+
 /datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume, show_message = 1)
 	if(iscarbon(M))
+		if(!ishuman(M) && method == REAGENT_SPLASH) // we dont use specified logic for humans if target is not human
+			method = REAGENT_TOUCH
+
 		if(method == REAGENT_TOUCH)
 			M.adjustBruteLoss(-1.5 * volume)
 			M.adjustFireLoss(-1.5 * volume)
 			if(show_message)
 				to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
+
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
+
+			if(method == REAGENT_SPLASH)
+				splash_human(H, volume)
+				if(show_message)
+					to_chat(M, "<span class='notice'>The synthetic flesh integrates itself into your wounds, healing you.</span>")
+
 			if(HAS_TRAIT_FROM(H, TRAIT_HUSK, BURN) && H.getFireLoss() <= UNHUSK_DAMAGE_THRESHOLD && (H.reagents.get_reagent_amount("synthflesh") + volume >= SYNTHFLESH_UNHUSK_AMOUNT))
 				H.cure_husk(BURN)
 				// Could be a skeleton or a golem or sth, avoid phrases like "burnt flesh" and "burnt skin"
@@ -809,7 +872,7 @@
 	if(volume < 1)
 		// gotta pay to play
 		return ..()
-	if(isanimal(M) && method == REAGENT_TOUCH)
+	if(isanimal(M) && (method == REAGENT_TOUCH || method == REAGENT_SPLASH))
 		var/mob/living/simple_animal/SM = M
 		if(SM.sentience_type != revive_type) // No reviving Ash Drakes for you
 			return
@@ -819,7 +882,7 @@
 			SM.visible_message("<span class='warning'>[SM] seems to rise from the dead!</span>")
 
 	if(iscarbon(M))
-		if(method == REAGENT_INGEST || (method == REAGENT_TOUCH && prob(25)))
+		if(method == REAGENT_INGEST || ((method == REAGENT_TOUCH || method == REAGENT_SPLASH) && prob(25)))
 			if(M.stat == DEAD)
 				if(M.getBruteLoss() + M.getFireLoss() + M.getCloneLoss() >= 150)
 					if(ischangeling(M))

@@ -21,7 +21,7 @@
 	message_living = ", and you feel your skin ripping and tearing off"
 
 /datum/reagent/blob/ripping_tendrils/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		volume = ..()
 		M.apply_damage(0.6*volume, BRUTE)
 		M.adjustStaminaLoss(volume)
@@ -38,7 +38,7 @@
 	message_living = ", and you feel your skin char and melt"
 
 /datum/reagent/blob/boiling_oil/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		M.adjust_fire_stacks(round(volume/10))
 		volume = ..()
 		M.apply_damage(0.6*volume, BURN)
@@ -54,7 +54,7 @@
 	message_living = ", and you feel sick and nauseated"
 
 /datum/reagent/blob/envenomed_filaments/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		volume = ..()
 		M.apply_damage(0.6 * volume, TOX)
 		M.AdjustHallucinate(0.6 SECONDS * volume)
@@ -70,7 +70,7 @@
 	message_living = ", and your lungs feel heavy and weak"
 
 /datum/reagent/blob/lexorin_jelly/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		volume = ..()
 		M.apply_damage(0.4*volume, BRUTE)
 		M.apply_damage(1*volume, OXY)
@@ -86,7 +86,7 @@
 	message = "The blob pummels you"
 
 /datum/reagent/blob/kinetic/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		volume = ..()
 		var/damage = rand(5, 35)/25
 		M.apply_damage(damage*volume, BRUTE)
@@ -101,7 +101,7 @@
 	message_living = ", and you feel cold and tired"
 
 /datum/reagent/blob/cryogenic_liquid/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		volume = ..()
 		M.apply_damage(0.4*volume, BURN)
 		M.adjustStaminaLoss(volume)
@@ -117,7 +117,7 @@
 	message = "The blob slams into you, and sends you flying"
 
 /datum/reagent/blob/b_sorium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		reagent_vortex(M, 1, volume)
 		volume = ..()
 		M.apply_damage(0.6*volume, BRUTE)
@@ -160,7 +160,7 @@
 	message_living = ", and you feel a static shock"
 
 /datum/reagent/blob/teslium_paste/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		volume = ..()
 		M.apply_damage(0.4 * volume, BURN)
 		if(M.reagents)

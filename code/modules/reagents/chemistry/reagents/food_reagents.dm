@@ -216,7 +216,7 @@
 	return ..()
 
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		if(ishuman(M))
 			var/mob/living/carbon/human/victim = M
 			var/mouth_covered = 0
@@ -578,7 +578,7 @@
 	taste_description = "pungency"
 
 /datum/reagent/consumable/onion/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		if(!M.is_mouth_covered() && !M.is_eyes_covered())
 			if(!M.get_organ_slot("eyes"))	//can't blind somebody with no eyes
 				to_chat(M, "<span class = 'notice'>Your eye sockets feel wet.</span>")
@@ -618,7 +618,7 @@
 	description = "A rather bitter herb once thought to hold magical protective properties."
 	reagent_state = LIQUID
 	color = "#21170E"
-	process_flags = ORGANIC | SYNTHETIC	
+	process_flags = ORGANIC | SYNTHETIC
 	taste_description = "tea"
 	harmless = TRUE
 

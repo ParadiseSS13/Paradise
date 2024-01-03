@@ -30,7 +30,7 @@
 			O.visible_message("<span class='warning'>It wasn't enough...</span>")
 
 /datum/reagent/consumable/ethanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)//Splashing people with ethanol isn't quite as good as fuel.
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		M.adjust_fire_stacks(volume / 15)
 
 

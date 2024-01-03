@@ -59,7 +59,7 @@
 /datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE)
 	if(!holder)  //for catching rare runtimes
 		return
-	if(method == REAGENT_TOUCH && penetrates_skin)
+	if((method == REAGENT_TOUCH || method == REAGENT_SPLASH) && penetrates_skin)
 		var/block  = M.get_permeability_protection()
 		var/amount = round(volume * (1 - block), 0.1)
 		if(M.reagents)

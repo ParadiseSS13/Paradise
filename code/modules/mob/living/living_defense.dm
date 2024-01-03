@@ -238,7 +238,7 @@
 /mob/living/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	. = ..()
 	adjust_fire_stacks(-(volume * 0.2))
-	if(method == REAGENT_TOUCH)
+	if(method == REAGENT_TOUCH || method == REAGENT_SPLASH)
 		// 100 volume - 20 seconds of lost sleep
 		AdjustSleeping(-(volume * 0.2 SECONDS), bound_lower = 1 SECONDS) // showers cannot save you from sleeping gas, 1 second lower boundary
 
