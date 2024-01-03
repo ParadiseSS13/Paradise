@@ -49,28 +49,29 @@ export const createStore = (reducer, enhancer) => {
  * actions.
  */
 export const applyMiddleware = (...middlewares) => {
-  // prettier-ignore
-  return createStore => (reducer, ...args) => {
-    const store = createStore(reducer, ...args);
+  return (createStore) =>
+    (reducer, ...args) => {
+      const store = createStore(reducer, ...args);
 
-    let dispatch = () => {
-      throw new Error(
-        'Dispatching while constructing your middleware is not allowed.');
+      let dispatch = () => {
+        throw new Error(
+          'Dispatching while constructing your middleware is not allowed.'
+        );
+      };
+
+      const storeApi = {
+        getState: store.getState,
+        dispatch: (action, ...args) => dispatch(action, ...args),
+      };
+
+      const chain = middlewares.map((middleware) => middleware(storeApi));
+      dispatch = compose(...chain)(store.dispatch);
+
+      return {
+        ...store,
+        dispatch,
+      };
     };
-
-    const storeApi = {
-      getState: store.getState,
-      dispatch: (action, ...args) => dispatch(action, ...args),
-    };
-
-    const chain = middlewares.map(middleware => middleware(storeApi));
-    dispatch = compose(...chain)(store.dispatch);
-
-    return {
-      ...store,
-      dispatch,
-    };
-  };
 };
 
 /**

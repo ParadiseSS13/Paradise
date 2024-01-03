@@ -1,6 +1,6 @@
 import { useBackend } from '../backend';
 import { Button, Section, Box, Stack } from '../components';
-import { LabeledList, LabeledListItem } from '../components/LabeledList';
+import { LabeledList } from '../components/LabeledList';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
@@ -32,7 +32,7 @@ export const PrisonerImplantManager = (props, context) => {
           <Stack.Item grow>
             <Section fill scrollable title="Prisoner Points Manager System">
               <LabeledList>
-                <LabeledListItem label="Prisoner">
+                <LabeledList.Item label="Prisoner">
                   <Button
                     icon={prisonerInfo.name ? 'eject' : 'id-card'}
                     selected={prisonerInfo.name}
@@ -40,8 +40,8 @@ export const PrisonerImplantManager = (props, context) => {
                     tooltip={prisonerInfo.name ? 'Eject ID' : 'Insert ID'}
                     onClick={() => act('id_card')}
                   />
-                </LabeledListItem>
-                <LabeledListItem label="Points">
+                </LabeledList.Item>
+                <LabeledList.Item label="Points">
                   {prisonerInfo.points !== null ? prisonerInfo.points : '-/-'}
                   <Button
                     ml={2}
@@ -50,8 +50,8 @@ export const PrisonerImplantManager = (props, context) => {
                     content="Reset"
                     onClick={() => act('reset_points')}
                   />
-                </LabeledListItem>
-                <LabeledListItem label="Point Goal">
+                </LabeledList.Item>
+                <LabeledList.Item label="Point Goal">
                   {prisonerInfo.goal !== null ? prisonerInfo.goal : '-/-'}
                   <Button
                     ml={2}
@@ -60,8 +60,8 @@ export const PrisonerImplantManager = (props, context) => {
                     content="Edit"
                     onClick={() => modalOpen(context, 'set_points')}
                   />
-                </LabeledListItem>
-                <LabeledListItem>
+                </LabeledList.Item>
+                <LabeledList.Item>
                   <box hidden={prisonerInfo.goal === null}>
                     1 minute of prison time should roughly equate to 150 points.
                     <br />
@@ -76,7 +76,7 @@ export const PrisonerImplantManager = (props, context) => {
                     automatically access their locker and return to the station
                     using the shuttle.
                   </box>
-                </LabeledListItem>
+                </LabeledList.Item>
               </LabeledList>
             </Section>
           </Stack.Item>
@@ -90,13 +90,13 @@ export const PrisonerImplantManager = (props, context) => {
                       {' '}
                       <br />
                       <LabeledList>
-                        <LabeledListItem label="Location">
+                        <LabeledList.Item label="Location">
                           {implant.location}
-                        </LabeledListItem>
-                        <LabeledListItem label="Health">
+                        </LabeledList.Item>
+                        <LabeledList.Item label="Health">
                           {implant.health}
-                        </LabeledListItem>
-                        <LabeledListItem label="Prisoner">
+                        </LabeledList.Item>
+                        <LabeledList.Item label="Prisoner">
                           <Button
                             icon="exclamation-triangle"
                             content="Warn"
@@ -107,7 +107,7 @@ export const PrisonerImplantManager = (props, context) => {
                               })
                             }
                           />
-                        </LabeledListItem>
+                        </LabeledList.Item>
                       </LabeledList>
                     </Box>
                   </Box>
@@ -126,9 +126,9 @@ export const PrisonerImplantManager = (props, context) => {
                       {' '}
                       <br />
                       <LabeledList>
-                        <LabeledListItem label="Remaining Reagents">
+                        <LabeledList.Item label="Remaining Reagents">
                           {implant.volume}
-                        </LabeledListItem>
+                        </LabeledList.Item>
                       </LabeledList>
                       {injectionAmount.map((amount) => (
                         <Button

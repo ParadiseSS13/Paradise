@@ -1,6 +1,5 @@
 import { useBackend } from '../backend';
 import { Button, Section, Box, Stack } from '../components';
-import { LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
 
 export const DestinationTagger = (props, context) => {
@@ -15,9 +14,9 @@ export const DestinationTagger = (props, context) => {
         <Stack fill vertical>
           <Section fill scrollable textAlign="center" title="TagMaster 3.1">
             <Box ml="30%">
-              <LabeledListItem label="Selected">
+              <LabeledList.Item label="Selected">
                 {selected_destination.name ?? 'None'}
-              </LabeledListItem>
+              </LabeledList.Item>
             </Box>
             <Box mt={1.5}>
               <Stack

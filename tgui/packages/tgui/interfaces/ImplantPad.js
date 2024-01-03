@@ -1,6 +1,5 @@
 import { useBackend } from '../backend';
 import { Button, Section, Box } from '../components';
-import { LabeledList, LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
 
 export const ImplantPad = (props, context) => {
@@ -26,11 +25,13 @@ export const ImplantPad = (props, context) => {
                 {implant.name}
               </Box>
               <LabeledList>
-                <LabeledListItem label="Life">{implant.life}</LabeledListItem>
-                <LabeledListItem label="Notes">{implant.notes}</LabeledListItem>
-                <LabeledListItem label="Function">
+                <LabeledList.Item label="Life">{implant.life}</LabeledList.Item>
+                <LabeledList.Item label="Notes">
+                  {implant.notes}
+                </LabeledList.Item>
+                <LabeledList.Item label="Function">
                   {implant.function}
-                </LabeledListItem>
+                </LabeledList.Item>
               </LabeledList>
             </>
           ) : contains_case ? (

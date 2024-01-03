@@ -13,7 +13,7 @@ import {
   Tabs,
 } from '../components';
 import { TableCell } from '../components/Table';
-import { COLORS } from '../constants.js';
+import { COLORS } from '../constants';
 import { Window } from '../layouts';
 
 const getStatText = (cm, critThreshold) => {

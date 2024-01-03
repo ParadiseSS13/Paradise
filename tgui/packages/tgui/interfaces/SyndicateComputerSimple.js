@@ -7,7 +7,6 @@ import {
   Table,
   ProgressBar,
 } from '../components';
-import { LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
 
 export const SyndicateComputerSimple = (props, context) => {

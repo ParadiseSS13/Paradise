@@ -29,7 +29,7 @@ module.exports = (env = {}, argv) => {
   const config = {
     mode,
     context: path.resolve(__dirname),
-    target: ['web', 'es5', 'browserslist:IE 8'],
+    target: ['web', 'es3', 'browserslist:ie 8'],
     entry: {
       'tgui': [
         './packages/tgui-polyfill',
@@ -47,16 +47,15 @@ module.exports = (env = {}, argv) => {
       filename: '[name].bundle.js',
       chunkFilename: '[name].bundle.js',
       chunkLoadTimeout: 15000,
-      hashFunction: 'xxhash64',
     },
     resolve: {
-      extensions: ['.js', '.jsx'],
+      extensions: ['.tsx', '.ts', '.js'],
       alias: {},
     },
     module: {
       rules: [
         {
-          test: /\.m?jsx?$/,
+          test: /\.(js|cjs|ts|tsx)$/,
           use: [
             {
               loader: require.resolve('babel-loader'),
@@ -87,17 +86,18 @@ module.exports = (env = {}, argv) => {
         {
           test: /\.(png|jpg|svg)$/,
           use: [
-            require.resolve('url-loader'),
+            {
+              loader: require.resolve('url-loader'),
+              options: {
+                esModule: false,
+              },
+            },
           ],
         },
       ],
     },
     optimization: {
       emitOnErrors: false,
-      splitChunks: {
-        chunks: 'initial',
-        name: 'tgui-common',
-      },
     },
     performance: {
       hints: false,
@@ -106,6 +106,9 @@ module.exports = (env = {}, argv) => {
     cache: {
       type: 'filesystem',
       cacheLocation: path.resolve(__dirname, `.yarn/webpack/${mode}`),
+      buildDependencies: {
+        config: [__filename],
+      },
     },
     stats: createStats(true),
     plugins: [
@@ -154,9 +157,6 @@ module.exports = (env = {}, argv) => {
 
   // Development server specific options
   if (argv.devServer) {
-    config.plugins = [
-      ...config.plugins,
-    ];
     config.devServer = {
       progress: false,
       quiet: false,

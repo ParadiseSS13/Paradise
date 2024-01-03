@@ -1,6 +1,5 @@
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section, Stack } from '../components';
-import { LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
 
 export const NTRecruiter = (props, context) => {
@@ -88,44 +87,44 @@ export const NTRecruiter = (props, context) => {
               }
             >
               <LabeledList>
-                <LabeledListItem label="1#" color="silver">
+                <LabeledList.Item label="1#" color="silver">
                   To win this game you must hire/dismiss{' '}
                   <b>{total_curriculums}</b> candidates, one wrongly made choice
                   leads to a game over.
-                </LabeledListItem>
-                <LabeledListItem label="2#" color="silver">
+                </LabeledList.Item>
+                <LabeledList.Item label="2#" color="silver">
                   Make the right choice by truly putting yourself into the skin
                   of a recruiter working for Nanotrasen!
-                </LabeledListItem>
-                <LabeledListItem label="3#" color="silver">
+                </LabeledList.Item>
+                <LabeledList.Item label="3#" color="silver">
                   <b>Unique</b> characters may appear, pay attention to them!
-                </LabeledListItem>
-                <LabeledListItem label="4#" color="silver">
+                </LabeledList.Item>
+                <LabeledList.Item label="4#" color="silver">
                   Make sure to pay attention to details like age, planet names,
                   the requested job and even the species of the candidate!
-                </LabeledListItem>
-                <LabeledListItem label="5#" color="silver">
+                </LabeledList.Item>
+                <LabeledList.Item label="5#" color="silver">
                   Not every employment record is good, remember to make your
                   choice based on the <b>company morals</b>!
-                </LabeledListItem>
-                <LabeledListItem label="6#" color="silver">
+                </LabeledList.Item>
+                <LabeledList.Item label="6#" color="silver">
                   The planet of origin has no restriction on the species of the
                   candidate, don&apos;t think too much when you see humans that
                   came from Boron!
-                </LabeledListItem>
-                <LabeledListItem label="7#" color="silver">
+                </LabeledList.Item>
+                <LabeledList.Item label="7#" color="silver">
                   Pay attention to <b>typos</b> and <b>missing words</b>, these
                   do make for bad applications!
-                </LabeledListItem>
-                <LabeledListItem label="8#" color="silver">
+                </LabeledList.Item>
+                <LabeledList.Item label="8#" color="silver">
                   Remember, you are recruiting people to work at one of the many
                   NT stations, so no hiring for <b>jobs</b> that they{' '}
                   <b>don&apos;t offer</b>!
-                </LabeledListItem>
-                <LabeledListItem label="9#" color="silver">
+                </LabeledList.Item>
+                <LabeledList.Item label="9#" color="silver">
                   Keep your eyes open for incompatible <b>naming schemes</b>, no
                   company wants a Vox named Joe!
-                </LabeledListItem>
+                </LabeledList.Item>
               </LabeledList>
             </Section>
           </Stack>
@@ -150,27 +149,27 @@ export const NTRecruiter = (props, context) => {
                 </Box>
                 <br />
                 <LabeledList>
-                  <LabeledListItem label="Name" color="silver">
+                  <LabeledList.Item label="Name" color="silver">
                     <b>{cand_name}</b>
-                  </LabeledListItem>
-                  <LabeledListItem label="Gender" color="silver">
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Gender" color="silver">
                     <b>{cand_gender}</b>
-                  </LabeledListItem>
-                  <LabeledListItem label="Age" color="silver">
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Age" color="silver">
                     <b>{cand_age}</b>
-                  </LabeledListItem>
-                  <LabeledListItem label="Species" color="silver">
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Species" color="silver">
                     <b>{cand_species}</b>
-                  </LabeledListItem>
-                  <LabeledListItem label="Planet of Origin" color="silver">
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Planet of Origin" color="silver">
                     <b>{cand_planet}</b>
-                  </LabeledListItem>
-                  <LabeledListItem label="Requested Job" color="silver">
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Requested Job" color="silver">
                     <b>{cand_job}</b>
-                  </LabeledListItem>
-                  <LabeledListItem label="Employment Records" color="silver">
+                  </LabeledList.Item>
+                  <LabeledList.Item label="Employment Records" color="silver">
                     <b>{cand_records}</b>
-                  </LabeledListItem>
+                  </LabeledList.Item>
                 </LabeledList>
               </Section>
             </Stack.Item>

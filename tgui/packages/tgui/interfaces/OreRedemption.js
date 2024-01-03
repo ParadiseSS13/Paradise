@@ -11,7 +11,7 @@ import {
   Section,
 } from '../components';
 import { Window } from '../layouts';
-import { createLogger } from 'common/logging';
+import { createLogger } from '../logging';
 
 const logger = createLogger('OreRedemption');
 

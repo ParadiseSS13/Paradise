@@ -21,7 +21,7 @@ import './styles/themes/syndicate.scss';
 import './styles/themes/nologo.scss';
 
 import { perf } from 'common/perf';
-import { setupHotReloading } from 'tgui-dev-server/link/client';
+import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
 import { setupHotKeys } from './hotkeys';
 import { captureExternalLinks } from './links';
 import { createRenderer } from './renderer';
@@ -58,7 +58,7 @@ const setupApp = () => {
   store.subscribe(renderApp);
 
   // Dispatch incoming messages
-  window.update = (msg) => store.dispatch(Byond.parseJson(msg));
+  window.update = msg => store.dispatch(Byond.parseJson(msg));
 
   // Process the early update queue
   while (true) {
@@ -72,7 +72,12 @@ const setupApp = () => {
   // Enable hot module reloading
   if (module.hot) {
     setupHotReloading();
-    module.hot.accept(['./components', './layouts', './routes'], () => {
+    module.hot.accept([
+      './components',
+      './debug',
+      './layouts',
+      './routes',
+    ], () => {
       renderApp();
     });
   }

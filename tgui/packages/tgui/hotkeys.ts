@@ -1,50 +1,40 @@
-/* eslint-disable curly */
 /**
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
 
-import {
-  KEY_CTRL,
-  KEY_ENTER,
-  KEY_ESCAPE,
-  KEY_F5,
-  KEY_R,
-  KEY_F,
-  KEY_SHIFT,
-  KEY_SPACE,
-  KEY_ALT,
-  KEY_TAB,
-} from 'common/keycodes';
-import { globalEvents } from './events';
+import * as keycodes from 'common/keycodes';
+import { globalEvents, KeyEvent } from './events';
 import { createLogger } from './logging';
 
 const logger = createLogger('hotkeys');
 
 // BYOND macros, in `key: command` format.
-const byondMacros = {};
+const byondMacros: Record<string, string> = {};
 
-// Array of acquired keys, which will not be sent to BYOND.
+// Default set of acquired keys, which will not be sent to BYOND.
 const hotKeysAcquired = [
-  // Default set of acquired keys
-  KEY_ESCAPE,
-  KEY_ENTER,
-  KEY_SPACE,
-  KEY_TAB,
-  KEY_CTRL,
-  KEY_SHIFT,
-  KEY_ALT, // to prevent alt tabbing breaking shit
-  KEY_F5,
+  keycodes.KEY_ESCAPE,
+  keycodes.KEY_ENTER,
+  keycodes.KEY_SPACE,
+  keycodes.KEY_TAB,
+  keycodes.KEY_CTRL,
+  keycodes.KEY_SHIFT,
+  keycodes.KEY_UP,
+  keycodes.KEY_DOWN,
+  keycodes.KEY_LEFT,
+  keycodes.KEY_RIGHT,
+  keycodes.KEY_F5,
 ];
 
 // State of passed-through keys.
-const keyState = {};
+const keyState: Record<string, boolean> = {};
 
 /**
  * Converts a browser keycode to BYOND keycode.
  */
-const keyCodeToByond = (keyCode) => {
+const keyCodeToByond = (keyCode: number) => {
   if (keyCode === 16) return 'Shift';
   if (keyCode === 17) return 'Ctrl';
   if (keyCode === 18) return 'Alt';
@@ -58,7 +48,7 @@ const keyCodeToByond = (keyCode) => {
   if (keyCode === 40) return 'South';
   if (keyCode === 45) return 'Insert';
   if (keyCode === 46) return 'Delete';
-  if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90)) {
+  if (keyCode >= 48 && keyCode <= 57 || keyCode >= 65 && keyCode <= 90) {
     return String.fromCharCode(keyCode);
   }
   if (keyCode >= 96 && keyCode <= 105) {
@@ -76,22 +66,21 @@ const keyCodeToByond = (keyCode) => {
  * Keyboard passthrough logic. This allows you to keep doing things
  * in game while the browser window is focused.
  */
-const handlePassthrough = (key) => {
+const handlePassthrough = (key: KeyEvent) => {
+  const keyString = String(key);
   // In addition to F5, support reloading with Ctrl+R and Ctrl+F5
-  if (key.ctrl && (key.code === KEY_F5 || key.code === KEY_R)) {
+  if (keyString === 'Ctrl+F5' || keyString === 'Ctrl+R') {
     location.reload();
     return;
   }
   // Prevent passthrough on Ctrl+F
-  if (key.ctrl && key.code === KEY_F) {
+  if (keyString === 'Ctrl+F') {
     return;
   }
   // NOTE: Alt modifier is pretty bad and sticky in IE11.
-  if (
-    key.event.defaultPrevented ||
-    key.isModifierKey() ||
-    hotKeysAcquired.includes(key.code)
-  ) {
+  if (key.event.defaultPrevented
+      || key.isModifierKey()
+      || hotKeysAcquired.includes(key.code)) {
     return;
   }
   const byondKeyCode = keyCodeToByond(key.code);
@@ -124,14 +113,14 @@ const handlePassthrough = (key) => {
  * Acquires a lock on the hotkey, which prevents it from being
  * passed through to BYOND.
  */
-export const acquireHotKey = (keyCode) => {
+export const acquireHotKey = (keyCode: number) => {
   hotKeysAcquired.push(keyCode);
 };
 
 /**
  * Makes the hotkey available to BYOND again.
  */
-export const releaseHotKey = (keyCode) => {
+export const releaseHotKey = (keyCode: number) => {
   const index = hotKeysAcquired.indexOf(keyCode);
   if (index >= 0) {
     hotKeysAcquired.splice(index, 1);
@@ -148,26 +137,35 @@ export const releaseHeldKeys = () => {
   }
 };
 
+type ByondSkinMacro = {
+  command: string;
+  name: string;
+};
+
 export const setupHotKeys = () => {
   // Read macros
-  Byond.winget('default.*').then((data) => {
+  Byond.winget('default.*').then((data: Record<string, string>) => {
     // Group each macro by ref
-    const groupedByRef = {};
+    const groupedByRef: Record<string, ByondSkinMacro> = {};
     for (let key of Object.keys(data)) {
       const keyPath = key.split('.');
       const ref = keyPath[1];
       const prop = keyPath[2];
       if (ref && prop) {
+        // This piece of code imperatively adds each property to a
+        // ByondSkinMacro object in the order we meet it, which is hard
+        // to express safely in typescript.
         if (!groupedByRef[ref]) {
-          groupedByRef[ref] = {};
+          groupedByRef[ref] = {} as any;
         }
         groupedByRef[ref][prop] = data[key];
       }
     }
     // Insert macros
     const escapedQuotRegex = /\\"/g;
-    const unescape = (str) =>
-      str.substring(1, str.length - 1).replace(escapedQuotRegex, '"');
+    const unescape = (str: string) => str
+      .substring(1, str.length - 1)
+      .replace(escapedQuotRegex, '"');
     for (let ref of Object.keys(groupedByRef)) {
       const macro = groupedByRef[ref];
       const byondKeyName = unescape(macro.name);
@@ -179,7 +177,7 @@ export const setupHotKeys = () => {
   globalEvents.on('window-blur', () => {
     releaseHeldKeys();
   });
-  globalEvents.on('key', (key) => {
+  globalEvents.on('key', (key: KeyEvent) => {
     handlePassthrough(key);
   });
 };

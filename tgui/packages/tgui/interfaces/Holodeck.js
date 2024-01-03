@@ -1,7 +1,6 @@
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, Section, Stack } from '../components';
 import { Window } from '../layouts';
-import { LabeledListItem } from '../components/LabeledList';
 
 export const Holodeck = (props, context) => {
   const { act, data } = useBackend(context);
@@ -38,15 +37,15 @@ export const Holodeck = (props, context) => {
               <hr />
               <LabeledList>
                 {Boolean(ai_override) && (
-                  <LabeledListItem label="Override Protocols">
+                  <LabeledList.Item label="Override Protocols">
                     <Button
                       content={emagged ? 'Turn On' : 'Turn Off'}
                       color={emagged ? 'good' : 'bad'}
                       onClick={() => act('ai_override')}
                     />
-                  </LabeledListItem>
+                  </LabeledList.Item>
                 )}
-                <LabeledListItem label="Safety Protocols">
+                <LabeledList.Item label="Safety Protocols">
                   <Box color={emagged ? 'bad' : 'good'}>
                     {emagged ? 'Off' : 'On'}
                     {Boolean(emagged) && (
@@ -59,7 +58,7 @@ export const Holodeck = (props, context) => {
                       />
                     )}
                   </Box>
-                </LabeledListItem>
+                </LabeledList.Item>
               </LabeledList>
             </Section>
           </Stack.Item>

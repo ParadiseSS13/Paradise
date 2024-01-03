@@ -8,7 +8,6 @@ import {
   NoticeBox,
 } from '../components';
 import { Window } from '../layouts';
-import { LabeledListItem } from '../components/LabeledList';
 
 export const ShuttleConsole = (props, context) => {
   const { act, data } = useBackend(context);
@@ -42,18 +41,18 @@ export const ShuttleConsole = (props, context) => {
                 </LabeledList.Item>
               )) || ( // ELSE, if there's no docking ports.
                 <>
-                  <LabeledListItem label="Status" color="red">
+                  <LabeledList.Item label="Status" color="red">
                     <NoticeBox color="red">Shuttle Locked</NoticeBox>
-                  </LabeledListItem>
+                  </LabeledList.Item>
                   {!!data.admin_controlled && (
-                    <LabeledListItem label="Authorization">
+                    <LabeledList.Item label="Authorization">
                       <Button
                         icon="exclamation-circle"
                         content="Request Authorization"
                         disabled={!data.status}
                         onClick={() => act('request')}
                       />
-                    </LabeledListItem>
+                    </LabeledList.Item>
                   )}
                 </>
               ))}
