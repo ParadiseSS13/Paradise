@@ -134,7 +134,7 @@ export const backendMiddleware = (store) => {
 
     if (type === 'ping') {
       sendMessage({
-        type: 'pingReply',
+        type: 'ping/reply',
       });
       return;
     }
