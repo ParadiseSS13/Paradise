@@ -80,7 +80,7 @@
 					display_name = holder.fakekey
 			msg = "<span class='emoji_enabled'>[msg]</span>"
 			to_chat(C,
-				type = MESSAGE_TYPE_MODCHAT,
+				type = MESSAGE_TYPE_MENTORCHAT,
 				html = "<span class='[check_rights(R_ADMIN, 0) ? "mentor_channel_admin" : "mentor_channel"]'>MENTOR: <span class='name'>[display_name]</span> ([admin_jump_link(mob)]): <span class='message'>[msg]</span></span>",
 				confidential = TRUE)
 
