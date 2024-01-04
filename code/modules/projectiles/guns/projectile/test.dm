@@ -11,7 +11,7 @@
 		num_unloaded++
 
 	var/obj/item/storage/belt/bandolier/bando = user.find_in_storage(/obj/item/storage/belt/bandolier)
-	if(bando && HAS_TRAIT(user, TRAIT_SLIGHT_OF_HAND))
+	if(bando && HAS_TRAIT(user, TRAIT_SLEIGHT_OF_HAND))
 		var/shells_to_load = 2 - num_unloaded
 		for(var/i in 1 to shells_to_load)
 			var/obj/item/ammo_casing/shotgun/shell = bando.retrieve_item_of_type(/obj/item/ammo_casing/shotgun)
