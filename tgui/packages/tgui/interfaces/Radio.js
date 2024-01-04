@@ -46,7 +46,7 @@ export const Radio = (props, context) => {
   }))(data.ichannels);
   return (
     <Window
-      width={3}
+      width={360}
       height={130 + schannels.length * 21.2 + ichannels.length * 11}
     >
       <Window.Content scrollable>
