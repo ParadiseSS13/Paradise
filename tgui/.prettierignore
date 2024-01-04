@@ -1,4 +1,3 @@
 # Ignore built packages:
 public
 **.cjs
-**.scss
