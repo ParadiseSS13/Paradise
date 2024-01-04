@@ -114,7 +114,7 @@ export const Autolathe = (props, context) => {
               title={rText}
               buttons={
                 <Dropdown
-                  width="190px"
+                  width="150px"
                   options={categories}
                   selected={category}
                   onSelected={(val) => setCategory(val)}
