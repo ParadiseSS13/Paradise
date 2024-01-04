@@ -28,7 +28,11 @@ base_dir="$(tgui-realpath "${base_dir}")"
 
 ## Fall back to running Yarn from the repo
 if ! hash yarn 2>/dev/null; then
-  alias yarn="node '${base_dir}/.yarn/releases/yarn-2.4.3.cjs'"
+  yarn_releases=("${base_dir}"/.yarn/releases/yarn-*.cjs)
+  yarn_release="${yarn_releases[0]}"
+  yarn() {
+    node "${yarn_release}" "${@}"
+  }
 fi
 
 
@@ -50,14 +54,21 @@ task-webpack() {
 ## Runs a development server
 task-dev-server() {
   cd "${base_dir}"
-  yarn node packages/tgui-dev-server/index.esm.js "${@}"
+  yarn node --experimental-modules packages/tgui-dev-server/index.js "${@}"
 }
 
 ## Run a linter through all packages
-task-eslint() {
+task-lint() {
   cd "${base_dir}"
-  yarn run eslint packages "${@}"
+  yarn run tsc
+  echo "tgui: type check passed"
+  yarn run eslint packages --ext .js,.jsx,.ts,.tsx,.cjs,.mjs "${@}"
   echo "tgui: eslint check passed"
+}
+
+task-test() {
+  cd "${base_dir}"
+  yarn run jest
 }
 
 ## Mr. Proper
@@ -70,6 +81,7 @@ task-clean() {
   ## Yarn artifacts
   rm -rf .yarn/cache
   rm -rf .yarn/unplugged
+  rm -rf .yarn/webpack
   rm -rf .yarn/build-state.yml
   rm -rf .yarn/install-state.gz
   rm -f .pnp.js
@@ -137,7 +149,8 @@ fi
 if [[ ${1} == "--ci" ]]; then
   task-clean
   task-install
-  task-eslint
+  task-test "${@}"
+  task-lint
   task-webpack --mode=production
   task-validate-build
   exit 0
@@ -158,21 +171,21 @@ fi
 if [[ ${1} == '--lint' ]]; then
   shift 1
   task-install
-  task-eslint "${@}"
+  task-lint "${@}"
   exit 0
 fi
 
 if [[ ${1} == '--lint-harder' ]]; then
   shift 1
   task-install
-  task-eslint -c .eslintrc-harder.yml "${@}"
+  task-lint -c .eslintrc-harder.yml "${@}"
   exit 0
 fi
 
 if [[ ${1} == '--fix' ]]; then
   shift 1
   task-install
-  task-eslint --fix "${@}"
+  task-lint --fix "${@}"
   exit 0
 fi
 
@@ -183,10 +196,18 @@ if [[ ${1} == '--analyze' ]]; then
   exit 0
 fi
 
+## Jest test
+if [[ ${1} == '--test' ]]; then
+  shift 1
+  task-install
+  task-test "${@}"
+  exit 0
+fi
+
 ## Make a production webpack build
 if [[ -z ${1} ]]; then
   task-install
-  task-eslint
+  task-lint --fix
   task-webpack --mode=production
   exit 0
 fi

@@ -1,6 +1,5 @@
-import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table } from '../components';
+import { Box, Button, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
 const VendingRow = (props, context) => {
@@ -99,71 +98,79 @@ export const Vending = (props, context) => {
     <Window
       title="Vending Machine"
       width={450}
-      height={Math.min((chargesMoney ? 205 : 111) + inventory.length * 30, 600)}
+      height={Math.min((chargesMoney ? 230 : 115) + inventory.length * 30, 600)}
       resizable
     >
       <Window.Content scrollable>
-        {!!chargesMoney && (
-          <Section title="User">
-            {user && (
-              <Box>
-                Welcome, <b>{user.name}</b>, <b>{user.job || 'Unemployed'}</b>!
-                <br />
-                Your balance is <b>{usermoney} credits</b>.
-                <br />
-              </Box>
-            )}
-            <Box>
-              There is <b>{inserted_cash} credits </b> of space cash inserted.
-              <br />
+        <Stack fill vertical>
+          {!!chargesMoney && (
+            <Stack.Item>
+              <Section title="User">
+                {user && (
+                  <Box>
+                    Welcome, <b>{user.name}</b>,{' '}
+                    <b>{user.job || 'Unemployed'}</b>!
+                    <br />
+                    Your balance is <b>{usermoney} credits</b>.
+                    <br />
+                  </Box>
+                )}
+                <Box>
+                  There is <b>{inserted_cash} credits </b> of space cash
+                  inserted.
+                  <br />
+                  <Button
+                    disabled={!inserted_cash}
+                    icon="money-bill-wave-alt"
+                    content="Dispense Change"
+                    textAlign="left"
+                    onClick={() => act('change')}
+                  />
+                </Box>
+              </Section>
+            </Stack.Item>
+          )}
+          {!!inserted_item_name && (
+            <Section
+              title="Item"
+              buttons={
+                <Button
+                  fluid
+                  icon="eject"
+                  content="Eject Item"
+                  onClick={() => act('eject_item', {})}
+                />
+              }
+            >
+              <Box>{inserted_item_name}</Box>
+            </Section>
+          )}
+          {!!panel_open && (
+            <Section title="Maintenance">
               <Button
-                disabled={!inserted_cash}
-                icon="money-bill-wave-alt"
-                content="Dispense Change"
+                icon={speaker ? 'check' : 'volume-mute'}
+                selected={speaker}
+                content="Speaker"
                 textAlign="left"
-                onClick={() => act('change')}
+                onClick={() => act('toggle_voice', {})}
               />
-            </Box>
-          </Section>
-        )}
-        {!!inserted_item_name && (
-          <Section
-            title="Item"
-            buttons={
-              <Button
-                fluid
-                icon="eject"
-                content="Eject Item"
-                onClick={() => act('eject_item', {})}
-              />
-            }
-          >
-            <Box>{inserted_item_name}</Box>
-          </Section>
-        )}
-        {!!panel_open && (
-          <Section title="Maintenance">
-            <Button
-              icon={speaker ? 'check' : 'volume-mute'}
-              selected={speaker}
-              content="Speaker"
-              textAlign="left"
-              onClick={() => act('toggle_voice', {})}
-            />
-          </Section>
-        )}
-        <Section title="Products">
-          <Table>
-            {inventory.map((product) => (
-              <VendingRow
-                key={product.name}
-                product={product}
-                productStock={stock[product.name]}
-                productImage={imagelist[product.path]}
-              />
-            ))}
-          </Table>
-        </Section>
+            </Section>
+          )}
+          <Stack.Item grow>
+            <Section fill scrollable title="Products">
+              <Table>
+                {inventory.map((product) => (
+                  <VendingRow
+                    key={product.name}
+                    product={product}
+                    productStock={stock[product.name]}
+                    productImage={imagelist[product.path]}
+                  />
+                ))}
+              </Table>
+            </Section>
+          </Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );

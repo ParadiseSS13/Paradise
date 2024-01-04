@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -13,7 +12,7 @@ import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
 export const APC = (props, context) => {
   return (
-    <Window width={510} height={445}>
+    <Window width={510} height={435}>
       <Window.Content>
         <ApcContent />
       </Window.Content>
@@ -75,7 +74,7 @@ const ApcContent = (props, context) => {
   const adjustedCellChange = data.powerCellStatus / 100;
 
   return (
-    <Fragment>
+    <>
       <InterfaceLockNoticeBox />
       <Section title="Power Status">
         <LabeledList>
@@ -124,7 +123,7 @@ const ApcContent = (props, context) => {
                 key={channel.title}
                 label={channel.title}
                 buttons={
-                  <Fragment>
+                  <>
                     <Box
                       inline
                       mx={2}
@@ -156,7 +155,7 @@ const ApcContent = (props, context) => {
                       disabled={locked}
                       onClick={() => act('channel', topicParams.off)}
                     />
-                  </Fragment>
+                  </>
                 }
               >
                 {channel.powerLoad} W
@@ -172,7 +171,7 @@ const ApcContent = (props, context) => {
         title="Misc"
         buttons={
           !!data.siliconUser && (
-            <Fragment>
+            <>
               {!!data.malfStatus && (
                 <Button
                   icon={malfStatus.icon}
@@ -186,7 +185,7 @@ const ApcContent = (props, context) => {
                 content="Overload"
                 onClick={() => act('overload')}
               />
-            </Fragment>
+            </>
           )
         }
       >
@@ -225,6 +224,6 @@ const ApcContent = (props, context) => {
           />
         </LabeledList>
       </Section>
-    </Fragment>
+    </>
   );
 };

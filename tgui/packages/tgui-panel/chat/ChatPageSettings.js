@@ -9,9 +9,9 @@ import {
   Button,
   Collapsible,
   Divider,
-  Flex,
   Input,
   Section,
+  Stack,
 } from 'tgui/components';
 import { removeChatPage, toggleAcceptedType, updateChatPage } from './actions';
 import { MESSAGE_TYPES } from './constants';
@@ -22,8 +22,8 @@ export const ChatPageSettings = (props, context) => {
   const dispatch = useDispatch(context);
   return (
     <Section fill>
-      <Flex mx={-0.5} align="center">
-        <Flex.Item mx={0.5} grow={1}>
+      <Stack align="center">
+        <Stack.Item grow>
           <Input
             fluid
             value={page.name}
@@ -36,8 +36,8 @@ export const ChatPageSettings = (props, context) => {
               )
             }
           />
-        </Flex.Item>
-        <Flex.Item mx={0.5}>
+        </Stack.Item>
+        <Stack.Item>
           <Button
             icon="times"
             color="red"
@@ -51,8 +51,8 @@ export const ChatPageSettings = (props, context) => {
           >
             Remove
           </Button>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <Divider />
       <Section title="Messages to display" level={2}>
         {MESSAGE_TYPES.filter(

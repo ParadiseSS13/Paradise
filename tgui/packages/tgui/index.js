@@ -21,7 +21,7 @@ import './styles/themes/syndicate.scss';
 import './styles/themes/nologo.scss';
 
 import { perf } from 'common/perf';
-import { setupHotReloading } from 'tgui-dev-server/link/client';
+import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
 import { setupHotKeys } from './hotkeys';
 import { captureExternalLinks } from './links';
 import { createRenderer } from './renderer';
@@ -72,9 +72,12 @@ const setupApp = () => {
   // Enable hot module reloading
   if (module.hot) {
     setupHotReloading();
-    module.hot.accept(['./components', './layouts', './routes'], () => {
-      renderApp();
-    });
+    module.hot.accept(
+      ['./components', './debug', './layouts', './routes'],
+      () => {
+        renderApp();
+      }
+    );
   }
 };
 

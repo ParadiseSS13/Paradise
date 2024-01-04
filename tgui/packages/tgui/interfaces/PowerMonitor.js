@@ -3,7 +3,6 @@ import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
 import { pureComponentHooks } from 'common/react';
 import { decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Box,
@@ -103,7 +102,7 @@ const DataView = (props, context) => {
     ])(apcs);
 
     body = (
-      <Fragment>
+      <>
         <Flex spacing={1}>
           <Flex.Item width="200px">
             <Section>
@@ -208,7 +207,7 @@ const DataView = (props, context) => {
             </Table.Row>
           ))}
         </Table>
-      </Fragment>
+      </>
     );
   }
 
@@ -235,7 +234,7 @@ const DataView = (props, context) => {
 const AreaCharge = (props) => {
   const { charging, charge } = props;
   return (
-    <Fragment>
+    <>
       <Icon
         width="18px"
         textAlign="center"
@@ -256,7 +255,7 @@ const AreaCharge = (props) => {
       <Box inline width="36px" textAlign="right">
         {toFixed(charge) + '%'}
       </Box>
-    </Fragment>
+    </>
   );
 };
 

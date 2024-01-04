@@ -1,17 +1,16 @@
 import { classes } from 'common/react';
-import { Fragment } from 'inferno';
 import { deleteLocalState, useBackend, useLocalState } from '../backend';
 import {
   Box,
   Button,
   Divider,
   Dropdown,
-  Flex,
   Icon,
   Input,
   LabeledList,
   Modal,
   Section,
+  Stack,
 } from '../components';
 import { timeAgo } from '../constants';
 import { Window } from '../layouts';
@@ -101,16 +100,16 @@ export const Newscaster = (properties, context) => {
         />
       )}
       <Window.Content>
-        <Flex width="100%" height="100%">
+        <Stack fill>
           <Section
-            stretchContents
+            fill
             className={classes([
               'Newscaster__menu',
               menuOpen && 'Newscaster__menu--open',
             ])}
           >
-            <Flex direction="column" height="100%">
-              <Box flex="0 1 content">
+            <Stack fill vertical>
+              <Box>
                 <MenuButton
                   icon="bars"
                   title="Toggle Menu"
@@ -158,7 +157,7 @@ export const Newscaster = (properties, context) => {
               <Box width="100%" flex="0 0 content">
                 <Divider />
                 {(!!is_security || !!is_admin) && (
-                  <Fragment>
+                  <>
                     <MenuButton
                       security
                       icon="exclamation-circle"
@@ -174,7 +173,7 @@ export const Newscaster = (properties, context) => {
                       onClick={() => setCensorMode(!censorMode)}
                     />
                     <Divider />
-                  </Fragment>
+                  </>
                 )}
                 <MenuButton
                   icon="pen-alt"
@@ -200,13 +199,13 @@ export const Newscaster = (properties, context) => {
                   onClick={() => act('toggle_mute')}
                 />
               </Box>
-            </Flex>
+            </Stack>
           </Section>
-          <Flex direction="column" height="100%" flex="1">
+          <Stack fill vertical flex="1">
             <TemporaryNotice />
             {body}
-          </Flex>
-        </Flex>
+          </Stack>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -266,16 +265,17 @@ const NewscasterFeed = (properties, context) => {
   const channel =
     screen === 2 && channel_idx > -1 ? channels[channel_idx - 1] : null;
   return (
-    <Flex direction="column" height="100%" flex="1">
+    <Stack fill vertical>
       {!!wanted && <Story story={wanted} wanted />}
       <Section
+        fill
+        scrollable
         title={
-          <Fragment>
+          <>
             <Icon name={channel ? channel.icon : 'newspaper'} mr="0.5rem" />
             {channel ? channel.name : 'Headlines'}
-          </Fragment>
+          </>
         }
-        flexGrow="1"
       >
         {stories.length > 0 ? (
           stories
@@ -302,15 +302,17 @@ const NewscasterFeed = (properties, context) => {
       </Section>
       {!!channel && (
         <Section
-          flexShrink="1"
+          fill
+          scrollable
+          height="40%"
           title={
-            <Fragment>
+            <>
               <Icon name="info-circle" mr="0.5rem" />
               About
-            </Fragment>
+            </>
           }
           buttons={
-            <Fragment>
+            <>
               {censorMode && (
                 <Button
                   disabled={!!channel.admin && !is_admin}
@@ -333,7 +335,7 @@ const NewscasterFeed = (properties, context) => {
                   })
                 }
               />
-            </Fragment>
+            </>
           }
         >
           <LabeledList>
@@ -358,7 +360,7 @@ const NewscasterFeed = (properties, context) => {
           </LabeledList>
         </Section>
       )}
-    </Flex>
+    </Stack>
   );
 };
 
@@ -370,15 +372,16 @@ const NewscasterJobs = (properties, context) => {
     0
   );
   return (
-    <Flex direction="column" flex="1">
+    <Stack fill vertical>
       {!!wanted && <Story story={wanted} wanted />}
       <Section
-        flexGrow="1"
+        fill
+        scrollable
         title={
-          <Fragment>
+          <>
             <Icon name="briefcase" mr="0.5rem" />
             Job Openings
-          </Fragment>
+          </>
         }
         buttons={
           <Box mt="0.25rem" color="label">
@@ -430,7 +433,7 @@ const NewscasterJobs = (properties, context) => {
           </Box>
         )}
       </Section>
-      <Section flexShrink="1">
+      <Section height="17%">
         Interested in serving Nanotrasen?
         <br />
         Sign up for any of the above position now at the{' '}
@@ -442,7 +445,7 @@ const NewscasterJobs = (properties, context) => {
           humanity.
         </Box>
       </Section>
-    </Flex>
+    </Stack>
   );
 };
 
@@ -467,18 +470,18 @@ const Story = (properties, context) => {
         wanted && 'Newscaster__story--wanted',
       ])}
       title={
-        <Fragment>
+        <>
           {wanted && <Icon name="exclamation-circle" mr="0.5rem" />}
           {(story.censor_flags & 2 && '[REDACTED]') ||
             story.title ||
             'News from ' + story.author}
-        </Fragment>
+        </>
       }
       buttons={
         <Box mt="0.25rem">
           <Box color="label">
             {!wanted && censorMode && (
-              <Box display="inline">
+              <Box inline>
                 <Button
                   enabled={story.censor_flags & 2}
                   icon={story.censor_flags & 2 ? 'comment-slash' : 'comment'}
@@ -489,16 +492,14 @@ const Story = (properties, context) => {
                 />
               </Box>
             )}
-            <Box display="inline">
+            <Box inline>
               <Icon name="user" /> {story.author} |&nbsp;
-              {!!is_admin && (
-                <Fragment>ckey: {story.author_ckey} |&nbsp;</Fragment>
-              )}
+              {!!is_admin && <>ckey: {story.author_ckey} |&nbsp;</>}
               {!wanted && (
-                <Fragment>
+                <>
                   <Icon name="eye" /> {story.view_count.toLocaleString()}{' '}
                   |&nbsp;
-                </Fragment>
+                </>
               )}
               <Icon name="clock" />{' '}
               {timeAgo(story.publish_time, data.world_time)}
@@ -511,7 +512,7 @@ const Story = (properties, context) => {
         {story.censor_flags & 2 ? (
           '[REDACTED]'
         ) : (
-          <Fragment>
+          <>
             {!!story.has_photo && (
               <PhotoThumbnail
                 name={'story_photo_' + story.uid + '.png'}
@@ -530,7 +531,7 @@ const Story = (properties, context) => {
               />
             )}
             <Box clear="right" />
-          </Fragment>
+          </>
         )}
       </Box>
     </Section>

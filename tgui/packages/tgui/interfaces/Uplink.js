@@ -1,10 +1,8 @@
 import { filter, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, Section, Tabs } from '../components';
-import { FlexItem } from '../components/Flex';
+import { Box, Button, Input, Section, Stack, Tabs } from '../components';
 import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
@@ -29,54 +27,58 @@ export const Uplink = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
-    <Window width={900} height={600} theme="syndicate">
+    <Window width={900} height={610} theme="syndicate">
       <ComplexModal />
       <Window.Content scrollable>
-        <Tabs>
-          <Tabs.Tab
-            key="PurchasePage"
-            selected={tabIndex === 0}
-            onClick={() => {
-              setTabIndex(0);
-              setSearchText('');
-            }}
-            icon="store"
-          >
-            View Market
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="Cart"
-            selected={tabIndex === 1}
-            onClick={() => {
-              setTabIndex(1);
-              setSearchText('');
-            }}
-            icon="shopping-cart"
-          >
-            View Shopping Cart{' '}
-            {cart && cart.length ? '(' + cart.length + ')' : ''}
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="ExploitableInfo"
-            selected={tabIndex === 2}
-            onClick={() => {
-              setTabIndex(2);
-              setSearchText('');
-            }}
-            icon="user"
-          >
-            Exploitable Information
-          </Tabs.Tab>
-          <Tabs.Tab
-            key="LockUplink"
-            // This cant ever be selected. Its just a close button.
-            onClick={() => act('lock')}
-            icon="lock"
-          >
-            Lock Uplink
-          </Tabs.Tab>
-        </Tabs>
-        {PickTab(tabIndex)}
+        <Stack vertical>
+          <Stack.Item>
+            <Tabs>
+              <Tabs.Tab
+                key="PurchasePage"
+                selected={tabIndex === 0}
+                onClick={() => {
+                  setTabIndex(0);
+                  setSearchText('');
+                }}
+                icon="store"
+              >
+                View Market
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="Cart"
+                selected={tabIndex === 1}
+                onClick={() => {
+                  setTabIndex(1);
+                  setSearchText('');
+                }}
+                icon="shopping-cart"
+              >
+                View Shopping Cart{' '}
+                {cart && cart.length ? '(' + cart.length + ')' : ''}
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="ExploitableInfo"
+                selected={tabIndex === 2}
+                onClick={() => {
+                  setTabIndex(2);
+                  setSearchText('');
+                }}
+                icon="user"
+              >
+                Exploitable Information
+              </Tabs.Tab>
+              <Tabs.Tab
+                key="LockUplink"
+                // This cant ever be selected. Its just a close button.
+                onClick={() => act('lock')}
+                icon="lock"
+              >
+                Lock Uplink
+              </Tabs.Tab>
+            </Tabs>
+          </Stack.Item>
+          <Stack.Item grow>{PickTab(tabIndex)}</Stack.Item>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -117,65 +119,74 @@ const ItemsPage = (_properties, context) => {
   const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 1);
 
   return (
-    <Section
-      title={'Current Balance: ' + crystals + 'TC'}
-      buttons={
-        <Fragment>
-          <Button.Checkbox
-            content="Show Descriptions"
-            checked={showDesc}
-            onClick={() => setShowDesc(!showDesc)}
+    <Stack fill vertical>
+      <Stack.Item>
+        <Section
+          title={'Current Balance: ' + crystals + 'TC'}
+          buttons={
+            <>
+              <Button.Checkbox
+                content="Show Descriptions"
+                checked={showDesc}
+                onClick={() => setShowDesc(!showDesc)}
+              />
+              <Button
+                content="Random Item"
+                icon="question"
+                onClick={() => act('buyRandom')}
+              />
+              <Button
+                content="Refund Currently Held Item"
+                icon="undo"
+                onClick={() => act('refund')}
+              />
+            </>
+          }
+        >
+          <Input
+            fluid
+            placeholder="Search Equipment"
+            onInput={(e, value) => {
+              handleSearch(value);
+            }}
+            value={searchText}
           />
-          <Button
-            content="Random Item"
-            icon="question"
-            onClick={() => act('buyRandom')}
-          />
-          <Button
-            content="Refund Currently Held Item"
-            icon="undo"
-            onClick={() => act('refund')}
-          />
-        </Fragment>
-      }
-    >
-      <Input
-        fluid
-        mb={1.5}
-        placeholder="Search Equipment"
-        onInput={(e, value) => {
-          handleSearch(value);
-        }}
-        value={searchText}
-      />
-      <Flex>
-        <FlexItem>
-          <Tabs vertical>
-            {cats.map((c) => (
-              <Tabs.Tab
-                key={c}
-                selected={searchText !== '' ? false : c.items === uplinkItems}
-                onClick={() => {
-                  setUplinkItems(c.items);
-                  setSearchText('');
-                }}
-              >
-                {c.cat}
-              </Tabs.Tab>
-            ))}
-          </Tabs>
-        </FlexItem>
-        <Flex.Item grow={1} basis={0}>
-          {uplinkItems.map((i) => (
-            <UplinkItem
-              i={i}
-              showDecription={showDesc}
-              key={decodeHtmlEntities(i.name)}
-            />
-          ))}
-        </Flex.Item>
-      </Flex>
-    </Section>
+        </Section>
+        <Stack fill>
+          <Stack.Item>
+            <Section fill>
+              <Tabs vertical>
+                {cats.map((c) => (
+                  <Tabs.Tab
+                    key={c}
+                    selected={
+                      searchText !== '' ? false : c.items === uplinkItems
+                    }
+                    onClick={() => {
+                      setUplinkItems(c.items);
+                      setSearchText('');
+                    }}
+                  >
+                    {c.cat}
+                  </Tabs.Tab>
+                ))}
+              </Tabs>
+            </Section>
+          </Stack.Item>
+          <Stack.Item grow>
+            <Section fill scrollable>
+              {uplinkItems.map((i) => (
+                <UplinkItem
+                  i={i}
+                  showDecription={showDesc}
+                  key={decodeHtmlEntities(i.name)}
+                />
+              ))}
+            </Section>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -186,11 +197,11 @@ const CartPage = (_properties, context) => {
   const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 0);
 
   return (
-    <Fragment>
+    <Stack fill vertical>
       <Section
         title={'Current Balance: ' + crystals + 'TC'}
         buttons={
-          <Fragment>
+          <>
             <Button.Checkbox
               content="Show Descriptions"
               checked={showDesc}
@@ -208,10 +219,10 @@ const CartPage = (_properties, context) => {
               onClick={() => act('purchase_cart')}
               disabled={!cart || cart_price > crystals}
             />
-          </Fragment>
+          </>
         }
       >
-        <Flex.Item grow={1} basis={0}>
+        <Stack.Item grow>
           {cart ? (
             cart.map((i) => (
               <UplinkItem
@@ -224,10 +235,10 @@ const CartPage = (_properties, context) => {
           ) : (
             <Box italic>Your Shopping Cart is empty!</Box>
           )}
-        </Flex.Item>
+        </Stack.Item>
       </Section>
       <Advert />
-    </Fragment>
+    </Stack>
   );
 };
 const Advert = (_properties, context) => {
@@ -245,14 +256,14 @@ const Advert = (_properties, context) => {
         />
       }
     >
-      <Box display="flex" flexWrap="wrap" mb="5px">
+      <Box display="flex" flexWrap="wrap">
         {lucky_numbers
           .map((number) => cats[number.cat].items[number.item])
           .filter((item) => item !== undefined && item !== null)
           .map((item, index) => (
-            <Flex.Item flexShrink={0} key={index} p="0.5%" width="49%">
+            <Stack.Item key={index} p="0.5%" width="49%">
               <UplinkItem grow i={item} />
-            </Flex.Item>
+            </Stack.Item>
           ))}
       </Box>
     </Section>
@@ -270,9 +281,7 @@ const UplinkItem = (props, context) => {
     <Section
       title={decodeHtmlEntities(i.name)}
       showBottom={showDecription}
-      borderRadius="5px"
       buttons={buttons}
-      stretchContents
     >
       {showDecription ? <Box italic>{decodeHtmlEntities(i.desc)}</Box> : null}
     </Section>
@@ -285,7 +294,7 @@ const UplinkItemButtons = (props, context) => {
   const { crystals } = data;
 
   return (
-    <Fragment>
+    <>
       <Button
         icon="shopping-cart"
         color={i.hijack_only === 1 && 'red'}
@@ -313,7 +322,7 @@ const UplinkItemButtons = (props, context) => {
         }
         disabled={i.cost > crystals}
       />
-    </Fragment>
+    </>
   );
 };
 
@@ -323,7 +332,7 @@ const CartButtons = (props, context) => {
   const { exploitable } = data;
 
   return (
-    <Flex>
+    <Stack>
       <Button
         icon="times"
         content={'(' + i.cost * i.amount + 'TC)'}
@@ -350,7 +359,7 @@ const CartButtons = (props, context) => {
       <Button.Input
         content={i.amount}
         width="45px"
-        tooltipPosition="bottom-left"
+        tooltipPosition="bottom-start"
         tooltip={i.limit === 0 && 'Discount already redeemed!'}
         onCommit={(e, value) =>
           act('set_cart_item_quantity', {
@@ -362,7 +371,7 @@ const CartButtons = (props, context) => {
       />
       <Button
         icon="plus"
-        tooltipPosition="bottom-left"
+        tooltipPosition="bottom-start"
         tooltip={i.limit === 0 && 'Discount already redeemed!'}
         onClick={() =>
           act('set_cart_item_quantity', {
@@ -372,7 +381,7 @@ const CartButtons = (props, context) => {
         }
         disabled={i.limit !== -1 && i.amount >= i.limit}
       />
-    </Flex>
+    </Stack>
   );
 };
 
@@ -405,8 +414,8 @@ const ExploitableInfoPage = (_properties, context) => {
 
   return (
     <Section title="Exploitable Records">
-      <Flex>
-        <FlexItem basis={20}>
+      <Stack>
+        <Stack.Item basis={20}>
           <Input
             fluid
             mb={1}
@@ -424,8 +433,8 @@ const ExploitableInfoPage = (_properties, context) => {
               </Tabs.Tab>
             ))}
           </Tabs>
-        </FlexItem>
-        <Flex.Item grow={1} basis={0}>
+        </Stack.Item>
+        <Stack.Item grow={1} basis={0}>
           <Section title={'Name: ' + selectedRecord.name}>
             <Box>Age: {selectedRecord.age}</Box>
             <Box>Fingerprint: {selectedRecord.fingerprint}</Box>
@@ -433,8 +442,8 @@ const ExploitableInfoPage = (_properties, context) => {
             <Box>Sex: {selectedRecord.sex}</Box>
             <Box>Species: {selectedRecord.species}</Box>
           </Section>
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

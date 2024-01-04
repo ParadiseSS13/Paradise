@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, Section, Table, Flex } from '../components';
+import { Box, Button, Section, Table, Stack } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Operating } from '../interfaces/common/Operating';
@@ -11,10 +11,12 @@ export const ReagentGrinder = (props, context) => {
   return (
     <Window width={400} height={565} resizable>
       <Window.Content>
-        <Operating operating={operating} name={title} />
-        <GrinderControls />
-        <GrinderContents />
-        <GrinderReagents />
+        <Stack fill vertical>
+          <Operating operating={operating} name={title} />
+          <GrinderControls />
+          <GrinderContents />
+          <GrinderReagents />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -26,8 +28,8 @@ const GrinderControls = (props, context) => {
 
   return (
     <Section title="Controls">
-      <Flex>
-        <Flex.Item width="50%" mr="3px">
+      <Stack>
+        <Stack.Item width="50%">
           <Button
             fluid
             textAlign="center"
@@ -38,8 +40,8 @@ const GrinderControls = (props, context) => {
             content="Grind"
             onClick={() => act('grind')}
           />
-        </Flex.Item>
-        <Flex.Item width="50%">
+        </Stack.Item>
+        <Stack.Item width="50%">
           <Button
             fluid
             textAlign="center"
@@ -50,8 +52,8 @@ const GrinderControls = (props, context) => {
             content="Juice"
             onClick={() => act('juice')}
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -65,7 +67,6 @@ const GrinderContents = (props, context) => {
       title="Contents"
       fill
       scrollable
-      height="50%"
       buttons={
         <Box>
           <Box inline color="label" mr={2}>
@@ -113,7 +114,7 @@ const GrinderReagents = (props, context) => {
       title="Beaker"
       fill
       scrollable
-      height="35%"
+      height="40%"
       buttons={
         !!beaker_loaded && (
           <Box>

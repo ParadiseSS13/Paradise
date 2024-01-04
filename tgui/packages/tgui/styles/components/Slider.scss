@@ -9,7 +9,7 @@ $cursor-color: base.$color-fg !default;
 $popup-background-color: #000000 !default;
 $popup-text-color: #ffffff !default;
 
- .Slider:not(.Slider__disabled) {
+.Slider:not(.Slider__disabled) {
   cursor: e-resize;
 }
 

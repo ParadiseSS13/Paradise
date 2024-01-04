@@ -35,21 +35,13 @@
   @include meta.load-css(
     '~tgui/styles/components/Tabs.scss',
     $with: (
-      'text-color': rgba(0, 0, 0, 0.5), 
+      'text-color': rgba(0, 0, 0, 0.5),
       'color-default': rgba(0, 0, 0, 1),
       'tab-color-selected': rgba(0, 0, 0, 0.125),
-      'tab-color-hovered': rgba(0, 0, 0, 0.075))
-  );
-  @include meta.load-css(
-    '~tgui/styles/components/Section.scss',
-    $with: (
-      // 'background-color': rgba(0, 0, 0, 0.1),
-      'shadow-color': rgba(0, 0, 0, 0.1),
-      'shadow-size': 1em,
-      'shadow-type': outset,
-      'shadow-offset': 0 0.2em
+      'tab-color-hovered': rgba(0, 0, 0, 0.075)
     )
   );
+  @include meta.load-css('~tgui/styles/components/Section.scss');
   @include meta.load-css(
     '~tgui/styles/components/Button.scss',
     $with: (

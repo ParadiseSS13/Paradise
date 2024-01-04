@@ -10,7 +10,7 @@
  */
 /client/verb/fix_tgui_panel()
 	set name = "Fix chat"
-	set category = "OOC"
+	set category = "Special Verbs"
 	var/action
 	log_tgui(src, "Started fixing.")
 

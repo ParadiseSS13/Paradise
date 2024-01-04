@@ -1,6 +1,6 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Tabs, Button, Box, Section, Grid } from '../components';
+import { Tabs, Button, Box, Section, Grid, Stack } from '../components';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 
@@ -26,20 +26,25 @@ export const RPD = (props, context) => {
   };
 
   return (
-    <Window width={450} height={415}>
+    <Window width={450} height={410}>
       <Window.Content>
-        <Tabs fluid>
-          {mainmenu.map((m) => (
-            <Tabs.Tab
-              key={m.category}
-              icon={m.icon}
-              selected={m.mode === mode}
-              onClick={() => act('mode', { mode: m.mode })}>
-              {m.category}
-            </Tabs.Tab>
-          ))}
-        </Tabs>
-        {decideTab(mode)}
+        <Stack fill vertical>
+          <Stack.Item>
+            <Tabs fluid>
+              {mainmenu.map((m) => (
+                <Tabs.Tab
+                  key={m.category}
+                  icon={m.icon}
+                  selected={m.mode === mode}
+                  onClick={() => act('mode', { mode: m.mode })}
+                >
+                  {m.category}
+                </Tabs.Tab>
+              ))}
+            </Tabs>
+          </Stack.Item>
+          <Section fill>{decideTab(mode)}</Section>
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -57,9 +62,10 @@ const AtmosPipeContent = (props, context) => {
             key={p.category}
             textAlign="center"
             selected={p.pipemode === pipe_category}
-            onClick={() => act('pipe_category', { pipe_category: p.pipemode })}>
+            onClick={() => act('pipe_category', { pipe_category: p.pipemode })}
+          >
             {p.category}
-          </Tabs.Tab>  
+          </Tabs.Tab>
         ))}
       </Tabs>
       <Section>
@@ -72,11 +78,12 @@ const AtmosPipeContent = (props, context) => {
                 <Box key={p.pipe_name}>
                   <Button
                     fluid
+                    color="transparent"
                     content={p.pipe_name}
                     icon="cog"
                     selected={p.pipe_id === whatpipe}
                     onClick={() => act('whatpipe', { whatpipe: p.pipe_id })}
-                    style={{'margin-bottom': '2px'}}
+                    style={{ 'margin-bottom': '2px' }}
                   />
                 </Box>
               ))}
@@ -98,10 +105,11 @@ const AtmosPipeContent = (props, context) => {
                       content="Orient automatically"
                       selected={iconrotation === 0}
                       onClick={() => act('iconrotation', { iconrotation: 0 })}
+                      style={{ 'margin-bottom': '5px' }}
                     />
                   </Box>
                   {p.bendy ? (
-                    <Fragment>
+                    <>
                       <Grid>
                         <Grid.Column>
                           <Button
@@ -120,6 +128,7 @@ const AtmosPipeContent = (props, context) => {
                             onClick={() =>
                               act('iconrotation', { iconrotation: 4 })
                             }
+                            style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
                         <Grid.Column>
@@ -139,6 +148,7 @@ const AtmosPipeContent = (props, context) => {
                             onClick={() =>
                               act('iconrotation', { iconrotation: 2 })
                             }
+                            style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
                       </Grid>
@@ -160,6 +170,7 @@ const AtmosPipeContent = (props, context) => {
                             onClick={() =>
                               act('iconrotation', { iconrotation: 1 })
                             }
+                            style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
                         <Grid.Column>
@@ -179,12 +190,13 @@ const AtmosPipeContent = (props, context) => {
                             onClick={() =>
                               act('iconrotation', { iconrotation: 8 })
                             }
+                            style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
                       </Grid>
-                    </Fragment>
+                    </>
                   ) : (
-                    <Fragment>
+                    <>
                       <Grid>
                         <Grid.Column>
                           <Button
@@ -203,6 +215,7 @@ const AtmosPipeContent = (props, context) => {
                             onClick={() =>
                               act('iconrotation', { iconrotation: 1 })
                             }
+                            style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
                         <Grid.Column>
@@ -222,6 +235,7 @@ const AtmosPipeContent = (props, context) => {
                             onClick={() =>
                               act('iconrotation', { iconrotation: 4 })
                             }
+                            style={{ 'margin-bottom': '5px' }}
                           />
                         </Grid.Column>
                       </Grid>
@@ -244,6 +258,7 @@ const AtmosPipeContent = (props, context) => {
                               onClick={() =>
                                 act('iconrotation', { iconrotation: 2 })
                               }
+                              style={{ 'margin-bottom': '5px' }}
                             />
                           </Grid.Column>
                           <Grid.Column>
@@ -263,11 +278,12 @@ const AtmosPipeContent = (props, context) => {
                               onClick={() =>
                                 act('iconrotation', { iconrotation: 8 })
                               }
+                              style={{ 'margin-bottom': '5px' }}
                             />
                           </Grid.Column>
                         </Grid>
                       )}
-                    </Fragment>
+                    </>
                   )}
                 </Box>
               ))}
@@ -292,10 +308,12 @@ const DisposalPipeContent = (props, context) => {
               <Box key={p.pipe_name}>
                 <Button
                   fluid
+                  color="transparent"
                   content={p.pipe_name}
                   icon="cog"
                   selected={p.pipe_id === whatdpipe}
                   onClick={() => act('whatdpipe', { whatdpipe: p.pipe_id })}
+                  style={{ 'margin-bottom': '5px' }}
                 />
               </Box>
             ))}
@@ -317,6 +335,7 @@ const DisposalPipeContent = (props, context) => {
                     content="Orient automatically"
                     selected={iconrotation === 0}
                     onClick={() => act('iconrotation', { iconrotation: 0 })}
+                    style={{ 'margin-bottom': '2px' }}
                   />
                 </Box>
                 <Grid>

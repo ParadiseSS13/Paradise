@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
@@ -192,7 +191,7 @@ const DefaultScreen = (props, context) => {
   );
   const { owner_name, money } = data;
   return (
-    <Fragment>
+    <>
       <Section
         title={'Welcome, ' + owner_name}
         buttons={
@@ -247,7 +246,7 @@ const DefaultScreen = (props, context) => {
           />
         </Box>
       </Section>
-    </Fragment>
+    </>
   );
 };
 

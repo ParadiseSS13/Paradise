@@ -36,7 +36,7 @@ const findNearestScrollableParent = (startingNode) => {
     // This definitely has a vertical scrollbar, because it reduces
     // scrollWidth of the element. Might not work if element uses
     // overflow: hidden.
-    if (node.matches(".scrollable")) {
+    if (node.scrollWidth < node.offsetWidth) {
       return node;
     }
     node = node.parentNode;
@@ -501,6 +501,29 @@ class ChatRenderer {
     this.processBatch(messages, {
       notifyListeners: false,
     });
+  }
+
+  /**
+   * @clearChat
+   * @copyright 2023
+   * @author Cheffie
+   * @link https://github.com/CheffieGithub
+   * @license MIT
+   */
+  clearChat() {
+    const messages = this.visibleMessages;
+    this.visibleMessages = [];
+    for (let i = 0; i < messages.length; i++) {
+      const message = messages[i];
+      this.rootNode.removeChild(message.node);
+      // Mark this message as pruned
+      message.node = 'pruned';
+    }
+    // Remove pruned messages from the message array
+    this.messages = this.messages.filter(
+      (message) => message.node !== 'pruned'
+    );
+    logger.log(`Cleared chat`);
   }
 
   saveToDisk() {

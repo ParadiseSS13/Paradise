@@ -5,7 +5,7 @@
  */
 
 import { shallowDiffers } from 'common/react';
-import { Component, createRef, Fragment } from 'inferno';
+import { Component, createRef } from 'inferno';
 import { Button } from 'tgui/components';
 import { chatRenderer } from './renderer';
 
@@ -57,7 +57,7 @@ export class ChatPanel extends Component {
   render() {
     const { scrollTracking } = this.state;
     return (
-      <Fragment>
+      <>
         <div className="Chat" ref={this.ref} />
         {!scrollTracking && (
           <Button
@@ -68,7 +68,7 @@ export class ChatPanel extends Component {
             Scroll to bottom
           </Button>
         )}
-      </Fragment>
+      </>
     );
   }
 }

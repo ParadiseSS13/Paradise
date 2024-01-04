@@ -50,20 +50,3 @@
 .Flex__item--iefix--grow {
   width: auto !important;
 }
-
-@for $i from 1 through 2 {
-  .Flex--spacing--#{$i} {
-    margin: 0 -0.25em * $i;
-
-    & > .Flex__item {
-      margin: 0 0.25em * $i;
-    }
-  }
-.Flex--spacingPrecise--#{$i} {
-  margin: -1px * $i -1px * $i;
-
-  &>.Flex__item {
-    margin: 1px * $i 1px * $i;
-  }
-}
-}

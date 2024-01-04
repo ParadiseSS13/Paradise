@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
 import {
   Button,
@@ -19,15 +18,15 @@ export const AirAlarm = (props, context) => {
   const { locked } = data;
   // Bail straight away if there is no air
   return (
-    <Window width={570} height={locked ? 317 : 785} resizable>
+    <Window width={570} height={locked ? 310 : 755} resizable>
       <Window.Content scrollable>
         <InterfaceLockNoticeBox />
         <AirStatus />
         {!locked && (
-          <Fragment>
+          <>
             <AirAlarmTabs />
             <AirAlarmUnlockedContent />
-          </Fragment>
+          </>
         )}
       </Window.Content>
     </Window>
@@ -70,7 +69,7 @@ const AirStatus = (props, context) => {
             <Box color={Danger2Colour(air.danger.pressure)}>
               <AnimatedNumber value={air.pressure} /> kPa
               {!locked && (
-                <Fragment>
+                <>
                   &nbsp;
                   <Button
                     content={
@@ -82,7 +81,7 @@ const AirStatus = (props, context) => {
                     icon="exclamation-triangle"
                     onClick={() => act('mode', { mode: mode === 3 ? 1 : 3 })}
                   />
-                </Fragment>
+                </>
               )}
             </Box>
           </LabeledList.Item>
@@ -153,7 +152,7 @@ const AirStatus = (props, context) => {
             <Box color={Danger2Colour(air.danger.overall)}>
               {areaStatus}
               {!locked && (
-                <Fragment>
+                <>
                   &nbsp;
                   <Button
                     content={alarmActivated ? 'Reset Alarm' : 'Activate Alarm'}
@@ -162,7 +161,7 @@ const AirStatus = (props, context) => {
                       act(alarmActivated ? 'atmos_reset' : 'atmos_alarm')
                     }
                   />
-                </Fragment>
+                </>
               )}
             </Box>
           </LabeledList.Item>
@@ -427,7 +426,7 @@ const AirAlarmModesView = (props, context) => {
   const { act, data } = useBackend(context);
   const { modes, presets, emagged, mode, preset } = data;
   return (
-    <Fragment>
+    <>
       <Section title="System Mode">
         <Table>
           {modes.map(
@@ -469,7 +468,7 @@ const AirAlarmModesView = (props, context) => {
           ))}
         </Table>
       </Section>
-    </Fragment>
+    </>
   );
 };
 

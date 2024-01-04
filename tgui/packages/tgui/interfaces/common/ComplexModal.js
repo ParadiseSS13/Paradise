@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Flex, Input, Modal } from '../../components';
+import { Box, Button, Dropdown, Stack, Input, Modal } from '../../components';
 
 let bodyOverrides = {};
 
@@ -141,18 +141,18 @@ export const ComplexModal = (props, context) => {
     overflowY = 'initial';
   } else if (type === 'bento') {
     modalBody = (
-      <Flex spacingPrecise="1" wrap="wrap" my="0.5rem" maxHeight="1%">
+      <Stack spacingPrecise="1" wrap="wrap" my="0.5rem" maxHeight="1%">
         {data.modal.choices.map((c, i) => (
-          <Flex.Item key={i} flex="1 1 auto">
+          <Stack.Item key={i} flex="1 1 auto">
             <Button
               selected={i + 1 === parseInt(data.modal.value, 10)}
               onClick={() => modalAnswer(context, id, i + 1)}
             >
               <img src={c} />
             </Button>
-          </Flex.Item>
+          </Stack.Item>
         ))}
-      </Flex>
+      </Stack>
     );
   } else if (type === 'boolean') {
     modalFooter = (
@@ -186,7 +186,7 @@ export const ComplexModal = (props, context) => {
       mx="auto"
       overflowY={overflowY}
     >
-      <Box display="inline">{text}</Box>
+      <Box inline>{text}</Box>
       {modalBody}
       {modalFooter}
     </Modal>

@@ -37,10 +37,12 @@
  * Initializes tgui panel.
  */
 /datum/tgui_panel/proc/initialize(force = FALSE)
+	set waitfor = FALSE
+	// Minimal sleep to defer initialization to after client constructor
+	sleep(1)
 	initialized_at = world.time
 	// Perform a clean initialization
 	window.initialize(inline_assets = list(
-		get_asset_datum(/datum/asset/simple/tgui_common),
 		get_asset_datum(/datum/asset/simple/tgui_panel),
 	))
 	window.send_asset(get_asset_datum(/datum/asset/simple/namespaced/fontawesome))

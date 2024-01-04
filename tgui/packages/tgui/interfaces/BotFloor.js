@@ -18,7 +18,7 @@ export const BotFloor = (props, context) => {
     tiles_amount,
   } = data;
   return (
-    <Window width={500} height={520} resizable>
+    <Window width={500} height={510} resizable>
       <Window.Content scrollable>
         <BotStatus />
         <Section title="Floor Settings">

@@ -1,5 +1,4 @@
 import { round } from 'common/math';
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -10,6 +9,7 @@ import {
   Modal,
   Section,
   Slider,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 export const Instrument = (properties, context) => {
@@ -17,9 +17,11 @@ export const Instrument = (properties, context) => {
   return (
     <Window width={600} height={505} resizable>
       <InstrumentHelp />
-      <Window.Content scrollable>
-        <InstrumentStatus />
-        <InstrumentEditor />
+      <Window.Content>
+        <Stack fill vertical>
+          <InstrumentStatus />
+          <InstrumentEditor />
+        </Stack>
       </Window.Content>
     </Window>
   );
@@ -330,7 +332,7 @@ const InstrumentStatus = (properties, context) => {
     <Section
       title="Instrument"
       buttons={
-        <Fragment>
+        <>
           <Button icon="info" content="Help" onClick={() => act('help')} />
           <Button icon="file" content="New" onClick={() => act('newsong')} />
           <Button
@@ -338,7 +340,7 @@ const InstrumentStatus = (properties, context) => {
             content="Import"
             onClick={() => act('import')}
           />
-        </Fragment>
+        </>
       }
     >
       <LabeledList>
@@ -503,7 +505,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
               )}
             </LabeledList.Item>
             {!!(!legacy && canNoteShift) && (
-              <Fragment>
+              <>
                 <LabeledList.Item label="Note Shift/Note Transpose">
                   <Slider
                     minValue={noteShiftMin}
@@ -554,7 +556,7 @@ const InstrumentStatusAdvanced = (properties, context) => {
                     onClick={() => act('togglesustainhold')}
                   />
                 </LabeledList.Item>
-              </Fragment>
+              </>
             )}
           </LabeledList>
           <Button
@@ -574,9 +576,11 @@ const InstrumentEditor = (properties, context) => {
   const { playing, lines, editing } = data;
   return (
     <Section
+      fill
+      scrollable
       title="Editor"
       buttons={
-        <Fragment>
+        <>
           <Button
             disabled={!editing || playing}
             icon="plus"
@@ -592,7 +596,7 @@ const InstrumentEditor = (properties, context) => {
             icon={editing ? 'chevron-up' : 'chevron-down'}
             onClick={() => act('edit')}
           />
-        </Fragment>
+        </>
       }
     >
       {!!editing &&
@@ -603,7 +607,7 @@ const InstrumentEditor = (properties, context) => {
                 key={i}
                 label={i + 1}
                 buttons={
-                  <Fragment>
+                  <>
                     <Button
                       disabled={playing}
                       icon="pen"
@@ -622,7 +626,7 @@ const InstrumentEditor = (properties, context) => {
                         })
                       }
                     />
-                  </Fragment>
+                  </>
                 }
               >
                 {l}

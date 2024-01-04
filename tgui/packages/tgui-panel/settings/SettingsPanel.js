@@ -13,7 +13,6 @@ import {
   ColorBox,
   Divider,
   Dropdown,
-  Flex,
   Input,
   LabeledList,
   NumberInput,
@@ -23,7 +22,7 @@ import {
   TextArea,
 } from 'tgui/components';
 import { ChatPageSettings } from '../chat';
-import { rebuildChat, saveChatToDisk } from '../chat/actions';
+import { clearChat, rebuildChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import {
   changeSettingsTab,
@@ -44,8 +43,8 @@ export const SettingsPanel = (props, context) => {
   const activeTab = useSelector(context, selectActiveTab);
   const dispatch = useDispatch(context);
   return (
-    <Flex fill>
-      <Flex.Item>
+    <Stack fill>
+      <Stack.Item>
         <Section fitted fill minHeight="8em">
           <Tabs vertical>
             {SETTINGS_TABS.map((tab) => (
@@ -65,13 +64,13 @@ export const SettingsPanel = (props, context) => {
             ))}
           </Tabs>
         </Section>
-      </Flex.Item>
-      <Flex.Item grow={1} basis={0}>
+      </Stack.Item>
+      <Stack.Item grow basis={0}>
         {activeTab === 'general' && <SettingsGeneral />}
         {activeTab === 'chatPage' && <ChatPageSettings />}
         {activeTab === 'textHighlight' && <TextHighlightSettings />}
-      </Flex.Item>
-    </Flex>
+      </Stack.Item>
+    </Stack>
   );
 };
 
@@ -83,7 +82,7 @@ export const SettingsGeneral = (props, context) => {
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, 'freeFont', false);
   return (
-    <Section>
+    <Section height="145px">
       <LabeledList>
         <LabeledList.Item label="Theme">
           <Dropdown
@@ -99,8 +98,8 @@ export const SettingsGeneral = (props, context) => {
           />
         </LabeledList.Item>
         <LabeledList.Item label="Font style">
-          <Flex inline align="baseline">
-            <Flex.Item>
+          <Stack inline align="baseline">
+            <Stack.Item>
               {(!freeFont && (
                 <Dropdown
                   selected={fontFamily}
@@ -125,19 +124,18 @@ export const SettingsGeneral = (props, context) => {
                   }
                 />
               )}
-            </Flex.Item>
-            <Flex.Item>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 content="Custom font"
                 icon={freeFont ? 'lock-open' : 'lock'}
                 color={freeFont ? 'good' : 'bad'}
-                ml={1}
                 onClick={() => {
                   setFreeFont(!freeFont);
                 }}
               />
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         </LabeledList.Item>
         <LabeledList.Item label="Font size">
           <NumberInput
@@ -178,9 +176,17 @@ export const SettingsGeneral = (props, context) => {
         </LabeledList.Item>
       </LabeledList>
       <Divider />
-      <Button icon="save" onClick={() => dispatch(saveChatToDisk())}>
-        Save chat log
-      </Button>
+      <Button
+        content="Save chat log"
+        icon="save"
+        onClick={() => dispatch(saveChatToDisk())}
+      />
+      <Button.Confirm
+        icon="trash"
+        confirmContent="Are you sure?"
+        content="Clear chat"
+        onClick={() => dispatch(clearChat())}
+      />
     </Section>
   );
 };
@@ -189,9 +195,9 @@ const TextHighlightSettings = (props, context) => {
   const highlightSettings = useSelector(context, selectHighlightSettings);
   const dispatch = useDispatch(context);
   return (
-    <Section fill scrollable height="200px">
-      <Section p={0}>
-        <Flex direction="column">
+    <Section fill scrollable height="230px">
+      <Section>
+        <Stack vertical>
           {highlightSettings.map((id, i) => (
             <TextHighlightSetting
               key={i}
@@ -200,7 +206,7 @@ const TextHighlightSettings = (props, context) => {
             />
           ))}
           {highlightSettings.length < MAX_HIGHLIGHT_SETTINGS && (
-            <Flex.Item>
+            <Stack.Item>
               <Button
                 color="transparent"
                 icon="plus"
@@ -209,9 +215,9 @@ const TextHighlightSettings = (props, context) => {
                   dispatch(addHighlightSetting());
                 }}
               />
-            </Flex.Item>
+            </Stack.Item>
           )}
-        </Flex>
+        </Stack>
       </Section>
       <Divider />
       <Box>
@@ -238,9 +244,9 @@ const TextHighlightSetting = (props, context) => {
     matchCase,
   } = highlightSettingById[id];
   return (
-    <Flex.Item {...rest}>
-      <Flex mb={1} color="label" align="baseline">
-        <Flex.Item grow>
+    <Stack.Item {...rest}>
+      <Stack mb={1} color="label" align="baseline">
+        <Stack.Item grow>
           <Button
             content="Delete"
             color="transparent"
@@ -253,13 +259,12 @@ const TextHighlightSetting = (props, context) => {
               )
             }
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button.Checkbox
             checked={highlightWholeMessage}
             content="Whole Message"
             tooltip="If this option is selected, the entire message will be highlighted in yellow."
-            mr="5px"
             onClick={() =>
               dispatch(
                 updateHighlightSetting({
@@ -269,8 +274,8 @@ const TextHighlightSetting = (props, context) => {
               )
             }
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button.Checkbox
             content="Exact"
             checked={matchWord}
@@ -285,8 +290,8 @@ const TextHighlightSetting = (props, context) => {
               )
             }
           />
-        </Flex.Item>
-        <Flex.Item>
+        </Stack.Item>
+        <Stack.Item>
           <Button.Checkbox
             content="Case"
             tooltip="If this option is selected, the highlight will be case-sensitive."
@@ -300,8 +305,8 @@ const TextHighlightSetting = (props, context) => {
               )
             }
           />
-        </Flex.Item>
-        <Flex.Item shrink={0}>
+        </Stack.Item>
+        <Stack.Item shrink={0}>
           <ColorBox mr={1} color={highlightColor} />
           <Input
             width="5em"
@@ -317,8 +322,8 @@ const TextHighlightSetting = (props, context) => {
               )
             }
           />
-        </Flex.Item>
-      </Flex>
+        </Stack.Item>
+      </Stack>
       <TextArea
         height="3em"
         value={highlightText}
@@ -332,6 +337,6 @@ const TextHighlightSetting = (props, context) => {
           )
         }
       />
-    </Flex.Item>
+    </Stack.Item>
   );
 };

@@ -1,9 +1,8 @@
 // code\game\machinery\doors\airlock_electronics.dm
 import { useBackend } from '../backend';
-import { Button, Divider, Flex, Grid, Section } from '../components';
+import { Button, Divider, Grid, Section, Stack } from '../components';
 import { Window } from '../layouts';
 import { AccessList } from './common/AccessList';
-import { Fragment } from 'inferno';
 
 const NORTH = 1;
 const SOUTH = 2;
@@ -12,7 +11,7 @@ const WEST = 8;
 
 export const AirlockElectronics = (props, context) => {
   return (
-    <Window width={450} height={575} resizable>
+    <Window width={450} height={565} resizable>
       <UnrestrictedAccess />
       <Divider />
       <ChooseAccess />
@@ -25,11 +24,9 @@ const UnrestrictedAccess = (props, context) => {
   const { unrestricted_dir } = data;
   return (
     <Section title="Access Control">
-      <Flex direction="column">
-        <Flex.Item bold mb={1}>
-          Unrestricted Access From:
-        </Flex.Item>
-        <Grid>
+      <Stack fill vertical>
+        <Stack.Item bold>Unrestricted Access From:</Stack.Item>
+        <Grid mt={1}>
           <Grid.Column>
             <Button
               fluid
@@ -87,7 +84,7 @@ const UnrestrictedAccess = (props, context) => {
             />
           </Grid.Column>
         </Grid>
-      </Flex>
+      </Stack>
     </Section>
   );
 };
@@ -99,7 +96,7 @@ const ChooseAccess = (props, context) => {
     <AccessList
       usedByRcd={1}
       rcdButtons={
-        <Fragment>
+        <>
           <Button.Checkbox
             checked={one_access}
             content="One"
@@ -118,7 +115,7 @@ const ChooseAccess = (props, context) => {
               })
             }
           />
-        </Fragment>
+        </>
       }
       accesses={regions}
       selectedList={selected_accesses}

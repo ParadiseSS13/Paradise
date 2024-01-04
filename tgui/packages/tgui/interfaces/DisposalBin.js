@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Box, ProgressBar } from '../components';
+import { Button, LabeledList, Section, ProgressBar } from '../components';
 import { Window } from '../layouts';
 
 export const DisposalBin = (props, context) => {
@@ -20,7 +20,7 @@ export const DisposalBin = (props, context) => {
     stateText = 'Idle';
   }
   return (
-    <Window width={300} height={263}>
+    <Window width={300} height={260}>
       <Window.Content>
         <Section title="Status">
           <LabeledList>

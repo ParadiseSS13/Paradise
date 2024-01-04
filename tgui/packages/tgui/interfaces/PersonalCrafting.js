@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Button, LabeledList, Box, Section, Dimmer, Icon } from '../components';
 import { Window } from '../layouts';
@@ -28,7 +27,7 @@ export const PersonalCrafting = (props, context) => {
         <Section
           title={category}
           buttons={
-            <Fragment>
+            <>
               <Button
                 content="Show Craftable Only"
                 icon={display_craftable_only ? 'check-square-o' : 'square-o'}
@@ -41,7 +40,7 @@ export const PersonalCrafting = (props, context) => {
                 selected={display_compact}
                 onClick={() => act('toggle_compact')}
               />
-            </Fragment>
+            </>
           }
         >
           <Box>

@@ -1,10 +1,9 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import {
   AnimatedNumber,
   Box,
   Button,
-  Flex,
+  Stack,
   Icon,
   LabeledList,
   ProgressBar,
@@ -61,7 +60,7 @@ const CryoContent = (props, context) => {
     auto_eject_dead,
   } = data;
   return (
-    <Fragment>
+    <>
       <Section
         title="Occupant"
         fill
@@ -117,13 +116,13 @@ const CryoContent = (props, context) => {
             ))}
           </LabeledList>
         ) : (
-          <Flex height="100%" textAlign="center">
-            <Flex.Item grow="1" align="center" color="label">
+          <Stack fill textAlign="center">
+            <Stack.Item grow align="center" color="label">
               <Icon name="user-slash" mb="0.5rem" size="5" />
               <br />
               No occupant detected.
-            </Flex.Item>
-          </Flex>
+            </Stack.Item>
+          </Stack>
         )}
       </Section>
       <Section
@@ -197,7 +196,7 @@ const CryoContent = (props, context) => {
           </LabeledList.Item>
         </LabeledList>
       </Section>
-    </Fragment>
+    </>
   );
 };
 
@@ -206,11 +205,11 @@ const CryoBeaker = (props, context) => {
   const { isBeakerLoaded, beakerLabel, beakerVolume } = data;
   if (isBeakerLoaded) {
     return (
-      <Fragment>
-        <Box display="inline" color={!beakerLabel && 'average'}>
+      <>
+        <Box inline color={!beakerLabel && 'average'}>
           {beakerLabel || 'No label'}
         </Box>
-        <Box display="inline" float="right" color={!beakerVolume && 'bad'}>
+        <Box inline float="right" color={!beakerVolume && 'bad'}>
           {beakerVolume ? (
             <AnimatedNumber
               value={beakerVolume}
@@ -220,11 +219,11 @@ const CryoBeaker = (props, context) => {
             'Beaker is empty'
           )}
         </Box>
-      </Fragment>
+      </>
     );
   } else {
     return (
-      <Box display="inline" color="bad">
+      <Box inline color="bad">
         No beaker loaded
       </Box>
     );
