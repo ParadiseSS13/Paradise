@@ -67,7 +67,7 @@ export const BrigCells = (properties, context) => {
   const { cells } = data;
 
   return (
-    <Window theme="security" width={800} height={400} resizable>
+    <Window theme="security" width={800} height={400}>
       <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable>

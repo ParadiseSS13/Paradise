@@ -9,7 +9,7 @@ export const DestinationTagger = (props, context) => {
   let selected_destination = destinations[selected_destination_id - 1];
 
   return (
-    <Window width={355} height={330} resizable>
+    <Window width={355} height={330}>
       <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable textAlign="center" title="TagMaster 3.1">

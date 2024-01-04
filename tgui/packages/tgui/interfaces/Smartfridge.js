@@ -19,7 +19,7 @@ export const Smartfridge = (props, context) => {
     contents,
   } = data;
   return (
-    <Window width={500} height={500} resizable>
+    <Window width={500} height={500}>
       <Window.Content>
         <Stack fill vertical>
           {!!secure && (

@@ -61,7 +61,7 @@ export const ATM = (props, context) => {
     body = <LoginScreen />;
   }
   return (
-    <Window width={550} height={650} resizable>
+    <Window width={550} height={650}>
       <Window.Content scrollable>
         <IntroductionAndCard />
         <Section>{body}</Section>

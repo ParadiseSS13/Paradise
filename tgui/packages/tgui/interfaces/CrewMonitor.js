@@ -61,7 +61,7 @@ export const CrewMonitor = (props, context) => {
   };
 
   return (
-    <Window width={800} height={600} resizable>
+    <Window width={800} height={600}>
       <Window.Content>
         <Stack fill vertical fillPositionedParent>
           <Stack.Item>

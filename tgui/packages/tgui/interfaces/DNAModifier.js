@@ -43,7 +43,7 @@ export const DNAModifier = (props, context) => {
     radiatingModal = <DNAModifierIrradiating duration={irradiating} />;
   }
   return (
-    <Window width={660} height={775} resizable>
+    <Window width={660} height={775}>
       <ComplexModal />
       {radiatingModal}
       <Window.Content>

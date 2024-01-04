@@ -11,7 +11,7 @@ const WEST = 8;
 
 export const AirlockElectronics = (props, context) => {
   return (
-    <Window width={450} height={565} resizable>
+    <Window width={450} height={565}>
       <UnrestrictedAccess />
       <Divider />
       <ChooseAccess />

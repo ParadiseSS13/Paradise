@@ -6,7 +6,7 @@ import { Window } from '../layouts';
 export const Photocopier = (props, context) => {
   const { act, data } = useBackend(context);
   return (
-    <Window width={400} height={440} resizable>
+    <Window width={400} height={440}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Section title="Photocopier" color="silver">

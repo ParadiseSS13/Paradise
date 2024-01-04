@@ -24,7 +24,7 @@ export const BookBinder = (props, context) => {
   }
 
   return (
-    <Window width={600} height={400} resizable>
+    <Window width={600} height={400}>
       <ComplexModal />
       <Window.Content scrollable>
         <Stack fill vertical>

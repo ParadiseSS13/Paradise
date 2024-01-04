@@ -15,7 +15,7 @@ export const GeneModder = (props, context) => {
   const { has_seed } = data;
 
   return (
-    <Window width={500} height={650} resizable>
+    <Window width={500} height={650}>
       <Window.Content>
         <Stack fill vertical>
           <Storage />

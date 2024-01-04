@@ -5,7 +5,7 @@ import { ComplexModal, modalOpen } from './common/ComplexModal';
 
 export const LibraryManager = (props, context) => {
   return (
-    <Window width={600} height={600} resizable>
+    <Window width={600} height={600}>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <PageContent />

@@ -12,7 +12,7 @@ import { ComplexModal, modalOpen } from './common/ComplexModal';
 
 export const EconomyManager = (props, context) => {
   return (
-    <Window width={600} height={350} resizable>
+    <Window width={600} height={350}>
       <ComplexModal />
       <Window.Content scrollable className="Layout__content--flexColumn">
         <EconomyButtons />

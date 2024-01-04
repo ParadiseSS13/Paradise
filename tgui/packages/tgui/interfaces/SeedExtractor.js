@@ -7,7 +7,7 @@ export const SeedExtractor = (props, context) => {
   const { stored_seeds, vend_amount } = data;
 
   return (
-    <Window width={800} height={400} resizable>
+    <Window width={800} height={400}>
       <Window.Content>
         <Stack fill vertical>
           <Section

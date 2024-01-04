@@ -44,7 +44,7 @@ export const Sleeper = (props, context) => {
   const { hasOccupant } = data;
   const body = hasOccupant ? <SleeperMain /> : <SleeperEmpty />;
   return (
-    <Window width={550} height={760} resizable>
+    <Window width={550} height={760}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item grow>{body}</Stack.Item>

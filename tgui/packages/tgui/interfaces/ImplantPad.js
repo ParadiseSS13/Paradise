@@ -7,7 +7,7 @@ export const ImplantPad = (props, context) => {
   const { implant, contains_case } = data;
 
   return (
-    <Window width={410} height={400} resizable>
+    <Window width={410} height={400}>
       <Window.Content>
         <Section title="Bio-chip Mini-Computer">
           {implant && contains_case ? (

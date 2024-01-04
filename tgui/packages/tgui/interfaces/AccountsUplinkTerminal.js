@@ -22,7 +22,7 @@ export const AccountsUplinkTerminal = (properties, context) => {
   let body;
   if (!loginState.logged_in) {
     return (
-      <Window width={800} height={600} resizable>
+      <Window width={800} height={600}>
         <Window.Content>
           <Stack fill vertical>
             <LoginScreen />
@@ -41,7 +41,7 @@ export const AccountsUplinkTerminal = (properties, context) => {
   }
 
   return (
-    <Window width={800} height={600} resizable>
+    <Window width={800} height={600}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <LoginInfo />

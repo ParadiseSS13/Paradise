@@ -14,7 +14,7 @@ export const RoboticsControlConsole = (props, context) => {
   const { act, data } = useBackend(context);
   const { can_hack, safety, show_lock_all, cyborgs = [] } = data;
   return (
-    <Window width={500} height={460} resizable>
+    <Window width={500} height={460}>
       <Window.Content scrollable>
         {!!show_lock_all && (
           <Section title="Emergency Lock Down">

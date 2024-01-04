@@ -82,7 +82,7 @@ export const ChemMaster = (props, context) => {
     mode,
   } = data;
   return (
-    <Window width={575} height={650} resizable>
+    <Window width={575} height={650}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>

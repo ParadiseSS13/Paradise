@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 
 export const SpecMenu = (props, context) => {
   return (
-    <Window width={1200} height={760} resizable theme="nologo">
+    <Window width={1200} height={760} theme="nologo">
       <Window.Content>
         <Flex justify="space-around">
           <HemoMenu />

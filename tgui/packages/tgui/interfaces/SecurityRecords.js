@@ -42,7 +42,7 @@ export const SecurityRecords = (properties, context) => {
   let body;
   if (!loginState.logged_in) {
     return (
-      <Window theme="security" width={800} height={800} resizable>
+      <Window theme="security" width={800} height={800}>
         <Window.Content>
           <LoginScreen />
         </Window.Content>
@@ -57,7 +57,7 @@ export const SecurityRecords = (properties, context) => {
   }
 
   return (
-    <Window theme="security" width={800} height={800} resizable>
+    <Window theme="security" width={800} height={800}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>

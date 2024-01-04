@@ -21,7 +21,7 @@ const PEAK_DRAW = 600000;
 
 export const PowerMonitor = (props, context) => {
   return (
-    <Window width={600} height={650} resizeable>
+    <Window width={600} height={650}>
       <Window.Content scrollable>
         <PowerMonitorMainContent />
       </Window.Content>
