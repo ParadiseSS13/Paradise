@@ -41,7 +41,7 @@ function task-install {
 }
 
 function task-prettier {
-  npx prettier --check packages --write
+  npx prettier --check packages @Args
 }
 
 ## Runs webpack
@@ -66,12 +66,25 @@ function task-test {
   yarn run jest
 }
 
+## Validates current build against the build stored in git
+function task-validate-build {
+  $diff = git diff public/*
+  if ($diff) {
+    Write-Output "Error: our build differs from the build committed into git."
+    Write-Output "Please rebuild tgui."
+    exit 1
+  }
+  Write-Output "tgui: build is ok"
+}
+
 ## Mr. Proper
 function task-clean {
   ## Build artifacts
+  Write-Output "tgui: cleaning build artifacts"
   Remove-Quiet -Recurse -Force "public\.tmp"
   Remove-Quiet -Force "public\*.map"
   Remove-Quiet -Force "public\*.hot-update.*"
+  Write-Output "tgui: cleaning Yarn artifacts"
   ## Yarn artifacts
   Remove-Quiet -Recurse -Force ".yarn\cache"
   Remove-Quiet -Recurse -Force ".yarn\unplugged"
@@ -80,11 +93,12 @@ function task-clean {
   Remove-Quiet -Force ".yarn\install-state.gz"
   Remove-Quiet -Force ".yarn\install-target"
   Remove-Quiet -Force ".pnp.*"
+  Write-Output "tgui: cleaning NPM artifacts"
   ## NPM artifacts
   Get-ChildItem -Path "." -Include "node_modules" -Recurse -File:$false | Remove-Item -Recurse -Force
   Remove-Quiet -Force "package-lock.json"
+  Write-Output "tgui: All artifacts cleaned"
 }
-
 
 ## Main
 ## --------------------------------------------------------
@@ -137,13 +151,25 @@ if ($Args.Length -gt 0) {
     task-webpack --mode=production --analyze
     exit 0
   }
-}
 
+  ## Continuous integration scenario
+  if ($Args[0] -eq "--ci") {
+    $Rest = $Args | Select-Object -Skip 1
+    task-clean
+    task-install
+    task-prettier
+    task-test @Rest
+    task-lint
+    task-webpack --mode=production
+    task-validate-build
+    exit 0
+  }
+}
 
 ## Make a production webpack build
 if ($Args.Length -eq 0) {
   task-install
-  task-prettier
+  task-prettier --write
   task-lint
   task-webpack --mode=production
   exit 0
