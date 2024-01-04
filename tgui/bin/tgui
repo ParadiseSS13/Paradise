@@ -71,13 +71,20 @@ task-test() {
   yarn run jest
 }
 
+task-prettier() {
+  cd "${base_dir}"
+  npx prettier --check packages "${@}"
+}
+
 ## Mr. Proper
 task-clean() {
   cd "${base_dir}"
+  echo "tgui: cleaning build artifacts"
   ## Build artifacts
   rm -rf public/.tmp
   rm -f public/*.map
   rm -f public/*.hot-update.*
+  echo "tgui: cleaning Yarn artifacts"
   ## Yarn artifacts
   rm -rf .yarn/cache
   rm -rf .yarn/unplugged
@@ -85,9 +92,11 @@ task-clean() {
   rm -rf .yarn/build-state.yml
   rm -rf .yarn/install-state.gz
   rm -f .pnp.js
+  echo "tgui: cleaning NPM artifacts"
   ## NPM artifacts
   rm -rf **/node_modules
   rm -f **/package-lock.json
+  echo "tgui: All artifacts cleaned"
 }
 
 ## Validates current build against the build stored in git
@@ -150,6 +159,7 @@ if [[ ${1} == "--ci" ]]; then
   task-clean
   task-install
   task-test "${@}"
+  task-prettier
   task-lint
   task-webpack --mode=production
   task-validate-build
@@ -204,10 +214,18 @@ if [[ ${1} == '--test' ]]; then
   exit 0
 fi
 
+## Run prettier
+if [[ ${1} == '--prettier' ]]; then
+  shift 1
+  task-prettier "${@}"
+  exit 0
+fi
+
 ## Make a production webpack build
 if [[ -z ${1} ]]; then
   task-install
   task-lint --fix
+  task-prettier --write
   task-webpack --mode=production
   exit 0
 fi
