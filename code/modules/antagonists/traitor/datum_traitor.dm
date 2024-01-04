@@ -33,7 +33,7 @@
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
 	var/mob/living/datum_owner = mob_override || owner.current
-	for(var/datum/component/codeword_hearing/component as anything in datum_owner.GetComponents(/datum/component/codeword_hearing))
+	for(var/datum/component/codeword_hearing/component in datum_owner.GetComponents(/datum/component/codeword_hearing))
 		component.delete_if_from_source(src)
 
 /datum/antagonist/traitor/Destroy(force, ...)
