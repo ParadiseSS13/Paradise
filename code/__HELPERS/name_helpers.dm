@@ -126,7 +126,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 	/N
 	*/
 
-/proc/generate_code_phrase(return_list=FALSE)//Proc is used for phrase and response in master_controller.dm
+/proc/generate_code_phrase(return_list = FALSE) // Proc is used for phrase and response in master_controller.dm
 
 	if(!return_list)
 		. = ""
@@ -159,9 +159,9 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 
 		switch(pick(safety))//Chance based on the safety list.
 			if(1)//1 and 2 can only be selected once each to prevent more than two specific names/places/etc.
-				switch(rand(1,2))//Mainly to add more options later.
+				switch(rand(1, 2)) // Mainly to add more options later.
 					if(1)
-						if(names.len)
+						if(length(names))
 							. += pick(names)
 					if(2)
 						. += pick(GLOB.joblist)//Returns a job.
@@ -174,7 +174,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 						. += pick(locations)
 				safety -= 2
 			if(3)
-				switch(rand(1,3))//Nouns, adjectives, verbs. Can be selected more than once.
+				switch(rand(1, 3)) // Nouns, adjectives, verbs. Can be selected more than once.
 					if(1)
 						. += pick(nouns)
 					if(2)
@@ -183,7 +183,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 						. += pick(GLOB.verbs)
 
 		if(!return_list)
-			if(words==1)
+			if(words == 1)
 				. += "."
 			else
 				. += ", "
