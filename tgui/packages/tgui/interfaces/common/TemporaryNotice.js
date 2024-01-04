@@ -1,5 +1,5 @@
 import { useBackend } from '../../backend';
-import { Box, Button, NoticeBox, Stack } from '../../components';
+import { Button, NoticeBox, Stack } from '../../components';
 
 /**
  * Displays a notice box with text and style dictated by the
