@@ -73,7 +73,7 @@ task-test() {
 
 task-prettier() {
   cd "${base_dir}"
-  npx prettier --check packages "${@}"
+  npx prettier --check packages --write "${@}"
 }
 
 ## Mr. Proper
@@ -154,18 +154,6 @@ if [[ ${1} == "--install-git-hooks" ]]; then
   exit 0
 fi
 
-## Continuous integration scenario
-if [[ ${1} == "--ci" ]]; then
-  task-clean
-  task-install
-  task-test "${@}"
-  task-prettier
-  task-lint
-  task-webpack --mode=production
-  task-validate-build
-  exit 0
-fi
-
 if [[ ${1} == "--clean" ]]; then
   task-clean
   exit 0
@@ -214,6 +202,18 @@ if [[ ${1} == '--test' ]]; then
   exit 0
 fi
 
+## Continuous integration scenario
+if [[ ${1} == "--ci" ]]; then
+  task-clean
+  task-install
+  task-prettier
+  task-test "${@}"
+  task-lint
+  task-webpack --mode=production
+  task-validate-build
+  exit 0
+fi
+
 ## Run prettier
 if [[ ${1} == '--prettier' ]]; then
   shift 1
@@ -225,7 +225,7 @@ fi
 if [[ -z ${1} ]]; then
   task-install
   task-lint --fix
-  task-prettier --write
+  task-prettier
   task-webpack --mode=production
   exit 0
 fi
