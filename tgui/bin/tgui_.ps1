@@ -40,10 +40,6 @@ function task-install {
   yarn install
 }
 
-function task-prettier {
-  npx prettier --check packages @Args
-}
-
 ## Runs webpack
 function task-webpack {
   yarn run webpack-cli @Args
@@ -58,7 +54,7 @@ function task-dev-server {
 function task-lint {
   yarn run tsc
   Write-Output "tgui: type check passed"
-  yarn run eslint packages --ext ".js,.cjs,.ts,.tsx" @Args
+  yarn run eslint packages --ext ".js,.jsx,.ts,.tsx,.cjs,.mjs" @Args
   Write-Output "tgui: eslint check passed"
 }
 
@@ -66,15 +62,8 @@ function task-test {
   yarn run jest
 }
 
-## Validates current build against the build stored in git
-function task-validate-build {
-  $diff = git diff public/*
-  if ($diff) {
-    Write-Output "Error: our build differs from the build committed into git."
-    Write-Output "Please rebuild tgui."
-    exit 1
-  }
-  Write-Output "tgui: build is ok"
+function task-prettier {
+  npx prettier --check packages --write @Args
 }
 
 ## Mr. Proper
@@ -98,6 +87,17 @@ function task-clean {
   Get-ChildItem -Path "." -Include "node_modules" -Recurse -File:$false | Remove-Item -Recurse -Force
   Remove-Quiet -Force "package-lock.json"
   Write-Output "tgui: All artifacts cleaned"
+}
+
+## Validates current build against the build stored in git
+function task-validate-build {
+  $diff = git diff public/*
+  if ($diff) {
+    Write-Output "Error: our build differs from the build committed into git."
+    Write-Output "Please rebuild tgui."
+    exit 1
+  }
+  Write-Output "tgui: build is ok"
 }
 
 ## Main
@@ -137,18 +137,18 @@ if ($Args.Length -gt 0) {
     exit 0
   }
 
+  ## Analyze the bundle
+  if ($Args[0] -eq "--analyze") {
+    task-install
+    task-webpack --mode=production --analyze
+    exit 0
+  }
+
   ## Jest test
   if ($Args[0] -eq "--test") {
     $Rest = $Args | Select-Object -Skip 1
     task-install
     task-test @Rest
-    exit 0
-  }
-
-  ## Analyze the bundle
-  if ($Args[0] -eq "--analyze") {
-    task-install
-    task-webpack --mode=production --analyze
     exit 0
   }
 
@@ -164,13 +164,20 @@ if ($Args.Length -gt 0) {
     task-validate-build
     exit 0
   }
+
+  ## ## Run prettier
+  if ($Args[0] -eq "--prettier") {
+    $Rest = $Args | Select-Object -Skip 1
+    task-prettier @Rest
+    exit 0
+  }
 }
 
 ## Make a production webpack build
 if ($Args.Length -eq 0) {
   task-install
-  task-prettier --write
-  task-lint
+  task-lint --fix
+  task-prettier
   task-webpack --mode=production
   exit 0
 }
