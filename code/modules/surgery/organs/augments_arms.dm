@@ -664,7 +664,7 @@
 			to_chat(H, "<span class='warning'>[C] has no more charge.</span>")
 			break
 		if(C.charge >= 500)
-			H.adjust_nutrition(10)
+			H.adjust_nutrition(8)
 			C.charge -= 500
 			to_chat(H, "<span class='notice'>You siphon off some of the stored charge for your own use.</span>")
 		else
