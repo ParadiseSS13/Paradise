@@ -45212,6 +45212,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/effect/spawner/xmastree,
 /turf/simulated/floor/plasteel/grimy,
 /area/station/service/chapel)
 "dLy" = (
@@ -63646,6 +63647,7 @@
 /area/station/security/interrogation/observation)
 "iOx" = (
 /obj/machinery/hologram/holopad,
+/obj/effect/spawner/xmastree,
 /turf/simulated/floor/wood/fancy,
 /area/station/service/theatre)
 "iOy" = (

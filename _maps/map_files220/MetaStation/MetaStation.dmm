@@ -51925,6 +51925,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/xmastree,
 /turf/simulated/floor/plasteel/goonplaque/commission,
 /area/station/hallway/secondary/bridge)
 "gHm" = (
@@ -68808,6 +68809,10 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/station/science/toxins/mixing)
+"ojT" = (
+/obj/effect/spawner/xmastree,
+/turf/simulated/floor/wood,
+/area/station/service/bar)
 "olg" = (
 /obj/structure/cable/yellow{
 	d1 = 4;
@@ -124183,7 +124188,7 @@ bwz
 aPF
 bGv
 uwy
-bEv
+ojT
 bGi
 bEv
 bGi

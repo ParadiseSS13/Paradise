@@ -19878,7 +19878,7 @@
 /obj/structure/flora/tree/jungle{
 	pixel_y = -14
 	},
-/turf/simulated/floor/plasteel/goonplaque/memorial,
+/turf/simulated/floor/grass,
 /area/station/hallway/secondary/exit)
 "bzf" = (
 /obj/effect/spawner/window/reinforced/polarized/grilled{
@@ -24557,6 +24557,7 @@
 "bTZ" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/sparsegrass,
+/obj/effect/spawner/xmastree,
 /turf/simulated/floor/grass,
 /area/station/medical/sleeper)
 "bUa" = (
@@ -49115,6 +49116,13 @@
 	icon_state = "yellowcorner"
 	},
 /area/station/maintenance/fsmaint)
+"eVw" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/obj/effect/spawner/xmastree,
+/turf/simulated/floor/carpet,
+/area/station/service/chapel)
 "eVD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -91498,6 +91506,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
+/obj/effect/spawner/xmastree,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/station/service/bar/atrium)
 "uuH" = (
@@ -149713,7 +149722,7 @@ sRx
 sRx
 bxB
 sRx
-sRx
+eVw
 xZg
 oRu
 uyO
