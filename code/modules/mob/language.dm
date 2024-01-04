@@ -42,14 +42,14 @@
 
 	return "[trim(full_name)]"
 
-/datum/language/proc/scramble(var/input, var/list/known_languages)
+/datum/language/proc/scramble(input, list/known_languages)
 
 	var/understand_chance = 0
 	for(var/datum/language/L in known_languages)
-		if(partial_understanding && partial_understanding[L.name])
-			understand_chance += partial_understanding[L.name]
-		if(L.partial_understanding && L.partial_understanding[name])
-			understand_chance += L.partial_understanding[name] * 0.5
+		if(LAZYACCESS(partial_understanding, L.type))
+			understand_chance += partial_understanding[L.type]
+		if(LAZYACCESS(L.partial_understanding, src.type))
+			understand_chance += L.partial_understanding[type] * 0.5
 
 	var/scrambled_text = ""
 	var/list/words = splittext(input, " ")
@@ -58,17 +58,17 @@
 			scrambled_text += " [w] "
 		else
 			var/nword = scramble_word(w)
-			var/ending = copytext(scrambled_text, length(scrambled_text)-1)
-			if(findtext(ending,"."))
+			var/ending = copytext(scrambled_text, length(scrambled_text) - 1)
+			if(findtext(ending, "."))
 				nword = capitalize(nword)
 			scrambled_text += nword
-	scrambled_text = replacetext(scrambled_text,"  "," ")
+	scrambled_text = replacetext(scrambled_text, "  ", " ")
 
 	scrambled_text = capitalize(scrambled_text)
 	scrambled_text = trim(scrambled_text)
 	var/ending = copytext(scrambled_text, length(scrambled_text))
 	if(ending == ".")
-		scrambled_text = copytext(scrambled_text,1,length(scrambled_text)-1)
+		scrambled_text = copytext(scrambled_text, 1, length(scrambled_text) - 1)
 
 	var/input_ending = copytext(input, length(input))
 	if(input_ending in list("!","?","."))
@@ -77,7 +77,7 @@
 	return scrambled_text
 
 /datum/language/proc/scramble_word(var/input)
-	if(!syllables || !syllables.len)
+	if(!length(syllables))
 		return stars(input)
 
 	// If the input is cached already, move it to the end of the cache and return it
@@ -252,6 +252,7 @@
 	key = "k"
 	flags = RESTRICTED
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
+	partial_understanding = list(/datum/language/common = 30)
 
 /datum/language/vox
 	name = "Vox-pidgin"
@@ -437,7 +438,8 @@
 	new_name += " [pick(list("Alkaid","Andromeda","Antlia","Apus","Auriga","Caelum","Camelopardalis","Canes Venatici","Carinae","Cassiopeia","Centauri","Circinus","Cygnus","Dorado","Draco","Eridanus","Errakis","Fornax","Gliese","Grus","Horologium","Hydri","Lacerta","Leo Minor","Lupus","Lynx","Maffei","Megrez","Messier","Microscopium","Monocerotis","Muscae","Ophiuchi","Orion","Pegasi","Persei","Perseus","Polaris","Pyxis","Sculptor","Syrma","Telescopium","Tianyi","Triangulum","Trifid","Tucana","Tycho","Vir","Volans","Zavyava"))]"
 	return new_name
 
-/datum/language/common
+///Human misc langauges, able to be learnt by every species, however are some origin from Humans
+/datum/language/common //This is the default language everyone should obviously start with, so its always going to be given to crew members unless something something admins
 	name = "Galactic Common"
 	desc = "The common galactic tongue."
 	speech_verb = "says"
@@ -447,18 +449,26 @@
 	flags = RESTRICTED
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
 	english_names = 1
+	partial_understanding = list(/datum/language/skrell = 30, /datum/language/human = 30)
 
-/datum/language/human
-	name = "Sol Common"
-	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
-	speech_verb = "says"
-	exclaim_verbs = list("exclaims", "shouts", "yells")
-	whisper_verb = "whispers"
-	colour = "solcom"
-	key = "1"
-	flags = RESTRICTED
-	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
-	english_names = 1
+/datum/language/spacer
+	name = "Spacer"
+	desc = "A rough, informal language used infrequently by humans as a last resort when attempts to establish dialogue in more proper languages fail and no autotranslators are available."
+	colour = "spacer"
+	key = "s"
+	partial_understanding = list(
+		/datum/language/human/euro = 25,
+		/datum/language/human/chinese = 25,
+		/datum/language/human/iberian = 25,
+		/datum/language/com_srus = 25,
+		/datum/language/trader = 25,
+		/datum/language/gutter = 35,
+		/datum/language/skrell = 10
+	)
+	syllables = list(
+		"ada", "zir", "bian", "ach", "usk", "ado", "ich", "cuan", "iga", "qing", "le", "que", "ki", "qaf", "dei", "eta"
+	)
+	colour = "spacer"
 
 // Galactic common languages (systemwide accepted standards).
 /datum/language/trader
@@ -476,6 +486,11 @@
 					"voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
 					"pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
 					"in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
+	partial_understanding = list(
+		/datum/language/human/euro = 30,
+		/datum/language/skrell = 40,
+		/datum/language/spacer = 20
+	)
 
 /datum/language/gutter
 	name = "Gutter"
@@ -486,6 +501,11 @@
 	colour = "gutter"
 	key = "3"
 	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
+	partial_understanding = list(
+		/datum/language/human/euro = 5,
+		/datum/language/gutter = 10,
+		/datum/language/spacer = 20
+	)
 
 /datum/language/clown
 	name = "Clownish"
@@ -496,6 +516,19 @@
 	colour = "clown"
 	key = "0"
 	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
+
+///Below are Human cultural languages, only exclusive to the Human species.
+/datum/language/human
+	name = "Sol Common"
+	desc = "A bastardized hybrid of informal English and elements of Mandarin Chinese; the common language of the Sol system."
+	speech_verb = "says"
+	exclaim_verbs = list("exclaims", "shouts", "yells")
+	whisper_verb = "whispers"
+	colour = "solcom"
+	key = "1"
+	flags = RESTRICTED
+	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
+	english_names = 1
 
 /datum/language/com_srus
 	name = "Neo-Russkiya"
@@ -516,6 +549,92 @@
 					"odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
 					"tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
 					"udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
+
+/datum/language/human/iberian
+	name = "Iberian Mix"
+	desc = "One of the few great common Earth languages to come about naturally, this language developed in the late 21st century during\
+			 a historic period of closeness between Spain, Portugal and their former colonies."
+	colour = "iberian"
+	key = "i"
+	partial_understanding = list(
+		/datum/language/human/euro = 30,
+		/datum/language/trader = 15,
+		/datum/language/spacer = 20
+	)
+	syllables = list(
+		"ad", "al", "an", "ar", "as", "ci", "co", "de", "do", "el", "en", "er", "es",
+		"ie", "ue", "la", "ra", "os", "nt", "te", "ar", "qu", "el", "ta", "do", "co",
+		"re", "as", "on", "aci", "ada", "ado", "ant", "ara", "cio", "com", "con", "des",
+		"dos", "ent", "era", "ero", "que", "ent", "nte", "est", "ado", "par", "los", "ien",
+		"sta", "una", "ion", "tra", "men", "ele", "nao", "uma", "ame", "dos", "uno", "mas",
+		"ndo", "nha", "ver", "voc", "uma"
+	)
+
+/datum/language/human/euro
+	name = "Euro Accord"
+	desc = "A constructed language established by a conference of European and African research universities convening in Zurich, Switzerland starting in 2119, \
+			later adopted with little controversy as the lingua franca of the entirety of Sol space following the establishment of the SCG."
+	colour = "euro"
+	speech_verb = "says"
+	whisper_verb = "whispers"
+	colour = ""
+	key = "e"
+	flags = WHITELISTED
+	partial_understanding = list(
+		/datum/language/human/chinese = 5,
+		/datum/language/human/iberian = 30,
+		/datum/language/com_srus = 5,
+		/datum/language/trader = 85,
+		/datum/language/spacer = 20
+	)
+	syllables = list(
+		"al", "an", "ar", "as", "at", "ea", "ed", "en", "er", "es", "ha", "he", "hi", "in", "is", "it",
+		"le", "me", "nd", "ne", "ng", "nt", "on", "or", "ou", "re", "se", "st", "te", "th", "ti", "to",
+		"ve", "wa", "all", "and", "are", "but", "ent", "era", "ere", "eve", "for", "had", "hat", "hen", "her", "hin",
+		"ch", "de", "ge", "be", "ach", "abe", "ich", "ein", "die", "sch", "auf", "aus", "ber", "che", "ent", "que",
+		"ait", "les", "lle", "men", "ais", "ans", "ait", "ave", "con", "com", "des", "tre", "eta", "eur", "est",
+		"ing", "the", "ver", "was", "ith", "hin"
+	)
+
+/datum/language/human/chinese
+	name = "Yangyu"
+	desc = "A simplified version of Mandarin written in the Latin script, Yangyu steadily rose to prominence as a trade language in the continent, Japan, Korea, as well as parts of Africa."
+	colour = "yangyu"
+	key = "c"
+	space_chance = 30
+	partial_understanding = list(
+		/datum/language/human/euro = 5,
+		/datum/language/trader = 10,
+		/datum/language/spacer = 20
+	)
+	syllables = list(
+		"a", "ai", "an", "ang", "ao", "ba", "bai", "ban", "bang", "bao", "bei", "ben", "beng", "bi", "bian", "biao",
+		"bie", "bin", "bing", "bo", "bu", "ca", "cai", "can", "cang", "cao", "ce", "cei", "cen", "ceng", "cha", "chai",
+		"chan", "chang", "chao", "che", "chen", "cheng", "chi", "chong", "chou", "chu", "chua", "chuai", "chuan", "chuang", "chui", "chun",
+		"chuo", "ci", "cong", "cou", "cu", "cuan", "cui", "cun", "cuo", "da", "dai", "dan", "dang", "dao", "de", "dei",
+		"den", "deng", "di", "dian", "diao", "die", "ding", "diu", "dong", "dou", "du", "duan", "dui", "dun", "duo", "e",
+		"ei", "en", "er", "fa", "fan", "fang", "fei", "fen", "feng", "fo", "fou", "fu", "ga", "gai", "gan", "gang",
+		"gao", "ge", "gei", "gen", "geng", "gong", "gou", "gu", "gua", "guai", "guan", "guang", "gui", "gun", "guo", "ha",
+		"hai", "han", "hang", "hao", "he", "hei", "hen", "heng", "hm", "hng", "hong", "hou", "hu", "hua", "huai", "huan",
+		"huang", "hui", "hun", "huo", "ji", "jia", "jian", "jiang", "jiao", "jie", "jin", "jing", "jiong", "jiu", "ju", "juan",
+		"jue", "jun", "ka", "kai", "kan", "kang", "kao", "ke", "kei", "ken", "keng", "kong", "kou", "ku", "kua", "kuai",
+		"kuan", "kuang", "kui", "kun", "kuo", "la", "lai", "lan", "lang", "lao", "le", "lei", "leng", "li", "lia", "lian",
+		"liang", "liao", "lie", "lin", "ling", "liu", "long", "lou", "lu", "luan", "lun", "luo", "ma", "mai", "man", "mang",
+		"mao", "me", "mei", "men", "meng", "mi", "mian", "miao", "mie", "min", "ming", "miu", "mo", "mou", "mu", "na",
+		"nai", "nan", "nang", "nao", "ne", "nei", "nen", "neng", "ng", "ni", "nian", "niang", "niao", "nie", "nin", "ning",
+		"niu", "nong", "nou", "nu", "nuan", "nuo", "o", "ou", "pa", "pai", "pan", "pang", "pao", "pei", "pen", "peng",
+		"pi", "pian", "piao", "pie", "pin", "ping", "po", "pou", "pu", "qi", "qia", "qian", "qiang", "qiao", "qie", "qin",
+		"qing", "qiong", "qiu", "qu", "quan", "que", "qun", "ran", "rang", "rao", "re", "ren", "reng", "ri", "rong", "rou",
+		"ru", "rua", "ruan", "rui", "run", "ruo", "sa", "sai", "san", "sang", "sao", "se", "sei", "sen", "seng", "sha",
+		"shai", "shan", "shang", "shao", "she", "shei", "shen", "sheng", "shi", "shou", "shu", "shua", "shuai", "shuan", "shuang", "shui",
+		"shun", "shuo", "si", "song", "sou", "su", "suan", "sui", "sun", "suo", "ta", "tai", "tan", "tang", "tao", "te",
+		"teng", "ti", "tian", "tiao", "tie", "ting", "tong", "tou", "tu", "tuan", "tui", "tun", "tuo", "wa", "wai", "wan",
+		"wang", "wei", "wen", "weng", "wo", "wu", "xi", "xia", "xian", "xiang", "xiao", "xie", "xin", "xing", "xiong", "xiu",
+		"xu", "xuan", "xue", "xun", "ya", "yan", "yang", "yao", "ye", "yi", "yin", "ying", "yong", "you", "yu", "yuan",
+		"yue", "yun", "za", "zai", "zan", "zang", "zao", "ze", "zei", "zen", "zeng", "zha", "zhai", "zhan", "zhang", "zhao",
+		"zhe", "zhei", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhua", "zhuai", "zhuan", "zhuang", "zhui", "zhun", "zhuo", "zi",
+		"zong", "zou", "zuan", "zui", "zun", "zuo", "zu"
+	)
 
 /datum/language/xenocommon
 	name = "Xenomorph"
