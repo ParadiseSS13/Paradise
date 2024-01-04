@@ -139,7 +139,7 @@ const NanoMapMarker = (props, context) => {
   const ry = y * 2 * zoom - zoom - 3;
   return (
     <div>
-      <Tooltip content={tooltip} tooltipPosition="top">
+      <Tooltip content={tooltip}>
         <Box
           position="absolute"
           className="NanoMap__marker"
