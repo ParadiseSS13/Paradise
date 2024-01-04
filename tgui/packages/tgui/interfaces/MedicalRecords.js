@@ -276,7 +276,7 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
         <LabeledList>
           {general.fields.map((field, i) => (
             <LabeledList.Item key={i} label={field.field}>
-              <Box height="20px" display="inline-block">
+              <Box height="20px" inline>
                 {field.value}
               </Box>
               {!!field.edit && (
@@ -293,12 +293,7 @@ const MedicalRecordsViewGeneral = (_properties, context) => {
       <Box width="50%" float="right" textAlign="right">
         {!!general.has_photos &&
           general.photos.map((p, i) => (
-            <Box
-              key={i}
-              display="inline-block"
-              textAlign="center"
-              color="label"
-            >
+            <Box key={i} inline textAlign="center" color="label">
               <img
                 src={p}
                 style={{
